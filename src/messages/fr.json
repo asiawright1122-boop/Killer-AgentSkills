@@ -103,7 +103,14 @@
     "excellent": "Excellent",
     "qualityDesc": "Basé sur la qualité du code et la doc",
     "tags": "Tags",
-    "noTags": "Pas de tags"
+    "noTags": "Pas de tags",
+    "agentAnalysis": "Compatibilité de l'agent IA",
+    "suitability": "Meilleur pour",
+    "recommendation": "Pourquoi utiliser cette compétence",
+    "useCases": "Cas d'utilisation exploitables",
+    "limitations": "Sécurité et Limitations",
+    "precautions": "Précautions",
+    "relatedSkills": "Compétences associées"
   },
   "Home": {
     "heroTitle": "Équipez Vos Agents",
@@ -138,24 +145,24 @@
       "browse": "Parcourir les Skills",
       "docs": "Voir la Documentation"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "Support Multi-IDE",
         "desc": "S'intègre parfaitement avec Cursor, Windsurf et Claude Code."
       },
-      "1": {
+      {
         "title": "Protocole Standard",
         "desc": "Basé sur MCP. Écrivez une fois, exécutez partout."
       },
-      "2": {
+      {
         "title": "Qualité Sélectionnée",
         "desc": "Skills vérifiés et sélectionnés manuellement avec des notes élevées."
       },
-      "3": {
+      {
         "title": "Open Source",
         "desc": "Transparent, sécurisé et piloté par la communauté."
       }
-    }
+    ]
   },
   "Sidebar": {
     "discover": "Découvrir",

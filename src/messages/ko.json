@@ -103,7 +103,14 @@
     "excellent": "우수",
     "qualityDesc": "코드 품질 및 문서 기반",
     "tags": "태그",
-    "noTags": "태그 없음"
+    "noTags": "태그 없음",
+    "agentAnalysis": "AI 에이전트 호환성",
+    "suitability": "최적의 용도",
+    "recommendation": "이 스킬을 사용하는 이유",
+    "useCases": "실행 가능한 사용 사례",
+    "limitations": "보안 및 제한 사항",
+    "precautions": "주의사항",
+    "relatedSkills": "관련 스킬"
   },
   "Home": {
     "heroTitle": "에이전트에게",
@@ -138,24 +145,24 @@
       "browse": "스킬 둘러보기",
       "docs": "문서 보기"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "멀티 IDE 지원",
         "desc": "Cursor, Windsurf, Claude Code와 완벽하게 통합됩니다."
       },
-      "1": {
+      {
         "title": "표준 프로토콜",
         "desc": "MCP 기반. 한 번 작성하면 어디서나 실행됩니다."
       },
-      "2": {
+      {
         "title": "엄선된 품질",
         "desc": "높은 평점을 받은 검증된 스킬을 엄선했습니다."
       },
-      "3": {
+      {
         "title": "오픈 소스",
         "desc": "투명하고 안전하며 커뮤니티 주도적입니다."
       }
-    }
+    ]
   },
   "Sidebar": {
     "discover": "발견",
