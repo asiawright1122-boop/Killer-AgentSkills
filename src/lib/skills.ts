@@ -18,6 +18,7 @@ export interface UnifiedSkill {
   stars: number;
   source: 'verified' | 'featured' | 'cache';
   updatedAt: string;
+  qualityScore?: number;
   filePath?: string;
   skillMd?: {
     name?: string;
@@ -31,6 +32,12 @@ export interface UnifiedSkill {
     definition: Record<string, string>;
     features: Record<string, string[]>;
     keywords: Record<string, string[]>;
+  };
+  agentAnalysis?: {
+    suitability: string;
+    recommendation: string;
+    useCases: string[];
+    limitations: string[];
   };
 }
 
@@ -136,5 +143,53 @@ export async function getFeaturedSkills(
   const skills = await getAllSkills(env);
   return skills
     .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+    .slice(0, limit);
+}
+
+/**
+ * Get related skills based on category and tags.
+ */
+export async function getRelatedSkills(
+  env: Env,
+  currentSkill: UnifiedSkill,
+  limit: number = 3
+): Promise<UnifiedSkill[]> {
+  const allSkills = await getAllSkills(env);
+
+  return allSkills
+    .filter(skill => {
+      // Exclude current skill
+      if (skill.id === currentSkill.id) return false;
+      if (skill.owner === currentSkill.owner && skill.repo === currentSkill.repo) return false;
+
+      // Must match category if available
+      if (currentSkill.category && skill.category !== currentSkill.category) return false;
+
+      return true;
+    })
+    .map(skill => {
+      // Calculate relevance score
+      let score = 0;
+
+      // Tag overlap
+      const currentTags = new Set(currentSkill.topics || []);
+      const skillTags = skill.topics || [];
+      const overlap = skillTags.filter(tag => currentTags.has(tag)).length;
+
+      score += overlap * 10;
+
+      // Bonus for being verified
+      if (skill.source === 'verified' || skill.source === 'featured') {
+        score += 5;
+      }
+
+      return { skill, score };
+    })
+    .sort((a, b) => {
+      // Sort by score desc, then stars desc
+      if (b.score !== a.score) return b.score - a.score;
+      return (b.skill.stars || 0) - (a.skill.stars || 0);
+    })
+    .map(item => item.skill)
     .slice(0, limit);
 }
