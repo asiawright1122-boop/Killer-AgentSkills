@@ -1,0 +1,340 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SkillCard from '../../../components/SkillCard.astro';
+import CollectionCard from '../../../components/CollectionCard.astro';
+import SkillsSidebar from '../../../components/SkillsSidebar.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { getAllSkills } from '../../../lib/skills';
+import { searchSkills, filterByCategory } from '../../../lib/search';
+import { OFFICIAL_REPOS } from '../../../lib/skills-config';
+import type { Env } from '../../../lib/kv';
+
+export const prerender = false;
+
+// Validate locale
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+// Get env from Cloudflare runtime
+const env = (Astro.locals as any).runtime?.env as Env;
+
+// Load all skills from KV
+let skills = await getAllSkills(env);
+
+// Get URL search params for filtering
+const url = Astro.url;
+const query = url.searchParams.get('q') || '';
+const category = url.searchParams.get('category') || '';
+const view = url.searchParams.get('view') || '';
+const owner = url.searchParams.get('owner') || '';
+const page = parseInt(url.searchParams.get('page') || '1', 10);
+const ITEMS_PER_PAGE = 12;
+
+// Identify Official & Featured Skills
+const officialOwners = Object.values(OFFICIAL_REPOS)
+    .filter(r => r.type === 'official')
+    .map(r => r.owner);
+
+const featuredOwners = Object.values(OFFICIAL_REPOS)
+    .filter(r => r.type === 'featured')
+    .map(r => r.owner);
+
+// Apply view filter
+if (view === 'official') {
+    skills = skills.filter(s => officialOwners.includes(s.owner));
+} else if (view === 'featured') {
+    skills = skills.filter(s => featuredOwners.includes(s.owner));
+} else if (view === 'latest') {
+    skills = [...skills].sort((a, b) => 
+        new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime()
+    );
+}
+
+// Apply owner filter
+if (owner) {
+  skills = skills.filter(s => s.owner === owner);
+}
+
+// Apply search filter
+if (query) {
+  skills = searchSkills(skills, query, typedLocale);
+}
+
+// Apply category filter (skip 'all' since it means show everything)
+if (category && category !== 'all') {
+  skills = filterByCategory(skills, category);
+}
+
+// Calculate collections if needed (Moved up for pagination)
+let skillsByOwner: Record<string, number> = {};
+if (view === 'official' && !owner) {
+    skillsByOwner = skills.reduce((acc, skill) => {
+        const skillOwner = skill.owner;
+        acc[skillOwner] = (acc[skillOwner] || 0) + 1;
+        return acc;
+    }, {} as Record<string, number>);
+}
+
+// Calculate pagination
+// For 'Official' view (without owner filter), we paginate based on COLLECTIONS (owners), not skills
+let totalItems = skills.length;
+let paginatedCollections: [string, number][] = [];
+
+if (view === 'official' && !owner) {
+    const owners = Object.entries(skillsByOwner);
+    totalItems = owners.length;
+    
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+    
+    // Slice the collections
+    paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    
+    // For template compatibility, we'll keep paginatedSkills empty or unused in this mode
+} 
+
+const totalSkills = skills.length; // Keep for display stats
+const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+const paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+// Page title
+let pageTitle = t('Metadata.Skills.title');
+if (query) pageTitle = `${t('Marketplace.searchPrefix').replace('{query}', query)}`;
+else if (category) pageTitle = `${category} ${t('Common.skillsMarket')}`;
+else if (view === 'official') pageTitle = t('Marketplace.official');
+else if (view === 'featured') pageTitle = t('Marketplace.featured');
+else if (view === 'latest') pageTitle = t('Marketplace.latest');
+
+if (owner) {
+    const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
+    pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
+}
+
+const pageDescription = t('Metadata.Skills.description');
+
+// Pagination SEO: build rel prev/next URLs
+const buildPaginationUrl = (p: number) => {
+  const params = new URLSearchParams({
+    ...(query && { q: query }),
+    ...(category && { category }),
+    ...(view && { view }),
+    ...(owner && { owner }),
+    page: String(p),
+  });
+  return `https://killer-skills.com/${locale}/skills?${params.toString()}`;
+};
+const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
+const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
+
+// Category list for sidebar
+const categories = [];
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription}>
+  {/* Pagination SEO: rel prev/next */}
+  <Fragment slot="head">
+    {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
+    {nextPageUrl && <link rel="next" href={nextPageUrl} />}
+  </Fragment>
+  {/* CollectionPage JSON-LD */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": pageTitle,
+    "description": pageDescription,
+    "url": `https://killer-skills.com/${locale}/skills`,
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Killer-Skills",
+      "url": "https://killer-skills.com"
+    }
+  })} />
+  <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+      <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
+
+        <!-- Sidebar (Left) -->
+        <SkillsSidebar activeCategory={category} activeView={view} />
+
+        <!-- Main Content (Right) -->
+        <div class="flex-1 min-w-0">
+          
+          <!-- Page Header & Search (Integrated) -->
+          <div class="mb-10">
+             <div class="flex items-end justify-between mb-6">
+                <div>
+                   <h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+                     {query ? t('Marketplace.browsing') : category ? category : t('Common.explore')}
+                   </h1>
+                   <p class="text-slate-500 dark:text-slate-400">
+                     {t('Metadata.Skills.description')}
+                   </p>
+                </div>
+                <div class="hidden md:block text-right">
+                   <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                     {skills.length}
+                   </div>
+                   <div class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('Marketplace.availableSkills')}</div>
+                </div>
+             </div>
+
+             <!-- Pro Search Bar -->
+             <form method="get" action={`/${locale}/skills`} class="relative group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
+                <div class="relative flex items-center bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10">
+                   <div class="pl-4 text-slate-400">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                   </div>
+                   <input
+                     type="text"
+                     name="q"
+                     value={query}
+                     placeholder={t('Common.searchPlaceholder')}
+                     class="flex-1 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-500 h-10 px-4 text-lg"
+                   />
+                   <button type="submit" class="bg-slate-900 dark:bg-slate-800 text-white dark:text-cyan-400 px-6 py-2.5 rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-700 transition-colors">
+                     {t('Common.search')}
+                   </button>
+                </div>
+             </form>
+
+             <!-- Hot Tags (Static for now, matching design) -->
+             <div class="mt-4 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 overflow-x-auto pb-2">
+                <span class="shrink-0">{t('Marketplace.popular')}:</span>
+                {['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map(tag => (
+                   <a href={`/${locale}/skills?q=${tag}`} class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-cyan-50 dark:hover:bg-cyan-900/30 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors whitespace-nowrap">
+                      {tag}
+                   </a>
+                ))}
+             </div>
+          </div>
+
+          <!-- Skills Grid -->
+          <div class="mb-6 flex items-center justify-between md:hidden">
+             <div class="text-sm text-slate-500">
+                {totalSkills} {t('Marketplace.availableSkills').toLowerCase()}
+             </div>
+          </div>
+
+          {(view === 'official' && !owner ? paginatedCollections.length > 0 : paginatedSkills.length > 0) ? (
+            view === 'official' && !owner ? (
+                /* Official Collections View */
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {paginatedCollections.map(([ownerName, count]) => (
+                        <CollectionCard owner={ownerName} count={count} locale={locale} />
+                    ))}
+                </div>
+            ) : (
+                /* Standard Skill Grid */
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {paginatedSkills.map(skill => (
+                    <div class="bg-white/50 dark:bg-slate-900/50 rounded-2xl p-4 sm:p-0 sm:bg-transparent sm:dark:bg-transparent h-full">
+                      <SkillCard skill={skill} locale={locale} t={t} />
+                    </div>
+                  ))}
+                </div>
+            )
+          ) : (
+            <div class="text-center py-24 bg-white dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800">
+              <div class="w-20 h-20 mx-auto bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-4xl mb-6">
+                 🔍
+              </div>
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{t('Marketplace.noSkills')}</h3>
+              <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">{t('Marketplace.noSkillsHint')}</p>
+              <a
+                href={`/${locale}/skills`}
+                class="inline-flex items-center px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl transition-colors font-medium shadow-lg shadow-cyan-500/20"
+              >
+                {t('Marketplace.viewAll')}
+              </a>
+            </div>
+          )}
+
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div class="mt-8 flex items-center justify-center gap-2 flex-wrap">
+              {currentPage > 1 && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
+                  class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                >
+                  {t('Common.prev')}
+                </a>
+              )}
+              
+              <a
+                href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: '1' }).toString()}`}
+                class={currentPage === 1 ? "px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium" : "px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"}
+              >
+                1
+              </a>
+
+              {currentPage > 3 && <span class="px-2 text-slate-400">...</span>}
+
+              {currentPage > 2 && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
+                  class="px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {currentPage - 1}
+                </a>
+              )}
+
+              {currentPage !== 1 && currentPage !== totalPages && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage) }).toString()}`}
+                  class="px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium"
+                >
+                  {currentPage}
+                </a>
+              )}
+
+              {currentPage < totalPages - 1 && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
+                  class="px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {currentPage + 1}
+                </a>
+              )}
+
+              {currentPage < totalPages - 2 && <span class="px-2 text-slate-400">...</span>}
+
+              {totalPages > 1 && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(totalPages) }).toString()}`}
+                  class={currentPage === totalPages ? "px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium" : "px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"}
+                >
+                  {totalPages}
+                </a>
+              )}
+              
+              {currentPage < totalPages && (
+                <a
+                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
+                  class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                >
+                  {t('Common.next')}
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+
+      </div>
+    </div>
+
+      </div>
+    </div>
+  </div>
+</Layout>

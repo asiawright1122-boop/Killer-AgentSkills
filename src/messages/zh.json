@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "home": "首页",
+    "marketplace": "技能市场",
+    "categories": "分类",
+    "docs": "文档",
+    "github": "GitHub",
+    "getStarted": "开始使用",
+    "history": "浏览历史",
+    "favorites": "我的收藏"
+  },
+  "Hero": {
+    "badge": "80,000+ 技能可用",
+    "title": "发现 AI Agent 技能",
+    "titleHighlight": "AI智能体",
+    "subtitle": "探索无限可能，赋能你的AI助手",
+    "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
+    "searchButton": "搜索",
+    "hotTags": "热门：",
+    "suggestions": [
+      "PDF处理",
+      "图像生成",
+      "数据分析",
+      "浏览器自动化",
+      "代码审查",
+      "文档处理"
+    ]
+  },
+  "Skills": {
+    "featured": "精选技能",
+    "searchResults": "搜索结果",
+    "trending": "趋势",
+    "recent": "最近",
+    "noResults": "未找到技能",
+    "noResultsHint": "尝试不同的关键字",
+    "stars": "星标",
+    "forks": "复刻",
+    "updated": "更新于",
+    "version": "版本",
+    "downloads": "下载量",
+    "creators": "活跃创作者",
+    "install": "安装代码",
+    "copy": "复制",
+    "copied": "已复制!",
+    "viewOnGithub": "在 GitHub 查看",
+    "original": "原文",
+    "translation": "译文",
+    "translating": "翻译中...",
+    "showOriginal": "显示原文",
+    "showTranslation": "显示译文"
+  },
+  "Detail": {
+    "back": "返回列表",
+    "quickInstall": "快速安装",
+    "targetIDE": "目标 IDE",
+    "copyCommand": "复制安装命令",
+    "copied": "已复制",
+    "stats": "统计数据",
+    "stars": "星标",
+    "downloads": "安装量",
+    "info": "信息",
+    "author": "作者",
+    "updated": "更新",
+    "viewOnGithub": "在 GitHub 查看",
+    "features": "功能特性",
+    "qualityScore": "质量评分",
+    "installCommand": "安装命令",
+    "installPath": "安装路径",
+    "projectLevel": "项目级：",
+    "globalLevel": "全局：",
+    "unlockTitle": "一键解锁 & 管理海量 AI 技能",
+    "getManager": "获取 Manager",
+    "ideDescriptions": {
+      "amp": "安装到 Amp Agent",
+      "antigravity": "安装到 Antigravity",
+      "claude": "安装到 Claude Code",
+      "codex": "安装到 Codex",
+      "cursor": "在 Cursor Composer 中使用",
+      "codebuddy": "安装到 CodeBuddy",
+      "factory": "安装到 Factory Droid",
+      "gemini": "安装到 Gemini CLI",
+      "copilot": "安装到 GitHub Copilot",
+      "goose": "安装到 Goose Agent",
+      "kilocode": "安装到 Kilo Code",
+      "kimi": "安装到 Kimi CLI",
+      "opencode": "安装到 OpenCode",
+      "qwen": "安装到 Qwen Code",
+      "roo": "安装到 Roo Code",
+      "trae": "安装到 Trae IDE",
+      "windsurf": "在 Windsurf Cascade 中使用"
+    },
+    "documentation": "文档完整",
+    "community": "社区活跃",
+    "updates": "更新频率",
+    "about": "关于此技能",
+    "translating": "正在翻译...",
+    "translate": "翻译简介",
+    "showOriginal": "显示原文",
+    "aboutTemplate": "此技能允许你的 AI Agent 与 {name} 交互。兼容 Cursor、Windsurf、Claude Code 等主流 AI IDE。",
+    "explorer": "资源管理器",
+    "project": "项目文件",
+    "installation": "安装指南",
+    "excellent": "优秀",
+    "qualityDesc": "基于代码质量和文档完整度",
+    "tags": "标签",
+    "noTags": "暂无标签"
+  },
+  "Home": {
+    "heroTitle": "为你的AI助手",
+    "heroTitleHighlight": "赋予超能力",
+    "heroBadge": "AI能力市场",
+    "heroDesc1": "首个开放的可组合AI技能标准。",
+    "heroDesc2": "让你的Agent瞬间拥有浏览、编码和创造的能力。",
+    "searchPlaceholder": "搜索技能... 例如：网页爬取、数据可视化",
+    "searchButton": "搜索",
+    "tags": [
+      "研究",
+      "编程",
+      "营销",
+      "分析"
+    ],
+    "featuresTitle": "专为开发者打造",
+    "featuresSubtitle": "连接一切 AI 能力，构建下一代智能应用。",
+    "trendingTitle": "精选技能",
+    "trendingSubtitle": "由社区评选的顶级技能。",
+    "viewAll": "查看全部",
+    "stable": "稳定",
+    "installs": "安装",
+    "footerDesc": "AI自主能力的开放标准。为未来工作而生。",
+    "official": {
+      "title": "官方技能集合",
+      "featured": "精选",
+      "viewAll": "查看全部官方集合"
+    },
+    "cta": {
+      "title": "开始使用 Killer Skills",
+      "subtitle": "一行命令安装技能，让你的 AI 助手更加强大",
+      "browse": "浏览技能市场",
+      "docs": "查看文档"
+    },
+    "features": {
+      "0": {
+        "title": "多 IDE 支持",
+        "desc": "无缝集成 Cursor、Windsurf 和 Claude Code。"
+      },
+      "1": {
+        "title": "标准协议",
+        "desc": "基于 MCP 协议，一次编写，到处运行。"
+      },
+      "2": {
+        "title": "严选质量",
+        "desc": "精选 GitHub 高星项目，人工审核确保可用。"
+      },
+      "3": {
+        "title": "完全开源",
+        "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
+      }
+    }
+  },
+  "Sidebar": {
+    "discover": "发现",
+    "views": {
+      "official": "官方",
+      "featured": "精选",
+      "latest": "最新"
+    },
+    "categories": {
+      "title": "分类",
+      "all": "全部技能",
+      "browser": "浏览器",
+      "finance": "金融",
+      "productivity": "生产力",
+      "developer": "开发者工具",
+      "data": "数据",
+      "ai": "AI",
+      "design": "设计"
+    },
+    "frameworks": "框架"
+  },
+  "Stats": {
+    "totalSkills": "技能总数",
+    "activeUsers": "活跃用户",
+    "supportedIDEs": "支持的 IDE",
+    "dailyInstalls": "日安装量",
+    "ecosystemGrowth": "生态增长",
+    "totalDownloads": "总下载量",
+    "activeCreators": "活跃创作者",
+    "skills": "技能"
+  },
+  "Common": {
+    "home": "首页",
+    "explore": "发现",
+    "skillsMarket": "技能市场",
+    "language": "语言",
+    "theme": "主题",
+    "chinese": "简体中文",
+    "english": "英语",
+    "searchPlaceholder": "搜索技能能力 (例如 '网页抓取')",
+    "search": "搜索",
+    "loading": "加载中...",
+    "error": "出错了",
+    "back": "返回",
+    "prev": "上一页",
+    "next": "下一页",
+    "pageInfo": "第 {current} 页 / 共 {total} 页 ({count} 个技能)",
+    "official": "官方",
+    "verified": "已认证",
+    "viewAll": "查看全部"
+  },
+  "OfficialSkills": {
+    "title": "官方技能",
+    "verified": "已认证",
+    "subtitle": "由核心团队和可信合作伙伴维护的高质量技能。"
+  },
+  "Footer": {
+    "desc": "AI自主能力的开放标准。为未来工作而生。",
+    "product": "产品",
+    "resources": "资源",
+    "stayUpdated": "保持更新",
+    "subscribeDesc": "获取最新技能和更新。",
+    "emailPlaceholder": "输入您的邮箱",
+    "browse": "浏览技能",
+    "docs": "文档",
+    "cli": "CLI 工具",
+    "integrations": "集成",
+    "community": "社区",
+    "showcase": "展示案例",
+    "blog": "博客",
+    "help": "帮助中心",
+    "privacy": "隐私政策",
+    "terms": "服务条款",
+    "cookie": "Cookie 策略",
+    "rights": "保留所有权利。"
+  },
+  "Marketplace": {
+    "title": "全部技能",
+    "official": "官方技能",
+    "officialDesc": "由官方团队维护的高质量认证技能",
+    "featured": "精选技能",
+    "featuredDesc": "由社区评选的顶级和最受欢迎的技能",
+    "latest": "最新发现",
+    "latestDesc": "探索最新的 AI Agent 技能和创新",
+    "allPurpose": "全部技能",
+    "allPurposeDesc": "发现、安装和管理超过 1000+ 个 AI Agent 技能",
+    "discover": "发现",
+    "latestSkills": "最新技能",
+    "allSkills": "全部技能",
+    "browseRelated": "浏览与 {title} 相关的技能",
+    "browseOwner": "浏览来自 {owner} 的技能",
+    "searchPrefix": "搜索: {query}",
+    "browsing": "正在浏览:",
+    "noSkills": "未找到技能",
+    "noSkillsHint": "尝试调整搜索词或按类别浏览",
+    "viewAll": "查看所有技能",
+    "availableSkills": "可用技能",
+    "viewSkills": "查看技能",
+    "popular": "Popular"
+  },
+  "Categories": {
+    "development": "开发工具",
+    "documentation": "文档",
+    "testing": "测试",
+    "data": "数据分析",
+    "ai": "AI/机器学习",
+    "devops": "运维",
+    "design": "设计",
+    "productivity": "效率工具",
+    "code-review": "代码审查",
+    "git": "Git",
+    "cli": "命令行",
+    "library": "库",
+    "api": "API",
+    "database": "数据库",
+    "browser": "浏览器",
+    "search": "搜索",
+    "web-scraping": "网页抓取",
+    "automation": "自动化",
+    "social": "社交媒体",
+    "browseByCategory": "按分类浏览",
+    "skillCategories": "技能分类",
+    "relatedSkills": "相关技能",
+    "viewAll": "查看全部",
+    "noSkills": "暂无技能",
+    "heroDesc": "探索不同类型的AI技能，找到最适合你的工具"
+  },
+  "Metadata": {
+    "title": "Killer-Skills - AI Agent Skills 聚合市场",
+    "template": "%s | Killer-Skills",
+    "description": "发现、安装和管理 AI Agent Skills，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
+    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, 编程技能, AI 助手, 代码生成",
+    "Skills": {
+      "title": "技能市场 - 发现 AI Agent 技能",
+      "description": "浏览和安装 Killer-Skills 市场中的数千个 AI Agent 技能。支持 Claude Code, Windsurf, Cursor 等。"
+    }
+  },
+  "Personal": {
+    "myFavorites": "我的收藏",
+    "favoritesCount": "{count} 个技能",
+    "noFavorites": "暂无收藏",
+    "noFavoritesHint": "浏览技能市场，点击心形图标收藏喜欢的技能",
+    "browseSkills": "浏览技能",
+    "removeFavorite": "移除",
+    "savedAt": "收藏于 {date}",
+    "browsingHistory": "浏览历史",
+    "historyCount": "{count} 个技能",
+    "clearHistory": "清空历史",
+    "noHistory": "暂无浏览历史",
+    "noHistoryHint": "浏览技能详情页后，历史记录将显示在这里",
+    "removeHistory": "移除",
+    "time": {
+      "justNow": "刚刚",
+      "agoM": "{count}分钟前",
+      "agoH": "{count}小时前",
+      "agoD": "{count}天前"
+    }
+  },
+  "Community": {
+    "title": "社区",
+    "join": "加入社区",
+    "contribute": "贡献代码",
+    "readGuide": "查看贡献指南 ->",
+    "shareFeedback": "分享反馈",
+    "submitIssue": "提交 Issue ->",
+    "cards": {
+      "source": {
+        "title": "开源",
+        "desc": "源码、Issue 和 PR。"
+      },
+      "chat": {
+        "title": "Discord社区",
+        "desc": "实时聊天与支持"
+      },
+      "news": {
+        "title": "Twitter动态",
+        "desc": "最新消息与更新"
+      }
+    },
+    "heroDesc": "我们正在构建 AI 时代的开源生态。无论你是开发者、创作者还是使用者，这里都有你的一席之地。",
+    "contributeDesc": "Killer-Skills 是完全开源的。您可以提交 PR 来修复 Bug、增加新功能或添加新的 Skill。",
+    "feedbackDesc": "有好的想法？发现了问题？欢迎在 Github Issues 或 Discord 中告诉我们。"
+  },
+  "Integrations": {
+    "worksWhereYouWork": "无缝集成开发环境",
+    "viewGuide": "查看配置指南",
+    "missingTool": "找不到你的工具？",
+    "learnProtocol": "了解标准协议",
+    "cards": {
+      "cursor": {
+        "desc": "可能是目前体验最好的 AI 代码编辑器。"
+      },
+      "windsurf": {
+        "desc": "Codeium 推出的强力 AI 编辑器，基于 VS Code。"
+      },
+      "claude": {
+        "desc": "Anthropic 官方推出的命令行 Agent 编码工具。"
+      },
+      "goose": {
+        "desc": "Block (Square) 开源的 AI 开发者 Agent。"
+      }
+    },
+    "heroDesc": "Killer-Skills 原生支持所有基于 MCP 协议的主流 AI 编辑器和 Agent 框架。",
+    "missingToolDesc": "只要支持 MCP (Model Context Protocol)，就能使用 Killer-Skills。"
+  },
+  "CLI": {
+    "heroTitle": "Killer-Skills 技能平台",
+    "heroSubtitle": "AI 智能体能力的开放标准",
+    "heroDesc": "为您的 AI 智能体提供 1000+ 种能力的中心化注册表。在 Cursor、Windsurf 和 Claude Code 中发现、分享和集成技能。",
+    "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
+    "install": "立即安装",
+    "viewDocs": "查看文档",
+    "latestVersion": "最新版本：",
+    "copyInstall": "npx killer-skills install <skill>",
+    "features": {
+      "autoInvoke": {
+        "title": "通用技能库",
+        "desc": "海量社区和官方技能库。从 PDF 处理到浏览器自动化，找到您的智能体所需的一切。"
+      },
+      "syncAll": {
+        "title": "全平台一键同步",
+        "desc": "一键统领全局。'killer sync --all' 瞬间将技能分发到本机安装的所有 IDE 中。"
+      },
+      "mcp": {
+        "title": "深度 MCP 集成",
+        "desc": "内置 MCP Server，允许智能体在运行时自我安装新技能。实现真正的自主进化。"
+      },
+      "secure": {
+        "title": "企业级安全",
+        "desc": "所有技能运行在隔离环境中。GitHub Device Flow 认证确保访问安全。"
+      }
+    },
+    "terminal": {
+      "title": "开发者体验至上",
+      "login": "安全登录",
+      "loginDesc": "GitHub 设备流认证",
+      "sync": "一键同步",
+      "syncDesc": "部署到 17+ IDE",
+      "do": "自然语言",
+      "doDesc": "AI 任务执行"
+    },
+    "comparison": {
+      "title": "为什么选择 Killer-Skills CLI？",
+      "ks": "Killer-Skills CLI",
+      "others": "手动写 Prompt",
+      "row1": "一键安装到 17+ IDE",
+      "row2": "自动调用 (零 Context 浪费)",
+      "row3": "运行时技能发现 (MCP)",
+      "row4": "经过验证的安全技能库"
+    }
+  },
+  "SkillsManagerWidget": {
+    "title": "技能管理器",
+    "subtitle": "生态系统网关",
+    "description": "释放无限潜能。一键发现、安装并赋予您的 AI 智能体 1000+ 种超强能力。",
+    "cta": "进入管理器"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "构建你的 AI 技能库",
+    "subheadline": "让你的 Agent 即刻写出专业级代码",
+    "cta": "一行命令立即开启",
+    "install": "安装",
+    "features": {
+      "multiPlatform": "多平台支持",
+      "secureSandbox": "安全沙箱",
+      "hotReload": "热更新"
+    },
+    "copy": "复制",
+    "copied": "已复制",
+    "viewOnNpm": "在 NPM 上查看"
+  },
+  "Docs": {
+    "gettingStarted": "开始使用",
+    "tableOfContents": "本页内容",
+    "editPage": "编辑此页",
+    "lastUpdated": "最后更新"
+  },
+  "DocsSidebar": {
+    "gettingStarted": "开始使用",
+    "platformOverview": "平台概览",
+    "cliTooling": "CLI 工具",
+    "introduction": "介绍",
+    "quickStart": "快速开始",
+    "installation": "安装指南",
+    "architecture": "架构设计",
+    "cliReference": "CLI 参考",
+    "overview": "概览",
+    "commands": "命令列表",
+    "configuration": "配置说明",
+    "coreConcepts": "核心概念",
+    "skills": "技能 (Skills)",
+    "tools": "工具 (Tools)",
+    "workflows": "工作流 (Workflows)",
+    "guides": "开发指南",
+    "creatingSkills": "创建技能",
+    "integrations": "集成",
+    "security": "安全",
+    "apiReference": "API 参考",
+    "restApi": "REST API",
+    "authentication": "认证",
+    "community": "社区",
+    "contributing": "贡献指南",
+    "codeOfConduct": "行为准则"
+  },
+  "Aria": {
+    "viewSkill": "查看 {name}",
+    "switchLanguage": "切换语言",
+    "toggleTheme": "切换主题",
+    "toggleMenu": "切换菜单",
+    "addToFavorites": "添加到收藏",
+    "removeFromFavorites": "取消收藏",
+    "shareSkill": "分享此技能",
+    "backToSkills": "返回技能列表",
+    "copyCommand": "复制指令"
+  }
+}

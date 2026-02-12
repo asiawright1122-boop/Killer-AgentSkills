@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "home": "Главная",
+    "marketplace": "Магазин",
+    "categories": "Категории",
+    "docs": "Документация",
+    "github": "GitHub",
+    "getStarted": "Начать",
+    "history": "История",
+    "favorites": "Избранное"
+  },
+  "Hero": {
+    "badge": "Доступно 80,000+ навыков",
+    "title": "Откройте навыки AI-агентов",
+    "titleHighlight": "AI-агент",
+    "subtitle": "Исследуйте бесконечные возможности, расширьте возможности вашего AI",
+    "searchPlaceholder": "Поиск навыков... напр. PDF, Анализ данных",
+    "searchButton": "Поиск",
+    "hotTags": "Популярное:",
+    "suggestions": [
+      "PDF",
+      "Генерация изображений",
+      "Анализ данных",
+      "Браузер",
+      "Ревью кода",
+      "Документы"
+    ]
+  },
+  "Skills": {
+    "featured": "Рекомендуемые навыки",
+    "searchResults": "результаты поиска",
+    "trending": "Популярное",
+    "recent": "Недавние",
+    "noResults": "Навыки не найдены",
+    "noResultsHint": "Попробуйте другие ключевые слова",
+    "stars": "Звёзды",
+    "forks": "Форки",
+    "updated": "Обновлено",
+    "version": "Версия",
+    "downloads": "Загрузки",
+    "creators": "Активные авторы",
+    "install": "Код установки",
+    "copy": "Копировать",
+    "copied": "Скопировано!",
+    "viewOnGithub": "На GitHub",
+    "original": "Оригинал",
+    "translation": "Перевод",
+    "translating": "Перевод...",
+    "showOriginal": "Показать оригинал",
+    "showTranslation": "Показать перевод"
+  },
+  "Detail": {
+    "back": "Назад к списку",
+    "quickInstall": "Быстрая установка",
+    "targetIDE": "Целевая IDE",
+    "copyCommand": "Копировать команду",
+    "copied": "Скопировано",
+    "stats": "Статистика",
+    "stars": "Звёзды",
+    "downloads": "Загрузки",
+    "info": "Информация",
+    "author": "Автор",
+    "updated": "Обновлено",
+    "viewOnGithub": "На GitHub",
+    "features": "Возможности",
+    "qualityScore": "Оценка качества",
+    "installCommand": "Команда установки",
+    "installPath": "Путь установки",
+    "projectLevel": "Проект:",
+    "globalLevel": "Глобально:",
+    "unlockTitle": "Разблокировать и управлять навыками ИИ",
+    "getManager": "Получить Manager",
+    "ideDescriptions": {
+      "cursor": "Использовать в Cursor Composer",
+      "windsurf": "Использовать в Windsurf Cascade",
+      "claude": "Установить в Claude Code",
+      "amp": "Установить в Amp Agent",
+      "antigravity": "Установить в Antigravity",
+      "codex": "Install to Codex",
+      "codebuddy": "Install to CodeBuddy",
+      "factory": "Install to Factory Droid",
+      "gemini": "Install to Gemini CLI",
+      "copilot": "Install to GitHub Copilot",
+      "goose": "Install to Goose Agent",
+      "kilocode": "Install to Kilo Code",
+      "kimi": "Install to Kimi CLI",
+      "opencode": "Install to OpenCode",
+      "qwen": "Install to Qwen Code",
+      "roo": "Install to Roo Code",
+      "trae": "Install to Trae IDE"
+    },
+    "documentation": "Документация",
+    "community": "Сообщество",
+    "updates": "Обновления",
+    "about": "Об этом навыке",
+    "translating": "Перевод...",
+    "translate": "Перевести",
+    "showOriginal": "Показать оригинал",
+    "aboutTemplate": "Этот навык позволяет вашему AI-агенту взаимодействовать с {name}. Совместим с ведущими фреймворками: Cursor, Windsurf и Claude Code.",
+    "explorer": "Проводник",
+    "project": "Проект",
+    "installation": "Установка",
+    "excellent": "Отлично",
+    "qualityDesc": "На основе качества кода и док.",
+    "tags": "Теги",
+    "noTags": "Нет тегов"
+  },
+  "Home": {
+    "heroTitle": "Оснастите своих агентов",
+    "heroTitleHighlight": "Суперспособностями",
+    "heroBadge": "Маркетплейс автономных возможностей",
+    "heroDesc1": "Первый открытый стандарт для компонуемых навыков AI.",
+    "heroDesc2": "Мгновенно дайте агентам возможность просматривать, кодировать и создавать.",
+    "searchPlaceholder": "Поиск возможностей (напр. 'Парсинг', 'Визуализация')...",
+    "searchButton": "Поиск",
+    "tags": [
+      "Исследования",
+      "Кодинг",
+      "Маркетинг",
+      "Анализ"
+    ],
+    "featuresTitle": "Создано для разработчиков",
+    "featuresSubtitle": "Подключайте любые возможности AI, создавайте интеллектуальные приложения нового поколения.",
+    "trendingTitle": "Популярные навыки",
+    "trendingSubtitle": "Самые интегрируемые навыки этой недели.",
+    "viewAll": "Смотреть все",
+    "stable": "Стабильно",
+    "installs": "установок",
+    "footerDesc": "Открытый стандарт для AI-агентств. Создано для будущего.",
+    "official": {
+      "title": "Официальные коллекции",
+      "featured": "Рекомендуем",
+      "viewAll": "Все коллекции"
+    },
+    "cta": {
+      "title": "Начните с Killer Skills",
+      "subtitle": "Установите навыки одной командой и усильте вашего AI-ассистента",
+      "browse": "Обзор навыков",
+      "docs": "Документация"
+    },
+    "features": {
+      "0": {
+        "title": "Поддержка нескольких IDE",
+        "desc": "Бесшовная интеграция с Cursor, Windsurf и Claude Code."
+      },
+      "1": {
+        "title": "Стандартный протокол",
+        "desc": "Основано на MCP. Напишите один раз, запускайте везде."
+      },
+      "2": {
+        "title": "Отборное качество",
+        "desc": "Отобранные вручную проверенные навыки с высоким рейтингом."
+      },
+      "3": {
+        "title": "Открытый исходный код",
+        "desc": "Прозрачный, безопасный и поддерживаемый сообществом."
+      }
+    }
+  },
+  "Sidebar": {
+    "discover": "Обзор",
+    "views": {
+      "official": "Официальные",
+      "featured": "Рекомендуемые",
+      "latest": "Новые"
+    },
+    "categories": {
+      "title": "Категории",
+      "all": "Все",
+      "browser": "Браузер",
+      "finance": "Финансы",
+      "productivity": "Продуктивность",
+      "developer": "Разработчик",
+      "data": "Данные",
+      "ai": "Искусственный интеллект",
+      "design": "Дизайн"
+    },
+    "frameworks": "Фреймворки"
+  },
+  "Stats": {
+    "totalSkills": "Всего навыков",
+    "activeUsers": "Активные пользователи",
+    "supportedIDEs": "Поддержка IDE",
+    "dailyInstalls": "Установок в день",
+    "ecosystemGrowth": "Рост экосистемы",
+    "totalDownloads": "Всего загрузок",
+    "activeCreators": "Активные авторы",
+    "skills": "Навыки"
+  },
+  "Common": {
+    "home": "Главная",
+    "skillsMarket": "Навыки",
+    "language": "Язык",
+    "theme": "Тема",
+    "chinese": "Китайский",
+    "english": "Английский",
+    "searchPlaceholder": "Поиск возможностей (напр. 'Парсинг')",
+    "search": "Поиск",
+    "loading": "Loading...",
+    "error": "Произошла ошибка",
+    "back": "Назад",
+    "prev": "Назад",
+    "next": "Вперед",
+    "pageInfo": "Page {current} of {total} ({count} skills)",
+    "official": "Официальный",
+    "verified": "Подтверждено",
+    "explore": "Explore",
+    "viewAll": "Показать все"
+  },
+  "OfficialSkills": {
+    "title": "Официальные навыки",
+    "verified": "Подтверждено",
+    "subtitle": "Высококачественные навыки, поддерживаемые основной командой и надежными партнерами."
+  },
+  "Footer": {
+    "desc": "Открытый стандарт для AI-агентств. Создано для будущего работы.",
+    "product": "Продукт",
+    "resources": "Ресурсы",
+    "stayUpdated": "Будьте в курсе",
+    "subscribeDesc": "Получайте последние навыки и обновления на email.",
+    "emailPlaceholder": "Введите email",
+    "browse": "Обзор навыков",
+    "docs": "Документация",
+    "cli": "CLI инструмент",
+    "integrations": "Интеграции",
+    "community": "Сообщество",
+    "showcase": "Витрина",
+    "blog": "Блог",
+    "help": "Центр помощи",
+    "privacy": "Политика конфиденциальности",
+    "terms": "Условия использования",
+    "cookie": "Политика cookie",
+    "rights": "Все права защищены."
+  },
+  "Marketplace": {
+    "title": "Все навыки",
+    "official": "Официальные навыки",
+    "officialDesc": "Сертифицированные навыки высокого качества от официальных команд",
+    "featured": "Рекомендуемые навыки",
+    "featuredDesc": "Лучшие и популярные навыки от сообщества",
+    "latest": "Последние открытия",
+    "latestDesc": "Изучайте новейшие навыки AI Agent и инновации",
+    "allPurpose": "Все навыки",
+    "allPurposeDesc": "Открывайте, устанавливайте и управляйте 1000+ навыками AI Agent",
+    "discover": "Открыть",
+    "latestSkills": "Новые навыки",
+    "allSkills": "Все навыки",
+    "browseRelated": "Навыки AI Agent, связанные с {title}",
+    "browseOwner": "Навыки от {owner}",
+    "searchPrefix": "Поиск: {query}",
+    "browsing": "Просмотр:",
+    "noSkills": "Навыки не найдены",
+    "noSkillsHint": "Попробуйте изменить поисковый запрос или посмотрите по категориям",
+    "viewAll": "Смотреть все навыки",
+    "availableSkills": "Доступные навыки",
+    "viewSkills": "Смотреть навыки",
+    "popular": "Popular"
+  },
+  "Categories": {
+    "development": "Разработка",
+    "documentation": "Документация",
+    "testing": "Тестирование",
+    "data": "Данные и Аналитика",
+    "ai": "AI & ML",
+    "devops": "DevOps",
+    "design": "Дизайн",
+    "productivity": "Продуктивность",
+    "code-review": "Код-ревью",
+    "git": "Git",
+    "cli": "CLI",
+    "library": "Библиотека",
+    "api": "API",
+    "database": "База данных",
+    "browser": "Браузер",
+    "search": "Поиск",
+    "web-scraping": "Веб-скрейпинг",
+    "automation": "Автоматизация",
+    "social": "Социальные сети",
+    "browseByCategory": "Просмотр по категориям",
+    "skillCategories": "Категории навыков",
+    "relatedSkills": "Похожие навыки",
+    "viewAll": "Смотреть все",
+    "noSkills": "Навыки не найдены",
+    "heroDesc": "Изучайте разные типы навыков AI и находите идеальные инструменты для себя"
+  },
+  "Metadata": {
+    "title": "Killer-Skills - Магазин навыков для AI-агентов",
+    "template": "%s | Killer-Skills",
+    "description": "Открывайте, устанавливайте и управляйте навыками AI-агентов. Поддержка Claude Code, Cursor, Windsurf.",
+    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
+    "Skills": {
+      "title": "Магазин навыков - Откройте навыки AI Agent",
+      "description": "Просматривайте и устанавливайте тысячи навыков AI Agent на Killer-Skills. Совместимо с Claude Code, Windsurf, Cursor и другими."
+    }
+  },
+  "Personal": {
+    "myFavorites": "Избранное",
+    "favoritesCount": "{count} навыков",
+    "noFavorites": "Нет избранных",
+    "noFavoritesHint": "Ищите навыки и нажимайте на сердечко для сохранения",
+    "browseSkills": "Обзор навыков",
+    "removeFavorite": "Удалить",
+    "savedAt": "Сохранено {date}",
+    "browsingHistory": "История",
+    "historyCount": "{count} навыков",
+    "clearHistory": "Очистить",
+    "noHistory": "История пуста",
+    "noHistoryHint": "Здесь будет ваша история просмотров",
+    "removeHistory": "Удалить",
+    "time": {
+      "justNow": "Только что",
+      "agoM": "{count} мин. назад",
+      "agoH": "{count} ч. назад",
+      "agoD": "{count} дн. назад"
+    }
+  },
+  "Community": {
+    "title": "Сообщество",
+    "join": "Присоединиться к сообществу",
+    "contribute": "Внести вклад",
+    "readGuide": "Читать руководство ->",
+    "shareFeedback": "Поделиться отзывом",
+    "submitIssue": "Отправить issue ->",
+    "cards": {
+      "source": {
+        "title": "Открытый код",
+        "desc": "Исходный код, issues и PR."
+      },
+      "chat": {
+        "title": "Discord",
+        "desc": "Чат в реальном времени и поддержка."
+      },
+      "news": {
+        "title": "Twitter",
+        "desc": "Последние новости и обновления."
+      }
+    },
+    "heroDesc": "Мы строим экосистему с открытым кодом для эры AI. Разработчик, создатель или пользователь — вам здесь рады.",
+    "contributeDesc": "Killer-Skills полностью с открытым кодом. Вы можете отправлять PR для исправления ошибок, добавления функций или новых навыков.",
+    "feedbackDesc": "Есть идея? Нашли ошибку? Сообщите нам в Github Issues или Discord."
+  },
+  "Integrations": {
+    "worksWhereYouWork": "Работает в вашей среде",
+    "viewGuide": "Смотреть руководство",
+    "missingTool": "Не нашли свой инструмент?",
+    "learnProtocol": "Узнать о протоколе",
+    "cards": {
+      "cursor": {
+        "desc": "Пожалуй, лучший AI-редактор кода на данный момент."
+      },
+      "windsurf": {
+        "desc": "Мощный AI-редактор от Codeium, на базе VS Code."
+      },
+      "claude": {
+        "desc": "Официальный CLI-инструмент для кодирования с агентами от Anthropic."
+      },
+      "goose": {
+        "desc": "Открытый AI-агент разработчика от Block (Square)."
+      }
+    },
+    "heroDesc": "Killer-Skills нативно поддерживает все основные MCP-редакторы AI и фреймворки агентов.",
+    "missingToolDesc": "Если он поддерживает MCP (Model Context Protocol), он работает с Killer-Skills."
+  },
+  "CLI": {
+    "heroTitle": "Платформа Killer-Skills",
+    "heroSubtitle": "Открытый стандарт для навыков ИИ-агентов",
+    "heroDesc": "Централизованный реестр более 1000 возможностей для ваших ИИ-агентов. Находите, делитесь и интегрируйте навыки в Cursor, Windsurf и Claude Code.",
+    "optionalNote": "Примечание: инструмент CLI необязателен. Вы можете использовать навыки напрямую через npx без установки чего-либо.",
+    "install": "Установить сейчас",
+    "viewDocs": "Смотреть документацию",
+    "latestVersion": "Последняя версия:",
+    "copyInstall": "npx killer-skills install <skill>",
+    "features": {
+      "autoInvoke": {
+        "title": "Универсальный реестр",
+        "desc": "Огромная библиотека общественных и официальных навыков. От обработки PDF до автоматизации браузера — найдите все, что нужно вашему агенту."
+      },
+      "syncAll": {
+        "title": "Универсальная синхронизация",
+        "desc": "Одна команда, чтобы управлять всеми. 'killer sync --all' мгновенно распространяет навыки во все установленные IDE на вашем компьютере."
+      },
+      "mcp": {
+        "title": "Глубокая интеграция MCP",
+        "desc": "Встроенный сервер MCP позволяет агентам самостоятельно устанавливать новые навыки во время выполнения. Истинная автономная эволюция."
+      },
+      "secure": {
+        "title": "Корпоративная безопасность",
+        "desc": "Все навыки запускаются в изолированных средах. Аутентификация GitHub Device Flow обеспечивает безопасный доступ."
+      }
+    },
+    "terminal": {
+      "title": "Опыт разработчика прежде всего",
+      "login": "Безопасный вход",
+      "loginDesc": "GitHub Device Flow Auth",
+      "sync": "Синхронизация в один клик",
+      "syncDesc": "Развертывание в 17+ IDE",
+      "do": "Естественный язык",
+      "doDesc": "Выполнение задач ИИ"
+    },
+    "comparison": {
+      "title": "Почему Killer-Skills CLI?",
+      "ks": "Killer-Skills CLI",
+      "others": "Ручной ввод промптов",
+      "row1": "Установка в 1 клик в 17+ IDE",
+      "row2": "Автоматический вызов (Без траты контекстного окна)",
+      "row3": "Обнаружение навыков во время выполнения (MCP)",
+      "row4": "Реестр проверенных безопасных навыков"
+    }
+  },
+  "SkillsManagerWidget": {
+    "title": "Менеджер Навыков",
+    "subtitle": "Шлюз Экосистемы",
+    "description": "Откройте бесконечные возможности. Находите, устанавливайте и расширяйте возможности вашего ИИ-агента с помощью 1000+ функций.",
+    "cta": "Открыть Менеджер"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "Создайте свою библиотеку навыков ИИ",
+    "subheadline": "Дайте агентам возможность мгновенно писать профессиональный код",
+    "cta": "Мгновенный запуск одной строкой",
+    "install": "Установить",
+    "features": {
+      "multiPlatform": "Мультиплатформенность",
+      "secureSandbox": "Безопасная песочница",
+      "hotReload": "Горячая перезагрузка"
+    },
+    "copy": "КОПИРОВАТЬ",
+    "copied": "ОК",
+    "viewOnNpm": "Посмотреть на NPM"
+  },
+  "Docs": {
+    "gettingStarted": "Начало работы",
+    "tableOfContents": "На этой странице",
+    "editPage": "Редактировать эту страницу",
+    "lastUpdated": "Последнее обновление"
+  },
+  "DocsSidebar": {
+    "platformOverview": "Обзор платформы",
+    "cliTooling": "Инструменты CLI",
+    "gettingStarted": "Начало работы",
+    "introduction": "Введение",
+    "quickStart": "Быстрый старт",
+    "installation": "Установка",
+    "architecture": "Архитектура",
+    "cliReference": "Справочник CLI",
+    "overview": "Обзор",
+    "commands": "Команды",
+    "configuration": "Конфигурация",
+    "coreConcepts": "Основные концепции",
+    "skills": "Навыки (Skills)",
+    "tools": "Инструменты (Tools)",
+    "workflows": "Рабочие процессы",
+    "guides": "Руководства",
+    "creatingSkills": "Создание навыков",
+    "integrations": "Интеграции",
+    "security": "Безопасность",
+    "apiReference": "Справочник API",
+    "restApi": "REST API",
+    "authentication": "Аутентификация",
+    "community": "Сообщество",
+    "contributing": "Вклад в проект",
+    "codeOfConduct": "Кодекс поведения"
+  },
+  "Aria": {
+    "viewSkill": "View {name}",
+    "switchLanguage": "Switch Language",
+    "toggleTheme": "Toggle Theme",
+    "toggleMenu": "Toggle Menu",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "shareSkill": "Share this skill",
+    "backToSkills": "Back to skills",
+    "copyCommand": "Copy command"
+  }
+}

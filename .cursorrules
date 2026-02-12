@@ -1,0 +1,17 @@
+# AI Agent Rules
+
+1. **Language Preference**: Always reply in **Chinese (Simplified)** unless explicitly asked otherwise.
+   - Force Chinese output for explanations, comments, and task summaries.
+   - Code comments should also be in Chinese unless the existing codebase uses English strictly (this project seems mixed/migrating to Chinese docs).
+
+2. **Skill Usage**: Always prioritize using the available **Skills** (MCP tools/libraries) to handle tasks.
+   - Check `SKILL.md` files when unsure about specific workflows.
+
+3. **Project Context**:
+   - The website (`src/app`) supports **Internationalization (i18n)**.
+   - Do NOT change the default locale of the website code unless referenced.
+   - The website adapts to IP region (`middleware.ts`).
+
+4. **Code Quality**:
+   - Follow "UI UX Pro Max" standards for frontend components.
+   - Maintain strict TypeScript types.

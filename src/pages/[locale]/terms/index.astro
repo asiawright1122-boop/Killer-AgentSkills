@@ -1,0 +1,91 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+
+export const prerender = false;
+
+// Validate locale
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+const pageTitle = t('Footer.terms');
+const pageDescription = `${t('Footer.terms')} — Killer-Skills`;
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription}>
+  <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
+
+    <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-12 pb-8 md:pt-16 md:pb-12">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+          {pageTitle}
+        </h1>
+        <p class="text-sm text-slate-500">Last updated: January 1, 2025</p>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <article class="prose prose-slate dark:prose-invert max-w-none">
+        <h2>1. Acceptance of Terms</h2>
+        <p>
+          By accessing and using Killer-Skills ("the Service"), you agree to be bound by these Terms of Service.
+          If you do not agree to these terms, please do not use the Service.
+        </p>
+
+        <h2>2. Description of Service</h2>
+        <p>
+          Killer-Skills is an open marketplace for AI Agent Skills. The Service provides a directory of skills
+          that can be installed and used with compatible AI development tools including Cursor, Windsurf,
+          Claude Code, and others.
+        </p>
+
+        <h2>3. User Responsibilities</h2>
+        <p>You agree to:</p>
+        <ul>
+          <li>Use the Service in compliance with all applicable laws and regulations</li>
+          <li>Not attempt to disrupt or compromise the Service's infrastructure</li>
+          <li>Not use the Service to distribute malicious code or content</li>
+          <li>Respect the intellectual property rights of skill authors</li>
+        </ul>
+
+        <h2>4. Intellectual Property</h2>
+        <p>
+          Skills listed on Killer-Skills are provided by their respective authors and are subject to their
+          individual licenses. Killer-Skills does not claim ownership of third-party skills.
+        </p>
+
+        <h2>5. Disclaimer of Warranties</h2>
+        <p>
+          The Service is provided "as is" without warranties of any kind, either express or implied.
+          We do not guarantee the availability, accuracy, or reliability of any skills listed on the platform.
+        </p>
+
+        <h2>6. Limitation of Liability</h2>
+        <p>
+          In no event shall Killer-Skills be liable for any indirect, incidental, special, or consequential
+          damages arising from your use of the Service.
+        </p>
+
+        <h2>7. Changes to Terms</h2>
+        <p>
+          We reserve the right to modify these terms at any time. Continued use of the Service after changes
+          constitutes acceptance of the modified terms.
+        </p>
+
+        <h2>8. Contact</h2>
+        <p>
+          For questions about these Terms of Service, please contact us through our
+          <a href="https://github.com/anthropics/skills/issues" class="text-cyan-600 dark:text-cyan-400">GitHub repository</a>.
+        </p>
+      </article>
+    </div>
+  </div>
+</Layout>

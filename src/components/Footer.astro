@@ -1,0 +1,87 @@
+---
+interface Props {
+	locale: string;
+	t: (key: string) => string;
+    compact?: boolean;
+}
+
+const { locale, t, compact = false } = Astro.props;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class={`border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 ${compact ? 'py-8' : 'pt-16 pb-8'} ${compact ? 'mt-0' : ''}`}>
+    <div class="max-w-7xl mx-auto px-6">
+        {!compact && (
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                {/* Brand */}
+                <div class="space-y-4">
+                    <a href={`/${locale}`} class="flex items-center gap-2">
+                        <span class="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400">
+                            Killer-Skills
+                        </span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 leading-relaxed text-sm">
+                        {t('Footer.desc')}
+                    </p>
+                    <div class="flex gap-4">
+
+                        <a href="https://twitter.com/killerskills" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </a>
+                    </div>
+                </div>
+
+                {/* Product */}
+                <div>
+                    <h4 class="font-semibold text-slate-900 dark:text-white mb-4">{t('Footer.product')}</h4>
+                    <ul class="space-y-3 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href={`/${locale}/skills`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.browse')}</a></li>
+                        <li><a href={`/${locale}/cli`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.cli')}</a></li>
+                        <li><a href={`/${locale}/integrations`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.integrations')}</a></li>
+                    </ul>
+                </div>
+
+                {/* Resources */}
+                <div>
+                    <h4 class="font-semibold text-slate-900 dark:text-white mb-4">{t('Footer.resources')}</h4>
+                    <ul class="space-y-3 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a href={`/${locale}/docs`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.docs')}</a></li>
+                        <li><a href={`/${locale}/community`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.community')}</a></li>
+                        <li><a href={`/${locale}/docs/showcase`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.showcase')}</a></li>
+                    </ul>
+                </div>
+
+                {/* Newsletter */}
+                <div>
+                    <h4 class="font-semibold text-slate-900 dark:text-white mb-4">{t('Footer.stayUpdated')}</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                        {t('Footer.subscribeDesc')}
+                    </p>
+                    <div class="flex gap-2">
+                        <input 
+                            type="email" 
+                            placeholder={t('Footer.emailPlaceholder')}
+                            class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
+                        />
+                        <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                            →
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
+
+        {/* Bottom */}
+        <div class={`flex flex-col md:flex-row items-center justify-between gap-4 ${compact ? '' : 'pt-8 border-t border-slate-200 dark:border-slate-800'}`}>
+            <div class="text-xs text-slate-500 dark:text-slate-500">
+                © {currentYear} Killer-Skills Inc. {t('Footer.rights')}
+            </div>
+            <div class="flex gap-6 text-xs text-slate-500 dark:text-slate-500">
+                <a href={`/${locale}/privacy`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.privacy')}</a>
+                <a href={`/${locale}/terms`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.terms')}</a>
+                <a href={`/${locale}/cookies`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.cookie')}</a>
+            </div>
+        </div>
+    </div>
+</footer>

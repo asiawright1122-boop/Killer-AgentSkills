@@ -1,0 +1,484 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import type { Env } from '../../../lib/kv';
+import { getSkillsKV } from '../../../lib/kv';
+import docsCache from '../../../../data/docs-cache.json';
+
+type DocPage = {
+  slug: string;
+  title: Record<string, string>;
+  section: string;
+  content: Record<string, string>;
+};
+
+type DocsCache = {
+  pages: DocPage[];
+  sidebar: Record<string, { title: Record<string, string>; items: string[] }>;
+};
+
+// Type assertion for imported JSON
+const localDocsCache = docsCache as DocsCache; 
+import {
+  Terminal, 
+  Plug, 
+  Wrench, 
+  Network, 
+  Users, 
+  FileText, 
+  ArrowLeft,
+  ChevronRight,
+  Book,
+  Menu,
+  X
+} from 'lucide-react';
+
+export const prerender = false;
+
+// Validate locale
+const { locale, slug } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+const env = (Astro.locals as any).runtime?.env as Env;
+
+// Load translations
+// Load translations
+let messages;
+let t: (key: string) => string = (k: string) => k; 
+try {
+  console.log(`[Docs Debug] Loading messages for locale: ${typedLocale}`);
+  messages = await loadMessages(typedLocale);
+  console.log(`[Docs Debug] Messages loaded. Keys: ${Object.keys(messages || {}).length}`);
+  t = useTranslations(messages);
+} catch (e) {
+  console.error('[Docs] Error loading translations:', e);
+}
+
+// Determine if this is the docs index or a specific doc page
+const isIndex = !slug;
+const currentSlug = isIndex ? 'index' : slug;
+const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
+
+let docContent: string | null = null;
+let docTitle = '';
+
+// DEBUG: Check translations
+console.log(`[Docs Debug] Locale: ${locale}`);
+console.log(`[Docs Debug] Docs.gettingStarted: ${t('Docs.gettingStarted')}`);
+console.log(`[Docs Debug] DocsSidebar.gettingStarted: ${t('DocsSidebar.gettingStarted')}`);
+
+
+if (env?.SKILLS_CACHE) {
+  try {
+    // Try locale-specific key first, then fallback to English
+    const kvKey = `doc:${locale}:${currentSlug}`;
+    const rawData = await env.SKILLS_CACHE.get(kvKey, 'text');
+    
+    if (rawData) {
+      const docData: DocData = JSON.parse(rawData);
+      docContent = docData.content;
+      docTitle = docData.title;
+    } else if (locale !== 'en') {
+      // Fallback to English
+      const enData = await env.SKILLS_CACHE.get(`doc:en:${currentSlug}`, 'text');
+      if (enData) {
+        const docData: DocData = JSON.parse(enData);
+        docContent = docData.content;
+        docTitle = docData.title;
+      }
+    }
+  } catch (e) {
+    console.error('[Docs] Error reading doc from KV:', e);
+  }
+}
+
+
+// Helper to get doc from cache object
+const getDocFromCache = (cache: DocsCache, slug: string, lang: string) => {
+  const page = cache.pages.find(p => p.slug === slug);
+  if (!page) return null;
+  
+  return {
+    title: page.title[lang] || page.title['en'] || '',
+    content: page.content[lang] || page.content['en'] || ''
+  };
+};
+
+
+// Fallback to local JSON cache (Local Dev / Build w/o KV)
+if (!docContent) {
+  const localDoc = getDocFromCache(localDocsCache, currentSlug, typedLocale);
+  if (localDoc) {
+    docTitle = localDoc.title;
+    docContent = localDoc.content;
+  }
+}
+
+
+// Fallback title if not loaded from KV
+if (!docTitle) {
+  if (isIndex) {
+    docTitle = t('Docs.gettingStarted') || 'Getting Started';
+  } else {
+    const segments = slug!.split('/');
+    docTitle = segments[segments.length - 1]
+      .replace(/-/g, ' ')
+      .replace(/\b\w/g, (c: string) => c.toUpperCase());
+  }
+}
+
+const pageTitle = isIndex ? t('Footer.docs') : docTitle;
+const pageDescription = isIndex
+  ? 'Killer-Skills documentation'
+  : `${docTitle} — Killer-Skills documentation`;
+
+// Navigation Structure
+// Import CLI Components
+import TerminalWindow from '../../../components/cli/TerminalWindow.astro';
+import ComparisonTable from '../../../components/cli/ComparisonTable.astro';
+
+// ... (existing imports)
+
+// Navigation Structure - Updated to match index.json
+const sidebarNav = [
+  {
+    title: t('DocsSidebar.platformOverview'),
+    items: [
+      { title: t('DocsSidebar.introduction'), href: `/${locale}/docs` }, // Index points here
+      { title: t('DocsSidebar.architecture'), href: `/${locale}/docs/architecture` },
+      { title: t('DocsSidebar.skills'), href: `/${locale}/docs/concepts/skills` },
+      { title: t('DocsSidebar.workflows'), href: `/${locale}/docs/concepts/workflows` },
+    ]
+  },
+  {
+    title: t('DocsSidebar.gettingStarted'),
+    items: [
+      { title: t('DocsSidebar.quickStart'), href: `/${locale}/docs/getting-started` },
+      { title: t('DocsSidebar.installation'), href: `/${locale}/docs/installation` },
+    ]
+  },
+  {
+    title: t('DocsSidebar.cliTooling'),
+    items: [
+      { title: t('DocsSidebar.overview'), href: `/${locale}/docs/cli/overview` }, // New CLI Overview
+      { title: t('DocsSidebar.commands'), href: `/${locale}/docs/cli/commands` }, // Updated link style
+      { title: t('DocsSidebar.configuration'), href: `/${locale}/docs/cli/configuration` }, // Updated link style
+    ]
+  },
+  {
+    title: t('DocsSidebar.guides'),
+    items: [
+      { title: t('DocsSidebar.creatingSkills'), href: `/${locale}/docs/creating-skills` },
+      { title: t('DocsSidebar.security'), href: `/${locale}/docs/security` },
+    ]
+  },
+  {
+    title: t('DocsSidebar.apiReference'),
+    items: [
+      { title: t('DocsSidebar.restApi'), href: `/${locale}/docs/api-reference` },
+      { title: t('DocsSidebar.authentication'), href: `/${locale}/docs/api/auth` },
+    ]
+  },
+];
+// ... rest of file needs t and sidebarNav
+
+
+// Helper to check active state
+const isActive = (href: string) => {
+  if (href === `/${locale}/docs` && isIndex) return true;
+  return currentPath === href;
+};
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
+  <div class="bg-slate-50 dark:bg-slate-950 min-h-screen flex flex-col md:flex-row">
+    
+    {/* Mobile Toggle (Visible only on small screens) */}
+    <div class="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 sticky top-0 z-20 flex items-center justify-between">
+      <span class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+        <Book className="w-5 h-5 text-cyan-500" /> Documentation
+      </span>
+      <button id="mobile-menu-btn" class="text-slate-500 hover:text-slate-900 dark:hover:text-white">
+        <Menu className="w-6 h-6" />
+      </button>
+    </div>
+
+    {/* Sidebar Navigation */}
+    <aside id="docs-sidebar" class="
+      fixed inset-y-0 left-0 z-30 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transform -translate-x-full transition-transform duration-300 ease-in-out
+      md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto
+    ">
+      <div class="p-6 md:pt-10 space-y-8">
+        {/* Mobile Close Button */}
+        <div class="flex md:hidden justify-end mb-4">
+          <button id="close-sidebar-btn" class="text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            <X className="w-6 h-6" />
+          </button>
+        </div>
+
+        {sidebarNav.map((section) => (
+          <div>
+            <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3 px-3">
+              {section.title}
+            </h3>
+            <ul class="space-y-0.5">
+              {section.items.map((item) => {
+                const active = isActive(item.href);
+                return (
+                  <li>
+                    <a
+                      href={item.href}
+                      class:list={[
+                        "block px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+                        active
+                          ? "bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 border-l-2 border-cyan-500" // Active Style
+                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50" // Inactive Style
+                      ]}
+                    >
+                      {item.title}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </aside>
+
+    {/* Main Content Area */}
+    <main class="flex-1 w-full max-w-4xl min-w-0 px-4 py-10 md:px-8 xl:px-12 md:py-12">
+      
+      {/* Content Header */}
+      <div class="mb-10">
+        <p class="text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-2">
+          {isIndex ? 'Documentation' : 'Guide'}
+        </p>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          {docTitle}
+        </h1>
+      </div>
+
+      {currentSlug === 'cli/overview' && (
+        <div class="mb-12 space-y-12 not-prose">
+          <TerminalWindow locale={locale} t={t} />
+          <ComparisonTable t={t} />
+        </div>
+      )}
+
+      {docContent ? (
+        /* Render markdown content from KV */
+        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none 
+          prose-headings:font-bold prose-headings:tracking-tight
+          prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
+          prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium prose-code:text-cyan-600 dark:prose-code:text-cyan-300
+          prose-img:rounded-2xl prose-img:shadow-lg prose-img:border prose-img:border-slate-200 dark:prose-img:border-slate-800" 
+          set:html={docContent} 
+        />
+      ) : isIndex ? (
+        /* Index Default Content (Simulating 'Getting Started') */
+        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none">
+          <p class="lead">
+            Welcome to the Killer-Skills documentation. This guide will help you install, configure, and build your own AI skills in minutes.
+          </p>
+
+          <div class="my-8 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 not-prose">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+              <Rocket className="w-5 h-5 text-cyan-500" />
+              Quick Start
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+              Get your first skill running in under 2 minutes.
+            </p>
+            <div class="flex gap-2">
+               <code class="flex-1 bg-slate-900 text-cyan-300 px-4 py-3 rounded-lg font-mono text-sm overflow-x-auto">
+                npx killer-skills init my-new-skill
+               </code>
+            </div>
+          </div>
+
+          <h2>Key Concepts</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
+            <a href={`/${locale}/docs/concepts/skills`} class="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-600 transition-colors">
+              <h3 class="font-bold text-slate-900 dark:text-white mb-1">Skills</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Atomic units of AI capability</p>
+            </a>
+            <a href={`/${locale}/docs/concepts/workflows`} class="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-600 transition-colors">
+              <h3 class="font-bold text-slate-900 dark:text-white mb-1">Workflows</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Orchestrate complex tasks</p>
+            </a>
+          </div>
+
+        </article>
+      ) : (
+        /* Content Not Found / Coming Soon */
+        <div class="py-12">
+           <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
+             <FileText className="w-10 h-10 text-slate-400 mx-auto mb-4" />
+             <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Content Coming Soon</h3>
+             <p class="text-slate-500 dark:text-slate-400 mb-6">
+                This section "{docTitle}" is currently being engraved into stone.
+             </p>
+             <a href={`/${locale}/docs`} class="text-cyan-600 hover:underline">
+               Return to Introduction
+             </a>
+           </div>
+        </div>
+      )}
+
+      {/* Footer inside content area */}
+      <div class="mt-20">
+        <Footer locale={locale} t={t} compact />
+      </div>
+    </main>
+    
+    {/* Mobile Overlay */}
+    <div id="repo-overlay" class="fixed inset-0 z-20 bg-slate-900/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+
+  </div>
+</Layout>
+
+
+<script>
+  // Mobile menu logic
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const closeBtn = document.getElementById('close-sidebar-btn');
+  const sidebar = document.getElementById('docs-sidebar');
+  const overlay = document.getElementById('repo-overlay');
+
+  function toggleMenu() {
+    const isClosed = sidebar?.classList.contains('-translate-x-full');
+    if (isClosed) {
+      sidebar?.classList.remove('-translate-x-full');
+      overlay?.classList.remove('opacity-0', 'pointer-events-none');
+    } else {
+      sidebar?.classList.add('-translate-x-full');
+      overlay?.classList.add('opacity-0', 'pointer-events-none');
+    }
+  }
+
+  mobileBtn?.addEventListener('click', toggleMenu);
+  closeBtn?.addEventListener('click', toggleMenu);
+  overlay?.addEventListener('click', toggleMenu);
+
+  // Copy Code Block Logic
+  function addCopyButtons() {
+    const preBlocks = document.querySelectorAll('article pre');
+    
+    preBlocks.forEach((pre) => {
+      // Prevent duplicate processing
+      if (pre.closest('.code-block-wrapper')) return;
+
+      // Create wrapper
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper relative group my-6';
+      
+      // Insert wrapper before pre
+      if (pre.parentNode) {
+        pre.parentNode.insertBefore(wrapper, pre);
+        
+        // Remove margins from pre to avoid double spacing
+        pre.style.marginTop = '0';
+        pre.style.marginBottom = '0';
+        
+        // Move pre into wrapper
+        wrapper.appendChild(pre);
+        
+        // Create Button
+        const btn = document.createElement('button');
+        // Visible by default (opacity-60), full opacity on hover
+        btn.className = 'copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:bg-white hover:text-cyan-600 dark:hover:bg-slate-700 dark:hover:text-cyan-400 border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-md transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 z-10';
+        btn.setAttribute('aria-label', 'Copy to clipboard');
+        
+        // Clean, thin stroke Icon
+        const copyIcon = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+          </svg>
+        `;
+
+        const checkIcon = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-emerald-500 dark:text-emerald-400">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        `;
+
+        btn.innerHTML = copyIcon;
+
+        btn.addEventListener('click', async () => {
+          try {
+            const code = pre.querySelector('code')?.innerText || pre.innerText;
+            await navigator.clipboard.writeText(code);
+            
+            // Success State
+            btn.innerHTML = checkIcon;
+            btn.classList.add('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
+            
+            setTimeout(() => {
+              btn.innerHTML = copyIcon;
+              btn.classList.remove('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
+            }, 2000);
+            
+          } catch (err) {
+            console.error('Failed to copy!', err);
+          }
+        });
+
+        // Append button to wrapper (sibling of pre)
+        wrapper.appendChild(btn);
+      }
+    });
+  }
+
+  // Initialize on load and after Astro swaps (if using view transitions)
+  addCopyButtons();
+  document.addEventListener('astro:page-load', addCopyButtons);
+</script>
+
+<style>
+  @reference "../../../styles/global.css";
+
+  /* Fix code block styling by resetting prose-code styles inside pre */
+  article :global(pre code) {
+    background-color: transparent !important;
+    color: inherit !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-weight: inherit !important;
+  }
+
+  /* Style the pre block to look like a terminal/code editor */
+  article :global(pre) {
+    /* Base styles */
+    @apply relative rounded-xl p-5 my-6 overflow-x-auto shadow-sm border text-sm leading-relaxed;
+    
+    /* Light Mode */
+    @apply bg-slate-50 text-slate-800 border-slate-200;
+    
+    /* Text Wrapping */
+    white-space: pre-wrap;
+    word-break: break-word;
+    
+    /* Font */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  /* Dark mode adjustments */
+  :global(.dark) article :global(pre) {
+    @apply bg-slate-950 text-slate-50 border-slate-800;
+  }
+
+  /* Show copy button on hover */
+  article :global(pre):hover .copy-btn,
+  article :global(pre) .copy-btn:focus {
+    opacity: 1;
+  }
+</style>
+
+

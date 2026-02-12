@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { loadMessages, useTranslations } from '../i18n';
+
+const locale = 'en';
+const messages = await loadMessages(locale);
+const t = useTranslations(messages);
+---
+
+<Layout locale={locale} title="404 - Page Not Found" description="The page you are looking for does not exist.">
+  <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 relative overflow-hidden">
+    
+    <!-- Background Elements -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 dark:bg-cyan-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+    <h1 class="text-9xl font-black text-slate-100 dark:text-slate-800/50 mb-2 select-none">404</h1>
+    
+    <div class="relative z-10">
+      <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+        Page Not Found
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-lg mx-auto leading-relaxed">
+        The skill you are looking for seems to be missing from our database. It might have been moved or deleted.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href="/" 
+          class="px-8 py-3.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold hover:bg-slate-800 dark:hover:bg-slate-200 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-slate-900/20 dark:shadow-white/10"
+        >
+          Go Home
+        </a>
+        <a 
+          href="/en/skills" 
+          class="px-8 py-3.5 rounded-xl bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all hover:border-slate-300 dark:hover:border-slate-600"
+        >
+          Browse Skills
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

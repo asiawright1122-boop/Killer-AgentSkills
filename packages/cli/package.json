@@ -1,0 +1,77 @@
+{
+    "name": "killer-skills",
+    "version": "1.7.1",
+    "description": "Cross-platform CLI tool for installing AI agent skills to multiple IDEs",
+    "type": "module",
+    "main": "./dist/index.js",
+    "bin": {
+        "killer-skills": "./dist/index.js",
+        "killer": "./dist/index.js",
+        "killer-skills-mcp": "./dist/mcp-server.js"
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "prepublishOnly": "npm run build && npm test",
+        "dev": "tsx src/index.ts",
+        "mcp": "tsx src/mcp-server.ts",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "lint": "eslint src/"
+    },
+    "keywords": [
+        "skills",
+        "ai",
+        "claude",
+        "cursor",
+        "vscode",
+        "windsurf",
+        "kiro",
+        "cli",
+        "agent",
+        "natural-language",
+        "mcp",
+        "model-context-protocol",
+        "llm",
+        "copilot",
+        "gemini"
+    ],
+    "author": "Killer-Skills Team",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/asiawright1122-boop/Killer-AgentSkills.git",
+        "directory": "packages/cli"
+    },
+    "homepage": "https://killer-skills.com",
+    "bugs": {
+        "url": "https://github.com/anthropics/killer-skills/issues"
+    },
+    "dependencies": {
+        "@inquirer/prompts": "^7.0.0",
+        "@modelcontextprotocol/sdk": "^1.25.3",
+        "@types/fs-extra": "^11.0.4",
+        "chalk": "^5.3.0",
+        "commander": "^12.1.0",
+        "fs-extra": "^11.3.3",
+        "ora": "^8.0.1",
+        "simple-git": "^3.25.0",
+        "zod": "^3.25.76"
+    },
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.19.30",
+        "@vitest/coverage-v8": "^3.2.4",
+        "tsx": "^4.21.0",
+        "typescript": "^5.9.3",
+        "vitest": "^3.2.4"
+    }
+}

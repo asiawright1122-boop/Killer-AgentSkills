@@ -1,0 +1,66 @@
+---
+import { OFFICIAL_REPOS } from '../lib/skills-config';
+
+interface Props {
+  owner: string;
+  count: number;
+  locale?: string;
+}
+
+const { owner, count, locale = 'en' } = Astro.props;
+
+// Get vendor config if available
+const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
+const displayName = vendorConfig?.name || owner;
+const isOfficial = vendorConfig?.type === 'official';
+
+// GitHub avatar
+const avatarUrl = `https://github.com/${owner}.png?size=200`;
+
+// Link to filtered view
+const link = `/${locale}/skills?view=official&owner=${owner}`;
+---
+
+<div class="glass-card group rounded-2xl p-6 h-full flex flex-col relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-primary/50">
+  <!-- Stretched Link -->
+  <a href={link} class="absolute inset-0 z-0 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary/50" aria-label={`View ${displayName} skills`}></a>
+
+  <!-- Header: Avatar + Title -->
+  <div class="relative z-1 flex items-center gap-4 mb-4 pointer-events-none">
+    <div class="w-16 h-16 rounded-2xl flex-shrink-0 overflow-hidden bg-white/5 border border-white/10">
+      <img 
+        src={avatarUrl} 
+        alt={owner} 
+        class="w-full h-full object-cover"
+        loading="lazy"
+        onerror="this.style.display='none'"
+      />
+    </div>
+    <div>
+      <h3 class="text-xl font-bold group-hover:text-[var(--primary)] transition-colors">
+        {displayName}
+      </h3>
+      <p class="text-sm text-balance" style="color: var(--muted-foreground);">
+        {isOfficial ? 'Official Partner' : 'Community Vendor'}
+      </p>
+    </div>
+  </div>
+  
+  <!-- Description/Stats -->
+  <div class="relative z-1 mt-auto pointer-events-none">
+    <div class="flex items-center justify-between">
+      <div class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium" style="background: var(--secondary); color: var(--secondary-foreground);">
+        <span class="font-bold mr-1">{count}</span> Skills
+      </div>
+      
+      {isOfficial && (
+        <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium" style="background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--tag-border);">
+          <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          Official
+        </span>
+      )}
+    </div>
+  </div>
+</div>

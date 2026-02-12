@@ -1,0 +1,103 @@
+name: Skills Harvester & Builder
+
+on:
+  # Run every 6 hours
+  schedule:
+    - cron: '0 */6 * * *'
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  harvest-and-build:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: skills-harvester
+      cancel-in-progress: false
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # Step 1: Harvest New Skills
+      - name: Harvest GitHub Skills
+        id: harvest
+        run: npm run skills:harvest -- --target=50
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Step 1.5: Commit Harvested Data (Early Save)
+      # We commit here so even if build fails, we don't lose the harvested URLs
+      - name: Check for Harvested Changes
+        id: harvest-changes
+        run: |
+          if [ -n "$(git status --porcelain data/expanded-github-skills.json)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit Harvested Data
+        if: steps.harvest-changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/expanded-github-skills.json
+          git commit -m "chore(data): harvest new skills [skip ci]"
+          # Pull before push to avoid conflicts
+          git pull --rebase origin main
+          git push
+
+      # Step 2: Build Cache (Process New Skills)
+      - name: Build Skills Cache
+        run: npm run build:cache -- --mode=discover
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # Step 3: Sync to KV (Deploy)
+      - name: Sync to Cloudflare KV
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # Step 4: Commit Built Cache (Optional but recommended for history)
+      - name: Check for Cache Changes
+        id: cache-changes
+        run: |
+          if [ -n "$(git status --porcelain data/skills-cache.json)" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit Built Cache
+        if: steps.cache-changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/skills-cache.json data/sitemap-skills.json
+          git commit -m "chore(data): update skills cache & sitemap [skip ci]"
+          git pull --rebase origin main
+          git push

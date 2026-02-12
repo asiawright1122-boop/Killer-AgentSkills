@@ -1,0 +1,191 @@
+---
+import { getLocalizedDescription } from '../lib/skills';
+import { OFFICIAL_REPOS } from '../lib/skills-config';
+import { CATEGORY_GROUPS } from '../lib/search';
+
+interface Props {
+  skill: {
+    id?: string;
+    name?: string;
+    skillName?: string;
+    owner: string;
+    repo: string;
+    description?: string | Record<string, string>;
+    stars?: number;
+    forks?: number;
+    topics?: string[];
+    category?: string;
+    verified?: boolean;
+    data?: {
+      name?: string;
+      description?: string | Record<string, string>;
+      stars?: number;
+      forks?: number;
+      tags?: string[];
+      owner?: string;
+      repo?: string;
+      verified?: boolean;
+      logoPath?: string;
+    };
+    seo?: {
+      definition: Record<string, string>;
+      features: Record<string, string[]>;
+      keywords: Record<string, string[]>;
+    };
+  };
+  locale?: string;
+  t?: (key: string, params?: Record<string, string>) => string;
+}
+
+const { skill, locale = 'en', t } = Astro.props;
+
+// Support both new UnifiedSkill format and legacy format
+const name = skill.name || skill.skillName || skill.data?.name || skill.repo || 'Unknown';
+const owner = skill.owner || skill.data?.owner || '';
+const repo = skill.repo || skill.data?.repo || '';
+const stars = skill.stars ?? skill.data?.stars ?? 0;
+const forks = skill.forks ?? skill.data?.forks ?? 0;
+const topics = skill.topics || skill.data?.tags || [];
+const description = skill.description || skill.data?.description;
+
+// Check if verified (official vendor) and determine badge type
+const officialConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
+const isVerified = skill.verified ?? skill.data?.verified ?? (officialConfig?.verified ?? false);
+const badgeType: 'official' | 'featured' | null = isVerified
+  ? (officialConfig?.type || 'official')
+  : null;
+
+// Get localized description
+const descText = skill.seo?.definition?.[locale] || getLocalizedDescription(description, locale);
+
+// Format stars
+const starsDisplay = stars > 1000 ? (stars / 1000).toFixed(1) + 'k' : String(stars);
+const forksDisplay = forks > 1000 ? (forks / 1000).toFixed(1) + 'k' : String(forks);
+
+// Build link - use id if available (handles sub-skills like anthropics/skills/algorithmic-art)
+const skillIdPath = skill.id || `${owner}/${repo}`;
+const skillLink = `/${locale}/skills/${skillIdPath}`;
+
+// GitHub avatar
+const avatarUrl = `https://github.com/${owner}.png?size=40`;
+---
+
+<article class="group rounded-2xl p-5 h-full flex flex-col relative transition-all duration-300 hover:-translate-y-1 hover:shadow-lg bg-white border border-slate-200 shadow-sm dark:bg-[#0f1115] dark:border-[#202226] dark:shadow-none hover:border-sky-500/30 dark:hover:border-sky-500/30">
+  <!-- Stretched Link -->
+  <a href={skillLink} class="absolute inset-0 z-0 rounded-2xl focus:outline-none focus:ring-2 focus:ring-sky-500/50" aria-label={t ? t('Aria.viewSkill', { name }) : `View ${name}`}></a>
+
+  <!-- Header: Title + Verified Badge -->
+  <div class="relative z-1 flex justify-between items-start mb-3 pointer-events-none">
+    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100 line-clamp-1 pr-2 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+      {name}
+    </h3>
+    {badgeType === 'official' && (
+      <span class="shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-50 text-amber-600 border border-amber-200 dark:bg-amber-900/20 dark:text-amber-400 dark:border-amber-700/30 uppercase tracking-tight">
+        <svg class="w-2.5 h-2.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+        </svg>
+        Official
+      </span>
+    )}
+    {badgeType === 'featured' && (
+      <span class="shrink-0 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-50 text-sky-600 border border-sky-200 dark:bg-sky-900/20 dark:text-sky-400 dark:border-sky-700/30 uppercase tracking-tight">
+        <svg class="w-2.5 h-2.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        Featured
+      </span>
+    )}
+  </div>
+  
+  <!-- Sub-header: Owner Info -->
+  <div class="relative z-1 flex items-center gap-2 mb-3 pointer-events-none">
+    <img 
+      src={avatarUrl} 
+      alt={owner} 
+      class="w-4 h-4 rounded-full ring-1 ring-slate-200 dark:ring-slate-800"
+      loading="lazy"
+      onerror="this.style.display='none'"
+    />
+    <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{owner}</span>
+  </div>
+  
+  <!-- Description -->
+  <p class="relative z-1 text-sm text-slate-600 dark:text-slate-400 mb-6 line-clamp-3 flex-grow pointer-events-none leading-relaxed">
+    {descText || 'No description available'}
+  </p>
+  
+  <!-- Footer: Stats + Category Tag -->
+  <div class="relative z-1 mt-auto flex items-center justify-between pointer-events-none border-t border-slate-100 dark:border-slate-800 pt-3">
+    <!-- Left: Stats -->
+    <div class="flex items-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-500">
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+        </svg>
+        <span class="text-slate-700 dark:text-slate-300">{starsDisplay}</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        <span class="text-slate-700 dark:text-slate-300">{forksDisplay}</span>
+      </div>
+    </div>
+    
+    <!-- Right: Category Tag -->
+    {(() => {
+        let matchedCategory = '';
+
+        // 1. Prioritize explicit category if it matches a sidebar group (e.g. from overrides)
+        if (skill.category && CATEGORY_GROUPS[skill.category.toLowerCase()]) {
+            matchedCategory = skill.category;
+        }
+
+        // 2. If no valid explicit category, try to match topics to a sidebar category
+        if (!matchedCategory && topics && topics.length > 0) {
+            for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+                if (topics.some(t => keywords.some(k => t.toLowerCase().includes(k)))) {
+                    matchedCategory = groupName;
+                    break;
+                }
+            }
+        }
+        
+        // 3. Fallback to explicit category if it exists and isn't 'official'
+        if (!matchedCategory && skill.category && skill.category !== 'official') {
+             matchedCategory = skill.category;
+        }
+
+        // 4. Final fallback to first topic or 'Skill'
+        let displayCat = matchedCategory || (topics && topics.length > 0 ? topics[0] : 'Skill');
+        
+        // Cleanup: Remove "agent-skills" or "agent skills" and map to AI or just filter
+        const lowerCat = displayCat.toLowerCase();
+        if (['agent-skills', 'agent skills', 'agents', 'agent'].includes(lowerCat)) {
+             // If we have other topics, try to find a better one
+             const altTopic = topics.find(t => !['agent-skills', 'agent skills', 'agents', 'agent'].includes(t.toLowerCase()));
+             displayCat = altTopic || 'AI'; // Fallback to AI if only agent-skills tags exist
+        }
+
+        let displayLabel = displayCat.charAt(0).toUpperCase() + displayCat.slice(1).replace(/-/g, ' ');
+        
+        // Handle acronyms
+        if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
+        if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
+        if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
+        if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+
+        const categoryLink = matchedCategory ? `/${locale}/skills?category=${matchedCategory}` : null;
+
+        return categoryLink ? (
+          <a href={categoryLink} class="relative z-10 px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200 hover:bg-sky-50 hover:text-sky-600 hover:border-sky-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700 dark:hover:bg-sky-900/30 dark:hover:text-sky-400 dark:hover:border-sky-700/50 transition-colors uppercase tracking-tight">
+            {displayLabel}
+          </a>
+        ) : (
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700 uppercase tracking-tight">
+            {displayLabel}
+          </span>
+        );
+      })()}
+  </div>
+</article>

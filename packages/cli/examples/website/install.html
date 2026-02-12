@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Killer-Skills CLI - Install</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 48px;
+            margin-bottom: 16px;
+            background: linear-gradient(90deg, #4299e1, #48bb78);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        .subtitle {
+            color: #a0aec0;
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .install-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #2d3748;
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+
+        .install-label {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .code-block {
+            background: #0d1117;
+            border-radius: 8px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .code {
+            color: #e2e8f0;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 18px;
+        }
+
+        .copy-btn {
+            background: linear-gradient(135deg, #4299e1, #48bb78);
+            border: none;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(72, 187, 120, 0.3);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        .commands {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: left;
+        }
+
+        .commands h3 {
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .command-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .command {
+            color: #48bb78;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 13px;
+            padding: 8px 12px;
+            background: rgba(72, 187, 120, 0.1);
+            border-radius: 6px;
+        }
+
+        .links {
+            margin-top: 40px;
+        }
+
+        .links a {
+            color: #4299e1;
+            text-decoration: none;
+            margin: 0 16px;
+            font-size: 16px;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">⚡</div>
+        <h1>Killer-Skills CLI</h1>
+        <p class="subtitle">Install and manage AI agent skills across all your IDEs</p>
+
+        <div class="install-box">
+            <div class="install-label">Quick Install</div>
+            <div class="code-block">
+                <code class="code">npm install -g killer-skills</code>
+                <button class="copy-btn" onclick="copyCommand()">📋 Copy</button>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title">18 Commands</div>
+                <div class="feature-desc">Install, sync, search, update, and manage your skills</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🖥️</div>
+                <div class="feature-title">8+ IDEs</div>
+                <div class="feature-desc">Cursor, VSCode, Windsurf, Claude, Kiro, and more</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔌</div>
+                <div class="feature-title">MCP Server</div>
+                <div class="feature-desc">Expose CLI as MCP server for AI agents</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🧩</div>
+                <div class="feature-title">Plugin System</div>
+                <div class="feature-desc">Extend with hooks and IDE adapters</div>
+            </div>
+        </div>
+
+        <div class="commands">
+            <h3>Available Commands</h3>
+            <div class="command-grid">
+                <span class="command">killer install</span>
+                <span class="command">killer list</span>
+                <span class="command">killer sync</span>
+                <span class="command">killer do</span>
+                <span class="command">killer search</span>
+                <span class="command">killer update</span>
+                <span class="command">killer create</span>
+                <span class="command">killer publish</span>
+                <span class="command">killer outdated</span>
+                <span class="command">killer deps</span>
+                <span class="command">killer plugin</span>
+                <span class="command">killer stats</span>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="https://www.npmjs.com/package/killer-skills" target="_blank">📦 npm</a>
+            <a href="https://github.com/anthropics/killer-skills" target="_blank">⭐ GitHub</a>
+            <a href="https://killer-skills.vercel.app" target="_blank">🌐 Website</a>
+        </div>
+
+        <div class="badge">
+            <img src="https://img.shields.io/npm/v/killer-skills?color=48bb78&style=for-the-badge" alt="npm version">
+        </div>
+    </div>
+
+    <script>
+        function copyCommand() {
+            navigator.clipboard.writeText('npm install -g killer-skills');
+            const btn = document.querySelector('.copy-btn');
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => btn.textContent = '📋 Copy', 2000);
+        }
+    </script>
+</body>
+
+</html>

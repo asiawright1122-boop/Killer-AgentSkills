@@ -1,0 +1,47 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import HistoryManager from '../../../islands/HistoryManager';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+
+export const prerender = false;
+
+// Validate locale
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+const pageTitle = t('Personal.browsingHistory');
+const pageDescription = `${t('Personal.browsingHistory')} — Killer-Skills`;
+
+// Build translations object expected by HistoryManager island
+const historyTranslations = {
+  browsingHistory: t('Personal.browsingHistory'),
+  historyCount: t('Personal.historyCount'),
+  clearHistory: t('Personal.clearHistory'),
+  noHistory: t('Personal.noHistory'),
+  noHistoryHint: t('Personal.noHistoryHint'),
+  browseSkills: t('Personal.browseSkills'),
+  removeHistory: t('Personal.removeHistory'),
+  time: {
+    justNow: t('Personal.time.justNow'),
+    agoM: t('Personal.time.agoM'),
+    agoH: t('Personal.time.agoH'),
+    agoD: t('Personal.time.agoD'),
+  },
+};
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true}>
+  <HistoryManager
+    client:load
+    locale={locale}
+    translations={historyTranslations}
+  />
+</Layout>

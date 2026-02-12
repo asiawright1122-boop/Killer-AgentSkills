@@ -1,0 +1,237 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SearchBar from '../islands/SearchBar';
+import { OFFICIAL_REPOS } from '../lib/skills-config';
+import { getCollection } from 'astro:content';
+
+// Get real skill data
+const allSkills = await getCollection('skills');
+
+// Filter official and featured vendors
+const officialVendors = Object.entries(OFFICIAL_REPOS)
+  .filter(([_, config]) => config.type === 'official')
+  .slice(0, 6);
+
+const featuredVendors = Object.entries(OFFICIAL_REPOS)
+  .filter(([_, config]) => config.type === 'featured')
+  .slice(0, 4);
+
+// Get trending skills (by stars)
+const trendingSkills = [...allSkills]
+  .sort((a, b) => (b.data.stars || 0) - (a.data.stars || 0))
+  .slice(0, 6);
+
+// Stats
+const totalSkills = allSkills.length;
+const totalStars = allSkills.reduce((sum, s) => sum + (s.data.stars || 0), 0);
+---
+
+<Layout title="AI Skills Directory - Build Better Agents">
+  <main class="flex-1 w-full">
+    
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden pt-24 pb-32 lg:pt-32 lg:pb-40">
+      <!-- Background Blobs -->
+      <div class="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full -z-10 animate-pulse-glow" style="background: var(--hero-blob-1);"></div>
+      <div class="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full -z-10 animate-pulse-glow" style="background: var(--hero-blob-2); animation-delay: 2s;"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="inline-flex items-center px-4 py-1.5 rounded-full glass text-sm font-medium mb-8">
+          <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+          v2.0 Now Available
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-balance">
+          Supercharge your <br class="hidden md:block" />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--primary)] to-cyan-500">AI Agents</span> with Skills
+        </h1>
+        
+        <p class="text-xl max-w-2xl mx-auto mb-10 text-balance font-light" style="color: var(--muted-foreground);">
+          The comprehensive directory of verified capabilities for autonomous agents. Discover, integrate, and deploy in seconds.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="max-w-xl mx-auto">
+          <SearchBar client:load />
+          <p class="text-sm mt-3" style="color: var(--muted-foreground);">
+            Popular: <span style="color: var(--foreground);">Stripe, Browser, PDF, Notion</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ecosystem Stats -->
+    <section class="py-12 border-y" style="border-color: var(--border); background: var(--muted);">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <div class="text-3xl font-bold mb-1">{totalSkills}+</div>
+            <div class="text-sm uppercase tracking-wider font-medium" style="color: var(--muted-foreground);">Verified Skills</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold mb-1">{(totalStars / 1000).toFixed(0)}k+</div>
+            <div class="text-sm uppercase tracking-wider font-medium" style="color: var(--muted-foreground);">GitHub Stars</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold mb-1">{officialVendors.length + featuredVendors.length}+</div>
+            <div class="text-sm uppercase tracking-wider font-medium" style="color: var(--muted-foreground);">Official Vendors</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold mb-1">100%</div>
+            <div class="text-sm uppercase tracking-wider font-medium" style="color: var(--muted-foreground);">Open Source</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Official Vendors Section -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-3xl font-bold mb-2">Official Skills</h2>
+          <p style="color: var(--muted-foreground);">Verified skills from leading technology companies.</p>
+        </div>
+        <a href="/skills?view=official" class="group flex items-center gap-1 font-medium transition-colors" style="color: var(--primary);">
+          View all 
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {officialVendors.map(([key, vendor]) => (
+          <a 
+            href={`/skills?owner=${vendor.owner}`}
+            class="glass-card rounded-2xl p-6 text-center group"
+          >
+            <div class="text-4xl mb-3">{vendor.logo}</div>
+            <div class="font-semibold mb-1 group-hover:text-[var(--primary)] transition-colors">{vendor.name}</div>
+            <div class="text-xs flex items-center justify-center gap-1" style="color: var(--muted-foreground);">
+              <span class="text-amber-400">★</span>
+              {vendor.stars >= 1000 ? `${(vendor.stars / 1000).toFixed(1)}k` : vendor.stars}
+            </div>
+            {vendor.verified && (
+              <div class="mt-2 inline-flex items-center text-xs px-2 py-0.5 rounded-full" style="background: var(--tag-bg); color: var(--tag-text);">
+                ✓ Verified
+              </div>
+            )}
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Featured / Community Section -->
+    <section class="py-24 border-t" style="border-color: var(--border); background: var(--muted);">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-12">
+          <div>
+            <h2 class="text-3xl font-bold mb-2">Featured Skills</h2>
+            <p style="color: var(--muted-foreground);">Popular community-driven skills and frameworks.</p>
+          </div>
+          <a href="/skills?view=featured" class="group flex items-center gap-1 font-medium transition-colors" style="color: var(--primary);">
+            View all 
+            <span class="group-hover:translate-x-1 transition-transform">→</span>
+          </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {featuredVendors.map(([key, vendor]) => (
+            <a 
+              href={`/skills?owner=${vendor.owner}`}
+              class="glass-card rounded-2xl p-6 group"
+            >
+              <div class="flex items-center gap-3 mb-4">
+                <div class="text-3xl">{vendor.logo}</div>
+                <div>
+                  <div class="font-semibold group-hover:text-[var(--primary)] transition-colors">{vendor.name}</div>
+                  <div class="text-xs flex items-center gap-1" style="color: var(--muted-foreground);">
+                    <span class="text-amber-400">★</span>
+                    {vendor.stars >= 1000 ? `${(vendor.stars / 1000).toFixed(1)}k` : vendor.stars}
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm line-clamp-2" style="color: var(--muted-foreground);">
+                {vendor.description.en}
+              </p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Trending Skills -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between mb-12">
+        <div>
+          <h2 class="text-3xl font-bold mb-2">Trending Skills</h2>
+          <p style="color: var(--muted-foreground);">Most popular skills this week.</p>
+        </div>
+        <a href="/skills" class="group flex items-center gap-1 font-medium transition-colors" style="color: var(--primary);">
+          Browse all 
+          <span class="group-hover:translate-x-1 transition-transform">→</span>
+        </a>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {trendingSkills.map(skill => (
+          <a 
+            href={`/skills/${skill.data.owner}/${skill.data.repo}`}
+            class="glass-card rounded-2xl p-6 group flex flex-col"
+          >
+            <div class="flex justify-between items-start mb-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center text-2xl" style="background: var(--tag-bg);">
+                {skill.data.topics?.[0]?.charAt(0).toUpperCase() || '⚡'}
+              </div>
+              <div class="flex items-center text-sm font-semibold px-2.5 py-1 rounded-full" style="background: var(--secondary);">
+                <span class="text-amber-400 mr-1">★</span>
+                {skill.data.stars >= 1000 ? `${(skill.data.stars / 1000).toFixed(1)}k` : skill.data.stars}
+              </div>
+            </div>
+            
+            <h3 class="text-lg font-bold mb-2 group-hover:text-[var(--primary)] transition-colors">
+              {skill.data.name || skill.data.repo}
+            </h3>
+            
+            <p class="text-sm mb-4 line-clamp-2 flex-grow" style="color: var(--muted-foreground);">
+              {skill.data.description?.en || skill.data.description}
+            </p>
+            
+            <div class="flex flex-wrap gap-2 mt-auto">
+              {skill.data.topics?.slice(0, 3).map((tag: string) => (
+                <span class="px-2 py-1 text-xs font-medium rounded-md" style="background: var(--tag-bg); color: var(--tag-text); border: 1px solid var(--tag-border);">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 border-t" style="border-color: var(--border);">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">Ready to supercharge your AI agents?</h2>
+        <p class="text-xl mb-10" style="color: var(--muted-foreground);">
+          Browse our collection of verified skills and start building smarter agents today.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/skills" 
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl transition-all hover:scale-105"
+            style="background: var(--primary); color: var(--primary-foreground);"
+          >
+            Explore Skills
+          </a>
+          <a 
+            href="https://github.com" 
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-xl transition-all hover:scale-105"
+            style="background: var(--secondary); color: var(--secondary-foreground);"
+          >
+            ⭐ Star on GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>

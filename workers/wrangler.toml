@@ -1,0 +1,36 @@
+# Workflows Worker 配置
+# 独立于 Astro 主应用部署
+
+name = "killer-skills-workflows"
+main = "index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# KV 命名空间绑定
+[[kv_namespaces]]
+binding = "SKILLS_CACHE"
+id = "eb71984285c54c3488c17a32391b9fe5"
+
+[[kv_namespaces]]
+binding = "TRANSLATIONS"
+id = "db9a790f497b40afa9720993d7ea2fe4"
+
+# Workers AI
+[ai]
+binding = "AI"
+
+# Workflows
+[[workflows]]
+name = "translation-workflow"
+binding = "TRANSLATION_WORKFLOW"
+class_name = "TranslationWorkflow"
+
+[[workflows]]
+name = "skill-validation-workflow"
+binding = "SKILL_VALIDATION_WORKFLOW"
+class_name = "SkillValidationWorkflow"
+
+[[workflows]]
+name = "content-workflow"
+binding = "CONTENT_WORKFLOW"
+class_name = "ContentProcessingWorkflow"

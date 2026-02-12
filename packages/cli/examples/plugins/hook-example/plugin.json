@@ -1,0 +1,11 @@
+{
+    "name": "killer-skills-example-hook",
+    "version": "1.0.0",
+    "description": "Example hook plugin for Killer-Skills CLI",
+    "type": "hook",
+    "main": "index.js",
+    "config": {
+        "enabled": true,
+        "notifyOnInstall": true
+    }
+}

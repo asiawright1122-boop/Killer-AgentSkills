@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "home": "الرئيسية",
+    "marketplace": "السوق",
+    "categories": "الفئات",
+    "docs": "المستندات",
+    "github": "GitHub",
+    "getStarted": "ابدأ الآن",
+    "history": "السجل",
+    "favorites": "المفضلة"
+  },
+  "Hero": {
+    "badge": "80,000+ مهارة متاحة",
+    "title": "اكتشف مهارات وكيل AI",
+    "titleHighlight": "وكيل AI",
+    "subtitle": "استكشف إمكانيات لا حدود لها",
+    "searchPlaceholder": "ابحث عن المهارات... مثل: PDF، تحليل البيانات",
+    "searchButton": "بحث",
+    "hotTags": "الأكثر شيوعاً:",
+    "suggestions": [
+      "PDF",
+      "إنشاء الصور",
+      "تحليل البيانات",
+      "المتصفح",
+      "مراجعة الكود",
+      "المستندات"
+    ]
+  },
+  "Skills": {
+    "featured": "مهارات مميزة",
+    "searchResults": "نتائج البحث",
+    "trending": "شائع",
+    "recent": "مؤخرا",
+    "noResults": "لا توجد مهارات",
+    "noResultsHint": "جرب كلمات رئيسية مختلفة",
+    "stars": "النجوم",
+    "forks": "تفرع",
+    "updated": "تم التحديث",
+    "version": "الإصدار",
+    "downloads": "التحميلات",
+    "creators": "المبدعون النشطون",
+    "install": "تثبيت الكود",
+    "copy": "نسخ",
+    "copied": "تم النسخ!",
+    "viewOnGithub": "عرض على GitHub",
+    "original": "أصلي",
+    "translation": "ترجمة",
+    "translating": "جاري الترجمة...",
+    "showOriginal": "عرض الأصل",
+    "showTranslation": "عرض الترجمة"
+  },
+  "Detail": {
+    "back": "العودة للقائمة",
+    "quickInstall": "تثبيت سريع",
+    "targetIDE": "بيئة التطوير المستهدفة",
+    "copyCommand": "نسخ أمر التثبيت",
+    "copied": "تم النسخ",
+    "stats": "الإحصائيات",
+    "stars": "النجوم",
+    "downloads": "التحميلات",
+    "info": "المعلومات",
+    "author": "المؤلف",
+    "updated": "تم التحديث",
+    "viewOnGithub": "عرض على GitHub",
+    "features": "الميزات",
+    "qualityScore": "تقييم الجودة",
+    "installCommand": "Install Command",
+    "installPath": "Install Path",
+    "projectLevel": "Project:",
+    "globalLevel": "Global:",
+    "unlockTitle": "Unlock & Manage Massive AI Skills",
+    "getManager": "Get Manager",
+    "ideDescriptions": {
+      "amp": "Install to Amp Agent",
+      "antigravity": "Install to Antigravity",
+      "claude": "Install to Claude Code",
+      "codex": "Install to Codex",
+      "cursor": "Use in Cursor Composer",
+      "codebuddy": "Install to CodeBuddy",
+      "factory": "Install to Factory Droid",
+      "gemini": "Install to Gemini CLI",
+      "copilot": "Install to GitHub Copilot",
+      "goose": "Install to Goose Agent",
+      "kilocode": "Install to Kilo Code",
+      "kimi": "Install to Kimi CLI",
+      "opencode": "Install to OpenCode",
+      "qwen": "Install to Qwen Code",
+      "roo": "Install to Roo Code",
+      "trae": "Install to Trae IDE",
+      "windsurf": "Use in Windsurf Cascade"
+    },
+    "documentation": "التوثيق",
+    "community": "المجتمع",
+    "updates": "التحديثات",
+    "about": "حول هذه المهارة",
+    "translating": "جاري الترجمة...",
+    "translate": "ترجمة",
+    "showOriginal": "عرض الأصل",
+    "aboutTemplate": "تتيح هذه المهارة لوكيل AI التفاعل مع {name}. متوافقة مع أطر العمل الرئيسية مثل Cursor و Windsurf و Claude Code.",
+    "explorer": "المستكشف",
+    "project": "المشروع",
+    "installation": "التثبيت",
+    "excellent": "ممتاز",
+    "qualityDesc": "بناءً على جودة الكود والوثائق",
+    "tags": "الوسوم",
+    "noTags": "لا توجد وسوم"
+  },
+  "Home": {
+    "heroTitle": "زوّد وكلائك",
+    "heroTitleHighlight": "بقدرات خارقة",
+    "heroBadge": "سوق القدرات المستقلة",
+    "heroDesc1": "أول معيار مفتوح لمهارات AI القابلة للتركيب.",
+    "heroDesc2": "امنح وكلائك القدرة على التصفح والبرمجة والإنشاء فورياً.",
+    "searchPlaceholder": "ابحث عن القدرات (مثل 'تجريف الويب'، 'تصور البيانات')...",
+    "searchButton": "بحث",
+    "tags": [
+      "بحث",
+      "برمجة",
+      "تسويق",
+      "تحليل"
+    ],
+    "featuresTitle": "مصمم للمطورين",
+    "featuresSubtitle": "اربط أي قدرة ذكاء اصطناعي، وابنِ الجيل القادم من التطبيقات الذكية.",
+    "trendingTitle": "المهارات الرائجة",
+    "trendingSubtitle": "أكثر المهارات تكاملاً هذا الأسبوع.",
+    "viewAll": "عرض الكل",
+    "stable": "مستقر",
+    "installs": "تثبيت",
+    "footerDesc": "المعيار المفتوح لوكالة AI. مصمم لمستقبل العمل.",
+    "official": {
+      "title": "مجموعات المهارات الرسمية",
+      "featured": "مميز",
+      "viewAll": "عرض جميع المجموعات الرسمية"
+    },
+    "cta": {
+      "title": "ابدأ باستخدام Killer Skills",
+      "subtitle": "ثبّت المهارات بأمر واحد وعزز مساعد AI",
+      "browse": "تصفح المهارات",
+      "docs": "عرض المستندات"
+    },
+    "features": {
+      "0": {
+        "title": "دعم متعدد لـ IDE",
+        "desc": "يتكامل بسلاسة مع Cursor و Windsurf و Claude Code."
+      },
+      "1": {
+        "title": "بروتوكول قياسي",
+        "desc": "مبني على MCP. اكتب مرة واحدة، وشغله في كل مكان."
+      },
+      "2": {
+        "title": "جودة منتقاة",
+        "desc": "مهارات تم التحقق منها وتم اختيارها بعناية وتقييمها عالياً."
+      },
+      "3": {
+        "title": "مفتوح المصدر",
+        "desc": "شفاف وآمن ومدعوم من المجتمع."
+      }
+    }
+  },
+  "Sidebar": {
+    "discover": "اكتشف",
+    "views": {
+      "official": "رسمي",
+      "featured": "مميز",
+      "latest": "الأحدث"
+    },
+    "categories": {
+      "title": "الفئات",
+      "all": "الكل",
+      "browser": "المتصفح",
+      "finance": "المالية",
+      "productivity": "الإنتاجية",
+      "developer": "مطور",
+      "data": "البيانات",
+      "ai": "الذكاء الاصطناعي",
+      "design": "تصميم"
+    },
+    "frameworks": "أطر العمل"
+  },
+  "Stats": {
+    "totalSkills": "إجمالي المهارات",
+    "activeUsers": "المستخدمون النشطون",
+    "supportedIDEs": "IDEs المدعومة",
+    "dailyInstalls": "التثبيتات اليومية",
+    "ecosystemGrowth": "نمو النظام البيئي",
+    "totalDownloads": "إجمالي التحميلات",
+    "activeCreators": "المبدعون النشطون",
+    "skills": "مهارات"
+  },
+  "Common": {
+    "home": "الرئيسية",
+    "skillsMarket": "سوق المهارات",
+    "language": "اللغة",
+    "theme": "سمة",
+    "chinese": "الصينية",
+    "english": "الإنجليزية",
+    "searchPlaceholder": "ابحث عن القدرات (مثل: 'تجريف الويب')",
+    "search": "بحث",
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "back": "رجوع",
+    "prev": "السابق",
+    "next": "التالي",
+    "pageInfo": "صفحة {current} من {total}",
+    "official": "رسمي",
+    "verified": "موثق",
+    "explore": "Explore",
+    "viewAll": "عرض الكل"
+  },
+  "OfficialSkills": {
+    "title": "المهارات الرسمية",
+    "verified": "موثق",
+    "subtitle": "مهارات عالية الجودة يديرها الفريق الأساسي والشركاء الموثوقون."
+  },
+  "Footer": {
+    "desc": "المعيار المفتوح لوكالة AI. مصمم لمستقبل العمل.",
+    "product": "المنتج",
+    "resources": "الموارد",
+    "stayUpdated": "ابق على اطلاع",
+    "subscribeDesc": "احصل على أحدث المهارات والتحديثات على بريدك الإلكتروني.",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "browse": "تصفح المهارات",
+    "docs": "التوثيق",
+    "cli": "أداة CLI",
+    "integrations": "التكاملات",
+    "community": "المجتمع",
+    "showcase": "العرض",
+    "blog": "المدونة",
+    "help": "مركز المساعدة",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الخدمة",
+    "cookie": "سياسة ملفات تعريف الارتباط",
+    "rights": "جميع الحقوق محفوظة."
+  },
+  "Marketplace": {
+    "title": "كل المهارات",
+    "official": "المهارات الرسمية",
+    "officialDesc": "مهارات معتمدة عالية الجودة تتم صيانتها بواسطة فرق رسمية",
+    "featured": "مهارات مختارة",
+    "featuredDesc": "المهارات الأعلى تقييماً والأكثر شيوعاً من المجتمع",
+    "latest": "أحدث الاكتشافات",
+    "latestDesc": "استكشف أحدث مهارات وكيل AI والابتكارات",
+    "allPurpose": "كل المهارات",
+    "allPurposeDesc": "اكتشف وثبّت وأدر أكثر من 1000+ مهارة لوكيل AI",
+    "discover": "اكتشف",
+    "latestSkills": "أحدث المهارات",
+    "allSkills": "كل المهارات",
+    "browseRelated": "تصفح مهارات وكيل AI المتعلقة بـ {title}",
+    "browseOwner": "تصفح المهارات من {owner}",
+    "searchPrefix": "بحث: {query}",
+    "browsing": "تصفح:",
+    "noSkills": "لا توجد مهارات",
+    "noSkillsHint": "جرب تعديل مصطلحات البحث أو التصفح حسب الفئة",
+    "viewAll": "عرض الكل",
+    "availableSkills": "المهارات المتاحة",
+    "viewSkills": "عرض المهارات",
+    "popular": "Popular"
+  },
+  "Categories": {
+    "development": "تطوير",
+    "documentation": "توثيق",
+    "testing": "اختبار",
+    "data": "البيانات والتحليلات",
+    "ai": "الذكاء الاصطناعي وتعلم الآلة",
+    "devops": "ديف أوبس",
+    "design": "تصميم",
+    "productivity": "إنتاجية",
+    "code-review": "مراجعة الكود",
+    "git": "Git",
+    "cli": "CLI",
+    "library": "مكتبة",
+    "api": "API",
+    "database": "قاعدة بيانات",
+    "browser": "متصفح",
+    "search": "بحث",
+    "web-scraping": "تجريف الويب",
+    "automation": "أتمتة",
+    "social": "وسائل التواصل الاجتماعي",
+    "browseByCategory": "تصفح حسب الفئة",
+    "skillCategories": "فئات المهارات",
+    "relatedSkills": "مهارات ذات صلة",
+    "viewAll": "عرض الكل",
+    "noSkills": "لا توجد مهارات",
+    "heroDesc": "استكشف أنواع مختلفة من مهارات AI واعثر على الأدوات المثالية لك"
+  },
+  "Metadata": {
+    "title": "Killer-Skills - سوق مهارات وكيل AI",
+    "template": "%s | Killer-Skills",
+    "description": "اكتشف وثبّت وأدر مهارات وكيل AI. دعم لـ Claude Code و Cursor و Windsurf.",
+    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
+    "Skills": {
+      "title": "سوق المهارات - اكتشف مهارات وكيل AI",
+      "description": "تصفح وثبّت آلاف مهارات وكيل AI في Killer-Skills. متوافق مع Claude Code و Windsurf و Cursor والمزيد."
+    }
+  },
+  "Personal": {
+    "myFavorites": "المفضلة",
+    "favoritesCount": "{count} مهارات",
+    "noFavorites": "لا توجد مفضلات بعد",
+    "noFavoritesHint": "تصفح سوق المهارات وانقر على أيقونة القلب للحفظ",
+    "browseSkills": "تصفح المهارات",
+    "removeFavorite": "إزالة",
+    "savedAt": "تم الحفظ {date}",
+    "browsingHistory": "سجل التصفح",
+    "historyCount": "{count} مهارات",
+    "clearHistory": "مسح الكل",
+    "noHistory": "لا يوجد سجل تصفح",
+    "noHistoryHint": "سيظهر سجل التصفح هنا بعد عرض تفاصيل المهارات",
+    "removeHistory": "إزالة",
+    "time": {
+      "justNow": "الآن",
+      "agoM": "منذ {count} دقيقة",
+      "agoH": "منذ {count} ساعة",
+      "agoD": "منذ {count} يوم"
+    }
+  },
+  "Community": {
+    "title": "المجتمع",
+    "join": "انضم إلى المجتمع",
+    "contribute": "ساهم بكود",
+    "readGuide": "اقرأ دليل المساهمة ->",
+    "shareFeedback": "شارك ملاحظاتك",
+    "submitIssue": "أرسل مشكلة ->",
+    "cards": {
+      "source": {
+        "title": "مفتوح المصدر",
+        "desc": "الكود والمشكلات وطلبات السحب."
+      },
+      "chat": {
+        "title": "Discord",
+        "desc": "دردشة فورية ودعم."
+      },
+      "news": {
+        "title": "Twitter",
+        "desc": "آخر الأخبار والتحديثات."
+      }
+    },
+    "heroDesc": "نحن نبني نظام بيئي مفتوح المصدر لعصر AI. سواء كنت مطوراً أو منشئاً أو مستخدماً، مكانك هنا.",
+    "contributeDesc": "Killer-Skills مفتوح المصدر بالكامل. يمكنك إرسال PR لإصلاح الأخطاء أو إضافة ميزات أو المساهمة بمهارات جديدة.",
+    "feedbackDesc": "لديك فكرة؟ وجدت خطأ؟ أخبرنا على Github Issues أو Discord."
+  },
+  "Integrations": {
+    "worksWhereYouWork": "يعمل أينما تعمل",
+    "viewGuide": "عرض دليل الإعداد",
+    "missingTool": "هل أداتك غير موجودة؟",
+    "learnProtocol": "تعرف على البروتوكول",
+    "cards": {
+      "cursor": {
+        "desc": "ربما أفضل محرر أكواد بAI حالياً."
+      },
+      "windsurf": {
+        "desc": "محرر ذكاء اصطناعي قوي من Codeium، مبني على VS Code."
+      },
+      "claude": {
+        "desc": "أداة CLI الرسمية من Anthropic للبرمجة بالوكيل."
+      },
+      "goose": {
+        "desc": "وكيل مطور ذكاء اصطناعي مفتوح المصدر من Block (Square)."
+      }
+    },
+    "heroDesc": "Killer-Skills يدعم بشكل أصلي جميع محررات AI وأطر الوكلاء الرئيسية المبنية على MCP.",
+    "missingToolDesc": "طالما يدعم MCP (Model Context Protocol)، سيعمل مع Killer-Skills."
+  },
+  "CLI": {
+    "heroTitle": "منصة Killer-Skills",
+    "heroSubtitle": "المعيار المفتوح لمهارات وكلاء الذكاء الاصطناعي",
+    "heroDesc": "سجل مركزي لأكثر من 1000 قدرة لوكلاء الذكاء الاصطناعي لديك. اكتشف وشارك وادمج المهارات في Cursor و Windsurf و Claude Code.",
+    "optionalNote": "ملاحظة: أداة CLI اختيارية. يمكنك استخدام المهارات مباشرة عبر npx دون تثبيت أي شيء.",
+    "install": "تثبيت الآن",
+    "viewDocs": "عرض التوثيق",
+    "latestVersion": "أحدث إصدار:",
+    "copyInstall": "npx killer-skills install <skill>",
+    "features": {
+      "autoInvoke": {
+        "title": "سجل عالمي",
+        "desc": "مكتبة ضخمة من المهارات المجتمعية والرسمية. من معالجة PDF إلى أتمتة المتصفح، ابحث عن كل ما يحتاجه وكيلك."
+      },
+      "syncAll": {
+        "title": "مزامنة عالمية",
+        "desc": "أمر واحد ليحكم الجميع. 'killer sync --all' يوزع المهارات فورًا على جميع بيئات التطوير المثبتة على جهازك."
+      },
+      "mcp": {
+        "title": "تكامل MCP عميق",
+        "desc": "يسمح خادم MCP المدمج للوكلاء بالتثبيت الذاتي لمهارات جديدة في وقت التشغيل. تطور ذاتي حقيقي."
+      },
+      "secure": {
+        "title": "أمان المؤسسات",
+        "desc": "تعمل جميع المهارات في بيئات معزولة. تضمن مصادقة GitHub Device Flow الوصول الآمن."
+      }
+    },
+    "terminal": {
+      "title": "تجربة المطور أولاً",
+      "login": "دخول آمن",
+      "loginDesc": "مصادقة GitHub Device Flow",
+      "sync": "مزامنة بنقرة واحدة",
+      "syncDesc": "نشر في 17+ IDE",
+      "do": "لغة طبيعية",
+      "doDesc": "تنفيذ مهام AI"
+    },
+    "comparison": {
+      "title": "لماذا Killer-Skills CLI؟",
+      "ks": "Killer-Skills CLI",
+      "others": "التلقين اليدوي",
+      "row1": "تثبيت بنقرة واحدة في 17+ IDE",
+      "row2": "استدعاء تلقائي (بدون إهدار نافذة السياق)",
+      "row3": "اكتشاف المهارات وقت التشغيل (MCP)",
+      "row4": "سجل مهارات آمن وموثق"
+    }
+  },
+  "SkillsManagerWidget": {
+    "title": "مدير المهارات",
+    "subtitle": "بوابة النظام البيئي",
+    "description": "أطلق العنان لإمكانيات لا حصر لها. اكتشف وثبّت ومكّن وكيل الذكاء الاصطناعي الخاص بك بأكثر من 1000 قدرة على الفور.",
+    "cta": "دخول المدير"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "ابنِ مكتبة مهارات الذكاء الاصطناعي الخاصة بك",
+    "subheadline": "مكّن الوكلاء من كتابة كود احترافي على الفور",
+    "cta": "بدء فوري بسطر واحد",
+    "install": "تثبيت",
+    "features": {
+      "multiPlatform": "متعدد المنصات",
+      "secureSandbox": "صندوق رمل آمن",
+      "hotReload": "إعادة تحميل سريع"
+    },
+    "copy": "نسخ",
+    "copied": "تم",
+    "viewOnNpm": "عرض على NPM"
+  },
+  "Docs": {
+    "gettingStarted": "البداية",
+    "tableOfContents": "في هذه الصفحة",
+    "editPage": "تعديل هذه الصفحة",
+    "lastUpdated": "آخر تحديث"
+  },
+  "DocsSidebar": {
+    "platformOverview": "نظرة عامة على المنصة",
+    "cliTooling": "أدوات CLI",
+    "gettingStarted": "البداية",
+    "introduction": "مقدمة",
+    "quickStart": "بداية سريعة",
+    "installation": "تثبيت",
+    "architecture": "هندسة معمارية",
+    "cliReference": "مرجع CLI",
+    "overview": "نظرة عامة",
+    "commands": "أوامر",
+    "configuration": "تكوين",
+    "coreConcepts": "مفاهيم أساسية",
+    "skills": "مهارات (Skills)",
+    "tools": "أدوات",
+    "workflows": "سير العمل",
+    "guides": "أدلة",
+    "creatingSkills": "إنشاء مهارات",
+    "integrations": "تكاملات",
+    "security": "أمان",
+    "apiReference": "مرجع API",
+    "restApi": "REST API",
+    "authentication": "مصادقة",
+    "community": "مجتمع",
+    "contributing": "مساهمة",
+    "codeOfConduct": "قواعد السلوك"
+  },
+  "Aria": {
+    "viewSkill": "View {name}",
+    "switchLanguage": "Switch Language",
+    "toggleTheme": "Toggle Theme",
+    "toggleMenu": "Toggle Menu",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "shareSkill": "Share this skill",
+    "backToSkills": "Back to skills",
+    "copyCommand": "Copy command"
+  }
+}
