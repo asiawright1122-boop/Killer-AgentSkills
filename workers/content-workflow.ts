@@ -56,6 +56,12 @@ interface ProcessedContent {
         body: Record<string, string>;
     };
     processedAt: string;
+    agentAnalysis?: {
+        suitability: string;
+        recommendation: string;
+        useCases: string[];
+        limitations: string[];
+    };
 }
 
 // 支持的语言
@@ -132,12 +138,21 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
             }
         );
 
-        // Step 6: 生成 AI FAQ
+        // Step 6: Generate AI FAQ
         const faq = await step.do(
             "generate-faq",
             { retries: { limit: 2, delay: "5 second" }, timeout: "3 minutes" },
             async () => {
                 return await this.generateFAQ(skillMd, seoContent.definition);
+            }
+        );
+
+        // Step 7: Generate Agent Analysis (New Phase 2)
+        const agentAnalysis = await step.do(
+            "generate-agent-analysis",
+            { retries: { limit: 2, delay: "5 second" }, timeout: "3 minutes" },
+            async () => {
+                return await this.generateAgentAnalysis(skillMd, seoContent.definition);
             }
         );
 
@@ -148,6 +163,7 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
             aiQualityScore: seoContent.qualityScore,
             aiQualityReason: seoContent.qualityReason,
             faq,
+            agentAnalysis,
             translations: {
                 description: translations.description,
                 body: translations.body,
@@ -443,6 +459,53 @@ ${JSON.stringify(faq, null, 2)}`;
         } catch {
             return faq;
         }
+    }
+
+    /**
+     * Phase 2: Generate Agent Analysis
+     */
+    private async generateAgentAnalysis(
+        skillMd: SkillMdContent,
+        seoDefinition: string
+    ): Promise<ProcessedContent['agentAnalysis'] | undefined> {
+        const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
+
+Skill: ${skillMd.name}
+Description: ${skillMd.description || seoDefinition}
+Content Preview:
+${skillMd.body.slice(0, 1500)}
+
+Analyze this skill and provide structured data optimized for SEO and Agent Developers:
+
+1. Suitability: A click-worthy one-sentence hook describing the *ideal* agent persona (e.g., "Perfect for Autonomous Python Coding Agents").
+2. Recommendation: A persuasive paragraph (2-3 sentences) on *why* to install this. Explicitly mention what "Superpower" it gives the agent.
+3. Use Cases: 3-5 specific, action-oriented scenarios. Use strong verbs and keywords (e.g., "Automating", "Scraping", "Debugging").
+4. Limitations: Any security warnings, API key requirements, or platform constraints (e.g., "No Sandbox", "Requires API Key").
+
+Return JSON ONLY:
+{
+  "suitability": "Essential for Python coding agents needing direct file system manipulation.",
+  "recommendation": "This skill grants your agent the ability to read, write, and patch files directly. It is a critical dependency for any autonomous coding workflow in Cursor or Windsurf.",
+  "useCases": ["Refactoring legacy implementations", "Automating test generation", "Scraping local log files"],
+  "limitations": ["Requires local filesystem permissions", "Not safe for untrusted sandboxes"]
+}`;
+
+        try {
+            const result = await this.callAI(prompt);
+            const jsonMatch = result.match(/\\{[\\s\\S]*\\}/);
+            if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+                return {
+                    suitability: parsed.suitability || "Suitable for general AI agents.",
+                    recommendation: parsed.recommendation || "",
+                    useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
+                    limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
+                };
+            }
+        } catch (e) {
+            console.error("Failed to generate agent analysis", e);
+        }
+        return undefined;
     }
 
     /**

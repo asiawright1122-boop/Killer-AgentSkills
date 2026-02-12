@@ -1,12 +1,13 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
-import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../../../../lib/skills';
+import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription, getRelatedSkills } from '../../../../lib/skills';
 import type { Env } from '../../../../lib/kv';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
-import { Github, Star, GitFork, Calendar, CheckCircle2, Terminal, Copy, ArrowLeft, ExternalLink, Box, Layers, Zap, Info, Heart, Command, Cpu, ChevronDown, ChevronRight } from 'lucide-react';
+import SkillCard from '../../../../components/SkillCard.astro';
+import { Github, Star, GitFork, Calendar, CheckCircle2, Terminal, Copy, ArrowLeft, ExternalLink, Box, Layers, Zap, Info, Heart, Command, Cpu, ChevronDown, ChevronRight, Bot, AlertTriangle } from 'lucide-react';
 
 export const prerender = false;
 
@@ -45,7 +46,12 @@ const t = useTranslations(messages);
 // Get localized description
 const rawDescription = getLocalizedDescription(skill.description, typedLocale);
 // Prefer SEO definition if available for the specific locale, otherwise fall back to standard description
-const description = skill.seo?.definition?.[typedLocale] || rawDescription;
+const baseDescription = skill.seo?.definition?.[typedLocale] || rawDescription;
+// For English, prepend the Agent Analysis "Suitability" hook if available for better CTR
+let description = baseDescription;
+if (typedLocale === 'en' && skill.agentAnalysis?.suitability) {
+    description = `${skill.agentAnalysis.suitability} ${baseDescription}`;
+}
 
 // Get key features
 const features = skill.seo?.features?.[typedLocale] || skill.seo?.features?.['en'] || [];
@@ -56,7 +62,8 @@ const features = skill.seo?.features?.[typedLocale] || skill.seo?.features?.['en
 const category = skill.category ? (t(`Categories.${skill.category}`) || skill.category) : '';
 // Use the first keyword or category as the "tagline"
 const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill'; 
-const pageTitle = `${skill.name || repo} - ${tagline} | ${t('Common.siteName')}`;
+// Optimized Title for "Agent Ready" intent
+const pageTitle = `${skill.name || repo}: ${tagline} (Agent Ready) | ${t('Common.siteName')}`;
 
 
 // Structured Data (JSON-LD) — SoftwareApplication
@@ -65,9 +72,19 @@ const schema = {
   "@type": "SoftwareApplication",
   "name": skill.name || repo,
   "operatingSystem": "Any",
+
   "applicationCategory": "DeveloperApplication",
-  "description": description,
+  // Inject "AI Agent Skill:" prefix for better CTR context
+  "description": `AI Agent Skill: ${description}`,
   "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+  // Inject AggregateRating based on QualityScore and Stars
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": Math.min(5, Math.max(1, ((skill.qualityScore || 80) / 20))).toFixed(1), // Convert 0-100 to 0-5
+    "ratingCount": Math.max(1, skill.stars || 1),
+    "bestRating": "5",
+    "worstRating": "1"
+  },
   "author": {
     "@type": "Organization",
     "name": owner,
@@ -140,7 +157,9 @@ const files = [
 ];
 
 const version = skill.skillMd?.version || '1.0.0';
-const isVerified = skill.source === 'verified' || skill.source === 'featured';
+// Fetch Related Skills (SEO Phase 3)
+// Limit to 4 to form a nice grid
+const relatedSkills = await getRelatedSkills(env, skill, 4);
 ---
 
 <Layout
@@ -375,7 +394,7 @@ const isVerified = skill.source === 'verified' || skill.source === 'featured';
                             {/* Progress Circle */}
                             <path
                                 class="text-green-500 dark:text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]"
-                                stroke-dasharray={`${(skill as any).qualityScore || 85}, 100`}
+                                stroke-dasharray={`${skill.qualityScore || 85}, 100`}
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
                                 stroke="currentColor"
@@ -384,7 +403,7 @@ const isVerified = skill.source === 'verified' || skill.source === 'featured';
                             />
                         </svg>
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white">{(skill as any).qualityScore || 85}</span>
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">{skill.qualityScore || 85}</span>
                         </div>
                     </div>
                     <div>
@@ -412,6 +431,75 @@ const isVerified = skill.source === 'verified' || skill.source === 'featured';
 
         {/* Right Column (Main Content) */}
         <div class="min-w-0">
+          
+          {skill.agentAnalysis && (
+            <div class="mb-8 rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-200/20 dark:border-purple-500/20 p-6 relative overflow-hidden">
+                {/* Background Accents */}
+                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+                <div class="relative z-10">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300">
+                            <Bot size={24} />
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                            {t('Detail.agentAnalysis') || 'Agent Compatibility Analysis'}
+                        </h2>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+                                {t('Detail.suitability') || 'Suitability'}
+                            </h3>
+                            <p class="text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+                                {skill.agentAnalysis.suitability}
+                            </p>
+                        </div>
+
+                        <div>
+                             <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+                                {t('Detail.recommendation') || 'Recommendation'}
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+                                {skill.agentAnalysis.recommendation}
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                            <div>
+                                <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                                     {t('Detail.useCases') || 'Use Cases'}
+                                </h3>
+                                <div class="flex flex-wrap gap-2">
+                                    {skill.agentAnalysis.useCases.map((useCase: string) => (
+                                        <div class="px-2.5 py-1 rounded-md bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-sm text-gray-700 dark:text-gray-300 shadow-sm">
+                                            {useCase}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {skill.agentAnalysis.limitations.length > 0 && (
+                                <div>
+                                    <h3 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">
+                                         {t('Detail.limitations') || 'Limitations'}
+                                    </h3>
+                                    <ul class="space-y-1">
+                                        {skill.agentAnalysis.limitations.map((limitation: string) => (
+                                            <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                                <AlertTriangle size={14} class="mt-0.5 text-amber-500 shrink-0" />
+                                                <span>{limitation}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          )}
             <SkillReadme
                 client:load
                 initialContent={readmeContent}
@@ -438,6 +526,31 @@ const isVerified = skill.source === 'verified' || skill.source === 'featured';
 
       </div>
     </main>
+
+    {/* Related Skills Section (SEO Phase 3) */}
+    {relatedSkills.length > 0 && (
+      <section class="border-t border-gray-200 dark:border-white/5 bg-white/50 dark:bg-black/20 backdrop-blur-sm py-16">
+        <div class="max-w-[1400px] mx-auto px-6">
+          <div class="flex items-center justify-between mb-8">
+             <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <Layers class="text-purple-500" />
+                {t('Detail.relatedSkills') || 'Related Skills'}
+             </h2>
+             <a href={`/${locale}/skills`} class="text-sm font-medium text-gray-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1">
+                {t('Common.viewAll')} <ChevronRight size={14} />
+             </a>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {relatedSkills.map(skill => (
+              <div class="h-full">
+                <SkillCard skill={skill} locale={locale} t={t} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
   </div>
 
   <script is:inline>
