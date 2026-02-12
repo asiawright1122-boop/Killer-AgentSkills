@@ -71,6 +71,20 @@ function saveData(items: HarvestedSkill[]) {
     console.log(`💾 Saved ${sorted.length} items to ${DATA_FILE}`);
 }
 
+/**
+ * 验证文件名是否为合法的 SKILL.md
+ * GitHub Code Search API 大小写不敏感，会返回 skill.md / Skill.md 等变体
+ * 只接受: SKILL.md, SKILL.MD 或路径中含 /skills/ 的文件
+ */
+function isValidSkillFile(filePath: string): boolean {
+    const fileName = filePath.split('/').pop() || '';
+    // 严格匹配: 文件名必须是 SKILL.md 或 SKILL.MD (全大写)
+    if (fileName === 'SKILL.md' || fileName === 'SKILL.MD') return true;
+    // 如果路径中包含 /skills/ 目录，也接受 (如 .claude/skills/xxx/SKILL.md)
+    if (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md') return true;
+    return false;
+}
+
 // 生成搜索查询策略
 function generateSearchStrategies() {
     const strategies = [];
@@ -89,15 +103,24 @@ function generateSearchStrategies() {
         strategies.push(`filename:SKILL.md path:${p}`);
     }
 
-    // 3. 按时间切片 (补漏) - 2024年
-    const months = [
-        '2024-01-01..2024-03-31',
-        '2024-04-01..2024-06-30',
-        '2024-07-01..2024-09-30',
-        '2024-10-01..2024-12-31',
-        '2025-01-01..2025-03-31',
-    ];
-    for (const dateRange of months) {
+    // 3. 动态时间切片 — 从 2024-01 到当前季度，自动追加新范围
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth(); // 0-indexed
+    const quarters: string[] = [];
+
+    for (let year = 2024; year <= currentYear; year++) {
+        const maxQ = year === currentYear ? Math.floor(currentMonth / 3) : 3;
+        for (let q = 0; q <= maxQ; q++) {
+            const startMonth = q * 3 + 1;
+            const endMonth = q * 3 + 3;
+            const start = `${year}-${String(startMonth).padStart(2, '0')}-01`;
+            const endDay = new Date(year, endMonth, 0).getDate(); // last day of end month
+            const end = `${year}-${String(endMonth).padStart(2, '0')}-${String(endDay).padStart(2, '0')}`;
+            quarters.push(`${start}..${end}`);
+        }
+    }
+    for (const dateRange of quarters) {
         strategies.push(`filename:SKILL.md pushed:${dateRange}`);
     }
 
@@ -146,7 +169,8 @@ async function main() {
 
     // 1. 加载现有数据建立索引
     const allSkills = loadExisting();
-    const existingKeys = new Set(allSkills.map(s => `${s.owner}/${s.repo}`));
+    // Bug Fix: 使用 owner/repo/filePath 作为去重键，支持多 Skill 仓库
+    const existingKeys = new Set(allSkills.map(s => `${s.owner}/${s.repo}/${s.filePath}`));
     console.log(`📚 Loaded ${allSkills.length} existing skills.`);
 
     // 2. 生成搜索策略
@@ -159,6 +183,7 @@ async function main() {
 
     const strategies = generateSearchStrategies();
     let newFoundCount = 0;
+    let skippedCount = 0;
 
     // 3. 执行搜索
     for (const query of strategies) {
@@ -180,7 +205,16 @@ async function main() {
 
             let pageNewCount = 0;
             for (const item of items) {
-                const key = `${item.repository.owner.login}/${item.repository.name}`;
+                const filePath = item.path;
+
+                // Bug Fix: 严格验证文件名，过滤 skill.md / Skill.md 等误报
+                if (!isValidSkillFile(filePath)) {
+                    skippedCount++;
+                    continue;
+                }
+
+                // Bug Fix: 使用 owner/repo/filePath 作为去重键
+                const key = `${item.repository.owner.login}/${item.repository.name}/${filePath}`;
 
                 if (existingKeys.has(key)) continue;
 
@@ -192,7 +226,7 @@ async function main() {
                     stars: item.repository.stargazers_count,
                     topics: item.repository.topics || [],
                     updatedAt: item.repository.updated_at,
-                    filePath: item.path
+                    filePath: filePath
                 };
 
                 allSkills.push(skill); // 加入主列表
@@ -212,7 +246,7 @@ async function main() {
         }
     }
 
-    console.log(`\n✅ Harvest complete! Found ${newFoundCount} new skills.`);
+    console.log(`\n✅ Harvest complete! Found ${newFoundCount} new skills. (Skipped ${skippedCount} false positives)`);
     console.log(`📚 Total Database Size: ${allSkills.length}`);
 }
 

@@ -27,6 +27,14 @@ interface SeoData {
     keywords: Record<string, string[]>;
 }
 
+// Agent Analysis Data Structure
+interface AgentAnalysis {
+    suitability: string;
+    recommendation: string;
+    useCases: string[];
+    limitations: string[];
+}
+
 // 缓存数据结构
 interface SkillCache {
     id: string;
@@ -51,6 +59,7 @@ interface SkillCache {
     category?: string;
     lastSynced: string;
     seo?: SeoData;
+    agentAnalysis?: AgentAnalysis;
 }
 
 interface CacheData {
@@ -583,6 +592,59 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
     return defaultResult;
 }
 
+/**
+ * Generate Agent Analysis (Suitability, Recommendation, Use Cases)
+ */
+async function generateAgentAnalysis(
+    skillName: string,
+    description: string,
+    bodyPreview: string
+): Promise<AgentAnalysis | undefined> {
+    const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
+
+Skill: ${skillName}
+Description: ${description}
+Content Preview:
+${bodyPreview.slice(0, 1500)}
+
+Analyze this skill and provide structured data optimized for SEO and Agent Developers:
+
+1. Suitability: A click-worthy one-sentence hook describing the *ideal* agent persona (e.g., "Perfect for Autonomous Python Coding Agents").
+2. Recommendation: A persuasive paragraph (2-3 sentences) on *why* to install this. Explicitly mention what "Superpower" it gives the agent.
+3. Use Cases: 3-5 specific, action-oriented scenarios. Use strong verbs and keywords (e.g., "Automating", "Scraping", "Debugging").
+4. Limitations: Any security warnings, API key requirements, or platform constraints (e.g., "No Sandbox", "Requires API Key").
+
+Return JSON ONLY:
+{
+  "suitability": "Essential for Python coding agents needing direct file system manipulation.",
+  "recommendation": "This skill grants your agent the ability to read, write, and patch files directly. It is a critical dependency for any autonomous coding workflow in Cursor or Windsurf.",
+  "useCases": ["Refactoring legacy implementations", "Automating test generation", "Scraping local log files"],
+  "limitations": ["Requires local filesystem permissions", "Not safe for untrusted sandboxes"]
+}`;
+
+    // Use AI to generate analysis
+    // We reuse simple callAI logic here.
+    try {
+        const result = await callAI(prompt, true, false); // Try NVIDIA/SiliconFlow first
+        if (result) {
+            // Extract JSON
+            const jsonMatch = result.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+                return {
+                    suitability: parsed.suitability || "Suitable for general AI agents.",
+                    recommendation: parsed.recommendation || "",
+                    useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
+                    limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
+                };
+            }
+        }
+    } catch (e) {
+        console.error(`Failed to generate agent analysis for ${skillName}`, e);
+    }
+    return undefined;
+}
+
 // SEO 数据现在直接从缓存的 description 字段获取，无需单独生成
 
 // 官方仓库列表 — 从 src/lib/shared/official-repos.ts 导入 (单一数据源)
@@ -993,9 +1055,12 @@ async function buildCache(): Promise<void> {
     const skills: SkillCache[] = [];
     const processedRepos = new Set<string>();
 
-    // Helper: 检查翻译是否完整 (所有 9 种语言都有 SEO 数据)
+    // Helper: 检查翻译是否完整 (所有 9 种语言都有 SEO 数据 且包含 agentAnalysis)
     function isTranslationComplete(skill: SkillCache): boolean {
         if (!skill.seo || !skill.description) return false;
+
+        // NEW: Check for Agent Analysis
+        if (!skill.agentAnalysis) return false;
 
         // 检查 description 是否有所有语言版本
         const desc = skill.description;
@@ -1167,6 +1232,12 @@ async function buildCache(): Promise<void> {
                                 seo: metadata.seo,
                             };
 
+                            // Generate Agent Analysis
+                            const agentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
+                            if (agentAnalysis) {
+                                skill.agentAnalysis = agentAnalysis;
+                            }
+
                             console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
                             skill.qualityScore = calculateQualityScore(skill);
                             skills.push(skill);
@@ -1219,6 +1290,13 @@ async function buildCache(): Promise<void> {
                         category: 'official',
                         lastSynced: new Date().toISOString(),
                     };
+
+                    // Generate Agent Analysis
+                    const agentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
+                    if (agentAnalysis) {
+                        skill.agentAnalysis = agentAnalysis;
+                    }
+
                     skill.qualityScore = calculateQualityScore(skill);
                     skills.push(skill);
                     process.stdout.write('.');
@@ -1272,12 +1350,18 @@ async function buildCache(): Promise<void> {
         }
 
         const repoPath = `${ownerLogin}/${repoName}`;
+        // Bug Fix: 使用 repoPath + filePath 作为去重键，支持多 Skill 仓库
+        const dedupeKey = filePath ? `${repoPath}/${filePath}` : repoPath;
 
-        // Skip if already processed or already in cache
-        if (processedRepos.has(repoPath)) continue;
-        if (existingMap.has(repoPath)) {
-            // Already in cache, preserve it
-            continue;
+        // Skip if already processed
+        if (processedRepos.has(dedupeKey)) continue;
+
+        // Bug Fix: 严格验证文件名，过滤 skill.md / Skill.md 等误报
+        if (filePath) {
+            const fileName = filePath.split('/').pop() || '';
+            const isValidFile = fileName === 'SKILL.md' || fileName === 'SKILL.MD'
+                || (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
+            if (!isValidFile) continue;
         }
 
         // 1. Fetch content if not available (harvested items only have metadata)
@@ -1416,6 +1500,7 @@ async function buildCache(): Promise<void> {
             name: skillMd.name,
             description: metadata.description,
             seo: metadata.seo,
+            agentAnalysis: undefined, // Will be populated in update step
             owner: item.owner,
             repo: item.repo,
             repoPath: `${item.owner}/${item.repo}`,
@@ -1540,6 +1625,13 @@ async function buildCache(): Promise<void> {
                 const metadata = await processMetadata(skill.id, rawDesc, context);
                 skill.description = metadata.description;
                 skill.seo = metadata.seo;
+
+                // Generate Agent Analysis
+                const agentAnalysis = await generateAgentAnalysis(skill.name, currentDesc, context.bodyPreview || '');
+                if (agentAnalysis) {
+                    skill.agentAnalysis = agentAnalysis;
+                }
+
                 skill.lastSynced = new Date().toISOString();
 
                 skills.push(skill);
