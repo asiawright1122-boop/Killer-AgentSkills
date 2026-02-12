@@ -1,0 +1,254 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SkillCard from '../components/SkillCard.astro';
+import CollectionCard from '../components/CollectionCard.astro';
+import SkillsSidebar from '../components/SkillsSidebar.astro';
+import { getCollection } from 'astro:content';
+import { OFFICIAL_REPOS } from '../lib/skills-config';
+import { getLangFromUrl, useTranslations, loadMessages } from '../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const messages = await loadMessages(lang);
+const t = useTranslations(messages);
+
+// Data Fetching
+const allSkills = await getCollection('skills');
+
+// Query Params
+const { searchParams } = Astro.url;
+const category = searchParams.get('category') || 'all';
+const view = searchParams.get('view') || '';
+const owner = searchParams.get('owner') || '';
+
+console.log('DEBUG: view=', view, 'owner=', owner);
+
+const page = parseInt(searchParams.get('page') || '1');
+const perPage = 12;
+
+// Identify Official & Featured Skills
+const officialOwners = Object.values(OFFICIAL_REPOS)
+    .filter(r => r.type === 'official')
+    .map(r => r.owner);
+
+console.log('DEBUG: officialOwners=', officialOwners);
+
+const featuredOwners = Object.values(OFFICIAL_REPOS)
+    .filter(r => r.type === 'featured')
+    .map(r => r.owner);
+
+// Filter by view
+let filteredSkills = [...allSkills];
+
+if (view === 'official') {
+    filteredSkills = allSkills.filter(s => officialOwners.includes(s.data.owner));
+} else if (view === 'featured') {
+    filteredSkills = allSkills.filter(s => featuredOwners.includes(s.data.owner));
+} else if (view === 'latest') {
+    filteredSkills = [...allSkills].sort((a, b) => 
+        new Date(b.data.updatedAt || 0).getTime() - new Date(a.data.updatedAt || 0).getTime()
+    );
+}
+
+// Filter by owner
+if (owner) {
+    filteredSkills = filteredSkills.filter(s => s.data.owner === owner);
+}
+
+// Filter by category
+if (category !== 'all') {
+    filteredSkills = filteredSkills.filter(s => {
+        const topics = s.data.topics || [];
+        return topics.some((t: string) => t.toLowerCase().includes(category.toLowerCase()));
+    });
+}
+
+// Sort by stars (default)
+filteredSkills.sort((a, b) => (b.data.stars || 0) - (a.data.stars || 0));
+
+// Pagination
+const totalSkills = filteredSkills.length;
+const totalPages = Math.ceil(totalSkills / perPage);
+const startIndex = (page - 1) * perPage;
+const paginatedSkills = filteredSkills.slice(startIndex, startIndex + perPage);
+
+// Active filters for display
+const activeFilters: {label: string; href: string}[] = [];
+if (view) activeFilters.push({ label: `View: ${view}`, href: `/skills` });
+if (owner) activeFilters.push({ label: `Owner: ${owner}`, href: `/skills?view=${view}` });
+if (category !== 'all') activeFilters.push({ label: `Category: ${category}`, href: `/skills?view=${view}&owner=${owner}` });
+
+// Page title
+let pageTitle = 'All Skills';
+if (view === 'official') pageTitle = 'Official Skills';
+if (view === 'featured') pageTitle = 'Featured Skills';
+if (view === 'latest') pageTitle = 'Latest Skills';
+if (owner) {
+    const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
+    pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
+}
+---
+
+<Layout title={`${pageTitle} - AI Skills Directory`}>
+    <div style="background: var(--muted);" class="min-h-screen">
+        
+        <!-- Header Section -->
+        <div style="background: var(--card); border-bottom: 1px solid var(--border);" class="pt-12 pb-8 md:pt-16 md:pb-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold mb-2 tracking-tight">
+                            {pageTitle}
+                        </h1>
+                        <p style="color: var(--muted-foreground);" class="text-lg">
+                            {totalSkills} skills found
+                        </p>
+                    </div>
+                    
+                    <!-- Active Filters -->
+                    {activeFilters.length > 0 && (
+                        <div class="flex flex-wrap gap-2">
+                            {activeFilters.map(filter => (
+                                <a 
+                                    href={filter.href}
+                                    class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
+                                    style="background: var(--tag-bg); color: var(--tag-text);"
+                                >
+                                    {filter.label}
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </a>
+                            ))}
+                            <a 
+                                href="/skills"
+                                class="inline-flex items-center px-3 py-1.5 rounded-lg text-sm font-medium transition-colors"
+                                style="background: var(--secondary); color: var(--secondary-foreground);"
+                            >
+                                Clear all
+                            </a>
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row gap-8 lg:gap-12">
+                
+                <!-- Sidebar -->
+                <SkillsSidebar activeCategory={category} activeView={view} />
+
+                <!-- Main Content -->
+                <div class="flex-1 min-w-0">
+                    
+                    <!-- Official Collections View -->
+                    {view === 'official' && !owner ? (
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                            {(() => {
+                                // Group skills by owner for Official view
+                                const skillsByOwner = filteredSkills.reduce((acc, skill) => {
+                                    const skillOwner = skill.data.owner;
+                                    acc[skillOwner] = (acc[skillOwner] || 0) + 1;
+                                    return acc;
+                                }, {} as Record<string, number>);
+
+                                return Object.entries(skillsByOwner).map(([ownerName, count]) => (
+                                    <CollectionCard owner={ownerName} count={count} locale={lang} />
+                                ));
+                            })()}
+                        </div>
+                    ) : (
+                        /* Standard Grid */
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                            {paginatedSkills.map(skill => (
+                                <SkillCard skill={skill} locale={lang} />
+                            ))}
+                        </div>
+                    )}
+                    
+                    <!-- Empty State -->
+                    {paginatedSkills.length === 0 && (
+                        <div class="text-center py-20 glass-card rounded-2xl">
+                            <svg class="w-16 h-16 mx-auto mb-4 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <p style="color: var(--muted-foreground);">No skills found matching your criteria.</p>
+                            <a href="/skills" class="inline-block mt-4 px-4 py-2 rounded-lg font-medium" style="background: var(--primary); color: var(--primary-foreground);">
+                                View all skills
+                            </a>
+                        </div>
+                    )}
+                    
+                    <!-- Pagination (Hidden for Collections View) -->
+                    {totalPages > 1 && !(view === 'official' && !owner) && (
+                        <nav class="flex items-center justify-center gap-2">
+                            <!-- Previous -->
+                            {page > 1 ? (
+                                <a 
+                                    href={`/skills?${new URLSearchParams({...Object.fromEntries(searchParams), page: String(page - 1)})}`}
+                                    class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                    style="background: var(--secondary);"
+                                >
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                    Previous
+                                </a>
+                            ) : (
+                                <span class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium opacity-50" style="background: var(--secondary);">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                                    </svg>
+                                    Previous
+                                </span>
+                            )}
+                            
+                            <!-- Page Numbers -->
+                            <div class="flex items-center gap-1">
+                                {Array.from({length: Math.min(5, totalPages)}, (_, i) => {
+                                    const pageNum = page <= 3 ? i + 1 : page + i - 2;
+                                    if (pageNum < 1 || pageNum > totalPages) return null;
+                                    return (
+                                        <a 
+                                            href={`/skills?${new URLSearchParams({...Object.fromEntries(searchParams), page: String(pageNum)})}`}
+                                            class:list={[
+                                                "w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors",
+                                                pageNum === page 
+                                                    ? "bg-[var(--primary)] text-[var(--primary-foreground)]" 
+                                                    : "hover:bg-[var(--secondary)]"
+                                            ]}
+                                        >
+                                            {pageNum}
+                                        </a>
+                                    );
+                                })}
+                            </div>
+                            
+                            <!-- Next -->
+                            {page < totalPages ? (
+                                <a 
+                                    href={`/skills?${new URLSearchParams({...Object.fromEntries(searchParams), page: String(page + 1)})}`}
+                                    class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                                    style="background: var(--secondary);"
+                                >
+                                    Next
+                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </a>
+                            ) : (
+                                <span class="inline-flex items-center px-4 py-2 rounded-lg text-sm font-medium opacity-50" style="background: var(--secondary);">
+                                    Next
+                                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                    </svg>
+                                </span>
+                            )}
+                        </nav>
+                    )}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

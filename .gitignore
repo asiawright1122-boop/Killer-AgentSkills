@@ -1,0 +1,40 @@
+# build output
+dist/
+*.tar.gz
+packages/og-server/node_modules/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+pnpm-debug.log*
+
+# logs
+logs/
+discovery.log
+
+# environment variables
+.env
+.env.production
+
+# jetbrains setting folder
+.idea/
+
+# Custom Backups
+_backup_nextjs_v1/
+
+# System / Editor
+.kiro/
+.windsurf/
+.wrangler/
+.vscode/
+
+# Local Env
+.env.local
+.DS_Store

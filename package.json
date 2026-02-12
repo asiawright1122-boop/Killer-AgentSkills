@@ -1,0 +1,56 @@
+{
+  "name": "killer-skills",
+  "type": "module",
+  "version": "0.0.1",
+  "homepage": "https://killer-skills.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/asiawright1122-boop/Killer-AgentSkills.git"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "wrangler pages dev dist",
+    "deploy": "wrangler pages deploy dist --project-name killer-skills",
+    "astro": "astro",
+    "test": "vitest --run",
+    "sync:kv": "npx tsx scripts/sync-to-kv.ts",
+    "build:cache": "npx tsx scripts/build-skills-cache.ts",
+    "skills:harvest": "npx tsx scripts/harvest-github-skills.ts",
+    "pipeline:run": "./scripts/run-pipeline.sh",
+    "build:docs": "npx tsx scripts/build-docs-cache.ts",
+    "build:all": "npm run build:cache && npm run sync:kv",
+    "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^3.0.27",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/cloudflare": "^12.6.12",
+    "@astrojs/react": "^4.4.2",
+    "@nanostores/react": "^1.0.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "ai": "^6.0.82",
+    "astro": "^5.17.1",
+    "dotenv": "^17.2.4",
+    "fuse.js": "^7.1.0",
+    "lucide-react": "^0.563.0",
+    "nanostores": "^1.1.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^16.1.0",
+    "remark-gfm": "^4.0.1",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "fast-check": "^4.5.3",
+    "pm2": "^6.0.14",
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.18"
+  }
+}

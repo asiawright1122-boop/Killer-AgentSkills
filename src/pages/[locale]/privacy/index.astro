@@ -1,0 +1,95 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+
+export const prerender = false;
+
+// Validate locale
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+const pageTitle = t('Footer.privacy');
+const pageDescription = `${t('Footer.privacy')} — Killer-Skills`;
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription}>
+  <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
+
+    <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-12 pb-8 md:pt-16 md:pb-12">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
+          {pageTitle}
+        </h1>
+        <p class="text-sm text-slate-500">Last updated: January 1, 2025</p>
+      </div>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <article class="prose prose-slate dark:prose-invert max-w-none">
+        <h2>1. Information We Collect</h2>
+        <p>
+          Killer-Skills collects minimal information to provide and improve the Service:
+        </p>
+        <ul>
+          <li><strong>Usage Data:</strong> Anonymous analytics about page visits and feature usage</li>
+          <li><strong>Cookies:</strong> Language preference and theme settings stored locally</li>
+          <li><strong>IP Address:</strong> Used for language detection via Cloudflare's CF-IPCountry header (not stored)</li>
+        </ul>
+
+        <h2>2. How We Use Information</h2>
+        <p>We use collected information to:</p>
+        <ul>
+          <li>Provide language-appropriate content based on your location</li>
+          <li>Remember your language and theme preferences</li>
+          <li>Improve the Service through anonymous usage analytics</li>
+        </ul>
+
+        <h2>3. Data Storage</h2>
+        <p>
+          Killer-Skills stores user preferences (favorites, browsing history) locally in your browser
+          using localStorage. This data never leaves your device and is not transmitted to our servers.
+        </p>
+
+        <h2>4. Third-Party Services</h2>
+        <p>
+          The Service is hosted on Cloudflare Workers. Skills listed on the platform link to third-party
+          repositories (primarily GitHub). Please review the privacy policies of these services separately.
+        </p>
+
+        <h2>5. Data Retention</h2>
+        <p>
+          We do not store personal data on our servers. Browser-based data (localStorage) persists until
+          you clear your browser data or manually remove it.
+        </p>
+
+        <h2>6. Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+          <li>Clear your local data at any time through your browser settings</li>
+          <li>Disable cookies through your browser preferences</li>
+          <li>Request information about any data we may hold</li>
+        </ul>
+
+        <h2>7. Changes to This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. Changes will be posted on this page
+          with an updated revision date.
+        </p>
+
+        <h2>8. Contact</h2>
+        <p>
+          For privacy-related inquiries, please contact us through our
+          <a href="https://github.com/anthropics/skills/issues" class="text-cyan-600 dark:text-cyan-400">GitHub repository</a>.
+        </p>
+      </article>
+    </div>
+  </div>
+</Layout>

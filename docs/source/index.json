@@ -1,0 +1,154 @@
+{
+    "version": 1,
+    "pages": [
+        {
+            "slug": "index",
+            "title": "Introduction",
+            "section": "getting-started",
+            "content": "<p class=\"lead\">Killer-Skills is the open standard for AI agent capabilities. It connects your AI assistant (Cursor, Claude, Windsurf) to a massive library of community-built skills.</p>\n\n<h2>One Platform, Any Agent</h2>\n<p>Killer-Skills acts as a bridge between AI agents and capabilities. Whether you need your agent to read PDFs, generate charts, or interact with databases, there's likely a skill for that.</p>\n\n<h2>Why Killer-Skills?</h2>\n<ul>\n<li><strong>Universal Compatibility</strong>: Works with Cursor, Windsurf, Claude Code, and more.</li>\n<li><strong>No Vendor Lock-in</strong>: Open source and community-driven.</li>\n<li><strong>Standard Protocol</strong>: Built on the Model Context Protocol (MCP).</li>\n</ul>\n\n<h2>Ready to dive in?</h2>\n<p>Check out the <a href=\"/docs/getting-started\">Quick Start</a> guide to empower your AI in seconds.</p>"
+        },
+        {
+            "slug": "getting-started",
+            "title": "Quick Start",
+            "section": "getting-started",
+            "content": "<h2>Zero-Install Usage</h2>\n<p>The fastest way to use Killer-Skills is via <code>npx</code>. You don't need to install anything globally.</p>\n\n<h3>Run a Skill</h3>\n<pre><code>npx killer-skills install <skill-name></code></pre>\n<p>This command will:</p>\n<ol>\n<li>Download the skill from the registry</li>\n<li>Configure it for your current IDE (Cursor, VS Code, etc.)</li>\n<li>That's it! You can now use the skill.</li>\n</ol>\n\n<h3>Interactive Mode</h3>\n<p>Not sure what to do? Just run:</p>\n<pre><code>npx killer-skills</code></pre>\n<p>This launches the interactive menu where you can browse and manage skills.</p>"
+        },
+        {
+            "slug": "installation",
+            "title": "Usage & Installation",
+            "section": "getting-started",
+            "content": "<h2>Option 1: Zero-Install (Recommended)</h2>\n<p>We recommend using <code>npx</code> to run Killer-Skills on demand. This ensures you always use the latest version and keeps your global namespace clean.</p>\n<pre><code>npx killer-skills <command></code></pre>\n\n<h3>Common Commands</h3>\n<pre><code># Install a skill\nnpx killer-skills install pdf-compressor\n\n# List installed skills\nnpx killer-skills list\n\n# Search for skills\nnpx killer-skills search \"image\"</code></pre>\n\n<h2>Option 2: Global Installation</h2>\n<p>If you use Killer-Skills frequently, you can install the CLI globally for convenience.</p>\n<pre><code>npm install -g killer-skills</code></pre>\n\n<h3>Verify Installation</h3>\n<pre><code>killer-skills --version</code></pre>"
+        },
+        {
+            "slug": "architecture",
+            "title": "Architecture",
+            "section": "getting-started",
+            "content": "<h2>System Overview</h2>\n<p>Killer-Skills uses a modular architecture designed for extensibility and cross-platform compatibility.</p>\n\n<h2>Core Components</h2>\n<h3>Skills</h3>\n<p>Skills are atomic units of AI capability. Each skill is defined by a <code>SKILL.md</code> file that contains instructions for the AI agent.</p>\n\n<h3>Workflows</h3>\n<p>Workflows orchestrate multiple skills to accomplish complex tasks. They define step-by-step processes that the AI follows.</p>\n\n<h3>Tools</h3>\n<p>Tools are executable functions that skills can invoke, such as calling APIs, reading files, or running commands.</p>\n\n<h2>File Structure</h2>\n<pre><code>.agent/\n├── skills/\n│   └── my-skill/\n│       └── SKILL.md\n├── workflows/\n│   └── my-workflow.md\n└── config.json</code></pre>"
+        },
+        {
+            "slug": "cli",
+            "title": "CLI Overview",
+            "section": "cli",
+            "content": "<h2>Introduction</h2>\n<p>The Killer-Skills CLI is a powerful cross-platform tool for managing AI Agent Skills. It simplifies the discovery, installation, and update process for skills across various IDEs and environments.</p>\n\n<h2>Key Capabilities</h2>\n<ul>\n<li><strong>Unified Installation</strong> - One-click install from GitHub, Registry, or local paths</li>\n<li><strong>Universal IDE Support</strong> - Automatically configures Cursor, Windsurf, VS Code + Copilot</li>\n<li><strong>Project Initialization</strong> - Quickly scaffold new skill projects with templates</li>\n<li><strong>Registry Management</strong> - Publish and manage your own skills</li>\n</ul>\n\n<h2>Getting Help</h2>\n<pre><code>killer-skills --help</code></pre>\n<p>For help on a specific command:</p>\n<pre><code>killer-skills <command> --help</code></pre>"
+        },
+        {
+            "slug": "cli/commands",
+            "title": "Commands",
+            "section": "cli",
+            "content": "<h2>Core Commands</h2>\n\n<h3>install</h3>\n<p>Install a skill from the registry, GitHub, or local path.</p>\n<pre><code>killer-skills install <skill-name>\nkiller-skills install owner/repo\nkiller-skills install ./local-path</code></pre>\n\n<h3>create</h3>\n<p>Create a new skill from a template.</p>\n<pre><code>killer-skills create my-new-skill\nkiller-skills create my-skill --template minimal</code></pre>\n\n<h3>list</h3>\n<p>List all installed skills in the current project or global scope.</p>\n<pre><code>killer-skills list</code></pre>\n\n<h3>search</h3>\n<p>Search for skills in the global registry.</p>\n<pre><code>killer-skills search \"pdf processing\"</code></pre>\n\n<h3>update</h3>\n<p>Update installed skills to their latest versions.</p>\n<pre><code>killer-skills update</code></pre>\n\n<h3>uninstall</h3>\n<p>Remove a skill from your project.</p>\n<pre><code>killer-skills uninstall <skill-name></code></pre>\n\n<h3>init</h3>\n<p>Initialize a new Killer-Skills project in the current directory.</p>\n<pre><code>killer-skills init</code></pre>"
+        },
+        {
+            "slug": "cli/overview",
+            "title": "CLI Overview",
+            "section": "cli",
+            "content": "<!-- This content is replaced by the custom component in docs/[...slug].astro -->\n<p>The Killer-Skills CLI is the ultimate tool for managing your AI agent's capabilities.</p>"
+        },
+        {
+            "slug": "cli/configuration",
+            "title": "Configuration",
+            "section": "cli",
+            "content": "<h2>Configuration File</h2>\n<p>Killer-Skills uses a global configuration file stored at <code>~/.killer-skills/config.json</code> (or OS equivalent).</p>\n\n<h2>Settings</h2>\n<pre><code>{\n  \"defaultIDE\": \"cursor\",\n  \"githubToken\": \"ghp_...\",\n  \"registryUrl\": \"https://registry.killer-skills.com\"\n}</code></pre>\n\n<h2>Environment Variables</h2>\n<ul>\n<li><code>KILLER_SKILLS_HOME</code> - Override the home directory for configuration and global skills.</li>\n<li><code>GITHUB_TOKEN</code> - Personal Access Token for higher rate limits when installing from GitHub.</li>\n<li><code>DEBUG</code> - Set to <code>true</code> for verbose logging.</li>\n</ul>\n\n<h2>Managing Configuration</h2>\n<p>You can use the <code>config</code> command to view and set values:</p>\n<pre><code>killer-skills config list\nkiller-skills config set defaultIDE vscode</code></pre>"
+        },
+        {
+            "slug": "concepts/skills",
+            "title": "Skills",
+            "section": "concepts",
+            "content": "<h2>What are Skills?</h2>\n<p>Skills are the fundamental building blocks of AI agent capabilities. They define what an AI assistant can do and how it should do it. A skill essentially teaches an AI how to perform a specific task or set of tasks.</p>\n\n<h2>Skill Components</h2>\n<h3>Frontmatter</h3>\n<p>YAML metadata that defines the skill's identity and triggers:</p>\n<pre><code>---\nname: pdf-reader\ndescription: Extract text from PDF files\ntriggers:\n  - when user mentions PDF\n  - when user uploads a .pdf file\n---</code></pre>\n\n<h3>Instructions (Prompt Engineering)</h3>\n<p>Measurements, guidelines, and step-by-step instructions in Markdown that the AI uses to execute the skill. This is the \"brain\" of your skill.</p>\n\n<h3>Tools (MCP)</h3>\n<p>Skills can optionally expose executable tools via the Model Context Protocol (MCP), allowing the AI to interact with external systems.</p>"
+        },
+        {
+            "slug": "concepts/tools",
+            "title": "Tools",
+            "section": "concepts",
+            "content": "<h2>What are Tools?</h2>\n<p>Tools are executable functions that an AI agent can invoke to perform actions in the real world, such as reading files, executing shell commands, or calling web APIs.</p>\n\n<h2>Model Context Protocol (MCP)</h2>\n<p>Killer-Skills leverages the <a href=\"https://modelcontextprotocol.io\">Model Context Protocol (MCP)</a> to standardize how tools are defined and exposed to AI agents.</p>\n\n<h2>Creating Tools</h2>\n<p>Tools are typically defined in TypeScript/JavaScript or Python and exposed via an MCP Server. A skill can reference these tools in its instructions.</p>\n\n<pre><code>// Example Tool Definition (TypeScript)\nexport const readFile = new Tool({\n  name: 'read_file',\n  description: 'Read contents of a file',\n  parameters: z.object({ path: z.string() }),\n  handler: async ({ path }) => {\n    return fs.readFile(path, 'utf-8');\n  }\n});</code></pre>"
+        },
+        {
+            "slug": "concepts/workflows",
+            "title": "Workflows",
+            "section": "concepts",
+            "content": "<h2>What are Workflows?</h2>\n<p>Workflows are multi-step processes that orchestrate multiple skills to accomplish complex tasks. While skills are atomic, workflows are molecular.</p>\n\n<h2>Workflow Structure</h2>\n<pre><code>---\nname: code-review\ndescription: Comprehensive code review workflow\n---\n\n# Step 1: Analyze Code\nUse the code-analysis skill to scan the codebase.\n\n# Step 2: Security Check\nRun the security-scanner skill to identify vulnerabilities.\n\n# Step 3: Generate Report\nCompile findings into a structured report.</code></pre>\n\n<h2>Use Cases</h2>\n<ul>\n<li>Automated code reviews</li>\n<li>Content generation pipelines</li>\n<li>Data processing workflows</li>\n<li>Testing and QA procedures</li>\n</ul>"
+        },
+        {
+            "slug": "creating-skills",
+            "title": "Creating Skills",
+            "section": "guides",
+            "content": "<h2>Skill Structure</h2>\n<p>Every skill needs a <code>SKILL.md</code> file with YAML frontmatter:</p>\n<pre><code>---\nname: my-skill\ndescription: A helpful skill for...\ntriggers:\n  - when user asks about X\n---\n\n# Instructions\n\nWhen triggered, follow these steps:\n1. Analyze the user's request\n2. Perform the action\n3. Return the result</code></pre>\n\n<h2>Best Practices</h2>\n<ul>\n<li><strong>Be Specific</strong> - Clear triggers help the AI know when to use your skill</li>\n<li><strong>Provide Examples</strong> - Show sample inputs and outputs</li>\n<li><strong>Handle Errors</strong> - Include fallback instructions</li>\n</ul>\n\n<h2>Publishing</h2>\n<p>To share your skill with the community:</p>\n<ol>\n<li>Create a GitHub repository</li>\n<li>Add your <code>SKILL.md</code> to <code>.agent/skills/</code></li>\n<li>Submit a PR to the registry (optional)</li>\n</ol>"
+        },
+        {
+            "slug": "integrations",
+            "title": "Integrations",
+            "section": "guides",
+            "content": "<h2>IDE Support</h2>\n<p>Killer-Skills supports a wide range of AI-powered IDEs and environments. The CLI automatically detects your environment and configures the appropriate rules files.</p>\n\n<h3>Cursor</h3>\n<p>Skills are installed into <code>.cursorrules</code>. The CLI appends instructions to ensuring Cursor's AI (Copilot++) can access them.</p>\n\n<h3>Windsurf</h3>\n<p>Support for Windsurf via <code>.windsurf/rules/</code>. Skills are created as individual Markdown files that Windsurf's Cascade can index.</p>\n\n<h3>VS Code + GitHub Copilot</h3>\n<p>Integration via `.github/copilot-instructions.md`. This allows GitHub Copilot Chat to be aware of your project-specific skills.</p>\n\n<h3>Claude Code</h3>\n<p>Support for Anthropic's Claude Code via `.claude/skills/`. This is the native format for Claude CLI.</p>"
+        },
+        {
+            "slug": "security",
+            "title": "Security",
+            "section": "guides",
+            "content": "<h2>Security Model</h2>\n<p>Killer-Skills runs locally on your machine. This means valid skills have the same permissions as your user account.</p>\n\n<h2>Best Practices</h2>\n<ul>\n<li><strong>Review Instructions</strong> - Always read the <code>SKILL.md</code> before installing or running a new skill, especially from untrusted sources.</li>\n<li><strong>Sandboxing</strong> - For high-risk tasks, consider running skills within a containerized environment (e.g., Docker) or a restricted shell.</li>\n<li><strong>API Keys</strong> - Never commit API keys to <code>SKILL.md</code>. Use environment variables instead.</li>\n<li><strong>Audit</strong> - Regularly audit installed skills using <code>killer-skills list</code>.</li>\n</ul>\n\n<h2>Reporting Vulnerabilities</h2>\n<p>If you find a security vulnerability in a skill or the CLI itself, please report it to <a href=\"mailto:security@killer-skills.com\">security@killer-skills.com</a>.</p>"
+        },
+        {
+            "slug": "api-reference",
+            "title": "REST API",
+            "section": "api",
+            "content": "<h2>Overview</h2>\n<p>Killer-Skills provides a public API to access the skills registry and metadata. This API is used by the CLI and web platform.</p>\n\n<h2>Endpoints</h2>\n\n<h3>Get All Skills</h3>\n<pre><code>GET https://killer-skills.pages.dev/api/skills</code></pre>\n<p>Returns a list of all indexed skills with their metadata.</p>\n\n<h3>Get Skill Categories</h3>\n<pre><code>GET https://killer-skills.pages.dev/api/categories</code></pre>\n<p>Returns a list of all available skill categories and tags.</p>\n\n<h3>Registry Raw Data</h3>\n<pre><code>GET https://raw.githubusercontent.com/killer-skills/registry/main/skills.json</code></pre>\n<p>The raw JSON source for the official registry.</p>"
+        },
+        {
+            "slug": "api/auth",
+            "title": "Authentication",
+            "section": "api",
+            "content": "<h2>Authentication Strategies</h2>\n\n<h3>GitHub Authentication</h3>\n<p>To avoid rate limits when installing skills from GitHub, you should configure a GitHub Personal Access Token.</p>\n<pre><code>export GITHUB_TOKEN=ghp_...</code></pre>\n<p>Or configure it persistently with the CLI:</p>\n<pre><code>killer-skills config githubToken ghp_...</code></pre>\n\n<h3>MCP Authentication</h3>\n<p>When running as an MCP Server, Killer-Skills inherits the authentication context of the host agent (e.g., Claude Desktop, Cursor). No additional authentication is typically required for local operations.</p>"
+        },
+        {
+            "slug": "community",
+            "title": "Contributing",
+            "section": "community",
+            "content": "<h2>Join the Community</h2>\n<p>We welcome contributions from everyone! Whether you're fixing a bug, adding a feature, or writing documentation, your help is appreciated.</p>\n\n<h2>How to Contribute</h2>\n<ol>\n<li><strong>Fork the Repository</strong> - Start by forking `kakawah1122/Killer-Skills` on GitHub.</li>\n<li><strong>Create a Branch</strong> - Create a new branch for your feature or fix.</li>\n<li><strong>Make Changes</strong> - Write your code and tests.</li>\n<li><strong>Submit a Pull Request</strong> - Open a PR against the `main` branch.</li>\n</ol>\n\n<h2>Submitting Skills</h2>\n<p>To add your skill to the official registry:</p>\n<pre><code>killer-skills submit ./my-skill</code></pre>\n<p>This will validate your skill and guide you through creating a PR to the registry.</p>"
+        },
+        {
+            "slug": "code-of-conduct",
+            "title": "Code of Conduct",
+            "section": "community",
+            "content": "<h2>Pledge</h2>\n<p>We as members, contributors, and leaders pledge to make participation in our community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, religion, or sexual identity and orientation.</p>\n\n<h2>Standards</h2>\n<p>Examples of behavior that contributes to a positive environment for our community include:</p>\n<ul>\n<li>Demonstrating empathy and kindness toward other people</li>\n<li>Being respectful of differing opinions, viewpoints, and experiences</li>\n<li>Giving and gracefully accepting constructive feedback</li>\n<li>Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience</li>\n<li>Focusing on what is best not just for us as individuals, but for the overall community</li>\n</ul>\n\n<h2>Enforcement</h2>\n<p>Instances of abusive, harassing, or otherwise unacceptable behavior may be reported to the community leaders responsible for enforcement at <a href=\"mailto:conduct@killer-skills.com\">conduct@killer-skills.com</a>.</p>"
+        }
+    ],
+    "sidebar": {
+        "introduction": {
+            "title": "Platform Overview",
+            "items": [
+                "index",
+                "architecture",
+                "concepts/skills",
+                "concepts/workflows"
+            ]
+        },
+        "start": {
+            "title": "Getting Started",
+            "items": [
+                "getting-started",
+                "installation"
+            ]
+        },
+        "cli-tool": {
+            "title": "CLI Tooling",
+            "items": [
+                "cli/overview",
+                "cli/commands",
+                "cli/configuration"
+            ]
+        },
+        "guides": {
+            "title": "Guides",
+            "items": [
+                "creating-skills",
+                "integrations",
+                "security"
+            ]
+        },
+        "api": {
+            "title": "API Reference",
+            "items": [
+                "api-reference",
+                "api/auth"
+            ]
+        }
+    }
+}

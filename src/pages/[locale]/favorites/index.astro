@@ -1,0 +1,41 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import FavoritesManager from '../../../islands/FavoritesManager';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+
+export const prerender = false;
+
+// Validate locale
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+const pageTitle = t('Personal.myFavorites');
+const pageDescription = `${t('Personal.myFavorites')} — Killer-Skills`;
+
+// Build translations object expected by FavoritesManager island
+const favoritesTranslations = {
+  myFavorites: t('Personal.myFavorites'),
+  favoritesCount: t('Personal.favoritesCount'),
+  noFavorites: t('Personal.noFavorites'),
+  noFavoritesHint: t('Personal.noFavoritesHint'),
+  browseSkills: t('Personal.browseSkills'),
+  removeFavorite: t('Personal.removeFavorite'),
+  savedAt: t('Personal.savedAt'),
+};
+---
+
+<Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true}>
+  <FavoritesManager
+    client:load
+    locale={locale}
+    translations={favoritesTranslations}
+  />
+</Layout>

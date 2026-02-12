@@ -1,0 +1,457 @@
+---
+import Layout from '../../../../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
+import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../../../../lib/skills';
+import type { Env } from '../../../../lib/kv';
+import SkillActions from '../../../../islands/SkillActions';
+import SkillReadme from '../../../../islands/SkillReadme';
+import SkillFileManager from '../../../../islands/SkillFileManager';
+import { Github, Star, GitFork, Calendar, CheckCircle2, Terminal, Copy, ArrowLeft, ExternalLink, Box, Layers, Zap, Info, Heart, Command, Cpu, ChevronDown, ChevronRight } from 'lucide-react';
+
+export const prerender = false;
+
+// Validate locale
+const { locale, owner, repo: repoRest } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+if (!owner || !repoRest) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+// repoRest is a catch-all: could be "skills" or "skills/algorithmic-art"
+const repoParts = repoRest.split('/');
+const repo = repoParts[0]; // The actual repo name
+const subSkillName = repoParts.length > 1 ? repoParts.slice(1).join('/') : undefined;
+
+const typedLocale = locale as Locale;
+
+// Get env from Cloudflare runtime
+const env = (Astro.locals as any).runtime?.env as Env;
+
+// Load skill data - use full ID for sub-skills
+const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
+const skill = await getSkillById(env, fullId) || await getSkillByOwnerRepo(env, owner, repo);
+
+if (!skill) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+// Load translations
+const messages = await loadMessages(typedLocale);
+const t = useTranslations(messages);
+
+// Get localized description
+const rawDescription = getLocalizedDescription(skill.description, typedLocale);
+// Prefer SEO definition if available for the specific locale, otherwise fall back to standard description
+const description = skill.seo?.definition?.[typedLocale] || rawDescription;
+
+// Get key features
+const features = skill.seo?.features?.[typedLocale] || skill.seo?.features?.['en'] || [];
+
+// Construct SEO Title
+// Format: Name - Category/Keywords | SiteName
+// Example: security-review - AI Code Security | Killer-Skills
+const category = skill.category ? (t(`Categories.${skill.category}`) || skill.category) : '';
+// Use the first keyword or category as the "tagline"
+const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill'; 
+const pageTitle = `${skill.name || repo} - ${tagline} | ${t('Common.siteName')}`;
+
+
+// Structured Data (JSON-LD) — SoftwareApplication
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": skill.name || repo,
+  "operatingSystem": "Any",
+  "applicationCategory": "DeveloperApplication",
+  "description": description,
+  "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+  "author": {
+    "@type": "Organization",
+    "name": owner,
+    "url": `https://github.com/${owner}`
+  },
+  "dateModified": skill.updatedAt || new Date().toISOString(),
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+};
+
+// BreadcrumbList JSON-LD for rich snippets
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": t('Common.home'),
+      "item": `https://killer-skills.com/${locale}`
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": t('Common.skillsMarket'),
+      "item": `https://killer-skills.com/${locale}/skills`
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": skill.name || repo,
+      "item": `https://killer-skills.com/${locale}/skills/${owner}/${repo}`
+    }
+  ]
+};
+
+// OG image URL pointing to VPS OG service
+const ogImageUrl = `https://og.killer-skills.com/api/og?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`;
+
+// Format stars
+const starsDisplay = (skill.stars || 0) > 1000
+  ? ((skill.stars || 0) / 1000).toFixed(1) + 'k'
+  : String(skill.stars || 0);
+
+// GitHub URL
+const githubUrl = `https://github.com/${owner}/${repo}`;
+
+// Install command - use full path for sub-skills
+const installPath = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
+const installCommand = `npx killer-skills add ${installPath}`;
+
+// Topics
+const topics = skill.topics || [];
+
+// Prepare file list
+const readmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || `# ${skill.name}\n\n${description}`;
+const readmeSize = new TextEncoder().encode(readmeContent).length;
+const formatSize = (bytes: number) => {
+  if (bytes < 1024) return bytes + ' B';
+  return (bytes / 1024).toFixed(1) + ' KB';
+};
+
+const files = [
+  { name: 'SKILL.md', size: formatSize(readmeSize), type: 'file' as const },
+  { name: '.cursorrules', size: '1.2 KB', type: 'file' as const },
+  { name: 'package.json', size: '240 B', type: 'file' as const }
+];
+
+const version = skill.skillMd?.version || '1.0.0';
+const isVerified = skill.source === 'verified' || skill.source === 'featured';
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={description || t('Metadata.description')}
+  image={ogImageUrl}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <div class="min-h-screen bg-gray-50 dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-cyan-200 overflow-x-hidden transition-colors duration-300">
+    
+    {/* Ambient Glows - Adjusted for Light Mode */}
+    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/5 dark:bg-purple-900/10 blur-[150px] pointer-events-none rounded-full"></div>
+    <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-cyan-500/5 dark:bg-cyan-900/10 blur-[150px] pointer-events-none rounded-full"></div>
+
+    <main class="max-w-[1400px] mx-auto px-6 py-12 relative z-10">
+        
+       {/* Mobile Actions (Absolute) - Visible only on mobile */}
+       <div class="absolute top-10 right-6 flex items-center gap-3 z-50 lg:hidden">
+           <SkillActions
+              client:visible
+              skillId={`${owner}/${repo}`}
+              skillName={skill.name || repo}
+              owner={owner}
+              repo={repo}
+              description={description || ''}
+              locale={locale}
+              labels={{
+                  addToFavorites: t('Aria.addToFavorites'),
+                  removeFromFavorites: t('Aria.removeFromFavorites'),
+                  shareSkill: t('Aria.shareSkill')
+              }}
+              variant="button"
+          />
+           <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-sm font-medium hover:border-purple-200 dark:hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/10"
+          >
+              <Github size={16} className="group-hover:text-black dark:group-hover:text-white transition-colors" />
+              <span class="group-hover:text-black dark:group-hover:text-white transition-colors">GitHub</span>
+          </a>
+      </div>
+
+       {/* Header Section */}
+      <div class="flex items-center gap-8 pt-2 relative pb-12 border-b border-gray-200 dark:border-white/5 mb-12">
+           {/* Spotlight Effect behind Icon - Subtle in light mode */}
+          <div class="absolute -left-10 -top-10 w-40 h-40 bg-orange-400/10 dark:bg-orange-500/20 blur-[60px] rounded-full pointer-events-none"></div>
+
+          {/* Icon */}
+          <div class="relative shrink-0 group self-start lg:self-center">
+              <div class="absolute inset-0 bg-gradient-to-br from-orange-400 to-red-500 dark:from-orange-500 dark:to-red-600 rounded-3xl opacity-10 dark:opacity-20 blur-md group-hover:blur-lg transition-all duration-500"></div>
+              <div class="w-24 h-24 rounded-3xl bg-white dark:bg-gradient-to-b dark:from-[#1a1a1a] dark:to-[#0a0a0a] border border-gray-200 dark:border-white/10 flex items-center justify-center text-5xl text-gray-900 dark:text-white shadow-xl dark:shadow-2xl relative z-10 ring-1 ring-black/5 dark:ring-white/5 group-hover:scale-105 transition-transform duration-300">
+                  <span class="drop-shadow-[0_4px_6px_rgba(0,0,0,0.05)] dark:drop-shadow-[0_0_15px_rgba(255,165,0,0.5)]">🤖</span>
+              </div>
+          </div>
+
+          {/* Info */}
+          <div class="flex-1 pt-1 min-w-0">
+              <div class="flex items-center justify-between gap-4 mb-3 flex-wrap relative">
+                  <div class="flex items-center gap-4 flex-wrap">
+                      <h1 class="text-5xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-gray-200 dark:to-gray-400 tracking-tight">
+                          {skill.name || repo}
+                      </h1>
+                      <div class="flex items-center gap-2">
+                          {isVerified && (
+                              <div class="px-2.5 py-0.5 rounded-full bg-green-100 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-400 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm dark:shadow-[0_0_10px_rgba(74,222,128,0.1)]">
+                                  <CheckCircle2 size={12} strokeWidth={3} />
+                                  Verified
+                              </div>
+                          )}
+                          <span class="px-2.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 text-xs font-mono backdrop-blur-sm">
+                              v{version}
+                          </span>
+                      </div>
+                  </div>
+              </div>
+
+              <div class="flex items-start justify-between gap-8">
+                  <div class="flex-1">
+                      <h2 class="sr-only">{t('Detail.about')}</h2>
+                      <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-6 font-light">
+                          {description || t('Skills.noResults')}
+                      </p>
+
+                      {/* AI Features */}
+                      {features.length > 0 && (
+                        <section>
+                            <h2 class="sr-only">{t('Detail.features')}</h2>
+                            <div class="flex flex-wrap gap-x-6 gap-y-3 mb-8">
+                            {features.map((feature: string) => (
+                                <div class="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100/50 dark:bg-white/5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-white/5">
+                                    <Zap size={14} class="text-amber-500 fill-amber-500/20" />
+                                    {feature}
+                                </div>
+                            ))}
+                            </div>
+                        </section>
+                      )}
+
+                      <div class="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-500 pt-2 w-full max-w-3xl border-t border-gray-200 dark:border-white/5 mt-6">
+                          <div class="flex items-center gap-2.5 group cursor-pointer">
+                              <img src={`https://github.com/${owner}.png`} alt={owner} class="w-6 h-6 rounded-full ring-2 ring-white dark:ring-[#050505] group-hover:ring-cyan-500/50 transition-all" />
+                              <span class="text-gray-600 dark:text-gray-300 font-medium group-hover:text-black dark:group-hover:text-white transition-colors">{owner}</span>
+                          </div>
+                          <div class="w-px h-4 bg-gray-300 dark:bg-white/10"></div>
+                          <div class="flex items-center gap-2 group cursor-help" title="Stars">
+                              <Star size={16} className="text-yellow-500 group-hover:fill-yellow-500 transition-all" />
+                              <span class="text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">{starsDisplay}</span>
+                          </div>
+                          <div class="flex items-center gap-2 group cursor-help" title="Forks">
+                              <GitFork size={16} class="group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors" />
+                              <span class="group-hover:text-purple-700 dark:group-hover:text-purple-100 transition-colors">{skill.forks || 0}</span>
+                          </div>
+                          <div class="flex items-center gap-2 group cursor-help" title="Last Updated">
+                              <Calendar size={16} class="group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors" />
+                              <span class="group-hover:text-cyan-700 dark:group-hover:text-cyan-100 transition-colors">Updated {new Date(skill.updatedAt).toLocaleDateString()}</span>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  {/* Actions Column - Vertically centered relative to the text block */}
+                  <div class="hidden lg:flex items-center gap-3 shrink-0 self-center">
+                       <SkillActions
+                          client:visible
+                          skillId={`${owner}/${repo}`}
+                          skillName={skill.name || repo}
+                          owner={owner}
+                          repo={repo}
+                          description={description || ''}
+                          locale={locale}
+                          variant="button"
+                      />
+                       <a
+                          href={githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-sm font-medium hover:border-purple-200 dark:hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/10"
+                      >
+                          <Github size={16} className="group-hover:text-black dark:group-hover:text-white transition-colors" />
+                          <span class="group-hover:text-black dark:group-hover:text-white transition-colors">GitHub</span>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start">
+        
+        {/* Left Column (Sidebar: Files + Widgets) */}
+        <div class="space-y-8 lg:sticky lg:top-8">
+            
+             {/* File Manager */}
+            <div>
+                 <SkillFileManager
+                    client:load
+                    files={files}
+                    selectedFile="SKILL.md"
+                    labels={{
+                        explorer: t('Detail.explorer'),
+                        project: t('Detail.project')
+                    }}
+                />
+            </div>
+             
+
+
+             {/* Install Card */}
+             <div class="rounded-2xl bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-xl dark:shadow-2xl overflow-hidden group transition-colors duration-300">
+                 <div class="bg-gray-50 dark:bg-white/5 px-4 py-3 flex items-center justify-between border-b border-gray-200 dark:border-white/5 transition-colors duration-300">
+                     <div class="flex items-center gap-2">
+                        <Terminal size={14} class="text-gray-500 dark:text-gray-400" />
+                        <span class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">{t('Detail.installation')}</span>
+                     </div>
+                 </div>
+
+                 <div class="p-4 relative">
+                    <div class="bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-white/10 rounded-xl p-4 font-mono text-sm relative overflow-hidden group/code shadow-inner transition-colors duration-300">
+                        <div class="flex items-center text-gray-400 dark:text-gray-500 select-none mb-1 justify-between">
+                             <div class="flex items-center">
+                                <ChevronRight size={14} class="text-green-500 mr-1" />
+                                <span class="text-xs font-medium text-gray-400">
+                                    {locale === 'zh' ? '自适应一键安装 (自动适配 IDE)' : 'Universal Install (Auto-Detect)'}
+                                </span>
+                             </div>
+                             <div class="flex gap-1.5 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
+                                <img src="/icons/cursor.svg" alt="Cursor IDE" class="w-3.5 h-3.5" title="Cursor" />
+                                <img src="/icons/windsurf.svg" alt="Windsurf IDE" class="w-3.5 h-3.5" title="Windsurf" />
+                                <img src="/icons/vscode.svg" alt="VS Code IDE" class="w-3.5 h-3.5" title="VS Code" />
+                             </div>
+                        </div>
+                         <div class="text-cyan-600 dark:text-cyan-400 break-all select-all flex items-start gap-2 font-bold group/cmd relative">
+                            <span class="text-pink-600 dark:text-pink-500 select-none">$</span>
+                            <span>{installCommand}</span>
+                            
+                            <button
+                                id="install-copy-btn"
+                                class="absolute -right-1 -top-1 p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all opacity-0 group-hover/cmd:opacity-100"
+                                data-command={installCommand}
+                            >
+                                <Copy size={14} />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             {/* Quality Score */}
+             <div class="rounded-2xl bg-white dark:bg-[#0e0e0e] border border-gray-200 dark:border-white/10 p-5 shadow-lg dark:shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-[50px] rounded-full pointer-events-none group-hover:bg-green-500/20 transition-all duration-500"></div>
+                
+                <div class="flex items-center justify-between mb-4 relative z-10">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t('Detail.qualityScore')}</h3>
+                    <div class="px-2 py-0.5 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-500/20 rounded-full text-green-700 dark:text-green-400 text-xs font-bold">
+                        Top 5%
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4 border-t border-gray-100 dark:border-white/5 pt-4">
+                    <div class="relative w-16 h-16 shrink-0">
+                        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                            {/* Background Circle */}
+                            <path
+                                class="text-gray-100 dark:text-white/5"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="3"
+                            />
+                            {/* Progress Circle */}
+                            <path
+                                class="text-green-500 dark:text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]"
+                                stroke-dasharray={`${(skill as any).qualityScore || 85}, 100`}
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="3"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">{(skill as any).qualityScore || 85}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">{t('Detail.excellent')}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400">{t('Detail.qualityDesc')}</div>
+                    </div>
+                </div>
+             </div>
+
+             {/* Tags */}
+             <div>
+                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">{t('Detail.tags')}</h3>
+                <div class="flex flex-wrap gap-2">
+                    {topics.length > 0 ? topics.map((topic: string) => (
+                        <a href={`/${locale}/skills?topic=${topic}`} class="px-3 py-1.5 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 rounded-full text-xs text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all hover:scale-105">
+                            #{topic}
+                        </a>
+                    )) : (
+                        <span class="text-xs text-gray-600 italic">{t('Detail.noTags')}</span>
+                    )}
+                </div>
+             </div>
+
+        </div>
+
+        {/* Right Column (Main Content) */}
+        <div class="min-w-0">
+            <SkillReadme
+                client:load
+                initialContent={readmeContent}
+                initialFiles={{
+                    'SKILL.md': readmeContent,
+                    '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
+                    'package.json': JSON.stringify({
+                        name: `${owner}-${repo}-skill`,
+                        version: version,
+                        description: `Killer Skill: ${skill.description}`,
+                        keywords: topics,
+                        author: owner,
+                        license: "MIT",
+                        homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+                        repository: {
+                            type: "git",
+                            url: `https://github.com/${owner}/${repo}`
+                        }
+                    }, null, 2)
+                }}
+                name="SKILL.md"
+            />
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script is:inline>
+    document.getElementById('install-copy-btn')?.addEventListener('click', function() {
+      const command = this.getAttribute('data-command');
+      if (command) {
+        navigator.clipboard.writeText(command).then(() => {
+           const originalHTML = this.innerHTML;
+           this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+           setTimeout(() => {
+              this.innerHTML = originalHTML;
+           }, 2000);
+        });
+      }
+    });
+  </script>
+</Layout>

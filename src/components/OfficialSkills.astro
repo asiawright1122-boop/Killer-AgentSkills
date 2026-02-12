@@ -1,0 +1,74 @@
+---
+import CollectionCard from './CollectionCard.astro';
+import { OFFICIAL_REPOS } from '../lib/skills-config';
+import { getAllSkills } from '../lib/skills';
+import { loadMessages, useTranslations, type Locale } from '../i18n';
+import type { Env } from '../lib/kv';
+
+interface Props {
+  locale: string;
+}
+
+const { locale } = Astro.props;
+const env = (Astro.locals as any).runtime?.env as Env;
+
+// Load translations
+const messages = await loadMessages(locale as Locale);
+const t = useTranslations(messages);
+
+// Get all skills
+const skills = await getAllSkills(env);
+
+// Filter official skills and group by owner
+const officialRepoOwners = Object.values(OFFICIAL_REPOS)
+  .filter(r => r.type === 'official')
+  .map(r => r.owner);
+
+const officialSkills = skills.filter(s => officialRepoOwners.includes(s.owner));
+
+// Group by owner and count
+const skillsByOwner: Record<string, number> = {};
+for (const skill of officialSkills) {
+  skillsByOwner[skill.owner] = (skillsByOwner[skill.owner] || 0) + 1;
+}
+
+// Sort by skill count (most skills first)
+const sortedOwners = Object.entries(skillsByOwner)
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 6); // Show top 6 vendors
+---
+
+<section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="flex items-center justify-between mb-12">
+    <div>
+      <div class="flex items-center gap-3 mb-2">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{t('OfficialSkills.title')}</h2>
+        <span class="px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-xs font-bold uppercase tracking-wide border border-cyan-200 dark:border-cyan-800">
+          {t('OfficialSkills.verified')}
+        </span>
+      </div>
+      <p class="text-slate-500 dark:text-slate-400 text-lg">
+        {t('OfficialSkills.subtitle')}
+      </p>
+    </div>
+    <a href={`/${locale}/skills?view=official`} class="group flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-cyan-50 dark:hover:bg-cyan-900/20 hover:text-cyan-700 dark:hover:text-cyan-300 transition-all">
+      {t('Common.viewAll')}
+      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {sortedOwners.length > 0 ? (
+      sortedOwners.map(([owner, count]) => (
+        <CollectionCard owner={owner} count={count} locale={locale} />
+      ))
+    ) : (
+      <div class="col-span-full text-center py-12 text-slate-500">
+        <p>{t('Skills.noResults')}</p>
+      </div>
+    )}
+  </div>
+</section>
+

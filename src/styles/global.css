@@ -1,0 +1,232 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+    --font-display: "Outfit", sans-serif;
+    --font-body: "Work Sans", sans-serif;
+}
+
+/* Enable class-based dark mode for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* Custom Utilities */
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+}
+
+/* Base Styles */
+@layer base {
+    :root {
+        /* Light Mode - Clean & Crisp */
+        --background: #ffffff;
+        --foreground: #09090b;
+
+        /* Surface System */
+        --card: #ffffff;
+        --card-hover: #fcfcfc;
+        --card-foreground: #09090b;
+        --card-border: #e4e4e7;
+        --card-shadow: rgba(0, 0, 0, 0.04);
+
+        /* Brand Accents */
+        --primary: #0e7490;
+        --primary-foreground: #ffffff;
+
+        --secondary: #f4f4f5;
+        --secondary-foreground: #18181b;
+
+        --muted: #f4f4f5;
+        --muted-foreground: #52525b;
+
+        --border: #e4e4e7;
+        --input: #e4e4e7;
+
+        /* Tag System */
+        --tag-bg: #ecfeff;
+        --tag-text: #164e63;
+        --tag-border: #a5f3fc;
+
+        /* Decorative Blobs */
+        --hero-blob-1: rgba(14, 116, 144, 0.05);
+        --hero-blob-2: rgba(6, 182, 212, 0.05);
+
+        --radius: 1.5rem;
+
+        /* Glass Effects */
+        --glass-bg: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(0, 0, 0, 0.06);
+        --card-hover-border: rgba(0, 0, 0, 0.08);
+    }
+
+    .dark {
+        /* Dark Mode - Deep Ocean Theme */
+        --background: #020617;
+        /* Slate-950/Black mixture */
+        --foreground: #f8fafc;
+
+        /* Glass Surface System */
+        --card: rgba(15, 23, 42, 0.6);
+        /* Slate-900 with opacity */
+        --card-hover: rgba(30, 41, 59, 0.8);
+        /* Slate-800 */
+        --card-foreground: #ffffff;
+        --card-border: rgba(56, 189, 248, 0.1);
+        /* Sky-400 low opacity */
+
+        /* Brand Accents - No Purple */
+        --primary: #0ea5e9;
+        /* Sky-500 */
+        --primary-foreground: #ffffff;
+
+        --secondary: rgba(56, 189, 248, 0.1);
+        --secondary-foreground: #e0f2fe;
+        /* Sky-100 */
+
+        --muted: rgba(15, 23, 42, 0.4);
+        --muted-foreground: #94a3b8;
+        /* Slate-400 */
+
+        --border: rgba(56, 189, 248, 0.1);
+        --input: rgba(56, 189, 248, 0.1);
+
+        /* Tag System (Dark) */
+        --tag-bg: rgba(14, 165, 233, 0.1);
+        --tag-text: #7dd3fc;
+        /* Sky-300 */
+        --tag-border: rgba(14, 165, 233, 0.2);
+
+        /* Decorative Blobs - Deep Blue/Cyan */
+        --hero-blob-1: rgba(14, 165, 233, 0.15);
+        /* Sky-500 */
+        --hero-blob-2: rgba(6, 182, 212, 0.1);
+        /* Cyan-500 */
+
+        /* Glass Effects */
+        --glass-bg: rgba(2, 6, 23, 0.7);
+        --card-hover-border: rgba(56, 189, 248, 0.2);
+        --card-shadow: rgba(0, 0, 0, 0.5);
+    }
+
+    html {
+        font-family: var(--font-body);
+        scroll-behavior: smooth;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--font-display);
+        letter-spacing: -0.025em;
+    }
+
+    body {
+        background-color: var(--background);
+        color: var(--foreground);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color 0.3s, color 0.3s;
+    }
+}
+
+/* Glass Utilities */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border);
+}
+
+.glass-card {
+    background: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+    background: var(--card-hover);
+    border-color: var(--card-hover-border);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px -10px var(--card-shadow);
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes pulse-glow {
+
+    0%,
+    100% {
+        opacity: 0.6;
+        filter: blur(30px);
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.9;
+        filter: blur(45px);
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}
+
+.animate-float {
+    animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-slow {
+    animation: float 12s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+    animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.animate-shimmer {
+    animation: shimmer 2s linear infinite;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(128, 128, 128, 0.5);
+}

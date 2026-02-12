@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "home": "Inicio",
+    "marketplace": "Mercado",
+    "categories": "Categorías",
+    "docs": "Documentación",
+    "github": "GitHub",
+    "getStarted": "Comenzar",
+    "history": "Historial",
+    "favorites": "Favoritos"
+  },
+  "Hero": {
+    "badge": "80,000+ Habilidades Disponibles",
+    "title": "Descubre Habilidades de Agentes de AI",
+    "titleHighlight": "AI Agent",
+    "subtitle": "Explora posibilidades infinitas, potencia a tu asistente de AI",
+    "searchPlaceholder": "Buscar habilidades... ej., PDF, Análisis de Datos",
+    "searchButton": "Buscar",
+    "hotTags": "Populares:",
+    "suggestions": [
+      "PDF",
+      "Generador de Imágenes",
+      "Análisis de Datos",
+      "Navegador",
+      "Revisión de Código",
+      "Documentos"
+    ]
+  },
+  "Skills": {
+    "featured": "Habilidades Destacadas",
+    "searchResults": "resultados de búsqueda",
+    "trending": "Tendencias",
+    "recent": "Recientes",
+    "noResults": "No se encontraron habilidades",
+    "noResultsHint": "Intenta con diferentes palabras clave",
+    "stars": "Estrellas",
+    "forks": "Bifurcaciones",
+    "updated": "Actualizado",
+    "version": "Versión",
+    "downloads": "Descargas",
+    "creators": "Creadores Activos",
+    "install": "Código de Instalación",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "viewOnGithub": "Ver en GitHub",
+    "original": "Original",
+    "translation": "Traducción",
+    "translating": "Traduciendo...",
+    "showOriginal": "Mostrar Original",
+    "showTranslation": "Mostrar Traducción"
+  },
+  "Detail": {
+    "back": "Volver a la lista",
+    "quickInstall": "Instalación Rápida",
+    "targetIDE": "IDE de Destino",
+    "copyCommand": "Copiar comando de instalación",
+    "copied": "Copiado",
+    "stats": "Estadísticas",
+    "stars": "Estrellas",
+    "downloads": "Descargas",
+    "info": "Información",
+    "author": "Autor",
+    "updated": "Actualizado",
+    "viewOnGithub": "Ver en GitHub",
+    "features": "Características",
+    "qualityScore": "Puntuación de Calidad",
+    "installCommand": "Comando de instalación",
+    "installPath": "Ruta de instalación",
+    "projectLevel": "Proyecto:",
+    "globalLevel": "Global:",
+    "unlockTitle": "Desbloquear y gestionar habilidades de IA",
+    "getManager": "Obtener Manager",
+    "ideDescriptions": {
+      "cursor": "Usar en Cursor Composer",
+      "windsurf": "Usar en Windsurf Cascade",
+      "claude": "Instalar en Claude Code",
+      "amp": "Instalar en Amp Agent",
+      "antigravity": "Instalar en Antigravity",
+      "codex": "Install to Codex",
+      "codebuddy": "Install to CodeBuddy",
+      "factory": "Install to Factory Droid",
+      "gemini": "Install to Gemini CLI",
+      "copilot": "Install to GitHub Copilot",
+      "goose": "Install to Goose Agent",
+      "kilocode": "Install to Kilo Code",
+      "kimi": "Install to Kimi CLI",
+      "opencode": "Install to OpenCode",
+      "qwen": "Install to Qwen Code",
+      "roo": "Install to Roo Code",
+      "trae": "Install to Trae IDE"
+    },
+    "documentation": "Documentación",
+    "community": "Comunidad",
+    "updates": "Actualizaciones",
+    "about": "Acerca de este Skill",
+    "translating": "Traduciendo...",
+    "translate": "Traducir",
+    "showOriginal": "Mostrar Original",
+    "aboutTemplate": "Este skill permite a tu agente de AI interactuar con {name}. Compatible con los principales frameworks de agentes como Cursor, Windsurf y Claude Code.",
+    "explorer": "Explorador",
+    "project": "Proyecto",
+    "installation": "Instalación",
+    "excellent": "Excelente",
+    "qualityDesc": "Basado en calidad de código y docs",
+    "tags": "Etiquetas",
+    "noTags": "Sin etiquetas"
+  },
+  "Home": {
+    "heroTitle": "Equipa a tus agentes",
+    "heroTitleHighlight": "Con superpoderes",
+    "heroBadge": "El mercado para capacidades autónomas",
+    "heroDesc1": "El primer estándar abierto para habilidades de AI componibles.",
+    "heroDesc2": "Dale instantáneamente a tus agentes la capacidad de Navegar, Codificar y Crear.",
+    "searchPlaceholder": "Buscar capacidades (por ejemplo, 'Web Scraping', 'Data Viz')...",
+    "searchButton": "Buscar",
+    "tags": [
+      "Investigación",
+      "Codificación",
+      "Marketing",
+      "Análisis"
+    ],
+    "featuresTitle": "Diseñado para Desarrolladores",
+    "featuresSubtitle": "Conecta cualquier capacidad de AI, crea la próxima generación de aplicaciones inteligentes.",
+    "trendingTitle": "Habilidades en tendencia",
+    "trendingSubtitle": "Habilidades más integradas esta semana.",
+    "viewAll": "Ver todo",
+    "stable": "Estable",
+    "installs": "instalaciones",
+    "footerDesc": "El estándar abierto para la agencia de AI. Diseñado para el futuro del trabajo.",
+    "official": {
+      "title": "Colecciones oficiales de habilidades",
+      "featured": "Destacados",
+      "viewAll": "Ver todas las colecciones oficiales"
+    },
+    "cta": {
+      "title": "Comienza a utilizar habilidades asesinas",
+      "subtitle": "Instala habilidades con un solo comando y potencia tu asistente de inteligencia artificial",
+      "browse": "Explorar habilidades",
+      "docs": "Ver documentación"
+    },
+    "features": {
+      "0": {
+        "title": "Soporte Multi-IDE",
+        "desc": "Se integra perfectamente con Cursor, Windsurf y Claude Code."
+      },
+      "1": {
+        "title": "Protocolo Estándar",
+        "desc": "Basado en MCP. Escribe una vez, ejecuta en todas partes."
+      },
+      "2": {
+        "title": "Calidad Curada",
+        "desc": "Skills verificadas y seleccionadas manualmente con altas calificaciones."
+      },
+      "3": {
+        "title": "Código Abierto",
+        "desc": "Transparente, seguro e impulsado por la comunidad."
+      }
+    }
+  },
+  "Sidebar": {
+    "discover": "Descubrir",
+    "views": {
+      "official": "Oficial",
+      "featured": "Destacados",
+      "latest": "Recientes"
+    },
+    "categories": {
+      "title": "Categorías",
+      "all": "Todas",
+      "browser": "Navegador",
+      "finance": "Finanzas",
+      "productivity": "Productividad",
+      "developer": "Desarrollador",
+      "data": "Datos",
+      "ai": "Inteligencia Artificial",
+      "design": "Diseño"
+    },
+    "frameworks": "Frameworks"
+  },
+  "Stats": {
+    "totalSkills": "Habilidades totales",
+    "activeUsers": "Usuarios Activos",
+    "supportedIDEs": "IDEs Soportados",
+    "dailyInstalls": "Instalaciones Diarias",
+    "ecosystemGrowth": "Crecimiento del Ecosistema",
+    "totalDownloads": "Descargas Totales",
+    "activeCreators": "Creadores Activos",
+    "skills": "Habilidades"
+  },
+  "Common": {
+    "home": "Inicio",
+    "skillsMarket": "Habilidades",
+    "language": "Idioma",
+    "theme": "Tema",
+    "chinese": "Chino",
+    "english": "Inglés",
+    "searchPlaceholder": "Buscar capacidades (p. ej., 'Web Scraping')",
+    "search": "Buscar",
+    "loading": "Loading...",
+    "error": "Algo salió mal",
+    "back": "Atrás",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "pageInfo": "Page {current} of {total} ({count} skills)",
+    "official": "Oficial",
+    "verified": "Verificado",
+    "explore": "Explore",
+    "viewAll": "Ver todo"
+  },
+  "OfficialSkills": {
+    "title": "Habilidades Oficiales",
+    "verified": "Verificado",
+    "subtitle": "Habilidades de alta calidad mantenidas por el equipo central y socios de confianza."
+  },
+  "Footer": {
+    "desc": "El estándar abierto para la agencia de AI. Construido para el futuro del trabajo.",
+    "product": "Producto",
+    "resources": "Recursos",
+    "stayUpdated": "Mantente Actualizado",
+    "subscribeDesc": "Recibe las últimas habilidades y actualizaciones en tu bandeja de entrada.",
+    "emailPlaceholder": "Ingrese su correo electrónico",
+    "browse": "Explorar habilidades",
+    "docs": "Documentación",
+    "cli": "Herramienta CLI",
+    "integrations": "Integraciones",
+    "community": "Comunidad",
+    "showcase": "Exposición",
+    "blog": "Blog",
+    "help": "Centro de ayuda",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "cookie": "Política de cookies",
+    "rights": "Todos los derechos reservados."
+  },
+  "Marketplace": {
+    "title": "Todas las habilidades",
+    "official": "Habilidades Oficiales",
+    "officialDesc": "Habilidades certificadas de alta calidad mantenidas por equipos oficiales",
+    "featured": "Habilidades Destacadas",
+    "featuredDesc": "Las habilidades mejor valoradas y más populares de la comunidad",
+    "latest": "Últimos Descubrimientos",
+    "latestDesc": "Explora las últimas habilidades de AI Agent e innovaciones",
+    "allPurpose": "Todas las habilidades",
+    "allPurposeDesc": "Descubre, instala y gestiona más de 1000+ habilidades de AI Agent",
+    "discover": "Descubrir",
+    "latestSkills": "Últimas Habilidades",
+    "allSkills": "Todas las Habilidades",
+    "browseRelated": "Explorar habilidades de AI Agent relacionadas con {title}",
+    "browseOwner": "Explorar habilidades de {owner}",
+    "searchPrefix": "Búsqueda: {query}",
+    "browsing": "Explorando:",
+    "noSkills": "No se encontraron habilidades",
+    "noSkillsHint": "Intenta ajustar tus términos de búsqueda o navega por categoría",
+    "viewAll": "Ver Todas las Habilidades",
+    "availableSkills": "Habilidades Disponibles",
+    "viewSkills": "Ver Habilidades",
+    "popular": "Popular"
+  },
+  "Categories": {
+    "development": "Desarrollo",
+    "documentation": "Documentación",
+    "testing": "Pruebas",
+    "data": "Datos y Análisis",
+    "ai": "AI & ML",
+    "devops": "DevOps",
+    "design": "Diseño",
+    "productivity": "Productividad",
+    "code-review": "Revisión de Código",
+    "git": "Git",
+    "cli": "CLI",
+    "library": "Biblioteca",
+    "api": "API",
+    "database": "Base de Datos",
+    "browser": "Navegador",
+    "search": "Búsqueda",
+    "web-scraping": "Web Scraping",
+    "automation": "Automatización",
+    "social": "Redes Sociales",
+    "browseByCategory": "Explorar por categoría",
+    "skillCategories": "Categorías de Habilidades",
+    "relatedSkills": "Habilidades relacionadas",
+    "viewAll": "Ver Todo",
+    "noSkills": "No se encontraron habilidades",
+    "heroDesc": "Explora diferentes tipos de habilidades de AI y encuentra las herramientas perfectas para ti"
+  },
+  "Metadata": {
+    "title": "Killer-Skills - Mercado de Habilidades para Agentes de AI",
+    "template": "%s | Killer-Skills",
+    "description": "Descubre, instala y gestiona habilidades para AI agents. Compatible com Claude Code, Cursor, Windsurf.",
+    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
+    "Skills": {
+      "title": "Mercado de Habilidades - Descubre Skills para AI Agents",
+      "description": "Explora e instala miles de habilidades para AI Agents en Killer-Skills. Compatible con Claude Code, Windsurf, Cursor y más."
+    }
+  },
+  "Personal": {
+    "myFavorites": "Mis Favoritos",
+    "favoritesCount": "{count} habilidades",
+    "noFavorites": "Aún no hay favoritos",
+    "noFavoritesHint": "Navega por el mercado y haz clic en el corazón para guardar habilidades",
+    "browseSkills": "Explorar habilidades",
+    "removeFavorite": "Eliminar",
+    "savedAt": "Guardado {date}",
+    "browsingHistory": "Historial de navegación",
+    "historyCount": "{count} habilidades",
+    "clearHistory": "Borrar todo",
+    "noHistory": "Sin historial de navegación",
+    "noHistoryHint": "Tu historial aparecerá aquí después de ver detalles de habilidades",
+    "removeHistory": "Eliminar",
+    "time": {
+      "justNow": "Ahora mismo",
+      "agoM": "Hace {count} min",
+      "agoH": "Hace {count} h",
+      "agoD": "Hace {count} d"
+    }
+  },
+  "Community": {
+    "title": "Comunidad",
+    "join": "Únete a la Comunidad",
+    "contribute": "Contribuir Código",
+    "readGuide": "Leer la Guía de Contribución ->",
+    "shareFeedback": "Compartir Comentarios",
+    "submitIssue": "Enviar un Issue ->",
+    "cards": {
+      "source": {
+        "title": "Código Abierto",
+        "desc": "Código fuente, issues y PRs."
+      },
+      "chat": {
+        "title": "Discord",
+        "desc": "Chat en tiempo real y soporte."
+      },
+      "news": {
+        "title": "Twitter",
+        "desc": "Últimas noticias y actualizaciones."
+      }
+    },
+    "heroDesc": "Estamos construyendo el ecosistema de código abierto para la era de la IA. Ya seas desarrollador, creador o usuario, tu lugar está aquí.",
+    "contributeDesc": "Killer-Skills es completamente de código abierto. Puedes enviar PRs para corregir errores, agregar funcionalidades o contribuir nuevas habilidades.",
+    "feedbackDesc": "¿Tienes una idea? ¿Encontraste un error? Cuéntanos en Github Issues o Discord."
+  },
+  "Integrations": {
+    "worksWhereYouWork": "Funciona donde tú trabajas",
+    "viewGuide": "Ver Guía de Configuración",
+    "missingTool": "¿Falta tu herramienta?",
+    "learnProtocol": "Conoce el Protocolo",
+    "cards": {
+      "cursor": {
+        "desc": "Probablemente el mejor editor de código con IA actualmente."
+      },
+      "windsurf": {
+        "desc": "Potente editor IA de Codeium, basado en VS Code."
+      },
+      "claude": {
+        "desc": "Herramienta CLI oficial de Anthropic para codificación con agentes."
+      },
+      "goose": {
+        "desc": "Agente desarrollador IA de código abierto de Block (Square)."
+      }
+    },
+    "heroDesc": "Killer-Skills soporta nativamente todos los principales editores IA y frameworks de agentes basados en MCP.",
+    "missingToolDesc": "Mientras soporte MCP (Model Context Protocol), funciona con Killer-Skills."
+  },
+  "CLI": {
+    "heroTitle": "Plataforma Killer-Skills",
+    "heroSubtitle": "El estándar abierto para habilidades de agentes de IA",
+    "heroDesc": "Un registro centralizado de más de 1000 capacidades para sus agentes de IA. Descubra, comparta e integre habilidades en Cursor, Windsurf y Claude Code.",
+    "optionalNote": "Nota: La herramienta CLI es opcional. Puede usar las habilidades directamente a través de npx sin instalar nada.",
+    "install": "Instalar Ahora",
+    "viewDocs": "Ver Documentación",
+    "latestVersion": "Última Versión:",
+    "copyInstall": "npx killer-skills install <skill>",
+    "features": {
+      "autoInvoke": {
+        "title": "Registro Universal",
+        "desc": "Una biblioteca masiva de habilidades comunitarias y oficiales. Desde el procesamiento de PDF hasta la automatización del navegador, encuentre todo lo que su agente necesita."
+      },
+      "syncAll": {
+        "title": "Sincronización Universal",
+        "desc": "Un comando para gobernarlos a todos. 'killer sync --all' distribuye instantáneamente las habilidades a todos los IDE instalados en su máquina."
+      },
+      "mcp": {
+        "title": "Integración Profunda de MCP",
+        "desc": "El servidor MCP integrado permite a los agentes autoinstalar nuevas habilidades en tiempo de ejecución. Verdadera evolución autónoma."
+      },
+      "secure": {
+        "title": "Seguridad Empresarial",
+        "desc": "Todas las habilidades se ejecutan en entornos aislados. La autenticación de flujo de dispositivos de GitHub garantiza un acceso seguro."
+      }
+    },
+    "terminal": {
+      "title": "Experiencia del Desarrollador Primero",
+      "login": "Inicio de Sesión Seguro",
+      "loginDesc": "Auth de Flujo de Dispositivo GitHub",
+      "sync": "Sincronización de un clic",
+      "syncDesc": "Desplegar a 17+ IDEs",
+      "do": "Lenguaje Natural",
+      "doDesc": "Ejecución de Tareas de IA"
+    },
+    "comparison": {
+      "title": "¿Por qué Killer-Skills CLI?",
+      "ks": "Killer-Skills CLI",
+      "others": "Prompting Manual",
+      "row1": "Instalación en 1 clic en 17+ IDEs",
+      "row2": "Invocación Automática (Sin desperdicio de ventana de contexto)",
+      "row3": "Descubrimiento de Habilidades en Tiempo de Ejecución (MCP)",
+      "row4": "Registro de Habilidades Seguras y Verificadas"
+    }
+  },
+  "SkillsManagerWidget": {
+    "title": "Gestor de Habilidades",
+    "subtitle": "Puerta al Ecosistema",
+    "description": "Desbloquea posibilidades infinitas. Descubre, instala y potencia tu agente de IA con más de 1000 capacidades al instante.",
+    "cta": "Entrar al Gestor"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "Construye tu librería de habilidades IA",
+    "subheadline": "Potencia a tus agentes para escribir código profesional al instante",
+    "cta": "Inicio instantáneo con una línea",
+    "install": "Instalar",
+    "features": {
+      "multiPlatform": "Multiplataforma",
+      "secureSandbox": "Sandbox seguro",
+      "hotReload": "Recarga en caliente"
+    },
+    "copy": "COPIAR",
+    "copied": "LISTO",
+    "viewOnNpm": "Ver en NPM"
+  },
+  "Docs": {
+    "gettingStarted": "Empezando",
+    "tableOfContents": "En esta página",
+    "editPage": "Editar esta página",
+    "lastUpdated": "Última actualización"
+  },
+  "DocsSidebar": {
+    "platformOverview": "Descripción de la Plataforma",
+    "cliTooling": "Herramientas CLI",
+    "gettingStarted": "Empezando",
+    "introduction": "Introducción",
+    "quickStart": "Inicio Rápido",
+    "installation": "Instalación",
+    "architecture": "Arquitectura",
+    "cliReference": "Referencia CLI",
+    "overview": "Resumen",
+    "commands": "Comandos",
+    "configuration": "Configuración",
+    "coreConcepts": "Conceptos Básicos",
+    "skills": "Habilidades (Skills)",
+    "tools": "Herramientas (Tools)",
+    "workflows": "Flujos de Trabajo",
+    "guides": "Guías",
+    "creatingSkills": "Crear Habilidades",
+    "integrations": "Integraciones",
+    "security": "Seguridad",
+    "apiReference": "Referencia API",
+    "restApi": "API REST",
+    "authentication": "Autenticación",
+    "community": "Comunidad",
+    "contributing": "Contribuir",
+    "codeOfConduct": "Código de Conducta"
+  },
+  "Aria": {
+    "viewSkill": "View {name}",
+    "switchLanguage": "Switch Language",
+    "toggleTheme": "Toggle Theme",
+    "toggleMenu": "Toggle Menu",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "shareSkill": "Share this skill",
+    "backToSkills": "Back to skills",
+    "copyCommand": "Copy command"
+  }
+}

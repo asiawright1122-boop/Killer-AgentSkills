@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminApp from '../../islands/AdminApp';
+
+export const prerender = false;
+
+const apiBaseUrl = '/api/admin';
+---
+
+<Layout title="Admin Dashboard">
+  <AdminApp client:only="react" apiBaseUrl={apiBaseUrl} />
+</Layout>

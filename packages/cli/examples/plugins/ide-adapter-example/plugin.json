@@ -1,0 +1,15 @@
+{
+    "name": "killer-skills-custom-ide",
+    "version": "1.0.0",
+    "description": "Example IDE adapter plugin for Killer-Skills CLI",
+    "type": "ide-adapter",
+    "main": "adapter.js",
+    "config": {
+        "ideName": "my-custom-ide",
+        "fileExtensions": [
+            ".myide",
+            ".custom"
+        ],
+        "configDir": ".myide"
+    }
+}

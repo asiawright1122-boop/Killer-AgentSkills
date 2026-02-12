@@ -1,0 +1,128 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+	locale: string;
+	title: string;
+	description?: string;
+	image?: string;
+    showFooter?: boolean;
+    appendBrand?: boolean;
+    noindex?: boolean;
+}
+
+const SITE_URL = 'https://killer-skills.com';
+
+const {
+	locale,
+	title,
+	description = 'The ultimate directory of AI Development Skills for Agents.',
+	image = '/og-image.png',
+    showFooter = true,
+    appendBrand = true,
+    noindex = false,
+} = Astro.props;
+
+// RTL support for Arabic
+const isRtl = locale === 'ar';
+
+let messages;
+let t = (k: string) => k;
+try {
+  messages = await loadMessages(locale as Locale);
+  t = useTranslations(messages);
+} catch (e) {
+  console.error(`[Layout] Error loading translations for ${locale}:`, e);
+}
+
+// Build absolute image URL for OG/Twitter meta tags
+const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+const canonicalUrl = `${SITE_URL}${Astro.url.pathname}`;
+
+// Build hreflang alternate URLs for all supported locales
+const currentPath = Astro.url.pathname;
+const hreflangUrls = SUPPORTED_LOCALES.map(loc => {
+  // Replace the current locale segment with each alternate locale
+  const altPath = currentPath.replace(new RegExp(`^/${locale}/`), `/${loc}/`)
+    .replace(new RegExp(`^/${locale}$`), `/${loc}`);
+  return { locale: loc, href: `${SITE_URL}${altPath}` };
+});
+const xDefaultUrl = currentPath.replace(new RegExp(`^/${locale}/`), '/en/')
+  .replace(new RegExp(`^/${locale}$`), '/en');
+
+// Page title with optional brand suffix
+const fullTitle = appendBrand ? `${title} | Killer-Skills` : title;
+---
+
+<!doctype html>
+<html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- hreflang for multilingual SEO -->
+		{hreflangUrls.map(({ locale: loc, href }) => (
+			<link rel="alternate" hreflang={loc} href={href} />
+		))}
+		<link rel="alternate" hreflang="x-default" href={`${SITE_URL}${xDefaultUrl}`} />
+
+		<!-- SEO Keywords -->
+		<meta name="keywords" content={t('Metadata.keywords')} />
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Killer-Skills" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={absoluteImage} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:locale" content={locale} />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={absoluteImage} />
+
+		<title>{fullTitle}</title>
+
+		<!-- Theme Toggle Script (No FOUC) -->
+		<script is:inline>
+			const getThemePreference = () => {
+				if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+					return localStorage.getItem('theme');
+				}
+				return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+			};
+			const isDark = getThemePreference() === 'dark';
+			document.documentElement.classList[isDark ? 'add' : 'remove']('dark');
+
+			if (typeof localStorage !== 'undefined') {
+				const observer = new MutationObserver(() => {
+					const isDark = document.documentElement.classList.contains('dark');
+					localStorage.setItem('theme', isDark ? 'dark' : 'light');
+				});
+				observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+			}
+		</script>
+		<!-- Named slot for child-injected head tags (e.g. rel prev/next) -->
+		<slot name="head" />
+	</head>
+	<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+		<Header locale={locale} t={t} />
+		<div class="flex-1">
+			<slot />
+		</div>
+		{showFooter && <Footer locale={locale} t={t} />}
+	</body>
+</html>

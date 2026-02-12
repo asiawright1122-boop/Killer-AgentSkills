@@ -1,0 +1,475 @@
+{
+  "Navigation": {
+    "home": "ホーム",
+    "marketplace": "マーケット",
+    "categories": "カテゴリ",
+    "docs": "ドキュメント",
+    "github": "GitHub",
+    "getStarted": "始める",
+    "history": "履歴",
+    "favorites": "お気に入り"
+  },
+  "Hero": {
+    "badge": "80,000+ スキル利用可能",
+    "title": "AIエージェントのスキルを発見",
+    "titleHighlight": "AIエージェント",
+    "subtitle": "無限の可能性を探索し、AIアシスタントを強化しましょう",
+    "searchPlaceholder": "スキルを検索... 例: PDF, データ分析",
+    "searchButton": "検索",
+    "hotTags": "人気:",
+    "suggestions": [
+      "PDF",
+      "画像生成",
+      "データ分析",
+      "ブラウザ",
+      "コードレビュー",
+      "ドキュメント"
+    ]
+  },
+  "Skills": {
+    "featured": "注目のスキル",
+    "searchResults": "検索結果",
+    "trending": "トレンド",
+    "recent": "最近",
+    "noResults": "スキルが見つかりません",
+    "noResultsHint": "別のキーワードを試してください",
+    "stars": "スター",
+    "forks": "フォーク",
+    "updated": "更新日",
+    "version": "バージョン",
+    "downloads": "ダウンロード数",
+    "creators": "アクティブなクリエイター",
+    "install": "インストールコード",
+    "copy": "コピー",
+    "copied": "コピーしました!",
+    "viewOnGithub": "GitHubで見る",
+    "original": "オリジナル",
+    "translation": "翻訳",
+    "translating": "翻訳中...",
+    "showOriginal": "原文を表示",
+    "showTranslation": "翻訳を表示"
+  },
+  "Detail": {
+    "back": "リストに戻る",
+    "quickInstall": "クイックインストール",
+    "targetIDE": "対象IDE",
+    "copyCommand": "インストールコマンドをコピー",
+    "copied": "コピーしました",
+    "stats": "統計",
+    "stars": "スター",
+    "downloads": "ダウンロード",
+    "info": "情報",
+    "author": "作者",
+    "updated": "更新日",
+    "viewOnGithub": "GitHubで見る",
+    "features": "機能",
+    "qualityScore": "品質スコア",
+    "installCommand": "インストールコマンド",
+    "installPath": "インストールパス",
+    "projectLevel": "プロジェクト:",
+    "globalLevel": "グローバル:",
+    "unlockTitle": "AIスキルのロック解除と管理",
+    "getManager": "マネージャーを入手",
+    "ideDescriptions": {
+      "cursor": "Cursor Composerで使用",
+      "windsurf": "Windsurf Cascadeで使用",
+      "claude": "Claude Codeにインストール",
+      "amp": "Amp Agentにインストール",
+      "antigravity": "Antigravityにインストール",
+      "codex": "Install to Codex",
+      "codebuddy": "Install to CodeBuddy",
+      "factory": "Install to Factory Droid",
+      "gemini": "Install to Gemini CLI",
+      "copilot": "Install to GitHub Copilot",
+      "goose": "Install to Goose Agent",
+      "kilocode": "Install to Kilo Code",
+      "kimi": "Install to Kimi CLI",
+      "opencode": "Install to OpenCode",
+      "qwen": "Install to Qwen Code",
+      "roo": "Install to Roo Code",
+      "trae": "Install to Trae IDE"
+    },
+    "documentation": "ドキュメント",
+    "community": "コミュニティ",
+    "updates": "更新頻度",
+    "about": "このスキルについて",
+    "translating": "翻訳中...",
+    "translate": "翻訳",
+    "showOriginal": "原文を表示",
+    "aboutTemplate": "このスキルにより、AIエージェントが{name}と連携できます。Cursor、Windsurf、Claude Codeなど主要なエージェントフレームワークに対応しています。",
+    "explorer": "エクスプローラー",
+    "project": "プロジェクト",
+    "installation": "インストール",
+    "excellent": "優秀",
+    "qualityDesc": "コード品質とドキュメントに基づく",
+    "tags": "タグ",
+    "noTags": "タグなし"
+  },
+  "Home": {
+    "heroTitle": "エージェントに装備する",
+    "heroTitleHighlight": "スーパーパワー",
+    "heroBadge": "自律機能のためのマーケットプレイス",
+    "heroDesc1": "構成可能なAIスキルのための最初のオープンスタンダード。",
+    "heroDesc2": "エージェントにブラウズ、コード、クリエイトの能力を即座に付与。",
+    "searchPlaceholder": "機能を検索（例：'Webスクレイピング'、'データ可視化'）...",
+    "searchButton": "検索",
+    "tags": [
+      "リサーチ",
+      "コーディング",
+      "マーケティング",
+      "分析"
+    ],
+    "featuresTitle": "開発者のために構築",
+    "featuresSubtitle": "あらゆるAI機能を接続し、次世代のインテリジェントアプリを構築。",
+    "trendingTitle": "トレンドスキル",
+    "trendingSubtitle": "今週最も統合されたスキル。",
+    "viewAll": "すべて見る",
+    "stable": "安定版",
+    "installs": "インストール",
+    "footerDesc": "AIエージェンシーのためのオープンスタンダード。未来の仕事のために構築。",
+    "official": {
+      "title": "公式スキルコレクション",
+      "featured": "おすすめ",
+      "viewAll": "すべての公式コレクションを見る"
+    },
+    "cta": {
+      "title": "Killer Skillsを始めよう",
+      "subtitle": "ワンコマンドでスキルをインストールし、AIアシスタントを強化",
+      "browse": "スキルを探す",
+      "docs": "ドキュメントを見る"
+    },
+    "features": {
+      "0": {
+        "title": "マルチIDEサポート",
+        "desc": "Cursor、Windsurf、Claude Codeとシームレスに統合。"
+      },
+      "1": {
+        "title": "標準プロトコル",
+        "desc": "MCPベース。一度書けば、どこでも動く。"
+      },
+      "2": {
+        "title": "厳選された品質",
+        "desc": "高評価の検証済みスキルを厳選。"
+      },
+      "3": {
+        "title": "オープンソース",
+        "desc": "透明、安全、コミュニティ主導。"
+      }
+    }
+  },
+  "Sidebar": {
+    "discover": "発見",
+    "views": {
+      "official": "公式スキル",
+      "featured": "注目のスキル",
+      "latest": "最新のスキル"
+    },
+    "categories": {
+      "title": "カテゴリ",
+      "all": "すべてのスキル",
+      "browser": "ブラウザ",
+      "finance": "金融",
+      "productivity": "生産性",
+      "developer": "開発者",
+      "data": "データ",
+      "ai": "AI",
+      "design": "デザイン"
+    },
+    "frameworks": "フレームワーク"
+  },
+  "Stats": {
+    "totalSkills": "総スキル数",
+    "activeUsers": "アクティブユーザー",
+    "supportedIDEs": "サポートされているIDE",
+    "dailyInstalls": "一日のインストール数",
+    "ecosystemGrowth": "エコシステムの成長",
+    "totalDownloads": "総ダウンロード数",
+    "activeCreators": "アクティブクリエイター",
+    "skills": "スキル"
+  },
+  "Common": {
+    "home": "ホーム",
+    "skillsMarket": "スキル",
+    "language": "言語",
+    "theme": "テーマ",
+    "chinese": "中国語",
+    "english": "英語",
+    "searchPlaceholder": "機能を検索 (例: 'Web Scraping')",
+    "search": "検索",
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "back": "戻る",
+    "prev": "前へ",
+    "next": "次へ",
+    "pageInfo": "{total} ページ中 {current} ページ ({count} スキル)",
+    "official": "公式",
+    "verified": "認証済み",
+    "explore": "Explore",
+    "viewAll": "すべて表示"
+  },
+  "OfficialSkills": {
+    "title": "公式スキル",
+    "verified": "認証済み",
+    "subtitle": "コアチームと信頼できるパートナーが維持する高品質なスキル。"
+  },
+  "Footer": {
+    "desc": "AIエージェンシーのためのオープンスタンダード。未来の仕事のために構築。",
+    "product": "製品",
+    "resources": "リソース",
+    "stayUpdated": "最新情報を入手",
+    "subscribeDesc": "最新のスキルと更新情報をメールでお届けします。",
+    "emailPlaceholder": "メールアドレスを入力",
+    "browse": "スキルを探す",
+    "docs": "ドキュメント",
+    "cli": "CLIツール",
+    "integrations": "インテグレーション",
+    "community": "コミュニティ",
+    "showcase": "ショーケース",
+    "blog": "ブログ",
+    "help": "ヘルプセンター",
+    "privacy": "プライバシーポリシー",
+    "terms": "利用規約",
+    "cookie": "Cookieポリシー",
+    "rights": "All rights reserved."
+  },
+  "Marketplace": {
+    "title": "すべてのスキル",
+    "official": "公式スキル",
+    "officialDesc": "公式チームによって維持される高品質の認定スキル",
+    "featured": "注目のスキル",
+    "featuredDesc": "コミュニティからのトップ評価と最も人気のあるスキル",
+    "latest": "最新の発見",
+    "latestDesc": "最新のAIエージェントのスキルとイノベーションを探索",
+    "allPurpose": "すべてのスキル",
+    "allPurposeDesc": "1000以上のAIエージェントスキルを発見、インストール、管理",
+    "discover": "発見",
+    "latestSkills": "最新のスキル",
+    "allSkills": "すべてのスキル",
+    "browseRelated": "{title} に関連するスキル",
+    "browseOwner": "{owner} からのスキル",
+    "searchPrefix": "検索: {query}",
+    "browsing": "閲覧中:",
+    "noSkills": "スキルが見つかりません",
+    "noSkillsHint": "検索語を調整するか、カテゴリで閲覧してみてください",
+    "viewAll": "すべてのスキルを見る",
+    "availableSkills": "利用可能なスキル",
+    "viewSkills": "スキルを見る",
+    "popular": "Popular"
+  },
+  "Categories": {
+    "development": "開発",
+    "documentation": "ドキュメント",
+    "testing": "テスト",
+    "data": "データ＆分析",
+    "ai": "AI & ML",
+    "devops": "DevOps",
+    "design": "デザイン",
+    "productivity": "生産性",
+    "code-review": "コードレビュー",
+    "git": "Git",
+    "cli": "CLI",
+    "library": "ライブラリ",
+    "api": "API",
+    "database": "データベース",
+    "browser": "ブラウザ",
+    "search": "検索",
+    "web-scraping": "ウェブスクレイピング",
+    "automation": "自動化",
+    "social": "ソーシャルメディア",
+    "browseByCategory": "カテゴリで探す",
+    "skillCategories": "スキルカテゴリ",
+    "relatedSkills": "関連スキル",
+    "viewAll": "すべて見る",
+    "noSkills": "スキルが見つかりません",
+    "heroDesc": "さまざまなAIスキルを探索し、最適なツールを見つけましょう"
+  },
+  "Metadata": {
+    "title": "Killer-Skills - AIエージェントスキルマーケットプレイス",
+    "template": "%s | Killer-Skills",
+    "description": "AIエージェントスキルを発見、インストール、管理。Claude Code、Cursor、Windsurf、Antigravityなどをサポート。",
+    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
+    "Skills": {
+      "title": "スキルマーケット - AI Agentスキルを発見",
+      "description": "Killer-Skillsマーケットプレイスで数千のAI Agentスキルを探索・インストール。Claude Code、Windsurf、Cursorなどに対応。"
+    }
+  },
+  "Personal": {
+    "myFavorites": "お気に入り",
+    "favoritesCount": "{count}件のスキル",
+    "noFavorites": "お気に入りはまだありません",
+    "noFavoritesHint": "スキルマーケットを閲覧し、ハートアイコンをクリックして保存",
+    "browseSkills": "スキルを探す",
+    "removeFavorite": "削除",
+    "savedAt": "{date}に保存",
+    "browsingHistory": "閲覧履歴",
+    "historyCount": "{count}件のスキル",
+    "clearHistory": "すべてクリア",
+    "noHistory": "閲覧履歴はありません",
+    "noHistoryHint": "スキル詳細を見ると、ここに履歴が表示されます",
+    "removeHistory": "削除",
+    "time": {
+      "justNow": "たった今",
+      "agoM": "{count}分前",
+      "agoH": "{count}時間前",
+      "agoD": "{count}日前"
+    }
+  },
+  "Community": {
+    "title": "コミュニティ",
+    "join": "コミュニティに参加",
+    "contribute": "コードを貢献",
+    "readGuide": "貢献ガイドを読む ->",
+    "shareFeedback": "フィードバックを共有",
+    "submitIssue": "Issueを送信 ->",
+    "cards": {
+      "source": {
+        "title": "オープンソース",
+        "desc": "ソースコード、Issue、PR。"
+      },
+      "chat": {
+        "title": "Discord (チャット)",
+        "desc": "リアルタイムチャットとサポート。"
+      },
+      "news": {
+        "title": "Twitter (X)",
+        "desc": "最新ニュースと更新情報。"
+      }
+    },
+    "heroDesc": "私たちはAI時代のオープンソースエコシステムを構築しています。開発者でも、クリエイターでも、ユーザーでも、ここに居場所があります。",
+    "contributeDesc": "Killer-Skillsは完全にオープンソースです。バグ修正、機能追加、新しいスキルの貢献のためにPRを提出できます。",
+    "feedbackDesc": "アイデアがありますか？バグを見つけましたか？Github IssuesまたはDiscordでお知らせください。"
+  },
+  "Integrations": {
+    "worksWhereYouWork": "お使いの環境で動作",
+    "viewGuide": "セットアップガイドを見る",
+    "missingTool": "ツールが見つかりませんか？",
+    "learnProtocol": "プロトコルについて学ぶ",
+    "cards": {
+      "cursor": {
+        "desc": "現在最も優れたAIコードエディタ。"
+      },
+      "windsurf": {
+        "desc": "Codeiumの強力なAIエディタ、VS Codeベース。"
+      },
+      "claude": {
+        "desc": "AnthropicのCLIエージェントコーディングツール。"
+      },
+      "goose": {
+        "desc": "Block (Square) のオープンソースAI開発者エージェント。"
+      }
+    },
+    "heroDesc": "Killer-Skillsは、すべての主要なMCPベースのAIエディタとエージェントフレームワークをネイティブでサポートしています。",
+    "missingToolDesc": "MCP (Model Context Protocol) をサポートしていれば、Killer-Skillsで動作します。"
+  },
+  "CLI": {
+    "heroTitle": "Killer-Skills プラットフォーム",
+    "heroSubtitle": "AIエージェントスキルのためのオープンスタンダード",
+    "heroDesc": "AIエージェントのための1000以上の能力を持つ一元化されたレジストリ。Cursor、Windsurf、Claude Codeでスキルを発見、共有、統合しましょう。",
+    "optionalNote": "注: CLIツールはオプションです。何もインストールせずにnpx経由で直接スキルを使用できます。",
+    "install": "今すぐインストール",
+    "viewDocs": "ドキュメントを見る",
+    "latestVersion": "最新バージョン:",
+    "copyInstall": "npx killer-skills install <skill>",
+    "features": {
+      "autoInvoke": {
+        "title": "ユニバーサルレジストリ",
+        "desc": "コミュニティおよび公式スキルの巨大なライブラリ。PDF処理からブラウザ自動化まで、エージェントが必要とするすべてが見つかります。"
+      },
+      "syncAll": {
+        "title": "ユニバーサル同期",
+        "desc": "すべてを支配する1つのコマンド。「killer sync --all」は、マシンにインストールされているすべてのIDEにスキルを即座に配信します。"
+      },
+      "mcp": {
+        "title": "深いMCP統合",
+        "desc": "組み込みのMCPサーバーにより、エージェントは実行時に新しいスキルを自己インストールできます。真の自律的な進化。"
+      },
+      "secure": {
+        "title": "エンタープライズセキュリティ",
+        "desc": "すべてのスキルは隔離された環境で実行されます。GitHub Device Flow認証により、安全なアクセスが保証されます。"
+      }
+    },
+    "terminal": {
+      "title": "開発者体験ファースト",
+      "login": "セキュアログイン",
+      "loginDesc": "GitHub Device Flow認証",
+      "sync": "ワンクリック同期",
+      "syncDesc": "17以上のIDEにデプロイ",
+      "do": "自然言語",
+      "doDesc": "AIタスク実行"
+    },
+    "comparison": {
+      "title": "なぜKiller-Skills CLIなのか？",
+      "ks": "Killer-Skills CLI",
+      "others": "手動プロンプト",
+      "row1": "17以上のIDEへのワンクリックインストール",
+      "row2": "自動呼び出し（コンテキストウィンドウの無駄なし）",
+      "row3": "ランタイムスキル発見（MCP）",
+      "row4": "検証済みの安全なスキルレジストリ"
+    }
+  },
+  "SkillsManagerWidget": {
+    "title": "スキルマネージャー",
+    "subtitle": "エコシステムゲートウェイ",
+    "description": "無限の可能性を解き放つ。1000以上のAIエージェント機能を即座に発見、インストール、強化します。",
+    "cta": "マネージャーを開く"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "AIスキルライブラリを構築",
+    "subheadline": "エージェントにプロレベルのコードを即座に書かせる",
+    "cta": "1行で即座に開始",
+    "install": "インストール",
+    "features": {
+      "multiPlatform": "マルチプラットフォーム",
+      "secureSandbox": "セキュアなサンドボックス",
+      "hotReload": "ホットリロード"
+    },
+    "copy": "コピー",
+    "copied": "OK",
+    "viewOnNpm": "NPMで見る"
+  },
+  "Docs": {
+    "gettingStarted": "はじめに",
+    "tableOfContents": "このページの内容",
+    "editPage": "このページを編集",
+    "lastUpdated": "最終更新"
+  },
+  "DocsSidebar": {
+    "platformOverview": "プラットフォーム概要",
+    "cliTooling": "CLI ツール",
+    "gettingStarted": "はじめに",
+    "introduction": "イントロダクション",
+    "quickStart": "クイックスタート",
+    "installation": "インストール",
+    "architecture": "アーキテクチャ",
+    "cliReference": "CLI リファレンス",
+    "overview": "概要",
+    "commands": "コマンド一覧",
+    "configuration": "設定",
+    "coreConcepts": "コアコンセプト",
+    "skills": "スキル (Skills)",
+    "tools": "ツール (Tools)",
+    "workflows": "ワークフロー (Workflows)",
+    "guides": "ガイド",
+    "creatingSkills": "スキルの作成",
+    "integrations": "統合 (Integrations)",
+    "security": "セキュリティ",
+    "apiReference": "API リファレンス",
+    "restApi": "REST API",
+    "authentication": "認証",
+    "community": "コミュニティ",
+    "contributing": "貢献ガイド",
+    "codeOfConduct": "行動規範"
+  },
+  "Aria": {
+    "viewSkill": "{name} を表示",
+    "switchLanguage": "言語を切り替え",
+    "toggleTheme": "テーマを切り替え",
+    "toggleMenu": "メニューを切り替え",
+    "addToFavorites": "おり気に入りに追加",
+    "removeFromFavorites": "お気に入りから削除",
+    "shareSkill": "このスキルを共有",
+    "backToSkills": "スキル一覧に戻る",
+    "copyCommand": "コマンドをコピー"
+  }
+}
