@@ -103,7 +103,14 @@
     "excellent": "优秀",
     "qualityDesc": "基于代码质量和文档完整度",
     "tags": "标签",
-    "noTags": "暂无标签"
+    "noTags": "暂无标签",
+    "agentAnalysis": "AI智能体兼容性",
+    "suitability": "最适合",
+    "recommendation": "使用此技能的理由",
+    "useCases": "可行的使用场景",
+    "limitations": "安全性与限制",
+    "precautions": "注意事项",
+    "relatedSkills": "相关技能"
   },
   "Home": {
     "heroTitle": "为你的AI助手",
@@ -138,24 +145,24 @@
       "browse": "浏览技能市场",
       "docs": "查看文档"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "多 IDE 支持",
         "desc": "无缝集成 Cursor、Windsurf 和 Claude Code。"
       },
-      "1": {
+      {
         "title": "标准协议",
         "desc": "基于 MCP 协议，一次编写，到处运行。"
       },
-      "2": {
+      {
         "title": "严选质量",
         "desc": "精选 GitHub 高星项目，人工审核确保可用。"
       },
-      "3": {
+      {
         "title": "完全开源",
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
-    }
+    ]
   },
   "Sidebar": {
     "discover": "发现",

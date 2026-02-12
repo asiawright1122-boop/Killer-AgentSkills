@@ -103,7 +103,14 @@
     "excellent": "Ausgezeichnet",
     "qualityDesc": "Basierend auf Code-Qualität & Doku",
     "tags": "Tags",
-    "noTags": "Keine Tags"
+    "noTags": "Keine Tags",
+    "agentAnalysis": "Künstliche-Intelligenz-Agenten-Kompatibilität",
+    "suitability": "Am besten geeignet für",
+    "recommendation": "Warum diese Fähigkeit verwenden",
+    "useCases": "Handlungsfähige Anwendungsfälle",
+    "limitations": "Sicherheit & Einschränkungen",
+    "precautions": "Vorsichtsmaßnahmen",
+    "relatedSkills": "Verwandte Fähigkeiten"
   },
   "Home": {
     "heroTitle": "Rüsten Sie Ihre Agenten aus",
@@ -138,24 +145,24 @@
       "browse": "Skills durchsuchen",
       "docs": "Dokumentation anzeigen"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "Multi-IDE-Unterstützung",
         "desc": "Nahtlose Integration mit Cursor, Windsurf und Claude Code."
       },
-      "1": {
+      {
         "title": "Standardprotokoll",
         "desc": "Basiert auf MCP. Einmal schreiben, überall ausführen."
       },
-      "2": {
+      {
         "title": "Kuratierte Qualität",
         "desc": "Handverlesene, hoch bewertete und verifizierte Skills."
       },
-      "3": {
+      {
         "title": "Open Source",
         "desc": "Transparent, sicher und von der Community getragen."
       }
-    }
+    ]
   },
   "Sidebar": {
     "discover": "Entdecken",

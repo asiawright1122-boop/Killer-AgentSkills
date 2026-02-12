@@ -103,7 +103,14 @@
     "excellent": "優秀",
     "qualityDesc": "コード品質とドキュメントに基づく",
     "tags": "タグ",
-    "noTags": "タグなし"
+    "noTags": "タグなし",
+    "agentAnalysis": "AIエージェントの互換性",
+    "suitability": "おすすめ",
+    "recommendation": "このスキルを使用する理由",
+    "useCases": "実現可能なユースケース",
+    "limitations": "セキュリティと制限",
+    "precautions": "注意事項",
+    "relatedSkills": "関連スキル"
   },
   "Home": {
     "heroTitle": "エージェントに装備する",
@@ -138,24 +145,24 @@
       "browse": "スキルを探す",
       "docs": "ドキュメントを見る"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "マルチIDEサポート",
         "desc": "Cursor、Windsurf、Claude Codeとシームレスに統合。"
       },
-      "1": {
+      {
         "title": "標準プロトコル",
         "desc": "MCPベース。一度書けば、どこでも動く。"
       },
-      "2": {
+      {
         "title": "厳選された品質",
         "desc": "高評価の検証済みスキルを厳選。"
       },
-      "3": {
+      {
         "title": "オープンソース",
         "desc": "透明、安全、コミュニティ主導。"
       }
-    }
+    ]
   },
   "Sidebar": {
     "discover": "発見",
