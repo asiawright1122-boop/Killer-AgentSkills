@@ -22,7 +22,7 @@ export const POST: APIRoute = async ({ locals }) => {
 
     // Trigger sync by fetching latest skills data from GitHub
     const syncUrl =
-      'https://raw.githubusercontent.com/kakawah1122/Killer-Skills/main/data/skills-cache.json';
+      'https://raw.githubusercontent.com/asiawright1122-boop/Killer-AgentSkills/main/data/skills-cache.json';
 
     try {
       const response = await fetch(syncUrl);
