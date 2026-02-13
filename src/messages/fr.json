@@ -480,5 +480,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "Analyses et Actualités",
+    "subtitle": "Plongées approfondies dans les agents IA, les serveurs MCP et l'avenir du développement.",
+    "browseByCategory": "Parcourir par Catégorie",
+    "readTime": "{n} min de lecture",
+    "readArticle": "Lire l'article",
+    "comingSoon": "Bientôt disponible...",
+    "featured": "À la une",
+    "categories": {
+      "creative-tools": "Outils Créatifs",
+      "creative-tools-desc": "Art génératif, stylisme et automatisation créative.",
+      "document-automation": "Automatisation de Documents",
+      "document-automation-desc": "Transformer les PDF, Docs et Sheets en intelligence.",
+      "enterprise-solutions": "Solutions d'Entreprise",
+      "enterprise-solutions-desc": "Outils de qualité professionnelle pour les flux de travail métier.",
+      "developer-experience": "Expérience Développeur",
+      "developer-experience-desc": "Les blocs de construction pour l'ingénierie assistée par IA.",
+      "announcements": "Annonces",
+      "announcements-desc": "Dernières nouvelles et mises à jour de la plateforme."
+    }
   }
 }

@@ -6,30 +6,56 @@ author: "Killer-Skills Team"
 tags: ["发布公告", "AI Agent", "MCP"]
 lang: "zh"
 featured: true
-heroImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=2560&auto=format&fit=crop"
+category: "announcements"
+heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 欢迎来到 AI 开发的未来
+# 欢迎来到 Killer-Skills：为您的 AI Agent 注入超能力
 
-今天，我们非常激动地宣布 **Killer Skills** 正式公测。这是一个旨在连接人类创造力与 AI 执行力的平台。
+今天，我们非常激动地宣布 **Killer-Skills** 正式上线 —— 这是首个为 AI Agent 打造的开放式技能市场和注册表。
 
-## 为什么需要 Killer Skills？
+## 现代 AI Agent 面临的问题
 
-随着 **Windsurf**、**Cursor** 和 **Claude Code** 等 AI 编程 Agent 变得越来越强大，它们不仅需要原始的智能，更需要**技能**。它们需要专门的工具来访问数据库、交互 API 以及管理复杂的工作流。
+AI Agent（如 Claude Code、Cursor、Windsurf）具有革命性，但它们的潜力往往受限于它们能够访问的工具。到目前为止，开发人员经常不得不为了特定的任务（如 PDF 编辑、Excel 自动化或管理 GitHub 仓库）从头开始构建自己的 MCP（Model Context Protocol）服务器。
 
-Killer Skills 提供了一个标准化的、经过验证的工具目录，所有工具都打包为 **MCP Servers** (Model Context Protocol)。
+Killer-Skills 改变了这一切。
 
-## 核心特性
+## 什么是 Killer-Skills？
 
--   **通用兼容性**：支持所有主流 AI 编程环境。
--   **一键安装**：只需运行 `npx killer-skills add <skill>`。
--   **质量验证**：每一项技能都经过安全性和性能审查。
+Killer-Skills 是一个经过验证的、专业级技能的中心化注册表，您的 AI Agent 可以立即发现、安装并使用这些技能。
 
-##以此为起点
+### 核心特性
 
-我们在接下来的几周内将陆续推出：
--   **社区提交**：提交您自己的 Skills。
--   **技能分析**：查看您的 Skills 的受欢迎程度。
--   **高级技能**：面向企业级用例的高级工具。
+-   **通用注册表**：超过 1,000 个经过验证的技能，只需一条命令即可使用。
+-   **深度 MCP 集成**：基于 Anthropic 的 Model Context Protocol 构建，确保 Agent 无缝交互。
+-   **多 IDE 支持**：适用于您喜爱的工具，如 Cursor、Windsurf、Claude Code、Amp 和 Goose。
+-   **安全第一**：每项技能都经过隔离和验证，确保安全执行。
 
-敬请期待！
+## 立即开始
+
+升级您的 Agent 非常简单。只需在终端中运行以下命令：
+
+```bash
+# 安装 CLI
+npm install -g killer-skills
+
+# 搜索技能
+killer search google-maps
+
+# 为您的 Agent 添加技能
+killer add google-maps
+```
+
+## 未来是自主的
+
+我们相信这样一个未来：Agent 可以在执行任务时动态地“学习”（安装）新功能。Killer-Skills 提供了必要的底层设施，将 AI 工具转变为一个庞大的互联智能生态系统。
+
+## 加入革命
+
+Killer-Skills 是一个由社区驱动的项目。探索文档，查看[技能市场](https://killer-skills.com/zh/blog)，并通过创建您自己的技能开始做出贡献。
+
+让我们一起构建 Agent 的未来。
+
+---
+
+*您的 Killer-Skills 团队*

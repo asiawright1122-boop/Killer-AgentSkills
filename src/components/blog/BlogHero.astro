@@ -1,5 +1,7 @@
 ---
+import { getMessages } from '../../i18n';
 import type { CollectionEntry } from 'astro:content';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { ArrowRight, Calendar, User, ArrowUpRight } from 'lucide-react';
 
 interface Props {
@@ -8,6 +10,9 @@ interface Props {
 }
 
 const { post, locale } = Astro.props;
+const messages = await loadMessages(locale as Locale);
+const t = useTranslations(messages);
+const tb = messages.Blog;
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -15,11 +20,14 @@ const dateOptions: Intl.DateTimeFormatOptions = {
   day: 'numeric',
 };
 const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
+
+// Use translated category if available
+const displayCategory = post.data.category ? (tb.categories?.[post.data.category as keyof typeof tb.categories] || post.data.category.replace('-', ' ')) : null;
 ---
 
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
-  class="group relative block w-full overflow-hidden rounded-3xl h-[500px] mb-12 shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.2)]"
+  class="group relative block w-full overflow-hidden rounded-3xl h-[500px] mb-12 shadow-xl dark:shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.3)]"
 >
   {/* Background Image with Zoom Effect */}
   <div class="absolute inset-0 w-full h-full">
@@ -41,11 +49,11 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
     <div class="relative transform transition-all duration-500 translate-y-4 group-hover:translate-y-0">
         <div class="flex items-center gap-3 mb-4">
             <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20">
-                Featured
+                {tb.featured}
             </span>
-             {post.data.tags && post.data.tags.length > 0 && (
-                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white/80 uppercase bg-black/20 backdrop-blur-md rounded-full border border-white/10">
-                    {post.data.tags[0]}
+            {post.data.category && (
+                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-sky-500/80 dark:bg-purple-600/80 backdrop-blur-sm rounded-full shadow-lg border border-white/10">
+                    {displayCategory}
                 </span>
             )}
         </div>
@@ -72,7 +80,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
                 </time>
             </div>
              <div class="ml-auto group/btn flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-bold text-sm hover:bg-purple-500 hover:text-white transition-all duration-300">
-                Read Article
+                {t.readArticle}
                 <ArrowUpRight size={16} class="group-hover/btn:rotate-45 transition-transform duration-300" />
             </div>
         </div>

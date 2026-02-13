@@ -480,5 +480,26 @@
     "shareSkill": "分享此技能",
     "backToSkills": "返回技能列表",
     "copyCommand": "复制指令"
+  },
+  "Blog": {
+    "title": "洞察与更新",
+    "subtitle": "深入探讨 AI Agent、MCP 服务器和编程的未来。",
+    "browseByCategory": "按分类浏览",
+    "readTime": "{n} 分钟阅读",
+    "readArticle": "查看文章",
+    "comingSoon": "敬请期待...",
+    "featured": "精选",
+    "categories": {
+      "creative-tools": "创意工具",
+      "creative-tools-desc": "生成式艺术、样式美化与创意自动化。",
+      "document-automation": "文档自动化",
+      "document-automation-desc": "将 PDF、文档和表格转化为智能能力。",
+      "enterprise-solutions": "企业解决方案",
+      "enterprise-solutions-desc": "适用于业务工作流的专业级工具。",
+      "developer-experience": "开发者体验",
+      "developer-experience-desc": "AI 驱动工程的基石。",
+      "announcements": "公告",
+      "announcements-desc": "最新新闻与平台更新。"
+    }
   }
 }

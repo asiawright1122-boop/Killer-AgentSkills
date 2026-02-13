@@ -4,6 +4,7 @@
     "marketplace": "Магазин",
     "categories": "Категории",
     "docs": "Документация",
+    "blog": "Блог",
     "github": "GitHub",
     "getStarted": "Начать",
     "history": "История",
@@ -480,5 +481,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "Аналитика и обновления",
+    "subtitle": "Глубокие погружения в AI-агентов, MCP-серверы и будущее программирования.",
+    "browseByCategory": "Поиск по категориям",
+    "readTime": "{n} мин. чтения",
+    "readArticle": "Читать статью",
+    "comingSoon": "Скоро...",
+    "featured": "Рекомендуемое",
+    "categories": {
+      "creative-tools": "Творческие инструменты",
+      "creative-tools-desc": "Генеративное искусство, стилизация и творческая автоматизация.",
+      "document-automation": "Автоматизация документов",
+      "document-automation-desc": "Превращение PDF, документов и таблиц в интеллект.",
+      "enterprise-solutions": "Корпоративные решения",
+      "enterprise-solutions-desc": "Инструменты профессионального уровня для бизнес-процессов.",
+      "developer-experience": "Опыт разработчика",
+      "developer-experience-desc": "Строительные блоки для инженерии на базе ИИ.",
+      "announcements": "Объявления",
+      "announcements-desc": "Последние новости и обновления платформы."
+    }
   }
 }

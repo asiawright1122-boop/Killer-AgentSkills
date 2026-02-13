@@ -4,6 +4,7 @@
     "marketplace": "Mercado",
     "categories": "Categorias",
     "docs": "Documentação",
+    "blog": "Blog",
     "github": "GitHub",
     "getStarted": "Começar",
     "history": "Histórico",
@@ -480,5 +481,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "Insights e Novidades",
+    "subtitle": "Análises aprofundadas sobre agentes de IA, servidores MCP e o futuro da programação.",
+    "browseByCategory": "Navegar por Categoria",
+    "readTime": "{n} min de leitura",
+    "readArticle": "Ler Artigo",
+    "comingSoon": "Em breve...",
+    "featured": "Destaque",
+    "categories": {
+      "creative-tools": "Ferramentas Criativas",
+      "creative-tools-desc": "Arte generativa, estilização e automação criativa.",
+      "document-automation": "Automação de Documentos",
+      "document-automation-desc": "Transformando PDFs, Docs e Sheets em inteligência.",
+      "enterprise-solutions": "Soluções Empresariais",
+      "enterprise-solutions-desc": "Ferramentas de nível profissional para fluxos de trabalho empresariais.",
+      "developer-experience": "Experiência do Desenvolvedor",
+      "developer-experience-desc": "Os blocos de construção para engenharia orientada por IA.",
+      "announcements": "Anúncios",
+      "announcements-desc": "Últimas notícias e atualizações da plataforma."
+    }
   }
 }

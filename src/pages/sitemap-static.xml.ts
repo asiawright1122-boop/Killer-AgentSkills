@@ -8,6 +8,7 @@ const STATIC_PAGES = [
     '',           // Home
     '/skills',
     '/categories',
+    '/blog',
     '/cli',
     '/community',
     '/integrations',

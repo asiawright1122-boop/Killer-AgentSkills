@@ -139,9 +139,9 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
  * Filters out any entries with missing owner/repo to prevent undefined URLs.
  * usage: await getSitemapSkillsFromKV(context.locals.runtime.env)
  */
-export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string, repo: string }[]> {
+export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string, repo: string, updatedAt?: string }[]> {
     // Helper to filter valid entries
-    const filterValid = (items: any[]): { owner: string, repo: string }[] =>
+    const filterValid = (items: any[]): { owner: string, repo: string, updatedAt?: string }[] =>
         items.filter(s => s && typeof s.owner === 'string' && s.owner && typeof s.repo === 'string' && s.repo);
 
     if (!env?.SKILLS_CACHE) {
@@ -164,7 +164,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string,
                     const content = fs.readFileSync(mainCachePath, 'utf-8');
                     const data = JSON.parse(content);
                     const skills = Array.isArray(data) ? data : (data.skills || []);
-                    return filterValid(skills.map((s: any) => ({ owner: s.owner, repo: s.repo })));
+                    return filterValid(skills.map((s: any) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })));
                 }
             } catch (e) {
                 console.warn('[KV] Failed to read local sitemap skills cache:', e);

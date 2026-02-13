@@ -48,6 +48,10 @@ export const GET: APIRoute = async ({ locals }) => {
   <lastmod>${today}</lastmod>
 </sitemap>
 <sitemap>
+  <loc>${SITE}/sitemap-blog.xml</loc>
+  <lastmod>${today}</lastmod>
+</sitemap>
+<sitemap>
   <loc>${SITE}/sitemap-docs.xml</loc>
   <lastmod>${today}</lastmod>
 </sitemap>

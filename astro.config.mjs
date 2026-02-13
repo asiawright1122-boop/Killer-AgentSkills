@@ -36,6 +36,14 @@ export default defineConfig({
       redirectToDefaultLocale: false,
     },
   },
+  markdown: {
+    shikiConfig: {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark'
+      }
+    }
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/noop'

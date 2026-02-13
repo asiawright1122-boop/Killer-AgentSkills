@@ -4,6 +4,7 @@
     "marketplace": "السوق",
     "categories": "الفئات",
     "docs": "المستندات",
+    "blog": "مدونة",
     "github": "GitHub",
     "getStarted": "ابدأ الآن",
     "history": "السجل",
@@ -480,5 +481,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "رؤى وتحديثات",
+    "subtitle": "تعمق في وكلاء الذكاء الاصطناعي وخوادم MCP ومستقبل البرمجة.",
+    "browseByCategory": "تصفح حسب الفئة",
+    "readTime": "{n} دقائق للقراءة",
+    "readArticle": "اقرأ المقال",
+    "comingSoon": "قريباً...",
+    "featured": "مميز",
+    "categories": {
+      "creative-tools": "أدوات إبداعية",
+      "creative-tools-desc": "الفن التوليدي والتصميم والأتمتة الإبداعية.",
+      "document-automation": "أتمتة المستندات",
+      "document-automation-desc": "تحويل ملفات PDF والمستندات والجداول إلى ذكاء.",
+      "enterprise-solutions": "حلول المؤسسات",
+      "enterprise-solutions-desc": "أدوات احترافية لسير عمل الأعمال.",
+      "developer-experience": "تجربة المطور",
+      "developer-experience-desc": "لبنات البناء للهندسة المدعومة بالذكاء الاصطناعي.",
+      "announcements": "إعلانات",
+      "announcements-desc": "آخر الأخبار وتحديثات المنصة."
+    }
   }
 }

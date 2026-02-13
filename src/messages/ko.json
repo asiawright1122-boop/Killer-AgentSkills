@@ -4,6 +4,7 @@
     "marketplace": "마켓플레이스",
     "categories": "카테고리",
     "docs": "문서",
+    "blog": "블로그",
     "github": "GitHub",
     "getStarted": "시작하기",
     "history": "기록",
@@ -480,5 +481,26 @@
     "shareSkill": "이 스킬 공유",
     "backToSkills": "스킬 목록으로 돌아가기",
     "copyCommand": "명령어 복사"
+  },
+  "Blog": {
+    "title": "인사이트 및 업데이트",
+    "subtitle": "AI 에이전트, MCP 서버 및 코딩의 미래에 대한 심층 분석.",
+    "browseByCategory": "카테고리별 탐색",
+    "readTime": "{n} 분 읽기",
+    "readArticle": "기사 읽기",
+    "comingSoon": "곧 출시됩니다...",
+    "featured": "추천",
+    "categories": {
+      "creative-tools": "크리에이티브 도구",
+      "creative-tools-desc": "생성형 아트, 스타일링 및 크리에이티브 자동화.",
+      "document-automation": "문서 자동화",
+      "document-automation-desc": "PDF, 문서 및 시트를 지능형으로 변환.",
+      "enterprise-solutions": "기업용 솔루션",
+      "enterprise-solutions-desc": "비즈니스 워크플로우를 위한 전문가급 도구.",
+      "developer-experience": "개발자 경험",
+      "developer-experience-desc": "AI 기반 엔지니어링을 위한 빌딩 블록.",
+      "announcements": "공지사항",
+      "announcements-desc": "최신 뉴스 및 플랫폼 업데이트."
+    }
   }
 }
