@@ -168,14 +168,28 @@ async function main() {
 
     const bulkItems: Array<{ key: string, value: string }> = [];
 
-    // 1. 添加 all-skills (优化：仅存储摘要，瘦身)
-    const skillSummaries = skills.map(getSkillSummary);
+    // 1. 分片存储 all-skills (每片 < 20 MB，避免超 CF KV 25 MB 单值限制)
+    const skillSummaries = skills.map(getSkillSummarySlim);
+    const slimSize = JSON.stringify(skillSummaries).length;
+    const origSize = JSON.stringify(skills).length;
+    console.log(`📉 列表页瘦身: 原大小 ~${(origSize / 1024 / 1024).toFixed(2)}MB -> 现大小 ~${(slimSize / 1024 / 1024).toFixed(2)}MB`);
+
+    const SHARD_MAX_BYTES = 20 * 1024 * 1024; // 20 MB per shard (CF KV limit is 25 MB)
+    const shards = createShards(skillSummaries, SHARD_MAX_BYTES);
+    console.log(`📦 all-skills 分片: ${shards.length} 个分片`);
+
+    // 写入分片索引
     bulkItems.push({
-        key: 'all-skills',
-        value: JSON.stringify(skillSummaries)
+        key: 'all-skills-index',
+        value: JSON.stringify({ shardCount: shards.length, totalCount: skills.length, lastSynced: new Date().toISOString() })
     });
 
-    console.log(`📉 列表页瘦身: 原大小 ~${(JSON.stringify(skills).length / 1024 / 1024).toFixed(2)}MB -> 现大小 ~${(JSON.stringify(skillSummaries).length / 1024 / 1024).toFixed(2)}MB`);
+    // 写入每个分片
+    for (let i = 0; i < shards.length; i++) {
+        const shardValue = JSON.stringify(shards[i]);
+        console.log(`  分片 ${i}: ${shards[i].length} 个技能, ${(shardValue.length / 1024 / 1024).toFixed(2)} MB`);
+        bulkItems.push({ key: `all-skills:${i}`, value: shardValue });
+    }
 
     // 2. 添加元数据
     bulkItems.push({
@@ -199,18 +213,28 @@ async function main() {
         });
     }
 
-    // 批量写入 (分片，尽管 limit 是 10000，为了稳妥分批处理)
-    const BATCH_SIZE = 5000;
+    // 批量写入 (每批 ≤ 500 items，确保每批 payload < 100 MB)
+    const BATCH_SIZE = 500;
     let successCount = 0;
+    let failedBatches = 0;
 
     for (let i = 0; i < bulkItems.length; i += BATCH_SIZE) {
         const batch = bulkItems.slice(i, i + BATCH_SIZE);
-        console.log(`📡 正在发送批次 ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(bulkItems.length / BATCH_SIZE)} (${batch.length} items)...`);
+        const batchPayloadSize = batch.reduce((sum, item) => sum + item.key.length + item.value.length, 0);
+        console.log(`📡 正在发送批次 ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(bulkItems.length / BATCH_SIZE)} (${batch.length} items, ${(batchPayloadSize / 1024 / 1024).toFixed(1)} MB)...`);
         const success = await writeToKVBulk(batch);
-        if (success) successCount += batch.length;
+        if (success) {
+            successCount += batch.length;
+        } else {
+            failedBatches++;
+            console.error(`❌ 批次 ${Math.floor(i / BATCH_SIZE) + 1} 写入失败!`);
+        }
     }
 
     console.log(`✅ 成功同步 ${successCount}/${bulkItems.length} 个键值对到 KV!`);
+    if (failedBatches > 0) {
+        console.error(`⚠️ ${failedBatches} 个批次写入失败，请检查!`);
+    }
 
     // 收集所有本次写入的 active keys
     const activeKeys = new Set<string>();
@@ -224,23 +248,34 @@ async function main() {
     activeKeys.add('sitemap-skills');
 
     // --- 清理过期数据 (Stale Keys) ---
-    console.log('\n🧹 开始此清理过期数据...');
-    const existingKeys = await fetchAllKeys();
-
-    // 找出在 KV 中存在，但不在本次 activeKeys 中的 keys
-    // 安全检查：只删除 'skill:' 和 'doc:' 开头的 keys，避免误删
-    const staleKeys = existingKeys.filter(key => {
-        if (activeKeys.has(key)) return false; // 依然活跃
-        if (key.startsWith('skill:') || key.startsWith('doc:')) return true; // 是技能或文档，且未被更新 -> 删
-        return false; // 其他未知 key (如 manually added configs)，保留
-    });
-
-    if (staleKeys.length > 0) {
-        console.log(`⚠️ 发现 ${staleKeys.length} 个过期 Keys (Stale), 准备删除...`);
-        // console.log('Examples:', staleKeys.slice(0, 5));
-        await deleteKeys(staleKeys);
+    // 安全检查：如果同步失败率 > 50%，跳过清理以防误删
+    if (failedBatches > 0 && successCount < bulkItems.length * 0.5) {
+        console.warn('\n⚠️ 同步成功率低于 50%，跳过清理以防误删有效数据!');
     } else {
-        console.log('✅ 没有发现过期数据，KV 很干净。');
+        console.log('\n🧹 开始清理过期数据...');
+        const existingKeys = await fetchAllKeys();
+
+        // 找出在 KV 中存在，但不在本次 activeKeys 中的 keys
+        // 安全检查：只删除 'skill:' 和 'doc:' 开头的 keys，避免误删
+        const staleKeys = existingKeys.filter(key => {
+            if (activeKeys.has(key)) return false; // 依然活跃
+            // 也保留旧 all-skills 分片 keys (all-skills: prefix)
+            if (key.startsWith('all-skills')) return false;
+            if (key.startsWith('skill:') || key.startsWith('doc:')) return true; // 是技能或文档，且未被更新 -> 删
+            return false; // 其他未知 key (如 manually added configs)，保留
+        });
+
+        // 额外安全: 如果待删除超过已同步数量的 30%，发出警告但仍执行(日志可追溯)
+        if (staleKeys.length > activeKeys.size * 0.3) {
+            console.warn(`⚠️ 待删除 ${staleKeys.length} 个 Keys，超过活跃 Keys (${activeKeys.size}) 的 30%，请关注!`);
+        }
+
+        if (staleKeys.length > 0) {
+            console.log(`🗑️  发现 ${staleKeys.length} 个过期 Keys (Stale), 准备删除...`);
+            await deleteKeys(staleKeys);
+        } else {
+            console.log('✅ 没有发现过期数据，KV 很干净。');
+        }
     }
 
     console.log('\n✅ 同步完成!');
@@ -332,23 +367,61 @@ async function syncSitemapData() {
 }
 
 /**
- * 提取技能摘要，用于列表页展示 (all-skills)
- * 剔除 Markdown 正文等大字段
+ * 极致瘦身：提取列表页展示的最小字段集
+ * 详情数据通过 skill:{id} 独立 key 获取
  */
-function getSkillSummary(skill: any): any {
-    // 深拷贝以避免修改原对象
-    const summary = { ...skill };
+function getSkillSummarySlim(skill: any): any {
+    return {
+        id: skill.id,
+        name: skill.name,
+        owner: skill.owner,
+        repo: skill.repo,
+        description: skill.description,
+        category: skill.category,
+        stars: skill.stars,
+        forks: skill.forks,
+        topics: skill.topics,
+        updatedAt: skill.updatedAt,
+        qualityScore: skill.qualityScore,
+        source: skill.source,
+        // 保留精简的 skillMd 元信息 (不含 body)
+        skillMd: skill.skillMd ? {
+            name: skill.skillMd.name,
+            description: skill.skillMd.description,
+            version: skill.skillMd.version,
+            tags: skill.skillMd.tags,
+        } : undefined,
+        // 保留精简的 SEO features (仅英文，用于列表页标签展示)
+        seo: skill.seo ? {
+            features: { en: skill.seo.features?.en },
+            keywords: { en: skill.seo.keywords?.en },
+        } : undefined,
+    };
+}
 
-    // 剔除大字段
-    if (summary.skillMd) {
-        // 保留 metadata, 剔除正文
-        const { body, bodyPreview, raw, ...keep } = summary.skillMd;
-        summary.skillMd = keep;
+/**
+ * 将数组按 JSON 序列化后的大小切分为多个分片
+ * 每个分片 JSON 大小 < maxBytes
+ */
+function createShards(items: any[], maxBytes: number): any[][] {
+    const shards: any[][] = [];
+    let currentShard: any[] = [];
+    let currentSize = 2; // account for []
+
+    for (const item of items) {
+        const itemSize = JSON.stringify(item).length + 1; // +1 for comma
+        if (currentSize + itemSize > maxBytes && currentShard.length > 0) {
+            shards.push(currentShard);
+            currentShard = [];
+            currentSize = 2;
+        }
+        currentShard.push(item);
+        currentSize += itemSize;
     }
 
-    // 确保不包含其他可能的重字段
-    delete summary.readme;
-    delete summary.content;
+    if (currentShard.length > 0) {
+        shards.push(currentShard);
+    }
 
-    return summary;
+    return shards;
 }
