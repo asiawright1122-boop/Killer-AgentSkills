@@ -1,4 +1,5 @@
 ---
+import { getMessages, SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import type { CollectionEntry } from 'astro:content';
 import { ArrowRight, Calendar, User, Clock } from 'lucide-react';
 
@@ -8,27 +9,30 @@ interface Props {
 }
 
 const { post, locale } = Astro.props;
+const messages = await loadMessages(locale as Locale);
+const t = useTranslations(messages);
+const tb = messages.Blog;
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
   month: 'long',
   day: 'numeric',
 };
-const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions); // e.g., "February 14, 2026"
+const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 
-// Dynamic visual classes based on index or random could be added here, 
-// for now we use a consistent glassmorphism style.
+// Use translated category if available
+const displayCategory = post.data.category ? (tb.categories?.[post.data.category as keyof typeof tb.categories] || post.data.category.replace('-', ' ')) : null;
 ---
 
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
   class="group relative block w-full h-full"
 >
-  {/* Card Container with 3D Hover Effect */}
-  <div class="relative h-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 dark:bg-black/20 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:border-white/30 dark:hover:border-white/10">
+  {/* Card Container — theme-aware glass effect */}
+  <div class="relative h-full overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/60 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:border-slate-300 dark:hover:border-white/20">
     
     {/* Image Section */}
-    <div class="aspect-video w-full overflow-hidden relative">
+    <div class="aspect-video w-full overflow-hidden relative bg-slate-100 dark:bg-slate-800">
         {post.data.heroImage ? (
             <img 
                 src={post.data.heroImage} 
@@ -37,19 +41,26 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
                 loading="lazy"
             />
         ) : (
-             // Fallback Gradient
-            <div class={`h-full w-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 group-hover:scale-110 transition-transform duration-700`}></div>
+             // Fallback Background
+            <div class="h-full w-full bg-gradient-to-br from-sky-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 group-hover:scale-110 transition-transform duration-700"></div>
         )}
         
-        {/* Overlay Gradient */}
-        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40"></div>
+        {/* Overlay Gradient — only applied if there is an image or fallback */}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-30"></div>
         
         {/* Category/Tag Badge */}
-        {post.data.tags && post.data.tags.length > 0 && (
-            <div class="absolute top-4 left-4">
-                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
-                    {post.data.tags[0]}
-                </span>
+        {(post.data.category || (post.data.tags && post.data.tags.length > 0)) && (
+            <div class="absolute top-4 left-4 flex gap-2">
+                {post.data.category && (
+                    <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-sky-500/80 dark:bg-purple-600/80 backdrop-blur-sm rounded-full shadow-lg border border-white/10">
+                        {displayCategory}
+                    </span>
+                )}
+                {!post.data.category && post.data.tags && post.data.tags.length > 0 && (
+                    <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+                        {post.data.tags[0]}
+                    </span>
+                )}
             </div>
         )}
     </div>
@@ -57,49 +68,48 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
     {/* Content Section */}
     <div class="p-6 relative">
         {/* Meta Info */}
-        <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mb-3 font-medium">
+        <div class="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mb-3 font-medium">
             <div class="flex items-center gap-1.5">
-                <Calendar size={14} class="text-purple-500" />
+                <Calendar size={14} class="text-sky-500 dark:text-purple-500" />
                 <time datetime={post.data.pubDate.toISOString()}>
                     {formattedDate}
                 </time>
             </div>
-            {/* Estimate read time could go here if calculated */}
             <div class="flex items-center gap-1.5">
                 <Clock size={14} class="text-cyan-500" />
-                <span>3 min read</span>
+                <span>{tb.readTime.replace('{n}', '3')}</span>
             </div>
         </div>
 
         {/* Title */}
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-colors duration-300">
+        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-sky-500 group-hover:to-cyan-500 dark:group-hover:from-purple-500 dark:group-hover:to-cyan-500 transition-colors duration-300">
             {post.data.title}
         </h3>
 
         {/* Description */}
-        <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-6 leading-relaxed">
+        <p class="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 mb-6 leading-relaxed">
             {post.data.description}
         </p>
 
         {/* Author & Action */}
-        <div class="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-white/5 pt-4">
+        <div class="flex items-center justify-between mt-auto border-t border-slate-100 dark:border-white/5 pt-4">
              <div class="flex items-center gap-2">
-                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center text-[10px] text-white font-bold">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-sky-500 to-cyan-500 dark:from-purple-500 dark:to-cyan-500 flex items-center justify-center text-[10px] text-white font-bold">
                     {post.data.author.charAt(0)}
                 </div>
-                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                <span class="text-xs font-medium text-slate-500 dark:text-slate-400">
                     {post.data.author}
                 </span>
              </div>
 
-             <div class="flex items-center gap-1 text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
-                Read Article
+             <div class="flex items-center gap-1 text-xs font-bold text-sky-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
+                {tb.readArticle}
                 <ArrowRight size={14} />
              </div>
         </div>
     </div>
     
     {/* Shine Effect */}
-    <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/5 dark:from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
   </div>
 </a>

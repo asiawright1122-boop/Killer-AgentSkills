@@ -480,5 +480,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "Insights & Updates",
+    "subtitle": "Deep dives into AI agents, MCP servers, and the future of coding.",
+    "browseByCategory": "Browse by Category",
+    "readTime": "{n} min read",
+    "readArticle": "Read Article",
+    "comingSoon": "Coming soon...",
+    "featured": "Featured",
+    "categories": {
+      "creative-tools": "Creative Tools",
+      "creative-tools-desc": "Generative art, styling, and creative automation.",
+      "document-automation": "Document Automation",
+      "document-automation-desc": "Transforming PDFs, Docs, and Sheets into intelligence.",
+      "enterprise-solutions": "Enterprise Solutions",
+      "enterprise-solutions-desc": "Professional grade tools for business workflows.",
+      "developer-experience": "Developer Experience",
+      "developer-experience-desc": "The building blocks for AI-driven engineering.",
+      "announcements": "Announcements",
+      "announcements-desc": "Latest news and platform updates."
+    }
   }
 }

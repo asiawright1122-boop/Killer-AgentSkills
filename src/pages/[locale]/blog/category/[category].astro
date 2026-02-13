@@ -1,0 +1,109 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../../layouts/Layout.astro';
+import BlogCard from '../../../../components/blog/BlogCard.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
+import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
+
+export const prerender = true;
+
+const categoryIcons = {
+  'creative-tools': Palette,
+  'document-automation': FileText,
+  'enterprise-solutions': Building2,
+  'developer-experience': Terminal,
+};
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const categories = [...new Set(allPosts.map(post => post.data.category).filter(Boolean))];
+  
+  const paths = [];
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const category of categories) {
+      paths.push({
+        params: { locale, category },
+      });
+    }
+  }
+  return paths;
+}
+
+const { locale, category } = Astro.params;
+
+// Get posts for current locale and category
+// Get posts for current locale
+let posts = await getCollection('blog', ({ data }) => {
+    return data.lang === locale && data.category === category && !data.draft;
+});
+
+// Fallback to English if no posts found
+if (posts.length === 0 && locale !== 'en') {
+    posts = await getCollection('blog', ({ data }) => {
+        return data.lang === 'en' && data.category === category && !data.draft;
+    });
+}
+
+// Sort by date desc
+const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const messages = await loadMessages(locale as Locale);
+const t = useTranslations(messages);
+
+const categoryName = t(`Blog.categories.${category}`) || category;
+const pageTitle = `${categoryName} | Blog`;
+const pageDescription = t(`Blog.categories.${category}-desc`) || `Explore articles about ${categoryName}`;
+const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Tags;
+---
+
+<Layout 
+    locale={locale} 
+    title={pageTitle} 
+    description={pageDescription}
+>
+    <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white selection:bg-sky-500/20 dark:selection:bg-purple-500/30 selection:text-sky-900 dark:selection:text-purple-200 font-sans">
+        
+        {/* Background Ambient Light */}
+        <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-sky-500/5 dark:bg-purple-900/20 blur-[150px] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-500/5 dark:bg-blue-900/20 blur-[150px] rounded-full"></div>
+        </div>
+
+        <main class="relative z-10 max-w-7xl mx-auto px-6 py-20">
+            
+            {/* Breadcrumb / Back */}
+            <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-12 group">
+                <ArrowLeft size={16} class="group-hover:-translate-x-1 transition-transform" />
+                {t('Common.back') || 'Back'}
+            </a>
+
+            {/* Header */}
+            <header class="mb-16">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="p-2.5 rounded-2xl bg-sky-500/10 dark:bg-purple-500/10 text-sky-600 dark:text-purple-400 shadow-sm">
+                        <CategoryIcon size={24} />
+                    </span>
+                    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-slate-900 dark:text-white">
+                        {categoryName}
+                    </h1>
+                </div>
+                <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl font-light leading-relaxed">
+                    {pageDescription}
+                </p>
+            </header>
+
+            {/* Post Grid */}
+            {sortedPosts.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {sortedPosts.map((post) => (
+                        <BlogCard post={post} locale={locale || 'en'} />
+                    ))}
+                </div>
+            ) : (
+                <div class="text-center py-20 bg-slate-50 dark:bg-white/5 rounded-3xl border border-dashed border-slate-300 dark:border-white/10">
+                    <p class="text-slate-500 dark:text-slate-400">{t('Marketplace.noSkills') || 'No articles found in this category.'}</p>
+                </div>
+            )}
+        </main>
+    </div>
+</Layout>

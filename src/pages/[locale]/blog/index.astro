@@ -18,9 +18,16 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 // Get posts for current locale
-const allPosts = await getCollection('blog', ({ data }) => {
+let allPosts = await getCollection('blog', ({ data }) => {
     return data.lang === locale && !data.draft;
 });
+
+// Fallback to English if no posts found for current locale
+if (allPosts.length === 0 && locale !== 'en') {
+    allPosts = await getCollection('blog', ({ data }) => {
+        return data.lang === 'en' && !data.draft;
+    });
+}
 
 // Sort by date desc
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -31,6 +38,17 @@ const remainingPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
+const tb = messages.Blog;
+
+// Category Definitions
+const categories = [
+  { id: 'creative-tools', icon: Palette, color: 'from-pink-500 to-rose-500' },
+  { id: 'document-automation', icon: FileText, color: 'from-blue-500 to-cyan-500' },
+  { id: 'enterprise-solutions', icon: Building2, color: 'from-amber-500 to-orange-500' },
+  { id: 'developer-experience', icon: Terminal, color: 'from-indigo-500 to-purple-500' },
+];
+
+import { Tags, ArrowRight, Palette, FileText, Building2, Terminal } from 'lucide-react';
 ---
 
 <Layout 
@@ -38,34 +56,76 @@ const t = useTranslations(messages);
     title="Blog" 
     description="Insights, tutorials, and updates from the Killer-Skills team."
 >
-    <div class="min-h-screen bg-[#050505] text-white selection:bg-purple-500/30 selection:text-purple-200 font-sans">
+    <div class="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white selection:bg-sky-500/20 dark:selection:bg-purple-500/30 selection:text-sky-900 dark:selection:text-purple-200 font-sans">
         
         {/* Background Ambient Light */}
         <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
-            <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 blur-[150px] rounded-full"></div>
-            <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-900/20 blur-[150px] rounded-full"></div>
+            <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-sky-500/5 dark:bg-purple-900/20 blur-[150px] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-500/5 dark:bg-blue-900/20 blur-[150px] rounded-full"></div>
         </div>
 
-        <main class="relative z-10 max-w-7xl mx-auto px-6 py-20">
+        <main class="relative z-10 max-w-7xl mx-auto px-6 py-12">
             
             {/* Header */}
-            <header class="mb-16 text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-400 mb-6 backdrop-blur-sm">
-                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-                    KILLER SKILLS BLOG
-                </div>
-                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
+            <header class="mb-10 text-center max-w-3xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-slate-900 dark:text-white">
                     {t('Blog.title') || 'Insights & Updates'}
                 </h1>
-                <p class="text-xl text-gray-400 font-light leading-relaxed">
+                <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-light leading-relaxed text-balance">
                     {t('Blog.subtitle') || 'Deep dives into AI agents, MCP servers, and the future of coding.'}
                 </p>
+                {/* Decorative divider */}
+                <div class="flex items-center justify-center gap-3 mt-6">
+                    <div class="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                    <div class="w-2 h-2 rounded-full bg-sky-500 dark:bg-sky-400"></div>
+                    <div class="h-px w-12 bg-slate-200 dark:bg-slate-800"></div>
+                </div>
             </header>
 
             {/* Featured Hero */}
             {featuredPost && (
                 <BlogHero post={featuredPost} locale={locale} />
             )}
+
+            {/* Browse by Category */}
+            <section class="mb-20">
+                <div class="flex items-center gap-3 mb-10">
+                    <h2 class="text-2xl font-bold flex items-center gap-3 text-slate-900 dark:text-white">
+                        <span class="p-2.5 rounded-2xl bg-sky-500/10 dark:bg-purple-500/10 text-sky-600 dark:text-purple-400 shadow-sm">
+                            <Tags size={24} />
+                        </span>
+                        {t('Blog.browseByCategory') || 'Browse by Category'}
+                    </h2>
+                    <div class="h-px flex-1 bg-gradient-to-r from-slate-200 dark:from-slate-800 to-transparent"></div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {categories.map((cat) => (
+                        <a 
+                            href={`/${locale}/blog/category/${cat.id}`}
+                            class="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 p-8 bg-white dark:bg-slate-900/50 hover:border-sky-500 dark:hover:border-purple-500 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-purple-500/10"
+                        >
+                            <div class={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${cat.color} opacity-[0.08] group-hover:opacity-[0.15] transition-opacity rounded-bl-[100px]`}></div>
+                            
+                            <div class="relative z-10">
+                                <span class={`mb-6 block transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-500 origin-left text-sky-600 dark:text-purple-400`}>
+                                    <cat.icon size={40} strokeWidth={1.5} />
+                                </span>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-sky-600 dark:group-hover:text-purple-400 transition-colors">
+                                    {t(`Blog.categories.${cat.id}`) || cat.id}
+                                </h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-2">
+                                    {t(`Blog.categories.${cat.id}-desc`) || ''}
+                                </p>
+                            </div>
+
+                            <div class="absolute bottom-4 right-4 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                                <ArrowRight size={20} class="text-sky-500 dark:text-purple-500" />
+                            </div>
+                        </a>
+                    ))}
+                </div>
+            </section>
 
             {/* Post Grid (Bento Style) */}
             {remainingPosts.length > 0 ? (
@@ -78,13 +138,11 @@ const t = useTranslations(messages);
                 </div>
             ) : (
                 !featuredPost && (
-                    <div class="text-center py-20 bg-white/5 rounded-2xl border border-white/10 border-dashed">
-                        <p class="text-gray-400 text-lg">Coming soon...</p>
+                    <div class="text-center py-20 bg-slate-50 dark:bg-white/5 rounded-2xl border border-slate-200 dark:border-white/10 border-dashed">
+                        <p class="text-slate-500 dark:text-slate-400 text-lg">{t('Blog.comingSoon') || 'Coming soon...'}</p>
                     </div>
                 )
             )}
-
-            {/* Newsletter / CTA Section could go here */}
 
         </main>
     </div>

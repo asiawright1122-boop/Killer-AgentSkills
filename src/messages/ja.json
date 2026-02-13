@@ -4,6 +4,7 @@
     "marketplace": "マーケット",
     "categories": "カテゴリ",
     "docs": "ドキュメント",
+    "blog": "ブログ",
     "github": "GitHub",
     "getStarted": "始める",
     "history": "履歴",
@@ -480,5 +481,26 @@
     "shareSkill": "このスキルを共有",
     "backToSkills": "スキル一覧に戻る",
     "copyCommand": "コマンドをコピー"
+  },
+  "Blog": {
+    "title": "インサイトと最新情報",
+    "subtitle": "AIエージェント、MCPサーバー、そしてコーディングの未来を深く探る。",
+    "browseByCategory": "カテゴリーで探す",
+    "readTime": "読み取り時間 {n} 分",
+    "readArticle": "記事を読む",
+    "comingSoon": "近日公開...",
+    "featured": "注目",
+    "categories": {
+      "creative-tools": "クリエイティブツール",
+      "creative-tools-desc": "生成アート、スタイリング、クリエイティブな自動化。",
+      "document-automation": "ドキュメント自動化",
+      "document-automation-desc": "PDF、Docs、Sheets をインテリジェンスに変換。",
+      "enterprise-solutions": "エンタープライズソリューション",
+      "enterprise-solutions-desc": "ビジネスワークフロー向けのプロフェッショナルグレードのツール。",
+      "developer-experience": "開発者体験",
+      "developer-experience-desc": "AI駆動エンジニアリングの構成要素。",
+      "announcements": "お知らせ",
+      "announcements-desc": "最新ニュースとプラットフォームの更新。"
+    }
   }
 }

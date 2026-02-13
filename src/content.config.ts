@@ -84,6 +84,7 @@ const blog = defineCollection({
         draft: z.boolean().default(false),
         lang: z.string().default('en'),
         featured: z.boolean().default(false),
+        category: z.string().optional(),
     }),
 });
 

@@ -4,6 +4,7 @@
     "marketplace": "Marktplatz",
     "categories": "Kategorien",
     "docs": "Dokumentation",
+    "blog": "Blog",
     "github": "GitHub",
     "getStarted": "Loslegen",
     "history": "Verlauf",
@@ -480,5 +481,26 @@
     "shareSkill": "Share this skill",
     "backToSkills": "Back to skills",
     "copyCommand": "Copy command"
+  },
+  "Blog": {
+    "title": "Einblicke & Updates",
+    "subtitle": "Tieftauchgänge in KI-Agenten, MCP-Server und die Zukunft des Programmierens.",
+    "browseByCategory": "Nach Kategorie durchsuchen",
+    "readTime": "{n} Min. Lesedauer",
+    "readArticle": "Artikel lesen",
+    "comingSoon": "Demnächst...",
+    "featured": "Hervorgehoben",
+    "categories": {
+      "creative-tools": "Kreativ-Tools",
+      "creative-tools-desc": "Generative Kunst, Styling und kreative Automatisierung.",
+      "document-automation": "Dokumentenautomatisierung",
+      "document-automation-desc": "Verwandlung von PDFs, Docs und Sheets in Intelligenz.",
+      "enterprise-solutions": "Unternehmenslösungen",
+      "enterprise-solutions-desc": "Professionelle Tools für Geschäftsabläufe.",
+      "developer-experience": "Entwicklererlebnis",
+      "developer-experience-desc": "Die Bausteine für KI-gestütztes Engineering.",
+      "announcements": "Ankündigungen",
+      "announcements-desc": "Neueste Nachrichten und Plattform-Updates."
+    }
   }
 }
