@@ -67,11 +67,17 @@ function unflattenKeys(flatObj: Record<string, string>): Messages {
 
 // 调用 AI 翻译
 async function translateText(text: string, targetLang: string, context: string): Promise<string> {
-    const prompt = `Translate the following UI text from English to ${targetLang}.
+    const prompt = `You are an SEO Localization Expert. Translate the following UI text from English to ${targetLang}.
 Context: ${context}
 Original: "${text}"
 
-Reply ONLY with the translated text. Do not include quotes or explanations.`;
+## RULES:
+1. **SEO Optimization**: Use keywords that users in ${targetLang} actually search for.
+2. **Length Constraint**: Keep the translation length close to the original to avoid UI breakage or SERP truncation.
+3. **Tone**: Professional, technical, yet accessible. 
+4. **No Fluff**: Do not explain. Return ONLY the translated text.
+
+Reply ONLY with the translated text.`;
 
     // 1. 尝试 NVIDIA
     for (const key of NVIDIA_API_KEYS) {

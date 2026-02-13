@@ -19,6 +19,52 @@ if (fs.existsSync('.env.local')) {
 import { calculateQualityScore as sharedCalculateQualityScore, type SkillScoringInput } from '../src/lib/shared/validation';
 import { OFFICIAL_REPOS } from '../src/lib/shared/official-repos';
 
+// Simple p-limit implementation
+const pLimit = (concurrency: number) => {
+    const queue: (() => Promise<void>)[] = [];
+    let activeCount = 0;
+
+    const next = () => {
+        activeCount--;
+        if (queue.length > 0) {
+            queue.shift()!();
+        }
+    };
+
+    const run = async (fn: () => Promise<void>) => {
+        const trigger = async () => {
+            activeCount++;
+            try {
+                await fn();
+            } finally {
+                next();
+            }
+        };
+
+        if (activeCount < concurrency) {
+            trigger();
+        } else {
+            queue.push(trigger);
+        }
+    };
+
+    return run;
+};
+
+// Helper: Fetch with timeout to prevent hanging
+async function fetchWithTimeout(url: string, options: any = {}, timeout = 30000): Promise<any> {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+    try {
+        const response = await fetch(url, { ...options, signal: controller.signal });
+        clearTimeout(id);
+        return response;
+    } catch (error) {
+        clearTimeout(id);
+        throw error;
+    }
+}
+
 // 缓存数据结构
 // SEO 数据结构
 interface SeoData {
@@ -127,11 +173,11 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
             };
             if (jsonMode) body.response_format = { type: "json_object" };
 
-            const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+            const res = await fetchWithTimeout('https://integrate.api.nvidia.com/v1/chat/completions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                 body: JSON.stringify(body)
-            });
+            }, 60000); // 60s timeout for AI
 
             if (!res.ok) {
                 nvidiaFailCount++;
@@ -165,7 +211,7 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
     // --- Provider 2: SiliconFlow ---
     if (siliconflowApiKey) {
         const sfPromise = (async () => {
-            const res = await fetch(SILICONFLOW_ENDPOINT, {
+            const res = await fetchWithTimeout(SILICONFLOW_ENDPOINT, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${siliconflowApiKey}` },
                 body: JSON.stringify({
@@ -175,7 +221,7 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
                     max_tokens: 2500,
                     stream: false
                 })
-            });
+            }, 60000);
             if (!res.ok) throw new Error(`SiliconFlow ${res.status}`);
             const data = await res.json();
             const content = (data as any)?.choices?.[0]?.message?.content;
@@ -204,7 +250,7 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
     for (let i = 0; i < openrouterApiKeys.length; i++) {
         const orKey = openrouterApiKeys[(currentOpenrouterKeyIndex + i) % openrouterApiKeys.length];
         const orPromise = (async () => {
-            const res = await fetch(OPENROUTER_ENDPOINT, {
+            const res = await fetchWithTimeout(OPENROUTER_ENDPOINT, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -218,7 +264,7 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
                     temperature: 0.3,
                     max_tokens: 2500
                 })
-            });
+            }, 60000);
             if (!res.ok) throw new Error(`OpenRouter ${res.status}`);
             const data = await res.json();
             const content = (data as any)?.choices?.[0]?.message?.content;
@@ -261,14 +307,14 @@ async function callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boo
     // --- Final Fallback: Cloudflare Workers AI ---
     if (cfAccountId && cfApiToken) {
         try {
-            const res = await fetch(`${CF_AI_ENDPOINT}/@cf/meta/llama-3.1-8b-instruct-fast`, {
+            const res = await fetchWithTimeout(`${CF_AI_ENDPOINT}/@cf/meta/llama-3.1-8b-instruct-fast`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cfApiToken}` },
                 body: JSON.stringify({
                     messages: [{ role: 'user', content: prompt }],
                     max_tokens: 1500
                 })
-            });
+            }, 60000);
 
             if (res.ok) {
                 const data = await res.json();
@@ -688,7 +734,7 @@ async function searchGitHubSkills(): Promise<any[]> {
         for (const query of bootstrapQueries) {
             try {
                 const searchUrl = `${GITHUB_API}/search/code?q=${encodeURIComponent(query)}&per_page=100`;
-                const response = await fetch(searchUrl, { headers: getHeaders() });
+                const response = await fetchWithTimeout(searchUrl, { headers: getHeaders() });
                 if (response.ok) {
                     const data = await response.json() as any;
                     const newItems = data.items || [];
@@ -783,7 +829,7 @@ async function discoverNewSkillsFromGitHub(existingIds: Set<string>, lastCacheUp
         for (let page = 1; page <= MAX_PAGES; page++) {
             try {
                 const searchUrl = `${GITHUB_API}/search/code?q=${encodeURIComponent(query)}&per_page=100&page=${page}&sort=indexed&order=desc`;
-                const response = await fetch(searchUrl, { headers: getHeaders() });
+                const response = await fetchWithTimeout(searchUrl, { headers: getHeaders() });
 
                 if (!response.ok) {
                     if (response.status === 403 || response.status === 422) {
@@ -825,7 +871,7 @@ async function discoverNewSkillsFromGitHub(existingIds: Set<string>, lastCacheUp
                     const rawUrl = `https://raw.githubusercontent.com/${repoFullName}/${branch}/${filePath}`;
 
                     try {
-                        const contentRes = await fetch(rawUrl);
+                        const contentRes = await fetchWithTimeout(rawUrl);
                         if (!contentRes.ok) continue;
 
                         const content = await contentRes.text();
@@ -897,7 +943,7 @@ function getHeaders(): Record<string, string> {
 async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
     for (let i = 0; i < retries; i++) {
         try {
-            const response = await fetch(url, { headers: getHeaders() });
+            const response = await fetchWithTimeout(url, { headers: getHeaders() });
             if (response.status === 403) {
                 console.warn('⚠️ GitHub API rate limit, waiting 60s...');
                 await new Promise(r => setTimeout(r, 60000));
@@ -927,7 +973,7 @@ async function fetchSkillMd(owner: string, repo: string, skillsPath: string): Pr
             for (const branch of ['main', 'master', 'canary', 'develop']) {
                 try {
                     const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                    const response = await fetch(url);
+                    const response = await fetchWithTimeout(url);
                     if (response.ok) return response.text();
                 } catch { continue; }
             }
@@ -953,7 +999,7 @@ async function fetchSkillMd(owner: string, repo: string, skillsPath: string): Pr
         for (const branch of branchesToTry) {
             try {
                 const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                const response = await fetch(url);
+                const response = await fetchWithTimeout(url);
                 if (response.ok) return response.text();
             } catch {
                 continue;
@@ -1314,6 +1360,7 @@ async function buildCache(): Promise<void> {
     // 2. 搜索更多 Skills
     console.log('\n🔍 Searching for more skills...');
     const searchResults = await searchGitHubSkills();
+    const skillsToProcess: any[] = [];
 
     for (const item of searchResults) {
         // Handle both GitHub API format and local backup format
@@ -1372,174 +1419,225 @@ async function buildCache(): Promise<void> {
             continue;
         }
 
-        // Bug Fix: 严格验证文件名，过滤 skill.md / Skill.md 等误报
-        if (filePath) {
-            const fileName = filePath.split('/').pop() || '';
-            const isValidFile = fileName === 'SKILL.md' || fileName === 'SKILL.MD'
-                || (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
-            if (!isValidFile) continue;
-        }
+        // Content fetching moved to parallel step
+        // if (!content) continue; // Allow empty content to proceed to parallel step
 
-        // 1. Fetch content if not available
-        if (!content && filePath) {
-            try {
-                const branch = 'main';
-                const rawUrl = `https://raw.githubusercontent.com/${repoPath}/${branch}/${filePath}`;
-                const res = await fetch(rawUrl);
-                if (res.ok) {
-                    content = await res.text();
-                } else {
-                    // Try master branch
-                    const masterUrl = `https://raw.githubusercontent.com/${repoPath}/master/${filePath}`;
-                    const masterRes = await fetch(masterUrl);
-                    if (masterRes.ok) {
-                        content = await masterRes.text();
-                    }
-                }
-                // Brief delay to avoid GitHub rate limiting
-                await new Promise(r => setTimeout(r, 500));
-            } catch {
-                // Failed to fetch, skip this item
-            }
-        }
-
-        // If still no content, try fetchSkillMd as fallback
-        if (!content) {
-            try {
-                const fetched = await fetchSkillMd(ownerLogin, repoName, filePath ? filePath.replace('/SKILL.md', '').replace('SKILL.md', '') : '');
-                if (fetched) content = fetched;
-            } catch {
-                continue; // Truly unfetchable, skip
-            }
-        }
-
-        if (!content) continue;
-
-        const skillMd = parseSkillMd(content);
-        if (!skillMd || !skillMd.name) {
-            // Invalid structure - not a proper SKILL.md
-            continue;
-        }
-
-        // 2. Generate Unique ID
-        // Use repoPath + skillName to allow multiple skills per repo
-        const skillId = `${repoPath}/${skillMd.name}`;
-
-        if (processedRepos.has(skillId)) continue;
-        processedRepos.add(skillId);
-
-        // console.log(`   → ${skillId}`);
-        process.stdout.write('.');
-
-        const metadata = await processMetadata(skillId, rawDesc, {
-            name: skillMd.name,
-            topics: topics,
-            bodyPreview: skillMd.bodyPreview
-        });
-
-        const skill: SkillCache = {
-            id: skillId,
-            name: skillMd.name,
-            description: metadata.description,
-            seo: metadata.seo,
+        skillsToProcess.push({
             owner: ownerLogin,
             repo: repoName,
-            repoPath,
             stars: stars,
             forks: forks,
             updatedAt: updatedAt,
             topics: topics,
-            category: 'community',
-            skillMd: skillMd,
-            lastSynced: new Date().toISOString(),
-        };
-
-        // Generate Agent Analysis
-        const agentAnalysis = await generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
-        if (agentAnalysis) {
-            skill.agentAnalysis = agentAnalysis;
-        }
-
-        skill.category = determineCategory(skill);
-        skill.qualityScore = calculateQualityScore(skill);
-        skills.push(skill);
+            description: rawDesc,
+            content: content,
+            filePath: filePath,
+        });
     }
+
+    const limit = pLimit(8); // Concurrency 8
+    await Promise.all(skillsToProcess.map((item: any) => limit(async () => {
+        try {
+            // 0. Fetch content if missing (Parallelized)
+            if (!item.content && item.filePath) {
+                try {
+                    const repoPath = `${item.owner}/${item.repo}`;
+                    const filePath = item.filePath;
+
+                    // Bug Fix: 严格验证文件名
+                    const fileName = filePath.split('/').pop() || '';
+                    const isValidFile = fileName === 'SKILL.md' || fileName === 'SKILL.MD'
+                        || (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
+
+                    if (isValidFile) {
+                        const branch = 'main';
+                        const rawUrl = `https://raw.githubusercontent.com/${repoPath}/${branch}/${filePath}`;
+                        let res = await fetchWithTimeout(rawUrl);
+                        if (res.ok) {
+                            item.content = await res.text();
+                        } else {
+                            // Try master branch
+                            const masterUrl = `https://raw.githubusercontent.com/${repoPath}/master/${filePath}`;
+                            res = await fetchWithTimeout(masterUrl);
+                            if (res.ok) {
+                                item.content = await res.text();
+                            }
+                        }
+                    }
+                    // Jitter delay (100-500ms)
+                    await new Promise(r => setTimeout(r, 100 + Math.random() * 400));
+                } catch (e) { console.error(`Fetch failed for ${item.repo}:`, e); }
+            }
+
+            // Fallback fetch
+            if (!item.content) {
+                try {
+                    const fetched = await fetchSkillMd(item.owner, item.repo, item.filePath ? item.filePath.replace('/SKILL.md', '').replace('SKILL.md', '') : '');
+                    if (fetched) item.content = fetched;
+                } catch { }
+            }
+
+            if (!item.content) return;
+
+            // 1. Validation & Parsing checks
+            const skillMd = parseSkillMd(item.content);
+            if (!skillMd || !skillMd.name) {
+                // Invalid structure - not a proper SKILL.md
+                return;
+            }
+
+            // 2. Generate Unique ID
+            // Use repoPath + skillName to allow multiple skills per repo
+            const repoPath = `${item.owner}/${item.repo}`;
+            const skillId = `${repoPath}/${skillMd.name}`;
+
+            if (processedRepos.has(skillId)) return;
+
+            // Check if existing in cache
+            const existing = existingMap.get(skillId);
+            if (!force && existing && isTranslationComplete(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
+                skills.push(existing);
+                processedRepos.add(skillId);
+                process.stdout.write('s');
+                return;
+            }
+
+            processedRepos.add(skillId);
+
+            // console.log(`   → ${skillId}`);
+            process.stdout.write('.');
+
+            const metadata = await processMetadata(skillId, item.description || '', {
+                name: skillMd.name,
+                topics: item.topics || [],
+                bodyPreview: skillMd.bodyPreview
+            });
+
+            const skill: SkillCache = {
+                id: skillId,
+                name: skillMd.name,
+                description: metadata.description,
+                seo: metadata.seo,
+                owner: item.owner,
+                repo: item.repo,
+                repoPath,
+                stars: item.stars || 0,
+                forks: item.forks || 0,
+                updatedAt: item.updatedAt || new Date().toISOString(),
+                topics: item.topics || [],
+                category: 'community',
+                skillMd: skillMd,
+                lastSynced: new Date().toISOString(),
+            };
+
+            // Generate Agent Analysis
+            const agentAnalysis = await generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
+            if (agentAnalysis) {
+                skill.agentAnalysis = agentAnalysis;
+            }
+
+            skill.qualityScore = calculateQualityScore(skill);
+            skills.push(skill);
+            console.log(`[DEBUG] Pushed ${skill.name}. Total: ${skills.length}. Should save? ${skills.length % 1 === 0}`);
+
+            // Auto-save every 1 processing new skills
+            if (skills.length % 1 === 0) {
+                console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
+                await saveStateOnly(skills);
+            }
+        } catch (e) {
+            console.error(`\n❌ Error processing ${item.owner}/${item.repo}:`, e);
+        }
+    })));
 
     // 2.5 自动发现 GitHub 上新发布的 Skills
     console.log('\n🔎 Auto-discovering new Skills from GitHub...');
     const discoveredSkills = await discoverNewSkillsFromGitHub(processedRepos, lastCacheUpdate, mode === 'full-discovery');
 
-    for (const item of discoveredSkills) {
-        const skillMd = parseSkillMd(item.content);
-        if (!skillMd || !skillMd.name) continue;
+    const limit2 = pLimit(8);
+    await Promise.all(discoveredSkills.map(item => limit2(async () => {
+        try {
+            const skillMd = parseSkillMd(item.content);
+            if (!skillMd || !skillMd.name) return;
 
-        const skillId = item.skillId || `${item.owner}/${item.repo}/${skillMd.name}`;
-        if (processedRepos.has(skillId)) continue;
+            const repoPath = `${item.owner}/${item.repo}`;
+            const skillId = `${repoPath}/${skillMd.name}`;
 
-        // Apply Filter for discovered skills
-        if (filters.length > 0) {
-            const match = filters.some(f =>
-                skillMd.name.toLowerCase().includes(f) ||
-                item.repo.toLowerCase().includes(f) ||
-                item.owner.toLowerCase().includes(f)
-            );
-            if (!match) continue;
+            if (processedRepos.has(skillId)) return;
+
+            // Apply Filter for discovered skills
+            if (filters.length > 0) {
+                const match = filters.some(f =>
+                    skillMd.name.toLowerCase().includes(f) ||
+                    item.repo.toLowerCase().includes(f) ||
+                    item.owner.toLowerCase().includes(f)
+                );
+                if (!match) return;
+            }
+
+            // 快速预验证：如果质量分太低，直接跳过不处理元数据
+            // 构造一个临时对象进行评分
+            const tempSkill: any = {
+                id: skillId,
+                name: skillMd.name,
+                description: skillMd.description || item.description || '',
+                owner: item.owner,
+                repo: item.repo,
+                repoPath: `${item.owner}/${item.repo}`,
+                stars: item.stars || 0,
+                updatedAt: item.updatedAt || new Date().toISOString(),
+                skillMd: skillMd
+            };
+
+            const strictScore = calculateQualityScore(tempSkill);
+
+            // 严格模式：新发现的技能如果分数低于 20 (was 30)，直接丢弃
+            if (strictScore < 20) {
+                // console.log(`Skipping low quality skill: ${skillId} (Score: ${strictScore})`);
+                return;
+            }
+
+            processedRepos.add(skillId);
+
+            const rawDesc = skillMd.description || item.description || '';
+            const metadata = await processMetadata(skillId, rawDesc, {
+                name: skillMd.name,
+                topics: item.topics || [],
+                bodyPreview: skillMd.bodyPreview
+            });
+
+            const skill: SkillCache = {
+                id: skillId,
+                name: skillMd.name,
+                description: metadata.description,
+                seo: metadata.seo,
+                agentAnalysis: undefined, // Will be populated in update step
+                owner: item.owner,
+                repo: item.repo,
+                repoPath: `${item.owner}/${item.repo}`,
+                stars: item.stars || 0,
+                forks: item.forks || 0,
+                updatedAt: item.fetchedAt || new Date().toISOString(),
+                topics: item.topics || [],
+                category: 'community',
+                skillMd: skillMd,
+                lastSynced: new Date().toISOString(),
+            };
+
+            skill.category = determineCategory(skill);
+            skills.push(skill);
+            process.stdout.write('+'); // + for newly discovered and added
+            console.log(`[DEBUG] Pushed discovered ${skill.name}. Total: ${skills.length}.`);
+
+            // Auto-save every 1 processing new skills
+            if (skills.length % 1 === 0) {
+                console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
+                await saveStateOnly(skills);
+            }
+        } catch (e) {
+            console.error(`\n❌ Error processing discovered skill:`, e);
         }
-
-        // 快速预验证：如果质量分太低，直接跳过不处理元数据
-        // 构造一个临时对象进行评分
-        const tempSkill: any = {
-            id: skillId,
-            name: skillMd.name,
-            description: skillMd.description || item.description || '',
-            owner: item.owner,
-            repo: item.repo,
-            repoPath: `${item.owner}/${item.repo}`,
-            stars: item.stars || 0,
-            updatedAt: item.updatedAt || new Date().toISOString(),
-            skillMd: skillMd
-        };
-
-        const strictScore = calculateQualityScore(tempSkill);
-
-        // 严格模式：新发现的技能如果分数低于 20 (was 30)，直接丢弃
-        if (strictScore < 20) {
-            // console.log(`Skipping low quality skill: ${skillId} (Score: ${strictScore})`);
-            continue;
-        }
-
-        processedRepos.add(skillId);
-
-        const rawDesc = skillMd.description || item.description || '';
-        const metadata = await processMetadata(skillId, rawDesc, {
-            name: skillMd.name,
-            topics: item.topics || [],
-            bodyPreview: skillMd.bodyPreview
-        });
-
-        const skill: SkillCache = {
-            id: skillId,
-            name: skillMd.name,
-            description: metadata.description,
-            seo: metadata.seo,
-            agentAnalysis: undefined, // Will be populated in update step
-            owner: item.owner,
-            repo: item.repo,
-            repoPath: `${item.owner}/${item.repo}`,
-            stars: item.stars || 0,
-            forks: item.forks || 0,
-            updatedAt: item.fetchedAt || new Date().toISOString(),
-            topics: item.topics || [],
-            category: 'community',
-            skillMd: skillMd,
-            lastSynced: new Date().toISOString(),
-        };
-
-        skill.category = determineCategory(skill);
-        skill.qualityScore = calculateQualityScore(skill);
-        skills.push(skill);
-        process.stdout.write('+'); // + for newly discovered and added
-    }
+    })));
 
     if (discoveredSkills.length > 0) {
         console.log(`\n   → Added ${discoveredSkills.length} newly discovered Skills`);
@@ -1823,6 +1921,7 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
 async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     const outputDir = path.join(process.cwd(), 'data');
     const outputFile = path.join(outputDir, 'skills-cache.json');
+    console.log(`[DEBUG] Saving state to ${outputFile}...`);
     if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
     // IMPORTANT: Merge current session progress with existingMap to avoid losing data

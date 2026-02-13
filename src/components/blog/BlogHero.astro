@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ArrowRight, Calendar, User, ArrowUpRight } from 'lucide-react';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  locale: string;
+}
+
+const { post, locale } = Astro.props;
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
+---
+
+<a 
+  href={`/${locale}/blog/${post.id.split('/').pop()}`}
+  class="group relative block w-full overflow-hidden rounded-3xl h-[500px] mb-12 shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.3)] dark:hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.2)]"
+>
+  {/* Background Image with Zoom Effect */}
+  <div class="absolute inset-0 w-full h-full">
+    {post.data.heroImage ? (
+      <img 
+        src={post.data.heroImage} 
+        alt={post.data.title} 
+        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+      />
+    ) : (
+      <div class="w-full h-full bg-gradient-to-br from-violet-600 to-indigo-900"></div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
+  </div>
+
+  {/* Content Content in Bottom Left */}
+  <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 z-10 flex flex-col justify-end h-full">
+    
+    <div class="relative transform transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+        <div class="flex items-center gap-3 mb-4">
+            <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20">
+                Featured
+            </span>
+             {post.data.tags && post.data.tags.length > 0 && (
+                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white/80 uppercase bg-black/20 backdrop-blur-md rounded-full border border-white/10">
+                    {post.data.tags[0]}
+                </span>
+            )}
+        </div>
+
+        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight max-w-4xl tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-purple-200 group-hover:to-white transition-all duration-300">
+            {post.data.title}
+        </h2>
+
+        <p class="text-lg text-gray-200 mb-8 max-w-2xl line-clamp-2 font-light leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
+            {post.data.description}
+        </p>
+
+        <div class="flex items-center gap-6 text-sm text-gray-300 border-t border-white/10 pt-6">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center text-xs text-white font-bold border-2 border-white/10">
+                    {post.data.author.charAt(0)}
+                </div>
+                <span class="font-medium text-white">{post.data.author}</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <Calendar size={16} />
+                <time datetime={post.data.pubDate.toISOString()}>
+                    {formattedDate}
+                </time>
+            </div>
+             <div class="ml-auto group/btn flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-bold text-sm hover:bg-purple-500 hover:text-white transition-all duration-300">
+                Read Article
+                <ArrowUpRight size={16} class="group-hover/btn:rotate-45 transition-transform duration-300" />
+            </div>
+        </div>
+    </div>
+  </div>
+</a>

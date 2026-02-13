@@ -61,6 +61,7 @@ const features = [
     "name": "Killer-Skills",
     "url": "https://killer-skills.com",
     "description": t('Metadata.description'),
+    "inLanguage": ["en", "zh", "ja", "ko", "es", "fr", "de", "pt", "ru", "ar"],
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -78,6 +79,20 @@ const features = [
         "url": "https://killer-skills.com/og-image.png"
       }
     }
+  })} />
+  {/* Organization JSON-LD for Knowledge Panel */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Killer-Skills",
+    "url": "https://killer-skills.com",
+    "logo": "https://killer-skills.com/og-image.png",
+    "description": t('Metadata.description'),
+    "sameAs": [
+      "https://github.com/anthropics/skills",
+      "https://discord.gg/killer-skills",
+      "https://twitter.com/killerskills"
+    ]
   })} />
   <main class="flex-1 w-full">
 

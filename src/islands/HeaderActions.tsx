@@ -9,6 +9,7 @@ interface HeaderActionsProps {
         skills: string;
         categories: string;
         docs: string;
+        blog: string;
         cli: string;
         community: string;
         language: string;
@@ -151,6 +152,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                         <a href={`/${locale}`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.home}</a>
                         <a href={`/${locale}/skills`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.skills}</a>
                         <a href={`/${locale}/categories`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.categories}</a>
+                        <a href={`/${locale}/blog`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.blog}</a>
                         <a href={`/${locale}/docs`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.docs}</a>
                         <a href={`/${locale}/cli`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.cli}</a>
                         <a href={`/${locale}/community`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.community}</a>

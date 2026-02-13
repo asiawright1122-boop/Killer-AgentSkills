@@ -1,0 +1,105 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ArrowRight, Calendar, User, Clock } from 'lucide-react';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  locale: string;
+}
+
+const { post, locale } = Astro.props;
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+};
+const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions); // e.g., "February 14, 2026"
+
+// Dynamic visual classes based on index or random could be added here, 
+// for now we use a consistent glassmorphism style.
+---
+
+<a 
+  href={`/${locale}/blog/${post.id.split('/').pop()}`}
+  class="group relative block w-full h-full"
+>
+  {/* Card Container with 3D Hover Effect */}
+  <div class="relative h-full overflow-hidden rounded-2xl border border-white/20 bg-white/10 dark:bg-black/20 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.3)] dark:hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.7)] hover:border-white/30 dark:hover:border-white/10">
+    
+    {/* Image Section */}
+    <div class="aspect-video w-full overflow-hidden relative">
+        {post.data.heroImage ? (
+            <img 
+                src={post.data.heroImage} 
+                alt={post.data.title} 
+                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1" 
+                loading="lazy"
+            />
+        ) : (
+             // Fallback Gradient
+            <div class={`h-full w-full bg-gradient-to-br from-purple-500/30 to-blue-500/30 group-hover:scale-110 transition-transform duration-700`}></div>
+        )}
+        
+        {/* Overlay Gradient */}
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-40"></div>
+        
+        {/* Category/Tag Badge */}
+        {post.data.tags && post.data.tags.length > 0 && (
+            <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20 shadow-lg">
+                    {post.data.tags[0]}
+                </span>
+            </div>
+        )}
+    </div>
+
+    {/* Content Section */}
+    <div class="p-6 relative">
+        {/* Meta Info */}
+        <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mb-3 font-medium">
+            <div class="flex items-center gap-1.5">
+                <Calendar size={14} class="text-purple-500" />
+                <time datetime={post.data.pubDate.toISOString()}>
+                    {formattedDate}
+                </time>
+            </div>
+            {/* Estimate read time could go here if calculated */}
+            <div class="flex items-center gap-1.5">
+                <Clock size={14} class="text-cyan-500" />
+                <span>3 min read</span>
+            </div>
+        </div>
+
+        {/* Title */}
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-500 group-hover:to-cyan-500 transition-colors duration-300">
+            {post.data.title}
+        </h3>
+
+        {/* Description */}
+        <p class="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-6 leading-relaxed">
+            {post.data.description}
+        </p>
+
+        {/* Author & Action */}
+        <div class="flex items-center justify-between mt-auto border-t border-gray-100 dark:border-white/5 pt-4">
+             <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center text-[10px] text-white font-bold">
+                    {post.data.author.charAt(0)}
+                </div>
+                <span class="text-xs font-medium text-gray-500 dark:text-gray-400">
+                    {post.data.author}
+                </span>
+             </div>
+
+             <div class="flex items-center gap-1 text-xs font-bold text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform">
+                Read Article
+                <ArrowRight size={14} />
+             </div>
+        </div>
+    </div>
+    
+    {/* Shine Effect */}
+    <div class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  </div>
+</a>

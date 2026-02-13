@@ -1,0 +1,104 @@
+[
+    {
+        "owner": "anthropics",
+        "repo": "skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "vercel-labs",
+        "repo": "skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "obra",
+        "repo": "superpowers",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "affaan-m",
+        "repo": "everything-claude-code",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "ComposioHQ",
+        "repo": "awesome-claude-skills",
+        "skillsPath": ""
+    },
+    {
+        "owner": "remotion-dev",
+        "repo": "skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "callstackincubator",
+        "repo": "agent-skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "getsentry",
+        "repo": "skills",
+        "skillsPath": "plugins/sentry-skills/skills"
+    },
+    {
+        "owner": "expo",
+        "repo": "skills",
+        "skillsPath": "plugins/expo-app-design/skills"
+    },
+    {
+        "owner": "stripe",
+        "repo": "ai",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "huggingface",
+        "repo": "skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "google-labs-code",
+        "repo": "stitch-skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "supabase",
+        "repo": "agent-skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "cloudflare",
+        "repo": "skills",
+        "skillsPath": "skills"
+    },
+    {
+        "owner": "neondatabase",
+        "repo": "mcp-server-neon",
+        "skillsPath": "README.md",
+        "displayName": "Neon (Postgres)"
+    },
+    {
+        "owner": "tadata-org",
+        "repo": "fastapi_mcp",
+        "skillsPath": "README.md",
+        "displayName": "FastAPI"
+    },
+    {
+        "owner": "langgenius",
+        "repo": "dify",
+        "skillsPath": ".agents/skills"
+    },
+    {
+        "owner": "vercel",
+        "repo": "next.js",
+        "skillsPath": ".claude/skills"
+    },
+    {
+        "owner": "facebook",
+        "repo": "react",
+        "skillsPath": ".claude/skills"
+    },
+    {
+        "owner": "n8n-io",
+        "repo": "n8n",
+        "skillsPath": ".claude/skills"
+    }
+]

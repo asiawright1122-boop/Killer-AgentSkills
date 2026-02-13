@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /favorites
+Disallow: /history
+
+Sitemap: https://killer-skills.com/sitemap.xml

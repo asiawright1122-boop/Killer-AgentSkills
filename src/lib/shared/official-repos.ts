@@ -7,9 +7,10 @@
  * - Cloudflare Workers (content-workflow.ts, via symlink)
  * - Astro frontend (skills-config.ts derives from this)
  *
- * When adding a new official repo, update THIS file.
- * All other files import from here.
+ * The data is now stored in `data/official-repos.json` for easier updates.
  */
+
+import officialReposData from '../../../data/official-repos.json';
 
 export interface OfficialRepo {
     owner: string;
@@ -25,31 +26,7 @@ export interface OfficialRepo {
  * These repos get special treatment in validation (bypass strict checks)
  * and scoring (bonus points).
  */
-export const OFFICIAL_REPOS: OfficialRepo[] = [
-    // === Verified Official Skills ===
-    { owner: 'anthropics', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'vercel-labs', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'obra', repo: 'superpowers', skillsPath: 'skills' },
-    { owner: 'affaan-m', repo: 'everything-claude-code', skillsPath: 'skills' },
-    { owner: 'ComposioHQ', repo: 'awesome-claude-skills', skillsPath: '' },
-    { owner: 'remotion-dev', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'callstackincubator', repo: 'agent-skills', skillsPath: 'skills' },
-    { owner: 'getsentry', repo: 'skills', skillsPath: 'plugins/sentry-skills/skills' },
-    { owner: 'expo', repo: 'skills', skillsPath: 'plugins/expo-app-design/skills' },
-    { owner: 'stripe', repo: 'ai', skillsPath: 'skills' },
-    { owner: 'huggingface', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'google-labs-code', repo: 'stitch-skills', skillsPath: 'skills' },
-    { owner: 'supabase', repo: 'agent-skills', skillsPath: 'skills' },
-    { owner: 'cloudflare', repo: 'skills', skillsPath: 'skills' },
-    // === Official MCP Servers ===
-    { owner: 'neondatabase', repo: 'mcp-server-neon', skillsPath: 'README.md', displayName: 'Neon (Postgres)' },
-    { owner: 'tadata-org', repo: 'fastapi_mcp', skillsPath: 'README.md', displayName: 'FastAPI' },
-    // === Featured repos with SKILL.md / agent skills ===
-    { owner: 'langgenius', repo: 'dify', skillsPath: '.agents/skills' },
-    { owner: 'vercel', repo: 'next.js', skillsPath: '.claude/skills' },
-    { owner: 'facebook', repo: 'react', skillsPath: '.claude/skills' },
-    { owner: 'n8n-io', repo: 'n8n', skillsPath: '.claude/skills' },
-];
+export const OFFICIAL_REPOS: OfficialRepo[] = officialReposData as OfficialRepo[];
 
 /**
  * Check if a repo is in the official list.

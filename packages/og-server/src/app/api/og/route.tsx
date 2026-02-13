@@ -10,11 +10,29 @@ export async function GET(req: NextRequest) {
         const { searchParams } = new URL(req.url);
 
         // Params
+        const type = searchParams.get('type') || 'skill'; // 'skill' | 'blog'
         const title = searchParams.get('title') || 'Killer-Skills';
         const description = searchParams.get('description') || 'Discover the best AI Agent skills for Claude, Cursor, and more.';
+
+        // Skill Params
         const owner = searchParams.get('owner') || '';
         const stars = searchParams.get('stars') || '0';
-        // const topics = searchParams.get('topics')?.split(',') || [];
+
+        // Blog Params
+        const date = searchParams.get('date') || '';
+        const author = searchParams.get('author') || 'Killer-Skills Team';
+        const readingTime = searchParams.get('readingTime') || ''; // e.g. "5 min read"
+
+        // Template Logic
+        const isBlog = type === 'blog';
+
+        // Background Gradient
+        const gradient = isBlog
+            ? 'linear-gradient(135deg, #EC4899, #8B5CF6)' // Pink to Purple for Blog
+            : 'linear-gradient(135deg, #38BDF8, #818CF8)'; // Cyan to Blue for Skills
+
+        const label = isBlog ? 'BLOG POST' : 'AI AGENT RESOURCE';
+        const labelColor = isBlog ? '#ec4899' : '#22c55e'; // Pink vs Green
 
         return new ImageResponse(
             (
@@ -27,22 +45,18 @@ export async function GET(req: NextRequest) {
                         alignItems: 'center',
                         justifyContent: 'center',
                         backgroundColor: '#000000',
-
-                        // backgroundImage: 'radial-gradient(circle at 50% 0%, #1e1e24 0%, rgba(30,30,36,0) 70%)',
                         fontFamily: '"Inter", sans-serif',
                         position: 'relative',
                     }}
                 >
-
-
-                    {/* Glowing Orbs - As simple colored divs with blur */}
+                    {/* Glowing Orbs */}
                     <div style={{
                         position: 'absolute',
                         top: '-150px',
                         right: '-50px',
                         width: '600px',
                         height: '600px',
-                        backgroundColor: '#38BDF8',
+                        backgroundColor: isBlog ? '#EC4899' : '#38BDF8',
                         filter: 'blur(120px)',
                         opacity: 0.2,
                         zIndex: 1,
@@ -65,8 +79,8 @@ export async function GET(req: NextRequest) {
                         width: '1080px',
                         height: '510px',
                         borderRadius: '24px',
-                        padding: '4px', // Thicker border
-                        background: 'linear-gradient(135deg, #38BDF8, #818CF8)', // Simple solid gradient
+                        padding: '4px',
+                        background: gradient,
                         zIndex: 10,
                     }}>
                         <div style={{
@@ -75,21 +89,21 @@ export async function GET(req: NextRequest) {
                             width: '100%',
                             height: '100%',
                             borderRadius: '21px',
-                            backgroundColor: '#0f172a', // Slate 900
+                            backgroundColor: '#0f172a',
                             padding: '50px',
                             position: 'relative',
                             overflow: 'hidden',
                         }}>
-                            {/* Top Bar: Logo & Series */}
+                            {/* Top Bar */}
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    {/* Logo SVG - Simplified Fill */}
+                                    {/* Logo */}
                                     <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ marginRight: '16px' }}>
-                                        <path d="M10 20L40 50L10 80L28 80L58 50L28 20H10Z" fill="#38BDF8" />
+                                        <path d="M10 20L40 50L10 80L28 80L58 50L28 20H10Z" fill={isBlog ? "#EC4899" : "#38BDF8"} />
                                         <path d="M45 20L75 50L45 80L63 80L93 50L63 20H45Z" fill="#818CF8" />
                                     </svg>
                                     <span style={{ fontSize: '24px', fontWeight: 600, color: '#e2e8f0', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                                        Killer-Skills / Index
+                                        Killer-Skills / {isBlog ? 'Blog' : 'Index'}
                                     </span>
                                 </div>
                                 <div style={{
@@ -103,20 +117,20 @@ export async function GET(req: NextRequest) {
                                     alignItems: 'center',
                                     gap: '8px'
                                 }}>
-                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#22c55e' }} />
-                                    AI AGENT RESOURCE
+                                    <div style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: labelColor }} />
+                                    {label}
                                 </div>
                             </div>
 
-                            {/* Main Content Area */}
+                            {/* Main Content */}
                             <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
                                 <h1 style={{
-                                    fontSize: '80px',
+                                    fontSize: '72px',
                                     fontWeight: 800,
                                     lineHeight: 1.1,
                                     margin: '0 0 24px 0',
                                     letterSpacing: '-0.02em',
-                                    color: '#ffffff', // Solid color, no gradient text
+                                    color: '#ffffff',
                                     display: '-webkit-box',
                                     WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
@@ -147,24 +161,34 @@ export async function GET(req: NextRequest) {
                                 paddingTop: '30px',
                                 borderTop: '1px solid #334155',
                             }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
-                                    {owner && (
+                                {isBlog ? (
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '40px', color: '#94a3b8', fontSize: '20px', fontFamily: 'monospace' }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                            <span>{author}</span>
+                                        </div>
+                                        {date && <span>• {date}</span>}
+                                        {readingTime && <span>• {readingTime}</span>}
+                                    </div>
+                                ) : (
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+                                        {owner && (
+                                            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                                                <span style={{ fontSize: '14px', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px', letterSpacing: '0.05em' }}>AUTHOR</span>
+                                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                    <img src={`https://github.com/${owner}.png`} width="28" height="28" style={{ borderRadius: '50%', marginRight: '8px' }} alt="" />
+                                                    <span style={{ fontSize: '24px', color: '#f1f5f9', fontWeight: 500 }}>{owner}</span>
+                                                </div>
+                                            </div>
+                                        )}
                                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                            <span style={{ fontSize: '14px', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px', letterSpacing: '0.05em' }}>AUTHOR</span>
+                                            <span style={{ fontSize: '14px', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px', letterSpacing: '0.05em' }}>RATING</span>
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                <img src={`https://github.com/${owner}.png`} width="28" height="28" style={{ borderRadius: '50%', marginRight: '8px' }} alt="" />
-                                                <span style={{ fontSize: '24px', color: '#f1f5f9', fontWeight: 500 }}>{owner}</span>
+                                                <span style={{ fontSize: '24px', color: '#fbbf24', marginRight: '6px' }}>★</span>
+                                                <span style={{ fontSize: '24px', color: '#f1f5f9', fontWeight: 500 }}>{stars}</span>
                                             </div>
                                         </div>
-                                    )}
-                                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <span style={{ fontSize: '14px', color: '#64748b', textTransform: 'uppercase', marginBottom: '4px', letterSpacing: '0.05em' }}>RATING</span>
-                                        <div style={{ display: 'flex', alignItems: 'center' }}>
-                                            <span style={{ fontSize: '24px', color: '#fbbf24', marginRight: '6px' }}>★</span>
-                                            <span style={{ fontSize: '24px', color: '#f1f5f9', fontWeight: 500 }}>{stars}</span>
-                                        </div>
                                     </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>

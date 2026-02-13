@@ -20,7 +20,8 @@
     "pipeline:run": "./scripts/run-pipeline.sh",
     "build:docs": "npx tsx scripts/build-docs-cache.ts",
     "build:all": "npm run build:cache && npm run sync:kv",
-    "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5"
+    "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5",
+    "submit:indexnow": "node scripts/submit-indexnow.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.27",

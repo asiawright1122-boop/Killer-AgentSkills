@@ -27,6 +27,7 @@ const { locale, t } = Astro.props;
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
             <a href={`/${locale}`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Common.home')}</a>
             <a href={`/${locale}/skills`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Common.skillsMarket')}</a>
+            <a href={`/${locale}/blog`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Navigation.blog')}</a>
             <a href={`/${locale}/docs`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.docs')}</a>
             <a href={`/${locale}/cli`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.cli')}</a>
         </nav>
@@ -40,6 +41,7 @@ const { locale, t } = Astro.props;
                 home: t('Navigation.home'),
                 skills: t('Navigation.marketplace'),
                 categories: t('Navigation.categories'),
+                blog: t('Navigation.blog'),
                 docs: t('Navigation.docs'),
                 cli: t('Footer.cli'),
                 community: t('Footer.community'),
