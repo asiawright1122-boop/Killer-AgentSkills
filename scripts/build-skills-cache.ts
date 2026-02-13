@@ -73,6 +73,7 @@ interface CacheData {
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const SUPPORTED_LOCALES = ["zh", "ja", "ko", "es", "fr", "de", "pt", "ru", "ar"]; // All supported locales
+const KV_NAMESPACE_ID = 'eb71984285c54c3488c17a32391b9fe5'; // SKILLS_CACHE
 
 // ========== AI API 配置 ==========
 // 并行竞速: NVIDIA + SiliconFlow + OpenRouter 同时发请求，谁先成功用谁
@@ -1053,6 +1054,7 @@ async function buildCache(): Promise<void> {
     }
 
     const skills: SkillCache[] = [];
+    globalSkillsRef = skills; // Store reference for SIGINT handler
     const processedRepos = new Set<string>();
 
     // Helper: 检查翻译是否完整 (所有 9 种语言都有 SEO 数据 且包含 agentAnalysis)
@@ -1349,12 +1351,26 @@ async function buildCache(): Promise<void> {
             filePath = item.filePath || '';
         }
 
+        // Bug Fix: 使用 repoPath + skillName 作为去重键
+        // Note: we can't be 100% sure of skillId until we parse skillMd
+        // But we can check if any skill from this repo/path is already in processed-repos
         const repoPath = `${ownerLogin}/${repoName}`;
-        // Bug Fix: 使用 repoPath + filePath 作为去重键，支持多 Skill 仓库
         const dedupeKey = filePath ? `${repoPath}/${filePath}` : repoPath;
-
-        // Skip if already processed
         if (processedRepos.has(dedupeKey)) continue;
+
+        // NEW: Check if this repo/path is already in existingMap and complete
+        // We look for any skill that matches this owner/repo/path
+        const existingSkill = Array.from(existingMap.values()).find(s =>
+            s.owner === ownerLogin && s.repo === repoName && (s.repoPath === repoPath || s.id.startsWith(repoPath))
+        );
+
+        if (existingSkill && isTranslationComplete(existingSkill)) {
+            skills.push(existingSkill);
+            // We need a unique ID for processedRepos, use the one from cache
+            processedRepos.add(existingSkill.id);
+            process.stdout.write('s');
+            continue;
+        }
 
         // Bug Fix: 严格验证文件名，过滤 skill.md / Skill.md 等误报
         if (filePath) {
@@ -1364,7 +1380,7 @@ async function buildCache(): Promise<void> {
             if (!isValidFile) continue;
         }
 
-        // 1. Fetch content if not available (harvested items only have metadata)
+        // 1. Fetch content if not available
         if (!content && filePath) {
             try {
                 const branch = 'main';
@@ -1437,6 +1453,12 @@ async function buildCache(): Promise<void> {
             skillMd: skillMd,
             lastSynced: new Date().toISOString(),
         };
+
+        // Generate Agent Analysis
+        const agentAnalysis = await generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
+        if (agentAnalysis) {
+            skill.agentAnalysis = agentAnalysis;
+        }
 
         skill.category = determineCategory(skill);
         skill.qualityScore = calculateQualityScore(skill);
@@ -1637,6 +1659,12 @@ async function buildCache(): Promise<void> {
                 skills.push(skill);
                 processedCount++;
                 process.stdout.write('U'); // update (需要翻译)
+
+                // Periodic Save every 50 updates
+                if (processedCount % 50 === 0) {
+                    console.log(`\n💾 Auto-saving checkpoint (${processedCount} updates)...`);
+                    await saveStateOnly(skills);
+                }
             }
         }));
 
@@ -1645,9 +1673,14 @@ async function buildCache(): Promise<void> {
 
     console.log(`\n   → Processed ${tasks.length} existing skills (Optimized: ${processedCount})`);
 
+    await finalizeAndSave(skills);
+}
 
-    // 5. 最终清理 Filtering & Deduplication
-    console.log(`\n🧹 Running final cleanup...`);
+/**
+ * Finalize, clean up, and save the cache to file and KV
+ */
+async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
+    console.log(`\n🧹 Running final cleanup & saving...`);
     const beforeCount = skills.length;
 
     // helper to get desc text
@@ -1663,7 +1696,6 @@ async function buildCache(): Promise<void> {
         const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
 
         // Rule 0: Critical Quality Score (Must be > 20) for non-official
-        // This effectively filters out empty, invalid, or suspicious skills
         if (!isOfficial && (skill.qualityScore || 0) < 20) {
             continue;
         }
@@ -1722,22 +1754,19 @@ async function buildCache(): Promise<void> {
 
     fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
 
-    console.log(`\n✅ Cache built successfully! with Translations`);
-    console.log(`   📊 Total skills: ${skills.length}`);
+    console.log(`\n✅ Cache saved successfully!`);
+    console.log(`   📊 Total skills: ${cleanedSkills.length}`);
     console.log(`   📁 Output: ${outputFile}`);
-    console.log(`   🔄 API Stats: NVIDIA=${nvidiaCallCount}, SiliconFlow=${siliconflowCallCount}, OpenRouter=${openrouterCallCount}, Cloudflare=${cloudflareCallCount}, NVIDIA Fails=${nvidiaFailCount}`);
 
     // ========== Generate Sitemap Data ==========
-    // Use cleanedSkills (not raw skills) to avoid undefined/invalid entries in sitemap
     const sitemapData = cleanedSkills
-        .filter(s => s.owner && s.repo) // Ensure no undefined owner/repo
+        .filter(s => s.owner && s.repo)
         .map(s => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt }));
     const sitemapFile = path.join(outputDir, 'sitemap-skills.json');
     fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
     console.log(`   🗺️  Sitemap data generated: ${sitemapFile} (${sitemapData.length} items)`);
 
     // ========== 直接同步到 Cloudflare KV ==========
-    // 消除 24 小时延迟，Crawler 完成后立即更新网站数据
     const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
     const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
     const KV_NAMESPACE_ID = 'eb71984285c54c3488c17a32391b9fe5'; // SKILLS_CACHE
@@ -1745,7 +1774,6 @@ async function buildCache(): Promise<void> {
     if (CF_API_TOKEN && CF_ACCOUNT_ID) {
         console.log(`\n📤 Syncing to Cloudflare KV...`);
         try {
-            // Use slimmed data to match sync-to-kv.ts behavior (strip heavy body fields)
             const slimmedSkills = cleanedSkills.map(skill => {
                 const summary = { ...skill };
                 if (summary.skillMd) {
@@ -1773,13 +1801,10 @@ async function buildCache(): Promise<void> {
                 const error = await response.text();
                 console.error(`   ❌ KV sync failed: ${error}`);
             }
-        } catch (e) {
-            console.error(`   ❌ KV sync error:`, e);
+        } catch (error) {
+            console.error(`   ❌ KV sync error:`, error);
         }
-    } else {
-        console.log(`\n⚠️ Skipping KV sync (CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID not set)`);
     }
-
     // ========== 清除本地 miniflare KV 缓存 ==========
     // 确保 dev server 使用最新的 skills-cache.json 而非过期的 miniflare KV 数据
     const miniflareKvDir = path.join(process.cwd(), '.wrangler', 'state', 'v3', 'kv', KV_NAMESPACE_ID);
@@ -1787,12 +1812,58 @@ async function buildCache(): Promise<void> {
         try {
             fs.rmSync(miniflareKvDir, { recursive: true, force: true });
             console.log(`   🧹 Cleared local miniflare KV cache (${miniflareKvDir})`);
-        } catch (e) {
-            console.warn(`   ⚠️ Failed to clear miniflare KV cache:`, e);
+        } catch (error) {
+            console.warn(`   ⚠️ Failed to clear miniflare KV cache:`, error);
         }
     }
 }
+/**
+ * Quick save state (Raw JSON only, no KV sync)
+ */
+async function saveStateOnly(skills: SkillCache[]): Promise<void> {
+    const outputDir = path.join(process.cwd(), 'data');
+    const outputFile = path.join(outputDir, 'skills-cache.json');
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+
+    // IMPORTANT: Merge current session progress with existingMap to avoid losing data
+    // existingMap contains the full previous cache items
+    const allSkillsMap = new Map<string, SkillCache>();
+
+    // 1. Load from file first if it exists (in case other processes or manual edits happened)
+    if (fs.existsSync(outputFile)) {
+        try {
+            const data = JSON.parse(fs.readFileSync(outputFile, 'utf-8')) as CacheData;
+            if (data.skills) data.skills.forEach(s => allSkillsMap.set(s.id, s));
+        } catch (e) { /* ignore */ }
+    }
+
+    // 2. Overwrite with current session skills
+    skills.forEach(s => allSkillsMap.set(s.id, s));
+
+    const uniqueSkills = Array.from(allSkillsMap.values());
+
+    const cacheData: CacheData = {
+        version: 1,
+        lastUpdated: new Date().toISOString(),
+        totalCount: uniqueSkills.length,
+        skills: uniqueSkills,
+    };
+    fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
+}
+
+// Global reference for SIGINT handler
+let globalSkillsRef: SkillCache[] = [];
 
 // 运行
-buildCache().catch(console.error);
+(async () => {
+    globalSkillsRef = []; // Initialize
+    process.on('SIGINT', async () => {
+        console.log('\n\n🛑 Received SIGINT (Ctrl+C). Saving current progress...');
+        await saveStateOnly(globalSkillsRef);
+        console.log('✅ Progress saved. Exiting.');
+        process.exit(0);
+    });
+
+    await buildCache();
+})().catch(console.error);
 
