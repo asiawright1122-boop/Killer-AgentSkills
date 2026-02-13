@@ -89,6 +89,25 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
         return [];
     }
     try {
+        // 新分片格式: all-skills-index + all-skills:0, all-skills:1, ...
+        const index = await env.SKILLS_CACHE.get('all-skills-index', 'json') as { shardCount: number; totalCount: number } | null;
+        if (index && index.shardCount > 0) {
+            console.log(`[KV] Reading ${index.shardCount} shards (${index.totalCount} skills)...`);
+            const shardPromises = Array.from({ length: index.shardCount }, (_, i) =>
+                env.SKILLS_CACHE.get(`all-skills:${i}`, 'json')
+            );
+            const shardResults = await Promise.all(shardPromises);
+            const allSkills = shardResults
+                .filter((shard): shard is any[] => Array.isArray(shard))
+                .flat();
+            if (allSkills.length > 0) {
+                console.log(`[KV] Loaded ${allSkills.length} skills from ${index.shardCount} shards`);
+                return allSkills;
+            }
+            console.warn('[KV] Shards returned empty, trying legacy format...');
+        }
+
+        // 向后兼容: 旧的单 key 格式
         const data = await env.SKILLS_CACHE.get('all-skills', 'json');
         if (Array.isArray(data) && data.length > 0) {
             return data;
