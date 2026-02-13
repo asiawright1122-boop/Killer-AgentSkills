@@ -46,6 +46,69 @@ const configContent = getDocContent('cli/configuration');
       { "@type": "ListItem", "position": 2, "name": "CLI", "item": `https://killer-skills.com/${locale}/cli` }
     ]
   })} />
+  {/* FAQ JSON-LD for CLI page */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Killer-Skills CLI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Killer-Skills CLI is a universal command-line tool that lets you install, manage, and sync AI agent skills across 15+ IDEs including Cursor, Windsurf, VS Code, Claude Code, and JetBrains. No global installation required — just use npx."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install a skill using the CLI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Run 'npx killer-skills add owner/repo' in your terminal. The CLI automatically detects your IDE and configures the skill file in the correct format (.cursorrules, CLAUDE.md, etc.)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which IDEs does the Killer-Skills CLI support?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The CLI supports 15+ IDEs: Cursor (.cursorrules), Claude Code (CLAUDE.md), VS Code/GitHub Copilot (.github/copilot-instructions.md), Windsurf (.windsurfrules), JetBrains (.junie/guidelines.md), Cline (.clinerules), Roo Code (.roo/rules.md), Aider (.aider.conf), Continue (.continue/rules), Codex (AGENTS.md), and more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to install the CLI globally?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No! The CLI works via npx, which means no global installation is required. Just run 'npx killer-skills <command>' and it will download and execute automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the 'killer do' command?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 'killer do' command uses AI to automatically match your natural language task description to the best locally installed skill. For example, 'killer do create a PDF from images' will auto-detect and invoke your PDF skill."
+        }
+      }
+    ]
+  })} />
+  {/* SoftwareApplication JSON-LD for CLI */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Killer-Skills CLI",
+    "operatingSystem": "Windows, macOS, Linux",
+    "applicationCategory": "DeveloperApplication",
+    "description": pageDescription,
+    "url": `https://killer-skills.com/${locale}/cli`,
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "softwareVersion": "1.7.0"
+  })} />
 
   <div class="bg-slate-50 dark:bg-black min-h-screen overflow-hidden">
     

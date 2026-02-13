@@ -1,0 +1,91 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import BlogCard from '../../../components/blog/BlogCard.astro';
+import BlogHero from '../../../components/blog/BlogHero.astro';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+
+export const prerender = true;
+
+export function getStaticPaths() {
+  return SUPPORTED_LOCALES.map(locale => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params;
+
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+// Get posts for current locale
+const allPosts = await getCollection('blog', ({ data }) => {
+    return data.lang === locale && !data.draft;
+});
+
+// Sort by date desc
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Featured post logic: explicitly featured > latest
+const featuredPost = sortedPosts.find(p => p.data.featured) || sortedPosts[0];
+const remainingPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
+
+const messages = await loadMessages(locale as Locale);
+const t = useTranslations(messages);
+---
+
+<Layout 
+    locale={locale} 
+    title="Blog" 
+    description="Insights, tutorials, and updates from the Killer-Skills team."
+>
+    <div class="min-h-screen bg-[#050505] text-white selection:bg-purple-500/30 selection:text-purple-200 font-sans">
+        
+        {/* Background Ambient Light */}
+        <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+            <div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-900/20 blur-[150px] rounded-full"></div>
+            <div class="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-900/20 blur-[150px] rounded-full"></div>
+        </div>
+
+        <main class="relative z-10 max-w-7xl mx-auto px-6 py-20">
+            
+            {/* Header */}
+            <header class="mb-16 text-center max-w-3xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-purple-400 mb-6 backdrop-blur-sm">
+                    <span class="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
+                    KILLER SKILLS BLOG
+                </div>
+                <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500">
+                    {t('Blog.title') || 'Insights & Updates'}
+                </h1>
+                <p class="text-xl text-gray-400 font-light leading-relaxed">
+                    {t('Blog.subtitle') || 'Deep dives into AI agents, MCP servers, and the future of coding.'}
+                </p>
+            </header>
+
+            {/* Featured Hero */}
+            {featuredPost && (
+                <BlogHero post={featuredPost} locale={locale} />
+            )}
+
+            {/* Post Grid (Bento Style) */}
+            {remainingPosts.length > 0 ? (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {remainingPosts.map((post) => (
+                        <div class="h-full">
+                            <BlogCard post={post} locale={locale} />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                !featuredPost && (
+                    <div class="text-center py-20 bg-white/5 rounded-2xl border border-white/10 border-dashed">
+                        <p class="text-gray-400 text-lg">Coming soon...</p>
+                    </div>
+                )
+            )}
+
+            {/* Newsletter / CTA Section could go here */}
+
+        </main>
+    </div>
+</Layout>

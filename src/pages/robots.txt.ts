@@ -7,6 +7,12 @@ export const GET: APIRoute = async () => {
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /favorites
+Disallow: /history
+
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
 
 Sitemap: https://killer-skills.com/sitemap.xml`;
 

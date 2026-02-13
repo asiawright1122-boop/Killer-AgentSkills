@@ -45,6 +45,7 @@ interface HarvestedSkill {
     repo: string;
     description: string | null;
     stars: number;
+    forks: number;
     topics: string[];
     updatedAt: string;
     filePath: string;
@@ -66,7 +67,7 @@ function loadExisting(): HarvestedSkill[] {
 // 保存数据
 function saveData(items: HarvestedSkill[]) {
     // 按 Stars 降序排序
-    const sorted = items.sort((a, b) => b.stars - a.stars);
+    const sorted = items.sort((a, b) => (b.stars || 0) - (a.stars || 0));
     fs.writeFileSync(DATA_FILE, JSON.stringify(sorted, null, 2));
     console.log(`💾 Saved ${sorted.length} items to ${DATA_FILE}`);
 }
@@ -224,6 +225,7 @@ async function main() {
                     repo: item.repository.name,
                     description: item.repository.description,
                     stars: item.repository.stargazers_count,
+                    forks: item.repository.forks_count || 0,
                     topics: item.repository.topics || [],
                     updatedAt: item.repository.updated_at,
                     filePath: filePath

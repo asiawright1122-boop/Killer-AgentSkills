@@ -8,10 +8,12 @@ interface Props {
 	locale: string;
 	title: string;
 	description?: string;
+	keywords?: string;
 	image?: string;
     showFooter?: boolean;
     appendBrand?: boolean;
     noindex?: boolean;
+    ogType?: 'website' | 'article' | 'book' | 'profile' | 'product';
 }
 
 const SITE_URL = 'https://killer-skills.com';
@@ -20,10 +22,12 @@ const {
 	locale,
 	title,
 	description = 'The ultimate directory of AI Development Skills for Agents.',
+	keywords,
 	image = '/og-image.png',
     showFooter = true,
     appendBrand = true,
     noindex = false,
+    ogType = 'website',
 } = Astro.props;
 
 // RTL support for Arabic
@@ -55,6 +59,14 @@ const xDefaultUrl = currentPath.replace(new RegExp(`^/${locale}/`), '/en/')
 
 // Page title with optional brand suffix
 const fullTitle = appendBrand ? `${title} | Killer-Skills` : title;
+
+// OG Locale mapping (BCP-47 → Open Graph format)
+const OG_LOCALE_MAP: Record<string, string> = {
+  en: 'en_US', zh: 'zh_CN', ja: 'ja_JP', ko: 'ko_KR',
+  es: 'es_ES', fr: 'fr_FR', de: 'de_DE', pt: 'pt_BR',
+  ru: 'ru_RU', ar: 'ar_SA'
+};
+const ogLocale = OG_LOCALE_MAP[locale] || locale;
 ---
 
 <!doctype html>
@@ -62,6 +74,13 @@ const fullTitle = appendBrand ? `${title} | Killer-Skills` : title;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Preconnect to critical third-party origins (improves LCP/FCP) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
+		<link rel="preconnect" href="http://146.235.234.248:3000" />
+
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -77,16 +96,20 @@ const fullTitle = appendBrand ? `${title} | Killer-Skills` : title;
 		<link rel="alternate" hreflang="x-default" href={`${SITE_URL}${xDefaultUrl}`} />
 
 		<!-- SEO Keywords -->
-		<meta name="keywords" content={t('Metadata.keywords')} />
+		<meta name="keywords" content={keywords || t('Metadata.keywords')} />
 
 		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:site_name" content="Killer-Skills" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={absoluteImage} />
 		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:locale" content={locale} />
+		<meta property="og:locale" content={ogLocale} />
+		{/* OG alternate locales for social sharing */}
+		{SUPPORTED_LOCALES.filter(loc => loc !== locale).map(loc => (
+			<meta property="og:locale:alternate" content={OG_LOCALE_MAP[loc] || loc} />
+		))}
 
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
