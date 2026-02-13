@@ -2,8 +2,6 @@ import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 
-// @ts-ignore
-import docsCache from '../../data/docs-cache.json';
 
 export const prerender = false;
 

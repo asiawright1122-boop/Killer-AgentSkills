@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 
-export const prerender = false;
+export const prerender = true;
 
 const SITE = 'https://killer-skills.com';
 const STATIC_PAGES = [

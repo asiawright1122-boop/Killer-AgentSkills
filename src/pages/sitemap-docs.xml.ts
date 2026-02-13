@@ -4,7 +4,7 @@ import { SUPPORTED_LOCALES } from '../i18n';
 // @ts-ignore
 import docsCache from '../../data/docs-cache.json';
 
-export const prerender = false;
+export const prerender = true;
 
 const SITE = 'https://killer-skills.com';
 
