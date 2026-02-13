@@ -26,15 +26,26 @@ const t = useTranslations(messages);
 
 // Category definitions matching the skills page sidebar
 const categoryDefs = [
-  { id: 'development', icon: '🛠', color: 'cyan' },
-  { id: 'testing', icon: '🧪', color: 'green' },
-  { id: 'data', icon: '📊', color: 'blue' },
-  { id: 'ai', icon: '🤖', color: 'purple' },
-  { id: 'devops', icon: '☁️', color: 'orange' },
-  { id: 'design', icon: '🎨', color: 'pink' },
-  { id: 'documentation', icon: '📝', color: 'amber' },
-  { id: 'productivity', icon: '🚀', color: 'indigo' },
+  { id: 'development', icon: 'code', color: 'cyan' },
+  { id: 'testing', icon: 'beaker', color: 'green' },
+  { id: 'data', icon: 'bar-chart', color: 'blue' },
+  { id: 'ai', icon: 'cpu', color: 'purple' },
+  { id: 'devops', icon: 'cloud', color: 'orange' },
+  { id: 'design', icon: 'pen-tool', color: 'pink' },
+  { id: 'documentation', icon: 'file-text', color: 'amber' },
+  { id: 'productivity', icon: 'zap', color: 'indigo' },
 ];
+
+const categoryColors: Record<string, string> = {
+  cyan: 'text-cyan-600 dark:text-cyan-400',
+  green: 'text-green-600 dark:text-green-400',
+  blue: 'text-blue-600 dark:text-blue-400',
+  purple: 'text-purple-600 dark:text-purple-400',
+  orange: 'text-orange-600 dark:text-orange-400',
+  pink: 'text-pink-600 dark:text-pink-400',
+  amber: 'text-amber-600 dark:text-amber-400',
+  indigo: 'text-indigo-600 dark:text-indigo-400',
+};
 
 // Count skills per category
 const categoryCounts: Record<string, number> = {};
@@ -104,7 +115,48 @@ const pageDescription = t('Categories.heroDesc');
             href={`/${locale}/skills?category=${cat.id}`}
             class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md hover:border-cyan-300 dark:hover:border-cyan-700 transition-all duration-200"
           >
-            <div class="text-4xl mb-4">{cat.icon}</div>
+            <div class={`mb-4 ${categoryColors[cat.color]}`}>
+              {cat.icon === 'code' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+              )}
+              {cat.icon === 'beaker' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/>
+                </svg>
+              )}
+              {cat.icon === 'bar-chart' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                </svg>
+              )}
+              {cat.icon === 'cpu' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              )}
+              {cat.icon === 'cloud' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M17.5 19A5.5 5.5 0 0 0 18 8.02a7 7 0 1 0-11.66 6.77"/><path d="M12 13v9"/><path d="m9 19 3 3 3-3"/>
+                </svg>
+              )}
+              {cat.icon === 'pen-tool' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                </svg>
+              )}
+              {cat.icon === 'file-text' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
+                </svg>
+              )}
+              {cat.icon === 'zap' && (
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              )}
+            </div>
             <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
               {cat.name}
             </h2>
