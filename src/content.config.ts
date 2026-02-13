@@ -42,14 +42,18 @@ const skillsLoader = {
                 // Determine ID (owner/repo)
                 const id = skill.skillId || `${skill.owner}/${skill.repo}`;
 
-                // Parse and validate data
-                // We skip parseData for speed if we trust the JSON, but using it validates schema
-                // For 10k items, manual store.set is faster than parseData for each if we are careful.
-                // But let's use validations.
+                // Strip large fields to reduce worker bundle size.
+                // skillMd.body can be 5-20KB per skill × 3500 skills = ~50MB.
+                // The full body is loaded from KV at runtime on detail pages.
+                const slimSkill = { ...skill };
+                if (slimSkill.skillMd) {
+                    slimSkill.skillMd = { ...slimSkill.skillMd };
+                    delete slimSkill.skillMd.body;
+                }
 
                 store.set({
                     id,
-                    data: skill,
+                    data: slimSkill,
                     rendered: { html: "" } // No markdown content yet
                 });
             }
