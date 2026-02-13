@@ -16,6 +16,7 @@ env:
 jobs:
   harvest-and-build:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     concurrency:
       group: skills-harvester
       cancel-in-progress: false
@@ -64,7 +65,7 @@ jobs:
           git pull --rebase origin main
           git push
 
-      # Step 2: Build Cache (Process New Skills)
+      # Step 2: Build Cache (Process New Skills with AI Translations)
       - name: Build Skills Cache
         run: npm run build:cache -- --mode=discover
         env:
@@ -82,11 +83,11 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # Step 4: Commit Built Cache (Optional but recommended for history)
+      # Step 4: Commit Built Cache
       - name: Check for Cache Changes
         id: cache-changes
         run: |
-          if [ -n "$(git status --porcelain data/skills-cache.json)" ]; then
+          if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
           else
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -101,3 +102,8 @@ jobs:
           git commit -m "chore(data): update skills cache & sitemap [skip ci]"
           git pull --rebase origin main
           git push
+
+      # Step 5: Submit IndexNow (Notify Search Engines)
+      - name: Submit IndexNow
+        if: steps.cache-changes.outputs.changed == 'true'
+        run: node scripts/submit-indexnow.mjs
