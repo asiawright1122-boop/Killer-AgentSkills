@@ -2,6 +2,7 @@
 import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
 import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription, getRelatedSkills } from '../../../../lib/skills';
+import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import type { Env } from '../../../../lib/kv';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
@@ -37,6 +38,10 @@ const skill = await getSkillById(env, fullId) || await getSkillByOwnerRepo(env, 
 if (!skill) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
+
+// Determine verified status (mirrors SkillCard.astro logic)
+const officialConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
+const isVerified = (skill as any).verified ?? (officialConfig?.verified ?? false);
 
 // Load translations
 const messages = await loadMessages(typedLocale);
