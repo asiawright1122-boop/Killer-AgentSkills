@@ -11,7 +11,6 @@ import { Github, Star, GitFork, Calendar, CheckCircle2, Terminal, Copy, ArrowLef
 
 export const prerender = false;
 
-// Validate locale
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
@@ -472,7 +471,7 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                                      {t('Detail.useCases') || 'Use Cases'}
                                 </h3>
                                 <div class="flex flex-wrap gap-2">
-                                    {skill.agentAnalysis.useCases.map((useCase: string) => (
+                                    {(skill.agentAnalysis.useCases || []).map((useCase: string) => (
                                         <div class="px-2.5 py-1 rounded-md bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-sm text-gray-700 dark:text-gray-300 shadow-sm">
                                             {useCase}
                                         </div>
@@ -480,13 +479,13 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                                 </div>
                             </div>
 
-                            {skill.agentAnalysis.limitations.length > 0 && (
+                            {(skill.agentAnalysis.limitations || []).length > 0 && (
                                 <div>
                                     <h3 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">
                                          {t('Detail.limitations') || 'Limitations'}
                                     </h3>
                                     <ul class="space-y-1">
-                                        {skill.agentAnalysis.limitations.map((limitation: string) => (
+                                        {(skill.agentAnalysis.limitations || []).map((limitation: string) => (
                                             <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                                                 <AlertTriangle size={14} class="mt-0.5 text-amber-500 shrink-0" />
                                                 <span>{limitation}</span>
