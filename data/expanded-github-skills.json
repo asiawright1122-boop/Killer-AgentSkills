@@ -684,5 +684,677 @@
     "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
     "topics": [],
     "filePath": "skills/development/gh-search-repos-aaddrick-gh-cli-search/SKILL.md"
+  },
+  {
+    "owner": "kopfrechner",
+    "repo": "kopfarbeit",
+    "description": "Personal Blog",
+    "topics": [],
+    "filePath": ".gemini/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/gh-search-repos/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/gh-search-repos/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/gh-search-repos-aaddrick-gh-cli-search/SKILL.md"
+  },
+  {
+    "owner": "zsutxz",
+    "repo": "ClaudeLearning",
+    "description": "Learn Claude",
+    "topics": [],
+    "filePath": ".claude/skills/github-ai-projects/skill.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/github-ai-projects/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/design/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/secure-web-search-ronnycoding-claude/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/design/secure-web-search-ronnycoding-claude/SKILL.md"
+  },
+  {
+    "owner": "ronnycoding",
+    "repo": ".claude",
+    "description": "Claude Code configuration featuring specialized AI agents, custom skills, automated GitHub workflows with Epic/Task decomposition, and multi-agent orchestration patterns for complex software development",
+    "topics": [],
+    "filePath": "skills/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "NeverSight",
+    "repo": "skills_feed",
+    "description": "A crawler script to fetch skill data from network, automatically executed daily via GitHub Actions.",
+    "topics": [],
+    "filePath": "data/skills-md/ronnycoding/.claude/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "design/secure-web-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/secure-web-search-ronnycoding-claude/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "design/secure-web-search-ronnycoding-claude/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/gh-discussions-answerer/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/gh-cli-skill/SKILL.md"
+  },
+  {
+    "owner": "masx200",
+    "repo": "http-proxy-go-server",
+    "description": "http-proxy-go-server",
+    "topics": [],
+    "filePath": ".claude/skills/gh-cli-skill/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/gh-cli-skill/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/gh-cli-skill/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "topics": [],
+    "filePath": "skills/openclaw-skills/byungkyu/github-api/SKILL.md"
+  },
+  {
+    "owner": "forgivesam168",
+    "repo": "ai-dev-workflow",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "brixtonpham",
+    "repo": "claude-setup",
+    "description": null,
+    "topics": [],
+    "filePath": "hub/skills/github-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/6-searchskill/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/development/code-porter/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/development/code-porter-dseirz-rgb-worker/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/code-porter/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/code-porter/SKILL.md"
+  },
+  {
+    "owner": "dseirz-rgb",
+    "repo": "worker",
+    "description": null,
+    "topics": [],
+    "filePath": ".kiro/skills/code-porter/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/code-porter-dseirz-rgb-worker/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/github-automation/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/github-automation-aaaaqwq-agi-super-skills/SKILL.md"
+  },
+  {
+    "owner": "aAAaqwq",
+    "repo": "AGI-Super-Skills",
+    "description": "创建GitHub仓库",
+    "topics": [],
+    "filePath": "skills/git-project/github-automation/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/github-automation/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/github-automation/SKILL.md"
+  },
+  {
+    "owner": "NeverSight",
+    "repo": "skills_feed",
+    "description": "A crawler script to fetch skill data from network, automatically executed daily via GitHub Actions.",
+    "topics": [],
+    "filePath": "data/skills-md/aaaaqwq/claude-code-skills/github-automation/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/github-automation-aaaaqwq-agi-super-skills/SKILL.md"
+  },
+  {
+    "owner": "Lordsisodia",
+    "repo": "siso-agency-internal",
+    "description": "SISO Agency Internal Platform - Task management and day tracking system with LifeLock integration",
+    "topics": [],
+    "filePath": ".archived-code/.backup-skills-20260118_124219/.skills-new/core-infrastructure/development-tools/github-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/best-practices-researcher/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/best-practices-researcher-jovermier-claude-code-plugins-/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/best-practices-researcher/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/best-practices-researcher/SKILL.md"
+  },
+  {
+    "owner": "jovermier",
+    "repo": "claude-code-plugins-ip-labs",
+    "description": null,
+    "topics": [],
+    "filePath": "plugins/dev/agents/research/best-practices-researcher/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/best-practices-researcher-jovermier-claude-code-plugins-/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/best-practices-researcher-jovermier-claude-code-plugins--2/SKILL.md"
+  },
+  {
+    "owner": "edyhvh",
+    "repo": "shafan",
+    "description": "hebrew bible webapp [Tanakh and Besorah]",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "edyhvh",
+    "repo": "davar",
+    "description": "bible app that helps you develope a hebrew mindset",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/mcp-builder-eduardoremedios-mcp-builder-sk/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/gh-search/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/development/search-operations/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/development/search-operations-nice-wolf-studio-agent-github-skills/SKILL.md"
+  },
+  {
+    "owner": "Nice-Wolf-Studio",
+    "repo": "agent-github-skills",
+    "description": "A collection of Claude Code skills that replicate GitHub MCP server functionality using gh CLI",
+    "topics": [],
+    "filePath": "skills/search-operations/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/search-operations/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/search-operations/SKILL.md"
+  },
+  {
+    "owner": "jtdowney",
+    "repo": "dotfiles",
+    "description": "my dotfiles",
+    "topics": [],
+    "filePath": "dot_claude/skills/github/search-operations/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "development/search-operations-nice-wolf-studio-agent-github-skills/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/gh-cli-beel-collab-presets-dev/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "topics": [],
+    "filePath": "skills/other/gh-cli-majiayu000-claude-skill-registr/SKILL.md"
+  },
+  {
+    "owner": "beel-collab",
+    "repo": "presets.dev",
+    "description": "Curated collection of agents, skills, prompts, and instructions to supercharge GitHub Copilot",
+    "topics": [],
+    "filePath": "skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "Tahir-yamin",
+    "repo": "dev-engineering-playbook",
+    "description": "A comprehensive knowledge base of workflows, skills, AI agents, and guides for full-stack development, DevOps, and AI engineering.",
+    "topics": [],
+    "filePath": "skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "zjunlp",
+    "repo": "SkillNet",
+    "description": "Create, Evaluate, and Connect AI Skills",
+    "topics": [],
+    "filePath": "skills/skill-collections/git-workflow-collaboration/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "assapir",
+    "repo": "agent-skills",
+    "description": null,
+    "topics": [],
+    "filePath": "gh-cli/SKILL.md"
+  },
+  {
+    "owner": "NeverSight",
+    "repo": "skills_feed",
+    "description": "A crawler script to fetch skill data from network, automatically executed daily via GitHub Actions.",
+    "topics": [],
+    "filePath": "data/skills-md/github/awesome-copilot/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "data/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "yldgio",
+    "repo": "codereview-skills",
+    "description": null,
+    "topics": [],
+    "filePath": ".opencode/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "HiroyukiMakita",
+    "repo": "dev-kintone-plugin",
+    "description": null,
+    "topics": [],
+    "filePath": ".opencode/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "lassestilvang",
+    "repo": "todo-gemini-3-pro-preview",
+    "description": "Gemini 3 Pro (Preview)",
+    "topics": [],
+    "filePath": ".agent/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "ddieppa",
+    "repo": "dotfiles",
+    "description": "dotfiles",
+    "topics": [],
+    "filePath": ".agents/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "arku3",
+    "repo": "phpspreadsheet-js",
+    "description": null,
+    "topics": [],
+    "filePath": ".agents/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "ytqh",
+    "repo": "agent-skills",
+    "description": "常用开发模式的 skills",
+    "topics": [],
+    "filePath": "skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/gh-cli-beel-collab-presets-dev/SKILL.md"
+  },
+  {
+    "owner": "Abdullah-Haytham03",
+    "repo": "CodeInsights",
+    "description": null,
+    "topics": [],
+    "filePath": "skills/github-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "description": null,
+    "topics": [],
+    "filePath": "other/gh-cli-majiayu000-claude-skill-registr/SKILL.md"
+  },
+  {
+    "owner": "Ansteorra",
+    "repo": "KMP",
+    "description": "Kingdom Management Platform",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "eitatech",
+    "repo": "gatomia-vscode",
+    "description": "GatomiA - Agentic Spec-Driven Development Tool",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "JohnLudlow",
+    "repo": "MonoGameSamples.TerrainGeneration2D",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "danielshue",
+    "repo": "notebook-automation",
+    "description": "Notebook Automation for Coursera",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "yldgio",
+    "repo": "codereview-skills",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "e9169",
+    "repo": "kopilot",
+    "description": "🤖 AI-powered Kubernetes cluster management agent built with GitHub Copilot SDK. Monitor, query, and manage multiple clusters through natural language. Features smart cost optimization, parallel health checks, and safe kubectl execution.",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "CUMTD",
+    "repo": "developer-web",
+    "description": "Documentation website for MTD.dev",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "tfsugjp",
+    "repo": "csharptemplate",
+    "description": "This repository is template for C# product and support CI/CD Azure Pipelines or GitHub Actions.",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "ncksol",
+    "repo": "ravebot",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "lem0n4id",
+    "repo": "learnin10",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "louisburroughs",
+    "repo": "durion",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "mullaned",
+    "repo": "next-sanity-dave",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "hiroxtai",
+    "repo": "next-app-playground",
+    "description": "Next.js App Playground",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "peparhugo",
+    "repo": "github-copilot-command-demo",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/awesome-copilot/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "0x5341",
+    "repo": "dotfiles",
+    "description": null,
+    "topics": [],
+    "filePath": "share/ai/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "hereandnowai",
+    "repo": "hotel-booking-ai-chatbot",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "hereandnowai",
+    "repo": "vision-rag",
+    "description": null,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "jonathan-vella",
+    "repo": "azure-agentic-smb-lz",
+    "description": "Azure landing zone for Microsoft Partners hosting SMB customers. On-premises migration ready • Policy-enforced • CAF-aligned. Built with agentic AI workflow using Bicep and Azure Verified Modules.",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "jonathan-vella",
+    "repo": "azure-migrate-wds",
+    "description": "A 1-day hands-on Azure Migration workshop combining Azure Migrate appliance labs with whiteboard design sessions, aligned to the Cloud Adoption Framework Migrate methodology",
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
   }
 ]
