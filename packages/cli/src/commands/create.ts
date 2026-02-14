@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import fs from 'fs-extra';
 import path from 'path';
-import readline from 'readline';
+import { input, select, confirm } from '@inquirer/prompts';
 import { findSkill } from '../utils/skills.js';
 import { execSync } from 'child_process';
 
@@ -286,12 +286,10 @@ export const createCommand = new Command('create')
             // Get description
             let description = options.description;
             if (!description && !options.yes) {
-                while (!description || description.length < 20) {
-                    description = await prompt(chalk.cyan('? Skill description (min 20 chars): '));
-                    if (description.length < 20) {
-                        console.log(chalk.yellow('⚠️  Description must be at least 20 characters to ensure quality.'));
-                    }
-                }
+                description = await input({
+                    message: 'Skill description (min 20 chars):',
+                    validate: (value) => value.length >= 20 || 'Description must be at least 20 characters to ensure quality.'
+                });
             }
 
             // Auto-validate non-interactive description
@@ -355,6 +353,10 @@ export const createCommand = new Command('create')
             console.log(`  ${templateType === 'minimal' ? '3' : templateType === 'standard' ? '4' : '6'}. Publish: ${chalk.cyan(`killer publish ${skillPath}`)}`);
 
         } catch (error) {
+            if ((error as Error).name === 'ExitPromptError') {
+                console.log(chalk.yellow('\n\nCancelled by user'));
+                process.exit(0);
+            }
             spinner.fail(chalk.red('Creation failed'));
             console.error(chalk.red(`\nError: ${(error as Error).message}`));
             process.exit(1);
@@ -410,23 +412,6 @@ async function cloneFromSkill(
     console.log(chalk.dim('─'.repeat(50)));
     console.log('');
     console.log(chalk.dim('💡 Don\'t forget to update the skill description and content!'));
-}
-
-/**
- * Prompt user for input
- */
-async function prompt(question: string): Promise<string> {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
-    return new Promise(resolve => {
-        rl.question(question, answer => {
-            rl.close();
-            resolve(answer.trim());
-        });
-    });
 }
 
 /**

@@ -28,6 +28,34 @@ const DEFAULT_STATS: Stats = {
     firstRun: new Date().toISOString()
 };
 
+/**
+ * Load stats with corruption handling
+ */
+async function loadStats(): Promise<Stats> {
+    try {
+        await fs.ensureDir(path.dirname(STATS_FILE));
+        if (await fs.pathExists(STATS_FILE)) {
+            return await fs.readJson(STATS_FILE);
+        }
+    } catch (error) {
+        // If file is corrupted or unreadable, return default
+        // We don't auto-reset here to avoid race conditions during read
+    }
+    return { ...DEFAULT_STATS };
+}
+
+/**
+ * Save stats with retry
+ */
+async function saveStats(stats: Stats): Promise<void> {
+    try {
+        await fs.ensureDir(path.dirname(STATS_FILE));
+        await fs.writeJson(STATS_FILE, stats, { spaces: 2 });
+    } catch {
+        // Ignore write errors (best effort)
+    }
+}
+
 export const statsCommand = new Command('stats')
     .description('View CLI usage statistics')
     .option('--reset', 'Reset all statistics')
@@ -38,19 +66,13 @@ export const statsCommand = new Command('stats')
 
             // Reset stats
             if (options.reset) {
-                await fs.writeJson(STATS_FILE, DEFAULT_STATS, { spaces: 2 });
+                await saveStats(DEFAULT_STATS);
                 console.log(chalk.green('✅ Statistics reset'));
                 return;
             }
 
             // Load stats
-            let stats: Stats;
-            if (await fs.pathExists(STATS_FILE)) {
-                stats = await fs.readJson(STATS_FILE);
-            } else {
-                stats = { ...DEFAULT_STATS };
-                await fs.writeJson(STATS_FILE, stats, { spaces: 2 });
-            }
+            const stats = await loadStats();
 
             // JSON output
             if (options.json) {
@@ -106,20 +128,13 @@ export const statsCommand = new Command('stats')
  */
 export async function trackInstall(skillName: string): Promise<void> {
     try {
-        await fs.ensureDir(path.dirname(STATS_FILE));
-
-        let stats: Stats;
-        if (await fs.pathExists(STATS_FILE)) {
-            stats = await fs.readJson(STATS_FILE);
-        } else {
-            stats = { ...DEFAULT_STATS };
-        }
+        const stats = await loadStats();
 
         stats.installs[skillName] = (stats.installs[skillName] || 0) + 1;
         stats.lastRun = new Date().toISOString();
         stats.totalRuns++;
 
-        await fs.writeJson(STATS_FILE, stats, { spaces: 2 });
+        await saveStats(stats);
     } catch {
         // Ignore errors
     }
@@ -130,20 +145,13 @@ export async function trackInstall(skillName: string): Promise<void> {
  */
 export async function trackCommand(commandName: string): Promise<void> {
     try {
-        await fs.ensureDir(path.dirname(STATS_FILE));
-
-        let stats: Stats;
-        if (await fs.pathExists(STATS_FILE)) {
-            stats = await fs.readJson(STATS_FILE);
-        } else {
-            stats = { ...DEFAULT_STATS };
-        }
+        const stats = await loadStats();
 
         stats.commands[commandName] = (stats.commands[commandName] || 0) + 1;
         stats.lastRun = new Date().toISOString();
         stats.totalRuns++;
 
-        await fs.writeJson(STATS_FILE, stats, { spaces: 2 });
+        await saveStats(stats);
     } catch {
         // Ignore errors
     }

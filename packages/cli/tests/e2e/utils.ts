@@ -27,7 +27,7 @@ export function runCLI(
         const output = execSync(cmd, {
             encoding: 'utf-8',
             timeout: 30000,
-            env: { ...process.env, NO_COLOR: '1' },
+            env: { ...process.env, NO_COLOR: '1', KILLER_SKILLS_TEST: '1' },
             ...options
         });
         return { stdout: String(output), stderr: '', exitCode: 0 };

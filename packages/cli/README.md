@@ -23,7 +23,7 @@
 
 ### Supported IDEs
 
-Killer-Skills automatically detects and configures the following IDEs, injecting **Auto-Invoke** instructions:
+Killer-Skills dynamically detects and configures IDEs based on its internal configuration. It currently supports **17+ IDEs** and injects **Auto-Invoke** instructions:
 
 | IDE | Config File | Status |
 |-----|-------------|--------|
@@ -37,6 +37,8 @@ Killer-Skills automatically detects and configures the following IDEs, injecting
 | **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ Supported |
 | **Cline, Roo, Augment** | `AGENTS.md` | ✅ Supported |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ Supported |
+
+*New IDEs are added regularly. Run `killer completion` to see the latest list.*
 
 ### Quick Start
 
@@ -146,7 +148,7 @@ npx killer-skills-mcp
 
 ### 支持的 IDE
 
-Killer-Skills 会自动检测并配置以下 IDE，注入 **Auto-Invoke** 指令：
+Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **17+ IDE** 并自动注入 **Auto-Invoke** 指令：
 
 | IDE | 配置文件 | 状态 |
 |-----|----------|------|
@@ -160,6 +162,8 @@ Killer-Skills 会自动检测并配置以下 IDE，注入 **Auto-Invoke** 指令
 | **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ 支持 |
 | **Cline, Roo, Augment** | `AGENTS.md` | ✅ 支持 |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ 支持 |
+
+*新 IDE 支持会定期添加。运行 `killer completion` 可查看最新列表。*
 
 ### 快速开始
 
