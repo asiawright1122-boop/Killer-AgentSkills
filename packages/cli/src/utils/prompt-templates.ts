@@ -147,6 +147,7 @@ export function generateKiroPrompt(skills: SkillInfo[]): string {
 
 ## ⚡ Auto-Invoke Directive
 
+<!-- SKILLS_TABLE_START -->
 ${AUTO_INVOKE_DIRECTIVE}
 
 ## Available Skills
@@ -161,6 +162,7 @@ ${JSON.stringify({
 ## Usage
 
 ${SKILL_USAGE_INSTRUCTIONS}
+<!-- SKILLS_TABLE_END -->
 `;
 }
 

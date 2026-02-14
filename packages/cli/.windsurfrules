@@ -98,4 +98,53 @@ If multiple skills match, load the most relevant one first.
 | webapp-testing | Toolkit for interacting with and testing local web applicati | global |
 | xlsx | Comprehensive spreadsheet creation, editing, and analysis wi | global |
 
+# Windsurf Rules - Skills
+
+## ⚡ Auto-Invoke Skills
+
+IMPORTANT: You MUST automatically match user tasks against the available skills listed below.
+When a user's request falls within a skill's domain, invoke the skill IMMEDIATELY by running:
+  `killer read <skill-name>`
+Do NOT ask for permission — just load the skill and follow its instructions.
+If multiple skills match, load the most relevant one first.
+
+## Tool Usage
+- **List all tools**: `killer list`
+- **Search tools**: `killer search <keyword>`
+- **Load tool**: `killer read <tool-name>` (loads instructions into context)
+  - For multiple tools: `killer read tool1,tool2`
+
+## Usage Notes
+- Only use skills listed below
+- Do not invoke a skill that is already loaded
+- Each skill invocation is stateless
+
+## Skills System
+
+| Skill | Description | Location |
+|-------|-------------|----------|
+| algorithmic-art | Creating algorithmic art using p5.js with seeded randomness  | global |
+| full-test | Installed via Killer-Skills CLI | global |
+| pdf | Use this skill whenever the user wants to do anything with P | global |
+| test-skill | A test skill | project |
+| seo | Optimize for search engine visibility and ranking. Use when  | global |
+| brand-guidelines | Applies Anthropic's official brand colors and typography to  | global |
+| canvas-design | Create beautiful visual art in .png and .pdf documents using | global |
+| doc-coauthoring | Guide users through a structured workflow for co-authoring d | global |
+| docx | Comprehensive document creation, editing, and analysis with  | global |
+| frontend-design | Create distinctive, production-grade frontend interfaces wit | global |
+| internal-comms | A set of resources to help me write all kinds of internal co | global |
+| mcp-builder | Guide for creating high-quality MCP (Model Context Protocol) | global |
+| planning-with-files | Implements Manus-style file-based planning for complex tasks | global |
+| pptx | Presentation creation, editing, and analysis. When Claude ne | global |
+| seo-audit | When the user wants to audit, review, or diagnose SEO issues | global |
+| seo-review | Perform a focused SEO audit on JavaScript concept pages to m | global |
+| skill-creator | Guide for creating effective skills. This skill should be us | global |
+| slack-gif-creator | Knowledge and utilities for creating animated GIFs optimized | global |
+| theme-factory | Toolkit for styling artifacts with a theme. These artifacts  | global |
+| ui-ux-pro-max | UI/UX design intelligence. 50 styles, 21 palettes, 50 font p | global |
+| web-artifacts-builder | Suite of tools for creating elaborate, multi-component claud | global |
+| webapp-testing | Toolkit for interacting with and testing local web applicati | global |
+| xlsx | Comprehensive spreadsheet creation, editing, and analysis wi | global |
+
 
