@@ -4,7 +4,7 @@
  * Shared helpers for CLI end-to-end tests.
  */
 
-import { execSync, ExecSyncOptions } from 'child_process';
+import { execSync, type ExecSyncOptions } from 'child_process';
 import path from 'path';
 import fs from 'fs-extra';
 import os from 'os';
