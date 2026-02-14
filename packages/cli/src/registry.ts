@@ -17,8 +17,7 @@ export async function fetchSkillMeta(skillName: string): Promise<SkillMeta | nul
         const registry = await res.json() as SkillMeta[];
         return registry.find((s) => s.name === skillName) || null;
     } catch (error) {
-        // Registry might not exist yet, fall back to local installation
-        console.warn('Could not fetch skill registry, using local installation');
+        // Registry might not exist or network issue
         return null;
     }
 }

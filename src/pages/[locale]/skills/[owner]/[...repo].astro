@@ -47,14 +47,36 @@ const isVerified = (skill as any).verified ?? (officialConfig?.verified ?? false
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
+// Extract localized agentAnalysis fields (supports both old string and new Record<locale, string> format)
+const localizedSuitability: string | undefined = skill.agentAnalysis?.suitability
+    ? (typeof skill.agentAnalysis.suitability === 'object'
+        ? ((skill.agentAnalysis.suitability as Record<string, string>)[typedLocale] || (skill.agentAnalysis.suitability as Record<string, string>)['en'])
+        : skill.agentAnalysis.suitability as string)
+    : undefined;
+const localizedRecommendation: string | undefined = skill.agentAnalysis?.recommendation
+    ? (typeof skill.agentAnalysis.recommendation === 'object'
+        ? ((skill.agentAnalysis.recommendation as Record<string, string>)[typedLocale] || (skill.agentAnalysis.recommendation as Record<string, string>)['en'])
+        : skill.agentAnalysis.recommendation as string)
+    : undefined;
+const localizedUseCases: string[] = skill.agentAnalysis?.useCases
+    ? (Array.isArray(skill.agentAnalysis.useCases)
+        ? skill.agentAnalysis.useCases as string[]
+        : ((skill.agentAnalysis.useCases as Record<string, string[]>)[typedLocale] || (skill.agentAnalysis.useCases as Record<string, string[]>)['en'] || []))
+    : [];
+const localizedLimitations: string[] = skill.agentAnalysis?.limitations
+    ? (Array.isArray(skill.agentAnalysis.limitations)
+        ? skill.agentAnalysis.limitations as string[]
+        : ((skill.agentAnalysis.limitations as Record<string, string[]>)[typedLocale] || (skill.agentAnalysis.limitations as Record<string, string[]>)['en'] || []))
+    : [];
+
 // Get localized description
 const rawDescription = getLocalizedDescription(skill.description, typedLocale);
 // Prefer SEO definition if available for the specific locale, otherwise fall back to standard description
 const baseDescription = skill.seo?.definition?.[typedLocale] || rawDescription;
-// For English, prepend the Agent Analysis "Suitability" hook if available for better CTR
+// Prepend the Agent Analysis "Suitability" hook if available for better CTR
 let description = baseDescription;
-if (typedLocale === 'en' && skill.agentAnalysis?.suitability) {
-    description = `${skill.agentAnalysis.suitability} ${baseDescription}`;
+if (localizedSuitability) {
+    description = `${localizedSuitability} ${baseDescription}`;
 }
 
 // Get key features
@@ -154,10 +176,10 @@ faqItems.push({
 });
 
 // Q3: Use cases (from agentAnalysis)
-if (skill.agentAnalysis?.useCases?.length) {
+if (localizedUseCases.length > 0) {
   faqItems.push({
     question: `What are the use cases for ${skill.name || repo}?`,
-    answer: `Key use cases include: ${skill.agentAnalysis.useCases.join(', ')}.`
+    answer: `Key use cases include: ${localizedUseCases.join(', ')}.`
   });
 }
 
@@ -168,10 +190,10 @@ faqItems.push({
 });
 
 // Q5: Limitations (from agentAnalysis)
-if (skill.agentAnalysis?.limitations?.length) {
+if (localizedLimitations.length > 0) {
   faqItems.push({
     question: `Are there any limitations for ${skill.name || repo}?`,
-    answer: skill.agentAnalysis.limitations.join('. ') + '.'
+    answer: localizedLimitations.join('. ') + '.'
   });
 }
 
@@ -546,45 +568,51 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                     </div>
 
                     <div class="space-y-4">
+                        {localizedSuitability && (
                         <div>
                             <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
                                 {t('Detail.suitability') || 'Suitability'}
                             </h3>
                             <p class="text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
-                                {skill.agentAnalysis.suitability}
+                                {localizedSuitability}
                             </p>
                         </div>
+                        )}
 
+                        {localizedRecommendation && (
                         <div>
                              <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
                                 {t('Detail.recommendation') || 'Recommendation'}
                             </h3>
                             <p class="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
-                                {skill.agentAnalysis.recommendation}
+                                {localizedRecommendation}
                             </p>
                         </div>
+                        )}
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                            {localizedUseCases.length > 0 && (
                             <div>
                                 <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
                                      {t('Detail.useCases') || 'Use Cases'}
                                 </h3>
                                 <div class="flex flex-wrap gap-2">
-                                    {(skill.agentAnalysis.useCases || []).map((useCase: string) => (
+                                    {localizedUseCases.map((useCase: string) => (
                                         <div class="px-2.5 py-1 rounded-md bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-sm text-gray-700 dark:text-gray-300 shadow-sm">
                                             {useCase}
                                         </div>
                                     ))}
                                 </div>
                             </div>
+                            )}
 
-                            {(skill.agentAnalysis.limitations || []).length > 0 && (
+                            {localizedLimitations.length > 0 && (
                                 <div>
                                     <h3 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">
                                          {t('Detail.limitations') || 'Limitations'}
                                     </h3>
                                     <ul class="space-y-1">
-                                        {(skill.agentAnalysis.limitations || []).map((limitation: string) => (
+                                        {localizedLimitations.map((limitation: string) => (
                                             <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
                                                 <AlertTriangle size={14} class="mt-0.5 text-amber-500 shrink-0" />
                                                 <span>{limitation}</span>

@@ -1,10 +1,15 @@
 /**
  * GitHub Authentication Utility
  * 
- * Provides seamless GitHub token resolution with 3 strategies:
- * 1. Auto-detect `gh` CLI token (zero config)
- * 2. Device Flow OAuth (`killer login`)
- * 3. Config/env variable fallback
+ * Provides seamless GitHub token resolution with multiple strategies:
+ * 1. Environment variable: GITHUB_TOKEN
+ * 2. Config file: ~/.killer-skills/config.json → githubToken
+ * 3. Auto-detect `gh` CLI token (zero config)
+ * 
+ * Login strategies (ordered by seamlessness):
+ * 1. `gh auth login` — official GitHub CLI (most reliable, most seamless)
+ * 2. Device Flow OAuth — for users without `gh` CLI
+ * 3. Manual PAT — ultimate fallback
  */
 
 import { execSync } from 'child_process';
@@ -19,9 +24,9 @@ const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 /**
  * GitHub Device Flow Client ID
  * Register at: https://github.com/settings/applications/new
- * For now, use a public OAuth App client ID
+ * Make sure to enable "Device Flow" in the OAuth App settings
  */
-const GITHUB_CLIENT_ID = 'Ov23liY8xWLJwKpGJmQk';
+const GITHUB_CLIENT_ID = 'Ov23li6qTIoqN6PqN9Xt';
 
 /**
  * Resolve GitHub token with fallback chain:
@@ -55,7 +60,7 @@ export async function resolveGitHubToken(): Promise<string | null> {
             stdio: ['pipe', 'pipe', 'pipe']
         }).trim();
 
-        if (token && token.startsWith('gh')) {
+        if (token && token.length > 0) {
             return token;
         }
     } catch {
@@ -63,6 +68,56 @@ export async function resolveGitHubToken(): Promise<string | null> {
     }
 
     return null;
+}
+
+/**
+ * Check if `gh` CLI is installed
+ */
+export function isGhCliInstalled(): boolean {
+    try {
+        execSync('gh --version 2>/dev/null', {
+            encoding: 'utf-8',
+            timeout: 3000,
+            stdio: ['pipe', 'pipe', 'pipe']
+        });
+        return true;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Check if `gh` CLI is authenticated
+ */
+export function isGhCliAuthenticated(): boolean {
+    try {
+        const result = execSync('gh auth status 2>&1', {
+            encoding: 'utf-8',
+            timeout: 5000,
+            stdio: ['pipe', 'pipe', 'pipe']
+        });
+        return result.includes('Logged in');
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Run `gh auth login` interactively
+ * Returns true if login succeeded
+ */
+export async function runGhAuthLogin(): Promise<boolean> {
+    try {
+        // Use spawnSync for interactive process
+        const { spawnSync } = await import('child_process');
+        const result = spawnSync('gh', ['auth', 'login', '--web', '-p', 'https'], {
+            stdio: 'inherit',
+            timeout: 120000, // 2 minutes
+        });
+        return result.status === 0;
+    } catch {
+        return false;
+    }
 }
 
 /**

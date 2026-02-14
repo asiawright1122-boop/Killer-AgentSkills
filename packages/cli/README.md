@@ -17,7 +17,7 @@
 - 🤖 **Universal IDE Support** - Supports Cursor, Windsurf, VS Code, Claude Code, and **17+ IDEs**.
 - ⚡ **Auto-Invoke** - Installed skills can be **auto-invoked** by AI Agents via natural language without manual commands.
 - 🔐 **Seamless GitHub Auth** - Reuses `gh` CLI token or supports one-click Device Flow login.
-- 🔍 **Smart Search** - Search GitHub Skills without a token (auto-fallback).
+- 🔍 **Smart Search** - **[NEW]** Website-First search with interactive selection & auto-open docs.
 - 🔄 **One-Click Sync** - `killer sync --all` syncs skills to all installed IDEs.
 - 🧩 **MCP Server** - Built-in MCP Server supporting Agent self-evolution.
 
@@ -69,8 +69,11 @@ killer config githubToken ghp_xxxx
 #### 1. Install Skill
 
 ```bash
-# Install from Registry
+# Interactive Install (Recommended)
 killer install pdf
+# -> 1. Searches Official Website API first
+# -> 2. Shows interactive selection menu
+# -> 3. Auto-opens website docs & installs skill
 
 # Install from GitHub
 killer install anthropics/killer-skills
@@ -137,7 +140,7 @@ npx killer-skills-mcp
 - 🤖 **Universal IDE Support** - 支持 Cursor, Windsurf, VS Code, Claude Code 等 **17+ IDE**
 - ⚡ **Auto-Invoke** - 技能安装后，AI Agent 可通过自然语言**自动调用**，无需手动指令
 - 🔐 **GitHub 无感认证** - 支持复用 `gh` CLI token 或通过 Device Flow 一键登录
-- 🔍 **智能搜索** - 无需 token 即可搜索 GitHub Skills（自动降级）
+- 🔍 **智能搜索** - **[NEW]** 官网数据优先，支持交互式选择和自动打开文档
 - 🔄 **一键同步** - `killer sync --all` 将技能同步到所有已安装 IDE
 - 🧩 **MCP Server** - 内置 MCP Server，支持 Agent 自我进化
 
@@ -189,8 +192,11 @@ killer config githubToken ghp_xxxx
 #### 1. 安装 Skill
 
 ```bash
-# 从 Registry 安装
+# 交互式安装 (推荐)
 killer install pdf
+# -> 1. 优先搜索官网 API
+# -> 2. 显示交互式选择菜单
+# -> 3. 自动打开官网文档并安装
 
 # 从 GitHub 安装
 killer install anthropics/killer-skills

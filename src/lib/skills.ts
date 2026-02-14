@@ -34,10 +34,10 @@ export interface UnifiedSkill {
     keywords: Record<string, string[]>;
   };
   agentAnalysis?: {
-    suitability: string;
-    recommendation: string;
-    useCases: string[];
-    limitations: string[];
+    suitability: string | Record<string, string>;
+    recommendation: string | Record<string, string>;
+    useCases: string[] | Record<string, string[]>;
+    limitations: string[] | Record<string, string[]>;
   };
 }
 
