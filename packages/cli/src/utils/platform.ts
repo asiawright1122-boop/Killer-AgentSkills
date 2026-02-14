@@ -70,7 +70,34 @@ export function detectProjectIDEs(projectPath = process.cwd()): DetectedIDE[] {
 }
 
 /**
- * Detect which IDEs are installed globally
+ * Check if an IDE root directory was genuinely created by the IDE itself,
+ * not just by our CLI's `fs.ensureDir` during installation.
+ * 
+ * A real IDE install has config files, extensions dirs, etc.
+ * Our install only creates `skills/` or `agents/` subdirectories.
+ */
+function isRealIDEInstall(ideRootDir: string): boolean {
+    if (!fs.existsSync(ideRootDir)) return false;
+
+    try {
+        const entries = fs.readdirSync(ideRootDir);
+        // Directories/files that WE create — not evidence of a real IDE
+        const ourDirs = new Set(['skills', 'agents', 'rules']);
+        const realEntries = entries.filter(e => !ourDirs.has(e));
+        // A real IDE install has at least one other file/dir
+        // (e.g. argv.json, extensions/, config files, storage/, etc.)
+        return realEntries.length > 0;
+    } catch {
+        return false;
+    }
+}
+
+/**
+ * Detect which IDEs are installed globally.
+ * 
+ * Uses heuristic: the IDE's home directory must contain files
+ * beyond our own `skills/` subdirectory, proving the IDE itself
+ * created the directory (prevents snowball effect from fs.ensureDir).
  */
 export function detectGlobalIDEs(): DetectedIDE[] {
     const detected: DetectedIDE[] = [];
@@ -80,27 +107,31 @@ export function detectGlobalIDEs(): DetectedIDE[] {
         const config = IDE_CONFIG[ideKey];
         let foundPath: string | null = null;
 
-        // Check global path
-        if (config.paths?.global && fs.existsSync(config.paths.global)) {
-            foundPath = config.paths.global;
+        // Check global path — derive IDE root from skills path
+        // e.g. ~/.aider/skills → check ~/.aider for real install evidence
+        if (config.paths?.global) {
+            const ideRoot = path.dirname(config.paths.global);
+            if (isRealIDEInstall(ideRoot)) {
+                foundPath = config.paths.global;
+            }
         }
 
-        // Check platform-specific paths on Mac
+        // Check platform-specific paths on Mac (with real install check)
         if (!foundPath && platform.isMac) {
             const macPaths: Record<string, string> = {
                 claude: path.join(platform.homedir, '.claude'),
-                antigravity: path.join(platform.homedir, '.gemini/antigravity'),
+                antigravity: path.join(platform.homedir, '.gemini', 'antigravity'),
                 cursor: path.join(platform.homedir, '.cursor'),
                 vscode: path.join(platform.homedir, '.vscode'),
                 windsurf: path.join(platform.homedir, '.windsurf'),
                 kiro: path.join(platform.homedir, '.kiro')
             };
-            if (macPaths[ideKey] && fs.existsSync(macPaths[ideKey])) {
+            if (macPaths[ideKey] && isRealIDEInstall(macPaths[ideKey])) {
                 foundPath = macPaths[ideKey];
             }
         }
 
-        // Check environment variables
+        // Check environment variables (always reliable)
         const envVars: Record<string, string[]> = {
             vscode: ['VSCODE_GIT_IPC_HANDLE', 'TERM_PROGRAM'],
             cursor: ['CURSOR_TRACE'],
