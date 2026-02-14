@@ -34,7 +34,7 @@ When a user's request falls within a skill's domain, invoke the skill IMMEDIATEL
 Do NOT ask for permission — just load the skill and follow its instructions.
 If multiple skills match, load the most relevant one first.`;
 
-const SKILL_USAGE_INSTRUCTIONS = `## Tool Usage
+export const SKILL_USAGE_INSTRUCTIONS = `## Tool Usage
 - **List all tools**: \`killer list\`
 - **Search tools**: \`killer search <keyword>\`
 - **Load tool**: \`killer read <tool-name>\` (loads instructions into context)
