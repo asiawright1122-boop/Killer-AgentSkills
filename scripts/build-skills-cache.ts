@@ -75,10 +75,10 @@ interface SeoData {
 
 // Agent Analysis Data Structure
 interface AgentAnalysis {
-    suitability: string;
-    recommendation: string;
-    useCases: string[];
-    limitations: string[];
+    suitability: string | Record<string, string>;
+    recommendation: string | Record<string, string>;
+    useCases: string[] | Record<string, string[]>;
+    limitations: string[] | Record<string, string[]>;
 }
 
 // 缓存数据结构
@@ -474,8 +474,9 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
 - **Example**: ["Zero-config setup", "Type-safe schema validation", "Multi-modal support"]
 
 ### D. Keywords (5-8 items)
-- **Goal**: Long-tail SEO targeting.
-- **Format**: Specific terms (e.g. "Next.js 14 agent", "PDF parsing ai")
+- **Goal**: Long-tail SEO targeting specific to THIS skill only.
+- **Format**: Terms a developer would search for to find THIS specific skill.
+- **Rules**: ONLY include keywords directly related to what this skill does. NEVER include generic/trending terms. Each keyword must describe a capability of this skill.
 
 ## Output Format (STRICT JSON)
 - **IMPORTANT**: Your response must be a valid JSON object. Do not include any conversational text, markdown formatting, or code blocks.
@@ -646,7 +647,7 @@ async function generateAgentAnalysis(
     skillName: string,
     description: string,
     bodyPreview: string
-): Promise<AgentAnalysis | undefined> {
+): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
     const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
 
 Skill: ${skillName}
@@ -690,6 +691,62 @@ Return JSON ONLY:
         console.error(`Failed to generate agent analysis for ${skillName}`, e);
     }
     return undefined;
+}
+
+/**
+ * Translate Agent Analysis to all supported languages
+ */
+async function translateAgentAnalysis(
+    raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] }
+): Promise<AgentAnalysis> {
+    const localesStr = SUPPORTED_LOCALES.join(', ');
+    const prompt = `Translate the following AI Agent Skill analysis to these languages: ${localesStr}.
+Keep translations concise and professional. Preserve technical terms.
+
+Input (English):
+{
+  "suitability": "${raw.suitability.replace(/"/g, '\\"')}",
+  "recommendation": "${raw.recommendation.replace(/"/g, '\\"')}",
+  "useCases": ${JSON.stringify(raw.useCases)},
+  "limitations": ${JSON.stringify(raw.limitations)}
+}
+
+Return JSON ONLY with this structure (include "en" key with original English text):
+{
+  "suitability": { "en": "...", "zh": "...", "ja": "...", ... },
+  "recommendation": { "en": "...", "zh": "...", "ja": "...", ... },
+  "useCases": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... },
+  "limitations": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... }
+}`;
+
+    try {
+        const result = await callAI(prompt, true, false);
+        if (result) {
+            const jsonMatch = result.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+                // Validate structure
+                if (parsed.suitability && typeof parsed.suitability === 'object') {
+                    return {
+                        suitability: { en: raw.suitability, ...parsed.suitability },
+                        recommendation: { en: raw.recommendation, ...(parsed.recommendation || {}) },
+                        useCases: { en: raw.useCases, ...(parsed.useCases || {}) },
+                        limitations: { en: raw.limitations, ...(parsed.limitations || {}) },
+                    };
+                }
+            }
+        }
+    } catch (e) {
+        console.error(`Failed to translate agent analysis:`, e);
+    }
+
+    // Fallback: return English-only Record structure
+    return {
+        suitability: { en: raw.suitability },
+        recommendation: { en: raw.recommendation },
+        useCases: { en: raw.useCases },
+        limitations: { en: raw.limitations },
+    };
 }
 
 // SEO 数据现在直接从缓存的 description 字段获取，无需单独生成
@@ -1107,8 +1164,15 @@ async function buildCache(): Promise<void> {
     function isTranslationComplete(skill: SkillCache): boolean {
         if (!skill.seo || !skill.description) return false;
 
-        // NEW: Check for Agent Analysis
+        // Check for Agent Analysis with translations
         if (!skill.agentAnalysis) return false;
+        // If suitability is still a plain string, it hasn't been translated yet
+        if (typeof skill.agentAnalysis.suitability === 'string') return false;
+        // Check that suitability has entries for all supported locales
+        const suitabilityMap = skill.agentAnalysis.suitability as Record<string, string>;
+        if (!suitabilityMap['en']) return false;
+        const hasAllAgentLocales = SUPPORTED_LOCALES.every(loc => suitabilityMap[loc] && suitabilityMap[loc].trim().length > 0);
+        if (!hasAllAgentLocales) return false;
 
         // 检查 description 是否有所有语言版本
         const desc = skill.description;
@@ -1280,10 +1344,10 @@ async function buildCache(): Promise<void> {
                                 seo: metadata.seo,
                             };
 
-                            // Generate Agent Analysis
-                            const agentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
-                            if (agentAnalysis) {
-                                skill.agentAnalysis = agentAnalysis;
+                            // Generate Agent Analysis + translate
+                            const rawAgentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
+                            if (rawAgentAnalysis) {
+                                skill.agentAnalysis = await translateAgentAnalysis(rawAgentAnalysis);
                             }
 
                             console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
@@ -1339,10 +1403,10 @@ async function buildCache(): Promise<void> {
                         lastSynced: new Date().toISOString(),
                     };
 
-                    // Generate Agent Analysis
-                    const agentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
-                    if (agentAnalysis) {
-                        skill.agentAnalysis = agentAnalysis;
+                    // Generate Agent Analysis + translate
+                    const rawAgentAnalysis = await generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
+                    if (rawAgentAnalysis) {
+                        skill.agentAnalysis = await translateAgentAnalysis(rawAgentAnalysis);
                     }
 
                     skill.qualityScore = calculateQualityScore(skill);
@@ -1530,10 +1594,10 @@ async function buildCache(): Promise<void> {
                 lastSynced: new Date().toISOString(),
             };
 
-            // Generate Agent Analysis
-            const agentAnalysis = await generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
-            if (agentAnalysis) {
-                skill.agentAnalysis = agentAnalysis;
+            // Generate Agent Analysis + translate
+            const rawAgentAnalysis = await generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
+            if (rawAgentAnalysis) {
+                skill.agentAnalysis = await translateAgentAnalysis(rawAgentAnalysis);
             }
 
             skill.qualityScore = calculateQualityScore(skill);
@@ -1746,10 +1810,10 @@ async function buildCache(): Promise<void> {
                 skill.description = metadata.description;
                 skill.seo = metadata.seo;
 
-                // Generate Agent Analysis
-                const agentAnalysis = await generateAgentAnalysis(skill.name, currentDesc, context.bodyPreview || '');
-                if (agentAnalysis) {
-                    skill.agentAnalysis = agentAnalysis;
+                // Generate Agent Analysis + translate
+                const rawAgentAnalysis = await generateAgentAnalysis(skill.name, currentDesc, context.bodyPreview || '');
+                if (rawAgentAnalysis) {
+                    skill.agentAnalysis = await translateAgentAnalysis(rawAgentAnalysis);
                 }
 
                 skill.lastSynced = new Date().toISOString();
