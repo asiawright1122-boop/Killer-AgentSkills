@@ -85,29 +85,27 @@ export function searchSkills(
   const records = skills.map((s) => prepareSearchRecord(s, locale));
 
   // Configure Fuse.js with weighted keys
+  // NOTE: SEO keywords intentionally EXCLUDED — they are AI-generated and contain
+  // spam like "PDF parsing AI" injected into unrelated skills (e.g. orpc-contract-first).
+  // Only use clean data sources: name, skillName, skillMd.description, description, topics.
   const fuse = new Fuse<SearchRecord>(records, {
-    // Search keys with weights (higher = more important)
     keys: [
       { name: 'name', weight: 1.0 },
       { name: 'skillName', weight: 0.8 },
-      { name: '_keywordsEn', weight: 0.7 },
-      { name: '_keywordsLocale', weight: 0.7 },
-      { name: '_featuresEn', weight: 0.5 },
-      { name: '_featuresLocale', weight: 0.5 },
       { name: '_descEn', weight: 0.5 },
       { name: '_descLocale', weight: 0.5 },
-      { name: '_definitionEn', weight: 0.4 },
-      { name: '_definitionLocale', weight: 0.4 },
+      { name: '_featuresEn', weight: 0.3 },
+      { name: '_featuresLocale', weight: 0.3 },
       { name: 'topics', weight: 0.3 },
       { name: 'category', weight: 0.2 },
     ],
-    // Fuzzy matching settings
-    threshold: 0.4,        // 0 = exact, 1 = match anything (0.4 = balanced)
-    distance: 100,         // How far to search from expected position
-    minMatchCharLength: 2, // Minimum chars to start matching
-    includeScore: true,    // Need score for combined ranking
+    // Tighter fuzzy matching to reduce false positives
+    threshold: 0.3,        // Stricter: was 0.4
+    distance: 100,
+    minMatchCharLength: 2,
+    includeScore: true,
     useExtendedSearch: false,
-    ignoreLocation: true,  // Search the entire string, not just the start
+    ignoreLocation: true,
   });
 
   const fuseResults = fuse.search(query);
