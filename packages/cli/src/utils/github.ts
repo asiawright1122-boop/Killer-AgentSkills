@@ -9,6 +9,7 @@
  */
 
 import https from 'https';
+import path from 'path'; // Added for smart resolution
 import { resolveGitHubToken } from './github-auth.js';
 
 const GITHUB_API_BASE = 'https://api.github.com';
@@ -188,10 +189,13 @@ export async function getRepoTree(owner: string, repo: string, branch = 'main'):
 /**
  * Find SKILL.md file in repository
  */
-export async function findSkillFile(owner: string, repo: string): Promise<TreeItem> {
+/**
+ * Find all matching SKILL.md files in repository
+ */
+export async function findAllSkillFiles(owner: string, repo: string, query?: string): Promise<TreeItem[]> {
     const tree = await getRepoTree(owner, repo);
 
-    // Look for SKILL.md - prefer root level
+    // Filter for all SKILL.md files
     const skillFiles = tree.filter(item =>
         item.type === 'blob' && item.path.endsWith('SKILL.md')
     );
@@ -200,9 +204,46 @@ export async function findSkillFile(owner: string, repo: string): Promise<TreeIt
         throw new Error(`No SKILL.md found in ${owner}/${repo}`);
     }
 
-    // Prefer root level SKILL.md
-    const rootSkill = skillFiles.find(f => f.path === 'SKILL.md');
-    return rootSkill || skillFiles[0];
+    // If query provided, filter and rank
+    if (query) {
+        const normalizedQuery = query.toLowerCase();
+
+        // 1. Exact directory match (e.g. "pdf" -> "pdf/SKILL.md")
+        const exactMatches = skillFiles.filter(f => {
+            const dir = path.dirname(f.path).toLowerCase();
+            return dir === normalizedQuery || dir.endsWith(`/${normalizedQuery}`);
+        });
+
+        if (exactMatches.length > 0) return exactMatches;
+
+        // 2. Directory contains query
+        const partialMatches = skillFiles.filter(f => {
+            const dir = path.dirname(f.path).toLowerCase();
+            return dir.includes(normalizedQuery);
+        });
+
+        if (partialMatches.length > 0) {
+            // Return all partial matches so user can choose
+            return partialMatches.sort((a, b) => a.path.length - b.path.length);
+        }
+    }
+
+    // If no query or no matches found with query
+    if (query) {
+        // Query provided but nothing matched → this is a "not found"
+        throw new Error(`No skill matching '${query}' found in ${owner}/${repo}`);
+    }
+
+    // No query → return ALL skills (monorepo browsing mode)
+    return skillFiles;
+}
+
+/**
+ * Find SKILL.md file in repository (Legacy: returns best single match)
+ */
+export async function findSkillFile(owner: string, repo: string, query?: string): Promise<TreeItem> {
+    const files = await findAllSkillFiles(owner, repo, query);
+    return files[0];
 }
 
 /**
@@ -245,16 +286,28 @@ export async function downloadSkillFiles(owner: string, repo: string, skillBaseP
     return files;
 }
 
+const TRUSTED_OWNERS = [
+    'killer-skills',
+    'anthropic', 'google', 'vercel', 'openai', 'microsoft',
+    'aws', 'meta', 'facebook', 'github', 'cloudflare',
+    'aliyun', 'tencent', 'baidu', 'bytedance'
+];
+
 /**
  * Search for skills on GitHub
  * 
  * Strategy:
  * 1. Try Code Search API (requires auth) — most precise
  * 2. Fallback to Repository Search API (no auth needed) — broader results
+ * 
+ * Ranking Logic (V3):
+ * 1. Trusted Owners (Authority)
+ * 2. Name Match (Relevance)
+ * 3. Stars (Popularity)
  */
 export async function searchSkillsOnGitHub(query: string, limit = 10): Promise<unknown[]> {
     interface SearchResponse {
-        items?: unknown[];
+        items?: any[];
     }
 
     const token = await getToken();
@@ -274,21 +327,62 @@ export async function searchSkillsOnGitHub(query: string, limit = 10): Promise<u
     }
 
     // Strategy 2: Repository Search (no auth needed)
-    // Search for repos that mention SKILL.md in their description or topics
+    // Search for repos that mention SKILL.md in their description, readme, or name
     try {
-        const searchQuery = encodeURIComponent(`${query} SKILL.md in:readme,description`);
-        const endpoint = `/search/repositories?q=${searchQuery}&per_page=${limit}&sort=stars&order=desc`;
+        // Query: check name, description, and readme
+        const searchQuery = encodeURIComponent(`${query} SKILL.md in:name,description,readme`);
+        // Note: We removed sort=stars to allow GitHub's relevance sorting, 
+        // but we will re-sort client-side for better precision.
+        const endpoint = `/search/repositories?q=${searchQuery}&per_page=${limit * 2}`; // Fetch more to re-rank
         const data = await fetchGitHubAPI<SearchResponse>(endpoint, token);
 
-        // Transform repo results to match code search result format
         if (data.items) {
-            return data.items.map((item: unknown) => {
-                const repo = item as { full_name?: string; html_url?: string; description?: string };
+            // Client-side Re-ranking (V3)
+            const sortedItems = data.items.sort((a, b) => {
+                const aOwner = (a.owner?.login || '').toLowerCase();
+                const bOwner = (b.owner?.login || '').toLowerCase();
+
+                // 1. Trusted Owner Priority
+                const aTrusted = TRUSTED_OWNERS.includes(aOwner);
+                const bTrusted = TRUSTED_OWNERS.includes(bOwner);
+                if (aTrusted && !bTrusted) return -1;
+                if (!bTrusted && aTrusted) return 1;
+
+                // 2. Name Match Priority
+                const q = query.toLowerCase();
+                const aName = a.name.toLowerCase();
+                const bName = b.name.toLowerCase();
+                const aDesc = (a.description || '').toLowerCase();
+                const bDesc = (b.description || '').toLowerCase();
+
+                // Exact match gets highest priority
+                if (aName === q && bName !== q) return -1;
+                if (bName === q && aName !== q) return 1;
+
+                // Name contains
+                const aNameHas = aName.includes(q);
+                const bNameHas = bName.includes(q);
+                if (aNameHas && !bNameHas) return -1;
+                if (!bNameHas && aNameHas) return 1;
+
+                // Description includes (lower priority than name)
+                const aDescHas = aDesc.includes(q);
+                const bDescHas = bDesc.includes(q);
+                if (aDescHas && !bDescHas) return -1;
+                if (!bDescHas && aDescHas) return 1;
+
+                // 3. Star Count Priority (fallback)
+                return (b.stargazers_count || 0) - (a.stargazers_count || 0);
+            });
+
+            // Take top N and transform
+            return sortedItems.slice(0, limit).map((repo: any) => {
                 return {
                     repository: {
                         full_name: repo.full_name,
                         html_url: repo.html_url,
-                        description: repo.description
+                        description: repo.description,
+                        stargazers_count: repo.stargazers_count
                     }
                 };
             });

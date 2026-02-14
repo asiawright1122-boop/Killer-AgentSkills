@@ -1,6 +1,6 @@
 {
     "name": "killer-skills",
-    "version": "1.7.1",
+    "version": "1.7.16",
     "description": "Cross-platform CLI tool for installing AI agent skills to multiple IDEs",
     "type": "module",
     "main": "./dist/index.js",
@@ -10,8 +10,8 @@
         "killer-skills-mcp": "./dist/mcp-server.js"
     },
     "files": [
-        "dist",
         "README.md",
+        "dist",
         "CHANGELOG.md",
         "LICENSE"
     ],

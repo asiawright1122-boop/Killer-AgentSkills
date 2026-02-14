@@ -57,10 +57,10 @@ interface ProcessedContent {
     };
     processedAt: string;
     agentAnalysis?: {
-        suitability: string;
-        recommendation: string;
-        useCases: string[];
-        limitations: string[];
+        suitability: string | Record<string, string>;
+        recommendation: string | Record<string, string>;
+        useCases: string[] | Record<string, string[]>;
+        limitations: string[] | Record<string, string[]>;
     };
 }
 
@@ -148,7 +148,7 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
         );
 
         // Step 7: Generate Agent Analysis (New Phase 2)
-        const agentAnalysis = await step.do(
+        const agentAnalysisRaw = await step.do(
             "generate-agent-analysis",
             { retries: { limit: 2, delay: "5 second" }, timeout: "3 minutes" },
             async () => {
@@ -156,7 +156,16 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
             }
         );
 
-        // Step 7: 组装并存入 KV
+        // Step 8: Translate Agent Analysis to all languages
+        const agentAnalysis = await step.do(
+            "translate-agent-analysis",
+            { retries: { limit: 1, delay: "5 second" }, timeout: "5 minutes" },
+            async () => {
+                return await this.translateAgentAnalysis(agentAnalysisRaw);
+            }
+        );
+
+        // Step 9: 组装并存入 KV
         const processedContent: ProcessedContent = {
             skillMd,
             seo: translations.seo,
@@ -467,7 +476,7 @@ ${JSON.stringify(faq, null, 2)}`;
     private async generateAgentAnalysis(
         skillMd: SkillMdContent,
         seoDefinition: string
-    ): Promise<ProcessedContent['agentAnalysis'] | undefined> {
+    ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
 
 Skill: ${skillMd.name}
@@ -492,7 +501,7 @@ Return JSON ONLY:
 
         try {
             const result = await this.callAI(prompt);
-            const jsonMatch = result.match(/\\{[\\s\\S]*\\}/);
+            const jsonMatch = result.match(/\{[\s\S]*\}/);
             if (jsonMatch) {
                 const parsed = JSON.parse(jsonMatch[0]);
                 return {
@@ -506,6 +515,63 @@ Return JSON ONLY:
             console.error("Failed to generate agent analysis", e);
         }
         return undefined;
+    }
+
+    /**
+     * Translate Agent Analysis to all supported languages
+     * Converts single-language agentAnalysis to multi-language Records
+     */
+    private async translateAgentAnalysis(
+        raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined
+    ): Promise<ProcessedContent['agentAnalysis'] | undefined> {
+        if (!raw) return undefined;
+
+        const result: ProcessedContent['agentAnalysis'] = {
+            suitability: { en: raw.suitability } as Record<string, string>,
+            recommendation: { en: raw.recommendation } as Record<string, string>,
+            useCases: { en: raw.useCases } as Record<string, string[]>,
+            limitations: { en: raw.limitations } as Record<string, string[]>,
+        };
+
+        for (const locale of SUPPORTED_LOCALES) {
+            if (locale === "en") continue;
+
+            try {
+
+                // Translate suitability (short text)
+                if (raw.suitability) {
+                    (result.suitability as Record<string, string>)[locale] = await this.translateText(
+                        raw.suitability, locale, "text"
+                    );
+                }
+
+                // Translate recommendation (paragraph)
+                if (raw.recommendation) {
+                    (result.recommendation as Record<string, string>)[locale] = await this.translateText(
+                        raw.recommendation, locale, "text"
+                    );
+                }
+
+                // Translate useCases (array of short phrases)
+                if (raw.useCases.length > 0) {
+                    const useCasesText = raw.useCases.join("\n");
+                    const translated = await this.translateText(useCasesText, locale, "text");
+                    (result.useCases as Record<string, string[]>)[locale] = translated.split("\n").filter(Boolean);
+                }
+
+                // Translate limitations (array of short phrases)
+                if (raw.limitations.length > 0) {
+                    const limitationsText = raw.limitations.join("\n");
+                    const translated = await this.translateText(limitationsText, locale, "text");
+                    (result.limitations as Record<string, string[]>)[locale] = translated.split("\n").filter(Boolean);
+                }
+            } catch (error) {
+                console.error(`Failed to translate agent analysis to ${locale}:`, error);
+                // Fallback: skip this locale, en is already set
+            }
+        }
+
+        return result;
     }
 
     /**
