@@ -188,7 +188,12 @@ async function injectKiro(skillName: string, skillDir: string, targetDir: string
     }
 
     // Strip frontmatter for instructions
-    const instructions = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '').trim();
+    let instructions = content.replace(/^---\s*\n[\s\S]*?\n---\s*\n/, '').trim();
+
+    // Prepend universal CLI instructions
+    // This is crucial for Kiro to know how to use the CLI tools
+    const { SKILL_USAGE_INSTRUCTIONS } = await import('./prompt-templates.js');
+    instructions = `${SKILL_USAGE_INSTRUCTIONS}\n\n${instructions}`;
 
     const agentJson = {
         name: skillName,
