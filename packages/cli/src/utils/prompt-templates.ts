@@ -34,15 +34,15 @@ When a user's request falls within a skill's domain, invoke the skill IMMEDIATEL
 Do NOT ask for permission — just load the skill and follow its instructions.
 If multiple skills match, load the most relevant one first.`;
 
-const SKILL_USAGE_INSTRUCTIONS = `How to use skills:
-- Invoke: \`killer read <skill-name>\` (run in your shell/terminal)
-  - For multiple skills: \`killer read skill-one,skill-two\`
-- The skill content will load with detailed instructions
-- Base directory provided in output for resolving bundled resources (references/, scripts/, assets/)
+const SKILL_USAGE_INSTRUCTIONS = `## Tool Usage
+- **List all tools**: \`killer list\`
+- **Search tools**: \`killer search <keyword>\`
+- **Load tool**: \`killer read <tool-name>\` (loads instructions into context)
+  - For multiple tools: \`killer read tool1,tool2\`
 
-Usage notes:
-- Only use skills listed in <available_skills> below
-- Do not invoke a skill that is already loaded in your context
+## Usage Notes
+- Only use skills listed below
+- Do not invoke a skill that is already loaded
 - Each skill invocation is stateless`;
 
 // ============================================================
@@ -93,16 +93,11 @@ export function generateCursorPrompt(skills: SkillInfo[]): string {
 
 ${AUTO_INVOKE_DIRECTIVE}
 
+${SKILL_USAGE_INSTRUCTIONS}
+
 ## Available Skills
 
 ${skillList}
-
-## Skill Usage
-
-When a task matches a skill's capability:
-1. Run \`killer read <skill-name>\` in the terminal
-2. Follow the skill's instructions
-3. For multiple skills: \`killer read skill-one,skill-two\`
 
 ## Active Skills Count: ${skills.length}
 
@@ -124,17 +119,13 @@ export function generateWindsurfPrompt(skills: SkillInfo[]): string {
 
 ${AUTO_INVOKE_DIRECTIVE}
 
+${SKILL_USAGE_INSTRUCTIONS}
+
 ## Skills System
 
 | Skill | Description | Location |
 |-------|-------------|----------|
 ${skillList}
-
-### Usage
-
-Invoke skills with: \`killer read <skill-name>\`
-
-Skills provide specialized capabilities for common development tasks.
 
 `;
 }
@@ -150,6 +141,8 @@ export function generateKiroPrompt(skills: SkillInfo[]): string {
         invoke: `killer read ${s.name}`
     }));
 
+    const instructions = `${AUTO_INVOKE_DIRECTIVE}\n\n${SKILL_USAGE_INSTRUCTIONS}`;
+
     return `# Agent Skills
 
 ## ⚡ Auto-Invoke Directive
@@ -159,13 +152,15 @@ ${AUTO_INVOKE_DIRECTIVE}
 ## Available Skills
 
 \`\`\`json
-${JSON.stringify(skillEntries, null, 2)}
+${JSON.stringify({
+        instructions,
+        skills: skillEntries
+    }, null, 2)}
 \`\`\`
 
 ## Usage
 
-Run \`killer read <skill-name>\` to load skill instructions into context.
-
+${SKILL_USAGE_INSTRUCTIONS}
 `;
 }
 
@@ -182,14 +177,11 @@ export function generateCopilotPrompt(skills: SkillInfo[]): string {
 
 ${AUTO_INVOKE_DIRECTIVE}
 
+${SKILL_USAGE_INSTRUCTIONS}
+
 ### Available Skills
 
 ${skillList}
-
-### How to Use
-
-Run \`killer read <skill-name>\` in the terminal to load skill instructions.
-For multiple skills: \`killer read skill-one,skill-two\`
 
 `;
 }

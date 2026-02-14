@@ -14,17 +14,15 @@ const CONFIG_DIR = path.join(os.homedir(), '.killer-skills');
 const CONFIG_FILE = path.join(CONFIG_DIR, 'config.json');
 
 interface Config {
-    defaultIDE: string;
+    defaultIDE: string | null;
     defaultScope: 'project' | 'global';
     githubToken?: string;
-    registryUrl: string;
     autoSync: boolean;
 }
 
 const DEFAULT_CONFIG: Config = {
-    defaultIDE: 'claude',
+    defaultIDE: null, // Default to auto-detect
     defaultScope: 'global',
-    registryUrl: 'https://raw.githubusercontent.com/anthropics/killer-skills/main/registry/skills.json',
     autoSync: false
 };
 
@@ -71,9 +69,8 @@ export const configCommand = new Command('config')
                 console.log(chalk.dim('─'.repeat(50)));
 
                 const displayConfig: Record<string, string> = {
-                    'defaultIDE': config.defaultIDE,
+                    'defaultIDE': config.defaultIDE || '(auto-detect)',
                     'defaultScope': config.defaultScope,
-                    'registryUrl': config.registryUrl,
                     'autoSync': String(config.autoSync),
                     'githubToken': config.githubToken ? '***' + config.githubToken.slice(-4) : '(not set)'
                 };
@@ -100,6 +97,8 @@ export const configCommand = new Command('config')
                 } else {
                     if (key === 'githubToken' && configValue) {
                         console.log('***' + String(configValue).slice(-4));
+                    } else if (key === 'defaultIDE' && !configValue) {
+                        console.log('(auto-detect)');
                     } else {
                         console.log(String(configValue));
                     }
@@ -109,7 +108,7 @@ export const configCommand = new Command('config')
 
             // Set value
             if (key && value) {
-                if (!(key in DEFAULT_CONFIG)) {
+                if (!(key in DEFAULT_CONFIG) && key !== 'githubToken') {
                     console.log(chalk.yellow(`Unknown config key: ${key}`));
                     console.log(chalk.dim(`Available keys: ${Object.keys(DEFAULT_CONFIG).join(', ')}`));
                     return;
@@ -117,7 +116,8 @@ export const configCommand = new Command('config')
 
                 // Type conversion
                 let typedValue: unknown = value;
-                if (value === 'true') typedValue = true;
+                if (value === 'null' || value === 'undefined') typedValue = null;
+                else if (value === 'true') typedValue = true;
                 else if (value === 'false') typedValue = false;
 
                 (config as unknown as Record<string, unknown>)[key] = typedValue;
@@ -153,3 +153,4 @@ export async function getConfigValue<K extends keyof Config>(key: K): Promise<Co
     const config = await loadConfig();
     return config[key];
 }
+

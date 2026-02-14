@@ -198,11 +198,11 @@ async function injectKiro(skillName: string, skillDir: string, targetDir: string
         source: 'killer-skills'
     };
 
-    // Write to .kiro/agents/<name>.json
+    // Write to .kiro/agents/<name>/agent.json
     await fs.ensureDir(targetDir);
-    const targetFile = path.join(targetDir, `${skillName}.json`);
+    const targetFile = path.join(targetDir, 'agent.json');
     await fs.writeFile(targetFile, JSON.stringify(agentJson, null, 2));
-    console.log(chalk.green(`  › Kiro: Created .kiro/agents/${skillName}.json`));
+    console.log(chalk.green(`  › Kiro: Created .kiro/agents/${skillName}/agent.json`));
 
     // Also keep SKILL.md for reference
     const skillMdTarget = path.join(targetDir, 'SKILL.md');
