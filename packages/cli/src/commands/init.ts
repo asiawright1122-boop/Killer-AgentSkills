@@ -42,7 +42,7 @@ export const initCommand = new Command('init')
                 }
 
                 if (!targetIDE) {
-                    const choices = SUPPORTED_IDES.slice(0, 10).map(ide => ({
+                    const choices = SUPPORTED_IDES.slice(0, 15).map(ide => ({
                         name: `${IDE_CONFIG[ide].name}`,
                         value: ide
                     }));
@@ -102,16 +102,13 @@ export const initCommand = new Command('init')
  * Detect existing IDE configuration in project
  */
 function detectExistingIDE(projectPath: string): string | null {
-    const detectionOrder = [
-        { ide: 'cursor', files: ['.cursor', '.cursorrules'] },
-        { ide: 'windsurf', files: ['.windsurf', '.windsurfrules'] },
-        { ide: 'claude', files: ['.claude', 'CLAUDE.md'] },
-        { ide: 'antigravity', files: ['.agent', '.gemini', 'AGENTS.md'] },
-        { ide: 'vscode', files: ['.vscode'] },
-    ];
+    for (const ide of SUPPORTED_IDES) {
+        const config = IDE_CONFIG[ide];
 
-    for (const { ide, files } of detectionOrder) {
-        for (const file of files) {
+        // Skip if no detection files
+        if (!config.detectFiles || config.detectFiles.length === 0) continue;
+
+        for (const file of config.detectFiles) {
             if (fs.existsSync(path.join(projectPath, file))) {
                 return ide;
             }
@@ -125,79 +122,43 @@ function detectExistingIDE(projectPath: string): string | null {
  * Create IDE-specific configuration file
  */
 async function createIDEConfig(projectPath: string, ide: string, skipPrompt?: boolean): Promise<string | null> {
-    const configFiles: Record<string, { path: string; content: string }> = {
-        cursor: {
-            path: '.cursorrules',
-            content: `# Cursor Rules
-
-## Skills Integration
-
-This project uses Killer-Skills for AI capabilities.
-
-Run \`killer sync\` to update this file with available skills.
-
-<!-- SKILLS_TABLE_START -->
-<!-- Run 'killer sync' to populate -->
-<!-- SKILLS_TABLE_END -->
-`
-        },
-        windsurf: {
-            path: '.windsurfrules',
-            content: `# Windsurf Rules
-
-## Skills Integration
-
-This project uses Killer-Skills for AI capabilities.
-
-Run \`killer sync\` to update this file with available skills.
-
-<!-- SKILLS_TABLE_START -->
-<!-- Run 'killer sync' to populate -->
-<!-- SKILLS_TABLE_END -->
-`
-        },
-        claude: {
-            path: 'CLAUDE.md',
-            content: `# Claude Configuration
-
-## Skills Integration
-
-This project uses Killer-Skills for AI capabilities.
-
-Run \`killer sync\` to update this file with available skills.
-
-<!-- SKILLS_TABLE_START -->
-<!-- Run 'killer sync' to populate -->
-<!-- SKILLS_TABLE_END -->
-`
-        },
-        antigravity: {
-            path: 'AGENTS.md',
-            content: `# Agents Configuration
-
-## Skills Integration
-
-This project uses Killer-Skills for AI capabilities.
-
-Run \`killer sync\` to update this file with available skills.
-
-<!-- SKILLS_TABLE_START -->
-<!-- Run 'killer sync' to populate -->
-<!-- SKILLS_TABLE_END -->
-`
-        }
-    };
-
-    const config = configFiles[ide];
+    const config = IDE_CONFIG[ide];
     if (!config) return null;
 
-    const configPath = path.join(projectPath, config.path);
+    // Determine config file path
+    let configFileName = '';
+
+    // Hardcoded logic for now to ensure compatibility
+    // In future, we should add `configFileName` to `IDEConfig`
+    if (ide === 'cursor') configFileName = '.cursorrules';
+    else if (ide === 'windsurf') configFileName = '.windsurfrules';
+    else if (ide === 'claude') configFileName = 'CLAUDE.md';
+    else if (ide === 'antigravity') configFileName = 'AGENTS.md';
+    else if (config.format === 'rules.md') configFileName = `.${ide}rules`;
+    else if (config.format === 'instructions.md') configFileName = `${ide}-instructions.md`;
+    else return null;
+
+    // Build content
+    const content = `# ${config.name} Configuration
+
+## Skills Integration
+
+This project uses Killer-Skills for AI capabilities.
+
+Run \`killer sync\` to update this file with available skills.
+
+<!-- SKILLS_TABLE_START -->
+<!-- Run 'killer sync' to populate -->
+<!-- SKILLS_TABLE_END -->
+`;
+
+    const configPath = path.join(projectPath, configFileName);
 
     // Check if already exists
     if (await fs.pathExists(configPath)) {
         if (!skipPrompt) {
             const overwrite = await confirm({
-                message: `${config.path} already exists. Overwrite?`,
+                message: `${configFileName} already exists. Overwrite?`,
                 default: false
             });
             if (!overwrite) return null;
@@ -206,6 +167,8 @@ Run \`killer sync\` to update this file with available skills.
         }
     }
 
-    await fs.writeFile(configPath, config.content);
-    return config.path;
+    // Ensure directory exists if needed (e.g. .github/)
+    await fs.ensureDir(path.dirname(configPath));
+    await fs.writeFile(configPath, content);
+    return configFileName;
 }

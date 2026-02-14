@@ -23,12 +23,14 @@ import { writeSkillMetadata, buildGitMetadata, buildLocalMetadata } from '../uti
 import { isGitHubRepo, parseRepoString, normalizeGitHubUrl, findSkillFile, findAllSkillFiles, downloadSkillFiles, searchSkillsOnGitHub } from '../utils/github.js';
 import { isLocalPath, expandTilde, ensureDir, getBestIDE, detectProjectIDEs, detectGlobalIDEs } from '../utils/platform.js';
 import { injectSkill } from '../utils/adapters.js';
+import { loadConfig } from './config.js';
+import { trackInstall } from './stats.js';
 
 export const installCommand = new Command('install')
     .argument('<source>', 'Skill source: name, owner/repo, or local path')
     .description('Install a skill from registry, GitHub, or local path')
     .option('-i, --ide <ide>', `Target IDE (${SUPPORTED_IDES.join(', ')})`)
-    .option('-s, --scope <scope>', 'Installation scope: project or global', 'global')
+    .option('-s, --scope <scope>', 'Installation scope: project or global')
     .option('--all', 'Install to all supported IDEs')
     .option('-y, --yes', 'Skip prompts, accept defaults')
     .option('--no-sync', 'Skip auto-sync after installation')
@@ -44,6 +46,9 @@ export const installCommand = new Command('install')
         const spinner = ora(`Installing from ${source}...`).start();
 
         try {
+            // Load config
+            const config = await loadConfig();
+
             // Determine target IDEs
             let targetIDEs: string[] = [];
             if (options.all) {
@@ -55,11 +60,26 @@ export const installCommand = new Command('install')
                     process.exit(1);
                 }
                 targetIDEs = [options.ide];
-            } else {
+            } else if (config.defaultIDE) {
+                // Use configured default IDE if set
+                if (!SUPPORTED_IDES.includes(config.defaultIDE)) {
+                    spinner.warn(chalk.yellow(`Configured default IDE '${config.defaultIDE}' is invalid. Falling back to auto-detection.`));
+                    // Check if installed IDEs can be detected
+                } else {
+                    targetIDEs = [config.defaultIDE];
+                    spinner.text = `Using configured default IDE: ${IDE_CONFIG[config.defaultIDE].name}`;
+                }
+            }
+
+            // If still empty (no flag, no config, or invalid config), auto-detect
+            if (targetIDEs.length === 0) {
+                // Determine scope for detection
+                const scope = (options.scope || config.defaultScope || 'global') as 'project' | 'global';
+
                 // Auto-detect ALL IDEs
                 let detected: { ide: string, name: string }[] = [];
 
-                if (options.scope === 'project') {
+                if (scope === 'project') {
                     detected = detectProjectIDEs();
                 } else {
                     detected = detectGlobalIDEs();
@@ -75,7 +95,7 @@ export const installCommand = new Command('install')
                 }
             }
 
-            const scope = (options.scope === 'project' ? 'project' : 'global') as 'project' | 'global';
+            const scope = (options.scope || config.defaultScope || 'global') as 'project' | 'global';
 
             // Determine source type and install accordingly
             let result: InstallResult;
@@ -95,6 +115,11 @@ export const installCommand = new Command('install')
             }
 
             spinner.succeed(chalk.green(`Installed ${result.skillName}`));
+
+            // Track install stats
+            if (!process.env.KILLER_SKILLS_TEST) {
+                await trackInstall(result.skillName);
+            }
 
             // Show summary
             console.log(chalk.dim('\n📦 Installation Summary'));
@@ -525,4 +550,3 @@ async function installFromRegistry(
 
     process.exit(1);
 }
-

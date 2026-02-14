@@ -30,7 +30,7 @@ import { depsCommand } from './commands/deps.js';
 
 // v1.6.0 new commands
 import { submitCommand } from './commands/submit.js';
-import { statsCommand } from './commands/stats.js';
+import { statsCommand, trackCommand } from './commands/stats.js';
 import { pluginCommand } from './commands/plugin.js';
 
 const program = new Command();
@@ -38,7 +38,12 @@ const program = new Command();
 program
     .name('killer')
     .description('Killer-Skills CLI - Install and manage Agent Skills')
-    .version('1.7.0');
+    .version('1.7.0')
+    .hook('preAction', async (thisCommand, actionCommand) => {
+        // Track command usage (silent)
+        if (process.env.KILLER_SKILLS_TEST) return;
+        await trackCommand(actionCommand.name());
+    });
 
 // Core commands
 program.addCommand(installCommand);

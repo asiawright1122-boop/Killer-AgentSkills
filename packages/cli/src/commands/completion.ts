@@ -6,6 +6,7 @@
 
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { SUPPORTED_IDES } from '../config/ides.js';
 
 export const completionCommand = new Command('completion')
     .description('Generate shell completion scripts')
@@ -27,6 +28,8 @@ export const completionCommand = new Command('completion')
     });
 
 function generateBashCompletion(): string {
+    const idesStr = SUPPORTED_IDES.join(' ');
+
     return `# Killer-Skills bash completion
 # Add to ~/.bashrc:
 #   source <(killer completion bash)
@@ -41,7 +44,7 @@ _killer_completions() {
     local commands="install list create sync read update manage search publish init config completion help"
     
     # IDE options
-    local ides="cursor windsurf vscode claude antigravity aider codex goose cline roo kiro"
+    local ides="${idesStr}"
     
     case "\${prev}" in
         killer)
@@ -87,6 +90,8 @@ complete -F _killer_completions killer
 }
 
 function generateZshCompletion(): string {
+    const idesStr = SUPPORTED_IDES.join(' ');
+
     return `#compdef killer
 
 # Killer-Skills zsh completion
@@ -114,7 +119,7 @@ _killer() {
     )
     
     local -a ides
-    ides=(cursor windsurf vscode claude antigravity aider codex goose cline roo kiro)
+    ides=(${idesStr})
     
     local -a scopes
     scopes=(project global)
@@ -190,6 +195,8 @@ _killer "$@"
 }
 
 function generateFishCompletion(): string {
+    const idesStr = SUPPORTED_IDES.join(' ');
+
     return `# Killer-Skills fish completion
 # Save to: ~/.config/fish/completions/killer.fish
 
@@ -212,7 +219,7 @@ complete -c killer -n __fish_use_subcommand -a completion -d 'Generate shell com
 complete -c killer -n __fish_use_subcommand -a help -d 'Display help'
 
 # IDEs
-set -l ides cursor windsurf vscode claude antigravity aider codex goose cline roo kiro
+set -l ides ${idesStr}
 
 # install options
 complete -c killer -n '__fish_seen_subcommand_from install' -s i -l ide -xa "$ides" -d 'Target IDE'
