@@ -9,6 +9,7 @@
 
 import { Command } from 'commander';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import path from 'path';
 import chalk from 'chalk';
 import ora from 'ora';
 import { findAllSkills } from '../utils/skills.js';
@@ -33,7 +34,7 @@ const IDE_OUTPUT_FILES: Record<string, string> = {
     // Editors
     cursor: '.cursorrules',
     windsurf: '.windsurfrules',
-    vscode: '.github/copilot-instructions.md',
+    vscode: path.join('.github', 'copilot-instructions.md'),
     trae: 'AGENTS.md',
     // CLI Agents
     claude: 'CLAUDE.md',
@@ -44,11 +45,11 @@ const IDE_OUTPUT_FILES: Record<string, string> = {
     goose: 'AGENTS.md',
     cline: 'AGENTS.md',
     roo: 'AGENTS.md',
-    kiro: '.kiro/agents/skills.md',
+    kiro: path.join('.kiro', 'steering', 'skills.md'),
     augment: 'AGENTS.md',
     // VS Code Extensions
     continue: 'AGENTS.md',
-    copilot: '.github/copilot-instructions.md',
+    copilot: path.join('.github', 'copilot-instructions.md'),
     cody: 'AGENTS.md',
     amazonq: 'AGENTS.md',
     // Default
