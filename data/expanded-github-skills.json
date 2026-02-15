@@ -72536,5 +72536,573 @@
     "forks": 0,
     "topics": [],
     "filePath": "skills/other/kscale-plurigrid-asi-182a7e53/SKILL.md"
+  },
+  {
+    "owner": "cercova-studios",
+    "repo": "terminal-agent-plugins",
+    "description": "repo for claude code plugins",
+    "forks": 0,
+    "topics": [],
+    "filePath": "plugins/10x-swe/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "karanchawla",
+    "repo": "vvm",
+    "description": "vibe virtual machine",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/vvm/SKILL.md"
+  },
+  {
+    "owner": "openxjarvis",
+    "repo": "openclaw-python",
+    "description": "python clone of openclaw , Jarvis is coming.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "cfircoo",
+    "repo": "claude-code-toolkit",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/git/SKILL.md"
+  },
+  {
+    "owner": "brazil-bench",
+    "repo": "pourpoise",
+    "description": "Purpose management for this organization",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pdd/SKILL.md"
+  },
+  {
+    "owner": "Whamp",
+    "repo": "pi-rlm",
+    "description": "RLM (Recursive Language Model) extension for pi - process large context files that exceed LLM context windows",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/rlm/SKILL.md"
+  },
+  {
+    "owner": "omriariav",
+    "repo": "workspace-cli",
+    "description": "Unofficial Google Workspaxce CLI ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/chat/SKILL.md"
+  },
+  {
+    "owner": "phrazzld",
+    "repo": "claude-config",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cro/SKILL.md"
+  },
+  {
+    "owner": "krystophny",
+    "repo": "prompts",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/do/SKILL.md"
+  },
+  {
+    "owner": "andrewhowdencom",
+    "repo": "skills",
+    "description": "A central AGENTS.md file that I can distribute to multiple vibe coded repositories.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ci/SKILL.md"
+  },
+  {
+    "owner": "Seeed-Studio",
+    "repo": "ai-skills",
+    "description": "Supercharge your AI assistant with Seeed product expertise - Comprehensive API references and development guides for embedded systems",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cv181x-media/SKILL.md"
+  },
+  {
+    "owner": "jamtho",
+    "repo": "xlai",
+    "description": "Claude Code skill for interacting with running Excel workbooks",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/xl/SKILL.md"
+  },
+  {
+    "owner": "45ck",
+    "repo": "claude-sdlc-plugin",
+    "description": "Claude Code plugin for SDLC workflow automation with Storybook planning hub",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/qa/SKILL.md"
+  },
+  {
+    "owner": "johnie",
+    "repo": "skills",
+    "description": "Production-ready AI agent skills for development workflows. Agent-agnostic prompt templates that work with any AI coding assistant.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pr/SKILL.md"
+  },
+  {
+    "owner": "openxjarvis",
+    "repo": "clawdbot-python",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "futurewithvibe",
+    "repo": "openclaw-python",
+    "description": "Python implementation of [OpenClaw](https://github.com/openclaw/openclaw) - Personal AI Assistant Platform",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-identity-ts/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/fastapi-templates/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/kubernetes-architect/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/nanobanana-ppt-skills/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-monitor-ingestion-py/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/observability-monitoring-slo-implement/SKILL.md"
+  },
+  {
+    "owner": "jezweb",
+    "repo": "claude-skills",
+    "description": "Skills for Claude Code CLI such as full stack dev Cloudflare, React, Tailwind v4, and AI integrations.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cloudflare-turnstile/SKILL.md"
+  },
+  {
+    "owner": "lee-to",
+    "repo": "ai-factory",
+    "description": "You want to build with AI, but setting up the right context, prompts, and workflows takes time. AI Factory handles all of that so you can focus on what matters — shipping quality code.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ai-factory/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-azure-identity-ts/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/fastapi-templates/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/kubernetes-architect/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/kubernetes-architect/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/kubernetes-architect/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-kubernetes-architect/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/nanobanana-ppt-skills/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/nanobanana-ppt-skills/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/nanobanana-ppt-skills/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/nanobanana-ppt-skills/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/azure-monitor-ingestion-py/SKILL.md"
+  },
+  {
+    "owner": "MarufCode",
+    "repo": "Antigravity-skills",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-monitor-ingestion-py/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-azure-monitor-ingestion-py/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/observability-monitoring-slo-implement/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/observability-monitoring-slo-implement/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/observability-monitoring-slo-implement/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/observability-monitoring-slo-implement/SKILL.md"
   }
 ]
