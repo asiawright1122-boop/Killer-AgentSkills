@@ -1,222 +1,59 @@
 /**
- * Skills 缓存构建脚本
- * 运行: npx ts-node scripts/build-skills-cache.ts
+ * Debug Skill Script
+ * 运行: npx tsx scripts/debug-skill.ts
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { createOpenAI } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-import 'dotenv/config'; // Load env vars
+import 'dotenv/config';
 import * as dotenv from 'dotenv';
+import { AIService } from './lib/ai';
+import { KVService } from './lib/kv'; // Optional if used later
+import {
+    CATEGORY_RULES,
+    OFFICIAL_REPOS,
+    isOfficialRepo,
+    GITHUB_API
+} from './lib/constants';
+import { calculateQualityScore as sharedCalculateQualityScore } from '../src/lib/shared/validation';
+import type { SkillCache, TranslateContext, SeoData, CacheData } from './lib/types';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
     dotenv.config({ path: '.env.local' });
 }
 
-// Import shared validation logic
-import { calculateQualityScore as sharedCalculateQualityScore, type SkillScoringInput } from '../src/lib/shared/validation';
+// ===== Service Instances =====
+const aiService = new AIService();
+const kvService = new KVService(); // Keeping for consistency or potential usage
 
-// 缓存数据结构
-// SEO 数据结构
-interface SeoData {
-    definition: Record<string, string>;
-    features: Record<string, string[]>;
-    keywords: Record<string, string[]>;
-}
-
-// 缓存数据结构
-interface SkillCache {
-    id: string;
-    name: string;
-    description: string | Record<string, string>;
-    owner: string;
-    repo: string;
-    repoPath: string;
-    stars: number;
-    forks: number;
-    updatedAt: string;
-    topics: string[];
-    skillMd?: {
-        name: string;
-        description: string;
-        version?: string;
-        tags?: string[];
-        bodyPreview: string;
-    };
-    qualityScore?: number;
-    category?: string;
-    lastSynced: string;
-    seo?: SeoData;
-}
-
-interface CacheData {
-    version: number;
-    lastUpdated: string;
-    totalCount: number;
-    skills: SkillCache[];
-}
-
-// GitHub API 配置
-const GITHUB_API = 'https://api.github.com';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const SUPPORTED_LOCALES = ["zh", "ja", "ko", "es", "fr", "de", "pt", "ru", "ar"]; // All supported locales
 
-// ========== AI API 配置 ==========
-// 优先级: NVIDIA > Cloudflare Workers AI
-
-// NVIDIA API (优先)
-const nvidiaApiKeys = (process.env.NVIDIA_API_KEYS || process.env.NVIDIA_API_KEY || "").split(',').map(k => k.trim()).filter(Boolean);
-let currentNvidiaKeyIndex = 0;
-
-// Cloudflare Workers AI (备选)
-const cfAccountId = process.env.CLOUDFLARE_ACCOUNT_ID || '';
-const cfApiToken = process.env.CLOUDFLARE_API_TOKEN || '';
-const CF_AI_ENDPOINT = `https://api.cloudflare.com/client/v4/accounts/${cfAccountId}/ai/run`;
-
-// 统计
-let nvidiaCallCount = 0;
-let cloudflareCallCount = 0;
-let nvidiaFailCount = 0;
-
-/**
- * 调用 AI API 进行翻译扩写
- * 优先 NVIDIA，失败后回退到 Cloudflare
- */
-async function callAI(prompt: string): Promise<string | null> {
-    // 1. 尝试 NVIDIA API
-    if (nvidiaApiKeys.length > 0) {
-        for (let retry = 0; retry < Math.min(nvidiaApiKeys.length, 3); retry++) {
-            const apiKey = nvidiaApiKeys[currentNvidiaKeyIndex];
-            currentNvidiaKeyIndex = (currentNvidiaKeyIndex + 1) % nvidiaApiKeys.length;
-
-            try {
-                const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({
-                        model: 'meta/llama-3.1-70b-instruct',
-                        messages: [{ role: 'user', content: prompt }],
-                        temperature: 0.5,
-                        max_tokens: 2500,
-                        stream: false
-                    })
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    nvidiaCallCount++;
-                    return (data as any)?.choices?.[0]?.message?.content || null;
-                }
-
-                // Rate limit or error, try next key
-                if (res.status === 429 || res.status === 401) {
-                    nvidiaFailCount++;
-                    continue;
-                }
-            } catch (e) {
-                nvidiaFailCount++;
-            }
-        }
-    }
-
-    // 2. Fallback 到 Cloudflare Workers AI
-    if (cfAccountId && cfApiToken) {
-        try {
-            const res = await fetch(`${CF_AI_ENDPOINT}/@cf/meta/llama-3.1-8b-instruct-fast`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${cfApiToken}`
-                },
-                body: JSON.stringify({
-                    messages: [{ role: 'user', content: prompt }],
-                    max_tokens: 1500
-                })
-            });
-
-            if (res.ok) {
-                const data = await res.json();
-                cloudflareCallCount++;
-                process.stdout.write('C'); // C for Cloudflare
-                return (data as any)?.result?.response || null;
-            }
-        } catch (e) {
-            // Cloudflare also failed
-        }
-    }
-
-    return null;
-}
-
-const openai = createOpenAI({
-    baseURL: 'https://integrate.api.nvidia.com/v1',
-    apiKey: nvidiaApiKeys[0] || 'mock-key',
-});
-// Use .chat to ensure correct endpoint
-const model = openai.chat('meta/llama-3.1-70b-instruct');
-
-// Category Mapping Rules
-const CATEGORY_RULES: Record<string, string[]> = {
-    'ai': ['ai', 'llm', 'machine-learning', 'gpt', 'openai', 'anthropic', 'claude', 'gemini', 'model'],
-    'development': ['development', 'dev-tools', 'debugging', 'linter', 'typescript', 'javascript', 'python', 'go', 'rust', 'backend', 'frontend'],
-    'testing': ['testing', 'test', 'jest', 'vitest', 'pytest', 'e2e', 'unit-test'],
-    'data': ['data', 'analytics', 'analysis', 'visualization', 'chart', 'pandas', 'sql'],
-    'database': ['database', 'db', 'postgres', 'mysql', 'mongodb', 'redis', 'sqlite', 'qdrant', 'vector-db'],
-    'search': ['search', 'seo', 'exa', 'google-search', 'bing'],
-    'web-scraping': ['scraping', 'crawler', 'spider', 'puppeteer', 'playwright', 'browser-use'],
-    'browser': ['browser', 'automation', 'chrome'],
-    'api': ['api', 'rest', 'graphql', 'http', 'request'],
-    'devops': ['devops', 'docker', 'kubernetes', 'aws', 'cloud', 'deploy', 'ci-cd', 'terraform', 'infrastructure'],
-    'security': ['security', 'auth', 'authentication', 'oauth', 'secret', 'vulnerability'],
-    'git': ['git', 'github', 'version-control', 'commit', 'pr'],
-    'code-review': ['code-review', 'review'],
-    'design': ['design', 'ui', 'ux', 'css', 'tailwind', 'component', 'figma', 'svg', 'image'],
-    'productivity': ['productivity', 'efficiency', 'workflow', 'automation', 'tool', 'utility', 'notion', 'obsidian'],
-    'cli': ['cli', 'terminal', 'shell', 'bash', 'zsh', 'command-line'],
-    'documentation': ['documentation', 'docs', 'markdown'],
-};
-
+// Category Determination (Local copy as in build script)
 function determineCategory(skill: SkillCache): string {
     const text = `${skill.name} ${JSON.stringify(skill.description)} ${(skill.topics || []).join(' ')}`.toLowerCase();
     const topics = new Set((skill.topics || []).map(t => t.toLowerCase()));
 
-    // 1. Priority: Check specific topics first
     if (topics.has('code-review')) return 'code-review';
     if (topics.has('testing') || topics.has('test')) return 'testing';
     if (topics.has('design') || topics.has('ui')) return 'design';
     if (topics.has('security')) return 'security';
     if (topics.has('database')) return 'database';
 
-    // 2. Score based matching
-    let bestCategory = 'development'; // Default fallback
+    let bestCategory = 'development';
     let maxScore = 0;
 
     for (const [category, keywords] of Object.entries(CATEGORY_RULES)) {
         let score = 0;
         for (const keyword of keywords) {
-            // Topic match gives higher score
             if (topics.has(keyword)) score += 10;
-            // Name match
             if (skill.name.toLowerCase().includes(keyword)) score += 5;
-            // Description match
             if (text.includes(keyword)) score += 1;
         }
-
-        if (score > maxScore) {
-            maxScore = score;
-            bestCategory = category;
-        }
+        if (score > maxScore) { maxScore = score; bestCategory = category; }
     }
 
-    // 3. Special handling for specific known repos if needed
     if (skill.name === 'backend-patterns') return 'development';
-
-    // If "official" was the only thing found (low score), try harder or default to generic
     if (maxScore === 0) {
         if (text.includes('agent')) return 'ai';
         if (text.includes('code')) return 'development';
@@ -225,243 +62,9 @@ function determineCategory(skill: SkillCache): string {
     return bestCategory;
 }
 
-/**
- * 翻译并生成深度 SEO 内容 (Description + Featured Snippet + Keywords)
- * @param text 原始描述文本
- * @param context 上下文信息（技能名称、topics、内容预览）
- */
-interface TranslateContext {
-    name?: string;
-    topics?: string[];
-    bodyPreview?: string;
-}
-
-async function translateMetadata(text: string, context?: TranslateContext): Promise<{
-    description: Record<string, string>;
-    seo: SeoData;
-}> {
-    // Default fallback
-    const defaultResult = {
-        description: { en: text },
-        seo: {
-            definition: { en: text.slice(0, 200) },
-            features: { en: [] },
-            keywords: { en: [] }
-        }
-    };
-
-    // Check API availability
-    const hasNvidia = nvidiaApiKeys.length > 0;
-    const hasCloudflare = cfAccountId && cfApiToken;
-
-    if (!hasNvidia && !hasCloudflare) return defaultResult;
-
-    // Build Context
-    const skillName = context?.name || '';
-    const topics = context?.topics?.join(', ') || '';
-    // Use larger preview for better analysis
-    const bodyPreview = context?.bodyPreview?.slice(0, 1500) || '';
-
-    try {
-        const prompt = `You are a Senior Technical SEO Specialist & UX Copywriter.
-Your task is to analyze this AI Agent Skill and generate premium, personalized SEO content.
-
-## Input Data
-- **Skill Name**: "${skillName}"
-- **Original Description**: "${text.replace(/"/g, '\\"')}"
-- **Tags**: ${topics}
-- **Content Preview**: "${bodyPreview.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 1000)}..."
-
-## 1. ANALYSIS GUIDELINES (CRITICAL)
-- **NO GENERIC FLUFF**: Do not use "This skill allows you to...", "A powerful tool for...". Be direct.
-- **Identify Specifics**: Look for supported versions (e.g. "React 19"), specific APIs (e.g. "Notion API"), or concrete actions (e.g. "Converts PDF to Markdown").
-- **Tone**: Professional, authoritative, yet accessible. "Stripe-documentation" quality.
-
-## 2. GENERATION TASKS (For Locales: ${SUPPORTED_LOCALES.join(', ')})
-
-### A. Meta Description (Strictly 140-160 chars)
-- **Goal**: High CTR in Search Results.
-- **Format**: [Action Verb] [Key Value Proposition]. Includes [Specific Feature 1] and [Specific Feature 2].
-- **Example**: "Generate production-ready React components with Tailwind support. Features automated prop validation, responsive layouts, and Shadcn UI integration."
-
-### B. Featured Snippet / Definition (40-60 words)
-- **Goal**: Win Google's "Position Zero" (What is [Skill]?).
-- **Format**: A clear, encyclopedic definition.
-- **Structure**: "[Skill Name] is an [Category] capability for [Target User] that [Core Function]. It specifically handles [Unique Selling Point]..."
-
-### C. Key Features (3-4 items)
-- **Goal**: Show "Why use this?" in a glance.
-- **Format**: Short, punchy bullet points (max 6 words each).
-- **Example**: ["Zero-config setup", "Type-safe schema validation", "Multi-modal support"]
-
-### D. Keywords (5-8 items)
-- **Goal**: Long-tail SEO targeting.
-- **Format**: Specific terms (e.g. "Next.js 14 agent", "PDF parsing ai")
-
-## Output Format (STRICT JSON)
-- **Ensure all quotes within strings are properly escaped (e.g. \\" instead of ").**
-- **Do not include any markdown formatting (no \`\`\`json blocks).**
-- **Do not add line comments (//) or block comments (/* */).**
-- **Do not use trailing commas.**
-- **Just return the raw JSON string.**
-
-{
-  "description": { "en": "...", "zh": "...", ... },
-  "definition": { "en": "...", "zh": "...", ... },
-  "features": { "en": ["...", "..."], "zh": ["...", "..."], ... },
-  "keywords": { "en": ["..."], "zh": ["..."], ... }
-}`;
-
-        const response = await callAI(prompt);
-
-        if (response) {
-            // Robust JSON extraction with Validation
-            // We'll gather multiple candidates and try to parse them one by one.
-            const candidates: string[] = [];
-
-            // 1. Explicit ```json blocks (High confidence)
-            const jsonBlockMatches = [...response.matchAll(/```json\s*([\s\S]*?)```/g)];
-            jsonBlockMatches.forEach(m => candidates.push(m[1]));
-
-            // 2. Any code block that starts with { (Medium confidence)
-            const anyCodeBlockMatches = [...response.matchAll(/```(?:\w+)?\s*([\s\S]*?)```/g)];
-            anyCodeBlockMatches.forEach(m => {
-                const content = m[1].trim();
-                // Avoid duplicating if it was already caught by json block
-                if (content.startsWith('{') && !candidates.includes(m[1])) {
-                    candidates.push(content);
-                }
-            });
-
-            // 3. Raw text fallback - Look for { ... } patterns containing specific keywords (Low confidence)
-            // We look for the "widest" match that looks like it contains our keys
-            if (response.includes('description') || response.includes('seo')) {
-                const firstBrace = response.indexOf('{');
-                const lastBrace = response.lastIndexOf('}');
-                if (firstBrace !== -1 && lastBrace > firstBrace) {
-                    candidates.push(response.slice(firstBrace, lastBrace + 1));
-                }
-            }
-
-                        function repairTruncatedJSON(jsonString: string): string {
-                let repaired = jsonString.trim();
-                const stack: string[] = [];
-                let inString = false;
-                let escaped = false;
-
-                for (let i = 0; i < repaired.length; i++) {
-                    const char = repaired[i];
-                    if (escaped) { escaped = false; continue; }
-                    if (char === '\\') { escaped = true; continue; }
-                    if (char === '"') { inString = !inString; continue; }
-                    if (!inString) {
-                        if (char === '{') stack.push('}');
-                        else if (char === '[') stack.push(']');
-                        else if (char === '}' || char === ']') {
-                            if (stack.length > 0 && stack[stack.length - 1] === char) stack.pop();
-                        }
-                    }
-                }
-
-                if (inString) repaired += '"';
-                while (stack.length > 0) repaired += stack.pop();
-                return repaired;
-            }
-
-            // Helper to clean and parse
-            function tryParseJSON(str: string): any {
-                str = str.trim();
-                // Auto-fix if missing braces
-                if (!str.startsWith('{')) str = `{${str}}`;
-                
-                // Sanitize matches logic from before
-                str = str.replace(/```(?:json)?\s*([\s\S]*?)```/g, '$1').trim()
-                        .replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gm, '')
-                        .replace(/,(\s*[}\]])/g, '$1');
-
-                // Clean formatting characters that might break JSON (newlines in strings, control chars)
-                str = str.replace(/[\u0000-\u001F]+/g, (match) => {
-                    return match === '\n' || match === '\r' || match === '\t' ? match : ''; 
-                });
-
-                // Try Strict
-                try { 
-                    // Attempt to escape newlines inside strings (heuristic)
-                    const clean = str.replace(/(?<=:\s*"[^"]*)\n(?=[^"]*")/g, '\\n');
-                    return JSON.parse(clean);
-                } catch (e1) {
-                    // Try Repair Truncated -> Loose Parse
-                    try {
-                        const repaired = repairTruncatedJSON(str);
-                        // eslint-disable-next-line no-new-func
-                        return (new Function(`return ${repaired}`))();
-                    } catch (e2) {
-                        try {
-                                // Quote keys if missing (last resort)
-                                const quoted = str.replace(/([{,]\s*)(\w+)(\s*:)/g, '$1"$2"$3');
-                                // eslint-disable-next-line no-new-func
-                                return (new Function(`return ${quoted}`))();
-                        } catch (e3) {
-                            return null;
-                        }
-                    }
-                }
-            }
-
-            // 4. Iterate and Validate
-            for (const item of candidates) {
-                const parsed = tryParseJSON(item);
-                if (parsed && (typeof parsed === 'object')) {
-                    // Validation: Must have at least "description" or "seo" or "definition"
-                    if (parsed.description || parsed.seo || parsed.definition || parsed.features) {
-                        
-                        // Deep merge/validation to ensure structure
-                        return {
-                            description: parsed.description || { en: text },
-                            seo: {
-                                definition: parsed.definition || (parsed.seo?.definition) || { en: text },
-                                features: parsed.features || (parsed.seo?.features) || { en: [] },
-                                keywords: parsed.keywords || (parsed.seo?.keywords) || { en: [] }
-                            }
-                        };
-                    }
-                }
-            }
-            
-            console.warn(`⚠️ Failed to extract valid JSON for skill "${skillName}"`);
-            console.log('--- FAILED RESPONSE SNIPPET ---');
-            console.log(response.slice(0, 500)); // Log first 500 chars for debugging
-            console.log('-------------------------------');
-        }
-    } catch (e) {
-        console.error('AI Generation Failed:', e);
-    }
-    return defaultResult;
-}
-
 // SEO 数据现在直接从缓存的 description 字段获取，无需单独生成
 
-// 官方仓库列表 (同步自 skills-config.ts 和 src/lib/shared/validation.ts)
-const OFFICIAL_REPOS = [
-    { owner: 'anthropics', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'vercel-labs', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'obra', repo: 'superpowers', skillsPath: 'skills' },
-    { owner: 'affaan-m', repo: 'everything-claude-code', skillsPath: 'skills' },
-    { owner: 'ComposioHQ', repo: 'awesome-claude-skills', skillsPath: '' },
-    { owner: 'remotion-dev', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'callstackincubator', repo: 'agent-skills', skillsPath: 'skills' },
-    { owner: 'getsentry', repo: 'skills', skillsPath: 'plugins/sentry-skills/skills' },
-    { owner: 'expo', repo: 'skills', skillsPath: 'plugins/expo-app-design/skills' },
-    { owner: 'stripe', repo: 'ai', skillsPath: 'skills' },
-    { owner: 'huggingface', repo: 'skills', skillsPath: 'skills' },
-    { owner: 'google-labs-code', repo: 'stitch-skills', skillsPath: 'skills' },
-    { owner: 'supabase', repo: 'agent-skills', skillsPath: 'skills' },
-    { owner: 'cloudflare', repo: 'skills', skillsPath: 'skills' },
-    // 非 skills-config 但有 SKILL.md 的知名仓库
-    { owner: 'facebook', repo: 'react', skillsPath: '.claude/skills' },
-    { owner: 'n8n-io', repo: 'n8n', skillsPath: '.claude/skills' },
-    { owner: 'langgenius', repo: 'dify', skillsPath: '.agents/skills' },
-];
+
 
 async function searchGitHubSkills(): Promise<any[]> {
     console.log('🔍 Loading skills from data/expanded-github-skills.json...');
@@ -777,7 +380,7 @@ async function buildCache(): Promise<void> {
         }
 
         process.stdout.write('T'); // T for Translating/Generating
-        return await translateMetadata(text, context);
+        return await aiService.translateMetadata(text, context);
     }
 
     // 1. 处理官方仓库 (仅在 update 模式下，或者 discover 模式下检查是否存在)
@@ -804,7 +407,8 @@ async function buildCache(): Promise<void> {
 
                         console.log(`      Found ${skillDirs.length} skills in ${repo.skillsPath}/`);
 
-                        for (const skillDir of skillDirs) { if (!skillDir.name.includes("python-patterns")) continue;
+                        for (const skillDir of skillDirs) {
+                            if (!skillDir.name.includes("python-patterns")) continue;
                             const skillId = `${repoPath}/${skillDir.name}`;
                             if (processedRepos.has(skillId)) continue;
                             processedRepos.add(skillId);
@@ -1209,7 +813,7 @@ async function buildCache(): Promise<void> {
     console.log(`\n✅ Cache built successfully! with Translations`);
     console.log(`   📊 Total skills: ${skills.length}`);
     console.log(`   📁 Output: ${outputFile}`);
-    console.log(`   🔄 API Stats: NVIDIA=${nvidiaCallCount}, Cloudflare=${cloudflareCallCount}, NVIDIA Fails=${nvidiaFailCount}`);
+    console.log(`   🔄 API Stats: (NVIDIA/Cloudflare usage tracked by AIService)`);
 
     // ========== 直接同步到 Cloudflare KV ==========
     // 消除 24 小时延迟，Crawler 完成后立即更新网站数据

@@ -1,12 +1,13 @@
 {
     "name": "killer-skills",
-    "version": "1.7.22",
+    "version": "1.8.6",
     "description": "Cross-platform CLI tool for installing AI agent skills to multiple IDEs",
     "type": "module",
     "main": "./dist/index.js",
     "bin": {
         "killer-skills": "./dist/index.js",
         "killer": "./dist/index.js",
+        "kiro": "./dist/index.js",
         "killer-skills-mcp": "./dist/mcp-server.js"
     },
     "files": [

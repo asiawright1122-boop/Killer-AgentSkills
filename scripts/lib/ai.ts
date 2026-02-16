@@ -1,7 +1,17 @@
+/**
+ * Unified AI Service
+ * 
+ * Consolidates all AI provider interactions used across:
+ * - build-skills-cache.ts (translation, analysis, agent analysis)
+ * - translate-blog.ts (blog translation)
+ * - build-docs-cache.ts (docs translation)
+ * - translate-locales.ts (UI translation)
+ */
+
 import 'dotenv/config';
 import { SUPPORTED_LOCALES } from './constants';
 import type { SeoData, AgentAnalysis, TranslateContext } from './types';
-import { tryParseJSON, cleanAndTruncate } from './utils';
+import { tryParseJSON, robustParseJSON, extractJSONCandidates, cleanAndTruncate, fetchWithTimeout } from './utils';
 
 export interface AIConfig {
     nvidiaKeys: string[];
@@ -43,12 +53,18 @@ export class AIService {
     }
 
     /**
-     * Call AI with race strategy (NVIDIA -> SiliconFlow -> OpenRouter -> Cloudflare fallback)
+     * Call AI with race strategy (NVIDIA + SiliconFlow + OpenRouter parallel -> Cloudflare fallback)
+     * 
+     * Enhanced features vs legacy:
+     * - Uses fetchWithTimeout (60s) on all providers to prevent hanging
+     * - CJK validation in jsonMode: reject responses with empty zh fields
+     * - All OpenRouter keys race in parallel (not just one)
+     * - Progress indicators via stdout (N/S/O/C)
      */
     async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false): Promise<string | null> {
         const raceProviders: Promise<{ content: string; provider: string }>[] = [];
 
-        // 1. NVIDIA
+        // --- Provider 1: NVIDIA ---
         if (!skipNvidia && this.config.nvidiaKeys.length > 0) {
             const apiKey = this.config.nvidiaKeys[this.currentNvidiaKeyIndex];
             this.currentNvidiaKeyIndex = (this.currentNvidiaKeyIndex + 1) % this.config.nvidiaKeys.length;
@@ -63,11 +79,11 @@ export class AIService {
                 };
                 if (jsonMode) body.response_format = { type: "json_object" };
 
-                const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+                const res = await fetchWithTimeout('https://integrate.api.nvidia.com/v1/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                     body: JSON.stringify(body)
-                });
+                }, 60000);
 
                 if (!res.ok) {
                     this.stats.nvidiaFail++;
@@ -77,134 +93,154 @@ export class AIService {
                 const content = data?.choices?.[0]?.message?.content;
                 if (!content) throw new Error('NVIDIA empty response');
 
+                // CJK validation in jsonMode
                 if (jsonMode) {
                     try {
                         const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
-                        tryParseJSON(cleanContent); // Verify
-                        return { content: cleanContent, provider: 'nvidia' };
-                    } catch (e) { throw new Error('NVIDIA invalid JSON'); }
+                        const parsed = JSON.parse(cleanContent);
+                        if (parsed.description && typeof parsed.description === 'object') {
+                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
+                                throw new Error('NVIDIA returned empty CJK description');
+                            }
+                        }
+                    } catch (e) {
+                        throw new Error(`NVIDIA invalid JSON or empty CJK: ${e}`);
+                    }
                 }
-                return { content, provider: 'nvidia' };
+
+                return { content, provider: 'N' };
             })();
             raceProviders.push(nvidiaPromise);
         }
 
-        // 2. SiliconFlow
+        // --- Provider 2: SiliconFlow ---
         if (this.config.siliconFlowKey) {
             const sfPromise = (async () => {
-                const body: any = {
-                    model: 'Qwen/Qwen2.5-7B-Instruct',
-                    messages: [{ role: 'user', content: prompt }],
-                    temperature: 0.3,
-                    max_tokens: 2048,
-                    stream: false
-                };
-                if (jsonMode) body.response_format = { type: "json_object" };
-
-                const res = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
+                const res = await fetchWithTimeout('https://api.siliconflow.cn/v1/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.siliconFlowKey}` },
-                    body: JSON.stringify(body)
-                });
+                    body: JSON.stringify({
+                        model: 'Qwen/Qwen2.5-7B-Instruct',
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.3,
+                        max_tokens: 2500,
+                        stream: false
+                    })
+                }, 60000);
 
                 if (!res.ok) throw new Error(`SiliconFlow ${res.status}`);
                 const data = await res.json() as any;
                 const content = data?.choices?.[0]?.message?.content;
-                if (!content) throw new Error('SiliconFlow empty');
+                if (!content) throw new Error('SiliconFlow empty response');
 
                 if (jsonMode) {
                     try {
-                        const clean = content.replace(/```json\s*|\s*```/g, '').trim();
-                        tryParseJSON(clean);
-                        return { content: clean, provider: 'siliconflow' };
-                    } catch { throw new Error('SiliconFlow invalid JSON'); }
+                        const parsed = JSON.parse(content);
+                        if (parsed.description && typeof parsed.description === 'object') {
+                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
+                                throw new Error('SiliconFlow returned empty CJK description');
+                            }
+                        }
+                    } catch (e) {
+                        throw new Error(`SiliconFlow invalid JSON or empty CJK: ${e}`);
+                    }
                 }
-                return { content, provider: 'siliconflow' };
+
+                return { content, provider: 'S' };
             })();
             raceProviders.push(sfPromise);
         }
 
-        // 3. OpenRouter
-        if (this.config.openRouterKeys.length > 0) {
-            const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex];
-            this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % this.config.openRouterKeys.length;
-
+        // --- Provider 3: OpenRouter (each key races in parallel) ---
+        for (let i = 0; i < this.config.openRouterKeys.length; i++) {
+            const orKey = this.config.openRouterKeys[(this.currentOpenrouterKeyIndex + i) % this.config.openRouterKeys.length];
             const orPromise = (async () => {
-                const body: any = {
-                    model: 'qwen/qwen-2.5-72b-instruct',
-                    messages: [{ role: 'user', content: prompt }],
-                    temperature: 0.3,
-                    max_tokens: 2500
-                };
-                if (jsonMode) body.response_format = { type: "json_object" };
-
-                const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                const res = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${orKey}` },
-                    body: JSON.stringify(body)
-                });
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${orKey}`,
+                        'HTTP-Referer': 'https://killerskills.com',
+                        'X-Title': 'Killer-Skills Translation'
+                    },
+                    body: JSON.stringify({
+                        model: 'qwen/qwen3-30b-a3b-instruct-2507:free',
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.3,
+                        max_tokens: 2500
+                    })
+                }, 60000);
 
                 if (!res.ok) throw new Error(`OpenRouter ${res.status}`);
                 const data = await res.json() as any;
                 const content = data?.choices?.[0]?.message?.content;
-                if (!content) throw new Error('OpenRouter empty');
+                if (!content) throw new Error('OpenRouter empty response');
 
                 if (jsonMode) {
                     try {
-                        const clean = content.replace(/```json\s*|\s*```/g, '').trim();
-                        tryParseJSON(clean);
-                        return { content: clean, provider: 'openrouter' };
-                    } catch { throw new Error('OpenRouter invalid JSON'); }
+                        const parsed = JSON.parse(content);
+                        if (parsed.description && typeof parsed.description === 'object') {
+                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
+                                throw new Error('OpenRouter returned empty CJK description');
+                            }
+                        }
+                    } catch (e) {
+                        throw new Error(`OpenRouter invalid JSON or empty CJK: ${e}`);
+                    }
                 }
-                return { content, provider: 'openrouter' };
+                return { content, provider: 'O' };
             })();
             raceProviders.push(orPromise);
         }
+        this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % Math.max(this.config.openRouterKeys.length, 1);
 
-        // Execute Race
+        // --- Race all providers ---
         if (raceProviders.length > 0) {
             try {
                 const winner = await Promise.any(raceProviders);
-                if (winner.provider === 'nvidia') this.stats.nvidia++;
-                if (winner.provider === 'siliconflow') this.stats.siliconflow++;
-                if (winner.provider === 'openrouter') this.stats.openrouter++;
+                if (winner.provider === 'N') this.stats.nvidia++;
+                else if (winner.provider === 'S') this.stats.siliconflow++;
+                else if (winner.provider === 'O') this.stats.openrouter++;
+                process.stdout.write(winner.provider);
                 return winner.content;
             } catch (e) {
-                // Ignore
+                // All providers failed, fall through to Cloudflare
             }
         }
 
-        // Final Fallback: Cloudflare Workers AI
+        // --- Final Fallback: Cloudflare Workers AI ---
         if (this.config.cfAccountId && this.config.cfApiToken) {
             try {
-                const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${this.config.cfAccountId}/ai/run/@cf/meta/llama-3.1-8b-instruct-fast`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.cfApiToken}` },
-                    body: JSON.stringify({
-                        messages: [{ role: 'user', content: prompt }],
-                        max_tokens: 1500
-                    })
-                });
+                const res = await fetchWithTimeout(
+                    `https://api.cloudflare.com/client/v4/accounts/${this.config.cfAccountId}/ai/run/@cf/meta/llama-3.1-8b-instruct-fast`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.cfApiToken}` },
+                        body: JSON.stringify({
+                            messages: [{ role: 'user', content: prompt }],
+                            max_tokens: 1500
+                        })
+                    },
+                    60000
+                );
 
                 if (res.ok) {
                     const data = await res.json() as any;
-                    const content = data?.result?.response;
-                    if (content) {
-                        this.stats.cloudflare++;
-                        if (jsonMode) {
-                            try { return content.replace(/```json\s*|\s*```/g, '').trim(); }
-                            catch { return null; }
-                        }
-                        return content;
-                    }
+                    this.stats.cloudflare++;
+                    process.stdout.write('C');
+                    return data?.result?.response || null;
                 }
-            } catch { /* ignore */ }
+            } catch (e) {
+                // All failed
+            }
         }
+
         return null;
     }
 
     /**
      * Translate and Generate Metadata with Full SEO Prompt
+     * Uses robust JSON extraction with multiple fallback strategies
      */
     async translateMetadata(text: string, context?: TranslateContext): Promise<{
         description: Record<string, string>;
@@ -216,8 +252,8 @@ export class AIService {
             seo: {
                 title: { en: skillName || 'AI Skill' },
                 definition: { en: text.slice(0, 200) },
-                features: { en: [] },
-                keywords: { en: [] }
+                features: { en: [] as string[] },
+                keywords: { en: [] as string[] }
             }
         };
 
@@ -292,36 +328,20 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
         for (let attempt = 0; attempt < 2; attempt++) {
             if (!response) break;
 
-            // Extract JSON candidates
-            const candidates: string[] = [];
+            // Extract JSON candidates using shared utility
+            const candidates = extractJSONCandidates(response);
 
-            // 1. Explicit ```json blocks
-            const jsonBlockMatches = [...response.matchAll(/```json\s*([\s\S]*?)```/g)];
-            jsonBlockMatches.forEach(m => candidates.push(m[1]));
-
-            // 2. Any code block starting with {
-            const anyCodeBlocks = [...response.matchAll(/```(?:\w+)?\s*([\s\S]*?)```/g)];
-            anyCodeBlocks.forEach(m => {
-                const content = m[1].trim();
-                if (content.startsWith('{') && !candidates.includes(content)) candidates.push(content);
-            });
-
-            // 3. Raw text fallback
-            if (response.trim().startsWith('{') && !candidates.includes(response.trim())) {
-                candidates.push(response.trim());
-            }
-
-            // Validate
+            // Validate candidates
             for (const item of candidates) {
-                const parsed = tryParseJSON(item);
+                const parsed = robustParseJSON(item);
                 if (parsed && typeof parsed === 'object') {
                     if (parsed.description || parsed.seo || parsed.definition || parsed.features) {
                         // Deep merge/validation
                         const seoTitleMap = parsed.seoTitle || parsed.title || { en: skillName };
                         const descMap = parsed.description || { en: text };
 
-                        let safeDesc = (typeof descMap === 'string') ? { en: descMap } : descMap;
-                        let safeTitle = (typeof seoTitleMap === 'string') ? { en: seoTitleMap } : seoTitleMap;
+                        const safeDesc = (typeof descMap === 'string') ? { en: descMap } : descMap;
+                        const safeTitle = (typeof seoTitleMap === 'string') ? { en: seoTitleMap } : seoTitleMap;
 
                         return {
                             description: cleanAndTruncate(safeDesc as Record<string, string>, 160),
@@ -336,7 +356,9 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
                 }
             }
 
-            // Retry with CF if failed and not used yet
+            console.warn(`⚠️ Failed to extract valid JSON (or found empty translations)`);
+
+            // Retry with Cloudflare if failed and not used yet
             if (!useCloudflare && hasCloudflare) {
                 console.log('🔄 Retry with Cloudflare...');
                 useCloudflare = true;
@@ -349,7 +371,14 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
         return defaultResult;
     }
 
-    async generateAgentAnalysis(skillName: string, description: string, bodyPreview: string): Promise<AgentAnalysis | undefined> {
+    /**
+     * Generate Agent Analysis (Suitability, Recommendation, Use Cases)
+     */
+    async generateAgentAnalysis(
+        skillName: string,
+        description: string,
+        bodyPreview: string
+    ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
 
 Skill: ${skillName}
@@ -373,22 +402,128 @@ Return JSON ONLY:
 }`;
 
         try {
-            const result = await this.callAI(prompt, true);
+            const result = await this.callAI(prompt, true, false);
             if (result) {
-                const jsonMatch = result.match(/\{[\s\S]*\}/);
-                if (jsonMatch) {
-                    const parsed = JSON.parse(jsonMatch[0]);
-                    return {
-                        suitability: parsed.suitability || "Suitable for general AI agents.",
-                        recommendation: parsed.recommendation || "",
-                        useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
-                        limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
-                    };
+                const candidates = extractJSONCandidates(result);
+                for (const candidate of candidates) {
+                    const parsed = robustParseJSON(candidate);
+                    if (parsed && typeof parsed === 'object') {
+                        return {
+                            suitability: parsed.suitability || "Suitable for general AI agents.",
+                            recommendation: parsed.recommendation || "",
+                            useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
+                            limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
+                        };
+                    }
                 }
             }
         } catch (e) {
             console.error(`Failed to generate agent analysis for ${skillName}`, e);
         }
         return undefined;
+    }
+
+    /**
+     * Translate Agent Analysis to all supported languages
+     * Includes validation to reject suspiciously short translations
+     */
+    async translateAgentAnalysis(
+        raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] }
+    ): Promise<AgentAnalysis> {
+        const localesStr = SUPPORTED_LOCALES.join(', ');
+        const prompt = `You are a professional translator for technical documentation.
+Translate the following AI Agent Skill analysis fields from English to these languages: ${localesStr}.
+
+IMPORTANT GUIDELINES:
+1.  **Completeness**: Translations MUST be complete sentences if the source is a sentence. 
+    - BAD: "Python"
+    - GOOD: "Suitable for Python coding agents needing direct file system manipulation." (translated)
+    - **CRITICAL**: Do NOT summarize into single keywords. If you return a single word for a long sentence, it will be rejected.
+2.  **Accuracy**: Preserve technical terms (Python, p5.js, API, etc.) but ensure the surrounding text is grammatically correct in the target language.
+3.  **Fallback**: If a translation is impossible or uncertain, return an empty string "" instead of a bad guess.
+
+Input (English):
+{
+  "suitability": "${raw.suitability.replace(/"/g, '\\"')}",
+  "recommendation": "${raw.recommendation.replace(/"/g, '\\"')}",
+  "useCases": ${JSON.stringify(raw.useCases)},
+  "limitations": ${JSON.stringify(raw.limitations)}
+}
+
+Return JSON ONLY with this structure (include "en" key with original English text):
+{
+  "suitability": { "en": "...", "zh": "...", "ja": "...", ... },
+  "recommendation": { "en": "...", "zh": "...", "ja": "...", ... },
+  "useCases": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... },
+  "limitations": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... }
+}`;
+
+        try {
+            const result = await this.callAI(prompt, true, false);
+            if (result) {
+                const candidates = extractJSONCandidates(result);
+                for (const candidate of candidates) {
+                    const parsed = robustParseJSON(candidate);
+                    if (parsed && typeof parsed === 'object') {
+                        // Validate structure
+                        if (parsed.suitability && typeof parsed.suitability === 'object') {
+
+                            // Helper: validate string fields, reject suspiciously short translations
+                            const validateField = (source: string, targetWrapper: Record<string, string>) => {
+                                const verified: Record<string, string> = { en: source };
+                                for (const lang of SUPPORTED_LOCALES) {
+                                    const val = targetWrapper[lang];
+                                    const isSuspiciousLength = source.length > 20 && val && val.length < 10;
+
+                                    if (isSuspiciousLength) {
+                                        console.warn(`[WARN] Discarding suspicious translation for ${lang}: "${val}" (Source length: ${source.length})`);
+                                        verified[lang] = "";
+                                    } else {
+                                        verified[lang] = val || "";
+                                    }
+                                }
+                                return verified;
+                            };
+
+                            // Helper: validate array fields
+                            const validateArrayField = (source: string[], targetWrapper: Record<string, string[]>) => {
+                                const verified: Record<string, string[]> = { en: source };
+                                for (const lang of SUPPORTED_LOCALES) {
+                                    const val = targetWrapper[lang];
+                                    if (Array.isArray(val)) {
+                                        const sourceAvgLen = source.reduce((acc, s) => acc + s.length, 0) / (source.length || 1);
+                                        const validItems = val.filter(item => {
+                                            if (sourceAvgLen > 20 && item.length < 4) return false;
+                                            return true;
+                                        });
+                                        verified[lang] = validItems;
+                                    } else {
+                                        verified[lang] = [];
+                                    }
+                                }
+                                return verified;
+                            };
+
+                            return {
+                                suitability: validateField(raw.suitability, parsed.suitability),
+                                recommendation: validateField(raw.recommendation, parsed.recommendation || {}),
+                                useCases: validateArrayField(raw.useCases, parsed.useCases || {}),
+                                limitations: validateArrayField(raw.limitations, parsed.limitations || {}),
+                            };
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            console.error(`Failed to translate agent analysis:`, e);
+        }
+
+        // Fallback: return English-only Record structure
+        return {
+            suitability: { en: raw.suitability },
+            recommendation: { en: raw.recommendation },
+            useCases: { en: raw.useCases },
+            limitations: { en: raw.limitations },
+        };
     }
 }

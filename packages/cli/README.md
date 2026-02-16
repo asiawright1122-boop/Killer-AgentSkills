@@ -18,7 +18,7 @@
 - ⚡ **Auto-Invoke** - Installed skills can be **auto-invoked** by AI Agents via natural language without manual commands.
 - 🔐 **Seamless GitHub Auth** - Reuses `gh` CLI token or supports one-click Device Flow login.
 - 🔍 **Smart Search** - **[NEW]** Website-First search with interactive selection & auto-open docs.
-- 🔄 **One-Click Sync** - `killer sync --all` syncs skills to all installed IDEs.
+- 🔄 **One-Click Sync** - `kiro sync --all` syncs skills to all installed IDEs.
 - 🧩 **MCP Server** - Built-in MCP Server supporting Agent self-evolution.
 
 ### Supported IDEs
@@ -38,7 +38,7 @@ Killer-Skills dynamically detects and configures IDEs based on its internal conf
 | **Cline, Roo, Augment** | `AGENTS.md` | ✅ Supported |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ Supported |
 
-*New IDEs are added regularly. Run `killer completion` to see the latest list.*
+*New IDEs are added regularly. Run `kiro completion` to see the latest list.*
 
 ### Quick Start
 
@@ -59,11 +59,11 @@ For higher API limits and better code search, logging into GitHub is recommended
 # If GitHub CLI is installed, killer uses its token automatically.
 
 # Method 2: One-Click Login (Device Flow)
-killer login
+kiro login
 # -> Opens browser for authorization
 
 # Method 3: Manual Setup
-killer config githubToken ghp_xxxx
+kiro config githubToken ghp_xxxx
 ```
 
 ### 📦 Installation & Usage
@@ -72,13 +72,13 @@ killer config githubToken ghp_xxxx
 
 ```bash
 # Interactive Install (Recommended)
-killer install pdf
+kiro install pdf
 # -> 1. Searches Official Website API first
 # -> 2. Shows interactive selection menu
 # -> 3. Auto-opens website docs & installs skill
 
 # Install from GitHub
-killer install anthropics/killer-skills
+kiro install anthropics/killer-skills
 
 # Skills auto-sync to detected IDEs upon installation.
 # Your AI Agent can now use this skill via natural language!
@@ -100,27 +100,27 @@ If you use multiple IDEs:
 
 ```bash
 # Sync installed skills to all supported IDEs
-killer sync --all
+kiro sync --all
 ```
 
 ### Command Reference
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `install` | Install Skill | `killer install pdf` |
-| `login` | **[NEW]** GitHub Login | `killer login` |
-| `sync` | Sync Config | `killer sync --all` |
-| `list` | List Installed | `killer list` |
-| `search` | Search Skills | `killer search react` |
-| `create` | Create Skill | `killer create my-skill` |
-| `read` | Read Content | `killer read pdf` |
-| `do` | NL Execution | `killer do "Process PDF"` |
-| `manage` | Interactive Mode | `killer manage` |
-| `publish` | Publish Skill | `killer publish .` |
-| `init` | Init Project | `killer init` |
-| `config` | Manage Config | `killer config` |
-| `completion` | Shell Completion | `killer completion zsh` |
-| `stats` | Usage Stats | `killer stats` |
+| `install` | Install Skill | `kiro install pdf` |
+| `login` | **[NEW]** GitHub Login | `kiro login` |
+| `sync` | Sync Config | `kiro sync --all` |
+| `list` | List Installed | `kiro list` |
+| `search` | Search Skills | `kiro search react` |
+| `create` | Create Skill | `kiro create my-skill` |
+| `read` | Read Content | `kiro read pdf` |
+| `do` | NL Execution | `kiro do "Process PDF"` |
+| `manage` | Interactive Mode | `kiro manage` |
+| `publish` | Publish Skill | `kiro publish .` |
+| `init` | Init Project | `kiro init` |
+| `config` | Manage Config | `kiro config` |
+| `completion` | Shell Completion | `kiro completion zsh` |
+| `stats` | Usage Stats | `kiro stats` |
 
 ### 🔌 MCP Server
 
@@ -143,7 +143,7 @@ npx killer-skills-mcp
 - ⚡ **Auto-Invoke** - 技能安装后，AI Agent 可通过自然语言**自动调用**，无需手动指令
 - 🔐 **GitHub 无感认证** - 支持复用 `gh` CLI token 或通过 Device Flow 一键登录
 - 🔍 **智能搜索** - **[NEW]** 官网数据优先，支持交互式选择和自动打开文档
-- 🔄 **一键同步** - `killer sync --all` 将技能同步到所有已安装 IDE
+- 🔄 **一键同步** - `kiro sync --all` 将技能同步到所有已安装 IDE
 - 🧩 **MCP Server** - 内置 MCP Server，支持 Agent 自我进化
 
 ### 支持的 IDE
@@ -163,7 +163,7 @@ Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **17
 | **Cline, Roo, Augment** | `AGENTS.md` | ✅ 支持 |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ 支持 |
 
-*新 IDE 支持会定期添加。运行 `killer completion` 可查看最新列表。*
+*新 IDE 支持会定期添加。运行 `kiro completion` 可查看最新列表。*
 
 ### 快速开始
 
@@ -184,11 +184,11 @@ npm install -g killer-skills
 # 如果你安装了 GitHub CLI，killer 会自动使用它的 token
 
 # 方法 2: 一键登录 (Device Flow)
-killer login
+kiro login
 # -> 自动打开浏览器完成授权
 
 # 方法 3: 手动设置
-killer config githubToken ghp_xxxx
+kiro config githubToken ghp_xxxx
 ```
 
 ### 📦 安装与使用
@@ -197,13 +197,13 @@ killer config githubToken ghp_xxxx
 
 ```bash
 # 交互式安装 (推荐)
-killer install pdf
+kiro install pdf
 # -> 1. 优先搜索官网 API
 # -> 2. 显示交互式选择菜单
 # -> 3. 自动打开官网文档并安装
 
 # 从 GitHub 安装
-killer install anthropics/killer-skills
+kiro install anthropics/killer-skills
 
 # 安装后，技能会自动同步到当前检测到的 IDE
 # AI Agent 现在可以通过自然语言自动调用这个技能了！
@@ -225,27 +225,27 @@ AI 会自动读取规则文件，匹配 `pdf` / `pptx` / `frontend-design` 技�
 
 ```bash
 # 一键同步已安装技能到所有支持的 IDE
-killer sync --all
+kiro sync --all
 ```
 
 ### 命令速查
 
 | 命令 | 说明 | 示例 |
 |------|------|------|
-| `install` | 安装 Skill | `killer install pdf` |
-| `login` | **[NEW]** GitHub 登录 | `killer login` |
-| `sync` | 同步配置 | `killer sync --all` |
-| `list` | 列出已安装 | `killer list` |
-| `search` | 搜索 Skills | `killer search react` |
-| `create` | 创建新 Skill | `killer create my-skill` |
-| `read` | 读取内容 | `killer read pdf` |
-| `do` | 自然语言执行 | `killer do "处理PDF"` |
-| `manage` | 交互式管理 | `killer manage` |
-| `publish` | 发布 Skill | `killer publish .` |
-| `init` | 初始化项目 | `killer init` |
-| `config` | 配置管理 | `killer config` |
-| `completion` | Shell 补全 | `killer completion zsh` |
-| `stats` | 使用统计 | `killer stats` |
+| `install` | 安装 Skill | `kiro install pdf` |
+| `login` | **[NEW]** GitHub 登录 | `kiro login` |
+| `sync` | 同步配置 | `kiro sync --all` |
+| `list` | 列出已安装 | `kiro list` |
+| `search` | 搜索 Skills | `kiro search react` |
+| `create` | 创建新 Skill | `kiro create my-skill` |
+| `read` | 读取内容 | `kiro read pdf` |
+| `do` | 自然语言执行 | `kiro do "处理PDF"` |
+| `manage` | 交互式管理 | `kiro manage` |
+| `publish` | 发布 Skill | `kiro publish .` |
+| `init` | 初始化项目 | `kiro init` |
+| `config` | 配置管理 | `kiro config` |
+| `completion` | Shell 补全 | `kiro completion zsh` |
+| `stats` | 使用统计 | `kiro stats` |
 
 ### 🔌 MCP Server
 

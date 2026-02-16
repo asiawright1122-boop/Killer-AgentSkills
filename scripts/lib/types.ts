@@ -5,11 +5,16 @@ export interface SeoData {
     keywords: Record<string, string[]>;
 }
 
+/**
+ * AgentAnalysis supports both raw (English-only) and translated forms.
+ * - Raw: string / string[] (from generateAgentAnalysis)
+ * - Translated: Record<string, string> / Record<string, string[]> (from translateAgentAnalysis)
+ */
 export interface AgentAnalysis {
-    suitability: string;
-    recommendation: string;
-    useCases: string[];
-    limitations: string[];
+    suitability: string | Record<string, string>;
+    recommendation: string | Record<string, string>;
+    useCases: string[] | Record<string, string[]>;
+    limitations: string[] | Record<string, string[]>;
 }
 
 export interface TranslateContext {

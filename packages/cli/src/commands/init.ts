@@ -83,9 +83,9 @@ export const initCommand = new Command('init')
             }
 
             console.log(chalk.dim('\nNext steps:'));
-            console.log(chalk.cyan('  1. Install skills: killer install <skill-name>'));
-            console.log(chalk.cyan('  2. Create custom: killer create my-skill'));
-            console.log(chalk.cyan('  3. Sync for AI:   killer sync'));
+            console.log(chalk.cyan('  1. Install skills: kiro install <skill-name>'));
+            console.log(chalk.cyan('  2. Create custom: kiro create my-skill'));
+            console.log(chalk.cyan('  3. Sync for AI:   kiro sync'));
 
         } catch (error) {
             if ((error as Error).name === 'ExitPromptError') {

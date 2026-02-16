@@ -30,15 +30,15 @@ export interface PromptTemplate {
 
 const AUTO_INVOKE_DIRECTIVE = `IMPORTANT: You MUST automatically match user tasks against the available skills listed below.
 When a user's request falls within a skill's domain, invoke the skill IMMEDIATELY by running:
-  \`killer read <skill-name>\`
+  \`kiro read <skill-name>\`
 Do NOT ask for permission — just load the skill and follow its instructions.
 If multiple skills match, load the most relevant one first.`;
 
 export const SKILL_USAGE_INSTRUCTIONS = `## Tool Usage
-- **List all tools**: \`killer list\`
-- **Search tools**: \`killer search <keyword>\`
-- **Load tool**: \`killer read <tool-name>\` (loads instructions into context)
-  - For multiple tools: \`killer read tool1,tool2\`
+- **List all tools**: \`kiro list\`
+- **Search tools**: \`kiro search <keyword>\`
+- **Load tool**: \`kiro read <tool-name>\` (loads instructions into context)
+  - For multiple tools: \`kiro read tool1,tool2\`
 
 ## Usage Notes
 - Only use skills listed below
@@ -138,7 +138,7 @@ export function generateKiroPrompt(skills: SkillInfo[]): string {
     const skillEntries = skills.map(s => ({
         name: s.name,
         description: s.description || 'No description',
-        invoke: `killer read ${s.name}`
+        invoke: `kiro read ${s.name}`
     }));
 
     const instructions = `${AUTO_INVOKE_DIRECTIVE}\n\n${SKILL_USAGE_INSTRUCTIONS}`;
@@ -207,9 +207,9 @@ ${skillList}
 
 ### How to Use
 
-To use a skill, run: \`killer read <skill-name>\`
+To use a skill, run: \`kiro read <skill-name>\`
 
-For multiple skills: \`killer read skill-one,skill-two\`
+For multiple skills: \`kiro read skill-one,skill-two\`
 
 ---
 

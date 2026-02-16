@@ -9,15 +9,14 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { AIService } from './lib/ai';
+import { SUPPORTED_LOCALES } from './lib/constants';
 
 // 配置
 const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
-const SUPPORTED_LOCALES = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
 
-// AI 配置
-const NVIDIA_API_KEYS = (process.env.NVIDIA_API_KEYS || process.env.NVIDIA_API_KEY || '').split(',').filter(Boolean);
-const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
+// AI Service
+const aiService = new AIService();
 
 interface Messages {
     [key: string]: string | Messages;
@@ -79,56 +78,8 @@ Original: "${text}"
 
 Reply ONLY with the translated text.`;
 
-    // 1. 尝试 NVIDIA
-    for (const key of NVIDIA_API_KEYS) {
-        try {
-            const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${key}`
-                },
-                body: JSON.stringify({
-                    model: 'meta/llama-3.1-70b-instruct',
-                    messages: [{ role: 'user', content: prompt }],
-                    temperature: 0.1,
-                    max_tokens: 1024
-                })
-            });
-            if (response.ok) {
-                const data = await response.json() as any;
-                return data.choices[0]?.message?.content?.trim() || text;
-            }
-        } catch (e) {
-            continue;
-        }
-    }
-
-    // 2. 尝试 Cloudflare Workers AI
-    if (CF_ACCOUNT_ID && CF_API_TOKEN) {
-        try {
-            const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/@cf/meta/llama-3.1-8b-instruct`, {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${CF_API_TOKEN}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    messages: [{ role: 'user', content: prompt }]
-                })
-            });
-            if (response.ok) {
-                const data = await response.json() as any;
-                return data.result?.response?.trim() || text;
-            }
-        } catch (e) {
-            console.error('Cloudflare AI failed:', e);
-        }
-    }
-
-    // 3. 失败返回原文
-    console.warn(`Translation failed for "${text}" to ${targetLang}`);
-    return text;
+    const response = await aiService.callAI(prompt);
+    return response?.trim() || text;
 }
 
 async function main() {

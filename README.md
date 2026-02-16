@@ -57,7 +57,43 @@ AI Agent 开发技能终极目录（支持 MCP, LangChain 等）。
 Supported locales: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`.
 Translations are stored in `src/messages/*.json` and managed via Cloudflare KV.
 
+
+### 🤖 Scripts & Automation
+
+#### 1. Full Automation (Recommended)
+Runs the entire pipeline: fetches new skills, generates AI analysis, translates content, and syncs to KV.
+```bash
+./scripts/run-full-automation.sh
+```
+
+#### 2. Skill Cache Build
+Manual control over the skill fetching and AI analysis process.
+
+**Incremental Update (Fast)**
+Fetches only new official skills and GitHub search results. Skips existing valid cache.
+```bash
+npm run build:cache -- --mode=update --live
+```
+
+**Force Re-generation (Slow)**
+Forces re-fetching and re-analyzing all skills. Use this to fix data issues or update AI analysis logic.
+```bash
+npm run build:cache -- --mode=update --force --live
+```
+
+**Filter Specific Skill (Debug)**
+Process only skills matching the filter keyword.
+```bash
+npm run build:cache -- --mode=update --filter=algorithmic-art --live
+```
+
+**Flags:**
+- `--live`: Real-time sync to Cloudflare KV (Production/Preview).
+- `--force`: Ignore cache and re-fetch/re-analyze everything.
+- `--filter=<name>`: Process only skills containing `<name>`.
+
 ---
+
 
 ## 🇨🇳 中文
 

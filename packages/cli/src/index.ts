@@ -33,12 +33,16 @@ import { submitCommand } from './commands/submit.js';
 import { statsCommand, trackCommand } from './commands/stats.js';
 import { pluginCommand } from './commands/plugin.js';
 
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const pkg = require('../package.json');
+
 const program = new Command();
 
 program
     .name('killer')
     .description('Killer-Skills CLI - Install and manage Agent Skills')
-    .version('1.7.0')
+    .version(pkg.version)
     .hook('preAction', async (thisCommand, actionCommand) => {
         // Track command usage (silent)
         if (process.env.KILLER_SKILLS_TEST) return;

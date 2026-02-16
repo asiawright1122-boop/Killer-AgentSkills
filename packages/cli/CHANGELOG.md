@@ -2,6 +2,46 @@
 
 All notable changes to Killer-Skills CLI will be documented in this file.
 
+## [1.8.6] - 2026-02-16
+
+### Added
+- **UX**: Automatically opens the Skill Card URL in the browser after successful installation.
+
+## [1.8.5] - 2026-02-16
+
+### Fixed
+- **UX**: Fixed incorrect Skill Card URL for skills located in subdirectories (e.g., monorepos).
+
+## [1.8.4] - 2026-02-16
+
+### Added
+- **UX**: Installation summary now includes a direct link to the skill's documentation on the website (Skill Card).
+
+## [1.8.3] - 2026-02-16
+
+### Fixed
+- **Versioning**: CLI now dynamically reads version from `package.json` to prevent mismatched version outputs.
+
+## [1.8.2] - 2026-02-16
+
+### Fixed
+- **Release**: Hotfix for version mismatch.
+
+## [1.8.1] - 2026-02-16
+
+### Changed
+- **IDE Integration**: Fully validated and documented "Auto-Invoke" mechanism.
+- **Compliance**: Confirmed `.cursorrules` and other config injections are fully compliant with IDE standards.
+- **Core**: Enforced real-time KV sync for skill harvesting (LiveSync).
+
+## [1.7.23] - 2026-02-15
+
+### Fixed
+- **CLI Configuration**: Added missing `kiro` command to `bin` configuration in `package.json`
+
+### Changed
+- **Branding**: Updated all prompt templates and documentation to prioritize `kiro` command usage over `killer` for better IDE compatibility
+
 ## [1.7.1] - 2026-02-12
 
 ### Changed
