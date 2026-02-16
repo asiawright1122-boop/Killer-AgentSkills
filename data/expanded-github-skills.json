@@ -77232,5 +77232,405 @@
     "forks": 0,
     "topics": [],
     "filePath": ".cursor/skills/rails-testing-conventions/SKILL.md"
+  },
+  {
+    "owner": "karanchawla",
+    "repo": "vvm",
+    "description": "vibe virtual machine",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/vvm/SKILL.md"
+  },
+  {
+    "owner": "jellydn",
+    "repo": "my-ai-tools",
+    "description": "Comprehensive configuration management for AI coding tools - Replicate my complete setup for Claude Code, OpenCode, Amp, Codex and Claude Code Switch with custom configurations, MCP servers, plugins, and commands.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/tdd/SKILL.md"
+  },
+  {
+    "owner": "openxjarvis",
+    "repo": "openclaw-python",
+    "description": "python clone of openclaw , Jarvis is coming.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "cfircoo",
+    "repo": "claude-code-toolkit",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/git/SKILL.md"
+  },
+  {
+    "owner": "brazil-bench",
+    "repo": "pourpoise",
+    "description": "Purpose management for this organization",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pdd/SKILL.md"
+  },
+  {
+    "owner": "Whamp",
+    "repo": "pi-rlm",
+    "description": "RLM (Recursive Language Model) extension for pi - process large context files that exceed LLM context windows",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/rlm/SKILL.md"
+  },
+  {
+    "owner": "stefandevo",
+    "repo": "oh-my-claude",
+    "description": "Multi-Agent Orchestration for Claude Code - Port of oh-my-opencode",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/plan/SKILL.md"
+  },
+  {
+    "owner": "darkroomengineering",
+    "repo": "cc-settings",
+    "description": "Vulcan may be a good name",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/tldr/SKILL.md"
+  },
+  {
+    "owner": "mahmoudimus",
+    "repo": "simba",
+    "description": "Simba - Remember! Remember Who You ARE! Claude memory + RAG tool",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/qmd/SKILL.md"
+  },
+  {
+    "owner": "phrazzld",
+    "repo": "claude-config",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cro/SKILL.md"
+  },
+  {
+    "owner": "omriariav",
+    "repo": "workspace-cli",
+    "description": "Unofficial Google Workspaxce CLI ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/chat/SKILL.md"
+  },
+  {
+    "owner": "krystophny",
+    "repo": "prompts",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/do/SKILL.md"
+  },
+  {
+    "owner": "andrewhowdencom",
+    "repo": "skills",
+    "description": "A central AGENTS.md file that I can distribute to multiple vibe coded repositories.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ci/SKILL.md"
+  },
+  {
+    "owner": "Seeed-Studio",
+    "repo": "ai-skills",
+    "description": "Supercharge your AI assistant with Seeed product expertise - Comprehensive API references and development guides for embedded systems",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cv181x-media/SKILL.md"
+  },
+  {
+    "owner": "JordanGunn",
+    "repo": "aux",
+    "description": "[AUx: Agentic Unix] A very particular set of skills.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ls/SKILL.md"
+  },
+  {
+    "owner": "jamtho",
+    "repo": "xlai",
+    "description": "Claude Code skill for interacting with running Excel workbooks",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/xl/SKILL.md"
+  },
+  {
+    "owner": "45ck",
+    "repo": "claude-sdlc-plugin",
+    "description": "Claude Code plugin for SDLC workflow automation with Storybook planning hub",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/qa/SKILL.md"
+  },
+  {
+    "owner": "johnie",
+    "repo": "skills",
+    "description": "Production-ready AI agent skills for development workflows. Agent-agnostic prompt templates that work with any AI coding assistant.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pr/SKILL.md"
+  },
+  {
+    "owner": "underwear",
+    "repo": "claude-code-underwear-skills",
+    "description": "A collection of useful skills for Claude Code",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/op/SKILL.md"
+  },
+  {
+    "owner": "samdae",
+    "repo": "archflow",
+    "description": "Document-driven development skills with Multi-Agent Debate for Cursor & Claude Code",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui/SKILL.md"
+  },
+  {
+    "owner": "hyperb1iss",
+    "repo": "hyperskills",
+    "description": "My collection of agent skills for a variety of tasks",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ai/SKILL.md"
+  },
+  {
+    "owner": "andybons",
+    "repo": "kit",
+    "description": "A kit for AI agents",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui/SKILL.md"
+  },
+  {
+    "owner": "Rene-Kuhm",
+    "repo": "opencode-ohmyopencode-claude-configuracion",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pr/SKILL.md"
+  },
+  {
+    "owner": "repairman29",
+    "repo": "JARVIS",
+    "description": "AI-powered conversational productivity system with natural language workflow automation",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/pr/SKILL.md"
+  },
+  {
+    "owner": "leopechnicki",
+    "repo": "AI-Assistant",
+    "description": "Leo's AI Assistant",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "krystophny",
+    "repo": "prompts",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/fix/SKILL.md"
+  },
+  {
+    "owner": "leopechnicki",
+    "repo": "AI-Assistant",
+    "description": "Leo's AI Assistant",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/gog/SKILL.md"
+  },
+  {
+    "owner": "openxjarvis",
+    "repo": "clawdbot-python",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "futurewithvibe",
+    "repo": "openclaw-python",
+    "description": "Python implementation of [OpenClaw](https://github.com/openclaw/openclaw) - Personal AI Assistant Platform",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sag/SKILL.md"
+  },
+  {
+    "owner": "itsmostafa",
+    "repo": "aws-agent-skills",
+    "description": "AWS Skills for Agents",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/iam/SKILL.md"
+  },
+  {
+    "owner": "MooseGoose0701",
+    "repo": "skill-compose",
+    "description": "Skill Compose is an open-source agent builder and runtime platform for skill-powered agents. No workflow graphs. No CLI.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/biopython/SKILL.md"
+  },
+  {
+    "owner": "dyoshikawa",
+    "repo": "rulesync",
+    "description": "A Utility CLI for AI Coding Agents",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/rulesync/SKILL.md"
+  },
+  {
+    "owner": "openakita",
+    "repo": "openakita",
+    "description": "An open-source AI assistant framework with skills and agent architecture",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/system/browser-switch-tab/SKILL.md"
+  },
+  {
+    "owner": "openakita",
+    "repo": "openakita",
+    "description": "An open-source AI assistant framework with skills and agent architecture",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/google-calendar-automation/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/browsh/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/cobrapy/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/beazley/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/comfyui/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/adapter/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/nushell/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/persian/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/skills/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/publish/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/scientific-biopython/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/scientific-biopython/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/biopython-sologa-codex-pipeline/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/scientific-biopython-blurjp-imageprepmcp/SKILL.md"
+  },
+  {
+    "owner": "No-Name-Studio-VN",
+    "repo": "Homepage",
+    "description": "Landing page of No Name Studio",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/motion/SKILL.md"
+  },
+  {
+    "owner": "No-Name-Studio-VN",
+    "repo": "Homepage",
+    "description": "Landing page of No Name Studio",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/nuxt-seo/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/devops/vcpkg/SKILL.md"
   }
 ]
