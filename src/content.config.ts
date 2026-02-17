@@ -35,11 +35,24 @@ const skillsLoader = {
             const fileContent = await fs.readFile(filePath, 'utf-8');
             console.log(`[DEBUG] skills-cache.json start: ${fileContent.substring(0, 100)}...`);
 
+            let data;
             if (fileContent.startsWith('version https://git-lfs.github.com/spec/v1')) {
-                throw new Error('Detected Git LFS pointer file instead of actual JSON. Please run "git lfs pull" to download the real file.');
+                const { execSync } = await import('node:child_process');
+                try {
+                    console.log('[INFO] Detected Git LFS pointer. Attempting to pull...');
+                    execSync('git lfs pull', { stdio: 'inherit' });
+                    // Re-read file
+                    const newContent = await fs.readFile(filePath, 'utf-8');
+                    if (newContent.startsWith('version https://git-lfs.github.com/spec/v1')) {
+                        throw new Error('git lfs pull failed to retrieve content.');
+                    }
+                    data = JSON.parse(newContent);
+                } catch (e) {
+                    throw new Error(`Detected Git LFS pointer file and auto-pull failed: ${(e as any).message}. Please run "git lfs pull" manually.`);
+                }
+            } else {
+                data = JSON.parse(fileContent);
             }
-
-            const data = JSON.parse(fileContent);
             let skillsStart = [];
 
             if (Array.isArray(data)) {
