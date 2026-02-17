@@ -143,7 +143,7 @@ export class AIService {
             method: 'POST',
             headers,
             body: JSON.stringify(bodyObj)
-        }, 120000);
+        }, 300000); // 5 minutes timeout for DeepSeek R1/V3
 
         if (!res.ok) {
             throw new Error(`${provider} ${res.status}`);
