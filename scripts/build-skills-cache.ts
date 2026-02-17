@@ -793,11 +793,11 @@ async function buildCache(): Promise<void> {
             return run;
         };
 
-        // 4 NVIDIA API keys × 4 concurrent requests per key = 16 parallel slots
-        const CONCURRENCY = 16;
+        // 4 NVIDIA API keys × 1 concurrent request per key = 4 parallel slots (Ultra Safe)
+        const CONCURRENCY = 4;
         const limit = pLimit(CONCURRENCY);
 
-        console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 4 each)...`);
+        console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
         const promises = tasks.map((skill, index) => limit(async () => {
             // Assign dedicated NVIDIA key: skills are evenly distributed across 4 keys
