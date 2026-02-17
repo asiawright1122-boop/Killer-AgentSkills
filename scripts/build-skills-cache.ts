@@ -1414,12 +1414,17 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
 
 // Helper to check if a skill is fully optimized (SEO + Translations) to skip expensive AI calls
 function isSkillFullyOptimized(skill: SkillCache): boolean {
-    // 0. Check Prompt Version (New Feb 2026 standard)
-    // If agentAnalysis is missing version or version < 2, it means it was generated with old prompt.
-    if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 2) return false;
+    // 0. Check Prompt Version (v3 = Feb 2026 quality audit fixes)
+    // If agentAnalysis is missing version or version < 3, it needs re-generation with improved prompts.
+    if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 3) return false;
 
-    // 1. Check for SEO Description (New requirement)
+    // 1. Check for SEO fields: title, description, features (non-empty), keywords (non-empty)
     if (!skill.seo?.description?.en) return false;
+    if (!skill.seo?.title?.en) return false;
+    const enFeatures = skill.seo?.features?.en;
+    if (!Array.isArray(enFeatures) || enFeatures.length === 0) return false;
+    const enKeywords = skill.seo?.keywords?.en;
+    if (!Array.isArray(enKeywords) || enKeywords.length === 0) return false;
 
     // 2. Check for missing translations in description
     if (typeof skill.description !== 'object') return false; // Must be localized
@@ -1432,6 +1437,14 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
     if (typeof skill.agentAnalysis.suitability !== 'object') return false;
     for (const loc of SUPPORTED_LOCALES) {
         if (!(skill.agentAnalysis.suitability as Record<string, string>)[loc]) return false;
+    }
+
+    // 4. Check Agent Analysis useCases have translations (not empty arrays)
+    if (typeof skill.agentAnalysis.useCases === 'object' && !Array.isArray(skill.agentAnalysis.useCases)) {
+        for (const loc of SUPPORTED_LOCALES) {
+            const arr = (skill.agentAnalysis.useCases as Record<string, string[]>)[loc];
+            if (!arr || arr.length === 0) return false;
+        }
     }
 
     return true;

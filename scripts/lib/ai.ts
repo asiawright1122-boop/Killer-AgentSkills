@@ -288,34 +288,38 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
 - **Goal**: unique, clickable title with main keyword.
 - **Format**: [Product Name]: [Main Benefit] (Agent Ready)
 
-### B. Meta Description (150-160 chars)
-- **Goal**: High CTR summary.
+### B. Meta Description (150-160 chars) — SEPARATE from the main description!
+- **Goal**: High CTR summary optimized for search engine result pages.
 - **Format**: [Action Verb] [Object] with [Specific Feature]. Includes [Benefit].
+- **CRITICAL**: This must be different from the main description. Focus on click-through rate.
 
-### C. Introduction / Definition (The "What is it?")
+### C. Main Description (1-2 sentences)
+- **Goal**: A clear, informative summary of the skill.
+- **Constraint**: 50-80 words. Technical and specific.
+
+### D. Introduction / Definition (The "What is it?")
 - **Goal**: A clear, encyclopedic definition for the "Featured Snippet".
 - **Format**: "${skillName} is a [Category] library for [Language/Platform] that enables [Core Capability]..."
 - **Constraint**: 40-60 words. No marketing fluff.
 
-### D. Use Cases (3 items)
-- **Goal**: Concrete scenarios where this is useful.
-- **Format**: specific action + context (e.g. "Parsing PDF invoices for automated expensing")
+### E. Key Features (4-6 items) — MUST NOT BE EMPTY
+- **Goal**: Technical highlights derived from the Content Preview.
+- **Format**: short, feature-focused bullet points (e.g. "Zero-dependency", "Async Support", "TypeScript native")
+- **CRITICAL**: Extract real features from the content. If you cannot find specific features, infer from the description and tags.
 
-### E. Key Features (4 items)
-- **Goal**: Technical highlights.
-- **Format**: short, feature-focused bullet points (e.g. "Zero-dependency", "Async Support")
-
-### F. Keywords (8 items)
-- **Goal**: Long-tail search terms.
+### F. Keywords (6-10 items) — MUST NOT BE EMPTY
+- **Goal**: Long-tail search terms that developers would actually search for.
+- **Examples**: "claude code pdf skill", "ai agent excel automation", "mcp server python"
+- **CRITICAL**: Include the skill name, technology stack, and use-case keywords.
 
 ## Output Format (STRICT JSON)
 {
   "seoTitle": { "en": "...", "zh": "...", ... },
+  "metaDescription": { "en": "...", "zh": "...", ... },
   "description": { "en": "...", "zh": "...", ... },
   "definition": { "en": "...", "zh": "...", ... },
-  "useCases": { "en": ["..."], "zh": ["..."], ... },
-  "features": { "en": ["..."], "zh": ["..."], ... },
-  "keywords": { "en": ["..."], "zh": ["..."], ... }
+  "features": { "en": ["...", "...", "...", "..."], "zh": ["..."], ... },
+  "keywords": { "en": ["...", "...", "..."], "zh": ["..."], ... }
 }`;
 
         let useCloudflare = false;
@@ -336,18 +340,31 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
                         // Deep merge/validation
                         const seoTitleMap = parsed.seoTitle || parsed.title || { en: skillName };
                         const descMap = parsed.description || { en: text };
+                        const metaDescMap = parsed.metaDescription || parsed.meta_description || descMap;
 
                         const safeDesc = (typeof descMap === 'string') ? { en: descMap } : descMap;
                         const safeTitle = (typeof seoTitleMap === 'string') ? { en: seoTitleMap } : seoTitleMap;
+                        const safeMetaDesc = (typeof metaDescMap === 'string') ? { en: metaDescMap } : metaDescMap;
+
+                        // Validate features and keywords are non-empty
+                        const featuresMap = parsed.features || parsed.seo?.features || { en: [] };
+                        const keywordsMap = parsed.keywords || parsed.seo?.keywords || { en: [] };
+
+                        if (Array.isArray(featuresMap.en) && featuresMap.en.length === 0) {
+                            console.warn(`⚠️ Empty features for ${skillName}, will retry`);
+                        }
+                        if (Array.isArray(keywordsMap.en) && keywordsMap.en.length === 0) {
+                            console.warn(`⚠️ Empty keywords for ${skillName}, will retry`);
+                        }
 
                         return {
-                            description: cleanAndTruncate(safeDesc as Record<string, string>, 300), // Keep main description reasonably long if needed, or use safeDesc
+                            description: cleanAndTruncate(safeDesc as Record<string, string>, 300),
                             seo: {
                                 title: cleanAndTruncate(safeTitle as Record<string, string>, 60),
-                                description: cleanAndTruncate(safeDesc as Record<string, string>, 160), // New dedicated field
-                                definition: parsed.definition || (parsed.seo?.definition) || { en: text },
-                                features: parsed.features || (parsed.seo?.features) || { en: [] },
-                                keywords: parsed.keywords || (parsed.seo?.keywords) || { en: [] }
+                                description: cleanAndTruncate(safeMetaDesc as Record<string, string>, 160),
+                                definition: parsed.definition || parsed.seo?.definition || { en: text },
+                                features: featuresMap,
+                                keywords: keywordsMap
                             }
                         };
                     }
@@ -435,7 +452,7 @@ Your Response (for "${skillName}"):
                             recommendation: parsed.recommendation || "",
                             useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
                             limitations: Array.isArray(parsed.limitations) ? parsed.limitations : [],
-                            version: 2 // Bump version to force update
+                            version: 3 // v3: quality audit fixes (features, keywords, array translations)
                         };
                     }
                 }
@@ -460,10 +477,13 @@ Translate the following AI Agent Skill analysis fields from English to these lan
 IMPORTANT GUIDELINES:
 1.  **Completeness**: Translations MUST be complete sentences if the source is a sentence. 
     - BAD: "Python"
-    - GOOD: "Suitable for Python coding agents needing direct file system manipulation." (translated)
+    - GOOD: "非常适合需要直接文件系统操作的 Python 编码 Agent。" (translated)
     - **CRITICAL**: Do NOT summarize into single keywords. If you return a single word for a long sentence, it will be rejected.
 2.  **Accuracy**: Preserve technical terms (Python, p5.js, API, etc.) but ensure the surrounding text is grammatically correct in the target language.
-3.  **Fallback**: If a translation is impossible or uncertain, return an empty string "" instead of a bad guess.
+3.  **Array Fields (useCases, limitations)**: You MUST translate EVERY item in the array.
+    - **CRITICAL**: Empty arrays [] for non-English locales will be REJECTED. Each locale MUST have the same number of items as the English source.
+    - Example: if English has 3 useCases, Chinese must also have 3 useCases.
+4.  **Fallback**: If a translation is impossible or uncertain, return an empty string "" instead of a bad guess. But NEVER return an empty array [] if the source has items.
 
 Input (English):
 {
@@ -473,12 +493,13 @@ Input (English):
   "limitations": ${JSON.stringify(raw.limitations)}
 }
 
-Return JSON ONLY with this structure (include "en" key with original English text):
+Return JSON ONLY with this structure (include "en" key with original English text).
+EVERY locale MUST have ALL array items translated:
 {
   "suitability": { "en": "...", "zh": "...", "ja": "...", ... },
   "recommendation": { "en": "...", "zh": "...", "ja": "...", ... },
-  "useCases": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... },
-  "limitations": { "en": ["..."], "zh": ["..."], "ja": ["..."], ... }
+  "useCases": { "en": ["item1", "item2", "item3"], "zh": ["翻译1", "翻译2", "翻译3"], "ja": ["翻訳1", "翻訳2", "翻訳3"], ... },
+  "limitations": { "en": ["item1", "item2"], "zh": ["翻译1", "翻译2"], "ja": ["翻訳1", "翻訳2"], ... }
 }`;
 
         try {
