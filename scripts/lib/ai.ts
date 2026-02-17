@@ -63,7 +63,8 @@ export class AIService {
             if (parsed[field] && typeof parsed[field] === 'object') {
                 for (const locale of cjkLocales) {
                     if (parsed[field][locale] !== undefined && (!parsed[field][locale] || String(parsed[field][locale]).trim() === '')) {
-                        throw new Error(`${provider} returned empty ${locale}.${field}`);
+                        console.warn(`[${provider}] ⚠️ Empty ${locale}.${field}, will use fallback`);
+                        delete parsed[field][locale];
                     }
                 }
             }
@@ -149,7 +150,8 @@ export class AIService {
 
                 if (jsonMode) {
                     try {
-                        const parsed = JSON.parse(content);
+                        const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
+                        const parsed = JSON.parse(cleanContent);
                         this.validateCJKFields(parsed, 'SiliconFlow');
                     } catch (e) {
                         throw new Error(`SiliconFlow invalid JSON or empty CJK: ${e}`);
@@ -175,7 +177,7 @@ export class AIService {
                         'X-Title': 'Killer-Skills Translation'
                     },
                     body: JSON.stringify({
-                        model: 'qwen/qwen3-30b-a3b-instruct-2507:free',
+                        model: 'meta-llama/llama-4-maverick:free',
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.3,
                         max_tokens: 2500
@@ -189,7 +191,8 @@ export class AIService {
 
                 if (jsonMode) {
                     try {
-                        const parsed = JSON.parse(content);
+                        const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
+                        const parsed = JSON.parse(cleanContent);
                         this.validateCJKFields(parsed, 'OpenRouter');
                     } catch (e) {
                         throw new Error(`OpenRouter invalid JSON or empty CJK: ${e}`);
