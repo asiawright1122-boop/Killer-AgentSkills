@@ -78560,5 +78560,613 @@
     "forks": 0,
     "topics": [],
     "filePath": "skills/agent-orchestration-multi-agent-optimize/SKILL.md"
+  },
+  {
+    "owner": "woink",
+    "repo": "upstate-fishing",
+    "description": "Upstate NY/NJ fishing conditions app - Deno/TypeScript",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".agents/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "danielshue",
+    "repo": "obsidian-vault-copilot",
+    "description": "Vault Copilot brings AI assistance into Obsidian by connecting to your GitHub Copilot account. It uses GitHub Copilot CLI SDK along with Agent Skills, MCP tools, and plugin-defined skills to enable powerful operations inside your vault. The assistant can read and search notes, create and update content, help organize information with extensions.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".github/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/webapp-testing-schuttpj-baseline-app/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-canva-automation/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/openclaw-skills/sohamganatra/canva-automation/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "pCruvinel",
+    "repo": "antig",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/market-sizing-analysis/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-python-testing-patterns/SKILL.md"
+  },
+  {
+    "owner": "rmyndharis",
+    "repo": "antigravity-skills",
+    "description": "A curated collection of Agent Skills for Google Antigravity",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/full-stack-orchestration-full-stack-feature/SKILL.md"
+  },
+  {
+    "owner": "ngxtm",
+    "repo": "devkit",
+    "description": "Unified multi-agent skill system for AI coding assistants (Claude Code, Cursor, Copilot, Gemini) with 414+ skills, 38 agents, and 57 commands. Features smart tech   detection, per-project installation, and auto-sync from upstream sources.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/full-stack-orchestration-full-stack-feature/SKILL.md"
+  },
+  {
+    "owner": "mshraditya",
+    "repo": "SkillsForAgentRegistry",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/full-stack-orchestration-full-stack-feature/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-awesome-skills/full-stack-orchestration-full-stack-feature/SKILL.md"
+  },
+  {
+    "owner": "plurigrid",
+    "repo": "asi",
+    "description": "everything is topological chemputer!",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/security-ownership-map/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/scientific-pkg-cobrapy/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/scientific-pkg-cobrapy-jackspace-claudeskillz/SKILL.md"
+  },
+  {
+    "owner": "ljchg12-hue",
+    "repo": "dotfiles",
+    "description": "Claude Code CLI configuration with multi-AI orchestration and ABSOLUTE RULES enforcement",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/scientific-skills/scientific-packages/cobrapy/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/denario-robinbarvaag-poynt/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/denario-ricable-ultimate-ai-agent/SKILL.md"
+  },
+  {
+    "owner": "drshailesh88",
+    "repo": "integrated_content_OS",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/scientific/denario/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/email/SKILL.md"
+  },
+  {
+    "owner": "boshu2",
+    "repo": "agentops",
+    "description": "The missing DevOps layer for coding agents. Give it a goal, it ships validated code and gets smarter.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/update/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/business/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/design/config/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/td-tfidf/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/tsconfig/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/progress/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/testing/agents/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/fetch-rfc/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/metadatos/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/work-day/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/korean-ux/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/astro-seo/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/md-tables/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/byterover/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/fal-platform-akramhezam-khaleel-gecec/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/json-canvas-northseadl-skillwisp/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/json-canvas-duanbiao2000-obsidiandoc26/SKILL.md"
+  },
+  {
+    "owner": "bahayonghang",
+    "repo": "my-claude-code-settings",
+    "description": "我的Claude Code配置，包括commands，skills等",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/obsidian-skills/json-canvas/SKILL.md"
+  },
+  {
+    "owner": "agent-skills-hub",
+    "repo": "agent-skills-hub",
+    "description": "Agent Skills Hub is a global library of AI agent skills that work across OpenClaw, Claude Code, Gemini, Cursor, Antigravity, and more.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/prompt-engineer/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/kscale-plurigrid-asi-182a7e53/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/devlog/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/devlog-sskim91-dotfiles/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/pm-wbs/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/data/pm-wbs-infinith4-dev-ai-driven-develo/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/pm-wbs-infinith4-dev-flutter-realesta/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/python/SKILL.md"
+  },
+  {
+    "owner": "pproenca",
+    "repo": "dot-skills",
+    "description": "A collection of AI agent skills following the Agent Skills open format",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/.curated/python/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/parser/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/parser-bitwikiorg-skills-md/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/issue-zeroae-zae-limiter/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/devops/peft-atrawog-bazzite-ai-plugins/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/common/SKILL.md"
+  },
+  {
+    "owner": "wollfoo",
+    "repo": "codex-setup",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/common/SKILL.md"
+  },
+  {
+    "owner": "wollfoo",
+    "repo": "setup-opencode",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/common/SKILL.md"
+  },
+  {
+    "owner": "sundial-org",
+    "repo": "awesome-openclaw-skills",
+    "description": "Top OpenClaw skills, regularly updated with the most popular and useful ones.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/email/SKILL.md"
+  },
+  {
+    "owner": "danstrem2",
+    "repo": "clawdbot-skill-master-pack",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/email/SKILL.md"
+  },
+  {
+    "owner": "drbobber",
+    "repo": "superdiscount-deals",
+    "description": "Discover best deals and discounts. Submit, vote, and share your favorite deals.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/email/SKILL.md"
+  },
+  {
+    "owner": "YPYT1",
+    "repo": "All-skills",
+    "description": "集合了所有的openclaw,claudecode,open等各个平台所有的skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/openclaw-skills/0xterrybit/email/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/testing/ahooks/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/testing/ahooks-whinc-my-claude-plugins/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/testing/ahooks-whinc-my-claude-plugins-ae47f43d/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/agenta/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/agenta-vamseeachanta-digitalmodel/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/gitinfo/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/gitinfo-rdfitted-claude-code-setup/SKILL.md"
+  },
+  {
+    "owner": "omer-metin",
+    "repo": "skills-for-antigravity",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/prisma/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/vialabs/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/vialabs-cantara-lib-electronic-compo/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/development/insight/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/development/insight-technikhighknee-agent-workbench/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/babysit/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/localai/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/other/localai-fgarofalo56-suppercharge-microso/SKILL.md"
   }
 ]
