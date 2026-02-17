@@ -42,8 +42,8 @@ export default function AdminApp({ apiBaseUrl = '/api/admin' }: AdminAppProps) {
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === tab.id
-                  ? 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300'
-                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                ? 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300'
+                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                 }`}
             >
               {tab.label}
@@ -125,7 +125,7 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
     setLoading(true);
     fetch(`${apiBaseUrl}/skills`)
       .then((r) => r.json())
-      .then((data) => setSkills(data.skills || []))
+      .then((data: any) => setSkills(data.skills || []))
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [apiBaseUrl]);
@@ -182,8 +182,8 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
                   <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{skill.category || '—'}</td>
                   <td className="px-4 py-3">
                     <span className={`px-2 py-0.5 rounded text-xs font-medium ${skill.source === 'verified' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                        skill.source === 'featured' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                          'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                      skill.source === 'featured' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
+                        'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
                       }`}>
                       {skill.source || 'unknown'}
                     </span>
@@ -250,7 +250,7 @@ function SettingsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
     setSyncResult(null);
     try {
       const res = await fetch(`${apiBaseUrl}/sync`, { method: 'POST' });
-      const data = await res.json();
+      const data: any = await res.json();
       setSyncResult(data.success ? `✅ ${data.message}` : `❌ ${data.error || data.message}`);
     } catch (e) {
       setSyncResult('❌ Sync request failed');
