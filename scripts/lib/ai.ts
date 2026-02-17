@@ -159,9 +159,21 @@ export class AIService {
 
         // CJK validation in jsonMode
         if (jsonMode) {
-            const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
-            const parsed = JSON.parse(cleanContent);
-            this.validateCJKFields(parsed, provider);
+            try {
+                const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
+                const jsonStartIndex = cleanContent.indexOf('{');
+                const jsonEndIndex = cleanContent.lastIndexOf('}');
+
+                let jsonStr = cleanContent;
+                if (jsonStartIndex !== -1 && jsonEndIndex !== -1) {
+                    jsonStr = cleanContent.slice(jsonStartIndex, jsonEndIndex + 1);
+                }
+
+                const parsed = JSON.parse(jsonStr);
+                this.validateCJKFields(parsed, provider);
+            } catch (e) {
+                throw new Error(`${provider} returned invalid JSON: ${e}`); // Propagate error for retry
+            }
         }
 
         return content;
