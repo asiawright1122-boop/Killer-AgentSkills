@@ -31,4 +31,4 @@
 - [x] 提交代码并推送
 - [x] 修复 `skills-json-loader` 报错: Unexpected token 'v'
   - [x] 检查 `data/skills-cache.json` 格式 (Version 字段导致解析错误)
-  - [x] 修复 `src/content.config.ts` 中的 Loader 逻辑以支持 version 字段
+  - [x] 修复 `src/content.config.ts` (增加 LFS 指针检测与友好提示，手动执行 pull)

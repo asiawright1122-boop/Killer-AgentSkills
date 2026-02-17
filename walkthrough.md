@@ -88,6 +88,6 @@
 **Cause 1**: The loader in `src/content.config.ts` was not handling the new `version` field added to `data/skills-cache.json`.
 **Cause 2**: The error message "Unexpected token 'v', \"version ht\"..." strongly suggests `data/skills-cache.json` is a Git LFS pointer file (`version https://...`) on the user's machine, meaning LFS content wasn't pulled.
 **Fix**: 
-1. Updated `src/content.config.ts` to handle `data.version`.
-2. Added **automated LFS handling**: improved the loader to detect LFS pointers and automatically run `git lfs pull` to fetch the real content, preventing build failures without manual user intervention.
-**Verification**: Ran `npm run build` successfully even with a pointer file.
+1. Updated `src/content.config.ts` to handle `data.version` and detect LFS pointers.
+2. Throws a clear error ensuring the user runs `git lfs pull` manually. (Auto-pull was attempted but caused Vite runner instability, so manual execution is safer).
+**Verification**: Verified `git lfs pull` fixes the file and `npm run build` succeeds.
