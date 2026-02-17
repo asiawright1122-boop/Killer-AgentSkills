@@ -36,17 +36,42 @@ const frameworks = [
   { id: 'crewai', name: 'CrewAI' },
   { id: 'openai', name: 'OpenAI' },
 ];
+
+// Determine current display label for mobile toggle
+let currentFilterLabel = t('Sidebar.categories.all');
+if (activeView) {
+    const view = views.find(v => v.id === activeView);
+    if (view) currentFilterLabel = view.name;
+} else if (activeCategory && activeCategory !== 'all') {
+    const cat = categories.find(c => c.id === activeCategory);
+    if (cat) currentFilterLabel = cat.name;
+}
 ---
 
-<aside class="w-full md:w-72 shrink-0 space-y-6 md:sticky md:top-24 h-fit">
+<aside class="w-full md:w-72 shrink-0 md:sticky md:top-24 h-fit z-30">
   
   <!-- Navigation Card -->
-  <nav class="glass-card rounded-2xl p-4">
-    <div class="space-y-6">
+  <nav class="glass-card rounded-2xl md:p-4 overflow-hidden">
+    
+    <!-- Mobile Toggle Header -->
+    <div class="md:hidden p-4 flex items-center justify-between cursor-pointer" id="sidebar-toggle">
+        <div class="flex items-center gap-2 text-slate-700 dark:text-slate-200 font-medium">
+            <svg class="w-5 h-5 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <span>{currentFilterLabel}</span>
+        </div>
+        <svg id="sidebar-arrow" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+    </div>
+
+    <!-- Collapsible Content -->
+    <div id="sidebar-content" class="hidden md:block p-4 pt-0 md:p-0 border-t border-slate-200/50 dark:border-slate-800/50 md:border-t-0 space-y-6">
       
       <!-- Discover Section -->
       <div>
-        <h3 class="px-3 text-xs font-bold uppercase tracking-wider mb-3" style="color: var(--muted-foreground);">
+        <h3 class="px-3 text-xs font-bold uppercase tracking-wider mb-3 mt-4 md:mt-0" style="color: var(--muted-foreground);">
           {t('Sidebar.discover')}
         </h3>
         <div class="space-y-1">
@@ -172,6 +197,17 @@ const frameworks = [
     </div>
   </nav>
 
+  <script>
+      const toggle = document.getElementById('sidebar-toggle');
+      const content = document.getElementById('sidebar-content');
+      const arrow = document.getElementById('sidebar-arrow');
 
+      if (toggle && content && arrow) {
+          toggle.addEventListener('click', () => {
+              content.classList.toggle('hidden');
+              arrow.classList.toggle('rotate-180');
+          });
+      }
+  </script>
 
 </aside>
