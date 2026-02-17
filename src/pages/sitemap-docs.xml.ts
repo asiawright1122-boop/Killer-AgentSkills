@@ -29,9 +29,6 @@ export const GET: APIRoute = async () => {
             for (const locale of SUPPORTED_LOCALES) {
                 urls.push(`<url>
 <loc>${SITE}/${locale}${path}</loc>
-<lastmod>${today}</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.9</priority>
 ${buildHreflangLinks(path)}
 </url>`);
             }

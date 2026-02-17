@@ -47,9 +47,28 @@ export const GET: APIRoute = async ({ locals }) => {
 
   const skillSitemaps = [];
   for (let i = 1; i <= totalPages; i++) {
+    // Calculate accurate lastmod for THIS specific chunk
+    const start = (i - 1) * LIMIT;
+    const end = start + LIMIT;
+    const chunkSkills = skills.slice(start, end);
+    let chunkLastMod = today;
+
+    if (chunkSkills.length > 0) {
+      const latestInChunk = chunkSkills
+        .filter(s => s.updatedAt)
+        .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
+
+      if (latestInChunk?.updatedAt) {
+        chunkLastMod = new Date(latestInChunk.updatedAt).toISOString().split('T')[0];
+      } else {
+        // Fallback to global max if chunk has no valid dates (unlikely)
+        chunkLastMod = skillsLastMod;
+      }
+    }
+
     skillSitemaps.push(`<sitemap>
   <loc>${SITE}/sitemap-skills-${i}.xml</loc>
-  <lastmod>${skillsLastMod}</lastmod>
+  <lastmod>${chunkLastMod}</lastmod>
 </sitemap>`);
   }
 
@@ -57,7 +76,6 @@ export const GET: APIRoute = async ({ locals }) => {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
   <loc>${SITE}/sitemap-static.xml</loc>
-  <lastmod>${today}</lastmod>
 </sitemap>
 <sitemap>
   <loc>${SITE}/sitemap-blog.xml</loc>
@@ -65,7 +83,6 @@ export const GET: APIRoute = async ({ locals }) => {
 </sitemap>
 <sitemap>
   <loc>${SITE}/sitemap-docs.xml</loc>
-  <lastmod>${today}</lastmod>
 </sitemap>
 ${skillSitemaps.join('\n')}
 </sitemapindex>`;
