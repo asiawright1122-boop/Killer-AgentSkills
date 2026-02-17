@@ -33,32 +33,53 @@ const skillsLoader = {
         try {
             const filePath = path.resolve('./data/skills-cache.json');
             const fileContent = await fs.readFile(filePath, 'utf-8');
+            console.log(`[DEBUG] skills-cache.json start: ${fileContent.substring(0, 100)}...`);
             const data = JSON.parse(fileContent);
-            const skillsStart = data.skills; // Access the array property
+            let skillsStart = [];
+
+            if (Array.isArray(data)) {
+                skillsStart = data;
+            } else if (data && Array.isArray(data.skills)) {
+                skillsStart = data.skills;
+            } else if (data && data.version) {
+                // It's likely the cached object with version
+                if (Array.isArray(data.skills)) {
+                    skillsStart = data.skills;
+                } else {
+                    console.warn('[WARN] Found version but no skills array:', data);
+                }
+            } else {
+                throw new Error(`Invalid skills cache format. Expected array or object with 'skills' array. Found type: ${typeof data}`);
+            }
 
             logger.info(`Found ${skillsStart.length} skills`);
 
             for (const skill of skillsStart) {
-                // Determine ID (owner/repo)
-                const id = skill.skillId || `${skill.owner}/${skill.repo}`;
+                try {
+                    // Determine ID (owner/repo)
+                    const id = skill.skillId || `${skill.owner}/${skill.repo}`;
 
-                // Strip large fields to reduce worker bundle size.
-                // skillMd.body can be 5-20KB per skill × 3500 skills = ~50MB.
-                // The full body is loaded from KV at runtime on detail pages.
-                const slimSkill = { ...skill };
-                if (slimSkill.skillMd) {
-                    slimSkill.skillMd = { ...slimSkill.skillMd };
-                    delete slimSkill.skillMd.body;
+                    // Strip large fields to reduce worker bundle size.
+                    const slimSkill = { ...skill };
+                    if (slimSkill.skillMd) {
+                        slimSkill.skillMd = { ...slimSkill.skillMd };
+                        delete slimSkill.skillMd.body;
+                    }
+
+                    store.set({
+                        id,
+                        data: slimSkill,
+                        rendered: { html: "" } // No markdown content yet
+                    });
+                } catch (err) {
+                    console.error(`[ERROR] Failed to process skill: ${JSON.stringify(skill).substring(0, 100)}...`, err);
                 }
-
-                store.set({
-                    id,
-                    data: slimSkill,
-                    rendered: { html: "" } // No markdown content yet
-                });
             }
         } catch (error) {
             logger.error(`Error loading skills: ${(error as any).message}`);
+            if ((error as any).name === 'ZodError') {
+                console.error('Zod Validation Errors:', JSON.stringify((error as any).issues, null, 2));
+            }
         }
     }
 };

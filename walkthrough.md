@@ -82,3 +82,9 @@
   ]
   ```
 - **Result**: The content is now accurate, technical, and directly relevant to the PDF domain.
+
+## 5. Build System Fix
+**Issue**: `npm run build` failed with `Unexpected token 'v', "version": 1...` in `skills-json-loader`.
+**Cause**: The loader in `src/content.config.ts` was not handling the new `version` field added to `data/skills-cache.json`.
+**Fix**: Updated `src/content.config.ts` to explicitly check for `data.version` and correctly extract `data.skills`.
+**Verification**: Ran `npm run build` successfully.

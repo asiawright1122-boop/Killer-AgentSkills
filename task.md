@@ -28,4 +28,7 @@
   - [x] 优化 `generateAgentAnalysis` Prompt，强制包含技术关键词 (p5.js, PyMuPDF 等)
   - [x] 增加 Negative Constraints 防止通用废话
   - [x] 验证 `pdf` Skill 的生成结果 (确认不再出现 log scraping 等幻觉)
-- [ ] 提交代码并推送
+- [x] 提交代码并推送
+- [x] 修复 `skills-json-loader` 报错: Unexpected token 'v'
+  - [x] 检查 `data/skills-cache.json` 格式 (Version 字段导致解析错误)
+  - [x] 修复 `src/content.config.ts` 中的 Loader 逻辑以支持 version 字段
