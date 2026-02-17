@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { GITHUB_API } from './constants';
+import { fetchWithTimeout } from './utils';
 import type { SkillCache } from './types';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -19,7 +20,7 @@ function getHeaders(): Record<string, string> {
 export async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
     for (let i = 0; i < retries; i++) {
         try {
-            const response = await fetch(url, { headers: getHeaders() });
+            const response = await fetchWithTimeout(url, { headers: getHeaders() });
             if (response.status === 403) {
                 console.warn('⚠️ GitHub API rate limit, waiting 60s...');
                 await new Promise(r => setTimeout(r, 60000));
@@ -49,7 +50,7 @@ export async function fetchSkillMd(owner: string, repo: string, skillsPath: stri
             for (const branch of ['main', 'master', 'canary', 'develop']) {
                 try {
                     const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                    const response = await fetch(url);
+                    const response = await fetchWithTimeout(url);
                     if (response.ok) return response.text();
                 } catch { continue; }
             }
@@ -75,7 +76,7 @@ export async function fetchSkillMd(owner: string, repo: string, skillsPath: stri
         for (const branch of branchesToTry) {
             try {
                 const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                const response = await fetch(url);
+                const response = await fetchWithTimeout(url);
                 if (response.ok) return response.text();
             } catch {
                 continue;
@@ -86,7 +87,9 @@ export async function fetchSkillMd(owner: string, repo: string, skillsPath: stri
 }
 
 export function parseSkillMd(content: string): SkillCache['skillMd'] & { body?: string } | undefined {
-    const frontmatterRegex = /^---\n([\s\S]*?)\n---\n([\s\S]*)$/;
+    // Robust Regex: Handle \r\n, loose whitespace
+    content = content.trimStart();
+    const frontmatterRegex = /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]+([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
 
     if (!match) return undefined;

@@ -53,12 +53,30 @@ export class AIService {
     }
 
     /**
+     * Validate that CJK locale fields are non-empty in a parsed JSON response.
+     * Checks description and suitability for zh, ja, ko locales.
+     */
+    private validateCJKFields(parsed: any, provider: string): void {
+        const fieldsToCheck = ['description', 'suitability'];
+        const cjkLocales = ['zh', 'ja', 'ko'];
+        for (const field of fieldsToCheck) {
+            if (parsed[field] && typeof parsed[field] === 'object') {
+                for (const locale of cjkLocales) {
+                    if (parsed[field][locale] !== undefined && (!parsed[field][locale] || String(parsed[field][locale]).trim() === '')) {
+                        throw new Error(`${provider} returned empty ${locale}.${field}`);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Call AI with race strategy (NVIDIA + SiliconFlow + OpenRouter parallel -> Cloudflare fallback)
      * 
      * Enhanced features vs legacy:
      * - Uses fetchWithTimeout (60s) on all providers to prevent hanging
-     * - CJK validation in jsonMode: reject responses with empty zh fields
-     * - All OpenRouter keys race in parallel (not just one)
+     * - CJK validation in jsonMode: reject responses with empty zh/ja/ko fields
+     * - OpenRouter single-key round-robin rotation
      * - Progress indicators via stdout (N/S/O/C)
      */
     async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false): Promise<string | null> {
@@ -98,11 +116,7 @@ export class AIService {
                     try {
                         const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
                         const parsed = JSON.parse(cleanContent);
-                        if (parsed.description && typeof parsed.description === 'object') {
-                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
-                                throw new Error('NVIDIA returned empty CJK description');
-                            }
-                        }
+                        this.validateCJKFields(parsed, 'NVIDIA');
                     } catch (e) {
                         throw new Error(`NVIDIA invalid JSON or empty CJK: ${e}`);
                     }
@@ -136,11 +150,7 @@ export class AIService {
                 if (jsonMode) {
                     try {
                         const parsed = JSON.parse(content);
-                        if (parsed.description && typeof parsed.description === 'object') {
-                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
-                                throw new Error('SiliconFlow returned empty CJK description');
-                            }
-                        }
+                        this.validateCJKFields(parsed, 'SiliconFlow');
                     } catch (e) {
                         throw new Error(`SiliconFlow invalid JSON or empty CJK: ${e}`);
                     }
@@ -151,9 +161,10 @@ export class AIService {
             raceProviders.push(sfPromise);
         }
 
-        // --- Provider 3: OpenRouter (each key races in parallel) ---
-        for (let i = 0; i < this.config.openRouterKeys.length; i++) {
-            const orKey = this.config.openRouterKeys[(this.currentOpenrouterKeyIndex + i) % this.config.openRouterKeys.length];
+        // --- Provider 3: OpenRouter (single key, round-robin rotation) ---
+        if (this.config.openRouterKeys.length > 0) {
+            const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex % this.config.openRouterKeys.length];
+            this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % this.config.openRouterKeys.length;
             const orPromise = (async () => {
                 const res = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
                     method: 'POST',
@@ -179,11 +190,7 @@ export class AIService {
                 if (jsonMode) {
                     try {
                         const parsed = JSON.parse(content);
-                        if (parsed.description && typeof parsed.description === 'object') {
-                            if (!parsed.description.zh || parsed.description.zh.trim() === '') {
-                                throw new Error('OpenRouter returned empty CJK description');
-                            }
-                        }
+                        this.validateCJKFields(parsed, 'OpenRouter');
                     } catch (e) {
                         throw new Error(`OpenRouter invalid JSON or empty CJK: ${e}`);
                     }
@@ -192,7 +199,6 @@ export class AIService {
             })();
             raceProviders.push(orPromise);
         }
-        this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % Math.max(this.config.openRouterKeys.length, 1);
 
         // --- Race all providers ---
         if (raceProviders.length > 0) {
