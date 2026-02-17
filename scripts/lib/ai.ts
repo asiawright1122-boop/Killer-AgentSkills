@@ -71,154 +71,142 @@ export class AIService {
     }
 
     /**
-     * Call AI with race strategy (NVIDIA + SiliconFlow + OpenRouter parallel -> Cloudflare fallback)
-     * 
-     * Enhanced features vs legacy:
-     * - Uses fetchWithTimeout (60s) on all providers to prevent hanging
-     * - CJK validation in jsonMode: reject responses with empty zh/ja/ko fields
-     * - OpenRouter single-key round-robin rotation
-     * - Progress indicators via stdout (N/S/O/C)
+     * Call a single AI provider. Returns content string or throws on failure.
+     * Extracted to enable dedicated worker-per-provider architecture.
      */
-    async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false): Promise<string | null> {
-        const raceProviders: Promise<{ content: string; provider: string }>[] = [];
+    private async callAISingle(
+        prompt: string,
+        provider: 'nvidia' | 'siliconflow' | 'openrouter',
+        apiKey: string,
+        jsonMode: boolean = false
+    ): Promise<string> {
+        let url: string;
+        let headers: Record<string, string>;
+        let bodyObj: any;
 
-        // --- Provider 1: NVIDIA ---
-        if (!skipNvidia && this.config.nvidiaKeys.length > 0) {
-            const apiKey = this.config.nvidiaKeys[this.currentNvidiaKeyIndex];
-            this.currentNvidiaKeyIndex = (this.currentNvidiaKeyIndex + 1) % this.config.nvidiaKeys.length;
-
-            const nvidiaPromise = (async () => {
-                const body: any = {
+        switch (provider) {
+            case 'nvidia': {
+                url = 'https://integrate.api.nvidia.com/v1/chat/completions';
+                headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
+                bodyObj = {
                     model: 'deepseek-ai/deepseek-v3.2',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
                     stream: false
                 };
-                if (jsonMode) body.response_format = { type: "json_object" };
-
-                const res = await fetchWithTimeout('https://integrate.api.nvidia.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-                    body: JSON.stringify(body)
-                }, 120000);
-
-                if (!res.ok) {
-                    this.stats.nvidiaFail++;
-                    throw new Error(`NVIDIA ${res.status}`);
-                }
-                const data = await res.json() as any;
-                const content = data?.choices?.[0]?.message?.content;
-                if (!content) throw new Error('NVIDIA empty response');
-
-                // CJK validation in jsonMode
-                if (jsonMode) {
-                    try {
-                        const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
-                        const parsed = JSON.parse(cleanContent);
-                        this.validateCJKFields(parsed, 'NVIDIA');
-                    } catch (e) {
-                        throw new Error(`NVIDIA invalid JSON or empty CJK: ${e}`);
-                    }
-                }
-
-                return { content, provider: 'N' };
-            })();
-            raceProviders.push(nvidiaPromise);
-        }
-
-        // --- Provider 2: SiliconFlow ---
-        if (this.config.siliconFlowKey) {
-            const sfPromise = (async () => {
-                const res = await fetchWithTimeout('https://api.siliconflow.cn/v1/chat/completions', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.siliconFlowKey}` },
-                    body: JSON.stringify({
-                        model: 'deepseek-ai/DeepSeek-V3.2',
-                        messages: [{ role: 'user', content: prompt }],
-                        temperature: 0.3,
-                        max_tokens: 4096,
-                        stream: false
-                    })
-                }, 120000);
-
-                if (!res.ok) throw new Error(`SiliconFlow ${res.status}`);
-                const data = await res.json() as any;
-                const content = data?.choices?.[0]?.message?.content;
-                if (!content) throw new Error('SiliconFlow empty response');
-
-                if (jsonMode) {
-                    try {
-                        const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
-                        const parsed = JSON.parse(cleanContent);
-                        this.validateCJKFields(parsed, 'SiliconFlow');
-                    } catch (e) {
-                        throw new Error(`SiliconFlow invalid JSON or empty CJK: ${e}`);
-                    }
-                }
-
-                return { content, provider: 'S' };
-            })();
-            raceProviders.push(sfPromise);
-        }
-
-        // --- Provider 3: OpenRouter (single key, round-robin rotation) ---
-        if (this.config.openRouterKeys.length > 0) {
-            const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex % this.config.openRouterKeys.length];
-            this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % this.config.openRouterKeys.length;
-            const orPromise = (async () => {
-                const res = await fetchWithTimeout('https://openrouter.ai/api/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${orKey}`,
-                        'HTTP-Referer': 'https://killerskills.com',
-                        'X-Title': 'Killer-Skills Translation'
-                    },
-                    body: JSON.stringify({
-                        model: 'google/gemma-3-27b-it:free',
-                        messages: [{ role: 'user', content: prompt }],
-                        temperature: 0.3,
-                        max_tokens: 4096
-                    })
-                }, 120000);
-
-                if (!res.ok) throw new Error(`OpenRouter ${res.status}`);
-                const data = await res.json() as any;
-                const content = data?.choices?.[0]?.message?.content;
-                if (!content) throw new Error('OpenRouter empty response');
-
-                if (jsonMode) {
-                    try {
-                        const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
-                        const parsed = JSON.parse(cleanContent);
-                        this.validateCJKFields(parsed, 'OpenRouter');
-                    } catch (e) {
-                        throw new Error(`OpenRouter invalid JSON or empty CJK: ${e}`);
-                    }
-                }
-                return { content, provider: 'O' };
-            })();
-            raceProviders.push(orPromise);
-        }
-
-        // --- Race all providers ---
-        if (raceProviders.length > 0) {
-            try {
-                const winner = await Promise.any(raceProviders);
-                if (winner.provider === 'N') this.stats.nvidia++;
-                else if (winner.provider === 'S') this.stats.siliconflow++;
-                else if (winner.provider === 'O') this.stats.openrouter++;
-                process.stdout.write(winner.provider);
-                return winner.content;
-            } catch (e) {
-                // All providers failed, fall through to Cloudflare
-                const reasons = (e as any)?.errors?.map((err: Error) => err.message).join(', ') || String(e);
-                console.warn(`⚠️ All AI providers failed: ${reasons}`);
+                if (jsonMode) bodyObj.response_format = { type: "json_object" };
+                break;
+            }
+            case 'siliconflow': {
+                url = 'https://api.siliconflow.cn/v1/chat/completions';
+                headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
+                bodyObj = {
+                    model: 'deepseek-ai/DeepSeek-V3.2',
+                    messages: [{ role: 'user', content: prompt }],
+                    temperature: 0.3,
+                    max_tokens: 4096,
+                    stream: false
+                };
+                break;
+            }
+            case 'openrouter': {
+                url = 'https://openrouter.ai/api/v1/chat/completions';
+                headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${apiKey}`,
+                    'HTTP-Referer': 'https://killerskills.com',
+                    'X-Title': 'Killer-Skills Translation'
+                };
+                bodyObj = {
+                    model: 'google/gemma-3-27b-it:free',
+                    messages: [{ role: 'user', content: prompt }],
+                    temperature: 0.3,
+                    max_tokens: 4096
+                };
+                break;
             }
         }
 
-        // --- Final Fallback: Cloudflare Workers AI ---
+        const res = await fetchWithTimeout(url, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(bodyObj)
+        }, 120000);
+
+        if (!res.ok) {
+            throw new Error(`${provider} ${res.status}`);
+        }
+
+        const data = await res.json() as any;
+        const content = data?.choices?.[0]?.message?.content;
+        if (!content) throw new Error(`${provider} empty response`);
+
+        // CJK validation in jsonMode
+        if (jsonMode) {
+            const cleanContent = content.replace(/```json\s*|\s*```/g, '').trim();
+            const parsed = JSON.parse(cleanContent);
+            this.validateCJKFields(parsed, provider);
+        }
+
+        return content;
+    }
+
+    /**
+     * Call AI with dedicated NVIDIA primary + sequential SF/OR fallback.
+     * 
+     * Architecture (Plan B):
+     * - 4 NVIDIA keys each handle different tasks in parallel (16 concurrent slots)
+     * - SiliconFlow is backup #1 (only called when NVIDIA fails)
+     * - OpenRouter is backup #2 (only called when SF also fails)
+     * - Cloudflare Workers AI is the last-resort fallback
+     * 
+     * @param nvidiaKeyIndex - Which NVIDIA key to use (0-3). Auto-rotates if not specified.
+     */
+    async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false, nvidiaKeyIndex?: number): Promise<string | null> {
+
+        // 1️⃣ Primary: NVIDIA (dedicated key)
+        if (!skipNvidia && this.config.nvidiaKeys.length > 0) {
+            const idx = nvidiaKeyIndex ?? (this.currentNvidiaKeyIndex++ % this.config.nvidiaKeys.length);
+            const key = this.config.nvidiaKeys[idx % this.config.nvidiaKeys.length];
+            try {
+                const result = await this.callAISingle(prompt, 'nvidia', key, jsonMode);
+                this.stats.nvidia++;
+                process.stdout.write(`N${idx % this.config.nvidiaKeys.length}`);
+                return result;
+            } catch (e) {
+                this.stats.nvidiaFail++;
+                console.warn(`⚠️ NVIDIA-${idx % this.config.nvidiaKeys.length}: ${(e as Error).message}`);
+            }
+        }
+
+        // 2️⃣ Backup #1: SiliconFlow
+        if (this.config.siliconFlowKey) {
+            try {
+                const result = await this.callAISingle(prompt, 'siliconflow', this.config.siliconFlowKey, jsonMode);
+                this.stats.siliconflow++;
+                process.stdout.write('S');
+                return result;
+            } catch (e) {
+                console.warn(`⚠️ SiliconFlow: ${(e as Error).message}`);
+            }
+        }
+
+        // 3️⃣ Backup #2: OpenRouter
+        if (this.config.openRouterKeys.length > 0) {
+            const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex % this.config.openRouterKeys.length];
+            this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % this.config.openRouterKeys.length;
+            try {
+                const result = await this.callAISingle(prompt, 'openrouter', orKey, jsonMode);
+                this.stats.openrouter++;
+                process.stdout.write('O');
+                return result;
+            } catch (e) {
+                console.warn(`⚠️ OpenRouter: ${(e as Error).message}`);
+            }
+        }
+
+        // 4️⃣ Last resort: Cloudflare Workers AI
         if (this.config.cfAccountId && this.config.cfApiToken) {
             try {
                 const res = await fetchWithTimeout(
@@ -252,7 +240,7 @@ export class AIService {
      * Translate and Generate Metadata with Full SEO Prompt
      * Uses robust JSON extraction with multiple fallback strategies
      */
-    async translateMetadata(text: string, context?: TranslateContext): Promise<{
+    async translateMetadata(text: string, context?: TranslateContext, nvidiaKeyIndex?: number): Promise<{
         description: Record<string, string>;
         seo: SeoData;
     }> {
@@ -333,7 +321,7 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
 }`;
 
         let useCloudflare = false;
-        let response = await this.callAI(prompt, true, useCloudflare);
+        let response = await this.callAI(prompt, true, useCloudflare, nvidiaKeyIndex);
 
         // Validation loop
         for (let attempt = 0; attempt < 2; attempt++) {
@@ -390,7 +378,7 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
             if (!useCloudflare && hasCloudflare) {
                 console.log('🔄 Retry with Cloudflare...');
                 useCloudflare = true;
-                response = await this.callAI(prompt, false, useCloudflare);
+                response = await this.callAI(prompt, false, useCloudflare, nvidiaKeyIndex);
             } else {
                 break;
             }
@@ -405,7 +393,8 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
     async generateAgentAnalysis(
         skillName: string,
         description: string,
-        bodyPreview: string
+        bodyPreview: string,
+        nvidiaKeyIndex?: number
     ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number } | undefined> {
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
         
@@ -454,7 +443,7 @@ Your Response (for "${skillName}"):
 }`;
 
         try {
-            const result = await this.callAI(prompt, true, false);
+            const result = await this.callAI(prompt, true, false, nvidiaKeyIndex);
             if (result) {
                 const candidates = extractJSONCandidates(result);
                 for (const candidate of candidates) {
@@ -481,6 +470,7 @@ Your Response (for "${skillName}"):
      * Includes validation to reject suspiciously short translations
      */
     async translateAgentAnalysis(
+        nvidiaKeyIndex: number | undefined,
         raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number }
     ): Promise<AgentAnalysis> {
         const localesStr = SUPPORTED_LOCALES.join(', ');
@@ -516,7 +506,7 @@ EVERY locale MUST have ALL array items translated:
 }`;
 
         try {
-            const result = await this.callAI(prompt, true, false);
+            const result = await this.callAI(prompt, true, false, nvidiaKeyIndex);
             if (result) {
                 const candidates = extractJSONCandidates(result);
                 for (const candidate of candidates) {
