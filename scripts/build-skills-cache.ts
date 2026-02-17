@@ -12,7 +12,6 @@ import * as dotenv from 'dotenv';
 
 // ===== Shared Lib Imports =====
 import { AIService } from './lib/ai';
-import { KVService } from './lib/kv';
 import {
     OFFICIAL_REPOS, isOfficialRepo, CATEGORY_RULES,
     EXCLUDE_KEYWORDS, SUSPICIOUS_NAMES, SKILL_HEADERS, FUNCTIONAL_KEYWORDS,
@@ -32,7 +31,6 @@ if (fs.existsSync('.env.local')) {
 
 // ===== Service Instances =====
 const aiService = new AIService();
-const kvService = new KVService();
 
 // GitHub API config
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -943,112 +941,20 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
     fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
     console.log(`   🗺️  Sitemap data generated: ${sitemapFile} (${sitemapData.length} items)`);
 
-    // ========== 直接同步到 Cloudflare KV ==========
-    const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
-    const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
-    const KV_NAMESPACE_ID = 'eb71984285c54c3488c17a32391b9fe5'; // SKILLS_CACHE
-
-    if (CF_API_TOKEN && CF_ACCOUNT_ID) {
-        console.log(`\n📤 Syncing ${cleanedSkills.length} cleaned skills to Cloudflare KV...`);
-        const kvHeaders = {
-            'Authorization': `Bearer ${CF_API_TOKEN}`,
-            'Content-Type': 'application/json',
-        };
-        const kvBulkUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/bulk`;
-
-        try {
-            // --- 1. Write individual skill:* keys (post-filter, guaranteed clean) ---
-            const skillBulkItems: Array<{ key: string, value: string }> = [];
-            for (const skill of cleanedSkills) {
-                const slimmed = { ...skill };
-                if (slimmed.skillMd) {
-                    const { body, bodyPreview, raw, ...keep } = slimmed.skillMd as any;
-                    slimmed.skillMd = keep;
-                }
-                delete (slimmed as any).readme;
-                delete (slimmed as any).content;
-                const key = `skill:${skill.id || `${skill.owner}/${skill.repo}`}`;
-                skillBulkItems.push({ key, value: JSON.stringify(slimmed) });
-            }
-
-            // Write in batches of 500
-            const BATCH_SIZE = 500;
-            let writeSuccess = 0;
-            for (let i = 0; i < skillBulkItems.length; i += BATCH_SIZE) {
-                const batch = skillBulkItems.slice(i, i + BATCH_SIZE);
-                const resp = await fetch(kvBulkUrl, {
-                    method: 'PUT',
-                    headers: kvHeaders,
-                    body: JSON.stringify(batch),
-                });
-                if (resp.ok) {
-                    writeSuccess += batch.length;
-                } else {
-                    console.error(`   ❌ Batch write failed: ${await resp.text()}`);
-                }
-            }
-            console.log(`   ✅ Wrote ${writeSuccess}/${skillBulkItems.length} individual skill keys`);
-
-            // --- 2. Cleanup stale skill:* keys not in cleaned set ---
-            const activeSkillKeys = new Set(skillBulkItems.map(i => i.key));
-            console.log(`   🔍 Listing existing KV keys for stale cleanup...`);
-
-            // Paginate through all KV keys
-            const allKvKeys: string[] = [];
-            let cursor = '';
-            let hasMore = true;
-            while (hasMore) {
-                const listUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/keys?limit=1000${cursor ? `&cursor=${cursor}` : ''}`;
-                const listResp = await fetch(listUrl, { headers: kvHeaders });
-                if (!listResp.ok) {
-                    console.error(`   ❌ Failed to list KV keys: ${await listResp.text()}`);
-                    break;
-                }
-                const listData = await listResp.json() as any;
-                if (listData.success) {
-                    allKvKeys.push(...listData.result.map((item: any) => item.name));
-                    cursor = listData.result_info?.cursor || '';
-                    hasMore = !!cursor;
-                } else {
-                    break;
-                }
-            }
-            console.log(`   📦 Found ${allKvKeys.length} total KV keys`);
-
-            // Find stale skill:* keys
-            const staleKeys = allKvKeys.filter(key =>
-                key.startsWith('skill:') && !activeSkillKeys.has(key)
-            );
-
-            if (staleKeys.length > 0) {
-                console.log(`   🗑️  Deleting ${staleKeys.length} stale skill keys...`);
-                for (let i = 0; i < staleKeys.length; i += 1000) {
-                    const batch = staleKeys.slice(i, i + 1000);
-                    await fetch(kvBulkUrl, {
-                        method: 'DELETE',
-                        headers: kvHeaders,
-                        body: JSON.stringify(batch),
-                    });
-                }
-                console.log(`   ✅ Cleaned up ${staleKeys.length} stale keys`);
-            } else {
-                console.log(`   ✅ No stale skill keys found — KV is clean`);
-            }
-        } catch (error) {
-            console.error(`   ❌ KV sync error:`, error);
-        }
-    }
     // ========== 清除本地 miniflare KV 缓存 ==========
     // 确保 dev server 使用最新的 skills-cache.json 而非过期的 miniflare KV 数据
     const miniflareKvDir = path.join(process.cwd(), '.wrangler', 'state', 'v3', 'kv', KV_NAMESPACE_ID);
     if (fs.existsSync(miniflareKvDir)) {
         try {
             fs.rmSync(miniflareKvDir, { recursive: true, force: true });
-            console.log(`   🧹 Cleared local miniflare KV cache (${miniflareKvDir})`);
+            console.log(`   🧹 Cleared local miniflare KV cache`);
         } catch (error) {
             console.warn(`   ⚠️ Failed to clear miniflare KV cache:`, error);
         }
     }
+
+    // ========== 提示同步 KV ==========
+    console.log(`\n📋 To deploy to Cloudflare KV, run: npm run sync:kv`);
 }
 /**
  * Quick save state (Raw JSON only, no KV sync)

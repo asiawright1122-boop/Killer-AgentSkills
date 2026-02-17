@@ -1,12 +1,21 @@
 #!/usr/bin/env node
 /**
- * 缓存预热脚本
- * 批量将所有技能的 SKILL.md 内容写入 Cloudflare KV
+ * ⚠️ DEPRECATED — DO NOT USE
  * 
- * 使用方法：
- * 1. 确保已设置 CLOUDFLARE_API_TOKEN 和 CLOUDFLARE_ACCOUNT_ID 环境变量
- * 2. 运行: npx ts-node scripts/warmup-cache.ts
+ * This script writes raw SKILL.md content to KV `skill:*` keys,
+ * which overwrites the structured skill data that the frontend expects.
+ * Running this will break skill detail pages.
+ * 
+ * Use `npm run sync:kv` (sync-to-kv.ts) instead — it handles:
+ * - Sharded all-skills index (for list pages)
+ * - Individual skill:* keys (structured data, for detail pages)
+ * - Sitemap, docs, and metadata
+ * - Stale key cleanup
  */
+
+console.error('❌ warmup-cache.ts is DEPRECATED.');
+console.error('   Use "npm run sync:kv" instead for full KV synchronization.');
+process.exit(1);
 
 import * as fs from 'fs';
 import * as path from 'path';
