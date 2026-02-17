@@ -154,7 +154,7 @@ export function cleanAndTruncate(obj: Record<string, string>, limit: number): Re
  * Returns a function that wraps async operations with concurrency control
  */
 export function pLimit(concurrency: number) {
-    const queue: (() => Promise<void>)[] = [];
+    const queue: (() => void)[] = [];
     let activeCount = 0;
 
     const next = () => {
@@ -164,11 +164,14 @@ export function pLimit(concurrency: number) {
         }
     };
 
-    const run = async (fn: () => Promise<void>) => {
+    const run = (fn: () => Promise<void>): Promise<void> => new Promise<void>((resolve, reject) => {
         const trigger = async () => {
             activeCount++;
             try {
                 await fn();
+                resolve();
+            } catch (e) {
+                reject(e);
             } finally {
                 next();
             }
@@ -179,7 +182,7 @@ export function pLimit(concurrency: number) {
         } else {
             queue.push(trigger);
         }
-    };
+    });
 
     return run;
 }

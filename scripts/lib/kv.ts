@@ -200,6 +200,15 @@ export class KVService {
             return;
         }
 
+        // Slim the skill data to match bulk sync format (strip body/bodyPreview/raw)
+        const slimmed = { ...skill };
+        if (slimmed.skillMd) {
+            const { body, bodyPreview, raw, ...keep } = slimmed.skillMd as any;
+            slimmed.skillMd = keep;
+        }
+        delete (slimmed as any).readme;
+        delete (slimmed as any).content;
+
         const key = `skill:${skill.id}`;
         const url = `${this.baseUrl}/bulk`;
 
@@ -207,7 +216,7 @@ export class KVService {
             const response = await fetchWithTimeout(url, {
                 method: 'PUT',
                 headers: this.headers,
-                body: JSON.stringify([{ key, value: JSON.stringify(skill) }]),
+                body: JSON.stringify([{ key, value: JSON.stringify(slimmed) }]),
             }, 30000);
 
             if (response.ok) {

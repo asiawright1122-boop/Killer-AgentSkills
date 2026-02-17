@@ -531,7 +531,9 @@ async function buildCache(): Promise<void> {
             oldData.skills.forEach(s => existingMap.set(s.id, s));
             lastCacheUpdate = oldData.lastUpdated;
             console.log(`📚 Loaded ${existingMap.size} skills from cache (last updated: ${lastCacheUpdate || 'unknown'})`);
-        } catch { }
+        } catch (e) {
+            console.error(`⚠️ Failed to load existing cache (corrupted or LFS pointer?):`, e);
+        }
     }
 
     const skills: SkillCache[] = [];
@@ -631,10 +633,6 @@ async function buildCache(): Promise<void> {
                                     console.log(`      ⏩ Skipping fetch (Cached & Fresh): ${skillDir.name}`);
                                     skills.push(existing);
                                     process.stdout.write('s');
-                                    // Live sync cached official skills
-                                    if (liveSync) {
-                                        await kvService.pushSkill(existing);
-                                    }
                                     continue;
                                 }
                             }
@@ -737,10 +735,6 @@ async function buildCache(): Promise<void> {
                             console.log(`      ⏩ Skipping fetch (Cached & Fresh): ${repo.repo}`);
                             skills.push(existing);
                             process.stdout.write('s');
-                            // Live sync cached single-repo official skills
-                            if (liveSync) {
-                                await kvService.pushSkill(existing);
-                            }
                             continue;
                         }
                     }
@@ -938,10 +932,6 @@ async function buildCache(): Promise<void> {
                 skills.push(existing);
                 processedRepos.add(skillId);
                 process.stdout.write('s');
-                // Live sync even skipped skills — their local data may be newer than KV
-                if (liveSync) {
-                    await kvService.pushSkill(existing);
-                }
                 return;
             }
 

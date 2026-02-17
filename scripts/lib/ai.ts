@@ -205,6 +205,8 @@ export class AIService {
                 return winner.content;
             } catch (e) {
                 // All providers failed, fall through to Cloudflare
+                const reasons = (e as any)?.errors?.map((err: Error) => err.message).join(', ') || String(e);
+                console.warn(`⚠️ All AI providers failed: ${reasons}`);
             }
         }
 
