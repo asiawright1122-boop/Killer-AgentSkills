@@ -24,4 +24,8 @@
   - [x] 更新 `zh.json` 将 "AI智能体兼容性" 改为 "Agent 专属能力分析" 等
   - [x] 更新 `en.json` 对应术语
   - [x] 微调 `[...repo].astro` 样式 (Core Value)
+- [x] 增强内容特异性 (Specificity)
+  - [x] 优化 `generateAgentAnalysis` Prompt，强制包含技术关键词 (p5.js, PyMuPDF 等)
+  - [x] 增加 Negative Constraints 防止通用废话
+  - [x] 验证 `pdf` Skill 的生成结果 (确认不再出现 log scraping 等幻觉)
 - [ ] 提交代码并推送

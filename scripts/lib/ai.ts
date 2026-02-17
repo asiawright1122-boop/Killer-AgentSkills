@@ -389,15 +389,17 @@ CRITICAL: Content must be specific to "${skillName}". Avoid generic filler.
 
 1. Suitability: A click-worthy one-sentence hook describing the *ideal* agent persona.
    - Good: "Perfect for Python Analysis Agents needing advanced data visualization capabilities."
-   - Bad: "Suitable for AI agents."
+   - Bad: "Suitable for AI agents." (Too generic)
 
 2. Recommendation: A persuasive paragraph (2-3 sentences) on *why* to install this.
    - Focus on the "Superpower" it gives the agent.
-   - Include specific technical keywords from the content (e.g., libraries, file formats, protocols).
-   - Start directly with the capability, not "This skill allows...".
+   - **MANDATORY**: Include specific technical keywords from the content (e.g., libraries like 'p5.js', file formats like '.svg', protocols).
+   - Start directly with the capability. Do NOT say "This skill allows...".
+   - Bad: "This skill helps agents do art." -> Good: "Empowers agents to generate deterministic SVG flow fields using p5.js."
 
 3. Use Cases: 3-5 specific, action-oriented scenarios.
    - Start with strong verbs (e.g., "Automating", "Generating", "Debugging").
+   - **Must be distinct** and directly derived from the skill's specific features.
    - example: "Generating SVG flow fields for hero sections" (Specific) vs "Creating art" (Generic).
 
 4. Limitations: Real constraints found in the text.

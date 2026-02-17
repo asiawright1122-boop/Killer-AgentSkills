@@ -59,3 +59,26 @@
   - **Limitations**: `安全性与限制` -> **`使用限制与门槛`** (Prerequisites & Limits)
 - **UI Tweaks (`[...repo].astro`)**:
   - Increased font weight for the "Core Value" (Recommendation) text to make it stand out as the primary selling point.
+
+## 4. Content Specificity Enhancement
+**Goal**: Eliminate generic "filler" content and ensure Agent Analysis is highly specific to the skill's actual function.
+
+### Changes
+- **Prompt Engineering (`scripts/lib/ai.ts`)**:
+  - Added **Negative Constraints**: Explicitly forbade generic phrases like "Suitable for AI agents" or "This skill allows...".
+  - **Mandatory Technical Keywords**: Forced the AI to extract and include specific libraries (e.g., `p5.js`, `PyMuPDF`), file formats, or protocols in the output.
+  - **Distinct Use Cases**: Required use cases to be action-oriented and distinct from each other.
+
+### Verification
+- **Test Case**: `pdf` skill.
+- **Before**: "Scraping local log files" (Hallucination/Generic).
+- **After**: 
+  ```json
+  "recommendation": "Empowers agents to handle a wide range of PDF operations... using robust Python libraries like pypdf and PyMuPDF.",
+  "useCases": [
+    "Automating the extraction of text and tables...",
+    "Generating new PDFs by merging or splitting...",
+    "Debugging and correcting OCR errors..."
+  ]
+  ```
+- **Result**: The content is now accurate, technical, and directly relevant to the PDF domain.
