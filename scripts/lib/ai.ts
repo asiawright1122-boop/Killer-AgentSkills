@@ -90,7 +90,7 @@ export class AIService {
                 url = 'https://integrate.api.nvidia.com/v1/chat/completions';
                 headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
                 bodyObj = {
-                    model: 'deepseek-ai/deepseek-v3.2',
+                    model: 'deepseek-ai/deepseek-v3.1',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
@@ -103,7 +103,7 @@ export class AIService {
                 url = 'https://api.siliconflow.cn/v1/chat/completions';
                 headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
                 bodyObj = {
-                    model: 'deepseek-ai/DeepSeek-V3.2',
+                    model: 'deepseek-ai/DeepSeek-V3',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
