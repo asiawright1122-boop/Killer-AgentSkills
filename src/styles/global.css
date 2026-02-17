@@ -115,6 +115,8 @@
     html {
         font-family: var(--font-body);
         scroll-behavior: smooth;
+        scroll-padding-top: 5rem;
+        /* Fix sticky header overlap */
     }
 
     h1,

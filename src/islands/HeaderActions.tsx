@@ -82,7 +82,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
     return (
         <>
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="relative z-50 flex items-center gap-2 md:gap-4">
                 {/* Language Selector Dropdown - Desktop */}
                 <div className="relative hidden md:block" ref={langDropdownRef}>
                     <button
