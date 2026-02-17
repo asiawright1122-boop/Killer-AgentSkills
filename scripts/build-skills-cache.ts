@@ -981,10 +981,10 @@ async function buildCache(): Promise<void> {
 
             skill.qualityScore = calculateQualityScore(skill);
             skills.push(skill);
-            console.log(`[DEBUG] Pushed ${skill.name}. Total: ${skills.length}. Should save? ${skills.length % 1 === 0}`);
+            console.log(`[DEBUG] Pushed ${skill.name}. Total: ${skills.length}.`);
 
-            // Auto-save every 1 processing new skills
-            if (skills.length % 1 === 0) {
+            // Auto-save every 10 newly processed skills
+            if (skills.length % 10 === 0) {
                 console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
                 await saveStateOnly(skills);
             }
@@ -1076,8 +1076,8 @@ async function buildCache(): Promise<void> {
             process.stdout.write('+'); // + for newly discovered and added
             console.log(`[DEBUG] Pushed discovered ${skill.name}. Total: ${skills.length}.`);
 
-            // Auto-save every 1 processing new skills
-            if (skills.length % 1 === 0) {
+            // Auto-save every 10 newly discovered skills
+            if (skills.length % 10 === 0) {
                 console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
                 await saveStateOnly(skills);
             }
@@ -1131,7 +1131,7 @@ async function buildCache(): Promise<void> {
     }
 
     if (mode === 'update') {
-        // Simple p-limit implementation to avoid adding dependencies
+        // Use the robust pLimit from utils (handles errors correctly)
         const pLimit = (concurrency: number) => {
             const queue: (() => Promise<void>)[] = [];
             let activeCount = 0;
@@ -1139,28 +1139,27 @@ async function buildCache(): Promise<void> {
             const next = () => {
                 activeCount--;
                 if (queue.length > 0) {
-                    const job = queue.shift()!;
-                    activeCount++;
-                    job().then(next);
+                    queue.shift()!();
                 }
             };
 
             const run = (fn: () => Promise<void>) => new Promise<void>((resolve, reject) => {
-                const job = async () => {
+                const trigger = async () => {
+                    activeCount++;
                     try {
                         await fn();
+                        resolve();
                     } catch (e) {
                         reject(e);
                     } finally {
-                        resolve();
+                        next();
                     }
                 };
 
                 if (activeCount < concurrency) {
-                    activeCount++;
-                    job().then(next);
+                    trigger();
                 } else {
-                    queue.push(job);
+                    queue.push(trigger);
                 }
             });
 

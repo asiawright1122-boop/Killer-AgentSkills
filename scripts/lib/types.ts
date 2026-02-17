@@ -16,7 +16,7 @@ export interface AgentAnalysis {
     recommendation: string | Record<string, string>;
     useCases: string[] | Record<string, string[]>;
     limitations: string[] | Record<string, string[]>;
-    version?: number; // 1 = legacy, 2 = SEO-optimized (Feb 2026)
+    version?: number; // 1 = legacy, 2 = SEO-optimized, 3 = quality audit (Feb 2026)
 }
 
 export interface TranslateContext {

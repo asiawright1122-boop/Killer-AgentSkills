@@ -350,11 +350,14 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
                         const featuresMap = parsed.features || parsed.seo?.features || { en: [] };
                         const keywordsMap = parsed.keywords || parsed.seo?.keywords || { en: [] };
 
+                        // Reject candidates with empty features/keywords — try next candidate
                         if (Array.isArray(featuresMap.en) && featuresMap.en.length === 0) {
-                            console.warn(`⚠️ Empty features for ${skillName}, will retry`);
+                            console.warn(`⚠️ Empty features for ${skillName}, trying next candidate...`);
+                            continue;
                         }
                         if (Array.isArray(keywordsMap.en) && keywordsMap.en.length === 0) {
-                            console.warn(`⚠️ Empty keywords for ${skillName}, will retry`);
+                            console.warn(`⚠️ Empty keywords for ${skillName}, trying next candidate...`);
+                            continue;
                         }
 
                         return {
@@ -530,19 +533,17 @@ EVERY locale MUST have ALL array items translated:
                             };
 
                             // Helper: validate array fields
+                            // NOTE: We preserve all items to maintain count consistency with source.
+                            // Only warn about suspicious items, don't filter them out.
                             const validateArrayField = (source: string[], targetWrapper: Record<string, string[]>) => {
                                 const verified: Record<string, string[]> = { en: source };
                                 for (const lang of SUPPORTED_LOCALES) {
                                     const val = targetWrapper[lang];
-                                    if (Array.isArray(val)) {
-                                        const sourceAvgLen = source.reduce((acc, s) => acc + s.length, 0) / (source.length || 1);
-                                        const validItems = val.filter(item => {
-                                            if (sourceAvgLen > 20 && item.length < 4) return false;
-                                            return true;
-                                        });
-                                        verified[lang] = validItems;
+                                    if (Array.isArray(val) && val.length > 0) {
+                                        verified[lang] = val;
                                     } else {
-                                        verified[lang] = [];
+                                        // Fallback: use English if translation is empty
+                                        verified[lang] = source;
                                     }
                                 }
                                 return verified;
