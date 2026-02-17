@@ -78,11 +78,13 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
         window.location.href = newPath;
     };
 
+    const closeMenu = () => setIsMenuOpen(false);
+
     return (
         <>
             <div className="flex items-center gap-2 md:gap-4">
-                {/* Language Selector Dropdown */}
-                <div className="relative" ref={langDropdownRef}>
+                {/* Language Selector Dropdown - Desktop */}
+                <div className="relative hidden md:block" ref={langDropdownRef}>
                     <button
                         onClick={() => setIsLangOpen(!isLangOpen)}
                         className="p-2 rounded-lg text-slate-500 hover:text-cyan-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1 font-medium text-sm"
@@ -115,7 +117,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                     )}
                 </div>
 
-                {/* Favorites */}
+                {/* Favorites - Desktop */}
                 <a
                     href={`/${locale}/favorites`}
                     className="hidden md:flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-pink-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
@@ -124,12 +126,10 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                     <Heart className="w-5 h-5" />
                 </a>
 
-
-
-                {/* Theme Toggle */}
+                {/* Theme Toggle - Desktop */}
                 <button
                     onClick={toggleTheme}
-                    className="p-2 rounded-lg text-slate-500 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-indigo-950 dark:text-slate-400 dark:hover:text-amber-400 transition-colors"
+                    className="hidden md:block p-2 rounded-lg text-slate-500 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-indigo-950 dark:text-slate-400 dark:hover:text-amber-400 transition-colors"
                     aria-label={labels.toggleTheme}
                 >
                     {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -137,7 +137,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden p-2 text-slate-600 dark:text-slate-300"
+                    className="md:hidden p-2 text-slate-600 dark:text-slate-300 z-50 relative"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={labels.toggleMenu}
                 >
@@ -145,55 +145,111 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 </button>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             {isMenuOpen && (
-                <div className="absolute top-16 left-0 w-full bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 p-6 md:hidden z-50 animate-in slide-in-from-top-2 shadow-xl">
-                    <nav className="flex flex-col gap-4">
-                        <a href={`/${locale}`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.home}</a>
-                        <a href={`/${locale}/skills`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.skills}</a>
-                        <a href={`/${locale}/categories`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.categories}</a>
-                        <a href={`/${locale}/blog`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.blog}</a>
-                        <a href={`/${locale}/docs`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.docs}</a>
-                        <a href={`/${locale}/cli`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.cli}</a>
-                        <a href={`/${locale}/community`} className="text-lg font-medium text-slate-600 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400">{labels.community}</a>
+                <div className="fixed inset-0 z-40 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl md:hidden animate-in fade-in slide-in-from-top-5 duration-200">
+                    <div className="flex flex-col h-full overflow-y-auto pt-24 pb-8 px-6">
+                        <nav className="flex flex-col gap-2">
+                            <a
+                                href={`/${locale}`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.home}
+                            </a>
+                            <a
+                                href={`/${locale}/skills`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.skills}
+                            </a>
+                            <a
+                                href={`/${locale}/categories`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.categories}
+                            </a>
+                            <a
+                                href={`/${locale}/blog`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.blog}
+                            </a>
+                            <a
+                                href={`/${locale}/docs`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.docs}
+                            </a>
+                            <a
+                                href={`/${locale}/cli`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.cli}
+                            </a>
+                            <a
+                                href={`/${locale}/community`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all"
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 dark:bg-slate-600 group-hover:bg-cyan-500"></span>
+                                {labels.community}
+                            </a>
 
-                        <hr className="border-slate-200 dark:border-slate-800" />
+                            <div className="my-4 border-t border-slate-200 dark:border-slate-800/50"></div>
 
-                        <div className="space-y-2">
-                            <span className="text-slate-500 text-sm">{labels.language}</span>
-                            <div className="grid grid-cols-2 gap-2">
-                                {Object.entries(localeNames).map(([code, name]) => (
-                                    <button
-                                        key={code}
-                                        onClick={() => switchLanguage(code)}
-                                        className={`text-left px-3 py-2 rounded-lg text-sm transition-colors ${code === locale
-                                            ? 'bg-cyan-50 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 font-medium border border-cyan-200 dark:border-cyan-800'
-                                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700'
-                                            }`}
-                                    >
-                                        {name}
-                                    </button>
-                                ))}
+                            {/* Favorites Action */}
+                            <a
+                                href={`/${locale}/favorites`}
+                                onClick={closeMenu}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-pink-50 dark:hover:bg-pink-900/10 hover:text-pink-600 dark:hover:text-pink-400 transition-all"
+                            >
+                                <Heart className="w-5 h-5" />
+                                {labels.favorites}
+                            </a>
+
+                            {/* Mobile Theme Toggle */}
+                            <button
+                                onClick={toggleTheme}
+                                className="flex items-center gap-4 p-4 rounded-xl text-lg font-medium text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 hover:text-amber-600 dark:hover:text-amber-400 transition-all w-full text-left"
+                            >
+                                {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+                                <span>{isDark ? 'Dark Mode' : 'Light Mode'}</span>
+                            </button>
+
+                            <div className="my-4 border-t border-slate-200 dark:border-slate-800/50"></div>
+
+                            {/* Mobile Language Selector */}
+                            <div className="px-4">
+                                <span className="text-sm font-semibold text-slate-400 dark:text-slate-500 mb-3 block uppercase tracking-wider">{labels.language}</span>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {Object.entries(localeNames).map(([code, name]) => (
+                                        <button
+                                            key={code}
+                                            onClick={() => switchLanguage(code)}
+                                            className={`text-left px-4 py-3 rounded-xl text-sm font-medium transition-all ${code === locale
+                                                ? 'bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800 shadow-sm'
+                                                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'
+                                                }`}
+                                        >
+                                            {name}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-
-                        <hr className="border-slate-200 dark:border-slate-800" />
-
-                        <div className="flex items-center justify-between">
-                            <span className="text-slate-500">{labels.theme}</span>
-                            <div className="flex bg-slate-100 dark:bg-slate-800 rounded-lg p-1">
-                                <button onClick={() => { if (!isDark) toggleTheme() }} className={`p-1 rounded ${isDark ? 'bg-white shadow text-slate-900' : 'text-slate-400'}`}><Moon size={16} /></button>
-                                <button onClick={() => { if (isDark) toggleTheme() }} className={`p-1 rounded ${!isDark ? 'bg-white shadow text-slate-900' : 'text-slate-400'}`}><Sun size={16} /></button>
-                            </div>
-                        </div>
-
-                        <hr className="border-slate-200 dark:border-slate-800" />
-
-                        <a href={`/${locale}/favorites`} className="flex items-center gap-2 text-lg font-medium text-slate-600 dark:text-slate-300">
-                            <Heart className="w-5 h-5" /> {labels.favorites}
-                        </a>
-
-                    </nav>
+                        </nav>
+                    </div>
                 </div>
             )}
         </>
