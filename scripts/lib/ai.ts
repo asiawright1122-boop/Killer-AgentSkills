@@ -89,7 +89,7 @@ export class AIService {
 
             const nvidiaPromise = (async () => {
                 const body: any = {
-                    model: 'meta/llama-3.3-70b-instruct',
+                    model: 'deepseek-ai/deepseek-v3.2',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
@@ -134,7 +134,7 @@ export class AIService {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.siliconFlowKey}` },
                     body: JSON.stringify({
-                        model: 'Qwen/Qwen2.5-72B-Instruct',
+                        model: 'deepseek-ai/DeepSeek-V3.2',
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.3,
                         max_tokens: 4096,
@@ -176,7 +176,7 @@ export class AIService {
                         'X-Title': 'Killer-Skills Translation'
                     },
                     body: JSON.stringify({
-                        model: 'mistralai/mistral-small-3.1-24b-instruct:free',
+                        model: 'deepseek/deepseek-r1-0528:free',
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.3,
                         max_tokens: 4096
