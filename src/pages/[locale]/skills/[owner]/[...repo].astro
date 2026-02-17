@@ -97,6 +97,10 @@ const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill
 // Optimized Title for "Agent Ready" intent
 const pageTitle = `${skill.name || repo}: ${tagline} (Agent Ready) | ${t('Common.siteName')}`;
 
+// SEO Description: Prefer dedicated SEO description (160 chars), fallback to composite description
+const seoDescription = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
+const metaDescription = seoDescription || description;
+
 
 // Structured Data (JSON-LD) — SoftwareApplication
 const schema = {
@@ -281,7 +285,7 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
 <Layout
   locale={locale}
   title={pageTitle}
-  description={description || t('Metadata.description')}
+  description={metaDescription || t('Metadata.description')}
   keywords={seoKeywords}
   image={ogImageUrl}
   ogType="product"

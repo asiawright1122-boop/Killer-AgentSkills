@@ -22,8 +22,9 @@ export const GET: APIRoute = async ({ locals }) => {
 
   // Get last modification date for skills
   let skillsLastMod = new Date().toISOString().split('T')[0];
+  let skills: { updatedAt?: string; }[] = [];
   try {
-    const skills = await getSitemapSkillsFromKV(env as Env);
+    skills = await getSitemapSkillsFromKV(env as Env) || [];
     if (skills.length > 0) {
       // Use the most recent updatedAt as the sitemap lastmod
       const latest = skills
@@ -39,6 +40,19 @@ export const GET: APIRoute = async ({ locals }) => {
 
   const today = new Date().toISOString().split('T')[0];
 
+  // Calculate number of sitemap chunks (limit 1000 skills per file)
+  const LIMIT = 1000;
+  const totalSkills = (skills && skills.length > 0) ? skills.length : 0;
+  const totalPages = Math.ceil(totalSkills / LIMIT) || 1;
+
+  const skillSitemaps = [];
+  for (let i = 1; i <= totalPages; i++) {
+    skillSitemaps.push(`<sitemap>
+  <loc>${SITE}/sitemap-skills-${i}.xml</loc>
+  <lastmod>${skillsLastMod}</lastmod>
+</sitemap>`);
+  }
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
@@ -53,10 +67,7 @@ export const GET: APIRoute = async ({ locals }) => {
   <loc>${SITE}/sitemap-docs.xml</loc>
   <lastmod>${today}</lastmod>
 </sitemap>
-<sitemap>
-  <loc>${SITE}/sitemap-skills.xml</loc>
-  <lastmod>${skillsLastMod}</lastmod>
-</sitemap>
+${skillSitemaps.join('\n')}
 </sitemapindex>`;
 
   return new Response(xml, {

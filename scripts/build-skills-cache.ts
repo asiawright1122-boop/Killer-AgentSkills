@@ -538,34 +538,7 @@ async function buildCache(): Promise<void> {
     globalSkillsRef = skills; // Store reference for SIGINT handler
     const processedRepos = new Set<string>();
 
-    // Helper: 检查翻译是否完整 (所有 9 种语言都有 SEO 数据 且包含 agentAnalysis)
-    function isTranslationComplete(skill: SkillCache): boolean {
-        if (!skill.seo || !skill.description) return false;
 
-        // Check for Agent Analysis with translations
-        if (!skill.agentAnalysis) return false;
-        // If suitability is still a plain string, it hasn't been translated yet
-        if (typeof skill.agentAnalysis.suitability === 'string') return false;
-        // Check that suitability has entries for all supported locales
-        const suitabilityMap = skill.agentAnalysis.suitability as Record<string, string>;
-        if (!suitabilityMap['en']) return false;
-        const hasAllAgentLocales = SUPPORTED_LOCALES.every(loc => {
-            const val = suitabilityMap[loc];
-            if (!val || val.trim().length === 0) return false;
-            // STRICT CHECK: If we have existing "bad" data (short keywords), mark as incomplete to force re-gen
-            if (suitabilityMap['en'] && suitabilityMap['en'].length > 20 && val.length < 10) return false;
-            return true;
-        });
-        if (!hasAllAgentLocales) return false;
-
-        // 检查 description 是否有所有语言版本
-        const desc = skill.description;
-        if (typeof desc === 'string') return false; // 纯字符串 = 未翻译
-        const hasAllDesc = SUPPORTED_LOCALES.every(loc => desc[loc] && desc[loc].trim().length > 0);
-        if (!hasAllDesc) return false;
-
-        return true;
-    }
 
     // Helper: 检查 skill 是否有更新 (updatedAt > lastSynced)
     function hasSkillUpdated(skill: SkillCache, freshUpdatedAt?: string): boolean {
@@ -588,8 +561,8 @@ async function buildCache(): Promise<void> {
     ): Promise<{ description: string | Record<string, string>, seo?: SeoData }> {
         const existing = existingMap.get(id);
 
-        // 增量翻译: 已完整翻译 + 没有更新 → 跳过
-        if (!force && existing && isTranslationComplete(existing) && !hasSkillUpdated(existing, freshUpdatedAt)) {
+        // 增量翻译: 已完整优化 + 没有更新 → 跳过
+        if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, freshUpdatedAt)) {
             process.stdout.write('s'); // s = skip (已完成)
             return { description: existing.description, seo: existing.seo };
         }
@@ -875,7 +848,9 @@ async function buildCache(): Promise<void> {
             s.owner === ownerLogin && s.repo === repoName && (s.repoPath === repoPath || s.id.startsWith(repoPath))
         );
 
-        if (existingSkill && isTranslationComplete(existingSkill)) {
+        // Optimization: If existing skill is fully optimized and NOT updated, use it directly
+        // Note: we use item.updatedAt (from search result) to check for updates
+        if (existingSkill && isSkillFullyOptimized(existingSkill) && !hasSkillUpdated(existingSkill, updatedAt)) {
             skills.push(existingSkill);
             // We need a unique ID for processedRepos, use the one from cache
             processedRepos.add(existingSkill.id);
@@ -959,7 +934,7 @@ async function buildCache(): Promise<void> {
 
             // Check if existing in cache
             const existing = existingMap.get(skillId);
-            if (!force && existing && isTranslationComplete(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
+            if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
                 skills.push(existing);
                 processedRepos.add(skillId);
                 process.stdout.write('s');
@@ -1203,10 +1178,10 @@ async function buildCache(): Promise<void> {
 
             const currentDesc = typeof skill.description === 'string' ? skill.description : (skill.description.en || '');
 
-            // 增量翻译: 翻译完整 + 无更新 → 跳过
-            if (isTranslationComplete(skill) && !hasSkillUpdated(skill)) {
+            // 增量翻译: 翻译完整 + SEO 完整 + 无更新 → 跳过
+            if (isSkillFullyOptimized(skill) && !hasSkillUpdated(skill)) {
                 skills.push(skill);
-                process.stdout.write('s'); // skip (已完整翻译)
+                process.stdout.write('S'); // Skip (Optimized)
             } else {
                 const rawDesc = skill.skillMd?.description || currentDesc || '';
                 const context = {
@@ -1435,6 +1410,28 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
         skills: uniqueSkills,
     };
     fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
+}
+
+// Helper to check if a skill is fully optimized (SEO + Translations) to skip expensive AI calls
+function isSkillFullyOptimized(skill: SkillCache): boolean {
+    // 1. Check for SEO Description (New requirement)
+    if (!skill.seo?.description?.en) return false;
+
+    // 2. Check for missing translations in description
+    if (typeof skill.description !== 'object') return false; // Must be localized
+    for (const loc of SUPPORTED_LOCALES) {
+        if (!skill.description[loc]) return false;
+    }
+
+    // 3. Check Agent Analysis (Must exist and be localized)
+    if (!skill.agentAnalysis) return false;
+    // We only check suitability as a proxy for the whole analysis being localized
+    if (typeof skill.agentAnalysis.suitability !== 'object') return false;
+    for (const loc of SUPPORTED_LOCALES) {
+        if (!(skill.agentAnalysis.suitability as Record<string, string>)[loc]) return false;
+    }
+
+    return true;
 }
 
 // Global reference for SIGINT handler

@@ -17,8 +17,16 @@ function formatDate(date: Date | string): string {
     return d.toISOString().split('T')[0];
 }
 
-export const GET: APIRoute = async ({ locals }) => {
+export const GET: APIRoute = async ({ locals, params }) => {
     const env = (locals as any).runtime?.env as Env | undefined;
+    const pageParam = params.page || '1';
+    const page = parseInt(pageParam, 10);
+    const LIMIT = 1000; // Skills per sitemap file
+
+    if (isNaN(page) || page < 1) {
+        return new Response('Invalid page', { status: 404 });
+    }
+
     const today = formatDate(new Date());
 
     let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
@@ -28,9 +36,18 @@ export const GET: APIRoute = async ({ locals }) => {
         console.error('[sitemap-skills] Failed to load skills', e);
     }
 
+    // Pagination Logic
+    const start = (page - 1) * LIMIT;
+    const end = start + LIMIT;
+    const paginatedSkills = skills.slice(start, end);
+
+    if (paginatedSkills.length === 0 && page > 1) {
+        return new Response('Page not found', { status: 404 });
+    }
+
     const urls: string[] = [];
 
-    for (const skill of skills) {
+    for (const skill of paginatedSkills) {
         // Skip invalid entries
         if (!skill.owner || !skill.repo) continue;
 

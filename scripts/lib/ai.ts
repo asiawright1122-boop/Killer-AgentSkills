@@ -251,6 +251,7 @@ export class AIService {
             description: { en: text },
             seo: {
                 title: { en: skillName || 'AI Skill' },
+                description: { en: text.slice(0, 160) },
                 definition: { en: text.slice(0, 200) },
                 features: { en: [] as string[] },
                 keywords: { en: [] as string[] }
@@ -344,9 +345,10 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
                         const safeTitle = (typeof seoTitleMap === 'string') ? { en: seoTitleMap } : seoTitleMap;
 
                         return {
-                            description: cleanAndTruncate(safeDesc as Record<string, string>, 160),
+                            description: cleanAndTruncate(safeDesc as Record<string, string>, 300), // Keep main description reasonably long if needed, or use safeDesc
                             seo: {
                                 title: cleanAndTruncate(safeTitle as Record<string, string>, 60),
+                                description: cleanAndTruncate(safeDesc as Record<string, string>, 160), // New dedicated field
                                 definition: parsed.definition || (parsed.seo?.definition) || { en: text },
                                 features: parsed.features || (parsed.seo?.features) || { en: [] },
                                 keywords: parsed.keywords || (parsed.seo?.keywords) || { en: [] }

@@ -1,5 +1,6 @@
 export interface SeoData {
     title: Record<string, string>;
+    description: Record<string, string>;
     definition: Record<string, string>;
     features: Record<string, string[]>;
     keywords: Record<string, string[]>;
