@@ -1,0 +1,61 @@
+# Walkthrough - Mobile Sidebar & SEO Optimization
+
+## 1. Mobile Sidebar Fix
+**Goal**: Make the skills sidebar collapsible on mobile devices to save screen space while keeping it accessible.
+
+### Changes
+- **`src/components/SkillsSidebar.astro`**:
+  - Added a "Toggle Header" visible only on mobile (`md:hidden`).
+  - Wrapped the sidebar content in a div that is hidden on mobile by default (`hidden md:block`).
+  - Added a simple script to toggle the `hidden` class and rotate the arrow icon.
+  - Used `currentFilterLabel` to show context in the closed state.
+
+### Verification
+- **Screenshot**: Confirmed the sidebar is now a compact header on mobile that expands on click.
+  
+  ![Mobile Sidebar Closed](/Users/kaka/.gemini/antigravity/brain/1cd43a22-f297-4f82-9f31-85cd692bbfe3/check_skills_sidebar_mobile_1771314881188.webp)
+
+## 2. SEO Content Optimization
+**Goal**: Improve the quality of AI-generated SEO metadata (title, description, use cases) for skills to be more specific and less generic.
+
+### Changes
+- **`scripts/lib/ai.ts`**:
+  - **Enhanced `translateMetadata` Prompt**:
+    - Added specific role ("Senior Technical SEO Specialist").
+    - Defined strict output format for `seoTitle`, `description`, `definition`, `features`, and `keywords`.
+    - Added "QUALITY GUIDELINES" to forbid generic fluff.
+  - **Fixed `generateAgentAnalysis` Hallucination**:
+    - **Problem**: The AI was copying the "PostgreSQL" example from the prompt into the output for unrelated skills (e.g., `algorithmic-art`).
+    - **Fix**: 
+      - Changed the prompt example to be strictly labeled as "Example JSON (for a 'PostgreSQL Database' skill)".
+      - Added explicit instruction: `Return JSON ONLY (Do NOT copy the example below, generate for "${skillName}")`.
+      - Verified that `algorithmic-art` now generates unique, relevant use cases like "Generating SVG flow fields".
+
+### Verification
+- **Script**: `scripts/verify-seo-pipeline.ts` confirmed the prompt structure.
+- **Real Run**: `npx tsx scripts/build-skills-cache.ts --filter=algorithmic-art --force` produced high-quality, unique data in `data/skills-cache.json`.
+
+```json
+// verified output for algorithmic-art
+"useCases": {
+  "en": [
+    "Automating the creation of algorithmic art pieces",
+    "Exploring interactive parameter spaces for artistic exploration",
+    "Generating flow fields and particle systems for dynamic visual effects",
+    ...
+  ]
+}
+```
+
+## 3. Agent Analysis UI Refinement
+**Goal**: Rename "AI Agent Compatibility" to terminology that better reflects the value proposition for Agents.
+
+### Changes
+- **Updated Terminology (`zh.json` / `en.json`)**:
+  - **Title**: `AI 智能体兼容性` -> **`Agent 专属能力分析`** (Agent Capability Analysis)
+  - **Suitability**: `最适合` -> **`适用 Agent 类型`** (Ideal Agent Persona)
+  - **Recommendation**: `使用此技能的理由` -> **`核心价值`** (Core Value)
+  - **Use Cases**: `可行的使用场景` -> **`赋予的主要能力`** (Capabilities Granted)
+  - **Limitations**: `安全性与限制` -> **`使用限制与门槛`** (Prerequisites & Limits)
+- **UI Tweaks (`[...repo].astro`)**:
+  - Increased font weight for the "Core Value" (Recommendation) text to make it stand out as the primary selling point.
