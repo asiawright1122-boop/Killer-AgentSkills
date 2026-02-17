@@ -10,6 +10,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { fetchSkillMd } from './lib/github';
 
 // KV 命名空间 ID
 const KV_NAMESPACE_ID = 'eb71984285c54c3488c17a32391b9fe5';
@@ -99,32 +100,6 @@ async function batchWriteToKV(entries: Array<{ key: string; value: string }>): P
     }
 }
 
-/**
- * 从 GitHub 获取 SKILL.md 内容
- */
-async function fetchSkillMd(owner: string, repo: string): Promise<string | null> {
-    const branches = ['main', 'master', 'canary', 'develop'];
-    const paths = [
-        'SKILL.md',
-        '.agent/skills/SKILL.md',
-        'skills/SKILL.md',
-    ];
-
-    for (const branch of branches) {
-        for (const p of paths) {
-            const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-            try {
-                const response = await fetch(url);
-                if (response.ok) {
-                    return await response.text();
-                }
-            } catch {
-                continue;
-            }
-        }
-    }
-    return null;
-}
 
 /**
  * 主函数
@@ -186,7 +161,7 @@ async function main() {
 
         process.stdout.write(`\r⏳ 处理中: ${i + 1}/${uniqueSkills.length} (${skill.owner}/${skill.repo})...`);
 
-        const content = await fetchSkillMd(skill.owner, skill.repo);
+        const content = await fetchSkillMd(skill.owner, skill.repo, '');
         if (content) {
             entries.push({ key, value: JSON.stringify(content) });
             successCount++;
