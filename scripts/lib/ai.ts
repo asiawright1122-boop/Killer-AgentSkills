@@ -267,8 +267,8 @@ export class AIService {
         const topics = context?.topics?.join(', ') || '';
         const bodyPreview = context?.bodyPreview?.slice(0, 1500) || '';
 
-        const prompt = `You are a Senior Technical SEO Specialist & UX Copywriter.
-Your task is to analyze this AI Agent Skill and generate premium, personalized SEO content.
+        const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate.
+Your task is to analyze this AI Agent Skill and generate premium, personalized SEO content for a developer audience.
 
 ## Input Data
 - **Skill Name**: "${skillName}"
@@ -276,49 +276,45 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
 - **Tags**: ${topics}
 - **Content Preview**: "${bodyPreview.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 1000)}..."
 
-## 1. ANALYSIS GUIDELINES (CRITICAL)
-- **NO GENERIC FLUFF**: Do not use "This skill allows you to...", "A powerful tool for...". Be direct.
-- **Identify Specifics**: Look for supported versions (e.g. "React 19"), specific APIs (e.g. "Notion API"), or concrete actions (e.g. "Converts PDF to Markdown").
-- **Tone**: Professional, authoritative, yet accessible. "Stripe-documentation" quality.
-- **TRANSLATION REQUIREMENT**: You MUST provide translations for ALL requested locales. Do NOT return empty strings. If unsure, provide a best-effort translation.
+## 1. QUALITY GUIDELINES (CRITICAL)
+- **NO GENERIC FLUFF**: Do not use "This skill allows you to...", "A powerful tool for...". Start directly with the value or definition.
+- **Be Specific**: If it's a Python library, mention Python. If it uses an API, mention the API.
+- **Tone**: Professional, authoritative, yet accessible (like Stripe or Vercel docs).
+- **TRANSLATION**: Provide complete, native-quality translations for all requested locales.
 
 ## 2. GENERATION TASKS (For Locales: ${SUPPORTED_LOCALES.join(', ')})
 
-### A. SEO Title (50-60 chars) - NEW!
-- **Goal**: High CTR and Keyword Relevance.
-- **Format**: [Product Name]: [Main Benefit/Feature] (Agent Ready)
-- **Example**: "Stripe Agent: Secure Payment Processing for AI (Agent Ready)"
+### A. SEO Title (50-60 chars)
+- **Goal**: unique, clickable title with main keyword.
+- **Format**: [Product Name]: [Main Benefit] (Agent Ready)
 
-### B. Meta Description (Strictly 140-160 chars)
-- **Goal**: High CTR in Search Results.
-- **Format**: [Action Verb] [Key Value Proposition]. Includes [Specific Feature 1] and [Specific Feature 2].
-- **Constraint**: Must be between 140 and 160 characters. Pad with value if too short, trim if too long.
-- **Example**: "Generate production-ready React components with Tailwind support. Features automated prop validation, responsive layouts, and Shadcn UI integration."
+### B. Meta Description (150-160 chars)
+- **Goal**: High CTR summary.
+- **Format**: [Action Verb] [Object] with [Specific Feature]. Includes [Benefit].
 
-### C. Featured Snippet / Definition (40-60 words)
-- **Goal**: Win Google's "Position Zero" (What is [Skill]?).
-- **Format**: A clear, encyclopedic definition.
-- **Structure**: "[Skill Name] is an [Category] capability for [Target User] that [Core Function]. It specifically handles [Unique Selling Point]..."
+### C. Introduction / Definition (The "What is it?")
+- **Goal**: A clear, encyclopedic definition for the "Featured Snippet".
+- **Format**: "${skillName} is a [Category] library for [Language/Platform] that enables [Core Capability]..."
+- **Constraint**: 40-60 words. No marketing fluff.
 
-### D. Key Features (3-4 items)
-- **Goal**: Show "Why use this?" in a glance.
-- **Format**: Short, punchy bullet points (max 6 words each).
-- **Example**: ["Zero-config setup", "Type-safe schema validation", "Multi-modal support"]
+### D. Use Cases (3 items)
+- **Goal**: Concrete scenarios where this is useful.
+- **Format**: specific action + context (e.g. "Parsing PDF invoices for automated expensing")
 
-### E. Keywords (5-8 items)
-- **Goal**: Long-tail SEO targeting.
-- **Format**: Specific terms (e.g. "Next.js 14 agent", "PDF parsing ai")
+### E. Key Features (4 items)
+- **Goal**: Technical highlights.
+- **Format**: short, feature-focused bullet points (e.g. "Zero-dependency", "Async Support")
+
+### F. Keywords (8 items)
+- **Goal**: Long-tail search terms.
 
 ## Output Format (STRICT JSON)
-- **IMPORTANT**: Your response must be a valid JSON object. Do not include any conversational text, markdown formatting, or code blocks.
-- **Ensure all quotes within strings are properly escaped (e.g. \\" instead of ").**
-- **Do not use trailing commas.** 
-
 {
   "seoTitle": { "en": "...", "zh": "...", ... },
   "description": { "en": "...", "zh": "...", ... },
   "definition": { "en": "...", "zh": "...", ... },
-  "features": { "en": ["...", "..."], "zh": ["...", "..."], ... },
+  "useCases": { "en": ["..."], "zh": ["..."], ... },
+  "features": { "en": ["..."], "zh": ["..."], ... },
   "keywords": { "en": ["..."], "zh": ["..."], ... }
 }`;
 
@@ -407,12 +403,22 @@ CRITICAL: Content must be specific to "${skillName}". Avoid generic filler.
 4. Limitations: Real constraints found in the text.
    - e.g., "Requires OpenAI API Key", "Filesystem Access Needed", "Python 3.10+ only".
 
-Return JSON ONLY:
+Return JSON ONLY (Do NOT copy the example below, generate for "${skillName}"):
+
+Example JSON (for a 'PostgreSQL Database' skill):
 {
-  "suitability": "Essential for Python coding agents needing direct file system manipulation.",
-  "recommendation": "Grants your agent the ability to directly read, write, and patch files on the local disk. It is a critical dependency for any autonomous coding workflow in Cursor or Windsurf that requires persistent state management.",
-  "useCases": ["Refactoring legacy implementations", "Automating test generation", "Scraping local log files"],
-  "limitations": ["Requires local filesystem permissions", "Not safe for untrusted sandboxes"]
+  "suitability": "Perfect for Backend Agents needing optimized SQL query generation.",
+  "recommendation": "Allows the agent to safely interact with PostgreSQL databases. It provides schema introspection and query validation.",
+  "useCases": ["Optimizing slow queries", "Generating schema migrations", "Validating SQL syntax"],
+  "limitations": ["Requires active database connection", "PostgreSQL only"]
+}
+
+Your Response (for "${skillName}"):
+{
+  "suitability": "...",
+  "recommendation": "...",
+  "useCases": ["...", "...", "..."],
+  "limitations": ["..."]
 }`;
 
         try {
