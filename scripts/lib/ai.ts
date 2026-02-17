@@ -101,7 +101,7 @@ export class AIService {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
                     body: JSON.stringify(body)
-                }, 60000);
+                }, 120000);
 
                 if (!res.ok) {
                     this.stats.nvidiaFail++;
@@ -134,13 +134,13 @@ export class AIService {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.siliconFlowKey}` },
                     body: JSON.stringify({
-                        model: 'Qwen/Qwen2.5-7B-Instruct',
+                        model: 'Qwen/Qwen2.5-72B-Instruct',
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.3,
                         max_tokens: 4096,
                         stream: false
                     })
-                }, 60000);
+                }, 120000);
 
                 if (!res.ok) throw new Error(`SiliconFlow ${res.status}`);
                 const data = await res.json() as any;
@@ -181,7 +181,7 @@ export class AIService {
                         temperature: 0.3,
                         max_tokens: 4096
                     })
-                }, 60000);
+                }, 120000);
 
                 if (!res.ok) throw new Error(`OpenRouter ${res.status}`);
                 const data = await res.json() as any;
@@ -231,7 +231,7 @@ export class AIService {
                             max_tokens: 1500
                         })
                     },
-                    60000
+                    120000
                 );
 
                 if (res.ok) {
