@@ -191,18 +191,8 @@ async function main() {
         bulkItems.push({ key: `all-skills:${i}`, value: shardValue });
     }
 
-    // 2. 添加元数据
-    bulkItems.push({
-        key: 'skills-metadata',
-        value: JSON.stringify({
-            totalCount: skills.length,
-            lastSynced: new Date().toISOString(),
-            cacheVersion: cacheData.version,
-            cacheLastUpdated: cacheData.lastUpdated,
-        })
-    });
 
-    // 3. 添加独立技能 (individual skill keys)
+    // 2. 添加独立技能 (individual skill keys)
     console.log('\n📤 准备批量写入数据...');
     for (const skill of skills) {
         // Use skill.id for precise lookups

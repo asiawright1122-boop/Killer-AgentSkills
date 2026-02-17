@@ -104,18 +104,9 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
                 console.log(`[KV] Loaded ${allSkills.length} skills from ${index.shardCount} shards`);
                 return allSkills;
             }
-            console.warn('[KV] Shards returned empty, trying legacy format...');
+            console.warn('[KV] Shards returned empty, trying local file fallback...');
         }
 
-        // 向后兼容: 旧的单 key 格式
-        const data = await env.SKILLS_CACHE.get('all-skills', 'json');
-        if (Array.isArray(data) && data.length > 0) {
-            return data;
-        }
-        // Handle case where data is { skills: [...] }
-        if (data && typeof data === 'object' && Array.isArray((data as any).skills) && (data as any).skills.length > 0) {
-            return (data as any).skills;
-        }
         // KV exists but returned empty/null — fall back to local file in dev mode
         if (import.meta.env.DEV) {
             console.warn('[KV] SKILLS_CACHE KV returned empty, falling back to local file');

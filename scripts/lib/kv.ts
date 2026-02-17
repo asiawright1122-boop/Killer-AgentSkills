@@ -189,43 +189,4 @@ export class KVService {
 
         return deletedCount;
     }
-
-    /**
-     * Push a single skill to KV for real-time frontend updates
-     * Non-blocking: failures are logged but don't interrupt the caller
-     */
-    async pushSkill(skill: { id: string;[key: string]: any }): Promise<void> {
-        if (!this.isConfigured) {
-            console.warn('[LIVE] ⚠️ Missing CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID, skipping KV push');
-            return;
-        }
-
-        // Slim the skill data to match bulk sync format (strip body/bodyPreview/raw)
-        const slimmed = { ...skill };
-        if (slimmed.skillMd) {
-            const { body, bodyPreview, raw, ...keep } = slimmed.skillMd as any;
-            slimmed.skillMd = keep;
-        }
-        delete (slimmed as any).readme;
-        delete (slimmed as any).content;
-
-        const key = `skill:${skill.id}`;
-        const url = `${this.baseUrl}/bulk`;
-
-        try {
-            const response = await fetchWithTimeout(url, {
-                method: 'PUT',
-                headers: this.headers,
-                body: JSON.stringify([{ key, value: JSON.stringify(slimmed) }]),
-            }, 30000);
-
-            if (response.ok) {
-                console.log(`[LIVE] ✅ Synced ${key} to KV`);
-            } else {
-                console.warn(`[LIVE] ❌ Failed to sync ${key}: ${response.status} ${await response.text().catch(() => '')}`);
-            }
-        } catch (e) {
-            console.warn(`[LIVE] ❌ Network error syncing ${key}:`, (e as Error).message);
-        }
-    }
 }

@@ -8,7 +8,7 @@ import * as path from 'path';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
 import { AIService } from './lib/ai';
-import { KVService } from './lib/kv'; // Optional if used later
+
 import {
     CATEGORY_RULES,
     OFFICIAL_REPOS,
@@ -30,7 +30,6 @@ if (fs.existsSync('.env.local')) {
 
 // ===== Service Instances =====
 const aiService = new AIService();
-const kvService = new KVService();
 
 // Category Determination (Local copy as in build script)
 function determineCategory(skill: SkillCache): string {
