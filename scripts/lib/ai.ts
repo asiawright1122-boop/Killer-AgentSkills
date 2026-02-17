@@ -76,13 +76,14 @@ export class AIService {
      */
     private async callAISingle(
         prompt: string,
-        provider: 'nvidia' | 'siliconflow' | 'openrouter',
+        provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare',
         apiKey: string,
         jsonMode: boolean = false
     ): Promise<string> {
         let url: string;
         let headers: Record<string, string>;
         let bodyObj: any;
+        let isCloudflareFormat = false; // CF has different response format
 
         switch (provider) {
             case 'nvidia': {
@@ -126,6 +127,16 @@ export class AIService {
                 };
                 break;
             }
+            case 'cloudflare': {
+                url = `https://api.cloudflare.com/client/v4/accounts/${this.config.cfAccountId}/ai/run/@cf/meta/llama-3.3-70b-instruct-fp8-fast`;
+                headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
+                bodyObj = {
+                    messages: [{ role: 'user', content: prompt }],
+                    max_tokens: 4096
+                };
+                isCloudflareFormat = true;
+                break;
+            }
         }
 
         const res = await fetchWithTimeout(url, {
@@ -139,7 +150,11 @@ export class AIService {
         }
 
         const data = await res.json() as any;
-        const content = data?.choices?.[0]?.message?.content;
+        // Cloudflare Workers AI returns { result: { response: "..." } }
+        // Others return { choices: [{ message: { content: "..." } }] }
+        const content = isCloudflareFormat
+            ? data?.result?.response
+            : data?.choices?.[0]?.message?.content;
         if (!content) throw new Error(`${provider} empty response`);
 
         // CJK validation in jsonMode
@@ -209,27 +224,12 @@ export class AIService {
         // 4️⃣ Last resort: Cloudflare Workers AI
         if (this.config.cfAccountId && this.config.cfApiToken) {
             try {
-                const res = await fetchWithTimeout(
-                    `https://api.cloudflare.com/client/v4/accounts/${this.config.cfAccountId}/ai/run/@cf/meta/llama-3.1-8b-instruct-fast`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.config.cfApiToken}` },
-                        body: JSON.stringify({
-                            messages: [{ role: 'user', content: prompt }],
-                            max_tokens: 1500
-                        })
-                    },
-                    120000
-                );
-
-                if (res.ok) {
-                    const data = await res.json() as any;
-                    this.stats.cloudflare++;
-                    process.stdout.write('C');
-                    return data?.result?.response || null;
-                }
+                const result = await this.callAISingle(prompt, 'cloudflare', this.config.cfApiToken, jsonMode);
+                this.stats.cloudflare++;
+                process.stdout.write('C');
+                return result;
             } catch (e) {
-                // All failed
+                console.warn(`⚠️ Cloudflare: ${(e as Error).message}`);
             }
         }
 
