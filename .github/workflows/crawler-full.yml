@@ -38,7 +38,7 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Run skills cache builder (Update Mode + Live Sync)
-        run: npm run build:cache -- --mode=update --live
+        run: npm run build:cache -- --mode=update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}

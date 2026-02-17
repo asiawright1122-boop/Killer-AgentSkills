@@ -164,9 +164,7 @@ async function buildCache(): Promise<void> {
     const force = args.includes('--force'); // Force re-generation of AI content
     const filterArg = args.find(arg => arg.startsWith('--filter='));
     const filters = filterArg ? filterArg.split('=')[1].toLowerCase().split(',') : [];
-    const liveSync = true; // FORCE ENABLE: Always real-time KV sync as per requirement
-
-    console.log(`🚀 Starting cache build in [${mode.toUpperCase()}] mode... (Force: ${force}, Filter: ${filters.join(',') || 'None'}, Live: ${liveSync} [FORCED])\n`);
+    console.log(`🚀 Starting cache build in [${mode.toUpperCase()}] mode... (Force: ${force}, Filter: ${filters.join(',') || 'None'})\n`);
 
     if (!['discover', 'update', 'full-discovery'].includes(mode)) {
         console.error(`❌ Invalid mode: ${mode}. Use --mode=discover, --mode=update, or --mode=full-discovery`);
@@ -365,10 +363,7 @@ async function buildCache(): Promise<void> {
                             skill.qualityScore = calculateQualityScore(skill);
                             skills.push(skill);
                             process.stdout.write('.');
-                            // Live sync newly processed official skills
-                            if (liveSync) {
-                                await kvService.pushSkill(skill);
-                            }
+
                         }
                     }
                 } catch (e) {
@@ -427,10 +422,7 @@ async function buildCache(): Promise<void> {
                     skill.qualityScore = calculateQualityScore(skill);
                     skills.push(skill);
                     process.stdout.write('.');
-                    // Live sync newly processed single-repo official skills
-                    if (liveSync) {
-                        await kvService.pushSkill(skill);
-                    }
+
                 }
             }
         }
@@ -630,10 +622,7 @@ async function buildCache(): Promise<void> {
                 console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
                 await saveStateOnly(skills);
             }
-            // Live sync to KV if --live flag is set
-            if (liveSync) {
-                await kvService.pushSkill(skill);
-            }
+
         } catch (e) {
             console.error(`\n❌ Error processing ${item.owner}/${item.repo}:`, e);
         }
@@ -723,10 +712,7 @@ async function buildCache(): Promise<void> {
                 console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
                 await saveStateOnly(skills);
             }
-            // Live sync to KV if --live flag is set
-            if (liveSync) {
-                await kvService.pushSkill(skill);
-            }
+
         } catch (e) {
             console.error(`\n❌ Error processing discovered skill:`, e);
         }
@@ -855,10 +841,7 @@ async function buildCache(): Promise<void> {
                     console.log(`\n💾 Auto-saving checkpoint (${processedCount} updates)...`);
                     await saveStateOnly(skills);
                 }
-                // Live sync to KV if --live flag is set
-                if (liveSync) {
-                    await kvService.pushSkill(skill);
-                }
+
             }
         }));
 
@@ -966,34 +949,90 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
     const KV_NAMESPACE_ID = 'eb71984285c54c3488c17a32391b9fe5'; // SKILLS_CACHE
 
     if (CF_API_TOKEN && CF_ACCOUNT_ID) {
-        console.log(`\n📤 Syncing to Cloudflare KV...`);
+        console.log(`\n📤 Syncing ${cleanedSkills.length} cleaned skills to Cloudflare KV...`);
+        const kvHeaders = {
+            'Authorization': `Bearer ${CF_API_TOKEN}`,
+            'Content-Type': 'application/json',
+        };
+        const kvBulkUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/bulk`;
+
         try {
-            const slimmedSkills = cleanedSkills.map(skill => {
-                const summary = { ...skill };
-                if (summary.skillMd) {
-                    const { body, bodyPreview, raw, ...keep } = summary.skillMd as any;
-                    summary.skillMd = keep;
+            // --- 1. Write individual skill:* keys (post-filter, guaranteed clean) ---
+            const skillBulkItems: Array<{ key: string, value: string }> = [];
+            for (const skill of cleanedSkills) {
+                const slimmed = { ...skill };
+                if (slimmed.skillMd) {
+                    const { body, bodyPreview, raw, ...keep } = slimmed.skillMd as any;
+                    slimmed.skillMd = keep;
                 }
-                delete (summary as any).readme;
-                delete (summary as any).content;
-                return summary;
-            });
+                delete (slimmed as any).readme;
+                delete (slimmed as any).content;
+                const key = `skill:${skill.id || `${skill.owner}/${skill.repo}`}`;
+                skillBulkItems.push({ key, value: JSON.stringify(slimmed) });
+            }
 
-            const kvUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/values/all-skills`;
-            const response = await fetch(kvUrl, {
-                method: 'PUT',
-                headers: {
-                    'Authorization': `Bearer ${CF_API_TOKEN}`,
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(slimmedSkills),
-            });
+            // Write in batches of 500
+            const BATCH_SIZE = 500;
+            let writeSuccess = 0;
+            for (let i = 0; i < skillBulkItems.length; i += BATCH_SIZE) {
+                const batch = skillBulkItems.slice(i, i + BATCH_SIZE);
+                const resp = await fetch(kvBulkUrl, {
+                    method: 'PUT',
+                    headers: kvHeaders,
+                    body: JSON.stringify(batch),
+                });
+                if (resp.ok) {
+                    writeSuccess += batch.length;
+                } else {
+                    console.error(`   ❌ Batch write failed: ${await resp.text()}`);
+                }
+            }
+            console.log(`   ✅ Wrote ${writeSuccess}/${skillBulkItems.length} individual skill keys`);
 
-            if (response.ok) {
-                console.log(`   ✅ Successfully synced ${slimmedSkills.length} skills to KV (slimmed)!`);
+            // --- 2. Cleanup stale skill:* keys not in cleaned set ---
+            const activeSkillKeys = new Set(skillBulkItems.map(i => i.key));
+            console.log(`   🔍 Listing existing KV keys for stale cleanup...`);
+
+            // Paginate through all KV keys
+            const allKvKeys: string[] = [];
+            let cursor = '';
+            let hasMore = true;
+            while (hasMore) {
+                const listUrl = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/keys?limit=1000${cursor ? `&cursor=${cursor}` : ''}`;
+                const listResp = await fetch(listUrl, { headers: kvHeaders });
+                if (!listResp.ok) {
+                    console.error(`   ❌ Failed to list KV keys: ${await listResp.text()}`);
+                    break;
+                }
+                const listData = await listResp.json() as any;
+                if (listData.success) {
+                    allKvKeys.push(...listData.result.map((item: any) => item.name));
+                    cursor = listData.result_info?.cursor || '';
+                    hasMore = !!cursor;
+                } else {
+                    break;
+                }
+            }
+            console.log(`   📦 Found ${allKvKeys.length} total KV keys`);
+
+            // Find stale skill:* keys
+            const staleKeys = allKvKeys.filter(key =>
+                key.startsWith('skill:') && !activeSkillKeys.has(key)
+            );
+
+            if (staleKeys.length > 0) {
+                console.log(`   🗑️  Deleting ${staleKeys.length} stale skill keys...`);
+                for (let i = 0; i < staleKeys.length; i += 1000) {
+                    const batch = staleKeys.slice(i, i + 1000);
+                    await fetch(kvBulkUrl, {
+                        method: 'DELETE',
+                        headers: kvHeaders,
+                        body: JSON.stringify(batch),
+                    });
+                }
+                console.log(`   ✅ Cleaned up ${staleKeys.length} stale keys`);
             } else {
-                const error = await response.text();
-                console.error(`   ❌ KV sync failed: ${error}`);
+                console.log(`   ✅ No stale skill keys found — KV is clean`);
             }
         } catch (error) {
             console.error(`   ❌ KV sync error:`, error);
