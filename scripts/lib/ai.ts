@@ -176,7 +176,7 @@ export class AIService {
                         'X-Title': 'Killer-Skills Translation'
                     },
                     body: JSON.stringify({
-                        model: 'deepseek/deepseek-r1-0528:free',
+                        model: 'google/gemma-3-27b-it:free',
                         messages: [{ role: 'user', content: prompt }],
                         temperature: 0.3,
                         max_tokens: 4096
