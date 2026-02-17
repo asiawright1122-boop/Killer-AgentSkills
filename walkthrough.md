@@ -85,6 +85,9 @@
 
 ## 5. Build System Fix
 **Issue**: `npm run build` failed with `Unexpected token 'v', "version": 1...` in `skills-json-loader`.
-**Cause**: The loader in `src/content.config.ts` was not handling the new `version` field added to `data/skills-cache.json`.
-**Fix**: Updated `src/content.config.ts` to explicitly check for `data.version` and correctly extract `data.skills`.
-**Verification**: Ran `npm run build` successfully.
+**Cause 1**: The loader in `src/content.config.ts` was not handling the new `version` field added to `data/skills-cache.json`.
+**Cause 2**: The error message "Unexpected token 'v', \"version ht\"..." strongly suggests `data/skills-cache.json` is a Git LFS pointer file (`version https://...`) on the user's machine, meaning LFS content wasn't pulled.
+**Fix**: 
+1. Updated `src/content.config.ts` to handle `data.version`.
+2. Added specific check for LFS pointer file content to throw a helpful error: `Detected Git LFS pointer file... run "git lfs pull"`.
+**Action Required**: User must run `git lfs pull` if they see this error.

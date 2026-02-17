@@ -34,6 +34,11 @@ const skillsLoader = {
             const filePath = path.resolve('./data/skills-cache.json');
             const fileContent = await fs.readFile(filePath, 'utf-8');
             console.log(`[DEBUG] skills-cache.json start: ${fileContent.substring(0, 100)}...`);
+
+            if (fileContent.startsWith('version https://git-lfs.github.com/spec/v1')) {
+                throw new Error('Detected Git LFS pointer file instead of actual JSON. Please run "git lfs pull" to download the real file.');
+            }
+
             const data = JSON.parse(fileContent);
             let skillsStart = [];
 
