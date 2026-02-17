@@ -131,24 +131,26 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
     },
     cline: {
         name: 'Cline',
-        format: 'SKILL.md',
+        format: 'rules.md',
         paths: {
-            global: path.join(homedir, '.cline', 'skills'),
-            project: '.cline/skills'
+            global: null,
+            project: '.clinerules'
         },
-        detectFiles: ['.cline'],
+        detectFiles: ['.cline', '.clinerules'],
         priority: 10,
+        requiresConversion: true,
         category: 'agent'
     },
     roo: {
         name: 'Roo Cline',
-        format: 'SKILL.md',
+        format: 'rules.md',
         paths: {
-            global: path.join(homedir, '.roo', 'skills'),
-            project: '.roo/skills'
+            global: null,
+            project: '.clinerules'
         },
-        detectFiles: ['.roo'],
+        detectFiles: ['.roo', '.clinerules', '.roomodes'],
         priority: 11,
+        requiresConversion: true,
         category: 'agent'
     },
     kiro: {

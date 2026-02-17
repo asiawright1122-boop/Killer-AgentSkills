@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import ora from 'ora';
 import path from 'path';
 import { findAllSkills } from '../utils/skills.js';
-import { readSkillMetadata, SkillSourceMetadata } from '../utils/skill-metadata.js';
+import { readSkillMetadata, type SkillSourceMetadata } from '../utils/skill-metadata.js';
 import { fetchGitHubAPI } from '../utils/github.js';
 
 interface OutdatedSkill {

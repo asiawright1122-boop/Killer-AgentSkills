@@ -34,8 +34,10 @@ Killer-Skills dynamically detects and configures IDEs based on its internal conf
 | **Claude Code** | `CLAUDE.md` | ✅ Supported |
 | **Antigravity (Gemini)** | `AGENTS.md` | ✅ Native |
 | **Aider, Codex, Goose** | `AGENTS.md` (XML) | ✅ Supported |
-| **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ Supported |
-| **Cline, Roo, Augment** | `AGENTS.md` | ✅ Supported |
+| **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ Perfect |
+| **Cline** | `.clinerules` | ✅ Perfect |
+| **Roo Code** | `.clinerules` | ✅ Perfect |
+| **Augment** | `AGENTS.md` | ✅ Supported |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ Supported |
 
 *New IDEs are added regularly. Run `kiro completion` to see the latest list.*
@@ -132,6 +134,28 @@ npx killer-skills-mcp
 
 **Exposed Tools:** `install_skill`, `list_skills`, `search_skills`, `read_skill`
 
+#### Configuration
+
+**Claude Desktop:**
+Add to `~/Library/Application Support/Claude/claude_desktop_config.json`:
+```json
+{
+  "mcpServers": {
+    "killer-skills": {
+      "command": "npx",
+      "args": ["-y", "killer-skills-mcp"]
+    }
+  }
+}
+```
+
+**Cursor:**
+1. Go to **Settings** > **Features** > **MCP Servers**
+2. Click **+ Add Native MCP Server**
+3. Name: `killer-skills`
+4. Type: `command`
+5. Command: `npx -y killer-skills-mcp`
+
 ---
 
 ## 🇨🇳 中文
@@ -159,8 +183,10 @@ Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **17
 | **Claude Code** | `CLAUDE.md` | ✅ 支持 |
 | **Antigravity (Gemini)** | `AGENTS.md` | ✅ 原生支持 |
 | **Aider, Codex, Goose** | `AGENTS.md` (XML) | ✅ 支持 |
-| **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ 支持 |
-| **Cline, Roo, Augment** | `AGENTS.md` | ✅ 支持 |
+| **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ 完美支持 |
+| **Cline** | `.clinerules` | ✅ 完美支持 |
+| **Roo Code** | `.clinerules` | ✅ 完美支持 |
+| **Augment** | `AGENTS.md` | ✅ 支持 |
 | **Continue, Cody, Amazon Q** | `AGENTS.md` | ✅ 支持 |
 
 *新 IDE 支持会定期添加。运行 `kiro completion` 可查看最新列表。*
@@ -256,6 +282,28 @@ npx killer-skills-mcp
 ```
 
 **Exposed Tools:** `install_skill`, `list_skills`, `search_skills`, `read_skill`
+
+#### 配置指南
+
+**Claude Desktop:**
+添加到 `~/Library/Application Support/Claude/claude_desktop_config.json`：
+```json
+{
+  "mcpServers": {
+    "killer-skills": {
+      "command": "npx",
+      "args": ["-y", "killer-skills-mcp"]
+    }
+  }
+}
+```
+
+**Cursor:**
+1. 进入 **Settings** > **Features** > **MCP Servers**
+2. 点击 **+ Add Native MCP Server**
+3. Name: `killer-skills`
+4. Type: `command`
+5. Command: `npx -y killer-skills-mcp`
 
 ---
 

@@ -1414,6 +1414,10 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
 
 // Helper to check if a skill is fully optimized (SEO + Translations) to skip expensive AI calls
 function isSkillFullyOptimized(skill: SkillCache): boolean {
+    // 0. Check Prompt Version (New Feb 2026 standard)
+    // If agentAnalysis is missing version or version < 2, it means it was generated with old prompt.
+    if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 2) return false;
+
     // 1. Check for SEO Description (New requirement)
     if (!skill.seo?.description?.en) return false;
 
@@ -1425,7 +1429,6 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
 
     // 3. Check Agent Analysis (Must exist and be localized)
     if (!skill.agentAnalysis) return false;
-    // We only check suitability as a proxy for the whole analysis being localized
     if (typeof skill.agentAnalysis.suitability !== 'object') return false;
     for (const loc of SUPPORTED_LOCALES) {
         if (!(skill.agentAnalysis.suitability as Record<string, string>)[loc]) return false;

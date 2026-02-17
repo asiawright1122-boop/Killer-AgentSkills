@@ -380,25 +380,37 @@ Your task is to analyze this AI Agent Skill and generate premium, personalized S
         skillName: string,
         description: string,
         bodyPreview: string
-    ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
+    ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number } | undefined> {
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
-
+        
 Skill: ${skillName}
 Description: ${description}
 Content Preview:
 ${bodyPreview.slice(0, 1500)}
 
-Analyze this skill and provide structured data optimized for SEO and Agent Developers:
+Analyze this skill and provide structured data optimized for SEO and Agent Developers.
+CRITICAL: Content must be specific to "${skillName}". Avoid generic filler.
 
-1. Suitability: A click-worthy one-sentence hook describing the *ideal* agent persona (e.g., "Perfect for Autonomous Python Coding Agents").
-2. Recommendation: A persuasive paragraph (2-3 sentences) on *why* to install this. Explicitly mention what "Superpower" it gives the agent.
-3. Use Cases: 3-5 specific, action-oriented scenarios. Use strong verbs and keywords (e.g., "Automating", "Scraping", "Debugging").
-4. Limitations: Any security warnings, API key requirements, or platform constraints (e.g., "No Sandbox", "Requires API Key").
+1. Suitability: A click-worthy one-sentence hook describing the *ideal* agent persona.
+   - Good: "Perfect for Python Analysis Agents needing advanced data visualization capabilities."
+   - Bad: "Suitable for AI agents."
+
+2. Recommendation: A persuasive paragraph (2-3 sentences) on *why* to install this.
+   - Focus on the "Superpower" it gives the agent.
+   - Include specific technical keywords from the content (e.g., libraries, file formats, protocols).
+   - Start directly with the capability, not "This skill allows...".
+
+3. Use Cases: 3-5 specific, action-oriented scenarios.
+   - Start with strong verbs (e.g., "Automating", "Generating", "Debugging").
+   - example: "Generating SVG flow fields for hero sections" (Specific) vs "Creating art" (Generic).
+
+4. Limitations: Real constraints found in the text.
+   - e.g., "Requires OpenAI API Key", "Filesystem Access Needed", "Python 3.10+ only".
 
 Return JSON ONLY:
 {
   "suitability": "Essential for Python coding agents needing direct file system manipulation.",
-  "recommendation": "This skill grants your agent the ability to read, write, and patch files directly. It is a critical dependency for any autonomous coding workflow in Cursor or Windsurf.",
+  "recommendation": "Grants your agent the ability to directly read, write, and patch files on the local disk. It is a critical dependency for any autonomous coding workflow in Cursor or Windsurf that requires persistent state management.",
   "useCases": ["Refactoring legacy implementations", "Automating test generation", "Scraping local log files"],
   "limitations": ["Requires local filesystem permissions", "Not safe for untrusted sandboxes"]
 }`;
@@ -414,7 +426,8 @@ Return JSON ONLY:
                             suitability: parsed.suitability || "Suitable for general AI agents.",
                             recommendation: parsed.recommendation || "",
                             useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
-                            limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
+                            limitations: Array.isArray(parsed.limitations) ? parsed.limitations : [],
+                            version: 2 // Bump version to force update
                         };
                     }
                 }
@@ -430,7 +443,7 @@ Return JSON ONLY:
      * Includes validation to reject suspiciously short translations
      */
     async translateAgentAnalysis(
-        raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] }
+        raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number }
     ): Promise<AgentAnalysis> {
         const localesStr = SUPPORTED_LOCALES.join(', ');
         const prompt = `You are a professional translator for technical documentation.
@@ -511,6 +524,7 @@ Return JSON ONLY with this structure (include "en" key with original English tex
                                 recommendation: validateField(raw.recommendation, parsed.recommendation || {}),
                                 useCases: validateArrayField(raw.useCases, parsed.useCases || {}),
                                 limitations: validateArrayField(raw.limitations, parsed.limitations || {}),
+                                version: raw.version || 1
                             };
                         }
                     }
@@ -526,6 +540,7 @@ Return JSON ONLY with this structure (include "en" key with original English tex
             recommendation: { en: raw.recommendation },
             useCases: { en: raw.useCases },
             limitations: { en: raw.limitations },
+            version: raw.version || 1
         };
     }
 }

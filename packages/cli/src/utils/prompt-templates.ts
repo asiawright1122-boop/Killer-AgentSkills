@@ -237,8 +237,8 @@ export const PROMPT_TEMPLATES: Record<string, PromptTemplate> = {
 
     // === Agents (XML format) ===
     goose: { format: 'xml', generate: generateXmlPrompt },
-    cline: { format: 'xml', generate: generateXmlPrompt },
-    roo: { format: 'xml', generate: generateXmlPrompt },
+    cline: { format: 'markdown', generate: generateCursorPrompt },
+    roo: { format: 'markdown', generate: generateCursorPrompt },
     augment: { format: 'xml', generate: generateXmlPrompt },
 
     // === Kiro (JSON-flavored) ===

@@ -43,8 +43,8 @@ const IDE_OUTPUT_FILES: Record<string, string> = {
     codex: 'AGENTS.md',
     // Agents
     goose: 'AGENTS.md',
-    cline: 'AGENTS.md',
-    roo: 'AGENTS.md',
+    cline: '.clinerules',
+    roo: '.clinerules',
     kiro: path.join('.kiro', 'steering', 'skills.md'),
     augment: 'AGENTS.md',
     // VS Code Extensions
@@ -210,8 +210,8 @@ function detectIDE(): string {
         { ide: 'codex', files: ['.codex'] },
         // Agents
         { ide: 'goose', files: ['.goose'] },
-        { ide: 'cline', files: ['.cline'] },
-        { ide: 'roo', files: ['.roo'] },
+        { ide: 'cline', files: ['.cline', '.clinerules'] },
+        { ide: 'roo', files: ['.roo', '.clinerules', '.roomodes'] },
         { ide: 'kiro', files: ['.kiro'] },
         { ide: 'augment', files: ['.augment'] },
         // Extensions (lower priority)
