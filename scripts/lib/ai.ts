@@ -143,7 +143,7 @@ export class AIService {
             method: 'POST',
             headers,
             body: JSON.stringify(bodyObj)
-        }, 45000); // 45s timeout: Fail faster for stuck requests
+        }, 35000); // 35s timeout: 3-locale batch completes in ~25-32s
 
         if (!res.ok) {
             throw new Error(`${provider} ${res.status}`);
@@ -152,10 +152,13 @@ export class AIService {
         const data = await res.json() as any;
         // Cloudflare Workers AI returns { result: { response: "..." } }
         // Others return { choices: [{ message: { content: "..." } }] }
-        const content = isCloudflareFormat
+        const rawContent = isCloudflareFormat
             ? data?.result?.response
             : data?.choices?.[0]?.message?.content;
-        if (!content) throw new Error(`${provider} empty response`);
+        if (!rawContent) throw new Error(`${provider} empty response`);
+
+        // Normalize: Cloudflare sometimes returns object instead of string
+        const content = typeof rawContent === 'string' ? rawContent : JSON.stringify(rawContent);
 
         // CJK validation in jsonMode
         if (jsonMode) {
@@ -250,7 +253,8 @@ export class AIService {
 
     /**
      * Translate and Generate Metadata with Full SEO Prompt
-     * Uses robust JSON extraction with multiple fallback strategies
+     * Uses batch-locale strategy: splits 10 locales into 3-4 batches
+     * to keep output token count manageable (prevents timeouts).
      */
     async translateMetadata(text: string, context?: TranslateContext, nvidiaKeyIndex?: number): Promise<{
         description: Record<string, string>;
@@ -269,134 +273,134 @@ export class AIService {
         };
 
         const hasNvidia = this.config.nvidiaKeys.length > 0;
+        const hasSiliconFlow = !!this.config.siliconFlowKey;
         const hasCloudflare = this.config.cfAccountId && this.config.cfApiToken;
 
-        if (!hasNvidia && !hasCloudflare) return defaultResult;
+        if (!hasNvidia && !hasSiliconFlow && !hasCloudflare) return defaultResult;
 
         console.log(`[AIService] Translating ${skillName}...`);
         const topics = context?.topics?.join(', ') || '';
         const bodyPreview = context?.bodyPreview?.slice(0, 1500) || '';
 
-        const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate.
-Your task is to analyze this AI Agent Skill and generate premium, personalized SEO content for a developer audience.
+        // Split locales into batches of 3-4 to avoid output token timeout
+        const localeBatches: string[][] = [];
+        const BATCH_SIZE = 3;
+        for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
+            localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
+        }
 
-## Input Data
+        // Merged result accumulators
+        const mergedDesc: Record<string, string> = {};
+        const mergedSeoTitle: Record<string, string> = {};
+        const mergedMetaDesc: Record<string, string> = {};
+        const mergedDefinition: Record<string, string> = {};
+        const mergedFeatures: Record<string, string[]> = {};
+        const mergedKeywords: Record<string, string[]> = {};
+
+        let successCount = 0;
+
+        for (const batch of localeBatches) {
+            const localeStr = batch.join(', ');
+            const localeExample = batch.map(l => `"${l}": "..."`).join(', ');
+            const localeArrayExample = batch.map(l => `"${l}": ["..."]`).join(', ');
+
+            const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate.
+Analyze this AI Agent Skill and generate SEO content for a developer audience.
+
+## Input
 - **Skill Name**: "${skillName}"
-- **Original Description**: "${text.replace(/"/g, '\\"')}"
+- **Description**: "${text.slice(0, 2000).replace(/"/g, '\\"')}"
 - **Tags**: ${topics}
-- **Content Preview**: "${bodyPreview.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 1000)}..."
+- **Content**: "${bodyPreview.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 1000)}"
 
-## 1. QUALITY GUIDELINES (CRITICAL)
-- **NO GENERIC FLUFF**: Do not use "This skill allows you to...", "A powerful tool for...". Start directly with the value or definition.
-- **Be Specific**: If it's a Python library, mention Python. If it uses an API, mention the API.
-- **Tone**: Professional, authoritative, yet accessible (like Stripe or Vercel docs).
-- **TRANSLATION**: Provide complete, native-quality translations for all requested locales.
+## Generate for locales: ${localeStr}
 
-## 2. GENERATION TASKS (For Locales: ${SUPPORTED_LOCALES.join(', ')})
+### A. SEO Title (50-60 chars) — unique, clickable with main keyword
+### B. Meta Description (150-160 chars) — different from main description, for SERP CTR
+### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
+### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
+### E. Key Features (4-6 items) — technical highlights from content
+### F. Keywords (6-10 items) — long-tail dev search terms
 
-### A. SEO Title (50-60 chars)
-- **Goal**: unique, clickable title with main keyword.
-- **Format**: [Product Name]: [Main Benefit] (Agent Ready)
-
-### B. Meta Description (150-160 chars) — SEPARATE from the main description!
-- **Goal**: High CTR summary optimized for search engine result pages.
-- **Format**: [Action Verb] [Object] with [Specific Feature]. Includes [Benefit].
-- **CRITICAL**: This must be different from the main description. Focus on click-through rate.
-
-### C. Main Description (1-2 sentences)
-- **Goal**: A clear, informative summary of the skill.
-- **Constraint**: 50-80 words. Technical and specific.
-
-### D. Introduction / Definition (The "What is it?")
-- **Goal**: A clear, encyclopedic definition for the "Featured Snippet".
-- **Format**: "${skillName} is a [Category] library for [Language/Platform] that enables [Core Capability]..."
-- **Constraint**: 40-60 words. No marketing fluff.
-
-### E. Key Features (4-6 items) — MUST NOT BE EMPTY
-- **Goal**: Technical highlights derived from the Content Preview.
-- **Format**: short, feature-focused bullet points (e.g. "Zero-dependency", "Async Support", "TypeScript native")
-- **CRITICAL**: Extract real features from the content. If you cannot find specific features, infer from the description and tags.
-
-### F. Keywords (6-10 items) — MUST NOT BE EMPTY
-- **Goal**: Long-tail search terms that developers would actually search for.
-- **Examples**: "claude code pdf skill", "ai agent excel automation", "mcp server python"
-- **CRITICAL**: Include the skill name, technology stack, and use-case keywords.
-
-## Output Format (STRICT JSON)
+Output STRICT JSON only, no markdown wrapping:
 {
-  "seoTitle": { "en": "...", "zh": "...", ... },
-  "metaDescription": { "en": "...", "zh": "...", ... },
-  "description": { "en": "...", "zh": "...", ... },
-  "definition": { "en": "...", "zh": "...", ... },
-  "features": { "en": ["...", "...", "...", "..."], "zh": ["..."], ... },
-  "keywords": { "en": ["...", "...", "..."], "zh": ["..."], ... }
+  "seoTitle": { ${localeExample} },
+  "metaDescription": { ${localeExample} },
+  "description": { ${localeExample} },
+  "definition": { ${localeExample} },
+  "features": { ${localeArrayExample} },
+  "keywords": { ${localeArrayExample} }
 }`;
 
-        let useCloudflare = false;
-        let response = await this.callAI(prompt, true, useCloudflare, nvidiaKeyIndex);
+            try {
+                const response = await this.callAI(prompt, true, false);
+                if (!response) continue;
 
-        // Validation loop
-        for (let attempt = 0; attempt < 2; attempt++) {
-            if (!response) break;
-
-            // Extract JSON candidates using shared utility
-            const candidates = extractJSONCandidates(response);
-
-            // Validate candidates
-            for (const item of candidates) {
-                const parsed = robustParseJSON(item);
-                if (parsed && typeof parsed === 'object') {
-                    if (parsed.description || parsed.seo || parsed.definition || parsed.features) {
-                        // Deep merge/validation
-                        const seoTitleMap = parsed.seoTitle || parsed.title || { en: skillName };
-                        const descMap = parsed.description || { en: text };
-                        const metaDescMap = parsed.metaDescription || parsed.meta_description || descMap;
-
-                        const safeDesc = (typeof descMap === 'string') ? { en: descMap } : descMap;
-                        const safeTitle = (typeof seoTitleMap === 'string') ? { en: seoTitleMap } : seoTitleMap;
-                        const safeMetaDesc = (typeof metaDescMap === 'string') ? { en: metaDescMap } : metaDescMap;
-
-                        // Validate features and keywords are non-empty
-                        const featuresMap = parsed.features || parsed.seo?.features || { en: [] };
-                        const keywordsMap = parsed.keywords || parsed.seo?.keywords || { en: [] };
-
-                        // Reject candidates with empty features/keywords — try next candidate
-                        if (Array.isArray(featuresMap.en) && featuresMap.en.length === 0) {
-                            console.warn(`⚠️ Empty features for ${skillName}, trying next candidate...`);
-                            continue;
-                        }
-                        if (Array.isArray(keywordsMap.en) && keywordsMap.en.length === 0) {
-                            console.warn(`⚠️ Empty keywords for ${skillName}, trying next candidate...`);
-                            continue;
-                        }
-
-                        return {
-                            description: cleanAndTruncate(safeDesc as Record<string, string>, 300),
-                            seo: {
-                                title: cleanAndTruncate(safeTitle as Record<string, string>, 60),
-                                description: cleanAndTruncate(safeMetaDesc as Record<string, string>, 160),
-                                definition: parsed.definition || parsed.seo?.definition || { en: text },
-                                features: featuresMap,
-                                keywords: keywordsMap
-                            }
-                        };
+                // Extract JSON
+                const candidates = extractJSONCandidates(response);
+                let parsed: any = null;
+                for (const item of candidates) {
+                    const candidate = robustParseJSON(item);
+                    if (candidate && typeof candidate === 'object' && (candidate.description || candidate.definition || candidate.features)) {
+                        parsed = candidate;
+                        break;
                     }
                 }
-            }
 
-            console.warn(`⚠️ Failed to extract valid JSON (or found empty translations)`);
+                if (!parsed) {
+                    console.warn(`⚠️ Batch [${localeStr}] — no valid JSON`);
+                    continue;
+                }
 
-            // Retry with Cloudflare if failed and not used yet
-            if (!useCloudflare && hasCloudflare) {
-                console.log('🔄 Retry with Cloudflare...');
-                useCloudflare = true;
-                response = await this.callAI(prompt, false, useCloudflare, nvidiaKeyIndex);
-            } else {
-                break;
+                // Merge batch results into accumulators
+                const mergeMap = (target: Record<string, string>, source: any) => {
+                    if (!source || typeof source !== 'object') return;
+                    if (typeof source === 'string') { target[batch[0]] = source; return; }
+                    for (const [k, v] of Object.entries(source)) {
+                        if (typeof v === 'string' && v.trim()) target[k] = v;
+                    }
+                };
+                const mergeArray = (target: Record<string, string[]>, source: any) => {
+                    if (!source || typeof source !== 'object') return;
+                    for (const [k, v] of Object.entries(source)) {
+                        if (Array.isArray(v) && v.length > 0) target[k] = v;
+                    }
+                };
+
+                mergeMap(mergedDesc, parsed.description);
+                mergeMap(mergedSeoTitle, parsed.seoTitle || parsed.title);
+                mergeMap(mergedMetaDesc, parsed.metaDescription || parsed.meta_description);
+                mergeMap(mergedDefinition, parsed.definition);
+                mergeArray(mergedFeatures, parsed.features);
+                mergeArray(mergedKeywords, parsed.keywords);
+
+                successCount++;
+                process.stdout.write('.');
+            } catch (e: any) {
+                console.warn(`⚠️ Batch [${localeStr}] failed: ${e.message}`);
             }
         }
 
-        return defaultResult;
+        // If no batches succeeded, return default
+        if (successCount === 0) {
+            console.warn(`⚠️ All batches failed for ${skillName}, using default`);
+            return defaultResult;
+        }
+
+        // Ensure en fallback
+        if (!mergedDesc.en) mergedDesc.en = text;
+        if (!mergedSeoTitle.en) mergedSeoTitle.en = skillName || 'AI Skill';
+
+        return {
+            description: cleanAndTruncate(mergedDesc, 300),
+            seo: {
+                title: cleanAndTruncate(mergedSeoTitle, 60),
+                description: cleanAndTruncate(mergedMetaDesc.en ? mergedMetaDesc : mergedDesc, 160),
+                definition: mergedDefinition.en ? mergedDefinition : { en: text },
+                features: mergedFeatures,
+                keywords: mergedKeywords
+            }
+        };
     }
 
     /**
@@ -479,26 +483,69 @@ Your Response (for "${skillName}"):
 
     /**
      * Translate Agent Analysis to all supported languages
-     * Includes validation to reject suspiciously short translations
+     * Uses batch-locale strategy (same as translateMetadata) to avoid timeout.
+     * Includes validation to reject suspiciously short translations.
      */
     async translateAgentAnalysis(
         nvidiaKeyIndex: number | undefined,
         raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number }
     ): Promise<AgentAnalysis> {
-        const localesStr = SUPPORTED_LOCALES.join(', ');
-        const prompt = `You are a professional translator for technical documentation.
-Translate the following AI Agent Skill analysis fields from English to these languages: ${localesStr}.
+        // Helper: validate string fields, reject suspiciously short translations
+        const validateField = (source: string, targetWrapper: Record<string, string>) => {
+            const verified: Record<string, string> = { en: source };
+            for (const lang of SUPPORTED_LOCALES) {
+                const val = targetWrapper[lang];
+                const isSuspiciousLength = source.length > 20 && val && val.length < 10;
+                if (isSuspiciousLength) {
+                    console.warn(`[WARN] Discarding suspicious translation for ${lang}: "${val}" (Source length: ${source.length})`);
+                    verified[lang] = "";
+                } else {
+                    verified[lang] = val || "";
+                }
+            }
+            return verified;
+        };
 
-IMPORTANT GUIDELINES:
-1.  **Completeness**: Translations MUST be complete sentences if the source is a sentence. 
-    - BAD: "Python"
-    - GOOD: "非常适合需要直接文件系统操作的 Python 编码 Agent。" (translated)
-    - **CRITICAL**: Do NOT summarize into single keywords. If you return a single word for a long sentence, it will be rejected.
-2.  **Accuracy**: Preserve technical terms (Python, p5.js, API, etc.) but ensure the surrounding text is grammatically correct in the target language.
-3.  **Array Fields (useCases, limitations)**: You MUST translate EVERY item in the array.
-    - **CRITICAL**: Empty arrays [] for non-English locales will be REJECTED. Each locale MUST have the same number of items as the English source.
-    - Example: if English has 3 useCases, Chinese must also have 3 useCases.
-4.  **Fallback**: If a translation is impossible or uncertain, return an empty string "" instead of a bad guess. But NEVER return an empty array [] if the source has items.
+        // Helper: validate array fields
+        const validateArrayField = (source: string[], targetWrapper: Record<string, string[]>) => {
+            const verified: Record<string, string[]> = { en: source };
+            for (const lang of SUPPORTED_LOCALES) {
+                const val = targetWrapper[lang];
+                if (Array.isArray(val) && val.length > 0) {
+                    verified[lang] = val;
+                } else {
+                    verified[lang] = source; // Fallback: use English
+                }
+            }
+            return verified;
+        };
+
+        // Accumulators for merged results
+        const suitabilityMap: Record<string, string> = { en: raw.suitability };
+        const recommendationMap: Record<string, string> = { en: raw.recommendation };
+        const useCasesMap: Record<string, string[]> = { en: raw.useCases };
+        const limitationsMap: Record<string, string[]> = { en: raw.limitations };
+
+        // Split locales into batches
+        const BATCH_SIZE = 3;
+        const localeBatches: string[][] = [];
+        for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
+            localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
+        }
+
+        let successCount = 0;
+
+        for (const batch of localeBatches) {
+            const localeStr = batch.join(', ');
+            const localeExample = batch.map(l => `"${l}": "..."`).join(', ');
+            const localeArrayExample = batch.map(l => `"${l}": ["..."]`).join(', ');
+
+            const prompt = `You are a professional translator for technical documentation.
+Translate the following AI Agent Skill analysis from English to: ${localeStr}.
+
+GUIDELINES:
+- Complete sentences, not single keywords. Preserve technical terms.
+- Translate EVERY array item. Same count as English source.
 
 Input (English):
 {
@@ -508,80 +555,58 @@ Input (English):
   "limitations": ${JSON.stringify(raw.limitations)}
 }
 
-Return JSON ONLY with this structure (include "en" key with original English text).
-EVERY locale MUST have ALL array items translated:
+Output STRICT JSON only, no markdown:
 {
-  "suitability": { "en": "...", "zh": "...", "ja": "...", ... },
-  "recommendation": { "en": "...", "zh": "...", "ja": "...", ... },
-  "useCases": { "en": ["item1", "item2", "item3"], "zh": ["翻译1", "翻译2", "翻译3"], "ja": ["翻訳1", "翻訳2", "翻訳3"], ... },
-  "limitations": { "en": ["item1", "item2"], "zh": ["翻译1", "翻译2"], "ja": ["翻訳1", "翻訳2"], ... }
+  "suitability": { ${localeExample} },
+  "recommendation": { ${localeExample} },
+  "useCases": { ${localeArrayExample} },
+  "limitations": { ${localeArrayExample} }
 }`;
 
-        try {
-            const result = await this.callAI(prompt, true, false, nvidiaKeyIndex);
-            if (result) {
+            try {
+                const result = await this.callAI(prompt, true, false);
+                if (!result) continue;
+
                 const candidates = extractJSONCandidates(result);
+                let parsed: any = null;
                 for (const candidate of candidates) {
-                    const parsed = robustParseJSON(candidate);
-                    if (parsed && typeof parsed === 'object') {
-                        // Validate structure
-                        if (parsed.suitability && typeof parsed.suitability === 'object') {
-
-                            // Helper: validate string fields, reject suspiciously short translations
-                            const validateField = (source: string, targetWrapper: Record<string, string>) => {
-                                const verified: Record<string, string> = { en: source };
-                                for (const lang of SUPPORTED_LOCALES) {
-                                    const val = targetWrapper[lang];
-                                    const isSuspiciousLength = source.length > 20 && val && val.length < 10;
-
-                                    if (isSuspiciousLength) {
-                                        console.warn(`[WARN] Discarding suspicious translation for ${lang}: "${val}" (Source length: ${source.length})`);
-                                        verified[lang] = "";
-                                    } else {
-                                        verified[lang] = val || "";
-                                    }
-                                }
-                                return verified;
-                            };
-
-                            // Helper: validate array fields
-                            // NOTE: We preserve all items to maintain count consistency with source.
-                            // Only warn about suspicious items, don't filter them out.
-                            const validateArrayField = (source: string[], targetWrapper: Record<string, string[]>) => {
-                                const verified: Record<string, string[]> = { en: source };
-                                for (const lang of SUPPORTED_LOCALES) {
-                                    const val = targetWrapper[lang];
-                                    if (Array.isArray(val) && val.length > 0) {
-                                        verified[lang] = val;
-                                    } else {
-                                        // Fallback: use English if translation is empty
-                                        verified[lang] = source;
-                                    }
-                                }
-                                return verified;
-                            };
-
-                            return {
-                                suitability: validateField(raw.suitability, parsed.suitability),
-                                recommendation: validateField(raw.recommendation, parsed.recommendation || {}),
-                                useCases: validateArrayField(raw.useCases, parsed.useCases || {}),
-                                limitations: validateArrayField(raw.limitations, parsed.limitations || {}),
-                                version: raw.version || 1
-                            };
-                        }
+                    const p = robustParseJSON(candidate);
+                    if (p && typeof p === 'object' && p.suitability && typeof p.suitability === 'object') {
+                        parsed = p;
+                        break;
                     }
                 }
+
+                if (!parsed) {
+                    console.warn(`⚠️ AgentAnalysis batch [${localeStr}] — no valid JSON`);
+                    continue;
+                }
+
+                // Merge batch results
+                for (const lang of batch) {
+                    if (parsed.suitability?.[lang]) suitabilityMap[lang] = parsed.suitability[lang];
+                    if (parsed.recommendation?.[lang]) recommendationMap[lang] = parsed.recommendation[lang];
+                    if (Array.isArray(parsed.useCases?.[lang]) && parsed.useCases[lang].length > 0) {
+                        useCasesMap[lang] = parsed.useCases[lang];
+                    }
+                    if (Array.isArray(parsed.limitations?.[lang]) && parsed.limitations[lang].length > 0) {
+                        limitationsMap[lang] = parsed.limitations[lang];
+                    }
+                }
+
+                successCount++;
+                process.stdout.write('.');
+            } catch (e: any) {
+                console.warn(`⚠️ AgentAnalysis batch [${localeStr}] failed: ${e.message}`);
             }
-        } catch (e) {
-            console.error(`Failed to translate agent analysis:`, e);
         }
 
-        // Fallback: return English-only Record structure
+        // Apply validation on merged results
         return {
-            suitability: { en: raw.suitability },
-            recommendation: { en: raw.recommendation },
-            useCases: { en: raw.useCases },
-            limitations: { en: raw.limitations },
+            suitability: validateField(raw.suitability, suitabilityMap),
+            recommendation: validateField(raw.recommendation, recommendationMap),
+            useCases: validateArrayField(raw.useCases, useCasesMap),
+            limitations: validateArrayField(raw.limitations, limitationsMap),
             version: raw.version || 1
         };
     }

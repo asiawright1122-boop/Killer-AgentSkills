@@ -92,7 +92,17 @@ export function parseSkillMd(content: string): SkillCache['skillMd'] & { body?: 
     const frontmatterRegex = /^---\s*[\r\n]+([\s\S]*?)[\r\n]+---\s*[\r\n]+([\s\S]*)$/;
     const match = content.match(frontmatterRegex);
 
-    if (!match) return undefined;
+    if (!match) {
+        // Fallback: Treat entire file as body for non-frontmatter markdown
+        return {
+            name: '',
+            description: content.slice(0, 500).replace(/[\r\n]+/g, ' ').trim(),
+            version: undefined,
+            tags: undefined,
+            bodyPreview: content.slice(0, 500).trim(),
+            body: content
+        };
+    }
 
     const [, frontmatter, body] = match;
     const meta: Record<string, any> = {};
