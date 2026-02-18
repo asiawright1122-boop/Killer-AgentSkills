@@ -79168,5 +79168,429 @@
     "forks": 0,
     "topics": [],
     "filePath": "skills/other/localai-fgarofalo56-suppercharge-microso/SKILL.md"
+  },
+  {
+    "owner": "mauromedda",
+    "repo": "agent-toolkit",
+    "description": "Production-quality skills, tools, and patterns for AI-powered development workflows with Claude Code",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/bash/SKILL.md"
+  },
+  {
+    "owner": "darkroomengineering",
+    "repo": "cc-settings",
+    "description": "Vulcan may be a good name",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ask/SKILL.md"
+  },
+  {
+    "owner": "SireJeff",
+    "repo": "k0ntext",
+    "description": "AI Context Engineering - Intelligent context for Claude, Copilot, Cline, and more with OpenRouter-powered initialization",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/plan/SKILL.md"
+  },
+  {
+    "owner": "zolkers",
+    "repo": "better-claude",
+    "description": "My own claude plugin workflow, I'll keep it up to date. ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/do/SKILL.md"
+  },
+  {
+    "owner": "radutopala",
+    "repo": "ticket",
+    "description": "Minimal CLI ticket management system designed for AI agents.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/tk/SKILL.md"
+  },
+  {
+    "owner": "lee-to",
+    "repo": "ai-factory",
+    "description": "You want to build with AI, but setting up the right context, prompts, and workflows takes time. AI Factory handles all of that so you can focus on what matters — shipping quality code.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/docs/SKILL.md"
+  },
+  {
+    "owner": "whawkinsiv",
+    "repo": "solo-founder-superpowers",
+    "description": "Complete software development lifecycle skills optimized for non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code).",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/database/SKILL.md"
+  },
+  {
+    "owner": "jacky-wong9273",
+    "repo": "rclaw",
+    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/gh-issues/SKILL.md"
+  },
+  {
+    "owner": "agent-skills-hub",
+    "repo": "agent-skills-hub",
+    "description": "Agent Skills Hub is a global library of AI agent skills that work across OpenClaw, Claude Code, Gemini, Cursor, Antigravity, and more.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/evaluation/SKILL.md"
+  },
+  {
+    "owner": "arielperez82",
+    "repo": "agents-and-skills",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/engineering-team/best-practices/SKILL.md"
+  },
+  {
+    "owner": "jdiegosierra",
+    "repo": "sre-agent-plugin",
+    "description": "Claude Code plugin with SRE tools, standards, and integrations",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/code-reviewer/SKILL.md"
+  },
+  {
+    "owner": "bandeiraas",
+    "repo": "bandeira-finance-app",
+    "description": "bandeira-finance-app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/shadcn-ui/SKILL.md"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry",
+    "description": "The most comprehensive Claude Code skills registry | Web Search: https://skills-registry-web.vercel.app",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/development/biopython/SKILL.md"
+  },
+  {
+    "owner": "KignLeon",
+    "repo": "joesmith-website",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-monorepo-architect/SKILL.md"
+  },
+  {
+    "owner": "KignLeon",
+    "repo": "joesmith-website",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/ui-visual-validator/SKILL.md"
+  },
+  {
+    "owner": "KignLeon",
+    "repo": "joesmith-website",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/architecture-patterns/SKILL.md"
+  },
+  {
+    "owner": "KignLeon",
+    "repo": "joesmith-website",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-seo-structure-architect/SKILL.md"
+  },
+  {
+    "owner": "openclaw",
+    "repo": "openclaw",
+    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sherpa-onnx-tts/SKILL.md"
+  },
+  {
+    "owner": "boltaai",
+    "repo": "bolta-skills",
+    "description": "Bolta is a Social Media Automation Suite that enables voice-driven content generation, team review workflows, and governed publishing at scale",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/init-plane/bolta.voice.validate/SKILL.MD"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cloud-architect/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sendgrid-automation/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/skill-rails-upgrade/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/helpdesk-automation/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-ai-voicelive-py/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/n8n-node-configuration/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-mgmt-weightsandbiases-dotnet/SKILL.md"
+  },
+  {
+    "owner": "itsmostafa",
+    "repo": "aws-agent-skills",
+    "description": "AWS Skills for Agents",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/lambda/SKILL.md"
+  },
+  {
+    "owner": "mitsuhiko",
+    "repo": "agent-stuff",
+    "description": "These are commands I use with agents, mostly Claude",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/google-workspace/SKILL.md"
+  },
+  {
+    "owner": "MooseGoose0701",
+    "repo": "skill-compose",
+    "description": "Skill Compose is an open-source agent builder and runtime platform for skill-powered agents. No workflow graphs. No CLI.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/gemini-imagegen/SKILL.md"
+  },
+  {
+    "owner": "GBSOSS",
+    "repo": "skill-from-masters",
+    "description": "Stand on the shoulders of giants — Create AI skills built on proven methodologies from domain experts.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/search-skill/SKILL.md"
+  },
+  {
+    "owner": "sickn33",
+    "repo": "antigravity-awesome-skills",
+    "description": "The Ultimate Collection of 800+ Agentic Skills for Claude Code/Antigravity/Cursor. Battle-tested, high-performance skills for AI agents including official skills from Anthropic and Vercel.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-mgmt-fabric-py/SKILL.md"
+  },
+  {
+    "owner": "vercel-labs",
+    "repo": "next-skills",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/next-cache-components/SKILL.md"
+  },
+  {
+    "owner": "whawkinsiv",
+    "repo": "solo-founder-superpowers",
+    "description": "Complete software development lifecycle skills optimized for non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code).",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/analytics/SKILL.md"
+  },
+  {
+    "owner": "Yeachan-Heo",
+    "repo": "oh-my-codex",
+    "description": "OmX - Oh My Codex: Power tools for OpenAI Codex CLI",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/tdd/SKILL.md"
+  },
+  {
+    "owner": "whawkinsiv",
+    "repo": "solo-founder-superpowers",
+    "description": "Complete software development lifecycle skills optimized for non-technical founders building SaaS applications with AI tools (Lovable, Replit, Claude Code).",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/customer-research/SKILL.md"
+  },
+  {
+    "owner": "juanandresgs",
+    "repo": "claude-system",
+    "description": "JAGS' batteries-included Claude Code SDLC config.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/uplevel/SKILL.md"
+  },
+  {
+    "owner": "OpenHands",
+    "repo": "extensions",
+    "description": "Public registry for OpenHands skills.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/codereview/SKILL.md"
+  },
+  {
+    "owner": "juanandresgs",
+    "repo": "claude-system",
+    "description": "JAGS' batteries-included Claude Code SDLC config.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/deep-research/SKILL.md"
+  },
+  {
+    "owner": "kryptobaseddev",
+    "repo": "openclaw-cleo",
+    "description": "Super-powered OpenClaw installer for Proxmox, powered by CLEO task management. Includes Doppler secrets, NGINX Proxy Manager integration, and automated LXC provisioning.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sherpa-onnx-tts/SKILL.md"
+  },
+  {
+    "owner": "Heldinhow",
+    "repo": "openclaw-swarm",
+    "description": "Enhanced subagent orchestration for OpenClaw - context sharing, event-driven, parallel execution",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sherpa-onnx-tts/SKILL.md"
+  },
+  {
+    "owner": "apurv-1",
+    "repo": "openclaw",
+    "description": "Your own personal AI assistant. Any OS. Any Platform. The lobster way. 🦞 ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sherpa-onnx-tts/SKILL.md"
+  },
+  {
+    "owner": "ProtocolSage",
+    "repo": "openclaw",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/sherpa-onnx-tts/SKILL.md"
+  },
+  {
+    "owner": "sherrymcadams001-afk",
+    "repo": "aggg",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/remote-browser/SKILL.md"
+  },
+  {
+    "owner": "mkaraivanov",
+    "repo": "base-ai-project",
+    "description": "Complete Claude Code configuration collection - agents, skills, hooks, commands, rules, MCPs. Battle-tested configs from an Anthropic hackathon winner.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/frontend-patterns/SKILL.md"
+  },
+  {
+    "owner": "chadmarkey",
+    "repo": "claudecode",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/frontend-patterns/SKILL.md"
+  },
+  {
+    "owner": "ajilantony",
+    "repo": "copilot-agentops",
+    "description": "A comprehensive suite of framework and accelerators designed to maximize productivity when using GitHub Copilot in VS Code. Copilot AgentOps provides structured guidelines, best practices, and ready-to-use accelerators to streamline your development workflow.  ",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/vscode-ext-commands/SKILL.md"
+  },
+  {
+    "owner": "KignLeon",
+    "repo": "joesmith-website",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cloud-architect/SKILL.md"
+  },
+  {
+    "owner": "alexander-kastil",
+    "repo": "skills-collection",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-eventhub-ts/SKILL.md"
+  },
+  {
+    "owner": "boisenoise",
+    "repo": "skills-collections",
+    "description": "Getting Skills Together to Learn from the Best",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/antigravity-azure-eventhub-ts/SKILL.md"
+  },
+  {
+    "owner": "MarufCode",
+    "repo": "Antigravity-skills",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-eventhub-java/SKILL.md"
+  },
+  {
+    "owner": "alexander-kastil",
+    "repo": "skills-collection",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/azure-eventhub-java/SKILL.md"
   }
 ]
