@@ -79592,5 +79592,445 @@
     "forks": 0,
     "topics": [],
     "filePath": "skills/azure-eventhub-java/SKILL.md"
+  },
+  {
+    "owner": "ChurchCRM",
+    "repo": "CRM",
+    "description": "ChurchCRM - A free and open-source Church Management Software (ChMS) to help churches manage their membership data, groups, events, and finances.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".agents/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "omer-metin",
+    "repo": "skills-for-antigravity",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/expo/SKILL.md"
+  },
+  {
+    "owner": "front-depiction",
+    "repo": "claude-setup",
+    "description": "Reusable Claude Code configuration for Effect TypeScript projects with specialized agents and skills",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/cli/SKILL.md"
+  },
+  {
+    "owner": "OutlineDriven",
+    "repo": "odin-codex-plugin",
+    "description": "ODIN [for Codex CLI as a plugin] - Outline Driven development approach for agentic INtelligence",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agno/SKILL.md"
+  },
+  {
+    "owner": "synaptiai",
+    "repo": "agent-capability-standard",
+    "description": "Agent Capability Standard is an open specification for composable AI agent capabilities. It defines 36 atomic capabilities across 9 cognitive layers, a type-safe workflow DSL, and grounded world modeling with trust-aware conflict resolution. Built on the Grounded Agency philosophy, it makes agent reliability structural—not optional.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/plan/SKILL.md"
+  },
+  {
+    "owner": "dreamiurg",
+    "repo": "shipmate",
+    "description": "Your daily dev sidekick for tracking what you ship",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/eod/SKILL.md"
+  },
+  {
+    "owner": "clearclown",
+    "repo": "claude-code-aida",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/fix/SKILL.md"
+  },
+  {
+    "owner": "NagasakaH",
+    "repo": "devcontainer",
+    "description": "devcontainerのテンプレート管理用",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/e2e/SKILL.md"
+  },
+  {
+    "owner": "OutlineDriven",
+    "repo": "odin-gemini-cli-extension",
+    "description": "ODIN [as a Gemini CLI Extension] - Outline Driven development approach for agentic INtelligence",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agno/SKILL.md"
+  },
+  {
+    "owner": "metaphorics",
+    "repo": "my-skills",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/agno/SKILL.md"
+  },
+  {
+    "owner": "clearclown",
+    "repo": "claude-code-aida-red",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/fix/SKILL.md"
+  },
+  {
+    "owner": "coreyhaines31",
+    "repo": "marketingskills",
+    "description": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+    "forks": 0,
+    "topics": [],
+    "filePath": "skills/programmatic-seo/SKILL.md"
+  },
+  {
+    "owner": "marcusgoll",
+    "repo": "Spec-Flow",
+    "description": "Turn product ideas into production launches with Spec-Driven Development. Repeatable Claude Code workflows with quality gates, token budgets, and auditable artifacts.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/task-breakdown-phase/SKILL.md"
+  },
+  {
+    "owner": "PHMbench",
+    "repo": "PHM-Vibench",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/plan-md-executor/SKILL.md"
+  },
+  {
+    "owner": "PHMbench",
+    "repo": "PHM-Vibench",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/intake-normalizer/SKILL.md"
+  },
+  {
+    "owner": "RtlZeroMemory",
+    "repo": "Zireael",
+    "description": "Deterministic terminal UI core engine in C (FFI/ABI backend for Zireael-UI).",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/zireael-rendering-diff/SKILL.md"
+  },
+  {
+    "owner": "hmcts",
+    "repo": "opal-frontend",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/opal-frontend/opal-frontend-review-guidelines/SKILL.md"
+  },
+  {
+    "owner": "ThalesGroup",
+    "repo": "agilab",
+    "description": "AGILAB project purpose is to explore AI for engineering. It is designed to help engineers quickly experiment with AI-driven methods.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/agilab-local-llm/SKILL.md"
+  },
+  {
+    "owner": "fwojciec",
+    "repo": "quiver",
+    "description": "A Rust query engine for reading data from multiple sources like BigQuery and PostgreSQL using Apache Arrow.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/code-review/SKILL.md"
+  },
+  {
+    "owner": "fwojciec",
+    "repo": "quiver",
+    "description": "A Rust query engine for reading data from multiple sources like BigQuery and PostgreSQL using Apache Arrow.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/gh-workflow/SKILL.md"
+  },
+  {
+    "owner": "daulet",
+    "repo": "reviewer",
+    "description": "Code Reviewer on steroids",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/code-review/SKILL.md"
+  },
+  {
+    "owner": "ProviderProtocol",
+    "repo": "ai",
+    "description": "0-DEP AI DX SDK",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/llms-md-updater/SKILL.md"
+  },
+  {
+    "owner": "zskulcsar",
+    "repo": "code-stats",
+    "description": "Statistical analysis of source code (Go & Python)",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/go-doc/SKILL.md"
+  },
+  {
+    "owner": "gabrielelanaro",
+    "repo": "wrongodb",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/wrongodb-blogging/SKILL.md"
+  },
+  {
+    "owner": "arttttt",
+    "repo": "CMIDCABot",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/consult/SKILL.md"
+  },
+  {
+    "owner": "arttttt",
+    "repo": "CMIDCABot",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/planner/SKILL.md"
+  },
+  {
+    "owner": "akiojin",
+    "repo": "gwt",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/release/SKILL.md"
+  },
+  {
+    "owner": "viteinfinite",
+    "repo": "sync-skills",
+    "description": "Synchronize agent skill definitions between .claude and .codex directories",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/testing/SKILL.md"
+  },
+  {
+    "owner": "TT-AIXion",
+    "repo": "github-kanri",
+    "description": "GitHub repository management CLI tool for AI agents (Codex, Claude Code, etc.) - Simplifies common git operations",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/gkn-cli/SKILL.md"
+  },
+  {
+    "owner": "viteinfinite",
+    "repo": "sync-skills",
+    "description": "Synchronize agent skill definitions between .claude and .codex directories",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/skill-c/SKILL.md"
+  },
+  {
+    "owner": "KvFxKaido",
+    "repo": "SENTINEL",
+    "description": "Tactical, Relationship-Driven TTRPG with AI Game Master - 11 factions, narrative choices, consequence tracking",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/profile/SKILL.md"
+  },
+  {
+    "owner": "Nicenonecb",
+    "repo": "RepoMap",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".codex/skills/repomap/SKILL.md"
+  },
+  {
+    "owner": "cesaroeduardo",
+    "repo": "icon-library-visualization",
+    "description": "Personal project for an icon library catalogue.",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/icon-library/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/docx/SKILL.md"
+  },
+  {
+    "owner": "stephanofer",
+    "repo": "educonnect-refactor",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/zod-4/SKILL.md"
+  },
+  {
+    "owner": "stephanofer",
+    "repo": "educonnect-refactor",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/motion/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/form-cro/SKILL.md"
+  },
+  {
+    "owner": "SiluPanda",
+    "repo": "academic-researcher",
+    "description": "Skill to write academic research papers",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/academic-researcher/SKILL.md"
+  },
+  {
+    "owner": "Mikisbell",
+    "repo": "juntay_api",
+    "description": "Casa de empeño",
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/read-docs/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/lms-setup/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/crm-setup/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/popup-cro/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/google-veo/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/llm-models/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/flux-image/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/python-sdk/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/vsl-script/SKILL.md"
+  },
+  {
+    "owner": "stephanofer",
+    "repo": "educonnect-refactor",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/tailwind-4/SKILL.md"
+  },
+  {
+    "owner": "stephanofer",
+    "repo": "educonnect-refactor",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/typescript/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/copywriting/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/book-funnel/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/book-writing/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/email-design/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/legal-policy/SKILL.md"
+  },
+  {
+    "owner": "journey247",
+    "repo": "whistle-inn",
+    "description": null,
+    "forks": 0,
+    "topics": [],
+    "filePath": ".windsurf/skills/podcast-tour/SKILL.md"
   }
 ]
