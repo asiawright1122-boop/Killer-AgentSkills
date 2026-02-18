@@ -207,8 +207,7 @@ async function buildCache(): Promise<void> {
         id: string,
         text: string,
         context?: TranslateContext,
-        freshUpdatedAt?: string,
-        nvidiaKeyIndex?: number
+        freshUpdatedAt?: string
     ): Promise<{ description: string | Record<string, string>, seo?: SeoData }> {
         const existing = existingMap.get(id);
 
@@ -219,7 +218,7 @@ async function buildCache(): Promise<void> {
         }
 
         process.stdout.write('T'); // T for Translating/Generating
-        return await aiService.translateMetadata(text, context, nvidiaKeyIndex);
+        return await aiService.translateMetadata(text, context);
     }
 
     // 1. 处理官方仓库 (仅在 update 模式下，或者 discover 模式下检查是否存在)
@@ -353,9 +352,9 @@ async function buildCache(): Promise<void> {
                             };
 
                             // Generate Agent Analysis + translate
-                            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '', undefined);
+                            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
                             if (rawAgentAnalysis) {
-                                skill.agentAnalysis = await aiService.translateAgentAnalysis(undefined, rawAgentAnalysis);
+                                skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
                             }
 
                             console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
@@ -413,9 +412,9 @@ async function buildCache(): Promise<void> {
                     };
 
                     // Generate Agent Analysis + translate
-                    const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '', undefined);
+                    const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
                     if (rawAgentAnalysis) {
-                        skill.agentAnalysis = await aiService.translateAgentAnalysis(undefined, rawAgentAnalysis);
+                        skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
                     }
 
                     skill.qualityScore = calculateQualityScore(skill);
@@ -607,9 +606,9 @@ async function buildCache(): Promise<void> {
             };
 
             // Generate Agent Analysis + translate
-            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '', undefined);
+            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
             if (rawAgentAnalysis) {
-                skill.agentAnalysis = await aiService.translateAgentAnalysis(undefined, rawAgentAnalysis);
+                skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
             }
 
             skill.qualityScore = calculateQualityScore(skill);
@@ -800,8 +799,7 @@ async function buildCache(): Promise<void> {
         console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
         const promises = tasks.map((skill, index) => limit(async () => {
-            // Assign dedicated NVIDIA key: skills are evenly distributed across 4 keys
-            const nvidiaKeyIndex = index % 4;
+
 
             const currentDesc = typeof skill.description === 'string' ? skill.description : (skill.description.en || '');
 
@@ -820,14 +818,14 @@ async function buildCache(): Promise<void> {
                 // Add random delay to prevent initial burst
                 await new Promise(r => setTimeout(r, Math.random() * 2000));
 
-                const metadata = await processMetadata(skill.id, rawDesc, context, undefined, nvidiaKeyIndex);
+                const metadata = await processMetadata(skill.id, rawDesc, context);
                 skill.description = metadata.description;
                 skill.seo = metadata.seo;
 
                 // Generate Agent Analysis + translate (same NVIDIA key)
-                const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, currentDesc, context.bodyPreview || '', nvidiaKeyIndex);
+                const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, currentDesc, context.bodyPreview || '');
                 if (rawAgentAnalysis) {
-                    skill.agentAnalysis = await aiService.translateAgentAnalysis(nvidiaKeyIndex, rawAgentAnalysis);
+                    skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
                 }
 
                 skill.lastSynced = new Date().toISOString();

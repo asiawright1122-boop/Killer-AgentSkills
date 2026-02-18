@@ -78,7 +78,8 @@ export class AIService {
         prompt: string,
         provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare',
         apiKey: string,
-        jsonMode: boolean = false
+        jsonMode: boolean = false,
+        externalSignal?: AbortSignal
     ): Promise<string> {
         let url: string;
         let headers: Record<string, string>;
@@ -139,11 +140,24 @@ export class AIService {
             }
         }
 
-        const res = await fetchWithTimeout(url, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(bodyObj)
-        }, 35000); // 35s timeout: 3-locale batch completes in ~25-32s
+        // Combine external race signal with timeout signal
+        const timeoutController = new AbortController();
+        const timeout = setTimeout(() => timeoutController.abort(), 50000);
+        const signals = [timeoutController.signal];
+        if (externalSignal) signals.push(externalSignal);
+        const combinedSignal = signals.length > 1 ? AbortSignal.any(signals) : signals[0];
+
+        let res: Response;
+        try {
+            res = await fetch(url, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify(bodyObj),
+                signal: combinedSignal
+            });
+        } finally {
+            clearTimeout(timeout);
+        }
 
         if (!res.ok) {
             throw new Error(`${provider} ${res.status}`);
@@ -183,72 +197,62 @@ export class AIService {
     }
 
     /**
-     * Call AI with dedicated NVIDIA primary + sequential SF/OR fallback.
+     * Call AI with RACE mode: all providers called simultaneously.
+     * First successful response wins. Maximum speed.
      * 
-     * Architecture (Plan B):
-     * - 4 NVIDIA keys each handle different tasks in parallel (16 concurrent slots)
-     * - SiliconFlow is backup #1 (only called when NVIDIA fails)
-     * - OpenRouter is backup #2 (only called when SF also fails)
-     * - Cloudflare Workers AI is the last-resort fallback
-     * 
-     * @param nvidiaKeyIndex - Which NVIDIA key to use (0-3). Auto-rotates if not specified.
+     * Architecture: Promise.any() across all available providers.
+     * - All NVIDIA keys + SiliconFlow + OpenRouter + Cloudflare fire at once
+     * - First valid response is returned immediately
+     * - Losers are discarded (AbortController cancels them)
      */
-    async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false, nvidiaKeyIndex?: number): Promise<string | null> {
+    async callAI(prompt: string, jsonMode: boolean = false): Promise<string | null> {
+        const controllers: AbortController[] = [];
+        const promises: Promise<{ result: string; provider: string }>[] = [];
 
-        // 1️⃣ Primary: NVIDIA (dedicated key)
-        if (!skipNvidia && this.config.nvidiaKeys.length > 0) {
-            const idx = nvidiaKeyIndex ?? (this.currentNvidiaKeyIndex++ % this.config.nvidiaKeys.length);
-            const key = this.config.nvidiaKeys[idx % this.config.nvidiaKeys.length];
-            try {
-                const result = await this.callAISingle(prompt, 'nvidia', key, jsonMode);
-                this.stats.nvidia++;
-                process.stdout.write(`N${idx % this.config.nvidiaKeys.length}`);
-                return result;
-            } catch (e) {
-                this.stats.nvidiaFail++;
-                console.warn(`⚠️ NVIDIA-${idx % this.config.nvidiaKeys.length}: ${(e as Error).message}`);
-            }
+        // Helper: wrap callAISingle with abort support
+        const raceEntry = (provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare', key: string, label: string) => {
+            const controller = new AbortController();
+            controllers.push(controller);
+            promises.push(
+                this.callAISingle(prompt, provider, key, jsonMode, controller.signal)
+                    .then(result => ({ result, provider: label }))
+            );
+        };
+
+        // Add all available providers
+        for (let i = 0; i < this.config.nvidiaKeys.length; i++) {
+            raceEntry('nvidia', this.config.nvidiaKeys[i], `N${i}`);
         }
-
-        // 2️⃣ Backup #1: SiliconFlow
         if (this.config.siliconFlowKey) {
-            try {
-                const result = await this.callAISingle(prompt, 'siliconflow', this.config.siliconFlowKey, jsonMode);
-                this.stats.siliconflow++;
-                process.stdout.write('S');
-                return result;
-            } catch (e) {
-                console.warn(`⚠️ SiliconFlow: ${(e as Error).message}`);
-            }
+            raceEntry('siliconflow', this.config.siliconFlowKey, 'S');
         }
-
-        // 3️⃣ Backup #2: OpenRouter
         if (this.config.openRouterKeys.length > 0) {
             const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex % this.config.openRouterKeys.length];
-            this.currentOpenrouterKeyIndex = (this.currentOpenrouterKeyIndex + 1) % this.config.openRouterKeys.length;
-            try {
-                const result = await this.callAISingle(prompt, 'openrouter', orKey, jsonMode);
-                this.stats.openrouter++;
-                process.stdout.write('O');
-                return result;
-            } catch (e) {
-                console.warn(`⚠️ OpenRouter: ${(e as Error).message}`);
-            }
+            this.currentOpenrouterKeyIndex++;
+            raceEntry('openrouter', orKey, 'O');
         }
-
-        // 4️⃣ Last resort: Cloudflare Workers AI
         if (this.config.cfAccountId && this.config.cfApiToken) {
-            try {
-                const result = await this.callAISingle(prompt, 'cloudflare', this.config.cfApiToken, jsonMode);
-                this.stats.cloudflare++;
-                process.stdout.write('C');
-                return result;
-            } catch (e) {
-                console.warn(`⚠️ Cloudflare: ${(e as Error).message}`);
-            }
+            raceEntry('cloudflare', this.config.cfApiToken, 'C');
         }
 
-        return null;
+        if (promises.length === 0) return null;
+
+        try {
+            const winner = await Promise.any(promises);
+            // Cancel all other in-flight requests
+            controllers.forEach(c => c.abort());
+            // Track stats
+            if (winner.provider.startsWith('N')) this.stats.nvidia++;
+            else if (winner.provider === 'S') this.stats.siliconflow++;
+            else if (winner.provider === 'O') this.stats.openrouter++;
+            else if (winner.provider === 'C') this.stats.cloudflare++;
+            process.stdout.write(winner.provider);
+            return winner.result;
+        } catch (e) {
+            // All providers failed
+            controllers.forEach(c => c.abort());
+            return null;
+        }
     }
 
     /**
@@ -256,7 +260,7 @@ export class AIService {
      * Uses batch-locale strategy: splits 10 locales into 3-4 batches
      * to keep output token count manageable (prevents timeouts).
      */
-    async translateMetadata(text: string, context?: TranslateContext, nvidiaKeyIndex?: number): Promise<{
+    async translateMetadata(text: string, context?: TranslateContext): Promise<{
         description: Record<string, string>;
         seo: SeoData;
     }> {
@@ -299,7 +303,8 @@ export class AIService {
 
         let successCount = 0;
 
-        for (const batch of localeBatches) {
+        // Run ALL batches in PARALLEL — each batch races all providers
+        const batchResults = await Promise.allSettled(localeBatches.map(async (batch) => {
             const localeStr = batch.join(', ');
             const localeExample = batch.map(l => `"${l}": "..."`).join(', ');
             const localeArrayExample = batch.map(l => `"${l}": ["..."]`).join(', ');
@@ -332,54 +337,47 @@ Output STRICT JSON only, no markdown wrapping:
   "keywords": { ${localeArrayExample} }
 }`;
 
-            try {
-                const response = await this.callAI(prompt, true, false);
-                if (!response) continue;
+            const response = await this.callAI(prompt, true);
+            if (!response) throw new Error(`No response for [${localeStr}]`);
 
-                // Extract JSON
-                const candidates = extractJSONCandidates(response);
-                let parsed: any = null;
-                for (const item of candidates) {
-                    const candidate = robustParseJSON(item);
-                    if (candidate && typeof candidate === 'object' && (candidate.description || candidate.definition || candidate.features)) {
-                        parsed = candidate;
-                        break;
-                    }
+            const candidates = extractJSONCandidates(response);
+            for (const item of candidates) {
+                const candidate = robustParseJSON(item);
+                if (candidate && typeof candidate === 'object' && (candidate.description || candidate.definition || candidate.features)) {
+                    return { parsed: candidate, batch };
                 }
+            }
+            throw new Error(`No valid JSON for [${localeStr}]`);
+        }));
 
-                if (!parsed) {
-                    console.warn(`⚠️ Batch [${localeStr}] — no valid JSON`);
-                    continue;
-                }
+        // Merge all successful batch results
+        const mergeMap = (target: Record<string, string>, source: any, batch: string[]) => {
+            if (!source || typeof source !== 'object') return;
+            if (typeof source === 'string') { target[batch[0]] = source; return; }
+            for (const [k, v] of Object.entries(source)) {
+                if (typeof v === 'string' && v.trim()) target[k] = v;
+            }
+        };
+        const mergeArray = (target: Record<string, string[]>, source: any) => {
+            if (!source || typeof source !== 'object') return;
+            for (const [k, v] of Object.entries(source)) {
+                if (Array.isArray(v) && v.length > 0) target[k] = v;
+            }
+        };
 
-                // Merge batch results into accumulators
-                const mergeMap = (target: Record<string, string>, source: any) => {
-                    if (!source || typeof source !== 'object') return;
-                    if (typeof source === 'string') { target[batch[0]] = source; return; }
-                    for (const [k, v] of Object.entries(source)) {
-                        if (typeof v === 'string' && v.trim()) target[k] = v;
-                    }
-                };
-                const mergeArray = (target: Record<string, string[]>, source: any) => {
-                    if (!source || typeof source !== 'object') return;
-                    for (const [k, v] of Object.entries(source)) {
-                        if (Array.isArray(v) && v.length > 0) target[k] = v;
-                    }
-                };
-
-                mergeMap(mergedDesc, parsed.description);
-                mergeMap(mergedSeoTitle, parsed.seoTitle || parsed.title);
-                mergeMap(mergedMetaDesc, parsed.metaDescription || parsed.meta_description);
-                mergeMap(mergedDefinition, parsed.definition);
+        for (const result of batchResults) {
+            if (result.status === 'fulfilled') {
+                const { parsed, batch } = result.value;
+                mergeMap(mergedDesc, parsed.description, batch);
+                mergeMap(mergedSeoTitle, parsed.seoTitle || parsed.title, batch);
+                mergeMap(mergedMetaDesc, parsed.metaDescription || parsed.meta_description, batch);
+                mergeMap(mergedDefinition, parsed.definition, batch);
                 mergeArray(mergedFeatures, parsed.features);
                 mergeArray(mergedKeywords, parsed.keywords);
-
                 successCount++;
-                process.stdout.write('.');
-            } catch (e: any) {
-                console.warn(`⚠️ Batch [${localeStr}] failed: ${e.message}`);
             }
         }
+        process.stdout.write('.');
 
         // If no batches succeeded, return default
         if (successCount === 0) {
@@ -409,8 +407,7 @@ Output STRICT JSON only, no markdown wrapping:
     async generateAgentAnalysis(
         skillName: string,
         description: string,
-        bodyPreview: string,
-        nvidiaKeyIndex?: number
+        bodyPreview: string
     ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number } | undefined> {
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
         
@@ -459,7 +456,7 @@ Your Response (for "${skillName}"):
 }`;
 
         try {
-            const result = await this.callAI(prompt, true, false, nvidiaKeyIndex);
+            const result = await this.callAI(prompt, true);
             if (result) {
                 const candidates = extractJSONCandidates(result);
                 for (const candidate of candidates) {
@@ -487,7 +484,6 @@ Your Response (for "${skillName}"):
      * Includes validation to reject suspiciously short translations.
      */
     async translateAgentAnalysis(
-        nvidiaKeyIndex: number | undefined,
         raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number }
     ): Promise<AgentAnalysis> {
         // Helper: validate string fields, reject suspiciously short translations
@@ -535,7 +531,8 @@ Your Response (for "${skillName}"):
 
         let successCount = 0;
 
-        for (const batch of localeBatches) {
+        // Run ALL batches in PARALLEL — each batch races all providers
+        const batchResults = await Promise.allSettled(localeBatches.map(async (batch) => {
             const localeStr = batch.join(', ');
             const localeExample = batch.map(l => `"${l}": "..."`).join(', ');
             const localeArrayExample = batch.map(l => `"${l}": ["..."]`).join(', ');
@@ -563,26 +560,23 @@ Output STRICT JSON only, no markdown:
   "limitations": { ${localeArrayExample} }
 }`;
 
-            try {
-                const result = await this.callAI(prompt, true, false);
-                if (!result) continue;
+            const result = await this.callAI(prompt, true);
+            if (!result) throw new Error(`No response for [${localeStr}]`);
 
-                const candidates = extractJSONCandidates(result);
-                let parsed: any = null;
-                for (const candidate of candidates) {
-                    const p = robustParseJSON(candidate);
-                    if (p && typeof p === 'object' && p.suitability && typeof p.suitability === 'object') {
-                        parsed = p;
-                        break;
-                    }
+            const candidates = extractJSONCandidates(result);
+            for (const candidate of candidates) {
+                const p = robustParseJSON(candidate);
+                if (p && typeof p === 'object' && p.suitability && typeof p.suitability === 'object') {
+                    return { parsed: p, batch };
                 }
+            }
+            throw new Error(`No valid JSON for [${localeStr}]`);
+        }));
 
-                if (!parsed) {
-                    console.warn(`⚠️ AgentAnalysis batch [${localeStr}] — no valid JSON`);
-                    continue;
-                }
-
-                // Merge batch results
+        // Merge all successful batch results
+        for (const result of batchResults) {
+            if (result.status === 'fulfilled') {
+                const { parsed, batch } = result.value;
                 for (const lang of batch) {
                     if (parsed.suitability?.[lang]) suitabilityMap[lang] = parsed.suitability[lang];
                     if (parsed.recommendation?.[lang]) recommendationMap[lang] = parsed.recommendation[lang];
@@ -593,13 +587,10 @@ Output STRICT JSON only, no markdown:
                         limitationsMap[lang] = parsed.limitations[lang];
                     }
                 }
-
                 successCount++;
-                process.stdout.write('.');
-            } catch (e: any) {
-                console.warn(`⚠️ AgentAnalysis batch [${localeStr}] failed: ${e.message}`);
             }
         }
+        process.stdout.write('.');
 
         // Apply validation on merged results
         return {
