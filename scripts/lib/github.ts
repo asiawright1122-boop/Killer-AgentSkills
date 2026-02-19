@@ -22,9 +22,8 @@ export async function fetchWithRetry(url: string, retries = 3): Promise<Response
         try {
             const response = await fetchWithTimeout(url, { headers: getHeaders() });
             if (response.status === 403) {
-                console.warn('⚠️ GitHub API rate limit, waiting 60s...');
-                await new Promise(r => setTimeout(r, 60000));
-                continue;
+                console.warn('⚠️ GitHub API rate limit, failing fast...');
+                throw new Error('GitHub API Rate Limit');
             }
             return response;
         } catch (error) {

@@ -228,7 +228,30 @@ async function buildCache(): Promise<void> {
             const repoPath = `${repo.owner}/${repo.repo}`;
             console.log(`   → ${repoPath}`);
 
-            const repoInfo = await fetchRepoInfo(repo.owner, repo.repo);
+            let repoInfo = null;
+            try {
+                repoInfo = await fetchRepoInfo(repo.owner, repo.repo);
+            } catch (e) {
+                console.log(`   ⚠️ Failed to fetch repo info (Error: ${e})`);
+            }
+
+            if (!repoInfo) {
+                // FALLBACK: Try to find existing data from cache if available
+                const existingSkill = Array.from(existingMap.values()).find(s => s.owner === repo.owner && s.repo === repo.repo);
+                if (existingSkill) {
+                    console.log(`   ⚠️ Rate limit/Error fetching repo info. Using cached data from ${existingSkill.id}`);
+                    repoInfo = {
+                        name: existingSkill.repo,
+                        description: typeof existingSkill.description === 'string' ? existingSkill.description : existingSkill.description.en,
+                        stargazers_count: existingSkill.stars,
+                        forks_count: existingSkill.forks,
+                        updated_at: existingSkill.updatedAt,
+                        topics: existingSkill.topics,
+                        default_branch: 'main',
+                    } as any;
+                }
+            }
+
             if (!repoInfo) {
                 console.log(`   ⚠️ Failed to fetch repo info`);
                 continue;
@@ -366,6 +389,50 @@ async function buildCache(): Promise<void> {
                     }
                 } catch (e) {
                     console.log(`      ⚠️ Failed to list skills directory: ${e}`);
+
+                    // FALLBACK: Use cached skills for this repo
+                    const repoSkills = Array.from(existingMap.values()).filter(s => s.owner === repo.owner && s.repo === repo.repo);
+                    if (repoSkills.length > 0) {
+                        console.log(`      ⚠️ Using ${repoSkills.length} cached skills for ${repoPath} due to error`);
+                        for (const existing of repoSkills) {
+                            const skillId = existing.id;
+                            if (processedRepos.has(skillId)) continue;
+                            processedRepos.add(skillId);
+
+                            // Check filter
+                            if (filters.length > 0) {
+                                const match = filters.some(f =>
+                                    skillId.toLowerCase().includes(f) ||
+                                    repo.owner.toLowerCase().includes(f) ||
+                                    repo.repo.toLowerCase().includes(f)
+                                );
+                                if (!match) continue;
+                            }
+
+                            console.log(`      Found candidate (cached): ${existing.name}`);
+
+                            // Use existing metadata/content
+                            const skillMd = existing.skillMd;
+                            const rawDesc = skillMd?.description || (typeof existing.description === 'string' ? existing.description : existing.description.en);
+                            const bodyPreview = skillMd?.bodyPreview || ''; // Use bodyPreview if available
+
+                            const skill: SkillCache = {
+                                ...existing,
+                                lastSynced: new Date().toISOString() // Update sync time
+                            };
+
+                            // RE-GENERATE AI text
+                            process.stdout.write('T');
+                            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, bodyPreview);
+                            if (rawAgentAnalysis) {
+                                skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+                            }
+
+                            skill.qualityScore = calculateQualityScore(skill);
+                            skills.push(skill);
+                            process.stdout.write('.');
+                        }
+                    }
                 }
             } else {
                 const skillId = repoPath;

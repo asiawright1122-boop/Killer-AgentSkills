@@ -494,9 +494,9 @@ Your Response (for "${skillName}"):
                 const isSuspiciousLength = source.length > 20 && val && val.length < 10;
                 if (isSuspiciousLength) {
                     console.warn(`[WARN] Discarding suspicious translation for ${lang}: "${val}" (Source length: ${source.length})`);
-                    verified[lang] = "";
+                    verified[lang] = source;
                 } else {
-                    verified[lang] = val || "";
+                    verified[lang] = val || source;
                 }
             }
             return verified;
