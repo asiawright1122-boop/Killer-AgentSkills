@@ -47,27 +47,44 @@ interface CacheData {
  */
 async function writeToKVBulk(items: Array<{ key: string, value: string }>): Promise<boolean> {
     const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/bulk`;
+    const MAX_RETRIES = 3;
 
-    try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${CF_API_TOKEN}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(items),
-        });
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout
 
-        if (!response.ok) {
-            const error = await response.text();
-            console.error(`❌ 批量写入失败 (${items.length} items): ${error}`);
-            return false;
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${CF_API_TOKEN}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(items),
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                const error = await response.text();
+                // 413 Payload Too Large -> No Retry
+                if (response.status === 413) {
+                    console.error(`❌ 批量写入失败 (Payload Too Large): ${error}`);
+                    return false;
+                }
+                console.warn(`⚠️ 批量写入失败 (Attempt ${attempt}/${MAX_RETRIES}): ${error}`);
+                if (attempt === MAX_RETRIES) return false;
+                await new Promise(r => setTimeout(r, 2000 * attempt)); // Backoff
+                continue;
+            }
+            return true;
+        } catch (error) {
+            console.warn(`⚠️ 网络错误 (Attempt ${attempt}/${MAX_RETRIES}):`, error);
+            if (attempt === MAX_RETRIES) return false;
+            await new Promise(r => setTimeout(r, 2000 * attempt));
         }
-        return true;
-    } catch (error) {
-        console.error(`❌ 网络错误 (Bulk Write):`, error);
-        return false;
     }
+    return false;
 }
 
 /**
@@ -174,7 +191,7 @@ async function main() {
     const origSize = JSON.stringify(skills).length;
     console.log(`📉 列表页瘦身: 原大小 ~${(origSize / 1024 / 1024).toFixed(2)}MB -> 现大小 ~${(slimSize / 1024 / 1024).toFixed(2)}MB`);
 
-    const SHARD_MAX_BYTES = 20 * 1024 * 1024; // 20 MB per shard (CF KV limit is 25 MB)
+    const SHARD_MAX_BYTES = 5 * 1024 * 1024; // 5 MB per shard (Better stability than 20MB)
     const shards = createShards(skillSummaries, SHARD_MAX_BYTES);
     console.log(`📦 all-skills 分片: ${shards.length} 个分片`);
 
@@ -203,8 +220,8 @@ async function main() {
         });
     }
 
-    // 批量写入 (每批 ≤ 500 items，确保每批 payload < 100 MB)
-    const BATCH_SIZE = 500;
+    // 批量写入 (每批 ≤ 10 items，确保单个分片独立上传)
+    const BATCH_SIZE = 10;
     let successCount = 0;
     let failedBatches = 0;
 
