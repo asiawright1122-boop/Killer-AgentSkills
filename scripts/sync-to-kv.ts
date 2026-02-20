@@ -185,29 +185,8 @@ async function main() {
 
     const bulkItems: Array<{ key: string, value: string }> = [];
 
-    // 1. 分片存储 all-skills (每片 < 20 MB，避免超 CF KV 25 MB 单值限制)
-    const skillSummaries = skills.map(getSkillSummarySlim);
-    const slimSize = JSON.stringify(skillSummaries).length;
-    const origSize = JSON.stringify(skills).length;
-    console.log(`📉 列表页瘦身: 原大小 ~${(origSize / 1024 / 1024).toFixed(2)}MB -> 现大小 ~${(slimSize / 1024 / 1024).toFixed(2)}MB`);
-
-    const SHARD_MAX_BYTES = 5 * 1024 * 1024; // 5 MB per shard (Better stability than 20MB)
-    const shards = createShards(skillSummaries, SHARD_MAX_BYTES);
-    console.log(`📦 all-skills 分片: ${shards.length} 个分片`);
-
-    // 写入分片索引
-    bulkItems.push({
-        key: 'all-skills-index',
-        value: JSON.stringify({ shardCount: shards.length, totalCount: skills.length, lastSynced: new Date().toISOString() })
-    });
-
-    // 写入每个分片
-    for (let i = 0; i < shards.length; i++) {
-        const shardValue = JSON.stringify(shards[i]);
-        console.log(`  分片 ${i}: ${shards[i].length} 个技能, ${(shardValue.length / 1024 / 1024).toFixed(2)} MB`);
-        bulkItems.push({ key: `all-skills:${i}`, value: shardValue });
-    }
-
+    // (Legacy all-skills sharding logic removed - frontend now uses D1)
+    console.log(`📉 移除冗余的 all-skills 分片写入 (已交由 D1 处理)`);
 
     // 2. 添加独立技能 (individual skill keys)
     console.log('\n📤 准备批量写入数据...');
@@ -263,11 +242,10 @@ async function main() {
         const existingKeys = await fetchAllKeys();
 
         // 找出在 KV 中存在，但不在本次 activeKeys 中的 keys
-        // 安全检查：只删除 'skill:' 和 'doc:' 开头的 keys，避免误删
+        // 安全检查：只删除 'skill:' 和 'doc:' 开头的 keys，以及废弃的 'all-skills'
         const staleKeys = existingKeys.filter(key => {
             if (activeKeys.has(key)) return false; // 依然活跃
-            // 也保留旧 all-skills 分片 keys (all-skills: prefix)
-            if (key.startsWith('all-skills')) return false;
+            if (key.startsWith('all-skills')) return true; // 废弃的列表页分片，果断删除
             if (key.startsWith('skill:') || key.startsWith('doc:')) return true; // 是技能或文档，且未被更新 -> 删
             return false; // 其他未知 key (如 manually added configs)，保留
         });
@@ -373,62 +351,4 @@ async function syncSitemapData() {
     }
 }
 
-/**
- * 极致瘦身：提取列表页展示的最小字段集
- * 详情数据通过 skill:{id} 独立 key 获取
- */
-function getSkillSummarySlim(skill: any): any {
-    return {
-        id: skill.id,
-        name: skill.name,
-        owner: skill.owner,
-        repo: skill.repo,
-        description: skill.description,
-        category: skill.category,
-        stars: skill.stars,
-        forks: skill.forks,
-        topics: skill.topics,
-        updatedAt: skill.updatedAt,
-        qualityScore: skill.qualityScore,
-        source: skill.source,
-        // 保留精简的 skillMd 元信息 (不含 body)
-        skillMd: skill.skillMd ? {
-            name: skill.skillMd.name,
-            description: skill.skillMd.description,
-            version: skill.skillMd.version,
-            tags: skill.skillMd.tags,
-        } : undefined,
-        // 保留精简的 SEO features (仅英文，用于列表页标签展示)
-        seo: skill.seo ? {
-            features: { en: skill.seo.features?.en },
-            keywords: { en: skill.seo.keywords?.en },
-        } : undefined,
-    };
-}
 
-/**
- * 将数组按 JSON 序列化后的大小切分为多个分片
- * 每个分片 JSON 大小 < maxBytes
- */
-function createShards(items: any[], maxBytes: number): any[][] {
-    const shards: any[][] = [];
-    let currentShard: any[] = [];
-    let currentSize = 2; // account for []
-
-    for (const item of items) {
-        const itemSize = JSON.stringify(item).length + 1; // +1 for comma
-        if (currentSize + itemSize > maxBytes && currentShard.length > 0) {
-            shards.push(currentShard);
-            currentShard = [];
-            currentSize = 2;
-        }
-        currentShard.push(item);
-        currentSize += itemSize;
-    }
-
-    if (currentShard.length > 0) {
-        shards.push(currentShard);
-    }
-
-    return shards;
-}
