@@ -78,9 +78,23 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/skills-cache.json data/sitemap-skills.json
           git commit -m "chore: full skills update [skip ci]"
-          # 处理远程仓库有新提交的情况
-          git pull --rebase origin main
-          git push
+          # Robust push with conflict auto-resolution for data files
+          for attempt in 1 2 3; do
+            if git push; then
+              echo "✅ Push succeeded on attempt $attempt"
+              break
+            fi
+            echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
+            git pull --rebase origin main || {
+              echo "🔧 Rebase conflict detected, auto-resolving data files..."
+              git checkout --theirs data/skills-cache.json data/sitemap-skills.json 2>/dev/null || true
+              git add data/skills-cache.json data/sitemap-skills.json
+              git rebase --continue || git rebase --abort
+              # Fallback: re-commit after abort
+              git add data/skills-cache.json data/sitemap-skills.json
+              git commit -m "chore: full skills update [skip ci]" --allow-empty || true
+            }
+          done
 
       - name: Summary
         run: |
