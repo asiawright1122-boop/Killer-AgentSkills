@@ -34,7 +34,7 @@ const { locale, t } = Astro.props;
 
         <!-- Rights/Actions -->
         <HeaderActions 
-            client:load 
+            client:idle 
             locale={locale} 
             localeNames={LOCALE_NAMES} 
             labels={{

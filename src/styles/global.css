@@ -1,6 +1,4 @@
-/* Import Fonts — display=swap prevents FOIT (Flash of Invisible Text) */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
-
+/* Fonts are now loaded via <link> in Layout.astro to avoid render-blocking */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
@@ -178,13 +176,11 @@
     0%,
     100% {
         opacity: 0.6;
-        filter: blur(30px);
         transform: scale(1);
     }
 
     50% {
         opacity: 0.9;
-        filter: blur(45px);
         transform: scale(1.05);
     }
 }
@@ -213,6 +209,22 @@
 
 .animate-shimmer {
     animation: shimmer 2s linear infinite;
+}
+
+/* UI Pro Max: Accessibility / Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+    .animate-float,
+    .animate-float-slow,
+    .animate-pulse-glow,
+    .animate-shimmer,
+    .animate-pulse,
+    .animate-spin {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 /* Scrollbar */

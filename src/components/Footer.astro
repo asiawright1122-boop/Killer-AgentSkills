@@ -64,7 +64,7 @@ const currentYear = new Date().getFullYear();
                             placeholder={t('Footer.emailPlaceholder')}
                             class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
                         />
-                        <button class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+                        <button aria-label={t('Footer.subscribeBtn') || 'Subscribe'} class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors">
                             →
                         </button>
                     </div>
