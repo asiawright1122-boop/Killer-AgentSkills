@@ -68,7 +68,7 @@ jobs:
 
       # Step 2: Build Cache (Process New Skills with AI Translations)
       - name: Build Skills Cache
-        run: npm run build:cache -- --mode=discover
+        run: npm run build:cache -- --mode=discover --max-duration=330
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}

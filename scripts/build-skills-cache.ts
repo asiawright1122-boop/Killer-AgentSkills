@@ -162,7 +162,25 @@ async function buildCache(): Promise<void> {
     const force = args.includes('--force'); // Force re-generation of AI content
     const filterArg = args.find(arg => arg.startsWith('--filter='));
     const filters = filterArg ? filterArg.split('=')[1].toLowerCase().split(',') : [];
-    console.log(`🚀 Starting cache build in [${mode.toUpperCase()}] mode... (Force: ${force}, Filter: ${filters.join(',') || 'None'})\n`);
+
+    // Max duration parameter for CI/CD timeout prevention
+    const durationArg = args.find(arg => arg.startsWith('--max-duration='));
+    const maxDurationMinutes = durationArg ? parseInt(durationArg.split('=')[1], 10) : 0;
+    const startTimeMs = Date.now();
+    let timeLimitReached = false;
+
+    console.log(`🚀 Starting cache build in [${mode.toUpperCase()}] mode... (Force: ${force}, Filter: ${filters.join(',') || 'None'}, Max Duration: ${maxDurationMinutes ? maxDurationMinutes + 'm' : 'Unlimited'})\n`);
+
+    function isTimeUp(): boolean {
+        if (timeLimitReached) return true;
+        if (!maxDurationMinutes) return false;
+        if ((Date.now() - startTimeMs) > maxDurationMinutes * 60 * 1000) {
+            console.log(`\n⏳ Time limit of ${maxDurationMinutes} minutes reached. Gracefully shutting down to save progress...`);
+            timeLimitReached = true;
+            return true;
+        }
+        return false;
+    }
 
     if (!['discover', 'update', 'full-discovery'].includes(mode)) {
         console.error(`❌ Invalid mode: ${mode}. Use --mode=discover, --mode=update, or --mode=full-discovery`);
@@ -226,6 +244,7 @@ async function buildCache(): Promise<void> {
     if (mode === 'update') {
         console.log('📦 Processing official repos...');
         for (const repo of OFFICIAL_REPOS) {
+            if (isTimeUp()) break;
             const repoPath = `${repo.owner}/${repo.repo}`;
             console.log(`   → ${repoPath}`);
 
@@ -601,6 +620,7 @@ async function buildCache(): Promise<void> {
 
     const limit = pLimit(8); // Concurrency 8
     await Promise.all(skillsToProcess.map((item: any) => limit(async () => {
+        if (isTimeUp()) return;
         try {
             // 0. Fetch content if missing (Parallelized)
             if (!item.content && item.filePath) {
@@ -728,6 +748,7 @@ async function buildCache(): Promise<void> {
 
     const limit2 = pLimit(8);
     await Promise.all(discoveredSkills.map(item => limit2(async () => {
+        if (isTimeUp()) return;
         try {
             const skillMd = parseSkillMd(item.content);
             if (!skillMd || !skillMd.name) return;
@@ -893,7 +914,7 @@ async function buildCache(): Promise<void> {
         console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
         const promises = tasks.map((skill, index) => limit(async () => {
-
+            if (isTimeUp()) return;
 
             const currentDesc = typeof skill.description === 'string' ? skill.description : (skill.description.en || '');
 
