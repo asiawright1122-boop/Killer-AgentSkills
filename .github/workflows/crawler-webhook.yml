@@ -37,12 +37,18 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Fast AI Ingestion (Targeted Mode)
-        run: npm run build:cache -- --target=${{ github.event.client_payload.target_repo }} --mode=update
+        run: npm run build:cache -- --filter=${{ github.event.client_payload.target_repo }} --mode=update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
           SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
           OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare KV
+        run: npm run sync:kv
+        env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
