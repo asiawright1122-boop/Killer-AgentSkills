@@ -88,10 +88,13 @@ async function translateWithNvidia(text: string, targetLang: string, isTitle = f
         ? `Translate this title to ${langNames[targetLang]}. Output ONLY the translated text, nothing else.`
         : `You are a professional technical documentation translator. Translate the following HTML content to ${langNames[targetLang]}.
 
+CRITICAL SEO RULE:
+For non-English locales, you MUST seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., if Japanese, use "AIエージェント"; if Russian, use "ИИ Агенты") naturally into the translation at least once.
+
 RULES:
 1. Preserve ALL HTML tags exactly as they are (<h2>, <p>, <code>, <pre>, <ul>, <li>, etc.)
 2. Only translate the text content between tags
-3. Keep code snippets, commands, and technical terms (like "SKILL.md", "npx", file paths) unchanged
+3. **CRITICAL**: Keep code snippets, commands, and technical framework/library terms (like "React", "Python", "SKILL.md", "npx", file paths) in original English.
 4. Maintain the same professional, technical tone
 5. Output ONLY the translated HTML, no explanations`;
 
@@ -150,7 +153,7 @@ async function translateWithCloudflare(text: string, targetLang: string): Promis
             messages: [
                 {
                     role: 'system',
-                    content: `You are a professional technical documentation translator. Translate the following HTML content to ${langNames[targetLang]}. Preserve all HTML tags. Only translate text content. Keep code and commands unchanged. Output only the translated HTML.`
+                    content: `You are a professional technical documentation translator. Translate the following HTML content to ${langNames[targetLang]}. Preserve all HTML tags. Only translate text content. Keep code, commands, and technical terms (like 'React', 'Agent') in original English. Output only the translated HTML.`
                 },
                 {
                     role: 'user',

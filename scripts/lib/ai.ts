@@ -320,6 +320,9 @@ Analyze this AI Agent Skill and generate SEO content for a developer audience.
 
 ## Generate for locales: ${localeStr}
 
+CRITICAL SEO RULE for Title & Description:
+For non-English locales, you MUST seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., if Japanese, use "AIエージェント"; if Russian, use "ИИ Агенты"). Keep technical terms (React, Python, Node.js, CLI, Agent) in English.
+
 ### A. SEO Title (50-60 chars) — unique, clickable with main keyword
 ### B. Meta Description (150-160 chars) — different from main description, for SERP CTR
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
@@ -541,7 +544,8 @@ Your Response (for "${skillName}"):
 Translate the following AI Agent Skill analysis from English to: ${localeStr}.
 
 GUIDELINES:
-- Complete sentences, not single keywords. Preserve technical terms.
+- Complete sentences, not single keywords. 
+- **CRITICAL**: Preserve technical terms (e.g. "React", "Python", "CLI", "API", framework names) in their original English. Do NOT translate them into local scripts.
 - Translate EVERY array item. Same count as English source.
 
 Input (English):
