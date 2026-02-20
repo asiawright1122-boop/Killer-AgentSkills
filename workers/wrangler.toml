@@ -15,6 +15,11 @@ id = "eb71984285c54c3488c17a32391b9fe5"
 binding = "TRANSLATIONS"
 id = "db9a790f497b40afa9720993d7ea2fe4"
 
+[[d1_databases]]
+binding = "DB"
+database_name = "killer-skills-db"
+database_id = "b20fd9ef-6628-4a78-abd0-59aac064b5d6"
+
 # Workers AI
 [ai]
 binding = "AI"

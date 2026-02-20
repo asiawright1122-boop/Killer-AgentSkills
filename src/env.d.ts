@@ -6,6 +6,7 @@ type KVNamespace = import("@cloudflare/workers-types").KVNamespace;
 type ENV = {
     TRANSLATIONS: KVNamespace;
     SKILLS_CACHE: KVNamespace;
+    DB: D1Database;
     AI: any;
     WORKFLOWS_SERVICE: Fetcher;
     ASSETS: Fetcher;

@@ -11,6 +11,7 @@ import 'dotenv/config';
 import * as dotenv from 'dotenv';
 
 // ===== Shared Lib Imports =====
+import * as crypto from 'crypto';
 import { AIService } from './lib/ai';
 import {
     OFFICIAL_REPOS, isOfficialRepo, CATEGORY_RULES,
@@ -221,6 +222,11 @@ async function buildCache(): Promise<void> {
         return false;
     }
 
+    // Helper: 计算 SHA-256 哈希
+    function computeHash(content: string): string {
+        return crypto.createHash('sha256').update(content || '').digest('hex');
+    }
+
     // Helper to get or translate metadata (Description + SEO)
     async function processMetadata(
         id: string,
@@ -249,8 +255,38 @@ async function buildCache(): Promise<void> {
             console.log(`   → ${repoPath}`);
 
             let repoInfo = null;
+            let currentRepoEtag: string | undefined = undefined;
+
             try {
-                repoInfo = await fetchRepoInfo(repo.owner, repo.repo);
+                // Find ANY existing skill from this repo to grab its ETag
+                const anyExistingSkill = Array.from(existingMap.values()).find(s => s.owner === repo.owner && s.repo === repo.repo);
+
+                const repoInfoObj = await fetchRepoInfo(repo.owner, repo.repo, anyExistingSkill?.repoEtag);
+
+                if (repoInfoObj?.notModified) {
+                    currentRepoEtag = anyExistingSkill?.repoEtag;
+                    console.log(`   ⏩ API Skipping entire repo (ETag Match): ${repoPath}`);
+                    const repoSkills = Array.from(existingMap.values()).filter(s => s.owner === repo.owner && s.repo === repo.repo);
+                    for (const existing of repoSkills) {
+                        if (!processedRepos.has(existing.id)) {
+                            processedRepos.add(existing.id);
+
+                            // Important: must also update global ref just in case
+                            if (!skills.find(s => s.id === existing.id)) {
+                                skills.push({
+                                    ...existing,
+                                    lastSynced: new Date().toISOString()
+                                });
+                            }
+                        }
+                    }
+                    continue; // Skip the entire repository parsing!!!
+                }
+
+                if (repoInfoObj) {
+                    repoInfo = repoInfoObj.data;
+                    currentRepoEtag = repoInfoObj.etag;
+                }
             } catch (e) {
                 console.log(`   ⚠️ Failed to fetch repo info (Error: ${e})`);
             }
@@ -269,6 +305,7 @@ async function buildCache(): Promise<void> {
                         topics: existingSkill.topics,
                         default_branch: 'main',
                     } as any;
+                    currentRepoEtag = existingSkill.repoEtag;
                 }
             }
 
@@ -371,16 +408,56 @@ async function buildCache(): Promise<void> {
 
                             const rawDesc = skillMd?.description || '';
 
-                            const metadata = await processMetadata(skillId, rawDesc, {
-                                name: skillMd?.name || skillDir.name,
-                                topics: repoInfo.topics || [],
-                                bodyPreview: skillMd?.bodyPreview
-                            });
+                            const currentContentHash = computeHash(skillMdContent || rawDesc || '');
+
+                            // INCREMENTAL CHECK: Hash MATCH bypass AI calls completely!
+                            let existingHash = existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
+
+                            // If we STILL don't have an existing hash (because old caches stripped .body),
+                            // we can fetch the old content using the old commit hash/branch IF we had it,
+                            // but actually, we don't have the old commit hash.
+                            // However, we CAN just assume the contentHash is the currentContentHash IF
+                            // `existing.description` is a fully translated object and force is false.
+                            // But wait, what if the repo DID change? We don't know if SKILL.md changed.
+                            // So we MUST generate a new translation if we can't be sure it didn't change!
+                            // Wait, no - we CAN do a quick similarity check on the `bodyPreview`!
+                            // `existing.skillMd.bodyPreview` is 500 chars.
+                            // If the new `skillMd` starts with the exact same 500 chars, it's highly likely unchanged!
+                            if (!existingHash && existing?.skillMd?.bodyPreview && skillMd?.bodyPreview) {
+                                if (existing.skillMd.bodyPreview === skillMd.bodyPreview) {
+                                    existingHash = currentContentHash; // Force match!
+                                }
+                            }
+
+                            let metadataDescription = existing?.description || '';
+                            let metadataSeo = existing?.seo;
+                            let agentAnalysis = existing?.agentAnalysis;
+
+                            if (!force && existing && isSkillFullyOptimized(existing) && existingHash === currentContentHash) {
+                                process.stdout.write('H'); // H = Hash Match Faster Skip
+                                metadataDescription = existing.description;
+                                metadataSeo = existing.seo;
+                                agentAnalysis = existing.agentAnalysis;
+                            } else {
+                                const metadata = await processMetadata(skillId, rawDesc, {
+                                    name: skillMd?.name || skillDir.name,
+                                    topics: repoInfo.topics || [],
+                                    bodyPreview: skillMd?.bodyPreview
+                                });
+                                metadataDescription = metadata.description;
+                                metadataSeo = metadata.seo;
+
+                                // Generate Agent Analysis + translate
+                                const rawAgentAnalysis = await aiService.generateAgentAnalysis(skillMd?.name || skillDir.name, rawDesc, skillMd?.bodyPreview || '');
+                                if (rawAgentAnalysis) {
+                                    agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+                                }
+                            }
 
                             const skill: SkillCache = {
                                 id: skillId,
                                 name: skillMd?.name || skillDir.name,
-                                description: metadata.description,
+                                description: metadataDescription,
                                 owner: repo.owner,
                                 repo: repo.repo,
                                 repoPath,
@@ -391,14 +468,11 @@ async function buildCache(): Promise<void> {
                                 skillMd,
                                 category: 'official',
                                 lastSynced: new Date().toISOString(),
-                                seo: metadata.seo,
+                                seo: metadataSeo,
+                                agentAnalysis: agentAnalysis,
+                                contentHash: currentContentHash,
+                                repoEtag: currentRepoEtag,
                             };
-
-                            // Generate Agent Analysis + translate
-                            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
-                            if (rawAgentAnalysis) {
-                                skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
-                            }
 
                             console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
                             skill.qualityScore = calculateQualityScore(skill);
@@ -489,17 +563,44 @@ async function buildCache(): Promise<void> {
                     const skillMd = skillMdContent ? parseSkillMd(skillMdContent) : undefined;
                     const rawDesc = skillMd?.description || repoInfo.description || '';
 
-                    const metadata = await processMetadata(skillId, rawDesc, {
-                        name: skillMd?.name || repoInfo.name,
-                        topics: repoInfo.topics || [],
-                        bodyPreview: skillMd?.bodyPreview
-                    });
+                    const currentContentHash = computeHash(skillMdContent || rawDesc || '');
+
+                    let metadataDescription = existing?.description || '';
+                    let metadataSeo = existing?.seo;
+                    let agentAnalysis = existing?.agentAnalysis;
+                    let existingHash = existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
+
+                    if (!existingHash && existing?.skillMd?.bodyPreview && skillMd?.bodyPreview) {
+                        if (existing.skillMd.bodyPreview === skillMd.bodyPreview) {
+                            existingHash = currentContentHash; // Force match!
+                        }
+                    }
+
+                    if (!force && existing && isSkillFullyOptimized(existing) && existingHash === currentContentHash) {
+                        process.stdout.write('H');
+                        metadataDescription = existing.description;
+                        metadataSeo = existing.seo;
+                        agentAnalysis = existing.agentAnalysis;
+                    } else {
+                        const metadata = await processMetadata(skillId, rawDesc, {
+                            name: skillMd?.name || repoInfo.name,
+                            topics: repoInfo.topics || [],
+                            bodyPreview: skillMd?.bodyPreview
+                        });
+                        metadataDescription = metadata.description;
+                        metadataSeo = metadata.seo;
+
+                        const rawAgentAnalysis = await aiService.generateAgentAnalysis(skillMd?.name || repoInfo.name, rawDesc, skillMd?.bodyPreview || '');
+                        if (rawAgentAnalysis) {
+                            agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+                        }
+                    }
 
                     const skill: SkillCache = {
                         id: skillId,
                         name: skillMd?.name || repoInfo.name,
-                        description: metadata.description,
-                        seo: metadata.seo,
+                        description: metadataDescription,
+                        seo: metadataSeo,
                         owner: repo.owner,
                         repo: repo.repo,
                         repoPath,
@@ -510,13 +611,10 @@ async function buildCache(): Promise<void> {
                         skillMd,
                         category: 'official',
                         lastSynced: new Date().toISOString(),
+                        agentAnalysis: agentAnalysis,
+                        contentHash: currentContentHash,
+                        repoEtag: currentRepoEtag,
                     };
-
-                    // Generate Agent Analysis + translate
-                    const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, rawDesc, skillMd?.bodyPreview || '');
-                    if (rawAgentAnalysis) {
-                        skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
-                    }
 
                     skill.qualityScore = calculateQualityScore(skill);
                     skills.push(skill);
@@ -698,17 +796,49 @@ async function buildCache(): Promise<void> {
             // console.log(`   → ${skillId}`);
             process.stdout.write('.');
 
-            const metadata = await processMetadata(skillId, item.description || '', {
-                name: skillMd.name,
-                topics: item.topics || [],
-                bodyPreview: skillMd.bodyPreview
-            });
+            const currentContentHash = computeHash(item.content || item.description || '');
+
+            let itemContent = item.content || '';
+            const parsedSkillMd = itemContent ? parseSkillMd(itemContent) : undefined;
+
+            let existingHash = existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
+
+            // Assume same definition hash if the preview is identical
+            if (!existingHash && existing?.skillMd?.bodyPreview && parsedSkillMd?.bodyPreview) {
+                if (existing.skillMd.bodyPreview === parsedSkillMd.bodyPreview) {
+                    existingHash = currentContentHash; // Force match!
+                }
+            }
+
+            let metadataDescription = existing?.description || '';
+            let metadataSeo = existing?.seo;
+            let agentAnalysis = existing?.agentAnalysis;
+
+            if (!force && existing && isSkillFullyOptimized(existing) && existingHash === currentContentHash) {
+                process.stdout.write('H'); // Hash Match Skip
+                metadataDescription = existing.description;
+                metadataSeo = existing.seo;
+                agentAnalysis = existing.agentAnalysis;
+            } else {
+                const metadata = await processMetadata(skillId, item.description || '', {
+                    name: skillMd.name,
+                    topics: item.topics || [],
+                    bodyPreview: skillMd.bodyPreview
+                });
+                metadataDescription = metadata.description;
+                metadataSeo = metadata.seo;
+
+                const rawAgentAnalysis = await aiService.generateAgentAnalysis(skillMd.name, typeof metadataDescription === 'string' ? metadataDescription : metadataDescription.en, skillMd.bodyPreview || '');
+                if (rawAgentAnalysis) {
+                    agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+                }
+            }
 
             const skill: SkillCache = {
                 id: skillId,
                 name: skillMd.name,
-                description: metadata.description,
-                seo: metadata.seo,
+                description: metadataDescription,
+                seo: metadataSeo,
                 owner: item.owner,
                 repo: item.repo,
                 repoPath,
@@ -719,13 +849,9 @@ async function buildCache(): Promise<void> {
                 category: 'community',
                 skillMd: skillMd,
                 lastSynced: new Date().toISOString(),
+                agentAnalysis: agentAnalysis,
+                contentHash: currentContentHash,
             };
-
-            // Generate Agent Analysis + translate
-            const rawAgentAnalysis = await aiService.generateAgentAnalysis(skill.name, typeof skill.description === 'string' ? skill.description : skill.description.en, skillMd.bodyPreview || '');
-            if (rawAgentAnalysis) {
-                skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
-            }
 
             skill.qualityScore = calculateQualityScore(skill);
             skills.push(skill);
@@ -793,6 +919,9 @@ async function buildCache(): Promise<void> {
             processedRepos.add(skillId);
 
             const rawDesc = skillMd.description || item.description || '';
+
+            const currentContentHash = computeHash(item.content || rawDesc || '');
+
             const metadata = await processMetadata(skillId, rawDesc, {
                 name: skillMd.name,
                 topics: item.topics || [],
@@ -810,11 +939,12 @@ async function buildCache(): Promise<void> {
                 repoPath: `${item.owner}/${item.repo}`,
                 stars: item.stars || 0,
                 forks: item.forks || 0,
-                updatedAt: item.fetchedAt || new Date().toISOString(),
+                updatedAt: item.fetchedAt || item.updatedAt || new Date().toISOString(),
                 topics: item.topics || [],
                 category: 'community',
                 skillMd: skillMd,
                 lastSynced: new Date().toISOString(),
+                contentHash: currentContentHash,
             };
 
             skill.category = determineCategory(skill);

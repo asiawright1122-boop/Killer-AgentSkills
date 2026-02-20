@@ -1,6 +1,7 @@
 export interface Env {
     TRANSLATIONS: KVNamespace;
     SKILLS_CACHE: KVNamespace;
+    DB: D1Database;
     AI: any;                    // Workers AI binding
     ASSETS: Fetcher;            // Static assets binding
     ADMIN_USER?: string;
@@ -55,91 +56,61 @@ export async function setKV(env: Env, key: string, value: string, ttl: number = 
 }
 
 /**
- * Read all skills data from SKILLS_CACHE KV namespace.
- * Returns an empty array if the binding is unavailable or on error.
+ * Read all skills data from D1 SQLite Serverless database.
  * Usage: await getSkillsFromKV(context.locals.runtime.env)
  */
 export async function getSkillsFromKV(env: Env): Promise<any[]> {
-    // Helper to load from local file
-    const loadFromLocalFile = async (): Promise<any[] | null> => {
-        try {
-            const fs = await import('node:fs');
-            const path = await import('node:path');
-            const cachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
-            if (fs.existsSync(cachePath)) {
-                const content = fs.readFileSync(cachePath, 'utf-8');
-                const data = JSON.parse(content);
-                console.log('[KV] Using local skills cache');
-                if (Array.isArray(data.skills)) return data.skills;
-                if (Array.isArray(data)) return data;
-            }
-        } catch (e) {
-            console.warn('[KV] Failed to read local skills cache:', e);
-        }
-        return null;
-    };
-
-    if (!env?.SKILLS_CACHE) {
-        // Fallback to local file ONLY in dev mode
-        if (import.meta.env.DEV) {
-            const local = await loadFromLocalFile();
-            if (local) return local;
-        }
-        console.warn('[KV] No SKILLS_CACHE binding and local fallback failed');
+    if (!env?.DB) {
+        console.warn('[D1] No DB binding found, falling back to empty array');
         return [];
     }
-    try {
-        // 新分片格式: all-skills-index + all-skills:0, all-skills:1, ...
-        const index = await env.SKILLS_CACHE.get('all-skills-index', 'json') as { shardCount: number; totalCount: number } | null;
-        if (index && index.shardCount > 0) {
-            console.log(`[KV] Reading ${index.shardCount} shards (${index.totalCount} skills)...`);
-            const shardPromises = Array.from({ length: index.shardCount }, (_, i) =>
-                env.SKILLS_CACHE.get(`all-skills:${i}`, 'json')
-            );
-            const shardResults = await Promise.all(shardPromises);
-            const allSkills = shardResults
-                .filter((shard): shard is any[] => Array.isArray(shard))
-                .flat();
-            if (allSkills.length > 0) {
-                console.log(`[KV] Loaded ${allSkills.length} skills from ${index.shardCount} shards`);
-                return allSkills;
-            }
-            console.warn('[KV] Shards returned empty, trying local file fallback...');
-        }
 
-        // KV exists but returned empty/null — fall back to local file in dev mode
-        if (import.meta.env.DEV) {
-            console.warn('[KV] SKILLS_CACHE KV returned empty, falling back to local file');
-            const local = await loadFromLocalFile();
-            if (local) return local;
+    try {
+        console.log('[D1] Executing global skill selection across D1 Database Nodes...');
+        // We pull the full data_json payloads for application layer mapping
+        const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
+
+        if (result.success && result.results) {
+            console.log(`[D1] Successfully loaded ${result.results.length} skills from SQLite Edge Cache`);
+            return result.results.map((row: any) => JSON.parse(row.data_json));
         }
         return [];
     } catch (e) {
-        console.error('[KV] Error reading skills:', e);
-        // In dev mode, try local file as last resort
-        if (import.meta.env.DEV) {
-            const local = await loadFromLocalFile();
-            if (local) return local;
-        }
+        console.error('[D1] Error querying skills from SQLite:', e);
         return [];
     }
 }
 
 /**
- * Read a specific key from SKILLS_CACHE KV namespace as JSON.
- * Returns null if the binding is unavailable, key doesn't exist, or on error.
+ * Read a specific key from D1 namespace as JSON.
  * Usage: await getSkillsKV(context.locals.runtime.env, 'some-key')
  */
 export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
-    if (!env?.SKILLS_CACHE) {
-        console.warn('[KV] No SKILLS_CACHE binding');
+    if (!env?.DB) {
+        console.warn('[D1] No DB binding for specific key lookup');
         return null;
     }
+
     try {
-        const data = await env.SKILLS_CACHE.get(key, 'json');
-        return data ?? null;
+        // If they ask for key "all-skills-index" or purely legacy string paths, map them safely
+        if (key === 'all-skills-index' || key.startsWith('all-skills:')) {
+            return null;
+        }
+
+        // 'skill:owner/repo' -> extract owner and repo, or just bind 'owner/repo' into 'id' 
+        // Our D1 'id' maps exactly to the repo string "owner/repo" in skills sync scripts!
+        let dbId = key;
+        if (key.startsWith('skill:')) {
+            dbId = key.substring(6);
+        }
+
+        const result = await env.DB.prepare(`SELECT data_json FROM skills WHERE id = ?`).bind(dbId).first();
+        if (result && result.data_json) {
+            return JSON.parse(result.data_json as string);
+        }
+        return null;
     } catch (e) {
-        console.error(`[KV] Error reading skills key "${key}":`, e);
+        console.error(`[D1] Error querying skill key "${key}":`, e);
         return null;
     }
 }

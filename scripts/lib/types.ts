@@ -44,6 +44,8 @@ export interface SkillCache {
         bodyPreview: string;
         body?: string;
     };
+    contentHash?: string;
+    repoEtag?: string;
     qualityScore?: number;
     category?: string;
     lastSynced: string;
