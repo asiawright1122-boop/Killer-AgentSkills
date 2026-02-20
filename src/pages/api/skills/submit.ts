@@ -1,6 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getSkillsFromKV, type Env } from '../../../lib/kv';
-import type { UnifiedSkill } from '../../../lib/skills';
+import type { Env } from '../../../lib/kv';
 import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../lib/github';
 
 export const prerender = false;
@@ -205,16 +204,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const parsedSkill = parseSkillMd(skillMdContent);
 
-    // Check for duplicates in KV
+    // Check for duplicates via targeted D1 query (O(1) instead of loading entire table)
     const env = (locals as any).runtime?.env as Env | undefined;
     if (env) {
-      const allSkills = await getSkillsFromKV(env);
-      const repoPath = `${owner}/${repo}`.toLowerCase();
-      const exists = (allSkills as UnifiedSkill[]).some(
-        (s) => `${s.owner}/${s.repo}`.toLowerCase() === repoPath
-      );
+      const { getSkillsKV } = await import('../../../lib/kv');
+      const repoPath = `${owner}/${repo}`;
+      const existing = await getSkillsKV(env, repoPath);
 
-      if (exists) {
+      if (existing) {
         return new Response(
           JSON.stringify({ error: 'This skill already exists', skill: repoInfo }),
           {
