@@ -22,7 +22,8 @@ export function isOfficialRepo(owner: string, repo?: string): boolean {
 // ===== Validation Constants =====
 export const EXCLUDE_KEYWORDS = [
     'interview', 'notes', 'blog', 'resume', 'portfolio', 'leetcode',
-    'algorithm', 'tutorial', 'course', 'book', 'learning', 'study', 'guide'
+    'algorithm', 'tutorial', 'course', 'book', 'learning', 'study', 'guide',
+    'studiojinsei' // Added to prevent crawling leaked API keys
 ];
 
 export const SUSPICIOUS_NAMES = [
