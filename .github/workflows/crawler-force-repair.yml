@@ -74,6 +74,14 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
+      - name: Sync to Cloudflare D1 (Serverless SQL)
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          npx wrangler d1 execute killer-skills-db --remote --file=db/seeds/initial.sql
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
       - name: Commit and Push
         if: steps.changes.outputs.changed == 'true'
         run: |
