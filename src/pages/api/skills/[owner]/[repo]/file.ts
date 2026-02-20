@@ -86,18 +86,17 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     // Access env via context.locals.runtime.env (Cloudflare Workers runtime)
     const env = (locals as any).runtime?.env as Env | undefined;
 
-    // Try to detect the preferred branch from KV metadata if available
+    // Try to detect the preferred branch from D1 skill data if available
     let preferredBranch: string | undefined;
-    if (env?.SKILLS_CACHE) {
+    if (env?.DB) {
       try {
-        const meta = await env.SKILLS_CACHE.get(`meta:${owner}/${repo}`, 'json') as {
-          defaultBranch?: string;
-        } | null;
-        if (meta?.defaultBranch) {
-          preferredBranch = meta.defaultBranch;
+        const { getSkillsKV } = await import('../../../../../lib/kv');
+        const skill = await getSkillsKV(env, `${owner}/${repo}`);
+        if (skill?.defaultBranch) {
+          preferredBranch = skill.defaultBranch;
         }
       } catch {
-        // ignore KV errors, will try all branches
+        // ignore DB errors, will try all branches
       }
     }
 
