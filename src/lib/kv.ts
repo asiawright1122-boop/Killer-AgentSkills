@@ -125,43 +125,48 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string,
     const filterValid = (items: any[]): { owner: string, repo: string, updatedAt?: string }[] =>
         items.filter(s => s && typeof s.owner === 'string' && s.owner && typeof s.repo === 'string' && s.repo);
 
-    if (!env?.SKILLS_CACHE) {
-        // Fallback to local file ONLY in dev mode
-        if (import.meta.env.DEV) {
-            try {
-                const fs = await import('node:fs');
-                const path = await import('node:path');
-                const cachePath = path.resolve(process.cwd(), 'data/sitemap-skills.json');
-
-                if (fs.existsSync(cachePath)) {
-                    const content = fs.readFileSync(cachePath, 'utf-8');
-                    const data = JSON.parse(content);
-                    console.log('[KV] Using local sitemap skills cache');
-                    if (Array.isArray(data)) return filterValid(data);
-                }
-                // If sitemap specific cache doesn't exist, try falling back to main cache for dev
-                const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
-                if (fs.existsSync(mainCachePath)) {
-                    const content = fs.readFileSync(mainCachePath, 'utf-8');
-                    const data = JSON.parse(content);
-                    const skills = Array.isArray(data) ? data : (data.skills || []);
-                    return filterValid(skills.map((s: any) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })));
-                }
-            } catch (e) {
-                console.warn('[KV] Failed to read local sitemap skills cache:', e);
+    // Primary: Query D1
+    if (env?.DB) {
+        try {
+            const result = await env.DB.prepare(
+                `SELECT owner, repo, updated_at as updatedAt FROM skills WHERE owner IS NOT NULL AND repo IS NOT NULL`
+            ).all();
+            if (result.success && result.results) {
+                console.log(`[D1] Sitemap: loaded ${result.results.length} entries from D1`);
+                return filterValid(result.results as any[]);
             }
+        } catch (e) {
+            console.error('[D1] Error reading sitemap skills from D1:', e);
         }
-        console.warn('[KV] No SKILLS_CACHE binding and local fallback failed for sitemap');
-        return [];
     }
-    try {
-        const data = await env.SKILLS_CACHE.get('sitemap-skills', 'json');
-        if (Array.isArray(data)) {
-            return filterValid(data);
+
+    // Fallback: Dev mode local file
+    if (import.meta.env.DEV) {
+        try {
+            const fs = await import('node:fs');
+            const path = await import('node:path');
+
+            const sitemapPath = path.resolve(process.cwd(), 'data/sitemap-skills.json');
+            if (fs.existsSync(sitemapPath)) {
+                const content = fs.readFileSync(sitemapPath, 'utf-8');
+                const data = JSON.parse(content);
+                console.log('[Local] Using local sitemap skills cache');
+                if (Array.isArray(data)) return filterValid(data);
+            }
+
+            const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
+            if (fs.existsSync(mainCachePath)) {
+                const content = fs.readFileSync(mainCachePath, 'utf-8');
+                const data = JSON.parse(content);
+                const skills = Array.isArray(data) ? data : (data.skills || []);
+                return filterValid(skills.map((s: any) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })));
+            }
+        } catch (e) {
+            console.warn('[Local] Failed to read local sitemap skills cache:', e);
         }
-        return [];
-    } catch (e) {
-        console.error('[KV] Error reading sitemap skills:', e);
-        return [];
     }
+
+    console.warn('[Sitemap] No data source available for sitemap');
+    return [];
 }
+
