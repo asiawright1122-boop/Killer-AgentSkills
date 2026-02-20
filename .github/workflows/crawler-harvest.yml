@@ -1,9 +1,9 @@
 name: Skills Harvester & Builder
 
 on:
-  # Run every 12 hours
+  # Run twice a day, staggered to avoid the daily full run at 00:00 UTC
   schedule:
-    - cron: '0 */12 * * *'
+    - cron: '0 6,18 * * *'
   # Allow manual trigger
   workflow_dispatch:
 
