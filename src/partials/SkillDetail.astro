@@ -54,9 +54,42 @@ const ogImageUrl = ogServerUrl
     : `/og-image.png`;
 
 const installCommand = `npx killer-skills install ${data.owner}/${data.repo}`;
+
+// Get 3 related skills for Dwell-Time locking (Yandex SEO Strategy)
+const allSkills = await getCollection('skills');
+const relatedSkills = allSkills
+    .filter(s => s.id !== skill.id && s.data.category === data.category)
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 3);
+
+// Construct Schema.org JSON-LD for SoftwareApplication
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": data.name,
+  "operatingSystem": "Any",
+  "applicationCategory": "DeveloperApplication",
+  "description": description,
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": data.stars > 0 ? data.stars : 1
+  },
+  "author": {
+    "@type": "Person",
+    "name": data.owner,
+    "url": `https://github.com/${data.owner}`
+  }
+};
 ---
 
 <Layout title={`${data.name} - AI Skill`} description={description} image={ogImageUrl}>
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
     <main class="max-w-7xl mx-auto px-6 py-12">
         
         {/* Breadcrumbs */}
@@ -86,6 +119,28 @@ const installCommand = `npx killer-skills install ${data.owner}/${data.repo}`;
                     <h1 class="text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-6">
                         {data.name}
                     </h1>
+                    
+                    {/* E-E-A-T Author Info */}
+                    <div class="flex items-center gap-3 mb-6">
+                        <img 
+                            src={`https://github.com/${data.owner}.png?size=48`} 
+                            alt={`${data.owner} avatar`} 
+                            class="w-10 h-10 rounded-full border border-slate-200 dark:border-slate-700 shadow-sm"
+                            loading="lazy"
+                        />
+                        <div class="flex flex-col">
+                            <span class="text-sm text-slate-500 dark:text-slate-400">Created by</span>
+                            <a 
+                                href={`https://github.com/${data.owner}`} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="text-base font-semibold text-slate-900 dark:text-white hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors"
+                            >
+                                @{data.owner}
+                            </a>
+                        </div>
+                    </div>
+
                     <p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed text-balance">
                         {description || "No description available."}
                     </p>
@@ -140,6 +195,25 @@ const installCommand = `npx killer-skills install ${data.owner}/${data.repo}`;
                         </div>
                     </div>
                 </section>
+
+                {/* SEO Dwell-Time Lock: Related Agents (Yandex Optimization) */}
+                {relatedSkills.length > 0 && (
+                <section class="mt-16 pt-8 border-t border-slate-200 dark:border-slate-800">
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Explore Related AI Agents</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {relatedSkills.map(rs => (
+                            <a href={`/${currentLang}/skills/${rs.id}`} class="group block p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl hover:border-cyan-300 dark:hover:border-cyan-700 transition-all">
+                                <h4 class="font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 truncate mb-2">
+                                    {rs.data.name}
+                                </h4>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 line-clamp-2">
+                                    {typeof rs.data.description === 'string' ? rs.data.description : (rs.data.description[currentLang] || rs.data.description['en'])}
+                                </p>
+                            </a>
+                        ))}
+                    </div>
+                </section>
+                )}
             </div>
 
             {/* Right Column: Stats & Meta (4 cols) */}
