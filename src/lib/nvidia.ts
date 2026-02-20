@@ -102,6 +102,10 @@ export async function* translateTextStream(text: string, targetLang: string, typ
         systemPrompt = `You are a technical document translator. 
         Translate the input Markdown content into ${targetLang === 'zh' ? 'Chinese (Simplified)' : targetLang}.
 
+        CRITICAL SEO RULE:
+        You MUST seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" in ${targetLang} into the very first paragraph of your translation. 
+        (e.g., if Japanese, use "AIエージェント"; if Russian, use "ИИ Агенты"). This is strictly required for SEO exact-matching.
+
         FORMATTING RULES (STRICT):
         1. Keep ALL Markdown structure intact.
         2. **INSERT A BLANK LINE** (double newline) before every Header (#, ##, ###).
