@@ -185,6 +185,7 @@ async function buildCache(): Promise<void> {
     }
 
     const skills: SkillCache[] = [];
+    globalSkillsRef = skills; // LINK global ref to local array for SIGINT handling
     globalSkillsRef = skills; // Store reference for SIGINT handler
     const processedRepos = new Set<string>();
 
@@ -383,6 +384,13 @@ async function buildCache(): Promise<void> {
                             console.log(`      ✅ Added skill: ${skill.name} (${skill.id})`);
                             skill.qualityScore = calculateQualityScore(skill);
                             skills.push(skill);
+                            globalSkillsRef = skills; // Update reference
+
+                            // NEW: Auto-save checkpoint
+                            if (skills.length % 5 === 0) {
+                                console.log(`\n\n💾 Auto-saving progress (${skills.length} official processed)...`);
+                                await saveStateOnly(skills);
+                            }
                             process.stdout.write('.');
 
                         }
@@ -430,6 +438,13 @@ async function buildCache(): Promise<void> {
 
                             skill.qualityScore = calculateQualityScore(skill);
                             skills.push(skill);
+                            globalSkillsRef = skills; // Update reference
+
+                            // NEW: Auto-save checkpoint
+                            if (skills.length % 5 === 0) {
+                                console.log(`\n\n💾 Auto-saving progress (${skills.length} official processed)...`);
+                                await saveStateOnly(skills);
+                            }
                             process.stdout.write('.');
                         }
                     }
@@ -486,6 +501,13 @@ async function buildCache(): Promise<void> {
 
                     skill.qualityScore = calculateQualityScore(skill);
                     skills.push(skill);
+                    globalSkillsRef = skills; // Update reference
+
+                    // NEW: Auto-save checkpoint
+                    if (skills.length % 5 === 0) {
+                        console.log(`\n\n💾 Auto-saving progress (${skills.length} official processed)...`);
+                        await saveStateOnly(skills);
+                    }
                     process.stdout.write('.');
 
                 }
@@ -640,6 +662,13 @@ async function buildCache(): Promise<void> {
             if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
                 skills.push(existing);
                 processedRepos.add(skillId);
+                globalSkillsRef = skills; // Keep reference updated
+
+                // NEW: Auto-save checkpoint for official skills
+                if (skills.length % 5 === 0) {
+                    console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
+                    await saveStateOnly(skills);
+                }
                 process.stdout.write('s');
                 return;
             }
@@ -768,9 +797,7 @@ async function buildCache(): Promise<void> {
             };
 
             skill.category = determineCategory(skill);
-            skills.push(skill);
-            process.stdout.write('+'); // + for newly discovered and added
-            console.log(`[DEBUG] Pushed discovered ${skill.name}. Total: ${skills.length}.`);
+            globalSkillsRef = skills; // Keep reference updated
 
             // Auto-save every 10 newly discovered skills
             if (skills.length % 10 === 0) {
