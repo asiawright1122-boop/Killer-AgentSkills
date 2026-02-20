@@ -1,9 +1,9 @@
 name: Skills Crawler (Full Update)
 
 on:
-  # Run every 3 days at midnight UTC
+  # Run daily at midnight UTC
   schedule:
-    - cron: '0 0 */3 * *'
+    - cron: '0 0 * * *'
   # 手动触发
   workflow_dispatch:
 
