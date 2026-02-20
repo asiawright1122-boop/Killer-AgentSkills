@@ -350,15 +350,12 @@ async function buildCache(): Promise<void> {
 
                             processedRepos.add(skillId);
 
-                            // INCREMENTAL CHECK: If we already have this skill in cache with a body, and it's recent, skip fetching
+                            // INCREMENTAL CHECK: If we already have this skill deeply translated and optimized, skip fetching to save time and API limits
                             const existing = existingMap.get(skillId);
-                            // If we have existing data, and it has a body, and we are not forcing update
-                            // And it was synced recently (e.g. within 24 hours), we can likely skip fetching content
-                            // We still might want to check for updates if it's been a while, but for now let's trust the body
-                            if (existing && existing.skillMd?.body && !force) {
+                            if (existing && isSkillFullyOptimized(existing) && !force) {
                                 // Check if it needs update based on repo updated_at
                                 if (!hasSkillUpdated(existing, repoInfo.updated_at)) {
-                                    console.log(`      ⏩ Skipping fetch (Cached & Fresh): ${skillDir.name}`);
+                                    console.log(`      ⏩ Skipping fetch (Cached & Optimized): ${skillDir.name}`);
                                     skills.push(existing);
                                     process.stdout.write('s');
                                     continue;
@@ -373,7 +370,7 @@ async function buildCache(): Promise<void> {
                                 try {
                                     // Use download_url from API if available, otherwise construct raw URL
                                     const url = skillDir.download_url || `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/main/${repo.skillsPath}`;
-                                    const res = await fetch(url);
+                                    const res = await fetchWithTimeout(url);
                                     if (res.ok) {
                                         skillMdContent = await res.text();
                                     }
@@ -387,7 +384,7 @@ async function buildCache(): Promise<void> {
                                 for (const branch of branches) {
                                     try {
                                         const mdUrl = `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/${branch}/${skillMdPath}`;
-                                        const mdRes = await fetch(mdUrl);
+                                        const mdRes = await fetchWithTimeout(mdUrl);
                                         if (mdRes.ok) {
                                             skillMdContent = await mdRes.text();
                                             break;

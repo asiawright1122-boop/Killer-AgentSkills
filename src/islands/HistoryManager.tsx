@@ -165,7 +165,6 @@ function HistoryCard({ item, locale, onRemove, removeHistoryLabel, timeLabels }:
   return (
     <a href={detailUrl} className="block group">
       <div className="relative h-full p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 ease-out hover:border-cyan-400/50 hover:-translate-y-1">
-        {/* Remove button */}
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -174,6 +173,7 @@ function HistoryCard({ item, locale, onRemove, removeHistoryLabel, timeLabels }:
           }}
           className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-500 text-slate-400"
           title={removeHistoryLabel}
+          aria-label={removeHistoryLabel}
         >
           <X className="w-4 h-4" />
         </button>

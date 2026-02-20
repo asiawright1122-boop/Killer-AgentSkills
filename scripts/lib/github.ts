@@ -188,7 +188,7 @@ export async function searchGitHubSkills(): Promise<any[]> {
         for (const query of bootstrapQueries) {
             try {
                 const searchUrl = `${GITHUB_API}/search/code?q=${encodeURIComponent(query)}&per_page=100`;
-                const response = await fetch(searchUrl, { headers: getHeaders() });
+                const response = await fetchWithRetry(searchUrl);
                 if (response.ok) {
                     const data = await response.json() as any;
                     const newItems = data.items || [];
@@ -283,7 +283,7 @@ export async function discoverNewSkillsFromGitHub(existingIds: Set<string>, last
         for (let page = 1; page <= MAX_PAGES; page++) {
             try {
                 const searchUrl = `${GITHUB_API}/search/code?q=${encodeURIComponent(query)}&per_page=100&page=${page}&sort=indexed&order=desc`;
-                const response = await fetch(searchUrl, { headers: getHeaders() });
+                const response = await fetchWithRetry(searchUrl);
 
                 if (!response.ok) {
                     if (response.status === 403 || response.status === 422) {
@@ -325,7 +325,7 @@ export async function discoverNewSkillsFromGitHub(existingIds: Set<string>, last
                     const rawUrl = `https://raw.githubusercontent.com/${repoFullName}/${branch}/${filePath}`;
 
                     try {
-                        const contentRes = await fetch(rawUrl);
+                        const contentRes = await fetchWithTimeout(rawUrl);
                         if (!contentRes.ok) continue;
 
                         const content = await contentRes.text();

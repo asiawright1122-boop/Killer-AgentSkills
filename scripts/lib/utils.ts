@@ -192,15 +192,30 @@ export function pLimit(concurrency: number) {
 /**
  * Fetch with timeout to prevent hanging requests
  */
-export async function fetchWithTimeout(url: string, options: any = {}, timeout = 30000): Promise<Response> {
-    const controller = new AbortController();
-    const id = setTimeout(() => controller.abort(), timeout);
-    try {
-        const response = await fetch(url, { ...options, signal: controller.signal });
-        clearTimeout(id);
-        return response;
-    } catch (error) {
-        clearTimeout(id);
-        throw error;
+export async function fetchWithTimeout(url: string, options: any = {}, timeout = 30000, maxRetries = 3): Promise<Response> {
+    let lastError: any;
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+        const controller = new AbortController();
+        const id = setTimeout(() => controller.abort(), timeout);
+        try {
+            const response = await fetch(url, { ...options, signal: controller.signal });
+            clearTimeout(id);
+            if (!response.ok && response.status >= 500) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+            return response;
+        } catch (error: any) {
+            clearTimeout(id);
+            lastError = error;
+            // Don't retry on 4xx errors except 429
+            if (error.message?.includes('404') || (error.message?.startsWith('Server error: 4') && !error.message?.includes('429'))) {
+                throw error;
+            }
+            if (attempt < maxRetries - 1) {
+                const backoff = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+                await new Promise(r => setTimeout(r, backoff));
+            }
+        }
     }
+    throw lastError;
 }
