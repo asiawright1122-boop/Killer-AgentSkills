@@ -27,6 +27,7 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
 
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
+  aria-label={t.readArticle + ' - ' + post.data.title}
   class="group relative block w-full overflow-hidden rounded-3xl h-[500px] mb-12 shadow-xl dark:shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.3)]"
 >
   {/* Background Image with Zoom Effect */}
