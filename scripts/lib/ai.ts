@@ -256,6 +256,39 @@ export class AIService {
     }
 
     /**
+     * Pre-summarize massive READMEs (Map-Reduce step)
+     * Reads up to 40,000 characters of raw input and condenses it into an 800-word technical summary.
+     */
+    async generateLongContextSummary(skillName: string, rawText: string): Promise<string> {
+        if (!this.config.nvidiaKeys.length) return rawText.slice(0, 3000); // Fallback if NVIDIA not configured
+
+        console.log(`[AIService] 🧠 Long Context Detected for ${skillName} (${rawText.length} chars). Running Map-Reduce Summary...`);
+        const prompt = `You are a Senior Technical Architect.
+Please read this complete open-source project documentation for "${skillName}":
+
+=== DOCUMENTATION START ===
+${rawText.slice(0, 40000)}
+=== DOCUMENTATION END ===
+
+TASK:
+Provide a highly condensed, information-dense 800-word technical summary.
+DO NOT omit any advanced use cases, CLI commands, or ecosystem compatibilities (e.g., integrations mentioned at the bottom of the docs).
+Output ONLY the summary, no intro/outro.`;
+
+        // Direct call to NVIDIA (guaranteed to have long context support via Llama 3.1 70B inside callAISingle)
+        try {
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 40000); // Allow 40s for long reduction
+            const result = await this.callAISingle(prompt, 'nvidia', this.config.nvidiaKeys[0], false, controller.signal);
+            clearTimeout(timeout);
+            return result || rawText.slice(0, 3000);
+        } catch (e) {
+            console.warn(`[WARN] Long Context Summary failed for ${skillName}, falling back to slice:`, e);
+            return rawText.slice(0, 3000);
+        }
+    }
+
+    /**
      * Translate and Generate Metadata with Full SEO Prompt
      * Uses batch-locale strategy: splits 10 locales into 3-4 batches
      * to keep output token count manageable (prevents timeouts).
@@ -283,8 +316,18 @@ export class AIService {
         if (!hasNvidia && !hasSiliconFlow && !hasCloudflare) return defaultResult;
 
         console.log(`[AIService] Translating ${skillName}...`);
+
+        let processedText = text;
         const topics = context?.topics?.join(', ') || '';
-        const bodyPreview = context?.bodyPreview?.slice(0, 1500) || '';
+        const bodyPreview = context?.bodyPreview || '';
+
+        // Map-Reduce for extremely long texts
+        if (text.length > 3000 || bodyPreview.length > 3000) {
+            const fullRawText = text + "\n---\n" + bodyPreview;
+            processedText = await this.generateLongContextSummary(skillName, fullRawText);
+        } else {
+            processedText = text.slice(0, 3000);
+        }
 
         // Split locales into batches of 3-4 to avoid output token timeout
         const localeBatches: string[][] = [];
@@ -314,9 +357,8 @@ Analyze this AI Agent Skill and generate SEO content for a developer audience.
 
 ## Input
 - **Skill Name**: "${skillName}"
-- **Description**: "${text.slice(0, 2000).replace(/"/g, '\\"')}"
+- **Description & Content**: "${processedText.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 - **Tags**: ${topics}
-- **Content**: "${bodyPreview.replace(/"/g, '\\"').replace(/\n/g, ' ').slice(0, 1000)}"
 
 ## Generate for locales: ${localeStr}
 
@@ -412,12 +454,19 @@ Output STRICT JSON only, no markdown wrapping:
         description: string,
         bodyPreview: string
     ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[]; version?: number } | undefined> {
+
+        let processedText = description + "\n" + bodyPreview;
+        if (processedText.length > 3000) {
+            processedText = await this.generateLongContextSummary(skillName, processedText);
+        } else {
+            processedText = processedText.slice(0, 3000);
+        }
+
         const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
         
 Skill: ${skillName}
-Description: ${description}
-Content Preview:
-${bodyPreview.slice(0, 1500)}
+Comprehensive Content Analysis:
+${processedText}
 
 Analyze this skill and provide structured data optimized for SEO and Agent Developers.
 CRITICAL: Content must be specific to "${skillName}". Avoid generic filler.
