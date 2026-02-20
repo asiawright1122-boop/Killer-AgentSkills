@@ -17,10 +17,16 @@ function getHeaders(): Record<string, string> {
     return headers;
 }
 
-export async function fetchWithRetry(url: string, retries = 3): Promise<Response> {
+export async function fetchWithRetry(url: string, options: RequestInit = {}, retries = 3): Promise<Response> {
+    const headers = getHeaders();
+    if (options.headers) {
+        Object.assign(headers, options.headers);
+    }
+    const finalOptions = { ...options, headers };
+
     for (let i = 0; i < retries; i++) {
         try {
-            const response = await fetchWithTimeout(url, { headers: getHeaders() });
+            const response = await fetchWithTimeout(url, finalOptions);
             if (response.status === 403) {
                 console.warn('⚠️ GitHub API rate limit, failing fast...');
                 throw new Error('GitHub API Rate Limit');
@@ -34,11 +40,23 @@ export async function fetchWithRetry(url: string, retries = 3): Promise<Response
     throw new Error('Max retries exceeded');
 }
 
-export async function fetchRepoInfo(owner: string, repo: string): Promise<any> {
+export async function fetchRepoInfo(owner: string, repo: string, etag?: string): Promise<{ data: any, etag?: string, notModified?: boolean } | null> {
     const url = `${GITHUB_API}/repos/${owner}/${repo}`;
-    const response = await fetchWithRetry(url);
+    const headers: Record<string, string> = {};
+    if (etag) {
+        headers['If-None-Match'] = etag;
+    }
+    const response = await fetchWithRetry(url, { headers });
+
+    if (response.status === 304) {
+        return { data: null, notModified: true, etag };
+    }
     if (!response.ok) return null;
-    return response.json();
+
+    return {
+        data: await response.json(),
+        etag: response.headers.get('etag') || undefined
+    };
 }
 
 export async function fetchSkillMd(owner: string, repo: string, skillsPath: string): Promise<string | null> {
@@ -325,10 +343,10 @@ export async function discoverNewSkillsFromGitHub(existingIds: Set<string>, last
                             owner,
                             repo,
                             content,
-                            stars: repoInfo.stargazers_count || 0,
-                            forks: repoInfo.forks_count || 0,
-                            topics: repoInfo.topics || [],
-                            description: repoInfo.description || '',
+                            stars: repoInfo.data?.stargazers_count || 0,
+                            forks: repoInfo.data?.forks_count || 0,
+                            topics: repoInfo.data?.topics || [],
+                            description: repoInfo.data?.description || '',
                             fetchedAt: new Date().toISOString(),
                             filePath,
                             skillId,

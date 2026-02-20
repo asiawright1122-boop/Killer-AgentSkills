@@ -72,27 +72,22 @@ async function findSkillDirectory(
   repo: string,
   env?: Env
 ): Promise<string | null> {
-  // 1. Try to find from KV featured-skills data
-  if (env?.SKILLS_CACHE) {
+  // 1. Try to find from KV featured-skills data (Now routed to D1 Serverless)
+  if (env?.DB) {
     try {
-      const allSkills = await env.SKILLS_CACHE.get('all-skills', 'json') as any[] | null;
-      if (allSkills) {
-        const targetRepo = `${owner}/${repo}`.toLowerCase();
-        const found = allSkills.find(
-          (s: any) =>
-            `${s.owner}/${s.repo}`.toLowerCase() === targetRepo && s.filePath
-        );
-        if (found?.filePath) {
-          // filePath might point to SKILL.md, extract directory
-          if (found.filePath.endsWith('SKILL.md')) {
-            const lastSlash = found.filePath.lastIndexOf('/');
-            return lastSlash > 0 ? found.filePath.substring(0, lastSlash) : '';
-          }
-          return found.filePath;
+      const { getSkillsKV } = await import('../../../../../lib/kv');
+      const targetRepo = `${owner}/${repo}`;
+      const found = await getSkillsKV(env, targetRepo);
+      if (found?.filePath) {
+        // filePath might point to SKILL.md, extract directory
+        if (found.filePath.endsWith('SKILL.md')) {
+          const lastSlash = found.filePath.lastIndexOf('/');
+          return lastSlash > 0 ? found.filePath.substring(0, lastSlash) : '';
         }
+        return found.filePath;
       }
     } catch (e) {
-      console.warn('Failed to lookup skills from KV:', e);
+      console.warn('Failed to lookup skill from DB:', e);
     }
   }
 

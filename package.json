@@ -21,6 +21,7 @@
     "build:docs": "npx tsx scripts/build-docs-cache.ts",
     "build:all": "npm run build:cache && npm run sync:kv",
     "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5",
+    "sync:admin:d1": "npx tsx scripts/sync-admin-d1.ts",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "translate:blog": "npx tsx scripts/translate-blog.ts"
   },
@@ -36,6 +37,7 @@
     "@types/react-syntax-highlighter": "^15.5.13",
     "ai": "^6.0.82",
     "astro": "^5.17.1",
+    "better-sqlite3": "^12.6.2",
     "dotenv": "^17.2.4",
     "fuse.js": "^7.1.0",
     "lucide-react": "^0.563.0",

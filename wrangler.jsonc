@@ -21,6 +21,13 @@
       "id": "eb71984285c54c3488c17a32391b9fe5"
     }
   ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "killer-skills-db",
+      "database_id": "b20fd9ef-6628-4a78-abd0-59aac064b5d6"
+    }
+  ],
   "services": [
     {
       "binding": "WORKFLOWS_SERVICE",

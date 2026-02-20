@@ -17,6 +17,7 @@ interface Env {
     TRANSLATION_WORKFLOW: Workflow;
     SKILL_VALIDATION_WORKFLOW: Workflow;
     CONTENT_WORKFLOW: Workflow;
+    GITHUB_TOKEN?: string;
 }
 
 // Worker fetch handler
@@ -73,6 +74,61 @@ export default {
                         status: 202
                     }
                 );
+            }
+        }
+
+        // Webhook receiver for GitHub push events (Zero-Latency Pipeline)
+        if (request.method === "POST" && url.pathname === "/api/webhook/github") {
+            try {
+                // Verify GitHub event explicitly
+                const githubEvent = request.headers.get("x-github-event");
+                if (githubEvent !== "push" && githubEvent !== "create") {
+                    return new Response("Ignored event type", { status: 200 });
+                }
+
+                const payload: any = await request.json();
+                const targetRepo = payload?.repository?.full_name;
+
+                if (!targetRepo) {
+                    return new Response("Missing repository data", { status: 400 });
+                }
+
+                if (!env.GITHUB_TOKEN) {
+                    return new Response("Worker missing GITHUB_TOKEN binding", { status: 500 });
+                }
+
+                console.log(`[Webhook] Dispatching ingestion event for ${targetRepo}`);
+
+                // Send repository_dispatch to the core project: asiawright1122-boop/Killer-AgentSkills
+                const dispatchRes = await fetch("https://api.github.com/repos/asiawright1122-boop/Killer-AgentSkills/dispatches", {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/vnd.github.v3+json",
+                        "Authorization": `token ${env.GITHUB_TOKEN}`,
+                        "User-Agent": "Killer-Skills-Cloudflare-Worker"
+                    },
+                    body: JSON.stringify({
+                        event_type: "killer-skills-ingest",
+                        client_payload: {
+                            target_repo: targetRepo
+                        }
+                    })
+                });
+
+                if (!dispatchRes.ok) {
+                    const errText = await dispatchRes.text();
+                    console.error("[Webhook] GitHub Dispatch Failed:", errText);
+                    return new Response("Dispatch relay failed", { status: 502 });
+                }
+
+                return new Response(JSON.stringify({
+                    success: true,
+                    message: "Dispatch relay confirmed",
+                    repo: targetRepo
+                }), { status: 202, headers: { "Content-Type": "application/json" } });
+
+            } catch (e: any) {
+                return new Response(JSON.stringify({ error: e.message }), { status: 500 });
             }
         }
 
