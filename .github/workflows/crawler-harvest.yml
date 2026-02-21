@@ -63,7 +63,7 @@ jobs:
           git add data/expanded-github-skills.json
           git commit -m "chore(data): harvest new skills [skip ci]"
           # Pull before push to avoid conflicts
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main
           git push
 
       # Step 2: Build Cache (Process New Skills with AI Translations)
@@ -116,7 +116,7 @@ jobs:
               break
             fi
             echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
-            git pull --rebase origin main || {
+            git pull --rebase --autostash origin main || {
               echo "🔧 Rebase conflict detected, auto-resolving data files..."
               git checkout --theirs data/skills-cache.json data/sitemap-skills.json 2>/dev/null || true
               git add data/skills-cache.json data/sitemap-skills.json
