@@ -95,7 +95,7 @@ jobs:
               break
             fi
             echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
-            git pull --rebase origin main || {
+            git pull --rebase --autostash origin main || {
               echo "🔧 Rebase conflict detected, auto-resolving data files..."
               git checkout --theirs data/skills-cache.json data/sitemap-skills.json 2>/dev/null || true
               git add data/skills-cache.json data/sitemap-skills.json
