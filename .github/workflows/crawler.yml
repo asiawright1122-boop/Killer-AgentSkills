@@ -93,9 +93,11 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add data/skills-cache.json data/sitemap-skills.json
             git commit -m "chore(data): update skills cache & sitemap [skip ci]"
+            PUSH_OK=0
             for attempt in 1 2 3; do
               if git push; then
                 echo "✅ Push succeeded on attempt $attempt"
+                PUSH_OK=1
                 break
               fi
               echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
@@ -108,6 +110,10 @@ jobs:
                 git commit -m "chore(data): update skills cache & sitemap [skip ci]" --allow-empty || true
               }
             done
+            if [ "$PUSH_OK" -eq 0 ]; then
+              echo "❌ Push failed after 3 attempts"
+              exit 1
+            fi
           else
             echo "ℹ️ No cache changes detected"
           fi
