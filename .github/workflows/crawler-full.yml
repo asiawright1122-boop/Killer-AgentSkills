@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 360 # 6 hours max
     # 防止多个 workflow 同时运行导致冲突
     concurrency:
-      group: skills-crawler
+      group: skills-pipeline
       cancel-in-progress: false
     
     steps:

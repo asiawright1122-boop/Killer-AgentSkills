@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     concurrency:
-      group: skills-harvester
+      group: skills-pipeline
       cancel-in-progress: false
     
     steps:
@@ -129,4 +129,5 @@ jobs:
       # Step 5: Submit IndexNow (Notify Search Engines)
       - name: Submit IndexNow
         if: steps.cache-changes.outputs.changed == 'true'
+        continue-on-error: true
         run: node scripts/submit-indexnow.mjs
