@@ -61,3 +61,7 @@ Wenden Sie konsistente Themen auf einmal auf Berichte oder Präsentationsmateria
 Mit der `theme-factory`-Skill können Sie attraktive visuelle Erlebnisse ohne professionelle Designkenntnisse aufbauen. Die KI übernimmt die Komplexität der Farbabstimmung für Sie, sodass Sie sich darauf konzentrieren können, den Kernwert Ihres Produkts zu vermitteln.
 
 Nutzen Sie die [theme-factory-Skill](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) jetzt und heben Sie Ihr Projekt visuell auf das nächste Level.
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

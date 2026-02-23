@@ -71,3 +71,7 @@ Head over to the [Killer-Skills Marketplace](https://killer-skills.com/en/skills
 ---
 
 *Want to build the UI first? Check out the [frontend-design skill](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

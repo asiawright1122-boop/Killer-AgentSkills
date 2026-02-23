@@ -74,3 +74,7 @@ Acesse o [Marketplace do Killer-Skills](https://killer-skills.com/pt/skills/anth
 ---
 
 *Procurando por mais domínio visual? Explore o [canvas-design](https://killer-skills.com/pt/skills/anthropics/skills/canvas-design) para pôsteres estáticos de alta qualidade.*
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

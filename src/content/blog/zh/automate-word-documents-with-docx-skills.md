@@ -73,3 +73,7 @@ npx killer-skills add anthropics/skills/docx
 ---
 
 *需要先处理数据？查看我们的 [xlsx 技能](https://killer-skills.com/zh/blog/mastering-excel-automation-with-xlsx-skills) 指南，了解电子表格自动化。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

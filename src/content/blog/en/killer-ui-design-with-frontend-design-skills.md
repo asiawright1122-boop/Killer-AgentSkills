@@ -75,3 +75,7 @@ Check out the [frontend-design skill](https://killer-skills.com/en/skills/anthro
 ---
 
 *Need to brand your whole project? Pair this with [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines).*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

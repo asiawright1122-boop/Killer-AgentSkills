@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/theme-factory
 `theme-factory`スキルを使えば、専門的なデザインスキルがなくても、プロフェッショナルで魅力的なビジュアル体験を構築できます。AIが配色の複雑さを肩代わりすることで、あなたは製品のコアな価値を伝えることに集中できるようになります。
 
 [theme-factoryスキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory)を導入して、あなたのプロジェクトを視覚的に次のレベルに引き上げましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

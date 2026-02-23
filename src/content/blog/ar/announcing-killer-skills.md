@@ -59,3 +59,7 @@ Killer-Skills هو مشروع مدفوع بالمجتمع. استكشف الوث
 ---
 
 *فريق Killer-Skills الخاص بك*
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

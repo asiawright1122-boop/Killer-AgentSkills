@@ -66,3 +66,7 @@ A skill `internal-comms` não apenas escreve texto por você, mas funciona como 
 
 Adicione a [skill internal-comms](https://killer-skills.com/pt/skills/anthropics/skills/internal-comms) agora ao seu agente e eleve a "voz" da sua organização para um nível superior.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

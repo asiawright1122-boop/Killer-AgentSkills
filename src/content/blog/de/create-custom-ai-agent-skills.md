@@ -66,3 +66,7 @@ Erstellen Sie Ihre eigene dedizierte Forschungs-Skill, die nach Artikeln zu eine
 `skill-creator` ist der Schlüssel dazu, die KI von einem „einfachen Werkzeug“ zu Ihrem „eigenen Experten“ weiterzuentwickeln. Indem Sie Ihr Wissen und Ihren Workflow in Form einer Skill paketieren, werden die Möglichkeiten der Automatisierung grenzenlos.
 
 Fordern Sie sich heraus und [erstellen Sie jetzt Ihre eigene Skill](https://killer-skills.com/de/skills/anthropics/skills/skill-creator).
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

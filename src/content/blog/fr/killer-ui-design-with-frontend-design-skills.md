@@ -75,3 +75,7 @@ Découvrez la [skill frontend-design](https://killer-skills.com/fr/skills/anthro
 ---
 
 *Besoin de créer une identité de marque complète pour votre projet ? Associez cette skill à [brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines).*
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

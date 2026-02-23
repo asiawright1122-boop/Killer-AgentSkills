@@ -62,3 +62,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 استخدم [مهارة brand-guidelines](https://killer-skills.com/ar/skills/anthropics/skills/brand-guidelines) الآن لتمنح علامتك التجارية هوية لا تتزعزع.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

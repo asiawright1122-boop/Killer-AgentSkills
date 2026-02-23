@@ -61,3 +61,7 @@ Aplique temas consistentes de uma só vez em relatórios ou materiais de apresen
 Com a skill `theme-factory`, você pode construir experiências visuais atraentes sem conhecimentos profissionais de design. A IA cuida da complexidade da combinação de cores para você, permitindo que você se concentre em transmitir o valor central do seu produto.
 
 Utilize a [skill theme-factory](https://killer-skills.com/pt/skills/anthropics/skills/theme-factory) agora e eleve seu projeto visualmente para o próximo nível.
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

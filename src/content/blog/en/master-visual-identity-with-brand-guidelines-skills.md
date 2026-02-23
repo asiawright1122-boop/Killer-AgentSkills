@@ -70,3 +70,7 @@ Install the [brand-guidelines skill](https://killer-skills.com/en/skills/anthrop
 ---
 
 *Looking for more styling options? Explore [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) for a wider range of pre-set professional themes.*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

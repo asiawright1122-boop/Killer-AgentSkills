@@ -66,3 +66,7 @@ Créez votre propre compétence de recherche dédiée qui cherche des articles s
 `skill-creator` est la clé pour faire évoluer l'IA d'un « simple outil » vers votre « propre expert ». En packageant votre connaissance et votre flux de travail sous forme de compétence, les possibilités d'automatisation deviennent infinies.
 
 Relevez le défi de [créer votre propre compétence](https://killer-skills.com/fr/skills/anthropics/skills/skill-creator) dès maintenant.
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

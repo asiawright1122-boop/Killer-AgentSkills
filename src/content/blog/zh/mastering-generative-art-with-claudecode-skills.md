@@ -89,3 +89,7 @@ Agent 将提供一份艺术哲学和一个自包含的 HTML Artifact。在浏览
 ---
 
 *在 Killer-Skills 上探索更多创意技能，例如 [canvas-design](https://killer-skills.com/zh/skills/anthropics/skills/canvas-design) 和 [theme-factory](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory)。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

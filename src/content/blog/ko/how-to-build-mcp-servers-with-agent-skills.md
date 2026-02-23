@@ -256,3 +256,7 @@ AI 개발의 미래는 더 많은 코드를 작성하는 것이 아니라, AI �
 ---
 
 *더 많은 스킬을 탐색하고 싶으신가요? [Killer-Skills 마켓플레이스](https://killer-skills.com/ko/skills)를 방문하여 수백 개의 검증된 에이전트 스킬을 찾아보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

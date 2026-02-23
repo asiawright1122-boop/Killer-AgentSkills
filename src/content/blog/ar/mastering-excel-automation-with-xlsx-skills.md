@@ -72,3 +72,7 @@ npx killer-skills add anthropics/skills/xlsx
 ---
 
 *هل تحتاج إلى عرض نتائجك؟ ادمج هذه المهارة مع [مهارة pptx](https://killer-skills.com/ar/skills/anthropics/skills/pptx) لإعداد عروض تقديمية مؤتمتة.*
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

@@ -65,3 +65,7 @@ Start building your custom AI workspace today on the [Killer-Skills Marketplace]
 ---
 
 *Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) to host it.*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

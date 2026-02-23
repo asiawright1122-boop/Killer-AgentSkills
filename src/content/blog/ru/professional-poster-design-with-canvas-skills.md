@@ -64,3 +64,7 @@ npx killer-skills add anthropics/skills/canvas-design
 ---
 
 *Если вам нужна графика с анимацией, ознакомьтесь также с [навыком algorithmic-art](https://killer-skills.com/ru/blog/mastering-generative-art-with-claudecode-skills).*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

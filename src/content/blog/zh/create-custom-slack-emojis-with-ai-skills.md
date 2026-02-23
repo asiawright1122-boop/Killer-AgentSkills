@@ -74,3 +74,7 @@ Agent 会编写 Python 脚本，运行并生成 `.gif` 文件，甚至会调用�
 ---
 
 *想追求极致的视觉效果？探索 [canvas-design](https://killer-skills.com/zh/skills/anthropics/skills/canvas-design) 以获取高端静态海报设计。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

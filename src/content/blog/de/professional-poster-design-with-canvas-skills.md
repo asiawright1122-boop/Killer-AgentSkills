@@ -64,3 +64,7 @@ Statten Sie Ihren Agenten jetzt mit der [canvas-design-Skill](https://killer-ski
 ---
 
 *Wenn Sie Grafiken mit Animationen benötigen, schauen Sie sich auch die [algorithmic-art-Skill](https://killer-skills.com/de/blog/mastering-generative-art-with-claudecode-skills) an.*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

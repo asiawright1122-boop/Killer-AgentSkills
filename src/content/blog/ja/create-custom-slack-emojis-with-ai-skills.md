@@ -74,3 +74,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 ---
 
 *さらなるビジュアル・マスターを目指しますか？ ハイエンドな静止画ポスター作成のための [canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) もチェックしてみてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/theme-factory
 С навыком `theme-factory` вы можете создавать привлекательные визуальные впечатления без профессиональных знаний в дизайне. ИИ берет на себя сложность подбора цветов, позволяя вам сосредоточиться на донесении основной ценности вашего продукта.
 
 Используйте [навык theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory) прямо сейчас и поднимите свой проект на новый визуальный уровень.
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

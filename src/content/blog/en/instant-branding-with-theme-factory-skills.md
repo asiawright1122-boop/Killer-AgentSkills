@@ -69,3 +69,7 @@ Check out the [theme-factory skill](https://killer-skills.com/en/skills/anthropi
 ---
 
 *Want to build the components themselves? Pair this with [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) for the ultimate web development workflow.*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

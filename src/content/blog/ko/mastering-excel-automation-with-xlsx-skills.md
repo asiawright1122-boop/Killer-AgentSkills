@@ -72,3 +72,7 @@ Python에서 합계를 계산하여 셀에 '5000'이라고 쓰는 대신, 에이
 ---
 
 *분석 결과를 발표해야 하나요? 자동화된 피치 덱 제작을 위해 [pptx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pptx)과 함께 사용해 보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

@@ -64,3 +64,7 @@ npx killer-skills add anthropics/skills/canvas-design
 ---
 
 *إذا كنت بحاجة إلى جرافيكس مع رسوم متحركة، اطلع أيضاً على [مهارة algorithmic-art](https://killer-skills.com/ar/blog/mastering-generative-art-with-claudecode-skills).*
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 `brand-guidelines`スキルは、あなたのブランドのプロフェッショナルな品質を守る「自動化されたアートディレクター」です。AIが一貫性の管理を肩代わりすることで、あなたはクリエイティブな戦略やアイデアの創出により多くの時間を割けるようになります。
 
 [brand-guidelinesスキル](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines)を導入して、あなたのブランドに揺るぎないアイデンティティを与えましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

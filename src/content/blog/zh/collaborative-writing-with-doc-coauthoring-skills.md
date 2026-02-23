@@ -69,3 +69,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 ---
 
 *需要最终定稿格式？将其与 [docx 技能](https://killer-skills.com/zh/skills/anthropics/skills/docx) 搭配使用，实现专业的 Word 导出。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

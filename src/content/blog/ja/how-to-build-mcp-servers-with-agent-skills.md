@@ -256,3 +256,7 @@ AI開発の未来は、より多くのコードを書くことではなく、AI�
 ---
 
 *さらなるスキルを探索したいですか？ [Killer-Skillsマーケットプレイス](https://killer-skills.com/ja/skills)にアクセスして、あなたのAIコーディングワークフローのための何百もの検証済みAgent Skillsを見つけてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

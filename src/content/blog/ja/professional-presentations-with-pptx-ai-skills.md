@@ -72,3 +72,7 @@ Arialのような汎用フォントは使用しません。大胆なヘッダー
 ---
 
 *ドキュメントのスタイリングも必要ですか？ [theme-factoryスキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) もチェックしてみてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

@@ -68,3 +68,7 @@ MCP ist die gemeinsame Sprache, damit die KI wahrhaftig als unser „Kollege“ 
 
 Meistern Sie jetzt den [Bau von MCP-Servern](https://killer-skills.com/de/skills/anthropics/skills/mcp-builder) und setzen Sie sich an die Spitze des Agent-Engineerings.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

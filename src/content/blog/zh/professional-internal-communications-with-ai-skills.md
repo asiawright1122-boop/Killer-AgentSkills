@@ -73,3 +73,7 @@ npx killer-skills add anthropics/skills/internal-comms
 ---
 
 *需要协作处理更复杂的文档？查看 [doc-coauthoring 技能](https://killer-skills.com/zh/skills/anthropics/skills/doc-coauthoring) 指南。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

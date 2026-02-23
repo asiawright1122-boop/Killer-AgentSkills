@@ -62,3 +62,7 @@ npx killer-skills add anthropics/skills/docx
 `docx` 스킬은 단순한 텍스트 작성을 넘어 에이전트가 "비즈니스의 표준 언어"로 소통할 수 있게 해줍니다. 이를 통해 지루한 서식 작업에서 벗어나 더 가치 있는 콘텐츠 작성에 집중할 수 있습니다.
 
 지금 바로 [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)을 에이전트에 추가하여 문서 워크플로우를 혁신하세요.
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

@@ -62,3 +62,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 Используйте [навык brand-guidelines](https://killer-skills.com/ru/skills/anthropics/skills/brand-guidelines) прямо сейчас, чтобы придать своему бренду непоколебимую идентичность.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

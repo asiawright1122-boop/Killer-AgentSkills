@@ -61,3 +61,7 @@ Beim Aufbau einer internen Wissensdatenbank organisiert der Agent die Informatio
 Die `doc-coauthoring`-Skill hebt die KI vom „Schreibwerkzeug“ zum „Partner“. Indem die KI die Organisation der Informationen und das Design der Struktur übernimmt und der Mensch die professionellen Nuancen hinzufügt, erzielen Sie schnellere und bessere Ergebnisse als beim alleinigen Schreiben.
 
 Nutzen Sie die [doc-coauthoring-Skill](https://killer-skills.com/de/skills/anthropics/skills/doc-coauthoring) jetzt und erleben Sie den neuen Standard der Zusammenarbeit.
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

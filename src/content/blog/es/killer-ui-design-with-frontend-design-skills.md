@@ -75,3 +75,7 @@ Eche un vistazo a la [habilidad frontend-design](https://killer-skills.com/es/sk
 ---
 
 *¿Necesita crear la marca de todo su proyecto? Combine esto con [brand-guidelines](https://killer-skills.com/es/skills/anthropics/skills/brand-guidelines).*
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

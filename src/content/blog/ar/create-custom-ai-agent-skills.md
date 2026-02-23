@@ -66,3 +66,7 @@ npx killer-skills add anthropics/skills/skill-creator
 مهارة `skill-creator` هي المفتاح لتطوير الذكاء الاصطناعي من "مجرد أداة" إلى "خبيرك الخاص". من خلال تغليف معرفتك وسير عملك في شكل مهارة، تصبح إمكانيات الأتمتة غير محدودة.
 
 تحدَّ نفسك و [أنشئ مهاراتك الخاصة الآن](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

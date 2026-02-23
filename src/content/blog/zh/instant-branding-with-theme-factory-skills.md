@@ -69,3 +69,7 @@ npx killer-skills add anthropics/skills/theme-factory
 ---
 
 *想要构建组件本身？将其与 [frontend-design](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design) 搭配使用，打造终极 Web 开发工作流。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

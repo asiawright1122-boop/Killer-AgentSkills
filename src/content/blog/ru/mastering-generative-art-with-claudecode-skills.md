@@ -89,3 +89,7 @@ npx killer-skills add anthropics/skills/algorithmic-art
 ---
 
 *Изучите другие творческие навыки на Killer-Skills, такие как [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) и [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory).*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

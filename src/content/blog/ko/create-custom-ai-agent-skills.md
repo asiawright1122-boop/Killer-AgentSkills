@@ -66,3 +66,7 @@ Killer-Skills의 표준 형식을 따르는 지침서(SKILL.md)를 자동으로 
 `skill-creator`는 AI를 '단순한 도구'에서 '나만의 전문가'로 진화시키는 열쇠입니다. 여러분의 지식과 워크플로우를 스킬이라는 형태로 패키징함으로써 자동화의 가능성은 무한해집니다.
 
 지금 바로 [나만의 스킬 만들기](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator)에 도전하세요.
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

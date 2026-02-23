@@ -74,3 +74,7 @@ Besuchen Sie den [Killer-Skills Marketplace](https://killer-skills.com/de/skills
 ---
 
 *Suchen Sie nach weiterer visueller Meisterschaft? Entdecken Sie [canvas-design](https://killer-skills.com/de/skills/anthropics/skills/canvas-design) für hochwertige statische Poster.*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

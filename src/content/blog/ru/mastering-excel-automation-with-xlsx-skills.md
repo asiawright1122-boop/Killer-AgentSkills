@@ -72,3 +72,7 @@ npx killer-skills add anthropics/skills/xlsx
 ---
 
 *Нужно представить результаты? Используйте этот навык вместе с [pptx-навыком](https://killer-skills.com/ru/skills/anthropics/skills/pptx) для автоматического создания презентаций.*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

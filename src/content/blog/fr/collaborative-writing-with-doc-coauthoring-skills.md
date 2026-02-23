@@ -61,3 +61,7 @@ Lors de la construction d'une base de connaissances interne, l'agent organise le
 La compétence `doc-coauthoring` fait passer l'IA du statut d'« outil d'écriture » à celui de « partenaire ». Avec l'IA en charge de l'organisation des informations et de la conception de la structure, et l'humain apportant les nuances professionnelles, vous obtenez des résultats plus rapides et de meilleure qualité qu'en écrivant seul.
 
 Adoptez la [compétence doc-coauthoring](https://killer-skills.com/fr/skills/anthropics/skills/doc-coauthoring) dès maintenant et découvrez le nouveau standard de la collaboration.
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

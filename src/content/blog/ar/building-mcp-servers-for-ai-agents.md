@@ -68,3 +68,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 أتقن [بناء خوادم MCP](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) الآن وكن في طليعة هندسة الوكلاء.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

@@ -66,3 +66,7 @@ Cree su propia habilidad de investigación dedicada que busque artículos sobre 
 `skill-creator` es la llave para evolucionar la IA de una "simple herramienta" a su "propio experto". Al empaquetar su conocimiento y flujo de trabajo en la forma de una habilidad, las posibilidades de automatización se vuelven infinitas.
 
 Desafíese a [crear su propia habilidad](https://killer-skills.com/es/skills/anthropics/skills/skill-creator) ahora mismo.
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

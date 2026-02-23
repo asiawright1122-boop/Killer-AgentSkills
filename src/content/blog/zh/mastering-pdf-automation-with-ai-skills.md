@@ -75,3 +75,7 @@ Agent 可以对现有文件执行复杂的“手术”：
 ---
 
 *需要生成可编辑的 Word 文档？查看我们的 [docx 技能](https://killer-skills.com/zh/skills/anthropics/skills/docx) 指南。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

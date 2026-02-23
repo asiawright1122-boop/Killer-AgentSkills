@@ -59,3 +59,7 @@ Killer-Skills — это проект, движимый сообществом. 
 ---
 
 *Ваша команда Killer-Skills*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

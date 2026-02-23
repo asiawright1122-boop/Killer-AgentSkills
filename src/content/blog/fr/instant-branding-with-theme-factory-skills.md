@@ -61,3 +61,7 @@ Appliquez des thèmes cohérents d'un seul coup à vos rapports ou supports de p
 Avec la compétence `theme-factory`, vous pouvez construire des expériences visuelles attrayantes sans compétences en design professionnel. L'IA gère la complexité de l'harmonisation des couleurs pour vous, vous permettant de vous concentrer sur la communication de la valeur fondamentale de votre produit.
 
 Adoptez la [compétence theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) dès maintenant et élevez visuellement votre projet au niveau supérieur.
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

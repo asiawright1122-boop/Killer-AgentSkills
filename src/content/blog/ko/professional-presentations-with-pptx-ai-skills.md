@@ -72,3 +72,7 @@ npx killer-skills add anthropics/skills/pptx
 ---
 
 *문서의 스타일도 함께 관리하고 싶으신가요? [theme-factory 스킬](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory)을 확인해 보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

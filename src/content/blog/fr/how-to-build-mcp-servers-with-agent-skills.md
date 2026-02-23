@@ -256,3 +256,7 @@ L'avenir du développement de l'IA ne consiste pas à écrire plus de code, mais
 ---
 
 *Vous voulez explorer d'autres skills ? Parcourez le [Marketplace Killer-Skills](https://killer-skills.com/fr/skills) pour découvrir des centaines d'Agent Skills vérifiées pour votre workflow de codage IA.*
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

@@ -59,3 +59,7 @@ Killer-Skillsはコミュニティ主導のプロジェクトです。ドキュ�
 ---
 
 *Killer-Skillsチームより*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

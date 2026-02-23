@@ -75,3 +75,7 @@ Killer-Skills 마켓플레이스에서 [pdf 스킬](https://killer-skills.com/ko
 ---
 
 *편집 가능한 Word 문서가 필요하신가요? [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)을 확인해 보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

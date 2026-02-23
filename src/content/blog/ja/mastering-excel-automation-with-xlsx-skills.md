@@ -72,3 +72,7 @@ Pythonで合計を計算してセルに「5000」と書き込むのではなく�
 ---
 
 *結果をプレゼンする必要がありますか？ 自動プレゼン資料作成のための [pptxスキル](https://killer-skills.com/ja/skills/anthropics/skills/pptx) と組み合わせてみてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

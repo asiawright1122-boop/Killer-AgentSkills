@@ -64,3 +64,7 @@ SNS（Twitter, LinkedInなど）の仕様に合わせたサイズの画像を、
 ---
 
 *アニメーションするグラフィックが必要な場合は、[algorithmic-artスキル](https://killer-skills.com/ja/blog/mastering-generative-art-with-claudecode-skills)もチェックしてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

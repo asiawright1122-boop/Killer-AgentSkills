@@ -67,3 +67,7 @@ MCPサーバーは、AIモデル（Claudeなど）とローカルデータまた
 MCPは、AIが私たちの「同僚」として真に機能するための共通言語です。`mcp-builder`スキルを使いこなすことで、あなたはAIの限界を取り払い、まったく新しい形のインテリジェンスを構築できるようになります。
 
 [MCPサーバーの構築](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder)をマスターして、AIエージェントエンジニアリングの最前線に立ちましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

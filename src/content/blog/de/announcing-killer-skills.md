@@ -59,3 +59,7 @@ Lassen Sie uns gemeinsam die Zukunft der Agenten bauen.
 ---
 
 *Ihr Killer-Skills Team*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

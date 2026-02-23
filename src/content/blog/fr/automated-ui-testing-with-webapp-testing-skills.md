@@ -61,3 +61,7 @@ Récupérez des données chargées dynamiquement à partir d'applications comple
 La compétence `webapp-testing` permet aux développeurs de se concentrer sur la « construction » et de laisser la « vérification » fastidieuse à l'IA. En combinant la puissance de Playwright avec la flexibilité de l'IA, vous pouvez considérablement améliorer la qualité de vos applications web.
 
 Adoptez la [compétence webapp-testing](https://killer-skills.com/fr/skills/anthropics/skills/webapp-testing) et faites évoluer votre flux de travail de développement au niveau supérieur.
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

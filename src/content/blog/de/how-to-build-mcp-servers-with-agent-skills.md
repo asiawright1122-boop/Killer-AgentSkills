@@ -256,3 +256,7 @@ Bei der Zukunft der KI-Entwicklung geht es nicht darum, mehr Code zu schreiben �
 ---
 
 *Möchten Sie mehr Skills erkunden? Besuchen Sie den [Killer-Skills Marketplace](https://killer-skills.com/de/skills), um hunderte verifizierte Agent Skills für Ihren KI-Coding-Workflow zu entdecken.*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

@@ -59,3 +59,7 @@ Killer-Skills 是一个由社区驱动的项目。探索文档，查看[技能�
 ---
 
 *您的 Killer-Skills 团队*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

@@ -61,3 +61,7 @@ Extraia dados carregados dinamicamente de Single Page Applications (SPA) complex
 A skill `webapp-testing` permite que os desenvolvedores se concentrem em "construir" e deixem a tarefa tediosa de "verificar" para a IA. Ao combinar o poder do Playwright com a flexibilidade da IA, você pode aumentar significativamente a qualidade de suas aplicações web.
 
 Utilize a [skill webapp-testing](https://killer-skills.com/pt/skills/anthropics/skills/webapp-testing) e eleve seu fluxo de trabalho de desenvolvimento para o próximo nível.
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

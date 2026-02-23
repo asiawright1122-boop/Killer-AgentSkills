@@ -64,3 +64,7 @@ Ready to start building? Check out the full documentation on the [Killer-Skills 
 ---
 
 *Need to verify your new tools? Pair this with the [webapp-testing skill](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing).*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

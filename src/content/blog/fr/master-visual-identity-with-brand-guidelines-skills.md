@@ -61,3 +61,7 @@ Même si vous gérez plusieurs marques, vous pouvez changer et appliquer les dir
 La compétence `brand-guidelines` est le « directeur artistique automatisé » qui protège la qualité de votre marque. Puisque l'IA se charge de la gestion de la cohérence, vous pouvez consacrer plus de temps à votre stratégie métier centrale et à l'idéation.
 
 Adoptez la [compétence brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) dès maintenant pour offrir à votre marque une identité inébranlable.
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

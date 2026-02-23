@@ -62,3 +62,7 @@ Leia informações de clientes de um banco de dados e gere centenas de cartas de
 A skill `docx` vai além da simples redação de texto; ela permite que seu agente interaja na "linguagem padrão dos negócios". Isso libera você de tarefas de formatação tediosas, permitindo que você se concentre na criação de conteúdo de maior valor.
 
 Adicione a [skill docx](https://killer-skills.com/pt/skills/anthropics/skills/docx) ao seu agente agora e revolucione seu fluxo de trabalho de documentos.
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

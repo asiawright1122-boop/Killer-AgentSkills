@@ -59,3 +59,7 @@ Killer-Skills는 커뮤니티 주도 프로젝트입니다. 문서를 읽고, [�
 ---
 
 *Killer-Skills 팀 드림*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*
