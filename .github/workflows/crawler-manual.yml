@@ -1,0 +1,143 @@
+name: Skills Crawler (Manual / Webhook)
+
+on:
+  # Manual trigger via GitHub UI
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Build mode'
+        required: true
+        type: choice
+        options:
+          - update
+          - discover
+        default: update
+      filter:
+        description: 'Filter string (e.g. skill-id or owner/repo)'
+        required: false
+        type: string
+        default: ''
+      force:
+        description: 'Force AI regeneration (ignore cache)?'
+        required: false
+        type: boolean
+        default: false
+
+  # API webhook trigger (preserves backward compatibility with crawler-webhook.yml)
+  repository_dispatch:
+    types: [killer-skills-ingest]
+
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: skills-pipeline
+      cancel-in-progress: false
+
+    steps:
+      # ── Setup ──────────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # ── Determine parameters ───────────────────────────────
+      - name: Set build parameters
+        id: params
+        run: |
+          # Webhook trigger: use client_payload
+          if [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            echo "mode=update" >> $GITHUB_OUTPUT
+            echo "filter=${{ github.event.client_payload.target_repo }}" >> $GITHUB_OUTPUT
+            echo "force=false" >> $GITHUB_OUTPUT
+            echo "🎯 Webhook mode: targeting ${{ github.event.client_payload.target_repo }}"
+          else
+            # Manual trigger: use inputs
+            echo "mode=${{ inputs.mode || 'update' }}" >> $GITHUB_OUTPUT
+            echo "filter=${{ inputs.filter || '' }}" >> $GITHUB_OUTPUT
+            echo "force=${{ inputs.force || 'false' }}" >> $GITHUB_OUTPUT
+            echo "🔧 Manual mode: ${{ inputs.mode || 'update' }}, filter: ${{ inputs.filter || 'none' }}, force: ${{ inputs.force || 'false' }}"
+          fi
+
+      # ── Build ──────────────────────────────────────────────
+      - name: Build Skills Cache
+        run: |
+          ARGS="--mode=${{ steps.params.outputs.mode }}"
+
+          if [ -n "${{ steps.params.outputs.filter }}" ]; then
+            ARGS="$ARGS --filter=${{ steps.params.outputs.filter }}"
+          fi
+
+          if [ "${{ steps.params.outputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+
+          echo "🚀 Running: npm run build:cache -- $ARGS"
+          npm run build:cache -- $ARGS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # ── Deploy ─────────────────────────────────────────────
+      - name: Sync to Cloudflare KV
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare D1
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          npx wrangler d1 execute killer-skills-db --remote --file=db/seeds/initial.sql
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # ── Commit + Push ──────────────────────────────────────
+      - name: Commit and Push
+        run: |
+          if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/skills-cache.json data/sitemap-skills.json
+            FILTER="${{ steps.params.outputs.filter }}"
+            MSG="chore: skills ${{ steps.params.outputs.mode }}${FILTER:+ for $FILTER} [skip ci]"
+            git commit -m "$MSG"
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "✅ Push succeeded on attempt $attempt"
+                break
+              fi
+              echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
+              git pull --rebase --autostash origin main || {
+                git checkout --theirs data/skills-cache.json data/sitemap-skills.json 2>/dev/null || true
+                git add data/skills-cache.json data/sitemap-skills.json
+                git rebase --continue || git rebase --abort
+                git add data/skills-cache.json data/sitemap-skills.json
+                git commit -m "$MSG" --allow-empty || true
+              }
+            done
+          else
+            echo "ℹ️ No changes detected"
+          fi
