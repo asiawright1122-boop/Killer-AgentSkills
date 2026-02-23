@@ -51,6 +51,32 @@ const ogImageParams = new URLSearchParams({
   readingTime: readTime.toString(),
 });
 const ogImage = `http://146.235.234.248:3000/?${ogImageParams.toString()}`;
+
+// BlogPosting Structured Data (JSON-LD) for rich snippets
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.data.title,
+  "description": post.data.description,
+  "author": {
+    "@type": "Person",
+    "name": post.data.author,
+  },
+  "datePublished": post.data.pubDate.toISOString(),
+  "image": post.data.heroImage || ogImage,
+  "url": `https://killer-skills.com/${locale}/blog/${Astro.params.slug}`,
+  "publisher": {
+    "@type": "Organization",
+    "name": "Killer-Skills",
+    "url": "https://killer-skills.com",
+  },
+  "wordCount": wordCount,
+  "inLanguage": locale,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://killer-skills.com/${locale}/blog/${Astro.params.slug}`,
+  },
+};
 ---
 
 <Layout 
@@ -60,6 +86,7 @@ const ogImage = `http://146.235.234.248:3000/?${ogImageParams.toString()}`;
     image={ogImage}
     ogType="article"
 >
+    <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} slot="head" />
     {/* Reading Progress Bar */}
     <div class="fixed top-0 left-0 w-full h-1 z-50 bg-transparent">
         <div id="progress-bar" class="h-full bg-gradient-to-r from-sky-500 to-cyan-500 dark:from-purple-500 dark:to-cyan-500 w-0 transition-all duration-100 ease-out"></div>

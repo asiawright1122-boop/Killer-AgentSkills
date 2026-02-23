@@ -10,7 +10,7 @@ import SkillFileManager from '../../../../islands/SkillFileManager';
 import SkillCard from '../../../../components/SkillCard.astro';
 import { Github, Star, GitFork, Calendar, CheckCircle2, Terminal, Copy, ArrowLeft, ExternalLink, Box, Layers, Zap, Info, Heart, Command, Cpu, ChevronDown, ChevronRight, Bot, AlertTriangle } from 'lucide-react';
 export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
 
 const { locale, owner, repo: repoRest } = Astro.params;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
@@ -89,13 +89,12 @@ const seoKeywords = keywordsList.slice(0, 10).join(', ');
 
 
 // Construct SEO Title
-// Format: Name - Category/Keywords | SiteName
-// Example: security-review - AI Code Security | Killer-Skills
+// Prefer AI-generated locale-specific SEO title for maximum CTR
+// Fallback: "Name: keyword | SiteName" (clean, under 60 chars)
 const category = skill.category ? (t(`Categories.${skill.category}`) || skill.category) : '';
-// Use the first keyword or category as the "tagline"
 const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill'; 
-// Optimized Title for "Agent Ready" intent
-const pageTitle = `${skill.name || repo}: ${tagline} (Agent Ready) | ${t('Common.siteName')}`;
+const seoTitle = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
+const pageTitle = seoTitle || `${skill.name || repo}: ${tagline}`;
 
 // SEO Description: Prefer dedicated SEO description (160 chars), fallback to composite description
 const seoDescription = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];

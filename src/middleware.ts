@@ -57,9 +57,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
-  // 4. If path already has a valid locale prefix, pass through
+  // 4. If path already has a valid locale prefix, pass through with Content-Language header
   if (hasLocalePrefix(pathname)) {
-    return next();
+    const localeSegment = pathname.split('/')[1];
+    const response = await next();
+    response.headers.set('Content-Language', localeSegment);
+    return response;
   }
 
   // 5. Language detection and redirect for paths without locale prefix
