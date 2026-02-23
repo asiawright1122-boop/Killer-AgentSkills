@@ -1041,7 +1041,10 @@ async function buildCache(): Promise<void> {
         console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
         const promises = tasks.map((skill, index) => limit(async () => {
-            if (isTimeUp()) return;
+            if (isTimeUp()) {
+                skills.push(skill); // CRITICAL: Preserve the un-updated skill so it isn't deleted from the cache
+                return;
+            }
 
             const currentDesc = typeof skill.description === 'string' ? skill.description : (skill.description.en || '');
 
@@ -1090,7 +1093,12 @@ async function buildCache(): Promise<void> {
 
     console.log(`\n   → Processed ${tasks.length} existing skills (Optimized: ${processedCount})`);
 
-    await finalizeAndSave(skills);
+    if (isTimeUp()) {
+        console.log(`\n⏳ Time limit reached! Saving progress via merge to prevent wiping unprocessed skills...`);
+        await saveStateOnly(skills);
+    } else {
+        await finalizeAndSave(skills);
+    }
 }
 
 /**
