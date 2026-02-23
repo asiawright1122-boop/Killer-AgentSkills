@@ -256,3 +256,7 @@ AI 开发的未来不在于编写更多代码，而在于为 AI Agent 提供正�
 ---
 
 *想探索更多技能吗？浏览 [Killer-Skills 市场](https://killer-skills.com/zh/skills) 发现数百个经过验证的 AI 编程工作流 Agent Skills。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

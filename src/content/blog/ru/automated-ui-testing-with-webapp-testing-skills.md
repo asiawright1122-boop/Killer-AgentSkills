@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 Навык `webapp-testing` позволяет разработчикам сосредоточиться на «созидании» и оставить утомительную задачу «проверки» ИИ. Сочетая мощь Playwright с гибкостью ИИ, вы можете значительно повысить качество своих веб-приложений.
 
 Используйте [навык webapp-testing](https://killer-skills.com/ru/skills/anthropics/skills/webapp-testing) и поднимите свой рабочий процесс разработки на новый уровень.
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

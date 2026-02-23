@@ -62,3 +62,7 @@ A skill `brand-guidelines` é o "diretor de arte automatizado" que protege a qua
 
 Utilize a [skill brand-guidelines](https://killer-skills.com/pt/skills/anthropics/skills/brand-guidelines) agora para dar à sua marca uma identidade inabalável.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

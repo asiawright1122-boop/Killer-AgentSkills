@@ -69,3 +69,7 @@ Visit the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthro
 ---
 
 *Need to finalize the formatting? Pair this with the [docx skill](https://killer-skills.com/en/skills/anthropics/skills/docx) for a professional Word export.*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

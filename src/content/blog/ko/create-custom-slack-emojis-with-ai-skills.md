@@ -74,3 +74,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 ---
 
 *더 많은 시각적 마스터가 되고 싶으신가요? 고해상도 고정 포스터 제작을 위한 [canvas-design](https://killer-skills.com/ko/skills/anthropics/skills/canvas-design) 스킬도 살펴보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

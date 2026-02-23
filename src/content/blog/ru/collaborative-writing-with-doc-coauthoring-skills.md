@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 Навык `doc-coauthoring` превращает ИИ из «инструмента для письма» в «партнера». Позволяя ИИ заботиться об организации информации и проектировании структуры, в то время как человек добавляет профессиональные нюансы, вы получаете более быстрые и качественные результаты, чем при письме в одиночку.
 
 Используйте [навык doc-coauthoring](https://killer-skills.com/ru/skills/anthropics/skills/doc-coauthoring) прямо сейчас и испытайте новый стандарт сотрудничества.
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

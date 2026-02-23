@@ -61,3 +61,7 @@ Incluso si opera varias marcas, puede cambiar y aplicar las guías apropiadas in
 La habilidad `brand-guidelines` es el 'director de arte automatizado' que protege la calidad de su marca. Dado que la IA se encarga de la gestión de la consistencia, usted puede dedicar más tiempo a la estrategia empresarial central y a la ideación.
 
 Adopte la [habilidad brand-guidelines](https://killer-skills.com/es/skills/anthropics/skills/brand-guidelines) para regalar a su marca una identidad inquebrantable.
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

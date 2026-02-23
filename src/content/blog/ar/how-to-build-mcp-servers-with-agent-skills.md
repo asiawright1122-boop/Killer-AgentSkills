@@ -256,3 +256,7 @@ npx killer-skills list
 ---
 
 *هل تريد استكشاف المزيد من المهارات؟ تصفح [متجر Killer-Skills](https://killer-skills.com/ar/skills) لاكتشاف المئات من مهارات الوكيل الموثقة لمسار عمل الترميز بالذكاء الاصطناعي الخاص بك.*
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

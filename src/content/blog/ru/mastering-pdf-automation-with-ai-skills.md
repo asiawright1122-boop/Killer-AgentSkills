@@ -75,3 +75,7 @@ npx killer-skills add anthropics/skills/pdf
 ---
 
 *Нужно создавать редактируемые документы Word? Ознакомьтесь с [навыком docx](https://killer-skills.com/ru/skills/anthropics/skills/docx).*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

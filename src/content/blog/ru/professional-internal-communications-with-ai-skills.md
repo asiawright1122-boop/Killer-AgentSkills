@@ -66,3 +66,7 @@ npx killer-skills add anthropics/skills/internal-comms
 
 Добавьте [навык internal-comms](https://killer-skills.com/ru/skills/anthropics/skills/internal-comms) своему агенту прямо сейчас и поднимите "голос" своей организации на новый уровень.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

@@ -72,3 +72,7 @@ npx killer-skills add anthropics/skills/pptx
 ---
 
 *想为你的文档也设计一套风格？查看 [theme-factory 技能](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory)。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

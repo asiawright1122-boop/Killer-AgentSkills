@@ -67,3 +67,7 @@ MCP 서버는 AI 모델(Claude 등)과 로컬 데이터 또는 서드파티 API 
 MCP는 AI가 우리의 '동료'로서 진정으로 기능하기 위한 공용어입니다. `mcp-builder` 스킬을 활용하면 AI의 한계를 허물고 완전히 새로운 형태의 지능형 서비스를 구축할 수 있습니다.
 
 지금 바로 [MCP 서버 구축](https://killer-skills.com/ko/skills/anthropics/skills/mcp-builder)을 마스터하고 AI 에이전트 엔지니어링의 최전선에 서세요.
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

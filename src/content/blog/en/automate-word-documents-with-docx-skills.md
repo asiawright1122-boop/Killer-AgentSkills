@@ -71,3 +71,7 @@ The `docx` skill brings "Enterprise-Grade" professionalism to your AI workflows.
 Get started by installing the [docx skill](https://killer-skills.com/en/skills/anthropics/skills/docx) from the Killer-Skills Marketplace today.
 
 *Need to handle data first? Check out our guide on the [xlsx skill](https://killer-skills.com/en/blog/mastering-excel-automation-with-xlsx-skills) for spreadsheet automation.*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

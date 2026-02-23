@@ -65,3 +65,7 @@ npx killer-skills add anthropics/skills/internal-comms
 `internal-comms` 스킬은 단순히 글을 대신 쓰는 것이 아니라 조직 전체의 정보 흐름을 원활하게 만드는 윤활유 역할을 합니다. AI가 문서 작성의 부담을 덜어줌으로써 여러분은 직접적인 대화와 전략적 사고에 더 많은 시간을 투자할 수 있습니다.
 
 지금 바로 [internal-comms 스킬](https://killer-skills.com/ko/skills/anthropics/skills/internal-comms)을 에이전트에 추가하여 여러분 조직의 '목소리'를 한 차원 높여보세요.
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

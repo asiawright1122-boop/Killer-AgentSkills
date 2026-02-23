@@ -64,3 +64,7 @@ La compétence `canvas-design` est le pinceau magique qui transforme votre imagi
 ---
 
 *Si vous avez besoin de graphiques avec animations, consultez également la [compétence algorithmic-art](https://killer-skills.com/fr/blog/mastering-generative-art-with-claudecode-skills).*
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

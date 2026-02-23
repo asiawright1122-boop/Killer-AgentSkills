@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 `webapp-testing`スキルは、開発者が「構築」に集中し、退屈な「検証」をAIに任せることを可能にします。PlaywrightのパワーをAIの柔軟性と組み合わせることで、Webアプリの品質を飛躍的に向上させることができます。
 
 [webapp-testingスキル](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing)を取り入れて、あなたの開発ワークフローを次のレベルへと進化させましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

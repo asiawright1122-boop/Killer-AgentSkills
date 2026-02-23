@@ -73,3 +73,7 @@ Install the [internal-comms skill](https://killer-skills.com/en/skills/anthropic
 ---
 
 *Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring).*
+
+---
+
+*Related: [What are AI agent skills?](/en/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/en/blog/best-ai-agent-skills-2026)*

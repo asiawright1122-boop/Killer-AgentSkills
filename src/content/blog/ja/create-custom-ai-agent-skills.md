@@ -66,3 +66,7 @@ CI/CDパイプラインやデプロイ手順、コードレビューの基準を
 `skill-creator`は、AIを「単なる道具」から「自分専用の専門家」へと進化させるための鍵です。あなたの知識とワークフローをスキルという形にパッケージ化することで、自動化の可能性は無限に広がります。
 
 自分だけの[スキルの作成](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator)に今すぐ挑戦しましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

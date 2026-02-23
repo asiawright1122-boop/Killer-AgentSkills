@@ -75,3 +75,7 @@ Besuchen Sie noch heute die [frontend-design Skill](https://killer-skills.com/de
 ---
 
 *Müssen Sie Ihr gesamtes Projekt branden? Kombinieren Sie dies mit [brand-guidelines](https://killer-skills.com/de/skills/anthropics/skills/brand-guidelines).*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

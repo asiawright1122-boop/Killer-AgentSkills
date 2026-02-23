@@ -64,3 +64,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 ---
 
 *需要验证你的新工具吗？配合使用 [webapp-testing 技能](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing)。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

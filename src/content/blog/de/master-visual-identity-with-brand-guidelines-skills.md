@@ -61,3 +61,7 @@ Auch wenn Sie mehrere Marken betreiben, können Sie die passenden Guides sofort 
 Die `brand-guidelines`-Skill ist der „automatisierte Art Director“, der die Qualität Ihrer Marke schützt. Da die KI das Konsistenzmanagement übernimmt, können Sie mehr Zeit in die zentrale Geschäftsstrategie und Ideation investieren.
 
 Nutzen Sie die [brand-guidelines-Skill](https://killer-skills.com/de/skills/anthropics/skills/brand-guidelines) jetzt, um Ihrer Marke eine unerschütterliche Identität zu schenken.
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

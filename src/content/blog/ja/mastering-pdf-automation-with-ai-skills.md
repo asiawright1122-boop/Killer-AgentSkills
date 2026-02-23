@@ -75,3 +75,7 @@ Killer-Skillsマーケットプレイスから[pdfスキル](https://killer-skil
 ---
 
 *編集可能なWordドキュメントを生成する必要がありますか？[docxスキル](https://killer-skills.com/ja/skills/anthropics/skills/docx)をチェックしてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

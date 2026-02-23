@@ -72,3 +72,7 @@ Découvrez la [skill xlsx](https://killer-skills.com/fr/skills/anthropics/skills
 ---
 
 *Besoin de présenter vos résultats ? Associez cela à la [skill pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) pour des présentations de vente automatisées.*
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 تسمح مهارة `webapp-testing` للمطورين بالتركيز على "البناء" وترك المهمة المملة المتمثلة في "الفحص" للذكاء الاصطناعي. من خلال دمج قوة Playwright مع مرونة الذكاء الاصطناعي، يمكنك تحسين جودة تطبيقات الويب الخاصة بك بشكل كبير.
 
 استخدم [مهارة webapp-testing](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) وارتقِ بسير عمل التطوير الخاص بك إلى المستوى التالي.
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

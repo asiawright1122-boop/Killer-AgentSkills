@@ -74,3 +74,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 ---
 
 *Хотите еще больше визуального мастерства? Изучите [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) для создания высококлассных статических постеров.*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

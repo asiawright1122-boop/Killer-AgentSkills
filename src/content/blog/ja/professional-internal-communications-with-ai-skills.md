@@ -65,3 +65,7 @@ npx killer-skills add anthropics/skills/internal-comms
 `internal-comms`スキルは、あなたの「代わりに話す」だけでなく、組織全体の情報の流れを滑らかにする潤滑油となります。AIが文書作成の手間を肩代わりすることで、あなたは対面での対話や戦略的な思考に、より多くの時間を割けるようになります。
 
 [internal-commsスキル](https://killer-skills.com/ja/skills/anthropics/skills/internal-comms)を今すぐエージェントに追加して、あなたの組織の「声」をプロフェッショナルなものに変えましょう。
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

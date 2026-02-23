@@ -70,3 +70,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ---
 
 *寻找更多样式选项？查看 [theme-factory](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory)，了解更广泛的预设专业主题。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

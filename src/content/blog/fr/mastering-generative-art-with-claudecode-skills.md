@@ -89,3 +89,7 @@ Prêt à commencer à créer ? Rendez-vous sur le [Marketplace Killer-Skills](ht
 ---
 
 *Explorez d'autres skills créatives comme [canvas-design](https://killer-skills.com/fr/skills/anthropics/skills/canvas-design) et [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) sur Killer-Skills.*
+
+---
+
+*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*

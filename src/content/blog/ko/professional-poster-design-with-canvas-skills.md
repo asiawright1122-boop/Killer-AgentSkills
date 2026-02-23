@@ -64,3 +64,7 @@ SNS(X, LinkedIn 등) 규격에 맞는 크기의 이미지를 전문가급 품질
 ---
 
 *애니메이션이 포함된 그래픽이 필요한 경우 [algorithmic-art 스킬](https://killer-skills.com/ko/blog/mastering-generative-art-with-claudecode-skills)도 확인해 보세요.*
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

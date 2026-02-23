@@ -72,3 +72,7 @@ Baixe a [skill pptx](https://killer-skills.com/pt/skills/anthropics/skills/pptx)
 ---
 
 *Quer estilizar seus documentos também? Confira a [skill theme-factory](https://killer-skills.com/pt/skills/anthropics/skills/theme-factory).*
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

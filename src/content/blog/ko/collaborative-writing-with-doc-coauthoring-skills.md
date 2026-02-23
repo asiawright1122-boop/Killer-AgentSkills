@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 `doc-coauthoring` 스킬은 AI를 단순한 '필기구'에서 '파트너'로 격상시킵니다. AI가 정보 정리와 구조 설계를 담당하고 사람이 전문적인 뉘앙스를 더함으로써, 혼자 쓸 때보다 더 빠르고 뛰어난 결과물을 얻을 수 있습니다.
 
 지금 바로 [doc-coauthoring 스킬](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)을 도입하여 공동 작업의 새로운 표준을 경험하세요.
+
+---
+
+*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

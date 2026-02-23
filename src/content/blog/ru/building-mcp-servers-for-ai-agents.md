@@ -68,3 +68,7 @@ MCP — это общий язык для того, чтобы ИИ мог по-
 
 Освойте [создание MCP-серверов](https://killer-skills.com/ru/skills/anthropics/skills/mcp-builder) прямо сейчас и станьте в авангарде инженерии агентов.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

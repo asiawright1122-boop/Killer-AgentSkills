@@ -62,3 +62,7 @@ npx killer-skills add anthropics/skills/docx
 Навык `docx` выходит за рамки простого написания текста; он позволяет вашему агенту взаимодействовать на «стандартном языке бизнеса». Это освобождает вас от утомительных задач по форматированию, позволяя сосредоточиться на создании более ценного контента.
 
 Добавьте [навык docx](https://killer-skills.com/ru/skills/anthropics/skills/docx) своему агенту прямо сейчас и произведите революцию в своем документообороте.
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

@@ -71,3 +71,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 ---
 
 *想先构建 UI？查看 [frontend-design 技能](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design)。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

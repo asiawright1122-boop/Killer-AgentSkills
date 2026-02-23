@@ -68,3 +68,7 @@ O MCP é a linguagem comum para que a IA possa trabalhar verdadeiramente como no
 
 Domine agora a [construção de servidores MCP](https://killer-skills.com/pt/skills/anthropics/skills/mcp-builder) e coloque-se na vanguarda da engenharia de agentes.
 ---
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

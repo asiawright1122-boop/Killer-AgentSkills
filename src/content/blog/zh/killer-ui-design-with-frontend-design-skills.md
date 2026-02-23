@@ -75,3 +75,7 @@ Agent 不仅仅是“让它好看”。它会为项目挑选一种极致的氛�
 ---
 
 *需要为整个项目建立品牌感？将其与 [brand-guidelines](https://killer-skills.com/zh/skills/anthropics/skills/brand-guidelines) 搭配使用。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

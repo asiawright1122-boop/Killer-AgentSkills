@@ -62,3 +62,7 @@ npx killer-skills add anthropics/skills/docx
 تتجاوز مهارة `docx` مجرد كتابة النصوص؛ فهي تسمح لوكيلك بالتفاعل بـ "لغة الأعمال القياسية". هذا يحررك من مهام التنسيق المملة، مما يتيح لك التركيز على إنشاء محتوى أكثر قيمة.
 
 أضف [مهارة docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) لوكيلك الآن وأحدث ثورة في سير عمل المستندات الخاص بك.
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

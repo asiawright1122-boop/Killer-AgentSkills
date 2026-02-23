@@ -256,3 +256,7 @@ MCP-серверы становятся стандартным способом 
 ---
 
 *Хотите изучить больше навыков? Посетите [Маркетплейс Killer-Skills](https://killer-skills.com/ru/skills), чтобы открыть для себя сотни проверенных навыков агентов для вашего рабочего процесса написания кода с ИИ.*
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

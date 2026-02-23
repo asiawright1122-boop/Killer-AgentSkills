@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 ترتقي مهارة `doc-coauthoring` بالذكاء الاصطناعي من "أداة كتابة" إلى "شريك". من خلال ترك الذكاء الاصطناعي يعتني بتنظيم المعلومات وتصميم الهيكل، بينما يضيف الإنسان اللمسات الاحترافية، ستحصل على نتائج أسرع وأفضل مما لو كنت تكتب بمفردك.
 
 استخدم [مهارة doc-coauthoring](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring) الآن واختبر المعيار الجديد للتعاون.
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

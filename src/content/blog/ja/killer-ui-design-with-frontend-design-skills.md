@@ -75,3 +75,7 @@ npx killer-skills add anthropics/skills/frontend-design
 ---
 
 *プロジェクト全体のブランディングが必要ですか？ [brand-guidelines](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) と組み合わせて使用してみてください。*
+
+---
+
+*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*

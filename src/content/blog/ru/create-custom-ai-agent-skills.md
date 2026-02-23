@@ -66,3 +66,7 @@ npx killer-skills add anthropics/skills/skill-creator
 `skill-creator` — это ключ к превращению ИИ из «простого инструмента» в вашего «собственного эксперта». Упаковывая свои знания и рабочий процесс в форму навыка, вы делаете возможности автоматизации безграничными.
 
 Бросьте себе вызов и [создайте свой собственный навык прямо сейчас](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator).
+
+---
+
+*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*

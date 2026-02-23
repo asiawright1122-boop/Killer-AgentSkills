@@ -61,3 +61,7 @@ Extrahieren Sie dynamisch geladene Daten aus komplexen Single-Page-Applications 
 Die `webapp-testing`-Skill ermöglicht es Entwicklern, sich auf das „Bauen“ zu konzentrieren und das mühsame „Prüfen“ der KI zu überlassen. Durch die Kombination der Leistung von Playwright mit der Flexibilität von KI können Sie die Qualität Ihrer Webanwendungen erheblich steigern.
 
 Nutzen Sie die [webapp-testing-Skill](https://killer-skills.com/de/skills/anthropics/skills/webapp-testing) und heben Sie Ihren Entwicklungs-Workflow auf das nächste Level.
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

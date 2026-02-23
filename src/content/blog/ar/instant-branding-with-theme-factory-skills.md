@@ -61,3 +61,7 @@ npx killer-skills add anthropics/skills/theme-factory
 مع مهارة `theme-factory` ، يمكنك بناء تجارب بصرية جذابة دون معرفة مهنية بالتصميم. يتولى الذكاء الاصطناعي تعقيد تناسق الألوان نيابة عنك، مما يتيح لك التركيز على تقديم القيمة الأساسية لمنتجك.
 
 استخدم [مهارة theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) الآن وارتقِ بمشروعك بصرياً إلى المستوى التالي.
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

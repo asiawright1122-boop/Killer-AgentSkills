@@ -72,3 +72,7 @@ Besuchen Sie noch heute die [xlsx Skill](https://killer-skills.com/de/skills/ant
 ---
 
 *Müssen Sie Ihre Ergebnisse präsentieren? Kombinieren Sie dies mit der [pptx Skill](https://killer-skills.com/de/skills/anthropics/skills/pptx) für automatisierte Pitch-Decks.*
+
+---
+
+*Related: [What are AI agent skills?](/de/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/de/blog/best-ai-agent-skills-2026)*

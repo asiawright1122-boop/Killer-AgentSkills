@@ -74,3 +74,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 ---
 
 *هل تبحث عن المزيد من الإتقان البصري؟ استكشف [canvas-design](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) للملصقات الثابتة الراقية.*
+
+---
+
+*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*

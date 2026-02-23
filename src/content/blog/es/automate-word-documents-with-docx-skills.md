@@ -62,3 +62,7 @@ Lea información de una base de datos de clientes y genere cientos de cartas de 
 La habilidad `docx` va más allá de la simple redacción de textos; permite a su agente interactuar en el "lenguaje estándar de los negocios". Esto le libera de las tareas tediosas de formato y le permite centrarse en la creación de contenido de mayor calidad.
 
 Añada la [habilidad docx](https://killer-skills.com/es/skills/anthropics/skills/docx) a su agente ahora y revolucione su flujo de trabajo documental.
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

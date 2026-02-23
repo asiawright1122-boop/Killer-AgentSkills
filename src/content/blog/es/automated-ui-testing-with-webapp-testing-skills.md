@@ -61,3 +61,7 @@ Obtenga datos cargados dinámicamente de aplicaciones complejas de una sola pág
 La habilidad `webapp-testing` permite a los desarrolladores centrarse en "construir" y dejar la "verificación" tediosa a la IA. Al combinar el poder de Playwright con la flexibilidad de la IA, puede mejorar drásticamente la calidad de sus aplicaciones web.
 
 Adopte la [habilidad webapp-testing](https://killer-skills.com/es/skills/anthropics/skills/webapp-testing) y evolucione su flujo de trabajo de desarrollo al siguiente nivel.
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

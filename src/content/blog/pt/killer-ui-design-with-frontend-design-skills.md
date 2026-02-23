@@ -75,3 +75,7 @@ Confira a [skill frontend-design](https://killer-skills.com/pt/skills/anthropics
 ---
 
 *Precisa criar a identidade visual do seu projeto inteiro? Combine isso com [brand-guidelines](https://killer-skills.com/pt/skills/anthropics/skills/brand-guidelines).*
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*

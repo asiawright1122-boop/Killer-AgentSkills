@@ -61,3 +61,7 @@ Al construir una base de conocimientos interna, el agente organiza la informaci�
 La habilidad `doc-coauthoring` eleva a la IA de una "herramienta de escritura" a un "socio". Con la IA a cargo de organizar la información y diseñar la estructura, y el humano añadiendo matices profesionales, se pueden obtener resultados más rápidos y superiores que escribiendo solo.
 
 Adopte la [habilidad doc-coauthoring](https://killer-skills.com/es/skills/anthropics/skills/doc-coauthoring) ahora y experimente el nuevo estándar de colaboración.
+
+---
+
+*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*

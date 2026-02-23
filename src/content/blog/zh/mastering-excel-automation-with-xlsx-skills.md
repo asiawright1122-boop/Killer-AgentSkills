@@ -72,3 +72,7 @@ Agent 不会在 Python 中计算出总和后直接将“5000”写入单元格�
 ---
 
 *需要展示你的分析结果？将其与 [pptx 技能](https://killer-skills.com/zh/skills/anthropics/skills/pptx) 搭配使用，打造自动化融资计划书。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

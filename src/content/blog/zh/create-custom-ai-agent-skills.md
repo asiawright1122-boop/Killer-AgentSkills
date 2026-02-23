@@ -65,3 +65,7 @@ AI 的力量不仅在于模型本身，更在于其周围的 **基础设施**。
 ---
 
 *准备好部署你的新技能了吗？学习如何 [构建 MCP 服务端](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) 来托管它。*
+
+---
+
+*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

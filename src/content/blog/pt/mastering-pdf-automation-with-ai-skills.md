@@ -75,3 +75,7 @@ Instale a [skill de pdf](https://killer-skills.com/pt/skills/anthropics/skills/p
 ---
 
 *Precisa criar documentos Word editáveis? Confira a [skill docx](https://killer-skills.com/pt/skills/anthropics/skills/docx).*
+
+---
+
+*Related: [What are AI agent skills?](/pt/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/pt/blog/best-ai-agent-skills-2026)*
