@@ -11,6 +11,9 @@ jobs:
   ingest:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    concurrency:
+      group: skills-pipeline
+      cancel-in-progress: false
     
     steps:
       - name: Validate Target Repo

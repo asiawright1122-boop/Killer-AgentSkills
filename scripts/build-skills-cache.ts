@@ -547,7 +547,7 @@ async function buildCache(): Promise<void> {
 
                     // INCREMENTAL CHECK: Single-file repo
                     const existing = existingMap.get(skillId);
-                    if (existing && existing.skillMd?.body && !force) {
+                    if (existing && isSkillFullyOptimized(existing) && !force) {
                         if (!hasSkillUpdated(existing, repoInfo.updated_at)) {
                             console.log(`      ⏩ Skipping fetch (Cached & Fresh): ${repo.repo}`);
                             skills.push(existing);
@@ -713,8 +713,30 @@ async function buildCache(): Promise<void> {
         });
     }
 
+    // P0 FIX: Pre-filter dedup by repo name — keep only highest-stars entry per name
+    // This eliminates 90%+ of junk items BEFORE expensive fetch/translate
+    const nameStarsMap = new Map<string, { idx: number; stars: number }>();
+    for (let i = 0; i < skillsToProcess.length; i++) {
+        const item = skillsToProcess[i];
+        // Use repo name as rough skill name proxy (exact name requires parsing)
+        const nameKey = item.repo.toLowerCase();
+        const existing = nameStarsMap.get(nameKey);
+        if (!existing || item.stars > existing.stars) {
+            nameStarsMap.set(nameKey, { idx: i, stars: item.stars });
+        }
+    }
+    const dedupedIndices = new Set(Array.from(nameStarsMap.values()).map(v => v.idx));
+    const beforeDedup = skillsToProcess.length;
+    const dedupedSkillsToProcess = skillsToProcess.filter((_: any, i: number) => dedupedIndices.has(i));
+    if (beforeDedup !== dedupedSkillsToProcess.length) {
+        console.log(`\n🧹 Pre-filter: ${beforeDedup} → ${dedupedSkillsToProcess.length} items (removed ${beforeDedup - dedupedSkillsToProcess.length} repo-name duplicates)`);
+    }
+
+    // Track processed skill names to avoid translating same-named skills from different repos
+    const processedNames = new Set<string>();
+
     const limit = pLimit(8); // Concurrency 8
-    await Promise.all(skillsToProcess.map((item: any) => limit(async () => {
+    await Promise.all(dedupedSkillsToProcess.map((item: any) => limit(async () => {
         if (isTimeUp()) return;
         try {
             // 0. Fetch content if missing (Parallelized)
@@ -771,6 +793,13 @@ async function buildCache(): Promise<void> {
             const skillId = `${repoPath}/${skillMd.name}`;
 
             if (processedRepos.has(skillId)) return;
+
+            // P0 FIX: Name-level dedup — if another repo already claimed this skill name, skip
+            const skillNameKey = skillMd.name.toLowerCase();
+            if (processedNames.has(skillNameKey)) {
+                process.stdout.write('D'); // D = Duplicate name skipped
+                return;
+            }
 
             // Check if existing in cache
             const existing = existingMap.get(skillId);
@@ -851,8 +880,15 @@ async function buildCache(): Promise<void> {
             };
 
             skill.qualityScore = calculateQualityScore(skill);
+
+            // P0 FIX: Quality pre-filter — reject low-quality skills BEFORE saving
+            if ((skill.qualityScore || 0) < 20) {
+                process.stdout.write('Q'); // Q = Quality filter reject
+                return;
+            }
+
+            processedNames.add(skillNameKey); // Claim this name after quality check passes
             skills.push(skill);
-            console.log(`[DEBUG] Pushed ${skill.name}. Total: ${skills.length}.`);
 
             // Auto-save every 10 newly processed skills
             if (skills.length % 10 === 0) {
@@ -1219,7 +1255,6 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
 async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     const outputDir = path.join(process.cwd(), 'data');
     const outputFile = path.join(outputDir, 'skills-cache.json');
-    console.log(`[DEBUG] Saving state to ${outputFile}...`);
     if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
     // IMPORTANT: Merge current session progress with existingMap to avoid losing data
@@ -1237,7 +1272,26 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     // 2. Overwrite with current session skills
     skills.forEach(s => allSkillsMap.set(s.id, s));
 
-    const uniqueSkills = Array.from(allSkillsMap.values());
+    // 3. P1 FIX: Lightweight name-level dedup to prevent cache bloat
+    //    Keep highest-stars entry per skill name (same logic as finalizeAndSave)
+    const nameMap = new Map<string, SkillCache>();
+    for (const skill of allSkillsMap.values()) {
+        const isOfficial = skill.category === 'official';
+        if (nameMap.has(skill.name)) {
+            const existing = nameMap.get(skill.name)!;
+            if (isOfficial && existing.category !== 'official') {
+                nameMap.set(skill.name, skill);
+            } else if (existing.category === 'official' && !isOfficial) {
+                // keep existing official
+            } else if (skill.stars > existing.stars) {
+                nameMap.set(skill.name, skill);
+            }
+        } else {
+            nameMap.set(skill.name, skill);
+        }
+    }
+
+    const uniqueSkills = Array.from(nameMap.values());
 
     const cacheData: CacheData = {
         version: 1,
