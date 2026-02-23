@@ -301,36 +301,10 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
 
     <main class="max-w-[1400px] mx-auto px-6 py-12 relative z-10">
         
-       {/* Mobile Actions (Absolute) - Visible only on mobile */}
-       <div class="absolute top-10 right-6 flex items-center gap-3 z-50 lg:hidden">
-           <SkillActions
-              client:visible
-              skillId={`${owner}/${repo}`}
-              skillName={skill.name || repo}
-              owner={owner}
-              repo={repo}
-              description={description || ''}
-              locale={locale}
-              labels={{
-                  addToFavorites: t('Aria.addToFavorites'),
-                  removeFromFavorites: t('Aria.removeFromFavorites'),
-                  shareSkill: t('Aria.shareSkill')
-              }}
-              variant="button"
-          />
-           <a
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-sm font-medium hover:border-purple-200 dark:hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/10"
-          >
-              <Github size={16} className="group-hover:text-black dark:group-hover:text-white transition-colors" />
-              <span class="group-hover:text-black dark:group-hover:text-white transition-colors">GitHub</span>
-          </a>
-      </div>
 
-       {/* Header Section */}
-      <div class="flex items-center gap-8 pt-2 relative pb-12 border-b border-gray-200 dark:border-white/5 mb-12">
+
+      {/* Header Section */}
+      <div class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8 pt-2 relative pb-8 md:pb-12 border-b border-gray-200 dark:border-white/5 mb-8 md:mb-12">
            {/* Spotlight Effect behind Icon - Subtle in light mode */}
           <div class="absolute -left-10 -top-10 w-40 h-40 bg-orange-400/10 dark:bg-orange-500/20 blur-[60px] rounded-full pointer-events-none"></div>
 
@@ -343,13 +317,13 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
           </div>
 
           {/* Info */}
-          <div class="flex-1 pt-1 min-w-0">
-              <div class="flex items-center justify-between gap-4 mb-3 flex-wrap relative">
-                  <div class="flex items-center gap-4 flex-wrap">
-                      <h1 class="text-5xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-gray-200 dark:to-gray-400 tracking-tight">
+          <div class="flex-1 pt-1 min-w-0 w-full md:w-auto">
+              <div class="flex items-start justify-between gap-4 mb-4 flex-wrap relative">
+                  <div class="flex items-center gap-3 md:gap-4 flex-wrap w-full md:w-auto">
+                      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-gray-200 dark:to-gray-400 tracking-tight break-words break-all sm:break-normal w-full md:w-auto">
                           {skill.name || repo}
                       </h1>
-                      <div class="flex items-center gap-2">
+                      <div class="flex items-center gap-2 mt-1 md:mt-0">
                           {isVerified && (
                               <div class="px-2.5 py-0.5 rounded-full bg-green-100 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-400 text-[11px] font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm dark:shadow-[0_0_10px_rgba(74,222,128,0.1)]">
                                   <CheckCircle2 size={12} strokeWidth={3} />
@@ -363,10 +337,38 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                   </div>
               </div>
 
-              <div class="flex items-start justify-between gap-8">
-                  <div class="flex-1">
+              {/* Mobile Actions (Under Title) */}
+              <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap">
+                   <SkillActions
+                      client:visible
+                      skillId={`${owner}/${repo}`}
+                      skillName={skill.name || repo}
+                      owner={owner}
+                      repo={repo}
+                      description={description || ''}
+                      locale={locale}
+                      labels={{
+                          addToFavorites: t('Aria.addToFavorites'),
+                          removeFromFavorites: t('Aria.removeFromFavorites'),
+                          shareSkill: t('Aria.shareSkill')
+                      }}
+                      variant="button"
+                  />
+                   <a
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-sm font-medium hover:border-purple-200 dark:hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/10"
+                  >
+                      <Github size={16} className="group-hover:text-black dark:group-hover:text-white transition-colors" />
+                      <span class="group-hover:text-black dark:group-hover:text-white transition-colors">GitHub</span>
+                  </a>
+              </div>
+
+              <div class="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 mt-4 lg:mt-0">
+                  <div class="flex-1 w-full min-w-0">
                       <h2 class="sr-only">{t('Detail.about')}</h2>
-                      <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-6 font-light">
+                      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-6 font-light break-words">
                           {description || t('Skills.noResults')}
                       </p>
 
@@ -385,7 +387,7 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                         </section>
                       )}
 
-                      <div class="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-500 pt-2 w-full max-w-3xl border-t border-gray-200 dark:border-white/5 mt-6">
+                      <div class="flex items-center flex-wrap gap-y-3 gap-x-4 md:gap-6 text-sm text-gray-500 dark:text-gray-500 pt-4 md:pt-2 w-full max-w-3xl border-t border-gray-200 dark:border-white/5 mt-6">
                           <div class="flex items-center gap-2.5 group cursor-pointer">
                               <img src={`https://github.com/${owner}.png`} alt={owner} width="24" height="24" class="w-6 h-6 rounded-full ring-2 ring-white dark:ring-[#050505] group-hover:ring-cyan-500/50 transition-all" loading="lazy" />
                               <span class="text-gray-600 dark:text-gray-300 font-medium group-hover:text-black dark:group-hover:text-white transition-colors">{owner}</span>
@@ -406,8 +408,8 @@ const relatedSkills = await getRelatedSkills(env, skill, 4);
                       </div>
                   </div>
                   
-                  {/* Actions Column - Vertically centered relative to the text block */}
-                  <div class="hidden lg:flex items-center gap-3 shrink-0 self-center">
+                  {/* Actions Column - Hidden on mobile, shown on lg screens */}
+                  <div class="hidden lg:flex items-center gap-3 shrink-0 self-start md:self-center mt-4 lg:mt-0">
                        <SkillActions
                           client:visible
                           skillId={`${owner}/${repo}`}
