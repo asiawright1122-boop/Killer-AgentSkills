@@ -809,7 +809,7 @@ async function buildCache(): Promise<void> {
                 globalSkillsRef = skills; // Keep reference updated
 
                 // NEW: Auto-save checkpoint for official skills
-                if (skills.length % 5 === 0) {
+                if (skills.length % 10 === 0) {
                     console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
                     await saveStateOnly(skills);
                 }

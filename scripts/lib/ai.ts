@@ -370,7 +370,10 @@ For non-English locales, you MUST seamlessly integrate the most popular local se
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
 ### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
 ### E. Key Features (4-6 items) — technical highlights from content
-### F. Keywords (6-10 items) — long-tail dev search terms
+### F. Keywords (6-10 items) — long-tail dev search terms that users actually search for. Include a mix of:
+  - Informational: "how to use [tool]", "what is [concept]"
+  - Navigational: "[tool name] alternative", "[tool] vs [competitor]"
+  - Transactional: "[tool] install", "[tool] setup guide"
 
 Output STRICT JSON only, no markdown wrapping:
 {
