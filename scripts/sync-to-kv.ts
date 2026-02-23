@@ -199,8 +199,8 @@ async function main() {
         });
     }
 
-    // 批量写入 (每批 ≤ 10 items，确保单个分片独立上传)
-    const BATCH_SIZE = 10;
+    // 批量写入 (每批 ≤ 200 items，Cloudflare allows up to 10,000 per bulk write)
+    const BATCH_SIZE = 200;
     let successCount = 0;
     let failedBatches = 0;
 
