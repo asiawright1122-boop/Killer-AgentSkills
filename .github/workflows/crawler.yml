@@ -52,9 +52,19 @@ jobs:
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add data/expanded-github-skills.json
             git commit -m "chore(data): harvest new skills [skip ci]"
-            git pull --rebase --autostash origin main
-            git push
-            echo "✅ Harvest data committed"
+            PUSH_OK=0
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "✅ Harvest push succeeded on attempt $attempt"
+                PUSH_OK=1
+                break
+              fi
+              echo "⚠️ Push failed (attempt $attempt), resolving..."
+              git pull --rebase -X theirs --autostash origin main || true
+            done
+            if [ "$PUSH_OK" -eq 0 ]; then
+              echo "⚠️ Harvest push failed after 3 attempts, continuing anyway..."
+            fi
           else
             echo "ℹ️ No new skills harvested"
           fi
