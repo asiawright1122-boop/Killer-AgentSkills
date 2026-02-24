@@ -1,6 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Moon, Sun, Menu, X, Heart, Globe, ChevronDown, Home, Compass, Grid3X3, BookOpen, FileText, Terminal, Users } from 'lucide-react';
+import Moon from 'lucide-react/dist/esm/icons/moon';
+import Sun from 'lucide-react/dist/esm/icons/sun';
+import Menu from 'lucide-react/dist/esm/icons/menu';
+import X from 'lucide-react/dist/esm/icons/x';
+import Heart from 'lucide-react/dist/esm/icons/heart';
+import Globe from 'lucide-react/dist/esm/icons/globe';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
+import Home from 'lucide-react/dist/esm/icons/home';
+import Compass from 'lucide-react/dist/esm/icons/compass';
+import Grid3X3 from 'lucide-react/dist/esm/icons/grid-3x3';
+import BookOpen from 'lucide-react/dist/esm/icons/book-open';
+import FileText from 'lucide-react/dist/esm/icons/file-text';
+import Terminal from 'lucide-react/dist/esm/icons/terminal';
+import Users from 'lucide-react/dist/esm/icons/users';
 
 interface HeaderActionsProps {
     locale: string;
@@ -102,8 +115,8 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     const mobileOverlay = mounted ? createPortal(
         <div
             className={`fixed inset-0 z-[60] md:hidden transition-all duration-300 ease-out ${isMenuOpen
-                    ? 'opacity-100 pointer-events-auto'
-                    : 'opacity-0 pointer-events-none'
+                ? 'opacity-100 pointer-events-auto'
+                : 'opacity-0 pointer-events-none'
                 }`}
         >
             {/* Backdrop */}
@@ -166,6 +179,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                         </a>
 
                         <button
+                            type="button"
                             onClick={toggleTheme}
                             className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 hover:text-amber-600 dark:hover:text-amber-400 transition-all w-full text-left active:scale-[0.98]"
                         >
@@ -188,6 +202,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                             {Object.entries(localeNames).map(([code, name]) => (
                                 <button
                                     key={code}
+                                    type="button"
                                     onClick={() => switchLanguage(code)}
                                     className={`text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-[0.97] ${code === locale
                                         ? 'bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800 shadow-sm'
@@ -226,6 +241,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                             {Object.entries(localeNames).map(([code, name]) => (
                                 <button
                                     key={code}
+                                    type="button"
                                     onClick={() => switchLanguage(code)}
                                     className={`w-full text-left px-4 py-2 text-sm transition-colors ${code === locale
                                         ? 'bg-cyan-50 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 font-medium'

@@ -21,9 +21,11 @@ export default function SearchBar({ locale = 'en', placeholder }: SearchBarProps
             <div className="relative">
                 <input
                     type="text"
+                    id="skillSearchInput"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder={placeholder || "Search for skills (e.g. 'stripe', 'pdf', 'browser')..."}
+                    aria-label={placeholder || "Search for skills"}
                     className="block w-full px-6 py-4 text-lg rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-xl focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400 text-slate-900 dark:text-white"
                 />
                 <div className="absolute right-3 top-3">
