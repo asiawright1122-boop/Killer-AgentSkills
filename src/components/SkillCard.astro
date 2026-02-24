@@ -106,6 +106,7 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
       height="16"
       class="w-4 h-4 rounded-full ring-1 ring-slate-200 dark:ring-slate-800"
       loading="lazy"
+      decoding="async"
       onerror="this.style.display='none'"
     />
     <span class="text-xs font-medium text-slate-500 dark:text-slate-400">{owner}</span>

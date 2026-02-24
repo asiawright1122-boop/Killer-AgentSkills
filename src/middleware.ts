@@ -72,8 +72,15 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const targetLocale = detectLocale(cookieLocale, cfCountry, acceptLanguage);
 
-  // Use 302 (temporary) instead of 301 (permanent) to avoid browser caching
-  // which would break locale switching
   const redirectPath = pathname === '/' ? `/${targetLocale}` : `/${targetLocale}${pathname}`;
-  return context.redirect(redirectPath, 302);
+
+  // Use a custom Response to add Edge caching headers to the redirect
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': redirectPath,
+      'Cache-Control': 'public, s-maxage=3600',
+      'Vary': 'Cookie, Accept-Language, CF-IPCountry'
+    }
+  });
 });
