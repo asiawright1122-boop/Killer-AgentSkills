@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { currentFile, selectFile } from '../stores/skill-files';
-import { FileText, Folder, ChevronRight, ChevronDown, MoreHorizontal, Search, LayoutGrid, List } from 'lucide-react';
+import FileText from 'lucide-react/dist/esm/icons/file-text';
+import Folder from 'lucide-react/dist/esm/icons/folder';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
+import MoreHorizontal from 'lucide-react/dist/esm/icons/more-horizontal';
+import Search from 'lucide-react/dist/esm/icons/search';
+import LayoutGrid from 'lucide-react/dist/esm/icons/layout-grid';
+import List from 'lucide-react/dist/esm/icons/list';
 
 interface File {
     name: string;

@@ -12,7 +12,9 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Heart, Share2, Check } from 'lucide-react';
+import Heart from 'lucide-react/dist/esm/icons/heart';
+import Share2 from 'lucide-react/dist/esm/icons/share-2';
+import Check from 'lucide-react/dist/esm/icons/check';
 import {
   loadFavorites,
   toggleFavorite,

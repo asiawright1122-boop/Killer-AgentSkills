@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Clock, ArrowUpRight, X, Trash2 } from 'lucide-react';
+import Clock from 'lucide-react/dist/esm/icons/clock';
+import ArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right';
+import X from 'lucide-react/dist/esm/icons/x';
+import Trash2 from 'lucide-react/dist/esm/icons/trash-2';
 import {
   loadHistory,
   removeFromHistory as removeItem,

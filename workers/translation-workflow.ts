@@ -11,8 +11,8 @@
 
 import {
     WorkflowEntrypoint,
-    WorkflowStep,
-    WorkflowEvent,
+    type WorkflowStep,
+    type WorkflowEvent,
 } from "cloudflare:workers";
 
 // ===== Types =====
