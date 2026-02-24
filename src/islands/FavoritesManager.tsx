@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Heart, ArrowUpRight, X } from 'lucide-react';
+import Heart from 'lucide-react/dist/esm/icons/heart';
+import ArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right';
+import X from 'lucide-react/dist/esm/icons/x';
 import {
   loadFavorites,
   removeFavorite as removeFav,
