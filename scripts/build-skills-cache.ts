@@ -202,6 +202,8 @@ async function buildCache(): Promise<void> {
             console.error(`⚠️ Failed to load existing cache (corrupted or LFS pointer?):`, e);
         }
     }
+    // Snapshot the full initial cache so saveStateOnly never loses startup-loaded data
+    globalExistingMap = new Map(existingMap);
 
     const skills: SkillCache[] = [];
     globalSkillsRef = skills; // LINK global ref to local array for SIGINT handling
@@ -1148,53 +1150,31 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
     const getDescText = (s: SkillCache) =>
         typeof s.description === 'string' ? s.description : (s.description.en || '');
 
-    // Map by name to find duplicates
-    const nameMap = new Map<string, SkillCache>();
+    // Dedup by ID — each skill page is unique. Only apply quality filters.
+    const idMap = new Map<string, SkillCache>();
 
     for (const skill of skills) {
         const desc = getDescText(skill);
         // Explicitly check if it is an official repo
         const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
 
-        // Rule 0: Critical Quality Score (Must be > 20) for non-official
-        if (!isOfficial && (skill.qualityScore || 0) < 20) {
+        // Rule 0: Critical Quality Score — only reject truly broken entries (score < 5)
+        if (!isOfficial && (skill.qualityScore || 0) < 5) {
             continue;
         }
 
-        // Rule 1: Minimum Description Length (10 chars)
+        // Rule 1: Minimum Description Length (10 chars) — pages without content hurt SEO
         if (!isOfficial && desc.length < 10) {
             continue;
         }
 
-        // Rule 2: Minimum Stars (1) for non-official
-        if (!isOfficial && skill.stars < 1) {
-            continue;
-        }
+        // Rule 2: Stars gate REMOVED — AI agent skills are often personal config repos
 
-        // Rule 3: Deduplication
-        if (nameMap.has(skill.name)) {
-            const existing = nameMap.get(skill.name)!;
-            const existingIsOfficial = OFFICIAL_REPOS.some(or => or.owner === existing.owner && or.repo === existing.repo) || existing.category === 'official';
-
-            // Official always wins
-            if (isOfficial && !existingIsOfficial) {
-                nameMap.set(skill.name, skill);
-                continue;
-            }
-            if (existingIsOfficial && !isOfficial) {
-                continue;
-            }
-
-            // If both official or both community, compare Stars
-            if (skill.stars > existing.stars) {
-                nameMap.set(skill.name, skill);
-            }
-        } else {
-            nameMap.set(skill.name, skill);
-        }
+        // Dedup: if same ID appears twice, keep the latest
+        idMap.set(skill.id, skill);
     }
 
-    const cleanedSkills = Array.from(nameMap.values()).sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+    const cleanedSkills = Array.from(idMap.values()).sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
     console.log(`   → Removed ${beforeCount - cleanedSkills.length} low-quality/duplicate skills`);
     console.log(`   → Final count: ${cleanedSkills.length}`);
 
@@ -1257,11 +1237,16 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     const outputFile = path.join(outputDir, 'skills-cache.json');
     if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
-    // IMPORTANT: Merge current session progress with existingMap to avoid losing data
-    // existingMap contains the full previous cache items
+    // IMPORTANT: 3-layer merge to guarantee zero data loss:
+    //   Layer 1: globalExistingMap (snapshot of the FULL initial cache from startup)
+    //   Layer 2: on-disk file (in case other processes updated it)
+    //   Layer 3: current session skills (newest, highest priority)
     const allSkillsMap = new Map<string, SkillCache>();
 
-    // 1. Load from file first if it exists (in case other processes or manual edits happened)
+    // 1. Start with the FULL initial cache snapshot (never lose startup-loaded data)
+    globalExistingMap.forEach((s, id) => allSkillsMap.set(id, s));
+
+    // 2. Merge from file on disk (in case other processes or manual edits happened)
     if (fs.existsSync(outputFile)) {
         try {
             const data = JSON.parse(fs.readFileSync(outputFile, 'utf-8')) as CacheData;
@@ -1269,29 +1254,12 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
         } catch (e) { /* ignore */ }
     }
 
-    // 2. Overwrite with current session skills
+    // 3. Overwrite with current session skills (freshest data wins)
     skills.forEach(s => allSkillsMap.set(s.id, s));
 
-    // 3. P1 FIX: Lightweight name-level dedup to prevent cache bloat
-    //    Keep highest-stars entry per skill name (same logic as finalizeAndSave)
-    const nameMap = new Map<string, SkillCache>();
-    for (const skill of allSkillsMap.values()) {
-        const isOfficial = skill.category === 'official';
-        if (nameMap.has(skill.name)) {
-            const existing = nameMap.get(skill.name)!;
-            if (isOfficial && existing.category !== 'official') {
-                nameMap.set(skill.name, skill);
-            } else if (existing.category === 'official' && !isOfficial) {
-                // keep existing official
-            } else if (skill.stars > existing.stars) {
-                nameMap.set(skill.name, skill);
-            }
-        } else {
-            nameMap.set(skill.name, skill);
-        }
-    }
-
-    const uniqueSkills = Array.from(nameMap.values());
+    // allSkillsMap is already deduped by ID — no secondary dedup needed.
+    // Each skill has a unique ID; name collisions across repos are intentional (different pages).
+    const uniqueSkills = Array.from(allSkillsMap.values());
 
     const cacheData: CacheData = {
         version: 1,
@@ -1369,6 +1337,8 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
 
 // Global reference for SIGINT handler
 let globalSkillsRef: SkillCache[] = [];
+// Global reference for existingMap — ensures saveStateOnly never loses startup-loaded data
+let globalExistingMap: Map<string, SkillCache> = new Map();
 
 // 运行
 (async () => {
