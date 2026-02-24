@@ -125,7 +125,7 @@ const features = [
 
         <!-- Search Bar (React Island) -->
         <div class="max-w-xl mx-auto">
-          <SearchBar client:load locale={locale} placeholder={t('Home.searchPlaceholder')} />
+          <SearchBar client:visible locale={locale} placeholder={t('Home.searchPlaceholder')} />
           <div class="flex items-center justify-center gap-2 mt-3 text-sm text-slate-400">
             <span>{t('Hero.hotTags')}</span>
             {(Array.isArray(messages.Home?.tags) ? messages.Home.tags : ['Research', 'Coding', 'Marketing', 'Analysis']).map((tag: string) => (
