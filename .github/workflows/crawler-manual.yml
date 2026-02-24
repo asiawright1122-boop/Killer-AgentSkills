@@ -132,13 +132,7 @@ jobs:
                 break
               fi
               echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
-              git pull --rebase --autostash origin main || {
-                git checkout --theirs data/skills-cache.json data/sitemap-skills.json 2>/dev/null || true
-                git add data/skills-cache.json data/sitemap-skills.json
-                git rebase --continue || git rebase --abort
-                git add data/skills-cache.json data/sitemap-skills.json
-                git commit -m "$MSG" --allow-empty || true
-              }
+              git pull --rebase -X theirs --autostash origin main || true
             done
             if [ "$PUSH_OK" -eq 0 ]; then
               echo "❌ Push failed after 3 attempts"
