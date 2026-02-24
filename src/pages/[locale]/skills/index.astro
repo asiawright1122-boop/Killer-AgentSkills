@@ -183,7 +183,19 @@ const categories = [];
              <div class="flex items-end justify-between mb-6">
                 <div>
                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                     {query ? t('Marketplace.browsing') : category ? t(`Sidebar.categories.${category}` as any) || category : t('Common.explore')}
+                     {query 
+                        ? t('Marketplace.browsing') 
+                        : category 
+                            ? t(`Sidebar.categories.${category}` as any) || category 
+                            : owner
+                                ? `${Object.values(OFFICIAL_REPOS).find(v => v.owner === owner)?.name || owner} Skills`
+                                : view === 'official'
+                                    ? t('Marketplace.official')
+                                    : view === 'featured'
+                                        ? t('Marketplace.featured')
+                                        : view === 'latest'
+                                            ? t('Marketplace.latest')
+                                            : t('Common.explore')}
                    </h1>
                    <p class="text-slate-500 dark:text-slate-400">
                      {t('Metadata.Skills.description')}
