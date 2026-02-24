@@ -291,12 +291,12 @@ const schemaData = {
             const copyIcon = btn.querySelector('.lucide-copy');
             const checkIcon = btn.querySelector('.check-icon');
 
+            // Toggle icons immediately for optimal INP
+            if (copyIcon) copyIcon.classList.add('opacity-0', 'scale-75');
+            if (checkIcon) checkIcon.classList.remove('opacity-0', 'scale-75');
+
             try {
                 await navigator.clipboard.writeText(code || '');
-                
-                // Toggle icons
-                if (copyIcon) copyIcon.classList.add('opacity-0', 'scale-75');
-                if (checkIcon) checkIcon.classList.remove('opacity-0', 'scale-75');
 
                 setTimeout(() => {
                     if (copyIcon) copyIcon.classList.remove('opacity-0', 'scale-75');
@@ -304,6 +304,9 @@ const schemaData = {
                 }, 2000);
             } catch (err) {
                 console.error('Failed to copy!', err);
+                // Revert icon state on error
+                if (copyIcon) copyIcon.classList.remove('opacity-0', 'scale-75');
+                if (checkIcon) checkIcon.classList.add('opacity-0', 'scale-75');
             }
         });
     });
