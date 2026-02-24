@@ -36,7 +36,7 @@ env:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 350  # Increased from 60 to allow deep AI discovery logic
     concurrency:
       group: skills-pipeline
       cancel-in-progress: false
