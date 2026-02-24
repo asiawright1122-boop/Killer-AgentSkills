@@ -206,11 +206,8 @@ async function buildCache(): Promise<void> {
     globalExistingMap = new Map(existingMap);
 
     const skills: SkillCache[] = [];
-    globalSkillsRef = skills; // LINK global ref to local array for SIGINT handling
-    globalSkillsRef = skills; // Store reference for SIGINT handler
+    globalSkillsRef = skills; // Global ref for SIGINT handler
     const processedRepos = new Set<string>();
-
-
 
     // Helper: 检查 skill 是否有更新 (updatedAt > lastSynced)
     function hasSkillUpdated(skill: SkillCache, freshUpdatedAt?: string): boolean {
