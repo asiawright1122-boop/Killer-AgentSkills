@@ -109,9 +109,9 @@ const t = useTranslations(messages);
 let pageTitle = t('Metadata.Skills.title');
 if (query) pageTitle = `${t('Marketplace.searchPrefix').replace('{query}', query)}`;
 else if (category) pageTitle = `${t(`Sidebar.categories.${category}` as any) || category} ${t('Common.skillsMarket')}`;
-else if (view === 'official') pageTitle = t('Marketplace.official');
-else if (view === 'featured') pageTitle = t('Marketplace.featured');
-else if (view === 'latest') pageTitle = t('Marketplace.latest');
+else if (view === 'official') pageTitle = t('Sidebar.views.official');
+else if (view === 'featured') pageTitle = t('Sidebar.views.featured');
+else if (view === 'latest') pageTitle = t('Sidebar.views.latest');
 
 if (owner) {
     const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
@@ -190,11 +190,11 @@ const categories = [];
                             : owner
                                 ? `${Object.values(OFFICIAL_REPOS).find(v => v.owner === owner)?.name || owner} Skills`
                                 : view === 'official'
-                                    ? t('Marketplace.official')
+                                    ? t('Sidebar.views.official')
                                     : view === 'featured'
-                                        ? t('Marketplace.featured')
+                                        ? t('Sidebar.views.featured')
                                         : view === 'latest'
-                                            ? t('Marketplace.latest')
+                                            ? t('Sidebar.views.latest')
                                             : t('Common.explore')}
                    </h1>
                    <p class="text-slate-500 dark:text-slate-400">
