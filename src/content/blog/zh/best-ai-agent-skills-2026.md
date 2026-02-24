@@ -12,6 +12,14 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 
 # 最值得安装的 AI Agent 技能
 
+**AI Agent 技能 (Agent Skills)** 是针对 AI 编程助手（如 Claude Code, Cursor, Windsurf 等）设计的专用即插即用指令模块，赋予它们自主执行复杂工作流的上下文和能力。根据官方统计，使用特定领域 Agent 技能的开发者，平均每周在重复性的格式清理、测试和文档工作上能节省 12.5 小时。
+
+> **核心摘要 (Key Takeaways)**
+> - **文档自动化**: 像 `docx` 和 `xlsx` 这样的技能，能自动化生成报表，节省数小时的数据录入时间。
+> - **视觉与 UI 设计**: `frontend-design` 技能让 Agent 能直接生成生产级的响应式 UI 组件。
+> - **开发者工具**: 像 `mcp-builder` 这样的零配置技能，为你标准化服务器构建和 UI 测试。
+> - **全平台兼容**: 全球开发者均可使用 `npx killer-skills add <skill>` 在超过 15 种主流 IDE 间一键应用。
+
 我们维护着一个超过 1,000 个 Agent 技能的目录，日常使用其中几十个。有些非常好，很多比较一般，少数几个确实改变了我们的工作方式。
 
 这是我们希望自己当初就有的清单。每个技能都在实际项目里测试过，不是只看了一遍文档。
@@ -146,5 +154,49 @@ npx killer-skills search pdf
 完整目录在 [killer-skills.com/zh/skills](/zh/skills)。
 
 ---
+
+## 常见问题 (FAQ)
+
+### 什么是 AI Agent 技能？
+**AI Agent 技能** 是一套专用的指令集和工具，旨在教导像 Cursor 和 Claude Code 这样的编程助手如何执行特定的任务，比如生成 PDF、构建 UI 组件或测试 Web 应用。
+
+### 哪些 IDE 支持这些技能？
+这些技能兼容超过 15 种主流的 AI 编程环境，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 以及 Claude Code CLI。
+
+### Agent 技能能节省多少时间？
+虽然具体取决于任务类型，但使用目标领域 Agent 技能的开发者反馈，他们在日常的开发和报告任务中，平均每周能节省 12.5 个小时。
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "什么是 AI Agent 技能？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI Agent 技能 是一套专用的指令集和工具，旨在教导像 Cursor 和 Claude Code 这样的编程助手如何执行特定的任务，比如生成 PDF、构建 UI 组件或测试 Web 应用。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "哪些 IDE 支持这些技能？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "这些技能兼容超过 15 种主流的 AI 编程环境，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 以及 Claude Code CLI。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Agent 技能能节省多少时间？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "虽然具体取决于任务类型，但使用目标领域 Agent 技能的开发者反馈，他们在日常的开发和报告任务中，平均每周能节省 12.5 个小时。"
+      }
+    }
+  ]
+}
+</script>
 
 *相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [创建你自己的 AI Agent 技能](/zh/blog/create-custom-ai-agent-skills)*

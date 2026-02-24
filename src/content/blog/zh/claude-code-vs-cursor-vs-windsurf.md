@@ -12,6 +12,14 @@ heroImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=
 
 # Claude Code vs Cursor vs Windsurf：技能支持对比
 
+**像 Claude Code、Cursor 和 Windsurf 这样的 AI Agent IDE** 在处理项目级指令（技能）的方式上截然不同：Claude Code 采用按需的上下文加载，Cursor 依赖基于 glob 的文件匹配（`.mdc` 文件），而 Windsurf 则在每次提示时全量加载单一的 `.windsurfrules` 文件。理解这些架构差异至关重要；管理 10 个以上技能的开发者反馈 Windsurf 会很快耗尽上下文窗口，而 Claude Code 即使并发 50 个以上的技能也能从容应对。
+
+> **核心摘要 (Key Takeaways)**
+> - **Claude Code**: 最适合扩展。只在需要时根据上下文加载技能，保护 Token 限制。
+> - **Cursor**: 最适合针对文件类型。使用带 `globs: ["*.tsx"]` 的 `.mdc` 文件来条件触发规则。
+> - **Windsurf**: 最简单直接。每次提示加载单一 `.windsurfrules` 文件，但会快速消耗上下文。
+> - **通用标准**: 这三个平台正在向带有 Frontmatter 的 Markdown 指令文件格式趋同。
+
 这三个工具都支持给 AI Agent 提供项目级指令。想法是一样的：在你的仓库里放一个文件，Agent 读取后按你的规则办事。但具体实现上有些差异，日常使用时这些差异会变得重要。
 
 这不是一篇"哪个 IDE 最好"的文章。每个都有优势。这篇文章只讨论它们如何处理技能和项目级指令。
@@ -92,5 +100,49 @@ Windsurf 没有发现机制，只能自己去看文件。
 好的技能内容不管哪个 Agent 读都一样。清晰的指令、具体的例子、诚实说明覆盖范围。外壳在变，知识不变。
 
 ---
+
+## 常见问题 (FAQ)
+
+### 哪个 IDE 最适合管理大量 AI 技能？
+Claude Code 目前是管理 20 个以上技能效率最高的 IDE，因为它能根据用户当前的提示（Prompt）按需加载相关技能，从而节省 Token 限制并避免上下文混乱。
+
+### 如何为 Cursor 编写规则？
+Cursor 的规则被编写为放置在 `.cursor/rules/` 目录下的 `.mdc` (带有上下文的 Markdown) 文件，通过利用 `globs` 属性来明确定义哪些文件类型会触发该规则。
+
+### 我能在不同 IDE 间共享 AI 技能吗？
+可以，底层逻辑都是标准的 Markdown。像 `killer-skills` CLI 这样的工具可以自动将基础的 `SKILL.md` 格式转换为 Cursor 的 `.mdc` 文件，或者追加到 Windsurf 的 `.windsurfrules` 文件中。
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "哪个 IDE 最适合管理大量 AI 技能？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code 目前是管理 20 个以上技能效率最高的 IDE，因为它能根据用户当前的提示（Prompt）按需加载相关技能，从而节省 Token 限制并避免上下文混乱。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "如何为 Cursor 编写规则？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cursor 的规则被编写为放置在 .cursor/rules/ 目录下的 .mdc (带有上下文的 Markdown) 文件，通过利用 globs 属性来明确定义哪些文件类型会触发该规则。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "我能在不同 IDE 间共享 AI 技能吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "可以，底层逻辑都是标准的 Markdown。像 killer-skills CLI 这样的工具可以自动将基础的 SKILL.md 格式转换为 Cursor 的 .mdc 文件，或者追加到 Windsurf 的 .windsurfrules 文件中。"
+      }
+    }
+  ]
+}
+</script>
 
 *相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*

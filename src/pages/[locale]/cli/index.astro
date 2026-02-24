@@ -365,15 +365,22 @@ const configContent = getDocContent('cli/configuration');
         btn.addEventListener('click', async () => {
           try {
             const code = pre.querySelector('code')?.innerText || pre.innerText;
-            await navigator.clipboard.writeText(code);
+
+            // Success State (Synchronous visual feedback for better INP)
             btn.innerHTML = checkIcon;
             btn.classList.add('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
+
+            await navigator.clipboard.writeText(code);
+
             setTimeout(() => {
               btn.innerHTML = copyIcon;
               btn.classList.remove('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
             }, 2000);
           } catch (err) {
             console.error('Failed to copy!', err);
+            // Revert state on error
+            btn.innerHTML = copyIcon;
+            btn.classList.remove('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
           }
         });
 
