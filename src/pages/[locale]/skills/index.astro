@@ -108,7 +108,7 @@ const t = useTranslations(messages);
 // Page title
 let pageTitle = t('Metadata.Skills.title');
 if (query) pageTitle = `${t('Marketplace.searchPrefix').replace('{query}', query)}`;
-else if (category) pageTitle = `${category} ${t('Common.skillsMarket')}`;
+else if (category) pageTitle = `${t(`Sidebar.categories.${category}` as any) || category} ${t('Common.skillsMarket')}`;
 else if (view === 'official') pageTitle = t('Marketplace.official');
 else if (view === 'featured') pageTitle = t('Marketplace.featured');
 else if (view === 'latest') pageTitle = t('Marketplace.latest');
@@ -183,7 +183,7 @@ const categories = [];
              <div class="flex items-end justify-between mb-6">
                 <div>
                    <h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-                     {query ? t('Marketplace.browsing') : category ? category : t('Common.explore')}
+                     {query ? t('Marketplace.browsing') : category ? t(`Sidebar.categories.${category}` as any) || category : t('Common.explore')}
                    </h1>
                    <p class="text-slate-500 dark:text-slate-400">
                      {t('Metadata.Skills.description')}
