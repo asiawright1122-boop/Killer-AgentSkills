@@ -197,14 +197,17 @@
 
 .animate-float {
     animation: float 8s ease-in-out infinite;
+    will-change: transform;
 }
 
 .animate-float-slow {
     animation: float 12s ease-in-out infinite;
+    will-change: transform;
 }
 
 .animate-pulse-glow {
     animation: pulse-glow 4s ease-in-out infinite;
+    will-change: transform, opacity;
 }
 
 .animate-shimmer {
