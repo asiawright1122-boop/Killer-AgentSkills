@@ -40,7 +40,7 @@ const DATA_FILE = path.join(process.cwd(), 'data/expanded-github-skills.json');
 
 // Code Search API: 10 requests/min for authenticated users
 // 7s delay = ~8.5 req/min — safe margin below 10
-const CODE_SEARCH_DELAY = 7000;
+const CODE_SEARCH_DELAY = 12000; // 12s between requests (GitHub limit: 10 req/min, but shared quota)
 
 // Repos API: 5000 req/hr for authenticated users
 // 200ms delay = safe for batch enrichment
