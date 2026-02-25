@@ -50,31 +50,39 @@ function sharedCalculateQualityScore(skill: any): number {
 
     const bodyLower = (skill.body || '').toLowerCase();
 
+    // ── SKILL.md 结构性评分（不依赖 stars）──────────────────
+
+    // 1. 标准 header（如 "## description", "## usage"）→ 核心结构信号
     let headerScore = 0;
     for (const h of SKILL_HEADERS) {
         if (bodyLower.includes(h)) { headerScore = 25; break; }
     }
     score += headerScore;
 
+    // 2. 功能关键词（如 "install", "config", "api", "run"）
     let foundKeywords = 0;
     for (const k of FUNCTIONAL_KEYWORDS) {
         if (bodyLower.includes(k)) foundKeywords++;
     }
     score += Math.min(20, foundKeywords * 5);
 
+    // 3. 代码块和配置格式 → 实操性信号
     if ((skill.body || '').includes('```')) score += 10;
     if (bodyLower.includes('json') || bodyLower.includes('yaml')) score += 5;
 
+    // 垃圾过滤：无 header 且关键词不足 2 个，或内容太短
     if (!isOfficial) {
         if (headerScore === 0 && foundKeywords < 2) return 0;
         if (bodyLower.length < 50) return 0;
     }
 
+    // 4. 标准路径（.claude/, .agent/, skills/）→ 规范性信号
     const standardPaths = ['.codex/', '.claude/', '.agent/', 'skills/'];
     if (skill.repoPath && standardPaths.some(p => skill.repoPath!.includes(p))) {
         score += 20;
     }
 
+    // 5. 元数据完整度
     if (skill.name) score += 5;
     if (skill.version) score += 5;
     if (skill.tags && skill.tags.length > 0) score += 5;
@@ -82,16 +90,16 @@ function sharedCalculateQualityScore(skill: any): number {
     const desc = skill.description || '';
     if (desc.length > 50) score += 10;
 
+    // 6. 官方仓库加分
     if (isOfficial) {
         score += 30;
-    } else {
-        if (skill.updatedAt) {
-            const daysSinceUpdate = Math.floor((Date.now() - new Date(skill.updatedAt).getTime()) / (1000 * 60 * 60 * 24));
-            if (daysSinceUpdate < 180) score += 5;
-        }
-        if (skill.stars && skill.stars > 50) score += 15;
-        else if (skill.stars && skill.stars > 10) score += 10;
+    } else if (skill.updatedAt) {
+        // 近期更新（非 stars）稍加分
+        const daysSinceUpdate = Math.floor((Date.now() - new Date(skill.updatedAt).getTime()) / (1000 * 60 * 60 * 24));
+        if (daysSinceUpdate < 180) score += 5;
     }
+
+    // ❌ 不再用 stars 评分 — stars 仅用于前端排序，不影响是否收录
 
     return Math.min(100, score);
 }
