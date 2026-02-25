@@ -5,12 +5,20 @@ name: Full Refresh (Manual)
 # WARNING: This is expensive (3-6 hours, full AI API usage)
 
 on:
+  schedule:
+    # 每 5 天执行一次 (UTC 03:00)
+    - cron: '0 3 */5 * *'
   workflow_dispatch:
     inputs:
       confirm:
-        description: 'Type "yes" to confirm full refresh (expensive operation)'
+        description: 'Type "yes" to confirm (required for manual trigger)'
         required: true
         type: string
+      force:
+        description: 'Force AI regeneration even if unchanged?'
+        required: false
+        type: boolean
+        default: false
       skip_harvest:
         description: 'Skip harvest step?'
         required: false
@@ -27,7 +35,8 @@ jobs:
   full-refresh:
     runs-on: ubuntu-latest
     timeout-minutes: 350  # 10min buffer below GitHub's 360min hard limit
-    if: ${{ inputs.confirm == 'yes' }}
+    # 定时触发直接跑；手动触发需输入 "yes"
+    if: ${{ github.event_name == 'schedule' || inputs.confirm == 'yes' }}
     concurrency:
       group: skills-pipeline
       cancel-in-progress: false
@@ -55,9 +64,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── Full Build with --force ────────────────────────
-      - name: Build Skills Cache (Full Force)
-        run: npm run build:cache -- --mode=update --force --max-duration=330
+      # ── Full Build (skip unchanged) ─────────────────────
+      - name: Build Skills Cache (Full Update)
+        run: |
+          ARGS="--mode=update --max-duration=330"
+          # 仅手动触发且勾选 force 时才强制重新生成
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+          echo "🔨 Running: npm run build:cache -- $ARGS"
+          npm run build:cache -- $ARGS
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
