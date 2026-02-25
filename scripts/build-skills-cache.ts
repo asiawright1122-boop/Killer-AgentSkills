@@ -38,68 +38,84 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 // ===== Build-Specific Scoring Logic =====
 function sharedCalculateQualityScore(skill: any): number {
-    let score = 0;
+    // ══════════════════════════════════════════════════════════════════
+    // 按 Agent Skills 官方规范验证 SKILL.md 结构:
+    //
+    //   必须有:
+    //     1. YAML frontmatter（---...---）
+    //     2. frontmatter 中的 name 字段（非空）
+    //     3. frontmatter 中的 description 字段（非空）
+    //     4. Markdown body（指令内容，≥ 100 字符）
+    //
+    //   score = 0  → 结构无效，不收录
+    //   score > 0  → 结构有效，收录到全部技能
+    //   score 越高 → 精选排序越靠前
+    // ══════════════════════════════════════════════════════════════════
+
     const isOfficial = isOfficialRepo(skill.owner, skill.repo);
 
-    if (!skill.name) return 0;
+    // ── 结构有效性验证（不通过 = score 0 = 不收录）──────────
 
+    // 必须有 name（来自 frontmatter 的 name 字段）
+    if (!skill.name || skill.name.trim().length === 0) return 0;
+
+    // 过滤可疑名称（test, example, demo 等）
     const nameLower = skill.name.toLowerCase();
     if (!isOfficial && SUSPICIOUS_NAMES.some(k => nameLower === k || nameLower.includes(k + '-'))) {
         return 0;
     }
 
-    const bodyLower = (skill.body || '').toLowerCase();
+    // 必须有 description（来自 frontmatter 的 description 字段）
+    const desc = skill.description || '';
+    const descText = typeof desc === 'string' ? desc : (desc.en || '');
+    if (!isOfficial && descText.trim().length < 10) return 0;
 
-    // ── SKILL.md 结构性评分（不依赖 stars）──────────────────
+    // 必须有 body 内容（Markdown 指令）
+    const body = skill.body || '';
+    if (!isOfficial && body.length < 100) return 0;
 
-    // 1. 标准 header（如 "## description", "## usage"）→ 核心结构信号
-    let headerScore = 0;
+    // ── 通过结构验证 → 计算精选排序分（越高越精选）──────────
+    let score = 10; // 结构有效基础分
+
+    const bodyLower = body.toLowerCase();
+
+    // 指令质量：有标准 header 说明结构清晰
     for (const h of SKILL_HEADERS) {
-        if (bodyLower.includes(h)) { headerScore = 25; break; }
+        if (bodyLower.includes(h)) { score += 15; break; }
     }
-    score += headerScore;
 
-    // 2. 功能关键词（如 "install", "config", "api", "run"）
+    // 功能关键词密度：越多说明内容越实操
     let foundKeywords = 0;
     for (const k of FUNCTIONAL_KEYWORDS) {
         if (bodyLower.includes(k)) foundKeywords++;
     }
-    score += Math.min(20, foundKeywords * 5);
+    score += Math.min(15, foundKeywords * 3);
 
-    // 3. 代码块和配置格式 → 实操性信号
-    if ((skill.body || '').includes('```')) score += 10;
-    if (bodyLower.includes('json') || bodyLower.includes('yaml')) score += 5;
+    // 有代码示例：实操性强
+    if (body.includes('```')) score += 10;
 
-    // 垃圾过滤：无 header 且关键词不足 2 个，或内容太短
-    if (!isOfficial) {
-        if (headerScore === 0 && foundKeywords < 2) return 0;
-        if (bodyLower.length < 50) return 0;
-    }
-
-    // 4. 标准路径（.claude/, .agent/, skills/）→ 规范性信号
+    // 标准路径：.claude/, .agent/, skills/ → 规范性高
     const standardPaths = ['.codex/', '.claude/', '.agent/', 'skills/'];
     if (skill.repoPath && standardPaths.some(p => skill.repoPath!.includes(p))) {
-        score += 20;
+        score += 10;
     }
 
-    // 5. 元数据完整度
-    if (skill.name) score += 5;
+    // 元数据完整度
     if (skill.version) score += 5;
     if (skill.tags && skill.tags.length > 0) score += 5;
+    if (descText.length > 80) score += 5; // 详细 description
 
-    const desc = skill.description || '';
-    if (desc.length > 50) score += 10;
-
-    // 6. 官方仓库加分
+    // 官方仓库额外加分
     if (isOfficial) {
         score += 30;
     } else if (skill.updatedAt) {
-        // 近期更新（非 stars）稍加分
         const daysSinceUpdate = Math.floor((Date.now() - new Date(skill.updatedAt).getTime()) / (1000 * 60 * 60 * 24));
         if (daysSinceUpdate < 180) score += 5;
     }
 
-    // ❌ 不再用 stars 评分 — stars 仅用于前端排序，不影响是否收录
+    // Stars 仅用于精选排序加分，不影响是否收录
+    if (skill.stars && skill.stars > 100) score += 10;
+    else if (skill.stars && skill.stars > 20) score += 5;
 
     return Math.min(100, score);
 }
