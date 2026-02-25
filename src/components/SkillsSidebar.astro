@@ -15,7 +15,7 @@ const t = useTranslations(messages);
 // View options
 const views = [
   { id: 'official', name: t('Sidebar.views.official'), icon: 'verified', count: Object.values(OFFICIAL_REPOS).filter(v => v.type === 'official').length },
-  { id: 'featured', name: t('Sidebar.views.featured'), icon: 'star', count: Object.values(OFFICIAL_REPOS).filter(v => v.type === 'featured').length },
+  { id: 'featured', name: t('Sidebar.views.featured'), icon: 'star' },
   { id: 'latest', name: t('Sidebar.views.latest'), icon: 'clock' },
 ];
 
