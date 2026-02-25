@@ -888,9 +888,9 @@ async function buildCache(): Promise<void> {
 
             skill.qualityScore = calculateQualityScore(skill);
 
-            // P0 FIX: Quality pre-filter — reject low-quality skills BEFORE saving
-            if ((skill.qualityScore || 0) < 20) {
-                process.stdout.write('Q'); // Q = Quality filter reject
+            // 收录门槛：score > 0 即为结构有效的 SKILL.md（score=0 = 无名字/可疑/空内容）
+            if ((skill.qualityScore || 0) <= 0) {
+                process.stdout.write('Q'); // Q = 无效结构
                 return;
             }
 
@@ -1039,8 +1039,8 @@ async function buildCache(): Promise<void> {
         for (const [id, skill] of Array.from(existingMap.entries())) {
             if (!processedRepos.has(id)) {
                 const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
-                // Quality gate: drop truly broken entries in discover mode too
-                if (!isOfficial && (skill.qualityScore || 0) < 15) {
+                // 收录门槛：只丢弃结构无效的（score=0）
+                if (!isOfficial && (skill.qualityScore || 0) <= 0) {
                     droppedCount++;
                     continue;
                 }
@@ -1176,9 +1176,9 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
         // Explicitly check if it is an official repo
         const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
 
-        // Rule 0: Quality Score gate — reject low-quality entries
-        // Raised from 5 → 15 to prevent junk from leaking through
-        if (!isOfficial && (skill.qualityScore || 0) < 15) {
+        // 收录门槛：score > 0 = 结构有效的 SKILL.md
+        // qualityScore 仍用于前端「精选」排序，但不阻止收录
+        if (!isOfficial && (skill.qualityScore || 0) <= 0) {
             continue;
         }
 
