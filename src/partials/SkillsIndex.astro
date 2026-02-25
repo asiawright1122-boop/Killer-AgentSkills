@@ -25,15 +25,9 @@ console.log('DEBUG: view=', view, 'owner=', owner);
 const page = parseInt(searchParams.get('page') || '1');
 const perPage = 12;
 
-// Identify Official & Featured Skills
+// Identify Official Skills
 const officialOwners = Object.values(OFFICIAL_REPOS)
     .filter(r => r.type === 'official')
-    .map(r => r.owner);
-
-console.log('DEBUG: officialOwners=', officialOwners);
-
-const featuredOwners = Object.values(OFFICIAL_REPOS)
-    .filter(r => r.type === 'featured')
     .map(r => r.owner);
 
 // Filter by view
@@ -42,7 +36,9 @@ let filteredSkills = [...allSkills];
 if (view === 'official') {
     filteredSkills = allSkills.filter(s => officialOwners.includes(s.data.owner));
 } else if (view === 'featured') {
-    filteredSkills = allSkills.filter(s => featuredOwners.includes(s.data.owner));
+    const allOfficialOwners = Object.values(OFFICIAL_REPOS).map(r => r.owner);
+    filteredSkills = allSkills.filter(s => allOfficialOwners.includes(s.data.owner) || (s.data.qualityScore || 0) >= 40)
+        .sort((a, b) => (b.data.qualityScore || 0) - (a.data.qualityScore || 0));
 } else if (view === 'latest') {
     filteredSkills = [...allSkills].sort((a, b) => 
         new Date(b.data.updatedAt || 0).getTime() - new Date(a.data.updatedAt || 0).getTime()

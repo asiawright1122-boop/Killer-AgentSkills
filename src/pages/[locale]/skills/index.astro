@@ -6,7 +6,7 @@ import SkillsSidebar from '../../../components/SkillsSidebar.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import { getAllSkills } from '../../../lib/skills';
 import { searchSkills, filterByCategory } from '../../../lib/search';
-import { OFFICIAL_REPOS } from '../../../lib/skills-config';
+import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
@@ -33,20 +33,20 @@ const owner = url.searchParams.get('owner') || '';
 const page = parseInt(url.searchParams.get('page') || '1', 10);
 const ITEMS_PER_PAGE = 12;
 
-// Identify Official & Featured Skills
+// Identify Official Skills
 const officialOwners = Object.values(OFFICIAL_REPOS)
     .filter(r => r.type === 'official')
-    .map(r => r.owner);
-
-const featuredOwners = Object.values(OFFICIAL_REPOS)
-    .filter(r => r.type === 'featured')
     .map(r => r.owner);
 
 // Apply view filter
 if (view === 'official') {
     skills = skills.filter(s => officialOwners.includes(s.owner));
 } else if (view === 'featured') {
-    skills = skills.filter(s => featuredOwners.includes(s.owner));
+    // 精选 = 官方仓库 OR qualityScore >= 阈值
+    const allOfficialOwners = Object.values(OFFICIAL_REPOS).map(r => r.owner);
+    skills = skills
+        .filter(s => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
+        .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
 } else if (view === 'latest') {
     skills = [...skills].sort((a, b) => 
         new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime()

@@ -2,6 +2,25 @@
 // Agent Skills 必须包含 SKILL.md 文件
 // 只保留已验证存在且有 Skills 的仓库
 
+/**
+ * 精选技能的 qualityScore 阈值
+ * 满分 100，评分维度：
+ *   - 结构有效基础分 10 分
+ *   - 标准 header（usage/install 等）15 分
+ *   - 功能关键词密度 最高 15 分
+ *   - 代码示例 10 分
+ *   - 标准路径（.claude/ 等）10 分
+ *   - 元数据完整度（version/tags/description）最高 15 分
+ *   - 官方仓库加 30 分，近期更新加 5 分
+ *   - Stars > 100 加 10 分，> 20 加 5 分
+ *
+ * 阈值 40 = 需有：header + 关键词 + 代码示例 + 一定的元数据完整度
+ * 不同组成可达 40：
+ *   典型通过：基础 10 + header 15 + 2 关键词 6 + 代码 10 = 41 ✅
+ *   典型不通过：基础 10 + 1 关键词 3 + 无代码 = 13 ❌
+ */
+export const FEATURED_SCORE_THRESHOLD = 40;
+
 export const OFFICIAL_REPOS: Record<string, {
     owner: string;
     repo: string;
