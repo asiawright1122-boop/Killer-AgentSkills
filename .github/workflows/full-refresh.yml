@@ -1,0 +1,113 @@
+name: Full Refresh (Manual)
+
+# Full rebuild: force re-processes ALL skills
+# Use when: AI prompts improved, new language added, schema changed, or monthly maintenance
+# WARNING: This is expensive (3-6 hours, full AI API usage)
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "yes" to confirm full refresh (expensive operation)'
+        required: true
+        type: string
+      skip_harvest:
+        description: 'Skip harvest step?'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  full-refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350  # 10min buffer below GitHub's 360min hard limit
+    if: ${{ inputs.confirm == 'yes' }}
+    concurrency:
+      group: skills-pipeline
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      # ── Optional: Re-harvest ───────────────────────────
+      - name: Harvest (optional)
+        if: ${{ inputs.skip_harvest != true }}
+        run: npx tsx scripts/harvest-github-skills.ts --target=100
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Full Build with --force ────────────────────────
+      - name: Build Skills Cache (Full Force)
+        run: npm run build:cache -- --mode=update --force --max-duration=330
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # ── Deploy to Cloudflare ───────────────────────────
+      - name: Sync to Cloudflare KV
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare D1
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          ./scripts/run-d1-seeds.sh
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      # ── Commit + Push ──────────────────────────────────
+      - name: Commit and Push
+        run: |
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/skills-cache.json data/sitemap-skills.json data/expanded-github-skills.json
+            git commit -m "chore(data): full skills refresh [skip ci]"
+            PUSH_OK=0
+            for attempt in 1 2 3; do
+              if git push; then
+                echo "✅ Push succeeded on attempt $attempt"
+                PUSH_OK=1
+                break
+              fi
+              echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
+              git pull --rebase -X theirs --autostash origin main || true
+            done
+            if [ "$PUSH_OK" -eq 0 ]; then
+              echo "❌ Push failed after 3 attempts"
+              exit 1
+            fi
+          else
+            echo "ℹ️ No changes detected"
+          fi
+
+      - name: Submit IndexNow
+        if: success()
+        continue-on-error: true
+        run: node scripts/submit-indexnow.mjs

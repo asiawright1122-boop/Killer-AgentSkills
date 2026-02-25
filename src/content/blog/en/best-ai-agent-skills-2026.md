@@ -12,7 +12,7 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 
 # The best AI agent skills you can install right now
 
-**AI agent skills** are specialized, plug-and-play instruction modules that give coding assistants (like Claude Code, Cursor, and Windsurf) the context and capabilities to autonomously execute complex workflows. According to recent data from the Killer-Skills registry, developers using targeted agent skills report saving an average of 12.5 hours per week on repetitive formatting, testing, and documentation tasks.
+**AI agent skills** are specialized, plug-and-play instruction modules that give coding assistants (like Claude Code, Cursor, and ContinueWindsurf) the context and capabilities to autonomously execute complex workflows. According to recent data from the Killer-Skills registry, developers using targeted agent skills report saving an average of 12.5 hours per week on repetitive formatting, testing, and documentation tasks.
 
 > **Key Takeaways**
 > - **Document Automation**: Skills like `docx` and `xlsx` automate reporting, saving hours of manual data entry.

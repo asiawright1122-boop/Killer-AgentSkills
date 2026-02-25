@@ -1,22 +1,23 @@
 #!/usr/bin/env npx tsx
 
 /**
- * SKILL HARVESTER
+ * SKILL HARVESTER v2
  * 
  * 专用的 GitHub 技能收割脚本。
  * 目标：批量搜集包含 SKILL.md 的仓库，存入 data/expanded-github-skills.json，供构建脚本离线使用。
- * 特点：
- * 1. 专注于 Search API，不下载文件内容 (节省带宽和时间)。
- * 2. 智能分片搜索 (时间切片、Star切片) 以突破 1000 条限制。
- * 3. 实时追加写入，支持断点续传。
- * 4. 自动去重。
+ * 
+ * v2 重构修复:
+ * - 修复: Code Search API 不返回 stars/forks，改用 Repos API 批量补充
+ * - 修复: REQUEST_DELAY 从 2.5s → 7s (Code Search: 10 req/min)
+ * - 修复: 移除 Code Search 不支持的 `stars:` 语法
+ * - 新增: 仓库级垃圾过滤（黑名单 + 单仓库上限）
+ * - 新增: --prune 模式清理失效条目
  */
 
 import * as fs from 'fs';
 import * as path from 'path';
-import 'dotenv/config'; // Load env vars
+import 'dotenv/config';
 import * as dotenv from 'dotenv';
-import { fileURLToPath } from 'url';
 
 // Load .env.local
 if (fs.existsSync('.env.local')) {
@@ -35,10 +36,32 @@ if (!GITHUB_TOKEN) {
 // 目标文件
 const DATA_FILE = path.join(process.cwd(), 'data/expanded-github-skills.json');
 
-// 配置
-const REQUEST_DELAY = 2500; // 2.5s delay to be safe (Limit: 30 requests/min = 1 req/2s)
+// ============ Configuration ============
+
+// Code Search API: 10 requests/min for authenticated users
+// 7s delay = ~8.5 req/min — safe margin below 10
+const CODE_SEARCH_DELAY = 7000;
+
+// Repos API: 5000 req/hr for authenticated users
+// 200ms delay = safe for batch enrichment
+const REPOS_API_DELAY = 200;
+
 const PER_PAGE = 100;
 const MAX_PAGES = 10; // GitHub API limit: 1000 records (10 * 100)
+
+// ============ Junk Filtering ============
+
+// Repos that are "skill registries" or bulk-generated, not real skills
+const BLOCKED_REPOS = new Set([
+    'majiayu000/claude-skill-registry',
+    'ma1orek/replay',
+    'sickn33/antigravity-awesome-skills',
+]);
+
+// Max skills per repo — repos with more are likely aggregators/registries
+const MAX_SKILLS_PER_REPO = 30;
+
+// ============ Types ============
 
 interface HarvestedSkill {
     owner: string;
@@ -51,7 +74,8 @@ interface HarvestedSkill {
     filePath: string;
 }
 
-// 读取现有数据
+// ============ Data I/O ============
+
 function loadExisting(): HarvestedSkill[] {
     if (!fs.existsSync(DATA_FILE)) return [];
     try {
@@ -64,13 +88,14 @@ function loadExisting(): HarvestedSkill[] {
     }
 }
 
-// 保存数据
 function saveData(items: HarvestedSkill[]) {
     // 按 Stars 降序排序
     const sorted = items.sort((a, b) => (b.stars || 0) - (a.stars || 0));
     fs.writeFileSync(DATA_FILE, JSON.stringify(sorted, null, 2));
     console.log(`💾 Saved ${sorted.length} items to ${DATA_FILE}`);
 }
+
+// ============ Validation ============
 
 /**
  * 验证文件名是否为合法的 SKILL.md
@@ -79,32 +104,41 @@ function saveData(items: HarvestedSkill[]) {
  */
 function isValidSkillFile(filePath: string): boolean {
     const fileName = filePath.split('/').pop() || '';
-    // 严格匹配: 文件名必须是 SKILL.md 或 SKILL.MD (全大写)
     if (fileName === 'SKILL.md' || fileName === 'SKILL.MD') return true;
-    // 如果路径中包含 /skills/ 目录，也接受 (如 .claude/skills/xxx/SKILL.md)
     if (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md') return true;
     return false;
 }
 
-// 生成搜索查询策略
+/**
+ * 检查仓库是否在黑名单中
+ */
+function isBlockedRepo(owner: string, repo: string): boolean {
+    return BLOCKED_REPOS.has(`${owner}/${repo}`);
+}
+
+// ============ Search Strategies ============
+
+/**
+ * 生成 Code Search 查询策略
+ * 注意: Code Search API 不支持 `stars:` `forks:` 等 Repository 限定符
+ * 有效限定符: filename, path, language, org, repo, pushed, size
+ */
 function generateSearchStrategies() {
-    const strategies = [];
+    const strategies: string[] = [];
 
-    // 1. 按 Star 数切片 (高关注度)
-    strategies.push('filename:SKILL.md stars:>100');
-    strategies.push('filename:SKILL.md stars:50..100');
-    strategies.push('filename:SKILL.md stars:20..49');
-    strategies.push('filename:SKILL.md stars:10..19');
-    strategies.push('filename:SKILL.md stars:1..9');
-    strategies.push('filename:SKILL.md stars:0');
-
-    // 2. 按特定路径 (Agent 框架)
-    const paths = ['skills', '.claude', '.agents', '.codex', '.cursor', '.windsurf', '.kiro', '.gemini'];
-    for (const p of paths) {
+    // 1. 按特定路径 (Agent 框架目录) — 最高质量的来源
+    const agentPaths = ['.claude', '.agents', '.codex', '.cursor', '.windsurf', '.kiro', '.gemini'];
+    for (const p of agentPaths) {
         strategies.push(`filename:SKILL.md path:${p}`);
     }
 
-    // 3. 动态时间切片 — 从 2024-01 到当前季度，自动追加新范围
+    // 2. skills/ 目录 — 标准技能存放位置
+    strategies.push('filename:SKILL.md path:skills');
+
+    // 3. 根目录 SKILL.md
+    strategies.push('filename:SKILL.md path:/');
+
+    // 4. 动态时间切片 — 从 2024-01 到当前季度
     const now = new Date();
     const currentYear = now.getFullYear();
     const currentMonth = now.getMonth(); // 0-indexed
@@ -116,7 +150,7 @@ function generateSearchStrategies() {
             const startMonth = q * 3 + 1;
             const endMonth = q * 3 + 3;
             const start = `${year}-${String(startMonth).padStart(2, '0')}-01`;
-            const endDay = new Date(year, endMonth, 0).getDate(); // last day of end month
+            const endDay = new Date(year, endMonth, 0).getDate();
             const end = `${year}-${String(endMonth).padStart(2, '0')}-${String(endDay).padStart(2, '0')}`;
             quarters.push(`${start}..${end}`);
         }
@@ -128,7 +162,8 @@ function generateSearchStrategies() {
     return strategies;
 }
 
-// 调用 GitHub Search API
+// ============ GitHub API ============
+
 async function searchGitHub(query: string, page: number, retryCount: number = 0): Promise<any> {
     const MAX_RETRIES = 3;
     const url = `https://api.github.com/search/code?q=${encodeURIComponent(query)}&per_page=${PER_PAGE}&page=${page}`;
@@ -154,7 +189,13 @@ async function searchGitHub(query: string, page: number, retryCount: number = 0)
             return null;
         }
         await new Promise(r => setTimeout(r, (waitSeconds + 2) * 1000));
-        return searchGitHub(query, page, retryCount + 1); // Retry with incremented count
+        return searchGitHub(query, page, retryCount + 1);
+    }
+
+    if (response.status === 422) {
+        // Validation failed — often means invalid query syntax
+        console.warn(`   ⚠️ Query validation failed (422): "${query}". Skipping.`);
+        return null;
     }
 
     if (!response.ok) {
@@ -165,28 +206,201 @@ async function searchGitHub(query: string, page: number, retryCount: number = 0)
     return await response.json();
 }
 
+/**
+ * 批量获取仓库的 stars/forks 等元数据
+ * Code Search API 不返回这些信息，需要单独调用 Repos API
+ * Repos API 限额: 5000 req/hr (远高于 Code Search 的 10 req/min)
+ */
+async function enrichWithRepoMetadata(skills: HarvestedSkill[]): Promise<void> {
+    // 按 repo 去重，避免同一 repo 多次调用
+    const repoMap = new Map<string, HarvestedSkill[]>();
+    for (const s of skills) {
+        const key = `${s.owner}/${s.repo}`;
+        if (!repoMap.has(key)) repoMap.set(key, []);
+        repoMap.get(key)!.push(s);
+    }
+
+    // 只对 stars=0 的仓库补充（避免重复调用）
+    const allEntries = Array.from(repoMap.entries());
+    const needsEnrichment = allEntries.filter(([_, items]) =>
+        items.some(s => s.stars === 0 && s.forks === 0)
+    );
+
+    if (needsEnrichment.length === 0) {
+        console.log('   ℹ️ No repos need metadata enrichment');
+        return;
+    }
+
+    console.log(`   📊 Enriching ${needsEnrichment.length} repos with stars/forks...`);
+    let enriched = 0;
+    let failed = 0;
+
+    for (const [repoKey, items] of needsEnrichment) {
+        try {
+            const url = `https://api.github.com/repos/${repoKey}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json() as any;
+                for (const item of items) {
+                    item.stars = data.stargazers_count || 0;
+                    item.forks = data.forks_count || 0;
+                    item.description = item.description || data.description || null;
+                    item.updatedAt = data.updated_at || item.updatedAt;
+                    item.topics = data.topics || item.topics || [];
+                }
+                enriched++;
+            } else if (response.status === 404) {
+                // Repo deleted or made private — mark for removal
+                for (const item of items) {
+                    item.stars = -1; // Sentinel value for pruning
+                }
+                failed++;
+            } else if (response.status === 403 || response.status === 429) {
+                console.warn(`   ⚠️ Repos API rate limit hit during enrichment. Stopping.`);
+                break;
+            }
+
+            await new Promise(r => setTimeout(r, REPOS_API_DELAY));
+        } catch (e) {
+            failed++;
+        }
+    }
+
+    console.log(`   ✅ Enriched ${enriched} repos, ${failed} failed/404`);
+}
+
+// ============ Data Cleaning ============
+
+/**
+ * 清洗 harvest 数据，移除垃圾仓库和异常数据
+ */
+function cleanHarvestData(items: HarvestedSkill[]): HarvestedSkill[] {
+    const beforeCount = items.length;
+
+    // 1. 移除黑名单仓库
+    items = items.filter(x => !isBlockedRepo(x.owner, x.repo));
+
+    // 2. 移除已删除/私有化的仓库 (stars=-1 sentinel)
+    items = items.filter(x => x.stars !== -1);
+
+    // 3. 限制每个仓库最多 N 个技能（保留 stars 最高的或首先发现的）
+    const repoCounts = new Map<string, number>();
+    items = items.filter(x => {
+        const key = `${x.owner}/${x.repo}`;
+        const count = (repoCounts.get(key) || 0) + 1;
+        repoCounts.set(key, count);
+        return count <= MAX_SKILLS_PER_REPO;
+    });
+
+    const afterCount = items.length;
+    if (beforeCount !== afterCount) {
+        console.log(`🧹 Cleaned: ${beforeCount} → ${afterCount} items (removed ${beforeCount - afterCount})`);
+    }
+
+    return items;
+}
+
+// ============ Prune Mode ============
+
+/**
+ * 验证旧条目是否仍然有效（仓库是否公开、SKILL.md 是否存在）
+ * 使用: npm run skills:harvest -- --prune
+ */
+async function pruneStaleEntries(items: HarvestedSkill[]): Promise<HarvestedSkill[]> {
+    console.log(`🔪 Pruning stale entries from ${items.length} items...`);
+
+    // Only check unique repos (not every skill file individually)
+    const repoMap = new Map<string, HarvestedSkill[]>();
+    for (let i = 0; i < items.length; i++) {
+        const s = items[i];
+        const key = `${s.owner}/${s.repo}`;
+        if (!repoMap.has(key)) repoMap.set(key, []);
+        repoMap.get(key)!.push(s);
+    }
+
+    let removed = 0;
+    const staleRepos = new Set<string>();
+
+    const repoEntries = Array.from(repoMap.keys());
+    for (const repoKey of repoEntries) {
+        try {
+            const url = `https://api.github.com/repos/${repoKey}`;
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `token ${GITHUB_TOKEN}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (response.status === 404) {
+                staleRepos.add(repoKey);
+                removed++;
+            } else if (response.status === 403 || response.status === 429) {
+                console.warn('   ⚠️ Rate limit during prune. Stopping early.');
+                break;
+            }
+
+            await new Promise(r => setTimeout(r, REPOS_API_DELAY));
+        } catch {
+            // Network error — skip, don't remove
+        }
+    }
+
+    const result = items.filter(x => !staleRepos.has(`${x.owner}/${x.repo}`));
+    console.log(`   ✅ Pruned ${removed} stale repos (${items.length - result.length} items removed)`);
+    return result;
+}
+
+// ============ Main ============
+
 async function main() {
-    console.log('🌾 SKILL HARVESTER STARTED');
+    console.log('🌾 SKILL HARVESTER v2 STARTED');
 
-    // 1. 加载现有数据建立索引
-    const allSkills = loadExisting();
-    // Bug Fix: 使用 owner/repo/filePath 作为去重键，支持多 Skill 仓库
-    const existingKeys = new Set(allSkills.map(s => `${s.owner}/${s.repo}/${s.filePath}`));
-    console.log(`📚 Loaded ${allSkills.length} existing skills.`);
-
-    // 2. 生成搜索策略
-    // 获取命令行参数 --target=N，默认 1000 新增
+    // Parse args
     const args = process.argv.slice(2);
     const targetArg = args.find(a => a.startsWith('--target='));
     const TARGET_NEW = targetArg ? parseInt(targetArg.split('=')[1]) : 1000;
+    const isPruneMode = args.includes('--prune');
+    const isEnrichOnly = args.includes('--enrich');
 
+    // 1. 加载现有数据
+    let allSkills = loadExisting();
+    // Bug Fix: 使用 owner/repo/filePath 作为去重键
+    const existingKeys = new Set(allSkills.map(s => `${s.owner}/${s.repo}/${s.filePath}`));
+    console.log(`📚 Loaded ${allSkills.length} existing skills.`);
+
+    // Special modes
+    if (isPruneMode) {
+        allSkills = await pruneStaleEntries(allSkills);
+        allSkills = cleanHarvestData(allSkills);
+        saveData(allSkills);
+        console.log('✅ Prune complete!');
+        return;
+    }
+
+    if (isEnrichOnly) {
+        console.log('📊 Enrich-only mode: updating stars/forks for existing data...');
+        await enrichWithRepoMetadata(allSkills);
+        allSkills = cleanHarvestData(allSkills);
+        saveData(allSkills);
+        console.log('✅ Enrichment complete!');
+        return;
+    }
+
+    // 2. 正常 harvest 模式
     console.log(`🎯 Target: Find ${TARGET_NEW} new skills.`);
 
     const strategies = generateSearchStrategies();
     let newFoundCount = 0;
     let skippedCount = 0;
+    const newBatch: HarvestedSkill[] = []; // Track new items for batch enrichment
 
-    // 3. 执行搜索
     for (const query of strategies) {
         if (newFoundCount >= TARGET_NEW) break;
 
@@ -195,58 +409,84 @@ async function main() {
         for (let page = 1; page <= MAX_PAGES; page++) {
             if (newFoundCount >= TARGET_NEW) break;
 
-            // 速率控制
-            await new Promise(r => setTimeout(r, REQUEST_DELAY));
+            // Code Search API rate limit: 10 req/min
+            await new Promise(r => setTimeout(r, CODE_SEARCH_DELAY));
 
             const data = await searchGitHub(query, page);
-            if (!data) break; // Error or limit hit
+            if (!data) break;
 
             const items = data.items || [];
-            if (items.length === 0) break; // End of results
+            if (items.length === 0) break;
 
             let pageNewCount = 0;
             for (const item of items) {
                 const filePath = item.path;
 
-                // Bug Fix: 严格验证文件名，过滤 skill.md / Skill.md 等误报
+                // 严格验证文件名
                 if (!isValidSkillFile(filePath)) {
                     skippedCount++;
                     continue;
                 }
 
-                // Bug Fix: 使用 owner/repo/filePath 作为去重键
-                const key = `${item.repository.owner.login}/${item.repository.name}/${filePath}`;
+                const owner = item.repository.owner.login;
+                const repo = item.repository.name;
 
+                // 黑名单过滤
+                if (isBlockedRepo(owner, repo)) {
+                    skippedCount++;
+                    continue;
+                }
+
+                // 去重
+                const key = `${owner}/${repo}/${filePath}`;
                 if (existingKeys.has(key)) continue;
 
-                // 构建新条目
+                // Note: Code Search API 不返回 stars/forks
+                // 先存 0，后面批量用 Repos API 补充
                 const skill: HarvestedSkill = {
-                    owner: item.repository.owner.login,
-                    repo: item.repository.name,
-                    description: item.repository.description,
-                    stars: item.repository.stargazers_count,
-                    forks: item.repository.forks_count || 0,
+                    owner,
+                    repo,
+                    description: item.repository.description || null,
+                    stars: 0,  // Will be enriched later via Repos API
+                    forks: 0,  // Will be enriched later via Repos API
                     topics: item.repository.topics || [],
-                    updatedAt: item.repository.updated_at,
+                    updatedAt: item.repository.updated_at || new Date().toISOString(),
                     filePath: filePath
                 };
 
-                allSkills.push(skill); // 加入主列表
-                existingKeys.add(key); // 更新索引
+                allSkills.push(skill);
+                newBatch.push(skill);
+                existingKeys.add(key);
                 newFoundCount++;
                 pageNewCount++;
             }
 
             console.log(`      Page ${page}: ${items.length} results, ${pageNewCount} new.`);
 
-            // 实时保存，防止数据丢失
-            if (pageNewCount > 0) {
-                saveData(allSkills);
-            }
-
             if (items.length < PER_PAGE) break; // No more pages
         }
     }
+
+    // 3. 批量补充 stars/forks
+    if (newBatch.length > 0) {
+        console.log(`\n📊 Enriching ${newBatch.length} new items with repo metadata...`);
+        await enrichWithRepoMetadata(newBatch);
+    }
+
+    // Also enrich existing items that still have stars=0 (from previous v1 harvests)
+    const staleItems = allSkills.filter(s => s.stars === 0 && !newBatch.includes(s));
+    if (staleItems.length > 0) {
+        console.log(`\n📊 Enriching ${staleItems.length} legacy items (stars=0) with repo metadata...`);
+        // Limit to avoid API overload
+        const batchSize = Math.min(staleItems.length, 500);
+        await enrichWithRepoMetadata(staleItems.slice(0, batchSize));
+    }
+
+    // 4. 清洗数据
+    allSkills = cleanHarvestData(allSkills);
+
+    // 5. 保存
+    saveData(allSkills);
 
     console.log(`\n✅ Harvest complete! Found ${newFoundCount} new skills. (Skipped ${skippedCount} false positives)`);
     console.log(`📚 Total Database Size: ${allSkills.length}`);

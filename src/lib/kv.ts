@@ -83,6 +83,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
 
 /**
  * Read a specific key from D1 namespace as JSON.
+ * Supports exact ID match and fuzzy match for multi-segment IDs.
  * Usage: await getSkillsKV(context.locals.runtime.env, 'some-key')
  */
 export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
@@ -92,22 +93,49 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
     }
 
     try {
-        // If they ask for key "all-skills-index" or purely legacy string paths, map them safely
+        // Legacy key formats — not queryable in D1
         if (key === 'all-skills-index' || key.startsWith('all-skills:')) {
             return null;
         }
 
-        // 'skill:owner/repo' -> extract owner and repo, or just bind 'owner/repo' into 'id' 
-        // Our D1 'id' maps exactly to the repo string "owner/repo" in skills sync scripts!
+        // Strip 'skill:' prefix if present
         let dbId = key;
         if (key.startsWith('skill:')) {
             dbId = key.substring(6);
         }
 
-        const result = await env.DB.prepare(`SELECT data_json FROM skills WHERE id = ?`).bind(dbId).first();
-        if (result && result.data_json) {
-            return JSON.parse(result.data_json as string);
+        // 1. Exact match (fastest — uses PRIMARY KEY index)
+        const exact = await env.DB.prepare(`SELECT data_json FROM skills WHERE id = ?`).bind(dbId).first();
+        if (exact && exact.data_json) {
+            return JSON.parse(exact.data_json as string);
         }
+
+        // 2. If ID has 3+ segments (e.g., "anthropics/skills/skillname"), try owner/repo match
+        //    This handles the case where detail pages pass owner/repo but the ID includes a sub-path
+        const segments = dbId.split('/');
+        if (segments.length >= 2) {
+            const owner = segments[0];
+            const repo = segments[1];
+
+            if (segments.length > 2) {
+                // Try LIKE match: "anthropics/skills/%" — uses indexed scan, not full table
+                const likeResult = await env.DB.prepare(
+                    `SELECT data_json FROM skills WHERE id LIKE ? LIMIT 1`
+                ).bind(`${owner}/${repo}/%`).first();
+                if (likeResult && likeResult.data_json) {
+                    return JSON.parse(likeResult.data_json as string);
+                }
+            }
+
+            // 3. Try owner+repo index match (uses idx_skills_owner_repo)
+            const repoResult = await env.DB.prepare(
+                `SELECT data_json FROM skills WHERE owner = ? AND repo = ? LIMIT 1`
+            ).bind(owner, repo).first();
+            if (repoResult && repoResult.data_json) {
+                return JSON.parse(repoResult.data_json as string);
+            }
+        }
+
         return null;
     } catch (e) {
         console.error(`[D1] Error querying skill key "${key}":`, e);

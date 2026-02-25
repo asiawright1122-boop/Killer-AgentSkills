@@ -168,102 +168,51 @@ async function deleteKeys(keys: string[]): Promise<number> {
 }
 
 async function main() {
-    console.log('🚀 开始同步 Skills 到 Cloudflare KV (Bulk Mode)...\n');
+    console.log('🚀 开始同步数据到 Cloudflare KV...\n');
 
-    // 读取缓存文件
-    const cachePath = path.join(process.cwd(), 'data/skills-cache.json');
+    // ══════════════════════════════════════════════════════════
+    // KV 职责划分 (2026-02 优化):
+    //   SKILLS_CACHE KV 仅存储:
+    //     - doc:{lang}:{slug}  → 文档页面内容
+    //     - sitemap-skills     → 站点地图
+    //     - submission:{id}    → 用户提交 (由 API 写入)
+    //     - crawled-skills     → 爬取结果 (由 API 写入)
+    //   技能数据 (skill:*) 不再写入 KV — 前端已全部从 D1 读取
+    // ══════════════════════════════════════════════════════════
 
-    if (!fs.existsSync(cachePath)) {
-        console.error(`❌ 缓存文件不存在: ${cachePath}`);
-        process.exit(1);
-    }
-
-    const cacheData: CacheData = JSON.parse(fs.readFileSync(cachePath, 'utf-8'));
-    const skills = cacheData.skills || [];
-
-    console.log(`📦 发现 ${skills.length} 个技能`);
-
-    const bulkItems: Array<{ key: string, value: string }> = [];
-
-    // (Legacy all-skills sharding logic removed - frontend now uses D1)
-    console.log(`📉 移除冗余的 all-skills 分片写入 (已交由 D1 处理)`);
-
-    // 2. 添加独立技能 (individual skill keys)
-    console.log('\n📤 准备批量写入数据...');
-    for (const skill of skills) {
-        // Use skill.id for precise lookups
-        const key = `skill:${skill.id || `${skill.owner}/${skill.repo}`}`;
-        bulkItems.push({
-            key,
-            value: JSON.stringify(skill)
-        });
-    }
-
-    // 批量写入 (每批 ≤ 200 items，Cloudflare allows up to 10,000 per bulk write)
-    const BATCH_SIZE = 200;
-    let successCount = 0;
-    let failedBatches = 0;
-
-    for (let i = 0; i < bulkItems.length; i += BATCH_SIZE) {
-        const batch = bulkItems.slice(i, i + BATCH_SIZE);
-        const batchPayloadSize = batch.reduce((sum, item) => sum + item.key.length + item.value.length, 0);
-        console.log(`📡 正在发送批次 ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(bulkItems.length / BATCH_SIZE)} (${batch.length} items, ${(batchPayloadSize / 1024 / 1024).toFixed(1)} MB)...`);
-        const success = await writeToKVBulk(batch);
-        if (success) {
-            successCount += batch.length;
-        } else {
-            failedBatches++;
-            console.error(`❌ 批次 ${Math.floor(i / BATCH_SIZE) + 1} 写入失败!`);
-        }
-    }
-
-    console.log(`✅ 成功同步 ${successCount}/${bulkItems.length} 个键值对到 KV!`);
-    if (failedBatches > 0) {
-        console.error(`⚠️ ${failedBatches} 个批次写入失败，请检查!`);
-    }
-
-    // 收集所有本次写入的 active keys
     const activeKeys = new Set<string>();
-    bulkItems.forEach(item => activeKeys.add(item.key));
 
-    // 同步文档缓存 (并收集 keys)
+    // 1. 同步文档缓存
     const docKeys = await syncDocs();
     docKeys.forEach(k => activeKeys.add(k));
 
-    // Sitemap key
+    // 2. Sitemap key (will be written in syncSitemapData)
     activeKeys.add('sitemap-skills');
 
-    // --- 清理过期数据 (Stale Keys) ---
-    // 安全检查：如果同步失败率 > 50%，跳过清理以防误删
-    if (failedBatches > 0 && successCount < bulkItems.length * 0.5) {
-        console.warn('\n⚠️ 同步成功率低于 50%，跳过清理以防误删有效数据!');
+    // 3. 清理遗留的 skill:* 和 all-skills:* 键 (一次性迁移清理)
+    console.log('\n🧹 清理遗留的 skill:* KV 键 (已迁移到 D1)...');
+    const existingKeys = await fetchAllKeys();
+
+    const staleKeys = existingKeys.filter(key => {
+        if (activeKeys.has(key)) return false;
+        // 清理: 所有 skill:* 和 all-skills* 键 (前端已用 D1)
+        if (key.startsWith('skill:')) return true;
+        if (key.startsWith('all-skills')) return true;
+        // 清理: 过期的 doc:* 键
+        if (key.startsWith('doc:') && !activeKeys.has(key)) return true;
+        return false;
+    });
+
+    if (staleKeys.length > 0) {
+        const skillKeyCount = staleKeys.filter(k => k.startsWith('skill:')).length;
+        const otherKeyCount = staleKeys.length - skillKeyCount;
+        console.log(`🗑️  发现 ${staleKeys.length} 个过期 Keys (${skillKeyCount} skill:*, ${otherKeyCount} other)`);
+        await deleteKeys(staleKeys);
     } else {
-        console.log('\n🧹 开始清理过期数据...');
-        const existingKeys = await fetchAllKeys();
-
-        // 找出在 KV 中存在，但不在本次 activeKeys 中的 keys
-        // 安全检查：只删除 'skill:' 和 'doc:' 开头的 keys，以及废弃的 'all-skills'
-        const staleKeys = existingKeys.filter(key => {
-            if (activeKeys.has(key)) return false; // 依然活跃
-            if (key.startsWith('all-skills')) return true; // 废弃的列表页分片，果断删除
-            if (key.startsWith('skill:') || key.startsWith('doc:')) return true; // 是技能或文档，且未被更新 -> 删
-            return false; // 其他未知 key (如 manually added configs)，保留
-        });
-
-        // 额外安全: 如果待删除超过已同步数量的 30%，发出警告但仍执行(日志可追溯)
-        if (staleKeys.length > activeKeys.size * 0.3) {
-            console.warn(`⚠️ 待删除 ${staleKeys.length} 个 Keys，超过活跃 Keys (${activeKeys.size}) 的 30%，请关注!`);
-        }
-
-        if (staleKeys.length > 0) {
-            console.log(`🗑️  发现 ${staleKeys.length} 个过期 Keys (Stale), 准备删除...`);
-            await deleteKeys(staleKeys);
-        } else {
-            console.log('✅ 没有发现过期数据，KV 很干净。');
-        }
+        console.log('✅ KV 已经很干净，无需清理。');
     }
 
-    console.log('\n✅ 同步完成!');
+    console.log('\n✅ KV 同步完成!');
 }
 
 /**
