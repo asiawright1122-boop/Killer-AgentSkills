@@ -43,9 +43,24 @@ async function run() {
     console.log(`载入了 ${skills.length} 个缓存条目`);
 
     // We can chunk them if we want, but D1 remote execute accepts batch files
-    let sqlContent = '';
+    // Wait, D1 execute --remote will fail if the file is too large (e.g. 50MB) with D1_RESET_DO error.
+    // So we definitely need to chunk it.
+    let chunkIndex = 0;
+    let currentChunkSql = '';
+    const CHUNK_SIZE = 200; // 200 records per file (~5MB each)
 
-    for (const skill of skills) {
+    // 清理旧的 sql 种子文件
+    const seedsDir = path.dirname(OUT_FILE);
+    fs.readdirSync(seedsDir).forEach(file => {
+        if (file.startsWith('initial_') && file.endsWith('.sql')) {
+            fs.unlinkSync(path.join(seedsDir, file));
+        }
+    });
+
+    const commands: string[] = [];
+
+    for (let i = 0; i < skills.length; i++) {
+        const skill = skills[i];
         const id = escapeSql(skill.id);
         const category = escapeSql(skill.category || 'community');
         const owner = escapeSql(skill.owner);
@@ -60,14 +75,25 @@ async function run() {
         const content_hash = escapeSql(skill.contentHash);
         const data_json = escapeSql(JSON.stringify(skill));
 
-        sqlContent += `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
+        currentChunkSql += `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
+
+        if ((i + 1) % CHUNK_SIZE === 0 || i === skills.length - 1) {
+            const chunkFile = path.join(seedsDir, `initial_${chunkIndex}.sql`);
+            fs.writeFileSync(chunkFile, currentChunkSql, 'utf-8');
+            commands.push(`npx wrangler d1 execute killer-skills-db --remote --file=db/seeds/initial_${chunkIndex}.sql`);
+            console.log(`✅ 成功生成 db/seeds/initial_${chunkIndex}.sql (${(fs.statSync(chunkFile).size / 1024 / 1024).toFixed(2)} MB)`);
+            currentChunkSql = '';
+            chunkIndex++;
+        }
     }
 
-    fs.writeFileSync(OUT_FILE, sqlContent, 'utf-8');
-
-    console.log(`✅ 成功生成 db/seeds/initial.sql (${(fs.statSync(OUT_FILE).size / 1024 / 1024).toFixed(2)} MB)`);
     console.log(`👉 您可以使用以下命令推送到线上 D1 数据库:`);
-    console.log(`npx wrangler d1 execute killer-skills-db --remote --file=db/seeds/initial.sql`);
+    const runAllScript = path.join(process.cwd(), 'scripts', 'run-d1-seeds.sh');
+    const shellScriptContent = `#!/bin/bash\n\nset -e\n\n${commands.join('\n')}\n\necho "✅ All seeds executed successfully!"\n`;
+    fs.writeFileSync(runAllScript, shellScriptContent, 'utf-8');
+    fs.chmodSync(runAllScript, '755');
+    console.log(`或者直接运行生成的脚本：`);
+    console.log(`./scripts/run-d1-seeds.sh`);
 }
 
 run().catch(console.error);
