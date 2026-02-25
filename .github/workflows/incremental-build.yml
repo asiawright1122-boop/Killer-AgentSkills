@@ -5,9 +5,11 @@ name: Incremental Build (Daily)
 # Existing fully-optimized skills are skipped via isSkillFullyOptimized()
 
 on:
-  schedule:
-    # Run daily at 02:00 UTC (after harvest at 00:00)
-    - cron: '0 2 * * *'
+  # 链式触发: harvest 完成后自动启动
+  workflow_run:
+    workflows: ["Skill Harvest (Scheduled)"]
+    types: [completed]
+  # 备用: 手动触发
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 180  # 3 hours max for incremental
+    # 仅在 harvest 成功完成 或 手动触发时运行
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     concurrency:
       group: skills-pipeline
       cancel-in-progress: false
