@@ -33,7 +33,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main  # 确保拿到 harvest 刚 push 的最新数据
           lfs: true
+
+      # workflow_run 触发时可能有微小延迟，确保拿到最新 commit
+      - name: Ensure latest data
+        run: git pull --rebase origin main || true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
