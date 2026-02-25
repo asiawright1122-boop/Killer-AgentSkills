@@ -1023,14 +1023,27 @@ async function buildCache(): Promise<void> {
             }
         }
     } else {
-        // In DISCOVER mode, we just keep existing skills without re-processing/verifying
-        // unless they are completely missing from our current 'skills' array (which contains new discoveries)
-        console.log(`\n⏭️  Skipping deep update of existing skills (Discover Mode)`);
-        for (const [id, skill] of existingMap.entries()) {
+        // In DISCOVER mode, we keep existing skills but apply quality filter
+        // to prevent low-quality skills from persisting indefinitely
+        console.log(`\n⏭️  Preserving existing skills with quality check (Discover Mode)`);
+        let preservedCount = 0;
+        let droppedCount = 0;
+        for (const [id, skill] of Array.from(existingMap.entries())) {
             if (!processedRepos.has(id)) {
-                skills.push(skill); // Just add them back directly
+                const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
+                // Quality gate: drop truly broken entries in discover mode too
+                if (!isOfficial && (skill.qualityScore || 0) < 15) {
+                    droppedCount++;
+                    continue;
+                }
+                skills.push(skill);
+                preservedCount++;
             }
         }
+        if (droppedCount > 0) {
+            console.log(`   🗑️ Dropped ${droppedCount} low-quality cached skills (score < 15)`);
+        }
+        console.log(`   ✅ Preserved ${preservedCount} existing skills`);
     }
 
     if (mode === 'update') {
@@ -1155,8 +1168,9 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
         // Explicitly check if it is an official repo
         const isOfficial = OFFICIAL_REPOS.some(or => or.owner === skill.owner && or.repo === skill.repo) || skill.category === 'official';
 
-        // Rule 0: Critical Quality Score — only reject truly broken entries (score < 5)
-        if (!isOfficial && (skill.qualityScore || 0) < 5) {
+        // Rule 0: Quality Score gate — reject low-quality entries
+        // Raised from 5 → 15 to prevent junk from leaking through
+        if (!isOfficial && (skill.qualityScore || 0) < 15) {
             continue;
         }
 

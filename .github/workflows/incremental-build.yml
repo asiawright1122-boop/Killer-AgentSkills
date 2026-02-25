@@ -1,10 +1,13 @@
-name: Skills Crawler (Scheduled)
+name: Incremental Build (Daily)
+
+# Daily incremental build: processes only NEW and CHANGED skills
+# Uses AI for translation/SEO/agent analysis — but only for delta
+# Existing fully-optimized skills are skipped via isSkillFullyOptimized()
 
 on:
-  # Run twice daily — 00:00 and 12:00 UTC (with 6h52m gap between worst-case finishes)
   schedule:
-    - cron: '0 0,12 * * *'
-  # Allow manual trigger
+    # Run daily at 02:00 UTC (after harvest at 00:00)
+    - cron: '0 2 * * *'
   workflow_dispatch:
 
 permissions:
@@ -14,15 +17,14 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
-  crawl:
+  build:
     runs-on: ubuntu-latest
-    timeout-minutes: 350  # 10min buffer below GitHub's 360min hard limit
+    timeout-minutes: 180  # 3 hours max for incremental
     concurrency:
       group: skills-pipeline
       cancel-in-progress: false
 
     steps:
-      # ── Setup ──────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -38,40 +40,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      # ── Step 1: Harvest new skill URLs ─────────────────────
-      - name: Harvest GitHub Skills
-        run: npm run skills:harvest -- --target=50
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # ── Step 2: Early-commit harvest data ──────────────────
-      - name: Commit Harvested Data
-        run: |
-          if [ -n "$(git status --porcelain data/expanded-github-skills.json)" ]; then
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add data/expanded-github-skills.json
-            git commit -m "chore(data): harvest new skills [skip ci]"
-            PUSH_OK=0
-            for attempt in 1 2 3; do
-              if git push; then
-                echo "✅ Harvest push succeeded on attempt $attempt"
-                PUSH_OK=1
-                break
-              fi
-              echo "⚠️ Push failed (attempt $attempt), resolving..."
-              git pull --rebase -X theirs --autostash origin main || true
-            done
-            if [ "$PUSH_OK" -eq 0 ]; then
-              echo "⚠️ Harvest push failed after 3 attempts, continuing anyway..."
-            fi
-          else
-            echo "ℹ️ No new skills harvested"
-          fi
-
-      # ── Step 3: Build cache (AI translation + optimization) ─
+      # ── Build Cache (Incremental) ──────────────────────
       - name: Build Skills Cache
-        run: npm run build:cache -- --mode=discover --max-duration=300
+        run: npm run build:cache -- --mode=discover --max-duration=150
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
@@ -80,8 +51,8 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # ── Step 4: Deploy to Cloudflare ───────────────────────
-      - name: Sync to Cloudflare KV
+      # ── Deploy to Cloudflare ───────────────────────────
+      - name: Sync docs & sitemap to KV (skills data → D1 only)
         run: npm run sync:kv
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -95,14 +66,14 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # ── Step 5: Commit + Push cache ────────────────────────
+      # ── Commit + Push ──────────────────────────────────
       - name: Commit and Push Cache
         run: |
           if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add data/skills-cache.json data/sitemap-skills.json
-            git commit -m "chore(data): update skills cache & sitemap [skip ci]"
+            git commit -m "chore(data): incremental skills update [skip ci]"
             PUSH_OK=0
             for attempt in 1 2 3; do
               if git push; then
@@ -121,7 +92,7 @@ jobs:
             echo "ℹ️ No cache changes detected"
           fi
 
-      # ── Step 6: Notify search engines ──────────────────────
+      # ── Notify search engines ──────────────────────────
       - name: Submit IndexNow
         if: success()
         continue-on-error: true

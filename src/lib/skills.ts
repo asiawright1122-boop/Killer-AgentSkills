@@ -82,43 +82,30 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
 
 /**
  * Find a specific skill by its full ID (e.g., 'anthropics/skills/algorithmic-art').
- * This is the preferred method for sub-skills within multi-skill repos.
+ * Uses D1 multi-level query (exact → LIKE → owner/repo index).
+ * No full-table scan fallback — D1 handles all matching.
  */
 export async function getSkillById(
   env: Env,
   id: string
 ): Promise<UnifiedSkill | null> {
-  // Try direct KV lookup first
   const direct = await getSkillsKV(env, `skill:${id}`);
-  if (direct) return direct as UnifiedSkill;
-
-  // Fallback: scan all skills
-  const skills = await getAllSkills(env);
-  return skills.find(
-    (s) => s.id === id || s.name === id.split('/').pop()
-  ) ?? null;
+  return direct ? (direct as UnifiedSkill) : null;
 }
 
 /**
  * Find a specific skill by owner and repo.
- * First tries a direct KV lookup by key, then falls back to scanning all skills.
- * Note: For multi-skill repos (e.g., anthropics/skills), this returns the FIRST match.
- * Use getSkillById for precise lookups.
+ * Uses D1 indexed query (owner/repo index).
+ * For multi-skill repos (e.g., anthropics/skills), returns the FIRST match.
+ * Use getSkillById for precise sub-skill lookups.
  */
 export async function getSkillByOwnerRepo(
   env: Env,
   owner: string,
   repo: string
 ): Promise<UnifiedSkill | null> {
-  // Try direct KV lookup first (faster for single skill)
   const direct = await getSkillsKV(env, `skill:${owner}/${repo}`);
-  if (direct) return direct as UnifiedSkill;
-
-  // Fallback: scan all skills
-  const skills = await getAllSkills(env);
-  return skills.find(
-    (s) => s.owner === owner && s.repo === repo
-  ) ?? null;
+  return direct ? (direct as UnifiedSkill) : null;
 }
 
 /**
