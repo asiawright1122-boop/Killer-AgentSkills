@@ -65,7 +65,7 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
             global: path.join(homedir, '.trae', 'skills'),
             project: '.trae/skills'
         },
-        detectFiles: ['.trae'],
+        detectFiles: ['.trae', '.traerules'],
         priority: 4,
         category: 'editor'
     },
@@ -116,6 +116,17 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
         priority: 8,
         category: 'cli'
     },
+    opencode: {
+        name: 'OpenCode',
+        format: 'SKILL.md',
+        paths: {
+            global: path.join(homedir, '.config', 'opencode', 'skills'),
+            project: '.opencode/skills'
+        },
+        detectFiles: ['.opencode'],
+        priority: 9,
+        category: 'cli'
+    },
 
     // === AGENTS ===
     goose: {
@@ -133,8 +144,8 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
         name: 'Cline',
         format: 'rules.md',
         paths: {
-            global: null,
-            project: '.clinerules'
+            global: path.join(homedir, '.cline', 'skills'),
+            project: '.cline/skills'
         },
         detectFiles: ['.cline', '.clinerules'],
         priority: 10,
@@ -145,8 +156,8 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
         name: 'Roo Cline',
         format: 'rules.md',
         paths: {
-            global: null,
-            project: '.clinerules'
+            global: path.join(homedir, '.roo', 'skills'),
+            project: '.roo/skills'
         },
         detectFiles: ['.roo', '.clinerules', '.roomodes'],
         priority: 11,
@@ -193,8 +204,8 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
         name: 'GitHub Copilot',
         format: 'instructions.md',
         paths: {
-            global: null,
-            project: '.github/copilot-instructions.md'
+            global: path.join(homedir, '.github-copilot', 'skills'),
+            project: '.github/copilot-skills'
         },
         detectFiles: ['.github'],
         priority: 15,

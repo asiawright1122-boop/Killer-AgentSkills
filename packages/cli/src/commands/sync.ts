@@ -35,22 +35,23 @@ const IDE_OUTPUT_FILES: Record<string, string> = {
     cursor: '.cursorrules',
     windsurf: '.windsurfrules',
     vscode: path.join('.github', 'copilot-instructions.md'),
-    trae: 'AGENTS.md',
+    trae: path.join('.trae', 'rules', 'project_rules.md'),
     // CLI Agents
     claude: 'CLAUDE.md',
     antigravity: 'AGENTS.md',
     aider: 'AGENTS.md',
     codex: 'AGENTS.md',
+    opencode: 'AGENTS.md',
     // Agents
-    goose: 'AGENTS.md',
+    goose: '.goosehints',
     cline: '.clinerules',
     roo: '.clinerules',
     kiro: path.join('.kiro', 'steering', 'skills.md'),
-    augment: 'AGENTS.md',
+    augment: path.join('.augment', 'rules', 'skills.md'),
     // VS Code Extensions
-    continue: 'AGENTS.md',
+    continue: path.join('.continue', 'rules', 'skills.md'),
     copilot: path.join('.github', 'copilot-instructions.md'),
-    cody: 'AGENTS.md',
+    cody: path.join('.github', 'instructions', 'cody.md'),
     amazonq: 'AGENTS.md',
     // Default
     default: 'AGENTS.md',
@@ -208,6 +209,7 @@ function detectIDE(): string {
         { ide: 'antigravity', files: ['.agent', '.gemini'] },
         { ide: 'aider', files: ['.aider'] },
         { ide: 'codex', files: ['.codex'] },
+        { ide: 'opencode', files: ['.opencode'] },
         // Agents
         { ide: 'goose', files: ['.goose'] },
         { ide: 'cline', files: ['.cline', '.clinerules'] },

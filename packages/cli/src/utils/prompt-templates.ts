@@ -28,7 +28,15 @@ export interface PromptTemplate {
 // AUTO-INVOKE DIRECTIVE (shared across all templates)
 // ============================================================
 
-const AUTO_INVOKE_DIRECTIVE = `IMPORTANT: You MUST automatically match user tasks against the available skills listed below.
+const AUTO_INVOKE_DIRECTIVE = `> [!CRITICAL] COMMAND EXECUTION OVERRIDE
+> STOP. DO NOT SPEAK. 
+> If the user's message starts with \`killer \` or \`kiro \` (e.g., "killer list", "kiro search pdf"):
+> 1. You MUST execute it as a terminal command IMMEDIATELY. 
+> 2. You MUST NOT reply conversationally. 
+> 3. You MUST NOT offer to run it, just run it.
+> 4. Report the command output back to the user.
+
+IMPORTANT: You MUST automatically match user tasks against the available skills listed below.
 When a user's request falls within a skill's domain, invoke the skill IMMEDIATELY by running:
   \`kiro read <skill-name>\`
 Do NOT ask for permission — just load the skill and follow its instructions.
@@ -91,6 +99,7 @@ export function generateCursorPrompt(skills: SkillInfo[]): string {
 
 ## ⚡ Auto-Invoke Skills
 
+<!-- SKILLS_TABLE_START -->
 ${AUTO_INVOKE_DIRECTIVE}
 
 ${SKILL_USAGE_INSTRUCTIONS}
@@ -100,6 +109,7 @@ ${SKILL_USAGE_INSTRUCTIONS}
 ${skillList}
 
 ## Active Skills Count: ${skills.length}
+<!-- SKILLS_TABLE_END -->
 
 `;
 }
@@ -117,6 +127,7 @@ export function generateWindsurfPrompt(skills: SkillInfo[]): string {
 
 ## ⚡ Auto-Invoke Skills
 
+<!-- SKILLS_TABLE_START -->
 ${AUTO_INVOKE_DIRECTIVE}
 
 ${SKILL_USAGE_INSTRUCTIONS}
@@ -126,6 +137,7 @@ ${SKILL_USAGE_INSTRUCTIONS}
 | Skill | Description | Location |
 |-------|-------------|----------|
 ${skillList}
+<!-- SKILLS_TABLE_END -->
 
 `;
 }
@@ -177,6 +189,7 @@ export function generateCopilotPrompt(skills: SkillInfo[]): string {
 
     return `## Skills Integration
 
+<!-- SKILLS_TABLE_START -->
 ${AUTO_INVOKE_DIRECTIVE}
 
 ${SKILL_USAGE_INSTRUCTIONS}
@@ -184,6 +197,7 @@ ${SKILL_USAGE_INSTRUCTIONS}
 ### Available Skills
 
 ${skillList}
+<!-- SKILLS_TABLE_END -->
 
 `;
 }
@@ -199,6 +213,7 @@ export function generateMarkdownPrompt(skills: SkillInfo[]): string {
 
     return `## Available Skills
 
+<!-- SKILLS_TABLE_START -->
 ${AUTO_INVOKE_DIRECTIVE}
 
 ### Skills List
@@ -210,6 +225,7 @@ ${skillList}
 To use a skill, run: \`kiro read <skill-name>\`
 
 For multiple skills: \`kiro read skill-one,skill-two\`
+<!-- SKILLS_TABLE_END -->
 
 ---
 

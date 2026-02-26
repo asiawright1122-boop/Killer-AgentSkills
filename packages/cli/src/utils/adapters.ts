@@ -27,7 +27,8 @@ export async function injectSkill(
     switch (ide) {
         // === Editors with special injection ===
         case 'cursor':
-            await injectCursor(skillName, targetDir);
+        case 'trae':
+            await injectCursorOrTrae(ide, skillName, targetDir);
             break;
         case 'windsurf':
             await injectWindsurf(skillName, skillDir, targetDir);
@@ -47,10 +48,10 @@ export async function injectSkill(
         case 'antigravity':
         case 'aider':
         case 'codex':
+        case 'opencode':
         case 'goose':
         case 'cline':
         case 'roo':
-        case 'trae':
         case 'augment':
         case 'continue':
         case 'cody':
@@ -94,24 +95,26 @@ async function injectNativeSkillMd(
 }
 
 /**
- * Cursor Adapter:
- * Appends an @import reference to .cursorrules
+ * Cursor / Trae Adapter:
+ * Appends an @import reference to .cursorrules or .traerules
  */
-async function injectCursor(skillName: string, targetDir: string) {
+async function injectCursorOrTrae(ide: string, skillName: string, targetDir: string) {
     const projectRoot = process.cwd();
-    const cursorRulesPath = path.join(projectRoot, '.cursorrules');
+    const rulesFileName = ide === 'trae' ? '.traerules' : '.cursorrules';
+    const rulesPath = path.join(projectRoot, rulesFileName);
 
     const relativePath = path.relative(projectRoot, path.join(targetDir, 'SKILL.md'));
     const importLine = `\n\n# Skill: ${skillName}\n@${relativePath}\n`;
 
     let content = '';
-    if (fs.existsSync(cursorRulesPath)) {
-        content = await fs.readFile(cursorRulesPath, 'utf-8');
+    if (fs.existsSync(rulesPath)) {
+        content = await fs.readFile(rulesPath, 'utf-8');
     }
 
     if (!content.includes(relativePath)) {
-        await fs.writeFile(cursorRulesPath, content + importLine);
-        console.log(chalk.green(`  › Cursor: Added @import to .cursorrules`));
+        await fs.writeFile(rulesPath, content + importLine);
+        const name = ide === 'trae' ? 'Trae' : 'Cursor';
+        console.log(chalk.green(`  › ${name}: Added @import to ${rulesFileName}`));
     }
 }
 

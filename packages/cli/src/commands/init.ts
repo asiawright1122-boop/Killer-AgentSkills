@@ -132,8 +132,14 @@ async function createIDEConfig(projectPath: string, ide: string, skipPrompt?: bo
     // In future, we should add `configFileName` to `IDEConfig`
     if (ide === 'cursor') configFileName = '.cursorrules';
     else if (ide === 'windsurf') configFileName = '.windsurfrules';
+    else if (ide === 'trae') configFileName = path.join('.trae', 'rules', 'project_rules.md');
     else if (ide === 'claude') configFileName = 'CLAUDE.md';
-    else if (ide === 'antigravity') configFileName = 'AGENTS.md';
+    else if (ide === 'goose') configFileName = '.goosehints';
+    else if (ide === 'continue') configFileName = path.join('.continue', 'rules', 'skills.md');
+    else if (ide === 'augment') configFileName = path.join('.augment', 'rules', 'skills.md');
+    else if (ide === 'cody') configFileName = path.join('.github', 'instructions', 'cody.md');
+    else if (ide === 'antigravity' || ide === 'opencode' || ide === 'aider' || ide === 'amazonq' || ide === 'codex') configFileName = 'AGENTS.md';
+    else if (ide === 'roo' || ide === 'cline') configFileName = '.clinerules';
     else if (config.format === 'rules.md') configFileName = `.${ide}rules`;
     else if (config.format === 'instructions.md') configFileName = `${ide}-instructions.md`;
     else return null;
