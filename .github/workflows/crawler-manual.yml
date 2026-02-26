@@ -120,22 +120,27 @@ jobs:
           if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+            
+            # Pre-emptively pull latest to minimize conflicts before committing
+            git pull --rebase --autostash origin main || true
+            
             git add data/skills-cache.json data/sitemap-skills.json
             FILTER="${{ steps.params.outputs.filter }}"
             MSG="chore: skills ${{ steps.params.outputs.mode }}${FILTER:+ for $FILTER} [skip ci]"
             git commit -m "$MSG"
             PUSH_OK=0
-            for attempt in 1 2 3; do
+            for attempt in 1 2 3 4 5; do
               if git push; then
                 echo "✅ Push succeeded on attempt $attempt"
                 PUSH_OK=1
                 break
               fi
               echo "⚠️ Push failed (attempt $attempt), resolving conflicts..."
+              sleep $((attempt * 3))
               git pull --rebase -X theirs --autostash origin main || true
             done
             if [ "$PUSH_OK" -eq 0 ]; then
-              echo "❌ Push failed after 3 attempts"
+              echo "❌ Push failed after 5 attempts"
               exit 1
             fi
           else
