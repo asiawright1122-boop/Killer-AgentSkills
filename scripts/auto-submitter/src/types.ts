@@ -33,6 +33,37 @@ export interface ProductMeta {
     year_founded: string;
 }
 
+export interface SpintaxProductMeta {
+    name: string[];
+    url: string;
+    tagline: string[];
+    descriptions: {
+        micro: string[];
+        short: string[];
+        long: string[];
+    };
+    categories: string[];
+    tags: string[];
+    pricing: string;
+    pricing_detail: string;
+    founder: {
+        name: string;
+        email: string;
+        twitter: string;
+    };
+    assets: {
+        logo: string;
+        cover: string;
+        screenshots: string[];
+    };
+    links: {
+        website: string;
+        github: string;
+        docs: string;
+    };
+    year_founded: string;
+}
+
 export type SubmitStatus = 'success' | 'failed' | 'skipped' | 'pending_review';
 
 export interface SubmitResult {
