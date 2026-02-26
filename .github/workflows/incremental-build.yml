@@ -60,22 +60,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # ── Deploy to Cloudflare ───────────────────────────
-      - name: Sync docs & sitemap to KV (skills data → D1 only)
-        run: npm run sync:kv
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Sync to Cloudflare D1
-        run: |
-          npx tsx scripts/generate-d1-seed.ts
-          ./scripts/run-d1-seeds.sh
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      # ── Commit + Push ──────────────────────────────────
+      # ── COMMIT FIRST ────────────────────────────────────
+      # 必须先提交进度，再进行外部同步。
+      # 这样即使 KV/D1 同步失败，skills-cache.json 也永远不会丢失，
+      # 下次运行时 isSkillFullyOptimized() 可以跳过已处理的技能。
       - name: Commit and Push Cache
         run: |
           if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
@@ -100,6 +88,24 @@ jobs:
           else
             echo "ℹ️ No cache changes detected"
           fi
+
+      # ── Deploy to Cloudflare (non-blocking) ─────────────
+      # 同步失败不会丢失进度（数据已在上一步提交到 git）
+      - name: Sync docs & sitemap to KV (skills data → D1 only)
+        continue-on-error: true
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare D1
+        continue-on-error: true
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          ./scripts/run-d1-seeds.sh
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       # ── Notify search engines ──────────────────────────
       - name: Submit IndexNow

@@ -106,7 +106,11 @@ async function run() {
 
     console.log(`👉 您可以使用以下命令推送到线上 D1 数据库:`);
     const runAllScript = path.join(process.cwd(), 'scripts', 'run-d1-seeds.sh');
-    const shellScriptContent = `#!/bin/bash\n\nset -e\n\n${commands.join('\n')}\n\necho "✅ All seeds executed successfully!"\n`;
+    // 容错模式：每个 seed 文件独立执行，一个失败不影响其他
+    const seedLines = commands.map((cmd, i) =>
+        `echo "🌀 Executing seed ${i}/${commands.length - 1}..."\nif ${cmd}; then\n  SUCCESS=$((SUCCESS + 1))\nelse\n  FAILED=$((FAILED + 1))\n  echo "⚠️ Seed ${i} failed, continuing..."\nfi`
+    ).join('\n\n');
+    const shellScriptContent = `#!/bin/bash\n\nSUCCESS=0\nFAILED=0\n\n${seedLines}\n\necho ""\necho "📊 D1 Seed Results: $SUCCESS succeeded, $FAILED failed (total: ${commands.length})"\n\nif [ "$FAILED" -gt 0 ]; then\n  echo "⚠️ Some seeds failed, but $SUCCESS/${commands.length} were applied successfully"\n  exit 1\nfi\n\necho "✅ All ${commands.length} seeds executed successfully!"\n`;
     fs.writeFileSync(runAllScript, shellScriptContent, 'utf-8');
     fs.chmodSync(runAllScript, '755');
     console.log(`或者直接运行生成的脚本：`);
