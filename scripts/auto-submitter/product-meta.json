@@ -1,0 +1,51 @@
+{
+    "name": "Killer Skills",
+    "url": "https://killer-skills.com",
+    "tagline": "The AI Agent Skills Marketplace",
+    "descriptions": {
+        "micro": "AI Agent Skills Marketplace — discover, compare & install skills for Claude, Cursor, Windsurf and more.",
+        "short": "Killer Skills is the largest AI Agent Skills Marketplace. Discover 600+ curated skills from Anthropic, Vercel, Stripe, Cloudflare, Hugging Face and more. One-click install via CLI.",
+        "long": "Killer Skills is the open-source AI Agent Skills Marketplace that aggregates official skills from Anthropic, Vercel, Stripe, Cloudflare, Hugging Face, Supabase, Google Labs, Sentry, Expo and 20+ other providers. Browse 600+ curated skills across categories like developer tools, AI/ML, design, data, finance and productivity. Install any skill with a single CLI command. Features include multi-language support (EN/ZH/JA/KO/ES/FR/DE/PT), SEO-optimized skill pages, quality scoring, and agent compatibility analysis. Built with Astro, deployed on Cloudflare Pages."
+    },
+    "categories": [
+        "AI",
+        "Developer Tools",
+        "Marketplace",
+        "Open Source",
+        "Productivity"
+    ],
+    "tags": [
+        "ai-agent",
+        "skills",
+        "claude",
+        "cursor",
+        "windsurf",
+        "developer-tools",
+        "marketplace",
+        "open-source",
+        "cli",
+        "mcp"
+    ],
+    "pricing": "Free",
+    "pricing_detail": "100% free and open-source",
+    "founder": {
+        "name": "Kaka",
+        "email": "",
+        "twitter": ""
+    },
+    "assets": {
+        "logo": "./assets/logo.png",
+        "cover": "./assets/cover.png",
+        "screenshots": [
+            "./assets/screenshot-home.png",
+            "./assets/screenshot-detail.png",
+            "./assets/screenshot-cli.png"
+        ]
+    },
+    "links": {
+        "website": "https://killer-skills.com",
+        "github": "https://github.com/asiawright1122-boop/Killer-AgentSkills",
+        "docs": "https://killer-skills.com/docs"
+    },
+    "year_founded": "2025"
+}

@@ -23,7 +23,11 @@
     "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5",
     "sync:admin:d1": "npx tsx scripts/sync-admin-d1.ts",
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
-    "translate:blog": "npx tsx scripts/translate-blog.ts"
+    "translate:blog": "npx tsx scripts/translate-blog.ts",
+    "submit:dirs": "npx tsx scripts/auto-submitter/src/index.ts",
+    "submit:dirs:dry": "npx tsx scripts/auto-submitter/src/index.ts --dry-run --show",
+    "submit:dirs:list": "npx tsx scripts/auto-submitter/src/index.ts --list",
+    "submit:auth": "npx tsx scripts/auto-submitter/src/auth-setup.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.27",
@@ -54,6 +58,7 @@
     "@tailwindcss/typography": "^0.5.19",
     "@types/better-sqlite3": "^7.6.13",
     "fast-check": "^4.5.3",
+    "playwright": "^1.58.2",
     "pm2": "^6.0.14",
     "tsx": "^4.21.0",
     "vitest": "^4.0.18"

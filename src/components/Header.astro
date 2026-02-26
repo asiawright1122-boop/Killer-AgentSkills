@@ -15,8 +15,17 @@ const { locale, t } = Astro.props;
         
         <!-- Logo -->
         <a href={`/${locale}`} class="flex items-center gap-2 group">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-                K
+            <div class="relative w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <!-- Outer Cyan Glow Ring -->
+                <div class="absolute inset-0 rounded-full border-[1.5px] border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6),inset_0_0_8px_rgba(34,211,238,0.6)]"></div>
+                <!-- Top Pink Dot -->
+                <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-fuchsia-400 shadow-[0_0_6px_rgba(232,121,249,0.8)]"></div>
+                <!-- Inner Hexagon-like Cutout with Text -->
+                <div class="relative w-[85%] h-[85%] bg-gradient-to-br from-cyan-400 to-fuchsia-500 flex items-center justify-center text-[10px] font-black tracking-tighter text-transparent bg-clip-text" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: #050505;">
+                    <span class="z-10 bg-gradient-to-br from-cyan-400 to-fuchsia-400 text-transparent bg-clip-text" style="-webkit-text-stroke: 0.5px rgba(34,211,238,0.8); letter-spacing: -1px;">KS</span>
+                    <!-- Border trick for the hexagon -->
+                    <div class="absolute inset-[1px] bg-slate-950 dark:bg-slate-950" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
+                </div>
             </div>
             <span class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
                 Killer-Skills

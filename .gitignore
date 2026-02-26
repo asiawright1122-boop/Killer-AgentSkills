@@ -38,3 +38,8 @@ _backup_nextjs_v1/
 # Local Env
 .env.local
 .DS_Store
+
+# Auto-Submitter
+scripts/auto-submitter/auth.json
+scripts/auto-submitter/logs/
+scripts/auto-submitter/assets/
