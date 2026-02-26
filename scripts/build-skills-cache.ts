@@ -1065,7 +1065,7 @@ async function buildCache(): Promise<void> {
             }
         }
         if (droppedCount > 0) {
-            console.log(`   🗑️ Dropped ${droppedCount} low-quality cached skills (score < 15)`);
+            console.log(`   🗑️ Dropped ${droppedCount} invalid cached skills (score = 0)`);
         }
         console.log(`   ✅ Preserved ${preservedCount} existing skills`);
     }
