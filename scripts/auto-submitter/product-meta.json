@@ -1,11 +1,33 @@
 {
-    "name": "Killer Skills",
+    "name": [
+        "Killer Skills",
+        "Killer Skills - AI Agent Skills Marketplace",
+        "Killer Skills: 600+ Curated AI Agent Tools",
+        "Killer Skills Directory",
+        "Killer Skills for Claude & Cursor"
+    ],
     "url": "https://killer-skills.com",
-    "tagline": "The AI Agent Skills Marketplace",
+    "tagline": [
+        "The AI Agent Skills Marketplace",
+        "The Ultimate AI Agent Skills Directory",
+        "Discover 600+ Official AI Skills for Claude & Cursor",
+        "The App Store for AI Agents"
+    ],
     "descriptions": {
-        "micro": "AI Agent Skills Marketplace — discover, compare & install skills for Claude, Cursor, Windsurf and more.",
-        "short": "Killer Skills is the largest AI Agent Skills Marketplace. Discover 600+ curated skills from Anthropic, Vercel, Stripe, Cloudflare, Hugging Face and more. One-click install via CLI.",
-        "long": "Killer Skills is the open-source AI Agent Skills Marketplace that aggregates official skills from Anthropic, Vercel, Stripe, Cloudflare, Hugging Face, Supabase, Google Labs, Sentry, Expo and 20+ other providers. Browse 600+ curated skills across categories like developer tools, AI/ML, design, data, finance and productivity. Install any skill with a single CLI command. Features include multi-language support (EN/ZH/JA/KO/ES/FR/DE/PT), SEO-optimized skill pages, quality scoring, and agent compatibility analysis. Built with Astro, deployed on Cloudflare Pages."
+        "micro": [
+            "AI Agent Skills Marketplace — discover & install skills for Claude, Cursor and more.",
+            "Largest directory of 600+ open-source AI agent skills and tools.",
+            "The app store for AI agents. Find official skills from top tech companies."
+        ],
+        "short": [
+            "Killer Skills is the largest AI Agent Skills Marketplace. Discover 600+ curated skills from Anthropic, Vercel, and Hugging Face. One-click install via CLI.",
+            "Supercharge your AI agents! Browse 600+ official open-source skills for Claude, Cursor, and Windsurf in the Killer Skills marketplace.",
+            "The ultimate directory for AI agent skills. Find developer tools, data integrations, and productivity skills for your AI assistants at Killer Skills."
+        ],
+        "long": [
+            "Killer Skills is the open-source AI Agent Skills Marketplace that aggregates official skills from Anthropic, Vercel, Stripe, Cloudflare, Hugging Face, Supabase, Google Labs, Sentry, Expo and 20+ other providers. Browse 600+ curated skills across categories like developer tools, AI/ML, design, data, finance and productivity. Install any skill with a single CLI command. Features include multi-language support (EN/ZH/JA/KO/ES/FR/DE/PT), SEO-optimized skill pages, quality scoring, and agent compatibility analysis. Built with Astro, deployed on Cloudflare Pages.",
+            "Looking for the best tools for your AI assistant? Killer Skills is the definitive AI Agent Skills Marketplace. We've curated over 600+ open-source skills designed for popular coding agents like Claude, Cursor, and Windsurf. From Stripe payments to Vercel deployments, find official packages from top-tier tech companies. The platform is entirely open-source, features a comprehensive CLI for one-click installation, and supports 8 different languages. It's the ultimate 'App Store' built by developers, for developers working with AI agents."
+        ]
     },
     "categories": [
         "AI",
@@ -34,12 +56,12 @@
         "twitter": ""
     },
     "assets": {
-        "logo": "./assets/logo.png",
-        "cover": "./assets/cover.png",
+        "logo": "logo.png",
+        "cover": "cover.png",
         "screenshots": [
-            "./assets/screenshot-home.png",
-            "./assets/screenshot-detail.png",
-            "./assets/screenshot-cli.png"
+            "screenshot-home.png",
+            "screenshot-detail.png",
+            "screenshot-cli.png"
         ]
     },
     "links": {

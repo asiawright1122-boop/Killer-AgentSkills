@@ -6,7 +6,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { ProductMeta, SubmitResult, SiteConfig, AdapterContext } from './types.js';
+import type { ProductMeta, SpintaxProductMeta, SubmitResult, SiteConfig, AdapterContext } from './types.js';
 import { SITES } from './sites.js';
 import { GenericFormAdapter } from './adapters/generic-form.js';
 import { BaseAdapter } from './base-adapter.js';
@@ -29,7 +29,7 @@ interface EngineOptions {
 }
 
 export class SubmitEngine {
-    private meta!: ProductMeta;
+    private spintaxMeta!: SpintaxProductMeta;
     private options: Required<EngineOptions>;
     private results: SubmitResult[] = [];
     private baseDir: string;
@@ -62,7 +62,7 @@ export class SubmitEngine {
 
         console.log(`\n${'═'.repeat(60)}`);
         console.log(`  🚀 Auto-Submitter Engine`);
-        console.log(`  📦 产品: ${this.meta.name}`);
+        console.log(`  📦 产品: ${this.spintaxMeta.name[0]}`);
         console.log(`  🎯 目标: ${sites.length} 个站点`);
         console.log(`  🔧 模式: ${this.options.dryRun ? 'DRY RUN（仅截图）' : '正式提交'}`);
         console.log(`  👁️  显示: ${this.options.headless ? '无头模式' : '有头模式'}`);
@@ -100,8 +100,22 @@ export class SubmitEngine {
         if (!fs.existsSync(metaPath)) {
             throw new Error(`找不到产品物料: ${metaPath}`);
         }
-        this.meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
-        console.log(`✅ 已加载产品物料: ${this.meta.name}`);
+        this.spintaxMeta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+        console.log(`✅ 已加载产品物料 (Spintax): ${this.spintaxMeta.name[0]}`);
+    }
+
+    private generateSpunMeta(): ProductMeta {
+        const pick = <T>(arr: T[]): T => arr[Math.floor(Math.random() * arr.length)];
+        return {
+            ...this.spintaxMeta,
+            name: pick(this.spintaxMeta.name),
+            tagline: pick(this.spintaxMeta.tagline),
+            descriptions: {
+                micro: pick(this.spintaxMeta.descriptions.micro),
+                short: pick(this.spintaxMeta.descriptions.short),
+                long: pick(this.spintaxMeta.descriptions.long),
+            }
+        };
     }
 
     private filterSites(): SiteConfig[] {
@@ -124,8 +138,9 @@ export class SubmitEngine {
 
     private createAdapter(site: SiteConfig): BaseAdapter {
         const rootDir = path.resolve(this.baseDir, '..');
+        const spunMeta = this.generateSpunMeta();
         const ctx: AdapterContext = {
-            meta: this.meta,
+            meta: spunMeta,
             assetsDir: path.join(rootDir, 'assets'),
             logsDir: path.join(rootDir, 'logs'),
             screenshotDir: path.join(rootDir, 'logs', 'screenshots'),
