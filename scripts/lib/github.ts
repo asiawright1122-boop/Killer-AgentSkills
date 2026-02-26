@@ -28,8 +28,8 @@ export async function fetchWithRetry(url: string, options: RequestInit = {}, ret
         try {
             const response = await fetchWithTimeout(url, finalOptions);
             if (response.status === 403) {
-                console.warn('⚠️ GitHub API rate limit, failing fast...');
-                throw new Error('GitHub API Rate Limit');
+                console.warn('⚠️ GitHub API rate limit reached (403). Failing fast without retries.');
+                return response;
             }
             return response;
         } catch (error) {

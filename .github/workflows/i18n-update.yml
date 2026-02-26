@@ -46,15 +46,20 @@ jobs:
           if [ -n "$(git status --porcelain src/messages/)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
+            
+            # Pre-emptively pull latest to minimize conflicts before committing
+            git pull --rebase --autostash origin main || true
+            
             git add src/messages/*.json
             git commit -m "chore: auto-update translations [skip ci]"
-            for attempt in 1 2 3; do
+            for attempt in 1 2 3 4 5; do
               if git push; then
                 echo "✅ Push succeeded"
                 break
               fi
               echo "⚠️ Push failed (attempt $attempt), rebasing..."
-              git pull --rebase --autostash origin main || true
+              sleep $((attempt * 3))
+              git pull --rebase -X theirs --autostash origin main || true
             done
           else
             echo "ℹ️ No translation changes"

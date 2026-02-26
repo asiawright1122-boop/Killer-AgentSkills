@@ -74,21 +74,21 @@ async function run() {
         const last_synced = escapeSql(skill.lastSynced);
         const content_hash = escapeSql(skill.contentHash);
         // D1 per-statement limit is ~1MB. Truncate skillMd.body for oversized rows.
-        const MAX_STATEMENT_BYTES = 900_000; // 900KB safety margin
+        const MAX_STATEMENT_BYTES = 800_000; // 800KB safety margin
         let skillCopy = skill;
         let rawJson = JSON.stringify(skill);
 
-        if (rawJson.length > MAX_STATEMENT_BYTES && skill.skillMd?.body) {
+        if (Buffer.byteLength(rawJson, 'utf-8') > MAX_STATEMENT_BYTES && skill.skillMd?.body) {
             skillCopy = { ...skill, skillMd: { ...skill.skillMd, body: skill.skillMd.bodyPreview || skill.skillMd.body.slice(0, 500) } };
             rawJson = JSON.stringify(skillCopy);
-            console.warn(`⚠️ Truncated body for ${skill.id} (${(rawJson.length / 1024).toFixed(0)}KB)`);
+            console.warn(`⚠️ Truncated body for ${skill.id} (${(Buffer.byteLength(rawJson, 'utf-8') / 1024).toFixed(0)}KB)`);
         }
 
         const data_json = escapeSql(rawJson);
         const statement = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
 
-        if (statement.length > MAX_STATEMENT_BYTES) {
-            console.warn(`⚠️ Skipped ${skill.id} — still too large after truncation (${(statement.length / 1024).toFixed(0)}KB)`);
+        if (Buffer.byteLength(statement, 'utf-8') > MAX_STATEMENT_BYTES) {
+            console.warn(`⚠️ Skipped ${skill.id} — still too large after truncation (${(Buffer.byteLength(statement, 'utf-8') / 1024).toFixed(0)}KB)`);
             continue;
         }
 
