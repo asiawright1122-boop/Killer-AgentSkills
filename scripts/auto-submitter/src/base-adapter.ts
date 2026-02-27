@@ -5,7 +5,9 @@
  * 基类负责：浏览器启动、截图、超时、错误处理、重试、日志。
  */
 
-import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
+import { type Browser, type BrowserContext, type Page } from 'playwright';
+import { chromium } from 'playwright-extra';
+import stealth from 'puppeteer-extra-plugin-stealth';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { AdapterContext, SiteConfig, SubmitResult, SubmitStatus } from './types.js';
@@ -131,6 +133,9 @@ export abstract class BaseAdapter {
 
     /** 启动浏览器 */
     private async launchBrowser() {
+        // 挂载 stealth 插件，避免被 Cloudflare 直接拦截 webdriver 指纹
+        chromium.use(stealth());
+
         if (this.ctx.userDataDir) {
             // 半自动模式：使用持久化用户目录，共享本地已登录身份
             this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
