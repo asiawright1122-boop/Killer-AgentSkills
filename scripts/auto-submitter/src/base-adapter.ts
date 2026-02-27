@@ -117,30 +117,47 @@ export abstract class BaseAdapter {
 
     /** 启动浏览器 */
     private async launchBrowser() {
-        this.browser = await chromium.launch({
-            headless: this.ctx.headless,
-            args: [
-                '--disable-blink-features=AutomationControlled',
-                '--no-sandbox',
-            ],
-        });
-
-        // 载入已保存的 session（如果存在）
-        const authPath = path.join(this.ctx.assetsDir, '..', 'auth.json');
-        if (fs.existsSync(authPath)) {
-            this.context = await this.browser.newContext({
-                storageState: authPath,
+        if (this.ctx.userDataDir) {
+            // 半自动模式：使用持久化用户目录，共享本地已登录身份
+            this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
+                headless: false, // 持久化模式强制展示界面给用户看
                 userAgent: this.getRandomUA(),
                 viewport: { width: 1280, height: 800 },
+                args: [
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                ],
             });
+            this.page = this.context.pages()[0];
+            if (!this.page) {
+                this.page = await this.context.newPage();
+            }
         } else {
-            this.context = await this.browser.newContext({
-                userAgent: this.getRandomUA(),
-                viewport: { width: 1280, height: 800 },
+            // 全自动模式：无痕/普通的隔离上下文
+            this.browser = await chromium.launch({
+                headless: this.ctx.headless,
+                args: [
+                    '--disable-blink-features=AutomationControlled',
+                    '--no-sandbox',
+                ],
             });
-        }
 
-        this.page = await this.context.newPage();
+            const authPath = path.join(this.ctx.assetsDir, '..', 'auth.json');
+            if (fs.existsSync(authPath)) {
+                this.context = await this.browser.newContext({
+                    storageState: authPath,
+                    userAgent: this.getRandomUA(),
+                    viewport: { width: 1280, height: 800 },
+                });
+            } else {
+                this.context = await this.browser.newContext({
+                    userAgent: this.getRandomUA(),
+                    viewport: { width: 1280, height: 800 },
+                });
+            }
+
+            this.page = await this.context.newPage();
+        }
     }
 
     /** 关闭浏览器 */

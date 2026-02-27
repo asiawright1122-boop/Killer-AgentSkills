@@ -26,11 +26,13 @@ interface EngineOptions {
     dryRun?: boolean;
     /** 两次提交之间的间隔（ms）*/
     delay?: number;
+    /** 用户数据目录路径，用于半自动模式维持登录态 */
+    userDataDir?: string;
 }
 
 export class SubmitEngine {
     private spintaxMeta!: SpintaxProductMeta;
-    private options: Required<EngineOptions>;
+    private options: Required<Omit<EngineOptions, 'userDataDir'>> & { userDataDir?: string };
     private results: SubmitResult[] = [];
     private baseDir: string;
 
@@ -43,6 +45,7 @@ export class SubmitEngine {
             timeout: opts.timeout ?? 30000,
             dryRun: opts.dryRun ?? false,
             delay: opts.delay ?? 5000,
+            userDataDir: opts.userDataDir,
         };
 
         this.baseDir = path.dirname(new URL(import.meta.url).pathname);
@@ -147,6 +150,7 @@ export class SubmitEngine {
             headless: this.options.headless,
             timeout: this.options.timeout,
             dryRun: this.options.dryRun,
+            userDataDir: this.options.userDataDir,
         };
 
         // 目前统一使用通用适配器，后续可根据 site.id 分配专用适配器
