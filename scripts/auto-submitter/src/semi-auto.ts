@@ -41,18 +41,18 @@ if (!targetSite) {
     process.exit(1);
 }
 
-// 自动检测默认的 Chrome User Data 路径
-let userDataDir = '';
-if (process.platform === 'darwin') {
-    userDataDir = path.join(os.homedir(), 'Library', 'Application Support', 'Google', 'Chrome');
-} else if (process.platform === 'win32') {
-    userDataDir = path.join(os.homedir(), 'AppData', 'Local', 'Google', 'Chrome', 'User Data');
-} else {
-    userDataDir = path.join(os.homedir(), '.config', 'google-chrome'); // Linux fallback
+// 统一使用项目本地专属的 Chrome Profile
+// 这样用户就不需要关闭他们日常使用的 Chrome 浏览器了！
+// 也能彻底避免 MacOS 下由于 SingletonLock 导致的 about:blank 卡死和 CDP 端口冲突。
+const userDataDir = path.resolve(process.cwd(), 'data', 'chrome-profile');
+
+// 确保该目录存在
+if (!fs.existsSync(userDataDir)) {
+    fs.mkdirSync(userDataDir, { recursive: true });
 }
 
-console.log(`\n🧩 准备使用本地浏览器上下文: ${userDataDir}`);
-console.log(`⚠️ 前置检查：请确保所有系统的 Chrome 浏览器窗口都已经彻底关闭 (Cmd+Q/Alt+F4)，否则 Playwright 无法接管 Profile！`);
+console.log(`\n🧩 准备使用专属机器人浏览器上下文: ${userDataDir}`);
+console.log(`⚠️ 提示：这是专门为您开辟的 Bot 专属 Chrome 环境。初次打开某平台时可能需要您手工登录一次！\n`);
 console.log(`⏳ 即将为您调起 ${targetSite.name}，脚本会帮您神速填完表单... 等待 5 秒钟...`);
 
 // 等待 5 秒给用户关闭 Chrome 的时间
