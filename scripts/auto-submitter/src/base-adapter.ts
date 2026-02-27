@@ -8,7 +8,6 @@
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { spawn, type ChildProcess } from 'node:child_process';
 import type { AdapterContext, SiteConfig, SubmitResult, SubmitStatus } from './types.js';
 
 export abstract class BaseAdapter {
@@ -17,8 +16,6 @@ export abstract class BaseAdapter {
     protected browser: Browser | null = null;
     protected context: BrowserContext | null = null;
     protected page: Page | null = null;
-
-    protected chromeProcess: ChildProcess | null = null;
 
     constructor(config: SiteConfig, ctx: AdapterContext) {
         this.config = config;
@@ -135,48 +132,16 @@ export abstract class BaseAdapter {
     /** 启动浏览器 */
     private async launchBrowser() {
         if (this.ctx.userDataDir) {
-            // 半自动模式：原生启动 Chrome 并通过 CDP 连接
-            const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-            if (!fs.existsSync(chromePath)) {
-                throw new Error(`找不到原生的 Google Chrome 浏览器，期望路径: ${chromePath}`);
-            }
-
-            const port = 9222;
-            this.log(`🔌 正在通过原生端口 ${port} 启动并接管真实的 Google Chrome...`);
-
-            this.chromeProcess = spawn(chromePath, [
-                `--remote-debugging-port=${port}`,
-                `--user-data-dir=${this.ctx.userDataDir}`,
-                '--no-first-run',
-                '--no-default-browser-check',
-                '--disable-background-networking',
-                '--disable-sync',
-                '--disable-translate',
-                '--disable-features=AutomationControlled'
-            ], {
-                detached: true,
-                stdio: 'ignore'
+            // 半自动模式：使用专属 Bot 目录，调用系统真实 Chrome，彻底避开 Cloudflare 检测 和 MacOS Lock 冲突
+            this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
+                headless: false,
+                channel: 'chrome',
+                viewport: { width: 1280, height: 800 },
+                ignoreDefaultArgs: ['--enable-automation'],
+                args: [
+                    '--disable-blink-features=AutomationControlled',
+                ],
             });
-            this.chromeProcess.unref();
-
-            // 循环尝试连接 CDP (最多 10 遍)
-            let connected = false;
-            for (let i = 0; i < 10; i++) {
-                try {
-                    await new Promise(r => setTimeout(r, 1000));
-                    this.browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`);
-                    this.context = this.browser.contexts()[0];
-                    connected = true;
-                    this.log(`✅ 成功连接到浏览器 CDP 端口`);
-                    break;
-                } catch {
-                    this.log(`⏳ 正在等待浏览器启动并开放端口 (尝试 ${i + 1}/10)...`);
-                }
-            }
-
-            if (!connected || !this.context) {
-                throw new Error('无法连接到原生的 Google Chrome 浏览器调试端口');
-            }
 
             // 永远生成一个新的前台 Tab，避免原有空页面失控
             this.page = await this.context.newPage();
@@ -227,9 +192,6 @@ export abstract class BaseAdapter {
                 await this.browser.close();
             } else {
                 await this.context?.close();
-            }
-            if (this.chromeProcess) {
-                this.chromeProcess.kill();
             }
         } catch { /* ignore */ }
     }
