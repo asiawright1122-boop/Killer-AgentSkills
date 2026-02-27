@@ -105,6 +105,20 @@ export abstract class BaseAdapter {
                 await this.takeScreenshot('error');
             } catch { /* ignore */ }
         } finally {
+            if (this.ctx.userDataDir && !this.ctx.dryRun) {
+                this.log(`🛑 半自动模式: 表单已尽力填写（或在等待您验证）。请您进行最终检查，并手动点击 Submit 按钮。`);
+                this.log(`💡 浏览器将保持开启最长 5 分钟，完成后您可以直接关闭它。`);
+                try {
+                    // 最长保活 5 分钟，或者等页面被手动关掉
+                    let waited = 0;
+                    while (waited < 300000) {
+                        if (this.page?.isClosed()) break;
+                        await this.page?.waitForTimeout(5000);
+                        waited += 5000;
+                    }
+                } catch { /* ignore */ }
+            }
+
             result.duration = Date.now() - start;
             result.screenshot = this.getScreenshotPath('result');
             await this.closeBrowser();
@@ -195,7 +209,8 @@ export abstract class BaseAdapter {
     protected async safeType(page: Page, selector: string, text: string) {
         try {
             const el = page.locator(selector).first();
-            await el.waitFor({ state: 'visible', timeout: 5000 });
+            const timeout = this.ctx.userDataDir ? 30000 : 5000;
+            await el.waitFor({ state: 'visible', timeout });
             await el.click();
             await el.fill(text);
         } catch (e: any) {
@@ -207,7 +222,8 @@ export abstract class BaseAdapter {
     protected async safeClick(page: Page, selector: string) {
         try {
             const el = page.locator(selector).first();
-            await el.waitFor({ state: 'visible', timeout: 5000 });
+            const timeout = this.ctx.userDataDir ? 30000 : 5000;
+            await el.waitFor({ state: 'visible', timeout });
             await el.click();
         } catch (e: any) {
             this.log(`⚠️  点击 ${selector} 失败: ${e.message}`);
@@ -217,6 +233,9 @@ export abstract class BaseAdapter {
     /** 安全选择下拉 */
     protected async safeSelect(page: Page, selector: string, value: string) {
         try {
+            const el = page.locator(selector).first();
+            const timeout = this.ctx.userDataDir ? 30000 : 5000;
+            await el.waitFor({ state: 'visible', timeout });
             await page.selectOption(selector, { label: value });
         } catch {
             // 如果 select 不行，尝试用 click 方式
