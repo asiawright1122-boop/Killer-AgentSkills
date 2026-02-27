@@ -140,8 +140,10 @@ export abstract class BaseAdapter {
             // 半自动模式：使用持久化用户目录，共享本地已登录身份
             this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
                 headless: false, // 持久化模式强制展示界面给用户看
+                channel: 'chrome', // 强制使用系统原生的主流 Google Chrome，而非开源版 Chromium
                 userAgent: this.getRandomUA(),
                 viewport: { width: 1280, height: 800 },
+                ignoreDefaultArgs: ['--enable-automation'], // 隐藏“正受到自动测试软件控制”的横幅
                 args: [
                     '--disable-blink-features=AutomationControlled',
                     '--no-sandbox',
