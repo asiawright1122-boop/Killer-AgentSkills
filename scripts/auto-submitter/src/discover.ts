@@ -122,10 +122,42 @@ async function runDiscovery() {
     };
 
     let successCount = 0;
+    const historyPath = path.resolve(baseDir, '..', 'data', 'submitted-history.json');
+    let submissionHistory: string[] = [];
+    try {
+        if (fs.existsSync(historyPath)) {
+            submissionHistory = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+        } else {
+            fs.mkdirSync(path.dirname(historyPath), { recursive: true });
+            fs.writeFileSync(historyPath, JSON.stringify([], null, 2));
+        }
+    } catch (e) {
+        console.warn(`⚠️ 无法读取提交历史: ${e}`);
+    }
+
+    // 过滤掉已经在历史记录里尝试过的站
+    const freshUrls = urls.filter(url => {
+        try {
+            const h = new URL(url).hostname.replace(/^www\./, '');
+            return !submissionHistory.includes(h);
+        } catch { return false; }
+    });
+
+    console.log(`\n==============================================`);
+    console.log(`去重后，本次池子中还有 ${freshUrls.length} 个全新的站点等待被发掘`);
+    console.log(`==============================================\n`);
+
+    if (freshUrls.length === 0) {
+        console.log(`🍺 所有抓取到的链接都已经尝试过，今日无新活！`);
+        return;
+    }
+
     // 每次随机抽样盲打 5 个，提升成功率
-    for (let i = 0; i < Math.min(urls.length, 5); i++) {
-        const url = urls[Math.floor(Math.random() * urls.length)];
-        console.log(`\n[${i + 1}/${Math.min(urls.length, 5)}] 盲打测试: ${url}`);
+    for (let i = 0; i < Math.min(freshUrls.length, 5); i++) {
+        // 随机取一个且不再放回
+        const randomIndex = Math.floor(Math.random() * freshUrls.length);
+        const url = freshUrls.splice(randomIndex, 1)[0];
+        console.log(`\n[${i + 1}/${Math.min(freshUrls.length + i + 1, 5)}] 盲打测试: ${url}`);
 
         // 动态 Spintax 生成，保持多样性
         ctx.meta = {
@@ -141,6 +173,12 @@ async function runDiscovery() {
 
         let hostname = 'unknown';
         try { hostname = new URL(url).hostname; } catch { }
+
+        // 记录历史
+        if (hostname !== 'unknown' && !submissionHistory.includes(hostname.replace(/^www\./, ''))) {
+            submissionHistory.push(hostname.replace(/^www\./, ''));
+            fs.writeFileSync(historyPath, JSON.stringify(submissionHistory, null, 2));
+        }
 
         // Mock SiteConfig
         const site: SiteConfig = {
