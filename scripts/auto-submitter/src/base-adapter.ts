@@ -149,10 +149,16 @@ export abstract class BaseAdapter {
                     '--no-sandbox',
                 ],
             });
-            this.page = this.context.pages()[0];
-            if (!this.page) {
+
+            // 过滤掉 Chrome 插件的后台不可见页面
+            const pages = this.context.pages().filter(p => !p.url().startsWith('chrome-extension://'));
+            if (pages.length > 0) {
+                this.page = pages[0];
+            } else {
                 this.page = await this.context.newPage();
             }
+            // 确保页面被带到最前面
+            await this.page.bringToFront();
         } else {
             // 全自动模式：无痕/普通的隔离上下文
             this.browser = await chromium.launch({
