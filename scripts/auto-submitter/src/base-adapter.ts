@@ -8,6 +8,7 @@
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { spawn, type ChildProcess } from 'node:child_process';
 import type { AdapterContext, SiteConfig, SubmitResult, SubmitStatus } from './types.js';
 
 export abstract class BaseAdapter {
@@ -16,6 +17,8 @@ export abstract class BaseAdapter {
     protected browser: Browser | null = null;
     protected context: BrowserContext | null = null;
     protected page: Page | null = null;
+
+    protected chromeProcess: ChildProcess | null = null;
 
     constructor(config: SiteConfig, ctx: AdapterContext) {
         this.config = config;
@@ -132,17 +135,30 @@ export abstract class BaseAdapter {
     /** 启动浏览器 */
     private async launchBrowser() {
         if (this.ctx.userDataDir) {
-            // 半自动模式：使用持久化用户目录，共享本地已登录身份
-            this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
-                headless: false, // 持久化模式强制展示界面给用户看
-                channel: 'chrome', // 强制使用系统原生的主流 Google Chrome，而非开源版 Chromium
-                userAgent: this.getRandomUA(),
-                viewport: { width: 1280, height: 800 },
-                ignoreDefaultArgs: ['--enable-automation'], // 隐藏“正受到自动测试软件控制”的横幅
-                args: [
-                    '--disable-blink-features=AutomationControlled',
-                ],
+            // 半自动模式：原生启动 Chrome 并通过 CDP 连接
+            const chromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+            if (!fs.existsSync(chromePath)) {
+                throw new Error(`找不到原生的 Google Chrome 浏览器，期望路径: ${chromePath}`);
+            }
+
+            const port = 9222;
+            this.log(`🔌 正在通过原生端口 ${port} 启动并接管真实的 Google Chrome...`);
+
+            this.chromeProcess = spawn(chromePath, [
+                `--remote-debugging-port=${port}`,
+                `--user-data-dir=${this.ctx.userDataDir}`,
+            ], {
+                detached: true,
+                stdio: 'ignore'
             });
+            this.chromeProcess.unref();
+
+            // 等待 Chrome 启动并开放端口
+            await new Promise(r => setTimeout(r, 2500));
+
+            // 将 Playwright 连接上去
+            this.browser = await chromium.connectOverCDP(`http://localhost:${port}`);
+            this.context = this.browser.contexts()[0];
 
             // 永远生成一个新的前台 Tab，避免原有空页面失控
             this.page = await this.context.newPage();
@@ -189,8 +205,14 @@ export abstract class BaseAdapter {
     private async closeBrowser() {
         try {
             await this.page?.close();
-            await this.context?.close();
-            await this.browser?.close();
+            if (this.browser) {
+                await this.browser.close();
+            } else {
+                await this.context?.close();
+            }
+            if (this.chromeProcess) {
+                this.chromeProcess.kill();
+            }
         } catch { /* ignore */ }
     }
 
