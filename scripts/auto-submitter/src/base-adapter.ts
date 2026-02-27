@@ -164,7 +164,7 @@ export abstract class BaseAdapter {
             for (let i = 0; i < 10; i++) {
                 try {
                     await new Promise(r => setTimeout(r, 1000));
-                    this.browser = await chromium.connectOverCDP(`http://localhost:${port}`);
+                    this.browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`);
                     this.context = this.browser.contexts()[0];
                     connected = true;
                     this.log(`✅ 成功连接到浏览器 CDP 端口`);
