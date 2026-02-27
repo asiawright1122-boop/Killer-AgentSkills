@@ -9,6 +9,7 @@ import * as path from 'node:path';
 import type { ProductMeta, SpintaxProductMeta, SubmitResult, SiteConfig, AdapterContext } from './types.js';
 import { SITES } from './sites.js';
 import { GenericFormAdapter } from './adapters/generic-form.js';
+import { ProductHuntAdapter } from './adapters/producthunt.js';
 import { BaseAdapter } from './base-adapter.js';
 
 interface EngineOptions {
@@ -152,6 +153,10 @@ export class SubmitEngine {
             dryRun: this.options.dryRun,
             userDataDir: this.options.userDataDir,
         };
+
+        if (site.id === 'producthunt') {
+            return new ProductHuntAdapter(site, ctx);
+        }
 
         // 目前统一使用通用适配器，后续可根据 site.id 分配专用适配器
         return new GenericFormAdapter(site, ctx);

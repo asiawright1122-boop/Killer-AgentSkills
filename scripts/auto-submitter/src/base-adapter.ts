@@ -133,6 +133,17 @@ export abstract class BaseAdapter {
     private async launchBrowser() {
         if (this.ctx.userDataDir) {
             // 半自动模式：使用专属 Bot 目录，调用系统真实 Chrome，彻底避开 Cloudflare 检测 和 MacOS Lock 冲突
+            // 由于是半自动模式，前一次运行可能导致 Bot Chrome 进程未完全退出而被挂起
+            // 为了防止 "Target page, context or browser has been closed" 报错
+            // 在启动前，强制杀掉所有正在使用该专属目录的残留 Chrome 进程
+            try {
+                const { execSync } = require('node:child_process');
+                // 仅杀掉包含我们这个绝对路径的 Chrome 进程
+                if (process.platform === 'darwin' || process.platform === 'linux') {
+                    execSync(`pkill -f "Google Chrome.*${this.ctx.userDataDir}"`);
+                }
+            } catch { /* 忽略没找到进程的报错 */ }
+
             this.context = await chromium.launchPersistentContext(this.ctx.userDataDir, {
                 headless: false,
                 channel: 'chrome',
