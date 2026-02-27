@@ -8,6 +8,7 @@
 import { chromium, type Browser, type BrowserContext, type Page } from 'playwright';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { execSync } from 'node:child_process';
 import type { AdapterContext, SiteConfig, SubmitResult, SubmitStatus } from './types.js';
 
 export abstract class BaseAdapter {
@@ -137,7 +138,6 @@ export abstract class BaseAdapter {
             // 为了防止 "Target page, context or browser has been closed" 报错
             // 在启动前，强制杀掉所有正在使用该专属目录的残留 Chrome 进程
             try {
-                const { execSync } = require('node:child_process');
                 // 仅杀掉包含我们这个绝对路径的 Chrome 进程
                 if (process.platform === 'darwin' || process.platform === 'linux') {
                     execSync(`pkill -f "Google Chrome.*${this.ctx.userDataDir}"`);
@@ -149,6 +149,7 @@ export abstract class BaseAdapter {
                 channel: 'chrome',
                 viewport: { width: 1280, height: 800 },
                 ignoreDefaultArgs: ['--enable-automation'],
+                ignoreHTTPSErrors: true,
                 args: [
                     '--disable-blink-features=AutomationControlled',
                 ],
@@ -183,11 +184,13 @@ export abstract class BaseAdapter {
                     storageState: authPath,
                     userAgent: this.getRandomUA(),
                     viewport: { width: 1280, height: 800 },
+                    ignoreHTTPSErrors: true,
                 });
             } else {
                 this.context = await this.browser.newContext({
                     userAgent: this.getRandomUA(),
                     viewport: { width: 1280, height: 800 },
+                    ignoreHTTPSErrors: true,
                 });
             }
 
@@ -226,7 +229,15 @@ export abstract class BaseAdapter {
     /** 日志 */
     protected log(msg: string) {
         const ts = new Date().toLocaleTimeString('zh-CN');
-        console.log(`[${ts}] [${this.config.id}] ${msg}`);
+        const logMsg = `[${ts}] [${this.config.id}] ${msg}`;
+        console.log(logMsg);
+
+        // 同时写入持久化日志文件
+        try {
+            if (!fs.existsSync(this.ctx.logsDir)) fs.mkdirSync(this.ctx.logsDir, { recursive: true });
+            const logFile = path.join(this.ctx.logsDir, `${this.config.id}.log`);
+            fs.appendFileSync(logFile, logMsg + '\n');
+        } catch { /* ignore */ }
     }
 
     /** 安全填充 input */
