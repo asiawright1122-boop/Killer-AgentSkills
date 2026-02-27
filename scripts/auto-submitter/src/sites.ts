@@ -300,4 +300,19 @@ export const SITES: SiteConfig[] = [
         hasCaptcha: true,
         enabled: false,
     },
+
+    // ═══════════════════════════════════════════════════
+    //  Tier 3 — 手动/半自动金字塔顶端 (高权重，严格审查)
+    // ═══════════════════════════════════════════════════
+    {
+        id: 'producthunt',
+        name: 'Product Hunt',
+        submitUrl: 'https://www.producthunt.com/posts/new',
+        homepage: 'https://www.producthunt.com',
+        estimatedDR: 90,
+        tier: 3,
+        requiresLogin: true,
+        hasCaptcha: true,
+        enabled: false,
+    },
 ];
