@@ -150,13 +150,17 @@ export abstract class BaseAdapter {
                 ],
             });
 
-            // 过滤掉 Chrome 插件的后台不可见页面
-            const pages = this.context.pages().filter(p => !p.url().startsWith('chrome-extension://'));
-            if (pages.length > 0) {
-                this.page = pages[0];
-            } else {
-                this.page = await this.context.newPage();
+            // 永远生成一个新的前台 Tab，避免原有空页面失控
+            this.page = await this.context.newPage();
+
+            // 关掉启动时默认出来的附带空页面
+            const allPages = this.context.pages();
+            for (const p of allPages) {
+                if (p !== this.page && p.url() === 'about:blank') {
+                    await p.close().catch(() => { });
+                }
             }
+
             // 确保页面被带到最前面
             await this.page.bringToFront();
         } else {
