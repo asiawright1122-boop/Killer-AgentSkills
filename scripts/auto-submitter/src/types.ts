@@ -105,4 +105,5 @@ export interface AdapterContext {
     headless: boolean;
     timeout: number;
     dryRun: boolean;
+    userDataDir?: string;
 }

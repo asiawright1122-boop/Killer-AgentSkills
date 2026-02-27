@@ -28,7 +28,8 @@
     "submit:dirs:dry": "npx tsx scripts/auto-submitter/src/index.ts --dry-run --show",
     "submit:dirs:list": "npx tsx scripts/auto-submitter/src/index.ts --list",
     "submit:auth": "npx tsx scripts/auto-submitter/src/auth-setup.ts",
-    "submit:discover": "npx tsx scripts/auto-submitter/src/discover.ts"
+    "submit:discover": "npx tsx scripts/auto-submitter/src/discover.ts",
+    "submit:manual": "npx tsx scripts/auto-submitter/src/semi-auto.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.27",
