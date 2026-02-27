@@ -147,18 +147,36 @@ export abstract class BaseAdapter {
             this.chromeProcess = spawn(chromePath, [
                 `--remote-debugging-port=${port}`,
                 `--user-data-dir=${this.ctx.userDataDir}`,
+                '--no-first-run',
+                '--no-default-browser-check',
+                '--disable-background-networking',
+                '--disable-sync',
+                '--disable-translate',
+                '--disable-features=AutomationControlled'
             ], {
                 detached: true,
                 stdio: 'ignore'
             });
             this.chromeProcess.unref();
 
-            // 等待 Chrome 启动并开放端口
-            await new Promise(r => setTimeout(r, 2500));
+            // 循环尝试连接 CDP (最多 10 遍)
+            let connected = false;
+            for (let i = 0; i < 10; i++) {
+                try {
+                    await new Promise(r => setTimeout(r, 1000));
+                    this.browser = await chromium.connectOverCDP(`http://localhost:${port}`);
+                    this.context = this.browser.contexts()[0];
+                    connected = true;
+                    this.log(`✅ 成功连接到浏览器 CDP 端口`);
+                    break;
+                } catch {
+                    this.log(`⏳ 正在等待浏览器启动并开放端口 (尝试 ${i + 1}/10)...`);
+                }
+            }
 
-            // 将 Playwright 连接上去
-            this.browser = await chromium.connectOverCDP(`http://localhost:${port}`);
-            this.context = this.browser.contexts()[0];
+            if (!connected || !this.context) {
+                throw new Error('无法连接到原生的 Google Chrome 浏览器调试端口');
+            }
 
             // 永远生成一个新的前台 Tab，避免原有空页面失控
             this.page = await this.context.newPage();
