@@ -77,7 +77,7 @@ export class SubmitEngine {
             const site = sites[i];
             console.log(`\n[${i + 1}/${sites.length}] ─── ${site.name} ───`);
 
-            const adapter = this.createAdapter(site);
+            const adapter = await this.createAdapter(site);
             const result = await adapter.execute();
             this.results.push(result);
 
@@ -140,7 +140,7 @@ export class SubmitEngine {
         return sites;
     }
 
-    private createAdapter(site: SiteConfig): BaseAdapter {
+    private async createAdapter(site: SiteConfig): Promise<BaseAdapter> {
         const rootDir = path.resolve(this.baseDir, '..');
         const spunMeta = this.generateSpunMeta();
         const ctx: AdapterContext = {
@@ -151,11 +151,81 @@ export class SubmitEngine {
             headless: this.options.headless,
             timeout: this.options.timeout,
             dryRun: this.options.dryRun,
-            userDataDir: this.options.userDataDir,
+            userDataDir: this.options.userDataDir ? path.join(this.options.userDataDir, site.id) : undefined,
         };
 
         if (site.id === 'producthunt') {
             return new ProductHuntAdapter(site, ctx);
+        }
+
+        if (site.id === 'alternativeto') {
+            const { AlternativeToAdapter } = await import('./adapters/alternativeto.js');
+            return new AlternativeToAdapter(site, ctx);
+        }
+
+        if (site.id === 'stackshare') {
+            const { StackShareAdapter } = await import('./adapters/stackshare.js');
+            return new StackShareAdapter(site, ctx);
+        }
+
+        if (site.id === 'betalist') {
+            const { BetalistAdapter } = await import('./adapters/betalist.js');
+            return new BetalistAdapter(site, ctx);
+        }
+
+        if (site.id === 'saasscout') {
+            const { SaaSScoutAdapter } = await import('./adapters/saasscout.js');
+            return new SaaSScoutAdapter(site, ctx);
+        }
+
+        if (site.id === 'startupstash') {
+            const { StartupStashAdapter } = await import('./adapters/startupstash.js');
+            return new StartupStashAdapter(site, ctx);
+        }
+
+        if (site.id === 'launchingnext') {
+            const { LaunchingNextAdapter } = await import('./adapters/launchingnext.js');
+            return new LaunchingNextAdapter(site, ctx);
+        }
+
+        if (site.id === 'startuppitch') {
+            const { StartupPitchAdapter } = await import('./adapters/startuppitch.js');
+            return new StartupPitchAdapter(site, ctx);
+        }
+
+        if (site.id === 'hackernews') {
+            const { HackerNewsAdapter } = await import('./adapters/hackernews.js');
+            return new HackerNewsAdapter(site, ctx);
+        }
+
+        if (site.id === 'futuretools') {
+            const { FutureToolsAdapter } = await import('./adapters/futuretools.js');
+            return new FutureToolsAdapter(site, ctx);
+        }
+
+        if (site.id === 'saashub') {
+            const { SaaSHubAdapter } = await import('./adapters/saashub.js');
+            return new SaaSHubAdapter(site, ctx);
+        }
+
+        if (site.id === 'aidirectory') {
+            const { AIDirectoryAdapter } = await import('./adapters/aidirectory.js');
+            return new AIDirectoryAdapter(site, ctx);
+        }
+
+        if (site.id === 'aigems') {
+            const { AIGemsAdapter } = await import('./adapters/aigems.js');
+            return new AIGemsAdapter(site, ctx);
+        }
+
+        if (site.id === 'dofollowtools') {
+            const { DofollowToolsAdapter } = await import('./adapters/dofollowtools.js');
+            return new DofollowToolsAdapter(site, ctx);
+        }
+
+        if (site.id === 'toolscout') {
+            const { ToolScoutAdapter } = await import('./adapters/toolscout.js');
+            return new ToolScoutAdapter(site, ctx);
         }
 
         // 目前统一使用通用适配器，后续可根据 site.id 分配专用适配器
