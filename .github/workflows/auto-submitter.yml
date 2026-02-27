@@ -1,0 +1,49 @@
+name: Auto Submitter (Scheduled)
+
+# Runs the Auto-Discovery crawler & blind submitter daily to discover new AI directories
+# Cost: Zero AI API calls, runs via Headless Chrome
+
+on:
+  schedule:
+    # Run once daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: auto-submitter
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      # ── Discovery & Blind Submit ─────────────────────────
+      - name: Run Auto Discovery & Blind Submit
+        run: |
+          echo "🚀 Running Auto-Discovery and Blind Submission script..."
+          npm run submit:discover
+        env:
+          # GitHub Actions network usually doesn't need a proxy for raw.githubusercontent.com
+          NODE_ENV: production
