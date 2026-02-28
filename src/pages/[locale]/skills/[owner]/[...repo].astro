@@ -2,7 +2,7 @@
 import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
 import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../../../../lib/skills';
-import { getCollection } from 'astro:content';
+import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import type { Env } from '../../../../lib/kv';
 import SkillActions from '../../../../islands/SkillActions';
@@ -296,25 +296,8 @@ const files = [
 ];
 
 const version = skill.skillMd?.version || '1.0.0';
-// ⚡ Fetch Related Skills from Content Collections (NOT D1's 56MB getAllSkills!)
-const ccSkills = await getCollection('skills');
-const currentTags = new Set(skill.topics || []);
-const relatedSkills = ccSkills
-  .filter(s => {
-    if (s.id === `${owner}/${repo}`) return false;
-    if (s.data.owner === owner && s.data.repo === repo) return false;
-    if (skill.category && s.data.category !== skill.category) return false;
-    return true;
-  })
-  .map(s => {
-    let score = 0;
-    const sTags = s.data.topics || [];
-    score += sTags.filter((tag: string) => currentTags.has(tag)).length * 10;
-    return { skill: { ...s.data, id: s.id } as any, score };
-  })
-  .sort((a, b) => b.score !== a.score ? b.score - a.score : (b.skill.stars || 0) - (a.skill.stars || 0))
-  .slice(0, 4)
-  .map(item => item.skill);
+// ⚡ Related skills via targeted D1 query (4 rows × ~200 bytes, no full-table scan)
+const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
 ---
 
 <Layout
