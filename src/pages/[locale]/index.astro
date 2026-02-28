@@ -72,19 +72,14 @@ const features = [
       "query-input": "required name=search_term_string"
     },
     "publisher": {
-      "@type": "Organization",
-      "name": "Killer-Skills",
-      "url": "https://killer-skills.com",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://killer-skills.com/og-image.png"
-      }
+      "@id": "https://killer-skills.com/#organization"
     }
   })} />
   {/* Organization JSON-LD for Knowledge Panel */}
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://killer-skills.com/#organization",
     "name": "Killer-Skills",
     "url": "https://killer-skills.com",
     "logo": "https://killer-skills.com/og-image.png",
