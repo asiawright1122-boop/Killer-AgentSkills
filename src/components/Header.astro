@@ -10,35 +10,26 @@ interface Props {
 const { locale, t } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl transition-all">
+<header class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)] transition-all">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         
         <!-- Logo -->
-        <a href={`/${locale}`} class="flex items-center gap-2 group">
-            <div class="relative w-8 h-8 flex items-center justify-center group-hover:scale-105 transition-transform">
-                <!-- Outer Cyan Glow Ring -->
-                <div class="absolute inset-0 rounded-full border-[1.5px] border-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.6),inset_0_0_8px_rgba(34,211,238,0.6)]"></div>
-                <!-- Top Pink Dot -->
-                <div class="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-fuchsia-400 shadow-[0_0_6px_rgba(232,121,249,0.8)]"></div>
-                <!-- Inner Hexagon-like Cutout with Text -->
-                <div class="relative w-[85%] h-[85%] bg-gradient-to-br from-cyan-400 to-fuchsia-500 flex items-center justify-center text-[10px] font-black tracking-tighter text-transparent bg-clip-text" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); background: #050505;">
-                    <span class="z-10 bg-gradient-to-br from-cyan-400 to-fuchsia-400 text-transparent bg-clip-text" style="-webkit-text-stroke: 0.5px rgba(34,211,238,0.8); letter-spacing: -1px;">KS</span>
-                    <!-- Border trick for the hexagon -->
-                    <div class="absolute inset-[1px] bg-slate-950 dark:bg-slate-950" style="clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);"></div>
-                </div>
+        <a href={`/${locale}`} class="flex items-center gap-3 group">
+            <div class="relative w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all">
+                <span class="font-black text-[var(--primary-foreground)] tracking-tighter text-xs">KS</span>
             </div>
-            <span class="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
+            <span class="font-black text-xl tracking-tight uppercase text-[var(--foreground)]">
                 Killer-Skills
             </span>
         </a>
 
         <!-- Desktop Nav -->
-        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
-            <a href={`/${locale}`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Common.home')}</a>
-            <a href={`/${locale}/skills`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Common.skillsMarket')}</a>
-            <a href={`/${locale}/blog`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Navigation.blog')}</a>
-            <a href={`/${locale}/docs`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.docs')}</a>
-            <a href={`/${locale}/cli`} class="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">{t('Footer.cli')}</a>
+        <nav class="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wide text-[var(--foreground)]">
+            <a href={`/${locale}`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.home')}</a>
+            <a href={`/${locale}/skills`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.skillsMarket')}</a>
+            <a href={`/${locale}/blog`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Navigation.blog')}</a>
+            <a href={`/${locale}/docs`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.docs')}</a>
+            <a href={`/${locale}/cli`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.cli')}</a>
         </nav>
 
         <!-- Rights/Actions -->

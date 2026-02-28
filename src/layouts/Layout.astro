@@ -82,8 +82,8 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		<link rel="dns-prefetch" href="https://avatars.githubusercontent.com" />
 		
 		<!-- Standard font loading with preconnect for optimal LCP -->
-		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-		<noscript><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" /></noscript>
+		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+		<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" /></noscript>
 
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -146,7 +146,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		<!-- Named slot for child-injected head tags (e.g. rel prev/next) -->
 		<slot name="head" />
 	</head>
-	<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
+	<body class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]">
 		<Header locale={locale} t={t} />
 
 		<div class="flex-1 relative">
