@@ -47,8 +47,14 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
     useEffect(() => {
         setMounted(true);
-        const isDarkMode = document.documentElement.classList.contains('dark');
-        setIsDark(isDarkMode);
+        const updateThemeIcon = () => {
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            setIsDark(isDarkMode);
+        };
+        updateThemeIcon();
+
+        document.addEventListener('astro:after-swap', updateThemeIcon);
+        return () => document.removeEventListener('astro:after-swap', updateThemeIcon);
     }, []);
 
     // Close language dropdown when clicking outside

@@ -147,14 +147,6 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 
 			// Handle Astro View Transitions
 			document.addEventListener('astro:after-swap', applyTheme);
-
-			if (typeof localStorage !== 'undefined') {
-				const observer = new MutationObserver(() => {
-					const isDark = document.documentElement.classList.contains('dark');
-					localStorage.setItem('theme', isDark ? 'dark' : 'light');
-				});
-				observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-			}
 		</script>
 		<!-- Named slot for child-injected head tags (e.g. rel prev/next) -->
 		<slot name="head" />
