@@ -145,6 +145,57 @@ export async function getSkillsListing(env: Env): Promise<any[]> {
     }
 }
 
+/**
+ * ⚡ FAST related skills query — targeted D1 query, NOT full-table scan.
+ * Returns ~4 skills matching the same category, excluding the current skill.
+ * Uses only indexed SQL columns + lightweight json_extract — ~1KB total payload.
+ */
+export async function getRelatedSkillsFast(
+    env: Env,
+    currentId: string,
+    category: string,
+    limit: number = 4
+): Promise<any[]> {
+    if (!env?.DB) return [];
+
+    try {
+        const result = await env.DB.prepare(`
+            SELECT 
+                id, owner, repo, name, category, stars, quality_score, updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills 
+            WHERE category = ?1 AND id != ?2
+            ORDER BY stars DESC
+            LIMIT ?3
+        `).bind(category || '', currentId, limit).all();
+
+        if (result.success && result.results) {
+            return result.results.map((row: any) => ({
+                id: row.id,
+                name: row.name || row.skillName || row.repo,
+                skillName: row.skillName || row.name || '',
+                owner: row.owner,
+                repo: row.repo,
+                description: row.description ? tryParseJSON(row.description, row.description) : '',
+                category: row.category || '',
+                topics: row.topics ? tryParseJSON(row.topics, []) : [],
+                stars: row.stars || 0,
+                qualityScore: row.qualityScore || row.quality_score || 0,
+                updatedAt: row.updated_at || '',
+                seo: row.seoDefinition ? { definition: tryParseJSON(row.seoDefinition, {}) } : undefined,
+            }));
+        }
+        return [];
+    } catch (e) {
+        console.error('[D1] Error in related skills query:', e);
+        return [];
+    }
+}
+
 /** Safe JSON parse helper — returns fallback if parse fails */
 function tryParseJSON(str: string, fallback: any): any {
     if (typeof str !== 'string') return str; // Already parsed
