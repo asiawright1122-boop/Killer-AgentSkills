@@ -22,7 +22,10 @@ const typedLocale = locale as Locale;
 const env = (Astro.locals as any).runtime?.env as Env;
 
 // Load all skills from KV
+const t0 = performance.now();
 let skills = await getAllSkills(env);
+const t1 = performance.now();
+console.log(`[SSR Profiler] getAllSkills completed in ${Math.round(t1 - t0)}ms`);
 
 // Get URL search params for filtering
 const url = Astro.url;

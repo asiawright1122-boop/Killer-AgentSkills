@@ -148,9 +148,41 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 	</head>
 	<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50 transition-colors duration-300">
 		<Header locale={locale} t={t} />
-		<div class="flex-1">
+
+		<div class="flex-1 relative">
+            <!-- Global Astro Navigation Loader -->
+            <div id="route-progress" class="fixed top-0 left-0 w-full h-[3px] bg-cyan-500 z-[9999] origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
 			<slot />
 		</div>
 		{showFooter && <Footer locale={locale} t={t} />}
+
+        <!-- Native Router Progress Script -->
+        <script is:inline>
+            document.addEventListener('astro:before-preparation', () => {
+                const bar = document.getElementById('route-progress');
+                if (bar) {
+                    bar.style.transition = 'transform 3s cubic-bezier(0.1, 0.8, 0.2, 1)';
+                    bar.style.transform = 'scaleX(0.7)';
+                    bar.style.opacity = '1';
+                }
+            });
+
+            document.addEventListener('astro:after-swap', () => {
+                const bar = document.getElementById('route-progress');
+                if (bar) {
+                    bar.style.transition = 'transform 0.2s ease-out';
+                    bar.style.transform = 'scaleX(1)';
+                    setTimeout(() => {
+                        bar.style.opacity = '0';
+                        setTimeout(() => {
+                            if (bar.style.opacity === '0') {
+                                bar.style.transition = 'none';
+                                bar.style.transform = 'scaleX(0)';
+                            }
+                        }, 200);
+                    }, 200);
+                }
+            });
+        </script>
 	</body>
 </html>
