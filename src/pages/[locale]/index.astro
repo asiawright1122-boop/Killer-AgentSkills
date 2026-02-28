@@ -98,42 +98,39 @@ const features = [
   <main class="flex-1 w-full">
 
     <!-- Hero Section -->
-    <section class="relative overflow-hidden pt-24 pb-32 lg:pt-32 lg:pb-40">
-      <!-- Background Gradients - Deep Ocean -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-sky-500/10 rounded-full blur-[100px] -z-10 animate-pulse-glow"></div>
-      <div class="absolute bottom-0 right-0 w-[800px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] -z-10"></div>
-
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-sm font-medium mb-8 shadow-sm">
-          <span class="w-2 h-2 rounded-full bg-sky-500 mr-2 animate-pulse"></span>
+    <section class="relative overflow-hidden pt-24 pb-32 lg:pt-32 lg:pb-40 border-b-[3px] border-[var(--border)]">
+      <!-- Background Gradients Removed - Relying on Noise Filter from global CSS -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-widest mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
+          <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
           {t('Home.heroBadge')}
         </div>
 
-        <h1 class="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 text-balance">
+        <h1 class="text-6xl md:text-8xl md:leading-[1.1] font-black tracking-tighter text-[var(--foreground)] mb-8 text-balance uppercase">
           {t('Home.heroTitle')} <br class="hidden md:block" />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-500 to-blue-600 dark:from-sky-400 dark:to-blue-500">
+          <span class="bg-[var(--foreground)] text-[var(--background)] px-2 inline-block -skew-x-[10deg]">
             {t('Home.heroTitleHighlight')}
           </span>
         </h1>
 
-        <p class="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-4 text-balance font-light">
+        <p class="text-xl md:text-2xl text-[var(--muted-foreground)] max-w-2xl mx-auto mb-4 text-balance font-bold">
           {t('Home.heroDesc1')}
         </p>
-        <p class="text-lg text-slate-500 dark:text-slate-500 max-w-2xl mx-auto mb-10 text-balance font-light">
+        <p class="text-lg text-[var(--muted-foreground)] max-w-2xl mx-auto mb-10 text-balance font-mono">
           {t('Home.heroDesc2')}
         </p>
 
         <!-- Search Bar (React Island) -->
         <div class="max-w-xl mx-auto">
           <SearchBar client:visible locale={locale} placeholder={t('Home.searchPlaceholder')} />
-          <div class="flex items-center justify-center gap-2 mt-3 text-sm text-slate-400">
+          <div class="flex items-center justify-center gap-3 mt-4 text-xs font-mono font-bold text-[var(--foreground)] uppercase">
             <span>{t('Hero.hotTags')}</span>
             {(Array.isArray(messages.Home?.tags) ? messages.Home.tags : ['Research', 'Coding', 'Marketing', 'Analysis']).map((tag: string) => (
               <a
                 href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
-                class="text-slate-500 dark:text-slate-300 hover:text-sky-600 dark:hover:text-sky-400 transition-colors"
+                class="border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors"
               >
-                {tag}
+                [{tag}]
               </a>
             ))}
           </div>
@@ -145,24 +142,24 @@ const features = [
     <OfficialSkills locale={locale} />
 
     <!-- Stats Section -->
-    <section class="border-y border-slate-200/60 dark:border-slate-800/60 bg-slate-50/50 dark:bg-slate-900/50 py-12">
+    <section class="border-y-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] py-12">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600 mb-2">2,500+</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">{t('Stats.totalSkills')}</div>
+            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">2,500+</div>
+            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.totalSkills')}</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600 mb-2">50k+</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">{t('Stats.totalDownloads')}</div>
+            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">50k+</div>
+            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.totalDownloads')}</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600 mb-2">120+</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">{t('Stats.activeCreators')}</div>
+            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">120+</div>
+            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.activeCreators')}</div>
           </div>
           <div>
-            <div class="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-blue-600 mb-2">15+</div>
-            <div class="text-sm text-slate-500 dark:text-slate-400 font-medium uppercase tracking-wider">{t('Stats.supportedIDEs')}</div>
+            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">15+</div>
+            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.supportedIDEs')}</div>
           </div>
         </div>
       </div>
@@ -170,25 +167,25 @@ const features = [
 
     <!-- Featured Skills -->
     <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between mb-12">
+      <div class="flex items-center justify-between mb-12 border-b-[3px] border-[var(--border)] pb-4">
         <div>
-          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-2">{t('Home.trendingTitle')}</h2>
-          <p class="text-slate-500">{t('Home.trendingSubtitle')}</p>
+          <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">{t('Home.trendingTitle')}</h2>
+          <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
         </div>
-        <a href={`/${locale}/skills`} class="group flex items-center gap-1 text-sky-600 dark:text-sky-400 font-medium hover:text-sky-700 dark:hover:text-sky-300 transition-colors">
+        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
           {t('Home.viewAll')}
-          <span class="group-hover:translate-x-1 transition-transform">→</span>
+          <span class="font-mono ml-2">→</span>
         </a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {featuredSkills.length > 0 ? (
-          featuredSkills.map(skill => (
+          featuredSkills.map((skill: any) => (
             <SkillCard skill={skill} locale={locale} t={t} />
           ))
         ) : (
           <!-- Fallback when no skills loaded from KV -->
-          <div class="col-span-full text-center py-12 text-slate-500">
+          <div class="col-span-full text-center py-12 text-[var(--muted-foreground)] font-mono border-2 border-[var(--border)] border-dashed">
             <p>{t('Skills.noResults')}</p>
           </div>
         )}
@@ -196,25 +193,25 @@ const features = [
     </section>
 
     <!-- Features Grid -->
-    <section class="bg-slate-50 dark:bg-slate-950 py-24 border-t border-slate-200 dark:border-slate-800">
+    <section class="bg-[var(--card)] py-24 border-t-[3px] border-[var(--border)]">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t('Home.featuresTitle')}</h2>
-          <p class="text-slate-500 text-lg">{t('Home.featuresSubtitle')}</p>
+        <div class="text-center max-w-3xl mx-auto mb-16 border-2 border-[var(--border)] p-8 bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)]">
+          <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">{t('Home.featuresTitle')}</h2>
+          <p class="text-[var(--muted-foreground)] font-mono text-lg">{t('Home.featuresSubtitle')}</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, i) => (
-            <div class="text-center group">
-              <div class={`w-16 h-16 mx-auto bg-${feature.color}-50 dark:bg-${feature.color}-900/20 text-${feature.color}-600 dark:text-${feature.color}-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300 border border-${feature.color}-100 dark:border-${feature.color}-800`}>
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
+            <div class="brut-card p-6 flex flex-col items-center text-center">
+              <div class="w-16 h-16 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_var(--border)]">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d={feature.iconPath} />
                 </svg>
               </div>
-              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">
+              <h3 class="text-xl font-black text-[var(--foreground)] uppercase mb-3">
                 {t(`Home.features.${i}.title`)}
               </h3>
-              <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              <p class="text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {t(`Home.features.${i}.desc`)}
               </p>
             </div>
@@ -224,20 +221,20 @@ const features = [
     </section>
 
     <!-- CTA Section -->
-    <section class="py-24">
+    <section class="py-24 border-t-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)]">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">{t('Home.cta.title')}</h2>
-        <p class="text-lg text-slate-500 mb-8">{t('Home.cta.subtitle')}</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">{t('Home.cta.title')}</h2>
+        <p class="text-lg md:text-2xl font-mono font-bold mb-10 opacity-80">{t('Home.cta.subtitle')}</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a
             href={`/${locale}/skills`}
-            class="px-8 py-3 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl transition-colors shadow-lg shadow-cyan-500/20"
+            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-black text-lg uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all"
           >
             {t('Home.cta.browse')}
           </a>
           <a
             href={`/${locale}/docs`}
-            class="px-8 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+            class="px-8 py-4 bg-transparent text-[var(--foreground)] font-black text-lg uppercase tracking-widest border-2 border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
           >
             {t('Home.cta.docs')}
           </a>

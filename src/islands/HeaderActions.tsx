@@ -114,35 +114,35 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     // Mobile overlay rendered via portal to escape header's stacking context
     const mobileOverlay = mounted ? createPortal(
         <div
-            className={`fixed inset-0 z-[60] md:hidden transition-all duration-300 ease-out ${isMenuOpen
+            className={`fixed inset-0 z-[60] md:hidden transition-all duration-150 ease-out ${isMenuOpen
                 ? 'opacity-100 pointer-events-auto'
                 : 'opacity-0 pointer-events-none'
                 }`}
         >
-            {/* Backdrop */}
+            {/* Backdrop: Solid background instead of blur for Neo-Brutalist feel */}
             <div
-                className="absolute inset-0 bg-white/98 dark:bg-slate-950/98 backdrop-blur-2xl"
+                className="absolute inset-0 bg-[var(--background)] opacity-95"
                 onClick={closeMenu}
             />
 
-            {/* Content */}
+            {/* Content: Sharp bordered panel */}
             <div
-                className={`relative flex flex-col h-full transition-transform duration-300 ease-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-4'
+                className={`absolute right-4 top-4 bottom-4 left-16 border-[3px] border-[var(--border)] bg-[var(--card)] shadow-[8px_8px_0px_0px_var(--border)] flex flex-col transition-transform duration-200 ease-out ${isMenuOpen ? 'translate-x-0 translate-y-0' : 'translate-x-full translate-y-4'
                     }`}
             >
-                {/* Overlay header with Logo + Close */}
-                <div className="flex items-center justify-between px-6 h-16 shrink-0">
-                    <a href={`/${locale}`} onClick={closeMenu} className="flex items-center gap-2 group">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-bold shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-                            K
+                {/* Overlay header with stark Logo + Close */}
+                <div className="flex items-center justify-between px-6 h-16 shrink-0 border-b-[3px] border-[var(--border)] bg-[var(--background)]">
+                    <a href={`/${locale}`} onClick={closeMenu} className="flex items-center gap-3 group">
+                        <div className="w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] font-black text-xs shadow-[2px_2px_0px_0px_var(--border)]">
+                            KS
                         </div>
-                        <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300">
+                        <span className="font-black text-xl tracking-tight uppercase text-[var(--foreground)]">
                             Killer-Skills
                         </span>
                     </a>
                     <button
                         onClick={closeMenu}
-                        className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                        className="p-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
                         aria-label={labels.toggleMenu}
                     >
                         <X className="w-6 h-6" />
@@ -150,63 +150,59 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 </div>
 
                 {/* Scrollable nav */}
-                <div className="flex-1 overflow-y-auto px-4 pb-8">
-                    <nav className="flex flex-col gap-1 mt-2">
+                <div className="flex-1 overflow-y-auto bg-[var(--background)] flex flex-col">
+                    <nav className="flex flex-col border-b-[3px] border-[var(--border)]">
                         {navItems.map(({ href, label, icon: Icon }) => (
                             <a
                                 key={href}
                                 href={href}
                                 onClick={closeMenu}
-                                className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/60 hover:text-cyan-600 dark:hover:text-cyan-400 transition-all active:scale-[0.98]"
+                                className="flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-wider text-[var(--foreground)] border-b last:border-b-0 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
                             >
-                                <Icon className="w-5 h-5 text-slate-400 dark:text-slate-500" />
+                                <Icon className="w-5 h-5 flex-shrink-0" />
                                 {label}
                             </a>
                         ))}
                     </nav>
 
-                    <div className="my-4 mx-4 border-t border-slate-200/80 dark:border-slate-800/50" />
-
                     {/* Quick actions */}
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col border-b-[3px] border-[var(--border)] bg-[var(--card)]">
                         <a
                             href={`/${locale}/favorites`}
                             onClick={closeMenu}
-                            className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-700 dark:text-slate-200 hover:bg-pink-50 dark:hover:bg-pink-900/10 hover:text-pink-600 dark:hover:text-pink-400 transition-all active:scale-[0.98]"
+                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-wider text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[#ff003c] hover:text-white transition-colors"
                         >
-                            <Heart className="w-5 h-5 text-pink-400 dark:text-pink-500" />
+                            <Heart className="w-5 h-5 flex-shrink-0" />
                             {labels.favorites}
                         </a>
 
                         <button
                             type="button"
                             onClick={toggleTheme}
-                            className="flex items-center gap-3 px-4 py-3.5 rounded-xl text-[15px] font-medium text-slate-700 dark:text-slate-200 hover:bg-amber-50 dark:hover:bg-amber-900/10 hover:text-amber-600 dark:hover:text-amber-400 transition-all w-full text-left active:scale-[0.98]"
+                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-wider text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors w-full text-left"
                         >
                             {isDark
-                                ? <Moon className="w-5 h-5 text-indigo-400" />
-                                : <Sun className="w-5 h-5 text-amber-500" />
+                                ? <Moon className="w-5 h-5 flex-shrink-0" />
+                                : <Sun className="w-5 h-5 flex-shrink-0" />
                             }
-                            <span>{isDark ? 'Dark Mode' : 'Light Mode'}</span>
+                            <span>{isDark ? 'DARK CORE' : 'LIGHT TERMINAL'}</span>
                         </button>
                     </div>
 
-                    <div className="my-4 mx-4 border-t border-slate-200/80 dark:border-slate-800/50" />
-
                     {/* Language Selector */}
-                    <div className="px-4">
-                        <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 mb-3 block uppercase tracking-wider">
-                            {labels.language}
+                    <div className="p-6 bg-[var(--background)] flex-1">
+                        <span className="text-xs font-black text-[var(--muted-foreground)] mb-4 block uppercase tracking-widest font-mono">
+                            // {labels.language}
                         </span>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div className="grid grid-cols-2 gap-3">
                             {Object.entries(localeNames).map(([code, name]) => (
                                 <button
                                     key={code}
                                     type="button"
                                     onClick={() => switchLanguage(code)}
-                                    className={`text-left px-3 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-[0.97] ${code === locale
-                                        ? 'bg-cyan-50 dark:bg-cyan-950/30 text-cyan-700 dark:text-cyan-400 border border-cyan-200 dark:border-cyan-800 shadow-sm'
-                                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent'
+                                    className={`text-left px-4 py-3 text-sm font-black uppercase border-2 transition-all ${code === locale
+                                        ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
+                                        : 'bg-[var(--card)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)]'
                                         }`}
                                 >
                                     {name}
@@ -227,30 +223,30 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 <div className="relative hidden md:block" ref={langDropdownRef}>
                     <button
                         onClick={() => setIsLangOpen(!isLangOpen)}
-                        className="p-2 rounded-lg text-slate-500 hover:text-cyan-600 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-1 font-medium text-sm"
+                        className="px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-black uppercase text-sm tracking-wide"
                         aria-label={labels.switchLanguage}
                         aria-expanded={isLangOpen}
                     >
                         <Globe className="w-4 h-4" />
                         <span className="hidden md:inline">{localeNames[locale] || locale}</span>
-                        <ChevronDown className={`w-3 h-3 hidden md:inline transition-transform ${isLangOpen ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 hidden md:inline transition-transform duration-100 ${isLangOpen ? 'rotate-180' : ''}`} />
                     </button>
 
                     {isLangOpen && (
-                        <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl z-50 py-1 max-h-80 overflow-y-auto">
+                        <div className="absolute right-0 top-full mt-1 w-48 bg-[var(--background)] border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] z-50 py-1 max-h-80 overflow-y-auto font-black uppercase text-sm">
                             {Object.entries(localeNames).map(([code, name]) => (
                                 <button
                                     key={code}
                                     type="button"
                                     onClick={() => switchLanguage(code)}
-                                    className={`w-full text-left px-4 py-2 text-sm transition-colors ${code === locale
-                                        ? 'bg-cyan-50 dark:bg-cyan-950 text-cyan-600 dark:text-cyan-400 font-medium'
-                                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
+                                    className={`w-full text-left px-4 py-2 flex items-center justify-between border-y border-transparent transition-colors ${code === locale
+                                        ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-y-[var(--border)]'
+                                        : 'text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-y-[var(--border)] hover:border-y-[var(--foreground)]'
                                         }`}
                                 >
                                     <span>{name}</span>
                                     {code === locale && (
-                                        <span className="ml-2 text-cyan-500">✓</span>
+                                        <span className="ml-2 font-mono">[*]</span>
                                     )}
                                 </button>
                             ))}
@@ -261,7 +257,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 {/* Favorites - Desktop */}
                 <a
                     href={`/${locale}/favorites`}
-                    className="hidden md:flex items-center justify-center p-2 rounded-lg text-slate-500 hover:text-pink-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    className="hidden md:flex items-center justify-center p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[#ff003c] text-[var(--foreground)] hover:text-white transition-colors"
                     aria-label={labels.favoritesAria}
                 >
                     <Heart className="w-5 h-5" />
@@ -270,7 +266,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 {/* Theme Toggle - Desktop */}
                 <button
                     onClick={toggleTheme}
-                    className="hidden md:block p-2 rounded-lg text-slate-500 hover:text-amber-500 hover:bg-amber-50 dark:hover:bg-indigo-950 dark:text-slate-400 dark:hover:text-amber-400 transition-colors"
+                    className="hidden md:block p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] text-[var(--foreground)] transition-colors"
                     aria-label={labels.toggleTheme}
                 >
                     {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
@@ -278,7 +274,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden p-2 text-slate-600 dark:text-slate-300"
+                    className="md:hidden p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={labels.toggleMenu}
                     aria-expanded={isMenuOpen}

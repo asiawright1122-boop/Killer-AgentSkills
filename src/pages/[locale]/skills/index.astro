@@ -186,10 +186,10 @@ const categories = [];
         <div class="flex-1 min-w-0">
           
           <!-- Page Header & Search (Integrated) -->
-          <div class="mb-10">
-             <div class="flex items-end justify-between mb-6">
+          <div class="mb-10 border-[3px] border-[var(--border)] p-8 bg-[var(--background)] shadow-[8px_8px_0px_0px_var(--border)]">
+             <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
                 <div>
-                   <h1 class="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+                   <h1 class="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase mb-3">
                      {query 
                         ? t('Marketplace.browsing') 
                         : category 
@@ -204,44 +204,44 @@ const categories = [];
                                             ? t('Sidebar.views.latest')
                                             : t('Common.explore')}
                    </h1>
-                   <p class="text-slate-500 dark:text-slate-400">
+                   <p class="text-[var(--muted-foreground)] font-mono text-lg font-bold">
                      {t('Metadata.Skills.description')}
                    </p>
                 </div>
-                <div class="hidden md:block text-right">
-                   <div class="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                <div class="hidden md:block text-right bg-[var(--foreground)] text-[var(--background)] p-4 border-2 border-[var(--border)]">
+                   <div class="text-4xl font-black flex items-baseline justify-end gap-1">
                      {skills.length}
+                     <span class="text-sm text-[var(--primary)] blink">_</span>
                    </div>
-                   <div class="text-xs font-medium text-slate-400 uppercase tracking-wider">{t('Marketplace.availableSkills')}</div>
+                   <div class="text-xs font-bold text-[var(--background)] opacity-80 uppercase tracking-widest">{t('Marketplace.availableSkills')}</div>
                 </div>
              </div>
 
              <!-- Pro Search Bar -->
-             <form method="get" action={`/${locale}/skills`} class="relative group">
-                <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl opacity-20 group-hover:opacity-40 transition duration-500 blur"></div>
-                <div class="relative flex items-center bg-white dark:bg-slate-900 rounded-xl p-2 shadow-xl ring-1 ring-slate-900/5 dark:ring-white/10">
-                   <div class="pl-4 text-slate-400">
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+             <form method="get" action={`/${locale}/skills`} class="relative group mt-4">
+                <div class="relative flex items-center bg-[var(--background)] border-4 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] focus-within:translate-x-[-2px] focus-within:translate-y-[-2px] focus-within:shadow-[6px_6px_0px_0px_var(--primary)] transition-all">
+                   <div class="pl-4 text-[var(--foreground)]">
+                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="square" stroke-linejoin="miter" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                    </div>
                    <input
                      type="text"
                      name="q"
                      value={query}
                      placeholder={t('Common.searchPlaceholder')}
-                     class="flex-1 bg-transparent border-none focus:ring-0 text-slate-900 dark:text-white placeholder:text-slate-500 h-10 px-4 text-lg"
+                     class="flex-1 bg-transparent border-none focus:ring-0 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] h-14 px-4 text-xl font-bold font-mono tracking-tight uppercase"
                    />
-                   <button type="submit" class="bg-slate-900 dark:bg-slate-800 text-white dark:text-cyan-400 px-6 py-2.5 rounded-lg font-medium hover:bg-slate-800 dark:hover:bg-slate-700 transition-colors">
+                   <button type="submit" class="bg-[var(--primary)] text-[var(--primary-foreground)] px-8 py-3.5 border-l-4 border-[var(--border)] font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-lg h-full">
                      {t('Common.search')}
                    </button>
                 </div>
              </form>
 
              <!-- Hot Tags (Static for now, matching design) -->
-             <div class="mt-4 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 overflow-x-auto pb-2">
-                <span class="shrink-0">{t('Marketplace.popular')}:</span>
+             <div class="mt-6 flex items-center gap-3 text-sm font-mono font-bold text-[var(--foreground)] uppercase overflow-x-auto pb-2">
+                <span class="shrink-0 text-[var(--muted-foreground)]">// {t('Marketplace.popular')}:</span>
                 {['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map(tag => (
-                   <a href={`/${locale}/skills?q=${tag}`} class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-cyan-50 dark:hover:bg-cyan-900/30 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors whitespace-nowrap">
-                      {tag}
+                   <a href={`/${locale}/skills?q=${tag}`} class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap">
+                      [{tag}]
                    </a>
                 ))}
              </div>
@@ -266,22 +266,22 @@ const categories = [];
                 /* Standard Skill Grid */
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedSkills.map(skill => (
-                    <div class="bg-white/50 dark:bg-slate-900/50 rounded-2xl p-4 sm:p-0 sm:bg-transparent sm:dark:bg-transparent h-full">
+                    <div class="h-full">
                       <SkillCard skill={skill} locale={locale} t={t} />
                     </div>
                   ))}
                 </div>
             )
           ) : (
-            <div class="text-center py-24 bg-white dark:bg-slate-900/50 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800">
-              <div class="w-20 h-20 mx-auto bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-4xl mb-6">
+            <div class="text-center py-24 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="w-20 h-20 mx-auto bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-4xl mb-6 shadow-[4px_4px_0px_0px_var(--border)] text-white">
                  🔍
               </div>
-              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{t('Marketplace.noSkills')}</h3>
-              <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto mb-8">{t('Marketplace.noSkillsHint')}</p>
+              <h3 class="text-3xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">{t('Marketplace.noSkills')}</h3>
+              <p class="text-[var(--muted-foreground)] font-mono max-w-md mx-auto mb-8 font-bold">{t('Marketplace.noSkillsHint')}</p>
               <a
                 href={`/${locale}/skills`}
-                class="inline-flex items-center px-6 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-xl transition-colors font-medium shadow-lg shadow-cyan-500/20"
+                class="inline-block px-8 py-4 bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-black uppercase tracking-widest transition-colors shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
               >
                 {t('Marketplace.viewAll')}
               </a>
@@ -290,11 +290,11 @@ const categories = [];
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div class="mt-8 flex items-center justify-center gap-2 flex-wrap">
+            <div class="mt-12 flex items-center justify-center gap-3 flex-wrap">
               {currentPage > 1 && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
-                  class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
                 >
                   {t('Common.prev')}
                 </a>
@@ -302,17 +302,17 @@ const categories = [];
               
               <a
                 href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: '1' }).toString()}`}
-                class={currentPage === 1 ? "px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium" : "px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"}
+                class={currentPage === 1 ? "px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"}
               >
                 1
               </a>
 
-              {currentPage > 3 && <span class="px-2 text-slate-400">...</span>}
+              {currentPage > 3 && <span class="px-2 font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)]">...</span>}
 
               {currentPage > 2 && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
-                  class="px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
                 >
                   {currentPage - 1}
                 </a>
@@ -321,7 +321,7 @@ const categories = [];
               {currentPage !== 1 && currentPage !== totalPages && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage) }).toString()}`}
-                  class="px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium"
+                  class="px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]"
                 >
                   {currentPage}
                 </a>
@@ -330,18 +330,18 @@ const categories = [];
               {currentPage < totalPages - 1 && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
-                  class="px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
                 >
                   {currentPage + 1}
                 </a>
               )}
 
-              {currentPage < totalPages - 2 && <span class="px-2 text-slate-400">...</span>}
+              {currentPage < totalPages - 2 && <span class="px-2 font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)]">...</span>}
 
               {totalPages > 1 && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(totalPages) }).toString()}`}
-                  class={currentPage === totalPages ? "px-3 py-2 rounded-lg text-sm bg-cyan-600 text-white font-medium" : "px-3 py-2 rounded-lg text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"}
+                  class={currentPage === totalPages ? "px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"}
                 >
                   {totalPages}
                 </a>
@@ -350,7 +350,7 @@ const categories = [];
               {currentPage < totalPages && (
                 <a
                   href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
-                  class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors text-sm"
+                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
                 >
                   {t('Common.next')}
                 </a>
@@ -358,6 +358,7 @@ const categories = [];
             </div>
           )}
         </div>
+
 
       </div>
     </div>

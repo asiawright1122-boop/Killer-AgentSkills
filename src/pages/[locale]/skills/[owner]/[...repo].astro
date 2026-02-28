@@ -329,23 +329,23 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
 
 
       {/* Header Section */}
-      <div class="relative pt-2 pb-8 md:pb-12 border-b border-gray-200 dark:border-white/5 mb-8 md:mb-12">
+      <div class="relative pt-2 pb-8 md:pb-12 border-b-4 border-[var(--border)] mb-8 md:mb-12">
 
           {/* Info */}
           <div class="w-full">
               <div class="flex items-start justify-between gap-4 mb-3 md:mb-4 flex-wrap relative">
                   <div class="flex items-center gap-3 md:gap-4 flex-wrap w-full md:w-auto">
-                      <h1 class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:via-gray-200 dark:to-gray-400 tracking-tight break-words w-full md:w-auto">
+                      <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto">
                           {skill.name || repo}
                       </h1>
-                      <div class="flex items-center gap-2 mt-1 md:mt-0">
+                      <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
                           {isVerified && (
-                              <div class="px-2 py-0.5 md:px-2.5 md:py-0.5 rounded-full bg-green-100 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20 text-green-700 dark:text-green-400 text-[10px] md:text-[11px] font-bold uppercase tracking-wider flex items-center gap-1 shadow-sm dark:shadow-[0_0_10px_rgba(74,222,128,0.1)]">
-                                  <CheckCircle2 size={12} strokeWidth={3} class="w-3 h-3" />
+                              <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
+                                  <CheckCircle2 size={14} strokeWidth={3} class="w-3.5 h-3.5" />
                                   Verified
                               </div>
                           )}
-                          <span class="px-2.5 py-0.5 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-600 dark:text-gray-400 text-xs font-mono backdrop-blur-sm">
+                          <span class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase">
                               v{version}
                           </span>
                       </div>
@@ -353,48 +353,50 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
               </div>
 
               {/* Mobile Actions (Under Title) */}
-              <div class="flex lg:hidden items-center gap-2 mb-6 flex-wrap w-full mt-2">
-                   <SkillActions
-                      client:visible
-                      skillId={`${owner}/${repo}`}
-                      skillName={skill.name || repo}
-                      owner={owner}
-                      repo={repo}
-                      description={description || ''}
-                      locale={locale}
-                      labels={{
-                          addToFavorites: t('Aria.addToFavorites'),
-                          removeFromFavorites: t('Aria.removeFromFavorites'),
-                          shareSkill: t('Aria.shareSkill')
-                      }}
-                      variant="button"
-                  />
+              <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
+                   <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
+                     <SkillActions
+                        client:visible
+                        skillId={`${owner}/${repo}`}
+                        skillName={skill.name || repo}
+                        owner={owner}
+                        repo={repo}
+                        description={description || ''}
+                        locale={locale}
+                        labels={{
+                            addToFavorites: t('Aria.addToFavorites'),
+                            removeFromFavorites: t('Aria.removeFromFavorites'),
+                            shareSkill: t('Aria.shareSkill')
+                        }}
+                        variant="button"
+                     />
+                   </div>
                    <a
                       href={githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-xs sm:text-sm font-medium"
+                      class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
                   >
-                      <Github size={14} className="text-current" />
+                      <Github size={16} className="text-current" />
                       <span>GitHub</span>
                   </a>
               </div>
 
-              <div class="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 mt-4 lg:mt-0">
+              <div class="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 mt-6">
                   <div class="flex-1 w-full min-w-0">
                       <h2 class="sr-only">{t('Detail.about')}</h2>
-                      <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mb-6 font-light break-words">
+                      <p class="text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words uppercase">
                           {description || t('Skills.noResults')}
                       </p>
 
                       {/* AI Features */}
                       {features.length > 0 && (
-                        <section>
+                        <section class="mb-10">
                             <h2 class="sr-only">{t('Detail.features')}</h2>
-                            <div class="flex flex-wrap gap-x-6 gap-y-3 mb-8">
+                            <div class="flex flex-wrap gap-3">
                             {features.map((feature: string) => (
-                                <div class="flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100/50 dark:bg-white/5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-white/5">
-                                    <Zap size={14} class="text-amber-500 fill-amber-500/20" />
+                                <div class="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--foreground)] bg-[var(--primary)] px-3 py-2 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                                    <Zap size={14} strokeWidth={3} />
                                     {feature}
                                 </div>
                             ))}
@@ -402,47 +404,49 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                         </section>
                       )}
 
-                      <div class="flex items-center flex-wrap gap-y-3 gap-x-4 md:gap-6 text-sm text-gray-500 dark:text-gray-500 pt-4 md:pt-2 w-full max-w-3xl border-t border-gray-200 dark:border-white/5 mt-6">
-                          <div class="flex items-center gap-2.5 group cursor-pointer">
-                              <img src={`https://github.com/${owner}.png`} alt={owner} width="24" height="24" class="w-6 h-6 rounded-full ring-2 ring-white dark:ring-[#050505] group-hover:ring-cyan-500/50 transition-all" loading="lazy" />
-                              <span class="text-gray-600 dark:text-gray-300 font-medium group-hover:text-black dark:group-hover:text-white transition-colors">{owner}</span>
+                      <div class="flex items-center flex-wrap gap-y-4 gap-x-6 text-sm font-black uppercase tracking-wider font-mono text-[var(--foreground)] pt-6 w-full max-w-4xl border-t-4 border-[var(--border)]">
+                          <div class="flex items-center gap-3 group cursor-pointer">
+                              <img src={`https://github.com/${owner}.png`} alt={owner} width="28" height="28" class="w-8 h-8 rounded-none border-2 border-[var(--border)] group-hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all grayscale group-hover:grayscale-0" loading="lazy" />
+                              <span class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-1 transition-colors">{owner}</span>
                           </div>
-                          <div class="w-px h-4 bg-gray-300 dark:bg-white/10"></div>
-                          <div class="flex items-center gap-2 group cursor-help" title="Stars">
-                              <Star size={16} className="text-yellow-500 group-hover:fill-yellow-500 transition-all" />
-                              <span class="text-gray-600 dark:text-gray-300 group-hover:text-black dark:group-hover:text-white transition-colors">{starsDisplay}</span>
+                          <div class="w-1 h-6 bg-[var(--border)]"></div>
+                          <div class="flex items-center gap-2 group cursor-help">
+                              <Star size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">[{starsDisplay}]</span>
                           </div>
-                          <div class="flex items-center gap-2 group cursor-help" title="Forks">
-                              <GitFork size={16} class="group-hover:text-purple-500 dark:group-hover:text-purple-400 transition-colors" />
-                              <span class="group-hover:text-purple-700 dark:group-hover:text-purple-100 transition-colors">{skill.forks || 0}</span>
+                          <div class="flex items-center gap-2 group cursor-help">
+                              <GitFork size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">[{skill.forks || 0}]</span>
                           </div>
-                          <div class="flex items-center gap-2 group cursor-help" title="Last Updated">
-                              <Calendar size={16} class="group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors" />
-                              <span class="group-hover:text-cyan-700 dark:group-hover:text-cyan-100 transition-colors">Updated {new Date(skill.updatedAt).toLocaleDateString()}</span>
+                          <div class="flex items-center gap-2 group cursor-help">
+                              <Calendar size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">Updated: {new Date(skill.updatedAt).toLocaleDateString()}</span>
                           </div>
                       </div>
                   </div>
                   
                   {/* Actions Column - Hidden on mobile, shown on lg screens */}
-                  <div class="hidden lg:flex items-center gap-3 shrink-0 self-start md:self-center mt-4 lg:mt-0">
-                       <SkillActions
-                          client:visible
-                          skillId={`${owner}/${repo}`}
-                          skillName={skill.name || repo}
-                          owner={owner}
-                          repo={repo}
-                          description={description || ''}
-                          locale={locale}
-                          variant="button"
-                      />
+                  <div class="hidden lg:flex items-center gap-4 shrink-0 self-start mt-4 lg:mt-0">
+                       <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all">
+                         <SkillActions
+                            client:visible
+                            skillId={`${owner}/${repo}`}
+                            skillName={skill.name || repo}
+                            owner={owner}
+                            repo={repo}
+                            description={description || ''}
+                            locale={locale}
+                            variant="button"
+                         />
+                       </div>
                        <a
                           href={githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="group flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 backdrop-blur-md transition-all text-gray-700 dark:text-gray-300 text-sm font-medium hover:border-purple-200 dark:hover:border-white/20 hover:shadow-lg hover:shadow-purple-500/10"
+                          class="group flex items-center gap-3 px-6 py-3 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
                       >
-                          <Github size={16} className="group-hover:text-black dark:group-hover:text-white transition-colors" />
-                          <span class="group-hover:text-black dark:group-hover:text-white transition-colors">GitHub</span>
+                          <Github size={18} strokeWidth={3} className="text-current" />
+                          <span>GitHub</span>
                       </a>
                   </div>
               </div>
@@ -456,83 +460,67 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         <div class="space-y-8">
             
              {/* Quality Score */}
-             <div class="rounded-2xl bg-white dark:bg-[#0e0e0e] border border-gray-200 dark:border-white/10 p-5 shadow-lg dark:shadow-2xl relative overflow-hidden group">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-green-500/10 blur-[50px] rounded-full pointer-events-none group-hover:bg-green-500/20 transition-all duration-500"></div>
+             <div class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
                 
-                <div class="flex items-center justify-between mb-4 relative z-10">
-                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider">{t('Detail.qualityScore')}</h3>
-                    <div class="px-2 py-0.5 bg-green-100 dark:bg-green-900/20 border border-green-200 dark:border-green-500/20 rounded-full text-green-700 dark:text-green-400 text-xs font-bold">
+                <div class="flex items-center justify-between mb-6 relative z-10">
+                    <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
+                        <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
+                        {t('Detail.qualityScore')}
+                    </h3>
+                    <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
                         Top 5%
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-4 border-t border-gray-100 dark:border-white/5 pt-4">
-                    <div class="relative w-16 h-16 shrink-0">
-                        <svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                            {/* Background Circle */}
-                            <path
-                                class="text-gray-100 dark:text-white/5"
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="3"
-                            />
-                            {/* Progress Circle */}
-                            <path
-                                class="text-green-500 dark:text-green-400 drop-shadow-[0_0_4px_rgba(74,222,128,0.5)]"
-                                stroke-dasharray={`${skill.qualityScore || 85}, 100`}
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="3"
-                                stroke-linecap="round"
-                            />
-                        </svg>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <span class="text-sm font-bold text-gray-900 dark:text-white">{skill.qualityScore || 85}</span>
+                <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
+                    <div class="relative w-20 h-20 shrink-0">
+                        <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3"></div>
+                        <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0"></div>
+                        <div class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]">
+                            <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
                         </div>
                     </div>
                     <div>
-                        <div class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">{t('Detail.excellent')}</div>
-                        <div class="text-xs text-gray-500 dark:text-gray-400">{t('Detail.qualityDesc')}</div>
+                        <div class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tight mb-1">{t('Detail.excellent')}</div>
+                        <div class="text-sm font-bold font-mono text-[var(--muted-foreground)] uppercase">{t('Detail.qualityDesc')}</div>
                     </div>
                 </div>
              </div>
 
              {/* Install Card */}
-             <div class="rounded-2xl bg-white dark:bg-[#1e1e1e] border border-gray-200 dark:border-gray-800 shadow-xl dark:shadow-2xl overflow-hidden group transition-colors duration-300">
-                 <div class="bg-gray-50 dark:bg-white/5 px-4 py-3 flex items-center justify-between border-b border-gray-200 dark:border-white/5 transition-colors duration-300">
-                     <div class="flex items-center gap-2">
-                        <Terminal size={14} class="text-gray-500 dark:text-gray-400" />
-                        <span class="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider">{t('Detail.installation')}</span>
+             <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
+                 <div class="bg-[var(--foreground)] text-[var(--background)] px-4 py-3 border-b-4 border-[var(--border)] flex items-center justify-between">
+                     <div class="flex items-center gap-3">
+                        <Terminal size={18} strokeWidth={3} class="text-[var(--primary)]" />
+                        <span class="text-sm font-black uppercase tracking-widest font-mono">{t('Detail.installation')}</span>
                      </div>
                  </div>
 
-                 <div class="p-4 relative">
-                    <div class="bg-gray-50 dark:bg-black/50 border border-gray-200 dark:border-white/10 rounded-xl p-4 font-mono text-sm relative overflow-hidden group/code shadow-inner transition-colors duration-300">
-                        <div class="flex items-center text-gray-400 dark:text-gray-500 select-none mb-1 justify-between">
-                             <div class="flex items-center">
-                                <ChevronRight size={14} class="text-green-500 mr-1" />
-                                <span class="text-xs font-medium text-gray-400">
+                 <div class="p-6 relative bg-[var(--background)]">
+                    <div class="border-4 border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--background)]">
+                        <div class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b-2 border-dotted border-[var(--border)] pb-2">
+                             <div class="flex items-center font-bold uppercase tracking-wider text-xs">
+                                <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">SYS</span>
+                                <span>
                                     {locale === 'zh' ? '自适应一键安装 (自动适配 IDE)' : 'Universal Install (Auto-Detect)'}
                                 </span>
                              </div>
-                             <div class="flex gap-1.5 opacity-50 grayscale hover:grayscale-0 transition-all duration-300">
-                                <img src="/icons/cursor.svg" alt="Cursor IDE" width="14" height="14" class="w-3.5 h-3.5" title="Cursor" />
-                                <img src="/icons/windsurf.svg" alt="Windsurf IDE" width="14" height="14" class="w-3.5 h-3.5" title="Windsurf" />
-                                <img src="/icons/vscode.svg" alt="VS Code IDE" width="14" height="14" class="w-3.5 h-3.5" title="VS Code" />
+                             <div class="flex gap-2 grayscale group-hover/code:grayscale-0 transition-all opacity-50 group-hover/code:opacity-100">
+                                <img src="/icons/cursor.svg" alt="Cursor IDE" width="16" height="16" class="w-4 h-4" title="Cursor" />
+                                <img src="/icons/windsurf.svg" alt="Windsurf IDE" width="16" height="16" class="w-4 h-4" title="Windsurf" />
+                                <img src="/icons/vscode.svg" alt="VS Code IDE" width="16" height="16" class="w-4 h-4" title="VS Code" />
                              </div>
                         </div>
-                         <div class="text-cyan-600 dark:text-cyan-400 break-all select-all flex items-start gap-2 font-bold group/cmd relative">
-                            <span class="text-pink-600 dark:text-pink-500 select-none">$</span>
-                            <span>{installCommand}</span>
+                         <div class="text-[var(--foreground)] break-all select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-base">
+                            <span class="text-[var(--primary)] bg-[var(--foreground)] px-2 font-black select-none">&gt;</span>
+                            <span class="tracking-widest">{installCommand}</span>
                             
                             <button
                                 id="install-copy-btn"
-                                class="absolute -right-1 -top-1 p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all opacity-0 group-hover/cmd:opacity-100"
+                                class="absolute right-0 top-0 p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--foreground)] border-2 border-[var(--foreground)] transition-all opacity-0 group-hover/cmd:opacity-100 shadow-[2px_2px_0px_0px_var(--border)] translate-x-4 -translate-y-4"
                                 data-command={installCommand}
                             >
-                                <Copy size={14} />
+                                <Copy size={16} strokeWidth={3} />
                             </button>
                         </div>
                     </div>
@@ -544,52 +532,53 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         {/* Right: Agent Analysis */}
         <div class="min-w-0">
           {skill.agentAnalysis && (
-            <div class="rounded-2xl bg-gradient-to-br from-purple-500/5 to-cyan-500/5 border border-purple-200/20 dark:border-purple-500/20 p-6 relative overflow-hidden">
-                {/* Background Accents */}
-                <div class="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+            <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-white dark:bg-[#0a0a0a] p-6 relative overflow-hidden">
+                {/* Background Pattern */}
+                <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: var(--background-pattern)"></div>
 
                 <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-4">
-                        <div class="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300">
-                            <Bot size={24} />
+                    <div class="flex items-center gap-3 mb-6 border-b-4 border-[var(--border)] pb-4">
+                        <div class="p-2 bg-[var(--primary)] text-[var(--foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                            <Bot size={28} strokeWidth={3} />
                         </div>
-                        <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
                             {t('Detail.agentAnalysis') || 'Agent Compatibility Analysis'}
                         </h2>
                     </div>
 
-                    <div class="space-y-4">
+                    <div class="space-y-6">
                         {localizedSuitability && (
-                        <div>
-                            <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+                        <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
+                            <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
                                 {t('Detail.suitability') || 'Suitability'}
                             </h3>
-                            <p class="text-gray-800 dark:text-gray-200 font-medium leading-relaxed">
+                            <p class="text-[var(--foreground)] font-bold leading-relaxed">
                                 {localizedSuitability}
                             </p>
                         </div>
                         )}
 
                         {localizedRecommendation && (
-                        <div>
-                             <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+                        <div class="border-l-4 border-purple-500 pl-4 py-1">
+                             <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
                                 {t('Detail.recommendation') || 'Recommendation'}
                             </h3>
-                            <p class="text-gray-700 dark:text-gray-200 leading-relaxed font-medium">
+                            <p class="text-[var(--foreground)] leading-relaxed font-bold">
                                 {localizedRecommendation}
                             </p>
                         </div>
                         )}
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
                             {localizedUseCases.length > 0 && (
                             <div>
-                                <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                                <h3 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
+                                     <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
                                      {t('Detail.useCases') || 'Use Cases'}
                                 </h3>
                                 <div class="flex flex-wrap gap-2">
                                     {localizedUseCases.map((useCase: string) => (
-                                        <div class="px-2.5 py-1 rounded-md bg-white dark:bg-white/10 border border-gray-200 dark:border-white/5 text-sm text-gray-700 dark:text-gray-300 shadow-sm">
+                                        <div class="px-3 py-1.5 bg-[var(--background)] border-2 border-[var(--border)] text-sm font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
                                             {useCase}
                                         </div>
                                     ))}
@@ -599,13 +588,13 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
 
                             {localizedLimitations.length > 0 && (
                                 <div>
-                                    <h3 class="text-xs font-bold text-amber-500 uppercase tracking-wider mb-2">
+                                    <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
+                                         <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
                                          {t('Detail.limitations') || 'Limitations'}
                                     </h3>
-                                    <ul class="space-y-1">
+                                    <ul class="space-y-2">
                                         {localizedLimitations.map((limitation: string) => (
-                                            <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                                <AlertTriangle size={14} class="mt-0.5 text-amber-500 shrink-0" />
+                                            <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
                                                 <span>{limitation}</span>
                                             </li>
                                         ))}
@@ -620,14 +609,14 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         </div>
       </div>
 
-      {/* Bottom Row: File Manager | SKILL.md Preview — perfectly aligned */}
-      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start">
+      {/* Bottom Row: File Manager | SKILL.md Preview */}
+      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mt-8">
         
         {/* Left: File Manager + Tags */}
         <div class="space-y-8 lg:sticky lg:top-8">
 
              {/* File Manager */}
-            <div>
+            <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
                  <SkillFileManager
                     client:load
                     files={files}
@@ -641,14 +630,17 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
 
              {/* Tags */}
              <div>
-                <h3 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 ml-1">{t('Detail.tags')}</h3>
+                <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
+                    <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
+                    {t('Detail.tags')}
+                </h3>
                 <div class="flex flex-wrap gap-2">
                     {topics.length > 0 ? topics.map((topic: string) => (
-                        <a href={`/${locale}/skills?topic=${topic}`} class="px-3 py-1.5 bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 border border-gray-200 dark:border-white/5 hover:border-gray-300 dark:hover:border-white/10 rounded-full text-xs text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-all hover:scale-105">
-                            #{topic}
+                        <a href={`/${locale}/skills?topic=${topic}`} class="px-3 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all uppercase">
+                            [{topic}]
                         </a>
                     )) : (
-                        <span class="text-xs text-gray-600 italic">{t('Detail.noTags')}</span>
+                        <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold uppercase">[{t('Detail.noTags')}]</span>
                     )}
                 </div>
              </div>
@@ -656,7 +648,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         </div>
 
         {/* Right: SKILL.md Preview */}
-        <div class="min-w-0">
+        <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1">
             <SkillReadme
                 client:load
                 initialContent={readmeContent}
@@ -684,23 +676,26 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
       </div>
     </main>
 
-    {/* Related Skills Section (SEO Phase 3) */}
+    {/* Related Skills Section */}
     {relatedSkills.length > 0 && (
-      <section class="border-t border-gray-200 dark:border-white/5 bg-white/50 dark:bg-black/20 backdrop-blur-sm py-16">
-        <div class="max-w-[1400px] mx-auto px-6">
-          <div class="flex items-center justify-between mb-8">
-             <h2 class="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                <Layers class="text-purple-500" />
+      <section class="border-t-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] py-16 relative overflow-hidden">
+        {/* Decorative Grid SVG on Dark Background */}
+        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(var(--background) 1px, transparent 1px); background-size: 24px 24px;"></div>
+        
+        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+          <div class="flex items-center justify-between mb-10 pb-4 border-b-4 border-[var(--background)]">
+             <h2 class="text-3xl font-black text-[var(--background)] flex items-center gap-3 uppercase tracking-tight">
+                <Layers class="text-[var(--primary)]" strokeWidth={3} />
                 {t('Detail.relatedSkills') || 'Related Skills'}
              </h2>
-             <a href={`/${locale}/skills`} class="text-sm font-medium text-gray-500 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1">
-                {t('Common.viewAll')} <ChevronRight size={14} />
+             <a href={`/${locale}/skills`} class="text-sm font-black text-[var(--background)] hover:text-[var(--primary)] hover:translate-x-1 transition-all flex items-center gap-2 uppercase tracking-widest">
+                {t('Common.viewAll')} <ChevronRight size={18} strokeWidth={3} />
              </a>
           </div>
           
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {relatedSkills.map(skill => (
-              <div class="h-full">
+              <div class="h-full transform hover:scale-[1.02] transition-transform">
                 <SkillCard skill={skill} locale={locale} t={t} />
               </div>
             ))}

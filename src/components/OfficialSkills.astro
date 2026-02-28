@@ -30,21 +30,19 @@ const sortedOwners = await getOfficialSkillCounts(env, officialRepoOwners, 6);
 <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
   <div class="flex items-center justify-between mb-12">
     <div>
-      <div class="flex items-center gap-3 mb-2">
-        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{t('OfficialSkills.title')}</h2>
-        <span class="px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 text-xs font-bold uppercase tracking-wide border border-cyan-200 dark:border-cyan-800">
-          {t('OfficialSkills.verified')}
+      <div class="flex items-center gap-4 mb-3">
+        <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight">{t('OfficialSkills.title')}</h2>
+        <span class="px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-black text-[10px] uppercase tracking-widest">
+          [ {t('OfficialSkills.verified')} ]
         </span>
       </div>
-      <p class="text-slate-500 dark:text-slate-400 text-lg">
+      <p class="text-[var(--muted-foreground)] font-mono text-sm max-w-xl">
         {t('OfficialSkills.subtitle')}
       </p>
     </div>
-    <a href={`/${locale}/skills?view=official`} class="group flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium hover:bg-cyan-50 dark:hover:bg-cyan-900/20 hover:text-cyan-700 dark:hover:text-cyan-300 transition-all">
+    <a href={`/${locale}/skills?view=official`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
       {t('Common.viewAll')}
-      <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-      </svg>
+      <span class="font-mono ml-2">→</span>
     </a>
   </div>
 
