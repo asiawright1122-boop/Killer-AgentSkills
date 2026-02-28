@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { CATEGORY_GROUPS } from '../../../lib/search';
 
 export const prerender = false;
 
@@ -44,10 +45,27 @@ export const POST: APIRoute = async ({ locals }) => {
 
     const batches = [];
     for (const skill of skills) {
+      // ⚡ Smart Categorization: Infer category from text if missing or 'community'
+      let assignedCategory = skill.category;
+      if (!assignedCategory || assignedCategory.toLowerCase() === 'community') {
+        const textToSearch = (
+          skill.name + " " +
+          JSON.stringify(skill.description || {}) + " " +
+          (skill.topics || []).join(" ")
+        ).toLowerCase();
+
+        for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+          if (keywords.some(k => textToSearch.includes(k.toLowerCase()))) {
+            assignedCategory = groupName;
+            break;
+          }
+        }
+      }
+
       batches.push(
         stmt.bind(
           skill.id || `${skill.owner}/${skill.repo}`,
-          skill.category || 'community',
+          assignedCategory || 'community',
           skill.owner || '',
           skill.repo || '',
           skill.repoPath || '',

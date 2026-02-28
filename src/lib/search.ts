@@ -134,11 +134,11 @@ export const CATEGORY_GROUPS: Record<string, string[]> = {
   // Specific domains first
   finance: [
     'finance', 'money', 'stock', 'crypto', 'currency', 'market',
-    'invest', 'bank', 'economy', 'price'
+    'invest', 'bank', 'economy', 'price', 'defi', 'trading', 'wallet'
   ],
   data: [
     'data', 'analytics', 'database', 'sql', 'visualization', 'chart',
-    'scrape', 'crawling', 'etl', 'pipeline', 'bi'
+    'scrape', 'crawling', 'etl', 'pipeline', 'bi', 'postgres', 'mysql', 'mongodb', 'redis'
   ],
   browser: [
     'browser', 'web', 'scraping', 'pupeteer', 'selenium', 'playwright',
@@ -146,18 +146,23 @@ export const CATEGORY_GROUPS: Record<string, string[]> = {
   ],
   productivity: [
     'productivity', 'workflow', 'automation', 'utility', 'tool',
-    'manager', 'organize', 'time', 'calendar', 'email'
+    'manager', 'organize', 'time', 'calendar', 'email', 'notion', 'slack', 'schedule', 'task'
   ],
-  design: ['design', 'ui', 'ux', 'frontend', 'css', 'style', 'art', 'creative', 'image'],
+  design: ['design', 'ui', 'ux', 'frontend', 'css', 'style', 'art', 'creative', 'image', 'figma', 'tailwind'],
+
+  // New Domains
+  devops: ['devops', 'cloud', 'kubernetes', 'docker', 'aws', 'azure', 'gcp', 'deploy', 'ci/cd', 'server', 'linux', 'hosting', 'cloudflare'],
+  security: ['security', 'auth', 'authentication', 'authorization', 'privacy', 'encryption', 'oauth', 'password', 'jwt'],
+  communication: ['communication', 'chat', "message", 'discord', 'telegram', 'whatsapp', 'sms', 'social'],
 
   // Generic / Fallback domains
-  ai: ['ai', 'machine-learning', 'nlp', 'llm', 'gpt', 'agent', 'agents'],
+  ai: ['ai', 'machine-learning', 'nlp', 'llm', 'gpt', 'agent', 'agents', 'openai', 'anthropic', 'claude', 'gemini', 'llama', 'prompt', 'rag'],
   developer: [
     'development', 'coding', 'programming', 'git', 'github', 'api',
     'sdk', 'cli', 'framework', 'library', 'language', 'test', 'debug',
-    'code-review', 'ide', 'mcp'
+    'code-review', 'ide', 'mcp', 'typescript', 'python', 'javascript', 'react', 'node', 'rust', 'go', 'ruby'
   ],
-  documentation: ['documentation', 'markdown', 'docs'],
+  documentation: ['documentation', 'markdown', 'docs', 'readme', 'pdf'],
 };
 
 export function filterByCategory(
