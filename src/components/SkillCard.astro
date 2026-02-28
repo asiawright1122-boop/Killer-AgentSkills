@@ -182,12 +182,28 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
         }
 
         let displayLabel = displayCat.charAt(0).toUpperCase() + displayCat.slice(1).replace(/-/g, ' ');
-        
-        // Handle acronyms
-        if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
-        if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
-        if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
-        if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+
+        // Attempt category translation
+        if (t) {
+             const transKey = `Sidebar.categories.${displayCat.toLowerCase()}`;
+             const translated = t(transKey);
+             // Our t fallback returns the key itself if no match
+             if (translated !== transKey) {
+                  displayLabel = translated;
+             } else {
+                  // Fallback handle known acronyms if translation missing
+                  if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
+                  if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
+                  if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
+                  if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+             }
+        } else {
+             // Fallback handle acronyms
+             if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
+             if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
+             if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
+             if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+        }
 
         const categoryLink = matchedCategory ? `/${locale}/skills?category=${matchedCategory}` : null;
 
