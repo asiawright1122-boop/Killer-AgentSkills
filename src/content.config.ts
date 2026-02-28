@@ -65,17 +65,34 @@ const skillsLoader = {
                     // Determine ID (owner/repo)
                     const id = skill.skillId || `${skill.owner}/${skill.repo}`;
 
-                    // Strip large fields to reduce worker bundle size.
-                    const slimSkill = { ...skill };
-                    if (slimSkill.skillMd) {
-                        slimSkill.skillMd = { ...slimSkill.skillMd };
-                        delete slimSkill.skillMd.body;
+                    // ⚡ AGGRESSIVELY strip to listing-only fields (~500 bytes vs ~30KB)
+                    // Detail pages use D1 getSkillById() for full data
+                    const listingSkill: Record<string, any> = {
+                        name: skill.name || skill.skillName || skill.repo,
+                        skillName: skill.skillName || skill.name || '',
+                        owner: skill.owner,
+                        repo: skill.repo,
+                        repoPath: skill.repoPath,
+                        description: skill.description,
+                        category: skill.category || '',
+                        topics: skill.topics || [],
+                        stars: skill.stars || 0,
+                        forks: skill.forks || 0,
+                        source: skill.source || 'cache',
+                        updatedAt: skill.updatedAt || '',
+                        qualityScore: skill.qualityScore || 0,
+                        filePath: skill.filePath || '',
+                    };
+
+                    // Only keep SEO definition for localized card descriptions
+                    if (skill.seo?.definition) {
+                        listingSkill.seo = { definition: skill.seo.definition };
                     }
 
                     store.set({
                         id,
-                        data: slimSkill,
-                        rendered: { html: "" } // No markdown content yet
+                        data: listingSkill,
+                        rendered: { html: "" }
                     });
                 } catch (err) {
                     console.error(`[ERROR] Failed to process skill: ${JSON.stringify(skill).substring(0, 100)}...`, err);

@@ -4,11 +4,10 @@ import SkillCard from '../../../components/SkillCard.astro';
 import CollectionCard from '../../../components/CollectionCard.astro';
 import SkillsSidebar from '../../../components/SkillsSidebar.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
-import { getSkillsListing } from '../../../lib/kv';
+import { getCollection } from 'astro:content';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
 import type { UnifiedSkill } from '../../../lib/skills';
-import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
 // Validate locale
@@ -19,14 +18,16 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 
-// Get env from Cloudflare runtime
-const env = (Astro.locals as any).runtime?.env as Env;
-
-// ⚡ Load skills using LIGHTWEIGHT listing query (json_extract, ~1MB vs ~56MB)
+// ⚡ Load skills from aggressively-stripped Content Collections (zero DB queries!)
 const t0 = performance.now();
-let skills = await getSkillsListing(env) as UnifiedSkill[];
+const rawCollection = await getCollection('skills');
+let skills: UnifiedSkill[] = rawCollection.map(entry => ({
+  ...(entry.data as any),
+  id: entry.id,
+})) as UnifiedSkill[];
+skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
 const t1 = performance.now();
-console.log(`[SSR Profiler] getSkillsListing: ${Math.round(t1 - t0)}ms (${skills.length} skills)`);
+console.log(`[SSR Profiler] Content Collection: ${Math.round(t1 - t0)}ms (${skills.length} skills)`);
 
 // Get URL search params for filtering
 const url = Astro.url;
