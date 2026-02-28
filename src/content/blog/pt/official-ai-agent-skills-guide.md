@@ -7,7 +7,7 @@ tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer
 lang: "pt"
 featured: false
 category: "guides"
-heroImage: "https://images.unsplash.com/photo-1655393001593-pt54aabc?q=80&w=2560&auto=format&fit=crop"
+heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
 
 # The Official AI Agent Skills You Should Be Using Right Now

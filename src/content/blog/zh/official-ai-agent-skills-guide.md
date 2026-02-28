@@ -7,7 +7,7 @@ tags: ["AI Agent Skills", "官方 Skills", "Claude Code", "Cursor", "开发者�
 lang: "zh"
 featured: false
 category: "guides"
-heroImage: "https://images.unsplash.com/photo-1655393001593-pt54aabc?q=80&w=2560&auto=format&fit=crop"
+heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
 
 # 您现在应该使用的官方 AI Agent Skills 指南
