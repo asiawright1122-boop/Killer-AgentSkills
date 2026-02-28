@@ -142,24 +142,32 @@ const features = [
     <OfficialSkills locale={locale} />
 
     <!-- Stats Section -->
-    <section class="border-y-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] py-12">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">2,500+</div>
-            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.totalSkills')}</div>
+    <section class="border-y-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)]">
+      <div class="max-w-7xl mx-auto px-0 md:px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 md:gap-px bg-[var(--border)] border-x-[3px] border-[var(--border)] md:border-none">
+          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]">
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">2,500+</div>
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+              [ {t('Stats.totalSkills')} ]
+            </div>
           </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">50k+</div>
-            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.totalDownloads')}</div>
+          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] md:border-none border-[var(--border)]">
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">50k+</div>
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+              [ {t('Stats.totalDownloads')} ]
+            </div>
           </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">120+</div>
-            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.activeCreators')}</div>
+          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-r-[3px] md:border-none border-[var(--border)]">
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">120+</div>
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+              [ {t('Stats.activeCreators')} ]
+            </div>
           </div>
-          <div>
-            <div class="text-5xl md:text-6xl font-black mb-2 tracking-tighter mix-blend-difference text-white">15+</div>
-            <div class="text-xs font-black uppercase tracking-widest font-mono text-[var(--foreground)]">{t('Stats.supportedIDEs')}</div>
+          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center">
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">15+</div>
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+              [ {t('Stats.supportedIDEs')} ]
+            </div>
           </div>
         </div>
       </div>
