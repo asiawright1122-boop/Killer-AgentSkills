@@ -68,7 +68,7 @@ async function run() {
     }
 
     const id = escapeSql(targetSkill.id);
-    const category = escapeSql(targetSkill.category || 'community');
+    const category = escapeSql(targetSkill.category || 'developer');
     const owner = escapeSql(targetSkill.owner);
     const repo = escapeSql(targetSkill.repo);
     const repo_path = escapeSql(targetSkill.repoPath || '');

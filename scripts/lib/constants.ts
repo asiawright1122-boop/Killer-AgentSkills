@@ -52,23 +52,17 @@ export const FUNCTIONAL_KEYWORDS = [
 
 // ===== Category Mapping Rules =====
 export const CATEGORY_RULES: Record<string, string[]> = {
-    'ai': ['ai', 'llm', 'machine-learning', 'gpt', 'openai', 'anthropic', 'claude', 'gemini', 'model'],
-    'development': ['development', 'dev-tools', 'debugging', 'linter', 'typescript', 'javascript', 'python', 'go', 'rust', 'backend', 'frontend'],
-    'testing': ['testing', 'test', 'jest', 'vitest', 'pytest', 'e2e', 'unit-test'],
-    'data': ['data', 'analytics', 'analysis', 'visualization', 'chart', 'pandas', 'sql'],
-    'database': ['database', 'db', 'postgres', 'mysql', 'mongodb', 'redis', 'sqlite', 'qdrant', 'vector-db'],
-    'search': ['search', 'seo', 'exa', 'google-search', 'bing'],
-    'web-scraping': ['scraping', 'crawler', 'spider', 'puppeteer', 'playwright', 'browser-use'],
-    'browser': ['browser', 'automation', 'chrome'],
-    'api': ['api', 'rest', 'graphql', 'http', 'request'],
-    'devops': ['devops', 'docker', 'kubernetes', 'aws', 'cloud', 'deploy', 'ci-cd', 'terraform', 'infrastructure'],
-    'security': ['security', 'auth', 'authentication', 'oauth', 'secret', 'vulnerability'],
-    'git': ['git', 'github', 'version-control', 'commit', 'pr'],
-    'code-review': ['code-review', 'review'],
-    'design': ['design', 'ui', 'ux', 'css', 'tailwind', 'component', 'figma', 'svg', 'image'],
-    'productivity': ['productivity', 'efficiency', 'workflow', 'automation', 'tool', 'utility', 'notion', 'obsidian'],
-    'cli': ['cli', 'terminal', 'shell', 'bash', 'zsh', 'command-line'],
-    'documentation': ['documentation', 'docs', 'markdown'],
+    'finance': ['finance', 'money', 'stock', 'crypto', 'currency', 'market', 'invest', 'bank', 'economy', 'price', 'defi', 'trading', 'wallet'],
+    'data': ['data', 'analytics', 'database', 'sql', 'visualization', 'chart', 'scrape', 'crawling', 'etl', 'pipeline', 'bi', 'postgres', 'mysql', 'mongodb', 'redis'],
+    'browser': ['browser', 'web', 'scraping', 'pupeteer', 'selenium', 'playwright', 'chrome', 'firefox', 'automation', 'crawler'],
+    'productivity': ['productivity', 'workflow', 'automation', 'utility', 'tool', 'manager', 'organize', 'time', 'calendar', 'email', 'notion', 'slack', 'schedule', 'task'],
+    'design': ['design', 'ui', 'ux', 'frontend', 'css', 'style', 'art', 'creative', 'image', 'figma', 'tailwind'],
+    'devops': ['devops', 'cloud', 'kubernetes', 'docker', 'aws', 'azure', 'gcp', 'deploy', 'ci/cd', 'server', 'linux', 'hosting', 'cloudflare'],
+    'security': ['security', 'auth', 'authentication', 'authorization', 'privacy', 'encryption', 'oauth', 'password', 'jwt'],
+    'communication': ['communication', 'chat', 'message', 'discord', 'telegram', 'whatsapp', 'sms', 'social'],
+    'ai': ['ai', 'machine-learning', 'nlp', 'llm', 'gpt', 'agent', 'agents', 'openai', 'anthropic', 'claude', 'gemini', 'llama', 'prompt', 'rag'],
+    'developer': ['development', 'coding', 'programming', 'git', 'github', 'api', 'sdk', 'cli', 'framework', 'library', 'language', 'test', 'debug', 'code-review', 'ide', 'mcp', 'typescript', 'python', 'javascript', 'react', 'node', 'rust', 'go', 'ruby'],
+    'documentation': ['documentation', 'markdown', 'docs', 'readme', 'pdf'],
 };
 
 // ===== Language Names (for translation UIs) =====

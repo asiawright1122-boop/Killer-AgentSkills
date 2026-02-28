@@ -125,13 +125,7 @@ function determineCategory(skill: SkillCache): string {
     const text = `${skill.name} ${JSON.stringify(skill.description)} ${(skill.topics || []).join(' ')}`.toLowerCase();
     const topics = new Set((skill.topics || []).map(t => t.toLowerCase()));
 
-    if (topics.has('code-review')) return 'code-review';
-    if (topics.has('testing') || topics.has('test')) return 'testing';
-    if (topics.has('design') || topics.has('ui')) return 'design';
-    if (topics.has('security')) return 'security';
-    if (topics.has('database')) return 'database';
-
-    let bestCategory = 'development';
+    let bestCategory = 'developer'; // Fallback to developer instead of development
     let maxScore = 0;
 
     for (const [category, keywords] of Object.entries(CATEGORY_RULES)) {
@@ -144,10 +138,9 @@ function determineCategory(skill: SkillCache): string {
         if (score > maxScore) { maxScore = score; bestCategory = category; }
     }
 
-    if (skill.name === 'backend-patterns') return 'development';
     if (maxScore === 0) {
         if (text.includes('agent')) return 'ai';
-        if (text.includes('code')) return 'development';
+        if (text.includes('code')) return 'developer';
     }
 
     return bestCategory;

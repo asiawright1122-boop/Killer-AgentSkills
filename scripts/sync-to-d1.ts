@@ -46,7 +46,7 @@ async function run() {
         for (const skill of items) {
             insert.run(
                 skill.id,
-                skill.category || 'community',
+                skill.category || 'developer',
                 skill.owner,
                 skill.repo,
                 skill.repoPath || '',
