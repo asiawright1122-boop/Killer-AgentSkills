@@ -29,9 +29,50 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
 }
 
 function createMockEnv(overrides: Partial<Env> = {}): Env {
+  // Extract store from SKILLS_CACHE if provided to build D1 mock
+  const skillsCache = (overrides.SKILLS_CACHE as any)?.get;
+
+  const mockDB = {
+    prepare: vi.fn((sql: string) => ({
+      bind: vi.fn((...args: any[]) => ({
+        first: vi.fn(async () => {
+          // If the test provided a KV mock with data, try to extract it
+          if (skillsCache) {
+            if (sql.includes('WHERE owner = ? AND repo = ?')) {
+              const owner = args[0];
+              const repo = args[1];
+              const str = await skillsCache(`skill:${owner}/${repo}`) || await skillsCache('all-skills');
+              if (str) {
+                const data = typeof str === 'string' ? JSON.parse(str) : str;
+                if (Array.isArray(data)) {
+                  const match = data.find(s => s.owner === owner && s.repo === repo);
+                  return match ? { data_json: JSON.stringify(match) } : null;
+                } else {
+                  return { data_json: JSON.stringify(data) };
+                }
+              }
+            }
+            if (sql.includes('WHERE id = ?')) {
+              const id = args[0];
+              // file.ts uses getSkillsKV('meta:owner/repo')
+              const str = await skillsCache(id);
+              if (str) {
+                const data = typeof str === 'string' ? JSON.parse(str) : str;
+                return { data_json: JSON.stringify(data) };
+              }
+            }
+          }
+          return null;
+        }),
+      })),
+      all: vi.fn(async () => ({ success: true, results: [] })),
+    })),
+  };
+
   return {
     TRANSLATIONS: createMockKV(),
     SKILLS_CACHE: createMockKV(),
+    DB: mockDB as unknown as D1Database,
     AI: {},
     ASSETS: {} as Fetcher,
     ...overrides,
@@ -220,8 +261,7 @@ describe('GET /api/skills/[owner]/[repo] (index.ts)', () => {
     expect(body.category).toBe('testing');
     expect(body.stars).toBe(100);
 
-    // Verify KV was accessed
-    expect(env.SKILLS_CACHE.get).toHaveBeenCalled();
+
 
     globalThis.fetch = originalFetch;
   });
@@ -377,8 +417,6 @@ describe('GET /api/skills/[owner]/[repo]/files (files.ts)', () => {
     const body = await response.json();
     expect(body.directory).toBe('.agent/skills');
 
-    // Verify KV was accessed
-    expect(env.SKILLS_CACHE.get).toHaveBeenCalledWith('all-skills', 'json');
 
     globalThis.fetch = originalFetch;
   });
@@ -565,8 +603,7 @@ describe('GET /api/skills/[owner]/[repo]/file (file.ts)', () => {
     const body = await response.json();
     expect(body.content).toBe(fileContent);
 
-    // Verify KV was accessed for metadata
-    expect(env.SKILLS_CACHE.get).toHaveBeenCalledWith('meta:test-owner/test-repo', 'json');
+
 
     globalThis.fetch = originalFetch;
   });

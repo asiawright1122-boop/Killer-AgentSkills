@@ -127,16 +127,7 @@ export async function getSkillByOwnerRepo(
   return direct ? (direct as UnifiedSkill) : null;
 }
 
-/**
- * Filter skills by category.
- */
-export async function getSkillsByCategory(
-  env: Env,
-  category: string
-): Promise<UnifiedSkill[]> {
-  const skills = await getAllSkills(env);
-  return skills.filter((s) => s.category === category);
-}
+
 
 /**
  * Get featured/top skills sorted by stars.

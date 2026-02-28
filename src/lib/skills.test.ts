@@ -2,7 +2,6 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import {
   getAllSkills,
   getSkillByOwnerRepo,
-  getSkillsByCategory,
   getFeaturedSkills,
   getLocalizedDescription,
   _resetSkillsCache,
@@ -236,21 +235,6 @@ describe('getSkillByOwnerRepo', () => {
     const env = createMockEnv(sampleSkills);
     const result = await getSkillByOwnerRepo(env, 'nonexistent', 'repo');
     expect(result).toBeNull();
-  });
-});
-
-describe('getSkillsByCategory', () => {
-  it('should filter skills by category', async () => {
-    const env = createMockEnv(sampleSkills);
-    const result = await getSkillsByCategory(env, 'ai');
-    expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Anthropic Skills');
-  });
-
-  it('should return empty array for non-matching category', async () => {
-    const env = createMockEnv(sampleSkills);
-    const result = await getSkillsByCategory(env, 'nonexistent');
-    expect(result).toEqual([]);
   });
 });
 
