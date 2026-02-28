@@ -17,7 +17,7 @@
             "slug": "installation",
             "title": "Usage & Installation",
             "section": "getting-started",
-            "content": "<h2>Option 1: Zero-Install (Recommended)</h2>\n<p>We recommend using <code>npx</code> to run Killer-Skills on demand. This ensures you always use the latest version and keeps your global namespace clean.</p>\n<pre><code>npx killer-skills <command></code></pre>\n\n<h3>Common Commands</h3>\n<pre><code># Install a skill\nnpx killer-skills install pdf-compressor\n\n# List installed skills\nnpx killer-skills list\n\n# Search for skills\nnpx killer-skills search \"image\"</code></pre>\n\n<h2>Option 2: Global Installation</h2>\n<p>If you use Killer-Skills frequently, you can install the CLI globally for convenience.</p>\n<pre><code>npm install -g killer-skills</code></pre>\n\n<h3>Verify Installation</h3>\n<pre><code>killer-skills --version</code></pre>"
+            "content": "<h2>Option 1: Zero-Install (Recommended)</h2>\n<p>We recommend using <code>npx</code> to run Killer-Skills on demand. This ensures you always use the latest version and keeps your global namespace clean.</p>\n<pre><code>npx killer-skills &lt;command&gt;</code></pre>\n\n<h3>Common Commands</h3>\n<pre><code># Install a skill<br>npx killer-skills install pdf-compressor<br><br># List installed skills<br>npx killer-skills list<br><br># Search for skills<br>npx killer-skills search \"image\"</code></pre>\n\n<h2>Option 2: Global Installation</h2>\n<p>If you use Killer-Skills frequently, you can install the CLI globally for convenience.</p>\n<pre><code>npm install -g killer-skills</code></pre>\n\n<h3>Verify Installation</h3>\n<pre><code>killer-skills --version</code></pre>"
         },
         {
             "slug": "architecture",
