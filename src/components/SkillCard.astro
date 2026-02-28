@@ -154,8 +154,8 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
             }
         }
         
-        // 3. Fallback to explicit category if it exists and isn't 'official'
-        if (!matchedCategory && skill.category && skill.category !== 'official') {
+        // 3. Fallback to explicit category if it exists and isn't a reserved source label
+        if (!matchedCategory && skill.category && !['official', 'community', 'featured'].includes(skill.category.toLowerCase())) {
              matchedCategory = skill.category;
         }
 
