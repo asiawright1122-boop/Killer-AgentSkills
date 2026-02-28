@@ -35,6 +35,7 @@ import { pluginCommand } from './commands/plugin.js';
 
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
+// @ts-ignore - CommonJS fallback
 const pkg = require('../package.json');
 
 const program = new Command();
@@ -43,7 +44,7 @@ program
     .name('killer')
     .description('Killer-Skills CLI - Install and manage Agent Skills')
     .version(pkg.version)
-    .hook('preAction', async (thisCommand, actionCommand) => {
+    .hook('preAction', async (_thisCommand, actionCommand) => {
         // Track command usage (silent)
         if (process.env.KILLER_SKILLS_TEST) return;
         await trackCommand(actionCommand.name());
