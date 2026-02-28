@@ -51,22 +51,6 @@ const typedLocale = locale as Locale;
 // Get env from Cloudflare runtime
 const env = (Astro.locals as any).runtime?.env as Env;
 
-// ⚡ CF Cache API — check if this exact URL is already cached at the edge
-const cacheUrl = new URL(Astro.request.url);
-const cacheKey = new Request(cacheUrl.toString(), { method: 'GET' });
-let edgeCache: Cache | undefined;
-try {
-  if (typeof caches !== 'undefined' && (caches as any).default) {
-    edgeCache = (caches as any).default;
-    const cachedResp = await edgeCache.match(cacheKey);
-    if (cachedResp) {
-      // HIT — return cached HTML instantly (0ms SSR)
-      console.log(`[Cache API] HIT: ${cacheUrl.pathname}`);
-      return cachedResp;
-    }
-  }
-} catch (e) { /* cache unavailable, proceed with SSR */ }
-
 // Load skill data - use full ID for sub-skills
 const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 
@@ -320,15 +304,6 @@ const version = skill.skillMd?.version || '1.0.0';
 // ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
 // But it's a targeted D1 query (4 rows × ~200 bytes) — very fast
 const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
-
-// ⚡ Store response in CF Cache API for instant future hits
-if (edgeCache) {
-  Astro.response.headers.set('X-Cache-Status', 'MISS');
-  // After response is fully rendered, Astro middleware should put it in the cache
-  // We set a flag for the middleware to handle
-  (Astro.locals as any).__cacheKey = cacheKey;
-  (Astro.locals as any).__edgeCache = edgeCache;
-}
 ---
 
 <Layout
