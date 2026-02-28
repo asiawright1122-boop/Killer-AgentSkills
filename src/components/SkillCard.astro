@@ -159,8 +159,19 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
              matchedCategory = skill.category;
         }
 
-        // 4. Final fallback to first topic or 'Skill'
-        let displayCat = matchedCategory || (topics && topics.length > 0 ? topics[0] : 'Skill');
+        // 3.5. Smart Categorization: Infer from name and description if topics are missing
+        if (!matchedCategory) {
+             const textToSearch = (skill.name + " " + JSON.stringify(skill.description || {}) + " " + (topics || []).join(" ")).toLowerCase();
+             for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+                 if (keywords.some(k => textToSearch.includes(k.toLowerCase()))) {
+                     matchedCategory = groupName;
+                     break;
+                 }
+             }
+        }
+
+        // 4. Final fallback to first topic or 'Developer'
+        let displayCat = matchedCategory || (topics && topics.length > 0 ? topics[0] : 'developer');
         
         // Cleanup: Remove "agent-skills" or "agent skills" and map to AI or just filter
         const lowerCat = displayCat.toLowerCase();
