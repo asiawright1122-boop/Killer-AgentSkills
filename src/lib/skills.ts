@@ -70,14 +70,35 @@ export function _resetSkillsCache() {
 /**
  * Load all skills from KV.
  * Returns an array of UnifiedSkill objects, or an empty array on failure.
- * Results are cached within the same Worker request to avoid duplicate D1 queries.
+ * Results are cached heavily using both Module Cache and Cloudflare Cache API (when available)
+ * to avoid duplicate D1 queries and massive JSON deserialization overhead.
  */
 export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
-  // Return cached result if still valid (same Worker invocation)
+  // 1. Module-level super fast cache (same isolate)
   if (_cachedSkills && Date.now() - _cacheTs < CACHE_TTL) {
     return _cachedSkills;
   }
 
+  // 2. Try global Cloudflare Cache API (cross-isolate caching)
+  let cache;
+  const cacheKey = new Request("https://killer-skills-internal/api/get-all-skills", { method: "GET" });
+  try {
+    if (typeof caches !== 'undefined' && (caches as any).default) {
+      cache = (caches as any).default;
+      const cachedResponse = await cache.match(cacheKey);
+      if (cachedResponse) {
+        const skills = await cachedResponse.json() as UnifiedSkill[];
+        _cachedSkills = skills;
+        _cacheTs = Date.now();
+        return skills;
+      }
+    }
+  } catch (e) {
+    console.warn('[Cache API] Miss or Error:', e);
+  }
+
+  console.time('getAllSkills DB Fetch & Parse');
+  // 3. Fallback: Full DB query and JSON parse (slow path)
   const raw = await getSkillsFromKV(env);
   let skills = raw as UnifiedSkill[];
 
@@ -94,8 +115,27 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
     return skill;
   });
 
+  console.timeEnd('getAllSkills DB Fetch & Parse');
+
   _cachedSkills = skills;
   _cacheTs = Date.now();
+
+  // 4. Save to Cache API
+  if (cache) {
+    try {
+      const response = new Response(JSON.stringify(skills), {
+        headers: {
+          'Cache-Control': 's-maxage=3600', // Cache for 1 hour at edge
+          'Content-Type': 'application/json'
+        }
+      });
+      // waitUntil is handled by Astro natively if executing within CF handler context
+      await cache.put(cacheKey, response);
+    } catch (e) {
+      console.warn('[Cache API] Put Error:', e);
+    }
+  }
+
   return skills;
 }
 
