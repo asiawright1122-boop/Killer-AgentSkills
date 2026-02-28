@@ -18,21 +18,6 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 
-// ⚡ CF Cache API — return cached HTML instantly on repeat visits
-const cacheUrl = new URL(Astro.request.url);
-const cacheKey = new Request(cacheUrl.toString(), { method: 'GET' });
-let edgeCache: Cache | undefined;
-try {
-  if (typeof caches !== 'undefined' && (caches as any).default) {
-    edgeCache = (caches as any).default;
-    const cachedResp = await edgeCache.match(cacheKey);
-    if (cachedResp) {
-      console.log(`[Cache API] HIT: ${cacheUrl.pathname}${cacheUrl.search}`);
-      return cachedResp;
-    }
-  }
-} catch (e) { /* proceed with SSR */ }
-
 // ⚡ PARALLEL: Load skills + translations concurrently
 const t0 = performance.now();
 const [rawCollection, messages] = await Promise.all([
@@ -158,12 +143,6 @@ const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 
 
 // Category list for sidebar
 const categories = [];
-
-// ⚡ CF Cache API: flag for middleware to cache this response
-if (edgeCache) {
-  (Astro.locals as any).__cacheKey = cacheKey;
-  (Astro.locals as any).__edgeCache = edgeCache;
-}
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
