@@ -1,7 +1,7 @@
 ---
 import CollectionCard from './CollectionCard.astro';
 import { OFFICIAL_REPOS } from '../lib/skills-config';
-import { getAllSkills } from '../lib/skills';
+import { getOfficialSkillCounts } from '../lib/skills';
 import { loadMessages, useTranslations, type Locale } from '../i18n';
 import type { Env } from '../lib/kv';
 
@@ -16,26 +16,15 @@ const env = (Astro.locals as any).runtime?.env as Env;
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 
-// Get all skills
-const skills = await getAllSkills(env);
+// Get official repo owners from config
+const officialRepoOwners = [...new Set(
+  Object.values(OFFICIAL_REPOS)
+    .filter(r => r.type === 'official')
+    .map(r => r.owner)
+)];
 
-// Filter official skills and group by owner
-const officialRepoOwners = Object.values(OFFICIAL_REPOS)
-  .filter(r => r.type === 'official')
-  .map(r => r.owner);
-
-const officialSkills = skills.filter(s => officialRepoOwners.includes(s.owner));
-
-// Group by owner and count
-const skillsByOwner: Record<string, number> = {};
-for (const skill of officialSkills) {
-  skillsByOwner[skill.owner] = (skillsByOwner[skill.owner] || 0) + 1;
-}
-
-// Sort by skill count (most skills first)
-const sortedOwners = Object.entries(skillsByOwner)
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 6); // Show top 6 vendors
+// Use optimized GROUP BY query — no full table scan
+const sortedOwners = await getOfficialSkillCounts(env, officialRepoOwners, 6);
 ---
 
 <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,7 +50,7 @@ const sortedOwners = Object.entries(skillsByOwner)
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {sortedOwners.length > 0 ? (
-      sortedOwners.map(([owner, count]) => (
+      sortedOwners.map(({owner, count}) => (
         <CollectionCard owner={owner} count={count} locale={locale} />
       ))
     ) : (

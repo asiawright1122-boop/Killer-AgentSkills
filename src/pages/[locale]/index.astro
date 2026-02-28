@@ -4,11 +4,11 @@ import SkillCard from '../../components/SkillCard.astro';
 import OfficialSkills from '../../components/OfficialSkills.astro';
 import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
-import { getFeaturedSkills } from '../../lib/skills';
+import { getFeaturedSkillsDirect } from '../../lib/skills';
 import type { Env } from '../../lib/kv';
 
 export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
 
 // Validate locale
 const { locale } = Astro.params;
@@ -21,8 +21,8 @@ const typedLocale = locale as Locale;
 // Get env from Cloudflare runtime
 const env = (Astro.locals as any).runtime?.env as Env;
 
-// Load featured skills from KV
-const featuredSkills = await getFeaturedSkills(env, 6);
+// Load featured skills directly from D1 with LIMIT (optimized — no full table scan)
+const featuredSkills = await getFeaturedSkillsDirect(env, 6);
 
 // Load translations
 const messages = await loadMessages(typedLocale);
