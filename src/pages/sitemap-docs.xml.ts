@@ -26,9 +26,14 @@ export const GET: APIRoute = async () => {
     if (docsCache?.pages) {
         for (const page of (docsCache as any).pages) {
             const path = page.slug === 'index' ? '/docs' : `/docs/${page.slug}`;
+            // Use frontmatter date from cache, fallback to today.
+            const lastmod = page.updatedAt ? formatDate(page.updatedAt) : (page.pubDate ? formatDate(page.pubDate) : today);
+
             for (const locale of SUPPORTED_LOCALES) {
                 urls.push(`<url>
 <loc>${SITE}/${locale}${path}</loc>
+<lastmod>${lastmod}</lastmod>
+<changefreq>weekly</changefreq>
 ${buildHreflangLinks(path)}
 </url>`);
             }

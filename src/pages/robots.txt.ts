@@ -14,7 +14,8 @@ Disallow: /history
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://killer-skills.com/sitemap.xml`;
+Sitemap: https://killer-skills.com/sitemap.xml
+Host: https://killer-skills.com`;
 
   return new Response(body, {
     status: 200,

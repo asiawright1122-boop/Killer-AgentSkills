@@ -338,6 +338,35 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         
 
 
+      {/* Breadcrumb Trail for Internal Link Equity and Navigation */}
+      <nav aria-label="Breadcrumb" class="mb-6 flex overflow-x-auto whitespace-nowrap">
+        <ol class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider font-mono text-[var(--muted-foreground)] border-2 border-[var(--border)] p-2 shadow-[2px_2px_0px_0px_var(--border)] bg-[var(--background)]">
+          <li>
+            <a href={`/${locale}`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
+              {t('Common.home') || 'Home'}
+            </a>
+          </li>
+          <li class="select-none flex items-center gap-2">
+            <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
+            <a href={`/${locale}/skills`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
+              {t('Common.skillsMarket') || 'Skills'}
+            </a>
+          </li>
+          {skill.category && (
+            <li class="select-none flex items-center gap-2">
+              <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
+              <a href={`/${locale}/skills?category=${skill.category}`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
+                 {t(`Categories.${skill.category}`) || skill.category}
+              </a>
+            </li>
+          )}
+          <li class="select-none flex items-center gap-2" aria-current="page">
+            <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
+            <span class="text-[var(--foreground)]">{skill.name || repo}</span>
+          </li>
+        </ol>
+      </nav>
+
       {/* Header Section */}
       <div class="relative pt-2 pb-8 md:pb-12 border-b-4 border-[var(--border)] mb-8 md:mb-12">
 

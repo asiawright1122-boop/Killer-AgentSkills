@@ -43,23 +43,30 @@ try {
   console.error(`[Layout] Error loading translations for ${locale}:`, e);
 }
 
+// Helper to remove trailing slashes for canonical and hreflang consolidation (except root)
+const stripTrailingSlash = (url: string) => url.endsWith('/') && url.length > 1 ? url.slice(0, -1) : url;
+
 // Build absolute image URL for OG/Twitter meta tags
 const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
-const canonicalUrl = `${SITE_URL}${Astro.url.pathname}`;
+const canonicalUrl = stripTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
 
 // Build hreflang alternate URLs for all supported locales
-const currentPath = Astro.url.pathname;
+const currentPath = stripTrailingSlash(Astro.url.pathname);
 const hreflangUrls = SUPPORTED_LOCALES.map(loc => {
   // Replace the current locale segment with each alternate locale
-  const altPath = currentPath.replace(new RegExp(`^/${locale}/`), `/${loc}/`)
-    .replace(new RegExp(`^/${locale}$`), `/${loc}`);
-  return { locale: loc, href: `${SITE_URL}${altPath}` };
+  const altPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${loc}$1`);
+  return { locale: loc, href: stripTrailingSlash(`${SITE_URL}${altPath}`) };
 });
-const xDefaultUrl = currentPath.replace(new RegExp(`^/${locale}/`), '/en/')
-  .replace(new RegExp(`^/${locale}$`), '/en');
+const xDefaultUrl = stripTrailingSlash(currentPath.replace(new RegExp(`^/${locale}(/|$)`), '/en$1'));
 
-// Page title with optional brand suffix
-const fullTitle = appendBrand ? `${title} | Killer-Skills` : title;
+// Page title: Enhanced for SEO Click-Through-Rate (CTR)
+const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');
+// If it's a specific page (e.g. a skill or blog post), we create a stronger title structure with the brand.
+// For example, instead of just "Foo Skill | Killer-Skills", we might want "Foo Skill: Best AI Agent Tool | Killer-Skills"
+// We let the specific pages define their complete titles, but ensure the brand is there.
+const fullTitle = appendBrand 
+    ? (isSubpage ? `${title} | Killer-Skills - AI Agent Directory` : `${title} | Killer-Skills`) 
+    : title;
 
 // OG Locale mapping (BCP-47 → Open Graph format)
 const OG_LOCALE_MAP: Record<string, string> = {
@@ -108,6 +115,8 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={absoluteImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:locale" content={ogLocale} />
 		<ClientRouter fallback="swap" />
@@ -118,6 +127,8 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 
 		<!-- Twitter Card -->
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content="@killerskills" />
+		<meta name="twitter:creator" content="@killerskills" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={absoluteImage} />

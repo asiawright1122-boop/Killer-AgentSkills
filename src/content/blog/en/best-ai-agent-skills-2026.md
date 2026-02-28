@@ -20,6 +20,10 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 > - **Developer Tooling**: Standardize server building and UI testing with zero-config skills like `mcp-builder`.
 > - **Universal Compatibility**: Install skills across 15+ IDEs globally using `npx killer-skills add <skill>`.
 
+## What is an AI agent skill?
+
+An **AI agent skill** is a specialized instruction protocol that teaches coding assistants—like Cursor, Windsurf, or Claude Code—how to execute complex, multi-step workflows autonomously. By installing these plug-and-play modules, developers give their AI agents the specific context and toolsets needed to perform specialized tasks without constant prompting.
+
 We maintain a directory of over 1,000 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
 
 This is the list we wish someone had given us when we started. Every skill here has been tested in real projects, not just read through.
