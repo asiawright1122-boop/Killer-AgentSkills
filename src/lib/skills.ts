@@ -56,11 +56,28 @@ export function getLocalizedDescription(
 
 import { OFFICIAL_REPOS } from './skills-config';
 
+// Module-level cache for getAllSkills within a single Worker request
+let _cachedSkills: UnifiedSkill[] | null = null;
+let _cacheTs = 0;
+const CACHE_TTL = 5000; // 5s — covers a single SSR render cycle
+
+/** Reset cache — exported for testing only */
+export function _resetSkillsCache() {
+  _cachedSkills = null;
+  _cacheTs = 0;
+}
+
 /**
  * Load all skills from KV.
  * Returns an array of UnifiedSkill objects, or an empty array on failure.
+ * Results are cached within the same Worker request to avoid duplicate D1 queries.
  */
 export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
+  // Return cached result if still valid (same Worker invocation)
+  if (_cachedSkills && Date.now() - _cacheTs < CACHE_TTL) {
+    return _cachedSkills;
+  }
+
   const raw = await getSkillsFromKV(env);
   let skills = raw as UnifiedSkill[];
 
@@ -77,6 +94,8 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
     return skill;
   });
 
+  _cachedSkills = skills;
+  _cacheTs = Date.now();
   return skills;
 }
 
@@ -131,6 +150,76 @@ export async function getFeaturedSkills(
   return skills
     .sort((a, b) => (b.stars || 0) - (a.stars || 0))
     .slice(0, limit);
+}
+
+/**
+ * Get featured skills directly from D1 with LIMIT — avoids loading all skills.
+ * This is the optimized version for homepage use.
+ */
+export async function getFeaturedSkillsDirect(
+  env: Env,
+  limit: number = 6
+): Promise<UnifiedSkill[]> {
+  if (!env?.DB) {
+    console.warn('[D1] No DB binding, falling back to getAllSkills');
+    return getFeaturedSkills(env, limit);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      `SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`
+    ).bind(limit).all();
+
+    if (result.success && result.results) {
+      return result.results.map((row: any) => {
+        const skill = JSON.parse(row.data_json) as UnifiedSkill;
+        // Augment with official category if applicable
+        const officialConfig = Object.values(OFFICIAL_REPOS).find(
+          c => c.owner === skill.owner && c.repo === skill.repo
+        );
+        if (officialConfig?.category) {
+          return { ...skill, category: officialConfig.category };
+        }
+        return skill;
+      });
+    }
+    return [];
+  } catch (e) {
+    console.error('[D1] getFeaturedSkillsDirect error:', e);
+    return getFeaturedSkills(env, limit);
+  }
+}
+
+/**
+ * Get official skill counts grouped by owner — avoids loading all skill JSON.
+ * Returns [{owner, count}] sorted by count descending.
+ */
+export async function getOfficialSkillCounts(
+  env: Env,
+  owners: string[],
+  limit: number = 6
+): Promise<{ owner: string; count: number }[]> {
+  if (!env?.DB || owners.length === 0) {
+    return [];
+  }
+
+  try {
+    const placeholders = owners.map(() => '?').join(',');
+    const result = await env.DB.prepare(
+      `SELECT owner, COUNT(*) as count FROM skills WHERE owner IN (${placeholders}) GROUP BY owner ORDER BY count DESC LIMIT ?`
+    ).bind(...owners, limit).all();
+
+    if (result.success && result.results) {
+      return result.results.map((row: any) => ({
+        owner: row.owner as string,
+        count: row.count as number,
+      }));
+    }
+    return [];
+  } catch (e) {
+    console.error('[D1] getOfficialSkillCounts error:', e);
+    return [];
+  }
 }
 
 /**

@@ -5,6 +5,7 @@ import {
   getSkillsByCategory,
   getFeaturedSkills,
   getLocalizedDescription,
+  _resetSkillsCache,
   type UnifiedSkill,
 } from './skills';
 import type { Env } from './kv';
@@ -14,6 +15,7 @@ const originalDev = import.meta.env.DEV;
 beforeEach(() => {
   // @ts-ignore
   import.meta.env.DEV = false;
+  _resetSkillsCache();
 });
 afterEach(() => {
   // @ts-ignore
@@ -40,9 +42,74 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
     ['all-skills', JSON.stringify(skills)],
     ...extraKV,
   ]);
+
+  // Create D1 mock that supports the SQL queries used by getSkillsFromKV
+  const mockDB = {
+    prepare: vi.fn((sql: string) => ({
+      bind: vi.fn((...args: any[]) => ({
+        all: vi.fn(async () => {
+          // Handle "SELECT data_json FROM skills ORDER BY stars DESC"
+          if (sql.includes('ORDER BY stars DESC')) {
+            const limit = args[0] || skills.length;
+            const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+            return {
+              success: true,
+              results: sorted.slice(0, limit).map(s => ({ data_json: JSON.stringify(s) })),
+            };
+          }
+          // Handle GROUP BY owner
+          if (sql.includes('GROUP BY owner')) {
+            const owners = args.slice(0, -1); // last arg is LIMIT
+            const grouped: Record<string, number> = {};
+            skills.filter(s => owners.includes(s.owner)).forEach(s => {
+              grouped[s.owner] = (grouped[s.owner] || 0) + 1;
+            });
+            return {
+              success: true,
+              results: Object.entries(grouped)
+                .sort((a, b) => b[1] - a[1])
+                .map(([owner, count]) => ({ owner, count })),
+            };
+          }
+          return { success: true, results: [] };
+        }),
+        first: vi.fn(async () => {
+          // Handle exact ID match
+          if (sql.includes('WHERE id = ?')) {
+            const id = args[0];
+            const match = skills.find(s => s.id === id || `${s.owner}/${s.repo}` === id);
+            return match ? { data_json: JSON.stringify(match) } : null;
+          }
+          // Handle LIKE match
+          if (sql.includes('LIKE ?')) {
+            const pattern = args[0]?.replace(/%/g, '');
+            const match = skills.find(s => `${s.owner}/${s.repo}`.startsWith(pattern));
+            return match ? { data_json: JSON.stringify(match) } : null;
+          }
+          // Handle owner + repo match
+          if (sql.includes('WHERE owner = ? AND repo = ?')) {
+            const [owner, repo] = args;
+            const match = skills.find(s => s.owner === owner && s.repo === repo);
+            return match ? { data_json: JSON.stringify(match) } : null;
+          }
+          return null;
+        }),
+      })),
+      all: vi.fn(async () => {
+        // Handle "SELECT data_json FROM skills ORDER BY stars DESC" (no bind)
+        const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+        return {
+          success: true,
+          results: sorted.map(s => ({ data_json: JSON.stringify(s) })),
+        };
+      }),
+    })),
+  };
+
   return {
     TRANSLATIONS: createMockKV(),
     SKILLS_CACHE: createMockKV(store),
+    DB: mockDB as unknown as D1Database,
     AI: {},
     ASSETS: {} as Fetcher,
   };
