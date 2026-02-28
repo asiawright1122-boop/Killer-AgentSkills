@@ -28,62 +28,55 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
   aria-label={t.readArticle + ' - ' + post.data.title}
-  class="group relative block w-full overflow-hidden rounded-3xl h-[500px] mb-12 shadow-xl dark:shadow-2xl transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_20px_60px_-15px_rgba(124,58,237,0.3)]"
+  class="brut-card group relative block w-full bg-[var(--card)] flex flex-col md:flex-row h-auto md:h-[400px]"
 >
-  {/* Background Image with Zoom Effect */}
-  <div class="absolute inset-0 w-full h-full">
+  {/* Image Section */}
+  <div class="relative w-full md:w-1/2 h-[300px] md:h-full border-b-4 md:border-b-0 md:border-r-4 border-[var(--foreground)] overflow-hidden bg-[var(--primary)] flex-shrink-0">
     {post.data.heroImage ? (
       <img 
         src={post.data.heroImage} 
         alt={post.data.title} 
-        class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+        class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 grayscale group-hover:grayscale-0"
       />
     ) : (
-      <div class="w-full h-full bg-gradient-to-br from-violet-600 to-indigo-900"></div>
+      <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-6xl tracking-tighter mix-blend-overlay">IMAGE MISSING</div>
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent"></div>
   </div>
 
-  {/* Content Content in Bottom Left */}
-  <div class="absolute bottom-0 left-0 w-full p-8 md:p-12 z-10 flex flex-col justify-end h-full">
+  {/* Content Section */}
+  <div class="p-8 md:p-12 flex flex-col justify-center w-full md:w-1/2">
     
-    <div class="relative transform transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-        <div class="flex items-center gap-3 mb-4">
-            <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-white/20 backdrop-blur-md rounded-full border border-white/20">
-                {tb.featured}
+    <div class="flex flex-wrap items-center gap-3 mb-6">
+        <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold uppercase tracking-widest">
+            [{tb.featured}]
+        </span>
+        {post.data.category && (
+            <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
+                {displayCategory}
             </span>
-            {post.data.category && (
-                <span class="px-3 py-1 text-xs font-bold tracking-wider text-white uppercase bg-sky-500/80 dark:bg-purple-600/80 backdrop-blur-sm rounded-full shadow-lg border border-white/10">
-                    {displayCategory}
-                </span>
-            )}
+        )}
+    </div>
+
+    <h2 class="text-4xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-tight tracking-tighter uppercase px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit">
+        {post.data.title}
+    </h2>
+
+    <p class="text-lg text-[var(--muted-foreground)] mb-8 line-clamp-2 font-bold leading-relaxed">
+        {post.data.description}
+    </p>
+
+    <div class="flex items-center gap-6 mt-auto border-t-[3px] border-[var(--border)] pt-6">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 flex items-center justify-center text-xs text-[var(--background)] bg-[var(--foreground)] font-black border-2 border-[var(--foreground)]">
+                {post.data.author.charAt(0).toUpperCase()}
+            </div>
+            <span class="font-bold text-[var(--foreground)] uppercase text-sm tracking-wider">{post.data.author}</span>
         </div>
-
-        <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight max-w-4xl tracking-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-purple-200 group-hover:to-white transition-all duration-300">
-            {post.data.title}
-        </h2>
-
-        <p class="text-lg text-gray-200 mb-8 max-w-2xl line-clamp-2 font-light leading-relaxed opacity-90 group-hover:opacity-100 transition-opacity">
-            {post.data.description}
-        </p>
-
-        <div class="flex items-center gap-6 text-sm text-gray-300 border-t border-white/10 pt-6">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center text-xs text-white font-bold border-2 border-white/10">
-                    {post.data.author.charAt(0)}
-                </div>
-                <span class="font-medium text-white">{post.data.author}</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <Calendar size={16} />
-                <time datetime={post.data.pubDate.toISOString()}>
-                    {formattedDate}
-                </time>
-            </div>
-             <div class="ml-auto group/btn flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-bold text-sm hover:bg-purple-500 hover:text-white transition-all duration-300">
-                {t.readArticle}
-                <ArrowUpRight size={16} class="group-hover/btn:rotate-45 transition-transform duration-300" />
-            </div>
+        <div class="flex items-center gap-2 text-[var(--muted-foreground)] font-mono font-bold text-sm uppercase">
+            <Calendar size={16} strokeWidth={2.5} />
+            <time datetime={post.data.pubDate.toISOString()}>
+                {formattedDate}
+            </time>
         </div>
     </div>
   </div>
