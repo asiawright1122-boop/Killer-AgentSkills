@@ -169,8 +169,8 @@ describe('searchSkills', () => {
         },
       }),
     ];
-    // Search by SEO keyword
-    const result = searchSkills(skillsWithSeo, 'writing');
+    // Search by SEO feature (since keywords were excluded due to spam)
+    const result = searchSkills(skillsWithSeo, 'collaboration');
     expect(result.length).toBe(1);
     expect(result[0].name).toBe('doc-coauthoring');
   });

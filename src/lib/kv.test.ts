@@ -30,11 +30,58 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
     } as unknown as KVNamespace;
 }
 
-// Helper to create a mock Env
-function createMockEnv(overrides: Partial<Env> = {}): Env {
+function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
+    // Create D1 mock based on `skills` array for testing getSkillsFromKV/getSkillsKV
+    const mockDB = {
+        prepare: vi.fn((sql: string) => ({
+            bind: vi.fn((...args: any[]) => ({
+                first: vi.fn(async () => {
+                    if (sql.includes('WHERE id = ?')) {
+                        const match = skills.find(s => s.id === args[0]);
+                        return match ? { data_json: JSON.stringify(match) } : null;
+                    }
+                    if (sql.includes('LIKE ?')) {
+                        const pattern = args[0]?.replace(/%/g, '');
+                        const match = skills.find(s => `${s.owner}/${s.repo}`.startsWith(pattern));
+                        return match ? { data_json: JSON.stringify(match) } : null;
+                    }
+                    if (sql.includes('WHERE owner = ? AND repo = ?')) {
+                        const match = skills.find(s => s.owner === args[0] && s.repo === args[1]);
+                        return match ? { data_json: JSON.stringify(match) } : null;
+                    }
+                    return null;
+                }),
+                all: vi.fn(async () => { return { success: true, results: [] } }),
+            })),
+            all: vi.fn(async () => {
+                if (sql.includes('ORDER BY stars DESC')) {
+                    const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+                    return { success: true, results: sorted.map(s => ({ data_json: JSON.stringify(s) })) };
+                }
+                if (sql.includes('sitemap')) {
+                    // It's the sitemap query: SELECT owner, repo, updated_at as updatedAt
+                    return {
+                        success: true,
+                        results: skills.map(s => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt }))
+                    };
+                }
+                if (sql.includes('WHERE owner IS NOT NULL AND repo IS NOT NULL')) {
+                    return {
+                        success: true,
+                        results: skills
+                            .filter(s => s && typeof s === 'object' && s.owner && s.repo)
+                            .map(s => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt }))
+                    };
+                }
+                return { success: true, results: [] };
+            }),
+        })),
+    };
+
     return {
         TRANSLATIONS: createMockKV(),
-        SKILLS_CACHE: createMockKV(),
+        SKILLS_CACHE: createMockKV(), // Still needed for fallback or related features
+        DB: mockDB as unknown as D1Database,
         AI: {},
         ASSETS: {} as Fetcher,
         ...overrides,
@@ -121,17 +168,15 @@ describe('setKV', () => {
 });
 
 describe('getSkillsFromKV', () => {
-    it('should read all skills from SKILLS_CACHE', async () => {
+    it('should read all skills from D1', async () => {
         const skills = [{ id: '1', name: 'skill-1' }, { id: '2', name: 'skill-2' }];
-        const store = new Map([['all-skills', JSON.stringify(skills)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+        const env = createMockEnv({}, skills);
 
         const result = await getSkillsFromKV(env);
         expect(result).toEqual(skills);
-        expect(env.SKILLS_CACHE.get).toHaveBeenCalledWith('all-skills', 'json');
     });
 
-    it('should return empty array when SKILLS_CACHE binding is unavailable', async () => {
+    it('should return empty array when DB binding is unavailable', async () => {
         const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSkillsFromKV(env);
         expect(result).toEqual([]);
@@ -142,16 +187,15 @@ describe('getSkillsFromKV', () => {
         expect(result).toEqual([]);
     });
 
-    it('should return empty array when all-skills key does not exist', async () => {
-        const env = createMockEnv();
+    it('should return empty array when no skills exist in D1', async () => {
+        const env = createMockEnv({}, []);
         const result = await getSkillsFromKV(env);
         expect(result).toEqual([]);
     });
 
-    it('should return empty array on KV read error', async () => {
-        const mockKV = createMockKV();
-        (mockKV.get as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('KV timeout'));
-        const env = createMockEnv({ SKILLS_CACHE: mockKV });
+    it('should return empty array on D1 read error', async () => {
+        const env = createMockEnv({}, []);
+        env.DB!.prepare = vi.fn().mockImplementation(() => { throw new Error('DB timeout') });
 
         const result = await getSkillsFromKV(env);
         expect(result).toEqual([]);
@@ -159,17 +203,15 @@ describe('getSkillsFromKV', () => {
 });
 
 describe('getSkillsKV', () => {
-    it('should read a specific key from SKILLS_CACHE as JSON', async () => {
-        const skillData = { id: '1', name: 'test-skill', stars: 42 };
-        const store = new Map([['skill:owner/repo', JSON.stringify(skillData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+    it('should read a specific key from D1 as JSON', async () => {
+        const skillData = { id: '1', name: 'test-skill', stars: 42, owner: 'owner', repo: 'repo' };
+        const env = createMockEnv({}, [skillData]);
 
-        const result = await getSkillsKV(env, 'skill:owner/repo');
+        const result = await getSkillsKV(env, 'skill:1');
         expect(result).toEqual(skillData);
-        expect(env.SKILLS_CACHE.get).toHaveBeenCalledWith('skill:owner/repo', 'json');
     });
 
-    it('should return null when SKILLS_CACHE binding is unavailable', async () => {
+    it('should return null when DB binding is unavailable', async () => {
         const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSkillsKV(env, 'some-key');
         expect(result).toBeNull();
@@ -181,38 +223,35 @@ describe('getSkillsKV', () => {
     });
 
     it('should return null when key does not exist', async () => {
-        const env = createMockEnv();
+        const env = createMockEnv({}, []);
         const result = await getSkillsKV(env, 'nonexistent');
         expect(result).toBeNull();
     });
 
-    it('should return null on KV read error', async () => {
-        const mockKV = createMockKV();
-        (mockKV.get as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('KV timeout'));
-        const env = createMockEnv({ SKILLS_CACHE: mockKV });
+    it('should return null on D1 read error', async () => {
+        const env = createMockEnv({}, []);
+        env.DB!.prepare = vi.fn().mockImplementation(() => { throw new Error('DB timeout') });
 
         const result = await getSkillsKV(env, 'some-key');
         expect(result).toBeNull();
     });
 
-    it('should handle array data from KV', async () => {
-        const arrayData = [1, 2, 3];
-        const store = new Map([['array-key', JSON.stringify(arrayData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+    it('should handle array data (unsupported in D1 lookup, returns null)', async () => {
+        // Arrays were supported in KV for indices, but D1 lookups by ID return a single object or null
+        const env = createMockEnv({}, []);
 
         const result = await getSkillsKV(env, 'array-key');
-        expect(result).toEqual([1, 2, 3]);
+        expect(result).toBeNull();
     });
 });
 
 describe('getSitemapSkillsFromKV', () => {
-    it('should read valid sitemap skills from SKILLS_CACHE', async () => {
+    it('should read valid sitemap skills from D1', async () => {
         const sitemapData = [
             { owner: 'anthropics', repo: 'skills' },
             { owner: 'vercel', repo: 'next.js' },
         ];
-        const store = new Map([['sitemap-skills', JSON.stringify(sitemapData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+        const env = createMockEnv({}, sitemapData);
 
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toEqual(sitemapData);
@@ -226,8 +265,7 @@ describe('getSitemapSkillsFromKV', () => {
             { owner: undefined, repo: 'another' },
             { repo: 'no-owner' },
         ];
-        const store = new Map([['sitemap-skills', JSON.stringify(sitemapData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+        const env = createMockEnv({}, sitemapData);
 
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toHaveLength(1);
@@ -241,8 +279,7 @@ describe('getSitemapSkillsFromKV', () => {
             { owner: 'has-owner', repo: undefined },
             { owner: 'has-owner' },
         ];
-        const store = new Map([['sitemap-skills', JSON.stringify(sitemapData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+        const env = createMockEnv({}, sitemapData);
 
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toHaveLength(1);
@@ -255,29 +292,27 @@ describe('getSitemapSkillsFromKV', () => {
             null,
             undefined,
         ];
-        const store = new Map([['sitemap-skills', JSON.stringify(sitemapData)]]);
-        const env = createMockEnv({ SKILLS_CACHE: createMockKV(store) });
+        const env = createMockEnv({}, sitemapData as any[]);
 
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toHaveLength(1);
     });
 
-    it('should return empty array when SKILLS_CACHE binding is unavailable', async () => {
+    it('should return empty array when DB binding is unavailable in production (no local fallback)', async () => {
         const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toEqual([]);
     });
 
-    it('should return empty array when sitemap-skills key does not exist', async () => {
-        const env = createMockEnv();
+    it('should return empty array when no data exists in D1', async () => {
+        const env = createMockEnv({}, []);
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toEqual([]);
     });
 
-    it('should return empty array on KV read error', async () => {
-        const mockKV = createMockKV();
-        (mockKV.get as ReturnType<typeof vi.fn>).mockRejectedValueOnce(new Error('KV timeout'));
-        const env = createMockEnv({ SKILLS_CACHE: mockKV });
+    it('should return empty array on D1 read error', async () => {
+        const env = createMockEnv({}, []);
+        env.DB!.prepare = vi.fn().mockImplementation(() => { throw new Error('DB timeout') });
 
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toEqual([]);
