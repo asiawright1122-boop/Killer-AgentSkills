@@ -76,7 +76,7 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
 
   <!-- Header: Title + Verified Badge -->
   <div class="relative z-1 flex justify-between items-start mb-4 pointer-events-none">
-    <h3 class="text-xl font-black text-[var(--foreground)] line-clamp-1 pr-2 group-hover:text-[var(--primary)] transition-colors tracking-tight uppercase">
+    <h3 class="text-xl font-black text-[var(--foreground)] line-clamp-1 pr-2 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight uppercase px-1 -ml-1">
       {name}
     </h3>
     {badgeType === 'official' && (
