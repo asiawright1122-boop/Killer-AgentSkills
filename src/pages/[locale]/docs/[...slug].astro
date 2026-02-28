@@ -261,7 +261,7 @@ const isActive = (href: string) => {
         <p class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)] mb-6">
           {isIndex ? 'Documentation' : 'Guide'}
         </p>
-        <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
+        <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
           {docTitle}
         </h1>
       </div>
@@ -293,8 +293,9 @@ const isActive = (href: string) => {
           
           prose-img:border-4 prose-img:border-[var(--foreground)] prose-img:shadow-[4px_4px_0px_0px_var(--foreground)] prose-img:rounded-none prose-img:mt-8 prose-img:mb-8
           
-          prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-[#0a0a0a]
-          prose-code:text-[var(--foreground)] prose-code:bg-[var(--muted)] prose-code:px-2 prose-code:py-1 prose-code:font-bold prose-code:border-2 prose-code:border-[var(--border)]
+          prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-[#0a0a0a] prose-pre:p-6 prose-pre:my-8
+          [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)]
+          [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]
         " 
           set:html={docContent} 
         />
@@ -478,27 +479,6 @@ const isActive = (href: string) => {
     padding: 0 !important;
     border-radius: 0 !important;
     font-weight: inherit !important;
-  }
-
-  /* Style the pre block to look like a terminal/code editor */
-  article :global(pre) {
-    /* Base styles */
-    @apply relative rounded-xl p-5 my-6 overflow-x-auto shadow-sm border text-sm leading-relaxed;
-    
-    /* Light Mode */
-    @apply bg-slate-50 text-slate-800 border-slate-200;
-    
-    /* Text Wrapping */
-    white-space: pre-wrap;
-    word-break: break-word;
-    
-    /* Font */
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  }
-
-  /* Dark mode adjustments */
-  :global(.dark) article :global(pre) {
-    @apply bg-slate-950 text-slate-50 border-slate-800;
   }
 
   /* Show copy button on hover */

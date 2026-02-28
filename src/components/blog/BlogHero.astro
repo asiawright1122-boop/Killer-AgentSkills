@@ -36,7 +36,7 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
       <img 
         src={post.data.heroImage} 
         alt={post.data.title} 
-        class="w-full h-full object-cover mix-blend-luminosity opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 grayscale group-hover:grayscale-0"
+        class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
       />
     ) : (
       <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-6xl tracking-tighter mix-blend-overlay">IMAGE MISSING</div>
@@ -57,7 +57,7 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
         )}
     </div>
 
-    <h2 class="text-4xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-tight tracking-tighter uppercase px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit">
+    <h2 class="text-3xl md:text-4xl font-black text-[var(--foreground)] mb-6 leading-tight tracking-tighter uppercase px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit">
         {post.data.title}
     </h2>
 
