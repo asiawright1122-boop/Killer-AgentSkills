@@ -19,6 +19,30 @@ export interface Env {
 // Local mock for dev if needed, though wrangler dev usually handles bindings
 const localCache = new Map<string, string>();
 
+let _localSkillsCache: any[] | null = null;
+let _localSkillsCacheTime = 0;
+
+export async function getLocalSkillsFallback(): Promise<any[]> {
+    if (_localSkillsCache && Date.now() - _localSkillsCacheTime < 30000) {
+        return _localSkillsCache || [];
+    }
+    try {
+        const fs = await import('node:fs');
+        const path = await import('node:path');
+        const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
+        if (fs.existsSync(mainCachePath)) {
+            const content = fs.readFileSync(mainCachePath, 'utf-8');
+            const data = JSON.parse(content);
+            _localSkillsCache = Array.isArray(data) ? data : (data.skills || []);
+            _localSkillsCacheTime = Date.now();
+            return _localSkillsCache || [];
+        }
+    } catch (e) {
+        // ignore
+    }
+    return [];
+}
+
 /**
  * Read from KV.
  * Usage: await getKV(context.locals.runtime.env, 'key')
@@ -63,8 +87,8 @@ export async function setKV(env: Env, key: string, value: string, ttl: number = 
  */
 export async function getSkillsFromKV(env: Env): Promise<any[]> {
     if (!env?.DB) {
-        console.warn('[D1] No DB binding found, falling back to empty array');
-        return [];
+        console.warn('[D1] No DB binding found, falling back to local file array');
+        return getLocalSkillsFallback();
     }
 
     try {
@@ -90,8 +114,24 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
  */
 export async function getSkillsListing(env: Env): Promise<any[]> {
     if (!env?.DB) {
-        console.warn('[D1] No DB binding found, falling back to empty array');
-        return [];
+        console.warn('[D1] No DB binding found, falling back to local file array for listing');
+        const all = await getLocalSkillsFallback();
+        return all.map(row => ({
+            id: row.id,
+            name: row.name || row.skillName || row.repo,
+            skillName: row.skillName || row.name || '',
+            owner: row.owner,
+            repo: row.repo,
+            description: row.description,
+            category: row.category || '',
+            topics: row.topics || [],
+            stars: row.stars || 0,
+            source: row.source || 'cache',
+            updatedAt: row.updatedAt || row.updated_at || '',
+            qualityScore: row.qualityScore || row.quality_score || 0,
+            filePath: row.filePath || '',
+            seo: row.seo || undefined,
+        })).sort((a, b) => b.stars - a.stars);
     }
 
     try {
@@ -156,7 +196,26 @@ export async function getRelatedSkillsFast(
     category: string,
     limit: number = 4
 ): Promise<any[]> {
-    if (!env?.DB) return [];
+    if (!env?.DB) {
+        const all = await getLocalSkillsFallback();
+        const filtered = all.filter(s => s.category === category && s.id !== currentId)
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, limit);
+        return filtered.map(row => ({
+            id: row.id,
+            name: row.name || row.skillName || row.repo,
+            skillName: row.skillName || row.name || '',
+            owner: row.owner,
+            repo: row.repo,
+            description: row.description,
+            category: row.category || '',
+            topics: row.topics || [],
+            stars: row.stars || 0,
+            qualityScore: row.qualityScore || row.quality_score || 0,
+            updatedAt: row.updatedAt || row.updated_at || '',
+            seo: row.seo || undefined,
+        }));
+    }
 
     try {
         const result = await env.DB.prepare(`
@@ -209,7 +268,30 @@ function tryParseJSON(str: string, fallback: any): any {
  */
 export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
     if (!env?.DB) {
-        console.warn('[D1] No DB binding for specific key lookup');
+        console.warn(`[D1] No DB binding for specific key lookup ${key}, using local cache`);
+        const all = await getLocalSkillsFallback();
+        let dbId = key;
+        if (key.startsWith('skill:')) {
+            dbId = key.substring(6);
+        }
+
+        let match = all.find(s => s.id === dbId);
+        if (match) return match;
+
+        const segments = dbId.split('/');
+        if (segments.length >= 2) {
+            const owner = segments[0];
+            const repo = segments[1];
+
+            if (segments.length > 2) {
+                match = all.find(s => s.id && s.id.startsWith(`${owner}/${repo}/`));
+                if (match) return match;
+            }
+
+            match = all.find(s => s.owner === owner && s.repo === repo);
+            if (match) return match;
+        }
+
         return null;
     }
 

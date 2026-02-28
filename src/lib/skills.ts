@@ -221,6 +221,8 @@ export async function getFeaturedSkillsDirect(
   }
 }
 
+import { getLocalSkillsFallback } from './kv';
+
 /**
  * Get official skill counts grouped by owner — avoids loading all skill JSON.
  * Returns [{owner, count}] sorted by count descending.
@@ -231,6 +233,19 @@ export async function getOfficialSkillCounts(
   limit: number = 6
 ): Promise<{ owner: string; count: number }[]> {
   if (!env?.DB || owners.length === 0) {
+    const all = await getLocalSkillsFallback();
+    if (all.length > 0) {
+      const counts: Record<string, number> = {};
+      for (const s of all) {
+        if (owners.includes(s.owner)) {
+          counts[s.owner] = (counts[s.owner] || 0) + 1;
+        }
+      }
+      return Object.entries(counts)
+        .map(([owner, count]) => ({ owner, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, limit);
+    }
     return [];
   }
 
