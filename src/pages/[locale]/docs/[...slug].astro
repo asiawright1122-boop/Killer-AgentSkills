@@ -197,37 +197,38 @@ const isActive = (href: string) => {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
-  <div class="bg-slate-50 dark:bg-slate-950 min-h-screen flex flex-col md:flex-row">
+  <div class="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col md:flex-row font-sans">
     
     {/* Mobile Toggle (Visible only on small screens) */}
-    <div class="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4 sticky top-0 z-20 flex items-center justify-between">
-      <span class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
-        <Book className="w-5 h-5 text-cyan-500" /> Documentation
+    <div class="md:hidden bg-[var(--card)] border-b-4 border-[var(--foreground)] p-4 sticky top-0 z-20 flex items-center justify-between shadow-[0px_4px_0px_0px_var(--foreground)] mb-6">
+      <span class="font-black uppercase tracking-widest flex items-center gap-2">
+        <Book className="w-5 h-5" strokeWidth={3} /> Documentation
       </span>
-      <button id="mobile-menu-btn" class="text-slate-500 hover:text-slate-900 dark:hover:text-white">
-        <Menu className="w-6 h-6" />
+      <button id="mobile-menu-btn" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
+        <Menu className="w-6 h-6" strokeWidth={3} />
       </button>
     </div>
 
     {/* Sidebar Navigation */}
     <aside id="docs-sidebar" class="
-      fixed inset-y-0 left-0 z-30 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 transform -translate-x-full transition-transform duration-300 ease-in-out
+      fixed inset-y-0 left-0 z-30 w-72 bg-[var(--card)] border-r-4 border-[var(--foreground)] transform -translate-x-full transition-transform duration-300 ease-in-out
       md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto
     ">
-      <div class="p-6 md:pt-10 space-y-8">
+      <div class="p-6 md:pt-10 space-y-10">
         {/* Mobile Close Button */}
         <div class="flex md:hidden justify-end mb-4">
-          <button id="close-sidebar-btn" class="text-slate-400 hover:text-slate-900 dark:hover:text-white">
-            <X className="w-6 h-6" />
+          <button id="close-sidebar-btn" class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors">
+            <X className="w-6 h-6" strokeWidth={3} />
           </button>
         </div>
 
         {sidebarNav.map((section) => (
           <div>
-            <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-3 px-3">
+            <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 px-3 border-b-2 border-[var(--border)] pb-2 flex items-center">
+              <span class="w-1.5 h-1.5 bg-[var(--primary)] mr-2 border border-[var(--foreground)]"></span>
               {section.title}
             </h3>
-            <ul class="space-y-0.5">
+            <ul class="space-y-2">
               {section.items.map((item) => {
                 const active = isActive(item.href);
                 return (
@@ -235,10 +236,10 @@ const isActive = (href: string) => {
                     <a
                       href={item.href}
                       class:list={[
-                        "block px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+                        "block px-3 py-2 text-sm font-bold uppercase tracking-wider transition-all border-l-4",
                         active
-                          ? "bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300 border-l-2 border-cyan-500" // Active Style
-                          : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50" // Inactive Style
+                          ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--foreground)] hover:translate-x-[2px] shadow-[2px_2px_0px_0px_var(--foreground)]" // Active Style
+                          : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] hover:bg-[var(--muted)] hover:translate-x-1" // Inactive Style
                       ]}
                     >
                       {item.title}
@@ -253,79 +254,100 @@ const isActive = (href: string) => {
     </aside>
 
     {/* Main Content Area */}
-    <main class="flex-1 w-full max-w-4xl min-w-0 px-4 py-10 md:px-8 xl:px-12 md:py-12">
+    <main class="flex-1 w-full max-w-4xl min-w-0 px-4 py-8 md:px-12 xl:px-16 md:py-16">
       
       {/* Content Header */}
-      <div class="mb-10">
-        <p class="text-sm font-medium text-cyan-600 dark:text-cyan-400 mb-2">
+      <div class="mb-12 border-b-4 border-[var(--foreground)] pb-8">
+        <p class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)] mb-6">
           {isIndex ? 'Documentation' : 'Guide'}
         </p>
-        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+        <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
           {docTitle}
         </h1>
       </div>
 
       {currentSlug === 'cli/overview' && (
-        <div class="mb-12 space-y-12 not-prose">
+        <div class="mb-16 space-y-16 not-prose">
           <TerminalWindow locale={locale} t={t} />
           <ComparisonTable t={t} />
         </div>
       )}
 
       {docContent ? (
-        /* Render markdown content from KV */
-        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none 
-          prose-headings:font-bold prose-headings:tracking-tight
-          prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-a:no-underline hover:prose-a:underline
-          prose-code:bg-slate-100 dark:prose-code:bg-slate-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-medium prose-code:text-cyan-600 dark:prose-code:text-cyan-300
-          prose-img:rounded-2xl prose-img:shadow-lg prose-img:border prose-img:border-slate-200 dark:prose-img:border-slate-800" 
+        /* Render markdown content from KV with Brutalist Typography */
+        <article class="prose prose-lg max-w-none 
+          dark:prose-invert
+          
+          prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase
+          prose-h1:text-[var(--foreground)] prose-h2:text-[var(--foreground)] prose-h3:text-[var(--foreground)]
+          prose-h2:border-b-[3px] prose-h2:border-[var(--border)] prose-h2:pb-2 prose-h2:mt-12
+          
+          prose-p:text-[var(--muted-foreground)] prose-p:font-medium prose-p:leading-relaxed
+          prose-strong:text-[var(--foreground)] prose-strong:font-black
+          
+          prose-a:text-[var(--foreground)] prose-a:font-bold prose-a:underline prose-a:decoration-[var(--primary)] prose-a:decoration-4 hover:prose-a:bg-[var(--primary)] hover:prose-a:text-[var(--primary-foreground)] hover:prose-a:no-underline transition-colors
+          
+          prose-blockquote:border-l-4 prose-blockquote:border-[var(--primary)] prose-blockquote:bg-[var(--card)] prose-blockquote:p-6 prose-blockquote:text-[var(--foreground)] prose-blockquote:font-mono prose-blockquote:font-bold prose-blockquote:shadow-[4px_4px_0px_0px_var(--border)]
+          
+          prose-ul:list-square prose-li:text-[var(--muted-foreground)] prose-li:font-medium
+          
+          prose-img:border-4 prose-img:border-[var(--foreground)] prose-img:shadow-[4px_4px_0px_0px_var(--foreground)] prose-img:rounded-none prose-img:mt-8 prose-img:mb-8
+          
+          prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-[#0a0a0a]
+          prose-code:text-[var(--foreground)] prose-code:bg-[var(--muted)] prose-code:px-2 prose-code:py-1 prose-code:font-bold prose-code:border-2 prose-code:border-[var(--border)]
+        " 
           set:html={docContent} 
         />
       ) : isIndex ? (
         /* Index Default Content (Simulating 'Getting Started') */
-        <article class="prose prose-lg prose-slate dark:prose-invert max-w-none">
-          <p class="lead">
+        <article class="prose prose-lg max-w-none 
+          dark:prose-invert
+          prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase
+          prose-h2:text-[var(--foreground)] prose-h2:border-b-[3px] prose-h2:border-[var(--border)] prose-h2:pb-2
+          prose-p:text-[var(--muted-foreground)] prose-p:font-medium
+        ">
+          <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
             Welcome to the Killer-Skills documentation. This guide will help you install, configure, and build your own AI skills in minutes.
           </p>
 
-          <div class="my-8 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-200 dark:border-slate-800 not-prose">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-              <Rocket className="w-5 h-5 text-cyan-500" />
+          <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
+            <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-4 flex items-center gap-3">
+              <Rocket className="w-8 h-8 text-[var(--primary)]" strokeWidth={3} />
               Quick Start
             </h3>
-            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">
+            <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
               Get your first skill running in under 2 minutes.
             </p>
-            <div class="flex gap-2">
-               <code class="flex-1 bg-slate-900 text-cyan-300 px-4 py-3 rounded-lg font-mono text-sm overflow-x-auto">
+            <div class="flex gap-2 relative">
+               <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">
                 npx killer-skills init my-new-skill
                </code>
             </div>
           </div>
 
-          <h2>Key Concepts</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 not-prose">
-            <a href={`/${locale}/docs/concepts/skills`} class="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-600 transition-colors">
-              <h3 class="font-bold text-slate-900 dark:text-white mb-1">Skills</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400">Atomic units of AI capability</p>
+          <h2 class="mt-16 mb-8 text-4xl">Key Concepts</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+            <a href={`/${locale}/docs/concepts/skills`} class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]">
+              <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">Skills</h3>
+              <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">Atomic units of AI capability</p>
             </a>
-            <a href={`/${locale}/docs/concepts/workflows`} class="block p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-cyan-400 dark:hover:border-cyan-600 transition-colors">
-              <h3 class="font-bold text-slate-900 dark:text-white mb-1">Workflows</h3>
-              <p class="text-sm text-slate-500 dark:text-slate-400">Orchestrate complex tasks</p>
+            <a href={`/${locale}/docs/concepts/workflows`} class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]">
+              <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">Workflows</h3>
+              <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">Orchestrate complex tasks</p>
             </a>
           </div>
 
         </article>
       ) : (
         /* Content Not Found / Coming Soon */
-        <div class="py-12">
-           <div class="p-6 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 text-center">
-             <FileText className="w-10 h-10 text-slate-400 mx-auto mb-4" />
-             <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Content Coming Soon</h3>
-             <p class="text-slate-500 dark:text-slate-400 mb-6">
+        <div class="py-20">
+           <div class="p-12 bg-[var(--muted)] border-4 border-dashed border-[var(--foreground)] text-center shadow-[12px_12px_0px_0px_var(--border)]">
+             <FileText className="w-16 h-16 text-[var(--foreground)] mx-auto mb-6" strokeWidth={1} />
+             <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">Content Coming Soon</h3>
+             <p class="text-[var(--muted-foreground)] font-bold mb-8 text-lg px-4">
                 This section "{docTitle}" is currently being engraved into stone.
              </p>
-             <a href={`/${locale}/docs`} class="text-cyan-600 hover:underline">
+             <a href={`/${locale}/docs`} class="inline-flex items-center px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors border-2 border-[var(--foreground)]">
                Return to Introduction
              </a>
            </div>
@@ -333,13 +355,13 @@ const isActive = (href: string) => {
       )}
 
       {/* Footer inside content area */}
-      <div class="mt-20">
+      <div class="mt-24 pt-8 border-t-4 border-[var(--foreground)]">
         <Footer locale={locale} t={t} compact />
       </div>
     </main>
     
     {/* Mobile Overlay */}
-    <div id="repo-overlay" class="fixed inset-0 z-20 bg-slate-900/50 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+    <div id="repo-overlay" class="fixed inset-0 z-20 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden backdrop-blur-sm"></div>
 
   </div>
 </Layout>
