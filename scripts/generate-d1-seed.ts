@@ -62,7 +62,7 @@ async function run() {
     for (let i = 0; i < skills.length; i++) {
         const skill = skills[i];
         const id = escapeSql(skill.id);
-        const category = escapeSql(skill.category || 'community');
+        const category = escapeSql(skill.category || 'developer');
         const owner = escapeSql(skill.owner);
         const repo = escapeSql(skill.repo);
         const repo_path = escapeSql(skill.repoPath || '');
