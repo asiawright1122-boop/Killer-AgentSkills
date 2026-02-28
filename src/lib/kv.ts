@@ -57,7 +57,9 @@ export async function setKV(env: Env, key: string, value: string, ttl: number = 
 
 /**
  * Read all skills data from D1 SQLite Serverless database.
- * Usage: await getSkillsFromKV(context.locals.runtime.env)
+ * ⚠️ WARNING: This pulls FULL data_json blobs (~30KB each × 1900 rows = ~56MB).
+ * Only use for detail pages or API routes that need the complete skill data.
+ * For listing pages, use getSkillsListing() instead.
  */
 export async function getSkillsFromKV(env: Env): Promise<any[]> {
     if (!env?.DB) {
@@ -79,6 +81,74 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
         console.error('[D1] Error querying skills from SQLite:', e);
         return [];
     }
+}
+
+/**
+ * ⚡ LIGHTWEIGHT listing query — uses json_extract() to pull only card-display fields.
+ * Reduces D1 payload from ~56MB to ~1MB (56x reduction).
+ * Use this for /skills listing pages instead of getSkillsFromKV.
+ */
+export async function getSkillsListing(env: Env): Promise<any[]> {
+    if (!env?.DB) {
+        console.warn('[D1] No DB binding found, falling back to empty array');
+        return [];
+    }
+
+    try {
+        console.time('[D1] Listing query');
+        const result = await env.DB.prepare(`
+            SELECT 
+                id,
+                owner,
+                repo,
+                name,
+                category,
+                stars,
+                quality_score,
+                updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills 
+            ORDER BY stars DESC
+        `).all();
+
+        console.timeEnd('[D1] Listing query');
+
+        if (result.success && result.results) {
+            console.log(`[D1] Listing: ${result.results.length} skills loaded (lightweight)`);
+            return result.results.map((row: any) => ({
+                id: row.id,
+                name: row.name || row.skillName || row.repo,
+                skillName: row.skillName || row.name || '',
+                owner: row.owner,
+                repo: row.repo,
+                description: row.description ? tryParseJSON(row.description, row.description) : '',
+                category: row.category || '',
+                topics: row.topics ? tryParseJSON(row.topics, []) : [],
+                stars: row.stars || 0,
+                source: row.source || 'cache',
+                updatedAt: row.updated_at || '',
+                qualityScore: row.qualityScore || row.quality_score || 0,
+                filePath: row.filePath || '',
+                seo: row.seoDefinition ? { definition: tryParseJSON(row.seoDefinition, {}) } : undefined,
+            }));
+        }
+        return [];
+    } catch (e) {
+        console.error('[D1] Error in listing query:', e);
+        return [];
+    }
+}
+
+/** Safe JSON parse helper — returns fallback if parse fails */
+function tryParseJSON(str: string, fallback: any): any {
+    if (typeof str !== 'string') return str; // Already parsed
+    try { return JSON.parse(str); } catch { return fallback; }
 }
 
 /**
