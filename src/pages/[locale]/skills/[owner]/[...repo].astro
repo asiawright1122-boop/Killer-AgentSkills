@@ -5,6 +5,7 @@ import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../.
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import type { Env } from '../../../../lib/kv';
+import { getCollection } from 'astro:content';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
@@ -60,7 +61,16 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
-const skill = skillResult || await getSkillByOwnerRepo(env, owner, repo);
+let skill = skillResult || await getSkillByOwnerRepo(env, owner, repo);
+
+if (!skill) {
+  // Fallback to local collection for dev environments without KV bindings
+  const allLocalSkills = await getCollection('skills');
+  const localMatch = allLocalSkills.find(s => s.data.owner === owner && s.data.repo === repo);
+  if (localMatch) {
+    skill = { ...(localMatch.data as any), id: localMatch.id };
+  }
+}
 
 if (!skill) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
