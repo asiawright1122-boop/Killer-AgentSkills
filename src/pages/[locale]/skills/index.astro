@@ -18,9 +18,27 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 
-// ⚡ Load skills from aggressively-stripped Content Collections (zero DB queries!)
+// ⚡ CF Cache API — return cached HTML instantly on repeat visits
+const cacheUrl = new URL(Astro.request.url);
+const cacheKey = new Request(cacheUrl.toString(), { method: 'GET' });
+let edgeCache: Cache | undefined;
+try {
+  if (typeof caches !== 'undefined' && (caches as any).default) {
+    edgeCache = (caches as any).default;
+    const cachedResp = await edgeCache.match(cacheKey);
+    if (cachedResp) {
+      console.log(`[Cache API] HIT: ${cacheUrl.pathname}${cacheUrl.search}`);
+      return cachedResp;
+    }
+  }
+} catch (e) { /* proceed with SSR */ }
+
+// ⚡ PARALLEL: Load skills + translations concurrently
 const t0 = performance.now();
-const rawCollection = await getCollection('skills');
+const [rawCollection, messages] = await Promise.all([
+  getCollection('skills'),
+  loadMessages(typedLocale),
+]);
 let skills: UnifiedSkill[] = rawCollection.map(entry => ({
   ...(entry.data as any),
   id: entry.id,
@@ -106,8 +124,7 @@ const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 const currentPage = Math.max(1, Math.min(page, totalPages || 1));
 const paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
-// Load translations
-const messages = await loadMessages(typedLocale);
+// translations already loaded in parallel above
 const t = useTranslations(messages);
 
 // Page title
@@ -141,6 +158,12 @@ const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 
 
 // Category list for sidebar
 const categories = [];
+
+// ⚡ CF Cache API: flag for middleware to cache this response
+if (edgeCache) {
+  (Astro.locals as any).__cacheKey = cacheKey;
+  (Astro.locals as any).__edgeCache = edgeCache;
+}
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
@@ -364,3 +387,19 @@ const categories = [];
     </div>
   </div>
 </Layout>
+
+{/* ⚡ Prefetch on hover — preload detail pages before user clicks */}
+<script is:inline>
+  const prefetched = new Set();
+  document.addEventListener('pointerenter', (e) => {
+    const link = e.target?.closest?.('a[href*="/skills/"]');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || prefetched.has(href) || href.endsWith('/skills') || href.includes('?')) return;
+    prefetched.add(href);
+    const l = document.createElement('link');
+    l.rel = 'prefetch';
+    l.href = href;
+    document.head.appendChild(l);
+  }, { capture: true, passive: true });
+</script>
