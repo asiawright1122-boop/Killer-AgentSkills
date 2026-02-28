@@ -62,6 +62,26 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = pathname.split('/')[1];
     const response = await next();
     response.headers.set('Content-Language', localeSegment);
+
+    // ⚡ CF Cache API: store SSR response at the edge for instant future hits
+    const edgeCache = (context.locals as any).__edgeCache;
+    const cacheKey = (context.locals as any).__cacheKey;
+    if (edgeCache && cacheKey && response.status === 200) {
+      try {
+        const cloned = response.clone();
+        // Set cache TTL in the stored response
+        const cachedResponse = new Response(cloned.body, {
+          status: 200,
+          headers: new Headers(cloned.headers),
+        });
+        cachedResponse.headers.set('Cache-Control', 'public, s-maxage=3600');
+        cachedResponse.headers.set('X-Cache-Status', 'CACHED');
+        edgeCache.put(cacheKey, cachedResponse); // fire-and-forget
+      } catch (e) {
+        console.warn('[Cache API] Put failed:', e);
+      }
+    }
+
     return response;
   }
 
