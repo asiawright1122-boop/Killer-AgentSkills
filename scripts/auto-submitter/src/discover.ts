@@ -29,6 +29,11 @@ const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()
 const GITHUB_SOURCES = [
     'https://raw.githubusercontent.com/iAmCorey/awesome-ai-directory/main/README.md',
     'https://raw.githubusercontent.com/best-of-ai/ai-directories/main/README.md',
+    'https://raw.githubusercontent.com/zhimin-z/awesome-awesome-artificial-intelligence/master/README.md',
+    'https://raw.githubusercontent.com/owainlewis/awesome-artificial-intelligence/master/README.md',
+    'https://raw.githubusercontent.com/steven2358/awesome-generative-ai/main/README.md',
+    'https://raw.githubusercontent.com/Toolkitly/Awesome-AI-Tools/main/README.md',
+    'https://raw.githubusercontent.com/sourcegraph/awesome-code-ai/master/README.md',
     'https://raw.gitmirror.com/iAmCorey/awesome-ai-directory/main/README.md',
     'https://raw.gitmirror.com/best-of-ai/ai-directories/main/README.md'
 ];
