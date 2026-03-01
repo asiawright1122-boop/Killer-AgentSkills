@@ -10,8 +10,8 @@ const SITE = 'https://killer-skills.com';
 
 function buildHreflangLinks(pagePath: string): string {
     return SUPPORTED_LOCALES.map(loc =>
-        `<xhtml:link rel="alternate" hreflang="${loc}" href="${SITE}/${loc}${pagePath}" />`
-    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en${pagePath}" />`;
+        `<xhtml:link rel="alternate" hreflang="${loc}" href="${SITE}/${loc}${pagePath}/" />`
+    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en${pagePath}/" />`;
 }
 
 function formatDate(date: Date | string): string {
@@ -31,7 +31,7 @@ export const GET: APIRoute = async () => {
 
             for (const locale of SUPPORTED_LOCALES) {
                 urls.push(`<url>
-<loc>${SITE}/${locale}${path}</loc>
+<loc>${SITE}/${locale}${path}/</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>weekly</changefreq>
 ${buildHreflangLinks(path)}
