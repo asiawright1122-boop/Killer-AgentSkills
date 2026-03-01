@@ -152,12 +152,13 @@ async function runDiscovery() {
         return;
     }
 
-    // 每次随机抽样盲打 5 个，提升成功率
-    for (let i = 0; i < Math.min(freshUrls.length, 5); i++) {
+    // 执行剩下的全部站点
+    const totalToProcess = freshUrls.length;
+    for (let i = 0; i < totalToProcess; i++) {
         // 随机取一个且不再放回
         const randomIndex = Math.floor(Math.random() * freshUrls.length);
         const url = freshUrls.splice(randomIndex, 1)[0];
-        console.log(`\n[${i + 1}/${Math.min(freshUrls.length + i + 1, 5)}] 盲打测试: ${url}`);
+        console.log(`\n[${i + 1}/${totalToProcess}] 盲打测试: ${url}`);
 
         // 动态 Spintax 生成，保持多样性
         ctx.meta = {
