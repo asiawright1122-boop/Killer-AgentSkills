@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import CollectionCard from '../../../components/CollectionCard.astro';
 import SkillsSidebar from '../../../components/SkillsSidebar.astro';
+import Pagination from '../../../components/Pagination.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import { getCollection } from 'astro:content';
 import { searchSkills, filterByCategory } from '../../../lib/search';
@@ -314,72 +315,18 @@ const categories = [];
 
           {/* Pagination Controls */}
           {totalPages > 1 && (
-            <div class="mt-12 flex items-center justify-center gap-3 flex-wrap">
-              {currentPage > 1 && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
-                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                >
-                  {t('Common.prev')}
-                </a>
-              )}
-              
-              <a
-                href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: '1' }).toString()}`}
-                class={currentPage === 1 ? "px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"}
-              >
-                1
-              </a>
-
-              {currentPage > 3 && <span class="px-2 font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)]">...</span>}
-
-              {currentPage > 2 && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage - 1) }).toString()}`}
-                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                >
-                  {currentPage - 1}
-                </a>
-              )}
-
-              {currentPage !== 1 && currentPage !== totalPages && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage) }).toString()}`}
-                  class="px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]"
-                >
-                  {currentPage}
-                </a>
-              )}
-
-              {currentPage < totalPages - 1 && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
-                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                >
-                  {currentPage + 1}
-                </a>
-              )}
-
-              {currentPage < totalPages - 2 && <span class="px-2 font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)]">...</span>}
-
-              {totalPages > 1 && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(totalPages) }).toString()}`}
-                  class={currentPage === totalPages ? "px-4 py-2 bg-[var(--foreground)] border-2 border-[var(--foreground)] text-[var(--background)] font-black font-mono shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" : "px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"}
-                >
-                  {totalPages}
-                </a>
-              )}
-              
-              {currentPage < totalPages && (
-                <a
-                  href={`/${locale}/skills?${new URLSearchParams({ ...(query && { q: query }), ...(category && { category }), ...(view && { view }), ...(owner && { owner }), page: String(currentPage + 1) }).toString()}`}
-                  class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                >
-                  {t('Common.next')}
-                </a>
-              )}
-            </div>
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              baseUrl={`/${locale}/skills`}
+              searchParams={{
+                ...(query && { q: query }),
+                ...(category && { category }),
+                ...(view && { view }),
+                ...(owner && { owner }),
+              }}
+              t={t}
+            />
           )}
         </div>
 

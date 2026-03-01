@@ -1,0 +1,163 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  baseUrl: string; // Base URL including locale and path, e.g. /zh/skills
+  searchParams: Record<string, string>;
+  t: (key: any) => string;
+}
+
+const { currentPage, totalPages, baseUrl, searchParams, t } = Astro.props;
+
+// Logic to calculate the range of page numbers to show
+const getPageNumbers = () => {
+  const pages = [];
+  const sidePages = 2; // Number of pages to show on each side of current page
+
+  // Always show first page
+  pages.push(1);
+
+  if (currentPage > sidePages + 2) {
+    pages.push('...');
+  }
+
+  // Range around current page
+  const start = Math.max(2, currentPage - sidePages);
+  const end = Math.min(totalPages - 1, currentPage + sidePages);
+
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+
+  if (currentPage < totalPages - sidePages - 1) {
+    pages.push('...');
+  }
+
+  // Always show last page if more than 1 page
+  if (totalPages > 1) {
+    pages.push(totalPages);
+  }
+
+  return pages;
+};
+
+const getUrlForPage = (p: number) => {
+  const params = new URLSearchParams({ ...searchParams, page: String(p) });
+  return `${baseUrl}?${params.toString()}`;
+};
+
+const pages = getPageNumbers();
+---
+
+<nav class="flex flex-col items-center gap-6 mt-12 w-full" aria-label="Pagination">
+  <div class="flex items-center justify-center gap-2 flex-wrap">
+    <!-- Previous Button -->
+    {currentPage > 1 ? (
+      <a
+        href={getUrlForPage(currentPage - 1)}
+        class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">{t('Common.prev')}</span>
+      </a>
+    ) : (
+      <span class="px-4 py-2 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-wider opacity-50 cursor-not-allowed flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="hidden sm:inline">{t('Common.prev')}</span>
+      </span>
+    )}
+
+    <!-- Page Numbers -->
+    <div class="flex items-center gap-2">
+      {pages.map((p) => {
+        if (p === '...') {
+          return (
+            <span class="w-10 h-10 flex items-end justify-center font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)] pb-1">...</span>
+          );
+        }
+
+        const isCurrent = p === currentPage;
+        return (
+          <a
+            href={getUrlForPage(p as number)}
+            class:list={[
+              "w-10 h-10 flex items-center justify-center border-2 font-black font-mono transition-all",
+              isCurrent 
+                ? "bg-[var(--foreground)] border-[var(--foreground)] text-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" 
+                : "bg-[var(--background)] border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)]"
+            ]}
+          >
+            {p}
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- Next Button -->
+    {currentPage < totalPages ? (
+      <a
+        href={getUrlForPage(currentPage + 1)}
+        class="px-4 py-2 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1"
+      >
+        <span class="hidden sm:inline">{t('Common.next')}</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    ) : (
+      <span class="px-4 py-2 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-black uppercase tracking-wider opacity-50 cursor-not-allowed flex items-center gap-1">
+        <span class="hidden sm:inline">{t('Common.next')}</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+          <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
+        </svg>
+      </span>
+    )}
+  </div>
+
+  <!-- Jump to Page -->
+  <div class="flex items-center gap-3">
+    <div class="relative group">
+      <input
+        type="number"
+        id="jump-page-input"
+        min="1"
+        max={totalPages}
+        placeholder="页码"
+        class="w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
+      />
+    </div>
+    <button
+      id="jump-page-button"
+      class="bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] px-4 py-2 font-black uppercase tracking-widest text-sm hover:bg-[var(--primary)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+    >
+      GO
+    </button>
+  </div>
+</nav>
+
+<script is:inline define:vars={{ baseUrl, searchParams, totalPages }}>
+  const input = document.getElementById('jump-page-input');
+  const button = document.getElementById('jump-page-button');
+
+  if (input && button) {
+    const handleJump = () => {
+      const page = parseInt(input.value);
+      if (page >= 1 && page <= totalPages) {
+        const params = new URLSearchParams(searchParams);
+        params.set('page', page.toString());
+        window.location.href = `${baseUrl}?${params.toString()}`;
+      } else {
+        alert(`请输入 1 到 ${totalPages} 之间的有效页码`);
+      }
+    };
+
+    button.addEventListener('click', handleJump);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleJump();
+    });
+  }
+</script>
