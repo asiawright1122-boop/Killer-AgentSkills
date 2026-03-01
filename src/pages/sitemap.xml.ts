@@ -67,7 +67,7 @@ export const GET: APIRoute = async ({ locals }) => {
     }
 
     skillSitemaps.push(`<sitemap>
-  <loc>${SITE}/sitemap-skills-${i}.xml</loc>
+  <loc>${SITE}/sitemap-skills-${i}.xml/</loc>
   <lastmod>${chunkLastMod}</lastmod>
 </sitemap>`);
   }
@@ -75,14 +75,14 @@ export const GET: APIRoute = async ({ locals }) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
-  <loc>${SITE}/sitemap-static.xml</loc>
+  <loc>${SITE}/sitemap-static.xml/</loc>
 </sitemap>
 <sitemap>
-  <loc>${SITE}/sitemap-blog.xml</loc>
+  <loc>${SITE}/sitemap-blog.xml/</loc>
   <lastmod>${today}</lastmod>
 </sitemap>
 <sitemap>
-  <loc>${SITE}/sitemap-docs.xml</loc>
+  <loc>${SITE}/sitemap-docs.xml/</loc>
 </sitemap>
 ${skillSitemaps.join('\n')}
 </sitemapindex>`;

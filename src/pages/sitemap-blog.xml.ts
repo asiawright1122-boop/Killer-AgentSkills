@@ -9,8 +9,8 @@ const SITE = 'https://killer-skills.com';
 function buildHreflangLinks(locale: string, slug: string): string {
     // Generate alternate links for all locales for this specific slug
     return SUPPORTED_LOCALES.map(loc =>
-        `<xhtml:link rel="alternate" hreflang="${loc}" href="${SITE}/${loc}/blog/${slug}" />`
-    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en/blog/${slug}" />`;
+        `<xhtml:link rel="alternate" hreflang="${loc}" href="${SITE}/${loc}/blog/${slug}/" />`
+    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en/blog/${slug}/" />`;
 }
 
 function formatDate(date: Date | string): string {
@@ -41,7 +41,7 @@ export const GET: APIRoute = async () => {
             if (post) {
                 const lastmod = formatDate(post.data.updatedDate || post.data.pubDate || new Date());
                 urls.push(`<url>
-<loc>${SITE}/${locale}/blog/${slug}</loc>
+<loc>${SITE}/${locale}/blog/${slug}/</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
