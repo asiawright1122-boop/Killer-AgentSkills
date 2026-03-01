@@ -1,65 +1,65 @@
 ---
-title: "Killer Skills 发布：AI Agent 的终极技能库"
-description: "我们要兴奋地宣布 Killer Skills 正式上线！这是一个专为 AI 编程 Agent 打造的高质量工具市场。"
+title: "Announcing Killer Skills: The Ultimate Directory for AI Agents"
+description: "We are thrilled to unveil Killer Skills, a curated marketplace of high-quality tools designed specifically for AI coding agents."
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
-tags: ["发布公告", "AI Agent", "MCP"]
+tags: ["Announcement", "AI Agents", "MCP"]
 lang: "zh"
 featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 欢迎来到 Killer-Skills：为您的 AI Agent 注入超能力
+# Welcome to Killer-Skills: Superpowers for Your AI Agent
 
-今天，我们非常激动地宣布 **Killer-Skills** 正式上线 —— 这是首个为 AI Agent 打造的开放式技能市场和注册表。
+Today, we are thrilled to announce the launch of **Killer-Skills** — the first open marketplace and registry for AI agent capabilities.
 
-## 现代 AI Agent 面临的问题
+## The Problem with Today's AI Agents
 
-AI Agent（如 Claude Code、Cursor、Windsurf）具有革命性，但它们的潜力往往受限于它们能够访问的工具。到目前为止，开发人员经常不得不为了特定的任务（如 PDF 编辑、Excel 自动化或管理 GitHub 仓库）从头开始构建自己的 MCP（Model Context Protocol）服务器。
+AI agents (like Claude Code, Cursor, Windsurf) are revolutionary, but their potential is often limited by the tools they can access. Until now, developers frequently had to build their own MCP (Model Context Protocol) servers from scratch for specific tasks like PDF editing, Excel automation, or managing GitHub repositories.
 
-Killer-Skills 改变了这一切。
+Killer-Skills changes that.
 
-## 什么是 Killer-Skills？
+## What is Killer-Skills?
 
-Killer-Skills 是一个经过验证的、专业级技能的中心化注册表，您的 AI Agent 可以立即发现、安装并使用这些技能。
+Killer-Skills is a centralized registry of verified, professional-grade skills that your AI agent can instantly discover, install, and use.
 
-### 核心特性
+### Key Features
 
--   **通用注册表**：超过 1,000 个经过验证的技能，只需一条命令即可使用。
--   **深度 MCP 集成**：基于 Anthropic 的 Model Context Protocol 构建，确保 Agent 无缝交互。
--   **多 IDE 支持**：适用于您喜爱的工具，如 Cursor、Windsurf、Claude Code、Amp 和 Goose。
--   **安全第一**：每项技能都经过隔离和验证，确保安全执行。
+-   **Universal Registry**: Over 1,000 verified skills available with a single command.
+-   **Deep MCP Integration**: Built on Anthropic’s Model Context Protocol for seamless agent interaction.
+-   **Multi-IDE Support**: Works with your favorite tools like Cursor, Windsurf, Claude Code, Amp, and Goose.
+-   **Security First**: Every skill is isolated and validated for safe execution.
 
-## 立即开始
+## Start Right Now
 
-升级您的 Agent 非常简单。只需在终端中运行以下命令：
+Leveling up your agent is simple. Just run the following in your terminal:
 
 ```bash
-# 安装 CLI
+# Install the CLI
 npm install -g killer-skills
 
-# 搜索技能
+# Search for a skill
 killer search google-maps
 
-# 为您的 Agent 添加技能
+# Add a skill to your agent
 killer add google-maps
 ```
 
-## 未来是自主的
+## The Future is Autonomous
 
-我们相信这样一个未来：Agent 可以在执行任务时动态地“学习”（安装）新功能。Killer-Skills 提供了必要的底层设施，将 AI 工具转变为一个庞大的互联智能生态系统。
+We believe in a future where agents can "learn" (install) new capabilities on the fly as they perform tasks. Killer-Skills provides the necessary infrastructure, turning AI tools into a vast ecosystem of connected intelligence.
 
-## 加入革命
+## Join the Revolution
 
-Killer-Skills 是一个由社区驱动的项目。探索文档，查看[技能市场](https://killer-skills.com/zh/blog)，并通过创建您自己的技能开始做出贡献。
+Killer-Skills is a community-driven project. Explore the documentation, check out the [Marketplace](https://killer-skills.com/zh/blog), and start contributing by creating your own skills.
 
-让我们一起构建 Agent 的未来。
-
----
-
-*您的 Killer-Skills 团队*
+Let's build the future of agents together.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Your Killer-Skills Team*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

@@ -1,79 +1,79 @@
 ---
-title: "カスタムSlackリアクション：Slack-GIF-Creatorスキルを使いこなす"
-description: "公式のslack-gif-creatorスキルを使って、Slack用のカスタムアニメーションGIFや絵文字を作成する方法を学びましょう。ファイルサイズとインパクトを最適化する方法を解説します。"
+title: "Custom Slack Reactions: Master the Slack-GIF-Creator Skill"
+description: "Learn how to create custom animated GIFs and emojis for Slack using the official slack-gif-creator skill. Optimize your animations for file size and impact."
 pubDate: 2026-02-13
-author: "Killer-Skills チーム"
-tags: ["Slack", "GIF", "オートメーション", "Agent Skills"]
+author: "Killer-Skills Team"
+tags: ["Slack", "GIFs", "Automation", "Agent Skills"]
 lang: "ja"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Slack体験をレベルアップ：Slack-GIF-Creator 究極ガイド
+# Level Up Your Slack Game: The Ultimate Guide to Slack-GIF-Creator
 
-Slackは単なるコミュニケーションツールではありません。それは一つの文化です。そして、会社の文化を最も象徴するのは、カスタム絵文字リアクションです。しかし、完璧に最適化されたプロ品質のアニメーションGIFが作れるのに、なぜ静止画の絵文字で満足するのでしょうか？
+Slack isn't just a communication tool; it's a culture. And nothing defines a company's culture more than its custom emoji reactions. But why settle for static emojis when you can have perfectly optimized, professional-grade animated GIFs?
 
-Anthropicの公式 **slack-gif-creator** スキルを使えば、あなたのAIエージェント（Claude Codeなど）は、カスタムSlackアニメーションを一からデザインして構築できるようになります。「Party Parrot」のバリエーションでも、チーム独自の祝福絵文字でも、このスキルはSlackの特定の要件（ファイルサイズやフォーマット）に完全に適合したGIFを保証します。
+The official **slack-gif-creator** skill from Anthropic gives your AI agent (like Claude Code) the power to design and build custom Slack animations from scratch. Whether it's a "Party Parrot" variant or a custom team celebration, this skill ensures your GIFs are perfectly sized and formatted for Slack's specific requirements.
 
 ```bash
-# エージェントにslack-gif-creatorスキルを装備する
+# Equip your agent with the slack-gif-creator skill
 npx killer-skills add anthropics/skills/slack-gif-creator
 ```
 
-## Slack-GIF-Creatorスキルとは何か？
+## What is the Slack-GIF-Creator Skill?
 
-`slack-gif-creator` は、Pythonの **Pillow (PIL)** ライブラリをベースにした特殊なツールキットです。Slackで「確実に動作する」GIFを作成するために必要な制約、検証ツール、およびアニメーションの概念をエージェントに提供します。
+`slack-gif-creator` is a specialized toolkit based on Python's **Pillow (PIL)** library. It provides agents with the constraints, validation tools, and animation concepts needed to create GIFs that "just work" in Slack.
 
-### 主な最適化機能
-Slackにはファイルサイズと寸法の厳しい制限があります。このスキルは、技術的な重労働を代行します。
--   **自動サイジング**: 絵文字用（128x128）またはメッセージ用（480x480）に最適化。
--   **FPS制御**: ファイルサイズを128KB/256KBの制限内に抑えるためのスマートなフレームレート管理。
--   **減色処理**: 最小限の重さで最大限の鮮明さを実現する、インテリジェントなカラーパレット最適化（48〜128色）。
+### Key Optimization Features
+Slack has strict file size and dimension limits. This skill handles the technical heavy lifting:
+- **Automatic Sizing**: Optimized for 128x128 (emojis) or 480x480 (messages).
+- **FPS Control**: Smart frame-rate management to keep file sizes under the 128KB/256KB limits.
+- **Color Reduction**: Intelligent color palette optimization (48-128 colors) for maximum crispness with minimum weight.
 
-## マスターできるアニメーションの概念
+## Animation Concepts You Can Master
 
-このスキルは、単なるフレームの切り替えではなく、洗練されたアニメーション技術の使用を推奨しています。
+The skill encourages agents to use sophisticated animation techniques rather than simple frame-swapping:
 
-### 1. モーション・イージング
-「カクカクした」アニメーションは誰も好みません。このスキルには、`ease_out`、`bounce_out`、`elastic_out` などのイージング関数が含まれており、動きをプロフェッショナルで滑らかに感じさせます。
+### 1. Motion Easing
+Nobody likes "choppy" animations. The skill includes easing functions like `ease_out`, `bounce_out`, and `elastic_out` to make movements feel professional and fluid.
 
-### 2. 高品質なプリミティブ
-低解像度のアセットを使用する代わりに、Pythonを使用して、太いアンチエイリアス処理を施したアウトラインを持つ高品質なベクター風のプリミティブ（星、円、多角形）を描画します。これにより、Retinaディスプレイでもカスタム絵文字が「プレミアム」に見えます。
+### 2. High-Quality Primitives
+Instead of using low-res assets, the skill uses Python to draw high-quality vector-like primitives (stars, circles, polygons) with thick, anti-aliased outlines. This ensures your custom emojis look "premium" even on Retina displays.
 
-### 3. 視覚効果
--   **パルス/ハートビート**: お祝い絵文字用のリズム感のあるスケーリング。
--   **エクスプロード/バースト**: マイルストーンの発表に最適。
--   **シマー/グロウ**: カスタムリアクションに「魔法」のようなレイヤーを追加。
+### 3. Visual Effects
+- **Pulse/Heartbeat**: Rhythmic scaling for celebration emojis.
+- **Explode/Burst**: Great for milestone announcements.
+- **Shimmer/Glow**: Adding a layer of "magic" to your custom reactions.
 
-## Killer-Skillsでの使い方
+## How to use it with Killer-Skills
 
-### ステップ 1: スキルのインストール
-CLIを使用してエージェントを装備します。
+### Step 1: Install the Skill
+Use the CLI to equip your agent:
 ```bash
 npx killer-skills add anthropics/skills/slack-gif-creator
 ```
 
-### ステップ 2: カスタムリアクションをリクエストする
-具体的なビジョンを持ってエージェントにプロンプトを出します。
-> 「紫色の輝きを放ちながらパルスする金の星のSlack用GIFを作ってください。slack-gif-creatorスキルを使用し、128x128の絵文字用に最適化されていることを確認してください。」
+### Step 2: Request a Custom Reaction
+Prompt your agent with a specific vision:
+> "Make me a Slack-ready GIF of a golden star pulsing with a purple glow. Use the slack-gif-creator skill and make sure it's optimized for a 128x128 emoji."
 
-### ステップ 3: デプロイ
-エージェントはPythonスクリプトを書き、それを実行して `.gif` を生成し、組み込みの `is_slack_ready()` ユーティリティを使用して検証まで行います。あとはSlackワークスペースにアップロードするだけです！
+### Step 3: Deployment
+The agent will write a Python script, execute it to generate the `.gif`, and even validate it using the built-in `is_slack_ready()` utility. All you have to do is upload it to your Slack workspace!
 
-## なぜこれがチームにとって重要なのか
+## Why This Matters for Teams
 
-カスタムリアクションは単なる楽しみではありません。それは **エンゲージメントの原動力** です。独自の「製品リリース成功」や「バグ修正完了」のGIFは、チームの士気を高めます。このスキルがあれば、Adobe After Effectsを開くことなく、誰でもモーションデザイナーになれるのです。
+Custom reactions are more than just fun—they are **engagement drivers**. A custom "Product Launch Success" or "Bug Fixed" GIF can boost team morale. With this skill, anyone can be a motion designer without ever opening Adobe After Effects.
 
-## 結論
+## Conclusion
 
-`slack-gif-creator` スキルは、技術的な最適化と創造的な自由の完璧な融合です。それは、現代の職場コミュニケーションの「ルール」を理解したデジタルアーティストにあなたのAIエージェントを変貌させます。
+The `slack-gif-creator` skill is the perfect blend of technical optimization and creative freedom. It turns your AI agent into a digital artist that understands the "rules of the road" for modern workplace communication.
 
-[Killer-Skillsマーケットプレイス](https://killer-skills.com/ja/skills/anthropics/skills/slack-gif-creator)にアクセスして、今すぐ始めましょう。
+Head over to the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/slack-gif-creator) to get started.
 
 ---
 
-*さらなるビジュアル・マスターを目指しますか？ ハイエンドな静止画ポスター作成のための [canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) もチェックしてみてください。*
+*Looking for more visual mastery? Explore [canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) for high-end static posters.*
 
 ---
 

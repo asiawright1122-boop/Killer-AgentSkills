@@ -28,17 +28,30 @@ function escapeRegExp(string: string) {
 }
 
 async function translateBlogBody(body: string, targetLang: string): Promise<string> {
-    // Strategy: Split by H2 headers to avoid context window limits
-    // But for now, let's try a single pass for typical blog posts (< 2000 tokens)
-    // If it's too long, we might need chunking. 
+    // Strategy: Split by H2 headers to handle long articles without hitting response limits
+    const chunks = body.split(/(?=\n## )/);
 
-    // Simple chunking by H2 if body is very long (> 4000 chars)
-    if (body.length > 15000) {
-        console.warn('⚠️ Article is very long, translation might be truncated. Consider implementing chunking.');
+    if (chunks.length <= 1 && body.length < 4000) {
+        // Short article, single pass
+        return await translateChunk(body, targetLang);
     }
 
+    console.log(`     📦 Article split into ${chunks.length} chunks for reliable translation...`);
+    let translatedBody = '';
+    for (let i = 0; i < chunks.length; i++) {
+        const chunk = chunks[i];
+        if (chunk.trim()) {
+            process.stdout.write(`       [Chunk ${i + 1}/${chunks.length}] `);
+            const translatedChunk = await translateChunk(chunk, targetLang);
+            translatedBody += translatedChunk + "\n";
+        }
+    }
+    return translatedBody.trim();
+}
+
+async function translateChunk(chunk: string, targetLang: string): Promise<string> {
     const prompt = `You are a professional technical translator and SEO expert. 
-Translate the following Markdown blog post from English to ${targetLang}.
+Translate the following Markdown content from English to ${targetLang}.
 
 ## Rules:
 1. **Preserve Markdown**: Keep all headers, bullets, code blocks, links, and formatting exactly as is.
@@ -48,13 +61,14 @@ Translate the following Markdown blog post from English to ${targetLang}.
 5. **Images**: Keep image syntax \`![alt](url)\` but translate the alt text.
 6. **No Fluff**: Do not add introductory text. Return ONLY the translated Markdown.
 
-## Original Content:
-${body}`;
+## Content to Translate:
+${chunk}`;
 
-    // Use AI Service (race strategy)
-    // We request a longer token limit for blog posts
     const result = await aiService.callAI(prompt, false);
-    return result || body; // Fallback to original if failed
+    if (!result) {
+        throw new Error(`AI Translation failed for chunk (no response from any provider)`);
+    }
+    return result;
 }
 
 async function translateFrontmatter(frontmatter: string, targetLang: string): Promise<string> {
@@ -76,6 +90,10 @@ Original Description: "${desc}"`;
     const result = await aiService.callAI(prompt, true);
     let newTitle = title;
     let newDesc = desc;
+
+    if (!result) {
+        throw new Error(`AI Translation failed for metadata (no response from any provider)`);
+    }
 
     if (result) {
         try {

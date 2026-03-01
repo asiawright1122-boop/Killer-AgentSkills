@@ -1,103 +1,103 @@
 ---
-title: "如何构建 MCP 服务器：使用 Agent Skills 的完整指南"
-description: "了解如何使用官方 mcp-builder 技能为 AI Agent 构建生产级 MCP 服务器。涵盖 TypeScript 和 Python 的设置、工具设计、测试和部署。"
+title: "How to Build MCP Servers: A Complete Guide Using Agent Skills"
+description: "Learn how to build production-ready MCP servers for AI agents using the official mcp-builder skill. Covers setup, tool design, testing, and deployment with TypeScript and Python."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["MCP", "教程", "Agent Skills", "Claude Code"]
+author: "Killer-Skills Team"
+tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
 lang: "zh"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 如何构建 AI Agent 真正会用的 MCP 服务器
+# How to Build MCP Servers That AI Agents Actually Use
 
-如果你的 AI 编程助手不仅能写代码，还能发送 Slack 消息、查询数据库、部署到生产环境，并管理你的整个 DevOps 流水线——这一切都通过一个标准的协议实现，那会怎样？
+What if your AI coding agent could do more than just write code? What if it could send Slack messages, query databases, deploy to production, and manage your entire DevOps pipeline — all through a standardized protocol?
 
-这正是 **MCP 服务器**（Model Context Protocol）所实现的。借助于 Anthropic 官方技能库中的 **mcp-builder** 技能，你可以在几分钟内构建出生产级的 MCP 服务器，而不是花费数小时。
+That's exactly what **MCP servers** (Model Context Protocol) make possible. And with the official **mcp-builder** skill from Anthropic's skills repository, you can build production-grade MCP servers in minutes instead of hours.
 
 ```bash
-# 一键安装 mcp-builder 技能
+# Install the mcp-builder skill with one command
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-在本指南中，你将了解构建 MCP 服务器所需的一切知识——从理解协议到部署你的第一个服务器。
+In this guide, you'll learn everything you need to know about building MCP servers — from understanding the protocol to deploying your first server.
 
-## 什么是 MCP 服务器？
+## What Is an MCP Server?
 
-**MCP 服务器** 是一种标准化的服务，它向 AI Agent 暴露工具（Tools）、资源（Resources）和提示词（Prompts）。你可以把它看作是 AI 助手与现实世界（数据库、API、文件系统、云服务等）之间的桥梁。
+An **MCP server** is a standardized service that exposes tools, resources, and prompts for AI agents to consume. Think of it as a bridge between your AI assistant and the real world — databases, APIs, file systems, cloud services, and more.
 
-**Model Context Protocol** (MCP) 由 Anthropic 创建，旨在解决一个根本问题：AI Agent 需要一种通用的方式与外部服务交互。在 MCP 出现之前，每次集成都需要编写自定义代码。现在，一个协议就能搞定一切。
+The **Model Context Protocol** (MCP) was created by Anthropic to solve a fundamental problem: AI agents need a universal way to interact with external services. Before MCP, every integration required custom code. Now, a single protocol handles everything.
 
-为什么 MCP 如此重要：
+Here's why MCP matters:
 
-- **通用兼容性** —— 适用于 Claude, Cursor, Windsurf 以及任何兼容 MCP 的客户端
-- **标准化的接口** —— 工具、资源和提示词遵循一致的 Schema
-- **安全优先设计** —— 内置身份验证、输入验证和权限控制
-- **可组合的工作流** —— Agent 可以将多个 MCP 工具链接在一起
+- **Universal compatibility** — Works with Claude, Cursor, Windsurf, and any MCP-compatible client
+- **Standardized interface** — Tools, resources, and prompts follow a consistent schema
+- **Security-first design** — Built-in authentication, input validation, and permission controls
+- **Composable workflows** — Agents can chain multiple MCP tools together
 
-## 为什么使用 mcp-builder 技能？
+## Why Use the mcp-builder Skill?
 
-**mcp-builder** 技能是 Anthropic 官方库中最强大的技能之一。它通过提供以下功能，将 Claude 转变为专业的 MCP 服务器开发专家：
+The **mcp-builder** skill is one of the most powerful skills in Anthropic's official repository. It transforms Claude into a specialized MCP server developer by providing:
 
-1. **深度的协议知识** —— 该技能加载了完整的 MCP 规范，因此 Claude 了解每一个细节
-2. **内置最佳实践** —— 工具命名、错误处理和分页模式都已预先配置
-3. **框架特定指南** —— 针对 TypeScript 和 Python 优化的模板
-4. **评估生成** —— 为你的 MCP 服务器自动创建测试套件
+1. **Deep protocol knowledge** — The skill loads the full MCP specification so Claude understands every detail
+2. **Best practices baked in** — Tool naming, error handling, and pagination patterns are all pre-configured
+3. **Framework-specific guides** — Optimized templates for both TypeScript and Python
+4. **Evaluation generation** — Automatically creates test suites for your MCP server
 
-与从头开始构建不同，mcp-builder 技能遵循一个结构化的 4 阶段工作流：
+Unlike building from scratch, the mcp-builder skill follows a structured 4-phase workflow:
 
-| 阶段 | 发生什么 |
+| Phase | What Happens |
 |:------|:-------------|
-| **阶段 1：调研** | 研究 API，规划工具覆盖范围，设计 Schema |
-| **阶段 2：构建** | 实现具有正确错误处理和身份验证的服务器 |
-| **阶段 3：评审** | 测试所有工具，验证响应，检查边缘情况 |
-| **阶段 4：评估** | 创建自动化评估以验证质量 |
+| **Phase 1: Research** | Studies the API, plans tool coverage, designs the schema |
+| **Phase 2: Build** | Implements the server with proper error handling and auth |
+| **Phase 3: Review** | Tests all tools, validates responses, checks edge cases |
+| **Phase 4: Evaluate** | Creates automated evaluations to verify quality |
 
-## 快速入门：构建你的第一个 MCP 服务器
+## Getting Started: Build Your First MCP Server
 
-### 第一步：安装技能
+### Step 1: Install the Skill
 
-首先，确保你已经安装了 Killer-Skills CLI：
+First, make sure you have the Killer-Skills CLI installed:
 
 ```bash
 npm install -g killer-skills
 ```
 
-然后将 mcp-builder 技能添加到你的项目中：
+Then add the mcp-builder skill to your project:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-该技能将被添加到你的 `.claude/skills/` 目录中，并在 Claude 检测到 MCP 服务器开发任务时自动激活。
+The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
 
-### 第二步：选择你的技术栈
+### Step 2: Choose Your Stack
 
-mcp-builder 技能支持两种主要技术栈：
+The mcp-builder skill supports two primary stacks:
 
-**TypeScript (推荐)**
+**TypeScript (Recommended)**
 ```bash
 npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-推荐使用 TypeScript 的几个原因：
-- 来自 MCP 官方团队的高质量 SDK 支持
-- 静态类型在运行前捕获错误
-- 与执行环境的强兼容性
-- AI 模型非常擅长生成 TypeScript 代码
+TypeScript is recommended for several reasons:
+- High-quality SDK support from the official MCP team
+- Static typing catches errors before runtime
+- Strong compatibility with execution environments
+- AI models excel at generating TypeScript code
 
 **Python**
 ```bash
 pip install mcp pydantic
 ```
 
-如果你的团队已经在使用 Python，或者你要集成的 API 偏重于 Python，那么 Python 也是一个不错的选择。
+Python is a great choice if your team already uses Python or you're integrating with Python-heavy APIs.
 
-### 第三步：定义你的工具
+### Step 3: Define Your Tools
 
-一个好的 MCP 服务器的关键在于设计良好的工具。这是一个模板：
+The key to a great MCP server is well-designed tools. Here's a template:
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -110,11 +110,11 @@ const server = new McpServer({
 
 server.tool(
   "create_item",
-  "在系统中创建一个新项目",
+  "Creates a new item in the system",
   {
-    name: z.string().describe("要创建的项目名称"),
-    description: z.string().optional().describe("可选描述"),
-    tags: z.array(z.string()).optional().describe("分类标签"),
+    name: z.string().describe("Name of the item to create"),
+    description: z.string().optional().describe("Optional description"),
+    tags: z.array(z.string()).optional().describe("Tags for categorization"),
   },
   async ({ name, description, tags }) => {
     const result = await api.createItem({ name, description, tags });
@@ -130,11 +130,11 @@ server.tool(
 );
 ```
 
-### 第四步：实施最佳实践
+### Step 4: Implement Best Practices
 
-mcp-builder 技能强制执行几个关键模式：
+The mcp-builder skill enforces several critical patterns:
 
-**工具命名规范**
+**Tool Naming Convention**
 ```
 ✅ github_create_issue
 ✅ slack_send_message
@@ -145,29 +145,29 @@ mcp-builder 技能强制执行几个关键模式：
 ❌ doStuff
 ```
 
-使用一致的前缀（服务名称）+ 以动作导向的动词。这有助于 Agent 快速发现并选择正确的工具。
+Use consistent prefixes (service name) + action-oriented verbs. This helps agents quickly discover and select the right tools.
 
-**可操作的错误消息**
+**Actionable Error Messages**
 ```typescript
-// ❌ 错误做法
+// ❌ Bad
 throw new Error("Not found");
 
-// ✅ 正确做法
+// ✅ Good
 throw new Error(
-  `未找到仓库 "${owner}/${repo}"。` +
-  `请检查仓库是否存在以及你是否有访问权限。` +
-  `尝试先使用 github_list_repos 列出你的仓库。`
+  `Repository "${owner}/${repo}" not found. ` +
+  `Check that the repository exists and you have access. ` +
+  `Try listing your repositories first with github_list_repos.`
 );
 ```
 
-**工具注解**
+**Tool Annotations**
 
-每个工具都应该包含帮助 Agent 理解其行为的注解：
+Every tool should include annotations that help agents understand their behavior:
 
 ```typescript
 server.tool(
   "delete_item",
-  "永久删除一个项目",
+  "Permanently deletes an item",
   { id: z.string() },
   async ({ id }) => { /* ... */ },
   {
@@ -180,83 +180,83 @@ server.tool(
 );
 ```
 
-## 实战案例：构建 GitHub MCP 服务器
+## Real-World Example: Building a GitHub MCP Server
 
-让我们来看看一个现实的例子。假设你想构建一个让 AI Agent 管理 GitHub 仓库的 MCP 服务器。
+Let's walk through a realistic example. Suppose you want to build an MCP server that lets AI agents manage GitHub repositories.
 
-**在激活 mcp-builder 技能的情况下询问 Claude：**
+**Ask Claude with the mcp-builder skill active:**
 
-> "帮我构建一个 GitHub API 的 MCP 服务器。它应该支持创建 Issue、列出仓库、管理 Pull Request 和搜索代码。"
+> "Build me an MCP server for the GitHub API. It should support creating issues, listing repositories, managing pull requests, and searching code."
 
-Claude 将会：
-1. 研究 GitHub REST API 文档
-2. 规划要覆盖的端点（通常是 15-25 个工具）
-3. 构建完整的服务器，并带有正确的 OAuth 身份验证
-4. 为每个工具生成测试评估
+Claude will:
+1. Research the GitHub REST API documentation
+2. Plan which endpoints to cover (typically 15-25 tools)
+3. Build the complete server with proper OAuth authentication
+4. Generate test evaluations for each tool
 
-其结果是一个具有正确错误处理、分页、速率限制和身份验证的生产级服务器——这通常需要花费数天时间手动构建。
+The result is a production-ready server with proper error handling, pagination, rate limiting, and authentication — something that would normally take days to build manually.
 
-## MCP 服务器的关键设计原则
+## Key Design Principles for MCP Servers
 
-### API 覆盖 vs. 工作流工具
+### API Coverage vs. Workflow Tools
 
-mcp-builder 技能教导了一个重要的平衡：
+The mcp-builder skill teaches an important balance:
 
-- **全面覆盖** 为 Agent 组合操作提供了灵活性
-- **工作流工具** 将常见的多个步骤合并为单个调用
-- 不确定时，优先考虑全面的 API 覆盖
+- **Comprehensive coverage** gives agents flexibility to compose operations
+- **Workflow tools** bundle common multi-step operations into single calls
+- When uncertain, prioritize comprehensive API coverage
 
-### 上下文管理
+### Context Management
 
-Agent 在处理聚焦、相关联的数据时表现最好：
+Agents work best with focused, relevant data:
 
-- 只返回 Agent 需要的字段，而不是整个 API 响应
-- 对列表操作支持分页
-- 包含过滤器以缩小结果范围
+- Return only the fields agents need, not entire API responses
+- Support pagination for list operations
+- Include filters to narrow results
 
-### 测试与评估
+### Testing and Evaluation
 
-mcp-builder 技能生成的自动化评估会测试：
+The mcp-builder skill generates automated evaluations that test:
 
-- **正常路径** —— 使用有效输入的正常操作
-- **边缘情况** —— 空结果、大数据集、特殊字符
-- **错误处理** —— 无效输入、授权失败、速率限制
-- **真实场景** —— 链接多个工具的多步工作流
+- **Happy path** — Normal operation with valid inputs
+- **Edge cases** — Empty results, large datasets, special characters
+- **Error handling** — Invalid inputs, auth failures, rate limits
+- **Real-world scenarios** — Multi-step workflows that chain tools together
 
-## 通过 Killer-Skills 安装
+## Installing via Killer-Skills
 
-最快的入门方式是通过 Killer-Skills 市场：
+The fastest way to get started is through the Killer-Skills marketplace:
 
 ```bash
-# 浏览官方技能
+# Browse the official skills
 npx killer-skills search mcp
 
-# 安装 mcp-builder
+# Install mcp-builder
 npx killer-skills add anthropics/skills/mcp-builder
 
-# 验证安装
+# Verify installation
 npx killer-skills list
 ```
 
-安装后，该技能会自动在 Claude Code、Claude.ai 和任何 Claude API 集成中可用。只需开始关于构建 MCP 服务器的对话，Claude 就会加载该技能的指令。
+Once installed, the skill is automatically available in Claude Code, Claude.ai, and any Claude API integration. Simply start a conversation about building an MCP server and Claude will load the skill's instructions.
 
-## 下一步是什么？
+## What's Next?
 
-MCP 服务器正在成为 AI Agent 与世界交互的标准方式。借助于 mcp-builder 技能，你不需要成为 MCP 协议专家——Claude 处理复杂性，而你专注于服务器应该做什么。
+MCP servers are becoming the standard way AI agents interact with the world. With the mcp-builder skill, you don't need to be an MCP protocol expert — Claude handles the complexity while you focus on what your server should do.
 
-准备好构建你的第一个 MCP 服务器了吗？以下是今天的开始方式：
+Ready to build your first MCP server? Here's how to get started today:
 
-1. **安装技能**：`npx killer-skills add anthropics/skills/mcp-builder`
-2. **选择你的 API**：选择你想集成的服务（Slack, Notion, JIRA 等）
-3. **描述你的需求**：告诉 Claude 你需要什么工具，它将构建整个服务器
-4. **部署并测试**：使用生成的评估来验证你的服务器
+1. **Install the skill**: `npx killer-skills add anthropics/skills/mcp-builder`
+2. **Choose your API**: Pick a service you want to integrate (Slack, Notion, JIRA, etc.)
+3. **Describe your needs**: Tell Claude what tools you need, and it will build the entire server
+4. **Deploy and test**: Use the generated evaluations to validate your server
 
-AI 开发的未来不在于编写更多代码，而在于为 AI Agent 提供正确的工具。MCP 服务器和 Agent Skills 让这个未来在今天成为可能。
-
----
-
-*想探索更多技能吗？浏览 [Killer-Skills 市场](https://killer-skills.com/zh/skills) 发现数百个经过验证的 AI 编程工作流 Agent Skills。*
+The future of AI development isn't about writing more code — it's about giving AI agents the right tools to work with. MCP servers and Agent Skills make that future possible today.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Want to explore more skills? Browse the [Killer-Skills Marketplace](https://killer-skills.com/zh/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

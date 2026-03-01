@@ -1,66 +1,74 @@
 ---
-title: "Doc-Coauthoring 스킬로 문서 공동 작성을 강화하기"
-description: "공식 doc-coauthoring 스킬을 사용하여 AI 에이전트와 사람이 협력하여 고품질 기술 문서를 작성하는 방법을 배웁니다."
+title: "The Collaboration Engine: Mastering the Doc-Coauthoring Skill"
+description: "Learn how to write world-class documentation with the official doc-coauthoring skill. Discover the 3-stage workflow for PRDs, specs, and proposals."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["공동 작성", "문서 제작", "기술 라이팅", "워크플로우"]
+tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
 lang: "ko"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 공존의 힘: Doc-Coauthoring 스킬로 고품질 문서 만들기
+# Write Better, Faster: Unlocking the Doc-Coauthoring Skill
 
-좋은 문서를 만드는 것은 혼자만의 노력으로는 힘들 수 있습니다. 정확한 정보, 일관된 어조, 그리고 독자의 니즈를 충족하는 구성까지. 이 모든 것을 갖추기 위해 AI의 속도와 사람의 통찰력을 결합하는 것이 이상적입니다.
+Writing documentation is often the most dreaded part of being a developer or product manager. We know what we want to say, but transferring that knowledge from our brains to a structured page—ensuring it makes sense to others—is a cognitive heavy lift.
 
-**doc-coauthoring** 스킬을 사용하면 AI 에이전트와 사람이 체계적인 프로세스를 통해 최상급 문서를 함께 만들어낼 수 있습니다.
+The official **doc-coauthoring** skill from Anthropic transforms your AI agent into a senior technical editor and strategic partner. It doesn't just "write for you"; it guides you through a rigorous, high-fidelity collaboration process that ensures your PRDs, design docs, and proposals are bulletproof.
 
 ```bash
-# 에이전트에 doc-coauthoring 스킬 장착하기
+# Equip your agent with the doc-coauthoring skill
 npx killer-skills add anthropics/skills/doc-coauthoring
 ```
 
-## Doc-Coauthoring 스킬의 주요 기능
+## What is the Doc-Coauthoring Skill?
 
-이 스킬은 단편적인 작성이 아니라 검증된 '공동 작성 워크플로우'를 에이전트에 제공합니다:
+The `doc-coauthoring` skill is a formal workflow orchestration engine. It breaks down the monumental task of writing a document into three distinct, manageable stages.
 
-### 1. 체계적인 컨텍스트 수집
-집필을 시작하기 전, 에이전트는 필요한 정보를 먼저 확인합니다.
--   **목적 및 타겟**: 누가, 왜 이 문서를 필요로 하는지 명확히 합니다.
--   **정보 조각 모으기**: 오래된 문서, 이메일 내용, 작업 목록 등을 한데 모읍니다.
+### Stage 1: The Context Deep-Dive
+Documentation fails when there isn't enough context. In this stage:
+- **Info Dumping**: You provide raw thoughts, Slack links, or terminal logs.
+- **Clarifying Questions**: The agent asks 5-10 specific questions to close the "knowledge gap," ensuring it understands the *why* behind the project, not just the *what*.
 
-### 2. 단계별 개요(Outline) 구축
-바로 글을 쓰는 것이 아니라 먼저 구조를 제안합니다. 사용자의 피드백을 받으며 논리적인 흐름을 확정합니다.
+### Stage 2: Structural Refinement
+Once the context is gathered, the agent builds the document section by section:
+- **Brainstorming**: For every section, the agent offers 5-20 options or angles to cover.
+- **Surgical Drafting**: Instead of re-printing the whole doc, it uses precise edits to refine content based on your feedback, learning your "voice" along the way.
 
-### 3. 반복적인 초안 작업
-개요를 바탕으로 초안을 작성하고, 사용자의 구체적인 피드백("이 부분은 더 간결하게", "이 기술적 세부사항 추가")을 반영하며 글을 다듬어 나갑니다.
+### Stage 3: The "Reader Test" (The Secret Weapon)
+The most unique feature of this skill is **Reader Testing**. The agent invokes a "fresh" sub-agent—one with zero context of your conversation—and asks it to read the document and answer questions.
+If the fresh agent gets something wrong or finds an instruction ambiguous, you know your human readers will too. This process catches "blind spots" before you hit published.
 
-### 4. 검증 및 마무리
-완성된 문서가 초기 목적을 달성했는지, 모순은 없는지, 어조가 적절한지 최종 점검합니다.
+## Why Technical Teams Love It
 
-## 실제 사용 사례
+For software engineering teams, this skill is a game-changer for:
+- **PRDs & Design Docs**: Ensure that every technical trade-off is documented and every edge case is covered.
+- **RFCs (Request for Comments)**: Build consensus by creating documents that are clear, concise, and logically consistent.
+- **Onboarding Guides**: Verify that your "getting started" guides actually work by running them through a sub-agent reader test.
 
-### 기술 사양서(Tech Spec) 작성
-복잡한 시스템 아키텍처나 API 설계를 엔지니어의 단편적인 메모로부터 전문적인 사양서로 정리해냅니다.
+## Practical Use Cases
 
-### 전략 제안서 및 기획서
-비즈니스 목표와 시장 데이터를 기반으로 이해관계자를 설득할 수 있는 강력한 제안서를 공동 제작합니다.
+### From Slack Chat to PRD
+Paste a long Slack thread about a new feature into your agent. Use the `doc-coauthoring` skill to structure those messy discussions into a professional Product Requirement Document.
 
-### 사내 가이드라인 및 FAQ
-사내 지식 베이스를 구축할 때 에이전트가 정보를 정리하고 사람이 정확성을 검토하여 빠르게 문서를 정비합니다.
+### Automated Logic Check
+Ask the agent to "Reader Test" your technical spec to see if a developer could implement the feature based *only* on the text provided.
 
-## Killer-Skills에서 사용하는 예시
+## How to use it with Killer-Skills
 
-1.  **시작**: "새로운 제품의 온보딩 문서를 쓰기 시작합시다. 먼저 어떤 정보를 알려드리면 될까요?"
-2.  **개요 제안**: "이런 개요는 어떤가요? 2장에 '설치 방법'을 추가하는 게 좋을까요?"
-3.  **다듬기**: "초안을 만들었습니다. 4장의 어조를 좀 더 친근하게 바꾸기 위한 의견을 주세요."
+1.  **Install**: `npx killer-skills add anthropics/skills/doc-coauthoring`
+2.  **Trigger**: "I want to draft a technical proposal for our new API. Let's use the doc-coauthoring workflow."
+3.  **Collaborate**: Follow the agent's lead through the three stages.
 
-## 요약
+## Conclusion
 
-`doc-coauthoring` 스킬은 AI를 단순한 '필기구'에서 '파트너'로 격상시킵니다. AI가 정보 정리와 구조 설계를 담당하고 사람이 전문적인 뉘앙스를 더함으로써, 혼자 쓸 때보다 더 빠르고 뛰어난 결과물을 얻을 수 있습니다.
+The `doc-coauthoring` skill raises the bar for what AI-assisted writing can be. It turns a solitary, exhausting task into a structured, high-quality dialogue. 
 
-지금 바로 [doc-coauthoring 스킬](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)을 도입하여 공동 작업의 새로운 표준을 경험하세요.
+Visit the [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring) to download the skill and start writing documents that actually work.
+
+---
+
+*Need to finalize the formatting? Pair this with the [docx skill](https://killer-skills.com/ko/skills/anthropics/skills/docx) for a professional Word export.*
 
 ---
 

@@ -1,94 +1,94 @@
 ---
-title: "AI를 활용한 제너레이티브 아트: Algorithmic Art 스킬 가이드"
-description: "AI 에이전트를 위한 공식 algorithmic-art 스킬을 사용하여 제너레이티브 아트를 마스터하세요. p5.js 비주얼, 플로우 필드 및 파티클 시스템을 손쉽게 만드는 방법을 배웁니다."
+title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
+description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
 pubDate: 2026-02-13
-author: "Killer-Skills 팀"
-tags: ["제너레이티브 아트", "p5.js", "Agent Skills", "알고리즘 아트"]
+author: "Killer-Skills Team"
+tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
 lang: "ko"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 코드를 캔버스로 변환하기: 알고리즘 아트의 힘
+# Transforming Code into Canvas: The Power of Algorithmic Art
 
-제너레이티브 아트(Generative Art)는 수학의 정밀함과 예술적 표현의 원초적인 감정이 만나는 영역입니다. 작가가 단순히 그림을 그리는 것이 아니라, 무한한 변주에 생명력을 불어넣는 '시스템'을 구축하는 매체입니다.
+Generative art is where the precision of mathematics meets the raw emotion of artistic expression. It’s a medium where the artist doesn’t just paint a picture, but creates a *system* that breathes life into infinite variations. 
 
-Anthropic의 공식 **algorithmic-art** 스킬을 사용하면 Claude Code나 Cursor와 같은 AI 코딩 에이전트가 뛰어난 제너레이티브 아티스트로 변신합니다. 이 스킬은 에이전트가 **p5.js**, 시드된 무작위성(seeded randomness), 그리고 계산적 철학을 활용하여 갤러리 수준의 비주얼을 만드는 방법을 가르칩니다.
+With the official **algorithmic-art** skill from Anthropic, your AI coding agent (like Claude Code or Cursor) becomes a master generative artist. This skill teaches agents how to leverage **p5.js**, seeded randomness, and computational philosophies to create gallery-quality visuals.
 
 ```bash
-# 에이전트에 algorithmic-art 스킬 추가
+# Add the algorithmic-art skill to your agent
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-이 포스트에서는 이 스킬이 어떻게 작동하는지, 그리고 이를 사용하여 나만의 디지털 걸작을 만드는 방법을 살펴보겠습니다.
+In this post, we’ll explore how this skill works and how you can use it to build your own digital masterpieces.
 
-## Algorithmic Art 스킬이란 무엇인가요?
+## What is the Algorithmic Art Skill?
 
-`algorithmic-art` 스킬은 단순한 코드 생성기 그 이상입니다. 이는 **계산적 미학(Computational Aesthetics)**을 위한 프레임워크입니다. AI 에이전트를 다음과 같은 2단계 창의적 프로세스로 안내합니다:
+The `algorithmic-art` skill is more than just a code generator—it’s a framework for **Computational Aesthetics**. It guides AI agents through a two-step creative process:
 
-1.  **알고리즘 철학 생성**: 에이전트는 먼저 '운동' 또는 철학(예: '유기적 난류' 또는 '양자 조화')을 정의합니다.
-2.  **p5.js 표현**: 그 다음 에이전트는 해당 철학을 인터랙티브 파라미터와 시드된 무작위성을 갖춘 실제 작동하는 p5.js 스케치로 변환합니다.
+1.  **Algorithmic Philosophy Creation**: The agent first defines a "movement" or philosophy (e.g., "Organic Turbulence" or "Quantum Harmonics").
+2.  **p5.js Expression**: The agent then translates that philosophy into a working p5.js sketch, complete with interactive parameters and seeded randomness.
 
-## 스킬의 주요 특징
+## Key Features of the Skill
 
-### 1. 시드된 무작위성 (Seeded Randomness)
-이 스킬은 **재현성**을 최우선으로 합니다. 모든 예술 작품은 특정 시드(seed)와 연결되어 있습니다. 마음에 드는 변형(예: 시드 #42)을 발견하면 언제든지 똑같이 다시 만들 수 있습니다. 이는 아트 컬렉션을 구축하거나 전문적인 에셋을 제작할 때 매우 중요합니다.
+### 1. Seeded Randomness
+The skill prioritizes **reproducibility**. Every piece of art is tied to a specific seed. If you find a variation you love (e.g., Seed #42), you can recreate it exactly every time. This is critical for building art collections or professional assets.
 
-### 2. 창발적 행동 (Emergent Behavior)
-정적인 도형을 그리는 대신, 이 스킬은 **시스템**에 집중합니다. 다음과 같은 기법을 사용합니다:
--   **플로우 필드(Flow Fields)**: 수천 개의 파티클이 벡터 힘을 따라갑니다.
--   **노이즈 필드(Noise Fields)**: 유기적인 질감을 위해 펄린(Perlin) 또는 심플렉스(Simplex) 노이즈를 사용합니다.
--   **재귀 구조**: 무한히 성장하는 프랙탈과 L-시스템.
--   **파티클 역학**: 시뮬레이션된 물리학을 통해 진화하는 시스템.
+### 2. Emergent Behavior
+Instead of drawing static shapes, the skill focuses on **systems**. It uses:
+- **Flow Fields**: Thousands of particles following vector forces.
+- **Noise Fields**: Using Perlin or Simplex noise for organic textures.
+- **Recursive Structures**: Fractals and L-systems that grow infinitely.
+- **Particle Dynamics**: Systems that evolve through simulated physics.
 
-### 3. 인터랙티브 파라미터 탐색
-이 스킬은 단순히 정지 영상만을 출력하지 않습니다. 실시간으로 작품을 튜닝할 수 있는 전체 **인터랙티브 뷰어**(HTML/JS)를 생성합니다. 다음 항목들을 조정할 수 있습니다:
--   **파티클 수**: 구성의 밀도를 제어합니다.
--   **노이즈 스케일**: 부드러운 파도에서 거친 혼돈으로 변화시킵니다.
--   **컬러 팔레트**: 슬라이더 하나로 전체 분위기를 바꿉니다.
--   **물리적 힘**: 파티클의 '춤' 속도를 조절합니다.
+### 3. Interactive Parameter Exploration
+The skill doesn't just output a static image. It generates a full **Interactive Viewer** (HTML/JS) that lets you tune the artwork in real-time. You can adjust:
+- **Particle Count**: Control the density of the composition.
+- **Noise Scale**: Change from smooth waves to jagged chaos.
+- **Color Palettes**: Swap entire moods with a single slider.
+- **Physics Forces**: Speed up or slow down the "dance" of the particles.
 
-## 내부 들여다보기: 철학
+## A Look Under the Hood: The Philosophy
 
-이 스킬의 가장 독특한 점은 **선언문(Manifesto)**입니다. 코드를 한 줄이라도 쓰기 전에 에이전트는 철학 초안을 작성합니다. 예를 들어:
+The most unique aspect of this skill is the **Manifesto**. Before writing a single line of code, the agent drafts a philosophy. For example:
 
-> **"유기적 난류"**
-> *철학: 자연법칙에 의해 제약된 혼돈, 무질서에서 피어나는 질서.*
-> *알고리즘 표현: 레이어드 펄린 노이즈에 의해 구동되는 플로우 필드. 수천 개의 파티클이 벡터 힘을 따르며, 그 궤적이 쌓여 유기적인 밀도 맵을 형성함.*
+> **"Organic Turbulence"**
+> *Philosophy: Chaos constrained by natural law, order emerging from disorder.*
+> *Algorithmic Expression: Flow fields driven by layered Perlin noise. Thousands of particles follow vector forces, their trails accumulating into organic density maps.*
 
-이러한 프레임워크는 최종 코드가 단순한 '무작위 노이즈'가 아니라, 의도적이고 전문적인 느낌을 주는 **세심하게 제작된 알고리즘**이 되도록 보장합니다.
+This framing ensures that the final code isn't just "random noise," but a **meticulously crafted algorithm** that feels intentional and expert.
 
-## 시작하는 방법
+## How to Get Started
 
-### 1단계: 스킬 장착
-Killer-Skills CLI를 사용 중이라면 설치가 매우 간단합니다:
+### Step 1: Equip the Skill
+If you're using the Killer-Skills CLI, installation is a breeze:
 
 ```bash
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-### 2단계: 에이전트에게 요청
-장착이 완료되면 에이전트에게 복잡한 창의적 요청을 할 수 있습니다:
+### Step 2: Prompt Your Agent
+Once equipped, you can give your agent complex creative prompts:
 
-> "'Solar Drift'라는 제목의 알고리즘 아트 작품을 만들어 줘. algorithmic-art 스킬을 사용해. 따뜻함, 원형 운동, 수천 개의 미세 선 파티클에 집중해 줘. 노이즈 스케일 슬라이더가 있는 커스텀 뷰어를 원해."
+> "Create an algorithmic art piece titled 'Solar Drift'. Use the algorithmic-art skill. Focus on warmth, circular motion, and thousands of fine-line particles. I want a custom viewer with a noise scale slider."
 
-### 3단계: 반복 및 탐색
-에이전트는 철학과 독립 실행형 HTML 아티팩트를 제공합니다. 브라우저에서 열고 슬라이더를 조정하며 완벽한 프레임을 찾을 때까지 시드를 교체해 보세요.
+### Step 3: Iterate and Explore
+The agent will provide a philosophy and a self-contained HTML artifact. Open it in your browser, play with the sliders, and cycle through seeds until you find the perfect frame.
 
-## 왜 개발자에게 중요할까요?
+## Why This Matters for Developers
 
-개발자에게 제너레이티브 아트는 논리를 위한 궁극의 놀이터입니다. `algorithmic-art` 스킬은 기술적 전문성(루프, 수학, 배열)과 시각적 디자인 사이의 간극을 메워줍니다. 랜딩 페이지 배경, 독특한 NFT 컬렉션을 만들거나 단순히 수학의 아름다움을 탐구할 때도 이 스킬은 필요한 전문적인 기반을 제공합니다.
+For developers, generative art is the ultimate playground for logic. The `algorithmic-art` skill bridges the gap between technical expertise (loops, math, arrays) and visual design. Whether you're building a landing page background, a unique NFT collection, or just exploring the beauty of math, this skill provides the professional foundation you need.
 
-## 결론
+## Conclusion
 
-예술의 미래는 인간의 의도와 기계의 실행 사이의 춤, 즉 협업에 있습니다. **algorithmic-art** 스킬은 여러분이 그 춤의 안무가가 될 수 있도록 도와줍니다.
+The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
 
-창작을 시작할 준비가 되셨나요? 지금 [Killer-Skills 마켓플레이스](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art)를 방문하여 설치해 보세요.
+Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art) and install it today.
 
 ---
 
-*Killer-Skills에서 [canvas-design](https://killer-skills.com/ko/skills/anthropics/skills/canvas-design) 및 [theme-factory](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory)와 같은 다른 창의적인 스킬도 탐색해 보세요.*
+*Explore more creative skills like [canvas-design](https://killer-skills.com/ko/skills/anthropics/skills/canvas-design) and [theme-factory](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory) on Killer-Skills.*
 
 ---
 

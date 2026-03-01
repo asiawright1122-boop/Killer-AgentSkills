@@ -1,79 +1,79 @@
 ---
-title: "卓越的企业沟通：Internal-Comms 官方技能"
-description: "使用官方 internal-comms 技能掌握专业的企业沟通。学习如何使用 AI 编写 3P 更新、新闻通讯和事件报告。"
+title: "Corporate Communication Excellence: The Internal-Comms Skill"
+description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["内部沟通", "领导力", "Agent Skills", "业务效率"]
+author: "Killer-Skills Team"
+tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
 lang: "zh"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 像领导者一样发言：掌握 Internal-Comms 官方技能
+# Speak Like a Leader: Mastering the Internal-Comms Skill
 
-在远程办公和快速扩张的时代，沟通是维系组织的粘合剂。但高质量的沟通并不容易——它需要合适的语气、格式和细节水平。写出一份真正会被阅读的每周更新本身就是一项技能。
+In an era of remote work and rapid scaling, communication is the glue that holds an organization together. But high-quality communication is hard—it requires the right tone, the right format, and the right level of detail. Writing a weekly update that actually gets read is a skill in itself.
 
-Anthropic 官方推出的 **internal-comms** 技能为你的 AI Agent 装备了精英组织所使用的模板和语气指南。它超越了通用的“企业黑话”，提供了结构化、可操作且专业的内部消息传递方案。
+The official **internal-comms** skill from Anthropic equips your AI agent with the templates and tonal guidelines used by elite organizations. It moves beyond generic "corporate speak" to provide structured, actionable, and professional internal messaging.
 
 ```bash
-# 为你的 Agent 装备 internal-comms 技能
+# Equip your agent with the internal-comms skill
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-## 什么是 Internal-Comms 技能？
+## What is the Internal-Comms Skill?
 
-`internal-comms` 技能是一个包含企业级沟通格式的资源库。它确保当你的 Agent 编写更新时，遵循领导团队所期望的特定结构。
+The `internal-comms` skill is a resource-intensive repository of enterprise-grade communication formats. It ensures that when your agent writes an update, it follows the specific structures that leadership teams expect.
 
-### 1. 3P 更新的力量
-该技能的核心功能之一是 **3P 格式**：
-- **P**rogress (进展)：实际完成了什么？
-- **P**lans (计划)：下一阶段的规划是什么？
-- **P**roblems (问题)：有哪些需要关注的阻碍或风险？
+### 1. The Power of 3P Updates
+One of the core features of this skill is the **3P Format**:
+- **P**rogress: What was actually accomplished?
+- **P**lans: What is the roadmap for the next period?
+- **P**roblems: What are the blockers or risks that need attention?
 
-这种结构是高管更新的金标准，因为它简洁、诚实且具有前瞻性。
+This structure is the gold standard for executive updates because it is concise, honest, and forward-looking.
 
-### 2. 全面的沟通类型
-该技能不仅适用于状态报告；它涵盖了全方位的内部需求：
-- **企业新闻通讯（Newsletters）**：专业且具有吸引力的大范围更新。
-- **事件报告（Incident Reports）**：针对技术或业务问题的客观、结构化的复盘。
-- **FAQ 回复**：对团队常见问题提供清晰、权威的回答。
-- **领导层更新**：为高级副总裁和 C-suite 高管提供的高级摘要。
+### 2. Comprehensive Comm Types
+The skill isn't just for status reports; it handles the full spectrum of internal needs:
+- **Company Newsletters**: Professional and engaging wide-scale updates.
+- **Incident Reports**: Objective and structured post-mortems for technical or business issues.
+- **FAQ Responses**: Clear, authoritative answers to common team questions.
+- **Leadership Updates**: High-level summaries for SVPs and C-suite executives.
 
-## 该技能的工作原理
+## How the Skill Works
 
-当你要求 Agent “写一份项目更新”时，`internal-comms` 技能会触发一个多步工作流：
-1.  **类型识别**：判断你需要的是状态报告、新闻通讯还是 FAQ。
-2.  **指南加载**：加载特定的“示例”文件（如 `3p-updates.md`）以了解所需的语气和格式。
-3.  **内容收集**：利用其上下文将最相关的进展和风险填入模板。
+When you ask an agent to "Write a project update," the `internal-comms` skill triggers a multi-step workflow:
+1.  **Type Identification**: It determines if you need a status report, a newsletter, or an FAQ.
+2.  **Guideline Loading**: It loads the specific "Example" file (e.g., `3p-updates.md`) to understand the required tone and formatting.
+3.  **Content Gathering**: It uses its context to pull the most relevant progress and risks into the template.
 
-## 实际应用场景
+## Practical Use Cases
 
-### 自动化状态报告
-将你的 Agent 连接到代码库或任务追踪器。让它使用 `internal-comms` 技能，在每周五下午 5 点生成一份格式完美的 **3P 更新**。
+### Automated Status Reporting
+Connect your agent to your codebase or task tracker. Have it use the `internal-comms` skill to generate a perfectly formatted **3P update** every Friday at 5 PM.
 
-### 事件管理
-系统故障期间，让 Agent 根据终端日志和部署历史起草初始的**事件报告**，确保语气客观且专业。
+### Incident Management
+During a system outage, have your agent draft the initial **Incident Report** based on terminal logs and deployment history, ensuring the tone is objective and professional.
 
-### 企业文化建设
-起草每月的“全体会议（All-Hands）”新闻通讯，以一致且鼓舞人心的品牌语调强调团队胜利、新员工入职和即将到来的里程碑。
+### Culture Building
+Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and upcoming milestones with a consistent, encouraging brand voice.
 
-## 如何在 Killer-Skills 中使用
+## How to use it with Killer-Skills
 
-1.  **安装**：`npx killer-skills add anthropics/skills/internal-comms`
-2.  **指令**： “根据我们本周的进展，为‘Deep_Search’项目写一份 3P 更新。强调内存泄漏是一个‘问题（Problem）’。”
-3.  **完善**： “将这份技术更新转换为适合公司新闻通讯的领导友好型摘要。”
+1.  **Install**: `npx killer-skills add anthropics/skills/internal-comms`
+2.  **Command**: "Write a 3P update for the 'Deep_Search' project based on our progress this week. Highlight the memory leak as a Problem."
+3.  **Refine**: "Convert this technical update into a leadership-friendly summary for the company newsletter."
 
-## 结语
+## Conclusion
 
-`internal-comms` 技能是你提升职业可见度的秘密武器。它确保你的工作不仅被完成，而且被**有效地传达**给关键决策者。
+The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
 
-立即前往 [Killer-Skills 技能市场](https://killer-skills.com/zh/skills/anthropics/skills/internal-comms) 安装 internal-comms 技能，开始使用领导者的语言进行沟通。
-
----
-
-*需要协作处理更复杂的文档？查看 [doc-coauthoring 技能](https://killer-skills.com/zh/skills/anthropics/skills/doc-coauthoring) 指南。*
+Install the [internal-comms skill](https://killer-skills.com/zh/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/zh/skills/anthropics/skills/doc-coauthoring).*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

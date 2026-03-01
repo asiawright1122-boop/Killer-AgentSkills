@@ -1,77 +1,77 @@
 ---
-title: "AI 기반 피치 덱: PPTX 스킬 마스터하기"
-description: "공식 pptx 스킬을 사용하여 멋지고 전문적인 PowerPoint 프레젠테이션을 구축하는 방법을 배워보세요. AI가 생성하는 슬라이드를 위한 고품격 디자인 원칙을 공개합니다."
+title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
+description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
 pubDate: 2026-02-13
-author: "Killer-Skills 팀"
-tags: ["PowerPoint", "프레젠테이션 디자인", "Agent Skills", "비즈니스 효율성"]
+author: "Killer-Skills Team"
+tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
 lang: "ko"
 featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 불렛 포인트를 넘어: PPTX 스킬로 엘리트 프레젠테이션 만들기
+# Beyond the Bullet Point: Creating Elite Presentations with the PPTX Skill
 
-비즈니스 세계에서 프레젠테이션은 단순한 정보 전달 그 이상인 '퍼포먼스'입니다. 대부분의 AI 생성 슬라이드는 우리가 '템플릿의 함정(The Template Trap)'이라 부르는 문제, 즉 흰 배경에 지루한 불렛 포인트만 나열되는 현상을 겪습니다. 진정으로 청중의 마음을 사로잡으려면 하이엔드 디자인, 의도적인 컬러 팔레트, 그리고 균형 잡힌 레이아웃이 필요합니다.
+In the business world, a presentation is more than just information—it's a performance. Most AI-generated slides suffer from what we call "The Template Trap": boring bullet points on a white background. To truly win an audience, you need high-end design, intentional color palettes, and balanced layouts.
 
-Anthropic의 공식 **pptx** 스킬은 Claude Code와 같은 AI 에이전트를 시니어 프레젠테이션 디자이너로 변신시켜 줍니다. 단순히 슬라이드를 '채우는' 것이 아니라, 전문적인 디자인 시스템과 **PptxGenJS**와 같은 현대적인 웹 기술을 사용하여 슬라이드를 설계합니다.
+The official **pptx** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior presentation designer. It doesn't just "fill in" slides; it architect's them using professional design systems and modern web technologies like **PptxGenJS**.
 
 ```bash
-# 에이전트에 pptx 스킬 장착
+# Equip your agent with the pptx skill
 npx killer-skills add anthropics/skills/pptx
 ```
 
-## PPTX 스킬이란 무엇인가요?
+## What is the PPTX Skill?
 
-`pptx` 스킬은 슬라이드 제작 및 편집을 위한 '디자인 우선(Design-first)' 프레임워크입니다. 세 가지 핵심 요소로 구성됩니다:
--   **PptxGenJS**: 처음부터 슬라이드를 구축하기 위한 강력한 JavaScript 엔진.
--   **Markitdown**: 기존 덱의 구조적 읽기 및 텍스트 추출용.
--   **디자인 인텔리전스 (Design Intelligence)**: 색채 이론, 타이포그래피 및 전문 레이아웃에 대한 내장 지식.
+The `pptx` skill is a design-first framework for slide creation and manipulation. It's built on three pillars:
+- **PptxGenJS**: A powerful JavaScript engine for building slides from scratch.
+- **Markitdown**: For deep structural reading and text extraction from existing decks.
+- **Design Intelligence**: Built-in knowledge of color theory, typography, and professional layouts.
 
-## 하이엔드 디자인 원칙
+## High-End Design Principles
 
-`pptx` 스킬은 몇 가지 핵심 원칙을 통해 '지루한 슬라이드 금지(No Boring Slides)' 정책을 철저히 지킵니다:
+The `pptx` skill enforces a "No Boring Slides" policy through several core principles:
 
-### 1. '평등보다 우위'의 법칙
-전문 디자이너는 모든 색상에 동일한 비중을 두지 않습니다. 이 스킬은 60-30-10 법칙을 사용합니다: 60%의 주도적 색상(예: 미드나잇 에구제큐티브 네이비), 30%의 보조 톤(아이스 블루), 그리고 10%의 강렬한 강조색(화이트)입니다.
+### 1. The "Dominance over Equality" Rule
+Professional designers never give all colors equal weight. The skill uses a 60-30-10 rule: 60% dominant color (e.g., Midnight Executive Navy), 30% supporting tones (Ice Blue), and 10% sharp accent (White).
 
-### 2. 비주얼 모티프 (Visual Motif)
-무작위 장식 대신, 이 스킬은 한 가지 뚜렷한 시각적 모티프(예: 모서리가 둥근 이미지 프레임 또는 두꺼운 단면 테두리)를 선택하여 모든 슬라이드에 일관되게 적용합니다. 이는 프레젠테이션 전체에 응집력 있는 '브랜드' 느낌을 줍니다.
+### 2. The Visual Motif
+Instead of random decorations, the skill picks ONE distinct visual motif—like rounded image frames or thick single-sided borders—and carries it consistently across every slide. This creates a cohesive "brand" feeling for your presentation.
 
-### 3. 개성 있는 타이포그래피
-이 스킬은 Arial을 넘어섭니다. 강력한 헤더(Impact 또는 Georgia)와 깨끗하고 가독성 좋은 본문 폰트(Calibri 또는 Garamond)를 조합하여 명확한 정보 계층 구조를 수립합니다.
+### 3. Typography with Personality
+The skill moves beyond Arial. It pairs bold headers (like Impact or Georgia) with clean, readable body fonts (like Calibri or Garamond) to establish a clear information hierarchy.
 
-## 고급 기능
+## Advanced Capabilities
 
-### 슬라이드 '수술' 및 편집
-단순한 PDF 변환기와 달리 `pptx` 스킬은 프레젠테이션을 원시 XML 구성 요소로 '해체(unpack)'할 수 있습니다. 이를 통해 에이전트는 다음과 같은 작업을 수행할 수 있습니다:
--   **레이아웃 교체**: 내용을 유지하면서 2단 레이아웃을 3단 그리드로 변경.
--   **마스터 슬라이드 업데이트**: 100개의 슬라이드 전체에 새로운 브랜드 컬러나 로고를 즉시 적용.
--   **발표자 노트 추가**: 슬라이드 내용을 바탕으로 발표자용 노트를 프로그래밍 방식으로 생성.
+### Slide Surgery & Editing
+Unlike simple PDF converters, the `pptx` skill can "unpack" a presentation into its raw XML components. This allows the agent to:
+- **Swap Layouts**: Change a 2-column layout to a 3-column grid while preserving content.
+- **Update Master Slides**: Apply a new brand color or logo across 100 slides instantly.
+- **Add Speaker Notes**: Programmatically generate notes for the presenter based on slide content.
 
-### 데이터 시각화
-이 스킬은 [xlsx 스킬](https://killer-skills.com/ko/blog/mastering-excel-automation-with-xlsx-skills)의 원시 데이터를 가져와 복잡하고 읽기 어려운 차트 대신, 시선을 사로잡는 크고 대담한 숫자인 '스탯 콜아웃(Stat Callouts)'으로 변환할 수 있습니다.
+### Data Visualization
+The skill can take raw data from the [xlsx skill](https://killer-skills.com/ko/blog/mastering-excel-automation-with-xlsx-skills) and transform it into large "Stat Callouts"—big, bold numbers that capture attention instantly—rather than cluttered, unreadable charts.
 
-## 실제 사용 사례
+## Practical Use Cases
 
-### 자동화된 투자자 피치 덱
-산업군에 따라 디자인이 조정되는 10개 슬라이드 규모의 피치 덱을 생성합니다(예: 스타트업은 '코랄 에너지', 금융은 '미드나잇 에그제큐티브').
+### Automated Investor Pitch Decks
+Generate a 10-slide pitch deck where the design adapts to the industry (e.g., "Coral Energy" for startups, "Midnight Executive" for finance).
 
-### 글로벌 브랜드 업데이트
-기존 회사의 덱을 가져와 몇 분 만에 최신 브랜드 가이드라인에 맞춰 디자인을 새로 입힙니다(reskin).
+### Global Brand Updates
+Take an existing company deck and "reskin" it with the latest brand guidelines in minutes.
 
-### 콘텐츠 요약
-50페이지 분량의 PDF를 [pdf 스킬](https://killer-skills.com/ko/blog/mastering-pdf-automation-with-ai-skills)에 입력하면 `pptx` 스킬이 자동으로 5개 슬라이드 분량의 핵심 요약본을 생성합니다.
+### Content Summarization
+Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/ko/blog/mastering-pdf-automation-with-ai-skills) and have the `pptx` skill automatically generate a 5-slide executive summary.
 
-## 결론
+## Conclusion
 
-`pptx` 스킬은 단순한 파일 형식을 넘어 **시각적 권위(Visual Authority)**를 세우는 일입니다. AI 에이전트가 프레젠테이션을 만들 때, 그것이 마치 인간 전문가가 설계한 것처럼 보이도록 보장합니다.
+The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
 
-지금 바로 Killer-Skills 마켓플레이스에서 [pptx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pptx)을 다운로드하고 청중을 사로잡는 슬라이드를 만들어 보세요.
+Download the [pptx skill](https://killer-skills.com/ko/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
 
 ---
 
-*문서의 스타일도 함께 관리하고 싶으신가요? [theme-factory 스킬](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory)을 확인해 보세요.*
+*Want to style your docs too? Check out the [theme-factory skill](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory).*
 
 ---
 

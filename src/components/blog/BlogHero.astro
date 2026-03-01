@@ -28,10 +28,10 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
   aria-label={t.readArticle + ' - ' + post.data.title}
-  class="brut-card group relative block w-full bg-[var(--card)] flex flex-col md:flex-row h-auto md:h-[400px]"
+  class="brut-card group relative block w-full bg-[var(--card)] flex flex-col md:flex-row h-auto md:min-h-[450px]"
 >
   {/* Image Section */}
-  <div class="relative w-full md:w-1/2 h-[300px] md:h-full border-b-4 md:border-b-0 md:border-r-4 border-[var(--foreground)] overflow-hidden bg-[var(--primary)] flex-shrink-0">
+  <div class="relative w-full md:w-1/2 h-[300px] md:h-auto border-b-4 md:border-b-0 md:border-r-4 border-[var(--foreground)] overflow-hidden bg-[var(--primary)] flex-shrink-0">
     {post.data.heroImage ? (
       <img 
         src={post.data.heroImage} 
@@ -57,7 +57,7 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
         )}
     </div>
 
-    <h2 class="text-3xl md:text-4xl font-black text-[var(--foreground)] mb-6 leading-tight tracking-tighter uppercase px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit">
+    <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] mb-6 leading-snug group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors w-fit px-1 -ml-1">
         {post.data.title}
     </h2>
 

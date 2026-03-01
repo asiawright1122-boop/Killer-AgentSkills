@@ -1,64 +1,64 @@
 ---
-title: "إعلان Killer-Skills: متجر مهارات وكلاء الذكاء الاصطناعي"
-description: "نقدم أول معيار مفتوح لمهارات الذكاء الاصطناعي التي تمنح وكيلك قدرات التصفح والبرمجة والإبداع على الفور."
-pubDate: 2026-02-13
-author: "فريق Killer-Skills"
-tags: ["إعلان", "وكيل ذكاء اصطناعي", "بروتوكول MCP", "مفتوح المصدر"]
+title: "Announcing Killer Skills: The Ultimate Directory for AI Agents"
+description: "We are thrilled to unveil Killer Skills, a curated marketplace of high-quality tools designed specifically for AI coding agents."
+pubDate: 2026-02-14
+author: "Killer-Skills Team"
+tags: ["Announcement", "AI Agents", "MCP"]
 lang: "ar"
 featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# مرحباً بكم في Killer-Skills: القوى الخارقة لوكيل الذكاء الاصطناعي الخاص بك
+# Welcome to Killer-Skills: Superpowers for Your AI Agent
 
-يسعدنا اليوم أن نعلن عن إطلاق **Killer-Skills** - أول متجر وسجل مفتوح لمهارات وكلاء الذكاء الاصطناعي.
+Today, we are thrilled to announce the launch of **Killer-Skills** — the first open marketplace and registry for AI agent capabilities.
 
-## مشكلة وكلاء الذكاء الاصطناعي اليوم
+## The Problem with Today's AI Agents
 
-تعد وكالات الذكاء الاصطناعي (مثل Claude Code و Cursor و Windsurf) ثورية، لكن قدراتها غالباً ما تكون محدودة بالأدوات التي يمكنها الوصول إليها. حتى الآن، كان على المطورين غالباً كتابة خوادم MCP (بروتوكول سياق النموذج) الخاصة بهم من الصفر لأداء مهام محددة مثل تحرير ملفات PDF أو أتمتة Excel أو إدارة مستودعات GitHub.
+AI agents (like Claude Code, Cursor, Windsurf) are revolutionary, but their potential is often limited by the tools they can access. Until now, developers frequently had to build their own MCP (Model Context Protocol) servers from scratch for specific tasks like PDF editing, Excel automation, or managing GitHub repositories.
 
-Killer-Skills يغير هذا الواقع.
+Killer-Skills changes that.
 
-## ما هو Killer-Skills؟
+## What is Killer-Skills?
 
-Killer-Skills هو سجل مركزي للمهارات المهنية المعتمدة التي يمكن لوكيل الذكاء الاصطناعي العثور عليها وتثبيتها واستخدامها على الفور.
+Killer-Skills is a centralized registry of verified, professional-grade skills that your AI agent can instantly discover, install, and use.
 
-### الميزات الرئيسية
+### Key Features
 
--   **سجل عالمي**: أكثر من 1000 مهارة معتمدة متاحة بأمر واحد.
--   **تكامل عميق مع MCP**: مبني على بروتوكول Model Context Protocol من Anthropic لضمان تفاعل سلس مع الوكلاء.
--   **دعم منصات متعددة**: يعمل في بيئات التطوير المفضلة لديك مثل Cursor و Windsurf و Claude Code و Amp و Goose.
--   **الأمان أولاً**: جميع المهارات معزولة وتم فحصها لضمان تنفيذ آمن.
+-   **Universal Registry**: Over 1,000 verified skills available with a single command.
+-   **Deep MCP Integration**: Built on Anthropic’s Model Context Protocol for seamless agent interaction.
+-   **Multi-IDE Support**: Works with your favorite tools like Cursor, Windsurf, Claude Code, Amp, and Goose.
+-   **Security First**: Every skill is isolated and validated for safe execution.
 
-## ابدأ الآن
+## Start Right Now
 
-تطوير وكيلك أمر بسيط للغاية. فقط قم بتنفيذ الأوامر التالية في نافذة الأوامر:
+Leveling up your agent is simple. Just run the following in your terminal:
 
 ```bash
-# تثبيت واجهة سطر الأوامر (CLI)
+# Install the CLI
 npm install -g killer-skills
 
-# البحث عن مهارة
+# Search for a skill
 killer search google-maps
 
-# إضافة مهارة لوكيلك
+# Add a skill to your agent
 killer add google-maps
 ```
 
-## المستقبل هو الاستقلالية
+## The Future is Autonomous
 
-نحن نؤمن بمستقبل يمكن فيه للوكلاء "تعلم" (تثبيت) مهارات جديدة بشكل مستقل أثناء التنفيذ. يوفر Killer-Skills البنية التحتية اللازمة لذلك، محولاً أدوات الذكاء الاصطناعي إلى منظومة ضخمة من الذكاء المتصل.
+We believe in a future where agents can "learn" (install) new capabilities on the fly as they perform tasks. Killer-Skills provides the necessary infrastructure, turning AI tools into a vast ecosystem of connected intelligence.
 
-## انضم إلى الثورة
+## Join the Revolution
 
-Killer-Skills هو مشروع مدفوع بالمجتمع. استكشف الوثائق، وتصفح [متجر المهارات](https://killer-skills.com/ar/skills)، وابدأ في المساهمة من خلال إنشاء مهاراتك الخاصة.
+Killer-Skills is a community-driven project. Explore the documentation, check out the [Marketplace](https://killer-skills.com/ar/blog), and start contributing by creating your own skills.
 
-لنقم ببناء مستقبل الوكلاء معاً.
+Let's build the future of agents together.
 
 ---
 
-*فريق Killer-Skills الخاص بك*
+*Your Killer-Skills Team*
 
 ---
 

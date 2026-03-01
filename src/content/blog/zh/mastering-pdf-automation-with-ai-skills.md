@@ -1,81 +1,81 @@
 ---
-title: "PDF 自动化全指南：深入掌握 PDF 官方技能"
-description: "学习如何利用官方 pdf 技能自动化 PDF 处理。掌握合并、拆分、OCR 以及高质 AI Agent 工作流中的表格提取。"
+title: "The Ultimate Guide to PDF Automation: Mastering the PDF Skill"
+description: "Learn how to automate PDF processing using the official pdf skill. Master merging, splitting, OCR, and table extraction with high-quality AI agent workflows."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["PDF 自动化", "Python", "OCR", "Agent Skills", "数据提取"]
+author: "Killer-Skills Team"
+tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]
 lang: "zh"
 featured: true
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 精准控制 PDF：利用 PDF 官方技能升级你的工作流
+# Precision PDF Control: Elevating Your Workflow with the PDF Skill
 
-PDF 是数字世界中的“刚性”格式——它极利于跨设备查看，但众所周知，对其进行操作或提取数据异常困难。无论是处理成千上万份扫描的发票，还是需要以编程方式生成复杂的报告，传统的“手动处理”模式已不再可行。
+PDFs are the "unbreakable" format of the digital world—great for consistent viewing, but notoriously difficult to manipulate or extract data from. Whether you are dealing with thousands of scanned invoices or need to programmatically generate complex reports, the "old way" of manual handling is no longer viable.
 
-Anthropic 官方推出的 **pdf** 技能赋予了你的 AI Agent（如 Claude Code）一个强大的 PDF 处理引擎。它超越了简单的文本读取，深入到结构分析、数据提取和高保真生成的领域。
+The official **pdf** skill from Anthropic gives your AI agent (like Claude Code) a powerful engine for PDF manipulation. It moves beyond simple text reading and into the world of structural analysis, data extraction, and high-fidelity generation.
 
 ```bash
-# 为你的 Agent 装备 pdf 技能
+# Equip your agent with the pdf skill
 npx killer-skills add anthropics/skills/pdf
 ```
 
-## 什么是 PDF 技能？
+## What is the PDF Skill?
 
-`pdf` 技能是一个多功能的框架，它深度集成了行业标准的库：
-- **pypdf**：用于合并、拆分和旋转页面等核心操作。
-- **pdfplumber**：在保留布局的同时提取文本和表格的金标准。
-- **ReportLab**：专业级的 PDF 从零生成引擎。
-- **Poppler & Tesseract**：用于高级图像提取和 OCR（光学字符识别）。
+The `pdf` skill is a multi-tooled framework that leverages deep integration with industry-standard libraries:
+- **pypdf**: For core operations like merging, splitting, and rotating pages.
+- **pdfplumber**: The gold standard for extracting text and tables while preserving layout.
+- **ReportLab**: A pro-grade engine for generating new PDFs from scratch.
+- **Poppler & Tesseract**: For advanced image extraction and OCR (Optical Character Recognition).
 
-## 核心能力
+## Key Capabilities
 
-### 1. 数据英雄：深层表格提取
-大多数 AI 工具在处理 PDF 内部的表格时都显得力不从心。`pdf` 技能使用 **pdfplumber** 来“识别”网格线和结构关系，允许 Agent 以近乎完美的准确度将复杂的 PDF 财务报表或进度表转换为整洁的 CSV 或 Excel 文件。
+### 1. Data Hero: Deep Table Extraction
+Most AI tools struggle with tables inside PDFs. The `pdf` skill uses **pdfplumber** to "see" the grid lines and structural relationships, allowing the agent to convert complex PDF financial statements or schedules into clean CSV or Excel files with near-perfect accuracy.
 
-### 2. PDF 架构师：专业化生成
-通过集成 **ReportLab**，你的 Agent 不仅仅是在创建文本文件，而是在设计文档。它可以实现：
-- **动态模板**：创建由逻辑驱动的、流式布局的多页报告。
-- **科学记数**：使用 XML 标记在技术文档中实现完美的上标和下标。
-- **品牌化**：添加水印、自定义页脚以及符合品牌视觉的一致样式。
+### 2. The PDF Architect: Professional Generation
+With **ReportLab** integration, your agent isn't just creating text files; it's designing documents. It can:
+- **Dynamic Templates**: Create multi-page reports with logic-driven flows.
+- **Scientific Notation**: Use XML markup for perfect sub/superscripts in technical docs.
+- **Branding**: Add watermarks, custom footers, and brand-consistent styling.
 
-### 3. 结构化手术
-Agent 可以对现有文件执行复杂的“手术”：
-- **合并与拆分**：以编程方式合并数百个文件，或将大型文档拆分为单页。
-- **元数据管理**：编辑标题、作者和主题标签，用于 SEO 和归档目的。
-- **密码保护**：即时对敏感文档进行加密和解密。
+### 3. Structural Surgery
+Agents can perform complex "surgeries" on existing files:
+- **Merging/Splitting**: Programmatically combine hundreds of files or burst a large document into individual pages.
+- **Metadata Management**: Edit title, author, and subject tags for SEO and archival purposes.
+- **Password Protection**: Encrypt and decrypt sensitive documents on the fly.
 
-### 4. OCR 与视觉
-处理无法搜索的扫描件？该技能利用 OCR 技术使不可读的内容变得可读，将像素还原为可被索引的文本。
+### 4. OCR & Vision
+Dealing with a scanned document that isn't searchable? The skill uses OCR to make the unreadable readable, turning pixels back into indexable text.
 
-## 实际应用场景
+## Practical Use Cases
 
-### 自动化发票处理
-构建一个工作流，自动读取文件夹中的 PDF 发票，利用 `pdf` 技能提取金额和税率，并将结果存入数据库。
+### Automated Invoice Processing
+Build a workflow that reads a folder of PDF invoices, extracts the total amount and tax using the `pdf` skill, and saves the results to a database.
 
-### 动态 PDF 报告
-生成月度分析报告，其中包含图表（来自 [xlsx 技能](https://killer-skills.com/zh/blog/mastering-excel-automation-with-xlsx-skills)）和格式专业的 PDF 版式摘要。
+### Dynamic PDF Reporting
+Generate monthly analytics reports that include charts (from the [xlsx skill](https://killer-skills.com/zh/blog/mastering-excel-automation-with-xlsx-skills)) and professionally formatted summaries in a printable PDF format.
 
-### 归档整理
-自动化翻转对齐歪斜的扫描件，并从最终定稿的文档中移除“草稿”水印。
+### Archival Cleanup
+Automate the rotation of misaligned scans and the removal of "Draft" watermarks from finalized documents.
 
-## 如何在 Killer-Skills 中使用
+## How to use it with Killer-Skills
 
-1.  **安装**：`npx killer-skills add anthropics/skills/pdf`
-2.  **指令**： “将此文件夹中的所有 PDF 合并为一个名为‘2025年度报告.pdf’的文件。确保页码正确。”
-3.  **提取**： “提取该 PDF 第 3 页的表格并保存为 Excel 文件。”
+1.  **Install**: `npx killer-skills add anthropics/skills/pdf`
+2.  **Command**: "Take all PDFs in this folder and merge them into a single file called 'Annual_Report_2025.pdf'. Ensure page numbers are correct."
+3.  **Extract**: "Extract the table on page 3 of this PDF and save it as an Excel file."
 
-## 结语
+## Conclusion
 
-`pdf` 技能是现代开发者或数据分析师的必备工具。它消除了处理 PDF 的痛苦，让你能够构建真正自动化的、企业级的文档流水线。
+The `pdf` skill is an essential tool for any modern developer or data analyst. It takes the pain out of PDF handling and allows you to build truly automated, enterprise-grade document pipelines.
 
-立即在 [Killer-Skills 技能市场](https://killer-skills.com/zh/skills/anthropics/skills/pdf) 安装 pdf 技能，开启自动化之旅。
-
----
-
-*需要生成可编辑的 Word 文档？查看我们的 [docx 技能](https://killer-skills.com/zh/skills/anthropics/skills/docx) 指南。*
+Install the [pdf skill](https://killer-skills.com/zh/skills/anthropics/skills/pdf) from the Killer-Skills Marketplace and start automating today.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Need to generate editable Word documents instead? Check out the [docx skill](https://killer-skills.com/zh/skills/anthropics/skills/docx).*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

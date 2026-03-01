@@ -1,66 +1,75 @@
 ---
-title: "Brand-Guidelinesスキルで視覚的アイデンティティを確立する"
-description: "公式のbrand-guidelinesスキルを使用して、AIエージェントに一貫したブランドカラー、ロゴ、タイポグラフィの適用を完璧に管理させる方法を学びます。"
+title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
+description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["ブランディング", "デザインシステム", "企業アイデンティティ", "UI/UX"]
+tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
 lang: "ja"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# ブランドの守護者：Brand-Guidelinesスキルで信頼を築く
+# Design with Authority: Unlocking the Brand-Guidelines Skill
 
-企業にとってのブランドは、単なる色やロゴの集まりではありません。それは顧客に対する約束であり、一貫性がなければその約束は揺らいでしまいます。しかし、多数のプロジェクトやドキュメント、Webサイトを通じて、常に正確なブランドル規準を守り続けるのは容易なことではありません。
+In the world of professional communication, consistency is everything. When you generate a dashboard or a presentation with an AI agent, it often identifies as "AI-generated" because it follows generic design patterns. To build trust, your output needs to feel like it comes from a living, breathing organization with a clear identity.
 
-**brand-guidelines**スキルを使用すると、AIエージェントにあなたのブランドの「公式ガイドライン」を完全に理解させ、あらゆるアウトプットに一貫した美学を適用させることができます。
+The official **brand-guidelines** skill from Anthropic solves this by providing your agent with the complete visual DNA of the organization. It goes beyond simple color-picking; it implements a philosophy of typography and spatial harmony that makes every artifact look like it was designed by a corporate brand team.
 
 ```bash
-# エージェントにbrand-guidelinesスキルを装備する
+# Equip your agent with the brand-guidelines skill
 npx killer-skills add anthropics/skills/brand-guidelines
 ```
 
-## Brand-Guidelinesスキルの確実な機能
+## What is the Brand-Guidelines Skill?
 
-このスキルは、プロフェッショナルなデザイン基準とあなたのブランドアセットを統合し、以下の能力をエージェントに提供します：
+The `brand-guidelines` skill is a design engine that enforces strict visual standards. It is designed to be used in conjunction with other creative skills like [pptx](https://killer-skills.com/ja/skills/anthropics/skills/pptx) or [canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) to ensure they stay "on-brand."
 
-### 1. カラー・タイポグラフィの厳格な適用
-あらかじめ定義されたブランドの16進数カラーコードや指定フォントを正確に使用します。
--   **色の統一**: プライマリ、セカンダリ、エラーカラーなどが混在するのを防ぎます。
--   **フォントペアリング**: ブランド指定の書体と、そのウェイト（太さ）の正しい使い分け。
+### 1. The Official Color Palette
+The skill provides precise RGB and HEX values for the official identity:
+- **Core Tones**: `Dark (#141413)` for primary text and `Light (#faf9f5)` for backgrounds.
+- **Accent Hierarchy**: A distinct hierarchy of `Orange (#d97757)`, `Blue (#6a9bcc)`, and `Green (#788c5d)` to guide the eye.
+- **Neutral Grays**: Carefully selected mid and light grays for subtle UI elements.
 
-### 2. ブランドアセットの管理
-ロゴの使用ルール（余白、禁止事項、バリエーション）を遵守し、正しい場所へ適切に配置します。
+### 2. High-End Typography
+Typography is the voice of a brand. This skill implements a sophisticated pairing:
+- **Headings**: **Poppins**—a geometric sans-serif that feels modern and approachable.
+- **Body Text**: **Lora**—a contemporary serif with roots in calligraphy, providing excellent readability for long-form content.
+- **Smart Fallbacks**: Built-in logic to gracefully degrade to Arial or Georgia if custom fonts aren't available.
 
-### 3. 公式スタイルの自動反映
-作成されるドキュメント（[docx](https://killer-skills.com/ja/blog/automate-word-documents-with-docx-skills)など）やWebサイト（[frontend-design](https://killer-skills.com/ja/blog/killer-ui-design-with-frontend-design-skills)など）に、ブランド固有の「ルック＆フィール（見た目と雰囲気）」を自動的に反映させます。
+## How the Skill Works
 
-### 4. ブランド監査とレビュー
-既存の制作物がガイドラインに沿っているかをチェックし、修正が必要なポイントを提案します。
+When you trigger the `brand-guidelines` skill, the agent doesn't just apply styles randomly. It performs a "brand audit" of the current artifact:
+- **Spatial Hierarchy**: It ensures headings are at least 24pt and uses Poppins for impact.
+- **Contrast Logic**: It intelligently selects text colors based on the background to ensure accessibility.
+- **Shape Syncing**: Non-text elements (like buttons or chart bars) are automatically cycled through the accent colors (Orange, Blue, Green) to maintain visual interest.
 
-## 実用的なユースケース
+## Practical Use Cases
 
-### マーケティング資料の一貫性確保
-バナー画像、プレゼン資料（[pptx](https://killer-skills.com/ja/blog/professional-presentations-with-pptx-ai-skills)）、ソーシャルメディア用の投稿画像を、ブランドガイドラインに従って一貫したトーンで作成します。
+### Corporate Presentations
+Take a generic pitch deck and instantly transform it into an "Official" presentation that matches the company's website and marketing materials.
 
-### 社内ドキュメントのプロフェッショナル化
-技術仕様書、社内報（[internal-comms](https://killer-skills.com/ja/blog/professional-internal-communications-with-ai-skills)）、FAQなどを、会社の公式なデザインスタイルで統一し、プロフェッショナルな印象を与えます。
+### Internal Tooling
+Design dashboards or internal reports that feel like a seamless extension of the company's product ecosystem.
 
-### マルチブランドの管理
-複数のブランドを運営している場合でも、エージェントに「ブランドAのスタイルで作成して」と指示するだけで、適切なガイドラインを即座に切り替えて適用できます。
+### Marketing Assets
+Generate social media graphics or PDF whitepapers that are instantly recognizable through their consistent use of color and type.
 
-## Killer-Skillsでの使用例
+## How to use it with Killer-Skills
 
-1.  **適用**: 「このランディングページに、Killer-Skillsの公式ブランドカラーを適用して、ボタンのスタイルを一元化してください。」
-2.  **監査**: 「このプレゼン資料をチェックして、指定外のフォントや色が使われていないか確認してください。」
-3.  **生成**: 「新しいプロモーション用の画像を作成してください。ブランドのプライマリカラーとロゴを正しく配置してください。」
+1.  **Install**: `npx killer-skills add anthropics/skills/brand-guidelines`
+2.  **Command**: "Take this current presentation and apply the official brand guidelines. Use the primary orange for callouts."
+3.  **Refine**: "Does this layout follow our typography standards? If not, adjust the headings to Poppins 24pt."
 
-## 結論
+## Conclusion
 
-`brand-guidelines`スキルは、あなたのブランドのプロフェッショナルな品質を守る「自動化されたアートディレクター」です。AIが一貫性の管理を肩代わりすることで、あなたはクリエイティブな戦略やアイデアの創出により多くの時間を割けるようになります。
+The `brand-guidelines` skill is the final polish that turns "AI-output" into "Professional Asset." It ensures that your coding agent understands the importance of visual context and brand authority.
 
-[brand-guidelinesスキル](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines)を導入して、あなたのブランドに揺るぎないアイデンティティを与えましょう。
+Install the [brand-guidelines skill](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) from the Killer-Skills Marketplace and start designing with authority.
+
+---
+
+*Looking for more styling options? Explore [theme-factory](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) for a wider range of pre-set professional themes.*
 
 ---
 

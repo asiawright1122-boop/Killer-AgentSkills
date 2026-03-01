@@ -1,78 +1,78 @@
 ---
-title: "动态数据大师：XLSX 官方技能开发指南"
-description: "使用官方 xlsx 技能掌握电子表格自动化。学习如何构建财务模型、自动化数据清洗并生成动态 Excel 报告。"
+title: "Dynamic Data Mastery: A Guide to the XLSX Skill"
+description: "Master spreadsheet automation with the official xlsx skill. Learn how to build financial models, automate data cleaning, and generate dynamic Excel reports."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["Excel", "数据科学", "财务建模", "Agent Skills"]
+author: "Killer-Skills Team"
+tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]
 lang: "zh"
 featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 精准电子表格：为什么每个企业都需要 XLSX 技能
+# Precision Spreadsheets: Why Every Business Needs the XLSX Skill
 
-数据是现代企业的命脉，但没有结构的数据毫无价值。大多数人只将 Excel 用作简单的表格，但真正的力量在于**动态自动化**——即那些能够自我重新计算并通过财务标准传达信息的模型。
+Data is the lifeblood of modern business, but raw data is useless without structure. Most people use Excel as a simple table, but true power lies in **dynamic automation**—models that recalculate themselves and tell a story through financial standards.
 
-Anthropic 官方推出的 **xlsx** 技能赋予了你的 AI Agent（如 Claude Code）专业数据分析师的工具。它超越了静态的 CSV 导出，进入了智能电子表格架构的领域，能够以手术般的精度支持 `.xlsx`、`.xlsm` 和 `.csv` 格式。
+The official **xlsx** skill from Anthropic equips your AI agent (like Claude Code) with the tools of a professional data analyst. It moves beyond static CSV exports and into the realm of intelligent spreadsheet architecture, supporting `.xlsx`, `.xlsm`, and `.csv` formats with surgical precision.
 
 ```bash
-# 为你的 Agent 装备 xlsx 技能
+# Equip your agent with the xlsx skill
 npx killer-skills add anthropics/skills/xlsx
 ```
 
-## 什么是 XLSX 技能？
+## What is the XLSX Skill?
 
-`xlsx` 技能是一个高级自动化框架，它集成了两个行业标准的 Python 库：
-- **Pandas**：用于高速数据分析、清洗和批量转换。
-- **Openpyxl**：用于精确控制样式、格式，以及最重要的——Excel 公式。
+The `xlsx` skill is an advanced automation framework that integrates two industry-standard Python libraries:
+- **Pandas**: For high-speed data analysis, cleaning, and bulk transformations.
+- **Openpyxl**: For precise control over formatting, styles, and—most importantly—Excel formulas.
 
-## 专业自动化的核心哲学
+## Core Philosophies of Professional Automation
 
-`xlsx` 技能不仅仅是关于写入文件；它遵循“财务模型优先”的哲学。
+The `xlsx` skill isn't just about writing files; it follows a "Financial Model First" philosophy.
 
-### 1. 公式优于硬编码
-`xlsx` 技能的金科玉律是：**永远不硬编码计算出的数值**。
-Agent 不会在 Python 中计算出总和后直接将“5000”写入单元格，而是会写入 `=SUM(B2:B9)`。这确保了如果你以后更改了一个数字，整个电子表格都会自动更新。
+### 1. Formulas Over Hardcoding
+The golden rule of the `xlsx` skill is: **Never hardcode calculated values.**
+Instead of calculating a total in Python and writing "5000" to a cell, the agent writes `=SUM(B2:B9)`. This ensures that if you change a number later, the entire spreadsheet updates automatically.
 
-### 2. 行业标准色彩编码
-该技能遵循专业的财务建模惯例（华尔街标准）：
-- **蓝色文本**：硬编码的输入（用户可以修改的内容）。
-- **黑色文本**：公式和计算（请勿触摸！）。
-- **绿色文本**：链接到同一工作簿中的其他工作表。
-- **红色文本**：外部文件链接。
-- **黄色背景**：需要注意的关键假设或待更新单元格。
+### 2. Industry-Standard Color Coding
+The skill follows professional financial modeling conventions (Wall Street standards):
+- **Blue Text**: Hardcoded inputs (stuff you can change).
+- **Black Text**: Formulas and calculations (don't touch!).
+- **Green Text**: Links to other worksheets.
+- **Red Text**: External file links.
+- **Yellow Background**: Key assumptions needing attention.
 
-### 3. 零错误保证
-该技能包含一个强制性的**重新计算循环**。在创建文件后，Agent 会使用一个专用脚本（通过 LibreOffice）强制计算所有公式，并在你看到文件之前检查诸如 `#REF!`、`#DIV/0!` 或循环引用等错误。
+### 3. Error-Free Guarantee
+The skill includes a mandatory **recalculation loop**. After creating a file, the agent uses a specialized script (via LibreOffice) to force-calculate all formulas and check for errors like `#REF!`, `#DIV/0!`, or circular references before you ever see the file.
 
-## 实际应用场景
+## Practical Use Cases
 
-### 自动化财务模型
-构建 5 年期预测模型，将增长率和利润率存储在“假设单元格”中，让你能瞬间运行“假设分析（What-If）”方案。
+### Automated Financial Models
+Build 5-year projection models where growth rates and margins are stored in "Assumption Cells," allowing you to run "What-If" scenarios instantly.
 
-### 智能数据清洗
-将混乱的表格数据——包括错位的标题、垃圾行和格式错误的日期——转化为整洁、结构化的电子表格，随时可用于透视表分析。
+### Intelligent Data Cleaning
+Turn "messy" tabular data—with misplaced headers, junk rows, and malformed dates—into clean, structured spreadsheets ready for pivot tables.
 
-### 批量报告生成
-自动化创建数十个本地化销售报告，每个报告都带有自定义图表和专业格式，仅需几秒钟即可完成。
+### Batch Report Generation
+Automate the creation of dozens of localized sales reports, each with custom charts and professional formatting, in a matter of seconds.
 
-## 如何在 Killer-Skills 中使用
+## How to use it with Killer-Skills
 
-1.  **安装**：`npx killer-skills add anthropics/skills/xlsx`
-2.  **分析**： “阅读‘销售数据.csv’，找出利润率最高的前 5 个产品，并创建一个包含摘要表和条形图的新 Excel 报告。”
-3.  **建模**： “构建一个每月预算跟踪器。将假设放在单独的工作表中，所有总和都使用公式。使用标准的财务色彩编码。”
+1.  **Install**: `npx killer-skills add anthropics/skills/xlsx`
+2.  **Analyze**: "Read 'Sales_Data.csv', find the top 5 products by margin, and create a new Excel report with a summary table and a bar chart."
+3.  **Model**: "Build a monthly budget tracker. Put assumptions in a separate sheet and use formulas for all totals. Use standard financial color coding."
 
-## 结语
+## Conclusion
 
-`xlsx` 技能将你的 AI Agent 转变为数据科学家和财务分析师的结合体。它确保你的电子表格不仅仅是数字的堆砌，而是驱动更好商业决策的强大动态工具。
+The `xlsx` skill transforms your AI agent into a data scientist and financial analyst rolled into one. It ensures that your spreadsheets aren't just collections of numbers, but powerful, dynamic tools that drive better business decisions.
 
-立即前往 [Killer-Skills 技能市场](https://killer-skills.com/zh/skills/anthropics/skills/xlsx) 查看 xlsx 技能，开始构建更智能的数据系统。
-
----
-
-*需要展示你的分析结果？将其与 [pptx 技能](https://killer-skills.com/zh/skills/anthropics/skills/pptx) 搭配使用，打造自动化融资计划书。*
+Check out the [xlsx skill](https://killer-skills.com/zh/skills/anthropics/skills/xlsx) on the Killer-Skills Marketplace and start building smarter data today.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Need to present your findings? Pair this with the [pptx skill](https://killer-skills.com/zh/skills/anthropics/skills/pptx) for automated pitch decks.*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

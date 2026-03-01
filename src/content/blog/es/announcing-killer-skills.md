@@ -1,64 +1,64 @@
 ---
-title: "Anuncio de Killer-Skills: El Mercado de Habilidades para Agentes de IA"
-description: "Presentamos el primer estándar abierto para habilidades de IA que otorgan a sus agentes capacidades de navegación, codificación y creación instantáneas."
-pubDate: 2026-02-13
+title: "Announcing Killer Skills: The Ultimate Directory for AI Agents"
+description: "We are thrilled to unveil Killer Skills, a curated marketplace of high-quality tools designed specifically for AI coding agents."
+pubDate: 2026-02-14
 author: "Killer-Skills Team"
-tags: ["anuncio", "agente de IA", "MCP", "código abierto"]
+tags: ["Announcement", "AI Agents", "MCP"]
 lang: "es"
 featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Bienvenidos a Killer-Skills: Superpoderes para su Agente de IA
+# Welcome to Killer-Skills: Superpowers for Your AI Agent
 
-Hoy nos complace anunciar el lanzamiento de **Killer-Skills**, el primer mercado y registro abierto para capacidades de agentes de IA.
+Today, we are thrilled to announce the launch of **Killer-Skills** — the first open marketplace and registry for AI agent capabilities.
 
-## El Desafío de los Agentes de IA
+## The Problem with Today's AI Agents
 
-Los agentes de IA (como Claude Code, Cursor, Windsurf) son revolucionarios, pero a menudo están limitados por las herramientas que tienen instaladas. Los desarrolladores frecuentemente tenían que escribir sus propios servidores MCP (Model Context Protocol) desde cero para realizar tareas específicas como manipular PDFs, automatizar Excel o gestionar repositorios de GitHub.
+AI agents (like Claude Code, Cursor, Windsurf) are revolutionary, but their potential is often limited by the tools they can access. Until now, developers frequently had to build their own MCP (Model Context Protocol) servers from scratch for specific tasks like PDF editing, Excel automation, or managing GitHub repositories.
 
-Killer-Skills cambia esto.
+Killer-Skills changes that.
 
-## ¿Qué es Killer-Skills?
+## What is Killer-Skills?
 
-Killer-Skills es un registro centralizado de habilidades profesionales verificadas que su agente de IA puede descubrir, instalar y usar instantáneamente.
+Killer-Skills is a centralized registry of verified, professional-grade skills that your AI agent can instantly discover, install, and use.
 
-### Características Principales
+### Key Features
 
--   **Registro Universal**: Más de 1,000 habilidades verificadas disponibles con un solo comando.
--   **Integración Profunda con MCP**: Construido sobre el Model Context Protocol de Anthropic para asegurar una interacción perfecta con los agentes.
--   **Soporte Multi-IDE**: Funciona en sus herramientas favoritas como Cursor, Windsurf, Claude Code, Amp y Goose.
--   **Seguridad Primero**: Todas las habilidades están aisladas y verificadas para una ejecución segura.
+-   **Universal Registry**: Over 1,000 verified skills available with a single command.
+-   **Deep MCP Integration**: Built on Anthropic’s Model Context Protocol for seamless agent interaction.
+-   **Multi-IDE Support**: Works with your favorite tools like Cursor, Windsurf, Claude Code, Amp, and Goose.
+-   **Security First**: Every skill is isolated and validated for safe execution.
 
-## Empiece Ahora
+## Start Right Now
 
-Potenciar a su agente es sencillo. Simplemente ejecute en su terminal:
+Leveling up your agent is simple. Just run the following in your terminal:
 
 ```bash
-# Instalar el CLI
+# Install the CLI
 npm install -g killer-skills
 
-# Buscar una habilidad
+# Search for a skill
 killer search google-maps
 
-# Añadir la habilidad a su agente
+# Add a skill to your agent
 killer add google-maps
 ```
 
-## El Futuro es Autónomo
+## The Future is Autonomous
 
-Creemos en un futuro donde los agentes puedan "aprender" (instalar) nuevas capacidades por sí mismos en tiempo de ejecución. Killer-Skills proporciona esta infraestructura, convirtiendo las herramientas de IA en un vasto ecosistema de inteligencia conectada.
+We believe in a future where agents can "learn" (install) new capabilities on the fly as they perform tasks. Killer-Skills provides the necessary infrastructure, turning AI tools into a vast ecosystem of connected intelligence.
 
-## Únase a la Revolución
+## Join the Revolution
 
-Killer-Skills es un proyecto impulsado por la comunidad. Lea la documentación, explore el [mercado](https://killer-skills.com/es/skills) y comience a contribuir con sus propias habilidades.
+Killer-Skills is a community-driven project. Explore the documentation, check out the [Marketplace](https://killer-skills.com/es/blog), and start contributing by creating your own skills.
 
-Construyamos juntos el futuro de los agentes.
+Let's build the future of agents together.
 
 ---
 
-*El equipo de Killer-Skills*
+*Your Killer-Skills Team*
 
 ---
 

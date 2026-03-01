@@ -1,71 +1,70 @@
 ---
-title: "Skill-Creatorで独自のAIエージェントスキルを作成する"
-description: "公式のskill-creatorスキルを使用して、自分のワークフローや専門知識をAIエージェントが利用可能な「スキル」に変える方法を学びます。"
+title: "Programming Your Programmers: The skill-creator Guide"
+description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["スキル作成", "開発者体験", "自動化", "オープンソース"]
+tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
 lang: "ja"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 創造の力：Skill-CreatorでAIを自分好みにカスタマイズする
+# Beyond General AI: Mastering the Skill-Creator Skill
 
-Killer-Skillsマーケットプレイスには数多くの素晴らしいスキルがありますが、時として自分だけの特定のワークフロー、独自のAPI、または特定の社内プロセスを自動化したい場合があります。
+Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
 
-**skill-creator**スキルを使用すると、AIエージェントにあなた専用の「スキル」を設計、開発、配布させるための究極のアシスタントを持たせることができます。
+The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
 
 ```bash
-# エージェントにskill-creatorスキルを装備する
+# Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
 
-## Skill-Creatorスキルの主な役割
+## What Makes a "Killer" Skill?
 
-このスキルは、スキルの「メタスキル」として機能し、以下のフェーズであなたをサポートします：
+Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
 
-### 1. スキルの設計と要件定義
-あなたが解決したい問題を伝えるだけで、エージェントはそれを適切なスキルの形に翻訳します。
--   **機能の特定**: どのツールが必要で、どのような入出力が必要かを明確にします。
--   **ベストプラクティスの適用**: セキュリティ、エラーハンドリング、プロンプトエンジニアリングのベストプラクティスを組み込みます。
+### 1. Progressive Disclosure
+The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
+- **Metadata**: Just enough info to tell the AI when to use the skill.
+- **SKILL.md**: The core instructional body, loaded only when needed.
+- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
 
-### 2. プロフェッショナルなSKILL.mdの生成
-Killer-Skillsの標準フォーマットに従った、指示書（SKILL.md）を自動生成します。
--   **構造化された命令**: AIエージェントが迷わずに実行できる、明確なガイダンス。
--   **リソース管理**: 必要なスクリプト、テンプレート、ドキュメントの整理。
+### 2. Matching Degrees of Freedom
+Not every task should be handled the same way:
+- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design)).
+- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/ja/skills/anthropics/skills/docx) manipulation).
 
-### 3. ディレクトリ構造の構築
-スキルを構成するのに必要なファイル群を自動的に整理します。
--   `scripts/`: ユーティリティスクリプト。
--   `examples/`: 使い方を示すサンプル。
--   `resources/`: 必要なアセット。
+### 3. Procedural vs. Declarative Knowledge
+Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
+- **`scripts/`**: Executable code for repetitive, deterministic tasks.
+- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
+- **`assets/`**: Boilerplates and templates that can be copied directly.
 
-### 4. 検証とフィードバックループ
-生成されたスキルが正しく機能するかをテストし、改善点を特定します。
+## The Skill Creation Life Cycle
 
-## 実用的なユースケース
+The `skill-creator` provides a step-by-step workflow for building your own capabilities:
+1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
+2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
+3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
+4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
 
-### 社内特有のビルドプロセスのスキル化
-CI/CDパイプラインやデプロイ手順、コードレビューの基準をスキル化し、新入社員のAIエージェントが即座にプロと同じ動きができるようにします。
+## Practical Use Cases
 
-### 特定のSaaSとの複雑な連携
-自社で使用しているツールのAPI操作をスキル化し、エージェントに「週末のレポートを生成してSlackに送って」と頼むだけで済むようにします。
+- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
+- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
+- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
 
-### 個人的な学習・研究ワークフロー
-特定の分野の論文を検索し、要約し、データベースに保存する自分専用のリサーチスキルを作成します。
+## Conclusion
 
-## Killer-Skillsでの使用例
+The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-1.  **着想**: 「私のAWSデプロイ手順を自動化するスキルを作成したいです。まずはどのような情報が必要ですか？」
-2.  **生成**: 「私が提供したスクリプトをもとに、Killer-Skills互換の `aws-deploy` スキルを設計してください。」
-3.  **文書化**: 「スキルの使い方を説明する `EXAMPLES.md` も生成してください。」
+Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator).
 
-## 結論
+---
 
-`skill-creator`は、AIを「単なる道具」から「自分専用の専門家」へと進化させるための鍵です。あなたの知識とワークフローをスキルという形にパッケージ化することで、自動化の可能性は無限に広がります。
-
-自分だけの[スキルの作成](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator)に今すぐ挑戦しましょう。
+*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder) to host it.*
 
 ---
 

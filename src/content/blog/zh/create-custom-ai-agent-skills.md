@@ -1,71 +1,71 @@
 ---
-title: "程序员的“程序员”：skill-creator 技能指南"
-description: "通过 skill-creator 工具包学习如何构建高效的 AI 技能。掌握利用专业知识和工作流构建模块化 AI 能力的艺术。"
+title: "Programming Your Programmers: The skill-creator Guide"
+description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["技能开发", "AI 工程", "自动化", "知识管理", "智能体框架"]
+author: "Killer-Skills Team"
+tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
 lang: "zh"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 超越通用 AI：精通 Skill-Creator 技能
+# Beyond General AI: Mastering the Skill-Creator Skill
 
-人工智能本质上是“通用的”。它对万物都略知一二，但却缺乏针对你独特业务流程或特定代码模式的专业程序性知识。为了弥补这一差距，我们不需要“更多训练”，我们需要的是 **技能 (Skills)**。
+Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
 
-**skill-creator** 技能是扩展 Claude 等 AI 智能体能力的终极蓝图。它教你如何将专业知识、确定性脚本和经过验证的工作流封装成模块化的“入职指南”，从而将一个通用 AI 转化为特定领域的专家。
+The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
 
 ```bash
-# 为你的智能体装备 skill-creator 技能
+# Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
 
-## 什么才算是“杀手级”技能？
+## What Makes a "Killer" Skill?
 
-创建一个技能不仅仅是将文档扔进文件夹。它关乎 **上下文效率 (Context Efficiency)** 和 **自由度 (Degrees of Freedom)**。`skill-creator` 技能强调了几个核心架构原则：
+Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
 
-### 1. 渐进式披露
-在 AI 时代，最宝贵的资源是 **上下文窗口 (Context Window)**。一个设计良好的技能使用三层加载系统：
-- **元数据 (Metadata)**：仅提供足够的信息，让 AI 知道何时使用该技能。
-- **SKILL.md**：核心指令主体，仅在需要时加载。
-- **捆绑资源 (Bundled Resources)**：根据需要加载脚本和参考资料，保持主指令集的精简。
+### 1. Progressive Disclosure
+The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
+- **Metadata**: Just enough info to tell the AI when to use the skill.
+- **SKILL.md**: The core instructional body, loaded only when needed.
+- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
 
-### 2. 匹配自由度
-并不是每一个任务都应该以同样的方式处理：
-- **高自由度**：对于需要创意性启发式判断的任务（如 [frontend-design](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design)），使用纯文本说明。
-- **低自由度**：对于脆弱、确定性的操作（如 [docx](https://killer-skills.com/zh/skills/anthropics/skills/docx) 处理），使用严格的脚本。
+### 2. Matching Degrees of Freedom
+Not every task should be handled the same way:
+- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design)).
+- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/zh/skills/anthropics/skills/docx) manipulation).
 
-### 3. 程序性 vs. 声明性知识
-不要只告诉 AI *该做什么*；要给它执行任务的 *工具*。`skill-creator` 技能鼓励使用：
-- **`scripts/`**：用于重复性、确定性任务的可执行代码。
-- **`references/`**：不需要时刻留在主内存中的技术规范和模式。
-- **`assets/`**：可以直接复制的样板和模板。
+### 3. Procedural vs. Declarative Knowledge
+Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
+- **`scripts/`**: Executable code for repetitive, deterministic tasks.
+- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
+- **`assets/`**: Boilerplates and templates that can be copied directly.
 
-## 技能创建生命周期
+## The Skill Creation Life Cycle
 
-`skill-creator` 提供了构建自定义能力的逐步工作流：
-1.  **初始化**：使用 `init_skill.py` 生成标准化的目录结构。
-2.  **实现**：识别可重用资源——这个任务的哪些部分是你最不想解释第二次的？
-3.  **完善 SKILL.md**：编写简洁的、命令式的指令。假设 AI 已经很聪明，只告诉它那些它 *不知道* 的事情。
-4.  **打包**：使用 `package_skill.py` 进行验证并创建可发布的 `.skill` 文件。
+The `skill-creator` provides a step-by-step workflow for building your own capabilities:
+1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
+2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
+3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
+4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
 
-## 实际应用场景
+## Practical Use Cases
 
-- **公司入职**：创建一个技能，教会 Claude 你的内部编码标准和 PR 评审指南。
-- **私有 API**：将你的内部 API 文档和辅助脚本封装成一个即插即用的工具。
-- **复杂工作流**：为 SEO 审计、财务建模或法律文档审查等专业任务构建技能。
+- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
+- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
+- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
 
-## 结语
+## Conclusion
 
-AI 的力量不仅在于模型本身，更在于其周围的 **基础设施**。有了 `skill-creator` 技能，你将从一名“提示词工程师”转变为一名“能力架构师”。你不仅是在告诉 AI 该做什么，你是在教它如何学习。
+The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-立即在 [Killer-Skills 市场](https://killer-skills.com/zh/skills/anthropics/skills/skill-creator) 开始构建你的自定义 AI 工作空间。
-
----
-
-*准备好部署你的新技能了吗？学习如何 [构建 MCP 服务端](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) 来托管它。*
+Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/skill-creator).
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) to host it.*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

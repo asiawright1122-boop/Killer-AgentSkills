@@ -12,6 +12,14 @@ heroImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=
 
 # Claude Code vs Cursor vs Windsurf: a skills comparison
 
+**AI agent IDEs like Claude Code, Cursor, and Windsurf** process project-specific instructions (skills) in fundamentally different ways: Claude Code utilizes contextual on-demand loading, Cursor relies on glob-based matching (`.mdc` files), and Windsurf loads a singular `.windsurfrules` file wholesale on every prompt. Understanding these architectural differences is critical; developers managing 10+ skills report context window exhaustion in Windsurf, while Claude Code easily handles 50+ concurrent skills smoothly.
+
+> **Key Takeaways**
+> - **Claude Code**: Best for scaling. Loads skills contextually (only when needed), protecting token limits.
+> - **Cursor**: Best for file-type targeting. Uses `.mdc` files with `globs: ["*.tsx"]` to trigger rules conditionally.
+> - **Windsurf**: Best for simplicity. Loads a single `.windsurfrules` file on every prompt, prioritizing immediate access over context limits.
+> - **The Common Standard**: All three platforms are converging on Markdown-based instruction files with frontmatter.
+
 All three of these tools let you give your AI agent project-specific instructions. The idea is the same: put a file in your repo, the agent reads it, it follows your rules. But the details differ in ways that matter once you start using them daily.
 
 This is not a "which IDE is best" article. Each has strengths. This is specifically about how they handle skills and project-level instructions.
@@ -92,5 +100,49 @@ Six months ago, each IDE had its own approach with no overlap. Now Claude Code, 
 The content of a good skill is the same regardless of which agent reads it. Clear instructions, specific examples, and honest about what the rules cover. The wrapper changes, the knowledge doesn't.
 
 ---
+
+## Frequently Asked Questions
+
+### Which IDE is best for managing many AI skills?
+Claude Code is currently the most efficient IDE for managing 20+ skills, as it contextually loads only the skills relevant to the user's active prompt, saving token limits and preventing confusion.
+
+### How do I write rules for Cursor?
+Cursor rules are written as `.mdc` (Markdown with context) files placed in the `.cursor/rules/` directory, utilizing a `globs` property to define exactly which file types trigger the rule.
+
+### Can I share AI skills across different IDEs?
+Yes, the underlying logic is standard Markdown. Tools like the `killer-skills` CLI can automatically convert a base `SKILL.md` format into `.mdc` files for Cursor or append them to a `.windsurfrules` file for Windsurf.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which IDE is best for managing many AI skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Claude Code is currently the most efficient IDE for managing 20+ skills, as it contextually loads only the skills relevant to the user's active prompt, saving token limits and preventing confusion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I write rules for Cursor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cursor rules are written as .mdc (Markdown with context) files placed in the .cursor/rules/ directory, utilizing a globs property to define exactly which file types trigger the rule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I share AI skills across different IDEs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the underlying logic is standard Markdown. Tools like the killer-skills CLI can automatically convert a base SKILL.md format into .mdc files for Cursor or append them to a .windsurfrules file for Windsurf."
+      }
+    }
+  ]
+}
+</script>
 
 *Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*

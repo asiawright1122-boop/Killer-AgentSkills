@@ -1,70 +1,78 @@
 ---
-title: "Internal-Comms 스킬로 전문가급 사내 커뮤니케이션 완성하기"
-description: "공식 internal-comms 스킬을 사용하여 AI 에이전트가 고품질 상태 보고서, 사내 공지, 리더십 업데이트를 작성하게 하는 방법을 배웁니다."
+title: "Corporate Communication Excellence: The Internal-Comms Skill"
+description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["사내 커뮤니케이션", "리더십", "상태 보고서", "엔터프라이즈"]
+tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
 lang: "ko"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 정보의 가교: Internal-Comms 스킬로 조직의 투명성 높이기
+# Speak Like a Leader: Mastering the Internal-Comms Skill
 
-빠르게 성장하는 조직에서 정보의 투명성과 일관성은 성공의 핵심입니다. 하지만 주간 상태 보고서, 경영진 업데이트, 사내 뉴스레터 등 중요하지만 작서에 많은 시간이 걸리는 커뮤니케이션 업무가 너무 많으면 정작 핵심 의사결정에 집중하기 어려워집니다.
+In an era of remote work and rapid scaling, communication is the glue that holds an organization together. But high-quality communication is hard—it requires the right tone, the right format, and the right level of detail. Writing a weekly update that actually gets read is a skill in itself.
 
-**internal-comms** 스킬을 사용하면 AI 에이전트에게 전문적인 사내 소통 노하우를 부여하여, 고품질이며 영향력 있는 문서를 신속하게 작성할 수 있습니다.
+The official **internal-comms** skill from Anthropic equips your AI agent with the templates and tonal guidelines used by elite organizations. It moves beyond generic "corporate speak" to provide structured, actionable, and professional internal messaging.
 
 ```bash
-# 에이전트에 internal-comms 스킬 장착하기
+# Equip your agent with the internal-comms skill
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-## Internal-Comms 스킬의 탁월한 기능
+## What is the Internal-Comms Skill?
 
-이 스킬은 비즈니스 커뮤니케이션의 베스트 프랙티스와 템플릿을 통합하여 다음과 같은 능력을 제공합니다:
+The `internal-comms` skill is a resource-intensive repository of enterprise-grade communication formats. It ensures that when your agent writes an update, it follows the specific structures that leadership teams expect.
 
-### 1. 목적별 최적 템플릿 제공
-상황에 가장 적합한 문서 구조를 제안합니다.
--   **상태 보고서 (Status Reports)**: 진행 상황, 장애 요인, 향후 계획을 간결하게 정리.
--   **리더십 업데이트**: 경영진이 필요로 하는 핵심 인사이트와 의사결정 포인트를 요약.
--   **사내 공지**: 전사적인 변경 사항이나 이벤트 안내를 명확하고 임팩트 있게 구성.
+### 1. The Power of 3P Updates
+One of the core features of this skill is the **3P Format**:
+- **P**rogress: What was actually accomplished?
+- **P**lans: What is the roadmap for the next period?
+- **P**roblems: What are the blockers or risks that need attention?
 
-### 2. 어조(Tone) 및 스타일 조정
-수신자에 맞춰 문장을 최적화합니다.
--   **프로페셔널**: 신뢰감을 주는 격식 있는 표현.
--   **다이렉트 (Direct)**: 바쁜 리더를 위한 핵심 위주의 효율적인 문체.
--   **인게이지먼트 (Engaging)**: 직원들의 참여를 독려하고 활기찬 분위기를 조성하는 친근한 스타일.
+This structure is the gold standard for executive updates because it is concise, honest, and forward-looking.
 
-### 3. 다양한 채널 대응
-이메일, Slack 메시지, 공식 문서([docx](https://killer-skills.com/ko/blog/automate-word-documents-with-docx-skills)), 발표 자료([pptx](https://killer-skills.com/ko/blog/professional-presentations-with-pptx-ai-skills)) 등 배포 채널에 맞는 형식으로 변환합니다.
+### 2. Comprehensive Comm Types
+The skill isn't just for status reports; it handles the full spectrum of internal needs:
+- **Company Newsletters**: Professional and engaging wide-scale updates.
+- **Incident Reports**: Objective and structured post-mortems for technical or business issues.
+- **FAQ Responses**: Clear, authoritative answers to common team questions.
+- **Leadership Updates**: High-level summaries for SVPs and C-suite executives.
 
-### 4. 정보 추출 및 요약
-긴 회의록이나 정리되지 않은 할 일 목록에서 핵심 정보만 뽑아내어 정확하게 요약합니다.
+## How the Skill Works
 
-## 실제 사용 사례
+When you ask an agent to "Write a project update," the `internal-comms` skill triggers a multi-step workflow:
+1.  **Type Identification**: It determines if you need a status report, a newsletter, or an FAQ.
+2.  **Guideline Loading**: It loads the specific "Example" file (e.g., `3p-updates.md`) to understand the required tone and formatting.
+3.  **Content Gathering**: It uses its context to pull the most relevant progress and risks into the template.
 
-### 자동 주간 보고서
-프로젝트 관리 도구의 로그에서 이번 주 성과와 미진한 작업을 자동으로 추출하여 팀원들에게 공유할 전문적인 주보를 작성합니다.
+## Practical Use Cases
 
-### 경영진 긴급 보고
-장애 상황(인시던트) 발생 시 현황을 객관적으로 정리하고 대응책과 복구 예상 시점을 리더십에 신속하게 보고합니다.
+### Automated Status Reporting
+Connect your agent to your codebase or task tracker. Have it use the `internal-comms` skill to generate a perfectly formatted **3P update** every Friday at 5 PM.
 
-### 사내 지식 전파
-새로운 기술이나 프로세스 도입 시 개발자용 기술 상세 내용과 비전공자용 기대 효과를 구분하여 정리한 FAQ와 안내문을 제작합니다.
+### Incident Management
+During a system outage, have your agent draft the initial **Incident Report** based on terminal logs and deployment history, ensuring the tone is objective and professional.
 
-## Killer-Skills에서 사용하는 예시
+### Culture Building
+Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and upcoming milestones with a consistent, encouraging brand voice.
 
-1.  **작성**: "이번 주 Jira 업데이트 내역을 바탕으로 본부장님께 드릴 상태 보고서 초안을 잡아 줘. 3가지 핵심 요약 위주로 해줘."
-2.  **조정**: "이 뉴스레터 초안을 좀 더 긍정적이고 동기부여가 되는 어조로 다듬어 줘."
-3.  **요약**: "1시간 분량의 회의록에서 결정사항과 할 일을 뽑아서 Slack용 불렛포인트로 정리해 줘."
+## How to use it with Killer-Skills
 
-## 결론
+1.  **Install**: `npx killer-skills add anthropics/skills/internal-comms`
+2.  **Command**: "Write a 3P update for the 'Deep_Search' project based on our progress this week. Highlight the memory leak as a Problem."
+3.  **Refine**: "Convert this technical update into a leadership-friendly summary for the company newsletter."
 
-`internal-comms` 스킬은 단순히 글을 대신 쓰는 것이 아니라 조직 전체의 정보 흐름을 원활하게 만드는 윤활유 역할을 합니다. AI가 문서 작성의 부담을 덜어줌으로써 여러분은 직접적인 대화와 전략적 사고에 더 많은 시간을 투자할 수 있습니다.
+## Conclusion
 
-지금 바로 [internal-comms 스킬](https://killer-skills.com/ko/skills/anthropics/skills/internal-comms)을 에이전트에 추가하여 여러분 조직의 '목소리'를 한 차원 높여보세요.
+The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
+
+Install the [internal-comms skill](https://killer-skills.com/ko/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
+
+---
+
+*Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 

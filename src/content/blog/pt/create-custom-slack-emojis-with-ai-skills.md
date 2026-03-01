@@ -1,79 +1,79 @@
 ---
-title: "Reações Personalizadas no Slack: Domine a Skill Slack-GIF-Creator"
-description: "Aprenda a criar GIFs animados e emojis personalizados para o Slack usando a skill oficial slack-gif-creator. Otimize suas animações para tamanho de arquivo e impacto."
+title: "Custom Slack Reactions: Master the Slack-GIF-Creator Skill"
+description: "Learn how to create custom animated GIFs and emojis for Slack using the official slack-gif-creator skill. Optimize your animations for file size and impact."
 pubDate: 2026-02-13
-author: "Equipe Killer-Skills"
-tags: ["Slack", "GIFs", "Automação", "Agent Skills"]
+author: "Killer-Skills Team"
+tags: ["Slack", "GIFs", "Automation", "Agent Skills"]
 lang: "pt"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Eleve Seu Nível no Slack: O Guia Definitivo do Slack-GIF-Creator
+# Level Up Your Slack Game: The Ultimate Guide to Slack-GIF-Creator
 
-O Slack não é apenas uma ferramenta de comunicação; é uma cultura. E nada define melhor a cultura de uma empresa do que suas reações de emoji personalizadas. Mas por que se contentar com emojis estáticos quando você pode ter GIFs animados perfeitamente otimizados e de nível profissional?
+Slack isn't just a communication tool; it's a culture. And nothing defines a company's culture more than its custom emoji reactions. But why settle for static emojis when you can have perfectly optimized, professional-grade animated GIFs?
 
-A skill oficial **slack-gif-creator** da Anthropic dá ao seu agente de IA (como o Claude Code) o poder de projetar e construir animações personalizadas para o Slack do zero. Seja uma variante do "Party Parrot" ou uma celebração de equipe personalizada, esta skill garante que seus GIFs tenham o tamanho e o formato perfeitos para os requisitos específicos do Slack.
+The official **slack-gif-creator** skill from Anthropic gives your AI agent (like Claude Code) the power to design and build custom Slack animations from scratch. Whether it's a "Party Parrot" variant or a custom team celebration, this skill ensures your GIFs are perfectly sized and formatted for Slack's specific requirements.
 
 ```bash
-# Equipe seu agente com a skill slack-gif-creator
+# Equip your agent with the slack-gif-creator skill
 npx killer-skills add anthropics/skills/slack-gif-creator
 ```
 
-## O Que É a Skill Slack-GIF-Creator?
+## What is the Slack-GIF-Creator Skill?
 
-`slack-gif-creator` é um conjunto de ferramentas especializado baseado na biblioteca **Pillow (PIL)** do Python. Ele fornece aos agentes as restrições, ferramentas de validação e conceitos de animação necessários para criar GIFs que "simplesmente funcionam" no Slack.
+`slack-gif-creator` is a specialized toolkit based on Python's **Pillow (PIL)** library. It provides agents with the constraints, validation tools, and animation concepts needed to create GIFs that "just work" in Slack.
 
-### Principais Recursos de Otimização
-O Slack tem limites rígidos de tamanho e dimensões de arquivo. Esta skill cuida do trabalho técnico pesado:
--   **Dimensionamento Automático**: Otimizado para 128x128 (emojis) ou 480x480 (mensagens).
--   **Controle de FPS**: Gerenciamento inteligente de taxa de quadros para manter o tamanho dos arquivos abaixo dos limites de 128KB/256KB.
--   **Redução de Cores**: Otimização inteligente da paleta de cores (48-128 cores) para nitidez máxima com peso mínimo.
+### Key Optimization Features
+Slack has strict file size and dimension limits. This skill handles the technical heavy lifting:
+- **Automatic Sizing**: Optimized for 128x128 (emojis) or 480x480 (messages).
+- **FPS Control**: Smart frame-rate management to keep file sizes under the 128KB/256KB limits.
+- **Color Reduction**: Intelligent color palette optimization (48-128 colors) for maximum crispness with minimum weight.
 
-## Conceitos de Animação Que Você Pode Dominar
+## Animation Concepts You Can Master
 
-A skill incentiva os agentes a usar técnicas de animação sofisticadas em vez de uma simples troca de quadros:
+The skill encourages agents to use sophisticated animation techniques rather than simple frame-swapping:
 
-### 1. Suavização de Movimento (Motion Easing)
-Ninguém gosta de animações "travadas". A skill inclui funções de suavização como `ease_out`, `bounce_out` e `elastic_out` para fazer com que os movimentos pareçam profissionais e fluidos.
+### 1. Motion Easing
+Nobody likes "choppy" animations. The skill includes easing functions like `ease_out`, `bounce_out`, and `elastic_out` to make movements feel professional and fluid.
 
-### 2. Primitivas de Alta Qualidade
-Em vez de usar ativos de baixa resolução, a skill usa Python para desenhar primitivas de estilo vetorial de alta qualidade (estrelas, círculos, polígonos) com contornos grossos e antialiasing. Isso garante que seus emojis personalizados pareçam "premium" mesmo em telas Retina.
+### 2. High-Quality Primitives
+Instead of using low-res assets, the skill uses Python to draw high-quality vector-like primitives (stars, circles, polygons) with thick, anti-aliased outlines. This ensures your custom emojis look "premium" even on Retina displays.
 
-### 3. Efeitos Visuais
--   **Pulso/Batimento Cardíaco**: Escalonamento rítmico para emojis de celebração.
--   **Explosão/Estouro**: Ótimo para anúncios de marcos.
--   **Brilho/Resplendor**: Adicionando uma camada de "magia" às suas reações personalizadas.
+### 3. Visual Effects
+- **Pulse/Heartbeat**: Rhythmic scaling for celebration emojis.
+- **Explode/Burst**: Great for milestone announcements.
+- **Shimmer/Glow**: Adding a layer of "magic" to your custom reactions.
 
-## Como Usar com Killer-Skills
+## How to use it with Killer-Skills
 
-### Passo 1: Instalar a Skill
-Use a CLI para equipar seu agente:
+### Step 1: Install the Skill
+Use the CLI to equip your agent:
 ```bash
 npx killer-skills add anthropics/skills/slack-gif-creator
 ```
 
-### Passo 2: Solicitar uma Reação Personalizada
-Dê ao seu agente um comando com uma visão específica:
-> "Crie para mim um GIF pronto para o Slack de uma estrela dourada pulsando com um brilho roxo. Use a skill slack-gif-creator e certifique-se de que ele esteja otimizado para um emoji de 128x128."
+### Step 2: Request a Custom Reaction
+Prompt your agent with a specific vision:
+> "Make me a Slack-ready GIF of a golden star pulsing with a purple glow. Use the slack-gif-creator skill and make sure it's optimized for a 128x128 emoji."
 
-### Passo 3: Implantação
-O agente escreverá um script Python, o executará para gerar o `.gif` e até o validará usando o utilitário integrado `is_slack_ready()`. Tudo o que você precisa fazer é enviá-lo para o seu espaço de trabalho do Slack!
+### Step 3: Deployment
+The agent will write a Python script, execute it to generate the `.gif`, and even validate it using the built-in `is_slack_ready()` utility. All you have to do is upload it to your Slack workspace!
 
-## Por Que Isso É Importante Para as Equipes
+## Why This Matters for Teams
 
-Reações personalizadas são mais do que apenas diversão — elas são **propulsoras de engajamento**. Um GIF personalizado de "Sucesso no Lançamento de Produto" ou "Bug Corrigido" pode aumentar o moral da equipe. Com esta skill, qualquer pessoa pode ser um designer de movimento sem nunca abrir o Adobe After Effects.
+Custom reactions are more than just fun—they are **engagement drivers**. A custom "Product Launch Success" or "Bug Fixed" GIF can boost team morale. With this skill, anyone can be a motion designer without ever opening Adobe After Effects.
 
-## Conclusão
+## Conclusion
 
-A skill `slack-gif-creator` é a mistura perfeita de otimização técnica e liberdade criativa. Ela transforma seu agente de IA em um artista digital que entende as "regras da estrada" para a comunicação moderna no local de trabalho.
+The `slack-gif-creator` skill is the perfect blend of technical optimization and creative freedom. It turns your AI agent into a digital artist that understands the "rules of the road" for modern workplace communication.
 
-Acesse o [Marketplace do Killer-Skills](https://killer-skills.com/pt/skills/anthropics/skills/slack-gif-creator) para começar.
+Head over to the [Killer-Skills Marketplace](https://killer-skills.com/pt/skills/anthropics/skills/slack-gif-creator) to get started.
 
 ---
 
-*Procurando por mais domínio visual? Explore o [canvas-design](https://killer-skills.com/pt/skills/anthropics/skills/canvas-design) para pôsteres estáticos de alta qualidade.*
+*Looking for more visual mastery? Explore [canvas-design](https://killer-skills.com/pt/skills/anthropics/skills/canvas-design) for high-end static posters.*
 
 ---
 
