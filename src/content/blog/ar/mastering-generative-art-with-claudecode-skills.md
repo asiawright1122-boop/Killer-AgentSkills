@@ -1,94 +1,94 @@
 ---
-title: "الفن التوليدي بالذكاء الاصطناعي: دليل لمهارة Algorithmic Art"
-description: "أتقن الفن التوليدي باستخدام مهارة algorithmic-art الرسمية لوكلاء الذكاء الاصطناعي. تعلم كيفية إنشاء مرئيات p5.js مذهلة، وحقول التدفق، وأنظمة الجسيمات بكل سهولة."
+title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
+description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
 pubDate: 2026-02-13
-author: "فريق Killer-Skills"
-tags: ["الفن التوليدي", "p5.js", "مهارات الوكيل", "الفن الخوارزمي"]
+author: "Killer-Skills Team"
+tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
 lang: "ar"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# تحويل الكود إلى لوحة فنية: قوة الفن الخوارزمي
+# Transforming Code into Canvas: The Power of Algorithmic Art
 
-الفن التوليدي (Generative art) هو المكان الذي تلتقي فيه دقة الرياضيات بالعاطفة الخام للتعبير الفني. إنه وسيط لا يقوم فيه الفنان برسم صورة فحسب، بل يصنع *نظاماً* يبث الحياة في تنوعات لا متناهية.
+Generative art is where the precision of mathematics meets the raw emotion of artistic expression. It’s a medium where the artist doesn’t just paint a picture, but creates a *system* that breathes life into infinite variations. 
 
-مع مهارة **algorithmic-art** الرسمية من Anthropic، يصبح وكيل الترميز بالذكاء الاصطناعي الخاص بك (مثل Claude Code أو Cursor) خبيراً في الفن التوليدي. تعلم هذه المهارة الوكلاء كيفية الاستفادة من **p5.js**، والعشوائية المحددة (seeded randomness)، والفلسفات الحسابية لإنشاء مرئيات ذات جودة تضاهي المعارض الفنية.
+With the official **algorithmic-art** skill from Anthropic, your AI coding agent (like Claude Code or Cursor) becomes a master generative artist. This skill teaches agents how to leverage **p5.js**, seeded randomness, and computational philosophies to create gallery-quality visuals.
 
 ```bash
-# أضف مهارة algorithmic-art إلى وكيلك
+# Add the algorithmic-art skill to your agent
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-في هذه التدوينة، سنستكشف كيف تعمل هذه المهارة وكيف يمكنك استخدامها لبناء روائعك الرقمية الخاصة.
+In this post, we’ll explore how this skill works and how you can use it to build your own digital masterpieces.
 
-## ما هي مهارة Algorithmic Art؟
+## What is the Algorithmic Art Skill?
 
-مهارة `algorithmic-art` هي أكثر من مجرد مولد أكواد — إنها إطار عمل لـ **الجماليات الحسابية**. وهي توجه وكلاء الذكاء الاصطناعي من خلال عملية إبداعية من خطوتين:
+The `algorithmic-art` skill is more than just a code generator—it’s a framework for **Computational Aesthetics**. It guides AI agents through a two-step creative process:
 
-1.  **إنشاء الفلسفة الخوارزمية**: يقوم الوكيل أولاً بتعريف "حركة" أو فلسفة (مثل "الاضطراب العضوي" أو "التوافقيات الكمومية").
-2.  **تعبير p5.js**: ثم يقوم الوكيل بترجمة تلك الفلسفة إلى رسم p5.js تفاعلي يعمل، مكتملاً ببارامترات تفاعلية وعشوائية محددة.
+1.  **Algorithmic Philosophy Creation**: The agent first defines a "movement" or philosophy (e.g., "Organic Turbulence" or "Quantum Harmonics").
+2.  **p5.js Expression**: The agent then translates that philosophy into a working p5.js sketch, complete with interactive parameters and seeded randomness.
 
-## الميزات الرئيسية للمهارة
+## Key Features of the Skill
 
-### 1. العشوائية المحددة (Seeded Randomness)
-تمنح المهارة الأولوية لـ **قابلية إعادة الإنتاج**. فكل قطعة فنية مرتبطة بـ "بذرة" (seed) محددة. إذا وجدت تنوعاً أعجبك (مثل البذرة رقم 42)، يمكنك إعادة إنتاجه تماماً في كل مرة. هذا أمر بالغ الأهمية لبناء مجموعات فنية أو أصول احترافية.
+### 1. Seeded Randomness
+The skill prioritizes **reproducibility**. Every piece of art is tied to a specific seed. If you find a variation you love (e.g., Seed #42), you can recreate it exactly every time. This is critical for building art collections or professional assets.
 
-### 2. السلوك الناشئ (Emergent Behavior)
-بدلاً من رسم أشكال ثابتة، تركز المهارة على **الأنظمة**. وهي تستخدم:
--   **حقول التدفق (Flow Fields)**: آلاف الجسيمات التي تتبع قوى متجهة.
--   **حقول الضوضاء (Noise Fields)**: استخدام ضوضاء Perlin أو Simplex لإنشاء أنسجة عضوية.
--   **الهياكل المتكررة (Recursive Structures)**: الكسوريات وأنظمة L التي تنمو بشكل لا نهائي.
--   **ديناميكيات الجسيمات**: أنظمة تتطور من خلال فيزياء محاكاة.
+### 2. Emergent Behavior
+Instead of drawing static shapes, the skill focuses on **systems**. It uses:
+- **Flow Fields**: Thousands of particles following vector forces.
+- **Noise Fields**: Using Perlin or Simplex noise for organic textures.
+- **Recursive Structures**: Fractals and L-systems that grow infinitely.
+- **Particle Dynamics**: Systems that evolve through simulated physics.
 
-### 3. استكشاف البارامترات التفاعلية
-لا تقوم المهارة بإخراج صورة ثابتة فحسب، بل تولد **مشاهداً تفاعلياً** كاملاً (HTML/JS) يتيح لك ضبط العمل الفني في الوقت الفعلي. يمكنك ضبط:
--   **عدد الجسيمات**: التحكم في كثافة التكوين.
--   **مقياس الضوضاء**: التغيير من موجات ناعمة إلى فوضى مسننة.
--   **لوحات الألوان**: تغيير الحالة المزاجية الكاملة بضغطة زر.
--   **القوى الفيزيائية**: تسريع أو تبطئ "رقصة" الجسيمات.
+### 3. Interactive Parameter Exploration
+The skill doesn't just output a static image. It generates a full **Interactive Viewer** (HTML/JS) that lets you tune the artwork in real-time. You can adjust:
+- **Particle Count**: Control the density of the composition.
+- **Noise Scale**: Change from smooth waves to jagged chaos.
+- **Color Palettes**: Swap entire moods with a single slider.
+- **Physics Forces**: Speed up or slow down the "dance" of the particles.
 
-## نظرة خلف الكواليس: الفلسفة
+## A Look Under the Hood: The Philosophy
 
-الجانب الأكثر تميزاً في هذه المهارة هو **البيان الفني** (Manifesto). فقبل كتابة سطر واحد من الكود، يقوم الوكيل بصياغة فلسفة. على سبيل المثال:
+The most unique aspect of this skill is the **Manifesto**. Before writing a single line of code, the agent drafts a philosophy. For example:
 
-> **"الاضطراب العضوي"**
-> *الفلسفة: الفوضى المقيدة بالقانون الطبيعي، والنظام الناشئ عن الفوضى.*
-> *التعبير الخوارزمي: حقول التدفق المدفوعة بضوضاء Perlin متعددة الطبقات. تتبع آلاف الجسيمات قوى متجهة، حيث تتراكم آثارها في خرائط كثافة عضوية.*
+> **"Organic Turbulence"**
+> *Philosophy: Chaos constrained by natural law, order emerging from disorder.*
+> *Algorithmic Expression: Flow fields driven by layered Perlin noise. Thousands of particles follow vector forces, their trails accumulating into organic density maps.*
 
-يضمن هذا الإطار أن الكود النهائي ليس مجرد "ضوضاء عشوائية"، بل هو **خوارزمية مصممة بدقة** تبدو متعمدة واحترافية.
+This framing ensures that the final code isn't just "random noise," but a **meticulously crafted algorithm** that feels intentional and expert.
 
-## كيف تبدأ
+## How to Get Started
 
-### الخطوة 1: تجهيز المهارة
-إذا كنت تستخدم واجهة سطر أوامر Killer-Skills، فإن التثبيت غاية في السهولة:
+### Step 1: Equip the Skill
+If you're using the Killer-Skills CLI, installation is a breeze:
 
 ```bash
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-### الخطوة 2: توجيه وكيلك
-بمجرد التجهيز، يمكنك إعطاء وكيلك مطالبات إبداعية معقدة:
+### Step 2: Prompt Your Agent
+Once equipped, you can give your agent complex creative prompts:
 
-> "أنشئ قطعة فنية خوارزمية بعنوان 'Solar Drift'. استخدم مهارة algorithmic-art. ركز على الدفء، والحركة الدائرية، وآلاف الجسيمات ذات الخطوط الدقيقة. أريد مشاهداً مخصصاً مع شريط تمرير لمقياس الضوضاء."
+> "Create an algorithmic art piece titled 'Solar Drift'. Use the algorithmic-art skill. Focus on warmth, circular motion, and thousands of fine-line particles. I want a custom viewer with a noise scale slider."
 
-### الخطوة 3: التكرار والاستكشاف
-سيقدم الوكيل فلسفة وعنصراً برمجياً HTML مستقلاً. افتحه في متصفحك، وتلاعب بأشرطة التمرير، وتنقل بين البذور حتى تجد المشهد المثالي.
+### Step 3: Iterate and Explore
+The agent will provide a philosophy and a self-contained HTML artifact. Open it in your browser, play with the sliders, and cycle through seeds until you find the perfect frame.
 
-## لماذا يهم هذا المطورين؟
+## Why This Matters for Developers
 
-بالنسبة للمطورين، الفن التوليدي هو الملعب النهائي للمنطق. تجسر مهارة `algorithmic-art` الفجوة بين الخبرة التقنية (الحلقات التكرارية، الرياضيات، المصفوفات) والتصميم المرئي. سواء كنت تبني خلفية لصفحة هبوط، أو مجموعة NFT فريدة، أو مجرد استكشاف جمال الرياضيات، فإن هذه المهارة توفر الأساس الاحترافي الذي تحتاجه.
+For developers, generative art is the ultimate playground for logic. The `algorithmic-art` skill bridges the gap between technical expertise (loops, math, arrays) and visual design. Whether you're building a landing page background, a unique NFT collection, or just exploring the beauty of math, this skill provides the professional foundation you need.
 
-## الخلاصة
+## Conclusion
 
-مستقبل الفن هو تعاوني — رقصة بين القصد البشري والتنفيذ الآلي. تمنحك مهارة **algorithmic-art** القدرة على أن تكون مصمم رقصات تلك الرقصة.
+The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
 
-هل أنت جاهز للبدء في الإبداع؟ توجه إلى [متجر Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/algorithmic-art) وقم بتثبيتها اليوم.
+Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/algorithmic-art) and install it today.
 
 ---
 
-*استكشف المزيد من المهارات الإبداعية مثل [canvas-design](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) و [theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) على Killer-Skills.*
+*Explore more creative skills like [canvas-design](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) and [theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) on Killer-Skills.*
 
 ---
 

@@ -1,72 +1,69 @@
 ---
-title: "MCPサーバーの構築：AIエージェントの能力を拡張する"
-description: "公式のmcp-builderスキルを使用して、独自のModel Context Protocol (MCP) サーバーを設計・開発し、AIエージェントに新しいスキルを教える方法を学びます。"
+title: "Empowering AI Agents: Building High-Quality MCP Servers"
+description: "Discover the Model Context Protocol (MCP) and learn how to create powerful servers that enable AI agents to interact with external tools and services."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["MCP", "開発者ガイド", "Python", "TypeScript", "AIインフラ"]
+tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]
 lang: "ja"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 能力の解放：MCPサーバー構築の完全ガイド
+# The Glue of the Agentic Era: Mastering the MCP-Builder Skill
 
-AIエージェントの真の力は、その「知識」ではなく、外部世界を「操作」する能力にあります。そして、それを支える標準プロトコルが **Model Context Protocol (MCP)** です。
+In the rapidly evolving world of AI, the ability for an agent to "think" is only half the battle. To be truly useful, an agent must also be able to "act"—to search a database, post to GitHub, or query a custom internal API. This is where the **Model Context Protocol (MCP)** comes in.
 
-**mcp-builder**スキルを使用すると、AIエージェントに新しいツール、データソース、リソースへのアクセスを可能にするプロフェッショナルなMCPサーバーの開発を強力にサポートさせることができます。
+The **mcp-builder** skill is your definitive guide to creating robust, high-quality MCP servers. Whether you're working in TypeScript or Python, this skill provides the architectural blueprints and best practices needed to turn static APIs into dynamic agent tools.
 
 ```bash
-# エージェントにmcp-builderスキルを装備する
+# Equip your agent with the mcp-builder skill
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-## MCPサーバーとは？
+## Why MCP Matters
 
-MCPサーバーは、AIモデル（Claudeなど）とローカルデータまたはサードパーティAPIの間のオープンなインターフェースです。
--   **ツール (Tools)**: エージェントが実行できるアクション（例：DBの検索、APIの呼び出し）。
--   **リソース (Resources)**: エージェントが読み取れるデータ。
--   **プロンプト (Prompts)**: 特定のタスクのためのテンプレート。
+Before MCP, every AI integration was a custom, brittle "hack." MCP standardizes how AI models discover and use tools, resources, and prompts. By building an MCP server, you're not just creating a script; you're creating a standardized interface that any MCP-compatible agent (like Claude Desktop or IDE extensions) can instantly understand and use.
 
-## MCP-Builderスキルの主な機能
+## The Secrets of a "High-Quality" MCP Server
 
-このスキルは、仕様の策定からコードの生成まで、開発の全工程をカバーします：
+According to the `mcp-builder` guidelines, a great MCP server is defined by its usability for the LLM. Here are the core pillars:
 
-### 1. アーキテクチャ設計
-あなたが作りたい機能を伝えるだけで、エージェントはそれをMCPの概念に落とし込みます。
--   **言語の選択**: Python (FastMCP) または Node.js/TypeScript の最適なフレームワークを提案。
--   **インターフェース定義**: ツールが必要とする引数とその型、戻り値の形式を設計。
+### 1. Workflow Tools vs. API Coverage
+While it's tempting to just wrap every API endpoint, the most effective MCP servers combine **comprehensive coverage** with specialized **workflow tools**. 
+- **Workflow Tools**: High-level commands like `onboard_new_user` that handle multiple steps.
+- **API Coverage**: Granular tools that let the agent "improvise" and compose its own solutions.
 
-### 2. コードの自動生成
-設計に基づいたボイラープレートとロジックを生成します。
--   **サーバーの構成**: インスタンスの作成からトランスポート層の設定まで。
--   **エラー処理**: 堅牢な例外処理の自動組み込み。
+### 2. Semantic Tool Naming
+An agent identifies tools by their names. The `mcp-builder` skill emphasizes **action-oriented, prefixed naming** (e.g., `stripe_create_customer`, `stripe_list_invoices`). This ensures discoverability and prevents naming collisions.
 
-### 3. インストール・デプロイ手順の作成
-作成したサーバーをどのように設定し、Claude Desktopや他のIDEで使えるようにするかのガイド（`README.md`）を生成します。
+### 3. Actionable Error Messages
+When a tool call fails, a standard "500 Internal Server Error" is useless to an AI. MCP servers should return **actionable feedback**. For example: *"Error: Missing 'email' parameter. Please provide a valid customer email to proceed."* This allows the agent to self-correct and try again.
 
-## 実用的なユースケース
+## The 4-Phase Development Workflow
 
-### 自社システム専用のAIツール作成
-プライベートな社内APIやデータベース、独自のCLIツールをMCPサーバーとしてラップし、AIエージェントに直接操作させます。
+The `mcp-builder` skill outlines a structured path to success:
 
-### 専門知識を持ったRAG（検索拡張生成）
-特定の業界データや独自のドキュメント集をMCPリソースとして提供し、エージェントの回答精度を飛躍的に向上させます。
+1.  **Research & Planning**: Understanding modern MCP design and studying the service API.
+2.  **Implementation**: Setting up the project structure (TypeScript/Zod or Python/Pydantic) and implementing core infrastructure.
+3.  **Review & Test**: Using the **MCP Inspector** to verify tool behavior and ensuring DRY (Don't Repeat Yourself) principles.
+4.  **Evaluation**: Creating a set of complex, realistic "Read-Only" questions to verify the server's effectiveness in real-world scenarios.
 
-### デバイス制御のハブ
-スマートホームデバイスやIoT機器を操作するためのMCPサーバーを構築し、AIに「部屋の電気を消して」と頼むだけで物理的な世界を操作させます。
+## Practical Examples
 
-## Killer-Skillsでの使用例
+- **GitHub MCP**: Search repositories, manage issues, and review pull requests.
+- **Slack MCP**: Send messages, read thread history, and manage channels.
+- **Custom Database MCP**: Securely expose your internal data to your AI assistant.
 
-1.  **設計**: 「GitHubの特定のリポジトリから未読のIssueを要約するMCPサーバーを作りたいです。構成案を作ってください。」
-2.  **開発**: 「PythonのFastMCPを使って、このAPIを呼び出すツールの実装コードを生成してください。」
-3.  **設定**: 「生成されたサーバーをClaude Codeで使うための設定方法を教えてください。」
+## Conclusion
 
-## 結論
+The `mcp-builder` skill is essential for any developer looking to bridge the gap between AI reasoning and real-world execution. By following these proven patterns, you can build tools that don't just "work," but actually empower AI agents to be more productive.
 
-MCPは、AIが私たちの「同僚」として真に機能するための共通言語です。`mcp-builder`スキルを使いこなすことで、あなたはAIの限界を取り払い、まったく新しい形のインテリジェンスを構築できるようになります。
+Ready to start building? Check out the full documentation on the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder).
 
-[MCPサーバーの構築](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder)をマスターして、AIエージェントエンジニアリングの最前線に立ちましょう。
+---
+
+*Need to verify your new tools? Pair this with the [webapp-testing skill](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing).*
 
 ---
 

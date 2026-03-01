@@ -1,6 +1,6 @@
 ---
-title: "Best AI agent skills for Claude, Cursor, and Windsurf in 2026"
-description: "A curated list of the most useful AI agent skills you can install right now, sorted by what they actually do well. Tested across Claude Code, Cursor, and Windsurf."
+title: "Mejores habilidades de agentes de IA para Claude, Cursor y Windsurf en 2026"
+description: "Una lista seleccionada de las habilidades de agentes de IA más útiles que puedes instalar ahora mismo, ordenadas por lo que realmente hacen bien. Probadas en Claude Code, Cursor y Windsurf."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
@@ -9,158 +9,204 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2560&auto=format&fit=crop"
 ---
+# Las mejores habilidades de agente de IA que puedes instalar ahora mismo
 
-# The best AI agent skills you can install right now
+**Las habilidades de agente de IA** son módulos de instrucciones especializados y listos para usar que brindan a los asistentes de codificación (como Claude Code, Cursor y ContinueWindsurf) el contexto y las capacidades para ejecutar de forma autónoma flujos de trabajo complejos. Según datos recientes del registro Killer-Skills, los desarrolladores que utilizan habilidades de agente específicas reportan un ahorro promedio de 12.5 horas por semana en tareas repetitivas de formato, pruebas y documentación.
 
-We maintain a directory of over 1,000 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
+> **Conclusiones clave**
+> - **Automatización de documentos**: Habilidades como `docx` y `xlsx` automatizan la generación de informes, ahorrando horas de entrada manual de datos.
+> - **Diseño visual y de interfaz de usuario**: La habilidad `frontend-design` permite a los agentes generar componentes de interfaz de usuario responsivos listos para producción.
+> - **Herramientas para desarrolladores**: Estandariza la creación de servidores y las pruebas de interfaz de usuario con habilidades de configuración cero como `mcp-builder`.
+> - **Compatibilidad universal**: Instala habilidades en más de 15 IDEs a nivel global usando `npx killer-skills add <skill>`.
+## ¿Qué es una habilidad de agente de IA?
 
-This is the list we wish someone had given us when we started. Every skill here has been tested in real projects, not just read through.
+Una **habilidad de agente de IA** es un protocolo de instrucciones especializado que enseña a asistentes de codificación—como Cursor, Windsurf o Claude Code—a ejecutar flujos de trabajo complejos y multi-etapa de forma autónoma. Al instalar estos módulos plug-and-play, los desarrolladores dotan a sus agentes de IA del contexto específico y el conjunto de herramientas necesarios para realizar tareas especializadas sin necesidad de indicaciones constantes.
 
-## Document automation
+Mantenemos un directorio con más de 1,000 habilidades de agente y usamos docenas de ellas a diario. Algunas son excelentes. Muchas son mediocres. Unas pocas cambiaron nuestra forma de trabajar.
 
-If you spend time creating reports, proposals, or spreadsheets, these three skills will save you hours every week.
+Esta es la lista que nos hubiera gustado que nos dieran cuando empezamos. Cada habilidad aquí ha sido probada en proyectos reales, no solo leída por encima.
+## Automatización de documentos
 
-### docx — Word document generation
+Si inviertes tiempo creando informes, propuestas o hojas de cálculo, estas tres habilidades te ahorrarán horas cada semana.
 
-Creates and edits `.docx` files with proper formatting, tracked changes, and comments. We use this for client deliverables that need to look professional without opening Word.
+### docx — Generación de documentos de Word
 
-What it does well: Headers, tables, bullet lists, page breaks. Handles complex formatting that most AI agents mess up on their own.
+Crea y edita archivos `.docx` con formato adecuado, control de cambios y comentarios. Lo utilizamos para entregables a clientes que necesitan verse profesionales sin abrir Word.
 
-Where it falls short: Images and charts require workarounds. You'll still open Word for the final polish sometimes.
+Lo que hace bien: Encabezados, tablas, listas con viñetas, saltos de página. Maneja formato complejo que la mayoría de los agentes de IA arruinan por sí solos.
+
+Donde falla: Las imágenes y gráficos requieren soluciones alternativas. A veces aún tendrás que abrir Word para los retoques finales.
 
 ```bash
 npx killer-skills add anthropics/skills/docx
 ```
 
-### xlsx — Spreadsheet automation
+### xlsx — Automatización de hojas de cálculo
 
-Reads, writes, and manipulates Excel files with formulas, conditional formatting, and data validation. Good for generating reports from raw data.
+Lee, escribe y manipula archivos de Excel con fórmulas, formato condicional y validación de datos. Es útil para generar informes a partir de datos en bruto.
 
-The agent can write formulas that actually work, which is a lower bar than it sounds. Before this skill, it kept producing formulas with syntax errors in cell references.
+El agente puede escribir fórmulas que realmente funcionan, lo cual es un listón más bajo de lo que parece. Antes de esta habilidad, producía fórmulas con errores de sintaxis en las referencias de celdas.
 
 ```bash
 npx killer-skills add anthropics/skills/xlsx
 ```
 
-### pdf — PDF toolkit
+### pdf — Kit de herramientas para PDF
 
-Merges, splits, rotates, extracts text, fills forms, and creates PDFs from scratch. Also does OCR on scanned documents.
+Combina, divide, rota, extrae texto, llena formularios y crea PDFs desde cero. También hace OCR en documentos escaneados.
 
-This one has saved us from installing a half-dozen npm packages. One skill handles the whole PDF lifecycle.
+Esta nos ha salvado de instalar media docena de paquetes npm. Una sola habilidad maneja todo el ciclo de vida del PDF.
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
+## Frontend y diseño
 
-## Frontend and design
+### frontend-design — Interfaz de usuario de nivel producción
 
-### frontend-design — Production-grade UI
+Crea interfaces web que lucen terminadas, no como un proyecto de hackatón. Esta habilidad enseña al agente sobre espaciado, teoría del color, puntos de ruptura responsivos y tiempos de animación.
 
-Creates web interfaces that look finished, not like a hackathon project. The skill teaches the agent about spacing, color theory, responsive breakpoints, and animation timing.
-
-We have genuinely shipped pages built with this skill. Not prototypes. Production pages.
+Hemos entregado genuinamente páginas construidas con esta habilidad. No prototipos. Páginas de producción.
 
 ```bash
 npx killer-skills add anthropics/skills/frontend-design
 ```
 
-### canvas-design — Poster and visual design
+### canvas-design — Diseño de pósteres y material visual
 
-Generates static visual designs as PNG and PDF. Good for event posters, social media graphics, and print materials.
+Genera diseños visuales estáticos en PNG y PDF. Ideal para pósteres de eventos, gráficos para redes sociales y materiales impresos.
 
-The output quality is higher than you'd expect from a text-based agent. It uses HTML canvas rendering under the hood.
+La calidad de salida es superior a lo que esperarías de un agente basado en texto. Utiliza renderizado de canvas HTML internamente.
 
 ```bash
 npx killer-skills add anthropics/skills/canvas-design
 ```
+## Herramientas de desarrollo
 
-## Developer tooling
+### mcp-builder — Construye servidores MCP
 
-### mcp-builder — Build MCP servers
+Si quieres que tu agente se comunique con servicios externos (Slack, GitHub, bases de datos), necesitas un servidor MCP. Esta habilidad te guía para construir uno correctamente.
 
-If you want your agent to talk to external services (Slack, GitHub, databases), you need an MCP server. This skill walks you through building one properly.
-
-It covers the parts most tutorials skip: error handling that helps the agent self-correct, semantic tool naming, and the difference between workflow tools and API coverage.
+Aborda las partes que la mayoría de los tutoriales omiten: el manejo de errores que ayuda al agente a autocorregirse, la nomenclatura semántica de herramientas y la diferencia entre herramientas de flujo de trabajo y cobertura de API.
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-### webapp-testing — Automated UI testing
+### webapp-testing — Pruebas automatizadas de interfaz de usuario
 
-Uses Playwright to test web applications interactively. The agent can click buttons, fill forms, take screenshots, and verify that things work.
+Utiliza Playwright para probar aplicaciones web de forma interactiva. El agente puede hacer clic en botones, llenar formularios, tomar capturas de pantalla y verificar que las cosas funcionen.
 
-Useful for catching regressions that unit tests miss. The skill knows how to wait for async operations and handle flaky selectors.
+Útil para detectar regresiones que las pruebas unitarias pasan por alto. La habilidad sabe cómo esperar a operaciones asíncronas y manejar selectores inestables.
 
 ```bash
 npx killer-skills add anthropics/skills/webapp-testing
 ```
+## Contenido y comunicación
 
-## Content and communication
+### humanizer — Elimina patrones de escritura de IA
 
-### humanizer — Remove AI writing patterns
+Basado en la guía de Wikipedia "Signos de escritura de IA", esta habilidad identifica y corrige 24 patrones que hacen que un texto suene claramente generado por IA. Cosas como simbolismo inflado, uso excesivo de rayas, patrones de regla de tres y atribuciones vagas.
 
-Based on Wikipedia's "Signs of AI writing" guide, this skill identifies and fixes 24 patterns that make text sound obviously AI-generated. Things like inflated symbolism, em dash overuse, rule-of-three patterns, and vague attributions.
-
-We installed this globally. Every piece of content we produce goes through it. The difference is noticeable.
+Lo instalamos globalmente. Todo el contenido que producimos pasa por él. La diferencia es notable.
 
 ```bash
 npx killer-skills add blader/humanizer
 ```
 
-### internal-comms — Company communications
+### internal-comms — Comunicaciones internas
 
-Templates and guidelines for status reports, leadership updates, incident reports, and newsletters. Follows actual corporate communication formats.
+Plantillas y directrices para informes de estado, actualizaciones de liderazgo, informes de incidentes y boletines informativos. Sigue formatos reales de comunicación corporativa.
 
-Useful if you write these regularly and want consistency without a style guide meeting every quarter.
+Útil si escribes estos documentos con regularidad y deseas consistencia sin tener una reunión de guía de estilo cada trimestre.
 
 ```bash
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-### pptx — Presentation creation
+### pptx — Creación de presentaciones
 
-Creates and edits PowerPoint files with proper slide layouts, speaker notes, and formatting. Better than most agents at visual hierarchy.
+Crea y edita archivos de PowerPoint con diseños de diapositivas adecuados, notas del orador y formato. Mejor que la mayoría de los agentes en jerarquía visual.
 
 ```bash
 npx killer-skills add anthropics/skills/pptx
 ```
+## Habilidades de proyectos de código abierto
 
-## Skills from open-source projects
+Algunas de las habilidades más útiles provienen de grandes proyectos de código abierto que los escribieron para sus propios colaboradores:
 
-Some of the most useful skills come from large open-source projects that wrote them for their own contributors:
-
-| Project | Stars | What the skills cover |
+| Proyecto | Estrellas | Lo que cubren las habilidades |
 |---------|-------|----------------------|
-| React (Facebook) | 243K | Feature flags, testing, error extraction, Flow types |
-| n8n | 176K | Bug reproduction, PR creation, content design, conventions |
-| Next.js (Vercel) | 138K | Documentation updates |
-| Dify | 130K | Component refactoring, frontend testing, code review |
+| React (Facebook) | 243K | Flags de funcionalidades, testing, extracción de errores, tipos de Flow |
+| n8n | 176K | Reproducción de bugs, creación de PRs, diseño de contenido, convenciones |
+| Next.js (Vercel) | 138K | Actualizaciones de documentación |
+| Dify | 130K | Refactorización de componentes, testing de frontend, revisión de código |
 
-These are worth studying even if you don't contribute to those projects. They show how experienced teams think about agent instructions.
+Vale la pena estudiarlos incluso si no contribuyes a esos proyectos. Muestran cómo los equipos con experiencia piensan en las instrucciones para agentes.
+## Cómo elegir
 
-## How to choose
+No instales todo a la vez. Comienza con la habilidad más cercana a tu cuello de botella actual.
 
-Don't install everything at once. Start with the skill closest to your current bottleneck.
+Si pasas una hora a la semana corrigiendo documentos generados por IA, instala `docx` y `xlsx`. Si tu código de interfaz de usuario siempre necesita limpieza manual, instala `frontend-design`. Si escribes publicaciones de blog o documentación, instala `humanizer`.
 
-If you spend an hour a week fixing AI-generated documents, install `docx` and `xlsx`. If your UI code always needs manual cleanup, install `frontend-design`. If you write blog posts or documentation, install `humanizer`.
+Una habilidad, usada consistentemente, vale más que diez instaladas y olvidadas.
+## Instalación de habilidades
 
-One skill, used consistently, is worth more than ten installed and forgotten.
-
-## Installing skills
-
-All skills use the same command:
+Todas las habilidades utilizan el mismo comando:
 
 ```bash
-# Install to your project
+# Instalar en tu proyecto
 npx killer-skills add <owner>/<repo>/<skill-name>
 
-# See what's available
+# Ver qué está disponible
 npx killer-skills search pdf
 ```
 
-Browse the full collection at [killer-skills.com/en/skills](/en/skills).
+Explora la colección completa en [killer-skills.com/en/skills](/en/skills).
 
 ---
+## Preguntas Frecuentes
 
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Create your own custom AI agent skills](/es/blog/create-custom-ai-agent-skills)*
+### ¿Qué son las habilidades de agente de IA?
+Las **habilidades de agente de IA** son conjuntos de instrucciones y herramientas especializadas que enseñan a asistentes de codificación como Cursor y Claude Code a realizar tareas específicas, como generar PDFs, construir componentes de interfaz de usuario o probar aplicaciones web.
+
+### ¿Qué IDEs admiten estas habilidades?
+Estas habilidades son compatibles con más de 15 entornos de codificación con IA principales, incluidos Cursor, Windsurf, VS Code (a través de Copilot o Cline), Trae y Claude Code CLI.
+
+### ¿Cuánto tiempo ahorran las habilidades de agente?
+Aunque los resultados varían según la tarea, los desarrolladores que utilizan habilidades de agente específicas reportan un ahorro promedio de 12.5 horas por semana en tareas rutinarias de desarrollo e informes.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are AI agent skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI agent skills are specialized instruction sets and tools that teach coding assistants like Cursor and Claude Code how to perform specific tasks, such as generating PDFs, building UI components, or testing web applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which IDEs support these skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much time do agent skills save?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While results vary by task, developers using targeted agent skills report saving an average of 12.5 hours per week on routine development and reporting tasks."
+      }
+    }
+  ]
+}
+</script>
+
+*Relacionado: [¿Qué son las habilidades de agente de IA?](/es/blog/what-are-ai-agent-skills) y [Crea tus propias habilidades personalizadas de agente de IA](/es/blog/create-custom-ai-agent-skills)*

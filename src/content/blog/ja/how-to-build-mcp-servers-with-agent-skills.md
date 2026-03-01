@@ -1,103 +1,103 @@
 ---
-title: "MCPサーバーの構築方法：Agent Skillsを使用した完全ガイド"
-description: "公式のmcp-builderスキルを使用して、AIエージェント向けの本番環境対応のMCPサーバーを構築する方法を学びます。TypeScriptとPythonを使用したセットアップ、ツール設計、テスト、デプロイメントを網羅しています。"
+title: "How to Build MCP Servers: A Complete Guide Using Agent Skills"
+description: "Learn how to build production-ready MCP servers for AI agents using the official mcp-builder skill. Covers setup, tool design, testing, and deployment with TypeScript and Python."
 pubDate: 2026-02-13
-author: "Killer-Skills チーム"
-tags: ["MCP", "チュートリアル", "Agent Skills", "Claude Code"]
+author: "Killer-Skills Team"
+tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
 lang: "ja"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# AIエージェントが実際に使用するMCPサーバーの構築方法
+# How to Build MCP Servers That AI Agents Actually Use
 
-もし、あなたのAIコーディングエージェントがコードを書くだけでなく、それ以上のことができたらどうでしょうか？Slackメッセージの送信、データベースのクエリ、本番環境へのデプロイ、そしてDevOpsパイプライン全体の管理を、標準化されたプロトコルを通じて実行できたら？
+What if your AI coding agent could do more than just write code? What if it could send Slack messages, query databases, deploy to production, and manage your entire DevOps pipeline — all through a standardized protocol?
 
-それこそが **MCPサーバー** (Model Context Protocol) が可能にすることです。Anthropicのスキルリポジトリにある公式の **mcp-builder** スキルを使用すれば、本番グレードのMCPサーバーを数時間ではなく数分で構築できます。
+That's exactly what **MCP servers** (Model Context Protocol) make possible. And with the official **mcp-builder** skill from Anthropic's skills repository, you can build production-grade MCP servers in minutes instead of hours.
 
 ```bash
-# ワンコマンドでmcp-builderスキルをインストール
+# Install the mcp-builder skill with one command
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-このガイドでは、プロトコルの理解から最初のサーバーのデプロイまで、MCPサーバーの構築について知っておくべきすべてのことを学びます。
+In this guide, you'll learn everything you need to know about building MCP servers — from understanding the protocol to deploying your first server.
 
-## MCPサーバーとは何か？
+## What Is an MCP Server?
 
-**MCPサーバー** は、AIエージェントが利用できるツール、リソース、プロンプトを公開する標準化されたサービスです。あなたのAIアシスタントと、データベース、API、ファイルシステム、クラウドサービスなどの現実世界との間の架け橋と考えてください。
+An **MCP server** is a standardized service that exposes tools, resources, and prompts for AI agents to consume. Think of it as a bridge between your AI assistant and the real world — databases, APIs, file systems, cloud services, and more.
 
-**Model Context Protocol** (MCP) は、AIエージェントが外部サービスとやり取りするためのユニバーサルな方法を必要としているという根本的な問題を解決するために、Anthropicによって作成されました。MCP以前は、統合ごとにカスタムコードが必要でした。現在では、単一のプロトコルですべてを処理できます。
+The **Model Context Protocol** (MCP) was created by Anthropic to solve a fundamental problem: AI agents need a universal way to interact with external services. Before MCP, every integration required custom code. Now, a single protocol handles everything.
 
-MCPが重要な理由は次のとおりです。
+Here's why MCP matters:
 
--   **ユニバーサルな互換性** — Claude、Cursor、Windsurf、およびあらゆるMCP互換クライアントで動作します。
--   **標準化されたインターフェース** — ツール、リソース、プロンプトは一貫したスキーマに従います。
--   **セキュリティ重視の設計** — 認証、入力検証、権限管理が組み込まれています。
--   **構成可能なワークフロー** — エージェントは複数のMCPツールを組み合わせることができます。
+- **Universal compatibility** — Works with Claude, Cursor, Windsurf, and any MCP-compatible client
+- **Standardized interface** — Tools, resources, and prompts follow a consistent schema
+- **Security-first design** — Built-in authentication, input validation, and permission controls
+- **Composable workflows** — Agents can chain multiple MCP tools together
 
-## なぜ mcp-builder スキルを使用するのか？
+## Why Use the mcp-builder Skill?
 
-**mcp-builder** スキルは、Anthropicの公式リポジトリで最も強力なスキルの1つです。これは、次の機能を提供することで、Claudeを専門のMCPサーバー開発者に変えます。
+The **mcp-builder** skill is one of the most powerful skills in Anthropic's official repository. It transforms Claude into a specialized MCP server developer by providing:
 
-1.  **深いプロトコル知識** — スキルは完全なMCP仕様をロードするため、Claudeは細部まで理解します。
-2.  **ベストプラクティスの組み込み** — ツールの命名、エラー処理、ページネーションのパターンが事前に構成されています。
-3.  **フレームワーク固有のガイド** — TypeScriptとPythonの両方に最適化されたテンプレート。
-4.  **評価(Evaluation)の生成** — MCPサーバー用のテストスイートを自動的に作成します。
+1. **Deep protocol knowledge** — The skill loads the full MCP specification so Claude understands every detail
+2. **Best practices baked in** — Tool naming, error handling, and pagination patterns are all pre-configured
+3. **Framework-specific guides** — Optimized templates for both TypeScript and Python
+4. **Evaluation generation** — Automatically creates test suites for your MCP server
 
-一から構築するのとは異なり、mcp-builderスキルは構造化された4フェーズのワークフローに従います。
+Unlike building from scratch, the mcp-builder skill follows a structured 4-phase workflow:
 
-| フェーズ | 行われること |
+| Phase | What Happens |
 |:------|:-------------|
-| **フェーズ 1: リサーチ** | APIの調査、ツール適用範囲の計画、スキーマの設計 |
-| **フェーズ 2: 構築** | 適切なエラー処理と認証を備えたサーバーの実装 |
-| **フェーズ 3: レビュー** | すべてのツールのテスト、レスポンスの検証、エッジケースのチェック |
-| **フェーズ 4: 評価** | 品質を検証するための自動評価の作成 |
+| **Phase 1: Research** | Studies the API, plans tool coverage, designs the schema |
+| **Phase 2: Build** | Implements the server with proper error handling and auth |
+| **Phase 3: Review** | Tests all tools, validates responses, checks edge cases |
+| **Phase 4: Evaluate** | Creates automated evaluations to verify quality |
 
-## はじめに：最初のMCPサーバーを構築する
+## Getting Started: Build Your First MCP Server
 
-### ステップ 1: スキルのインストール
+### Step 1: Install the Skill
 
-まず、Killer-Skills CLIがインストールされていることを確認してください。
+First, make sure you have the Killer-Skills CLI installed:
 
 ```bash
 npm install -g killer-skills
 ```
 
-次に、プロジェクトに mcp-builder スキルを追加します。
+Then add the mcp-builder skill to your project:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-スキルは `.claude/skills/` ディレクトリに追加され、ClaudeがMCPサーバー開発タスクを検出すると自動的にアクティブ化されます。
+The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
 
-### ステップ 2: スタックを選択する
+### Step 2: Choose Your Stack
 
-mcp-builderスキルは主に2つのスタックをサポートしています。
+The mcp-builder skill supports two primary stacks:
 
-**TypeScript (推奨)**
+**TypeScript (Recommended)**
 ```bash
 npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-TypeScriptが推奨される理由はいくつかあります。
--   公式MCPチームによる高品質なSDKサポート
--   静的型付けによるランタイム前のエラー検知
--   実行環境との強力な互換性
--   AIモデルはTypeScriptコードの生成に優れている
+TypeScript is recommended for several reasons:
+- High-quality SDK support from the official MCP team
+- Static typing catches errors before runtime
+- Strong compatibility with execution environments
+- AI models excel at generating TypeScript code
 
 **Python**
 ```bash
 pip install mcp pydantic
 ```
 
-チームがすでにPythonを使用している場合や、Python中心のAPIを統合する場合には、Pythonが最適な選択肢です。
+Python is a great choice if your team already uses Python or you're integrating with Python-heavy APIs.
 
-### ステップ 3: ツールを定義する
+### Step 3: Define Your Tools
 
-優れたMCPサーバーの鍵は、適切に設計されたツールです。テンプレートは次のとおりです。
+The key to a great MCP server is well-designed tools. Here's a template:
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -110,11 +110,11 @@ const server = new McpServer({
 
 server.tool(
   "create_item",
-  "システムに新しいアイテムを作成します",
+  "Creates a new item in the system",
   {
-    name: z.string().describe("作成するアイテムの名前"),
-    description: z.string().optional().describe("オプションの説明"),
-    tags: z.array(z.string()).optional().describe("分類用のタグ"),
+    name: z.string().describe("Name of the item to create"),
+    description: z.string().optional().describe("Optional description"),
+    tags: z.array(z.string()).optional().describe("Tags for categorization"),
   },
   async ({ name, description, tags }) => {
     const result = await api.createItem({ name, description, tags });
@@ -130,11 +130,11 @@ server.tool(
 );
 ```
 
-### ステップ 4: ベストプラクティスを実装する
+### Step 4: Implement Best Practices
 
-mcp-builderスキルは、いくつかの重要なパターンを強制します。
+The mcp-builder skill enforces several critical patterns:
 
-**ツールの命名規則**
+**Tool Naming Convention**
 ```
 ✅ github_create_issue
 ✅ slack_send_message
@@ -145,29 +145,29 @@ mcp-builderスキルは、いくつかの重要なパターンを強制します
 ❌ doStuff
 ```
 
-一貫したプレフィックス（サービス名）＋アクション指向の動詞を使用してください。これにより、エージェントが適切なツールをすばやく見つけて選択できるようになります。
+Use consistent prefixes (service name) + action-oriented verbs. This helps agents quickly discover and select the right tools.
 
-**実用的なエラーメッセージ**
+**Actionable Error Messages**
 ```typescript
-// ❌ 悪い例
+// ❌ Bad
 throw new Error("Not found");
 
-// ✅ 良い例
+// ✅ Good
 throw new Error(
-  `リポジトリ "${owner}/${repo}" が見つかりませんでした。` +
-  `リポジトリが存在し、アクセス権があることを確認してください。` +
-  `まず github_list_repos でリポジトリを一覧表示してみてください。`
+  `Repository "${owner}/${repo}" not found. ` +
+  `Check that the repository exists and you have access. ` +
+  `Try listing your repositories first with github_list_repos.`
 );
 ```
 
-**ツールのアノテーション**
+**Tool Annotations**
 
-すべてのツールには、エージェントがその動作を理解するのに役立つアノテーションを含める必要があります。
+Every tool should include annotations that help agents understand their behavior:
 
 ```typescript
 server.tool(
   "delete_item",
-  "アイテムを永久に削除します",
+  "Permanently deletes an item",
   { id: z.string() },
   async ({ id }) => { /* ... */ },
   {
@@ -180,82 +180,82 @@ server.tool(
 );
 ```
 
-## 実例：GitHub MCPサーバーの構築
+## Real-World Example: Building a GitHub MCP Server
 
-現実的な例を見てみましょう。AIエージェントがGitHubリポジトリを管理できるようにするMCPサーバーを構築するとします。
+Let's walk through a realistic example. Suppose you want to build an MCP server that lets AI agents manage GitHub repositories.
 
-**mcp-builderスキルがアクティブな状態でClaudeに依頼します。**
+**Ask Claude with the mcp-builder skill active:**
 
-> 「GitHub API用のMCPサーバーを構築してください。問題(Issue)の作成、リポジトリの一覧表示、プルリクエストの管理、コードの検索をサポートする必要があります。」
+> "Build me an MCP server for the GitHub API. It should support creating issues, listing repositories, managing pull requests, and searching code."
 
-Claudeは次のことを行います。
-1.  GitHub REST APIドキュメントをリサーチする
-2.  どのエンドポイントをカバーするか計画する（通常15〜25個のツール）
-3.  適切なOAuth認証を備えた完全なサーバーを構築する
-4.  各ツールのテスト評価を生成する
+Claude will:
+1. Research the GitHub REST API documentation
+2. Plan which endpoints to cover (typically 15-25 tools)
+3. Build the complete server with proper OAuth authentication
+4. Generate test evaluations for each tool
 
-結果は、適切なエラー処理、ページネーション、レート制限、認証を備えた本番環境対応のサーバーです。これは通常、手動で構築するのに数日かかるものです。
+The result is a production-ready server with proper error handling, pagination, rate limiting, and authentication — something that would normally take days to build manually.
 
-## MCPサーバーの主要な設計原則
+## Key Design Principles for MCP Servers
 
-### APIカバレッジ vs. ワークフローツール
+### API Coverage vs. Workflow Tools
 
-mcp-builderスキルは重要なバランスを教えます。
+The mcp-builder skill teaches an important balance:
 
--   **包括的なカバレッジ** は、エージェントに操作を組み合わせる柔軟性を与えます。
--   **ワークフローツール** は、一般的なマルチステップの操作を単一の呼び出しにまとめます。
--   不明な場合は、包括的なAPIカバレッジを優先してください。
+- **Comprehensive coverage** gives agents flexibility to compose operations
+- **Workflow tools** bundle common multi-step operations into single calls
+- When uncertain, prioritize comprehensive API coverage
 
-### コンテキスト管理
+### Context Management
 
-エージェントは、焦点を絞った関連データを使用して最高のパフォーマンスを発揮します。
+Agents work best with focused, relevant data:
 
--   APIレスポンス全体ではなく、エージェントが必要なフィールドのみを返します。
--   リスト操作のページネーションをサポートします。
--   結果を絞り込むためのフィルターを含めます。
+- Return only the fields agents need, not entire API responses
+- Support pagination for list operations
+- Include filters to narrow results
 
-### テストと評価
+### Testing and Evaluation
 
-mcp-builderスキルは、以下をテストする自動評価を生成します。
+The mcp-builder skill generates automated evaluations that test:
 
--   **ハッピーパス** — 有効な入力での正常な動作
--   **エッジケース** — 空の結果、大規模なデータセット、特殊文字
--   **エラー処理** — 無効な入力、認証失敗、レート制限
--   **現実的なシナリオ** — ツールを組み合わせたマルチステップのワークフロー
+- **Happy path** — Normal operation with valid inputs
+- **Edge cases** — Empty results, large datasets, special characters
+- **Error handling** — Invalid inputs, auth failures, rate limits
+- **Real-world scenarios** — Multi-step workflows that chain tools together
 
-## Killer-Skills経由でのインストール
+## Installing via Killer-Skills
 
-開始する最も速い方法は、Killer-Skillsマーケットプレイスを経由することです。
+The fastest way to get started is through the Killer-Skills marketplace:
 
 ```bash
-# 公式スキルをブラウズ
+# Browse the official skills
 npx killer-skills search mcp
 
-# mcp-builderをインストール
+# Install mcp-builder
 npx killer-skills add anthropics/skills/mcp-builder
 
-# インストールを確認
+# Verify installation
 npx killer-skills list
 ```
 
-インストールすると、スキルはClaude Code、Claude.ai、およびあらゆるClaude API統合で自動的に利用可能になります。MCPサーバーの構築に関する会話を開始するだけで、Claudeはスキルの指示をロードします。
+Once installed, the skill is automatically available in Claude Code, Claude.ai, and any Claude API integration. Simply start a conversation about building an MCP server and Claude will load the skill's instructions.
 
-## 次のステップは？
+## What's Next?
 
-MCPサーバーは、AIエージェントが世界とやり取りする標準的な方法になりつつあります。mcp-builderスキルがあれば、あなたはMCPプロトコルの専門家である必要はありません。サーバーが何をすべきかに集中している間、Claudeが複雑な処理をこなします。
+MCP servers are becoming the standard way AI agents interact with the world. With the mcp-builder skill, you don't need to be an MCP protocol expert — Claude handles the complexity while you focus on what your server should do.
 
-最初のMCPサーバーを構築する準備はできましたか？今日から始める方法は次のとおりです。
+Ready to build your first MCP server? Here's how to get started today:
 
-1.  **スキルをインストールする**: `npx killer-skills add anthropics/skills/mcp-builder`
-2.  **APIを選択する**: 統合したいサービス（Slack、Notion、JIRAなど）を選択します。
-3.  **ニーズを説明する**: 必要なツールをClaudeに伝えると、サーバー全体が構築されます。
-4.  **デプロイしてテストする**: 生成された評価(Evaluations)を使用してサーバーを検証します。
+1. **Install the skill**: `npx killer-skills add anthropics/skills/mcp-builder`
+2. **Choose your API**: Pick a service you want to integrate (Slack, Notion, JIRA, etc.)
+3. **Describe your needs**: Tell Claude what tools you need, and it will build the entire server
+4. **Deploy and test**: Use the generated evaluations to validate your server
 
-AI開発の未来は、より多くのコードを書くことではなく、AIエージェントに適切なツールを与えることです。MCPサーバーとAgent Skillsは、その未来を今日可能にします。
+The future of AI development isn't about writing more code — it's about giving AI agents the right tools to work with. MCP servers and Agent Skills make that future possible today.
 
 ---
 
-*さらなるスキルを探索したいですか？ [Killer-Skillsマーケットプレイス](https://killer-skills.com/ja/skills)にアクセスして、あなたのAIコーディングワークフローのための何百もの検証済みAgent Skillsを見つけてください。*
+*Want to explore more skills? Browse the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
 
 ---
 

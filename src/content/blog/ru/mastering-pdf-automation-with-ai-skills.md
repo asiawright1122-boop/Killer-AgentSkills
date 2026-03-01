@@ -1,80 +1,80 @@
 ---
-title: "Полное руководство по автоматизации PDF: Освоение навыка PDF"
-description: "Узнайте, как автоматизировать обработку PDF с помощью официального навыка PDF. Освойте объединение, разделение, OCR и извлечение таблиц с помощью первоклассных рабочих процессов ИИ-агентов."
+title: "The Ultimate Guide to PDF Automation: Mastering the PDF Skill"
+description: "Learn how to automate PDF processing using the official pdf skill. Master merging, splitting, OCR, and table extraction with high-quality AI agent workflows."
 pubDate: 2026-02-13
-author: "Команда Killer-Skills"
-tags: ["Автоматизация PDF", "Python", "OCR", "Навыки агентов", "Извлечение данных"]
+author: "Killer-Skills Team"
+tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]
 lang: "ru"
 featured: true
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Точность контроля PDF: поднимите свой рабочий процесс на новый уровень с навыком PDF
+# Precision PDF Control: Elevating Your Workflow with the PDF Skill
 
-PDF — это «незыблемый» формат цифрового мира: он идеален для стабильного отображения, но печально известен сложностью манипуляций или извлечения данных. Будь то обработка тысяч отсканированных счетов или программное создание сложных отчетов, «старый метод» ручного редактирования больше не жизнеспоспобен.
+PDFs are the "unbreakable" format of the digital world—great for consistent viewing, but notoriously difficult to manipulate or extract data from. Whether you are dealing with thousands of scanned invoices or need to programmatically generate complex reports, the "old way" of manual handling is no longer viable.
 
-Официальный навык **pdf** от Anthropic дает вашему ИИ-агенту (например, Claude Code) мощный движок для манипуляций с PDF. Он выходит за рамки простого чтения текста, погружаясь в мир структурного анализа, извлечения данных и высококачественной генерации.
+The official **pdf** skill from Anthropic gives your AI agent (like Claude Code) a powerful engine for PDF manipulation. It moves beyond simple text reading and into the world of structural analysis, data extraction, and high-fidelity generation.
 
 ```bash
-# Оснастите своего агента навыком pdf
+# Equip your agent with the pdf skill
 npx killer-skills add anthropics/skills/pdf
 ```
 
-## Что такое навык PDF?
+## What is the PDF Skill?
 
-Навык `pdf` — это многофункциональный фреймворк, использующий глубокую интеграцию с отраслевыми библиотеками:
--   **pypdf**: для базовых операций, таких как объединение, разделение и поворот страниц.
--   **pdfplumber**: золотой стандарт извлечения текста и таблиц с сохранением макета.
--   **ReportLab**: профессиональный движок для создания новых PDF с нуля.
--   **Poppler & Tesseract**: для продвинутого извлечения изображений и OCR (оптического распознавания текста).
+The `pdf` skill is a multi-tooled framework that leverages deep integration with industry-standard libraries:
+- **pypdf**: For core operations like merging, splitting, and rotating pages.
+- **pdfplumber**: The gold standard for extracting text and tables while preserving layout.
+- **ReportLab**: A pro-grade engine for generating new PDFs from scratch.
+- **Poppler & Tesseract**: For advanced image extraction and OCR (Optical Character Recognition).
 
-## Ключевые возможности
+## Key Capabilities
 
-### 1. Герой данных: глубокое извлечение таблиц
-Большинство инструментов ИИ с трудом справляются с таблицами внутри PDF. Навык `pdf` использует **pdfplumber**, чтобы «видеть» сетку и структурные связи. Это позволяет агенту преобразовывать сложные финансовые отчеты или графики в чистые файлы CSV или Excel с почти идеальной точностью.
+### 1. Data Hero: Deep Table Extraction
+Most AI tools struggle with tables inside PDFs. The `pdf` skill uses **pdfplumber** to "see" the grid lines and structural relationships, allowing the agent to convert complex PDF financial statements or schedules into clean CSV or Excel files with near-perfect accuracy.
 
-### 2. PDF-архитектор: профессиональная генерация
-Благодаря интеграции с **ReportLab**, ваш агент не просто пишет текстовые файлы, он проектирует документы. Он может создавать:
--   **Динамические шаблоны**: генерация многостраничных отчетов с логически управляемыми потоками.
--   **Научная нотация**: использование XML-разметки для идеальных подстрочных и надстрочных знаков в технических документах.
--   **Брендинг**: добавление водяных знаков, настраиваемых нижних колонтитулов и стилизации в соответствии с брендом.
+### 2. The PDF Architect: Professional Generation
+With **ReportLab** integration, your agent isn't just creating text files; it's designing documents. It can:
+- **Dynamic Templates**: Create multi-page reports with logic-driven flows.
+- **Scientific Notation**: Use XML markup for perfect sub/superscripts in technical docs.
+- **Branding**: Add watermarks, custom footers, and brand-consistent styling.
 
-### 3. Структурная хирургия
-Агенты могут выполнять сложные «операции» над существующими файлами:
--   **Объединение/Разделение**: программное объединение сотен файлов или разделение массивного документа на отдельные страницы.
--   **Управление метаданными**: редактирование заголовков, авторов и тегов ключевых слов для целей SEO и архивирования.
--   **Защита паролем**: шифрование и дешифрование конфиденциальных документов на лету.
+### 3. Structural Surgery
+Agents can perform complex "surgeries" on existing files:
+- **Merging/Splitting**: Programmatically combine hundreds of files or burst a large document into individual pages.
+- **Metadata Management**: Edit title, author, and subject tags for SEO and archival purposes.
+- **Password Protection**: Encrypt and decrypt sensitive documents on the fly.
 
-### 4. OCR и зрение
-Работаете с отсканированным документом, в котором нельзя вести поиск? Навык использует OCR, чтобы сделать нечитаемое читаемым, превращая пиксели в индексируемый текст.
+### 4. OCR & Vision
+Dealing with a scanned document that isn't searchable? The skill uses OCR to make the unreadable readable, turning pixels back into indexable text.
 
-## Практические примеры использования
+## Practical Use Cases
 
-### Автоматизированная обработка счетов
-Создайте рабочий процесс, который читает папку со счетами в формате PDF, извлекает общую сумму и налоги с помощью навыка `pdf` и сохраняет результаты в базу данных.
+### Automated Invoice Processing
+Build a workflow that reads a folder of PDF invoices, extracts the total amount and tax using the `pdf` skill, and saves the results to a database.
 
-### Динамические PDF-отчеты
-Создавайте ежемесячные аналитические отчеты, включающие графики (с использованием [навыка xlsx](https://killer-skills.com/ru/blog/mastering-excel-automation-with-xlsx-skills)) и профессионально отформатированные резюме в виде готового к печати PDF.
+### Dynamic PDF Reporting
+Generate monthly analytics reports that include charts (from the [xlsx skill](https://killer-skills.com/ru/blog/mastering-excel-automation-with-xlsx-skills)) and professionally formatted summaries in a printable PDF format.
 
-### Очистка архивов
-Автоматизируйте поворот криво отсканированных страниц и удаление водяных знаков «черновик» из готовых документов.
+### Archival Cleanup
+Automate the rotation of misaligned scans and the removal of "Draft" watermarks from finalized documents.
 
-## Как использовать с Killer-Skills
+## How to use it with Killer-Skills
 
-1.  **Установить**: `npx killer-skills add anthropics/skills/pdf`
-2.  **Команда**: «Возьми все PDF в этой папке и объедини их в один файл с именем "Годовой_отчет_2025.pdf". Убедись, что нумерация страниц верна».
-3.  **Извлечь**: «Извлеки таблицу со страницы 3 этого PDF и сохрани ее в файл Excel».
+1.  **Install**: `npx killer-skills add anthropics/skills/pdf`
+2.  **Command**: "Take all PDFs in this folder and merge them into a single file called 'Annual_Report_2025.pdf'. Ensure page numbers are correct."
+3.  **Extract**: "Extract the table on page 3 of this PDF and save it as an Excel file."
 
-## Заключение
+## Conclusion
 
-Навык `pdf` — незаменимый инструмент для любого современного разработчика или аналитика данных. Он избавляет от боли при манипуляциях с PDF и позволяет создавать по-настоящему автоматизированные конвейеры документов корпоративного уровня.
+The `pdf` skill is an essential tool for any modern developer or data analyst. It takes the pain out of PDF handling and allows you to build truly automated, enterprise-grade document pipelines.
 
-Установите [навык pdf](https://killer-skills.com/ru/skills/anthropics/skills/pdf) из маркетплейса Killer-Skills и начните автоматизацию уже сегодня.
+Install the [pdf skill](https://killer-skills.com/ru/skills/anthropics/skills/pdf) from the Killer-Skills Marketplace and start automating today.
 
 ---
 
-*Нужно создавать редактируемые документы Word? Ознакомьтесь с [навыком docx](https://killer-skills.com/ru/skills/anthropics/skills/docx).*
+*Need to generate editable Word documents instead? Check out the [docx skill](https://killer-skills.com/ru/skills/anthropics/skills/docx).*
 
 ---
 

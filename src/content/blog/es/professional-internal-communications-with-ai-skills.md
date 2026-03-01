@@ -1,71 +1,78 @@
 ---
-title: "Comunicaciones Internas Profesionales con la Habilidad Internal-Comms"
-description: "Aprenda a hacer que su agente de IA escriba informes de estado, anuncios internos y actualizaciones de liderazgo de alta calidad con la habilidad oficial internal-comms."
+title: "Corporate Communication Excellence: The Internal-Comms Skill"
+description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["Comunicación Interna", "Liderazgo", "Informe de Estado", "Empresa"]
+tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
 lang: "es"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Puente de Información: Mejorando la Transparencia Organizativa con la Habilidad Internal-Comms
+# Speak Like a Leader: Mastering the Internal-Comms Skill
 
-En una organización que crece rápidamente, la transparencia y la consistencia de la información son claves para el éxito. Sin embargo, si hay demasiadas tareas de comunicación importantes pero que consumen mucho tiempo, como informes de estado semanales, actualizaciones de la gerencia y boletines internos, es difícil concentrarse en la toma de decisiones críticas.
+In an era of remote work and rapid scaling, communication is the glue that holds an organization together. But high-quality communication is hard—it requires the right tone, the right format, and the right level of detail. Writing a weekly update that actually gets read is a skill in itself.
 
-Con la habilidad **internal-comms**, puede darle a su agente de IA conocimientos profesionales de comunicación interna para escribir documentos de alta calidad e impacto rápidamente.
+The official **internal-comms** skill from Anthropic equips your AI agent with the templates and tonal guidelines used by elite organizations. It moves beyond generic "corporate speak" to provide structured, actionable, and professional internal messaging.
 
 ```bash
-# Equipe a su agente con la habilidad internal-comms
+# Equip your agent with the internal-comms skill
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-## Capacidades Sobresalientes de la Habilidad Internal-Comms
+## What is the Internal-Comms Skill?
 
-Esta habilidad integra las mejores prácticas y plantillas de comunicación empresarial para proporcionar las siguientes capacidades:
+The `internal-comms` skill is a resource-intensive repository of enterprise-grade communication formats. It ensures that when your agent writes an update, it follows the specific structures that leadership teams expect.
 
-### 1. Provisión de Plantillas Óptimas por Propósito
-Sugiere la estructura de documento más adecuada para la situación.
--   **Informes de Estado (Status Reports)**: Organiza el progreso de manera concisa, los obstáculos y los planes futuros.
--   **Actualizaciones de Liderazgo**: Resume los puntos clave y de decisión que la gerencia necesita.
--   **Anuncios Internos**: Estructura los cambios o anuncios de eventos para toda la empresa de manera clara e impactante.
+### 1. The Power of 3P Updates
+One of the core features of this skill is the **3P Format**:
+- **P**rogress: What was actually accomplished?
+- **P**lans: What is the roadmap for the next period?
+- **P**roblems: What are the blockers or risks that need attention?
 
-### 2. Ajuste de Tono y Estilo
-Optimiza las oraciones según el destinatario.
--   **Profesional**: Expresiones formales que dan credibilidad.
--   **Directo (Direct)**: Un estilo de escritura centrado en lo esencial para líderes ocupados.
--   **Compromiso (Engaging)**: Un estilo amigable que fomenta la participación de los empleados y crea una atmósfera vibrante.
+This structure is the gold standard for executive updates because it is concise, honest, and forward-looking.
 
-### 3. Respuesta a Diversos Canales
-Convierte al formato adecuado para canales de distribución como correos electrónicos, mensajes de Slack, documentos oficiales ([docx](https://killer-skills.com/es/blog/automate-word-documents-with-docx-skills)) y materiales de presentación ([pptx](https://killer-skills.com/es/blog/professional-presentations-with-pptx-ai-skills)).
+### 2. Comprehensive Comm Types
+The skill isn't just for status reports; it handles the full spectrum of internal needs:
+- **Company Newsletters**: Professional and engaging wide-scale updates.
+- **Incident Reports**: Objective and structured post-mortems for technical or business issues.
+- **FAQ Responses**: Clear, authoritative answers to common team questions.
+- **Leadership Updates**: High-level summaries for SVPs and C-suite executives.
 
-### 4. Extracción de Información y Resumen
-Extrae solo la información clave de minutos de reuniones largos o listas de tareas desorganizadas y los resume con precisión.
+## How the Skill Works
 
-## Casos de Uso Prácticos
+When you ask an agent to "Write a project update," the `internal-comms` skill triggers a multi-step workflow:
+1.  **Type Identification**: It determines if you need a status report, a newsletter, or an FAQ.
+2.  **Guideline Loading**: It loads the specific "Example" file (e.g., `3p-updates.md`) to understand the required tone and formatting.
+3.  **Content Gathering**: It uses its context to pull the most relevant progress and risks into the template.
 
-### Informe Semanal Automático
-Extrae automáticamente los logros y el trabajo pendiente de esta semana de los registros de herramientas de gestión de proyectos y escribe un informe semanal profesional para compartir con los miembros del equipo.
+## Practical Use Cases
 
-### Informe Urgente de Liderazgo
-En caso de una situación de falla (incidente), organiza el estado de manera objetiva e informa rápidamente sobre las contramedidas y el tiempo de recuperación estimado al liderazgo.
+### Automated Status Reporting
+Connect your agent to your codebase or task tracker. Have it use the `internal-comms` skill to generate a perfectly formatted **3P update** every Friday at 5 PM.
 
-### Difusión de Conocimientos Internos
-Al introducir nuevas tecnologías o procesos, crea FAQ y guías estructuradas que separan los detalles técnicos para desarrolladores de los beneficios esperados para no especialistas.
+### Incident Management
+During a system outage, have your agent draft the initial **Incident Report** based on terminal logs and deployment history, ensuring the tone is objective and professional.
 
-## Ejemplos de uso con Killer-Skills
+### Culture Building
+Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and upcoming milestones with a consistent, encouraging brand voice.
 
-1.  **Escritura**: "Basado en el historial de actualización de Jira de esta semana, elabora un borrador de informe de estado para el director. Por favor, hazlo centrado en los 3 resúmenes clave."
-2.  **Ajuste**: "Dales un tono más positivo y motivador a este borrador de boletín."
-3.  **Resumen**: "Extrae las decisiones y tareas de estos 1 hora de minutos de reunión y organízalos como viñetas para Slack."
+## How to use it with Killer-Skills
 
-## Conclusión
+1.  **Install**: `npx killer-skills add anthropics/skills/internal-comms`
+2.  **Command**: "Write a 3P update for the 'Deep_Search' project based on our progress this week. Highlight the memory leak as a Problem."
+3.  **Refine**: "Convert this technical update into a leadership-friendly summary for the company newsletter."
 
-La habilidad `internal-comms` no solo escribe texto en lugar de usted, sino que actúa como un lubricante que suaviza el flujo de información en toda la organización. Dado que la IA reduce la carga de escribir documentos, usted puede invertir más tiempo en conversaciones directas y pensamiento estratégico.
+## Conclusion
 
-Añada la [habilidad internal-comms](https://killer-skills.com/es/skills/anthropics/skills/internal-comms) a su agente ahora y eleve la 'voz' de su organización a un nivel superior.
+The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
+
+Install the [internal-comms skill](https://killer-skills.com/es/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
+
 ---
+
+*Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/es/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 

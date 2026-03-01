@@ -1,77 +1,77 @@
 ---
-title: "عروض تقديمية مدعومة بالذكاء الاصطناعي: إتقان مهارة PPTX"
-description: "تعلم كيفية بناء عروض PowerPoint تقديمية مذهلة واحترافية باستخدام مهارة pptx الرسمية. اكتشف مبادئ التصميم للشرائح الناتجة عن الذكاء الاصطناعي ذات التأثير العالي."
+title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
+description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
 pubDate: 2026-02-13
-author: "فريق Killer-Skills"
-tags: ["PowerPoint", "تصميم العروض التقديمية", "مهارات الوكيل", "كفاءة الأعمال"]
+author: "Killer-Skills Team"
+tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
 lang: "ar"
 featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# ما وراء النقاط المسرودة: إنشاء عروض تقديمية متميزة باستخدام مهارة PPTX
+# Beyond the Bullet Point: Creating Elite Presentations with the PPTX Skill
 
-في عالم الأعمال، العرض التقديمي هو أكثر من مجرد معلومات — إنه أداء. تعاني معظم الشرائح الناتجة عن الذكاء الاصطناعي مما نسميه "فخ القالب": نقاط مسرودة مملة على خلفية بيضاء. للفوز حقاً بالجمهور، فأنت بحاجة إلى تصميم راقٍ، ولوحات ألوان متعمدة، وتنسيقات متوازنة.
+In the business world, a presentation is more than just information—it's a performance. Most AI-generated slides suffer from what we call "The Template Trap": boring bullet points on a white background. To truly win an audience, you need high-end design, intentional color palettes, and balanced layouts.
 
-تمكن مهارة **pptx** الرسمية من Anthropic وكيل الذكاء الاصطناعي الخاص بك (مثل Claude Code) من أن يصبح مصمم عروض تقديمية أولاً. فهو لا يقوم فقط بـ "ملء" الشرائح؛ بل يهندسها باستخدام أنظمة تصميم احترافية وتقنيات ويب حديثة مثل **PptxGenJS**.
+The official **pptx** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior presentation designer. It doesn't just "fill in" slides; it architect's them using professional design systems and modern web technologies like **PptxGenJS**.
 
 ```bash
-# جهز وكيلك بمهارة pptx
+# Equip your agent with the pptx skill
 npx killer-skills add anthropics/skills/pptx
 ```
 
-## ما هي مهارة PPTX؟
+## What is the PPTX Skill?
 
-مهارة `pptx` هي إطار عمل يركز على التصميم لإنشاء الشرائح والتعديل عليها. وهي مبنية على ثلاث ركائز:
--   **PptxGenJS**: محرك JavaScript قوي لبناء الشرائح من الصفر.
--   **Markitdown**: للقراءة الهيكلية العميقة واستخراج النص من العروض التقديمية الموجودة.
--   **ذكاء التصميم**: معرفة مدمجة بنظرية الألوان، والخطوط، والتنسيقات الاحترافية.
+The `pptx` skill is a design-first framework for slide creation and manipulation. It's built on three pillars:
+- **PptxGenJS**: A powerful JavaScript engine for building slides from scratch.
+- **Markitdown**: For deep structural reading and text extraction from existing decks.
+- **Design Intelligence**: Built-in knowledge of color theory, typography, and professional layouts.
 
-## مبادئ التصميم الراقية
+## High-End Design Principles
 
-تفرض مهارة `pptx` سياسة "لا للشرائح المملة" من خلال عدة مبادئ أساسية:
+The `pptx` skill enforces a "No Boring Slides" policy through several core principles:
 
-### 1. قاعدة "الهيمنة على المساواة"
-المصممون المحترفون لا يعطون جميع الألوان وزناً متساوياً. تستخدم المهارة قاعدة 60-30-10: 60% لون مهيمن (مثل كحلي كبار المسؤولين)، 30% نغمات داعمة (أزرق ثلجي)، و10% لون تمييز حاد (أبيض).
+### 1. The "Dominance over Equality" Rule
+Professional designers never give all colors equal weight. The skill uses a 60-30-10 rule: 60% dominant color (e.g., Midnight Executive Navy), 30% supporting tones (Ice Blue), and 10% sharp accent (White).
 
-### 2. النمط البصري (Visual Motif)
-بدلاً من الزخارف العشوائية، تختار المهارة نمطاً بصرياً واحداً متميزاً — مثل إطارات الصور المستديرة أو الحدود السميكة من جانب واحد — وتطبقه باتساق عبر كل شريحة. يخلق هذا شعوراً متماسكاً بـ "العلامة التجارية" لعرضك التقديمي.
+### 2. The Visual Motif
+Instead of random decorations, the skill picks ONE distinct visual motif—like rounded image frames or thick single-sided borders—and carries it consistently across every slide. This creates a cohesive "brand" feeling for your presentation.
 
-### 3. طباعة ذات شخصية
-تتجاوز المهارة خط Arial. فهي تدمج العناوين الجريئة (مثل Impact أو Georgia) مع خطوط محتوى نظيفة وقابلة للقراءة (مثل Calibri أو Garamond) لإنشاء تسلسل هرمي واضح للمعلومات.
+### 3. Typography with Personality
+The skill moves beyond Arial. It pairs bold headers (like Impact or Georgia) with clean, readable body fonts (like Calibri or Garamond) to establish a clear information hierarchy.
 
-## قدرات متقدمة
+## Advanced Capabilities
 
-### "جراحة" وتحرير الشرائح
-على عكس محولات PDF البسيطة، يمكن لمهارة `pptx` "تفكيك" العرض التقديمي إلى مكونات XML الخام الخاصة به. يتيح ذلك للوكيل:
--   **تبديل التنسيقات**: تغيير تنسيق من عمودين إلى شبكة من 3 أعمدة مع الحفاظ على المحتوى.
--   **تحديث الشرائح الرئيسية (Master Slides)**: تطبيق لون علامة تجارية جديد أو شعار عبر 100 شريحة بشكل فوري.
--   **إضافة ملاحظات المحاضر**: إنشاء ملاحظات برمجياً للمقدم بناءً على محتوى الشريحة.
+### Slide Surgery & Editing
+Unlike simple PDF converters, the `pptx` skill can "unpack" a presentation into its raw XML components. This allows the agent to:
+- **Swap Layouts**: Change a 2-column layout to a 3-column grid while preserving content.
+- **Update Master Slides**: Apply a new brand color or logo across 100 slides instantly.
+- **Add Speaker Notes**: Programmatically generate notes for the presenter based on slide content.
 
-### تصور البيانات
-يمكن للمهارة أخذ البيانات الخام من [مهارة xlsx](https://killer-skills.com/ar/blog/mastering-excel-automation-with-xlsx-skills) وتحويلها إلى "أرقام إحصائية بارزة" (Stat Callouts) — أرقام كبيرة وجريئة تجذب الانتباه على الفور — بدلاً من الرسوم البيانية المزدحمة وغير القابلة للقراءة.
+### Data Visualization
+The skill can take raw data from the [xlsx skill](https://killer-skills.com/ar/blog/mastering-excel-automation-with-xlsx-skills) and transform it into large "Stat Callouts"—big, bold numbers that capture attention instantly—rather than cluttered, unreadable charts.
 
-## حالات استخدام عملية
+## Practical Use Cases
 
-### عروض تقديمية مؤتمتة للمستثمرين
-قم بتوليد عرض تقديمي من 10 شرائح حيث يتكيف التصميم مع الصناعة (على سبيل المثال، "طاقة المرجان" للشركات الناشئة، "كبار المسؤولين" للتمويل).
+### Automated Investor Pitch Decks
+Generate a 10-slide pitch deck where the design adapts to the industry (e.g., "Coral Energy" for startups, "Midnight Executive" for finance).
 
-### تحديثات العلامات التجارية العالمية
-خذ عرضاً تقديمياً حالياً للشركة وقم بتغيير مظهره (reskin) باستخدام أحدث إرشادات العلامة التجارية في دقائق.
+### Global Brand Updates
+Take an existing company deck and "reskin" it with the latest brand guidelines in minutes.
 
-### تلخيص المحتوى
-قم بتلقيم ملف PDF مكون من 50 صفحة في [مهارة pdf](https://killer-skills.com/ar/blog/mastering-pdf-automation-with-ai-skills) واجعل مهارة `pptx` تولد تلقائياً ملخصاً تنفيذياً من 5 شرائح.
+### Content Summarization
+Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/ar/blog/mastering-pdf-automation-with-ai-skills) and have the `pptx` skill automatically generate a 5-slide executive summary.
 
-## الخلاصة
+## Conclusion
 
-مهارة `pptx` تتعلق بما هو أكثر من مجرد تنسيقات الملفات — إنها تتعلق بـ **السلطة البصرية**. فهي تضمن أنه عندما يقوم وكيل الذكاء الاصطناعي الخاص بك ببناء عرض تقديمي، فإنه سيبدو وكأنه صُمم من قبل خبير بشري.
+The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
 
-قم بتحميل [مهارة pptx](https://killer-skills.com/ar/skills/anthropics/skills/pptx) من متجر Killer-Skills وابدأ في بناء شرائح تترك أثراً.
+Download the [pptx skill](https://killer-skills.com/ar/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
 
 ---
 
-*هل تريد تنسيق مستنداتك أيضاً؟ اطلع على [مهارة theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory).*
+*Want to style your docs too? Check out the [theme-factory skill](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory).*
 
 ---
 

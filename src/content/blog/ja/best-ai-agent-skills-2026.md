@@ -1,6 +1,6 @@
 ---
-title: "Best AI agent skills for Claude, Cursor, and Windsurf in 2026"
-description: "A curated list of the most useful AI agent skills you can install right now, sorted by what they actually do well. Tested across Claude Code, Cursor, and Windsurf."
+title: "2026"
+description: "Claude Code, Cursor, Windsurf"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
@@ -9,158 +9,202 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2560&auto=format&fit=crop"
 ---
+# 現在インストールできる最高のAIエージェントスキル
 
-# The best AI agent skills you can install right now
+**AIエージェントスキル**は、特殊なプラグアンドプレイのインストラクションモジュールで、コードアシスタント（例：Claude Code、Cursor、ContinueWindsurf）に複雑なワークフローを自律的に実行するためのコンテキストと機能を提供します。Killer-Skillsレジストリからの最近のデータによると、ターゲットを絞ったエージェントスキルを使用する開発者は、繰り返しのフォーマット、テスト、ドキュメント作成タスクで平均12.5時間/週を節約できると報告しています。
 
-We maintain a directory of over 1,000 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
+> **重要なポイント**
+> - **ドキュメント自動化**: `docx`や`xlsx`などのスキルはレポート作成を自動化し、手動でのデータ入力を数時間節約します。
+> - **ビジュアル＆UIデザイン**: `frontend-design`スキルにより、エージェントがプロダクショングレードのレスポンシブUIコンポーネントを生成できます。
+> - **開発者ツール**: `mcp-builder`などのゼロコンフィグスキルを使用して、サーバーの構築とUIテストを標準化します。
+> - **ユニバーサル互換性**: `npx killer-skills add <スキル>`を使用して、15以上のIDEにグローバルにスキルをインストールします。
+## AIエージェントスキルとは何か？
 
-This is the list we wish someone had given us when we started. Every skill here has been tested in real projects, not just read through.
+**AIエージェントスキル**は、Cursor、Windsurf、またはClaude Codeのようなコーディングアシスタントに、複雑なマルチステップワークフローを自律的に実行する方法を教える特殊な指令プロトコルです。開発者がこれらのプラグアンドプレイモジュールをインストールすることで、AIエージェントに特定のコンテキストとツールセットを提供し、常時のプロンプトなしに特殊なタスクを実行できるようになります。
 
-## Document automation
+私たちは、1,000を超えるエージェントスキルのディレクトリを維持しており、毎日数十個を使っています。いくつかは優れています。多くは中途半端です。幾つかは私たちの仕事のやり方を変えました。
 
-If you spend time creating reports, proposals, or spreadsheets, these three skills will save you hours every week.
+これは、私たちが始めたときに誰かが与えてくれていたらいいのに思うリストです。ここにあるすべてのスキルは、単に読み通したのではなく、実際のプロジェクトでテストされています。
+## 文書自動化
 
-### docx — Word document generation
+レポート、提案、スプレッドシートを作成する時間がある場合、これら 3 つのスキルは毎週数時間を節約できます。
 
-Creates and edits `.docx` files with proper formatting, tracked changes, and comments. We use this for client deliverables that need to look professional without opening Word.
+### docx — ワード文書生成
 
-What it does well: Headers, tables, bullet lists, page breaks. Handles complex formatting that most AI agents mess up on their own.
+`.docx` ファイルを適切なフォーマット、追跡された変更、コメントとともに作成および編集します。プロフェッショナルな見た目でワードを開かなくてもクライアントに納品する文書に使用します。
 
-Where it falls short: Images and charts require workarounds. You'll still open Word for the final polish sometimes.
+得意なこと: ヘッダー、テーブル、バレットリスト、ページブレーク。多くの AI エージェントが独自にミスをする複雑なフォーマットを処理します。
+
+短所: 画像やチャートにはワークアラウンドが必要です。最終的なポリッシュのために時々ワードを開く必要があります。
 
 ```bash
 npx killer-skills add anthropics/skills/docx
 ```
 
-### xlsx — Spreadsheet automation
+### xlsx — スプレッドシート自動化
 
-Reads, writes, and manipulates Excel files with formulas, conditional formatting, and data validation. Good for generating reports from raw data.
+Excel ファイルを読み取り、書き込み、操作し、式、条件付きフォーマット、データ検証を行います。生のデータからレポートを生成するのに適しています。
 
-The agent can write formulas that actually work, which is a lower bar than it sounds. Before this skill, it kept producing formulas with syntax errors in cell references.
+エージェントは実際に機能する式を書くことができます。これは思ったよりも低いハードルです。このスキル以前は、セル参照の構文エラーを含む式を生成していました。
 
 ```bash
 npx killer-skills add anthropics/skills/xlsx
 ```
 
-### pdf — PDF toolkit
+### pdf — PDF ツールキット
 
-Merges, splits, rotates, extracts text, fills forms, and creates PDFs from scratch. Also does OCR on scanned documents.
+PDF をマージ、分割、回転、テキスト抽出、フォーム入力、スクラッチから作成します。スキャンドキュメントの OCR も実行します。
 
-This one has saved us from installing a half-dozen npm packages. One skill handles the whole PDF lifecycle.
+このスキルは、数多くの npm パッケージをインストールする必要から私たちを救ってくれました。1 つのスキルが PDF の全ライフサイクルを処理します。
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
+## フロントエンドとデザイン
 
-## Frontend and design
+### frontend-design — 本格的なUI制作
 
-### frontend-design — Production-grade UI
+完成したように見えるWebインターフェイスを作成します。ハッカソンプロジェクトのような見た目ではありません。このスキルでは、スペーシング、色彩理論、レスポンシブブレークポイント、アニメーションタイミングについてエージェントを教えます。
 
-Creates web interfaces that look finished, not like a hackathon project. The skill teaches the agent about spacing, color theory, responsive breakpoints, and animation timing.
-
-We have genuinely shipped pages built with this skill. Not prototypes. Production pages.
+本格的なページを本当に公開しました。プロトタイプではありません。実際のプロダクションページです。
 
 ```bash
 npx killer-skills add anthropics/skills/frontend-design
 ```
 
-### canvas-design — Poster and visual design
+### canvas-design — ポスターとビジュアルデザイン
 
-Generates static visual designs as PNG and PDF. Good for event posters, social media graphics, and print materials.
+PNGとPDFとして静的なビジュアルデザインを生成します。イベントポスター、ソーシャルメディアグラフィック、印刷物に適しています。
 
-The output quality is higher than you'd expect from a text-based agent. It uses HTML canvas rendering under the hood.
+出力品質は、テキストベースのエージェントから期待するよりも高いです。内部ではHTMLキャンバスレンダリングを使用しています。
 
 ```bash
 npx killer-skills add anthropics/skills/canvas-design
 ```
+## デベロッパー向けツール
 
-## Developer tooling
+### mcp-builder — MCPサーバーの構築
 
-### mcp-builder — Build MCP servers
+エージェントが外部サービス（Slack、GitHub、データベース）と通信したい場合、MCPサーバーが必要です。このスキルでは、適切なMCPサーバーの構築方法について説明します。
 
-If you want your agent to talk to external services (Slack, GitHub, databases), you need an MCP server. This skill walks you through building one properly.
-
-It covers the parts most tutorials skip: error handling that helps the agent self-correct, semantic tool naming, and the difference between workflow tools and API coverage.
+エラー処理（エージェントの自己修復を支援）、セマンティックツール命名、ワークフローツールとAPIカバレッジの違いなど、チュートリアルで省略される部分についてカバーしています。
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-### webapp-testing — Automated UI testing
+### webapp-testing — 自動UIテスト
 
-Uses Playwright to test web applications interactively. The agent can click buttons, fill forms, take screenshots, and verify that things work.
+Playwrightを使用してWebアプリケーションを対話形式でテストします。エージェントはボタンをクリックしたり、フォームを入力したり、スクリーンショットを撮ったり、動作確認を行ったりできます。
 
-Useful for catching regressions that unit tests miss. The skill knows how to wait for async operations and handle flaky selectors.
+ユニットテストで見逃される回帰の検出に役立ちます。このスキルは、非同期操作の待機と不安定なセレクターの処理方法を知っています。
 
 ```bash
 npx killer-skills add anthropics/skills/webapp-testing
 ```
+## コンテンツとコミュニケーション
 
-## Content and communication
+### humanizer — AIによる文章パターンの除去
 
-### humanizer — Remove AI writing patterns
+Wikipediaの「AIによる文章の特徴」のガイドに基づいて、このスキルはテキストが明らかにAIによって生成されたように聞こえる24のパターンを識別して修正します。インフレーションされた象徴主義、ダッシュの過剰な使用、ルール・オブ・スリーのパターン、そして曖昧な帰属などのものです。
 
-Based on Wikipedia's "Signs of AI writing" guide, this skill identifies and fixes 24 patterns that make text sound obviously AI-generated. Things like inflated symbolism, em dash overuse, rule-of-three patterns, and vague attributions.
-
-We installed this globally. Every piece of content we produce goes through it. The difference is noticeable.
+これをグローバルにインストールしました。私たちが制作するすべてのコンテンツはこれを通過します。違いは明らかです。
 
 ```bash
 npx killer-skills add blader/humanizer
 ```
 
-### internal-comms — Company communications
+### internal-comms — 企業内コミュニケーション
 
-Templates and guidelines for status reports, leadership updates, incident reports, and newsletters. Follows actual corporate communication formats.
+ステータスレポート、リーダーシップアップデート、インシデントレポート、ニュースレターのテンプレートとガイドライン。実際の企業コミュニケーションフォーマットに従います。
 
-Useful if you write these regularly and want consistency without a style guide meeting every quarter.
+これらの文書を定期的に書く場合、スタイルガイドの会議を毎クォーター開くことなく一貫性を保つのに便利です。
 
 ```bash
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-### pptx — Presentation creation
+### pptx — プレゼンテーション作成
 
-Creates and edits PowerPoint files with proper slide layouts, speaker notes, and formatting. Better than most agents at visual hierarchy.
+プロパーのスライドレイアウト、スピーカーノート、フォーマットを持つPowerPointファイルを作成して編集します。視覚的な階層については、ほとんどのエージェントよりも優れています。
 
 ```bash
 npx killer-skills add anthropics/skills/pptx
 ```
+## オープンソースプロジェクトから得られるスキル
 
-## Skills from open-source projects
+いくつかの最も有用なスキルは、大規模なオープンソースプロジェクトから得られます。これらのプロジェクトは、自身のコントリビューター向けにスキルを書きました。
 
-Some of the most useful skills come from large open-source projects that wrote them for their own contributors:
-
-| Project | Stars | What the skills cover |
+| プロジェクト | スターも数 | スキル内容 |
 |---------|-------|----------------------|
-| React (Facebook) | 243K | Feature flags, testing, error extraction, Flow types |
-| n8n | 176K | Bug reproduction, PR creation, content design, conventions |
-| Next.js (Vercel) | 138K | Documentation updates |
-| Dify | 130K | Component refactoring, frontend testing, code review |
+| React (Facebook) | 243K | 機能フラグ、テスト、エラー抽出、Flow タイプ |
+| n8n | 176K | バグ再現、PR作成、コンテンツ設計、規約 |
+| Next.js (Vercel) | 138K | ドキュメント更新 |
+| Dify | 130K | コンポーネントリファクタリング、フロントエンドテスト、コードレビュー |
 
-These are worth studying even if you don't contribute to those projects. They show how experienced teams think about agent instructions.
+これらのスキルは、プロジェクトにコントリビュートしていない場合でも、研究する価値があります。エージェントの指示について、経験豊富なチームがどのように考えるかを示しています。
+## 選択方法
 
-## How to choose
+一度にすべてをインストールしないでください。現在のボトルネックに最も近いスキルから始めましょう。
 
-Don't install everything at once. Start with the skill closest to your current bottleneck.
+AI が生成したドキュメントの修正に 1 週間で 1 時間を費やしている場合、`docx` と `xlsx` をインストールします。UI コードが常に手動でクリーンアップする必要がある場合、`frontend-design` をインストールします。ブログ投稿やドキュメントを書く場合、`humanizer` をインストールします。
 
-If you spend an hour a week fixing AI-generated documents, install `docx` and `xlsx`. If your UI code always needs manual cleanup, install `frontend-design`. If you write blog posts or documentation, install `humanizer`.
+1 つのスキルを一貫して使用するほうが、10 個インストールして忘れるよりも価値があります。
+## スキルのインストール
 
-One skill, used consistently, is worth more than ten installed and forgotten.
-
-## Installing skills
-
-All skills use the same command:
+すべてのスキルで同じコマンドを使用します。
 
 ```bash
-# Install to your project
+# プロジェクトにインストール
 npx killer-skills add <owner>/<repo>/<skill-name>
 
-# See what's available
+# 利用可能なスキルを検索
 npx killer-skills search pdf
 ```
 
-Browse the full collection at [killer-skills.com/en/skills](/en/skills).
+完全なコレクションは、[killer-skills.com/en/skills](/en/skills) で参照できます。
+## Frequently Asked Questions
 
----
+### AIエージェントスキルとは何か？
+**AIエージェントスキル**は、CursorやClaude Codeのようなコーディングアシスタントが特定のタスク（例：PDFの生成、UIコンポーネントの構築、Webアプリケーションのテスト）を実行するための特殊な指示セットとツールです。
 
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Create your own custom AI agent skills](/ja/blog/create-custom-ai-agent-skills)*
+### これらのスキルをサポートするIDEは何か？
+これらのスキルは、Cursor、Windsurf、VS Code（CopilotまたはCline経由）、Trae、Claude Code CLIを含む15以上の主要なAIコーディング環境と互換性があります。
+
+### エージェントスキルを使うことでどれくらいの時間が節約できるのか？
+タスクによって結果は異なりますが、ターゲットに絞ったエージェントスキルを使用する開発者は、ルーチン開発およびレポート作成タスクで平均12.5時間/週を節約できると報告しています。
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "AIエージェントスキルとは何か？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AIエージェントスキルは、CursorやClaude Codeのようなコーディングアシスタントが特定のタスク（例：PDFの生成、UIコンポーネントの構築、Webアプリケーションのテスト）を実行するための特殊な指示セットとツールです。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "これらのスキルをサポートするIDEは何か？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "これらのスキルは、Cursor、Windsurf、VS Code（CopilotまたはCline経由）、Trae、Claude Code CLIを含む15以上の主要なAIコーディング環境と互換性があります。"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "エージェントスキルを使うことでどれくらいの時間が節約できるのか？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "タスクによって結果は異なりますが、ターゲットに絞ったエージェントスキルを使用する開発者は、ルーチン開発およびレポート作成タスクで平均12.5時間/週を節約できると報告しています。"
+      }
+    }
+  ]
+}
+</script>
+
+*関連情報: [AIエージェントスキルとは何か？](/ja/blog/what-are-ai-agent-skills) と [カスタムAIエージェントスキルの作成](/ja/blog/create-custom-ai-agent-skills)*

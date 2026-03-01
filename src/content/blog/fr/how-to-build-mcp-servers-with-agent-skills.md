@@ -1,120 +1,120 @@
 ---
-title: "Comment construire des serveurs MCP : Guide complet avec les Agent Skills"
-description: "Apprenez à construire des serveurs MCP prêts pour la production pour les agents IA en utilisant la skill officielle mcp-builder. Couvre la configuration, la conception d'outils, les tests et le déploiement avec TypeScript et Python."
+title: "How to Build MCP Servers: A Complete Guide Using Agent Skills"
+description: "Learn how to build production-ready MCP servers for AI agents using the official mcp-builder skill. Covers setup, tool design, testing, and deployment with TypeScript and Python."
 pubDate: 2026-02-13
-author: "Équipe Killer-Skills"
-tags: ["MCP", "Tutoriel", "Agent Skills", "Claude Code"]
+author: "Killer-Skills Team"
+tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
 lang: "fr"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Comment construire des serveurs MCP que les agents IA utilisent réellement
+# How to Build MCP Servers That AI Agents Actually Use
 
-Et si votre agent de codage IA pouvait faire plus que simplement écrire du code ? S'il pouvait envoyer des messages Slack, interroger des bases de données, déployer en production et gérer l'ensemble de votre pipeline DevOps — tout cela via un protocole standardisé ?
+What if your AI coding agent could do more than just write code? What if it could send Slack messages, query databases, deploy to production, and manage your entire DevOps pipeline — all through a standardized protocol?
 
-C'est exactement ce que les **serveurs MCP** (Model Context Protocol) permettent de faire. Et avec la skill officielle **mcp-builder** du dépôt d'Anthropic, vous pouvez construire des serveurs MCP de qualité production en quelques minutes au lieu de plusieurs heures.
+That's exactly what **MCP servers** (Model Context Protocol) make possible. And with the official **mcp-builder** skill from Anthropic's skills repository, you can build production-grade MCP servers in minutes instead of hours.
 
 ```bash
-# Installez la skill mcp-builder en une commande
+# Install the mcp-builder skill with one command
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-Dans ce guide, vous apprendrez tout ce que vous devez savoir sur la construction de serveurs MCP — de la compréhension du protocole au déploiement de votre premier serveur.
+In this guide, you'll learn everything you need to know about building MCP servers — from understanding the protocol to deploying your first server.
 
-## Qu'est-ce qu'un serveur MCP ?
+## What Is an MCP Server?
 
-Un **serveur MCP** est un service standardisé qui expose des outils, des ressources et des messages pour les agents IA. Considérez-le comme un pont entre votre assistant IA et le monde réel — bases de données, API, systèmes de fichiers, services cloud, etc.
+An **MCP server** is a standardized service that exposes tools, resources, and prompts for AI agents to consume. Think of it as a bridge between your AI assistant and the real world — databases, APIs, file systems, cloud services, and more.
 
-Le **Model Context Protocol** (MCP) a été créé par Anthropic pour résoudre un problème fondamental : les agents IA ont besoin d'un moyen universel d'interagir avec les services externes. Avant le MCP, chaque intégration nécessitait du code personnalisé. Désormais, un protocole unique gère tout.
+The **Model Context Protocol** (MCP) was created by Anthropic to solve a fundamental problem: AI agents need a universal way to interact with external services. Before MCP, every integration required custom code. Now, a single protocol handles everything.
 
-Voici pourquoi le MCP est important :
+Here's why MCP matters:
 
--   **Compatibilité universelle** — Fonctionne avec Claude, Cursor, Windsurf et n'importe quel client compatible MCP.
--   **Interface standardisée** — Les outils, ressources et messages suivent un schéma cohérent.
--   **Conception axée sur la sécurité** — Authentification intégrée, validation des entrées et contrôle des permissions.
--   **Workflows composables** — Les agents peuvent enchaîner plusieurs outils MCP.
+- **Universal compatibility** — Works with Claude, Cursor, Windsurf, and any MCP-compatible client
+- **Standardized interface** — Tools, resources, and prompts follow a consistent schema
+- **Security-first design** — Built-in authentication, input validation, and permission controls
+- **Composable workflows** — Agents can chain multiple MCP tools together
 
-## Pourquoi utiliser la skill mcp-builder ?
+## Why Use the mcp-builder Skill?
 
-La skill **mcp-builder** est l'une des plus puissantes du dépôt officiel d'Anthropic. Elle transforme Claude en un développeur spécialisé dans les serveurs MCP en fournissant :
+The **mcp-builder** skill is one of the most powerful skills in Anthropic's official repository. It transforms Claude into a specialized MCP server developer by providing:
 
-1.  **Connaissance approfondie du protocole** — La skill charge la spécification complète du MCP afin que Claude en comprenne chaque détail.
-2.  **Meilleures pratiques intégrées** — Le nommage des outils, la gestion des erreurs et les modèles de pagination sont pré-configurés.
-3.  **Guides par framework** — Des modèles optimisés pour TypeScript et Python.
-4.  **Génération d'évaluations** — Crée automatiquement des suites de tests pour votre serveur MCP.
+1. **Deep protocol knowledge** — The skill loads the full MCP specification so Claude understands every detail
+2. **Best practices baked in** — Tool naming, error handling, and pagination patterns are all pre-configured
+3. **Framework-specific guides** — Optimized templates for both TypeScript and Python
+4. **Evaluation generation** — Automatically creates test suites for your MCP server
 
-Contrairement à une construction à partir de zéro, la skill mcp-builder suit un workflow structuré en 4 phases :
+Unlike building from scratch, the mcp-builder skill follows a structured 4-phase workflow:
 
-| Phase | Ce qui se passe |
+| Phase | What Happens |
 |:------|:-------------|
-| **Phase 1: Recherche** | Étudie l'API, planifie la couverture des outils, conçoit le schéma. |
-| **Phase 2: Construction** | Implémente le serveur avec une gestion des erreurs et une authentification appropriées. |
-| **Phase 3: Révision** | Teste tous les outils, valide les réponses, vérifie les cas limites. |
-| **Phase 4: Évaluation** | Crée des évaluations automatisées pour vérifier la qualité. |
+| **Phase 1: Research** | Studies the API, plans tool coverage, designs the schema |
+| **Phase 2: Build** | Implements the server with proper error handling and auth |
+| **Phase 3: Review** | Tests all tools, validates responses, checks edge cases |
+| **Phase 4: Evaluate** | Creates automated evaluations to verify quality |
 
-## Guide de démarrage : Construisez votre premier serveur MCP
+## Getting Started: Build Your First MCP Server
 
-### Étape 1 : Installer la skill
+### Step 1: Install the Skill
 
-Tout d'abord, assurez-vous d'avoir installé la CLI Killer-Skills :
+First, make sure you have the Killer-Skills CLI installed:
 
 ```bash
 npm install -g killer-skills
 ```
 
-Ensuite, ajoutez la skill mcp-builder à votre projet :
+Then add the mcp-builder skill to your project:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-La skill sera ajoutée à votre répertoire `.claude/skills/` et activée automatiquement lorsque Claude détectera des tâches de développement de serveur MCP.
+The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
 
-### Étape 2 : Choisir votre stack
+### Step 2: Choose Your Stack
 
-La skill mcp-builder prend en charge deux stacks principaux :
+The mcp-builder skill supports two primary stacks:
 
-**TypeScript (Recommandé)**
+**TypeScript (Recommended)**
 ```bash
 npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-TypeScript est recommandé pour plusieurs raisons :
--   Support SDK de haute qualité de l'équipe officielle MCP.
--   Le typage statique détecte les erreurs avant l'exécution.
--   Forte compatibilité avec les environnements d'exécution.
--   Les modèles d'IA excellent dans la génération de code TypeScript.
+TypeScript is recommended for several reasons:
+- High-quality SDK support from the official MCP team
+- Static typing catches errors before runtime
+- Strong compatibility with execution environments
+- AI models excel at generating TypeScript code
 
 **Python**
 ```bash
 pip install mcp pydantic
 ```
 
-Python est un excellent choix si votre équipe utilise déjà Python ou si vous intégrez des API fortement basées sur Python.
+Python is a great choice if your team already uses Python or you're integrating with Python-heavy APIs.
 
-### Étape 3 : Définir vos outils
+### Step 3: Define Your Tools
 
-La clé d'un excellent serveur MCP réside dans des outils bien conçus. Voici un modèle :
+The key to a great MCP server is well-designed tools. Here's a template:
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 const server = new McpServer({
-  name: "mon-serveur-api",
+  name: "my-api-server",
   version: "1.0.0",
 });
 
 server.tool(
   "create_item",
-  "Crée un nouvel élément dans le système",
+  "Creates a new item in the system",
   {
-    name: z.string().describe("Nom de l'élément à créer"),
-    description: z.string().optional().describe("Description facultative"),
-    tags: z.array(z.string()).optional().describe("Tags pour la catégorisation"),
+    name: z.string().describe("Name of the item to create"),
+    description: z.string().optional().describe("Optional description"),
+    tags: z.array(z.string()).optional().describe("Tags for categorization"),
   },
   async ({ name, description, tags }) => {
     const result = await api.createItem({ name, description, tags });
@@ -130,11 +130,11 @@ server.tool(
 );
 ```
 
-### Étape 4 : Implémenter les meilleures pratiques
+### Step 4: Implement Best Practices
 
-La skill mcp-builder impose plusieurs patterns critiques :
+The mcp-builder skill enforces several critical patterns:
 
-**Convention de nommage des outils**
+**Tool Naming Convention**
 ```
 ✅ github_create_issue
 ✅ slack_send_message
@@ -145,29 +145,29 @@ La skill mcp-builder impose plusieurs patterns critiques :
 ❌ doStuff
 ```
 
-Utilisez des préfixes cohérents (nom du service) + des verbes orientés action. Cela aide les agents à découvrir et à sélectionner rapidement les bons outils.
+Use consistent prefixes (service name) + action-oriented verbs. This helps agents quickly discover and select the right tools.
 
-**Messages d'erreur exploitables**
+**Actionable Error Messages**
 ```typescript
-// ❌ Mauvais
+// ❌ Bad
 throw new Error("Not found");
 
-// ✅ Bon
+// ✅ Good
 throw new Error(
-  `Dépôt "${owner}/${repo}" non trouvé. ` +
-  `Vérifiez que le dépôt existe et que vous y avez accès. ` +
-  `Essayez de lister vos dépôts d'abord avec github_list_repos.`
+  `Repository "${owner}/${repo}" not found. ` +
+  `Check that the repository exists and you have access. ` +
+  `Try listing your repositories first with github_list_repos.`
 );
 ```
 
-**Annotations d'outils**
+**Tool Annotations**
 
-Chaque outil doit inclure des annotations qui aident les agents à comprendre son comportement :
+Every tool should include annotations that help agents understand their behavior:
 
 ```typescript
 server.tool(
   "delete_item",
-  "Supprime définitivement un élément",
+  "Permanently deletes an item",
   { id: z.string() },
   async ({ id }) => { /* ... */ },
   {
@@ -180,82 +180,82 @@ server.tool(
 );
 ```
 
-## Exemple concret : Construire un serveur MCP GitHub
+## Real-World Example: Building a GitHub MCP Server
 
-Voyons un exemple réaliste. Supposons que vous souhaitiez construire un serveur MCP qui permette aux agents IA de gérer des dépôts GitHub.
+Let's walk through a realistic example. Suppose you want to build an MCP server that lets AI agents manage GitHub repositories.
 
-**Demandez à Claude avec la skill mcp-builder active :**
+**Ask Claude with the mcp-builder skill active:**
 
-> "Construis-moi un serveur MCP pour l'API GitHub. Il doit prendre en charge la création d'issues, la liste des dépôts, la gestion des pull requests et la recherche de code."
+> "Build me an MCP server for the GitHub API. It should support creating issues, listing repositories, managing pull requests, and searching code."
 
-Claude va :
-1.  Rechercher la documentation de l'API REST de GitHub.
-2.  Planifier les endpoints à couvrir (généralement 15-25 outils).
-3.  Construire le serveur complet avec une authentification OAuth appropriée.
-4.  Générer des évaluations de test pour chaque outil.
+Claude will:
+1. Research the GitHub REST API documentation
+2. Plan which endpoints to cover (typically 15-25 tools)
+3. Build the complete server with proper OAuth authentication
+4. Generate test evaluations for each tool
 
-Le résultat est un serveur prêt pour la production avec une gestion appropriée des erreurs, de la pagination, des limites de débit et de l'authentification — ce qui prendrait normalement des jours à construire manuellement.
+The result is a production-ready server with proper error handling, pagination, rate limiting, and authentication — something that would normally take days to build manually.
 
-## Principes de conception clés pour les serveurs MCP
+## Key Design Principles for MCP Servers
 
-### Couverture API vs Outils de workflow
+### API Coverage vs. Workflow Tools
 
-La skill mcp-builder enseigne un équilibre important :
+The mcp-builder skill teaches an important balance:
 
--   **Une couverture complète** donne aux agents la flexibilité de composer des opérations.
--   **Les outils de workflow** regroupent des opérations multi-étapes courantes en un seul appel.
--   En cas de doute, donnez la priorité à une couverture API complète.
+- **Comprehensive coverage** gives agents flexibility to compose operations
+- **Workflow tools** bundle common multi-step operations into single calls
+- When uncertain, prioritize comprehensive API coverage
 
-### Gestion du contexte
+### Context Management
 
-Les agents fonctionnent mieux avec des données ciblées et pertinentes :
+Agents work best with focused, relevant data:
 
--   Ne retournez que les champs dont les agents ont besoin, pas l'intégralité des réponses de l'API.
--   Prenez en charge la pagination pour les opérations de liste.
--   Incluez des filtres pour affiner les résultats.
+- Return only the fields agents need, not entire API responses
+- Support pagination for list operations
+- Include filters to narrow results
 
-### Tests et évaluation
+### Testing and Evaluation
 
-La skill mcp-builder génère des évaluations automatisées qui testent :
+The mcp-builder skill generates automated evaluations that test:
 
--   **Le chemin nominal** — Fonctionnement normal avec des entrées valides.
--   **Les cas limites** — Résultats vides, ensembles de données volumineux, caractères spéciaux.
--   **La gestion des erreurs** — Entrées invalides, échecs d'authentification, limites de débit.
--   **Les scénarios réels** — Workflows multi-étapes qui enchaînent des outils.
+- **Happy path** — Normal operation with valid inputs
+- **Edge cases** — Empty results, large datasets, special characters
+- **Error handling** — Invalid inputs, auth failures, rate limits
+- **Real-world scenarios** — Multi-step workflows that chain tools together
 
-## Installation via Killer-Skills
+## Installing via Killer-Skills
 
-Le moyen le plus rapide de commencer est d'utiliser le marketplace Killer-Skills :
+The fastest way to get started is through the Killer-Skills marketplace:
 
 ```bash
-# Parcourir les skills officielles
+# Browse the official skills
 npx killer-skills search mcp
 
-# Installer mcp-builder
+# Install mcp-builder
 npx killer-skills add anthropics/skills/mcp-builder
 
-# Vérifier l'installation
+# Verify installation
 npx killer-skills list
 ```
 
-Une fois installée, la skill est automatiquement disponible dans Claude Code, Claude.ai et toute intégration de l'API Claude. Commencez simplement une conversation sur la construction d'un serveur MCP et Claude chargera les instructions de la skill.
+Once installed, the skill is automatically available in Claude Code, Claude.ai, and any Claude API integration. Simply start a conversation about building an MCP server and Claude will load the skill's instructions.
 
-## Et après ?
+## What's Next?
 
-Les serveurs MCP sont en train de devenir le standard pour permettre aux agents IA d'interagir avec le monde. Avec la skill mcp-builder, vous n'avez pas besoin d'être un expert du protocole MCP — Claude gère la complexité pendant que vous vous concentrez sur ce que votre serveur doit faire.
+MCP servers are becoming the standard way AI agents interact with the world. With the mcp-builder skill, you don't need to be an MCP protocol expert — Claude handles the complexity while you focus on what your server should do.
 
-Prêt à construire votre premier serveur MCP ? Voici comment commencer aujourd'hui :
+Ready to build your first MCP server? Here's how to get started today:
 
-1.  **Installez la skill** : `npx killer-skills add anthropics/skills/mcp-builder`
-2.  **Choisissez votre API** : Choisissez un service que vous souhaitez intégrer (Slack, Notion, JIRA, etc.)
-3.  **Décrivez vos besoins** : Dites à Claude de quels outils vous avez besoin, et il construira l'intégralité du serveur.
-4.  **Déployez et testez** : Utilisez les évaluations générées pour valider votre serveur.
+1. **Install the skill**: `npx killer-skills add anthropics/skills/mcp-builder`
+2. **Choose your API**: Pick a service you want to integrate (Slack, Notion, JIRA, etc.)
+3. **Describe your needs**: Tell Claude what tools you need, and it will build the entire server
+4. **Deploy and test**: Use the generated evaluations to validate your server
 
-L'avenir du développement de l'IA ne consiste pas à écrire plus de code, mais à donner aux agents IA les bons outils pour travailler. Les serveurs MCP et les Agent Skills rendent cet avenir possible aujourd'hui.
+The future of AI development isn't about writing more code — it's about giving AI agents the right tools to work with. MCP servers and Agent Skills make that future possible today.
 
 ---
 
-*Vous voulez explorer d'autres skills ? Parcourez le [Marketplace Killer-Skills](https://killer-skills.com/fr/skills) pour découvrir des centaines d'Agent Skills vérifiées pour votre workflow de codage IA.*
+*Want to explore more skills? Browse the [Killer-Skills Marketplace](https://killer-skills.com/fr/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
 
 ---
 

@@ -1,70 +1,70 @@
 ---
-title: "赋能 AI 智能体：构建高质量 MCP 服务端"
-description: "探索 Model Context Protocol (MCP)，学习如何创建强大的服务端，让 AI 智能体能够与外部工具和服务进行交互。"
+title: "Empowering AI Agents: Building High-Quality MCP Servers"
+description: "Discover the Model Context Protocol (MCP) and learn how to create powerful servers that enable AI agents to interact with external tools and services."
 pubDate: 2026-02-13
-author: "Killer-Skills 团队"
-tags: ["MCP", "AI 智能体", "协议", "TypeScript", "Python", "API 集成"]
+author: "Killer-Skills Team"
+tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]
 lang: "zh"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 智能体时代的粘合剂：精通 mcp-builder 技能
+# The Glue of the Agentic Era: Mastering the MCP-Builder Skill
 
-在飞速发展的 AI 世界中，智能体能够“思考”仅仅是成功的一半。为了真正发挥作用，智能体还必须能够“行动”——查询数据库、在 GitHub 上提交代码或调用自定义的内部 API。这就是 **模型上下文协议 (Model Context Protocol, MCP)** 的用武之地。
+In the rapidly evolving world of AI, the ability for an agent to "think" is only half the battle. To be truly useful, an agent must also be able to "act"—to search a database, post to GitHub, or query a custom internal API. This is where the **Model Context Protocol (MCP)** comes in.
 
-**mcp-builder** 技能是你构建稳健、高质量 MCP 服务端的权威指南。无论你是在使用 TypeScript 还是 Python，这项技能都提供了必要的架构蓝图和最佳实践，帮助你将静态 API 转化为动态的智能体工具。
+The **mcp-builder** skill is your definitive guide to creating robust, high-quality MCP servers. Whether you're working in TypeScript or Python, this skill provides the architectural blueprints and best practices needed to turn static APIs into dynamic agent tools.
 
 ```bash
-# 为你的智能体装备 mcp-builder 技能
+# Equip your agent with the mcp-builder skill
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-## 为什么 MCP 至关重要？
+## Why MCP Matters
 
-在 MCP 出现之前，每一次 AI 集成都是一种自定义的、脆弱的“补丁”。MCP 标准化了 AI 模型如何发现和使用工具、资源以及提示词。通过构建 MCP 服务端，你不只是在写一个脚本，你是在创建一个任何兼容 MCP 的智能体（如 Claude Desktop 或 IDE 扩展）都能立即理解并使用的标准化接口。
+Before MCP, every AI integration was a custom, brittle "hack." MCP standardizes how AI models discover and use tools, resources, and prompts. By building an MCP server, you're not just creating a script; you're creating a standardized interface that any MCP-compatible agent (like Claude Desktop or IDE extensions) can instantly understand and use.
 
-## “高质量” MCP 服务端的秘诀
+## The Secrets of a "High-Quality" MCP Server
 
-根据 `mcp-builder` 的准则，一个优秀的 MCP 服务端取决于它对 LLM（大语言模型）的易用性。以下是核心支柱：
+According to the `mcp-builder` guidelines, a great MCP server is defined by its usability for the LLM. Here are the core pillars:
 
-### 1. 工作流工具 vs. API 覆盖
-虽然简单地封装每一个 API 接口很有诱惑力，但最有效的 MCP 服务端会将 **全面的 API 覆盖** 与专业的 **工作流工具** 相结合。
-- **工作流工具**：如 `onboard_new_user` 这样处理多个步骤的高级命令。
-- **API 覆盖**：细粒度的工具，让智能体能够“即兴发挥”并组合出自己的解决方案。
+### 1. Workflow Tools vs. API Coverage
+While it's tempting to just wrap every API endpoint, the most effective MCP servers combine **comprehensive coverage** with specialized **workflow tools**. 
+- **Workflow Tools**: High-level commands like `onboard_new_user` that handle multiple steps.
+- **API Coverage**: Granular tools that let the agent "improvise" and compose its own solutions.
 
-### 2. 语义化的工具命名
-智能体通过名称来识别工具。`mcp-builder` 技能强调 **面向动作的、带有前缀的命名**（例如 `stripe_create_customer`, `stripe_list_invoices`）。这确保了工具的可发现性，并防止了命名冲突。
+### 2. Semantic Tool Naming
+An agent identifies tools by their names. The `mcp-builder` skill emphasizes **action-oriented, prefixed naming** (e.g., `stripe_create_customer`, `stripe_list_invoices`). This ensures discoverability and prevents naming collisions.
 
-### 3. 可执行的错误信息
-当工具调用失败时，标准的 "500 Internal Server Error" 对 AI 来说毫无意义。MCP 服务端应该返回 **可操作的反馈**。例如：*“错误：缺少 'email' 参数。请提供有效的客户电子邮件以继续。”* 这使得智能体能够自我纠正并重试。
+### 3. Actionable Error Messages
+When a tool call fails, a standard "500 Internal Server Error" is useless to an AI. MCP servers should return **actionable feedback**. For example: *"Error: Missing 'email' parameter. Please provide a valid customer email to proceed."* This allows the agent to self-correct and try again.
 
-## 4 阶段开发流程
+## The 4-Phase Development Workflow
 
-`mcp-builder` 技能勾勒出了一条通往成功的结构化路径：
+The `mcp-builder` skill outlines a structured path to success:
 
-1.  **研究与规划**：理解现代 MCP 设计并研究业务 API。
-2.  **实现**：设置项目结构（TypeScript/Zod 或 Python/Pydantic）并实现核心基础设施。
-3.  **评审与测试**：使用 **MCP Inspector** 验证工具行为，并确保遵守 DRY（不要重复自己）原则。
-4.  **评估**：创建一组复杂的、真实的“只读”问题，以验证服务端在真实场景中的有效性。
+1.  **Research & Planning**: Understanding modern MCP design and studying the service API.
+2.  **Implementation**: Setting up the project structure (TypeScript/Zod or Python/Pydantic) and implementing core infrastructure.
+3.  **Review & Test**: Using the **MCP Inspector** to verify tool behavior and ensuring DRY (Don't Repeat Yourself) principles.
+4.  **Evaluation**: Creating a set of complex, realistic "Read-Only" questions to verify the server's effectiveness in real-world scenarios.
 
-## 实际案例
+## Practical Examples
 
-- **GitHub MCP**：搜索仓库、管理 Issue、评审 Pull Request。
-- **Slack MCP**：发送消息、读取频道历史、管理频道。
-- **自定义数据库 MCP**：安全地将内部数据开放给你的 AI 助手。
+- **GitHub MCP**: Search repositories, manage issues, and review pull requests.
+- **Slack MCP**: Send messages, read thread history, and manage channels.
+- **Custom Database MCP**: Securely expose your internal data to your AI assistant.
 
-## 结语
+## Conclusion
 
-对于任何希望架起 AI 推理与现实执行之间桥梁的开发者来说，`mcp-builder` 技能都是必不可少的。通过遵循这些经过验证的模式，你可以构建出不仅能“运行”，而且能真正赋能 AI 智能体提高生产力的工具。
+The `mcp-builder` skill is essential for any developer looking to bridge the gap between AI reasoning and real-world execution. By following these proven patterns, you can build tools that don't just "work," but actually empower AI agents to be more productive.
 
-准备好开始构建了吗？在 [Killer-Skills 市场](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) 查看完整文档。
-
----
-
-*需要验证你的新工具吗？配合使用 [webapp-testing 技能](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing)。*
+Ready to start building? Check out the full documentation on the [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder).
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Need to verify your new tools? Pair this with the [webapp-testing skill](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing).*
+
+---
+
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

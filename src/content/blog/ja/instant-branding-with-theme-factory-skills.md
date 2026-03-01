@@ -1,66 +1,74 @@
 ---
-title: "Theme-Factoryスキルでブランドアイデンティティを瞬時に構築する"
-description: "公式のtheme-factoryスキルを使用して、カラーパレット、タイポグラフィ、UIテーマをプログラムで生成・管理する方法を学びます。"
+title: "Instant Branding: A Guide to the Theme-Factory Skill"
+description: "Learn how to apply professional themes to your AI-generated artifacts using the official theme-factory skill. Master consistent styling for slides, docs, and web pages."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["デザイン自動化", "ブランド設定", "UIテーマ", "クリエイティブツール"]
+tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]
 lang: "ja"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# デザインの魔法：Theme-Factoryスキルでプロ級のビジュアルを
+# Instant Professionalism: How Theme-Factory Elevates Your AI Output
 
-優れたデザインは、単に「見た目が良い」だけではありません。それは信頼を築き、ユーザー体験を形作り、ブランドのメッセージを伝えます。しかし、完璧なカラーパレットを選び、一貫したタイポグラフィのシステムを構築するのは、非デザイナーにとって非常に難しい課題です。
+When an AI agent generates a slide deck or a landing page, the content might be brilliant, but the "look and feel" often lacks cohesion. Branding isn't just a secondary layer; it's the visual language that establishes trust and authority.
 
-**theme-factory**スキルを使えば、AIエージェントにプロのデザイナーの感性を与え、一貫性のある美しいブランドテーマを瞬時に作り出すことができます。
+The official **theme-factory** skill from Anthropic solving this problem by providing a curated library of professional design systems. Whether you are building a corporate report or a creative portfolio, this skill allows your AI agent to apply consistent, high-end styling in seconds.
 
 ```bash
-# エージェントにtheme-factoryスキルを装備する
+# Equip your agent with theme-factory
 npx killer-skills add anthropics/skills/theme-factory
 ```
 
-## Theme-Factoryスキルの独自機能
+## What is the Theme-Factory Skill?
 
-このスキルは、配色理論とモダンなデザインシステムをベースにしており、以下の能力をエージェントに提供します：
+`theme-factory` is a styling engine designed specifically for AI-generated artifacts. It works by decoupling content from presentation, allowing agents to swap "skins" without affecting the underlying data.
 
-### 1. インテリジェントなテーマ生成
-キーワードやブランドの性格（「信頼感」「エネルギッシュ」「モダン」など）を伝えるだけで、調和の取れたテーマ一式を生成します。
--   **カラーパレット**: プライマリ、セカンダリ、アクセント、ニュートラルカラーの完璧な組み合わせ。
--   **タイポグラフィ設定**: 見出し用と本文用のフォントペアリング。
+### 1. Curated Professional Themes
+The skill comes with 10 pre-set themes, each including:
+- **Cohesive Color Palettes**: Hand-picked hex codes for primary, secondary, and accent colors.
+- **Complementary Font Pairings**: Professionally matched header and body fonts.
+- **Visual Identity**: A distinct mood tailored for specific audiences.
 
-### 2. プリセットライブラリ
-「Minimalism」「Brutalism」「Glassmorphism」などの10以上の事前定義された高品質なテーマスタイルから選択できます。
+### 2. On-the-Fly Theme Generation
+If the pre-set themes don't fit, the skill can generate a brand-new theme from scratch based on simple descriptions like "Cyberpunk Finance" or "Eco-Friendly Wellness."
 
-### 3. UIコードの出力
-生成されたテーマを、CSS変数、Tailwindの設定、あるいはJSON形式で即座に出力し、そのままプロジェクトに適用できます。
+## Exploring the Starter Themes
 
-### 4. アクセシビリティの考慮
-生成される色の組み合わせは、コントラスト比などのアクセシビリティ基準を考慮しており、すべてのユーザーに読みやすいデザインを保証します。
+Here are some of the high-end themes available out of the box:
 
-## 実用的なユースケース
+- **Ocean Depths**: Professional, calming, and maritime—perfect for corporate finance.
+- **Modern Minimalist**: A clean, contemporary grayscale aesthetic for tech startups.
+- **Midnight Galaxy**: Dramatic and cosmic deep tones for high-impact presentations.
+- **Forest Canopy**: Natural and grounded earth tones for sustainability or wellness projects.
+- **Tech Innovation**: Bold and modern tech aesthetic for developers and engineers.
 
-### Webサイトの高速プロトタイピング
-新しいランディングページのプロトタイプを作成する際、`theme-factory`を使用して、数秒でプロフェッショナルなルック＆フィール（[frontend-designスキル](https://killer-skills.com/ja/blog/mastering-generative-art-with-claudecode-skills)と併用）を適用します。
+## Why Branding Matters for AI Agents
 
-### 多彩なブランド展開
-1つの基本デザインに対して、異なるターゲット層向けに複数のカラーバリエーションを自動的に生成し、テストします。
+For developers and product managers using AI agents to build tools like [Web Artifacts](https://killer-skills.com/ja/blog/mastering-generative-art-with-claudecode-skills), consistency is the biggest challenge. Without a theme system, every new component might have a different color blue or a slightly different font weight.
 
-### ドキュメントのブランディング
-レポートやプレゼン資料（[pptxスキル](https://killer-skills.com/ja/blog/professional-presentations-with-pptx-ai-skills)など）を作成する際、それらに統一されたテーマを一貫して適用します。
+`theme-factory` ensures that:
+- **Consistency**: Your entire project looks like it was designed by a single person.
+- **Speed**: You don't have to manually write CSS variables for every new page.
+- **Quality**: You leverage design principles built into the skill's foundations.
 
-## Killer-Skillsでの使用例
+## How to use Theme-Factory with Killer-Skills
 
-1.  **生成**: 「『オーガニック食品を扱うハイテクなスタートアップ』をイメージしたモダンなテーマを作成し、Tailwind CSSの設定ファイルとして出力してください。」
-2.  **適用**: 「このWebサイトにGlassmorphismスタイルのテーマを適用して、UIをより洗礼されたものにしてください。」
-3.  **調整**: 「制作したパレットの青が少し強すぎます。もう少し落ち着いたトーンに変えてください。」
+1.  **Install**: Use the CLI to add the skill to your project.
+2.  **Showcase**: Ask your agent to "show the theme showcase" to see all 10 visual styles.
+3.  **Apply**: Command the agent to "Apply the 'Ocean Depths' theme to my current report."
+4.  **Customize**: If needed, ask for a "warm and vibrant version of the 'Sunset Boulevard' theme."
 
-## まとめ
+## Conclusion
 
-`theme-factory`スキルを使えば、専門的なデザインスキルがなくても、プロフェッショナルで魅力的なビジュアル体験を構築できます。AIが配色の複雑さを肩代わりすることで、あなたは製品のコアな価値を伝えることに集中できるようになります。
+The `theme-factory` skill transforms your AI agent from a simple coder into a brand-conscious designer. By ensuring every artifact is beautiful and consistent, it raises the bar for what AI-generated content can achieve.
 
-[theme-factoryスキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory)を導入して、あなたのプロジェクトを視覚的に次のレベルに引き上げましょう。
+Check out the [theme-factory skill](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) on the Killer-Skills Marketplace today and give your projects the professional edge they deserve.
+
+---
+
+*Want to build the components themselves? Pair this with [frontend-design](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design) for the ultimate web development workflow.*
 
 ---
 

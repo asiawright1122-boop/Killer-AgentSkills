@@ -1,66 +1,74 @@
 ---
-title: "هوية بصرية فورية مع مهارة Theme-Factory"
-description: "تعرف على كيفية توليد وإدارة لوحات الألوان والخطوط وسمات واجهة المستخدم برمجياً باستخدام مهارة theme-factory الرسمية."
+title: "Instant Branding: A Guide to the Theme-Factory Skill"
+description: "Learn how to apply professional themes to your AI-generated artifacts using the official theme-factory skill. Master consistent styling for slides, docs, and web pages."
 pubDate: 2026-02-13
-author: "فريق Killer-Skills"
-tags: ["أتمتة التصميم", "الهوية البصرية", "سمات واجهة المستخدم", "أدوات إبداعية"]
+author: "Killer-Skills Team"
+tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]
 lang: "ar"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# سحر التصميم: إنشاء مرئيات احترافية مع مهارة Theme-Factory
+# Instant Professionalism: How Theme-Factory Elevates Your AI Output
 
-التصميم الجيد ليس مجرد "شكل جميل". إنه يبني الثقة، ويشكل تجربة المستخدم، ويوصل رسالة علامتك التجارية. ومع ذلك، فإن اختيار لوحة الألوان المثالية وإنشاء نظام خطوط متسق هو مهمة صعبة للغاية لغير المتخصصين.
+When an AI agent generates a slide deck or a landing page, the content might be brilliant, but the "look and feel" often lacks cohesion. Branding isn't just a secondary layer; it's the visual language that establishes trust and authority.
 
-باستخدام مهارة **theme-factory**، يمكنك منح وكيل الذكاء الاصطناعي الخاص بك حس المصمم المحترف لإنشاء سمات علامة تجارية متسقة وجميلة في لمح البصر.
+The official **theme-factory** skill from Anthropic solving this problem by providing a curated library of professional design systems. Whether you are building a corporate report or a creative portfolio, this skill allows your AI agent to apply consistent, high-end styling in seconds.
 
 ```bash
-# جهز وكيلك بمهارة theme-factory
+# Equip your agent with theme-factory
 npx killer-skills add anthropics/skills/theme-factory
 ```
 
-## الميزات الخاصة لمهارة Theme-Factory
+## What is the Theme-Factory Skill?
 
-تعتمد هذه المهارة على نظرية الألوان الحديثة وأنظمة التصميم، وتقدم القدرات التالية:
+`theme-factory` is a styling engine designed specifically for AI-generated artifacts. It works by decoupling content from presentation, allowing agents to swap "skins" without affecting the underlying data.
 
-### 1. التوليد الذكي للسمات
-بساطة قدم كلمات رئيسية أو شخصية علامتك التجارية ("موثوقة"، "حيوية"، "حديثة"، إلخ)، وسيقوم الوكيل بتوليد مجموعة متناغمة من السمات.
--   **لوحة الألوان**: مزيج مثالي من الألوان الأساسية والثانوية وألوان التأكيد والألوان المحايدة.
--   **إعداد الخطوط**: تنسيق الخطوط (Font Pairing) المحسن للعناوين والنصوص الأساسية.
+### 1. Curated Professional Themes
+The skill comes with 10 pre-set themes, each including:
+- **Cohesive Color Palettes**: Hand-picked hex codes for primary, secondary, and accent colors.
+- **Complementary Font Pairings**: Professionally matched header and body fonts.
+- **Visual Identity**: A distinct mood tailored for specific audiences.
 
-### 2. مكتبة الأنماط الجاهزة (Presets)
-اختر من بين أكثر من 10 أنماط تصميم عالية الجودة محددة مسبقاً، مثل "Minimalism" أو "Brutalism" أو "Glassmorphism".
+### 2. On-the-Fly Theme Generation
+If the pre-set themes don't fit, the skill can generate a brand-new theme from scratch based on simple descriptions like "Cyberpunk Finance" or "Eco-Friendly Wellness."
 
-### 3. مخرجات كود واجهة المستخدم
-قم بتصدير السمة التي تم إنشاؤها فوراً كمتغيرات CSS، أو تكوين Tailwind، أو بتنسيق JSON لدمجها مباشرة في مشروعك.
+## Exploring the Starter Themes
 
-### 4. مراعاة معايير الوصول (Accessibility)
-تراعي تركيبات الألوان المتولدة معايير الوصول مثل نسبة التباين، مما يضمن تصميماً قابلاً للقراءة لجميع المستخدمين.
+Here are some of the high-end themes available out of the box:
 
-## حالات الاستخدام العملي
+- **Ocean Depths**: Professional, calming, and maritime—perfect for corporate finance.
+- **Modern Minimalist**: A clean, contemporary grayscale aesthetic for tech startups.
+- **Midnight Galaxy**: Dramatic and cosmic deep tones for high-impact presentations.
+- **Forest Canopy**: Natural and grounded earth tones for sustainability or wellness projects.
+- **Tech Innovation**: Bold and modern tech aesthetic for developers and engineers.
 
-### النمذجة السريعة للمواقع الإلكترونية
-عند إنشاء صفحة هبوط (Landing Page) جديدة، استخدم `theme-factory` لتطبيق مظهر احترافي في ثوانٍ (بالتكامل مع [مهارة frontend-design](https://killer-skills.com/ar/blog/mastering-generative-art-with-claudecode-skills)).
+## Why Branding Matters for AI Agents
 
-### التصور لعدة علامات تجارية
-قم بتوليد واختبار تباينات لونية متعددة تلقائياً لجماهير مستهدفة مختلفة بناءً على تصميم أساسي واحد.
+For developers and product managers using AI agents to build tools like [Web Artifacts](https://killer-skills.com/ar/blog/mastering-generative-art-with-claudecode-skills), consistency is the biggest challenge. Without a theme system, every new component might have a different color blue or a slightly different font weight.
 
-### الهوية البصرية عبر الوثائق
-طبق سمات متسقة دفعة واحدة على التقارير أو المواد التقديمية (كما في [مهارة pptx](https://killer-skills.com/ar/blog/professional-presentations-with-pptx-ai-skills)).
+`theme-factory` ensures that:
+- **Consistency**: Your entire project looks like it was designed by a single person.
+- **Speed**: You don't have to manually write CSS variables for every new page.
+- **Quality**: You leverage design principles built into the skill's foundations.
 
-## أمثلة على الاستخدام مع Killer-Skills
+## How to use Theme-Factory with Killer-Skills
 
-1.  **إنشاء**: "أنشئ سمة حديثة بأسلوب 'شركة ناشئة لتقنيات الغذاء الحيوي' وأعطني تكوين Tailwind CSS."
-2.  **تطبيق**: "طبق نمط glassmorphism على هذا الموقع لجعل واجهة المستخدم أكثر رقياً."
-3.  **تعديل**: "اللون الأزرق في اللوحة التي أنشأتها قوي جداً. غيره إلى درجة أهدأ."
+1.  **Install**: Use the CLI to add the skill to your project.
+2.  **Showcase**: Ask your agent to "show the theme showcase" to see all 10 visual styles.
+3.  **Apply**: Command the agent to "Apply the 'Ocean Depths' theme to my current report."
+4.  **Customize**: If needed, ask for a "warm and vibrant version of the 'Sunset Boulevard' theme."
 
-## الخلاصة
+## Conclusion
 
-مع مهارة `theme-factory` ، يمكنك بناء تجارب بصرية جذابة دون معرفة مهنية بالتصميم. يتولى الذكاء الاصطناعي تعقيد تناسق الألوان نيابة عنك، مما يتيح لك التركيز على تقديم القيمة الأساسية لمنتجك.
+The `theme-factory` skill transforms your AI agent from a simple coder into a brand-conscious designer. By ensuring every artifact is beautiful and consistent, it raises the bar for what AI-generated content can achieve.
 
-استخدم [مهارة theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) الآن وارتقِ بمشروعك بصرياً إلى المستوى التالي.
+Check out the [theme-factory skill](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) on the Killer-Skills Marketplace today and give your projects the professional edge they deserve.
+
+---
+
+*Want to build the components themselves? Pair this with [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design) for the ultimate web development workflow.*
 
 ---
 

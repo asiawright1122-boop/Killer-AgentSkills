@@ -1,71 +1,70 @@
 ---
-title: "Создавайте собственные навыки ИИ-агентов с помощью Skill-Creator"
-description: "Узнайте, как использовать официальный навык Skill-Creator для превращения ваших рабочих процессов или экспертных знаний в «Skills», которые ваш ИИ-агент сможет использовать мгновенно."
+title: "Programming Your Programmers: The skill-creator Guide"
+description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
 pubDate: 2026-02-13
-author: "Команда Killer-Skills"
-tags: ["Создание навыков", "Developer Experience", "Автоматизация", "Open Source"]
+author: "Killer-Skills Team"
+tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
 lang: "ru"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Сила созидания: оптимизация ИИ под ваши задачи с Skill-Creator
+# Beyond General AI: Mastering the Skill-Creator Skill
 
-Маркетплейс Killer-Skills уже предлагает множество отличных навыков, но иногда вы хотите автоматизировать свой собственный специфический способ работы, уникальный API или процесс, эксклюзивный для вашей компании.
+Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
 
-Используя навык **skill-creator**, вы можете наделить своего ИИ-агента идеальным помощником, который позволит проектировать, разрабатывать и развертывать ваши собственные специализированные «навыки».
+The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
 
 ```bash
-# Оснастите своего агента навыком skill-creator
+# Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
 
-## Роль навыка Skill-Creator
+## What Makes a "Killer" Skill?
 
-Этот навык помогает вам как «мета-навык» в создании навыков, следуя этим шагам:
+Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
 
-### 1. Проектирование навыка и определение требований
-Просто опишите проблему, которую вы хотите решить, и агент определит ее в форме подходящего навыка.
--   **Спецификация функций**: уточнение необходимых инструментов, входных и выходных данных.
--   **Применение лучших практик**: учет стандартов безопасности, обработки ошибок и промпт-инжиниринга.
+### 1. Progressive Disclosure
+The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
+- **Metadata**: Just enough info to tell the AI when to use the skill.
+- **SKILL.md**: The core instructional body, loaded only when needed.
+- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
 
-### 2. Генерация SKILL.md профессионального качества
-Минималистично и по стандартам Killer-Skills пишет руководство (SKILL.md).
--   **Структурированные инструкции**: четкие руководства, которым ИИ-агент может следовать без путаницы.
--   **Управление ресурсами**: организация необходимых скриптов, шаблонов и ресурсов.
+### 2. Matching Degrees of Freedom
+Not every task should be handled the same way:
+- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design)).
+- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/ru/skills/anthropics/skills/docx) manipulation).
 
-### 3. Автоматическое построение структуры каталогов
-Систематически создает файлы, необходимые для состава навыка.
--   `scripts/`: скрипты, выполняющие реальные функции.
--   `examples/`: примеры, демонстрирующие использование.
--   `resources/`: связанные активы.
+### 3. Procedural vs. Declarative Knowledge
+Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
+- **`scripts/`**: Executable code for repetitive, deterministic tasks.
+- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
+- **`assets/`**: Boilerplates and templates that can be copied directly.
 
-### 4. Верификация и обратная связь
-Тестирует, работает ли созданный навык так, как ожидалось, и находит точки для улучшения.
+## The Skill Creation Life Cycle
 
-## Практические примеры использования
+The `skill-creator` provides a step-by-step workflow for building your own capabilities:
+1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
+2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
+3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
+4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
 
-### Превращение внутренних процессов сборки в навыки
-Превратите конвейеры CI/CD, процедуры развертывания или критерии код-ревью вашей компании в навык, чтобы ИИ-агент нового сотрудника мог немедленно действовать как опытный разработчик.
+## Practical Use Cases
 
-### Сложная интеграция со специфическим SaaS-решением
-Определите манипуляции с API инструмента, который вы используете, как навык, позволяя выполнять всю работу одной фразой агенту, например: «Создай еженедельный отчет и отправь его в Slack».
+- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
+- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
+- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
 
-### Персональный рабочий процесс исследования
-Создайте свой собственный навык для исследований, который ищет статьи по определенной теме, резюмирует их и сохраняет в вашу личную базу данных.
+## Conclusion
 
-## Примеры использования с Killer-Skills
+The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-1.  **Идея**: «Я хочу создать навык, который автоматизирует мою процедуру развертывания в AWS. Какая информация тебе нужна?»
-2.  **Создание**: «На основе предоставленного скрипта спроектируй навык `aws-deploy`, совместимый с Killer-Skills».
-3.  **Документация**: «Также создай `EXAMPLES.md`, объясняющий использование».
+Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator).
 
-## Заключение
+---
 
-`skill-creator` — это ключ к превращению ИИ из «простого инструмента» в вашего «собственного эксперта». Упаковывая свои знания и рабочий процесс в форму навыка, вы делаете возможности автоматизации безграничными.
-
-Бросьте себе вызов и [создайте свой собственный навык прямо сейчас](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator).
+*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/ru/skills/anthropics/skills/mcp-builder) to host it.*
 
 ---
 

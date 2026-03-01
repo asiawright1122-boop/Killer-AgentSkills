@@ -1,71 +1,70 @@
 ---
-title: "أنشئ مهارات وكيل الذكاء الاصطناعي الخاصة بك مع Skill-Creator"
-description: "تعرف على كيفية استخدام مهارة Skill-Creator الرسمية لتحويل تدفقات عملك أو خبراتك المتخصصة إلى 'مهارات' يمكن لوكيل الذكاء الاصطناعي استخدامها فوراً."
+title: "Programming Your Programmers: The skill-creator Guide"
+description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
 pubDate: 2026-02-13
-author: "فريق Killer-Skills"
-tags: ["إنشاء المهارات", "تجربة المطور", "الأتمتة", "مفتوح المصدر"]
+author: "Killer-Skills Team"
+tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
 lang: "ar"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# قوة الابتكار: تخصيص الذكاء الاصطناعي لك مع Skill-Creator
+# Beyond General AI: Mastering the Skill-Creator Skill
 
-يقدم متجر Killer-Skills بالفعل العديد من المهارات الممتازة، ولكن في بعض الأحيان ترغب في أتمتة طريقتك الخاصة في العمل، أو واجهة برمجة تطبيقات (API) فريدة، أو عملية حصرية لشركتك.
+Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
 
-باستخدام مهارة **skill-creator** ، يمكنك تزويد وكيل الذكاء الاصطناعي الخاص بك بالمساعد المثالي الذي يسمح لك بتصميم وتطوير ونشر "مهاراتك" المخصصة.
+The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
 
 ```bash
-# جهز وكيلك بمهارة skill-creator
+# Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
 
-## دور مهارة Skill-Creator
+## What Makes a "Killer" Skill?
 
-تساعدك هذه المهارة كـ "مهارة فائقة" (Meta-Skill) في إنشاء المهارات باتباع الخطوات التالية:
+Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
 
-### 1. تصميم المهارة وتحديد المتطلبات
-بساطة صف المشكلة التي تريد حلها، وسيقوم الوكيل بتعريفها في شكل مهارة مناسبة.
--   **تحديد الوظائف**: توضيح الأدوات والمدخلات والمخرجات المطلوبة.
--   **تطبيق أفضل الممارسات**: مراعاة معايير الأمان، ومعالجة الأخطاء، وهندسة الأوامر (Prompts).
+### 1. Progressive Disclosure
+The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
+- **Metadata**: Just enough info to tell the AI when to use the skill.
+- **SKILL.md**: The core instructional body, loaded only when needed.
+- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
 
-### 2. توليد ملف SKILL.md بجودة احترافية
-كتابة دليل (SKILL.md) وفقاً للمعايير القياسية لـ Killer-Skills بشكل تلقائي.
--   **تعليمات منظمة**: إرشادات واضحة يمكن لوكيل الذكاء الاصطناعي اتباعها دون ارتباك.
--   **إدارة الموارد**: تنظيم البرامج النصية والقوالب والموارد اللازمة.
+### 2. Matching Degrees of Freedom
+Not every task should be handled the same way:
+- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)).
+- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) manipulation).
 
-### 3. البناء التلقائي لهيكل المجلدات
-إنشاء الملفات اللازمة لتكوين المهارة بشكل منهجي.
--   `scripts/`: البرامج النصية التي تنفذ الوظائف الفعلية.
--   `examples/`: أمثلة توضح كيفية الاستخدام.
--   `resources/`: الأصول المرتبطة.
+### 3. Procedural vs. Declarative Knowledge
+Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
+- **`scripts/`**: Executable code for repetitive, deterministic tasks.
+- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
+- **`assets/`**: Boilerplates and templates that can be copied directly.
 
-### 4. التحقق والملاحظات
-اختبار ما إذا كانت المهارة التي تم إنشاؤها تعمل كما هو متوقع وتحديد نقاط التحسين.
+## The Skill Creation Life Cycle
 
-## حالات الاستخدام العملي
+The `skill-creator` provides a step-by-step workflow for building your own capabilities:
+1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
+2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
+3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
+4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
 
-### تحويل عمليات البناء الداخلية إلى مهارات
-حول مسارات العمل CI/CD الخاصة بشركتك، أو إجراءات النشر، أو معايير مراجعة الكود إلى مهارة، حتى يتمكن وكيل الذكاء الاصطناعي لموظف جديد من العمل فوراً كمطور خبير.
+## Practical Use Cases
 
-### تكامل معقد مع حل SaaS محدد
-قم بتعريف التفاعل مع API الخاص بالأداة التي تستخدمها كمهارة، مما يتيح إنجاز العمل بالكامل بعبارة واحدة للوكيل، مثل "أنشئ تقريراً أسبوعياً وأرسله إلى Slack".
+- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
+- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
+- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
 
-### سير عمل البحث الشخصي
-أنشئ مهارة بحث مخصصة لك، تبحث عن مقالات حول موضوع معين، وتلخصها، وتحفظها في قاعدة بياناتك الشخصية.
+## Conclusion
 
-## أمثلة على الاستخدام مع Killer-Skills
+The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-1.  **فكرة**: "أريد إنشاء مهارة تؤتمت إجراءات النشر الخاصة بي على AWS. ما هي المعلومات التي تحتاجها؟"
-2.  **إنشاء**: "بناءً على البرنامج النصي المقدم، صمم مهارة `aws-deploy` متوافقة مع Killer-Skills."
-3.  **التوثيق**: "أنشئ أيضاً ملف `EXAMPLES.md` يشرح كيفية الاستخدام."
+Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
 
-## الخلاصة
+---
 
-مهارة `skill-creator` هي المفتاح لتطوير الذكاء الاصطناعي من "مجرد أداة" إلى "خبيرك الخاص". من خلال تغليف معرفتك وسير عملك في شكل مهارة، تصبح إمكانيات الأتمتة غير محدودة.
-
-تحدَّ نفسك و [أنشئ مهاراتك الخاصة الآن](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
+*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) to host it.*
 
 ---
 

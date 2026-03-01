@@ -1,94 +1,94 @@
 ---
-title: "Генеративное искусство с ИИ: Руководство по навыку Algorithmic Art"
-description: "Освойте генеративное искусство с помощью официального навыка algorithmic-art для ИИ-агентов. Научитесь с легкостью создавать потрясающие визуальные эффекты p5.js, поля потока и системы частиц."
+title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
+description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
 pubDate: 2026-02-13
-author: "Команда Killer-Skills"
-tags: ["Генеративное искусство", "p5.js", "Agent Skills", "Алгоритмическое искусство"]
+author: "Killer-Skills Team"
+tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
 lang: "ru"
 featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Превращение кода в холст: Сила алгоритмического искусства
+# Transforming Code into Canvas: The Power of Algorithmic Art
 
-Генеративное искусство — это место, где точность математики встречается с чистой эмоцией художественного самовыражения. Это среда, в которой художник не просто пишет картину, а создает *систему*, которая вдыхает жизнь в бесконечные вариации. 
+Generative art is where the precision of mathematics meets the raw emotion of artistic expression. It’s a medium where the artist doesn’t just paint a picture, but creates a *system* that breathes life into infinite variations. 
 
-С официальным навыком **algorithmic-art** от Anthropic ваш ИИ-агент по написанию кода (например, Claude Code или Cursor) становится мастером генеративного искусства. Этот навык учит агентов использовать **p5.js**, фиксированную случайность (seeded randomness) и вычислительную философию для создания визуальных эффектов галерейного качества.
+With the official **algorithmic-art** skill from Anthropic, your AI coding agent (like Claude Code or Cursor) becomes a master generative artist. This skill teaches agents how to leverage **p5.js**, seeded randomness, and computational philosophies to create gallery-quality visuals.
 
 ```bash
-# Добавьте навык algorithmic-art своему агенту
+# Add the algorithmic-art skill to your agent
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-В этом посте мы исследуем, как работает этот навык и как вы можете использовать его для создания своих собственных цифровых шедевров.
+In this post, we’ll explore how this skill works and how you can use it to build your own digital masterpieces.
 
-## Что такое навык Algorithmic Art?
+## What is the Algorithmic Art Skill?
 
-Навык `algorithmic-art` — это больше, чем просто генератор кода; это фреймворк для **вычислительной эстетики**. Он ведет ИИ-агентов через творческий процесс, состоящий из двух этапов:
+The `algorithmic-art` skill is more than just a code generator—it’s a framework for **Computational Aesthetics**. It guides AI agents through a two-step creative process:
 
-1.  **Создание алгоритмической философии**: Агент сначала определяет «движение» или философию (например, «Органическая турбулентность» или «Квантовые гармоники»).
-2.  **Выражение в p5.js**: Затем агент переводит эту философию в работающий скетч p5.js, дополненный интерактивными параметрами и фиксированной случайностью.
+1.  **Algorithmic Philosophy Creation**: The agent first defines a "movement" or philosophy (e.g., "Organic Turbulence" or "Quantum Harmonics").
+2.  **p5.js Expression**: The agent then translates that philosophy into a working p5.js sketch, complete with interactive parameters and seeded randomness.
 
-## Ключевые особенности навыка
+## Key Features of the Skill
 
-### 1. Фиксированная случайность (Seeded Randomness)
-Навык ставит в приоритет **воспроизводимость**. Каждое произведение искусства привязано к определенному сиду (seed). Если вы нашли вариацию, которая вам нравится (например, сид №42), вы можете воссоздавать ее в точности каждый раз. Это критически важно для создания коллекций искусства или профессиональных ассетов.
+### 1. Seeded Randomness
+The skill prioritizes **reproducibility**. Every piece of art is tied to a specific seed. If you find a variation you love (e.g., Seed #42), you can recreate it exactly every time. This is critical for building art collections or professional assets.
 
-### 2. Эмерджентное поведение
-Вместо рисования статических фигур навык фокусируется на **системах**. Он использует:
--   **Поля потока (Flow Fields)**: Тысячи частиц, следующих за векторными силами.
--   **Поля шума (Noise Fields)**: Использование шума Перлина или Симплекс для создания органических текстур.
--   **Рекурсивные структуры**: Фракталы и L-системы, которые растут бесконечно.
--   **Динамика частиц**: Системы, которые эволюционируют благодаря симуляции физики.
+### 2. Emergent Behavior
+Instead of drawing static shapes, the skill focuses on **systems**. It uses:
+- **Flow Fields**: Thousands of particles following vector forces.
+- **Noise Fields**: Using Perlin or Simplex noise for organic textures.
+- **Recursive Structures**: Fractals and L-systems that grow infinitely.
+- **Particle Dynamics**: Systems that evolve through simulated physics.
 
-### 3. Исследование интерактивных параметров
-Навык не просто выдает статичное изображение. Он генерирует полноценный **интерактивный просмотрщик** (HTML/JS), который позволяет настраивать произведение искусства в реальном времени. Вы можете изменять:
--   **Количество частиц**: Управляйте плотностью композиции.
--   **Масштаб шума**: Переходите от плавных волн к зазубренному хаосу.
--   **Цветовые палитры**: Меняйте настроение целиком одним ползунком.
--   **Физические силы**: Ускоряйте или замедляйте «танец» частиц.
+### 3. Interactive Parameter Exploration
+The skill doesn't just output a static image. It generates a full **Interactive Viewer** (HTML/JS) that lets you tune the artwork in real-time. You can adjust:
+- **Particle Count**: Control the density of the composition.
+- **Noise Scale**: Change from smooth waves to jagged chaos.
+- **Color Palettes**: Swap entire moods with a single slider.
+- **Physics Forces**: Speed up or slow down the "dance" of the particles.
 
-## За кулисами: Философия
+## A Look Under the Hood: The Philosophy
 
-Самый уникальный аспект этого навыка — **Манифест**. Прежде чем написать хоть одну строчку кода, агент набрасывает философию. Например:
+The most unique aspect of this skill is the **Manifesto**. Before writing a single line of code, the agent drafts a philosophy. For example:
 
-> **«Органическая турбулентность»**
-> *Философия: Хаос, ограниченный законами природы; порядок, возникающий из беспорядка.*
-> *Алгоритмическое выражение: Поля потока, управляемые многослойным шумом Перлина. Тысячи частиц следуют векторным силам, их следы накапливаются в органические карты плотности.*
+> **"Organic Turbulence"**
+> *Philosophy: Chaos constrained by natural law, order emerging from disorder.*
+> *Algorithmic Expression: Flow fields driven by layered Perlin noise. Thousands of particles follow vector forces, their trails accumulating into organic density maps.*
 
-Такой подход гарантирует, что итоговый код — это не просто «случайный шум», а **тщательно проработанный алгоритм**, который кажется намеренным и экспертным.
+This framing ensures that the final code isn't just "random noise," but a **meticulously crafted algorithm** that feels intentional and expert.
 
-## С чего начать
+## How to Get Started
 
-### Шаг 1: Оснастите агента навыком
-Если вы используете CLI Killer-Skills, установка не составит труда:
+### Step 1: Equip the Skill
+If you're using the Killer-Skills CLI, installation is a breeze:
 
 ```bash
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-### Шаг 2: Дайте задание агенту
-После установки вы можете давать агенту сложные творческие запросы:
+### Step 2: Prompt Your Agent
+Once equipped, you can give your agent complex creative prompts:
 
-> «Создай алгоритмическое произведение под названием 'Solar Drift'. Используй навык algorithmic-art. Сфокусируйся на тепле, круговом движении и тысячах частиц в виде тонких линий. Мне нужен кастомный просмотрщик с ползунком масштаба шума».
+> "Create an algorithmic art piece titled 'Solar Drift'. Use the algorithmic-art skill. Focus on warmth, circular motion, and thousands of fine-line particles. I want a custom viewer with a noise scale slider."
 
-### Шаг 3: Дорабатывайте и исследуйте
-Агент предоставит философию и автономный HTML-артефакт. Откройте его в браузере, поиграйте с ползунками и переключайте сиды, пока не найдете идеальный кадр.
+### Step 3: Iterate and Explore
+The agent will provide a philosophy and a self-contained HTML artifact. Open it in your browser, play with the sliders, and cycle through seeds until you find the perfect frame.
 
-## Почему это важно для разработчиков
+## Why This Matters for Developers
 
-Для разработчиков генеративное искусство — это идеальная площадка для логики. Навык `algorithmic-art` устраняет разрыв между технической экспертизой (циклы, математика, массивы) и визуальным дизайном. Создаете ли вы фон для лендинга, уникальную коллекцию NFT или просто исследуете красоту математики, этот навык дает профессиональную основу, которая вам необходима.
+For developers, generative art is the ultimate playground for logic. The `algorithmic-art` skill bridges the gap between technical expertise (loops, math, arrays) and visual design. Whether you're building a landing page background, a unique NFT collection, or just exploring the beauty of math, this skill provides the professional foundation you need.
 
-## Заключение
+## Conclusion
 
-Будущее искусства — в сотрудничестве, в танце между человеческим намерением и машинным исполнением. Навык **algorithmic-art** дает вам возможность стать хореографом этого танца.
+The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
 
-Готовы начать творить? Перейдите в [Маркетплейс Killer-Skills](https://killer-skills.com/ru/skills/anthropics/skills/algorithmic-art) и установите его сегодня.
+Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/algorithmic-art) and install it today.
 
 ---
 
-*Изучите другие творческие навыки на Killer-Skills, такие как [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) и [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory).*
+*Explore more creative skills like [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) and [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory) on Killer-Skills.*
 
 ---
 

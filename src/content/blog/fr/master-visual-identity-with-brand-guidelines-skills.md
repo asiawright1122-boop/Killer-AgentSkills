@@ -1,66 +1,75 @@
 ---
-title: "Établissez votre identité visuelle avec la compétence Brand-Guidelines"
-description: "Apprenez à faire en sorte que votre agent IA gère parfaitement l'application de couleurs de marque, de logos et d'une typographie cohérente avec la compétence officielle brand-guidelines."
+title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
+description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
 pubDate: 2026-02-13
-author: "L'équipe Killer-Skills"
-tags: ["Branding", "Système de design", "Identité visuelle", "UI/UX"]
+author: "Killer-Skills Team"
+tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
 lang: "fr"
 featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Le gardien de la marque : Instaurez la confiance avec la compétence Brand-Guidelines
+# Design with Authority: Unlocking the Brand-Guidelines Skill
 
-Pour une entreprise, une marque est plus qu'une simple collection de couleurs ou un logo. C'est une promesse faite au client, et sans cohérence, cette promesse vacille. Cependant, il n'est pas facile de toujours respecter des directives de marque précises à travers de nombreux projets, documents et sites web.
+In the world of professional communication, consistency is everything. When you generate a dashboard or a presentation with an AI agent, it often identifies as "AI-generated" because it follows generic design patterns. To build trust, your output needs to feel like it comes from a living, breathing organization with a clear identity.
 
-Avec la compétence **brand-guidelines**, vous pouvez faire en sorte que votre agent IA comprenne parfaitement vos « guides officiels » et applique une esthétique cohérente à tous vos livrables.
+The official **brand-guidelines** skill from Anthropic solves this by providing your agent with the complete visual DNA of the organization. It goes beyond simple color-picking; it implements a philosophy of typography and spatial harmony that makes every artifact look like it was designed by a corporate brand team.
 
 ```bash
-# Équipez votre agent avec la compétence brand-guidelines
+# Equip your agent with the brand-guidelines skill
 npx killer-skills add anthropics/skills/brand-guidelines
 ```
 
-## Fonctions claires de la compétence Brand-Guidelines
+## What is the Brand-Guidelines Skill?
 
-Cette compétence intègre les standards de design professionnel à vos actifs de marque pour offrir les capacités suivantes à l'agent :
+The `brand-guidelines` skill is a design engine that enforces strict visual standards. It is designed to be used in conjunction with other creative skills like [pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) or [canvas-design](https://killer-skills.com/fr/skills/anthropics/skills/canvas-design) to ensure they stay "on-brand."
 
-### 1. Application stricte des couleurs et de la typographie
-Utilise avec précision les codes de couleur hexadécimaux prédéfinis de la marque ou les polices spécifiées.
--   **Cohérence des couleurs** : Évite que les couleurs primaires, secondaires, d'erreur, etc., ne soient mélangées de manière anarchique.
--   **Appairage de polices** : Encourage l'utilisation correcte de la typographie désignée par la marque et de sa graisse (Weight).
+### 1. The Official Color Palette
+The skill provides precise RGB and HEX values for the official identity:
+- **Core Tones**: `Dark (#141413)` for primary text and `Light (#faf9f5)` for backgrounds.
+- **Accent Hierarchy**: A distinct hierarchy of `Orange (#d97757)`, `Blue (#6a9bcc)`, and `Green (#788c5d)` to guide the eye.
+- **Neutral Grays**: Carefully selected mid and light grays for subtle UI elements.
 
-### 2. Gestion des actifs de marque (Assets)
-Respecte les règles d'utilisation du logo (espacement, interdictions, variations) et les place aux positions appropriées.
+### 2. High-End Typography
+Typography is the voice of a brand. This skill implements a sophisticated pairing:
+- **Headings**: **Poppins**—a geometric sans-serif that feels modern and approachable.
+- **Body Text**: **Lora**—a contemporary serif with roots in calligraphy, providing excellent readability for long-form content.
+- **Smart Fallbacks**: Built-in logic to gracefully degrade to Arial or Georgia if custom fonts aren't available.
 
-### 3. Reflet automatique du style officiel
-Applique automatiquement le « Look & Feel » unique de la marque aux documents générés (comme [docx](https://killer-skills.com/fr/blog/automate-word-documents-with-docx-skills)) ou aux sites web (comme [frontend-design](https://killer-skills.com/fr/blog/killer-ui-design-with-frontend-design-skills)).
+## How the Skill Works
 
-### 4. Audit et revue de marque
-Vérifie si les productions existantes suivent bien les directives et suggère les corrections nécessaires.
+When you trigger the `brand-guidelines` skill, the agent doesn't just apply styles randomly. It performs a "brand audit" of the current artifact:
+- **Spatial Hierarchy**: It ensures headings are at least 24pt and uses Poppins for impact.
+- **Contrast Logic**: It intelligently selects text colors based on the background to ensure accessibility.
+- **Shape Syncing**: Non-text elements (like buttons or chart bars) are automatically cycled through the accent colors (Orange, Blue, Green) to maintain visual interest.
 
-## Cas d'utilisation pratiques
+## Practical Use Cases
 
-### Maintenir la cohérence des supports marketing
-Créez tous vos visuels, tels que des bannières, des supports de présentation ([pptx](https://killer-skills.com/fr/blog/professional-presentations-with-pptx-ai-skills)) et du contenu pour les réseaux sociaux, avec une tonalité cohérente.
+### Corporate Presentations
+Take a generic pitch deck and instantly transform it into an "Official" presentation that matches the company's website and marketing materials.
 
-### Renforcer le professionnalisme des documents internes
-Standardisez les spécifications techniques, les newsletters internes ([internal-comms](https://killer-skills.com/fr/blog/professional-internal-communications-with-ai-skills)), les FAQ, etc., avec le style graphique officiel de l'entreprise pour asseoir la crédibilité.
+### Internal Tooling
+Design dashboards or internal reports that feel like a seamless extension of the company's product ecosystem.
 
-### Gestion multi-marques
-Même si vous gérez plusieurs marques, vous pouvez changer et appliquer les directives appropriées instantanément en disant simplement à l'agent : « Fais-le au style de la Marque A ».
+### Marketing Assets
+Generate social media graphics or PDF whitepapers that are instantly recognizable through their consistent use of color and type.
 
-## Exemples d'utilisation avec Killer-Skills
+## How to use it with Killer-Skills
 
-1.  **Appliquer** : "Applique les couleurs officielles de Killer-Skills à cette page de destination et unifie le style des boutons."
-2.  **Auditer** : "Examine ce support de présentation pour voir si des polices ou des couleurs hors directives ont été utilisées."
-3.  **Générer** : "Crée un nouveau visuel promotionnel. Place la couleur primaire de la marque et le logo aux endroits exacts."
+1.  **Install**: `npx killer-skills add anthropics/skills/brand-guidelines`
+2.  **Command**: "Take this current presentation and apply the official brand guidelines. Use the primary orange for callouts."
+3.  **Refine**: "Does this layout follow our typography standards? If not, adjust the headings to Poppins 24pt."
 
 ## Conclusion
 
-La compétence `brand-guidelines` est le « directeur artistique automatisé » qui protège la qualité de votre marque. Puisque l'IA se charge de la gestion de la cohérence, vous pouvez consacrer plus de temps à votre stratégie métier centrale et à l'idéation.
+The `brand-guidelines` skill is the final polish that turns "AI-output" into "Professional Asset." It ensures that your coding agent understands the importance of visual context and brand authority.
 
-Adoptez la [compétence brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) dès maintenant pour offrir à votre marque une identité inébranlable.
+Install the [brand-guidelines skill](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) from the Killer-Skills Marketplace and start designing with authority.
+
+---
+
+*Looking for more styling options? Explore [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) for a wider range of pre-set professional themes.*
 
 ---
 

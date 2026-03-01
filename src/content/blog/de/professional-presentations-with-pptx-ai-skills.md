@@ -1,77 +1,77 @@
 ---
-title: "KI-gestützte Pitch-Decks: Die PPTX Skill meistern"
-description: "Lernen Sie mit der offiziellen pptx Skill, wie Sie beeindruckende, professionelle PowerPoint-Präsentationen erstellen. Entdecken Sie Designprinzipien für hochwirksame KI-generierte Folien."
+title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
+description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["PowerPoint", "Präsentationsdesign", "Agent Skills", "Business-Effizienz"]
+tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
 lang: "de"
 featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Jenseits von Aufzählungszeichen: Elite-Präsentationen mit der PPTX Skill erstellen
+# Beyond the Bullet Point: Creating Elite Presentations with the PPTX Skill
 
-In der Geschäftswelt ist eine Präsentation mehr als nur Information – sie ist eine Performance. Die meisten KI-generierten Folien leiden unter der sogenannten „Template-Falle“: langweilige Aufzählungszeichen auf weißem Hintergrund. Um ein Publikum wirklich zu gewinnen, benötigen Sie High-End-Design, bewusste Farbpaletten und ausgewogene Layouts.
+In the business world, a presentation is more than just information—it's a performance. Most AI-generated slides suffer from what we call "The Template Trap": boring bullet points on a white background. To truly win an audience, you need high-end design, intentional color palettes, and balanced layouts.
 
-Die offizielle **pptx** Skill von Anthropic befähigt Ihren KI-Agenten (wie Claude Code), zu einem Senior Presentation Designer zu werden. Er „füllt“ nicht einfach nur Folien aus, sondern entwirft sie mit professionellen Designsystemen und modernen Webtechnologien wie **PptxGenJS**.
+The official **pptx** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior presentation designer. It doesn't just "fill in" slides; it architect's them using professional design systems and modern web technologies like **PptxGenJS**.
 
 ```bash
-# Rüstenv Sie Ihren Agenten mit der pptx Skill aus
+# Equip your agent with the pptx skill
 npx killer-skills add anthropics/skills/pptx
 ```
 
-## Was ist die PPTX Skill?
+## What is the PPTX Skill?
 
-Die `pptx` Skill ist ein designorientiertes Framework für die Erstellung und Bearbeitung von Folien. Sie basiert auf drei Säulen:
--   **PptxGenJS**: Eine leistungsstarke JavaScript-Engine zum Erstellen von Folien von Grund auf.
--   **Markitdown**: Für tiefes strukturelles Lesen und Textextraktion aus vorhandenen Decks.
--   **Design-Intelligenz**: Integriertes Wissen über Farblehre, Typografie und professionelle Layouts.
+The `pptx` skill is a design-first framework for slide creation and manipulation. It's built on three pillars:
+- **PptxGenJS**: A powerful JavaScript engine for building slides from scratch.
+- **Markitdown**: For deep structural reading and text extraction from existing decks.
+- **Design Intelligence**: Built-in knowledge of color theory, typography, and professional layouts.
 
-## High-End-Designprinzipien
+## High-End Design Principles
 
-Die `pptx` Skill erzwingt eine „No Boring Slides“-Richtlinie durch mehrere Kernprinzipien:
+The `pptx` skill enforces a "No Boring Slides" policy through several core principles:
 
-### 1. Die Regel „Dominanz über Gleichheit“
-Professionelle Designer geben niemals allen Farben das gleiche Gewicht. Die Skill nutzt eine 60-30-10-Regel: 60 % dominante Farbe (z. B. Midnight Executive Navy), 30 % unterstützende Töne (Ice Blue) und 10 % scharfer Akzent (Weiß).
+### 1. The "Dominance over Equality" Rule
+Professional designers never give all colors equal weight. The skill uses a 60-30-10 rule: 60% dominant color (e.g., Midnight Executive Navy), 30% supporting tones (Ice Blue), and 10% sharp accent (White).
 
-### 2. Das visuelle Motiv
-Anstatt zufälliger Dekorationen wählt die Skill EIN markantes visuelles Motiv – wie abgerundete Bildrahmen oder dicke einseitige Ränder – und führt es konsistent durch jede Folie. Dies schafft ein stimmiges „Markengefühl“ für Ihre Präsentation.
+### 2. The Visual Motif
+Instead of random decorations, the skill picks ONE distinct visual motif—like rounded image frames or thick single-sided borders—and carries it consistently across every slide. This creates a cohesive "brand" feeling for your presentation.
 
-### 3. Typografie mit Persönlichkeit
-Die Skill geht über Arial hinaus. Sie kombiniert fette Überschriften (wie Impact oder Georgia) mit sauberen, lesbaren Fließtextschriften (wie Calibri oder Garamond), um eine klare Informationshierarchie zu etablieren.
+### 3. Typography with Personality
+The skill moves beyond Arial. It pairs bold headers (like Impact or Georgia) with clean, readable body fonts (like Calibri or Garamond) to establish a clear information hierarchy.
 
-## Erweiterte Funktionen
+## Advanced Capabilities
 
-### Folien-„Chirurgie“ & Bearbeitung
-Im Gegensatz zu einfachen PDF-Konvertern kann die `pptx` Skill eine Präsentation in ihre rohen XML-Komponenten „entpacken“. Dies ermöglicht dem Agenten:
--   **Layouts tauschen**: Ein 2-Spalten-Layout in ein 3-Spalten-Raster ändern, während der Inhalt erhalten bleibt.
--   **Master-Folien aktualisieren**: Eine neue Markenfarbe oder ein Logo sofort auf 100 Folien anwenden.
--   **Referententnotizen hinzufügen**: Programmatisch Notizen für den Vortragenden basierend auf dem Folieninhalt generieren.
+### Slide Surgery & Editing
+Unlike simple PDF converters, the `pptx` skill can "unpack" a presentation into its raw XML components. This allows the agent to:
+- **Swap Layouts**: Change a 2-column layout to a 3-column grid while preserving content.
+- **Update Master Slides**: Apply a new brand color or logo across 100 slides instantly.
+- **Add Speaker Notes**: Programmatically generate notes for the presenter based on slide content.
 
-### Datenvisualisierung
-Die Skill kann Rohdaten aus der [xlsx Skill](https://killer-skills.com/de/blog/mastering-excel-automation-with-xlsx-skills) übernehmen und sie in große „Stat Callouts“ verwandeln – große, fettgedruckte Zahlen, die sofort Aufmerksamkeit erregen –, anstatt unübersichtliche, unlesbare Diagramme zu verwenden.
+### Data Visualization
+The skill can take raw data from the [xlsx skill](https://killer-skills.com/de/blog/mastering-excel-automation-with-xlsx-skills) and transform it into large "Stat Callouts"—big, bold numbers that capture attention instantly—rather than cluttered, unreadable charts.
 
-## Praktische Anwendungsfälle
+## Practical Use Cases
 
-### Automatisierte Investor Pitch Decks
-Generieren Sie ein 10-seitiges Pitch Deck, bei dem sich das Design an die Branche anpasst (z. B. „Coral Energy“ für Startups, „Midnight Executive“ für Finanzen).
+### Automated Investor Pitch Decks
+Generate a 10-slide pitch deck where the design adapts to the industry (e.g., "Coral Energy" for startups, "Midnight Executive" for finance).
 
-### Globale Marken-Updates
-Nehmen Sie ein vorhandenes Unternehmens-Deck und „reskinnen“ Sie es in Minuten mit den neuesten Markenrichtlinien.
+### Global Brand Updates
+Take an existing company deck and "reskin" it with the latest brand guidelines in minutes.
 
-### Inhaltszusammenfassung
-Speisen Sie ein 50-seitiges PDF in die [pdf Skill](https://killer-skills.com/de/blog/mastering-pdf-automation-with-ai-skills) ein und lassen Sie die `pptx` Skill automatisch eine 5-seitige Executive Summary generieren.
+### Content Summarization
+Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/de/blog/mastering-pdf-automation-with-ai-skills) and have the `pptx` skill automatically generate a 5-slide executive summary.
 
-## Fazit
+## Conclusion
 
-Bei der `pptx` Skill geht es um mehr als nur Dateiformate – es geht um **visuelle Autorität**. Sie stellt sicher, dass eine von Ihrem KI-Agenten erstellte Präsentation so aussieht, als wäre sie von einem menschlichen Experten entworfen worden.
+The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
 
-Laden Sie die [pptx Skill](https://killer-skills.com/de/skills/anthropics/skills/pptx) vom Killer-Skills Marketplace herunter und fangen Sie an, Folien zu erstellen, die überzeugen.
+Download the [pptx skill](https://killer-skills.com/de/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
 
 ---
 
-*Möchten Sie auch Ihre Dokumente stylen? Schauen Sie sich die [theme-factory Skill](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) an.*
+*Want to style your docs too? Check out the [theme-factory skill](https://killer-skills.com/de/skills/anthropics/skills/theme-factory).*
 
 ---
 

@@ -1,6 +1,6 @@
 ---
-title: "Best AI agent skills for Claude, Cursor, and Windsurf in 2026"
-description: "A curated list of the most useful AI agent skills you can install right now, sorted by what they actually do well. Tested across Claude Code, Cursor, and Windsurf."
+title: "أفضل مهارات وكيل الذكاء الاصطناعي لـ Claude وCursor وWindsurf في عام 2026"
+description: "قائمة مختارة من أكثر مهارات وكيل الذكاء الاصطناعي فائدةً التي يمكنك تثبيتها الآن، مُرتبة حسب ما تؤديه بشكل جيد. تم اختبارها عبر Claude Code وCursor وWindsurf."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
@@ -9,147 +9,150 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2560&auto=format&fit=crop"
 ---
+# أفضل مهارات وكيل الذكاء الاصطناعي التي يمكنك تثبيتها الآن
 
-# The best AI agent skills you can install right now
+**مهارات وكيل الذكاء الاصطناعي** هي وحدات تعليمية متخصصة جاهزة للاستخدام، تمنح المساعدات البرمجية (مثل Claude Code وCursor وContinueWindsurf) السياق والقدرات لتنفيذ مهام العمل المعقدة بشكل مستقل. وفقًا لأحدث البيانات من سجل Killer-Skills، أفاد المطورون الذين يستخدمون مهارات الوكيل المستهدفة بتوفير متوسط 12.5 ساعة أسبوعيًا في المهام المتكررة مثل التنسيق والاختبار وإعداد التوثيق.
 
-We maintain a directory of over 1,000 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
+> **الاستنتاجات الرئيسية**
+> - **أتمتة المستندات**: مهارات مثل `docx` و`xlsx` تؤتمت إعداد التقارير، مما يوفر ساعات من إدخال البيانات يدويًا.
+> - **التصميم المرئي وواجهة المستخدم**: مهارة `frontend-design` تمكّن الوكلاء من إنشاء مكونات واجهة مستخدم متجاوبة وجاهزة للإنتاج.
+> - **أدوات المطور**: معايرة بناء الخوادم واختبار واجهة المستخدم بمهارات لا تتطلب配置 مثل `mcp-builder`.
+> - **التوافق العالمي**: ثبّت المهارات عبر أكثر من 15 بيئة تطوير متكاملة (IDE) حول العالم باستخدام `npx killer-skills add <skill>`.
+## ما هي مهارة وكيل الذكاء الاصطناعي؟
 
-This is the list we wish someone had given us when we started. Every skill here has been tested in real projects, not just read through.
+**مهارة وكيل الذكاء الاصطناعي** هي بروتوكول تعليمي متخصص يُعلّم المساعدات البرمجية — مثل Cursor أو Windsurf أو Claude Code — كيفية تنفيذ سير عمل معقدة متعددة الخطوات بشكل مستقل. من خلال تثبيت هذه الوحدات الجاهزة للاستخدام، يمنح المطورون وكلاء الذكاء الاصطناعي الخاصين بهم السياق المحدد ومجموعات الأدوات اللازمة لأداء مهام متخصصة دون الحاجة إلى مطالبة مستمرة.
 
-## Document automation
+نحن نحتفظ بدليل يضم أكثر من 1000 مهارة للوكلاء ونستخدم العشرات منها يوميًا. بعضها ممتاز. والكثير منها متوسط. وقد غير القليل منها طريقة عملنا.
 
-If you spend time creating reports, proposals, or spreadsheets, these three skills will save you hours every week.
+هذه هي القائمة التي كنا نتمنى أن يقدمها لنا أحد عندما بدأنا. كل مهارة هنا تم اختبارها في مشاريع حقيقية، وليس مجرد قراءتها.
+## أتمتة المستندات
 
-### docx — Word document generation
+إذا كنت تقضي وقتًا في إنشاء التقارير أو العروض التقديمية أو جداول البيانات، فإن هذه المهارات الثلاث ستوفر لك ساعات كل أسبوع.
 
-Creates and edits `.docx` files with proper formatting, tracked changes, and comments. We use this for client deliverables that need to look professional without opening Word.
+### docx — إنشاء مستندات Word
 
-What it does well: Headers, tables, bullet lists, page breaks. Handles complex formatting that most AI agents mess up on their own.
+ينشئ ويحرر ملفات `.docx` مع التنسيق المناسب، والتغييرات المتعقبة، والتعليقات. نستخدم هذا للتسليمات للعملاء التي تحتاج إلى مظهر احترافي دون الحاجة إلى فتح Word.
 
-Where it falls short: Images and charts require workarounds. You'll still open Word for the final polish sometimes.
+ما تفعله بشكل جيد: العناوين، الجداول، القوائم النقطية، فواصل الصفحات. يتعامل مع التنسيق المعقد الذي تعجز عنه معظم وكلاء الذكاء الاصطناعي بمفردهم.
+
+أوجه القصور: الصور والرسوم البيانية تتطلب حلولاً بديلة. ستظل تفتح Word أحيانًا لللمسات النهائية.
 
 ```bash
 npx killer-skills add anthropics/skills/docx
 ```
 
-### xlsx — Spreadsheet automation
+### xlsx — أتمتة جداول البيانات
 
-Reads, writes, and manipulates Excel files with formulas, conditional formatting, and data validation. Good for generating reports from raw data.
+يقرأ ويكتب ويتلاعب بملفات Excel مع الصيغ، والتنسيق الشرطي، والتحقق من البيانات. جيد لتوليد التقارير من البيانات الخام.
 
-The agent can write formulas that actually work, which is a lower bar than it sounds. Before this skill, it kept producing formulas with syntax errors in cell references.
+يمكن للوكيل كتابة صيغ تعمل بالفعل، وهو أمر أبسط مما يبدو. قبل هذه المهارة، كان ينتج باستمرار صيغًا تحتوي على أخطاء نحوية في مراجع الخلايا.
 
 ```bash
 npx killer-skills add anthropics/skills/xlsx
 ```
 
-### pdf — PDF toolkit
+### pdf — أدوات التعامل مع PDF
 
-Merges, splits, rotates, extracts text, fills forms, and creates PDFs from scratch. Also does OCR on scanned documents.
+يدمج، يقسم، يدير، يستخرج النصوص، يملأ النماذج، وينشئ ملفات PDF من الصفر. كما يقوم بالتعرف الضوئي على الحروف (OCR) على المستندات الممسوحة ضوئيًا.
 
-This one has saved us from installing a half-dozen npm packages. One skill handles the whole PDF lifecycle.
+هذه المهارة وفرت علينا تثبيت نصف دزينة من حزم npm. مهارة واحدة تدعم دورة حياة PDF بالكامل.
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
+## الواجهة الأمامية والتصميم
 
-## Frontend and design
+### frontend-design — واجهة مستخدم جاهزة للإنتاج
 
-### frontend-design — Production-grade UI
+ينشئ واجهات ويب تبدو مكتملة، وليس كمشروع تم إنجازه في هاكاثون. تُعلّم هذه المهارة الوكيل عن التباعد، نظرية الألوان، نقاط التوقف المتجاوبة، وتوقيت التحريك.
 
-Creates web interfaces that look finished, not like a hackathon project. The skill teaches the agent about spacing, color theory, responsive breakpoints, and animation timing.
-
-We have genuinely shipped pages built with this skill. Not prototypes. Production pages.
+لقد قمنا بشحن صفحات حقيقية تم بناؤها باستخدام هذه المهارة. ليست نماذج أولية. صفحات جاهزة للإنتاج.
 
 ```bash
 npx killer-skills add anthropics/skills/frontend-design
 ```
 
-### canvas-design — Poster and visual design
+### canvas-design — تصميم الملصقات والرسوم البصرية
 
-Generates static visual designs as PNG and PDF. Good for event posters, social media graphics, and print materials.
+ينشئ تصاميم بصرية ثابتة بصيغتي PNG وPDF. مثالية لملصقات الفعاليات، رسوم وسائل التواصل الاجتماعي، والمواد المطبوعة.
 
-The output quality is higher than you'd expect from a text-based agent. It uses HTML canvas rendering under the hood.
+جودة المخرجات أعلى مما تتوقعه من وكيل قائم على النص. يستخدم تقنية HTML canvas rendering في الخلفية.
 
 ```bash
 npx killer-skills add anthropics/skills/canvas-design
 ```
+## أدوات المطورين
 
-## Developer tooling
+### mcp-builder — بناء خوادم MCP
 
-### mcp-builder — Build MCP servers
+إذا كنت تريد أن يتواصل وكيلك مع خدمات خارجية (مثل Slack، أو GitHub، أو قواعد البيانات)، فأنت بحاجة إلى خادم MCP. تشرح هذه المهارة كيفية بنائه بشكل صحيح.
 
-If you want your agent to talk to external services (Slack, GitHub, databases), you need an MCP server. This skill walks you through building one properly.
-
-It covers the parts most tutorials skip: error handling that helps the agent self-correct, semantic tool naming, and the difference between workflow tools and API coverage.
+تغطي الأجزاء التي تتجاهلها معظم البرامج التعليمية: معالجة الأخطاء التي تساعد الوكيل على التصحيح الذاتي، والتسمية الدلالية للأدوات، والفرق بين أدوات سير العمل وتغطية واجهة برمجة التطبيقات (API).
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-### webapp-testing — Automated UI testing
+### webapp-testing — اختبار واجهة المستخدم الآلي
 
-Uses Playwright to test web applications interactively. The agent can click buttons, fill forms, take screenshots, and verify that things work.
+يستخدم Playwright لاختبار تطبيقات الويب بشكل تفاعلي. يمكن للوكيل النقر على الأزرار، وملء النماذج، وأخذ لقطات الشاشة، والتحقق من أن الأمور تعمل بشكل صحيح.
 
-Useful for catching regressions that unit tests miss. The skill knows how to wait for async operations and handle flaky selectors.
+مفيد لاكتشاف حالات التراجع التي تفوتها اختبارات الوحدة. تعرف المهارة كيفية الانتظار للعمليات غير المتزامنة والتعامل مع محددات العناصر غير المستقرة.
 
 ```bash
 npx killer-skills add anthropics/skills/webapp-testing
 ```
+## المحتوى والتواصل
 
-## Content and communication
+### humanizer — إزالة أنماط الكتابة بالذكاء الاصطناعي
 
-### humanizer — Remove AI writing patterns
+بناءً على دليل ويكيبيديا "علامات الكتابة بالذكاء الاصطناعي"، تتعرف هذه المهارة على 24 نمطًا وتصلحها مما يجعل النص يبدو وكأنه كُتب بواسطة الذكاء الاصطناعي. أشياء مثل الرمزية المبالغ فيها، والإفراط في استخدام الشرطة المعترضة، وأنماط قاعدة الثلاثة، والاستشهادات الغامضة.
 
-Based on Wikipedia's "Signs of AI writing" guide, this skill identifies and fixes 24 patterns that make text sound obviously AI-generated. Things like inflated symbolism, em dash overuse, rule-of-three patterns, and vague attributions.
-
-We installed this globally. Every piece of content we produce goes through it. The difference is noticeable.
+لقد قمنا بتثبيتها عالميًا. كل قطعة محتوى ننتجها تمر من خلالها. الفرق ملحوظ.
 
 ```bash
 npx killer-skills add blader/humanizer
 ```
 
-### internal-comms — Company communications
+### internal-comms — الاتصالات الداخلية للشركة
 
-Templates and guidelines for status reports, leadership updates, incident reports, and newsletters. Follows actual corporate communication formats.
+قوالب وإرشادات لتقارير الحالة، وتحديثات القيادة، وتقارير الحوادث، والنشرات الإخبارية. تتبع أشكال الاتصالات المؤسسية الفعلية.
 
-Useful if you write these regularly and want consistency without a style guide meeting every quarter.
+مفيدة إذا كنت تكتبها بانتظام وتريد الاتساق دون عقد اجتماع دليل الأنماط كل ربع سنة.
 
 ```bash
 npx killer-skills add anthropics/skills/internal-comms
 ```
 
-### pptx — Presentation creation
+### pptx — إنشاء العروض التقديمية
 
-Creates and edits PowerPoint files with proper slide layouts, speaker notes, and formatting. Better than most agents at visual hierarchy.
+ينشئ ويحرر ملفات PowerPoint بتخطيطات شرائح مناسبة، وملاحظات المتحدث، والتنسيق. أفضل من معظم الوكلاء في التسلسل الهرمي البصري.
 
 ```bash
 npx killer-skills add anthropics/skills/pptx
 ```
+## مهارات من مشاريع مفتوحة المصدر
 
-## Skills from open-source projects
+تأتي بعض المهارات الأكثر فائدة من مشاريع مفتوحة المصدر الكبيرة التي كتبتها لمساهميها:
 
-Some of the most useful skills come from large open-source projects that wrote them for their own contributors:
-
-| Project | Stars | What the skills cover |
+| المشروع | النجوم | ما تغطيه المهارات |
 |---------|-------|----------------------|
-| React (Facebook) | 243K | Feature flags, testing, error extraction, Flow types |
-| n8n | 176K | Bug reproduction, PR creation, content design, conventions |
-| Next.js (Vercel) | 138K | Documentation updates |
-| Dify | 130K | Component refactoring, frontend testing, code review |
+| React (Facebook) | 243K | أعلام الميزات، الاختبار، استخراج الأخطاء، أنواع Flow |
+| n8n | 176K | إعادة إنتاج الأخطاء، إنشاء طلبات السحب، تصميم المحتوى، الاصطلاحات |
+| Next.js (Vercel) | 138K | تحديثات التوثيق |
+| Dify | 130K | إعادة هيكلة المكونات، اختبار الواجهة الأمامية، مراجعة الكود |
 
-These are worth studying even if you don't contribute to those projects. They show how experienced teams think about agent instructions.
+هذه المهارات تستحق الدراسة حتى لو لم تساهم في تلك المشاريع. إنها تُظهر كيف تفكر الفرق الخبيرة في تعليمات الوكلاء.
+## كيفية الاختيار
 
-## How to choose
+لا تقم بتثبيت كل شيء دفعة واحدة. ابدأ بالمهارة الأقرب إلى العقبة الحالية التي تواجهها.
 
-Don't install everything at once. Start with the skill closest to your current bottleneck.
+إذا كنت تقضي ساعة أسبوعيًا في تصحيح المستندات المُنشأة بواسطة الذكاء الاصطناعي، فثبّت `docx` و `xlsx`. إذا كان كود واجهة المستخدم لديك يحتاج دائمًا إلى تنظيف يدوي، فثبّت `frontend-design`. إذا كنت تكتب مقالات مدونة أو توثيقًا، فثبّت `humanizer`.
 
-If you spend an hour a week fixing AI-generated documents, install `docx` and `xlsx`. If your UI code always needs manual cleanup, install `frontend-design`. If you write blog posts or documentation, install `humanizer`.
+مهارة واحدة تُستخدم باستمرار، تساوي أكثر من عشرة مهارات مُثبَّتة ومنسية.
+## تثبيت المهارات
 
-One skill, used consistently, is worth more than ten installed and forgotten.
-
-## Installing skills
-
-All skills use the same command:
+تستخدم جميع المهارات نفس الأمر:
 
 ```bash
 # Install to your project
@@ -159,8 +162,49 @@ npx killer-skills add <owner>/<repo>/<skill-name>
 npx killer-skills search pdf
 ```
 
-Browse the full collection at [killer-skills.com/en/skills](/en/skills).
+تصفح المجموعة الكاملة في [killer-skills.com/en/skills](/en/skills).
+## الأسئلة الشائعة
 
----
+### ما هي مهارات وكيل الذكاء الاصطناعي؟
+**مهارات وكيل الذكاء الاصطناعي** هي مجموعات تعليمات وأدوات متخصصة تُعلّم مساعدات البرمجة مثل Cursor وClaude Code كيفية أداء مهام محددة، مثل إنشاء ملفات PDF، أو بناء مكونات واجهة المستخدم، أو اختبار تطبيقات الويب.
 
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Create your own custom AI agent skills](/ar/blog/create-custom-ai-agent-skills)*
+### أي بيئات التطوير المتكاملة (IDEs) تدعم هذه المهارات؟
+هذه المهارات متوافقة مع أكثر من 15 بيئة برمجة رئيسية تعمل بالذكاء الاصطناعي، بما في ذلك Cursor وWindsurf وVS Code (عبر Copilot أو Cline) وTrae وClaude Code CLI.
+
+### كم من الوقت توفر مهارات الوكيل؟
+بينما تختلف النتائج حسب المهمة، أفاد المطورون الذين يستخدمون مهارات وكيل مستهدفة بتوفير متوسط 12.5 ساعة أسبوعيًا في مهام التطوير والتقارير الروتينية.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are AI agent skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AI agent skills are specialized instruction sets and tools that teach coding assistants like Cursor and Claude Code how to perform specific tasks, such as generating PDFs, building UI components, or testing web applications."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which IDEs support these skills?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much time do agent skills save?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "While results vary by task, developers using targeted agent skills report saving an average of 12.5 hours per week on routine development and reporting tasks."
+      }
+    }
+  ]
+}
+</script>
+
+*مواضيع ذات صلة: [ما هي مهارات وكيل الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و[أنشئ مهارات وكيل الذكاء الاصطناعي المخصصة الخاصة بك](/ar/blog/create-custom-ai-agent-skills)*

@@ -1,71 +1,70 @@
 ---
-title: "Skill-Creator로 나만의 AI 에이전트 스킬 만들기"
-description: "공식 skill-creator 스킬을 사용하여 여러분의 워크플로우나 전문 지식을 AI 에이전트가 즉시 사용할 수 있는 '스킬'로 바꾸는 방법을 배웁니다."
+title: "Programming Your Programmers: The skill-creator Guide"
+description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
-tags: ["스킬 제작", "개발자 경험", "자동화", "오픈 소스"]
+tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
 lang: "ko"
 featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 창조의 힘: Skill-Creator로 AI를 나에게 최적화하기
+# Beyond General AI: Mastering the Skill-Creator Skill
 
-Killer-Skills 마켓플레이스에는 이미 훌륭한 스킬들이 많지만, 때로는 나만의 특정 업무 방식, 고유한 API, 또는 우리 회사만의 프로세스를 자동화하고 싶을 때가 있습니다.
+Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
 
-**skill-creator** 스킬을 사용하면 AI 에이전트에게 여러분 전용 '스킬'을 설계, 개발, 배포할 수 있게 해주는 궁극의 어시스턴트를 붙여줄 수 있습니다.
+The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
 
 ```bash
-# 에이전트에 skill-creator 스킬 장착하기
+# Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
 
-## Skill-Creator 스킬의 역할
+## What Makes a "Killer" Skill?
 
-이 스킬은 스킬을 만드는 '메타 스킬'로서 다음과 같은 단계에서 여러분을 돕습니다:
+Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
 
-### 1. 스킬 설계 및 요구사항 정의
-해결하려는 문제만 말하면 에이전트가 이를 적절한 스킬의 형태로 정의합니다.
--   **기능 특정**: 어떤 도구가 필요하고 어떤 입출력이 필요한지 명확히 합니다.
--   **베스트 프랙티스 적용**: 보안, 에러 처리, 프롬프트 엔지니어링의 표준을 적용합니다.
+### 1. Progressive Disclosure
+The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
+- **Metadata**: Just enough info to tell the AI when to use the skill.
+- **SKILL.md**: The core instructional body, loaded only when needed.
+- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
 
-### 2. 전문가급 SKILL.md 생성
-Killer-Skills의 표준 형식을 따르는 지침서(SKILL.md)를 자동으로 작성합니다.
--   **구조화된 명령**: AI 에이전트가 혼동 없이 수행할 수 있는 명확한 가이드라인.
--   **리소스 관리**: 필요한 스크립트, 템플릿, 리소스 정리.
+### 2. Matching Degrees of Freedom
+Not every task should be handled the same way:
+- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)).
+- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/ko/skills/anthropics/skills/docx) manipulation).
 
-### 3. 디렉토리 구조 자동 구축
-스킬을 구성하는 데 필요한 파일들을 체계적으로 만들어 줍니다.
--   `scripts/`: 실제 기능을 수행할 스크립트.
--   `examples/`: 사용법을 보여주는 예시.
--   `resources/`: 관련 자산.
+### 3. Procedural vs. Declarative Knowledge
+Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
+- **`scripts/`**: Executable code for repetitive, deterministic tasks.
+- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
+- **`assets/`**: Boilerplates and templates that can be copied directly.
 
-### 4. 검증 및 피드백
-생성된 스킬이 의도대로 작동하는지 테스트하고 개선점을 찾아냅니다.
+## The Skill Creation Life Cycle
 
-## 실제 사용 사례
+The `skill-creator` provides a step-by-step workflow for building your own capabilities:
+1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
+2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
+3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
+4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
 
-### 회사 전용 빌드 프로세스 스킬화
-사내 CI/CD 파이프라인이나 배포 절차, 코드 리뷰 기준을 스킬로 만들어 신입 사원의 AI 에이전트가 즉시 숙련된 개발자처럼 움직이게 합니다.
+## Practical Use Cases
 
-### 특정 SaaS와의 복잡한 연동
-사용 중인 도구의 API 조작을 스킬로 정의하여 에이전트에게 "주간 보고서 만들어서 Slack으로 보내 줘" 한 마디로 모든 작업을 끝낼 수 있습니다.
+- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
+- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
+- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
 
-### 개인 연구 워크플로우
-특정 분야의 논문을 찾고, 요약해서, 개인 데이터베이스에 저장하는 나만의 리서치 전용 스킬을 만듭니다.
+## Conclusion
 
-## Killer-Skills에서 사용하는 예시
+The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-1.  **아이디어**: "나의 AWS 배포 절차를 자동화하는 스킬을 만들고 싶어. 어떤 정보가 필요해?"
-2.  **생성**: "제공한 스크립트를 기반으로 Killer-Skills 호환 `aws-deploy` 스킬을 설계해 줘."
-3.  **문서화**: "사용법을 설명하는 `EXAMPLES.md`도 같이 만들어 줘."
+Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator).
 
-## 요약
+---
 
-`skill-creator`는 AI를 '단순한 도구'에서 '나만의 전문가'로 진화시키는 열쇠입니다. 여러분의 지식과 워크플로우를 스킬이라는 형태로 패키징함으로써 자동화의 가능성은 무한해집니다.
-
-지금 바로 [나만의 스킬 만들기](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator)에 도전하세요.
+*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/ko/skills/anthropics/skills/mcp-builder) to host it.*
 
 ---
 

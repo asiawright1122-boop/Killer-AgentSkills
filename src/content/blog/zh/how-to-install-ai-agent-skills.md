@@ -1,81 +1,81 @@
 ---
-title: "如何在 30 秒内安装 AI Agent 技能"
-description: "使用 killer-skills 命令行工具，将社区的 AI Agent 技能快速安装到 Claude Code、Cursor 或 Windsurf 中的简明指南。"
+title: "How to install AI agent skills in 30 seconds"
+description: "A quick guide to installing community AI agent skills into Claude Code, Cursor, or Windsurf using the killer-skills CLI tool."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
-tags: ["教程", "AI Agent Skills", "CLI", "开发者工具", "自动化"]
+tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
 lang: "zh"
 featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 如何安装 AI Agent 技能
+# How to install AI agent skills
 
-你找到了一个想用的 AI Agent 技能。可能是一个 [docx 自动化技能](/zh/skills/anthropics/skills/docx)，也可能是一个专门的前端 UI 生成器。现在你需要把它放进你的项目里，这样你的编程 Agent 才能读到它。
+You found an AI agent skill you want to use. Maybe it is the [docx automation skill](/en/skills/anthropics/skills/docx), or maybe a specialized frontend UI generator. Now you need to get it into your project so your coding agent can actually read it.
 
-你可以手动复制粘贴 Markdown 文本，自己建好对应的目录，再修好 frontmatter 格式。或者你可以运行一条命令，让它帮你全搞定。
+You can manually copy and paste the markdown text, create the right directories, and fix the frontmatter formatting yourself. Or you can run one command that does it for you.
 
-## killer-skills CLI 工具
+## The killer-skills CLI
 
-我们专门为此做了一个命令行工具。它负责从 GitHub 拉取技能，转换成你的 IDE（Claude Code、Cursor、Windsurf 或 GitHub Copilot）认识的格式，然后放到正确的目录里。
+We built a command-line tool specifically for this. It handles fetching the skill from GitHub, converting it to the right format for your IDE (Claude Code, Cursor, Windsurf, or GitHub Copilot), and placing it in the correct directory.
 
-你不需要永久安装它。可以直接用 `npx`（Node.js 自带）运行打包。
+You don't need to install it permanently. You can run it directly via `npx` (which comes with Node.js).
 
-打开终端，进入你的项目目录，运行：
+Open your terminal, go to your project directory, and run:
 
 ```bash
 npx killer-skills add <owner>/<repo>/<skill-name>
 ```
 
-比如，要安装 PDF 自动化技能，你运行：
+For example, to install the PDF automation skill, you run:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-这个工具会看你的项目文件来判断你在用哪个 IDE。如果它看到一个 `.cursor` 目录，就把技能格式化成 `.mdc` 文件。如果看到 `.claude` 目录，就格式化成 `SKILL.md`。
+The CLI detects which IDE you are using by looking at your project files. If it sees a `.cursor` directory, it formats the skill as an `.mdc` file. If it sees a `.claude` directory, it formats it as `SKILL.md`.
 
-## 在多个 IDE 里同时安装
+## Installing across multiple IDEs
 
-如果你的项目里同时在用多个 Agent（比如终端里用 Claude Code，编辑器用 Cursor），你可以强制 CLI 一次性为它们全部安装该技能。
+If you use multiple agents on the same project (for example, Claude Code in the terminal and Cursor as your editor), you can force the CLI to install the skill for all of them at once.
 
-只要加上 `--all` 参数：
+Just add the `--all` flag:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf --all
 ```
 
-这会在 `.claude/skills/` 和 `.cursor/rules/` 里都创建必要的文件，核心指令完全一样，但给每个 Agent 的元数据格式都对。
+This creates the necessary files in both `.claude/skills/` and `.cursor/rules/`, keeping the core instructions identical while formatting the metadata correctly for each agent.
 
-## 查找要安装的技能
+## Finding skills to install
 
-如果你知道想找什么，但不记得具体的仓库路径了，你可以直接在终端里搜：
+If you know what you are looking for but don't remember the exact repository path, you can search directly from your terminal:
 
 ```bash
 npx killer-skills search auth
 ```
 
-这会查询社区数据库并返回最匹配的结果，包括具体 Star 数和完整的安装路径。你也可以在 [Killer-Skills 网站](/zh/skills) 上浏览完整的开源目录。
+This queries the community database and returns the top matches, including their star counts and full installation paths. You can also browse the full open-source directory on the [Killer-Skills website](/en/skills).
 
-## 保持技能更新
+## Keeping skills updated
 
-技能是会进化的。作者们会添加新的边缘情况处理、修复不好的指令、提高提示词的可靠性。因为你是通过 CLI 安装的，所以更新起来同样简单。
+Skills evolve. Authors add new edge cases, fix bad instructions, and improve prompt reliability. Because you installed the skill via the CLI, you can update it just as easily.
 
 ```bash
 npx killer-skills update
 ```
 
-这会检查你安装过的所有技能，和 GitHub 上的源文件对比。在尽可能保留本地修改的同时，应用所有的更新。
+This checks all the skills you've installed, compares them to the upstream source on GitHub, and applies any updates while preserving local modifications where possible.
 
-## 底层到底发生了什么？
+## What is actually happening under the hood?
 
-当你运行 `add` 命令时，CLI 并没有在装什么可执行软件或 npm 依赖。它只是在下载文本文件。
+When you run the `add` command, the CLI isn't installing executable software or npm dependencies. It is just downloading text. 
 
-技能文件本质上就是包含大语言模型要求的说明 Markdown 文件。CLI 把那个 Markdown 拉下来，包上你的编辑器期望的那层 YAML 或 JSON 格式，然后写进本地文件夹。
+A skill is simply a markdown file with instructions for a Large Language Model. The CLI fetches that markdown, wraps it in the specific YAML or JSON format your editor expects, and writes it to a local folder. 
 
-没有后台进程，没有搜集隐私偷偷上传，没有隐藏代码。就是普通的文档，只是恰好放进了你的 AI Agent 知道去读的地方。
+There are no background processes, no phone-home telemetry, and no hidden payloads. It is just documentation, placed exactly where your AI agent knows to look for it.
 
 ---
 
-*相关阅读：[什么是 AI Agent 技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最佳 AI Agent 技能](/zh/blog/best-ai-agent-skills-2026)*
+*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*

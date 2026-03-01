@@ -1,64 +1,64 @@
 ---
-title: "Killer-Skillsの発表：AIエージェントスキルのためのマーケットプレイス"
-description: "エージェントにブラウズ、コード、クリエイトの能力を即座に付与する、AIスキルのための初のオープンスタンダードをご紹介します。"
-pubDate: 2026-02-13
+title: "Announcing Killer Skills: The Ultimate Directory for AI Agents"
+description: "We are thrilled to unveil Killer Skills, a curated marketplace of high-quality tools designed specifically for AI coding agents."
+pubDate: 2026-02-14
 author: "Killer-Skills Team"
-tags: ["発表", "AIエージェント", "MCP", "オープンソース"]
+tags: ["Announcement", "AI Agents", "MCP"]
 lang: "ja"
 featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# Killer-Skillsへようこそ：AI Agentにスーパーパワーを
+# Welcome to Killer-Skills: Superpowers for Your AI Agent
 
-本日、AIエージェント機能のための初のオープンマーケットプレイスでありレジストリである**Killer-Skills**の提供開始を発表できることを嬉しく思います。
+Today, we are thrilled to announce the launch of **Killer-Skills** — the first open marketplace and registry for AI agent capabilities.
 
-## AIエージェントの課題
+## The Problem with Today's AI Agents
 
-AIエージェント（Claude Code、Cursor、Windsurfなど）は革新的ですが、その能力は搭載されているツールに制限されることがよくあります。開発者は、PDFの操作やExcelの自動化、GitHubリポジトリの管理などの特定のタスクを実行するために、独自のMCP（Model Context Protocol）サーバーをゼロから書かなければならないことがよくありました。
+AI agents (like Claude Code, Cursor, Windsurf) are revolutionary, but their potential is often limited by the tools they can access. Until now, developers frequently had to build their own MCP (Model Context Protocol) servers from scratch for specific tasks like PDF editing, Excel automation, or managing GitHub repositories.
 
-Killer-Skillsは、これを変えます。
+Killer-Skills changes that.
 
-## Killer-Skillsとは？
+## What is Killer-Skills?
 
-Killer-Skillsは、AIエージェントが即座に発見、インストール、使用できる検証済みのプロフェッショナルなスキルの集中レジストリです。
+Killer-Skills is a centralized registry of verified, professional-grade skills that your AI agent can instantly discover, install, and use.
 
-### 主な特徴
+### Key Features
 
--   **ユニバーサルレジストリ**: 1,000以上の検証済みスキルがワンコマンドで利用可能。
--   **深いMCP統合**: AnthropicのModel Context Protocol上に構築され、エージェントとのシームレスな対話を保証します。
--   **マルチIDEサポート**: Cursor、Windsurf、Claude Code、Amp、Gooseなど、お好みのツールで動作します。
--   **セキュリティ重視**: すべてのスキルは安全に実行されるよう隔離され、検証されています。
+-   **Universal Registry**: Over 1,000 verified skills available with a single command.
+-   **Deep MCP Integration**: Built on Anthropic’s Model Context Protocol for seamless agent interaction.
+-   **Multi-IDE Support**: Works with your favorite tools like Cursor, Windsurf, Claude Code, Amp, and Goose.
+-   **Security First**: Every skill is isolated and validated for safe execution.
 
-## 今すぐ始める
+## Start Right Now
 
-エージェントを強化するのは簡単です。ターミナルで次のコマンドを実行するだけです：
+Leveling up your agent is simple. Just run the following in your terminal:
 
 ```bash
-# CLIをインストール
+# Install the CLI
 npm install -g killer-skills
 
-# スキルを検索
+# Search for a skill
 killer search google-maps
 
-# スキルをエージェントにインストール
+# Add a skill to your agent
 killer add google-maps
 ```
 
-## 未来は自律的です
+## The Future is Autonomous
 
-私たちは、エージェントが実行時に新しい能力を自ら「学習」（インストール）できる未来を信じています。Killer-Skillsはこのインフラを提供し、AIツールを接続されたインテリジェンスの広大なエコシステムに変えます。
+We believe in a future where agents can "learn" (install) new capabilities on the fly as they perform tasks. Killer-Skills provides the necessary infrastructure, turning AI tools into a vast ecosystem of connected intelligence.
 
-## 革命に参加しましょう
+## Join the Revolution
 
-Killer-Skillsはコミュニティ主導のプロジェクトです。ドキュメントを読み、[マーケットプレイス](https://killer-skills.com/ja/skills)を探索し、あなた自身のスキルの投稿を始めてください。
+Killer-Skills is a community-driven project. Explore the documentation, check out the [Marketplace](https://killer-skills.com/ja/blog), and start contributing by creating your own skills.
 
-エージェントの未来を共に築き上げましょう。
+Let's build the future of agents together.
 
 ---
 
-*Killer-Skillsチームより*
+*Your Killer-Skills Team*
 
 ---
 
