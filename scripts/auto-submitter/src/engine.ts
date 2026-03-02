@@ -57,7 +57,19 @@ export class SubmitEngine {
         // 1. 加载物料
         this.loadMeta();
 
-        // 2. 筛选站点
+        // 2. 加载历史记录 (用于避免重复提交)
+        const rootDir = path.resolve(this.baseDir, '..');
+        const historyPath = path.join(rootDir, 'data', 'submitted-history.json');
+        let submissionHistory: string[] = [];
+        try {
+            if (fs.existsSync(historyPath)) {
+                submissionHistory = JSON.parse(fs.readFileSync(historyPath, 'utf-8'));
+            }
+        } catch (e) {
+            console.warn(`⚠️ 无法加载提交历史: ${e}`);
+        }
+
+        // 3. 筛选站点
         const sites = this.filterSites();
         if (sites.length === 0) {
             console.log('❌ 没有可提交的站点');
@@ -72,14 +84,38 @@ export class SubmitEngine {
         console.log(`  👁️  显示: ${this.options.headless ? '无头模式' : '有头模式'}`);
         console.log(`${'═'.repeat(60)}\n`);
 
-        // 3. 逐站提交（串行队列，避免触发风控）
+        // 4. 逐站提交（串行队列，避免触发风控）
         for (let i = 0; i < sites.length; i++) {
             const site = sites[i];
+
+            // 检查历史记录
+            try {
+                const hostname = new URL(site.homepage).hostname.replace(/^www\./, '');
+                if (submissionHistory.includes(hostname)) {
+                    console.log(`\n[${i + 1}/${sites.length}] ⏭️  跳过 ${site.name} (已经在历史记录中)`);
+                    continue;
+                }
+            } catch { /* ignore url error */ }
+
             console.log(`\n[${i + 1}/${sites.length}] ─── ${site.name} ───`);
 
             const adapter = await this.createAdapter(site);
             const result = await adapter.execute();
             this.results.push(result);
+
+            // 更新历史记录 (成功或待审核才记录)
+            if (result.status === 'success' || result.status === 'pending_review') {
+                try {
+                    const hostname = new URL(site.homepage).hostname.replace(/^www\./, '');
+                    if (!submissionHistory.includes(hostname)) {
+                        submissionHistory.push(hostname);
+                        if (!this.options.dryRun) {
+                            fs.writeFileSync(historyPath, JSON.stringify(submissionHistory, null, 2));
+                            console.log(`  📝 历史记录已更新: ${hostname}`);
+                        }
+                    }
+                } catch { /* ignore */ }
+            }
 
             // 站间延迟（最后一个不等待）
             if (i < sites.length - 1 && this.options.delay > 0) {
@@ -88,10 +124,10 @@ export class SubmitEngine {
             }
         }
 
-        // 4. 输出报告
+        // 5. 输出报告
         this.printReport();
 
-        // 5. 保存结果到 JSON
+        // 6. 保存详细报告到 JSON
         this.saveResults();
 
         return this.results;

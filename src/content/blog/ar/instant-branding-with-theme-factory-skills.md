@@ -1,6 +1,6 @@
 ---
-title: "Instant Branding: A Guide to the Theme-Factory Skill"
-description: "Learn how to apply professional themes to your AI-generated artifacts using the official theme-factory skill. Master consistent styling for slides, docs, and web pages."
+title: "العلامة التجارية الفورية: دليل لمهارة مصنع الثيمات"
+description: "تعلم كيفية تطبيق الثيمات الاحترافية على القطع الفنية المُولدة بواسطة الذكاء الاصطناعي باستخدام مهارة مصنع الثيمات الرسمي. أتقن التنسيق المتسق للشرائح والمستندات وصفحات الويب."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]
@@ -9,67 +9,61 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2560&auto=format&fit=crop"
 ---
+# الاحترافية الفورية: كيف يرفع Theme-Factory مستوى مخرجات الذكاء الاصطناعي لديك
 
-# Instant Professionalism: How Theme-Factory Elevates Your AI Output
+عندما ينشئ وكيل الذكاء الاصطناعي عرضًا تقديميًا أو صفحة هبوط، قد يكون المحتوى رائعًا، لكن "المظهر والشعور العام" غالبًا ما يفتقر إلى التماسك. الهوية البصرية ليست مجرد طبقة ثانوية؛ إنها اللغة المرئية التي تُرسي الثقة والسلطة.
 
-When an AI agent generates a slide deck or a landing page, the content might be brilliant, but the "look and feel" often lacks cohesion. Branding isn't just a secondary layer; it's the visual language that establishes trust and authority.
-
-The official **theme-factory** skill from Anthropic solving this problem by providing a curated library of professional design systems. Whether you are building a corporate report or a creative portfolio, this skill allows your AI agent to apply consistent, high-end styling in seconds.
+مهارة **theme-factory** الرسمية من Anthropic تحل هذه المشكلة من خلال توفير مكتبة مختارة من أنظمة التصميم الاحترافية. سواء كنت تبني تقريرًا مؤسسيًا أو ملفًا تعريفيًا إبداعيًا، تسمح لك هذه المهارة لوكيل الذكاء الاصطناعي الخاص بك بتطبيق أنماط متسقة وعالية الجودة في ثوانٍ.
 
 ```bash
-# Equip your agent with theme-factory
+# جهز وكيلك بـ theme-factory
 npx killer-skills add anthropics/skills/theme-factory
 ```
+## ما هي مهارة Theme-Factory؟
 
-## What is the Theme-Factory Skill?
+`theme-factory` هو محرك تنسيق مصمم خصيصًا لعناصر البيانات التي تم إنشاؤها بواسطة الذكاء الاصطناعي. يعمل عن طريق فك ربط المحتوى من العرض، مما يسمح للوكلاء بالتبديل بين "الأقنعة" دون التأثير على البيانات التحتية.
 
-`theme-factory` is a styling engine designed specifically for AI-generated artifacts. It works by decoupling content from presentation, allowing agents to swap "skins" without affecting the underlying data.
+### 1. مواضيع احترافية محددة
+تأتي المهارة مع 10 مواضيع مسبقة الإعداد، كل واحدة منها تشمل:
+- **لوحات ألوان متجانسة**: رموز十六ية محددة يدويًا للألوان الرئيسية والثانوية والأكцент.
+- **تركيبات خطوط مکملة**: خطوط رأس وخطوط جسد محددة مهنيًا.
+- **الهوية البصرية**: مزاج متميز مصمم لأداء الجماهير المحددة.
 
-### 1. Curated Professional Themes
-The skill comes with 10 pre-set themes, each including:
-- **Cohesive Color Palettes**: Hand-picked hex codes for primary, secondary, and accent colors.
-- **Complementary Font Pairings**: Professionally matched header and body fonts.
-- **Visual Identity**: A distinct mood tailored for specific audiences.
+### 2. توليد المواضيع في الوقت الفعلي
+إذا لم تتناسب المواضيع المسبقة الإعداد، يمكن للمهارة توليد موضوع جديد من الصفر بناءً علىوصف بسيط مثل "التمويل السيبراني" أو "الرفاهية الصديقة للبيئة".
+## استكشاف القوالب الأولية
 
-### 2. On-the-Fly Theme Generation
-If the pre-set themes don't fit, the skill can generate a brand-new theme from scratch based on simple descriptions like "Cyberpunk Finance" or "Eco-Friendly Wellness."
+إليك بعض القوالب عالية الجودة المتاحة مباشرة:
 
-## Exploring the Starter Themes
+- **أعماق المحيط**: احترافي وهادئ وذو طابع بحري—مثالي للتمويل المؤسسي.
+- **التقليلية الحديثة**: جمالية معاصرة وأنيقة بتدرجات الرمادي لشركات التقنية الناشئة.
+- **مجرة منتصف الليل**: نغمات عميقة درامية وكوزمولوجية للعروض التقديمية عالية التأثير.
+- **ظلة الغابة**: نغمات أرضية طبيعية وثابتة لمشاريع الاستدامة أو العافية.
+- **ابتكار التقنية**: جمالية تقنية حديثة وجريئة للمطورين والمهندسين.
+## لماذا يهم العلامة التجارية لموكلات الذكاء الاصطناعي
 
-Here are some of the high-end themes available out of the box:
+من أجل المطورين ومديري المنتجات الذين يستخدمون موكلات الذكاء الاصطناعي لبناء أدوات مثل [@Web Artifacts](https://killer-skills.com/ar/blog/mastering-generative-art-with-claudecode-skills) ، فإن الاتساق هو أكبر تحد. بدون نظام شامل ، قد يكون لكل مكون جديد لون أزرق مختلف أو وزن خط قليلا مختلفا.
 
-- **Ocean Depths**: Professional, calming, and maritime—perfect for corporate finance.
-- **Modern Minimalist**: A clean, contemporary grayscale aesthetic for tech startups.
-- **Midnight Galaxy**: Dramatic and cosmic deep tones for high-impact presentations.
-- **Forest Canopy**: Natural and grounded earth tones for sustainability or wellness projects.
-- **Tech Innovation**: Bold and modern tech aesthetic for developers and engineers.
+`theme-factory` يضمن ذلك:
+- **الاتساق**: يبدو مشروعك كله كما لو تم تصميمه بواسطة شخص واحد.
+- **السرعة**: لا تحتاج إلى كتابة متغيرات CSS يدوياً لكل صفحة جديدة.
+- **الجودة**: تستفيد من مبادئ التصميم المتضمنة في أسس المهارة.
+## كيفية استخدام Theme-Factory مع Killer-Skills
 
-## Why Branding Matters for AI Agents
+1.  **التثبيت**: استخدم واجهة سطر الأوامر (CLI) لإضافة المهارة إلى مشروعك.
+2.  **المعرض**: اطلب من وكيلك "عرض معرض السمات" لرؤية جميع الأنماط المرئية العشرة.
+3.  **التطبيق**: أَمِر الوكيل بأن "يطبق سمة 'أعماق المحيط' على تقريري الحالي."
+4.  **التخصيص**: إذا لزم الأمر، اطلب "نسخة دافئة ونابضة بالحياة من سمة 'جادة الغروب'."
+## الخاتمة
 
-For developers and product managers using AI agents to build tools like [Web Artifacts](https://killer-skills.com/ar/blog/mastering-generative-art-with-claudecode-skills), consistency is the biggest challenge. Without a theme system, every new component might have a different color blue or a slightly different font weight.
+تتحول مهارة `theme-factory` وكيل الذكاء الاصطناعي الخاص بك من مبرمج بسيط إلى مصمم واعٍ بالهوية التجارية. من خلال ضمان أن تكون كل قطعة منتجة جميلة ومتسقة، ترفع هذه المهارة سقف ما يمكن تحقيقه بواسطة المحتوى المُنشَأ بالذكاء الاصطناعي.
 
-`theme-factory` ensures that:
-- **Consistency**: Your entire project looks like it was designed by a single person.
-- **Speed**: You don't have to manually write CSS variables for every new page.
-- **Quality**: You leverage design principles built into the skill's foundations.
-
-## How to use Theme-Factory with Killer-Skills
-
-1.  **Install**: Use the CLI to add the skill to your project.
-2.  **Showcase**: Ask your agent to "show the theme showcase" to see all 10 visual styles.
-3.  **Apply**: Command the agent to "Apply the 'Ocean Depths' theme to my current report."
-4.  **Customize**: If needed, ask for a "warm and vibrant version of the 'Sunset Boulevard' theme."
-
-## Conclusion
-
-The `theme-factory` skill transforms your AI agent from a simple coder into a brand-conscious designer. By ensuring every artifact is beautiful and consistent, it raises the bar for what AI-generated content can achieve.
-
-Check out the [theme-factory skill](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) on the Killer-Skills Marketplace today and give your projects the professional edge they deserve.
+اطلع على [مهارة theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) في سوق Killer-Skills اليوم وامنح مشاريعك اللمسة الاحترافية التي تستحقها.
 
 ---
 
-*Want to build the components themselves? Pair this with [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design) for the ultimate web development workflow.*
+*هل تريد بناء المكونات بنفسك؟ زود هذه المهارة بـ [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design) لتحصل على سير عمل مثالي لتطوير الويب.*
 
 ---
 
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*مواضيع ذات صلة: [ما هي مهارات وكيل الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكيل الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

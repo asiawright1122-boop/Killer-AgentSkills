@@ -1,6 +1,6 @@
 ---
-title: "The Collaboration Engine: Mastering the Doc-Coauthoring Skill"
-description: "Learn how to write world-class documentation with the official doc-coauthoring skill. Discover the 3-stage workflow for PRDs, specs, and proposals."
+title: "محرك التعاون: إتقان مهارة التعاون في المستندات"
+description: "تعلم كيف تكتب مستندات من الدرجة الأولى مع مهارة التعاون في المستندات الرسمية. اكتشف تدفق العمل 三-مرحلي للنماذج الأولية و المواصفات و العروض"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
@@ -9,67 +9,59 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
+# اكتب بشكل أفضل وأسرع: وفاء مهارة التأليف الوثائقي
 
-# Write Better, Faster: Unlocking the Doc-Coauthoring Skill
+الكتابة الوثائقية غالبًا ما تكون الجزء الأكثر كرهًا من كونك مطورًا أو مديرًا للمنتج. نحن نعرف ما نريد قوله، ولكن نقل هذه المعرفة من أدمغتنا إلى صفحة منظمة - وضمان فهمها من قبل الآخرين - هو تحدي إدراكي شديد.
 
-Writing documentation is often the most dreaded part of being a developer or product manager. We know what we want to say, but transferring that knowledge from our brains to a structured page—ensuring it makes sense to others—is a cognitive heavy lift.
-
-The official **doc-coauthoring** skill from Anthropic transforms your AI agent into a senior technical editor and strategic partner. It doesn't just "write for you"; it guides you through a rigorous, high-fidelity collaboration process that ensures your PRDs, design docs, and proposals are bulletproof.
+المهارة الرسمية **للتأليف الوثائقي** من Anthropic تحول وكيلك الاصطناعي إلى محرر تقني كبير وشركاء استراتيجي. لا يكتب فقط "من أجل你"، بل يرشدك خلال عملية تعاون شديدة الصرامة وذات جودة عالية تضمن أن تكون وثائقك وتصاميمك واقتراحاتك محكمة ومقناعة.
 
 ```bash
 # Equip your agent with the doc-coauthoring skill
 npx killer-skills add anthropics/skills/doc-coauthoring
 ```
+## ما هي مهارة التأليف المشترك للوثائق؟
 
-## What is the Doc-Coauthoring Skill?
+مهارة `doc-coauthoring` هي محرك لorchestration سير عمل رسمي. يقسم المهمة الهائلة لكتابة وثيقة إلى ثلاث مراحل منفصلة ومنظمة.
 
-The `doc-coauthoring` skill is a formal workflow orchestration engine. It breaks down the monumental task of writing a document into three distinct, manageable stages.
+### المرحلة 1: الغوص العميق في السياق
+يخفق التوثيق عندما لا يكون هناك سياق كافٍ. في هذه المرحلة:
+- **إلقاء المعلومات**: توفر الأفكار الخام أو روابط Slack أو سجلات المحطة الطرفية.
+- **أسئلة توضيحية**: يطرح الوكيل 5-10 أسئلة محددة لإغلاق "فجوة المعرفة" ، وضمان فهمه *السبب* وراء المشروع ، وليس فقط *الماهية*.
 
-### Stage 1: The Context Deep-Dive
-Documentation fails when there isn't enough context. In this stage:
-- **Info Dumping**: You provide raw thoughts, Slack links, or terminal logs.
-- **Clarifying Questions**: The agent asks 5-10 specific questions to close the "knowledge gap," ensuring it understands the *why* behind the project, not just the *what*.
+### المرحلة 2: تحسين الهيكل
+مرة واحدة يتم جمع السياق ، يقوم الوكيل ببناء الوثيقة قسمًا قسمًا:
+- **العصف الذهني**:对于 كل قسم ، يقدم الوكيل 5-20 خيارًا أو زاوية للتغطية.
+- **المراجعة الجراحية**: بدلاً من إعادة طباعة الوثيقة بالكامل ، يستخدم تحريرًا دقيقًا لتحسين المحتوى بناءً على تعليقاتك ، وتعلم "صوتك" في الطريق.
 
-### Stage 2: Structural Refinement
-Once the context is gathered, the agent builds the document section by section:
-- **Brainstorming**: For every section, the agent offers 5-20 options or angles to cover.
-- **Surgical Drafting**: Instead of re-printing the whole doc, it uses precise edits to refine content based on your feedback, learning your "voice" along the way.
+### المرحلة 3: "اختبار القارئ" (السلاح السري)
+ميزة الأكثر فريدية من هذه المهارة هي **اختبار القارئ**. يستدعي الوكيل "وكيلًا جديدًا" - واحدًا بدون سياق للتعرف على محادثتك - ويسأله قراءة الوثيقة والإجابة على الأسئلة.
+إذا كان الوكيل الجديد يخطئ في شيء ما أو يجد تعليمات غامضة ، فستدرك أن قراءك البشر سي فعلون الشيء نفسه. Этот عملية تلتقط "نقاط عمياء" قبل النشر.
+## لماذا يحبها الفرق التقنية
 
-### Stage 3: The "Reader Test" (The Secret Weapon)
-The most unique feature of this skill is **Reader Testing**. The agent invokes a "fresh" sub-agent—one with zero context of your conversation—and asks it to read the document and answer questions.
-If the fresh agent gets something wrong or finds an instruction ambiguous, you know your human readers will too. This process catches "blind spots" before you hit published.
+لفريق الهندسة البرمجية، هذه المهارة هي مغير اللعبة ل:
+- **وثائق التصميم و PRDs**: ضمان توثيق كل الاختيارات التقنية و تغطية كل حالة حافة.
+- **RFCs (طلب التعليقات)**: بناء الإجماع من خلال إنشاء وثائق واضحة و موجزة و متسقة منطقيا.
+- **دلائل الإعداد**: التحقق من أن دلائل "البدء" الخاصة بك تعمل بالفعل من خلال تشغيلها عبر اختبار قارئ الوكيل الفرعي.
+## الحالات العملية
 
-## Why Technical Teams Love It
+### من دردشة Slack إلى وثيقة متطلبات المنتج
+الصق خيطًا طويلاً من دردشة Slack حول ميزة جديدة في وكيلك. استخدم مهارة `doc-coauthoring` لتنظيم تلك المناقشات غير المنظمة في وثيقة احترافية لمتطلبات المنتج.
 
-For software engineering teams, this skill is a game-changer for:
-- **PRDs & Design Docs**: Ensure that every technical trade-off is documented and every edge case is covered.
-- **RFCs (Request for Comments)**: Build consensus by creating documents that are clear, concise, and logically consistent.
-- **Onboarding Guides**: Verify that your "getting started" guides actually work by running them through a sub-agent reader test.
+### فحص المنطق الآلي
+اطلب من الوكيل "اختبار القارئ" للمواصفات الفنية الخاصة بك لمعرفة ما إذا كان يمكن لمطوّر تنفيذ الميزة بالاعتماد *فقط* على النص المقدم.
+## كيفية استخدامه مع Killer-Skills
 
-## Practical Use Cases
+1.  **تثبيت**: `npx killer-skills add anthropics/skills/doc-coauthoring`
+2.  **تنشيط**: "أريد صياغة مقترح تقني ل واجهة برمجة التطبيقات الجديدة. دعونا نستخدم تدفق عمل توثيق التعاون."
+3.  **تعاون**: اتبع قيادة الوكيل خلال المراحل الثلاث.
+## الاستنتاج
 
-### From Slack Chat to PRD
-Paste a long Slack thread about a new feature into your agent. Use the `doc-coauthoring` skill to structure those messy discussions into a professional Product Requirement Document.
+يرفع مهارة `doc-coauthoring` العبارة لما يمكن أن يكون عليه الكتابة بمساعدة الذكاء الاصطناعي. فهي تحول مهمة شاقة ومنفرة إلى حوار منظم وذو جودة عالية.
 
-### Automated Logic Check
-Ask the agent to "Reader Test" your technical spec to see if a developer could implement the feature based *only* on the text provided.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/doc-coauthoring`
-2.  **Trigger**: "I want to draft a technical proposal for our new API. Let's use the doc-coauthoring workflow."
-3.  **Collaborate**: Follow the agent's lead through the three stages.
-
-## Conclusion
-
-The `doc-coauthoring` skill raises the bar for what AI-assisted writing can be. It turns a solitary, exhausting task into a structured, high-quality dialogue. 
-
-Visit the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring) to download the skill and start writing documents that actually work.
+زر الموقع [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring) لتحميل المهارة وبدء كتابة المستندات التي تعمل فعلاً.
 
 ---
-
-*Need to finalize the formatting? Pair this with the [docx skill](https://killer-skills.com/ar/skills/anthropics/skills/docx) for a professional Word export.*
+* تحتاج إلى تحديد التنسيق النهائي؟ ادمج هذا مع مهارة [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) للحصول على تصديرprofessionel من Word.
 
 ---
-
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*متعلق: [ما هي مهارات الوكيل الذكي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات الوكيل الذكي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

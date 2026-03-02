@@ -1,6 +1,6 @@
 ---
-title: "How to install AI agent skills in 30 seconds"
-description: "A quick guide to installing community AI agent skills into Claude Code, Cursor, or Windsurf using the killer-skills CLI tool."
+title: "30"
+description: "CLI"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,73 +9,66 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+# AIエージェントのスキルをインストールする方法
 
-# How to install AI agent skills
+あなたは使用したいAIエージェントのスキルを見つけた。たぶんそれは、[docx自動化スキル](/en/skills/anthropics/skills/docx)か、特殊なフロントエンドUIジェネレーターである。ここで、あなたはそれをプロジェクトに組み込む必要があるので、コーディングエージェントが実際にそれを読むことができるようになる。
 
-You found an AI agent skill you want to use. Maybe it is the [docx automation skill](/en/skills/anthropics/skills/docx), or maybe a specialized frontend UI generator. Now you need to get it into your project so your coding agent can actually read it.
-
-You can manually copy and paste the markdown text, create the right directories, and fix the frontmatter formatting yourself. Or you can run one command that does it for you.
-
+あなたは手動でマークダウンテキストをコピーして貼り付け、正しいディレクトリを作成し、フロントマターのフォーマットを自分で修正することができます。あるいは、すべてを自動化する1つのコマンドを実行することができます。
 ## The killer-skills CLI
 
-We built a command-line tool specifically for this. It handles fetching the skill from GitHub, converting it to the right format for your IDE (Claude Code, Cursor, Windsurf, or GitHub Copilot), and placing it in the correct directory.
+私たちはこれ専用のコマンドラインツールを作成しました。これは、GitHubからスキルを取得し、IDE (Claude Code、Cursor、Windsurf、またはGitHub Copilot) に適した形式に変換し、正しいディレクトリに配置することを扱います。
 
-You don't need to install it permanently. You can run it directly via `npx` (which comes with Node.js).
+永久的にインストールする必要はありません。Node.js に付属する `npx` を介して直接実行できます。
 
-Open your terminal, go to your project directory, and run:
+ターミナルを開き、プロジェクトディレクトリに移動し、次のコマンドを実行します：
 
 ```bash
 npx killer-skills add <owner>/<repo>/<skill-name>
 ```
 
-For example, to install the PDF automation skill, you run:
+例えば、PDF自動化スキルをインストールするには、次のコマンドを実行します：
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-The CLI detects which IDE you are using by looking at your project files. If it sees a `.cursor` directory, it formats the skill as an `.mdc` file. If it sees a `.claude` directory, it formats it as `SKILL.md`.
+CLI はプロジェクトファイルを調べて、使用している IDE を検出します。 `.cursor` ディレクトリが見つかると、スキルを `.mdc` ファイルとしてフォーマットします。 `.claude` ディレクトリが見つかると、`SKILL.md` としてフォーマットします。
+## 複数のIDEでのインストール
 
-## Installing across multiple IDEs
+同一プロジェクトで複数のエージェントを使用する場合（たとえば、ターミナルでClaude Codeを使用し、Cursorをエディターとして使用する場合）、CLIにすべてのエージェントに対してスキルを一度にインストールするように強制できます。
 
-If you use multiple agents on the same project (for example, Claude Code in the terminal and Cursor as your editor), you can force the CLI to install the skill for all of them at once.
-
-Just add the `--all` flag:
+`--all` フラグを追加するだけです：
 
 ```bash
 npx killer-skills add anthropics/skills/pdf --all
 ```
 
-This creates the necessary files in both `.claude/skills/` and `.cursor/rules/`, keeping the core instructions identical while formatting the metadata correctly for each agent.
+これにより、`.claude/skills/` と `.cursor/rules/` の両方に必要なファイルが作成され、コアの指示は同一のままですが、メタデータは各エージェントに正しくフォーマットされます。
+## スキルをインストールするための検索
 
-## Finding skills to install
-
-If you know what you are looking for but don't remember the exact repository path, you can search directly from your terminal:
+正確なリポジトリパスを覚えていない場合でも、ターミナルから直接検索できます：
 
 ```bash
 npx killer-skills search auth
 ```
 
-This queries the community database and returns the top matches, including their star counts and full installation paths. You can also browse the full open-source directory on the [Killer-Skills website](/en/skills).
+コミュニティデータベースを検索して、スター数やフルインストールパスを含む上位の一致を返します。さらに、[Killer-Skills ウェブサイト](/en/skills)でオープンソースディレクトリを全て閲覧することもできます。
+## スキルの最新化
 
-## Keeping skills updated
-
-Skills evolve. Authors add new edge cases, fix bad instructions, and improve prompt reliability. Because you installed the skill via the CLI, you can update it just as easily.
+スキルは進化します。著者は新しいエッジケースを追加し、悪い説明を修正し、プロンプトの信頼性を向上させます。CLI経由でスキルをインストールしたため、同じように簡単に更新できます。
 
 ```bash
 npx killer-skills update
 ```
 
-This checks all the skills you've installed, compares them to the upstream source on GitHub, and applies any updates while preserving local modifications where possible.
+これにより、インストールしたすべてのスキルをチェックし、GitHub上のアップストリームソースと比較し、可能な限りローカル変更を保存しながら更新を適用します。
+## 実際に何が起こっているのか？
 
-## What is actually happening under the hood?
+`add` コマンドを実行すると、CLI は実行可能なソフトウェアや npm の依存関係をインストールしません。ただテキストをダウンロードするだけです。
 
-When you run the `add` command, the CLI isn't installing executable software or npm dependencies. It is just downloading text. 
+スキルは、単に Large Language Model に対する指示を含む Markdown ファイルです。CLI は、その Markdown を取得し、エディターが期待する特定の YAML または JSON形式でラップし、ローカルフォルダーに書き込みます。
 
-A skill is simply a markdown file with instructions for a Large Language Model. The CLI fetches that markdown, wraps it in the specific YAML or JSON format your editor expects, and writes it to a local folder. 
-
-There are no background processes, no phone-home telemetry, and no hidden payloads. It is just documentation, placed exactly where your AI agent knows to look for it.
+バックグラウンドプロセスはありません。電話ホームのテレメトリーや隠れたペイロードもありません。ただのドキュメントで、AI エージェントがそれを探す場所に正確に配置されます。
 
 ---
-
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*
+* 関連情報: [AI エージェントのスキルとは何か？](/ja/blog/what-are-ai-agent-skills) と [2026 年のベスト AI エージェントスキル](/ja/blog/best-ai-agent-skills-2026)

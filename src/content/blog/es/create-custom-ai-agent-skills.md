@@ -1,6 +1,6 @@
 ---
-title: "Programming Your Programmers: The skill-creator Guide"
-description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
+title: "Programar a tus programadores: La guía del creador de habilidades"
+description: "Aprende a crear habilidades de IA efectivas utilizando la herramienta del creador de habilidades. Domina el arte de capacidades de IA modulares con conocimientos especializados y flujos de trabajo."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
@@ -9,63 +9,58 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
+# Más allá de la IA general: Dominar la habilidad de creador de habilidades
 
-# Beyond General AI: Mastering the Skill-Creator Skill
+La Inteligencia Artificial es inherentemente general. Sabe un poco sobre todo, pero carece del conocimiento específico y procedural de tus procesos comerciales únicos o patrones de codificación favoritos. Para cerrar esta brecha, no necesitamos "más entrenamiento"—necesitamos **Habilidades**.
 
-Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
-
-The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
+La habilidad de **creador de habilidades** es el plan maestro para ampliar las capacidades de agentes de IA como Claude. Te enseña cómo empaquetar conocimientos especializados, scripts deterministas y flujos de trabajo probados en guías de "incorporación" modulares que transforman a una IA de propósito general en un experto en un dominio especializado.
 
 ```bash
 # Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
+## ¿Qué hace que una habilidad sea "letal"?
 
-## What Makes a "Killer" Skill?
+Crear una habilidad no se trata solo de volcar documentación en una carpeta. Se trata de **eficiencia de contexto** y **grados de libertad**. La habilidad `skill-creator` enfatiza varios principios arquitectónicos básicos:
 
-Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
+### 1. Divulgación progresiva
+El recurso más crítico en la era de la IA es la **ventana de contexto**. Una habilidad bien diseñada utiliza un sistema de carga de tres niveles:
+- **Metadatos**: Solo la información necesaria para indicarle a la IA cuándo utilizar la habilidad.
+- **SKILL.md**: El cuerpo instructivo principal, cargado solo cuando se necesita.
+- **Recursos empaquetados**: Scripts y referencias cargados según sea necesario, manteniendo el conjunto de instrucciones principales lean.
 
-### 1. Progressive Disclosure
-The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
-- **Metadata**: Just enough info to tell the AI when to use the skill.
-- **SKILL.md**: The core instructional body, loaded only when needed.
-- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
+### 2. Grados de libertad coincidentes
+No todas las tareas deben manejarse de la misma manera:
+- **Alta libertad**: Instrucciones de texto puro para tareas que requieren heurísticas creativas (por ejemplo, [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design)).
+- **Baja libertad**: Scripts rígidos para operaciones frágiles y deterministas (por ejemplo, manipulación de [docx](https://killer-skills.com/es/skills/anthropics/skills/docx)).
 
-### 2. Matching Degrees of Freedom
-Not every task should be handled the same way:
-- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design)).
-- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/es/skills/anthropics/skills/docx) manipulation).
+### 3. Conocimiento procedimental vs. declarativo
+No solo le diga a la IA *qué* hacer; proporciónele las *herramientas* para hacerlo. La habilidad `skill-creator` fomenta el uso de:
+- **`scripts/`**: Código ejecutable para tareas repetitivas y deterministas.
+- **`references/`**: Especificaciones técnicas y esquemas que no necesitan estar en la memoria principal en todo momento.
+- **`assets/`**: Plantillas y modelos que se pueden copiar directamente.
+## El Ciclo de Vida de Creación de Habilidades
 
-### 3. Procedural vs. Declarative Knowledge
-Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
-- **`scripts/`**: Executable code for repetitive, deterministic tasks.
-- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
-- **`assets/`**: Boilerplates and templates that can be copied directly.
+El `skill-creator` proporciona un flujo de trabajo paso a paso para construir tus propias capacidades:
+1.  **Inicializar**: Utiliza `init_skill.py` para generar la estructura de directorios estandarizada.
+2.  **Implementación**: Identifica recursos reutilizables — ¿qué partes de esta tarea no te gustaría explicar dos veces?
+3.  **Refinar SKILL.md**: Escribe instrucciones concisas e imperativas. Asume que la IA ya es inteligente; solo dile lo que *no* sabe.
+4.  **Empaquetar**: Utiliza `package_skill.py` para validar y crear un archivo `.skill` listo para distribuir.
+## Casos de Uso Prácticos
 
-## The Skill Creation Life Cycle
+- **Integración de empresa**: Crea una habilidad que enseñe a Claude tus estándares de codificación internos y las pautas de revisión de PR.
+- **APIs proprietarias**: Empaqueta la documentación de tu API interna y los scripts de ayuda en una herramienta instantáneamente usable.
+- **Flujos de Trabajo Complejos**: Crea una habilidad para tareas especializadas como auditorías de SEO, modelado financiero o revisión de documentos legales.
+## Conclusión
 
-The `skill-creator` provides a step-by-step workflow for building your own capabilities:
-1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
-2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
-3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
-4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
+El poder de la IA no reside solo en el modelo; está en la **infraestructura** que lo rodea. Con la habilidad `skill-creator`, pasas de ser un "ingeniero de prompts" a un "arquitecto de capacidades". No solo le estás diciendo a la IA qué hacer; le estás enseñando cómo aprender.
 
-## Practical Use Cases
-
-- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
-- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
-- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
-
-## Conclusion
-
-The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
-
-Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/es/skills/anthropics/skills/skill-creator).
+Comienza a crear tu espacio de trabajo de IA personalizado hoy en el [Mercado de Habilidades Killer-Skills](https://killer-skills.com/es/skills/anthropics/skills/skill-creator).
 
 ---
 
-*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/es/skills/anthropics/skills/mcp-builder) to host it.*
+*¿Listo para implementar tu nueva habilidad? Aprende cómo [construir un servidor MCP](https://killer-skills.com/es/skills/anthropics/skills/mcp-builder) para alojarla.*
 
 ---
 
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*
+*Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/what-are-ai-agent-skills) y [Las mejores habilidades de los agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*

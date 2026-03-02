@@ -315,7 +315,12 @@ export class GenericFormAdapter extends BaseAdapter {
         }
     }
 
-    private async clickSubmitButton(page: Page) {
+    protected async clickSubmitButton(page: Page) {
+        if (this.ctx.dryRun) {
+            this.log(`  [Dry Run] 跳过点击提交按钮`);
+            return;
+        }
+
         // 策略 1：type="submit" 按钮
         const submitBtn = page.locator('button[type="submit"], input[type="submit"]');
         if (await submitBtn.count() > 0) {

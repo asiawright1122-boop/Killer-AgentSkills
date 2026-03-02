@@ -1,6 +1,6 @@
 ---
-title: "The Collaboration Engine: Mastering the Doc-Coauthoring Skill"
-description: "Learn how to write world-class documentation with the official doc-coauthoring skill. Discover the 3-stage workflow for PRDs, specs, and proposals."
+title: "Движок Сотрудничества: Освоение Навыка Совместного Создания Документации"
+description: "Узнайте, как создавать документацию мирового класса с помощью официального навыка совместного создания документов. Откройте для себя 3-этапный рабочий процесс для технических требований к продуктам, спецификаций и предложений."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
@@ -9,67 +9,59 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
+# Напишите Лучше, Быстрее: Раскрывая Навык Совместного Создания Документации
 
-# Write Better, Faster: Unlocking the Doc-Coauthoring Skill
+Написание документации часто является наиболее непривлекательной частью работы разработчика или менеджера продукта. Мы знаем, что хотим сказать, но перенос знаний из нашего мозга на структурированную страницу — обеспечение того, что это имеет смысл для других — является значительным когнитивным усилием.
 
-Writing documentation is often the most dreaded part of being a developer or product manager. We know what we want to say, but transferring that knowledge from our brains to a structured page—ensuring it makes sense to others—is a cognitive heavy lift.
-
-The official **doc-coauthoring** skill from Anthropic transforms your AI agent into a senior technical editor and strategic partner. It doesn't just "write for you"; it guides you through a rigorous, high-fidelity collaboration process that ensures your PRDs, design docs, and proposals are bulletproof.
+Официальный **навык совместного создания документации** от Anthropic превращает ваш агент ИИ в старшего технического редактора и стратегического партнера. Он не просто "пишет за вас"; он руководит вами через строгий, высококачественный процесс сотрудничества, который гарантирует, что ваши технические требования к продукту, дизайн-документы и предложения являются безупречными.
 
 ```bash
 # Equip your agent with the doc-coauthoring skill
 npx killer-skills add anthropics/skills/doc-coauthoring
 ```
+## Что такое навык совместного создания докуметов?
 
-## What is the Doc-Coauthoring Skill?
+Навык `doc-coauthoring` представляет собой формальный движок оркестровки рабочих процессов. Он разбивает монументальную задачу написания документа на три отдельных, управляемых этапа.
 
-The `doc-coauthoring` skill is a formal workflow orchestration engine. It breaks down the monumental task of writing a document into three distinct, manageable stages.
+### Этап 1: Глубокое погружение в контекст
+Документация терпит неудачу, когда контекста недостаточно. На этом этапе:
+- **Сброс информации**: Вы предоставляете сырые мысли, ссылки на Slack или журналы терминала.
+- **Разъясняющие вопросы**: Агент задает 5-10 конкретных вопросов, чтобы закрыть "пробел в знаниях" и убедиться, что он понимает *почему* проект был создан, а не только *что*.
 
-### Stage 1: The Context Deep-Dive
-Documentation fails when there isn't enough context. In this stage:
-- **Info Dumping**: You provide raw thoughts, Slack links, or terminal logs.
-- **Clarifying Questions**: The agent asks 5-10 specific questions to close the "knowledge gap," ensuring it understands the *why* behind the project, not just the *what*.
+### Этап 2: Уточнение структуры
+Как только контекст собран, агент строит документ раздел за разделом:
+- **Генерация идей**: Для каждого раздела агент предлагает 5-20 вариантов или углов для освещения.
+- **Хирургическая доработка**: Вместо того, чтобы повторно печатать весь документ, он использует точные правки, чтобы доработать контент на основе вашей обратной связи, изучая ваш "тон" по ходу дела.
 
-### Stage 2: Structural Refinement
-Once the context is gathered, the agent builds the document section by section:
-- **Brainstorming**: For every section, the agent offers 5-20 options or angles to cover.
-- **Surgical Drafting**: Instead of re-printing the whole doc, it uses precise edits to refine content based on your feedback, learning your "voice" along the way.
+### Этап 3: "Тест на чтение" (Секретное оружие)
+Самой уникальной особенностью этого навыка является **тест на чтение**. Агент вызывает "свежего" подагента - одного, который не имеет контекста вашего разговора - и просит его прочитать документ и ответить на вопросы.
+Если свежий агент что-то неправильно понимает или находит инструкцию неоднозначной, вы знаете, что ваши человеческие читатели также столкнутся с этой проблемой. Этот процесс выявляет "слепые зоны" до публикации.
+## Почему Это Любят Технические Команды
 
-### Stage 3: The "Reader Test" (The Secret Weapon)
-The most unique feature of this skill is **Reader Testing**. The agent invokes a "fresh" sub-agent—one with zero context of your conversation—and asks it to read the document and answer questions.
-If the fresh agent gets something wrong or finds an instruction ambiguous, you know your human readers will too. This process catches "blind spots" before you hit published.
+Для команд программной инженерии этот навык является прорывом для:
+- **PRD и Документов Дизайна**: Обеспечьте, чтобы каждый технический компромисс был задокументирован и каждый крайний случай был учтён.
+- **RFC (Запрос На Комментарии)**: Постройте консенсус, создавая документы, которые являются ясными, краткими и логически последовательными.
+- **Руководств по Вводу в Эксплуатацию**: Проверьте, что ваши "руководства по началу работы" действительно работают, пройдя их через тест чтения субагента.
+## Практические случаи использования
 
-## Why Technical Teams Love It
+### От чата Slack к PRD
+Вставьте длинный чат Slack о новой функции в ваш агент. Используйте навык `doc-coauthoring`, чтобы структурировать эти беспорядочные обсуждения в профессиональный документ требований к продукту.
 
-For software engineering teams, this skill is a game-changer for:
-- **PRDs & Design Docs**: Ensure that every technical trade-off is documented and every edge case is covered.
-- **RFCs (Request for Comments)**: Build consensus by creating documents that are clear, concise, and logically consistent.
-- **Onboarding Guides**: Verify that your "getting started" guides actually work by running them through a sub-agent reader test.
+### Автоматическая проверка логики
+Попросите агента провести "тест чтения" вашего технического спека, чтобы увидеть, может ли разработчик реализовать функцию на основе *только* предоставленного текста.
+## Как использовать его с Killer-Skills
 
-## Practical Use Cases
+1.  **Установка**: `npx killer-skills add anthropics/skills/doc-coauthoring`
+2.  **Активация**: "Я хочу подготовить техническое предложение для нашего нового API. Давайте воспользуемся рабочим процессом совместного создания документов."
+3.  **Совместная работа**: Следуйте инструкциям агента на протяжении трех этапов.
+## Заключение
 
-### From Slack Chat to PRD
-Paste a long Slack thread about a new feature into your agent. Use the `doc-coauthoring` skill to structure those messy discussions into a professional Product Requirement Document.
+Навык `doc-coauthoring` поднимает планку того, что может предложить написание с помощью ИИ. Он превращает одиночную, изнурительную задачу в структурированный, высококачественный диалог.
 
-### Automated Logic Check
-Ask the agent to "Reader Test" your technical spec to see if a developer could implement the feature based *only* on the text provided.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/doc-coauthoring`
-2.  **Trigger**: "I want to draft a technical proposal for our new API. Let's use the doc-coauthoring workflow."
-3.  **Collaborate**: Follow the agent's lead through the three stages.
-
-## Conclusion
-
-The `doc-coauthoring` skill raises the bar for what AI-assisted writing can be. It turns a solitary, exhausting task into a structured, high-quality dialogue. 
-
-Visit the [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/doc-coauthoring) to download the skill and start writing documents that actually work.
+Посетите [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/doc-coauthoring), чтобы скачать навык и начать писать документы, которые действительно работают.
 
 ---
-
-*Need to finalize the formatting? Pair this with the [docx skill](https://killer-skills.com/ru/skills/anthropics/skills/docx) for a professional Word export.*
+*Нужно завершить форматирование? Сопоставьте это с навыком [docx](https://killer-skills.com/ru/skills/anthropics/skills/docx) для профессионального экспорта в Word.*
 
 ---
-
-*Related: [What are AI agent skills?](/ru/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ru/blog/best-ai-agent-skills-2026)*
+*Связано: [Что такое навыки агентов ИИ?](/ru/blog/what-are-ai-agent-skills) и [Лучшие навыки агентов ИИ для 2026 года](/ru/blog/best-ai-agent-skills-2026)*

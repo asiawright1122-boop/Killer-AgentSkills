@@ -101,12 +101,14 @@ jobs:
 
       # ── Deploy ─────────────────────────────────────────────
       - name: Sync to Cloudflare KV
+        continue-on-error: true
         run: npm run sync:kv
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Sync to Cloudflare D1
+        continue-on-error: true
         run: |
           npx tsx scripts/generate-d1-seed.ts
           ./scripts/run-d1-seeds.sh

@@ -1,8 +1,8 @@
 import type { Page } from 'playwright';
-import { BaseAdapter } from '../base-adapter.js';
+import { GenericFormAdapter } from './generic-form.js';
 import type { SubmitStatus } from '../types.js';
 
-export class AIDirectoryAdapter extends BaseAdapter {
+export class AIDirectoryAdapter extends GenericFormAdapter {
     protected async fillForm(page: Page): Promise<void> {
         this.log(`📝 [AI Directory] Filling submission form`);
 
@@ -11,6 +11,7 @@ export class AIDirectoryAdapter extends BaseAdapter {
         await this.safeType(page, 'textarea#submitterNote', this.ctx.meta.descriptions.long);
         await this.safeType(page, 'input#contactEmail', this.ctx.meta.founder.email);
 
-        this.log(`✅ [AI Directory] Form filled. Please check and click submit.`);
+        this.log(`✅ [AI Directory] Form filled. Attempting to click submit...`);
+        await this.clickSubmitButton(page);
     }
 }

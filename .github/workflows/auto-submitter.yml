@@ -61,7 +61,7 @@ jobs:
             git commit -m "chore(submitter): update blind submission history [skip ci]"
             
             PUSH_OK=0
-            for attempt in 1 2 3; do
+            for attempt in 1 2 3 4 5; do
               if git push; then
                 echo "✅ Push succeeded on attempt $attempt"
                 PUSH_OK=1
@@ -72,7 +72,7 @@ jobs:
               git pull --rebase -X theirs --autostash origin main || true
             done
             if [ "$PUSH_OK" -eq 0 ]; then
-              echo "⚠️ Push failed after 3 attempts, continuing anyway..."
+              echo "⚠️ Push failed after 5 attempts, continuing anyway..."
             fi
           else
             echo "ℹ️ No new history to commit"

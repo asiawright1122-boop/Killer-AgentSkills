@@ -1,6 +1,6 @@
 ---
-title: "How to install AI agent skills in 30 seconds"
-description: "A quick guide to installing community AI agent skills into Claude Code, Cursor, or Windsurf using the killer-skills CLI tool."
+title: "Cómo instalar habilidades de agente de IA en 30 segundos"
+description: "Una guía rápida para instalar habilidades comunitarias de agentes de IA en Claude Code, Cursor o Windsurf utilizando la herramienta CLI killer-skills."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,73 +9,66 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+# Cómo instalar habilidades de agente de IA
 
-# How to install AI agent skills
+Encontraste una habilidad de agente de IA que deseas utilizar. Tal vez sea la [habilidad de automatización de docx](/en/skills/anthropics/skills/docx), o tal vez un generador de interfaz de usuario frontend especializado. Ahora necesitas incorporarla a tu proyecto para que tu agente de codificación pueda leerla realmente.
 
-You found an AI agent skill you want to use. Maybe it is the [docx automation skill](/en/skills/anthropics/skills/docx), or maybe a specialized frontend UI generator. Now you need to get it into your project so your coding agent can actually read it.
+Puedes copiar y pegar manualmente el texto en markdown, crear los directorios correctos y corregir el formato de frontmatter tú mismo. O puedes ejecutar un solo comando que lo haga por ti.
+## La herramienta de línea de comandos killer-skills
 
-You can manually copy and paste the markdown text, create the right directories, and fix the frontmatter formatting yourself. Or you can run one command that does it for you.
+Creamos una herramienta de línea de comandos específicamente para esto. Maneja la descarga de la habilidad desde GitHub, la convierte al formato adecuado para tu IDE (Claude Code, Cursor, Windsurf o GitHub Copilot) y la coloca en el directorio correcto.
 
-## The killer-skills CLI
+No necesitas instalarla permanentemente. Puedes ejecutarla directamente mediante `npx` (que viene con Node.js).
 
-We built a command-line tool specifically for this. It handles fetching the skill from GitHub, converting it to the right format for your IDE (Claude Code, Cursor, Windsurf, or GitHub Copilot), and placing it in the correct directory.
-
-You don't need to install it permanently. You can run it directly via `npx` (which comes with Node.js).
-
-Open your terminal, go to your project directory, and run:
+Abre tu terminal, ve a tu directorio de proyecto y ejecuta:
 
 ```bash
 npx killer-skills add <owner>/<repo>/<skill-name>
 ```
 
-For example, to install the PDF automation skill, you run:
+Por ejemplo, para instalar la habilidad de automatización de PDF, ejecutas:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-The CLI detects which IDE you are using by looking at your project files. If it sees a `.cursor` directory, it formats the skill as an `.mdc` file. If it sees a `.claude` directory, it formats it as `SKILL.md`.
+La CLI detecta qué IDE estás utilizando al examinar tus archivos de proyecto. Si ve un directorio `.cursor`, formatea la habilidad como un archivo `.mdc`. Si ve un directorio `.claude`, la formatea como `SKILL.md`.
+## Instalación en múltiples IDEs
 
-## Installing across multiple IDEs
+Si utilizas múltiples agentes en el mismo proyecto (por ejemplo, Claude Code en la terminal y Cursor como tu editor), puedes forzar a la CLI a instalar la habilidad para todos ellos a la vez.
 
-If you use multiple agents on the same project (for example, Claude Code in the terminal and Cursor as your editor), you can force the CLI to install the skill for all of them at once.
-
-Just add the `--all` flag:
+Solo añade el flag `--all`:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf --all
 ```
 
-This creates the necessary files in both `.claude/skills/` and `.cursor/rules/`, keeping the core instructions identical while formatting the metadata correctly for each agent.
+Esto crea los archivos necesarios tanto en `.claude/skills/` como en `.cursor/rules/`, manteniendo las instrucciones principales idénticas mientras formatea los metadatos correctamente para cada agente.
+## Encontrar habilidades para instalar
 
-## Finding skills to install
-
-If you know what you are looking for but don't remember the exact repository path, you can search directly from your terminal:
+Si sabes lo que estás buscando pero no recuerdas la ruta exacta del repositorio, puedes buscar directamente desde tu terminal:
 
 ```bash
 npx killer-skills search auth
 ```
 
-This queries the community database and returns the top matches, including their star counts and full installation paths. You can also browse the full open-source directory on the [Killer-Skills website](/en/skills).
+Esto consulta la base de datos de la comunidad y devuelve las mejores coincidencias, incluyendo sus recuentos de estrellas y rutas de instalación completas. También puedes explorar el directorio de código abierto completo en el sitio web de [Killer-Skills](/en/skills).
+## Mantener las habilidades actualizadas
 
-## Keeping skills updated
-
-Skills evolve. Authors add new edge cases, fix bad instructions, and improve prompt reliability. Because you installed the skill via the CLI, you can update it just as easily.
+Las habilidades evolucionan. Los autores agregan nuevos casos de borde, corrigen instrucciones incorrectas y mejoran la confiabilidad de las solicitudes. Dado que instaló la habilidad a través de la CLI, puede actualizarla con la misma facilidad.
 
 ```bash
 npx killer-skills update
 ```
 
-This checks all the skills you've installed, compares them to the upstream source on GitHub, and applies any updates while preserving local modifications where possible.
+Esto verifica todas las habilidades que ha instalado, las compara con la fuente de upstream en GitHub y aplica las actualizaciones mientras preserva las modificaciones locales cuando sea posible.
+## ¿Qué está sucediendo realmente bajo el capó?
 
-## What is actually happening under the hood?
+Cuando ejecutas el comando `add`, la CLI no está instalando software ejecutable ni dependencias de npm. Simplemente está descargando texto.
 
-When you run the `add` command, the CLI isn't installing executable software or npm dependencies. It is just downloading text. 
+Una habilidad es simplemente un archivo de markdown con instrucciones para un Modelo de Lenguaje Grande. La CLI recupera ese markdown, lo envuelve en el formato YAML o JSON específico que tu editor espera, y lo escribe en una carpeta local.
 
-A skill is simply a markdown file with instructions for a Large Language Model. The CLI fetches that markdown, wraps it in the specific YAML or JSON format your editor expects, and writes it to a local folder. 
-
-There are no background processes, no phone-home telemetry, and no hidden payloads. It is just documentation, placed exactly where your AI agent knows to look for it.
+No hay procesos en segundo plano, no hay telemetría de llamada a casa, ni hay payloads ocultos. Es simplemente documentación, colocada exactamente donde tu agente de inteligencia artificial sabe buscarla.
 
 ---
-
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*
+*Relacionado: [¿Qué son las habilidades de los agentes de inteligencia artificial?](/es/blog/what-are-ai-agent-skills) y [Las mejores habilidades para agentes de inteligencia artificial en 2026](/es/blog/best-ai-agent-skills-2026)*

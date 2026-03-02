@@ -1,6 +1,6 @@
 ---
-title: "How to install AI agent skills in 30 seconds"
-description: "A quick guide to installing community AI agent skills into Claude Code, Cursor, or Windsurf using the killer-skills CLI tool."
+title: "كيفية تثبيت مهارات وكيل الذكاء الاصطناعي في 30 ثانية"
+description: "دليل سريع لتثبيت مهارات وكيل الذكاء الاصطناعي المجتمعية في Claude Code أو Cursor أو Windsurf باستخدام أداة killer-skills CLI."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,73 +9,66 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+# كيفية تثبيت مهارات وكيل الذكاء الاصطناعي
 
-# How to install AI agent skills
+لقد وجدت مهارة وكيل ذكاء اصطناعي تريد استخدامها. ربما تكون [مهارة أتمتة ملفات docx](/en/skills/anthropics/skills/docx)، أو ربما تكون مُنشئ واجهة مستخدم متخصص للواجهة الأمامية. الآن تحتاج إلى تضمينها في مشروعك حتى يتمكن وكيل البرمجة الخاص بك من قراءتها.
 
-You found an AI agent skill you want to use. Maybe it is the [docx automation skill](/en/skills/anthropics/skills/docx), or maybe a specialized frontend UI generator. Now you need to get it into your project so your coding agent can actually read it.
+يمكنك نسخ ولصق نص Markdown يدويًا، وإنشاء الدلائل الصحيحة، وتصحيح تنسيق frontmatter بنفسك. أو يمكنك تشغيل أمر واحد يفعل ذلك نيابة عنك.
+## واجهة سطر الأوامر killer-skills
 
-You can manually copy and paste the markdown text, create the right directories, and fix the frontmatter formatting yourself. Or you can run one command that does it for you.
+قمنا ببناء أداة سطر أوامر مخصصة لهذا الغرض. وهي تتعامل مع استرجاع المهارة من GitHub، وتحويلها إلى الصيغة المناسبة لمحرر الكود الخاص بك (Claude Code، Cursor، Windsurf، أو GitHub Copilot)، ووضعها في الدليل الصحيح.
 
-## The killer-skills CLI
+لا تحتاج إلى تثبيتها بشكل دائم. يمكنك تشغيلها مباشرة عبر `npx` (التي تأتي مع Node.js).
 
-We built a command-line tool specifically for this. It handles fetching the skill from GitHub, converting it to the right format for your IDE (Claude Code, Cursor, Windsurf, or GitHub Copilot), and placing it in the correct directory.
-
-You don't need to install it permanently. You can run it directly via `npx` (which comes with Node.js).
-
-Open your terminal, go to your project directory, and run:
+افتح محطة طرفية، انتقل إلى دليل مشروعك، واشغل:
 
 ```bash
 npx killer-skills add <owner>/<repo>/<skill-name>
 ```
 
-For example, to install the PDF automation skill, you run:
+على سبيل المثال، لتثبيت مهارة автоматية PDF، تقوم بتشغيل:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-The CLI detects which IDE you are using by looking at your project files. If it sees a `.cursor` directory, it formats the skill as an `.mdc` file. If it sees a `.claude` directory, it formats it as `SKILL.md`.
+تكتشف واجهة سطر الأوامر أيدي التي تستخدمها من خلال查看 ملفات مشروعك. إذا رأت دليل `.cursor`، فهي تُصيغ المهارة كملف `.mdc`. إذا رأت دليل `.claude`، فهي تُصيغها كـ `SKILL.md`.
+## التثبيت عبر عدة بيئات تطوير متكاملة (IDEs)
 
-## Installing across multiple IDEs
+إذا كنت تستخدم عدة وكلاء في نفس المشروع (على سبيل المثال، Claude Code في الطرفية و Cursor كمحرر النصوص الخاص بك)، يمكنك إجبار واجهة سطر الأوامر (CLI) على تثبيت المهارة لجميعهم في وقت واحد.
 
-If you use multiple agents on the same project (for example, Claude Code in the terminal and Cursor as your editor), you can force the CLI to install the skill for all of them at once.
-
-Just add the `--all` flag:
+فقط أضف علم `--all`:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf --all
 ```
 
-This creates the necessary files in both `.claude/skills/` and `.cursor/rules/`, keeping the core instructions identical while formatting the metadata correctly for each agent.
+هذا ينشئ الملفات الضرورية في كل من `.claude/skills/` و `.cursor/rules/`، مع الحفاظ على التعليمات الأساسية متطابقة مع تنسيق البيانات الوصفية بشكل صحيح لكل وكيل.
+## البحث عن مهارات للتثبيت
 
-## Finding skills to install
-
-If you know what you are looking for but don't remember the exact repository path, you can search directly from your terminal:
+إذا كنت تعرف ما تبحث عنه ولكنك لا تتذكر مسار المستودع بالضبط، يمكنك البحث مباشرة من طرفيتك:
 
 ```bash
 npx killer-skills search auth
 ```
 
-This queries the community database and returns the top matches, including their star counts and full installation paths. You can also browse the full open-source directory on the [Killer-Skills website](/en/skills).
+هذا يستعلم قاعدة البيانات المجتمعية ويعيد أفضل النتائج المتطابقة، بما في ذلك عدد النجوم ومسارات التثبيت الكاملة. يمكنك أيضًا تصفح الدليل المفتوح المصدر بالكامل على [موقع Killer-Skills](/en/skills).
+## الحفاظ على المهارات محدثة
 
-## Keeping skills updated
-
-Skills evolve. Authors add new edge cases, fix bad instructions, and improve prompt reliability. Because you installed the skill via the CLI, you can update it just as easily.
+تتطور المهارات. يضيف المؤلفون حالات حافة جديدة ، ويصلحون الإرشادات السيئة ، ويهنئون موثوقية التوجيه. لأنك قمت بتثبيت المهارة عبر واجهة سطر الأوامر ، يمكنك تحديثها بسهولة مماثلة.
 
 ```bash
 npx killer-skills update
 ```
 
-This checks all the skills you've installed, compares them to the upstream source on GitHub, and applies any updates while preserving local modifications where possible.
+هذا يتحقق من جميع المهارات التي قمت بتثبيتها ، ويقارنها بالمصدر الأصلي على GitHub ، ويتوافق مع أي تحديثات مع الحفاظ على التعديلات المحلية حيثما أمكن.
+## ما الذي يحدث بشكل فعلي تحت الغطاء؟
 
-## What is actually happening under the hood?
+عند تشغيل الأمر `add`، لا يقوم واجهة سطر الأوامر بتثبيت برنامج تنفيذي أو تبعيات npm. إنه ي下载 النص فقط.
 
-When you run the `add` command, the CLI isn't installing executable software or npm dependencies. It is just downloading text. 
+المهارة هي ببساطة ملف markdown يحتوي على تعليمات لنموذج اللغة الكبيرة. تقوم واجهة سطر الأوامر بتحميل ذلك Markdown، ولفه بتنسيق YAML أو JSON المحدد الذي يتوقعه محررك، وكتابة ذلك إلى مجلد محلي.
 
-A skill is simply a markdown file with instructions for a Large Language Model. The CLI fetches that markdown, wraps it in the specific YAML or JSON format your editor expects, and writes it to a local folder. 
-
-There are no background processes, no phone-home telemetry, and no hidden payloads. It is just documentation, placed exactly where your AI agent knows to look for it.
+لا توجد عمليات خلفية، ولا إحصائيات تيليمترية، ولا حمولات مخفية. إنه مجرد توثيق، موضوع بدقة حيث يعرف وكيلك الاصطناعي أن يبحث عنه.
 
 ---
-
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*متعلق: [ما هي مهارات وكيل الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و[أفضل مهارات وكيل الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

@@ -1,6 +1,6 @@
 ---
-title: "Bulletproof Frontends: The Webapp-Testing Skill"
-description: "Master automated UI testing with the official webapp-testing skill for AI agents. Learn how to use Playwright for robust web app verification."
+title: "واجهات أمامية متينة: مهارة اختبار التطبيقات الإلكترونية"
+description: "استعلم على اختبار الواجهة الأمامية التلقائي باستخدام مهارة اختبار التطبيقات الإلكترونية الرسمية لعمليات الذكاء الاصطناعي. تعلم كيفية استخدام Playwright لتحقق التطبيقات الإلكترونية بشكل قوي"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]
@@ -9,69 +9,61 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2560&auto=format&fit=crop"
 ---
+# بناء الموثوقية: إتقان مهارة اختبار التطبيقات الويب
 
-# Reliability Built-In: Mastering the Webapp-Testing Skill
+في تطوير الويب الحديث، لم يعد "يعمل على جهازي" كافياً. مع نمو تعقيد التطبيقات الويب، يصبح الاختبار اليدوي عائقاً يبطئ الابتكار ويكتم العلل الحرجة. لإنشاء برامج عالية الجودة بسرعة، يجب أن يكون مرحلة الاختبار ذكية مثل مرحلة التطوير.
 
-In modern web development, "it works on my machine" is no longer enough. As web applications grow in complexity, manual testing becomes a bottleneck that slows down innovation and hides critical bugs. To build high-quality software at speed, the testing phase must be as intelligent as the development phase.
-
-The official **webapp-testing** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior QA engineer. It provides a specialized toolkit based on **Playwright**, the industry-standard framework for reliable end-to-end testing, allowing agents to verify, debug, and document web interfaces with surgical precision.
+تتيح مهارة **webapp-testing** الرسمية من Anthropic لعميلك الذكي (مثل Claude Code) أن يصبح مهندس QA كبيراً. توفر أدوات متخصصة تعتمد على **Playwright**، الإطار الصناعي القياسي لاختبار النهاية إلى النهاية الموثوق، مما يسمح للوكلاء بالتحقق من، وتصحيح الأخطاء، وتوثيق واجهات الويب بدقة جراحية.
 
 ```bash
 # Equip your agent with the webapp-testing skill
 npx killer-skills add anthropics/skills/webapp-testing
 ```
+## ما هي مهارة Webapp-Testing؟
 
-## What is the Webapp-Testing Skill?
+مهارة `webapp-testing` أكثر من مجرد غلاف لمكتبة. إنها منهجية اختبار تم تصميمها خصيصًا لتطوير الذكاء الاصطناعي. تركز على التحقق من تطبيقات الويب المحلية من خلال تفاعلات المتصفح الآلي.
 
-The `webapp-testing` skill is more than just a library wrapper. It's a testing methodology designed specifically for AI-driven development. It focuses on local web application verification through automated browser interactions.
+### 1. إدارة الخادم الآلي
+أحد أكبر نقاط الألم في الاختبار هو إدارة خادم التطوير. تتضمن المهارة سكريبت مساعد قوي، `with_server.py`، والذي:
+- يبدأ ويكفأ الخوادم المحلية تلقائيًا (على سبيل المثال، `npm run dev`).
+- يدير عدة خوادم في نفس الوقت (على سبيل المثال، الواجهة الأمامية + الخلفية).
+- يضمن تشغيل الاختبار فقط بعد انتهاء الشبكة من النشاط وتجهيز التطبيق.
 
-### 1. Automated Server Management
-One of the biggest pain points in testing is managing the dev server. The skill includes a powerful helper script, `with_server.py`, which:
-- Automatically starts and stops your local servers (e.g., `npm run dev`).
-- Manages multiple servers simultaneously (e.g., Frontend + Backend).
-- Ensures the test only runs once the network is idle and the application is ready.
+### 2. التحقق من واجهة المستخدم عالية الدقة
+باستخدام Playwright، يمكن للوكيل أداء اختبارات بصرية ووظيفية معقدة:
+- **صور شاشة كاملة**: التقاط ما يرى المستخدم بالضبط لاختبار الانحدار البصري.
+- **فحص DOM**: تحليل الهيكل الأساسي لل HTML لضمان سهولة الوصول والحالة الصحيحة.
+- **التقاط سجل\Console**: تصحيح أخطاء JavaScript الصامتة من خلال قراءة إخراج محطة المتصفح.
+## نمط "الاستطلاع أولاً"
 
-### 2. High-Fidelity UI Verification
-Using Playwright, the agent can perform complex visual and functional checks:
-- **Full-Page Screenshots**: Capture exactly what the user sees for visual regression testing.
-- **DOM Inspection**: Analyze the underlying HTML structure to ensure accessibility and correct state.
-- **Console Log Capture**: Debug silent JavaScript errors by reading the browser's terminal output.
+تشجع المهارة على اتباع نمط اختبار متطور:
+1.  **التنقل**: توجيه المتصفح إلى عنوان URL للتطبيق والانتظار حتى `networkidle`.
+2.  **التفقد**: أخذ لقطة شاشة وفحص DOM لاكتشاف العناصر التفاعلية.
+3.  **التحديد**: إنشاء محددات CSS أو أدوار ARIA ديناميكيًا بناءً على الحالة المعروضة الفعلية.
+4.  **التنفيذ**: تنفيذ الإجراءات (نقرات، كتابة، تنقل) بثقة.
+## حالات استخدام عملية
 
-## The "Reconnaissance-First" Pattern
+### التحقق المستمر من واجهة المستخدم
+في كل مرة تقوم بإعادة هيكلة [مكون واجهة المستخدم](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)، اجعل الوكيل ينفذ سكريبت `webapp-testing` للتأكد من أن الأزرار لا تزال قابلة للنقر والنماذج لا تزال تُرسل.
 
-The skill encourages a sophisticated testing pattern:
-1.  **Navigate**: Point the browser to the application URL and wait for `networkidle`.
-2.  **Inspect**: Take a screenshot and inspect the DOM to discover interactive elements.
-3.  **Identify**: Dynamically generate CSS selectors or ARIA roles based on the actual rendered state.
-4.  **Execute**: Perform actions (clicks, typing, navigation) with confidence.
+### تصحيح الأخطاء عبر المتصفحات المختلفة
+اجعل الوكيل يشغّل نسخة headless من متصفح Chromium لإعادة إنتاج خطأ أبلغ عنه مستخدم، مع التقاط لقطات الشاشة وسجلات الكونسول خلال العملية للتحليل الفوري.
 
-## Practical Use Cases
+### تدفقات التفاعل المعقدة
+أتمتة رحلات المستخدم متعددة الخطوات، مثل "التسجيل -> الدفع -> عرض لوحة التحكم"، لضمان بقاء المنطق التجاري الأساسي لتطبيقك سليماً دون انقطاع.
+## كيفية استخدامه مع Killer-Skills
 
-### Continuous UI Validation
-Every time you refactor a [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design) component, have the agent run a `webapp-testing` script to ensure that buttons still click and forms still submit.
+1.  **التثبيت**: `npx killer-skills add anthropics/skills/webapp-testing`
+2.  **الأمر**: "اختبر تطبيقنا المحلي على localhost:5173. تحقق من أن نموذج تسجيل الدخول يعرض رسالة خطأ عند إدخال كلمة مرور غير صحيحة."
+3.  **التصحيح**: "التقط لقطة شاشة للصفحة الرئيسية الحالية وأخبرني لماذا لا يتم تشغيل الرسوم المتحركة البطل (hero animation)."
+## الخاتمة
 
-### Cross-Browser Debugging
-Have the agent spin up a headless Chromium instance to reproduce a bug reported by a user, capturing screenshots and console logs along the way for immediate analysis.
+مهارة `webapp-testing` هي الجزء الأخير من لغز التطوير المهني. она تضمن أن يكون الكود الجميل الذي يكتبه وكيلك هو أيضًا **كود موثوق**. من خلال إضافة الاختبار التلقائي لجودة المنتج إلى تدفق العمل الوكيل، يسمح لك بنقل المنتج بثقة تامة.
 
-### Complex Interaction Flows
-Automate multi-step user journeys, such as "Sign-up -> Payment -> Dashboard View," to ensure that the core business logic of your application remains unbroken.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/webapp-testing`
-2.  **Command**: "Test our local app at localhost:5173. Verify that the login form shows an error message when given an invalid password."
-3.  **Debug**: "Take a screenshot of the current landing page and tell me why the hero animation isn't triggering."
-
-## Conclusion
-
-The `webapp-testing` skill is the final piece of the professional development puzzle. It ensures that the beautiful code your agent writes is also **reliable code**. By bringing automated QA into the agentic workflow, it allows you to ship with total confidence.
-
-Head over to the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) and start building bulletproof frontends today.
+انتقل إلى سوق [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) وابدأ في بناء واجهات أمامية محكمة اليوم.
 
 ---
-
-*Want to build the UI first? Check out the [frontend-design skill](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design).*
+*تريد بناء الواجهة أولًا؟ تحقق من مهارة [تصميم الواجهة الأمامية](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design).*
 
 ---
-
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*متعلق: [ما هي مهارات الوكيل الذكي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات الوكيل الذكي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*
