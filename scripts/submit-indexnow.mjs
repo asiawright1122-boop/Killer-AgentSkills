@@ -9,12 +9,22 @@ const ENDPOINT = 'https://api.indexnow.org/indexnow';
 const SITEMAP_URL = `https://${HOST}/sitemap.xml`;
 
 async function fetchXml(url) {
-    const res = await fetch(url);
-    if (!res.ok) {
-        console.error(`❌ Failed to fetch ${url}: ${res.status}`);
+    try {
+        const res = await fetch(url, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (compatible; IndexNowBot/1.0)',
+                'Accept': 'application/xml, text/xml, */*',
+            },
+        });
+        if (!res.ok) {
+            console.error(`❌ Failed to fetch ${url}: ${res.status}`);
+            return null;
+        }
+        return res.text();
+    } catch (err) {
+        console.error(`❌ Network error fetching ${url}: ${err.message}`);
         return null;
     }
-    return res.text();
 }
 
 function extractLocs(xml) {
@@ -42,8 +52,20 @@ async function main() {
     console.log(`📥 Fetching sitemap index from ${SITEMAP_URL}...\n`);
 
     // 1. Fetch the sitemap index
-    const indexXml = await fetchXml(SITEMAP_URL);
-    if (!indexXml) process.exit(1);
+    let indexXml = await fetchXml(SITEMAP_URL);
+
+    // Fallback: try reading from local dist if live fetch fails (e.g. Cloudflare 403 in CI)
+    if (!indexXml) {
+        const localPath = './dist/sitemap.xml';
+        const { existsSync, readFileSync } = await import('fs');
+        if (existsSync(localPath)) {
+            console.log(`📂 Falling back to local sitemap: ${localPath}`);
+            indexXml = readFileSync(localPath, 'utf-8');
+        } else {
+            console.log('⚠️ Could not fetch sitemap and no local fallback found. Skipping IndexNow.');
+            process.exit(0); // Non-critical, exit gracefully
+        }
+    }
 
     // 2. Check if it's a sitemap index (contains <sitemapindex>)
     const isSitemapIndex = indexXml.includes('<sitemapindex');
