@@ -1,6 +1,6 @@
 ---
-title: "Automate Business Documents: The Power of the DOCX Skill"
-description: "Master Word document automation with the official docx skill for AI agents. Learn how to generate professional reports, track changes, and manage complex templates."
+title: "비즈니스 문서 자동화: DOCX 스킬의 힘"
+description: "AI 에이전트를 위한 공식 docx 스킬로 Word 문서 자동화를 마스터하세요. 전문적인 보고서 생성, 변경 내용 추적, 복잡한 템플릿 관리 방법을 배워보세요."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]
@@ -9,69 +9,63 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2560&auto=format&fit=crop"
 ---
+# 전문 문서 자동화: DOCX 기술 마스터하기
 
-# Professional Document Automation: Mastering the DOCX Skill
+현대 기업 환경에서 워드 문서(.docx)는 보고서, 법적 계약서, 공식 메모의 표준으로 자리잡고 있습니다. 하지만 이러한 문서를 수동으로 포맷하는 것은 시간이 많이 소요되는 작업입니다.
 
-In the modern enterprise, the Word document (.docx) remains the gold standard for reports, legal contracts, and official memos. However, manually formatting these documents is a time-consuming chore. 
-
-The official **docx** skill from Anthropic transforms your AI coding agent into a professional document architect. It enables agents to not only create Word documents from scratch but also to edit existing ones with surgical precision—including handling tracked changes and legal-grade formatting.
+Anthropic의 공식 **docx** 기술은 여러분의 AI 코딩 에이전트를 전문 문서 설계사로 변모시킵니다. 이 기술은 에이전트가 워드 문서를 처음부터 생성할 수 있을 뿐만 아니라, 변경 추적 기능과 법적 등급 포맷팅을 포함한 기존 문서를 정밀하게 편집할 수 있도록 합니다.
 
 ```bash
-# Equip your agent with the docx skill
+# 에이전트에 docx 기술 추가하기
 npx killer-skills add anthropics/skills/docx
 ```
+## DOCX Skill이란 무엇인가요?
 
-## What is the DOCX Skill?
+`docx` skill은 여러 강력한 기술을 결합한 포괄적인 툴킷입니다:
+- **docx-js**: 고품질 Word 파일을 생성하는 강력한 JavaScript 라이브러리입니다.
+- **Pandoc**: 문서 변환의 "만능 스위스 군용 나이프"입니다.
+- **LibreOffice (Soffice)**: 변경 내용 추적 수용 및 PDF 변환과 같은 고급 기능을 제공합니다.
+## 주요 기능
 
-The `docx` skill is a comprehensive toolkit that combines several powerful technologies:
-- **docx-js**: A powerful JavaScript library for generating high-fidelity Word files.
-- **Pandoc**: The "Swiss Army Knife" of document conversion.
-- **LibreOffice (Soffice)**: For advanced features like accepting tracked changes and PDF conversion.
+### 1. 고품질 문서 생성
+이 기능은 단순한 텍스트 생성기로는 구현할 수 없는 복잡한 문서를 구축할 수 있습니다:
+- **목차**: 제목 수준에 따라 자동으로 생성됩니다.
+- **정교한 표**: 정확한 열 너비(DXA 단위 사용)와 전문적인 음영 처리.
+- **머리글 및 바닥글**: 동적 페이지 번호(`페이지 X 중 Y`)를 포함합니다.
+- **이미지 통합**: PNG, JPG, SVG 자산을 원활하게 삽입합니다.
 
-## Key Capabilities
+### 2. 지능형 편집 및 변경 내용 추적
+가장 강력한 기능 중 하나는 **협업** 능력입니다. 에이전트는 다음과 같은 작업을 수행할 수 있습니다:
+- **XML 언팩 및 편집**: 정밀한 편집을 위해 기본 OOXML을 직접 수정합니다.
+- **변경 내용 추적**: 삽입 및 삭제를 "Claude"로 추가하여 나중에 인간 검토자가 수락하거나 거부할 수 있도록 합니다.
+- **댓글 스레드**: 문서 구조 내에서 댓글을 삽입하고 답변합니다.
 
-### 1. High-Fidelity Document Generation
-The skill allows agents to build complex documents with features that simple text generators can't touch:
-- **Tables of Contents**: Automatically generated based on heading levels.
-- **Sophisticated Tables**: Precise column widths (using DXA units) and professional shading.
-- **Headers & Footers**: Including dynamic page numbering (`Page 1 of X`).
-- **Image Integration**: Seamlessly embedding PNG, JPG, and SVG assets.
+### 3. 비즈니스 등급 준수
+이 기능은 전문적인 출력을 보장하기 위해 엄격한 규칙을 따릅니다:
+- **범용 글꼴**: 크로스 플랫폼 호환성을 위해 기본적으로 Arial을 사용합니다.
+- **표준 페이지 크기**: US Letter 및 A4 크기를 명시적으로 처리합니다.
+- **깔끔한 목록**: 신뢰할 수 없는 유니코드 글머리 기호 대신 적절한 번호 매기기 구성을 사용합니다.
+## 실제 활용 사례
 
-### 2. Intelligent Editing & Tracked Changes
-One of the most powerful features is the ability to **collaborate**. The agent can:
-- **Unpack & Edit XML**: Directly modify the underlying OOXML for precise edits.
-- **Track Changes**: Add insertions and deletions as "Claude," allowing human reviewers to accept or reject them later.
-- **Comment Threads**: Insert and reply to comments within the document structure.
+### 자동화된 법률 계약서
+모든 조항이 완벽하게 형식화되고 모든 변경 사항이 법률팀의 검토를 위해 추적되는 계약서를 생성합니다.
 
-### 3. Business-Grade Compliance
-The skill follows strict rules to ensure professional output:
-- **Universal Fonts**: Defaults to Arial to ensure cross-platform compatibility.
-- **Standard Page Sizes**: Explicitly handles US Letter and A4 dimensions.
-- **Clean Lists**: Uses proper numbering configurations instead of unreliable Unicode bullet characters.
+### 동적 비즈니스 보고서
+API에서 데이터를 가져와 아름답게 형식화된 Word 표로 제시하고, 자동 생성된 목차를 포함하는 월간 보고서를 작성합니다.
 
-## Practical Use Cases
+### 문서 변환 파이프라인
+스킬에 내장된 변환 유틸리티를 사용하여 레거시 `.doc` 파일이나 PDF를 깔끔하고 편집 가능한 `.docx` 파일로 변환합니다.
+## 개발자를 위한 전문가 팁
 
-### Automated Legal Contracts
-Generate contracts where every clause is perfectly formatted, and every change is tracked for the legal team's review.
+Killer-Skills CLI에서 이 스킬을 사용할 때, 에이전트가 Word 파일을 원시 XML 구성 요소로 "언패킹(unpack)"할 수 있다는 점을 기억하세요. 이를 통해 스타일을 유지한 채 복잡한 찾기 및 바꾸기 작업을 수행할 수 있습니다. 이는 기존의 텍스트 기반 AI로는 거의 불가능한 작업입니다.
+## 결론
 
-### Dynamic Business Reports
-Build monthly reports that pull data from APIs and present it in beautifully formatted Word tables, complete with an auto-generated Table of Contents.
+`docx` 스킬은 AI 워크플로우에 "엔터프라이즈급" 전문성을 제공합니다. 이 스킬은 코딩 에이전트의 출력이 기업 세계의 최고 기준을 충족하도록 보장합니다.
 
-### Document Conversion Pipelines
-Convert legacy `.doc` files or PDFs into clean, editable `.docx` files using the skill's built-in conversion utilities.
+지금 바로 [Killer-Skills 마켓플레이스](https://killer-skills.com/ko/skills/anthropics/skills/docx)에서 [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)을 설치하여 시작해 보세요.
 
-## Pro-Tip for Developers
-
-When using this skill with the Killer-Skills CLI, remember that the agent can "unpack" a Word file into its raw XML components. This allows for complex find-and-replace operations that preserve styling—something that is almost impossible with traditional text-based AI.
-
-## Conclusion
-
-The `docx` skill brings "Enterprise-Grade" professionalism to your AI workflows. It ensures that the output of your coding agent meets the highest standards of the corporate world.
-
-Get started by installing the [docx skill](https://killer-skills.com/ko/skills/anthropics/skills/docx) from the Killer-Skills Marketplace today.
-
-*Need to handle data first? Check out our guide on the [xlsx skill](https://killer-skills.com/ko/blog/mastering-excel-automation-with-xlsx-skills) for spreadsheet automation.*
+*데이터를 먼저 처리해야 하나요? 스프레드시트 자동화를 위한 [xlsx 스킬 가이드](https://killer-skills.com/ko/blog/mastering-excel-automation-with-xlsx-skills)를 확인해 보세요.*
 
 ---
 
-*Related: [What are AI agent skills?](/ko/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ko/blog/best-ai-agent-skills-2026)*
+*관련 내용: [AI 에이전트 스킬이란?](/ko/blog/what-are-ai-agent-skills) 및 [2026년 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)*
