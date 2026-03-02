@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Agents", "Open Source"]
 lang: "zh"
 featured: true
 category: "announcements"
-heroImage: "/blog/openclaw-intro-hero.png"
+heroImage: "/blog/openclaw-intro-hero.webp"
 ---
 
 # 认识 OpenClaw：下一代开源自主 AI 智能体

@@ -7,7 +7,7 @@ tags: ["OpenClaw", "Tutorial", "AI Configuration"]
 lang: "ko"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-killer-integration-hero.png"
+heroImage: "/blog/openclaw-killer-integration-hero.webp"
 ---
 # 단계별 가이드: Killer-Skills를 사용하여 OpenClaw 강화
 

@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Automation", "Productivity"]
 lang: "ar"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-scenarios-hero.png"
+heroImage: "/blog/openclaw-scenarios-hero.webp"
 ---
 # 5 تطبيقات قوية لبرنامج OpenClaw: من المساعد الشخصي إلى خبير التأتمة
 

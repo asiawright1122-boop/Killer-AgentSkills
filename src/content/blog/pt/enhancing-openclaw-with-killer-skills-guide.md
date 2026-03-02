@@ -7,7 +7,7 @@ tags: ["OpenClaw", "Tutorial", "AI Configuration"]
 lang: "pt"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-killer-integration-hero.png"
+heroImage: "/blog/openclaw-killer-integration-hero.webp"
 ---
 # Guia Passo a Passo: Aperfeiçoando o OpenClaw com Habilidades Letais
 

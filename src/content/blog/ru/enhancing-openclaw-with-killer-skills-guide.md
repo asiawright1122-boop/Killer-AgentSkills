@@ -7,7 +7,7 @@ tags: ["OpenClaw", "Tutorial", "AI Configuration"]
 lang: "ru"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-killer-integration-hero.png"
+heroImage: "/blog/openclaw-killer-integration-hero.webp"
 ---
 # Шаг за шагом: Расширение возможностей OpenClaw с помощью Killer-Skills
 

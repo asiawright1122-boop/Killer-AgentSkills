@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Automation", "Productivity"]
 lang: "ru"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-scenarios-hero.png"
+heroImage: "/blog/openclaw-scenarios-hero.webp"
 ---
 # 5 Мощных Сценариев Использования OpenClaw: От Персонального Помощника до Эксперта по Автоматизации
 

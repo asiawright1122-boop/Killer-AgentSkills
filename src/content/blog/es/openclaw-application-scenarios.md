@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Automation", "Productivity"]
 lang: "es"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-scenarios-hero.png"
+heroImage: "/blog/openclaw-scenarios-hero.webp"
 ---
 # 5 Casos de Uso Potentes para OpenClaw: Desde Asistente Personal a Experto en Automatización
 

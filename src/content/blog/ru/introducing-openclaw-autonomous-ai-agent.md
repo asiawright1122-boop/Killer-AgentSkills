@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Agents", "Open Source"]
 lang: "ru"
 featured: true
 category: "announcements"
-heroImage: "/blog/openclaw-intro-hero.png"
+heroImage: "/blog/openclaw-intro-hero.webp"
 ---
 # Знакомьтесь с OpenClaw: Новое Поколение Открытого Автономного ИИ-Агента
 

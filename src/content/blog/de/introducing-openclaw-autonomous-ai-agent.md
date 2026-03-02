@@ -7,7 +7,7 @@ tags: ["OpenClaw", "AI Agents", "Open Source"]
 lang: "de"
 featured: true
 category: "announcements"
-heroImage: "/blog/openclaw-intro-hero.png"
+heroImage: "/blog/openclaw-intro-hero.webp"
 ---
 # Kennen Sie OpenClaw: Den Next-Generation-Open-Source-Autonomen-AI-Agenten
 

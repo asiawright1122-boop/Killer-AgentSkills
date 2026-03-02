@@ -7,7 +7,7 @@ tags: ["OpenClaw", "Tutorial", "AI Configuration"]
 lang: "zh"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-killer-integration-hero.png"
+heroImage: "/blog/openclaw-killer-integration-hero.webp"
 ---
 
 # 手把手教你使用 Killer-Skills 增强 OpenClaw

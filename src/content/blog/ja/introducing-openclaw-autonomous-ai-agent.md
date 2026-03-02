@@ -1,13 +1,13 @@
 ---
-title: "OpenClaw"
-description: "OpenClaw———API"
+title: "OpenClawを紹介：次世代のオープンソース自律型AIエージェント"
+description: "強力なオープンソース自律型AIアシスタントOpenClawを詳しく解説。私たちの働き方をどう変えるか、そのコアな利点をご紹介します。"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Agents", "Open Source"]
 lang: "ja"
 featured: true
 category: "announcements"
-heroImage: "/blog/openclaw-intro-hero.png"
+heroImage: "/blog/openclaw-intro-hero.webp"
 ---
 # OpenClawを紹介：次世代のオープンソース自律型AIエージェント
 
