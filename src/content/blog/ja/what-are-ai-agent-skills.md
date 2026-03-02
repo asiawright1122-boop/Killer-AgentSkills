@@ -1,6 +1,6 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "AI agent skills are reusable instruction files that tell coding agents like Claude, Cursor, and Windsurf how to do specific jobs. Here is what they are, how they work, and when they actually help."
+title: "AIエージェントスキルとは？その重要性を解説"
+description: "AIエージェントスキルは、Claude、Cursor、Windsurfなどのコーディングエージェントが特定の作業を実行する方法を指示する再利用可能な命令ファイルです。ここでは、その基本概念、動作原理、そして実際に役立つ場面について詳しく説明します。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,109 +9,113 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+# AIエージェントスキルとは？
 
-# What are AI agent skills?
+AIコーディングエージェントに「このモジュールのテストを書いて」と依頼したとき、プロジェクトの独自のアーキテクチャを無視した完全に汎用的なものを書いてしまった経験はありませんか？
+## AIエージェントスキルとは？
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+**AIエージェントスキル**は、専用のマークダウンファイル（通常`SKILL.md`という名前）で、コーディングアシスタントのClaude、Cursor、Windsurfなどのドメイン固有の指示を提供します。プロジェクトディレクトリにこれらのファイルを配置することで、エージェントは繰り返しのプロンプトを必要とせずに、特定の規則やワークフローを自動的に学習します。
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+<Info title="このガイドで学べること">
+* AIエージェントスキルの内部動作
+* クラウドIDE（Claude、Cursor、Windsurf）でのスキルファイルの配置方法
+* スキルが最も効果的なポイント
+* CLIを介したコミュニティスキルのインストール方法
+* カスタムスキルの作成に関するベストプラクティス
+</Info>
 
-```
+```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # このプロジェクトでのテストの書き方
+  deployment/SKILL.md    # デプロイチェックリストと設定
+  code-review/SKILL.md   # レビューで確認する点
 ```
 
-The agent reads the file when the topic comes up, then follows those instructions instead of guessing.
+エージェントはトピックが上がったときにファイルを読み込み、それに従って指示を実行する代わりに、推測するのをやめます。
+Of course. Here is the translated content in Simplified Chinese:
 
-## How they actually work
+## 它们实际上是如何工作的
 
-There is no magic here. A skill file has two parts:
+这里没有魔法。一个技能文件包含两个部分：
 
-1. **Frontmatter** with a name and description (so the agent knows when to load it)
-2. **Instructions** written in plain markdown (the actual knowledge)
+1. **Frontmatter**，包含名称和描述（以便代理知道何时加载它）
+2. **指令**，用纯 Markdown 编写（实际的知识）
 
-Here is a real example, trimmed down:
+这是一个真实示例，经过简化：
 
 ```yaml
 ---
 name: testing
-description: How to write and run tests in this project
+description: 如何在此项目中编写和运行测试
 ---
 ```
 
 ```markdown
-# Testing in this project
+# 在此项目中测试
 
-We use Vitest. Run tests with `npm test`.
+我们使用 Vitest。使用 `npm test` 运行测试。
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+规则：
+- 每个新函数至少需要一个测试
+- 模拟外部 API，切勿在测试中调用它们
+- 将测试文件放在源文件旁边：`utils.test.ts` 放在 `utils.ts` 旁边
 ```
 
-That is the whole format. The agent loads this file, reads the instructions, and changes its behavior accordingly. No SDK, no API calls, no configuration beyond the file itself.
+这就是完整的格式。代理加载此文件，读取指令，并相应地改变其行为。没有 SDK，没有 API 调用，除了文件本身之外没有其他配置。
+## スキルが動作する場所
 
-## Where skills run
+現在、いくつかのコーディングエージェントが SKILL.md ファイルまたは類似のものをサポートしています:
 
-Right now, several coding agents support SKILL.md files or something similar:
-
-| Agent | Skill location | How it works |
+| エージェント | スキルの場所 | 動作方法 |
 |-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Claude Code | `.claude/skills/` | コンテキストに基づいてスキルを自動的に読み取る |
+| Cursor | `.cursor/rules/` | プロジェクトレベルルールファイル |
+| Windsurf | `.windsurfrules` | プロジェクトルートにある単一ルールファイル |
+| GitHub Copilot | `.github/copilot-instructions.md` | リポジトリレベルインストラクション |
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+フォーマットは収束しつつあります。Claude 用に記述されたスキルは、通常、パスの変更を少し加えるだけで Cursor でも動作します。
+## スキルが実際に役立つ場合（そして役立たない場合）
 
-## When skills actually help (and when they don't)
+スキルは、AIが単独では推測できない**プロジェクト固有の規約**に対して非常に効果的です。例えば以下のような場合です：
 
-Skills work well for **project-specific conventions** that an AI cannot guess on its own. Things like:
+- デプロイプロセスが6つのステップで構成され、そのうち2つは手動承認を必要とする
+- チームが特定のエラーハンドリングパターンを全域で使用している
+- データベースクエリは特定の抽象化レイヤーを経由する必要がある
+- テストは特定の命名規則に従うべきである
 
-- Your deployment process has 6 steps and two of them require manual approval
-- Your team uses a specific error-handling pattern everywhere
-- Database queries need to go through a certain abstraction layer
-- Tests should follow a particular naming convention
+一方、スキルがほとんど役立たないのは、任務が十分に汎用的であり、有能な開発者（またはAI）なら誰でも同じ方法で対応するような場合です。「forループの書き方」に対してスキルは必要ありません。
 
-Skills don't help much when the task is generic enough that any competent developer (or AI) would handle it the same way. You don't need a skill for "how to write a for loop."
+最も効果的なのは、チームの頭の中に存在するものの、どこにも文書化されていない知識です。スキルを使用することでその知識を文書化する必要が生じ、結果的にAIもそれに従うことができるようになります。
+## 今日から使えるスキルを見つける
 
-The sweet spot is knowledge that lives in your team's heads but hasn't been written down anywhere. Skills force you to document it, and then the AI can follow it too.
+スキルを一から自作することもできますが、一般的なタスク向けにはコミュニティ提供のスキルも利用できます：
 
-## Finding skills you can use today
+- **docx** - Word文書の生成と編集
+- **pdf** - PDFの読み込み、結合、分割、作成
+- **xlsx** - スプレッドシートと数式の操作
+- **mcp-builder** - エージェント連携のためのMCPサーバー構築
+- **frontend-design** - 洗練されたWebインターフェースの作成
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
-
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
-
-You install them with one command:
+これらはたった一つのコマンドでインストールできます：
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+このコマンドは `SKILL.md` ファイルをプロジェクトのスキルディレクトリにコピーします。エージェントは次の会話時にこれを自動的に認識します。
+## 独自のスキルを作成する
 
-## Writing your own skills
+最高のスキルは、フラストレーションから生まれます。エージェントが同じ間違いを繰り返すときは、そのためのスキルが必要な信号です。
 
-The best skills come from frustration. When your agent keeps doing something wrong, that is a signal you need a skill for it.
+小さく始めましょう。特定の事柄について10行ほどで記述します。「このプロジェクトでAPIルートを作成する際は、常に`withAuth`ラッパーを使用し、エラーはこの形式で返す」といった単一の指示でも、毎回エージェントを修正する手間を省けます。
 
-Start small. Write 10 lines about one specific thing. "When writing API routes in this project, always use our `withAuth` wrapper and return errors in this format." That single instruction can save you from correcting the agent every time.
+時間が経つにつれ、ルールを追加することでファイルは成長していきます。私たちが内部で使用している最も有用なスキルのいくつかは、5行のメモから始まり、完全なリファレンス文書へと発展しました。
+## 次のステップ
 
-Over time, the file grows as you add more rules. Some of our most useful internal skills started as 5-line notes and grew into full reference documents.
+スキル機能はまだ初期段階です。エージェント間でフォーマットが標準化されていなかったり、エラーハンドリングが原始的であったり、発見可能性が限られていたりします。しかし、核となるアイデア（AIアシスタントにプロジェクトに関する指示を文章で与えること）はここから広がっていくでしょう。
 
-## What comes next
-
-Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
-
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+既存のスキルを閲覧したり、自身のスキルを公開したりする場合は、[スキルディレクトリ](/en/skills)をご確認ください。現在、データベース管理からUIデザインまであらゆる分野をカバーする1,000以上のコミュニティ提供スキルが公開されています。
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/ja/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/ja/blog/create-custom-ai-agent-skills)*
+*関連記事: [エージェントスキルでMCPサーバーを構築する方法](/ja/blog/how-to-build-mcp-servers-with-agent-skills) および [独自のカスタムAIエージェントスキルを作成する](/ja/blog/create-custom-ai-agent-skills)*

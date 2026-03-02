@@ -1,6 +1,6 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "AI agent skills are reusable instruction files that tell coding agents like Claude, Cursor, and Windsurf how to do specific jobs. Here is what they are, how they work, and when they actually help."
+title: "AI"
+description: "AIAI Claude, Cursor, WindsurfAPI"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,30 +9,37 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+# 什么是 AI 代理技能？
 
-# What are AI agent skills?
+你是否曾要求你的 AI 编码代理“为这个模块编写测试”，结果它却写出了一些完全通用、忽略了你项目独特架构的东西？
+## 什么是 AI 智能体技能？
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+**AI 智能体技能** 是一种专门的 Markdown 文件（通常命名为 `SKILL.md`），它为像 Claude、Cursor 和 Windsurf 这样的编码助手提供特定领域的指令。通过将这些文件放置在您的项目目录中，智能体可以自动学习您特定的约定、工作流程和规则，而无需重复提示。
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+<Info title="您将在本指南中学到什么">
+* AI 智能体技能在实际中是如何运作的
+* 针对不同 IDE（Claude、Cursor、Windsurf）放置技能文件的位置
+* 技能最有效的理想使用场景
+* 如何通过 CLI 安装社区技能
+* 编写您自己自定义技能的最佳实践
+</Info>
 
-```
+```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # 如何在此项目中编写测试
+  deployment/SKILL.md    # 部署清单和配置
+  code-review/SKILL.md   # 在代码审查中需要注意什么
 ```
 
-The agent reads the file when the topic comes up, then follows those instructions instead of guessing.
+当相关主题出现时，智能体会读取该文件，然后遵循这些指令，而不是进行猜测。
+## 它们实际上是如何工作的
 
-## How they actually work
+这里没有什么魔法。一个技能文件包含两个部分：
 
-There is no magic here. A skill file has two parts:
+1. **Frontmatter**：包含名称和描述（以便智能体知道何时加载它）
+2. **Instructions**：用纯 Markdown 编写的说明（即实际的知识）
 
-1. **Frontmatter** with a name and description (so the agent knows when to load it)
-2. **Instructions** written in plain markdown (the actual knowledge)
-
-Here is a real example, trimmed down:
+以下是一个经过精简的真实示例：
 
 ```yaml
 ---
@@ -42,76 +49,71 @@ description: How to write and run tests in this project
 ```
 
 ```markdown
-# Testing in this project
+# 本项目中的测试
 
-We use Vitest. Run tests with `npm test`.
+我们使用 Vitest。通过 `npm test` 运行测试。
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+规则：
+- 每个新函数至少需要一个测试
+- 模拟外部 API，切勿在测试中调用真实 API
+- 将测试文件与源码放在一起：`utils.test.ts` 与 `utils.ts` 并列放置
 ```
 
-That is the whole format. The agent loads this file, reads the instructions, and changes its behavior accordingly. No SDK, no API calls, no configuration beyond the file itself.
+这就是完整的格式。智能体加载此文件，读取说明，并相应地改变其行为。无需 SDK，无需 API 调用，除了文件本身之外无需任何配置。
+## 技能运行之处
 
-## Where skills run
+目前，已有多个编程智能体支持 SKILL.md 文件或类似功能：
 
-Right now, several coding agents support SKILL.md files or something similar:
-
-| Agent | Skill location | How it works |
+| 智能体 | 技能位置 | 运行机制 |
 |-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Claude Code | `.claude/skills/` | 根据上下文自动读取技能 |
+| Cursor | `.cursor/rules/` | 项目级规则文件 |
+| Windsurf | `.windsurfrules` | 项目根目录的单一规则文件 |
+| GitHub Copilot | `.github/copilot-instructions.md` | 仓库级指导文件 |
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+格式正趋于统一。为 Claude 编写的技能通常只需稍作路径调整即可在 Cursor 中使用。
+## 技能真正适用的场景（以及不适用的场景）
 
-## When skills actually help (and when they don't)
+技能非常适用于 AI 无法自行推断的**项目特定规范**。例如：
 
-Skills work well for **project-specific conventions** that an AI cannot guess on its own. Things like:
+- 您的部署流程包含 6 个步骤，其中两个步骤需要手动审批
+- 您的团队在所有代码中都使用特定的错误处理模式
+- 数据库查询需要通过某个抽象层进行处理
+- 测试应遵循特定的命名约定
 
-- Your deployment process has 6 steps and two of them require manual approval
-- Your team uses a specific error-handling pattern everywhere
-- Database queries need to go through a certain abstraction layer
-- Tests should follow a particular naming convention
+当任务通用性足够强，任何合格的开发人员（或 AI）都会以相同方式处理时，技能的作用就不明显。您不需要为“如何编写 for 循环”这样的操作专门配置技能。
 
-Skills don't help much when the task is generic enough that any competent developer (or AI) would handle it the same way. You don't need a skill for "how to write a for loop."
+最佳适用场景是那些存在于团队集体知识中但尚未形成文档的规范。技能迫使您将其文档化，而后 AI 也能遵循这些规范。
+## 寻找立即可用的技能
 
-The sweet spot is knowledge that lives in your team's heads but hasn't been written down anywhere. Skills force you to document it, and then the AI can follow it too.
+您可以完全从零开始编写自己的技能，但针对常见任务，社区也提供了现成的技能：
 
-## Finding skills you can use today
+- **docx** - 生成和编辑 Word 文档
+- **pdf** - 读取、合并、拆分及创建 PDF 文件
+- **xlsx** - 处理电子表格和公式
+- **mcp-builder** - 为智能体集成构建 MCP 服务器
+- **frontend-design** - 创建精美的网页界面
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
-
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
-
-You install them with one command:
+只需一条命令即可安装它们：
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+这会将 `SKILL.md` 文件复制到您项目的 `skills` 目录中。智能体将在下一次对话时自动识别并使用它。
+## 编写专属技能
 
-## Writing your own skills
+最好的技能往往源于挫败感。当你的代理反复犯同一个错误时，这就是需要为其创建技能的明确信号。
 
-The best skills come from frustration. When your agent keeps doing something wrong, that is a signal you need a skill for it.
+从简单的开始。针对某个具体场景写下十行规范：「在本项目中编写 API 路由时，请始终使用我们的 `withAuth` 包装器并按指定格式返回错误」。这短短一条指令就能避免你每次手动纠正代理。
 
-Start small. Write 10 lines about one specific thing. "When writing API routes in this project, always use our `withAuth` wrapper and return errors in this format." That single instruction can save you from correcting the agent every time.
+随着规则不断补充，这个文件会逐渐扩展。我们内部一些最实用的技能最初只是五行的简短说明，后来逐渐发展成完整的参考文档。
+## 下一步计划
 
-Over time, the file grows as you add more rules. Some of our most useful internal skills started as 5-line notes and grew into full reference documents.
+技能功能仍处于早期阶段。不同智能体之间的格式尚未标准化，错误处理机制较为原始，可发现性也有限。但核心理念（为你的AI助手提供关于项目的书面指令）将会持续存在。
 
-## What comes next
-
-Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
-
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+如果你想浏览现有技能或发布自己的技能，请查看[技能目录](/en/skills)。目前已有超过1000个社区贡献的技能，涵盖从数据库管理到UI设计的各个领域。
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/zh/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/zh/blog/create-custom-ai-agent-skills)*
+*相关阅读：[如何通过代理技能构建MCP服务器](/zh/blog/how-to-build-mcp-servers-with-agent-skills) 和 [创建自定义AI代理技能](/zh/blog/create-custom-ai-agent-skills)*

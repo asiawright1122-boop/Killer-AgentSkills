@@ -1,6 +1,6 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "AI agent skills are reusable instruction files that tell coding agents like Claude, Cursor, and Windsurf how to do specific jobs. Here is what they are, how they work, and when they actually help."
+title: "AI "
+description: "AI AI Claude, Cursor, Windsurf . , , ."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,30 +9,37 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+# AI 에이전트 기술이란 무엇인가요?
 
-# What are AI agent skills?
+AI 코딩 에이전트에게 "이 모듈에 대한 테스트를 작성해 줘"라고 요청했을 때, 프로젝트의 고유한 아키텍처를 무시하고 완전히 일반적인 내용만 작성해 낸 경험이 있으신가요?
+## AI Agent Skill이란 무엇인가요?
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+**AI agent skill**은 Claude, Cursor, Windsurf와 같은 코딩 어시스턴트에게 도메인 특화 지침을 제공하는 전문 마크다운 파일입니다(일반적으로 `SKILL.md`라는 이름을 가짐). 이러한 파일을 프로젝트 디렉토리에 배치함으로써, 에이전트는 반복적인 프롬프팅 없이도 여러분의 특정 규약, 워크플로우 및 규칙을 자동으로 학습합니다.
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+<Info title="이 가이드에서 학습할 내용">
+* AI agent skill이 실제로 어떻게 작동하는지
+* 다양한 IDE(Claude, Cursor, Windsurf)용 skill 파일을 배치할 위치
+* skill이 가장 효과적으로 사용되는 적절한 시점
+* CLI를 통해 커뮤니티 skill을 설치하는 방법
+* 나만의 커스텀 skill을 작성하는 모범 사례
+</Info>
 
-```
+```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # 이 프로젝트에서 테스트를 작성하는 방법
+  deployment/SKILL.md    # 배포 체크리스트 및 구성
+  code-review/SKILL.md   # 코드 리뷰 시 확인할 사항
 ```
 
-The agent reads the file when the topic comes up, then follows those instructions instead of guessing.
+에이전트는 해당 주제가 언급되면 파일을 읽고, 추측 대신 해당 지침을 따릅니다.
+## 실제 동작 방식
 
-## How they actually work
+여기에는 어떤 마법도 없습니다. 스킬 파일은 두 부분으로 구성됩니다:
 
-There is no magic here. A skill file has two parts:
+1. **프론트매터(Frontmatter)** - 이름과 설명이 포함되어 있어 에이전트가 언제 로드해야 하는지 알 수 있습니다.
+2. **평문 마크다운으로 작성된 지침(Instructions)** - 실제 지식입니다
 
-1. **Frontmatter** with a name and description (so the agent knows when to load it)
-2. **Instructions** written in plain markdown (the actual knowledge)
-
-Here is a real example, trimmed down:
+다음은 실제 예시를 간략화한 것입니다:
 
 ```yaml
 ---
@@ -42,76 +49,71 @@ description: How to write and run tests in this project
 ```
 
 ```markdown
-# Testing in this project
+# 이 프로젝트의 테스트
 
-We use Vitest. Run tests with `npm test`.
+우리는 Vitest를 사용합니다. `npm test`로 테스트를 실행하세요.
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+규칙:
+- 모든 새로운 함수에는 최소한 하나의 테스트가 필요합니다
+- 외부 API는 모킹(Mock)하고, 테스트에서 실제 호출하지 마세요
+- 테스트 파일은 소스 파일 옆에 위치시킵니다: `utils.ts` 옆에 `utils.test.ts`
 ```
 
-That is the whole format. The agent loads this file, reads the instructions, and changes its behavior accordingly. No SDK, no API calls, no configuration beyond the file itself.
+이것이 전체 형식입니다. 에이전트는 이 파일을 로드하고, 지침을 읽고, 그에 따라 동작을 변경합니다. 별도의 SDK, API 호출, 파일 자체 외의 구성은 필요하지 않습니다.
+## 스킬이 작동하는 위치
 
-## Where skills run
+현재 여러 코딩 에이전트가 SKILL.md 파일 또는 이와 유사한 것을 지원합니다:
 
-Right now, several coding agents support SKILL.md files or something similar:
-
-| Agent | Skill location | How it works |
+| 에이전트 | 스킬 위치 | 작동 방식 |
 |-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Claude Code | `.claude/skills/` | 컨텍스트에 따라 스킬을 자동으로 읽음 |
+| Cursor | `.cursor/rules/` | 프로젝트 수준 규칙 파일 |
+| Windsurf | `.windsurfrules` | 프로젝트 루트에 있는 단일 규칙 파일 |
+| GitHub Copilot | `.github/copilot-instructions.md` | 저장소 수준 지침 |
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+형식이 점점 수렴되고 있습니다. Claude용으로 작성된 스킬은 일반적으로 경로를 약간 변경하면 Cursor에서도 작동합니다.
+## 스킬이 실제로 도움이 되는 경우(그렇지 않은 경우)
 
-## When skills actually help (and when they don't)
+스킬은 AI가 스스로 추측할 수 없는 **프로젝트별 규칙**에 매우 효과적입니다. 예를 들어:
 
-Skills work well for **project-specific conventions** that an AI cannot guess on its own. Things like:
+- 배포 프로세스에 6단계가 있으며 그중 두 단계는 수동 승인이 필요함
+- 팀이 특정 오류 처리 패턴을 모든 곳에서 사용함
+- 데이터베이스 쿼리는 특정 추상화 계층을 거쳐야 함
+- 테스트는 특정 명명 규칙을 따라야 함
 
-- Your deployment process has 6 steps and two of them require manual approval
-- Your team uses a specific error-handling pattern everywhere
-- Database queries need to go through a certain abstraction layer
-- Tests should follow a particular naming convention
+스킬은 어떤 유능한 개발자(또는 AI)라도 동일하게 처리할 수 있을 만큼 일반적인 작업에는 크게 도움이 되지 않습니다. "for 루프 작성 방법"에는 스킬이 필요하지 않습니다.
 
-Skills don't help much when the task is generic enough that any competent developer (or AI) would handle it the same way. You don't need a skill for "how to write a for loop."
+가장 적절한 적용 영역은 팀 내부에서 공유되지만 어디에도 문서화되지 않은 지식입니다. 스킬은 이를 문서화하도록 강제하고, 그러면 AI도 이를 따를 수 있게 됩니다.
+## 오늘 바로 사용할 수 있는 스킬 찾기
 
-The sweet spot is knowledge that lives in your team's heads but hasn't been written down anywhere. Skills force you to document it, and then the AI can follow it too.
+스킬을 처음부터 직접 작성할 수도 있지만, 일반적인 작업을 위한 커뮤니티 스킬도 이용할 수 있습니다:
 
-## Finding skills you can use today
+- **docx** - Word 문서 생성 및 편집
+- **pdf** - PDF 읽기, 병합, 분할 및 생성
+- **xlsx** - 스프레드시트 및 수식 작업
+- **mcp-builder** - 에이전트 연동을 위한 MCP 서버 구축
+- **frontend-design** - 정교한 웹 인터페이스 생성
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
-
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
-
-You install them with one command:
+다음의 한 가지 명령어로 설치할 수 있습니다:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+이 명령은 SKILL.md 파일을 프로젝트의 skills 디렉토리로 복사합니다. 에이전트는 다음 대화에서 이를 인식합니다.
+## 나만의 스킬 작성하기
 
-## Writing your own skills
+가장 훌륭한 스킬은 좌절감에서 비롯됩니다. 에이전트가 계속해서 같은 실수를 반복한다면, 그것은 해당 작업을 위한 스킬이 필요하다는 신호입니다.
 
-The best skills come from frustration. When your agent keeps doing something wrong, that is a signal you need a skill for it.
+작은 것부터 시작하세요. 하나의 특정 주제에 대해 10줄 정도로 작성해 보세요. "이 프로젝트에서 API 라우트를 작성할 때는 항상 `withAuth` 래퍼를 사용하고, 오류는 이 형식으로 반환하세요."라는 단일 지침만으로도 매번 에이전트를 수정하는 번거로움을 덜 수 있습니다.
 
-Start small. Write 10 lines about one specific thing. "When writing API routes in this project, always use our `withAuth` wrapper and return errors in this format." That single instruction can save you from correcting the agent every time.
+시간이 지나면서 더 많은 규칙을 추가하며 파일이 점점 커집니다. 저희 내부에서 가장 유용하게 사용되는 스킬들 중 상당수는 5줄짜리 메모로 시작하여 완전한 참고 문서로 성장했습니다.
+## 다음 단계
 
-Over time, the file grows as you add more rules. Some of our most useful internal skills started as 5-line notes and grew into full reference documents.
+스킬은 아직 초기 단계입니다. 모든 에이전트 간에 형식이 표준화되지 않았으며, 오류 처리 기능은 기본적이고 발견 가능성도 제한적입니다. 하지만 핵심 아이디어(프로젝트에 대한 서면 지침을 AI 어시스턴트에 제공하는 것)는 앞으로도 계속될 것입니다.
 
-## What comes next
-
-Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
-
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+기존 스킬을 탐색하거나 자신의 스킬을 게시하려면 [스킬 디렉토리](/en/skills)를 확인하세요. 현재 데이터베이스 관리부터 UI 디자인에 이르기까지 모든 것을 다루는 1,000개 이상의 커뮤니티 제공 스킬이 있습니다.
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/ko/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/ko/blog/create-custom-ai-agent-skills)*
+*관련 내용: [에이전트 스킬로 MCP 서버 구축하기](/ko/blog/how-to-build-mcp-servers-with-agent-skills) 및 [나만의 맞춤형 AI 에이전트 스킬 만들기](/ko/blog/create-custom-ai-agent-skills)*

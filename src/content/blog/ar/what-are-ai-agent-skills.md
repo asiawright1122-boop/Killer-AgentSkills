@@ -1,6 +1,6 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "AI agent skills are reusable instruction files that tell coding agents like Claude, Cursor, and Windsurf how to do specific jobs. Here is what they are, how they work, and when they actually help."
+title: "ما هي مهارات وكيل الذكاء الاصطناعي، ولماذا يجب أن تهتم بها؟"
+description: "مهارات وكيل الذكاء الاصطناعي هي ملفات تعليمية قابلة لإعادة الاستخدام تخبر وكلاء البرمجة مثل Claude وCursor وWindsurf بكيفية القيام بمهام محددة. إليك ما هي، كيف تعمل، ومتى تساعد حقًا."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,30 +9,39 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+# ما هي مهارات وكيل الذكاء الاصطناعي؟
 
-# What are AI agent skills?
+هل سبق أن طلبت من وكيل الذكاء الاصطناعي الخاص بالبرمجة أن "يكتب اختبارات لهذه الوحدة"، فقط ليكتب شيئًا عامًا تمامًا ويتجاهل البنية الفريدة لمشروعك؟
+Of course. Here is the Arabic translation of the provided Markdown content, following all the specified rules.
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+## ما هي مهارة وكيل الذكاء الاصطناعي؟
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+**مهارة وكيل الذكاء الاصطناعي** هي ملف Markdown متخصص (يُسمى عادةً `SKILL.md`) يوفر تعليمات محددة للمجال لمساعدي البرمجة مثل Claude وCursor وWindsurf. من خلال وضع هذه الملفات في دليل مشروعك، تتعلم الوكلاء تلقائيًا الاتفاقيات وسير العمل والقواعد الخاصة بك دون الحاجة إلى مطالبات متكررة.
 
-```
+<Info title="ما الذي ستتعلمه في هذا الدليل">
+* كيف تعمل مهارات وكيل الذكاء الاصطناعي فعليًا
+* مكان وضع ملفات المهارات لأنظمة التطوير المتكاملة (IDEs) المختلفة (Claude, Cursor, Windsurf)
+* النقطة المثالية ليكون للمهارات أكبر تأثير
+* كيفية تثبيت مهارات المجتمع عبر واجهة سطر الأوامر (CLI)
+* أفضل الممارسات لكتابة مهاراتك المخصصة
+</Info>
+
+```text
 .claude/skills/
   testing/SKILL.md       # how to write tests in this project
   deployment/SKILL.md    # deployment checklist and configs
   code-review/SKILL.md   # what to look for in reviews
 ```
 
-The agent reads the file when the topic comes up, then follows those instructions instead of guessing.
+يقرأ الوكيل الملف عندما يتم طرح الموضوع، ثم يتبع تلك التعليمات بدلاً من التخمين.
+## كيف تعمل بالفعل
 
-## How they actually work
+لا يوجد أي سحر هنا. يحتوي ملف المهارة على جزأين:
 
-There is no magic here. A skill file has two parts:
+1. **Frontmatter** يحتوي على اسم ووصف (حتى يعرف الوكيل متى يقوم بتحميله)
+2. **تعليمات** مكتوبة بصيغة Markdown العادية (المعرفة الفعلية)
 
-1. **Frontmatter** with a name and description (so the agent knows when to load it)
-2. **Instructions** written in plain markdown (the actual knowledge)
-
-Here is a real example, trimmed down:
+إليك مثال حقيقي، مُختصر:
 
 ```yaml
 ---
@@ -42,76 +51,71 @@ description: How to write and run tests in this project
 ```
 
 ```markdown
-# Testing in this project
+# الاختبار في هذا المشروع
 
-We use Vitest. Run tests with `npm test`.
+نستخدم Vitest. شغّل الاختبارات باستخدام `npm test`.
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+القواعد:
+- كل دالة جديدة تحتاج إلى اختبار واحد على الأقل
+- قم بمحاكاة واجهات برمجة التطبيقات (APIs) الخارجية، ولا تستدعيها مطلقًا في الاختبارات
+- ضع ملفات الاختبار بجوار الملف المصدر: `utils.test.ts` بجانب `utils.ts`
 ```
 
-That is the whole format. The agent loads this file, reads the instructions, and changes its behavior accordingly. No SDK, no API calls, no configuration beyond the file itself.
+هذه هي الصيغة بأكملها. يقوم الوكيل بتحميل هذا الملف، وقراءة التعليمات، وتغيير سلوكه وفقًا لذلك. لا حاجة إلى SDK، ولا استدعاءات لواجهة برمجة التطبيقات (API)، ولا أي تكوين beyond beyond الملف نفسه.
+## مكان تشغيل المهارات
 
-## Where skills run
+حاليًا، تدعم عدة وكلاء برمجية ملفات `SKILL.md` أو ما يشبهها:
 
-Right now, several coding agents support SKILL.md files or something similar:
-
-| Agent | Skill location | How it works |
+| الوكيل | موقع المهارة | آلية العمل |
 |-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Claude Code | `.claude/skills/` | يقرأ المهارات تلقائيًا بناءً على السياق |
+| Cursor | `.cursor/rules/` | ملفات القواعد على مستوى المشروع |
+| Windsurf | `.windsurfrules` | ملف قواعد واحد في root المشروع |
+| GitHub Copilot | `.github/copilot-instructions.md` | تعليمات على مستوى المستودع |
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+الشكل في طريقه إلى التوحيد. المهارة المكتوبة لـ Claude عادةً ما تعمل في Cursor مع تغييرات طفيفة في المسار.
+## متى تكون المهارات مفيدة حقًا (ومتى لا تكون)
 
-## When skills actually help (and when they don't)
+تعمل المهارات بشكل جيد مع **الاتفاقيات الخاصة بالمشروع** التي لا يمكن للذكاء الاصطناعي تخمينها بمفرده. أشياء مثل:
 
-Skills work well for **project-specific conventions** that an AI cannot guess on its own. Things like:
+- عملية النشر الخاصة بك تتكون من 6 خطوات، اثنان منها يتطلبان موافقة يدوية
+- فريقك يستخدم نمطًا محددًا لمعالجة الأخطاء في كل مكان
+- استعلامات قاعدة البيانات تحتاج إلى المرور عبر طبقة تجريد معينة
+- الاختبارات يجب أن تتبع اصطلاح تسمية محدد
 
-- Your deployment process has 6 steps and two of them require manual approval
-- Your team uses a specific error-handling pattern everywhere
-- Database queries need to go through a certain abstraction layer
-- Tests should follow a particular naming convention
+لا تساعد المهارات كثيرًا عندما تكون المهمة عامة بما يكفي بحيث أي مطور كفء (أو ذكاء اصطناعي) سيتعامل معها بنفس الطريقة. أنت لا تحتاج إلى مهارة لـ "كيفية كتابة حلقة تكرار for".
 
-Skills don't help much when the task is generic enough that any competent developer (or AI) would handle it the same way. You don't need a skill for "how to write a for loop."
+النقطة المثالية هي المعرفة التي تعيش في رؤوس فريقك ولكن لم يتم تدوينها في أي مكان. المهارات تجبرك على توثيقها، ومن ثم يمكن للذكاء الاصطناعي اتباعها أيضًا.
+## العثور على المهارات التي يمكنك استخدامها اليوم
 
-The sweet spot is knowledge that lives in your team's heads but hasn't been written down anywhere. Skills force you to document it, and then the AI can follow it too.
+يمكنك كتابة مهاراتك الخاصة من الصفر، ولكن هناك أيضًا مهارات مجتمعية متاحة لأداء مهام شائعة:
 
-## Finding skills you can use today
+- **docx** - إنشاء وتحرير مستندات وورد
+- **pdf** - قراءة ودمج تقسيم وإنشاء ملفات PDF
+- **xlsx** - العمل مع جداول البيانات والصيغ
+- **mcp-builder** - بناء خوادم MCP لدمج العوامل
+- **frontend-design** - إنشاء واجهات ويب متقنة
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
-
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
-
-You install them with one command:
+تثبيتها باستخدام أمر واحد:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+هذا ينسخ ملف SKILL.md إلى دليل مهارات مشروعك. يكتشف العامل ذلك في المحادثة التالية.
+## كتابة مهاراتك الخاصة
 
-## Writing your own skills
+أفضل المهارات تأتي من الإحباط. عندما يستمر وكيلك في فعل شيء خاطئ، فهذه إشارة إلى أنك بحاجة إلى مهارة لذلك.
 
-The best skills come from frustration. When your agent keeps doing something wrong, that is a signal you need a skill for it.
+ابدأ صغيرًا. اكتب 10 أسطر حول شيء محدد. "عند كتابة مسارات API في هذا المشروع، استخدم دائمًا غلاف `withAuth` الخاص بنا وأعد الأخطاء بهذا التنسيق." هذه التعليمات الواحدة يمكن أن توفر عليك تصحيح الوكيل في كل مرة.
 
-Start small. Write 10 lines about one specific thing. "When writing API routes in this project, always use our `withAuth` wrapper and return errors in this format." That single instruction can save you from correcting the agent every time.
+بمرور الوقت، يكبر الملف مع إضافة المزيد من القواعد. بعض مهاراتنا الداخلية الأكثر فائدة بدأت كملاحظات من 5 أسطر ونمت إلى وثائق مرجعية كاملة.
+## ما التالي؟
 
-Over time, the file grows as you add more rules. Some of our most useful internal skills started as 5-line notes and grew into full reference documents.
+المهارات لا تزال في مراحلها الأولى. التنسيق غير موحد عبر جميع الوكلاء، ومعالجة الأخطاء بدائية، وإمكانية الاكتشاف محدودة. لكن الفكرة الأساسية (منح مساعد الذكاء الاصطناعي الخاص بك تعليمات مكتوبة حول مشروعك) موجودة لتبقى.
 
-## What comes next
-
-Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
-
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+إذا كنت ترغب في تصفح المهارات الحالية أو نشر مهاراتك الخاصة، فاطلع على [دليل المهارات](/ar/skills). يوجد حاليًا أكثر من 1000 مهارة مقدمة من المجتمع تغطي كل شيء من إدارة قواعد البيانات إلى تصميم واجهة المستخدم.
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/ar/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/ar/blog/create-custom-ai-agent-skills)*
+*مواضيع ذات صلة: [كيفية بناء خوادم MCP بمهارات الوكيل](/ar/blog/how-to-build-mcp-servers-with-agent-skills) و [أنشئ مهارات وكيل الذكاء الاصطناعي المخصصة الخاصة بك](/ar/blog/create-custom-ai-agent-skills)*
