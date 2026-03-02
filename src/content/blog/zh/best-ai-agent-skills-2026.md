@@ -1,6 +1,6 @@
 ---
-title: "2026 Claude, Cursor, Windsurf "
-description: "2026 Claude Code, Cursor, Windsurf AI "
+title: "2026 Claude, Cursor 和 Windsurf 最佳的 AI 代理技能"
+description: "一个精选的列表，展示您现在可以安装的最有用的 AI 代理技能，按它们实际擅长的功能进行排序。在 Claude Code、Cursor 和 Windsurf 中经过测试。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
@@ -9,6 +9,7 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 目前可以安装的最佳 AI 代理技能
 
 **AI 代理技能** 是专门的、即插即用式的指令模块，能够为编码助手（如 Claude Code、Cursor 和 ContinueWindsurf）提供上下文和能力，以便自主执行复杂的工作流。根据 Killer-Skills 注册表的最新数据，使用有针对性代理技能的开发人员报告每周平均节省 12.5 小时的重复格式化、测试和文档任务时间。

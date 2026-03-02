@@ -1,6 +1,6 @@
 ---
-title: "消灭AI垃圾：掌握前端设计技能"
-description: "学习如何使用官方前端设计技能构建令人惊艳的生产级网页界面。探索独特UI/UX设计的秘诀。"
+title: "殺死 AI 的雜亂：掌握前端設計技巧"
+description: "學習如何使用官方的前端設計技能建立驚艷的、生產級別的網頁接口。發現獨特的 UI/UX 設計的秘密。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 超越千篇一律：用前端设计打造令人难忘的用户界面
 
 如果你最近使用人工智能生成过网站，很可能已经见过这种风格：紫色渐变背景、圆角白色卡片、标准的 Inter 字体。我们称之为"AI流水线作品"——这些设计看起来干净整洁，却缺乏灵魂且重复单调。

@@ -1,6 +1,6 @@
 ---
-title: "Killer Skills "
-description: "Killer Skills, AI "
+title: "Killer Skills 공개: AI 에이전트를 위한 궁극의 디렉토리"
+description: "우리는 AI 코딩 에이전트를 위해 특별히 설계된 고품질 도구들의 큐레이션된 마켓플레이스인 Killer Skills를 공개함으로써 기쁘게 생각합니다."
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]
@@ -9,6 +9,7 @@ featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Killer-Skills에 오신 것을 환영합니다: AI 에이전트를 위한 슈퍼파워
 
 오늘, 우리는 **Killer-Skills**의 출시를 발표하게 되어 매우 기쁩니다. 이는 AI 에이전트 역량을 위한 최초의 오픈 마켓플레이스이자 레지스트리입니다.

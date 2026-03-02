@@ -1,6 +1,6 @@
 ---
-title: "2026"
-description: "Claude Code, Cursor, Windsurf"
+title: "2026Claude, Cursor, WindsurfBest AI"
+description: "AIRight nowinstallcurated listwhat they actually do wellsorted byTested across Claude Code, Cursor, Windsurf"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
@@ -9,6 +9,7 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 現在インストールできる最高のAIエージェントスキル
 
 **AIエージェントスキル**は、特殊なプラグアンドプレイのインストラクションモジュールで、コードアシスタント（例：Claude Code、Cursor、ContinueWindsurf）に複雑なワークフローを自律的に実行するためのコンテキストと機能を提供します。Killer-Skillsレジストリからの最近のデータによると、ターゲットを絞ったエージェントスキルを使用する開発者は、繰り返しのフォーマット、テスト、ドキュメント作成タスクで平均12.5時間/週を節約できると報告しています。

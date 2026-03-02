@@ -1,6 +1,6 @@
 ---
-title: "Claude Code vs Cursor vs Windsurf: "
-description: "Claude CodeCursorWindsurfAI"
+title: "Claude Code 与 Cursor 与 Windsurf：哪个 IDE 最好地处理 AI 技能？"
+description: "对 Claude Code、Cursor 和 Windsurf 处理代理技能的实际比较。涵盖技能格式、加载行为以及实际上有什么不同。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["Claude Code", "Cursor", "Windsurf", "IDE Comparison", "AI Skills", "Developer Tools"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Claude Code 与 Cursor 与 Windsurf：技能比较
 
 **像 Claude Code、Cursor 和 Windsurf 这样的 AI 代理 IDE** 以根本不同的方式处理项目特定的指令（技能）：Claude Code 使用上下文按需加载，Cursor 依赖于 glob 匹配（`.mdc` 文件），而 Windsurf 加载一个单一的 `.windsurfrules` 文件，每次提示时都会全部加载。了解这些架构差异至关重要；管理 10+ 个技能的开发人员报告了 Windsurf 中的上下文窗口耗尽，而 Claude Code 可以轻松处理 50+ 个并发技能。

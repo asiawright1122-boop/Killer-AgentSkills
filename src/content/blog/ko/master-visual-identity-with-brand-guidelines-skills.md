@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "디자인의 DNA: 브랜드 가이드라인 스킬 마스터링"
+description: "공식 브랜딩을 AI 생성 자산에 적용하는 방법을 브랜드 가이드라인 스킬을 사용하여 알아보세요. Anthropic의 시각적 정체성의 비밀을 배우세요."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 권위 있는 디자인: 브랜드 가이드라인 스킬 해금
 
 전문적인 커뮤니케이션 세계에서 일관성은 모든 것을 결정한다. AI 에이전트와 함께 대시보드나 프레젠테이션을 생성할 때, 그것은 souvent "AI 생성"으로 식별되는데, 이는 제너릭 디자인 패턴을 따르기 때문이다. 신뢰를 구축하기 위해, 출력은 명확한 정체성을 가진 살아있는 조직에서 나온 것처럼 느껴져야 한다.

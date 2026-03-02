@@ -1,6 +1,6 @@
 ---
-title: "自定义Slack反应：掌握Slack-GIF制作工具技巧"
-description: "学习如何使用官方Slack-GIF制作工具创建自定义动画GIF和表情符号。优化动画文件大小和视觉效果。"
+title: "自定义Slack反应：掌握Slack-GIF-Creator技能"
+description: "学习如何使用官方的slack-gif-creator技能为Slack创建自定义动画GIF和表情符号。优化动画的文件大小和影响力。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 提升你的 Slack 使用体验：Slack-GIF-Creator 终极指南
 
 Slack 不仅仅是一个沟通工具；它更是一种文化。而最能体现公司文化的，莫过于自定义的表情符号反应。但是，既然你可以拥有完美优化、专业级别的动画 GIF，为什么还要满足于静态表情呢？

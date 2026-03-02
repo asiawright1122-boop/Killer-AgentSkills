@@ -1,6 +1,6 @@
 ---
-title: "Static Design "
-description: "canvas-design Official ."
+title: "Static Design Mastery: Canvas-Design Skill"
+description: "Canvas-Design Skill"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

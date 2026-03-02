@@ -1,6 +1,6 @@
 ---
-title: "PDF"
-description: "PDFAI"
+title: "PDF自動化の究極ガイド: PDFスキルのマスター"
+description: "公式のPDFスキルを使用してPDF処理を自動化する方法を学習します。高品質のAIエージェントワークフローを使用したマージ、分割、OCR、およびテーブル抽出をマスターします。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

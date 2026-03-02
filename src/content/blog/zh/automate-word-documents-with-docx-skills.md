@@ -1,6 +1,6 @@
 ---
-title: "自动化商业文档：DOCX技能的力量"
-description: "通过官方为AI代理打造的docx技能，掌握Word文档自动化。学习如何生成专业报告、跟踪更改并管理复杂模板。"
+title: "自动化商务文档：DOCX 技能的强大功能"
+description: "掌握使用 AI 代理的官方 docx 技能进行 Word 文档自动化。学习如何生成专业报告，追踪更改和管理复杂模板。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 专业文档自动化：掌握DOCX技能
 
 在现代企业中，Word文档（.docx）仍然是报告、法律合同和官方备忘录的黄金标准。然而，手动格式化这些文档是一项耗时的琐事。

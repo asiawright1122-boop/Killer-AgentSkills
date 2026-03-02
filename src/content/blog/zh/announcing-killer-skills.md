@@ -1,6 +1,6 @@
 ---
-title: "重磅发布：AI智能体必备工具大全——Killer Skills"
-description: "我们激动地推出Killer Skills——一个专为AI编程智能体精心打造的高质量工具精选市场。"
+title: "宣布殺手級技能：AI代理的終極目錄"
+description: "我們很高興推出殺手級技能，一個為AI編碼代理人量身定做的高質量工具精選市場。"
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]
@@ -9,6 +9,7 @@ featured: true
 category: "announcements"
 heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 欢迎来到 Killer-Skills：为您的 AI 智能体赋予超能力
 
 今天，我们激动地宣布 **Killer-Skills** 正式上线 —— 这是首个面向 AI 智能体能力的开放市场和注册中心。

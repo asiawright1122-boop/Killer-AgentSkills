@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "PPTX . , AI, "
+title: "AI-Powered Pitch Decks: PPTX "
+description: "PPTX . , AI ."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

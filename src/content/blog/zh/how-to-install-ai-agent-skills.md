@@ -1,6 +1,6 @@
 ---
-title: "30秒内安装AI代理技能的方法"
-description: "使用killer-skills CLI工具快速将社区AI代理技能安装到Claude Code、Cursor或Windsurf的指南"
+title: "如何在30秒内安装AI代理技能"
+description: "一个快速指南，使用killer-skills CLI工具将社区AI代理技能安装到Claude Code、Cursor或Windsurf中"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 如何安装 AI 代理技能
 
 您找到了一种想要使用的 AI 代理技能。也许是 [docx 自动化技能](/en/skills/anthropics/skills/docx)，或者是一种专门的前端 UI 生成器。现在，您需要将其添加到您的项目中，以便您的编码代理可以实际读取它。

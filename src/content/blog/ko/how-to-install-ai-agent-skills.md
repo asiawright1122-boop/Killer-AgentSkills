@@ -1,6 +1,6 @@
 ---
-title: "30AI "
-description: "CLI "
+title: "30초 만에 AI 에이전트 스킬 설치하는 방법"
+description: "killer-skills CLI 도구를 사용하여 Claude Code, Cursor 또는 Windsurf에 커뮤니티 AI 에이전트 스킬을 설치하는 빠른 가이드입니다."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # AI 에이전트 스킬 설치 방법
 
 원하는 AI 에이전트 스킬을 찾았습니다. 아마도 [docx 자동화 스킬](/en/skills/anthropics/skills/docx)일 수도 있고,専門된 프론트엔드 UI 생성기일 수도 있습니다. 이제 프로젝트에 통합하여 코딩 에이전트가 실제로 읽을 수 있도록 해야 합니다.

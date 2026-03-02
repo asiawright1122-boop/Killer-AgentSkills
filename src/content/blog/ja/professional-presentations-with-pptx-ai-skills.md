@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "PPTXOfficial pptx skillAI"
+title: "AI駆動のピッチデッキ：PPTXスキルのマスター"
+description: "公式のpptxスキルを使用して、驚くほどのプロフェッショナルなPowerPointプレゼンテーションを構築する方法を学びます。高影響力のAI生成スライドのデザイン原則を発見しましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

@@ -1,6 +1,6 @@
 ---
-title: "AI "
-description: "AI AI Claude, Cursor, Windsurf . , , ."
+title: "AI 에이전트 스킬은 무엇이며, 왜 관심을 가져야 합니까?"
+description: "AI 에이전트 스킬은 Claude, Cursor, Windsurf 와 같은 코딩 에이전트에게 특정 작업을 어떻게 수행하는지 알려주는 재사용 가능한 지침 파일입니다. 여기에서는 무엇인지, 어떻게 작동하는지, 그리고 실제로 도움이 되는 경우가 무엇인지 설명합니다."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,6 +9,7 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # AI 에이전트 기술이란 무엇인가요?
 
 AI 코딩 에이전트에게 "이 모듈에 대한 테스트를 작성해 줘"라고 요청했을 때, 프로젝트의 고유한 아키텍처를 무시하고 완전히 일반적인 내용만 작성해 낸 경험이 있으신가요?

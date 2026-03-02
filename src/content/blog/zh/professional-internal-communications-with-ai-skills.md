@@ -1,6 +1,6 @@
 ---
-title: "企业沟通卓越之道：内部沟通技能"
-description: "通过官方内部沟通技能掌握专业企业沟通。学习如何利用AI撰写3P更新、新闻通讯和事件报告。"
+title: " Corporate Communication Excellence: The Internal-Comms "
+description: " Master professional corporate communications with the official internal-comms . Learn how to write 3P updates, newsletters, and incident reports with AI."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 像领导者一样沟通：掌握内部沟通技能
 
 在远程办公和快速扩张的时代，沟通是凝聚组织的粘合剂。但高质量的沟通很难实现——它需要恰当的语气、合适的格式和精准的细节把控。撰写一份真正有人阅读的周报本身就是一项技能。

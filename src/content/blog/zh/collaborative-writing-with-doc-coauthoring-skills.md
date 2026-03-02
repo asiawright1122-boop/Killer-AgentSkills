@@ -1,6 +1,6 @@
 ---
-title: "协作引擎：掌握文档合作编写技能"
-description: "学习如何使用官方文档合作编写技能编写一流的文档。发现用于PRD、规格和提案的3阶段工作流程。"
+title: "协作引擎：掌握文档共同撰写技能"
+description: "学习如何通过官方文档共同撰写技能编写世界级文档。探索适用于PRD、规格说明和提案的三阶段工作流程。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # escrevir melhor, mais rápido：解鎖文檔共同撰寫技能
 
 撰寫文檔通常是開發人員或產品經理最害怕的部分。我們知道自己想要說什麼，但將這些知識從大腦轉移到結構化頁面上——以確保它對他人有意義——是一個認知上的巨大挑戰。

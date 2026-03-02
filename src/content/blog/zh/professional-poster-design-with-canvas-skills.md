@@ -1,6 +1,6 @@
 ---
-title: "静态设计精通：探索Canvas设计技能"
-description: "了解如何使用官方Canvas设计技能创作博物馆级别的海报和静态设计。探索设计宣言与视觉哲学。"
+title: "静态设计掌握：探索画布设计技能"
+description: "发现如何使用官方画布设计技能创建博物馆质量的海报和静态设计。了解设计宣言和视觉哲学。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 超越模板：使用 Canvas-Design 创作博物馆级别的艺术品
 
 在一个充斥着千篇一律 Canva 模板的世界里，真正的设计通过**意图性**脱颖而出。专业设计不仅仅是放置一个 Logo；它是指导每个像素的形态、空间和色彩的哲学理念。

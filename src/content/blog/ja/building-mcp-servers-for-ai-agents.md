@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "MCPModel Context ProtocolMCPAI"
+title: "AIエージェントのエンパワーメント: 高品質のMCPサーバーの構築"
+description: "Model Context Protocol（MCP）を発見し、AIエージェントが外部ツールやサービスとやり取りできる強力なサーバーを作成する方法を学びます。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # エージェント時代の接着剤：MCP-Buildersキルのマスター
 
 急速に進化するAIの世界では、エージェントが「考える」能力は戦闘の半分だけです。本当に役立つためには、エージェントは「行動」することもできなければなりません。データベースを検索したり、GitHubに投稿したり、カスタムの内部APIにクエリを実行したりします。これが**モデルコンテキストプロトコル（MCP）**が登場するところです。
