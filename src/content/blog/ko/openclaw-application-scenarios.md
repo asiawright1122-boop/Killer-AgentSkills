@@ -1,13 +1,13 @@
 ---
-title: "OpenClaw 5 : "
-description: "OpenClaw AI . , OpenClaw "
+title: "OpenClaw의 강력한 5가지 활용 사례: 개인 비서부터 자동화 전문가까지"
+description: "OpenClaw AI 에이전트의 실제 활용 사례를 탐색하세요. 개발자든 일반 사용자든 OpenClaw는 여러분의 업무 효율을 크게 높여줍니다."
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Automation", "Productivity"]
 lang: "ko"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-scenarios-hero.png"
+heroImage: "/blog/openclaw-scenarios-hero.webp"
 ---
 # OpenClaw의 강력한 5가지 활용 사례: 개인 비서부터 자동화 전문가까지
 

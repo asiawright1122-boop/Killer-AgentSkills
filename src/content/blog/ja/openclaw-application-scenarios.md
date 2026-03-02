@@ -1,13 +1,13 @@
 ---
-title: "OpenClaw 5"
-description: "OpenClaw AI"
+title: "OpenClawの5つの強力なユースケース：パーソナルアシスタントから自動化の専門家まで"
+description: "OpenClaw AIエージェントの実用的な活用シーンを探ります。開発者でも一般ユーザーでも、OpenClawはあなたの効率を大幅に向上させます。"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Automation", "Productivity"]
 lang: "ja"
 featured: false
 category: "guides"
-heroImage: "/blog/openclaw-scenarios-hero.png"
+heroImage: "/blog/openclaw-scenarios-hero.webp"
 ---
 # OpenClawの5つの強力なユースケース：パーソナルアシスタントから自動化の専門家まで
 
