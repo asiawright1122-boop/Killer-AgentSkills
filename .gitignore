@@ -62,3 +62,21 @@ test-ph*.mjs
 # Old task tracking (now in .gemini)
 task.md
 walkthrough.md
+
+# AI Directory Discovery Artifacts
+all_enabled_t1.txt
+clean_candidates.txt
+discovered_domains.txt
+enabled_t1.txt
+get_github_lists.sh
+get_remaining.js
+get_remaining.ts
+known_domains.txt
+new_candidates.txt
+probe_list.txt
+probe_list_final.txt
+probe_test.txt
+raw_discovery.md
+submitted_basenames.txt
+submitted_hosts.txt
+valid_new_sites.json
