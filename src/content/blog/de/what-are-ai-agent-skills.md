@@ -1,6 +1,6 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "AI agent skills are reusable instruction files that tell coding agents like Claude, Cursor, and Windsurf how to do specific jobs. Here is what they are, how they work, and when they actually help."
+title: "Was sind KI-Agenten-Fähigkeiten und warum sind sie wichtig?"
+description: "KI-Agenten-Fähigkeiten sind wiederverwendbare Anweisungsdateien, die Coding-Agenten wie Claude, Cursor und Windsurf mitteilen, wie sie bestimmte Aufgaben erledigen. Hier erfahren Sie, was sie sind, wie sie funktionieren und wann sie tatsächlich nützlich sind."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,30 +9,37 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+# Was sind KI-Agenten-Fähigkeiten?
 
-# What are AI agent skills?
+Hast du deinen KI-Code-Agenten schon einmal gebeten, "Tests für dieses Modul zu schreiben", nur damit er etwas völlig Allgemeines produziert, das die einzigartige Architektur deines Projekts ignoriert?
+## Was ist eine KI-Agenten-Fähigkeit?
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+Eine **KI-Agenten-Fähigkeit** ist eine spezialisierte Markdown-Datei (typischerweise mit dem Namen `SKILL.md`), die domänenspezifische Anweisungen für Coding-Assistenten wie Claude, Cursor und Windsurf bereitstellt. Durch das Platzieren dieser Dateien in Ihrem Projektverzeichnis lernen Agenten automatisch Ihre spezifischen Konventionen, Workflows und Regeln, ohne dass wiederholtes Prompting erforderlich ist.
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+<Info title="Was Sie in dieser Anleitung lernen">
+* Wie KI-Agenten-Fähigkeiten tatsächlich funktionieren
+* Wo Sie Skill-Dateien für verschiedene IDEs platzieren (Claude, Cursor, Windsurf)
+* Der ideale Anwendungsbereich, in dem Skills am effektivsten sind
+* Wie Sie Community-Skills über die CLI installieren
+* Best Practices zum Schreiben Ihrer eigenen benutzerdefinierten Skills
+</Info>
 
-```
+```text
 .claude/skills/
   testing/SKILL.md       # how to write tests in this project
   deployment/SKILL.md    # deployment checklist and configs
   code-review/SKILL.md   # what to look for in reviews
 ```
 
-The agent reads the file when the topic comes up, then follows those instructions instead of guessing.
+Der Agent liest die Datei, wenn das Thema aufkommt, und befolgt dann diese Anweisungen, anstatt zu raten.
+## Wie sie tatsächlich funktionieren
 
-## How they actually work
+Hier gibt es keine Zauberei. Eine Skill-Datei besteht aus zwei Teilen:
 
-There is no magic here. A skill file has two parts:
+1.  **Frontmatter** mit einem Namen und einer Beschreibung (damit der Agent weiß, wann er sie laden soll)
+2.  **Anweisungen**, die in einfachem Markdown geschrieben sind (das eigentliche Wissen)
 
-1. **Frontmatter** with a name and description (so the agent knows when to load it)
-2. **Instructions** written in plain markdown (the actual knowledge)
-
-Here is a real example, trimmed down:
+Hier ist ein echtes, gekürztes Beispiel:
 
 ```yaml
 ---
@@ -52,66 +59,61 @@ Rules:
 - Put test files next to the source: `utils.test.ts` beside `utils.ts`
 ```
 
-That is the whole format. The agent loads this file, reads the instructions, and changes its behavior accordingly. No SDK, no API calls, no configuration beyond the file itself.
+Das ist das gesamte Format. Der Agent lädt diese Datei, liest die Anweisungen und passt sein Verhalten entsprechend an. Kein SDK, keine API-Aufrufe, keine Konfiguration außerhalb der Datei selbst.
+## Wo Skills laufen
 
-## Where skills run
+Aktuell unterstützen mehrere Coding-Agents SKILL.md-Dateien oder Ähnliches:
 
-Right now, several coding agents support SKILL.md files or something similar:
-
-| Agent | Skill location | How it works |
+| Agent | Skill-Pfad | Funktionsweise |
 |-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Claude Code | `.claude/skills/` | Liest Skills automatisch basierend auf dem Kontext |
+| Cursor | `.cursor/rules/` | Projektweite Regeldateien |
+| Windsurf | `.windsurfrules` | Einzelne Regeldaten im Projektroot |
+| GitHub Copilot | `.github/copilot-instructions.md` | Repository-weite Anweisungen |
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+Das Format konvergiert. Ein für Claude geschriebener Skill funktioniert meist auch in Cursor mit geringen Pfadanpassungen.
+## Wann Skills wirklich helfen (und wann nicht)
 
-## When skills actually help (and when they don't)
+Skills eignen sich gut für **projektspezifische Konventionen**, die eine KI nicht selbst erraten kann. Dinge wie:
 
-Skills work well for **project-specific conventions** that an AI cannot guess on its own. Things like:
+- Ihr Bereitstellungsprozess umfasst 6 Schritte, und zwei davon benötigen eine manuelle Freigabe
+- Ihr Team verwendet überall ein bestimmtes Fehlerbehandlungsmuster
+- Datenbankabfragen müssen über eine bestimmte Abstraktionsebene laufen
+- Tests sollten einer bestimmten Namenskonvention folgen
 
-- Your deployment process has 6 steps and two of them require manual approval
-- Your team uses a specific error-handling pattern everywhere
-- Database queries need to go through a certain abstraction layer
-- Tests should follow a particular naming convention
+Skills helfen nicht besonders, wenn die Aufgabe so generisch ist, dass sie jeder kompetente Entwickler (oder KI) auf die gleiche Weise lösen würde. Sie benötigen keinen Skill für "wie man eine For-Schleife schreibt".
 
-Skills don't help much when the task is generic enough that any competent developer (or AI) would handle it the same way. You don't need a skill for "how to write a for loop."
+Der ideale Anwendungsbereich ist Wissen, das im Kopf Ihres Teams lebt, aber nirgendwo dokumentiert wurde. Skills zwingen Sie dazu, es zu dokumentieren, und dann kann die KI es ebenfalls befolgen.
+## Skills finden, die Sie sofort nutzen können
 
-The sweet spot is knowledge that lives in your team's heads but hasn't been written down anywhere. Skills force you to document it, and then the AI can follow it too.
+Sie können eigene Skills von Grund auf neu entwickeln, aber es gibt auch Community-Skills für häufige Aufgaben:
 
-## Finding skills you can use today
+- **docx** – Word-Dokumente erstellen und bearbeiten
+- **pdf** – PDFs lesen, zusammenführen, teilen und erstellen
+- **xlsx** – Mit Tabellenkalkulationen und Formeln arbeiten
+- **mcp-builder** – MCP-Server für Agenten-Integrationen erstellen
+- **frontend-design** – Ausgereifte Web-Oberflächen gestalten
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
-
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
-
-You install them with one command:
+Sie installieren sie mit einem Befehl:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+Dadurch wird die SKILL.md-Datei in das Skills-Verzeichnis Ihres Projekts kopiert. Der Agent erkennt sie bei der nächsten Konversation.
+## Eigene Skills schreiben
 
-## Writing your own skills
+Die besten Skills entstehen aus Frustration. Wenn dein Agent immer wieder etwas falsch macht, ist das ein Zeichen dafür, dass du einen Skill dafür brauchst.
 
-The best skills come from frustration. When your agent keeps doing something wrong, that is a signal you need a skill for it.
+Fang klein an. Schreibe 10 Zeilen über eine bestimmte Sache. "Beim Schreiben von API-Routen in diesem Projekt verwende immer unseren `withAuth`-Wrapper und gib Fehler in diesem Format zurück." Diese einzelne Anweisung kann dich davon befreien, den Agenten jedes Mal korrigieren zu müssen.
 
-Start small. Write 10 lines about one specific thing. "When writing API routes in this project, always use our `withAuth` wrapper and return errors in this format." That single instruction can save you from correcting the agent every time.
+Mit der Zeit wächst die Datei, während du weitere Regeln hinzufügst. Einige unserer nützlichsten internen Skills begannen als 5-zeilige Notizen und wuchsen zu vollständigen Referenzdokumenten heran.
+## Was kommt als Nächstes
 
-Over time, the file grows as you add more rules. Some of our most useful internal skills started as 5-line notes and grew into full reference documents.
+Skills sind noch in der frühen Phase. Das Format ist nicht für alle Agents standardisiert, die Fehlerbehandlung ist primitiv, und die Auffindbarkeit ist begrenzt. Aber die Kernidee (Ihrem KI-Assistenten schriftliche Anweisungen zu Ihrem Projekt zu geben) ist hier, um zu bleiben.
 
-## What comes next
-
-Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
-
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+Wenn Sie vorhandene Skills durchsehen oder eigene veröffentlichen möchten, besuchen Sie das [Skill-Verzeichnis](/en/skills). Derzeit gibt es über 1.000 von der Community beigetragene Skills, die alles von der Datenbankverwaltung bis zum UI-Design abdecken.
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/de/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/de/blog/create-custom-ai-agent-skills)*
+*Verwandte Themen: [Wie man MCP-Server mit Agent Skills erstellt](/de/blog/how-to-build-mcp-servers-with-agent-skills) und [Erstellen Sie Ihre eigenen benutzerdefinierten KI-Agent-Skills](/de/blog/create-custom-ai-agent-skills)*
