@@ -28,9 +28,9 @@ export abstract class BaseAdapter {
 
     /** 子类可选覆写：提交后的验证（检查是否成功） */
     protected async afterSubmit(page: Page): Promise<SubmitStatus> {
-        // 默认：等待 3 秒看看有没有成功提示
+        // 默认返回失败，子类必须实现真正的验证逻辑才能标记成功
         await page.waitForTimeout(3000);
-        return 'pending_review';
+        return 'failed';
     }
 
     /** 主执行方法 */

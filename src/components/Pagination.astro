@@ -123,41 +123,71 @@ const pages = getPageNumbers();
     <div class="relative group">
       <input
         type="number"
-        id="jump-page-input"
         min="1"
         max={totalPages}
         placeholder="页码"
-        class="w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
+        class="jump-page-input w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
       />
     </div>
     <button
-      id="jump-page-button"
-      class="bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] px-4 py-2 font-black uppercase tracking-widest text-sm hover:bg-[var(--primary)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+      class="jump-page-button bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] px-4 py-2 font-black uppercase tracking-widest text-sm hover:bg-[var(--primary)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
     >
       GO
     </button>
   </div>
+
+  <div 
+    class="pagination-data hidden" 
+    data-base-url={baseUrl} 
+    data-search-params={JSON.stringify(searchParams)} 
+    data-total-pages={totalPages}
+  ></div>
 </nav>
 
-<script is:inline define:vars={{ baseUrl, searchParams, totalPages }}>
-  const input = document.getElementById('jump-page-input');
-  const button = document.getElementById('jump-page-button');
+<script>
+  function setupPagination() {
+    // Find all pagination components on the page
+    const paginationNavs = document.querySelectorAll('nav[aria-label="Pagination"]');
+    
+    paginationNavs.forEach(nav => {
+      const input = nav.querySelector('.jump-page-input') as HTMLInputElement;
+      const button = nav.querySelector('.jump-page-button');
+      const dataEl = nav.querySelector('.pagination-data') as HTMLElement;
 
-  if (input && button) {
-    const handleJump = () => {
-      const page = parseInt(input.value);
-      if (page >= 1 && page <= totalPages) {
-        const params = new URLSearchParams(searchParams);
-        params.set('page', page.toString());
-        window.location.href = `${baseUrl}?${params.toString()}`;
-      } else {
-        alert(`请输入 1 到 ${totalPages} 之间的有效页码`);
-      }
-    };
+      if (!input || !button || !dataEl) return;
 
-    button.addEventListener('click', handleJump);
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') handleJump();
+      const { baseUrl, searchParams, totalPages } = dataEl.dataset;
+      const parsedParams = JSON.parse(searchParams || '{}');
+      const maxPages = parseInt(totalPages || '1');
+
+      const handleJump = () => {
+        const val = input.value.trim();
+        if (!val) return;
+
+        const page = parseInt(val);
+        if (page >= 1 && page <= maxPages) {
+          const params = new URLSearchParams();
+          for (const [key, value] of Object.entries(parsedParams)) {
+            if (value) params.set(key, String(value));
+          }
+          params.set('page', page.toString());
+          
+          const joinChar = baseUrl?.includes('?') ? '&' : '?';
+          window.location.href = `${baseUrl}${joinChar}${params.toString()}`;
+        } else {
+          alert(`请输入 1 到 ${maxPages} 之间的有效页码`);
+        }
+      };
+
+      // Use a fresh listener to avoid issues with double binding if astro:page-load handles it
+      // But standard event listeners on DOM elements that are replaced should be fine.
+      button.addEventListener('click', handleJump);
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleJump();
+      });
     });
   }
+
+  // Initialize on initial load and after View Transitions
+  document.addEventListener('astro:page-load', setupPagination);
 </script>

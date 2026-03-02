@@ -11,10 +11,16 @@
 
 import type { Page } from 'playwright';
 import { BaseAdapter } from '../base-adapter.js';
-import type { SubmitStatus } from '../types.js';
+import type { SubmitStatus, ProductMeta } from '../types.js';
 
 export class GenericFormAdapter extends BaseAdapter {
+    private filledCount = 0;
+    private submitClicked = false;
+    private urlBeforeSubmit = '';
+
     protected async fillForm(page: Page): Promise<void> {
+        this.filledCount = 0;
+        this.submitClicked = false;
         const meta = this.ctx.meta;
 
         // ── 1. 产品名称 ──
@@ -99,37 +105,233 @@ export class GenericFormAdapter extends BaseAdapter {
             value: meta.founder.twitter,
         });
 
-        // ── 11. 勾选 ToS / 协议 ──
+        // ── 11. 智能回退：如果标准匹配未填写任何字段，扫描表单进行启发式填写 ──
+        if (this.filledCount === 0) {
+            await this.fallbackSmartFill(page, meta);
+        }
+
+        // ── 12. 勾选 ToS / 协议 ──
         await this.tryCheckAgreement(page);
 
-        // ── 12. 点击提交按钮 ──
+        // ── 13. 点击提交按钮 ──
         await this.clickSubmitButton(page);
     }
 
-    protected async afterSubmit(page: Page): Promise<SubmitStatus> {
-        await page.waitForTimeout(3000);
+    /**
+     * 智能回退填写：当标准选择器都无法匹配时，
+     * 扫描表单中所有可见的空 input/textarea，根据上下文推测字段用途并填入数据。
+     */
+    private async fallbackSmartFill(page: Page, meta: ProductMeta) {
+        this.log(`  🔄 启动智能回退填写...`);
 
-        const bodyText = await page.textContent('body') || '';
-        const lower = bodyText.toLowerCase();
+        // 找到主表单
+        const forms = page.locator('form');
+        const formCount = await forms.count();
+        if (formCount === 0) return;
 
-        // 检测成功信号
-        const successSignals = [
-            'thank', 'success', 'submitted', 'received',
-            'review', 'approved', 'listed', 'pending',
-            '感谢', '成功', '已提交', '审核',
-        ];
-
-        if (successSignals.some(s => lower.includes(s))) {
-            return 'pending_review';
+        // 取第一个有 input 的表单
+        let targetForm = forms.first();
+        for (let i = 0; i < formCount; i++) {
+            const f = forms.nth(i);
+            const inputs = await f.locator('input:visible, textarea:visible').count();
+            if (inputs >= 2) { targetForm = f; break; }
         }
 
-        // 检测失败信号
-        const failSignals = ['error', 'failed', 'invalid', 'required', '错误', '失败'];
-        if (failSignals.some(s => lower.includes(s))) {
+        // 扫描表单内所有可见空字段
+        const inputs = targetForm.locator('input:visible:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]):not([type="file"]):not([type="submit"])');
+        const textareas = targetForm.locator('textarea:visible');
+
+        const inputCount = await inputs.count();
+        const taCount = await textareas.count();
+
+        if (inputCount === 0 && taCount === 0) return;
+
+        // 准备一个值队列：按优先级匹配
+        const valueMap: Array<{ keywords: string[]; value: string; used: boolean }> = [
+            { keywords: ['name', 'tool', 'product', 'title', 'app'], value: meta.name, used: false },
+            { keywords: ['url', 'website', 'link', 'http', 'site', 'domain'], value: meta.url, used: false },
+            { keywords: ['email', 'mail', 'contact'], value: meta.founder.email, used: false },
+            { keywords: ['tagline', 'slogan', 'short', 'one-liner'], value: meta.tagline, used: false },
+            { keywords: ['github', 'repo', 'source', 'code'], value: meta.links.github, used: false },
+            { keywords: ['twitter', 'x.com', 'social'], value: meta.founder.twitter, used: false },
+        ];
+
+        // 处理 input 字段
+        for (let i = 0; i < inputCount; i++) {
+            const input = inputs.nth(i);
+            const currentVal = await input.inputValue().catch(() => '');
+            if (currentVal) continue; // 已有值，跳过
+
+            // 收集字段线索
+            const attrs = await Promise.all([
+                input.getAttribute('name'),
+                input.getAttribute('id'),
+                input.getAttribute('placeholder'),
+                input.getAttribute('type'),
+                input.getAttribute('aria-label'),
+            ]);
+            const clue = (attrs.filter(Boolean).join(' ') || '').toLowerCase();
+
+            // 尝试用相邻 label 获取更多线索
+            let labelClue = '';
+            try {
+                const id = await input.getAttribute('id');
+                if (id) {
+                    labelClue = (await page.locator(`label[for="${id}"]`).first().textContent() || '').toLowerCase();
+                }
+            } catch { }
+            const allClues = clue + ' ' + labelClue;
+
+            // 匹配值
+            let filled = false;
+            for (const vm of valueMap) {
+                if (vm.used || !vm.value) continue;
+                if (vm.keywords.some(k => allClues.includes(k))) {
+                    await input.click();
+                    await input.fill(vm.value);
+                    vm.used = true;
+                    this.filledCount++;
+                    this.log(`  ✓ [回退] 填充 ${attrs[0] || attrs[1] || '?'} = ${vm.value.substring(0, 30)}...`);
+                    filled = true;
+                    break;
+                }
+            }
+
+            // 如果是 email 类型，直接填邮箱
+            if (!filled && attrs[3] === 'email') {
+                await input.click();
+                await input.fill(meta.founder.email);
+                this.filledCount++;
+                this.log(`  ✓ [回退] 填充 email type`);
+            }
+            // 如果是 url 类型，直接填 URL
+            else if (!filled && attrs[3] === 'url') {
+                await input.click();
+                await input.fill(meta.url);
+                this.filledCount++;
+                this.log(`  ✓ [回退] 填充 url type`);
+            }
+        }
+
+        // 处理 textarea 字段
+        for (let i = 0; i < taCount; i++) {
+            const ta = textareas.nth(i);
+            const currentVal = await ta.inputValue().catch(() => '');
+            if (currentVal) continue;
+
+            const attrs = await Promise.all([
+                ta.getAttribute('name'),
+                ta.getAttribute('id'),
+                ta.getAttribute('placeholder'),
+            ]);
+            const clue = (attrs.filter(Boolean).join(' ') || '').toLowerCase();
+
+            // textarea 通常是描述字段
+            const descValue = clue.includes('long') || clue.includes('detail') || clue.includes('content')
+                ? meta.descriptions.long
+                : meta.descriptions.short;
+
+            await ta.click();
+            await ta.fill(descValue);
+            this.filledCount++;
+            this.log(`  ✓ [回退] 填充 textarea ${attrs[0] || attrs[1] || '?'}`);
+        }
+
+        if (this.filledCount > 0) {
+            this.log(`  🔄 智能回退完成，共填写 ${this.filledCount} 个字段`);
+        }
+    }
+
+    protected async afterSubmit(page: Page): Promise<SubmitStatus> {
+        // ── 预检：如果根本没填写任何字段，直接判定失败 ──
+        if (this.filledCount === 0) {
+            this.log(`  ❌ 未填写任何字段，判定为无效页面`);
             return 'failed';
         }
 
-        return 'pending_review';
+        // ── 预检：如果没有找到/点击提交按钮，也判定失败 ──
+        if (!this.submitClicked) {
+            this.log(`  ❌ 未找到提交按钮，判定为提交失败`);
+            return 'failed';
+        }
+
+        await page.waitForTimeout(3000);
+
+        // ── 检查 1: URL 是否发生了跳转（常见的成功信号） ──
+        const currentUrl = page.url();
+        const urlChanged = currentUrl !== this.urlBeforeSubmit;
+        if (urlChanged) {
+            this.log(`  🔀 URL 跳转: ${this.urlBeforeSubmit} → ${currentUrl}`);
+        }
+
+        // ── 检查 2: 页面内容分析 ──
+        const bodyText = await page.textContent('body') || '';
+        const lower = bodyText.toLowerCase();
+
+        // 强失败信号 —— 只在页面标题/H1中检测，避免误判正常页面内容
+        const titleText = (await page.title() || '').toLowerCase();
+        let h1Text = '';
+        try { h1Text = (await page.locator('h1').first().textContent() || '').toLowerCase(); } catch { }
+        const headerText = titleText + ' ' + h1Text;
+
+        const strongFailInHeader = ['captcha', 'recaptcha', 'access denied', 'forbidden', 'sign in', 'log in', 'login required'];
+        if (strongFailInHeader.some(s => headerText.includes(s))) {
+            this.log(`  ❌ 检测到强失败信号（标题/H1）`);
+            return 'failed';
+        }
+
+        // 检测验证码元素（精确检测，不依赖文本）
+        const hasCaptcha = await page.locator('iframe[src*="recaptcha"], iframe[src*="hcaptcha"], .g-recaptcha, .h-captcha, [data-sitekey]').count() > 0;
+        if (hasCaptcha) {
+            this.log(`  ❌ 检测到验证码元素`);
+            return 'failed';
+        }
+
+        // 成功信号（扩展了更多常见的成功提示）
+        const successSignals = [
+            'thank you', 'thanks for', 'successfully submitted', 'submission received',
+            'we will review', 'under review', 'has been submitted', 'listing pending',
+            'successfully added', 'tool has been added', 'submission successful',
+            'we have received', 'will be reviewed', 'added successfully',
+            'your submission', 'tool submitted', 'submission complete',
+            '感谢提交', '提交成功', '审核中', '已收到',
+        ];
+
+        if (successSignals.some(s => lower.includes(s))) {
+            this.log(`  ✅ 检测到成功信号`);
+            return 'pending_review';
+        }
+
+        // ── 检查 3: 表单是否仍然存在（成功提交后通常表单会消失） ──
+        const formStillExists = await page.locator('form').count() > 0;
+        if (urlChanged && !formStillExists) {
+            this.log(`  ✅ URL已跳转且表单已消失，判定为成功`);
+            return 'pending_review';
+        }
+
+        // 如果 URL 跳转了，大概率成功
+        if (urlChanged) {
+            this.log(`  ⏳ URL已跳转，标记为待审核`);
+            return 'pending_review';
+        }
+
+        // 弱失败信号 —— 只在填写了足够字段时才检查
+        const failSignals = ['is required', 'field is required', 'please fill', 'cannot be empty'];
+        if (failSignals.some(s => lower.includes(s))) {
+            this.log(`  ❌ 检测到表单验证失败信号`);
+            return 'failed';
+        }
+
+        // ── 乐观回退：如果填了 ≥2 个字段且点了提交，乐观标记为成功 ──
+        // 很多小型导航站提交后页面不变化，也不提示，但实际已经将数据存入后台
+        if (this.filledCount >= 2) {
+            this.log(`  ⏳ 已填写${this.filledCount}个字段并点击提交，乐观标记为待审核`);
+            return 'pending_review';
+        }
+
+        // 默认失败
+        this.log(`  ❌ 无法确认提交结果，标记为失败`);
+        return 'failed';
     }
 
     // ─── 私有辅助 ─────────────────────────────────────
@@ -161,6 +363,7 @@ export class GenericFormAdapter extends BaseAdapter {
                         await el.click();
                         await el.fill(opts.value);
                         this.log(`  ✓ 填充 ${sel}`);
+                        this.filledCount++;
                         return;
                     }
                 }
@@ -177,6 +380,7 @@ export class GenericFormAdapter extends BaseAdapter {
                     await el.click();
                     await el.fill(opts.value);
                     this.log(`  ✓ 填充 placeholder~${ph}`);
+                    this.filledCount++;
                     return;
                 }
             }
@@ -194,6 +398,7 @@ export class GenericFormAdapter extends BaseAdapter {
                             await target.click();
                             await target.fill(opts.value);
                             this.log(`  ✓ 填充 label[for=${forAttr}]`);
+                            this.filledCount++;
                             return;
                         }
                     }
@@ -212,6 +417,7 @@ export class GenericFormAdapter extends BaseAdapter {
                     await el.click();
                     await el.fill(opts.value);
                     this.log(`  ✓ 填充 fallback textarea`);
+                    this.filledCount++;
                     return;
                 }
             }
@@ -321,12 +527,16 @@ export class GenericFormAdapter extends BaseAdapter {
             return;
         }
 
+        // 记录提交前的 URL，供 afterSubmit 比对
+        this.urlBeforeSubmit = page.url();
+
         // 策略 1：type="submit" 按钮
         const submitBtn = page.locator('button[type="submit"], input[type="submit"]');
         if (await submitBtn.count() > 0) {
             const btn = submitBtn.first();
             if (await btn.isVisible()) {
                 await btn.click();
+                this.submitClicked = true;
                 this.log(`  ✓ 点击 submit 按钮`);
                 return;
             }
@@ -340,6 +550,7 @@ export class GenericFormAdapter extends BaseAdapter {
                 const el = btn.first();
                 if (await el.isVisible()) {
                     await el.click();
+                    this.submitClicked = true;
                     this.log(`  ✓ 点击按钮 "${text}"`);
                     return;
                 }
@@ -351,10 +562,12 @@ export class GenericFormAdapter extends BaseAdapter {
         const count = await formBtns.count();
         if (count > 0) {
             await formBtns.last().click();
+            this.submitClicked = true;
             this.log(`  ✓ 点击表单末尾按钮`);
             return;
         }
 
+        this.submitClicked = false;
         this.log(`  ⚠️ 未找到提交按钮`);
     }
 }

@@ -264,6 +264,16 @@ export class SubmitEngine {
             return new ToolScoutAdapter(site, ctx);
         }
 
+        if (site.id === 'startupstash') {
+            const { StartupStashAdapter } = await import('./adapters/startupstash.js');
+            return new StartupStashAdapter(site, ctx);
+        }
+
+        if (site.id === 'dangai') {
+            const { DangAiAdapter } = await import('./adapters/dangai.js');
+            return new DangAiAdapter(site, ctx);
+        }
+
         // 目前统一使用通用适配器，后续可根据 site.id 分配专用适配器
         return new GenericFormAdapter(site, ctx);
     }
