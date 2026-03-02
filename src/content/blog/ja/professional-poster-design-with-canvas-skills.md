@@ -9,7 +9,6 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
 ---
-
 # Beyond the Template: Creating Museum-Quality Art with Canvas-Design
 
 In a world saturated with generic Canva templates, true design stands out through **intentionality**. Professional design isn't just about where you place a logo; it's about the philosophy of form, space, and color that guides every pixel.
@@ -20,20 +19,18 @@ The official **canvas-design** skill from Anthropic empowers AI agents to move b
 # Add the canvas-design skill to your toolkit
 npx killer-skills add anthropics/skills/canvas-design
 ```
+## Was macht Canvas-Design anders?
 
-## What Makes Canvas-Design Different?
+Die meisten KI-Tools versuchen zu "erraten", was gut aussieht. Die Fähigkeit `canvas-design` hingegen arbeitet nach dem Prinzip **Manifesto-First**. Sie behandelt jede Designanfrage als eine neue ästhetische Bewegung.
 
-Most AI tools try to "guess" what looks good. The `canvas-design` skill, however, operates on a **Manifesto-First** basis. It treats every design request as a new aesthetic movement.
+### 1. Erstellung einer visuellen Philosophie
+Bevor auch nur eine einzige Form gezeichnet wird, entwickelt der Agent eine **Visuelle Philosophie**. Dies ist keine Checkliste; es ist ein tiefes Eintauchen in die Seele der Bewegung. Beispiele sind:
+- **"Brutalistische Freude"**: Monumentale Formen und rohe Ehrlichkeit.
+- **"Chromatische Stille"**: Farbe als primäres Informationssystem mit minimalem Text.
+- **Analoge Meditation**: Körnung, Farbverläufe und großer Negativraum werden bewusst eingesetzt.
 
-### 1. Visual Philosophy Creation
-Before a single shape is drawn, the agent creates a **Visual Philosophy**. This isn't a checklist; it's a deep dive into the movement's soul. Examples include:
-- **"Brutalist Joy"**: Monumental forms and raw honesty.
-- **"Chromatic Silence"**: Using color as the primary information system with minimal text.
-- **"Analog Meditation"**: Embracing grain, bleed, and vast negative space.
-
-### 2. Spatial Communication
-The skill emphasizes **Spatial Communication** over text. It follows a 90/10 rule: 90% visual design, 10% essential text. Text is treated as a visual accent—a powerful gesture integrated into the architecture of the piece—rather than a block of information.
-
+### 2. Räumliche Kommunikation
+Die Fähigkeit betont **Räumliche Kommunikation** gegenüber Text. Sie folgt einer 90/10-Regel: 90% visuelles Design, 10% wesentlicher Text. Text wird als visuelles Akzentuierungselement behandelt – eine kraftvolle Geste, die in die Architektur des Werks integriert ist – und nicht als Informationsblock.
 ## Key Design Principles
 
 The `canvas-design` skill enforces museum-level craftsmanship through several non-negotiable standards:
@@ -46,7 +43,6 @@ The skill utilizes high-quality fonts and treats typography as part of the art. 
 
 ### Labor-Intensive Quality
 The goal is to produce work that looks like it took **countless hours of manual refinement**. The compositions are balanced with the care of a meditation practice, rewarding sustained viewing.
-
 ## Practical Use Cases
 
 ### Boutique Event Posters
@@ -57,23 +53,23 @@ Develop visual languages for brands that value restraint and order. "Geometric S
 
 ### Art Artifacts
 Generate pieces that prove something ephemeral can be studied and mapped. These "imaginary discipline" diagrams use dense accumulation of marks and layered patterns to create deep, meaningful art.
+Of course. Here is the translated Markdown content:
 
-## How to use it with Killer-Skills
+## Wie man es mit Killer-Skills verwendet
 
-1.  **Install**: `npx killer-skills add anthropics/skills/canvas-design`
-2.  **Prompt**: "Create a minimalist poster for a jazz festival titled 'Blue Note'. Use the canvas-design skill. I want it to feel like the 'Analog Meditation' movement."
-3.  **Refine**: Ask the agent to "make the existing composition more cohesive" rather than adding more graphics.
+1.  **Installieren**: `npx killer-skills add anthropics/skills/canvas-design`
+2.  **Prompt**: "Erstelle ein minimalistisches Plakat für ein Jazzfestival mit dem Titel 'Blue Note'. Verwende die canvas-design-Fähigkeit. Es soll sich wie die 'Analog Meditation'-Bewegung anfühlen."
+3.  **Verfeinern**: Bitte den Agenten, "die bestehende Komposition zusammenhängender zu gestalten", anstatt weitere Grafiken hinzuzufügen.
+## Conclusión
 
-## Conclusion
+La habilidad `canvas-design` es para aquellos que creen que el diseño es una disciplina, no un atajo. Transforma tu agente de IA en un artesano experto capaz de producir obras que merecen un lugar en una galería.
 
-The `canvas-design` skill is for those who believe that design is a discipline, not a shortcut. It transforms your AI agent into an expert craftsman capable of producing work that demands a place in a gallery.
-
-Explore the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) to download and start designing today.
-
----
-
-*Looking for more? Check out [algorithmic-art](https://killer-skills.com/ja/skills/anthropics/skills/algorithmic-art) for code-based generative art.*
+Explora el [Mercado de Killer-Skills](https://killer-skills.com/es/skills/anthropics/skills/canvas-design) para descargar y comenzar a diseñar hoy.
 
 ---
 
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*
+*¿Buscas más? Echa un vistazo a [algorithmic-art](https://killer-skills.com/es/skills/anthropics/skills/algorithmic-art) para arte generativo basado en código.*
+
+---
+
+*Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/what-are-ai-agent-skills) y [Mejores habilidades de agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*

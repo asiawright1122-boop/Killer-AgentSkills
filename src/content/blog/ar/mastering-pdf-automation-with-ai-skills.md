@@ -1,6 +1,6 @@
 ---
-title: "The Ultimate Guide to PDF Automation: Mastering the PDF Skill"
-description: "Learn how to automate PDF processing using the official pdf skill. Master merging, splitting, OCR, and table extraction with high-quality AI agent workflows."
+title: "الدليل الشامل لأتمتة ملفات PDF: إتقان مهارة PDF"
+description: "تعلم كيفية أتمتة معالجة ملفات PDF باستخدام مهارة PDF الرسمية. أتقن دمج، تقسيم، التعرف الضوئي على الحروف (OCR)، واستخراج الجداول باستخدام سير عمل وكيل الذكاء الاصطناعي عالي الجودة."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]
@@ -9,73 +9,65 @@ featured: true
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=2560&auto=format&fit=crop"
 ---
+# التحكم الدقيق في ملفات PDF: رفع كفاءة سير العمل بمهارة PDF
 
-# Precision PDF Control: Elevating Your Workflow with the PDF Skill
+تعتبر ملفات PDF الشكل "غير القابل للكسر" في العالم الرقمي — رائعة للعرض المتسق، لكنها صعبة للغاية عند التعامل معها أو استخراج البيانات منها. سواء كنت تتعامل مع آلاف فواتير المسح الضوئي أو تحتاج إلى إنشاء تقارير معقدة برمجيًا، فإن الطريقة "التقليدية" للتعامل اليدوي لم تعد مجدية.
 
-PDFs are the "unbreakable" format of the digital world—great for consistent viewing, but notoriously difficult to manipulate or extract data from. Whether you are dealing with thousands of scanned invoices or need to programmatically generate complex reports, the "old way" of manual handling is no longer viable.
-
-The official **pdf** skill from Anthropic gives your AI agent (like Claude Code) a powerful engine for PDF manipulation. It moves beyond simple text reading and into the world of structural analysis, data extraction, and high-fidelity generation.
+مهارة **pdf** الرسمية من Anthropic تمنح وكيل الذكاء الاصطناعي الخاص بك (مثل Claude Code) محركًا قويًا للتعامل مع ملفات PDF. إنها تتجاوز مجرد قراءة النص البسيط إلى عالم التحليل الهيكلي، واستخراج البيانات، والإنشاء عالي الدقة.
 
 ```bash
-# Equip your agent with the pdf skill
+# جهز وكيلك بمهارة pdf
 npx killer-skills add anthropics/skills/pdf
 ```
+## ما هي مهارة PDF؟
 
-## What is the PDF Skill?
+مهارة `pdf` هي إطار عمل متعدد الأدوات يستفيد من تكامل عميق مع المكتبات القياسية في الصناعة:
+- **pypdf**: للعمليات الأساسية مثل دمج الملفات وتقسيمها وتدوير الصفحات.
+- **pdfplumber**: المعيار الذهبي لاستخراج النصوص والجداول مع الحفاظ على التخطيط.
+- **ReportLab**: محرك احترافي لإنشاء ملفات PDF جديدة من الصفر.
+- **Poppler & Tesseract**: لاستخراج الصور المتقدم والتعرف الضوئي على الحروف (OCR).
+## القدرات الرئيسية
 
-The `pdf` skill is a multi-tooled framework that leverages deep integration with industry-standard libraries:
-- **pypdf**: For core operations like merging, splitting, and rotating pages.
-- **pdfplumber**: The gold standard for extracting text and tables while preserving layout.
-- **ReportLab**: A pro-grade engine for generating new PDFs from scratch.
-- **Poppler & Tesseract**: For advanced image extraction and OCR (Optical Character Recognition).
+### 1. بطل البيانات: استخراج الجداول العميق
+يعاني معظم أدوات الذكاء الاصطناعي مع الجداول داخل ملفات PDF. يستخدم مهارة `pdf` **pdfplumber** لترجمة "خطوط الشبكة" والعلاقات الهيكلية، مما يسمح للوكيل بتحويل البيانات المالية المعقدة أو الجداول في ملفات PDF إلى ملفات CSV أو Excel نظيفة بدقة قريبة من الكمال.
 
-## Key Capabilities
+### 2. معماري PDF: التوليد المهني
+مع دمج **ReportLab** ، لا يقوم وكيلك بإنشاء ملفات نصية فقط؛ بل يقوم بتصميم المستندات. يمكنه:
+- **قوالب ديناميكية**: إنشاء تقارير متعددة الصفحات مع تدفقات محددة بالمنطق.
+- **التدوين العلمي**: استخدام علامات XML لكتابة الأرقام الفرعية / العلوية المثالية في المستندات الفنية.
+- **التحديد**: إضافة ختم مائي، وأقدام مخصصة، وتصميم متسق مع العلامة التجارية.
 
-### 1. Data Hero: Deep Table Extraction
-Most AI tools struggle with tables inside PDFs. The `pdf` skill uses **pdfplumber** to "see" the grid lines and structural relationships, allowing the agent to convert complex PDF financial statements or schedules into clean CSV or Excel files with near-perfect accuracy.
+### 3. جراحة هيكلية
+يمكن للوكلاء أداء عمليات "جراحية" معقدة على الملفات الحالية:
+- **دمج/انقسام**: دمج مئات الملفات أو انفجار مستند كبير إلى صفحات فردية برمجيًا.
+- **إدارة البيانات الوصفية**: تحرير علامات العنوان، والكاتب، والموضوع لأغراض تحسين محركات البحث والأرشفة.
+- **حماية بكلمة مرور**: تشفير وفك تشفير المستندات الحساسة على الفور.
 
-### 2. The PDF Architect: Professional Generation
-With **ReportLab** integration, your agent isn't just creating text files; it's designing documents. It can:
-- **Dynamic Templates**: Create multi-page reports with logic-driven flows.
-- **Scientific Notation**: Use XML markup for perfect sub/superscripts in technical docs.
-- **Branding**: Add watermarks, custom footers, and brand-consistent styling.
+### 4. OCR و الرؤية
+هل تعامل مع مستند مسح لا يمكن البحث فيه؟ يستخدم المهارة OCR لجعل غير القابل للقراءة قابلًا للقراءة، مما ي戻 البكسل إلى نص قابل للفهرسة.
+## الحالات العملية
 
-### 3. Structural Surgery
-Agents can perform complex "surgeries" on existing files:
-- **Merging/Splitting**: Programmatically combine hundreds of files or burst a large document into individual pages.
-- **Metadata Management**: Edit title, author, and subject tags for SEO and archival purposes.
-- **Password Protection**: Encrypt and decrypt sensitive documents on the fly.
+### معالجة الفواتير الآلية
+قم ببناء تدفق عمل يقرأ مجلدًا من فواتير PDF ، يستخرج المبلغ الإجمالي والضريبة باستخدام مهارة `pdf` ، ويحفظ النتائج في قاعدة بيانات.
 
-### 4. OCR & Vision
-Dealing with a scanned document that isn't searchable? The skill uses OCR to make the unreadable readable, turning pixels back into indexable text.
+### تقارير PDF الديناميكية
+اجعل تقارير التحليلات الشهرية التي تشمل الرسومات (من مهارة [xlsx](https://killer-skills.com/ar/blog/mastering-excel-automation-with-xlsx-skills)) والملخصات المنسقة بشكل احترافي في تنسيق PDF قابل للطباعة.
 
-## Practical Use Cases
+### تنظيف الأرشيف
+آلية دوران الممسوحات غير المحاذاة وإزالة علامات مائية "مسودة" من الوثائق النهائية.
+## كيفية استخدامها مع Killer-Skills
 
-### Automated Invoice Processing
-Build a workflow that reads a folder of PDF invoices, extracts the total amount and tax using the `pdf` skill, and saves the results to a database.
+1.  **التثبيت**: `npx killer-skills add anthropics/skills/pdf`
+2.  **الأمر**: "خذ جميع ملفات PDF في هذا المجلد وادمجها في ملف واحد باسم 'Annual_Report_2025.pdf'. تأكد من ترقيم الصفحات بشكل صحيح."
+3.  **استخراج**: "استخرج الجدول في الصفحة 3 من ملف PDF هذا واحفظه كملف Excel."
+## الخاتمة
 
-### Dynamic PDF Reporting
-Generate monthly analytics reports that include charts (from the [xlsx skill](https://killer-skills.com/ar/blog/mastering-excel-automation-with-xlsx-skills)) and professionally formatted summaries in a printable PDF format.
+مهمة `pdf` هي أداة أساسية لأي مطور حديث أو محلل بيانات. إنها تأخذ العبء من التعامل مع ملفات PDF وتسمح لك ببناء خطوط أنابيب وثائق آليّة حقًا ومن الدرجة الأولى للمؤسسات.
 
-### Archival Cleanup
-Automate the rotation of misaligned scans and the removal of "Draft" watermarks from finalized documents.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/pdf`
-2.  **Command**: "Take all PDFs in this folder and merge them into a single file called 'Annual_Report_2025.pdf'. Ensure page numbers are correct."
-3.  **Extract**: "Extract the table on page 3 of this PDF and save it as an Excel file."
-
-## Conclusion
-
-The `pdf` skill is an essential tool for any modern developer or data analyst. It takes the pain out of PDF handling and allows you to build truly automated, enterprise-grade document pipelines.
-
-Install the [pdf skill](https://killer-skills.com/ar/skills/anthropics/skills/pdf) from the Killer-Skills Marketplace and start automating today.
+تثبيت مهارة `pdf` من سوق Killer-Skills وبدء الأتمتة اليوم.
 
 ---
-
-*Need to generate editable Word documents instead? Check out the [docx skill](https://killer-skills.com/ar/skills/anthropics/skills/docx).*
+*هل تحتاج إلى生成 مستندات Word قابلة للتحرير بدلاً من ذلك؟ قم بزيارة مهارة [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx).*
 
 ---
-
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*مرتبط: [ما هي مهارات الوكيل الذكي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات الوكيل الذكي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

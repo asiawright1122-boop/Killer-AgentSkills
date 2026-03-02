@@ -9,71 +9,65 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+# تحدث كقائد: إتقان مهارة الاتصالات الداخلية
 
-# Speak Like a Leader: Mastering the Internal-Comms Skill
+في عصر العمل عن بُعد والتوسع السريع، يمثل التواصل العامل الذي يربط أجزاء المؤسسة معًا. لكن التواصل عالي الجودة أمر صعب — فهو يتطلب النبرة المناسبة، والتنسيق المناسب، ومستوى التفاصيل المناسب. كتابة تحديث أسبوعي يُقرأ بالفعل هي مهارة بحد ذاتها.
 
-In an era of remote work and rapid scaling, communication is the glue that holds an organization together. But high-quality communication is hard—it requires the right tone, the right format, and the right level of detail. Writing a weekly update that actually gets read is a skill in itself.
-
-The official **internal-comms** skill from Anthropic equips your AI agent with the templates and tonal guidelines used by elite organizations. It moves beyond generic "corporate speak" to provide structured, actionable, and professional internal messaging.
+مهارة **الاتصالات الداخلية** الرسمية من Anthropic تُجهز وكيل الذكاء الاصطناعي الخاص بك بالقوالب والمبادئ التوجيهية للنبرة المستخدمة من قبل المؤسسات النخبوية. إنها تتجاوز "الحديث المؤسسي" العام لتوفر رسائل داخلية مهيكلة وقابلة للتنفيذ ومهنية.
 
 ```bash
-# Equip your agent with the internal-comms skill
+# جهز وكيلك بمهارة الاتصالات الداخلية
 npx killer-skills add anthropics/skills/internal-comms
 ```
+## ما هي مهارة الاتصالات الداخلية؟
 
-## What is the Internal-Comms Skill?
+مهارة `internal-comms` هي مستودع كثيف الموارد لتنسيقات الاتصالات على مستوى المؤسسة. تضمن هذه المهارة أنه عند كتابة وكيلك لتحديث ما، فإنه يتبع الهياكل المحددة التي تتوقعها فرق القيادة.
 
-The `internal-comms` skill is a resource-intensive repository of enterprise-grade communication formats. It ensures that when your agent writes an update, it follows the specific structures that leadership teams expect.
+### 1. قوة تحديثات نموذج 3P
+إحدى الميزات الأساسية لهذه المهارة هي **نموذج 3P**:
+- **التقدم (Progress)**: ما الذي تم إنجازه فعليًا؟
+- **الخطط (Plans)**: ما هي خارطة الطريق للفترة القادمة؟
+- **المشكلات (Problems)**: ما هي المعوقات أو المخاطر التي تحتاج إلى اهتمام؟
 
-### 1. The Power of 3P Updates
-One of the core features of this skill is the **3P Format**:
-- **P**rogress: What was actually accomplished?
-- **P**lans: What is the roadmap for the next period?
-- **P**roblems: What are the blockers or risks that need attention?
+يمثل هذا الهيكل المعيار الذهبي للتحديثات التنفيذية لأنه موجز وصادق ويتطلع إلى الأمام.
 
-This structure is the gold standard for executive updates because it is concise, honest, and forward-looking.
+### 2. أنواع اتصالات شاملة
+المهارة ليست مخصصة لتقارير الحالة فحسب؛ بل إنها تتعامل مع الطيف الكامل للاحتياجات الداخلية:
+- **النشرات الإخبارية للشركة**: تحديثات واسعة النطاق مهنية وجذابة.
+- **تقارير الحوادث**: تحليلات موضوعية ومرتبة لما بعد الحدث للمشكلات التقنية أو التجارية.
+- **ردود الأسئلة الشائعة**: إجابات واضحة وموثوقة للأسئلة الشائعة للفريق.
+- **تحديثات القيادة**: ملخصات عالية المستوى لكبار نواب الرئيس والتنفيذيين.
+## كيفية عمل المهارة
 
-### 2. Comprehensive Comm Types
-The skill isn't just for status reports; it handles the full spectrum of internal needs:
-- **Company Newsletters**: Professional and engaging wide-scale updates.
-- **Incident Reports**: Objective and structured post-mortems for technical or business issues.
-- **FAQ Responses**: Clear, authoritative answers to common team questions.
-- **Leadership Updates**: High-level summaries for SVPs and C-suite executives.
+عندما تطلب من الوكيل "كتابة تحديث للمشروع"، تطلق مهارة `internal-comms` سير عمل متعدد الخطوات:
+1.  **تحديد النوع**: تحدد ما إذا كنت تحتاج إلى تقرير حالة، أو نشرة إخبارية، أو أسئلة شائعة.
+2.  **تحميل الإرشادات**: تقوم بتحميل ملف "المثال" المحدد (مثل `3p-updates.md`) لفهم النبرة والتنسيق المطلوبين.
+3.  **جمع المحتوى**: تستخدم سياقها لسحب أحدث التطورات والمخاطر ذات الصلة إلى القالب.
+## حالات استخدام عملية
 
-## How the Skill Works
+### التقارير التلقائية للحالة
+قم بتوصيل وكيلك بقاعدة الكود الخاصة بك أو أداة تتبع المهام. اجعله يستخدم مهارة `internal-comms` لتوليد **تحديث 3P** مُنسق بشكل مثالي كل يوم جمعة في الساعة 5 مساءً.
 
-When you ask an agent to "Write a project update," the `internal-comms` skill triggers a multi-step workflow:
-1.  **Type Identification**: It determines if you need a status report, a newsletter, or an FAQ.
-2.  **Guideline Loading**: It loads the specific "Example" file (e.g., `3p-updates.md`) to understand the required tone and formatting.
-3.  **Content Gathering**: It uses its context to pull the most relevant progress and risks into the template.
+### إدارة الحوادث
+أثناء تعطل النظام، اجعل وكيلك يعد مسودة **تقرير الحادث الأولي** بناءً على سجلات الطرفية وسجل النشر، مع ضمان أن تكون النبرة موضوعية واحترافية.
 
-## Practical Use Cases
+### بناء الثقافة
+قم بصياغة نشرات "All-Hands" الشهرية التي تسلط الضوء على انتصارات الفريق، والتعيينات الجديدة، والمعالم القادمة بصوت علامة تجارية متسق ومشجع.
+## كيفية استخدامه مع Killer-Skills
 
-### Automated Status Reporting
-Connect your agent to your codebase or task tracker. Have it use the `internal-comms` skill to generate a perfectly formatted **3P update** every Friday at 5 PM.
+1.  **تثبيت**: `npx killer-skills add anthropics/skills/internal-comms`
+2.  **الأمر**: "اكتب تحديث 3P لمشروع 'Deep_Search' بناءً على تقدمنا هذا الأسبوع. اشدد على تسرب الذاكرة كمشكلة."
+3.  **تحسين**: "حول هذا التحديث الفني إلى ملخص مناسب للقيادة لصحيفة الشركة."
+## الخلاصة
 
-### Incident Management
-During a system outage, have your agent draft the initial **Incident Report** based on terminal logs and deployment history, ensuring the tone is objective and professional.
+موهبة `internal-comms` هي سلاحك السري من أجل الرؤية المهنية. وهي تأكد من أن عملك لم يُنجز فحسب، بل **يتواصل بفعالية** مع الأشخاص الذين يهمون.
 
-### Culture Building
-Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and upcoming milestones with a consistent, encouraging brand voice.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/internal-comms`
-2.  **Command**: "Write a 3P update for the 'Deep_Search' project based on our progress this week. Highlight the memory leak as a Problem."
-3.  **Refine**: "Convert this technical update into a leadership-friendly summary for the company newsletter."
-
-## Conclusion
-
-The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
-
-Install the [internal-comms skill](https://killer-skills.com/ar/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
+ثبت موهبة `internal-comms` من سوق Killer-Skills وابدأ التحدث بلغة القيادة.
 
 ---
 
-*Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring).*
+*هل تحتاج إلى التعاون على وثائق أكثر تعقيدا؟ تحقق من موهبة [التعاون على الوثائق](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*متصلة: [ما هي مهارات الوكيل الذكي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات الوكيل الذكي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

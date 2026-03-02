@@ -1,6 +1,6 @@
 ---
-title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+title: "Arte Generativo con IA: Una Guía para la Habilidad de Arte Algorítmico"
+description: "Domina el arte generativo utilizando la habilidad oficial de arte-algorítmico para agentes de IA. Aprende a crear impresionantes visuales con p5.js, campos de flujo y sistemas de partículas con facilidad."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,46 +9,30 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+## ¿Qué es la habilidad de Arte Algorítmico?
 
-# Transforming Code into Canvas: The Power of Algorithmic Art
+La habilidad `algorithmic-art` es más que un simple generador de código: es un marco de trabajo para la **Estética Computacional**. Guía a los agentes de IA a través de un proceso creativo de dos pasos:
 
-Generative art is where the precision of mathematics meets the raw emotion of artistic expression. It’s a medium where the artist doesn’t just paint a picture, but creates a *system* that breathes life into infinite variations. 
+1.  **Creación de una Filosofía Algorítmica**: El agente primero define un "movimiento" o filosofía (por ejemplo, "Turbulencia Orgánica" o "Armónicos Cuánticos").
+2.  **Expresión en p5.js**: Luego, el agente traduce esa filosofía en un sketch funcional de p5.js, completo con parámetros interactivos y aleatoriedad controlada (seeded randomness).
+## Características clave de la habilidad
 
-With the official **algorithmic-art** skill from Anthropic, your AI coding agent (like Claude Code or Cursor) becomes a master generative artist. This skill teaches agents how to leverage **p5.js**, seeded randomness, and computational philosophies to create gallery-quality visuals.
+### 1. Aleatoriedad inicial
+La habilidad prioriza la **reproducibilidad**. Cada pieza de arte está vinculada a una semilla específica. Si encuentra una variación que le gusta (por ejemplo, Semilla #42), puede recrearla exactamente cada vez. Esto es fundamental para crear colecciones de arte o activos profesionales.
 
-```bash
-# Add the algorithmic-art skill to your agent
-npx killer-skills add anthropics/skills/algorithmic-art
-```
+### 2. Comportamiento emergente
+En lugar de dibujar formas estáticas, la habilidad se centra en **sistemas**. Utiliza:
+- **Campos de flujo**: Miles de partículas que siguen fuerzas vectoriales.
+- **Campos de ruido**: Utiliza ruido de Perlin o Simplex para texturas orgánicas.
+- **Estructuras recursivas**: Fractales y sistemas L que crecen infinitamente.
+- **Dinámica de partículas**: Sistemas que evolucionan a través de física simulada.
 
-In this post, we’ll explore how this skill works and how you can use it to build your own digital masterpieces.
-
-## What is the Algorithmic Art Skill?
-
-The `algorithmic-art` skill is more than just a code generator—it’s a framework for **Computational Aesthetics**. It guides AI agents through a two-step creative process:
-
-1.  **Algorithmic Philosophy Creation**: The agent first defines a "movement" or philosophy (e.g., "Organic Turbulence" or "Quantum Harmonics").
-2.  **p5.js Expression**: The agent then translates that philosophy into a working p5.js sketch, complete with interactive parameters and seeded randomness.
-
-## Key Features of the Skill
-
-### 1. Seeded Randomness
-The skill prioritizes **reproducibility**. Every piece of art is tied to a specific seed. If you find a variation you love (e.g., Seed #42), you can recreate it exactly every time. This is critical for building art collections or professional assets.
-
-### 2. Emergent Behavior
-Instead of drawing static shapes, the skill focuses on **systems**. It uses:
-- **Flow Fields**: Thousands of particles following vector forces.
-- **Noise Fields**: Using Perlin or Simplex noise for organic textures.
-- **Recursive Structures**: Fractals and L-systems that grow infinitely.
-- **Particle Dynamics**: Systems that evolve through simulated physics.
-
-### 3. Interactive Parameter Exploration
-The skill doesn't just output a static image. It generates a full **Interactive Viewer** (HTML/JS) that lets you tune the artwork in real-time. You can adjust:
-- **Particle Count**: Control the density of the composition.
-- **Noise Scale**: Change from smooth waves to jagged chaos.
-- **Color Palettes**: Swap entire moods with a single slider.
-- **Physics Forces**: Speed up or slow down the "dance" of the particles.
-
+### 3. Exploración de parámetros interactiva
+La habilidad no solo produce una imagen estática. Genera un **Visor interactivo** completo (HTML/JS) que le permite ajustar la obra de arte en tiempo real. Puede ajustar:
+- **Cantidad de partículas**: Controlar la densidad de la composición.
+- **Escala de ruido**: Cambiar de olas suaves a caos dentado.
+- **Paletas de colores**: Cambiar el estado de ánimo completo con un solo control deslizante.
+- **Fuerzas de física**: Acelerar o ralentizar la "danza" de las partículas.
 ## A Look Under the Hood: The Philosophy
 
 The most unique aspect of this skill is the **Manifesto**. Before writing a single line of code, the agent drafts a philosophy. For example:
@@ -58,38 +42,35 @@ The most unique aspect of this skill is the **Manifesto**. Before writing a sing
 > *Algorithmic Expression: Flow fields driven by layered Perlin noise. Thousands of particles follow vector forces, their trails accumulating into organic density maps.*
 
 This framing ensures that the final code isn't just "random noise," but a **meticulously crafted algorithm** that feels intentional and expert.
+# Getting Started
 
-## How to Get Started
-
-### Step 1: Equip the Skill
+## Step 1: Equip the Skill
 If you're using the Killer-Skills CLI, installation is a breeze:
 
 ```bash
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-### Step 2: Prompt Your Agent
+## Step 2: Prompt Your Agent
 Once equipped, you can give your agent complex creative prompts:
 
 > "Create an algorithmic art piece titled 'Solar Drift'. Use the algorithmic-art skill. Focus on warmth, circular motion, and thousands of fine-line particles. I want a custom viewer with a noise scale slider."
 
-### Step 3: Iterate and Explore
+## Step 3: Iterate and Explore
 The agent will provide a philosophy and a self-contained HTML artifact. Open it in your browser, play with the sliders, and cycle through seeds until you find the perfect frame.
-
 ## Why This Matters for Developers
 
 For developers, generative art is the ultimate playground for logic. The `algorithmic-art` skill bridges the gap between technical expertise (loops, math, arrays) and visual design. Whether you're building a landing page background, a unique NFT collection, or just exploring the beauty of math, this skill provides the professional foundation you need.
+## Conclusión
 
-## Conclusion
+El futuro del arte es colaborativo: una danza entre la intención humana y la ejecución de la máquina. La habilidad **algorithmic-art** te permite ser el coreógrafo de esa danza.
 
-The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
-
-Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/es/skills/anthropics/skills/algorithmic-art) and install it today.
-
----
-
-*Explore more creative skills like [canvas-design](https://killer-skills.com/es/skills/anthropics/skills/canvas-design) and [theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) on Killer-Skills.*
+¿Listo para empezar a crear? Dirígete al [Marketplace de Killer-Skills](https://killer-skills.com/es/habilidades/antropicas/habilidades/algorithmic-art) e instálala hoy mismo.
 
 ---
 
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*
+*Explora más habilidades creativas como [canvas-design](https://killer-skills.com/es/habilidades/antropicas/habilidades/canvas-design) y [theme-factory](https://killer-skills.com/es/habilidades/antropicas/habilidades/theme-factory) en Killer-Skills.*
+
+---
+
+*Relacionado: [¿Qué son las habilidades de agentes de IA?](/es/blog/que-son-las-habilidades-de-agentes-de-ia) y [Mejores habilidades de agentes de IA para 2026](/es/blog/mejores-habilidades-de-agentes-de-ia-2026)*

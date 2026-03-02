@@ -8,7 +8,18 @@
  * - translate-locales.ts (UI translation)
  */
 
-import 'dotenv/config';
+import * as dotenv from 'dotenv';
+import * as fs from 'fs';
+import * as path from 'path';
+
+// Load default .env first
+dotenv.config();
+
+// Then explicitly override with .env.local if present
+const localEnv = path.join(process.cwd(), '.env.local');
+if (fs.existsSync(localEnv)) {
+    dotenv.config({ path: localEnv, override: true });
+}
 import { SUPPORTED_LOCALES } from './constants';
 import type { SeoData, AgentAnalysis, TranslateContext } from './types';
 import { tryParseJSON, robustParseJSON, extractJSONCandidates, cleanAndTruncate, fetchWithTimeout } from './utils';

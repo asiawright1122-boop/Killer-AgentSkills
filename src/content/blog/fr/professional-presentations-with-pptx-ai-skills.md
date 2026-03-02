@@ -9,70 +9,62 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+# Au-delà du point de liste : Créer des présentations d'élite avec la compétence PPTX
 
-# Beyond the Bullet Point: Creating Elite Presentations with the PPTX Skill
+Dans le monde des affaires, une présentation est plus qu'une simple information - c'est une performance. La plupart des diapositives générées par l'IA souffrent de ce que nous appelons "Le piège du modèle" : des points de liste ennuyeux sur un fond blanc. Pour vraiment convaincre votre audience, vous avez besoin d'un design de haute qualité, de palettes de couleurs intentionnelles et de dispositions équilibrées.
 
-In the business world, a presentation is more than just information—it's a performance. Most AI-generated slides suffer from what we call "The Template Trap": boring bullet points on a white background. To truly win an audience, you need high-end design, intentional color palettes, and balanced layouts.
-
-The official **pptx** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior presentation designer. It doesn't just "fill in" slides; it architect's them using professional design systems and modern web technologies like **PptxGenJS**.
+La compétence **pptx** officielle d'Anthropic permet à votre agent IA (comme Claude Code) de devenir un designer de présentations senior. Elle ne remplit pas seulement les diapositives ; elle les conçoit en utilisant des systèmes de design professionnels et des technologies web modernes comme **PptxGenJS**.
 
 ```bash
-# Equip your agent with the pptx skill
+# Équiper votre agent avec la compétence pptx
 npx killer-skills add anthropics/skills/pptx
 ```
+## Qu'est-ce que la compétence PPTX ?
 
-## What is the PPTX Skill?
+La compétence `pptx` est un framework axé sur le design pour la création et la manipulation de diapositives. Elle repose sur trois piliers :
+- **PptxGenJS** : Un moteur JavaScript puissant pour construire des diapositives à partir de zéro.
+- **Markitdown** : Pour la lecture structurelle approfondie et l'extraction de texte à partir de présentations existantes.
+- **Intelligence du Design** : Une connaissance intégrée de la théorie des couleurs, de la typographie et des mises en page professionnelles.
+## Principes de conception de haute qualité
 
-The `pptx` skill is a design-first framework for slide creation and manipulation. It's built on three pillars:
-- **PptxGenJS**: A powerful JavaScript engine for building slides from scratch.
-- **Markitdown**: For deep structural reading and text extraction from existing decks.
-- **Design Intelligence**: Built-in knowledge of color theory, typography, and professional layouts.
+La compétence `pptx` impose une politique de "Pas de diapositives ennuyeuses" à travers plusieurs principes fondamentaux :
 
-## High-End Design Principles
+### 1. La règle de la "Dominance sur l'Égalité"
+Les designers professionnels ne donnent jamais le même poids à toutes les couleurs. La compétence utilise une règle de 60-30-10 : 60 % de couleur dominante (par exemple, Navy Executive Midnight), 30 % de tons de soutien (Bleu de glace) et 10 % d'accent tranchant (Blanc).
 
-The `pptx` skill enforces a "No Boring Slides" policy through several core principles:
+### 2. Le motif visuel
+Au lieu de décorations aléatoires, la compétence choisit UN motif visuel distinct - comme des cadres d'images arrondis ou des bordures épaisse unilatérales - et le maintient de manière cohérente sur chaque diapositive. Cela crée un sentiment de "marque" cohérent pour votre présentation.
 
-### 1. The "Dominance over Equality" Rule
-Professional designers never give all colors equal weight. The skill uses a 60-30-10 rule: 60% dominant color (e.g., Midnight Executive Navy), 30% supporting tones (Ice Blue), and 10% sharp accent (White).
+### 3. Typographie avec personnalité
+La compétence va au-delà d'Arial. Elle associe des en-têtes gras (comme Impact ou Georgia) à des polices de corps propres et lisibles (comme Calibri ou Garamond) pour établir une hiérarchie d'informations claire.
+## Capacités Avancées
 
-### 2. The Visual Motif
-Instead of random decorations, the skill picks ONE distinct visual motif—like rounded image frames or thick single-sided borders—and carries it consistently across every slide. This creates a cohesive "brand" feeling for your presentation.
+### Chirurgie et Édition de Diapositives
+Contrairement aux simples convertisseurs PDF, la compétence `pptx` peut "dépaqueter" une présentation en ses composants XML bruts. Cela permet à l'agent de :
+- **Échanger des Dispositions** : Changer une disposition en 2 colonnes pour une grille en 3 colonnes tout en préservant le contenu.
+- **Mettre à Jour les Diapositives Maîtres** : Appliquer une nouvelle couleur de marque ou un logo sur 100 diapositives instantanément.
+- **Ajouter des Notes de Présentateur** : Générer programmiquement des notes pour le présentateur en fonction du contenu de la diapositive.
 
-### 3. Typography with Personality
-The skill moves beyond Arial. It pairs bold headers (like Impact or Georgia) with clean, readable body fonts (like Calibri or Garamond) to establish a clear information hierarchy.
+### Visualisation de Données
+La compétence peut prendre des données brutes de la [compétence xlsx](https://killer-skills.com/fr/blog/mastering-excel-automation-with-xlsx-skills) et les transformer en grandes "Appels de Statistiques"—de grands chiffres gras qui capturent l'attention instantanément—plutôt que des graphiques encombrés et illisibles.
+## Cas d'utilisation pratiques
 
-## Advanced Capabilities
+### Création automatisée de pitch decks investisseurs
+Générez un pitch deck de 10 diapositives dont le design s'adapte au secteur d'activité (par exemple, "Coral Energy" pour les startups, "Midnight Executive" pour la finance).
 
-### Slide Surgery & Editing
-Unlike simple PDF converters, the `pptx` skill can "unpack" a presentation into its raw XML components. This allows the agent to:
-- **Swap Layouts**: Change a 2-column layout to a 3-column grid while preserving content.
-- **Update Master Slides**: Apply a new brand color or logo across 100 slides instantly.
-- **Add Speaker Notes**: Programmatically generate notes for the presenter based on slide content.
+### Mises à jour de marque à l'échelle mondiale
+Reprenez un deck d'entreprise existant et "relookez"-le avec les dernières directives de marque en quelques minutes.
 
-### Data Visualization
-The skill can take raw data from the [xlsx skill](https://killer-skills.com/fr/blog/mastering-excel-automation-with-xlsx-skills) and transform it into large "Stat Callouts"—big, bold numbers that capture attention instantly—rather than cluttered, unreadable charts.
-
-## Practical Use Cases
-
-### Automated Investor Pitch Decks
-Generate a 10-slide pitch deck where the design adapts to the industry (e.g., "Coral Energy" for startups, "Midnight Executive" for finance).
-
-### Global Brand Updates
-Take an existing company deck and "reskin" it with the latest brand guidelines in minutes.
-
-### Content Summarization
-Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/fr/blog/mastering-pdf-automation-with-ai-skills) and have the `pptx` skill automatically generate a 5-slide executive summary.
-
+### Synthèse de contenu
+Importez un PDF de 50 pages dans la [compétence pdf](https://killer-skills.com/fr/blog/mastering-pdf-automation-with-ai-skills) et laissez la compétence `pptx` générer automatiquement un résumé exécutif de 5 diapositives.
 ## Conclusion
 
-The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
+La compétence `pptx` va au-delà des simples formats de fichiers — elle concerne l'**autorité visuelle**. Elle garantit que lorsque votre agent IA crée une présentation, elle ressemble à avoir été conçue par un expert humain.
 
-Download the [pptx skill](https://killer-skills.com/fr/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
-
----
-
-*Want to style your docs too? Check out the [theme-factory skill](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory).*
+Téléchargez la compétence [pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) sur le marché Killer-Skills et commencez à créer des diapositives qui vendent.
 
 ---
+*Vous souhaitez personnaliser vos documents également ? Découvrez la compétence [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory).*
 
-*Related: [What are AI agent skills?](/fr/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/fr/blog/best-ai-agent-skills-2026)*
+---
+*Liens relatés : [Qu'est-ce que les compétences des agents IA ?](/fr/blog/what-are-ai-agent-skills) et [Meilleures compétences des agents IA pour 2026](/fr/blog/best-ai-agent-skills-2026)*
