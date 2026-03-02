@@ -138,7 +138,7 @@ async function createIDEConfig(projectPath: string, ide: string, skipPrompt?: bo
     else if (ide === 'continue') configFileName = path.join('.continue', 'rules', 'skills.md');
     else if (ide === 'augment') configFileName = path.join('.augment', 'rules', 'skills.md');
     else if (ide === 'cody') configFileName = path.join('.github', 'instructions', 'cody.md');
-    else if (ide === 'antigravity' || ide === 'opencode' || ide === 'aider' || ide === 'amazonq' || ide === 'codex') configFileName = 'AGENTS.md';
+    else if (ide === 'antigravity' || ide === 'opencode' || ide === 'aider' || ide === 'amazonq' || ide === 'codex' || ide === 'openclaw') configFileName = 'AGENTS.md';
     else if (ide === 'roo' || ide === 'cline') configFileName = '.clinerules';
     else if (config.format === 'rules.md') configFileName = `.${ide}rules`;
     else if (config.format === 'instructions.md') configFileName = `${ide}-instructions.md`;

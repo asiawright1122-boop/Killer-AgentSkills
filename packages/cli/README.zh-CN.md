@@ -14,7 +14,7 @@
 ### ✨ 特性
 
 - 🚀 **统一安装** - 从 GitHub、Registry 或本地一键安装，自动同步到 IDE
-- 🤖 **Universal IDE Support** - 支持 Cursor, Windsurf, VS Code, Claude Code 等 **17+ IDE**
+- 🤖 **Universal IDE Support** - 支持 Cursor, Windsurf, VS Code, Claude Code, OpenClaw 等 **19 IDE**
 - ⚡ **Auto-Invoke** - 技能安装后，AI Agent 可通过自然语言**自动调用**，无需手动指令
 - 🔐 **GitHub 无感认证** - 支持复用 `gh` CLI token 或通过 Device Flow 一键登录
 - 🔍 **智能搜索** - **[NEW]** 官网数据优先，支持交互式选择和自动打开文档
@@ -23,7 +23,7 @@
 
 ### 支持的 IDE
 
-Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **17+ IDE** 并自动注入 **Auto-Invoke** 指令：
+Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **19 IDE** 并自动注入 **Auto-Invoke** 指令：
 
 | IDE | 配置文件 | 状态 |
 |-----|----------|------|
@@ -33,6 +33,7 @@ Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **17
 | **Goose** | `.goosehints` | ✅ 原生支持 |
 | **Continue.dev** | `.continue/rules/skills.md` | ✅ 原生支持 |
 | **Augment Code** | `.augment/rules/skills.md` | ✅ 原生支持 |
+| **OpenClaw** | `AGENTS.md` | ✅ 原生支持 |
 | **VS Code + Copilot** | `.github/copilot-instructions.md` | ✅ 支持 |
 | **Sourcegraph Cody** | `.github/instructions/cody.md` | ✅ 原生支持 |
 | **Claude Code** | `CLAUDE.md` | ✅ 支持 |
