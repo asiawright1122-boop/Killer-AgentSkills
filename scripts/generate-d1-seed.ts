@@ -74,12 +74,12 @@ async function run() {
         const last_synced = escapeSql(skill.lastSynced);
         const content_hash = escapeSql(skill.contentHash);
         // D1 per-statement limit is ~1MB. Truncate skillMd.body for oversized rows.
-        const MAX_STATEMENT_BYTES = 800_000; // 800KB safety margin
+        const MAX_STATEMENT_BYTES = 500_000; // 500KB safety margin (D1 limit ~1MB, SQL escaping adds overhead)
         let skillCopy = skill;
         let rawJson = JSON.stringify(skill);
 
         if (Buffer.byteLength(rawJson, 'utf-8') > MAX_STATEMENT_BYTES && skill.skillMd?.body) {
-            skillCopy = { ...skill, skillMd: { ...skill.skillMd, body: skill.skillMd.bodyPreview || skill.skillMd.body.slice(0, 500) } };
+            skillCopy = { ...skill, skillMd: { ...skill.skillMd, body: (skill.skillMd.bodyPreview || skill.skillMd.body.slice(0, 200)) } };
             rawJson = JSON.stringify(skillCopy);
             console.warn(`⚠️ Truncated body for ${skill.id} (${(Buffer.byteLength(rawJson, 'utf-8') / 1024).toFixed(0)}KB)`);
         }
