@@ -1,5 +1,5 @@
 // src/config/ides.ts
-// Complete configuration for all 17+ supported AI coding tools
+// Complete configuration for all 18+ supported AI coding tools
 
 import path from 'path';
 import os from 'os';
@@ -187,6 +187,17 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
         priority: 13,
         category: 'agent'
     },
+    openclaw: {
+        name: 'OpenClaw',
+        format: 'SKILL.md',
+        paths: {
+            global: path.join(homedir, '.openclaw', 'skills'),
+            project: '.openclaw/skills'
+        },
+        detectFiles: ['.openclaw'],
+        priority: 14,
+        category: 'agent'
+    },
 
     // === VS CODE EXTENSIONS ===
     continue: {
@@ -197,7 +208,7 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
             project: '.continue/skills'
         },
         detectFiles: ['.continue'],
-        priority: 14,
+        priority: 15,
         category: 'extension'
     },
     copilot: {
@@ -208,7 +219,7 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
             project: '.github/copilot-skills'
         },
         detectFiles: ['.github'],
-        priority: 15,
+        priority: 16,
         requiresConversion: true,
         category: 'extension'
     },
@@ -220,7 +231,7 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
             project: '.cody/skills'
         },
         detectFiles: ['.cody'],
-        priority: 16,
+        priority: 17,
         category: 'extension'
     },
     amazonq: {
@@ -231,7 +242,7 @@ export const IDE_CONFIG: Record<string, IDEConfig> = {
             project: '.amazonq/skills'
         },
         detectFiles: ['.amazonq'],
-        priority: 17,
+        priority: 18,
         category: 'extension'
     }
 };

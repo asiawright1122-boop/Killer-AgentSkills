@@ -29,7 +29,7 @@ interface SyncOptions {
     all?: boolean;
 }
 
-// IDE-specific output file configurations (all 17 IDEs)
+// IDE-specific output file configurations (all 18 IDEs)
 const IDE_OUTPUT_FILES: Record<string, string> = {
     // Editors
     cursor: '.cursorrules',
@@ -53,6 +53,7 @@ const IDE_OUTPUT_FILES: Record<string, string> = {
     copilot: path.join('.github', 'copilot-instructions.md'),
     cody: path.join('.github', 'instructions', 'cody.md'),
     amazonq: 'AGENTS.md',
+    openclaw: 'AGENTS.md',
     // Default
     default: 'AGENTS.md',
 };
@@ -216,6 +217,7 @@ function detectIDE(): string {
         { ide: 'roo', files: ['.roo', '.clinerules', '.roomodes'] },
         { ide: 'kiro', files: ['.kiro'] },
         { ide: 'augment', files: ['.augment'] },
+        { ide: 'openclaw', files: ['.openclaw'] },
         // Extensions (lower priority)
         { ide: 'continue', files: ['.continue'] },
         { ide: 'cody', files: ['.cody'] },

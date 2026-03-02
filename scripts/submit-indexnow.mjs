@@ -5,7 +5,14 @@ const HOST = 'killer-skills.com';
 const KEY = '89cc8ad09dc64e58b25ccb5632573e78';
 const KEY_LOCATION = `https://${HOST}/${KEY}.txt`;
 const BATCH_SIZE = 2000;
-const ENDPOINT = 'https://api.indexnow.org/indexnow';
+const ENDPOINTS = [
+    'https://api.indexnow.org/indexnow',
+    'https://www.bing.com/indexnow',
+    'https://yandex.com/indexnow',
+    'https://search.seznam.cz/indexnow',
+    'https://searchadvisor.naver.com/indexnow',
+    'https://indexnow.yep.com/indexnow'
+];
 const SITEMAP_URL = `https://${HOST}/sitemap.xml`;
 
 async function fetchXml(url) {
@@ -125,25 +132,27 @@ async function main() {
             urlList: batch,
         };
 
-        try {
-            const response = await fetch(ENDPOINT, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json; charset=utf-8' },
-                body: JSON.stringify(payload),
-            });
+        for (const endpoint of ENDPOINTS) {
+            console.log(`   ➡️  To: ${endpoint}`);
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                    body: JSON.stringify(payload),
+                });
 
-            if (response.ok) {
-                console.log(`✅ Batch ${batchNum} submitted successfully (${response.status})`);
-                successCount += batch.length;
-            } else {
-                const text = await response.text();
-                console.error(`❌ Batch ${batchNum} failed: ${response.status} ${response.statusText}`);
-                console.error(text);
+                if (response.ok) {
+                    console.log(`      ✅ Success (${response.status})`);
+                    successCount += batch.length;
+                } else {
+                    const text = await response.text();
+                    console.error(`      ❌ Failed: ${response.status} ${response.statusText}`);
+                    failCount += batch.length;
+                }
+            } catch (error) {
+                console.error(`      ❌ Network error: ${error.message}`);
                 failCount += batch.length;
             }
-        } catch (error) {
-            console.error(`❌ Network error on batch ${batchNum}:`, error.message);
-            failCount += batch.length;
         }
     }
 

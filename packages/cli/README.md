@@ -11,7 +11,7 @@
 
 ### ✨ Features
 - 🚀 **Unified Installation** - One-click install from GitHub, Registry, or local; auto-sync to IDE.
-- 🤖 **Universal IDE Support** - Supports Cursor, Windsurf, VS Code, Claude Code, and **17+ IDEs**.
+- 🤖 **Universal IDE Support** - Supports Cursor, Windsurf, VS Code, Claude Code, OpenClaw, and **19 IDEs**.
 - ⚡ **Auto-Invoke** - Installed skills can be **auto-invoked** by AI Agents via natural language without manual commands.
 - 🔐 **Seamless GitHub Auth** - Reuses `gh` CLI token or supports one-click Device Flow login.
 - 🔍 **Smart Search** - **[NEW]** Website-First search with interactive selection & auto-open docs.
@@ -20,7 +20,7 @@
 
 ### Supported IDEs
 
-Killer-Skills dynamically detects and configures IDEs based on its internal configuration. It currently supports **17+ IDEs** and injects **Auto-Invoke** instructions:
+Killer-Skills dynamically detects and configures IDEs based on its internal configuration. It currently supports **19 IDEs** and injects **Auto-Invoke** instructions:
 
 | IDE | Config File | Status |
 |-----|-------------|--------|
@@ -30,6 +30,7 @@ Killer-Skills dynamically detects and configures IDEs based on its internal conf
 | **Goose** | `.goosehints` | ✅ Native |
 | **Continue.dev** | `.continue/rules/skills.md` | ✅ Native |
 | **Augment Code** | `.augment/rules/skills.md` | ✅ Native |
+| **OpenClaw** | `AGENTS.md` | ✅ Native |
 | **VS Code + Copilot** | `.github/copilot-instructions.md` | ✅ Supported |
 | **Sourcegraph Cody** | `.github/instructions/cody.md` | ✅ Native |
 | **Claude Code** | `CLAUDE.md` | ✅ Supported |

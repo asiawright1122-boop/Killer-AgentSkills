@@ -7,9 +7,9 @@ import { IDE_CONFIG } from '../config/ides.js';
 /**
  * Universal IDE Skill Injector
  * 
- * Handles skill injection for ALL 17 supported IDEs/Agents.
+ * Handles skill injection for ALL 18 supported IDEs/Agents.
  * Groups:
- *   - Native SKILL.md IDEs: claude, antigravity, aider, codex, goose, cline, roo, trae, augment, continue, cody, amazonq
+ *   - Native SKILL.md IDEs: claude, antigravity, aider, codex, goose, cline, roo, trae, augment, openclaw, continue, cody, amazonq
  *   - Cursor: @import reference in .cursorrules
  *   - Windsurf: Copy to .windsurf/rules/<name>.md
  *   - VS Code / Copilot: Append to .github/copilot-instructions.md
@@ -53,6 +53,7 @@ export async function injectSkill(
         case 'cline':
         case 'roo':
         case 'augment':
+        case 'openclaw':
         case 'continue':
         case 'cody':
         case 'amazonq':
