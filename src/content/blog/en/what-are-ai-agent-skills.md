@@ -12,11 +12,21 @@ heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=
 
 # What are AI agent skills?
 
-You open your IDE, ask the agent to "write tests for this module," and it writes something generic that misses how your project actually works. Sound familiar?
+Have you ever asked your AI coding agent to "write tests for this module," only for it to write something completely generic that ignores your project's unique architecture? 
 
-AI agent skills fix that problem. A skill is a markdown file (usually called `SKILL.md`) that lives in your project and gives your coding agent domain-specific instructions. Think of it as onboarding docs, but for your AI assistant instead of a new hire.
+## What is an AI Agent Skill?
 
-```
+An **AI agent skill** is a specialized markdown file (typically named `SKILL.md`) that provides domain-specific instructions to coding assistants like Claude, Cursor, and Windsurf. By placing these files in your project directory, agents automatically learn your specific conventions, workflows, and rules without requiring repetitive prompting.
+
+<Info title="What you'll learn in this guide">
+* How AI agent skills actually function under the hood
+* Where to place skill files for different IDEs (Claude, Cursor, Windsurf)
+* The sweet spot for when skills are most effective
+* How to install community skills via the CLI
+* Best practices for writing your own custom skills
+</Info>
+
+```text
 .claude/skills/
   testing/SKILL.md       # how to write tests in this project
   deployment/SKILL.md    # deployment checklist and configs

@@ -1,0 +1,23 @@
+---
+export interface Props {
+    title?: string;
+}
+
+const { title = "Information" } = Astro.props;
+---
+
+<div class="my-8 bg-[var(--card)] border-4 border-[var(--primary)] shadow-[8px_8px_0px_0px_var(--primary)] p-6 relative overflow-hidden group">
+  <!-- Accent Line -->
+  <div class="absolute top-0 left-0 w-2 h-full bg-[var(--primary)]"></div>
+  
+  <div class="flex items-center gap-3 mb-4">
+    <div class="bg-[var(--primary)] text-[var(--primary-foreground)] w-8 h-8 flex items-center justify-center font-black border-2 border-[var(--primary-foreground)] rotate-3 group-hover:-rotate-3 transition-transform">
+      !
+    </div>
+    <h4 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight m-0">{title}</h4>
+  </div>
+  
+  <div class="text-[var(--muted-foreground)] font-medium prose-p:my-2 prose-ul:my-2 prose-li:my-1 pl-4">
+    <slot />
+  </div>
+</div>
