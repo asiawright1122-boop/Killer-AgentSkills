@@ -1,6 +1,6 @@
 ---
-title: "即刻品牌化：主题工厂技能指南"
-description: "学习如何使用官方主题工厂技能为您的AI生成文物应用专业主题。掌握幻灯片、文档和网页的一致性风格。"
+title: "即刻品牌塑造：主题工厂技能指南"
+description: "学习如何使用官方主题工厂技能将专业主题应用于您的 AI 生成的文物。掌握幻灯片、文档和网页的统一样式。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 瞬间专业感：Theme-Factory 如何提升您的 AI 输出效果
 
 当 AI 智能体生成幻灯片或落地页时，内容可能很出色，但「视觉呈现」往往缺乏统一性。品牌设计不仅是表层装饰，更是建立信任与权威感的视觉语言。

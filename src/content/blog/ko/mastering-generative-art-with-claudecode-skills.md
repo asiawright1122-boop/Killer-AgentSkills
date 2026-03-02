@@ -1,6 +1,6 @@
 ---
 title: "AI: "
-description: "AI . p5.js, , ."
+description: "AI . official algorithmic-art skill . p5.js , flow fields, particle systems ."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

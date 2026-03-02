@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "AI. p5.js, , "
+title: "AIを用いた生成芸術: アルゴリズミックアートスキルのガイド"
+description: "公式のアルゴリズミックアートスキルを使用して、AIエージェントによる生成芸術をマスターしましょう。p5.jsを用いた驚くほど美しいビジュアル、フローフィールド、パーティクルシステムを作成する方法を簡単に学びましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

@@ -1,6 +1,6 @@
 ---
-title: "设计的DNA：掌握品牌指南技能"
-description: "了解如何将官方品牌应用于AI生成的资产，使用品牌指南技能。揭秘Anthropic的视觉身份秘诀。"
+title: "設計的DNA：掌握品牌指南技能"
+description: "發現如何將官方品牌應用於使用品牌指南技能生成的AI資產。瞭解Anthropic的視覺身份的秘密。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]

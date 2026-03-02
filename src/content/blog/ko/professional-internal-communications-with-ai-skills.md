@@ -1,6 +1,6 @@
 ---
-title: "Corporate Communication Excellence: The Internal-Comms Skill"
-description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
+title: "企業 커뮤니케이션 우수성: 내부 커뮤니케이션 기술"
+description: "공식 내부 커뮤니케이션 기술로 전문 기업 커뮤니케이션을 마스터하십시오. AI를 사용하여 3P 업데이트, 뉴스레터 및 사고 보고서를 작성하는 방법을 배우십시오."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 리더처럼 말하기: 내부 커뮤니케이션 기술 마스터하기
 
 원격 작업과 빠른 확장의 시대에 커뮤니케이션이 조직을 하나로 묶는 데 중요한 역할을 합니다. 하지만 높은 품질의 커뮤니케이션은 어려운 일입니다. 그것은 올바른 톤, 올바른 형식, 그리고 올바른 수준의 세부 사항을 요구합니다. 실제로 읽히는 주간 업데이트를 작성하는 것은 자체적으로 하나의 기술입니다.

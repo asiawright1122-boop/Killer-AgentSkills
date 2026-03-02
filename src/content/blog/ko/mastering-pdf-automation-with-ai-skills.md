@@ -1,6 +1,6 @@
 ---
-title: "PDF "
-description: "AI . PDF, , OCR, "
+title: "PDF 자동화에 대한 궁극의 가이드: PDF 기술을 마스터하는 것"
+description: "공식 PDF 기술을 사용하여 PDF 처리를 자동화하는 방법을 배우십시오. 고품질 AI 에이전트 워크플로를 사용하여 병합, 분할, OCR 및 테이블 추출을 마스터하십시오."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

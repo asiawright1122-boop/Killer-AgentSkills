@@ -1,6 +1,6 @@
 ---
-title: "PDF"
-description: "PDFpdf"
+title: "最终PDF自动化指南：掌握PDF技巧"
+description: "学习如何使用官方pdf技巧自动化PDF处理。掌握使用高质量AI代理工作流的合并、分割、OCR和表格提取"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

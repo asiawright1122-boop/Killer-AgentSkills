@@ -1,6 +1,6 @@
 ---
-title: "您现在应该使用的官方AI代理技能"
-description: "通过Killer-Skills提供的官方AI代理技能概述。从解析棘手的PDF到生成生产就绪的React组件，我们介绍了它们实际的作用。"
+title: "您現在應該使用的官方 AI 代理技能"
+description: "透過 Killer-Skills 提供的官方 AI 代理技能概覽。從解析棘手的 PDF 到生成生產就緒的 React組件，我們涵蓋了它們實際上做什麼。"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 你应该立即使用的官方 AI 智能体技能
 
 什么是官方 AI 智能体技能，哪些值得安装？官方 AI 智能体技能是由核心 Killer-Skills 团队维护的、经过精心策划的高质量指令集，旨在为你的 AI 助手在 Cursor 和 Windsurf 等 15+ 种 IDE 中提供可靠且一致的能力。

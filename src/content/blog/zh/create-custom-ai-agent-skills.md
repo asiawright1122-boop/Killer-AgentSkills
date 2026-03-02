@@ -1,6 +1,6 @@
 ---
-title: "编程你的程序员：技能创建者指南"
-description: "学习使用技能创建者工具包构建有效的AI技能。掌握模块化AI能力的艺术，拥有专门的知识和工作流程。"
+title: "编程您的程序员：技能创造者指南"
+description: "学习如何使用技能创造者工具包构建有效的AI技能。掌握模块化AI能力的艺术，拥有专业的知识和工作流程。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 超越通用AI：掌握技能创造者技能
 
 人工智能本质上是通用的。它对一切都有一定的了解，但缺乏您独特的业务流程或最喜欢的编码模式的具体、程序化的知识。为了弥补这一差距，我们不需要“更多的训练”——我们需要 **技能**。

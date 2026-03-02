@@ -1,6 +1,6 @@
 ---
-title: "AI "
-description: "MCP Model Context Protocol MCP AI "
+title: "AI 에이전트 강화: 고품질 MCP 서버 구축"
+description: "Model Context Protocol (MCP)에 대해 알아보고 외부 도구 및 서비스와 상호 작용할 수 있는 강력한 서버를 생성하는 방법을 배우세요."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 에이전틱 시대의 글루: MCP-빌더 기술 마스터링
 
 급속도로 발전하는 AI 세계에서 에이전트가 "생각"할 수 있는 능력은 반만의 전투입니다.真正로 유용하려면 에이전트는 또한 "행동"할 수 있어야 합니다. 데이터베이스를 검색하거나 GitHub에 게시하거나 사용자 지정 내부 API를 쿼리하는 것과 같은 능력이 필요합니다. 이것이 **モデル 컨텍스트 프로토콜 (MCP)** 이登場하는 곳입니다.

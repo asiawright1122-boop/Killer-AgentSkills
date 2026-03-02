@@ -1,6 +1,6 @@
 ---
-title: "지금 사용해야 할 공식 AI 에이전트 스킬"
-description: "Killer-Skills를 통해 이용 가능한 공식 AI 에이전트 스킬 개요. 까다로운 PDF 분석부터 프로덕션 준비된 React 컴포넌트 생성까지, 각 스킬의 실제 기능을 다룹니다."
+title: "지금 바로 사용해야 하는 공식 AI 에이전트 스킬"
+description: "Killer-Skills를 통해 제공되는 공식 AI 에이전트 스킬의 개요입니다. 어려운 PDF를 파싱하는 것에서 프로덕션 준비가 된 React 컴포넌트를 생성하는 것까지, 실제로 무엇을 하는지 다룹니다."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

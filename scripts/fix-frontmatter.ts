@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { AIService } from './lib/ai';
-import { robustParseJSON } from './lib/utils';
+import { robustParseJSON, pLimit } from './lib/utils';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -21,10 +21,12 @@ function parseMarkdown(content: string) {
 }
 
 async function fixFrontmatter() {
-    console.log('🚀 Starting Frontmatter Fix Workflow...');
+    console.log('🚀 Starting Frontmatter Fix Workflow (Strict Translation Force-Run)...');
 
     const enFiles = fs.readdirSync(EN_DIR).filter(f => f.endsWith('.md'));
     const locales = fs.readdirSync(BLOG_DIR).filter(d => fs.statSync(path.join(BLOG_DIR, d)).isDirectory() && d !== 'en');
+    const limit = pLimit(10); // Run up to 10 concurrent AI requests
+    const tasks: Promise<void>[] = [];
 
     for (const file of enFiles) {
         const enPath = path.join(EN_DIR, file);
@@ -40,49 +42,75 @@ async function fixFrontmatter() {
             const targetPath = path.join(BLOG_DIR, locale, file);
             if (!fs.existsSync(targetPath)) continue;
 
-            const locContent = fs.readFileSync(targetPath, 'utf-8');
-            const locTitleMatch = locContent.match(/title:\s*"(.*?)"/);
+            tasks.push(limit(async () => {
+                const locContent = fs.readFileSync(targetPath, 'utf-8');
+                const locTitleMatch = locContent.match(/title:\s*"(.*?)"/);
+                const locDescMatch = locContent.match(/description:\s*"(.*?)"/);
 
-            // If title is already translated (not exactly english), skip it
-            if (locTitleMatch && locTitleMatch[1] !== enTitle) continue;
+                // FORCE RETRANSLATE IF:
+                // 1. Title is identical to english (wasn't translated)
+                // 2. Title length is suspiciously short (< 40% of english length AND english length > 15)
+                // 3. Description is suspiciously short
+                let needsFix = false;
+                if (!locTitleMatch || !locDescMatch) {
+                    needsFix = true;
+                } else {
+                    const locTitle = locTitleMatch[1];
+                    const locDesc = locDescMatch[1];
+                    if (locTitle === enTitle) needsFix = true;
+                    if (enTitle.length > 15 && locTitle.length < Math.max(8, enTitle.length * 0.4)) needsFix = true;
+                    if (enDesc.length > 15 && locDesc.length < Math.max(12, enDesc.length * 0.4)) needsFix = true;
+                }
 
-            console.log(`  🌍 Translating Frontmatter: ${locale}/${file}`);
+                if (!needsFix) return;
 
-            const prompt = `Translate these blog metadata fields to ${locale} for SEO purposes.
-Return valid JSON only: { "title": "...", "description": "..." }
+                console.log(`  🌍 Translating Frontmatter: ${locale}/${file}`);
+
+                const prompt = `You are a professional technical translator and strict SEO expert.
+Translate the following ONE blog post's title and description from English to ${locale}.
+
+## Rules:
+1. Translate word-for-word accurately. DO NOT summarize. DO NOT extract keywords.
+2. The translated text must have a similar length to the original English text.
+3. Keep technical terms like "AI", "PDF", "Claude", "Cursor", "Windsurf" intact.
+4. Output MUST be ONLY valid JSON matching this schema: { "title": "...", "description": "..." }
 
 Original Title: "${enTitle}"
 Original Description: "${enDesc}"`;
 
-            try {
-                const result = await aiService.callAI(prompt, true);
-                let newTitle = enTitle;
-                let newDesc = enDesc;
+                try {
+                    const result = await aiService.callAI(prompt, true);
+                    let newTitle = enTitle;
+                    let newDesc = enDesc;
 
-                if (result) {
-                    const parsed = robustParseJSON(result);
-                    if (parsed && typeof parsed === 'object') {
-                        if (parsed.title) newTitle = parsed.title;
-                        if (parsed.description) newDesc = parsed.description;
+                    if (result) {
+                        const parsed = robustParseJSON(result);
+                        if (parsed && typeof parsed === 'object') {
+                            if (parsed.title) newTitle = parsed.title;
+                            if (parsed.description) newDesc = parsed.description;
+                        }
                     }
-                }
 
-                if (newTitle !== enTitle) {
-                    const { frontmatter, body } = parseMarkdown(locContent);
-                    const newFrontmatter = frontmatter
-                        .replace(/title:\s*".*?"/, `title: "${newTitle.replace(/"/g, '\\"')}"`)
-                        .replace(/description:\s*".*?"/, `description: "${newDesc.replace(/"/g, '\\"')}"`);
+                    if (newTitle !== enTitle) {
+                        const { frontmatter, body } = parseMarkdown(locContent);
+                        const newFrontmatter = frontmatter
+                            .replace(/title:\s*".*?"/, `title: "${newTitle.replace(/"/g, '\\"')}"`)
+                            .replace(/description:\s*".*?"/, `description: "${newDesc.replace(/"/g, '\\"')}"`);
 
-                    fs.writeFileSync(targetPath, `${newFrontmatter}\n\n${body}`);
-                    console.log(`     ✅ Fixed frontmatter: ${targetPath}`);
-                } else {
-                    console.error(`     ❌ Failed to translate frontmatter: ${targetPath}`);
+                        fs.writeFileSync(targetPath, `${newFrontmatter}\n\n${body}`);
+                        console.log(`     ✅ Fixed frontmatter: ${targetPath}`);
+                    } else {
+                        console.error(`     ❌ Failed to translate frontmatter: ${targetPath}`);
+                    }
+                } catch (e) {
+                    console.error(`     ❌ Error formatting ${targetPath}:`, e);
                 }
-            } catch (e) {
-                console.error(`     ❌ Error formatting ${targetPath}:`, e);
-            }
+            }));
         }
     }
+
+    await Promise.all(tasks);
+    console.log('🎉 All frontmatter fixes applied successfully.');
 }
 
 fixFrontmatter().catch(console.error);

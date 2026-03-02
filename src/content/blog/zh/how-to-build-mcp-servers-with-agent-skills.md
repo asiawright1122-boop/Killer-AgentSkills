@@ -1,6 +1,6 @@
 ---
-title: "使用代理技能构建MCP服务器：完整指南"
-description: "学习如何使用官方mcp-builder技能构建适用于AI代理的生产就绪MCP服务器。涵盖设置、工具设计、测试和使用TypeScript和Python进行部署"
+title: "如何搭建MCP服务器：使用Agent技能的完整指南"
+description: "学习如何使用官方mcp-builder技能为AI代理搭建生产就绪的MCP服务器。涵盖设置、工具设计、测试和使用TypeScript和Python进行部署。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 如何构建 MCP 服务器，让 AI 代理真正使用
 
 如果您的 AI 编码代理可以做的不仅仅是编写代码呢？如果它可以发送 Slack 消息，查询数据库，部署到生产环境，并管理您的整个 DevOps 流水线 —— 所有这些都通过一个标准化协议呢？

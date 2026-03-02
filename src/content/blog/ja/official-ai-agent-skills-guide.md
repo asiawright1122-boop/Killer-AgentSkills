@@ -1,6 +1,6 @@
 ---
-title: "いますぐに使える公式AIエージェントスキル"
-description: "Killer-Skillsを介して利用可能な公式AIエージェントスキルの概要。トラブルなPDFの解析から、制作に適したReactコンポーネントの生成まで、その実際の機能について説明します。"
+title: "今すぐに使っておくべき公式のAIエージェントスキル"
+description: "Killer-Skillsを介して利用可能な公式のAIエージェントスキルの概要。トリッキーなPDFの解析から、生成可能なReactコンポーネントまで、実際に何ができるのかを掘り下げます。"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 公式AIエージェントスキル：今すぐ使用するべきもの
 
 公式AIエージェントスキルとは何か、それらの中でどれをインストールする価値があるのか。公式AIエージェントスキルとは、Killer-Skillsコアチームによってキュレーションされた、高品質の指示セットであり、15以上のIDE（CursorやWindsurfなど）でAIアシスタントに信頼性の高い一貫性のある機能を提供するように設計されている。

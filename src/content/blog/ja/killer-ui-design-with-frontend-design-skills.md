@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "official frontend-design skillUI/UX"
+title: "AIスロップを殺せ：フロントエンドデザインスキルの習得"
+description: "公式のフロントエンドデザインスキルで、見事なプロダクショングレードのWebインターフェースを構築する方法を学びましょう。特徴的なUI/UXデザインの秘訣を発見してください。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # ジェネリックを超えて：フロントエンドデザインで記憶に残るUIを作る
 
 最近AIを使ってウェブサイトを生成したことがあれば、おそらく目にしたことがあるでしょう：紫色のグラデーション、角丸の白いカード、標準的なInterフォント。私たちはこれを「AIスラップ」と呼んでいます—清潔に見えるけれども、無個性で繰り返しの多い美的デザインです。

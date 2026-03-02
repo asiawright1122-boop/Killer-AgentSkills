@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "AIAI Claude, Cursor, WindsurfAPI"
+title: "AI 代理技能是什么，它们为什么重要？"
+description: "AI 代理技能是可重用的指令文件，告诉诸如 Claude、Cursor 和 Windsurf 之类的编码代理如何执行特定工作。这里介绍了它们是什么、如何工作以及何时实际上有帮助。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
@@ -9,6 +9,7 @@ featured: true
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 什么是 AI 代理技能？
 
 你是否曾要求你的 AI 编码代理“为这个模块编写测试”，结果它却写出了一些完全通用、忽略了你项目独特架构的东西？

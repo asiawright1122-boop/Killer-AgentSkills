@@ -1,6 +1,6 @@
 ---
-title: "动态数据掌握：XLSX 技能指南"
-description: "使用官方的 xlsx 技能掌握电子表格自动化。学习如何构建财务模型、自动化数据清理和生成动态 Excel 报表。"
+title: "動態數據掌握：XLSX 技能指南"
+description: "使用官方的 xlsx 技能掌握電子試算表自動化。學習如何建立財務模型，自動化數據清理，並生成動態 Excel 報告。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

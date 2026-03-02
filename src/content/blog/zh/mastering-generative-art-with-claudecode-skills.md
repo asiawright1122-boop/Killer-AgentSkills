@@ -1,6 +1,6 @@
 ---
-title: "AI生成艺术：算法艺术技能指南"
-description: "掌握使用官方算法艺术技能创建生成艺术。学习如何轻松创建令人惊叹的p5.js视觉效果、流场和粒子系统。"
+title: "使用AI的生成艺术：算法艺术技能指南"
+description: "掌握使用官方算法艺术技能为AI代理创建生成艺术。学习如何轻松创建惊人的p5.js视觉效果，流场和粒子系统。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 将代码转化为画布：算法艺术的力量
 
 生成艺术是数学的精确性与艺术表达的原始情感相遇的地方。它是一种媒介，艺术家不仅仅画出一幅图画，而是创建一个能够赋予无限变体以生命的*系统*。

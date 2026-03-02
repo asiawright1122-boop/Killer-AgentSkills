@@ -1,6 +1,6 @@
 ---
-title: "30"
-description: "CLI"
+title: "30秒でAIエージェントスキルをインストールする方法"
+description: "Claude Code、Cursor、またはWindsurfにコミュニティのAIエージェントスキルをインストールするためのクイックガイド：killer-skills CLIツールを使用します。"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # AIエージェントのスキルをインストールする方法
 
 あなたは使用したいAIエージェントのスキルを見つけた。たぶんそれは、[docx自動化スキル](/en/skills/anthropics/skills/docx)か、特殊なフロントエンドUIジェネレーターである。ここで、あなたはそれをプロジェクトに組み込む必要があるので、コーディングエージェントが実際にそれを読むことができるようになる。

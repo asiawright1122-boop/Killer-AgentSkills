@@ -1,6 +1,6 @@
 ---
 title: "AI "
-description: " frontend-design . , UI/UX "
+description: " . , frontend-design . UI/UX "
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 일반적인 것을 넘어선 것: Frontend-Design을 통해 기억에 남는 UI 만들기
 
 최근에 AI를 사용하여 웹사이트를 생성했다면, 아마도 다음과 같은 것을 보았을 것입니다: 보라색 그라데이션, 둥근 흰색 카드, 그리고 표준 Inter 폰트. 우리는 이것을 "AI 슬럽"이라고 부릅니다. - 청소가 되지만 영혼이 없고 반복되는 미적 디자인.

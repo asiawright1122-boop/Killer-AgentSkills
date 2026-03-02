@@ -1,6 +1,6 @@
 ---
-title: "坚不可摧的前端：Web应用测试技能"
-description: "通过AI智能体官方Web应用测试技能掌握自动化UI测试。学习如何使用Playwright进行可靠的Web应用验证。"
+title: "防弹前端：Webapp 测试技能"
+description: "掌握使用官方 Webapp 测试技能为 AI代理进行自动化 UI 测试。学习如何使用 Playwright 进行强大的 Web 应用验证。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 内置可靠性：掌握 Web 应用测试技能
 
 在现代 Web 开发中，“在我机器上能运行”已经不够了。随着 Web 应用程序变得越来越复杂，手动测试成为阻碍创新速度并隐藏关键错误的瓶颈。要快速构建高质量软件，测试阶段必须像开发阶段一样智能。

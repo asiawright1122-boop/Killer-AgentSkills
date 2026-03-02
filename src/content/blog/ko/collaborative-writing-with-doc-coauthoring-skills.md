@@ -1,6 +1,6 @@
 ---
-title: "협업 엔진: 문서 공저 기술 마스터하기"
-description: "공식적인 문서 공저 기술로 세계급 문서 작성 방법을 배우세요. PRD, 사양, 제안을 위한 3단계 워크플로우를 발견하세요."
+title: "협업 엔진: 문서 공저술 기술의 마스터링"
+description: "공식적인 문서 공저술 기술로 세계 수준의 문서를 작성하는 방법을 배우십시오. PRD, 사양, 제안을 위한 3단계 워크플로우를 발견하십시오."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 더 잘 쓰기, 더 빠르게 쓰기: 문서 공저 기술 해금
 
 문서 작성은 개발자나 제품 매니저가 되는 가장 두려운 부분 중 하나입니다. 우리가 무엇을 말하고 싶은지 알지만, 그 지식을 우리의 뇌에서 구조화된 페이지로 옮기고, 다른 사람에게도 의미가 있는지 확인하는 것은 인지적으로 많은 부담입니다.
