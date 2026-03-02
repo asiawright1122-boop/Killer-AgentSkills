@@ -1,6 +1,6 @@
 ---
-title: "Claude Code vs Cursor vs Windsurf: which IDE handles AI skills best?"
-description: "A practical comparison of how Claude Code, Cursor, and Windsurf handle agent skills. Covers skill format, loading behavior, and what actually works differently."
+title: "Claude Code vs Cursor vs Windsurf: AIスキルを最も効果的に扱うIDEは？"
+description: "Claude Code、Cursor、Windsurfのエージェントスキル処理方法に関する実用的な比較。スキル形式、読み込み動作、実際に異なる動作について解説します。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["Claude Code", "Cursor", "Windsurf", "IDE Comparison", "AI Skills", "Developer Tools"]
@@ -9,108 +9,100 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2560&auto=format&fit=crop"
 ---
+# Claude Code vs Cursor vs Windsurf: スキル比較
 
-# Claude Code vs Cursor vs Windsurf: a skills comparison
+**Claude Code、Cursor、WindsurfといったAIエージェントIDE**は、プロジェクト固有の指示（スキル）を根本的に異なる方法で処理します。Claude Codeはコンテキストに応じたオンデマンド読み込みを利用し、Cursorはグロブベースのマッチング（`.mdc`ファイル）に依存し、Windsurfは単一の`.windsurfrules`ファイルをすべてのプロンプトで一括読み込みします。これらのアーキテクチャの違いを理解することは重要です。10以上のスキルを管理する開発者からは、Windsurfではコンテキストウィンドウの枯渇が報告されている一方、Claude Codeは50以上の同時スキルを容易にスムーズに処理します。
 
-**AI agent IDEs like Claude Code, Cursor, and Windsurf** process project-specific instructions (skills) in fundamentally different ways: Claude Code utilizes contextual on-demand loading, Cursor relies on glob-based matching (`.mdc` files), and Windsurf loads a singular `.windsurfrules` file wholesale on every prompt. Understanding these architectural differences is critical; developers managing 10+ skills report context window exhaustion in Windsurf, while Claude Code easily handles 50+ concurrent skills smoothly.
+> **主な要点**
+> - **Claude Code**: スケーリングに最適。必要な時のみスキルをコンテキストに応じて読み込むため、トークン制限を保護します。
+> - **Cursor**: ファイルタイプのターゲティングに最適。`globs: ["*.tsx"]`のような`.mdc`ファイルを使用して、条件付きでルールをトリガーします。
+> - **Windsurf**: シンプルさに最適。すべてのプロンプトで単一の`.windsurfrules`ファイルを読み込み、コンテキスト制限よりも即時アクセスを優先します。
+> - **共通標準**: 3つのプラットフォームすべてが、フロントマター付きのMarkdownベースの指示ファイルに収束しつつあります。
 
-> **Key Takeaways**
-> - **Claude Code**: Best for scaling. Loads skills contextually (only when needed), protecting token limits.
-> - **Cursor**: Best for file-type targeting. Uses `.mdc` files with `globs: ["*.tsx"]` to trigger rules conditionally.
-> - **Windsurf**: Best for simplicity. Loads a single `.windsurfrules` file on every prompt, prioritizing immediate access over context limits.
-> - **The Common Standard**: All three platforms are converging on Markdown-based instruction files with frontmatter.
+これら3つのツールはすべて、AIエージェントにプロジェクト固有の指示を与えることを可能にします。考え方は同じです：リポジトリにファイルを配置し、エージェントがそれを読み取り、ルールに従います。しかし、詳細は日常的に使用し始めると重要な方法で異なります。
 
-All three of these tools let you give your AI agent project-specific instructions. The idea is the same: put a file in your repo, the agent reads it, it follows your rules. But the details differ in ways that matter once you start using them daily.
+これは「どのIDEが最適か」という記事ではありません。それぞれに強みがあります。これは特に、スキルとプロジェクトレベルの指示の処理方法に焦点を当てています。
+## 形式と場所
 
-This is not a "which IDE is best" article. Each has strengths. This is specifically about how they handle skills and project-level instructions.
-
-## Format and location
-
-| Feature | Claude Code | Cursor | Windsurf |
+| 機能 | Claude Code | Cursor | Windsurf |
 |---------|------------|--------|----------|
-| File format | Markdown (SKILL.md) | Markdown (.mdc) | Markdown |
-| Location | `.claude/skills/` | `.cursor/rules/` | `.windsurfrules` |
-| Multiple files | Yes (one per skill) | Yes (one per rule) | Single file |
-| Frontmatter | `name` + `description` | `description` + `globs` | No |
-| Auto-loading | Context-based | Glob/always-on modes | Always loaded |
+| ファイル形式 | Markdown (SKILL.md) | Markdown (.mdc) | Markdown |
+| 場所 | `.claude/skills/` | `.cursor/rules/` | `.windsurfrules` |
+| 複数ファイル | はい (スキルごとに 1 つ) | はい (ルールごとに 1 つ) | 単一ファイル |
+| フロントマター | `name` + `description` | `description` + `globs` | なし |
+| 自動読み込み | コンテキストに基づく | Glob/常にオンモード | 常に読み込まれる |
 
-Claude Code and Cursor both support multiple skill files organized by topic. Windsurf uses a single rules file at the project root. This matters less than you'd think for small projects, but becomes important when you have 10+ skills.
+Claude Code と Cursor は両方とも、トピック別に組織化された複数のスキルファイルをサポートしています。Windsurf では、プロジェクトルートに単一のルールファイルを使用します。これは、小規模なプロジェクトではあまり重要ではありませんが、10 を超えるスキルを持つ場合には重要になります。
+## どのようにロードするかを決定する
 
-## How they decide what to load
+ここで、実際の違いが表れる。
 
-This is where the real differences show up.
+**Claude Code** は、スキル説明を最初に読み込み、現在のタスクに一致する場合のみ、完全なファイルをロードする。 "テスト" スキルを持っていてデプロイメントについて問い合わせた場合、ロードされません。 これにより、コンテキストウィンドウがクリーンに保たれるが、スキル説明が正確でなければならない。
 
-**Claude Code** reads skill descriptions first, then loads the full file only when the current task matches. If you have a "testing" skill and ask about deployment, it stays unloaded. This keeps context windows clean but means your skill descriptions need to be accurate.
+**Cursor** には、3 つのモードがあります: "常に" (毎回のプロンプトでロード)、 "自動" (Cursor がファイルパターンに基づいて決定)、 "エージェント要求" (エージェントが要求する)。 グロブベースのマッチングは、言語固有のルールに便利です。 `globs: ["*.py"]` のルールは、Python ファイルで作業している場合にのみ有効になります。
 
-**Cursor** offers three modes: "always" (loaded on every prompt), "auto" (Cursor decides based on file patterns), and "agent-requested" (the agent can ask for it). The glob-based matching is useful for language-specific rules. A rule with `globs: ["*.py"]` only activates when you're working on Python files.
+**Windsurf** は、毎回のプロンプトで `.windsurfrules` 内のすべてをロードする。 簡単ですが、ルールを追加するとコンテキストウィンドウがより速く充填されることを意味します。
+## 同じように動作するもの
 
-**Windsurf** loads everything in `.windsurfrules` on every prompt. Simple, but it means your context window fills up faster as you add more rules.
+3 つとも以下をサポートします:
+- プロジェクト固有のコーディング規約
+- フレームワークやライブラリの好み  
+- テストパターンや要件
+- エラーハンドリング規格
+- ファイル構造規則
 
-## What works the same
+「Vitest を使用し、外部 API をモックし、テストをソースファイルの隣に置く」というスキルは、3 つすべてで同じように動作します。エージェントがこれを読み込み、規則に従います。
+## 動作の違い
 
-All three support:
-- Project-specific coding conventions
-- Framework and library preferences  
-- Testing patterns and requirements
-- Error handling standards
-- File structure rules
+### コンテキストウィンドウのプレッシャー
 
-A skill that says "use Vitest, mock external APIs, put tests next to source files" works the same way in all three. The agent reads it and follows the rules.
+Claude Codeの選択的なロード機能により、50のスキルを持っていてもコンテキストの制限について心配する必要がありません。エージェントは必要なものを選択します。
 
-## What works differently
+Cursorの「常に」モードは、Windsurfと同様にすべてをロードします。不过、「自動」モードでglobを使用すると、ファイルタイプに基づいて選択的なロードが可能になります。
 
-### Context window pressure
+Windsurfには、ここで最も厳しい制約があります。単一のファイルで、包括的なルールとコンテキストウィンドウのスペースのどちらかを選択する必要があります。
 
-Claude Code's selective loading means you can have 50 skills without worrying about context limits. The agent picks what it needs.
+### スキルの発見
 
-Cursor's "always" mode loads everything, similar to Windsurf. But "auto" mode with globs gives you selective loading tied to file types rather than task topics.
+Claude Codeは、質問すると利用可能なスキルをリストできます。「利用可能なスキルは何ですか?」と質問すると、説明を含むリストが返されます。これは、インストールしたスキルを忘れたときに役立ちます。
 
-Windsurf has the tightest constraint here. With a single file, you're choosing between comprehensive rules and context window space.
+Cursorは、設定パネルにルールを表示します。手動で有効、無効、または並べ替えることができます。
 
-### Skill discovery
+Windsurfには、ファイルを自分で読む以外の発見メカニズムはありません。
 
-Claude Code can list available skills when you ask. "What skills do I have?" returns a list with descriptions. This helps when you forget what's installed.
+### プロジェクト間の移植性
 
-Cursor shows rules in its settings panel. You can enable, disable, and reorder them manually.
+Claude Code用に書かれたスキル (`.claude/skills/testing/SKILL.md`) を、`.cursor/rules/testing.mdc` に移動し、フロントマターを調整することで、通常、Cursorに適応させることができます。指示の内容は同じままです。
 
-Windsurf has no discovery mechanism beyond reading the file yourself.
+その逆も機能します。コアの指示は単にMarkdownです。メタデータとファイルパスが異なるのみです。
 
-### Cross-project portability
+すべてのスキルを、[Killer-Skills](https://killer-skills.com/ja/skills) でClaude Code形式で公開しています。また、CLIを使用して、フラグの調整により他のエージェントにインストールすることもできます。
+## 実用的な推奨事項
 
-A skill written for Claude Code (`.claude/skills/testing/SKILL.md`) can usually be adapted for Cursor by moving it to `.cursor/rules/testing.mdc` and adjusting the frontmatter. The instruction content stays the same.
+**Claude Code を使用する場合**: 選択的なロードを活用します。スキルが適切なタイミングでロードされるように、明確な説明を書く必要があります。テスト、デプロイ、コードレビューなどのトピック別に整理し、言語別に整理するのではなく、トピック別に整理します。
 
-Going the other way also works. The core instructions are just markdown. It's the metadata and file paths that differ.
+**Cursor を使用する場合**: グロブパターンを使用します。`*.tsx` ファイルに限定したルールは、Python のプロンプトを汚染しないようになります。優先度の高いルールは "常に" に、ニッチなルールは "自動" に設定します。
 
-We publish all skills on [Killer-Skills](https://killer-skills.com/ja/skills) in Claude Code format, and the CLI can install them for other agents with flag adjustments.
+**Windsurf を使用する場合**: ルールファイルを集中させます。各プロンプトで必要なルールのみを含めます。専門的な知識は、手動で参照するコメントやドキュメントに移動します。
 
-## Practical recommendations
+**複数の IDE を使用する場合**: 各スキルの正典バージョン (Claude Code 形式を推奨します) を 1 つ保持し、それから他のバージョンを生成します。CLI ツール `killer-skills` がこの変換を処理します。
+## 形式の収束
 
-**If you use Claude Code**: Take advantage of selective loading. Write clear descriptions so skills get loaded at the right time. Organize by topic (testing, deployment, code-review) rather than by language.
+6ヶ月前には、各IDEは重複することなく独自のアプローチを採用していました。現在、Claude Code、Cursor、Copilotはすべて、フロントマターを伴うマークダウン指令ファイルの一種を使用しています。Windsurfは、異なるパッケージングで類似した概念をサポートしています。
 
-**If you use Cursor**: Use glob patterns. A rule scoped to `*.tsx` files won't pollute your Python prompts. Set high-priority rules to "always" and niche rules to "auto."
-
-**If you use Windsurf**: Keep your rules file focused. Put only the rules you need on every prompt. Move specialized knowledge into comments or documentation that you reference manually.
-
-**If you use multiple IDEs**: Keep one canonical version of each skill (we recommend the Claude Code format) and generate the others from it. The CLI tool `killer-skills` handles this conversion.
-
-## The format is converging
-
-Six months ago, each IDE had its own approach with no overlap. Now Claude Code, Cursor, and Copilot all use some form of markdown instruction files with frontmatter. Windsurf supports a similar concept with different packaging.
-
-The content of a good skill is the same regardless of which agent reads it. Clear instructions, specific examples, and honest about what the rules cover. The wrapper changes, the knowledge doesn't.
+優れたスキルの内容は、どのエージェントが読み取るかに関係なく同じです。明確な指示、具体的な例、ルールの範囲について正直であること。ラッパーは変わりますが、知識は変わりません。
 
 ---
-
 ## Frequently Asked Questions
 
-### Which IDE is best for managing many AI skills?
-Claude Code is currently the most efficient IDE for managing 20+ skills, as it contextually loads only the skills relevant to the user's active prompt, saving token limits and preventing confusion.
+### AIスキルを多数管理するための最適なIDEはどれですか？
+Claude Codeは現在、20以上のスキルを管理するための最も効率的なIDEであり、ユーザーのアクティブなプロンプトに関連するスキルのみを文脈的に読み込むことで、トークン制限を節約し、混乱を防止します。
 
-### How do I write rules for Cursor?
-Cursor rules are written as `.mdc` (Markdown with context) files placed in the `.cursor/rules/` directory, utilizing a `globs` property to define exactly which file types trigger the rule.
+### Cursorのルールを書く方法は？
+Cursorのルールは、`.cursor/rules/`ディレクトリに配置された`.mdc`（コンテキスト付きMarkdown）ファイルとして書かれ、`globs`プロパティを使用して、ルールをトリガーするファイルの種類を正確に定義します。
 
-### Can I share AI skills across different IDEs?
-Yes, the underlying logic is standard Markdown. Tools like the `killer-skills` CLI can automatically convert a base `SKILL.md` format into `.mdc` files for Cursor or append them to a `.windsurfrules` file for Windsurf.
+### 異なるIDE間でAIスキルを共有できますか？
+はい、基礎となるロジックは標準のMarkdownです。`killer-skills` CLIなどのツールを使用すると、ベースの`SKILL.md`形式をCursor用の`.mdc`ファイルまたはWindsurf用の`.windsurfrules`ファイルに自動的に変換できます。
 
 <script type="application/ld+json">
 {
@@ -119,30 +111,30 @@ Yes, the underlying logic is standard Markdown. Tools like the `killer-skills` C
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Which IDE is best for managing many AI skills?",
+      "name": "AIスキルを多数管理するための最適なIDEはどれですか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Claude Code is currently the most efficient IDE for managing 20+ skills, as it contextually loads only the skills relevant to the user's active prompt, saving token limits and preventing confusion."
+        "text": "Claude Codeは現在、20以上のスキルを管理するための最も効率的なIDEであり、ユーザーのアクティブなプロンプトに関連するスキルのみを文脈的に読み込むことで、トークン制限を節約し、混乱を防止します。"
       }
     },
     {
       "@type": "Question",
-      "name": "How do I write rules for Cursor?",
+      "name": "Cursorのルールを書く方法は？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cursor rules are written as .mdc (Markdown with context) files placed in the .cursor/rules/ directory, utilizing a globs property to define exactly which file types trigger the rule."
+        "text": "Cursorのルールは、`.cursor/rules/`ディレクトリに配置された`.mdc`（コンテキスト付きMarkdown）ファイルとして書かれ、`globs`プロパティを使用して、ルールをトリガーするファイルの種類を正確に定義します。"
       }
     },
     {
       "@type": "Question",
-      "name": "Can I share AI skills across different IDEs?",
+      "name": "異なるIDE間でAIスキルを共有できますか？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, the underlying logic is standard Markdown. Tools like the killer-skills CLI can automatically convert a base SKILL.md format into .mdc files for Cursor or append them to a .windsurfrules file for Windsurf."
+        "text": "はい、基礎となるロジックは標準のMarkdownです。`killer-skills` CLIなどのツールを使用すると、ベースの`SKILL.md`形式をCursor用の`.mdc`ファイルまたはWindsurf用の`.windsurfrules`ファイルに自動的に変換できます。"
       }
     }
   ]
 }
 </script>
 
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*
+*関連情報: [AIエージェントスキルとは何か](/ja/blog/what-are-ai-agent-skills)と[2026年のベストAIエージェントスキル](/ja/blog/best-ai-agent-skills-2026)*

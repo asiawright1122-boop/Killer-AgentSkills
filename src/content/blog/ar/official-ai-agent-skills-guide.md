@@ -1,6 +1,6 @@
 ---
-title: "The Official AI Agent Skills You Should Be Using Right Now"
-description: "An overview of the official AI agent skills available via Killer-Skills. From parsing tricky PDFs to generating production-ready React components, we cover what they actually do."
+title: "المهارات الرسمية للوكلاء الذكية التي يجب استخدامها الآن"
+description: "نظرة عامة على مهارات الوكلاء الذكية الرسمية المتاحة عبر Killer-Skills. من تحليل المستندات المعقدة إلى إنشاء مكونات React جاهزة للإنتاج، نغطي ما تفعله هذه المهارات بالفعل"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]
@@ -9,70 +9,63 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+# المهارات الرسمية لعوامل الذكاء الاصطناعي التي يجب عليك استخدامها الآن
 
-# The Official AI Agent Skills You Should Be Using Right Now
+ما هي المهارات الرسمية لعوامل الذكاء الاصطناعي، وأي منها يستحق التثبيت؟ المهارات الرسمية لعوامل الذكاء الاصطناعي هي مجموعات تعليمات منضبطة عالية الجودة، يتم صيانتها بواسطة فريق Killer-Skills الأساسي، المصممة لإعطاء مساعدي الذكاء الاصطناعي القدرات الموثوقة والمستمرة عبر 15+ بيئة تطوير متكاملة مثل Cursor و Windsurf.
 
-What are the official AI agent skills, and which ones are worth installing? Official AI agent skills are curated, high-quality instruction sets maintained by the core Killer-Skills team, designed to give your AI assistants reliable and consistent capabilities across 15+ IDEs like Cursor and Windsurf.
+> **النقاط الرئيسية**
+> - **تحمل الوثائق الثقيلة**: المهارات مثل `pdf` و `xlsx` تمنع Claude من تخيل البيانات من الملفات الكبيرة.
+> - **توليد الواجهة الأمامية**: `frontend-design` يضطر الوكلاء إلى إخراج مكونات قابلة للاستخدام ومصممة بدلاً من القوالب النمطية العامة.
+> - **التسويق و تحسين محركات البحث**: `geo-content-optimizer` يهيكل محتواك لملخصات الذكاء الاصطناعي.
+> - **لا إعداد مطلوب**: جميع المهارات الرسمية يتم تثبيتها على المستوى العالمي عبر `npx killer-skills add <skill>`.
 
-> **Key Takeaways**
-> - **Document heavy lifting**: Skills like `pdf` and `xlsx` stop Claude from hallucinating data out of large files.
-> - **Frontend generation**: `frontend-design` forces agents to output usable, styled components instead of generic boilerplate.
-> - **Marketing & SEO**: `geo-content-optimizer` structures your content for AI overviews.
-> - **Zero setup**: All official skills are installed globally via `npx killer-skills add <skill>`.
+أتحدث إلى الكثير من المطورين الذين يعاملون مساعدي الذكاء الاصطناعي مثل تكميل автомати. يطلبون من Cursor "إنشاء صفحة تسجيل الدخول" أو "قراءة هذا المستند" ويتضايقون عندما يكون الإخراج عامًا أو خاطئًا.
 
-I talk to a lot of developers who treat their AI assistants like fancy autocomplete. They ask Cursor to "build a login page" or "read this PDF" and get frustrated when the output is generic or just wrong. 
+الproblem ليس في النموذج. إنه السياق.
 
-The problem isn't the model. It's the context. 
+لذلك نحن نحافظ على مستودع المهارات الرسمي. هذه ليست مجرد قوائم من الإشارات. إنها قواعد صارمة ومواصفات أدوات منضبطة تخبر وكيلك بالضبط كيفية التصرف لأداء مهام محددة. هنا المهارات الرسمية التي نعتمد عليها كل يوم.
+## التعامل مع المستندات التي تكرهها
 
-That's why we maintain the official skills repository. These aren't just lists of prompts. They are strict, formatted rulesets and tool configurations that tell your agent exactly how to behave for specific tasks. Here are the official skills we rely on every day.
+إذا كنت曾 سألت نموذج لغة كبيرًا لاستخراج بيانات من ملف PDF يحتوي على 50 صفحة، فتعرف أن هذا النموذج يخترع الأرقام بانتظام. مهارات معالجة المستندات تحل هذه المشكلة.
 
-## Handling the documents you hate
+**`pdf`**: هذه المهارة توقف الوكيل عن الخوض في تخمينات. توفر للمساعد تعليمات صريحة حول كيفية استخدام الأدوات لقراءة الملف خطًا بخط. أستخدمها باستمرار لمواصفات تقنية وأوراق بحث قديمة.
 
-If you've ever asked an LLM to extract data from a 50-page PDF, you know it regularly invents numbers. The document processing skills fix this.
+**`xlsx` & `docx`**: بدلاً من طلب من الذكاء الاصطناعي كتابة برنامج بايثون لتحليل جدول من الصفر، توفر هذه المهارات المكروات والأوامر المباشرة التي يحتاجها الوكيل. وهي تضمن قدرة الذكاء الاصطناعي على قراءة وتعديل وحفظ صيغ الخلايا أو تتبع المستند دون كسر هيكل الملف.
+## بناء واجهات لا تشبه عام 2015
 
-**`pdf`**: This skill stops the agent from guessing. It gives the assistant explicit instructions on how to use tools to actually read the file line by line. I use it constantly for technical specs and old research papers.
+لقد رأينا جميعًا التأثيرات الافتراضية لتصميم "الذكاء الاصطناعي" - أزرار رمادية ، بدون حشوة ، و CSS مشكوك فيها.
 
-**`xlsx` & `docx`**: Instead of asking the AI to write a Python script to parse a spreadsheet from scratch, these skills provide the direct macros and commands the agent needs. They ensure the AI can read, modify, and preserve cell formulas or document tracking without breaking the file structure.
+**`frontend-design`**: هذه المهارة تجبر الوكيل على استخدام مبادئ التصميم الحديثة. وهي تحقن السياق حول التباعد ، ونظرية الألوان ، و نقاط الكسر الاستجابة. عندما أسأل عن تخطيط لوحة القيادة مع هذه المهارة النشطة ، أحصل على شيء يبدو وكأنه ينتمي إلى الإنتاج ، وعادة ما يتم بناؤه باستخدام Tailwind و React.
 
-## Building interfaces that don't look like 2015
+**`ui-ux-pro-max`**: هذا هو الإصدار الأثقل. يشمل إرشادات لأكثر من 50 نمطًا مختلفًا (الزجاجية ، والتخريب ، إلخ) ومكتبات مكونات محددة مثل shadcn/ui. أturn هذا التشغيل عندما أحتاج إلى أن يتصرف الوكيل كمهندس تصميم صحيح ، وليس مجرد مبرمج.
+## التسويق والمحتوى
 
-We've all seen the default "AI aesthetic"—gray buttons, zero padding, and questionable CSS. 
+معظم الكتابات التي تم_generتها بواسطة الذكاء الاصطناعي هي رديئة. تستخدم كلمات مثل "التعمق" و "المحوري" وتنظم كل شيء في مجموعات من ثلاثة.
 
-**`frontend-design`**: This skill forces the agent to use modern design principles. It injects context about spacing, color theory, and responsive breakpoints. When I ask for a dashboard layout with this skill active, I get something that looks like it belongs in production, usually built with Tailwind and React.
+**`seo-content-writer`**: قمنا بإنشاء هذا لتجبر الذكاء الاصطناعي على الكتابة مثل إنسان الذي يفهم حقًا التحسين لمحركات البحث. إنه يفرض فقرات قصيرة، وهيكل رأس واضح، وยمنع الوكيل من الصوت مثل بيان صحفي للشركة.
 
-**`ui-ux-pro-max`**: This is the heavier version. It includes guidelines for 50 different styles (glassmorphism, brutalism, etc.) and specific component libraries like shadcn/ui. I turn this on when I need the agent to act as a proper design engineer, not just a coder.
+**`geo-content-optimizer`**: التحسين لمحركات البحث التقليدية يتغير بسبب ملخصات الذكاء الاصطناعي (مثل بحث ChatGPT وإجابات Google الذكية). يتنسيق هذا المهارة ملفك Markdown بالاجابات المباشرة وحقائق высокой الكثافة حتى يكون من المرجح أن ي引用 نماذج الذكاء الاصطناعي الأخرى لمحتواك كمرجع.
+## توسيع وكلاءك
 
-## Marketing and content
+**`mcp-builder`**: بروتوكول سياق النموذج (MCP) هو الطريقة التي نربط بها الوكلاء بالواجهات البرمجية الخارجية. كتابة خادم MCP من الصفر أمر مرهق. توفر هذه المهارة للوكيل القوالب الدقيقة والقرارات المعمارية اللازمة لتشغيل FastMCP (بايثون) أو SDK MCP (TypeScript) في دقائق. أستخدم هذا كل مرة أحتاج فيها إلى أن يتحدث كلود مع قاعدة بيانات داخلية جديدة.
+## الأسئلة المتكررة
 
-Most AI-generated writing is terrible. It uses words like "delve" and "pivotal" and structures everything in groups of three. 
+### ما الذي يجعل مهارة العامل الذكي "رسمية"؟
 
-**`seo-content-writer`**: We built this to force the AI to write like a human who actually understands SEO. It enforces short paragraphs, clear header structures, and prevents the agent from sounding like a corporate press release.
+المهارات الرسمية مبنية وتم اختبارها وصيانتها بواسطة فريق Killer-Skills الأساسي. نحن نحافظ على تحديثها مع تغيير النماذج التحتية (مثل Claude 3.7 Sonnet أو GPT-4o) سلوكياتها الأساسية.
 
-**`geo-content-optimizer`**: Traditional SEO is changing because of AI overviews (like ChatGPT search and Google's AI answers). This skill formats your markdown with direct answers and high-density facts so that other AI models are more likely to quote your content as a source.
+### هل تعمل هذه المهارات في Cursor أو Windsurf؟
 
-## Extending your agents
+نعم. يترجم واجهة سطر الأوامر Killer-Skills هذه المهارات إلى التنسيق الصحيح لمحورك المحدد، سواء كان ملفًا `.cursorrules` أو ملفًا `.windsurfrules` أو تكوين العامل.
 
-**`mcp-builder`**: The Model Context Protocol (MCP) is how we connect agents to external APIs. Writing an MCP server from scratch is tedious. This skill gives the agent the exact templates and architectural decisions needed to spin up FastMCP (Python) or the MCP SDK (TypeScript) in minutes. I use this whenever I need Claude to talk to a new internal database.
+### هل المهارات الرسمية مجانية للاستخدام؟
 
-## Frequently Asked Questions
+نعم، جميع المهارات الرسمية مفتوحة المصدر ومجانية للتثبيت عبر واجهة سطر الأوامر. عليك فقط دفع رسوم استخدام واجهة برمجة التطبيقات للنموذج اللغوي الكبير الذي تختاره لتشغيله مع محورك.
+## إنهاء
 
-### What makes an AI agent skill "official"?
+لا تحتاج إلى تفعيل جميع هذه الأدوات في نفس الوقت. سيؤدي ذلك إلى إرباك نافذة سياق الوكيل. اختر الأداة التي تحل مشكلتك الفوري، وقم بتثبيتها، وانظر كيف تتغير الإخراج. عادةً أبدأ مشروعًا جديدًا bằng إضافة `frontend-design` وأتابع من هناك.
 
-Official skills are built, tested, and maintained by the Killer-Skills core team. We keep them updated as underlying models (like Claude 3.7 Sonnet or GPT-4o) change their baseline behaviors.
-
-### Do these skills work in Cursor or Windsurf?
-
-Yes. The Killer-Skills CLI translates these skills into the correct format for your specific IDE, whether that's a `.cursorrules` file, a `.windsurfrules` file, or an agent configuration.
-
-### Are the official skills free to use?
-
-Yes, all official skills are open-source and free to install via the CLI. You only pay for the API usage of the LLM you choose to run them with in your IDE.
-
-## Wrapping up
-
-You don't need all of these active at once. That would overwhelm your agent's context window. Pick the one that solves your immediate problem, install it, and see how the output changes. I usually start a new project by adding `frontend-design` and go from there.
-
-Ready to try them out? You can install any of these right now by running `npx killer-skills add <skillname>` in your terminal.
+جاهز لمحاولة استخدامهم؟ يمكنك تثبيت أي من هذه الأدوات الآن عن طريق تشغيل `npx killer-skills add <skillname>` في محطة العمل.
 
 <script type="application/ld+json">
 {
@@ -81,26 +74,26 @@ Ready to try them out? You can install any of these right now by running `npx ki
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What makes an AI agent skill official?",
+      "name": "ما الذي يجعل مهارة الوكيل الذكي رسمية?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Official skills are built, tested, and maintained by the Killer-Skills core team. We keep them updated as underlying models change their baseline behaviors."
+        "text": "المهارات الرسمية مبنية ومتوفرة ومدعومة من قبل فريق Killer-Skills الأساسي. نحن نحافظ على تحديثها مع تغيير السلوك الأساسي للأطراف المتناظرة."
       }
     },
     {
       "@type": "Question",
-      "name": "Do these skills work in Cursor or Windsurf?",
+      "name": "هل تعمل هذه المهارات في Cursor أو Windsurf?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The Killer-Skills CLI translates these skills into the correct format for your specific IDE, whether that's a .cursorrules file or a .windsurfrules file."
+        "text": "نعم. واجهة سطر الأوامر Killer-Skills تترجم هذه المهارات إلى الصيغة الصحيحة لمحرر IDE الخاص بك، سواء كان ملفًا من نوع .cursorrules أو ملفًا من نوع .windsurfrules."
       }
     },
     {
       "@type": "Question",
-      "name": "Are the official skills free to use?",
+      "name": "هل المهارات الرسمية مجانية الاستخدام?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, all official skills are open-source and free to install via the CLI. You only pay for the API usage of the LLM you choose to run them with in your IDE."
+        "text": "نعم، جميع المهارات الرسمية مفتوحة المصدر ومجانية التثبيت عبر واجهة سطر الأوامر. تدفع فقط مقابل استخدام واجهة برمجة التطبيقات LLM الذي تختاره لتشغيلها مع IDE الخاص بك."
       }
     }
   ]
