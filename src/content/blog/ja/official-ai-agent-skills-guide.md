@@ -1,6 +1,6 @@
 ---
-title: "The Official AI Agent Skills You Should Be Using Right Now"
-description: "An overview of the official AI agent skills available via Killer-Skills. From parsing tricky PDFs to generating production-ready React components, we cover what they actually do."
+title: "いますぐに使える公式AIエージェントスキル"
+description: "Killer-Skillsを介して利用可能な公式AIエージェントスキルの概要。トラブルなPDFの解析から、制作に適したReactコンポーネントの生成まで、その実際の機能について説明します。"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]
@@ -9,70 +9,63 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+# 公式AIエージェントスキル：今すぐ使用するべきもの
 
-# The Official AI Agent Skills You Should Be Using Right Now
+公式AIエージェントスキルとは何か、それらの中でどれをインストールする価値があるのか。公式AIエージェントスキルとは、Killer-Skillsコアチームによってキュレーションされた、高品質の指示セットであり、15以上のIDE（CursorやWindsurfなど）でAIアシスタントに信頼性の高い一貫性のある機能を提供するように設計されている。
 
-What are the official AI agent skills, and which ones are worth installing? Official AI agent skills are curated, high-quality instruction sets maintained by the core Killer-Skills team, designed to give your AI assistants reliable and consistent capabilities across 15+ IDEs like Cursor and Windsurf.
+> **重要なまとめ**
+> - **大量のドキュメント処理**: `pdf`や`xlsx`などのスキルは、Claudeが大きなファイルからデータを想像するのを防ぐ。
+> - **フロントエンド生成**: `frontend-design`は、エージェントが汎用的なボイラープレートではなく、使用可能なスタイル付きコンポーネントを出力するように強制する。
+> - **マーケティング＆SEO**: `geo-content-optimizer`は、AIの概要用にコンテンツを構造化する。
+> - **ゼロセットアップ**: すべての公式スキルは、`npx killer-skills add <スキル>`を使用してグローバルにインストールされる。
 
-> **Key Takeaways**
-> - **Document heavy lifting**: Skills like `pdf` and `xlsx` stop Claude from hallucinating data out of large files.
-> - **Frontend generation**: `frontend-design` forces agents to output usable, styled components instead of generic boilerplate.
-> - **Marketing & SEO**: `geo-content-optimizer` structures your content for AI overviews.
-> - **Zero setup**: All official skills are installed globally via `npx killer-skills add <skill>`.
+私は、AIアシスタントを高機能なオートコンプリートのように扱う開発者と多く話をします。彼らは、Cursorに「ログインページを作成してください」または「このPDFを読んでください」と尋ね、出力が汎用的または単に間違っている場合に苛立つ。
 
-I talk to a lot of developers who treat their AI assistants like fancy autocomplete. They ask Cursor to "build a login page" or "read this PDF" and get frustrated when the output is generic or just wrong. 
+問題はモデルそのものではない。コンテキストが問題だ。
 
-The problem isn't the model. It's the context. 
+これが、公式スキルリポジトリを維持している理由である。これらはただのプロンプトリストではない。特定のタスクに際してエージェントがどのように動作するかを正確に指示する、厳格なルールセットとツールの設定である。以下は、毎日頼りにしている公式スキルである。
+## 苦手なドキュメントの扱い方
 
-That's why we maintain the official skills repository. These aren't just lists of prompts. They are strict, formatted rulesets and tool configurations that tell your agent exactly how to behave for specific tasks. Here are the official skills we rely on every day.
+50ページのPDFからデータを抽出するようにLLMに依頼したことがある人は、数字を勝手に作り出すことが多いことを知っているはずです。ドキュメント処理スキルはこの問題を解決します。
 
-## Handling the documents you hate
+**`pdf`**: このスキルはエージェントが推測するのを止めます。エージェントにファイルを実際に1行ずつ読む方法を使用するための明確な指示を提供します。私は技術仕様や古い研究論文に頻繁に使用しています。
 
-If you've ever asked an LLM to extract data from a 50-page PDF, you know it regularly invents numbers. The document processing skills fix this.
+**`xlsx` & `docx`**: スプレッドシートをスクラッチから解析するためのPythonスクリプトをAIに書かせるのではなく、これらのスキルはエージェントが必要とする直接のマクロとコマンドを提供します。エージェントがセルの式やドキュメントのトラッキングを読み取ったり変更したりできるようにし、ファイル構造を破壊せずに保存できるようにします。
+## インターフェースのデザインを2015年のようなものにしない
 
-**`pdf`**: This skill stops the agent from guessing. It gives the assistant explicit instructions on how to use tools to actually read the file line by line. I use it constantly for technical specs and old research papers.
+私たちは皆、デフォルトの「AIエステティック」—灰色のボタン、パディングのないもの、疑問のあるCSS—を見たことがある。
 
-**`xlsx` & `docx`**: Instead of asking the AI to write a Python script to parse a spreadsheet from scratch, these skills provide the direct macros and commands the agent needs. They ensure the AI can read, modify, and preserve cell formulas or document tracking without breaking the file structure.
+**`frontend-design`**: このスキルは、エージェントにモダンなデザイン原則を使用させるものである。スペーシング、色彩理論、レスポンシブブレークポイントに関するコンテキストを注入する。私はこのスキルを有効にしてダッシュボードレイアウトを要求すると、通常、TailwindとReactで構築されたもので、実運用に適しているものが得られる。
 
-## Building interfaces that don't look like 2015
+**`ui-ux-pro-max`**: こちらはヘビーバージョンである。50種類の異なるスタイル（ガラスモルフィズム、ブルータリズムなど）と、shadcn/uiのようなコンポーネントライブラリに関するガイドラインを含む。我がエージェントにプロパーデザインエンジニアとして、ただのコーダーとしてではなく働いてもらう必要があるときに、このスキルを有効にする。
+## マーケティングとコンテンツ
 
-We've all seen the default "AI aesthetic"—gray buttons, zero padding, and questionable CSS. 
+ほとんどのAI生成文章はひどいものです。「掘り下げる（delve）」や「極めて重要な（pivotal）」といった言葉を使い、すべてを3つ組の構成にしようとします。
 
-**`frontend-design`**: This skill forces the agent to use modern design principles. It injects context about spacing, color theory, and responsive breakpoints. When I ask for a dashboard layout with this skill active, I get something that looks like it belongs in production, usually built with Tailwind and React.
+**`seo-content-writer`**: 私たちは、AIが実際にSEOを理解している人間のように書くことを強制するためにこれを構築しました。短い段落、明確な見出し構造を強制し、企業のプレスリリースのような口調になるのを防ぎます。
 
-**`ui-ux-pro-max`**: This is the heavier version. It includes guidelines for 50 different styles (glassmorphism, brutalism, etc.) and specific component libraries like shadcn/ui. I turn this on when I need the agent to act as a proper design engineer, not just a coder.
+**`geo-content-optimizer`**: 従来のSEOは、AIオーバービュー（ChatGPT検索やGoogleのAI回答のようなもの）によって変化しています。このスキルは、直接的な回答と高密度な事実であなたのマークダウンをフォーマットし、他のAIモデルがソースとしてあなたのコンテンツを引用しやすくします。
+## エージェントの拡張
 
-## Marketing and content
+**`mcp-builder`**: Model Context Protocol (MCP) は、エージェントを外部 API に接続する方法です。MCP サーバーを一から作成するのは面倒です。このスキルは、FastMCP (Python) または MCP SDK (TypeScript) を数分で立ち上げるために必要な正確なテンプレートとアーキテクチャ上の決定をエージェントに提供します。私は Claude を新しい内部データベースと連携させる必要があるときはいつもこれを使用します。
+## よくある質問
 
-Most AI-generated writing is terrible. It uses words like "delve" and "pivotal" and structures everything in groups of three. 
+### AIエージェントスキルが「公式」とされる基準は何ですか？
 
-**`seo-content-writer`**: We built this to force the AI to write like a human who actually understands SEO. It enforces short paragraphs, clear header structures, and prevents the agent from sounding like a corporate press release.
+公式スキルは、Killer-Skillsのコアチームによって構築、テスト、およびメンテナンスされています。Claude 3.7 SonnetやGPT-4oなどの基盤モデルがその基本動作を変更する際には、これらのスキルも更新され続けます。
 
-**`geo-content-optimizer`**: Traditional SEO is changing because of AI overviews (like ChatGPT search and Google's AI answers). This skill formats your markdown with direct answers and high-density facts so that other AI models are more likely to quote your content as a source.
+### これらのスキルはCursorやWindsurfで動作しますか？
 
-## Extending your agents
+はい。Killer-Skills CLIは、これらのスキルをお使いの特定のIDE（`.cursorrules`ファイル、`.windsurfrules`ファイル、またはエージェント設定）向けの正しい形式に変換します。
 
-**`mcp-builder`**: The Model Context Protocol (MCP) is how we connect agents to external APIs. Writing an MCP server from scratch is tedious. This skill gives the agent the exact templates and architectural decisions needed to spin up FastMCP (Python) or the MCP SDK (TypeScript) in minutes. I use this whenever I need Claude to talk to a new internal database.
+### 公式スキルは無料で利用できますか？
 
-## Frequently Asked Questions
+はい。すべての公式スキルはオープンソースであり、CLI経由で無料でインストールできます。お支払いが発生するのは、IDE内でそれらを実行するために選択したLLMのAPI使用量のみです。
+## まとめ
 
-### What makes an AI agent skill "official"?
+これらすべてを一度に有効にする必要はありません。それはエージェントのコンテキストウィンドウを圧倒してしまいます。当面の問題を解決するものを選び、インストールし、出力がどのように変化するかを確認してください。私は通常、新しいプロジェクトを始める際に `frontend-design` を追加することから始め、そこから進めていきます。
 
-Official skills are built, tested, and maintained by the Killer-Skills core team. We keep them updated as underlying models (like Claude 3.7 Sonnet or GPT-4o) change their baseline behaviors.
-
-### Do these skills work in Cursor or Windsurf?
-
-Yes. The Killer-Skills CLI translates these skills into the correct format for your specific IDE, whether that's a `.cursorrules` file, a `.windsurfrules` file, or an agent configuration.
-
-### Are the official skills free to use?
-
-Yes, all official skills are open-source and free to install via the CLI. You only pay for the API usage of the LLM you choose to run them with in your IDE.
-
-## Wrapping up
-
-You don't need all of these active at once. That would overwhelm your agent's context window. Pick the one that solves your immediate problem, install it, and see how the output changes. I usually start a new project by adding `frontend-design` and go from there.
-
-Ready to try them out? You can install any of these right now by running `npx killer-skills add <skillname>` in your terminal.
+試してみる準備はできましたか？ターミナルで `npx killer-skills add <skillname>` を実行することで、これらのスキルを今すぐインストールできます。
 
 <script type="application/ld+json">
 {
