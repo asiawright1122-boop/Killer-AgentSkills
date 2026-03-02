@@ -5,6 +5,7 @@ on:
     paths:
       - 'src/messages/en.json'
       - 'src/content/blog/en/*.md'
+      - 'src/content/blog/zh/*.md'
   workflow_dispatch:
 
 permissions:
@@ -41,8 +42,14 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
+          echo "--- Phase 0: Backfill zh-only posts to en ---"
+          npx tsx scripts/backfill-en-from-zh.ts
+          echo "--- Phase 1: Translate UI strings ---"
           npx tsx scripts/translate-locales.ts
+          echo "--- Phase 2: Translate blog posts ---"
           npx tsx scripts/translate-blog.ts
+          echo "--- Phase 3: Sync metadata globally ---"
+          npx tsx scripts/sync-blog-everything.ts
       - name: Commit and Push
         run: |
           if [ -n "$(git status --porcelain src/messages/ src/content/blog/)" ]; then
