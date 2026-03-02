@@ -1330,7 +1330,14 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
         return false; // Must be localized
     }
     for (const loc of SUPPORTED_LOCALES) {
-        if (!skill.description[loc]) {
+        const val = skill.description[loc];
+        if (!val) {
+            return false;
+        }
+        // Integrity check: if localized content is identical to English content (for non-English locales)
+        // it means a previous AI run likely failed and fell back to English. Force re-optimize.
+        const enVal = skill.description['en'];
+        if (loc !== 'en' && typeof val === 'string' && typeof enVal === 'string' && val.length > 10 && val === enVal) {
             return false;
         }
     }
@@ -1342,8 +1349,14 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
     if (typeof skill.agentAnalysis.suitability !== 'object') {
         return false;
     }
+    const suitability = skill.agentAnalysis.suitability as Record<string, string>;
     for (const loc of SUPPORTED_LOCALES) {
-        if (!(skill.agentAnalysis.suitability as Record<string, string>)[loc]) {
+        const val = suitability[loc];
+        if (!val) {
+            return false;
+        }
+        const enVal = suitability['en'];
+        if (loc !== 'en' && val.length > 5 && val === enVal) {
             return false;
         }
     }

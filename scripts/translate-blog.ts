@@ -144,9 +144,21 @@ async function main() {
             // Create dir if missing
             if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true });
 
-            // Skip if exists (Incremental build)
-            if (fs.existsSync(targetPath) && !process.env.FORCE_TRANSLATE) {
-                // console.log(`  ✅ ${locale}: Already exists. Skipping.`);
+            let shouldTranslate = false;
+            if (process.env.FORCE_TRANSLATE === 'true') {
+                shouldTranslate = true;
+            } else if (!fs.existsSync(targetPath)) {
+                shouldTranslate = true;
+            } else {
+                const locContent = fs.readFileSync(targetPath, 'utf-8');
+                const locTitleMatch = locContent.match(/title:\s*"(.*?)"/);
+                const enTitleMatch = content.match(/title:\s*"(.*?)"/);
+                if (locTitleMatch && enTitleMatch && locTitleMatch[1] === enTitleMatch[1]) {
+                    shouldTranslate = true;
+                }
+            }
+
+            if (!shouldTranslate) {
                 continue;
             }
 

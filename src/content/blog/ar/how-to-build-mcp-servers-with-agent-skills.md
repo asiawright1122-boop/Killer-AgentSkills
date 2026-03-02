@@ -1,6 +1,6 @@
 ---
-title: "How to Build MCP Servers: A Complete Guide Using Agent Skills"
-description: "Learn how to build production-ready MCP servers for AI agents using the official mcp-builder skill. Covers setup, tool design, testing, and deployment with TypeScript and Python."
+title: "كيفية بناء خوادم MCP: دليل كامل باستخدام مهارات الوكيل"
+description: "تعلم كيفية بناء خوادم MCP جاهزة للإنتاج لعميل الذكاء الاصطناعي باستخدام مهارة بناء MCP الرسمية. يتضمن الإعداد وتصميم الأدوات والاختبار والنشر باستخدام TypeScript و Python."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
@@ -9,95 +9,91 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+# كيفية بناء خوادم MCP التي يستخدمها وكلاء الذكاء الاصطناعي
 
-# How to Build MCP Servers That AI Agents Actually Use
+ماذا لو كان بإمكان وكيل الترميز الذكي الخاص بك القيام بأكثر من مجرد كتابة الشفرة؟ ماذا لو كان بإمكانها إرسال رسائل Slack، ووضع استفسارات قواعد البيانات، وتوزيع الإنتاج، وإدارة خط أنابيب DevOps بالكامل - كل ذلك من خلال بروتوكول معياري؟
 
-What if your AI coding agent could do more than just write code? What if it could send Slack messages, query databases, deploy to production, and manage your entire DevOps pipeline — all through a standardized protocol?
-
-That's exactly what **MCP servers** (Model Context Protocol) make possible. And with the official **mcp-builder** skill from Anthropic's skills repository, you can build production-grade MCP servers in minutes instead of hours.
+ذلك هو بالضبط ما يجعل خوادم **MCP** (بروتوكول سياق النموذج) ممكنًا. ومع مهارة **mcp-builder** الرسمية من مستودع Anthropic للمهارات، يمكنك بناء خوادم MCP من الدرجة الإنتاجية في دقائق بدلاً من الساعات.
 
 ```bash
 # Install the mcp-builder skill with one command
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-In this guide, you'll learn everything you need to know about building MCP servers — from understanding the protocol to deploying your first server.
+في هذا الدليل، ستتعلم كل ما تحتاج إلى معرفته حول بناء خوادم MCP - من فهم البروتوكول إلى نشر خادمك الأول.
+## ما هو خادم MCP؟
 
-## What Is an MCP Server?
+خادم **MCP** هو خدمة معيارية تُ暴ِع أدوات وموارد ودوافع لاستهلاك وكلاء الذكاء الاصطناعي. فكر فيه كجسر بين مساعد الذكاء الاصطناعي الخاص بك والعالم الحقيقي — قواعد البيانات وواجهات البرمجة وأنظمة الملفات وخدمات السحابة والمزيد.
 
-An **MCP server** is a standardized service that exposes tools, resources, and prompts for AI agents to consume. Think of it as a bridge between your AI assistant and the real world — databases, APIs, file systems, cloud services, and more.
+تم إنشاء **بروتوكول سياق النموذج** (MCP) بواسطة Anthropic لحل مشكلة أساسية: وكلاء الذكاء الاصطناعي يحتاجون إلى طريقة عالمية للتفاعل مع الخدمات الخارجية. قبل MCP ، كل دمج يتطلب رمزًا مخصصًا. الآن ، يتعامل بروتوكول واحد مع كل شيء.
 
-The **Model Context Protocol** (MCP) was created by Anthropic to solve a fundamental problem: AI agents need a universal way to interact with external services. Before MCP, every integration required custom code. Now, a single protocol handles everything.
+هنا lý لماذا يهم MCP:
 
-Here's why MCP matters:
+- **التوافق الشامل** — يعمل مع Claude و Cursor و Windsurf وأي عميل متوافق مع MCP
+- **واجهة معيارية** — تتبع الأدوات والموارد والدفعات مخططًا متسقًا
+- **تصميم من الأول إلى الآخر** — مصادقة مدمجة وتصديق الإدخال وضوابط الأذونات
+- **سلاسل عمل قابلة للتأليف** — يمكن لوكلاء الذكاء الاصطناعي ربط أدوات MCP المتعددة معًا
+## لماذا استخدام مهارة mcp-builder؟
 
-- **Universal compatibility** — Works with Claude, Cursor, Windsurf, and any MCP-compatible client
-- **Standardized interface** — Tools, resources, and prompts follow a consistent schema
-- **Security-first design** — Built-in authentication, input validation, and permission controls
-- **Composable workflows** — Agents can chain multiple MCP tools together
+مهارة **mcp-builder** هي واحدة من أقوى المهارات في مستودع Anthropic الرسمي. وهي تحول Claude إلى مطور خادم MCP مخصص من خلال توفير:
 
-## Why Use the mcp-builder Skill?
+1. **معرفة بروتوكول متعمقة** — تحمل المهارة مواصفات MCP الكاملة حتى يفهم Claude كل التفاصيل
+2. **أفضل الممارسات مسبقة التهيئة** — تسمية الأدوات و xử lý الأخطاء و أنماط التصفح كلها مسبقة التهيئة
+3. **دلائل خاصة بالإطار** — قوالب محسنة لоба TypeScript و Python
+4. **توليد التقييم** — ينشئ автоматически مجموعات اختبار لخادم MCP
 
-The **mcp-builder** skill is one of the most powerful skills in Anthropic's official repository. It transforms Claude into a specialized MCP server developer by providing:
+على عكس البناء من الصفر، تتبع مهارة mcp-builder عملًا منظمًا في 4 مراحل:
 
-1. **Deep protocol knowledge** — The skill loads the full MCP specification so Claude understands every detail
-2. **Best practices baked in** — Tool naming, error handling, and pagination patterns are all pre-configured
-3. **Framework-specific guides** — Optimized templates for both TypeScript and Python
-4. **Evaluation generation** — Automatically creates test suites for your MCP server
-
-Unlike building from scratch, the mcp-builder skill follows a structured 4-phase workflow:
-
-| Phase | What Happens |
+| المرحلة | ماذا يحدث |
 |:------|:-------------|
-| **Phase 1: Research** | Studies the API, plans tool coverage, designs the schema |
-| **Phase 2: Build** | Implements the server with proper error handling and auth |
-| **Phase 3: Review** | Tests all tools, validates responses, checks edge cases |
-| **Phase 4: Evaluate** | Creates automated evaluations to verify quality |
+| **المرحلة 1: البحث** | يدرس واجهة برمجة التطبيقات، يخطط لcoverage الأدوات، و يصمم مخطط البيانات |
+| **المرحلة 2: البناء** | ينفذ الخادم مع xử lý الأخطاء الصحيحة و المصادقة |
+| **المرحلة 3: المراجعة** | يختبر جميع الأدوات، و يصدق الردود، و يتحقق من الحالات الطرفية |
+| **المرحلة 4: التقييم** | ينشئ تقييمات آلية للتحقق من الجودة |
+## البدء: إنشاء خادم MCP الأول
 
-## Getting Started: Build Your First MCP Server
+### الخطوة 1: تثبيت المهارة
 
-### Step 1: Install the Skill
-
-First, make sure you have the Killer-Skills CLI installed:
+أولاً، تأكد من تثبيت واجهة سطر الأوامر Killer-Skills:
 
 ```bash
 npm install -g killer-skills
 ```
 
-Then add the mcp-builder skill to your project:
+ثم أضف مهارة مcp-builder إلى مشروعك:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
+ستتم إضافة المهارة إلى دليل `.claude/skills/` وتفعيلها تلقائيًا عند اكتشاف كلود تasks تطوير خادم MCP.
 
-### Step 2: Choose Your Stack
+### الخطوة 2: اختيار المكدس
 
-The mcp-builder skill supports two primary stacks:
+تدعم مهارة mcp-builder مكدان أساسيان:
 
-**TypeScript (Recommended)**
+**TypeScript (موصى به)**
 ```bash
 npm init -y
 npm install @modelcontextprotocol/sdk zod
 ```
 
-TypeScript is recommended for several reasons:
-- High-quality SDK support from the official MCP team
-- Static typing catches errors before runtime
-- Strong compatibility with execution environments
-- AI models excel at generating TypeScript code
+TypeScript موصى به لأسباب عديدة:
+- دعم SDK عالي الجودة من فريق MCP الرسمي
+- يكتشف النمطĩnh الأخطاء قبل وقت التشغيل
+- التوافق القوي مع بيئات التنفيذ
+- تمتلك نماذج الذكاء الاصطناعي مهارات جيدة في توليد 코드 TypeScript
 
 **Python**
 ```bash
 pip install mcp pydantic
 ```
 
-Python is a great choice if your team already uses Python or you're integrating with Python-heavy APIs.
+Python هو خيار جيد إذا كان فريقك يستخدم بالفعل Python أو إذا كنت تدمج مع واجهات برمجة تطبيقات ثقيلة في Python.
 
-### Step 3: Define Your Tools
+### الخطوة 3: تعريف أدواتك
 
-The key to a great MCP server is well-designed tools. Here's a template:
+مفتاح خادم MCP رائع هو أدوات مصممة جيدًا. هنا قالب:
 
 ```typescript
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -110,11 +106,11 @@ const server = new McpServer({
 
 server.tool(
   "create_item",
-  "Creates a new item in the system",
+  "ينشئ عنصرًا جديدًا في النظام",
   {
-    name: z.string().describe("Name of the item to create"),
-    description: z.string().optional().describe("Optional description"),
-    tags: z.array(z.string()).optional().describe("Tags for categorization"),
+    name: z.string().describe("اسم العنصر الذي سيتم إنشاؤه"),
+    description: z.string().optional().describe("وصف اختياري"),
+    tags: z.array(z.string()).optional().describe("العلامات للتصنيف"),
   },
   async ({ name, description, tags }) => {
     const result = await api.createItem({ name, description, tags });
@@ -130,44 +126,44 @@ server.tool(
 );
 ```
 
-### Step 4: Implement Best Practices
+### الخطوة 4: تنفيذ أفضل الممارسات
 
-The mcp-builder skill enforces several critical patterns:
+تفرض مهارة mcp-builder عدة أنماط حرجة:
 
-**Tool Naming Convention**
+**اتفاقية تسمية الأداة**
 ```
-✅ github_create_issue
-✅ slack_send_message
-✅ db_query_users
+github_create_issue
+slack_send_message
+db_query_users
 
-❌ createIssue
-❌ send
-❌ doStuff
+createIssue
+send
+doStuff
 ```
 
-Use consistent prefixes (service name) + action-oriented verbs. This helps agents quickly discover and select the right tools.
+استخدم بادئات متسقة (اسم الخدمة) + أفعال متجهة نحو العمل. هذا يساعد الوكلاء على اكتشاف الأدوات الصحيحة واختيارها بسرعة.
 
-**Actionable Error Messages**
+**رسائل الخطأ القابلة للتنفيذ**
 ```typescript
-// ❌ Bad
-throw new Error("Not found");
+// ❌ سيئة
+throw new Error("لم يتم العثور عليه");
 
-// ✅ Good
+// ✅ جيدة
 throw new Error(
-  `Repository "${owner}/${repo}" not found. ` +
-  `Check that the repository exists and you have access. ` +
-  `Try listing your repositories first with github_list_repos.`
+  `المستودع "${owner}/${repo}" لم يتم العثور عليه. ` +
+  `تحقق من وجود المستودع ولديك الوصول. ` +
+  `حاول سرد مستودعاتك أولاً باستخدام github_list_repos.`
 );
 ```
 
-**Tool Annotations**
+**تعليقات الأداة**
 
-Every tool should include annotations that help agents understand their behavior:
+يجب أن تتضمن كل أداة تعليقات تساعد الوكلاء على فهم سلوكها:
 
 ```typescript
 server.tool(
   "delete_item",
-  "Permanently deletes an item",
+  "يحذف عنصرًا بشكل دائم",
   { id: z.string() },
   async ({ id }) => { /* ... */ },
   {
@@ -179,53 +175,50 @@ server.tool(
   }
 );
 ```
+## مثال واقعي: بناء خادم MCP على GitHub
 
-## Real-World Example: Building a GitHub MCP Server
+دعونا نمر بمثال واقعي. افترض أنك تريد بناء خادم MCP يسمح لوكلاء الذكاء الاصطناعي بإدارة مستودعات GitHub.
 
-Let's walk through a realistic example. Suppose you want to build an MCP server that lets AI agents manage GitHub repositories.
+**اسأل كلود مع تفعيل مهارة mcp-builder:**
 
-**Ask Claude with the mcp-builder skill active:**
+> "ابني لي خادم MCP ل-API GitHub. يجب أن يدعم إنشاء قضايا، وlisting المستودعات، وإدارة طلبات السحب، و 검색 الشفرة."
 
-> "Build me an MCP server for the GitHub API. It should support creating issues, listing repositories, managing pull requests, and searching code."
+ستقوم كلود بما يلي:
+1. البحث في وثائق وثائق API GitHub REST
+2. تخطيط النقاط النهاية التي سيتم تغطيتها (عادة 15-25 أداة)
+3. بناء الخادم الكامل مع مصادقة OAuth المناسبة
+4.生成 تقييمات الاختبار لكل أداة
 
-Claude will:
-1. Research the GitHub REST API documentation
-2. Plan which endpoints to cover (typically 15-25 tools)
-3. Build the complete server with proper OAuth authentication
-4. Generate test evaluations for each tool
+النتيجة هي خادم جاهز للإنتاج مع معالجة الأخطاء المناسبة، وتنقّل الصفحات، وحدّ率، ومصادقة — شيء الذي سيتطلب عادة أيام للبناء يدوياً.
+## مبادئ التصميم الرئيسية لخادم MCP
 
-The result is a production-ready server with proper error handling, pagination, rate limiting, and authentication — something that would normally take days to build manually.
+### تغطية واجهة برمجة التطبيقات مقابل أدواتflux العمل
 
-## Key Design Principles for MCP Servers
+تعلم مهارة mcp-builder توازنًا مهمًا:
 
-### API Coverage vs. Workflow Tools
+- **التغطية الشاملة** توفر للموكلين مرونة في تكوين العمليات
+- **أدوات سير العمل** تعمل على حزمة العمليات متعددة الخطوات الشائعة في مكالمات واحدة
+- عند الشك، أعطى الأولوية للتغطية الشاملة لواجهة برمجة التطبيقات
 
-The mcp-builder skill teaches an important balance:
+### إدارة السياق
 
-- **Comprehensive coverage** gives agents flexibility to compose operations
-- **Workflow tools** bundle common multi-step operations into single calls
-- When uncertain, prioritize comprehensive API coverage
+تعمل الوكلاء بشكل أفضل مع البيانات المُركّزة والمُلائمة:
 
-### Context Management
+- أعد فقط الحقول التي يحتاجها الوكلاء، وليس استجابات واجهة برمجة التطبيقات الكاملة
+- دعم التصفح للعمليات القائمة
+- شامل الفلاتر لتضييق النتائج
 
-Agents work best with focused, relevant data:
+### الاختبار والتقييم
 
-- Return only the fields agents need, not entire API responses
-- Support pagination for list operations
-- Include filters to narrow results
+توليد مهارة mcp-builder تقييمات آلية لاختبار:
 
-### Testing and Evaluation
+- **مسار السعادة** — التشغيل العادي مع المدخلات الصالحة
+- **حالات الحافة** — نتائج فارغة، مجموعات بيانات كبيرة، أحرف خاصة
+- **معالجة الأخطاء** — مدخلات غير صالحة، فشل المصادقة، حدود معدل
+- **سيناريوهات العالم الواقعي** — سير العمل متعددة الخطوات التي ترتبط أدواتًا معًا
+## تثبيت عبر Killer-Skills
 
-The mcp-builder skill generates automated evaluations that test:
-
-- **Happy path** — Normal operation with valid inputs
-- **Edge cases** — Empty results, large datasets, special characters
-- **Error handling** — Invalid inputs, auth failures, rate limits
-- **Real-world scenarios** — Multi-step workflows that chain tools together
-
-## Installing via Killer-Skills
-
-The fastest way to get started is through the Killer-Skills marketplace:
+أسرع طريقة للبدء هي من خلال سوق Killer-Skills:
 
 ```bash
 # Browse the official skills
@@ -238,25 +231,24 @@ npx killer-skills add anthropics/skills/mcp-builder
 npx killer-skills list
 ```
 
-Once installed, the skill is automatically available in Claude Code, Claude.ai, and any Claude API integration. Simply start a conversation about building an MCP server and Claude will load the skill's instructions.
+ بمجرد التثبيت ، يصبح المهارة متاحًا تلقائيًا في Claude Code و Claude.ai و أي دمج API من Claude. ابدأ بمجرد محادثة حول بناء خادم MCP وسيتحمل Claude تعليمات المهارة.
+## ماذا يأتي بعد ذلك؟
 
-## What's Next?
+خادمات MCP تصبح الطريقة القياسية التي تتفاعل بها وكلاء الذكاء الاصطناعي مع العالم. مع مهارة مكونة MCP، لا تحتاج إلى أن تكون خبيرًا ببروتوكول MCP — يتعامل كلود مع التعقيدات بينما تركز على ما يجب أن يفعله خادمك.
 
-MCP servers are becoming the standard way AI agents interact with the world. With the mcp-builder skill, you don't need to be an MCP protocol expert — Claude handles the complexity while you focus on what your server should do.
+جاهز للبدء في بناء خادم MCP الأول؟ ها هو كيفية البدء اليوم:
 
-Ready to build your first MCP server? Here's how to get started today:
+1. **تثبيت المهارة**: `npx killer-skills add anthropics/skills/mcp-builder`
+2. **اختر واجهة برمجة التطبيقات**: اختر خدمة تريد دمجها (Slack، Notion، JIRA، إلخ)
+3. **أوصف احتياجاتك**:告ل كلود بالأدوات التي تحتاجها، وسوف يبني الخادم بالكامل
+4. **نشر واختبار**: استخدم التقييمات التي تم إنشاؤها للتحقق من صحة خادمك
 
-1. **Install the skill**: `npx killer-skills add anthropics/skills/mcp-builder`
-2. **Choose your API**: Pick a service you want to integrate (Slack, Notion, JIRA, etc.)
-3. **Describe your needs**: Tell Claude what tools you need, and it will build the entire server
-4. **Deploy and test**: Use the generated evaluations to validate your server
-
-The future of AI development isn't about writing more code — it's about giving AI agents the right tools to work with. MCP servers and Agent Skills make that future possible today.
-
----
-
-*Want to explore more skills? Browse the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
+مستقبل تطوير الذكاء الاصطناعي لا يتعلق بكتابه المزيد من الشفرة — بل يتعلق بإعطاء وكلاء الذكاء الاصطناعي الأدوات الصحيحة للعمل معها. خادمات MCP ومهارات الوكيل تجعل ذلك المستقبل ممكنًا اليوم.
 
 ---
 
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*تريد استكشاف المزيد من المهارات؟ تصفح [سوق Killer-Skills](https://killer-skills.com/ar/skills) لاكتشاف مئات من مهارات الوكيل المعتمدين لسير عمل 编碼 الذكاء الاصطناعي.*
+
+---
+
+*متعلق: [ما هي مهارات وكلاء الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكلاء الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

@@ -1,6 +1,6 @@
 ---
-title: "Empowering AI Agents: Building High-Quality MCP Servers"
-description: "Discover the Model Context Protocol (MCP) and learn how to create powerful servers that enable AI agents to interact with external tools and services."
+title: "تمكين وكلاء الذكاء الاصطناعي: بناء خوادم MCP عالية الجودة"
+description: "استكشف بروتوكول سياق النموذج (MCP) وتعلم كيفية إنشاء خوادم قوية تمكن وكلاء الذكاء الاصطناعي من التفاعل مع الأدوات والخدمات الخارجية."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]
@@ -9,62 +9,54 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+# صمغ العصر الوكيلي: التمكن من مهارة بناء بروتوكول السياق النموذجي
 
-# The Glue of the Agentic Era: Mastering the MCP-Builder Skill
+في عالم الذكاء الاصطناعي المتطور بسرعة، القدرة على وكيل "التفكير" هي نصف المعركة فقط. ليكون وكيلًا مفيدًا حقًا، يجب أن يكون قادرًا أيضًا على "التحرك" - البحث في قاعدة بيانات، أو النشر على جيت هاب، أو استفسار واجهة برمجة تطبيقات داخلية مخصصة. यहنا يأتي دور **بروتوكول سياق النموذج (MCP)**.
 
-In the rapidly evolving world of AI, the ability for an agent to "think" is only half the battle. To be truly useful, an agent must also be able to "act"—to search a database, post to GitHub, or query a custom internal API. This is where the **Model Context Protocol (MCP)** comes in.
-
-The **mcp-builder** skill is your definitive guide to creating robust, high-quality MCP servers. Whether you're working in TypeScript or Python, this skill provides the architectural blueprints and best practices needed to turn static APIs into dynamic agent tools.
+مهارة **mcp-builder** هي دليلك الشامل لإنشاء خوادم MCP قوية وعالية الجودة. سواء كنت تعمل باستخدام TypeScript أو Python، توفر هذه المهارة المخططات المعمارية وأفضل الممارسات اللازمة لتحويل واجهات برمجة التطبيقات الثابتة إلى أدوات وكيل ديناميكية.
 
 ```bash
 # Equip your agent with the mcp-builder skill
 npx killer-skills add anthropics/skills/mcp-builder
 ```
+## لماذا يهم MCP
 
-## Why MCP Matters
+قبل MCP، كانت كل تكامل ذكاء اصطناعي مخصصًا ومتحللًا بسهولة. MCP يُحدد معايير كيفية اكتشاف نماذج الذكاء الاصطناعي واستخدام الأدوات والموارد والتحفيزات. من خلال بناء خادم MCP، لا تقوم بإنشاء سكريبت فقط؛ بل تقوم بإنشاء واجهة موحدة يمكن لأي وكيل متوافق مع MCP (مثل Claude Desktop أو ملحقات IDE) فهمها واستخدامها على الفور.
+## أسرار خادم MCP "الجودة العالية"
 
-Before MCP, every AI integration was a custom, brittle "hack." MCP standardizes how AI models discover and use tools, resources, and prompts. By building an MCP server, you're not just creating a script; you're creating a standardized interface that any MCP-compatible agent (like Claude Desktop or IDE extensions) can instantly understand and use.
+وفقًا لإرشادات `mcp-builder` ، يتم تعريف خادم MCP رائع من خلال إمكانية استخدامه من قبل LLM. هنا هي الركائز الأساسية:
 
-## The Secrets of a "High-Quality" MCP Server
+### 1. أدوات Workflow مقابل تغطية API
+في حين أنه من المغري لتحويل كل نقطة نهاية API ، فإن أكثر خادمات MCP فعالية تجمع بين **التغطية الشاملة** وأدوات **workflow** متخصصة.
+- **أدوات Workflow**: أوامر عالية المستوى مثل `onboard_new_user` التي تتعامل مع خطوات متعددة.
+- **تغطية API**: أدوات دقيقة تسمح للوكيل "الارتجال" وتركيب حلول خاصة به.
 
-According to the `mcp-builder` guidelines, a great MCP server is defined by its usability for the LLM. Here are the core pillars:
+### 2. تسمية الأدوات الدلالية
+يحدد الوكيل الأدوات من خلال أسمائها. يُؤكد مهارة `mcp-builder` على **تسمية مفضلة بالفعل** (على سبيل المثال ، `stripe_create_customer` ، `stripe_list_invoices`). هذا يضمن القابلية للاكتشاف ويمنع تصادمات التسمية.
 
-### 1. Workflow Tools vs. API Coverage
-While it's tempting to just wrap every API endpoint, the most effective MCP servers combine **comprehensive coverage** with specialized **workflow tools**. 
-- **Workflow Tools**: High-level commands like `onboard_new_user` that handle multiple steps.
-- **API Coverage**: Granular tools that let the agent "improvise" and compose its own solutions.
+### 3. رسائل الخطأ القابلة للتنفيذ
+عندما يفشل呼 أداة ، فإن خطأ "500 Internal Server Error" القياسي غير مفيد للوكلاء الاصطناعيين. يجب أن تقوم خادمات MCP بإرجاع **ملاحظات قابلة للتنفيذ**. على سبيل المثال: *"خطأ: 参数 'البريد الإلكتروني' مفقود. يرجى تقديم عنوان بريد إلكتروني صحيح للعميل للمتابعة."* هذا يسمح للوكيل بالتصحيح الذاتي والمحاولة مرة أخرى.
+## سير عمل التطوير بالمراحل الأربع
 
-### 2. Semantic Tool Naming
-An agent identifies tools by their names. The `mcp-builder` skill emphasizes **action-oriented, prefixed naming** (e.g., `stripe_create_customer`, `stripe_list_invoices`). This ensures discoverability and prevents naming collisions.
+يوضح مهارة `mcp-builder` مسارًا منظمًا للنجاح:
 
-### 3. Actionable Error Messages
-When a tool call fails, a standard "500 Internal Server Error" is useless to an AI. MCP servers should return **actionable feedback**. For example: *"Error: Missing 'email' parameter. Please provide a valid customer email to proceed."* This allows the agent to self-correct and try again.
+1.  **البحث والتخطيط**: فهم تصميم MCP الحديث ودراسة واجهة الخدمة API.
+2.  **التطبيق**: إعداد هيكل المشروع (TypeScript/Zod أو Python/Pydantic) وتنفيذ البنية التحتية الأساسية.
+3.  **المراجعة والاختبار**: استخدام **مفتش MCP** للتحقق من سلوك الأداة وضمان مبادئ DRY (لا تكرر نفسك).
+4.  **التقييم**: إنشاء مجموعة من الأسئلة المعقدة والواقعية "للقراءة فقط" للتحقق من فعالية الخادم في السيناريوهات الواقعية.
+## الأمثلة العملية
 
-## The 4-Phase Development Workflow
+- **GitHub MCP**: ابحث في المستودعات، وادِر الإشكالات، ومراجعة طلبات السحب.
+- **Slack MCP**: أرسل الرسائل، اقرأ تاريخ الخيط، وادِر القنوات.
+- **Custom Database MCP**: افحص بياناتك الداخلية بشكل آمن لمساعدك الذكائي.
+## الخلاصة
 
-The `mcp-builder` skill outlines a structured path to success:
+مهارة `mcp-builder` ضرورية لأي مطور يبحث عن جسر الفجوة بين المنطق الاصطناعي والتنفيذ في العالم الحقيقي. من خلال اتباع هذه الأنماط المثبتة، يمكنك بناء أدوات لا تعمل فقط، ولكنها تعمل على تمكين وكلاء الذكاء الاصطناعي ليكونوا أكثر إنتاجية.
 
-1.  **Research & Planning**: Understanding modern MCP design and studying the service API.
-2.  **Implementation**: Setting up the project structure (TypeScript/Zod or Python/Pydantic) and implementing core infrastructure.
-3.  **Review & Test**: Using the **MCP Inspector** to verify tool behavior and ensuring DRY (Don't Repeat Yourself) principles.
-4.  **Evaluation**: Creating a set of complex, realistic "Read-Only" questions to verify the server's effectiveness in real-world scenarios.
-
-## Practical Examples
-
-- **GitHub MCP**: Search repositories, manage issues, and review pull requests.
-- **Slack MCP**: Send messages, read thread history, and manage channels.
-- **Custom Database MCP**: Securely expose your internal data to your AI assistant.
-
-## Conclusion
-
-The `mcp-builder` skill is essential for any developer looking to bridge the gap between AI reasoning and real-world execution. By following these proven patterns, you can build tools that don't just "work," but actually empower AI agents to be more productive.
-
-Ready to start building? Check out the full documentation on the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder).
+جاهز لبدء البناء؟ تفضل بزيارة الوثائق الكاملة على سوق [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder).
 
 ---
-
-*Need to verify your new tools? Pair this with the [webapp-testing skill](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing).*
+*هل تحتاج إلى التحقق من أدواتك الجديدة؟ اقترن هذا مع مهارة [تجربة التطبيق على الويب](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing).*
 
 ---
-
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*متعلق: [ما هي مهارات وكلاء الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكلاء الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

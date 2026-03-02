@@ -1,6 +1,6 @@
 ---
-title: "Programming Your Programmers: The skill-creator Guide"
-description: "Learn how to build effective AI skills using the skill-creator toolkit. Master the art of modular AI capabilities with specialized knowledge and workflows."
+title: "برمجة مدربي البرامج: دليل منشئ المهارات"
+description: "تعلم كيفية بناء مهارات ذكاء اصطناعي فعالة باستخدام أداة منشئ المهارات. استخدم فن القدرات الاصطناعية المتميزة مع المعرفة والتدفقات العملية المتخصصة."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]
@@ -9,63 +9,57 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2560&auto=format&fit=crop"
 ---
+# ما وراء الذكاء الاصطناعي العام: التخصص في مهارة 创建 المهارات
 
-# Beyond General AI: Mastering the Skill-Creator Skill
+الذكاء الاصطناعي بشكل ضمني عام. إنه يعرف القليل من كل شيء ولكنه يفتقر إلى المعرفة الخاصة والإجرائية لمسارات الأعمال الفريدة أو أنماط البرمجة المفضلة لديك. لإغلاق هذا الفجوة، لا نحتاج إلى "مزيد من التدريب" - نحتاج إلى **المهارات**.
 
-Artificial Intelligence is inherently general. It knows a little bit about everything but lacks the specific, procedural knowledge of your unique business processes or favorite coding patterns. To close this gap, we don't need "more training"—we need **Skills**.
-
-The **skill-creator** skill is the master blueprint for extending the capabilities of AI agents like Claude. It teaches you how to package specialized knowledge, deterministic scripts, and proven workflows into modular "onboarding guides" that transform a general-purpose AI into a specialized domain expert.
+مهارة **مبدع المهارات** هي الخطة الرئيسية للتعامل مع توسيع قدرات وكلاء الذكاء الاصطناعي مثل Claude. وهي تعلمك كيفية تغليف المعرفة المتخصصة والبرامج الحتمية والتدفقات العملية المثبتة في أدلة "التحضير" القابلة للتحويل التي تحول الذكاء الاصطناعي العام إلى خبير في مجال معين.
 
 ```bash
 # Equip your agent with the skill-creator skill
 npx killer-skills add anthropics/skills/skill-creator
 ```
+## ما الذي يصنع مهارة "قاتلة"؟
+إن إنشاء مهارة ليس مجرد وضع الوثائق في مجلد. إنها حول **كفاءة السياق** و **درجات الحرية**. مهارة `skill-creator` تؤكد على عدة مبادئ معمارية أساسية:
 
-## What Makes a "Killer" Skill?
+### 1. الكشف التدريجي
+أهم مورد في عصر الذكاء الاصطناعي هو **نافذة السياق**. مهارة مصممة جيدًا تستخدم نظام تحميل من ثلاثة مستويات:
+- **معلومات التعريف**: معلومات كافية لإخبار الذكاء الاصطناعي متى استخدام المهارة.
+- **SKILL.md**: الجسم التعليمي الأساسي، يتم تحميله فقط عند الحاجة.
+- **الموارد المرفقة**: البرامج والمراجع يتم تحميلها حسب الحاجة، مع الحفاظ على مجموعة التعليمات الرئيسية خفيفة.
 
-Creating a skill isn't just about dumping documentation into a folder. It's about **context efficiency** and **degrees of freedom**. The `skill-creator` skill emphasizes several core architectural principles:
+### 2. مطابقة درجات الحرية
+ليس كل مهمة يجب التعامل معها بنفس الطريقة:
+- **درجة حرية عالية**: تعليمات نصية نقية للمهام التي تتطلب هيورستيات إبداعية (على سبيل المثال، [تصميم الواجهة الأمامية](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)).
+- **درجة حرية منخفضة**: سكريبتات صارمة للعمليات الحاسمة والحازمة (على سبيل المثال، تعامل مع [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx)).
 
-### 1. Progressive Disclosure
-The most critical resource in the AI era is the **context window**. A well-designed skill uses a three-level loading system:
-- **Metadata**: Just enough info to tell the AI when to use the skill.
-- **SKILL.md**: The core instructional body, loaded only when needed.
-- **Bundled Resources**: Scripts and references loaded as needed, keeping the main instruction set lean.
+### 3. المعرفة الإجرائية مقابل المعرفة الإعلانية
+لا تخبر الذكاء الاصطناعي فقط *ما* يجب فعله؛ أعطه *الأدوات* لفعل ذلك. مهارة `skill-creator` تشجع على استخدام:
+- **`scripts/`**: كود تنفيذي للمهام المتكررة والحاسمة.
+- **`references/`**: مواصفات فنية و مخططات لا تحتاج إلى وجودها في الذاكرة الرئيسية في جميع الأوقات.
+- **`assets/`**: قوالب و نماذج يمكن نسخها مباشرة.
+## دورة حياة إنشاء المهارة
 
-### 2. Matching Degrees of Freedom
-Not every task should be handled the same way:
-- **High Freedom**: Pure text instructions for tasks that require creative heuristics (e.g., [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)).
-- **Low Freedom**: Rigid scripts for fragile, deterministic operations (e.g., [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) manipulation).
+يوفر `skill-creator` سير عمل خطوة بخطوة لإنشاء قدراتك الخاصة:
+1.  **ت 初تية**: استخدم `init_skill.py` لإنشاء هيكل دليل معياري.
+2.  **تنفيذ**: حدد الموارد القابلة لإعادة الاستخدام - ما هي الأجزاء من هذه المهمة التي ستكره شرحها مرتين؟
+3.  **تحسين SKILL.md**: اكتب تعليمات موجزة وتصريحية. افترض أن الذكاء الاصطناعي ذكي بالفعل؛告诉ه فقط ما *لا* يعرفه.
+4.  **تحزيم**: استخدم `package_skill.py` للتحقق من صحة وتحضير ملف `.skill` جاهز للتوزيع.
+## الاستخدامات العملية
 
-### 3. Procedural vs. Declarative Knowledge
-Don't just tell the AI *what* to do; give it the *tools* to do it. The `skill-creator` skill encourages the use of:
-- **`scripts/`**: Executable code for repetitive, deterministic tasks.
-- **`references/`**: Technical specs and schemas that don't need to be in the main memory at all times.
-- **`assets/`**: Boilerplates and templates that can be copied directly.
+- **التعريف بالشركة**: أنشئ مهارة تعلم Claude معايير الترميز الداخلية وإرشادات مراجعة PR.
+- **واجهات برمجة التطبيقات الخاصة**: قم بتحزيم وثائق واجهة برمجة التطبيقات الداخلية وبرامج المساعدة في أداة قابلة للاستخدام على الفور.
+- **عمليات العمل المعقدة**: بناء مهارة لمهام متخصصة مثل تدقيق تحسين محركات البحث أو النمذجة المالية أو مراجعة الوثائق القانونية.
+## الخاتمة
 
-## The Skill Creation Life Cycle
+قوة الذكاء الاصطناعي لا تكمن فقط في النموذج؛ بل في **البنية التحتية** المحيطة به. باستخدام مهارة `skill-creator`، تنتقل من كونك "مهندس أوامر" إلى "مهندس قدرات". أنت لا تخبر الذكاء الاصطناعي بما يجب فعله فحسب؛ بل تعلمه كيف يتعلم.
 
-The `skill-creator` provides a step-by-step workflow for building your own capabilities:
-1.  **Initialize**: Use `init_skill.py` to generate the standardized directory structure.
-2.  **Implementation**: Identify reusable resources—what parts of this task would you hate to explain twice?
-3.  **Refine SKILL.md**: Write concise, imperative instructions. Assume the AI is already smart; only tell it what it *doesn't* know.
-4.  **Package**: Use `package_skill.py` to validate and create a `.skill` file ready for distribution.
-
-## Practical Use Cases
-
-- **Company onboarding**: Create a skill that teaches Claude your internal coding standards and PR review guidelines.
-- **Proprietary APIs**: Package your internal API documentation and helper scripts into an instantly-usable tool.
-- **Complex Workflows**: Build a skill for specialized tasks like SEO audits, financial modeling, or legal document review.
-
-## Conclusion
-
-The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
-
-Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
+ابدأ في بناء مساحة عمل الذكاء الاصطناعي المخصصة الخاصة بك اليوم على [سوق مهارات Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
 
 ---
 
-*Ready to deploy your new skill? Learn how to [build an MCP server](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) to host it.*
+*هل أنت مستعد لنشر مهارتك الجديدة؟ تعلم كيفية [بناء خادم MCP](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) لاستضافتها.*
 
 ---
 
-*Related: [What are AI agent skills?](/ar/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ar/blog/best-ai-agent-skills-2026)*
+*مواضيع ذات صلة: [ما هي مهارات وكيل الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكيل الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

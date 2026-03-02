@@ -51,19 +51,6 @@ export abstract class BaseAdapter {
             // 启动浏览器
             await this.launchBrowser();
 
-            // 如果是 dry run，截图后退出
-            if (this.ctx.dryRun) {
-                await this.page!.goto(this.config.submitUrl, {
-                    waitUntil: 'domcontentloaded',
-                    timeout: this.ctx.timeout,
-                });
-                await this.takeScreenshot('dryrun');
-                result.status = 'skipped';
-                result.message = 'Dry run — 仅截图，未实际提交';
-                this.log(`⏭️  Dry run 完成`);
-                return result;
-            }
-
             // 打开提交页
             await this.page!.goto(this.config.submitUrl, {
                 waitUntil: 'domcontentloaded',
@@ -77,6 +64,15 @@ export abstract class BaseAdapter {
             // 填写表单
             await this.fillForm(this.page!);
             this.log(`📝 表单填写完成`);
+
+            // 如果是 dry run，截图后退出 (逻辑现在下移到此处，但其实可以下移到 clickSubmitButton)
+            if (this.ctx.dryRun) {
+                await this.takeScreenshot('dryrun');
+                result.status = 'skipped';
+                result.message = 'Dry run — 仅截图，未实际提交';
+                this.log(`⏭️  Dry run 完成`);
+                return result;
+            }
 
             // 截图：填写后
             await this.takeScreenshot('after');

@@ -1,6 +1,6 @@
 ---
-title: "The Collaboration Engine: Mastering the Doc-Coauthoring Skill"
-description: "Learn how to write world-class documentation with the official doc-coauthoring skill. Discover the 3-stage workflow for PRDs, specs, and proposals."
+title: "コラボレーションエンジン：ドキュメント共同執筆スキルのマスター"
+description: "公式のドキュメント共同執筆スキルを使用して、世界クラスのドキュメントの作成方法を学びます。PRD、仕様書、提案書のための3段階のワークフローを発見しましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
@@ -9,67 +9,61 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
 ---
+# 高速で高品質なドキュメント作成: Doc-Coauthoring スキルの解放
 
-# Write Better, Faster: Unlocking the Doc-Coauthoring Skill
+ドキュメントの作成は、開発者や製品マネージャーにとって最も嫌いな作業の1つです。私たちが伝えたいことは明確ですが、それを頭から構造化されたページに転換し、他の人にも理解してもらえるようにすることは、認知的に大きな負担になります。
 
-Writing documentation is often the most dreaded part of being a developer or product manager. We know what we want to say, but transferring that knowledge from our brains to a structured page—ensuring it makes sense to others—is a cognitive heavy lift.
-
-The official **doc-coauthoring** skill from Anthropic transforms your AI agent into a senior technical editor and strategic partner. It doesn't just "write for you"; it guides you through a rigorous, high-fidelity collaboration process that ensures your PRDs, design docs, and proposals are bulletproof.
+Anthropic の公式 **ドキュメント共同作成** スキルは、あなたの AI エージェントをシニアテクニカルエディターおよび戦略的パートナーに変身させます。これは、あなたの代わりに「書く」だけではなく、PRD、設計ドキュメント、提案書が完璧になることを保証する、厳格で高品質な共同作成プロセスを通じて、あなたをサポートします。
 
 ```bash
-# Equip your agent with the doc-coauthoring skill
+# エージェントにドキュメント共同作成スキルを付与する
 npx killer-skills add anthropics/skills/doc-coauthoring
 ```
+## Doc-Coauthoring Skillとは何か？
 
-## What is the Doc-Coauthoring Skill?
+`doc-coauthoring`スキルは、正式なワークフロー・オーケストレーション・エンジンです。ドキュメントの作成という大きなタスクを、3つの異なる、管理可能なステージに分解します。
 
-The `doc-coauthoring` skill is a formal workflow orchestration engine. It breaks down the monumental task of writing a document into three distinct, manageable stages.
+### ステージ1: コンテキストの深い理解
+ドキュメントは、十分なコンテキストがないと失敗します。このステージでは：
+- **情報のダンプ**: 生の考え、Slackリンク、またはターミナルのログを提供します。
+- **明確化する質問**: エージェントは、5〜10個の具体的な質問をして「知識のギャップ」を埋め、プロジェクトの*理由*を、*何*だけでなく理解します。
 
-### Stage 1: The Context Deep-Dive
-Documentation fails when there isn't enough context. In this stage:
-- **Info Dumping**: You provide raw thoughts, Slack links, or terminal logs.
-- **Clarifying Questions**: The agent asks 5-10 specific questions to close the "knowledge gap," ensuring it understands the *why* behind the project, not just the *what*.
+### ステージ2: 構造の洗練
+コンテキストが収集されると、エージェントはドキュメントをセクションごとに構築します：
+- **ブレインストーミング**: 各セクションについて、エージェントは5〜20のオプションまたはアングルを提供します。
+- **手術的な草稿**: 全ドキュメントを再印刷するのではなく、エージェントはあなたのフィードバックに基づいて、正確な編集を使用してコンテンツを洗練し、途中であなたの「声」を学習します。
 
-### Stage 2: Structural Refinement
-Once the context is gathered, the agent builds the document section by section:
-- **Brainstorming**: For every section, the agent offers 5-20 options or angles to cover.
-- **Surgical Drafting**: Instead of re-printing the whole doc, it uses precise edits to refine content based on your feedback, learning your "voice" along the way.
+### ステージ3: 「リーダーテスト」（秘密の武器）
+このスキルの最もユニークな機能は**リーダーテスト**です。エージェントは「新鮮な」サブエージェント（あなたの会話のコンテキストがゼロのもの）を呼び出し、ドキュメントを読み、質問に答えるように求めます。
+もし新しいエージェントが何かを間違えたり、指示があいまいだと判定したりすると、あなたの人間の読者も同様だと思われます。このプロセスは、公開する前に「盲点」を把握します。
+## なぜテクニカルチームがこれを愛するのか
 
-### Stage 3: The "Reader Test" (The Secret Weapon)
-The most unique feature of this skill is **Reader Testing**. The agent invokes a "fresh" sub-agent—one with zero context of your conversation—and asks it to read the document and answer questions.
-If the fresh agent gets something wrong or finds an instruction ambiguous, you know your human readers will too. This process catches "blind spots" before you hit published.
+ソフトウェアエンジニアリングチームにとって、このスキルは以下の点でゲームチェンジャーとなる：
+- **PRDs & デザインドキュメント**: すべての技術的なトレードオフが文書化され、すべてのエッジケースがカバーされることを保証する。
+- **RFCs (コメントのリクエスト)**: 明確で簡潔で、論理的に一貫性のある文書を作成することで、合意を構築する。
+- **オンボーディングガイド**: サブエージェントリーダーテストを実行することで、実際に「はじめに」ガイドが機能することを確認する。
+## 実践的なユースケース
 
-## Why Technical Teams Love It
+### Slack チャットから PRD への変換
+エージェントに新機能に関する長い Slack スレッドを貼り付けてください。`doc-coauthoring` スキルを使用して、混乱した議論をプロフェッショナルな Product Requirement Document に整理します。
 
-For software engineering teams, this skill is a game-changer for:
-- **PRDs & Design Docs**: Ensure that every technical trade-off is documented and every edge case is covered.
-- **RFCs (Request for Comments)**: Build consensus by creating documents that are clear, concise, and logically consistent.
-- **Onboarding Guides**: Verify that your "getting started" guides actually work by running them through a sub-agent reader test.
+### 自動ロジックチェック
+エージェントに技術仕様に対する "Reader Test" を実行してください。提供されたテキストのみに基づいて、開発者が機能を実装できるかどうかを確認します。
+## それをKiller-Skillsで使用する方法
 
-## Practical Use Cases
+1.  **インストール**: `npx killer-skills add anthropics/skills/doc-coauthoring`
+2.  **トリガー**: "私たちは新しいAPIのための技術提案の草案を作成したいと思っています。doc-coauthoringワークフローを使用しましょう。"
+3.  **コラボレーション**: エージェントの指示に従って、3つの段階を進めます。
+## 結論
 
-### From Slack Chat to PRD
-Paste a long Slack thread about a new feature into your agent. Use the `doc-coauthoring` skill to structure those messy discussions into a professional Product Requirement Document.
+`doc-coauthoring` スキルは、AI アシストされたライティングの可能性を高めています。単独で行う、疲れるタスクを構造化された、高品質の対話に変えます。
 
-### Automated Logic Check
-Ask the agent to "Reader Test" your technical spec to see if a developer could implement the feature based *only* on the text provided.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/doc-coauthoring`
-2.  **Trigger**: "I want to draft a technical proposal for our new API. Let's use the doc-coauthoring workflow."
-3.  **Collaborate**: Follow the agent's lead through the three stages.
-
-## Conclusion
-
-The `doc-coauthoring` skill raises the bar for what AI-assisted writing can be. It turns a solitary, exhausting task into a structured, high-quality dialogue. 
-
-Visit the [Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/doc-coauthoring) to download the skill and start writing documents that actually work.
+[Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/doc-coauthoring) を訪れて、スキルをダウンロードし、実際に機能する文書を作成してみましょう。
 
 ---
 
-*Need to finalize the formatting? Pair this with the [docx skill](https://killer-skills.com/ja/skills/anthropics/skills/docx) for a professional Word export.*
+* フォーマットの最終確認が必要ですか？ `[docx スキル](https://killer-skills.com/ja/skills/anthropics/skills/docx)` とペアにすると、プロフェッショナルな Word エクスポートができます。
 
 ---
 
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*
+* 関連情報: [AI エージェント スキルとは？](/ja/blog/what-are-ai-agent-skills) と [2026 年のベスト AI エージェント スキル](/ja/blog/best-ai-agent-skills-2026)

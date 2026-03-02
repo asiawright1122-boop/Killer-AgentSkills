@@ -1,6 +1,6 @@
 ---
-title: "Instant Branding: A Guide to the Theme-Factory Skill"
-description: "Learn how to apply professional themes to your AI-generated artifacts using the official theme-factory skill. Master consistent styling for slides, docs, and web pages."
+title: "Marcar la diferencia de inmediato: Guía para dominar la habilidad de Theme-Factory"
+description: "Aprende a aplicar temas profesionales a tus artefactos generados por IA utilizando la habilidad oficial de theme-factory. Domina el estilo coherente para diapositivas, documentos y páginas web."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]
@@ -9,67 +9,61 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2560&auto=format&fit=crop"
 ---
+# Instant Professionalidad: Cómo Theme-Factory Eleva la Salida de tu IA
 
-# Instant Professionalism: How Theme-Factory Elevates Your AI Output
+Cuando un agente de IA genera una presentación de diapositivas o una página de destino, el contenido puede ser brillante, pero la "apariencia y sensación" a menudo carece de cohesión. La marca no es solo una capa secundaria; es el lenguaje visual que establece confianza y autoridad.
 
-When an AI agent generates a slide deck or a landing page, the content might be brilliant, but the "look and feel" often lacks cohesion. Branding isn't just a secondary layer; it's the visual language that establishes trust and authority.
-
-The official **theme-factory** skill from Anthropic solving this problem by providing a curated library of professional design systems. Whether you are building a corporate report or a creative portfolio, this skill allows your AI agent to apply consistent, high-end styling in seconds.
+La habilidad oficial **theme-factory** de Anthropic resuelve este problema al proporcionar una biblioteca curada de sistemas de diseño profesionales. Ya sea que estés construyendo un informe corporativo o un portafolio creativo, esta habilidad permite a tu agente de IA aplicar un estilo coherente y de alta gama en segundos.
 
 ```bash
-# Equip your agent with theme-factory
+# Equipa a tu agente con theme-factory
 npx killer-skills add anthropics/skills/theme-factory
 ```
+## ¿Qué es la habilidad Theme-Factory?
 
-## What is the Theme-Factory Skill?
+`theme-factory` es un motor de estilos diseñado específicamente para artefactos generados por IA. Funciona desacoplando el contenido de la presentación, permitiendo que los agentes intercambien "máscaras" visuales sin afectar los datos subyacentes.
 
-`theme-factory` is a styling engine designed specifically for AI-generated artifacts. It works by decoupling content from presentation, allowing agents to swap "skins" without affecting the underlying data.
+### 1. Temas profesionales seleccionados
+La habilidad incluye 10 temas predefinidos, cada uno con:
+- **Paletas de colores cohesionadas**: Códigos hexadecimales seleccionados manualmente para colores primarios, secundarios y de acento.
+- **Combinaciones tipográficas complementarias**: Fuentes para encabezados y cuerpo de texto combinadas profesionalmente.
+- **Identidad visual**: Un estado de ánimo distintivo adaptado para audiencias específicas.
 
-### 1. Curated Professional Themes
-The skill comes with 10 pre-set themes, each including:
-- **Cohesive Color Palettes**: Hand-picked hex codes for primary, secondary, and accent colors.
-- **Complementary Font Pairings**: Professionally matched header and body fonts.
-- **Visual Identity**: A distinct mood tailored for specific audiences.
+### 2. Generación de temas bajo demanda
+Si los temas preestablecidos no se ajustan, la habilidad puede generar un tema completamente nuevo desde cero basado en descripciones simples como "Finanzas Cyberpunk" o "Bienestar Ecológico".
+## Explorando las Plantillas Iniciales
 
-### 2. On-the-Fly Theme Generation
-If the pre-set themes don't fit, the skill can generate a brand-new theme from scratch based on simple descriptions like "Cyberpunk Finance" or "Eco-Friendly Wellness."
+Estas son algunas de las plantillas de alta gama disponibles de forma predeterminada:
 
-## Exploring the Starter Themes
+- **Ocean Depths**: Profesional, relajante y marítima, perfecta para finanzas corporativas.
+- **Modern Minimalist**: Una estética contemporánea y limpia en escala de grises para startups tecnológicas.
+- **Midnight Galaxy**: Tonos profundos cósmicos y dramáticos para presentaciones de alto impacto.
+- **Forest Canopy**: Tonos tierra naturales y terrosos para proyectos de sostenibilidad o bienestar.
+- **Tech Innovation**: Estética tecnológica moderna y audaz para desarrolladores e ingenieros.
+## Por qué la identidad de marca es importante para los agentes de IA
 
-Here are some of the high-end themes available out of the box:
+Para los desarrolladores y gerentes de productos que utilizan agentes de IA para crear herramientas como [Web Artifacts](https://killer-skills.com/es/blog/mastering-generative-art-with-claudecode-skills), la consistencia es el mayor desafío. Sin un sistema de temas, cada nuevo componente puede tener un azul diferente o un peso de fuente ligeramente distinto.
 
-- **Ocean Depths**: Professional, calming, and maritime—perfect for corporate finance.
-- **Modern Minimalist**: A clean, contemporary grayscale aesthetic for tech startups.
-- **Midnight Galaxy**: Dramatic and cosmic deep tones for high-impact presentations.
-- **Forest Canopy**: Natural and grounded earth tones for sustainability or wellness projects.
-- **Tech Innovation**: Bold and modern tech aesthetic for developers and engineers.
+`theme-factory` garantiza que:
+- **Consistencia**: Todo su proyecto tiene una apariencia como si hubiera sido diseñado por una sola persona.
+- **Velocidad**: No tiene que escribir manualmente variables CSS para cada nueva página.
+- **Calidad**: Se aprovechan los principios de diseño integrados en los cimientos de la habilidad.
+## Cómo utilizar Theme-Factory con Killer-Skills
 
-## Why Branding Matters for AI Agents
+1.  **Instalar**: Utiliza la CLI para agregar la skill a tu proyecto.
+2.  **Mostrar**: Pídele a tu agente que "muestre el escaparate de temas" para ver los 10 estilos visuales.
+3.  **Aplicar**: Ordena al agente que "Aplique el tema 'Ocean Depths' a mi informe actual".
+4.  **Personalizar**: Si es necesario, solicita una "versión cálida y vibrante del tema 'Sunset Boulevard'".
+## Conclusión
 
-For developers and product managers using AI agents to build tools like [Web Artifacts](https://killer-skills.com/es/blog/mastering-generative-art-with-claudecode-skills), consistency is the biggest challenge. Without a theme system, every new component might have a different color blue or a slightly different font weight.
+La habilidad `theme-factory` transforma tu agente de IA de un simple programador en un diseñador consciente de la marca. Al garantizar que cada artefacto sea hermoso y consistente, eleva el listón de lo que el contenido generado por IA puede lograr.
 
-`theme-factory` ensures that:
-- **Consistency**: Your entire project looks like it was designed by a single person.
-- **Speed**: You don't have to manually write CSS variables for every new page.
-- **Quality**: You leverage design principles built into the skill's foundations.
-
-## How to use Theme-Factory with Killer-Skills
-
-1.  **Install**: Use the CLI to add the skill to your project.
-2.  **Showcase**: Ask your agent to "show the theme showcase" to see all 10 visual styles.
-3.  **Apply**: Command the agent to "Apply the 'Ocean Depths' theme to my current report."
-4.  **Customize**: If needed, ask for a "warm and vibrant version of the 'Sunset Boulevard' theme."
-
-## Conclusion
-
-The `theme-factory` skill transforms your AI agent from a simple coder into a brand-conscious designer. By ensuring every artifact is beautiful and consistent, it raises the bar for what AI-generated content can achieve.
-
-Check out the [theme-factory skill](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) on the Killer-Skills Marketplace today and give your projects the professional edge they deserve.
+Consulta la [habilidad theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) en el Killer-Skills Marketplace hoy mismo y dale a tus proyectos el toque profesional que se merecen.
 
 ---
 
-*Want to build the components themselves? Pair this with [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design) for the ultimate web development workflow.*
+*¿Quieres construir los componentes tú mismo? Combínala con [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design) para el flujo de trabajo de desarrollo web definitivo.*
 
 ---
 
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*
+*Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/what-are-ai-agent-skills) y [Mejores habilidades para agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*
