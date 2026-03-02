@@ -8,7 +8,7 @@ import { getFeaturedSkillsDirect } from '../../lib/skills';
 import type { Env } from '../../lib/kv';
 
 export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=7200');
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 
 // Validate locale
 const { locale } = Astro.params;

@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowLeft, Calendar, User, Clock, Share2 } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import Info from '../../../components/Info.astro';
 
 export const prerender = true;
 
@@ -175,7 +176,7 @@ const blogSchema = {
                         [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)]
                         [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]
                     ">
-                        <Content />
+                        <Content components={{ Info }} />
                     </div>
 
                     {/* Footer / Share */}

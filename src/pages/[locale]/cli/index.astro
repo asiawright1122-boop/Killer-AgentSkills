@@ -5,7 +5,7 @@ import docsCache from '../../../../data/docs-cache.json';
 import { Sparkles, RefreshCw, Bot, Shield, Check, X, Minus } from 'lucide-react';
 
 export const prerender = false;
-Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 
 // Validate locale
 const { locale } = Astro.params;
