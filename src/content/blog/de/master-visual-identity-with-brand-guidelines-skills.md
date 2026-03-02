@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "Das DNA der Gestaltung: Meisterung der Markenrichtlinien-Kompetenz"
+description: "Erfahren Sie, wie Sie offizielles Branding auf Ihre künstlich intelligente generierte Assets mit der Markenrichtlinien-Kompetenz anwenden. Lernen Sie die Geheimnisse der visuellen Identität von Anthropic."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Design mit Autorität: Freischaltung der Markenrichtlinien-Fähigkeit
 
 In der Welt der professionellen Kommunikation ist Konsistenz alles. Wenn Sie ein Dashboard oder eine Präsentation mit einem KI-Agenten erstellen, identifiziert es sich oft als "KI-generiert", weil es generische Designmuster folgt. Um Vertrauen aufzubauen, muss Ihre Ausgabe wie von einer lebendigen, atmenden Organisation mit einer klaren Identität wirken.

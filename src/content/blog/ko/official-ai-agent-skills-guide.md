@@ -1,6 +1,6 @@
 ---
-title: "The Official AI Agent Skills You Should Be Using Right Now"
-description: "An overview of the official AI agent skills available via Killer-Skills. From parsing tricky PDFs to generating production-ready React components, we cover what they actually do."
+title: "지금 사용해야 할 공식 AI 에이전트 스킬"
+description: "Killer-Skills를 통해 이용 가능한 공식 AI 에이전트 스킬 개요. 까다로운 PDF 분석부터 프로덕션 준비된 React 컴포넌트 생성까지, 각 스킬의 실제 기능을 다룹니다."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]
@@ -9,6 +9,7 @@ featured: false
 category: "guides"
 heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 지금 바로 사용해야 할 공식 AI 에이전트 스킬
 
 공식 AI 에이전트 스킬이란 무엇이며, 어떤 것을 설치할 가치가 있을까요? 공식 AI 에이전트 스킬은 핵심 Killer-Skills 팀이 관리하는 선별된 고품질 명령어 세트로, Cursor나 Windsurf와 같은 15개 이상의 IDE에서 AI 어시스턴트에게 신뢰할 수 있고 일관된 능력을 제공하도록 설계되었습니다.

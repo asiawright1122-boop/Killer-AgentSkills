@@ -1,6 +1,6 @@
 ---
-title: "Corporate Communication Excellence: The Internal-Comms Skill"
-description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
+title: "Excelencia en Comunicación Corporativa: La Habilidad de Comunicaciones Internas"
+description: "Domina las comunicaciones corporativas profesionales con la habilidad oficial de comunicaciones internas. Aprende a escribir actualizaciones 3P, boletines informativos e informes de incidentes con IA."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Habla Como un Líder: Dominando la Habilidad de Comunicación Interna
 
 En una era de trabajo remoto y crecimiento acelerado, la comunicación es el pegamento que mantiene unida a una organización. Pero la comunicación de alta calidad es difícil: requiere el tono adecuado, el formato correcto y el nivel preciso de detalle. Escribir una actualización semanal que realmente sea leída es una habilidad en sí misma.

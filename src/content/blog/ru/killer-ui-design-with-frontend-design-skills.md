@@ -1,6 +1,6 @@
 ---
-title: "Kill the AI Slop: Mastering the Frontend-Design Skill"
-description: "Learn how to build stunning, production-grade web interfaces with the official frontend-design skill. Discover the secrets of distinctive UI/UX design."
+title: "Убейте AI-помойку: Освойте навык фронтенд-дизайна"
+description: "Узнайте, как создавать потрясающие, готовые к продакшену веб-интерфейсы с официальным навыком фронтенд-дизайна. Раскройте секреты уникального UI/UX дизайна."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # За пределами обычного: Создание запоминающихся интерфейсов пользователя с помощью Frontend-Design
 
 Если вы недавно использовали ИИ для создания сайта, вы, вероятно, видели это: фиолетовые градиенты, округлые белые карточки и стандартный шрифт Inter. Мы называем это "ИИ-размазней" - эстетическими дизайнами, которые выглядят чисто, но кажутся бездушными и повторяющимися.

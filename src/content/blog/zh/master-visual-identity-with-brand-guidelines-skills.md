@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "设计的DNA：掌握品牌指南技能"
+description: "了解如何将官方品牌应用于AI生成的资产，使用品牌指南技能。揭秘Anthropic的视觉身份秘诀。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 权威设计：解锁品牌指南技能
 
 在专业沟通的世界中，统一性是至关重要的。当您使用 AI 代理生成仪表板或演示文稿时，它经常被识别为“AI 生成”，因为它遵循通用设计模式。为了建立信任，您的输出需要让人感觉像来自一个有明确身份的活生生的组织。

@@ -1,6 +1,6 @@
 ---
-title: "Kill the AI Slop: Mastering the Frontend-Design Skill"
-description: "Learn how to build stunning, production-grade web interfaces with the official frontend-design skill. Discover the secrets of distinctive UI/UX design."
+title: "Mate o AI Slop: Dominando a Habilidade de Frontend-Design"
+description: "Aprenda a construir interfaces web deslumbrantes e de grau de produção com a habilidade oficial de frontend-design. Descubra os segredos do design UI/UX distinto."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Além do Genérico: Criando Interfaces de Usuário Memoráveis com Frontend-Design
 
 Se você usou IA para gerar um site recentemente, provavelmente viu isso: os gradientes roxos, os cartões brancos arredondados e a fonte Inter padrão. Chamamos isso de "Bagunça da IA" - designs estéticos que parecem limpos, mas se sentem sem alma e repetitivos.

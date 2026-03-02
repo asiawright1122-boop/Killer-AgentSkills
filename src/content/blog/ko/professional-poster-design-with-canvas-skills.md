@@ -1,6 +1,6 @@
 ---
-title: "Static Design Mastery: Exploring the Canvas-Design Skill"
-description: "Discover how to create museum-quality posters and static designs using the official canvas-design skill. Learn about design manifestos and visual philosophies."
+title: "静적 디자인 마스터리: 캔버스-디자인 스킬 탐구"
+description: "공식 캔버스-디자인 스킬을 사용하여 박물관급 포스터와 정적 디자인을 생성하는 방법을 발견하세요. 디자인 선언과 시각 철학에 대해 알아보세요."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 템플릿을 넘어서: Canvas-Design으로 만들어지는 박물관급 아트
 
 제너릭 카나바 템플릿으로 가득 찬 세상에서, 진정한 디자인은 **의도성**을 통해 돋보입니다. 전문적인 디자인은 로고를 어디에 놓느냐가 아니라, 모든 픽셀을指导하는 형태, 공간, 색채의 철학에 관한 것입니다.

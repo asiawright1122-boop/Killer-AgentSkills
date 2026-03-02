@@ -1,6 +1,6 @@
 ---
-title: "Static Design Mastery: Exploring the Canvas-Design Skill"
-description: "Discover how to create museum-quality posters and static designs using the official canvas-design skill. Learn about design manifestos and visual philosophies."
+title: "Maestría en Diseño Estático: Explorando la Habilidad de Diseño de Canvas"
+description: "Descubre cómo crear pósters y diseños estáticos de calidad museística utilizando la habilidad oficial de diseño de canvas. Aprende sobre manifiestos de diseño y filosofías visuales."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Más allá de la plantilla: Creando arte de calidad museística con Canvas-Design
 
 En un mundo saturado de plantillas genéricas de Canva, el diseño verdadero se destaca por la **intencionalidad**. El diseño profesional no se trata solo de dónde se coloca un logotipo; se trata de la filosofía de la forma, el espacio y el color que guía cada píxel.

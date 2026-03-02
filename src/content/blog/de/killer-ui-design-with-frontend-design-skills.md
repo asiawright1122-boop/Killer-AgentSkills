@@ -1,6 +1,6 @@
 ---
-title: "Kill the AI Slop: Mastering the Frontend-Design Skill"
-description: "Learn how to build stunning, production-grade web interfaces with the official frontend-design skill. Discover the secrets of distinctive UI/UX design."
+title: "Beseitige den KI-Müll: Beherrsche die Frontend-Design-Fähigkeit"
+description: "Lerne, wie du atemberaubende, produktionsreife Weboberflächen mit der offiziellen Frontend-Design-Fähigkeit erstellst. Entdecke die Geheimnisse unverwechselbaren UI/UX-Designs."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "developer-experience"
 heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Jenseits von Generika: Erstellung von merkbarer UIs mit Frontend-Design
 
 Wenn Sie kürzlich eine Website mit KI erstellt haben, haben Sie es wahrscheinlich gesehen: die lila Farbverläufe, die abgerundeten weißen Karten und die Standard-Schriftart Inter. Wir nennen dies "KI-Slop" - ästhetische Designs, die sauber aussehen, aber seelenlos und repetitiv wirken.

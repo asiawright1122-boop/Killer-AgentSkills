@@ -1,6 +1,6 @@
 ---
-title: "Dynamic Data Mastery: A Guide to the XLSX Skill"
-description: "Master spreadsheet automation with the official xlsx skill. Learn how to build financial models, automate data cleaning, and generate dynamic Excel reports."
+title: "Mestre da Dados Dinâmicos: Um Guia para a Habilidade XLSX"
+description: "Domine a automação de planilhas com a habilidade xlsx oficial. Aprenda a criar modelos financeiros, automatizar a limpeza de dados e gerar relatórios do Excel dinâmicos."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Planilhas de Precisão: Por que Todas as Empresas Precisam da Habilidade XLSX
 
 Os dados são a espinha dorsal dos negócios modernos, mas os dados brutos são inúteis sem estrutura. A maioria das pessoas usa o Excel como uma tabela simples, mas o verdadeiro poder reside na **automação dinâmica** — modelos que se recalculam sozinhos e contam uma história por meio de padrões financeiros.

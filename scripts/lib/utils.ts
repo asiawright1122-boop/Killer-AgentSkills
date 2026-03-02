@@ -23,13 +23,14 @@ export function tryParseJSON(str: string): any {
  */
 export function robustParseJSON(str: string): any {
     str = str.trim();
-    // Auto-fix if missing braces
-    if (!str.startsWith('{')) str = `{${str}}`;
 
-    // Sanitize: remove code fences, comments, trailing commas
+    // Sanitize FIRST: remove code fences, comments, trailing commas
     str = str.replace(/```(?:json)?\s*([\s\S]*?)```/g, '$1').trim()
         .replace(/\/\*[\s\S]*?\*\/|^\s*\/\/.*$/gm, '')
         .replace(/,(\s*[}\]])/g, '$1');
+
+    // Auto-fix if missing braces
+    if (!str.startsWith('{')) str = `{${str}}`;
 
     // Clean control characters
     str = str.replace(/[\u0000-\u001F]+/g, (match) => {

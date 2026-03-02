@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "ДНК дизайна: освоение навыка бренд-руководства"
+description: "Узнайте, как применять официальную идентичность бренда к активам, сгенерированным с помощью ИИ, используя навык бренд-руководства. Раскройте секреты визуальной идентичности Anthropic."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Дизайн с полномочиями: раскрытие навыка бренд-руководств
 
 В мире профессионального общения, последовательность - это все. Когда вы генерируете панель управления или презентацию с помощью агента ИИ, он часто идентифицируется как "сгенерированный ИИ", потому что он следует общим шаблонам дизайна. Чтобы построить доверие, ваш вывод должен выглядеть так, как если бы он исходил от живой, дышащей организации с четкой идентичностью.

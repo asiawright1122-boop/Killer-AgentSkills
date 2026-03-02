@@ -1,6 +1,6 @@
 ---
-title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+title: "AI"
+description: "AI. p5.js, , "
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # コードをキャンパスに変える：アルゴリズミックアートの力
 
 生成アートは、数学の精密さと芸術表現の原初的な感情が出会う場所です。ここでは、アーティストが単に絵を描くだけでなく、無限のバリエーションに生命を吹き込む*システム*を作成します。
