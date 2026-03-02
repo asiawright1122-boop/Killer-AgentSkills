@@ -9,70 +9,64 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+# ブループォイントを超えて：PPTXスキルを使ったエリートプレゼンテーションの作成
 
-# Beyond the Bullet Point: Creating Elite Presentations with the PPTX Skill
+ビジネスの世界では、プレゼンテーションは単なる情報ではなく、パフォーマンスである。ほとんどのAI生成スライドは、私たちが「テンプレートの罠」と呼ぶものに陥る：白い背景の上に退屈なブループォイント。聴衆を真正に勝ち取るためには、高級なデザイン、意図的なカラーパレット、バランスのとれたレイアウトが必要である。
 
-In the business world, a presentation is more than just information—it's a performance. Most AI-generated slides suffer from what we call "The Template Trap": boring bullet points on a white background. To truly win an audience, you need high-end design, intentional color palettes, and balanced layouts.
-
-The official **pptx** skill from Anthropic empowers your AI agent (like Claude Code) to become a senior presentation designer. It doesn't just "fill in" slides; it architect's them using professional design systems and modern web technologies like **PptxGenJS**.
+Anthropicの公式 **pptx** スキルは、あなたのAIエージェント（例：Claude Code）をシニアプレゼンテーションデザイナーに変える力を与える。これは単にスライドを「埋める」のではなく、プロフェッショナルなデザインシステムと **PptxGenJS** のようなモダンなウェブテクノロジーを使ってスライドを設計する。
 
 ```bash
-# Equip your agent with the pptx skill
+# エージェントにpptxスキルを装着する
 npx killer-skills add anthropics/skills/pptx
 ```
+## PPTX Skillとは何か？
 
-## What is the PPTX Skill?
+`pptx`スキルは、スライドの作成と操作を設計優先で行うフレームワークです。以下の3つの柱に基づいて構築されています：
+- **PptxGenJS**: スクラッチからスライドを構築するための強力なJavaScriptエンジン。
+- **Markitdown**: 既存のデッキからの深層構造の読み取りとテキスト抽出を行う。
+- **デザインインテリジェンス**: カラーテори、タイポグラフィ、プロフェッショナルなレイアウトに関する組み込みの知識。
+## ハイエンドなデザイン原則
 
-The `pptx` skill is a design-first framework for slide creation and manipulation. It's built on three pillars:
-- **PptxGenJS**: A powerful JavaScript engine for building slides from scratch.
-- **Markitdown**: For deep structural reading and text extraction from existing decks.
-- **Design Intelligence**: Built-in knowledge of color theory, typography, and professional layouts.
+`pptx`スキルは、いくつかの核となる原則を通じて「退屈なスライド禁止」ポリシーを徹底しています：
 
-## High-End Design Principles
+### 1. 「平等ではなく優位性」のルール
+プロのデザイナーは、すべての色に均等な重みを与えることはありません。このスキルでは60-30-10のルールを採用しています：60%が支配色（例：Midnight Executive Navy）、30%が補助色（Ice Blue）、10%が鋭いアクセントカラー（White）です。
 
-The `pptx` skill enforces a "No Boring Slides" policy through several core principles:
+### 2. ビジュアルモチーフ
+ランダムな装飾ではなく、このスキルは「角丸の画像フレーム」や「太い片側ボーダー」といった**1つの明確なビジュアルモチーフ**を選び、すべてのスライドで一貫して使用します。これにより、プレゼンテーションに統一された「ブランド感」が生まれます。
 
-### 1. The "Dominance over Equality" Rule
-Professional designers never give all colors equal weight. The skill uses a 60-30-10 rule: 60% dominant color (e.g., Midnight Executive Navy), 30% supporting tones (Ice Blue), and 10% sharp accent (White).
+### 3. 個性のあるタイポグラフィ
+このスキルはArialの枠を超えます。大胆な見出しフォント（ImpactやGeorgiaなど）と、洗練された読みやすい本文フォント（CalibriやGaramondなど）を組み合わせることで、明確な情報の階層を構築します。
+## 高度な機能
 
-### 2. The Visual Motif
-Instead of random decorations, the skill picks ONE distinct visual motif—like rounded image frames or thick single-sided borders—and carries it consistently across every slide. This creates a cohesive "brand" feeling for your presentation.
+### スライドの編集と加工
+単純なPDF変換ツールとは異なり、`pptx`スキルはプレゼンテーションを生のXMLコンポーネントに「分解」できます。これにより、エージェントは以下のことが可能になります：
+-   **レイアウトの変更**: コンテンツを保持したまま、2列のレイアウトを3列のグリッドに変更する。
+-   **マスタースライドの更新**: 100枚のスライド全体に、新しいブランドカラーやロゴを即座に適用する。
+-   **スピーカーノートの追加**: スライドの内容に基づいて、プレゼンター用のノートをプログラムで生成する。
 
-### 3. Typography with Personality
-The skill moves beyond Arial. It pairs bold headers (like Impact or Georgia) with clean, readable body fonts (like Calibri or Garamond) to establish a clear information hierarchy.
+### データの可視化
+このスキルは、[xlsxスキル](https://killer-skills.com/ja/blog/mastering-excel-automation-with-xlsx-skills)から取得した生データを、読みづらいチャートではなく、一目で注目を集める大きくて大胆な数字「Stat Callouts」に変換できます。
+## 実用的なユースケース
 
-## Advanced Capabilities
+### オートメーションによる投資家向けピッチデッキの作成
+10枚組のピッチデッキを生成し、デザインが業界に応じて適応する（例：スタートアップの場合は「Coral Energy」、金融の場合は「Midnight Executive」）。
 
-### Slide Surgery & Editing
-Unlike simple PDF converters, the `pptx` skill can "unpack" a presentation into its raw XML components. This allows the agent to:
-- **Swap Layouts**: Change a 2-column layout to a 3-column grid while preserving content.
-- **Update Master Slides**: Apply a new brand color or logo across 100 slides instantly.
-- **Add Speaker Notes**: Programmatically generate notes for the presenter based on slide content.
+### グローバルブランドの更新
+既存の会社デッキを最新のブランドガイドラインで「リスキン」し、数分で更新する。
 
-### Data Visualization
-The skill can take raw data from the [xlsx skill](https://killer-skills.com/ja/blog/mastering-excel-automation-with-xlsx-skills) and transform it into large "Stat Callouts"—big, bold numbers that capture attention instantly—rather than cluttered, unreadable charts.
+### コンテンツの要約
+50ページのPDFを[pdfスキル](https://killer-skills.com/ja/blog/mastering-pdf-automation-with-ai-skills)にフィードし、`pptx`スキルが自動的に5枚組のエグゼクティブサマリーを生成する。
+## 結論
 
-## Practical Use Cases
+`pptx` スキルは、ファイル形式だけでなく、**視覚的権威**についてもあります。AI エージェントがプレゼンテーションを構築するとき、プロのエキスパートが設計したように見えることを保証します。
 
-### Automated Investor Pitch Decks
-Generate a 10-slide pitch deck where the design adapts to the industry (e.g., "Coral Energy" for startups, "Midnight Executive" for finance).
-
-### Global Brand Updates
-Take an existing company deck and "reskin" it with the latest brand guidelines in minutes.
-
-### Content Summarization
-Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/ja/blog/mastering-pdf-automation-with-ai-skills) and have the `pptx` skill automatically generate a 5-slide executive summary.
-
-## Conclusion
-
-The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
-
-Download the [pptx skill](https://killer-skills.com/ja/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
+Killer-Skills Marketplace から [pptx スキル](https://killer-skills.com/ja/skills/anthropics/skills/pptx) をダウンロードし、売上をもたらすスライドを構築し始めます。
 
 ---
 
-*Want to style your docs too? Check out the [theme-factory skill](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory).*
+*ドキュメントもスタイリングしたいですか? [theme-factory スキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) をチェックしてください.*
 
 ---
 
-*Related: [What are AI agent skills?](/ja/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/ja/blog/best-ai-agent-skills-2026)*
+*関連情報: [AI エージェント スキルとは何か?](/ja/blog/what-are-ai-agent-skills) と [2026 年のベスト AI エージェント スキル](/ja/blog/best-ai-agent-skills-2026)*

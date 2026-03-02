@@ -1,6 +1,6 @@
 ---
-title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+title: "AI生成艺术：算法艺术技能指南"
+description: "掌握使用官方算法艺术技能创建生成艺术。学习如何轻松创建令人惊叹的p5.js视觉效果、流场和粒子系统。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,87 +9,83 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+# 将代码转化为画布：算法艺术的力量
 
-# Transforming Code into Canvas: The Power of Algorithmic Art
+生成艺术是数学的精确性与艺术表达的原始情感相遇的地方。它是一种媒介，艺术家不仅仅画出一幅图画，而是创建一个能够赋予无限变体以生命的*系统*。
 
-Generative art is where the precision of mathematics meets the raw emotion of artistic expression. It’s a medium where the artist doesn’t just paint a picture, but creates a *system* that breathes life into infinite variations. 
-
-With the official **algorithmic-art** skill from Anthropic, your AI coding agent (like Claude Code or Cursor) becomes a master generative artist. This skill teaches agents how to leverage **p5.js**, seeded randomness, and computational philosophies to create gallery-quality visuals.
+通过 Anthropic 的官方 **算法艺术** 技能，您的 AI 编码代理（如 Claude Code 或 Cursor）将成为一位精通生成艺术的大师。这个技能教会代理如何利用 **p5.js**、种子随机性和计算哲学来创建画廊级别的视觉效果。
 
 ```bash
-# Add the algorithmic-art skill to your agent
+# 将算法艺术技能添加到您的代理中
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-In this post, we’ll explore how this skill works and how you can use it to build your own digital masterpieces.
+在这篇文章中，我们将探讨这个技能的工作原理以及如何使用它来构建您自己的数字杰作。
+```markdown
+## 什么是算法艺术技能？
 
-## What is the Algorithmic Art Skill?
+`algorithmic-art` 技能不仅仅是一个代码生成器——它更是一个**计算美学**框架。它通过两步创意流程指导 AI 智能体：
 
-The `algorithmic-art` skill is more than just a code generator—it’s a framework for **Computational Aesthetics**. It guides AI agents through a two-step creative process:
+1.  **算法哲学创建**：智能体首先定义一个“艺术流派”或哲学理念（例如“有机湍流”或“量子和声”）。
+2.  **p5.js 表达**：智能体随后将该哲学理念转化为可运行的 p5.js 草图，并包含交互式参数和种子化随机性。
+```
+## 技能核心特性
 
-1.  **Algorithmic Philosophy Creation**: The agent first defines a "movement" or philosophy (e.g., "Organic Turbulence" or "Quantum Harmonics").
-2.  **p5.js Expression**: The agent then translates that philosophy into a working p5.js sketch, complete with interactive parameters and seeded randomness.
+### 1. 种子随机性
+该技能优先保证**可复现性**。每件艺术作品都与特定种子绑定。如果您发现喜爱的变体（例如种子#42），每次都能精确重现。这对构建艺术收藏或专业资产至关重要。
 
-## Key Features of the Skill
+### 2. 涌现行为
+该技能不绘制静态形状，而是聚焦于**系统化生成**。它运用：
+- **流场**：成千上万个遵循矢量力的粒子
+- **噪声场**：使用Perlin或Simplex噪声生成有机纹理
+- **递归结构**：可无限生长的分形和L系统
+- **粒子动力学**：通过模拟物理演化的系统
 
-### 1. Seeded Randomness
-The skill prioritizes **reproducibility**. Every piece of art is tied to a specific seed. If you find a variation you love (e.g., Seed #42), you can recreate it exactly every time. This is critical for building art collections or professional assets.
+### 3. 交互式参数探索
+该技能不仅输出静态图像，还会生成完整的**交互式查看器（HTML/JS）**，支持实时调整作品效果。您可以调节：
+- **粒子数量**：控制构图密度
+- **噪声尺度**：从平滑波形切换到锯齿状混沌
+- **色彩调配**：通过滑块一键切换整体色调氛围
+- **物理作用力**：加速或减缓粒子的"舞蹈"节奏
+## 深入解析：设计哲学
 
-### 2. Emergent Behavior
-Instead of drawing static shapes, the skill focuses on **systems**. It uses:
-- **Flow Fields**: Thousands of particles following vector forces.
-- **Noise Fields**: Using Perlin or Simplex noise for organic textures.
-- **Recursive Structures**: Fractals and L-systems that grow infinitely.
-- **Particle Dynamics**: Systems that evolve through simulated physics.
+这项技能最独特的地方在于其**宣言**。在编写任何代码之前，智能体会先起草一套哲学理念。例如：
 
-### 3. Interactive Parameter Exploration
-The skill doesn't just output a static image. It generates a full **Interactive Viewer** (HTML/JS) that lets you tune the artwork in real-time. You can adjust:
-- **Particle Count**: Control the density of the composition.
-- **Noise Scale**: Change from smooth waves to jagged chaos.
-- **Color Palettes**: Swap entire moods with a single slider.
-- **Physics Forces**: Speed up or slow down the "dance" of the particles.
+> **“有机湍流”**
+> *哲学理念：受自然法则约束的混沌，从无序中涌现出秩序。*
+> *算法表达：由分层Perlin噪声驱动的流场。数千个粒子跟随矢量力运动，其轨迹累积形成有机密度图。*
 
-## A Look Under the Hood: The Philosophy
+这种设计框架确保最终代码不仅仅是“随机噪声”，而是一个**精心设计的算法**，让人感觉既具有意图性又充满专业度。
 
-The most unique aspect of this skill is the **Manifesto**. Before writing a single line of code, the agent drafts a philosophy. For example:
+# 如何开始使用
 
-> **"Organic Turbulence"**
-> *Philosophy: Chaos constrained by natural law, order emerging from disorder.*
-> *Algorithmic Expression: Flow fields driven by layered Perlin noise. Thousands of particles follow vector forces, their trails accumulating into organic density maps.*
-
-This framing ensures that the final code isn't just "random noise," but a **meticulously crafted algorithm** that feels intentional and expert.
-
-## How to Get Started
-
-### Step 1: Equip the Skill
-If you're using the Killer-Skills CLI, installation is a breeze:
+## 第一步：装备技能
+如果你正在使用 Killer-Skills CLI，安装过程非常简单：
 
 ```bash
 npx killer-skills add anthropics/skills/algorithmic-art
 ```
 
-### Step 2: Prompt Your Agent
-Once equipped, you can give your agent complex creative prompts:
+## 第二步：向你的代理发出提示
+装备完成后，你可以给你的代理复杂的创意提示：
 
-> "Create an algorithmic art piece titled 'Solar Drift'. Use the algorithmic-art skill. Focus on warmth, circular motion, and thousands of fine-line particles. I want a custom viewer with a noise scale slider."
+> "创建一个名为‘太阳漂移’的算法艺术作品。使用 algorithmic-art 技能。专注于温暖、圆周运动和数千个细线粒子。我想要一个带有噪声缩放滑块的自定义查看器。"
 
-### Step 3: Iterate and Explore
-The agent will provide a philosophy and a self-contained HTML artifact. Open it in your browser, play with the sliders, and cycle through seeds until you find the perfect frame.
+## 第三步：迭代和探索
+代理将提供一个哲学理念和一个自包含的 HTML 作品。在你的浏览器中打开它，使用滑块进行调整，并循环浏览种子，直到找到完美的画面。
+## 为什么这对开发人员很重要
 
-## Why This Matters for Developers
+对于开发人员，生成艺术是逻辑的终极游乐场。 `algorithmic-art` 技能弥合了技术专长（循环、数学、数组）和视觉设计之间的差距。 无论您是构建一个登陆页背景、一个独特的 NFT 收藏，还是只是探索数学的美丽，这项技能为您提供了所需的专业基础。
+## 结论
 
-For developers, generative art is the ultimate playground for logic. The `algorithmic-art` skill bridges the gap between technical expertise (loops, math, arrays) and visual design. Whether you're building a landing page background, a unique NFT collection, or just exploring the beauty of math, this skill provides the professional foundation you need.
+艺术的未来是协作的——人类意图和机器执行之间的舞蹈。 **算法艺术** 技能使您成为该舞蹈的编舞者。
 
-## Conclusion
-
-The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
-
-Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/algorithmic-art) and install it today.
+准备开始创作？前往 [Killer-Skills 市场](https://killer-skills.com/zh/skills/anthropics/skills/algorithmic-art) 并安装它今天。
 
 ---
 
-*Explore more creative skills like [canvas-design](https://killer-skills.com/zh/skills/anthropics/skills/canvas-design) and [theme-factory](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory) on Killer-Skills.*
+*探索更多创意技能，如 [画布设计](https://killer-skills.com/zh/skills/anthropics/skills/canvas-design) 和 [主题工厂](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory) 在 Killer-Skills 上.*
 
 ---
 
-*Related: [What are AI agent skills?](/zh/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/zh/blog/best-ai-agent-skills-2026)*
+*相关：[什么是 AI 代理技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最好的 AI 代理技能](/zh/blog/best-ai-agent-skills-2026)*

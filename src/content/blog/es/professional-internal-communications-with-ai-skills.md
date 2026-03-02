@@ -9,71 +9,65 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+# Habla Como un Líder: Dominando la Habilidad de Comunicación Interna
 
-# Speak Like a Leader: Mastering the Internal-Comms Skill
+En una era de trabajo remoto y crecimiento acelerado, la comunicación es el pegamento que mantiene unida a una organización. Pero la comunicación de alta calidad es difícil: requiere el tono adecuado, el formato correcto y el nivel preciso de detalle. Escribir una actualización semanal que realmente sea leída es una habilidad en sí misma.
 
-In an era of remote work and rapid scaling, communication is the glue that holds an organization together. But high-quality communication is hard—it requires the right tone, the right format, and the right level of detail. Writing a weekly update that actually gets read is a skill in itself.
-
-The official **internal-comms** skill from Anthropic equips your AI agent with the templates and tonal guidelines used by elite organizations. It moves beyond generic "corporate speak" to provide structured, actionable, and professional internal messaging.
+La habilidad oficial de **comunicación interna** de Anthropic equipa a tu agente de IA con las plantillas y pautas de tono utilizadas por organizaciones de élite. Va más allá del típico "lenguaje corporativo" para ofrecer mensajes internos estructurados, accionables y profesionales.
 
 ```bash
-# Equip your agent with the internal-comms skill
+# Equipa a tu agente con la habilidad de comunicación interna
 npx killer-skills add anthropics/skills/internal-comms
 ```
+## ¿Qué es la habilidad Internal-Comms?
 
-## What is the Internal-Comms Skill?
+La habilidad `internal-comms` es un repositorio intensivo en recursos de formatos de comunicación de nivel empresarial. Asegura que cuando tu agente escribe una actualización, sigue las estructuras específicas que los equipos de liderazgo esperan.
 
-The `internal-comms` skill is a resource-intensive repository of enterprise-grade communication formats. It ensures that when your agent writes an update, it follows the specific structures that leadership teams expect.
+### 1. El poder de las actualizaciones 3P
+Una de las características principales de esta habilidad es el **formato 3P**:
+- **P**rogreso: ¿Qué se logró realmente?
+- **P**lanes: ¿Cuál es la hoja de ruta para el próximo período?
+- **P**roblemas: ¿Cuáles son los bloqueos o riesgos que necesitan atención?
 
-### 1. The Power of 3P Updates
-One of the core features of this skill is the **3P Format**:
-- **P**rogress: What was actually accomplished?
-- **P**lans: What is the roadmap for the next period?
-- **P**roblems: What are the blockers or risks that need attention?
+Esta estructura es el estándar de oro para las actualizaciones ejecutivas porque es concisa, honesta y prospectiva.
 
-This structure is the gold standard for executive updates because it is concise, honest, and forward-looking.
+### 2. Tipos de comunicación comprehensivos
+La habilidad no solo se utiliza para informes de estado; maneja el espectro completo de necesidades internas:
+- **Boletines de la empresa**: Actualizaciones profesionales y atractivas a gran escala.
+- **Informes de incidentes**: Autopsias objetivas y estructuradas para problemas técnicos o comerciales.
+- **Respuestas a preguntas frecuentes**: Respuestas claras y autorizadas a preguntas comunes del equipo.
+- **Actualizaciones de liderazgo**: Resúmenes de alto nivel para vicepresidentes seniores y ejecutivos de la suite C.
+## Cómo funciona la habilidad
 
-### 2. Comprehensive Comm Types
-The skill isn't just for status reports; it handles the full spectrum of internal needs:
-- **Company Newsletters**: Professional and engaging wide-scale updates.
-- **Incident Reports**: Objective and structured post-mortems for technical or business issues.
-- **FAQ Responses**: Clear, authoritative answers to common team questions.
-- **Leadership Updates**: High-level summaries for SVPs and C-suite executives.
+Cuando le pides a un agente que "Escriba una actualización del proyecto", la habilidad `internal-comms` dispara un flujo de trabajo de varios pasos:
+1.  **Identificación de tipo**: Determina si necesitas un informe de estado, un boletín o una sección de preguntas frecuentes.
+2.  **Carga de directrices**: Carga el archivo "Ejemplo" específico (por ejemplo, `3p-updates.md`) para entender el tono y el formato requeridos.
+3.  **Recopilación de contenido**: Utiliza su contexto para extraer el progreso y los riesgos más relevantes en la plantilla.
+## Casos de Uso Practicos
 
-## How the Skill Works
+### Informes de Estado Automatizados
+Conecta tu agente a tu base de código o seguimiento de tareas. Haz que utilice la habilidad `internal-comms` para generar un informe **3P** perfectamente formateado todos los viernes a las 5 PM.
 
-When you ask an agent to "Write a project update," the `internal-comms` skill triggers a multi-step workflow:
-1.  **Type Identification**: It determines if you need a status report, a newsletter, or an FAQ.
-2.  **Guideline Loading**: It loads the specific "Example" file (e.g., `3p-updates.md`) to understand the required tone and formatting.
-3.  **Content Gathering**: It uses its context to pull the most relevant progress and risks into the template.
+### Gestion de Incidentes
+Durante una interrupción del sistema, haz que tu agente redacte el **Informe de Incidente** inicial basado en registros de terminal y historial de implementación, asegurando que el tono sea objetivo y profesional.
 
-## Practical Use Cases
+### Creacion de Cultura
+Redacta boletines mensuales "All-Hands" que resalten los logros del equipo, los nuevos empleados y los hitos próximos con una voz de marca consistente y alentadora.
+## Cómo usarlo con Killer-Skills
 
-### Automated Status Reporting
-Connect your agent to your codebase or task tracker. Have it use the `internal-comms` skill to generate a perfectly formatted **3P update** every Friday at 5 PM.
+1.  **Instalar**: `npx killer-skills add anthropics/skills/internal-comms`
+2.  **Comando**: "Escribe una actualización de 3P para el proyecto 'Deep_Search' basada en nuestro progreso esta semana. Destaca la fuga de memoria como un Problema."
+3.  **Refinar**: "Convierte esta actualización técnica en un resumen adecuado para líderes para el boletín de la empresa."
+## Conclusión
 
-### Incident Management
-During a system outage, have your agent draft the initial **Incident Report** based on terminal logs and deployment history, ensuring the tone is objective and professional.
+La habilidad `internal-comms` es tu arma secreta para la visibilidad profesional. Asegura que tu trabajo no solo se realice, sino que se **comunique de manera efectiva** a las personas que importan.
 
-### Culture Building
-Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and upcoming milestones with a consistent, encouraging brand voice.
-
-## How to use it with Killer-Skills
-
-1.  **Install**: `npx killer-skills add anthropics/skills/internal-comms`
-2.  **Command**: "Write a 3P update for the 'Deep_Search' project based on our progress this week. Highlight the memory leak as a Problem."
-3.  **Refine**: "Convert this technical update into a leadership-friendly summary for the company newsletter."
-
-## Conclusion
-
-The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
-
-Install the [internal-comms skill](https://killer-skills.com/es/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
+Instala la habilidad [internal-comms](https://killer-skills.com/es/skills/anthropics/skills/internal-comms) desde el Marketplace de Killer-Skills y comienza a hablar el lenguaje del liderazgo.
 
 ---
 
-*Need to collaborate on more complex docs? Check out the [doc-coauthoring skill](https://killer-skills.com/es/skills/anthropics/skills/doc-coauthoring).*
+*¿Necesitas colaborar en documentos más complejos? Consulta la habilidad [doc-coauthoring](https://killer-skills.com/es/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 
-*Related: [What are AI agent skills?](/es/blog/what-are-ai-agent-skills) and [Best AI agent skills for 2026](/es/blog/best-ai-agent-skills-2026)*
+*Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/what-are-ai-agent-skills) y [Las mejores habilidades de los agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*
