@@ -47,7 +47,7 @@ async function run() {
     // So we definitely need to chunk it.
     let chunkIndex = 0;
     let currentChunkSql = '';
-    const CHUNK_SIZE = 200; // 200 records per file (~5MB each)
+    const CHUNK_SIZE = 100; // Reduced to 100 records per file (~2.5MB each)
 
     // 清理旧的 sql 种子文件
     const seedsDir = path.dirname(OUT_FILE);
@@ -74,7 +74,7 @@ async function run() {
         const last_synced = escapeSql(skill.lastSynced);
         const content_hash = escapeSql(skill.contentHash);
         // D1 per-statement limit is ~1MB. Truncate skillMd.body for oversized rows.
-        const MAX_STATEMENT_BYTES = 500_000; // 500KB safety margin (D1 limit ~1MB, SQL escaping adds overhead)
+        const MAX_STATEMENT_BYTES = 300_000; // 300KB safety margin (D1 limit ~1MB, SQL escaping adds overhead)
         let skillCopy = skill;
         let rawJson = JSON.stringify(skill);
 

@@ -41,7 +41,7 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ SSL证书过期
     },
     {
         id: 'aiagentsdirectory_v2',
@@ -92,6 +92,61 @@ export const SITES: SiteConfig[] = [
         name: 'AI Agents Live',
         submitUrl: 'https://aiagentslive.com/submit',
         homepage: 'https://aiagentslive.com/',
+        estimatedDR: 15,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aiagentsbase',
+        name: 'AI Agents Base',
+        submitUrl: 'https://aiagentsbase.com/submit',
+        homepage: 'https://aiagentsbase.com/',
+        estimatedDR: 15,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aeotools',
+        name: 'AEOTools.space',
+        submitUrl: 'https://www.aeotools.space/submit-tool',
+        homepage: 'https://aeotools.space',
+        estimatedDR: 10,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aisites_net',
+        name: 'AISites.net',
+        submitUrl: 'https://ai-sites.net/submit/',
+        homepage: 'https://ai-sites.net',
+        estimatedDR: 15,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aitools_dir_net',
+        name: 'AI Tools Directory (Net)',
+        submitUrl: 'https://ai-tools.directory/submit-agent/',
+        homepage: 'https://ai-tools.directory',
+        estimatedDR: 10,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aichief',
+        name: 'AIChief',
+        submitUrl: 'https://aichief.com/submit-ai-tool/',
+        homepage: 'https://aichief.com',
         estimatedDR: 15,
         tier: 1,
         requiresLogin: false,
@@ -186,28 +241,7 @@ export const SITES: SiteConfig[] = [
         hasCaptcha: false,
         enabled: true,
     },
-    {
-        id: 'falai',
-        name: 'fal.ai',
-        submitUrl: 'https://fal.ai/submit',
-        homepage: 'https://fal.ai/',
-        estimatedDR: 15,
-        tier: 1,
-        requiresLogin: false,
-        hasCaptcha: false,
-        enabled: true,
-    },
-    {
-        id: 'technologyreview',
-        name: 'Technology Review (MIT)',
-        submitUrl: 'https://www.technologyreview.com/submit',
-        homepage: 'https://www.technologyreview.com/',
-        estimatedDR: 90,
-        tier: 1,
-        requiresLogin: false,
-        hasCaptcha: false,
-        enabled: true,
-    },
+    // fal.ai 和 MIT Technology Review 已移除（非导航站）
     {
         id: 'aivalley',
         name: 'AI Valley',
@@ -219,17 +253,7 @@ export const SITES: SiteConfig[] = [
         hasCaptcha: false,
         enabled: true,
     },
-    {
-        id: 'aiagentsdirectory',
-        name: 'AI Agents Directory',
-        submitUrl: 'https://aiagentsdirectory.com/submit',
-        homepage: 'https://aiagentsdirectory.com/',
-        estimatedDR: 20,
-        tier: 1,
-        requiresLogin: false,
-        hasCaptcha: false,
-        enabled: true,
-    },
+    // aiagentsdirectory 重复条目已移除（与 aiagentsdirectory_v2 重复）
     {
         id: 'aiwithme',
         name: 'AI With Me',
@@ -453,12 +477,12 @@ export const SITES: SiteConfig[] = [
     {
         id: 'dangai',
         name: 'Dang.ai',
-        submitUrl: 'https://dang.ai/submit', // 盲打发现可用
+        submitUrl: 'https://dang.ai/', // Free modal on home
         homepage: 'https://dang.ai',
         estimatedDR: 15,
-        tier: 1,
+        tier: 2,
         requiresLogin: false,
-        hasCaptcha: false,
+        hasCaptcha: true,
         enabled: true,
     },
     {
@@ -505,17 +529,7 @@ export const SITES: SiteConfig[] = [
         hasCaptcha: false,
         enabled: true,
     },
-    {
-        id: 'paperswithcode',
-        name: 'Papers With Code',
-        submitUrl: 'https://paperswithcode.com/submit', // 盲打发现可用
-        homepage: 'https://paperswithcode.com',
-        estimatedDR: 15,
-        tier: 1,
-        requiresLogin: false,
-        hasCaptcha: false,
-        enabled: true,
-    },
+    // Papers With Code 已移除（学术论文站，非导航站）
     {
         id: 'toolspedia',
         name: 'Toolspedia',
@@ -693,7 +707,7 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ 付费提交 $9.9
     },
     {
         id: 'dropyourai',
@@ -781,7 +795,7 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ 已停止接受新提交
     },
     {
         id: 'nextgentools',
@@ -977,7 +991,7 @@ export const SITES: SiteConfig[] = [
     {
         id: 'startupstash',
         name: 'StartupStash',
-        submitUrl: 'https://startupstash.com/submit/',
+        submitUrl: 'https://startupstash.com/add-listing/',
         homepage: 'https://startupstash.com',
         estimatedDR: 70,
         tier: 2,
@@ -1149,5 +1163,42 @@ export const SITES: SiteConfig[] = [
         requiresLogin: true,
         hasCaptcha: true,
         enabled: true,
+    },
+
+    // ═══════════════════════════════════════════════════
+    //  新发现站点 — 2026-03-02
+    // ═══════════════════════════════════════════════════
+    {
+        id: 'aidirectory24',
+        name: 'AI Directory 24',
+        submitUrl: 'https://aidirectory24.com/submit-tool',
+        homepage: 'https://aidirectory24.com',
+        estimatedDR: 20,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'unlimitedai',
+        name: 'Unlimited AI Tools',
+        submitUrl: 'https://unlimitedai.tools/submit-ai-tool',
+        homepage: 'https://unlimitedai.tools',
+        estimatedDR: 20,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: true,
+    },
+    {
+        id: 'aitoolshunt',
+        name: 'AI Tool Hunt',
+        submitUrl: 'https://aitoolshunt.com/contact-us/', // 邮件提交: aitoolshunt@gmail.com
+        homepage: 'https://aitoolshunt.com',
+        estimatedDR: 15,
+        tier: 1,
+        requiresLogin: false,
+        hasCaptcha: false,
+        enabled: false, // ⚠️ 需邮件提交，非表单
     },
 ];
