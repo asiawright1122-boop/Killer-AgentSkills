@@ -1,6 +1,6 @@
 ---
-title: "Corporate Communication Excellence: The Internal-Comms Skill"
-description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
+title: "ممتازة التواصل الشركي: مهارة الاتصالات الداخلية"
+description: "استخدم مهارات التواصل الشركي الاحترافي مع مهارة الاتصالات الداخلية الرسمية. تعلم كيفية كتابة تحديثات 3P والنشرة الإخبارية وتقارير الحوادث باستخدام الذكاء الاصطناعي"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # تحدث كقائد: إتقان مهارة الاتصالات الداخلية
 
 في عصر العمل عن بُعد والتوسع السريع، يمثل التواصل العامل الذي يربط أجزاء المؤسسة معًا. لكن التواصل عالي الجودة أمر صعب — فهو يتطلب النبرة المناسبة، والتنسيق المناسب، ومستوى التفاصيل المناسب. كتابة تحديث أسبوعي يُقرأ بالفعل هي مهارة بحد ذاتها.

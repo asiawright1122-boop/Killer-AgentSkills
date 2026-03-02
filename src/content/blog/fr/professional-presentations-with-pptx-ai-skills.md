@@ -1,6 +1,6 @@
 ---
-title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
-description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
+title: "Présentations de vente alimentées par l'IA : Maîtriser le métier PPTX"
+description: "Apprenez à créer des présentations PowerPoint professionnelles et époustouflantes en utilisant la compétence PPTX officielle. Découvrez les principes de conception pour des diapositives à impact élevé générées par l'IA."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Au-delà du point de liste : Créer des présentations d'élite avec la compétence PPTX
 
 Dans le monde des affaires, une présentation est plus qu'une simple information - c'est une performance. La plupart des diapositives générées par l'IA souffrent de ce que nous appelons "Le piège du modèle" : des points de liste ennuyeux sur un fond blanc. Pour vraiment convaincre votre audience, vous avez besoin d'un design de haute qualité, de palettes de couleurs intentionnelles et de dispositions équilibrées.

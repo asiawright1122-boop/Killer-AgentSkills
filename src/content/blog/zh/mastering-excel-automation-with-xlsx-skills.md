@@ -1,6 +1,6 @@
 ---
-title: "Dynamic Data Mastery: A Guide to the XLSX Skill"
-description: "Master spreadsheet automation with the official xlsx skill. Learn how to build financial models, automate data cleaning, and generate dynamic Excel reports."
+title: "动态数据掌握：XLSX 技能指南"
+description: "使用官方的 xlsx 技能掌握电子表格自动化。学习如何构建财务模型、自动化数据清理和生成动态 Excel 报表。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 精确电子表格：为什么每个企业都需要 XLSX 技能
 
 数据是现代企业的生命线，但原始数据如果没有结构则毫无用处。大多数人将 Excel 用作简单的表格，但真正的力量在于 **动态自动化** —— 可以重新计算自身并通过财务标准讲述故事的模型。

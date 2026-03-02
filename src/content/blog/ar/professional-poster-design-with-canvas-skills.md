@@ -1,6 +1,6 @@
 ---
-title: "Static Design Mastery: Exploring the Canvas-Design Skill"
-description: "Discover how to create museum-quality posters and static designs using the official canvas-design skill. Learn about design manifestos and visual philosophies."
+title: "إتقان التصميم الثابت: استكشاف مهارة تصميم القماش"
+description: "اكتشف كيفية إنشاء ملصقات وتصاميم ثابتة بجودة المتحف باستخدام مهارة تصميم القماش الرسمية. تعرف على بيان التصميم والفلسفات البصرية."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # ما وراء القالب: إنشاء أعمال فنية بجودة متحفية باستخدام Canvas-Design
 
 في عالم مليء بقوالب Canva العامة، يميز التصميم الحقيقي نفسه من خلال **القصدية**. التصميم الاحترافي لا يتعلق فقط بمكان وضع الشعار؛ بل يتعلق بفلسفة الشكل والمساحة واللون التي توجه كل بكسل.

@@ -1,6 +1,6 @@
 ---
-title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+title: "Art génératif avec l'IA : Un guide pour la compétence artistique algorithmique"
+description: "Maîtrisez l'art génératif en utilisant la compétence artistique algorithmique officielle pour les agents IA. Apprenez à créer des visuels p5.js époustouflants, des champs de flux et des systèmes de particules avec facilité."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Transformer le code en toile : la puissance de l'art algorithmique
 
 L'art génératif est là où la précision des mathématiques rencontre l'émotion brute de l'expression artistique. C'est un médium où l'artiste ne se contente pas de peindre une image, mais crée un *système* qui donne vie à des variations infinies.

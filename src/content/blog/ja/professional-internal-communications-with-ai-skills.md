@@ -1,6 +1,6 @@
 ---
-title: "Corporate Communication Excellence: The Internal-Comms Skill"
-description: "Master professional corporate communications with the official internal-comms skill. Learn how to write 3P updates, newsletters, and incident reports with AI."
+title: " Corporate Communication Excellence: "
+description: " AI"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # リーダーのように話す：内部コミュニケーションのスキルをマスターする
 
 リモートワークと急速な拡大の時代に、コミュニケーションは組織を結びつける糸です。しかし、高品質のコミュニケーションは難しいものです。適切なトーン、フォーマット、詳細レベルが必要です。実際に読まれる週次更新を書くことは、自身のスキルです。

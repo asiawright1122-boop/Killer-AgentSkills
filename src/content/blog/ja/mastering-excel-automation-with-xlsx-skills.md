@@ -1,6 +1,6 @@
 ---
-title: "Dynamic Data Mastery: A Guide to the XLSX Skill"
-description: "Master spreadsheet automation with the official xlsx skill. Learn how to build financial models, automate data cleaning, and generate dynamic Excel reports."
+title: "ダイナミックデータマスタリー: XLSXスキルのガイド"
+description: "公式のxlsxスキルを使用してスプレッドシートの自動化をマスターしよう。財務モデルの構築、データクリーンの自動化、ダイナミックなExcelレポートの生成方法を学びましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 精密スプレッドシート: すべてのビジネスがXLSXスキルを必要とする理由
 
 データは現代のビジネスの生命線ですが、生データだけでは何の意味もありません。多くの人はExcelを単なるテーブルとして使用していますが、本当の力は**動的自動化**にあります。自分で計算を行い、財務基準を通じて物語を語るモデルです。

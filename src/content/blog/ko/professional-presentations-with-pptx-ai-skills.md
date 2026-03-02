@@ -1,6 +1,6 @@
 ---
-title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
-description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
+title: "AI"
+description: "PPTX . , AI, "
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 불릿 포인트를 넘어서: PPTX 기술로 엘리트 프레젠테이션 만들기
 
 비즈니스 세계에서 프레젠테이션은 단순한 정보 전달이 아닌, 하나의 퍼포먼스입니다. 대부분의 AI 생성 슬라이드는 우리가 "템플릿 함정"이라고 부르는 문제를 겪습니다: 하얀 배경에 지루한 불릿 포인트들입니다. 청중을 진정으로 사로잡으려면 고급 디자인, 의도적인 색상 팔레트, 그리고 균형 잡힌 레이아웃이 필요합니다.

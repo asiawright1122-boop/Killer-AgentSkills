@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "O DNA do Design: Dominando a Habilidade de Diretrizes de Marca"
+description: "Descubra como aplicar a marca oficial aos seus ativos gerados por IA usando a habilidade de diretrizes de marca. Aprenda os segredos da identidade visual da Anthropic."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # Desenhe com Autoridade: Desbloqueando a Habilidade de Diretrizes de Marca
 
 No mundo da comunicação profissional, a consistência é tudo. Quando você gera um painel ou uma apresentação com um agente de IA, ele muitas vezes se identifica como "gerado por IA" porque segue padrões de design genéricos. Para construir confiança, sua saída precisa parecer que vem de uma organização viva e respirando com uma identidade clara.

@@ -1,6 +1,6 @@
 ---
-title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
-description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
+title: "AI"
+description: "PPTXOfficial pptx skillAI"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # ブループォイントを超えて：PPTXスキルを使ったエリートプレゼンテーションの作成
 
 ビジネスの世界では、プレゼンテーションは単なる情報ではなく、パフォーマンスである。ほとんどのAI生成スライドは、私たちが「テンプレートの罠」と呼ぶものに陥る：白い背景の上に退屈なブループォイント。聴衆を真正に勝ち取るためには、高級なデザイン、意図的なカラーパレット、バランスのとれたレイアウトが必要である。

@@ -1,6 +1,6 @@
 ---
-title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
-description: "Learn how to build stunnding, professional PowerPoint presentations using the official pptx skill. Discover design principles for high-impact AI-generated slides."
+title: "AI"
+description: "AIpptx, PowerPoint"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]
@@ -9,6 +9,7 @@ featured: false
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 超越要点：运用 PPTX 技能打造精英级演示文稿
 
 在商业世界中，演示不仅仅是信息传递——它是一场表演。大多数人工智能生成的幻灯片都陷入了我们所说的「模板陷阱」：白底黑字配上枯燥的要点列表。要真正赢得观众，你需要高端的设计、精心调配的配色方案和平衡的版式布局。

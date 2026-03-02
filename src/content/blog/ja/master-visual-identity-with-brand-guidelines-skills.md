@@ -1,6 +1,6 @@
 ---
-title: "The DNA of Design: Mastering the Brand-Guidelines Skill"
-description: "Discover how to apply official branding to your AI-generated assets using the brand-guidelines skill. Learn the secrets of Anthropic's visual identity."
+title: "デザインのDNA: ブランドガイドラインのスキルをマスターする"
+description: "ブランドガイドラインのスキルを使用してAI生成アセットに公式ブランディングを適用する方法を学びます。アンソロピックのビジュアルアイデンティティの秘密を発見しましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]
@@ -9,6 +9,7 @@ featured: false
 category: "enterprise-solutions"
 heroImage: "https://images.unsplash.com/photo-1557200134-90327ee9fafa?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 権限を持ったデザイン: ブランドガイドラインスキルの解放
 
 専門的なコミュニケーションの世界では、一貫性がすべてです。AIエージェントを使用してダッシュボードやプレゼンテーションを生成する場合、それは一般的なデザインパターンに従うため、「AI生成」として識別されることがよくあります。信頼を築くには、出力が明確なアイデンティティを持つ生き生きとした組織から来ているように感じられる必要があります。

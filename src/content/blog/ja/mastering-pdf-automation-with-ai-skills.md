@@ -1,6 +1,6 @@
 ---
-title: "The Ultimate Guide to PDF Automation: Mastering the PDF Skill"
-description: "Learn how to automate PDF processing using the official pdf skill. Master merging, splitting, OCR, and table extraction with high-quality AI agent workflows."
+title: "PDF"
+description: "PDFAI"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]
@@ -9,6 +9,7 @@ featured: true
 category: "document-automation"
 heroImage: "https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 精密なPDF制御：PDFスキルでワークフローを向上させる
 
 PDFはデジタル世界における「不変の」フォーマットです。一貫した表示には優れていますが、操作やデータ抽出が非常に困難なことで知られています。何千ものスキャンされた請求書を処理する場合でも、プログラムで複雑なレポートを生成する必要がある場合でも、従来の手動処理という「古い方法」はもはや通用しません。

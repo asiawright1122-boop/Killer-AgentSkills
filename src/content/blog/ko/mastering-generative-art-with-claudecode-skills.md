@@ -1,6 +1,6 @@
 ---
-title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+title: "AI: "
+description: "AI . p5.js, , ."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]
@@ -9,6 +9,7 @@ featured: false
 category: "creative-tools"
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2560&auto=format&fit=crop"
 ---
+
 # 코드를 캔버스로: 알고리즘 아트의 힘
 
 제너레이티브 아트(Generative art)는 수학의 정밀함과 예술적 표현의 감정이 만나는 분야입니다. 이는 예술가가 단순히 그림을 그리는 것이 아니라, 무한한 변형에 생명을 불어넣는 *시스템*을 창조하는 매체입니다.
