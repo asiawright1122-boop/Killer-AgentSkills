@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
+import { robustParseJSON } from './lib/utils';
 
 // CLI Args
 const args = process.argv.slice(2);
@@ -97,13 +98,13 @@ Original Description: "${desc}"`;
 
     if (result) {
         try {
-            // Loose JSON parsing
-            const cleanJson = result.replace(/```json\s*|\s*```/g, '').trim();
-            const parsed = JSON.parse(cleanJson);
-            if (parsed.title) newTitle = parsed.title;
-            if (parsed.description) newDesc = parsed.description;
+            const parsed = robustParseJSON(result);
+            if (parsed && typeof parsed === 'object') {
+                if (parsed.title) newTitle = parsed.title;
+                if (parsed.description) newDesc = parsed.description;
+            }
         } catch (e) {
-            console.error('Failed to parse frontmatter translation JSON', e);
+            console.error('⚠️ Failed to parse frontmatter translation JSON, using English fallback.', e);
         }
     }
 
