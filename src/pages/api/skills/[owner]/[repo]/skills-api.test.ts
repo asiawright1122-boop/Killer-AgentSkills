@@ -73,7 +73,6 @@ function createMockEnv(overrides: Partial<Env> = {}): Env {
     TRANSLATIONS: createMockKV(),
     SKILLS_CACHE: createMockKV(),
     DB: mockDB as unknown as D1Database,
-    AI: {},
     ASSETS: {} as Fetcher,
     ...overrides,
   };

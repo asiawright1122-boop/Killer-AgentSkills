@@ -109,7 +109,6 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
     TRANSLATIONS: createMockKV(),
     SKILLS_CACHE: createMockKV(store),
     DB: mockDB as unknown as D1Database,
-    AI: {},
     ASSETS: {} as Fetcher,
   };
 }
@@ -205,7 +204,7 @@ describe('getAllSkills', () => {
   });
 
   it('should return empty array when SKILLS_CACHE binding is unavailable', async () => {
-    const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+    const env = { TRANSLATIONS: createMockKV(), DB: { prepare: vi.fn(), all: vi.fn() } as unknown as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
     const result = await getAllSkills(env);
     expect(result).toEqual([]);
   });

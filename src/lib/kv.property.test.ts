@@ -31,7 +31,7 @@ function createFunctionalMockKV(store: Map<string, string> = new Map()): KVNames
     put: async (key: string, value: string, _opts?: any) => {
       store.set(key, value);
     },
-    delete: async () => {},
+    delete: async () => { },
     list: async () => ({ keys: [], list_complete: true, cacheStatus: null }),
     getWithMetadata: async () => ({ value: null, metadata: null, cacheStatus: null }),
   } as unknown as KVNamespace;
@@ -44,7 +44,6 @@ function createFunctionalEnv(store: Map<string, string> = new Map()): Env {
   return {
     TRANSLATIONS: createFunctionalMockKV(store),
     SKILLS_CACHE: createFunctionalMockKV(),
-    AI: {},
     ASSETS: {} as Fetcher,
   };
 }
@@ -56,7 +55,6 @@ function createEnvWithoutTranslations(): Env {
   return {
     TRANSLATIONS: undefined as unknown as KVNamespace,
     SKILLS_CACHE: createFunctionalMockKV(),
-    AI: {},
     ASSETS: {} as Fetcher,
   };
 }

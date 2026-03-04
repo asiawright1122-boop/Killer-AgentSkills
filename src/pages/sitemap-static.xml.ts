@@ -17,17 +17,18 @@ const STATIC_PAGES = [
     '/cookies',
 ];
 
-const ensureTrailingSlash = (url: string) => {
-    if (url.endsWith('/')) return url;
-    // Don't append slash to exact domain root
-    if (url === SITE || url === `${SITE}/`) return url;
+const ensureTrailingSlash = (url: string, path: string, locale?: string) => {
+    if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
+    // Don't append slash to exact domain root or locale root (matching Layout.astro)
+    if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
     return `${url}/`;
 };
 
 function buildHreflangLinks(pagePath: string): string {
-    return SUPPORTED_LOCALES.map(loc =>
-        `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(`${SITE}/${loc}${pagePath}`)}" />`
-    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`)}" />`;
+    return SUPPORTED_LOCALES.map(loc => {
+        const url = `${SITE}/${loc}${pagePath}`;
+        return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url, pagePath, loc)}" />`;
+    }).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`;
 }
 
 export const GET: APIRoute = async () => {
@@ -37,7 +38,7 @@ export const GET: APIRoute = async () => {
     for (const page of STATIC_PAGES) {
         for (const locale of SUPPORTED_LOCALES) {
             urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}${page}`)}</loc>
+<loc>${ensureTrailingSlash(`${SITE}/${locale}${page}`, page, locale)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>${page === '' ? 'daily' : 'weekly'}</changefreq>
 <priority>${page === '' ? '1.0' : '0.8'}</priority>

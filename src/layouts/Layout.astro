@@ -124,7 +124,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		{hreflangUrls.map(({ locale: loc, href }) => (
 			<link rel="alternate" hreflang={loc} href={href} />
 		))}
-		<link rel="alternate" hreflang="x-default" href={`${SITE_URL}${xDefaultUrl}`} />
+		<link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
 
 		<!-- SEO Keywords -->
 		<meta name="keywords" content={keywords || t('Metadata.keywords')} />

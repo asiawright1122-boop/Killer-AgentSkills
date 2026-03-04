@@ -26,23 +26,12 @@ export interface TranslationParams {
 
 export interface Env {
     TRANSLATIONS: KVNamespace;
-    AI: Ai; // Workers AI binding
+    SILICONFLOW_API_KEY?: string; // Siliconflow API Key for fallback
     // 多个 NVIDIA API Key (通过环境变量配置)
     NVIDIA_API_KEY?: string;
     NVIDIA_API_KEYS?: string; // 逗号分隔的多个 key
     NVIDIA_API_KEYS_2?: string;
     NVIDIA_API_KEYS_3?: string;
-}
-
-// Workers AI binding type
-interface Ai {
-    run(
-        model: string,
-        inputs: {
-            messages: Array<{ role: string; content: string }>;
-            max_tokens?: number;
-        }
-    ): Promise<{ response?: string }>;
 }
 
 interface ChatMessage {
@@ -92,19 +81,19 @@ export class TranslationWorkflow extends WorkflowEntrypoint<Env> {
             }
         }
 
-        // Step 3: 如果 NVIDIA 失败，使用 Workers AI 作为备用
-        if (!translated) {
+        // Step 3: 如果 NVIDIA 失败，使用 Siliconflow 作为备用
+        if (!translated && this.env.SILICONFLOW_API_KEY) {
             translated = await step.do(
-                "translate-workers-ai",
+                "translate-siliconflow",
                 {
                     retries: { limit: 2, delay: "3 second" },
                     timeout: "1 minute",
                 },
                 async () => {
-                    return await this.translateWithWorkersAI(text, targetLang, type);
+                    return await this.translateWithSiliconflow(text, targetLang, type);
                 }
             );
-            provider = "workers-ai";
+            provider = "siliconflow";
         }
 
         if (!translated) {
@@ -204,28 +193,55 @@ export class TranslationWorkflow extends WorkflowEntrypoint<Env> {
     }
 
     /**
-     * 使用 Cloudflare Workers AI 翻译 (备用方案)
+     * 使用 Siliconflow 翻译 (备用方案)
      */
-    private async translateWithWorkersAI(
+    private async translateWithSiliconflow(
         text: string,
         targetLang: string,
         type: "text" | "markdown"
     ): Promise<string> {
-        console.log("[Workers AI] Using as fallback");
+        console.log("[Siliconflow] Using as fallback");
 
-        const result = await this.env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-            messages: [
-                { role: "system", content: this.getPrompt(targetLang, type) },
-                { role: "user", content: text },
-            ],
-            max_tokens: 2048,
-        });
-
-        if (!result.response) {
-            throw new Error("Empty response from Workers AI");
+        if (!this.env.SILICONFLOW_API_KEY) {
+            throw new Error("No Siliconflow API Key configured");
         }
 
-        return result.response;
+        const response = await fetch(
+            "https://api.siliconflow.cn/v1/chat/completions",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.env.SILICONFLOW_API_KEY}`,
+                },
+                body: JSON.stringify({
+                    model: "Qwen/Qwen2.5-72B-Instruct",
+                    messages: [
+                        { role: "system", content: this.getPrompt(targetLang, type) },
+                        { role: "user", content: text },
+                    ] as ChatMessage[],
+                    temperature: 0.2,
+                    max_tokens: 2048,
+                    top_p: 1,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Siliconflow API Error ${response.status}: ${errorText}`);
+        }
+
+        const data = (await response.json()) as {
+            choices: Array<{ message: { content: string } }>;
+        };
+        const content = data.choices[0]?.message?.content;
+
+        if (!content) {
+            throw new Error("Empty translation result from Siliconflow");
+        }
+
+        return content;
     }
 
     /**

@@ -8,9 +8,6 @@
   "observability": {
     "enabled": true
   },
-  "ai": {
-    "binding": "AI"
-  },
   "kv_namespaces": [
     {
       "binding": "TRANSLATIONS",
@@ -36,6 +33,7 @@
   ],
   "vars": {
     "PUBLIC_OG_SERVER_URL": "http://localhost:3000",
-    "ADMIN_USER": "admin_placeholder"
+    "ADMIN_USER": "admin_placeholder",
+    "SILICONFLOW_API_KEY": ""
   }
 }

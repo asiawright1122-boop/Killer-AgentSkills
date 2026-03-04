@@ -2,7 +2,6 @@ export interface Env {
     TRANSLATIONS: KVNamespace;
     SKILLS_CACHE: KVNamespace;
     DB?: D1Database;
-    AI: any;                    // Workers AI binding
     ASSETS: Fetcher;            // Static assets binding
     ADMIN_USER?: string;
     ADMIN_PASSWORD?: string;

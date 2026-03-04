@@ -145,8 +145,8 @@ const schema = {
 
   "applicationCategory": "DeveloperApplication",
   // Inject "AI Agent Skill:" prefix for better CTR context
-  "description": `AI Agent Skill: ${description}`,
-  "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+  "description": `AI Agent Skill: ${description && typeof description === 'string' ? description : ''}`,
+  "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
   // Inject AggregateRating based on QualityScore and Stars
   "aggregateRating": {
     "@type": "AggregateRating",
@@ -189,7 +189,7 @@ const breadcrumbSchema = {
       "@type": "ListItem",
       "position": 3,
       "name": skill.name || repo,
-      "item": `https://killer-skills.com/${locale}/skills/${owner}/${repo}`
+      "item": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
     }
   ]
 };
@@ -204,7 +204,7 @@ const faqItems: { question: string; answer: string }[] = [];
 // Q1: What is this skill?
 faqItems.push({
   question: `What is ${skill.name || repo}?`,
-  answer: description || `${skill.name || repo} is an AI agent skill available on Killer-Skills.`
+  answer: (description && typeof description === 'string' ? description : `${skill.name || repo} is an AI agent skill available on Killer-Skills.`)
 });
 
 // Q2: How to install?
@@ -400,7 +400,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                         skillName={skill.name || repo}
                         owner={owner}
                         repo={repo}
-                        description={description || ''}
+                        description={description && typeof description === 'string' ? description : ''}
                         locale={locale}
                         labels={{
                             addToFavorites: t('Aria.addToFavorites'),
@@ -473,7 +473,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                             skillName={skill.name || repo}
                             owner={owner}
                             repo={repo}
-                            description={description || ''}
+                            description={description && typeof description === 'string' ? description : ''}
                             locale={locale}
                             variant="button"
                          />
@@ -697,7 +697,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                     'package.json': JSON.stringify({
                         name: `${owner}-${repo}-skill`,
                         version: version,
-                        description: `Killer Skill: ${skill.description}`,
+                        description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
                         keywords: topics,
                         author: owner,
                         license: "MIT",

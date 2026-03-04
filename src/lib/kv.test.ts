@@ -1,6 +1,15 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { getKV, setKV, getSkillsFromKV, getSkillsKV, getSitemapSkillsFromKV, type Env } from './kv';
 
+vi.mock('node:fs', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('node:fs')>();
+    return {
+        ...actual,
+        existsSync: vi.fn().mockReturnValue(false),
+        readFileSync: vi.fn(),
+    };
+});
+
 // Prevent dev-mode fallback to local data/skills-cache.json during tests
 const originalDev = import.meta.env.DEV;
 beforeEach(() => {
@@ -82,7 +91,6 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
         TRANSLATIONS: createMockKV(),
         SKILLS_CACHE: createMockKV(), // Still needed for fallback or related features
         DB: mockDB as unknown as D1Database,
-        AI: {},
         ASSETS: {} as Fetcher,
         ...overrides,
     };
@@ -93,7 +101,6 @@ describe('Env interface', () => {
         const env: Env = {
             TRANSLATIONS: createMockKV(),
             SKILLS_CACHE: createMockKV(),
-            AI: { run: vi.fn() },
             ASSETS: { fetch: vi.fn() } as unknown as Fetcher,
             ADMIN_USER: 'admin',
             ADMIN_PASSWORD: 'secret',
@@ -102,7 +109,6 @@ describe('Env interface', () => {
             NVIDIA_API_KEYS_2: 'key3',
             NVIDIA_API_KEYS_3: 'key4',
         };
-        expect(env.AI).toBeDefined();
         expect(env.ASSETS).toBeDefined();
         expect(env.ADMIN_USER).toBe('admin');
         expect(env.ADMIN_PASSWORD).toBe('secret');
@@ -116,7 +122,6 @@ describe('Env interface', () => {
         const env: Env = {
             TRANSLATIONS: createMockKV(),
             SKILLS_CACHE: createMockKV(),
-            AI: {},
             ASSETS: {} as Fetcher,
         };
         expect(env.ADMIN_USER).toBeUndefined();
@@ -141,7 +146,7 @@ describe('getKV', () => {
     });
 
     it('should fallback to local mock when TRANSLATIONS binding is unavailable', async () => {
-        const env = { SKILLS_CACHE: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+        const env = { SKILLS_CACHE: createMockKV(), DB: {} as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getKV(env, 'key');
         expect(result).toBeNull();
     });
@@ -161,7 +166,7 @@ describe('setKV', () => {
     });
 
     it('should fallback to local mock when TRANSLATIONS binding is unavailable', async () => {
-        const env = { SKILLS_CACHE: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+        const env = { SKILLS_CACHE: createMockKV(), DB: {} as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
         // Should not throw
         await setKV(env, 'key', 'value');
     });
@@ -177,7 +182,7 @@ describe('getSkillsFromKV', () => {
     });
 
     it('should return empty array when DB binding is unavailable', async () => {
-        const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+        const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSkillsFromKV(env);
         expect(result).toEqual([]);
     });
@@ -212,7 +217,7 @@ describe('getSkillsKV', () => {
     });
 
     it('should return null when DB binding is unavailable', async () => {
-        const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+        const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSkillsKV(env, 'some-key');
         expect(result).toBeNull();
     });
@@ -299,7 +304,7 @@ describe('getSitemapSkillsFromKV', () => {
     });
 
     it('should return empty array when DB binding is unavailable in production (no local fallback)', async () => {
-        const env = { TRANSLATIONS: createMockKV(), AI: {}, ASSETS: {} as Fetcher } as unknown as Env;
+        const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
         const result = await getSitemapSkillsFromKV(env);
         expect(result).toEqual([]);
     });
