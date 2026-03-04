@@ -434,7 +434,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                             <h2 class="sr-only">{t('Detail.features')}</h2>
                             <div class="flex flex-wrap gap-3">
                             {features.map((feature: string) => (
-                                <div class="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--foreground)] bg-[var(--primary)] px-3 py-2 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                                <div class="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--primary-foreground)] bg-[var(--primary)] px-3 py-2 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
                                     <Zap size={14} strokeWidth={3} />
                                     {feature}
                                 </div>
@@ -506,7 +506,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                         <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
                         {t('Detail.qualityScore')}
                     </h3>
-                    <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
+                    <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
                         Top 5%
                     </div>
                 </div>
@@ -577,7 +577,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
 
                 <div class="relative z-10">
                     <div class="flex items-center gap-3 mb-6 border-b-4 border-[var(--border)] pb-4">
-                        <div class="p-2 bg-[var(--primary)] text-[var(--foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                        <div class="p-2 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
                             <Bot size={28} strokeWidth={3} />
                         </div>
                         <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
