@@ -84,6 +84,10 @@ export const GET: APIRoute = async ({ locals }) => {
 <sitemap>
   <loc>${SITE}/sitemap-docs.xml</loc>
 </sitemap>
+<sitemap>
+  <loc>${SITE}/sitemap-owners.xml</loc>
+  <lastmod>${today}</lastmod>
+</sitemap>
 ${skillSitemaps.join('\n')}
 </sitemapindex>`;
 
