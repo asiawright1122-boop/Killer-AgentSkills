@@ -1,33 +1,18 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
+import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 
-export const prerender = true;
+export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
-const STATIC_PAGES = [
-    '',           // Home
-    '/skills',
-    '/categories',
-    '/blog',
-    '/cli',
-    '/community',
-    '/integrations',
-    '/privacy',
-    '/terms',
-    '/cookies',
-    '/categories/development',
-    '/categories/testing',
-    '/categories/data',
-    '/categories/ai',
-    '/categories/devops',
-    '/categories/design',
-    '/categories/documentation',
-    '/categories/productivity',
-];
+
+function formatDate(date: Date | string): string {
+    const d = typeof date === 'string' ? new Date(date) : date;
+    return d.toISOString().split('T')[0];
+}
 
 const ensureTrailingSlash = (url: string, path: string, locale?: string) => {
     if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
-    // Don't append slash to exact domain root or locale root (matching Layout.astro)
     if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
     return `${url}/`;
 };
@@ -39,18 +24,30 @@ function buildHreflangLinks(pagePath: string): string {
     }).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`;
 }
 
-export const GET: APIRoute = async () => {
-    const today = new Date().toISOString().split('T')[0];
-    const urls: string[] = [];
+export const GET: APIRoute = async ({ locals }) => {
+    const env = (locals as any).runtime?.env as Env | undefined;
+    const today = formatDate(new Date());
 
-    for (const page of STATIC_PAGES) {
+    let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
+    try {
+        skills = await getSitemapSkillsFromKV(env as Env) || [];
+    } catch (e) {
+        console.error('[sitemap-owners] Failed to load skills', e);
+    }
+
+    // Extract unique owners
+    const owners = [...new Set(skills.map(s => s.owner))].filter(Boolean).sort();
+
+    const urls: string[] = [];
+    for (const owner of owners) {
+        const ownerPath = `/skills/${owner}`;
         for (const locale of SUPPORTED_LOCALES) {
             urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}${page}`, page, locale)}</loc>
+<loc>${ensureTrailingSlash(`${SITE}/${locale}${ownerPath}`, ownerPath, locale)}</loc>
 <lastmod>${today}</lastmod>
-<changefreq>${page === '' ? 'daily' : 'weekly'}</changefreq>
-<priority>${page === '' ? '1.0' : '0.8'}</priority>
-${buildHreflangLinks(page)}
+<changefreq>weekly</changefreq>
+<priority>0.5</priority>
+${buildHreflangLinks(ownerPath)}
 </url>`);
         }
     }
@@ -65,7 +62,7 @@ ${urls.join('\n')}
         status: 200,
         headers: {
             'Content-Type': 'application/xml',
-            'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
         },
     });
 };
