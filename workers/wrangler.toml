@@ -20,10 +20,6 @@ binding = "DB"
 database_name = "killer-skills-db"
 database_id = "b20fd9ef-6628-4a78-abd0-59aac064b5d6"
 
-# Workers AI
-[ai]
-binding = "AI"
-
 # Workflows
 [[workflows]]
 name = "translation-workflow"
@@ -39,3 +35,6 @@ class_name = "SkillValidationWorkflow"
 name = "content-workflow"
 binding = "CONTENT_WORKFLOW"
 class_name = "ContentProcessingWorkflow"
+
+[vars]
+SILICONFLOW_API_KEY = ""

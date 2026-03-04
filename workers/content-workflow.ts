@@ -27,7 +27,7 @@ export interface ContentProcessingParams {
 export interface Env {
     SKILLS_CACHE: KVNamespace;
     TRANSLATIONS: KVNamespace;
-    AI: Ai;
+    SILICONFLOW_API_KEY?: string; // Siliconflow API Key for fallback
     NVIDIA_API_KEYS?: string;
     NVIDIA_API_KEY?: string;
     NVIDIA_API_KEYS_2?: string;
@@ -656,7 +656,7 @@ Return JSON ONLY:
     }
 
     /**
-     * 调用 AI (NVIDIA 优先，Workers AI 备用)
+     * 调用 AI (NVIDIA 优先，Siliconflow 备用)
      */
     private async callAI(prompt: string): Promise<string> {
         // 尝试 NVIDIA
@@ -686,18 +686,44 @@ Return JSON ONLY:
                     };
                     return data.choices[0]?.message?.content || "";
                 }
-            } catch {
-                console.log("[NVIDIA] Failed, falling back to Workers AI");
+            } catch (error) {
+                console.log("[NVIDIA] Failed, falling back to Siliconflow", error);
             }
         }
 
-        // 备用 Workers AI
-        const result = await this.env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-            messages: [{ role: "user", content: prompt }],
-            max_tokens: 4096,
-        });
+        // 备用 Siliconflow
+        if (!this.env.SILICONFLOW_API_KEY) {
+            throw new Error("NVIDIA API failed and no SILICONFLOW_API_KEY configured for fallback");
+        }
 
-        return result.response || "";
+        console.log("[Siliconflow] Using as fallback");
+        const response = await fetch(
+            "https://api.siliconflow.cn/v1/chat/completions",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${this.env.SILICONFLOW_API_KEY}`,
+                },
+                body: JSON.stringify({
+                    model: "Qwen/Qwen2.5-72B-Instruct",
+                    messages: [{ role: "user", content: prompt }],
+                    temperature: 0.2,
+                    max_tokens: 4096,
+                }),
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Siliconflow API Error ${response.status}: ${errorText}`);
+        }
+
+        const data = (await response.json()) as {
+            choices: Array<{ message: { content: string } }>;
+        };
+
+        return data.choices[0]?.message?.content || "";
     }
 
     private getLangName(code: string): string {

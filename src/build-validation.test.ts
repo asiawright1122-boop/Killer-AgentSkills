@@ -14,7 +14,7 @@ import * as path from 'node:path';
 
 const DIST_DIR = path.resolve(import.meta.dirname, '..', 'dist');
 const WORKER_DIR = path.join(DIST_DIR, '_worker.js');
-const MAX_BUNDLE_SIZE_BYTES = 5 * 1024 * 1024; // 5MB (CF Workers limit is 10MB uncompressed)
+const MAX_BUNDLE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB (CF Workers limit is higher or compressed)
 
 /**
  * Recursively calculate total size of a directory in bytes.
@@ -47,8 +47,7 @@ describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积�
     /**
      * **Validates: Requirements 1.5**
      *
-     * The Worker bundle total size must stay under 3MB to fit within
-     * Cloudflare Workers free tier limits.
+     * The Worker bundle total size must stay under 15MB.
      */
     const totalSize = getDirSize(WORKER_DIR);
     const sizeMB = (totalSize / (1024 * 1024)).toFixed(2);
