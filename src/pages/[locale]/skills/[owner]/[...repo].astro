@@ -129,7 +129,7 @@ const seoKeywords = keywordsList.slice(0, 10).join(', ');
 const category = skill.category ? (t(`Categories.${skill.category}`) || skill.category) : '';
 const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill'; 
 const seoTitle = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
-const pageTitle = seoTitle || `${skill.name || repo}: ${tagline}`;
+const pageTitle = seoTitle || `${skill.name || repo}: ${tagline} - Open Source AI Agent Skill & MCP Server`;
 
 // SEO Description: Prefer dedicated SEO description (160 chars), fallback to composite description
 const seoDescription = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
@@ -144,6 +144,7 @@ const schema = {
   "operatingSystem": "Any",
 
   "applicationCategory": "DeveloperApplication",
+  "keywords": `AI Agent, MCP Server, Claude, Skill, Developer Tools, ${category}`,
   // Inject "AI Agent Skill:" prefix for better CTR context
   "description": `AI Agent Skill: ${description && typeof description === 'string' ? description : ''}`,
   "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
@@ -299,6 +300,7 @@ const topics = skill.topics || [];
 // Prepare file list
 const readmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || `# ${skill.name}\n\n${description}`;
 const readmeSize = new TextEncoder().encode(readmeContent).length;
+const isThinContent = readmeSize < 200; // Block indexing if extremely short (Thin Content penalty)
 const formatSize = (bytes: number) => {
   if (bytes < 1024) return bytes + ' B';
   return (bytes / 1024).toFixed(1) + ' KB';
@@ -323,6 +325,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
   keywords={seoKeywords}
   image={ogImageUrl}
   ogType="product"
+  noindex={isThinContent}
 >
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
