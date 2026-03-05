@@ -702,7 +702,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
              {/* File Manager */}
             <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
                  <SkillFileManager
-                    client:load
+                    client:visible
                     files={files}
                     selectedFile="SKILL.md"
                     labels={{
@@ -734,7 +734,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         {/* Right: SKILL.md Preview */}
         <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1">
             <SkillReadme
-                client:load
+                client:visible
                 initialContent={readmeContent}
                 initialFiles={{
                     'SKILL.md': readmeContent,
