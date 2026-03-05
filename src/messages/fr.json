@@ -294,7 +294,28 @@
     "relatedSkills": "Compétences liées",
     "viewAll": "Tout voir",
     "noSkills": "Aucune compétence trouvée",
-    "heroDesc": "Explorez différents types de compétences AI et trouvez les outils parfaits pour vous"
+    "heroDesc": "Explorez différents types de compétences AI et trouvez les outils parfaits pour vous",
+    "seoDescriptions": {
+      "development": "Découvrez les meilleurs outils de développement MCP pour Claude Code, Cursor et d'autres agents IA en 2026. Automatisez la programmation, la refactoring et la gestion de projet.",
+      "documentation": "Découvrez les meilleurs serveurs MCP de traitement de documents pour les agents IA. Activez Claude pour lire, écrire et analyser en toute transparence les PDF, les documents Word et Markdown.",
+      "testing": "Trouvez des serveurs MCP de test puissants pour donner à vos assistants IA la capacité d'écrire, d'exécuter et de déboguer des tests unitaires et E2E automatiquement.",
+      "data": "Découvrez les serveurs MCP de données et d'analyse. Équipez vos agents IA avec des capacités de requêtage SQL, de visualisation de données et de gestion de bases de données.",
+      "ai": "Parcourez les serveurs MCP d'intégration de modèles AI & ML. Connectez Claude et d'autres agents directement à Hugging Face, OpenAI et aux pipelines ML spécialisés.",
+      "devops": "Meilleurs serveurs MCP DevOps & Cloud pour agents IA. Laissez Claude gérer votre AWS, Docker, Kubernetes et vos pipelines CI/CD de manière autonome.",
+      "design": "Serveurs MCP créatifs et de design pour assistants IA. Activez la génération d'images, l'analyse UX/UI et la gestion de systèmes de design.",
+      "productivity": "Meilleurs serveurs MCP de productivité pour les agents IA. Connectez Claude à Notion, Slack, Jira et votre calendrier pour automatiser vos flux de travail quotidiens.",
+      "code-review": "Révision de code automatisée avec des compétences MCP. Donnez à votre agent IA le pouvoir d'analyser les PR, de détecter les failles de sécurité et de faire respecter les règles de linting.",
+      "git": "Serveurs Git & GitHub MCP. Permettez à Claude de cloner des référentiels, de gérer des branches et de créer des demandes d'extraction de manière autonome.",
+      "cli": "Interface de ligne de commande (CLI) pour serveurs MCP. Équipez vos agents IA pour exécuter des commandes terminal en toute sécurité et efficacité.",
+      "library": "Bibliothèque & Gestion de Packages pour serveurs MCP d'agents IA. Rechercher, installer et mettre à jour automatiquement des packages npm, pip et cargo.",
+      "api": "Intégration API serveurs MCP. Connectez votre assistant IA à n'importe quelle API REST ou GraphQL instantanément avec des implementations de protocole standard.",
+      "database": "Gestion de base de données sur des serveurs MCP. Accédez en toute sécurité à PostgreSQL, MySQL, MongoDB et Redis avec Claude.",
+      "browser": "Automatisation de navigateur & scraping web sur les serveurs MCP. Activez les agents IA pour naviguer sur les sites web, cliquer sur des éléments et extraire des données de manière dynamique.",
+      "search": "Recherche Web MCP pour agents IA. Équiper Claude de capacités de recherche Google, Bing et Tavily pour une récupération d'informations en temps réel.",
+      "web-scraping": "Compétences avancées de scraping Web MCP. Autorisez votre assistant IA à extraire des données structurées de n'importe quel site Web de manière autonome.",
+      "automation": "Serveurs MCP d'automatisation générale et RPA. Connectez vos agents IA à Zapier, Make et outils d'automatisation de système locaux.",
+      "social": "Gestion des médias sociaux sur les serveurs MCP. Activez les assistants IA pour publier, analyser les tendances et gérer X/Twitter, LinkedIn et plus."
+    }
   },
   "Metadata": {
     "title": "Killer-Skills - Place de marché de compétences pour agents IA",
