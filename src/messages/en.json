@@ -114,11 +114,11 @@
     "relatedSkills": "Related Skills"
   },
   "Home": {
-    "heroTitle": "Equip Your Agents",
-    "heroTitleHighlight": "With Superpowers",
-    "heroBadge": "The Marketplace for Autonomous Capabilities",
-    "heroDesc1": "The first open standard for composable AI skills.",
-    "heroDesc2": "Instantly give your agents the ability to Browse, Code, and Create.",
+    "heroTitle": "The Open Directory for",
+    "heroTitleHighlight": "AI Agent Skills",
+    "heroBadge": "The ultimate marketplace for MCP Servers & Autonomous Capabilities",
+    "heroDesc1": "Discover, install, and manage 1000+ open-source MCP Servers.",
+    "heroDesc2": "Equip Claude Code, Cursor, and Windsurf with tools to Browse, Automate, and Create.",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
     "tags": [
@@ -294,7 +294,28 @@
     "relatedSkills": "Related Skills",
     "viewAll": "View All",
     "noSkills": "No skills found",
-    "heroDesc": "Explore different types of AI skills and find the perfect tools for you"
+    "heroDesc": "Explore different types of AI skills and find the perfect tools for you",
+    "seoDescriptions": {
+      "development": "Discover the best Developer Tools MCP servers for Claude Code, Cursor, and other AI Agents in 2026. Automate coding, refactoring, and project management.",
+      "documentation": "Explore top Document Processing MCP servers for AI Agents. Enable Claude to read, write, and analyze PDFs, Word docs, and markdown seamlessly.",
+      "testing": "Find powerful Testing MCP servers to give your AI assistants the ability to write, run, and debug unit and E2E tests automatically.",
+      "data": "Discover Data & Analytics MCP servers. Equip your AI Agents with SQL querying, data visualization, and database management capabilities.",
+      "ai": "Browse AI & ML model integration MCP servers. Connect Claude and other agents directly to Hugging Face, OpenAI, and specialized ML pipelines.",
+      "devops": "Top DevOps & Cloud MCP servers for AI Agents. Let Claude manage your AWS, Docker, Kubernetes, and CI/CD pipelines autonomously.",
+      "design": "Creative & Design MCP servers for AI assistants. Enable image generation, UI/UX analysis, and design system management.",
+      "productivity": "Best Productivity MCP servers for AI Agents. Connect Claude to Notion, Slack, Jira, and your calendar to automate daily workflows.",
+      "code-review": "Automated Code Review MCP skills. Give your AI Agent the power to analyze PRs, find security flaws, and enforce linting rules.",
+      "git": "Git & GitHub MCP servers. Allow Claude to seamlessly clone repos, manage branches, and create pull requests autonomously.",
+      "cli": "Command Line Interface (CLI) MCP servers. Empower your AI Agents to execute terminal commands safely and effectively.",
+      "library": "Library & Package Management MCP servers for AI Agents. Search, install, and update npm, pip, and cargo packages automatically.",
+      "api": "API Integration MCP servers. Connect your AI assistant to any REST or GraphQL API instantly with standard protocol implementations.",
+      "database": "Database Management MCP servers. Give Claude direct, secure access to query and structure PostgreSQL, MySQL, MongoDB, and Redis.",
+      "browser": "Browser Automation & Web Scraping MCP servers. Enable AI Agents to navigate websites, click elements, and extract data dynamically.",
+      "search": "Web Search MCP servers for AI Agents. Equip Claude with Google, Bing, and Tavily search capabilities for real-time information retrieval.",
+      "web-scraping": "Advanced Web Scraping MCP skills. Allow your AI assistant to extract structured data from any website autonomously.",
+      "automation": "General Automation & RPA MCP servers. Connect your AI Agents to Zapier, Make, and local system automation tools.",
+      "social": "Social Media Management MCP servers. Enable AI assistants to post, analyze trends, and manage X/Twitter, LinkedIn, and more."
+    }
   },
   "Metadata": {
     "title": "Killer-Skills - AI Agent Skills Marketplace",
