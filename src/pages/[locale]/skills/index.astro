@@ -215,6 +215,21 @@ const categories = [];
                           ? (t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description'))
                           : t('Metadata.Skills.description')}
                    </p>
+
+                   {/* SEO Context Injection for Topical Authority */}
+                   {!query && !owner && (
+                     <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
+                        {locale === 'zh' ? (
+                          <p>
+                            探索全球最大的 <strong>AI Agent Skills (大模型插件技能)</strong> 与 <strong>MCP Servers (Model Context Protocol 服务器)</strong> 开源生态目录。为您的 Claude Desktop、Cursor 或自定义智能体发现并安装高质量的开发者工具。无论是系统运维、API 集成还是自动化数据查询，这里都有最全的经过验证的 MCP 开源实践。
+                          </p>
+                        ) : (
+                          <p>
+                            Discover the world's most comprehensive directory for <strong>AI Agent Skills</strong> and community-driven <strong>MCP Servers (Model Context Protocol)</strong>. Seamlessly find and install high-quality developer integrations for your Claude Desktop, Cursor, or custom AI agents. From cloud operations to API integrations, explore verified open-source MCP practices to supercharge your AI workflows.
+                          </p>
+                        )}
+                     </div>
+                   )}
                 </div>
                 
                 <div class="hidden md:block group">
