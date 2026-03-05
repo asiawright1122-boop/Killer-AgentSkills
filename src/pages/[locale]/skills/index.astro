@@ -143,12 +143,15 @@ const buildPaginationUrl = (p: number) => {
 };
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
+const currentCanonicalUrl = (currentPage > 1 || query || category || view || owner) 
+    ? buildPaginationUrl(currentPage) 
+    : undefined;
 
 // Category list for sidebar
 const categories = [];
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout locale={locale} title={pageTitle} description={pageDescription} customCanonical={currentCanonicalUrl}>
   {/* Pagination SEO: rel prev/next */}
   <Fragment slot="head">
     {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
@@ -160,7 +163,7 @@ const categories = [];
     "@type": "CollectionPage",
     "name": pageTitle,
     "description": pageDescription,
-    "url": `https://killer-skills.com/${locale}/skills/`,
+    "url": currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
     "isPartOf": {
       "@type": "WebSite",
       "name": "Killer-Skills",
