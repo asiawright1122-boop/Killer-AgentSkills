@@ -162,6 +162,7 @@ const schema = {
     "url": `https://github.com/${owner}`
   },
   "dateModified": skill.updatedAt || new Date().toISOString(),
+  "datePublished": skill.lastSynced || skill.updatedAt || new Date().toISOString(),
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -331,6 +332,17 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+  {/* GEO: Speakable Schema for AI citation engines */}
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageTitle,
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["h1", ".seo-intro-paragraph", "h2"]
+    },
+    "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
+  })} />
   <div class="min-h-screen bg-gray-50 dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-cyan-200 overflow-x-hidden transition-colors duration-300">
     
     {/* Ambient Glows - Adjusted for Light Mode */}
@@ -431,7 +443,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       <h2 class="sr-only">{t('Detail.about')}</h2>
                       
                       {/* SEO Dynamic Intro Paragraph for Long-Tail Matching */}
-                      <p class="text-sm md:text-base text-[var(--muted-foreground)] mb-4 font-mono leading-relaxed max-w-4xl border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
+                      <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] mb-4 font-mono leading-relaxed max-w-4xl border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
                           {locale === 'zh' ? (
                             <span><strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源 <strong>{category ? (t(`Categories.${category}`) || category) : '自动化'}</strong> MCP Server (大模型智能体插件)。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。{keywordsList.length > 0 && <span class="text-[var(--foreground)]">此工具针对 <strong>{keywordsList.slice(0, 3).join('</strong>、<strong>')}</strong> 进行了深度优化。</span>}</span>
                           ) : (
