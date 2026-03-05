@@ -126,7 +126,9 @@ if (owner) {
     pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
 }
 
-const pageDescription = t('Metadata.Skills.description');
+const pageDescription = category 
+    ? (t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description'))
+    : t('Metadata.Skills.description');
 
 // Pagination SEO: build rel prev/next URLs
 const buildPaginationUrl = (p: number) => {
@@ -205,8 +207,10 @@ const categories = [];
                                             ? t('Sidebar.views.latest')
                                             : t('Common.explore')}
                    </h1>
-                   <p class="text-[var(--muted-foreground)] font-mono text-lg font-bold opacity-80">
-                      {t('Metadata.Skills.description')}
+                   <p class="text-[var(--muted-foreground)] font-mono text-base md:text-lg font-bold opacity-80 leading-relaxed max-w-4xl mt-3">
+                      {category 
+                          ? (t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description'))
+                          : t('Metadata.Skills.description')}
                    </p>
                 </div>
                 

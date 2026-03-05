@@ -114,11 +114,11 @@
     "relatedSkills": "相关技能"
   },
   "Home": {
-    "heroTitle": "为你的AI助手",
-    "heroTitleHighlight": "赋予超能力",
-    "heroBadge": "AI能力市场",
-    "heroDesc1": "首个开放的可组合AI技能标准。",
-    "heroDesc2": "让你的Agent瞬间拥有浏览、编码和创造的能力。",
+    "heroTitle": "开放的 AI 智能体",
+    "heroTitleHighlight": "技能中心",
+    "heroBadge": "MCP Servers 与自主能力的终极市场",
+    "heroDesc1": "发现、安装并管理 1000+ 开源的 MCP Server。",
+    "heroDesc2": "为 Claude Code、Cursor 和 Windsurf 赋予浏览、自动化和创造的能力。",
     "searchPlaceholder": "搜索技能... 例如：网页爬取、数据可视化",
     "searchButton": "搜索",
     "tags": [
@@ -294,7 +294,28 @@
     "relatedSkills": "相关技能",
     "viewAll": "查看全部",
     "noSkills": "暂无技能",
-    "heroDesc": "探索不同类型的AI技能，找到最适合你的工具"
+    "heroDesc": "探索不同类型的AI技能，找到最适合你的工具",
+    "seoDescriptions": {
+      "development": "发现 2026 年最适合 Claude Code、Cursor 等 AI Agent 的开发者工具 MCP Server。自动执行编码、重构和项目管理。",
+      "documentation": "探索强大的文档处理 MCP Server。让 Claude 能够无缝读取、写入和分析 PDF、Word 文档和 Markdown 文件。",
+      "testing": "寻找强大的测试 MCP Server，赋予您的 AI 助手自动编写、运行和调试单元测试及 E2E 测试的能力。",
+      "data": "发现数据与分析 MCP Server。为您的 AI Agent 配备 SQL 查询、数据可视化和数据库管理能力。",
+      "ai": "浏览 AI 与机器学习模型集成 MCP Server。将 Claude 与 Hugging Face、OpenAI 及专用 ML 管道直接连接。",
+      "devops": "顶尖的 DevOps & 云服务 MCP Server。让 Claude 自主管理您的 AWS、Docker、Kubernetes 和 CI/CD 流水线。",
+      "design": "适合 AI 助手的创意与设计 MCP Server。启用图像生成、UI/UX 分析和设计系统管理能力。",
+      "productivity": "最佳生产力 MCP Server。将 Claude 连接到 Notion、Slack、Jira 和您的日历，实现日常工作流自动化。",
+      "code-review": "自动化代码审查 MCP 技能。赋予您的 AI Agent 分析 PR、发现安全漏洞并执行代码检查规则的能力。",
+      "git": "Git 和 GitHub MCP Server。允许 Claude 自主地无缝克隆仓库、管理分支和创建拉取请求 (PR)。",
+      "cli": "命令行界面 (CLI) MCP Server。赋予您的 AI Agent 安全有效地执行终端命令的能力。",
+      "library": "适合 AI Agent 的库与包管理 MCP Server。自动搜索、安装和更新 npm、pip 和 cargo 包。",
+      "api": "API 集成 MCP Server。使用标准协议实现，让您的 AI 助手瞬间连接到任何 REST 或 GraphQL API。",
+      "database": "数据库管理 MCP Server。赋予 Claude 直接、安全地查询和构建 PostgreSQL、MySQL、MongoDB 和 Redis 的访问权限。",
+      "browser": "浏览器自动化与网页抓取 MCP Server。使 AI Agent 能够动态浏览网站、点击元素并提取数据。",
+      "search": "适合 AI Agent 的网络搜索 MCP Server。为 Claude 配备 Google、Bing 和 Tavily 搜索能力，实现实时信息检索。",
+      "web-scraping": "高级网页抓取 MCP 技能。允许您的 AI 助手自主地从任何网站提取结构化数据。",
+      "automation": "通用自动化 & RPA MCP Server。将您的 AI Agent 连接到 Zapier、Make 和本地系统自动化工具。",
+      "social": "社交媒体管理 MCP Server。使 AI 助手能够发布内容、分析趋势并管理 X/Twitter、LinkedIn 等平台。"
+    }
   },
   "Metadata": {
     "title": "Killer-Skills - AI Agent Skills 聚合市场",
