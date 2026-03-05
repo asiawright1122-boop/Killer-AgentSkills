@@ -39,8 +39,8 @@ export default function SearchBar({ locale = 'en', placeholder, buttonText = 'RU
                     className="bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] px-6 border-y-2 border-r-2 border-[var(--border)] transition-colors cursor-pointer flex items-center justify-center rounded-none"
                     style={{ borderRadius: 0 }}
                 >
-                    <span className="font-black tracking-widest hidden sm:inline-block mr-2">{buttonText}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" className="w-5 h-5"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                    <span className="font-black tracking-widest whitespace-nowrap hidden sm:inline-block mr-2">{buttonText}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" className="w-5 h-5 flex-shrink-0"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                 </button>
             </div>
         </form>
