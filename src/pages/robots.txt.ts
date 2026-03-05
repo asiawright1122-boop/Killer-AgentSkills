@@ -15,7 +15,11 @@ User-agent: Googlebot
 Allow: /
 
 Sitemap: https://killer-skills.com/sitemap.xml
-Host: https://killer-skills.com`;
+Host: https://killer-skills.com
+
+# AI/LLM Crawler Information
+# See https://llmstxt.org/
+LLMs-Txt: https://killer-skills.com/llms.txt`;
 
   return new Response(body, {
     status: 200,
