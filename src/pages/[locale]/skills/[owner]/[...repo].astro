@@ -377,8 +377,10 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           <div class="w-full">
               <div class="flex items-start justify-between gap-4 mb-3 md:mb-4 flex-wrap relative">
                   <div class="flex items-center gap-3 md:gap-4 flex-wrap w-full md:w-auto">
-                      <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto">
-                          {skill.name || repo}
+                      <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-2">
+                          <span>{skill.name || repo}</span>
+                          {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
+                          {tagline && <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">— {tagline}</span>}
                       </h1>
                       <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
                           {isVerified && (
@@ -431,9 +433,9 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       {/* SEO Dynamic Intro Paragraph for Long-Tail Matching */}
                       <p class="text-sm md:text-base text-[var(--muted-foreground)] mb-4 font-mono leading-relaxed max-w-4xl border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
                           {locale === 'zh' ? (
-                            <span><strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源 <strong>{category ? (t(`Categories.${category}`) || category) : '自动化'}</strong> MCP Server (大模型智能体插件)。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。</span>
+                            <span><strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源 <strong>{category ? (t(`Categories.${category}`) || category) : '自动化'}</strong> MCP Server (大模型智能体插件)。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。{keywordsList.length > 0 && <span class="text-[var(--foreground)]">此工具针对 <strong>{keywordsList.slice(0, 3).join('</strong>、<strong>')}</strong> 进行了深度优化。</span>}</span>
                           ) : (
-                            <span>The <strong>{skill.name || repo}</strong> MCP Server by <strong>{owner}</strong> is an open-source <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> integration for Claude and other AI agents, enabling seamless task automation and capability expansion.</span>
+                            <span>The <strong>{skill.name || repo}</strong> MCP Server by <strong>{owner}</strong> is an open-source <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> integration for Claude and other AI agents, enabling seamless task automation and capability expansion. {keywordsList.length > 0 && <span class="text-[var(--foreground)]">Optimized for <strong>{keywordsList.slice(0, 3).join('</strong>, <strong>')}</strong>.</span>}</span>
                           )}
                       </p>
 
@@ -449,8 +451,25 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                             {features.map((feature: string) => (
                                 <div class="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--primary-foreground)] bg-[var(--primary)] px-3 py-2 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
                                     <Zap size={14} strokeWidth={3} />
-                                    {feature}
+                                      <span>{feature}</span>
                                 </div>
+                            ))}
+                            </div>
+                        </section>
+                      )}
+
+                      {/* SEO: On-Page Keyword Tag Cloud (Dominant Topic Signals) */}
+                      {keywordsList.length > 0 && (
+                        <section class="mb-10">
+                            <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
+                                <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">#</span>
+                                Core Topics
+                            </h2>
+                            <div class="flex flex-wrap gap-2">
+                            {keywordsList.slice(0, 6).map((keyword: string) => (
+                                <a href={`/${locale}/skills?query=${encodeURIComponent(keyword)}`} class="px-3 py-1.5 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all uppercase">
+                                    {keyword}
+                                </a>
                             ))}
                             </div>
                         </section>
