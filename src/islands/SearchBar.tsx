@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 interface SearchBarProps {
     locale?: string;
     placeholder?: string;
+    buttonText?: string;
 }
 
-export default function SearchBar({ locale = 'en', placeholder }: SearchBarProps) {
+export default function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBarProps) {
     const [query, setQuery] = useState('');
 
     const handleSearch = (e: React.FormEvent) => {
@@ -38,7 +39,7 @@ export default function SearchBar({ locale = 'en', placeholder }: SearchBarProps
                     className="bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] px-6 border-y-2 border-r-2 border-[var(--border)] transition-colors cursor-pointer flex items-center justify-center rounded-none"
                     style={{ borderRadius: 0 }}
                 >
-                    <span className="font-black uppercase tracking-widest hidden sm:inline-block mr-2">RUN</span>
+                    <span className="font-black tracking-widest hidden sm:inline-block mr-2">{buttonText}</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="square" strokeLinejoin="miter" className="w-5 h-5"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
                 </button>
             </div>
