@@ -87,12 +87,26 @@ async function run() {
         const data_json = escapeSql(rawJson);
         const statement = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
 
+        // ── Aggregate Search Text for FTS5 ──────────────────────
+        const searchArr = [
+            skill.name, skill.owner, skill.repo, skill.category,
+            skill.topics?.join(' '),
+            typeof skill.description === 'object' ? Object.values(skill.description).join(' ') : skill.description,
+            skill.seo?.keywords?.en?.join(' '),
+            skill.seo?.keywords?.zh?.join(' '),
+            skill.seo?.features?.en?.join(' '),
+            skill.seo?.definition?.en
+        ];
+        // Clean whitespace and filter out empties
+        const search_text = escapeSql(searchArr.filter(Boolean).join(' ').replace(/\s+/g, ' '));
+        const ftsStatement = `DELETE FROM skills_fts WHERE id = ${id};\nINSERT INTO skills_fts (id, name, owner, repo, category, search_text) VALUES (${id}, ${name}, ${owner}, ${repo}, ${category}, ${search_text});\n`;
+
         if (Buffer.byteLength(statement, 'utf-8') > MAX_STATEMENT_BYTES) {
             console.warn(`⚠️ Skipped ${skill.id} — still too large after truncation (${(Buffer.byteLength(statement, 'utf-8') / 1024).toFixed(0)}KB)`);
             continue;
         }
 
-        currentChunkSql += statement;
+        currentChunkSql += statement + ftsStatement;
 
         if ((i + 1) % CHUNK_SIZE === 0 || i === skills.length - 1) {
             const chunkFile = path.join(seedsDir, `initial_${chunkIndex}.sql`);
@@ -110,7 +124,10 @@ async function run() {
     const seedLines = commands.map((cmd, i) =>
         `echo "🌀 Executing seed ${i}/${commands.length - 1}..."\nif ${cmd}; then\n  SUCCESS=$((SUCCESS + 1))\nelse\n  FAILED=$((FAILED + 1))\n  echo "⚠️ Seed ${i} failed, continuing..."\nfi`
     ).join('\n\n');
-    const shellScriptContent = `#!/bin/bash\n\nSUCCESS=0\nFAILED=0\n\n${seedLines}\n\necho ""\necho "📊 D1 Seed Results: $SUCCESS succeeded, $FAILED failed (total: ${commands.length})"\n\nif [ "$FAILED" -gt 0 ]; then\n  echo "⚠️ Some seeds failed, but $SUCCESS/${commands.length} were applied successfully"\n  exit 1\nfi\n\necho "✅ All ${commands.length} seeds executed successfully!"\n`;
+
+    const initFtsCommand = `echo "🛠️ Initializing FTS5 Virtual Table..."\nnpx wrangler d1 execute killer-skills-db --remote --command="CREATE VIRTUAL TABLE IF NOT EXISTS skills_fts USING fts5(id UNINDEXED, name, owner, repo, category, search_text, tokenize='unicode61 remove_diacritics 1');"\n\n`;
+
+    const shellScriptContent = `#!/bin/bash\n\n${initFtsCommand}SUCCESS=0\nFAILED=0\n\n${seedLines}\n\necho ""\necho "📊 D1 Seed Results: $SUCCESS succeeded, $FAILED failed (total: ${commands.length})"\n\nif [ "$FAILED" -gt 0 ]; then\n  echo "⚠️ Some seeds failed, but $SUCCESS/${commands.length} were applied successfully"\n  exit 1\nfi\n\necho "✅ All ${commands.length} seeds executed successfully!"\n`;
     fs.writeFileSync(runAllScript, shellScriptContent, 'utf-8');
     fs.chmodSync(runAllScript, '755');
     console.log(`或者直接运行生成的脚本：`);
