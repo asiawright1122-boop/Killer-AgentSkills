@@ -15,6 +15,7 @@ interface Props {
     appendBrand?: boolean;
     noindex?: boolean;
     ogType?: 'website' | 'article' | 'book' | 'profile' | 'product';
+    customCanonical?: string;
 }
 
 const SITE_URL = 'https://killer-skills.com';
@@ -29,6 +30,7 @@ const {
     appendBrand = true,
     noindex = false,
     ogType = 'website',
+    customCanonical,
 } = Astro.props;
 
 // RTL support for Arabic
@@ -51,9 +53,13 @@ const ensureTrailingSlash = (url: string) => {
 
 // Build absolute image URL for OG/Twitter meta tags
 const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
-const canonicalUrl = Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
-    ? `${SITE_URL}${Astro.url.pathname}`
-    : ensureTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
+
+let canonicalUrl = customCanonical;
+if (!canonicalUrl) {
+    canonicalUrl = Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
+        ? `${SITE_URL}${Astro.url.pathname}`
+        : ensureTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
+}
 
 // Build hreflang alternate URLs for all supported locales
 const currentPath = Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1 
