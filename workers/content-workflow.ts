@@ -47,6 +47,9 @@ interface ProcessedContent {
     seo: {
         definition: Record<string, string>;
         features: Record<string, string[]>;
+        keywords: Record<string, string[]>;
+        title: Record<string, string>;
+        description: Record<string, string>;
     };
     aiQualityScore?: number;
     aiQualityReason?: string;
@@ -327,17 +330,18 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
     }
 
     /**
-     * 使用 AI 生成 SEO 内容
-     */
-    private async generateSeoContent(
-        description: string,
-        name: string
-    ): Promise<{ definition: string; features: string[]; qualityScore?: number; qualityReason?: string }> {
-        if (!description || description.length < 10) {
-            return { definition: description || "", features: [] };
-        }
+ * 使用 AI 生成 SEO 内容
+ * Phase 7: Now generates keywords, title, and description for precision keyword layout
+ */
+private async generateSeoContent(
+    description: string,
+    name: string
+): Promise<{ definition: string; features: string[]; keywords: string[]; title: string; description: string; qualityScore?: number; qualityReason?: string }> {
+    if (!description || description.length < 10) {
+        return { definition: description || "", features: [], keywords: [], title: name, description: description || "", };
+    }
 
-        const prompt = `You are an SEO expert. Based on this AI Agent skill:
+    const prompt = `You are an SEO expert specializing in AI developer tools. Based on this AI Agent skill:
 
 Name: ${name}
 Description: ${description}
@@ -351,26 +355,32 @@ Generate:
    - Use of examples/few-shot prompting
    - Definition of constraints
 4. A short reason for the score (1 sentence)
+5. SEO title (under 60 chars, format: "[Name]: [Primary Keyword] - AI Agent Skill & MCP Server")
+6. SEO meta description (under 155 chars, compelling and keyword-rich for CTR)
+7. 6-10 precision SEO keywords (specific long-tail terms developers would search for, e.g. "postgresql mcp server", "database ai integration", NOT generic terms like "tool" or "code")
 
 Respond in JSON format:
-{"definition": "...", "features": ["feature1", "feature2"], "qualityScore": 85, "qualityReason": "Good context but lacks examples."}
+{"definition": "...", "features": ["feature1", "feature2"], "qualityScore": 85, "qualityReason": "Good context but lacks examples.", "title": "...", "description": "...", "keywords": ["keyword1", "keyword2", "keyword3"]}
 
 Only output the JSON, nothing else.`;
 
-        try {
-            const result = await this.callAI(prompt);
-            const parsed = JSON.parse(result);
-            return {
-                definition: parsed.definition || description,
-                features: parsed.features || [],
-                qualityScore: typeof parsed.qualityScore === 'number' ? parsed.qualityScore : undefined,
-                qualityReason: parsed.qualityReason || undefined,
-            };
-        } catch {
-            // 如果 AI 失败，使用原始描述
-            return { definition: description, features: [] };
-        }
+    try {
+        const result = await this.callAI(prompt);
+        const parsed = JSON.parse(result);
+        return {
+            definition: parsed.definition || description,
+            features: parsed.features || [],
+            keywords: parsed.keywords || [],
+            title: parsed.title || name,
+            description: parsed.description || description,
+            qualityScore: typeof parsed.qualityScore === 'number' ? parsed.qualityScore : undefined,
+            qualityReason: parsed.qualityReason || undefined,
+        };
+    } catch {
+        // 如果 AI 失败，使用原始描述
+        return { definition: description, features: [], keywords: [], title: name, description, };
     }
+}
 
     /**
      * 使用 AI 生成个性化 FAQ
@@ -575,68 +585,97 @@ Return JSON ONLY:
     }
 
     /**
-     * 翻译所有内容到所有语言
-     */
-    private async translateAllContent(
+ * 翻译所有内容到所有语言
+ * Phase 7: Now also translates keywords, title, and description
+ */
+private async translateAllContent(
 
-        skillMd: SkillMdContent,
-        seoContent: { definition: string; features: string[] }
-    ): Promise<{
-        seo: { definition: Record<string, string>; features: Record<string, string[]> };
-        description: Record<string, string>;
-        body: Record<string, string>;
-    }> {
-        const result = {
-            seo: {
-                definition: { en: seoContent.definition } as Record<string, string>,
-                features: { en: seoContent.features } as Record<string, string[]>,
-            },
-            description: { en: skillMd.description } as Record<string, string>,
-            body: { en: skillMd.body } as Record<string, string>,
-        };
+    skillMd: SkillMdContent,
+    seoContent: { definition: string; features: string[]; keywords: string[]; title: string; description: string }
+): Promise<{
+    seo: { definition: Record<string, string>; features: Record<string, string[]>; keywords: Record<string, string[]>; title: Record<string, string>; description: Record<string, string> };
+    description: Record<string, string>;
+    body: Record<string, string>;
+}> {
+    const result = {
+        seo: {
+            definition: { en: seoContent.definition } as Record<string, string>,
+            features: { en: seoContent.features } as Record<string, string[]>,
+            keywords: { en: seoContent.keywords } as Record<string, string[]>,
+            title: { en: seoContent.title } as Record<string, string>,
+            description: { en: seoContent.description } as Record<string, string>,
+        },
+        description: { en: skillMd.description } as Record<string, string>,
+        body: { en: skillMd.body } as Record<string, string>,
+    };
 
-        // 翻译到其他语言
-        for (const locale of SUPPORTED_LOCALES) {
-            if (locale === "en") continue;
+    // 翻译到其他语言
+    for (const locale of SUPPORTED_LOCALES) {
+        if (locale === "en") continue;
 
-            try {
-                // 翻译 SEO definition
-                if (seoContent.definition) {
-                    result.seo.definition[locale] = await this.translateText(
-                        seoContent.definition,
-                        locale,
-                        "text"
-                    );
-                }
-
-                // 翻译 features
-                if (seoContent.features.length > 0) {
-                    const featuresText = seoContent.features.join("\n");
-                    const translatedFeatures = await this.translateText(featuresText, locale, "text");
-                    result.seo.features[locale] = translatedFeatures.split("\n").filter(Boolean);
-                }
-
-                // 翻译 description
-                if (skillMd.description) {
-                    result.description[locale] = await this.translateText(
-                        skillMd.description,
-                        locale,
-                        "text"
-                    );
-                }
-
-                // 翻译 body (SKILL.md 全文)
-                if (skillMd.body) {
-                    result.body[locale] = await this.translateText(skillMd.body, locale, "markdown");
-                }
-            } catch (error) {
-                console.error(`Failed to translate to ${locale}:`, error);
-                // 继续处理其他语言
+        try {
+            // 翻译 SEO definition
+            if (seoContent.definition) {
+                result.seo.definition[locale] = await this.translateText(
+                    seoContent.definition,
+                    locale,
+                    "text"
+                );
             }
-        }
 
-        return result;
+            // 翻译 features
+            if (seoContent.features.length > 0) {
+                const featuresText = seoContent.features.join("\n");
+                const translatedFeatures = await this.translateText(featuresText, locale, "text");
+                result.seo.features[locale] = translatedFeatures.split("\n").filter(Boolean);
+            }
+
+            // 翻译 SEO keywords (translate as a batch for efficiency)
+            if (seoContent.keywords.length > 0) {
+                const keywordsText = seoContent.keywords.join("\n");
+                const translatedKeywords = await this.translateText(keywordsText, locale, "text");
+                result.seo.keywords[locale] = translatedKeywords.split("\n").filter(Boolean);
+            }
+
+            // 翻译 SEO title
+            if (seoContent.title) {
+                result.seo.title[locale] = await this.translateText(
+                    seoContent.title,
+                    locale,
+                    "text"
+                );
+            }
+
+            // 翻译 SEO description
+            if (seoContent.description) {
+                result.seo.description[locale] = await this.translateText(
+                    seoContent.description,
+                    locale,
+                    "text"
+                );
+            }
+
+            // 翻译 description
+            if (skillMd.description) {
+                result.description[locale] = await this.translateText(
+                    skillMd.description,
+                    locale,
+                    "text"
+                );
+            }
+
+            // 翻译 body (SKILL.md 全文)
+            if (skillMd.body) {
+                result.body[locale] = await this.translateText(skillMd.body, locale, "markdown");
+            }
+        } catch (error) {
+            console.error(`Failed to translate to ${locale}:`, error);
+            // 继续处理其他语言
+        }
     }
+
+    return result;
+}
 
     /**
      * 调用 AI 翻译
