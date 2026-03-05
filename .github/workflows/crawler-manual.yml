@@ -89,8 +89,8 @@ jobs:
             ARGS="$ARGS --force"
           fi
 
-          echo "🚀 Running: npm run build:cache -- $ARGS"
-          npm run build:cache -- $ARGS
+          echo "🚀 Running: npm run build:cache -- $ARGS --max-duration=330"
+          npm run build:cache -- $ARGS --max-duration=330
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
@@ -99,24 +99,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      # ── Deploy ─────────────────────────────────────────────
-      - name: Sync to Cloudflare KV
-        continue-on-error: true
-        run: npm run sync:kv
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      - name: Sync to Cloudflare D1
-        continue-on-error: true
-        run: |
-          npx tsx scripts/generate-d1-seed.ts
-          ./scripts/run-d1-seeds.sh
-        env:
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
-      # ── Commit + Push ──────────────────────────────────────
+      # ── COMMIT FIRST (before external sync) ─────────────────
+      # 必须先提交进度，再进行外部同步。
+      # 这样即使 KV/D1 同步失败，skills-cache.json 也不会丢失。
       - name: Commit and Push
         run: |
           if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
@@ -148,3 +133,21 @@ jobs:
           else
             echo "ℹ️ No changes detected"
           fi
+
+      # ── Deploy to Cloudflare (non-blocking) ─────────────
+      # 同步失败不会丢失进度（数据已在上一步提交到 git）
+      - name: Sync to Cloudflare KV
+        continue-on-error: true
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare D1
+        continue-on-error: true
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          ./scripts/run-d1-seeds.sh
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

@@ -66,14 +66,14 @@ jobs:
       # 下次运行时 isSkillFullyOptimized() 可以跳过已处理的技能。
       - name: Commit and Push Cache
         run: |
-          if [ -n "$(git status --porcelain data/skills-cache.json data/sitemap-skills.json)" ]; then
+          if [ -n "$(git status --porcelain data/)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             
             # Pre-emptively pull latest to minimize conflicts before committing
             git pull --rebase --autostash origin main || true
             
-            git add data/skills-cache.json data/sitemap-skills.json
+            git add data/skills-cache.json data/sitemap-skills.json data/expanded-github-skills.json
             git commit -m "chore(data): incremental skills update [skip ci]"
             PUSH_OK=0
             for attempt in 1 2 3 4 5; do
