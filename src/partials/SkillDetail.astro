@@ -40,7 +40,6 @@ if (typeof data.description === 'string') {
 }
 
 // Construct OG Image URL
-const ogServerUrl = import.meta.env.PUBLIC_OG_SERVER_URL;
 const ogParams = new URLSearchParams({
     title: data.name,
     description: description.slice(0, 100),
@@ -49,9 +48,7 @@ const ogParams = new URLSearchParams({
     topics: (data.topics || []).slice(0, 5).join(','),
 });
 
-const ogImageUrl = ogServerUrl 
-    ? `${ogServerUrl}/api/og?${ogParams.toString()}`
-    : `/og-image.png`;
+const ogImageUrl = new URL(`/api/og.png?${ogParams.toString()}`, Astro.url).toString();
 
 const installCommand = `npx killer-skills install ${data.owner}/${data.repo}`;
 

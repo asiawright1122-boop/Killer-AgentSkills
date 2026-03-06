@@ -51,7 +51,7 @@ const ogImageParams = new URLSearchParams({
   date: formattedDate,
   readingTime: readTime.toString(),
 });
-const ogImage = `http://146.235.234.248:3000/?${ogImageParams.toString()}`;
+const ogImage = new URL(`/api/og.png?${ogImageParams.toString()}`, Astro.url).toString();
 
 // BlogPosting Structured Data (JSON-LD) for rich snippets
 const blogSchema = {

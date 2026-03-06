@@ -34,7 +34,7 @@ declare namespace App {
 }
 
 interface ImportMetaEnv {
-    readonly PUBLIC_OG_SERVER_URL: string;
+    // Add other public env vars here as needed
 }
 
 interface ImportMeta {
