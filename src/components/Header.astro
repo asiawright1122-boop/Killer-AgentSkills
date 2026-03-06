@@ -27,6 +27,7 @@ const { locale, t } = Astro.props;
         <nav class="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wide text-[var(--foreground)]">
             <a href={`/${locale}`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.home')}</a>
             <a href={`/${locale}/skills`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.skillsMarket')}</a>
+            <a href={`/${locale}/collections`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.collections') || 'Collections'}</a>
             <a href={`/${locale}/blog`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Navigation.blog')}</a>
             <a href={`/${locale}/docs`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.docs')}</a>
             <a href={`/${locale}/cli`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.cli')}</a>

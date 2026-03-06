@@ -1,0 +1,158 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import SkillCard from '../../../components/SkillCard.astro';
+import { ArrowLeft, LayoutGrid, Tag, CheckCircle2 } from 'lucide-react';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
+import type { Env } from '../../../lib/kv';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=3600');
+
+// Static paths for prerendering fallback (optional, relying on SSR mostly)
+// We will primarily use dynamic SSR with Cloudflare Pages
+
+const { locale, slug } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const env = (Astro.locals as any).runtime?.env as Env;
+
+// Load collections from content layer
+const collectionsCol = await getCollection('collections');
+const collectionData = collectionsCol.find(c => {
+    // collection keys might just be full slugs, e.g. "top-mcp-servers-2026.json"
+    return c.id === slug || c.id === `${slug}.json`;
+});
+
+if (!collectionData) {
+    return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const cData = collectionData.data;
+
+// Fetch live database skills concurrently with translations
+const [allSkills, messages] = await Promise.all([
+  getLightweightSkills(env),
+  loadMessages(typedLocale),
+]);
+
+const t = useTranslations(messages);
+
+// Filter the skills the collection requested
+const skillIds = new Set(cData.skills);
+const featuredSkills = allSkills.filter(s => skillIds.has(`${s.owner}/${s.repo}`));
+// Sort according to the order defined in the collection JSON
+featuredSkills.sort((a, b) => cData.skills.indexOf(`${a.owner}/${a.repo}`) - cData.skills.indexOf(`${b.owner}/${b.repo}`));
+
+// Extract localized text
+const resolveLocalized = (field: string | Record<string, string> | undefined, fallback: string = '') => {
+  if (!field) return fallback;
+  if (typeof field === 'string') return field;
+  return field[typedLocale] || field['en'] || fallback;
+};
+
+const resolveLocalizedArray = (field: Record<string, string[]> | undefined, fallback: string[] = []) => {
+    if (!field) return fallback;
+    return field[typedLocale] || field['en'] || fallback;
+};
+
+const title = resolveLocalized(cData.title, 'Collection');
+const description = resolveLocalized(cData.description, '');
+const seoTitle = resolveLocalized(cData.seoTitle, title);
+const seoDescription = resolveLocalized(cData.seoDescription, description);
+const keywords = resolveLocalizedArray(cData.keywords, []);
+
+// OG Image
+const ogImageParams = new URLSearchParams({
+  type: 'blog',
+  title: title,
+  description: seoDescription,
+  author: cData.author || 'Killer-Skills',
+  date: new Date().toLocaleDateString(locale),
+  readingTime: (cData.skills.length * 2).toString(),
+});
+const ogImage = `http://146.235.234.248:3000/?${ogImageParams.toString()}`;
+
+// ItemList Schema
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": title,
+  "description": seoDescription,
+  "url": `https://killer-skills.com/${locale}/collections/${slug}`,
+  "numberOfItems": featuredSkills.length,
+  "itemListElement": featuredSkills.map((skill, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "item": {
+      "@type": "SoftwareApplication",
+      "name": skill.name || skill.repo,
+      "url": `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}`
+    }
+  }))
+};
+---
+
+<Layout 
+    locale={locale}
+    title={seoTitle}
+    description={seoDescription}
+    keywords={keywords.join(', ')}
+    image={ogImage}
+    ogType="article"
+>
+    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} slot="head" />
+    
+    <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+        <main class="relative z-10 pt-12 md:pt-24 pb-20 border-b-[3px] border-[var(--border)]">
+            <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+                
+                {/* Back Link */}
+                <a href={`/${locale}/collections`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-black text-xs uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
+                    <ArrowLeft size={16} strokeWidth={3} />
+                    {t('Common.collections') || 'Collections'}
+                </a>
+
+                {/* Hero Section */}
+                <div class="mb-16 border-b-4 border-[var(--border)] pb-12">
+                     <div class="flex items-center gap-3 mb-6">
+                        <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
+                             <LayoutGrid size={14} />
+                             Collection
+                        </span>
+                        {cData.category && (
+                             <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--background)] text-[var(--muted-foreground)] border-2 border-[var(--border)]">
+                                {cData.category}
+                             </span>
+                        )}
+                     </div>
+
+                     <h1 class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase mb-6 text-balance break-words">
+                         {title}
+                     </h1>
+                     
+                     <p class="text-xl md:text-2xl text-[var(--muted-foreground)] font-mono font-bold leading-relaxed max-w-4xl text-balance">
+                         {description}
+                     </p>
+                </div>
+
+                {/* Grid of Dynamic Live Skills */}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    {featuredSkills.map((skill) => (
+                        <SkillCard skill={skill} locale={locale} t={t} />
+                    ))}
+                    {featuredSkills.length === 0 && (
+                        <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
+                            No active skills found for this collection currently.
+                        </div>
+                    )}
+                </div>
+
+            </div>
+        </main>
+    </div>
+</Layout>

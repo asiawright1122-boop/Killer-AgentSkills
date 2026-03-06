@@ -1,0 +1,43 @@
+{
+    "title": {
+        "en": "Top 10 MCP Servers for AI Agents in 2026",
+        "zh": "2026 年最受开发者欢迎的十大 MCP 服务器"
+    },
+    "description": {
+        "en": "Discover the most powerful and widely-adopted Model Context Protocol servers that give your AI Agents superhuman capabilities for coding, research, and analysis.",
+        "zh": "探索最强大、使用最广泛的模型上下文协议 (MCP) 服务器，赋予你的 AI 智能体在编程、搜索、文件系统和数据库分析上的超人类能力。"
+    },
+    "seoTitle": {
+        "en": "10 Best MCP Servers List for Claude & AI Agents (2026)",
+        "zh": "2026 最佳 10 大必备 MCP Server 排行榜 (支持 Claude)"
+    },
+    "seoDescription": {
+        "en": "A curated list of the best MCP servers to extend your AI agent's context. Learn how to connect Claude to local databases, GitHub, and APIs effortlessly.",
+        "zh": "为您精心整理的 10 大 MCP 协议服务器排行榜。助您将 Claude 等大模型本地化接入数据库、文件系统、GitHub 工程与各类 API。"
+    },
+    "keywords": {
+        "en": [
+            "best MCP servers",
+            "model context protocol list",
+            "claude extensions",
+            "top ai agent skills",
+            "mcp server directory"
+        ],
+        "zh": [
+            "最新 mcp server 推荐",
+            "claude 怎么配置 mcp",
+            "最好用的 mcp 工具",
+            "AI 智能体 mcp 列表",
+            "mcp 服务器排行榜"
+        ]
+    },
+    "featured": true,
+    "category": "developer-tools",
+    "skills": [
+        "anthropics/skills/brave-search",
+        "mcp/sqlite",
+        "modelcontextprotocol/github",
+        "mendableai/firecrawl",
+        "puppeteer/mcp"
+    ]
+}
