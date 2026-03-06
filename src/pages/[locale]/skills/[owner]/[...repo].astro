@@ -292,7 +292,7 @@ const howToSchema = {
 
 // OG image URL pointing to VPS OG service
 // Generate dynamic OG image using independent verified OG server (IP-based to avoid DNS issues)
-const ogImageUrl = `http://146.235.234.248:3000/api/og?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`;
+const ogImageUrl = new URL(`/api/og.png?owner=${encodeURIComponent(owner)}&repo=${encodeURIComponent(repo)}`, Astro.url).toString();
 
 // Format stars
 const starsDisplay = (skill.stars || 0) > 1000
