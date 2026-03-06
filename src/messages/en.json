@@ -538,6 +538,10 @@
     "backToCollections": "Collections",
     "collection": "Collection",
     "noSkills": "No active skills found for this collection currently.",
-    "noCollections": "No collections available yet."
+    "noCollections": "No collections available yet.",
+    "installAll": "Install All via CLI",
+    "installHint": "Install every skill from this collection with one command",
+    "copy": "Copy",
+    "copied": "Copied"
   }
 }

@@ -538,6 +538,10 @@
     "backToCollections": "精选合集",
     "collection": "合集",
     "noSkills": "当前该合集中没有找到可用的技能。",
-    "noCollections": "暂无可用合集。"
+    "noCollections": "暂无可用合集。",
+    "installAll": "通过 CLI 一键安装全部",
+    "installHint": "一行命令安装此合集中的所有技能",
+    "copy": "复制",
+    "copied": "已复制"
   }
 }

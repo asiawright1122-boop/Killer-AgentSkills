@@ -538,6 +538,10 @@
     "backToCollections": "コレクション",
     "collection": "コレクション",
     "noSkills": "この集合には現在、アクティブなスキルが見つかりません。",
-    "noCollections": "まだコレクションはありません。"
+    "noCollections": "まだコレクションはありません。",
+    "installAll": "CLIで一括インストール",
+    "installHint": "このコレクションのすべてのスキルを1つのコマンドでインストール",
+    "copy": "コピー",
+    "copied": "コピー済"
   }
 }

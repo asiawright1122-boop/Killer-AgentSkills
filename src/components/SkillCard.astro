@@ -3,6 +3,9 @@ import { getLocalizedDescription } from '../lib/skills';
 import { OFFICIAL_REPOS } from '../lib/skills-config';
 import { CATEGORY_GROUPS } from '../lib/search';
 
+// Install command prefix
+const INSTALL_PREFIX = 'npx killer-skills add';
+
 interface Props {
   skill: {
     id?: string;
@@ -113,6 +116,20 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
     {descText || 'No description available'}
   </p>
   
+  <!-- 1-Click Install CTA (hover reveal) -->
+  <div class="relative z-20 mb-3 opacity-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-16 transition-all duration-200 ease-out pointer-events-none group-hover:pointer-events-auto">
+    <button
+      class="install-copy-btn w-full flex items-center gap-2 px-3 py-2.5 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-black uppercase tracking-wider border-2 border-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[3px_3px_0px_0px_var(--border)] hover:shadow-[1px_1px_0px_0px_var(--border)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
+      data-command={`${INSTALL_PREFIX} ${owner}/${repo}`}
+      title={`${INSTALL_PREFIX} ${owner}/${repo}`}
+    >
+      <span class="shrink-0 text-[var(--primary)] bg-[var(--background)] px-1 text-[10px]">▶</span>
+      <span class="truncate">{INSTALL_PREFIX} {owner}/{repo}</span>
+      <span class="install-icon shrink-0 ml-auto text-[10px]">⧉ COPY</span>
+      <span class="install-ok shrink-0 ml-auto text-[10px] hidden">✓ OK</span>
+    </button>
+  </div>
+
   <!-- Footer: Stats + Category Tag -->
   <div class="relative z-1 mt-auto flex items-center justify-between pointer-events-none border-t-2 border-[var(--border)] pt-4">
     <!-- Left: Stats -->

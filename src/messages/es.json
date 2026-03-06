@@ -538,6 +538,10 @@
     "backToCollections": "Colecciones",
     "collection": "Colección",
     "noSkills": "No se encontraron habilidades activas para esta colección actualmente.",
-    "noCollections": "Aún no hay colecciones disponibles."
+    "noCollections": "Aún no hay colecciones disponibles.",
+    "installAll": "Instalar todo vía CLI",
+    "installHint": "Instala todas las habilidades de esta colección con un comando",
+    "copy": "Copiar",
+    "copied": "Copiado"
   }
 }
