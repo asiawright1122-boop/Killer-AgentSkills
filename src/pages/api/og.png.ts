@@ -22,18 +22,15 @@ export const GET: APIRoute = async ({ request, url }) => {
         const topicsStr = searchParams.get('topics') || '';
         const topics = topicsStr ? topicsStr.split(',') : [];
 
-        // ─── 1. FETCH FONTS (Cached in memory per Worker) ───
-
-        // Use relative origin so we can fetch fonts from our own public dir in CF HTTP Edge
-        const origin = new URL(request.url).origin;
-
+        // We can't bundle fonts directly or use the origin reliably in Pages without exceeding the 3MB or 1MB limits.
+        // Instead, we fetch them from a fast public CDN (jsDelivr) and cache them in the isolate's memory.
         if (!fontCache.regular) {
-            const fontUrl = new URL('/fonts/Inter-Regular.ttf', origin);
+            const fontUrl = 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/inter/Inter-Regular.ttf';
             const req = await fetch(fontUrl);
             fontCache.regular = await req.arrayBuffer();
         }
         if (!fontCache.bold) {
-            const fontUrl = new URL('/fonts/Inter-Bold.ttf', origin);
+            const fontUrl = 'https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/inter/Inter-Bold.ttf';
             const req = await fetch(fontUrl);
             fontCache.bold = await req.arrayBuffer();
         }
