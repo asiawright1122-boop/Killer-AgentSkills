@@ -218,7 +218,7 @@
     "verified": "Verifiziert",
     "explore": "Explore",
     "viewAll": "Alle anzeigen",
-    "collections": "Collections"
+    "collections": "Sammlungen"
   },
   "OfficialSkills": {
     "title": "Offizielle Skills",
@@ -528,5 +528,16 @@
       "announcements": "Ankündigungen",
       "announcements-desc": "Neueste Nachrichten und Plattform-Updates."
     }
+  },
+  "Collections": {
+    "editorPicks": "Empfehlungen der Redaktion",
+    "subtitle": "Kuratierte Listen der leistungsstärksten AI-Agent-Skills, Server und Skripte für bestimmte Branchen und Workflows.",
+    "items": "Einträge",
+    "view": "Ansehen",
+    "featured": "Empfohlen",
+    "backToCollections": "Sammlungen",
+    "collection": "Sammlung",
+    "noSkills": "Derzeit keine aktiven Skills für diese Sammlung gefunden.",
+    "noCollections": "Noch keine Sammlungen verfügbar."
   }
 }

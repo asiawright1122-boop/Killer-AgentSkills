@@ -528,5 +528,16 @@
       "announcements": "Announcements",
       "announcements-desc": "Latest news and platform updates."
     }
+  },
+  "Collections": {
+    "editorPicks": "Editor's Picks",
+    "subtitle": "Curated lists of top-performing AI Agent skills, servers, and scripts tailored for specific industries and workflows.",
+    "items": "Items",
+    "view": "View",
+    "featured": "Featured",
+    "backToCollections": "Collections",
+    "collection": "Collection",
+    "noSkills": "No active skills found for this collection currently.",
+    "noCollections": "No collections available yet."
   }
 }

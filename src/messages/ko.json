@@ -218,7 +218,7 @@
     "verified": "인증됨",
     "explore": "Explore",
     "viewAll": "모두 보기",
-    "collections": "Collections"
+    "collections": "컬렉션"
   },
   "OfficialSkills": {
     "title": "공식 스킬",
@@ -528,5 +528,16 @@
       "announcements": "공지사항",
       "announcements-desc": "최신 뉴스 및 플랫폼 업데이트."
     }
+  },
+  "Collections": {
+    "editorPicks": "에디터 추천",
+    "subtitle": "특정 산업 및 워크플로를 위한 최고의 AI 에이전트 스킬, 서버 및 스크립트의 엄선된 목록.",
+    "items": "항목",
+    "view": "보기",
+    "featured": "추천",
+    "backToCollections": "컬렉션",
+    "collection": "컬렉션",
+    "noSkills": "현재 이 컬렉션에 활성화된 스킬이 없습니다.",
+    "noCollections": "아직 컬렉션이 없습니다."
   }
 }

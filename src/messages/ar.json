@@ -218,7 +218,7 @@
     "verified": "موثق",
     "explore": "Explore",
     "viewAll": "عرض الكل",
-    "collections": "Collections"
+    "collections": "مجموعات مختارة"
   },
   "OfficialSkills": {
     "title": "المهارات الرسمية",
@@ -528,5 +528,16 @@
       "announcements": "إعلانات",
       "announcements-desc": "آخر الأخبار وتحديثات المنصة."
     }
+  },
+  "Collections": {
+    "editorPicks": "اختيارات المحررين",
+    "subtitle": "قوائم منتقاة بعناية لأفضل مهارات وكلاء الذكاء الاصطناعي والخوادم والبرامج النصية المصممة للصناعات وسير العمل المحددة.",
+    "items": "عناصر",
+    "view": "عرض",
+    "featured": "مميز",
+    "backToCollections": "المجموعات",
+    "collection": "مجموعة",
+    "noSkills": "لم يتم العثور على مهارات نشطة لهذه المجموعة حالياً.",
+    "noCollections": "لا توجد مجموعات متاحة حتى الآن."
   }
 }
