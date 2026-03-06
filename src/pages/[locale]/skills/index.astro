@@ -8,7 +8,8 @@ import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '.
 import { getCollection } from 'astro:content';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
-import type { UnifiedSkill } from '../../../lib/skills';
+import { getAllSkills, type UnifiedSkill } from '../../../lib/skills';
+import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
 // Validate locale
@@ -19,19 +20,30 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 
+// Get env from Cloudflare runtime
+const env = (Astro.locals as any).runtime?.env as Env;
+
 // ⚡ PARALLEL: Load skills + translations concurrently
 const t0 = performance.now();
-const [rawCollection, messages] = await Promise.all([
-  getCollection('skills'),
+const [skillsFetched, messages] = await Promise.all([
+  getAllSkills(env),
   loadMessages(typedLocale),
 ]);
-let skills: UnifiedSkill[] = rawCollection.map(entry => ({
-  ...(entry.data as any),
-  id: entry.id,
-})) as UnifiedSkill[];
+
+let skills: UnifiedSkill[] = skillsFetched;
+
+if (skills.length === 0) {
+    // Fallback to local collection for dev environments without KV bindings
+    const rawCollection = await getCollection('skills');
+    skills = rawCollection.map((entry: any) => ({
+      ...(entry.data as any),
+      id: entry.id,
+    })) as UnifiedSkill[];
+}
+
 skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
 const t1 = performance.now();
-console.log(`[SSR Profiler] Content Collection: ${Math.round(t1 - t0)}ms (${skills.length} skills)`);
+console.log(`[SSR Profiler] DB Fetch: ${Math.round(t1 - t0)}ms (${skills.length} skills)`);
 
 // Get URL search params for filtering
 const url = Astro.url;
