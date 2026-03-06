@@ -94,7 +94,12 @@ async function main() {
 
     console.log(`Loading skills from ${CACHE_FILE}...`);
     const skillsRaw = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
-    const skills: UnifiedSkill[] = Array.isArray(skillsRaw) ? skillsRaw : Object.values(skillsRaw);
+    // skills-cache.json uses: { version, lastUpdated, totalCount, skills: [...] }
+    const skills: UnifiedSkill[] = Array.isArray(skillsRaw)
+        ? skillsRaw
+        : Array.isArray(skillsRaw.skills)
+            ? skillsRaw.skills
+            : Object.values(skillsRaw);
 
     console.log(`Loaded ${skills.length} skills. Preparing NDJSON payload for Vectorize...`);
 
@@ -124,9 +129,8 @@ async function main() {
             // 3. Assemble Vectorize Insert Payload
             for (let j = 0; j < batch.length; j++) {
                 const skill = batch[j];
-                // Generate deterministic ID or safe fallback (Vectorize requires string IDs without slashes usually, let's use UUID)
-                // We will map this UUID back to the owner/repo later or just use base64
-                const safeId = Buffer.from(`${skill.owner}/${skill.repo}`).toString('base64');
+                // Vectorize max ID = 64 bytes. Use owner__repo slug, truncated.
+                const safeId = `${skill.owner}__${skill.repo}`.replace(/[^a-zA-Z0-9_\-\.]/g, '_').slice(0, 64);
 
                 vectorizeData.push({
                     id: safeId,
