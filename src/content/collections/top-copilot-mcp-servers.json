@@ -1,0 +1,44 @@
+{
+  "title": {
+    "en": "Top 5 MCP Servers for GitHub Copilot",
+    "zh": "GitHub Copilot 五大顶级 MCP 服务器"
+  },
+  "description": {
+    "en": "A professionally curated collection of the most powerful MCP (Model Context Protocol) servers designed to supercharge GitHub Copilot. These tools extend Copilot's capabilities, enabling advanced code generation, real-time documentation, API mocking, and memory management for a truly intelligent pair programming experience.",
+    "zh": "精选的专业级 MCP（模型上下文协议）服务器集合，旨在增强 GitHub Copilot 的功能。这些工具扩展了 Copilot 的能力，可实现高级代码生成、实时文档、API 模拟和内存管理，提供真正智能的结对编程体验。"
+  },
+  "seoTitle": {
+    "en": "Top 5 MCP Servers for GitHub Copilot | Best AI Tools",
+    "zh": "GitHub Copilot 五大顶级 MCP 服务器 | 最佳 AI 工具"
+  },
+  "seoDescription": {
+    "en": "Discover the top 5 MCP servers for GitHub Copilot. Enhance code generation, testing & documentation with ai-elements, sync-readme & more curated tools.",
+    "zh": "探索适用于 GitHub Copilot 的五大顶级 MCP 服务器。通过 ai-elements、sync-readme 等精选工具增强代码生成、测试和文档功能。"
+  },
+  "keywords": {
+    "en": [
+      "Best copilot AI tools",
+      "Top MCP servers for copilot",
+      "GitHub Copilot extensions",
+      "AI pair programming",
+      "Model Context Protocol tools"
+    ],
+    "zh": [
+      "最佳 Copilot AI 工具",
+      "顶级 Copilot MCP 服务器",
+      "GitHub Copilot 扩展",
+      "AI 结对编程",
+      "模型上下文协议工具"
+    ]
+  },
+  "featured": false,
+  "category": "copilot",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "ssdeanx/AgentStack",
+    "stacklok/toolhive-studio",
+    "lbb00/ai-rules-sync",
+    "u9401066/med-paper-assistant",
+    "janekbaraniewski/openusage"
+  ]
+}

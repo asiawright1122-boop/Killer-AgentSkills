@@ -1,0 +1,50 @@
+{
+  "title": {
+    "en": "Top 5 Gemini-CLI Tools for AI Developers",
+    "zh": "面向AI开发者的5大顶级Gemini-CLI工具"
+  },
+  "description": {
+    "en": "A professionally curated directory of the leading Gemini-CLI tools, MCP servers, and extensions. This collection empowers developers to supercharge their AI agent workflows, from team management and code review to full-stack development with next-gen frameworks.",
+    "zh": "专业精选的顶级Gemini-CLI工具、MCP服务器和扩展目录。本合集助力开发者增强AI智能体工作流，涵盖团队管理、代码审查及使用新一代框架的全栈开发。"
+  },
+  "seoTitle": {
+    "en": "Best Gemini-CLI AI Tools & MCP Servers | Killer-Skills",
+    "zh": "最佳Gemini-CLI AI工具和MCP服务器 | Killer-Skills"
+  },
+  "seoDescription": {
+    "en": "Discover the top 5 Gemini-CLI tools for AI development. Compare awesome-claude-skills, team-lifecycle, next & more for your AI agent workflow.",
+    "zh": "发现5大顶级Gemini-CLI AI开发工具。比较awesome-claude-skills、team-lifecycle、next等工具，优化您的AI智能体工作流。"
+  },
+  "keywords": {
+    "en": [
+      "gemini-cli",
+      "MCP servers",
+      "AI agent tools",
+      "Claude extensions",
+      "AI development",
+      "awesome-claude-skills",
+      "team-lifecycle",
+      "next"
+    ],
+    "zh": [
+      "gemini-cli",
+      "MCP服务器",
+      "AI智能体工具",
+      "Claude扩展",
+      "AI开发",
+      "awesome-claude-skills",
+      "team-lifecycle",
+      "next"
+    ]
+  },
+  "featured": false,
+  "category": "gemini-cli",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "ComposioHQ/awesome-claude-skills",
+    "catlog22/Claude-Code-Workflow",
+    "mag123c/toktrack",
+    "shinpr/agentic-code",
+    "janekbaraniewski/openusage"
+  ]
+}
