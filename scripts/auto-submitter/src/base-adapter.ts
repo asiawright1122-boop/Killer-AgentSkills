@@ -17,6 +17,7 @@ export abstract class BaseAdapter {
     protected browser: Browser | null = null;
     protected context: BrowserContext | null = null;
     protected page: Page | null = null;
+    protected filledCount = 0;
 
     constructor(config: SiteConfig, ctx: AdapterContext) {
         this.config = config;
@@ -52,10 +53,20 @@ export abstract class BaseAdapter {
             await this.launchBrowser();
 
             // 打开提交页
-            await this.page!.goto(this.config.submitUrl, {
+            const response = await this.page!.goto(this.config.submitUrl, {
                 waitUntil: 'domcontentloaded',
                 timeout: this.ctx.timeout,
             });
+
+            if (!response) {
+                throw new Error(`无法获取页面响应 (可能网络超时或连接重置)`);
+            }
+
+            const httpStatus = response.status();
+            if (httpStatus >= 400) {
+                throw new Error(`页面返回错误状态码: ${httpStatus}`);
+            }
+
             await this.page!.waitForTimeout(2000); // 等待页面稳定
 
             // 截图：填写前
@@ -65,12 +76,18 @@ export abstract class BaseAdapter {
             await this.fillForm(this.page!);
             this.log(`📝 表单填写完成`);
 
-            // 如果是 dry run，截图后退出 (逻辑现在下移到此处，但其实可以下移到 clickSubmitButton)
+            // 如果是 dry run，截图后退出
             if (this.ctx.dryRun) {
                 await this.takeScreenshot('dryrun');
-                result.status = 'skipped';
-                result.message = 'Dry run — 仅截图，未实际提交';
-                this.log(`⏭️  Dry run 完成`);
+                if (this.filledCount > 0) {
+                    result.status = 'skipped';
+                    result.message = `Dry run — 填写了 ${this.filledCount} 个字段，未实际提交`;
+                    this.log(`⏭️  Dry run 完成 (填写了 ${this.filledCount} 个字段)`);
+                } else {
+                    result.status = 'failed';
+                    result.message = 'Dry run — 未填写任何字段 (可能是无效页面或找不到表单)';
+                    this.log(`❌ Dry run 失败: 未填写任何字段`);
+                }
                 return result;
             }
 

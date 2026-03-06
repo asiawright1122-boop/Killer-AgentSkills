@@ -14,7 +14,6 @@ import { BaseAdapter } from '../base-adapter.js';
 import type { SubmitStatus, ProductMeta } from '../types.js';
 
 export class GenericFormAdapter extends BaseAdapter {
-    private filledCount = 0;
     private submitClicked = false;
     private urlBeforeSubmit = '';
 

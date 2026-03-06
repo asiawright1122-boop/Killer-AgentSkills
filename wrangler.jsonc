@@ -33,7 +33,6 @@
   ],
   "vars": {
     "PUBLIC_OG_SERVER_URL": "http://localhost:3000",
-    "ADMIN_USER": "admin_placeholder",
-    "SILICONFLOW_API_KEY": ""
+    "ADMIN_USER": "admin_placeholder"
   }
 }

@@ -46,11 +46,11 @@ export const SITES: SiteConfig[] = [
     {
         id: 'aiagentsdirectory_v2',
         name: 'AI Agents Directory',
-        submitUrl: 'https://aiagentsdirectory.com/submit',
+        submitUrl: 'https://aiagentsdirectory.com/submit-agent',
         homepage: 'https://aiagentsdirectory.com/',
         estimatedDR: 25,
         tier: 1,
-        requiresLogin: false,
+        requiresLogin: true, // ⚠️ 发现需要登录且对末尾斜杠敏感
         hasCaptcha: false,
         enabled: true,
     },
@@ -85,12 +85,12 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ 网络连接重置 (CONNECTION_CLOSED)
     },
     {
         id: 'aiagentslive',
         name: 'AI Agents Live',
-        submitUrl: 'https://aiagentslive.com/submit',
+        submitUrl: 'https://aiagentslive.com/agents/products/new',
         homepage: 'https://aiagentslive.com/',
         estimatedDR: 15,
         tier: 1,
@@ -140,7 +140,7 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ 无公开提交表单
     },
     {
         id: 'aichief',
@@ -762,7 +762,7 @@ export const SITES: SiteConfig[] = [
         tier: 1,
         requiresLogin: false,
         hasCaptcha: false,
-        enabled: true,
+        enabled: false, // ⚠️ SSL 协议错误 (SSL_PROTOCOL_ERROR)
     },
     {
         id: 'gptforge',
