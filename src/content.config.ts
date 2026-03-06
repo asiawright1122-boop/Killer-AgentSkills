@@ -1,116 +1,10 @@
 import { defineCollection, z } from 'astro:content';
-import { file, glob } from 'astro/loaders';
-import fs from 'node:fs/promises';
-import path from 'node:path';
-import type { LoaderContext } from 'astro/loaders';
+import { glob } from 'astro/loaders';
 
-// Define the schema for a skill
-const skillSchema = z.object({
-    id: z.string().optional(),
-    skillId: z.string().optional(),
-    name: z.string(),
-    repoPath: z.string(),
-    repo: z.string().optional(),
-    owner: z.string(),
-    description: z.string().or(z.record(z.string())).optional(),
-    stars: z.number().default(0),
-    forks: z.number().default(0),
-    language: z.string().optional(),
-    topics: z.array(z.string()).default([]),
-    updatedAt: z.string().optional(),
-    avatarUrl: z.string().optional(),
-    homepage: z.string().optional().nullable(),
-    license: z.string().optional().nullable(),
-    // Add other fields as needed based on UnifiedSkill
-}).passthrough(); // Allow extra fields for now
-
-// Custom loader to read the local JSON file
-const skillsLoader = {
-    name: "skills-json-loader",
-    load: async ({ store, logger, parseData }: LoaderContext) => {
-        logger.info("Loading skills from data/skills-cache.json");
-
-        try {
-            const filePath = path.resolve('./data/skills-cache.json');
-            const fileContent = await fs.readFile(filePath, 'utf-8');
-            console.log(`[DEBUG] skills-cache.json start: ${fileContent.substring(0, 100)}...`);
-
-            let data;
-            if (fileContent.startsWith('version https://git-lfs.github.com/spec/v1')) {
-                throw new Error('Detected Git LFS pointer file instead of actual JSON. Please run "git lfs pull" manually to download the real file.');
-            } else {
-                data = JSON.parse(fileContent);
-            }
-            let skillsStart = [];
-
-            if (Array.isArray(data)) {
-                skillsStart = data;
-            } else if (data && Array.isArray(data.skills)) {
-                skillsStart = data.skills;
-            } else if (data && data.version) {
-                // It's likely the cached object with version
-                if (Array.isArray(data.skills)) {
-                    skillsStart = data.skills;
-                } else {
-                    console.warn('[WARN] Found version but no skills array:', data);
-                }
-            } else {
-                throw new Error(`Invalid skills cache format. Expected array or object with 'skills' array. Found type: ${typeof data}`);
-            }
-
-            logger.info(`Found ${skillsStart.length} skills`);
-
-            for (const skill of skillsStart) {
-                try {
-                    // Determine ID (owner/repo)
-                    const id = skill.skillId || `${skill.owner}/${skill.repo}`;
-
-                    // ⚡ AGGRESSIVELY strip to listing-only fields (~500 bytes vs ~30KB)
-                    // Detail pages use D1 getSkillById() for full data
-                    const listingSkill: Record<string, any> = {
-                        name: skill.name || skill.skillName || skill.repo,
-                        skillName: skill.skillName || skill.name || '',
-                        owner: skill.owner,
-                        repo: skill.repo,
-                        repoPath: skill.repoPath,
-                        description: skill.description,
-                        category: skill.category || '',
-                        topics: skill.topics || [],
-                        stars: skill.stars || 0,
-                        forks: skill.forks || 0,
-                        source: skill.source || 'cache',
-                        updatedAt: skill.updatedAt || '',
-                        qualityScore: skill.qualityScore || 0,
-                        filePath: skill.filePath || '',
-                    };
-
-                    // Only keep SEO definition for localized card descriptions
-                    if (skill.seo?.definition) {
-                        listingSkill.seo = { definition: skill.seo.definition };
-                    }
-
-                    store.set({
-                        id,
-                        data: listingSkill,
-                        rendered: { html: "" }
-                    });
-                } catch (err) {
-                    console.error(`[ERROR] Failed to process skill: ${JSON.stringify(skill).substring(0, 100)}...`, err);
-                }
-            }
-        } catch (error) {
-            logger.error(`Error loading skills: ${(error as any).message}`);
-            if ((error as any).name === 'ZodError') {
-                console.error('Zod Validation Errors:', JSON.stringify((error as any).issues, null, 2));
-            }
-        }
-    }
-};
-
-const skills = defineCollection({
-    loader: skillsLoader,
-    schema: skillSchema
-});
+// NOTE: The 'skills' content collection has been REMOVED.
+// Loading 84MB of skills-cache.json via Astro Content Layer caused the
+// Cloudflare Worker bundle to exceed the 3MiB free-tier size limit.
+// All skill data is now loaded at runtime from D1/KV via src/lib/skills.ts.
 
 const blog = defineCollection({
     // Standard content collection (files in src/content/blog)
@@ -152,7 +46,6 @@ const collectionsCol = defineCollection({
 });
 
 export const collections = {
-    skills,
     blog,
     collections: collectionsCol
 };

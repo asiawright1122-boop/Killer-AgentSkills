@@ -40,7 +40,6 @@
     "@astrojs/cloudflare": "^12.6.12",
     "@astrojs/react": "^4.4.2",
     "@nanostores/react": "^1.0.0",
-    "@resvg/resvg-wasm": "^2.6.2",
     "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
@@ -57,8 +56,6 @@
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.1",
-    "satori": "^0.25.0",
-    "satori-html": "^0.3.2",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
