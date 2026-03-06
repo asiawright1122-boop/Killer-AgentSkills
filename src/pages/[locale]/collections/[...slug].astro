@@ -154,5 +154,33 @@ const itemListSchema = {
 
             </div>
         </main>
+
+        <!-- Floating Install Banner (sticky bottom) -->
+        {featuredSkills.length > 0 && (
+            <div class="sticky bottom-0 z-40 border-t-4 border-[var(--border)] bg-[var(--background)] shadow-[0_-4px_0px_0px_var(--border)]">
+                <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 text-sm font-bold text-[var(--foreground)]">
+                        <span class="hidden sm:inline px-2 py-1 text-[10px] font-black uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)]">
+                            CLI
+                        </span>
+                        <span class="font-mono text-[var(--muted-foreground)] hidden md:inline">
+                            {t('Collections.installHint')}
+                        </span>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <div class="flex-1 sm:flex-initial flex items-center gap-2 px-4 py-2.5 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-black border-2 border-[var(--foreground)] shadow-[3px_3px_0px_0px_var(--border)]">
+                            <span class="text-[var(--primary)] bg-[var(--background)] px-1">▶</span>
+                            <span class="truncate">npx killer-skills install</span>
+                        </div>
+                        <a
+                            href={`/${locale}/cli`}
+                            class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-wider border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                        >
+                            {t('Collections.installAll')} →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        )}
     </div>
 </Layout>

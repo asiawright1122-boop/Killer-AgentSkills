@@ -226,5 +226,31 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
                 }
             });
         </script>
+
+        <!-- Global: SkillCard Install Copy Handler -->
+        <script is:inline>
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.install-copy-btn');
+                if (!btn) return;
+                e.preventDefault();
+                e.stopPropagation();
+                const cmd = btn.getAttribute('data-command');
+                if (!cmd) return;
+                navigator.clipboard.writeText(cmd).then(function() {
+                    const iconEl = btn.querySelector('.install-icon');
+                    const okEl = btn.querySelector('.install-ok');
+                    if (iconEl) iconEl.classList.add('hidden');
+                    if (okEl) okEl.classList.remove('hidden');
+                    btn.style.background = 'var(--primary)';
+                    btn.style.color = 'var(--primary-foreground)';
+                    setTimeout(function() {
+                        if (iconEl) iconEl.classList.remove('hidden');
+                        if (okEl) okEl.classList.add('hidden');
+                        btn.style.background = '';
+                        btn.style.color = '';
+                    }, 2000);
+                });
+            });
+        </script>
 	</body>
 </html>

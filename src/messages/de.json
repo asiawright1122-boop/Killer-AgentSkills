@@ -538,6 +538,10 @@
     "backToCollections": "Sammlungen",
     "collection": "Sammlung",
     "noSkills": "Derzeit keine aktiven Skills für diese Sammlung gefunden.",
-    "noCollections": "Noch keine Sammlungen verfügbar."
+    "noCollections": "Noch keine Sammlungen verfügbar.",
+    "installAll": "Alle per CLI installieren",
+    "installHint": "Installieren Sie alle Skills aus dieser Sammlung mit einem Befehl",
+    "copy": "Kopieren",
+    "copied": "Kopiert"
   }
 }
