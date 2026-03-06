@@ -3,11 +3,15 @@
 /// <reference types="@cloudflare/workers-types" />
 
 type KVNamespace = import("@cloudflare/workers-types").KVNamespace;
+type VectorizeIndex = import("@cloudflare/workers-types").VectorizeIndex;
+type Ai = import("@cloudflare/workers-types").Ai;
+
 type ENV = {
     TRANSLATIONS: KVNamespace;
     SKILLS_CACHE: KVNamespace;
     DB: D1Database;
-    AI: any;
+    AI: Ai;
+    VECTORIZE: VectorizeIndex;
     WORKFLOWS_SERVICE: Fetcher;
     ASSETS: Fetcher;
     ADMIN_USER?: string;
