@@ -340,12 +340,8 @@ Output ONLY the summary, no intro/outro.`;
             processedText = text.slice(0, 3000);
         }
 
-        // Split locales into batches of 3-4 to avoid output token timeout
-        const localeBatches: string[][] = [];
-        const BATCH_SIZE = 3;
-        for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
-            localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
-        }
+        // Include bodyPreview snippet for skill-specific extraction (up to 2000 chars)
+        const bodySnippet = bodyPreview ? bodyPreview.slice(0, 2000).replace(/"/g, '\\"').replace(/\n/g, ' ') : '';
 
         // Merged result accumulators
         const mergedDesc: Record<string, string> = {};
@@ -356,6 +352,97 @@ Output ONLY the summary, no intro/outro.`;
         const mergedKeywords: Record<string, string[]> = {};
 
         let successCount = 0;
+
+        // ═══════════════════════════════════════════════════════════════
+        // STEP 0: Generate English SEO content FIRST (dedicated prompt)
+        // SUPPORTED_LOCALES does NOT include "en", so batch translation
+        // never generates English content. This step fills the gap.
+        // ═══════════════════════════════════════════════════════════════
+        const enPrompt = `You are a Senior Technical SEO Specialist & Developer Advocate.
+Analyze this AI Agent Skill and generate ENGLISH SEO content for a developer audience.
+
+## Skill Information
+- **Skill Name**: "${skillName}"
+- **Description**: "${processedText.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
+- **Tags**: ${topics}
+${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : ''}
+
+## CRITICAL RULES
+1. ALL content must be SPECIFIC to "${skillName}". Reference actual technical details from the content above.
+2. Do NOT use generic phrases like "enhances productivity" or "powerful tool". Instead, cite specific technologies, commands, file formats, or protocols found in the content.
+3. SEO Title MUST include a value-add phrase (e.g., "Setup Guide", "Best Practices", "for AI Agents") — NEVER just the raw skill name.
+4. Meta Description MUST be different from the main Description.
+5. Features MUST be extracted from the actual SKILL.md content — list real capabilities, not generic benefits.
+6. Keywords MUST include a mix of search intents.
+
+## Generate these fields (English only):
+
+### A. SEO Title (50-60 chars)
+Format: "[Skill Name]: [Value Proposition] | AI Agent Skill"
+Example: "PostgreSQL Skill: Optimized SQL Query Generation | AI Agent"
+
+### B. Meta Description (150-160 chars)
+SERP-optimized click bait. Must differ from Description. Include a call-to-action or unique angle.
+
+### C. Main Description (1-2 sentences, 50-80 words)
+Technical summary explaining WHAT the skill does and WHO benefits.
+
+### D. Definition (40-60 words)
+Encyclopedic "what is it" format for Google Featured Snippet. Start with "${skillName} is..."
+
+### E. Key Features (4-6 items)
+Extract REAL capabilities from the SKILL.md content. Each feature should reference a specific technology, command, or behavior.
+BAD: "Easy to use", "Improves workflow"
+GOOD: "Generates deterministic SVG flow fields using p5.js", "Supports hot-reload via Vite dev server"
+
+### F. Keywords (6-10 items)
+Long-tail search terms mixing 3 intent types:
+- Informational: "how to use ${skillName}", "what is ${skillName}"
+- Navigational: "${skillName} alternative", "${skillName} vs [competitor]"
+- Transactional: "${skillName} install", "${skillName} setup guide"
+
+Output STRICT JSON only, no markdown wrapping:
+{
+  "seoTitle": { "en": "..." },
+  "metaDescription": { "en": "..." },
+  "description": { "en": "..." },
+  "definition": { "en": "..." },
+  "features": { "en": ["...", "...", "...", "..."] },
+  "keywords": { "en": ["...", "...", "...", "...", "...", "..."] }
+}`;
+
+        try {
+            const enResponse = await this.callAI(enPrompt, true);
+            if (enResponse) {
+                const enCandidates = extractJSONCandidates(enResponse);
+                for (const item of enCandidates) {
+                    const parsed = robustParseJSON(item);
+                    if (parsed && typeof parsed === 'object') {
+                        // Extract English values
+                        if (parsed.seoTitle?.en) mergedSeoTitle.en = parsed.seoTitle.en;
+                        if (parsed.metaDescription?.en) mergedMetaDesc.en = parsed.metaDescription.en;
+                        if (parsed.description?.en) mergedDesc.en = parsed.description.en;
+                        if (parsed.definition?.en) mergedDefinition.en = parsed.definition.en;
+                        if (Array.isArray(parsed.features?.en) && parsed.features.en.length > 0) mergedFeatures.en = parsed.features.en;
+                        if (Array.isArray(parsed.keywords?.en) && parsed.keywords.en.length > 0) mergedKeywords.en = parsed.keywords.en;
+                        successCount++;
+                        process.stdout.write('E'); // E = English SEO generated
+                        break;
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn(`⚠️ English SEO generation failed for ${skillName}:`, e);
+        }
+
+        // ═══════════════════════════════════════════════════════════════
+        // STEP 1: Batch translate to non-English locales (existing logic)
+        // ═══════════════════════════════════════════════════════════════
+        const localeBatches: string[][] = [];
+        const BATCH_SIZE = 3;
+        for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
+            localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
+        }
 
         // Run ALL batches in PARALLEL — each batch races all providers
         const batchResults = await Promise.allSettled(localeBatches.map(async (batch) => {
@@ -370,21 +457,22 @@ Analyze this AI Agent Skill and generate SEO content for a developer audience.
 - **Skill Name**: "${skillName}"
 - **Description & Content**: "${processedText.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 - **Tags**: ${topics}
+${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : ''}
 
 ## Generate for locales: ${localeStr}
 
-CRITICAL SEO RULE for Title & Description:
-For non-English locales, you MUST seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., if Japanese, use "AIエージェント"; if Russian, use "ИИ Агенты"). Keep technical terms (React, Python, Node.js, CLI, Agent) in English.
+CRITICAL RULES:
+1. ALL content must be SPECIFIC to "${skillName}". Extract real technical details from the content above.
+2. For SEO Title, NEVER output just the raw skill name. Add a value-add phrase like "Setup Guide", "Best Practices", etc.
+3. For non-English locales, seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., Japanese: "AIエージェント", Russian: "ИИ Агенты"). Keep technical terms (React, Python, CLI) in English.
+4. Features MUST reference specific technologies or capabilities from the skill content, not generic benefits.
 
-### A. SEO Title (50-60 chars) — unique, clickable with main keyword
+### A. SEO Title (50-60 chars) — unique, clickable, includes skill function
 ### B. Meta Description (150-160 chars) — different from main description, for SERP CTR
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
 ### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
-### E. Key Features (4-6 items) — technical highlights from content
-### F. Keywords (6-10 items) — long-tail dev search terms that users actually search for. Include a mix of:
-  - Informational: "how to use [tool]", "what is [concept]"
-  - Navigational: "[tool name] alternative", "[tool] vs [competitor]"
-  - Transactional: "[tool] install", "[tool] setup guide"
+### E. Key Features (4-6 items) — real technical highlights extracted from content
+### F. Keywords (6-10 items) — long-tail dev search terms including informational, navigational, and transactional queries
 
 Output STRICT JSON only, no markdown wrapping:
 {
@@ -444,7 +532,7 @@ Output STRICT JSON only, no markdown wrapping:
             return defaultResult;
         }
 
-        // Ensure en fallback
+        // Ensure en fallback (only if English step also failed)
         if (!mergedDesc.en) mergedDesc.en = text;
         if (!mergedSeoTitle.en) mergedSeoTitle.en = skillName || 'AI Skill';
 
@@ -533,7 +621,7 @@ Your Response (for "${skillName}"):
                             recommendation: parsed.recommendation || "",
                             useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
                             limitations: Array.isArray(parsed.limitations) ? parsed.limitations : [],
-                            version: 3 // v3: quality audit fixes (features, keywords, array translations)
+                            version: 4 // v4: dedicated English SEO generation + skill-specific prompts
                         };
                     }
                 }
