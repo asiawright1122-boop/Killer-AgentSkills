@@ -130,6 +130,17 @@ Return ONLY valid JSON matching this exact structure:
                 throw new Error("Missing required SEO fields from AI generation");
             }
 
+            // Strict schema validation: all locale fields must be objects, not flat strings
+            for (const field of ['title', 'description', 'seoTitle', 'seoDescription'] as const) {
+                const val = (seoData as any)[field];
+                if (val && typeof val !== 'object') {
+                    throw new Error(`Schema violation: '${field}' must be a locale object {en:..., zh:...}, got ${typeof val}`);
+                }
+            }
+            if (seoData.keywords && !('en' in seoData.keywords)) {
+                throw new Error(`Schema violation: 'keywords' must be {en:[...], zh:[...]}, got ${JSON.stringify(seoData.keywords).slice(0, 80)}`);
+            }
+
             const finalCollectionPayload = {
                 ...seoData,
                 featured: false,
