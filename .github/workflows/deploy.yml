@@ -36,6 +36,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # Cloudflare Pages requires the 'pages deploy' command. 
-          # We explicitly pass the config flag so it reads the Vectorize/AI bindings from the new .jsonc file
-          command: pages deploy dist --project-name=killer-skills --branch=main --commit-dirty=true --config=wrangler.jsonc
+          command: pages deploy dist --project-name=killer-skills --branch=main --commit-dirty=true
