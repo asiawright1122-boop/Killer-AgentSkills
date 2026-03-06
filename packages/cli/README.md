@@ -16,7 +16,7 @@
 - 🔐 **Seamless GitHub Auth** - Reuses `gh` CLI token or supports one-click Device Flow login.
 - 🔍 **Smart Search** - **[NEW]** Website-First search with interactive selection & auto-open docs.
 - 🔄 **One-Click Sync** - `kiro sync --all` syncs skills to all installed IDEs.
-- 🧩 **MCP Server** - Built-in MCP Server supporting Agent self-evolution.
+- 🔌 **Auto-Inject MCP** - **[NEW]** Automatically parses and wires up `mcpCommand` parameters from MCP servers into `claude_desktop_config.json`.
 
 ### Supported IDEs
 
@@ -107,7 +107,7 @@ kiro sync --all
 
 | Command | Description | Example |
 |---------|-------------|---------|
-| `install` | Install Skill | `kiro install pdf` |
+| `install`/`add` | Install Skill | `npx killer-skills add pdf` |
 | `login` | **[NEW]** GitHub Login | `kiro login` |
 | `sync` | Sync Config | `kiro sync --all` |
 | `list` | List Installed | `kiro list` |

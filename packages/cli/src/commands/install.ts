@@ -27,6 +27,7 @@ import { loadConfig } from './config.js';
 import { trackInstall } from './stats.js';
 
 export const installCommand = new Command('install')
+    .alias('add')
     .argument('<source>', 'Skill source: name, owner/repo, or local path')
     .description('Install a skill from registry, GitHub, or local path')
     .option('-i, --ide <ide>', `Target IDE (${SUPPORTED_IDES.join(', ')})`)

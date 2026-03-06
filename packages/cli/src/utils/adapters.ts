@@ -43,8 +43,9 @@ export async function injectSkill(
             await injectKiro(skillName, skillDir, targetDir);
             break;
 
-        // === Native SKILL.md IDEs — just confirm placement + log ===
         case 'claude':
+            await injectClaudeDesktop(skillName, skillDir, targetDir);
+            break;
         case 'antigravity':
         case 'aider':
         case 'codex':
@@ -92,6 +93,66 @@ async function injectNativeSkillMd(
 
     if (fs.existsSync(skillFile)) {
         console.log(chalk.green(`  › ${config?.name || ide}: SKILL.md installed to ${path.relative(process.cwd(), targetDir)}`));
+    }
+}
+
+/**
+ * Claude Desktop Adapter
+ * Handles both standard prompt skills (SKILL.md) and MCP Server injection.
+ */
+async function injectClaudeDesktop(skillName: string, skillDir: string, targetDir: string) {
+    const config = IDE_CONFIG['claude'];
+    const sourceSkill = path.join(skillDir, 'SKILL.md');
+
+    // First, install the SKILL.md (if any) to the target dir so we preserve prompt usage
+    const skillFile = path.join(targetDir, 'SKILL.md');
+    if (!fs.existsSync(skillFile) && fs.existsSync(sourceSkill)) {
+        await fs.ensureDir(targetDir);
+        await fs.copy(sourceSkill, skillFile);
+    }
+
+    if (fs.existsSync(skillFile)) {
+        console.log(chalk.green(`  › ${config?.name || 'Claude'}: SKILL.md installed to ${path.relative(process.cwd(), targetDir)}`));
+
+        // Now, parse frontmatter to see if this is an MCP server needing JSON injection
+        const content = await fs.readFile(skillFile, 'utf-8');
+        const fmMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+
+        if (fmMatch) {
+            const frontmatter = fmMatch[1];
+
+            // Look for mcpCommand: "npx" or similar
+            const mcpCmdMatch = frontmatter.match(/mcpCommand:\s*(.+)/);
+            if (mcpCmdMatch) {
+                let mcpCommand = mcpCmdMatch[1].trim().replace(/^["']|["']$/g, '');
+
+                // Look for mcpArgs: ["-y", "@modelcontextprotocol/server-postgres", "..."]
+                let argsArray: string[] = [];
+                const mcpArgsMatch = frontmatter.match(/mcpArgs:\s*(\[.*?\])/);
+                if (mcpArgsMatch) {
+                    try {
+                        // Very basic JSON parse for the array string
+                        // We replace single quotes with double quotes internally for safety if YAML used single quotes
+                        const arrayRaw = mcpArgsMatch[1].replace(/'/g, '"');
+                        argsArray = JSON.parse(arrayRaw);
+                    } catch (e) {
+                        console.warn(chalk.yellow(`  › Claude: Failed to parse mcpArgs, using command string only.`));
+                    }
+                } else {
+                    // Fallback to splitting command by space if no explicit args provided, e.g. "npx -y @smithery/cli"
+                    const parts = mcpCommand.split(' ');
+                    if (parts.length > 1) {
+                        mcpCommand = parts[0];
+                        argsArray = parts.slice(1);
+                    }
+                }
+
+                // Call addToClaudeConfig to perform the actual JSON injection
+                const { addToClaudeConfig } = await import('../config/claude.js');
+                await addToClaudeConfig(skillName, mcpCommand, argsArray);
+                console.log(chalk.green(`  › Claude Desktop: Successfully injected MCP Server configuration.`));
+            }
+        }
     }
 }
 

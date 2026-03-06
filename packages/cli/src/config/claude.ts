@@ -15,7 +15,7 @@ interface MCPConfig {
     mcpServers: Record<string, { command: string; args: string[] }>;
 }
 
-export async function addToClaudeConfig(skillName: string, command: string): Promise<void> {
+export async function addToClaudeConfig(skillName: string, command: string, args: string[] = []): Promise<void> {
     let config: MCPConfig = { mcpServers: {} };
 
     if (await fs.pathExists(CLAUDE_CONFIG_PATH)) {
@@ -27,7 +27,7 @@ export async function addToClaudeConfig(skillName: string, command: string): Pro
         config.mcpServers = {};
     }
 
-    config.mcpServers[skillName] = { command, args: [] };
+    config.mcpServers[skillName] = { command, args };
 
     await fs.ensureDir(path.dirname(CLAUDE_CONFIG_PATH));
     await fs.writeFile(CLAUDE_CONFIG_PATH, JSON.stringify(config, null, 2));
