@@ -1,4 +1,5 @@
-import { robustParseJSON } from './scripts/lib/utils.js';
-const result = "```json\n{ \"title\": \"a\" }\n```";
-console.log("Output:");
-console.dir(robustParseJSON(result));
+import fs from 'fs';
+const data = JSON.parse(fs.readFileSync('data/skills-cache.json', 'utf-8'));
+const anthropic = data.skills.filter((s: any) => s.owner === 'anthropics');
+console.log('Anthropic skills count:', anthropic.length);
+console.log(anthropic.map((s: any) => `${s.owner}/${s.repo}/${s.skillName || s.name}`).join('\n'));

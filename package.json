@@ -31,7 +31,9 @@
     "submit:dirs:list": "npx tsx scripts/auto-submitter/src/index.ts --list",
     "submit:auth": "npx tsx scripts/auto-submitter/src/auth-setup.ts",
     "submit:discover": "npx tsx scripts/auto-submitter/src/discover.ts",
-    "submit:manual": "npx tsx scripts/auto-submitter/src/semi-auto.ts"
+    "submit:manual": "npx tsx scripts/auto-submitter/src/semi-auto.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -58,6 +60,7 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/better-sqlite3": "^7.6.13",
     "fast-check": "^4.5.3",
