@@ -5,9 +5,10 @@ interface Props {
   owner: string;
   count: number;
   locale?: string;
+  priority?: boolean;
 }
 
-const { owner, count, locale = 'en' } = Astro.props;
+const { owner, count, locale = 'en', priority = false } = Astro.props;
 
 // Get vendor config if available
 const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
@@ -34,8 +35,9 @@ const link = `/${locale}/skills?view=official&owner=${owner}`;
         width="64"
         height="64"
         class="w-full h-full object-cover grayscale contrast-125"
-        loading="lazy"
-        decoding="async"
+        loading={priority ? "eager" : "lazy"}
+        decoding={priority ? "sync" : "async"}
+        fetchpriority={priority ? "high" : "auto"}
         onerror="this.style.display='none'"
       />
     </div>
