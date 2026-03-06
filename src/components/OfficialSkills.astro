@@ -48,8 +48,8 @@ const sortedOwners = await getOfficialSkillCounts(env, officialRepoOwners, 6);
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
     {sortedOwners.length > 0 ? (
-      sortedOwners.map(({owner, count}) => (
-        <CollectionCard owner={owner} count={count} locale={locale} />
+      sortedOwners.map(({owner, count}, index) => (
+        <CollectionCard owner={owner} count={count} locale={locale} priority={index < 3} />
       ))
     ) : (
       <div class="col-span-full text-center py-12 text-slate-500">
