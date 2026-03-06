@@ -54,7 +54,7 @@ async function start() {
     // 4. Filter topics that have enough depth for a "Top X" list (at least 8 unique skills)
     const validCategories = Object.keys(groups).filter(k => {
         const uniqueRepos = new Set(groups[k].map(s => `${s.owner}/${s.repo}`));
-        return uniqueRepos.size >= 8;
+        return uniqueRepos.size >= 5;
     });
     console.log(`[Collections Generator] Found ${validCategories.length} rich topics for SEO Collections.`);
 
@@ -62,7 +62,7 @@ async function start() {
     const aiService = new AIService();
 
     // Process up to 15 collections in one run
-    const runLimit = 15;
+    const runLimit = 30;
     let count = 0;
 
     for (const category of validCategories) {

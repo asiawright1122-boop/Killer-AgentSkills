@@ -1,0 +1,31 @@
+{
+  "title": "SEO Meta Tags Generator",
+  "description": "Generate SEO meta tags for your website.",
+  "keywords": [
+    "SEO",
+    "meta tags",
+    "website optimization",
+    "search engine optimization"
+  ],
+  "author": "Killer-Skills AI",
+  "robots": "index, follow",
+  "og:title": "SEO Meta Tags Generator",
+  "og:description": "Generate SEO meta tags for your website.",
+  "og:image": "https://example.com/image.jpg",
+  "og:url": "https://example.com",
+  "twitter:card": "summary_large_image",
+  "twitter:title": "SEO Meta Tags Generator",
+  "twitter:description": "Generate SEO meta tags for your website.",
+  "twitter:image": "https://example.com/image.jpg",
+  "featured": false,
+  "category": "mcp-server",
+  "skills": [
+    "n8n-io/n8n",
+    "tadata-org/fastapi_mcp",
+    "inkeep/agents",
+    "ssdeanx/AgentStack",
+    "stacklok/toolhive-studio",
+    "getsentry/sentry-mcp",
+    "ruvnet/ruflo"
+  ]
+}

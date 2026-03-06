@@ -1,0 +1,44 @@
+{
+  "title": {
+    "en": "Top 5 Prompt Engineering Tools for AI Agents & MCP Servers",
+    "zh": "AI 代理和 MCP 服务器的五大顶级提示工程工具"
+  },
+  "description": {
+    "en": "A professionally curated collection of the most powerful prompt-engineering tools, MCP servers, and SDKs for developers building advanced AI agents. This directory features rigorously tested tools like e2e and backend-zod that streamline the development, testing, and deployment of sophisticated AI capabilities.",
+    "zh": "这是一个专业精选的集合，收录了为构建高级 AI 代理的开发人员提供的最强大的提示工程工具、MCP 服务器和 SDK。本目录收录了经过严格测试的工具，如 e2e 和 backend-zod，可简化复杂 AI 功能的开发、测试和部署。"
+  },
+  "seoTitle": {
+    "en": "Best Prompt Engineering AI Tools & MCP Servers | Killer-Skills",
+    "zh": "最佳提示工程 AI 工具和 MCP 服务器 | Killer-Skills"
+  },
+  "seoDescription": {
+    "en": "Discover the top 5 prompt-engineering tools & MCP servers for AI agents. Boost your AI development with our expert-curated directory of essential SDKs and utilities.",
+    "zh": "探索适用于 AI 代理的五大顶级提示工程工具和 MCP 服务器。通过我们专家精选的基本 SDK 和实用程序目录，提升您的 AI 开发能力。"
+  },
+  "keywords": {
+    "en": [
+      "Best prompt-engineering AI tools",
+      "Top MCP servers for prompt-engineering",
+      "AI agent development tools",
+      "Prompt engineering SDK",
+      "AI development utilities"
+    ],
+    "zh": [
+      "最佳提示工程 AI 工具",
+      "顶级提示工程 MCP 服务器",
+      "AI 代理开发工具",
+      "提示工程 SDK",
+      "AI 开发实用程序"
+    ]
+  },
+  "featured": false,
+  "category": "prompt-engineering",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "langwatch/langwatch",
+    "petbrains/mvp-builder",
+    "shinpr/agentic-code",
+    "comet-ml/opik",
+    "f/prompts.chat"
+  ]
+}

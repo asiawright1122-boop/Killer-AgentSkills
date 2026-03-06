@@ -14,6 +14,7 @@ import BookOpen from 'lucide-react/dist/esm/icons/book-open';
 import FileText from 'lucide-react/dist/esm/icons/file-text';
 import Terminal from 'lucide-react/dist/esm/icons/terminal';
 import Users from 'lucide-react/dist/esm/icons/users';
+import Layers from 'lucide-react/dist/esm/icons/layers';
 
 interface HeaderActionsProps {
     locale: string;
@@ -26,6 +27,7 @@ interface HeaderActionsProps {
         blog: string;
         cli: string;
         community: string;
+        collections: string;
         language: string;
         theme: string;
         favorites: string;
@@ -110,6 +112,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     const navItems = [
         { href: `/${locale}`, label: labels.home, icon: Home },
         { href: `/${locale}/skills`, label: labels.skills, icon: Compass },
+        { href: `/${locale}/collections`, label: labels.collections || 'Collections', icon: Layers },
         { href: `/${locale}/categories`, label: labels.categories, icon: Grid3X3 },
         { href: `/${locale}/blog`, label: labels.blog, icon: BookOpen },
         { href: `/${locale}/docs`, label: labels.docs, icon: FileText },
