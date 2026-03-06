@@ -8,7 +8,7 @@ import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '.
 import { getCollection } from 'astro:content';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
-import { getAllSkills, type UnifiedSkill } from '../../../lib/skills';
+import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -23,10 +23,10 @@ const typedLocale = locale as Locale;
 // Get env from Cloudflare runtime
 const env = (Astro.locals as any).runtime?.env as Env;
 
-// ⚡ PARALLEL: Load skills + translations concurrently
+// ⚡ PARALLEL: Load lightweight skills + translations concurrently
 const t0 = performance.now();
 const [skillsFetched, messages] = await Promise.all([
-  getAllSkills(env),
+  getLightweightSkills(env),
   loadMessages(typedLocale),
 ]);
 
