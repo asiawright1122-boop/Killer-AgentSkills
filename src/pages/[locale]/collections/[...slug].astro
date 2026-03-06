@@ -75,7 +75,7 @@ const ogImageParams = new URLSearchParams({
   date: new Date().toLocaleDateString(locale),
   readingTime: (cData.skills.length * 2).toString(),
 });
-const ogImage = new URL(`/api/og.png?${ogImageParams.toString()}`, Astro.url).toString();
+const ogImage = new URL(`/og-image.png`, Astro.url).toString();
 
 // ItemList Schema
 const itemListSchema = {
