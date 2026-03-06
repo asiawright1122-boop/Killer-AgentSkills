@@ -4,7 +4,7 @@
  */
 
 import type { Env } from './kv';
-import { getSkillsFromKV, getSkillsKV } from './kv';
+import { getSkillsFromKV, getSkillsKV, getSkillsListing } from './kv';
 
 export interface UnifiedSkill {
   id: string;
@@ -119,6 +119,81 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
 
   _cachedSkills = skills;
   _cacheTs = Date.now();
+
+  // 4. Save to Cache API
+  if (cache) {
+    try {
+      const response = new Response(JSON.stringify(skills), {
+        headers: {
+          'Cache-Control': 's-maxage=3600', // Cache for 1 hour at edge
+          'Content-Type': 'application/json'
+        }
+      });
+      // waitUntil is handled by Astro natively if executing within CF handler context
+      await cache.put(cacheKey, response);
+    } catch (e) {
+      console.warn('[Cache API] Put Error:', e);
+    }
+  }
+
+  return skills;
+}
+
+// Module-level cache for getLightweightSkills within a single Worker request
+let _cachedLightSkills: UnifiedSkill[] | null = null;
+let _cacheLightTs = 0;
+
+/**
+ * Load lightweight skills from KV for listing pages.
+ * Only loads essential fields (name, description, topics, etc.) instead of full markdown payloads,
+ * reducing payload size from ~63MB to ~1MB and preventing Cloudflare Error 1102 (CPU time limit).
+ */
+export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
+  // 1. Module-level super fast cache (same isolate)
+  if (_cachedLightSkills && Date.now() - _cacheLightTs < CACHE_TTL) {
+    return _cachedLightSkills;
+  }
+
+  // 2. Try global Cloudflare Cache API (cross-isolate caching)
+  let cache;
+  const cacheKey = new Request("https://killer-skills-internal/api/get-light-skills", { method: "GET" });
+  try {
+    if (typeof caches !== 'undefined' && (caches as any).default) {
+      cache = (caches as any).default;
+      const cachedResponse = await cache.match(cacheKey);
+      if (cachedResponse) {
+        const skills = await cachedResponse.json() as UnifiedSkill[];
+        _cachedLightSkills = skills;
+        _cacheLightTs = Date.now();
+        return skills;
+      }
+    }
+  } catch (e) {
+    console.warn('[Cache API] Miss or Error:', e);
+  }
+
+  console.time('getLightweightSkills DB Fetch');
+  // 3. Fallback: D1 listing query (fast path, extracts only card fields)
+  const raw = await getSkillsListing(env);
+  let skills = raw as UnifiedSkill[];
+
+  // Augment skills with explicit categories from OFFICIAL_REPOS config
+  skills = skills.map(skill => {
+    // Find matching official repo config
+    const officialConfig = Object.values(OFFICIAL_REPOS).find(
+      c => c.owner === skill.owner && c.repo === skill.repo
+    );
+
+    if (officialConfig?.category) {
+      return { ...skill, category: officialConfig.category };
+    }
+    return skill;
+  });
+
+  console.timeEnd('getLightweightSkills DB Fetch');
+
+  _cachedLightSkills = skills;
+  _cacheLightTs = Date.now();
 
   // 4. Save to Cache API
   if (cache) {
