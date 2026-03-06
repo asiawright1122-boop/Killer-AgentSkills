@@ -5,6 +5,7 @@ import OfficialSkills from '../../components/OfficialSkills.astro';
 import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/skills';
+import { getCollection } from 'astro:content';
 import type { Env } from '../../lib/kv';
 
 export const prerender = false;
@@ -27,6 +28,12 @@ const featuredSkills = await getFeaturedSkillsDirect(env, 6);
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+
+// Load collections for Featured Collections section
+const allCollections = await getCollection('collections');
+const homeCollections = allCollections
+  .sort((a, b) => b.data.skills.length - a.data.skills.length)
+  .slice(0, 6);
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
@@ -219,6 +226,60 @@ const features = [
               </p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Collections Section -->
+    <section class="py-16 md:py-24 border-t-[3px] border-[var(--border)] bg-[var(--background)]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-end justify-between mb-10 border-b-4 border-[var(--border)] pb-6">
+          <div>
+            <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] mb-4 inline-block">
+              {t('Collections.editorPicks')}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase">
+              {t('Collections.collectionsTitle')}
+            </h2>
+          </div>
+          <a
+            href={`/${locale}/collections`}
+            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-black text-xs uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+          >
+            {t('Collections.viewAllCollections')} →
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {homeCollections.map((col: any) => {
+            const colTitle = typeof col.data.title === 'object' 
+              ? (col.data.title[typedLocale] || col.data.title['en'] || 'Collection') 
+              : col.data.title;
+            const cleanSlug = col.id.replace(/\.json$/, '');
+            return (
+              <a
+                href={`/${locale}/collections/${cleanSlug}`}
+                class="brut-card group p-5 flex items-center gap-4 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+              >
+                <div class="w-10 h-10 shrink-0 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center group-hover:bg-[var(--background)] group-hover:text-[var(--foreground)] transition-colors shadow-[2px_2px_0px_0px_var(--border)]">
+                  <span class="font-black text-sm">{col.data.skills.length}</span>
+                </div>
+                <div class="min-w-0">
+                  <h3 class="font-black text-sm uppercase tracking-wide truncate">{colTitle}</h3>
+                  <p class="text-xs font-mono font-bold opacity-60 mt-0.5">{col.data.skills.length} {t('Collections.items')}</p>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        <div class="mt-8 text-center md:hidden">
+          <a
+            href={`/${locale}/collections`}
+            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black text-sm uppercase tracking-widest border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+          >
+            {t('Collections.viewAllCollections')} →
+          </a>
         </div>
       </div>
     </section>

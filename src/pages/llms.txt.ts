@@ -33,6 +33,21 @@ Killer-Skills is a curated, searchable directory of 2000+ AI Agent Skills and MC
 - [Community](https://killer-skills.com/en/community/)
 - [Integrations](https://killer-skills.com/en/integrations/)
 
+## Curated Collections
+
+Killer-Skills offers 30+ curated collections of top AI Agent skills grouped by topic:
+
+- [All Collections](https://killer-skills.com/en/collections/)
+- [Top AI Agents Skills](https://killer-skills.com/en/collections/top-ai-agents-mcp-servers/)
+- [Top Developer Tools](https://killer-skills.com/en/collections/top-developer-tools-mcp-servers/)
+- [Top MCP Servers](https://killer-skills.com/en/collections/top-mcp-mcp-servers/)
+- [Top Automation Tools](https://killer-skills.com/en/collections/top-automation-mcp-servers/)
+- [Top Python Tools](https://killer-skills.com/en/collections/top-python-mcp-servers/)
+- [Top React Tools](https://killer-skills.com/en/collections/top-react-mcp-servers/)
+- [Top TypeScript Tools](https://killer-skills.com/en/collections/top-typescript-mcp-servers/)
+- [Top DevOps Tools](https://killer-skills.com/en/collections/top-devops-mcp-servers/)
+- [Top Prompt Engineering Tools](https://killer-skills.com/en/collections/top-prompt-engineering-mcp-servers/)
+
 ## Categories
 
 - Development: Code generation, refactoring, debugging skills
