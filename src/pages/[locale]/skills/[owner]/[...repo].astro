@@ -61,6 +61,11 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
+// Load collections that contain this skill
+const allCollections = await getCollection('collections');
+const skillKey = `${owner}/${repo}`;
+const relatedCollections = allCollections.filter(col => col.data.skills.includes(skillKey));
+
 let skill = skillResult || await getSkillByOwnerRepo(env, owner, repo);
 
 if (!skill) {
@@ -800,6 +805,40 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
       </section>
     )}
   </div>
+
+    {/* Related Collections Section */}
+    {relatedCollections.length > 0 && (
+      <section class="py-12 border-t-[3px] border-[var(--border)] bg-[var(--background)]">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight">
+              {t('Collections.relatedCollections')}
+            </h2>
+            <a href={`/${locale}/collections`} class="text-xs font-black text-[var(--muted-foreground)] hover:text-[var(--primary)] uppercase tracking-widest transition-colors">
+              {t('Collections.viewAllCollections')} →
+            </a>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            {relatedCollections.map((col) => {
+              const colTitle = typeof col.data.title === 'object'
+                ? (col.data.title[typedLocale] || col.data.title['en'] || 'Collection')
+                : col.data.title;
+              const cleanSlug = col.id.replace(/\.json$/, '');
+              return (
+                <a
+                  href={`/${locale}/collections/${cleanSlug}`}
+                  class="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--card)] border-2 border-[var(--border)] font-black text-xs uppercase tracking-wider text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                >
+                  <span class="text-[var(--primary)] text-[10px]">■</span>
+                  {colTitle}
+                  <span class="opacity-50">[{col.data.skills.length}]</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    )}
 
   <script is:inline>
     document.getElementById('install-copy-btn')?.addEventListener('click', function() {
