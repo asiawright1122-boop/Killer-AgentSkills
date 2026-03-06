@@ -136,7 +136,23 @@ const blog = defineCollection({
     }),
 });
 
+const collectionsCol = defineCollection({
+    loader: glob({ pattern: '**/[^_]*.json', base: "./src/content/collections" }),
+    schema: z.object({
+        title: z.record(z.string()),
+        description: z.record(z.string()),
+        seoTitle: z.record(z.string()).optional(),
+        seoDescription: z.record(z.string()).optional(),
+        keywords: z.record(z.array(z.string())).optional(),
+        skills: z.array(z.string()),
+        author: z.string().default('Killer-Skills Team'),
+        featured: z.boolean().default(false),
+        category: z.string().optional(),
+    }),
+});
+
 export const collections = {
     skills,
-    blog
+    blog,
+    collections: collectionsCol
 };
