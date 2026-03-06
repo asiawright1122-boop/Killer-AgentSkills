@@ -1300,9 +1300,9 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
 
 // Helper to check if a skill is fully optimized (SEO + Translations) to skip expensive AI calls
 function isSkillFullyOptimized(skill: SkillCache): boolean {
-    // 0. Check Prompt Version (v3 = Feb 2026 quality audit fixes)
-    // If agentAnalysis is missing version or version < 3, it needs re-generation with improved prompts.
-    if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 3) {
+    // 0. Check Prompt Version (v4 = Mar 2026, dedicated English SEO + skill-specific prompts)
+    // If agentAnalysis is missing version or version < 4, it needs re-generation with improved prompts.
+    if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 4) {
         return false;
     }
 

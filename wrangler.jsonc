@@ -11,18 +11,18 @@
   "kv_namespaces": [
     {
       "binding": "TRANSLATIONS",
-      "id": "db9a790f497b40afa9720993d7ea2fe4"
+      "id": "d5ab5c6705774d779d9b1342eda5f9ac"
     },
     {
       "binding": "SKILLS_CACHE",
-      "id": "eb71984285c54c3488c17a32391b9fe5"
+      "id": "6130f39a06e14319b0ee4becb0d09842"
     }
   ],
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "killer-skills-db",
-      "database_id": "b20fd9ef-6628-4a78-abd0-59aac064b5d6"
+      "database_id": "4b51522f-2413-4df2-b7d3-ac1cb1f3ef32"
     }
   ],
   "services": [
