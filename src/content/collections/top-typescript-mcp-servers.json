@@ -1,0 +1,51 @@
+{
+  "title": {
+    "en": "Top 12 TypeScript Tools for AI Agents & MCP Servers",
+    "zh": "适用于 AI 代理和 MCP 服务器的 12 大 TypeScript 工具"
+  },
+  "description": {
+    "en": "A professionally curated collection of the top TypeScript MCP Servers and AI agent tools. This directory is essential for developers building robust, type-safe AI applications, featuring tools for documentation, testing, analytics, and workflow automation.",
+    "zh": "专业精选的顶级 TypeScript MCP 服务器和 AI 代理工具集合。本目录对于构建健壮、类型安全的 AI 应用程序的开发人员至关重要，提供文档、测试、分析和工作流自动化等工具。"
+  },
+  "seoTitle": {
+    "en": "Best TypeScript AI Tools & MCP Servers | Killer-Skills",
+    "zh": "最佳 TypeScript AI 工具和 MCP 服务器 | Killer-Skills"
+  },
+  "seoDescription": {
+    "en": "Discover the top TypeScript MCP Servers & AI agent tools for developers. Boost productivity with curated skills for docs, testing & analytics.",
+    "zh": "探索为开发人员提供的顶级 TypeScript MCP 服务器和 AI 代理工具。通过精选的文档、测试和分析技能提高生产力。"
+  },
+  "keywords": {
+    "en": [
+      "TypeScript MCP Servers",
+      "Best TypeScript AI tools",
+      "AI Agent Skills",
+      "TypeScript developer tools",
+      "MCP Server directory"
+    ],
+    "zh": [
+      "TypeScript MCP 服务器",
+      "最佳 TypeScript AI 工具",
+      "AI 代理技能",
+      "TypeScript 开发工具",
+      "MCP 服务器目录"
+    ]
+  },
+  "featured": false,
+  "category": "typescript",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "n8n-io/n8n",
+    "stripe/ai",
+    "inkeep/agents",
+    "CellixJs/cellixjs",
+    "ItsMattG/property-tracker",
+    "Takashi-Matsumura/lion-frame",
+    "mindfold-ai/Trellis",
+    "stacklok/toolhive-studio",
+    "SynkraAI/aios-core",
+    "automagik-dev/omni",
+    "SocketDev/socket-sdk-js",
+    "f/prompts.chat"
+  ]
+}

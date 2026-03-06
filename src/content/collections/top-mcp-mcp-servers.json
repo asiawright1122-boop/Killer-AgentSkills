@@ -1,0 +1,57 @@
+{
+  "title": {
+    "en": "Top 12 MCP Servers for AI Development",
+    "zh": "适用于AI开发的12款顶级MCP服务器"
+  },
+  "description": {
+    "en": "A professionally curated collection of the most powerful Model Context Protocol (MCP) servers that enhance AI agent capabilities. These tools enable seamless integration with external data sources, APIs, and development environments, making them essential for building sophisticated AI applications.",
+    "zh": "精心挑选的功能最强大的模型上下文协议（MCP）服务器集合，可增强AI代理能力。这些工具可实现与外部数据源、API和开发环境的无缝集成，对于构建复杂的AI应用程序至关重要。"
+  },
+  "seoTitle": {
+    "en": "Best MCP Servers & AI Tools 2024 | Killer-Skills",
+    "zh": "2024年最佳MCP服务器和AI工具 | Killer-Skills"
+  },
+  "seoDescription": {
+    "en": "Discover the top 12 MCP servers for AI development. Enhance your AI agents with tools for API design, code review, documentation, and more.",
+    "zh": "探索适用于AI开发的12款顶级MCP服务器。通过API设计、代码审查、文档等工具增强您的AI代理能力。"
+  },
+  "keywords": {
+    "en": [
+      "MCP servers",
+      "AI tools",
+      "Model Context Protocol",
+      "AI development",
+      "Claude extensions",
+      "API integration",
+      "AI agents",
+      "developer tools"
+    ],
+    "zh": [
+      "MCP服务器",
+      "AI工具",
+      "模型上下文协议",
+      "AI开发",
+      "Claude扩展",
+      "API集成",
+      "AI代理",
+      "开发工具"
+    ]
+  },
+  "featured": false,
+  "category": "mcp",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "ComposioHQ/awesome-claude-skills",
+    "affaan-m/everything-claude-code",
+    "langgenius/dify",
+    "n8n-io/n8n",
+    "stripe/ai",
+    "tadata-org/fastapi_mcp",
+    "inkeep/agents",
+    "lobehub/lobehub",
+    "dallay/agentsync",
+    "ssdeanx/AgentStack",
+    "stacklok/toolhive-studio",
+    "tatargabor/wt-tools"
+  ]
+}
