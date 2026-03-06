@@ -166,7 +166,9 @@ const schema = {
   "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "USD"
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock",
+    "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
   }
 };
 
@@ -393,6 +395,8 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                           <span>{skill.name || repo}</span>
                           {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
                           {tagline && <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">— {tagline}</span>}
+                          {/* Hidden actual keywords for deeper matching if not inside tagline */}
+                          <span class="sr-only">{seoKeywords}</span>
                       </h1>
                       <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
                           {isVerified && (
