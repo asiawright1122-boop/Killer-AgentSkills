@@ -38,26 +38,31 @@ async function start() {
 
     console.log(`[Collections Generator] Loaded ${skills.length} skills from cache.`);
 
-    // 3. Group by valid Category
+    // 3. Group by TOPICS (fine-grained) instead of coarse `category`
+    const EXCLUDED_TOPICS = new Set(['claude-code', 'claude', 'anthropic', 'ai', 'llm', 'tag-production', 'skills', 'agent-skills', 'agent']);
     const groups: Record<string, UnifiedSkill[]> = {};
     for (const skill of skills) {
-        if (!skill.category) continue;
-        const cat = skill.category.toLowerCase().trim();
-        if (!groups[cat]) groups[cat] = [];
-        groups[cat].push(skill);
+        if (!skill.topics || skill.topics.length === 0) continue;
+        for (const topic of skill.topics) {
+            const t = topic.toLowerCase().trim();
+            if (EXCLUDED_TOPICS.has(t)) continue;
+            if (!groups[t]) groups[t] = [];
+            groups[t].push(skill);
+        }
     }
 
-    // 4. Filter categories that have enough meat for a "Top X" list (e.g., at least 6)
-    const validCategories = Object.keys(groups).filter(k => groups[k].length >= 6);
-    console.log(`[Collections Generator] Found ${validCategories.length} rich categories for SEO Collections.`);
+    // 4. Filter topics that have enough depth for a "Top X" list (at least 8 unique skills)
+    const validCategories = Object.keys(groups).filter(k => {
+        const uniqueRepos = new Set(groups[k].map(s => `${s.owner}/${s.repo}`));
+        return uniqueRepos.size >= 8;
+    });
+    console.log(`[Collections Generator] Found ${validCategories.length} rich topics for SEO Collections.`);
 
     // 5. Initialize AI Service
-    // Force siliconflow to avoid timeout issues since we just need text generation
     const aiService = new AIService();
 
-    // We only process up to 3 at a time to not burn tokens while testing
-    // You can adjust this loop or run it fully later.
-    const runLimit = 3;
+    // Process up to 15 collections in one run
+    const runLimit = 15;
     let count = 0;
 
     for (const category of validCategories) {

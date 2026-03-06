@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Top X",
+    "zh": "..."
+  },
+  "description": {
+    "en": "...",
+    "zh": "..."
+  },
+  "keywords": {
+    "en": [
+      "keyword1",
+      "keyword2"
+    ],
+    "zh": [
+      "关键词1",
+      "关键词2"
+    ]
+  },
+  "featured": false,
+  "category": "openai",
+  "author": "Killer-Skills AI",
+  "skills": [
+    "langgenius/dify",
+    "Soju06/codex-lb",
+    "lobehub/lobehub",
+    "dkapellusch/AO",
+    "langwatch/langwatch",
+    "Kbediako/codex-termux-pocket",
+    "ssdeanx/AgentStack",
+    "mag123c/toktrack",
+    "mrmps/SMRY",
+    "comet-ml/opik",
+    "f/prompts.chat",
+    "minorcell/memo-code"
+  ]
+}
