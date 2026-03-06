@@ -218,7 +218,7 @@
     "verified": "Подтверждено",
     "explore": "Explore",
     "viewAll": "Показать все",
-    "collections": "Collections"
+    "collections": "Подборки"
   },
   "OfficialSkills": {
     "title": "Официальные навыки",
@@ -528,5 +528,16 @@
       "announcements": "Объявления",
       "announcements-desc": "Последние новости и обновления платформы."
     }
+  },
+  "Collections": {
+    "editorPicks": "Выбор редакции",
+    "subtitle": "Подборки лучших навыков AI-агентов, серверов и скриптов для различных отраслей и рабочих процессов.",
+    "items": "Элементов",
+    "view": "Смотреть",
+    "featured": "Рекомендуемое",
+    "backToCollections": "Подборки",
+    "collection": "Подборка",
+    "noSkills": "В настоящее время для этой подборки не найдено активных навыков.",
+    "noCollections": "Подборки пока не доступны."
   }
 }

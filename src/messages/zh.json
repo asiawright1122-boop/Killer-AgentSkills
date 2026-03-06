@@ -528,5 +528,16 @@
       "announcements": "公告",
       "announcements-desc": "最新新闻与平台更新。"
     }
+  },
+  "Collections": {
+    "editorPicks": "编辑精选",
+    "subtitle": "精心策划的顶级 AI Agent 技能、服务器和脚本合集，专为特定行业和工作流量身定制。",
+    "items": "项",
+    "view": "查看",
+    "featured": "推荐",
+    "backToCollections": "精选合集",
+    "collection": "合集",
+    "noSkills": "当前该合集中没有找到可用的技能。",
+    "noCollections": "暂无可用合集。"
   }
 }

@@ -218,7 +218,7 @@
     "verified": "認証済み",
     "explore": "Explore",
     "viewAll": "すべて表示",
-    "collections": "Collections"
+    "collections": "コレクション"
   },
   "OfficialSkills": {
     "title": "公式スキル",
@@ -528,5 +528,16 @@
       "announcements": "お知らせ",
       "announcements-desc": "最新ニュースとプラットフォームの更新。"
     }
+  },
+  "Collections": {
+    "editorPicks": "編集者のおすすめ",
+    "subtitle": "特定の業界やワークフロー向けに厳選されたトップパフォーマンスのAIエージェントスキル、サーバー、スクリプトのキュレーションリスト。",
+    "items": "件",
+    "view": "閲覧",
+    "featured": "おすすめ",
+    "backToCollections": "コレクション",
+    "collection": "コレクション",
+    "noSkills": "この集合には現在、アクティブなスキルが見つかりません。",
+    "noCollections": "まだコレクションはありません。"
   }
 }

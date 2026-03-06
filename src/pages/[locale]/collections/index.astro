@@ -44,15 +44,15 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                          <div class="flex items-center gap-3 mb-6">
                             <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
                                  <LayoutGrid size={14} />
-                                 {t('Common.collections') || 'Collections'}
+                                 {t('Common.collections')}
                             </span>
                          </div>
                          <h1 class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words">
-                             Editor's Picks
+                             {t('Collections.editorPicks')}
                          </h1>
                     </div>
                     <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold max-w-lg mb-2">
-                         Curated lists of top-performing AI Agent skills, servers, and scripts tailored for specific industries and workflows.
+                         {t('Collections.subtitle')}
                     </p>
                 </div>
 
@@ -75,7 +75,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                                     </div>
                                     {col.data.featured && (
                                         <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-                                            [ FEATURED ]
+                                            [ {t('Collections.featured')} ]
                                         </span>
                                     )}
                                 </div>
@@ -92,10 +92,10 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                                 {/* Footer */}
                                 <div class="relative z-1 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 pointer-events-none font-mono">
                                     <div class="text-xs font-bold text-[var(--foreground)] uppercase tracking-wider">
-                                        [{col.data.skills.length} Items]
+                                        [{col.data.skills.length} {t('Collections.items')}]
                                     </div>
                                     <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">
-                                        View <ArrowRight size={16} strokeWidth={3} />
+                                        {t('Collections.view')} <ArrowRight size={16} strokeWidth={3} />
                                     </div>
                                 </div>
                             </article>
@@ -104,7 +104,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                     
                     {collectionsCol.length === 0 && (
                         <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
-                            No collections available yet.
+                            {t('Collections.noCollections')}
                         </div>
                     )}
                 </div>

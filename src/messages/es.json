@@ -218,7 +218,7 @@
     "verified": "Verificado",
     "explore": "Explore",
     "viewAll": "Ver todo",
-    "collections": "Collections"
+    "collections": "Colecciones"
   },
   "OfficialSkills": {
     "title": "Habilidades Oficiales",
@@ -528,5 +528,16 @@
       "announcements": "Anuncios",
       "announcements-desc": "Últimas noticias y actualizaciones de la plataforma."
     }
+  },
+  "Collections": {
+    "editorPicks": "Selección del Editor",
+    "subtitle": "Listas curadas de las mejores habilidades, servidores y scripts de AI Agent para industrias y flujos de trabajo específicos.",
+    "items": "Elementos",
+    "view": "Ver",
+    "featured": "Destacado",
+    "backToCollections": "Colecciones",
+    "collection": "Colección",
+    "noSkills": "No se encontraron habilidades activas para esta colección actualmente.",
+    "noCollections": "Aún no hay colecciones disponibles."
   }
 }
