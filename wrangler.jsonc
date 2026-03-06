@@ -1,38 +1,47 @@
 {
-  "name": "killer-skills",
-  "compatibility_date": "2024-09-23",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
-  "pages_build_output_dir": "dist",
-  "observability": {
-    "enabled": true
-  },
-  "kv_namespaces": [
-    {
-      "binding": "TRANSLATIONS",
-      "id": "d5ab5c6705774d779d9b1342eda5f9ac"
-    },
-    {
-      "binding": "SKILLS_CACHE",
-      "id": "6130f39a06e14319b0ee4becb0d09842"
-    }
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "killer-skills-db",
-      "database_id": "4b51522f-2413-4df2-b7d3-ac1cb1f3ef32"
-    }
-  ],
-  "services": [
-    {
-      "binding": "WORKFLOWS_SERVICE",
-      "service": "killer-skills-workflows"
-    }
-  ],
-  "vars": {
-    "PUBLIC_OG_SERVER_URL": "http://localhost:3000",
-    "ADMIN_USER": "admin_placeholder"
-  }
+	"name": "killer-skills",
+	"compatibility_date": "2024-09-23",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"pages_build_output_dir": "dist",
+	"observability": {
+		"enabled": true
+	},
+	"kv_namespaces": [
+		{
+			"binding": "TRANSLATIONS",
+			"id": "d5ab5c6705774d779d9b1342eda5f9ac"
+		},
+		{
+			"binding": "SKILLS_CACHE",
+			"id": "6130f39a06e14319b0ee4becb0d09842"
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "killer-skills-db",
+			"database_id": "4b51522f-2413-4df2-b7d3-ac1cb1f3ef32"
+		}
+	],
+	"services": [
+		{
+			"binding": "WORKFLOWS_SERVICE",
+			"service": "killer-skills-workflows"
+		}
+	],
+	"vars": {
+		"PUBLIC_OG_SERVER_URL": "http://localhost:3000",
+		"ADMIN_USER": "admin_placeholder"
+	},
+	"vectorize": [
+		{
+			"binding": "VECTORIZE",
+			"index_name": "killer-skills-search"
+		}
+	],
+	"ai": {
+		"binding": "AI"
+	}
 }
