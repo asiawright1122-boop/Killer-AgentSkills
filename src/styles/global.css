@@ -158,6 +158,12 @@
 }
 
 
+/* Content Visibility: skip rendering for off-screen sections (improves INP/render) */
+.cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+}
+
 /* UI Pro Max: Accessibility / Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
 

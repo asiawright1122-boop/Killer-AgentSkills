@@ -34,8 +34,11 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
           <img 
               src={post.data.heroImage} 
               alt={post.data.title} 
+              width="640"
+              height="360"
               class="h-full w-full object-cover transition-all duration-500 opacity-90 group-hover:opacity-100 group-hover:scale-105" 
               loading="lazy"
+              decoding="async"
           />
       ) : (
             <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-4xl tracking-tighter mix-blend-overlay">IMG</div>
