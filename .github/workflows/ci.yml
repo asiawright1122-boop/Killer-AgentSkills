@@ -41,7 +41,6 @@ jobs:
 
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check
-        continue-on-error: true
 
       - name: Run Unit Tests
         run: npm test
