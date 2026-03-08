@@ -84,6 +84,8 @@ const pages = getPageNumbers();
         return (
           <a
             href={getUrlForPage(p as number)}
+            aria-label={`Page ${p}`}
+            aria-current={isCurrent ? 'page' : undefined}
             class:list={[
               "w-10 h-10 flex items-center justify-center border-2 font-black font-mono transition-all",
               isCurrent 
@@ -121,15 +123,19 @@ const pages = getPageNumbers();
   <!-- Jump to Page -->
   <div class="flex items-center gap-3">
     <div class="relative group">
+      <label for="jump-page" class="sr-only">{t('Common.page') || 'Page number'}</label>
       <input
+        id="jump-page"
         type="number"
         min="1"
         max={totalPages}
         placeholder="页码"
+        aria-label={t('Common.page') || 'Page number'}
         class="jump-page-input w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
       />
     </div>
     <button
+      aria-label={t('Common.goToPage') || 'Go to page'}
       class="jump-page-button bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] px-4 py-2 font-black uppercase tracking-widest text-sm hover:bg-[var(--primary)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
     >
       GO

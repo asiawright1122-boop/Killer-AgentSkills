@@ -190,9 +190,10 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		<slot name="head" />
 	</head>
 	<body class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]">
+		<a href="#main-content" class="skip-nav">Skip to content</a>
 		<Header locale={locale} t={t} />
 
-		<div class="flex-1 relative">
+		<div id="main-content" class="flex-1 relative" role="main">
             <!-- Global Astro Navigation Loader -->
             <div id="route-progress" class="fixed top-0 left-0 w-full h-[3px] bg-cyan-500 z-[9999] origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
 			<slot />
