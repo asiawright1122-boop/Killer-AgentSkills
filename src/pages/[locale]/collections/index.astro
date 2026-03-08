@@ -42,7 +42,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                 <div class="mb-16 border-b-4 border-[var(--border)] pb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div>
                          <div class="flex items-center gap-3 mb-6">
-                            <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
+                            <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
                                  <LayoutGrid size={14} />
                                  {t('Common.collections')}
                             </span>
@@ -91,7 +91,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
                                 
                                 {/* Footer */}
                                 <div class="relative z-1 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 pointer-events-none font-mono">
-                                    <div class="text-xs font-bold text-[var(--foreground)] uppercase tracking-wider">
+                                    <div class="text-xs font-bold text-[var(--foreground)]">
                                         [{col.data.skills.length} {t('Collections.items')}]
                                     </div>
                                     <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">

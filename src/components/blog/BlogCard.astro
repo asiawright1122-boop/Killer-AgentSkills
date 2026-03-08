@@ -45,12 +45,12 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
       {(post.data.category || (post.data.tags && post.data.tags.length > 0)) && (
           <div class="absolute top-4 left-4 flex gap-2 z-10">
               {post.data.category && (
-                  <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
+                  <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
                       {displayCategory}
                   </span>
               )}
               {!post.data.category && post.data.tags && post.data.tags.length > 0 && (
-                  <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--background)] shadow-[2px_2px_0px_0px_var(--background)]">
+                  <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold border-2 border-[var(--background)] shadow-[2px_2px_0px_0px_var(--background)]">
                       {post.data.tags[0]}
                   </span>
               )}
@@ -78,14 +78,14 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
               <div class="w-6 h-6 flex items-center justify-center text-[10px] bg-[var(--foreground)] text-[var(--background)] font-black border-2 border-[var(--foreground)]">
                   {post.data.author.charAt(0).toUpperCase()}
               </div>
-              <span class="text-xs font-bold text-[var(--foreground)] uppercase tracking-wider">
+              <span class="text-xs font-bold text-[var(--foreground)]">
                   {post.data.author}
               </span>
           </div>
 
           {/* Footer Meta */}
           <div class="flex items-center justify-between border-t-[3px] border-[var(--border)] pt-4">
-               <div class="flex items-center gap-4 text-xs font-mono font-bold text-[var(--muted-foreground)] uppercase">
+               <div class="flex items-center gap-4 text-xs font-mono font-bold text-[var(--muted-foreground)]">
                   <div class="flex items-center gap-1.5">
                       <Calendar size={14} strokeWidth={2.5} />
                       <time datetime={post.data.pubDate.toISOString()}>

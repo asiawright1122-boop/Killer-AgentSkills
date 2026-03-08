@@ -201,7 +201,7 @@ const isActive = (href: string) => {
     
     {/* Mobile Toggle (Visible only on small screens) */}
     <div class="md:hidden bg-[var(--card)] border-b-4 border-[var(--foreground)] p-4 sticky top-0 z-20 flex items-center justify-between shadow-[0px_4px_0px_0px_var(--foreground)] mb-6">
-      <span class="font-black uppercase tracking-widest flex items-center gap-2">
+      <span class="font-black flex items-center gap-2">
         <Book className="w-5 h-5" strokeWidth={3} /> Documentation
       </span>
       <button id="mobile-menu-btn" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
@@ -236,7 +236,7 @@ const isActive = (href: string) => {
                     <a
                       href={item.href}
                       class:list={[
-                        "block px-3 py-2 text-sm font-bold uppercase tracking-wider transition-all border-l-4",
+                        "block px-3 py-2 text-sm font-bold transition-all border-l-4",
                         active
                           ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--foreground)] hover:translate-x-[2px] shadow-[2px_2px_0px_0px_var(--foreground)]" // Active Style
                           : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] hover:bg-[var(--muted)] hover:translate-x-1" // Inactive Style

@@ -149,25 +149,25 @@ const features = [
         <div class="grid grid-cols-2 md:grid-cols-4 md:gap-px bg-[var(--border)] border-x-[3px] border-[var(--border)] md:border-none">
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]">
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">2,500+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
               [ {t('Stats.totalSkills')} ]
             </div>
           </div>
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] md:border-none border-[var(--border)]">
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">50k+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
               [ {t('Stats.totalDownloads')} ]
             </div>
           </div>
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-r-[3px] md:border-none border-[var(--border)]">
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">120+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
               [ {t('Stats.activeCreators')} ]
             </div>
           </div>
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center">
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">15+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-black uppercase tracking-widest font-mono">
+            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
               [ {t('Stats.supportedIDEs')} ]
             </div>
           </div>
@@ -182,7 +182,7 @@ const features = [
           <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">{t('Home.trendingTitle')}</h2>
           <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
         </div>
-        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-black uppercase tracking-wider hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
+        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
           {t('Home.viewAll')}
           <span class="font-mono ml-2">→</span>
         </a>
@@ -235,7 +235,7 @@ const features = [
       <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10 border-b-4 border-[var(--border)] pb-6">
           <div>
-            <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] mb-4 inline-block">
+            <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] mb-4 inline-block">
               {t('Collections.editorPicks')}
             </span>
             <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase">
@@ -244,7 +244,7 @@ const features = [
           </div>
           <a
             href={`/${locale}/collections`}
-            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-black text-xs uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
           >
             {t('Collections.viewAllCollections')} →
           </a>
@@ -276,7 +276,7 @@ const features = [
         <div class="mt-8 text-center md:hidden">
           <a
             href={`/${locale}/collections`}
-            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black text-sm uppercase tracking-widest border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-bold text-sm border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
           >
             {t('Collections.viewAllCollections')} →
           </a>
@@ -292,13 +292,13 @@ const features = [
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a
             href={`/${locale}/skills`}
-            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-black text-lg uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all"
+            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-bold text-lg border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all"
           >
             {t('Home.cta.browse')}
           </a>
           <a
             href={`/${locale}/docs`}
-            class="px-8 py-4 bg-transparent text-[var(--foreground)] font-black text-lg uppercase tracking-widest border-2 border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
+            class="px-8 py-4 bg-transparent text-[var(--foreground)] font-bold text-lg border-2 border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
           >
             {t('Home.cta.docs')}
           </a>

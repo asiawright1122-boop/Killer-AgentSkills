@@ -112,7 +112,7 @@ const itemListSchema = {
             <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Back Link */}
-                <a href={`/${locale}/collections`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-black text-xs uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
+                <a href={`/${locale}/collections`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
                     <ArrowLeft size={16} strokeWidth={3} />
                     {t('Collections.backToCollections')}
                 </a>
@@ -120,12 +120,12 @@ const itemListSchema = {
                 {/* Hero Section */}
                 <div class="mb-16 border-b-4 border-[var(--border)] pb-12">
                      <div class="flex items-center gap-3 mb-6">
-                        <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
+                        <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
                              <LayoutGrid size={14} />
                              {t('Collections.collection')}
                         </span>
                         {cData.category && (
-                             <span class="px-3 py-1 font-mono text-xs font-bold uppercase tracking-widest bg-[var(--background)] text-[var(--muted-foreground)] border-2 border-[var(--border)]">
+                             <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--background)] text-[var(--muted-foreground)] border-2 border-[var(--border)]">
                                 {cData.category}
                              </span>
                         )}
@@ -174,7 +174,7 @@ const itemListSchema = {
                         </div>
                         <a
                             href={`/${locale}/cli`}
-                            class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-wider border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                            class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
                         >
                             {t('Collections.installAll')} →
                         </a>
