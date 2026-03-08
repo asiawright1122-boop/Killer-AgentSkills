@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: false  # skills-cache.json (107MB LFS) not needed for build — all data from D1/KV at runtime
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
