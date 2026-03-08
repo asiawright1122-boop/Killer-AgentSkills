@@ -9,7 +9,7 @@ const { locale, t, compact = false } = Astro.props;
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class={`border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 ${compact ? 'py-8' : 'pt-16 pb-8'} ${compact ? 'mt-0' : ''}`}>
+<footer class={`border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50 ${compact ? 'py-8' : 'pt-16 pb-8'} ${compact ? 'mt-0' : ''} safe-area-px safe-area-pb`}>
     <div class="max-w-7xl mx-auto px-6">
         {!compact && (
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">

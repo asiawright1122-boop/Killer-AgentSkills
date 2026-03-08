@@ -185,6 +185,15 @@
     outline-offset: 2px;
 }
 
+/* Mobile: Safe-area inset padding for notched devices (iPhone X+) */
+.safe-area-px {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+}
+.safe-area-pb {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
 /* Content Visibility: skip rendering for off-screen sections (improves INP/render) */
 .cv-auto {
     content-visibility: auto;

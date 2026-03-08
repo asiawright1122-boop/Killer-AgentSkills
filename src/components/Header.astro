@@ -10,7 +10,7 @@ interface Props {
 const { locale, t } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)] transition-all">
+<header class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)] transition-all safe-area-px">
     <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         
         <!-- Logo -->
@@ -54,7 +54,9 @@ const { locale, t } = Astro.props;
                 switchLanguage: t('Aria.switchLanguage'),
                 toggleTheme: t('Aria.toggleTheme'),
                 toggleMenu: t('Aria.toggleMenu'),
-                favoritesAria: t('Navigation.favorites')
+                favoritesAria: t('Navigation.favorites'),
+                darkMode: t('Common.darkMode'),
+                lightMode: t('Common.lightMode')
             }}
         />
 
