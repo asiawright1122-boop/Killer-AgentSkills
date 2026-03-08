@@ -56,49 +56,52 @@ const env = Astro.locals.runtime?.env as Env;
 const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 
 // ⚡ PARALLEL: fetch skill data + translations + related skills concurrently
-const [skillResult, messages] = await Promise.all([
-  getSkillById(env, fullId),
-  loadMessages(typedLocale),
-]);
+const [skillResult, messages] = await Promise.all([getSkillById(env, fullId), loadMessages(typedLocale)]);
 
 // Load collections that contain this skill
 const allCollections = await getCollection('collections');
 const skillKey = `${owner}/${repo}`;
-const relatedCollections = allCollections.filter(col => col.data.skills.includes(skillKey));
+const relatedCollections = allCollections.filter((col) => col.data.skills.includes(skillKey));
 
-let skill = skillResult || await getSkillByOwnerRepo(env, owner, repo);
+let skill = skillResult || (await getSkillByOwnerRepo(env, owner, repo));
 
 if (!skill) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 // Determine verified status (mirrors SkillCard.astro logic)
-const officialConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
-const isVerified = (skill as any).verified ?? (officialConfig?.verified ?? false);
+const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
+const isVerified = (skill as any).verified ?? officialConfig?.verified ?? false;
 
 const t = useTranslations(messages);
 
 // Extract localized agentAnalysis fields (supports both old string and new Record<locale, string> format)
 const localizedSuitability: string | undefined = skill.agentAnalysis?.suitability
-    ? (typeof skill.agentAnalysis.suitability === 'object'
-        ? ((skill.agentAnalysis.suitability as Record<string, string>)[typedLocale] || (skill.agentAnalysis.suitability as Record<string, string>)['en'])
-        : skill.agentAnalysis.suitability as string)
-    : undefined;
+  ? typeof skill.agentAnalysis.suitability === 'object'
+    ? (skill.agentAnalysis.suitability as Record<string, string>)[typedLocale] ||
+      (skill.agentAnalysis.suitability as Record<string, string>)['en']
+    : (skill.agentAnalysis.suitability as string)
+  : undefined;
 const localizedRecommendation: string | undefined = skill.agentAnalysis?.recommendation
-    ? (typeof skill.agentAnalysis.recommendation === 'object'
-        ? ((skill.agentAnalysis.recommendation as Record<string, string>)[typedLocale] || (skill.agentAnalysis.recommendation as Record<string, string>)['en'])
-        : skill.agentAnalysis.recommendation as string)
-    : undefined;
+  ? typeof skill.agentAnalysis.recommendation === 'object'
+    ? (skill.agentAnalysis.recommendation as Record<string, string>)[typedLocale] ||
+      (skill.agentAnalysis.recommendation as Record<string, string>)['en']
+    : (skill.agentAnalysis.recommendation as string)
+  : undefined;
 const localizedUseCases: string[] = skill.agentAnalysis?.useCases
-    ? (Array.isArray(skill.agentAnalysis.useCases)
-        ? skill.agentAnalysis.useCases as string[]
-        : ((skill.agentAnalysis.useCases as Record<string, string[]>)[typedLocale] || (skill.agentAnalysis.useCases as Record<string, string[]>)['en'] || []))
-    : [];
+  ? Array.isArray(skill.agentAnalysis.useCases)
+    ? (skill.agentAnalysis.useCases as string[])
+    : (skill.agentAnalysis.useCases as Record<string, string[]>)[typedLocale] ||
+      (skill.agentAnalysis.useCases as Record<string, string[]>)['en'] ||
+      []
+  : [];
 const localizedLimitations: string[] = skill.agentAnalysis?.limitations
-    ? (Array.isArray(skill.agentAnalysis.limitations)
-        ? skill.agentAnalysis.limitations as string[]
-        : ((skill.agentAnalysis.limitations as Record<string, string[]>)[typedLocale] || (skill.agentAnalysis.limitations as Record<string, string[]>)['en'] || []))
-    : [];
+  ? Array.isArray(skill.agentAnalysis.limitations)
+    ? (skill.agentAnalysis.limitations as string[])
+    : (skill.agentAnalysis.limitations as Record<string, string[]>)[typedLocale] ||
+      (skill.agentAnalysis.limitations as Record<string, string[]>)['en'] ||
+      []
+  : [];
 
 // Get localized description
 const rawDescription = getLocalizedDescription(skill.description, typedLocale);
@@ -107,7 +110,7 @@ const baseDescription = skill.seo?.definition?.[typedLocale] || rawDescription;
 // Prepend the Agent Analysis "Suitability" hook if available for better CTR
 let description = baseDescription;
 if (localizedSuitability) {
-    description = `${localizedSuitability} ${baseDescription}`;
+  description = `${localizedSuitability} ${baseDescription}`;
 }
 
 // Get key features
@@ -118,12 +121,11 @@ const keywordsList = skill.seo?.keywords?.[typedLocale] || skill.seo?.keywords?.
 // Limit to top 10 to avoid keyword stuffing
 const seoKeywords = keywordsList.slice(0, 10).join(', ');
 
-
 // Construct SEO Title
 // Prefer AI-generated locale-specific SEO title for maximum CTR
 // Fallback: "Name: keyword | SiteName" (clean, under 60 chars)
-const category = skill.category ? (t(`Categories.${skill.category}`) || skill.category) : '';
-const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill'; 
+const category = skill.category ? t(`Categories.${skill.category}`) || skill.category : '';
+const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill';
 const seoTitle = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const pageTitle = seoTitle || `${skill.name || repo}: ${tagline} - Open Source AI Agent Skill & MCP Server`;
 
@@ -131,67 +133,66 @@ const pageTitle = seoTitle || `${skill.name || repo}: ${tagline} - Open Source A
 const seoDescription = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
 const metaDescription = seoDescription || description;
 
-
 // Structured Data (JSON-LD) — SoftwareApplication
 const schema = {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": skill.name || repo,
-  "operatingSystem": "Any",
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: skill.name || repo,
+  operatingSystem: 'Any',
 
-  "applicationCategory": "DeveloperApplication",
-  "keywords": `AI Agent, MCP Server, Claude, Skill, Developer Tools, ${category}`,
+  applicationCategory: 'DeveloperApplication',
+  keywords: `AI Agent, MCP Server, Claude, Skill, Developer Tools, ${category}`,
   // Inject "AI Agent Skill:" prefix for better CTR context
-  "description": `AI Agent Skill: ${description && typeof description === 'string' ? description : ''}`,
-  "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
+  description: `AI Agent Skill: ${description && typeof description === 'string' ? description : ''}`,
+  url: `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
   // Inject AggregateRating based on QualityScore and Stars
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": Math.min(5, Math.max(1, ((skill.qualityScore || 80) / 20))).toFixed(1), // Convert 0-100 to 0-5
-    "ratingCount": Math.max(1, skill.stars || 1),
-    "bestRating": "5",
-    "worstRating": "1"
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: Math.min(5, Math.max(1, (skill.qualityScore || 80) / 20)).toFixed(1), // Convert 0-100 to 0-5
+    ratingCount: Math.max(1, skill.stars || 1),
+    bestRating: '5',
+    worstRating: '1',
   },
-  "author": {
-    "@type": "Organization",
-    "name": owner,
-    "url": `https://github.com/${owner}`
+  author: {
+    '@type': 'Organization',
+    name: owner,
+    url: `https://github.com/${owner}`,
   },
-  "dateModified": skill.updatedAt || new Date().toISOString(),
-  "datePublished": skill.lastSynced || skill.updatedAt || new Date().toISOString(),
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock",
-    "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
-  }
+  dateModified: skill.updatedAt || new Date().toISOString(),
+  datePublished: skill.lastSynced || skill.updatedAt || new Date().toISOString(),
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+    url: `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
+  },
 };
 
 // BreadcrumbList JSON-LD for rich snippets
 const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": t('Common.home'),
-      "item": `https://killer-skills.com/${locale}`
+      '@type': 'ListItem',
+      position: 1,
+      name: t('Common.home'),
+      item: `https://killer-skills.com/${locale}`,
     },
     {
-      "@type": "ListItem",
-      "position": 2,
-      "name": t('Common.skillsMarket'),
-      "item": `https://killer-skills.com/${locale}/skills`
+      '@type': 'ListItem',
+      position: 2,
+      name: t('Common.skillsMarket'),
+      item: `https://killer-skills.com/${locale}/skills`,
     },
     {
-      "@type": "ListItem",
-      "position": 3,
-      "name": skill.name || repo,
-      "item": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
-    }
-  ]
+      '@type': 'ListItem',
+      position: 3,
+      name: skill.name || repo,
+      item: `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
+    },
+  ],
 };
 
 // Install command - use full path for sub-skills (declared early for FAQ/HowTo schemas)
@@ -204,90 +205,92 @@ const faqItems: { question: string; answer: string }[] = [];
 // Q1: What is this skill?
 faqItems.push({
   question: `What is ${skill.name || repo}?`,
-  answer: (description && typeof description === 'string' ? description : `${skill.name || repo} is an AI agent skill available on Killer-Skills.`)
+  answer:
+    description && typeof description === 'string'
+      ? description
+      : `${skill.name || repo} is an AI agent skill available on Killer-Skills.`,
 });
 
 // Q2: How to install?
 faqItems.push({
   question: `How do I install ${skill.name || repo}?`,
-  answer: `Run the command: ${installCommand}. It works with Cursor, Windsurf, VS Code, Claude Code, and 15+ other IDEs.`
+  answer: `Run the command: ${installCommand}. It works with Cursor, Windsurf, VS Code, Claude Code, and 15+ other IDEs.`,
 });
 
 // Q3: Use cases (from agentAnalysis)
 if (localizedUseCases.length > 0) {
   faqItems.push({
     question: `What are the use cases for ${skill.name || repo}?`,
-    answer: `Key use cases include: ${localizedUseCases.join(', ')}.`
+    answer: `Key use cases include: ${localizedUseCases.join(', ')}.`,
   });
 }
 
 // Q4: IDE compatibility
 faqItems.push({
   question: `Which IDEs are compatible with ${skill.name || repo}?`,
-  answer: `This skill is compatible with Cursor, Windsurf, VS Code, Claude Code, GitHub Copilot, JetBrains, Cline, Roo Code, and many more. Use the Killer-Skills CLI for universal one-command installation.`
+  answer: `This skill is compatible with Cursor, Windsurf, VS Code, Claude Code, GitHub Copilot, JetBrains, Cline, Roo Code, and many more. Use the Killer-Skills CLI for universal one-command installation.`,
 });
 
 // Q5: Limitations (from agentAnalysis)
 if (localizedLimitations.length > 0) {
   faqItems.push({
     question: `Are there any limitations for ${skill.name || repo}?`,
-    answer: localizedLimitations.join('. ') + '.'
+    answer: localizedLimitations.join('. ') + '.',
   });
 }
 
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqItems.map(item => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": item.answer
-    }
-  }))
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer,
+    },
+  })),
 };
 
 // HowTo JSON-LD — installation steps
 const howToSchema = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  "name": `How to Install ${skill.name || repo} AI Skill`,
-  "description": `Install the ${skill.name || repo} skill for your AI coding agent in seconds using the Killer-Skills CLI.`,
-  "totalTime": "PT1M",
-  "tool": {
-    "@type": "HowToTool",
-    "name": "Terminal / Command Line"
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: `How to Install ${skill.name || repo} AI Skill`,
+  description: `Install the ${skill.name || repo} skill for your AI coding agent in seconds using the Killer-Skills CLI.`,
+  totalTime: 'PT1M',
+  tool: {
+    '@type': 'HowToTool',
+    name: 'Terminal / Command Line',
   },
-  "step": [
+  step: [
     {
-      "@type": "HowToStep",
-      "position": 1,
-      "name": "Open your terminal",
-      "text": "Open the terminal or command line in your project directory."
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Open your terminal',
+      text: 'Open the terminal or command line in your project directory.',
     },
     {
-      "@type": "HowToStep",
-      "position": 2,
-      "name": "Run the install command",
-      "text": `Run: ${installCommand}. The CLI will automatically detect your IDE and configure the skill.`
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Run the install command',
+      text: `Run: ${installCommand}. The CLI will automatically detect your IDE and configure the skill.`,
     },
     {
-      "@type": "HowToStep",
-      "position": 3,
-      "name": "Start using the skill",
-      "text": `The skill is now active. Your AI agent can use ${skill.name || repo} immediately in the current project.`
-    }
-  ]
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Start using the skill',
+      text: `The skill is now active. Your AI agent can use ${skill.name || repo} immediately in the current project.`,
+    },
+  ],
 };
 
 // OG image URL pointing to static fallback until external CDN is established
 const ogImageUrl = new URL(`/og-image.png`, Astro.url).toString();
 
 // Format stars
-const starsDisplay = (skill.stars || 0) > 1000
-  ? ((skill.stars || 0) / 1000).toFixed(1) + 'k'
-  : String(skill.stars || 0);
+const starsDisplay =
+  (skill.stars || 0) > 1000 ? ((skill.stars || 0) / 1000).toFixed(1) + 'k' : String(skill.stars || 0);
 
 // GitHub URL
 const githubUrl = `https://github.com/${owner}/${repo}`;
@@ -307,7 +310,7 @@ const formatSize = (bytes: number) => {
 const files = [
   { name: 'SKILL.md', size: formatSize(readmeSize), type: 'file' as const },
   { name: '.cursorrules', size: '1.2 KB', type: 'file' as const },
-  { name: 'package.json', size: '240 B', type: 'file' as const }
+  { name: 'package.json', size: '240 B', type: 'file' as const },
 ];
 
 const version = skill.skillMd?.version || '1.0.0';
@@ -330,50 +333,70 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   {/* GEO: Speakable Schema for AI citation engines */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": pageTitle,
-    "speakable": {
-      "@type": "SpeakableSpecification",
-      "cssSelector": ["h1", ".seo-intro-paragraph", "h2"]
-    },
-    "url": `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`
-  })} />
-  <div class="min-h-screen bg-gray-50 dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-cyan-200 overflow-x-hidden transition-colors duration-300">
-    
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: pageTitle,
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+      },
+      url: `https://killer-skills.com/${locale}/skills/${owner}/${repo}/`,
+    })}
+  />
+  <div
+    class="min-h-screen bg-gray-50 dark:bg-[#050505] text-gray-900 dark:text-white font-sans selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-cyan-200 overflow-x-hidden transition-colors duration-300"
+  >
     {/* Ambient Glows - Adjusted for Light Mode */}
-    <div class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/5 dark:bg-purple-900/10 blur-[150px] pointer-events-none rounded-full"></div>
-    <div class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-cyan-500/5 dark:bg-cyan-900/10 blur-[150px] pointer-events-none rounded-full"></div>
+    <div
+      class="fixed top-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-500/5 dark:bg-purple-900/10 blur-[150px] pointer-events-none rounded-full"
+    >
+    </div>
+    <div
+      class="fixed bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-cyan-500/5 dark:bg-cyan-900/10 blur-[150px] pointer-events-none rounded-full"
+    >
+    </div>
 
     <main class="max-w-[1400px] mx-auto px-6 py-12 relative z-10">
-        
-
-
       {/* Breadcrumb Trail for Internal Link Equity and Navigation */}
       <nav aria-label="Breadcrumb" class="mb-6 flex overflow-x-auto whitespace-nowrap">
-        <ol class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider font-mono text-[var(--muted-foreground)] border-2 border-[var(--border)] p-2 shadow-[2px_2px_0px_0px_var(--border)] bg-[var(--background)]">
+        <ol
+          class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider font-mono text-[var(--muted-foreground)] border-2 border-[var(--border)] p-2 shadow-[2px_2px_0px_0px_var(--border)] bg-[var(--background)]"
+        >
           <li>
-            <a href={`/${locale}`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
+            <a
+              href={`/${locale}`}
+              class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors"
+            >
               {t('Common.home') || 'Home'}
             </a>
           </li>
           <li class="select-none flex items-center gap-2">
-            <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
-            <a href={`/${locale}/skills`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
+            <ChevronRight size={14} strokeWidth={3} className="opacity-50" />
+            <a
+              href={`/${locale}/skills`}
+              class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors"
+            >
               {t('Common.skillsMarket') || 'Skills'}
             </a>
           </li>
-          {skill.category && (
-            <li class="select-none flex items-center gap-2">
-              <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
-              <a href={`/${locale}/skills?category=${skill.category}`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors">
-                 {t(`Categories.${skill.category}`) || skill.category}
-              </a>
-            </li>
-          )}
+          {
+            skill.category && (
+              <li class="select-none flex items-center gap-2">
+                <ChevronRight size={14} strokeWidth={3} className="opacity-50" />
+                <a
+                  href={`/${locale}/skills?category=${skill.category}`}
+                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors"
+                >
+                  {t(`Categories.${skill.category}`) || skill.category}
+                </a>
+              </li>
+            )
+          }
           <li class="select-none flex items-center gap-2" aria-current="page">
-            <ChevronRight size={14} strokeWidth={3} class="opacity-50" />
+            <ChevronRight size={14} strokeWidth={3} className="opacity-50" />
             <span class="text-[var(--foreground)]">{skill.name || repo}</span>
           </li>
         </ol>
@@ -381,438 +404,569 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
 
       {/* Header Section */}
       <div class="relative pt-2 pb-8 md:pb-12 border-b-4 border-[var(--border)] mb-8 md:mb-12">
-
-          {/* Info */}
-          <div class="w-full">
-              <div class="flex items-start justify-between gap-4 mb-3 md:mb-4 flex-wrap relative">
-                  <div class="flex items-center gap-3 md:gap-4 flex-wrap w-full md:w-auto">
-                      <h1 class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-2">
-                          <span>{skill.name || repo}</span>
-                          {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
-                          {tagline && <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">— {tagline}</span>}
-                          {/* Hidden actual keywords for deeper matching if not inside tagline */}
-                          <span class="sr-only">{seoKeywords}</span>
-                      </h1>
-                      <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
-                          {isVerified && (
-                              <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
-                                  <CheckCircle2 size={14} strokeWidth={3} class="w-3.5 h-3.5" />
-                                  Verified
-                              </div>
-                          )}
-                          <span class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase">
-                              v{version}
-                          </span>
-                      </div>
-                  </div>
+        {/* Info */}
+        <div class="w-full">
+          <div class="flex items-start justify-between gap-4 mb-3 md:mb-4 flex-wrap relative">
+            <div class="flex items-center gap-3 md:gap-4 flex-wrap w-full md:w-auto">
+              <h1
+                class="text-4xl md:text-6xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-2"
+              >
+                <span>{skill.name || repo}</span>
+                {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
+                {
+                  tagline && (
+                    <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
+                      — {tagline}
+                    </span>
+                  )
+                }
+                {/* Hidden actual keywords for deeper matching if not inside tagline */}
+                <span class="sr-only">{seoKeywords}</span>
+              </h1>
+              <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
+                {
+                  isVerified && (
+                    <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
+                      <CheckCircle2 size={14} strokeWidth={3} className="w-3.5 h-3.5" />
+                      Verified
+                    </div>
+                  )
+                }
+                <span
+                  class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase"
+                >
+                  v{version}
+                </span>
               </div>
-
-              {/* Mobile Actions (Under Title) */}
-              <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
-                   <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
-                     <SkillActions
-                        client:visible
-                        skillId={`${owner}/${repo}`}
-                        skillName={skill.name || repo}
-                        owner={owner}
-                        repo={repo}
-                        description={description && typeof description === 'string' ? description : ''}
-                        locale={locale}
-                        labels={{
-                            addToFavorites: t('Aria.addToFavorites'),
-                            removeFromFavorites: t('Aria.removeFromFavorites'),
-                            shareSkill: t('Aria.shareSkill')
-                        }}
-                        variant="button"
-                     />
-                   </div>
-                   <a
-                      href={githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
-                  >
-                      <Github size={16} className="text-current" />
-                      <span>GitHub</span>
-                  </a>
-              </div>
-
-              <div class="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 mt-6">
-                  <div class="flex-1 w-full min-w-0">
-                      <h2 class="sr-only">{t('Detail.about')}</h2>
-                      
-                      {/* SEO Dynamic Intro Paragraph — integrated below in Agent Analysis module */}
-
-                      <p class="text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words">
-                          {description || t('Skills.noResults')}
-                      </p>
-
-                      {/* AI Features */}
-                      {features.length > 0 && (
-                        <section class="mb-10">
-                            <h2 class="sr-only">{t('Detail.features')}</h2>
-                            <div class="flex flex-wrap gap-2">
-                            {features.map((feature: string) => (
-                                <div class="flex items-center gap-1.5 text-xs font-bold text-[var(--primary-foreground)] bg-[var(--primary)] px-2.5 py-1.5 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
-                                    <Zap size={12} strokeWidth={3} class="shrink-0" />
-                                      <span>{feature}</span>
-                                </div>
-                            ))}
-                            </div>
-                        </section>
-                      )}
-
-                      {/* SEO: On-Page Keyword Tag Cloud (Dominant Topic Signals) */}
-                      {keywordsList.length > 0 && (
-                        <section class="mb-10">
-                            <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                                <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">#</span>
-                                {t('Detail.coreTopics') || 'Core Topics'}
-                            </h2>
-                            <div class="flex flex-wrap gap-2">
-                            {keywordsList.slice(0, 6).map((keyword: string) => (
-                                <a href={`/${locale}/skills?query=${encodeURIComponent(keyword)}`} class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
-                                    {keyword}
-                                </a>
-                            ))}
-                            </div>
-                        </section>
-                      )}
-
-                      <div class="flex items-center flex-wrap gap-y-4 gap-x-6 text-sm font-black uppercase tracking-wider font-mono text-[var(--foreground)] pt-6 w-full max-w-4xl border-t-4 border-[var(--border)]">
-                          <div class="flex items-center gap-3 group cursor-pointer">
-                              <img src={`https://github.com/${owner}.png`} alt={owner} width="28" height="28" class="w-8 h-8 rounded-none border-2 border-[var(--border)] group-hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all grayscale group-hover:grayscale-0" loading="lazy" />
-                              <span class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-1 transition-colors">{owner}</span>
-                          </div>
-                          <div class="w-1 h-6 bg-[var(--border)]"></div>
-                          <div class="flex items-center gap-2 group cursor-help">
-                              <Star size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">[{starsDisplay}]</span>
-                          </div>
-                          <div class="flex items-center gap-2 group cursor-help">
-                              <GitFork size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">[{skill.forks || 0}]</span>
-                          </div>
-                          <div class="flex items-center gap-2 group cursor-help">
-                              <Calendar size={18} strokeWidth={3} className="text-[var(--foreground)]" />
-                              <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]">Updated: {new Date(skill.updatedAt).toLocaleDateString()}</span>
-                          </div>
-                      </div>
-                  </div>
-                  
-                  {/* Actions Column - Hidden on mobile, shown on lg screens */}
-                  <div class="hidden lg:flex items-center gap-4 shrink-0 self-start mt-4 lg:mt-0">
-                       <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all">
-                         <SkillActions
-                            client:visible
-                            skillId={`${owner}/${repo}`}
-                            skillName={skill.name || repo}
-                            owner={owner}
-                            repo={repo}
-                            description={description && typeof description === 'string' ? description : ''}
-                            locale={locale}
-                            variant="button"
-                         />
-                       </div>
-                       <a
-                          href={githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="group flex items-center gap-3 px-6 py-3 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
-                      >
-                          <Github size={18} strokeWidth={3} className="text-current" />
-                          <span>GitHub</span>
-                      </a>
-                  </div>
-              </div>
+            </div>
           </div>
+
+          {/* Mobile Actions (Under Title) */}
+          <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
+            <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
+              <SkillActions
+                client:visible
+                skillId={`${owner}/${repo}`}
+                skillName={skill.name || repo}
+                owner={owner}
+                repo={repo}
+                description={description && typeof description === 'string' ? description : ''}
+                locale={locale}
+                labels={{
+                  addToFavorites: t('Aria.addToFavorites'),
+                  removeFromFavorites: t('Aria.removeFromFavorites'),
+                  shareSkill: t('Aria.shareSkill'),
+                }}
+                variant="button"
+              />
+            </div>
+            <a
+              href={githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+            >
+              <Github size={16} className="text-current" />
+              <span>GitHub</span>
+            </a>
+          </div>
+
+          <div class="flex flex-col lg:flex-row items-start justify-between gap-6 lg:gap-8 mt-6">
+            <div class="flex-1 w-full min-w-0">
+              <h2 class="sr-only">{t('Detail.about')}</h2>
+
+              {/* SEO Dynamic Intro Paragraph — integrated below in Agent Analysis module */}
+
+              <p
+                class="text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words"
+              >
+                {description || t('Skills.noResults')}
+              </p>
+
+              {/* AI Features */}
+              {
+                features.length > 0 && (
+                  <section class="mb-10">
+                    <h2 class="sr-only">{t('Detail.features')}</h2>
+                    <div class="flex flex-wrap gap-2">
+                      {features.map((feature: string) => (
+                        <div class="flex items-center gap-1.5 text-xs font-bold text-[var(--primary-foreground)] bg-[var(--primary)] px-2.5 py-1.5 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                          <Zap size={12} strokeWidth={3} className="shrink-0" />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                )
+              }
+
+              {/* SEO: On-Page Keyword Tag Cloud (Dominant Topic Signals) */}
+              {
+                keywordsList.length > 0 && (
+                  <section class="mb-10">
+                    <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
+                      <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">#</span>
+                      {t('Detail.coreTopics') || 'Core Topics'}
+                    </h2>
+                    <div class="flex flex-wrap gap-2">
+                      {keywordsList.slice(0, 6).map((keyword: string) => (
+                        <a
+                          href={`/${locale}/skills?query=${encodeURIComponent(keyword)}`}
+                          class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+                        >
+                          {keyword}
+                        </a>
+                      ))}
+                    </div>
+                  </section>
+                )
+              }
+
+              <div
+                class="flex items-center flex-wrap gap-y-4 gap-x-6 text-sm font-black uppercase tracking-wider font-mono text-[var(--foreground)] pt-6 w-full max-w-4xl border-t-4 border-[var(--border)]"
+              >
+                <div class="flex items-center gap-3 group cursor-pointer">
+                  <img
+                    src={`https://github.com/${owner}.png`}
+                    alt={owner}
+                    width="28"
+                    height="28"
+                    class="w-8 h-8 rounded-none border-2 border-[var(--border)] group-hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all grayscale group-hover:grayscale-0"
+                    loading="lazy"
+                  />
+                  <span
+                    class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-1 transition-colors"
+                    >{owner}</span
+                  >
+                </div>
+                <div class="w-1 h-6 bg-[var(--border)]"></div>
+                <div class="flex items-center gap-2 group cursor-help">
+                  <Star size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                  <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]"
+                    >[{starsDisplay}]</span
+                  >
+                </div>
+                <div class="flex items-center gap-2 group cursor-help">
+                  <GitFork size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                  <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]"
+                    >[{skill.forks || 0}]</span
+                  >
+                </div>
+                <div class="flex items-center gap-2 group cursor-help">
+                  <Calendar size={18} strokeWidth={3} className="text-[var(--foreground)]" />
+                  <span class="border-b-2 border-transparent group-hover:border-[var(--foreground)]"
+                    >Updated: {new Date(skill.updatedAt).toLocaleDateString()}</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            {/* Actions Column - Hidden on mobile, shown on lg screens */}
+            <div class="hidden lg:flex items-center gap-4 shrink-0 self-start mt-4 lg:mt-0">
+              <div
+                class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+              >
+                <SkillActions
+                  client:visible
+                  skillId={`${owner}/${repo}`}
+                  skillName={skill.name || repo}
+                  owner={owner}
+                  repo={repo}
+                  description={description && typeof description === 'string' ? description : ''}
+                  locale={locale}
+                  variant="button"
+                />
+              </div>
+              <a
+                href={githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-3 px-6 py-3 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-sm font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
+              >
+                <Github size={18} strokeWidth={3} className="text-current" />
+                <span>GitHub</span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Top Row: Quality Score + Install Card | Agent Analysis */}
       <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mb-8">
-        
         {/* Left: Quality Score + Install Card */}
         <div class="space-y-8">
-            
-             {/* Quality Score */}
-             <div class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
-                
-                <div class="flex items-center justify-between mb-6 relative z-10">
-                    <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
-                        <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
-                        {t('Detail.qualityScore')}
-                    </h3>
-                    <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
-                        Top 5%
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
-                    <div class="relative w-20 h-20 shrink-0">
-                        <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3"></div>
-                        <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0"></div>
-                        <div class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]">
-                            <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tight mb-1">{t('Detail.excellent')}</div>
-                        <div class="text-sm font-bold font-mono text-[var(--muted-foreground)] uppercase">{t('Detail.qualityDesc')}</div>
-                    </div>
-                </div>
-             </div>
-
-             {/* Install Card */}
-             <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden flex flex-col">
-                 <div class="bg-[var(--foreground)] text-[var(--background)] px-4 py-3 border-b-4 border-[var(--border)] flex items-center justify-between">
-                     <div class="flex items-center gap-3">
-                        <Terminal size={18} strokeWidth={3} class="text-[var(--primary)]" />
-                        <span class="text-sm font-black uppercase tracking-widest font-mono">{t('Detail.installation')}</span>
-                     </div>
-                 </div>
-
-                 <div class="p-6 relative bg-[var(--background)]">
-                    <div class="border-4 border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--background)]">
-                        <div class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b-2 border-dotted border-[var(--border)] pb-2">
-                             <div class="flex items-center font-bold uppercase tracking-wider text-xs">
-                                <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">SYS</span>
-                                <span>
-                                    {locale === 'zh' ? '自适应一键安装 (自动适配 IDE)' : 'Universal Install (Auto-Detect)'}
-                                </span>
-                             </div>
-                             <div class="flex gap-2 grayscale group-hover/code:grayscale-0 transition-all opacity-50 group-hover/code:opacity-100">
-                                <img src="/icons/cursor.svg" alt="Cursor IDE" width="16" height="16" class="w-4 h-4" title="Cursor" decoding="async" />
-                                <img src="/icons/windsurf.svg" alt="Windsurf IDE" width="16" height="16" class="w-4 h-4" title="Windsurf" decoding="async" />
-                                <img src="/icons/vscode.svg" alt="VS Code IDE" width="16" height="16" class="w-4 h-4" title="VS Code" decoding="async" />
-                             </div>
-                        </div>
-                         <div class="text-[var(--foreground)] break-all select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-base">
-                            <span class="text-[var(--primary)] bg-[var(--foreground)] px-2 font-black select-none">&gt;</span>
-                            <span class="tracking-widest">{installCommand}</span>
-                            
-                            <button
-                                id="install-copy-btn"
-                                class="absolute right-0 top-0 p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--foreground)] border-2 border-[var(--foreground)] transition-all opacity-0 group-hover/cmd:opacity-100 shadow-[2px_2px_0px_0px_var(--border)] translate-x-4 -translate-y-4"
-                                data-command={installCommand}
-                            >
-                                <Copy size={16} strokeWidth={3} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
+          {/* Quality Score */}
+          <div
+            class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
+          >
+            <div class="flex items-center justify-between mb-6 relative z-10">
+              <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
+                <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
+                {t('Detail.qualityScore')}
+              </h3>
+              <div
+                class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]"
+              >
+                Top 5%
+              </div>
             </div>
 
+            <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
+              <div class="relative w-20 h-20 shrink-0">
+                <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3"></div>
+                <div
+                  class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0"
+                >
+                </div>
+                <div
+                  class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]"
+                >
+                  <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
+                </div>
+              </div>
+              <div>
+                <div class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tight mb-1">
+                  {t('Detail.excellent')}
+                </div>
+                <div class="text-sm font-bold font-mono text-[var(--muted-foreground)] uppercase">
+                  {t('Detail.qualityDesc')}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Install Card */}
+          <div
+            class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden flex flex-col"
+          >
+            <div
+              class="bg-[var(--foreground)] text-[var(--background)] px-4 py-3 border-b-4 border-[var(--border)] flex items-center justify-between"
+            >
+              <div class="flex items-center gap-3">
+                <Terminal size={18} strokeWidth={3} className="text-[var(--primary)]" />
+                <span class="text-sm font-black uppercase tracking-widest font-mono">{t('Detail.installation')}</span>
+              </div>
+            </div>
+
+            <div class="p-6 relative bg-[var(--background)]">
+              <div
+                class="border-4 border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--background)]"
+              >
+                <div
+                  class="flex items-center text-[var(--muted-foreground)] select-none mb-3 justify-between border-b-2 border-dotted border-[var(--border)] pb-2"
+                >
+                  <div class="flex items-center font-bold uppercase tracking-wider text-xs">
+                    <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">SYS</span>
+                    <span>
+                      {locale === 'zh' ? '自适应一键安装 (自动适配 IDE)' : 'Universal Install (Auto-Detect)'}
+                    </span>
+                  </div>
+                  <div
+                    class="flex gap-2 grayscale group-hover/code:grayscale-0 transition-all opacity-50 group-hover/code:opacity-100"
+                  >
+                    <img
+                      src="/icons/cursor.svg"
+                      alt="Cursor IDE"
+                      width="16"
+                      height="16"
+                      class="w-4 h-4"
+                      title="Cursor"
+                      decoding="async"
+                    />
+                    <img
+                      src="/icons/windsurf.svg"
+                      alt="Windsurf IDE"
+                      width="16"
+                      height="16"
+                      class="w-4 h-4"
+                      title="Windsurf"
+                      decoding="async"
+                    />
+                    <img
+                      src="/icons/vscode.svg"
+                      alt="VS Code IDE"
+                      width="16"
+                      height="16"
+                      class="w-4 h-4"
+                      title="VS Code"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="text-[var(--foreground)] break-all select-all flex items-start gap-3 font-bold group/cmd relative mt-2 text-base"
+                >
+                  <span class="text-[var(--primary)] bg-[var(--foreground)] px-2 font-black select-none">&gt;</span>
+                  <span class="tracking-widest">{installCommand}</span>
+
+                  <button
+                    id="install-copy-btn"
+                    class="absolute right-0 top-0 p-2 bg-[var(--foreground)] text-[var(--background)] hover:bg-[var(--primary)] hover:text-[var(--foreground)] border-2 border-[var(--foreground)] transition-all opacity-0 group-hover/cmd:opacity-100 shadow-[2px_2px_0px_0px_var(--border)] translate-x-4 -translate-y-4"
+                    data-command={installCommand}
+                  >
+                    <Copy size={16} strokeWidth={3} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Right: Agent Analysis */}
         <div class="min-w-0">
-          {skill.agentAnalysis && (
-            <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-white dark:bg-[#0a0a0a] p-6 relative overflow-hidden">
+          {
+            skill.agentAnalysis && (
+              <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-white dark:bg-[#0a0a0a] p-6 relative overflow-hidden">
                 {/* Background Pattern */}
-                <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]" style="background-image: var(--background-pattern)"></div>
+                <div
+                  class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+                  style="background-image: var(--background-pattern)"
+                />
 
                 <div class="relative z-10">
-                    <div class="flex items-center gap-3 mb-6 border-b-4 border-[var(--border)] pb-4">
-                        <div class="p-2 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
-                            <Bot size={28} strokeWidth={3} />
-                        </div>
-                        <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
-                            {t('Detail.agentAnalysis') || 'Agent Compatibility Analysis'}
-                        </h2>
+                  <div class="flex items-center gap-3 mb-6 border-b-4 border-[var(--border)] pb-4">
+                    <div class="p-2 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                      <Bot size={28} strokeWidth={3} />
                     </div>
+                    <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
+                      {t('Detail.agentAnalysis') || 'Agent Compatibility Analysis'}
+                    </h2>
+                  </div>
 
-                    {/* SEO Dynamic Intro Paragraph — moved here from header */}
-                    <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] mb-6 font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                        {locale === 'zh' ? (
-                          <span><strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源 <strong>{category ? (t(`Categories.${category}`) || category) : '自动化'}</strong> MCP Server（大模型智能体插件）。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。{keywordsList.length > 0 && <span class="text-[var(--foreground)]">此工具针对 <strong>{keywordsList.slice(0, 3).join('、')}</strong> 进行了深度优化。</span>}</span>
-                        ) : (
-                          <span>The <strong>{skill.name || repo}</strong> MCP Server by <strong>{owner}</strong> is an open-source <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> integration for Claude and other AI agents, enabling seamless task automation and capability expansion. {keywordsList.length > 0 && <span class="text-[var(--foreground)]">Optimized for <strong>{keywordsList.slice(0, 3).join(', ')}</strong>.</span>}</span>
+                  {/* SEO Dynamic Intro Paragraph — moved here from header */}
+                  <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] mb-6 font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
+                    {locale === 'zh' ? (
+                      <span>
+                        <strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源{' '}
+                        <strong>{category ? t(`Categories.${category}`) || category : '自动化'}</strong> MCP
+                        Server（大模型智能体插件）。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent
+                        系统中，扩展核心功能。
+                        {keywordsList.length > 0 && (
+                          <span class="text-[var(--foreground)]">
+                            此工具针对 <strong>{keywordsList.slice(0, 3).join('、')}</strong> 进行了深度优化。
+                          </span>
                         )}
-                    </p>
-
-                    <div class="space-y-6">
-                        {localizedSuitability && (
-                        <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
-                            <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                                {t('Detail.suitability') || 'Suitability'}
-                            </h3>
-                            <p class="text-[var(--foreground)] font-bold leading-relaxed">
-                                {localizedSuitability}
-                            </p>
-                        </div>
+                      </span>
+                    ) : (
+                      <span>
+                        The <strong>{skill.name || repo}</strong> MCP Server by <strong>{owner}</strong> is an
+                        open-source <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> integration
+                        for Claude and other AI agents, enabling seamless task automation and capability expansion.{' '}
+                        {keywordsList.length > 0 && (
+                          <span class="text-[var(--foreground)]">
+                            Optimized for <strong>{keywordsList.slice(0, 3).join(', ')}</strong>.
+                          </span>
                         )}
+                      </span>
+                    )}
+                  </p>
 
-                        {localizedRecommendation && (
-                        <div class="border-l-4 border-purple-500 pl-4 py-1">
-                             <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                                {t('Detail.recommendation') || 'Recommendation'}
-                            </h3>
-                            <p class="text-[var(--foreground)] leading-relaxed font-bold">
-                                {localizedRecommendation}
-                            </p>
+                  <div class="space-y-6">
+                    {localizedSuitability && (
+                      <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
+                        <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
+                          {t('Detail.suitability') || 'Suitability'}
+                        </h3>
+                        <p class="text-[var(--foreground)] font-bold leading-relaxed">{localizedSuitability}</p>
+                      </div>
+                    )}
+
+                    {localizedRecommendation && (
+                      <div class="border-l-4 border-purple-500 pl-4 py-1">
+                        <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
+                          {t('Detail.recommendation') || 'Recommendation'}
+                        </h3>
+                        <p class="text-[var(--foreground)] leading-relaxed font-bold">{localizedRecommendation}</p>
+                      </div>
+                    )}
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
+                      {localizedUseCases.length > 0 && (
+                        <div>
+                          {/* SEO: Changed from h3 to h2 to index use-cases as dominant subtopics */}
+                          <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
+                            <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
+                            {t('Detail.useCases') || 'Use Cases'} for {skill.name || repo} MCP Server
+                          </h2>
+                          <div class="flex flex-wrap gap-2">
+                            {localizedUseCases.map((useCase: string) => (
+                              <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
+                                {useCase}
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                        )}
+                      )}
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
-                            {localizedUseCases.length > 0 && (
-                            <div>
-                                {/* SEO: Changed from h3 to h2 to index use-cases as dominant subtopics */}
-                                <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                                     <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
-                                     {t('Detail.useCases') || 'Use Cases'} for {skill.name || repo} MCP Server
-                                </h2>
-                                <div class="flex flex-wrap gap-2">
-                                    {localizedUseCases.map((useCase: string) => (
-                                        <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
-                                            {useCase}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                            )}
-
-                            {localizedLimitations.length > 0 && (
-                                <div>
-                                    <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
-                                         <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
-                                         {t('Detail.limitations') || 'Limitations'}
-                                    </h3>
-                                    <ul class="space-y-2">
-                                        {localizedLimitations.map((limitation: string) => (
-                                            <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
-                                                <span>{limitation}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            )}
+                      {localizedLimitations.length > 0 && (
+                        <div>
+                          <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
+                            <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
+                            {t('Detail.limitations') || 'Limitations'}
+                          </h3>
+                          <ul class="space-y-2">
+                            {localizedLimitations.map((limitation: string) => (
+                              <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
+                                <span>{limitation}</span>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
+                      )}
                     </div>
+                  </div>
                 </div>
-            </div>
-          )}
+              </div>
+            )
+          }
         </div>
       </div>
 
       {/* Bottom Row: File Manager | SKILL.md Preview */}
       <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mt-8 cv-auto">
-        
         {/* Left: File Manager + Tags */}
         <div class="space-y-8 lg:sticky lg:top-8">
+          {/* File Manager */}
+          <div
+            class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
+          >
+            <SkillFileManager
+              client:idle
+              files={files}
+              selectedFile="SKILL.md"
+              labels={{
+                explorer: t('Detail.explorer'),
+                project: t('Detail.project'),
+              }}
+            />
+          </div>
 
-             {/* File Manager */}
-            <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
-                 <SkillFileManager
-                    client:idle
-                    files={files}
-                    selectedFile="SKILL.md"
-                    labels={{
-                        explorer: t('Detail.explorer'),
-                        project: t('Detail.project')
-                    }}
-                />
+          {/* Tags */}
+          <div>
+            <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
+              <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
+              {t('Detail.tags')}
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {
+                topics.length > 0 ? (
+                  topics.map((topic: string) => (
+                    <a
+                      href={`/${locale}/skills?topic=${topic}`}
+                      class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+                    >
+                      [{topic}]
+                    </a>
+                  ))
+                ) : (
+                  <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
+                )
+              }
             </div>
-
-             {/* Tags */}
-             <div>
-                <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
-                    <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
-                    {t('Detail.tags')}
-                </h3>
-                <div class="flex flex-wrap gap-2">
-                    {topics.length > 0 ? topics.map((topic: string) => (
-                        <a href={`/${locale}/skills?topic=${topic}`} class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
-                            [{topic}]
-                        </a>
-                    )) : (
-                        <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
-                    )}
-                </div>
-             </div>
-
+          </div>
         </div>
 
         {/* Right: SKILL.md Preview */}
-        <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1">
-            <SkillReadme
-                client:idle
-                initialContent={readmeContent}
-                initialFiles={{
-                    'SKILL.md': readmeContent,
-                    '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
-                    'package.json': JSON.stringify({
-                        name: `${owner}-${repo}-skill`,
-                        version: version,
-                        description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
-                        keywords: topics,
-                        author: owner,
-                        license: "MIT",
-                        homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
-                        repository: {
-                            type: "git",
-                            url: `https://github.com/${owner}/${repo}`
-                        }
-                    }, null, 2)
-                }}
-                name="SKILL.md"
-            />
+        <div
+          class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1"
+        >
+          <SkillReadme
+            client:idle
+            initialContent={readmeContent}
+            initialFiles={{
+              'SKILL.md': readmeContent,
+              '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
+              'package.json': JSON.stringify(
+                {
+                  name: `${owner}-${repo}-skill`,
+                  version: version,
+                  description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
+                  keywords: topics,
+                  author: owner,
+                  license: 'MIT',
+                  homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+                  repository: {
+                    type: 'git',
+                    url: `https://github.com/${owner}/${repo}`,
+                  },
+                },
+                null,
+                2,
+              ),
+            }}
+            name="SKILL.md"
+          />
         </div>
-
       </div>
     </main>
 
     {/* Related Skills Section */}
-    {relatedSkills.length > 0 && (
-      <section class="border-t-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] py-16 relative overflow-hidden">
-        {/* Decorative Grid SVG on Dark Background */}
-        <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(var(--background) 1px, transparent 1px); background-size: 24px 24px;"></div>
-        
-        <div class="max-w-[1400px] mx-auto px-6 relative z-10">
-          <div class="flex items-center justify-between mb-10 pb-4 border-b-4 border-[var(--background)]">
-             <div class="flex flex-col gap-2">
-                 <h2 class="text-3xl font-black text-[var(--background)] flex items-center gap-3 uppercase tracking-tight">
-                    <Layers class="text-[var(--primary)]" strokeWidth={3} />
-                    {t('Detail.relatedSkills') || 'Related Skills'}
-                 </h2>
-                 {/* Long-Tail Competitive SEO Header */}
-                 <h3 class="text-[var(--background)]/80 font-mono text-sm max-w-2xl font-normal">
-                    {locale === 'zh' ? `寻找 ${skill.name || repo} 的替代方案 (Alternative) 或搭配使用的同类 ${category || 'AI'} MCP Server？探索以下热门开源大模型开发组件。` : `Looking for an alternative to ${skill.name || repo} or building a ${category || 'custom'} AI Agent? Explore these related open-source MCP Servers.`}
-                 </h3>
-             </div>
-             <a href={`/${locale}/skills`} class="text-sm font-black text-[var(--background)] hover:text-[var(--primary)] hover:translate-x-1 transition-all flex items-center gap-2 uppercase tracking-widest mt-1 md:mt-0">
-                {t('Common.viewAll')} <ChevronRight size={18} strokeWidth={3} />
-             </a>
-          </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {relatedSkills.map(skill => (
-              <div class="h-full transform hover:scale-[1.02] transition-transform">
-                <SkillCard skill={skill} locale={locale} t={t} />
+    {
+      relatedSkills.length > 0 && (
+        <section class="border-t-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] py-16 relative overflow-hidden">
+          {/* Decorative Grid SVG on Dark Background */}
+          <div
+            class="absolute inset-0 opacity-10 pointer-events-none"
+            style="background-image: radial-gradient(var(--background) 1px, transparent 1px); background-size: 24px 24px;"
+          />
+
+          <div class="max-w-[1400px] mx-auto px-6 relative z-10">
+            <div class="flex items-center justify-between mb-10 pb-4 border-b-4 border-[var(--background)]">
+              <div class="flex flex-col gap-2">
+                <h2 class="text-3xl font-black text-[var(--background)] flex items-center gap-3 uppercase tracking-tight">
+                  <Layers className="text-[var(--primary)]" strokeWidth={3} />
+                  {t('Detail.relatedSkills') || 'Related Skills'}
+                </h2>
+                {/* Long-Tail Competitive SEO Header */}
+                <h3 class="text-[var(--background)]/80 font-mono text-sm max-w-2xl font-normal">
+                  {locale === 'zh'
+                    ? `寻找 ${skill.name || repo} 的替代方案 (Alternative) 或搭配使用的同类 ${category || 'AI'} MCP Server？探索以下热门开源大模型开发组件。`
+                    : `Looking for an alternative to ${skill.name || repo} or building a ${category || 'custom'} AI Agent? Explore these related open-source MCP Servers.`}
+                </h3>
               </div>
-            ))}
+              <a
+                href={`/${locale}/skills`}
+                class="text-sm font-black text-[var(--background)] hover:text-[var(--primary)] hover:translate-x-1 transition-all flex items-center gap-2 uppercase tracking-widest mt-1 md:mt-0"
+              >
+                {t('Common.viewAll')} <ChevronRight size={18} strokeWidth={3} />
+              </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {relatedSkills.map((skill) => (
+                <div class="h-full transform hover:scale-[1.02] transition-transform">
+                  <SkillCard skill={skill} locale={locale} t={t} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    )}
+        </section>
+      )
+    }
   </div>
 
-    {/* Related Collections Section */}
-    {relatedCollections.length > 0 && (
+  {/* Related Collections Section */}
+  {
+    relatedCollections.length > 0 && (
       <section class="py-12 border-t-[3px] border-[var(--border)] bg-[var(--background)]">
         <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight">
               {t('Collections.relatedCollections')}
             </h2>
-            <a href={`/${locale}/collections`} class="text-xs font-black text-[var(--muted-foreground)] hover:text-[var(--primary)] uppercase tracking-widest transition-colors">
+            <a
+              href={`/${locale}/collections`}
+              class="text-xs font-black text-[var(--muted-foreground)] hover:text-[var(--primary)] uppercase tracking-widest transition-colors"
+            >
               {t('Collections.viewAllCollections')} →
             </a>
           </div>
           <div class="flex flex-wrap gap-3">
             {relatedCollections.map((col) => {
-              const colTitle = typeof col.data.title === 'object'
-                ? (col.data.title[typedLocale] || col.data.title['en'] || 'Collection')
-                : col.data.title;
+              const colTitle =
+                typeof col.data.title === 'object'
+                  ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
+                  : col.data.title;
               const cleanSlug = col.id.replace(/\.json$/, '');
               return (
                 <a
@@ -828,18 +982,20 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           </div>
         </div>
       </section>
-    )}
+    )
+  }
 
   <script is:inline>
-    document.getElementById('install-copy-btn')?.addEventListener('click', function() {
+    document.getElementById('install-copy-btn')?.addEventListener('click', function () {
       const command = this.getAttribute('data-command');
       if (command) {
         navigator.clipboard.writeText(command).then(() => {
-           const originalHTML = this.innerHTML;
-           this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-           setTimeout(() => {
-              this.innerHTML = originalHTML;
-           }, 2000);
+          const originalHTML = this.innerHTML;
+          this.innerHTML =
+            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+          setTimeout(() => {
+            this.innerHTML = originalHTML;
+          }, 2000);
         });
       }
     });

@@ -15,23 +15,19 @@ import { useState, useEffect, useCallback } from 'react';
 import Heart from 'lucide-react/dist/esm/icons/heart';
 import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Check from 'lucide-react/dist/esm/icons/check';
-import {
-  loadFavorites,
-  toggleFavorite,
-  isFavorite as checkIsFavorite,
-  type FavoriteSkill,
-} from '../lib/favorites';
+import { loadFavorites, toggleFavorite, isFavorite as checkIsFavorite, type FavoriteSkill } from '../lib/favorites';
 import { loadHistory, addToHistory } from '../lib/history';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
 
 export interface SkillActionsProps {
-  skillId: string;       // "owner/repo"
+  skillId: string; // "owner/repo"
   skillName: string;
   owner: string;
   repo: string;
   description: string;
   locale: string;
+  variant?: string;
   labels?: {
     addToFavorites: string;
     removeFromFavorites: string;
@@ -47,10 +43,10 @@ export default function SkillActions({
   owner,
   repo,
   description,
-  locale,
+  locale: _locale,
   labels,
 }: SkillActionsProps) {
-  const [favorites, setFavorites] = useState<FavoriteSkill[]>([]);
+  const [, setFavorites] = useState<FavoriteSkill[]>([]);
   const [isFav, setIsFav] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
@@ -138,21 +134,22 @@ export default function SkillActions({
         className={`
           group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium
           transition-all duration-200 ease-out
-          ${isFav
-            ? 'bg-pink-50 dark:bg-pink-950/30 text-pink-600 dark:text-pink-400 border border-pink-200 dark:border-pink-800 hover:bg-pink-100 dark:hover:bg-pink-950/50'
-            : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-700 hover:text-pink-500 dark:hover:text-pink-400'
+          ${
+            isFav
+              ? 'bg-pink-50 dark:bg-pink-950/30 text-pink-600 dark:text-pink-400 border border-pink-200 dark:border-pink-800 hover:bg-pink-100 dark:hover:bg-pink-950/50'
+              : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-pink-300 dark:hover:border-pink-700 hover:text-pink-500 dark:hover:text-pink-400'
           }
         `}
-        aria-label={isFav ? (labels?.removeFromFavorites || 'Remove from favorites') : (labels?.addToFavorites || 'Add to favorites')}
+        aria-label={
+          isFav ? labels?.removeFromFavorites || 'Remove from favorites' : labels?.addToFavorites || 'Add to favorites'
+        }
         aria-pressed={isFav}
       >
         <Heart
-          className={`w-4 h-4 transition-transform duration-200 ${isFav
-            ? 'fill-pink-500 text-pink-500 scale-110'
-            : 'group-hover:scale-110'
-            }`}
+          className={`w-4 h-4 transition-transform duration-200 ${
+            isFav ? 'fill-pink-500 text-pink-500 scale-110' : 'group-hover:scale-110'
+          }`}
         />
-
       </button>
 
       {/* Share button */}
@@ -161,12 +158,13 @@ export default function SkillActions({
         className={`
           group flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium
           transition-all duration-200 ease-out
-          ${shareState === 'copied'
-            ? 'bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800'
-            : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-cyan-300 dark:hover:border-cyan-700 hover:text-cyan-500 dark:hover:text-cyan-400'
+          ${
+            shareState === 'copied'
+              ? 'bg-green-50 dark:bg-green-950/30 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800'
+              : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700 hover:border-cyan-300 dark:hover:border-cyan-700 hover:text-cyan-500 dark:hover:text-cyan-400'
           }
         `}
-        aria-label={labels?.shareSkill || "Share this skill"}
+        aria-label={labels?.shareSkill || 'Share this skill'}
       >
         {shareState === 'copied' ? (
           <Check className="w-4 h-4" />

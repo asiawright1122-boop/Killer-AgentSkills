@@ -28,7 +28,11 @@ export interface UnifiedSkill {
     body?: string;
     bodyPreview?: string;
   };
+  lastSynced?: string;
+  forks?: number;
   seo?: {
+    title?: Record<string, string>;
+    description?: Record<string, string>;
     definition: Record<string, string>;
     features: Record<string, string[]>;
     keywords: Record<string, string[]>;
@@ -45,10 +49,7 @@ export interface UnifiedSkill {
  * Get the localized description string from a UnifiedSkill's description field.
  * Falls back to English, then Chinese, then the first available value.
  */
-export function getLocalizedDescription(
-  description: UnifiedSkill['description'] | undefined,
-  locale: string
-): string {
+export function getLocalizedDescription(description: UnifiedSkill['description'] | undefined, locale: string): string {
   if (!description) return '';
   if (typeof description === 'string') return description;
   return description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '';
@@ -81,13 +82,13 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
 
   // 2. Try global Cloudflare Cache API (cross-isolate caching)
   let cache;
-  const cacheKey = new Request("https://killer-skills-internal/api/get-all-skills", { method: "GET" });
+  const cacheKey = new Request('https://killer-skills-internal/api/get-all-skills', { method: 'GET' });
   try {
     if (typeof caches !== 'undefined' && (caches as any).default) {
       cache = (caches as any).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
-        const skills = await cachedResponse.json() as UnifiedSkill[];
+        const skills = (await cachedResponse.json()) as UnifiedSkill[];
         _cachedSkills = skills;
         _cacheTs = Date.now();
         return skills;
@@ -103,11 +104,9 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
   let skills = raw as UnifiedSkill[];
 
   // Augment skills with explicit categories from OFFICIAL_REPOS config
-  skills = skills.map(skill => {
+  skills = skills.map((skill) => {
     // Find matching official repo config
-    const officialConfig = Object.values(OFFICIAL_REPOS).find(
-      c => c.owner === skill.owner && c.repo === skill.repo
-    );
+    const officialConfig = Object.values(OFFICIAL_REPOS).find((c) => c.owner === skill.owner && c.repo === skill.repo);
 
     if (officialConfig?.category) {
       return { ...skill, category: officialConfig.category };
@@ -126,8 +125,8 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
       const response = new Response(JSON.stringify(skills), {
         headers: {
           'Cache-Control': 's-maxage=3600', // Cache for 1 hour at edge
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
       // waitUntil is handled by Astro natively if executing within CF handler context
       await cache.put(cacheKey, response);
@@ -156,13 +155,13 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
 
   // 2. Try global Cloudflare Cache API (cross-isolate caching)
   let cache;
-  const cacheKey = new Request("https://killer-skills-internal/api/get-light-skills", { method: "GET" });
+  const cacheKey = new Request('https://killer-skills-internal/api/get-light-skills', { method: 'GET' });
   try {
     if (typeof caches !== 'undefined' && (caches as any).default) {
       cache = (caches as any).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
-        const skills = await cachedResponse.json() as UnifiedSkill[];
+        const skills = (await cachedResponse.json()) as UnifiedSkill[];
         _cachedLightSkills = skills;
         _cacheLightTs = Date.now();
         return skills;
@@ -178,11 +177,9 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   let skills = raw as UnifiedSkill[];
 
   // Augment skills with explicit categories from OFFICIAL_REPOS config
-  skills = skills.map(skill => {
+  skills = skills.map((skill) => {
     // Find matching official repo config
-    const officialConfig = Object.values(OFFICIAL_REPOS).find(
-      c => c.owner === skill.owner && c.repo === skill.repo
-    );
+    const officialConfig = Object.values(OFFICIAL_REPOS).find((c) => c.owner === skill.owner && c.repo === skill.repo);
 
     if (officialConfig?.category) {
       return { ...skill, category: officialConfig.category };
@@ -201,8 +198,8 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
       const response = new Response(JSON.stringify(skills), {
         headers: {
           'Cache-Control': 's-maxage=3600', // Cache for 1 hour at edge
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
       // waitUntil is handled by Astro natively if executing within CF handler context
       await cache.put(cacheKey, response);
@@ -219,10 +216,7 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
  * Uses D1 multi-level query (exact → LIKE → owner/repo index).
  * No full-table scan fallback — D1 handles all matching.
  */
-export async function getSkillById(
-  env: Env,
-  id: string
-): Promise<UnifiedSkill | null> {
+export async function getSkillById(env: Env, id: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${id}`);
   return direct ? (direct as UnifiedSkill) : null;
 }
@@ -233,55 +227,39 @@ export async function getSkillById(
  * For multi-skill repos (e.g., anthropics/skills), returns the FIRST match.
  * Use getSkillById for precise sub-skill lookups.
  */
-export async function getSkillByOwnerRepo(
-  env: Env,
-  owner: string,
-  repo: string
-): Promise<UnifiedSkill | null> {
+export async function getSkillByOwnerRepo(env: Env, owner: string, repo: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${owner}/${repo}`);
   return direct ? (direct as UnifiedSkill) : null;
 }
-
-
 
 /**
  * Get featured/top skills sorted by stars.
  * @param limit - Maximum number of skills to return (default: 10)
  */
-export async function getFeaturedSkills(
-  env: Env,
-  limit: number = 10
-): Promise<UnifiedSkill[]> {
+export async function getFeaturedSkills(env: Env, limit: number = 10): Promise<UnifiedSkill[]> {
   const skills = await getAllSkills(env);
-  return skills
-    .sort((a, b) => (b.stars || 0) - (a.stars || 0))
-    .slice(0, limit);
+  return skills.sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, limit);
 }
 
 /**
  * Get featured skills directly from D1 with LIMIT — avoids loading all skills.
  * This is the optimized version for homepage use.
  */
-export async function getFeaturedSkillsDirect(
-  env: Env,
-  limit: number = 6
-): Promise<UnifiedSkill[]> {
+export async function getFeaturedSkillsDirect(env: Env, limit: number = 6): Promise<UnifiedSkill[]> {
   if (!env?.DB) {
     console.warn('[D1] No DB binding, falling back to getAllSkills');
     return getFeaturedSkills(env, limit);
   }
 
   try {
-    const result = await env.DB.prepare(
-      `SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`
-    ).bind(limit).all();
+    const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`).bind(limit).all();
 
     if (result.success && result.results) {
       return result.results.map((row: any) => {
         const skill = JSON.parse(row.data_json) as UnifiedSkill;
         // Augment with official category if applicable
         const officialConfig = Object.values(OFFICIAL_REPOS).find(
-          c => c.owner === skill.owner && c.repo === skill.repo
+          (c) => c.owner === skill.owner && c.repo === skill.repo,
         );
         if (officialConfig?.category) {
           return { ...skill, category: officialConfig.category };
@@ -305,7 +283,7 @@ import { getLocalSkillsFallback } from './kv';
 export async function getOfficialSkillCounts(
   env: Env,
   owners: string[],
-  limit: number = 6
+  limit: number = 6,
 ): Promise<{ owner: string; count: number }[]> {
   if (!env?.DB || owners.length === 0) {
     const all = await getLocalSkillsFallback();
@@ -327,8 +305,10 @@ export async function getOfficialSkillCounts(
   try {
     const placeholders = owners.map(() => '?').join(',');
     const result = await env.DB.prepare(
-      `SELECT owner, COUNT(*) as count FROM skills WHERE owner IN (${placeholders}) GROUP BY owner ORDER BY count DESC LIMIT ?`
-    ).bind(...owners, limit).all();
+      `SELECT owner, COUNT(*) as count FROM skills WHERE owner IN (${placeholders}) GROUP BY owner ORDER BY count DESC LIMIT ?`,
+    )
+      .bind(...owners, limit)
+      .all();
 
     if (result.success && result.results) {
       return result.results.map((row: any) => ({
@@ -349,12 +329,12 @@ export async function getOfficialSkillCounts(
 export async function getRelatedSkills(
   env: Env,
   currentSkill: UnifiedSkill,
-  limit: number = 3
+  limit: number = 3,
 ): Promise<UnifiedSkill[]> {
   const allSkills = await getAllSkills(env);
 
   return allSkills
-    .filter(skill => {
+    .filter((skill) => {
       // Exclude current skill
       if (skill.id === currentSkill.id) return false;
       if (skill.owner === currentSkill.owner && skill.repo === currentSkill.repo) return false;
@@ -364,14 +344,14 @@ export async function getRelatedSkills(
 
       return true;
     })
-    .map(skill => {
+    .map((skill) => {
       // Calculate relevance score
       let score = 0;
 
       // Tag overlap
       const currentTags = new Set(currentSkill.topics || []);
       const skillTags = skill.topics || [];
-      const overlap = skillTags.filter(tag => currentTags.has(tag)).length;
+      const overlap = skillTags.filter((tag) => currentTags.has(tag)).length;
 
       score += overlap * 10;
 
@@ -387,6 +367,6 @@ export async function getRelatedSkills(
       if (b.score !== a.score) return b.score - a.score;
       return (b.skill.stars || 0) - (a.skill.stars || 0);
     })
-    .map(item => item.skill)
+    .map((item) => item.skill)
     .slice(0, limit);
 }
