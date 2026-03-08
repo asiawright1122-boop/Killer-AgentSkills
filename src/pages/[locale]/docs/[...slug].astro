@@ -213,20 +213,20 @@ const isActive = (href: string) => {
       <span class="font-black uppercase flex items-center gap-2">
         <Book className="w-5 h-5" strokeWidth={3} /> Documentation
       </span>
-      <button id="mobile-menu-btn" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
+      <button id="mobile-menu-btn" aria-label="Toggle documentation sidebar" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
         <Menu className="w-6 h-6" strokeWidth={3} />
       </button>
     </div>
 
     {/* Sidebar Navigation */}
-    <aside id="docs-sidebar" class="
+    <aside id="docs-sidebar" aria-label="Documentation navigation" class="
       fixed inset-y-0 left-0 z-30 w-72 bg-[var(--card)] border-r-4 border-[var(--foreground)] transform -translate-x-full transition-transform duration-300 ease-in-out
       md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto
     ">
       <div class="p-6 md:pt-10 space-y-10">
         {/* Mobile Close Button */}
         <div class="flex md:hidden justify-end mb-4">
-          <button id="close-sidebar-btn" class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors">
+          <button id="close-sidebar-btn" aria-label="Close sidebar" class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors">
             <X className="w-6 h-6" strokeWidth={3} />
           </button>
         </div>

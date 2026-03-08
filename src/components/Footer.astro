@@ -33,24 +33,24 @@ const currentYear = new Date().getFullYear();
                 </div>
 
                 {/* Product */}
-                <div>
+                <nav aria-label="Product">
                     <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{t('Footer.product')}</h4>
                     <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
                         <li><a href={`/${locale}/skills`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.browse')}</a></li>
                         <li><a href={`/${locale}/categories`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.categories')}</a></li>
                         <li><a href={`/${locale}/cli`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.cli')}</a></li>
                     </ul>
-                </div>
+                </nav>
 
                 {/* Resources */}
-                <div>
+                <nav aria-label="Resources">
                     <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{t('Footer.resources')}</h4>
                     <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
                         <li><a href={`/${locale}/docs`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.docs')}</a></li>
                         <li><a href={`/${locale}/community`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.community')}</a></li>
                         <li><a href={`/${locale}/blog`} class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all">{t('Footer.blog')}</a></li>
                     </ul>
-                </div>
+                </nav>
 
                 {/* Newsletter */}
                 <div>
@@ -59,8 +59,11 @@ const currentYear = new Date().getFullYear();
                         {t('Footer.subscribeDesc')}
                     </p>
                     <div class="flex gap-2">
+                        <label for="footer-email" class="sr-only">{t('Footer.emailPlaceholder') || 'Email'}</label>
                         <input 
+                            id="footer-email"
                             type="email" 
+                            autocomplete="email"
                             placeholder={t('Footer.emailPlaceholder')}
                             class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
                         />
@@ -77,11 +80,11 @@ const currentYear = new Date().getFullYear();
             <div class="text-xs text-slate-500 dark:text-slate-500">
                 © {currentYear} Killer-Skills Inc. {t('Footer.rights')}
             </div>
-            <div class="flex gap-6 text-xs text-slate-500 dark:text-slate-500">
+            <nav aria-label="Legal" class="flex gap-6 text-xs text-slate-500 dark:text-slate-500">
                 <a href={`/${locale}/privacy`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.privacy')}</a>
                 <a href={`/${locale}/terms`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.terms')}</a>
                 <a href={`/${locale}/cookies`} class="hover:text-slate-900 dark:hover:text-white transition-colors">{t('Footer.cookie')}</a>
-            </div>
+            </nav>
         </div>
     </div>
 </footer>

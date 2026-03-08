@@ -158,6 +158,33 @@
 }
 
 
+/* a11y: Skip Navigation Link */
+.skip-nav {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 10000;
+    padding: 8px 16px;
+    background: var(--foreground);
+    color: var(--background);
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    border: 2px solid var(--border);
+    text-decoration: none;
+}
+
+.skip-nav:focus {
+    top: 8px;
+}
+
+/* a11y: Focus-visible outline for keyboard navigation */
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 2px;
+}
+
 /* Content Visibility: skip rendering for off-screen sections (improves INP/render) */
 .cv-auto {
     content-visibility: auto;
