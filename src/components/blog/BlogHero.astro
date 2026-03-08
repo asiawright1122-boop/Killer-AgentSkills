@@ -37,6 +37,8 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
         src={post.data.heroImage} 
         alt={post.data.title} 
         class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+        fetchpriority="high"
+        decoding="async"
       />
     ) : (
       <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-6xl tracking-tighter mix-blend-overlay">IMAGE MISSING</div>
