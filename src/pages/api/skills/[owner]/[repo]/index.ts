@@ -2,14 +2,14 @@ import type { APIRoute } from 'astro';
 import { getSkillByOwnerRepo } from '../../../../../lib/skills';
 import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
-import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, type GitHubRepoResponse } from '../../../../../lib/github';
+import { COMMON_BRANCHES, getRepository, type RepoInfo } from '../../../../../lib/github';
 
 export const prerender = false;
 
 /**
- * Fetch repository info from GitHub API.
+ * Fetch repository info with mock fallback for official manager skill.
  */
-async function getRepository(owner: string, repo: string): Promise<Record<string, any> | null> {
+async function getRepositoryWithMock(owner: string, repo: string): Promise<RepoInfo | null> {
   // Mock for official manager skill
   if (owner === 'killer-skills' && (repo === 'manager' || repo === 'killer-skills-manager')) {
     return {
@@ -26,29 +26,7 @@ async function getRepository(owner: string, repo: string): Promise<Record<string
     };
   }
 
-  try {
-    const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
-    const response = await fetch(url, { headers: getGitHubHeaders() });
-
-    if (!response.ok) return null;
-
-    const data = (await response.json()) as GitHubRepoResponse;
-    return {
-      name: data.name,
-      repoPath: data.full_name,
-      description: data.description || '',
-      stars: data.stargazers_count,
-      forks: data.forks_count,
-      updatedAt: data.updated_at,
-      owner: data.owner.login,
-      ownerAvatar: data.owner.avatar_url,
-      topics: data.topics || [],
-      htmlUrl: data.html_url,
-    };
-  } catch (error) {
-    console.error('Error fetching repository:', error);
-    return null;
-  }
+  return getRepository(owner, repo);
 }
 
 /**
@@ -170,7 +148,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
     // 2. Fetch repo info and SKILL.md from GitHub in parallel
     const [repoInfo, skillMdContent] = await Promise.all([
-      getRepository(owner, repo),
+      getRepositoryWithMock(owner, repo),
       getSkillMd(owner, repo, skillMdPath),
     ]);
 

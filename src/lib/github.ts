@@ -41,6 +41,50 @@ export interface GitHubRepoResponse {
   };
 }
 
+/** Normalized repository info returned by getRepository */
+export interface RepoInfo {
+  name: string;
+  repoPath: string;
+  description: string;
+  stars: number;
+  forks: number;
+  updatedAt: string;
+  owner: string;
+  ownerAvatar: string;
+  topics: string[];
+  htmlUrl: string;
+}
+
+/**
+ * Fetch repository info from GitHub API and normalize it.
+ * Shared across submit.ts and skill detail endpoints.
+ */
+export async function getRepository(owner: string, repo: string): Promise<RepoInfo | null> {
+  try {
+    const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
+    const response = await fetch(url, { headers: getGitHubHeaders() });
+
+    if (!response.ok) return null;
+
+    const data = (await response.json()) as GitHubRepoResponse;
+    return {
+      name: data.name,
+      repoPath: data.full_name,
+      description: data.description || '',
+      stars: data.stargazers_count,
+      forks: data.forks_count,
+      updatedAt: data.updated_at,
+      owner: data.owner.login,
+      ownerAvatar: data.owner.avatar_url,
+      topics: data.topics || [],
+      htmlUrl: data.html_url,
+    };
+  } catch (error) {
+    console.error('Error fetching repository:', error);
+    return null;
+  }
+}
+
 export function getGitHubHeaders(): Record<string, string> {
   return {
     Accept: 'application/vnd.github.v3+json',
