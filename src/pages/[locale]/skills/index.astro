@@ -308,7 +308,13 @@ const categories = [];
                 class="relative flex items-center bg-[var(--background)] border-4 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] focus-within:translate-x-[-2px] focus-within:translate-y-[-2px] focus-within:shadow-[6px_6px_0px_0px_var(--primary)] transition-all"
               >
                 <div class="pl-4 text-[var(--foreground)]">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="3"
+                    aria-hidden="true"
                     ><path
                       stroke-linecap="square"
                       stroke-linejoin="miter"
@@ -320,6 +326,7 @@ const categories = [];
                   name="q"
                   value={query}
                   placeholder={t('Common.searchPlaceholder')}
+                  aria-label={t('Common.searchPlaceholder')}
                   class="flex-1 bg-transparent border-none focus:ring-0 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] h-14 px-4 text-xl font-bold font-mono tracking-tight uppercase"
                 />
                 <button

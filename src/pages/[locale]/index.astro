@@ -262,7 +262,14 @@ const features = [
             features.map((feature, i) => (
               <div class="brut-card p-6 flex flex-col items-center text-center">
                 <div class="w-16 h-16 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_var(--border)]">
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                  <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    aria-hidden="true"
+                  >
                     <path stroke-linecap="round" stroke-linejoin="round" d={feature.iconPath} />
                   </svg>
                 </div>
