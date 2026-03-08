@@ -7,10 +7,10 @@ export const prerender = false;
 export const GET: APIRoute = async ({ locals }) => {
   const startTime = Date.now();
   const checks: Record<string, { status: string; latencyMs?: number }> = {};
+  const env = (locals as any).runtime?.env as Env | undefined;
 
   // Check KV availability
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
     if (env?.SKILLS_CACHE) {
       const kvStart = Date.now();
       await env.SKILLS_CACHE.get('__health_check__');
@@ -24,7 +24,6 @@ export const GET: APIRoute = async ({ locals }) => {
 
   // Check D1 availability
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
     if (env?.DB) {
       const dbStart = Date.now();
       await env.DB.prepare('SELECT 1').first();
