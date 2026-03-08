@@ -51,7 +51,8 @@ Host: https://killer-skills.com
 
 # AI/LLM Crawler Information
 # See https://llmstxt.org/
-LLMs-Txt: https://killer-skills.com/llms.txt`;
+LLMs-Txt: https://killer-skills.com/llms.txt
+LLMs-Full-Txt: https://killer-skills.com/llms-full.txt`;
 
   return new Response(body, {
     status: 200,
