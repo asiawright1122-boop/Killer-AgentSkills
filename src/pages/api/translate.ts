@@ -2,9 +2,13 @@ import type { APIRoute } from 'astro';
 import { translateTextStream } from '../../lib/nvidia';
 import { getKV, setKV } from '../../lib/kv';
 import crypto from 'node:crypto';
+import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
 
 // Use strict dynamic since it relies on POST body and streams
 export const prerender = false;
+
+// Stricter limit for translation (uses expensive AI API)
+const translateLimiter = createRateLimiter({ windowMs: 60_000, max: 10 });
 
 const STREAM_HEADERS = {
   'Content-Type': 'text/plain; charset=utf-8',
@@ -18,6 +22,12 @@ function generateKey(text: string, lang: string, type: string): string {
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  // Rate limit check
+  const clientIP = getClientIP(request);
+  if (translateLimiter.isLimited(clientIP)) {
+    return rateLimitResponse();
+  }
+
   try {
     const body = (await request.json()) as { text?: string; prompt?: string; targetLang?: string; type?: string };
     const text = body.text || body.prompt;
