@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getSkillByOwnerRepo } from '../../../../../lib/skills';
-import { getSkillsKV, type Env } from '../../../../../lib/kv';
+import { type Env } from '../../../../../lib/kv';
 
 export const prerender = false;
 
@@ -190,9 +190,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     const responseData = {
       ...(repoInfo || {}),
       ...(kvSkill || {}),
-      name: skillPath
-        ? skillPath.split('/').pop() || (repoInfo?.name ?? repo)
-        : (repoInfo?.name ?? repo),
+      name: skillPath ? skillPath.split('/').pop() || (repoInfo?.name ?? repo) : (repoInfo?.name ?? repo),
       skillPath: skillPath || null,
       skillMd: skillMd
         ? {

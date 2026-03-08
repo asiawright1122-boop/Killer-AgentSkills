@@ -33,7 +33,6 @@ jobs:
 
       - name: Lint (ESLint)
         run: npm run lint
-        continue-on-error: true
 
       - name: Format Check (Prettier)
         run: npm run format:check

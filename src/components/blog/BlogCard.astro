@@ -1,7 +1,7 @@
 ---
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
+import { loadMessages, useTranslations, type Locale } from '../../i18n';
 import type { CollectionEntry } from 'astro:content';
-import { ArrowRight, Calendar, User, Clock } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -10,7 +10,7 @@ interface Props {
 
 const { post, locale } = Astro.props;
 const messages = await loadMessages(locale as Locale);
-const t = useTranslations(messages);
+const _t = useTranslations(messages);
 const tb = messages.Blog;
 
 const dateOptions: Intl.DateTimeFormatOptions = {
@@ -21,82 +21,96 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 
 // Use translated category if available
-const displayCategory = post.data.category ? (tb.categories?.[post.data.category as keyof typeof tb.categories] || post.data.category.replace('-', ' ')) : null;
+const displayCategory = post.data.category
+  ? tb.categories?.[post.data.category as keyof typeof tb.categories] || post.data.category.replace('-', ' ')
+  : null;
 ---
 
-<a 
+<a
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
   class="brut-card group relative flex flex-col h-full bg-[var(--card)] w-full overflow-hidden"
 >
   {/* Image Section */}
-  <div class="aspect-video w-full overflow-hidden relative border-b-4 border-[var(--foreground)] bg-[var(--primary)] flex-shrink-0">
-      {post.data.heroImage ? (
-          <img 
-              src={post.data.heroImage} 
-              alt={post.data.title} 
-              width="640"
-              height="360"
-              class="h-full w-full object-cover transition-all duration-500 opacity-90 group-hover:opacity-100 group-hover:scale-105" 
-              loading="lazy"
-              decoding="async"
-          />
+  <div
+    class="aspect-video w-full overflow-hidden relative border-b-4 border-[var(--foreground)] bg-[var(--primary)] flex-shrink-0"
+  >
+    {
+      post.data.heroImage ? (
+        <img
+          src={post.data.heroImage}
+          alt={post.data.title}
+          width="640"
+          height="360"
+          class="h-full w-full object-cover transition-all duration-500 opacity-90 group-hover:opacity-100 group-hover:scale-105"
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
-            <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-4xl tracking-tighter mix-blend-overlay">IMG</div>
-      )}
-      
-      {/* Category/Tag Badge */}
-      {(post.data.category || (post.data.tags && post.data.tags.length > 0)) && (
-          <div class="absolute top-4 left-4 flex gap-2 z-10">
-              {post.data.category && (
-                  <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
-                      {displayCategory}
-                  </span>
-              )}
-              {!post.data.category && post.data.tags && post.data.tags.length > 0 && (
-                  <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold border-2 border-[var(--background)] shadow-[2px_2px_0px_0px_var(--background)]">
-                      {post.data.tags[0]}
-                  </span>
-              )}
-          </div>
-      )}
+        <div class="w-full h-full bg-[var(--foreground)] opacity-10 flex border-4 items-center justify-center font-black text-4xl tracking-tighter mix-blend-overlay">
+          IMG
+        </div>
+      )
+    }
+
+    {/* Category/Tag Badge */}
+    {
+      (post.data.category || (post.data.tags && post.data.tags.length > 0)) && (
+        <div class="absolute top-4 left-4 flex gap-2 z-10">
+          {post.data.category && (
+            <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
+              {displayCategory}
+            </span>
+          )}
+          {!post.data.category && post.data.tags && post.data.tags.length > 0 && (
+            <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold border-2 border-[var(--background)] shadow-[2px_2px_0px_0px_var(--background)]">
+              {post.data.tags[0]}
+            </span>
+          )}
+        </div>
+      )
+    }
   </div>
 
   {/* Content Section */}
   <div class="flex-1 p-6 relative flex flex-col justify-between">
-      <div>
-          {/* Title */}
-          <h3 class="text-xl font-black text-[var(--foreground)] uppercase mb-4 leading-tight group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight px-1 -ml-1 line-clamp-3 w-fit">
-              {post.data.title}
-          </h3>
+    <div>
+      {/* Title */}
+      <h3
+        class="text-xl font-black text-[var(--foreground)] uppercase mb-4 leading-tight group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight px-1 -ml-1 line-clamp-3 w-fit"
+      >
+        {post.data.title}
+      </h3>
 
-          {/* Description */}
-          <p class="text-sm font-bold text-[var(--muted-foreground)] line-clamp-2 mb-6 leading-relaxed">
-              {post.data.description}
-          </p>
+      {/* Description */}
+      <p class="text-sm font-bold text-[var(--muted-foreground)] line-clamp-2 mb-6 leading-relaxed">
+        {post.data.description}
+      </p>
+    </div>
+
+    <div>
+      {/* Author */}
+      <div class="flex items-center gap-2 mb-4">
+        <div
+          class="w-6 h-6 flex items-center justify-center text-[10px] bg-[var(--foreground)] text-[var(--background)] font-black border-2 border-[var(--foreground)]"
+        >
+          {post.data.author.charAt(0).toUpperCase()}
+        </div>
+        <span class="text-xs font-bold text-[var(--foreground)]">
+          {post.data.author}
+        </span>
       </div>
 
-      <div>
-          {/* Author */}
-          <div class="flex items-center gap-2 mb-4">
-              <div class="w-6 h-6 flex items-center justify-center text-[10px] bg-[var(--foreground)] text-[var(--background)] font-black border-2 border-[var(--foreground)]">
-                  {post.data.author.charAt(0).toUpperCase()}
-              </div>
-              <span class="text-xs font-bold text-[var(--foreground)]">
-                  {post.data.author}
-              </span>
+      {/* Footer Meta */}
+      <div class="flex items-center justify-between border-t-[3px] border-[var(--border)] pt-4">
+        <div class="flex items-center gap-4 text-xs font-mono font-bold text-[var(--muted-foreground)]">
+          <div class="flex items-center gap-1.5">
+            <Calendar size={14} strokeWidth={2.5} />
+            <time datetime={post.data.pubDate.toISOString()}>
+              {formattedDate}
+            </time>
           </div>
-
-          {/* Footer Meta */}
-          <div class="flex items-center justify-between border-t-[3px] border-[var(--border)] pt-4">
-               <div class="flex items-center gap-4 text-xs font-mono font-bold text-[var(--muted-foreground)]">
-                  <div class="flex items-center gap-1.5">
-                      <Calendar size={14} strokeWidth={2.5} />
-                      <time datetime={post.data.pubDate.toISOString()}>
-                          {formattedDate}
-                      </time>
-                  </div>
-              </div>
-          </div>
+        </div>
       </div>
+    </div>
   </div>
 </a>

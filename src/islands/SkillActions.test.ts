@@ -20,12 +20,7 @@ import {
   STORAGE_KEY as FAV_STORAGE_KEY,
   type FavoriteSkill,
 } from '../lib/favorites';
-import {
-  loadHistory,
-  addToHistory,
-  STORAGE_KEY as HIST_STORAGE_KEY,
-  type HistoryItem,
-} from '../lib/history';
+import { loadHistory, addToHistory, STORAGE_KEY as HIST_STORAGE_KEY } from '../lib/history';
 
 // ── localStorage mock ──────────────────────────────────────────────────────────
 
@@ -33,10 +28,18 @@ const store = new Map<string, string>();
 
 const localStorageMock: Storage = {
   getItem: vi.fn((key: string) => store.get(key) ?? null),
-  setItem: vi.fn((key: string, value: string) => { store.set(key, value); }),
-  removeItem: vi.fn((key: string) => { store.delete(key); }),
-  clear: vi.fn(() => { store.clear(); }),
-  get length() { return store.size; },
+  setItem: vi.fn((key: string, value: string) => {
+    store.set(key, value);
+  }),
+  removeItem: vi.fn((key: string) => {
+    store.delete(key);
+  }),
+  clear: vi.fn(() => {
+    store.clear();
+  }),
+  get length() {
+    return store.size;
+  },
   key: vi.fn((i: number) => [...store.keys()][i] ?? null),
 };
 
@@ -68,14 +71,16 @@ describe('SkillActions – mount flow (favorites check + history recording)', ()
   });
 
   it('detects skill is favorited when it exists in favorites', () => {
-    const existing: FavoriteSkill[] = [{
-      id: skillProps.skillId,
-      name: skillProps.skillName,
-      owner: skillProps.owner,
-      repo: skillProps.repo,
-      description: skillProps.description,
-      addedAt: '2024-01-15T10:00:00.000Z',
-    }];
+    const existing: FavoriteSkill[] = [
+      {
+        id: skillProps.skillId,
+        name: skillProps.skillName,
+        owner: skillProps.owner,
+        repo: skillProps.repo,
+        description: skillProps.description,
+        addedAt: '2024-01-15T10:00:00.000Z',
+      },
+    ];
     saveFavorites(existing);
 
     const favs = loadFavorites();

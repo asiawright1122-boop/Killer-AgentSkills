@@ -1,16 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
-import {
-  SUPPORTED_LOCALES,
-  DEFAULT_LOCALE,
-  type Locale,
-} from './i18n';
-import {
-  detectLocale,
-  isStaticOrApiPath,
-  hasLocalePrefix,
-  COUNTRY_TO_LOCALE,
-} from './middleware-utils';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './i18n';
+import { detectLocale, isStaticOrApiPath, hasLocalePrefix, COUNTRY_TO_LOCALE } from './middleware-utils';
 
 // ============================================================================
 // Generators
@@ -23,33 +14,28 @@ const localeArb = fc.constantFrom(...SUPPORTED_LOCALES);
 const validCountryCodeArb = fc.constantFrom(...Object.keys(COUNTRY_TO_LOCALE));
 
 /** Generates a country code that does NOT map to any locale. */
-const unmappedCountryCodeArb = fc
-  .stringMatching(/^[A-Z]{2}$/)
-  .filter((code) => !(code in COUNTRY_TO_LOCALE));
+const unmappedCountryCodeArb = fc.stringMatching(/^[A-Z]{2}$/).filter((code) => !(code in COUNTRY_TO_LOCALE));
 
 /** Generates a valid Accept-Language header value with a supported locale as the first entry. */
 const acceptLanguageWithSupportedArb = localeArb.chain((locale) =>
-  fc.tuple(
-    fc.constant(locale),
-    fc.array(
-      fc.stringMatching(/^[a-z]{2}(-[A-Z]{2})?(;q=0\.\d+)?$/),
-      { minLength: 0, maxLength: 3 }
-    ),
-  ).map(([loc, extras]) => {
-    const parts = [loc, ...extras];
-    return parts.join(',');
-  }),
+  fc
+    .tuple(
+      fc.constant(locale),
+      fc.array(fc.stringMatching(/^[a-z]{2}(-[A-Z]{2})?(;q=0\.\d+)?$/), { minLength: 0, maxLength: 3 }),
+    )
+    .map(([loc, extras]) => {
+      const parts = [loc, ...extras];
+      return parts.join(',');
+    }),
 );
 
 /** Generates an Accept-Language header where no entry is a supported locale. */
 const acceptLanguageUnsupportedArb = fc
   .array(
-    fc.stringMatching(/^[a-z]{2}(-[A-Z]{2})?(;q=0\.\d+)?$/).filter(
-      (s) => {
-        const code = s.split(';')[0].split('-')[0].toLowerCase();
-        return !(SUPPORTED_LOCALES as readonly string[]).includes(code);
-      }
-    ),
+    fc.stringMatching(/^[a-z]{2}(-[A-Z]{2})?(;q=0\.\d+)?$/).filter((s) => {
+      const code = s.split(';')[0].split('-')[0].toLowerCase();
+      return !(SUPPORTED_LOCALES as readonly string[]).includes(code);
+    }),
     { minLength: 1, maxLength: 4 },
   )
   .map((parts) => parts.join(','));
@@ -63,7 +49,20 @@ const pathSuffixArb = fc
   .map((segments) => (segments.length > 0 ? '/' + segments.join('/') : ''));
 
 /** Generates a file extension. */
-const fileExtensionArb = fc.constantFrom('.js', '.css', '.png', '.jpg', '.svg', '.ico', '.woff2', '.json', '.xml', '.html', '.txt', '.map');
+const fileExtensionArb = fc.constantFrom(
+  '.js',
+  '.css',
+  '.png',
+  '.jpg',
+  '.svg',
+  '.ico',
+  '.woff2',
+  '.json',
+  '.xml',
+  '.html',
+  '.txt',
+  '.map',
+);
 
 // ============================================================================
 // Property 3: 中间件语言检测优先级
@@ -122,16 +121,12 @@ describe('Feature: nextjs-to-astro-migration, Property 3: 中间件语言检测�
      * the detected locale should come from Accept-Language.
      */
     fc.assert(
-      fc.property(
-        fc.option(unmappedCountryCodeArb, { nil: null }),
-        localeArb,
-        (cfCountry, expectedLocale) => {
-          // Accept-Language with the expected locale as first entry
-          const acceptLang = `${expectedLocale}-XX,en;q=0.5`;
-          const result = detectLocale(undefined, cfCountry, acceptLang);
-          expect(result).toBe(expectedLocale);
-        },
-      ),
+      fc.property(fc.option(unmappedCountryCodeArb, { nil: null }), localeArb, (cfCountry, expectedLocale) => {
+        // Accept-Language with the expected locale as first entry
+        const acceptLang = `${expectedLocale}-XX,en;q=0.5`;
+        const result = detectLocale(undefined, cfCountry, acceptLang);
+        expect(result).toBe(expectedLocale);
+      }),
       { numRuns: 100 },
     );
   });
@@ -168,15 +163,11 @@ describe('Feature: nextjs-to-astro-migration, Property 3: 中间件语言检测�
       .filter((s) => !(SUPPORTED_LOCALES as readonly string[]).includes(s));
 
     fc.assert(
-      fc.property(
-        invalidCookieArb,
-        validCountryCodeArb,
-        (invalidCookie, cfCountry) => {
-          const result = detectLocale(invalidCookie, cfCountry, null);
-          // Should fall through to CF-IPCountry
-          expect(result).toBe(COUNTRY_TO_LOCALE[cfCountry.toUpperCase()]);
-        },
-      ),
+      fc.property(invalidCookieArb, validCountryCodeArb, (invalidCookie, cfCountry) => {
+        const result = detectLocale(invalidCookie, cfCountry, null);
+        // Should fall through to CF-IPCountry
+        expect(result).toBe(COUNTRY_TO_LOCALE[cfCountry.toUpperCase()]);
+      }),
       { numRuns: 100 },
     );
   });
@@ -247,16 +238,11 @@ describe('Feature: nextjs-to-astro-migration, Property 4: 中间件路径放行'
      * For any path containing a file extension, isStaticOrApiPath should return true.
      */
     fc.assert(
-      fc.property(
-        pathSegmentArb,
-        fileExtensionArb,
-        pathSuffixArb,
-        (filename, ext, prefix) => {
-          // Build a path like /some/path/file.ext
-          const path = `${prefix}/${filename}${ext}`;
-          expect(isStaticOrApiPath(path)).toBe(true);
-        },
-      ),
+      fc.property(pathSegmentArb, fileExtensionArb, pathSuffixArb, (filename, ext, prefix) => {
+        // Build a path like /some/path/file.ext
+        const path = `${prefix}/${filename}${ext}`;
+        expect(isStaticOrApiPath(path)).toBe(true);
+      }),
       { numRuns: 100 },
     );
   });
@@ -309,13 +295,10 @@ describe('Feature: nextjs-to-astro-migration, Property 4: 中间件路径放行'
       .filter((s) => !s.includes('.') && s !== 'api' && s !== '_astro' && s !== 'favicon');
 
     fc.assert(
-      fc.property(
-        fc.array(cleanSegmentArb, { minLength: 1, maxLength: 3 }),
-        (segments) => {
-          const path = '/' + segments.join('/');
-          expect(isStaticOrApiPath(path)).toBe(false);
-        },
-      ),
+      fc.property(fc.array(cleanSegmentArb, { minLength: 1, maxLength: 3 }), (segments) => {
+        const path = '/' + segments.join('/');
+        expect(isStaticOrApiPath(path)).toBe(false);
+      }),
       { numRuns: 100 },
     );
   });

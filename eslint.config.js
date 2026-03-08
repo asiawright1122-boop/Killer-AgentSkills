@@ -11,8 +11,20 @@ export default tseslint.config(
   {
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/no-unused-vars': ['warn', {
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_',
+      }],
+      '@typescript-eslint/ban-ts-comment': ['error', {
+        'ts-ignore': 'allow-with-description',
+      }],
+      '@typescript-eslint/triple-slash-reference': 'off',
+      '@typescript-eslint/no-empty-interface': 'off',
+      '@typescript-eslint/no-empty-object-type': 'off',
       'no-console': 'off',
+      'no-empty': ['error', { allowEmptyCatch: true }],
     },
   },
   {

@@ -1,7 +1,5 @@
 import type { APIRoute } from 'astro';
-import { SUPPORTED_LOCALES } from '../i18n';
 import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
-
 
 export const prerender = false;
 
@@ -10,7 +8,7 @@ const SITE = 'https://killer-skills.com';
 /**
  * Sitemap Index — Splits the sitemap into logical sub-sitemaps for better
  * crawl efficiency. Google recommends max 50,000 URLs / 50MB per sitemap.
- * 
+ *
  * Structure:
  *   /sitemap.xml          → This file (Sitemap Index)
  *   /sitemap-static.xml   → Static pages (home, categories, cli, etc.)
@@ -22,13 +20,13 @@ export const GET: APIRoute = async ({ locals }) => {
 
   // Get last modification date for skills
   let skillsLastMod = new Date().toISOString().split('T')[0];
-  let skills: { updatedAt?: string; }[] = [];
+  let skills: { updatedAt?: string }[] = [];
   try {
-    skills = await getSitemapSkillsFromKV(env as Env) || [];
+    skills = (await getSitemapSkillsFromKV(env as Env)) || [];
     if (skills.length > 0) {
       // Use the most recent updatedAt as the sitemap lastmod
       const latest = skills
-        .filter(s => s.updatedAt)
+        .filter((s) => s.updatedAt)
         .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
       if (latest?.updatedAt) {
         skillsLastMod = new Date(latest.updatedAt).toISOString().split('T')[0];
@@ -42,7 +40,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
   // Calculate number of sitemap chunks (limit 1000 skills per file)
   const LIMIT = 1000;
-  const totalSkills = (skills && skills.length > 0) ? skills.length : 0;
+  const totalSkills = skills && skills.length > 0 ? skills.length : 0;
   const totalPages = Math.ceil(totalSkills / LIMIT) || 1;
 
   const skillSitemaps = [];
@@ -55,7 +53,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
     if (chunkSkills.length > 0) {
       const latestInChunk = chunkSkills
-        .filter(s => s.updatedAt)
+        .filter((s) => s.updatedAt)
         .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
 
       if (latestInChunk?.updatedAt) {

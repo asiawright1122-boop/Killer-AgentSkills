@@ -12,12 +12,12 @@ import type { Env } from './kv';
 // Prevent dev-mode fallback to local data/skills-cache.json during tests
 const originalDev = import.meta.env.DEV;
 beforeEach(() => {
-  // @ts-ignore
+  // @ts-ignore -- vitest allows mutating import.meta.env
   import.meta.env.DEV = false;
   _resetSkillsCache();
 });
 afterEach(() => {
-  // @ts-ignore
+  // @ts-ignore -- restore original DEV value
   import.meta.env.DEV = originalDev;
 });
 // Helper to create a mock KVNamespace
@@ -37,10 +37,7 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
 }
 
 function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = new Map()): Env {
-  const store = new Map<string, any>([
-    ['all-skills', JSON.stringify(skills)],
-    ...extraKV,
-  ]);
+  const store = new Map<string, any>([['all-skills', JSON.stringify(skills)], ...extraKV]);
 
   // Create D1 mock that supports the SQL queries used by getSkillsFromKV
   const mockDB = {
@@ -53,16 +50,18 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
             const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
             return {
               success: true,
-              results: sorted.slice(0, limit).map(s => ({ data_json: JSON.stringify(s) })),
+              results: sorted.slice(0, limit).map((s) => ({ data_json: JSON.stringify(s) })),
             };
           }
           // Handle GROUP BY owner
           if (sql.includes('GROUP BY owner')) {
             const owners = args.slice(0, -1); // last arg is LIMIT
             const grouped: Record<string, number> = {};
-            skills.filter(s => owners.includes(s.owner)).forEach(s => {
-              grouped[s.owner] = (grouped[s.owner] || 0) + 1;
-            });
+            skills
+              .filter((s) => owners.includes(s.owner))
+              .forEach((s) => {
+                grouped[s.owner] = (grouped[s.owner] || 0) + 1;
+              });
             return {
               success: true,
               results: Object.entries(grouped)
@@ -76,19 +75,19 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
           // Handle exact ID match
           if (sql.includes('WHERE id = ?')) {
             const id = args[0];
-            const match = skills.find(s => s.id === id || `${s.owner}/${s.repo}` === id);
+            const match = skills.find((s) => s.id === id || `${s.owner}/${s.repo}` === id);
             return match ? { data_json: JSON.stringify(match) } : null;
           }
           // Handle LIKE match
           if (sql.includes('LIKE ?')) {
             const pattern = args[0]?.replace(/%/g, '');
-            const match = skills.find(s => `${s.owner}/${s.repo}`.startsWith(pattern));
+            const match = skills.find((s) => `${s.owner}/${s.repo}`.startsWith(pattern));
             return match ? { data_json: JSON.stringify(match) } : null;
           }
           // Handle owner + repo match
           if (sql.includes('WHERE owner = ? AND repo = ?')) {
             const [owner, repo] = args;
-            const match = skills.find(s => s.owner === owner && s.repo === repo);
+            const match = skills.find((s) => s.owner === owner && s.repo === repo);
             return match ? { data_json: JSON.stringify(match) } : null;
           }
           return null;
@@ -99,7 +98,7 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
         const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
         return {
           success: true,
-          results: sorted.map(s => ({ data_json: JSON.stringify(s) })),
+          results: sorted.map((s) => ({ data_json: JSON.stringify(s) })),
         };
       }),
     })),
@@ -204,7 +203,11 @@ describe('getAllSkills', () => {
   });
 
   it('should return empty array when SKILLS_CACHE binding is unavailable', async () => {
-    const env = { TRANSLATIONS: createMockKV(), DB: { prepare: vi.fn(), all: vi.fn() } as unknown as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
+    const env = {
+      TRANSLATIONS: createMockKV(),
+      DB: { prepare: vi.fn(), all: vi.fn() } as unknown as D1Database,
+      ASSETS: {} as Fetcher,
+    } as unknown as Env;
     const result = await getAllSkills(env);
     expect(result).toEqual([]);
   });
@@ -213,9 +216,7 @@ describe('getAllSkills', () => {
 describe('getSkillByOwnerRepo', () => {
   it('should find a skill by owner and repo via direct KV lookup', async () => {
     const skill = sampleSkills[0];
-    const extraKV = new Map([
-      [`skill:${skill.owner}/${skill.repo}`, JSON.stringify(skill)],
-    ]);
+    const extraKV = new Map([[`skill:${skill.owner}/${skill.repo}`, JSON.stringify(skill)]]);
     const env = createMockEnv(sampleSkills, extraKV);
 
     const result = await getSkillByOwnerRepo(env, 'anthropics', 'skills');

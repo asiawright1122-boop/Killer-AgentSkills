@@ -1,14 +1,14 @@
 import { defineMiddleware } from 'astro:middleware';
-import {
+import { isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from './middleware-utils';
+
+// Re-export for backward compatibility
+export {
+  COUNTRY_TO_LOCALE,
   isStaticOrApiPath,
   hasLocalePrefix,
   checkAdminAuth,
   detectLocale,
-  COUNTRY_TO_LOCALE,
 } from './middleware-utils';
-
-// Re-export for backward compatibility
-export { COUNTRY_TO_LOCALE, isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from './middleware-utils';
 export type { AdminAuthResult } from './middleware-utils';
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -78,9 +78,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   return new Response(null, {
     status: 302,
     headers: {
-      'Location': redirectPath,
+      Location: redirectPath,
       'Cache-Control': 'public, s-maxage=3600',
-      'Vary': 'Cookie, Accept-Language, CF-IPCountry'
-    }
+      Vary: 'Cookie, Accept-Language, CF-IPCountry',
+    },
   });
 });

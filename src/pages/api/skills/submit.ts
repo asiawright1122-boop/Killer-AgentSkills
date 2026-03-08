@@ -15,9 +15,9 @@ export function parseRepoUrl(url: string): { owner: string; repo: string } | nul
   const trimmed = url.trim().replace(/\/$/, '');
 
   const patterns = [
-    /^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)/,
-    /^github\.com\/([^\/]+)\/([^\/]+)/,
-    /^([^\/]+)\/([^\/]+)$/,
+    /^https?:\/\/github\.com\/([^/]+)\/([^/]+)/,
+    /^github\.com\/([^/]+)\/([^/]+)/,
+    /^([^/]+)\/([^/]+)$/,
   ];
 
   for (const pattern of patterns) {
@@ -33,10 +33,7 @@ export function parseRepoUrl(url: string): { owner: string; repo: string } | nul
 /**
  * Fetch repository info from GitHub API.
  */
-async function getRepository(
-  owner: string,
-  repo: string
-): Promise<Record<string, any> | null> {
+async function getRepository(owner: string, repo: string): Promise<Record<string, any> | null> {
   try {
     const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
     const response = await fetch(url, { headers: getGitHubHeaders() });
@@ -148,13 +145,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { repoUrl } = body;
 
     if (!repoUrl) {
-      return new Response(
-        JSON.stringify({ error: 'Please provide a repository URL' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Please provide a repository URL' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Parse repository URL
@@ -162,13 +156,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (!parsed) {
       return new Response(
         JSON.stringify({
-          error:
-            'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
+          error: 'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
         }),
         {
           status: 400,
           headers: { 'Content-Type': 'application/json' },
-        }
+        },
       );
     }
 
@@ -184,7 +177,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         {
           status: 404,
           headers: { 'Content-Type': 'application/json' },
-        }
+        },
       );
     }
 
@@ -198,7 +191,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         {
           status: 400,
           headers: { 'Content-Type': 'application/json' },
-        }
+        },
       );
     }
 
@@ -212,13 +205,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
       const existing = await getSkillsKV(env, repoPath);
 
       if (existing) {
-        return new Response(
-          JSON.stringify({ error: 'This skill already exists', skill: repoInfo }),
-          {
-            status: 409,
-            headers: { 'Content-Type': 'application/json' },
-          }
-        );
+        return new Response(JSON.stringify({ error: 'This skill already exists', skill: repoInfo }), {
+          status: 409,
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
 
       // Store submission in KV for later review
@@ -264,17 +254,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   } catch (error) {
     console.error('Error submitting skill:', error);
-    return new Response(
-      JSON.stringify({ error: 'Submission failed, please try again later' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Submission failed, please try again later' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
 
@@ -290,24 +277,18 @@ export const GET: APIRoute = async ({ request }) => {
   const repoUrl = url.searchParams.get('url');
 
   if (!repoUrl) {
-    return new Response(
-      JSON.stringify({ error: 'Please provide a repository URL' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Please provide a repository URL' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const parsed = parseRepoUrl(repoUrl);
   if (!parsed) {
-    return new Response(
-      JSON.stringify({ error: 'Invalid repository URL format' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Invalid repository URL format' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   const { owner, repo } = parsed;
@@ -315,13 +296,10 @@ export const GET: APIRoute = async ({ request }) => {
   // Validate repository exists
   const repoInfo = await getRepository(owner, repo);
   if (!repoInfo) {
-    return new Response(
-      JSON.stringify({ error: `Repository ${owner}/${repo} does not exist` }),
-      {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: `Repository ${owner}/${repo} does not exist` }), {
+      status: 404,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   // Fetch SKILL.md
@@ -335,7 +313,7 @@ export const GET: APIRoute = async ({ request }) => {
       {
         status: 400,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   }
 
@@ -359,6 +337,6 @@ export const GET: APIRoute = async ({ request }) => {
     {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
-    }
+    },
   );
 };

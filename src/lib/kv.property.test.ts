@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { getKV, setKV, type Env } from './kv';
 
@@ -10,7 +10,7 @@ import { getKV, setKV, type Env } from './kv';
  * Generates a valid KV key string.
  * Keys are non-empty strings with printable ASCII characters, no whitespace-only.
  */
-const kvKeyArb = fc.stringMatching(/^[a-zA-Z0-9_:.\-\/]{1,64}$/);
+const kvKeyArb = fc.stringMatching(/^[a-zA-Z0-9_:.\-/]{1,64}$/);
 
 /**
  * Generates a valid KV value string.
@@ -31,7 +31,7 @@ function createFunctionalMockKV(store: Map<string, string> = new Map()): KVNames
     put: async (key: string, value: string, _opts?: any) => {
       store.set(key, value);
     },
-    delete: async () => { },
+    delete: async () => {},
     list: async () => ({ keys: [], list_complete: true, cacheStatus: null }),
     getWithMetadata: async () => ({ value: null, metadata: null, cacheStatus: null }),
   } as unknown as KVNamespace;
@@ -134,23 +134,19 @@ describe('Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性', (
      * getKV should return the most recently written value.
      */
     await fc.assert(
-      fc.asyncProperty(
-        kvKeyArb,
-        fc.array(kvValueArb, { minLength: 2, maxLength: 5 }),
-        async (key, values) => {
-          const store = new Map<string, string>();
-          const env = createFunctionalEnv(store);
+      fc.asyncProperty(kvKeyArb, fc.array(kvValueArb, { minLength: 2, maxLength: 5 }), async (key, values) => {
+        const store = new Map<string, string>();
+        const env = createFunctionalEnv(store);
 
-          // Write multiple values to the same key
-          for (const value of values) {
-            await setKV(env, key, value);
-          }
+        // Write multiple values to the same key
+        for (const value of values) {
+          await setKV(env, key, value);
+        }
 
-          // The last value should be returned
-          const result = await getKV(env, key);
-          expect(result).toBe(values[values.length - 1]);
-        },
-      ),
+        // The last value should be returned
+        const result = await getKV(env, key);
+        expect(result).toBe(values[values.length - 1]);
+      }),
       { numRuns: 100 },
     );
   });
@@ -164,10 +160,7 @@ describe('Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性', (
      */
     await fc.assert(
       fc.asyncProperty(
-        fc.uniqueArray(
-          fc.tuple(kvKeyArb, kvValueArb),
-          { minLength: 2, maxLength: 10, selector: ([k]) => k },
-        ),
+        fc.uniqueArray(fc.tuple(kvKeyArb, kvValueArb), { minLength: 2, maxLength: 10, selector: ([k]) => k }),
         async (pairs) => {
           const store = new Map<string, string>();
           const env = createFunctionalEnv(store);
@@ -196,20 +189,16 @@ describe('Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性', (
      * semantics, maintaining the same behavior as the KV binding.
      */
     await fc.assert(
-      fc.asyncProperty(
-        kvKeyArb,
-        fc.array(kvValueArb, { minLength: 2, maxLength: 5 }),
-        async (key, values) => {
-          const env = createEnvWithoutTranslations();
+      fc.asyncProperty(kvKeyArb, fc.array(kvValueArb, { minLength: 2, maxLength: 5 }), async (key, values) => {
+        const env = createEnvWithoutTranslations();
 
-          for (const value of values) {
-            await setKV(env, key, value);
-          }
+        for (const value of values) {
+          await setKV(env, key, value);
+        }
 
-          const result = await getKV(env, key);
-          expect(result).toBe(values[values.length - 1]);
-        },
-      ),
+        const result = await getKV(env, key);
+        expect(result).toBe(values[values.length - 1]);
+      }),
       { numRuns: 100 },
     );
   });
