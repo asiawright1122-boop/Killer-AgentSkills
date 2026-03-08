@@ -11,6 +11,16 @@ export {
 } from './middleware-utils';
 export type { AdminAuthResult } from './middleware-utils';
 
+/**
+ * Add security and performance headers to page responses.
+ */
+function setSecurityHeaders(response: Response): void {
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'SAMEORIGIN');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+}
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
@@ -62,6 +72,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = pathname.split('/')[1];
     const response = await next();
     response.headers.set('Content-Language', localeSegment);
+    setSecurityHeaders(response);
     return response;
   }
 
