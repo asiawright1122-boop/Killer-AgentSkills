@@ -24,33 +24,10 @@ function setSecurityHeaders(response: Response): void {
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
-  // 1. Admin API routes require authentication (checked BEFORE skipping API routes)
-  if (pathname.startsWith('/api/admin/')) {
-    const authHeader = context.request.headers.get('authorization');
-    const env = context.locals.runtime?.env;
-    const validUser = env?.ADMIN_USER || 'admin';
-    const validPass = env?.ADMIN_PASSWORD || 'admin';
-
-    const authResult = checkAdminAuth(authHeader, validUser, validPass);
-    if (authResult !== 'pass') {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: {
-          'Content-Type': 'application/json',
-          'WWW-Authenticate': 'Basic realm="Admin API"',
-        },
-      });
-    }
-    return next();
-  }
-
-  // 2. Skip static assets and non-admin API routes
-  if (isStaticOrApiPath(pathname)) {
-    return next();
-  }
-
-  // 3. Admin pages Basic Auth
-  if (pathname.startsWith('/admin')) {
+  // 1. Admin routes (API + pages) require Basic Auth
+  const isAdminApi = pathname.startsWith('/api/admin/');
+  const isAdminPage = !isAdminApi && pathname.startsWith('/admin');
+  if (isAdminApi || isAdminPage) {
     const authHeader = context.request.headers.get('authorization');
     const env = context.locals.runtime?.env;
     const validUser = env?.ADMIN_USER || 'admin';
@@ -61,10 +38,21 @@ export const onRequest = defineMiddleware(async (context, next) => {
       return next();
     }
 
-    return new Response('Unauthorized', {
-      status: 401,
-      headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
-    });
+    // API routes return JSON error; pages return plain text
+    return isAdminApi
+      ? new Response(JSON.stringify({ error: 'Unauthorized' }), {
+          status: 401,
+          headers: { 'Content-Type': 'application/json', 'WWW-Authenticate': 'Basic realm="Admin API"' },
+        })
+      : new Response('Unauthorized', {
+          status: 401,
+          headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
+        });
+  }
+
+  // 2. Skip static assets and non-admin API routes
+  if (isStaticOrApiPath(pathname)) {
+    return next();
   }
 
   // 4. If path already has a valid locale prefix, pass through with Content-Language header
