@@ -142,24 +142,24 @@
       "browse": "Explorar habilidades",
       "docs": "Ver documentación"
     },
-    "features": [
-      {
+    "features": {
+      "0": {
         "title": "Soporte Multi-IDE",
         "desc": "Se integra perfectamente con Cursor, Windsurf y Claude Code."
       },
-      {
+      "1": {
         "title": "Protocolo Estándar",
         "desc": "Basado en MCP. Escribe una vez, ejecuta en todas partes."
       },
-      {
+      "2": {
         "title": "Calidad Curada",
         "desc": "Skills verificadas y seleccionadas manualmente con altas calificaciones."
       },
-      {
+      "3": {
         "title": "Código Abierto",
         "desc": "Transparente, seguro e impulsado por la comunidad."
       }
-    ]
+    }
   },
   "Sidebar": {
     "discover": "Descubrir",
