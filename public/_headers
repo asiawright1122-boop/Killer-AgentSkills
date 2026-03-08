@@ -27,3 +27,9 @@
 
 /robots.txt
   Cache-Control: public, max-age=3600
+
+/og-image.png
+  Cache-Control: public, max-age=604800
+
+/sitemap*.xml
+  Cache-Control: public, max-age=3600
