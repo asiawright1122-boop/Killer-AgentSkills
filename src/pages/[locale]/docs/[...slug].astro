@@ -197,6 +197,15 @@ const isActive = (href: string) => {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
+      { "@type": "ListItem", "position": 2, "name": t('Footer.docs') || "Docs", "item": `https://killer-skills.com/${locale}/docs/` },
+      ...(!isIndex ? [{ "@type": "ListItem", "position": 3, "name": docTitle, "item": `https://killer-skills.com${currentPath}/` }] : [])
+    ]
+  })} slot="head" />
   <div class="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col md:flex-row font-sans">
     
     {/* Mobile Toggle (Visible only on small screens) */}

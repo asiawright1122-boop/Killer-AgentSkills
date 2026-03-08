@@ -61,6 +61,15 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
     title={pageTitle} 
     description={pageDescription}
 >
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": `https://killer-skills.com/${locale}/blog/` },
+            { "@type": "ListItem", "position": 3, "name": categoryName, "item": `https://killer-skills.com/${locale}/blog/category/${category}/` }
+        ]
+    })} slot="head" />
     <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
         
         <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">

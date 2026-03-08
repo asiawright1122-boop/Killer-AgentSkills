@@ -33,6 +33,14 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
     title={t('Common.collections') || 'Curated Collections'}
     description={t('Metadata.description')}
 >
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
+            { "@type": "ListItem", "position": 2, "name": t('Common.collections') || "Collections", "item": `https://killer-skills.com/${locale}/collections/` }
+        ]
+    })} slot="head" />
     
     <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
         <main class="relative z-10 pt-12 md:pt-24 pb-32 border-b-[3px] border-[var(--border)]">

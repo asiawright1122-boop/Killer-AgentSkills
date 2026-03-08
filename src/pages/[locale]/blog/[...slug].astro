@@ -102,8 +102,15 @@ const blogBreadcrumbSchema = {
     image={ogImage}
     ogType="article"
 >
-    <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} slot="head" />
-    <script type="application/ld+json" set:html={JSON.stringify(blogBreadcrumbSchema)} slot="head" />
+    <Fragment slot="head">
+        <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+        <script type="application/ld+json" set:html={JSON.stringify(blogBreadcrumbSchema)} />
+        <meta property="article:published_time" content={post.data.pubDate.toISOString()} />
+        <meta property="article:author" content={post.data.author} />
+        {post.data.tags && post.data.tags.map((tag: string) => (
+            <meta property="article:tag" content={tag} />
+        ))}
+    </Fragment>
     {/* Reading Progress Bar */}
     <div class="fixed top-0 left-0 w-full h-1 z-50 bg-transparent">
         <div id="progress-bar" class="h-full bg-gradient-to-r from-sky-500 to-cyan-500 dark:from-purple-500 dark:to-cyan-500 w-0 transition-all duration-100 ease-out"></div>
