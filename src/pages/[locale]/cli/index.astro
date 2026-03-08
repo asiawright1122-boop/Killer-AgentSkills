@@ -359,8 +359,8 @@ const configContent = getDocContent('cli/configuration');
       
       if (pre.parentNode) {
         pre.parentNode.insertBefore(wrapper, pre);
-        pre.style.marginTop = '0';
-        pre.style.marginBottom = '0';
+        (pre as HTMLElement).style.marginTop = '0';
+        (pre as HTMLElement).style.marginBottom = '0';
         wrapper.appendChild(pre);
         
         const btn = document.createElement('button');
@@ -384,7 +384,7 @@ const configContent = getDocContent('cli/configuration');
 
         btn.addEventListener('click', async () => {
           try {
-            const code = pre.querySelector('code')?.innerText || pre.innerText;
+            const code = (pre.querySelector('code') as HTMLElement)?.innerText || (pre as HTMLElement).innerText;
 
             // Success State (Synchronous visual feedback for better INP)
             btn.innerHTML = checkIcon;

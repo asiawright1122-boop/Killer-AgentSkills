@@ -1,5 +1,4 @@
 ---
-import { getMessages } from '../../i18n';
 import type { CollectionEntry } from 'astro:content';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { ArrowRight, Calendar, User, ArrowUpRight } from 'lucide-react';
@@ -27,7 +26,7 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
 
 <a 
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
-  aria-label={t.readArticle + ' - ' + post.data.title}
+  aria-label={t('Blog.readArticle') + ' - ' + post.data.title}
   class="brut-card group relative block w-full bg-[var(--card)] flex flex-col md:flex-row h-auto md:min-h-[450px]"
 >
   {/* Image Section */}

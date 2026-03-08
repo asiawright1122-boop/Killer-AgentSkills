@@ -31,7 +31,8 @@ import {
   ChevronRight,
   Book,
   Menu,
-  X
+  X,
+  Rocket
 } from 'lucide-react';
 
 export const prerender = false;
@@ -61,6 +62,8 @@ try {
 const isIndex = !slug;
 const currentSlug = isIndex ? 'index' : slug;
 const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
+
+interface DocData { title: string; content: string; }
 
 let docContent: string | null = null;
 let docTitle = '';
@@ -399,8 +402,8 @@ const isActive = (href: string) => {
         pre.parentNode.insertBefore(wrapper, pre);
         
         // Remove margins from pre to avoid double spacing
-        pre.style.marginTop = '0';
-        pre.style.marginBottom = '0';
+        (pre as HTMLElement).style.marginTop = '0';
+        (pre as HTMLElement).style.marginBottom = '0';
         
         // Move pre into wrapper
         wrapper.appendChild(pre);
@@ -429,7 +432,7 @@ const isActive = (href: string) => {
 
         btn.addEventListener('click', async () => {
           try {
-            const code = pre.querySelector('code')?.innerText || pre.innerText;
+            const code = (pre.querySelector('code') as HTMLElement)?.innerText || (pre as HTMLElement).innerText;
             
             // Success State (Synchronous visual feedback for better INP)
             btn.innerHTML = checkIcon;
