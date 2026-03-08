@@ -67,14 +67,14 @@ async function getEmbeddings(texts: string[]): Promise<number[][]> {
                 throw new Error(`Cloudflare API error (${response.status}): ${errText}`);
             }
 
-            const data = await response.json();
+            const data = (await response.json()) as { success: boolean; errors?: unknown; result: { data?: number[][] } & Record<string, unknown> };
 
             if (!data.success) {
                 throw new Error(`Cloudflare API error: ${JSON.stringify(data.errors)}`);
             }
 
             // The API returns the shape [batchSize, 1024]
-            return data.result.data || data.result;
+            return (data.result.data || data.result) as number[][];
         } catch (error) {
             console.warn(`[getEmbeddings] Error: ${(error as Error).message}. Retries left: ${retries - 1}`);
             retries--;
