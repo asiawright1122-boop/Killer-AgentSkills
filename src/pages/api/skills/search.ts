@@ -3,8 +3,11 @@ import { getSkillsFromKV, type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
 import { errorResponse } from '../../../lib/api-utils';
+import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 
 export const prerender = false;
+
+const skillsSearchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
 
 /**
  * GET /api/skills/search
@@ -19,6 +22,12 @@ export const prerender = false;
  *   locale   - Locale for description localization (default: "en")
  */
 export const GET: APIRoute = async ({ request, locals }) => {
+  // Rate limit check
+  const clientIP = getClientIP(request);
+  if (skillsSearchLimiter.isLimited(clientIP)) {
+    return rateLimitResponse();
+  }
+
   const url = new URL(request.url);
   const query = url.searchParams.get('q') || '';
   const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));

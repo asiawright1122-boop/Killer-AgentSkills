@@ -63,6 +63,29 @@ export function notFoundError(message: string): Response {
 }
 
 /**
+ * Fetch with timeout — prevents hanging requests to external APIs.
+ * Throws an AbortError if the request exceeds the timeout.
+ *
+ * @param url - URL to fetch
+ * @param options - Standard fetch options
+ * @param timeoutMs - Timeout in milliseconds (default: 10_000 = 10s)
+ */
+export async function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 10_000): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    return response;
+  } finally {
+    clearTimeout(id);
+  }
+}
+
+/**
  * Wraps an async API handler with structured error handling.
  * Catches unhandled errors and returns consistent JSON error responses.
  */

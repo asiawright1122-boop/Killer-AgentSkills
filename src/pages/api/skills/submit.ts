@@ -1,8 +1,13 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
 import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../lib/github';
+import { fetchWithTimeout } from '../../../lib/api-utils';
+import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 
 export const prerender = false;
+
+// Stricter limit for submissions (write operation)
+const submitLimiter = createRateLimiter({ windowMs: 60_000, max: 5 });
 
 /**
  * Parse a repository URL into owner and repo.
@@ -36,7 +41,7 @@ export function parseRepoUrl(url: string): { owner: string; repo: string } | nul
 async function getRepository(owner: string, repo: string): Promise<Record<string, any> | null> {
   try {
     const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
-    const response = await fetch(url, { headers: getGitHubHeaders() });
+    const response = await fetchWithTimeout(url, { headers: getGitHubHeaders() });
 
     if (!response.ok) return null;
 
@@ -70,7 +75,7 @@ async function getSkillMd(owner: string, repo: string): Promise<string | null> {
     for (const tryPath of commonPaths) {
       try {
         const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${tryPath}`;
-        const response = await fetch(url);
+        const response = await fetchWithTimeout(url, {}, 8_000);
         if (response.ok) {
           return await response.text();
         }
@@ -140,6 +145,12 @@ function parseSkillMd(content: string): {
  * checks for duplicates in KV, and stores the submission in KV.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
+  // Rate limit check
+  const clientIP = getClientIP(request);
+  if (submitLimiter.isLimited(clientIP)) {
+    return rateLimitResponse();
+  }
+
   try {
     const body = (await request.json()) as { repoUrl?: string };
     const { repoUrl } = body;

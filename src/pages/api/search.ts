@@ -1,44 +1,8 @@
 import type { APIRoute } from 'astro';
+import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
 
-// ═══════════════════════════════════════════════════════════════
-// Rate Limiter: Sliding Window Counter (per Worker isolate)
 // Protects free-tier Workers AI and Vectorize quotas from abuse.
-// Each Cloudflare Worker instance maintains its own counter.
-// This is NOT globally distributed, but effective enough for
-// blocking simple scrapers and runaway clients at zero cost.
-// ═══════════════════════════════════════════════════════════════
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute window
-const RATE_LIMIT_MAX_REQUESTS = 30; // max 30 queries per IP per minute
-
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    // New window
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  if (entry.count > RATE_LIMIT_MAX_REQUESTS) {
-    return true;
-  }
-  return false;
-}
-
-// Periodic cleanup to prevent memory leak (run every 5 minutes)
-let lastCleanup = Date.now();
-function cleanupStaleEntries() {
-  const now = Date.now();
-  if (now - lastCleanup < 300_000) return; // 5 min interval
-  lastCleanup = now;
-  for (const [ip, entry] of rateLimitMap) {
-    if (now > entry.resetAt) rateLimitMap.delete(ip);
-  }
-}
+const searchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
 
 export const GET: APIRoute = async ({ request, locals }) => {
   const url = new URL(request.url);
@@ -55,27 +19,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const sanitizedQuery = query.trim().slice(0, 200);
 
   // ── Rate Limit Check ──
-  const clientIP =
-    request.headers.get('cf-connecting-ip') ||
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    'unknown';
-
-  cleanupStaleEntries();
-
-  if (isRateLimited(clientIP)) {
-    return new Response(
-      JSON.stringify({
-        results: [],
-        error: 'Rate limit exceeded. Please wait a moment before searching again.',
-      }),
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Retry-After': '60',
-        },
-        status: 429,
-      },
-    );
+  const clientIP = getClientIP(request);
+  if (searchLimiter.isLimited(clientIP)) {
+    return rateLimitResponse();
   }
 
   try {
