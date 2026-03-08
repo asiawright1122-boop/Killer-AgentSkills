@@ -52,11 +52,9 @@ const topics = skill.topics || skill.data?.tags || [];
 const description = skill.description || skill.data?.description;
 
 // Check if verified (official vendor) and determine badge type
-const officialConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
-const isVerified = skill.verified ?? skill.data?.verified ?? (officialConfig?.verified ?? false);
-const badgeType: 'official' | 'featured' | null = isVerified
-  ? (officialConfig?.type || 'official')
-  : null;
+const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
+const isVerified = skill.verified ?? skill.data?.verified ?? officialConfig?.verified ?? false;
+const badgeType: 'official' | 'featured' | null = isVerified ? officialConfig?.type || 'official' : null;
 
 // Get localized description
 const descText = skill.seo?.definition?.[locale] || getLocalizedDescription(description, locale);
@@ -75,31 +73,40 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
 
 <article class="brut-card group p-5 h-full flex flex-col relative bg-white dark:bg-[#0a0a0a]">
   <!-- Stretched Link -->
-  <a href={skillLink} class="absolute inset-0 z-0 focus:outline-none focus:ring-4 focus:ring-[var(--primary)]" aria-label={t ? t('Aria.viewSkill', { name }) : `View ${name}`}></a>
+  <a
+    href={skillLink}
+    class="absolute inset-0 z-0 focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"
+    aria-label={t ? t('Aria.viewSkill', { name }) : `View ${name}`}></a>
 
   <!-- Header: Title + Verified Badge -->
   <div class="relative z-1 flex justify-between items-start mb-4 pointer-events-none">
-    <h3 class="text-xl font-black text-[var(--foreground)] line-clamp-1 pr-2 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight uppercase px-1 -ml-1">
+    <h3
+      class="text-xl font-black text-[var(--foreground)] line-clamp-1 pr-2 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight uppercase px-1 -ml-1"
+    >
       {name}
     </h3>
-    {badgeType === 'official' && (
-      <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] uppercase tracking-widest">
-        [ {t ? t('Common.official') : 'OFFICIAL'} ]
-      </span>
-    )}
-    {badgeType === 'featured' && (
-      <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-        [ {t ? t('Common.featured') : 'FEATURED'} ]
-      </span>
-    )}
+    {
+      badgeType === 'official' && (
+        <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] uppercase tracking-widest">
+          [ {t ? t('Common.official') : 'OFFICIAL'} ]
+        </span>
+      )
+    }
+    {
+      badgeType === 'featured' && (
+        <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
+          [ {t ? t('Common.featured') : 'FEATURED'} ]
+        </span>
+      )
+    }
   </div>
-  
+
   <!-- Sub-header: Owner Info -->
   <div class="relative z-1 flex items-center gap-3 mb-4 pointer-events-none">
     <div class="w-6 h-6 border-2 border-[var(--foreground)] overflow-hidden bg-white">
-      <img 
-        src={avatarUrl} 
-        alt={`Logo of ${owner}`} 
+      <img
+        src={avatarUrl}
+        alt={`Logo of ${owner}`}
         width="24"
         height="24"
         class="w-full h-full object-cover grayscale contrast-125"
@@ -110,14 +117,18 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
     </div>
     <span class="text-xs font-bold text-[var(--foreground)]">{owner}</span>
   </div>
-  
+
   <!-- Description -->
-  <p class="relative z-1 text-sm text-[var(--foreground)] opacity-80 font-bold mb-6 line-clamp-3 flex-grow pointer-events-none leading-relaxed">
+  <p
+    class="relative z-1 text-sm text-[var(--foreground)] opacity-80 font-bold mb-6 line-clamp-3 flex-grow pointer-events-none leading-relaxed"
+  >
     {descText || (t ? t('Common.noDescription') : 'No description available')}
   </p>
-  
+
   <!-- 1-Click Install CTA (hover reveal) -->
-  <div class="relative z-20 mb-3 opacity-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-16 transition-all duration-200 ease-out pointer-events-none group-hover:pointer-events-auto">
+  <div
+    class="relative z-20 mb-3 opacity-0 max-h-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-16 transition-all duration-200 ease-out pointer-events-none group-hover:pointer-events-auto"
+  >
     <button
       class="install-copy-btn w-full flex items-center gap-2 px-3 py-2.5 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-black uppercase tracking-wider border-2 border-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[3px_3px_0px_0px_var(--border)] hover:shadow-[1px_1px_0px_0px_var(--border)] hover:translate-x-[2px] hover:translate-y-[2px] transition-all cursor-pointer"
       data-command={`${INSTALL_PREFIX} ${owner}/${repo}`}
@@ -132,7 +143,9 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
   </div>
 
   <!-- Footer: Stats + Category Tag -->
-  <div class="relative z-1 mt-auto flex items-center justify-between pointer-events-none border-t-2 border-[var(--border)] pt-4">
+  <div
+    class="relative z-1 mt-auto flex items-center justify-between pointer-events-none border-t-2 border-[var(--border)] pt-4"
+  >
     <!-- Left: Stats -->
     <div class="flex items-center gap-4 text-xs font-bold text-[var(--foreground)] font-mono">
       <div class="flex items-center gap-1.5">
@@ -144,81 +157,97 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
         <span>{forksDisplay}</span>
       </div>
     </div>
-    
+
     <!-- Right: Category Tag -->
-    {(() => {
+    {
+      (() => {
         let matchedCategory = '';
 
         // 1. Prioritize explicit category if it matches a sidebar group (e.g. from overrides)
         if (skill.category && CATEGORY_GROUPS[skill.category.toLowerCase()]) {
-            matchedCategory = skill.category;
+          matchedCategory = skill.category;
         }
 
         // 2. If no valid explicit category, try to match topics to a sidebar category
         if (!matchedCategory && topics && topics.length > 0) {
-            for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-                if (topics.some(t => keywords.some(k => t.toLowerCase().includes(k)))) {
-                    matchedCategory = groupName;
-                    break;
-                }
+          for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+            if (topics.some((t) => keywords.some((k) => t.toLowerCase().includes(k)))) {
+              matchedCategory = groupName;
+              break;
             }
+          }
         }
-        
+
         // 3. Fallback to explicit category if it exists and isn't a reserved source label
-        if (!matchedCategory && skill.category && !['official', 'community', 'featured'].includes(skill.category.toLowerCase())) {
-             matchedCategory = skill.category;
+        if (
+          !matchedCategory &&
+          skill.category &&
+          !['official', 'community', 'featured'].includes(skill.category.toLowerCase())
+        ) {
+          matchedCategory = skill.category;
         }
 
         // 3.5. Smart Categorization: Infer from name and description if topics are missing
         if (!matchedCategory) {
-             const textToSearch = (skill.name + " " + JSON.stringify(skill.description || {}) + " " + (topics || []).join(" ")).toLowerCase();
-             for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-                 if (keywords.some(k => textToSearch.includes(k.toLowerCase()))) {
-                     matchedCategory = groupName;
-                     break;
-                 }
-             }
+          const textToSearch = (
+            skill.name +
+            ' ' +
+            JSON.stringify(skill.description || {}) +
+            ' ' +
+            (topics || []).join(' ')
+          ).toLowerCase();
+          for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+            if (keywords.some((k) => textToSearch.includes(k.toLowerCase()))) {
+              matchedCategory = groupName;
+              break;
+            }
+          }
         }
 
         // 4. Final fallback to first topic or 'Developer'
         let displayCat = matchedCategory || (topics && topics.length > 0 ? topics[0] : 'developer');
-        
+
         // Cleanup: Remove "agent-skills" or "agent skills" and map to AI or just filter
         const lowerCat = displayCat.toLowerCase();
         if (['agent-skills', 'agent skills', 'agents', 'agent'].includes(lowerCat)) {
-             // If we have other topics, try to find a better one
-             const altTopic = topics.find(t => !['agent-skills', 'agent skills', 'agents', 'agent'].includes(t.toLowerCase()));
-             displayCat = altTopic || 'AI'; // Fallback to AI if only agent-skills tags exist
+          // If we have other topics, try to find a better one
+          const altTopic = topics.find(
+            (t) => !['agent-skills', 'agent skills', 'agents', 'agent'].includes(t.toLowerCase()),
+          );
+          displayCat = altTopic || 'AI'; // Fallback to AI if only agent-skills tags exist
         }
 
         let displayLabel = displayCat.charAt(0).toUpperCase() + displayCat.slice(1).replace(/-/g, ' ');
 
         // Attempt category translation
         if (t) {
-             const transKey = `Sidebar.categories.${displayCat.toLowerCase()}`;
-             const translated = t(transKey);
-             // Our t fallback returns the key itself if no match
-             if (translated !== transKey) {
-                  displayLabel = translated;
-             } else {
-                  // Fallback handle known acronyms if translation missing
-                  if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
-                  if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
-                  if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
-                  if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
-             }
+          const transKey = `Sidebar.categories.${displayCat.toLowerCase()}`;
+          const translated = t(transKey);
+          // Our t fallback returns the key itself if no match
+          if (translated !== transKey) {
+            displayLabel = translated;
+          } else {
+            // Fallback handle known acronyms if translation missing
+            if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
+            if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
+            if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
+            if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+          }
         } else {
-             // Fallback handle acronyms
-             if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
-             if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
-             if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
-             if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
+          // Fallback handle acronyms
+          if (displayCat.toLowerCase() === 'ai') displayLabel = 'AI';
+          if (displayCat.toLowerCase() === 'ui') displayLabel = 'UI';
+          if (displayCat.toLowerCase() === 'ux') displayLabel = 'UX';
+          if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
         }
 
         const categoryLink = matchedCategory ? `/${locale}/skills?category=${matchedCategory}` : null;
 
         return categoryLink ? (
-          <a href={categoryLink} class="relative z-10 px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] hover:bg-[var(--primary)] transition-colors">
+          <a
+            href={categoryLink}
+            class="relative z-10 px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] hover:bg-[var(--primary)] transition-colors"
+          >
             {displayLabel}
           </a>
         ) : (
@@ -226,6 +255,7 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
             {displayLabel}
           </span>
         );
-      })()}
+      })()
+    }
   </div>
 </article>

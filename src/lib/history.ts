@@ -10,12 +10,12 @@
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface HistoryItem {
-  id: string;           // "owner/repo"
+  id: string; // "owner/repo"
   name: string;
   owner: string;
   repo: string;
   description: string;
-  visitedAt: string;    // ISO date string
+  visitedAt: string; // ISO date string
 }
 
 // ── Constants ──────────────────────────────────────────────────────────────────
@@ -62,10 +62,7 @@ export function saveHistory(history: HistoryItem[]): void {
  * If the skill already exists, it is moved to the front with an updated timestamp.
  * Returns the updated list (trimmed to MAX_HISTORY_ITEMS).
  */
-export function addToHistory(
-  current: HistoryItem[],
-  skill: Omit<HistoryItem, 'visitedAt'>,
-): HistoryItem[] {
+export function addToHistory(current: HistoryItem[], skill: Omit<HistoryItem, 'visitedAt'>): HistoryItem[] {
   // Remove existing entry for the same skill
   const filtered = current.filter((h) => h.id !== skill.id);
   const entry: HistoryItem = { ...skill, visitedAt: new Date().toISOString() };

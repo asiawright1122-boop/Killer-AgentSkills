@@ -42,13 +42,13 @@ export const GET: APIRoute = async ({ request, locals }) => {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
         },
-      }
+      },
     );
   } catch (error) {
     console.error('Crawled skills API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to fetch crawled skills' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch crawled skills' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

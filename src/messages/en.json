@@ -18,14 +18,7 @@
     "searchPlaceholder": "Search skills... e.g., PDF, Data Analysis",
     "searchButton": "Search",
     "hotTags": "Popular:",
-    "suggestions": [
-      "PDF",
-      "Image Gen",
-      "Data Analysis",
-      "Browser",
-      "Code Review",
-      "Documents"
-    ]
+    "suggestions": ["PDF", "Image Gen", "Data Analysis", "Browser", "Code Review", "Documents"]
   },
   "Skills": {
     "featured": "Featured Skills",
@@ -122,12 +115,7 @@
     "heroDesc2": "Equip Claude Code, Cursor, and Windsurf with tools to Browse, Automate, and Create.",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
-    "tags": [
-      "Research",
-      "Coding",
-      "Marketing",
-      "Analysis"
-    ],
+    "tags": ["Research", "Coding", "Marketing", "Analysis"],
     "featuresTitle": "Built for Developers",
     "featuresSubtitle": "Connect any AI capability, build the next gen of intelligent apps.",
     "trendingTitle": "Featured Skills",

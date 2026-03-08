@@ -39,118 +39,159 @@ const configContent = getDocContent('cli/configuration');
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
   {/* BreadcrumbList JSON-LD */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t('Common.home'), "item": `https://killer-skills.com/${locale}/` },
-      { "@type": "ListItem", "position": 2, "name": "CLI", "item": `https://killer-skills.com/${locale}/cli/` }
-    ]
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}/` },
+        { '@type': 'ListItem', position: 2, name: 'CLI', item: `https://killer-skills.com/${locale}/cli/` },
+      ],
+    })}
+  />
   {/* FAQ JSON-LD for CLI page */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the Killer-Skills CLI?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The Killer-Skills CLI is a universal command-line tool that lets you install, manage, and sync AI agent skills across 15+ IDEs including Cursor, Windsurf, VS Code, Claude Code, and JetBrains. No global installation required — just use npx."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I install a skill using the CLI?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Run 'npx killer-skills add owner/repo' in your terminal. The CLI automatically detects your IDE and configures the skill file in the correct format (.cursorrules, CLAUDE.md, etc.)."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Which IDEs does the Killer-Skills CLI support?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The CLI supports 15+ IDEs: Cursor (.cursorrules), Claude Code (CLAUDE.md), VS Code/GitHub Copilot (.github/copilot-instructions.md), Windsurf (.windsurfrules), JetBrains (.junie/guidelines.md), Cline (.clinerules), Roo Code (.roo/rules.md), Aider (.aider.conf), Continue (.continue/rules), Codex (AGENTS.md), and more."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need to install the CLI globally?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No! The CLI works via npx, which means no global installation is required. Just run 'npx killer-skills <command>' and it will download and execute automatically."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What is the 'killer do' command?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The 'killer do' command uses AI to automatically match your natural language task description to the best locally installed skill. For example, 'killer do create a PDF from images' will auto-detect and invoke your PDF skill."
-        }
-      }
-    ]
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What is the Killer-Skills CLI?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The Killer-Skills CLI is a universal command-line tool that lets you install, manage, and sync AI agent skills across 15+ IDEs including Cursor, Windsurf, VS Code, Claude Code, and JetBrains. No global installation required — just use npx.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I install a skill using the CLI?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "Run 'npx killer-skills add owner/repo' in your terminal. The CLI automatically detects your IDE and configures the skill file in the correct format (.cursorrules, CLAUDE.md, etc.).",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Which IDEs does the Killer-Skills CLI support?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The CLI supports 15+ IDEs: Cursor (.cursorrules), Claude Code (CLAUDE.md), VS Code/GitHub Copilot (.github/copilot-instructions.md), Windsurf (.windsurfrules), JetBrains (.junie/guidelines.md), Cline (.clinerules), Roo Code (.roo/rules.md), Aider (.aider.conf), Continue (.continue/rules), Codex (AGENTS.md), and more.',
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'Do I need to install the CLI globally?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "No! The CLI works via npx, which means no global installation is required. Just run 'npx killer-skills <command>' and it will download and execute automatically.",
+          },
+        },
+        {
+          '@type': 'Question',
+          name: "What is the 'killer do' command?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "The 'killer do' command uses AI to automatically match your natural language task description to the best locally installed skill. For example, 'killer do create a PDF from images' will auto-detect and invoke your PDF skill.",
+          },
+        },
+      ],
+    })}
+  />
   {/* SoftwareApplication JSON-LD for CLI */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Killer-Skills CLI",
-    "operatingSystem": "Windows, macOS, Linux",
-    "applicationCategory": "DeveloperApplication",
-    "description": pageDescription,
-    "url": `https://killer-skills.com/${locale}/cli`,
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "softwareVersion": "1.7.0"
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: 'Killer-Skills CLI',
+      operatingSystem: 'Windows, macOS, Linux',
+      applicationCategory: 'DeveloperApplication',
+      description: pageDescription,
+      url: `https://killer-skills.com/${locale}/cli`,
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      softwareVersion: '1.7.0',
+    })}
+  />
 
   <div class="bg-[var(--background)] min-h-screen overflow-hidden">
-    
     {/* Hero Section - Neo-Brutalist Redesign */}
     <div class="relative pt-20 pb-12 md:pt-28 md:pb-20 border-b-4 border-[var(--border)] bg-[var(--background)]">
-      <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(var(--border) 1px, transparent 1px); background-size: 24px 24px;"></div>
-      
+      <div
+        class="absolute inset-0 opacity-5 pointer-events-none"
+        style="background-image: radial-gradient(var(--border) 1px, transparent 1px); background-size: 24px 24px;"
+      >
+      </div>
+
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black tracking-widest uppercase mb-8 border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--foreground)]">
+        <div
+          class="inline-flex items-center gap-2 px-4 py-1.5 bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black tracking-widest uppercase mb-8 border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--foreground)]"
+        >
           <span class="w-2 h-2 rounded-full bg-red-600 animate-ping"></span>
           {t('CLI.features.autoInvoke.title')}
         </div>
-        
-        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-[var(--foreground)] mb-6 tracking-tighter uppercase leading-[0.9]">
-          {t('CLI.heroTitle')} <br/>
+
+        <h1
+          class="text-5xl md:text-7xl lg:text-8xl font-black text-[var(--foreground)] mb-6 tracking-tighter uppercase leading-[0.9]"
+        >
+          {t('CLI.heroTitle')}
+          <br />
           <span class="text-[var(--primary)] drop-shadow-[4px_4px_var(--border)]">
             {t('CLI.heroSubtitle')}
           </span>
         </h1>
-        
+
         <p class="text-xl md:text-2xl text-[var(--foreground)] font-bold max-w-3xl mx-auto mb-12 leading-tight">
           {t('CLI.heroDesc')}
           <span class="block text-sm font-mono mt-4 text-[var(--muted-foreground)]">
             // {t('CLI.optionalNote')}
           </span>
         </p>
-        
+
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
-          <div class="relative group cursor-pointer" onclick="navigator.clipboard.writeText('npx killer-skills install <skill>'); alert('Copied!')">
-             <div class="relative px-8 py-5 bg-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all flex items-center gap-6">
+          <div
+            class="relative group cursor-pointer"
+            onclick="navigator.clipboard.writeText('npx killer-skills install <skill>'); alert('Copied!')"
+          >
+            <div
+              class="relative px-8 py-5 bg-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all flex items-center gap-6"
+            >
               <div class="font-mono text-lg flex items-center gap-4">
                 <span class="text-[var(--primary)] font-black select-none">$</span>
-                <span class="text-[var(--foreground)] font-black">npx killer-skills <span class="text-[var(--muted-foreground)]">install</span> &lt;skill&gt;</span>
+                <span class="text-[var(--foreground)] font-black"
+                  >npx killer-skills <span class="text-[var(--muted-foreground)]">install</span> &lt;skill&gt;</span
+                >
               </div>
-              <div class="pl-6 border-l-2 border-[var(--border)] text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><rect width="14" height="14" x="8" y="8" rx="0" ry="0"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+              <div
+                class="pl-6 border-l-2 border-[var(--border)] text-[var(--muted-foreground)] group-hover:text-[var(--primary)] transition-colors"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  stroke-linecap="square"
+                  stroke-linejoin="miter"
+                  ><rect width="14" height="14" x="8" y="8" rx="0" ry="0"></rect><path
+                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg
+                >
               </div>
             </div>
           </div>
-          
-          <a href={`/${locale}/docs`} class="px-8 py-5 bg-[var(--foreground)] text-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] font-bold uppercase hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all text-lg">
+
+          <a
+            href={`/${locale}/docs`}
+            class="px-8 py-5 bg-[var(--foreground)] text-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] font-bold uppercase hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all text-lg"
+          >
             {t('CLI.viewDocs')}
           </a>
         </div>
@@ -161,27 +202,42 @@ const configContent = getDocContent('cli/configuration');
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 -mt-12 relative z-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
         {/* Comparison Table */}
-        <div class="h-full flex flex-col border-[4px] border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] overflow-hidden">
+        <div
+          class="h-full flex flex-col border-[4px] border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] overflow-hidden"
+        >
           <div class="flex items-center gap-2 px-6 py-4 bg-[var(--foreground)] border-b-4 border-[var(--border)]">
-            <h2 class="text-sm font-black text-[var(--background)] tracking-widest uppercase">{t('CLI.comparison.title')}</h2>
+            <h2 class="text-sm font-black text-[var(--background)] tracking-widest uppercase">
+              {t('CLI.comparison.title')}
+            </h2>
           </div>
-          
+
           <div class="flex-1 overflow-x-auto">
             <table class="w-full text-left text-sm h-full border-collapse">
               <thead class="border-b-4 border-[var(--border)]">
                 <tr>
-                  <th class="p-5 font-black uppercase tracking-tighter text-[var(--foreground)] border-r-2 border-[var(--border)] bg-[var(--muted)]">{t('CLI.comparison.feature')}</th>
-                  <th class="p-5 font-black uppercase text-[var(--foreground)] border-r-2 border-[var(--border)] bg-[var(--muted)]/30 text-center relative overflow-hidden">
+                  <th
+                    class="p-5 font-black uppercase tracking-tighter text-[var(--foreground)] border-r-2 border-[var(--border)] bg-[var(--muted)]"
+                    >{t('CLI.comparison.feature')}</th
+                  >
+                  <th
+                    class="p-5 font-black uppercase text-[var(--foreground)] border-r-2 border-[var(--border)] bg-[var(--muted)]/30 text-center relative overflow-hidden"
+                  >
                     <div class="absolute top-0 left-0 w-full h-1 bg-[var(--primary)]"></div>
                     {t('CLI.comparison.ks')}
                   </th>
-                  <th class="p-5 font-black uppercase text-[var(--foreground)] bg-[var(--muted)] text-center">{t('CLI.comparison.others')}</th>
+                  <th class="p-5 font-black uppercase text-[var(--foreground)] bg-[var(--muted)] text-center"
+                    >{t('CLI.comparison.others')}</th
+                  >
                 </tr>
               </thead>
               <tbody class="divide-y-2 divide-[var(--border)] font-bold">
                 <tr class="hover:bg-[var(--primary)]/5 transition-colors">
-                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]">{t('CLI.comparison.row1')}</td>
-                  <td class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10">
+                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]"
+                    >{t('CLI.comparison.row1')}</td
+                  >
+                  <td
+                    class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10"
+                  >
                     <div class="flex justify-center"><Check className="w-6 h-6 stroke-[4]" /></div>
                   </td>
                   <td class="p-5 text-[var(--foreground)]">
@@ -189,8 +245,12 @@ const configContent = getDocContent('cli/configuration');
                   </td>
                 </tr>
                 <tr class="hover:bg-[var(--primary)]/5 transition-colors">
-                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]">{t('CLI.comparison.row2')}</td>
-                  <td class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10">
+                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]"
+                    >{t('CLI.comparison.row2')}</td
+                  >
+                  <td
+                    class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10"
+                  >
                     <div class="flex justify-center"><Check className="w-6 h-6 stroke-[4]" /></div>
                   </td>
                   <td class="p-5 text-[var(--foreground)]">
@@ -198,8 +258,12 @@ const configContent = getDocContent('cli/configuration');
                   </td>
                 </tr>
                 <tr class="hover:bg-[var(--primary)]/5 transition-colors">
-                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]">{t('CLI.comparison.row3')}</td>
-                  <td class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10">
+                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]"
+                    >{t('CLI.comparison.row3')}</td
+                  >
+                  <td
+                    class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10"
+                  >
                     <div class="flex justify-center"><Check className="w-6 h-6 stroke-[4]" /></div>
                   </td>
                   <td class="p-5 text-[var(--foreground)]">
@@ -207,8 +271,12 @@ const configContent = getDocContent('cli/configuration');
                   </td>
                 </tr>
                 <tr class="hover:bg-[var(--primary)]/5 transition-colors">
-                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]">{t('CLI.comparison.row4')}</td>
-                  <td class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10">
+                  <td class="p-5 text-[var(--foreground)] uppercase border-r-2 border-[var(--border)]"
+                    >{t('CLI.comparison.row4')}</td
+                  >
+                  <td
+                    class="p-5 text-emerald-800 dark:text-emerald-400 border-r-2 border-[var(--border)] bg-[var(--muted)]/10"
+                  >
                     <div class="flex justify-center"><Check className="w-6 h-6 stroke-[4]" /></div>
                   </td>
                   <td class="p-5 text-[var(--foreground)]">
@@ -221,48 +289,97 @@ const configContent = getDocContent('cli/configuration');
         </div>
 
         {/* Terminal Window */}
-        <div class="h-full flex flex-col border-[4px] border-[var(--border)] bg-[var(--background)] dark:bg-black shadow-[12px_12px_0px_0px_var(--primary)] overflow-hidden">
+        <div
+          class="h-full flex flex-col border-[4px] border-[var(--border)] bg-[var(--background)] dark:bg-black shadow-[12px_12px_0px_0px_var(--primary)] overflow-hidden"
+        >
           <div class="flex items-center gap-3 px-4 py-3 bg-[var(--border)] border-b-2 border-[var(--border)]">
             <div class="flex gap-2">
               <div class="w-3 h-3 bg-red-500 border border-black shadow-[1px_1px_0px_0px_black]"></div>
               <div class="w-3 h-3 bg-yellow-500 border border-black shadow-[1px_1px_0px_0px_black]"></div>
               <div class="w-3 h-3 bg-green-500 border border-black shadow-[1px_1px_0px_0px_black]"></div>
             </div>
-            <div class="flex-1 text-center font-mono text-[10px] text-[var(--foreground)] font-black tracking-[0.2em] uppercase">
+            <div
+              class="flex-1 text-center font-mono text-[10px] text-[var(--foreground)] font-black tracking-[0.2em] uppercase"
+            >
               CLI_ENGINE — STABLE_v1.7.0
             </div>
           </div>
           <div class="p-6 md:p-8 font-mono text-sm leading-relaxed">
             <div class="mb-8">
-              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span> <span class="text-[var(--foreground)] font-black underline decoration-[var(--primary)] underline-offset-4">~/projects/my-agent</span> <span class="text-[var(--foreground)] font-black">$</span>
+              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span>
+              <span class="text-[var(--foreground)] font-black underline decoration-[var(--primary)] underline-offset-4"
+                >~/projects/my-agent</span
+              >
+              <span class="text-[var(--foreground)] font-black">$</span>
               <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">killer login</span>
               <div class="mt-3 pl-4 border-l-4 border-emerald-900 dark:border-emerald-400 bg-emerald-500/5 py-2">
-                <span class="text-emerald-900 dark:text-emerald-400 font-black uppercase tracking-tighter">LOGIN_SUCCESS</span> <span class="text-[var(--foreground)] font-bold ml-2">:: authenticated via github flow</span>
+                <span class="text-emerald-900 dark:text-emerald-400 font-black uppercase tracking-tighter"
+                  >LOGIN_SUCCESS</span
+                >
+                <span class="text-[var(--foreground)] font-bold ml-2">:: authenticated via github flow</span>
               </div>
             </div>
-            
+
             <div class="mb-8">
-              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span> <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span> <span class="text-[var(--foreground)] font-black">$</span>
+              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span>
+              <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span>
+              <span class="text-[var(--foreground)] font-black">$</span>
               <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">killer sync --all</span>
-              <div class="mt-4 text-[var(--foreground)] font-black italic tracking-widest text-[10px] uppercase">[INIT] detecting ide environments...</div>
-              <div class="space-y-2.5 mt-4">
-                <div class="flex items-center gap-3"><div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div> <span class="text-[var(--foreground)] font-black tracking-tighter">CURSOR</span> <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold">.cursorrules</span></div>
-                <div class="flex items-center gap-3"><div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div> <span class="text-[var(--foreground)] font-black tracking-tighter">CLAUDE</span> <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold">CLAUDE.md</span></div>
-                <div class="flex items-center gap-3"><div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div> <span class="text-[var(--foreground)] font-black tracking-tighter">VSCODE</span> <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold">copilot-instructions.md</span></div>
+              <div class="mt-4 text-[var(--foreground)] font-black italic tracking-widest text-[10px] uppercase">
+                [INIT] detecting ide environments...
               </div>
-              <div class="mt-6 p-4 bg-emerald-500/10 dark:bg-emerald-500/5 border-2 border-emerald-900 dark:border-emerald-400 backdrop-blur-sm">
-                <span class="text-emerald-900 dark:text-emerald-400 font-black tracking-tighter uppercase text-base">21_SKILLS_SYNCED</span> <span class="text-[var(--foreground)] font-bold ml-2 text-xs">to 4 targets</span>
+              <div class="space-y-2.5 mt-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div>
+                  <span class="text-[var(--foreground)] font-black tracking-tighter">CURSOR</span>
+                  <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold">.cursorrules</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div>
+                  <span class="text-[var(--foreground)] font-black tracking-tighter">CLAUDE</span>
+                  <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold">CLAUDE.md</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="w-3 h-3 bg-emerald-900 dark:bg-emerald-400 shadow-[2px_2px_0px_0px_var(--border)]"></div>
+                  <span class="text-[var(--foreground)] font-black tracking-tighter">VSCODE</span>
+                  <span class="text-[var(--foreground)] ml-auto font-mono text-xs font-bold"
+                    >copilot-instructions.md</span
+                  >
+                </div>
+              </div>
+              <div
+                class="mt-6 p-4 bg-emerald-500/10 dark:bg-emerald-500/5 border-2 border-emerald-900 dark:border-emerald-400 backdrop-blur-sm"
+              >
+                <span class="text-emerald-900 dark:text-emerald-400 font-black tracking-tighter uppercase text-base"
+                  >21_SKILLS_SYNCED</span
+                >
+                <span class="text-[var(--foreground)] font-bold ml-2 text-xs">to 4 targets</span>
               </div>
             </div>
 
             <div class="mt-10">
-              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span> <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span> <span class="text-[var(--foreground)] font-black">$</span>
-              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">killer do "generate pdf"</span>
-              <div class="mt-4 p-4 border-2 border-dashed border-purple-900 dark:border-purple-400 bg-purple-500/5 flex items-center gap-4">
-                <span class="bg-purple-900 dark:bg-purple-600 text-white text-[10px] font-black px-2 py-1 uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">Intelligent Match</span>
-                <span class="text-purple-900 dark:text-purple-300 font-black tracking-tight uppercase">AUTO_INVOKED: <span class="underline decoration-emerald-900 dark:decoration-emerald-400">pdf.skill</span></span>
+              <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span>
+              <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span>
+              <span class="text-[var(--foreground)] font-black">$</span>
+              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight"
+                >killer do "generate pdf"</span
+              >
+              <div
+                class="mt-4 p-4 border-2 border-dashed border-purple-900 dark:border-purple-400 bg-purple-500/5 flex items-center gap-4"
+              >
+                <span
+                  class="bg-purple-900 dark:bg-purple-600 text-white text-[10px] font-black px-2 py-1 uppercase shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]"
+                  >Intelligent Match</span
+                >
+                <span class="text-purple-900 dark:text-purple-300 font-black tracking-tight uppercase"
+                  >AUTO_INVOKED: <span class="underline decoration-emerald-900 dark:decoration-emerald-400"
+                    >pdf.skill</span
+                  ></span
+                >
               </div>
-              <div class="mt-4 text-emerald-900 dark:text-emerald-400 font-black animate-pulse tracking-widest text-xs">>>> [PROC] EXECUTING SKILL INSTRUCTIONS...</div>
+              <div class="mt-4 text-emerald-900 dark:text-emerald-400 font-black animate-pulse tracking-widest text-xs">
+                >>> [PROC] EXECUTING SKILL INSTRUCTIONS...
+              </div>
             </div>
           </div>
         </div>
@@ -273,100 +390,140 @@ const configContent = getDocContent('cli/configuration');
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Large Card */}
-        <div class="md:col-span-2 bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all relative overflow-hidden">
-          <div class="absolute top-0 right-0 w-32 h-32 bg-[var(--primary)] opacity-5 rotate-45 translate-x-16 -translate-y-16"></div>
-          <div class="w-16 h-16 bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-8 shadow-[4px_4px_0px_0px_var(--primary)]">
+        <div
+          class="md:col-span-2 bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-32 h-32 bg-[var(--primary)] opacity-5 rotate-45 translate-x-16 -translate-y-16"
+          >
+          </div>
+          <div
+            class="w-16 h-16 bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-8 shadow-[4px_4px_0px_0px_var(--primary)]"
+          >
             <Sparkles className="w-8 h-8" />
           </div>
-          <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">{t('CLI.features.autoInvoke.title')}</h3>
-          <p class="text-[var(--foreground)] font-bold text-lg opacity-80 leading-snug">{t('CLI.features.autoInvoke.desc')}</p>
+          <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">
+            {t('CLI.features.autoInvoke.title')}
+          </h3>
+          <p class="text-[var(--foreground)] font-bold text-lg opacity-80 leading-snug">
+            {t('CLI.features.autoInvoke.desc')}
+          </p>
         </div>
 
         {/* Small Card */}
-        <div class="bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all">
-          <div class="w-14 h-14 bg-[var(--primary)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--foreground)] mb-8 shadow-[4px_4px_0px_0px_var(--border)]">
+        <div
+          class="bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all"
+        >
+          <div
+            class="w-14 h-14 bg-[var(--primary)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--foreground)] mb-8 shadow-[4px_4px_0px_0px_var(--border)]"
+          >
             <RefreshCw className="w-7 h-7" />
           </div>
-          <h3 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">{t('CLI.features.syncAll.title')}</h3>
+          <h3 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">
+            {t('CLI.features.syncAll.title')}
+          </h3>
           <p class="text-[var(--foreground)] font-bold opacity-70 leading-tight">{t('CLI.features.syncAll.desc')}</p>
         </div>
 
         {/* Small Card */}
-        <div class="bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all">
-          <div class="w-14 h-14 bg-[var(--primary)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--foreground)] mb-8 shadow-[4px_4px_0px_0px_var(--border)]">
+        <div
+          class="bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all"
+        >
+          <div
+            class="w-14 h-14 bg-[var(--primary)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--foreground)] mb-8 shadow-[4px_4px_0px_0px_var(--border)]"
+          >
             <Bot className="w-7 h-7" />
           </div>
-          <h3 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">{t('CLI.features.mcp.title')}</h3>
+          <h3 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">
+            {t('CLI.features.mcp.title')}
+          </h3>
           <p class="text-[var(--foreground)] font-bold opacity-70 leading-tight">{t('CLI.features.mcp.desc')}</p>
         </div>
 
         {/* Large Card */}
-        <div class="md:col-span-2 bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all relative overflow-hidden">
-           <div class="absolute bottom-0 left-0 w-48 h-12 bg-[var(--primary)] opacity-10 -rotate-12 -translate-x-12 translate-y-6"></div>
-          <div class="w-16 h-16 bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-8 shadow-[4px_4px_0px_0px_var(--primary)]">
+        <div
+          class="md:col-span-2 bg-[var(--background)] border-[4px] border-[var(--border)] p-8 shadow-[8px_8px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[12px_12px_0px_0px_var(--primary)] transition-all relative overflow-hidden"
+        >
+          <div
+            class="absolute bottom-0 left-0 w-48 h-12 bg-[var(--primary)] opacity-10 -rotate-12 -translate-x-12 translate-y-6"
+          >
+          </div>
+          <div
+            class="w-16 h-16 bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-[var(--primary)] mb-8 shadow-[4px_4px_0px_0px_var(--primary)]"
+          >
             <Shield className="w-8 h-8" />
           </div>
-          <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">{t('CLI.features.secure.title')}</h3>
-          <p class="text-[var(--foreground)] font-bold text-lg opacity-80 leading-snug">{t('CLI.features.secure.desc')}</p>
+          <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">
+            {t('CLI.features.secure.title')}
+          </h3>
+          <p class="text-[var(--foreground)] font-bold text-lg opacity-80 leading-snug">
+            {t('CLI.features.secure.desc')}
+          </p>
         </div>
       </div>
     </div>
 
-
-
     {/* Commands Section - Brutalist Typography */}
     <div id="commands" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 scroll-mt-24">
       <div class="mb-12 border-l-8 border-[var(--primary)] pl-6">
-        <h2 class="text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">CLI Commands</h2>
-        <div class="mt-2 text-sm font-mono font-black text-[var(--muted-foreground)]">// TERMINAL_OPERATIONS_MANUAL</div>
+        <h2 class="text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
+          CLI Commands
+        </h2>
+        <div class="mt-2 text-sm font-mono font-black text-[var(--muted-foreground)]">
+          // TERMINAL_OPERATIONS_MANUAL
+        </div>
       </div>
-      <article class="prose prose-lg prose-slate dark:prose-invert max-w-none 
+      <article
+        class="prose prose-lg prose-slate dark:prose-invert max-w-none
           prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:border-b-4 prose-headings:border-[var(--border)] prose-headings:pb-3
           prose-a:text-[var(--foreground)] prose-a:font-black prose-a:underline prose-a:decoration-[var(--primary)] prose-a:decoration-4 prose-a:underline-offset-4 hover:prose-a:bg-[var(--primary)] transition-all
           prose-code:bg-[var(--primary)]/10 prose-code:text-[var(--foreground)] prose-code:font-black prose-code:px-1.5 prose-code:before:content-none prose-code:after:content-none
-          prose-img:rounded-none prose-img:border-[4px] prose-img:border-[var(--border)] prose-img:shadow-[8px_8px_0px_0px_var(--border)]" 
-          set:html={commandsContent} 
+          prose-img:rounded-none prose-img:border-[4px] prose-img:border-[var(--border)] prose-img:shadow-[8px_8px_0px_0px_var(--border)]"
+        set:html={commandsContent}
       />
     </div>
 
     {/* Configuration Section - Brutalist Typography */}
     <div id="configuration" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 scroll-mt-24">
       <div class="mb-12 border-l-8 border-[var(--foreground)] pl-6">
-        <h2 class="text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">Configuration</h2>
+        <h2 class="text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
+          Configuration
+        </h2>
         <div class="mt-2 text-sm font-mono font-black text-[var(--muted-foreground)]">// SYSTEM_PREFERENCES_SETUP</div>
       </div>
-      <article class="prose prose-lg prose-slate dark:prose-invert max-w-none 
+      <article
+        class="prose prose-lg prose-slate dark:prose-invert max-w-none
           prose-headings:font-black prose-headings:uppercase prose-headings:tracking-tighter prose-headings:border-b-4 prose-headings:border-[var(--border)] prose-headings:pb-3
           prose-a:text-[var(--foreground)] prose-a:font-black prose-a:underline prose-a:decoration-[var(--primary)] prose-a:decoration-4 prose-a:underline-offset-4 hover:prose-a:bg-[var(--primary)] transition-all
           prose-code:bg-[var(--primary)]/10 prose-code:text-[var(--foreground)] prose-code:font-black prose-code:px-1.5 prose-code:before:content-none prose-code:after:content-none
-          prose-img:rounded-none prose-img:border-[4px] prose-img:border-[var(--border)] prose-img:shadow-[8px_8px_0px_0px_var(--border)]" 
-          set:html={configContent} 
+          prose-img:rounded-none prose-img:border-[4px] prose-img:border-[var(--border)] prose-img:shadow-[8px_8px_0px_0px_var(--border)]"
+        set:html={configContent}
       />
     </div>
-
   </div>
 </Layout>
 
 <script>
   function addCopyButtons() {
     const preBlocks = document.querySelectorAll('article pre');
-    
+
     preBlocks.forEach((pre) => {
       if (pre.closest('.code-block-wrapper')) return;
 
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper relative group my-6';
-      
+
       if (pre.parentNode) {
         pre.parentNode.insertBefore(wrapper, pre);
         (pre as HTMLElement).style.marginTop = '0';
         (pre as HTMLElement).style.marginBottom = '0';
         wrapper.appendChild(pre);
-        
+
         const btn = document.createElement('button');
-        btn.className = 'copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:bg-white hover:text-cyan-600 dark:hover:bg-slate-700 dark:hover:text-cyan-400 border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-md transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 z-10';
+        btn.className =
+          'copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:bg-white hover:text-cyan-600 dark:hover:bg-slate-700 dark:hover:text-cyan-400 border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-md transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 z-10';
         btn.setAttribute('aria-label', 'Copy to clipboard');
-        
+
         const copyIcon = `
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
@@ -431,7 +588,7 @@ const configContent = getDocContent('cli/configuration');
     @apply bg-slate-50 text-slate-900 border-[var(--border)];
     white-space: pre-wrap;
     word-break: break-word;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
   }
 
   :global(.dark) article :global(pre) {

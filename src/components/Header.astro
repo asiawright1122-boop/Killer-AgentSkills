@@ -3,62 +3,89 @@ import HeaderActions from '../islands/HeaderActions';
 import { LOCALE_NAMES } from '../i18n';
 
 interface Props {
-	locale: string;
-	t: (key: string) => string;
+  locale: string;
+  t: (key: string) => string;
 }
 
 const { locale, t } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)] transition-all safe-area-px">
-    <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-        
-        <!-- Logo -->
-        <a href={`/${locale}`} class="flex items-center gap-3 group">
-            <div class="relative w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all">
-                <span class="font-black text-[var(--primary-foreground)] tracking-tighter text-xs">KS</span>
-            </div>
-            <span class="font-black text-xl tracking-tight uppercase text-[var(--foreground)]">
-                Killer-Skills
-            </span>
-        </a>
+<header
+  class="sticky top-0 z-50 w-full border-b-[3px] border-[var(--border)] bg-[var(--background)] transition-all safe-area-px"
+>
+  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href={`/${locale}`} class="flex items-center gap-3 group">
+      <div
+        class="relative w-8 h-8 flex items-center justify-center bg-[var(--primary)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] group-hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all"
+      >
+        <span class="font-black text-[var(--primary-foreground)] tracking-tighter text-xs">KS</span>
+      </div>
+      <span class="font-black text-xl tracking-tight uppercase text-[var(--foreground)]"> Killer-Skills </span>
+    </a>
 
-        <!-- Desktop Nav -->
-        <nav aria-label="Main navigation" class="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wide text-[var(--foreground)]">
-            <a href={`/${locale}`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.home')}</a>
-            <a href={`/${locale}/skills`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.skillsMarket')}</a>
-            <a href={`/${locale}/collections`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Common.collections') || 'Collections'}</a>
-            <a href={`/${locale}/blog`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Navigation.blog')}</a>
-            <a href={`/${locale}/docs`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.docs')}</a>
-            <a href={`/${locale}/cli`} class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all">{t('Footer.cli')}</a>
-        </nav>
+    <!-- Desktop Nav -->
+    <nav
+      aria-label="Main navigation"
+      class="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wide text-[var(--foreground)]"
+    >
+      <a
+        href={`/${locale}`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Common.home')}</a
+      >
+      <a
+        href={`/${locale}/skills`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Common.skillsMarket')}</a
+      >
+      <a
+        href={`/${locale}/collections`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Common.collections') || 'Collections'}</a
+      >
+      <a
+        href={`/${locale}/blog`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Navigation.blog')}</a
+      >
+      <a
+        href={`/${locale}/docs`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Footer.docs')}</a
+      >
+      <a
+        href={`/${locale}/cli`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        >{t('Footer.cli')}</a
+      >
+    </nav>
 
-        <!-- Rights/Actions -->
-        <HeaderActions 
-            client:idle 
-            locale={locale} 
-            localeNames={LOCALE_NAMES} 
-            labels={{
-                home: t('Navigation.home'),
-                skills: t('Navigation.marketplace'),
-                categories: t('Navigation.categories'),
-                blog: t('Navigation.blog'),
-                docs: t('Navigation.docs'),
-                cli: t('Footer.cli'),
-                community: t('Footer.community'),
-                collections: t('Common.collections'),
-                language: t('Common.language'),
-                theme: t('Common.theme') || 'Theme',
-                favorites: t('Navigation.favorites'),
-                github: t('Navigation.github'),
-                switchLanguage: t('Aria.switchLanguage'),
-                toggleTheme: t('Aria.toggleTheme'),
-                toggleMenu: t('Aria.toggleMenu'),
-                favoritesAria: t('Navigation.favorites'),
-                darkMode: t('Common.darkMode'),
-                lightMode: t('Common.lightMode')
-            }}
-        />
-
-    </div>
+    <!-- Rights/Actions -->
+    <HeaderActions
+      client:idle
+      locale={locale}
+      localeNames={LOCALE_NAMES}
+      labels={{
+        home: t('Navigation.home'),
+        skills: t('Navigation.marketplace'),
+        categories: t('Navigation.categories'),
+        blog: t('Navigation.blog'),
+        docs: t('Navigation.docs'),
+        cli: t('Footer.cli'),
+        community: t('Footer.community'),
+        collections: t('Common.collections'),
+        language: t('Common.language'),
+        theme: t('Common.theme') || 'Theme',
+        favorites: t('Navigation.favorites'),
+        github: t('Navigation.github'),
+        switchLanguage: t('Aria.switchLanguage'),
+        toggleTheme: t('Aria.toggleTheme'),
+        toggleMenu: t('Aria.toggleMenu'),
+        favoritesAria: t('Navigation.favorites'),
+        darkMode: t('Common.darkMode'),
+        lightMode: t('Common.lightMode'),
+      }}
+    />
+  </div>
 </header>

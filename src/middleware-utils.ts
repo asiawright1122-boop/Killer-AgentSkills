@@ -10,32 +10,102 @@ import { SUPPORTED_LOCALES, DEFAULT_LOCALE, type Locale } from './i18n';
  */
 export const COUNTRY_TO_LOCALE: Record<string, Locale> = {
   // Chinese (5 countries/regions)
-  'CN': 'zh', 'TW': 'zh', 'HK': 'zh', 'MO': 'zh', 'SG': 'zh',
+  CN: 'zh',
+  TW: 'zh',
+  HK: 'zh',
+  MO: 'zh',
+  SG: 'zh',
   // Japanese (1 country)
-  'JP': 'ja',
+  JP: 'ja',
   // Korean (2 countries)
-  'KR': 'ko', 'KP': 'ko',
+  KR: 'ko',
+  KP: 'ko',
   // Spanish (19 countries)
-  'ES': 'es', 'MX': 'es', 'AR': 'es', 'CO': 'es', 'PE': 'es',
-  'CL': 'es', 'VE': 'es', 'EC': 'es', 'GT': 'es', 'CU': 'es',
-  'BO': 'es', 'DO': 'es', 'HN': 'es', 'PY': 'es', 'SV': 'es',
-  'NI': 'es', 'CR': 'es', 'PA': 'es', 'UY': 'es',
+  ES: 'es',
+  MX: 'es',
+  AR: 'es',
+  CO: 'es',
+  PE: 'es',
+  CL: 'es',
+  VE: 'es',
+  EC: 'es',
+  GT: 'es',
+  CU: 'es',
+  BO: 'es',
+  DO: 'es',
+  HN: 'es',
+  PY: 'es',
+  SV: 'es',
+  NI: 'es',
+  CR: 'es',
+  PA: 'es',
+  UY: 'es',
   // French (21 countries)
-  'FR': 'fr', 'BE': 'fr', 'CA': 'fr', 'CH': 'fr', 'LU': 'fr',
-  'MC': 'fr', 'SN': 'fr', 'CI': 'fr', 'ML': 'fr', 'BF': 'fr',
-  'NE': 'fr', 'TD': 'fr', 'GN': 'fr', 'RW': 'fr', 'BJ': 'fr',
-  'HT': 'fr', 'TG': 'fr', 'CF': 'fr', 'CG': 'fr', 'GA': 'fr', 'CD': 'fr',
+  FR: 'fr',
+  BE: 'fr',
+  CA: 'fr',
+  CH: 'fr',
+  LU: 'fr',
+  MC: 'fr',
+  SN: 'fr',
+  CI: 'fr',
+  ML: 'fr',
+  BF: 'fr',
+  NE: 'fr',
+  TD: 'fr',
+  GN: 'fr',
+  RW: 'fr',
+  BJ: 'fr',
+  HT: 'fr',
+  TG: 'fr',
+  CF: 'fr',
+  CG: 'fr',
+  GA: 'fr',
+  CD: 'fr',
   // German (3 countries)
-  'DE': 'de', 'AT': 'de', 'LI': 'de',
+  DE: 'de',
+  AT: 'de',
+  LI: 'de',
   // Russian (7 countries)
-  'RU': 'ru', 'BY': 'ru', 'KZ': 'ru', 'KG': 'ru', 'TJ': 'ru', 'UZ': 'ru', 'TM': 'ru',
+  RU: 'ru',
+  BY: 'ru',
+  KZ: 'ru',
+  KG: 'ru',
+  TJ: 'ru',
+  UZ: 'ru',
+  TM: 'ru',
   // Portuguese (8 countries)
-  'BR': 'pt', 'PT': 'pt', 'AO': 'pt', 'MZ': 'pt', 'GW': 'pt', 'CV': 'pt', 'ST': 'pt', 'TL': 'pt',
+  BR: 'pt',
+  PT: 'pt',
+  AO: 'pt',
+  MZ: 'pt',
+  GW: 'pt',
+  CV: 'pt',
+  ST: 'pt',
+  TL: 'pt',
   // Arabic (22 countries)
-  'SA': 'ar', 'AE': 'ar', 'EG': 'ar', 'MA': 'ar', 'DZ': 'ar',
-  'IQ': 'ar', 'SD': 'ar', 'SY': 'ar', 'YE': 'ar', 'TN': 'ar',
-  'JO': 'ar', 'LY': 'ar', 'LB': 'ar', 'OM': 'ar', 'KW': 'ar',
-  'QA': 'ar', 'BH': 'ar', 'PS': 'ar', 'MR': 'ar', 'SO': 'ar', 'DJ': 'ar', 'KM': 'ar',
+  SA: 'ar',
+  AE: 'ar',
+  EG: 'ar',
+  MA: 'ar',
+  DZ: 'ar',
+  IQ: 'ar',
+  SD: 'ar',
+  SY: 'ar',
+  YE: 'ar',
+  TN: 'ar',
+  JO: 'ar',
+  LY: 'ar',
+  LB: 'ar',
+  OM: 'ar',
+  KW: 'ar',
+  QA: 'ar',
+  BH: 'ar',
+  PS: 'ar',
+  MR: 'ar',
+  SO: 'ar',
+  DJ: 'ar',
+  KM: 'ar',
 };
 
 /**
@@ -59,9 +129,7 @@ export function isStaticOrApiPath(pathname: string): boolean {
  * Check if a path already has a valid locale prefix
  */
 export function hasLocalePrefix(pathname: string): boolean {
-  return SUPPORTED_LOCALES.some(
-    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
+  return SUPPORTED_LOCALES.some((locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`);
 }
 
 /**

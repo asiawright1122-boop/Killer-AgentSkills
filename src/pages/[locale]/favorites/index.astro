@@ -33,9 +33,5 @@ const favoritesTranslations = {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true}>
-  <FavoritesManager
-    client:load
-    locale={locale}
-    translations={favoritesTranslations}
-  />
+  <FavoritesManager client:load locale={locale} translations={favoritesTranslations} />
 </Layout>

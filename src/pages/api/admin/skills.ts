@@ -29,19 +29,16 @@ export const GET: APIRoute = async ({ request, locals }) => {
       skills = skills.filter((s) => s.category === category);
     }
 
-    return new Response(
-      JSON.stringify({ skills, total: skills.length }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ skills, total: skills.length }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (error) {
     console.error('Admin skills API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to fetch skills' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch skills' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
 
@@ -63,17 +60,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { action, skillId, data } = body;
 
     if (!action || !skillId) {
-      return new Response(
-        JSON.stringify({ error: 'Missing action or skillId' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'Missing action or skillId' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     if (!env?.SKILLS_CACHE) {
-      return new Response(
-        JSON.stringify({ error: 'KV not available' }),
-        { status: 503, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'KV not available' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     switch (action) {
@@ -86,51 +83,51 @@ export const POST: APIRoute = async ({ request, locals }) => {
           });
           await env.SKILLS_CACHE.delete(`submission:${skillId}`);
         }
-        return new Response(
-          JSON.stringify({ success: true, message: `Skill ${skillId} approved` }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+        return new Response(JSON.stringify({ success: true, message: `Skill ${skillId} approved` }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
 
       case 'reject':
       case 'delete': {
         await env.SKILLS_CACHE.delete(`submission:${skillId}`);
         await env.SKILLS_CACHE.delete(`skill:${skillId}`);
-        return new Response(
-          JSON.stringify({ success: true, message: `Skill ${skillId} ${action}ed` }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+        return new Response(JSON.stringify({ success: true, message: `Skill ${skillId} ${action}ed` }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
 
       case 'update': {
         if (!data) {
-          return new Response(
-            JSON.stringify({ error: 'Missing data for update' }),
-            { status: 400, headers: { 'Content-Type': 'application/json' } }
-          );
+          return new Response(JSON.stringify({ error: 'Missing data for update' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+          });
         }
         const existing = await env.SKILLS_CACHE.get(`skill:${skillId}`, 'json');
         const updated = { ...(existing || {}), ...data, updatedAt: new Date().toISOString() };
         await env.SKILLS_CACHE.put(`skill:${skillId}`, JSON.stringify(updated), {
           expirationTtl: 31536000,
         });
-        return new Response(
-          JSON.stringify({ success: true, message: `Skill ${skillId} updated` }),
-          { status: 200, headers: { 'Content-Type': 'application/json' } }
-        );
+        return new Response(JSON.stringify({ success: true, message: `Skill ${skillId} updated` }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
       }
 
       default:
-        return new Response(
-          JSON.stringify({ error: `Unknown action: ${action}` }),
-          { status: 400, headers: { 'Content-Type': 'application/json' } }
-        );
+        return new Response(JSON.stringify({ error: `Unknown action: ${action}` }), {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        });
     }
   } catch (error) {
     console.error('Admin skills POST error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Admin operation failed' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Admin operation failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

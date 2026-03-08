@@ -15,10 +15,10 @@ export const POST: APIRoute = async ({ locals }) => {
     const env = locals.runtime?.env as Env | undefined;
 
     if (!env?.DB) {
-      return new Response(
-        JSON.stringify({ error: 'D1 database not available' }),
-        { status: 503, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: 'D1 database not available' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     // Fetch latest skills data from GitHub main branch
@@ -27,14 +27,14 @@ export const POST: APIRoute = async ({ locals }) => {
 
     const response = await fetch(syncUrl);
     if (!response.ok) {
-      return new Response(
-        JSON.stringify({ success: false, message: 'Failed to fetch skills data from source' }),
-        { status: 502, headers: { 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ success: false, message: 'Failed to fetch skills data from source' }), {
+        status: 502,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
-    const raw = await response.json() as { skills?: any[] };
-    const skills = Array.isArray(raw) ? raw : (raw.skills || []);
+    const raw = (await response.json()) as { skills?: any[] };
+    const skills = Array.isArray(raw) ? raw : raw.skills || [];
 
     // Batch upsert into D1
     const stmt = env.DB.prepare(`
@@ -49,13 +49,15 @@ export const POST: APIRoute = async ({ locals }) => {
       let assignedCategory = skill.category;
       if (!assignedCategory || assignedCategory.toLowerCase() === 'community') {
         const textToSearch = (
-          skill.name + " " +
-          JSON.stringify(skill.description || {}) + " " +
-          (skill.topics || []).join(" ")
+          skill.name +
+          ' ' +
+          JSON.stringify(skill.description || {}) +
+          ' ' +
+          (skill.topics || []).join(' ')
         ).toLowerCase();
 
         for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-          if (keywords.some(k => textToSearch.includes(k.toLowerCase()))) {
+          if (keywords.some((k) => textToSearch.includes(k.toLowerCase()))) {
             assignedCategory = groupName;
             break;
           }
@@ -76,8 +78,8 @@ export const POST: APIRoute = async ({ locals }) => {
           skill.updatedAt || new Date().toISOString(),
           skill.lastSynced || new Date().toISOString(),
           skill.contentHash || '',
-          JSON.stringify(skill)
-        )
+          JSON.stringify(skill),
+        ),
       );
     }
 
@@ -96,13 +98,13 @@ export const POST: APIRoute = async ({ locals }) => {
         message: `Synced ${totalWritten} skills to D1 Serverless SQL`,
         syncedAt: new Date().toISOString(),
       }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
+      { status: 200, headers: { 'Content-Type': 'application/json' } },
     );
   } catch (error) {
     console.error('Admin sync API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Sync operation failed' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Sync operation failed' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

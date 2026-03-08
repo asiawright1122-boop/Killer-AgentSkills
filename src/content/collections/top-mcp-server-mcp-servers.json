@@ -16,22 +16,8 @@
     "zh": "发现用于构建 AI 代理基础设施的顶级 MCP 服务器框架，包括 n8n、FastAPI MCP、Sentry MCP 等。"
   },
   "keywords": {
-    "en": [
-      "MCP server",
-      "MCP framework",
-      "AI agent infrastructure",
-      "n8n MCP",
-      "FastAPI MCP",
-      "server tools"
-    ],
-    "zh": [
-      "MCP服务器",
-      "MCP框架",
-      "AI代理基础设施",
-      "n8n工作流",
-      "FastAPI MCP",
-      "服务器工具"
-    ]
+    "en": ["MCP server", "MCP framework", "AI agent infrastructure", "n8n MCP", "FastAPI MCP", "server tools"],
+    "zh": ["MCP服务器", "MCP框架", "AI代理基础设施", "n8n工作流", "FastAPI MCP", "服务器工具"]
   },
   "featured": false,
   "category": "mcp-server",

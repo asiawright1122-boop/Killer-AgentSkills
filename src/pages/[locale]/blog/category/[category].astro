@@ -16,8 +16,8 @@ const categoryIcons = {
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
-  const categories = [...new Set(allPosts.map(post => post.data.category).filter(Boolean))];
-  
+  const categories = [...new Set(allPosts.map((post) => post.data.category).filter(Boolean))];
+
   const paths = [];
   for (const locale of SUPPORTED_LOCALES) {
     for (const category of categories) {
@@ -33,14 +33,14 @@ const { locale, category } = Astro.params;
 
 // Get posts for current locale and category
 let posts = await getCollection('blog', ({ data }) => {
-    return data.lang === locale && data.category === category && !data.draft;
+  return data.lang === locale && data.category === category && !data.draft;
 });
 
 // Fallback to English if no posts found
 if (posts.length === 0 && locale !== 'en') {
-    posts = await getCollection('blog', ({ data }) => {
-        return data.lang === 'en' && data.category === category && !data.draft;
-    });
+  posts = await getCollection('blog', ({ data }) => {
+    return data.lang === 'en' && data.category === category && !data.draft;
+  });
 }
 
 // Sort by date desc
@@ -55,57 +55,76 @@ const pageDescription = t(`Blog.categories.${category}-desc`) || `Explore articl
 const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Tags;
 ---
 
-<Layout 
-    locale={locale} 
-    title={pageTitle} 
-    description={pageDescription}
->
-    <script type="application/ld+json" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
-            { "@type": "ListItem", "position": 2, "name": "Blog", "item": `https://killer-skills.com/${locale}/blog/` },
-            { "@type": "ListItem", "position": 3, "name": categoryName, "item": `https://killer-skills.com/${locale}/blog/category/${category}/` }
-        ]
-    })} slot="head" />
-    <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
-        
-        <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-            
-            {/* Breadcrumb / Back */}
-            <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
-                <ArrowLeft size={16} strokeWidth={3} />
-                {t('Common.back') || 'Back'}
-            </a>
+<Layout locale={locale} title={pageTitle} description={pageDescription}>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: t('Common.home') || 'Home',
+          item: `https://killer-skills.com/${locale}`,
+        },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: categoryName,
+          item: `https://killer-skills.com/${locale}/blog/category/${category}/`,
+        },
+      ],
+    })}
+    slot="head"
+  />
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+      {/* Breadcrumb / Back */}
+      <a
+        href={`/${locale}/blog`}
+        class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
+      >
+        <ArrowLeft size={16} strokeWidth={3} />
+        {t('Common.back') || 'Back'}
+      </a>
 
-            {/* Header */}
-            <header class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]">
-                <div class="inline-flex items-center justify-center p-3 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)] mb-6 shadow-[2px_2px_0px_0px_var(--foreground)]">
-                    <CategoryIcon size={32} strokeWidth={2.5} />
-                </div>
-                <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
-                    {categoryName}
-                </h1>
-                <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed">
-                    {pageDescription}
-                </p>
-            </header>
+      {/* Header */}
+      <header
+        class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]"
+      >
+        <div
+          class="inline-flex items-center justify-center p-3 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)] mb-6 shadow-[2px_2px_0px_0px_var(--foreground)]"
+        >
+          <CategoryIcon size={32} strokeWidth={2.5} />
+        </div>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
+          {categoryName}
+        </h1>
+        <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed">
+          {pageDescription}
+        </p>
+      </header>
 
-            {/* Post Grid */}
-            {sortedPosts.length > 0 ? (
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {sortedPosts.map((post) => (
-                        <div class="h-full">
-                           <BlogCard post={post} locale={locale || 'en'} />
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
-                    <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">{t('Marketplace.noSkills') || 'No articles found in this category.'}</p>
-                </div>
-            )}
-        </main>
-    </div>
+      {/* Post Grid */}
+      {
+        sortedPosts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {sortedPosts.map((post) => (
+              <div class="h-full">
+                <BlogCard post={post} locale={locale || 'en'} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
+            <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">
+              {t('Marketplace.noSkills') || 'No articles found in this category.'}
+            </p>
+          </div>
+        )
+      }
+    </main>
+  </div>
 </Layout>

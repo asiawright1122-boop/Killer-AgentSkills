@@ -41,11 +41,11 @@ function createMockEnv(overrides: Partial<Env> = {}): Env {
             if (sql.includes('WHERE owner = ? AND repo = ?')) {
               const owner = args[0];
               const repo = args[1];
-              const str = await skillsCache(`skill:${owner}/${repo}`) || await skillsCache('all-skills');
+              const str = (await skillsCache(`skill:${owner}/${repo}`)) || (await skillsCache('all-skills'));
               if (str) {
                 const data = typeof str === 'string' ? JSON.parse(str) : str;
                 if (Array.isArray(data)) {
-                  const match = data.find(s => s.owner === owner && s.repo === repo);
+                  const match = data.find((s) => s.owner === owner && s.repo === repo);
                   return match ? { data_json: JSON.stringify(match) } : null;
                 } else {
                   return { data_json: JSON.stringify(data) };
@@ -81,11 +81,7 @@ function createMockEnv(overrides: Partial<Env> = {}): Env {
 /**
  * Build a minimal Astro APIContext-like object for testing route handlers.
  */
-function createAPIContext(options: {
-  params?: Record<string, string | undefined>;
-  url?: string;
-  env?: Env;
-}) {
+function createAPIContext(options: { params?: Record<string, string | undefined>; url?: string; env?: Env }) {
   const url = new URL(options.url || 'http://localhost/api/skills/test-owner/test-repo');
   return {
     params: options.params || {},
@@ -260,8 +256,6 @@ describe('GET /api/skills/[owner]/[repo] (index.ts)', () => {
     expect(body.category).toBe('testing');
     expect(body.stars).toBe(100);
 
-
-
     globalThis.fetch = originalFetch;
   });
 });
@@ -376,9 +370,7 @@ describe('GET /api/skills/[owner]/[repo]/files (files.ts)', () => {
 
   it('should look up skill directory from KV when path not specified', async () => {
     const originalFetch = globalThis.fetch;
-    const mockFiles = [
-      { name: 'SKILL.md', path: '.agent/skills/SKILL.md', size: 1024, type: 'file' },
-    ];
+    const mockFiles = [{ name: 'SKILL.md', path: '.agent/skills/SKILL.md', size: 1024, type: 'file' }];
 
     globalThis.fetch = vi.fn(async (url: string | URL | Request) => {
       const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : url.url;
@@ -415,7 +407,6 @@ describe('GET /api/skills/[owner]/[repo]/files (files.ts)', () => {
 
     const body = await response.json();
     expect(body.directory).toBe('.agent/skills');
-
 
     globalThis.fetch = originalFetch;
   });
@@ -583,9 +574,7 @@ describe('GET /api/skills/[owner]/[repo]/file (file.ts)', () => {
       return new Response('Not Found', { status: 404 });
     }) as any;
 
-    const store = new Map([
-      ['meta:test-owner/test-repo', JSON.stringify({ defaultBranch: 'develop' })],
-    ]);
+    const store = new Map([['meta:test-owner/test-repo', JSON.stringify({ defaultBranch: 'develop' })]]);
     const env = createMockEnv({
       SKILLS_CACHE: createMockKV(store),
     });
@@ -601,8 +590,6 @@ describe('GET /api/skills/[owner]/[repo]/file (file.ts)', () => {
 
     const body = await response.json();
     expect(body.content).toBe(fileContent);
-
-
 
     globalThis.fetch = originalFetch;
   });

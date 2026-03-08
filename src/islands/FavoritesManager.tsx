@@ -2,11 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Heart from 'lucide-react/dist/esm/icons/heart';
 import ArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right';
 import X from 'lucide-react/dist/esm/icons/x';
-import {
-  loadFavorites,
-  removeFavorite as removeFav,
-  type FavoriteSkill,
-} from '../lib/favorites';
+import { loadFavorites, removeFavorite as removeFav, type FavoriteSkill } from '../lib/favorites';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
 
@@ -14,12 +10,12 @@ interface FavoritesManagerProps {
   locale: string;
   translations: {
     myFavorites: string;
-    favoritesCount: string;   // contains "{count}" placeholder
+    favoritesCount: string; // contains "{count}" placeholder
     noFavorites: string;
     noFavoritesHint: string;
     browseSkills: string;
     removeFavorite: string;
-    savedAt: string;          // contains "{date}" placeholder
+    savedAt: string; // contains "{date}" placeholder
   };
 }
 
@@ -62,16 +58,26 @@ export default function FavoritesManager({ locale, translations: t }: FavoritesM
               className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
               aria-label="Back to skills"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m15 18-6-6 6-6" />
+              </svg>
             </a>
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-xl bg-pink-500/20 border border-pink-500/30">
                 <Heart className="w-6 h-6 text-pink-500 fill-pink-500" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                  {t.myFavorites}
-                </h1>
+                <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t.myFavorites}</h1>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   {t.favoritesCount.replace('{count}', String(count))}
                 </p>
@@ -89,12 +95,8 @@ export default function FavoritesManager({ locale, translations: t }: FavoritesM
             <div className="inline-flex p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
               <Heart className="w-12 h-12 text-slate-400 dark:text-slate-500" />
             </div>
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-              {t.noFavorites}
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 mb-6">
-              {t.noFavoritesHint}
-            </p>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t.noFavorites}</h2>
+            <p className="text-slate-500 dark:text-slate-400 mb-6">{t.noFavoritesHint}</p>
             <a
               href={`/${locale}/skills`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-colors"
@@ -173,9 +175,7 @@ function FavoriteCard({ skill, locale, onRemove, removeFavoriteLabel, savedAtTem
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${owner}&background=random`;
                   }}
                 />
-                <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                  {owner}
-                </span>
+                <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{owner}</span>
               </div>
             </div>
             <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors flex-shrink-0" />

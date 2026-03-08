@@ -28,96 +28,121 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
 };
 ---
 
-<Layout 
-    locale={locale}
-    title={t('Common.collections') || 'Curated Collections'}
-    description={t('Metadata.description')}
+<Layout
+  locale={locale}
+  title={t('Common.collections') || 'Curated Collections'}
+  description={t('Metadata.description')}
 >
-    <script type="application/ld+json" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
-            { "@type": "ListItem", "position": 2, "name": t('Common.collections') || "Collections", "item": `https://killer-skills.com/${locale}/collections/` }
-        ]
-    })} slot="head" />
-    
-    <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
-        <main class="relative z-10 pt-12 md:pt-24 pb-32 border-b-[3px] border-[var(--border)]">
-            <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-                
-                {/* Header Section */}
-                <div class="mb-16 border-b-4 border-[var(--border)] pb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                         <div class="flex items-center gap-3 mb-6">
-                            <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2">
-                                 <LayoutGrid size={14} />
-                                 {t('Common.collections')}
-                            </span>
-                         </div>
-                         <h1 class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words">
-                             {t('Collections.editorPicks')}
-                         </h1>
-                    </div>
-                    <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold max-w-lg mb-2">
-                         {t('Collections.subtitle')}
-                    </p>
-                </div>
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: t('Common.home') || 'Home',
+          item: `https://killer-skills.com/${locale}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: t('Common.collections') || 'Collections',
+          item: `https://killer-skills.com/${locale}/collections/`,
+        },
+      ],
+    })}
+    slot="head"
+  />
 
-                {/* Collections Grid */}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {collectionsCol.map((col) => {
-                        const title = resolveLocalized(col.data.title, 'Untitled Collection');
-                        const description = resolveLocalized(col.data.description, '');
-                        const cleanSlug = col.id.replace(/\.json$/, '');
-                        
-                        return (
-                             <article class="brut-card group p-6 flex flex-col relative bg-white dark:bg-[#0a0a0a] min-h-[300px]">
-                                <!-- Stretched Link -->
-                                <a href={`/${locale}/collections/${cleanSlug}`} class="absolute inset-0 z-0 focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"></a>
-
-                                {/* Icon / Category */}
-                                <div class="relative z-1 flex justify-between items-start mb-6 pointer-events-none">
-                                    <div class="w-12 h-12 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:border-[var(--primary)] group-hover:shadow-[4px_4px_0px_0px_var(--primary)] transition-all">
-                                        <Layers size={24} strokeWidth={2.5} />
-                                    </div>
-                                    {col.data.featured && (
-                                        <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-                                            [ {t('Collections.featured')} ]
-                                        </span>
-                                    )}
-                                </div>
-                                
-                                {/* Content */}
-                                <h3 class="relative z-1 text-2xl font-black text-[var(--foreground)] tracking-tight uppercase mb-4 pointer-events-none line-clamp-2">
-                                    {title}
-                                </h3>
-                                
-                                <p class="relative z-1 text-[var(--muted-foreground)] font-bold text-sm leading-relaxed mb-8 flex-grow pointer-events-none line-clamp-3">
-                                    {description}
-                                </p>
-                                
-                                {/* Footer */}
-                                <div class="relative z-1 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 pointer-events-none font-mono">
-                                    <div class="text-xs font-bold text-[var(--foreground)]">
-                                        [{col.data.skills.length} {t('Collections.items')}]
-                                    </div>
-                                    <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">
-                                        {t('Collections.view')} <ArrowRight size={16} strokeWidth={3} />
-                                    </div>
-                                </div>
-                            </article>
-                        );
-                    })}
-                    
-                    {collectionsCol.length === 0 && (
-                        <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
-                            {t('Collections.noCollections')}
-                        </div>
-                    )}
-                </div>
-
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="relative z-10 pt-12 md:pt-24 pb-32 border-b-[3px] border-[var(--border)]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div
+          class="mb-16 border-b-4 border-[var(--border)] pb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span
+                class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2"
+              >
+                <LayoutGrid size={14} />
+                {t('Common.collections')}
+              </span>
             </div>
-        </main>
-    </div>
+            <h1
+              class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words"
+            >
+              {t('Collections.editorPicks')}
+            </h1>
+          </div>
+          <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold max-w-lg mb-2">
+            {t('Collections.subtitle')}
+          </p>
+        </div>
+
+        {/* Collections Grid */}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            collectionsCol.map((col) => {
+              const title = resolveLocalized(col.data.title, 'Untitled Collection');
+              const description = resolveLocalized(col.data.description, '');
+              const cleanSlug = col.id.replace(/\.json$/, '');
+
+              return (
+                <article class="brut-card group p-6 flex flex-col relative bg-white dark:bg-[#0a0a0a] min-h-[300px]">
+                  {/* Stretched Link */}
+                  <a
+                    href={`/${locale}/collections/${cleanSlug}`}
+                    class="absolute inset-0 z-0 focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"
+                  />
+
+                  {/* Icon / Category */}
+                  <div class="relative z-1 flex justify-between items-start mb-6 pointer-events-none">
+                    <div class="w-12 h-12 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:border-[var(--primary)] group-hover:shadow-[4px_4px_0px_0px_var(--primary)] transition-all">
+                      <Layers size={24} strokeWidth={2.5} />
+                    </div>
+                    {col.data.featured && (
+                      <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
+                        [ {t('Collections.featured')} ]
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <h3 class="relative z-1 text-2xl font-black text-[var(--foreground)] tracking-tight uppercase mb-4 pointer-events-none line-clamp-2">
+                    {title}
+                  </h3>
+
+                  <p class="relative z-1 text-[var(--muted-foreground)] font-bold text-sm leading-relaxed mb-8 flex-grow pointer-events-none line-clamp-3">
+                    {description}
+                  </p>
+
+                  {/* Footer */}
+                  <div class="relative z-1 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 pointer-events-none font-mono">
+                    <div class="text-xs font-bold text-[var(--foreground)]">
+                      [{col.data.skills.length} {t('Collections.items')}]
+                    </div>
+                    <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">
+                      {t('Collections.view')} <ArrowRight size={16} strokeWidth={3} />
+                    </div>
+                  </div>
+                </article>
+              );
+            })
+          }
+
+          {
+            collectionsCol.length === 0 && (
+              <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
+                {t('Collections.noCollections')}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </main>
+  </div>
 </Layout>

@@ -31,85 +31,90 @@ const t = useTranslations(messages);
 
 // Load collections for Featured Collections section
 const allCollections = await getCollection('collections');
-const homeCollections = allCollections
-  .sort((a, b) => b.data.skills.length - a.data.skills.length)
-  .slice(0, 6);
+const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
-  { 
+  {
     iconPath: 'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', // Shield
-    color: 'sky' 
+    color: 'sky',
   },
-  { 
+  {
     iconPath: 'M13 2L3 14h9l-1 8 10-12h-9l1-8z', // Zap (Standard Protocol)
-    color: 'cyan' 
+    color: 'cyan',
   },
-  { 
-    iconPath: 'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3 3a2.21 2.21 0 0 0-.2 2.9c.76 1.45 3.2 2.6 3.2 2.6s1.15-2.44 2.6-3.2a2.21 2.21 0 0 0 2.9-.2l3-3M22 5V2l-5.83 5.83a2.21 2.21 0 0 0 0 3.12c1.45 1.45 2.6 3.2 2.6 3.2s-2.43 1.15-3.2 2.6a2.21 2.21 0 0 0-3.12 0l-1.04 1.05a7.22 7.22 0 0 1-2.18-4.57 6.13 6.13 0 0 1 .47-3.9 6.55 6.55 0 0 1 3.9-.47l1.05-1.04a2.21 2.21 0 0 0 0-3.12L7 11 3 7', // Rocket
-    color: 'teal' 
+  {
+    iconPath:
+      'M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3 3a2.21 2.21 0 0 0-.2 2.9c.76 1.45 3.2 2.6 3.2 2.6s1.15-2.44 2.6-3.2a2.21 2.21 0 0 0 2.9-.2l3-3M22 5V2l-5.83 5.83a2.21 2.21 0 0 0 0 3.12c1.45 1.45 2.6 3.2 2.6 3.2s-2.43 1.15-3.2 2.6a2.21 2.21 0 0 0-3.12 0l-1.04 1.05a7.22 7.22 0 0 1-2.18-4.57 6.13 6.13 0 0 1 .47-3.9 6.55 6.55 0 0 1 3.9-.47l1.05-1.04a2.21 2.21 0 0 0 0-3.12L7 11 3 7', // Rocket
+    color: 'teal',
   },
-  { 
-    iconPath: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', // Bulb
-    color: 'blue' 
+  {
+    iconPath:
+      'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', // Bulb
+    color: 'blue',
   },
 ];
 ---
 
-<Layout
-  locale={locale}
-  title={t('Metadata.title')}
-  description={t('Metadata.description')}
-  appendBrand={false}
->
+<Layout locale={locale} title={t('Metadata.title')} description={t('Metadata.description')} appendBrand={false}>
   {/* WebSite + Organization JSON-LD for sitelinks search box */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Killer-Skills",
-    "url": "https://killer-skills.com",
-    "description": t('Metadata.description'),
-    "inLanguage": ["en", "zh", "ja", "ko", "es", "fr", "de", "pt", "ru", "ar"],
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": {
-        "@type": "EntryPoint",
-        "urlTemplate": `https://killer-skills.com/${locale}/skills?q={search_term_string}`
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Killer-Skills',
+      url: 'https://killer-skills.com',
+      description: t('Metadata.description'),
+      inLanguage: ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'],
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `https://killer-skills.com/${locale}/skills?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
       },
-      "query-input": "required name=search_term_string"
-    },
-    "publisher": {
-      "@id": "https://killer-skills.com/#organization"
-    }
-  })} />
+      publisher: {
+        '@id': 'https://killer-skills.com/#organization',
+      },
+    })}
+  />
   {/* Organization JSON-LD for Knowledge Panel */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": "https://killer-skills.com/#organization",
-    "name": "Killer-Skills",
-    "url": "https://killer-skills.com",
-    "logo": "https://killer-skills.com/og-image.png",
-    "description": t('Metadata.description'),
-    "sameAs": [
-      "https://github.com/anthropics/skills",
-      "https://discord.gg/killer-skills",
-      "https://twitter.com/killerskills"
-    ]
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      '@id': 'https://killer-skills.com/#organization',
+      name: 'Killer-Skills',
+      url: 'https://killer-skills.com',
+      logo: 'https://killer-skills.com/og-image.png',
+      description: t('Metadata.description'),
+      sameAs: [
+        'https://github.com/anthropics/skills',
+        'https://discord.gg/killer-skills',
+        'https://twitter.com/killerskills',
+      ],
+    })}
+  />
   <main class="flex-1 w-full">
-
     <!-- Hero Section -->
     <section class="relative overflow-hidden pt-24 pb-32 lg:pt-32 lg:pb-40 border-b-[3px] border-[var(--border)]">
       <!-- Background Gradients Removed - Relying on Noise Filter from global CSS -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-        <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-widest mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
+        <div
+          class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-widest mb-8 shadow-[2px_2px_0px_0px_var(--border)]"
+        >
           <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
           {t('Home.heroBadge')}
         </div>
 
-        <h1 class="text-6xl md:text-8xl md:leading-[1.1] font-black tracking-tighter text-[var(--foreground)] mb-8 text-balance uppercase">
-          {t('Home.heroTitle')} <br class="hidden md:block" />
+        <h1
+          class="text-6xl md:text-8xl md:leading-[1.1] font-black tracking-tighter text-[var(--foreground)] mb-8 text-balance uppercase"
+        >
+          {t('Home.heroTitle')}
+          <br class="hidden md:block" />
           <span class="bg-[var(--foreground)] text-[var(--background)] px-2 inline-block -skew-x-[10deg]">
             {t('Home.heroTitleHighlight')}
           </span>
@@ -124,17 +129,29 @@ const features = [
 
         <!-- Search Bar (React Island) -->
         <div class="max-w-xl mx-auto">
-          <SearchBar client:visible locale={locale} placeholder={t('Home.searchPlaceholder')} buttonText={t('Home.searchButton')} />
-          <div class="flex items-center justify-center gap-3 mt-4 text-xs font-mono font-bold text-[var(--foreground)] uppercase">
+          <SearchBar
+            client:visible
+            locale={locale}
+            placeholder={t('Home.searchPlaceholder')}
+            buttonText={t('Home.searchButton')}
+          />
+          <div
+            class="flex items-center justify-center gap-3 mt-4 text-xs font-mono font-bold text-[var(--foreground)] uppercase"
+          >
             <span>{t('Hero.hotTags')}</span>
-            {(Array.isArray(messages.Home?.tags) ? messages.Home.tags : ['Research', 'Coding', 'Marketing', 'Analysis']).map((tag: string) => (
-              <a
-                href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
-                class="border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors"
-              >
-                [{tag}]
-              </a>
-            ))}
+            {
+              (Array.isArray(messages.Home?.tags)
+                ? messages.Home.tags
+                : ['Research', 'Coding', 'Marketing', 'Analysis']
+              ).map((tag: string) => (
+                <a
+                  href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
+                  class="border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors"
+                >
+                  [{tag}]
+                </a>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -146,28 +163,50 @@ const features = [
     <!-- Stats Section -->
     <section class="border-y-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)]">
       <div class="max-w-7xl mx-auto px-0 md:px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 md:gap-px bg-[var(--border)] border-x-[3px] border-[var(--border)] md:border-none">
-          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]">
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">2,500+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
+        <div
+          class="grid grid-cols-2 md:grid-cols-4 md:gap-px bg-[var(--border)] border-x-[3px] border-[var(--border)] md:border-none"
+        >
+          <div
+            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]"
+          >
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
+              2,500+
+            </div>
+            <div
+              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
+            >
               [ {t('Stats.totalSkills')} ]
             </div>
           </div>
-          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] md:border-none border-[var(--border)]">
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">50k+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
+          <div
+            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] md:border-none border-[var(--border)]"
+          >
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
+              50k+
+            </div>
+            <div
+              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
+            >
               [ {t('Stats.totalDownloads')} ]
             </div>
           </div>
-          <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-r-[3px] md:border-none border-[var(--border)]">
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">120+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
+          <div
+            class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-r-[3px] md:border-none border-[var(--border)]"
+          >
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
+              120+
+            </div>
+            <div
+              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
+            >
               [ {t('Stats.activeCreators')} ]
             </div>
           </div>
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center">
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">15+</div>
-            <div class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono">
+            <div
+              class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
+            >
               [ {t('Stats.supportedIDEs')} ]
             </div>
           </div>
@@ -179,53 +218,61 @@ const features = [
     <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between mb-12 border-b-[3px] border-[var(--border)] pb-4">
         <div>
-          <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">{t('Home.trendingTitle')}</h2>
+          <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">
+            {t('Home.trendingTitle')}
+          </h2>
           <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
         </div>
-        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
+        <a
+          href={`/${locale}/skills`}
+          class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+        >
           {t('Home.viewAll')}
           <span class="font-mono ml-2">→</span>
         </a>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {featuredSkills.length > 0 ? (
-          featuredSkills.map((skill: any) => (
-            <SkillCard skill={skill} locale={locale} t={t} />
-          ))
-        ) : (
-          <!-- Fallback when no skills loaded from KV -->
-          <div class="col-span-full text-center py-12 text-[var(--muted-foreground)] font-mono border-2 border-[var(--border)] border-dashed">
-            <p>{t('Skills.noResults')}</p>
-          </div>
-        )}
+        {
+          featuredSkills.length > 0 ? (
+            featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} t={t} />)
+          ) : (
+            <div class="col-span-full text-center py-12 text-[var(--muted-foreground)] font-mono border-2 border-[var(--border)] border-dashed">
+              <p>{t('Skills.noResults')}</p>
+            </div>
+          )
+        }
       </div>
     </section>
 
     <!-- Features Grid -->
     <section class="bg-[var(--card)] py-24 border-t-[3px] border-[var(--border)] cv-auto">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-16 border-2 border-[var(--border)] p-8 bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)]">
-          <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">{t('Home.featuresTitle')}</h2>
+        <div
+          class="text-center max-w-3xl mx-auto mb-16 border-2 border-[var(--border)] p-8 bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)]"
+        >
+          <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] uppercase tracking-tight mb-4">
+            {t('Home.featuresTitle')}
+          </h2>
           <p class="text-[var(--muted-foreground)] font-mono text-lg">{t('Home.featuresSubtitle')}</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {features.map((feature, i) => (
-            <div class="brut-card p-6 flex flex-col items-center text-center">
-              <div class="w-16 h-16 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_var(--border)]">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          {
+            features.map((feature, i) => (
+              <div class="brut-card p-6 flex flex-col items-center text-center">
+                <div class="w-16 h-16 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] flex items-center justify-center mb-6 shadow-[2px_2px_0px_0px_var(--border)]">
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d={feature.iconPath} />
-                </svg>
+                  </svg>
+                </div>
+                <h3 class="text-xl font-black text-[var(--foreground)] uppercase mb-3">
+                  {t(`Home.features.${i}.title`)}
+                </h3>
+                <p class="text-[var(--muted-foreground)] leading-relaxed font-medium">{t(`Home.features.${i}.desc`)}</p>
               </div>
-              <h3 class="text-xl font-black text-[var(--foreground)] uppercase mb-3">
-                {t(`Home.features.${i}.title`)}
-              </h3>
-              <p class="text-[var(--muted-foreground)] leading-relaxed font-medium">
-                {t(`Home.features.${i}.desc`)}
-              </p>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </div>
     </section>
@@ -235,7 +282,9 @@ const features = [
       <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10 border-b-4 border-[var(--border)] pb-6">
           <div>
-            <span class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] mb-4 inline-block">
+            <span
+              class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] mb-4 inline-block"
+            >
               {t('Collections.editorPicks')}
             </span>
             <h2 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tighter uppercase">
@@ -251,26 +300,31 @@ const features = [
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {homeCollections.map((col: any) => {
-            const colTitle = typeof col.data.title === 'object' 
-              ? (col.data.title[typedLocale] || col.data.title['en'] || 'Collection') 
-              : col.data.title;
-            const cleanSlug = col.id.replace(/\.json$/, '');
-            return (
-              <a
-                href={`/${locale}/collections/${cleanSlug}`}
-                class="brut-card group p-5 flex items-center gap-4 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
-              >
-                <div class="w-10 h-10 shrink-0 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center group-hover:bg-[var(--background)] group-hover:text-[var(--foreground)] transition-colors shadow-[2px_2px_0px_0px_var(--border)]">
-                  <span class="font-black text-sm">{col.data.skills.length}</span>
-                </div>
-                <div class="min-w-0">
-                  <h3 class="font-black text-sm uppercase tracking-wide truncate">{colTitle}</h3>
-                  <p class="text-xs font-mono font-bold opacity-60 mt-0.5">{col.data.skills.length} {t('Collections.items')}</p>
-                </div>
-              </a>
-            );
-          })}
+          {
+            homeCollections.map((col: any) => {
+              const colTitle =
+                typeof col.data.title === 'object'
+                  ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
+                  : col.data.title;
+              const cleanSlug = col.id.replace(/\.json$/, '');
+              return (
+                <a
+                  href={`/${locale}/collections/${cleanSlug}`}
+                  class="brut-card group p-5 flex items-center gap-4 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+                >
+                  <div class="w-10 h-10 shrink-0 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center group-hover:bg-[var(--background)] group-hover:text-[var(--foreground)] transition-colors shadow-[2px_2px_0px_0px_var(--border)]">
+                    <span class="font-black text-sm">{col.data.skills.length}</span>
+                  </div>
+                  <div class="min-w-0">
+                    <h3 class="font-black text-sm uppercase tracking-wide truncate">{colTitle}</h3>
+                    <p class="text-xs font-mono font-bold opacity-60 mt-0.5">
+                      {col.data.skills.length} {t('Collections.items')}
+                    </p>
+                  </div>
+                </a>
+              );
+            })
+          }
         </div>
 
         <div class="mt-8 text-center md:hidden">
@@ -285,7 +339,9 @@ const features = [
     </section>
 
     <!-- CTA Section -->
-    <section class="py-24 border-t-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] cv-auto">
+    <section
+      class="py-24 border-t-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] cv-auto"
+    >
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">{t('Home.cta.title')}</h2>
         <p class="text-lg md:text-2xl font-mono font-bold mb-10 opacity-80">{t('Home.cta.subtitle')}</p>
@@ -305,6 +361,5 @@ const features = [
         </div>
       </div>
     </section>
-
   </main>
 </Layout>

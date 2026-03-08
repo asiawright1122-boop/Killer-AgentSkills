@@ -187,7 +187,9 @@ describe('filterByCategory', () => {
     // "development" group includes: development, git, api, code-review, cli, library
     const result = filterByCategory(sampleSkills, 'development');
     expect(result.length).toBeGreaterThanOrEqual(2);
-    expect(result.every((s) => ['development', 'git', 'api', 'code-review', 'cli', 'library'].includes(s.category))).toBe(true);
+    expect(
+      result.every((s) => ['development', 'git', 'api', 'code-review', 'cli', 'library'].includes(s.category)),
+    ).toBe(true);
   });
 
   it('should support devops category group', () => {
@@ -212,4 +214,3 @@ describe('filterByCategory', () => {
     expect(result).toEqual([]);
   });
 });
-

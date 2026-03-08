@@ -10,12 +10,12 @@
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface FavoriteSkill {
-  id: string;        // "owner/repo"
+  id: string; // "owner/repo"
   name: string;
   owner: string;
   repo: string;
   description: string;
-  addedAt: string;   // ISO date string
+  addedAt: string; // ISO date string
 }
 
 // ── Constants ──────────────────────────────────────────────────────────────────
@@ -58,10 +58,7 @@ export function saveFavorites(favorites: FavoriteSkill[]): void {
  * Add a skill to the favorites list (if not already present).
  * Returns the updated list.
  */
-export function addFavorite(
-  current: FavoriteSkill[],
-  skill: Omit<FavoriteSkill, 'addedAt'>,
-): FavoriteSkill[] {
+export function addFavorite(current: FavoriteSkill[], skill: Omit<FavoriteSkill, 'addedAt'>): FavoriteSkill[] {
   if (current.some((f) => f.id === skill.id)) return current;
   const entry: FavoriteSkill = { ...skill, addedAt: new Date().toISOString() };
   const next = [...current, entry];

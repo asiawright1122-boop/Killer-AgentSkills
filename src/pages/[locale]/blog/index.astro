@@ -9,7 +9,7 @@ import { Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 export const prerender = true;
 
 export function getStaticPaths() {
-  return SUPPORTED_LOCALES.map(locale => ({ params: { locale } }));
+  return SUPPORTED_LOCALES.map((locale) => ({ params: { locale } }));
 }
 
 const { locale } = Astro.params;
@@ -20,22 +20,22 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 // Get posts for current locale
 let allPosts = await getCollection('blog', ({ data }) => {
-    return data.lang === locale && !data.draft;
+  return data.lang === locale && !data.draft;
 });
 
 // Fallback to English if no posts found for current locale
 if (allPosts.length === 0 && locale !== 'en') {
-    allPosts = await getCollection('blog', ({ data }) => {
-        return data.lang === 'en' && !data.draft;
-    });
+  allPosts = await getCollection('blog', ({ data }) => {
+    return data.lang === 'en' && !data.draft;
+  });
 }
 
 // Sort by date desc
 const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // Featured post logic: explicitly featured > latest
-const featuredPost = sortedPosts.find(p => p.data.featured) || sortedPosts[0];
-const remainingPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
+const featuredPost = sortedPosts.find((p) => p.data.featured) || sortedPosts[0];
+const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
@@ -47,113 +47,130 @@ const categories = [
   { id: 'enterprise-solutions', icon: Building2, color: 'from-amber-500 to-orange-500' },
   { id: 'developer-experience', icon: Terminal, color: 'from-indigo-500 to-purple-500' },
 ];
-
 ---
 
-<Layout 
-    locale={locale} 
-    title="Blog" 
-    description="Insights, tutorials, and updates from the Killer-Skills team."
->
-    <Fragment slot="head">
-        <script type="application/ld+json" set:html={JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
-                { "@type": "ListItem", "position": 2, "name": "Blog", "item": `https://killer-skills.com/${locale}/blog/` }
-            ]
-        })} />
-        <script type="application/ld+json" set:html={JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Blog",
-            "description": "Insights, tutorials, and updates from the Killer-Skills team.",
-            "url": `https://killer-skills.com/${locale}/blog/`,
-            "isPartOf": { "@type": "WebSite", "name": "Killer-Skills", "url": "https://killer-skills.com" }
-        })} />
-    </Fragment>
-    <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
-        
-        <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
-            
-            {/* Header */}
-            <header class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]">
-                <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
-                    <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
-                    {t('Blog.log') || 'LOG'}
-                </div>
-                <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
-                    {t('Blog.title') || 'Insights & Updates'}
-                </h1>
-                <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed text-balance">
-                    {t('Blog.subtitle') || 'Deep dives into AI agents, MCP servers, and the future of coding.'}
-                </p>
-            </header>
+<Layout locale={locale} title="Blog" description="Insights, tutorials, and updates from the Killer-Skills team.">
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t('Common.home') || 'Home',
+            item: `https://killer-skills.com/${locale}`,
+          },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
+        ],
+      })}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: 'Blog',
+        description: 'Insights, tutorials, and updates from the Killer-Skills team.',
+        url: `https://killer-skills.com/${locale}/blog/`,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+      })}
+    />
+  </Fragment>
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
+      {/* Header */}
+      <header
+        class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]"
+      >
+        <div
+          class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]"
+        >
+          <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
+          {t('Blog.log') || 'LOG'}
+        </div>
+        <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
+          {t('Blog.title') || 'Insights & Updates'}
+        </h1>
+        <p
+          class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed text-balance"
+        >
+          {t('Blog.subtitle') || 'Deep dives into AI agents, MCP servers, and the future of coding.'}
+        </p>
+      </header>
 
-            {/* Featured Hero */}
-            {featuredPost && (
-                <div class="mb-20">
-                    <BlogHero post={featuredPost} locale={locale} />
-                </div>
-            )}
+      {/* Featured Hero */}
+      {
+        featuredPost && (
+          <div class="mb-20">
+            <BlogHero post={featuredPost} locale={locale} />
+          </div>
+        )
+      }
 
-            {/* Browse by Category */}
-            <section class="mb-24">
-                <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
-                    <div class="p-2 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)]">
-                        <Tags size={28} strokeWidth={3} />
-                    </div>
-                    <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)]">
-                        {t('Blog.browseByCategory') || 'Browse by Category'}
-                    </h2>
-                </div>
+      {/* Browse by Category */}
+      <section class="mb-24">
+        <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
+          <div class="p-2 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)]">
+            <Tags size={28} strokeWidth={3} />
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)]">
+            {t('Blog.browseByCategory') || 'Browse by Category'}
+          </h2>
+        </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {categories.map((cat) => (
-                        <a 
-                            href={`/${locale}/blog/category/${cat.id}`}
-                            class="brut-card group relative p-6 bg-[var(--card)] flex flex-col h-full"
-                        >
-                            <div class="relative z-10 flex flex-col h-full">
-                                <div class="mb-6 w-16 h-16 border-2 border-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:text-[var(--primary-foreground)] transition-colors">
-                                    <cat.icon size={32} strokeWidth={2.5} />
-                                </div>
-                                <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-3 px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight line-clamp-1 w-fit">
-                                    {t(`Blog.categories.${cat.id}`) || cat.id}
-                                </h3>
-                                <p class="text-[var(--muted-foreground)] font-mono font-bold text-sm leading-relaxed mt-auto">
-                                    {t(`Blog.categories.${cat.id}-desc`) || ''}
-                                </p>
-                            </div>
-                        </a>
-                    ))}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {
+            categories.map((cat) => (
+              <a
+                href={`/${locale}/blog/category/${cat.id}`}
+                class="brut-card group relative p-6 bg-[var(--card)] flex flex-col h-full"
+              >
+                <div class="relative z-10 flex flex-col h-full">
+                  <div class="mb-6 w-16 h-16 border-2 border-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:text-[var(--primary-foreground)] transition-colors">
+                    <cat.icon size={32} strokeWidth={2.5} />
+                  </div>
+                  <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-3 px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight line-clamp-1 w-fit">
+                    {t(`Blog.categories.${cat.id}`) || cat.id}
+                  </h3>
+                  <p class="text-[var(--muted-foreground)] font-mono font-bold text-sm leading-relaxed mt-auto">
+                    {t(`Blog.categories.${cat.id}-desc`) || ''}
+                  </p>
                 </div>
-            </section>
+              </a>
+            ))
+          }
+        </div>
+      </section>
 
-            {/* Post Grid */}
-            <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
-                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)]">
-                    {t('Blog.latestPosts') || 'LATEST COMMITS'}
-                </h2>
+      {/* Post Grid */}
+      <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
+        <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)]">
+          {t('Blog.latestPosts') || 'LATEST COMMITS'}
+        </h2>
+      </div>
+
+      {
+        remainingPosts.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {remainingPosts.map((post) => (
+              <div class="h-full">
+                <BlogCard post={post} locale={locale} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          !featuredPost && (
+            <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
+              <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">
+                {t('Blog.comingSoon') || 'Coming soon...'}
+              </p>
             </div>
-            
-            {remainingPosts.length > 0 ? (
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {remainingPosts.map((post) => (
-                        <div class="h-full">
-                            <BlogCard post={post} locale={locale} />
-                        </div>
-                    ))}
-                </div>
-            ) : (
-                !featuredPost && (
-                    <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
-                        <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">{t('Blog.comingSoon') || 'Coming soon...'}</p>
-                    </div>
-                )
-            )}
-
-        </main>
-    </div>
+          )
+        )
+      }
+    </main>
+  </div>
 </Layout>

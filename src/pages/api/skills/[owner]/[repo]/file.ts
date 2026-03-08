@@ -13,7 +13,7 @@ async function fetchFileContent(
   owner: string,
   repo: string,
   path: string,
-  preferredBranch?: string
+  preferredBranch?: string,
 ): Promise<string | null> {
   const branchesToTry = preferredBranch
     ? [preferredBranch, ...COMMON_BRANCHES.filter((b) => b !== preferredBranch)]
@@ -73,13 +73,10 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const filePath = url.searchParams.get('path');
 
   if (!filePath) {
-    return new Response(
-      JSON.stringify({ error: 'Missing file path parameter. Use ?path=<filePath>' }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Missing file path parameter. Use ?path=<filePath>' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
@@ -103,13 +100,10 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     const content = await fetchFileContent(owner, repo, filePath, preferredBranch);
 
     if (content === null) {
-      return new Response(
-        JSON.stringify({ error: `File not found: ${filePath}` }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: `File not found: ${filePath}` }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const filename = filePath.split('/').pop() || filePath;
@@ -126,16 +120,13 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   } catch (error) {
     console.error('File content API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to fetch file content' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch file content' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };
