@@ -8,141 +8,205 @@ AI Agent 开发技能终极目录（支持 MCP, LangChain 等）。
 
 ---
 
-## 🇺🇸 English
+## 🚀 Stack & Features
 
-### 🚀 Stack & Features
+| Layer | Technology |
+|---|---|
+| **Framework** | [Astro 5.0](https://astro.build) — SSR with React Islands |
+| **Deployment** | [Cloudflare Pages](https://pages.cloudflare.com) Advanced Mode |
+| **Styling** | TailwindCSS 4.0 |
+| **Database** | Cloudflare D1 (SQLite) + KV (`SKILLS_CACHE`, `TRANSLATIONS`) |
+| **Search** | Cloudflare Vectorize + Workers AI (semantic search) |
+| **i18n** | Native Astro i18n (10 locales) + Cloudflare AI Translation |
+| **CI/CD** | GitHub Actions — ESLint, Prettier, Vitest (hard gates) |
+| **CLI** | `killer` / `kiro` — skill management from terminal |
 
-- **Universal IDE Support**: Write once, run everywhere (Cursor, Windsurf, VS Code, Copilot)
-- **Framework**: [Astro 5.0](https://astro.build) (Server-side Rendering)
-- **Deployment**: [Cloudflare Pages](https://pages.cloudflare.com) (Advanced Mode)
-- **Styling**: TailwindCSS 4.0
-- **Database**: Cloudflare KV (`SKILLS_CACHE`, `TRANSLATIONS`)
-- **i18n**: Native Astro i18n + Cloudflare AI Translation
+**Key capabilities:**
+- Universal IDE support (Cursor, Windsurf, VS Code, Copilot)
+- React ErrorBoundary protection on all client islands
+- Structured API error handling with `ApiError` class
+- Health check endpoint (`/api/health`) for KV & D1 monitoring
+- Security headers (X-Content-Type-Options, X-Frame-Options, Referrer-Policy, Permissions-Policy)
 
-### 🛠️ Development
+---
 
-#### Prerequisites
+## 📂 Project Structure
 
-- Node.js 20+
-- `npm` or `pnpm`
-- Cloudflare Wrangler CLI
+```
+killer-skills/
+├── src/
+│   ├── pages/              # File-based routing (Astro)
+│   │   ├── [locale]/       # Localized pages (en, zh, ja, ko, ...)
+│   │   └── api/            # API routes (skills, search, health, admin)
+│   ├── components/         # Astro server components
+│   ├── islands/            # React client islands (hydrated on demand)
+│   │   ├── ErrorBoundary.tsx
+│   │   ├── SearchBar.tsx
+│   │   ├── SkillReadme.tsx
+│   │   ├── SkillActions.tsx
+│   │   └── SkillFileManager.tsx
+│   ├── lib/                # Core logic
+│   │   ├── kv.ts           # KV & D1 data access layer
+│   │   ├── skills.ts       # Unified skill loading & caching
+│   │   ├── search.ts       # Search utilities
+│   │   ├── api-utils.ts    # Structured API error handling
+│   │   ├── favorites.ts    # Client-side favorites (localStorage)
+│   │   └── history.ts      # Client-side browsing history
+│   ├── stores/             # Nanostores (shared state for islands)
+│   ├── messages/           # i18n translation files (*.json)
+│   └── middleware.ts       # Locale detection, auth, security headers
+├── packages/
+│   ├── cli/                # Killer-Skills CLI tool
+│   └── og-server/          # Open Graph image generator
+├── scripts/                # Automation (cache build, skill discovery)
+└── data/                   # Static data (official repos config)
+```
 
-#### Setup
+---
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+## 🛠️ Development
 
-2. Start development server:
-   ```bash
-   npm run dev
-   ```
+### Prerequisites
 
-3. Deploy to Cloudflare Pages:
-   ```bash
-   npm run deploy
-   ```
+- **Node.js** 20+
+- **npm** (or pnpm)
+- **Cloudflare Wrangler CLI** (for local KV/D1 bindings)
 
-### 📂 Project Structure
+### Quick Start
 
-- `src/pages`: File-based routing (Astro)
-- `src/components`: Astro & React components
-- `src/lib`: Core logic (KV, GitHub API, AI)
-- `packages/cli`: Killer-Skills CLI tool
-- `packages/og-server`: Open Graph Image Generator
+```bash
+# 1. Install dependencies
+npm install
 
-### 🌍 Internationalization
+# 2. Start dev server (with Cloudflare bindings via wrangler)
+npm run dev
+
+# 3. Run tests
+npm test
+
+# 4. Lint & format
+npm run lint
+npm run format:check
+```
+
+### Available Scripts
+
+| Script | Description |
+|---|---|
+| `npm run dev` | Start Astro dev server with Wrangler proxy |
+| `npm run build` | Production build |
+| `npm run deploy` | Deploy to Cloudflare Pages |
+| `npm test` | Run Vitest unit & integration tests |
+| `npm run test:e2e` | Run Playwright E2E tests |
+| `npm run lint` | ESLint check (zero warnings enforced) |
+| `npm run lint:fix` | ESLint auto-fix |
+| `npm run format` | Prettier format all files |
+| `npm run format:check` | Prettier check (CI gate) |
+| `npm run build:cache` | Build skill cache from GitHub |
+
+---
+
+## 🧪 Testing
+
+- **Framework**: [Vitest](https://vitest.dev/) with coverage via `@vitest/coverage-v8`
+- **Tests**: 291 tests across 25 files
+- **Coverage**: ~50% global, 74% for `src/lib/`
+
+```bash
+# Run all tests
+npm test
+
+# Run with coverage report
+npx vitest run --coverage
+
+# Run specific test file
+npx vitest run src/lib/skills.test.ts
+```
+
+### CI Hard Gates
+
+All PRs must pass:
+1. **ESLint** — zero warnings (`--max-warnings 0`)
+2. **Prettier** — format check
+3. **Vitest** — all tests pass
+
+---
+
+## 🔌 API Endpoints
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/api/health` | GET | Health check (KV, D1 latency) |
+| `/api/skills` | GET | List all skills (paginated) |
+| `/api/skills/search` | GET | Search skills by query |
+| `/api/skills/submit` | POST | Submit a new skill |
+| `/api/skills/[owner]/[repo]` | GET | Get skill detail |
+| `/api/skills/[owner]/[repo]/files` | GET | List skill files |
+| `/api/skills/[owner]/[repo]/file` | GET | Get file content |
+| `/api/search` | GET | Semantic search (Vectorize + AI) |
+| `/api/categories` | GET | List skill categories |
+| `/api/translate` | GET | AI translation |
+
+---
+
+## 🌍 Internationalization
 
 Supported locales: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`.
-Translations are stored in `src/messages/*.json` and managed via Cloudflare KV.
 
+- Translation files: `src/messages/*.json`
+- Runtime translations cached in Cloudflare KV (`TRANSLATIONS`)
+- Locale detection: Cookie → CF-IPCountry → Accept-Language → default (`en`)
 
-### 🤖 Scripts & Automation
+---
 
-#### 1. Full Automation (Recommended)
+## 🤖 Scripts & Automation
+
+### Full Automation (Recommended)
+
 Runs the entire pipeline: fetches new skills, generates AI analysis, translates content, and syncs to KV.
 ```bash
 ./scripts/run-full-automation.sh
 ```
 
-#### 2. Skill Cache Build
-Manual control over the skill fetching and AI analysis process.
+### Skill Cache Build
 
-**Incremental Update (Fast)**
-Fetches only new official skills and GitHub search results. Skips existing valid cache.
 ```bash
+# Incremental update (fast)
 npm run build:cache -- --mode=update --live
-```
 
-**Force Re-generation (Slow)**
-Forces re-fetching and re-analyzing all skills. Use this to fix data issues or update AI analysis logic.
-```bash
+# Force re-generation (slow)
 npm run build:cache -- --mode=update --force --live
-```
 
-**Filter Specific Skill (Debug)**
-Process only skills matching the filter keyword.
-```bash
+# Filter specific skill (debug)
 npm run build:cache -- --mode=update --filter=algorithmic-art --live
 ```
 
 **Flags:**
-- `--live`: Real-time sync to Cloudflare KV (Production/Preview).
-- `--force`: Ignore cache and re-fetch/re-analyze everything.
-- `--filter=<name>`: Process only skills containing `<name>`.
+- `--live` — Real-time sync to Cloudflare KV
+- `--force` — Ignore cache and re-fetch everything
+- `--filter=<name>` — Process only skills matching `<name>`
 
 ---
 
+## �️ Architecture
 
-## 🇨🇳 中文
+```
+Browser ──► Cloudflare CDN ──► Astro SSR (CF Workers)
+                                    │
+                  ┌─────────────────┼─────────────────┐
+                  ▼                 ▼                  ▼
+             Cloudflare KV    Cloudflare D1      Workers AI
+            (skills cache)    (SQL queries)    (search, translate)
+                                    │
+                                    ▼
+                             Cloudflare Vectorize
+                           (semantic search index)
+```
 
-### 🚀 技术栈与特性
-
-- **通用 IDE 支持**: 一次编写，处处运行 (Cursor, Windsurf, VS Code, Copilot)
-- **框架**: [Astro 5.0](https://astro.build) (服务端渲染 SSR)
-- **部署**: [Cloudflare Pages](https://pages.cloudflare.com) (Advanced Mode)
-- **样式**: TailwindCSS 4.0
-- **数据库**: Cloudflare KV (`SKILLS_CACHE`, `TRANSLATIONS`)
-- **国际化 (i18n)**: 原生 Astro i18n + Cloudflare AI 自动翻译
-
-### 🛠️ 开发指南
-
-#### 前置要求
-
-- Node.js 20+
-- `npm` 或 `pnpm`
-- Cloudflare Wrangler CLI
-
-#### 设置步骤
-
-1. 安装依赖:
-   ```bash
-   npm install
-   ```
-
-2. 启动开发服务器:
-   ```bash
-   npm run dev
-   ```
-
-3. 部署到 Cloudflare Pages:
-   ```bash
-   npm run deploy
-   ```
-
-### 📂 项目结构
-
-- `src/pages`: 文件路由 (Astro)
-- `src/components`: Astro & React 组件
-- `src/lib`: 核心逻辑 (KV, GitHub API, AI)
-- `packages/cli`: Killer-Skills CLI 工具
-- `packages/og-server`: Open Graph 图片生成器
-
-### 🌍 国际化
-
-支持语言: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`.
-翻译文件存储在 `src/messages/*.json`，并通过 Cloudflare KV 管理。
+**Caching strategy (3 layers):**
+1. **Module cache** — In-memory, 5s TTL (same isolate)
+2. **Cloudflare Cache API** — Cross-isolate, 1h TTL (edge)
+3. **D1/KV** — Persistent storage (origin)
 
 ---
 
