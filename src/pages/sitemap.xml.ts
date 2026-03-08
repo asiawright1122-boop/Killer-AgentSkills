@@ -16,7 +16,7 @@ const SITE = 'https://killer-skills.com';
  *   /sitemap-skills.xml   → All skill detail pages
  */
 export const GET: APIRoute = async ({ locals }) => {
-  const env = (locals as any).runtime?.env as Env | undefined;
+  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
 
   // Get last modification date for skills
   let skillsLastMod = new Date().toISOString().split('T')[0];

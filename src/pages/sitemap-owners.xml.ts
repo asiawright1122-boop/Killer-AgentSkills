@@ -28,7 +28,7 @@ function buildHreflangLinks(pagePath: string): string {
 }
 
 export const GET: APIRoute = async ({ locals }) => {
-  const env = (locals as any).runtime?.env as Env | undefined;
+  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
   const today = formatDate(new Date());
 
   let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
