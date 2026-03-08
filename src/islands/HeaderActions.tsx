@@ -166,7 +166,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                                 key={href}
                                 href={href}
                                 onClick={closeMenu}
-                                className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold text-[var(--foreground)] border-b last:border-b-0 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+                                className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b last:border-b-0 border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
                             >
                                 <Icon className="w-5 h-5 flex-shrink-0" />
                                 {label}
@@ -179,7 +179,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                         <a
                             href={`/${locale}/favorites`}
                             onClick={closeMenu}
-                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[#ff003c] hover:text-white transition-colors"
+                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[#ff003c] hover:text-white transition-colors"
                         >
                             <Heart className="w-5 h-5 flex-shrink-0" />
                             {labels.favorites}
@@ -188,7 +188,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                         <button
                             type="button"
                             onClick={toggleTheme}
-                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors w-full text-left"
+                            className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors w-full text-left"
                         >
                             {isDark
                                 ? <Moon className="w-5 h-5 flex-shrink-0" />
