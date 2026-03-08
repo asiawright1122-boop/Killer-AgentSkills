@@ -37,6 +37,8 @@ interface HeaderActionsProps {
         toggleTheme: string;
         toggleMenu: string;
         favoritesAria: string;
+        darkMode?: string;
+        lightMode?: string;
     };
 }
 
@@ -151,7 +153,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                     </a>
                     <button
                         onClick={closeMenu}
-                        className="p-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
+                        className="p-2.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
                         aria-label={labels.toggleMenu}
                     >
                         <X className="w-6 h-6" />
@@ -194,7 +196,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                                 ? <Moon className="w-5 h-5 flex-shrink-0" />
                                 : <Sun className="w-5 h-5 flex-shrink-0" />
                             }
-                            <span>{isDark ? 'DARK CORE' : 'LIGHT TERMINAL'}</span>
+                            <span>{isDark ? (labels.darkMode || 'Dark Mode') : (labels.lightMode || 'Light Mode')}</span>
                         </button>
                     </div>
 
@@ -283,7 +285,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="md:hidden p-2 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
+                    className="md:hidden p-2.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                     aria-label={labels.toggleMenu}
                     aria-expanded={isMenuOpen}
