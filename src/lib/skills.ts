@@ -4,7 +4,8 @@
  */
 
 import type { Env } from './kv';
-import { getSkillsFromKV, getSkillsKV, getSkillsListing } from './kv';
+import { getSkillsFromKV, getSkillsKV, getSkillsListing, getLocalSkillsFallback } from './kv';
+import { OFFICIAL_REPOS } from './skills-config';
 
 export interface UnifiedSkill {
   id: string;
@@ -55,7 +56,19 @@ export function getLocalizedDescription(description: UnifiedSkill['description']
   return description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '';
 }
 
-import { OFFICIAL_REPOS } from './skills-config';
+/**
+ * Augment skills with explicit categories from OFFICIAL_REPOS config.
+ * Extracted to eliminate 3x duplication of this pattern.
+ */
+function augmentWithOfficialCategories(skills: UnifiedSkill[]): UnifiedSkill[] {
+  return skills.map((skill) => {
+    const officialConfig = Object.values(OFFICIAL_REPOS).find((c) => c.owner === skill.owner && c.repo === skill.repo);
+    if (officialConfig?.category) {
+      return { ...skill, category: officialConfig.category };
+    }
+    return skill;
+  });
+}
 
 // Module-level cache for getAllSkills within a single Worker request
 let _cachedSkills: UnifiedSkill[] | null = null;
@@ -101,18 +114,7 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
   console.time('getAllSkills DB Fetch & Parse');
   // 3. Fallback: Full DB query and JSON parse (slow path)
   const raw = await getSkillsFromKV(env);
-  let skills = raw as UnifiedSkill[];
-
-  // Augment skills with explicit categories from OFFICIAL_REPOS config
-  skills = skills.map((skill) => {
-    // Find matching official repo config
-    const officialConfig = Object.values(OFFICIAL_REPOS).find((c) => c.owner === skill.owner && c.repo === skill.repo);
-
-    if (officialConfig?.category) {
-      return { ...skill, category: officialConfig.category };
-    }
-    return skill;
-  });
+  const skills = augmentWithOfficialCategories(raw as UnifiedSkill[]);
 
   console.timeEnd('getAllSkills DB Fetch & Parse');
 
@@ -174,18 +176,7 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   console.time('getLightweightSkills DB Fetch');
   // 3. Fallback: D1 listing query (fast path, extracts only card fields)
   const raw = await getSkillsListing(env);
-  let skills = raw as UnifiedSkill[];
-
-  // Augment skills with explicit categories from OFFICIAL_REPOS config
-  skills = skills.map((skill) => {
-    // Find matching official repo config
-    const officialConfig = Object.values(OFFICIAL_REPOS).find((c) => c.owner === skill.owner && c.repo === skill.repo);
-
-    if (officialConfig?.category) {
-      return { ...skill, category: officialConfig.category };
-    }
-    return skill;
-  });
+  const skills = augmentWithOfficialCategories(raw as UnifiedSkill[]);
 
   console.timeEnd('getLightweightSkills DB Fetch');
 
@@ -255,17 +246,7 @@ export async function getFeaturedSkillsDirect(env: Env, limit: number = 6): Prom
     const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`).bind(limit).all();
 
     if (result.success && result.results) {
-      return result.results.map((row: any) => {
-        const skill = JSON.parse(row.data_json) as UnifiedSkill;
-        // Augment with official category if applicable
-        const officialConfig = Object.values(OFFICIAL_REPOS).find(
-          (c) => c.owner === skill.owner && c.repo === skill.repo,
-        );
-        if (officialConfig?.category) {
-          return { ...skill, category: officialConfig.category };
-        }
-        return skill;
-      });
+      return augmentWithOfficialCategories(result.results.map((row: any) => JSON.parse(row.data_json) as UnifiedSkill));
     }
     return [];
   } catch (e) {
@@ -273,8 +254,6 @@ export async function getFeaturedSkillsDirect(env: Env, limit: number = 6): Prom
     return getFeaturedSkills(env, limit);
   }
 }
-
-import { getLocalSkillsFallback } from './kv';
 
 /**
  * Get official skill counts grouped by owner — avoids loading all skill JSON.
