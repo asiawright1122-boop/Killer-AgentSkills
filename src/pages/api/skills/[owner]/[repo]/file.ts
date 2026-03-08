@@ -1,10 +1,9 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
+import { COMMON_BRANCHES } from '../../../../../lib/github';
 
 export const prerender = false;
-
-const COMMON_BRANCHES = ['main', 'master', 'canary', 'develop'];
 
 /**
  * Fetch file raw content from GitHub.
