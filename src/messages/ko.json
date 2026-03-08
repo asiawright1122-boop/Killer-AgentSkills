@@ -135,24 +135,24 @@
       "browse": "스킬 둘러보기",
       "docs": "문서 보기"
     },
-    "features": [
-      {
+    "features": {
+      "0": {
         "title": "멀티 IDE 지원",
         "desc": "Cursor, Windsurf, Claude Code와 완벽하게 통합됩니다."
       },
-      {
+      "1": {
         "title": "표준 프로토콜",
         "desc": "MCP 기반. 한 번 작성하면 어디서나 실행됩니다."
       },
-      {
+      "2": {
         "title": "엄선된 품질",
         "desc": "높은 평점을 받은 검증된 스킬을 엄선했습니다."
       },
-      {
+      "3": {
         "title": "오픈 소스",
         "desc": "투명하고 안전하며 커뮤니티 주도적입니다."
       }
-    ]
+    }
   },
   "Sidebar": {
     "discover": "발견",

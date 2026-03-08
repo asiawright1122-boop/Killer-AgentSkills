@@ -135,24 +135,24 @@
       "browse": "浏览技能市场",
       "docs": "查看文档"
     },
-    "features": [
-      {
+    "features": {
+      "0": {
         "title": "多 IDE 支持",
         "desc": "无缝集成 Cursor、Windsurf 和 Claude Code。"
       },
-      {
+      "1": {
         "title": "标准协议",
         "desc": "基于 MCP 协议，一次编写，到处运行。"
       },
-      {
+      "2": {
         "title": "严选质量",
         "desc": "精选 GitHub 高星项目，人工审核确保可用。"
       },
-      {
+      "3": {
         "title": "完全开源",
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
-    ]
+    }
   },
   "Sidebar": {
     "discover": "发现",
