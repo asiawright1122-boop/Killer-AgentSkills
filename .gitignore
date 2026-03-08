@@ -31,7 +31,8 @@ _backup_nextjs_v1/
 
 # System / Editor
 .kiro/
-.windsurf/
+.windsurf/*
+!.windsurf/workflows/
 .wrangler/
 .vscode/
 
