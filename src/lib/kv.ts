@@ -258,7 +258,7 @@ export async function getRelatedSkillsFast(
 }
 
 /** Safe JSON parse helper — returns fallback if parse fails */
-function tryParseJSON(str: string, fallback: any): any {
+function tryParseJSON<T>(str: string, fallback: T): T {
   if (typeof str !== 'string') return str; // Already parsed
   try {
     return JSON.parse(str);

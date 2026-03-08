@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (env?.DB) {
       try {
         let condition = '';
-        const params: any[] = [];
+        const params: (string | number)[] = [];
 
         let joinFts = '';
         let orderBy = 'ORDER BY quality_score DESC, stars DESC';
@@ -79,7 +79,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           total = (countResult as any).total as number;
 
           // Parse JSON and localize
-          skills = dataResult.results.map((row: any) => {
+          skills = dataResult.results.map((row: Record<string, unknown>) => {
             const skill = JSON.parse(row.data_json as string) as UnifiedSkill;
             return {
               ...skill,

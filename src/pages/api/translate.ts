@@ -80,12 +80,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     });
 
     return new Response(readableStream, { headers: STREAM_HEADERS });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Translation API error:', error);
     return new Response(
       JSON.stringify({
         error: 'Translation failed',
-        details: error?.message || 'Unknown error',
+        details: error instanceof Error ? error.message : 'Unknown error',
       }),
       {
         status: 500,

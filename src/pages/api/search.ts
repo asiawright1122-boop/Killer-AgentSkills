@@ -130,9 +130,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
         'Cache-Control': 'public, max-age=60',
       },
     });
-  } catch (e: any) {
+  } catch (e) {
     console.error('Vector Search Error:', e);
-    return new Response(JSON.stringify({ error: e.message || 'Internal Server Error' }), {
+    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Internal Server Error' }), {
       headers: { 'Content-Type': 'application/json' },
       status: 500,
     });
