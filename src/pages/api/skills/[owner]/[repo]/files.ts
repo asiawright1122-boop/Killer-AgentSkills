@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../../../lib/kv';
+import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../../../lib/github';
 
 export const prerender = false;
@@ -169,10 +170,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const { owner, repo } = params;
 
   if (!owner || !repo) {
-    return new Response(JSON.stringify({ error: 'Missing owner or repo parameter' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Missing owner or repo parameter');
   }
 
   const url = new URL(request.url);
@@ -181,20 +179,14 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   // Sanitize inputs to prevent path traversal and injection
   const safePattern = /^[a-zA-Z0-9\-_.]+$/;
   if (!safePattern.test(owner) || !safePattern.test(repo)) {
-    return new Response(JSON.stringify({ error: 'Invalid owner or repo format' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Invalid owner or repo format');
   }
 
   if (
     specifiedPath &&
     (specifiedPath.includes('..') || specifiedPath.includes('%2e') || specifiedPath.includes('%2E'))
   ) {
-    return new Response(JSON.stringify({ error: 'Invalid file path' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Invalid file path');
   }
 
   try {
@@ -211,10 +203,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     }
 
     if (skillDir === null) {
-      return new Response(JSON.stringify({ error: 'Unable to find skill directory', files: [] }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return notFoundError('Unable to find skill directory');
     }
 
     const files = await getDirectoryContents(owner, repo, skillDir);
@@ -232,9 +221,6 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     );
   } catch (error) {
     console.error('Files API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch file list', files: [] }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return errorResponse(error);
   }
 };

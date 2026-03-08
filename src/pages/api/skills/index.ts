@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getSkillsFromKV, type Env } from '../../../lib/kv';
 import { getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
+import { jsonResponse, errorResponse } from '../../../lib/api-utils';
 
 export const prerender = false;
 
@@ -44,27 +45,19 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const end = start + limit;
     const paginatedSkills = skills.slice(start, end);
 
-    return new Response(
-      JSON.stringify({
+    return jsonResponse(
+      {
         skills: paginatedSkills,
         total: skills.length,
         page,
         limit,
         hasMore: end < skills.length,
-      }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-        },
       },
+      200,
+      { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' },
     );
   } catch (error) {
     console.error('Skills List API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch skills' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return errorResponse(error);
   }
 };

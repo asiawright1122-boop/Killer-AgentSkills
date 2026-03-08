@@ -49,6 +49,20 @@ export function errorResponse(error: unknown, fallbackStatus = 500): Response {
 }
 
 /**
+ * Returns a 400 validation error response with consistent format.
+ */
+export function validationError(message: string, code?: string): Response {
+  return jsonResponse({ success: false, error: message, ...(code && { code }) }, 400);
+}
+
+/**
+ * Returns a 404 not-found error response with consistent format.
+ */
+export function notFoundError(message: string): Response {
+  return jsonResponse({ success: false, error: message }, 404);
+}
+
+/**
  * Wraps an async API handler with structured error handling.
  * Catches unhandled errors and returns consistent JSON error responses.
  */

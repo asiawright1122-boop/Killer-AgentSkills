@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getSkillsFromKV, type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
+import { errorResponse } from '../../../lib/api-utils';
 
 export const prerender = false;
 
@@ -162,9 +163,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
     );
   } catch (error) {
     console.error('Search API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to search skills' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return errorResponse(error);
   }
 };

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getSkillsFromKV, type Env } from '../../lib/kv';
 import type { UnifiedSkill } from '../../lib/skills';
+import { errorResponse } from '../../lib/api-utils';
 
 export const prerender = false;
 
@@ -40,9 +41,6 @@ export const GET: APIRoute = async ({ locals }) => {
     });
   } catch (error) {
     console.error('Categories API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch categories' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return errorResponse(error);
   }
 };

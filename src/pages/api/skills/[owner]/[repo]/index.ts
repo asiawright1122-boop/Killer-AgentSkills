@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getSkillByOwnerRepo } from '../../../../../lib/skills';
 import { type Env } from '../../../../../lib/kv';
+import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 
 export const prerender = false;
 
@@ -152,10 +153,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const { owner, repo } = params;
 
   if (!owner || !repo) {
-    return new Response(JSON.stringify({ error: 'Missing owner or repo parameter' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Missing owner or repo parameter');
   }
 
   const url = new URL(request.url);
@@ -165,17 +163,11 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   // Sanitize inputs to prevent path traversal and injection
   const safePattern = /^[a-zA-Z0-9\-_.]+$/;
   if (!safePattern.test(owner) || !safePattern.test(repo)) {
-    return new Response(JSON.stringify({ error: 'Invalid owner or repo format' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Invalid owner or repo format');
   }
 
   if (skillPath && (skillPath.includes('..') || skillPath.includes('%2e') || skillPath.includes('%2E'))) {
-    return new Response(JSON.stringify({ error: 'Invalid skill path' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return validationError('Invalid skill path');
   }
 
   try {
@@ -194,10 +186,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     ]);
 
     if (!repoInfo && !kvSkill) {
-      return new Response(JSON.stringify({ error: 'Repository not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return notFoundError('Repository not found');
     }
 
     const skillMd = skillMdContent ? parseSkillMd(skillMdContent) : null;
@@ -230,9 +219,6 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     });
   } catch (error) {
     console.error('Skill detail API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch skill details' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return errorResponse(error);
   }
 };
