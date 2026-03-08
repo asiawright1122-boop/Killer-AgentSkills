@@ -34,7 +34,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: main  # 确保拿到 harvest 刚 push 的最新数据
-          lfs: true
+          lfs: false  # LFS fetched separately to avoid checkout failure on budget exceeded
+
+      - name: Fetch LFS files (graceful)
+        continue-on-error: true
+        run: git lfs pull
 
       # workflow_run 触发时可能有微小延迟，确保拿到最新 commit
       - name: Ensure latest data

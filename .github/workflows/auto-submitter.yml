@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          lfs: true
+          lfs: false  # Not needed — only modifies submitted-history.json
 
       - name: Setup Node.js
         uses: actions/setup-node@v4

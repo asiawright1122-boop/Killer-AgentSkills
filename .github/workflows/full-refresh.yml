@@ -46,7 +46,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          lfs: true
+          lfs: false  # LFS fetched separately to avoid checkout failure on budget exceeded
+
+      - name: Fetch LFS files (graceful)
+        continue-on-error: true
+        run: git lfs pull
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
