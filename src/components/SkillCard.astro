@@ -108,7 +108,7 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
         onerror="this.style.display='none'"
       />
     </div>
-    <span class="text-xs font-bold text-[var(--foreground)] uppercase tracking-wider">{owner}</span>
+    <span class="text-xs font-bold text-[var(--foreground)]">{owner}</span>
   </div>
   
   <!-- Description -->
@@ -217,11 +217,11 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
         const categoryLink = matchedCategory ? `/${locale}/skills?category=${matchedCategory}` : null;
 
         return categoryLink ? (
-          <a href={categoryLink} class="relative z-10 px-2 py-1 text-[10px] font-black bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] hover:bg-[var(--primary)] transition-colors uppercase tracking-widest">
+          <a href={categoryLink} class="relative z-10 px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] hover:bg-[var(--primary)] transition-colors">
             {displayLabel}
           </a>
         ) : (
-          <span class="px-2 py-1 text-[10px] font-black bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] uppercase tracking-widest">
+          <span class="px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)]">
             {displayLabel}
           </span>
         );
