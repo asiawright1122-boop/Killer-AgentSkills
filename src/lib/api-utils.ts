@@ -66,8 +66,8 @@ export function notFoundError(message: string): Response {
  * Wraps an async API handler with structured error handling.
  * Catches unhandled errors and returns consistent JSON error responses.
  */
-export function withErrorHandling(handler: (request: Request, context: any) => Promise<Response>) {
-  return async (request: Request, context: any): Promise<Response> => {
+export function withErrorHandling(handler: (request: Request, context: unknown) => Promise<Response>) {
+  return async (request: Request, context: unknown): Promise<Response> => {
     try {
       return await handler(request, context);
     } catch (error) {
