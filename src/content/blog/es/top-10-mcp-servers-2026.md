@@ -7,7 +7,7 @@ tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Au
 lang: "es"
 featured: true
 category: "developer-experience"
-heroImage: "/images/blog/mcp-servers-hero.png"
+heroImage: "/images/blog/mcp-servers-hero.webp"
 ---
 # Top 10 Servidores MCP Esenciales para Claude y Cursor en 2026
 
