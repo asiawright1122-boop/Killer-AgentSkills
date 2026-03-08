@@ -9,11 +9,6 @@ export const prerender = true;
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  console.log('DEBUG: Blog posts found:', posts.length);
-  if (posts.length > 0) {
-      console.log('DEBUG: Sample post id:', posts[0].id);
-      console.log('DEBUG: Sample post data:', JSON.stringify(posts[0].data));
-  }
   return posts.map((post) => {
     const [lang, ...slugParts] = post.id.split('/');
     const slug = slugParts.join('/').replace(/\.md$/, '');

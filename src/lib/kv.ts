@@ -91,12 +91,10 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
     }
 
     try {
-        console.log('[D1] Executing global skill selection across D1 Database Nodes...');
         // We pull the full data_json payloads for application layer mapping
         const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
 
         if (result.success && result.results) {
-            console.log(`[D1] Successfully loaded ${result.results.length} skills from SQLite Edge Cache`);
             return result.results.map((row: any) => JSON.parse(row.data_json));
         }
         return [];
@@ -134,7 +132,6 @@ export async function getSkillsListing(env: Env): Promise<any[]> {
     }
 
     try {
-        console.time('[D1] Listing query');
         const result = await env.DB.prepare(`
             SELECT 
                 id,
@@ -156,10 +153,7 @@ export async function getSkillsListing(env: Env): Promise<any[]> {
             ORDER BY stars DESC
         `).all();
 
-        console.timeEnd('[D1] Listing query');
-
         if (result.success && result.results) {
-            console.log(`[D1] Listing: ${result.results.length} skills loaded (lightweight)`);
             return result.results.map((row: any) => ({
                 id: row.id,
                 name: row.name || row.skillName || row.repo,
@@ -362,7 +356,6 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string,
                 `SELECT owner, repo, updated_at as updatedAt FROM skills WHERE owner IS NOT NULL AND repo IS NOT NULL`
             ).all();
             if (result.success && result.results) {
-                console.log(`[D1] Sitemap: loaded ${result.results.length} entries from D1`);
                 return filterValid(result.results as any[]);
             }
         } catch (e) {
@@ -380,7 +373,6 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string,
             if (fs.existsSync(sitemapPath)) {
                 const content = fs.readFileSync(sitemapPath, 'utf-8');
                 const data = JSON.parse(content);
-                console.log('[Local] Using local sitemap skills cache');
                 if (Array.isArray(data)) return filterValid(data);
             }
 

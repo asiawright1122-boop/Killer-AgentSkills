@@ -24,7 +24,6 @@ const typedLocale = locale as Locale;
 const env = (Astro.locals as any).runtime?.env as Env;
 
 // ⚡ PARALLEL: Load lightweight skills + translations concurrently
-const t0 = performance.now();
 const [skillsFetched, messages] = await Promise.all([
   getLightweightSkills(env),
   loadMessages(typedLocale),
@@ -38,8 +37,6 @@ if (skills.length === 0) {
 }
 
 skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
-const t1 = performance.now();
-console.log(`[SSR Profiler] DB Fetch: ${Math.round(t1 - t0)}ms (${skills.length} skills)`);
 
 // Get URL search params for filtering
 const url = Astro.url;

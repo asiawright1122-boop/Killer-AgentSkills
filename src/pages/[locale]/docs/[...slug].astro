@@ -48,13 +48,10 @@ const typedLocale = locale as Locale;
 const env = (Astro.locals as any).runtime?.env as Env;
 
 // Load translations
-// Load translations
 let messages;
 let t: (key: string) => string = (k: string) => k; 
 try {
-  console.log(`[Docs Debug] Loading messages for locale: ${typedLocale}`);
   messages = await loadMessages(typedLocale);
-  console.log(`[Docs Debug] Messages loaded. Keys: ${Object.keys(messages || {}).length}`);
   t = useTranslations(messages);
 } catch (e) {
   console.error('[Docs] Error loading translations:', e);
@@ -67,12 +64,6 @@ const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
 
 let docContent: string | null = null;
 let docTitle = '';
-
-// DEBUG: Check translations
-console.log(`[Docs Debug] Locale: ${locale}`);
-console.log(`[Docs Debug] Docs.gettingStarted: ${t('Docs.gettingStarted')}`);
-console.log(`[Docs Debug] DocsSidebar.gettingStarted: ${t('DocsSidebar.gettingStarted')}`);
-
 
 if (env?.SKILLS_CACHE) {
   try {
