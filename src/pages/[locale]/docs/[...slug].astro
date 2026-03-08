@@ -197,7 +197,7 @@ const isActive = (href: string) => {
     {/* Mobile Toggle (Visible only on small screens) */}
     <div class="md:hidden bg-[var(--card)] border-b-4 border-[var(--foreground)] p-4 sticky top-0 z-20 flex items-center justify-between shadow-[0px_4px_0px_0px_var(--foreground)] mb-6">
       <span class="font-black uppercase flex items-center gap-2">
-        <Book className="w-5 h-5" strokeWidth={3} /> Documentation
+        <Book className="w-5 h-5" strokeWidth={3} /> {t('Common.documentation') || 'Documentation'}
       </span>
       <button id="mobile-menu-btn" aria-label="Toggle documentation sidebar" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
         <Menu className="w-6 h-6" strokeWidth={3} />

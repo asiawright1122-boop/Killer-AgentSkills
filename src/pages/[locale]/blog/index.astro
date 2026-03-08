@@ -81,7 +81,7 @@ const categories = [
             <header class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]">
                 <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
                     <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
-                    LOG
+                    {t('Blog.log') || 'LOG'}
                 </div>
                 <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
                     {t('Blog.title') || 'Insights & Updates'}
@@ -134,7 +134,7 @@ const categories = [
             {/* Post Grid */}
             <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
                 <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)]">
-                    LATEST COMMITS
+                    {t('Blog.latestPosts') || 'LATEST COMMITS'}
                 </h2>
             </div>
             

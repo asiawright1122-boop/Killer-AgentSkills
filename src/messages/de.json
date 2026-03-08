@@ -111,7 +111,8 @@
     "useCases": "Handlungsfähige Anwendungsfälle",
     "limitations": "Sicherheit & Einschränkungen",
     "precautions": "Vorsichtsmaßnahmen",
-    "relatedSkills": "Verwandte Fähigkeiten"
+    "relatedSkills": "Verwandte Fähigkeiten",
+    "coreTopics": "Kernthemen"
   },
   "Home": {
     "heroTitle": "Rüsten Sie Ihre Agenten aus",
@@ -218,7 +219,14 @@
     "verified": "Verifiziert",
     "explore": "Explore",
     "viewAll": "Alle anzeigen",
-    "collections": "Sammlungen"
+    "collections": "Sammlungen",
+    "go": "Los",
+    "copy": "Kopieren",
+    "copied": "Kopiert",
+    "featured": "Empfohlen",
+    "noDescription": "Keine Beschreibung",
+    "skipToContent": "Zum Inhalt springen",
+    "documentation": "Dokumentation"
   },
   "OfficialSkills": {
     "title": "Offizielle Skills",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "Die Bausteine für KI-gestütztes Engineering.",
       "announcements": "Ankündigungen",
       "announcements-desc": "Neueste Nachrichten und Plattform-Updates."
-    }
+    },
+    "latestPosts": "Neueste Beiträge",
+    "log": "Protokoll"
   },
   "Collections": {
     "editorPicks": "Empfehlungen der Redaktion",

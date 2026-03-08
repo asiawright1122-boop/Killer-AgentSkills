@@ -111,7 +111,8 @@
     "useCases": "Casos de uso accionables",
     "limitations": "Seguridad y limitaciones",
     "precautions": "Precauciones",
-    "relatedSkills": "Habilidades relacionadas"
+    "relatedSkills": "Habilidades relacionadas",
+    "coreTopics": "Temas principales"
   },
   "Home": {
     "heroTitle": "Equipa a tus agentes",
@@ -218,7 +219,14 @@
     "verified": "Verificado",
     "explore": "Explore",
     "viewAll": "Ver todo",
-    "collections": "Colecciones"
+    "collections": "Colecciones",
+    "go": "Ir",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "featured": "Destacado",
+    "noDescription": "Sin descripción",
+    "skipToContent": "Ir al contenido",
+    "documentation": "Documentación"
   },
   "OfficialSkills": {
     "title": "Habilidades Oficiales",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "Los bloques de construcción para la ingeniería impulsada por IA.",
       "announcements": "Anuncios",
       "announcements-desc": "Últimas noticias y actualizaciones de la plataforma."
-    }
+    },
+    "latestPosts": "Últimas publicaciones",
+    "log": "Registro"
   },
   "Collections": {
     "editorPicks": "Selección del Editor",

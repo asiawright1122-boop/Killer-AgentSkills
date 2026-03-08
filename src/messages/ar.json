@@ -111,7 +111,8 @@
     "useCases": "حالات استخدام قابلة للتنفيذ",
     "limitations": "الأمان والقيود",
     "precautions": "الاحتياطات",
-    "relatedSkills": "المهارات ذات الصلة"
+    "relatedSkills": "المهارات ذات الصلة",
+    "coreTopics": "المواضيع الأساسية"
   },
   "Home": {
     "heroTitle": "زوّد وكلائك",
@@ -218,7 +219,14 @@
     "verified": "موثق",
     "explore": "Explore",
     "viewAll": "عرض الكل",
-    "collections": "مجموعات مختارة"
+    "collections": "مجموعات مختارة",
+    "go": "انتقال",
+    "copy": "نسخ",
+    "copied": "تم النسخ",
+    "featured": "مميز",
+    "noDescription": "لا يوجد وصف",
+    "skipToContent": "تخطي إلى المحتوى",
+    "documentation": "التوثيق"
   },
   "OfficialSkills": {
     "title": "المهارات الرسمية",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "لبنات البناء للهندسة المدعومة بالذكاء الاصطناعي.",
       "announcements": "إعلانات",
       "announcements-desc": "آخر الأخبار وتحديثات المنصة."
-    }
+    },
+    "latestPosts": "أحدث المقالات",
+    "log": "سجل"
   },
   "Collections": {
     "editorPicks": "اختيارات المحررين",
