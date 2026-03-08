@@ -20,7 +20,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 
 // Get env from Cloudflare runtime
-const env = (Astro.locals as any).runtime?.env as Env;
+const env = Astro.locals.runtime?.env as Env;
 
 // Load featured skills directly from D1 with LIMIT (optimized — no full table scan)
 const featuredSkills = await getFeaturedSkillsDirect(env, 6);

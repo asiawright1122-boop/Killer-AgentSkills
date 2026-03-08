@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
-const env = (Astro.locals as any).runtime?.env as Env;
+const env = Astro.locals.runtime?.env as Env;
 
 // Load translations
 const messages = await loadMessages(locale as Locale);

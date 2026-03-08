@@ -16,7 +16,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 
 // Get env from Cloudflare runtime
-const env = (Astro.locals as any).runtime?.env as Env;
+const env = Astro.locals.runtime?.env as Env;
 
 // Load all skills from KV
 const skills = await getAllSkills(env);

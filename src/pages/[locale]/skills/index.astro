@@ -21,7 +21,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 
 // Get env from Cloudflare runtime
-const env = (Astro.locals as any).runtime?.env as Env;
+const env = Astro.locals.runtime?.env as Env;
 
 // ⚡ PARALLEL: Load lightweight skills + translations concurrently
 const [skillsFetched, messages] = await Promise.all([
