@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const locale = url.searchParams.get('locale') || 'en';
 
     try {
-        const env = (locals as any).runtime?.env as Env | undefined;
+        const env = locals.runtime?.env as Env | undefined;
 
         // 1. Load all skills from KV
         let skills: UnifiedSkill[] = [];

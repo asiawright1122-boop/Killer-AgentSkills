@@ -17,7 +17,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // 1. Admin API routes require authentication (checked BEFORE skipping API routes)
   if (pathname.startsWith('/api/admin/')) {
     const authHeader = context.request.headers.get('authorization');
-    const env = (context.locals as any).runtime?.env;
+    const env = context.locals.runtime?.env;
     const validUser = env?.ADMIN_USER || 'admin';
     const validPass = env?.ADMIN_PASSWORD || 'admin';
 
@@ -42,7 +42,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   // 3. Admin pages Basic Auth
   if (pathname.startsWith('/admin')) {
     const authHeader = context.request.headers.get('authorization');
-    const env = (context.locals as any).runtime?.env;
+    const env = context.locals.runtime?.env;
     const validUser = env?.ADMIN_USER || 'admin';
     const validPass = env?.ADMIN_PASSWORD || 'admin';
 

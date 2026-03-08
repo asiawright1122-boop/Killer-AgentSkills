@@ -84,7 +84,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
   try {
     // Access env via context.locals.runtime.env (Cloudflare Workers runtime)
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
 
     // Try to detect the preferred branch from D1 skill data if available
     let preferredBranch: string | undefined;

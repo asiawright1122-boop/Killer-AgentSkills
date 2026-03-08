@@ -26,7 +26,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const locale = url.searchParams.get('locale') || 'en';
 
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
     let skills: UnifiedSkill[] = [];
     let total = 0;
 

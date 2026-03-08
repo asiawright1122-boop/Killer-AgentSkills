@@ -12,7 +12,7 @@ export const prerender = false;
  */
 export const POST: APIRoute = async ({ locals }) => {
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
 
     if (!env?.DB) {
       return new Response(
