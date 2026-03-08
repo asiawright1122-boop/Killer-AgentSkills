@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import withErrorBoundary from './withErrorBoundary';
 
 interface SearchBarProps {
   locale?: string;
@@ -16,7 +17,7 @@ interface SearchResult {
   score: number;
 }
 
-export default function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBarProps) {
+function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBarProps) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -158,3 +159,5 @@ export default function SearchBar({ locale = 'en', placeholder, buttonText = 'RU
     </div>
   );
 }
+
+export default withErrorBoundary(SearchBar);
