@@ -35,7 +35,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 
 // Estimate read time (rough)
-const wordCount = post.body.split(/\s+/g).length;
+const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
 // OG Image Generation (Dynamic V2)
 const ogImageParams = new URLSearchParams({

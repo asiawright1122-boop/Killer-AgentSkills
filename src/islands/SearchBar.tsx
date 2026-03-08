@@ -47,7 +47,7 @@ export default function SearchBar({ locale = 'en', placeholder, buttonText = 'RU
             try {
                 const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
                 if (res.ok) {
-                    const data = await res.json();
+                    const data = (await res.json()) as { results?: any[] };
                     setResults(data.results || []);
                     setIsOpen(true);
                 }
