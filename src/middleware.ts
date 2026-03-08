@@ -50,8 +50,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
         });
   }
 
-  // 2. Skip static assets and non-admin API routes
+  // 2. Skip static assets; apply security headers to API routes
   if (isStaticOrApiPath(pathname)) {
+    if (pathname.startsWith('/api/')) {
+      const response = await next();
+      setSecurityHeaders(response);
+      return response;
+    }
     return next();
   }
 
