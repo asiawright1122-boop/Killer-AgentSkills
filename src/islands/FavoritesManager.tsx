@@ -170,7 +170,11 @@ function FavoriteCard({ skill, locale, onRemove, removeFavoriteLabel, savedAtTem
                 <img
                   src={`https://github.com/${owner}.png`}
                   alt={owner}
+                  width={16}
+                  height={16}
                   className="w-4 h-4 rounded-full"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${owner}&background=random`;
                   }}
