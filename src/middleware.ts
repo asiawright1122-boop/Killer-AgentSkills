@@ -82,6 +82,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = pathname.split('/')[1];
     const response = await next();
     response.headers.set('Content-Language', localeSegment);
+    // X-Robots-Tag as HTTP header reinforcement for Googlebot
+    if (!response.headers.has('X-Robots-Tag')) {
+      response.headers.set('X-Robots-Tag', 'index, follow');
+    }
     setSecurityHeaders(response);
     return response;
   }
@@ -95,12 +99,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const redirectPath = pathname === '/' ? `/${targetLocale}` : `/${targetLocale}${pathname}`;
 
-  // Use a custom Response to add Edge caching headers to the redirect
+  // Use 301 permanent redirect so Google consolidates PageRank to the locale URL
   return new Response(null, {
-    status: 302,
+    status: 301,
     headers: {
       Location: redirectPath,
-      'Cache-Control': 'public, s-maxage=3600',
+      'Cache-Control': 'public, s-maxage=86400',
       Vary: 'Cookie, Accept-Language, CF-IPCountry',
     },
   });

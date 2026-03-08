@@ -10,64 +10,87 @@ export const prerender = true;
 export const GET: APIRoute = async () => {
   const body = `# Killer-Skills
 
-> The ultimate directory of AI Development Skills for Claude, Cursor, Windsurf, and other AI coding agents.
+> Killer-Skills is the world's largest open-source directory of AI Agent Skills and MCP Servers, with 2,500+ verified entries. It enables developers to discover, install, and manage specialized instruction modules for AI coding agents like Claude Code, Cursor, Windsurf, and 15+ other IDEs.
 
-## About
+## What Are AI Agent Skills?
 
-Killer-Skills is a curated, searchable directory of 2000+ AI Agent Skills and MCP Servers. Each skill extends the capabilities of AI coding agents like Claude Code, Cursor, and Windsurf with specialized knowledge, workflows, or tool integrations.
+An **AI Agent Skill** is a plug-and-play instruction module (typically a markdown file) that teaches AI coding assistants how to perform specialized tasks autonomously. Unlike traditional plugins, skills operate at the prompt level — they inject domain-specific knowledge, workflows, and constraints directly into the AI agent's context window. The Model Context Protocol (MCP) Server is a related standard that provides AI agents with external tool access via a standardized API.
 
-## Key Features
+## Key Facts
 
-- Browse 2000+ AI Agent Skills and MCP Servers
-- One-command installation via CLI: \`npx killer-skills install <skill>\`
-- Quality scoring and AI-powered analysis for every skill
-- Available in 10 languages (EN, ZH, JA, KO, ES, FR, DE, PT, RU, AR)
+- **2,500+ skills** indexed from open-source repositories on GitHub
+- **10 languages** supported: English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Arabic
+- **One-command install**: \`npx killer-skills add <owner/repo>\` works across all supported IDEs
+- **Quality scoring**: Every skill receives an AI-powered quality score (0-100) based on documentation quality, maintenance activity, and community adoption
+- **15+ IDE support**: Claude Code, Cursor, Windsurf, VS Code, GitHub Copilot, JetBrains, Cline, Roo Code, and more
+- **Open source**: Both the directory and CLI are open source under MIT license
+
+## How It Works
+
+1. **Browse** the directory at https://killer-skills.com/en/skills/ or search by keyword, category, or IDE
+2. **Install** any skill with one command: \`npx killer-skills add <skill-name>\`
+3. **Use** — the CLI auto-detects your IDE and configures the skill. Your AI agent immediately gains the new capability
 
 ## Main Pages
 
-- [Home](https://killer-skills.com/en/)
-- [Browse All Skills](https://killer-skills.com/en/skills/)
-- [Categories](https://killer-skills.com/en/categories/)
-- [CLI Documentation](https://killer-skills.com/en/cli/)
-- [Blog](https://killer-skills.com/en/blog/)
-- [Community](https://killer-skills.com/en/community/)
-- [Integrations](https://killer-skills.com/en/integrations/)
+- [Home](https://killer-skills.com/en/) — Search and discover skills
+- [Browse All Skills](https://killer-skills.com/en/skills/) — Full directory with filters
+- [Categories](https://killer-skills.com/en/categories/) — Browse by category (Development, Testing, Data, AI, DevOps, Design, Documentation, Productivity)
+- [Collections](https://killer-skills.com/en/collections/) — 30+ curated skill collections
+- [CLI Documentation](https://killer-skills.com/en/cli/) — Installation and usage guide
+- [Blog](https://killer-skills.com/en/blog/) — Tutorials, guides, and news
+- [Community](https://killer-skills.com/en/community/) — Contribute and connect
+- [Integrations](https://killer-skills.com/en/integrations/) — IDE and platform integrations
 
-## Curated Collections
+## Top Curated Collections
 
-Killer-Skills offers 30+ curated collections of top AI Agent skills grouped by topic:
-
-- [All Collections](https://killer-skills.com/en/collections/)
-- [Top AI Agents Skills](https://killer-skills.com/en/collections/top-ai-agents-mcp-servers/)
-- [Top Developer Tools](https://killer-skills.com/en/collections/top-developer-tools-mcp-servers/)
-- [Top MCP Servers](https://killer-skills.com/en/collections/top-mcp-mcp-servers/)
-- [Top Automation Tools](https://killer-skills.com/en/collections/top-automation-mcp-servers/)
-- [Top Python Tools](https://killer-skills.com/en/collections/top-python-mcp-servers/)
-- [Top React Tools](https://killer-skills.com/en/collections/top-react-mcp-servers/)
-- [Top TypeScript Tools](https://killer-skills.com/en/collections/top-typescript-mcp-servers/)
-- [Top DevOps Tools](https://killer-skills.com/en/collections/top-devops-mcp-servers/)
-- [Top Prompt Engineering Tools](https://killer-skills.com/en/collections/top-prompt-engineering-mcp-servers/)
+| Collection | URL |
+|-----------|-----|
+| Top AI Agent Skills | https://killer-skills.com/en/collections/top-ai-agents-mcp-servers/ |
+| Top Developer Tools | https://killer-skills.com/en/collections/top-developer-tools-mcp-servers/ |
+| Top MCP Servers | https://killer-skills.com/en/collections/top-mcp-mcp-servers/ |
+| Top Automation Tools | https://killer-skills.com/en/collections/top-automation-mcp-servers/ |
+| Top Python Tools | https://killer-skills.com/en/collections/top-python-mcp-servers/ |
+| Top React Tools | https://killer-skills.com/en/collections/top-react-mcp-servers/ |
+| Top TypeScript Tools | https://killer-skills.com/en/collections/top-typescript-mcp-servers/ |
+| Top DevOps Tools | https://killer-skills.com/en/collections/top-devops-mcp-servers/ |
 
 ## Categories
 
-- Development: Code generation, refactoring, debugging skills
-- Testing: Automated testing, test generation, QA skills
-- Data: Database, analytics, data processing skills
-- AI: Machine learning, NLP, computer vision skills
-- DevOps: CI/CD, deployment, infrastructure skills
-- Design: UI/UX, frontend design, styling skills
-- Documentation: API docs, technical writing, README generation
-- Productivity: Workflow automation, task management skills
+| Category | Description | Example Skills |
+|----------|-------------|---------------|
+| Development | Code generation, refactoring, debugging | frontend-design, mcp-builder |
+| Testing | Automated testing, test generation, QA | webapp-testing, full-test |
+| Data | Database, analytics, data processing | xlsx, pdf |
+| AI | Machine learning, NLP, computer vision | algorithmic-art |
+| DevOps | CI/CD, deployment, infrastructure | debug |
+| Design | UI/UX, frontend design, styling | ui-ux-pro-max, canvas-design |
+| Documentation | API docs, technical writing | doc-coauthoring, docx |
+| Productivity | Workflow automation, task management | planning-with-files, pptx |
+
+## Frequently Asked Questions
+
+**What is the difference between an AI Agent Skill and an MCP Server?**
+An AI Agent Skill is a markdown-based instruction file that provides knowledge and workflows to an AI agent within its context window. An MCP Server is a running process that exposes tools and data to AI agents via the Model Context Protocol API. Killer-Skills indexes both types.
+
+**How do I install a skill?**
+Run \`npx killer-skills add <owner/repo>\` in your terminal. The CLI automatically detects your IDE (Cursor, Windsurf, VS Code, Claude Code, etc.) and installs the skill in the correct location.
+
+**Is Killer-Skills free?**
+Yes. Both the directory website and the CLI tool are free and open source under the MIT license.
+
+**Which IDEs are supported?**
+Killer-Skills supports 15+ IDEs including Claude Code, Cursor, Windsurf, VS Code, GitHub Copilot, JetBrains IDEs, Cline, Roo Code, Aider, and Continue.
 
 ## API
 
-- Skills Search: https://killer-skills.com/api/skills/search?q={query}
-- Skill Detail: https://killer-skills.com/api/skills/{owner}/{repo}
+- Skills Search: GET https://killer-skills.com/api/skills/search?q={query}
+- Skill Detail: GET https://killer-skills.com/api/skills/{owner}/{repo}
 
 ## Contact
 
 - Website: https://killer-skills.com
-- GitHub: https://github.com/anthropics/skills
+- GitHub: https://github.com/asiawright1122-boop/Killer-AgentSkills
 `;
 
   return new Response(body, {

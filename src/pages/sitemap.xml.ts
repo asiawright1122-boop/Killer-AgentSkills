@@ -74,6 +74,7 @@ export const GET: APIRoute = async ({ locals }) => {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
   <loc>${SITE}/sitemap-static.xml</loc>
+  <lastmod>${today}</lastmod>
 </sitemap>
 <sitemap>
   <loc>${SITE}/sitemap-blog.xml</loc>
@@ -85,6 +86,7 @@ export const GET: APIRoute = async ({ locals }) => {
 </sitemap>
 <sitemap>
   <loc>${SITE}/sitemap-docs.xml</loc>
+  <lastmod>${today}</lastmod>
 </sitemap>
 <sitemap>
   <loc>${SITE}/sitemap-owners.xml</loc>

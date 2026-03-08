@@ -72,10 +72,23 @@ const categories = [
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Blog',
-        description: 'Insights, tutorials, and updates from the Killer-Skills team.',
+        name: 'Killer-Skills Blog — AI Agent Skills & MCP Server Guides',
+        description:
+          'In-depth tutorials, guides, and insights about AI Agent Skills, MCP Servers, and AI coding assistants like Claude Code, Cursor, and Windsurf.',
         url: `https://killer-skills.com/${locale}/blog/`,
         isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: sortedPosts.length,
+          itemListElement: sortedPosts.slice(0, 10).map((post, i) => {
+            const slug = post.id.split('/').slice(1).join('/').replace(/\.md$/, '');
+            return {
+              '@type': 'ListItem',
+              position: i + 1,
+              url: `https://killer-skills.com/${locale}/blog/${slug}/`,
+            };
+          }),
+        },
       })}
     />
   </Fragment>
