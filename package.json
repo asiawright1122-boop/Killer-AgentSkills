@@ -32,8 +32,13 @@
     "submit:auth": "npx tsx scripts/auto-submitter/src/auth-setup.ts",
     "submit:discover": "npx tsx scripts/auto-submitter/src/discover.ts",
     "submit:manual": "npx tsx scripts/auto-submitter/src/semi-auto.ts",
+    "lint": "eslint src/ --max-warnings 0",
+    "lint:fix": "eslint src/ --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,astro,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,astro,css,json}\"",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
@@ -60,13 +65,34 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
     "@types/better-sqlite3": "^7.6.13",
+    "eslint": "^10.0.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-astro": "^1.6.0",
     "fast-check": "^4.5.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
     "playwright": "^1.58.2",
     "pm2": "^6.0.14",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.21.0",
+    "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix --max-warnings 0",
+      "prettier --write"
+    ],
+    "src/**/*.astro": [
+      "prettier --write"
+    ],
+    "src/**/*.{css,json}": [
+      "prettier --write"
+    ]
   }
 }
