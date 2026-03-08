@@ -82,7 +82,7 @@ const itemListSchema = {
   '@type': 'ItemList',
   name: title,
   description: seoDescription,
-  url: `https://killer-skills.com/${locale}/collections/${slug}`,
+  url: `https://killer-skills.com/${locale}/collections/${slug}/`,
   numberOfItems: featuredSkills.length,
   itemListElement: featuredSkills.map((skill, index) => ({
     '@type': 'ListItem',
@@ -90,7 +90,7 @@ const itemListSchema = {
     item: {
       '@type': 'SoftwareApplication',
       name: skill.name || skill.repo,
-      url: `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}`,
+      url: `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}/`,
     },
   })),
 };
@@ -106,6 +106,20 @@ const itemListSchema = {
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+    {/* GEO: Speakable Schema for AI citation engines */}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: seoTitle,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+        },
+        url: `https://killer-skills.com/${locale}/collections/${slug}/`,
+      })}
+    />
     <script
       type="application/ld+json"
       set:html={JSON.stringify({

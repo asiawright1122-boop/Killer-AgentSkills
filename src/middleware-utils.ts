@@ -40,10 +40,9 @@ export const COUNTRY_TO_LOCALE: Record<string, Locale> = {
   CR: 'es',
   PA: 'es',
   UY: 'es',
-  // French (21 countries)
+  // French (20 countries) — CA excluded: ~75% of Canadians speak English
   FR: 'fr',
   BE: 'fr',
-  CA: 'fr',
   CH: 'fr',
   LU: 'fr',
   MC: 'fr',

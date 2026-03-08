@@ -171,6 +171,20 @@ const categories = [];
       ],
     })}
   />
+  {/* GEO: Speakable Schema for AI citation */}
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: pageTitle,
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+      },
+      url: currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
+    })}
+  />
   {/* CollectionPage + ItemList JSON-LD */}
   <script
     type="application/ld+json"

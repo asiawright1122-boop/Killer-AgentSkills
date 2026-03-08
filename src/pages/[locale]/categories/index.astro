@@ -96,6 +96,40 @@ const pageDescription = t('Categories.heroDesc');
       })),
     })}
   />
+  {/* FAQ Schema for AI citation */}
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'What categories of AI agent skills are available?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `Killer-Skills organizes AI agent skills into ${categories.length} categories: ${categories.map((c) => c.name).join(', ')}. Each category contains specialized skills that extend the capabilities of AI coding assistants like Claude Code, Cursor, and Windsurf.`,
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How many AI agent skills does Killer-Skills have?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `Killer-Skills indexes over 2,500 AI agent skills and MCP servers across ${categories.length} categories. The most popular categories are Development (code generation and refactoring), AI (machine learning and NLP), and Productivity (workflow automation).`,
+          },
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I browse AI agent skills by category?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Visit the Killer-Skills categories page and click on any category to see all skills in that category. You can also filter by category on the main skills directory page, or search for specific skills using keywords.',
+          },
+        },
+      ],
+    })}
+  />
   <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
     <!-- Header Section -->
     <div

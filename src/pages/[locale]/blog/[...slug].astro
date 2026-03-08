@@ -59,8 +59,9 @@ const blogSchema = {
     name: post.data.author,
   },
   datePublished: post.data.pubDate.toISOString(),
+  dateModified: (post.data.updatedDate || post.data.pubDate).toISOString(),
   image: post.data.heroImage || ogImage,
-  url: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}`,
+  url: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}/`,
   publisher: {
     '@type': 'Organization',
     name: 'Killer-Skills',
@@ -105,7 +106,22 @@ const blogBreadcrumbSchema = {
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(blogBreadcrumbSchema)} />
+    {/* GEO: Speakable Schema for AI citation engines */}
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: post.data.title,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', 'article > p:first-of-type', 'h2', 'blockquote'],
+        },
+        url: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}/`,
+      })}
+    />
     <meta property="article:published_time" content={post.data.pubDate.toISOString()} />
+    <meta property="article:modified_time" content={(post.data.updatedDate || post.data.pubDate).toISOString()} />
     <meta property="article:author" content={post.data.author} />
     {post.data.tags && post.data.tags.map((tag: string) => <meta property="article:tag" content={tag} />)}
   </Fragment>

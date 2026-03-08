@@ -96,6 +96,22 @@ const currentYear = new Date().getFullYear();
                   {t('Footer.blog')}
                 </a>
               </li>
+              <li>
+                <a
+                  href={`/${locale}/integrations`}
+                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                >
+                  {t('Footer.integrations') || 'Integrations'}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`/${locale}/collections`}
+                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                >
+                  {t('Common.collections') || 'Collections'}
+                </a>
+              </li>
             </ul>
           </nav>
 
