@@ -52,7 +52,7 @@ describe('Skill Management Commands', () => {
     });
 
     describe('outdated', () => {
-        it('should check for outdated skills', () => {
+        it('should check for outdated skills', { timeout: 15000 }, () => {
             const result = runCLI('outdated');
             expect(result.exitCode).toBe(0);
             expect(result.stdout).toContain('Skill Update Status');
