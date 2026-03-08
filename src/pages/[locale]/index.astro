@@ -182,7 +182,7 @@ const features = [
           <h2 class="text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2">{t('Home.trendingTitle')}</h2>
           <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
         </div>
-        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
+        <a href={`/${locale}/skills`} class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all">
           {t('Home.viewAll')}
           <span class="font-mono ml-2">→</span>
         </a>
@@ -244,7 +244,7 @@ const features = [
           </div>
           <a
             href={`/${locale}/collections`}
-            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            class="hidden md:inline-flex px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
           >
             {t('Collections.viewAllCollections')} →
           </a>
@@ -276,7 +276,7 @@ const features = [
         <div class="mt-8 text-center md:hidden">
           <a
             href={`/${locale}/collections`}
-            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-bold text-sm border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            class="inline-flex px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-bold text-sm uppercase border-2 border-[var(--foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
           >
             {t('Collections.viewAllCollections')} →
           </a>
@@ -292,13 +292,13 @@ const features = [
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
           <a
             href={`/${locale}/skills`}
-            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-bold text-lg border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all"
+            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-bold text-lg uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] transition-all"
           >
             {t('Home.cta.browse')}
           </a>
           <a
             href={`/${locale}/docs`}
-            class="px-8 py-4 bg-transparent text-[var(--foreground)] font-bold text-lg border-2 border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
+            class="px-8 py-4 bg-transparent text-[var(--foreground)] font-bold text-lg uppercase border-2 border-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
           >
             {t('Home.cta.docs')}
           </a>

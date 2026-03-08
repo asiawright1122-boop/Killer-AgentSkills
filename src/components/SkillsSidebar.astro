@@ -59,7 +59,7 @@ if (activeView) {
     
     <!-- Mobile Toggle Header -->
     <div class="md:hidden p-4 flex items-center justify-between cursor-pointer border-b-4 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] mb-4" id="sidebar-toggle">
-        <div class="flex items-center gap-3 font-black">
+        <div class="flex items-center gap-3 font-bold uppercase">
             <svg class="w-6 h-6 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
                 <path stroke-linecap="square" stroke-linejoin="miter" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
@@ -84,7 +84,7 @@ if (activeView) {
             <a 
               href={`/${locale}/skills?view=${view.id}`} 
               class:list={[
-                "flex items-center justify-between px-4 py-3 border-2 transition-all font-bold text-[15px] group",
+                "flex items-center justify-between px-4 py-3 border-2 transition-all font-bold uppercase text-[15px] group",
                 activeView === view.id 
                   ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" 
                   : "bg-[var(--background)] text-[var(--foreground)] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
@@ -121,7 +121,7 @@ if (activeView) {
             <a 
               href={`/${locale}/skills?category=${category.id}`} 
               class:list={[
-                "flex items-center gap-3 px-4 py-3 border-2 transition-all font-bold text-[14px] group",
+                "flex items-center gap-3 px-4 py-3 border-2 transition-all font-bold uppercase text-[14px] group",
                 activeCategory === category.id 
                   ? "bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-[4px_4px_0px_0px_var(--primary)] translate-x-[-2px] translate-y-[-2px]" 
                   : "bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"

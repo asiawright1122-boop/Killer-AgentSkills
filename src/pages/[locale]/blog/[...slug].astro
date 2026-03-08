@@ -118,7 +118,7 @@ const blogBreadcrumbSchema = {
                 <article class="min-w-0 mx-auto w-full max-w-3xl">
                     
                     {/* Breadcrumb / Back */}
-                    <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
+                    <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
                         <ArrowLeft size={16} strokeWidth={3} />
                         {t('Common.back') || 'Back'}
                     </a>
@@ -196,7 +196,7 @@ const blogBreadcrumbSchema = {
                          <div class="font-mono font-bold text-sm text-[var(--muted-foreground)] uppercase">
                             Published in <span class="text-[var(--foreground)] px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)]">{locale === 'en' ? 'English' : 'Chinese'}</span>
                          </div>
-                         <button class="flex items-center gap-2 px-6 py-3 border-2 border-[var(--foreground)] bg-[var(--card)] text-[var(--foreground)] font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
+                         <button class="flex items-center gap-2 px-6 py-3 border-2 border-[var(--foreground)] bg-[var(--card)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all">
                             <Share2 size={18} strokeWidth={2.5} />
                             {t('Aria.shareSkill') ? t('Aria.shareSkill').replace(' this skill', '') : 'Share'}
                          </button>
