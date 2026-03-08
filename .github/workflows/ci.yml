@@ -31,6 +31,14 @@ jobs:
       - name: Install Dependencies
         run: npm ci --legacy-peer-deps
 
+      - name: Lint (ESLint)
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Format Check (Prettier)
+        run: npm run format:check
+        continue-on-error: true
+
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check
         continue-on-error: true

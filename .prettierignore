@@ -1,0 +1,6 @@
+dist
+node_modules
+.wrangler
+data
+packages/og-server
+*.min.js
