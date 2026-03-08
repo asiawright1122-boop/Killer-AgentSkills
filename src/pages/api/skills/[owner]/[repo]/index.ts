@@ -2,20 +2,9 @@ import type { APIRoute } from 'astro';
 import { getSkillByOwnerRepo } from '../../../../../lib/skills';
 import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
+import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders } from '../../../../../lib/github';
 
 export const prerender = false;
-
-const GITHUB_API_BASE = 'https://api.github.com';
-const COMMON_BRANCHES = ['main', 'master', 'canary', 'develop'];
-
-function getGitHubHeaders(): Record<string, string> {
-  const headers: Record<string, string> = {
-    Accept: 'application/vnd.github.v3+json',
-    'User-Agent': 'Killer-Skills-App',
-  };
-  // Note: GITHUB_TOKEN would need to be in env if needed
-  return headers;
-}
 
 /**
  * Fetch repository info from GitHub API.

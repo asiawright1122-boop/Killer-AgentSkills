@@ -106,7 +106,7 @@ describe('withErrorHandling', () => {
 
   it('should forward request and context to handler', async () => {
     const handler = withErrorHandling(async (req, ctx) => {
-      return jsonResponse({ url: req.url, hasCtx: !!ctx.env });
+      return jsonResponse({ url: req.url, hasCtx: !!(ctx as Record<string, unknown>).env });
     });
     const res = await handler(dummyRequest, { env: true });
     const body = (await res.json()) as Record<string, unknown>;
