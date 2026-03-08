@@ -178,6 +178,25 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const url = new URL(request.url);
   const specifiedPath = url.searchParams.get('path');
 
+  // Sanitize inputs to prevent path traversal and injection
+  const safePattern = /^[a-zA-Z0-9\-_.]+$/;
+  if (!safePattern.test(owner) || !safePattern.test(repo)) {
+    return new Response(JSON.stringify({ error: 'Invalid owner or repo format' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (
+    specifiedPath &&
+    (specifiedPath.includes('..') || specifiedPath.includes('%2e') || specifiedPath.includes('%2E'))
+  ) {
+    return new Response(JSON.stringify({ error: 'Invalid file path' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   try {
     const env = locals.runtime?.env as Env | undefined;
 

@@ -162,6 +162,22 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const skillPath = url.searchParams.get('path');
   const skillMdPath = skillPath ? `${skillPath}/SKILL.md` : undefined;
 
+  // Sanitize inputs to prevent path traversal and injection
+  const safePattern = /^[a-zA-Z0-9\-_.]+$/;
+  if (!safePattern.test(owner) || !safePattern.test(repo)) {
+    return new Response(JSON.stringify({ error: 'Invalid owner or repo format' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+  if (skillPath && (skillPath.includes('..') || skillPath.includes('%2e') || skillPath.includes('%2E'))) {
+    return new Response(JSON.stringify({ error: 'Invalid skill path' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
   try {
     const env = locals.runtime?.env as Env | undefined;
 
