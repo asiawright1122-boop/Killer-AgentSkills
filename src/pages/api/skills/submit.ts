@@ -1,6 +1,12 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
-import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../lib/github';
+import {
+  GITHUB_API_BASE,
+  COMMON_BRANCHES,
+  getGitHubHeaders,
+  getSkillMdPaths,
+  type GitHubRepoResponse,
+} from '../../../lib/github';
 import { fetchWithTimeout } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 
@@ -45,7 +51,7 @@ async function getRepository(owner: string, repo: string): Promise<Record<string
 
     if (!response.ok) return null;
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as GitHubRepoResponse;
     return {
       name: data.name,
       repoPath: data.full_name,

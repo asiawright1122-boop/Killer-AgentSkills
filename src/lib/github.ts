@@ -25,6 +25,22 @@ export function getSkillMdPaths(repo: string): string[] {
   ];
 }
 
+/** Typed subset of GitHub REST API /repos/:owner/:repo response */
+export interface GitHubRepoResponse {
+  name: string;
+  full_name: string;
+  description: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  updated_at: string;
+  html_url: string;
+  topics?: string[];
+  owner: {
+    login: string;
+    avatar_url: string;
+  };
+}
+
 export function getGitHubHeaders(): Record<string, string> {
   return {
     Accept: 'application/vnd.github.v3+json',
