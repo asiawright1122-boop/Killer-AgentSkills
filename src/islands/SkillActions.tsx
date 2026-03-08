@@ -12,6 +12,7 @@
  */
 
 import { useState, useEffect, useCallback } from 'react';
+import withErrorBoundary from './withErrorBoundary';
 import Heart from 'lucide-react/dist/esm/icons/heart';
 import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Check from 'lucide-react/dist/esm/icons/check';
@@ -37,15 +38,7 @@ export interface SkillActionsProps {
 
 // ── Component ──────────────────────────────────────────────────────────────────
 
-export default function SkillActions({
-  skillId,
-  skillName,
-  owner,
-  repo,
-  description,
-  locale: _locale,
-  labels,
-}: SkillActionsProps) {
+function SkillActions({ skillId, skillName, owner, repo, description, locale: _locale, labels }: SkillActionsProps) {
   const [, setFavorites] = useState<FavoriteSkill[]>([]);
   const [isFav, setIsFav] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -175,3 +168,5 @@ export default function SkillActions({
     </div>
   );
 }
+
+export default withErrorBoundary(SkillActions);

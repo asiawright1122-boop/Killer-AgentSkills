@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import withErrorBoundary from './withErrorBoundary';
 import { useStore } from '@nanostores/react';
 import { currentFile, selectFile } from '../stores/skill-files';
 import FileText from 'lucide-react/dist/esm/icons/file-text';
@@ -21,7 +22,7 @@ interface SkillFileManagerProps {
   };
 }
 
-export default function SkillFileManager({
+function SkillFileManager({
   files,
   selectedFile: _initialFile = 'SKILL.md',
   labels = { explorer: 'Explorer', project: 'Project' },
@@ -119,3 +120,5 @@ export default function SkillFileManager({
     </div>
   );
 }
+
+export default withErrorBoundary(SkillFileManager);

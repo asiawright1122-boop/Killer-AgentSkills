@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import withErrorBoundary from './withErrorBoundary';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -58,7 +59,7 @@ function useTheme() {
   return isDark;
 }
 
-export default function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.md' }: SkillReadmeProps) {
+function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.md' }: SkillReadmeProps) {
   const [copied, setCopied] = useState(false);
   const selected = useStore(currentFile);
   const contents = useStore(fileContents);
@@ -198,3 +199,5 @@ export default function SkillReadme({ initialContent, initialFiles = {}, name: _
     </div>
   );
 }
+
+export default withErrorBoundary(SkillReadme);
