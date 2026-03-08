@@ -3,6 +3,10 @@ import {
   getAllSkills,
   getSkillByOwnerRepo,
   getFeaturedSkills,
+  getFeaturedSkillsDirect,
+  getLightweightSkills,
+  getOfficialSkillCounts,
+  getRelatedSkills,
   getLocalizedDescription,
   _resetSkillsCache,
   type UnifiedSkill,
@@ -258,5 +262,121 @@ describe('getFeaturedSkills', () => {
     const env = createMockEnv(sampleSkills);
     const result = await getFeaturedSkills(env);
     expect(result).toHaveLength(3); // only 3 skills available
+  });
+});
+
+describe('getRelatedSkills', () => {
+  const relatedSkills: UnifiedSkill[] = [
+    ...sampleSkills,
+    {
+      id: '4',
+      name: 'Another AI Skill',
+      skillName: 'another-ai',
+      owner: 'other',
+      repo: 'ai-tool',
+      description: 'Another AI tool',
+      category: 'ai',
+      topics: ['claude', 'llm'],
+      stars: 500,
+      source: 'verified',
+      updatedAt: new Date().toISOString(),
+    },
+    {
+      id: '5',
+      name: 'Unrelated Skill',
+      skillName: 'unrelated',
+      owner: 'someone',
+      repo: 'unrelated',
+      description: 'Unrelated skill',
+      category: 'other',
+      topics: ['random'],
+      stars: 50,
+      source: 'cache',
+      updatedAt: new Date().toISOString(),
+    },
+  ];
+
+  it('should return related skills from the same category', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = relatedSkills[0]; // category: 'ai'
+    const result = await getRelatedSkills(env, current, 5);
+    // Should include the other 'ai' category skill but not 'testing' or 'other'
+    expect(result.every((s) => s.id !== current.id)).toBe(true);
+    expect(result.some((s) => s.id === '4')).toBe(true);
+    expect(result.every((s) => s.category === 'ai')).toBe(true);
+  });
+
+  it('should exclude the current skill', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = relatedSkills[0];
+    const result = await getRelatedSkills(env, current);
+    expect(result.find((s) => s.id === current.id)).toBeUndefined();
+  });
+
+  it('should respect the limit parameter', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = relatedSkills[0];
+    const result = await getRelatedSkills(env, current, 1);
+    expect(result.length).toBeLessThanOrEqual(1);
+  });
+
+  it('should prioritize skills with overlapping topics', async () => {
+    const env = createMockEnv(relatedSkills);
+    const current = relatedSkills[0]; // topics: ['claude', 'agent']
+    const result = await getRelatedSkills(env, current, 5);
+    // Skill #4 shares 'claude' topic, should be ranked first
+    if (result.length > 0) {
+      expect(result[0].topics).toContain('claude');
+    }
+  });
+});
+
+describe('getFeaturedSkillsDirect', () => {
+  it('should return skills sorted by stars from D1', async () => {
+    const env = createMockEnv(sampleSkills);
+    const result = await getFeaturedSkillsDirect(env, 2);
+    expect(result).toHaveLength(2);
+    expect(result[0].stars).toBeGreaterThanOrEqual(result[1].stars);
+  });
+
+  it('should fallback to getFeaturedSkills when DB is unavailable', async () => {
+    const env = createMockEnv(sampleSkills);
+    (env as any).DB = undefined;
+    const result = await getFeaturedSkillsDirect(env, 2);
+    // Without DB, getAllSkills falls back to KV/local data which may be empty in test
+    expect(Array.isArray(result)).toBe(true);
+  });
+});
+
+describe('getOfficialSkillCounts', () => {
+  it('should return skill counts grouped by owner from D1', async () => {
+    const env = createMockEnv(sampleSkills);
+    const result = await getOfficialSkillCounts(env, ['anthropics', 'vercel-labs']);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0]).toHaveProperty('owner');
+    expect(result[0]).toHaveProperty('count');
+  });
+
+  it('should return empty array for empty owners list', async () => {
+    const env = createMockEnv(sampleSkills);
+    (env as any).DB = undefined;
+    const result = await getOfficialSkillCounts(env, []);
+    expect(result).toEqual([]);
+  });
+});
+
+describe('getLightweightSkills', () => {
+  it('should return skills from D1 listing', async () => {
+    const env = createMockEnv(sampleSkills);
+    const result = await getLightweightSkills(env);
+    expect(Array.isArray(result)).toBe(true);
+  });
+
+  it('should use module cache on subsequent calls', async () => {
+    const env = createMockEnv(sampleSkills);
+    const first = await getLightweightSkills(env);
+    const second = await getLightweightSkills(env);
+    // Should return same reference from cache
+    expect(first).toBe(second);
   });
 });

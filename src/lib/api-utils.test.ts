@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { ApiError, jsonResponse, errorResponse } from './api-utils';
+import { ApiError, jsonResponse, errorResponse, withErrorHandling } from './api-utils';
 
 describe('ApiError', () => {
   it('should create error with default status 500', () => {
@@ -68,5 +68,48 @@ describe('errorResponse', () => {
   it('should use fallback status for non-ApiError', async () => {
     const res = errorResponse(new Error('fail'), 503);
     expect(res.status).toBe(503);
+  });
+});
+
+describe('withErrorHandling', () => {
+  const dummyRequest = new Request('https://example.com/api/test');
+
+  it('should pass through successful responses', async () => {
+    const handler = withErrorHandling(async () => {
+      return jsonResponse({ ok: true });
+    });
+    const res = await handler(dummyRequest, {});
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body).toEqual({ ok: true });
+  });
+
+  it('should catch ApiError and return structured error', async () => {
+    const handler = withErrorHandling(async () => {
+      throw new ApiError('bad request', 400, 'INVALID');
+    });
+    const res = await handler(dummyRequest, {});
+    expect(res.status).toBe(400);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body).toEqual({ success: false, error: 'bad request', code: 'INVALID' });
+  });
+
+  it('should catch generic errors and return 500', async () => {
+    const handler = withErrorHandling(async () => {
+      throw new Error('unexpected');
+    });
+    const res = await handler(dummyRequest, {});
+    expect(res.status).toBe(500);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body).toEqual({ success: false, error: 'unexpected' });
+  });
+
+  it('should forward request and context to handler', async () => {
+    const handler = withErrorHandling(async (req, ctx) => {
+      return jsonResponse({ url: req.url, hasCtx: !!ctx.env });
+    });
+    const res = await handler(dummyRequest, { env: true });
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body).toEqual({ url: 'https://example.com/api/test', hasCtx: true });
   });
 });
