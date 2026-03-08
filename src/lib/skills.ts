@@ -97,8 +97,8 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
   let cache;
   const cacheKey = new Request('https://killer-skills-internal/api/get-all-skills', { method: 'GET' });
   try {
-    if (typeof caches !== 'undefined' && (caches as any).default) {
-      cache = (caches as any).default;
+    if (typeof caches !== 'undefined' && (caches as unknown as { default?: Cache }).default) {
+      cache = (caches as unknown as { default: Cache }).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
         const skills = (await cachedResponse.json()) as UnifiedSkill[];
@@ -159,8 +159,8 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   let cache;
   const cacheKey = new Request('https://killer-skills-internal/api/get-light-skills', { method: 'GET' });
   try {
-    if (typeof caches !== 'undefined' && (caches as any).default) {
-      cache = (caches as any).default;
+    if (typeof caches !== 'undefined' && (caches as unknown as { default?: Cache }).default) {
+      cache = (caches as unknown as { default: Cache }).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
         const skills = (await cachedResponse.json()) as UnifiedSkill[];

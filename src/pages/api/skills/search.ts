@@ -85,7 +85,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         ]);
 
         if (countResult && dataResult.success) {
-          total = (countResult as any).total as number;
+          total = (countResult as { total: number }).total;
 
           // Parse JSON and localize
           skills = dataResult.results.map((row: Record<string, unknown>) => {

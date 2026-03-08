@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getSkillByOwnerRepo } from '../../../../../lib/skills';
 import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
-import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders } from '../../../../../lib/github';
+import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, type GitHubRepoResponse } from '../../../../../lib/github';
 
 export const prerender = false;
 
@@ -32,7 +32,7 @@ async function getRepository(owner: string, repo: string): Promise<Record<string
 
     if (!response.ok) return null;
 
-    const data = (await response.json()) as any;
+    const data = (await response.json()) as GitHubRepoResponse;
     return {
       name: data.name,
       repoPath: data.full_name,

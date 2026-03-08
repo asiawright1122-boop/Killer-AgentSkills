@@ -47,7 +47,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
 
     // Ai binding returns { shape: [...], data: [...] } for embeddings
-    const vector = (modelResp as any).data[0];
+    const vector = (modelResp as { data: number[][] }).data[0];
 
     // 2. Query the Vector Database
     const vectorizeResp = await env.VECTORIZE.query(vector, {
