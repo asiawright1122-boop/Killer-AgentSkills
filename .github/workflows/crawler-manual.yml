@@ -49,9 +49,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           lfs: false  # LFS fetched separately to avoid checkout failure on budget exceeded
 
-      - name: Fetch LFS files (graceful)
+      - name: Download cache artifact
         continue-on-error: true
-        run: git lfs pull
+        run: bash scripts/cache-artifact.sh download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -115,7 +117,7 @@ jobs:
             # Pre-emptively pull latest to minimize conflicts before committing
             git pull --rebase --autostash origin main || true
             
-            git add data/skills-cache.json data/sitemap-skills.json
+            git add data/sitemap-skills.json
             FILTER="${{ steps.params.outputs.filter }}"
             MSG="chore: skills ${{ steps.params.outputs.mode }}${FILTER:+ for $FILTER} [skip ci]"
             git commit -m "$MSG"
@@ -137,6 +139,14 @@ jobs:
           else
             echo "ℹ️ No changes detected"
           fi
+
+      # ── Upload cache artifact to GitHub Release ────────
+      - name: Upload cache artifact
+        continue-on-error: true
+        if: hashFiles('data/skills-cache.json') != ''
+        run: bash scripts/cache-artifact.sh upload
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ── Deploy to Cloudflare (non-blocking) ─────────────
       # 同步失败不会丢失进度（数据已在上一步提交到 git）
