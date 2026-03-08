@@ -62,7 +62,7 @@ import { Tags, ArrowRight, Palette, FileText, Building2, Terminal } from 'lucide
             
             {/* Header */}
             <header class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]">
-                <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-black text-xs uppercase tracking-widest mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
+                <div class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]">
                     <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
                     LOG
                 </div>
@@ -132,7 +132,7 @@ import { Tags, ArrowRight, Palette, FileText, Building2, Terminal } from 'lucide
             ) : (
                 !featuredPost && (
                     <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
-                        <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl uppercase tracking-widest">{t('Blog.comingSoon') || 'Coming soon...'}</p>
+                        <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">{t('Blog.comingSoon') || 'Coming soon...'}</p>
                     </div>
                 )
             )}

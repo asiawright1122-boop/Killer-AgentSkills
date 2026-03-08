@@ -66,7 +66,7 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
         <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
             
             {/* Breadcrumb / Back */}
-            <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-black text-xs uppercase tracking-widest border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
+            <a href={`/${locale}/blog`} class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12">
                 <ArrowLeft size={16} strokeWidth={3} />
                 {t('Common.back') || 'Back'}
             </a>
@@ -95,7 +95,7 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
                 </div>
             ) : (
                 <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
-                    <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl uppercase tracking-widest">{t('Marketplace.noSkills') || 'No articles found in this category.'}</p>
+                    <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">{t('Marketplace.noSkills') || 'No articles found in this category.'}</p>
                 </div>
             )}
         </main>

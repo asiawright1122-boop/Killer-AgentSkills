@@ -47,11 +47,11 @@ const displayCategory = post.data.category ? (tb.categories?.[post.data.category
   <div class="p-8 md:p-12 flex flex-col justify-center w-full md:w-1/2">
     
     <div class="flex flex-wrap items-center gap-3 mb-6">
-        <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold uppercase tracking-widest">
+        <span class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-bold">
             [{tb.featured}]
         </span>
         {post.data.category && (
-            <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
+            <span class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)]">
                 {displayCategory}
             </span>
         )}
