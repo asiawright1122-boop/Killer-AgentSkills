@@ -13,12 +13,12 @@
 import officialReposData from '../../../data/official-repos.json';
 
 export interface OfficialRepo {
-    owner: string;
-    repo: string;
-    /** Optional: path where skills are located in the repo */
-    skillsPath?: string;
-    /** Optional: display name override for repos without standard SKILL.md frontmatter */
-    displayName?: string;
+  owner: string;
+  repo: string;
+  /** Optional: path where skills are located in the repo */
+  skillsPath?: string;
+  /** Optional: display name override for repos without standard SKILL.md frontmatter */
+  displayName?: string;
 }
 
 /**
@@ -34,8 +34,8 @@ export const OFFICIAL_REPOS: OfficialRepo[] = officialReposData as OfficialRepo[
  * @param repo - Optional repo name. If omitted, matches any repo from that owner.
  */
 export function isOfficialRepo(owner: string, repo?: string): boolean {
-    if (!repo) {
-        return OFFICIAL_REPOS.some(r => r.owner === owner);
-    }
-    return OFFICIAL_REPOS.some(r => r.owner === owner && r.repo === repo);
+  if (!repo) {
+    return OFFICIAL_REPOS.some((r) => r.owner === owner);
+  }
+  return OFFICIAL_REPOS.some((r) => r.owner === owner && r.repo === repo);
 }

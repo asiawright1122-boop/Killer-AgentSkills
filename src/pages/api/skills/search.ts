@@ -45,7 +45,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
           // Sanitize and format for FTS5 prefix matching: "word1"* AND "word2"*
           const safeQuery = query.replace(/[^a-zA-Z0-9\u4e00-\u9fa5\-\s]/g, ' ').trim();
           if (safeQuery) {
-            const ftsQuery = safeQuery.split(/\s+/).map(word => `"${word}"*`).join(' AND ');
+            const ftsQuery = safeQuery
+              .split(/\s+/)
+              .map((word) => `"${word}"*`)
+              .join(' AND ');
             joinFts = `JOIN skills_fts f ON s.id = f.id`;
             condition += `WHERE skills_fts MATCH ? `;
             params.push(ftsQuery);
@@ -63,8 +66,12 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
         // Execute queries concurrently
         const [countResult, dataResult] = await Promise.all([
-          env.DB.prepare(countQuery).bind(...params).first(),
-          env.DB.prepare(dataQuery).bind(...params, limit, (page - 1) * limit).all()
+          env.DB.prepare(countQuery)
+            .bind(...params)
+            .first(),
+          env.DB.prepare(dataQuery)
+            .bind(...params, limit, (page - 1) * limit)
+            .all(),
         ]);
 
         if (countResult && dataResult.success) {
@@ -75,7 +82,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
             const skill = JSON.parse(row.data_json as string) as UnifiedSkill;
             return {
               ...skill,
-              description: getLocalizedDescription(skill.description, locale)
+              description: getLocalizedDescription(skill.description, locale),
             };
           });
 
@@ -84,9 +91,15 @@ export const GET: APIRoute = async ({ request, locals }) => {
               skills,
               total,
               page,
-              hasMore: (page * limit) < total,
+              hasMore: page * limit < total,
             }),
-            { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' } }
+            {
+              status: 200,
+              headers: {
+                'Content-Type': 'application/json',
+                'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
+              },
+            },
           );
         }
       } catch (e) {
@@ -145,16 +158,13 @@ export const GET: APIRoute = async ({ request, locals }) => {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
         },
-      }
+      },
     );
   } catch (error) {
     console.error('Search API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to search skills' }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to search skills' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

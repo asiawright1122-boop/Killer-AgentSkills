@@ -52,72 +52,80 @@ const pages = getPageNumbers();
 <nav class="flex flex-col items-center gap-6 mt-12 w-full" aria-label="Pagination">
   <div class="flex items-center justify-center gap-2 flex-wrap">
     <!-- Previous Button -->
-    {currentPage > 1 ? (
-      <a
-        href={getUrlForPage(currentPage - 1)}
-        class="px-4 py-2.5 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1 min-h-11"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-          <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
-        </svg>
-        <span class="hidden sm:inline">{t('Common.prev')}</span>
-      </a>
-    ) : (
-      <span class="px-4 py-2.5 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-bold uppercase opacity-50 cursor-not-allowed flex items-center gap-1 min-h-11">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-          <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
-        </svg>
-        <span class="hidden sm:inline">{t('Common.prev')}</span>
-      </span>
-    )}
+    {
+      currentPage > 1 ? (
+        <a
+          href={getUrlForPage(currentPage - 1)}
+          class="px-4 py-2.5 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1 min-h-11"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span class="hidden sm:inline">{t('Common.prev')}</span>
+        </a>
+      ) : (
+        <span class="px-4 py-2.5 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-bold uppercase opacity-50 cursor-not-allowed flex items-center gap-1 min-h-11">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="square" stroke-linejoin="miter" d="M15 19l-7-7 7-7" />
+          </svg>
+          <span class="hidden sm:inline">{t('Common.prev')}</span>
+        </span>
+      )
+    }
 
     <!-- Page Numbers -->
     <div class="flex items-center gap-2">
-      {pages.map((p) => {
-        if (p === '...') {
-          return (
-            <span class="w-10 h-10 flex items-end justify-center font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)] pb-1">...</span>
-          );
-        }
+      {
+        pages.map((p) => {
+          if (p === '...') {
+            return (
+              <span class="w-10 h-10 flex items-end justify-center font-black text-[var(--muted-foreground)] border-b-2 border-dotted border-[var(--muted-foreground)] pb-1">
+                ...
+              </span>
+            );
+          }
 
-        const isCurrent = p === currentPage;
-        return (
-          <a
-            href={getUrlForPage(p as number)}
-            aria-label={`Page ${p}`}
-            aria-current={isCurrent ? 'page' : undefined}
-            class:list={[
-              "w-11 h-11 flex items-center justify-center border-2 font-black font-mono transition-all",
-              isCurrent 
-                ? "bg-[var(--foreground)] border-[var(--foreground)] text-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]" 
-                : "bg-[var(--background)] border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)]"
-            ]}
-          >
-            {p}
-          </a>
-        );
-      })}
+          const isCurrent = p === currentPage;
+          return (
+            <a
+              href={getUrlForPage(p as number)}
+              aria-label={`Page ${p}`}
+              aria-current={isCurrent ? 'page' : undefined}
+              class:list={[
+                'w-11 h-11 flex items-center justify-center border-2 font-black font-mono transition-all',
+                isCurrent
+                  ? 'bg-[var(--foreground)] border-[var(--foreground)] text-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
+                  : 'bg-[var(--background)] border-[var(--border)] text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)]',
+              ]}
+            >
+              {p}
+            </a>
+          );
+        })
+      }
     </div>
 
     <!-- Next Button -->
-    {currentPage < totalPages ? (
-      <a
-        href={getUrlForPage(currentPage + 1)}
-        class="px-4 py-2.5 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1 min-h-11"
-      >
-        <span class="hidden sm:inline">{t('Common.next')}</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-          <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
-        </svg>
-      </a>
-    ) : (
-      <span class="px-4 py-2.5 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-bold uppercase opacity-50 cursor-not-allowed flex items-center gap-1 min-h-11">
-        <span class="hidden sm:inline">{t('Common.next')}</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
-          <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
-        </svg>
-      </span>
-    )}
+    {
+      currentPage < totalPages ? (
+        <a
+          href={getUrlForPage(currentPage + 1)}
+          class="px-4 py-2.5 bg-[var(--background)] border-2 border-[var(--border)] text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-black hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all flex items-center gap-1 min-h-11"
+        >
+          <span class="hidden sm:inline">{t('Common.next')}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      ) : (
+        <span class="px-4 py-2.5 bg-[var(--muted)] border-2 border-[var(--border)] text-[var(--muted-foreground)] font-bold uppercase opacity-50 cursor-not-allowed flex items-center gap-1 min-h-11">
+          <span class="hidden sm:inline">{t('Common.next')}</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3">
+            <path stroke-linecap="square" stroke-linejoin="miter" d="M9 5l7 7-7 7" />
+          </svg>
+        </span>
+      )
+    }
   </div>
 
   <!-- Jump to Page -->
@@ -142,20 +150,21 @@ const pages = getPageNumbers();
     </button>
   </div>
 
-  <div 
-    class="pagination-data hidden" 
-    data-base-url={baseUrl} 
-    data-search-params={JSON.stringify(searchParams)} 
+  <div
+    class="pagination-data hidden"
+    data-base-url={baseUrl}
+    data-search-params={JSON.stringify(searchParams)}
     data-total-pages={totalPages}
-  ></div>
+  >
+  </div>
 </nav>
 
 <script>
   function setupPagination() {
     // Find all pagination components on the page
     const paginationNavs = document.querySelectorAll('nav[aria-label="Pagination"]');
-    
-    paginationNavs.forEach(nav => {
+
+    paginationNavs.forEach((nav) => {
       const input = nav.querySelector('.jump-page-input') as HTMLInputElement;
       const button = nav.querySelector('.jump-page-button');
       const dataEl = nav.querySelector('.pagination-data') as HTMLElement;
@@ -177,7 +186,7 @@ const pages = getPageNumbers();
             if (value) params.set(key, String(value));
           }
           params.set('page', page.toString());
-          
+
           const joinChar = baseUrl?.includes('?') ? '&' : '?';
           window.location.href = `${baseUrl}${joinChar}${params.toString()}`;
         } else {

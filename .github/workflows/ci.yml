@@ -36,7 +36,6 @@ jobs:
 
       - name: Format Check (Prettier)
         run: npm run format:check
-        continue-on-error: true
 
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check

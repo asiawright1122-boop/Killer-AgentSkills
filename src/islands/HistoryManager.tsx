@@ -17,7 +17,7 @@ interface HistoryManagerProps {
   locale: string;
   translations: {
     browsingHistory: string;
-    historyCount: string;     // contains "{count}" placeholder
+    historyCount: string; // contains "{count}" placeholder
     clearHistory: string;
     noHistory: string;
     noHistoryHint: string;
@@ -25,9 +25,9 @@ interface HistoryManagerProps {
     removeHistory: string;
     time: {
       justNow: string;
-      agoM: string;           // contains "{count}" placeholder
-      agoH: string;           // contains "{count}" placeholder
-      agoD: string;           // contains "{count}" placeholder
+      agoM: string; // contains "{count}" placeholder
+      agoH: string; // contains "{count}" placeholder
+      agoD: string; // contains "{count}" placeholder
     };
   };
 }
@@ -78,16 +78,26 @@ export default function HistoryManager({ locale, translations: t }: HistoryManag
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
                 aria-label="Back to skills"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6" /></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
               </a>
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-xl bg-cyan-500/20 border border-cyan-500/30">
                   <Clock className="w-6 h-6 text-cyan-500" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
-                    {t.browsingHistory}
-                  </h1>
+                  <h1 className="text-2xl font-bold text-slate-900 dark:text-white">{t.browsingHistory}</h1>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
                     {t.historyCount.replace('{count}', String(count))}
                   </p>
@@ -115,12 +125,8 @@ export default function HistoryManager({ locale, translations: t }: HistoryManag
             <div className="inline-flex p-4 rounded-full bg-slate-100 dark:bg-slate-800 mb-4">
               <Clock className="w-12 h-12 text-slate-400 dark:text-slate-500" />
             </div>
-            <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-              {t.noHistory}
-            </h2>
-            <p className="text-slate-500 dark:text-slate-400 mb-6">
-              {t.noHistoryHint}
-            </p>
+            <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">{t.noHistory}</h2>
+            <p className="text-slate-500 dark:text-slate-400 mb-6">{t.noHistoryHint}</p>
             <a
               href={`/${locale}/skills`}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-cyan-600 text-white font-medium hover:bg-cyan-700 transition-colors"
@@ -198,9 +204,7 @@ function HistoryCard({ item, locale, onRemove, removeHistoryLabel, timeLabels }:
                     (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${owner}&background=random`;
                   }}
                 />
-                <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                  {owner}
-                </span>
+                <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{owner}</span>
               </div>
             </div>
             <ArrowUpRight className="w-5 h-5 text-slate-400 group-hover:text-cyan-500 transition-colors flex-shrink-0" />

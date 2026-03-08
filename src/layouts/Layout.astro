@@ -6,31 +6,31 @@ import { ClientRouter } from 'astro:transitions';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../i18n';
 
 interface Props {
-	locale: string;
-	title: string;
-	description?: string;
-	keywords?: string;
-	image?: string;
-    showFooter?: boolean;
-    appendBrand?: boolean;
-    noindex?: boolean;
-    ogType?: 'website' | 'article' | 'book' | 'profile' | 'product';
-    customCanonical?: string;
+  locale: string;
+  title: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  showFooter?: boolean;
+  appendBrand?: boolean;
+  noindex?: boolean;
+  ogType?: 'website' | 'article' | 'book' | 'profile' | 'product';
+  customCanonical?: string;
 }
 
 const SITE_URL = 'https://killer-skills.com';
 
 const {
-	locale,
-	title,
-	description = 'The ultimate directory of AI Development Skills for Agents.',
-	keywords,
-	image = '/og-image.png',
-    showFooter = true,
-    appendBrand = true,
-    noindex = false,
-    ogType = 'website',
-    customCanonical,
+  locale,
+  title,
+  description = 'The ultimate directory of AI Development Skills for Agents.',
+  keywords,
+  image = '/og-image.png',
+  showFooter = true,
+  appendBrand = true,
+  noindex = false,
+  ogType = 'website',
+  customCanonical,
 } = Astro.props;
 
 // RTL support for Arabic
@@ -47,8 +47,8 @@ try {
 
 // Helper to ensure trailing slashes for canonical and hreflang consolidation (except root)
 const ensureTrailingSlash = (url: string) => {
-    if (url.endsWith('/') || url.endsWith('.txt') || url.endsWith('.xml')) return url;
-    return `${url}/`;
+  if (url.endsWith('/') || url.endsWith('.txt') || url.endsWith('.xml')) return url;
+  return `${url}/`;
 };
 
 // Build absolute image URL for OG/Twitter meta tags
@@ -56,203 +56,228 @@ const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
 
 let canonicalUrl = customCanonical;
 if (!canonicalUrl) {
-    canonicalUrl = Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
-        ? `${SITE_URL}${Astro.url.pathname}`
-        : ensureTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
+  canonicalUrl =
+    Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
+      ? `${SITE_URL}${Astro.url.pathname}`
+      : ensureTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
 }
 
 // Build hreflang alternate URLs for all supported locales
-const currentPath = Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1 
-    ? Astro.url.pathname.slice(0, -1) 
+const currentPath =
+  Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1
+    ? Astro.url.pathname.slice(0, -1)
     : Astro.url.pathname;
-    
-const hreflangUrls = SUPPORTED_LOCALES.map(loc => {
+
+const hreflangUrls = SUPPORTED_LOCALES.map((loc) => {
   // Replace the current locale segment with each alternate locale
   const altPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${loc}$1`);
   const finalHref = altPath === `/${loc}` ? `${SITE_URL}${altPath}` : ensureTrailingSlash(`${SITE_URL}${altPath}`);
   return { locale: loc, href: finalHref };
 });
 const xDefaultPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), '/en$1');
-const xDefaultUrl = xDefaultPath === '/en' ? `${SITE_URL}${xDefaultPath}` : ensureTrailingSlash(`${SITE_URL}${xDefaultPath}`);
+const xDefaultUrl =
+  xDefaultPath === '/en' ? `${SITE_URL}${xDefaultPath}` : ensureTrailingSlash(`${SITE_URL}${xDefaultPath}`);
 
 // SEO: Title length optimization (Target ~60 chars max)
 const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');
 let fullTitle = title;
 if (appendBrand) {
-    const fullBrand = " | Killer-Skills - AI Agent Directory";
-    const shortBrand = " | Killer-Skills";
-    if ((title + fullBrand).length <= 60) {
-        fullTitle = isSubpage ? title + fullBrand : title + shortBrand;
-    } else if ((title + shortBrand).length <= 60) {
-        fullTitle = title + shortBrand;
-    }
+  const fullBrand = ' | Killer-Skills - AI Agent Directory';
+  const shortBrand = ' | Killer-Skills';
+  if ((title + fullBrand).length <= 60) {
+    fullTitle = isSubpage ? title + fullBrand : title + shortBrand;
+  } else if ((title + shortBrand).length <= 60) {
+    fullTitle = title + shortBrand;
+  }
 }
 
 // SEO: Meta Description length optimization (Target ~155 chars max)
-const cleanDesc = description || "The ultimate directory of AI Development Skills for Agents.";
-const optimizedDescription = cleanDesc.length > 155 
-    ? cleanDesc.slice(0, 152).trim() + '...'
-    : cleanDesc;
+const cleanDesc = description || 'The ultimate directory of AI Development Skills for Agents.';
+const optimizedDescription = cleanDesc.length > 155 ? cleanDesc.slice(0, 152).trim() + '...' : cleanDesc;
 
 // OG Locale mapping (BCP-47 → Open Graph format)
 const OG_LOCALE_MAP: Record<string, string> = {
-  en: 'en_US', zh: 'zh_CN', ja: 'ja_JP', ko: 'ko_KR',
-  es: 'es_ES', fr: 'fr_FR', de: 'de_DE', pt: 'pt_BR',
-  ru: 'ru_RU', ar: 'ar_SA'
+  en: 'en_US',
+  zh: 'zh_CN',
+  ja: 'ja_JP',
+  ko: 'ko_KR',
+  es: 'es_ES',
+  fr: 'fr_FR',
+  de: 'de_DE',
+  pt: 'pt_BR',
+  ru: 'ru_RU',
+  ar: 'ar_SA',
 };
 const ogLocale = OG_LOCALE_MAP[locale] || locale;
 ---
 
 <!doctype html>
 <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-		<!-- Preconnect to critical third-party origins (improves LCP/FCP) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
-		<link rel="dns-prefetch" href="https://github.com" />
-		
-		<!-- Standard font loading with preconnect for optimal LCP -->
-		<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" as="style" fetchpriority="high" onload="this.onload=null;this.rel='stylesheet'" />
-		<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet" /></noscript>
+    <!-- Preconnect to critical third-party origins (improves LCP/FCP) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+    <link rel="dns-prefetch" href="https://github.com" />
 
-		<meta name="description" content={optimizedDescription} />
-		{noindex && <meta name="robots" content="noindex, nofollow" />}
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+    <!-- Standard font loading with preconnect for optimal LCP -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
+      as="style"
+      fetchpriority="high"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
+        rel="stylesheet"
+      /></noscript
+    >
 
-		<!-- Canonical URL -->
-		<link rel="canonical" href={canonicalUrl} />
+    <meta name="description" content={optimizedDescription} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-		<!-- hreflang for multilingual SEO -->
-		{hreflangUrls.map(({ locale: loc, href }) => (
-			<link rel="alternate" hreflang={loc} href={href} />
-		))}
-		<link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
 
-		<!-- SEO Keywords -->
-		<meta name="keywords" content={keywords || t('Metadata.keywords')} />
+    <!-- hreflang for multilingual SEO -->
+    {hreflangUrls.map(({ locale: loc, href }) => <link rel="alternate" hreflang={loc} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
 
-		<!-- Open Graph -->
-		<meta property="og:type" content={ogType} />
-		<meta property="og:site_name" content="Killer-Skills" />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={optimizedDescription} />
-		<meta property="og:image" content={absoluteImage} />
-		<meta property="og:image:width" content="1200" />
-		<meta property="og:image:height" content="630" />
-		<meta property="og:url" content={canonicalUrl} />
-		<meta property="og:locale" content={ogLocale} />
-		<ClientRouter fallback="swap" />
-		{/* OG alternate locales for social sharing */}
-		{SUPPORTED_LOCALES.filter(loc => loc !== locale).map(loc => (
-			<meta property="og:locale:alternate" content={OG_LOCALE_MAP[loc] || loc} />
-		))}
+    <!-- SEO Keywords -->
+    <meta name="keywords" content={keywords || t('Metadata.keywords')} />
 
-		<!-- Twitter Card -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:site" content="@killerskills" />
-		<meta name="twitter:creator" content="@killerskills" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={optimizedDescription} />
-		<meta name="twitter:image" content={absoluteImage} />
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Killer-Skills" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={optimizedDescription} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={ogLocale} />
+    <ClientRouter fallback="swap" />
+    {/* OG alternate locales for social sharing */}
+    {
+      SUPPORTED_LOCALES.filter((loc) => loc !== locale).map((loc) => (
+        <meta property="og:locale:alternate" content={OG_LOCALE_MAP[loc] || loc} />
+      ))
+    }
 
-		<title>{fullTitle}</title>
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@killerskills" />
+    <meta name="twitter:creator" content="@killerskills" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={optimizedDescription} />
+    <meta name="twitter:image" content={absoluteImage} />
 
-		<!-- Theme Toggle Script (No FOUC) -->
-		<script is:inline>
-			const applyTheme = () => {
-				const theme = (() => {
-					if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-						return localStorage.getItem('theme');
-					}
-					return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				})();
-				
-				if (theme === 'dark') {
-					document.documentElement.classList.add('dark');
-				} else {
-					document.documentElement.classList.remove('dark');
-				}
-				return theme;
-			};
+    <title>{fullTitle}</title>
 
-			// Initial load
-			applyTheme();
+    <!-- Theme Toggle Script (No FOUC) -->
+    <script is:inline>
+      const applyTheme = () => {
+        const theme = (() => {
+          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+            return localStorage.getItem('theme');
+          }
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        })();
 
-			// Handle Astro View Transitions
-			document.addEventListener('astro:after-swap', applyTheme);
-		</script>
-		<!-- Named slot for child-injected head tags (e.g. rel prev/next) -->
-		<slot name="head" />
-	</head>
-	<body class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]">
-		<a href="#main-content" class="skip-nav">{t('Common.skipToContent') || 'Skip to content'}</a>
-		<Header locale={locale} t={t} />
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        return theme;
+      };
 
-		<div id="main-content" class="flex-1 relative" role="main">
-            <!-- Global Astro Navigation Loader -->
-            <div id="route-progress" class="fixed top-0 left-0 w-full h-[3px] bg-cyan-500 z-[9999] origin-left scale-x-0 transition-transform duration-300 ease-out"></div>
-			<slot />
-		</div>
-		{showFooter && <Footer locale={locale} t={t} />}
+      // Initial load
+      applyTheme();
 
-        <!-- Native Router Progress Script -->
-        <script is:inline>
-            document.addEventListener('astro:before-preparation', () => {
-                const bar = document.getElementById('route-progress');
-                if (bar) {
-                    bar.style.transition = 'transform 3s cubic-bezier(0.1, 0.8, 0.2, 1)';
-                    bar.style.transform = 'scaleX(0.7)';
-                    bar.style.opacity = '1';
-                }
-            });
+      // Handle Astro View Transitions
+      document.addEventListener('astro:after-swap', applyTheme);
+    </script>
+    <!-- Named slot for child-injected head tags (e.g. rel prev/next) -->
+    <slot name="head" />
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]"
+  >
+    <a href="#main-content" class="skip-nav">{t('Common.skipToContent') || 'Skip to content'}</a>
+    <Header locale={locale} t={t} />
 
-            document.addEventListener('astro:after-swap', () => {
-                const bar = document.getElementById('route-progress');
-                if (bar) {
-                    bar.style.transition = 'transform 0.2s ease-out';
-                    bar.style.transform = 'scaleX(1)';
-                    setTimeout(() => {
-                        bar.style.opacity = '0';
-                        setTimeout(() => {
-                            if (bar.style.opacity === '0') {
-                                bar.style.transition = 'none';
-                                bar.style.transform = 'scaleX(0)';
-                            }
-                        }, 200);
-                    }, 200);
-                }
-            });
-        </script>
+    <div id="main-content" class="flex-1 relative" role="main">
+      <!-- Global Astro Navigation Loader -->
+      <div
+        id="route-progress"
+        class="fixed top-0 left-0 w-full h-[3px] bg-cyan-500 z-[9999] origin-left scale-x-0 transition-transform duration-300 ease-out"
+      >
+      </div>
+      <slot />
+    </div>
+    {showFooter && <Footer locale={locale} t={t} />}
 
-        <!-- Global: SkillCard Install Copy Handler -->
-        <script is:inline>
-            document.addEventListener('click', function(e) {
-                const btn = e.target.closest('.install-copy-btn');
-                if (!btn) return;
-                e.preventDefault();
-                e.stopPropagation();
-                const cmd = btn.getAttribute('data-command');
-                if (!cmd) return;
-                navigator.clipboard.writeText(cmd).then(function() {
-                    const iconEl = btn.querySelector('.install-icon');
-                    const okEl = btn.querySelector('.install-ok');
-                    if (iconEl) iconEl.classList.add('hidden');
-                    if (okEl) okEl.classList.remove('hidden');
-                    btn.style.background = 'var(--primary)';
-                    btn.style.color = 'var(--primary-foreground)';
-                    setTimeout(function() {
-                        if (iconEl) iconEl.classList.remove('hidden');
-                        if (okEl) okEl.classList.add('hidden');
-                        btn.style.background = '';
-                        btn.style.color = '';
-                    }, 2000);
-                });
-            });
-        </script>
-	</body>
+    <!-- Native Router Progress Script -->
+    <script is:inline>
+      document.addEventListener('astro:before-preparation', () => {
+        const bar = document.getElementById('route-progress');
+        if (bar) {
+          bar.style.transition = 'transform 3s cubic-bezier(0.1, 0.8, 0.2, 1)';
+          bar.style.transform = 'scaleX(0.7)';
+          bar.style.opacity = '1';
+        }
+      });
+
+      document.addEventListener('astro:after-swap', () => {
+        const bar = document.getElementById('route-progress');
+        if (bar) {
+          bar.style.transition = 'transform 0.2s ease-out';
+          bar.style.transform = 'scaleX(1)';
+          setTimeout(() => {
+            bar.style.opacity = '0';
+            setTimeout(() => {
+              if (bar.style.opacity === '0') {
+                bar.style.transition = 'none';
+                bar.style.transform = 'scaleX(0)';
+              }
+            }, 200);
+          }, 200);
+        }
+      });
+    </script>
+
+    <!-- Global: SkillCard Install Copy Handler -->
+    <script is:inline>
+      document.addEventListener('click', function (e) {
+        const btn = e.target.closest('.install-copy-btn');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const cmd = btn.getAttribute('data-command');
+        if (!cmd) return;
+        navigator.clipboard.writeText(cmd).then(function () {
+          const iconEl = btn.querySelector('.install-icon');
+          const okEl = btn.querySelector('.install-ok');
+          if (iconEl) iconEl.classList.add('hidden');
+          if (okEl) okEl.classList.remove('hidden');
+          btn.style.background = 'var(--primary)';
+          btn.style.color = 'var(--primary-foreground)';
+          setTimeout(function () {
+            if (iconEl) iconEl.classList.remove('hidden');
+            if (okEl) okEl.classList.add('hidden');
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 2000);
+        });
+      });
+    </script>
+  </body>
 </html>

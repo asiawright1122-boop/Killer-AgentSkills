@@ -108,8 +108,11 @@ describe('calculateQualityScore', () => {
 
   it('should give points for structural headers', () => {
     const base: SkillScoringInput = {
-      name: 'a-skill', owner: 'someone', repo: 'a-repo',
-      body: '', description: 'Short',
+      name: 'a-skill',
+      owner: 'someone',
+      repo: 'a-repo',
+      body: '',
+      description: 'Short',
     };
     const withHeaders = calculateQualityScore({
       ...base,
@@ -124,8 +127,11 @@ describe('calculateQualityScore', () => {
 
   it('should give points for code blocks', () => {
     const base: SkillScoringInput = {
-      name: 'a-skill', owner: 'someone', repo: 'a-repo',
-      body: '', description: 'Short',
+      name: 'a-skill',
+      owner: 'someone',
+      repo: 'a-repo',
+      body: '',
+      description: 'Short',
     };
     const withCode = calculateQualityScore({
       ...base,
@@ -157,7 +163,9 @@ describe('calculateQualityScore', () => {
 
   it('should give bonus for high stars', () => {
     const minimalSkill: SkillScoringInput = {
-      name: 'a-skill', owner: 'someone', repo: 'a-repo',
+      name: 'a-skill',
+      owner: 'someone',
+      repo: 'a-repo',
       body: '# Usage\nDo something with this action tool.\n## Input\nTakes input.',
       description: 'Short',
     };

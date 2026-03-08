@@ -56,7 +56,7 @@ for (const skill of skills) {
 }
 
 // Build category data with counts
-const categories = categoryDefs.map(def => ({
+const categories = categoryDefs.map((def) => ({
   ...def,
   name: t(`Categories.${def.id}`),
   count: categoryCounts[def.id] || 0,
@@ -68,32 +68,39 @@ const pageDescription = t('Categories.heroDesc');
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
   {/* BreadcrumbList JSON-LD */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t('Common.home'), "item": `https://killer-skills.com/${locale}` },
-      { "@type": "ListItem", "position": 2, "name": pageTitle, "item": `https://killer-skills.com/${locale}/categories/` }
-    ]
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}` },
+        { '@type': 'ListItem', position: 2, name: pageTitle, item: `https://killer-skills.com/${locale}/categories/` },
+      ],
+    })}
+  />
   {/* ItemList JSON-LD for categories */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": pageTitle,
-    "description": pageDescription,
-    "numberOfItems": categories.length,
-    "itemListElement": categories.map((cat, i) => ({
-      "@type": "ListItem",
-      "position": i + 1,
-      "name": cat.name,
-      "url": `https://killer-skills.com/${locale}/skills/?category=${cat.id}`
-    }))
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: pageTitle,
+      description: pageDescription,
+      numberOfItems: categories.length,
+      itemListElement: categories.map((cat, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: cat.name,
+        url: `https://killer-skills.com/${locale}/skills/?category=${cat.id}`,
+      })),
+    })}
+  />
   <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
-
     <!-- Header Section -->
-    <div class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-12 pb-8 md:pt-16 md:pb-12">
+    <div
+      class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-12 pb-8 md:pt-16 md:pb-12"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
@@ -111,67 +118,127 @@ const pageDescription = t('Categories.heroDesc');
     <!-- Categories Grid -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {categories.map(cat => (
-          <a
-            href={`/${locale}/skills?category=${cat.id}`}
-            class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md hover:border-cyan-300 dark:hover:border-cyan-700 transition-all duration-200"
-          >
-            <div class={`mb-4 ${categoryColors[cat.color]}`}>
-              {cat.icon === 'code' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                </svg>
-              )}
-              {cat.icon === 'beaker' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4.5 3h15"/><path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3"/><path d="M6 14h12"/>
-                </svg>
-              )}
-              {cat.icon === 'bar-chart' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                </svg>
-              )}
-              {cat.icon === 'cpu' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              )}
-              {cat.icon === 'cloud' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M17.5 19A5.5 5.5 0 0 0 18 8.02a7 7 0 1 0-11.66 6.77"/><path d="M12 13v9"/><path d="m9 19 3 3 3-3"/>
-                </svg>
-              )}
-              {cat.icon === 'pen-tool' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
-                </svg>
-              )}
-              {cat.icon === 'file-text' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/>
-                </svg>
-              )}
-              {cat.icon === 'zap' && (
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-              )}
-            </div>
-            <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-              {cat.name}
-            </h2>
-            <p class="text-sm text-slate-500 dark:text-slate-400">
-              {cat.count} {t('Marketplace.availableSkills').toLowerCase()}
-            </p>
-          </a>
-        ))}
+        {
+          categories.map((cat) => (
+            <a
+              href={`/${locale}/skills?category=${cat.id}`}
+              class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md hover:border-cyan-300 dark:hover:border-cyan-700 transition-all duration-200"
+            >
+              <div class={`mb-4 ${categoryColors[cat.color]}`}>
+                {cat.icon === 'code' && (
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                    />
+                  </svg>
+                )}
+                {cat.icon === 'beaker' && (
+                  <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M4.5 3h15" />
+                    <path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3" />
+                    <path d="M6 14h12" />
+                  </svg>
+                )}
+                {cat.icon === 'bar-chart' && (
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                    />
+                  </svg>
+                )}
+                {cat.icon === 'cpu' && (
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                )}
+                {cat.icon === 'cloud' && (
+                  <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M17.5 19A5.5 5.5 0 0 0 18 8.02a7 7 0 1 0-11.66 6.77" />
+                    <path d="M12 13v9" />
+                    <path d="m9 19 3 3 3-3" />
+                  </svg>
+                )}
+                {cat.icon === 'pen-tool' && (
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
+                )}
+                {cat.icon === 'file-text' && (
+                  <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <line x1="10" y1="9" x2="8" y2="9" />
+                  </svg>
+                )}
+                {cat.icon === 'zap' && (
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
+                    />
+                  </svg>
+                )}
+              </div>
+              <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                {cat.name}
+              </h2>
+              <p class="text-sm text-slate-500 dark:text-slate-400">
+                {cat.count} {t('Marketplace.availableSkills').toLowerCase()}
+              </p>
+            </a>
+          ))
+        }
       </div>
 
       <!-- Total skills summary -->
       <div class="mt-12 text-center">
         <p class="text-slate-500 dark:text-slate-400 text-sm">
-          {skills.length} {t('Marketplace.availableSkills').toLowerCase()}
+          {skills.length}
+          {t('Marketplace.availableSkills').toLowerCase()}
         </p>
         <a
           href={`/${locale}/skills`}

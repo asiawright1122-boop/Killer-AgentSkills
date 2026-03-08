@@ -23,22 +23,10 @@
       "Prompt engineering SDK",
       "AI development utilities"
     ],
-    "zh": [
-      "最佳提示工程 AI 工具",
-      "顶级提示工程 MCP 服务器",
-      "AI 代理开发工具",
-      "提示工程 SDK",
-      "AI 开发实用程序"
-    ]
+    "zh": ["最佳提示工程 AI 工具", "顶级提示工程 MCP 服务器", "AI 代理开发工具", "提示工程 SDK", "AI 开发实用程序"]
   },
   "featured": false,
   "category": "prompt-engineering",
   "author": "Killer-Skills AI",
-  "skills": [
-    "langwatch/langwatch",
-    "petbrains/mvp-builder",
-    "shinpr/agentic-code",
-    "comet-ml/opik",
-    "f/prompts.chat"
-  ]
+  "skills": ["langwatch/langwatch", "petbrains/mvp-builder", "shinpr/agentic-code", "comet-ml/opik", "f/prompts.chat"]
 }

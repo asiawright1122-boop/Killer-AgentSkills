@@ -24,16 +24,13 @@ const typedLocale = locale as Locale;
 const env = Astro.locals.runtime?.env as Env;
 
 // ⚡ PARALLEL: Load lightweight skills + translations concurrently
-const [skillsFetched, messages] = await Promise.all([
-  getLightweightSkills(env),
-  loadMessages(typedLocale),
-]);
+const [skillsFetched, messages] = await Promise.all([getLightweightSkills(env), loadMessages(typedLocale)]);
 
 let skills: UnifiedSkill[] = skillsFetched;
 
 // If D1/KV returned no skills, show empty state gracefully
 if (skills.length === 0) {
-    console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
+  console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
 }
 
 skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
@@ -49,27 +46,25 @@ const ITEMS_PER_PAGE = 12;
 
 // Identify Official Skills
 const officialOwners = Object.values(OFFICIAL_REPOS)
-    .filter(r => r.type === 'official')
-    .map(r => r.owner);
+  .filter((r) => r.type === 'official')
+  .map((r) => r.owner);
 
 // Apply view filter
 if (view === 'official') {
-    skills = skills.filter(s => officialOwners.includes(s.owner));
+  skills = skills.filter((s) => officialOwners.includes(s.owner));
 } else if (view === 'featured') {
-    // 精选 = 官方仓库 OR qualityScore >= 阈值
-    const allOfficialOwners = Object.values(OFFICIAL_REPOS).map(r => r.owner);
-    skills = skills
-        .filter(s => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
-        .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+  // 精选 = 官方仓库 OR qualityScore >= 阈值
+  const allOfficialOwners = Object.values(OFFICIAL_REPOS).map((r) => r.owner);
+  skills = skills
+    .filter((s) => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
+    .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
 } else if (view === 'latest') {
-    skills = [...skills].sort((a, b) => 
-        new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime()
-    );
+  skills = [...skills].sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
 }
 
 // Apply owner filter
 if (owner) {
-  skills = skills.filter(s => s.owner === owner);
+  skills = skills.filter((s) => s.owner === owner);
 }
 
 // Apply search filter
@@ -85,11 +80,14 @@ if (category && category !== 'all') {
 // Calculate collections if needed (Moved up for pagination)
 let skillsByOwner: Record<string, number> = {};
 if (view === 'official' && !owner) {
-    skillsByOwner = skills.reduce((acc, skill) => {
-        const skillOwner = skill.owner;
-        acc[skillOwner] = (acc[skillOwner] || 0) + 1;
-        return acc;
-    }, {} as Record<string, number>);
+  skillsByOwner = skills.reduce(
+    (acc, skill) => {
+      const skillOwner = skill.owner;
+      acc[skillOwner] = (acc[skillOwner] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 }
 
 // Calculate pagination
@@ -98,17 +96,17 @@ let totalItems = skills.length;
 let paginatedCollections: [string, number][] = [];
 
 if (view === 'official' && !owner) {
-    const owners = Object.entries(skillsByOwner);
-    totalItems = owners.length;
-    
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-    
-    // Slice the collections
-    paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-    
-    // For template compatibility, we'll keep paginatedSkills empty or unused in this mode
-} 
+  const owners = Object.entries(skillsByOwner);
+  totalItems = owners.length;
+
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+
+  // Slice the collections
+  paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+  // For template compatibility, we'll keep paginatedSkills empty or unused in this mode
+}
 
 const totalSkills = skills.length; // Keep for display stats
 const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
@@ -127,13 +125,13 @@ else if (view === 'featured') pageTitle = t('Sidebar.views.featured');
 else if (view === 'latest') pageTitle = t('Sidebar.views.latest');
 
 if (owner) {
-    const vendorConfig = Object.values(OFFICIAL_REPOS).find(v => v.owner === owner);
-    pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
+  const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
+  pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
 }
 
-const pageDescription = category 
-    ? (t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description'))
-    : t('Metadata.Skills.description');
+const pageDescription = category
+  ? t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description')
+  : t('Metadata.Skills.description');
 
 // Pagination SEO: build rel prev/next URLs
 const buildPaginationUrl = (p: number) => {
@@ -148,9 +146,8 @@ const buildPaginationUrl = (p: number) => {
 };
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
-const currentCanonicalUrl = (currentPage > 1 || query || category || view || owner) 
-    ? buildPaginationUrl(currentPage) 
-    : undefined;
+const currentCanonicalUrl =
+  currentPage > 1 || query || category || view || owner ? buildPaginationUrl(currentPage) : undefined;
 
 // Category list for sidebar
 const categories = [];
@@ -163,204 +160,249 @@ const categories = [];
     {nextPageUrl && <link rel="next" href={nextPageUrl} />}
   </Fragment>
   {/* CollectionPage + ItemList JSON-LD */}
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": pageTitle,
-    "description": pageDescription,
-    "url": currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Killer-Skills",
-      "url": "https://killer-skills.com"
-    },
-    "mainEntity": {
-      "@type": "ItemList",
-      "numberOfItems": totalSkills,
-      "itemListElement": paginatedSkills.slice(0, 12).map((s: any, i: number) => ({
-        "@type": "ListItem",
-        "position": (currentPage - 1) * ITEMS_PER_PAGE + i + 1,
-        "name": s.name || s.repo,
-        "url": `https://killer-skills.com/${locale}/skills/${s.owner}/${s.repo}/`
-      }))
-    }
-  })} />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'CollectionPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: 'Killer-Skills',
+        url: 'https://killer-skills.com',
+      },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: totalSkills,
+        itemListElement: paginatedSkills.slice(0, 12).map((s: any, i: number) => ({
+          '@type': 'ListItem',
+          position: (currentPage - 1) * ITEMS_PER_PAGE + i + 1,
+          name: s.name || s.repo,
+          url: `https://killer-skills.com/${locale}/skills/${s.owner}/${s.repo}/`,
+        })),
+      },
+    })}
+  />
   <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
-
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
       <div class="flex flex-col md:flex-row gap-8 lg:gap-10">
-
         <!-- Sidebar (Left) -->
         <SkillsSidebar activeCategory={category} activeView={view} />
 
         <!-- Main Content (Right) -->
         <div class="flex-1 min-w-0">
-          
           <!-- Page Header & Search (Integrated) -->
-          <div class="mb-10 border-[3px] border-[var(--border)] p-5 md:p-7 bg-[var(--background)] shadow-[8px_8px_0px_0px_var(--border)]">
-             <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-6 overflow-visible">
-                <div class="flex-1 space-y-2">
-                   <h1 class="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase mb-2 leading-none">
-                     {query 
-                        ? t('Marketplace.browsing') 
-                        : category 
-                            ? t(`Sidebar.categories.${category}` as any) || category 
-                            : owner
-                                ? `${Object.values(OFFICIAL_REPOS).find(v => v.owner === owner)?.name || owner} Skills`
-                                : view === 'official'
-                                    ? t('Sidebar.views.official')
-                                    : view === 'featured'
-                                        ? t('Sidebar.views.featured')
-                                        : view === 'latest'
-                                            ? t('Sidebar.views.latest')
-                                            : t('Common.explore')}
-                   </h1>
-                   <p class="text-[var(--muted-foreground)] font-mono text-base md:text-lg font-bold opacity-80 leading-relaxed max-w-4xl mt-3">
-                      {category 
-                          ? (t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description'))
-                          : t('Metadata.Skills.description')}
-                   </p>
+          <div
+            class="mb-10 border-[3px] border-[var(--border)] p-5 md:p-7 bg-[var(--background)] shadow-[8px_8px_0px_0px_var(--border)]"
+          >
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-6 gap-6 overflow-visible">
+              <div class="flex-1 space-y-2">
+                <h1
+                  class="text-4xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase mb-2 leading-none"
+                >
+                  {
+                    query
+                      ? t('Marketplace.browsing')
+                      : category
+                        ? t(`Sidebar.categories.${category}` as any) || category
+                        : owner
+                          ? `${Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner)?.name || owner} Skills`
+                          : view === 'official'
+                            ? t('Sidebar.views.official')
+                            : view === 'featured'
+                              ? t('Sidebar.views.featured')
+                              : view === 'latest'
+                                ? t('Sidebar.views.latest')
+                                : t('Common.explore')
+                  }
+                </h1>
+                <p
+                  class="text-[var(--muted-foreground)] font-mono text-base md:text-lg font-bold opacity-80 leading-relaxed max-w-4xl mt-3"
+                >
+                  {
+                    category
+                      ? t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description')
+                      : t('Metadata.Skills.description')
+                  }
+                </p>
 
-                   {/* SEO Context Injection for Topical Authority */}
-                   {!query && !owner && (
-                     <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                        {locale === 'zh' ? (
-                          <p>
-                            探索全球最大的 <strong>AI Agent Skills (大模型插件技能)</strong> 与 <strong>MCP Servers (Model Context Protocol 服务器)</strong> 开源生态目录。为您的 Claude Desktop、Cursor 或自定义智能体发现并安装高质量的开发者工具。无论是系统运维、API 集成还是自动化数据查询，这里都有最全的经过验证的 MCP 开源实践。
-                          </p>
-                        ) : (
-                          <p>
-                            Discover the world's most comprehensive directory for <strong>AI Agent Skills</strong> and community-driven <strong>MCP Servers (Model Context Protocol)</strong>. Seamlessly find and install high-quality developer integrations for your Claude Desktop, Cursor, or custom AI agents. From cloud operations to API integrations, explore verified open-source MCP practices to supercharge your AI workflows.
-                          </p>
-                        )}
-                     </div>
-                   )}
-                </div>
-                
-                <div class="hidden md:block group">
-                   <div class="bg-[var(--background)] text-[var(--foreground)] py-3 px-5 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--primary)] group-hover:shadow-[7px_7px_0px_0px_var(--primary)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all min-w-[150px] flex flex-col items-center justify-center relative">
-                      <!-- Compact Status & Live Bar -->
-                      <div class="w-full flex items-center justify-between mb-2">
-                         <div class="flex gap-1">
-                            <div class="w-1.5 h-1.5 bg-[var(--foreground)]"></div>
-                            <div class="w-1.5 h-1.5 bg-[var(--foreground)] opacity-20"></div>
-                         </div>
-                         <div class="px-1.5 py-0.5 bg-[var(--primary)] text-[var(--primary-foreground)] text-[9px] font-black tracking-widest uppercase flex items-center gap-1 border border-[var(--border)]">
-                            <span class="relative flex h-1.5 w-1.5">
-                               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
-                               <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-600"></span>
-                            </span>
-                            LIVE
-                         </div>
-                      </div>
-                      
-                      <!-- Refined Number -->
-                      <div class="text-5xl font-black tracking-tighter tabular-nums leading-none mb-2">
-                         {skills.length}
-                      </div>
-                      
-                      <!-- Label tight to the number -->
-                      <div class="w-full border-t border-[var(--border)] border-dotted pt-1.5 text-center">
-                         <span class="text-xs font-bold text-[var(--foreground)] leading-none">
-                            {t('Marketplace.availableSkills')}
-                         </span>
-                      </div>
-                   </div>
-                </div>
-             </div>
+                {/* SEO Context Injection for Topical Authority */}
+                {
+                  !query && !owner && (
+                    <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
+                      {locale === 'zh' ? (
+                        <p>
+                          探索全球最大的 <strong>AI Agent Skills (大模型插件技能)</strong> 与{' '}
+                          <strong>MCP Servers (Model Context Protocol 服务器)</strong> 开源生态目录。为您的 Claude
+                          Desktop、Cursor 或自定义智能体发现并安装高质量的开发者工具。无论是系统运维、API
+                          集成还是自动化数据查询，这里都有最全的经过验证的 MCP 开源实践。
+                        </p>
+                      ) : (
+                        <p>
+                          Discover the world's most comprehensive directory for <strong>AI Agent Skills</strong> and
+                          community-driven <strong>MCP Servers (Model Context Protocol)</strong>. Seamlessly find and
+                          install high-quality developer integrations for your Claude Desktop, Cursor, or custom AI
+                          agents. From cloud operations to API integrations, explore verified open-source MCP practices
+                          to supercharge your AI workflows.
+                        </p>
+                      )}
+                    </div>
+                  )
+                }
+              </div>
 
-             <!-- Pro Search Bar -->
-             <form method="get" action={`/${locale}/skills`} class="relative group">
-                <div class="relative flex items-center bg-[var(--background)] border-4 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] focus-within:translate-x-[-2px] focus-within:translate-y-[-2px] focus-within:shadow-[6px_6px_0px_0px_var(--primary)] transition-all">
-                   <div class="pl-4 text-[var(--foreground)]">
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="square" stroke-linejoin="miter" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                   </div>
-                   <input
-                     type="text"
-                     name="q"
-                     value={query}
-                     placeholder={t('Common.searchPlaceholder')}
-                     class="flex-1 bg-transparent border-none focus:ring-0 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] h-14 px-4 text-xl font-bold font-mono tracking-tight uppercase"
-                   />
-                   <button type="submit" class="bg-[var(--primary)] text-[var(--primary-foreground)] px-8 py-3.5 border-l-4 border-[var(--border)] font-bold uppercase hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-lg h-full">
-                     {t('Common.search')}
-                   </button>
-                </div>
-             </form>
+              <div class="hidden md:block group">
+                <div
+                  class="bg-[var(--background)] text-[var(--foreground)] py-3 px-5 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--primary)] group-hover:shadow-[7px_7px_0px_0px_var(--primary)] group-hover:translate-x-[-1px] group-hover:translate-y-[-1px] transition-all min-w-[150px] flex flex-col items-center justify-center relative"
+                >
+                  <!-- Compact Status & Live Bar -->
+                  <div class="w-full flex items-center justify-between mb-2">
+                    <div class="flex gap-1">
+                      <div class="w-1.5 h-1.5 bg-[var(--foreground)]"></div>
+                      <div class="w-1.5 h-1.5 bg-[var(--foreground)] opacity-20"></div>
+                    </div>
+                    <div
+                      class="px-1.5 py-0.5 bg-[var(--primary)] text-[var(--primary-foreground)] text-[9px] font-black tracking-widest uppercase flex items-center gap-1 border border-[var(--border)]"
+                    >
+                      <span class="relative flex h-1.5 w-1.5">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"
+                        ></span>
+                        <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-red-600"></span>
+                      </span>
+                      LIVE
+                    </div>
+                  </div>
 
-             <!-- Hot Tags -->
-             <div class="mt-6 flex items-center gap-3 text-sm font-mono font-bold text-[var(--foreground)] uppercase overflow-x-auto pb-2">
-                <span class="shrink-0 text-[var(--muted-foreground)]">// {t('Marketplace.popular')}:</span>
-                {['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map(tag => (
-                   <a href={`/${locale}/skills?q=${tag}`} class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap">
-                      [{tag}]
-                   </a>
-                ))}
-             </div>
+                  <!-- Refined Number -->
+                  <div class="text-5xl font-black tracking-tighter tabular-nums leading-none mb-2">
+                    {skills.length}
+                  </div>
+
+                  <!-- Label tight to the number -->
+                  <div class="w-full border-t border-[var(--border)] border-dotted pt-1.5 text-center">
+                    <span class="text-xs font-bold text-[var(--foreground)] leading-none">
+                      {t('Marketplace.availableSkills')}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pro Search Bar -->
+            <form method="get" action={`/${locale}/skills`} class="relative group">
+              <div
+                class="relative flex items-center bg-[var(--background)] border-4 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] focus-within:translate-x-[-2px] focus-within:translate-y-[-2px] focus-within:shadow-[6px_6px_0px_0px_var(--primary)] transition-all"
+              >
+                <div class="pl-4 text-[var(--foreground)]">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"
+                    ><path
+                      stroke-linecap="square"
+                      stroke-linejoin="miter"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg
+                  >
+                </div>
+                <input
+                  type="text"
+                  name="q"
+                  value={query}
+                  placeholder={t('Common.searchPlaceholder')}
+                  class="flex-1 bg-transparent border-none focus:ring-0 text-[var(--foreground)] placeholder:text-[var(--muted-foreground)] h-14 px-4 text-xl font-bold font-mono tracking-tight uppercase"
+                />
+                <button
+                  type="submit"
+                  class="bg-[var(--primary)] text-[var(--primary-foreground)] px-8 py-3.5 border-l-4 border-[var(--border)] font-bold uppercase hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-lg h-full"
+                >
+                  {t('Common.search')}
+                </button>
+              </div>
+            </form>
+
+            <!-- Hot Tags -->
+            <div
+              class="mt-6 flex items-center gap-3 text-sm font-mono font-bold text-[var(--foreground)] uppercase overflow-x-auto pb-2"
+            >
+              <span class="shrink-0 text-[var(--muted-foreground)]">// {t('Marketplace.popular')}:</span>
+              {
+                ['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map((tag) => (
+                  <a
+                    href={`/${locale}/skills?q=${tag}`}
+                    class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap"
+                  >
+                    [{tag}]
+                  </a>
+                ))
+              }
+            </div>
           </div>
 
           <!-- Skills Grid -->
           <div class="mb-6 flex items-center justify-between md:hidden">
-             <div class="text-sm text-slate-500">
-                {totalSkills} {t('Marketplace.availableSkills').toLowerCase()}
-             </div>
+            <div class="text-sm text-slate-500">
+              {totalSkills}
+              {t('Marketplace.availableSkills').toLowerCase()}
+            </div>
           </div>
 
-          {(view === 'official' && !owner ? paginatedCollections.length > 0 : paginatedSkills.length > 0) ? (
-            view === 'official' && !owner ? (
+          {
+            (view === 'official' && !owner ? paginatedCollections.length > 0 : paginatedSkills.length > 0) ? (
+              view === 'official' && !owner ? (
                 /* Official Collections View */
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {paginatedCollections.map(([ownerName, count]) => (
-                        <CollectionCard owner={ownerName} count={count} locale={locale} />
-                    ))}
+                  {paginatedCollections.map(([ownerName, count]) => (
+                    <CollectionCard owner={ownerName} count={count} locale={locale} />
+                  ))}
                 </div>
-            ) : (
+              ) : (
                 /* Standard Skill Grid */
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paginatedSkills.map(skill => (
+                  {paginatedSkills.map((skill) => (
                     <div class="h-full">
                       <SkillCard skill={skill} locale={locale} t={t} />
                     </div>
                   ))}
                 </div>
-            )
-          ) : (
-            <div class="text-center py-24 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)]">
-              <div class="w-20 h-20 mx-auto bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-4xl mb-6 shadow-[4px_4px_0px_0px_var(--border)] text-white">
-                 🔍
+              )
+            ) : (
+              <div class="text-center py-24 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)]">
+                <div class="w-20 h-20 mx-auto bg-[var(--foreground)] border-2 border-[var(--border)] flex items-center justify-center text-4xl mb-6 shadow-[4px_4px_0px_0px_var(--border)] text-white">
+                  🔍
+                </div>
+                <h3 class="text-3xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">
+                  {t('Marketplace.noSkills')}
+                </h3>
+                <p class="text-[var(--muted-foreground)] font-mono max-w-md mx-auto mb-8 font-bold">
+                  {t('Marketplace.noSkillsHint')}
+                </p>
+                <a
+                  href={`/${locale}/skills`}
+                  class="inline-block px-8 py-4 bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--primary-foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold uppercase transition-colors shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
+                >
+                  {t('Marketplace.viewAll')}
+                </a>
               </div>
-              <h3 class="text-3xl font-black text-[var(--foreground)] mb-2 uppercase tracking-tight">{t('Marketplace.noSkills')}</h3>
-              <p class="text-[var(--muted-foreground)] font-mono max-w-md mx-auto mb-8 font-bold">{t('Marketplace.noSkillsHint')}</p>
-              <a
-                href={`/${locale}/skills`}
-                class="inline-block px-8 py-4 bg-[var(--primary)] hover:bg-[var(--foreground)] text-[var(--primary-foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold uppercase transition-colors shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)]"
-              >
-                {t('Marketplace.viewAll')}
-              </a>
-            </div>
-          )}
+            )
+          }
 
           {/* Pagination Controls */}
-          {totalPages > 1 && (
-            <Pagination
-              currentPage={currentPage}
-              totalPages={totalPages}
-              baseUrl={`/${locale}/skills`}
-              searchParams={{
-                ...(query && { q: query }),
-                ...(category && { category }),
-                ...(view && { view }),
-                ...(owner && { owner }),
-              }}
-              t={t}
-            />
-          )}
+          {
+            totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                baseUrl={`/${locale}/skills`}
+                searchParams={{
+                  ...(query && { q: query }),
+                  ...(category && { category }),
+                  ...(view && { view }),
+                  ...(owner && { owner }),
+                }}
+                t={t}
+              />
+            )
+          }
         </div>
-
-
-      </div>
-    </div>
-
       </div>
     </div>
   </div>
@@ -369,15 +411,19 @@ const categories = [];
 {/* ⚡ Prefetch on hover — preload detail pages before user clicks */}
 <script is:inline>
   const prefetched = new Set();
-  document.addEventListener('pointerenter', (e) => {
-    const link = e.target?.closest?.('a[href*="/skills/"]');
-    if (!link) return;
-    const href = link.getAttribute('href');
-    if (!href || prefetched.has(href) || href.endsWith('/skills') || href.includes('?')) return;
-    prefetched.add(href);
-    const l = document.createElement('link');
-    l.rel = 'prefetch';
-    l.href = href;
-    document.head.appendChild(l);
-  }, { capture: true, passive: true });
+  document.addEventListener(
+    'pointerenter',
+    (e) => {
+      const link = e.target?.closest?.('a[href*="/skills/"]');
+      if (!link) return;
+      const href = link.getAttribute('href');
+      if (!href || prefetched.has(href) || href.endsWith('/skills') || href.includes('?')) return;
+      prefetched.add(href);
+      const l = document.createElement('link');
+      l.rel = 'prefetch';
+      l.href = href;
+      document.head.appendChild(l);
+    },
+    { capture: true, passive: true },
+  );
 </script>

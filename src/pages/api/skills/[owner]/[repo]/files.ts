@@ -17,7 +17,7 @@ interface FileInfo {
  */
 async function detectRepoMetadata(
   owner: string,
-  repo: string
+  repo: string,
 ): Promise<{ defaultBranch: string; skillMdPath: string | null } | null> {
   const commonPaths = getSkillMdPaths(repo);
 
@@ -34,7 +34,7 @@ async function detectRepoMetadata(
           // ignore
         }
         return null;
-      })
+      }),
     );
 
     const found = results.find((r) => r !== null);
@@ -67,11 +67,7 @@ async function detectRepoMetadata(
 /**
  * Find the skill directory by looking up featured-skills data or probing the repo.
  */
-async function findSkillDirectory(
-  owner: string,
-  repo: string,
-  env?: Env
-): Promise<string | null> {
+async function findSkillDirectory(owner: string, repo: string, env?: Env): Promise<string | null> {
   // 1. Try to find from KV featured-skills data (Now routed to D1 Serverless)
   if (env?.DB) {
     try {
@@ -104,11 +100,7 @@ async function findSkillDirectory(
 /**
  * Get directory contents from GitHub API, filtered to relevant file types.
  */
-async function getDirectoryContents(
-  owner: string,
-  repo: string,
-  path: string
-): Promise<FileInfo[]> {
+async function getDirectoryContents(owner: string, repo: string, path: string): Promise<FileInfo[]> {
   const url = path
     ? `${GITHUB_API_BASE}/repos/${owner}/${repo}/contents/${path}`
     : `${GITHUB_API_BASE}/repos/${owner}/${repo}/contents`;
@@ -152,7 +144,7 @@ async function getDirectoryContents(
           path: item.path,
           size: item.size || 0,
           type: (item.type === 'dir' ? 'dir' : 'file') as 'file' | 'dir',
-        })
+        }),
       )
       .sort((a, b) => {
         // SKILL.md last
@@ -200,13 +192,10 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     }
 
     if (skillDir === null) {
-      return new Response(
-        JSON.stringify({ error: 'Unable to find skill directory', files: [] }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      return new Response(JSON.stringify({ error: 'Unable to find skill directory', files: [] }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const files = await getDirectoryContents(owner, repo, skillDir);
@@ -220,16 +209,13 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   } catch (error) {
     console.error('Files API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to fetch file list', files: [] }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch file list', files: [] }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

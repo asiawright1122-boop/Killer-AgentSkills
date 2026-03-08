@@ -18,14 +18,7 @@
     "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
     "searchButton": "搜索",
     "hotTags": "热门：",
-    "suggestions": [
-      "PDF处理",
-      "图像生成",
-      "数据分析",
-      "浏览器自动化",
-      "代码审查",
-      "文档处理"
-    ]
+    "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"]
   },
   "Skills": {
     "featured": "精选技能",
@@ -122,12 +115,7 @@
     "heroDesc2": "为 Claude Code、Cursor 和 Windsurf 赋予浏览、自动化和创造的能力。",
     "searchPlaceholder": "搜索技能... 例如：网页爬取、数据可视化",
     "searchButton": "搜索",
-    "tags": [
-      "研究",
-      "编程",
-      "营销",
-      "分析"
-    ],
+    "tags": ["研究", "编程", "营销", "分析"],
     "featuresTitle": "专为开发者打造",
     "featuresSubtitle": "连接一切 AI 能力，构建下一代智能应用。",
     "trendingTitle": "精选技能",

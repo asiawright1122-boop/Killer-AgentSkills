@@ -18,14 +18,7 @@
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "searchButton": "Suchen",
     "hotTags": "Beliebt:",
-    "suggestions": [
-      "PDF",
-      "Bildgenerator",
-      "Datenanalyse",
-      "Browser",
-      "Code-Review",
-      "Dokumente"
-    ]
+    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Browser", "Code-Review", "Dokumente"]
   },
   "Skills": {
     "featured": "Vorgestellte Skills",
@@ -122,12 +115,7 @@
     "heroDesc2": "Verleihen Sie Ihren Agenten sofort die Fähigkeit zu Browsen, Coden und Erstellen.",
     "searchPlaceholder": "Suchen Sie nach Fähigkeiten (z.B. 'Web Scraping', 'Data Viz')...",
     "searchButton": "Suchen",
-    "tags": [
-      "Forschung",
-      "Programmierung",
-      "Marketing",
-      "Analyse"
-    ],
+    "tags": ["Forschung", "Programmierung", "Marketing", "Analyse"],
     "featuresTitle": "Für Entwickler entwickelt",
     "featuresSubtitle": "Verbinden Sie jede AI-Fähigkeit, bauen Sie die nächste Generation intelligenter Apps.",
     "trendingTitle": "Trending Fähigkeiten",

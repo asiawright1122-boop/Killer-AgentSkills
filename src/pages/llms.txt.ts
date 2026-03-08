@@ -8,7 +8,7 @@ export const prerender = true;
  * See: https://llmstxt.org/
  */
 export const GET: APIRoute = async () => {
-    const body = `# Killer-Skills
+  const body = `# Killer-Skills
 
 > The ultimate directory of AI Development Skills for Claude, Cursor, Windsurf, and other AI coding agents.
 
@@ -70,11 +70,11 @@ Killer-Skills offers 30+ curated collections of top AI Agent skills grouped by t
 - GitHub: https://github.com/anthropics/skills
 `;
 
-    return new Response(body, {
-        status: 200,
-        headers: {
-            'Content-Type': 'text/plain; charset=utf-8',
-            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
-        },
-    });
+  return new Response(body, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+    },
+  });
 };

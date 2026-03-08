@@ -34,9 +34,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
     // Recent additions (last 30 days)
     const thirtyDaysAgo = Date.now() - 30 * 86400000;
-    const recentSkills = skills.filter(
-      (s) => new Date(s.updatedAt).getTime() > thirtyDaysAgo
-    ).length;
+    const recentSkills = skills.filter((s) => new Date(s.updatedAt).getTime() > thirtyDaysAgo).length;
 
     return new Response(
       JSON.stringify({
@@ -52,13 +50,13 @@ export const GET: APIRoute = async ({ locals }) => {
           'Content-Type': 'application/json',
           'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
         },
-      }
+      },
     );
   } catch (error) {
     console.error('Growth stats API error:', error);
-    return new Response(
-      JSON.stringify({ error: 'Failed to fetch growth stats' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ error: 'Failed to fetch growth stats' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 };

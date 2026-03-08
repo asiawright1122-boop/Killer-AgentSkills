@@ -17,10 +17,18 @@ const store = new Map<string, string>();
 
 const localStorageMock: Storage = {
   getItem: vi.fn((key: string) => store.get(key) ?? null),
-  setItem: vi.fn((key: string, value: string) => { store.set(key, value); }),
-  removeItem: vi.fn((key: string) => { store.delete(key); }),
-  clear: vi.fn(() => { store.clear(); }),
-  get length() { return store.size; },
+  setItem: vi.fn((key: string, value: string) => {
+    store.set(key, value);
+  }),
+  removeItem: vi.fn((key: string) => {
+    store.delete(key);
+  }),
+  clear: vi.fn(() => {
+    store.clear();
+  }),
+  get length() {
+    return store.size;
+  },
   key: vi.fn((i: number) => [...store.keys()][i] ?? null),
 };
 
@@ -96,9 +104,7 @@ describe('saveHistory', () => {
   });
 
   it('trims to MAX_HISTORY_ITEMS before saving', () => {
-    const items = Array.from({ length: 60 }, (_, i) =>
-      makeHistoryItem({ id: `owner/repo-${i}` }),
-    );
+    const items = Array.from({ length: 60 }, (_, i) => makeHistoryItem({ id: `owner/repo-${i}` }));
     saveHistory(items);
     const stored = JSON.parse(store.get(STORAGE_KEY)!);
     expect(stored).toHaveLength(MAX_HISTORY_ITEMS);
@@ -133,16 +139,12 @@ describe('addToHistory', () => {
     expect(result).toHaveLength(2);
     expect(result[0].id).toBe('a/b');
     // Timestamp should be updated (newer than original)
-    expect(new Date(result[0].visitedAt).getTime()).toBeGreaterThan(
-      new Date('2024-01-01T00:00:00.000Z').getTime(),
-    );
+    expect(new Date(result[0].visitedAt).getTime()).toBeGreaterThan(new Date('2024-01-01T00:00:00.000Z').getTime());
     expect(result[1].id).toBe('c/d');
   });
 
   it('trims to MAX_HISTORY_ITEMS', () => {
-    const existing = Array.from({ length: MAX_HISTORY_ITEMS }, (_, i) =>
-      makeHistoryItem({ id: `owner/repo-${i}` }),
-    );
+    const existing = Array.from({ length: MAX_HISTORY_ITEMS }, (_, i) => makeHistoryItem({ id: `owner/repo-${i}` }));
     const skill = { id: 'new/skill', name: 'New', owner: 'new', repo: 'skill', description: '' };
     const result = addToHistory(existing, skill);
     expect(result).toHaveLength(MAX_HISTORY_ITEMS);

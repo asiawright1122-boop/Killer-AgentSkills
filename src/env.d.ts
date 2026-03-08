@@ -2,41 +2,41 @@
 /// <reference types="astro/client" />
 /// <reference types="@cloudflare/workers-types" />
 
-type KVNamespace = import("@cloudflare/workers-types").KVNamespace;
-type VectorizeIndex = import("@cloudflare/workers-types").VectorizeIndex;
-type Ai = import("@cloudflare/workers-types").Ai;
+type KVNamespace = import('@cloudflare/workers-types').KVNamespace;
+type VectorizeIndex = import('@cloudflare/workers-types').VectorizeIndex;
+type Ai = import('@cloudflare/workers-types').Ai;
 
 type ENV = {
-    TRANSLATIONS: KVNamespace;
-    SKILLS_CACHE: KVNamespace;
-    DB: D1Database;
-    AI: Ai;
-    VECTORIZE: VectorizeIndex;
-    WORKFLOWS_SERVICE: Fetcher;
-    ASSETS: Fetcher;
-    ADMIN_USER?: string;
-    ADMIN_PASSWORD?: string;
-    NVIDIA_API_KEY?: string;
-    NVIDIA_API_KEYS?: string;
-    NVIDIA_API_KEYS_2?: string;
-    NVIDIA_API_KEYS_3?: string;
+  TRANSLATIONS: KVNamespace;
+  SKILLS_CACHE: KVNamespace;
+  DB: D1Database;
+  AI: Ai;
+  VECTORIZE: VectorizeIndex;
+  WORKFLOWS_SERVICE: Fetcher;
+  ASSETS: Fetcher;
+  ADMIN_USER?: string;
+  ADMIN_PASSWORD?: string;
+  NVIDIA_API_KEY?: string;
+  NVIDIA_API_KEYS?: string;
+  NVIDIA_API_KEYS_2?: string;
+  NVIDIA_API_KEYS_3?: string;
 };
 
 // Extend the runtime environment
 declare namespace App {
-    interface Locals extends Record<string, any> {
-        runtime: {
-            env: ENV;
-            cf: any;
-            caches: any;
-        }
-    }
+  interface Locals extends Record<string, any> {
+    runtime: {
+      env: ENV;
+      cf: any;
+      caches: any;
+    };
+  }
 }
 
 interface ImportMetaEnv {
-    // Add other public env vars here as needed
+  // Add other public env vars here as needed
 }
 
 interface ImportMeta {
-    readonly env: ImportMetaEnv;
+  readonly env: ImportMetaEnv;
 }

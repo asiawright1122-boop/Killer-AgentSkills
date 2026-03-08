@@ -7,62 +7,65 @@ export const prerender = false;
 const SITE = 'https://killer-skills.com';
 
 function formatDate(date: Date | string): string {
-    const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toISOString().split('T')[0];
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return d.toISOString().split('T')[0];
 }
 
 const ensureTrailingSlash = (url: string, path: string, locale?: string) => {
-    if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
-    if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
-    return `${url}/`;
+  if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
+  if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
+  return `${url}/`;
 };
 
 function buildHreflangLinks(pagePath: string): string {
-    return SUPPORTED_LOCALES.map(loc => {
-        const url = `${SITE}/${loc}${pagePath}`;
-        return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url, pagePath, loc)}" />`;
-    }).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`;
+  return (
+    SUPPORTED_LOCALES.map((loc) => {
+      const url = `${SITE}/${loc}${pagePath}`;
+      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url, pagePath, loc)}" />`;
+    }).join('\n') +
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`
+  );
 }
 
 export const GET: APIRoute = async ({ locals }) => {
-    const env = (locals as any).runtime?.env as Env | undefined;
-    const today = formatDate(new Date());
+  const env = (locals as any).runtime?.env as Env | undefined;
+  const today = formatDate(new Date());
 
-    let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
-    try {
-        skills = await getSitemapSkillsFromKV(env as Env) || [];
-    } catch (e) {
-        console.error('[sitemap-owners] Failed to load skills', e);
-    }
+  let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
+  try {
+    skills = (await getSitemapSkillsFromKV(env as Env)) || [];
+  } catch (e) {
+    console.error('[sitemap-owners] Failed to load skills', e);
+  }
 
-    // Extract unique owners
-    const owners = [...new Set(skills.map(s => s.owner))].filter(Boolean).sort();
+  // Extract unique owners
+  const owners = [...new Set(skills.map((s) => s.owner))].filter(Boolean).sort();
 
-    const urls: string[] = [];
-    for (const owner of owners) {
-        const ownerPath = `/skills/${owner}`;
-        for (const locale of SUPPORTED_LOCALES) {
-            urls.push(`<url>
+  const urls: string[] = [];
+  for (const owner of owners) {
+    const ownerPath = `/skills/${owner}`;
+    for (const locale of SUPPORTED_LOCALES) {
+      urls.push(`<url>
 <loc>${ensureTrailingSlash(`${SITE}/${locale}${ownerPath}`, ownerPath, locale)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 ${buildHreflangLinks(ownerPath)}
 </url>`);
-        }
     }
+  }
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urls.join('\n')}
 </urlset>`;
 
-    return new Response(xml, {
-        status: 200,
-        headers: {
-            'Content-Type': 'application/xml',
-            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
-        },
-    });
+  return new Response(xml, {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/xml',
+      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
+    },
+  });
 };
