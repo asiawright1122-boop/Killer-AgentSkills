@@ -3,7 +3,6 @@ import Layout from '../../../layouts/Layout.astro';
 import Footer from '../../../components/Footer.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import type { Env } from '../../../lib/kv';
-import { getSkillsKV } from '../../../lib/kv';
 import docsCache from '../../../../data/docs-cache.json';
 
 type DocPage = {
@@ -19,21 +18,8 @@ type DocsCache = {
 };
 
 // Type assertion for imported JSON
-const localDocsCache = docsCache as DocsCache; 
-import {
-  Terminal, 
-  Plug, 
-  Wrench, 
-  Network, 
-  Users, 
-  FileText, 
-  ArrowLeft,
-  ChevronRight,
-  Book,
-  Menu,
-  X,
-  Rocket
-} from 'lucide-react';
+const localDocsCache = docsCache as DocsCache;
+import { FileText, Book, Menu, X, Rocket } from 'lucide-react';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -50,7 +36,7 @@ const env = Astro.locals.runtime?.env as Env;
 
 // Load translations
 let messages;
-let t: (key: string) => string = (k: string) => k; 
+let t: (key: string) => string = (k: string) => k;
 try {
   messages = await loadMessages(typedLocale);
   t = useTranslations(messages);
@@ -63,7 +49,10 @@ const isIndex = !slug;
 const currentSlug = isIndex ? 'index' : slug;
 const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
 
-interface DocData { title: string; content: string; }
+interface DocData {
+  title: string;
+  content: string;
+}
 
 let docContent: string | null = null;
 let docTitle = '';
@@ -73,7 +62,7 @@ if (env?.SKILLS_CACHE) {
     // Try locale-specific key first, then fallback to English
     const kvKey = `doc:${locale}:${currentSlug}`;
     const rawData = await env.SKILLS_CACHE.get(kvKey, 'text');
-    
+
     if (rawData) {
       const docData: DocData = JSON.parse(rawData);
       docContent = docData.content;
@@ -92,18 +81,16 @@ if (env?.SKILLS_CACHE) {
   }
 }
 
-
 // Helper to get doc from cache object
 const getDocFromCache = (cache: DocsCache, slug: string, lang: string) => {
-  const page = cache.pages.find(p => p.slug === slug);
+  const page = cache.pages.find((p) => p.slug === slug);
   if (!page) return null;
-  
+
   return {
     title: page.title[lang] || page.title['en'] || '',
-    content: page.content[lang] || page.content['en'] || ''
+    content: page.content[lang] || page.content['en'] || '',
   };
 };
-
 
 // Fallback to local JSON cache (Local Dev / Build w/o KV)
 if (!docContent) {
@@ -114,23 +101,18 @@ if (!docContent) {
   }
 }
 
-
 // Fallback title if not loaded from KV
 if (!docTitle) {
   if (isIndex) {
     docTitle = t('Docs.gettingStarted') || 'Getting Started';
   } else {
     const segments = slug!.split('/');
-    docTitle = segments[segments.length - 1]
-      .replace(/-/g, ' ')
-      .replace(/\b\w/g, (c: string) => c.toUpperCase());
+    docTitle = segments[segments.length - 1].replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
   }
 }
 
 const pageTitle = isIndex ? t('Footer.docs') : docTitle;
-const pageDescription = isIndex
-  ? 'Killer-Skills documentation'
-  : `${docTitle} — Killer-Skills documentation`;
+const pageDescription = isIndex ? 'Killer-Skills documentation' : `${docTitle} — Killer-Skills documentation`;
 
 // CLI Components
 import TerminalWindow from '../../../components/cli/TerminalWindow.astro';
@@ -145,14 +127,14 @@ const sidebarNav = [
       { title: t('DocsSidebar.architecture'), href: `/${locale}/docs/architecture` },
       { title: t('DocsSidebar.skills'), href: `/${locale}/docs/concepts/skills` },
       { title: t('DocsSidebar.workflows'), href: `/${locale}/docs/concepts/workflows` },
-    ]
+    ],
   },
   {
     title: t('DocsSidebar.gettingStarted'),
     items: [
       { title: t('DocsSidebar.quickStart'), href: `/${locale}/docs/getting-started` },
       { title: t('DocsSidebar.installation'), href: `/${locale}/docs/installation` },
-    ]
+    ],
   },
   {
     title: t('DocsSidebar.cliTooling'),
@@ -160,21 +142,21 @@ const sidebarNav = [
       { title: t('DocsSidebar.overview'), href: `/${locale}/docs/cli/overview` }, // New CLI Overview
       { title: t('DocsSidebar.commands'), href: `/${locale}/docs/cli/commands` }, // Updated link style
       { title: t('DocsSidebar.configuration'), href: `/${locale}/docs/cli/configuration` }, // Updated link style
-    ]
+    ],
   },
   {
     title: t('DocsSidebar.guides'),
     items: [
       { title: t('DocsSidebar.creatingSkills'), href: `/${locale}/docs/creating-skills` },
       { title: t('DocsSidebar.security'), href: `/${locale}/docs/security` },
-    ]
+    ],
   },
   {
     title: t('DocsSidebar.apiReference'),
     items: [
       { title: t('DocsSidebar.restApi'), href: `/${locale}/docs/api-reference` },
       { title: t('DocsSidebar.authentication'), href: `/${locale}/docs/api/auth` },
-    ]
+    ],
   },
 ];
 
@@ -186,91 +168,126 @@ const isActive = (href: string) => {
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": t('Common.home') || "Home", "item": `https://killer-skills.com/${locale}` },
-      { "@type": "ListItem", "position": 2, "name": t('Footer.docs') || "Docs", "item": `https://killer-skills.com/${locale}/docs/` },
-      ...(!isIndex ? [{ "@type": "ListItem", "position": 3, "name": docTitle, "item": `https://killer-skills.com${currentPath}/` }] : [])
-    ]
-  })} slot="head" />
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: t('Common.home') || 'Home',
+          item: `https://killer-skills.com/${locale}`,
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: t('Footer.docs') || 'Docs',
+          item: `https://killer-skills.com/${locale}/docs/`,
+        },
+        ...(!isIndex
+          ? [{ '@type': 'ListItem', position: 3, name: docTitle, item: `https://killer-skills.com${currentPath}/` }]
+          : []),
+      ],
+    })}
+    slot="head"
+  />
   <div class="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col md:flex-row font-sans">
-    
     {/* Mobile Toggle (Visible only on small screens) */}
-    <div class="md:hidden bg-[var(--card)] border-b-4 border-[var(--foreground)] p-4 sticky top-0 z-20 flex items-center justify-between shadow-[0px_4px_0px_0px_var(--foreground)] mb-6">
+    <div
+      class="md:hidden bg-[var(--card)] border-b-4 border-[var(--foreground)] p-4 sticky top-0 z-20 flex items-center justify-between shadow-[0px_4px_0px_0px_var(--foreground)] mb-6"
+    >
       <span class="font-black uppercase flex items-center gap-2">
-        <Book className="w-5 h-5" strokeWidth={3} /> {t('Common.documentation') || 'Documentation'}
+        <Book className="w-5 h-5" strokeWidth={3} />
+        {t('Common.documentation') || 'Documentation'}
       </span>
-      <button id="mobile-menu-btn" aria-label="Toggle documentation sidebar" class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]">
+      <button
+        id="mobile-menu-btn"
+        aria-label="Toggle documentation sidebar"
+        class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]"
+      >
         <Menu className="w-6 h-6" strokeWidth={3} />
       </button>
     </div>
 
     {/* Sidebar Navigation */}
-    <aside id="docs-sidebar" aria-label="Documentation navigation" class="
-      fixed inset-y-0 left-0 z-30 w-72 bg-[var(--card)] border-r-4 border-[var(--foreground)] transform -translate-x-full transition-transform duration-300 ease-in-out
-      md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto
-    ">
+    <aside
+      id="docs-sidebar"
+      aria-label="Documentation navigation"
+      class="fixed inset-y-0 left-0 z-30 w-72 bg-[var(--card)] border-r-4 border-[var(--foreground)] transform -translate-x-full transition-transform duration-300 ease-in-out
+      md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto"
+    >
       <div class="p-6 md:pt-10 space-y-10">
         {/* Mobile Close Button */}
         <div class="flex md:hidden justify-end mb-4">
-          <button id="close-sidebar-btn" aria-label="Close sidebar" class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors">
+          <button
+            id="close-sidebar-btn"
+            aria-label="Close sidebar"
+            class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors"
+          >
             <X className="w-6 h-6" strokeWidth={3} />
           </button>
         </div>
 
-        {sidebarNav.map((section) => (
-          <div>
-            <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 px-3 border-b-2 border-[var(--border)] pb-2 flex items-center">
-              <span class="w-1.5 h-1.5 bg-[var(--primary)] mr-2 border border-[var(--foreground)]"></span>
-              {section.title}
-            </h3>
-            <ul class="space-y-2">
-              {section.items.map((item) => {
-                const active = isActive(item.href);
-                return (
-                  <li>
-                    <a
-                      href={item.href}
-                      class:list={[
-                        "block px-3 py-2 text-sm font-bold transition-all border-l-4",
-                        active
-                          ? "bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--foreground)] hover:translate-x-[2px] shadow-[2px_2px_0px_0px_var(--foreground)]" // Active Style
-                          : "border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] hover:bg-[var(--muted)] hover:translate-x-1" // Inactive Style
-                      ]}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        ))}
+        {
+          sidebarNav.map((section) => (
+            <div>
+              <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 px-3 border-b-2 border-[var(--border)] pb-2 flex items-center">
+                <span class="w-1.5 h-1.5 bg-[var(--primary)] mr-2 border border-[var(--foreground)]" />
+                {section.title}
+              </h3>
+              <ul class="space-y-2">
+                {section.items.map((item) => {
+                  const active = isActive(item.href);
+                  return (
+                    <li>
+                      <a
+                        href={item.href}
+                        class:list={[
+                          'block px-3 py-2 text-sm font-bold transition-all border-l-4',
+                          active
+                            ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--foreground)] hover:translate-x-[2px] shadow-[2px_2px_0px_0px_var(--foreground)]' // Active Style
+                            : 'border-transparent text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--primary)] hover:bg-[var(--muted)] hover:translate-x-1', // Inactive Style
+                        ]}
+                      >
+                        {item.title}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))
+        }
       </div>
     </aside>
 
     {/* Main Content Area */}
     <main class="flex-1 w-full max-w-4xl min-w-0 px-4 py-8 md:px-12 xl:px-16 md:py-16">
-      
       {/* Content Header */}
       <div class="mb-12 border-b-4 border-[var(--foreground)] pb-8">
-        <p class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)] mb-6">
+        <p
+          class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)] mb-6"
+        >
           {isIndex ? 'Documentation' : 'Guide'}
         </p>
       </div>
 
-      {currentSlug === 'cli/overview' && (
-        <div class="mb-16 space-y-16 not-prose">
-          <TerminalWindow locale={locale} t={t} />
-          <ComparisonTable t={t} />
-        </div>
-      )}
+      {
+        currentSlug === 'cli/overview' && (
+          <div class="mb-16 space-y-16 not-prose">
+            <TerminalWindow locale={locale} t={t} />
+            <ComparisonTable t={t} />
+          </div>
+        )
+      }
 
-      {docContent ? (
-        /* Render markdown content from KV with Brutalist Typography */
-        <article class="prose prose-lg max-w-none 
+      {
+        docContent ? (
+          /* Render markdown content from KV with Brutalist Typography */
+          <article
+            class="prose prose-lg max-w-none 
           dark:prose-invert
           
           prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase
@@ -291,77 +308,101 @@ const isActive = (href: string) => {
           prose-pre:rounded-none prose-pre:border-4 prose-pre:border-[var(--foreground)] prose-pre:shadow-[8px_8px_0px_0px_var(--foreground)] prose-pre:bg-white dark:prose-pre:bg-[#0a0a0a] prose-pre:text-[var(--foreground)] prose-pre:p-6 prose-pre:my-8 prose-pre:whitespace-pre-wrap prose-pre:break-words
           [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)]
           [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]
-        " 
-          set:html={docContent} 
-        />
-      ) : isIndex ? (
-        /* Index Default Content (Simulating 'Getting Started') */
-        <article class="prose prose-lg max-w-none 
+        "
+            set:html={docContent}
+          />
+        ) : isIndex ? (
+          /* Index Default Content (Simulating 'Getting Started') */
+          <article
+            class="prose prose-lg max-w-none 
           dark:prose-invert
           prose-headings:font-black prose-headings:tracking-tighter prose-headings:uppercase
           prose-h2:text-[var(--foreground)] prose-h2:border-b-[3px] prose-h2:border-[var(--border)] prose-h2:pb-2
           prose-p:text-[var(--muted-foreground)] prose-p:font-medium
-        ">
-          <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
-            Welcome to the Killer-Skills documentation. This guide will help you install, configure, and build your own AI skills in minutes.
-          </p>
-
-          <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
-            <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-4 flex items-center gap-3">
-              <Rocket className="w-8 h-8 text-[var(--primary)]" strokeWidth={3} />
-              Quick Start
-            </h3>
-            <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
-              Get your first skill running in under 2 minutes.
+        "
+          >
+            <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
+              Welcome to the Killer-Skills documentation. This guide will help you install, configure, and build your
+              own AI skills in minutes.
             </p>
-            <div class="flex gap-2 relative">
-               <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">
-                npx killer-skills init my-new-skill
-               </code>
+
+            <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
+              <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-4 flex items-center gap-3">
+                <Rocket className="w-8 h-8 text-[var(--primary)]" strokeWidth={3} />
+                Quick Start
+              </h3>
+              <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
+                Get your first skill running in under 2 minutes.
+              </p>
+              <div class="flex gap-2 relative">
+                <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">
+                  npx killer-skills init my-new-skill
+                </code>
+              </div>
+            </div>
+
+            <h2 class="mt-16 mb-8 text-4xl">Key Concepts</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
+              <a
+                href={`/${locale}/docs/concepts/skills`}
+                class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+              >
+                <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
+                  Skills
+                </h3>
+                <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
+                  Atomic units of AI capability
+                </p>
+              </a>
+              <a
+                href={`/${locale}/docs/concepts/workflows`}
+                class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+              >
+                <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
+                  Workflows
+                </h3>
+                <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
+                  Orchestrate complex tasks
+                </p>
+              </a>
+            </div>
+          </article>
+        ) : (
+          /* Content Not Found / Coming Soon */
+          <div class="py-20">
+            <div class="p-12 bg-[var(--muted)] border-4 border-dashed border-[var(--foreground)] text-center shadow-[12px_12px_0px_0px_var(--border)]">
+              <FileText className="w-16 h-16 text-[var(--foreground)] mx-auto mb-6" strokeWidth={1} />
+              <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">
+                Content Coming Soon
+              </h3>
+              <p class="text-[var(--muted-foreground)] font-bold mb-8 text-lg px-4">
+                This section "{docTitle}" is currently being engraved into stone.
+              </p>
+              <a
+                href={`/${locale}/docs`}
+                class="inline-flex items-center px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors border-2 border-[var(--foreground)]"
+              >
+                Return to Introduction
+              </a>
             </div>
           </div>
-
-          <h2 class="mt-16 mb-8 text-4xl">Key Concepts</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
-            <a href={`/${locale}/docs/concepts/skills`} class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]">
-              <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">Skills</h3>
-              <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">Atomic units of AI capability</p>
-            </a>
-            <a href={`/${locale}/docs/concepts/workflows`} class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]">
-              <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">Workflows</h3>
-              <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">Orchestrate complex tasks</p>
-            </a>
-          </div>
-
-        </article>
-      ) : (
-        /* Content Not Found / Coming Soon */
-        <div class="py-20">
-           <div class="p-12 bg-[var(--muted)] border-4 border-dashed border-[var(--foreground)] text-center shadow-[12px_12px_0px_0px_var(--border)]">
-             <FileText className="w-16 h-16 text-[var(--foreground)] mx-auto mb-6" strokeWidth={1} />
-             <h3 class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tighter mb-4">Content Coming Soon</h3>
-             <p class="text-[var(--muted-foreground)] font-bold mb-8 text-lg px-4">
-                This section "{docTitle}" is currently being engraved into stone.
-             </p>
-             <a href={`/${locale}/docs`} class="inline-flex items-center px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors border-2 border-[var(--foreground)]">
-               Return to Introduction
-             </a>
-           </div>
-        </div>
-      )}
+        )
+      }
 
       {/* Footer inside content area */}
       <div class="mt-24 pt-8 border-t-4 border-[var(--foreground)]">
         <Footer locale={locale} t={t} compact />
       </div>
     </main>
-    
-    {/* Mobile Overlay */}
-    <div id="repo-overlay" class="fixed inset-0 z-20 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden backdrop-blur-sm"></div>
 
+    {/* Mobile Overlay */}
+    <div
+      id="repo-overlay"
+      class="fixed inset-0 z-20 bg-black/80 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden backdrop-blur-sm"
+    >
+    </div>
   </div>
 </Layout>
-
 
 <script>
   // Mobile menu logic
@@ -388,7 +429,7 @@ const isActive = (href: string) => {
   // Copy Code Block Logic
   function addCopyButtons() {
     const preBlocks = document.querySelectorAll('article pre');
-    
+
     preBlocks.forEach((pre) => {
       // Prevent duplicate processing
       if (pre.closest('.code-block-wrapper')) return;
@@ -396,24 +437,25 @@ const isActive = (href: string) => {
       // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper relative group my-6';
-      
+
       // Insert wrapper before pre
       if (pre.parentNode) {
         pre.parentNode.insertBefore(wrapper, pre);
-        
+
         // Remove margins from pre to avoid double spacing
         (pre as HTMLElement).style.marginTop = '0';
         (pre as HTMLElement).style.marginBottom = '0';
-        
+
         // Move pre into wrapper
         wrapper.appendChild(pre);
-        
+
         // Create Button
         const btn = document.createElement('button');
         // Visible by default (opacity-60), full opacity on hover
-        btn.className = 'copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:bg-white hover:text-cyan-600 dark:hover:bg-slate-700 dark:hover:text-cyan-400 border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-md transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 z-10';
+        btn.className =
+          'copy-btn absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-lg bg-white/70 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 hover:bg-white hover:text-cyan-600 dark:hover:bg-slate-700 dark:hover:text-cyan-400 border border-slate-200/60 dark:border-slate-700/60 backdrop-blur-md transition-all duration-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 z-10';
         btn.setAttribute('aria-label', 'Copy to clipboard');
-        
+
         // Clean, thin stroke Icon
         const copyIcon = `
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -433,18 +475,17 @@ const isActive = (href: string) => {
         btn.addEventListener('click', async () => {
           try {
             const code = (pre.querySelector('code') as HTMLElement)?.innerText || (pre as HTMLElement).innerText;
-            
+
             // Success State (Synchronous visual feedback for better INP)
             btn.innerHTML = checkIcon;
             btn.classList.add('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
-            
+
             await navigator.clipboard.writeText(code);
-            
+
             setTimeout(() => {
               btn.innerHTML = copyIcon;
               btn.classList.remove('border-emerald-500/30', 'bg-emerald-50/50', 'dark:bg-emerald-900/20');
             }, 2000);
-            
           } catch (err) {
             console.error('Failed to copy!', err);
             // Revert state on error
@@ -482,5 +523,3 @@ const isActive = (href: string) => {
     opacity: 1;
   }
 </style>
-
-

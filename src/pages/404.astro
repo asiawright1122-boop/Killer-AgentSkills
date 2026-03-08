@@ -4,44 +4,53 @@ import { loadMessages, useTranslations } from '../i18n';
 
 const locale = 'en';
 const messages = await loadMessages(locale);
-const t = useTranslations(messages);
+const _t = useTranslations(messages);
 ---
 
 <Layout locale={locale} title="404 - Page Not Found" description="The page you are looking for does not exist.">
   <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 relative py-20">
-    
-    <div class="brut-card border-4 border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] p-12 md:p-16 max-w-2xl w-full relative">
-        {/* Decorative Tape/Corner */}
-        <div class="absolute -top-4 -left-4 w-12 h-12 border-t-4 border-l-4 border-[var(--primary)] pointer-events-none"></div>
-        <div class="absolute -bottom-4 -right-4 w-12 h-12 border-b-4 border-r-4 border-[var(--primary)] pointer-events-none"></div>
+    <div
+      class="brut-card border-4 border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] p-12 md:p-16 max-w-2xl w-full relative"
+    >
+      {/* Decorative Tape/Corner */}
+      <div class="absolute -top-4 -left-4 w-12 h-12 border-t-4 border-l-4 border-[var(--primary)] pointer-events-none">
+      </div>
+      <div
+        class="absolute -bottom-4 -right-4 w-12 h-12 border-b-4 border-r-4 border-[var(--primary)] pointer-events-none"
+      >
+      </div>
 
-        <h1 class="text-8xl md:text-9xl font-black text-[var(--foreground)] mb-6 select-none font-mono tracking-tighter mix-blend-difference">
-            404
-        </h1>
-        
-        <h2 class="text-3xl md:text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-6">
-            PAGE NOT FOUND
-        </h2>
-        
-        <p class="text-lg text-[var(--foreground)] opacity-80 font-bold mb-10 max-w-md mx-auto leading-relaxed border-y-2 border-dotted border-[var(--border)] py-6">
-            The skill you are looking for seems to be missing from our database. It might have been moved, deleted, or you found a glitch in the matrix.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a 
-            href="/" 
-            class="w-full sm:w-auto px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
-            >
-            [ Return Home ]
-            </a>
-            <a 
-            href="/en/skills" 
-            class="w-full sm:w-auto px-8 py-4 bg-[var(--background)] text-[var(--foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
-            >
-            Browse Skills
-            </a>
-        </div>
+      <h1
+        class="text-8xl md:text-9xl font-black text-[var(--foreground)] mb-6 select-none font-mono tracking-tighter mix-blend-difference"
+      >
+        404
+      </h1>
+
+      <h2 class="text-3xl md:text-4xl font-black text-[var(--foreground)] uppercase tracking-tight mb-6">
+        PAGE NOT FOUND
+      </h2>
+
+      <p
+        class="text-lg text-[var(--foreground)] opacity-80 font-bold mb-10 max-w-md mx-auto leading-relaxed border-y-2 border-dotted border-[var(--border)] py-6"
+      >
+        The skill you are looking for seems to be missing from our database. It might have been moved, deleted, or you
+        found a glitch in the matrix.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a
+          href="/"
+          class="w-full sm:w-auto px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
+        >
+          [ Return Home ]
+        </a>
+        <a
+          href="/en/skills"
+          class="w-full sm:w-auto px-8 py-4 bg-[var(--background)] text-[var(--foreground)] font-black uppercase tracking-widest border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
+        >
+          Browse Skills
+        </a>
+      </div>
     </div>
-
   </div>
 </Layout>

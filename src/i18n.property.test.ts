@@ -1,12 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
-import {
-  SUPPORTED_LOCALES,
-  DEFAULT_LOCALE,
-  getLangFromUrl,
-  useTranslations,
-} from './i18n';
-import type { Locale } from './i18n';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, getLangFromUrl, useTranslations } from './i18n';
 
 // ============================================================================
 // Generators
@@ -82,7 +76,7 @@ describe('Feature: nextjs-to-astro-migration, Property 1: i18n 翻译函数嵌�
         const dotKey = keyPath.join('.');
         expect(t(dotKey)).toBe(leafValue);
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 
@@ -115,7 +109,7 @@ describe('Feature: nextjs-to-astro-migration, Property 1: i18n 翻译函数嵌�
         // If it equals leafValue, that's also valid (paths could partially overlap
         // and still reach the same leaf by coincidence) — no assertion needed.
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 
@@ -138,7 +132,7 @@ describe('Feature: nextjs-to-astro-migration, Property 1: i18n 翻译函数嵌�
         const parentPath = keyPath.slice(0, -1).join('.');
         expect(t(parentPath)).toBe(parentPath);
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 
@@ -154,7 +148,7 @@ describe('Feature: nextjs-to-astro-migration, Property 1: i18n 翻译函数嵌�
         const dotKey = keyPath.join('.');
         expect(t(dotKey)).toBe(dotKey);
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 });
@@ -178,7 +172,7 @@ describe('Feature: nextjs-to-astro-migration, Property 2: URL Locale 提取', ()
         const url = new URL(`https://example.com/${locale}${pathSuffix}`);
         expect(getLangFromUrl(url)).toBe(locale);
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 
@@ -194,7 +188,7 @@ describe('Feature: nextjs-to-astro-migration, Property 2: URL Locale 提取', ()
         const url = new URL(`https://example.com/${invalidSegment}${pathSuffix}`);
         expect(getLangFromUrl(url)).toBe(DEFAULT_LOCALE);
       }),
-      { numRuns: 100 }
+      { numRuns: 100 },
     );
   });
 
@@ -216,15 +210,12 @@ describe('Feature: nextjs-to-astro-migration, Property 2: URL Locale 提取', ()
      * a member of SUPPORTED_LOCALES.
      */
     fc.assert(
-      fc.property(
-        fc.stringMatching(/^[a-zA-Z0-9/_-]{0,50}$/),
-        (path) => {
-          const url = new URL(`https://example.com/${path}`);
-          const result = getLangFromUrl(url);
-          expect((SUPPORTED_LOCALES as readonly string[]).includes(result)).toBe(true);
-        }
-      ),
-      { numRuns: 100 }
+      fc.property(fc.stringMatching(/^[a-zA-Z0-9/_-]{0,50}$/), (path) => {
+        const url = new URL(`https://example.com/${path}`);
+        const result = getLangFromUrl(url);
+        expect((SUPPORTED_LOCALES as readonly string[]).includes(result)).toBe(true);
+      }),
+      { numRuns: 100 },
     );
   });
 });

@@ -41,10 +41,11 @@ export default function AdminApp({ apiBaseUrl = '/api/admin' }: AdminAppProps) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${activeTab === tab.id
-                ? 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300'
-                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                }`}
+              className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-700 dark:text-cyan-300'
+                  : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
             >
               {tab.label}
             </button>
@@ -62,7 +63,6 @@ export default function AdminApp({ apiBaseUrl = '/api/admin' }: AdminAppProps) {
     </div>
   );
 }
-
 
 // ── Dashboard Panel ─────────────────────────────────────────────────────────────
 
@@ -130,7 +130,9 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
       .finally(() => setLoading(false));
   }, [apiBaseUrl]);
 
-  useEffect(() => { loadSkills(); }, [loadSkills]);
+  useEffect(() => {
+    loadSkills();
+  }, [loadSkills]);
 
   const handleAction = async (action: string, skillId: string) => {
     setActionLoading(skillId);
@@ -154,7 +156,10 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
     <div>
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Skills Management</h1>
-        <button onClick={loadSkills} className="px-4 py-2 text-sm bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+        <button
+          onClick={loadSkills}
+          className="px-4 py-2 text-sm bg-slate-100 dark:bg-slate-800 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+        >
           Refresh
         </button>
       </div>
@@ -172,7 +177,7 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
             {skills.map((skill) => {
               const id = `${skill.owner}/${skill.repo}`;
-              const desc = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
+              const _desc = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
               return (
                 <tr key={id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
                   <td className="px-4 py-3">
@@ -181,10 +186,15 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
                   </td>
                   <td className="px-4 py-3 text-slate-600 dark:text-slate-400">{skill.category || '—'}</td>
                   <td className="px-4 py-3">
-                    <span className={`px-2 py-0.5 rounded text-xs font-medium ${skill.source === 'verified' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-                      skill.source === 'featured' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' :
-                        'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
-                      }`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs font-medium ${
+                        skill.source === 'verified'
+                          ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+                          : skill.source === 'featured'
+                            ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+                            : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                      }`}
+                    >
                       {skill.source || 'unknown'}
                     </span>
                   </td>
@@ -209,7 +219,11 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
               );
             })}
             {skills.length === 0 && (
-              <tr><td colSpan={5} className="px-4 py-12 text-center text-slate-400">No skills found</td></tr>
+              <tr>
+                <td colSpan={5} className="px-4 py-12 text-center text-slate-400">
+                  No skills found
+                </td>
+              </tr>
             )}
           </tbody>
         </table>
@@ -218,11 +232,12 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
   );
 }
 
-
 // ── Docs Panel ──────────────────────────────────────────────────────────────────
 
 function DocsPanel() {
-  const [markdown, setMarkdown] = useState('# Documentation\n\nEdit your documentation here using the Markdown editor.\n\n- Feature 1\n- Feature 2\n');
+  const [markdown, setMarkdown] = useState(
+    '# Documentation\n\nEdit your documentation here using the Markdown editor.\n\n- Feature 1\n- Feature 2\n',
+  );
 
   return (
     <div className="h-full flex flex-col">
@@ -252,7 +267,7 @@ function SettingsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
       const res = await fetch(`${apiBaseUrl}/sync`, { method: 'POST' });
       const data: any = await res.json();
       setSyncResult(data.success ? `✅ ${data.message}` : `❌ ${data.error || data.message}`);
-    } catch (e) {
+    } catch (_e) {
       setSyncResult('❌ Sync request failed');
     } finally {
       setSyncing(false);
@@ -275,9 +290,7 @@ function SettingsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
           >
             {syncing ? 'Syncing...' : 'Sync Now'}
           </button>
-          {syncResult && (
-            <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">{syncResult}</p>
-          )}
+          {syncResult && <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">{syncResult}</p>}
         </div>
       </div>
     </div>

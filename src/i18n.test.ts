@@ -1,12 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  SUPPORTED_LOCALES,
-  DEFAULT_LOCALE,
-  LOCALE_NAMES,
-  getLangFromUrl,
-  useTranslations,
-} from './i18n';
-import type { Locale } from './i18n';
+import { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCALE_NAMES, getLangFromUrl, useTranslations } from './i18n';
 
 describe('SUPPORTED_LOCALES', () => {
   it('should contain exactly 10 locales', () => {
