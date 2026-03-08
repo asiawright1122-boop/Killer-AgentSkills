@@ -132,8 +132,6 @@ export async function* translateTextStream(text: string, targetLang: string, typ
         const apiKey = getNextKey(env);
         // ... (rest of loop logic) ...
         try {
-            console.log(`[Translation Stream] Attempt ${i + 1}/${maxRetries} using key ending ...${apiKey.slice(-4)}`);
-
             const response = await callNvidiaApi(apiKey, {
                 model: "meta/llama-3.1-70b-instruct",
                 messages: [
@@ -207,8 +205,6 @@ export async function translateText(text: string, targetLang: string, type: 'tex
     for (let i = 0; i < maxRetries; i++) {
         const apiKey = getNextKey(env);
         try {
-            console.log(`[Translation] Attempt ${i + 1}/${maxRetries} using key ending in ...${apiKey.slice(-4)}`);
-
             const response = await callNvidiaApi(apiKey, {
                 model: "meta/llama-3.1-70b-instruct",
                 messages: [
