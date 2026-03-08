@@ -1,5 +1,6 @@
 import { defineMiddleware } from 'astro:middleware';
 import { isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from './middleware-utils';
+import { logger, generateRequestId } from './lib/logger';
 
 // Re-export for backward compatibility
 export {
@@ -50,11 +51,27 @@ export const onRequest = defineMiddleware(async (context, next) => {
         });
   }
 
-  // 2. Skip static assets; apply security headers to API routes
+  // 2. Skip static assets; apply security headers + observability to API routes
   if (isStaticOrApiPath(pathname)) {
     if (pathname.startsWith('/api/')) {
+      const requestId = generateRequestId();
+      const start = Date.now();
+
       const response = await next();
+
+      const durationMs = Date.now() - start;
+      response.headers.set('X-Request-Id', requestId);
+      response.headers.set('X-Response-Time', `${durationMs}ms`);
       setSecurityHeaders(response);
+
+      logger.info('API request', {
+        requestId,
+        method: context.request.method,
+        path: pathname,
+        status: response.status,
+        durationMs,
+      });
+
       return response;
     }
     return next();
