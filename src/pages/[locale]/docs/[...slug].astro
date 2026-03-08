@@ -129,14 +129,11 @@ const pageDescription = isIndex
   ? 'Killer-Skills documentation'
   : `${docTitle} — Killer-Skills documentation`;
 
-// Navigation Structure
-// Import CLI Components
+// CLI Components
 import TerminalWindow from '../../../components/cli/TerminalWindow.astro';
 import ComparisonTable from '../../../components/cli/ComparisonTable.astro';
 
-// ... (existing imports)
-
-// Navigation Structure - Updated to match index.json
+// Navigation Structure
 const sidebarNav = [
   {
     title: t('DocsSidebar.platformOverview'),
@@ -177,8 +174,6 @@ const sidebarNav = [
     ]
   },
 ];
-// ... rest of file needs t and sidebarNav
-
 
 // Helper to check active state
 const isActive = (href: string) => {

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import BlogCard from '../../../components/blog/BlogCard.astro';
 import BlogHero from '../../../components/blog/BlogHero.astro';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
 export const prerender = true;
 
@@ -38,7 +39,6 @@ const remainingPosts = sortedPosts.filter(p => p.id !== featuredPost?.id);
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
-const tb = messages.Blog;
 
 // Category Definitions
 const categories = [
@@ -48,7 +48,6 @@ const categories = [
   { id: 'developer-experience', icon: Terminal, color: 'from-indigo-500 to-purple-500' },
 ];
 
-import { Tags, ArrowRight, Palette, FileText, Building2, Terminal } from 'lucide-react';
 ---
 
 <Layout 
