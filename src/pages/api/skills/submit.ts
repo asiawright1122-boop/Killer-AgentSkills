@@ -1,12 +1,6 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
-import {
-  GITHUB_API_BASE,
-  COMMON_BRANCHES,
-  getGitHubHeaders,
-  getSkillMdPaths,
-  type GitHubRepoResponse,
-} from '../../../lib/github';
+import { COMMON_BRANCHES, getSkillMdPaths, getRepository } from '../../../lib/github';
 import { fetchWithTimeout } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 
@@ -39,35 +33,6 @@ export function parseRepoUrl(url: string): { owner: string; repo: string } | nul
   }
 
   return null;
-}
-
-/**
- * Fetch repository info from GitHub API.
- */
-async function getRepository(owner: string, repo: string): Promise<Record<string, any> | null> {
-  try {
-    const url = `${GITHUB_API_BASE}/repos/${owner}/${repo}`;
-    const response = await fetchWithTimeout(url, { headers: getGitHubHeaders() });
-
-    if (!response.ok) return null;
-
-    const data = (await response.json()) as GitHubRepoResponse;
-    return {
-      name: data.name,
-      repoPath: data.full_name,
-      description: data.description || '',
-      stars: data.stargazers_count,
-      forks: data.forks_count,
-      updatedAt: data.updated_at,
-      owner: data.owner.login,
-      ownerAvatar: data.owner.avatar_url,
-      topics: data.topics || [],
-      htmlUrl: data.html_url,
-    };
-  } catch (error) {
-    console.error('Error fetching repository:', error);
-    return null;
-  }
 }
 
 /**
