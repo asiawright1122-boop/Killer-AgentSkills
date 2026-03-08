@@ -111,7 +111,8 @@
     "useCases": "Capabilities Granted",
     "limitations": "Prerequisites & Limits",
     "precautions": "Precautions",
-    "relatedSkills": "Related Skills"
+    "relatedSkills": "Related Skills",
+    "coreTopics": "Core Topics"
   },
   "Home": {
     "heroTitle": "The Open Directory for",
@@ -218,7 +219,14 @@
     "official": "Official",
     "verified": "Verified",
     "viewAll": "View All",
-    "collections": "Collections"
+    "collections": "Collections",
+    "go": "Go",
+    "copy": "Copy",
+    "copied": "Copied",
+    "featured": "Featured",
+    "noDescription": "No description available",
+    "skipToContent": "Skip to content",
+    "documentation": "Documentation"
   },
   "OfficialSkills": {
     "title": "Official Skills",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "The building blocks for AI-driven engineering.",
       "announcements": "Announcements",
       "announcements-desc": "Latest news and platform updates."
-    }
+    },
+    "latestPosts": "Latest Posts",
+    "log": "Log"
   },
   "Collections": {
     "editorPicks": "Editor's Picks",

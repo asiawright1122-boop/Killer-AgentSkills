@@ -111,7 +111,8 @@
     "useCases": "実現可能なユースケース",
     "limitations": "セキュリティと制限",
     "precautions": "注意事項",
-    "relatedSkills": "関連スキル"
+    "relatedSkills": "関連スキル",
+    "coreTopics": "コアトピック"
   },
   "Home": {
     "heroTitle": "エージェントに装備する",
@@ -218,7 +219,14 @@
     "verified": "認証済み",
     "explore": "Explore",
     "viewAll": "すべて表示",
-    "collections": "コレクション"
+    "collections": "コレクション",
+    "go": "移動",
+    "copy": "コピー",
+    "copied": "コピー済み",
+    "featured": "注目",
+    "noDescription": "説明はありません",
+    "skipToContent": "コンテンツへスキップ",
+    "documentation": "ドキュメント"
   },
   "OfficialSkills": {
     "title": "公式スキル",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "AI駆動エンジニアリングの構成要素。",
       "announcements": "お知らせ",
       "announcements-desc": "最新ニュースとプラットフォームの更新。"
-    }
+    },
+    "latestPosts": "最新記事",
+    "log": "ログ"
   },
   "Collections": {
     "editorPicks": "編集者のおすすめ",

@@ -111,7 +111,8 @@
     "useCases": "Реализуемые кейсы использования",
     "limitations": "Безопасность и ограничения",
     "precautions": "Меры предосторожности",
-    "relatedSkills": "Связанные навыки"
+    "relatedSkills": "Связанные навыки",
+    "coreTopics": "Основные темы"
   },
   "Home": {
     "heroTitle": "Оснастите своих агентов",
@@ -218,7 +219,14 @@
     "verified": "Подтверждено",
     "explore": "Explore",
     "viewAll": "Показать все",
-    "collections": "Подборки"
+    "collections": "Подборки",
+    "go": "Перейти",
+    "copy": "Копировать",
+    "copied": "Скопировано",
+    "featured": "Избранное",
+    "noDescription": "Описание отсутствует",
+    "skipToContent": "Перейти к содержимому",
+    "documentation": "Документация"
   },
   "OfficialSkills": {
     "title": "Официальные навыки",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "Строительные блоки для инженерии на базе ИИ.",
       "announcements": "Объявления",
       "announcements-desc": "Последние новости и обновления платформы."
-    }
+    },
+    "latestPosts": "Последние публикации",
+    "log": "Журнал"
   },
   "Collections": {
     "editorPicks": "Выбор редакции",

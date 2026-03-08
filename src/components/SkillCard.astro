@@ -84,12 +84,12 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
     </h3>
     {badgeType === 'official' && (
       <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] uppercase tracking-widest">
-        [ OFFICIAL ]
+        [ {t ? t('Common.official') : 'OFFICIAL'} ]
       </span>
     )}
     {badgeType === 'featured' && (
       <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-        [ FEATURED ]
+        [ {t ? t('Common.featured') : 'FEATURED'} ]
       </span>
     )}
   </div>
@@ -113,7 +113,7 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
   
   <!-- Description -->
   <p class="relative z-1 text-sm text-[var(--foreground)] opacity-80 font-bold mb-6 line-clamp-3 flex-grow pointer-events-none leading-relaxed">
-    {descText || 'No description available'}
+    {descText || (t ? t('Common.noDescription') : 'No description available')}
   </p>
   
   <!-- 1-Click Install CTA (hover reveal) -->
@@ -126,8 +126,8 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
     >
       <span class="shrink-0 text-[var(--primary)] bg-[var(--background)] px-1 text-[10px]">▶</span>
       <span class="truncate">{INSTALL_PREFIX} {owner}/{repo}</span>
-      <span class="install-icon shrink-0 ml-auto text-[10px]">⧉ COPY</span>
-      <span class="install-ok shrink-0 ml-auto text-[10px] hidden">✓ OK</span>
+      <span class="install-icon shrink-0 ml-auto text-[10px]">⧉ {t ? t('Common.copy') : 'COPY'}</span>
+      <span class="install-ok shrink-0 ml-auto text-[10px] hidden">✓ {t ? t('Common.copied') : 'OK'}</span>
     </button>
   </div>
 

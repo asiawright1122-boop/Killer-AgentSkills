@@ -111,7 +111,8 @@
     "useCases": "赋予的主要能力",
     "limitations": "使用限制与门槛",
     "precautions": "注意事项",
-    "relatedSkills": "相关技能"
+    "relatedSkills": "相关技能",
+    "coreTopics": "核心主题"
   },
   "Home": {
     "heroTitle": "开放的 AI 智能体",
@@ -218,7 +219,14 @@
     "official": "官方",
     "verified": "已认证",
     "viewAll": "查看全部",
-    "collections": "精选合集"
+    "collections": "精选合集",
+    "go": "跳转",
+    "copy": "复制",
+    "copied": "已复制",
+    "featured": "精选",
+    "noDescription": "暂无描述",
+    "skipToContent": "跳到内容",
+    "documentation": "文档"
   },
   "OfficialSkills": {
     "title": "官方技能",
@@ -527,7 +535,9 @@
       "developer-experience-desc": "AI 驱动工程的基石。",
       "announcements": "公告",
       "announcements-desc": "最新新闻与平台更新。"
-    }
+    },
+    "latestPosts": "最新文章",
+    "log": "日志"
   },
   "Collections": {
     "editorPicks": "编辑精选",

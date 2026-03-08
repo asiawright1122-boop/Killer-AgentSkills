@@ -467,7 +467,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                         <section class="mb-10">
                             <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
                                 <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">#</span>
-                                Core Topics
+                                {t('Detail.coreTopics') || 'Core Topics'}
                             </h2>
                             <div class="flex flex-wrap gap-2">
                             {keywordsList.slice(0, 6).map((keyword: string) => (

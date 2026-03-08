@@ -190,7 +190,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
 		<slot name="head" />
 	</head>
 	<body class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]">
-		<a href="#main-content" class="skip-nav">Skip to content</a>
+		<a href="#main-content" class="skip-nav">{t('Common.skipToContent') || 'Skip to content'}</a>
 		<Header locale={locale} t={t} />
 
 		<div id="main-content" class="flex-1 relative" role="main">
