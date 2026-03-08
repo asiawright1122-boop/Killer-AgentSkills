@@ -50,7 +50,7 @@ const subSkillName = repoParts.length > 1 ? repoParts.slice(1).join('/') : undef
 const typedLocale = locale as Locale;
 
 // Get env from Cloudflare runtime
-const env = (Astro.locals as any).runtime?.env as Env;
+const env = Astro.locals.runtime?.env as Env;
 
 // Load skill data - use full ID for sub-skills
 const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
