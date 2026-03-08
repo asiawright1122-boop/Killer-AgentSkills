@@ -56,29 +56,53 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: t('Common.home') || 'Home',
-          item: `https://killer-skills.com/${locale}`,
+  <Fragment slot="head">
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t('Common.home') || 'Home',
+            item: `https://killer-skills.com/${locale}`,
+          },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: categoryName,
+            item: `https://killer-skills.com/${locale}/blog/category/${category}/`,
+          },
+        ],
+      })}
+    />
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: `${categoryName} — Killer-Skills Blog`,
+        description: pageDescription,
+        url: `https://killer-skills.com/${locale}/blog/category/${category}/`,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: sortedPosts.length,
+          itemListElement: sortedPosts.slice(0, 10).map((post, i) => {
+            const slug = post.id.split('/').slice(1).join('/').replace(/\.md$/, '');
+            return {
+              '@type': 'ListItem',
+              position: i + 1,
+              url: `https://killer-skills.com/${locale}/blog/${slug}/`,
+            };
+          }),
         },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: categoryName,
-          item: `https://killer-skills.com/${locale}/blog/category/${category}/`,
-        },
-      ],
-    })}
-    slot="head"
-  />
+      })}
+    />
+  </Fragment>
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
     <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       {/* Breadcrumb / Back */}
