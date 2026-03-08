@@ -24,7 +24,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { targetLang, type = 'text' } = body;
 
     if (!text) {
-      return new Response(JSON.stringify({ error: 'Text is required' }), { status: 400 });
+      return new Response(JSON.stringify({ error: 'Text is required' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const lang = targetLang || 'zh';
