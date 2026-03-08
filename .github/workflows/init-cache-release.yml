@@ -1,0 +1,57 @@
+name: Initialize Cache Release (one-time)
+
+# One-time workflow to create the initial GitHub Release with skills-cache.json
+# After running once successfully, this workflow can be deleted.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Restore cache from git LFS history
+        continue-on-error: true
+        run: |
+          # Try to get the file from LFS (may fail if budget exceeded)
+          git lfs pull --include="data/skills-cache.json" || true
+
+      - name: Check if cache exists
+        id: check
+        run: |
+          if [ -f "data/skills-cache.json" ] && [ $(stat -c%s "data/skills-cache.json" 2>/dev/null || stat -f%z "data/skills-cache.json" 2>/dev/null) -gt 1000 ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Cache file found ($(du -h data/skills-cache.json | cut -f1))"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "⚠️ Cache file not found or is LFS pointer. Will create empty cache."
+            # Create minimal valid cache so future builds work
+            echo '{"version":2,"lastUpdated":"2025-01-01T00:00:00Z","totalCount":0,"skills":[]}' > data/skills-cache.json
+          fi
+
+      - name: Compress and upload to Release
+        run: |
+          gzip -k -9 -f data/skills-cache.json
+          SIZE=$(du -h data/skills-cache.json.gz | cut -f1)
+          echo "📦 Compressed cache: $SIZE"
+
+          # Delete existing release if any
+          gh release delete cache-data --yes 2>/dev/null || true
+
+          # Create new release with asset
+          gh release create cache-data data/skills-cache.json.gz \
+            --title "Cache Data" \
+            --notes "Auto-managed skills-cache.json for CI/CD pipelines. Updated automatically by incremental-build, full-refresh, and crawler workflows." \
+            --prerelease
+
+          echo "✅ Release created with cache artifact"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
