@@ -20,7 +20,7 @@ function formatDate(date: Date | string): string {
 }
 
 export const GET: APIRoute = async ({ locals, params }) => {
-  const env = (locals as any).runtime?.env as Env | undefined;
+  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
   const pageParam = params.page || '1';
   const page = parseInt(pageParam, 10);
   const LIMIT = 1000; // Skills per sitemap file

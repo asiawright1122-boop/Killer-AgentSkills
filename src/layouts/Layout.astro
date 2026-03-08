@@ -161,6 +161,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <meta property="og:image" content={absoluteImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:locale" content={ogLocale} />
     <ClientRouter fallback="swap" />
@@ -178,6 +179,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={optimizedDescription} />
     <meta name="twitter:image" content={absoluteImage} />
+    <meta name="twitter:image:alt" content={title} />
 
     <title>{fullTitle}</title>
 

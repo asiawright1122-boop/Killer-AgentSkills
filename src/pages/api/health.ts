@@ -7,7 +7,7 @@ export const prerender = false;
 export const GET: APIRoute = async ({ locals }) => {
   const startTime = Date.now();
   const checks: Record<string, { status: string; latencyMs?: number }> = {};
-  const env = (locals as any).runtime?.env as Env | undefined;
+  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
 
   // Check KV availability
   try {
