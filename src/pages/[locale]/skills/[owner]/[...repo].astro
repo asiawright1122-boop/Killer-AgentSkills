@@ -443,7 +443,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       
                       {/* SEO Dynamic Intro Paragraph — integrated below in Agent Analysis module */}
 
-                      <p class="text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words uppercase">
+                      <p class="text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words">
                           {description || t('Skills.noResults')}
                       </p>
 
@@ -451,10 +451,10 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       {features.length > 0 && (
                         <section class="mb-10">
                             <h2 class="sr-only">{t('Detail.features')}</h2>
-                            <div class="flex flex-wrap gap-3">
+                            <div class="flex flex-wrap gap-2">
                             {features.map((feature: string) => (
-                                <div class="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-[var(--primary-foreground)] bg-[var(--primary)] px-3 py-2 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
-                                    <Zap size={14} strokeWidth={3} />
+                                <div class="flex items-center gap-1.5 text-xs font-bold text-[var(--primary-foreground)] bg-[var(--primary)] px-2.5 py-1.5 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
+                                    <Zap size={12} strokeWidth={3} class="shrink-0" />
                                       <span>{feature}</span>
                                 </div>
                             ))}
@@ -471,7 +471,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                             </h2>
                             <div class="flex flex-wrap gap-2">
                             {keywordsList.slice(0, 6).map((keyword: string) => (
-                                <a href={`/${locale}/skills?query=${encodeURIComponent(keyword)}`} class="px-3 py-1.5 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all uppercase">
+                                <a href={`/${locale}/skills?query=${encodeURIComponent(keyword)}`} class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
                                     {keyword}
                                 </a>
                             ))}
@@ -663,7 +663,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                                 </h2>
                                 <div class="flex flex-wrap gap-2">
                                     {localizedUseCases.map((useCase: string) => (
-                                        <div class="px-3 py-1.5 bg-[var(--background)] border-2 border-[var(--border)] text-sm font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
+                                        <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
                                             {useCase}
                                         </div>
                                     ))}
@@ -721,11 +721,11 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                 </h3>
                 <div class="flex flex-wrap gap-2">
                     {topics.length > 0 ? topics.map((topic: string) => (
-                        <a href={`/${locale}/skills?topic=${topic}`} class="px-3 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all uppercase">
+                        <a href={`/${locale}/skills?topic=${topic}`} class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
                             [{topic}]
                         </a>
                     )) : (
-                        <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold uppercase">[{t('Detail.noTags')}]</span>
+                        <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
                     )}
                 </div>
              </div>
@@ -817,7 +817,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
               return (
                 <a
                   href={`/${locale}/collections/${cleanSlug}`}
-                  class="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--card)] border-2 border-[var(--border)] font-black text-xs uppercase tracking-wider text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                  class="inline-flex items-center gap-2 px-3 py-2 bg-[var(--card)] border-2 border-[var(--border)] font-bold text-xs text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
                 >
                   <span class="text-[var(--primary)] text-[10px]">■</span>
                   {colTitle}
