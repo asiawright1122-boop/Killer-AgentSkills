@@ -11,6 +11,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { select, confirm } from '@inquirer/prompts';
 import { IDE_CONFIG, SUPPORTED_IDES } from '../config/ides.js';
+import { generateWindsurfWorkflows, logWindsurfWorkflows } from '../utils/windsurf-workflows.js';
 
 export const initCommand = new Command('init')
     .description('Initialize skills configuration in current project')
@@ -74,12 +75,23 @@ export const initCommand = new Command('init')
             // Create config file based on IDE
             const configCreated = await createIDEConfig(cwd, targetIDE, options.yes);
 
+            // Generate Windsurf workflows if targeting Windsurf
+            if (targetIDE === 'windsurf') {
+                const wfCount = await generateWindsurfWorkflows(cwd);
+                if (wfCount > 0) {
+                    logWindsurfWorkflows();
+                }
+            }
+
             // Summary
             console.log(chalk.green('\n✅ Initialization complete!\n'));
             console.log(chalk.dim('Created:'));
             console.log(chalk.dim(`  📁 ${ideConfig.paths.project}/`));
             if (configCreated) {
                 console.log(chalk.dim(`  📄 ${configCreated}`));
+            }
+            if (targetIDE === 'windsurf') {
+                console.log(chalk.dim(`  📁 .windsurf/workflows/ (slash commands)`));
             }
 
             console.log(chalk.dim('\nNext steps:'));

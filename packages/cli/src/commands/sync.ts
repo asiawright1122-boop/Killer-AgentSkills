@@ -20,6 +20,7 @@ import {
 } from '../utils/agents-md.js';
 import { IDE_CONFIG } from '../config/ides.js';
 import { generatePromptForIDE } from '../utils/prompt-templates.js';
+import { generateWindsurfWorkflows, logWindsurfWorkflows } from '../utils/windsurf-workflows.js';
 
 interface SyncOptions {
     ide?: string;
@@ -99,6 +100,14 @@ export const syncCommand = new Command('sync')
                         console.log(`  ${chalk.gray('○')} ${ideConfig.name} ${chalk.dim('(skipped)')}`);
                     }
                 }
+                // Generate Windsurf workflows in --all mode
+                if (allIDEs.includes('windsurf')) {
+                    const wfCount = await generateWindsurfWorkflows();
+                    if (wfCount > 0) {
+                        logWindsurfWorkflows();
+                    }
+                }
+
                 console.log(chalk.green(`\n✅ Synced ${skills.length} skills to ${synced} IDEs`));
                 return;
             }
@@ -178,6 +187,14 @@ export const syncCommand = new Command('sync')
                 spinner.succeed(chalk.green(`Synced ${skills.length} skill(s) to ${outputPath}`));
             } else {
                 spinner.succeed(chalk.green(`Added skills section to ${outputPath} (${skills.length} skill(s))`));
+            }
+
+            // Generate Windsurf workflows if targeting Windsurf
+            if (targetIDE === 'windsurf') {
+                const wfCount = await generateWindsurfWorkflows();
+                if (wfCount > 0) {
+                    logWindsurfWorkflows();
+                }
             }
 
             // Print usage tips
