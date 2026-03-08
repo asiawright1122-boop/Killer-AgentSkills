@@ -6,7 +6,7 @@ const owner = 'anthropics';
 console.log('Initial total:', skills.length);
 
 if (owner) {
-  skills = skills.filter(s => s.owner === owner);
+  skills = skills.filter((s: { owner: string }) => s.owner === owner);
 }
 console.log('After filter:', skills.length);
 
@@ -14,16 +14,16 @@ const officialOwners = ['anthropics', 'vercel-labs', 'remotion-dev', 'getsentry'
 
 const view = 'official';
 if (view === 'official') {
-    skills = skills.filter(s => officialOwners.includes(s.owner));
+    skills = skills.filter((s: { owner: string }) => officialOwners.includes(s.owner));
 }
 console.log('After view filter:', skills.length);
 
-let skillsByOwner = {};
+let skillsByOwner: Record<string, number> = {};
 if (view === 'official' && !owner) {
-    skillsByOwner = skills.reduce((acc, skill) => {
+    skillsByOwner = skills.reduce((acc: Record<string, number>, skill: { owner: string }) => {
         const skillOwner = skill.owner;
         acc[skillOwner] = (acc[skillOwner] || 0) + 1;
         return acc;
-    }, {});
+    }, {} as Record<string, number>);
 }
 console.log('skillsByOwner length:', Object.keys(skillsByOwner).length);
