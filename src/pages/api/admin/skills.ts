@@ -11,7 +11,7 @@ export const prerender = false;
  */
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
     const url = new URL(request.url);
     const source = url.searchParams.get('source');
     const category = url.searchParams.get('category');
@@ -53,7 +53,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
  */
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
     const body = (await request.json()) as {
       action: string;
       skillId: string;

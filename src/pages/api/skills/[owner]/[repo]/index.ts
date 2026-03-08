@@ -163,7 +163,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const skillMdPath = skillPath ? `${skillPath}/SKILL.md` : undefined;
 
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
 
     // 1. Try to get skill from KV cache first
     let kvSkill = null;

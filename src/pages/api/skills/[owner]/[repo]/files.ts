@@ -187,7 +187,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   const specifiedPath = url.searchParams.get('path');
 
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
 
     let skillDir: string | null;
 

@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
   }
 
   try {
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
 
     // Try direct key lookup first
     if (env?.SKILLS_CACHE) {

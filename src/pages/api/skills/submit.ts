@@ -205,7 +205,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const parsedSkill = parseSkillMd(skillMdContent);
 
     // Check for duplicates via targeted D1 query (O(1) instead of loading entire table)
-    const env = (locals as any).runtime?.env as Env | undefined;
+    const env = locals.runtime?.env as Env | undefined;
     if (env) {
       const { getSkillsKV } = await import('../../../lib/kv');
       const repoPath = `${owner}/${repo}`;
