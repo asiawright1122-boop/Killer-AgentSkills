@@ -15,9 +15,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  lint:
     runs-on: ubuntu-latest
-    name: Build & Test
+    name: Lint & Format
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,8 +40,49 @@ jobs:
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check
 
-      - name: Run Unit Tests
-        run: npm test
+  test:
+    runs-on: ubuntu-latest
+    name: Unit Tests & Coverage
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Unit Tests with Coverage
+        run: npx vitest run --coverage --reporter=default
+
+      - name: Upload Coverage Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
+
+  build:
+    runs-on: ubuntu-latest
+    name: Build
+    needs: [lint, test]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
 
       - name: Build
         run: npm run build
