@@ -40,6 +40,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
       });
     }
 
+    // Prevent abuse with excessively long input
+    const MAX_TEXT_LENGTH = 10_000;
+    if (text.length > MAX_TEXT_LENGTH) {
+      return new Response(JSON.stringify({ error: `Text too long. Maximum ${MAX_TEXT_LENGTH} characters allowed.` }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const lang = targetLang || 'zh';
     const cacheKey = generateKey(text, lang, type);
     const env = locals.runtime.env; // Astro Cloudflare adapter exposes bindings here
