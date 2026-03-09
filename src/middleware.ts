@@ -88,6 +88,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
       response.headers.set('X-Response-Time', `${durationMs}ms`);
       setSecurityHeaders(response);
 
+      // +++ ADD API CACHE +++
+      // Cache global read-only API endpoints at the Cloudflare Edge to prevent Worker billing overload.
+      if (context.request.method === 'GET' && !pathname.startsWith('/api/admin/') && pathname !== '/api/health') {
+        response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400');
+      }
+
       logger.info('API request', {
         requestId,
         method: context.request.method,
@@ -111,6 +117,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
       response.headers.set('X-Robots-Tag', 'index, follow');
     }
     setSecurityHeaders(response);
+
+    // +++ ADD HTML CACHE +++
+    // Islands Architecture guarantees anonymous users get exactly the same SSR HTML payload.
+    // Client-side local storage handles all user state (e.g. favorites / history). Edge cache it heavily.
+    if (context.request.method === 'GET') {
+      const contentType = response.headers.get('content-type') || '';
+      if (contentType.includes('text/html')) {
+        response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400');
+      }
+    }
+
     return response;
   }
 

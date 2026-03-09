@@ -1,169 +1,182 @@
-import * as fs from 'fs/promises';
+/**
+ * Collection Generator Script
+ * 
+ * Auto-generates SEO-optimized curated collections from the skills cache.
+ * Run: npm run generate:collections
+ */
+
+import * as fs from 'fs';
 import * as path from 'path';
+import 'dotenv/config';
 import { AIService } from './lib/ai';
-import { robustParseJSON } from './lib/utils';
-import type { UnifiedSkill } from '../src/lib/skills'; // Adjusted path to src
+import { SUPPORTED_LOCALES } from './lib/constants';
+import { extractJSONCandidates, robustParseJSON, cleanAndTruncate } from './lib/utils';
+import type { CacheData, SkillCache } from './lib/types';
 
-const CACHE_FILE = path.resolve('./data/skills-cache.json');
-const OUT_DIR = path.resolve('./src/content/collections');
+const aiService = new AIService();
 
-// The structure we want the LLM to return
-interface CollectionSEO {
-    title: { en: string, zh: string };
-    description: { en: string, zh: string };
-    seoTitle: { en: string, zh: string };
-    seoDescription: { en: string, zh: string };
-    keywords: { en: string[], zh: string[] };
-}
+async function generateLocalizedCollection(
+    category: string,
+    skills: SkillCache[],
+    targetLocales: string[]
+): Promise<any> {
+    const listCount = skills.length;
 
-async function start() {
-    console.log('[Collections Generator] Starting Programmatic SEO factory...');
+    // Provide AI with the actual context of these tools to generate accurate summaries
+    const toolContexts = skills.slice(0, 10).map((s, i) => `
+${i + 1}. [${s.name}]
+Description: ${typeof s.description === 'string' ? s.description : s.description?.en || ''}
+Tags: ${(s.topics || []).join(', ')}`).join('\n');
 
-    // 1. Ensure output directory exists
-    await fs.mkdir(OUT_DIR, { recursive: true });
+    const localeStr = targetLocales.join(', ');
+    const localeExample = targetLocales.map(l => `"${l}": "..."`).join(', ');
+    const localeArrayExample = targetLocales.map(l => `"${l}": ["..."]`).join(', ');
 
-    // 2. Load the skills database
-    const fileContent = await fs.readFile(CACHE_FILE, 'utf-8');
-    let data;
-    try {
-        data = JSON.parse(fileContent);
-    } catch {
-        console.error('Failed to parse skills cache');
-        return;
-    }
+    const prompt = `You are a Senior Technical SEO Editor for "Killer-Skills", an AI Agent Tools directory.
+Task: Generate a highly-optimized "Top ${listCount} Best ${category} Tools" collection landing page.
 
-    let skills: UnifiedSkill[] = [];
-    if (Array.isArray(data)) skills = data;
-    else if (data && Array.isArray(data.skills)) skills = data.skills;
+## Tools in this Collection:
+${toolContexts}
 
-    console.log(`[Collections Generator] Loaded ${skills.length} skills from cache.`);
+## Target Languages: ${localeStr}
 
-    // 3. Group by TOPICS (fine-grained) instead of coarse `category`
-    const EXCLUDED_TOPICS = new Set(['claude-code', 'claude', 'anthropic', 'ai', 'llm', 'tag-production', 'skills', 'agent-skills', 'agent']);
-    const groups: Record<string, UnifiedSkill[]> = {};
-    for (const skill of skills) {
-        if (!skill.topics || skill.topics.length === 0) continue;
-        for (const topic of skill.topics) {
-            const t = topic.toLowerCase().trim();
-            if (EXCLUDED_TOPICS.has(t)) continue;
-            if (!groups[t]) groups[t] = [];
-            groups[t].push(skill);
-        }
-    }
+CRITICAL RULES:
+1. "seoTitle" MUST be catchy and include a value proposition (e.g., "Top ${listCount} ${category} Tools for AI Agents [2026]"). MAX 60 chars.
+2. "seoDescription" is for the meta tag. MAX 160 chars. Should drive clicks.
+3. "title" is the H1 on the page. e.g. "Top ${listCount} ${category} Frameworks & Tools".
+4. "description" MUST be an engaging introductory paragraph summarizing WHY developers need these ${category} tools. 
+5. "keywords" should target long-tail dev searches mixing navigational and informational queries.
+6. Keep technical terms (CLI, MCP, Agent, Python, API) in English, but translate the selling points to the native locales perfectly.
 
-    // 4. Filter topics that have enough depth for a "Top X" list (at least 8 unique skills)
-    const validCategories = Object.keys(groups).filter(k => {
-        const uniqueRepos = new Set(groups[k].map(s => `${s.owner}/${s.repo}`));
-        return uniqueRepos.size >= 5;
-    });
-    console.log(`[Collections Generator] Found ${validCategories.length} rich topics for SEO Collections.`);
-
-    // 5. Initialize AI Service
-    const aiService = new AIService();
-
-    // Process up to 15 collections in one run
-    const runLimit = 30;
-    let count = 0;
-
-    for (const category of validCategories) {
-        if (count >= runLimit) {
-            console.log(`[Collections Generator] Reached test limit of ${runLimit}. Stopping.`);
-            break;
-        }
-
-        const outFilePath = path.join(OUT_DIR, `top-${category.replace(/[^a-z0-9]/g, '-')}-mcp-servers.json`);
-
-        // Skip if already generated
-        try {
-            await fs.access(outFilePath);
-            console.log(`[Collections Generator] Skipping ${category}, collection already exists.`);
-            continue;
-        } catch {
-            // File doesn't exist, proceed
-        }
-
-        // Get Top unique skills in this category by QualityScore or Stars
-        const uniqueSkillsMap = new Map<string, UnifiedSkill>();
-        for (const s of groups[category]) {
-            const key = `${s.owner}/${s.repo}`;
-            if (!uniqueSkillsMap.has(key)) {
-                uniqueSkillsMap.set(key, s);
-            }
-        }
-
-        const topSkills = Array.from(uniqueSkillsMap.values())
-            .sort((a, b) => (b.qualityScore || b.stars || 0) - (a.qualityScore || a.stars || 0))
-            .slice(0, 12);
-
-        const skillIds = topSkills.map(s => `${s.owner}/${s.repo}`);
-        const skillNames = topSkills.map(s => s.name || s.repo).join(', ');
-
-        console.log(`[Collections Generator] Processing category: [${category}] with ${skillIds.length} top skills...`);
-
-        const prompt = `
-You are an expert SEO Content Strategist for "Killer-Skills", a directory for AI Agent Skills, MCP Servers, and Claude Extensions.
-I am building a Programmatic SEO aggregation page (a "Top X" list) for the category: "${category}".
-
-The top tools featured in this collection will be: ${skillNames}.
-
-Generate the SEO metadata for this specific collection page in JSON format.
-Make it sound highly professional, curated, and optimized for search intent like "Best ${category} AI tools", "Top MCP servers for ${category}".
-
-Return ONLY valid JSON matching this exact structure:
+Output STRICT JSON only:
 {
-    "title": { "en": "Top X ...", "zh": "..." },
-    "description": { "en": "Engaging intro paragraph about why this category matters for AI agents...", "zh": "..." },
-    "seoTitle": { "en": "Optimized meta title < 60 chars", "zh": "..." },
-    "seoDescription": { "en": "Optimized meta description < 160 chars", "zh": "..." },
-    "keywords": { "en": ["keyword1", "keyword2"], "zh": ["关键词1", "关键词2"] }
+  "title": { ${localeExample} },
+  "description": { ${localeExample} },
+  "seoTitle": { ${localeExample} },
+  "seoDescription": { ${localeExample} },
+  "keywords": { ${localeArrayExample} }
+}`;
+
+    // Use jsonMode=false because some LLMs fail strict JSON mode with large prompts
+    const response = await aiService.callAI(prompt, false);
+    if (!response) {
+        console.error(`[DEBUG] Raw AI returned empty for ${category}`);
+        throw new Error(`No AI response for collection ${category} batch ${localeStr}`);
+    }
+    if (!response) throw new Error(`No AI response for collection ${category} batch ${localeStr}`);
+
+    const candidates = extractJSONCandidates(response);
+    for (const item of candidates) {
+        const parsed = robustParseJSON(item);
+        if (parsed && typeof parsed === 'object' && parsed.title) {
+            return parsed;
+        }
+    }
+
+    console.error(`\n[DEBUG RAW AI RESPONSE BEGIN]\n${response}\n[DEBUG RAW AI RESPONSE END]\n`);
+    throw new Error(`Invalid JSON generated for ${category} batch ${localeStr}`);
 }
-`;
+
+async function run() {
+    console.log('🚀 Starting Programmatic SEO Collection Generator...');
+
+    const force = process.argv.includes('--force');
+
+    // 1. Load data
+    const cachePath = path.join(process.cwd(), 'data/skills-cache.json');
+    if (!fs.existsSync(cachePath)) {
+        console.error('❌ Cache file not found. Please run build-skills-cache first.');
+        process.exit(1);
+    }
+    const data = JSON.parse(fs.readFileSync(cachePath, 'utf-8')) as CacheData;
+
+    // 2. Group by category
+    const categoryMap = new Map<string, SkillCache[]>();
+    for (const skill of data.skills) {
+        if (!skill.category || skill.category === 'uncategorized' || skill.category === 'developer' || skill.category === 'ai' || skill.category === 'official') continue;
+        const list = categoryMap.get(skill.category) || [];
+        list.push(skill);
+        categoryMap.set(skill.category, list);
+    }
+
+    const outputDir = path.join(process.cwd(), 'src/content/collections');
+    if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+
+    // 3. Process categories with >= 5 skills
+    const MIN_SKILLS = 7;
+    let newGeneratedCount = 0;
+
+    for (const [category, allSkills] of categoryMap.entries()) {
+        const sortedSkills = allSkills
+            .sort((a, b) => (b.qualityScore || 0) + (b.stars || 0) - ((a.qualityScore || 0) + (a.stars || 0)))
+            .slice(0, 15); // Max 15 for a curated list
+
+        if (sortedSkills.length < MIN_SKILLS) continue;
+
+        const slug = `top-${category}-skills`;
+        const filePath = path.join(outputDir, `${slug}.json`);
+
+        if (fs.existsSync(filePath) && !force) {
+            console.log(`⏩ Skipping ${category}: Collection already exists (${slug}.json)`);
+            continue;
+        }
+
+        console.log(`\n✨ Generating SEO Collection for: ${category} (${sortedSkills.length} skills)...`);
 
         try {
-            // using the unified RACE architecture from aiService
-            const responseText = await aiService.callAI(prompt, true);
-            if (!responseText) throw new Error("AI returned null");
+            // Split supported locales into batches of 3-4 to avoid hitting token/timeout limits
+            const results: any[] = [];
+            const BATCH_SIZE = 4;
+            const allLocales = ['en', ...SUPPORTED_LOCALES]; // Ensure English is included
 
-            const seoData = robustParseJSON(responseText) as CollectionSEO;
-
-            if (!seoData.title || !seoData.description || !seoData.keywords) {
-                throw new Error("Missing required SEO fields from AI generation");
+            for (let i = 0; i < allLocales.length; i += BATCH_SIZE) {
+                const batch = allLocales.slice(i, i + BATCH_SIZE);
+                console.log(`   → Calling AI for batch: ${batch.join(', ')}`);
+                const parsed = await generateLocalizedCollection(category, sortedSkills, batch);
+                results.push(parsed);
+                // Sleep brief to avoid rate limits
+                await new Promise(r => setTimeout(r, 1500));
             }
 
-            // Strict schema validation: all locale fields must be objects, not flat strings
-            for (const field of ['title', 'description', 'seoTitle', 'seoDescription'] as const) {
-                const val = (seoData as any)[field];
-                if (val && typeof val !== 'object') {
-                    throw new Error(`Schema violation: '${field}' must be a locale object {en:..., zh:...}, got ${typeof val}`);
-                }
-            }
-            if (seoData.keywords && !('en' in seoData.keywords)) {
-                throw new Error(`Schema violation: 'keywords' must be {en:[...], zh:[...]}, got ${JSON.stringify(seoData.keywords).slice(0, 80)}`);
-            }
-
-            const finalCollectionPayload = {
-                ...seoData,
-                featured: false,
-                category: category,
-                author: "Killer-Skills AI",
-                skills: skillIds
+            // Merge batched results into final shape
+            const merged = {
+                title: {} as Record<string, string>,
+                description: {} as Record<string, string>,
+                seoTitle: {} as Record<string, string>,
+                seoDescription: {} as Record<string, string>,
+                keywords: {} as Record<string, string[]>,
+                skills: sortedSkills.map(s => `${s.owner}/${s.repo}`),
+                author: 'Killer-Skills AI',
+                featured: sortedSkills.length >= 10,
+                category: category
             };
 
-            await fs.writeFile(outFilePath, JSON.stringify(finalCollectionPayload, null, 2), 'utf-8');
-            console.log(`✅ Collection Generated: ${outFilePath}`);
-            count++;
+            for (const r of results) {
+                if (r.title) Object.assign(merged.title, r.title);
+                if (r.description) Object.assign(merged.description, r.description);
+                if (r.seoTitle) Object.assign(merged.seoTitle, r.seoTitle);
+                if (r.seoDescription) Object.assign(merged.seoDescription, r.seoDescription);
+                if (r.keywords) Object.assign(merged.keywords, r.keywords);
+            }
 
-            // Rate limit sleep
-            await new Promise(r => setTimeout(r, 2000));
-        } catch (e: any) {
-            console.error(`❌ Failed to generate collection for [${category}]:`, e.message);
+            // Format check / fallback for critical en string
+            if (!merged.seoTitle.en) merged.seoTitle.en = Object.values(merged.seoTitle)[0] || `Top ${sortedSkills.length} ${category} Skills`;
+            if (!merged.seoDescription.en) merged.seoDescription.en = Object.values(merged.seoDescription)[0] || `Explore the best ${category} AI tools.`;
+
+            // Enforce character limits
+            merged.seoTitle = cleanAndTruncate(merged.seoTitle, 60);
+            merged.seoDescription = cleanAndTruncate(merged.seoDescription, 160);
+
+            fs.writeFileSync(filePath, JSON.stringify(merged, null, 2));
+            console.log(`   ✅ Saved to: src/content/collections/${slug}.json`);
+            newGeneratedCount++;
+
+        } catch (e) {
+            console.error(`   ❌ Error generating ${category}:`, e);
         }
     }
 
-    console.log('\n[Collections Generator] Done!');
+    console.log(`\n🎉 Processed ${categoryMap.size} categories. Generated ${newGeneratedCount} NEW collections.`);
 }
 
-start().catch(e => {
-    console.error(e);
-    process.exit(1);
-});
+run().catch(console.error);
