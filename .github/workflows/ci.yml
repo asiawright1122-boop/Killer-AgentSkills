@@ -16,6 +16,7 @@ concurrency:
 
 jobs:
   lint:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     name: Lint & Format
     steps:
@@ -41,6 +42,7 @@ jobs:
         run: npx astro check --root .
 
   test:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     name: Unit Tests & Coverage
     steps:
@@ -68,6 +70,7 @@ jobs:
           retention-days: 14
 
   build:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     name: Build
     needs: [lint, test]
