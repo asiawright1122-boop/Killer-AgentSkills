@@ -20,7 +20,7 @@ export const GET: APIRoute = async ({ locals }) => {
 
   // Get last modification date for skills
   let skillsLastMod = new Date().toISOString().split('T')[0];
-  let skills: { updatedAt?: string }[] = [];
+  let skills: { owner?: string; updatedAt?: string }[] = [];
   try {
     skills = (await getSitemapSkillsFromKV(env as Env)) || [];
     if (skills.length > 0) {
@@ -70,6 +70,18 @@ export const GET: APIRoute = async ({ locals }) => {
 </sitemap>`);
   }
 
+  // Combine skill sitemaps and owner sitemaps
+  // Owner sitemaps have a limit of 200 owners per chunk
+  const uniqueOwners = [...new Set(skills.map((s) => s.owner))].filter(Boolean);
+  const totalOwnerPages = Math.ceil(uniqueOwners.length / 200) || 1;
+  const ownerSitemaps = [];
+  for (let i = 1; i <= totalOwnerPages; i++) {
+    ownerSitemaps.push(`<sitemap>
+  <loc>${SITE}/sitemap-owners-${i}.xml</loc>
+  <lastmod>${today}</lastmod>
+</sitemap>`);
+  }
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
@@ -88,10 +100,7 @@ export const GET: APIRoute = async ({ locals }) => {
   <loc>${SITE}/sitemap-docs.xml</loc>
   <lastmod>${today}</lastmod>
 </sitemap>
-<sitemap>
-  <loc>${SITE}/sitemap-owners.xml</loc>
-  <lastmod>${today}</lastmod>
-</sitemap>
+${ownerSitemaps.join('\n')}
 ${skillSitemaps.join('\n')}
 </sitemapindex>`;
 
