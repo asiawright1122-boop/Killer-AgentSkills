@@ -138,7 +138,12 @@ const seoKeywords = keywordsList.slice(0, 10).join(', ');
 // Construct SEO Title
 // Prefer AI-generated locale-specific SEO title for maximum CTR
 // Fallback: "Name: keyword | SiteName" (clean, under 60 chars)
-const category = skill.category ? t(`Categories.${skill.category}`) || skill.category : '';
+const categoryTransStr = skill.category ? t(`Categories.${skill.category}` as any) : '';
+const category = skill.category
+  ? categoryTransStr && categoryTransStr !== `Categories.${skill.category}`
+    ? categoryTransStr
+    : skill.category
+  : '';
 const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill';
 const seoTitle = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const pageTitle = seoTitle || `${skill.name || repo}: ${tagline} - Open Source AI Agent Skill & MCP Server`;
@@ -404,7 +409,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                   href={`/${locale}/skills?category=${skill.category}`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-colors"
                 >
-                  {t(`Categories.${skill.category}`) || skill.category}
+                  {category}
                 </a>
               </li>
             )
@@ -756,9 +761,8 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                     {locale === 'zh' ? (
                       <span>
                         <strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源{' '}
-                        <strong>{category ? t(`Categories.${category}`) || category : '自动化'}</strong> MCP
-                        Server（大模型智能体插件）。它能够无缝集成到 Claude Desktop 或您的自定义 AI Agent
-                        系统中，扩展核心功能。
+                        <strong>{category || '自动化'}</strong> MCP Server（大模型智能体插件）。它能够无缝集成到 Claude
+                        Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。
                         {keywordsList.length > 0 && (
                           <span class="text-[var(--foreground)]">
                             此工具针对 <strong>{keywordsList.slice(0, 3).join('、')}</strong> 进行了深度优化。
