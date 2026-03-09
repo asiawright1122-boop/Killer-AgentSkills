@@ -51,7 +51,31 @@ export const onRequest = defineMiddleware(async (context, next) => {
         });
   }
 
-  // 2. Skip static assets; apply security headers + observability to API routes
+  // 2. Block known invalid root-level paths (crawled by Googlebot but never valid)
+  const INVALID_ROOT_PATHS = ['/.cursor/', '/04-Initiatives/', '/ORCHESTRATION.md', '/agent-os/'];
+  if (INVALID_ROOT_PATHS.some((p) => pathname.startsWith(p) || pathname === p.replace(/\/$/, ''))) {
+    return new Response(null, {
+      status: 410, // Gone — tells Google to drop from index permanently
+      headers: { 'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400' },
+    });
+  }
+
+  // 3. Intercept skill paths ending with source-code file extensions (.md, .ts, .py, etc.)
+  //    These are GitHub repo file paths that get matched by the catch-all [...]repo route
+  //    but never correspond to actual pages — return cached 404 to save crawl budget.
+  const FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
+  if (pathname.match(/^\/[a-z]{2}\/skills\//) && FILE_EXT_REGEX.test(pathname)) {
+    return new Response(null, {
+      status: 404,
+      statusText: 'Not Found',
+      headers: {
+        'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+        'X-Robots-Tag': 'noindex',
+      },
+    });
+  }
+
+  // 4. Skip static assets; apply security headers + observability to API routes
   if (isStaticOrApiPath(pathname)) {
     if (pathname.startsWith('/api/')) {
       const requestId = generateRequestId();

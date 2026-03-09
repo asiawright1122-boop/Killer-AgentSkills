@@ -49,7 +49,11 @@ const categories = [
 ];
 ---
 
-<Layout locale={locale} title="Blog" description="Insights, tutorials, and updates from the Killer-Skills team.">
+<Layout
+  locale={locale}
+  title={t('Blog.seoTitle') || 'AI Agent Skills Blog — Guides, Tutorials & Updates | Killer-Skills'}
+  description={t('Blog.seoDescription') || 'Insights, tutorials, and updates from the Killer-Skills team.'}
+>
   <Fragment slot="head">
     <script
       type="application/ld+json"

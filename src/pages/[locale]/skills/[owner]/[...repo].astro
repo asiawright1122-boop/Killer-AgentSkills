@@ -38,6 +38,12 @@ const repoParts = repoRest.split('/');
 const repo = repoParts[0]; // The actual repo name
 const subSkillName = repoParts.length > 1 ? repoParts.slice(1).join('/') : undefined;
 
+// SEO: Limit catch-all depth to prevent infinite crawling of deep paths
+if (repoParts.length > 5) {
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
 const typedLocale = locale as Locale;
 
 // Get env from Cloudflare runtime
@@ -47,16 +53,33 @@ const env = Astro.locals.runtime?.env as Env;
 const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 
 // ⚡ PARALLEL: fetch skill data + translations + related skills concurrently
-const [skillResult, messages] = await Promise.all([getSkillById(env, fullId), loadMessages(typedLocale)]);
+// Wrap D1 calls in try-catch to prevent 5xx when database is unavailable
+const [skillResult, messages] = await Promise.all([
+  getSkillById(env, fullId).catch(() => null),
+  loadMessages(typedLocale),
+]);
 
 // Load collections that contain this skill
 const allCollections = await getCollection('collections');
 const skillKey = `${owner}/${repo}`;
 const relatedCollections = allCollections.filter((col) => col.data.skills.includes(skillKey));
 
-let skill = skillResult || (await getSkillByOwnerRepo(env, owner, repo));
+let skill = skillResult || (await getSkillByOwnerRepo(env, owner, repo).catch(() => null));
 
 if (!skill) {
+  // SEO: If this was a sub-skill path, 301 redirect to parent skill page
+  // to recover link equity instead of returning empty 404
+  if (subSkillName) {
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: `/${locale}/skills/${owner}/${repo}/`,
+        'Cache-Control': 'public, s-maxage=86400',
+      },
+    });
+  }
+  // Cache 404 responses to prevent Googlebot from re-crawling
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600');
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 

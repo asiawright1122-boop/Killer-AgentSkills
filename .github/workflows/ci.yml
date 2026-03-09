@@ -38,7 +38,7 @@ jobs:
         run: npm run format:check
 
       - name: Astro Check (TypeScript + Astro diagnostics)
-        run: npx astro check
+        run: npx astro check --root .
 
   test:
     runs-on: ubuntu-latest
@@ -86,3 +86,6 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Validate Build Output
+        run: npx vitest run src/build-validation.test.ts --reporter=default

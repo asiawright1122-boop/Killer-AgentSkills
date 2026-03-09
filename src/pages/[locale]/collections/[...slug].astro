@@ -35,7 +35,11 @@ if (!collectionData) {
 const cData = collectionData.data;
 
 // Fetch live database skills concurrently with translations
-const [allSkills, messages] = await Promise.all([getLightweightSkills(env), loadMessages(typedLocale)]);
+// Wrap D1 call in try-catch to prevent 5xx when database is unavailable
+const [allSkills, messages] = await Promise.all([
+  getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>),
+  loadMessages(typedLocale),
+]);
 
 const t = useTranslations(messages);
 
