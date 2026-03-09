@@ -1,19 +1,27 @@
 {
   "title": {
     "en": "Top 5 Framework AI Tools & MCP Servers",
-    "zh": "5 大框架 AI 工具与 MCP 服务器"
+    "zh": "5 大框架 AI 工具与 MCP 服务器",
+    "ja": "AI開発向けトップ5 Framework AI Tools & MCP Servers",
+    "ko": "상위 5가지 프레임워크 AI 도구 및 MCP 서버"
   },
   "description": {
     "en": "A curated collection of the most powerful framework tools for AI development. This expertly selected list features essential MCP servers and extensions that provide the foundational building blocks for creating sophisticated AI agents, enabling robust event handling, analytics, and system integrations.",
-    "zh": "精心挑选的 AI 开发最强框架工具集合。此专家精选列表包含重要的 MCP 服务器和扩展，为创建复杂的 AI 智能体提供基础构建模块，实现强大的事件处理、分析和系统集成。"
+    "zh": "精心挑选的 AI 开发最强框架工具集合。此专家精选列表包含重要的 MCP 服务器和扩展，为创建复杂的 AI 智能体提供基础构建模块，实现强大的事件处理、分析和系统集成。",
+    "ja": "AI開発に不可欠な、最も強力なFramework AI Toolsを厳選しました。この専門家が選んだリストには、洗練されたAI Agentを構築するための基盤となるMCP Serversと拡張機能が含まれており、堅牢なイベント処理、分析、システム統合を可能にします。",
+    "ko": "AI 개발을 위한 가장 강력한 프레임워크 도구들을 엄선했습니다. 이 전문적으로 선별된 목록은 정교한 AI Agent를 구축하고 강력한 이벤트 처리, 분석 및 시스템 통합을 가능하게 하는 필수 MCP 서버 및 확장 기능을 제공합니다."
   },
   "seoTitle": {
     "en": "Best Framework AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳框架 AI 工具与 MCP 服务器 | Killer-Skills"
+    "zh": "最佳框架 AI 工具与 MCP 服务器 | Killer-Skills",
+    "ja": "厳選！Framework AI Tools & MCP Servers | Killer-Skills",
+    "ko": "최고의 프레임워크 AI 도구 & MCP 서버 | Killer-Skills"
   },
   "seoDescription": {
     "en": "Discover the top 5 framework MCP servers & AI tools for developers. Boost your AI agent's capabilities with event handling & analytics.",
-    "zh": "发现面向开发者的 5 大框架 MCP 服务器和 AI 工具。通过事件处理和分析功能增强您的 AI 智能体能力。"
+    "zh": "发现面向开发者的 5 大框架 MCP 服务器和 AI 工具。通过事件处理和分析功能增强您的 AI 智能体能力。",
+    "ja": "開発者必見！トップ5のFramework MCP ServersとAI Toolsをご紹介。AI Agentのイベント処理や分析能力を飛躍的に向上させましょう。",
+    "ko": "개발자를 위한 상위 5가지 프레임워크 MCP 서버 및 AI 도구를 만나보세요. 이벤트 처리 및 분석으로 AI Agent 역량을 강화하세요."
   },
   "keywords": {
     "en": [
@@ -23,7 +31,21 @@
       "MCP server list",
       "AI development tools"
     ],
-    "zh": ["最佳框架 AI 工具", "顶级框架 MCP 服务器", "AI 智能体框架", "MCP 服务器列表", "AI 开发工具"]
+    "zh": ["最佳框架 AI 工具", "顶级框架 MCP 服务器", "AI 智能体框架", "MCP 服务器列表", "AI 开发工具"],
+    "ja": [
+      "Best framework AI tools",
+      "Top MCP servers for framework",
+      "AI agent framework",
+      "MCP server list",
+      "AI development tools"
+    ],
+    "ko": [
+      "Best framework AI tools",
+      "Top MCP servers for framework",
+      "AI agent framework",
+      "MCP server list",
+      "AI development tools"
+    ]
   },
   "featured": false,
   "category": "framework",

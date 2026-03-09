@@ -1,19 +1,27 @@
 {
   "title": {
     "en": "Top 5 Prompt Engineering Tools for AI Agents & MCP Servers",
-    "zh": "AI 代理和 MCP 服务器的五大顶级提示工程工具"
+    "zh": "AI 代理和 MCP 服务器的五大顶级提示工程工具",
+    "ja": "AI AgentとMCPサーバー向けプロンプトエンジニアリングツール トップ5",
+    "ko": "AI Agent 및 MCP 서버를 위한 상위 5가지 Prompt Engineering 도구"
   },
   "description": {
     "en": "A professionally curated collection of the most powerful prompt-engineering tools, MCP servers, and SDKs for developers building advanced AI agents. This directory features rigorously tested tools like e2e and backend-zod that streamline the development, testing, and deployment of sophisticated AI capabilities.",
-    "zh": "这是一个专业精选的集合，收录了为构建高级 AI 代理的开发人员提供的最强大的提示工程工具、MCP 服务器和 SDK。本目录收录了经过严格测试的工具，如 e2e 和 backend-zod，可简化复杂 AI 功能的开发、测试和部署。"
+    "zh": "这是一个专业精选的集合，收录了为构建高级 AI 代理的开发人员提供的最强大的提示工程工具、MCP 服务器和 SDK。本目录收录了经过严格测试的工具，如 e2e 和 backend-zod，可简化复杂 AI 功能的开发、测试和部署。",
+    "ja": "高度なAI Agentを構築する開発者向けに、最も強力なプロンプトエンジニアリングツール、MCPサーバー、SDKを厳選したプロフェッショナルなコレクションです。このディレクトリでは、e2eやbackend-zodのような厳格にテストされたツールを紹介し、洗練されたAI機能の開発、テスト、デプロイを効率化します。",
+    "ko": "고급 AI Agent를 구축하는 개발자를 위한 가장 강력한 Prompt Engineering 도구, MCP 서버 및 SDK를 전문적으로 선별한 컬렉션입니다. 이 디렉토리는 정교한 AI 기능의 개발, 테스트 및 배포를 간소화하는 e2e 및 backend-zod와 같이 엄격하게 테스트된 도구들을 제공합니다."
   },
   "seoTitle": {
     "en": "Best Prompt Engineering AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳提示工程 AI 工具和 MCP 服务器 | Killer-Skills"
+    "zh": "最佳提示工程 AI 工具和 MCP 服务器 | Killer-Skills",
+    "ja": "AIツール＆MCPサーバー：最高のプロンプトエンジニアリング | Killer-Skills",
+    "ko": "최고의 Prompt Engineering AI 도구 & MCP 서버 | Killer-Skills"
   },
   "seoDescription": {
     "en": "Discover the top 5 prompt-engineering tools & MCP servers for AI agents. Boost your AI development with our expert-curated directory of essential SDKs and utilities.",
-    "zh": "探索适用于 AI 代理的五大顶级提示工程工具和 MCP 服务器。通过我们专家精选的基本 SDK 和实用程序目录，提升您的 AI 开发能力。"
+    "zh": "探索适用于 AI 代理的五大顶级提示工程工具和 MCP 服务器。通过我们专家精选的基本 SDK 和实用程序目录，提升您的 AI 开发能力。",
+    "ja": "AI Agent向けのプロンプトエンジニアリングツールとMCPサーバーのトップ5を発見。専門家が厳選した必須SDKとユーティリティでAI開発を加速させましょう。",
+    "ko": "AI Agent를 위한 상위 5가지 Prompt Engineering 도구 및 MCP 서버를 만나보세요. 전문가가 엄선한 필수 SDK 및 유틸리티 디렉토리로 AI 개발을 가속화하세요."
   },
   "keywords": {
     "en": [
@@ -23,7 +31,21 @@
       "Prompt engineering SDK",
       "AI development utilities"
     ],
-    "zh": ["最佳提示工程 AI 工具", "顶级提示工程 MCP 服务器", "AI 代理开发工具", "提示工程 SDK", "AI 开发实用程序"]
+    "zh": ["最佳提示工程 AI 工具", "顶级提示工程 MCP 服务器", "AI 代理开发工具", "提示工程 SDK", "AI 开发实用程序"],
+    "ja": [
+      "Best prompt-engineering AI tools",
+      "Top MCP servers for prompt-engineering",
+      "AI agent development tools",
+      "Prompt engineering SDK",
+      "AI development utilities"
+    ],
+    "ko": [
+      "Best prompt-engineering AI tools",
+      "Top MCP servers for prompt-engineering",
+      "AI agent development tools",
+      "Prompt engineering SDK",
+      "AI development utilities"
+    ]
   },
   "featured": false,
   "category": "prompt-engineering",

@@ -1,19 +1,27 @@
 {
   "title": {
     "en": "Top 5 MCP Servers for GitHub Copilot",
-    "zh": "GitHub Copilot 五大顶级 MCP 服务器"
+    "zh": "GitHub Copilot 五大顶级 MCP 服务器",
+    "ja": "GitHub Copilot向けMCPサーバー トップ5",
+    "ko": "GitHub Copilot을 위한 최고의 MCP 서버 5가지"
   },
   "description": {
     "en": "A professionally curated collection of the most powerful MCP (Model Context Protocol) servers designed to supercharge GitHub Copilot. These tools extend Copilot's capabilities, enabling advanced code generation, real-time documentation, API mocking, and memory management for a truly intelligent pair programming experience.",
-    "zh": "精选的专业级 MCP（模型上下文协议）服务器集合，旨在增强 GitHub Copilot 的功能。这些工具扩展了 Copilot 的能力，可实现高级代码生成、实时文档、API 模拟和内存管理，提供真正智能的结对编程体验。"
+    "zh": "精选的专业级 MCP（模型上下文协议）服务器集合，旨在增强 GitHub Copilot 的功能。这些工具扩展了 Copilot 的能力，可实现高级代码生成、实时文档、API 模拟和内存管理，提供真正智能的结对编程体验。",
+    "ja": "GitHub Copilotの能力を最大限に引き出すために設計された、最も強力なMCP（Model Context Protocol）サーバーをプロが厳選しました。これらのツールは、Copilotの機能を拡張し、高度なコード生成、リアルタイムドキュメント作成、APIモック、メモリ管理を可能にし、真にインテリジェントなペアプログラミング体験を提供します。",
+    "ko": "GitHub Copilot의 성능을 극대화하도록 설계된 가장 강력한 MCP(Model Context Protocol) 서버들을 전문적으로 엄선했습니다. 이 도구들은 Copilot의 기능을 확장하여 고급 코드 생성, 실시간 문서화, API mocking 및 메모리 관리를 가능하게 하여 진정한 지능형 페어 프로그래밍 경험을 제공합니다."
   },
   "seoTitle": {
     "en": "Top 5 MCP Servers for GitHub Copilot | Best AI Tools",
-    "zh": "GitHub Copilot 五大顶级 MCP 服务器 | 最佳 AI 工具"
+    "zh": "GitHub Copilot 五大顶级 MCP 服务器 | 最佳 AI 工具",
+    "ja": "GitHub Copilot向けMCPサーバー トップ5 | AIツール厳選",
+    "ko": "GitHub Copilot 최고의 MCP 서버 5가지 | AI 도구 추천"
   },
   "seoDescription": {
     "en": "Discover the top 5 MCP servers for GitHub Copilot. Enhance code generation, testing & documentation with ai-elements, sync-readme & more curated tools.",
-    "zh": "探索适用于 GitHub Copilot 的五大顶级 MCP 服务器。通过 ai-elements、sync-readme 等精选工具增强代码生成、测试和文档功能。"
+    "zh": "探索适用于 GitHub Copilot 的五大顶级 MCP 服务器。通过 ai-elements、sync-readme 等精选工具增强代码生成、测试和文档功能。",
+    "ja": "GitHub Copilotに最適なMCPサーバー トップ5をご紹介。ai-elements、sync-readmeなど厳選ツールでコード生成、テスト、ドキュメント作成を強化。",
+    "ko": "GitHub Copilot을 위한 최고의 MCP 서버 5가지를 만나보세요. ai-elements, sync-readme 등 엄선된 도구로 코드 생성, 테스트 및 문서화를 강화하세요."
   },
   "keywords": {
     "en": [
@@ -29,6 +37,20 @@
       "GitHub Copilot 扩展",
       "AI 结对编程",
       "模型上下文协议工具"
+    ],
+    "ja": [
+      "Best copilot AI tools",
+      "Top MCP servers for copilot",
+      "GitHub Copilot extensions",
+      "AI pair programming",
+      "Model Context Protocol tools"
+    ],
+    "ko": [
+      "Best copilot AI tools",
+      "Top MCP servers for copilot",
+      "GitHub Copilot extensions",
+      "AI pair programming",
+      "Model Context Protocol tools"
     ]
   },
   "featured": false,
