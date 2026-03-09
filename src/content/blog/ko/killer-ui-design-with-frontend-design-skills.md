@@ -1,6 +1,6 @@
 ---
 title: "AI "
-description: " . , frontend-design . UI/UX "
+description: "Master essential AI-powered frontend design techniques to boost UI/UX. Discover proven methods for seamless user experiences. Get started"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

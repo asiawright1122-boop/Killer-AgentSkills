@@ -1,6 +1,6 @@
 ---
 title: "The Official AI Agent Skills You Should Be Using Right Now"
-description: "An overview of the official AI agent skills available via Killer-Skills. From parsing tricky PDFs to generating production-ready React components, we cover what they actually do."
+description: "Master official AI agent skills, from parsing tricky PDFs to generating production-ready React components, and discover what they can do for you, learn now."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

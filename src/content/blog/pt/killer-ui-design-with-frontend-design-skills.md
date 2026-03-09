@@ -1,6 +1,6 @@
 ---
 title: "Mate o AI Slop: Dominando a Habilidade de Frontend-Design"
-description: "Aprenda a construir interfaces web deslumbrantes e de grau de produção com a habilidade oficial de frontend-design. Descubra os segredos do design UI/UX distinto."
+description: "Aprenda a construir interfaces web deslumbrantes com a habilidade oficial de frontend-design e descubra os segredos do design UI/UX distinto, dominando a h..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

@@ -17,6 +17,7 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    // SEO: meta description 建议 120–158 字符，以在搜索结果中完整展示并提升 CTR。运行 npx tsx scripts/audit-blog-meta-descriptions.ts 审计过短条目。
     description: z.string(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),

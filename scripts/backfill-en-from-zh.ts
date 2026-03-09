@@ -75,10 +75,17 @@ async function translateFrontmatter(frontmatter: string): Promise<string> {
     const desc = descMatch[1];
 
     const prompt = `Translate these blog metadata fields from Chinese to English for SEO purposes.
+
+IMPORTANT SEO REQUIREMENTS:
+- Meta description MUST be between 120-158 characters
+- Include a clear Call-to-Action (CTA) like "Learn now", "Read more", "Get started"
+- Use power words: proven, essential, complete, master, discover, learn, etc.
+- Front-load keywords for better visibility
+
 Return valid JSON only: { "title": "...", "description": "..." }
 
 Original Title: "${title}"
-Original Description: "${desc}"`;
+Original Description: "${desc}" (currently ${desc.length} characters)`;
 
     const result = await aiService.callAI(prompt, true);
     let newTitle = title;
@@ -93,6 +100,25 @@ Original Description: "${desc}"`;
             }
         } catch (e) {
             console.error('⚠️ Failed to parse frontmatter translation JSON, using original.', e);
+        }
+    }
+
+    // Post-process: Ensure description meets SEO length requirements (120-158 for English)
+    const minLen = 120;
+    const maxLen = 158;
+    
+    // If too long, truncate with "..."
+    if (newDesc.length > maxLen) {
+        console.log(`     ⚠️ Description too long (${newDesc.length} chars), truncating to ${maxLen}...`);
+        newDesc = newDesc.slice(0, maxLen - 3).trim() + '...';
+    }
+    
+    // If too short, keep original Chinese description as fallback
+    if (newDesc.length < minLen) {
+        console.log(`     ⚠️ Description too short (${newDesc.length} chars, min: ${minLen}), keeping original`);
+        if (desc.length >= minLen) {
+            newDesc = desc;
+            console.log(`     💡 Using Chinese description as fallback (${desc.length} chars)`);
         }
     }
 

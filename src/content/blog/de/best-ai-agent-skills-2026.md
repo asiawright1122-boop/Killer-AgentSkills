@@ -1,6 +1,6 @@
 ---
 title: "Beste KI-Agentenfähigkeiten für Claude, Cursor und Windsurf im Jahr 2026"
-description: "Eine kuratierte Liste der nützlichsten KI-Agentenfähigkeiten, die Sie sofort installieren können, sortiert nach dem, was sie wirklich gut können. Getestet mit Claude Code, Cursor und Windsurf."
+description: "Entdecken Sie die besten KI-Agentenfähigkeiten für Claude, Cursor und Windsurf im Jahr 2026. Eine kuratierte Liste der nützlichsten Fähigkeiten, getestet u..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

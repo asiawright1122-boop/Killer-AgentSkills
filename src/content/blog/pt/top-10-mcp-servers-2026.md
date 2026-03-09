@@ -1,6 +1,6 @@
 ---
 title: "Top 10 Servidores MCP Essenciais para Claude e Cursor em 2026"
-description: "Descubra os melhores servidores de Protocolo de Contexto de Modelo (MCP) para equipar seus Agentes de IA com superpoderes. Aprenda como instalar servidores MCP no Claude Code, Cursor e Windsurf para automatizar fluxos de trabalho, gerenciar bancos de dados e muito mais."
+description: "Descubra os melhores servidores MCP para Claude e Cursor em 2026. Aprenda a instalar servidores MCP para automatizar fluxos de trabalho e gerenciar bancos..."
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

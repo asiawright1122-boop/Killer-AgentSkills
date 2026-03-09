@@ -1,6 +1,6 @@
 ---
 title: "Les Compétences Officielles d'Agent IA Que Vous Devriez Utiliser Maintenant"
-description: "Un aperçu des compétences officielles d'agent IA disponibles via Killer-Skills. De l'analyse de PDF complexes à la génération de composants React prêts pour la production, nous couvrons ce qu'ils font réellement."
+description: "Découvrez les compétences officielles d'agent IA pour améliorer vos compétences en analyse de PDF et génération de composants React. Apprenez à utiliser ce..."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

@@ -1,6 +1,6 @@
 ---
 title: "AIスロップを殺せ：フロントエンドデザインスキルの習得"
-description: "公式のフロントエンドデザインスキルで、見事なプロダクショングレードのWebインターフェースを構築する方法を学びましょう。特徴的なUI/UXデザインの秘訣を発見してください。"
+description: "公式のフロントエンドデザインスキルでプロダクショングレードのWebインターフェースを構築する方法を学びましょう。UI/UXデザインの秘訣を発見して、AIスロップを殺せ。Learn now"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

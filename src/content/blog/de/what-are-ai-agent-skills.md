@@ -1,6 +1,6 @@
 ---
 title: "Was sind KI-Agenten-Fähigkeiten und warum sind sie wichtig?"
-description: "KI-Agenten-Fähigkeiten sind wiederverwendbare Anweisungsdateien, die Coding-Agenten wie Claude, Cursor und Windsurf mitteilen, wie sie bestimmte Aufgaben erledigen. Hier erfahren Sie, was sie sind, wie sie funktionieren und wann sie tatsächlich nützlich sind."
+description: "Entdecken Sie KI-Agenten-Fähigkeiten, wiederverwendbare Anweisungsdateien für Coding-Agenten. Erfahren Sie, wie sie funktionieren und wann sie nützlich sin..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]

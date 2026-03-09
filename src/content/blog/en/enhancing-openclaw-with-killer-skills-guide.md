@@ -1,6 +1,6 @@
 ---
 title: "Step-by-Step Guide: Enhancing OpenClaw with Killer-Skills for the Ultimate Autonomous AI Agent"
-description: "A detailed tutorial on how to sync the massive library of professional skills from Killer-Skills to OpenClaw, enabling your AI assistant to handle complex tasks."
+description: "Master OpenClaw with Killer-Skills integration, a proven method to enhance your AI assistant's capabilities. Discover how to sync professional skills and h..."
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

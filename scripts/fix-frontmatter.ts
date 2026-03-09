@@ -69,6 +69,11 @@ async function fixFrontmatter() {
                 const prompt = `You are a professional technical translator and strict SEO expert.
 Translate the following ONE blog post's title and description from English to ${locale}.
 
+IMPORTANT SEO REQUIREMENTS:
+- Meta description MUST be between 40-200 characters (for CJK) or 120-158 characters (for Latin-based languages)
+- Include a clear Call-to-Action (CTA) like "Learn now", "Read more", "Get started"
+- Use power words: proven, essential, complete, master, discover, learn, etc.
+
 ## Rules:
 1. Translate word-for-word accurately. DO NOT summarize. DO NOT extract keywords.
 2. The translated text must have a similar length to the original English text.
@@ -76,7 +81,7 @@ Translate the following ONE blog post's title and description from English to ${
 4. Output MUST be ONLY valid JSON matching this schema: { "title": "...", "description": "..." }
 
 Original Title: "${enTitle}"
-Original Description: "${enDesc}"`;
+Original Description: "${enDesc}" (${enDesc.length} characters)`;
 
                 try {
                     const result = await aiService.callAI(prompt, true);
@@ -89,6 +94,22 @@ Original Description: "${enDesc}"`;
                             if (parsed.title) newTitle = parsed.title;
                             if (parsed.description) newDesc = parsed.description;
                         }
+                    }
+
+                    // Determine character limits based on language
+                    const isCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u0600-\u06ff]/.test(locale);
+                    const minLen = isCJK ? 40 : 120;
+                    const maxLen = isCJK ? 200 : 158;
+                    
+                    // Post-process: Ensure description meets SEO length requirements
+                    if (newDesc.length > maxLen) {
+                        console.log(`     ⚠️ Description too long (${newDesc.length} chars), truncating...`);
+                        newDesc = newDesc.slice(0, maxLen - 3).trim() + '...';
+                    }
+                    
+                    if (newDesc.length < minLen) {
+                        console.log(`     ⚠️ Description too short (${newDesc.length} chars), using original`);
+                        newDesc = enDesc; // Fallback to English
                     }
 
                     if (newTitle !== enTitle) {

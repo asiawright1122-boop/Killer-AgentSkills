@@ -1,6 +1,6 @@
 ---
 title: "Топ 10 обязательных серверов MCP для Claude и Cursor в 2026 году"
-description: "Узнайте о лучших серверах Model Context Protocol (MCP), чтобы оснастить ваши агенты ИИ сверхспособностями. Ознакомьтесь с инструкциями по установке серверов MCP в Claude Code, Cursor и Windsurf для автоматизации рабочих процессов, управления базами данных и многого другого."
+description: "Discover top 10 essential MCP servers for Claude and Cursor in 2026. Master Model Context Protocol for AI superpowers. Learn now."
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

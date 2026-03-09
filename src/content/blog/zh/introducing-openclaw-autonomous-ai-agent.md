@@ -1,6 +1,6 @@
 ---
 title: "认识 OpenClaw：下一代开源自主 AI 智能体"
-description: "深入了解 OpenClaw —— 一个强大的开源自主 AI 助手，它如何改变我们的工作方式以及它的核心优势。"
+description: "认识 OpenClaw：下一代开源自主 AI 智能体，了解其核心优势和工作方式改变。开始探索 OpenClaw 的强大功能 Learn now"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Agents", "Open Source"]

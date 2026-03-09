@@ -1,6 +1,6 @@
 ---
 title: "Branding Instantâneo: Um Guia para a Habilidade Theme-Factory"
-description: "Aprenda a aplicar temas profissionais aos seus artefatos gerados por IA usando a habilidade oficial theme-factory. Domine a estilização consistente para slides, documentos e páginas da web."
+description: "Aprenda a criar temas profissionais com a habilidade theme-factory. Domine a estilização consistente para slides, documentos e páginas da web. Aprenda agora."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

@@ -1,6 +1,6 @@
 ---
 title: "Autonomiser les agents IA : Création de serveurs MCP de haute qualité"
-description: "Découvrez le Protocole de Contexte de Modèle (MCP) et apprenez à créer des serveurs puissants qui permettent aux agents IA d'interagir avec des outils et des services externes."
+description: "Créez des serveurs MCP de haute qualité pour autonomiser les agents IA, découvrez comment interagir avec des outils et services externes, Learn now"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

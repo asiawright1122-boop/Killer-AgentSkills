@@ -1,6 +1,6 @@
 ---
 title: "使用AI的生成艺术：算法艺术技能指南"
-description: "掌握使用官方算法艺术技能为AI代理创建生成艺术。学习如何轻松创建惊人的p5.js视觉效果，流场和粒子系统。"
+description: "使用AI的生成艺术：掌握算法艺术技能，创建惊人的p5.js视觉效果，流场和粒子系统。Discover如何轻松为AI代理创建生成艺术，Get started"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

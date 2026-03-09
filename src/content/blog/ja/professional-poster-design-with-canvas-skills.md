@@ -1,6 +1,6 @@
 ---
 title: "Static Design Mastery: Canvas-Design Skill"
-description: "Canvas-Design Skill"
+description: "Master static design with our proven canvas-design skill guide, essential for creating stunning visuals, discover the complete design process and get start..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

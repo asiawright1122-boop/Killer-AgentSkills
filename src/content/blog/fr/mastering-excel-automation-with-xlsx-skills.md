@@ -1,6 +1,6 @@
 ---
 title: "Maîtrise des Données Dynamiques : Guide de la Compétence XLSX"
-description: "Maîtrisez l'automatisation des feuilles de calcul avec la compétence xlsx officielle. Apprenez à créer des modèles financiers, automatiser le nettoyage des données et générer des rapports Excel dynamiques."
+description: "Maîtrisez l'automatisation des feuilles de calcul avec la compétence xlsx officielle. Créez des modèles financiers et rapports dynamiques. Découvrez les se..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

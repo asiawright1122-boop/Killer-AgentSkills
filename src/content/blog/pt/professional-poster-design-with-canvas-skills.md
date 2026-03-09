@@ -1,6 +1,6 @@
 ---
 title: "Domínio do Design Estático: Explorando a Habilidade Canvas-Design"
-description: "Descubra como criar pôsteres de qualidade de museu e designs estáticos usando a habilidade oficial canvas-design. Aprenda sobre manifestos de design e filosofias visuais."
+description: "Domínio do Design Estático: Aprenda a criar pôsteres de qualidade de museu com canvas-design. Descubra manifestos e filosofias visuais. Aprenda agora."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

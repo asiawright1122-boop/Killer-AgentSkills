@@ -1,6 +1,6 @@
 ---
 title: "Schritt-für-Schritt-Anleitung: OpenClaw mit Killer-Skills für den ultimativen autonomen AI-Agenten erweitern"
-description: "Eine detaillierte Anleitung, wie man die umfangreiche Bibliothek professioneller Fähigkeiten von Killer-Skills mit OpenClaw synchronisiert, um Ihrem AI-Assistenten die Bearbeitung komplexer Aufgaben zu ermöglichen."
+description: "Erweitern Sie OpenClaw mit Killer-Skills für den ultimativen autonomen AI-Agenten. Eine detaillierte Anleitung, um komplexe Aufgaben zu meistern. Get started"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

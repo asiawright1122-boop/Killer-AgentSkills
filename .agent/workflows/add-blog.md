@@ -13,7 +13,7 @@ description: Add a new blog post and automatically translate it to all languages
 ```markdown
 ---
 title: "Your SEO-Optimized Title Here"
-description: "Compelling meta description under 155 chars for CTR."
+description: "Compelling meta description, 120–158 chars for SEO (too short hurts CTR; run: npx tsx scripts/audit-blog-meta-descriptions.ts)."
 pubDate: 2026-03-09
 author: "Killer-Skills Team"
 heroImage: "/blog/your-hero-image.webp"
@@ -38,7 +38,7 @@ layout: "~/layouts/BlogLayout.astro"
 发布前逐项确认：
 
 - [ ] **Title** ≤ 60 字符
-- [ ] **Description** ≤ 155 字符
+- [ ] **Description** 120–158 字符（过短会触发 SEO 告警；发布前可运行 `npx tsx scripts/audit-blog-meta-descriptions.ts` 审计）
 - [ ] Title/Description 含目标关键词
 - [ ] 正文含 ≥ 3 个内链到 skill/collection 页面
 - [ ] heroImage 存在于 `public/blog/` 下

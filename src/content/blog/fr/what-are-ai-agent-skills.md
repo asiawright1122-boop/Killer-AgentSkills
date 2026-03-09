@@ -1,6 +1,6 @@
 ---
 title: "Que sont les compétences des agents IA et pourquoi devriez-vous vous en soucier ?"
-description: "Les compétences des agents IA sont des fichiers d'instructions réutilisables qui indiquent aux agents de codage comme Claude, Cursor et Windsurf comment effectuer des tâches spécifiques. Voici ce qu'elles sont, comment elles fonctionnent et quand elles sont réellement utiles."
+description: "Découvrez les compétences des agents IA, des fichiers d'instructions réutilisables pour agents de codage comme Claude et Cursor. Apprenez comment elles fon..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]

@@ -1,6 +1,6 @@
 ---
 title: "Пользовательские реакции Slack: освоение навыка Slack-GIF-Creator"
-description: "Узнайте, как создавать пользовательские анимированные GIF и эмодзи для Slack с помощью официального навыка slack-gif-creator. Оптимизируйте ваши анимации для размера файла и воздействия."
+description: "Создавайте пользовательские анимированные GIF и эмодзи для Slack с помощью навыка slack-gif-creator. Оптимизируйте анимации для размера файла и воздействия..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]

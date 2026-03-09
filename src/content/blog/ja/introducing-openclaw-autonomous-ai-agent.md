@@ -1,6 +1,6 @@
 ---
 title: "OpenClawを紹介：次世代のオープンソース自律型AIエージェント"
-description: "強力なオープンソース自律型AIアシスタントOpenClawを詳しく解説。私たちの働き方をどう変えるか、そのコアな利点をご紹介します。"
+description: "強力なオープンソース自律型AIアシスタントOpenClawを紹介。次世代のAIエージェントで働き方を変えるコアな利点を発見。OpenClawの利点をLearn now"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Agents", "Open Source"]

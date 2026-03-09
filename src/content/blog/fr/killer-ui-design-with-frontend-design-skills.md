@@ -1,6 +1,6 @@
 ---
 title: "Éliminez le Contenu IA Médiocre : Maîtrisez la Compétence Frontend-Design"
-description: "Apprenez à créer des interfaces web époustouflantes et de qualité professionnelle avec la compétence officielle frontend-design. Découvrez les secrets d'une conception UI/UX distinctive."
+description: "Maîtrisez la compétence frontend-design pour créer des interfaces web époustouflantes et professionnelles, découvrez les secrets d'une conception UI/UX dis..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

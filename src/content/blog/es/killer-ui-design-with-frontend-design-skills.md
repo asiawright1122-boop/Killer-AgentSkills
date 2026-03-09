@@ -1,6 +1,6 @@
 ---
 title: "Mata el Contenido de IA Mediocre: Domina la Habilidad de Diseño Frontend"
-description: "Aprende a construir interfaces web impresionantes y de calidad de producción con la habilidad oficial de diseño frontend. Descubre los secretos del diseño distintivo de UI/UX."
+description: "Domina el diseño frontend y mata el contenido de IA mediocre. Aprende a construir interfaces web impresionantes y de calidad de producción. Descubre los se..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

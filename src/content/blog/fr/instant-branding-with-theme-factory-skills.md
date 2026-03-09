@@ -1,6 +1,6 @@
 ---
 title: "Marque Instantanée : Un Guide pour la Compétence Theme-Factory"
-description: "Apprenez à appliquer des thèmes professionnels à vos artefacts générés par IA à l'aide de la compétence officielle theme-factory. Maîtrisez le style cohérent pour les diapositives, les documents et les pages web."
+description: "Maîtrisez Marque Instantanée avec Theme-Factory, la compétence officielle pour appliquer des thèmes professionnels à vos artefacts générés par IA. Créez un..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

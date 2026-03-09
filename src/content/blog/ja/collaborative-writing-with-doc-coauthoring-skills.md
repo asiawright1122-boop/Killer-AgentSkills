@@ -1,6 +1,6 @@
 ---
 title: "コラボレーションエンジン：ドキュメント共同執筆スキルのマスター"
-description: "公式のドキュメント共同執筆スキルを使用して、世界クラスのドキュメントの作成方法を学びます。PRD、仕様書、提案書のための3段階のワークフローを発見しましょう。"
+description: "コラボレーションエンジンでドキュメント共同執筆スキルをマスターし、効率的なワークフローを発見してPRDや仕様書の作成を最適化しましょう。コラボレーションエンジンの力を活用して、世界クラスのドキュメントを作成する方法を"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]

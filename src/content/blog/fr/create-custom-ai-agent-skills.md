@@ -1,6 +1,6 @@
 ---
 title: "Programmer vos programmeurs : Le guide du créateur de compétences"
-description: "Apprenez à créer des compétences AI efficaces en utilisant l'outil de création de compétences. Maîtrisez l'art des capacités AI modulaires avec des connaissances spécialisées et des flux de travail."
+description: "Créez des compétences AI efficaces avec notre guide du créateur de compétences. Maîtrisez l'art des capacités AI modulaires et découvrez les meilleures pra..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]

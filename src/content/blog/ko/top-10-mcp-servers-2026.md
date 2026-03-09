@@ -1,6 +1,6 @@
 ---
 title: "2026 Claude & Cursor "
-description: "MCP , Claude Code, Cursor, Windsurf . "
+description: "Master Claude Code with our essential MCP guide, covering Cursor and Windsurf techniques. Get started with expert tips and proven methods to improve your s..."
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

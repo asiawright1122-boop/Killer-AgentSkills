@@ -1,6 +1,6 @@
 ---
 title: "静态设计掌握：探索画布设计技能"
-description: "发现如何使用官方画布设计技能创建博物馆质量的海报和静态设计。了解设计宣言和视觉哲学。"
+description: "静态设计掌握：探索画布设计技能，创建博物馆质量的海报和静态设计。了解设计宣言和视觉哲学，掌握画布设计技能，Learn now"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

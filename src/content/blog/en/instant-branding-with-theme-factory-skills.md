@@ -1,6 +1,6 @@
 ---
 title: "Instant Branding: A Guide to the Theme-Factory Skill"
-description: "Learn how to apply professional themes to your AI-generated artifacts using the official theme-factory skill. Master consistent styling for slides, docs, and web pages."
+description: "Master instant branding with the official theme-factory skill. Apply professional themes to AI-generated artifacts for consistent styling. Get started with..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

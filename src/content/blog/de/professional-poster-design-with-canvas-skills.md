@@ -1,6 +1,6 @@
 ---
 title: "Statische Design-Meisterschaft: Erforschung der Canvas-Design-Fähigkeit"
-description: "Entdecken Sie, wie Sie museumswürdige Poster und statische Designs mit der offiziellen Canvas-Design-Fähigkeit erstellen. Lernen Sie Design-Manifeste und visuelle Philosophien kennen."
+description: "Entdecken Sie die Canvas-Design-Fähigkeit und erstellen Sie museumswürdige Poster und statische Designs. Lernen Sie Design-Manifeste und visuelle Philosoph..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

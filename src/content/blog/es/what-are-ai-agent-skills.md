@@ -1,6 +1,6 @@
 ---
 title: "¿Qué son las habilidades de los agentes de IA y por qué deberían importarte?"
-description: "Las habilidades de los agentes de IA son archivos de instrucciones reutilizables que le indican a agentes de codificación como Claude, Cursor y Windsurf cómo realizar trabajos específicos. Te explicamos qué son, cómo funcionan y cuándo son realmente útiles."
+description: "Descubre las habilidades de los agentes de IA, archivos de instrucciones reutilizables que indican a agentes de codificación cómo realizar trabajos específ..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
