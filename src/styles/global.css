@@ -302,6 +302,44 @@ img.lazy-load.loaded {
   opacity: 1;
 }
 
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, #22d3ee 50%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+/* Button press effect */
+.btn-press:active {
+  transform: scale(0.98) translate(1px, 1px);
+}
+
+/* Glow effect on hover */
+.btn-glow:hover {
+  box-shadow: 0 0 20px rgba(204, 255, 0, 0.4);
+}
+
 /* Shiki Dual Themes Support */
 @layer base {
   html.dark .shiki,
