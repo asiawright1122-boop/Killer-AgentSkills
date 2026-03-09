@@ -38,8 +38,8 @@ export const GET: APIRoute = async ({ locals }) => {
 
   const today = new Date().toISOString().split('T')[0];
 
-  // Calculate number of sitemap chunks (limit 1000 skills per file)
-  const LIMIT = 1000;
+  // Calculate number of sitemap chunks (limit 200 skills per file)
+  const LIMIT = 200;
   const totalSkills = skills && skills.length > 0 ? skills.length : 0;
   const totalPages = Math.ceil(totalSkills / LIMIT) || 1;
 
