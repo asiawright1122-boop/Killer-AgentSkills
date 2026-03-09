@@ -275,7 +275,7 @@ const features = [
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
         {
           featuredSkills.length > 0 ? (
             featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} t={t} />)
@@ -300,7 +300,7 @@ const features = [
           <p class="text-[var(--muted-foreground)] font-mono text-lg">{t('Home.featuresSubtitle')}</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
           {
             features.map((feature, i) => (
               <div class="brut-card p-6 flex flex-col items-center text-center">
@@ -349,7 +349,7 @@ const features = [
           </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
           {
             homeCollections.map((col: any) => {
               const colTitle =
