@@ -103,20 +103,33 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
 
   <!-- Sub-header: Owner Info -->
   <div class="relative z-1 flex items-center gap-3 mb-4 pointer-events-none">
-    <div class="w-6 h-6 border-2 border-[var(--foreground)] overflow-hidden bg-white">
+    <div class="w-6 h-6 border-2 border-[var(--foreground)] overflow-hidden bg-white relative">
       <img
         src={avatarUrl}
         alt={`Logo of ${owner}`}
         width="24"
         height="24"
-        class="w-full h-full object-cover grayscale contrast-125"
+        class="w-full h-full object-cover grayscale contrast-125 transition-all duration-300"
         loading="lazy"
         decoding="async"
         onerror="this.style.display='none'"
+        onload="this.classList.remove('opacity-0')"
       />
+      <!-- Loading skeleton -->
+      <div class="absolute inset-0 bg-[var(--muted)] animate-pulse opacity-100" id={`skeleton-${owner}-${repo}`}></div>
     </div>
     <span class="text-xs font-bold text-[var(--foreground)]">{owner}</span>
   </div>
+
+  <script is:inline>
+    // Hide skeleton when image loads
+    document.querySelectorAll('article img').forEach((img) => {
+      img.addEventListener('load', function () {
+        const skeleton = this.closest('.relative').querySelector('.animate-pulse');
+        if (skeleton) skeleton.style.display = 'none';
+      });
+    });
+  </script>
 
   <!-- Description -->
   <p
