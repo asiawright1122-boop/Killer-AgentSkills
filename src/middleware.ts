@@ -75,6 +75,55 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
+  // 3b. Block deeply nested skill paths (crawl traps like /skills/owner/repo/a/b/c/d)
+  //     Only owner/repo is valid; anything beyond 2 segments after /skills/ is a trap.
+  const deepNestMatch = pathname.match(/^\/[a-z]{2}\/skills\/([^/]+)\/([^/]+)\/(.+)/);
+  if (deepNestMatch) {
+    const subPath = deepNestMatch[3];
+    // If there are 2+ extra path segments beyond owner/repo, it's a crawl trap
+    if (subPath.split('/').length >= 2) {
+      return new Response(null, {
+        status: 404,
+        statusText: 'Not Found',
+        headers: {
+          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+          'X-Robots-Tag': 'noindex',
+        },
+      });
+    }
+  }
+
+  // 3c. Redirect legacy ?tag= parameter to ?topic= (consolidate duplicate params)
+  const searchParams = context.url.searchParams;
+  if (searchParams.has('tag')) {
+    const tagValue = searchParams.get('tag')!;
+    const newUrl = new URL(context.url);
+    newUrl.searchParams.delete('tag');
+    newUrl.searchParams.set('topic', tagValue);
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: newUrl.pathname + newUrl.search,
+        'Cache-Control': 'public, s-maxage=86400',
+      },
+    });
+  }
+
+  // 3d. Redirect legacy ?q= parameter to ?query= (consolidate duplicate params)
+  if (searchParams.has('q') && !searchParams.has('query')) {
+    const qValue = searchParams.get('q')!;
+    const newUrl = new URL(context.url);
+    newUrl.searchParams.delete('q');
+    newUrl.searchParams.set('query', qValue);
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: newUrl.pathname + newUrl.search,
+        'Cache-Control': 'public, s-maxage=86400',
+      },
+    });
+  }
+
   // 4. Skip static assets; apply security headers + observability to API routes
   if (isStaticOrApiPath(pathname)) {
     if (pathname.startsWith('/api/')) {
@@ -114,7 +163,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
     response.headers.set('Content-Language', localeSegment);
     // X-Robots-Tag as HTTP header reinforcement for Googlebot
     if (!response.headers.has('X-Robots-Tag')) {
-      response.headers.set('X-Robots-Tag', 'index, follow');
+      // noindex for search result pages (?query=) — thin/dynamic content
+      if (searchParams.has('query')) {
+        response.headers.set('X-Robots-Tag', 'noindex, follow');
+      } else {
+        response.headers.set('X-Robots-Tag', 'index, follow');
+      }
     }
     setSecurityHeaders(response);
 

@@ -21,6 +21,14 @@ Disallow: /.cursor/
 Disallow: /04-Initiatives/
 Disallow: /ORCHESTRATION.md
 
+# Block search result pages — dynamic, thin content
+Disallow: /*?query=
+Disallow: /*?q=
+# Block legacy tag parameter (use ?topic= instead)
+Disallow: /*?tag=
+# Block deep nested skill sub-paths (crawl traps)
+Disallow: /*/skills/*/*/*/*/
+
 # Googlebot specific — no crawl-delay for maximum indexing speed
 User-agent: Googlebot
 Allow: /
