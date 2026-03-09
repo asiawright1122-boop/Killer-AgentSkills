@@ -102,7 +102,7 @@ export class AIService {
                 url = 'https://integrate.api.nvidia.com/v1/chat/completions';
                 headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
                 bodyObj = {
-                    model: 'deepseek-ai/deepseek-v3.1',
+                    model: 'meta/llama-3.3-70b-instruct',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
@@ -115,7 +115,7 @@ export class AIService {
                 url = 'https://api.siliconflow.cn/v1/chat/completions';
                 headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` };
                 bodyObj = {
-                    model: 'deepseek-ai/DeepSeek-V3',
+                    model: 'Qwen/Qwen2.5-72B-Instruct',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096,
@@ -132,7 +132,7 @@ export class AIService {
                     'X-Title': 'Killer-Skills Translation'
                 };
                 bodyObj = {
-                    model: 'google/gemma-3-27b-it:free',
+                    model: 'google/gemini-2.5-flash',
                     messages: [{ role: 'user', content: prompt }],
                     temperature: 0.3,
                     max_tokens: 4096
@@ -259,8 +259,13 @@ export class AIService {
             else if (winner.provider === 'C') this.stats.cloudflare++;
             process.stdout.write(winner.provider);
             return winner.result;
-        } catch (e) {
+        } catch (e: any) {
             // All providers failed
+            if (e.errors) {
+                console.error(`[AIService] All providers failed. Errors:`, e.errors);
+            } else {
+                console.error(`[AIService] All providers failed. Error:`, e);
+            }
             controllers.forEach(c => c.abort());
             return null;
         }

@@ -24,7 +24,11 @@ const typedLocale = locale as Locale;
 const env = Astro.locals.runtime?.env as Env;
 
 // ⚡ PARALLEL: Load lightweight skills + translations concurrently
-const [skillsFetched, messages] = await Promise.all([getLightweightSkills(env), loadMessages(typedLocale)]);
+// Wrap D1 call in try-catch to prevent 5xx when database is unavailable
+const [skillsFetched, messages] = await Promise.all([
+  getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>),
+  loadMessages(typedLocale),
+]);
 
 let skills: UnifiedSkill[] = skillsFetched;
 

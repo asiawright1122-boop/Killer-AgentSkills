@@ -16,6 +16,7 @@
     "test": "vitest --run",
     "sync:kv": "npx tsx scripts/sync-to-kv.ts",
     "build:cache": "npx tsx scripts/build-skills-cache.ts",
+    "generate:collections": "npx tsx scripts/generate-collections.ts",
     "skills:harvest": "npx tsx scripts/harvest-github-skills.ts",
     "pipeline:run": "./scripts/run-pipeline.sh",
     "build:docs": "npx tsx scripts/build-docs-cache.ts",
