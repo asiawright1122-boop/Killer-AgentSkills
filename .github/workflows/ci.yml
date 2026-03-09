@@ -89,3 +89,11 @@ jobs:
 
       - name: Validate Build Output
         run: npx vitest run src/build-validation.test.ts --reporter=default
+
+      - name: Deploy to Cloudflare Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=killer-skills --branch=main --commit-dirty=true

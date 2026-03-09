@@ -25,7 +25,20 @@ function setSecurityHeaders(response: Response): void {
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
-  // 0. Enforce trailingSlash: 'never'
+  // 0. Enforce canonical domain: redirect www.killer-skills.com to killer-skills.com
+  if (context.url.hostname === 'www.killer-skills.com') {
+    const url = new URL(context.url);
+    url.hostname = 'killer-skills.com';
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: url.toString(),
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  }
+
+  // 0.5. Enforce trailingSlash: 'never'
   // If the pathname ends with a slash (and isn't the root URL), 301 redirect to the path without the slash
   if (pathname !== '/' && pathname.endsWith('/')) {
     const newPath = pathname.replace(/\/+$/, '');
