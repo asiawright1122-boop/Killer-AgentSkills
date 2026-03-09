@@ -38,6 +38,7 @@ const collectionsCol = defineCollection({
     seoTitle: z.record(z.string()).optional(),
     seoDescription: z.record(z.string()).optional(),
     keywords: z.record(z.array(z.string())).optional(),
+    longDescription: z.record(z.string()).optional(),
     skills: z.array(z.string()),
     author: z.string().default('Killer-Skills Team'),
     featured: z.boolean().default(false),
