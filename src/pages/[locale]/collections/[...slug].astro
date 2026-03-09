@@ -68,6 +68,7 @@ const description = resolveLocalized(cData.description, '');
 const seoTitle = resolveLocalized(cData.seoTitle, title);
 const seoDescription = resolveLocalized(cData.seoDescription, description);
 const keywords = resolveLocalizedArray(cData.keywords, []);
+const longDescription = resolveLocalized(cData.longDescription, '');
 
 // OG Image
 const _ogImageParams = new URLSearchParams({
@@ -195,6 +196,17 @@ const itemListSchema = {
             {description}
           </p>
         </div>
+
+        {/* Long Description — SEO-rich prose section */}
+        {
+          longDescription && (
+            <section class="mb-16 max-w-4xl">
+              <p class="seo-intro-paragraph text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {longDescription}
+              </p>
+            </section>
+          )
+        }
 
         {/* Grid of Dynamic Live Skills */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
