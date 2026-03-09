@@ -8,7 +8,8 @@
     "dist",
     "_backup_nextjs_v1",
     ".wrangler",
-    "workers"
+    "workers",
+    "packages"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

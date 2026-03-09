@@ -9,6 +9,17 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /favorites
 Disallow: /history
+# Block crawling of source-code file paths (not real pages)
+Disallow: /*.md$
+Disallow: /*.ts$
+Disallow: /*.js$
+Disallow: /*.py$
+Disallow: /*.json$
+Disallow: /*.go$
+Disallow: /*.yaml$
+Disallow: /.cursor/
+Disallow: /04-Initiatives/
+Disallow: /ORCHESTRATION.md
 
 # Googlebot specific — no crawl-delay for maximum indexing speed
 User-agent: Googlebot
