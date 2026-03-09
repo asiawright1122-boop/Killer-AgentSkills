@@ -149,7 +149,7 @@ const features = [
         >
           {t('Home.heroTitle')}
           <br class="hidden md:block" />
-          <span class="text-gradient px-2 inline-block -skew-x-[10deg] animate-float-delayed">
+          <span class="text-gradient px-2 inline-block -skew-x-[10deg]">
             {t('Home.heroTitleHighlight')}
           </span>
         </h1>
@@ -275,7 +275,7 @@ const features = [
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {
           featuredSkills.length > 0 ? (
             featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} t={t} />)
@@ -300,7 +300,7 @@ const features = [
           <p class="text-[var(--muted-foreground)] font-mono text-lg">{t('Home.featuresSubtitle')}</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {
             features.map((feature, i) => (
               <div class="brut-card p-6 flex flex-col items-center text-center">
@@ -349,7 +349,7 @@ const features = [
           </a>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {
             homeCollections.map((col: any) => {
               const colTitle =
