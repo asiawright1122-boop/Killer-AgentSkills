@@ -25,6 +25,19 @@ function setSecurityHeaders(response: Response): void {
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
+  // 0. Enforce trailingSlash: 'never'
+  // If the pathname ends with a slash (and isn't the root URL), 301 redirect to the path without the slash
+  if (pathname !== '/' && pathname.endsWith('/')) {
+    const newPath = pathname.replace(/\/+$/, '');
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: newPath + context.url.search,
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  }
+
   // 1. Admin routes (API + pages) require Basic Auth
   const isAdminApi = pathname.startsWith('/api/admin/');
   const isAdminPage = !isAdminApi && pathname.startsWith('/admin');

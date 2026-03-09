@@ -9,6 +9,10 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   output: 'server',
   site: 'https://killer-skills.com',
+  trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
 
   adapter: cloudflare({
     platformProxy: { enabled: true },

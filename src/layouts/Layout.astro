@@ -45,10 +45,10 @@ try {
   console.error(`[Layout] Error loading translations for ${locale}:`, e);
 }
 
-// Helper to ensure trailing slashes for canonical and hreflang consolidation (except root)
-const ensureTrailingSlash = (url: string) => {
-  if (url.endsWith('/') || url.endsWith('.txt') || url.endsWith('.xml')) return url;
-  return `${url}/`;
+// Helper to strip trailing slashes for canonical and hreflang consolidation (except root)
+const stripTrailingSlash = (url: string) => {
+  if (url === SITE_URL || url === `${SITE_URL}/`) return url;
+  return url.replace(/\/+$/, '');
 };
 
 // Build absolute image URL for OG/Twitter meta tags
@@ -59,7 +59,7 @@ if (!canonicalUrl) {
   canonicalUrl =
     Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
       ? `${SITE_URL}${Astro.url.pathname}`
-      : ensureTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
+      : stripTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
 }
 
 // Build hreflang alternate URLs for all supported locales
@@ -71,12 +71,12 @@ const currentPath =
 const hreflangUrls = SUPPORTED_LOCALES.map((loc) => {
   // Replace the current locale segment with each alternate locale
   const altPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${loc}$1`);
-  const finalHref = altPath === `/${loc}` ? `${SITE_URL}${altPath}` : ensureTrailingSlash(`${SITE_URL}${altPath}`);
+  const finalHref = altPath === `/${loc}` ? `${SITE_URL}${altPath}` : stripTrailingSlash(`${SITE_URL}${altPath}`);
   return { locale: loc, href: finalHref };
 });
 const xDefaultPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), '/en$1');
 const xDefaultUrl =
-  xDefaultPath === '/en' ? `${SITE_URL}${xDefaultPath}` : ensureTrailingSlash(`${SITE_URL}${xDefaultPath}`);
+  xDefaultPath === '/en' ? `${SITE_URL}${xDefaultPath}` : stripTrailingSlash(`${SITE_URL}${xDefaultPath}`);
 
 // SEO: Title length optimization (Target ~60 chars max)
 const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');
