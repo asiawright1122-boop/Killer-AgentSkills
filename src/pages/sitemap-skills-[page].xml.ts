@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ locals, params }) => {
   const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
   const pageParam = params.page || '1';
   const page = parseInt(pageParam, 10);
-  const LIMIT = 1000; // Skills per sitemap file
+  const LIMIT = 200; // Skills per sitemap file
 
   if (isNaN(page) || page < 1) {
     return new Response('Invalid page', { status: 404 });
