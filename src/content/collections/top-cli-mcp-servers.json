@@ -1,15 +1,21 @@
 {
   "title": {
     "en": "Top X SEO Tools",
-    "zh": "顶级SEO工具"
+    "zh": "顶级SEO工具",
+    "ja": "SEOツールのベストピック",
+    "ko": "최상의 SEO 도구 모음"
   },
   "description": {
     "en": "A curated collection of the most effective SEO tools available.",
-    "zh": "精选最有效的SEO工具集合"
+    "zh": "精选最有效的SEO工具集合，助您提升网站排名。",
+    "ja": "最も効果的なSEOツールを厳選したコレクションです。",
+    "ko": "가장 효과적인 SEO 도구들을 엄선한 컬렉션입니다."
   },
   "keywords": {
     "en": ["SEO", "tools", "optimization"],
-    "zh": ["SEO", "工具", "优化"]
+    "zh": ["SEO", "工具", "优化"],
+    "ja": ["SEO", "tools", "optimization"],
+    "ko": ["SEO", "tools", "optimization"]
   },
   "featured": false,
   "category": "cli",
@@ -27,5 +33,15 @@
     "SynkraAI/aios-core",
     "tatargabor/wt-tools",
     "aicodingstack/aicodingstack.io"
-  ]
+  ],
+  "seoTitle": {
+    "zh": "SEO工具大全",
+    "ja": "SEOツールランキング",
+    "ko": "SEO 도구 TOP"
+  },
+  "seoDescription": {
+    "zh": "提升网站排名，点击发现顶级SEO工具",
+    "ja": "SEOツールを比較！効果的なSEO対策を実現",
+    "ko": "SEO 성과 향상을 위한 최고의 도구들"
+  }
 }

@@ -1,19 +1,27 @@
 {
   "title": {
     "en": "Top 10 Hacktoberfest AI Tools & MCP Servers",
-    "zh": "十大 Hacktoberfest AI 工具与 MCP 服务器"
+    "zh": "十大 Hacktoberfest AI 工具与 MCP 服务器",
+    "ja": "Hacktoberfest AIツール＆MCPサーバー トップ10",
+    "ko": "Hacktoberfest AI 도구 및 MCP 서버 TOP 10"
   },
   "description": {
     "en": "A professionally curated collection of the most impactful AI tools and MCP servers for Hacktoberfest 2024. Discover the top solutions for code generation, project setup, SDKs, and developer productivity to supercharge your open-source contributions this October.",
-    "zh": "专为 Hacktoberfest 2024 精心策划的最具影响力的 AI 工具和 MCP 服务器集合。探索代码生成、项目设置、SDK 和开发人员工作效率方面的顶级解决方案，助您在十月的开源贡献中如虎添翼。"
+    "zh": "专为 Hacktoberfest 2024 精心策划的最具影响力的 AI 工具和 MCP 服务器集合。探索代码生成、项目设置、SDK 和开发人员工作效率方面的顶级解决方案，助您在十月的开源贡献中如虎添翼。",
+    "ja": "Hacktoberfest 2024に向けて厳選された、最も影響力のあるAIツールとMCPサーバーのコレクションです。コード生成、プロジェクトセットアップ、SDK、開発者の生産性向上に役立つ最高のソリューションを見つけて、この10月のオープンソース貢献を加速させましょう。",
+    "ko": "2024년 Hacktoberfest를 위한 가장 영향력 있는 AI 도구 및 MCP 서버를 전문적으로 선별한 컬렉션입니다. 10월 한 달간 오픈 소스 기여를 극대화할 코드 생성, 프로젝트 설정, SDK, 개발자 생산성을 위한 최고의 솔루션을 만나보세요."
   },
   "seoTitle": {
     "en": "Best Hacktoberfest AI Tools & MCP Servers 2024",
-    "zh": "2024 年最佳 Hacktoberfest AI 工具与 MCP 服务器"
+    "zh": "2024 年最佳 Hacktoberfest AI 工具与 MCP 服务器",
+    "ja": "Hacktoberfest向けAIツール＆MCPサーバー ベスト2024",
+    "ko": "최고의 Hacktoberfest AI 도구 및 MCP 서버 2024"
   },
   "seoDescription": {
     "en": "Discover the top-rated AI tools & MCP servers for Hacktoberfest. Boost your open-source projects with code generation, SDKs, and dev tools.",
-    "zh": "探索 Hacktoberfest 评分最高的 AI 工具和 MCP 服务器。通过代码生成、SDK 和开发工具助力您的开源项目。"
+    "zh": "探索 Hacktoberfest 评分最高的 AI 工具和 MCP 服务器。通过代码生成、SDK 和开发工具助力您的开源项目。",
+    "ja": "Hacktoberfestに最適なAIツール＆MCPサーバーを発見。コード生成、SDK、開発ツールでオープンソースプロジェクトを強化しよう。",
+    "ko": "Hacktoberfest를 위한 최고 평점 AI 도구 및 MCP 서버를 만나보세요. 코드 생성, SDK, 개발 도구로 오픈 소스 프로젝트를 강화하세요."
   },
   "keywords": {
     "en": [
@@ -29,6 +37,20 @@
       "hacktoberfest 代码生成",
       "AI 开发工具",
       "开源 MCP 服务器"
+    ],
+    "ja": [
+      "Best hacktoberfest AI tools",
+      "Top MCP servers for hacktoberfest",
+      "hacktoberfest code generation",
+      "AI developer tools",
+      "open source MCP servers"
+    ],
+    "ko": [
+      "Best hacktoberfest AI tools",
+      "Top MCP servers for hacktoberfest",
+      "hacktoberfest code generation",
+      "AI developer tools",
+      "open source MCP servers"
     ]
   },
   "featured": false,
