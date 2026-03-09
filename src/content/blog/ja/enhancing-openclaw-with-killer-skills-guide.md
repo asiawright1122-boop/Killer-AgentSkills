@@ -1,6 +1,6 @@
 ---
 title: "ステップバイステップガイド: キラースキルによるオープンクロー強化 - 最終的な自律型AIエージェントの実現"
-description: "Killer-Skillsの膨大なプロフェッショナルスキルライブラリをOpenClawに同期する方法についての詳細なチュートリアル。AIアシスタントが複雑なタスクを処理できるようにします。"
+description: "Killer-SkillsのプロフェッショナルスキルライブラリをOpenClawに同期する方法を学ぶ。AIアシスタントを強化し、OpenClaw強化のためのステップバイステップガイドを実現。Learn now"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

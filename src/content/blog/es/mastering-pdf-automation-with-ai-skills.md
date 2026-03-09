@@ -1,6 +1,6 @@
 ---
 title: "La Guía Definitiva para la Automatización de PDF: Dominando la Habilidad PDF"
-description: "Aprende a automatizar el procesamiento de PDF utilizando la habilidad pdf oficial. Domina la fusión, división, OCR y extracción de tablas con flujos de trabajo de agentes de IA de alta calidad."
+description: "Aprende a automatizar el procesamiento de PDF con la habilidad pdf oficial. Domina la fusión, división y OCR con flujos de trabajo de alta calidad, empezar..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

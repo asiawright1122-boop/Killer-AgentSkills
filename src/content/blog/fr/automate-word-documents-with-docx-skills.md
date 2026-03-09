@@ -1,6 +1,6 @@
 ---
 title: "Automatisez les Documents d'Entreprise : La Puissance de la Compétence DOCX"
-description: "Maîtrisez l'automatisation des documents Word avec la compétence docx officielle pour les agents IA. Apprenez à générer des rapports professionnels, suivre les modifications et gérer des modèles complexes."
+description: "Maîtrisez l'automatisation des documents Word avec la compétence DOCX. Générez des rapports professionnels, suivez les modifications et gérez des modèles c..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

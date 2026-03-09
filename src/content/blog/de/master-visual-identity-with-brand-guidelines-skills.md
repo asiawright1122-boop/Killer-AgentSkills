@@ -1,6 +1,6 @@
 ---
 title: "Das DNA der Gestaltung: Meisterung der Markenrichtlinien-Kompetenz"
-description: "Erfahren Sie, wie Sie offizielles Branding auf Ihre künstlich intelligente generierte Assets mit der Markenrichtlinien-Kompetenz anwenden. Lernen Sie die Geheimnisse der visuellen Identität von Anthropic."
+description: "Meisterung der Markenrichtlinien-Kompetenz: Erfahren Sie, wie Sie offizielles Branding auf Ihre künstlich intelligente generierte Assets anwenden und die v..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]

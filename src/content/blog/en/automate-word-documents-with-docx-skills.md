@@ -1,6 +1,6 @@
 ---
 title: "Automate Business Documents: The Power of the DOCX Skill"
-description: "Master Word document automation with the official docx skill for AI agents. Learn how to generate professional reports, track changes, and manage complex templates."
+description: "Master DOCX skill for AI agents and automate business documents with ease. Generate professional reports, track changes, and manage complex templates. Get..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

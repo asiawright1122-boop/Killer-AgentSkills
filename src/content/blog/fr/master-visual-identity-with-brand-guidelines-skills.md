@@ -1,6 +1,6 @@
 ---
 title: "L'ADN du design : maîtriser la compétence en lignes directrices de marque"
-description: "Découvrez comment appliquer une identité visuelle officielle à vos actifs générés par IA en utilisant la compétence en lignes directrices de marque. Apprenez les secrets de l'identité visuelle d'Anthropic."
+description: "Maîtrisez la compétence en lignes directrices de marque pour une identité visuelle officielle. Découvrez les secrets d'Anthropic et appliquez-les à vos act..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]

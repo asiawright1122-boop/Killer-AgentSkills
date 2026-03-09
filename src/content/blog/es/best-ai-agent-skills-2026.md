@@ -1,6 +1,6 @@
 ---
 title: "Mejores habilidades de agentes de IA para Claude, Cursor y Windsurf en 2026"
-description: "Una lista seleccionada de las habilidades de agentes de IA más útiles que puedes instalar ahora mismo, ordenadas por lo que realmente hacen bien. Probadas en Claude Code, Cursor y Windsurf."
+description: "Descubre las habilidades de agentes de IA más útiles para Claude, Cursor y Windsurf en 2026, probadas y ordenadas por su efectividad. Aprende a aprovechar..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

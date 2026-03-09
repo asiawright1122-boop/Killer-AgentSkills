@@ -1,6 +1,6 @@
 ---
 title: "Der ultimative Leitfaden zur PDF-Automatisierung: Die PDF-Skill beherrschen"
-description: "Erfahren Sie, wie Sie die PDF-Verarbeitung mit der offiziellen PDF-Skill automatisieren. Meistern Sie das Zusammenführen, Teilen, OCR und die Tabellenextraktion mit hochwertigen KI-Agenten-Workflows."
+description: "Meistern Sie die PDF-Automatisierung mit der offiziellen PDF-Skill. Erfahren Sie, wie Sie PDFs mit KI-Agenten-Workflows automatisieren und effizient bearbe..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

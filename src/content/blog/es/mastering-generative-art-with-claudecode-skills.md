@@ -1,6 +1,6 @@
 ---
 title: "Arte Generativo con IA: Una Guía para la Habilidad de Arte Algorítmico"
-description: "Domina el arte generativo utilizando la habilidad oficial de arte-algorítmico para agentes de IA. Aprende a crear impresionantes visuales con p5.js, campos de flujo y sistemas de partículas con facilidad."
+description: "Domina el arte generativo con IA, aprende a crear visuales impresionantes con p5.js y sistemas de partículas con facilidad, descubre la habilidad de arte a..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

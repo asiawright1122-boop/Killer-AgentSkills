@@ -1,6 +1,6 @@
 ---
 title: "Meisterhaftes Datenhandling: Ein Leitfaden zur XLSX-Fähigkeit"
-description: "Meistern Sie die Spreadsheet-Automatisierung mit der offiziellen XLSX-Fähigkeit. Erfahren Sie, wie Sie Finanzmodelle erstellen, Datenreinigung automatisieren und dynamische Excel-Berichte generieren."
+description: "Meistern Sie die XLSX-Fähigkeit und automatisieren Sie Finanzmodelle, Datenreinigung und Excel-Berichte. Erfahren Sie die offizielle Spreadsheet-Automatisi..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

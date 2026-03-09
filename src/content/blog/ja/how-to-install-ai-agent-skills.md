@@ -1,6 +1,6 @@
 ---
 title: "30秒でAIエージェントスキルをインストールする方法"
-description: "Claude Code、Cursor、またはWindsurfにコミュニティのAIエージェントスキルをインストールするためのクイックガイド：killer-skills CLIツールを使用します。"
+description: "AIエージェントスキルを30秒でインストールする方法：killer-skills CLIツールを使用してClaude Codeにスキルを追加する方法をLearn now"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["Tutorial", "AI Agent Skills", "CLI", "Developer Tools", "Automation"]

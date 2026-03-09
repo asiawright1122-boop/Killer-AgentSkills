@@ -1,6 +1,6 @@
 ---
 title: "AI-gesteuerte Pitch-Decks: Meistern der PPTX-Fähigkeit"
-description: "Erfahren Sie, wie Sie mit der offiziellen PPTX-Fähigkeit atemberaubende, professionelle PowerPoint-Präsentationen erstellen. Entdecken Sie Designprinzipien für hochwirksame, von KI generierte Folien."
+description: "Meistern Sie die PPTX-Fähigkeit mit AI-gesteuerten Pitch-Decks. Entdecken Sie Designprinzipien für hochwirksame, von KI generierte Folien. Learn now"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

@@ -1,6 +1,6 @@
 ---
 title: "O DNA do Design: Dominando a Habilidade de Diretrizes de Marca"
-description: "Descubra como aplicar a marca oficial aos seus ativos gerados por IA usando a habilidade de diretrizes de marca. Aprenda os segredos da identidade visual da Anthropic."
+description: "Domine a habilidade de diretrizes de marca e aplique a marca oficial aos seus ativos gerados por IA. Aprenda os segredos da identidade visual da Anthropic..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]

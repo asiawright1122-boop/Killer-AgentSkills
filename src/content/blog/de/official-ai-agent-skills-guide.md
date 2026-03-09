@@ -1,6 +1,6 @@
 ---
 title: "Die offiziellen AI-Agenten-Fähigkeiten, die Sie jetzt nutzen sollten"
-description: "Eine Übersicht über die offiziellen AI-Agenten-Fähigkeiten, die über Killer-Skills verfügbar sind. Von der Verarbeitung komplexer PDFs bis zur Generierung produktionssreifer React-Komponenten, decken wir ab, was sie tatsächlich können."
+description: "Entdecken Sie die offiziellen AI-Agenten-Fähigkeiten, von PDF-Verarbeitung bis React-Komponenten-Generierung. Erfahren Sie, was sie wirklich können und wie..."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

@@ -1,6 +1,6 @@
 ---
 title: "Excellence en Communication d'Entreprise : La Compétence Internal-Comms"
-description: "Maîtrisez les communications professionnelles d'entreprise avec la compétence internal-comms officielle. Apprenez à rédiger des mises à jour 3P, des newsletters et des rapports d'incident avec l'IA."
+description: "Maîtrisez la communication d'entreprise avec la compétence internal-comms. Apprenez à rédiger des mises à jour 3P et des newsletters avec l'IA. Découvrez l..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]

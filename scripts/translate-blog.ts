@@ -82,11 +82,24 @@ async function translateFrontmatter(frontmatter: string, targetLang: string): Pr
     const title = titleMatch[1];
     const desc = descMatch[1];
 
+    // Determine character limits based on language
+    // CJK (Chinese, Japanese, Korean, Arabic) characters are more dense
+    const isCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u0600-\u06ff]/.test(targetLang);
+    const minLen = isCJK ? 40 : 120;
+    const maxLen = isCJK ? 200 : 158;
+
     const prompt = `Translate these blog metadata fields to ${targetLang} for SEO purposes.
+
+IMPORTANT SEO REQUIREMENTS:
+- Meta description MUST be between ${minLen}-${maxLen} characters
+- Include a clear Call-to-Action (CTA) like "Learn now", "Read more", "Get started"
+- Use power words: proven, essential, complete, master, discover, learn, etc.
+- Front-load keywords for better visibility
+
 Return valid JSON only: { "title": "...", "description": "..." }
 
 Original Title: "${title}"
-Original Description: "${desc}"`;
+Original Description: "${desc}" (currently ${desc.length} characters)`;
 
     const result = await aiService.callAI(prompt, true);
     let newTitle = title;
@@ -105,6 +118,27 @@ Original Description: "${desc}"`;
             }
         } catch (e) {
             console.error('⚠️ Failed to parse frontmatter translation JSON, using English fallback.', e);
+        }
+    }
+
+    // Post-process: Ensure description meets SEO length requirements
+    // CJK languages need different character limits
+    const finalMinLen = isCJK ? 40 : 120;
+    const finalMaxLen = isCJK ? 200 : 158;
+    
+    // If too long, truncate with "..."
+    if (newDesc.length > finalMaxLen) {
+        console.log(`     ⚠️ Description too long (${newDesc.length} chars), truncating to ${finalMaxLen}...`);
+        newDesc = newDesc.slice(0, finalMaxLen - 3).trim() + '...';
+    }
+    
+    // If too short, try to expand (or keep original if AI can't help)
+    if (newDesc.length < finalMinLen) {
+        console.log(`     ⚠️ Description too short (${newDesc.length} chars, min: ${finalMinLen}), keeping original`);
+        // Don't overwrite with short translation - keep original or try to extend
+        if (desc.length >= finalMinLen) {
+            newDesc = desc; // Fall back to English if it's longer
+            console.log(`     💡 Using English description as fallback (${desc.length} chars)`);
         }
     }
 

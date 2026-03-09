@@ -1,6 +1,6 @@
 ---
 title: "Presentaciones Impulsadas por IA: Dominando la Habilidad PPTX"
-description: "Aprende a crear presentaciones de PowerPoint impresionantes y profesionales utilizando la habilidad oficial pptx. Descubre principios de diseño para diapositivas de alto impacto generadas por IA."
+description: "Aprende a crear presentaciones PPTX impresionantes con la habilidad oficial. Descubre principios de diseño para diapositivas de alto impacto generadas por..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

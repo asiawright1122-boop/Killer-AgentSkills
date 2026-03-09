@@ -1,6 +1,6 @@
 ---
 title: "赋予AI代理权力：构建高质量的MCP服务器"
-description: "发现模型上下文协议（MCP）并学习如何创建强大的服务器，以使AI代理能够与外部工具和服务进行交互。"
+description: "发现模型上下文协议（MCP）并学习如何构建强大的MCP服务器，使AI代理能够与外部工具和服务进行交互，Get started"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

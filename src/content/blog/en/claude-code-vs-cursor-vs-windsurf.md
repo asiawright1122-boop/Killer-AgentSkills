@@ -1,6 +1,6 @@
 ---
 title: "Claude Code vs Cursor vs Windsurf: which IDE handles AI skills best?"
-description: "A practical comparison of how Claude Code, Cursor, and Windsurf handle agent skills. Covers skill format, loading behavior, and what actually works differently."
+description: "Discover the best IDE for AI skills: Claude Code, Cursor, and Windsurf compared. Learn how they handle skill formats, loading behavior, and key differences..."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["Claude Code", "Cursor", "Windsurf", "IDE Comparison", "AI Skills", "Developer Tools"]

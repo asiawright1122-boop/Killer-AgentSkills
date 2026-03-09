@@ -1,6 +1,6 @@
 ---
 title: "Generative Art with AI: A Guide to the Algorithmic Art Skill"
-description: "Master generative art using the official algorithmic-art skill for AI agents. Learn how to create stunning p5.js visuals, flow fields, and particle systems with ease."
+description: "Master generative art with AI, creating stunning p5.js visuals and particle systems. Discover the algorithmic art skill and get started with ease, learn now."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

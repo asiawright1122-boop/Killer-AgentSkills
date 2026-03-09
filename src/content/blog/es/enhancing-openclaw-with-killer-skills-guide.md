@@ -1,6 +1,6 @@
 ---
 title: "Guía Paso a Paso: Mejorando OpenClaw con Habilidades Asesinas para el Agente de IA Autónomo Definitivo"
-description: "Un tutorial detallado sobre cómo sincronizar la masiva biblioteca de habilidades profesionales de Habilidades Asesinas con OpenClaw, permitiendo que su asistente de IA maneje tareas complejas."
+description: "Mejora OpenClaw con Habilidades Asesinas para un agente de IA autónomo definitivo. Aprende a sincronizar habilidades profesionales y maneja tareas compleja..."
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

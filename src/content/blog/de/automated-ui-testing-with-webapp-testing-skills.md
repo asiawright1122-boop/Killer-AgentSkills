@@ -1,6 +1,6 @@
 ---
 title: "Sichere Frontends: Die Webapp-Testfähigkeit"
-description: "Meistern Sie das automatisierte UI-Testing mit der offiziellen Webapp-Testfähigkeit für KI-Agenten. Lernen Sie, wie Sie Playwright für eine robuste Web-App-Verifizierung verwenden."
+description: "Meistern Sie das automatisierte UI-Testing mit Playwright für eine robuste Web-App-Verifizierung, die Webapp-Testfähigkeit für KI-Agenten. Lernen Sie jetzt..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]

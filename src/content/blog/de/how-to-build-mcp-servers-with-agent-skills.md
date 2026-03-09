@@ -1,6 +1,6 @@
 ---
 title: "So bauen Sie MCP-Server: Ein umfassender Leitfaden mit Agentenfähigkeiten"
-description: "Erfahren Sie, wie Sie produktionsbereite MCP-Server für KI-Agents mit der offiziellen mcp-builder-Fähigkeit erstellen. Enthält Einrichtung, Werkzeugdesign, Tests und Deployment mit TypeScript und Python."
+description: "Bauen Sie produktionsbereite MCP-Server für KI-Agents mit der offiziellen mcp-builder-Fähigkeit. Erfahren Sie Einrichtung, Werkzeugdesign, Tests und Deploy..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

@@ -1,6 +1,6 @@
 ---
 title: "编程您的程序员：技能创造者指南"
-description: "学习如何使用技能创造者工具包构建有效的AI技能。掌握模块化AI能力的艺术，拥有专业的知识和工作流程。"
+description: "使用技能创造者工具包构建有效的AI技能，掌握模块化AI能力的艺术，拥有专业的知识和工作流程，开始您的技能创造者之旅，Learn now"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]

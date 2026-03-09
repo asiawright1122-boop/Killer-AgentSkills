@@ -1,6 +1,6 @@
 ---
 title: "Excelência em Comunicação Corporativa: A Habilidade de Comunicação Interna"
-description: "Domine as comunicações corporativas profissionais com a habilidade oficial de comunicação interna. Aprenda a escrever atualizações 3P, newsletters e relatórios de incidentes com IA."
+description: "Domine a comunicação corporativa com habilidade de comunicação interna. Aprenda a criar atualizações 3P, newsletters e relatórios com IA. Get started"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]

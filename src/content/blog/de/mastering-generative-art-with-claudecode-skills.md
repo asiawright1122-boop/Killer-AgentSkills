@@ -1,6 +1,6 @@
 ---
 title: "Generative Kunst mit KI: Ein Leitfaden für die algorithmische Kunstfertigkeit"
-description: "Meistern Sie generative Kunst mit der offiziellen Algorithmic-Art-Skill für KI-Agenten. Erfahren Sie, wie Sie atemberaubende p5.js Visualisierungen, Flow-Felder und Partikelsysteme mühelos erstellen."
+description: "Meistern Sie generative Kunst mit KI. Erfahren Sie, wie Sie atemberaubende Visualisierungen erstellen. Entdecken Sie die algorithmische Kunstfertigkeit und..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

@@ -50,6 +50,8 @@ jobs:
           npx tsx scripts/translate-blog.ts
           echo "--- Phase 3: Sync metadata globally ---"
           npx tsx scripts/sync-blog-everything.ts
+          echo "--- Phase 4: Optimize blog meta descriptions for SEO ---"
+          npx tsx scripts/ai-optimize-blog-meta.ts
       - name: Commit and Push
         run: |
           if [ -n "$(git status --porcelain src/messages/ src/content/blog/)" ]; then

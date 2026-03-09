@@ -1,6 +1,6 @@
 ---
 title: "Apresentações de Impacto com IA: Dominando a Habilidade PPTX"
-description: "Aprenda a criar apresentações impressionantes e profissionais no PowerPoint usando a habilidade oficial pptx. Descubra princípios de design para slides de alto impacto gerados por IA."
+description: "Aprenda a criar apresentações de impacto com IA no PowerPoint usando a habilidade oficial pptx. Descubra princípios de design para slides de alto impacto...."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

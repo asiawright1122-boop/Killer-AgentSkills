@@ -1,6 +1,6 @@
 ---
 title: "Art génératif avec l'IA : Un guide pour la compétence artistique algorithmique"
-description: "Maîtrisez l'art génératif en utilisant la compétence artistique algorithmique officielle pour les agents IA. Apprenez à créer des visuels p5.js époustouflants, des champs de flux et des systèmes de particules avec facilité."
+description: "Maîtrisez l'art génératif avec l'IA, découvrez la compétence artistique algorithmique pour créer des visuels époustouflants avec p5.js, champs de flux et s..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

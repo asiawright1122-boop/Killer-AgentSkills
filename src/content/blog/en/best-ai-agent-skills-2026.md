@@ -1,6 +1,6 @@
 ---
 title: "Best AI agent skills for Claude, Cursor, and Windsurf in 2026"
-description: "A curated list of the most useful AI agent skills you can install right now, sorted by what they actually do well. Tested across Claude Code, Cursor, and Windsurf."
+description: "Discover the best AI agent skills for Claude, Cursor, and Windsurf in 2026. Master essential tasks with proven skills, tested across platforms. Get started"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

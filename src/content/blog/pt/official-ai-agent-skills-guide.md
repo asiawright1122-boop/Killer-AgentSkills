@@ -1,6 +1,6 @@
 ---
 title: "As Oficiais Habilidades do Agente de IA que Você Deve Estar Usando Agora"
-description: "Uma visão geral das oficiais habilidades do agente de IA disponíveis via Killer-Skills. Desde analisar PDFs complicados até gerar componentes React prontos para produção, cobrimos o que eles realmente fazem."
+description: "Descubra as habilidades essenciais do agente de IA via Killer-Skills, desde análise de PDFs até geração de componentes React, e aprenda a usá-las agora."
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

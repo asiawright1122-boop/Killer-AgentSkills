@@ -1,6 +1,6 @@
 ---
 title: "プログラマーをプログラミングする: スキル作成者ガイド"
-description: "スキル作成者ツールキットを使用して、効果的なAIスキルを構築する方法を学習します。専門知識とワークフローを活用したモジュラーAI機能の芸術をマスターしましょう。"
+description: "プログラマーをプログラミングする: スキル作成者ガイドを使用して、効果的なAIスキルを構築する方法を学びましょう。モジュラーAI機能をマスターする。Read more"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]

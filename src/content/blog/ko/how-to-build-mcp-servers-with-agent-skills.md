@@ -1,6 +1,6 @@
 ---
 title: "MCP "
-description: "MCP AI , mcp-builder , TypeScript Python "
+description: "Master MCP AI with TypeScript and Python, discover the essential mcp-builder tools, and get started with expert tutorials, learn now."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

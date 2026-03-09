@@ -1,6 +1,6 @@
 ---
 title: "Официальные навыки агентов ИИ, которые вам следует использовать прямо сейчас"
-description: "Обзор официальных навыков агентов ИИ, доступных через Killer-Skills. От парсинга сложных PDF до генерации готовых к производству компонентов React, мы рассматриваем то, что они действительно могут делать."
+description: "Официальные навыки агентов ИИ: парсинг PDF, генерация React компонентов и больше. Discover их возможности прямо сейчас и улучшите свою работу. Learn now"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

@@ -1,6 +1,6 @@
 ---
 title: "宣布殺手級技能：AI代理的終極目錄"
-description: "我們很高興推出殺手級技能，一個為AI編碼代理人量身定做的高質量工具精選市場。"
+description: "AI編碼代理人終極目錄，提供高質量工具精選，為您提升工作效率。立即開始使用殺手級技能，成為AI編碼專家，Get started"
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]

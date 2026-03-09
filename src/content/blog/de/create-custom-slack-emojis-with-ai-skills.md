@@ -1,6 +1,6 @@
 ---
 title: "Benutzerdefinierte Slack-Reaktionen: Meistern Sie die Slack-GIF-Creator-Fähigkeit"
-description: "Lernen Sie, wie Sie benutzerdefinierte animierte GIFs und Emojis für Slack mithilfe der offiziellen Slack-GIF-Creator-Fähigkeit erstellen. Optimieren Sie Ihre Animationen für Dateigröße und Auswirkung."
+description: "Master Slack-GIF-Creator-Fähigkeit und erstellen Sie benutzerdefinierte animierte GIFs und Emojis für Slack. Optimieren Sie Ihre Animationen für Dateigröße..."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]
