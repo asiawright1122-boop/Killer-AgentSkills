@@ -110,9 +110,10 @@ const itemListSchema = {
   ogType="article"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
     {/* GEO: Speakable Schema for AI citation engines */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -126,6 +127,7 @@ const itemListSchema = {
       })}
     />
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
