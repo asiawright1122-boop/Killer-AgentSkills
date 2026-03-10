@@ -354,10 +354,10 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
   ogType="product"
   noindex={isThinContent}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   {/* GEO: Speakable Schema for AI citation engines */}
   <script
     type="application/ld+json"

@@ -8,7 +8,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
 

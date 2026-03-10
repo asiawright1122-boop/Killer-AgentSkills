@@ -2,7 +2,7 @@
 import { AIService } from './lib/ai';
 
 class TestAIService extends AIService {
-    async callAI(prompt: string, jsonMode: boolean = false, skipNvidia: boolean = false): Promise<string | null> {
+    async callAI(prompt: string, _jsonMode: boolean = false, _skipNvidia: boolean = false): Promise<string | null> {
         console.log("\n\n--- GENERATED PROMPT PREVIEW ---");
         console.log(prompt);
         console.log("--------------------------------\n\n");

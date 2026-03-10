@@ -145,7 +145,7 @@ async function main() {
                     console.log(`      ✅ Success (${response.status})`);
                     successCount += batch.length;
                 } else {
-                    const text = await response.text();
+                    const _text = await response.text();
                     console.error(`      ❌ Failed: ${response.status} ${response.statusText}`);
                     failCount += batch.length;
                 }

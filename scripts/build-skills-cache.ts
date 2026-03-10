@@ -15,15 +15,15 @@ import * as crypto from 'crypto';
 import { AIService } from './lib/ai';
 import {
     OFFICIAL_REPOS, isOfficialRepo, CATEGORY_RULES,
-    EXCLUDE_KEYWORDS, SUSPICIOUS_NAMES, SKILL_HEADERS, FUNCTIONAL_KEYWORDS,
+    SUSPICIOUS_NAMES, SKILL_HEADERS, FUNCTIONAL_KEYWORDS,
     GITHUB_API, SUPPORTED_LOCALES, KV_NAMESPACE_ID
 } from './lib/constants';
-import { pLimit, fetchWithTimeout, sleep } from './lib/utils';
+import { pLimit, fetchWithTimeout } from './lib/utils'; // Removed 'sleep' as it's unused
 import {
     fetchWithRetry, fetchRepoInfo, fetchSkillMd, parseSkillMd,
     searchGitHubSkills, discoverNewSkillsFromGitHub
 } from './lib/github';
-import type { SeoData, AgentAnalysis, SkillCache, CacheData, TranslateContext } from './lib/types';
+import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
@@ -34,7 +34,7 @@ if (fs.existsSync('.env.local')) {
 const aiService = new AIService();
 
 // GitHub API config
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const _GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 // ===== Build-Specific Scoring Logic =====
 function sharedCalculateQualityScore(skill: any): number {
@@ -1105,7 +1105,7 @@ async function buildCache(): Promise<void> {
 
         console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
-        const promises = tasks.map((skill, index) => limit(async () => {
+        const promises = tasks.map((skill, _index) => limit(async () => {
             if (isTimeUp()) {
                 skills.push(skill); // CRITICAL: Preserve the un-updated skill so it isn't deleted from the cache
                 return;

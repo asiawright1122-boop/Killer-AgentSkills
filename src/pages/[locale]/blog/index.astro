@@ -56,6 +56,18 @@ const categories = [
 >
   <Fragment slot="head">
     <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: t('Blog.title'),
+        description: t('Blog.description'),
+        url: `https://killer-skills.com/${locale}/blog/`,
+      })}
+    />
+    <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -67,11 +79,17 @@ const categories = [
             name: t('Common.home') || 'Home',
             item: `https://killer-skills.com/${locale}`,
           },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: t('Blog.title'),
+            item: `https://killer-skills.com/${locale}/blog/`,
+          },
         ],
       })}
     />
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 // Editor removed
 // import Editor from './MDXEditor';
 
@@ -177,7 +177,6 @@ function SkillsPanel({ apiBaseUrl }: { apiBaseUrl: string }) {
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
             {skills.map((skill) => {
               const id = `${skill.owner}/${skill.repo}`;
-              const _desc = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
               return (
                 <tr key={id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30">
                   <td className="px-4 py-3">

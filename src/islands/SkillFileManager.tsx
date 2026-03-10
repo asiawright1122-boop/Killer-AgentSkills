@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import withErrorBoundary from './withErrorBoundary';
 import { useStore } from '@nanostores/react';
 import { currentFile, selectFile } from '../stores/skill-files';
@@ -74,7 +74,7 @@ function SkillFileManager({
                                         ? 'bg-cyan-50 dark:bg-[#37373d] text-cyan-600 dark:text-cyan-400 font-medium border border-cyan-100 dark:border-white/5'
                                         : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-[#2a2d2e] hover:text-black dark:hover:text-gray-200 border border-transparent'
                                     }
-                                `}
+`}
               >
                 <div className="flex items-center gap-2.5 overflow-hidden">
                   {file.type === 'folder' ? (

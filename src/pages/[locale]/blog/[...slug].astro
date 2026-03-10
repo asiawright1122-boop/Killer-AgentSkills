@@ -104,8 +104,8 @@ const blogBreadcrumbSchema = {
   ogType="article"
 >
   <Fragment slot="head">
-    <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(blogBreadcrumbSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(blogBreadcrumbSchema)} />
     {/* GEO: Speakable Schema for AI citation engines */}
     <script
       type="application/ld+json"

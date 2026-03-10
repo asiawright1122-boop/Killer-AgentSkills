@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import withErrorBoundary from './withErrorBoundary';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';

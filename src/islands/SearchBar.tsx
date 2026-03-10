@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import withErrorBoundary from './withErrorBoundary';
 
 interface SearchBarProps {
@@ -62,7 +62,7 @@ function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBar
     return () => clearTimeout(timeoutId);
   }, [query]);
 
-  const handleSearch = (e: React.FormEvent) => {
+  const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     if (query.trim()) {
       window.location.href = `/${locale}/skills?q=${encodeURIComponent(query)}`;
