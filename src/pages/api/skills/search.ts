@@ -37,8 +37,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   try {
     const env = locals.runtime?.env as Env | undefined;
-    let skills: UnifiedSkill[] = [];
-    let total = 0;
+    let _skills: UnifiedSkill[] = [];
+    let _total = 0;
 
     // ==========================================
     // 1. FAST PATH: Cloudflare D1 (FTS5 & SQL)
@@ -85,10 +85,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
         ]);
 
         if (countResult && dataResult.success) {
-          total = (countResult as { total: number }).total;
+          _total = (countResult as { total: number }).total;
 
           // Parse JSON and localize
-          skills = dataResult.results.map((row: Record<string, unknown>) => {
+          _skills = dataResult.results.map((row: Record<string, unknown>) => {
             const skill = JSON.parse(row.data_json as string) as UnifiedSkill;
             return {
               ...skill,
@@ -98,10 +98,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
           return new Response(
             JSON.stringify({
-              skills,
-              total,
+              skills: _skills,
+              total: _total,
               page,
-              hasMore: page * limit < total,
+              hasMore: page * limit < _total,
             }),
             {
               status: 200,
@@ -118,49 +118,48 @@ export const GET: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    // ==========================================
     // 2. SLOW PATH: KV + JS Memory (Fallback)
     // ==========================================
     if (env) {
       const raw = await getSkillsFromKV(env);
-      skills = raw as UnifiedSkill[];
+      _skills = raw as UnifiedSkill[];
     }
 
     // Localize descriptions
-    skills = skills.map((skill) => ({
+    _skills = _skills.map((skill: UnifiedSkill) => ({
       ...skill,
       description: getLocalizedDescription(skill.description, locale),
     }));
 
     // Apply category filter
     if (category) {
-      skills = filterByCategory(skills, category);
+      _skills = filterByCategory(_skills, category);
     }
 
     // Apply search query with relevance scoring
     if (query.trim()) {
-      skills = searchSkills(skills, query, locale);
+      _skills = searchSkills(_skills, query, locale);
     } else {
       // No query: sort by source quality then stars
       const sourceOrder: Record<string, number> = { verified: 3, featured: 2, cache: 1 };
-      skills.sort((a, b) => {
+      _skills.sort((a: UnifiedSkill, b: UnifiedSkill) => {
         const sourceCompare = (sourceOrder[b.source] || 0) - (sourceOrder[a.source] || 0);
         if (sourceCompare !== 0) return sourceCompare;
         return (b.stars || 0) - (a.stars || 0);
       });
     }
 
-    total = skills.length;
+    _total = _skills.length;
     const start = (page - 1) * limit;
     const end = start + limit;
-    const paginatedSkills = skills.slice(start, end);
+    const paginatedSkills = _skills.slice(start, end);
 
     return new Response(
       JSON.stringify({
         skills: paginatedSkills,
-        total,
+        total: _total,
         page,
-        hasMore: end < total,
+        hasMore: end < _total,
       }),
       {
         status: 200,
