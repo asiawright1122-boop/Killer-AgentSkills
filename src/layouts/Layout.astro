@@ -264,8 +264,10 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <!-- Global: SkillCard Install Copy + Detail page "Install Now" (event delegation for View Transitions) -->
     <script>
       document.addEventListener('click', function (e) {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
         // Detail page: big "Install Now" button (data-install-command)
-        const installNowBtn = e.target.closest('[data-install-command]');
+        const installNowBtn = target.closest('[data-install-command]');
         if (installNowBtn && installNowBtn.id === 'install-btn') {
           e.preventDefault();
           e.stopPropagation();
@@ -293,13 +295,13 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
           return;
         }
         // Detail page: small copy button next to command (id=install-copy-btn)
-        var copyBtn = e.target.closest('#install-copy-btn');
+        var copyBtn = target.closest('#install-copy-btn');
         if (copyBtn) {
           e.preventDefault();
           e.stopPropagation();
-          var cmd = copyBtn.getAttribute('data-command');
-          if (!cmd) return;
-          navigator.clipboard.writeText(cmd).then(function () {
+          var installCmd = copyBtn.getAttribute('data-command');
+          if (!installCmd) return;
+          navigator.clipboard.writeText(installCmd).then(function () {
             var orig = copyBtn.innerHTML;
             copyBtn.innerHTML =
               '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -310,24 +312,24 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
           return;
         }
         // SkillCard: install copy button
-        const btn = e.target.closest('.install-copy-btn');
+        const btn = target.closest('.install-copy-btn');
         if (!btn) return;
         e.preventDefault();
         e.stopPropagation();
-        const cmd = btn.getAttribute('data-command');
-        if (!cmd) return;
-        navigator.clipboard.writeText(cmd).then(function () {
+        const skillCmd = (btn as HTMLElement).getAttribute('data-command');
+        if (!skillCmd) return;
+        navigator.clipboard.writeText(skillCmd).then(function () {
           const iconEl = btn.querySelector('.install-icon');
           const okEl = btn.querySelector('.install-ok');
           if (iconEl) iconEl.classList.add('hidden');
           if (okEl) okEl.classList.remove('hidden');
-          btn.style.background = 'var(--primary)';
-          btn.style.color = 'var(--primary-foreground)';
+          (btn as HTMLElement).style.background = 'var(--primary)';
+          (btn as HTMLElement).style.color = 'var(--primary-foreground)';
           setTimeout(function () {
             if (iconEl) iconEl.classList.remove('hidden');
             if (okEl) okEl.classList.add('hidden');
-            btn.style.background = '';
-            btn.style.color = '';
+            (btn as HTMLElement).style.background = '';
+            (btn as HTMLElement).style.color = '';
           }, 2000);
         });
       });
