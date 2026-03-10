@@ -22,12 +22,6 @@ const t = useTranslations(messages);
 const pageTitle = `${t('CLI.command')} ${t('CLI.terminal')}`;
 const pageDescription = t('CLI.heroDesc');
 
-const featureCards = [
-  { title: t('CLI.cards.fast.title'), desc: t('CLI.cards.fast.desc'), icon: Sparkles },
-  { title: t('CLI.cards.integration.title'), desc: t('CLI.cards.integration.desc'), icon: RefreshCw },
-  { title: t('CLI.cards.sandbox.title'), desc: t('CLI.cards.sandbox.desc'), icon: Shield },
-];
-
 const getDocContent = (slug: string) => {
   const page = (docsCache as any).pages.find((p: any) => p.slug === slug);
   return page?.content[typedLocale] || page?.content['en'] || '';

@@ -1,10 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { loadMessages, useTranslations } from '../i18n';
+import { loadMessages } from '../i18n';
 
 const locale = 'en';
 const messages = await loadMessages(locale);
-const _t = useTranslations(messages);
 ---
 
 <Layout locale={locale} title="404 - Page Not Found" description="The page you are looking for does not exist.">

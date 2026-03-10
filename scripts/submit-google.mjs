@@ -73,7 +73,7 @@ async function main() {
     for (const url of urlList) {
         console.log(`📡 Submitting: ${url}`);
         try {
-            const _res = await client.request({
+            await client.request({
                 url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',
                 method: 'POST',
                 data: {

@@ -1,6 +1,6 @@
 import type { Page } from 'playwright';
 import { BaseAdapter } from '../base-adapter.js';
-import type { SubmitStatus } from '../types.js';
+
 
 export class DofollowToolsAdapter extends BaseAdapter {
     protected async fillForm(page: Page): Promise<void> {

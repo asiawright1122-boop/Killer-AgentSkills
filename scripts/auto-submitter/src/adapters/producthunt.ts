@@ -100,7 +100,7 @@ export class ProductHuntAdapter extends BaseAdapter {
             if (await tagInput.isVisible({ timeout: 5000 }).catch(() => false)) {
                 await tagInput.click({ force: true });
                 await tagInput.fill('');
-                await tagInput.type('Artificial Intelligence', { delay: 100 });
+                await tagInput.fill('Artificial Intelligence');
                 await page.waitForTimeout(2000);
 
                 // 尝试点击下拉联想项 (提高优先级)
@@ -221,7 +221,7 @@ export class ProductHuntAdapter extends BaseAdapter {
         }
     }
 
-    protected async afterSubmit(page: Page): Promise<SubmitStatus> {
+    protected async afterSubmit(_page: Page): Promise<SubmitStatus> {
         // 由于是 Tier 3 高优平台，且提交流程极其复杂（需验证、截图、定价等），
         // 脚本的终点设定为“帮用户填完第一屏，交给用户自行把控最后提交”。
         return 'pending_review';

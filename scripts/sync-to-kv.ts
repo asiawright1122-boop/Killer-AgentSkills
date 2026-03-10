@@ -33,12 +33,8 @@ if (!CF_API_TOKEN || !CF_ACCOUNT_ID) {
     process.exit(1);
 }
 
-interface CacheData {
-    version: number;
-    lastUpdated: string;
-    totalCount: number;
-    skills: any[];
-}
+
+
 
 
 /**

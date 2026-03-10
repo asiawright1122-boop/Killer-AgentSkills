@@ -90,7 +90,7 @@ Output JSON format:
 async function translateKeywords(
     enKeywords: string[],
     targetLocale: string,
-    category: string | undefined
+    _category: string | undefined
 ): Promise<string[]> {
     const langName = targetLocale === 'zh' ? 'Simplified Chinese' : targetLocale === 'ja' ? 'Japanese' : 'Korean';
     const prompt = `Translate these SEO keywords into ${langName}. Keep technical terms (MCP, AI, CLI, Python, TypeScript) in English. Return a JSON array only.

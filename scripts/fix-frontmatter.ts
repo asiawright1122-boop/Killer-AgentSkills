@@ -2,10 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { AIService } from './lib/ai';
 import { robustParseJSON, pLimit } from './lib/utils';
-import { fileURLToPath } from 'url';
 
-const _filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
 
 const aiService = new AIService();
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog');
@@ -100,13 +97,13 @@ Original Description: "${enDesc}" (${enDesc.length} characters)`;
                     const isCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u0600-\u06ff]/.test(locale);
                     const minLen = isCJK ? 40 : 120;
                     const maxLen = isCJK ? 200 : 158;
-                    
+
                     // Post-process: Ensure description meets SEO length requirements
                     if (newDesc.length > maxLen) {
                         console.log(`     ⚠️ Description too long (${newDesc.length} chars), truncating...`);
                         newDesc = newDesc.slice(0, maxLen - 3).trim() + '...';
                     }
-                    
+
                     if (newDesc.length < minLen) {
                         console.log(`     ⚠️ Description too short (${newDesc.length} chars), using original`);
                         newDesc = enDesc; // Fallback to English

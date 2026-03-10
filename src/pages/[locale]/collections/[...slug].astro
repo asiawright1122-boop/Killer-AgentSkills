@@ -71,14 +71,7 @@ const keywords = resolveLocalizedArray(cData.keywords, []);
 const longDescription = resolveLocalized(cData.longDescription, '');
 
 // OG Image
-const _ogImageParams = new URLSearchParams({
-  type: 'blog',
-  title: title,
-  description: seoDescription,
-  author: cData.author || 'Killer-Skills',
-  date: new Date().toLocaleDateString(locale),
-  readingTime: (cData.skills.length * 2).toString(),
-});
+
 const ogImage = new URL(`/og-image.png`, Astro.url).toString();
 
 // ItemList Schema

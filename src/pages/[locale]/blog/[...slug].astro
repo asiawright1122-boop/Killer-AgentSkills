@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
-import { ArrowLeft, Calendar, User, Clock, Share2 } from 'lucide-react';
-import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
+import { type Locale, loadMessages, useTranslations } from '../../../i18n';
 import Info from '../../../components/Info.astro';
 
 export const prerender = true;
@@ -38,14 +38,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
 // OG Image Generation (Dynamic V2)
-const ogImageParams = new URLSearchParams({
-  type: 'blog',
-  title: post.data.title,
-  description: post.data.description,
-  author: post.data.author,
-  date: formattedDate,
-  readingTime: readTime.toString(),
-});
+
 const ogImage = new URL(`/og-image.png`, Astro.url).toString();
 
 // BlogPosting Structured Data (JSON-LD) for rich snippets

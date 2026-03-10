@@ -50,7 +50,8 @@ export class AIService {
         nvidiaFail: 0
     };
 
-    private _currentNvidiaKeyIndex = 0;
+
+
     private currentOpenrouterKeyIndex = 0;
 
     constructor(config?: Partial<AIConfig>) {

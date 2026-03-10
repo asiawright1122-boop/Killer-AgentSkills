@@ -15,7 +15,8 @@ import { extractJSONCandidates, robustParseJSON } from './lib/utils';
 
 const aiService = new AIService();
 
-const __LOCALES = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'] as const;
+
+
 
 async function generateLongDescription(
     enTitle: string,

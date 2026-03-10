@@ -23,10 +23,8 @@ function parseMarkdown(content: string) {
     return { frontmatter: match[1], body: match[2] };
 }
 
-// Helper to escape special chars for regex
-function _escapeRegExp(string: string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+
+
 
 async function translateBlogBody(body: string, targetLang: string): Promise<string> {
     // Strategy: Split by H2 headers to handle long articles without hitting response limits
@@ -125,13 +123,13 @@ Original Description: "${desc}" (currently ${desc.length} characters)`;
     // CJK languages need different character limits
     const finalMinLen = isCJK ? 40 : 120;
     const finalMaxLen = isCJK ? 200 : 158;
-    
+
     // If too long, truncate with "..."
     if (newDesc.length > finalMaxLen) {
         console.log(`     ⚠️ Description too long (${newDesc.length} chars), truncating to ${finalMaxLen}...`);
         newDesc = newDesc.slice(0, finalMaxLen - 3).trim() + '...';
     }
-    
+
     // If too short, try to expand (or keep original if AI can't help)
     if (newDesc.length < finalMinLen) {
         console.log(`     ⚠️ Description too short (${newDesc.length} chars, min: ${finalMinLen}), keeping original`);
