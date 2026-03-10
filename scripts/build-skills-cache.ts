@@ -33,8 +33,8 @@ if (fs.existsSync('.env.local')) {
 // ===== Service Instances =====
 const aiService = new AIService();
 
-// GitHub API config
-const __GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+
+
 
 // ===== Build-Specific Scoring Logic =====
 function sharedCalculateQualityScore(skill: any): number {

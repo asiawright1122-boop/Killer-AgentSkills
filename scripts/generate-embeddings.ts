@@ -38,14 +38,8 @@ const EMBEDDINGS_OUTPUT_FILE = path.join(process.cwd(), 'data', 'embeddings-cach
 const MODEL = '@cf/baai/bge-large-en-v1.5';
 const BATCH_SIZE = 50; // Cloudflare Workers AI batch limit for embeddings
 
-// Simple UUID generator for Vector IDs
-function _generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (Math.random() * 16) | 0,
-            v = c == 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
-}
+
+
 
 async function getEmbeddings(texts: string[]): Promise<number[][]> {
     const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/ai/run/${MODEL}`;

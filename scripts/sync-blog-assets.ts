@@ -4,10 +4,8 @@ import path from 'node:path';
 const BLOG_DIR = './src/content/blog';
 const LOCALES = ['zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
 
-interface BlogAssetMap {
-    heroImage: string;
-    links: string[]; // List of unique slugs linked to in this article
-}
+
+
 
 async function syncBlogAssets() {
     const enDir = path.join(BLOG_DIR, 'en');

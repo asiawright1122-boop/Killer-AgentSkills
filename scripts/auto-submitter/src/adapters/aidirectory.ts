@@ -1,6 +1,6 @@
 import type { Page } from 'playwright';
 import { GenericFormAdapter } from './generic-form.js';
-import type { SubmitStatus } from '../types.js';
+
 
 export class AIDirectoryAdapter extends GenericFormAdapter {
     protected async fillForm(page: Page): Promise<void> {
