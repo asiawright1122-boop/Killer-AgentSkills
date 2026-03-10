@@ -1043,55 +1043,5 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
     )
   }
 
-  <script is:inline>
-    // Install button - copy command and show notification
-    document.getElementById('install-btn')?.addEventListener('click', function () {
-      const command = this.getAttribute('data-install-command');
-      if (command) {
-        navigator.clipboard
-          .writeText(command)
-          .then(() => {
-            // Show success notification
-            const originalText = this.querySelector('span')?.textContent;
-            const span = this.querySelector('span');
-            if (span) {
-              span.textContent = '✓ Copied!';
-            }
-            this.classList.add('bg-green-600', 'border-green-600');
-            setTimeout(() => {
-              const spanEl = this.querySelector('span');
-              if (spanEl) {
-                spanEl.textContent = originalText;
-              }
-              this.classList.remove('bg-green-600', 'border-green-600');
-            }, 2000);
-
-            // Also try to run the command in terminal
-            // Show helper message
-            setTimeout(() => {
-              alert('Command copied! Run it in your terminal to install the skill.\n\n' + command);
-            }, 500);
-          })
-          .catch(() => {
-            // Fallback: just show alert
-            alert('Run this command in your terminal:\n\n' + command);
-          });
-      }
-    });
-
-    // Copy button
-    document.getElementById('install-copy-btn')?.addEventListener('click', function () {
-      const command = this.getAttribute('data-command');
-      if (command) {
-        navigator.clipboard.writeText(command).then(() => {
-          const originalHTML = this.innerHTML;
-          this.innerHTML =
-            '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-          setTimeout(() => {
-            this.innerHTML = originalHTML;
-          }, 2000);
-        });
-      }
-    });
-  </script>
+  <!-- Install / Copy handlers are in Layout.astro (event delegation for View Transitions) -->
 </Layout>
