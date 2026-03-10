@@ -91,7 +91,7 @@ jobs:
         run: npm run build
 
       - name: Validate Build Output
-        run: npx vitest run src/build-validation.test.ts --reporter=default
+        run: npx vitest run src/build-validation.test.ts --reporter=default --no-coverage
 
       - name: Deploy to Cloudflare Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
