@@ -62,7 +62,7 @@ jobs:
         run: npx vitest run --coverage --reporter=default
 
       - name: Upload Coverage Report
-        if: always()
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-report
@@ -91,7 +91,7 @@ jobs:
         run: npm run build
 
       - name: Validate Build Output
-        run: npx vitest run src/build-validation.test.ts --reporter=default --no-coverage
+        run: npx vitest run --config vitest.build-validation.config.ts --reporter=default --no-coverage
 
       - name: Deploy to Cloudflare Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
