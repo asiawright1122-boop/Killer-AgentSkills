@@ -262,9 +262,55 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
       });
     </script>
 
-    <!-- Global: SkillCard Install Copy Handler -->
+    <!-- Global: SkillCard Install Copy + Detail page "Install Now" (event delegation for View Transitions) -->
     <script is:inline>
       document.addEventListener('click', function (e) {
+        // Detail page: big "Install Now" button (data-install-command)
+        const installNowBtn = e.target.closest('[data-install-command]');
+        if (installNowBtn && installNowBtn.id === 'install-btn') {
+          e.preventDefault();
+          e.stopPropagation();
+          var command = installNowBtn.getAttribute('data-install-command');
+          if (!command) return;
+          navigator.clipboard
+            .writeText(command)
+            .then(function () {
+              var span = installNowBtn.querySelector('span');
+              var originalText = span ? span.textContent : '';
+              if (span) span.textContent = '\u2713 Copied!';
+              installNowBtn.classList.add('bg-green-600', 'border-green-600');
+              setTimeout(function () {
+                var s = installNowBtn.querySelector('span');
+                if (s) s.textContent = originalText;
+                installNowBtn.classList.remove('bg-green-600', 'border-green-600');
+              }, 2000);
+              setTimeout(function () {
+                alert('Command copied! Run it in your terminal to install the skill.\n\n' + command);
+              }, 500);
+            })
+            .catch(function () {
+              alert('Run this command in your terminal:\n\n' + command);
+            });
+          return;
+        }
+        // Detail page: small copy button next to command (id=install-copy-btn)
+        var copyBtn = e.target.closest('#install-copy-btn');
+        if (copyBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          var cmd = copyBtn.getAttribute('data-command');
+          if (!cmd) return;
+          navigator.clipboard.writeText(cmd).then(function () {
+            var orig = copyBtn.innerHTML;
+            copyBtn.innerHTML =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+            setTimeout(function () {
+              copyBtn.innerHTML = orig;
+            }, 2000);
+          });
+          return;
+        }
+        // SkillCard: install copy button
         const btn = e.target.closest('.install-copy-btn');
         if (!btn) return;
         e.preventDefault();
