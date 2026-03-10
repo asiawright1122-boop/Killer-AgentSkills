@@ -1053,11 +1053,15 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           .then(() => {
             // Show success notification
             const originalText = this.querySelector('span')?.textContent;
-            this.querySelector('span')!.textContent = '✓ Copied!';
+            const span = this.querySelector('span');
+            if (span) {
+              span.textContent = '✓ Copied!';
+            }
             this.classList.add('bg-green-600', 'border-green-600');
             setTimeout(() => {
-              if (this.querySelector('span')) {
-                this.querySelector('span')!.textContent = originalText;
+              const spanEl = this.querySelector('span');
+              if (spanEl) {
+                spanEl.textContent = originalText;
               }
               this.classList.remove('bg-green-600', 'border-green-600');
             }, 2000);
