@@ -169,6 +169,7 @@ const isActive = (href: string) => {
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -404,7 +405,7 @@ const isActive = (href: string) => {
   </div>
 </Layout>
 
-<script>
+<script is:inline>
   // Mobile menu logic
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const closeBtn = document.getElementById('close-sidebar-btn');
@@ -443,8 +444,8 @@ const isActive = (href: string) => {
         pre.parentNode.insertBefore(wrapper, pre);
 
         // Remove margins from pre to avoid double spacing
-        (pre as HTMLElement).style.marginTop = '0';
-        (pre as HTMLElement).style.marginBottom = '0';
+        style.marginTop = '0';
+        style.marginBottom = '0';
 
         // Move pre into wrapper
         wrapper.appendChild(pre);
@@ -474,7 +475,7 @@ const isActive = (href: string) => {
 
         btn.addEventListener('click', async () => {
           try {
-            const code = (pre.querySelector('code') as HTMLElement)?.innerText || (pre as HTMLElement).innerText;
+            const code = innerText || innerText;
 
             // Success State (Synchronous visual feedback for better INP)
             btn.innerHTML = checkIcon;

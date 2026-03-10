@@ -32,8 +32,8 @@ interface CollectionData {
     keywords: Record<string, string[]>;
     skills: string[];
     author: string;
-    featured: boolean;
-    _category: string;
+    _category?: string;
+    category?: string;
 }
 
 function isBroken(value: string | undefined, field: string): boolean {
@@ -49,7 +49,7 @@ function isBroken(value: string | undefined, field: string): boolean {
 async function translateFields(
     enValues: Record<string, string>,
     targetLocale: string,
-    _category: string
+    category: string | undefined
 ): Promise<Record<string, string>> {
     const prompt = `You are a professional translator for "Killer-Skills", an AI Agent tools directory website.
 
@@ -90,7 +90,7 @@ Output JSON format:
 async function translateKeywords(
     enKeywords: string[],
     targetLocale: string,
-    _category: string
+    category: string | undefined
 ): Promise<string[]> {
     const langName = targetLocale === 'zh' ? 'Simplified Chinese' : targetLocale === 'ja' ? 'Japanese' : 'Korean';
     const prompt = `Translate these SEO keywords into ${langName}. Keep technical terms (MCP, AI, CLI, Python, TypeScript) in English. Return a JSON array only.

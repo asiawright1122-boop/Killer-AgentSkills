@@ -35,6 +35,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
 >
   <Fragment slot="head">
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -56,6 +57,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
       })}
     />
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -78,6 +80,7 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
       })}
     />
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',

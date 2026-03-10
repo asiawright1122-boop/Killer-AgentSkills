@@ -5,7 +5,7 @@ import CollectionCard from '../../../components/CollectionCard.astro';
 import SkillsSidebar from '../../../components/SkillsSidebar.astro';
 import Pagination from '../../../components/Pagination.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
-import { getCollection } from 'astro:content';
+import { getCollection as _getCollection } from 'astro:content';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
@@ -154,7 +154,7 @@ const currentCanonicalUrl =
   currentPage > 1 || query || category || view || owner ? buildPaginationUrl(currentPage) : undefined;
 
 // Category list for sidebar
-const categories = [];
+const _categories = [];
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription} customCanonical={currentCanonicalUrl}>
@@ -165,6 +165,7 @@ const categories = [];
   </Fragment>
   {/* BreadcrumbList JSON-LD */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -177,6 +178,7 @@ const categories = [];
   />
   {/* GEO: Speakable Schema for AI citation */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -191,6 +193,7 @@ const categories = [];
   />
   {/* CollectionPage + ItemList JSON-LD */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',

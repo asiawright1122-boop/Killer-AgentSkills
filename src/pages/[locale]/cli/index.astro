@@ -40,6 +40,7 @@ const configContent = getDocContent('cli/configuration');
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
   {/* BreadcrumbList JSON-LD */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -52,6 +53,7 @@ const configContent = getDocContent('cli/configuration');
   />
   {/* FAQ JSON-LD for CLI page */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -102,6 +104,7 @@ const configContent = getDocContent('cli/configuration');
   />
   {/* SoftwareApplication JSON-LD for CLI */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',

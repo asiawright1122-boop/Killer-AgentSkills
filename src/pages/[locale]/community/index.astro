@@ -49,6 +49,7 @@ const communityCards = [
   <Fragment slot="head">
     {/* BreadcrumbList JSON-LD */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -61,6 +62,7 @@ const communityCards = [
     />
     {/* Speakable Schema for AI citation */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',

@@ -129,7 +129,6 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
       as="style"
       fetchpriority="high"
-      onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript
       ><link
@@ -190,7 +189,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <title>{fullTitle}</title>
 
     <!-- Theme Toggle Script (No FOUC) -->
-    <script is:inline>
+    <script>
       const applyTheme = () => {
         const theme = (() => {
           if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
@@ -234,7 +233,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     {showFooter && <Footer locale={locale} t={t} />}
 
     <!-- Native Router Progress Script -->
-    <script is:inline>
+    <script>
       document.addEventListener('astro:before-preparation', () => {
         const bar = document.getElementById('route-progress');
         if (bar) {
@@ -263,7 +262,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     </script>
 
     <!-- Global: SkillCard Install Copy + Detail page "Install Now" (event delegation for View Transitions) -->
-    <script is:inline>
+    <script>
       document.addEventListener('click', function (e) {
         // Detail page: big "Install Now" button (data-install-command)
         const installNowBtn = e.target.closest('[data-install-command]');

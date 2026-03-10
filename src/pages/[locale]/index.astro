@@ -60,6 +60,7 @@ const features = [
   {/* WebSite + Organization JSON-LD for sitelinks search box */}
   <script
     is:inline
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -83,6 +84,7 @@ const features = [
   />
   {/* GEO: Speakable Schema — tells AI engines which content to quote */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -97,6 +99,7 @@ const features = [
   />
   {/* Organization JSON-LD for Knowledge Panel */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',

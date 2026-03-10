@@ -69,6 +69,7 @@ const pageDescription = t('Categories.heroDesc');
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
   {/* BreadcrumbList JSON-LD */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -81,6 +82,7 @@ const pageDescription = t('Categories.heroDesc');
   />
   {/* ItemList JSON-LD for categories */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
@@ -98,6 +100,7 @@ const pageDescription = t('Categories.heroDesc');
   />
   {/* FAQ Schema for AI citation */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
