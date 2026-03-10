@@ -20,7 +20,7 @@ const MIN_LEN = 120;
 const MAX_LEN = 158;
 
 // 从 title 生成优化的 description（简化版 AI 模拟）
-function generateOptimizedDescription(title: string, existingDesc: string): string {
+function generateOptimizedDescription(title: string, _existingDesc: string): string {
   const cleanTitle = title
     .replace(/^(How to |What is |Master |Learn |Discover |Best |Top \d+ )/i, '')
     .replace(/:.*$/, '')

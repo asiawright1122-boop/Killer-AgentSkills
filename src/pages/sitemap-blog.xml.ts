@@ -6,7 +6,7 @@ export const prerender = true;
 
 const SITE = 'https://killer-skills.com';
 
-function buildHreflangLinks(locale: string, slug: string): string {
+function buildHreflangLinks(_locale: string, slug: string): string {
   // Generate alternate links for all locales for this specific slug
   return (
     SUPPORTED_LOCALES.map(

@@ -89,7 +89,7 @@ async function syncBlogEverything() {
                 // 4. Positional Link Replacement
                 const universalLinkRegex = /\[(.*?)\]\(https:\/\/killer-skills\.com\/(?:en|[a-z]{2})\/blog\/([a-zA-Z0-9\-_]+)\)/g;
                 let linkIndex = 0;
-                content = content.replace(universalLinkRegex, (match, text, oldSlug) => {
+                content = content.replace(universalLinkRegex, (match, text, _oldSlug) => {
                     const correctSlug = baseline.blogLinks[linkIndex];
                     linkIndex++;
                     if (correctSlug) {

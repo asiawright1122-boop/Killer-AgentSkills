@@ -59,6 +59,7 @@ const features = [
 <Layout locale={locale} title={t('Metadata.title')} description={t('Metadata.description')} appendBrand={false}>
   {/* WebSite + Organization JSON-LD for sitelinks search box */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',

@@ -24,7 +24,7 @@ function parseMarkdown(content: string) {
 }
 
 // Helper to escape special chars for regex
-function escapeRegExp(string: string) {
+function _escapeRegExp(string: string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 

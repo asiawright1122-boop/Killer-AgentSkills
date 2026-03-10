@@ -67,7 +67,7 @@ async function syncBlogAssetsAggressive() {
                 const universalLinkRegex = /\[(.*?)\]\(https:\/\/killer-skills\.com\/(?:en|[a-z]{2})\/blog\/([a-zA-Z0-9\-_]+)\)/g;
 
                 let linkIndex = 0;
-                const newContent = content.replace(universalLinkRegex, (match, text, oldSlug) => {
+                const newContent = content.replace(universalLinkRegex, (match, text, _oldSlug) => {
                     const correctSlug = baseline.blogLinks[linkIndex];
                     linkIndex++;
 
