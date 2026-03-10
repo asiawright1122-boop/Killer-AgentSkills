@@ -16,10 +16,6 @@ export default defineConfig({
 
   adapter: cloudflare({
     platformProxy: { enabled: true },
-    kvNamespaces: [
-      { binding: 'TRANSLATIONS', id: 'd5ab5c6705774d779d9b1342eda5f9ac' },
-      { binding: 'SKILLS_CACHE', id: '6130f39a06e14319b0ee4becb0d09842' },
-    ],
   }),
 
   integrations: [react()],
