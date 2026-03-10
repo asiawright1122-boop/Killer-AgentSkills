@@ -52,6 +52,7 @@ const integrations = [
   <Fragment slot="head">
     {/* BreadcrumbList JSON-LD */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -69,6 +70,7 @@ const integrations = [
     />
     {/* ItemList JSON-LD for integrations */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -87,6 +89,7 @@ const integrations = [
     />
     {/* FAQ Schema — high-value for "Which IDEs support AI agent skills?" queries */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -121,6 +124,7 @@ const integrations = [
     />
     {/* Speakable Schema for AI citation */}
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',

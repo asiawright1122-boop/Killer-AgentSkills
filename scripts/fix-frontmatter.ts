@@ -4,7 +4,7 @@ import { AIService } from './lib/ai';
 import { robustParseJSON, pLimit } from './lib/utils';
 import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
+const _filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
 
 const aiService = new AIService();

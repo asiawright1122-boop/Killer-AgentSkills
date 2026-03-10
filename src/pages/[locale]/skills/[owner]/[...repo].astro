@@ -360,6 +360,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
   <script is:inline type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
   {/* GEO: Speakable Schema for AI citation engines */}
   <script
+    is:inline
     type="application/ld+json"
     set:html={JSON.stringify({
       '@context': 'https://schema.org',

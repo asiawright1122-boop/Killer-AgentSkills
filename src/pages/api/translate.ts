@@ -68,7 +68,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // 2. Call NVIDIA API Streaming
     // We pass 'env' to help it find keys
-    const response = await translateTextStream(text, lang, type as 'text' | 'markdown', env);
+    const response = translateTextStream(text, lang, type as 'text' | 'markdown', env);
 
     // 3. Transform Stream & Cache
     let fullContent = '';

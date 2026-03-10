@@ -22,7 +22,7 @@ if (fs.existsSync(localEnv)) {
 }
 import { SUPPORTED_LOCALES } from './constants';
 import type { SeoData, AgentAnalysis, TranslateContext } from './types';
-import { tryParseJSON, robustParseJSON, extractJSONCandidates, cleanAndTruncate, fetchWithTimeout } from './utils';
+import { robustParseJSON, extractJSONCandidates, cleanAndTruncate } from './utils';
 
 export interface AIConfig {
     nvidiaKeys: string[];
@@ -50,7 +50,7 @@ export class AIService {
         nvidiaFail: 0
     };
 
-    private currentNvidiaKeyIndex = 0;
+    private _currentNvidiaKeyIndex = 0;
     private currentOpenrouterKeyIndex = 0;
 
     constructor(config?: Partial<AIConfig>) {

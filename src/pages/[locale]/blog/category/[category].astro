@@ -58,6 +58,7 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
 <Layout locale={locale} title={pageTitle} description={pageDescription}>
   <Fragment slot="head">
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
@@ -80,6 +81,7 @@ const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Ta
       })}
     />
     <script
+      is:inline
       type="application/ld+json"
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
