@@ -95,8 +95,8 @@ CRITICAL LENGTH RULE: Your output MUST be EXACTLY 120-158 characters. This is no
     throw new Error(`NVIDIA API Error ${response.status}: ${error}`);
   }
 
-  const data = await response.json();
-  return data.choices[0]?.message?.content?.trim() || '';
+  const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
+  return data.choices?.[0]?.message?.content?.trim() || '';
 }
 
 function extractFrontmatter(filePath: string): { title: string; description: string; content: string } | null {
