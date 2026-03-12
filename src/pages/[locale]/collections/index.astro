@@ -4,6 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
+import { getSolutionIntents } from '../../../lib/solution-intents';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=3600');
@@ -50,25 +51,7 @@ const collectionsSeoKeywords = buildKeywordString(
   isZh ? 'AI Agent Skills 合集' : 'AI agent skill collections',
   'Killer-Skills',
 );
-const workflowLinks = [
-  {
-    q: 'workflow automation',
-    label: isZh ? '工作流自动化合集入口' : 'Workflow Automation Entry',
-    description: isZh
-      ? '查找多步骤执行和 agent 协作相关技能。'
-      : 'Find multi-step execution and agent workflow bundles.',
-  },
-  {
-    q: 'process automation',
-    label: isZh ? '流程自动化合集入口' : 'Process Automation Entry',
-    description: isZh ? '适合 SOP、交接和业务流程场景。' : 'Useful for SOPs, handoffs, and operations workflows.',
-  },
-  {
-    q: 'document automation',
-    label: isZh ? '文档自动化合集入口' : 'Document Automation Entry',
-    description: isZh ? '聚焦报告、PDF、模板和内容流程。' : 'Focused on reports, PDFs, templates, and content ops.',
-  },
-];
+const workflowLinks = getSolutionIntents(typedLocale).slice(0, 3);
 const faqItems = [
   {
     question: isZh ? '这些合集适合哪些工作流？' : 'What workflows are these collections built for?',
@@ -210,12 +193,12 @@ const faqItems = [
           {
             workflowLinks.map((item) => (
               <a
-                href={`/${locale}/skills?q=${encodeURIComponent(item.q)}`}
+                href={item.href}
                 class="brut-card p-5 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
               >
-                <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.q}</div>
+                <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.query}</div>
                 <h2 class="text-xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
-                <p class="text-sm font-medium opacity-80 leading-6">{item.description}</p>
+                <p class="text-sm font-medium opacity-80 leading-6">{item.cardDescription}</p>
               </a>
             ))
           }

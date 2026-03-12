@@ -26,6 +26,7 @@ if (fs.existsSync('.env.local')) {
 const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
 let hadSyncError = false;
+let kvNamespaceUnavailable = false;
 
 if (!CF_API_TOKEN || !CF_ACCOUNT_ID) {
   console.error('❌ 请设置环境变量: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID');
@@ -37,6 +38,7 @@ if (!CF_API_TOKEN || !CF_ACCOUNT_ID) {
  * 限制：每次请求最多 100MB 数据
  */
 async function writeToKVBulk(items: Array<{ key: string; value: string }>): Promise<boolean> {
+  if (kvNamespaceUnavailable) return false;
   const url = `https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/storage/kv/namespaces/${KV_NAMESPACE_ID}/bulk`;
   const MAX_RETRIES = 3;
 
@@ -58,6 +60,16 @@ async function writeToKVBulk(items: Array<{ key: string; value: string }>): Prom
 
       if (!response.ok) {
         const error = await response.text();
+        if (
+          response.status === 404 ||
+          response.status === 400 ||
+          error.includes('"code":10013') ||
+          error.toLowerCase().includes('namespace not found')
+        ) {
+          console.warn('⚠️ SKILLS_CACHE namespace not found. Skipping KV sync for this run.');
+          kvNamespaceUnavailable = true;
+          return false;
+        }
         // 413 Payload Too Large -> No Retry
         if (response.status === 413) {
           console.error(`❌ 批量写入失败 (Payload Too Large): ${error}`);
@@ -90,6 +102,7 @@ async function writeToKVBulk(items: Array<{ key: string; value: string }>): Prom
  * 列出 KV 中所有键 (Pagination)
  */
 async function fetchAllKeys(): Promise<string[]> {
+  if (kvNamespaceUnavailable) return [];
   const keys: string[] = [];
   let cursor = '';
   let hasMore = true;
@@ -107,7 +120,13 @@ async function fetchAllKeys(): Promise<string[]> {
       });
 
       if (!response.ok) {
-        console.error(`❌ 获取 Keys 失败: ${await response.text()}`);
+        const body = await response.text();
+        if (body.includes('"code":10013') || body.toLowerCase().includes('namespace not found')) {
+          console.warn('⚠️ SKILLS_CACHE namespace not found while listing keys. Skip cleanup this run.');
+          kvNamespaceUnavailable = true;
+          break;
+        }
+        console.error(`❌ 获取 Keys 失败: ${body}`);
         hadSyncError = true;
         break;
       }
@@ -188,6 +207,11 @@ async function main() {
   // 1. 同步文档缓存
   const docKeys = await syncDocs();
   docKeys.forEach((k) => activeKeys.add(k));
+
+  if (kvNamespaceUnavailable) {
+    console.warn('⚠️ SKILLS_CACHE namespace unavailable. KV sync tasks skipped without failing pipeline.');
+    return;
+  }
 
   // 2. Sitemap key (will be written in syncSitemapData)
   activeKeys.add('sitemap-skills');
@@ -299,6 +323,10 @@ main()
   .catch(console.error);
 
 async function syncSitemapData() {
+  if (kvNamespaceUnavailable) {
+    console.warn('⚠️ Skip sitemap KV sync because namespace is unavailable.');
+    return;
+  }
   console.log('\n🗺️  Syncing sitemap data...');
   const sitemapPath = path.join(process.cwd(), 'data/sitemap-skills.json');
   if (fs.existsSync(sitemapPath)) {

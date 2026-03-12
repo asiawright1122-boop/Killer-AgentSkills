@@ -1,0 +1,170 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import { getSolutionIntents } from '../../../lib/solution-intents';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+const intents = getSolutionIntents(typedLocale);
+
+const canonicalUrl = `https://killer-skills.com/${locale}/solutions`;
+const pageTitle = isZh
+  ? '自动化场景解决方案：AI Agent Skills 与 MCP Servers'
+  : 'Automation Solutions: AI Agent Skills & MCP Servers';
+const pageDescription = isZh
+  ? '按高意图场景浏览可安装 AI Agent Skills：工作流自动化、流程自动化、文档自动化、浏览器自动化和数据提取。'
+  : 'Browse installable AI agent skills by high-intent scenarios: workflow automation, process automation, document automation, browser automation, and data extraction.';
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'workflowAutomation',
+  'processAutomation',
+  'documentAutomation',
+  'browserAutomation',
+  'dataWorkflow',
+  'templates',
+  'ideCompat',
+  'Killer-Skills',
+);
+
+const faqItems = [
+  {
+    question: isZh
+      ? '为什么要用场景页而不是直接搜关键词？'
+      : 'Why use solution pages instead of ad-hoc keyword searches?',
+    answer: isZh
+      ? '场景页会把高意图词、可安装技能和落地路径聚合在一起，减少无效浏览并提高点击质量。'
+      : 'Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing.',
+  },
+  {
+    question: isZh ? '这些场景页支持哪些 IDE？' : 'Which IDEs are supported by these solutions?',
+    answer: isZh
+      ? '这些技能覆盖 Claude Code、Cursor、Windsurf、VS Code 等主流 IDE，并支持统一安装流程。'
+      : 'These skills support Claude Code, Cursor, Windsurf, VS Code, and other mainstream IDEs through a unified install flow.',
+  },
+  {
+    question: isZh ? '下一步应该如何执行？' : 'What should I do next after picking a solution?',
+    answer: isZh
+      ? '进入具体场景页后先选择技能，再到 CLI 或安装文档执行一条命令安装并验证。'
+      : 'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and validation.',
+  },
+];
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: canonicalUrl,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: intents.length,
+          itemListElement: intents.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.label,
+            url: `https://killer-skills.com${item.href}`,
+          })),
+        },
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      })}
+    />
+  </Fragment>
+
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <header class="mb-12 border-b-[3px] border-[var(--border)] pb-8">
+        <span
+          class="inline-flex items-center px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
+        >
+          {isZh ? '解决方案' : 'Solutions'}
+        </span>
+        <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
+        <p
+          class="seo-intro-paragraph mt-4 max-w-3xl text-base md:text-lg font-medium text-[var(--muted-foreground)] leading-relaxed"
+        >
+          {pageDescription}
+        </p>
+      </header>
+
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+        {
+          intents.map((item) => (
+            <a
+              href={item.href}
+              class="brut-card bg-white dark:bg-[#0a0a0a] p-6 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)]"
+            >
+              <div class="inline-flex px-2.5 py-1 border-2 border-[var(--border)] text-[10px] font-black uppercase tracking-widest mb-3">
+                {item.query}
+              </div>
+              <h2 class="text-2xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
+              <p class="text-sm leading-6 font-medium opacity-80">{item.cardDescription}</p>
+              <div class="mt-4 text-xs font-black uppercase tracking-widest">
+                {isZh ? '进入场景' : 'Open Solution'} →
+              </div>
+            </a>
+          ))
+        }
+      </section>
+
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <a
+          href={`/${locale}/skills`}
+          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+        >
+          {isZh ? '浏览全部技能市场' : 'Browse Full Skills Marketplace'}
+        </a>
+        <a
+          href={`/${locale}/docs/installation`}
+          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+        >
+          {isZh ? '查看安装文档' : 'Read Installation Docs'}
+        </a>
+        <a
+          href={`/${locale}/cli`}
+          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+        >
+          {isZh ? '使用 CLI 一键安装' : 'Install via CLI'}
+        </a>
+      </section>
+    </main>
+  </div>
+</Layout>

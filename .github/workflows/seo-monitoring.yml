@@ -3,8 +3,8 @@ name: SEO Monitoring
 on:
   workflow_dispatch:
   schedule:
-    # Monday 10:15 Asia/Shanghai (02:15 UTC)
-    - cron: '15 2 * * 1'
+    # Daily 10:15 Asia/Shanghai (02:15 UTC)
+    - cron: '15 2 * * *'
 
 permissions:
   contents: read
@@ -25,6 +25,9 @@ jobs:
 
       - name: Install Dependencies
         run: HUSKY=0 npm ci
+
+      - name: Run Production SEO Smoke
+        run: npm run seo:smoke -- https://killer-skills.com
 
       - name: Fetch GSC Report
         id: gsc

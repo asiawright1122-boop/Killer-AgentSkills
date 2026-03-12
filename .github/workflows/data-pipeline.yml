@@ -326,8 +326,17 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-      - name: Sync to Cloudflare D1
-        if: needs.resolve.outputs.mode != 'harvest'
+      - name: Sync to Cloudflare D1 (Delta)
+        if: needs.resolve.outputs.mode == 'incremental'
+        continue-on-error: true
+        run: npm run sync:d1:delta
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_DATABASE_ID: '4b51522f-2413-4df2-b7d3-ac1cb1f3ef32'
+
+      - name: Sync to Cloudflare D1 (Full Reseed)
+        if: needs.resolve.outputs.mode == 'full' || needs.resolve.outputs.mode == 'crawler'
         continue-on-error: true
         run: |
           npx tsx scripts/generate-d1-seed.ts
