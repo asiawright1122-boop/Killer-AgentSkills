@@ -50,6 +50,11 @@ try {
 const isIndex = !slug;
 const currentSlug = isIndex ? 'index' : slug;
 const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
+const isCliDoc = currentSlug.includes('cli');
+const isInstallDoc = currentSlug.includes('installation') || currentSlug.includes('getting-started');
+const isWorkflowDoc = currentSlug.includes('workflows') || currentSlug.includes('templates');
+const isApiDoc = currentSlug.includes('api');
+const isSecurityDoc = currentSlug.includes('security');
 
 interface DocData {
   title: string;
@@ -125,26 +130,59 @@ const pageTitle = isIndex
   ? isZh
     ? 'AI Agent Skills 安装、配置与工作流模板文档'
     : 'AI Agent Skills Docs for Install, Setup & Workflow Templates'
-  : docTitle;
+  : isZh
+    ? `${docTitle}｜AI Agent Skills 文档`
+    : `${docTitle} | AI Agent Skills Docs`;
 const pageDescription = isIndex
   ? isZh
     ? '查看 Killer-Skills 的安装、配置、CLI 命令、IDE 兼容性与工作流模板文档，快速开始使用 AI Agent Skills。'
     : 'Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.'
-  : `${docTitle} — Killer-Skills documentation`;
+  : isCliDoc
+    ? isZh
+      ? `${docTitle}：查看 AI Agent Skills CLI 命令、同步与配置细节，快速完成自动化工作流落地。`
+      : `${docTitle}: learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.`
+    : isInstallDoc
+      ? isZh
+        ? `${docTitle}：获取在 Cursor、Claude Code、VS Code 等环境安装 AI Agent Skills 的完整步骤。`
+        : `${docTitle}: follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.`
+      : isWorkflowDoc
+        ? isZh
+          ? `${docTitle}：围绕工作流自动化、流程自动化与模板化执行，学习可复用的 AI Agent Skills 实践。`
+          : `${docTitle}: learn reusable AI agent skill patterns for workflow automation, process automation, and templates.`
+        : isApiDoc
+          ? isZh
+            ? `${docTitle}：了解 MCP、API 调用和集成方式，构建可扩展的 AI Agent 工作流。`
+            : `${docTitle}: understand MCP, API integration, and scalable AI agent workflow implementation.`
+          : isSecurityDoc
+            ? isZh
+              ? `${docTitle}：掌握技能安全、风险防护和生产环境部署的关键规范。`
+              : `${docTitle}: cover skill security, risk controls, and production-ready deployment practices.`
+            : isZh
+              ? `${docTitle}：Killer-Skills 文档，提供安装、配置与自动化实践说明。`
+              : `${docTitle}: Killer-Skills documentation for setup, configuration, and practical automation usage.`;
 const pageKeywords = buildKeywordString(
   typedLocale,
   'docs',
   'core',
+  'workflowAutomation',
+  isIndex ? 'processAutomation' : undefined,
+  isIndex ? 'documentAutomation' : undefined,
   isIndex ? 'cli' : undefined,
   isIndex ? 'installSetup' : undefined,
   isIndex ? 'compatibility' : undefined,
   isIndex ? 'templates' : undefined,
   isIndex ? 'ideCompat' : undefined,
-  currentSlug.includes('cli') ? 'cli' : undefined,
-  currentSlug.includes('workflows') ? 'workflowAutomation' : undefined,
-  currentSlug.includes('installation') || currentSlug.includes('getting-started') ? 'ideCompat' : undefined,
+  isCliDoc ? 'cli' : undefined,
+  isCliDoc ? 'compatibility' : undefined,
+  isWorkflowDoc ? 'workflowAutomation' : undefined,
+  isWorkflowDoc ? 'processAutomation' : undefined,
+  isWorkflowDoc ? 'templates' : undefined,
+  isInstallDoc ? 'ideCompat' : undefined,
+  isInstallDoc ? 'installSetup' : undefined,
   currentSlug.includes('creating-skills') ? 'developerExperience' : undefined,
-  currentSlug.includes('api') ? 'mcp' : undefined,
+  isApiDoc ? 'mcp' : undefined,
+  isApiDoc ? 'dataWorkflow' : undefined,
+  isSecurityDoc ? 'developerExperience' : undefined,
   isIndex ? ['workflow automation', 'process automation'] : [docTitle],
 );
 const canonicalUrl = `https://killer-skills.com${currentPath}`;

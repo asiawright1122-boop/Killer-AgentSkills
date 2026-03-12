@@ -31,17 +31,20 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
 };
 
 const collectionsSeoTitle = isZh
-  ? '自动化工作流 AI Agent Skills 合集'
-  : 'Workflow Automation AI Agent Skill Collections';
+  ? '自动化工作流与流程化 AI Agent Skills 合集'
+  : 'AI Agent Skill Collections for Automation Workflows';
 const collectionsSeoDescription = isZh
-  ? '按工作流浏览精选 AI Agent Skills 合集，覆盖流程自动化、文档自动化、数据流程与 MCP Servers 组合，适合 Claude Code、Cursor、Windsurf。'
-  : 'Browse curated AI agent skill collections organized around workflow automation, process automation, document ops, data pipelines, and MCP server bundles for Claude Code, Cursor, and Windsurf.';
+  ? '按工作流浏览精选 AI Agent Skills 合集，覆盖流程自动化、文档自动化、浏览器自动化、数据提取与 MCP Servers 组合，适合 Claude Code、Cursor、Windsurf。'
+  : 'Browse curated AI agent skill collections organized around workflow automation, process automation, document automation, browser automation, data extraction, and MCP server bundles for Claude Code, Cursor, and Windsurf.';
 const collectionsSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
   'workflowAutomation',
   'processAutomation',
   'documentAutomation',
+  'browserAutomation',
+  'dataWorkflow',
+  'templates',
   'mcp',
   'ideCompat',
   isZh ? 'AI Agent Skills 合集' : 'AI agent skill collections',

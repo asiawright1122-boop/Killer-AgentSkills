@@ -22,16 +22,24 @@ const canonicalUrl = `https://killer-skills.com/${locale}/cli`;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
-const pageTitle = isZh ? 'AI Agent Skills CLI 安装、配置与同步指南' : 'AI Agent Skills CLI for Install, Setup & Sync';
+const pageTitle = isZh
+  ? 'AI Agent Skills CLI：安装、同步与自动化工作流指南'
+  : 'AI Agent Skills CLI for Install, Sync & Automation Workflows';
 const pageDescription = isZh
-  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、配置并同步 AI Agent Skills。支持一条命令添加技能，无需全局安装。'
-  : 'Use the Killer-Skills CLI to install, set up, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf with one command and no global install.';
-const pageKeywords = buildKeywordString(typedLocale, 'cli', 'installSetup', 'compatibility', 'ideCompat', 'docs', [
-  'npx killer-skills add',
-  'skill sync',
-  'CLI commands',
-  'Killer-Skills',
-]);
+  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、配置并同步 AI Agent Skills，支持流程自动化与模板化执行，无需全局安装。'
+  : 'Use the Killer-Skills CLI to install, configure, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.';
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'cli',
+  'installSetup',
+  'compatibility',
+  'ideCompat',
+  'docs',
+  'workflowAutomation',
+  'processAutomation',
+  'templates',
+  ['npx killer-skills add', 'skill sync', 'CLI commands', 'Killer-Skills'],
+);
 const primaryCommand = 'npx killer-skills add anthropics/skills/pdf';
 const installInstruction = 'npx killer-skills add owner/repo';
 const quickLinks = [

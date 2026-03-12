@@ -21,18 +21,23 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
 const pageTitle = isZh
-  ? 'Cursor、Claude Code、VS Code 技能兼容与安装指南'
-  : 'Cursor, Claude Code & VS Code Skill Compatibility Guide';
+  ? 'Cursor、Claude Code、VS Code 自动化工作流技能兼容与安装指南'
+  : 'Cursor, Claude Code & VS Code AI Skill Setup for Automation Workflows';
 const pageDescription = isZh
-  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 15+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills。'
-  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 15+ IDEs to install, set up, and sync AI agent skills.';
-const pageKeywords = buildKeywordString(typedLocale, 'core', 'ideCompat', 'compatibility', 'installSetup', 'docs', [
-  'Cursor skill setup',
-  'Claude Code install guide',
-  'VS Code AI skills',
-  'supported IDEs',
-  'Killer-Skills',
-]);
+  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 15+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills，落地工作流自动化与流程自动化。'
+  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 15+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.';
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'ideCompat',
+  'compatibility',
+  'installSetup',
+  'docs',
+  'workflowAutomation',
+  'processAutomation',
+  'templates',
+  ['Cursor skill setup', 'Claude Code install guide', 'VS Code AI skills', 'supported IDEs', 'Killer-Skills'],
+);
 
 const integrations = [
   {
