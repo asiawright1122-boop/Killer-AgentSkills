@@ -4,6 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getLightweightSkills } from '../../../lib/skills';
 import type { Env } from '../../../lib/kv';
 
@@ -68,6 +69,20 @@ const description = resolveLocalized(cData.description, '');
 const seoTitle = resolveLocalized(cData.seoTitle, title);
 const seoDescription = resolveLocalized(cData.seoDescription, description);
 const keywords = resolveLocalizedArray(cData.keywords, []);
+const collectionSeoKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'workflowAutomation',
+  'processAutomation',
+  'documentAutomation',
+  'browserAutomation',
+  'dataWorkflow',
+  'templates',
+  'ideCompat',
+  keywords,
+  title,
+);
 const longDescription = resolveLocalized(cData.longDescription, '');
 
 // OG Image
@@ -98,7 +113,7 @@ const itemListSchema = {
   locale={locale}
   title={seoTitle}
   description={seoDescription}
-  keywords={keywords.join(', ')}
+  keywords={collectionSeoKeywords}
   image={ogImage}
   ogType="article"
 >

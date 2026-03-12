@@ -135,14 +135,16 @@ const workflowEntryLinks = [
 ];
 
 // Page title
-let pageTitle = isZh ? 'AI Agent Skills 与 MCP Servers 市场' : 'AI Agent Skills & MCP Servers Marketplace';
+let pageTitle = isZh
+  ? 'AI Agent Skills 与 MCP Servers（自动化工作流）'
+  : 'AI Agent Skills & MCP Servers for Automation Workflows';
 if (cleanQuery) pageTitle = isZh ? `${cleanQuery} 相关 AI Agent Skills` : `${cleanQuery} AI Agent Skills & MCP Servers`;
 else if (category && category !== 'all')
   pageTitle = `${getCategoryLabel(category, t) || category} ${isZh ? 'AI Agent Skills' : 'AI Agent Skills & MCP Servers'}`;
 else if (view === 'official')
-  pageTitle = isZh ? '官方与认证 AI Agent Skills 列表' : 'Official & Verified AI Agent Skills';
+  pageTitle = isZh ? '官方与认证 AI Agent Skills（团队自动化）' : 'Official AI Agent Skills for Team Automation';
 else if (view === 'featured')
-  pageTitle = isZh ? '精选 AI Agent Skills 与 MCP Servers' : 'Featured AI Agent Skills & MCP Servers';
+  pageTitle = isZh ? '精选 AI Agent Skills（高价值自动化）' : 'Featured AI Agent Skills for High-Value Automation';
 else if (view === 'latest')
   pageTitle = isZh ? '最新 AI Agent Skills 与 MCP Servers' : 'Latest AI Agent Skills & MCP Servers';
 
@@ -157,7 +159,9 @@ if (queryIntent) {
     : `${queryIntent.displayTerm}: Installable AI Agent Skills`;
 }
 
-let pageDescription = t('Metadata.Skills.description');
+let pageDescription = isZh
+  ? '浏览可安装 AI Agent Skills 与 MCP Servers，聚焦工作流自动化、流程自动化、文档自动化、浏览器自动化与数据提取场景。'
+  : 'Browse installable AI agent skills and MCP servers for workflow automation, process automation, document automation, browser automation, and data extraction.';
 if (cleanQuery) {
   pageDescription = isZh
     ? `查找与“${cleanQuery}”相关的 AI Agent Skills 与 MCP Servers。支持 Claude Code、Cursor、Windsurf，一键安装。`
@@ -190,6 +194,9 @@ const pageKeywords = buildKeywordString(
   'core',
   'mcp',
   'ideCompat',
+  'browserAutomation',
+  'dataWorkflow',
+  'templates',
   ...(queryIntent ? getIntentKeywordClusters(queryIntent.id) : ['workflowAutomation', 'processAutomation']),
   ...(category && category !== 'all' ? getCategoryKeywordClusters(category) : []),
   owner ? ['developerExperience'] : [],

@@ -38,11 +38,11 @@ const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.d
 
 // SEO: homepage metadata tuned for high-intent discovery queries
 const homeSeoTitle = isZh
-  ? 'AI Agent Skills、流程自动化与 MCP Servers'
-  : 'AI Agent Skills, Workflow Automation & MCP Servers';
+  ? 'AI Agent Skills、自动化工作流与 MCP Servers'
+  : 'AI Agent Skills, Automation Workflows & MCP Servers';
 const homeSeoDescription = isZh
-  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers，覆盖工作流自动化、流程自动化、文档自动化等高意图场景，支持 Claude Code、Cursor、Windsurf。'
-  : 'Discover and install 2,500+ AI agent skills and MCP servers for workflow automation, process automation, and document automation in Claude Code, Cursor, and Windsurf.';
+  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers，覆盖工作流自动化、流程自动化、文档自动化、浏览器自动化与数据提取等高意图场景，支持 Claude Code、Cursor、Windsurf。'
+  : 'Discover and install 2,500+ AI agent skills and MCP servers for workflow automation, process automation, document automation, browser automation, and data extraction in Claude Code, Cursor, and Windsurf.';
 const homeSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
@@ -50,6 +50,9 @@ const homeSeoKeywords = buildKeywordString(
   'workflowAutomation',
   'processAutomation',
   'documentAutomation',
+  'browserAutomation',
+  'dataWorkflow',
+  'templates',
   'ideCompat',
   'Killer-Skills',
 );

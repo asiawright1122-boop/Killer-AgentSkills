@@ -41,13 +41,24 @@ const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 const isZh = locale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}/blog`;
+const blogSeoTitle = isZh
+  ? 'AI Agent Skills 自动化指南与 MCP 实战博客'
+  : 'AI Agent Skills Blog for Automation Workflows & MCP Guides';
+const blogSeoDescription = isZh
+  ? '阅读 AI Agent Skills 与 MCP Servers 的实战文章，聚焦工作流自动化、流程自动化、文档自动化、开发者效率与团队交付。'
+  : 'Read practical articles about AI agent skills and MCP servers for workflow automation, process automation, document automation, developer productivity, and team delivery.';
 const blogSeoKeywords = buildKeywordString(
   locale as Locale,
   'core',
   'mcp',
   'ideCompat',
   'workflowAutomation',
+  'processAutomation',
   'documentAutomation',
+  'templates',
+  'browserAutomation',
+  'dataWorkflow',
   'developerExperience',
   'enterpriseWorkflows',
   isZh ? 'AI Agent Skills 博客' : 'AI agent skills blog',
@@ -66,9 +77,10 @@ const categories = [
 
 <Layout
   locale={locale}
-  title={t('Blog.seoTitle') || 'AI Agent Skills Blog — Guides, Tutorials & Updates | Killer-Skills'}
-  description={t('Blog.seoDescription') || 'Insights, tutorials, and updates from the Killer-Skills team.'}
+  title={blogSeoTitle}
+  description={blogSeoDescription}
   keywords={blogSeoKeywords}
+  customCanonical={canonicalUrl}
 >
   <Fragment slot="head">
     <script
@@ -77,9 +89,9 @@ const categories = [
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: t('Blog.title'),
-        description: t('Blog.description'),
-        url: `https://killer-skills.com/${locale}/blog`,
+        name: blogSeoTitle,
+        description: blogSeoDescription,
+        url: canonicalUrl,
       })}
     />
     <script
@@ -99,7 +111,7 @@ const categories = [
             '@type': 'ListItem',
             position: 2,
             name: t('Blog.title'),
-            item: `https://killer-skills.com/${locale}/blog`,
+            item: canonicalUrl,
           },
         ],
       })}
@@ -110,10 +122,9 @@ const categories = [
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Killer-Skills Blog — AI Agent Skills & MCP Server Guides',
-        description:
-          'In-depth tutorials, guides, and insights about AI Agent Skills, MCP Servers, and AI coding assistants like Claude Code, Cursor, and Windsurf.',
-        url: `https://killer-skills.com/${locale}/blog`,
+        name: blogSeoTitle,
+        description: blogSeoDescription,
+        url: canonicalUrl,
         isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
         mainEntity: {
           '@type': 'ItemList',
@@ -148,7 +159,7 @@ const categories = [
         <p
           class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed text-balance"
         >
-          {t('Blog.subtitle') || 'Deep dives into AI agents, MCP servers, and the future of coding.'}
+          {blogSeoDescription}
         </p>
       </header>
 
