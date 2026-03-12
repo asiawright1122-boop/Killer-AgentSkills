@@ -20,6 +20,8 @@ const FETCH_RETRY_ATTEMPTS = readPositiveInt(
   baseUrl.startsWith('https://') ? 6 : 3,
 );
 const FETCH_RETRY_DELAY_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_RETRY_DELAY_MS, 2000);
+const SEO_SMOKE_CACHE_BUST = process.env.SEO_SMOKE_CACHE_BUST === '1';
+const CACHE_BUST_VALUE = Date.now();
 
 const checks: PageCheck[] = [
   {
@@ -119,6 +121,12 @@ function isTransientFetchError(error: unknown): boolean {
   if (!(error instanceof Error)) return false;
   if (error.name === 'AbortError') return true;
   return /fetch failed|network|econnreset|enotfound|etimedout|socket hang up|unexpected eof/i.test(error.message);
+}
+
+function withCacheBust(path: string): string {
+  if (!SEO_SMOKE_CACHE_BUST) return path;
+  const separator = path.includes('?') ? '&' : '?';
+  return `${path}${separator}seo_smoke_cache_bust=${CACHE_BUST_VALUE}`;
 }
 
 async function fetchWithRetry(path: string, expectedStatus?: number): Promise<Response> {
@@ -279,7 +287,7 @@ async function runMissingDocs404Check() {
 }
 
 async function runSkillsSitemapChecks() {
-  const sitemapIndexXml = await fetchText('/sitemap.xml');
+  const sitemapIndexXml = await fetchText(withCacheBust('/sitemap.xml'));
   const sitemapLocs = parseXmlLocs(sitemapIndexXml);
   const skillSitemapLocs = sitemapLocs.filter((loc) => /\/sitemap-skills-\d+\.xml$/.test(new URL(loc).pathname));
   ensure(skillSitemapLocs.length > 0, 'sitemap index must include at least one /sitemap-skills-{n}.xml');
@@ -287,7 +295,7 @@ async function runSkillsSitemapChecks() {
   const allSkillLocs: string[] = [];
   for (const sitemapLoc of skillSitemapLocs) {
     const localPath = toLocalPath(sitemapLoc);
-    const xml = await fetchText(localPath);
+    const xml = await fetchText(withCacheBust(localPath));
     allSkillLocs.push(...parseXmlLocs(xml));
   }
 
@@ -317,7 +325,7 @@ async function runSkillsSitemapChecks() {
 }
 
 async function runBlogSitemapChecks() {
-  const blogXml = await fetchText('/sitemap-blog.xml');
+  const blogXml = await fetchText(withCacheBust('/sitemap-blog.xml'));
   const blogLocs = parseXmlLocs(blogXml);
   ensure(blogLocs.length > 0, 'sitemap-blog.xml has no URLs');
 
