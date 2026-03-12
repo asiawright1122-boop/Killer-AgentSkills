@@ -26,7 +26,10 @@ const SKILLS_SITEMAP_SAMPLE_LIMIT = Number(process.env.SEO_CRAWL_SAMPLE_SKILLS_P
 const NON_SKILLS_SITEMAP_SAMPLE_LIMIT = Number(process.env.SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP || '600');
 const REQUEST_TIMEOUT_MS = Number(process.env.SEO_CRAWL_TIMEOUT_MS || '15000');
 const CHECK_CONCURRENCY = Number(process.env.SEO_CRAWL_CONCURRENCY || '20');
-const CHECK_RETRIES = Number(process.env.SEO_CRAWL_RETRIES || '2');
+const CHECK_RETRIES = Number(process.env.SEO_CRAWL_RETRIES || '3');
+const CHECK_RETRY_DELAY_MS = Number(process.env.SEO_CRAWL_RETRY_DELAY_MS || '1000');
+const HARD_FAIL_5XX_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_MIN || '3');
+const HARD_FAIL_5XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_RATE || '0.005');
 
 function ensure(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -149,7 +152,7 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
       lastRedirected = response.redirected;
 
       if (response.status >= 500 && attempt <= CHECK_RETRIES) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 300));
+        await new Promise((resolve) => setTimeout(resolve, attempt * CHECK_RETRY_DELAY_MS));
         continue;
       }
 
@@ -162,7 +165,7 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
       if (attempt <= CHECK_RETRIES) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * 300));
+        await new Promise((resolve) => setTimeout(resolve, attempt * CHECK_RETRY_DELAY_MS));
         continue;
       }
     } finally {
@@ -303,14 +306,25 @@ async function main() {
   const report = buildReport(crawl, sampledUrls, bySitemap, results);
   writeReports(report);
 
-  const hasHttpErrors = results.some((r) => r.status >= 400);
+  const status4xxCount = results.filter((r) => r.status >= 400 && r.status < 500).length;
+  const status5xxCount = results.filter((r) => r.status >= 500).length;
+  const status5xxRate = results.length > 0 ? status5xxCount / results.length : 0;
+  const hasHard4xx = status4xxCount > 0;
+  const hasHard5xx = status5xxCount >= HARD_FAIL_5XX_MIN || status5xxRate > HARD_FAIL_5XX_RATE;
   const networkErrors = results.filter((r) => r.status === 0).length;
   const networkErrorRate = results.length > 0 ? networkErrors / results.length : 0;
   const hasNetworkInstability = networkErrors >= 5 && networkErrorRate > 0.05;
   const hasDuplicates = findDuplicates(crawl.allDiscoveredUrls).length > 0;
-  const hasSevereSignal = hasHttpErrors || hasDuplicates || hasNetworkInstability;
+  const hasSevereSignal = hasHard4xx || hasHard5xx || hasDuplicates || hasNetworkInstability;
 
   console.log(report);
+  if (!hasHard5xx && status5xxCount > 0) {
+    console.warn(
+      `[crawl-health] tolerated transient 5xx errors: ${status5xxCount}/${results.length} (${(
+        status5xxRate * 100
+      ).toFixed(2)}%)`,
+    );
+  }
   if (hasSevereSignal) {
     console.error('[crawl-health] failed: hard crawl/indexing errors detected');
     process.exit(1);

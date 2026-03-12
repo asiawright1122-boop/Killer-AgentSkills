@@ -13,6 +13,7 @@ const SITE_ORIGIN = 'https://killer-skills.com';
 const baseUrl = (process.argv[2] || 'http://127.0.0.1:4321').replace(/\/+$/, '');
 const MISSING_DOCS_SLUG = '/en/docs/__seo-smoke_missing_slug_404_guard__';
 const TRANSIENT_STATUS_CODES = new Set([429, 500, 502, 503, 504, 522, 524]);
+const SKILL_FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
 const FETCH_TIMEOUT_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_TIMEOUT_MS, 15000);
 const FETCH_RETRY_ATTEMPTS = readPositiveInt(
   process.env.SEO_SMOKE_FETCH_RETRIES,
@@ -307,6 +308,9 @@ async function runSkillsSitemapChecks() {
       /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname),
       `skills sitemap loc has invalid path depth/format: ${loc}`,
     );
+    const segments = parsed.pathname.split('/').filter(Boolean);
+    const repoSegment = segments[segments.length - 1] || '';
+    ensure(!SKILL_FILE_EXT_REGEX.test(repoSegment), `skills sitemap loc must not use file-like repo slug: ${loc}`);
   }
 
   console.log(`SEO smoke passed: skills sitemap dedupe + URL shape (${allSkillLocs.length} URLs)`);
