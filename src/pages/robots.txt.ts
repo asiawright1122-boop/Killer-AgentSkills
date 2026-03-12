@@ -9,6 +9,8 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /favorites
 Disallow: /history
+Disallow: /*/favorites
+Disallow: /*/history
 # Block crawling of source-code file paths (not real pages)
 Disallow: /*.md$
 Disallow: /*.ts$
@@ -21,9 +23,8 @@ Disallow: /.cursor/
 Disallow: /04-Initiatives/
 Disallow: /ORCHESTRATION.md
 
-# Block search result pages — dynamic, thin content
-Disallow: /*?query=
-Disallow: /*?q=
+# Search result/listing parameter pages are controlled by noindex headers/meta.
+# Keep crawl allowed so bots can receive canonical + noindex signals.
 # Block legacy tag parameter (use ?topic= instead)
 Disallow: /*?tag=
 # Block deep nested skill sub-paths (crawl traps)

@@ -172,10 +172,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const localeSegment = pathname.split('/')[1];
     const response = await next();
     response.headers.set('Content-Language', localeSegment);
+    const isSkillsListingWithParams = /^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0;
     // X-Robots-Tag as HTTP header reinforcement for Googlebot
     if (!response.headers.has('X-Robots-Tag')) {
       // noindex for search result pages (?q= / ?query=) — thin/dynamic content
-      if (searchParams.has('q') || searchParams.has('query')) {
+      if (isSkillsListingWithParams || searchParams.has('q') || searchParams.has('query')) {
         response.headers.set('X-Robots-Tag', 'noindex, follow');
       } else {
         response.headers.set('X-Robots-Tag', 'index, follow');
@@ -205,12 +206,13 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   const redirectPath = pathname === '/' ? `/${targetLocale}` : `/${targetLocale}${pathname}`;
 
-  // Use 301 permanent redirect so Google consolidates PageRank to the locale URL
+  // Locale detection redirects depend on request headers/cookies.
+  // Use 302 to avoid cacheable permanent redirect conflicts in crawlers.
   return new Response(null, {
-    status: 301,
+    status: 302,
     headers: {
       Location: redirectPath,
-      'Cache-Control': 'public, s-maxage=86400',
+      'Cache-Control': 'private, no-store',
       Vary: 'Cookie, Accept-Language, CF-IPCountry',
     },
   });
