@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
+import { SOLUTION_INTENT_SLUGS } from '../lib/solution-intents';
 
 export const prerender = true;
 
@@ -9,6 +10,7 @@ const STATIC_PAGES = [
   '/skills',
   '/categories',
   '/collections',
+  '/solutions',
   '/blog',
   '/docs',
   '/cli',
@@ -17,6 +19,7 @@ const STATIC_PAGES = [
   '/privacy',
   '/terms',
   '/cookies',
+  ...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`),
 ];
 
 const normalizeUrl = (url: string) => {

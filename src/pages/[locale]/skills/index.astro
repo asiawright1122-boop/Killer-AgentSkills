@@ -12,6 +12,7 @@ import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-co
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
 import { resolveQueryIntent } from '../../../lib/query-intent';
 import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';
+import { getSolutionIntents } from '../../../lib/solution-intents';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -125,14 +126,7 @@ const t = useTranslations(messages);
 const isZh = typedLocale === 'zh';
 const cleanQuery = query.trim().slice(0, 60);
 const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, typedLocale) : null;
-const workflowEntryLinks = [
-  'workflow automation',
-  'process automation',
-  'document automation',
-  'browser automation',
-  'data extraction',
-  'agent workflow',
-];
+const workflowEntryLinks = getSolutionIntents(typedLocale);
 
 // Page title
 let pageTitle = isZh
@@ -375,10 +369,10 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                     <div class="mt-5 flex flex-wrap gap-2">
                       {workflowEntryLinks.map((term) => (
                         <a
-                          href={`/${locale}/skills?q=${encodeURIComponent(term)}`}
+                          href={term.href}
                           class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] bg-white text-[var(--foreground)] text-xs font-black uppercase tracking-wide hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
                         >
-                          {term}
+                          {term.query}
                         </a>
                       ))}
                     </div>

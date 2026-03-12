@@ -1,0 +1,228 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import SkillCard from '../../../components/SkillCard.astro';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { searchSkills, filterByCategory } from '../../../lib/search';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
+import { getSolutionIntentBySlug, getSolutionIntents, type SolutionSlug } from '../../../lib/solution-intents';
+import type { Env } from '../../../lib/kv';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
+
+const { locale, topic } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+const intent = getSolutionIntentBySlug(typedLocale, topic || '');
+if (!intent) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const env = Astro.locals.runtime?.env as Env;
+const [skillsFetched, messages] = await Promise.all([
+  getLightweightSkills(env).catch(() => [] as UnifiedSkill[]),
+  loadMessages(typedLocale),
+]);
+
+const t = useTranslations(messages);
+const allIntents = getSolutionIntents(typedLocale).filter((item) => item.slug !== (topic as SolutionSlug));
+const canonicalUrl = `https://killer-skills.com/${locale}/solutions/${intent.slug}`;
+const pageTitle = intent.pageTitle;
+const pageDescription = intent.pageDescription;
+
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'ideCompat',
+  ...intent.keywordClusters,
+  intent.query,
+  intent.queries,
+  'Killer-Skills',
+);
+
+const matchedSkills: UnifiedSkill[] = [];
+const seen = new Set<string>();
+
+const addSkills = (items: UnifiedSkill[]) => {
+  for (const item of items) {
+    if (!item?.id || seen.has(item.id)) continue;
+    seen.add(item.id);
+    matchedSkills.push(item);
+  }
+};
+
+for (const q of intent.queries) {
+  addSkills(searchSkills(skillsFetched, q, typedLocale));
+}
+
+if (matchedSkills.length < 36) {
+  for (const category of intent.fallbackCategories) {
+    addSkills(filterByCategory(skillsFetched, category));
+    if (matchedSkills.length >= 48) break;
+  }
+}
+
+if (matchedSkills.length < 24) {
+  const byStars = [...skillsFetched].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+  addSkills(byStars);
+}
+
+const displaySkills = matchedSkills.slice(0, 60);
+
+const faqItems = [
+  {
+    question: isZh ? `${intent.label} 场景通常解决什么问题？` : `What does the ${intent.label} scenario solve?`,
+    answer: intent.pageDescription,
+  },
+  {
+    question: isZh
+      ? '这些技能可以直接安装到 Cursor 或 Claude Code 吗？'
+      : 'Can these skills be installed directly in Cursor or Claude Code?',
+    answer: isZh
+      ? '可以。页面中的技能支持 Killer-Skills 统一安装流程，可用于 Cursor、Claude Code、Windsurf 等环境。'
+      : 'Yes. Skills listed here support the Killer-Skills unified install flow for Cursor, Claude Code, Windsurf, and other IDEs.',
+  },
+  {
+    question: isZh ? '如果结果不够精准怎么办？' : 'What if the results are still too broad?',
+    answer: isZh
+      ? '建议先查看技能详情页中的关键词与用例，再返回搜索页追加更具体词，如平台名、文件类型或业务动作。'
+      : 'Open skill detail pages to review keywords and use cases, then refine with specific terms such as platform names, file types, or business actions.',
+  },
+];
+---
+
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+>
+  <Fragment slot="head">
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'CollectionPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: canonicalUrl,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        mainEntity: {
+          '@type': 'ItemList',
+          numberOfItems: displaySkills.length,
+          itemListElement: displaySkills.slice(0, 20).map((skill, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url: `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}`,
+            name: skill.name || skill.repo,
+          })),
+        },
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: t('Common.home') || 'Home',
+            item: `https://killer-skills.com/${locale}`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: isZh ? '解决方案' : 'Solutions',
+            item: `https://killer-skills.com/${locale}/solutions`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: intent.label,
+            item: canonicalUrl,
+          },
+        ],
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      })}
+    />
+  </Fragment>
+
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <header class="mb-10 border-b-[3px] border-[var(--border)] pb-8">
+        <a
+          href={`/${locale}/solutions`}
+          class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] text-xs font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+        >
+          {isZh ? '返回解决方案' : 'Back to Solutions'}
+        </a>
+        <div
+          class="mt-4 inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
+        >
+          {intent.query}
+        </div>
+        <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
+        <p
+          class="seo-intro-paragraph mt-4 max-w-3xl text-base md:text-lg font-medium text-[var(--muted-foreground)] leading-relaxed"
+        >
+          {pageDescription}
+        </p>
+      </header>
+
+      <section class="mb-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {displaySkills.map((skill) => <SkillCard skill={skill} locale={locale} t={t} />)}
+      </section>
+
+      {
+        displaySkills.length === 0 && (
+          <div class="mb-10 text-center py-16 border-4 border-dashed border-[var(--border)] bg-[var(--background)]">
+            <p class="text-[var(--muted-foreground)] font-mono font-bold text-lg">
+              {isZh ? '当前场景暂无匹配技能，请尝试其他场景页。' : 'No matching skills yet. Try another solution page.'}
+            </p>
+          </div>
+        )
+      }
+
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          allIntents.slice(0, 3).map((item) => (
+            <a
+              href={item.href}
+              class="border-2 border-[var(--border)] p-5 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+            >
+              <div class="text-xs font-mono font-black uppercase tracking-widest mb-2">{item.query}</div>
+              <h2 class="text-lg font-black uppercase tracking-tight mb-1">{item.label}</h2>
+              <p class="text-sm font-medium opacity-80 leading-6">{item.cardDescription}</p>
+            </a>
+          ))
+        }
+      </section>
+    </main>
+  </div>
+</Layout>

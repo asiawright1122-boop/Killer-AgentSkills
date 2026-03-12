@@ -26,6 +26,7 @@
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "submit:baidu": "node scripts/submit-baidu.mjs",
     "submit:google": "node scripts/submit-google.mjs",
+    "sync:d1:delta": "npx tsx scripts/sync-d1-delta.ts",
     "seo:smoke": "npx tsx scripts/seo-smoke.ts",
     "report:seo:crawl-health": "npx tsx scripts/seo-crawl-health.ts",
     "report:gsc": "npx tsx scripts/gsc-ctr-report.ts",

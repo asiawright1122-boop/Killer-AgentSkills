@@ -40,6 +40,12 @@ const checks: PageCheck[] = [
     expectJsonLd: true,
   },
   {
+    path: '/en/solutions/workflow-automation',
+    titleIncludes: 'Workflow Automation',
+    canonical: 'https://killer-skills.com/en/solutions/workflow-automation',
+    expectJsonLd: true,
+  },
+  {
     path: '/en/cli',
     titleIncludes: 'AI Agent Skills CLI',
     canonical: 'https://killer-skills.com/en/cli',
