@@ -5,6 +5,7 @@ Track whether recent SEO changes are improving click-through rate instead of onl
 
 ## Script
 - Command: `npm run report:gsc -- --queries path/to/queries.csv --pages path/to/pages.csv`
+- Unattended fetch command: `npm run report:gsc:fetch`
 - Optional:
   - `--queries-prev path/to/previous-queries.csv`
   - `--pages-prev path/to/previous-pages.csv`
@@ -24,6 +25,25 @@ Track whether recent SEO changes are improving click-through rate instead of onl
   - period comparison for queries/pages when previous exports are supplied
   - quick wins
   - suggested actions based on query/page intent
+
+## Unattended Workflow
+- Workflow: `.github/workflows/seo-monitoring.yml`
+- Schedule: every Monday at `10:15` Asia/Shanghai (`02:15 UTC`)
+- Trigger modes:
+  - scheduled
+  - manual `workflow_dispatch`
+- Required repository secrets:
+  - `GSC_CLIENT_EMAIL`
+  - `GSC_PRIVATE_KEY`
+  - `GSC_SITE_URL`
+- Recommended `GSC_SITE_URL` values:
+  - `sc-domain:killer-skills.com`
+  - or the exact verified property URL in Search Console
+- The service account behind `GSC_CLIENT_EMAIL` must be added to the Search Console property with access, otherwise the API request will fail.
+- Output produced by the unattended job:
+  - `reports/gsc/latest-ctr-report.md`
+  - dated query/page CSV snapshots under `reports/gsc/snapshots/`
+  - uploaded GitHub Actions artifact `gsc-monitoring-report`
 
 ## What To Watch
 1. Queries with position `<= 10`, high impressions, and CTR below expected baseline
