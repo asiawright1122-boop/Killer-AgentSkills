@@ -21,18 +21,18 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --legacy-peer-deps
+        run: HUSKY=0 npm ci
 
       - name: Run Translation
         env:
@@ -76,7 +76,8 @@ jobs:
               git pull --rebase -X theirs --autostash origin main || true
             done
             if [ "$PUSH_OK" -eq 0 ]; then
-              echo "⚠️ Push failed after 5 attempts, continuing anyway..."
+              echo "❌ Push failed after 5 attempts"
+              exit 1
             fi
           else
             echo "ℹ️ No translation changes"

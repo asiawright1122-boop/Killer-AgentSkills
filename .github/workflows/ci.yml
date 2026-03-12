@@ -8,35 +8,44 @@ on:
     paths-ignore:
       - 'data/**'
       - '*.md'
-      - 'scripts/**'
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   lint:
     if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     name: Lint & Format
+    timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20.x'
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+        run: HUSKY=0 npm ci
 
       - name: Lint (ESLint)
         run: npm run lint
 
+      - name: Lint SEO Automation Files
+        run: npm run lint:seo-automation
+
       - name: Format Check (Prettier)
         run: npm run format:check
+
+      - name: Format Check SEO Automation Files
+        run: npm run format:check:seo-automation
 
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check --root .
@@ -45,25 +54,26 @@ jobs:
     if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     name: Unit Tests & Coverage
+    timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20.x'
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+        run: HUSKY=0 npm ci
 
       - name: Run Unit Tests with Coverage
         run: npx vitest run --coverage --reporter=default
 
       - name: Upload Coverage Report
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: coverage/
@@ -74,24 +84,50 @@ jobs:
     runs-on: ubuntu-latest
     name: Build
     needs: [lint, test]
+    timeout-minutes: 20
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20.x'
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci --legacy-peer-deps
+        run: HUSKY=0 npm ci
 
       - name: Build
         run: npm run build
 
       - name: Validate Build Output
         run: npx vitest run --config vitest.build-validation.config.ts --reporter=default --no-coverage
+
+      - name: Start Local SEO Smoke Server
+        run: |
+          npm run dev -- --host 127.0.0.1 --port 4321 > /tmp/killer-skills-seo.log 2>&1 &
+          echo $! > /tmp/killer-skills-seo.pid
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:4321/en >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "❌ Local Astro server did not become ready"
+          cat /tmp/killer-skills-seo.log || true
+          exit 1
+
+      - name: Run SEO Smoke Check
+        run: npm run seo:smoke -- http://127.0.0.1:4321
+
+      - name: Stop Local SEO Smoke Server
+        if: always()
+        run: |
+          if [ -f /tmp/killer-skills-seo.pid ]; then
+            kill "$(cat /tmp/killer-skills-seo.pid)" || true
+          fi
+          rm -f /tmp/killer-skills-seo.pid
 
       - name: Deploy to Cloudflare Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -100,3 +136,20 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=killer-skills --branch=main
+
+      - name: Notify IndexNow
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        run: npm run submit:indexnow
+
+      - name: Notify Baidu (optional)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        continue-on-error: true
+        env:
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
+        run: |
+          if [ -n "$BAIDU_TOKEN" ]; then
+            npm run submit:baidu
+          else
+            echo "ℹ️ BAIDU_TOKEN not configured, skipping Baidu submission"
+          fi
