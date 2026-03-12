@@ -41,16 +41,16 @@ jobs:
           mkdir -p reports/gsc
           if [ -z "$GSC_CLIENT_EMAIL" ] || [ -z "$GSC_PRIVATE_KEY" ] || [ -z "$GSC_SITE_URL" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            cat <<'EOF' > reports/gsc/monitoring-skipped.md
-            # SEO Monitoring Skipped
-
-            Missing one or more required secrets:
-            - `GSC_CLIENT_EMAIL`
-            - `GSC_PRIVATE_KEY`
-            - `GSC_SITE_URL`
-
-            Add the Search Console service account to the property, then rerun this workflow.
-            EOF
+            {
+              echo "# SEO Monitoring Skipped"
+              echo ""
+              echo "Missing one or more required secrets:"
+              echo "- \`GSC_CLIENT_EMAIL\`"
+              echo "- \`GSC_PRIVATE_KEY\`"
+              echo "- \`GSC_SITE_URL\`"
+              echo ""
+              echo "Add the Search Console service account to the property, then rerun this workflow."
+            } > reports/gsc/monitoring-skipped.md
             exit 0
           fi
 
