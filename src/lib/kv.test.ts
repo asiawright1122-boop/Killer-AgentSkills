@@ -272,6 +272,31 @@ describe('getSitemapSkillsFromKV', () => {
     expect(result).toHaveLength(2);
   });
 
+  it('should dedupe owner/repo entries and keep the latest updatedAt', async () => {
+    const sitemapData = [
+      { owner: 'anthropics', repo: 'skills', updatedAt: '2026-03-01T00:00:00.000Z' },
+      { owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' },
+      { owner: 'vercel', repo: 'next.js', updatedAt: '2026-02-01T00:00:00.000Z' },
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toHaveLength(2);
+    expect(result[0]).toEqual({ owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' });
+  });
+
+  it('should filter out invalid GitHub owner/repo formats', async () => {
+    const sitemapData = [
+      { owner: 'valid-owner', repo: 'valid_repo' },
+      { owner: 'bad owner', repo: 'repo' },
+      { owner: 'owner', repo: 'bad/repo' },
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid_repo' }]);
+  });
+
   it('should filter out entries with missing owner', async () => {
     const sitemapData = [
       { owner: 'anthropics', repo: 'skills' },

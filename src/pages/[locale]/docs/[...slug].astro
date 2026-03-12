@@ -103,6 +103,14 @@ if (!docContent) {
   }
 }
 
+// Important for crawl hygiene:
+// unknown docs slugs must be hard 404s, not soft "coming soon" 200 pages.
+if (!isIndex && !docContent) {
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
 // Fallback title if not loaded from KV
 if (!docTitle) {
   if (isIndex) {

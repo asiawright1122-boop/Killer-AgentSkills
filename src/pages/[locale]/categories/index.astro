@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { CATEGORY_DEFS, getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
-import { getAllSkills } from '../../../lib/skills';
+import { getLightweightSkills } from '../../../lib/skills';
 import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 
@@ -22,8 +22,8 @@ const canonicalUrl = `https://killer-skills.com/${locale}/categories`;
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
 
-// Load all skills from KV
-const skills = await getAllSkills(env);
+// Use lightweight listing query to avoid full JSON scan on category landing pages.
+const skills = await getLightweightSkills(env).catch(() => []);
 
 // Load translations
 const messages = await loadMessages(typedLocale);
