@@ -2,10 +2,14 @@
 import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
-import { searchSkills, filterByCategory } from '../../../lib/search';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
-import { getSolutionIntentBySlug, getSolutionIntents, type SolutionSlug } from '../../../lib/solution-intents';
+import {
+  getSolutionIntentBySlug,
+  getSolutionIntents,
+  matchSkillsForIntent,
+  type SolutionSlug,
+} from '../../../lib/solution-intents';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -46,34 +50,7 @@ const pageKeywords = buildKeywordString(
   'Killer-Skills',
 );
 
-const matchedSkills: UnifiedSkill[] = [];
-const seen = new Set<string>();
-
-const addSkills = (items: UnifiedSkill[]) => {
-  for (const item of items) {
-    if (!item?.id || seen.has(item.id)) continue;
-    seen.add(item.id);
-    matchedSkills.push(item);
-  }
-};
-
-for (const q of intent.queries) {
-  addSkills(searchSkills(skillsFetched, q, typedLocale));
-}
-
-if (matchedSkills.length < 36) {
-  for (const category of intent.fallbackCategories) {
-    addSkills(filterByCategory(skillsFetched, category));
-    if (matchedSkills.length >= 48) break;
-  }
-}
-
-if (matchedSkills.length < 24) {
-  const byStars = [...skillsFetched].sort((a, b) => (b.stars || 0) - (a.stars || 0));
-  addSkills(byStars);
-}
-
-const displaySkills = matchedSkills.slice(0, 60);
+const displaySkills: UnifiedSkill[] = matchSkillsForIntent(skillsFetched, intent, typedLocale, 60);
 
 const faqItems = [
   {

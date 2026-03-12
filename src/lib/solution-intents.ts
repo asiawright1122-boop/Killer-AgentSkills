@@ -1,5 +1,7 @@
 import type { Locale } from '../i18n';
 import type { KeywordClusterId } from './seo-keywords';
+import { filterByCategory } from './search';
+import { getLocalizedDescription, type UnifiedSkill } from './skills';
 
 export type SolutionSlug =
   | 'workflow-automation'
@@ -213,4 +215,105 @@ export function getSolutionIntentBySlug(locale: Locale, slug: string): Localized
     pageDescription: resolveText(found.pageDescription, locale),
     href: buildSolutionPath(locale, found.slug),
   };
+}
+
+function tokenizeIntent(intent: LocalizedSolutionIntent): string[] {
+  const raw = [intent.query, ...intent.queries, intent.label, intent.pageTitle, intent.pageDescription].join(' ');
+  return Array.from(
+    new Set(
+      raw
+        .toLowerCase()
+        .split(/[^a-z0-9]+/g)
+        .map((token) => token.trim())
+        .filter((token) => token.length >= 3),
+    ),
+  );
+}
+
+function calculateIntentScore(
+  skill: UnifiedSkill,
+  intent: LocalizedSolutionIntent,
+  locale: Locale,
+  tokens: string[],
+): number {
+  const name = `${skill.name || ''} ${skill.skillName || ''}`.toLowerCase();
+  const repo = `${skill.owner || ''} ${skill.repo || ''}`.toLowerCase();
+  const category = (skill.category || '').toLowerCase();
+  const topics = (skill.topics || []).join(' ').toLowerCase();
+  const description = getLocalizedDescription(skill.description, locale).toLowerCase();
+  const fullText = `${name} ${repo} ${category} ${topics} ${description}`;
+
+  let score = 0;
+  const primaryQuery = intent.query.toLowerCase();
+
+  if (name.includes(primaryQuery)) score += 20;
+  if (topics.includes(primaryQuery)) score += 14;
+  if (description.includes(primaryQuery)) score += 12;
+  if (category.includes(primaryQuery)) score += 10;
+
+  for (const phrase of intent.queries) {
+    const normalized = phrase.toLowerCase();
+    if (name.includes(normalized)) score += 14;
+    else if (topics.includes(normalized)) score += 10;
+    else if (description.includes(normalized)) score += 8;
+    else if (category.includes(normalized)) score += 6;
+  }
+
+  for (const token of tokens) {
+    if (fullText.includes(token)) score += 1;
+  }
+
+  if (skill.source === 'verified') score += 4;
+  if (skill.source === 'featured') score += 2;
+
+  score += Math.min(skill.stars || 0, 20000) / 1000;
+  return score;
+}
+
+export function matchSkillsForIntent(
+  skills: UnifiedSkill[],
+  intent: LocalizedSolutionIntent,
+  locale: Locale,
+  limit = 60,
+): UnifiedSkill[] {
+  const tokens = tokenizeIntent(intent);
+  const scored = skills
+    .map((skill) => ({
+      skill,
+      score: calculateIntentScore(skill, intent, locale, tokens),
+    }))
+    .filter((item) => item.score > 0)
+    .sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return (b.skill.stars || 0) - (a.skill.stars || 0);
+    })
+    .map((item) => item.skill);
+
+  const picked: UnifiedSkill[] = [];
+  const seen = new Set<string>();
+
+  const addSkills = (items: UnifiedSkill[]) => {
+    for (const item of items) {
+      if (!item?.id || seen.has(item.id)) continue;
+      seen.add(item.id);
+      picked.push(item);
+      if (picked.length >= limit) return;
+    }
+  };
+
+  addSkills(scored);
+
+  if (picked.length < Math.min(36, limit)) {
+    for (const category of intent.fallbackCategories) {
+      addSkills(filterByCategory(skills, category));
+      if (picked.length >= Math.min(48, limit)) break;
+    }
+  }
+
+  if (picked.length < Math.min(24, limit)) {
+    const byStars = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+    addSkills(byStars);
+  }
+
+  return picked.slice(0, limit);
 }
