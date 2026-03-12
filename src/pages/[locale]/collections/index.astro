@@ -13,6 +13,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
@@ -26,12 +27,23 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
   if (typeof field === 'string') return field;
   return field[typedLocale] || field['en'] || fallback;
 };
+
+const collectionsSeoTitle = isZh
+  ? '精选 AI Agent Skills 合集与 MCP Servers'
+  : 'Curated AI Agent Skill Collections & MCP Servers';
+const collectionsSeoDescription = isZh
+  ? '按场景浏览精选 AI Agent Skills 合集，快速找到可在 Claude Code、Cursor、Windsurf 中安装的 MCP Servers 与实用能力。'
+  : 'Browse curated AI agent skill collections and discover MCP servers by workflow. Install in Claude Code, Cursor, and Windsurf.';
+const collectionsSeoKeywords = isZh
+  ? 'AI Agent Skills 合集, MCP Servers, Claude Code 技能, Cursor 技能, Windsurf 技能, Killer-Skills'
+  : 'ai agent skill collections, mcp servers, claude code skills, cursor skills, windsurf skills, killer-skills';
 ---
 
 <Layout
   locale={locale}
-  title={t('Common.collections') || 'Curated Collections'}
-  description={t('Metadata.description')}
+  title={collectionsSeoTitle}
+  description={collectionsSeoDescription}
+  keywords={collectionsSeoKeywords}
 >
   <Fragment slot="head">
     <script

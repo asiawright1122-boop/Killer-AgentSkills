@@ -6,18 +6,15 @@ export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
 
-const ensureTrailingSlash = (url: string) => {
-  if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
-  return `${url}/`;
-};
+const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
 function buildHreflangLinks(pagePath: string): string {
   return (
     SUPPORTED_LOCALES.map((loc) => {
       const url = `${SITE}/${loc}${pagePath}`;
-      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url)}" />`;
+      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(url)}" />`;
     }).join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`)}" />`
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/en${pagePath}`)}" />`
   );
 }
 
@@ -28,7 +25,7 @@ export const GET: APIRoute = async () => {
   // 1. Collections index page (/collections)
   for (const locale of SUPPORTED_LOCALES) {
     urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}/collections`)}</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}/collections`)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
@@ -45,7 +42,7 @@ ${buildHreflangLinks('/collections')}
 
       for (const locale of SUPPORTED_LOCALES) {
         urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}${pagePath}`)}</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}${pagePath}`)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.7</priority>

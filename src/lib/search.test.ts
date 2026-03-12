@@ -177,19 +177,24 @@ describe('searchSkills', () => {
 });
 
 describe('filterByCategory', () => {
-  it('should filter by exact category', () => {
-    const result = filterByCategory(sampleSkills, 'testing');
-    expect(result).toHaveLength(1);
-    expect(result[0].name).toBe('Pytest');
+  it('should map canonical developer filter to legacy development skills', () => {
+    const result = filterByCategory(sampleSkills, 'developer');
+    expect(result.length).toBeGreaterThanOrEqual(2);
+    expect(result.some((s) => s.name === 'React')).toBe(true);
+    expect(result.some((s) => s.name === 'Vue')).toBe(true);
   });
 
-  it('should support category groups', () => {
-    // "development" group includes: development, git, api, code-review, cli, library
+  it('should map legacy testing filter to the canonical developer bucket', () => {
+    const result = filterByCategory(sampleSkills, 'testing');
+    expect(result.length).toBeGreaterThanOrEqual(1);
+    expect(result.some((s) => s.name === 'Pytest')).toBe(true);
+  });
+
+  it('should support normalized developer category groups', () => {
     const result = filterByCategory(sampleSkills, 'development');
     expect(result.length).toBeGreaterThanOrEqual(2);
-    expect(
-      result.every((s) => ['development', 'git', 'api', 'code-review', 'cli', 'library'].includes(s.category)),
-    ).toBe(true);
+    expect(result.some((s) => s.name === 'React')).toBe(true);
+    expect(result.some((s) => s.name === 'Vue')).toBe(true);
   });
 
   it('should support devops category group', () => {

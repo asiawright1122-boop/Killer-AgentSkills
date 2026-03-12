@@ -1,88 +1,14 @@
 import type { APIRoute } from 'astro';
-import { SUPPORTED_LOCALES } from '../i18n';
-import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
-
-function formatDate(date: Date | string): string {
-  const d = typeof date === 'string' ? new Date(date) : date;
-  return d.toISOString().split('T')[0];
-}
-
-const ensureTrailingSlash = (url: string, path: string, locale?: string) => {
-  if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
-  if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
-  return `${url}/`;
-};
-
-function buildHreflangLinks(pagePath: string): string {
-  return (
-    SUPPORTED_LOCALES.map((loc) => {
-      const url = `${SITE}/${loc}${pagePath}`;
-      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url, pagePath, loc)}" />`;
-    }).join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`
-  );
-}
-
-export const GET: APIRoute = async ({ locals, params }) => {
-  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
-  const pageParam = params.page || '1';
-  const page = parseInt(pageParam, 10);
-  const LIMIT = 200; // Owners per sitemap file
-
-  if (isNaN(page) || page < 1) {
-    return new Response('Invalid page', { status: 404 });
-  }
-
-  const today = formatDate(new Date());
-
-  let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
-  try {
-    skills = (await getSitemapSkillsFromKV(env as Env)) || [];
-  } catch (e) {
-    console.error('[sitemap-owners] Failed to load skills', e);
-  }
-
-  // Extract unique owners
-  const owners = [...new Set(skills.map((s) => s.owner))].filter(Boolean).sort();
-
-  // Pagination Logic
-  const start = (page - 1) * LIMIT;
-  const end = start + LIMIT;
-  const paginatedOwners = owners.slice(start, end);
-
-  if (paginatedOwners.length === 0 && page > 1) {
-    return new Response('Page not found', { status: 404 });
-  }
-
-  const urls: string[] = [];
-  for (const owner of paginatedOwners) {
-    const ownerPath = `/skills/${owner}`;
-    for (const locale of SUPPORTED_LOCALES) {
-      urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}${ownerPath}`, ownerPath, locale)}</loc>
-<lastmod>${today}</lastmod>
-<changefreq>weekly</changefreq>
-<priority>0.5</priority>
-${buildHreflangLinks(ownerPath)}
-</url>`);
-    }
-  }
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls.join('\n')}
-</urlset>`;
-
-  return new Response(xml, {
-    status: 200,
+// Deprecated sitemap: owner-level URLs are not real pages and should not be crawled.
+export const GET: APIRoute = async () => {
+  return new Response('Gone', {
+    status: 410,
     headers: {
-      'Content-Type': 'application/xml',
-      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
     },
   });
 };

@@ -1,5 +1,6 @@
 ---
 import { OFFICIAL_REPOS } from '../lib/skills-config';
+import { CATEGORY_DEFS } from '../lib/category-taxonomy';
 import { getLangFromUrl, useTranslations, loadMessages } from '../i18n';
 
 interface Props {
@@ -26,17 +27,11 @@ const views = [
 
 const categories = [
   { id: 'all', name: t('Sidebar.categories.all'), icon: 'grid' },
-  { id: 'browser', name: t('Sidebar.categories.browser'), icon: 'globe' },
-  { id: 'finance', name: t('Sidebar.categories.finance'), icon: 'credit-card' },
-  { id: 'productivity', name: t('Sidebar.categories.productivity'), icon: 'zap' },
-  { id: 'developer', name: t('Sidebar.categories.developer'), icon: 'code' },
-  { id: 'data', name: t('Sidebar.categories.data'), icon: 'bar-chart' },
-  { id: 'ai', name: t('Sidebar.categories.ai'), icon: 'cpu' },
-  { id: 'design', name: t('Sidebar.categories.design'), icon: 'pen-tool' },
-  { id: 'documentation', name: t('Sidebar.categories.documentation'), icon: 'book' },
-  { id: 'devops', name: t('Sidebar.categories.devops'), icon: 'server' },
-  { id: 'security', name: t('Sidebar.categories.security'), icon: 'shield' },
-  { id: 'communication', name: t('Sidebar.categories.communication'), icon: 'message-circle' },
+  ...CATEGORY_DEFS.map((category) => ({
+    id: category.id,
+    name: t(category.labelKey),
+    icon: category.icon,
+  })),
 ];
 
 const frameworks = [

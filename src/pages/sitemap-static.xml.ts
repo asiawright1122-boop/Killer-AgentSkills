@@ -8,37 +8,29 @@ const STATIC_PAGES = [
   '', // Home
   '/skills',
   '/categories',
+  '/collections',
   '/blog',
+  '/docs',
   '/cli',
   '/community',
   '/integrations',
   '/privacy',
   '/terms',
   '/cookies',
-  '/categories/development',
-  '/categories/testing',
-  '/categories/data',
-  '/categories/ai',
-  '/categories/devops',
-  '/categories/design',
-  '/categories/documentation',
-  '/categories/productivity',
 ];
 
-const ensureTrailingSlash = (url: string, path: string, locale?: string) => {
-  if (url.endsWith('/') || url.endsWith('.xml') || url.endsWith('.txt')) return url;
-  // Don't append slash to exact domain root or locale root (matching Layout.astro)
-  if (path === '' || path === '/' || (locale && path === `/${locale}`)) return url;
-  return `${url}/`;
+const normalizeUrl = (url: string) => {
+  if (url === SITE || url === `${SITE}/`) return SITE;
+  return url.replace(/\/+$/, '');
 };
 
 function buildHreflangLinks(pagePath: string): string {
   return (
     SUPPORTED_LOCALES.map((loc) => {
       const url = `${SITE}/${loc}${pagePath}`;
-      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${ensureTrailingSlash(url, pagePath, loc)}" />`;
+      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(url)}" />`;
     }).join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${ensureTrailingSlash(`${SITE}/en${pagePath}`, pagePath, 'en')}" />`
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/en${pagePath}`)}" />`
   );
 }
 
@@ -49,7 +41,7 @@ export const GET: APIRoute = async () => {
   for (const page of STATIC_PAGES) {
     for (const locale of SUPPORTED_LOCALES) {
       urls.push(`<url>
-<loc>${ensureTrailingSlash(`${SITE}/${locale}${page}`, page, locale)}</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}${page}`)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>${page === '' ? 'daily' : 'weekly'}</changefreq>
 <priority>${page === '' ? '1.0' : '0.8'}</priority>

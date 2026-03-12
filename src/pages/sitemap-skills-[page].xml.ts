@@ -5,12 +5,14 @@ import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
+const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
 function buildHreflangLinks(pagePath: string): string {
   return (
     SUPPORTED_LOCALES.map(
-      (loc) => `<xhtml:link rel="alternate" hreflang="${loc}" href="${SITE}/${loc}${pagePath}/" />`,
-    ).join('\n') + `\n<xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/en${pagePath}/" />`
+      (loc) => `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(`${SITE}/${loc}${pagePath}`)}" />`,
+    ).join('\n') +
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/en${pagePath}`)}" />`
   );
 }
 
@@ -57,7 +59,7 @@ export const GET: APIRoute = async ({ locals, params }) => {
     const lastmod = skill.updatedAt ? formatDate(skill.updatedAt) : today;
     for (const locale of SUPPORTED_LOCALES) {
       urls.push(`<url>
-<loc>${SITE}/${locale}${skillPath}/</loc>
+<loc>${normalizeUrl(`${SITE}/${locale}${skillPath}`)}</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.6</priority>

@@ -4,6 +4,7 @@
  */
 
 import Fuse from 'fuse.js';
+import { normalizeCategoryId } from './category-taxonomy';
 import type { UnifiedSkill } from './skills';
 
 /**
@@ -261,21 +262,27 @@ export const CATEGORY_GROUPS: Record<string, string[]> = {
 };
 
 export function filterByCategory(skills: UnifiedSkill[], category: string): UnifiedSkill[] {
+  const normalizedCategory = normalizeCategoryId(category);
+  const categoryKey = normalizedCategory || category.toLowerCase();
+
   // 1. Strict Check: If the skill has an explicit category that matches a known group,
   // it should ONLY appear in that category.
   // This prevents "Developer" skills from showing up in "AI" just because they mention "AI" in description.
   skills = skills.filter((s) => {
-    if (s.category && CATEGORY_GROUPS[s.category.toLowerCase()]) {
-      return s.category.toLowerCase() === category.toLowerCase();
+    const normalizedSkillCategory = normalizeCategoryId(s.category);
+    if (normalizedSkillCategory && CATEGORY_GROUPS[normalizedSkillCategory]) {
+      return normalizedSkillCategory === categoryKey;
     }
     return true; // No strict category, proceed to soft matching
   });
 
-  const targetKeywords = CATEGORY_GROUPS[category] || [category];
+  const targetKeywords = CATEGORY_GROUPS[categoryKey] || [categoryKey];
 
   return skills.filter((s) => {
+    const normalizedSkillCategory = normalizeCategoryId(s.category);
+
     // 2. Direct category match
-    if (s.category?.toLowerCase() === category.toLowerCase()) return true;
+    if (normalizedSkillCategory === categoryKey) return true;
 
     // 3. Check if any of the target keywords appear in the skill's topics
     if (s.topics?.some((topic) => targetKeywords.some((keyword) => topic.toLowerCase().includes(keyword)))) {
