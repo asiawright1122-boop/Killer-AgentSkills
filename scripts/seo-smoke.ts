@@ -117,9 +117,7 @@ function sleep(ms: number): Promise<void> {
 function isTransientFetchError(error: unknown): boolean {
   if (!(error instanceof Error)) return false;
   if (error.name === 'AbortError') return true;
-  return /fetch failed|network|econnreset|enotfound|etimedout|socket hang up|unexpected eof/i.test(
-    error.message,
-  );
+  return /fetch failed|network|econnreset|enotfound|etimedout|socket hang up|unexpected eof/i.test(error.message);
 }
 
 async function fetchWithRetry(path: string, expectedStatus?: number): Promise<Response> {
