@@ -27,6 +27,8 @@ jobs:
         run: HUSKY=0 npm ci
 
       - name: Run Production SEO Smoke
+        env:
+          SEO_SMOKE_CACHE_BUST: '1'
         run: npm run seo:smoke -- https://killer-skills.com
 
       - name: Fetch GSC Report
