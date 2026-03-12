@@ -195,6 +195,58 @@
     "owner": "getsentry",
     "repo": "sentry",
     "description": "Developer-first error tracking and performance monitoring",
+    "stars": 43328,
+    "forks": 4626,
+    "topics": [
+      "apm",
+      "crash-reporting",
+      "crash-reports",
+      "csp-report",
+      "devops",
+      "django",
+      "error-logging",
+      "error-monitoring",
+      "fair-source",
+      "hacktoberfest",
+      "monitor",
+      "monitoring",
+      "python",
+      "sentry",
+      "tag-production"
+    ],
+    "updatedAt": "2026-03-12T01:34:08Z",
+    "filePath": ".agents/skills/sentry-backend-bugs/SKILL.md"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "sentry",
+    "description": "Developer-first error tracking and performance monitoring",
+    "stars": 43328,
+    "forks": 4626,
+    "topics": [
+      "apm",
+      "crash-reporting",
+      "crash-reports",
+      "csp-report",
+      "devops",
+      "django",
+      "error-logging",
+      "error-monitoring",
+      "fair-source",
+      "hacktoberfest",
+      "monitor",
+      "monitoring",
+      "python",
+      "sentry",
+      "tag-production"
+    ],
+    "updatedAt": "2026-03-12T01:34:08Z",
+    "filePath": ".agents/skills/generate-frontend-forms/SKILL.md"
+  },
+  {
+    "owner": "getsentry",
+    "repo": "sentry",
+    "description": "Developer-first error tracking and performance monitoring",
     "stars": 43241,
     "forks": 4615,
     "topics": [
@@ -4913,6 +4965,7 @@
     "filePath": ".agents/skills/qt-qml/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "cna-bootcamp",
     "repo": "clauding-guide",
     "description": null,
@@ -4923,6 +4976,8 @@
     "filePath": ".claude/skills/01-mvp-definition/SKILL.md"
   },
   {
+=======
+>>>>>>> Stashed changes
     "owner": "hzqst",
     "repo": "CS2_VibeSignatures",
     "description": "Generate CS2 signatures via Agent SKILLS with ida-pro-mcp",
@@ -4940,6 +4995,19 @@
     "forks": 2,
     "topics": [],
     "updatedAt": "2026-03-10T21:23:21Z",
+<<<<<<< Updated upstream
+=======
+    "filePath": ".claude/skills/find-CBasePlayerPawn_CommitSuicide/SKILL.md"
+  },
+  {
+    "owner": "hzqst",
+    "repo": "CS2_VibeSignatures",
+    "description": "Generate CS2 signatures via Agent SKILLS with ida-pro-mcp",
+    "stars": 22,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-03-10T21:23:21Z",
+>>>>>>> Stashed changes
     "filePath": ".claude/skills/find-CCSPlayer_ItemServices_RemoveWeapons/SKILL.md"
   },
   {
@@ -5068,6 +5136,19 @@
     "forks": 3,
     "topics": [],
     "updatedAt": "2026-03-11T09:24:07Z",
+<<<<<<< Updated upstream
+=======
+    "filePath": ".claude/skills/product-specialist/references/domains/product-management/pestel-analysis/SKILL.md"
+  },
+  {
+    "owner": "Prorise-cool",
+    "repo": "prorise-claude-skills",
+    "description": "开源 Claude Code Skills 集合 - 自动更新的 skills 云盘",
+    "stars": 19,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-11T09:24:07Z",
+>>>>>>> Stashed changes
     "filePath": ".claude/skills/architecture-specialist/SKILL.md"
   },
   {
@@ -7085,6 +7166,7 @@
     "filePath": ".codex/skills/tactile-component-library/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "cna-bootcamp",
     "repo": "aiguide",
     "description": null,
@@ -7095,6 +7177,8 @@
     "filePath": ".claude/skills/01-mvp-definition/SKILL.md"
   },
   {
+=======
+>>>>>>> Stashed changes
     "owner": "DirtybitGames",
     "repo": "unityctl",
     "description": "Remote control system for Unity Editor via CLI. Intended for use by AI.",
@@ -8187,6 +8271,28 @@
     "filePath": ".agents/skills/fix-comments/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
+=======
+    "owner": "thejustinwalsh",
+    "repo": "three-flatland",
+    "description": "A TSL-native 2D rendering library for Three.js",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "2d",
+      "graphics",
+      "r3f",
+      "react-three-fiber",
+      "three-js",
+      "threejs",
+      "tsl",
+      "webgpu"
+    ],
+    "updatedAt": "2026-03-12T00:16:46Z",
+    "filePath": ".claude/skills/types/SKILL.md"
+  },
+  {
+>>>>>>> Stashed changes
     "owner": "loft-sh",
     "repo": "vcluster-docs",
     "description": null,
@@ -10521,6 +10627,7 @@
     "filePath": ".claude/skills/learn-from-feedback/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "loclv",
     "repo": "llm-lean-log",
     "description": "Logging for LLMs, but we cut the fat. A CSV-based logging format optimized for LLM token usage.",
@@ -10531,6 +10638,8 @@
     "filePath": ".windsurf/skills/bun/SKILL.md"
   },
   {
+=======
+>>>>>>> Stashed changes
     "owner": "ThunbergOlle",
     "repo": "virtcon2",
     "description": "Virtcon 2",
@@ -15621,6 +15730,7 @@
     "filePath": ".claude/skills/scenario-planning/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "laceto",
     "repo": "rss_feed",
     "description": "rss_feed scraping",
@@ -15631,6 +15741,8 @@
     "filePath": ".claude/skills/sync-deps/SKILL.md"
   },
   {
+=======
+>>>>>>> Stashed changes
     "owner": "andrewn6",
     "repo": "traceway",
     "description": "Traceway: observability for LLM's ",
@@ -15654,6 +15766,19 @@
     "filePath": ".claude/skills/posthog-integration-nextjs-app-router/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
+=======
+    "owner": "farmountain",
+    "repo": "end2end_full_vscode_copilot_learning_program",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-01T15:40:22Z",
+    "filePath": ".agents/skills/curriculum-designer/skill.md"
+  },
+  {
+>>>>>>> Stashed changes
     "owner": "github",
     "repo": "awesome-copilot",
     "description": "Community-contributed instructions, prompts, and configurations to help you make the most of GitHub Copilot.",
@@ -83231,7 +83356,11 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
+<<<<<<< Updated upstream
     "updatedAt": "2026-03-12T01:52:46Z",
+=======
+    "updatedAt": "2026-03-12T01:56:16Z",
+>>>>>>> Stashed changes
     "filePath": ".agents/skills/exchange-security/SKILL.md"
   },
   {
@@ -91838,6 +91967,19 @@
     "filePath": ".claude/skills/confluence-expert/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
+=======
+    "owner": "greatxrider",
+    "repo": "nomanuAI",
+    "description": "NomanuAI Automation Agency Website",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-12T01:50:24Z",
+    "filePath": ".claude/skills/hookify/skills/writing-rules/SKILL.md"
+  },
+  {
+>>>>>>> Stashed changes
     "owner": "CoralShades",
     "repo": "CurryDash-Central-Hub",
     "description": null,
@@ -91858,6 +92000,7 @@
     "filePath": ".claude/skills/project-management/confluence-expert/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "thuyavan00",
     "repo": "job-agent",
     "description": "A job automation platform powered by LLM built with Vite and Nest.js. ",
@@ -91866,6 +92009,26 @@
     "topics": [],
     "updatedAt": "2026-02-21T04:01:40Z",
     "filePath": ".claude/skills/commit/SKILL.md"
+=======
+    "owner": "dzhechko",
+    "repo": "2026-jan-pu-podium-02",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-11T21:42:48Z",
+    "filePath": ".claude/skills/goap-research-ed25519/SKILL.md"
+  },
+  {
+    "owner": "raulnq",
+    "repo": "node-hono-react-monorepo",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-11T20:24:30Z",
+    "filePath": ".claude/skills/review-code/SKILL.md"
+>>>>>>> Stashed changes
   },
   {
     "owner": "lancereinsmith",
@@ -91924,10 +92087,37 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
+<<<<<<< Updated upstream
     "updatedAt": "2026-03-12T01:49:48Z",
     "filePath": ".claude/skills/docs/SKILL.md"
   },
   {
+=======
+    "updatedAt": "2026-03-12T01:53:08Z",
+    "filePath": ".claude/skills/docs/SKILL.md"
+  },
+  {
+    "owner": "raulnq",
+    "repo": "rent-flow",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-11T22:23:08Z",
+    "filePath": ".claude/skills/review-code/SKILL.md"
+  },
+  {
+    "owner": "raulnq",
+    "repo": "dev-factory-hub",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-11T23:08:33Z",
+    "filePath": ".claude/skills/review-code/SKILL.md"
+  },
+  {
+>>>>>>> Stashed changes
     "owner": "jimmymalhan",
     "repo": "codereview-pilot",
     "description": "Evidence-first incident diagnosis. Root cause in 16–30s. Project 1.0.0 complete (29/29 checkpoints).",
@@ -91988,7 +92178,11 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
+<<<<<<< Updated upstream
     "updatedAt": "2026-03-12T01:50:51.504Z",
+=======
+    "updatedAt": "2026-03-11T11:04:39Z",
+>>>>>>> Stashed changes
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -92012,6 +92206,7 @@
     "filePath": ".claude/skills/engineering/git-worktree-manager/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "c-tomioka",
     "repo": "mbtorch",
     "description": "AI/ML framework in MoonBit.",
@@ -92020,6 +92215,18 @@
     "topics": [],
     "updatedAt": "2026-03-10T04:28:53Z",
     "filePath": ".claude/skills/mbtorch-io-formats/SKILL.md"
+=======
+    "owner": "cdcoonce",
+    "repo": "Portfolio_Website",
+    "description": "This is the portfolio website I am building to showcase my skills.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "html-css-javascript"
+    ],
+    "updatedAt": "2026-03-08T17:09:39Z",
+    "filePath": ".claude/skills/deploy/SKILL.md"
+>>>>>>> Stashed changes
   },
   {
     "owner": "arosenkranz",
@@ -92032,6 +92239,7 @@
     "filePath": ".claude/skills/new-post/SKILL.md"
   },
   {
+<<<<<<< Updated upstream
     "owner": "PeterCowling",
     "repo": "base-shop",
     "description": null,
@@ -92380,5 +92588,15 @@
     "topics": [],
     "updatedAt": "2026-03-04T18:55:44Z",
     "filePath": ".windsurf/skills/supabase-postgres-best-practices/SKILL.md"
+=======
+    "owner": "HannesT117",
+    "repo": "claude-template",
+    "description": "My standard ai template for new projects",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-07T18:14:45Z",
+    "filePath": ".agents/skills/decision-helper/SKILL.md"
+>>>>>>> Stashed changes
   }
 ]
