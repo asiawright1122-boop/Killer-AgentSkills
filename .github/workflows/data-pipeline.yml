@@ -1,0 +1,406 @@
+name: Data Pipeline
+
+# Unified data workflow:
+# - Harvest (scheduled/manual)
+# - Incremental build (scheduled/manual)
+# - Full refresh (scheduled/manual)
+# - Crawler webhook/manual
+# - Auto submitter (scheduled/manual)
+
+on:
+  schedule:
+    # Incremental lane: harvest + incremental build (twice daily)
+    - cron: '0 0,12 * * *'
+    # Auto submitter lane (daily)
+    - cron: '0 2 * * *'
+    # Full refresh lane (every 5 days)
+    - cron: '0 3 */5 * *'
+  workflow_dispatch:
+    inputs:
+      pipeline:
+        description: 'Pipeline mode'
+        required: true
+        type: choice
+        options:
+          - incremental
+          - full
+          - crawler
+          - harvest
+          - auto-submit
+        default: incremental
+      harvest_mode:
+        description: 'Harvest mode (for pipeline=harvest)'
+        required: false
+        type: choice
+        options:
+          - harvest
+          - enrich
+          - prune
+        default: harvest
+      target:
+        description: 'Harvest target (for harvest/incremental/full)'
+        required: false
+        type: number
+        default: 50
+      build_mode:
+        description: 'Build mode override (for crawler)'
+        required: false
+        type: choice
+        options:
+          - update
+          - discover
+        default: update
+      filter:
+        description: 'Filter string (for crawler, e.g. owner/repo)'
+        required: false
+        type: string
+        default: ''
+      force:
+        description: 'Force AI regeneration (for build/full/crawler)'
+        required: false
+        type: boolean
+        default: false
+      confirm:
+        description: 'Type "yes" to confirm full refresh'
+        required: false
+        type: string
+        default: ''
+      skip_harvest:
+        description: 'Skip harvest before full refresh'
+        required: false
+        type: boolean
+        default: true
+  repository_dispatch:
+    types: [killer-skills-ingest]
+
+permissions:
+  contents: write
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  resolve:
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.resolve.outputs.mode }}
+      run_harvest: ${{ steps.resolve.outputs.run_harvest }}
+      harvest_mode: ${{ steps.resolve.outputs.harvest_mode }}
+      harvest_target: ${{ steps.resolve.outputs.harvest_target }}
+      build_mode: ${{ steps.resolve.outputs.build_mode }}
+      build_filter: ${{ steps.resolve.outputs.build_filter }}
+      build_force: ${{ steps.resolve.outputs.build_force }}
+      build_duration: ${{ steps.resolve.outputs.build_duration }}
+    steps:
+      - name: Resolve Pipeline Mode
+        id: resolve
+        shell: bash
+        run: |
+          MODE=""
+          RUN_HARVEST="false"
+          HARVEST_MODE="harvest"
+          HARVEST_TARGET="50"
+          BUILD_MODE="discover"
+          BUILD_FILTER=""
+          BUILD_FORCE="false"
+          BUILD_DURATION="150"
+
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            case "${{ github.event.schedule }}" in
+              "0 0,12 * * *")
+                MODE="incremental"
+                RUN_HARVEST="true"
+                HARVEST_TARGET="50"
+                BUILD_MODE="discover"
+                BUILD_DURATION="150"
+                ;;
+              "0 2 * * *")
+                MODE="auto-submit"
+                ;;
+              "0 3 */5 * *")
+                MODE="full"
+                RUN_HARVEST="false"
+                BUILD_MODE="update"
+                BUILD_DURATION="330"
+                ;;
+              *)
+                echo "Unsupported schedule: ${{ github.event.schedule }}"
+                exit 1
+                ;;
+            esac
+          elif [ "${{ github.event_name }}" = "repository_dispatch" ]; then
+            MODE="crawler"
+            BUILD_MODE="update"
+            BUILD_FILTER="${{ github.event.client_payload.target_repo }}"
+            BUILD_FORCE="false"
+            BUILD_DURATION="330"
+          else
+            MODE="${{ inputs.pipeline || 'incremental' }}"
+            HARVEST_MODE="${{ inputs.harvest_mode || 'harvest' }}"
+            HARVEST_TARGET="${{ inputs.target || '50' }}"
+            BUILD_MODE="${{ inputs.build_mode || 'update' }}"
+            BUILD_FILTER="${{ inputs.filter || '' }}"
+            BUILD_FORCE="${{ inputs.force || 'false' }}"
+
+            case "$MODE" in
+              incremental)
+                RUN_HARVEST="true"
+                BUILD_MODE="discover"
+                BUILD_DURATION="150"
+                ;;
+              full)
+                RUN_HARVEST="${{ inputs.skip_harvest != true }}"
+                BUILD_MODE="update"
+                BUILD_DURATION="330"
+                if [ "${{ inputs.confirm }}" != "yes" ]; then
+                  echo '❌ Manual full refresh requires input: confirm=yes'
+                  exit 1
+                fi
+                ;;
+              crawler)
+                RUN_HARVEST="false"
+                BUILD_DURATION="330"
+                ;;
+              harvest)
+                RUN_HARVEST="true"
+                ;;
+              auto-submit)
+                RUN_HARVEST="false"
+                ;;
+              *)
+                echo "Unsupported pipeline mode: $MODE"
+                exit 1
+                ;;
+            esac
+          fi
+
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "run_harvest=$RUN_HARVEST" >> "$GITHUB_OUTPUT"
+          echo "harvest_mode=$HARVEST_MODE" >> "$GITHUB_OUTPUT"
+          echo "harvest_target=$HARVEST_TARGET" >> "$GITHUB_OUTPUT"
+          echo "build_mode=$BUILD_MODE" >> "$GITHUB_OUTPUT"
+          echo "build_filter=$BUILD_FILTER" >> "$GITHUB_OUTPUT"
+          echo "build_force=$BUILD_FORCE" >> "$GITHUB_OUTPUT"
+          echo "build_duration=$BUILD_DURATION" >> "$GITHUB_OUTPUT"
+
+  data-build:
+    needs: resolve
+    if: needs.resolve.outputs.mode != 'auto-submit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    concurrency:
+      group: skills-pipeline
+      cancel-in-progress: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          ref: main
+          lfs: false
+
+      - name: Ensure latest data
+        run: git pull --rebase --autostash origin main || true
+
+      - name: Download cache artifact
+        continue-on-error: true
+        run: bash scripts/cache-artifact.sh download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: HUSKY=0 npm ci
+
+      - name: Run Harvest
+        if: needs.resolve.outputs.run_harvest == 'true'
+        run: |
+          MODE="${{ needs.resolve.outputs.harvest_mode }}"
+          TARGET="${{ needs.resolve.outputs.harvest_target }}"
+
+          if [ "$MODE" = "prune" ]; then
+            npx tsx scripts/harvest-github-skills.ts --prune
+          elif [ "$MODE" = "enrich" ]; then
+            npx tsx scripts/harvest-github-skills.ts --enrich
+          else
+            npx tsx scripts/harvest-github-skills.ts --target="$TARGET"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Skills Cache
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: |
+          ARGS="--mode=${{ needs.resolve.outputs.build_mode }} --max-duration=${{ needs.resolve.outputs.build_duration }}"
+
+          if [ -n "${{ needs.resolve.outputs.build_filter }}" ]; then
+            ARGS="$ARGS --filter=${{ needs.resolve.outputs.build_filter }}"
+          fi
+
+          if [ "${{ needs.resolve.outputs.build_force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+
+          echo "🚀 Running: npm run build:cache -- $ARGS"
+          npm run build:cache -- $ARGS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Commit and Push
+        run: |
+          MODE="${{ needs.resolve.outputs.mode }}"
+          CHANGED=""
+          MSG=""
+
+          if [ "$MODE" = "harvest" ]; then
+            CHANGED="$(git status --porcelain data/expanded-github-skills.json)"
+            if [ -n "$CHANGED" ]; then
+              git add data/expanded-github-skills.json
+              MSG="chore(data): harvest update [skip ci]"
+            fi
+          else
+            CHANGED="$(git status --porcelain data/)"
+            if [ -n "$CHANGED" ]; then
+              git add data/sitemap-skills.json data/expanded-github-skills.json
+              if [ "$MODE" = "full" ]; then
+                MSG="chore(data): full refresh [skip ci]"
+              elif [ "$MODE" = "crawler" ]; then
+                FILTER="${{ needs.resolve.outputs.build_filter }}"
+                MSG="chore(data): crawler update${FILTER:+ for $FILTER} [skip ci]"
+              else
+                MSG="chore(data): incremental skills update [skip ci]"
+              fi
+            fi
+          fi
+
+          if [ -z "$MSG" ]; then
+            echo "ℹ️ No changes to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git pull --rebase --autostash origin main || true
+          git commit -m "$MSG"
+
+          PUSH_OK=0
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "✅ Push succeeded on attempt $attempt"
+              PUSH_OK=1
+              break
+            fi
+            echo "⚠️ Push failed (attempt $attempt), resolving..."
+            sleep $((attempt * 3))
+            git pull --rebase -X theirs --autostash origin main || true
+          done
+
+          if [ "$PUSH_OK" -eq 0 ]; then
+            echo "❌ Push failed after 5 attempts"
+            exit 1
+          fi
+
+      - name: Upload cache artifact
+        if: needs.resolve.outputs.mode != 'harvest' && hashFiles('data/skills-cache.json') != ''
+        continue-on-error: true
+        run: bash scripts/cache-artifact.sh upload
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync to Cloudflare KV
+        if: needs.resolve.outputs.mode != 'harvest'
+        continue-on-error: true
+        run: npm run sync:kv
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Sync to Cloudflare D1
+        if: needs.resolve.outputs.mode != 'harvest'
+        continue-on-error: true
+        run: |
+          npx tsx scripts/generate-d1-seed.ts
+          ./scripts/run-d1-seeds.sh
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Submit IndexNow
+        if: needs.resolve.outputs.mode != 'harvest' && success()
+        continue-on-error: true
+        run: node scripts/submit-indexnow.mjs
+
+  auto-submit:
+    needs: resolve
+    if: needs.resolve.outputs.mode == 'auto-submit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    concurrency:
+      group: skills-pipeline
+      cancel-in-progress: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          lfs: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: HUSKY=0 npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run Auto Discovery & Blind Submit
+        run: npm run submit:discover
+        env:
+          NODE_ENV: production
+
+      - name: Commit and Push History
+        run: |
+          if [ -z "$(git status --porcelain scripts/auto-submitter/data/submitted-history.json)" ]; then
+            echo "ℹ️ No new history to commit"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git pull --rebase --autostash origin main || true
+
+          git add scripts/auto-submitter/data/submitted-history.json
+          git commit -m "chore(submitter): update blind submission history [skip ci]"
+
+          PUSH_OK=0
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "✅ Push succeeded on attempt $attempt"
+              PUSH_OK=1
+              break
+            fi
+            echo "⚠️ Push failed (attempt $attempt), resolving..."
+            sleep $((attempt * 3))
+            git pull --rebase -X theirs --autostash origin main || true
+          done
+
+          if [ "$PUSH_OK" -eq 0 ]; then
+            echo "❌ Push failed after 5 attempts"
+            exit 1
+          fi

@@ -1,0 +1,76 @@
+name: SEO Monitoring
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Monday 10:15 Asia/Shanghai (02:15 UTC)
+    - cron: '15 2 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  gsc-monitoring:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: HUSKY=0 npm ci
+
+      - name: Fetch GSC Report
+        id: gsc
+        env:
+          GSC_CLIENT_EMAIL: ${{ secrets.GSC_CLIENT_EMAIL }}
+          GSC_PRIVATE_KEY: ${{ secrets.GSC_PRIVATE_KEY }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+          GSC_REPORT_DAYS: '7'
+          GSC_ROW_LIMIT: '250'
+        run: |
+          mkdir -p reports/gsc
+          if [ -z "$GSC_CLIENT_EMAIL" ] || [ -z "$GSC_PRIVATE_KEY" ] || [ -z "$GSC_SITE_URL" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            cat <<'EOF' > reports/gsc/monitoring-skipped.md
+            # SEO Monitoring Skipped
+
+            Missing one or more required secrets:
+            - `GSC_CLIENT_EMAIL`
+            - `GSC_PRIVATE_KEY`
+            - `GSC_SITE_URL`
+
+            Add the Search Console service account to the property, then rerun this workflow.
+            EOF
+            exit 0
+          fi
+
+          echo "configured=true" >> "$GITHUB_OUTPUT"
+          npm run report:gsc:fetch
+
+      - name: Upload GSC Monitoring Artifact
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: gsc-monitoring-report
+          path: reports/gsc/
+          retention-days: 21
+
+      - name: Publish Job Summary
+        if: always()
+        run: |
+          if [ -f reports/gsc/latest-ctr-report.md ]; then
+            sed -n '1,220p' reports/gsc/latest-ctr-report.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ -f reports/gsc/monitoring-skipped.md ]; then
+            cat reports/gsc/monitoring-skipped.md >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "# SEO Monitoring" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "No report artifact was produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
