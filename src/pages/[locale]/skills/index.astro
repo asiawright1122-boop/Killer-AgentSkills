@@ -11,6 +11,7 @@ import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
 import { resolveQueryIntent } from '../../../lib/query-intent';
+import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -124,6 +125,14 @@ const t = useTranslations(messages);
 const isZh = typedLocale === 'zh';
 const cleanQuery = query.trim().slice(0, 60);
 const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, typedLocale) : null;
+const workflowEntryLinks = [
+  'workflow automation',
+  'process automation',
+  'document automation',
+  'browser automation',
+  'data extraction',
+  'agent workflow',
+];
 
 // Page title
 let pageTitle = isZh ? 'AI Agent Skills 与 MCP Servers 市场' : 'AI Agent Skills & MCP Servers Marketplace';
@@ -176,41 +185,39 @@ if (queryIntent) {
   pageDescription = queryIntent.description;
 }
 
-const keywordParts = [
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'ideCompat',
+  ...(queryIntent ? getIntentKeywordClusters(queryIntent.id) : ['workflowAutomation', 'processAutomation']),
+  ...(category && category !== 'all' ? getCategoryKeywordClusters(category) : []),
+  owner ? ['developerExperience'] : [],
+  view === 'official' ? ['enterpriseWorkflows'] : [],
+  view === 'featured' ? ['workflowAutomation'] : [],
+  view === 'latest' ? ['developerExperience'] : [],
   cleanQuery,
-  queryIntent?.displayTerm || '',
-  ...(queryIntent?.keywords || []),
-  cleanQuery ? `${cleanQuery} mcp` : '',
-  cleanQuery ? `${cleanQuery} ai agent` : '',
-  category && category !== 'all' ? category : '',
-  category && category !== 'all' ? `${category} mcp server` : '',
-  view || '',
-  view === 'official' ? 'official ai agent skills' : '',
-  view === 'featured' ? 'featured mcp servers' : '',
-  view === 'latest' ? 'latest ai agent skills' : '',
-  owner || '',
-  'AI agent skills',
-  'MCP server',
-  'Claude Code',
-  'Cursor',
-  'Windsurf',
+  queryIntent?.displayTerm,
+  queryIntent?.keywords || [],
+  category && category !== 'all' ? [category, `${category} mcp server`] : [],
+  owner,
+  view,
   'Killer-Skills',
-  ...(isZh ? ['AI 编程助手', '技能市场', '开源 MCP'] : []),
-]
-  .map((k) => k.trim())
-  .filter(Boolean);
-const pageKeywords = Array.from(new Set(keywordParts)).slice(0, 14).join(', ');
+);
 
 // Pagination SEO: build rel prev/next URLs
 const buildPaginationUrl = (p: number) => {
-  const params = new URLSearchParams({
-    ...(query && { q: query }),
-    ...(category && { category }),
-    ...(view && { view }),
-    ...(owner && { owner }),
-    page: String(p),
-  });
-  return `https://killer-skills.com/${locale}/skills?${params.toString()}`;
+  const params = new URLSearchParams();
+  if (query) params.set('q', query);
+  if (category) params.set('category', category);
+  if (view) params.set('view', view);
+  if (owner) params.set('owner', owner);
+  if (p > 1) params.set('page', String(p));
+
+  const serialized = params.toString().replace(/\+/g, '%20');
+  return serialized
+    ? `https://killer-skills.com/${locale}/skills?${serialized}`
+    : `https://killer-skills.com/${locale}/skills`;
 };
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
@@ -351,6 +358,21 @@ const currentCanonicalUrl =
                           to supercharge your AI workflows.
                         </p>
                       )}
+                    </div>
+                  )
+                }
+
+                {
+                  !cleanQuery && !category && !view && !owner && (
+                    <div class="mt-5 flex flex-wrap gap-2">
+                      {workflowEntryLinks.map((term) => (
+                        <a
+                          href={`/${locale}/skills?q=${encodeURIComponent(term)}`}
+                          class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] bg-white text-[var(--foreground)] text-xs font-black uppercase tracking-wide hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+                        >
+                          {term}
+                        </a>
+                      ))}
                     </div>
                   )
                 }

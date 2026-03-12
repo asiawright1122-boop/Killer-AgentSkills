@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 import docsCache from '../../../../data/docs-cache.json';
 import { Sparkles, RefreshCw, Bot, Shield, Check, X, Minus } from 'lucide-react';
 
@@ -14,24 +15,103 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}/cli`;
 
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
-const pageTitle = `${t('CLI.command')} ${t('CLI.terminal')}`;
-const pageDescription = t('CLI.heroDesc');
+const pageTitle = isZh ? 'AI Agent Skills CLI 安装、配置与同步指南' : 'AI Agent Skills CLI for Install, Setup & Sync';
+const pageDescription = isZh
+  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、配置并同步 AI Agent Skills。支持一条命令添加技能，无需全局安装。'
+  : 'Use the Killer-Skills CLI to install, set up, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf with one command and no global install.';
+const pageKeywords = buildKeywordString(typedLocale, 'cli', 'installSetup', 'compatibility', 'ideCompat', 'docs', [
+  'npx killer-skills add',
+  'skill sync',
+  'CLI commands',
+  'Killer-Skills',
+]);
+const primaryCommand = 'npx killer-skills add anthropics/skills/pdf';
+const installInstruction = 'npx killer-skills add owner/repo';
+const quickLinks = [
+  {
+    title: isZh ? '安装一个技能' : 'Install a Skill',
+    description: isZh ? '先看一条命令安装和初始化步骤。' : 'Start with the one-command install and first-run steps.',
+    href: `/${locale}/docs/installation`,
+  },
+  {
+    title: isZh ? '配置 IDE 兼容' : 'Set Up IDE Compatibility',
+    description: isZh
+      ? '了解 Cursor、Claude Code、VS Code 等环境如何自动适配。'
+      : 'See how Cursor, Claude Code, VS Code, and more are configured automatically.',
+    href: `/${locale}/integrations`,
+  },
+  {
+    title: isZh ? '查看 CLI 命令' : 'Read CLI Commands',
+    description: isZh
+      ? '直接跳到命令说明、同步与配置细节。'
+      : 'Jump straight into commands, sync behavior, and configuration details.',
+    href: `/${locale}/docs/cli/commands`,
+  },
+  {
+    title: isZh ? '浏览工作流模板' : 'Browse Workflow Templates',
+    description: isZh
+      ? '从安装进入可复用的自动化与模板场景。'
+      : 'Move from installation into reusable automation and template flows.',
+    href: `/${locale}/collections`,
+  },
+];
 
 const getDocContent = (slug: string) => {
   const page = (docsCache as any).pages.find((p: any) => p.slug === slug);
   return page?.content[typedLocale] || page?.content['en'] || '';
 };
 
-const commandsContent = getDocContent('cli/commands');
+const normalizeCliDocHtml = (html: string) =>
+  html
+    .replaceAll('npx killer-skills install <skill-name>', installInstruction)
+    .replaceAll('npx killer-skills install <skill>', installInstruction)
+    .replaceAll('npx killer-skills install &lt;skill-name&gt;', installInstruction)
+    .replaceAll('npx killer-skills install &lt;skill&gt;', installInstruction);
+
+const commandsContent = normalizeCliDocHtml(getDocContent('cli/commands'));
 const configContent = getDocContent('cli/configuration');
+const faqItems = [
+  {
+    question: isZh ? 'Killer-Skills CLI 是什么？' : 'What is the Killer-Skills CLI?',
+    answer: isZh
+      ? '它是一个通用命令行工具，用来在 15+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。'
+      : 'It is a universal command-line tool for installing, syncing, and managing AI agent skills across 15+ IDEs and AI coding assistants.',
+  },
+  {
+    question: isZh ? '如何用 CLI 安装一个技能？' : 'How do I install a skill with the CLI?',
+    answer: isZh
+      ? `在终端运行 \`${installInstruction}\`。CLI 会自动识别你的 IDE，并生成对应的技能文件。`
+      : `Run \`${installInstruction}\` in your terminal. The CLI detects your IDE automatically and writes the correct skill file.`,
+  },
+  {
+    question: isZh ? '需要全局安装 CLI 吗？' : 'Do I need to install the CLI globally?',
+    answer: isZh
+      ? '不需要。直接通过 npx 运行即可，因此可以零全局安装开始使用。'
+      : 'No. You can run it through npx, so there is no need for a global installation.',
+  },
+  {
+    question: isZh ? 'CLI 支持哪些 IDE？' : 'Which IDEs does the CLI support?',
+    answer: isZh
+      ? 'CLI 支持 Cursor、Claude Code、VS Code、Windsurf、JetBrains，以及其他 15+ IDE 和代理环境。'
+      : 'The CLI supports Cursor, Claude Code, VS Code, Windsurf, JetBrains, and 15+ other IDE and agent environments.',
+  },
+];
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+>
   {/* BreadcrumbList JSON-LD */}
   <script
     is:inline
@@ -40,8 +120,8 @@ const configContent = getDocContent('cli/configuration');
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}/` },
-        { '@type': 'ListItem', position: 2, name: 'CLI', item: `https://killer-skills.com/${locale}/cli/` },
+        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}` },
+        { '@type': 'ListItem', position: 2, name: 'CLI', item: canonicalUrl },
       ],
     })}
   />
@@ -52,48 +132,14 @@ const configContent = getDocContent('cli/configuration');
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What is the Killer-Skills CLI?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'The Killer-Skills CLI is a universal command-line tool that lets you install, manage, and sync AI agent skills across 15+ IDEs including Cursor, Windsurf, VS Code, Claude Code, and JetBrains. No global installation required — just use npx.',
-          },
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How do I install a skill using the CLI?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: "Run 'npx killer-skills add owner/repo' in your terminal. The CLI automatically detects your IDE and configures the skill file in the correct format (.cursorrules, CLAUDE.md, etc.).",
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Which IDEs does the Killer-Skills CLI support?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'The CLI supports 15+ IDEs: Cursor (.cursorrules), Claude Code (CLAUDE.md), VS Code/GitHub Copilot (.github/copilot-instructions.md), Windsurf (.windsurfrules), JetBrains (.junie/guidelines.md), Cline (.clinerules), Roo Code (.roo/rules.md), Aider (.aider.conf), Continue (.continue/rules), Codex (AGENTS.md), and more.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Do I need to install the CLI globally?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: "No! The CLI works via npx, which means no global installation is required. Just run 'npx killer-skills <command>' and it will download and execute automatically.",
-          },
-        },
-        {
-          '@type': 'Question',
-          name: "What is the 'killer do' command?",
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: "The 'killer do' command uses AI to automatically match your natural language task description to the best locally installed skill. For example, 'killer do create a PDF from images' will auto-detect and invoke your PDF skill.",
-          },
-        },
-      ],
+      })),
     })}
   />
   {/* SoftwareApplication JSON-LD for CLI */}
@@ -107,7 +153,7 @@ const configContent = getDocContent('cli/configuration');
       operatingSystem: 'Windows, macOS, Linux',
       applicationCategory: 'DeveloperApplication',
       description: pageDescription,
-      url: `https://killer-skills.com/${locale}/cli`,
+      url: canonicalUrl,
       offers: {
         '@type': 'Offer',
         price: '0',
@@ -145,7 +191,7 @@ const configContent = getDocContent('cli/configuration');
         </h1>
 
         <p class="text-xl md:text-2xl text-[var(--foreground)] font-bold max-w-3xl mx-auto mb-12 leading-tight">
-          {t('CLI.heroDesc')}
+          <span class="seo-intro-paragraph">{pageDescription}</span>
           <span class="block text-sm font-mono mt-4 text-[var(--muted-foreground)]">
             // {t('CLI.optionalNote')}
           </span>
@@ -154,7 +200,7 @@ const configContent = getDocContent('cli/configuration');
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
           <div
             class="relative group cursor-pointer"
-            onclick="navigator.clipboard.writeText('npx killer-skills install <skill>'); alert('Copied!')"
+            onclick={`navigator.clipboard.writeText('${primaryCommand}'); alert('Copied!')`}
           >
             <div
               class="relative px-8 py-5 bg-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all flex items-center gap-6"
@@ -162,7 +208,7 @@ const configContent = getDocContent('cli/configuration');
               <div class="font-mono text-lg flex items-center gap-4">
                 <span class="text-[var(--primary)] font-black select-none">$</span>
                 <span class="text-[var(--foreground)] font-black"
-                  >npx killer-skills <span class="text-[var(--muted-foreground)]">install</span> &lt;skill&gt;</span
+                  >npx killer-skills <span class="text-[var(--muted-foreground)]">add</span> owner/repo</span
                 >
               </div>
               <div
@@ -195,8 +241,24 @@ const configContent = getDocContent('cli/configuration');
       </div>
     </div>
 
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+      <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+        {
+          quickLinks.map((item) => (
+            <a
+              href={item.href}
+              class="border-[4px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)] transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[10px_10px_0px_0px_var(--primary)]"
+            >
+              <h2 class="text-lg font-black uppercase tracking-tight text-[var(--foreground)] mb-2">{item.title}</h2>
+              <p class="text-sm font-bold leading-6 text-[var(--muted-foreground)]">{item.description}</p>
+            </a>
+          ))
+        }
+      </section>
+    </div>
+
     {/* Terminal Showcase & Comparison Grid - Brutalist Overhaul */}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-32 -mt-12 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-32 relative z-20">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
         {/* Comparison Table */}
         <div
@@ -496,6 +558,25 @@ const configContent = getDocContent('cli/configuration');
           prose-img:rounded-none prose-img:border-[4px] prose-img:border-[var(--border)] prose-img:shadow-[8px_8px_0px_0px_var(--border)]"
         set:html={configContent}
       />
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+      <div class="mb-8 border-l-8 border-[var(--primary)] pl-6">
+        <h2 class="text-4xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
+          {isZh ? '常见问题' : 'CLI FAQ'}
+        </h2>
+        <div class="mt-2 text-sm font-mono font-black text-[var(--muted-foreground)]">// SEARCH_INTENT_SUPPORT</div>
+      </div>
+      <section class="grid gap-5 md:grid-cols-2">
+        {
+          faqItems.map((item) => (
+            <article class="border-[4px] border-[var(--border)] bg-[var(--background)] p-6 shadow-[8px_8px_0px_0px_var(--border)]">
+              <h3 class="mb-3 text-xl font-black uppercase tracking-tight text-[var(--foreground)]">{item.question}</h3>
+              <p class="font-bold leading-7 text-[var(--foreground)]/80">{item.answer}</p>
+            </article>
+          ))
+        }
+      </section>
     </div>
   </div>
 </Layout>

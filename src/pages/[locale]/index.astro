@@ -5,6 +5,7 @@ import OfficialSkills from '../../components/OfficialSkills.astro';
 import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/skills';
+import { buildKeywordString } from '../../lib/seo-keywords';
 import { getCollection } from 'astro:content';
 import type { Env } from '../../lib/kv';
 
@@ -19,6 +20,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 const isZh = typedLocale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}`;
 
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
@@ -35,13 +37,86 @@ const allCollections = await getCollection('collections');
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
 // SEO: homepage metadata tuned for high-intent discovery queries
-const homeSeoTitle = isZh ? 'AI Agent Skills 与 MCP Servers 开源目录' : 'AI Agent Skills & MCP Servers Directory';
+const homeSeoTitle = isZh
+  ? 'AI Agent Skills、流程自动化与 MCP Servers'
+  : 'AI Agent Skills, Workflow Automation & MCP Servers';
 const homeSeoDescription = isZh
-  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers。兼容 Claude Code、Cursor、Windsurf，一条命令完成安装。'
-  : 'Discover and install 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and Windsurf with one command.';
-const homeSeoKeywords = isZh
-  ? 'AI Agent Skills, MCP Server, Claude Code, Cursor, Windsurf, AI 编程助手, 技能市场, Killer-Skills'
-  : 'ai agent skills, mcp servers, claude code skills, cursor skills, windsurf skills, ai coding assistant, killer-skills';
+  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers，覆盖工作流自动化、流程自动化、文档自动化等高意图场景，支持 Claude Code、Cursor、Windsurf。'
+  : 'Discover and install 2,500+ AI agent skills and MCP servers for workflow automation, process automation, and document automation in Claude Code, Cursor, and Windsurf.';
+const homeSeoKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'workflowAutomation',
+  'processAutomation',
+  'documentAutomation',
+  'ideCompat',
+  'Killer-Skills',
+);
+const workflowEntryLinks = [
+  {
+    q: 'workflow automation',
+    label: isZh ? '工作流自动化' : 'Workflow Automation',
+    description: isZh
+      ? '多步骤 AI 工作流、重复执行、agent orchestration'
+      : 'Multi-step AI workflows, repeatable execution, and agent orchestration.',
+  },
+  {
+    q: 'process automation',
+    label: isZh ? '流程自动化' : 'Process Automation',
+    description: isZh
+      ? 'SOP、交接、业务流程与自动化协作'
+      : 'SOPs, handoffs, business processes, and automation handrails.',
+  },
+  {
+    q: 'document automation',
+    label: isZh ? '文档自动化' : 'Document Automation',
+    description: isZh
+      ? 'PDF、报告、表格、模板与批量内容生成'
+      : 'PDFs, reports, spreadsheets, templates, and repeatable content ops.',
+  },
+  {
+    q: 'browser automation',
+    label: isZh ? '浏览器自动化' : 'Browser Automation',
+    description: isZh
+      ? '网页操作、采集、研究与站点流程执行'
+      : 'Web actions, scraping, research, and repeatable site workflows.',
+  },
+  {
+    q: 'data extraction',
+    label: isZh ? '数据提取' : 'Data Extraction',
+    description: isZh
+      ? 'ETL、报表、结构化数据与 pipeline 场景'
+      : 'ETL, reporting, structured data work, and pipeline tasks.',
+  },
+  {
+    q: 'agent workflow',
+    label: isZh ? 'Agent 工作流' : 'Agent Workflows',
+    description: isZh
+      ? '适合 Claude Code、Cursor 的 agent 协作链路'
+      : 'Agent-driven workflows built for Claude Code, Cursor, and friends.',
+  },
+];
+const faqItems = [
+  {
+    question: isZh ? 'Killer-Skills 适合哪些自动化场景？' : 'What automation scenarios does Killer-Skills support?',
+    answer: isZh
+      ? 'Killer-Skills 适合工作流自动化、流程自动化、文档自动化、浏览器自动化、数据提取和 agent 协作流程等高意图场景。'
+      : 'Killer-Skills supports workflow automation, process automation, document automation, browser automation, data extraction, and agent-driven execution flows.',
+  },
+  {
+    question: isZh ? '如何找到更精确的长尾技能词？' : 'How do I find precise long-tail skill queries?',
+    answer: isZh
+      ? '从自动化、流程、文档、数据、浏览器等场景词开始，再进入技能市场按关键词继续筛选，通常会比直接搜宽泛词更容易获得高点击结果。'
+      : 'Start with intent terms like automation, process, document, data, or browser workflows, then refine further in the marketplace. That usually performs better than broad generic searches.',
+  },
+  {
+    question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?',
+    answer: isZh
+      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 15+ IDE，并支持一条命令安装。'
+      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 15+ other IDEs with a single install command.',
+  },
+];
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
@@ -72,6 +147,7 @@ const features = [
   description={homeSeoDescription}
   keywords={homeSeoKeywords}
   appendBrand={false}
+  customCanonical={canonicalUrl}
 >
   {/* WebSite + Organization JSON-LD for sitelinks search box */}
   <script
@@ -110,7 +186,23 @@ const features = [
         '@type': 'SpeakableSpecification',
         cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
       },
-      url: `https://killer-skills.com/${locale}/`,
+      url: canonicalUrl,
+    })}
+  />
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
     })}
   />
   {/* Organization JSON-LD for Knowledge Panel */}
@@ -216,6 +308,40 @@ const features = [
               ))
             }
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Long-tail Workflow Entry Points -->
+    <section class="border-t-[3px] border-[var(--border)] bg-[var(--card)] py-16 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 max-w-3xl">
+          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)]">
+            {isZh ? '高意图自动化入口' : 'High-Intent Workflow Searches'}
+          </h2>
+          <p class="mt-3 text-[var(--muted-foreground)] font-mono text-sm md:text-base">
+            {
+              isZh
+                ? '这些词更接近真实点击意图，适合从自动化、流程化和具体任务场景切入。'
+                : 'These query paths are closer to real click intent and work better than broad generic discovery terms.'
+            }
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            workflowEntryLinks.map((item) => (
+              <a
+                href={`/${locale}/skills?q=${encodeURIComponent(item.q)}`}
+                class="brut-card bg-white dark:bg-[#0a0a0a] p-6 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+              >
+                <div class="mb-4 inline-flex px-3 py-1 border-2 border-[var(--border)] font-mono text-xs font-black uppercase tracking-wider">
+                  {item.q}
+                </div>
+                <h3 class="text-xl font-black uppercase tracking-tight mb-3">{item.label}</h3>
+                <p class="text-sm leading-6 font-medium opacity-80">{item.description}</p>
+              </a>
+            ))
+          }
         </div>
       </div>
     </section>
@@ -428,6 +554,33 @@ const features = [
           >
             {t('Home.cta.docs')}
           </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-t-[3px] border-[var(--border)] bg-[var(--background)] py-16 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10 max-w-3xl">
+          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)]">
+            {isZh ? '首页常见问题' : 'Homepage FAQ'}
+          </h2>
+          <p class="mt-3 text-[var(--muted-foreground)] font-mono text-sm md:text-base">
+            {
+              isZh
+                ? '让首页摘要、落地内容和结构化数据保持一致。'
+                : 'Keeping the homepage snippet, visible content, and structured data aligned.'
+            }
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {
+            faqItems.map((item) => (
+              <article class="brut-card bg-white dark:bg-[#0a0a0a] p-6">
+                <h3 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h3>
+                <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.answer}</p>
+              </article>
+            ))
+          }
         </div>
       </div>
     </section>

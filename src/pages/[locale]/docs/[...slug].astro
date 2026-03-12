@@ -2,6 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import Footer from '../../../components/Footer.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 import docsCache from '../../../../data/docs-cache.json';
 
@@ -31,6 +32,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
 
 const env = Astro.locals.runtime?.env as Env;
 
@@ -111,8 +113,89 @@ if (!docTitle) {
   }
 }
 
-const pageTitle = isIndex ? t('Footer.docs') : docTitle;
-const pageDescription = isIndex ? 'Killer-Skills documentation' : `${docTitle} — Killer-Skills documentation`;
+const pageTitle = isIndex
+  ? isZh
+    ? 'AI Agent Skills 安装、配置与工作流模板文档'
+    : 'AI Agent Skills Docs for Install, Setup & Workflow Templates'
+  : docTitle;
+const pageDescription = isIndex
+  ? isZh
+    ? '查看 Killer-Skills 的安装、配置、CLI 命令、IDE 兼容性与工作流模板文档，快速开始使用 AI Agent Skills。'
+    : 'Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.'
+  : `${docTitle} — Killer-Skills documentation`;
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'docs',
+  'core',
+  isIndex ? 'cli' : undefined,
+  isIndex ? 'installSetup' : undefined,
+  isIndex ? 'compatibility' : undefined,
+  isIndex ? 'templates' : undefined,
+  isIndex ? 'ideCompat' : undefined,
+  currentSlug.includes('cli') ? 'cli' : undefined,
+  currentSlug.includes('workflows') ? 'workflowAutomation' : undefined,
+  currentSlug.includes('installation') || currentSlug.includes('getting-started') ? 'ideCompat' : undefined,
+  currentSlug.includes('creating-skills') ? 'developerExperience' : undefined,
+  currentSlug.includes('api') ? 'mcp' : undefined,
+  isIndex ? ['workflow automation', 'process automation'] : [docTitle],
+);
+const canonicalUrl = `https://killer-skills.com${currentPath}`;
+const docsEntryLinks = isIndex
+  ? [
+      {
+        title: isZh ? '安装 AI Agent Skills' : 'Install AI Agent Skills',
+        description: isZh
+          ? '从零开始完成安装、初始化与首次运行。'
+          : 'Start from zero with install, initialization, and first-run steps.',
+        href: `/${locale}/docs/installation`,
+      },
+      {
+        title: isZh ? '配置 Cursor / Claude Code' : 'Set Up Cursor / Claude Code',
+        description: isZh
+          ? '了解各 IDE 如何自动写入原生技能格式。'
+          : 'See how each IDE gets its native skill format automatically.',
+        href: `/${locale}/integrations`,
+      },
+      {
+        title: isZh ? 'CLI 命令与同步' : 'CLI Commands & Sync',
+        description: isZh
+          ? '查看命令、同步逻辑与配置选项。'
+          : 'Review commands, sync behavior, and configuration options.',
+        href: `/${locale}/docs/cli/commands`,
+      },
+      {
+        title: isZh ? '工作流模板入口' : 'Workflow Template Entry Points',
+        description: isZh
+          ? '从文档继续进入自动化与模板场景。'
+          : 'Move from docs into automation and template workflows.',
+        href: `/${locale}/collections`,
+      },
+    ]
+  : [];
+const docsFaqItems = isIndex
+  ? [
+      {
+        question: isZh ? '如何安装 AI Agent Skills？' : 'How do I install AI agent skills?',
+        answer: isZh
+          ? '从安装文档开始，使用 `npx killer-skills add owner/repo` 添加技能。CLI 会自动识别 IDE 并写入对应格式。'
+          : 'Start with the installation docs and run `npx killer-skills add owner/repo` to add a skill. The CLI auto-detects your IDE and writes the correct format.',
+      },
+      {
+        question: isZh ? '文档里包含哪些配置内容？' : 'What setup information is covered in the docs?',
+        answer: isZh
+          ? '文档覆盖安装、CLI 命令、配置、工作流概念，以及 Cursor、Claude Code、VS Code 等环境的兼容性入口。'
+          : 'The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.',
+      },
+      {
+        question: isZh
+          ? '哪里可以看工作流模板和自动化场景？'
+          : 'Where can I find workflow templates and automation ideas?',
+        answer: isZh
+          ? '先看文档中的 workflows 概念页，再进入 collections 和 skills 页面浏览可复用的自动化与模板场景。'
+          : 'Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios.',
+      },
+    ]
+  : [];
 
 // CLI Components
 import TerminalWindow from '../../../components/cli/TerminalWindow.astro';
@@ -167,7 +250,14 @@ const isActive = (href: string) => {
 };
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} showFooter={false}>
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+  showFooter={false}
+>
   <script
     is:inline
     type="application/ld+json"
@@ -185,15 +275,34 @@ const isActive = (href: string) => {
           '@type': 'ListItem',
           position: 2,
           name: t('Footer.docs') || 'Docs',
-          item: `https://killer-skills.com/${locale}/docs/`,
+          item: `https://killer-skills.com/${locale}/docs`,
         },
-        ...(!isIndex
-          ? [{ '@type': 'ListItem', position: 3, name: docTitle, item: `https://killer-skills.com${currentPath}/` }]
-          : []),
+        ...(!isIndex ? [{ '@type': 'ListItem', position: 3, name: docTitle, item: canonicalUrl }] : []),
       ],
     })}
     slot="head"
   />
+  {
+    isIndex && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: docsFaqItems.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
+        })}
+        slot="head"
+      />
+    )
+  }
   <div class="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col md:flex-row font-sans">
     {/* Mobile Toggle (Visible only on small screens) */}
     <div
@@ -273,6 +382,24 @@ const isActive = (href: string) => {
         >
           {isIndex ? 'Documentation' : 'Guide'}
         </p>
+        {
+          isIndex && (
+            <div class="space-y-6">
+              <p class="max-w-3xl text-lg font-bold leading-8 text-[var(--foreground)]">{pageDescription}</p>
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2 not-prose">
+                {docsEntryLinks.map((item) => (
+                  <a
+                    href={item.href}
+                    class="block border-4 border-[var(--foreground)] bg-[var(--card)] p-5 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+                  >
+                    <h2 class="mb-2 text-xl font-black uppercase tracking-tight">{item.title}</h2>
+                    <p class="text-sm font-bold leading-6 opacity-80">{item.description}</p>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
       </div>
 
       {
@@ -387,6 +514,21 @@ const isActive = (href: string) => {
               </a>
             </div>
           </div>
+        )
+      }
+
+      {
+        isIndex && (
+          <section class="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {docsFaqItems.map((item) => (
+              <article class="border-4 border-[var(--foreground)] bg-[var(--card)] p-5 shadow-[4px_4px_0px_0px_var(--foreground)]">
+                <h2 class="mb-3 text-lg font-black uppercase tracking-tight text-[var(--foreground)]">
+                  {item.question}
+                </h2>
+                <p class="text-sm font-bold leading-6 text-[var(--muted-foreground)]">{item.answer}</p>
+              </article>
+            ))}
+          </section>
         )
       }
 

@@ -3,6 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { CATEGORY_DEFS, getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 import { getAllSkills } from '../../../lib/skills';
+import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -15,6 +16,8 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}/categories`;
 
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
@@ -54,15 +57,61 @@ const categories = CATEGORY_DEFS.map((def) => ({
   count: categoryCounts[def.id] || 0,
 })).filter((category) => category.count > 0);
 
-const pageTitle = t('Categories.skillCategories');
-const pageDescription = t('Categories.heroDesc');
+const pageTitle = isZh ? 'AI Agent Skills 分类目录' : 'AI Agent Skill Categories & MCP Server Use Cases';
+const pageDescription = isZh
+  ? `按开发、数据、AI、设计等分类浏览 ${skills.length}+ 个 AI Agent Skills 与 MCP Servers，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。`
+  : `Browse ${skills.length}+ AI agent skills and MCP servers by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`;
+const topCategoryIds = [...categories]
+  .sort((a, b) => b.count - a.count)
+  .slice(0, 4)
+  .map((category) => category.id);
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'mcp',
+  'ideCompat',
+  ...topCategoryIds.flatMap((id) => getCategoryKeywordClusters(id)),
+  isZh ? 'AI Agent Skills 分类' : 'AI agent skill categories',
+  isZh ? 'MCP Server 分类' : 'MCP server categories',
+  'Killer-Skills',
+);
 const topCategoryNames = [...categories]
   .sort((a, b) => b.count - a.count)
   .slice(0, 3)
   .map((category) => category.name);
+const heroTitle = isZh ? '按场景浏览 AI Agent Skills' : 'Browse AI Agent Skills by Use Case';
+const heroIntro = isZh
+  ? `最常被浏览的分类包括 ${topCategoryNames.join('、')}。从开发到数据，再到 AI 自动化，你可以直接进入分类页筛选可安装技能。`
+  : `Popular starting points include ${topCategoryNames.join(', ')}. Jump straight into the category that matches your workflow and find installable skills faster.`;
+const faqItems = [
+  {
+    question: isZh ? '这里有哪些 AI Agent Skills 分类？' : 'What AI agent skill categories can I browse here?',
+    answer: isZh
+      ? `当前可以浏览 ${categories.length} 个分类，包括 ${categories.map((c) => c.name).join('、')}。每个分类都聚合了对应场景下的可安装技能和 MCP Servers。`
+      : `You can browse ${categories.length} categories here, including ${categories.map((c) => c.name).join(', ')}. Each category groups installable skills and MCP servers for a specific workflow.`,
+  },
+  {
+    question: isZh ? 'Killer-Skills 一共有多少技能？' : 'How many skills are indexed on Killer-Skills?',
+    answer: isZh
+      ? `目前平台已收录 ${skills.length}+ 个 AI Agent Skills 与 MCP Servers，热门分类集中在 ${topCategoryNames.join('、')}。`
+      : `Killer-Skills currently indexes ${skills.length}+ AI agent skills and MCP servers, with the most active categories including ${topCategoryNames.join(', ')}.`,
+  },
+  {
+    question: isZh ? '如何按分类查找适合我的技能？' : 'How do I find the right skills by category?',
+    answer: isZh
+      ? '先进入与你当前任务最接近的分类，再在技能市场里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。'
+      : 'Start with the category closest to your current task, then narrow further in the marketplace using keywords, official repositories, or featured filters. That is usually faster than searching a broad term.',
+  },
+];
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+>
   {/* BreadcrumbList JSON-LD */}
   <script
     is:inline
@@ -72,7 +121,7 @@ const topCategoryNames = [...categories]
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}` },
-        { '@type': 'ListItem', position: 2, name: pageTitle, item: `https://killer-skills.com/${locale}/categories` },
+        { '@type': 'ListItem', position: 2, name: pageTitle, item: canonicalUrl },
       ],
     })}
   />
@@ -101,32 +150,14 @@ const topCategoryNames = [...categories]
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'What categories of AI agent skills are available?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: `Killer-Skills organizes AI agent skills into ${categories.length} categories: ${categories.map((c) => c.name).join(', ')}. Each category contains specialized skills that extend the capabilities of AI coding assistants like Claude Code, Cursor, and Windsurf.`,
-          },
+      mainEntity: faqItems.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
         },
-        {
-          '@type': 'Question',
-          name: 'How many AI agent skills does Killer-Skills have?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: `Killer-Skills indexes over 2,500 AI agent skills and MCP servers across ${categories.length} categories. The most popular categories right now are ${topCategoryNames.join(', ')}.`,
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'How do I browse AI agent skills by category?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Visit the Killer-Skills categories page and click on any category to see all skills in that category. You can also filter by category on the main skills directory page, or search for specific skills using keywords.',
-          },
-        },
-      ],
+      })),
     })}
   />
   <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
@@ -138,12 +169,13 @@ const topCategoryNames = [...categories]
         <div class="max-w-3xl">
           <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
-              {pageTitle}
+              {heroTitle}
             </span>
           </h1>
-          <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+          <p class="seo-intro-paragraph text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
             {pageDescription}
           </p>
+          <p class="mt-3 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">{heroIntro}</p>
         </div>
       </div>
     </div>
@@ -319,6 +351,17 @@ const topCategoryNames = [...categories]
           {t('Marketplace.viewAll')} →
         </a>
       </div>
+
+      <section class="mt-12 grid gap-4 md:grid-cols-3">
+        {
+          faqItems.map((item) => (
+            <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <h2 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">{item.question}</h2>
+              <p class="text-sm leading-6 text-slate-600 dark:text-slate-400">{item.answer}</p>
+            </article>
+          ))
+        }
+      </section>
     </div>
   </div>
 </Layout>

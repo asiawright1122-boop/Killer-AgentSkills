@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=3600');
@@ -14,6 +15,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 const isZh = typedLocale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}/collections`;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
@@ -29,14 +31,63 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
 };
 
 const collectionsSeoTitle = isZh
-  ? '精选 AI Agent Skills 合集与 MCP Servers'
-  : 'Curated AI Agent Skill Collections & MCP Servers';
+  ? '自动化工作流 AI Agent Skills 合集'
+  : 'Workflow Automation AI Agent Skill Collections';
 const collectionsSeoDescription = isZh
-  ? '按场景浏览精选 AI Agent Skills 合集，快速找到可在 Claude Code、Cursor、Windsurf 中安装的 MCP Servers 与实用能力。'
-  : 'Browse curated AI agent skill collections and discover MCP servers by workflow. Install in Claude Code, Cursor, and Windsurf.';
-const collectionsSeoKeywords = isZh
-  ? 'AI Agent Skills 合集, MCP Servers, Claude Code 技能, Cursor 技能, Windsurf 技能, Killer-Skills'
-  : 'ai agent skill collections, mcp servers, claude code skills, cursor skills, windsurf skills, killer-skills';
+  ? '按工作流浏览精选 AI Agent Skills 合集，覆盖流程自动化、文档自动化、数据流程与 MCP Servers 组合，适合 Claude Code、Cursor、Windsurf。'
+  : 'Browse curated AI agent skill collections organized around workflow automation, process automation, document ops, data pipelines, and MCP server bundles for Claude Code, Cursor, and Windsurf.';
+const collectionsSeoKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'workflowAutomation',
+  'processAutomation',
+  'documentAutomation',
+  'mcp',
+  'ideCompat',
+  isZh ? 'AI Agent Skills 合集' : 'AI agent skill collections',
+  'Killer-Skills',
+);
+const workflowLinks = [
+  {
+    q: 'workflow automation',
+    label: isZh ? '工作流自动化合集入口' : 'Workflow Automation Entry',
+    description: isZh
+      ? '查找多步骤执行和 agent 协作相关技能。'
+      : 'Find multi-step execution and agent workflow bundles.',
+  },
+  {
+    q: 'process automation',
+    label: isZh ? '流程自动化合集入口' : 'Process Automation Entry',
+    description: isZh ? '适合 SOP、交接和业务流程场景。' : 'Useful for SOPs, handoffs, and operations workflows.',
+  },
+  {
+    q: 'document automation',
+    label: isZh ? '文档自动化合集入口' : 'Document Automation Entry',
+    description: isZh ? '聚焦报告、PDF、模板和内容流程。' : 'Focused on reports, PDFs, templates, and content ops.',
+  },
+];
+const faqItems = [
+  {
+    question: isZh ? '这些合集适合哪些工作流？' : 'What workflows are these collections built for?',
+    answer: isZh
+      ? '这些合集主要围绕工作流自动化、流程自动化、文档自动化、数据处理和 MCP 工具链组合而设计。'
+      : 'These collections are built around workflow automation, process automation, document operations, data workflows, and MCP tool stacks.',
+  },
+  {
+    question: isZh ? '合集页和技能市场有什么区别？' : 'How is a collection different from the main skills marketplace?',
+    answer: isZh
+      ? '技能市场更适合逐个搜索和筛选，合集页更适合按完整工作流一次性找到互补技能组合。'
+      : 'The marketplace is better for direct search and filtering, while collections help you find complementary skills bundled around a complete workflow.',
+  },
+  {
+    question: isZh
+      ? '这些合集能在 Claude Code 或 Cursor 中安装吗？'
+      : 'Can I install these collections for Claude Code or Cursor?',
+    answer: isZh
+      ? '可以。合集里的技能通常都可在 Claude Code、Cursor、Windsurf 等环境中使用，并支持统一安装流程。'
+      : 'Yes. Skills inside these collections generally work in Claude Code, Cursor, Windsurf, and other supported environments through a unified install flow.',
+  },
+];
 ---
 
 <Layout
@@ -44,6 +95,7 @@ const collectionsSeoKeywords = isZh
   title={collectionsSeoTitle}
   description={collectionsSeoDescription}
   keywords={collectionsSeoKeywords}
+  customCanonical={canonicalUrl}
 >
   <Fragment slot="head">
     <script
@@ -63,7 +115,7 @@ const collectionsSeoKeywords = isZh
             '@type': 'ListItem',
             position: 2,
             name: t('Common.collections') || 'Collections',
-            item: `https://killer-skills.com/${locale}/collections/`,
+            item: canonicalUrl,
           },
         ],
       })}
@@ -74,10 +126,9 @@ const collectionsSeoKeywords = isZh
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
-        name: 'Curated AI Agent Skill Collections — Killer-Skills',
-        description:
-          'Hand-picked collections of the best AI agent skills and MCP servers, organized by use case. Each collection bundles complementary skills for specific workflows.',
-        url: `https://killer-skills.com/${locale}/collections/`,
+        name: collectionsSeoTitle,
+        description: collectionsSeoDescription,
+        url: canonicalUrl,
         isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
         mainEntity: {
           '@type': 'ItemList',
@@ -86,7 +137,7 @@ const collectionsSeoKeywords = isZh
             '@type': 'ListItem',
             position: i + 1,
             name: resolveLocalized(col.data.title, 'Untitled'),
-            url: `https://killer-skills.com/${locale}/collections/${col.id.replace(/\.json$/, '')}/`,
+            url: `https://killer-skills.com/${locale}/collections/${col.id.replace(/\.json$/, '')}`,
           })),
         },
       })}
@@ -97,12 +148,28 @@ const collectionsSeoKeywords = isZh
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: t('Common.collections') || 'Curated Collections',
+        name: collectionsSeoTitle,
         speakable: {
           '@type': 'SpeakableSpecification',
           cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
         },
-        url: `https://killer-skills.com/${locale}/collections/`,
+        url: canonicalUrl,
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
       })}
     />
   </Fragment>
@@ -126,13 +193,30 @@ const collectionsSeoKeywords = isZh
             <h1
               class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words"
             >
-              {t('Collections.editorPicks')}
+              {isZh ? '自动化工作流合集' : 'Workflow Skill Bundles'}
             </h1>
           </div>
-          <p class="text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold max-w-lg mb-2">
-            {t('Collections.subtitle')}
+          <p
+            class="seo-intro-paragraph text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold max-w-lg mb-2"
+          >
+            {collectionsSeoDescription}
           </p>
         </div>
+
+        <section class="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {
+            workflowLinks.map((item) => (
+              <a
+                href={`/${locale}/skills?q=${encodeURIComponent(item.q)}`}
+                class="brut-card p-5 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+              >
+                <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.q}</div>
+                <h2 class="text-xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
+                <p class="text-sm font-medium opacity-80 leading-6">{item.description}</p>
+              </a>
+            ))
+          }
+        </section>
 
         {/* Collections Grid */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -193,6 +277,17 @@ const collectionsSeoKeywords = isZh
             )
           }
         </div>
+
+        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {
+            faqItems.map((item) => (
+              <article class="brut-card p-6 bg-white dark:bg-[#0a0a0a]">
+                <h2 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h2>
+                <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.answer}</p>
+              </article>
+            ))
+          }
+        </section>
       </div>
     </main>
   </div>

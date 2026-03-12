@@ -1,16 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": [
-    ".astro/types.d.ts",
-    "**/*"
-  ],
-  "exclude": [
-    "dist",
-    "_backup_nextjs_v1",
-    ".wrangler",
-    "workers",
-    "packages"
-  ],
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "coverage", "_backup_nextjs_v1", ".wrangler", "workers", "packages"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react"

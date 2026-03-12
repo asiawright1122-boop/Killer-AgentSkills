@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
@@ -12,13 +13,26 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+const canonicalUrl = `https://killer-skills.com/${locale}/integrations`;
 
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
-const pageTitle = t('Integrations.worksWhereYouWork');
-const pageDescription = t('Integrations.heroDesc');
+const pageTitle = isZh
+  ? 'Cursor、Claude Code、VS Code 技能兼容与安装指南'
+  : 'Cursor, Claude Code & VS Code Skill Compatibility Guide';
+const pageDescription = isZh
+  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 15+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills。'
+  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 15+ IDEs to install, set up, and sync AI agent skills.';
+const pageKeywords = buildKeywordString(typedLocale, 'core', 'ideCompat', 'compatibility', 'installSetup', 'docs', [
+  'Cursor skill setup',
+  'Claude Code install guide',
+  'VS Code AI skills',
+  'supported IDEs',
+  'Killer-Skills',
+]);
 
 const integrations = [
   {
@@ -46,9 +60,67 @@ const integrations = [
     link: 'https://github.com/block/goose',
   },
 ];
+const heroTitle = isZh ? '你的 IDE 已经支持 AI Agent Skills' : 'Your IDE Already Supports AI Agent Skills';
+const heroIntro = isZh
+  ? '如果你在找“Cursor skills”“Claude Code skills”或“VS Code agent skills”，这里就是兼容性总览页。Killer-Skills 会自动识别 IDE 并写入正确格式。'
+  : 'If you are searching for Cursor skills, Claude Code skills, or VS Code agent skills, this page is the compatibility overview. Killer-Skills auto-detects your IDE and writes the correct native format.';
+const intentLinks = [
+  {
+    title: isZh ? '安装 AI Agent Skills' : 'Install AI Agent Skills',
+    description: isZh ? '查看一条命令安装与首次配置步骤。' : 'See the one-command install and first-time setup flow.',
+    href: `/${locale}/docs/installation`,
+  },
+  {
+    title: isZh ? 'Cursor / Claude Code 配置' : 'Cursor / Claude Code Setup',
+    description: isZh
+      ? '了解不同 IDE 如何自动写入原生技能格式。'
+      : 'Learn how each IDE gets its native skill format automatically.',
+    href: `/${locale}/cli`,
+  },
+  {
+    title: isZh ? '支持的 IDE 与兼容性' : 'Supported IDEs & Compatibility',
+    description: isZh
+      ? '快速查看当前支持的环境与适配范围。'
+      : 'Review the supported environments and compatibility scope.',
+    href: '#supported-ides',
+  },
+  {
+    title: isZh ? '工作流与模板文档' : 'Workflow & Template Docs',
+    description: isZh
+      ? '从安装转到可复用流程与模板入口。'
+      : 'Move from setup into reusable workflows and template entry points.',
+    href: `/${locale}/docs`,
+  },
+];
+const faqItems = [
+  {
+    question: isZh ? 'Killer-Skills 支持哪些 IDE？' : 'Which IDEs does Killer-Skills support?',
+    answer: isZh
+      ? 'Killer-Skills 支持 15+ AI 编程助手和 IDE，包括 Cursor、Windsurf、Claude Code、VS Code、JetBrains、Cline、Roo Code、Continue、Codex、Goose 等。'
+      : 'Killer-Skills supports 15+ AI coding assistants and IDEs, including Cursor, Windsurf, Claude Code, VS Code, JetBrains, Cline, Roo Code, Continue, Codex, and Goose.',
+  },
+  {
+    question: isZh ? '如何在 IDE 中安装 AI Agent Skill？' : 'How do I install an AI agent skill in my IDE?',
+    answer: isZh
+      ? '在终端运行 `npx killer-skills add owner/repo`。CLI 会自动识别当前 IDE，并写入对应的技能文件格式，无需手动配置。'
+      : 'Run `npx killer-skills add owner/repo` in your terminal. The CLI auto-detects your IDE and writes the correct skill file format, so there is no manual setup.',
+  },
+  {
+    question: isZh ? '同一个技能能否跨多个 IDE 使用？' : 'Can I use the same skill across multiple IDEs?',
+    answer: isZh
+      ? '可以。Killer-Skills 使用统一技能格式，在不同 IDE 中会自动转换为各自需要的配置文件。'
+      : 'Yes. Killer-Skills uses a universal skill format and converts it into the native config each IDE expects.',
+  },
+];
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={canonicalUrl}
+>
   <Fragment slot="head">
     {/* BreadcrumbList JSON-LD */}
     <script
@@ -63,7 +135,7 @@ const integrations = [
             '@type': 'ListItem',
             position: 2,
             name: pageTitle,
-            item: `https://killer-skills.com/${locale}/integrations`,
+            item: canonicalUrl,
           },
         ],
       })}
@@ -75,9 +147,8 @@ const integrations = [
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'ItemList',
-        name: 'Killer-Skills IDE Integrations',
-        description:
-          'AI coding assistants and IDEs that work with Killer-Skills. Install AI agent skills in Cursor, Windsurf, Claude Code, VS Code, JetBrains, and 15+ more IDEs.',
+        name: pageTitle,
+        description: pageDescription,
         numberOfItems: integrations.length,
         itemListElement: integrations.map((item, i) => ({
           '@type': 'ListItem',
@@ -94,32 +165,14 @@ const integrations = [
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: 'Which IDEs does Killer-Skills support?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Killer-Skills supports 15+ AI coding assistants: Cursor (.cursorrules), Windsurf (.windsurfrules), Claude Code (CLAUDE.md), VS Code / GitHub Copilot (.github/copilot-instructions.md), JetBrains (.junie/guidelines.md), Cline (.clinerules), Roo Code (.roo/rules.md), Aider (.aider.conf), Continue (.continue/rules), Codex (AGENTS.md), Goose (.goosehints), and more.',
-            },
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
           },
-          {
-            '@type': 'Question',
-            name: 'How do I install an AI agent skill in my IDE?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Run 'npx killer-skills add owner/repo' in your terminal. The CLI auto-detects your IDE and writes the skill file in the correct format. No manual configuration needed — it works with Cursor, Windsurf, Claude Code, VS Code, and all other supported IDEs.",
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'Can I use the same skill across multiple IDEs?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Yes! Killer-Skills uses a universal skill format that automatically converts to each IDE's native format. Install once with the CLI, and it generates the correct config file (.cursorrules, CLAUDE.md, .windsurfrules, etc.) for whichever IDE you're using.",
-            },
-          },
-        ],
+        })),
       })}
     />
     {/* Speakable Schema for AI citation */}
@@ -134,7 +187,7 @@ const integrations = [
           '@type': 'SpeakableSpecification',
           cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
         },
-        url: `https://killer-skills.com/${locale}/integrations`,
+        url: canonicalUrl,
       })}
     />
   </Fragment>
@@ -146,18 +199,33 @@ const integrations = [
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
-            {t('Integrations.worksWhereYouWork')}
+            {heroTitle}
           </span>
         </h1>
-        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
-          {t('Integrations.heroDesc')}
+        <p class="seo-intro-paragraph text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+          {pageDescription}
         </p>
+        <p class="mt-3 max-w-2xl text-sm text-slate-500 dark:text-slate-400">{heroIntro}</p>
       </div>
     </div>
 
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section class="mb-10 grid gap-4 md:grid-cols-2">
+        {
+          intentLinks.map((item) => (
+            <a
+              href={item.href}
+              class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-cyan-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-cyan-700"
+            >
+              <h2 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">{item.title}</h2>
+              <p class="text-sm leading-6 text-slate-600 dark:text-slate-400">{item.description}</p>
+            </a>
+          ))
+        }
+      </section>
+
       <!-- Integrations Grid -->
-      <section class="mb-16">
+      <section id="supported-ides" class="mb-16 scroll-mt-24">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {
             integrations.map((item) => (
@@ -199,6 +267,17 @@ const integrations = [
         >
           {t('Integrations.learnProtocol')} →
         </a>
+      </section>
+
+      <section class="mt-10 grid gap-4 md:grid-cols-3">
+        {
+          faqItems.map((item) => (
+            <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+              <h2 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">{item.question}</h2>
+              <p class="text-sm leading-6 text-slate-600 dark:text-slate-400">{item.answer}</p>
+            </article>
+          ))
+        }
       </section>
     </div>
   </div>

@@ -4,6 +4,7 @@ import { getCollection } from 'astro:content';
 import BlogCard from '../../../components/blog/BlogCard.astro';
 import BlogHero from '../../../components/blog/BlogHero.astro';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { buildKeywordString } from '../../../lib/seo-keywords';
 import { Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
 export const prerender = true;
@@ -40,9 +41,19 @@ const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 const isZh = locale === 'zh';
-const blogSeoKeywords = isZh
-  ? 'AI Agent Skills 博客, MCP Servers 教程, Claude Code, Cursor, Windsurf, AI 编程助手'
-  : 'ai agent skills blog, mcp server guides, claude code, cursor, windsurf, ai coding assistant';
+const blogSeoKeywords = buildKeywordString(
+  locale as Locale,
+  'core',
+  'mcp',
+  'ideCompat',
+  'workflowAutomation',
+  'documentAutomation',
+  'developerExperience',
+  'enterpriseWorkflows',
+  isZh ? 'AI Agent Skills 博客' : 'AI agent skills blog',
+  isZh ? 'MCP Servers 教程' : 'MCP server guides',
+  'Killer-Skills',
+);
 
 // Category Definitions
 const categories = [

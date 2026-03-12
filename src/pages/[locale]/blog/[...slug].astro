@@ -4,6 +4,13 @@ import Layout from '../../../layouts/Layout.astro';
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
 import { type Locale, loadMessages, useTranslations } from '../../../i18n';
 import Info from '../../../components/Info.astro';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import {
+  getBlogIntentLinks,
+  getBlogKeywordClusters,
+  getBlogLongTailKeywords,
+  getBlogMetaOverride,
+} from '../../../lib/blog-seo-intent';
 
 export const prerender = true;
 
@@ -22,10 +29,28 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { locale } = Astro.params;
+const typedLocale = (locale || 'en') as Locale;
 const { Content, headings } = await render(post);
-const messages = await loadMessages(locale as Locale);
+const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tb = messages.Blog;
+const category = post.data.category;
+const slug = Astro.params.slug || '';
+const canonicalUrl = `https://killer-skills.com/${locale}/blog/${slug}`;
+const metaOverride = getBlogMetaOverride(typedLocale, slug);
+const seoTitle = metaOverride?.title || post.data.title;
+const seoDescription = metaOverride?.description || post.data.description;
+const pageKeywords = buildKeywordString(
+  typedLocale,
+  'core',
+  'docs',
+  ...getBlogKeywordClusters(category, slug),
+  ...(post.data.tags || []),
+  ...getBlogLongTailKeywords(slug, typedLocale),
+  category ? [t(`Blog.categories.${category}`) || category] : [],
+  'Killer-Skills',
+);
+const intentLinks = getBlogIntentLinks(locale || 'en', category, slug);
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -46,7 +71,7 @@ const blogSchema = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: post.data.title,
-  description: post.data.description,
+  description: seoDescription,
   author: {
     '@type': 'Person',
     name: post.data.author,
@@ -54,7 +79,7 @@ const blogSchema = {
   datePublished: post.data.pubDate.toISOString(),
   dateModified: (post.data.updatedDate || post.data.pubDate).toISOString(),
   image: post.data.heroImage || ogImage,
-  url: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}/`,
+  url: canonicalUrl,
   publisher: {
     '@type': 'Organization',
     name: 'Killer-Skills',
@@ -68,7 +93,7 @@ const blogSchema = {
   inLanguage: locale,
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://killer-skills.com/${locale}/blog/${Astro.params.slug}`,
+    '@id': canonicalUrl,
   },
 };
 
@@ -78,12 +103,12 @@ const blogBreadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Home', item: `https://killer-skills.com/${locale}` },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog` },
     {
       '@type': 'ListItem',
       position: 3,
       name: post.data.title,
-      item: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}/`,
+      item: canonicalUrl,
     },
   ],
 };
@@ -91,10 +116,12 @@ const blogBreadcrumbSchema = {
 
 <Layout
   locale={locale || 'en'}
-  title={post.data.title}
-  description={post.data.description}
+  title={seoTitle}
+  description={seoDescription}
+  keywords={pageKeywords}
   image={ogImage}
   ogType="article"
+  customCanonical={canonicalUrl}
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
@@ -106,12 +133,12 @@ const blogBreadcrumbSchema = {
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: post.data.title,
+        name: seoTitle,
         speakable: {
           '@type': 'SpeakableSpecification',
           cssSelector: ['h1', 'article > p:first-of-type', 'h2', 'blockquote'],
         },
-        url: `https://killer-skills.com/${locale}/blog/${Astro.params.slug}/`,
+        url: canonicalUrl,
       })}
     />
     <meta property="article:published_time" content={post.data.pubDate.toISOString()} />
@@ -225,6 +252,20 @@ const blogBreadcrumbSchema = {
           >
             <Content components={{ Info }} />
           </div>
+
+          <section class="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
+            {
+              intentLinks.map((item) => (
+                <a
+                  href={item.href}
+                  class="block border-4 border-[var(--foreground)] bg-[var(--card)] p-5 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+                >
+                  <h2 class="mb-2 text-lg font-black uppercase tracking-tight">{item.title}</h2>
+                  <p class="text-sm font-bold leading-6 opacity-80">{item.description}</p>
+                </a>
+              ))
+            }
+          </section>
 
           {/* Footer / Share */}
           <div class="mt-20 pt-8 border-t-[3px] border-[var(--border)] flex items-center justify-between">
