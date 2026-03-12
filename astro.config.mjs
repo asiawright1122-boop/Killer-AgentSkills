@@ -5,6 +5,9 @@ import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
 
+const isCi = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
+const enablePlatformProxy = !isCi && process.env.CF_PLATFORM_PROXY !== 'false';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
@@ -15,7 +18,9 @@ export default defineConfig({
   },
 
   adapter: cloudflare({
-    platformProxy: { enabled: true },
+    // Wrangler platform proxy can fail in non-interactive CI runners.
+    // Keep it enabled for local dev, disable it in CI by default.
+    platformProxy: { enabled: enablePlatformProxy },
   }),
 
   integrations: [react()],
@@ -23,18 +28,27 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      external: ['node:crypto', 'node:fs', 'node:path']
+      external: ['node:crypto', 'node:fs', 'node:path'],
     },
     resolve: {
-      alias: import.meta.env.PROD ? {
-        'react-dom/server': 'react-dom/server.edge',
-      } : {},
+      alias: import.meta.env.PROD
+        ? {
+            'react-dom/server': 'react-dom/server.edge',
+          }
+        : {},
     },
     build: {
       rollupOptions: {
         output: {
           manualChunks(id) {
-            if (id.includes('react-markdown') || id.includes('remark-') || id.includes('unified') || id.includes('mdast') || id.includes('micromark') || id.includes('hast')) {
+            if (
+              id.includes('react-markdown') ||
+              id.includes('remark-') ||
+              id.includes('unified') ||
+              id.includes('mdast') ||
+              id.includes('micromark') ||
+              id.includes('hast')
+            ) {
               return 'markdown-vendor';
             }
             if (id.includes('react-syntax-highlighter') || id.includes('refractor') || id.includes('prismjs')) {
@@ -58,12 +72,12 @@ export default defineConfig({
     shikiConfig: {
       themes: {
         light: 'github-light',
-        dark: 'github-dark'
-      }
-    }
+        dark: 'github-dark',
+      },
+    },
   },
   image: {
-    service: passthroughImageService()
+    service: passthroughImageService(),
   },
   prefetch: {
     prefetchAll: true,
