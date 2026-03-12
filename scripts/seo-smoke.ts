@@ -29,7 +29,13 @@ const checks: PageCheck[] = [
   {
     path: '/en/skills?q=workflow%20automation',
     titleIncludes: 'Workflow Automation Skills',
-    canonical: 'https://killer-skills.com/en/skills?q=workflow%20automation',
+    canonical: 'https://killer-skills.com/en/skills',
+    expectNoindex: true,
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/skills?category=developer-experience',
+    canonical: 'https://killer-skills.com/en/skills',
     expectNoindex: true,
     expectJsonLd: true,
   },

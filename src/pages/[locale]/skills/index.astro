@@ -219,10 +219,11 @@ const buildPaginationUrl = (p: number) => {
     ? `https://killer-skills.com/${locale}/skills?${serialized}`
     : `https://killer-skills.com/${locale}/skills`;
 };
+const baseSkillsUrl = `https://killer-skills.com/${locale}/skills`;
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
-const currentCanonicalUrl =
-  currentPage > 1 || query || category || view || owner ? buildPaginationUrl(currentPage) : undefined;
+const hasListingParams = Boolean(cleanQuery || category || view || owner || currentPage > 1);
+const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
 
 // Category list for sidebar
 ---
@@ -233,7 +234,7 @@ const currentCanonicalUrl =
   description={pageDescription}
   keywords={pageKeywords}
   customCanonical={currentCanonicalUrl}
-  noindex={Boolean(cleanQuery)}
+  noindex={hasListingParams}
 >
   {/* Pagination SEO: rel prev/next */}
   <Fragment slot="head">
@@ -249,7 +250,7 @@ const currentCanonicalUrl =
       '@type': 'BreadcrumbList',
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: `https://killer-skills.com/${locale}` },
-        { '@type': 'ListItem', position: 2, name: pageTitle, item: `https://killer-skills.com/${locale}/skills/` },
+        { '@type': 'ListItem', position: 2, name: pageTitle, item: baseSkillsUrl },
       ],
     })}
   />
@@ -265,7 +266,7 @@ const currentCanonicalUrl =
         '@type': 'SpeakableSpecification',
         cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
       },
-      url: currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
+      url: currentCanonicalUrl || baseSkillsUrl,
     })}
   />
   {/* CollectionPage + ItemList JSON-LD */}
@@ -277,7 +278,7 @@ const currentCanonicalUrl =
       '@type': 'CollectionPage',
       name: pageTitle,
       description: pageDescription,
-      url: currentCanonicalUrl || `https://killer-skills.com/${locale}/skills/`,
+      url: currentCanonicalUrl || baseSkillsUrl,
       isPartOf: {
         '@type': 'WebSite',
         name: 'Killer-Skills',
@@ -290,7 +291,7 @@ const currentCanonicalUrl =
           '@type': 'ListItem',
           position: (currentPage - 1) * ITEMS_PER_PAGE + i + 1,
           name: s.name || s.repo,
-          url: `https://killer-skills.com/${locale}/skills/${s.owner}/${s.repo}/`,
+          url: `https://killer-skills.com/${locale}/skills/${s.owner}/${s.repo}`,
         })),
       },
     })}
@@ -459,7 +460,7 @@ const currentCanonicalUrl =
               {
                 ['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map((tag) => (
                   <a
-                    href={`/${locale}/skills?q=${tag}`}
+                    href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
                     class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap"
                   >
                     [{tag}]
