@@ -135,21 +135,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
-  // 3d. Redirect legacy ?q= parameter to ?query= (consolidate duplicate params)
-  if (searchParams.has('q') && !searchParams.has('query')) {
-    const qValue = searchParams.get('q')!;
-    const newUrl = new URL(context.url);
-    newUrl.searchParams.delete('q');
-    newUrl.searchParams.set('query', qValue);
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: newUrl.pathname + newUrl.search,
-        'Cache-Control': 'public, s-maxage=86400',
-      },
-    });
-  }
-
   // 4. Skip static assets; apply security headers + observability to API routes
   if (isStaticOrApiPath(pathname)) {
     if (pathname.startsWith('/api/')) {
@@ -189,8 +174,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
     response.headers.set('Content-Language', localeSegment);
     // X-Robots-Tag as HTTP header reinforcement for Googlebot
     if (!response.headers.has('X-Robots-Tag')) {
-      // noindex for search result pages (?query=) — thin/dynamic content
-      if (searchParams.has('query')) {
+      // noindex for search result pages (?q= / ?query=) — thin/dynamic content
+      if (searchParams.has('q') || searchParams.has('query')) {
         response.headers.set('X-Robots-Tag', 'noindex, follow');
       } else {
         response.headers.set('X-Robots-Tag', 'index, follow');

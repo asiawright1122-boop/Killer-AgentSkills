@@ -39,6 +39,10 @@ const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
+const isZh = locale === 'zh';
+const blogSeoKeywords = isZh
+  ? 'AI Agent Skills 博客, MCP Servers 教程, Claude Code, Cursor, Windsurf, AI 编程助手'
+  : 'ai agent skills blog, mcp server guides, claude code, cursor, windsurf, ai coding assistant';
 
 // Category Definitions
 const categories = [
@@ -53,6 +57,7 @@ const categories = [
   locale={locale}
   title={t('Blog.seoTitle') || 'AI Agent Skills Blog — Guides, Tutorials & Updates | Killer-Skills'}
   description={t('Blog.seoDescription') || 'Insights, tutorials, and updates from the Killer-Skills team.'}
+  keywords={blogSeoKeywords}
 >
   <Fragment slot="head">
     <script

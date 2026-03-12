@@ -30,6 +30,7 @@ export async function getStaticPaths() {
 }
 
 const { locale, category } = Astro.params;
+const isZh = locale === 'zh';
 
 // Get posts for current locale and category
 let posts = await getCollection('blog', ({ data }) => {
@@ -50,12 +51,32 @@ const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 
 const categoryName = t(`Blog.categories.${category}`) || category;
-const pageTitle = `${categoryName} | Blog`;
-const pageDescription = t(`Blog.categories.${category}-desc`) || `Explore articles about ${categoryName}`;
+const pageTitle = isZh
+  ? `${categoryName}：AI Agent Skills 与 MCP 指南`
+  : `${categoryName}: AI Agent Skills & MCP Guides`;
+const pageDescription =
+  t(`Blog.categories.${category}-desc`) ||
+  (isZh
+    ? `浏览 ${categoryName} 主题下的 AI Agent Skills 与 MCP Server 文章，获取实战教程与最佳实践。`
+    : `Explore ${categoryName} articles about AI agent skills and MCP servers, with practical tutorials and implementation guides.`);
+const pageKeywords = [
+  categoryName,
+  `${categoryName} mcp`,
+  `${categoryName} ai agent`,
+  'AI agent skills',
+  'MCP server',
+  'Claude Code',
+  'Cursor',
+  'Windsurf',
+  ...(isZh ? ['AI 编程助手', '技能教程'] : []),
+]
+  .map((k) => k.trim())
+  .filter(Boolean)
+  .join(', ');
 const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Tags;
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription}>
+<Layout locale={locale} title={pageTitle} description={pageDescription} keywords={pageKeywords}>
   <Fragment slot="head">
     <script
       is:inline

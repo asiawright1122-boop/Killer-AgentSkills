@@ -26,6 +26,7 @@
     "submit:indexnow": "node scripts/submit-indexnow.mjs",
     "submit:baidu": "node scripts/submit-baidu.mjs",
     "submit:google": "node scripts/submit-google.mjs",
+    "report:gsc": "npx tsx scripts/gsc-ctr-report.ts",
     "translate:blog": "npx tsx scripts/translate-blog.ts",
     "submit:dirs": "npx tsx scripts/auto-submitter/src/index.ts",
     "submit:dirs:dry": "npx tsx scripts/auto-submitter/src/index.ts --dry-run --show",

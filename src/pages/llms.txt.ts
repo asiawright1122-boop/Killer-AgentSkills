@@ -13,7 +13,7 @@ export const GET: APIRoute = async () => {
 An AI Agent Skill is a plug-and-play instruction module, typically a markdown file, that teaches AI coding assistants how to perform specialized tasks autonomously. Unlike traditional plugins, skills operate at the domain level; they inject specific knowledge, workflows, and constraints directly into the AI agent.
 
 ## Key Facts
-- Total skills indexed: 50+ from verified source repositories on GitHub.
+- Total skills indexed: 2,500+ from verified source repositories on GitHub.
 - Languages supported: English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Arabic.
 - One-command install: npx killer-skills install <skill-name>
 - One-command copy: npx killer-skills copy <skill-name>
@@ -22,7 +22,7 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 - [Home](https://killer-skills.com/en)
 - [All Skills](https://killer-skills.com/en/skills)
 - [Collections](https://killer-skills.com/en/collections)
-- [How it works](https://killer-skills.com/en/how-it-works)
+- [Documentation](https://killer-skills.com/en/docs)
 - [CLI Docs](https://killer-skills.com/en/cli)
 
 ## Featured Skills

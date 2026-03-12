@@ -7,8 +7,10 @@ import Pagination from '../../../components/Pagination.astro';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
 
 import { searchSkills, filterByCategory } from '../../../lib/search';
+import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
+import { resolveQueryIntent } from '../../../lib/query-intent';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -41,8 +43,8 @@ skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
 
 // Get URL search params for filtering
 const url = Astro.url;
-const query = url.searchParams.get('q') || '';
-const category = url.searchParams.get('category') || '';
+const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+const category = normalizeCategoryId(url.searchParams.get('category') || '');
 const view = url.searchParams.get('view') || '';
 const owner = url.searchParams.get('owner') || '';
 const page = parseInt(url.searchParams.get('page') || '1', 10);
@@ -119,23 +121,85 @@ const paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, current
 
 // translations already loaded in parallel above
 const t = useTranslations(messages);
+const isZh = typedLocale === 'zh';
+const cleanQuery = query.trim().slice(0, 60);
+const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, typedLocale) : null;
 
 // Page title
-let pageTitle = t('Metadata.Skills.title');
-if (query) pageTitle = `${t('Marketplace.searchPrefix').replace('{query}', query)}`;
-else if (category) pageTitle = `${t(`Sidebar.categories.${category}` as any) || category} ${t('Common.skillsMarket')}`;
-else if (view === 'official') pageTitle = t('Sidebar.views.official');
-else if (view === 'featured') pageTitle = t('Sidebar.views.featured');
-else if (view === 'latest') pageTitle = t('Sidebar.views.latest');
+let pageTitle = isZh ? 'AI Agent Skills 与 MCP Servers 市场' : 'AI Agent Skills & MCP Servers Marketplace';
+if (cleanQuery) pageTitle = isZh ? `${cleanQuery} 相关 AI Agent Skills` : `${cleanQuery} AI Agent Skills & MCP Servers`;
+else if (category && category !== 'all')
+  pageTitle = `${getCategoryLabel(category, t) || category} ${isZh ? 'AI Agent Skills' : 'AI Agent Skills & MCP Servers'}`;
+else if (view === 'official')
+  pageTitle = isZh ? '官方与认证 AI Agent Skills 列表' : 'Official & Verified AI Agent Skills';
+else if (view === 'featured')
+  pageTitle = isZh ? '精选 AI Agent Skills 与 MCP Servers' : 'Featured AI Agent Skills & MCP Servers';
+else if (view === 'latest')
+  pageTitle = isZh ? '最新 AI Agent Skills 与 MCP Servers' : 'Latest AI Agent Skills & MCP Servers';
 
 if (owner) {
   const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
-  pageTitle = vendorConfig ? `${vendorConfig.name} Skills` : `${owner} Skills`;
+  const ownerName = vendorConfig?.name || owner;
+  pageTitle = isZh ? `${ownerName} AI Agent Skills` : `${ownerName} AI Agent Skills & MCP Servers`;
+}
+if (queryIntent) {
+  pageTitle = isZh
+    ? `${queryIntent.displayTerm}：可安装 AI Agent Skills`
+    : `${queryIntent.displayTerm}: Installable AI Agent Skills`;
 }
 
-const pageDescription = category
-  ? t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description')
-  : t('Metadata.Skills.description');
+let pageDescription = t('Metadata.Skills.description');
+if (cleanQuery) {
+  pageDescription = isZh
+    ? `查找与“${cleanQuery}”相关的 AI Agent Skills 与 MCP Servers。支持 Claude Code、Cursor、Windsurf，一键安装。`
+    : `Find AI agent skills and MCP servers for "${cleanQuery}". Compare options and install in Claude Code, Cursor, and Windsurf with one command.`;
+} else if (owner) {
+  pageDescription = isZh
+    ? `浏览 ${owner} 发布的 AI Agent Skills 与 MCP Servers，查看功能、评分与安装方式。`
+    : `Browse AI agent skills and MCP servers published by ${owner}, with use cases, quality signals, and one-command installation.`;
+} else if (category && category !== 'all') {
+  pageDescription = getCategorySeoDescription(category, typedLocale) || t('Metadata.Skills.description');
+} else if (view === 'official') {
+  pageDescription = isZh
+    ? '浏览官方与认证仓库发布的 AI Agent Skills，优先发现高质量、可长期维护的 MCP Servers。'
+    : 'Browse official and verified AI agent skills from trusted repositories, with reliable maintenance and quality signals.';
+} else if (view === 'featured') {
+  pageDescription = isZh
+    ? '查看社区精选的 AI Agent Skills 与 MCP Servers，按评分与热度快速发现高价值工具。'
+    : 'Discover community featured AI agent skills and MCP servers selected by quality score, popularity, and practical value.';
+} else if (view === 'latest') {
+  pageDescription = isZh
+    ? '追踪最新收录与更新的 AI Agent Skills，第一时间获取新的 MCP Servers 与能力。'
+    : 'Track newly indexed and recently updated AI agent skills to find fresh MCP servers and capabilities early.';
+}
+if (queryIntent) {
+  pageDescription = queryIntent.description;
+}
+
+const keywordParts = [
+  cleanQuery,
+  queryIntent?.displayTerm || '',
+  ...(queryIntent?.keywords || []),
+  cleanQuery ? `${cleanQuery} mcp` : '',
+  cleanQuery ? `${cleanQuery} ai agent` : '',
+  category && category !== 'all' ? category : '',
+  category && category !== 'all' ? `${category} mcp server` : '',
+  view || '',
+  view === 'official' ? 'official ai agent skills' : '',
+  view === 'featured' ? 'featured mcp servers' : '',
+  view === 'latest' ? 'latest ai agent skills' : '',
+  owner || '',
+  'AI agent skills',
+  'MCP server',
+  'Claude Code',
+  'Cursor',
+  'Windsurf',
+  'Killer-Skills',
+  ...(isZh ? ['AI 编程助手', '技能市场', '开源 MCP'] : []),
+]
+  .map((k) => k.trim())
+  .filter(Boolean);
+const pageKeywords = Array.from(new Set(keywordParts)).slice(0, 14).join(', ');
 
 // Pagination SEO: build rel prev/next URLs
 const buildPaginationUrl = (p: number) => {
@@ -156,7 +220,14 @@ const currentCanonicalUrl =
 // Category list for sidebar
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} customCanonical={currentCanonicalUrl}>
+<Layout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  keywords={pageKeywords}
+  customCanonical={currentCanonicalUrl}
+  noindex={Boolean(cleanQuery)}
+>
   {/* Pagination SEO: rel prev/next */}
   <Fragment slot="head">
     {prevPageUrl && <link rel="prev" href={prevPageUrl} />}
@@ -238,7 +309,7 @@ const currentCanonicalUrl =
                     query
                       ? t('Marketplace.browsing')
                       : category
-                        ? t(`Sidebar.categories.${category}` as any) || category
+                        ? getCategoryLabel(category, t) || category
                         : owner
                           ? `${Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner)?.name || owner} Skills`
                           : view === 'official'
@@ -255,7 +326,7 @@ const currentCanonicalUrl =
                 >
                   {
                     category
-                      ? t(`Categories.seoDescriptions.${category}` as any) || t('Metadata.Skills.description')
+                      ? getCategorySeoDescription(category, typedLocale) || t('Metadata.Skills.description')
                       : t('Metadata.Skills.description')
                   }
                 </p>

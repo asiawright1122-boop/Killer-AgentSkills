@@ -18,6 +18,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
 
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
@@ -32,6 +33,15 @@ const t = useTranslations(messages);
 // Load collections for Featured Collections section
 const allCollections = await getCollection('collections');
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
+
+// SEO: homepage metadata tuned for high-intent discovery queries
+const homeSeoTitle = isZh ? 'AI Agent Skills 与 MCP Servers 开源目录' : 'AI Agent Skills & MCP Servers Directory';
+const homeSeoDescription = isZh
+  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers。兼容 Claude Code、Cursor、Windsurf，一条命令完成安装。'
+  : 'Discover and install 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and Windsurf with one command.';
+const homeSeoKeywords = isZh
+  ? 'AI Agent Skills, MCP Server, Claude Code, Cursor, Windsurf, AI 编程助手, 技能市场, Killer-Skills'
+  : 'ai agent skills, mcp servers, claude code skills, cursor skills, windsurf skills, ai coding assistant, killer-skills';
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
@@ -56,7 +66,13 @@ const features = [
 ];
 ---
 
-<Layout locale={locale} title={t('Metadata.title')} description={t('Metadata.description')} appendBrand={false}>
+<Layout
+  locale={locale}
+  title={homeSeoTitle}
+  description={homeSeoDescription}
+  keywords={homeSeoKeywords}
+  appendBrand={false}
+>
   {/* WebSite + Organization JSON-LD for sitelinks search box */}
   <script
     is:inline
@@ -67,7 +83,7 @@ const features = [
       '@type': 'WebSite',
       name: 'Killer-Skills',
       url: 'https://killer-skills.com',
-      description: t('Metadata.description'),
+      description: homeSeoDescription,
       inLanguage: ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'],
       potentialAction: {
         '@type': 'SearchAction',
