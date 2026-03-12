@@ -6,6 +6,13 @@ export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
+const FILE_EXT_SEGMENT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
+
+function isValidSkillSegment(segment: string): boolean {
+  if (!segment) return false;
+  if (segment.includes('/')) return false;
+  return !FILE_EXT_SEGMENT_REGEX.test(segment);
+}
 
 function buildHreflangLinks(pagePath: string): string {
   return (
@@ -53,7 +60,7 @@ export const GET: APIRoute = async ({ locals, params }) => {
 
   for (const skill of paginatedSkills) {
     // Skip invalid entries
-    if (!skill.owner || !skill.repo) continue;
+    if (!isValidSkillSegment(skill.owner) || !isValidSkillSegment(skill.repo)) continue;
 
     const skillPath = `/skills/${skill.owner}/${skill.repo}`;
     const lastmod = skill.updatedAt ? formatDate(skill.updatedAt) : today;

@@ -59,10 +59,12 @@ jobs:
 
       - name: Run Sitemap Crawl Health Audit
         env:
-          SEO_CRAWL_SAMPLE_SKILLS_PER_SITEMAP: '40'
-          SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP: '600'
-          SEO_CRAWL_CONCURRENCY: '20'
+          SEO_CRAWL_SAMPLE_SKILLS_PER_SITEMAP: '20'
+          SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP: '300'
+          SEO_CRAWL_CONCURRENCY: '8'
           SEO_CRAWL_TIMEOUT_MS: '15000'
+          SEO_CRAWL_RETRIES: '4'
+          SEO_CRAWL_RETRY_DELAY_MS: '1000'
         run: |
           mkdir -p reports/seo
           npm run report:seo:crawl-health -- https://killer-skills.com
