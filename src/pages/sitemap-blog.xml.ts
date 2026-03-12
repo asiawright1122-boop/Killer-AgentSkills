@@ -6,14 +6,21 @@ export const prerender = true;
 
 const SITE = 'https://killer-skills.com';
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
+const SUPPORTED_LOCALE_SET = new Set<string>(SUPPORTED_LOCALES as readonly string[]);
 
-function buildHreflangLinks(_locale: string, slug: string): string {
-  // Generate alternate links for all locales for this specific slug
+function buildHreflangLinks(slug: string, availableLocales: string[]): string {
+  const uniqueLocales = availableLocales.filter((loc) => SUPPORTED_LOCALE_SET.has(loc));
+  if (uniqueLocales.length === 0) return '';
+
+  const xDefaultLocale = uniqueLocales.includes('en') ? 'en' : uniqueLocales[0];
   return (
-    SUPPORTED_LOCALES.map(
-      (loc) => `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(`${SITE}/${loc}/blog/${slug}`)}" />`,
-    ).join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/en/blog/${slug}`)}" />`
+    uniqueLocales
+      .map(
+        (loc) =>
+          `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(`${SITE}/${loc}/blog/${slug}`)}" />`,
+      )
+      .join('\n') +
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/${xDefaultLocale}/blog/${slug}`)}" />`
   );
 }
 
@@ -26,37 +33,34 @@ export const GET: APIRoute = async () => {
   const allPosts = await getCollection('blog', ({ data }) => !data.draft);
   const urls: string[] = [];
 
-  // Since we want to group by slug across locales for hreflang,
-  // we should iterate over unique slugs (from English or first seen)
-  // and then generate entries for all locales.
+  // Group posts by slug and keep per-locale variants.
+  const postsBySlug = new Map<string, Map<string, (typeof allPosts)[number]>>();
+  for (const post of allPosts) {
+    const parts = post.id.split('/');
+    const slug = parts.length > 1 ? parts.slice(1).join('/').replace(/\.md$/, '') : post.id.replace(/\.md$/, '');
+    const locale = post.data.lang;
+    if (!slug || !locale || !SUPPORTED_LOCALE_SET.has(locale)) continue;
 
-  const uniqueSlugs = [
-    ...new Set(
-      allPosts.map((post) => {
-        // Post ID is typically locale/slug.md or just slug.md
-        const parts = post.id.split('/');
-        return parts.length > 1 ? parts.slice(1).join('/').replace(/\.md$/, '') : post.id.replace(/\.md$/, '');
-      }),
-    ),
-  ];
+    const localeMap = postsBySlug.get(slug) || new Map<string, (typeof allPosts)[number]>();
+    localeMap.set(locale, post);
+    postsBySlug.set(slug, localeMap);
+  }
 
-  for (const slug of uniqueSlugs) {
-    for (const locale of SUPPORTED_LOCALES) {
-      // Find the post for this locale/slug to get the correct lastmod
-      const post =
-        allPosts.find((p) => p.id.includes(slug) && p.data.lang === locale) ||
-        allPosts.find((p) => p.id.includes(slug) && p.data.lang === 'en');
+  for (const [slug, localeMap] of postsBySlug.entries()) {
+    const availableLocales = Array.from(localeMap.keys());
+    if (availableLocales.length === 0) continue;
 
-      if (post) {
-        const lastmod = formatDate(post.data.updatedDate || post.data.pubDate || new Date());
-        urls.push(`<url>
+    for (const locale of availableLocales) {
+      const post = localeMap.get(locale);
+      if (!post) continue;
+      const lastmod = formatDate(post.data.updatedDate || post.data.pubDate || new Date());
+      urls.push(`<url>
 <loc>${normalizeUrl(`${SITE}/${locale}/blog/${slug}`)}</loc>
 <lastmod>${lastmod}</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
-${buildHreflangLinks(locale, slug)}
+${buildHreflangLinks(slug, availableLocales)}
 </url>`);
-      }
     }
   }
 

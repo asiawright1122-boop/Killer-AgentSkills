@@ -358,18 +358,52 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
  * usage: await getSitemapSkillsFromKV(context.locals.runtime.env)
  */
 export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string; repo: string; updatedAt?: string }[]> {
-  // Helper to filter valid entries
-  const filterValid = (items: any[]): { owner: string; repo: string; updatedAt?: string }[] =>
-    items.filter((s) => s && typeof s.owner === 'string' && s.owner && typeof s.repo === 'string' && s.repo);
+  const GITHUB_OWNER_RE = /^[a-z\d](?:[a-z\d-]{0,38})$/i;
+  const GITHUB_REPO_RE = /^[A-Za-z0-9._-]{1,100}$/;
+
+  const parseDateMs = (value?: string): number => {
+    if (!value) return 0;
+    const ms = Date.parse(value);
+    return Number.isFinite(ms) ? ms : 0;
+  };
+
+  // Normalize, validate, and dedupe by owner/repo.
+  // If duplicates exist, keep the newest updatedAt.
+  const normalizeAndDedupe = (items: any[]): { owner: string; repo: string; updatedAt?: string }[] => {
+    const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
+
+    for (const raw of items) {
+      if (!raw || typeof raw !== 'object') continue;
+
+      const owner = typeof raw.owner === 'string' ? raw.owner.trim() : '';
+      const repo = typeof raw.repo === 'string' ? raw.repo.trim() : '';
+      if (!owner || !repo) continue;
+      if (!GITHUB_OWNER_RE.test(owner) || !GITHUB_REPO_RE.test(repo)) continue;
+
+      const updatedAt =
+        typeof raw.updatedAt === 'string' && raw.updatedAt.trim().length > 0 ? raw.updatedAt.trim() : undefined;
+      const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+      const current = deduped.get(key);
+
+      if (!current || parseDateMs(updatedAt) > parseDateMs(current.updatedAt)) {
+        deduped.set(key, { owner, repo, ...(updatedAt ? { updatedAt } : {}) });
+      }
+    }
+
+    return Array.from(deduped.values()).sort((a, b) => parseDateMs(b.updatedAt) - parseDateMs(a.updatedAt));
+  };
 
   // Primary: Query D1
   if (env?.DB) {
     try {
       const result = await env.DB.prepare(
-        `SELECT owner, repo, updated_at as updatedAt FROM skills WHERE owner IS NOT NULL AND repo IS NOT NULL`,
+        `SELECT owner, repo, MAX(updated_at) as updatedAt
+         FROM skills
+         WHERE owner IS NOT NULL AND repo IS NOT NULL
+         GROUP BY owner, repo`,
       ).all();
       if (result.success && result.results) {
-        return filterValid(result.results as any[]);
+        return normalizeAndDedupe(result.results as any[]);
       }
     } catch (e) {
       console.error('[D1] Error reading sitemap skills from D1:', e);
@@ -386,7 +420,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
       if (fs.existsSync(sitemapPath)) {
         const content = fs.readFileSync(sitemapPath, 'utf-8');
         const data = JSON.parse(content);
-        if (Array.isArray(data)) return filterValid(data);
+        if (Array.isArray(data)) return normalizeAndDedupe(data);
       }
 
       const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
@@ -394,7 +428,13 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
         const content = fs.readFileSync(mainCachePath, 'utf-8');
         const data = JSON.parse(content);
         const skills = Array.isArray(data) ? data : data.skills || [];
-        return filterValid(skills.map((s: any) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })));
+        return normalizeAndDedupe(
+          skills.map((s: any) => ({
+            owner: s.owner,
+            repo: s.repo,
+            updatedAt: s.updatedAt,
+          })),
+        );
       }
     } catch (e) {
       console.warn('[Local] Failed to read local sitemap skills cache:', e);
