@@ -12,6 +12,13 @@ type PageCheck = {
 const SITE_ORIGIN = 'https://killer-skills.com';
 const baseUrl = (process.argv[2] || 'http://127.0.0.1:4321').replace(/\/+$/, '');
 const MISSING_DOCS_SLUG = '/en/docs/__seo-smoke_missing_slug_404_guard__';
+const TRANSIENT_STATUS_CODES = new Set([429, 500, 502, 503, 504, 522, 524]);
+const FETCH_TIMEOUT_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_TIMEOUT_MS, 15000);
+const FETCH_RETRY_ATTEMPTS = readPositiveInt(
+  process.env.SEO_SMOKE_FETCH_RETRIES,
+  baseUrl.startsWith('https://') ? 6 : 3,
+);
+const FETCH_RETRY_DELAY_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_RETRY_DELAY_MS, 2000);
 
 const checks: PageCheck[] = [
   {
@@ -96,6 +103,77 @@ function ensure(condition: boolean, message: string) {
   }
 }
 
+function readPositiveInt(raw: string | undefined, fallback: number): number {
+  const parsed = Number.parseInt(raw || '', 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+function isTransientFetchError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  if (error.name === 'AbortError') return true;
+  return /fetch failed|network|econnreset|enotfound|etimedout|socket hang up|unexpected eof/i.test(
+    error.message,
+  );
+}
+
+async function fetchWithRetry(path: string, expectedStatus?: number): Promise<Response> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= FETCH_RETRY_ATTEMPTS; attempt += 1) {
+    const requestUrl = `${baseUrl}${path}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(requestUrl, { signal: controller.signal });
+      const passed = expectedStatus != null ? res.status === expectedStatus : res.ok;
+
+      if (passed) return res;
+
+      const expectedLabel = expectedStatus != null ? expectedStatus : 200;
+      const transient = TRANSIENT_STATUS_CODES.has(res.status);
+      lastError = new Error(`${path}: expected ${expectedLabel}, got ${res.status}`);
+
+      if (transient && attempt < FETCH_RETRY_ATTEMPTS) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: status ${res.status}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      throw lastError;
+    } catch (error) {
+      if (attempt < FETCH_RETRY_ATTEMPTS && isTransientFetchError(error)) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: ${message}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error(`${path}: request failed (${String(error)})`, { cause: error });
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw lastError || new Error(`${path}: request failed after ${FETCH_RETRY_ATTEMPTS} attempts`);
+}
+
 function parseXmlLocs(xml: string): string[] {
   return Array.from(xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gim))
     .map((m) => m[1]?.trim())
@@ -119,8 +197,7 @@ function toLocalPath(url: string): string {
 }
 
 async function fetchText(path: string): Promise<string> {
-  const res = await fetch(`${baseUrl}${path}`);
-  ensure(res.ok, `${path}: expected 200, got ${res.status}`);
+  const res = await fetchWithRetry(path);
   return res.text();
 }
 
@@ -134,10 +211,7 @@ async function assertAllPaths200(paths: string[], label: string, concurrency = 2
       const path = queue.shift();
       if (!path) return;
       try {
-        const res = await fetch(`${baseUrl}${path}`);
-        if (!res.ok) {
-          failures.push(`${path} -> ${res.status}`);
-        }
+        await fetchWithRetry(path);
       } catch (error) {
         failures.push(`${path} -> ${(error as Error).message}`);
       }
@@ -201,8 +275,7 @@ async function runCheck(check: PageCheck) {
 }
 
 async function runMissingDocs404Check() {
-  const res = await fetch(`${baseUrl}${MISSING_DOCS_SLUG}`);
-  ensure(res.status === 404, `docs 404 guard failed: ${MISSING_DOCS_SLUG} returned ${res.status}`);
+  await fetchWithRetry(MISSING_DOCS_SLUG, 404);
   console.log(`SEO smoke passed: docs missing slug returns 404`);
 }
 
