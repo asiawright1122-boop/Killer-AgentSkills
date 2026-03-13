@@ -181,6 +181,55 @@ async function fetchWithRetry(path: string, expectedStatus?: number): Promise<Re
   throw lastError || new Error(`${path}: request failed after ${FETCH_RETRY_ATTEMPTS} attempts`);
 }
 
+async function fetchRedirectWithRetry(path: string, expectedStatus = 301): Promise<Response> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= FETCH_RETRY_ATTEMPTS; attempt += 1) {
+    const requestUrl = `${baseUrl}${path}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+      const res = await fetch(requestUrl, { signal: controller.signal, redirect: 'manual' });
+      if (res.status === expectedStatus) return res;
+
+      const transient = TRANSIENT_STATUS_CODES.has(res.status);
+      lastError = new Error(`${path}: expected ${expectedStatus}, got ${res.status}`);
+
+      if (transient && attempt < FETCH_RETRY_ATTEMPTS) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: status ${res.status}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      throw lastError;
+    } catch (error) {
+      if (attempt < FETCH_RETRY_ATTEMPTS && isTransientFetchError(error)) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: ${message}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error(`${path}: request failed (${String(error)})`, { cause: error });
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw lastError || new Error(`${path}: request failed after ${FETCH_RETRY_ATTEMPTS} attempts`);
+}
+
 function parseXmlLocs(xml: string): string[] {
   return Array.from(xml.matchAll(/<loc>\s*([^<]+?)\s*<\/loc>/gim))
     .map((m) => m[1]?.trim())
@@ -286,13 +335,14 @@ async function runMissingDocs404Check() {
   console.log(`SEO smoke passed: docs missing slug returns 404`);
 }
 
-async function runSkillsSitemapChecks() {
+async function runSkillsSitemapChecks(): Promise<string[]> {
   const sitemapIndexXml = await fetchText(withCacheBust('/sitemap.xml'));
   const sitemapLocs = parseXmlLocs(sitemapIndexXml);
   const skillSitemapLocs = sitemapLocs.filter((loc) => /\/sitemap-skills-\d+\.xml$/.test(new URL(loc).pathname));
   ensure(skillSitemapLocs.length > 0, 'sitemap index must include at least one /sitemap-skills-{n}.xml');
 
   const allSkillLocs: string[] = [];
+  const allSkillPaths: string[] = [];
   for (const sitemapLoc of skillSitemapLocs) {
     const localPath = toLocalPath(sitemapLoc);
     const xml = await fetchText(withCacheBust(localPath));
@@ -319,9 +369,28 @@ async function runSkillsSitemapChecks() {
     const segments = parsed.pathname.split('/').filter(Boolean);
     const repoSegment = segments[segments.length - 1] || '';
     ensure(!SKILL_FILE_EXT_REGEX.test(repoSegment), `skills sitemap loc must not use file-like repo slug: ${loc}`);
+    allSkillPaths.push(`${parsed.pathname}${parsed.search}`);
   }
 
   console.log(`SEO smoke passed: skills sitemap dedupe + URL shape (${allSkillLocs.length} URLs)`);
+  return allSkillPaths;
+}
+
+async function runInvalidSubSkillRedirectCheck(skillPaths: string[]) {
+  ensure(skillPaths.length > 0, 'skills sitemap must contain at least one skill URL');
+
+  const parentPath = skillPaths[0]!;
+  const fakeSubSkillPath = `${parentPath}/__seo_smoke_invalid_sub_skill_guard__`;
+  const redirectResponse = await fetchRedirectWithRetry(withCacheBust(fakeSubSkillPath), 301);
+  const location = redirectResponse.headers.get('location') || '';
+
+  ensure(
+    location === parentPath,
+    `${fakeSubSkillPath}: expected redirect location "${parentPath}", got "${location || 'missing'}"`,
+  );
+
+  await fetchWithRetry(withCacheBust(parentPath));
+  console.log(`SEO smoke passed: invalid sub-skill redirects to parent (${fakeSubSkillPath} -> ${parentPath})`);
 }
 
 async function runBlogSitemapChecks() {
@@ -359,7 +428,8 @@ async function main() {
   }
 
   await runMissingDocs404Check();
-  await runSkillsSitemapChecks();
+  const skillPaths = await runSkillsSitemapChecks();
+  await runInvalidSubSkillRedirectCheck(skillPaths);
   await runBlogSitemapChecks();
 
   console.log(`SEO smoke completed successfully against ${baseUrl}`);
