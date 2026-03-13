@@ -1,5 +1,13 @@
 name: Data Pipeline
 
+run-name: >-
+  Data Pipeline / ${{
+    github.event_name == 'schedule' && format('schedule {0}', github.event.schedule) ||
+    github.event_name == 'workflow_dispatch' && format('manual {0}', inputs.pipeline) ||
+    github.event_name == 'repository_dispatch' && format('crawler {0}', github.event.client_payload.target_repo) ||
+    github.event_name
+  }}
+
 # Unified data workflow:
 # - Harvest (scheduled/manual)
 # - Incremental build (scheduled/manual)
@@ -9,12 +17,12 @@ name: Data Pipeline
 
 on:
   schedule:
-    # Incremental lane: harvest + incremental build (twice daily)
-    - cron: '0 0,12 * * *'
-    # Auto submitter lane (daily)
-    - cron: '0 2 * * *'
-    # Full refresh lane (every 5 days)
-    - cron: '0 3 */5 * *'
+    # Incremental lane: harvest + incremental build (08:17 / 20:17 Asia/Shanghai)
+    - cron: '17 0,12 * * *'
+    # Auto submitter lane (10:37 Asia/Shanghai)
+    - cron: '37 2 * * *'
+    # Full refresh lane (11:53 Asia/Shanghai, every 5 days)
+    - cron: '53 3 */5 * *'
   workflow_dispatch:
     inputs:
       pipeline:
@@ -107,17 +115,17 @@ jobs:
 
           if [ "${{ github.event_name }}" = "schedule" ]; then
             case "${{ github.event.schedule }}" in
-              "0 0,12 * * *")
+              "17 0,12 * * *")
                 MODE="incremental"
                 RUN_HARVEST="true"
                 HARVEST_TARGET="50"
                 BUILD_MODE="discover"
                 BUILD_DURATION="150"
                 ;;
-              "0 2 * * *")
+              "37 2 * * *")
                 MODE="auto-submit"
                 ;;
-              "0 3 */5 * *")
+              "53 3 */5 * *")
                 MODE="full"
                 RUN_HARVEST="false"
                 BUILD_MODE="update"
@@ -350,6 +358,19 @@ jobs:
         continue-on-error: true
         run: node scripts/submit-indexnow.mjs
 
+      - name: Publish Pipeline Summary
+        if: always()
+        run: |
+          echo "# Data Pipeline" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Event: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Schedule: ${{ github.event.schedule || 'manual / dispatch' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Mode: ${{ needs.resolve.outputs.mode }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Harvest enabled: ${{ needs.resolve.outputs.run_harvest }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Build mode: ${{ needs.resolve.outputs.build_mode }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Build filter: ${{ needs.resolve.outputs.build_filter || 'none' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Force regenerate: ${{ needs.resolve.outputs.build_force }}" >> "$GITHUB_STEP_SUMMARY"
+
   auto-submit:
     needs: resolve
     if: needs.resolve.outputs.mode == 'auto-submit'
@@ -413,3 +434,13 @@ jobs:
             echo "❌ Push failed after 5 attempts"
             exit 1
           fi
+
+      - name: Publish Pipeline Summary
+        if: always()
+        run: |
+          echo "# Data Pipeline" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Event: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Schedule: ${{ github.event.schedule || 'manual / dispatch' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Mode: ${{ needs.resolve.outputs.mode }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Action: blind directory submission" >> "$GITHUB_STEP_SUMMARY"
