@@ -29,6 +29,3 @@ service = "killer-skills-workflows"
 [[vectorize]]
 binding = "VECTORIZE"
 index_name = "killer-skills-search"
-
-[ai]
-binding = "AI"

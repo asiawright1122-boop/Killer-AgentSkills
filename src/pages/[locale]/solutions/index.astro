@@ -145,7 +145,7 @@ const faqItems = [
         }
       </section>
 
-      <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         <a
           href={`/${locale}/skills`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
@@ -163,6 +163,12 @@ const faqItems = [
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
           {isZh ? '使用 CLI 一键安装' : 'Install via CLI'}
+        </a>
+        <a
+          href={`/${locale}/labs/skill-try`}
+          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+        >
+          {isZh ? '在线试用 Skill Demo' : 'Try Skill Online Demo'}
         </a>
       </section>
     </main>
