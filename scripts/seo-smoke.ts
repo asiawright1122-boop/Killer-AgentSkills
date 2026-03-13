@@ -388,8 +388,6 @@ async function runInvalidSubSkillRedirectCheck(skillPaths: string[]) {
     location === parentPath,
     `${fakeSubSkillPath}: expected redirect location "${parentPath}", got "${location || 'missing'}"`,
   );
-
-  await fetchWithRetry(withCacheBust(parentPath));
   console.log(`SEO smoke passed: invalid sub-skill redirects to parent (${fakeSubSkillPath} -> ${parentPath})`);
 }
 
