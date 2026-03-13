@@ -125,6 +125,18 @@ export function isStaticOrApiPath(pathname: string): boolean {
 }
 
 /**
+ * Paths that should remain fetchable on any host (including www) for crawler tooling.
+ * This avoids cross-host sitemap fetch failures in Search Console.
+ */
+export function shouldPreserveHostForSeoInfra(pathname: string): boolean {
+  if (pathname === '/robots.txt' || pathname === '/llms.txt' || pathname === '/llms-full.txt') {
+    return true;
+  }
+
+  return /^\/sitemap(?:-[a-z0-9-]+)?\.xml$/i.test(pathname);
+}
+
+/**
  * Check if a path already has a valid locale prefix
  */
 export function hasLocalePrefix(pathname: string): boolean {
