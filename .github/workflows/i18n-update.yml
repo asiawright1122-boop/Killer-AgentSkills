@@ -1,6 +1,16 @@
 name: Auto Translate
 
+run-name: >-
+  Auto Translate / ${{
+    github.event_name == 'schedule' && 'daily sweep' ||
+    github.event_name == 'workflow_dispatch' && 'manual' ||
+    github.event_name
+  }}
+
 on:
+  schedule:
+    # Daily translation sweep (12:25 Asia/Shanghai)
+    - cron: '25 4 * * *'
   push:
     paths:
       - 'src/messages/en.json'
@@ -13,6 +23,7 @@ permissions:
 
 jobs:
   translate:
+    if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     concurrency:
@@ -82,3 +93,12 @@ jobs:
           else
             echo "ℹ️ No translation changes"
           fi
+
+      - name: Publish Translation Summary
+        if: always()
+        run: |
+          echo "# Auto Translate" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Event: ${{ github.event_name }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Schedule: ${{ github.event.schedule || 'push / manual' }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Scope: messages + blog localization + blog metadata sync" >> "$GITHUB_STEP_SUMMARY"
