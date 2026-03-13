@@ -223,6 +223,42 @@ describe('getSkillsKV', () => {
     expect(result).toEqual(skillData);
   });
 
+  it('should fallback to owner/repo for two-segment IDs when exact ID is missing', async () => {
+    const skills = [
+      {
+        id: 'anthropics/skills/algorithmic-art',
+        name: 'algorithmic-art',
+        owner: 'anthropics',
+        repo: 'skills',
+      },
+    ];
+    const env = createMockEnv({}, skills);
+
+    const result = await getSkillsKV(env, 'skill:anthropics/skills');
+    expect(result).toEqual(skills[0]);
+  });
+
+  it('should not fallback to owner/repo for missing sub-skill IDs', async () => {
+    const skills = [
+      {
+        id: 'anthropics/skills/algorithmic-art',
+        name: 'algorithmic-art',
+        owner: 'anthropics',
+        repo: 'skills',
+      },
+      {
+        id: 'anthropics/skills/mcp-builder',
+        name: 'mcp-builder',
+        owner: 'anthropics',
+        repo: 'skills',
+      },
+    ];
+    const env = createMockEnv({}, skills);
+
+    const result = await getSkillsKV(env, 'skill:anthropics/skills/non-existent-sub-skill');
+    expect(result).toBeNull();
+  });
+
   it('should return null when DB binding is unavailable', async () => {
     const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
     const result = await getSkillsKV(env, 'some-key');

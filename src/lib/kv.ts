@@ -298,13 +298,13 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
       const owner = segments[0];
       const repo = segments[1];
 
-      if (segments.length > 2) {
-        match = all.find((s) => s.id && s.id.startsWith(`${owner}/${repo}/`));
+      // IMPORTANT: only owner/repo lookups are allowed to fall back to owner+repo.
+      // For sub-skill lookups (owner/repo/sub-skill), we must not return a random sibling
+      // because that creates false-positive 200 pages for non-existent URLs.
+      if (segments.length === 2) {
+        match = all.find((s) => s.owner === owner && s.repo === repo);
         if (match) return match;
       }
-
-      match = all.find((s) => s.owner === owner && s.repo === repo);
-      if (match) return match;
     }
 
     return null;
@@ -328,29 +328,22 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
       return JSON.parse(exact.data_json as string);
     }
 
-    // 2. If ID has 3+ segments (e.g., "anthropics/skills/skillname"), try owner/repo match
-    //    This handles the case where detail pages pass owner/repo but the ID includes a sub-path
+    // 2. Allow owner+repo fallback ONLY for 2-segment IDs.
+    // For 3+ segment IDs (owner/repo/sub-skill), return null if exact ID is missing.
+    // This prevents invalid sub-skill paths from resolving to unrelated siblings.
     const segments = dbId.split('/');
     if (segments.length >= 2) {
       const owner = segments[0];
       const repo = segments[1];
 
-      if (segments.length > 2) {
-        // Try LIKE match: "anthropics/skills/%" — uses indexed scan, not full table
-        const likeResult = await env.DB.prepare(`SELECT data_json FROM skills WHERE id LIKE ? LIMIT 1`)
-          .bind(`${owner}/${repo}/%`)
+      if (segments.length === 2) {
+        // 3. Try owner+repo index match (uses idx_skills_owner_repo)
+        const repoResult = await env.DB.prepare(`SELECT data_json FROM skills WHERE owner = ? AND repo = ? LIMIT 1`)
+          .bind(owner, repo)
           .first();
-        if (likeResult && likeResult.data_json) {
-          return JSON.parse(likeResult.data_json as string);
+        if (repoResult && repoResult.data_json) {
+          return JSON.parse(repoResult.data_json as string);
         }
-      }
-
-      // 3. Try owner+repo index match (uses idx_skills_owner_repo)
-      const repoResult = await env.DB.prepare(`SELECT data_json FROM skills WHERE owner = ? AND repo = ? LIMIT 1`)
-        .bind(owner, repo)
-        .first();
-      if (repoResult && repoResult.data_json) {
-        return JSON.parse(repoResult.data_json as string);
       }
     }
 
