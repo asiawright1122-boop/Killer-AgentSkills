@@ -90,7 +90,12 @@ const allCollections = await getCollection('collections');
 const skillKey = `${owner}/${repo}`;
 const relatedCollections = allCollections.filter((col) => col.data.skills.includes(skillKey));
 
-let skill = skillResult || (await getSkillByOwnerRepo(env, owner, repo).catch(() => null));
+let skill = skillResult;
+if (!skill && !subSkillName) {
+  // Keep owner/repo fallback only for parent skill pages.
+  // Sub-skill URLs must resolve by exact ID to avoid false-positive 200 pages.
+  skill = await getSkillByOwnerRepo(env, owner, repo).catch(() => null);
+}
 
 if (!skill) {
   // SEO: If this was a sub-skill path, 301 redirect to parent skill page
