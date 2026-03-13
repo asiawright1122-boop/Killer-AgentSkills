@@ -4,13 +4,11 @@
 
 type KVNamespace = import('@cloudflare/workers-types').KVNamespace;
 type VectorizeIndex = import('@cloudflare/workers-types').VectorizeIndex;
-type Ai = import('@cloudflare/workers-types').Ai;
 
 type ENV = {
   TRANSLATIONS: KVNamespace;
   SKILLS_CACHE: KVNamespace;
   DB: D1Database;
-  AI: Ai;
   VECTORIZE: VectorizeIndex;
   WORKFLOWS_SERVICE: Fetcher;
   ASSETS: Fetcher;
@@ -20,6 +18,15 @@ type ENV = {
   NVIDIA_API_KEYS?: string;
   NVIDIA_API_KEYS_2?: string;
   NVIDIA_API_KEYS_3?: string;
+  NVIDIA_API_KEYS_4?: string;
+  NVIDIA_API_KEYS_5?: string;
+  SILICONFLOW_API_KEY?: string;
+  OPENROUTER_API_KEY?: string;
+  OPENROUTER_API_KEYS?: string;
+  SKILL_TRY_DAILY_LIMIT?: string;
+  SKILL_TRY_MODEL_NVIDIA?: string;
+  SKILL_TRY_MODEL_SILICONFLOW?: string;
+  SKILL_TRY_MODEL_OPENROUTER?: string;
 };
 
 // Extend the runtime environment

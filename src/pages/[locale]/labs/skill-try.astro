@@ -1,0 +1,271 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { SKILL_TRY_PROFILES, localizeText } from '../../../lib/skill-try-profiles';
+
+export const prerender = false;
+Astro.response.headers.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=600');
+
+const { locale } = Astro.params;
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const isZh = typedLocale === 'zh';
+
+const pageTitle = isZh ? 'Skill 在线试用 Demo' : 'Skill Online Trial Demo';
+const pageDescription = isZh
+  ? '在网页内直接体验 Skill 的输出效果：选择 Skill、输入需求、在线运行，再决定是否通过 CLI 安装。'
+  : 'Preview skill outputs directly in the browser: choose a skill, enter your request, run online, then decide whether to install via CLI.';
+const canonicalUrl = `https://killer-skills.com/${typedLocale}/labs/skill-try`;
+
+const localizedProfiles = SKILL_TRY_PROFILES.map((profile) => ({
+  id: profile.id,
+  skillRef: profile.skillRef,
+  label: localizeText(profile.label, typedLocale),
+  description: localizeText(profile.description, typedLocale),
+  inputLabel: localizeText(profile.inputLabel, typedLocale),
+  inputPlaceholder: localizeText(profile.inputPlaceholder, typedLocale),
+  outputHint: localizeText(profile.outputHint, typedLocale),
+}));
+
+const initialProfile = localizedProfiles[0];
+---
+
+<Layout
+  locale={typedLocale}
+  title={pageTitle}
+  description={pageDescription}
+  customCanonical={canonicalUrl}
+  noindex={true}
+>
+  <div
+    id="skill-try-app"
+    class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans"
+    data-locale={typedLocale}
+    data-empty-input={isZh ? '请先输入你的需求。' : 'Please enter your request first.'}
+    data-running={isZh ? '运行中...' : 'Running...'}
+    data-run-label={isZh ? '在线试用' : 'Run Online Preview'}
+    data-mode-ai={isZh ? '实时模型模式' : 'Live Model Mode'}
+    data-mode-template={isZh ? '模板回退模式' : 'Template Fallback Mode'}
+    data-error-prefix={isZh ? '请求失败：' : 'Request failed: '}
+  >
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+      <header class="mb-10 border-b-[3px] border-[var(--border)] pb-8">
+        <div
+          class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
+        >
+          {isZh ? '实验室 Demo' : 'Labs Demo'}
+        </div>
+        <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
+        <p class="mt-4 max-w-3xl text-base md:text-lg font-medium text-[var(--muted-foreground)] leading-relaxed">
+          {pageDescription}
+        </p>
+      </header>
+
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <form id="skill-try-form" class="border-2 border-[var(--border)] bg-white dark:bg-[#0a0a0a] p-6 space-y-5">
+          <div>
+            <label for="skill-select" class="block text-sm font-black uppercase tracking-wider mb-2">
+              {isZh ? '选择 Skill' : 'Choose Skill'}
+            </label>
+            <select
+              id="skill-select"
+              class="w-full border-2 border-[var(--border)] bg-transparent px-3 py-2 font-mono text-sm"
+              required
+            >
+              {
+                localizedProfiles.map((profile) => (
+                  <option value={profile.id}>
+                    {profile.label} ({profile.skillRef})
+                  </option>
+                ))
+              }
+            </select>
+            <p id="skill-description" class="mt-2 text-sm text-[var(--muted-foreground)]">
+              {initialProfile.description}
+            </p>
+          </div>
+
+          <div>
+            <label
+              id="skill-input-label"
+              for="skill-input"
+              class="block text-sm font-black uppercase tracking-wider mb-2"
+            >
+              {initialProfile.inputLabel}
+            </label>
+            <textarea
+              id="skill-input"
+              class="w-full min-h-[180px] border-2 border-[var(--border)] bg-transparent px-3 py-3 text-sm leading-6"
+              placeholder={initialProfile.inputPlaceholder}
+              required></textarea>
+            <p id="skill-output-hint" class="mt-2 text-sm font-mono text-[var(--muted-foreground)]">
+              {initialProfile.outputHint}
+            </p>
+          </div>
+
+          <button
+            id="run-button"
+            type="submit"
+            class="inline-flex items-center justify-center px-5 py-3 border-2 border-[var(--border)] font-black uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 transition-opacity"
+          >
+            {isZh ? '在线试用' : 'Run Online Preview'}
+          </button>
+        </form>
+
+        <div class="border-2 border-[var(--border)] bg-white dark:bg-[#0a0a0a] p-6 space-y-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span
+              id="mode-badge"
+              class="inline-flex px-3 py-1 border-2 border-[var(--border)] text-xs font-black uppercase tracking-widest"
+            >
+              {isZh ? '等待运行' : 'Waiting'}
+            </span>
+            <p id="run-status" class="text-sm text-[var(--muted-foreground)]">
+              {isZh ? '点击在线试用后显示结果。' : 'Results will appear after you run the preview.'}
+            </p>
+          </div>
+
+          <div class="border-2 border-[var(--border)] p-4">
+            <p class="text-xs font-black uppercase tracking-widest mb-2">
+              {isZh ? '对应安装命令' : 'Related Install Command'}
+            </p>
+            <code id="install-command" class="text-sm font-mono">npx killer-skills add {initialProfile.skillRef}</code>
+          </div>
+
+          <div class="border-2 border-[var(--border)] p-4 bg-[var(--background)]">
+            <p class="text-xs font-black uppercase tracking-widest mb-3">
+              {isZh ? '在线试用输出' : 'Online Trial Output'}
+            </p>
+            <pre
+              id="result-output"
+              class="text-sm whitespace-pre-wrap leading-6 text-[var(--foreground)]">
+{isZh
+  ? '这里会显示试用结果。当前 Demo 会优先使用 NVIDIA；失败时自动切换 SiliconFlow、OpenRouter；全部不可用时回退模板结果。'
+  : 'Your preview output will appear here. This demo prefers NVIDIA, falls back to SiliconFlow and OpenRouter, then uses a template if all AI providers are unavailable.'}
+            </pre>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script id="skill-try-profiles" type="application/json" set:html={JSON.stringify(localizedProfiles)} />
+  <script is:inline>
+    (() => {
+      const app = document.getElementById('skill-try-app');
+      const profilesNode = document.getElementById('skill-try-profiles');
+      const form = document.getElementById('skill-try-form');
+      const select = document.getElementById('skill-select');
+      const input = document.getElementById('skill-input');
+      const runButton = document.getElementById('run-button');
+      const modeBadge = document.getElementById('mode-badge');
+      const runStatus = document.getElementById('run-status');
+      const resultOutput = document.getElementById('result-output');
+      const installCommand = document.getElementById('install-command');
+      const description = document.getElementById('skill-description');
+      const inputLabel = document.getElementById('skill-input-label');
+      const outputHint = document.getElementById('skill-output-hint');
+
+      if (
+        !app ||
+        !profilesNode ||
+        !form ||
+        !select ||
+        !input ||
+        !runButton ||
+        !modeBadge ||
+        !runStatus ||
+        !resultOutput ||
+        !installCommand ||
+        !description ||
+        !inputLabel ||
+        !outputHint
+      ) {
+        return;
+      }
+
+      const profiles = JSON.parse(profilesNode.textContent || '[]');
+      const locale = app.dataset.locale || 'en';
+      const emptyInputText = app.dataset.emptyInput || 'Please enter your request first.';
+      const runningText = app.dataset.running || 'Running...';
+      const runLabel = app.dataset.runLabel || 'Run Online Preview';
+      const modeAiText = app.dataset.modeAi || 'Live Model Mode';
+      const modeTemplateText = app.dataset.modeTemplate || 'Template Fallback Mode';
+      const errorPrefix = app.dataset.errorPrefix || 'Request failed: ';
+      const providerName = (provider) => {
+        if (provider === 'nvidia') return 'NVIDIA';
+        if (provider === 'siliconflow') return 'SiliconFlow';
+        if (provider === 'openrouter') return 'OpenRouter';
+        return locale === 'zh' ? '实时模型' : 'live model';
+      };
+
+      const findProfile = (id) => profiles.find((item) => item.id === id);
+
+      const syncProfileUi = () => {
+        const profile = findProfile(select.value);
+        if (!profile) return;
+        description.textContent = profile.description;
+        inputLabel.textContent = profile.inputLabel;
+        input.placeholder = profile.inputPlaceholder;
+        outputHint.textContent = profile.outputHint;
+        installCommand.textContent = `npx killer-skills add ${profile.skillRef}`;
+      };
+
+      select.addEventListener('change', syncProfileUi);
+      syncProfileUi();
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const userInput = input.value.trim();
+        if (!userInput) {
+          runStatus.textContent = emptyInputText;
+          return;
+        }
+
+        runButton.disabled = true;
+        runButton.textContent = runningText;
+        runStatus.textContent = runningText;
+        modeBadge.textContent = runningText;
+
+        try {
+          const response = await fetch('/api/skills/try', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              skillId: select.value,
+              input: userInput,
+              locale,
+            }),
+          });
+
+          const data = await response.json();
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Unknown error');
+          }
+
+          modeBadge.textContent = data.mode === 'ai' ? modeAiText : modeTemplateText;
+          runStatus.textContent =
+            data.mode === 'ai'
+              ? locale === 'zh'
+                ? `已通过 ${providerName(data.provider)} 生成实时结果。`
+                : `Generated with live ${providerName(data.provider)} output.`
+              : locale === 'zh'
+                ? 'AI 通道不可用，已自动回退到模板预览结果。'
+                : 'AI unavailable, switched to template fallback output.';
+          installCommand.textContent = data.installCommand || installCommand.textContent;
+          resultOutput.textContent = data.outputMarkdown || '';
+        } catch (error) {
+          modeBadge.textContent = locale === 'zh' ? '执行失败' : 'Run Failed';
+          runStatus.textContent = `${errorPrefix}${error instanceof Error ? error.message : 'Unknown error'}`;
+        } finally {
+          runButton.disabled = false;
+          runButton.textContent = runLabel;
+        }
+      });
+    })();
+  </script>
+</Layout>

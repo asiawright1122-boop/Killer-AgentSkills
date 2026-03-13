@@ -9,6 +9,15 @@ export interface Env {
   NVIDIA_API_KEYS?: string;
   NVIDIA_API_KEYS_2?: string;
   NVIDIA_API_KEYS_3?: string;
+  NVIDIA_API_KEYS_4?: string;
+  NVIDIA_API_KEYS_5?: string;
+  SILICONFLOW_API_KEY?: string;
+  OPENROUTER_API_KEY?: string;
+  OPENROUTER_API_KEYS?: string;
+  SKILL_TRY_DAILY_LIMIT?: string;
+  SKILL_TRY_MODEL_NVIDIA?: string;
+  SKILL_TRY_MODEL_SILICONFLOW?: string;
+  SKILL_TRY_MODEL_OPENROUTER?: string;
 }
 
 // Helper to get runtime env from Astro context
