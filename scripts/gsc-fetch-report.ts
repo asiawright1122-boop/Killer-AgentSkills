@@ -6,11 +6,13 @@ import { dirname, resolve } from 'node:path';
 import {
   compareGscSnapshots,
   findCtrOpportunities,
+  findQueryPrecisionRisks,
   formatPercent,
   type GscComparison,
   type GscOpportunity,
   type GscReportType,
   type GscRow,
+  type QueryPrecisionRisk,
 } from '../src/lib/gsc-report';
 
 type Dimension = 'query' | 'page';
@@ -241,6 +243,24 @@ function renderComparisonSection(title: string, comparisons: GscComparison[]): s
   return `## ${title}\n\n${lines.join('\n\n')}\n`;
 }
 
+function renderPrecisionSection(title: string, risks: QueryPrecisionRisk[]): string {
+  if (risks.length === 0) {
+    return `## ${title}\n\nNo obvious query-precision risks found in this period.\n`;
+  }
+
+  const lines = risks.map((item, index) =>
+    [
+      `${index + 1}. \`${item.entity}\``,
+      `   - Metrics: ${item.clicks} clicks, ${item.impressions} impressions, ${formatPercent(item.ctr)} CTR, position ${item.position.toFixed(1)}`,
+      `   - Risk: ${item.issue}`,
+      `   - Why: ${item.reason}`,
+      ...item.actions.map((action) => `   - Action: ${action}`),
+    ].join('\n'),
+  );
+
+  return `## ${title}\n\n${lines.join('\n\n')}\n`;
+}
+
 function buildReport(
   currentQueries: GscRow[],
   previousQueries: GscRow[],
@@ -253,6 +273,7 @@ function buildReport(
   const pageOpportunities = findCtrOpportunities(currentPages, 'page', 15);
   const queryComparisons = compareGscSnapshots(currentQueries, previousQueries, 15);
   const pageComparisons = compareGscSnapshots(currentPages, previousPages, 15);
+  const queryPrecisionRisks = findQueryPrecisionRisks(currentQueries, 15);
   const quickWins = [...summarize(queryOpportunities), ...summarize(pageOpportunities).slice(0, 3)];
 
   return [
@@ -268,11 +289,13 @@ function buildReport(
     `- Page rows: ${currentPages.length}`,
     `- Priority query opportunities: ${queryOpportunities.length}`,
     `- Priority page opportunities: ${pageOpportunities.length}`,
+    `- Query precision risks: ${queryPrecisionRisks.length}`,
     '',
     '## Quick Wins',
     '',
     ...(quickWins.length > 0 ? quickWins : ['- No obvious quick wins in the current periods.']),
     '',
+    renderPrecisionSection('Query Precision Risks', queryPrecisionRisks),
     renderSection('Query Opportunities', queryOpportunities),
     renderSection('Page Opportunities', pageOpportunities),
     renderComparisonSection('Query Period Comparison', queryComparisons),

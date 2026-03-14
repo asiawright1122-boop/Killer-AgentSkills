@@ -5,10 +5,12 @@ import { basename, dirname, resolve } from 'node:path';
 import {
   compareGscSnapshots,
   findCtrOpportunities,
+  findQueryPrecisionRisks,
   formatPercent,
   parseGscCsv,
   type GscComparison,
   type GscOpportunity,
+  type QueryPrecisionRisk,
   type GscReportType,
 } from '../src/lib/gsc-report';
 
@@ -99,7 +101,29 @@ function renderComparisonSection(title: string, comparisons: GscComparison[]): s
   return `## ${title}\n\n${lines.join('\n\n')}\n`;
 }
 
-function loadReport(filePath: string, type: GscReportType, limit: number): { path: string; rows: ReturnType<typeof parseGscCsv>; opportunities: GscOpportunity[] } {
+function renderPrecisionSection(title: string, risks: QueryPrecisionRisk[]): string {
+  if (risks.length === 0) {
+    return `## ${title}\n\nNo obvious query-precision risks found in this export.\n`;
+  }
+
+  const lines = risks.map((item, index) => {
+    return [
+      `${index + 1}. \`${item.entity}\``,
+      `   - Metrics: ${item.clicks} clicks, ${item.impressions} impressions, ${formatPercent(item.ctr)} CTR, position ${item.position.toFixed(1)}`,
+      `   - Risk: ${item.issue}`,
+      `   - Why: ${item.reason}`,
+      ...item.actions.map((action) => `   - Action: ${action}`),
+    ].join('\n');
+  });
+
+  return `## ${title}\n\n${lines.join('\n\n')}\n`;
+}
+
+function loadReport(
+  filePath: string,
+  type: GscReportType,
+  limit: number,
+): { path: string; rows: ReturnType<typeof parseGscCsv>; opportunities: GscOpportunity[] } {
   const absolutePath = resolve(filePath);
   const csv = readFileSync(absolutePath, 'utf8');
   const rows = parseGscCsv(csv);
@@ -108,7 +132,10 @@ function loadReport(filePath: string, type: GscReportType, limit: number): { pat
 }
 
 function defaultOutputPath(options: CliOptions): string {
-  const name = options.queries && options.pages ? 'combined' : basename(options.queries || options.pages || 'gsc-report.csv').replace(/\.csv$/i, '');
+  const name =
+    options.queries && options.pages
+      ? 'combined'
+      : basename(options.queries || options.pages || 'gsc-report.csv').replace(/\.csv$/i, '');
   return resolve(process.cwd(), `reports/gsc/${name}-ctr-report.md`);
 }
 
@@ -126,6 +153,7 @@ function buildReport(
     queryReport && queryPrevReport ? compareGscSnapshots(queryReport.rows, queryPrevReport.rows, limit) : [];
   const pageComparisons =
     pageReport && pagePrevReport ? compareGscSnapshots(pageReport.rows, pagePrevReport.rows, limit) : [];
+  const queryPrecisionRisks = queryReport ? findQueryPrecisionRisks(queryReport.rows, limit) : [];
 
   const summaryLines = [
     `Generated: ${generatedAt}`,
@@ -135,6 +163,7 @@ function buildReport(
     pagePrevReport ? `Previous page CSV: ${pagePrevReport.path}` : '',
     `Priority query opportunities: ${queryCount}`,
     `Priority page opportunities: ${pageCount}`,
+    queryPrecisionRisks.length > 0 ? `Query precision risks: ${queryPrecisionRisks.length}` : '',
     queryComparisons.length > 0 ? `Comparable query rows: ${queryComparisons.length}` : '',
     pageComparisons.length > 0 ? `Comparable page rows: ${pageComparisons.length}` : '',
   ].filter(Boolean);
@@ -155,6 +184,7 @@ function buildReport(
     '',
     ...(quickWins.length > 0 ? quickWins : ['- No obvious quick wins in the supplied exports.']),
     '',
+    queryReport ? renderPrecisionSection('Query Precision Risks', queryPrecisionRisks) : '',
     queryReport ? renderSection('Query Opportunities', queryReport.opportunities) : '',
     pageReport ? renderSection('Page Opportunities', pageReport.opportunities) : '',
     queryComparisons.length > 0 ? renderComparisonSection('Query Period Comparison', queryComparisons) : '',

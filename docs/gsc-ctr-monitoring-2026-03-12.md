@@ -1,9 +1,11 @@
 # GSC CTR Monitoring (2026-03-12)
 
 ## Goal
+
 Track whether recent SEO changes are improving click-through rate instead of only lifting impressions.
 
 ## Script
+
 - Command: `npm run report:gsc -- --queries path/to/queries.csv --pages path/to/pages.csv`
 - Unattended fetch command: `npm run report:gsc:fetch`
 - Optional:
@@ -13,13 +15,16 @@ Track whether recent SEO changes are improving click-through rate instead of onl
   - `--limit 20`
 
 ## Inputs
+
 - `queries.csv`: export from Google Search Console "Search results" > Queries
 - `pages.csv`: export from Google Search Console "Search results" > Pages
 - The parser supports common English and Chinese CSV headers.
 
 ## Output
+
 - Markdown report under `reports/gsc/`
 - Sections:
+  - query precision risks (off-topic / weak-intent / ambiguous-intent)
   - query opportunities
   - page opportunities
   - period comparison for queries/pages when previous exports are supplied
@@ -27,6 +32,7 @@ Track whether recent SEO changes are improving click-through rate instead of onl
   - suggested actions based on query/page intent
 
 ## Unattended Workflow
+
 - Workflow: `.github/workflows/seo-monitoring.yml`
 - Schedule: every Monday at `10:15` Asia/Shanghai (`02:15 UTC`)
 - Trigger modes:
@@ -46,17 +52,20 @@ Track whether recent SEO changes are improving click-through rate instead of onl
   - uploaded GitHub Actions artifact `gsc-monitoring-report`
 
 ## What To Watch
+
 1. Queries with position `<= 10`, high impressions, and CTR below expected baseline
 2. Pages with strong impressions but weak CTR on skill detail URLs
 3. Category or collection hubs with impressions but unclear snippet value proposition
 
 ## Baseline Heuristics
+
 - Position `1-3`: expected CTR about `8%`
 - Position `4-5`: expected CTR about `4.5%`
 - Position `6-10`: expected CTR about `2.5%`
 - Position `11-20`: expected CTR about `1.2%`
 
 ## Recommended Review Cadence
+
 1. Export query + page reports every 7 days
 2. Keep the previous export and pass it via `--queries-prev` / `--pages-prev`
 3. Prioritize pages with both:
@@ -65,6 +74,7 @@ Track whether recent SEO changes are improving click-through rate instead of onl
 4. Ignore low-impression noise unless the query is strategically important
 
 ## Suggested Workflow
+
 1. Export the latest GSC query and page CSVs
 2. Run:
    - `npm run report:gsc -- --queries latest-queries.csv --pages latest-pages.csv --queries-prev previous-queries.csv --pages-prev previous-pages.csv`
@@ -75,6 +85,7 @@ Track whether recent SEO changes are improving click-through rate instead of onl
    - `new`: newly visible query/page with no baseline yet
 
 ## Interpretation
+
 - If impressions rise but CTR falls on detail pages:
   - snippet intent is too broad
   - title/description likely need tighter category or editor-language alignment

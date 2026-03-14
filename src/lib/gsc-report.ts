@@ -33,6 +33,20 @@ export type GscComparison = {
   score: number;
 };
 
+export type QueryPrecisionRiskType = 'off-topic' | 'weak-intent' | 'ambiguous-intent';
+
+export type QueryPrecisionRisk = {
+  entity: string;
+  clicks: number;
+  impressions: number;
+  ctr: number;
+  position: number;
+  issue: QueryPrecisionRiskType;
+  reason: string;
+  actions: string[];
+  score: number;
+};
+
 const HEADER_ALIASES = {
   entity: ['query', 'queries', 'top queries', 'page', 'pages', 'top pages', '查询', '热门查询', '网页', '热门网页'],
   clicks: ['clicks', 'click', '点击次数', '点击'],
@@ -40,6 +54,29 @@ const HEADER_ALIASES = {
   ctr: ['ctr', 'average ctr', '平均点击率', '点击率'],
   position: ['position', 'average position', '平均排名', '排名'],
 };
+
+const CORE_QUERY_PATTERNS = [
+  /\b(mcp|model context protocol)\b/i,
+  /\b(ai\s*agent|agent\s*skills?|ai\s*skills?)\b/i,
+  /\b(claude|cursor|windsurf|opencode)\b/i,
+  /\b(workflow\s*automation|browser\s*automation|automation\s*skills?)\b/i,
+  /\b(cli\s*tool|agent\s*cli|mcp\s*server)\b/i,
+  /(智能体|代理|技能|工作流|自动化|命令行|工具)/i,
+  /(エージェント|スキル|ワークフロー|自動化|ツール|サーバー)/i,
+];
+
+const PRODUCT_INTENT_PATTERNS = [
+  /\b(skill|skills|tool|tools|agent|agents|automation|workflow|cli|server|servers|mcp|sdk|api)\b/i,
+  /(技能|工具|智能体|代理|自动化|工作流|命令行|服务器)/i,
+  /(スキル|ツール|エージェント|自動化|ワークフロー|サーバー|コマンドライン)/i,
+];
+
+const OFF_TOPIC_PATTERNS = [
+  /\b(framer|animation|after effects|motion design)\b/i,
+  /\b(core web vitals|lcp|cls|fid|ttfb)\b/i,
+  /\b(static asset|asset optimization|performance optimization|rendering optimization)\b/i,
+  /(静的アセット|パフォーマンス改善|性能优化|静态资源优化)/i,
+];
 
 const CATEGORY_HINTS: Array<{ pattern: RegExp; action: string }> = [
   {
@@ -150,6 +187,60 @@ function uniqueActions(actions: string[]): string[] {
   return Array.from(new Set(actions.filter(Boolean)));
 }
 
+function hasPattern(value: string, patterns: RegExp[]): boolean {
+  return patterns.some((pattern) => pattern.test(value));
+}
+
+function classifyQueryPrecisionRisk(
+  entity: string,
+): { issue: QueryPrecisionRiskType; reason: string; actions: string[] } | null {
+  const query = entity.trim();
+  if (!query) return null;
+
+  const isCoreIntent = hasPattern(query, CORE_QUERY_PATTERNS);
+  if (isCoreIntent) return null;
+
+  const hasProductIntent = hasPattern(query, PRODUCT_INTENT_PATTERNS);
+  const isLikelyOffTopic = hasPattern(query, OFF_TOPIC_PATTERNS);
+
+  if (isLikelyOffTopic && !hasProductIntent) {
+    return {
+      issue: 'off-topic',
+      reason: 'Query looks unrelated to AI agent skills or MCP server intent.',
+      actions: [
+        'Avoid broad performance/animation phrasing in title and H1 if this page is not meant for that intent.',
+        'Route internal links toward pages that match your core skill-install and automation intent clusters.',
+      ],
+    };
+  }
+
+  if (!hasProductIntent) {
+    return {
+      issue: 'weak-intent',
+      reason: 'Query lacks clear product-intent terms such as skills, tools, agents, or automation.',
+      actions: [
+        'Add explicit product-intent wording in title/meta (for example: AI agent skills, MCP server, workflow automation).',
+        'If this topic is not strategic, narrow snippet copy to reduce accidental broad matching.',
+      ],
+    };
+  }
+
+  return {
+    issue: 'ambiguous-intent',
+    reason: 'Query has partial tool intent but does not strongly match core site positioning.',
+    actions: [
+      'Map this query to the closest solution cluster and align title/H1/meta with one clear intent.',
+      'Add stronger internal links from /skills or /solutions pages to clarify relevance for crawlers.',
+    ],
+  };
+}
+
+function precisionRiskWeight(issue: QueryPrecisionRiskType): number {
+  if (issue === 'off-topic') return 1.35;
+  if (issue === 'weak-intent') return 1.15;
+  return 1;
+}
+
 function suggestActions(entity: string, type: GscReportType, bucket: GscOpportunity['bucket']): string[] {
   const actions: string[] = [];
 
@@ -250,6 +341,30 @@ export function findCtrOpportunities(rows: GscRow[], type: GscReportType, limit 
     .sort((a, b) => b.score - a.score);
 
   return opportunities.slice(0, limit);
+}
+
+export function findQueryPrecisionRisks(rows: GscRow[], limit = 20): QueryPrecisionRisk[] {
+  const risks = rows
+    .filter((row) => row.impressions >= 5)
+    .map((row) => {
+      const classification = classifyQueryPrecisionRisk(row.entity);
+      if (!classification) return null;
+
+      const scoreBase = row.impressions * (row.clicks === 0 ? 1.2 : 1) * (row.position <= 20 ? 1.1 : 0.95);
+      const score = scoreBase * precisionRiskWeight(classification.issue);
+
+      return {
+        ...row,
+        issue: classification.issue,
+        reason: classification.reason,
+        actions: classification.actions,
+        score,
+      };
+    })
+    .filter((row): row is QueryPrecisionRisk => row !== null)
+    .sort((a, b) => b.score - a.score);
+
+  return risks.slice(0, limit);
 }
 
 export function formatPercent(value: number): string {
