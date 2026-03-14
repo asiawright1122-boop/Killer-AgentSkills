@@ -187,6 +187,9 @@ const matchesIntentSignals = (text: string | undefined, signals: string[]) => {
 // Construct SEO Title
 const category = getCategoryLabel(skill.category, t);
 const skillName = (skill.name || repo).trim();
+const isN8nRepoPage = owner === 'n8n-io' && repo === 'n8n';
+const isN8nRootPage = isN8nRepoPage && !subSkillName;
+const isN8nLoomTranscriptPage = isN8nRepoPage && subSkillName === 'loom-transcript';
 const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI Skill';
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const templateTitleA = `${skillName} ${skillSeoIntent.titleLabel}`;
@@ -203,7 +206,15 @@ const titleIntentSignals = [
 ];
 const shouldUseTitleTemplate =
   seoForceTemplate || !seoTitleRaw || !matchesIntentSignals(seoTitleRaw, titleIntentSignals);
-const pageTitle = truncateText(shouldUseTitleTemplate ? selectedTemplateTitle : seoTitleRaw, 60);
+const n8nTitleOverride =
+  typedLocale === 'en'
+    ? isN8nRootPage
+      ? 'n8n Workflow Automation Skill for Claude Code'
+      : isN8nLoomTranscriptPage
+        ? 'n8n Loom Transcript Workflow Skill for Claude Code'
+        : ''
+    : '';
+const pageTitle = truncateText(n8nTitleOverride || (shouldUseTitleTemplate ? selectedTemplateTitle : seoTitleRaw), 60);
 
 // SEO Description: prioritize explicit SEO description, otherwise use an install-focused snippet
 const seoDescriptionRaw = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
@@ -225,10 +236,20 @@ const descriptionIntentSignals = [
 ];
 const shouldUseDescriptionTemplate =
   seoForceTemplate || !seoDescriptionRaw || !matchesIntentSignals(seoDescriptionRaw, descriptionIntentSignals);
+const n8nDescriptionOverride =
+  typedLocale === 'en'
+    ? isN8nRootPage
+      ? 'Install this n8n workflow automation skill for Claude Code. Build faster automations with setup steps, key features, and one-command install.'
+      : isN8nLoomTranscriptPage
+        ? 'Install the n8n Loom transcript workflow skill for Claude Code. Turn Loom recordings into structured notes and automated actions in one setup.'
+        : ''
+    : '';
 const metaDescription = truncateText(
-  shouldUseDescriptionTemplate
-    ? selectedTemplateDescription
-    : seoDescriptionRaw || description || selectedTemplateDescription,
+  n8nDescriptionOverride
+    ? n8nDescriptionOverride
+    : shouldUseDescriptionTemplate
+      ? selectedTemplateDescription
+      : seoDescriptionRaw || description || selectedTemplateDescription,
   158,
 );
 
@@ -238,6 +259,8 @@ const seoKeywordParts = [
   repo,
   owner,
   category,
+  ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
+  ...(isN8nLoomTranscriptPage ? ['loom transcript automation'] : []),
   skillSeoIntent.supportTerm,
   ...skillSeoIntent.keywords,
   ...keywordsList.slice(0, 8),
