@@ -34,6 +34,7 @@
     "report:seo:crawl-health": "npx tsx scripts/seo-crawl-health.ts",
     "report:gsc": "npx tsx scripts/gsc-ctr-report.ts",
     "report:gsc:fetch": "npx tsx scripts/gsc-fetch-report.ts",
+    "setup:gsc:secrets": "bash scripts/setup-gsc-secrets.sh",
     "translate:blog": "npx tsx scripts/translate-blog.ts",
     "submit:dirs": "npx tsx scripts/auto-submitter/src/index.ts",
     "submit:dirs:dry": "npx tsx scripts/auto-submitter/src/index.ts --dry-run --show",
