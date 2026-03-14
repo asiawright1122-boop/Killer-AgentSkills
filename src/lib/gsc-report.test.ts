@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { compareGscSnapshots, findCtrOpportunities, formatPercent, parseGscCsv } from './gsc-report';
+import {
+  compareGscSnapshots,
+  findCtrOpportunities,
+  findQueryPrecisionRisks,
+  formatPercent,
+  parseGscCsv,
+} from './gsc-report';
 
 describe('parseGscCsv', () => {
   it('parses English GSC CSV exports', () => {
@@ -44,6 +50,30 @@ describe('findCtrOpportunities', () => {
 describe('formatPercent', () => {
   it('formats percentages consistently', () => {
     expect(formatPercent(0.0234)).toBe('2.34%');
+  });
+});
+
+describe('findQueryPrecisionRisks', () => {
+  it('flags off-topic queries and ignores core intent queries', () => {
+    const risks = findQueryPrecisionRisks(
+      [
+        { entity: 'framer animation', clicks: 0, impressions: 120, ctr: 0, position: 12.5 },
+        { entity: 'mcp server', clicks: 6, impressions: 180, ctr: 0.033, position: 4.2 },
+      ],
+      10,
+    );
+
+    expect(risks.some((item) => item.entity === 'framer animation' && item.issue === 'off-topic')).toBe(true);
+    expect(risks.some((item) => item.entity === 'mcp server')).toBe(false);
+  });
+
+  it('flags weak-intent generic queries with no product terms', () => {
+    const risks = findQueryPrecisionRisks(
+      [{ entity: 'what is product strategy', clicks: 0, impressions: 80, ctr: 0, position: 16 }],
+      10,
+    );
+    expect(risks).toHaveLength(1);
+    expect(risks[0].issue).toBe('weak-intent');
   });
 });
 
