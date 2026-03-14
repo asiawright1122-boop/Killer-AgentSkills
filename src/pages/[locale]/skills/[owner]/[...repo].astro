@@ -244,6 +244,24 @@ const n8nDescriptionOverride =
         ? 'Install the n8n Loom transcript workflow skill for Claude Code. Turn Loom recordings into structured notes and automated actions in one setup.'
         : ''
     : '';
+const n8nHeroTaglineOverride =
+  typedLocale === 'en'
+    ? isN8nRootPage
+      ? 'workflow automation patterns for Claude Code'
+      : isN8nLoomTranscriptPage
+        ? 'loom transcript automation for n8n workflows'
+        : ''
+    : '';
+const n8nHeroIntroOverride =
+  typedLocale === 'en'
+    ? isN8nRootPage
+      ? 'Use this n8n skill in Claude Code to plan, install, and ship workflow automation faster. It surfaces n8n-specific setup context, practical automation patterns, and a one-command install path.'
+      : isN8nLoomTranscriptPage
+        ? 'Use this n8n Loom transcript skill in Claude Code to turn Loom videos into transcripts, structured notes, and downstream workflow actions with a faster install path.'
+        : ''
+    : '';
+const heroTagline = n8nHeroTaglineOverride || tagline;
+const heroIntro = n8nHeroIntroOverride || description || t('Skills.noResults');
 const metaDescription = truncateText(
   n8nDescriptionOverride
     ? n8nDescriptionOverride
@@ -591,9 +609,9 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                 <span>{skill.name || repo}</span>
                 {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
                 {
-                  tagline && (
+                  heroTagline && (
                     <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
-                      — {tagline}
+                      — {heroTagline}
                     </span>
                   )
                 }
@@ -657,7 +675,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
               <p
                 class="seo-intro-paragraph text-xl md:text-2xl text-[var(--foreground)] font-mono font-bold leading-relaxed max-w-4xl mb-8 break-words"
               >
-                {description || t('Skills.noResults')}
+                {heroIntro}
               </p>
 
               {/* AI Features */}
