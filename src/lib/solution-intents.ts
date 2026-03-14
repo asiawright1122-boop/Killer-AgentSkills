@@ -41,6 +41,30 @@ type LocalizedSolutionIntent = Omit<
 
 export type SolutionIntent = LocalizedSolutionIntent;
 
+const INTENT_TOKEN_STOP_WORDS = new Set([
+  'for',
+  'and',
+  'the',
+  'with',
+  'into',
+  'from',
+  'your',
+  'that',
+  'this',
+  'agent',
+  'agents',
+  'ai',
+  'skills',
+  'skill',
+  'server',
+  'servers',
+  'workflow',
+  'automation',
+]);
+
+const MIN_PRIMARY_INTENT_SCORE = 6;
+const MIN_FALLBACK_INTENT_SCORE = 3;
+
 const SOLUTION_INTENTS: SolutionIntentConfig[] = [
   {
     slug: 'workflow-automation',
@@ -218,16 +242,79 @@ export function getSolutionIntentBySlug(locale: Locale, slug: string): Localized
 }
 
 function tokenizeIntent(intent: LocalizedSolutionIntent): string[] {
-  const raw = [intent.query, ...intent.queries, intent.label, intent.pageTitle, intent.pageDescription].join(' ');
+  const raw = [intent.query, ...intent.queries].join(' ');
   return Array.from(
     new Set(
       raw
         .toLowerCase()
         .split(/[^a-z0-9]+/g)
         .map((token) => token.trim())
-        .filter((token) => token.length >= 3),
+        .filter((token) => token.length >= 3 && !INTENT_TOKEN_STOP_WORDS.has(token)),
     ),
   );
+}
+
+function buildSkillSearchText(
+  skill: UnifiedSkill,
+  locale: Locale,
+): {
+  fullText: string;
+  category: string;
+  topics: string;
+  description: string;
+  name: string;
+} {
+  const name = `${skill.name || ''} ${skill.skillName || ''}`.toLowerCase();
+  const repo = `${skill.owner || ''} ${skill.repo || ''}`.toLowerCase();
+  const category = (skill.category || '').toLowerCase();
+  const topics = (skill.topics || []).join(' ').toLowerCase();
+  const description = getLocalizedDescription(skill.description, locale).toLowerCase();
+  return {
+    fullText: `${name} ${repo} ${category} ${topics} ${description}`,
+    category,
+    topics,
+    description,
+    name,
+  };
+}
+
+function countTokenHits(fullText: string, tokens: string[]): number {
+  let hits = 0;
+  for (const token of tokens) {
+    if (fullText.includes(token)) hits += 1;
+  }
+  return hits;
+}
+
+function countPhraseHits(
+  searchText: ReturnType<typeof buildSkillSearchText>,
+  intent: LocalizedSolutionIntent,
+): { phraseHits: number; primaryHits: number } {
+  const primaryQuery = intent.query.toLowerCase();
+  const primaryHits =
+    Number(searchText.name.includes(primaryQuery)) +
+    Number(searchText.topics.includes(primaryQuery)) +
+    Number(searchText.description.includes(primaryQuery)) +
+    Number(searchText.category.includes(primaryQuery));
+
+  let phraseHits = 0;
+  for (const phrase of intent.queries) {
+    const normalized = phrase.toLowerCase();
+    if (
+      searchText.name.includes(normalized) ||
+      searchText.topics.includes(normalized) ||
+      searchText.description.includes(normalized) ||
+      searchText.category.includes(normalized)
+    ) {
+      phraseHits += 1;
+    }
+  }
+
+  return { phraseHits, primaryHits };
+}
+
+function hasCategoryAlignment(category: string, intent: LocalizedSolutionIntent): boolean {
+  return intent.fallbackCategories.some((target) => category === target || category.includes(target));
 }
 
 function calculateIntentScore(
@@ -236,37 +323,26 @@ function calculateIntentScore(
   locale: Locale,
   tokens: string[],
 ): number {
-  const name = `${skill.name || ''} ${skill.skillName || ''}`.toLowerCase();
-  const repo = `${skill.owner || ''} ${skill.repo || ''}`.toLowerCase();
-  const category = (skill.category || '').toLowerCase();
-  const topics = (skill.topics || []).join(' ').toLowerCase();
-  const description = getLocalizedDescription(skill.description, locale).toLowerCase();
-  const fullText = `${name} ${repo} ${category} ${topics} ${description}`;
+  const searchText = buildSkillSearchText(skill, locale);
+  const tokenHits = countTokenHits(searchText.fullText, tokens);
+  const { phraseHits, primaryHits } = countPhraseHits(searchText, intent);
+  const categoryAligned = hasCategoryAlignment(searchText.category, intent);
+
+  // Guardrail: avoid broad token-only matches that cause low-intent query drift.
+  if (primaryHits === 0 && phraseHits === 0 && tokenHits < 3 && !(categoryAligned && tokenHits >= 2)) {
+    return 0;
+  }
 
   let score = 0;
-  const primaryQuery = intent.query.toLowerCase();
+  score += primaryHits * 8;
+  score += phraseHits * 5;
+  score += tokenHits;
+  if (categoryAligned) score += 2;
 
-  if (name.includes(primaryQuery)) score += 20;
-  if (topics.includes(primaryQuery)) score += 14;
-  if (description.includes(primaryQuery)) score += 12;
-  if (category.includes(primaryQuery)) score += 10;
-
-  for (const phrase of intent.queries) {
-    const normalized = phrase.toLowerCase();
-    if (name.includes(normalized)) score += 14;
-    else if (topics.includes(normalized)) score += 10;
-    else if (description.includes(normalized)) score += 8;
-    else if (category.includes(normalized)) score += 6;
-  }
-
-  for (const token of tokens) {
-    if (fullText.includes(token)) score += 1;
-  }
-
-  if (skill.source === 'verified') score += 4;
+  if (skill.source === 'verified') score += 3;
   if (skill.source === 'featured') score += 2;
 
-  score += Math.min(skill.stars || 0, 20000) / 1000;
+  score += Math.min(skill.stars || 0, 10000) / 2000;
   return score;
 }
 
@@ -277,7 +353,7 @@ export function matchSkillsForIntent(
   limit = 60,
 ): UnifiedSkill[] {
   const tokens = tokenizeIntent(intent);
-  const scored = skills
+  const scoredEntries = skills
     .map((skill) => ({
       skill,
       score: calculateIntentScore(skill, intent, locale, tokens),
@@ -286,33 +362,47 @@ export function matchSkillsForIntent(
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       return (b.skill.stars || 0) - (a.skill.stars || 0);
-    })
-    .map((item) => item.skill);
+    });
+
+  const scoreById = new Map(scoredEntries.map((item) => [item.skill.id, item.score]));
 
   const picked: UnifiedSkill[] = [];
   const seen = new Set<string>();
 
-  const addSkills = (items: UnifiedSkill[]) => {
+  const getScore = (skill: UnifiedSkill): number => {
+    if (!skill?.id) return 0;
+    const cached = scoreById.get(skill.id);
+    if (typeof cached === 'number') return cached;
+    const calculated = calculateIntentScore(skill, intent, locale, tokens);
+    scoreById.set(skill.id, calculated);
+    return calculated;
+  };
+
+  const addSkills = (items: UnifiedSkill[], minScore: number) => {
     for (const item of items) {
       if (!item?.id || seen.has(item.id)) continue;
+      if (getScore(item) < minScore) continue;
       seen.add(item.id);
       picked.push(item);
       if (picked.length >= limit) return;
     }
   };
 
-  addSkills(scored);
+  addSkills(
+    scoredEntries.filter((item) => item.score >= MIN_PRIMARY_INTENT_SCORE).map((item) => item.skill),
+    MIN_PRIMARY_INTENT_SCORE,
+  );
 
   if (picked.length < Math.min(36, limit)) {
     for (const category of intent.fallbackCategories) {
-      addSkills(filterByCategory(skills, category));
+      const categoryMatched = filterByCategory(skills, category).sort((a, b) => {
+        const scoreDiff = getScore(b) - getScore(a);
+        if (scoreDiff !== 0) return scoreDiff;
+        return (b.stars || 0) - (a.stars || 0);
+      });
+      addSkills(categoryMatched, MIN_FALLBACK_INTENT_SCORE);
       if (picked.length >= Math.min(48, limit)) break;
     }
-  }
-
-  if (picked.length < Math.min(24, limit)) {
-    const byStars = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
-    addSkills(byStars);
   }
 
   return picked.slice(0, limit);
