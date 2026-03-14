@@ -1,6 +1,6 @@
 ---
 title: "El ADN del Diseño: Dominando la Habilidad de las Guías de Marca"
-description: "Dominar la habilidad de las guías de marca para aplicar la identidad de marca oficial a tus recursos generados por IA. Descubre los secretos de la identida..."
+description: "Dominar la habilidad de las guías de marca para aplicar la identidad de marca oficial a tus recursos generados por IA. Descubre los secretos de la identida"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "Visual Identity", "Agent Skills", "Design Systems"]

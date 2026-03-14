@@ -1,6 +1,6 @@
 ---
 title: "العروض التقديمية المدعومة بالذكاء الاصطناعي: إتقان مهارة PPTX"
-description: "تعلم كيفية بناء عروض تقديمية احترافية في PowerPoint باستخدام مهارة pptx الرسمية. اكتشف مبادئ التصميم للحصول على شرائح عالية التأثير بالذكاء الاصطناعي. ابدأ..."
+description: "تعلم كيفية بناء عروض تقديمية احترافية في PowerPoint باستخدام مهارة pptx الرسمية. اكتشف مبادئ التصميم للحصول على شرائح عالية التأثير بالذكاء الاصطناعي. ابدأ"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

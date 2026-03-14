@@ -1,6 +1,6 @@
 ---
 title: "Programmierung Ihrer Programmierer: Der Guide für Skill-Ersteller"
-description: "Erfahren Sie, wie Sie effektive KI-Fähigkeiten aufbauen. Meistern Sie modulare KI-Fähigkeiten mit spezifischem Wissen und Workflows. Learn now"
+description: "Erfahren Sie, wie Sie effektive KI-Fähigkeiten aufbauen. Meistern Sie modulare KI-Fähigkeiten mit spezifischem Wissen und Workflows."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]

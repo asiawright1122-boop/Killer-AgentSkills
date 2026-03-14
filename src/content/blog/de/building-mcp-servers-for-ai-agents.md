@@ -1,6 +1,6 @@
 ---
 title: "Ermächtigung von KI-Agenten: Erstellung von hochwertigen MCP-Servern"
-description: "Erfahren Sie mehr über das Model Context Protocol und lernen Sie, wie Sie leistungsstarke MCP-Server erstellen, um KI-Agenten zu ermächtigen. Learn now"
+description: "Erfahren Sie mehr über das Model Context Protocol und lernen Sie, wie Sie leistungsstarke MCP-Server erstellen, um KI-Agenten zu ermächtigen."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

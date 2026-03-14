@@ -1,6 +1,6 @@
 ---
 title: "Frente de aplicaciones web a prueba de balas: La habilidad de prueba de webapp"
-description: "Domina pruebas de interfaz de usuario con la habilidad oficial de prueba de webapp. Aprende a usar Playwright para una verificación robusta de aplicaciones..."
+description: "Domina pruebas de interfaz de usuario con la habilidad oficial de prueba de webapp. Aprende a usar Playwright para una verificación robusta de aplicaciones"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]

@@ -1,6 +1,6 @@
 ---
 title: "インスタントブランディング：Theme-Factoryスキルガイド"
-description: "公式Theme-Factoryスキルを使用してAI生成成果物にプロフェッショナルなテーマを適用する方法を学びましょう。スライド、文書、ウェブページの一貫したスタイリングをマスターし、インスタントブランディングのスキルを身につけましょう。Learn now"
+description: "公式Theme-Factoryスキルを使用してAI生成成果物にプロフェッショナルなテーマを適用する方法を学びましょう。スライド、文書、ウェブページの一貫したスタイリングをマスターし、インスタントブランディングのスキルを身につけましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

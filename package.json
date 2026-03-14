@@ -30,6 +30,7 @@
     "health:providers": "node scripts/health-skill-providers.mjs",
     "seo:smoke": "npx tsx scripts/seo-smoke.ts",
     "seo:frontmatter:guard": "node --import tsx scripts/seo-frontmatter-guard.ts",
+    "seo:frontmatter:fix-advisory": "node --import tsx scripts/fix-blog-meta-advisory.ts",
     "report:seo:crawl-health": "npx tsx scripts/seo-crawl-health.ts",
     "report:gsc": "npx tsx scripts/gsc-ctr-report.ts",
     "report:gsc:fetch": "npx tsx scripts/gsc-fetch-report.ts",

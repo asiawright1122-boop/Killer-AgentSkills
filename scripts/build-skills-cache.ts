@@ -1298,6 +1298,28 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
 }
 
+const LOW_INTENT_SEO_KEYWORD_PATTERNS = [
+    /(^|\b)(how to|what is|why|guide|tutorial|vs|versus|alternative|alternatives|best|top\s*\d*|comparison|compare|free|download)\b/i,
+    /(是什么|怎么用|如何|教程|指南|对比|替代|最佳|免费)/,
+    /(とは|使い方|チュートリアル|ガイド|比較|代替|おすすめ|無料)/,
+    /(무엇|사용법|튜토리얼|가이드|비교|대안|추천|무료)/,
+];
+const SEO_SNIPPET_TRUNCATION_PATTERN = /(\.\.\.|…)/;
+const ENGLISH_CTA_PATTERN = /\b(Get started|Learn now|Read more)\b/i;
+
+const normalizeSeoToken = (value: string): string => value.toLowerCase().replace(/\s+/g, ' ').trim();
+
+function hasLowIntentSeoKeyword(keyword: string): boolean {
+    const normalized = normalizeSeoToken(keyword || '');
+    if (!normalized) return false;
+    return LOW_INTENT_SEO_KEYWORD_PATTERNS.some((pattern) => pattern.test(normalized));
+}
+
+function hasSeoSnippetArtifact(value: string): boolean {
+    const text = value || '';
+    return SEO_SNIPPET_TRUNCATION_PATTERN.test(text) || ENGLISH_CTA_PATTERN.test(text);
+}
+
 // Helper to check if a skill is fully optimized (SEO + Translations) to skip expensive AI calls
 function isSkillFullyOptimized(skill: SkillCache): boolean {
     // 0. Check Prompt Version (v4 = Mar 2026, dedicated English SEO + skill-specific prompts)
@@ -1313,6 +1335,15 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
     if (!skill.seo?.title?.en) {
         return false;
     }
+    const enTitle = skill.seo.title.en.trim();
+    const enDescription = skill.seo.description.en.trim();
+    if (!enTitle || !enDescription) {
+        return false;
+    }
+    // Detect stale/truncated snippets to force metadata regeneration in incremental mode.
+    if (hasSeoSnippetArtifact(enTitle) || hasSeoSnippetArtifact(enDescription)) {
+        return false;
+    }
 
     // Features and Keywords validation (AI sometimes omits 'en' if source is EN, check if at least one language got populated)
     const features = skill.seo?.features;
@@ -1322,6 +1353,13 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
 
     const keywords = skill.seo?.keywords;
     if (!keywords || typeof keywords !== 'object' || !Object.values(keywords).some(arr => Array.isArray(arr) && arr.length > 0)) {
+        return false;
+    }
+    const enKeywords = Array.isArray(skill.seo?.keywords?.en) ? skill.seo.keywords.en : [];
+    if (enKeywords.length === 0) {
+        return false;
+    }
+    if (enKeywords.some((keyword) => hasLowIntentSeoKeyword(String(keyword)))) {
         return false;
     }
 
@@ -1393,4 +1431,3 @@ let globalExistingMap: Map<string, SkillCache> = new Map();
 
     await buildCache();
 })().catch(console.error);
-

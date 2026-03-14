@@ -1,6 +1,6 @@
 ---
 title: "Guide Étape par Étape : Améliorer OpenClaw avec des Compétences de Tueur pour l'Agent IA Autonome Ultime"
-description: "Améliorez OpenClaw avec Killer-Skills, découvrez comment synchroniser les compétences professionnelles pour un agent IA autonome puissant, master les tâche..."
+description: "Améliorez OpenClaw avec Killer-Skills, découvrez comment synchroniser les compétences professionnelles pour un agent IA autonome puissant, master les tâche"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

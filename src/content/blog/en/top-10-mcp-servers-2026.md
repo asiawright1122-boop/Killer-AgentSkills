@@ -1,6 +1,6 @@
 ---
 title: "Top 10 Essential MCP Servers for Claude & Cursor in 2026"
-description: "Master MCP servers for Claude & Cursor in 2026. Discover the top 10 essential servers to automate workflows and manage databases. Get started with Model Co..."
+description: "Master MCP servers for Claude & Cursor in 2026. Discover the top 10 essential servers to automate workflows and manage databases. Get started with Model Co"
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

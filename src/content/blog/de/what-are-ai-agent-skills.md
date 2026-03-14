@@ -1,6 +1,6 @@
 ---
 title: "Was sind KI-Agenten-Fähigkeiten und warum sind sie wichtig?"
-description: "Entdecken Sie KI-Agenten-Fähigkeiten, wiederverwendbare Anweisungsdateien für Coding-Agenten. Erfahren Sie, wie sie funktionieren und wann sie nützlich sin..."
+description: "Entdecken Sie KI-Agenten-Fähigkeiten, wiederverwendbare Anweisungsdateien für Coding-Agenten. Erfahren Sie, wie sie funktionieren und wann sie nützlich sin"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]

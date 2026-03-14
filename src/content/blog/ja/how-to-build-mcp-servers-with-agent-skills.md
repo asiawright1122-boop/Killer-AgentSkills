@@ -1,6 +1,6 @@
 ---
 title: "MCPサーバーの構築方法：エージェントスキルを使った完全ガイド"
-description: "MCPサーバーの構築方法を完全にマスターする。公式mcp-builderスキルを使ったTypeScriptとPythonのセットアップを完全に学びましょう。Learn now"
+description: "MCPサーバーの構築方法を完全にマスターする。公式mcp-builderスキルを使ったTypeScriptとPythonのセットアップを完全に学びましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

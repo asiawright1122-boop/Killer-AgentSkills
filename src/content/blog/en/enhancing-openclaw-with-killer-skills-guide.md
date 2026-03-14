@@ -1,6 +1,6 @@
 ---
 title: "Step-by-Step Guide: Enhancing OpenClaw with Killer-Skills for the Ultimate Autonomous AI Agent"
-description: "Master OpenClaw with Killer-Skills integration, a proven method to enhance your AI assistant's capabilities. Discover how to sync professional skills and h..."
+description: "Master OpenClaw with Killer-Skills integration, a proven method to enhance your AI assistant's capabilities. Discover how to sync professional skills and h"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

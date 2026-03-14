@@ -1,6 +1,6 @@
 ---
 title: "Le Guide Ultime de l'Automatisation PDF : Maîtriser la Compétence PDF"
-description: "Maîtrisez l'automatisation PDF avec la compétence PDF officielle. Découvrez comment fusionner, diviser, extraire des tableaux avec des workflows IA de haut..."
+description: "Maîtrisez l'automatisation PDF avec la compétence PDF officielle. Découvrez comment fusionner, diviser, extraire des tableaux avec des workflows IA de haut"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PDF Automation", "Python", "OCR", "Agent Skills", "Data Extraction"]

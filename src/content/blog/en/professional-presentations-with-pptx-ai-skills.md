@@ -1,6 +1,6 @@
 ---
 title: "AI-Powered Pitch Decks: Mastering the PPTX Skill"
-description: "Master AI-Powered Pitch Decks with proven design principles for high-impact slides. Discover essential pptx skills to create stunning, professional PowerPo..."
+description: "Master AI-Powered Pitch Decks with proven design principles for high-impact slides. Discover essential pptx skills to create stunning, professional PowerPo"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

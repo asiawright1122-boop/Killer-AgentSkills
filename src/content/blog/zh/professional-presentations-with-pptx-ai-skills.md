@@ -1,6 +1,6 @@
 ---
 title: "AI驱动的宣讲稿：掌握PPTX技能"
-description: "掌握AI驱动的PPTX技能，构建惊艳的专业PowerPoint演示文稿。发现高影响力AI生成幻灯片的设计原则，提升您的演讲水平。Learn now"
+description: "掌握AI驱动的PPTX技能，构建惊艳的专业PowerPoint演示文稿。发现高影响力AI生成幻灯片的设计原则，提升您的演讲水平。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

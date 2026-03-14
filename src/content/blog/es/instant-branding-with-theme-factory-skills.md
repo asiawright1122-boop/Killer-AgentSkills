@@ -1,6 +1,6 @@
 ---
 title: "Marcar la diferencia de inmediato: Guía para dominar la habilidad de Theme-Factory"
-description: "Aprende a aplicar temas profesionales con Theme-Factory, la habilidad oficial para artefactos generados por IA. Domina el estilo coherente y mejora tus dia..."
+description: "Aprende a aplicar temas profesionales con Theme-Factory, la habilidad oficial para artefactos generados por IA. Domina el estilo coherente y mejora tus dia"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

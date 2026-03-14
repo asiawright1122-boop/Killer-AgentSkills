@@ -1,6 +1,6 @@
 ---
 title: "自动化商务文档：DOCX 技能的强大功能"
-description: "使用 DOCX 技能进行 Word 文档自动化，掌握 AI 代理生成专业报告、追踪更改和管理复杂模板的强大功能。Get started"
+description: "使用 DOCX 技能进行 Word 文档自动化，掌握 AI 代理生成专业报告、追踪更改和管理复杂模板的强大功能。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

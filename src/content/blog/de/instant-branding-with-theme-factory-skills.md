@@ -1,6 +1,6 @@
 ---
 title: "Sofort-Markenbildung: Ein Leitfaden zur Theme-Factory-Fähigkeit"
-description: "Meistern Sie Sofort-Markenbildung mit der Theme-Factory-Fähigkeit. Erhalten Sie einheitliches Styling für Folien, Dokumente und Webseiten. Erfahren Sie meh..."
+description: "Meistern Sie Sofort-Markenbildung mit der Theme-Factory-Fähigkeit. Erhalten Sie einheitliches Styling für Folien, Dokumente und Webseiten. Erfahren Sie meh"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

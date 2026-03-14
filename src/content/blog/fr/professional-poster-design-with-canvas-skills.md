@@ -1,6 +1,6 @@
 ---
 title: "Maîtrise de la conception statique : Explorer le canvas-design"
-description: "Maîtrisez la conception statique avec canvas-design, découvrez comment créer des affiches de qualité muséale et explorez les philosophies visuelles, commen..."
+description: "Maîtrisez la conception statique avec canvas-design, découvrez comment créer des affiches de qualité muséale et explorez les philosophies visuelles, commen"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

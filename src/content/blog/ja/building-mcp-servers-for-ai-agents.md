@@ -1,6 +1,6 @@
 ---
 title: "AIエージェントのエンパワーメント: 高品質のMCPサーバーの構築"
-description: "MCPサーバーの構築をマスターし、AIエージェントのエンパワーメントを実現する方法を学びます。強力なサーバーを作成し、外部ツールやサービスとやり取りするためのModel Context Protocolを発見しましょう。Get started"
+description: "MCPサーバーの構築をマスターし、AIエージェントのエンパワーメントを実現する方法を学びます。強力なサーバーを作成し、外部ツールやサービスとやり取りするためのModel Context Protocolを発見しましょう。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

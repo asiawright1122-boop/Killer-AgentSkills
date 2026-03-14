@@ -3,7 +3,7 @@
  * AI 批量优化博客 meta description（使用 NVIDIA API）
  * 基于 meta-tags-optimizer 技能的最佳实践：120–158 字符、包含 CTA、Power Words
  *
- * 用法: 
+ * 用法:
  *   npx tsx scripts/ai-optimize-blog-meta.ts              # 交互模式
  *   npx tsx scripts/ai-optimize-blog-meta.ts --dry-run   # 仅预览
  *   npx tsx scripts/ai-optimize-blog-meta.ts --lang=en   # 只处理英文
@@ -12,6 +12,7 @@
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
+import { getDescriptionLengthRange, sanitizeMetaDescription, trimDescriptionToMax } from './lib/meta-description';
 
 // 加载 .env.local
 const envPath = path.join(process.cwd(), '.env.local');
@@ -20,8 +21,6 @@ if (fs.existsSync(envPath)) {
 }
 
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog');
-const MIN_LEN = 120;
-const MAX_LEN = 158;
 
 // 从环境变量或命令行参数获取 NVIDIA API Keys
 function getNvidiaKeys(): string[] {
@@ -69,14 +68,13 @@ async function callNvidia(apiKey: string, prompt: string): Promise<string> {
       messages: [
         {
           role: 'system',
-          content: `You are an SEO expert specializing in meta description optimization. 
+          content: `You are an SEO expert specializing in meta description optimization.
 
-CRITICAL LENGTH RULE: Your output MUST be EXACTLY 120-158 characters. This is non-negotiable for SERP display.
-- Count characters carefully before outputting
-- If too long, trim unnecessary words
-- Include primary keyword naturally
-- Add a clear CTA at the end (e.g., "Learn now", "Read more", "Get started")
-- Use power words: proven, essential, complete, master, discover, learn, etc.
+CRITICAL RULES:
+- Respect the target length requirement provided by the user prompt
+- Keep language natural for the target locale
+- Do NOT append English CTA phrases to non-English descriptions
+- Avoid snippet truncation markers like "..." or "…"
 - Output ONLY the description, no quotes, no explanations`,
         },
         {
@@ -95,7 +93,7 @@ CRITICAL LENGTH RULE: Your output MUST be EXACTLY 120-158 characters. This is no
     throw new Error(`NVIDIA API Error ${response.status}: ${error}`);
   }
 
-  const data = await response.json() as { choices?: Array<{ message?: { content?: string } }> };
+  const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
   return data.choices?.[0]?.message?.content?.trim() || '';
 }
 
@@ -123,10 +121,7 @@ function extractFrontmatter(filePath: string): { title: string; description: str
 
 function updateDescription(filePath: string, newDesc: string): void {
   const raw = fs.readFileSync(filePath, 'utf-8');
-  const updated = raw.replace(
-    /^(\s*description:\s*)"[^"]*"/m,
-    `$1"${newDesc}"`
-  );
+  const updated = raw.replace(/^(\s*description:\s*)"[^"]*"/m, `$1"${newDesc}"`);
   fs.writeFileSync(filePath, updated);
 }
 
@@ -159,17 +154,15 @@ async function main() {
   // 收集需要优化的博客
   for (const filePath of all) {
     const rel = path.relative(process.cwd(), filePath);
-    
+
     // 语言过滤
     if (langFilter && !rel.includes(`/blog/${langFilter}/`)) continue;
 
     const data = extractFrontmatter(filePath);
     if (!data) continue;
 
-    // 检测是否为 CJK 语言
-    const isCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u0600-\u06ff]/.test(data.title);
-    const minLen = isCJK ? 40 : MIN_LEN;
-    const maxLen = isCJK ? 200 : MAX_LEN; // CJK 可以稍长
+    const locale = rel.split(path.sep)[2] || 'en';
+    const { min: minLen, max: maxLen } = getDescriptionLengthRange(locale);
 
     const len = data.description.length;
     if (len < minLen || len > maxLen) {
@@ -186,7 +179,7 @@ async function main() {
   // 限制数量以避免 API 限额（每次处理 10 篇）
   const BATCH_SIZE = 10;
   const batch = toOptimize.slice(0, BATCH_SIZE);
-  
+
   console.log(`📋 待优化: ${toOptimize.length} 篇 (本次处理 ${batch.length} 篇)\n`);
   console.log(`策略: 120-158 字符, 包含 CTA, 使用 Power Words\n`);
 
@@ -196,38 +189,36 @@ async function main() {
     console.log(`   标题: ${item.title.slice(0, 50)}...`);
     console.log(`   原描述 (${item.length}字符): ${item.oldDesc.slice(0, 60)}...`);
 
+    const locale = item.rel.split(path.sep)[2] || 'en';
+    const { min: minLen, max: maxLen } = getDescriptionLengthRange(locale);
+
     const prompt = `
 Blog Title: ${item.title}
 Current Description: ${item.oldDesc}
+Target Locale: ${locale}
 
-Rewrite to 130-155 characters MAX. Count and trim if needed!
+Rewrite to ${minLen}-${maxLen} characters.
 
 Requirements:
 - Include primary keyword
-- Add CTA: "Learn now", "Read more", "Get started"
-- Keep it short
+- Keep language natural for ${locale}
+- Do not use English CTA phrases in non-English descriptions
+- Do not output truncation markers like "..." or "…"
 
 Output ONLY the description (no quotes).`;
 
     try {
       const apiKey = getNextKey(keys);
       let newDesc = await callNvidia(apiKey, prompt);
-      
-      // 对 CJK 语言降低最小长度要求到 40 字符
-      const isCJK = /[\u4e00-\u9fff\u3040-\u309f\u30a0-\u30ff\uac00-\ud7af\u0600-\u06ff]/.test(item.title);
-      const minLen = isCJK ? 40 : 120;
-      const maxLen = isCJK ? 200 : 158;
-      
-      // 自动截断到对应语言的最大字符数
-      if (newDesc.length > maxLen) {
-        newDesc = newDesc.slice(0, maxLen - 3).trim() + '...';
-      }
-      
+
+      newDesc = sanitizeMetaDescription(newDesc, locale);
+      newDesc = trimDescriptionToMax(newDesc, maxLen);
+
       if (newDesc.length < minLen) {
         console.log(`   ⚠️ 描述过短 (${newDesc.length}字符), 跳过`);
         continue;
       }
-      
+
       const newLen = newDesc.length;
 
       console.log(`   ✅ 新描述 (${newLen}字符): ${newDesc.slice(0, 60)}...`);
@@ -244,11 +235,11 @@ Output ONLY the description (no quotes).`;
   }
 
   console.log(`\n\n✅ 完成! 本次处理 ${batch.length} 篇`);
-  
+
   if (toOptimize.length > batch.length) {
     console.log(`\n💡 提示: 还有 ${toOptimize.length - batch.length} 篇待处理，可再次运行脚本`);
   }
-  
+
   if (dryRun) {
     console.log(`\n(Dry run 模式 - 未写入任何文件)`);
   }

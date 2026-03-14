@@ -1,6 +1,6 @@
 ---
 title: "How to Build MCP Servers: A Complete Guide Using Agent Skills"
-description: "Build production-ready MCP servers for AI agents with the official mcp-builder skill. Master setup, tool design, testing, and deployment using TypeScript a..."
+description: "Build production-ready MCP servers for AI agents with the official mcp-builder skill. Master setup, tool design, testing, and deployment using TypeScript a"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

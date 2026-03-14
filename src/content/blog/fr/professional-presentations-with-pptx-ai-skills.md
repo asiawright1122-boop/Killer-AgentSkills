@@ -1,6 +1,6 @@
 ---
 title: "Présentations de vente alimentées par l'IA : Maîtriser le métier PPTX"
-description: "Maîtrisez les présentations de vente alimentées par l'IA avec PPTX. Créez des diapositives à impact élevé avec des principes de conception éprouvés. Découv..."
+description: "Maîtrisez les présentations de vente alimentées par l'IA avec PPTX. Créez des diapositives à impact élevé avec des principes de conception éprouvés. Découv"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

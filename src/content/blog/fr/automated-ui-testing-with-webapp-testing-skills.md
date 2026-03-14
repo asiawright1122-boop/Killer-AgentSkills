@@ -1,6 +1,6 @@
 ---
 title: "Frontends Infaillibles : La Compétence de Test de Webapp"
-description: "Maîtrisez les tests UI automatisés avec Playwright, la compétence de test de webapp pour les agents IA, et assurez une vérification robuste des application..."
+description: "Maîtrisez les tests UI automatisés avec Playwright, la compétence de test de webapp pour les agents IA, et assurez une vérification robuste des application"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]

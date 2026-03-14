@@ -1,6 +1,6 @@
 ---
 title: "カスタムSlackリアクション: Slack-GIF-Creatorスキルをマスター"
-description: "カスタムSlackリアクションをマスターするために、公式のSlack-GIF-Creatorスキルを使用してアニメーションGIFと絵文字を作成する方法を学びます。最適化されたアニメーションを作成し、Slackのコミュニケーションを強化する。Learn now"
+description: "カスタムSlackリアクションをマスターするために、公式のSlack-GIF-Creatorスキルを使用してアニメーションGIFと絵文字を作成する方法を学びます。最適化されたアニメーションを作成し、Slackのコミュニケーションを強化する。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]

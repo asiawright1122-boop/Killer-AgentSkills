@@ -1,6 +1,6 @@
 ---
 title: "Habilidades oficiales de agente de IA que debes estar utilizando ahora"
-description: "Descubre las habilidades oficiales de agente de IA esenciales para el éxito. Desde análisis de PDFs hasta generación de componentes de React, aprende lo qu..."
+description: "Descubre las habilidades oficiales de agente de IA esenciales para el éxito. Desde análisis de PDFs hasta generación de componentes de React, aprende lo qu"
 pubDate: 2026-02-24
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Official Skills", "Claude Code", "Cursor", "Developer Productivity"]

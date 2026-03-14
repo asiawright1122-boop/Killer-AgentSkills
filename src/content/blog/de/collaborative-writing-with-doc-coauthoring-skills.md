@@ -1,6 +1,6 @@
 ---
 title: "Die Kollaborations-Engine: Meisterung der Dokumenten-Co-Autorenschaft"
-description: "Meisterung der Dokumenten-Co-Autorenschaft mit der Kollaborations-Engine. Entdecken Sie den 3-Stufen-Workflow für PRDs, Spezifikationen und Vorschläge. Ler..."
+description: "Meisterung der Dokumenten-Co-Autorenschaft mit der Kollaborations-Engine. Entdecken Sie den 3-Stufen-Workflow für PRDs, Spezifikationen und Vorschläge. Ler"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]

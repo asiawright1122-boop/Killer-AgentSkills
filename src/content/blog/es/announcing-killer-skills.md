@@ -1,6 +1,6 @@
 ---
 title: "Anunciando Habilidades Asesinas: El Directorio Definitivo para Agentes de IA"
-description: "Descubre Habilidades Asesinas, el directorio definitivo de herramientas de alta calidad para agentes de codificación de IA, y mejora tus habilidades con la..."
+description: "Descubre Habilidades Asesinas, el directorio definitivo de herramientas de alta calidad para agentes de codificación de IA, y mejora tus habilidades con la"
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]

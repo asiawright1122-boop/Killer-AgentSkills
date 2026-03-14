@@ -1,6 +1,6 @@
 ---
 title: "Programar a tus programadores: La guía del creador de habilidades"
-description: "Aprende a programar habilidades de IA efectivas con la guía del creador de habilidades. Domina capacidades de IA modulares y flujos de trabajo especializad..."
+description: "Aprende a programar habilidades de IA efectivas con la guía del creador de habilidades. Domina capacidades de IA modulares y flujos de trabajo especializad"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Skill Development", "AI Engineering", "Automation", "Knowledge Management", "Agent Framework"]

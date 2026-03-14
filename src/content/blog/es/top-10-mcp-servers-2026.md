@@ -1,6 +1,6 @@
 ---
 title: "Top 10 Servidores MCP Esenciales para Claude y Cursor en 2026"
-description: "Descubre los mejores servidores MCP para Claude y Cursor en 2026. Aprende a instalar servidores MCP para automatizar flujos de trabajo y gestionar bases de..."
+description: "Descubre los mejores servidores MCP para Claude y Cursor en 2026. Aprende a instalar servidores MCP para automatizar flujos de trabajo y gestionar bases de"
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

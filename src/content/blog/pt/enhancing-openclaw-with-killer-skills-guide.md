@@ -1,6 +1,6 @@
 ---
 title: "Guia Passo a Passo: Aperfeiçoando o OpenClaw com Habilidades Assassinas para o Agente Autônomo de IA Último"
-description: "Aperfeiçoar o OpenClaw com habilidades assassinas do Killer-Skills. Descubra como sincronizar habilidades profissionais para tarefas complexas com o assist..."
+description: "Aperfeiçoar o OpenClaw com habilidades assassinas do Killer-Skills. Descubra como sincronizar habilidades profissionais para tarefas complexas com o assist"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]

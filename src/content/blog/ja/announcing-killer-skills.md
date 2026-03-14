@@ -1,6 +1,6 @@
 ---
 title: "キラースキルズの発表：AIエージェントのための究極のディレクトリ"
-description: "キラースキルズ：AIコーディングエージェントのための究極のツールディレクトリを公開。高品質のツールを探すなら、ここから始めよう。AIエージェント必須ツールをLearn now"
+description: "キラースキルズ：AIコーディングエージェントのための究極のツールディレクトリを公開。高品質のツールを探すなら、ここから始めよう。AIエージェント必須ツールを"
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]

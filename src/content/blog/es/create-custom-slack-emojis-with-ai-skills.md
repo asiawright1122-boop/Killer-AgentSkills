@@ -1,6 +1,6 @@
 ---
 title: "Reacciones personalizadas de Slack: Dominar la habilidad de Slack-GIF-Creator"
-description: "Master Slack-GIF-Creator, create custom GIFs and emojis, optimize for file size and impact, and elevate your Slack game, Get started"
+description: "Domina Slack-GIF-Creator para crear GIF y emojis personalizados, optimizar tamaño y calidad, y mejorar la comunicación de tu equipo en Slack."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]

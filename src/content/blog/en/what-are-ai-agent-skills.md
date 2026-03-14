@@ -1,6 +1,6 @@
 ---
 title: "What are AI agent skills, and why should you care?"
-description: "Discover AI agent skills, reusable files that instruct coding agents like Claude and Cursor, and learn how they work, when they help, and why they matter,..."
+description: "Discover AI agent skills, reusable files that instruct coding agents like Claude and Cursor, and learn how they work, when they help, and why they matter"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]

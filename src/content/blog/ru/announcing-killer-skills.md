@@ -1,6 +1,6 @@
 ---
 title: "Представляем Killer Skills: Исчерпывающий каталог для ИИ-агентов"
-description: "Представляем Killer Skills - каталог высококачественных инструментов для ИИ-агентов. Discover ключевые навыки и инструменты для программирования. Get started"
+description: "Представляем Killer Skills - каталог высококачественных инструментов для ИИ-агентов. Discover ключевые навыки и инструменты для программирования."
 pubDate: 2026-02-14
 author: "Killer-Skills Team"
 tags: ["Announcement", "AI Agents", "MCP"]

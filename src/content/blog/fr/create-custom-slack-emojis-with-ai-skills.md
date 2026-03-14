@@ -1,6 +1,6 @@
 ---
 title: "Réactions Slack personnalisées : Maîtrisez la compétence Slack-GIF-Creator"
-description: "Maîtrisez les réactions Slack personnalisées avec la compétence Slack-GIF-Creator. Créez des GIF animés et émojis pour améliorer vos interactions. Découvre..."
+description: "Maîtrisez les réactions Slack personnalisées avec la compétence Slack-GIF-Creator. Créez des GIF animés et émojis pour améliorer vos interactions. Découvre"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Slack", "GIFs", "Automation", "Agent Skills"]

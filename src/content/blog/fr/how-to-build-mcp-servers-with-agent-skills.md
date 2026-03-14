@@ -1,6 +1,6 @@
 ---
 title: "Comment créer des serveurs MCP : Un guide complet utilisant les compétences Agent"
-description: "Créez des serveurs MCP complets pour les agents IA avec mcp-builder. Découvrez la configuration, la conception d'outils, les tests et le déploiement avec T..."
+description: "Créez des serveurs MCP complets pour les agents IA avec mcp-builder. Découvrez la configuration, la conception d'outils, les tests et le déploiement avec T"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]
