@@ -46,6 +46,9 @@ Track whether recent SEO changes are improving click-through rate instead of onl
   - `sc-domain:killer-skills.com`
   - or the exact verified property URL in Search Console
 - The service account behind `GSC_CLIENT_EMAIL` must be added to the Search Console property with access, otherwise the API request will fail.
+- Quick setup helper:
+  - `npm run setup:gsc:secrets -- --client-email <service-account-email> --private-key-file </absolute/path/to/private-key.pem> --site-url <sc-domain:killer-skills.com>`
+  - then run: `gh workflow run "SEO Monitoring"`
 - Output produced by the unattended job:
   - `reports/gsc/latest-ctr-report.md`
   - dated query/page CSV snapshots under `reports/gsc/snapshots/`
