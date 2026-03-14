@@ -1,6 +1,6 @@
 ---
 title: "即刻品牌塑造：主题工厂技能指南"
-description: "即刻品牌塑造：主题工厂技能指南，掌握幻灯片、文档和网页的统一样式。使用官方主题工厂技能，应用专业主题于您的 AI 生成文物，Learn now"
+description: "即刻品牌塑造：主题工厂技能指南，掌握幻灯片、文档和网页的统一样式。使用官方主题工厂技能，应用专业主题于您的 AI 生成文物"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Branding", "UI/UX", "Agent Skills", "Design Systems"]

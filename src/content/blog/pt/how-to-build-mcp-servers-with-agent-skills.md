@@ -1,6 +1,6 @@
 ---
 title: "Como Construir Servidores MCP: Um Guia Completo Usando Habilidades de Agente"
-description: "Construa servidores MCP prontos para produção com habilidades de agente. Aprenda configuração, design de ferramentas, teste e implantação com TypeScript e..."
+description: "Construa servidores MCP prontos para produção com habilidades de agente. Aprenda configuração, design de ferramentas, teste e implantação com TypeScript e"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

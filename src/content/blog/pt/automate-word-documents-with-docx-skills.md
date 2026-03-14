@@ -1,6 +1,6 @@
 ---
 title: "Automatize Documentos Comerciais: O Poder da Habilidade DOCX"
-description: "Domine a automação de documentos do Word com a habilidade oficial docx para agentes de IA. Aprenda a gerar relatórios profissionais e gerenciar modelos com..."
+description: "Domine a automação de documentos do Word com a habilidade oficial docx para agentes de IA. Aprenda a gerar relatórios profissionais e gerenciar modelos com"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

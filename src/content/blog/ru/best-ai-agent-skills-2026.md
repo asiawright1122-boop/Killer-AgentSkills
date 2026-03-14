@@ -1,6 +1,6 @@
 ---
 title: "Лучшие навыки агентов ИИ для Claude, Cursor и Windsurf в 2026 году"
-description: "Открыть лучшие навыки агентов ИИ для Claude, Cursor и Windsurf в 2026 году. Узнайте, как установить самые эффективные навыки прямо сейчас и повысить произв..."
+description: "Открыть лучшие навыки агентов ИИ для Claude, Cursor и Windsurf в 2026 году. Узнайте, как установить самые эффективные навыки прямо сейчас и повысить произв"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

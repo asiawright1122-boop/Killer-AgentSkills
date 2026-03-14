@@ -1,6 +1,6 @@
 ---
 title: "Que sont les compétences des agents IA et pourquoi devriez-vous vous en soucier ?"
-description: "Découvrez les compétences des agents IA, des fichiers d'instructions réutilisables pour agents de codage comme Claude et Cursor. Apprenez comment elles fon..."
+description: "Découvrez les compétences des agents IA, des fichiers d'instructions réutilisables pour agents de codage comme Claude et Cursor. Apprenez comment elles fon"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]

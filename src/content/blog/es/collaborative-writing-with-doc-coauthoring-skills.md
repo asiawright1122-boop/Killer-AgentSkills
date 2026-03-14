@@ -1,6 +1,6 @@
 ---
 title: "El Motor de Colaboración: Dominar la Habilidad de Coautoría de Documentos"
-description: "Aprende a dominar la habilidad de coautoría de documentos y escribe documentación de clase mundial. Descubre el flujo de trabajo de 3 etapas para PRDs, esp..."
+description: "Aprende a dominar la habilidad de coautoría de documentos y escribe documentación de clase mundial. Descubre el flujo de trabajo de 3 etapas para PRDs, esp"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]

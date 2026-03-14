@@ -1,6 +1,6 @@
 ---
 title: "Расширение возможностей ИИ-агентов: создание высококачественных MCP-серверов"
-description: "Создайте высококачественные MCP-серверы и расширьте возможности ИИ-агентов с Model Context Protocol. Узнайте, как ИИ взаимодействует с внешними инструмента..."
+description: "Создайте высококачественные MCP-серверы и расширьте возможности ИИ-агентов с Model Context Protocol. Узнайте, как ИИ взаимодействует с внешними инструмента"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

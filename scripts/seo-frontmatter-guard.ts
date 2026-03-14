@@ -2,6 +2,7 @@
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { join, relative, resolve } from 'node:path';
+import { ENGLISH_CTA_PATTERN, TRUNCATION_MARKER_PATTERN } from './lib/meta-description';
 
 type FieldName = 'title' | 'description';
 
@@ -159,9 +160,42 @@ function validateDescription(file: string, field: FieldValue): Issue[] {
   return issues;
 }
 
+function getLocaleFromBlogPath(file: string): string {
+  const rel = relative(BLOG_ROOT, file);
+  const [locale] = rel.split(/[\\/]/);
+  return locale || 'en';
+}
+
+function validateDescriptionAdvisory(file: string, field: FieldValue): Issue[] {
+  const warnings: Issue[] = [];
+  const normalized = field.value.trim();
+  const locale = getLocaleFromBlogPath(file);
+
+  if (TRUNCATION_MARKER_PATTERN.test(normalized)) {
+    warnings.push({
+      file,
+      field: 'description',
+      line: field.line,
+      message: 'description contains truncation marker (...) and may hurt CTR',
+    });
+  }
+
+  if (locale !== 'en' && ENGLISH_CTA_PATTERN.test(normalized)) {
+    warnings.push({
+      file,
+      field: 'description',
+      line: field.line,
+      message: 'non-English description contains English CTA phrase',
+    });
+  }
+
+  return warnings;
+}
+
 function main() {
   const files = collectMarkdownFiles(BLOG_ROOT);
   const issues: Issue[] = [];
+  const advisoryWarnings: Issue[] = [];
 
   for (const file of files) {
     const raw = readFileSync(file, 'utf8');
@@ -193,6 +227,18 @@ function main() {
       });
     } else {
       issues.push(...validateDescription(file, description));
+      advisoryWarnings.push(...validateDescriptionAdvisory(file, description));
+    }
+  }
+
+  if (advisoryWarnings.length > 0) {
+    console.warn(`SEO frontmatter advisory warnings: ${advisoryWarnings.length}`);
+    for (const warning of advisoryWarnings.slice(0, 120)) {
+      const rel = relative(process.cwd(), warning.file);
+      console.warn(`- ${rel}:${warning.line} [${warning.field}] ${warning.message}`);
+    }
+    if (advisoryWarnings.length > 120) {
+      console.warn(`- ...and ${advisoryWarnings.length - 120} more advisory warnings`);
     }
   }
 

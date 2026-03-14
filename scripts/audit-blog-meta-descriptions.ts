@@ -9,10 +9,15 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { getDescriptionLengthRange } from './lib/meta-description';
 
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog');
-const MIN_LEN = 120;
-const MAX_LEN = 158;
+
+function getLocaleFromFile(filePath: string): string {
+  const rel = path.relative(BLOG_DIR, filePath);
+  const [locale] = rel.split(path.sep);
+  return (locale || 'en').toLowerCase();
+}
 
 function extractDescriptionFromFrontmatter(filePath: string): { description: string; length: number } | null {
   const raw = fs.readFileSync(filePath, 'utf-8');
@@ -39,7 +44,16 @@ function main() {
   const fix = args.includes('--fix');
 
   const all = walk(BLOG_DIR);
-  const results: { path: string; rel: string; length: number; description: string; status: 'ok' | 'short' | 'long' }[] = [];
+  const results: {
+    path: string;
+    rel: string;
+    locale: string;
+    length: number;
+    description: string;
+    min: number;
+    max: number;
+    status: 'ok' | 'short' | 'long';
+  }[] = [];
 
   for (const filePath of all) {
     const rel = path.relative(process.cwd(), filePath);
@@ -48,12 +62,17 @@ function main() {
       console.warn(`⚠️ 无 description: ${rel}`);
       continue;
     }
-    const status = data.length < MIN_LEN ? 'short' : data.length > MAX_LEN ? 'long' : 'ok';
+    const locale = getLocaleFromFile(filePath);
+    const { min, max } = getDescriptionLengthRange(locale);
+    const status = data.length < min ? 'short' : data.length > max ? 'long' : 'ok';
     results.push({
       path: filePath,
       rel,
+      locale,
       length: data.length,
       description: data.description,
+      min,
+      max,
       status,
     });
   }
@@ -64,30 +83,31 @@ function main() {
 
   console.log('\n📋 博客 Meta Description 审计\n');
   console.log(`总文章数: ${results.length}`);
-  console.log(`✅ 长度合适 (${MIN_LEN}–${MAX_LEN} 字符): ${ok.length}`);
-  console.log(`⚠️ 过短 (<${MIN_LEN} 字符): ${short.length}`);
-  console.log(`⚠️ 过长 (>${MAX_LEN} 字符): ${long.length}\n`);
+  console.log('✅ 长度合适: 按语言阈值（Latin 120–158, CJK/Arabic 40–200）');
+  console.log(`✅ 长度合适: ${ok.length}`);
+  console.log(`⚠️ 过短: ${short.length}`);
+  console.log(`⚠️ 过长: ${long.length}\n`);
 
   if (short.length > 0) {
-    console.log('--- 过短的 description（建议扩充到 120–158 字符）---\n');
+    console.log('--- 过短的 description（按语言阈值）---\n');
     short
       .sort((a, b) => a.length - b.length)
       .forEach((r) => {
         console.log(`${r.rel}`);
-        console.log(`  长度: ${r.length} 字符`);
+        console.log(`  语言: ${r.locale}, 长度: ${r.length} 字符, 期望 >= ${r.min}`);
         console.log(`  内容: ${r.description.slice(0, 80)}${r.description.length > 80 ? '...' : ''}\n`);
       });
   }
 
   if (long.length > 0) {
-    console.log('--- 过长的 description（建议截断到 158 字符内）---\n');
+    console.log('--- 过长的 description（按语言阈值）---\n');
     long.forEach((r) => {
-      console.log(`${r.rel} (${r.length} 字符)\n`);
+      console.log(`${r.rel} (${r.length} 字符, 期望 <= ${r.max})\n`);
     });
   }
 
   if (fix && short.length > 0) {
-    console.log('提示: 当前未实现自动扩展。请根据上文列表在 frontmatter 中手动将 description 扩充到 120–158 字符。');
+    console.log('提示: 当前未实现自动扩展。请根据上文列表在 frontmatter 中按语言阈值扩充 description。');
   }
 
   process.exit(short.length > 0 ? 1 : 0);

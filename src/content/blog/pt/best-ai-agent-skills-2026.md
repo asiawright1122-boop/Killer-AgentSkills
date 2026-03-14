@@ -1,6 +1,6 @@
 ---
 title: "Melhores habilidades de agente de IA para Claude, Cursor e Windsurf em 2026"
-description: "Descubra as melhores habilidades de agente de IA para Claude, Cursor e Windsurf em 2026. Aprenda quais habilidades são essenciais e como elas podem melhora..."
+description: "Descubra as melhores habilidades de agente de IA para Claude, Cursor e Windsurf em 2026. Aprenda quais habilidades são essenciais e como elas podem melhora"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

@@ -40,6 +40,21 @@ export interface AIStats {
     nvidiaFail: number;
 }
 
+const LOW_INTENT_KEYWORD_PATTERNS = [
+    /(^|\b)(how to|what is|why|guide|tutorial|vs|versus|alternative|alternatives|best|top\s*\d*|comparison|compare|free|download)\b/i,
+    /(是什么|怎么用|如何|教程|指南|对比|替代|最佳|免费)/,
+    /(とは|使い方|チュートリアル|ガイド|比較|代替|おすすめ|無料)/,
+    /(무엇|사용법|튜토리얼|가이드|비교|대안|추천|무료)/,
+];
+const INVALID_SEO_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
+const sanitizeKeywordToken = (raw: string): string =>
+    String(raw || '')
+        .replace(/\s+/g, ' ')
+        .replace(/^[,.;:|/\\\-\s]+|[,.;:|/\\\-\s]+$/g, '')
+        .trim();
+const normalizeKeywordToken = (raw: string): string => sanitizeKeywordToken(raw).toLowerCase();
+const isAsciiKeyword = (text: string): boolean => [...text].every((char) => char.charCodeAt(0) <= 0x7f);
+
 export class AIService {
     private config: AIConfig;
     public stats: AIStats = {
@@ -62,6 +77,60 @@ export class AIService {
             cfAccountId: config?.cfAccountId || process.env.CLOUDFLARE_ACCOUNT_ID || '',
             cfApiToken: config?.cfApiToken || process.env.CLOUDFLARE_API_TOKEN || ''
         };
+    }
+
+    private sanitizeSeoKeywordList(skillName: string, keywords: string[]): string[] {
+        const normalizedSkillName = normalizeKeywordToken(skillName);
+        const seen = new Set<string>();
+        const cleaned: string[] = [];
+
+        for (const rawKeyword of keywords || []) {
+            const keyword = sanitizeKeywordToken(rawKeyword);
+            const normalized = normalizeKeywordToken(keyword);
+            if (!normalized) continue;
+            if (normalized.length < 3 || normalized.length > 48) continue;
+            if (keyword.includes('/')) continue;
+            if (INVALID_SEO_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
+            if (LOW_INTENT_KEYWORD_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
+            if (normalized === normalizedSkillName) continue;
+
+            if (isAsciiKeyword(keyword)) {
+                const tokenCount = normalized.split(' ').filter(Boolean).length;
+                if (tokenCount === 1 && normalized.length < 6) continue;
+                if (tokenCount > 6) continue;
+            }
+
+            if (seen.has(normalized)) continue;
+            seen.add(normalized);
+            cleaned.push(keyword);
+            if (cleaned.length >= 10) break;
+        }
+
+        if (cleaned.length > 0) return cleaned;
+
+        const fallback = [
+            `${skillName} mcp server`,
+            `${skillName} automation`,
+            `${skillName} cli`
+        ].map((item) => sanitizeKeywordToken(item)).filter(Boolean);
+
+        return Array.from(new Set(fallback.map((item) => normalizeKeywordToken(item))))
+            .map((normalized) => fallback.find((item) => normalizeKeywordToken(item) === normalized)!)
+            .slice(0, 6);
+    }
+
+    private sanitizeSeoKeywordsMap(skillName: string, keywordsByLocale: Record<string, string[]>): Record<string, string[]> {
+        const entries = Object.entries(keywordsByLocale || {});
+        const cleaned: Record<string, string[]> = {};
+        for (const [locale, keywords] of entries) {
+            const sanitized = this.sanitizeSeoKeywordList(skillName, keywords || []);
+            if (sanitized.length > 0) cleaned[locale] = sanitized;
+        }
+
+        if (!cleaned.en || cleaned.en.length === 0) {
+            cleaned.en = this.sanitizeSeoKeywordList(skillName, keywordsByLocale?.en || []);
+        }
+        return cleaned;
     }
 
     /**
@@ -201,7 +270,7 @@ export class AIService {
                 const parsed = JSON.parse(jsonStr);
                 this.validateCJKFields(parsed, provider);
             } catch (e) {
-                throw new Error(`${provider} returned invalid JSON: ${e}`); // Propagate error for retry
+                throw new Error(`${provider} returned invalid JSON`, { cause: e }); // Propagate error for retry
             }
         }
 
@@ -402,10 +471,10 @@ BAD: "Easy to use", "Improves workflow"
 GOOD: "Generates deterministic SVG flow fields using p5.js", "Supports hot-reload via Vite dev server"
 
 ### F. Keywords (6-10 items)
-Long-tail search terms mixing 3 intent types:
-- Informational: "how to use ${skillName}", "what is ${skillName}"
-- Navigational: "${skillName} alternative", "${skillName} vs [competitor]"
-- Transactional: "${skillName} install", "${skillName} setup guide"
+Capability-first long-tail phrases:
+- Use concrete task + technology combinations (2-5 words), e.g. "playwright browser automation"
+- Include at most ONE install/setup phrase
+- NEVER output query wrappers or comparison bait: "how to", "what is", "vs", "best", "top", "alternative", "tutorial", "guide"
 
 Output STRICT JSON only, no markdown wrapping:
 {
@@ -478,7 +547,10 @@ CRITICAL RULES:
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
 ### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
 ### E. Key Features (4-6 items) — real technical highlights extracted from content
-### F. Keywords (6-10 items) — long-tail dev search terms including informational, navigational, and transactional queries
+### F. Keywords (6-10 items) — capability-first search terms
+- Prefer task + technology phrases (2-5 words), e.g. "static asset optimization workflow"
+- Include at most ONE install/setup phrase
+- NEVER output low-intent wrappers or comparison bait ("how to", "what is", "vs", "best", "top", "alternative", "tutorial", "guide")
 
 Output STRICT JSON only, no markdown wrapping:
 {
@@ -549,7 +621,7 @@ Output STRICT JSON only, no markdown wrapping:
                 description: cleanAndTruncate(mergedMetaDesc.en ? mergedMetaDesc : mergedDesc, 160),
                 definition: mergedDefinition.en ? mergedDefinition : { en: text },
                 features: mergedFeatures,
-                keywords: mergedKeywords
+                keywords: this.sanitizeSeoKeywordsMap(skillName || 'AI Skill', mergedKeywords)
             }
         };
     }

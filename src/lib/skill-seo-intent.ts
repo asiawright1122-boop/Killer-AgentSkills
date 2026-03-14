@@ -195,17 +195,65 @@ const GENERIC_TERMS = [
   '技能',
 ];
 
+const LOW_INTENT_PATTERNS = [
+  /(^|\b)(how to|what is|why|guide|tutorial|vs|versus|alternative|alternatives|best|top\s*\d*|comparison|compare|free|download)\b/i,
+  /(是什么|怎么用|如何|教程|指南|对比|替代|最佳|免费)/,
+  /(とは|使い方|チュートリアル|ガイド|比較|代替|おすすめ|無料)/,
+  /(무엇|사용법|튜토리얼|가이드|비교|대안|추천|무료)/,
+];
+
+const INVALID_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
+
 const normalizeText = (text: string) => text.toLowerCase().replace(/\s+/g, ' ').trim();
+const sanitizeKeywordText = (text: string) =>
+  text
+    .replace(/\s+/g, ' ')
+    .replace(/^[,.;:|/\\\-\s]+|[,.;:|/\\\-\s]+$/g, '')
+    .trim();
+
+const isAsciiOnly = (text: string) => [...text].every((char) => char.charCodeAt(0) <= 0x7f);
+
+export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: number }): string[] {
+  const max = options?.max ?? 8;
+  const seen = new Set<string>();
+  const normalizedGenericTerms = new Set(GENERIC_TERMS.map((term) => normalizeText(term)));
+  const cleaned: string[] = [];
+
+  for (const rawKeyword of rawKeywords) {
+    if (!rawKeyword) continue;
+    const keyword = sanitizeKeywordText(String(rawKeyword));
+    const normalized = normalizeText(keyword);
+    if (!normalized) continue;
+    if (normalized.length < 3 || normalized.length > 48) continue;
+    if (keyword.includes('/')) continue;
+    if (INVALID_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
+    if (LOW_INTENT_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
+    if (normalizedGenericTerms.has(normalized)) continue;
+    if (isAsciiOnly(keyword)) {
+      const tokenCount = normalized.split(' ').filter(Boolean).length;
+      if (tokenCount === 1 && normalized.length < 6) continue;
+      if (tokenCount > 6) continue;
+    }
+    if (seen.has(normalized)) continue;
+
+    seen.add(normalized);
+    cleaned.push(keyword);
+    if (cleaned.length >= max) break;
+  }
+
+  return cleaned;
+}
 
 function pickSupportTerm(rawKeywords: string[], intentKeywords: string[]): string {
-  const blocked = new Set([...GENERIC_TERMS, ...intentKeywords.map((keyword) => normalizeText(keyword))]);
+  const blocked = new Set([
+    ...GENERIC_TERMS.map((term) => normalizeText(term)),
+    ...intentKeywords.map((keyword) => normalizeText(keyword)),
+  ]);
 
-  for (const keyword of rawKeywords) {
+  for (const keyword of sanitizeSkillKeywords(rawKeywords, { max: 12 })) {
     const normalized = normalizeText(keyword);
-    if (!normalized || normalized.length < 3 || normalized.length > 32) continue;
     if (blocked.has(normalized)) continue;
-    if (normalized.includes('/')) continue;
-    return keyword.trim();
+    return keyword;
   }
 
   return '';

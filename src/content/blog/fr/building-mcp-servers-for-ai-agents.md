@@ -1,6 +1,6 @@
 ---
 title: "Autonomiser les agents IA : Création de serveurs MCP de haute qualité"
-description: "Créez des serveurs MCP de haute qualité pour autonomiser les agents IA, découvrez comment interagir avec des outils et services externes, Learn now"
+description: "Créez des serveurs MCP de haute qualité pour autonomiser les agents IA, découvrez comment interagir avec des outils et services externes"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "AI Agents", "Protocol", "TypeScript", "Python", "API Integration"]

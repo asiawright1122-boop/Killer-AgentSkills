@@ -1,6 +1,6 @@
 ---
 title: "Beseitige den KI-Müll: Beherrsche die Frontend-Design-Fähigkeit"
-description: "Beseitige den KI-Müll mit der Frontend-Design-Fähigkeit. Erstelle atemberaubende Weboberflächen und entdecke die Geheimnisse unverwechselbaren UI/UX-Design..."
+description: "Beseitige den KI-Müll mit der Frontend-Design-Fähigkeit. Erstelle atemberaubende Weboberflächen und entdecke die Geheimnisse unverwechselbaren UI/UX-Design"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

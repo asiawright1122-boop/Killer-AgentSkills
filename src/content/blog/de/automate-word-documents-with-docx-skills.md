@@ -1,6 +1,6 @@
 ---
 title: "Automatisieren Sie Geschäftsdokumente: Die Leistungsfähigkeit der DOCX-Fertigkeit"
-description: "Meistern Sie die DOCX-Fertigkeit für KI-Agenten und automatisieren Sie Geschäftsdokumente. Erfahren Sie, wie Sie professionelle Berichte erstellen und komp..."
+description: "Meistern Sie die DOCX-Fertigkeit für KI-Agenten und automatisieren Sie Geschäftsdokumente. Erfahren Sie, wie Sie professionelle Berichte erstellen und komp"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

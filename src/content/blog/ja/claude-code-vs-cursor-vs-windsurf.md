@@ -1,6 +1,6 @@
 ---
 title: "Claude Code vs Cursor vs Windsurf: AIスキルを最も効果的に扱うIDEは？"
-description: "AIスキルを最も効果的に扱うIDEは？ Claude Code、Cursor、Windsurfのエージェントスキル処理の違いを比較してみよう。Learn now"
+description: "AIスキルを最も効果的に扱うIDEは？ Claude Code、Cursor、Windsurfのエージェントスキル処理の違いを比較してみよう。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["Claude Code", "Cursor", "Windsurf", "IDE Comparison", "AI Skills", "Developer Tools"]

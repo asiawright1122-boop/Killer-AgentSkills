@@ -1,6 +1,6 @@
 ---
 title: "5 cas d'utilisation puissants pour OpenClaw : de l'assistant personnel à l'expert en automatisation"
-description: "Découvrez 5 cas d'utilisation puissants pour OpenClaw, de l'assistant personnel à l'expert en automatisation. Améliorez votre efficacité avec cet agent d'I..."
+description: "Découvrez 5 cas d'utilisation puissants pour OpenClaw, de l'assistant personnel à l'expert en automatisation. Améliorez votre efficacité avec cet agent d'I"
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Automation", "Productivity"]

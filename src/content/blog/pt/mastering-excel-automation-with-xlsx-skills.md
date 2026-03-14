@@ -1,6 +1,6 @@
 ---
 title: "Mestre da Dados Dinâmicos: Um Guia para a Habilidade XLSX"
-description: "Domine a habilidade xlsx oficial e aprenda a criar modelos financeiros, automatizar a limpeza de dados e gerar relatórios do Excel dinâmicos, tornando-se u..."
+description: "Domine a habilidade xlsx oficial e aprenda a criar modelos financeiros, automatizar a limpeza de dados e gerar relatórios do Excel dinâmicos, tornando-se u"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

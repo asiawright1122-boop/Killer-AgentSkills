@@ -1,6 +1,6 @@
 ---
 title: "Exzellenz in der Unternehmenskommunikation: Die interne Kommunikationsfähigkeit"
-description: "Meistern Sie die interne Kommunikationsfähigkeit und lernen Sie, professionelle Unternehmenskommunikation mit KI zu schreiben. Starten Sie jetzt mit 3P-Upd..."
+description: "Meistern Sie die interne Kommunikationsfähigkeit und lernen Sie, professionelle Unternehmenskommunikation mit KI zu schreiben. Starten Sie jetzt mit 3P-Upd"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]

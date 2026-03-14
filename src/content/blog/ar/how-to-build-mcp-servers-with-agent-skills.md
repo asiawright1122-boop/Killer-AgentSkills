@@ -1,6 +1,6 @@
 ---
 title: "كيفية بناء خوادم MCP: دليل كامل باستخدام مهارات الوكيل"
-description: "تعلم بناء خوادم MCP جاهزة للإنتاج باستخدام مهارة بناء MCP الرسمية. اكتشف كيفية الإعداد والتصميم والاختبار والنشر باستخدام TypeScript و Python. احصل على دلي..."
+description: "تعلم بناء خوادم MCP جاهزة للإنتاج باستخدام مهارة بناء MCP الرسمية. اكتشف كيفية الإعداد والتصميم والاختبار والنشر باستخدام TypeScript و Python. احصل على دلي"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

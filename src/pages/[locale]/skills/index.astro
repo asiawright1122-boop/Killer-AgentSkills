@@ -49,6 +49,9 @@ const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
 const category = normalizeCategoryId(url.searchParams.get('category') || '');
 const view = url.searchParams.get('view') || '';
 const owner = url.searchParams.get('owner') || '';
+const topicParam = (url.searchParams.get('topic') || '').trim();
+const normalizeFacet = (value: string) => value.toLowerCase().replace(/\s+/g, ' ').trim();
+const topic = normalizeFacet(topicParam);
 const page = parseInt(url.searchParams.get('page') || '1', 10);
 const ITEMS_PER_PAGE = 12;
 
@@ -73,6 +76,18 @@ if (view === 'official') {
 // Apply owner filter
 if (owner) {
   skills = skills.filter((s) => s.owner === owner);
+}
+
+// Apply topic filter
+if (topic) {
+  skills = skills.filter((s) => {
+    const topics = Array.isArray(s.topics) ? s.topics : [];
+    return topics.some((item) => {
+      const normalized = normalizeFacet(String(item || ''));
+      if (!normalized) return false;
+      return normalized === topic || normalized.includes(topic) || topic.includes(normalized);
+    });
+  });
 }
 
 // Apply search filter
@@ -143,6 +158,7 @@ else if (view === 'official')
 else if (view === 'featured')
   pageTitle = isZh ? '精选 AI Agent Skills 与 MCP Servers' : 'Featured AI Agent Skills & MCP Servers';
 else if (view === 'latest') pageTitle = isZh ? '最新可安装 AI Agent Skills' : 'Latest Installable AI Agent Skills';
+else if (topic) pageTitle = isZh ? `${topicParam}：相关 AI Agent Skills` : `${topicParam}: Related AI Agent Skills`;
 
 if (owner) {
   const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
@@ -180,6 +196,10 @@ if (cleanQuery) {
   pageDescription = isZh
     ? '追踪最新收录与更新的 AI Agent Skills，快速获取新发布 MCP Servers 与自动化能力。'
     : 'Track newly indexed AI agent skills to discover fresh MCP servers and automation capabilities early.';
+} else if (topic) {
+  pageDescription = isZh
+    ? `按主题“${topicParam}”筛选可安装 AI Agent Skills 与 MCP Servers，查看相关能力并一键部署。`
+    : `Filter installable AI agent skills and MCP servers by topic "${topicParam}" to find relevant capabilities and deploy fast.`;
 }
 if (queryIntent) {
   pageDescription = queryIntent.description;
@@ -203,6 +223,7 @@ const pageKeywords = buildKeywordString(
   queryIntent?.displayTerm,
   queryIntent?.keywords || [],
   category && category !== 'all' ? [category, `${category} mcp server`] : [],
+  topicParam,
   owner,
   view,
   'Killer-Skills',
@@ -215,6 +236,7 @@ const buildPaginationUrl = (p: number) => {
   if (category) params.set('category', category);
   if (view) params.set('view', view);
   if (owner) params.set('owner', owner);
+  if (topicParam) params.set('topic', topicParam);
   if (p > 1) params.set('page', String(p));
 
   const serialized = params.toString().replace(/\+/g, '%20');
@@ -225,7 +247,7 @@ const buildPaginationUrl = (p: number) => {
 const baseSkillsUrl = `https://killer-skills.com/${locale}/skills`;
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
-const hasListingParams = Boolean(cleanQuery || category || view || owner || currentPage > 1);
+const hasListingParams = Boolean(cleanQuery || category || view || owner || topicParam || currentPage > 1);
 const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
 
 // Category list for sidebar

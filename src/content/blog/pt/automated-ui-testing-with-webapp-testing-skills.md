@@ -1,6 +1,6 @@
 ---
 title: "Frontends à Prova de Balas: A Habilidade de Teste de Webapp"
-description: "Domine testes automatizados de UI com a habilidade oficial de teste de webapp, aprenda a usar o Playwright para verificação robusta de aplicações web, Get..."
+description: "Domine testes automatizados de UI com a habilidade oficial de teste de webapp, aprenda a usar o Playwright para verificação robusta de aplicações web, Get"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]

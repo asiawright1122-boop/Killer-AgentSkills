@@ -1,6 +1,6 @@
 ---
 title: "Maestría en Datos Dinámicos: Una Guía para la Habilidad XLSX"
-description: "Maestría en Datos Dinámicos con XLSX: Aprende a crear modelos financieros y automatizar la limpieza de datos con la habilidad oficial xlsx. Domina la autom..."
+description: "Maestría en Datos Dinámicos con XLSX: Aprende a crear modelos financieros y automatizar la limpieza de datos con la habilidad oficial xlsx. Domina la autom"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

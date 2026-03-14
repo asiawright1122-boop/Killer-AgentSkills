@@ -5,7 +5,7 @@ import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../.
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
-import { resolveSkillSeoIntent } from '../../../../lib/skill-seo-intent';
+import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
 import type { Env } from '../../../../lib/kv';
 import { getCollection } from 'astro:content';
 import SkillActions from '../../../../islands/SkillActions';
@@ -173,7 +173,10 @@ const truncateText = (text: string, maxLen: number) => {
 };
 
 // Get SEO Keywords
-const keywordsList = skill.seo?.keywords?.[typedLocale] || skill.seo?.keywords?.['en'] || skill.topics || [];
+const rawKeywordsList = skill.seo?.keywords?.[typedLocale] || skill.seo?.keywords?.['en'] || [];
+const sanitizedSeoKeywords = sanitizeSkillKeywords(rawKeywordsList, { max: 12 });
+const fallbackTopicKeywords = sanitizeSkillKeywords(skill.topics || [], { max: 12 });
+const keywordsList = sanitizedSeoKeywords.length > 0 ? sanitizedSeoKeywords : fallbackTopicKeywords;
 const skillSeoIntent = resolveSkillSeoIntent(skill.category, keywordsList, typedLocale);
 const matchesIntentSignals = (text: string | undefined, signals: string[]) => {
   if (!text) return false;
@@ -184,7 +187,7 @@ const matchesIntentSignals = (text: string | undefined, signals: string[]) => {
 // Construct SEO Title
 const category = getCategoryLabel(skill.category, t);
 const skillName = (skill.name || repo).trim();
-const tagline = skill.seo?.keywords?.[typedLocale]?.[0] || category || 'AI Skill';
+const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI Skill';
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const templateTitleA = `${skillName} ${skillSeoIntent.titleLabel}`;
 const templateTitleB =
@@ -1035,7 +1038,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                 topics.length > 0 ? (
                   topics.map((topic: string) => (
                     <a
-                      href={`/${locale}/skills?topic=${topic}`}
+                      href={`/${locale}/skills?topic=${encodeURIComponent(topic)}`}
                       class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                     >
                       [{topic}]

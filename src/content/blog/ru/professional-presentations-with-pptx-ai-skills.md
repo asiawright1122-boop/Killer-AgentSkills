@@ -1,6 +1,6 @@
 ---
 title: "AI-генерация презентаций: Осваиваем навык PPTX"
-description: "Осваиваем навык PPTX для создания профессиональных презентаций в PowerPoint с помощью ИИ. Узнайте принципы дизайна для высокоэффективных слайдов. Learn now"
+description: "Осваиваем навык PPTX для создания профессиональных презентаций в PowerPoint с помощью ИИ. Узнайте принципы дизайна для высокоэффективных слайдов."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

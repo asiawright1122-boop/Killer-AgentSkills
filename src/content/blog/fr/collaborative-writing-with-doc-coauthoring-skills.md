@@ -1,6 +1,6 @@
 ---
 title: "Le Moteur de Collaboration : Maîtriser la Compétence de Co-rédaction de Documents"
-description: "Maîtrisez la co-rédaction de documents avec le moteur de collaboration. Découvrez le flux de travail en 3 étapes pour les PRD, spécifications et propositio..."
+description: "Maîtrisez la co-rédaction de documents avec le moteur de collaboration. Découvrez le flux de travail en 3 étapes pour les PRD, spécifications et propositio"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]

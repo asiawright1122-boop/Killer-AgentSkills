@@ -1,6 +1,6 @@
 ---
 title: "Maestría en Diseño Estático: Explorando la Habilidad de Diseño de Canvas"
-description: "Maestría en Diseño Estático: Aprende a crear pósters y diseños de calidad museística con la habilidad oficial de diseño de canvas. Descubre manifiestos de..."
+description: "Maestría en Diseño Estático: Aprende a crear pósters y diseños de calidad museística con la habilidad oficial de diseño de canvas. Descubre manifiestos de"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]

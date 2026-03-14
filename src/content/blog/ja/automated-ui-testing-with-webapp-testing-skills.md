@@ -1,6 +1,6 @@
 ---
 title: "無敵のフロントエンド: Webアプリケーションテストスキル"
-description: "Webアプリケーションテストスキルをマスターするには、Playwrightを使用した自動UIテストを実現しましょう。公式のテストスキルでWebアプリの検証をLearn now"
+description: "Webアプリケーションテストスキルをマスターするには、Playwrightを使用した自動UIテストを実現しましょう。公式のテストスキルでWebアプリの検証を"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Testing", "Playwright", "Web Development", "QA", "Agent Skills"]

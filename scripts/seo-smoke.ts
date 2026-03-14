@@ -50,6 +50,12 @@ const checks: PageCheck[] = [
     expectJsonLd: true,
   },
   {
+    path: '/en/skills?topic=browser%20automation',
+    canonical: 'https://killer-skills.com/en/skills',
+    expectNoindex: true,
+    expectJsonLd: true,
+  },
+  {
     path: '/en/solutions/workflow-automation',
     titleIncludes: 'Workflow Automation',
     canonical: 'https://killer-skills.com/en/solutions/workflow-automation',
