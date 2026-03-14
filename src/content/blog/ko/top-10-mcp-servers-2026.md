@@ -1,6 +1,6 @@
 ---
-title: "2026 Claude & Cursor "
-description: "Master Claude Code with our essential MCP guide, covering Cursor and Windsurf techniques. Get started with expert tips and proven methods to improve your s..."
+title: "2026년 Claude & Cursor를 위한 최상위 10가지 필수 MCP 서버"
+description: "2026년에 Claude Code·Cursor·Windsurf에서 바로 활용할 MCP 서버 10가지를 소개합니다. 설치 커맨드와 사용 시나리오를 함께 제공합니다."
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]
