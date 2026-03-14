@@ -1,6 +1,6 @@
 ---
-title: "AI: "
-description: "Discover the power of AI in algorithmic art with p5.js, flow fields, and particle systems. Master essential skills and create stunning visuals. Get started"
+title: "코드를 캔버스로: 알고리즘 아트의 힘"
+description: "algorithmic-art 스킬과 p5.js를 활용해 생성 예술을 만드는 방법을 안내합니다. 시드 랜덤, 플로우 필드, 파티클 시스템까지 실전으로 다룹니다."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Generative Art", "p5.js", "Agent Skills", "Algorithmic Art"]

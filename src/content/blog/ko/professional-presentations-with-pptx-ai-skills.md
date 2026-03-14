@@ -1,6 +1,6 @@
 ---
-title: "AI-Powered Pitch Decks: PPTX "
-description: "Discover the power of AI-powered pitch decks, transforming PPTX presentations with proven results, essential for business success, get started now"
+title: "불릿 포인트를 넘어서: PPTX 기술로 엘리트 프레젠테이션 만들기"
+description: "공식 pptx 스킬로 설득력 있는 프레젠테이션을 자동 생성하세요. 구조 설계, 디자인 원칙, 템플릿 적용까지 AI 워크플로로 정리했습니다."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["PowerPoint", "Presentation Design", "Agent Skills", "Business efficiency"]

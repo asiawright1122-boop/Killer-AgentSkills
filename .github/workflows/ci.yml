@@ -47,6 +47,9 @@ jobs:
       - name: Format Check SEO Automation Files
         run: npm run format:check:seo-automation
 
+      - name: Validate Blog SEO Frontmatter
+        run: npm run seo:frontmatter:guard
+
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npx astro check --root .
 

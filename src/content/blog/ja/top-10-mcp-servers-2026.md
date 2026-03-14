@@ -1,6 +1,6 @@
 ---
-title: "2026 Claude & Cursor "
-description: "Master MCP Model Context Protocol with Claude and Cursor. Learn how to harness AI for Windsurf code optimization. Discover the essential tools and techniqu..."
+title: "2026年のClaude & Cursorに不可欠なMCPサーバーTOP10"
+description: "Claude Code・Cursor・Windsurf 向けに、2026年に導入すべき MCP サーバー10選を解説。用途・効果・インストール方法をまとめて比較します。"
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP Server", "AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Automation"]

@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "Master MCP AI with TypeScript and Python, discover the essential mcp-builder tools, and get started with expert tutorials, learn now."
+title: "MCP 서버 구축 방법: AI 에이전트가 실제 사용하는 서버"
+description: "공식 mcp-builder 스킬로 프로덕션급 MCP 서버를 구축하는 방법을 설명합니다. TypeScript/Python 설정, 도구 설계, 테스트, 배포까지 다룹니다."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["MCP", "Tutorial", "Agent Skills", "Claude Code"]

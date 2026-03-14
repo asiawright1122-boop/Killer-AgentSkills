@@ -1,6 +1,6 @@
 ---
-title: "AI "
-description: "Master essential AI-powered frontend design techniques to boost UI/UX. Discover proven methods for seamless user experiences. Get started"
+title: "일반적인 것을 넘어선 것: Frontend-Design으로 기억에 남는 UI 만들기"
+description: "공식 frontend-design 스킬로 개성 있는 프로덕션급 UI를 만드는 방법을 소개합니다. 레이아웃, 타이포그래피, 모션 설계를 실전 예시로 설명합니다."
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]

@@ -1,6 +1,6 @@
 ---
-title: "Automate Business Documents: The Power of the DOCX "
-description: "Master DOCX automation, generate professional reports, track changes, and manage complex templates with ease. Get started."
+title: "プロフェッショナルな文書自動化：DOCXスキルの習得"
+description: "公式 DOCX スキルで Word 文書を自動化。レポート生成、変更履歴の管理、複雑なテンプレート運用を AI エージェントで効率化できます。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Document Automation", "Word", "Agent Skills", "Business efficiency"]

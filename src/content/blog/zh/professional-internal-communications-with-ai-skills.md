@@ -1,6 +1,6 @@
 ---
-title: " Corporate Communication Excellence: The Internal-Comms "
-description: " Master professional corporate communications with the official internal-comms . Learn how to write 3P updates, newsletters, and incident reports with AI."
+title: "像领导者一样沟通：掌握内部沟通技能"
+description: "官方 internal-comms 技能可帮助你快速产出 3P 更新、周报、公告与事故复盘，让 AI 生成更专业、可执行的内部沟通文档。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Internal Communications", "Leadership", "Agent Skills", "Business efficiency"]
