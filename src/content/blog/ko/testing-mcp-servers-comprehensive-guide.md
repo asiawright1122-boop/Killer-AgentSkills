@@ -1,6 +1,6 @@
 ---
-title: "AI "
-description: "MCP,, CI/CD"
+title: "MCP 서버 테스트 완전 가이드: AI 개발자를 위한 실전 전략"
+description: "MCP 서버의 단위 테스트, 통합 테스트, 모킹, CI/CD 자동화를 정리해 신뢰할 수 있는 AI 에이전트 통합을 구축하는 방법을 설명합니다."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/testing-mcp-servers-comprehensive-guide.webp

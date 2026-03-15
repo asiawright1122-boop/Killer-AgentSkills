@@ -1,6 +1,6 @@
 ---
-title: "MCP"
-description: "MCPAI"
+title: "MCP サーバーテスト完全ガイド：AI 開発者向け"
+description: "MCP サーバーの単体テスト、統合テスト、モック、CI/CD 自動化までを整理し、信頼性の高い AI 連携を構築する方法を解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/testing-mcp-servers-comprehensive-guide.webp

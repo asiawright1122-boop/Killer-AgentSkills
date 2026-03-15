@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "MCP."
+title: "MCP 서버가 작동하지 않을 때: 완전한 문제 해결 가이드"
+description: "MCP 서버에서 자주 발생하는 오류와 연결 문제를 정리하고, 다시 정상 동작시키기 위한 실전 해결 방법을 단계별로 설명합니다."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp

@@ -1,6 +1,6 @@
 ---
-title: "LangChain MCP : AI "
-description: "LangChain MCP AI"
+title: "LangChain vs MCP: AI 통합 프레임워크 비교"
+description: "LangChain과 MCP를 비교해 AI 에이전트 개발에서의 차이점, 활용 사례, 어떤 상황에서 각각을 선택해야 하는지 설명합니다."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/langchain-vs-mcp-ai-integration.webp

@@ -1,6 +1,6 @@
 ---
-title: "MCP"
-description: "Secure your MCP servers for production use. Covers input validation, rate limiting, audit logging, network security, and compliance considerations for enterprise deployments."
+title: "本番環境向け MCP サーバーセキュリティのベストプラクティス"
+description: "本番環境で MCP サーバーを安全に運用するために、入力検証、レート制限、監査ログ、ネットワーク保護、コンプライアンス対応を解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-security-best-practices.webp

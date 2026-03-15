@@ -1,6 +1,6 @@
 ---
-title: "MCP"
-description: "MCPAPIOAuth"
+title: "MCP 認証ガイド：安全なサーバー設定のベストプラクティス"
+description: "MCP サーバーの認証設定を安全に行う方法を解説します。API キー、OAuth、トークン認証、運用時のベストプラクティスを紹介します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp

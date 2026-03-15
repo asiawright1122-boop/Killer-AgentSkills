@@ -1,6 +1,6 @@
 ---
-title: "Cloudflare Workers"
-description: "MCP"
+title: "MCP サーバーを Cloudflare Workers にデプロイする方法"
+description: "MCP サーバーを Cloudflare Workers にデプロイする手順を解説します。コスト削減、低遅延、自動スケールのポイントも紹介します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/deploy-mcp-server-to-cloudflare-workers.webp

@@ -1,6 +1,6 @@
 ---
 title: "Serveur MCP non fonctionnel ? Guide de dépannage complet"
-description: "Résolvez les problèmes de votre serveur MCP avec ce guide"
+description: "Découvrez les erreurs courantes, les problèmes de connexion et les solutions concrètes pour remettre rapidement votre serveur MCP en état de marche."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp

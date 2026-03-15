@@ -1,6 +1,6 @@
 ---
-title: "Claude Code vs Cursor: "
-description: "Claude CodeCursor IDEMCP"
+title: "Claude Code vs Cursor：どちらの MCP サーバー対応が優れているか？"
+description: "Claude Code と Cursor の MCP サーバー対応を比較し、AI エージェント連携、性能、開発体験の違いを解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/claude-code-vs-cursor-mcp-comparison.webp
