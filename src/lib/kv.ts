@@ -68,6 +68,99 @@ function normalizeTrackedSkillFallback(row: any): any | null {
   };
 }
 
+function parseInstalledSkillFrontmatter(raw: string): { name: string; description: string; body: string } | null {
+  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  if (!match) return null;
+
+  const frontmatter = match[1];
+  const body = match[2]?.trim() || '';
+  const nameMatch = frontmatter.match(/^name:\s*(.+)$/m);
+  const descriptionMatch = frontmatter.match(/^description:\s*(.+)$/m);
+  const name = nameMatch?.[1]?.trim();
+  const description = descriptionMatch?.[1]?.trim();
+
+  if (!name) return null;
+
+  return {
+    name,
+    description: description || `${name} AI agent skill.`,
+    body: body || `# ${name}`,
+  };
+}
+
+async function getInstalledSkillsFallback(): Promise<any[]> {
+  const fs = await import('node:fs');
+  const path = await import('node:path');
+
+  const baseDirs = [
+    path.resolve(process.cwd(), 'packages/cli/.opencode/skills'),
+    path.resolve(process.cwd(), 'packages/cli/.cline/skills'),
+  ];
+
+  const collected = new Map<string, any>();
+
+  for (const baseDir of baseDirs) {
+    if (!fs.existsSync(baseDir)) continue;
+
+    for (const entry of fs.readdirSync(baseDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+
+      const skillDir = path.join(baseDir, entry.name);
+      const metaPath = path.join(skillDir, '.killer-meta.json');
+      const skillPath = path.join(skillDir, 'SKILL.md');
+      if (!fs.existsSync(metaPath) || !fs.existsSync(skillPath)) continue;
+
+      try {
+        const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+        const repoUrl = typeof meta.repoUrl === 'string' ? meta.repoUrl.trim() : '';
+        const subpath = typeof meta.subpath === 'string' ? meta.subpath.trim() : '';
+        const installedAt = typeof meta.installedAt === 'string' ? meta.installedAt : '';
+        const repoMatch = repoUrl.match(/github\.com\/([^/]+)\/([^/]+?)(?:\.git)?$/i);
+        const skillMatch = subpath.match(/^skills\/([^/]+)$/);
+        if (!repoMatch || !skillMatch) continue;
+
+        const owner = repoMatch[1];
+        const repo = repoMatch[2];
+        const skillSlug = skillMatch[1];
+        const rawSkill = fs.readFileSync(skillPath, 'utf-8');
+        const parsed = parseInstalledSkillFrontmatter(rawSkill);
+        if (!parsed) continue;
+
+        const id = `${owner}/${repo}/${skillSlug}`;
+        if (collected.has(id)) continue;
+
+        collected.set(id, {
+          id,
+          name: parsed.name,
+          skillName: parsed.name,
+          description: { en: parsed.description },
+          owner,
+          repo,
+          repoPath: `${owner}/${repo}`,
+          stars: 0,
+          forks: 0,
+          updatedAt: installedAt,
+          lastSynced: installedAt,
+          topics: ['agent-skills'],
+          category: 'official',
+          qualityScore: 0,
+          filePath: path.relative(process.cwd(), skillPath),
+          skillMd: {
+            name: parsed.name,
+            description: parsed.description,
+            bodyPreview: parsed.body,
+            body: parsed.body,
+          },
+        });
+      } catch {
+        // ignore malformed installed skill metadata
+      }
+    }
+  }
+
+  return Array.from(collected.values());
+}
+
 export async function getLocalSkillsFallback(): Promise<any[]> {
   if (_localSkillsCache && Date.now() - _localSkillsCacheTime < 30000) {
     return _localSkillsCache || [];
@@ -81,6 +174,13 @@ export async function getLocalSkillsFallback(): Promise<any[]> {
       const content = fs.readFileSync(mainCachePath, 'utf-8');
       const data = JSON.parse(content);
       _localSkillsCache = Array.isArray(data) ? data : data.skills || [];
+      _localSkillsCacheTime = Date.now();
+      return _localSkillsCache || [];
+    }
+
+    const installedSkills = await getInstalledSkillsFallback();
+    if (installedSkills.length > 0) {
+      _localSkillsCache = installedSkills;
       _localSkillsCacheTime = Date.now();
       return _localSkillsCache || [];
     }
