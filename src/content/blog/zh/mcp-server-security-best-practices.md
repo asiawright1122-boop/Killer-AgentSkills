@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "MCP"
+title: "MCP 服务器安全最佳实践：生产环境加固指南"
+description: "本指南介绍如何为生产环境中的 MCP 服务器建立安全防护，涵盖输入验证、速率限制、审计日志、网络隔离与合规要求。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-security-best-practices.webp
