@@ -108,8 +108,8 @@ const checks: PageCheck[] = [
     expectJsonLd: true,
   },
   {
-    path: '/en/skills/anthropics/skills/side-project-personality-quiz',
-    canonical: 'https://killer-skills.com/en/skills/anthropics/skills',
+    path: '/en/skills/anthropics/skills/algorithmic-art',
+    canonical: 'https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art',
     expectJsonLd: true,
     mustNotContain: ['aggregateRating', 'ratingValue'],
   },
