@@ -1,6 +1,6 @@
 ---
 title: "Claude Code vs Cursor: Which MCP Server Support is Better?"
-description: "Compare MCP server support between Claude Code and Cursor IDE. Find out which editor offers better AI agent integration, faster performance, and developer experience."
+description: "Compare Claude Code and Cursor IDE for MCP server support, focusing on AI agent integration, performance, and developer experience."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/claude-code-vs-cursor-mcp-comparison.webp
