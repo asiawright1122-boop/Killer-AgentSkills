@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SOLUTION_INTENT_SLUGS } from '../lib/solution-intents';
 
-export const prerender = true;
+export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
 const STATIC_PAGES = [

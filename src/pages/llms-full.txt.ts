@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-export const prerender = true;
+export const prerender = false;
 
 /**
  * llms-full.txt — Extended machine-readable site information for LLM crawlers.
