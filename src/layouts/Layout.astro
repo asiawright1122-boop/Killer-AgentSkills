@@ -16,6 +16,8 @@ interface Props {
   noindex?: boolean;
   ogType?: 'website' | 'article' | 'book' | 'profile' | 'product';
   customCanonical?: string;
+  availableLocales?: string[];
+  xDefaultLocale?: string;
 }
 
 const SITE_URL = 'https://killer-skills.com';
@@ -31,6 +33,8 @@ const {
   noindex = false,
   ogType = 'website',
   customCanonical,
+  availableLocales,
+  xDefaultLocale: customXDefaultLocale,
 } = Astro.props;
 
 // RTL support for Arabic
@@ -68,15 +72,26 @@ const currentPath =
     ? Astro.url.pathname.slice(0, -1)
     : Astro.url.pathname;
 
-const hreflangUrls = SUPPORTED_LOCALES.map((loc) => {
+const normalizedAvailableLocales = SUPPORTED_LOCALES.filter((loc) => availableLocales?.includes(loc) ?? true);
+const effectiveLocales = normalizedAvailableLocales.length > 0 ? normalizedAvailableLocales : [locale as Locale];
+
+const hreflangUrls = effectiveLocales.map((loc) => {
   // Replace the current locale segment with each alternate locale
   const altPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${loc}$1`);
   const finalHref = altPath === `/${loc}` ? `${SITE_URL}${altPath}` : stripTrailingSlash(`${SITE_URL}${altPath}`);
   return { locale: loc, href: finalHref };
 });
-const xDefaultPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), '/en$1');
+const resolvedXDefaultLocale =
+  customXDefaultLocale && effectiveLocales.includes(customXDefaultLocale as Locale)
+    ? customXDefaultLocale
+    : effectiveLocales.includes('en')
+      ? 'en'
+      : effectiveLocales[0];
+const xDefaultPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${resolvedXDefaultLocale}$1`);
 const xDefaultUrl =
-  xDefaultPath === '/en' ? `${SITE_URL}${xDefaultPath}` : stripTrailingSlash(`${SITE_URL}${xDefaultPath}`);
+  xDefaultPath === `/${resolvedXDefaultLocale}`
+    ? `${SITE_URL}${xDefaultPath}`
+    : stripTrailingSlash(`${SITE_URL}${xDefaultPath}`);
 
 // SEO: Title length optimization (Target ~60 chars max)
 const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');

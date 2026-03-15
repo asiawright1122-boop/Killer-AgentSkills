@@ -7,6 +7,7 @@ type PageCheck = {
   canonical: string;
   expectNoindex?: boolean;
   expectJsonLd?: boolean;
+  mustNotContain?: string[];
 };
 
 const SITE_ORIGIN = 'https://killer-skills.com';
@@ -98,6 +99,19 @@ const checks: PageCheck[] = [
     titleIncludes: 'Developer Workflow Guides',
     canonical: 'https://killer-skills.com/en/blog/category/developer-experience',
     expectJsonLd: true,
+  },
+  {
+    path: '/es/collections/top-agentic-ai-mcp-servers',
+    titleIncludes: 'Top',
+    canonical: 'https://killer-skills.com/en/collections/top-agentic-ai-mcp-servers',
+    expectNoindex: true,
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/skills/anthropics/skills/side-project-personality-quiz',
+    canonical: 'https://killer-skills.com/en/skills/anthropics/skills',
+    expectJsonLd: true,
+    mustNotContain: ['aggregateRating', 'ratingValue'],
   },
 ];
 
@@ -331,6 +345,12 @@ async function runCheck(check: PageCheck) {
 
   if (check.expectJsonLd) {
     ensure(html.includes('application/ld+json'), `${check.path}: expected structured data script`);
+  }
+
+  if (check.mustNotContain) {
+    for (const needle of check.mustNotContain) {
+      ensure(!html.includes(needle), `${check.path}: unexpected HTML content "${needle}"`);
+    }
   }
 
   console.log(`SEO smoke passed: ${check.path}`);
