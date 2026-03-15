@@ -15,6 +15,6 @@ describe('skill-schema', () => {
     expect(schema['@type']).toBe('SoftwareApplication');
     expect(schema.description).toContain('AI Agent Skill');
     expect(schema).not.toHaveProperty('aggregateRating');
-    expect(schema.offers.price).toBe('0');
+    expect(schema.offers.price).toBe(0);
   });
 });

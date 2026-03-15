@@ -8,6 +8,13 @@ type SkillSoftwareApplicationSchemaArgs = {
   lastSynced?: string;
 };
 
+/** 将任意日期值规范为 ISO 8601 字符串，避免 Google 结构化数据「值类型不正确」 */
+function toISO8601(value: string | number | undefined): string {
+  if (value == null || value === '') return new Date().toISOString();
+  const d = typeof value === 'number' ? new Date(value) : new Date(value);
+  return Number.isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
+
 export function buildSkillSoftwareApplicationSchema({
   name,
   category,
@@ -31,11 +38,11 @@ export function buildSkillSoftwareApplicationSchema({
       name: owner,
       url: `https://github.com/${owner}`,
     },
-    dateModified: updatedAt || new Date().toISOString(),
-    datePublished: lastSynced || updatedAt || new Date().toISOString(),
+    dateModified: toISO8601(updatedAt),
+    datePublished: toISO8601(lastSynced ?? updatedAt),
     offers: {
       '@type': 'Offer',
-      price: '0',
+      price: 0,
       priceCurrency: 'USD',
       availability: 'https://schema.org/InStock',
       url: canonicalUrl,

@@ -31,7 +31,7 @@ const TARGETS = [
     '/zh',
     '/en/skills',
     '/en/cli',
-    '/en/skills/anthropics/skills/side-project-personality-quiz', // Representative skill
+    '/en/skills/anthropics/skills/algorithmic-art', // Representative sub-skill
 ];
 
 async function auditPage(path: string): Promise<AuditResult> {
