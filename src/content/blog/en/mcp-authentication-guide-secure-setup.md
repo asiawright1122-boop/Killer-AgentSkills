@@ -1,6 +1,6 @@
 ---
 title: "MCP Authentication Guide: Secure Your Server Setup"
-description: "Secure your MCP server setup with our comprehensive authentication guide, covering API keys, OAuth, token-based auth, and best practices for AI agent"
+description: "Learn how to configure authentication for your MCP servers. This guide covers API keys, OAuth, token-based auth, and best practices for AI agent integrations."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp

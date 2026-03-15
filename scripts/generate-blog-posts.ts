@@ -2,9 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // 缺失的博客主题
 const blogPosts = [
@@ -65,8 +62,6 @@ const blogPosts = [
     intents: ['comparative', 'informational']
   }
 ];
-
-const LOCALES = ['en', 'zh', 'ja', 'ko'];
 
 function generateBlogPost(post: typeof blogPosts[0]) {
   const year = new Date().getFullYear();

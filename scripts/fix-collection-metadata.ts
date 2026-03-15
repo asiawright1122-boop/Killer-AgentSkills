@@ -60,7 +60,7 @@ function generateDescription(lang: string, slug: string): string {
   return descriptions[lang] || descriptions['en'];
 }
 
-function generateSeoTitle(title: string, locale: string): string {
+function generateSeoTitle(title: string): string {
   const year = new Date().getFullYear();
   return `${title} ${year} | Killer-Skills`;
 }
@@ -108,7 +108,7 @@ function processCollection(filePath: string) {
     modified = true;
     
     content.seoTitle = content.seoTitle || {};
-    content.seoTitle[locale] = generateSeoTitle(newTitle, locale);
+    content.seoTitle[locale] = generateSeoTitle(newTitle);
     modified = true;
     
     content.seoDescription = content.seoDescription || {};
