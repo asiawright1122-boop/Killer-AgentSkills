@@ -5,10 +5,29 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PAGES_DIR = path.join(__dirname, '../src/pages');
 const CONTENT_DIR = path.join(__dirname, '../src/content');
 
-const RESULTS = {
+type FieldKey = 'titles' | 'descriptions' | 'seoTitles' | 'seoDescriptions';
+
+type IssueEntry = {
+  locale: string;
+  file: string;
+  length: number;
+  value: string;
+};
+
+type EmptyEntry = {
+  locale: string;
+  file: string;
+};
+
+type FieldResults = {
+  tooLong: IssueEntry[];
+  tooShort: IssueEntry[];
+  empty: EmptyEntry[];
+};
+
+const RESULTS: Record<FieldKey, FieldResults> = {
   titles: { tooLong: [], tooShort: [], empty: [] },
   descriptions: { tooLong: [], tooShort: [], empty: [] },
   seoTitles: { tooLong: [], tooShort: [], empty: [] },
@@ -20,16 +39,22 @@ const TITLE_MIN = 30;
 const DESC_MAX = 160;
 const DESC_MIN = 50;
 
-function checkString(str, field, locale, file) {
+function checkString(str: string, field: FieldKey, locale: string, file: string) {
   if (!str || str.trim() === '') {
     RESULTS[field].empty.push({ locale, file });
     return;
   }
+
+  const isTitleField = field === 'titles' || field === 'seoTitles';
+  const maxLength = isTitleField ? TITLE_MAX : DESC_MAX;
+  const minLength = isTitleField ? TITLE_MIN : DESC_MIN;
   const len = str.length;
-  if (len > TITLE_MAX) {
+
+  if (len > maxLength) {
     RESULTS[field].tooLong.push({ locale, file, length: len, value: str.substring(0, 50) + '...' });
   }
-  if (len < TITLE_MIN && field.includes('title')) {
+
+  if (len < minLength) {
     RESULTS[field].tooShort.push({ locale, file, length: len, value: str });
   }
 }
@@ -45,28 +70,28 @@ function checkCollections() {
     
     // Check title
     if (content.title) {
-      for (const [locale, value] of Object.entries(content.title)) {
+      for (const [locale, value] of Object.entries(content.title as Record<string, string>)) {
         checkString(value, 'titles', locale, file);
       }
     }
     
     // Check description
     if (content.description) {
-      for (const [locale, value] of Object.entries(content.description)) {
+      for (const [locale, value] of Object.entries(content.description as Record<string, string>)) {
         checkString(value, 'descriptions', locale, file);
       }
     }
     
     // Check seoTitle
     if (content.seoTitle) {
-      for (const [locale, value] of Object.entries(content.seoTitle)) {
+      for (const [locale, value] of Object.entries(content.seoTitle as Record<string, string>)) {
         checkString(value, 'seoTitles', locale, file);
       }
     }
     
     // Check seoDescription
     if (content.seoDescription) {
-      for (const [locale, value] of Object.entries(content.seoDescription)) {
+      for (const [locale, value] of Object.entries(content.seoDescription as Record<string, string>)) {
         checkString(value, 'seoDescriptions', locale, file);
       }
     }
@@ -77,7 +102,7 @@ function checkBlogPosts() {
   const dir = path.join(CONTENT_DIR, 'blog');
   if (!fs.existsSync(dir)) return;
   
-  function walkDir(dir) {
+  function walkDir(dir: string) {
     const files = fs.readdirSync(dir);
     for (const file of files) {
       const fullPath = path.join(dir, file);

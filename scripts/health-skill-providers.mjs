@@ -14,10 +14,14 @@ function splitKeys(raw = '') {
     .filter(Boolean);
 }
 
-function timeoutFetch(url, options, timeoutMs = TIMEOUT_MS) {
+async function timeoutFetch(url, options, timeoutMs = TIMEOUT_MS) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
-  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 async function testProvider(name, url, headers, body) {

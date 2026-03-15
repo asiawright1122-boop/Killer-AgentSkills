@@ -152,7 +152,7 @@ const initialProfile = localizedProfiles[0];
     </main>
   </div>
 
-  <script id="skill-try-profiles" type="application/json" set:html={JSON.stringify(localizedProfiles)} />
+  <script is:inline id="skill-try-profiles" type="application/json" set:html={JSON.stringify(localizedProfiles)} />
   <script is:inline>
     (() => {
       const app = document.getElementById('skill-try-app');

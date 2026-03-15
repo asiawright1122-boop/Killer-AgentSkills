@@ -1,6 +1,6 @@
 ---
 title: "MCP Server Security Best Practices for Production"
-description: "Secure your MCP servers for production use. Covers input validation, rate limiting, audit logging, network security, and compliance considerations for enterprise deployments."
+description: "Secure your MCP servers for production. Covers input validation, rate limiting, audit logging, network security, and compliance for enterprise deployments."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-security-best-practices.webp

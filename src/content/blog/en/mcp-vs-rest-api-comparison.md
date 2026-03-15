@@ -1,6 +1,6 @@
 ---
 title: "MCP vs REST API: Which Should You Use for AI Agents?"
-description: "A comprehensive comparison between Model Context Protocol (MCP) and traditional REST APIs. Learn when to use MCP servers vs REST endpoints for your AI agent applications."
+description: "Compare Model Context Protocol (MCP) with traditional REST APIs. Learn when to use MCP servers vs REST endpoints for your AI agent applications."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp
