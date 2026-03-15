@@ -1,6 +1,6 @@
 ---
 title: "MCP Server Not Working? Complete Troubleshooting Guide"
-description: "Having issues with your MCP server? This comprehensive troubleshooting guide covers common errors, connection problems, and step-by-step solutions to get your Model Context Protocol server working again."
+description: "MCP Server Not Working? Troubleshoot common errors and connection problems with our comprehensive guide to get your Model Context Protocol server up and"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp
