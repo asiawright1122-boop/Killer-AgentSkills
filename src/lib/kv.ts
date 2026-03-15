@@ -362,6 +362,8 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
 export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string; repo: string; updatedAt?: string }[]> {
   const GITHUB_OWNER_RE = /^[a-z\d](?:[a-z\d-]{0,38})$/i;
   const GITHUB_REPO_RE = /^[A-Za-z0-9._-]{1,100}$/;
+  const MIN_INDEXABLE_SKILL_README_BYTES = 200;
+  const textEncoder = new TextEncoder();
 
   const parseDateMs = (value?: string): number => {
     if (!value) return 0;
@@ -369,21 +371,118 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     return Number.isFinite(ms) ? ms : 0;
   };
 
+  const getReadmeContent = (raw: any): string => {
+    if (!raw || typeof raw !== 'object') return '';
+
+    if (typeof raw.skillBody === 'string' && raw.skillBody.trim().length > 0) {
+      return raw.skillBody;
+    }
+
+    if (typeof raw.skillBodyPreview === 'string' && raw.skillBodyPreview.trim().length > 0) {
+      return raw.skillBodyPreview;
+    }
+
+    const skillMd = raw.skillMd;
+    if (skillMd && typeof skillMd === 'object') {
+      if (typeof skillMd.body === 'string' && skillMd.body.trim().length > 0) {
+        return skillMd.body;
+      }
+
+      if (typeof skillMd.bodyPreview === 'string' && skillMd.bodyPreview.trim().length > 0) {
+        return skillMd.bodyPreview;
+      }
+    }
+
+    return '';
+  };
+
+  const parsePossiblyJsonString = (value: unknown): unknown => {
+    if (typeof value !== 'string') return value;
+    const trimmed = value.trim();
+    if (!trimmed) return '';
+    if (
+      (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+      (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+      (trimmed.startsWith('"') && trimmed.endsWith('"'))
+    ) {
+      try {
+        return JSON.parse(trimmed);
+      } catch {
+        return trimmed;
+      }
+    }
+    return trimmed;
+  };
+
+  const pickText = (value: unknown): string => {
+    const parsed = parsePossiblyJsonString(value);
+    if (typeof parsed === 'string') return parsed.trim();
+    if (!parsed || typeof parsed !== 'object') return '';
+
+    const record = parsed as Record<string, unknown>;
+    const preferred = [record.en, record.zh, ...Object.values(record)];
+    for (const candidate of preferred) {
+      if (typeof candidate === 'string' && candidate.trim().length > 0) {
+        return candidate.trim();
+      }
+    }
+    return '';
+  };
+
+  const getFallbackDescription = (raw: any): string => {
+    const candidates = [
+      raw?.descriptionEn,
+      raw?.seoDefinitionEn,
+      raw?.descriptionRaw,
+      raw?.seoDefinitionRaw,
+      raw?.description,
+      raw?.seo?.definition,
+    ];
+
+    for (const candidate of candidates) {
+      const text = pickText(candidate);
+      if (text) return text;
+    }
+    return '';
+  };
+
+  const isIndexableByReadme = (raw: any): boolean => {
+    const content = getReadmeContent(raw);
+    const contentSize = content ? textEncoder.encode(content).length : 0;
+    if (content && contentSize >= MIN_INDEXABLE_SKILL_README_BYTES) {
+      return true;
+    }
+
+    const fallbackDescription = getFallbackDescription(raw);
+    if (!fallbackDescription) return false;
+
+    const skillName = pickText(raw?.skillName) || raw?.repo || 'Skill';
+    const synthesizedContent = [content, `# ${skillName}\n\n${fallbackDescription}`]
+      .filter((part) => typeof part === 'string' && part.trim().length > 0)
+      .join('\n\n');
+    return textEncoder.encode(synthesizedContent).length >= MIN_INDEXABLE_SKILL_README_BYTES;
+  };
+
   // Normalize, validate, and dedupe by owner/repo.
   // If duplicates exist, keep the newest updatedAt.
-  const normalizeAndDedupe = (items: any[]): { owner: string; repo: string; updatedAt?: string }[] => {
+  const normalizeAndDedupe = (
+    items: any[],
+    options?: { skipReadmeFilter?: boolean },
+  ): { owner: string; repo: string; updatedAt?: string }[] => {
     const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
 
     for (const raw of items) {
       if (!raw || typeof raw !== 'object') continue;
+      if (!options?.skipReadmeFilter && !isIndexableByReadme(raw)) continue;
 
       const owner = typeof raw.owner === 'string' ? raw.owner.trim() : '';
       const repo = typeof raw.repo === 'string' ? raw.repo.trim() : '';
       if (!owner || !repo) continue;
       if (!GITHUB_OWNER_RE.test(owner) || !GITHUB_REPO_RE.test(repo)) continue;
 
+      const updatedAtRaw = typeof raw.updatedAt === 'string' ? raw.updatedAt : raw.updated_at;
       const updatedAt =
-        typeof raw.updatedAt === 'string' && raw.updatedAt.trim().length > 0 ? raw.updatedAt.trim() : undefined;
+        typeof updatedAtRaw === 'string' && updatedAtRaw.trim().length > 0 ? updatedAtRaw.trim() : undefined;
       const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
       const current = deduped.get(key);
 
@@ -399,10 +498,19 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
   if (env?.DB) {
     try {
       const result = await env.DB.prepare(
-        `SELECT owner, repo, MAX(updated_at) as updatedAt
+        `SELECT
+            owner,
+            repo,
+            updated_at as updatedAt,
+            json_extract(data_json, '$.skillMd.body') as skillBody,
+            json_extract(data_json, '$.skillMd.bodyPreview') as skillBodyPreview,
+            json_extract(data_json, '$.name') as skillName,
+            json_extract(data_json, '$.description.en') as descriptionEn,
+            json_extract(data_json, '$.description') as descriptionRaw,
+            json_extract(data_json, '$.seo.definition.en') as seoDefinitionEn,
+            json_extract(data_json, '$.seo.definition') as seoDefinitionRaw
          FROM skills
-         WHERE owner IS NOT NULL AND repo IS NOT NULL
-         GROUP BY owner, repo`,
+         WHERE owner IS NOT NULL AND repo IS NOT NULL`,
       ).all();
       if (result.success && result.results) {
         return normalizeAndDedupe(result.results as any[]);
@@ -418,13 +526,6 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
       const fs = await import('node:fs');
       const path = await import('node:path');
 
-      const sitemapPath = path.resolve(process.cwd(), 'data/sitemap-skills.json');
-      if (fs.existsSync(sitemapPath)) {
-        const content = fs.readFileSync(sitemapPath, 'utf-8');
-        const data = JSON.parse(content);
-        if (Array.isArray(data)) return normalizeAndDedupe(data);
-      }
-
       const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
       if (fs.existsSync(mainCachePath)) {
         const content = fs.readFileSync(mainCachePath, 'utf-8');
@@ -435,8 +536,24 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
             owner: s.owner,
             repo: s.repo,
             updatedAt: s.updatedAt,
+            skillBody: s.skillMd?.body,
+            skillBodyPreview: s.skillMd?.bodyPreview,
+            skillName: s.name || s.skillName || s.repo,
+            descriptionEn: typeof s.description === 'object' ? s.description?.en : undefined,
+            descriptionRaw: s.description,
+            seoDefinitionEn: s.seo?.definition?.en,
+            seoDefinitionRaw: s.seo?.definition,
           })),
         );
+      }
+
+      const sitemapPath = path.resolve(process.cwd(), 'data/sitemap-skills.json');
+      if (fs.existsSync(sitemapPath)) {
+        const content = fs.readFileSync(sitemapPath, 'utf-8');
+        const data = JSON.parse(content);
+        if (Array.isArray(data)) {
+          return normalizeAndDedupe(data, { skipReadmeFilter: true });
+        }
       }
     } catch (e) {
       console.warn('[Local] Failed to read local sitemap skills cache:', e);

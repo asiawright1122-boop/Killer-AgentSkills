@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
+import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../lib/seo-locales';
 
 export const prerender = false;
 
@@ -8,13 +9,16 @@ const SITE = 'https://killer-skills.com';
 
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
-function buildHreflangLinks(pagePath: string): string {
+function buildHreflangLinks(pagePath: string, locales: readonly string[]): string {
+  const canonicalLocale = getPreferredCanonicalLocale(locales);
   return (
-    SUPPORTED_LOCALES.map((loc) => {
-      const url = `${SITE}/${loc}${pagePath}`;
-      return `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(url)}" />`;
-    }).join('\n') +
-    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/en${pagePath}`)}" />`
+    locales
+      .map((loc) => {
+        const url = `${SITE}/${loc}${pagePath}`;
+        return `<xhtml:link rel="alternate" hreflang="${loc}" href="${normalizeUrl(url)}" />`;
+      })
+      .join('\n') +
+    `\n<xhtml:link rel="alternate" hreflang="x-default" href="${normalizeUrl(`${SITE}/${canonicalLocale}${pagePath}`)}" />`
   );
 }
 
@@ -29,7 +33,7 @@ export const GET: APIRoute = async () => {
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.8</priority>
-${buildHreflangLinks('/collections')}
+${buildHreflangLinks('/collections', SUPPORTED_LOCALES)}
 </url>`);
   }
 
@@ -39,14 +43,16 @@ ${buildHreflangLinks('/collections')}
     for (const col of collectionsCol) {
       const cleanSlug = col.id.replace(/\.json$/, '');
       const pagePath = `/collections/${cleanSlug}`;
+      const eligibleLocales = getLocalizedSeoEligibleLocales(col.data, SUPPORTED_LOCALES);
+      if (eligibleLocales.length === 0) continue;
 
-      for (const locale of SUPPORTED_LOCALES) {
+      for (const locale of eligibleLocales) {
         urls.push(`<url>
 <loc>${normalizeUrl(`${SITE}/${locale}${pagePath}`)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.7</priority>
-${buildHreflangLinks(pagePath)}
+${buildHreflangLinks(pagePath, eligibleLocales)}
 </url>`);
       }
     }

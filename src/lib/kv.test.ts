@@ -39,6 +39,15 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
   } as unknown as KVNamespace;
 }
 
+const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(220);
+const withIndexableBody = <T extends Record<string, any>>(entry: T): T => ({
+  ...entry,
+  skillMd: {
+    ...(entry.skillMd || {}),
+    bodyPreview: entry.skillMd?.bodyPreview || INDEXABLE_BODY_PREVIEW,
+  },
+});
+
 function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
   // Create D1 mock based on `skills` array for testing getSkillsFromKV/getSkillsKV
   const mockDB = {
@@ -69,19 +78,24 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
           const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
           return { success: true, results: sorted.map((s) => ({ data_json: JSON.stringify(s) })) };
         }
-        if (sql.includes('sitemap')) {
-          // It's the sitemap query: SELECT owner, repo, updated_at as updatedAt
-          return {
-            success: true,
-            results: skills.map((s) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })),
-          };
-        }
         if (sql.includes('WHERE owner IS NOT NULL AND repo IS NOT NULL')) {
           return {
             success: true,
             results: skills
               .filter((s) => s && typeof s === 'object' && s.owner && s.repo)
-              .map((s) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt })),
+              .map((s) => ({
+                owner: s.owner,
+                repo: s.repo,
+                updatedAt: s.updatedAt,
+                skillBody: s.skillBody ?? s.skillMd?.body,
+                skillBodyPreview: s.skillBodyPreview ?? s.skillMd?.bodyPreview,
+                skillName: s.skillName ?? s.name,
+                descriptionEn: s.descriptionEn ?? (typeof s.description === 'object' ? s.description?.en : undefined),
+                descriptionRaw: s.descriptionRaw ?? s.description,
+                seoDefinitionEn:
+                  s.seoDefinitionEn ?? (typeof s.seo?.definition === 'object' ? s.seo?.definition?.en : undefined),
+                seoDefinitionRaw: s.seoDefinitionRaw ?? s.seo?.definition,
+              })),
           };
         }
         return { success: true, results: [] };
@@ -298,21 +312,24 @@ describe('getSkillsKV', () => {
 describe('getSitemapSkillsFromKV', () => {
   it('should read valid sitemap skills from D1', async () => {
     const sitemapData = [
-      { owner: 'anthropics', repo: 'skills' },
-      { owner: 'vercel', repo: 'next.js' },
+      withIndexableBody({ owner: 'anthropics', repo: 'skills' }),
+      withIndexableBody({ owner: 'vercel', repo: 'next.js' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual(sitemapData);
+    expect(result).toEqual([
+      { owner: 'anthropics', repo: 'skills' },
+      { owner: 'vercel', repo: 'next.js' },
+    ]);
     expect(result).toHaveLength(2);
   });
 
   it('should dedupe owner/repo entries and keep the latest updatedAt', async () => {
     const sitemapData = [
-      { owner: 'anthropics', repo: 'skills', updatedAt: '2026-03-01T00:00:00.000Z' },
-      { owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' },
-      { owner: 'vercel', repo: 'next.js', updatedAt: '2026-02-01T00:00:00.000Z' },
+      withIndexableBody({ owner: 'anthropics', repo: 'skills', updatedAt: '2026-03-01T00:00:00.000Z' }),
+      withIndexableBody({ owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' }),
+      withIndexableBody({ owner: 'vercel', repo: 'next.js', updatedAt: '2026-02-01T00:00:00.000Z' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
@@ -323,9 +340,9 @@ describe('getSitemapSkillsFromKV', () => {
 
   it('should filter out invalid GitHub owner/repo formats', async () => {
     const sitemapData = [
-      { owner: 'valid-owner', repo: 'valid_repo' },
-      { owner: 'bad owner', repo: 'repo' },
-      { owner: 'owner', repo: 'bad/repo' },
+      withIndexableBody({ owner: 'valid-owner', repo: 'valid_repo' }),
+      withIndexableBody({ owner: 'bad owner', repo: 'repo' }),
+      withIndexableBody({ owner: 'owner', repo: 'bad/repo' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
@@ -335,10 +352,10 @@ describe('getSitemapSkillsFromKV', () => {
 
   it('should filter out entries with missing owner', async () => {
     const sitemapData = [
-      { owner: 'anthropics', repo: 'skills' },
-      { owner: '', repo: 'bad-repo' },
-      { owner: undefined, repo: 'another' },
-      { repo: 'no-owner' },
+      withIndexableBody({ owner: 'anthropics', repo: 'skills' }),
+      withIndexableBody({ owner: '', repo: 'bad-repo' }),
+      withIndexableBody({ owner: undefined, repo: 'another' }),
+      withIndexableBody({ repo: 'no-owner' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
@@ -349,10 +366,10 @@ describe('getSitemapSkillsFromKV', () => {
 
   it('should filter out entries with missing repo', async () => {
     const sitemapData = [
-      { owner: 'valid', repo: 'data' },
-      { owner: 'has-owner', repo: '' },
-      { owner: 'has-owner', repo: undefined },
-      { owner: 'has-owner' },
+      withIndexableBody({ owner: 'valid', repo: 'data' }),
+      withIndexableBody({ owner: 'has-owner', repo: '' }),
+      withIndexableBody({ owner: 'has-owner', repo: undefined }),
+      withIndexableBody({ owner: 'has-owner' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
@@ -362,11 +379,37 @@ describe('getSitemapSkillsFromKV', () => {
   });
 
   it('should filter out null entries', async () => {
-    const sitemapData = [{ owner: 'valid', repo: 'data' }, null, undefined];
+    const sitemapData = [withIndexableBody({ owner: 'valid', repo: 'data' }), null, undefined];
     const env = createMockEnv({}, sitemapData as any[]);
 
     const result = await getSitemapSkillsFromKV(env);
     expect(result).toHaveLength(1);
+  });
+
+  it('should filter out thin readme entries from sitemap', async () => {
+    const sitemapData = [
+      withIndexableBody({ owner: 'valid-owner', repo: 'valid-repo' }),
+      { owner: 'thin-owner', repo: 'thin-repo', skillMd: { bodyPreview: 'tiny readme' } },
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid-repo' }]);
+  });
+
+  it('should keep thin-readme entries when fallback description is indexable', async () => {
+    const sitemapData = [
+      {
+        owner: 'fallback-owner',
+        repo: 'fallback-repo',
+        skillMd: { bodyPreview: 'tiny' },
+        description: { en: 'y'.repeat(240) },
+      },
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'fallback-owner', repo: 'fallback-repo' }]);
   });
 
   it('should return empty array when DB binding is unavailable in production (no local fallback)', async () => {

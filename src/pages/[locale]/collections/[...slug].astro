@@ -6,6 +6,11 @@ import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getLightweightSkills } from '../../../lib/skills';
+import {
+  getLocalizedSeoEligibleLocales,
+  getPreferredCanonicalLocale,
+  isDirectlyLocalizedVariant,
+} from '../../../lib/seo-locales';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -69,6 +74,10 @@ const description = resolveLocalized(cData.description, '');
 const seoTitle = resolveLocalized(cData.seoTitle, title);
 const seoDescription = resolveLocalized(cData.seoDescription, description);
 const keywords = resolveLocalizedArray(cData.keywords, []);
+const availableLocales = getLocalizedSeoEligibleLocales(cData, SUPPORTED_LOCALES);
+const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
+const isIndexableLocale = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${slug}`;
 const collectionSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
@@ -95,7 +104,7 @@ const itemListSchema = {
   '@type': 'ItemList',
   name: title,
   description: seoDescription,
-  url: `https://killer-skills.com/${locale}/collections/${slug}`,
+  url: canonicalUrl,
   numberOfItems: featuredSkills.length,
   itemListElement: featuredSkills.map((skill, index) => ({
     '@type': 'ListItem',
@@ -116,6 +125,10 @@ const itemListSchema = {
   keywords={collectionSeoKeywords}
   image={ogImage}
   ogType="article"
+  customCanonical={canonicalUrl}
+  noindex={!isIndexableLocale}
+  availableLocales={availableLocales}
+  xDefaultLocale={canonicalLocale}
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
@@ -131,7 +144,7 @@ const itemListSchema = {
           '@type': 'SpeakableSpecification',
           cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
         },
-        url: `https://killer-skills.com/${locale}/collections/${slug}`,
+        url: canonicalUrl,
       })}
     />
     <script
@@ -157,7 +170,7 @@ const itemListSchema = {
             '@type': 'ListItem',
             position: 3,
             name: title,
-            item: `https://killer-skills.com/${locale}/collections/${slug}`,
+            item: canonicalUrl,
           },
         ],
       })}

@@ -6,6 +6,7 @@ import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
 import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
+import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import type { Env } from '../../../../lib/kv';
 import { getCollection } from 'astro:content';
 import SkillActions from '../../../../islands/SkillActions';
@@ -333,40 +334,15 @@ const seoKeywords = Array.from(new Set(seoKeywordParts.map((k) => k?.toString().
   .join(', ');
 
 // Structured Data (JSON-LD) — SoftwareApplication
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
+const schema = buildSkillSoftwareApplicationSchema({
   name: skill.name || repo,
-  operatingSystem: 'Any',
-
-  applicationCategory: 'DeveloperApplication',
-  keywords: `AI Agent, MCP Server, Claude, Skill, Developer Tools, ${category}`,
-  // Inject "AI Agent Skill:" prefix for better CTR context
-  description: `AI Agent Skill: ${description && typeof description === 'string' ? description : ''}`,
-  url: canonicalSkillUrl,
-  // Inject AggregateRating based on QualityScore and Stars
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: Math.min(5, Math.max(1, (skill.qualityScore || 80) / 20)).toFixed(1), // Convert 0-100 to 0-5
-    ratingCount: Math.max(1, skill.stars || 1),
-    bestRating: '5',
-    worstRating: '1',
-  },
-  author: {
-    '@type': 'Organization',
-    name: owner,
-    url: `https://github.com/${owner}`,
-  },
-  dateModified: skill.updatedAt || new Date().toISOString(),
-  datePublished: skill.lastSynced || skill.updatedAt || new Date().toISOString(),
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD',
-    availability: 'https://schema.org/InStock',
-    url: canonicalSkillUrl,
-  },
-};
+  category,
+  description: description && typeof description === 'string' ? description : '',
+  canonicalUrl: canonicalSkillUrl,
+  owner,
+  updatedAt: skill.updatedAt,
+  lastSynced: skill.lastSynced,
+});
 
 // BreadcrumbList JSON-LD for rich snippets
 const breadcrumbSchema = {
@@ -533,8 +509,15 @@ const githubUrl = `https://github.com/${owner}/${repo}`;
 const topics = skill.topics || [];
 
 // Prepare file list
-const readmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || `# ${skill.name}\n\n${description}`;
-const readmeSize = new TextEncoder().encode(readmeContent).length;
+const textEncoder = new TextEncoder();
+const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
+const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
+const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
+const readmeContent =
+  rawReadmeContent && rawReadmeSize >= 200
+    ? rawReadmeContent
+    : [rawReadmeContent, fallbackReadmeContent].filter((part) => part && part.trim().length > 0).join('\n\n');
+const readmeSize = textEncoder.encode(readmeContent).length;
 const isThinContent = readmeSize < 200; // Block indexing if extremely short (Thin Content penalty)
 const formatSize = (bytes: number) => {
   if (bytes < 1024) return bytes + ' B';

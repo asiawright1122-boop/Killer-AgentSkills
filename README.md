@@ -10,18 +10,19 @@ AI Agent 开发技能终极目录（支持 MCP, LangChain 等）。
 
 ## 🚀 Stack & Features
 
-| Layer | Technology |
-|---|---|
-| **Framework** | [Astro 5.0](https://astro.build) — SSR with React Islands |
+| Layer          | Technology                                                     |
+| -------------- | -------------------------------------------------------------- |
+| **Framework**  | [Astro 5.0](https://astro.build) — SSR with React Islands      |
 | **Deployment** | [Cloudflare Pages](https://pages.cloudflare.com) Advanced Mode |
-| **Styling** | TailwindCSS 4.0 |
-| **Database** | Cloudflare D1 (SQLite) + KV (`SKILLS_CACHE`, `TRANSLATIONS`) |
-| **Search** | Cloudflare Vectorize + Workers AI (semantic search) |
-| **i18n** | Native Astro i18n (10 locales) + Cloudflare AI Translation |
-| **CI/CD** | GitHub Actions — ESLint, Prettier, Vitest (hard gates) |
-| **CLI** | `killer` / `kiro` — skill management from terminal |
+| **Styling**    | TailwindCSS 4.0                                                |
+| **Database**   | Cloudflare D1 (SQLite) + KV (`SKILLS_CACHE`, `TRANSLATIONS`)   |
+| **Search**     | Cloudflare Vectorize + Workers AI (semantic search)            |
+| **i18n**       | Native Astro i18n (10 locales) + Cloudflare AI Translation     |
+| **CI/CD**      | GitHub Actions — ESLint, Prettier, Vitest (hard gates)         |
+| **CLI**        | `killer` / `kiro` — skill management from terminal             |
 
 **Key capabilities:**
+
 - Universal IDE support (Cursor, Windsurf, VS Code, Copilot)
 - React ErrorBoundary protection on all client islands
 - Structured API error handling with `ApiError` class
@@ -91,25 +92,28 @@ npm run format:check
 
 ### Available Scripts
 
-| Script | Description |
-|---|---|
-| `npm run dev` | Start Astro dev server with Wrangler proxy |
-| `npm run build` | Production build |
-| `npm run deploy` | Deploy to Cloudflare Pages |
-| `npm test` | Run Vitest unit & integration tests |
-| `npm run test:e2e` | Run Playwright E2E tests |
-| `npm run lint` | ESLint check (zero warnings enforced) |
-| `npm run lint:fix` | ESLint auto-fix |
-| `npm run format` | Prettier format all files |
-| `npm run format:check` | Prettier check (CI gate) |
-| `npm run build:cache` | Build skill cache from GitHub |
+| Script                                      | Description                                                                  |
+| ------------------------------------------- | ---------------------------------------------------------------------------- |
+| `npm run dev`                               | Start Astro dev server with Wrangler proxy                                   |
+| `npm run build`                             | Production build                                                             |
+| `npm run deploy`                            | Deploy to Cloudflare Pages                                                   |
+| `npm test`                                  | Run Vitest unit & integration tests                                          |
+| `npm run test:e2e`                          | Run Playwright E2E tests                                                     |
+| `npm run lint`                              | ESLint check (zero warnings enforced)                                        |
+| `npm run lint:fix`                          | ESLint auto-fix                                                              |
+| `npm run format`                            | Prettier format all files                                                    |
+| `npm run format:check`                      | Prettier check (CI gate)                                                     |
+| `npm run build:cache`                       | Build skill cache from GitHub                                                |
+| `npm run audit:seo:index-integrity`         | Audit sitemap/data drift, collection locale coverage, and thin-content risks |
+| `npm run audit:seo:index-quality`           | Strict SEO quality gate: fail on missing/thin skill content                  |
+| `npm run report:seo:collection-locale-gaps` | Export collection locale coverage gaps report                                |
 
 ---
 
 ## 🧪 Testing
 
 - **Framework**: [Vitest](https://vitest.dev/) with coverage via `@vitest/coverage-v8`
-- **Tests**: 291 tests across 25 files
+- **Tests**: 292 tests across 24 files
 - **Coverage**: ~50% global, 74% for `src/lib/`
 
 ```bash
@@ -126,6 +130,7 @@ npx vitest run src/lib/skills.test.ts
 ### CI Hard Gates
 
 All PRs must pass:
+
 1. **ESLint** — zero warnings (`--max-warnings 0`)
 2. **Prettier** — format check
 3. **Vitest** — all tests pass
@@ -134,18 +139,18 @@ All PRs must pass:
 
 ## 🔌 API Endpoints
 
-| Endpoint | Method | Description |
-|---|---|---|
-| `/api/health` | GET | Health check (KV, D1 latency) |
-| `/api/skills` | GET | List all skills (paginated) |
-| `/api/skills/search` | GET | Search skills by query |
-| `/api/skills/submit` | POST | Submit a new skill |
-| `/api/skills/[owner]/[repo]` | GET | Get skill detail |
-| `/api/skills/[owner]/[repo]/files` | GET | List skill files |
-| `/api/skills/[owner]/[repo]/file` | GET | Get file content |
-| `/api/search` | GET | Semantic search (Vectorize + AI) |
-| `/api/categories` | GET | List skill categories |
-| `/api/translate` | GET | AI translation |
+| Endpoint                           | Method | Description                      |
+| ---------------------------------- | ------ | -------------------------------- |
+| `/api/health`                      | GET    | Health check (KV, D1 latency)    |
+| `/api/skills`                      | GET    | List all skills (paginated)      |
+| `/api/skills/search`               | GET    | Search skills by query           |
+| `/api/skills/submit`               | POST   | Submit a new skill               |
+| `/api/skills/[owner]/[repo]`       | GET    | Get skill detail                 |
+| `/api/skills/[owner]/[repo]/files` | GET    | List skill files                 |
+| `/api/skills/[owner]/[repo]/file`  | GET    | Get file content                 |
+| `/api/search`                      | GET    | Semantic search (Vectorize + AI) |
+| `/api/categories`                  | GET    | List skill categories            |
+| `/api/translate`                   | GET    | AI translation                   |
 
 ---
 
@@ -164,6 +169,7 @@ Supported locales: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`.
 ### Full Automation (Recommended)
 
 Runs the entire pipeline: fetches new skills, generates AI analysis, translates content, and syncs to KV.
+
 ```bash
 ./scripts/run-full-automation.sh
 ```
@@ -182,6 +188,7 @@ npm run build:cache -- --mode=update --filter=algorithmic-art --live
 ```
 
 **Flags:**
+
 - `--live` — Real-time sync to Cloudflare KV
 - `--force` — Ignore cache and re-fetch everything
 - `--filter=<name>` — Process only skills matching `<name>`
@@ -204,6 +211,7 @@ Browser ──► Cloudflare CDN ──► Astro SSR (CF Workers)
 ```
 
 **Caching strategy (3 layers):**
+
 1. **Module cache** — In-memory, 5s TTL (same isolate)
 2. **Cloudflare Cache API** — Cross-isolate, 1h TTL (edge)
 3. **D1/KV** — Persistent storage (origin)
