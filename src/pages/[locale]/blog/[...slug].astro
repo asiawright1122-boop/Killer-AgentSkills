@@ -64,7 +64,7 @@ const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
 // OG Image Generation (Dynamic V2)
 
-const ogImage = new URL(`/og-image.png`, Astro.url).toString();
+const ogImage = new URL(`/og-image.webp`, Astro.url).toString();
 
 // BlogPosting Structured Data (JSON-LD) for rich snippets
 const blogSchema = {
@@ -86,7 +86,7 @@ const blogSchema = {
     url: 'https://killer-skills.com',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://killer-skills.com/og-image.png',
+      url: 'https://killer-skills.com/og-image.webp',
     },
   },
   wordCount: wordCount,
