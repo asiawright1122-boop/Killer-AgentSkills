@@ -1,11 +1,5 @@
 import { defineMiddleware } from 'astro:middleware';
-import {
-  isStaticOrApiPath,
-  hasLocalePrefix,
-  checkAdminAuth,
-  detectLocale,
-  shouldPreserveHostForSeoInfra,
-} from './middleware-utils';
+import { isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from './middleware-utils';
 import { logger, generateRequestId } from './lib/logger';
 
 // Re-export for backward compatibility
@@ -15,7 +9,6 @@ export {
   hasLocalePrefix,
   checkAdminAuth,
   detectLocale,
-  shouldPreserveHostForSeoInfra,
 } from './middleware-utils';
 export type { AdminAuthResult } from './middleware-utils';
 
@@ -33,7 +26,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
   // 0. Enforce canonical domain: redirect www.killer-skills.com to killer-skills.com
-  if (context.url.hostname === 'www.killer-skills.com' && !shouldPreserveHostForSeoInfra(pathname)) {
+  if (context.url.hostname === 'www.killer-skills.com') {
     const url = new URL(context.url);
     url.hostname = 'killer-skills.com';
     return new Response(null, {

@@ -4,7 +4,7 @@ import { SUPPORTED_LOCALES } from '../i18n';
 // @ts-ignore -- JSON import without type declaration
 import docsCache from '../../data/docs-cache.json';
 
-export const prerender = true;
+export const prerender = false;
 
 const SITE = 'https://killer-skills.com';
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');

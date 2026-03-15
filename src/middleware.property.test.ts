@@ -1,13 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './i18n';
-import {
-  detectLocale,
-  isStaticOrApiPath,
-  hasLocalePrefix,
-  shouldPreserveHostForSeoInfra,
-  COUNTRY_TO_LOCALE,
-} from './middleware-utils';
+import { detectLocale, isStaticOrApiPath, hasLocalePrefix, COUNTRY_TO_LOCALE } from './middleware-utils';
 
 // ============================================================================
 // Generators
@@ -307,32 +301,6 @@ describe('Feature: nextjs-to-astro-migration, Property 4: 中间件路径放行'
       }),
       { numRuns: 100 },
     );
-  });
-
-  it('SEO infrastructure paths are preserved for host-sensitive crawler fetches', () => {
-    const paths = [
-      '/sitemap.xml',
-      '/sitemap-static.xml',
-      '/sitemap-blog.xml',
-      '/sitemap-collections.xml',
-      '/sitemap-docs.xml',
-      '/sitemap-skills-1.xml',
-      '/sitemap-owners-1.xml',
-      '/robots.txt',
-      '/llms.txt',
-      '/llms-full.txt',
-    ];
-
-    for (const path of paths) {
-      expect(shouldPreserveHostForSeoInfra(path)).toBe(true);
-    }
-  });
-
-  it('normal content paths are not treated as SEO host-preserve paths', () => {
-    const paths = ['/en', '/en/skills', '/en/blog', '/api/skills', '/favicon.ico'];
-    for (const path of paths) {
-      expect(shouldPreserveHostForSeoInfra(path)).toBe(false);
-    }
   });
 });
 
