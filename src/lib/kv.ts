@@ -30,6 +30,44 @@ const localCache = new Map<string, string>();
 let _localSkillsCache: any[] | null = null;
 let _localSkillsCacheTime = 0;
 
+function normalizeTrackedSkillFallback(row: any): any | null {
+  if (!row || typeof row !== 'object') return null;
+
+  const owner = typeof row.owner === 'string' ? row.owner.trim() : '';
+  const repo = typeof row.repo === 'string' ? row.repo.trim() : '';
+  if (!owner || !repo) return null;
+
+  const repoPath = `${owner}/${repo}`;
+  const name = typeof row.name === 'string' && row.name.trim().length > 0 ? row.name.trim() : repo;
+  const descriptionText = typeof row.description === 'string' ? row.description.trim() : '';
+  const updatedAt = typeof row.updatedAt === 'string' ? row.updatedAt : '';
+  const bodyPreview = descriptionText ? `# ${name}\n\n${descriptionText}` : `# ${name}`;
+
+  return {
+    id: repoPath,
+    name,
+    skillName: name,
+    description: descriptionText ? { en: descriptionText } : { en: `${name} AI agent skill.` },
+    owner,
+    repo,
+    repoPath,
+    stars: typeof row.stars === 'number' ? row.stars : 0,
+    forks: typeof row.forks === 'number' ? row.forks : 0,
+    updatedAt,
+    lastSynced: updatedAt,
+    topics: Array.isArray(row.topics) ? row.topics : [],
+    category: typeof row.category === 'string' ? row.category : '',
+    qualityScore: typeof row.qualityScore === 'number' ? row.qualityScore : 0,
+    filePath: typeof row.filePath === 'string' ? row.filePath : '',
+    skillMd: {
+      name,
+      description: descriptionText || `${name} AI agent skill.`,
+      bodyPreview,
+      body: bodyPreview,
+    },
+  };
+}
+
 export async function getLocalSkillsFallback(): Promise<any[]> {
   if (_localSkillsCache && Date.now() - _localSkillsCacheTime < 30000) {
     return _localSkillsCache || [];
@@ -37,11 +75,24 @@ export async function getLocalSkillsFallback(): Promise<any[]> {
   try {
     const fs = await import('node:fs');
     const path = await import('node:path');
+
     const mainCachePath = path.resolve(process.cwd(), 'data/skills-cache.json');
     if (fs.existsSync(mainCachePath)) {
       const content = fs.readFileSync(mainCachePath, 'utf-8');
       const data = JSON.parse(content);
       _localSkillsCache = Array.isArray(data) ? data : data.skills || [];
+      _localSkillsCacheTime = Date.now();
+      return _localSkillsCache || [];
+    }
+
+    const trackedFallbackPath = path.resolve(process.cwd(), 'data/expanded-github-skills.json');
+    if (fs.existsSync(trackedFallbackPath)) {
+      const content = fs.readFileSync(trackedFallbackPath, 'utf-8');
+      const data = JSON.parse(content);
+      const normalized = (Array.isArray(data) ? data : [])
+        .map((row) => normalizeTrackedSkillFallback(row))
+        .filter(Boolean);
+      _localSkillsCache = normalized;
       _localSkillsCacheTime = Date.now();
       return _localSkillsCache || [];
     }
