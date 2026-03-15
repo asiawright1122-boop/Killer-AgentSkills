@@ -282,12 +282,11 @@ function tryParseJSON<T>(str: string, fallback: T): T {
  * Usage: await getSkillsKV(context.locals.runtime.env, 'some-key')
  */
 export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
-  if (!env?.DB) {
-    console.warn(`[D1] No DB binding for specific key lookup ${key}, using local cache`);
+  const lookupLocalSkill = async (rawKey: string): Promise<any | null> => {
     const all = await getLocalSkillsFallback();
-    let dbId = key;
-    if (key.startsWith('skill:')) {
-      dbId = key.substring(6);
+    let dbId = rawKey;
+    if (rawKey.startsWith('skill:')) {
+      dbId = rawKey.substring(6);
     }
 
     let match = all.find((s) => s.id === dbId);
@@ -308,6 +307,11 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
     }
 
     return null;
+  };
+
+  if (!env?.DB) {
+    console.warn(`[D1] No DB binding for specific key lookup ${key}, using local cache`);
+    return lookupLocalSkill(key);
   }
 
   try {
@@ -350,7 +354,8 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
     return null;
   } catch (e) {
     console.error(`[D1] Error querying skill key "${key}":`, e);
-    return null;
+    console.warn(`[D1] Falling back to local skills cache for ${key}`);
+    return lookupLocalSkill(key);
   }
 }
 
