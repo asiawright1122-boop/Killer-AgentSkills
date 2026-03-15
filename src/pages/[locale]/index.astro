@@ -77,6 +77,24 @@ const faqItems = [
       ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 15+ IDE，并支持一条命令安装。'
       : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 15+ other IDEs with a single install command.',
   },
+  {
+    question: isZh ? '什么是 MCP 服务器？' : 'What is an MCP server?',
+    answer: isZh
+      ? 'MCP (Model Context Protocol) 服务器是一种让 AI 代理连接外部数据和工具的中间件。它为 AI 提供数据库查询、文件访问、API 调用等能力。'
+      : 'An MCP (Model Context Protocol) server is middleware that enables AI agents to connect to external data sources and tools, providing database queries, file access, and API call capabilities.',
+  },
+  {
+    question: isZh ? '如何安装 MCP 服务器？' : 'How do I install an MCP server?',
+    answer: isZh
+      ? '大多数 MCP 服务器可以通过 npm install 或直接下载安装。安装后需要在你的 AI 客户端（如 Claude Code 或 Cursor）中配置服务器地址。'
+      : 'Most MCP servers can be installed via npm install or direct download. After installation, you need to configure the server address in your AI client like Claude Code or Cursor.',
+  },
+  {
+    question: isZh ? 'MCP 服务器安全吗？' : 'Are MCP servers secure?',
+    answer: isZh
+      ? 'MCP 服务器的安全性取决于配置。建议使用 API 密钥认证、实施速率限制、启用 HTTPS，并定期更新依赖包。'
+      : 'MCP server security depends on configuration. We recommend using API key authentication, enabling rate limiting, using HTTPS, and regularly updating dependencies.',
+  },
 ];
 
 // Features data with SVG paths (Lucide icons style)
