@@ -1,6 +1,6 @@
 ---
 title: "Mejores prácticas de seguridad para servidores MCP en producción"
-description: "Protege tus servidores MCP para uso en producción con validación de entrada y seguridad de red."
+description: "Mejores prácticas de seguridad para servidores MCP en producción con validación de entrada y seguridad de red para proteger tus sistemas."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-security-best-practices.webp

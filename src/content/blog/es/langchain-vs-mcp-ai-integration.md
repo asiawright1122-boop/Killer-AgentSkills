@@ -1,6 +1,6 @@
 ---
 title: "LangChain vs MCP: Comparación de frameworks de integración de IA"
-description: "Compara LangChain con Model Context Protocol para desarrollo de agentes de IA. Conoce las diferencias y casos de uso."
+description: "Compara LangChain y Model Context Protocol para desarrollo de agentes de IA, conoce sus diferencias y casos de uso en integración de IA."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/langchain-vs-mcp-ai-integration.webp
