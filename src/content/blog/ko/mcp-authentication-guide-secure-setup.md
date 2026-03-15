@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "MCP API OAuth"
+title: "MCP 인증 가이드: 안전한 서버 설정 방법"
+description: "MCP 서버 인증을 안전하게 구성하는 방법을 설명합니다. API 키, OAuth, 토큰 기반 인증과 AI 에이전트 통합 보안 모범 사례를 다룹니다."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp

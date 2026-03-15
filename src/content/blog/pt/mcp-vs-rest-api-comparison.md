@@ -1,6 +1,6 @@
 ---
 title: "MCP vs REST API: Qual é o Melhor para Agentes de IA?"
-description: "Compare MCP e REST API para aplicações de agentes de IA."
+description: "Compare MCP e APIs REST para aplicações de agentes de IA e entenda quando usar servidores MCP ou endpoints REST em cada cenário."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp

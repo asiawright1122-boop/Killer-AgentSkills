@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "MCP"
+title: "MCP 服务器无法工作？完整故障排除指南"
+description: "本指南汇总 MCP 服务器常见错误、连接问题与修复步骤，帮助你快速定位原因并恢复 Model Context Protocol 服务正常运行。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp

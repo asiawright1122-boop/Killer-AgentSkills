@@ -1,6 +1,6 @@
 ---
-title: "MCP "
-description: "MCP."
+title: "프로덕션용 MCP 서버 보안 모범 사례"
+description: "프로덕션 환경에서 MCP 서버를 안전하게 운영하기 위해 입력 검증, 속도 제한, 감사 로그, 네트워크 보안, 규정 준수 고려 사항을 설명합니다."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-security-best-practices.webp

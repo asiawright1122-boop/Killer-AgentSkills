@@ -1,6 +1,6 @@
 ---
-title: "MCP"
-description: "MCP"
+title: "MCP サーバーが動かない？完全トラブルシューティングガイド"
+description: "MCP サーバーで発生しやすいエラーや接続問題を整理し、再び動作させるための実践的な解決策を段階的に解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp

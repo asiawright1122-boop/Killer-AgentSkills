@@ -1,6 +1,6 @@
 ---
-title: "AI"
-description: "AI40-200"
+title: "测试 MCP 服务器：面向 AI 开发者的完整指南"
+description: "系统介绍 MCP 服务器的单元测试、集成测试、Mock 与 CI/CD 自动化策略，帮助你构建更可靠的 AI 代理集成。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/testing-mcp-servers-comprehensive-guide.webp
