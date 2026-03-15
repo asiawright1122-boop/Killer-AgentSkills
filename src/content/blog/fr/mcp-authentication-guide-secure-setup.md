@@ -1,6 +1,6 @@
 ---
 title: "Guide d'authentification MCP : sécurisez votre configuration de serveur"
-description: "Découvrez comment configurer correctement l'authentification pour vos serveurs MCP"
+description: "Découvrez comment configurer l'authentification MCP pour sécuriser votre serveur en suivant notre guide d'authentification détaillé."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp

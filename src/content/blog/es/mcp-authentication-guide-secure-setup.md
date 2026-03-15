@@ -1,6 +1,6 @@
 ---
 title: "Guía de autenticación MCP: Protege tu configuración de servidor"
-description: "Aprende a configurar autenticación para tus servidores MCP de manera segura con API keys y OAuth."
+description: "Aprende a configurar autenticación segura para tus servidores MCP con API keys y OAuth en nuestra guía de autenticación MCP."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp
