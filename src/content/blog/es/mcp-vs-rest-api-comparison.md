@@ -1,6 +1,6 @@
 ---
 title: "MCP vs API REST: ¿Cuál debes utilizar para agentes de IA?"
-description: "Comparación entre Protocolo de Contexto de Modelo y API REST tradicionales."
+description: "Descubre cuándo utilizar MCP o API REST para agentes de IA y maximiza el rendimiento de tus modelos de inteligencia artificial."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp

@@ -1,6 +1,6 @@
 ---
 title: "¿No funciona el servidor MCP? Guía de solución de problemas completa"
-description: "Soluciona problemas comunes del servidor MCP y vuelve a trabajar con nuestra guía paso a paso"
+description: "Soluciona problemas del servidor MCP con nuestra guía de solución de problemas paso a paso y completa para volver a trabajar."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp
