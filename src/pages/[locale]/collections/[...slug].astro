@@ -76,7 +76,8 @@ const seoDescription = resolveLocalized(cData.seoDescription, description);
 const keywords = resolveLocalizedArray(cData.keywords, []);
 const availableLocales = getLocalizedSeoEligibleLocales(cData, SUPPORTED_LOCALES);
 const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
-const isIndexableLocale = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${slug}`;
 const collectionSeoKeywords = buildKeywordString(
   typedLocale,
