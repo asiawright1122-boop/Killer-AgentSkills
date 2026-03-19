@@ -11,6 +11,7 @@ import {
   getPreferredCanonicalLocale,
   isDirectlyLocalizedVariant,
 } from '../../../lib/seo-locales';
+import { resolveCollectionBySlug } from '../../../lib/collection-slugs';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -20,7 +21,7 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-
 // We will primarily use dynamic SSR with Cloudflare Pages
 
 const { locale, slug } = Astro.params;
-if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
@@ -29,15 +30,18 @@ const env = Astro.locals.runtime?.env as Env;
 
 // Load collections from content layer
 const collectionsCol = await getCollection('collections');
-const collectionData = collectionsCol.find((c) => {
-  // collection keys might just be full slugs, e.g. "top-mcp-servers-2026.json"
-  return c.id === slug || c.id === `${slug}.json`;
-});
+const resolvedCollection = resolveCollectionBySlug(collectionsCol, slug);
 
-if (!collectionData) {
+if (!resolvedCollection) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
+if (!resolvedCollection.isCanonical) {
+  return Astro.redirect(`/${locale}/collections/${resolvedCollection.canonicalSlug}`, 301);
+}
+
+const collectionData = resolvedCollection.collection;
+const canonicalSlug = resolvedCollection.canonicalSlug;
 const cData = collectionData.data;
 
 // Fetch live database skills concurrently with translations
@@ -78,11 +82,10 @@ const availableLocales = getLocalizedSeoEligibleLocales(cData, SUPPORTED_LOCALES
 const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
 const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
-const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${slug}`;
+const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${canonicalSlug}`;
 const collectionSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
-  'mcp',
   'workflowAutomation',
   'processAutomation',
   'documentAutomation',
@@ -262,7 +265,7 @@ const itemListSchema = {
             <div class="flex items-center gap-2 w-full sm:w-auto">
               <div class="flex-1 sm:flex-initial flex items-center gap-2 px-4 py-2.5 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-black border-2 border-[var(--foreground)] shadow-[3px_3px_0px_0px_var(--border)]">
                 <span class="text-[var(--primary)] bg-[var(--background)] px-1">▶</span>
-                <span class="truncate">npx killer-skills install</span>
+                <span class="truncate">npx killer-skills add owner/repo</span>
               </div>
               <a
                 href={`/${locale}/cli`}

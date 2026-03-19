@@ -1,107 +1,117 @@
 {
   "title": {
-    "en": "Top 15 Community Frameworks & Tools",
-    "zh": "15大社区框架与工具",
-    "ja": "AI Agent向けコミュニティフレームワーク＆ツール トップ15",
-    "ko": "최고의 커뮤니티 프레임워크 및 도구 15가지",
-    "es": "Mejores servidores MCP de community skills en 2024",
-    "fr": "Meilleurs serveurs MCP community skills en 2024",
-    "de": "Beste MCP-Server community skills 2024",
-    "pt": "Melhores servidores MCP community skills em 2024",
-    "ru": "Лучшие MCP серверы community skills 2024",
-    "ar": "أفضل خوادم MCP community skills لعام 2024"
+    "en": "Top Community Skills & Frameworks for AI Agent Builders",
+    "zh": "AI Agent 构建者常用的社区技能与框架",
+    "ja": "AIエージェント開発者向けコミュニティスキル＆フレームワーク",
+    "ko": "AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크",
+    "es": "Mejores skills y frameworks de la comunidad para creadores de agentes de IA",
+    "fr": "Top skills et frameworks communautaires pour créer des agents IA",
+    "de": "Top-Community-Skills und Frameworks für KI-Agent-Builders",
+    "pt": "Principais skills e frameworks da comunidade para criadores de agentes de IA",
+    "ru": "Лучшие community skills и фреймворки для разработчиков ИИ-агентов",
+    "ar": "أفضل مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي"
   },
   "description": {
-    "en": "Discover the ultimate collection of community tools for AI agents, empowering developers to build, collaborate, and innovate with ease. From widget generators to debugging skills, these top 15 tools will revolutionize your workflow and take your projects to the next level.",
-    "zh": "探索AI Agent社区工具的终极合集，助力开发者轻松构建、协作和创新。从组件生成器到调试技能，这15款顶级工具将彻底改变您的工作流程，让您的项目更上一层楼。",
-    "ja": "AI Agent開発者が簡単に構築、共同作業、革新を行える、コミュニティツールの究極のコレクションをご紹介します。ウィジェットジェネレーターからデバッグスキルまで、厳選されたトップ15ツールがあなたのワークフローを革新し、プロジェクトを次のレベルへと導きます。",
-    "ko": "AI Agent를 위한 궁극적인 커뮤니티 도구 컬렉션을 만나보세요. 개발자들이 손쉽게 구축하고, 협업하며, 혁신할 수 있도록 지원합니다. 위젯 생성기부터 디버깅 스킬까지, 이 15가지 최고의 도구들이 여러분의 워크플로우를 혁신하고 프로젝트를 한 단계 더 발전시킬 것입니다.",
-    "es": "Explora los mejores servidores MCP para community skills. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour community skills. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für community skills. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para community skills. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для community skills. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ community skills. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A focused list of community tools, reusable skills, and open frameworks for developers building AI agents.",
+    "zh": "面向 AI Agent 开发者的社区工具、可复用技能与开源框架精选。",
+    "ja": "AIエージェントを開発するチーム向けに、コミュニティ製ツール、再利用可能なスキル、オープンなフレームワークを厳選した一覧です。",
+    "ko": "AI 에이전트를 만드는 개발자를 위해 커뮤니티 도구, 재사용 가능한 스킬, 오픈 프레임워크를 엄선했습니다.",
+    "es": "Lista enfocada de herramientas comunitarias, skills reutilizables y frameworks abiertos para desarrolladores de agentes de IA.",
+    "fr": "Sélection ciblée d’outils communautaires, de skills réutilisables et de frameworks ouverts pour les développeurs d’agents IA.",
+    "de": "Fokussierte Auswahl an Community-Tools, wiederverwendbaren Skills und offenen Frameworks für Entwickler von KI-Agenten.",
+    "pt": "Lista focada de ferramentas da comunidade, skills reutilizáveis e frameworks abertos para desenvolvedores de agentes de IA.",
+    "ru": "Сфокусированная подборка community-инструментов, переиспользуемых навыков и открытых фреймворков для разработчиков ИИ-агентов.",
+    "ar": "قائمة مركزة من أدوات المجتمع والمهارات القابلة لإعادة الاستخدام والأطر المفتوحة لمطوري وكلاء الذكاء الاصطناعي."
   },
   "seoTitle": {
-    "en": "Top 15 AI Tools [2026]",
-    "zh": "2026年15款顶级AI工具",
-    "ja": "AI Agent開発に必須！厳選ツール15選【2026年版】",
-    "ko": "최고의 AI 도구 15가지 [2026년]",
-    "es": "Mejores servidores MCP de community skills en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP community skills en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server community skills 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP community skills em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы community skills 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP community skills لعام 2024 2026 | Killer-Skills"
+    "en": "Top Community Skills & Frameworks for AI Agent Builders | Killer-Skills",
+    "zh": "AI Agent 开发者的社区工具与框架",
+    "ja": "AIエージェント開発者向けコミュニティツールとフレームワーク",
+    "ko": "AI 에이전트 빌더를 위한 커뮤니티 도구와 프레임워크",
+    "es": "Mejores skills y frameworks de la comunidad para creadores de agentes de IA",
+    "fr": "Top skills et frameworks communautaires pour créer des agents IA | Killer-Skills",
+    "de": "Top-Community-Skills und Frameworks für KI-Agent-Builders | Killer-Skills",
+    "pt": "Principais skills e frameworks da comunidade para criadores de agentes de IA",
+    "ru": "Лучшие community skills и фреймворки для разработчиков ИИ-агентов",
+    "ar": "أفضل مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Unlock the power of AI with our top 15 community tools. Boost productivity, collaboration, and innovation with our expert-curated collection.",
-    "zh": "发掘AI的无限潜力！精选15款顶级社区工具，助您提升生产力、加强协作、激发创新。",
-    "ja": "AIの可能性を解き放つ！厳選されたトップ15のコミュニティツールで、生産性、コラボレーション、イノベーションを飛躍的に向上させましょう。",
-    "ko": "엄선된 AI 커뮤니티 도구 15가지로 AI의 잠재력을 깨워보세요. 생산성, 협업, 혁신을 한 번에 끌어올리세요.",
-    "es": "Explora los mejores servidores MCP para community skills. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour community skills. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für community skills. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para community skills. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для community skills. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ community skills. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Explore community-driven skills, tools, and frameworks that help AI agent builders prototype faster, debug reliably, and ship with confidence.",
+    "zh": "探索由社区驱动的技能、工具与框架，帮助 AI Agent 开发者更快原型、稳定调试并可靠交付。",
+    "ja": "コミュニティ主導のスキル、ツール、フレームワークを活用し、AIエージェント開発の試作速度、デバッグ品質、リリースの確実性を高めます。",
+    "ko": "커뮤니티 기반 스킬, 도구, 프레임워크를 통해 AI 에이전트 빌더가 더 빠르게 프로토타이핑하고 안정적으로 디버깅하며 자신 있게 출시할 수 있습니다.",
+    "es": "Explora skills, herramientas y frameworks impulsados por la comunidad que ayudan a crear prototipos más rápido, depurar con confianza y lanzar mejor agentes de IA.",
+    "fr": "Découvrez des skills, outils et frameworks portés par la communauté pour prototyper plus vite, déboguer de façon fiable et livrer des agents IA avec confiance.",
+    "de": "Entdecke community-getriebene Skills, Tools und Frameworks, mit denen KI-Agent-Builders schneller prototypen, zuverlässig debuggen und sicher ausliefern.",
+    "pt": "Explore skills, ferramentas e frameworks orientados pela comunidade para prototipar mais rápido, depurar com confiabilidade e publicar agentes de IA com confiança.",
+    "ru": "Изучите community-ориентированные навыки, инструменты и фреймворки, которые помогают быстрее прототипировать, надежно отлаживать и уверенно выпускать ИИ-агентов.",
+    "ar": "استكشف مهارات وأدوات وأطرًا تقودها المجتمع تساعد بناة وكلاء الذكاء الاصطناعي على النمذجة السريعة والتصحيح الموثوق والإطلاق بثقة."
   },
   "keywords": {
     "en": [
-      "AI community tools",
-      "AI agent development",
-      "widget generator",
-      "chat SDK",
-      "debugging skills",
-      "AI collaboration",
-      "AI innovation",
-      "developer tools",
-      "AI frameworks",
-      "AI libraries"
+      "community ai tools",
+      "ai agent skills",
+      "open agent frameworks",
+      "agent developer workflow",
+      "community-built utilities"
     ],
-    "zh": [
-      "AI community tools",
-      "AI agent development",
-      "widget generator",
-      "chat SDK",
-      "debugging skills",
-      "AI collaboration",
-      "AI innovation",
-      "developer tools",
-      "AI frameworks",
-      "AI libraries"
-    ],
+    "zh": ["社区 AI 工具", "AI Agent 技能", "开源 Agent 框架", "Agent 开发工作流", "社区实用工具"],
     "ja": [
-      "AI community tools",
-      "AI agent development",
-      "widget generator",
-      "chat SDK",
-      "debugging skills",
-      "AI collaboration",
-      "AI innovation",
-      "developer tools",
-      "AI frameworks",
-      "AI libraries"
+      "コミュニティAIツール",
+      "AIエージェント スキル",
+      "オープンエージェントフレームワーク",
+      "エージェント開発ワークフロー",
+      "コミュニティ製ユーティリティ"
     ],
     "ko": [
-      "AI community tools",
-      "AI agent development",
-      "widget generator",
-      "chat SDK",
-      "debugging skills",
-      "AI collaboration",
-      "AI innovation",
-      "developer tools",
-      "AI frameworks",
-      "AI libraries"
+      "커뮤니티 AI 도구",
+      "AI 에이전트 스킬",
+      "오픈 에이전트 프레임워크",
+      "에이전트 개발 워크플로",
+      "커뮤니티 유틸리티"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "community", "skills"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "community", "skills"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "community", "skills"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "community", "skills"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "community", "skills"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "community", "skills"]
+    "es": [
+      "herramientas comunitarias de IA",
+      "skills para agentes de IA",
+      "frameworks abiertos para agentes",
+      "workflow de desarrollo de agentes",
+      "utilidades creadas por la comunidad"
+    ],
+    "fr": [
+      "outils IA communautaires",
+      "skills pour agents IA",
+      "frameworks ouverts pour agents",
+      "workflow de développement d’agents",
+      "utilitaires créés par la communauté"
+    ],
+    "de": [
+      "Community-KI-Tools",
+      "KI-Agenten-Skills",
+      "offene Agenten-Frameworks",
+      "Agenten-Entwicklungsworkflow",
+      "community-entwickelte Utilities"
+    ],
+    "pt": [
+      "ferramentas comunitárias de IA",
+      "skills para agentes de IA",
+      "frameworks abertos para agentes",
+      "workflow de desenvolvimento de agentes",
+      "utilitários da comunidade"
+    ],
+    "ru": [
+      "community инструменты ИИ",
+      "навыки для ИИ-агентов",
+      "открытые фреймворки агентов",
+      "workflow разработки агентов",
+      "утилиты от сообщества"
+    ],
+    "ar": [
+      "أدوات ذكاء اصطناعي مجتمعية",
+      "مهارات لوكلاء الذكاء الاصطناعي",
+      "أطر مفتوحة للوكلاء",
+      "سير عمل تطوير الوكلاء",
+      "أدوات مبنية من المجتمع"
+    ]
   },
   "skills": [
     "f/prompts.chat",
@@ -124,15 +134,15 @@
   "featured": true,
   "category": "community",
   "longDescription": {
-    "en": "In the rapidly evolving landscape of AI development, the ability to seamlessly integrate, extend, and manage AI agents is paramount. Developers often face the challenge of fragmented workflows, repetitive tasks, and the constant need to adapt to new paradigms. This is precisely why a robust ecosystem of community AI tools is not just a luxury, but a necessity. Our curated collection, \"Top 15 Community Frameworks & Tools,\" addresses these pain points head-on, offering a comprehensive suite designed to supercharge your development cycle. Imagine effortlessly generating custom widgets for your AI agent's interface, streamlining complex debugging processes with specialized skills, or even deploying and managing your agents on high-performance MCP servers with unparalleled ease. These tools empower you to move beyond basic scripting, fostering true innovation. From intuitive CLI utilities that simplify API interactions to powerful SDKs that accelerate integration, each of the 15 tools in this collection has been handpicked for its ability to enhance collaboration, optimize performance, and unlock new possibilities for your AI agent projects. Whether you're a seasoned AI architect or just starting your journey, these community AI tools will revolutionize your workflow, allowing you to build, test, and deploy more efficiently than ever before, ultimately bringing your groundbreaking AI agent ideas to life faster.",
-    "zh": "在快速发展的AI开发领域，无缝集成、扩展和管理AI代理的能力至关重要。开发者经常面临工作流程碎片化、重复性任务以及不断适应新范式的挑战。这正是为什么一个强大的社区AI工具生态系统不仅仅是奢侈品，而是必需品。我们精心策划的“15大社区框架与工具”系列，直接解决了这些痛点，提供了一套旨在加速您的开发周期的综合工具。想象一下，您可以轻松为您的AI代理界面生成自定义小部件，利用专业技能简化复杂的调试过程，甚至在高性能MCP服务器上以无与伦比的便捷性部署和管理您的代理。这些工具使您能够超越基本脚本，促进真正的创新。从简化API交互的直观CLI实用程序到加速集成的强大SDK，此系列中的15个工具都经过精心挑选，以增强协作、优化性能并为您的AI代理项目开启新的可能性。无论您是经验丰富的AI架构师还是刚刚开始您的旅程，这些社区AI工具都将彻底改变您的工作流程，让您比以往任何时候都更高效地构建、测试和部署，最终更快地将您开创性的AI代理想法变为现实。",
-    "ja": "AI開発の急速な進化する状況において、AIエージェントをシームレスに統合、拡張、管理する能力は極めて重要です。開発者は、断片化されたワークフロー、反復的なタスク、そして新しいパラダイムへの絶え間ない適応の必要性という課題に頻繁に直面します。これこそが、堅牢なコミュニティAIツールエコシステムが単なる贅沢品ではなく、必需品である理由です。私たちの厳選されたコレクション「トップ15コミュニティフレームワーク＆ツール」は、これらの課題に正面から取り組み、開発サイクルを大幅に加速させるように設計された包括的なスイートを提供します。AIエージェントのインターフェース用にカスタムウィジェットを簡単に生成したり、専門的なスキルで複雑なデバッグプロセスを合理化したり、あるいは高性能なMCPサーバーにエージェントを比類のない容易さでデプロイおよび管理したりすることを想像してみてください。これらのツールは、基本的なスクリプト作成を超え、真のイノベーションを促進します。APIインタラクションを簡素化する直感的なCLIユーティリティから、統合を加速する強力なSDKまで、このコレクションの15のツールはそれぞれ、コラボレーションを強化し、パフォーマンスを最適化し、AIエージェントプロジェクトの新しい可能性を解き放つ能力に基づいて厳選されています。経験豊富なAIアーキテクトであろうと、旅を始めたばかりであろうと、これらのコミュニティAIツールはあなたのワークフローを革新し、これまで以上に効率的に構築、テスト、デプロイすることを可能にし、最終的にあなたの画期的なAIエージェントのアイデアをより速く実現させます。",
-    "ko": "급변하는 AI 개발 환경에서 AI 에이전트를 원활하게 통합, 확장 및 관리하는 능력은 매우 중요합니다. 개발자들은 종종 파편화된 워크플로우, 반복적인 작업, 그리고 새로운 패러다임에 끊임없이 적응해야 하는 문제에 직면합니다. 이것이 바로 강력한 커뮤니티 AI 도구 생태계가 단순한 사치가 아니라 필수적인 이유입니다. 저희가 엄선한 컬렉션인 \"상위 15가지 커뮤니티 프레임워크 및 도구\"는 이러한 문제점을 정면으로 해결하며, 개발 주기를 가속화하도록 설계된 포괄적인 스위트를 제공합니다. AI 에이전트의 인터페이스를 위한 맞춤형 위젯을 손쉽게 생성하고, 전문 기술로 복잡한 디버깅 프로세스를 간소화하며, 심지어 고성능 MCP 서버에 에이전트를 비교할 수 없는 편리함으로 배포 및 관리하는 것을 상상해 보세요. 이 도구들은 기본적인 스크립팅을 넘어 진정한 혁신을 촉진합니다. API 상호 작용을 단순화하는 직관적인 CLI 유틸리티부터 통합을 가속화하는 강력한 SDK에 이르기까지, 이 컬렉션의 15가지 도구는 각각 협업을 강화하고 성능을 최적화하며 AI 에이전트 프로젝트의 새로운 가능성을 열어주는 능력으로 엄선되었습니다. 숙련된 AI 아키텍트이든 이제 막 여정을 시작하는 분이든, 이 커뮤니티 AI 도구들은 여러분의 워크플로우를 혁신하여 이전보다 더 효율적으로 구축, 테스트 및 배포할 수 있도록 지원하며, 궁극적으로 여러분의 획기적인 AI 에이전트 아이디어를 더 빠르게 현실로 만들 것입니다.",
-    "es": "En el panorama de rápido avance del desarrollo de IA, la capacidad de integrar, extender y gestionar agentes de IA de forma fluida es primordial. Los desarrolladores a menudo se enfrentan al desafío de flujos de trabajo fragmentados, tareas repetitivas y la necesidad constante de adaptarse a nuevos paradigmas. Es precisamente por eso que un ecosistema robusto de herramientas de IA comunitarias no es solo un lujo, sino una necesidad. Nuestra colección curada, \"Las 15 principales herramientas y frameworks comunitarios\", aborda estos puntos débiles de frente, ofreciendo un conjunto completo diseñado para potenciar su ciclo de desarrollo. Imagine generar sin esfuerzo widgets personalizados para la interfaz de su agente de IA, optimizar procesos de depuración complejos con habilidades especializadas, o incluso desplegar y gestionar sus agentes en servidores MCP de alto rendimiento con una facilidad inigualable. Estas herramientas le permiten ir más allá de la programación básica, fomentando la verdadera innovación. Desde utilidades CLI intuitivas que simplifican las interacciones con la API hasta potentes SDK que aceleran la integración, cada una de las 15 herramientas de esta colección ha sido cuidadosamente seleccionada por su capacidad para mejorar la colaboración, optimizar el rendimiento y desbloquear nuevas posibilidades para sus proyectos de agentes de IA. Ya sea un arquitecto de IA experimentado o esté comenzando su viaje, estas herramientas de IA comunitarias revolucionarán su flujo de trabajo, permitiéndole construir, probar y desplegar de manera más eficiente que nunca, dando vida a sus innovadoras ideas de agentes de IA más rápidamente.",
-    "fr": "Dans le paysage en constante évolution du développement d'IA, la collaboration et l'efficacité sont primordiales. Les développeurs d'agents IA sont confrontés à des défis uniques, allant de la gestion de dépendances complexes à l'intégration transparente de nouvelles fonctionnalités. C'est là que les outils communautaires d'IA deviennent indispensables, transformant la manière dont les projets sont conçus, construits et déployés. Imaginez un monde où la création de widgets personnalisés pour votre agent IA est aussi simple qu'une commande CLI, où le débogage de comportements complexes sur des serveurs MCP est rationalisé, et où l'accès à des API et des SDK robustes est à portée de main. Cette collection soigneusement sélectionnée de 15 outils communautaires d'IA est votre passeport pour cette réalité. Nous avons méticuleusement choisi des solutions qui non seulement simplifient les tâches quotidiennes, mais ouvrent également de nouvelles voies pour l'innovation. Que vous cherchiez à optimiser les performances de votre agent IA, à améliorer l'expérience utilisateur ou à accélérer le cycle de développement, ces outils sont conçus pour vous faire gagner un temps précieux et réduire les frictions. Ils représentent le summum de l'ingéniosité collective, offrant des solutions éprouvées pour les défis les plus pressants du développement d'agents IA. Préparez-vous à révolutionner votre flux de travail et à propulser vos projets vers de nouveaux sommets avec ces ressources inestimables.",
-    "de": "In der sich ständig weiterentwickelnden Landschaft der KI-Entwicklung sind Zusammenarbeit und Effizienz von größter Bedeutung. KI-Agenten-Entwickler stehen vor einzigartigen Herausforderungen, von der Verwaltung komplexer Abhängigkeiten bis zur nahtlosen Integration neuer Funktionen. Hier werden Community-KI-Tools unverzichtbar und verändern die Art und Weise, wie Projekte konzipiert, erstellt und bereitgestellt werden. Stellen Sie sich eine Welt vor, in der die Erstellung benutzerdefinierter Widgets für Ihren KI-Agenten so einfach ist wie ein CLI-Befehl, in der das Debuggen komplexer Verhaltensweisen auf MCP-Servern optimiert ist und in der der Zugriff auf robuste APIs und SDKs nur einen Klick entfernt ist. Diese sorgfältig kuratierte Sammlung von 15 Community-KI-Tools ist Ihr Pass in diese Realität. Wir haben Lösungen sorgfältig ausgewählt, die nicht nur alltägliche Aufgaben vereinfachen, sondern auch neue Wege für Innovationen eröffnen. Egal, ob Sie die Leistung Ihres KI-Agenten optimieren, die Benutzererfahrung verbessern oder den Entwicklungszyklus beschleunigen möchten, diese Tools wurden entwickelt, um Ihnen wertvolle Zeit zu sparen und Reibungsverluste zu reduzieren. Sie repräsentieren den Höhepunkt kollektiven Einfallsreichtums und bieten bewährte Lösungen für die dringendsten Herausforderungen der KI-Agenten-Entwicklung. Machen Sie sich bereit, Ihren Workflow zu revolutionieren und Ihre Projekte mit diesen unschätzbaren Ressourcen auf neue Höhen zu treiben.",
-    "pt": "No cenário em constante evolução do desenvolvimento de IA, a colaboração e a eficiência são primordiais. Os desenvolvedores de agentes de IA enfrentam desafios únicos, desde o gerenciamento de dependências complexas até a integração perfeita de novas funcionalidades. É aqui que as ferramentas comunitárias de IA se tornam indispensáveis, transformando a maneira como os projetos são concebidos, construídos e implantados. Imagine um mundo onde a criação de widgets personalizados para seu agente de IA é tão simples quanto um comando CLI, onde a depuração de comportamentos complexos em servidores MCP é simplificada e onde o acesso a APIs e SDKs robustos está ao seu alcance. Esta coleção cuidadosamente selecionada de 15 ferramentas comunitárias de IA é o seu passaporte para essa realidade. Selecionamos meticulosamente soluções que não apenas simplificam as tarefas diárias, mas também abrem novos caminhos para a inovação. Seja você buscando otimizar o desempenho do seu agente de IA, aprimorar a experiência do usuário ou acelerar o ciclo de desenvolvimento, essas ferramentas são projetadas para economizar seu tempo valioso e reduzir o atrito. Elas representam o auge da engenhosidade coletiva, oferecendo soluções comprovadas para os desafios mais prementes do desenvolvimento de agentes de IA. Prepare-se para revolucionar seu fluxo de trabalho e impulsionar seus projetos a novos patamares com esses recursos inestimáveis.",
-    "ru": "В постоянно развивающемся ландшафте разработки ИИ сотрудничество и эффективность имеют первостепенное значение. Разработчики ИИ-агентов сталкиваются с уникальными проблемами, от управления сложными зависимостями до бесшовной интеграции новых функций. Именно здесь инструменты сообщества ИИ становятся незаменимыми, преобразуя то, как проекты задумываются, создаются и развертываются. Представьте себе мир, где создание пользовательских виджетов для вашего ИИ-агента так же просто, как команда CLI, где отладка сложного поведения на серверах MCP оптимизирована, и где доступ к надежным API и SDK находится у вас под рукой. Эта тщательно подобранная коллекция из 15 инструментов сообщества ИИ — ваш пропуск в эту реальность. Мы тщательно отобрали решения, которые не только упрощают повседневные задачи, но и открывают новые возможности для инноваций. Независимо от того, стремитесь ли вы оптимизировать производительность вашего ИИ-агента, улучшить пользовательский опыт или ускорить цикл разработки, эти инструменты разработаны для экономии вашего драгоценного времени и уменьшения трений. Они представляют собой вершину коллективной изобретательности, предлагая проверенные решения для самых насущных проблем разработки ИИ-агентов. Приготовьтесь революционизировать свой рабочий процесс и поднять свои проекты на новый уровень с помощью этих бесценных ресурсов.",
-    "ar": "في المشهد المتطور باستمرار لتطوير الذكاء الاصطناعي، يعد التعاون والكفاءة أمرًا بالغ الأهمية. يواجه مطورو وكلاء الذكاء الاصطناعي تحديات فريدة، تتراوح من إدارة التبعيات المعقدة إلى التكامل السلس للميزات الجديدة. وهنا تصبح أدوات مجتمع الذكاء الاصطناعي لا غنى عنها، حيث تحول طريقة تصور المشاريع وبنائها ونشرها. تخيل عالمًا يكون فيه إنشاء أدوات واجهة مستخدم مخصصة لوكيل الذكاء الاصطناعي الخاص بك بسيطًا مثل أمر CLI، وحيث يتم تبسيط تصحيح الأخطاء السلوكية المعقدة على خوادم MCP، وحيث يكون الوصول إلى واجهات برمجة التطبيقات (APIs) ومجموعات تطوير البرامج (SDKs) القوية في متناول يدك. هذه المجموعة المنسقة بعناية من 15 أداة لمجتمع الذكاء الاصطناعي هي جواز سفرك إلى هذا الواقع. لقد اخترنا بدقة الحلول التي لا تبسط المهام اليومية فحسب، بل تفتح أيضًا آفاقًا جديدة للابتكار. سواء كنت تسعى إلى تحسين أداء وكيل الذكاء الاصطناعي الخاص بك، أو تعزيز تجربة المستخدم، أو تسريع دورة التطوير، فقد تم تصميم هذه الأدوات لتوفير وقتك الثمين وتقليل الاحتكاك. إنها تمثل ذروة الإبداع الجماعي، وتقدم حلولًا مجربة لأكثر تحديات تطوير وكلاء الذكاء الاصطناعي إلحاحًا. استعد لإحداث ثورة في سير عملك ودفع مشاريعك إلى آفاق جديدة باستخدام هذه الموارد التي لا تقدر بثمن."
+    "en": "This collection is for AI agent builders who rely on community ecosystems. It brings together practical tools, reusable skills, and frameworks that support prototyping, debugging, evaluation, and integration work. The goal is to help teams move from experiments to production with clearer workflows and fewer custom one-off solutions.",
+    "zh": "这个集合面向依赖社区生态的 AI Agent 构建者，汇总了用于原型开发、调试、评估与集成的实用工具、可复用技能和框架。核心目标是帮助团队以更清晰的工作流，从实验更顺畅地走向生产，减少一次性定制方案。",
+    "ja": "このコレクションは、コミュニティエコシステムを活用するAIエージェント開発者向けです。試作、デバッグ、評価、統合作業を支える実用ツール、再利用可能なスキル、フレームワークをまとめています。目的は、ワークフローを整理し、場当たり的な実装を減らしながら、実験から本番運用へ移行しやすくすることです。",
+    "ko": "이 컬렉션은 커뮤니티 생태계를 활용하는 AI 에이전트 빌더를 위한 것입니다. 프로토타이핑, 디버깅, 평가, 통합 작업에 필요한 실용 도구와 재사용 가능한 스킬, 프레임워크를 모았습니다. 목표는 워크플로를 명확히 하고 일회성 커스텀 구현을 줄여 실험에서 프로덕션까지 더 안정적으로 이어지게 하는 것입니다.",
+    "es": "Esta colección está pensada para quienes construyen agentes de IA apoyándose en el ecosistema comunitario. Reúne herramientas prácticas, skills reutilizables y frameworks para prototipado, depuración, evaluación e integración. El objetivo es pasar de la experimentación a producción con flujos más claros y menos soluciones aisladas.",
+    "fr": "Cette collection s’adresse aux équipes qui construisent des agents IA avec l’écosystème communautaire. Elle regroupe des outils pratiques, des skills réutilisables et des frameworks pour le prototypage, le débogage, l’évaluation et l’intégration. L’objectif est de passer plus facilement de l’expérimentation à la production avec des workflows plus clairs et moins de solutions ad hoc.",
+    "de": "Diese Sammlung richtet sich an Teams, die KI-Agenten mit Hilfe des Community-Ökosystems entwickeln. Sie bündelt praktische Tools, wiederverwendbare Skills und Frameworks für Prototyping, Debugging, Evaluation und Integration. Ziel ist ein klarerer Weg von Experimenten in die Produktion – mit weniger ad-hoc Sonderlösungen.",
+    "pt": "Esta coleção é voltada para quem constrói agentes de IA com apoio do ecossistema da comunidade. Ela reúne ferramentas práticas, skills reutilizáveis e frameworks para prototipagem, depuração, avaliação e integração. O objetivo é levar experimentos para produção com fluxos mais claros e menos soluções pontuais.",
+    "ru": "Эта коллекция предназначена для разработчиков ИИ-агентов, которые опираются на экосистему сообщества. В ней собраны практичные инструменты, переиспользуемые навыки и фреймворки для прототипирования, отладки, оценки и интеграции. Цель — упростить переход от экспериментов к продакшену за счет более понятных процессов и меньшего числа разовых решений.",
+    "ar": "هذا التجميع مخصص لبناة وكلاء الذكاء الاصطناعي الذين يعتمدون على منظومة المجتمع. يجمع أدوات عملية ومهارات قابلة لإعادة الاستخدام وأطرًا تدعم النمذجة الأولية والتصحيح والتقييم والتكامل. الهدف هو مساعدة الفرق على الانتقال من التجارب إلى الإنتاج عبر سير عمل أوضح وحلول أقل عشوائية."
   }
 }

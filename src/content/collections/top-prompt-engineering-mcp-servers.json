@@ -1,96 +1,143 @@
 {
   "title": {
-    "en": "Top 5 Prompt Engineering Tools for AI Agents & MCP Servers",
-    "zh": "AI 代理和 MCP 服务器的五大顶级提示工程工具",
-    "ja": "AI AgentとMCPサーバー向けプロンプトエンジニアリングツール トップ5",
-    "ko": "AI Agent 및 MCP 서버를 위한 상위 5가지 Prompt Engineering 도구",
-    "es": "Mejores servidores MCP de prompt engineering en 2024",
-    "fr": "Meilleurs serveurs MCP prompt engineering en 2024",
-    "de": "Beste MCP-Server prompt engineering 2024",
-    "pt": "Melhores servidores MCP prompt engineering em 2024",
-    "ru": "Лучшие MCP серверы prompt engineering 2024",
-    "ar": "أفضل خوادم MCP prompt engineering لعام 2024"
+    "en": "Top Prompt Engineering Tools for Agent Workflows",
+    "zh": "顶级 Agent 工作流提示工程工具",
+    "ja": "エージェントワークフロー向けプロンプトエンジニアリングツール",
+    "ko": "에이전트 워크플로를 위한 프롬프트 엔지니어링 도구",
+    "es": "Mejores herramientas de prompt engineering para workflows de agentes",
+    "fr": "Meilleurs outils de prompt engineering pour workflows d’agents",
+    "de": "Top Prompt-Engineering-Tools für Agenten-Workflows",
+    "pt": "Melhores ferramentas de prompt engineering para fluxos de agentes",
+    "ru": "Лучшие инструменты prompt engineering для агентных workflow",
+    "ar": "أفضل أدوات هندسة التوجيهات لسير عمل الوكلاء"
   },
   "description": {
-    "en": "A professionally curated collection of the most powerful prompt-engineering tools, MCP servers, and SDKs for developers building advanced AI agents. This directory features rigorously tested tools like e2e and backend-zod that streamline the development, testing, and deployment of sophisticated AI capabilities.",
-    "zh": "这是一个专业精选的集合，收录了为构建高级 AI 代理的开发人员提供的最强大的提示工程工具、MCP 服务器和 SDK。本目录收录了经过严格测试的工具，如 e2e 和 backend-zod，可简化复杂 AI 功能的开发、测试和部署。",
-    "ja": "高度なAI Agentを構築する開発者向けに、最も強力なプロンプトエンジニアリングツール、MCPサーバー、SDKを厳選したプロフェッショナルなコレクションです。このディレクトリでは、e2eやbackend-zodのような厳格にテストされたツールを紹介し、洗練されたAI機能の開発、テスト、デプロイを効率化します。",
-    "ko": "고급 AI Agent를 구축하는 개발자를 위한 가장 강력한 Prompt Engineering 도구, MCP 서버 및 SDK를 전문적으로 선별한 컬렉션입니다. 이 디렉토리는 정교한 AI 기능의 개발, 테스트 및 배포를 간소화하는 e2e 및 backend-zod와 같이 엄격하게 테스트된 도구들을 제공합니다.",
-    "es": "Explora los mejores servidores MCP para prompt engineering. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour prompt engineering. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für prompt engineering. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para prompt engineering. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для prompt engineering. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ prompt engineering. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A practical toolkit for prompt design, evaluation, versioning, and iteration so teams can build reliable AI behaviors in real workflows.",
+    "zh": "面向实战的提示工程工具集合，覆盖提示设计、评测、版本管理与迭代优化，帮助团队构建可靠的 AI 行为。",
+    "ja": "プロンプト設計、評価、バージョン管理、反復改善を支える実践ツール群です。実運用ワークフローで安定したAI挙動を構築できます。",
+    "ko": "프롬프트 설계, 평가, 버전 관리, 반복 개선을 위한 실전 도구 모음으로 실제 워크플로에서 신뢰할 수 있는 AI 동작을 구축하도록 돕습니다.",
+    "es": "Toolkit práctico para diseño, evaluación, versionado e iteración de prompts, con el fin de construir comportamientos de IA fiables en workflows reales.",
+    "fr": "Toolkit pratique pour la conception, l’évaluation, le versioning et l’itération des prompts afin de produire des comportements IA fiables.",
+    "de": "Praxisnahes Toolkit für Prompt-Design, Evaluation, Versionierung und Iteration, um verlässliches KI-Verhalten in realen Workflows aufzubauen.",
+    "pt": "Toolkit prático para design, avaliação, versionamento e iteração de prompts, permitindo comportamentos de IA confiáveis em fluxos reais.",
+    "ru": "Практичный набор инструментов для дизайна, оценки, версионирования и итерации промптов, чтобы формировать надежное поведение ИИ в реальных workflow.",
+    "ar": "حزمة عملية لتصميم التوجيهات وتقييمها وإدارتها بالإصدارات وتحسينها تكراريًا لبناء سلوك ذكاء اصطناعي موثوق في سير عمل حقيقي."
   },
   "seoTitle": {
-    "en": "Best Prompt Engineering AI Tools & MCP Servers",
-    "zh": "最佳提示工程 AI 工具和 MCP 服务器 | Killer-Skills",
-    "ja": "AIツール＆MCPサーバー：最高のプロンプトエンジニアリング | Killer-Skills",
-    "ko": "최고의 Prompt Engineering AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de prompt engineering en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP prompt engineering en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server prompt engineering 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP prompt engineering em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы prompt engineering 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP prompt engineering لعام 2024 2026 | Killer-Skills"
+    "en": "Top Prompt Engineering Tools for Agent Workflows | Killer-Skills",
+    "zh": "AI Agent 团队最佳提示工程工具 | Killer-Skills",
+    "ja": "AIエージェントチーム向けプロンプトエンジニアリング | Killer-Skills",
+    "ko": "AI 에이전트 팀을 위한 프롬프트 엔지니어링 도구 | Killer-Skills",
+    "es": "Mejores herramientas de prompt engineering para equipos IA | Killer-Skills",
+    "fr": "Meilleurs outils de prompt engineering pour équipes IA | Killer-Skills",
+    "de": "Top Prompt-Engineering-Tools für Agenten-Workflows | Killer-Skills",
+    "pt": "Melhores ferramentas de prompt engineering para times de IA | Killer-Skills",
+    "ru": "Лучшие prompt engineering инструменты для команд ИИ-агентов | Killer-Skills",
+    "ar": "أفضل أدوات هندسة التوجيهات لفرق وكلاء الذكاء الاصطناعي | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top 5 prompt-engineering tools & MCP servers for AI agents. Boost your AI development with our expert-curated directory of essential SDKs and ut...",
-    "zh": "探索适用于 AI 代理的五大顶级提示工程工具和 MCP 服务器。通过我们专家精选的基本 SDK 和实用程序目录，提升您的 AI 开发能力。",
-    "ja": "AI Agent向けのプロンプトエンジニアリングツールとMCPサーバーのトップ5を発見。専門家が厳選した必須SDKとユーティリティでAI開発を加速させましょう。",
-    "ko": "AI Agent를 위한 상위 5가지 Prompt Engineering 도구 및 MCP 서버를 만나보세요. 전문가가 엄선한 필수 SDK 및 유틸리티 디렉토리로 AI 개발을 가속화하세요.",
-    "es": "Explora los mejores servidores MCP para prompt engineering. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour prompt engineering. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für prompt engineering. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para prompt engineering. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для prompt engineering. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ prompt engineering. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover tools for prompt evaluation, testing, version control, and iterative improvement to ship reliable AI agent behaviors.",
+    "zh": "发现用于提示评测、测试、版本控制与迭代优化的工具，帮助团队交付稳定可靠的 AI Agent 行为。",
+    "ja": "プロンプト評価・テスト・バージョン管理・反復改善のためのツールを紹介。安定したAIエージェント挙動の実装に役立ちます。",
+    "ko": "프롬프트 평가, 테스트, 버전 관리, 반복 개선 도구를 통해 신뢰할 수 있는 AI 에이전트 동작을 구현하세요.",
+    "es": "Descubre herramientas para evaluar, testear, versionar e iterar prompts y entregar comportamientos de agentes de IA más confiables.",
+    "fr": "Découvrez des outils d’évaluation, de test, de versioning et d’itération des prompts pour livrer des comportements IA fiables.",
+    "de": "Entdecke Tools für Prompt-Evaluation, Tests, Versionskontrolle und Iteration, um verlässliches Agentenverhalten zu liefern.",
+    "pt": "Descubra ferramentas para avaliação, testes, versionamento e melhoria iterativa de prompts para entregar agentes mais confiáveis.",
+    "ru": "Изучите инструменты оценки, тестирования, версионирования и итеративного улучшения промптов для надежного поведения ИИ-агентов.",
+    "ar": "اكتشف أدوات تقييم واختبار وإدارة إصدارات التوجيهات والتحسين التكراري لتقديم سلوك موثوق لوكلاء الذكاء الاصطناعي."
   },
   "keywords": {
     "en": [
-      "Best prompt-engineering AI tools",
-      "Top MCP servers for prompt-engineering",
-      "AI agent development tools",
-      "Prompt engineering SDK",
-      "AI development utilities"
+      "prompt engineering tools",
+      "prompt evaluation",
+      "prompt testing",
+      "prompt versioning",
+      "AI behavior tuning",
+      "agent prompt workflows"
     ],
-    "zh": ["最佳提示工程 AI 工具", "顶级提示工程 MCP 服务器", "AI 代理开发工具", "提示工程 SDK", "AI 开发实用程序"],
+    "zh": ["提示工程工具", "提示评测", "提示测试", "提示版本管理", "AI 行为调优", "Agent 提示工作流"],
     "ja": [
-      "Best prompt-engineering AI tools",
-      "Top MCP servers for prompt-engineering",
-      "AI agent development tools",
-      "Prompt engineering SDK",
-      "AI development utilities"
+      "プロンプトエンジニアリングツール",
+      "プロンプト評価",
+      "プロンプトテスト",
+      "プロンプトのバージョン管理",
+      "AI挙動チューニング",
+      "エージェント向けプロンプトワークフロー"
     ],
     "ko": [
-      "Best prompt-engineering AI tools",
-      "Top MCP servers for prompt-engineering",
-      "AI agent development tools",
-      "Prompt engineering SDK",
-      "AI development utilities"
+      "프롬프트 엔지니어링 도구",
+      "프롬프트 평가",
+      "프롬프트 테스트",
+      "프롬프트 버전 관리",
+      "AI 동작 튜닝",
+      "에이전트 프롬프트 워크플로"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "prompt", "engineering"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "prompt", "engineering"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "prompt", "engineering"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "prompt", "engineering"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "prompt", "engineering"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "prompt", "engineering"]
+    "es": [
+      "herramientas de prompt engineering",
+      "evaluación de prompts",
+      "testing de prompts",
+      "versionado de prompts",
+      "ajuste de comportamiento IA",
+      "workflows de prompts para agentes"
+    ],
+    "fr": [
+      "outils de prompt engineering",
+      "évaluation de prompts",
+      "tests de prompts",
+      "versioning de prompts",
+      "ajustement comportement IA",
+      "workflows de prompts pour agents"
+    ],
+    "de": [
+      "Prompt-Engineering-Tools",
+      "Prompt-Evaluation",
+      "Prompt-Tests",
+      "Prompt-Versionierung",
+      "KI-Verhaltens-Tuning",
+      "Agenten-Prompt-Workflows"
+    ],
+    "pt": [
+      "ferramentas de prompt engineering",
+      "avaliação de prompts",
+      "testes de prompts",
+      "versionamento de prompts",
+      "ajuste de comportamento IA",
+      "workflows de prompts para agentes"
+    ],
+    "ru": [
+      "инструменты prompt engineering",
+      "оценка промптов",
+      "тестирование промптов",
+      "версионирование промптов",
+      "настройка поведения ИИ",
+      "prompt workflow для агентов"
+    ],
+    "ar": [
+      "أدوات هندسة التوجيهات",
+      "تقييم التوجيهات",
+      "اختبار التوجيهات",
+      "إدارة إصدارات التوجيهات",
+      "ضبط سلوك الذكاء الاصطناعي",
+      "workflow التوجيهات للوكلاء"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-prompt-engineering-tools-agent-workflows",
+  "legacySlugs": ["top-prompt-engineering-mcp-servers"],
   "category": "prompt-engineering",
   "author": "Killer-Skills AI",
   "skills": ["langwatch/langwatch", "petbrains/mvp-builder", "shinpr/agentic-code", "comet-ml/opik", "f/prompts.chat"],
   "longDescription": {
-    "en": "In the rapidly evolving landscape of AI agent development, the ability to craft precise, effective prompts is no longer a luxury—it's a fundamental necessity. As developers push the boundaries of what AI can achieve, from intricate automation workflows to dynamic conversational interfaces, the complexity of prompt engineering has skyrocketed. This is precisely why a robust toolkit of prompt-engineering AI tools and dedicated MCP servers is indispensable. Imagine effortlessly fine-tuning AI agent behavior, ensuring consistent output, and drastically reducing iteration cycles. Our professionally curated collection, \"Top 5 Prompt Engineering Tools for AI Agents & MCP Servers,\" empowers you to do just that. We've meticulously selected and rigorously tested the most powerful prompt-engineering tools, including innovative solutions like e2e for end-to-end testing and backend-zod for robust schema validation, alongside essential MCP servers and SDKs. These aren't just utilities; they are accelerators for your AI agent projects, streamlining everything from initial prompt design and testing via CLI and API, to seamless deployment and ongoing optimization. By leveraging these advanced prompt-engineering AI tools, you'll unlock unparalleled efficiency, enhance the reliability of your AI agents, and ultimately deliver more sophisticated, high-performing solutions that truly stand out in the marketplace.",
-    "zh": "在AI代理开发迅速发展的领域中，创建精确、有效的提示不再是奢侈品，而是基本必需品。随着开发者不断突破AI所能实现的界限，从复杂的自动化工作流程到动态的对话界面，提示工程的复杂性也随之飙升。这正是为什么一套强大的提示工程AI工具和专用MCP服务器不可或缺的原因。想象一下，您可以轻松地微调AI代理的行为，确保输出一致性，并大幅缩短迭代周期。我们专业策划的“AI代理和MCP服务器的五大提示工程工具”系列正是为了让您实现这一点。我们精心挑选并严格测试了最强大的提示工程工具，包括像e2e用于端到端测试和backend-zod用于健壮模式验证等创新解决方案，以及必要的MCP服务器和SDK。这些不仅仅是实用工具；它们是您AI代理项目的加速器，简化了从初始提示设计和通过CLI和API进行测试，到无缝部署和持续优化的所有环节。通过利用这些先进的提示工程AI工具，您将释放无与伦比的效率，增强AI代理的可靠性，并最终交付更复杂、更高性能的解决方案，真正在市场中脱颖而出。",
-    "ja": "AIエージェント開発の急速に進化する状況において、正確で効果的なプロンプトを作成する能力はもはや贅沢品ではなく、基本的な必要性です。開発者がAIが達成できることの限界を押し広げるにつれて、複雑な自動化ワークフローから動的な会話インターフェースまで、プロンプトエンジニアリングの複雑さは急増しています。これこそが、堅牢なプロンプトエンジニアリングAIツールキットと専用のMCPサーバーが不可欠である理由です。AIエージェントの動作を簡単に微調整し、一貫した出力を確保し、反復サイクルを大幅に短縮することを想像してみてください。当社の専門的にキュレーションされたコレクション「AIエージェントとMCPサーバーのためのトップ5プロンプトエンジニアリングツール」は、まさにそれを可能にします。私たちは、エンドツーエンドテスト用のe2eや堅牢なスキーマ検証用のbackend-zodのような革新的なソリューションを含む、最も強力なプロンプトエンジニアリングツールを、不可欠なMCPサーバーやSDKとともに厳選し、厳密にテストしました。これらは単なるユーティリティではありません。これらはAIエージェントプロジェクトのアクセラレーターであり、初期のプロンプト設計とCLIおよびAPIを介したテストから、シームレスなデプロイメントと継続的な最適化まで、すべてを合理化します。これらの高度なプロンプトエンジニアリングAIツールを活用することで、比類のない効率性を解き放ち、AIエージェントの信頼性を向上させ、最終的に市場で真に際立つ、より洗練された高性能なソリューションを提供することができます。",
-    "ko": "AI 에이전트 개발의 급변하는 환경에서, 정확하고 효과적인 프롬프트를 작성하는 능력은 더 이상 사치가 아니라 필수적인 요소입니다. 개발자들이 복잡한 자동화 워크플로우부터 동적인 대화형 인터페이스에 이르기까지 AI가 달성할 수 있는 한계를 뛰어넘으면서, 프롬프트 엔지니어링의 복잡성은 기하급수적으로 증가했습니다. 이것이 바로 강력한 프롬프트 엔지니어링 AI 도구와 전용 MCP 서버 툴킷이 필수적인 이유입니다. AI 에이전트의 동작을 손쉽게 미세 조정하고, 일관된 출력을 보장하며, 반복 주기를 획기적으로 단축하는 것을 상상해보십시오. 저희가 전문적으로 큐레이션한 \"AI 에이전트 및 MCP 서버를 위한 상위 5가지 프롬프트 엔지니어링 도구\" 컬렉션은 바로 그것을 가능하게 합니다. 저희는 엔드투엔드 테스트를 위한 e2e 및 강력한 스키마 유효성 검사를 위한 backend-zod와 같은 혁신적인 솔루션을 포함하여 가장 강력한 프롬프트 엔지니어링 도구와 필수 MCP 서버 및 SDK를 세심하게 선정하고 엄격하게 테스트했습니다. 이들은 단순한 유틸리티가 아닙니다. 이들은 AI 에이전트 프로젝트의 가속기이며, 초기 프롬프트 설계 및 CLI와 API를 통한 테스트부터 원활한 배포 및 지속적인 최적화에 이르기까지 모든 것을 간소화합니다. 이러한 고급 프롬프트 엔지니어링 AI 도구를 활용함으로써, 여러분은 비할 데 없는 효율성을 확보하고, AI 에이전트의 신뢰성을 향상시키며, 궁극적으로 시장에서 진정으로 돋보이는 더욱 정교하고 고성능의 솔루션을 제공할 수 있을 것입니다.",
-    "es": "En el panorama de rápido desarrollo de los agentes de IA, la capacidad de crear prompts precisos y efectivos ya no es un lujo, es una necesidad fundamental. A medida que los desarrolladores superan los límites de lo que la IA puede lograr, desde intrincados flujos de trabajo de automatización hasta interfaces conversacionales dinámicas, la complejidad de la ingeniería de prompts se ha disparado. Esta es precisamente la razón por la que un conjunto robusto de herramientas de ingeniería de prompts de IA y servidores MCP dedicados es indispensable. Imagine ajustar sin esfuerzo el comportamiento de su agente de IA, asegurando una salida consistente y reduciendo drásticamente los ciclos de iteración. Nuestra colección profesionalmente curada, \"Las 5 Mejores Herramientas de Ingeniería de Prompts para Agentes de IA y Servidores MCP\", le permite hacer precisamente eso. Hemos seleccionado meticulosamente y probado rigurosamente las herramientas de ingeniería de prompts más potentes, incluyendo soluciones innovadoras como e2e para pruebas de extremo a extremo y backend-zod para una validación de esquemas robusta, junto con servidores MCP y SDK esenciales. Estas no son solo utilidades; son aceleradores para sus proyectos de agentes de IA, agilizando todo, desde el diseño inicial de prompts y las pruebas a través de CLI y API, hasta la implementación sin problemas y la optimización continua. Al aprovechar estas avanzadas herramientas de ingeniería de prompts de IA, desbloqueará una eficiencia sin precedentes, mejorará la fiabilidad de sus agentes de IA y, en última instancia, entregará soluciones más sofisticadas y de alto rendimiento que realmente se destacarán en el mercado.",
-    "fr": "Dans le domaine de l'intelligence artificielle, les développeurs sont constamment à la recherche de moyens pour améliorer les capacités de leurs agents AI, et c'est là que les outils d'ingénierie de prompt intervient. La conception de prompts efficaces est cruciale pour permettre aux agents AI de comprendre et de répondre aux requêtes de manière précise, ce qui est essentiel pour de nombreuses applications, des chatbots aux systèmes de recommandation. Les outils d'ingénierie de prompt tels que e2e et backend-zod sont des éléments clés pour optimiser le développement, les tests et le déploiement de fonctionnalités AI avancées. Avec ces outils, les développeurs peuvent améliorer considérablement leur workflow en automatisant des tâches répétitives, en réduisant les erreurs et en augmentant la vitesse de développement. Cette collection présente les 5 meilleurs outils d'ingénierie de prompt pour les agents AI et les serveurs MCP, soigneusement sélectionnés pour leur efficacité et leur facilité d'utilisation, offrant ainsi aux développeurs les moyens de créer des expériences utilisateur exceptionnelles.",
-    "de": "Im Bereich der künstlichen Intelligenz suchen Entwickler ständig nach Möglichkeiten, die Fähigkeiten ihrer AI-Agenten zu verbessern, und hier kommen die Prompt-Engineering-Tools ins Spiel. Die Erstellung effektiver Prompts ist entscheidend, um AI-Agenten zu ermöglichen, Anfragen genau zu verstehen und zu beantworten, was für viele Anwendungen, von Chatbots bis hin zu Empfehlungssystemen, von entscheidender Bedeutung ist. Tools wie e2e und backend-zod sind Schlüsselelemente, um die Entwicklung, die Tests und die Bereitstellung von fortschrittlichen AI-Funktionen zu optimieren. Mit diesen Tools können Entwickler ihren Arbeitsablauf erheblich verbessern, indem sie wiederkehrende Aufgaben automatisieren, Fehler reduzieren und die Entwicklungsgeschwindigkeit erhöhen. Diese Sammlung präsentiert die 5 besten Prompt-Engineering-Tools für AI-Agenten und MCP-Server, sorgfältig ausgewählt für ihre Effektivität und Benutzerfreundlichkeit, und bietet Entwicklern damit die Möglichkeit, außergewöhnliche Benutzererfahrungen zu schaffen.",
-    "pt": "No domínio da inteligência artificial, os desenvolvedores estão constantemente à procura de meios para melhorar as capacidades dos seus agentes AI, e é aí que as ferramentas de engenharia de prompt entram em cena. A concepção de prompts eficazes é crucial para permitir que os agentes AI entendam e respondam às solicitações de forma precisa, o que é essencial para muitas aplicações, desde chatbots até sistemas de recomendação. Ferramentas como e2e e backend-zod são elementos-chave para otimizar o desenvolvimento, os testes e a implantação de funcionalidades AI avançadas. Com essas ferramentas, os desenvolvedores podem melhorar significativamente o seu fluxo de trabalho, automatizando tarefas repetitivas, reduzindo erros e aumentando a velocidade de desenvolvimento. Esta coleção apresenta as 5 melhores ferramentas de engenharia de prompt para agentes AI e servidores MCP, cuidadosamente selecionadas por sua eficácia e facilidade de uso, oferecendo assim aos desenvolvedores os meios para criar experiências de usuário excepcionais.",
-    "ru": "В области искусственного интеллекта разработчики постоянно ищут способы улучшить возможности своих агентов ИИ, и именно здесь на сцену выходят инструменты инженерии промптов. Создание эффективных промптов имеет решающее значение для того, чтобы агенты ИИ могли точно понимать и отвечать на запросы, что крайне важно для многих приложений, от чат-ботов до систем рекомендаций. Инструменты, такие как e2e и backend-zod, являются ключевыми элементами для оптимизации разработки, тестирования и развертывания продвинутых функций ИИ. С помощью этих инструментов разработчики могут значительно улучшить свой рабочий процесс, автоматизируя повторяющиеся задачи, снижая количество ошибок и увеличивая скорость разработки. Этот сборник представляет 5 лучших инструментов инженерии промптов для агентов ИИ и серверов MCP, тщательно отобранных за их эффективность и простоту использования, и предлагает разработчикам возможность создавать исключительные пользовательские trải nghiệm.",
-    "ar": "في مجال الذكاء الاصطناعي، يبحث المطورون باستمرار عن وسائل لتحسين قدرات وكلاءهم الذكائيين، وهنا يأتي دور أدوات هندسة الإشارات. تصميم إشارات فعالة أمر بالغ الأهمية لتمكين وكلاء الذكاء الاصطناعي من فهم الطلبات بدقة ورد عليها، وهو ما يعتبر أساسيا للعديد من التطبيقات، من البوتات النصية إلى أنظمة التوصية. أدوات مثل e2e وbackend-zod هي عناصر أساسية لتحسين تطوير واختبار وتحديث قدرات الذكاء الاصطناعي المتقدمة. باستخدام هذه الأدوات، يمكن للمطورين تحسين تدفق عملهم بشكل كبير من خلال توفير المهام المتكررة وتقليل الأخطاء وزيادة سرعة التطوير. هذه المجموعة تقدم أفضل 5 أدوات هندسة إشارات لوكلاء الذكاء الاصطناعي وخادم MCP، تم اختيارها بدقة لفعاليتها وسهولة استخدامها، وبالتالي تقدم للمطورين فرصة لإنشاء تجارب مستخدم استثنائية."
+    "en": "This collection is built for teams that treat prompt engineering as an engineering discipline, not ad-hoc tweaking. It covers design patterns, evaluation loops, regression checks, and versioned workflows that keep agent behavior stable as products evolve. MCP may show up as a supporting integration in some setups, but the core is repeatable prompt quality and reliable execution in production.",
+    "zh": "本集合面向把提示工程当作“工程实践”而非临时试错的团队，覆盖提示设计模式、评测闭环、回归检查与版本化流程，确保产品迭代中 Agent 行为持续稳定。部分方案可能以 MCP 作为配套集成能力，但核心是可复现的提示质量与生产级可靠执行。",
+    "ja": "このコレクションは、プロンプトエンジニアリングを場当たり的な調整ではなく、工学的プロセスとして扱うチーム向けです。設計パターン、評価ループ、回帰チェック、バージョン管理された運用を通して、プロダクト進化の中でもエージェント挙動を安定させます。構成によってMCP連携が補助的に使われることはありますが、中心は再現可能な品質と本番での信頼性です。",
+    "ko": "이 컬렉션은 프롬프트 엔지니어링을 임시 조정보다 엔지니어링 규율로 다루는 팀을 위해 구성되었습니다. 설계 패턴, 평가 루프, 회귀 점검, 버전 관리 워크플로를 통해 제품이 진화해도 에이전트 동작을 안정적으로 유지할 수 있습니다. 일부 환경에서 MCP 통합이 보조적으로 사용될 수 있지만 핵심은 재현 가능한 프롬프트 품질과 프로덕션 신뢰성입니다.",
+    "es": "Esta colección está pensada para equipos que tratan el prompt engineering como disciplina de ingeniería y no como ajustes improvisados. Incluye patrones de diseño, ciclos de evaluación, controles de regresión y workflows versionados para mantener estable el comportamiento del agente a medida que evoluciona el producto. MCP puede aparecer como integración de soporte, pero el núcleo es calidad de prompt repetible y ejecución fiable en producción.",
+    "fr": "Cette collection s’adresse aux équipes qui considèrent le prompt engineering comme une discipline d’ingénierie, et non comme un simple ajustement ponctuel. Elle couvre des patterns de conception, des boucles d’évaluation, des contrôles de régression et des workflows versionnés pour garder un comportement d’agent stable au fil des évolutions produit. MCP peut exister comme intégration de support, mais le cœur reste la qualité de prompt reproductible et l’exécution fiable en production.",
+    "de": "Diese Sammlung richtet sich an Teams, die Prompt Engineering als Engineering-Disziplin verstehen und nicht als spontane Nachjustierung. Sie umfasst Designmuster, Evaluationszyklen, Regressionsprüfungen und versionierte Workflows, damit Agentenverhalten auch bei Produktänderungen stabil bleibt. MCP kann in einigen Setups als unterstützende Integration auftreten, der Kern ist jedoch reproduzierbare Prompt-Qualität und verlässliche Ausführung in Produktion.",
+    "pt": "Esta coleção foi criada para times que tratam prompt engineering como disciplina de engenharia, e não como ajuste improvisado. Ela cobre padrões de design, ciclos de avaliação, verificações de regressão e workflows versionados para manter o comportamento do agente estável conforme o produto evolui. MCP pode aparecer como integração de suporte, mas o núcleo é qualidade de prompt repetível e execução confiável em produção.",
+    "ru": "Эта коллекция предназначена для команд, которые рассматривают prompt engineering как инженерную дисциплину, а не набор случайных правок. Здесь собраны шаблоны дизайна, циклы оценки, регрессионные проверки и версионированные workflow, чтобы поведение агента оставалось стабильным по мере развития продукта. MCP может использоваться как вспомогательная интеграция, но ядро — воспроизводимое качество промптов и надежное выполнение в продакшене.",
+    "ar": "تم إعداد هذه المجموعة للفرق التي تتعامل مع هندسة التوجيهات كمنهج هندسي وليس كتعديلات عشوائية. وهي تغطي أنماط التصميم وحلقات التقييم وفحوصات الانحدار وتدفقات العمل ذات الإصدارات للحفاظ على استقرار سلوك الوكيل مع تطور المنتج. قد يظهر MCP كتكامل داعم في بعض البيئات، لكن الجوهر هو جودة توجيهات قابلة للتكرار وتنفيذ موثوق في الإنتاج."
   }
 }

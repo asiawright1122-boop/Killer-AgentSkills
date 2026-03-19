@@ -1,77 +1,121 @@
 {
   "title": {
-    "en": "Best MCP Servers for Docker & Containers",
-    "zh": "Docker 和容器的最佳 MCP 服务器",
-    "ja": "Dockerとコンテナに最適なMCPサーバー",
-    "ko": "Docker 및 컨테이너를 위한 최고의 MCP 服务器",
-    "es": "Mejores servidores MCP de for docker en 2024",
-    "fr": "Meilleurs serveurs MCP for docker en 2024",
-    "de": "Beste MCP-Server for docker 2024",
-    "pt": "Melhores servidores MCP for docker em 2024",
-    "ru": "Лучшие MCP серверы for docker 2024",
-    "ar": "أفضل خوادم MCP for docker لعام 2024"
+    "en": "Top Container Workflow & Docker Automation Tools",
+    "zh": "容器工作流与 Docker 自动化工具精选",
+    "ja": "コンテナワークフローとDocker自動化ツール集",
+    "ko": "컨테이너 워크플로 및 Docker 자동화 도구 모음",
+    "es": "Herramientas de workflow de contenedores y automatización Docker",
+    "fr": "Outils de workflow conteneur et automatisation Docker",
+    "de": "Tools für Container-Workflows und Docker-Automatisierung",
+    "pt": "Ferramentas de workflow de contêineres e automação Docker",
+    "ru": "Инструменты для контейнерных процессов и автоматизации Docker",
+    "ar": "أدوات سير عمل الحاويات وأتمتة Docker"
   },
   "description": {
-    "en": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "zh": "查找帮助管理 Docker 容器、Kubernetes 集群和云基础设施的 MCP 服务器。",
-    "ja": "Dockerコンテナ、Kubernetesクラスター、クラウドインフラストラクチャの管理を支援するMCPサーバーを見つけます.",
-    "ko": "Docker 컨테이너, Kubernetes 클러스터, 클라우드 인프라 관리를 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for docker. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for docker. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for docker. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for docker. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for docker. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for docker. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover tools for container workflows, local infrastructure setup, and development environment automation around Docker operations.",
+    "zh": "聚焦容器工作流、本地基础设施搭建与开发环境自动化，覆盖核心 Docker 运维场景。",
+    "ja": "コンテナワークフロー、ローカル基盤構築、開発環境自動化など、Docker運用の実務に役立つツールを厳選。",
+    "ko": "컨테이너 워크플로, 로컬 인프라 구성, 개발 환경 자동화 등 Docker 운영 중심의 실무 도구를 제공합니다.",
+    "es": "Encuentra herramientas para workflows de contenedores, setup de infraestructura local y automatización del entorno de desarrollo en Docker.",
+    "fr": "Découvrez des outils pour les workflows conteneurs, la mise en place d’infra locale et l’automatisation des environnements de dev autour de Docker.",
+    "de": "Finde Tools für Container-Workflows, lokales Infrastruktur-Setup und automatisierte Entwicklungsumgebungen rund um Docker.",
+    "pt": "Descubra ferramentas para workflows de contêineres, setup de infraestrutura local e automação de ambiente de desenvolvimento com Docker.",
+    "ru": "Подборка инструментов для контейнерных процессов, локальной инфраструктуры и автоматизации dev-окружений вокруг Docker.",
+    "ar": "اكتشف أدوات لسير عمل الحاويات وإعداد البنية المحلية وأتمتة بيئات التطوير حول عمليات Docker."
   },
   "seoTitle": {
-    "en": "Best MCP Servers for Docker & Containers 2026 | Killer-Skills",
-    "zh": "Docker 和容器的最佳 MCP 服务器 2026 | Killer-Skills",
-    "ja": "Dockerとコンテナに最適なMCPサーバー 2026 | Killer-Skills",
-    "ko": "Docker 및 컨테이너를 위한 최고의 MCP 服务器 2026 | Killer-Skills",
-    "es": "Mejores servidores MCP de for docker en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP for docker en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server for docker 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP for docker em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы for docker 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP for docker لعام 2024 2026 | Killer-Skills"
+    "en": "Top Container Workflow & Docker Automation Tools | Killer-Skills",
+    "zh": "Docker、容器与开发环境自动化工具 | Killer-Skills",
+    "ja": "Docker・コンテナ・開発環境自動化ツール | Killer-Skills",
+    "ko": "Docker·컨테이너·개발 환경 자동화 도구 | Killer-Skills",
+    "es": "Docker, contenedores y automatización de entornos dev | Killer-Skills",
+    "fr": "Docker, conteneurs et automatisation des environnements dev | Killer-Skills",
+    "de": "Docker-, Container- und Dev-Environment-Automatisierung | Killer-Skills",
+    "pt": "Docker, contêineres e automação de ambiente dev | Killer-Skills",
+    "ru": "Docker, контейнеры и автоматизация dev-сред | Killer-Skills",
+    "ar": "Docker والحاويات وأتمتة بيئات التطوير | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "zh": "查找帮助管理 Docker 容器、Kubernetes 集群和云基础设施的 MCP 服务器。",
-    "ja": "Dockerコンテナ、Kubernetesクラスター、クラウドインフラストラクチャの管理を支援するMCPサーバーを見つけます.",
-    "ko": "Docker 컨테이너, Kubernetes 클러스터, 클라우드 인프라 관리를 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for docker. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for docker. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for docker. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for docker. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for docker. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for docker. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A workflow-first collection for container operations, local infra tooling, and companion integrations for Docker-heavy teams.",
+    "zh": "面向容器运维与本地基础设施的工作流优先集合，适合 Docker 密集型团队的配套集成场景。",
+    "ja": "コンテナ運用とローカル基盤を重視するチーム向けに、Docker中心の実務ワークフローと連携ツールを厳選。",
+    "ko": "컨테이너 운영과 로컬 인프라를 중시하는 Docker 중심 팀을 위한 워크플로 우선 컬렉션입니다.",
+    "es": "Colección orientada a workflow para operaciones de contenedores, tooling de infra local e integraciones complementarias en equipos centrados en Docker.",
+    "fr": "Collection orientée workflow pour les opérations conteneurs, l’outillage d’infra locale et les intégrations compagnons des équipes orientées Docker.",
+    "de": "Workflow-orientierte Sammlung für Containerbetrieb, lokale Infra-Tools und Begleit-Integrationen für Docker-lastige Teams.",
+    "pt": "Coleção orientada a workflow para operações de contêineres, tooling de infra local e integrações complementares para equipes focadas em Docker.",
+    "ru": "Коллекция с фокусом на процессы контейнеризации, локальную инфраструктуру и вспомогательные интеграции для команд с Docker-стеком.",
+    "ar": "مجموعة تضع سير العمل أولاً لعمليات الحاويات وأدوات البنية المحلية والتكاملات المساندة للفرق المعتمدة على Docker."
   },
   "keywords": {
-    "en": ["mcp", "mcp server", "model context protocol", "docker"],
-    "zh": ["mcp", "mcp server", "model context protocol", "docker"],
-    "ja": ["mcp", "mcp server", "model context protocol", "docker"],
-    "ko": ["mcp", "mcp server", "model context protocol", "docker"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "mcp", "for", "docker"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "mcp", "for", "docker"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "mcp", "for", "docker"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "mcp", "for", "docker"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "mcp", "for", "docker"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "mcp", "for", "docker"]
+    "en": [
+      "docker workflow tools",
+      "container automation",
+      "local infra setup",
+      "dev environment automation",
+      "mcp docker integrations"
+    ],
+    "zh": ["Docker 工作流工具", "容器自动化", "本地基础设施搭建", "开发环境自动化", "MCP Docker 集成"],
+    "ja": ["Dockerワークフローツール", "コンテナ自動化", "ローカル基盤構築", "開発環境自動化", "MCP Docker連携"],
+    "ko": ["Docker 워크플로 도구", "컨테이너 자동화", "로컬 인프라 구성", "개발 환경 자동화", "MCP Docker 통합"],
+    "es": [
+      "herramientas workflow Docker",
+      "automatización de contenedores",
+      "setup de infra local",
+      "automatización de entorno dev",
+      "integraciones Docker MCP"
+    ],
+    "fr": [
+      "outils de workflow Docker",
+      "automatisation des conteneurs",
+      "setup infra locale",
+      "automatisation environnement dev",
+      "intégrations Docker MCP"
+    ],
+    "de": [
+      "Docker-Workflow-Tools",
+      "Container-Automatisierung",
+      "lokales Infra-Setup",
+      "Dev-Environment-Automatisierung",
+      "MCP-Docker-Integrationen"
+    ],
+    "pt": [
+      "ferramentas de workflow Docker",
+      "automação de contêineres",
+      "setup de infra local",
+      "automação de ambiente dev",
+      "integrações Docker MCP"
+    ],
+    "ru": [
+      "инструменты Docker workflow",
+      "автоматизация контейнеров",
+      "настройка локальной инфраструктуры",
+      "автоматизация dev-среды",
+      "интеграции Docker MCP"
+    ],
+    "ar": [
+      "أدوات سير عمل Docker",
+      "أتمتة الحاويات",
+      "إعداد البنية المحلية",
+      "أتمتة بيئة التطوير",
+      "تكاملات Docker عبر MCP"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "docker-container-workflow-automation-tools",
+  "legacySlugs": ["top-mcp-for-docker"],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "zh": "查找帮助管理 Docker 容器、Kubernetes 集群和云基础设施的 MCP 服务器。",
-    "ja": "Dockerコンテナ、Kubernetesクラスター、クラウドインフラストラクチャの管理を支援するMCPサーバーを見つけます.",
-    "ko": "Docker 컨테이너, Kubernetes 클러스터, 클라우드 인프라 관리를 지원하는 MCP 서버를 찾으세요.",
-    "es": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "fr": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "de": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "pt": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "ru": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure.",
-    "ar": "Find MCP servers that help manage Docker containers, Kubernetes clusters, and cloud infrastructure."
+    "en": "This collection targets operational container work: building local environments, automating routine Docker tasks, and coordinating service dependencies across teams. It emphasizes workflow tools and integrations you can apply immediately, with MCP used as a connector to streamline automation across the stack.",
+    "zh": "该集合聚焦容器运维实操：搭建本地环境、自动化日常 Docker 任务、并在团队间协调服务依赖。它强调可立即落地的工作流工具与集成能力，MCP 作为连接层帮助打通自动化链路。",
+    "ja": "このコレクションは、ローカル環境構築、定常的なDocker作業の自動化、チーム間のサービス依存調整など、運用寄りのコンテナ実務に焦点を当てています。すぐに導入できるワークフローツールと連携を重視し、MCPは自動化を横断的につなぐコネクタとして活用します。",
+    "ko": "이 컬렉션은 로컬 환경 구축, 반복적인 Docker 작업 자동화, 팀 간 서비스 의존성 조정 등 운영 중심 컨테이너 업무를 겨냥합니다. 즉시 적용 가능한 워크플로 도구와 통합을 강조하며, MCP는 스택 전반 자동화를 연결하는 계층으로 활용됩니다.",
+    "es": "Esta colección se centra en el trabajo operativo con contenedores: construir entornos locales, automatizar tareas rutinarias de Docker y coordinar dependencias de servicios entre equipos. Prioriza herramientas de workflow e integraciones aplicables de inmediato, con MCP como conector para simplificar la automatización en todo el stack.",
+    "fr": "Cette collection cible le travail opérationnel autour des conteneurs : construire des environnements locaux, automatiser les tâches Docker récurrentes et coordonner les dépendances de services entre équipes. Elle privilégie des outils de workflow et des intégrations immédiatement exploitables, avec MCP comme couche de connexion pour fluidifier l’automatisation du stack.",
+    "de": "Diese Sammlung fokussiert den operativen Container-Alltag: lokale Umgebungen aufbauen, wiederkehrende Docker-Aufgaben automatisieren und Service-Abhängigkeiten teamübergreifend koordinieren. Sie betont sofort nutzbare Workflow-Tools und Integrationen; MCP dient als Verbindungsschicht für durchgängige Automatisierung im Stack.",
+    "pt": "Esta coleção foca no trabalho operacional com contêineres: montar ambientes locais, automatizar tarefas rotineiras do Docker e coordenar dependências de serviços entre equipes. Ela prioriza ferramentas de workflow e integrações aplicáveis imediatamente, com MCP como camada de conexão para simplificar a automação do stack.",
+    "ru": "Коллекция ориентирована на операционную работу с контейнерами: разворачивание локальных сред, автоматизация рутинных задач Docker и координация сервисных зависимостей между командами. Акцент сделан на инструментах и интеграциях, применимых сразу, а MCP используется как связующий слой для сквозной автоматизации стека.",
+    "ar": "تركز هذه المجموعة على العمل التشغيلي للحاويات: بناء البيئات المحلية، وأتمتة مهام Docker المتكررة، وتنسيق اعتمادات الخدمات بين الفرق. وهي تبرز أدوات سير عمل وتكاملات يمكن تطبيقها فوراً، مع استخدام MCP كطبقة ربط لتبسيط الأتمتة عبر المكدس."
   }
 }

@@ -1,92 +1,123 @@
 {
   "title": {
-    "en": "Top Developer Tools AI Agents & MCP Servers",
-    "zh": "顶级开发者工具AI代理和MCP服务器",
-    "ja": "AI AgentとMCPサーバー向けトップ開発者ツール",
-    "ko": "최고의 개발자 도구 AI Agent 및 MCP 서버",
-    "es": "Mejores servidores MCP de developer tools en 2024",
-    "fr": "Meilleurs serveurs MCP developer tools en 2024",
-    "de": "Beste MCP-Server developer tools 2024",
-    "pt": "Melhores servidores MCP developer tools em 2024",
-    "ru": "Лучшие MCP серверы developer tools 2024",
-    "ar": "أفضل خوادم MCP developer tools لعام 2024"
+    "en": "Top Developer Tooling for AI Agent Work",
+    "zh": "顶级 AI Agent 开发工具栈",
+    "ja": "AIエージェント開発を支える注目ツール群",
+    "ko": "AI 에이전트 개발을 위한 핵심 개발 도구",
+    "es": "Mejores herramientas de desarrollo para trabajo con agentes de IA",
+    "fr": "Meilleurs outils développeur pour le travail avec agents IA",
+    "de": "Top-Entwicklertools für die Arbeit mit KI-Agenten",
+    "pt": "Melhores ferramentas de desenvolvimento para agentes de IA",
+    "ru": "Лучшие инструменты разработки для работы с ИИ-агентами",
+    "ar": "أفضل أدوات المطورين للعمل مع وكلاء الذكاء الاصطناعي"
   },
   "description": {
-    "en": "A curated collection of the most powerful and essential developer tools for AI agents, featuring MCP servers, Claude extensions, and specialized skills for API design, testing, backend development, and more. This expertly selected list empowers developers to build, debug, and deploy AI-driven applications with unparalleled efficiency.",
-    "zh": "精心策划的AI代理最强开发者工具集合，包括MCP服务器、Claude扩展以及API设计、测试、后端开发等专业技能。此专家精选列表使开发人员能够以无与伦比的效率构建、调试和部署AI驱动的应用程序。",
-    "ja": "AI Agent向けの最も強力で不可欠な開発者ツールを厳選。MCPサーバー、Claude拡張機能、API設計、テスト、バックエンド開発などの専門スキルを網羅しています。この専門家が選定したリストは、開発者がAI駆動型アプリケーションを比類ない効率で構築、デバッグ、デプロイするのに役立ちます。",
-    "ko": "AI Agent를 위한 가장 강력하고 필수적인 개발자 도구들을 엄선했습니다. MCP 서버, Claude 확장 기능, API 설계, 테스트, 백엔드 개발 등을 위한 전문 스킬을 포함합니다. 이 전문가가 선정한 목록은 개발자들이 AI 기반 애플리케이션을 탁월한 효율성으로 구축, 디버깅 및 배포할 수 있도록 지원합니다.",
-    "es": "Explora los mejores servidores MCP para developer tools. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour developer tools. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für developer tools. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para developer tools. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для developer tools. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ developer tools. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A practical developer-tooling collection for AI projects, covering code generation, testing, debugging, API work, and everyday IDE workflows.",
+    "zh": "一个面向 AI 项目的实用开发工具集合，覆盖代码生成、测试调试、API 开发与日常 IDE 流程。",
+    "ja": "コード生成、テスト、デバッグ、API開発、日常的なIDEワークフローをカバーする、AIプロジェクト向けの実践的な開発ツール集です。",
+    "ko": "코드 생성, 테스트, 디버깅, API 작업, 일상적인 IDE 워크플로를 아우르는 AI 프로젝트용 실전 개발 도구 모음입니다.",
+    "es": "Colección práctica para proyectos de IA que cubre generación de código, testing, depuración, trabajo con APIs y flujos diarios en IDE.",
+    "fr": "Collection pratique pour projets IA couvrant génération de code, tests, débogage, travail API et workflows quotidiens dans l’IDE.",
+    "de": "Praxisnahe Tool-Sammlung für KI-Projekte mit Fokus auf Codegenerierung, Tests, Debugging, API-Arbeit und tägliche IDE-Workflows.",
+    "pt": "Coleção prática para projetos de IA cobrindo geração de código, testes, depuração, APIs e fluxos diários no IDE.",
+    "ru": "Практичная подборка инструментов для ИИ-проектов: генерация кода, тестирование, отладка, API-задачи и повседневные IDE-процессы.",
+    "ar": "مجموعة عملية لمشاريع الذكاء الاصطناعي تشمل توليد الكود والاختبار وتصحيح الأخطاء والعمل على واجهات API وسير العمل اليومي داخل IDE."
   },
   "seoTitle": {
-    "en": "Best Developer Tools AI Agents & MCP Servers 2024",
-    "zh": "2024年最佳开发者工具AI代理和MCP服务器",
-    "ja": "AI開発者ツール、MCPサーバー、Claude拡張機能の決定版",
-    "ko": "최고의 개발자 도구 AI Agent & MCP 서버 2024",
-    "es": "Mejores servidores MCP de developer tools en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP developer tools en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server developer tools 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP developer tools em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы developer tools 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP developer tools لعام 2024 2026 | Killer-Skills"
+    "en": "Top Developer Tooling for AI Agent Work | Killer-Skills",
+    "zh": "最佳 AI Agent 开发工具与工作流 | Killer-Skills",
+    "ja": "AIエージェント開発ワークフロー向けツール | Killer-Skills",
+    "ko": "AI 에이전트 워크플로를 위한 개발 도구 | Killer-Skills",
+    "es": "Mejores herramientas de desarrollo para agentes de IA | Killer-Skills",
+    "fr": "Meilleurs outils de développement pour agents IA | Killer-Skills",
+    "de": "Top-Entwicklertools für die Arbeit mit KI-Agenten | Killer-Skills",
+    "pt": "Melhores ferramentas de desenvolvimento para agentes de IA | Killer-Skills",
+    "ru": "Лучшие dev-инструменты для workflow ИИ-агентов | Killer-Skills",
+    "ar": "أفضل أدوات التطوير لسير عمل وكلاء الذكاء الاصطناعي | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top AI developer tools, MCP servers & Claude extensions for API design, testing, backend & i18n. Expertly curated list for 2024.",
-    "zh": "发现用于API设计、测试、后端和i18n的顶级AI开发者工具、MCP服务器和Claude扩展。2024年专家精选列表。",
-    "ja": "API設計、テスト、バックエンド、i18n向けのトップAI開発者ツール、MCPサーバー、Claude拡張機能を発見。2024年版の厳選リスト。",
-    "ko": "API 설계, 테스트, 백엔드 및 i18n을 위한 최고의 AI 개발자 도구, MCP 서버 및 Claude 확장 기능을 만나보세요. 2024년 전문가 엄선 목록.",
-    "es": "Explora los mejores servidores MCP para developer tools. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour developer tools. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für developer tools. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para developer tools. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для developer tools. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ developer tools. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover developer tooling that supports AI agent coding, testing, debugging, and integration work from local IDE to production delivery.",
+    "zh": "发现支持 AI Agent 编码、测试、调试与集成的开发工具，从本地 IDE 到生产交付全链路覆盖。",
+    "ja": "ローカルIDEから本番デリバリーまで、AIエージェントの開発・テスト・デバッグ・連携を支える開発ツールを紹介します。",
+    "ko": "로컬 IDE부터 프로덕션 배포까지, AI 에이전트의 코딩·테스트·디버깅·통합을 지원하는 개발 도구를 살펴보세요.",
+    "es": "Descubre herramientas que apoyan codificación, testing, depuración e integración de agentes de IA desde IDE local hasta producción.",
+    "fr": "Découvrez des outils qui soutiennent le code, les tests, le débogage et les intégrations d’agents IA, du local à la production.",
+    "de": "Entdecke Tools für Coding, Tests, Debugging und Integrationen von KI-Agenten – vom lokalen IDE-Setup bis zur Produktion.",
+    "pt": "Descubra ferramentas para codificação, testes, depuração e integrações de agentes de IA, do IDE local à produção.",
+    "ru": "Изучите инструменты для кодинга, тестов, отладки и интеграций ИИ-агентов — от локального IDE до продакшена.",
+    "ar": "اكتشف أدوات تدعم كتابة الكود والاختبار وتصحيح الأخطاء والتكامل لوكلاء الذكاء الاصطناعي من IDE المحلي حتى الإنتاج."
   },
   "keywords": {
     "en": [
-      "AI developer tools",
-      "MCP servers",
-      "Claude extensions",
-      "API design",
-      "backend development",
-      "testing tools",
-      "AI agents",
-      "programming"
+      "developer tooling",
+      "AI coding tools",
+      "agent debugging",
+      "API development tools",
+      "IDE workflows",
+      "AI utilities"
     ],
-    "zh": ["AI开发者工具", "MCP服务器", "Claude扩展", "API设计", "后端开发", "测试工具", "AI代理", "编程"],
+    "zh": ["开发工具栈", "AI 编码工具", "Agent 调试", "API 开发工具", "IDE 工作流", "AI 实用工具"],
     "ja": [
-      "AI developer tools",
-      "MCP servers",
-      "Claude extensions",
-      "API design",
-      "backend development",
-      "testing tools",
-      "AI agents",
-      "programming"
+      "開発ツール",
+      "AIコーディングツール",
+      "エージェントのデバッグ",
+      "API開発ツール",
+      "IDEワークフロー",
+      "AIユーティリティ"
     ],
-    "ko": [
-      "AI developer tools",
-      "MCP servers",
-      "Claude extensions",
-      "API design",
-      "backend development",
-      "testing tools",
-      "AI agents",
-      "programming"
+    "ko": ["개발 도구", "AI 코딩 도구", "에이전트 디버깅", "API 개발 도구", "IDE 워크플로", "AI 유틸리티"],
+    "es": [
+      "tooling para desarrolladores",
+      "herramientas de código IA",
+      "depuración de agentes",
+      "herramientas API",
+      "workflows en IDE",
+      "utilidades de IA"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "developer", "tools"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "developer", "tools"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "developer", "tools"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "developer", "tools"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "developer", "tools"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "developer", "tools"]
+    "fr": [
+      "tooling développeur",
+      "outils de code IA",
+      "débogage d’agents",
+      "outils API",
+      "workflows IDE",
+      "utilitaires IA"
+    ],
+    "de": [
+      "Entwickler-Tooling",
+      "KI-Coding-Tools",
+      "Agenten-Debugging",
+      "API-Entwicklertools",
+      "IDE-Workflows",
+      "KI-Utilities"
+    ],
+    "pt": [
+      "tooling para desenvolvedores",
+      "ferramentas de código IA",
+      "depuração de agentes",
+      "ferramentas de API",
+      "workflows no IDE",
+      "utilitários de IA"
+    ],
+    "ru": [
+      "инструменты разработчика",
+      "инструменты ИИ-кодинга",
+      "отладка агентов",
+      "инструменты API",
+      "IDE workflow",
+      "утилиты ИИ"
+    ],
+    "ar": [
+      "أدوات المطورين",
+      "أدوات ترميز بالذكاء الاصطناعي",
+      "تصحيح أخطاء الوكلاء",
+      "أدوات API",
+      "سير العمل داخل IDE",
+      "أدوات ذكاء اصطناعي مساعدة"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-developer-tooling-ai-agent-work",
+  "legacySlugs": ["top-developer-tools-mcp-servers"],
   "category": "developer-tools",
   "author": "Killer-Skills AI",
   "skills": [
@@ -104,15 +135,15 @@
     "lorehq/lore"
   ],
   "longDescription": {
-    "en": "In today's rapidly evolving tech landscape, where AI agents are becoming integral to every facet of software development, the demand for specialized developer-tools AI tools has never been higher. Developers are constantly seeking innovative ways to streamline their workflows, accelerate deployment cycles, and ensure the robustness of their AI-driven applications. This curated collection, \"Top Developer Tools AI Agents & MCP Servers,\" directly addresses these critical needs. Imagine an AI agent that can autonomously generate API documentation, an MCP server optimizing your microservices architecture for peak performance, or a Claude extension that debugs complex backend code in real-time. These aren't futuristic fantasies; they are the immediate benefits these 12 powerful developer-tools AI tools deliver. From enhancing API design and testing to revolutionizing backend development and deployment, each tool in this expertly selected list empowers you to build, debug, and deploy AI-driven applications with unparalleled efficiency. Whether you're integrating sophisticated AI agents into existing systems or pioneering new AI-first solutions, these developer-tools AI tools provide the essential capabilities to transform your development process, reduce manual overhead, and unlock new levels of productivity and innovation. Dive into this collection and discover how the right AI agent and MCP server can redefine your development paradigm.",
-    "zh": "在当今快速发展的技术格局中，AI agent正成为软件开发各个环节不可或缺的一部分，对专业开发工具AI工具的需求从未如此之高。开发者们不断寻求创新的方法来简化工作流程，加速部署周期，并确保其AI驱动应用程序的健壮性。这个名为“顶级开发工具AI Agent与MCP服务器”的精选系列，直接满足了这些关键需求。想象一下，一个AI agent可以自主生成API文档，一个MCP服务器可以优化您的微服务架构以实现最佳性能，或者一个Claude扩展可以实时调试复杂的后端代码。这些并非未来幻想；它们是这12个强大的开发工具AI工具所带来的即时益处。从增强API设计和测试到彻底改变后端开发和部署，此专业精选列表中的每个工具都使您能够以无与伦比的效率构建、调试和部署AI驱动的应用程序。无论您是将复杂的AI agent集成到现有系统中，还是开创新的AI优先解决方案，这些开发工具AI工具都提供了基本功能，可以改变您的开发过程，减少手动开销，并释放新的生产力和创新水平。深入了解此系列，发现正确的AI agent和MCP服务器如何重新定义您的开发范式。",
-    "ja": "AIエージェントがソフトウェア開発のあらゆる側面に不可欠な要素となっている今日の急速に進化する技術環境において、専門的な開発ツールAIツールの需要はかつてないほど高まっています。開発者は常に、ワークフローを合理化し、デプロイメントサイクルを加速し、AI駆動型アプリケーションの堅牢性を確保するための革新的な方法を模索しています。この厳選されたコレクション「トップ開発ツールAIエージェント＆MCPサーバー」は、これらの重要なニーズに直接応えます。APIドキュメントを自律的に生成できるAIエージェント、マイクロサービスアーキテクチャを最高のパフォーマンスに最適化するMCPサーバー、または複雑なバックエンドコードをリアルタイムでデバッグするClaude拡張機能を想像してみてください。これらは未来の夢物語ではありません。これら12の強力な開発ツールAIツールがもたらす即時のメリットです。API設計とテストの強化から、バックエンド開発とデプロイメントの革新まで、この専門的に厳選されたリストの各ツールは、比類のない効率でAI駆動型アプリケーションを構築、デバッグ、デプロイする力を与えます。既存のシステムに洗練されたAIエージェントを統合する場合でも、新しいAIファーストソリューションを開拓する場合でも、これらの開発ツールAIツールは、開発プロセスを変革し、手作業のオーバーヘッドを削減し、新しいレベルの生産性とイノベーションを解き放つための不可欠な機能を提供します。このコレクションを深く掘り下げて、適切なAIエージェントとMCPサーバーがどのように開発パラダイムを再定義できるかを発見してください。",
-    "ko": "AI 에이전트가 소프트웨어 개발의 모든 측면에 필수적인 요소가 되고 있는 오늘날 빠르게 진화하는 기술 환경에서, 전문 개발 도구 AI 도구에 대한 수요는 그 어느 때보다 높습니다. 개발자들은 워크플로우를 간소화하고, 배포 주기를 가속화하며, AI 기반 애플리케이션의 견고성을 보장하기 위한 혁신적인 방법을 끊임없이 모색하고 있습니다. 이 엄선된 컬렉션인 \"최고의 개발 도구 AI 에이전트 및 MCP 서버\"는 이러한 중요한 요구 사항을 직접적으로 해결합니다. API 문서를 자율적으로 생성하는 AI 에이전트, 최적의 성능을 위해 마이크로서비스 아키텍처를 최적화하는 MCP 서버, 또는 복잡한 백엔드 코드를 실시간으로 디버깅하는 Claude 확장 프로그램을 상상해 보십시오. 이것들은 미래의 환상이 아닙니다. 이 12가지 강력한 개발 도구 AI 도구가 제공하는 즉각적인 이점입니다. API 설계 및 테스트 강화부터 백엔드 개발 및 배포 혁신에 이르기까지, 이 전문적으로 선정된 목록의 각 도구는 비교할 수 없는 효율성으로 AI 기반 애플리케이션을 구축, 디버그 및 배포할 수 있도록 지원합니다. 기존 시스템에 정교한 AI 에이전트를 통합하든, 새로운 AI 우선 솔루션을 개척하든, 이 개발 도구 AI 도구는 개발 프로세스를 혁신하고 수동 오버헤드를 줄이며 새로운 수준의 생산성과 혁신을 실현하는 데 필수적인 기능을 제공합니다. 이 컬렉션을 자세히 살펴보고 올바른 AI 에이전트와 MCP 서버가 개발 패러다임을 어떻게 재정의할 수 있는지 알아보십시오.",
-    "es": "En el panorama tecnológico actual, en rápida evolución, donde los agentes de IA se están volviendo integrales en cada faceta del desarrollo de software, la demanda de herramientas de IA para desarrolladores especializadas nunca ha sido tan alta. Los desarrolladores buscan constantemente formas innovadoras de optimizar sus flujos de trabajo, acelerar los ciclos de implementación y garantizar la solidez de sus aplicaciones impulsadas por IA. Esta colección curada, \"Principales Herramientas de Desarrollo para Agentes de IA y Servidores MCP\", aborda directamente estas necesidades críticas. Imagine un agente de IA que pueda generar documentación de API de forma autónoma, un servidor MCP que optimice su arquitectura de microservicios para un rendimiento máximo, o una extensión de Claude que depure código de backend complejo en tiempo real. Estas no son fantasías futuristas; son los beneficios inmediatos que ofrecen estas 12 potentes herramientas de IA para desarrolladores. Desde la mejora del diseño y las pruebas de API hasta la revolución del desarrollo y la implementación de backend, cada herramienta de esta lista seleccionada por expertos le permite construir, depurar e implementar aplicaciones impulsadas por IA con una eficiencia inigualable. Ya sea que esté integrando sofisticados agentes de IA en sistemas existentes o siendo pionero en nuevas soluciones centradas en la IA, estas herramientas de IA para desarrolladores proporcionan las capacidades esenciales para transformar su proceso de desarrollo, reducir la sobrecarga manual y desbloquear nuevos niveles de productividad e innovación. Sumérjase en esta colección y descubra cómo el agente de IA y el servidor MCP adecuados pueden redefinir su paradigma de desarrollo.",
-    "fr": "Dans le paysage technologique actuel, où l'innovation est incessante, les développeurs sont confrontés à une pression croissante pour créer des applications intelligentes et réactives. C'est précisément pourquoi notre collection « Top Developer Tools AI Agents & MCP Servers » est devenue indispensable. Imaginez pouvoir automatiser des tâches répétitives, accélérer les cycles de développement et garantir une qualité de code irréprochable. Ces outils ne sont pas de simples compléments ; ce sont des catalyseurs pour une productivité sans précédent. Que vous soyez en train de concevoir des API robustes, de tester des microservices complexes ou de déployer des solutions backend à grande échelle, nos outils AI agent spécialisés transforment votre workflow. Les MCP servers, par exemple, offrent une infrastructure de pointe pour le développement collaboratif, tandis que les extensions Claude et les compétences dédiées à l'API design et au testing simplifient chaque étape du processus. Fini les heures perdues à déboguer manuellement ou à intégrer des systèmes disparates. Avec ces developer-tools AI tools, vous pouvez vous concentrer sur l'innovation, en laissant les agents intelligents gérer les complexités techniques. Cette collection de 12 outils a été méticuleusement sélectionnée pour vous offrir une boîte à outils complète, vous permettant de construire, de déboguer et de déployer des applications pilotées par l'IA avec une efficacité et une précision inégalées, propulsant ainsi vos projets vers de nouveaux sommets.",
-    "de": "In der heutigen schnelllebigen Technologielandschaft stehen Entwickler unter ständigem Druck, intelligente und reaktionsschnelle Anwendungen zu erstellen. Genau deshalb ist unsere Sammlung „Top Developer Tools AI Agents & MCP Servers“ unverzichtbar geworden. Stellen Sie sich vor, Sie könnten sich wiederholende Aufgaben automatisieren, Entwicklungszyklen beschleunigen und eine makellose Codequalität gewährleisten. Diese developer-tools AI tools sind nicht nur Ergänzungen; sie sind Katalysatoren für beispiellose Produktivität. Egal, ob Sie robuste APIs entwerfen, komplexe Microservices testen oder Backend-Lösungen in großem Maßstab bereitstellen, unsere spezialisierten AI agent Tools transformieren Ihren Workflow. MCP servers bieten beispielsweise eine hochmoderne Infrastruktur für die kollaborative Entwicklung, während Claude-Erweiterungen und dedizierte Fähigkeiten für API design und testing jeden Schritt des Prozesses vereinfachen. Vorbei sind die Zeiten, in denen Stunden mit manuellem Debugging oder der Integration disparater Systeme verschwendet wurden. Mit diesen AI agent Tools können Sie sich auf Innovation konzentrieren und die intelligenten Agenten die technischen Komplexitäten bewältigen lassen. Diese Sammlung von 12 Tools wurde sorgfältig ausgewählt, um Ihnen ein umfassendes Toolkit zu bieten, mit dem Sie KI-gesteuerte Anwendungen mit unübertroffener Effizienz und Präzision erstellen, debuggen und bereitstellen können, wodurch Ihre Projekte zu neuen Höhenflügen angetrieben werden.",
-    "pt": "No cenário tecnológico atual, onde a inovação é incessante, os desenvolvedores enfrentam uma pressão crescente para criar aplicações inteligentes e responsivas. É precisamente por isso que nossa coleção \"Top Developer Tools AI Agents & MCP Servers\" se tornou indispensável. Imagine poder automatizar tarefas repetitivas, acelerar os ciclos de desenvolvimento e garantir uma qualidade de código impecável. Essas developer-tools AI tools não são meros complementos; são catalisadores para uma produtividade sem precedentes. Seja você projetando APIs robustas, testando microsserviços complexos ou implantando soluções de backend em larga escala, nossas ferramentas de AI agent especializadas transformam seu fluxo de trabalho. Os MCP servers, por exemplo, oferecem uma infraestrutura de ponta para o desenvolvimento colaborativo, enquanto as extensões Claude e as habilidades dedicadas ao API design e testing simplificam cada etapa do processo. Acabaram-se as horas perdidas depurando manualmente ou integrando sistemas díspares. Com essas AI agent tools, você pode se concentrar na inovação, deixando que os agentes inteligentes gerenciem as complexidades técnicas. Esta coleção de 12 ferramentas foi meticulosamente selecionada para oferecer a você um kit de ferramentas completo, permitindo que você construa, depure e implante aplicações orientadas por IA com eficiência e precisão inigualáveis, impulsionando seus projetos a novos patamares.",
-    "ru": "В современном технологическом ландшафте, где инновации не прекращаются, разработчики сталкиваются с растущим давлением по созданию интеллектуальных и отзывчивых приложений. Именно поэтому наша коллекция «Top Developer Tools AI Agents & MCP Servers» стала незаменимой. Представьте себе возможность автоматизировать повторяющиеся задачи, ускорить циклы разработки и обеспечить безупречное качество кода. Эти developer-tools AI tools — не просто дополнения; они являются катализаторами беспрецедентной производительности. Независимо от того, проектируете ли вы надежные API, тестируете сложные микросервисы или развертываете крупномасштабные бэкенд-решения, наши специализированные AI agent инструменты преобразуют ваш рабочий процесс. MCP servers, например, предлагают передовую инфраструктуру для совместной разработки, в то время как расширения Claude и специализированные навыки для API design и testing упрощают каждый этап процесса. Прошли те времена, когда часы тратились на ручную отладку или интеграцию разрозненных систем. С этими AI agent инструментами вы можете сосредоточиться на инновациях, позволяя интеллектуальным агентам управлять техническими сложностями. Эта коллекция из 12 инструментов была тщательно отобрана, чтобы предоставить вам полный набор инструментов, позволяющий создавать, отлаживать и развертывать приложения на основе ИИ с беспрецедентной эффективностью и точностью, поднимая ваши проекты на новые высоты.",
-    "ar": "في المشهد التكنولوجي الحالي، حيث الابتكار لا يتوقف، يواجه المطورون ضغطًا متزايدًا لإنشاء تطبيقات ذكية وسريعة الاستجابة. وهذا هو بالضبط السبب في أن مجموعتنا \"Top Developer Tools AI Agents & MCP Servers\" أصبحت لا غنى عنها. تخيل أنك قادر على أتمتة المهام المتكررة، وتسريع دورات التطوير، وضمان جودة كود لا تشوبها شائبة. هذه developer-tools AI tools ليست مجرد إضافات؛ إنها محفزات لإنتاجية غير مسبوقة. سواء كنت تصمم واجهات برمجة تطبيقات قوية، أو تختبر خدمات مصغرة معقدة، أو تنشر حلولًا خلفية على نطاق واسع، فإن أدوات AI agent المتخصصة لدينا تحول سير عملك. توفر MCP servers، على سبيل المثال، بنية تحتية متطورة للتطوير التعاوني، بينما تعمل إضافات Claude والمهارات المخصصة لتصميم واجهة برمجة التطبيقات (API design) والاختبار (testing) على تبسيط كل خطوة من العملية. لقد ولت الأيام التي كانت تضيع فيها الساعات في تصحيح الأخطاء يدويًا أو دمج الأنظمة المتباينة. باستخدام أدوات AI agent هذه، يمكنك التركيز على الابتكار، وترك الوكلاء الأذكياء لإدارة التعقيدات التقنية. تم اختيار هذه المجموعة المكونة من 12 أداة بدقة لتزويدك بمجموعة أدوات شاملة، مما يتيح لك بناء وتصحيح ونشر التطبيقات المدعومة بالذكاء الاصطناعي بكفاءة ودقة لا مثيل لهما، مما يدفع مشاريعك إلى آفاق جديدة."
+    "en": "This page curates developer tooling for teams building AI agent skills in real products. It emphasizes practical workflows: writing code faster, verifying behavior with tests, debugging integration issues, and shipping stable releases through IDE-first processes. MCP support may appear as an integration capability, but the main perspective is developer productivity and software quality.",
+    "zh": "本页面向真实产品中的 AI Agent Skills 开发团队，整理了高实用性的开发工具。重点是可落地流程：更快编码、用测试验证行为、定位集成问题，并通过 IDE-first 流程稳定发布。部分工具会提供 MCP 接入能力，但主视角仍是开发效率与软件质量。",
+    "ja": "このページは、実際のプロダクトでAI Agent Skillsを開発するチーム向けに、実用的な開発ツールを厳選しています。重視しているのは、素早い実装、テストによる検証、連携不具合のデバッグ、IDE中心での安定リリースといった現場の流れです。MCP対応を持つツールもありますが、中心はあくまで開発生産性と品質向上です。",
+    "ko": "이 페이지는 실제 제품에서 AI Agent Skills를 개발하는 팀을 위해 실용적인 개발 도구를 선별했습니다. 핵심은 빠른 구현, 테스트 기반 검증, 통합 이슈 디버깅, IDE 중심의 안정적 릴리스 같은 실무 워크플로입니다. MCP 지원은 통합 기능 중 하나일 뿐, 주된 관점은 개발 생산성과 품질입니다.",
+    "es": "Esta página reúne tooling para equipos que construyen skills de agentes de IA en productos reales. El enfoque es práctico: escribir código más rápido, validar comportamiento con pruebas, depurar integraciones y publicar versiones estables con procesos centrados en IDE. MCP puede aparecer como capacidad de integración, pero la prioridad es productividad y calidad de software.",
+    "fr": "Cette page rassemble du tooling pour les équipes qui développent des skills d’agents IA dans de vrais produits. L’approche est pratique : coder plus vite, valider avec des tests, déboguer les intégrations et livrer des versions stables via des processus orientés IDE. MCP peut exister comme capacité d’intégration, mais la priorité reste la productivité et la qualité logicielle.",
+    "de": "Diese Seite bündelt Entwickler-Tooling für Teams, die KI-Agenten-Skills in realen Produkten bauen. Im Fokus stehen praktische Abläufe: schneller entwickeln, Verhalten mit Tests absichern, Integrationsprobleme debuggen und über IDE-zentrierte Prozesse stabil releasen. MCP kann als Integrationsfähigkeit vorkommen, entscheidend sind jedoch Produktivität und Softwarequalität.",
+    "pt": "Esta página reúne tooling para equipes que constroem skills de agentes de IA em produtos reais. O foco é prático: codificar mais rápido, validar comportamento com testes, depurar integrações e lançar versões estáveis com processos centrados no IDE. MCP pode aparecer como capacidade de integração, mas a prioridade é produtividade e qualidade de software.",
+    "ru": "Эта страница собирает developer tooling для команд, которые создают AI Agent Skills в реальных продуктах. Фокус практический: быстрее писать код, подтверждать поведение тестами, отлаживать интеграции и выпускать стабильные релизы через IDE-first процессы. MCP может встречаться как вариант интеграции, но приоритет — продуктивность и качество ПО.",
+    "ar": "تجمع هذه الصفحة أدوات المطورين للفرق التي تبني مهارات وكلاء الذكاء الاصطناعي داخل منتجات حقيقية. التركيز عملي: كتابة كود أسرع، التحقق بالاختبارات، تصحيح مشاكل التكامل، وإطلاق إصدارات مستقرة عبر عمليات تتمحور حول IDE. قد يظهر MCP كخيار تكامل، لكن الأولوية تبقى لإنتاجية المطور وجودة البرمجيات."
   }
 }

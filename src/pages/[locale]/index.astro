@@ -7,6 +7,7 @@ import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '.
 import { getFeaturedSkillsDirect } from '../../lib/skills';
 import { buildKeywordString } from '../../lib/seo-keywords';
 import { getSolutionIntents } from '../../lib/solution-intents';
+import { getCollectionCanonicalSlug } from '../../lib/collection-slugs';
 import { getCollection } from 'astro:content';
 import type { Env } from '../../lib/kv';
 
@@ -38,16 +39,13 @@ const allCollections = await getCollection('collections');
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
 // SEO: homepage metadata tuned for high-intent discovery queries
-const homeSeoTitle = isZh
-  ? 'AI Agent Skills、自动化工作流与 MCP Servers'
-  : 'AI Agent Skills, Automation Workflows & MCP Servers';
+const homeSeoTitle = isZh ? 'AI Agent Skills 与自动化工作流' : 'AI Agent Skills for Automation Workflows';
 const homeSeoDescription = isZh
-  ? '发现并安装 2,500+ 个 AI Agent Skills 与 MCP Servers，覆盖工作流自动化、流程自动化、文档自动化、浏览器自动化与数据提取等高意图场景，支持 Claude Code、Cursor、Windsurf。'
-  : 'Discover and install 2,500+ AI agent skills and MCP servers for workflow automation, process automation, document automation, browser automation, and data extraction in Claude Code, Cursor, and Windsurf.';
+  ? '发现并安装 2,500+ 个 AI Agent Skills，覆盖工作流自动化、流程自动化、文档自动化、浏览器自动化与数据提取等高意图场景，支持 Claude Code、Cursor、Windsurf。'
+  : 'Discover and install 2,500+ AI agent skills for workflow automation, process automation, document automation, browser automation, and data extraction in Claude Code, Cursor, and Windsurf.';
 const homeSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
-  'mcp',
   'workflowAutomation',
   'processAutomation',
   'documentAutomation',
@@ -68,32 +66,32 @@ const faqItems = [
   {
     question: isZh ? '如何找到更精确的长尾技能词？' : 'How do I find precise long-tail skill queries?',
     answer: isZh
-      ? '从自动化、流程、文档、数据、浏览器等场景词开始，再进入技能市场按关键词继续筛选，通常会比直接搜宽泛词更容易获得高点击结果。'
-      : 'Start with intent terms like automation, process, document, data, or browser workflows, then refine further in the marketplace. That usually performs better than broad generic searches.',
+      ? '从自动化、流程、文档、数据、浏览器等场景词开始，再进入技能目录按关键词继续筛选，通常会比直接搜宽泛词更容易获得高点击结果。'
+      : 'Start with intent terms like automation, process, document, data, or browser workflows, then refine further in the skills directory. That usually performs better than broad generic searches.',
   },
   {
     question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?',
     answer: isZh
-      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 15+ IDE，并支持一条命令安装。'
-      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 15+ other IDEs with a single install command.',
+      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持一条命令安装。'
+      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 19+ other IDEs with a single install command.',
   },
   {
-    question: isZh ? '什么是 MCP 服务器？' : 'What is an MCP server?',
+    question: isZh ? '如何安装这些技能？' : 'How do I install these skills?',
     answer: isZh
-      ? 'MCP (Model Context Protocol) 服务器是一种让 AI 代理连接外部数据和工具的中间件。它为 AI 提供数据库查询、文件访问、API 调用等能力。'
-      : 'An MCP (Model Context Protocol) server is middleware that enables AI agents to connect to external data sources and tools, providing database queries, file access, and API call capabilities.',
+      ? '你可以进入具体技能页，或直接使用 npx killer-skills add owner/repo 把技能安装到 Claude Code、Cursor、Windsurf 等支持环境。'
+      : 'You can open any skill page or use npx killer-skills add owner/repo to install a skill into Claude Code, Cursor, Windsurf, and other supported environments.',
   },
   {
-    question: isZh ? '如何安装 MCP 服务器？' : 'How do I install an MCP server?',
+    question: isZh ? '为什么这些技能适合 IDE 工作流？' : 'Why are these skills useful inside IDE workflows?',
     answer: isZh
-      ? '大多数 MCP 服务器可以通过 npm install 或直接下载安装。安装后需要在你的 AI 客户端（如 Claude Code 或 Cursor）中配置服务器地址。'
-      : 'Most MCP servers can be installed via npm install or direct download. After installation, you need to configure the server address in your AI client like Claude Code or Cursor.',
+      ? '因为这些技能会把特定任务的说明、流程和最佳实践写入 IDE 原生技能文件，让 AI 助手在真实编码与自动化场景中更稳定地执行。'
+      : 'These skills package task-specific instructions, workflows, and best practices into IDE-native skill files so coding assistants can execute more consistently in real workflows.',
   },
   {
-    question: isZh ? 'MCP 服务器安全吗？' : 'Are MCP servers secure?',
+    question: isZh ? '如果任务需要外部工具怎么办？' : 'What if a workflow also needs external tools?',
     answer: isZh
-      ? 'MCP 服务器的安全性取决于配置。建议使用 API 密钥认证、实施速率限制、启用 HTTPS，并定期更新依赖包。'
-      : 'MCP server security depends on configuration. We recommend using API key authentication, enabling rate limiting, using HTTPS, and regularly updating dependencies.',
+      ? '当任务需要数据库、API 或浏览器等外部能力时，可以把技能与相应工具集成搭配使用；站点本身仍以技能组织与安装为核心。'
+      : 'If a workflow also needs databases, APIs, browsers, or other external tools, you can pair a skill with the right integration while the site itself stays focused on skill discovery and installation.',
   },
 ];
 
@@ -205,7 +203,7 @@ const features = [
       foundingDate: '2025',
       knowsAbout: [
         'AI Agent Skills',
-        'MCP Servers',
+        'IDE Workflows',
         'Claude Code',
         'Cursor',
         'Windsurf',
@@ -215,8 +213,8 @@ const features = [
       sameAs: [
         'https://github.com/asiawright1122-boop/Killer-AgentSkills',
         'https://www.npmjs.com/package/killer-skills',
-        'https://discord.gg/killer-skills',
-        'https://twitter.com/killerskills',
+        'https://discord.com/invite/killer-skills',
+        'https://x.com/killerskills',
       ],
     })}
   />
@@ -257,7 +255,7 @@ const features = [
         >
           {
             t('Home.seoIntro') ||
-              'Killer-Skills is an open-source directory of 2,500+ AI agent skills and MCP servers. Developers use it to discover, install, and manage plug-and-play instruction modules for AI coding assistants including Claude Code, Cursor, Windsurf, and 15+ other IDEs — all with a single CLI command.'
+              'Killer-Skills is an open-source directory of 2,500+ AI agent skills. Developers use it to discover, install, and manage plug-and-play instruction modules for AI coding assistants including Claude Code, Cursor, Windsurf, and 19+ other IDEs — all with a single CLI command.'
           }
         </p>
 
@@ -371,7 +369,7 @@ const features = [
             </div>
           </div>
           <div class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center">
-            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">15+</div>
+            <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">19+</div>
             <div
               class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
             >
@@ -481,7 +479,7 @@ const features = [
                 typeof col.data.title === 'object'
                   ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
                   : col.data.title;
-              const cleanSlug = col.id.replace(/\.json$/, '');
+              const cleanSlug = getCollectionCanonicalSlug(col);
               return (
                 <a
                   href={`/${locale}/collections/${cleanSlug}`}
