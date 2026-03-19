@@ -1,77 +1,121 @@
 {
   "title": {
-    "en": "Best MCP Servers for File Processing",
-    "zh": "文件处理的最佳 MCP 服务器",
-    "ja": "ファイル処理に最適なMCPサーバー",
-    "ko": "파일 처리를 위한 최고의 MCP 服务器",
-    "es": "Mejores servidores MCP de for file processing en 2024",
-    "fr": "Meilleurs serveurs MCP for file processing en 2024",
-    "de": "Beste MCP-Server for file processing 2024",
-    "pt": "Melhores servidores MCP for file processing em 2024",
-    "ru": "Лучшие MCP серверы for file processing 2024",
-    "ar": "أفضل خوادم MCP for file processing لعام 2024"
+    "en": "Top File, Document & Data Processing Automation Tools",
+    "zh": "文件、文档与数据处理自动化工具精选",
+    "ja": "ファイル・文書・データ処理の自動化ツール集",
+    "ko": "파일·문서·데이터 처리 자동화 도구 모음",
+    "es": "Herramientas de automatización para archivos, documentos y datos",
+    "fr": "Outils d’automatisation pour fichiers, documents et données",
+    "de": "Automatisierungstools für Datei-, Dokument- und Datenverarbeitung",
+    "pt": "Ferramentas de automação para processamento de arquivos e dados",
+    "ru": "Инструменты автоматизации обработки файлов, документов и данных",
+    "ar": "أدوات أتمتة معالجة الملفات والمستندات والبيانات"
   },
   "description": {
-    "en": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "zh": "发现让 AI 智能体能够读取、写入和转换任何格式文件（包括 PDF、Excel 和文档）的 MCP 服务器。",
-    "ja": "PDF、Excel、ドキュメントを含むあらゆる形式のファイルを読み取り、変換できるMCPサーバーを発見します。",
-    "ko": "PDF, Excel, 문서를 포함한 모든 형식의 파일을 읽고 쓰고 변환할 수 있는 AI 에이전트를 지원하는 MCP 서버를 발견하세요.",
-    "es": "Explora los mejores servidores MCP para for file processing. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for file processing. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for file processing. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for file processing. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for file processing. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for file processing. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Find workflow tools for document parsing, file transformation, structured extraction, and automated data handling tasks.",
+    "zh": "聚焦文档解析、文件转换、结构化提取与数据处理自动化等高频工作流任务。",
+    "ja": "ドキュメント解析、ファイル変換、構造化抽出、データ処理自動化に対応する実務向けツールを厳選。",
+    "ko": "문서 파싱, 파일 변환, 구조화 추출, 데이터 처리 자동화 등 실무 중심 워크플로 도구를 제공합니다.",
+    "es": "Encuentra herramientas de workflow para parsing de documentos, transformación de archivos, extracción estructurada y manejo automático de datos.",
+    "fr": "Trouvez des outils de workflow pour le parsing de documents, la transformation de fichiers, l’extraction structurée et le traitement automatisé des données.",
+    "de": "Finde Workflow-Tools für Dokumenten-Parsing, Dateikonvertierung, strukturierte Extraktion und automatisierte Datenverarbeitung.",
+    "pt": "Encontre ferramentas de workflow para parsing de documentos, transformação de arquivos, extração estruturada e tratamento automatizado de dados.",
+    "ru": "Подборка инструментов для разбора документов, преобразования файлов, структурированного извлечения и автоматической обработки данных.",
+    "ar": "اعثر على أدوات سير عمل لتحليل المستندات وتحويل الملفات والاستخراج المنظم والمعالجة الآلية للبيانات."
   },
   "seoTitle": {
-    "en": "Best MCP Servers for File Processing 2026 | Killer-Skills",
-    "zh": "文件处理的最佳 MCP 服务器 2026 | Killer-Skills",
-    "ja": "ファイル処理に最適なMCPサーバー 2026 | Killer-Skills",
-    "ko": "파일 처리를 위한 최고의 MCP 服务器 2026 | Killer-Skills",
-    "es": "Mejores servidores MCP de for file processing en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP for file processing en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server for file processing 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP for file processing em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы for file processing 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP for file processing لعام 2024 2026 | Killer-Skills"
+    "en": "Top File, Document & Data Processing Automation Tools | Killer-Skills",
+    "zh": "文件与文档处理工作流工具 | Killer-Skills",
+    "ja": "ファイル・文書処理ワークフローツール | Killer-Skills",
+    "ko": "파일·문서 처리 워크플로 도구 | Killer-Skills",
+    "es": "Herramientas de workflow para archivos y documentos | Killer-Skills",
+    "fr": "Outils de workflow fichiers et documents | Killer-Skills",
+    "de": "Workflow-Tools für Datei- und Dokumentverarbeitung | Killer-Skills",
+    "pt": "Ferramentas de workflow para arquivos e documentos | Killer-Skills",
+    "ru": "Инструменты workflow для файлов и документов | Killer-Skills",
+    "ar": "أدوات سير عمل معالجة الملفات والمستندات | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "zh": "发现让 AI 智能体能够读取、写入和转换任何格式文件（包括 PDF、Excel 和文档）的 MCP 服务器。",
-    "ja": "PDF、Excel、ドキュメントを含むあらゆる形式のファイルを読み取り、変換できるMCPサーバーを発見します。",
-    "ko": "PDF, Excel, 문서를 포함한 모든 형식의 파일을 읽고 쓰고 변환할 수 있는 AI 에이전트를 지원하는 MCP 서버를 발견하세요.",
-    "es": "Explora los mejores servidores MCP para for file processing. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for file processing. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for file processing. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for file processing. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for file processing. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for file processing. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A practical collection for file and document automation workflows, with companion integrations for reliable operational processing.",
+    "zh": "面向文件与文档自动化流程的实用集合，提供稳定可扩展的配套集成能力。",
+    "ja": "ファイル・文書の自動化ワークフローを実務で回すためのコレクション。安定運用に役立つ連携機能を重視。",
+    "ko": "파일·문서 자동화 워크플로를 실무에 적용하기 위한 컬렉션으로 안정적인 운영 통합에 초점을 둡니다.",
+    "es": "Colección práctica para workflows de automatización de archivos y documentos, con integraciones complementarias para procesamiento operativo confiable.",
+    "fr": "Collection pratique pour les workflows d’automatisation de fichiers et documents, avec des intégrations compagnons pour un traitement opérationnel fiable.",
+    "de": "Praxisnahe Sammlung für Datei- und Dokumentautomatisierung mit Begleit-Integrationen für zuverlässige operative Verarbeitung.",
+    "pt": "Coleção prática para workflows de automação de arquivos e documentos, com integrações complementares para processamento operacional confiável.",
+    "ru": "Практичная коллекция для автоматизации обработки файлов и документов со вспомогательными интеграциями для надежной операционной работы.",
+    "ar": "مجموعة عملية لسير عمل أتمتة الملفات والمستندات مع تكاملات مساندة لمعالجة تشغيلية موثوقة."
   },
   "keywords": {
-    "en": ["mcp", "mcp server", "model context protocol", "file processing"],
-    "zh": ["mcp", "mcp server", "model context protocol", "file processing"],
-    "ja": ["mcp", "mcp server", "model context protocol", "file processing"],
-    "ko": ["mcp", "mcp server", "model context protocol", "file processing"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "mcp", "for", "file"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "mcp", "for", "file"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "mcp", "for", "file"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "mcp", "for", "file"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "mcp", "for", "file"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "mcp", "for", "file"]
+    "en": [
+      "file processing automation",
+      "document workflow tools",
+      "data extraction utilities",
+      "file transformation",
+      "mcp processing integrations"
+    ],
+    "zh": ["文件处理自动化", "文档工作流工具", "数据提取工具", "文件转换", "MCP 处理集成"],
+    "ja": ["ファイル処理自動化", "文書ワークフローツール", "データ抽出ユーティリティ", "ファイル変換", "MCP処理連携"],
+    "ko": ["파일 처리 자동화", "문서 워크플로 도구", "데이터 추출 유틸리티", "파일 변환", "MCP 처리 통합"],
+    "es": [
+      "automatización de procesamiento de archivos",
+      "herramientas de workflow documental",
+      "utilidades de extracción de datos",
+      "transformación de archivos",
+      "integraciones de procesamiento MCP"
+    ],
+    "fr": [
+      "automatisation du traitement de fichiers",
+      "outils de workflow documentaire",
+      "utilitaires d’extraction de données",
+      "transformation de fichiers",
+      "intégrations de traitement MCP"
+    ],
+    "de": [
+      "Automatisierung der Dateiverarbeitung",
+      "Dokumenten-Workflow-Tools",
+      "Datenextraktions-Utilities",
+      "Dateitransformation",
+      "MCP-Verarbeitungsintegrationen"
+    ],
+    "pt": [
+      "automação de processamento de arquivos",
+      "ferramentas de workflow documental",
+      "utilitários de extração de dados",
+      "transformação de arquivos",
+      "integrações de processamento MCP"
+    ],
+    "ru": [
+      "автоматизация обработки файлов",
+      "инструменты документного workflow",
+      "утилиты извлечения данных",
+      "преобразование файлов",
+      "интеграции обработки MCP"
+    ],
+    "ar": [
+      "أتمتة معالجة الملفات",
+      "أدوات سير عمل المستندات",
+      "أدوات استخراج البيانات",
+      "تحويل الملفات",
+      "تكاملات المعالجة عبر MCP"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "file-document-data-processing-automation-tools",
+  "legacySlugs": ["top-mcp-for-file-processing"],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "zh": "发现让 AI 智能体能够读取、写入和转换任何格式文件（包括 PDF、Excel 和文档）的 MCP 服务器。",
-    "ja": "PDF、Excel、ドキュメントを含むあらゆる形式のファイルを読み取り、変換できるMCPサーバーを発見します。",
-    "ko": "PDF, Excel, 문서를 포함한 모든 형식의 파일을 읽고 쓰고 변환할 수 있는 AI 에이전트를 지원하는 MCP 서버를 발견하세요.",
-    "es": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "fr": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "de": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "pt": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "ru": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents.",
-    "ar": "Discover MCP servers that enable AI agents to read, write, and transform files of any format including PDF, Excel, and documents."
+    "en": "This collection focuses on operational file and document workflows: parsing inputs, transforming formats, extracting structured fields, and moving data between systems. It prioritizes practical automation utilities and companion integrations, with MCP used as an enabling capability rather than the page’s main subject.",
+    "zh": "该集合聚焦文件与文档处理的实际流程：输入解析、格式转换、结构化字段提取，以及系统间数据流转。重点是可落地的自动化工具与配套集成，MCP 作为能力支撑而非页面主语。",
+    "ja": "本コレクションは、入力解析、形式変換、構造化フィールド抽出、システム間データ連携といった実務のファイル・文書処理フローに焦点を当てています。主役は実用的な自動化ユーティリティと補助連携であり、MCPはそれを支える機能として扱います。",
+    "ko": "이 컬렉션은 입력 파싱, 포맷 변환, 구조화 필드 추출, 시스템 간 데이터 이동과 같은 실무형 파일·문서 처리 흐름에 집중합니다. 핵심은 실용적인 자동화 유틸리티와 보조 통합이며, MCP는 이를 가능하게 하는 지원 계층으로 다룹니다.",
+    "es": "Esta colección se enfoca en workflows operativos de archivos y documentos: parsear entradas, transformar formatos, extraer campos estructurados y mover datos entre sistemas. Prioriza utilidades de automatización prácticas e integraciones complementarias, usando MCP como capacidad habilitadora y no como tema principal de la página.",
+    "fr": "Cette collection se concentre sur les workflows opérationnels de fichiers et documents : parser les entrées, transformer les formats, extraire des champs structurés et faire circuler les données entre systèmes. Elle met en avant des utilitaires d’automatisation concrets et des intégrations compagnons, MCP étant traité comme une capacité facilitatrice plutôt que comme sujet central.",
+    "de": "Diese Sammlung konzentriert sich auf operative Datei- und Dokument-Workflows: Eingaben parsen, Formate transformieren, strukturierte Felder extrahieren und Daten zwischen Systemen bewegen. Im Fokus stehen praxisnahe Automatisierungs-Utilities und Begleit-Integrationen; MCP dient als ermöglichende Fähigkeit, nicht als Hauptthema der Seite.",
+    "pt": "Esta coleção foca em workflows operacionais de arquivos e documentos: analisar entradas, transformar formatos, extrair campos estruturados e mover dados entre sistemas. Ela prioriza utilitários práticos de automação e integrações complementares, com MCP como capacidade habilitadora e não como assunto principal da página.",
+    "ru": "Коллекция посвящена операционным процессам обработки файлов и документов: разбору входных данных, преобразованию форматов, извлечению структурированных полей и передаче данных между системами. В приоритете практичные утилиты автоматизации и вспомогательные интеграции, а MCP используется как обеспечивающая возможность, а не как основной предмет страницы.",
+    "ar": "تركز هذه المجموعة على سير العمل التشغيلي لمعالجة الملفات والمستندات: تحليل المدخلات، وتحويل الصيغ، واستخراج الحقول المنظمة، ونقل البيانات بين الأنظمة. وهي تعطي الأولوية لأدوات الأتمتة العملية والتكاملات المساندة، مع التعامل مع MCP كقدرة تمكينية لا كموضوع رئيسي للصفحة."
   }
 }

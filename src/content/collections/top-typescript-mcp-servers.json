@@ -1,83 +1,137 @@
 {
   "title": {
-    "en": "Top 12 TypeScript Tools for AI Agents & MCP Servers",
-    "zh": "适用于 AI 代理和 MCP 服务器的 12 大 TypeScript 工具",
-    "ja": "AI AgentとMCPサーバー向けTypeScriptツール トップ12選",
-    "ko": "AI Agent 및 MCP 서버를 위한 최고의 TypeScript 도구 12가지",
-    "es": "Mejores servidores MCP de typescript en 2024",
-    "fr": "Meilleurs serveurs MCP typescript en 2024",
-    "de": "Beste MCP-Server typescript 2024",
-    "pt": "Melhores servidores MCP typescript em 2024",
-    "ru": "Лучшие MCP серверы typescript 2024",
-    "ar": "أفضل خوادم MCP typescript لعام 2024"
+    "en": "Top TypeScript AI Tools for Developer Workflows",
+    "zh": "面向开发工作流的 TypeScript AI 工具精选",
+    "ja": "開発ワークフロー向け TypeScript AI ツール集",
+    "ko": "개발 워크플로우를 위한 TypeScript AI 도구 모음",
+    "es": "Mejores herramientas de IA en TypeScript para workflows",
+    "fr": "Meilleurs outils IA TypeScript pour les workflows dev",
+    "de": "Top TypeScript KI-Tools für Entwickler-Workflows",
+    "pt": "Melhores ferramentas de IA em TypeScript para workflows",
+    "ru": "Лучшие TypeScript AI-инструменты для рабочих процессов разработки",
+    "ar": "أفضل أدوات الذكاء الاصطناعي في TypeScript لسير عمل المطورين"
   },
   "description": {
-    "en": "A professionally curated collection of the top TypeScript MCP Servers and AI agent tools. This directory is essential for developers building robust, type-safe AI applications, featuring tools for documentation, testing, analytics, and workflow automation.",
-    "zh": "专业精选的顶级 TypeScript MCP 服务器和 AI 代理工具集合。本目录对于构建健壮、类型安全的 AI 应用程序的开发人员至关重要，提供文档、测试、分析和工作流自动化等工具。",
-    "ja": "厳選されたTypeScript製MCPサーバーとAI Agentツールのコレクションです。堅牢で型安全なAIアプリケーションを構築する開発者にとって不可欠なこのディレクトリには、ドキュメント作成、テスト、分析、ワークフロー自動化のためのツールが揃っています。",
-    "ko": "엄선된 최고의 TypeScript MCP 서버 및 AI Agent 도구 모음입니다. 이 디렉토리는 문서화, 테스트, 분석 및 워크플로우 자동화를 위한 도구를 제공하여 강력하고 타입 안정적인 AI 애플리케이션을 구축하는 개발자에게 필수적입니다.",
-    "es": "Explora los mejores servidores MCP para typescript. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour typescript. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für typescript. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para typescript. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для typescript. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ typescript. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Curated TypeScript AI tools for SDK-based development, app integrations, testing, documentation workflows, and automation across modern web stacks.",
+    "zh": "聚焦 SDK 开发、应用集成、测试、文档流程与自动化的 TypeScript AI 工具集合，服务现代 Web 工程。",
+    "ja": "SDK 開発、アプリ連携、テスト、ドキュメント運用、自動化に強い TypeScript AI ツールを厳選したコレクションです。",
+    "ko": "SDK 기반 개발, 앱 통합, 테스트, 문서 워크플로우, 자동화에 초점을 맞춘 TypeScript AI 도구 컬렉션입니다.",
+    "es": "Colección curada de herramientas de IA en TypeScript para desarrollo con SDK, integraciones, pruebas, documentación y automatización.",
+    "fr": "Collection d'outils IA TypeScript orientée SDK, intégrations applicatives, tests, documentation et automatisation.",
+    "de": "Kurierte TypeScript-KI-Tools für SDK-Entwicklung, App-Integrationen, Tests, Dokumentations-Workflows und Automatisierung.",
+    "pt": "Coleção curada de ferramentas de IA em TypeScript para desenvolvimento com SDK, integrações, testes, documentação e automação.",
+    "ru": "Подборка TypeScript AI-инструментов для SDK-разработки, интеграций приложений, тестирования, документации и автоматизации.",
+    "ar": "مجموعة منتقاة من أدوات الذكاء الاصطناعي في TypeScript لتطوير SDK والتكاملات والاختبارات وتدفقات التوثيق والأتمتة."
   },
   "seoTitle": {
-    "en": "Best TypeScript AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳 TypeScript AI 工具和 MCP 服务器 | Killer-Skills",
-    "ja": "TypeScript AIツール＆MCPサーバー厳選 | Killer-Skills",
-    "ko": "최고의 TypeScript AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de typescript en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP typescript en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server typescript 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP typescript em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы typescript 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP typescript لعام 2024 2026 | Killer-Skills"
+    "en": "Top TypeScript AI Tools for Developer Workflows | Killer-Skills",
+    "zh": "TypeScript AI 工具：SDK、集成与开发工作流 | Killer-Skills",
+    "ja": "TypeScript AI ツール：SDK・連携・開発ワークフロー | Killer-Skills",
+    "ko": "TypeScript AI 도구: SDK·통합·개발 워크플로우 | Killer-Skills",
+    "es": "Mejores herramientas de IA en TypeScript para workflows",
+    "fr": "Outils IA TypeScript pour SDK et intégrations | Killer-Skills",
+    "de": "Top TypeScript KI-Tools für Entwickler-Workflows | Killer-Skills",
+    "pt": "Ferramentas IA TypeScript para SDKs e integrações | Killer-Skills",
+    "ru": "Лучшие TypeScript AI-инструменты для рабочих процессов разработки",
+    "ar": "أفضل أدوات الذكاء الاصطناعي في TypeScript لسير عمل المطورين | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top TypeScript MCP Servers & AI agent tools for developers. Boost productivity with curated skills for docs, testing & analytics.",
-    "zh": "探索为开发人员提供的顶级 TypeScript MCP 服务器和 AI 代理工具。通过精选的文档、测试和分析技能提高生产力。",
-    "ja": "開発者向けTypeScript製MCPサーバー＆AI Agentツールを厳選。ドキュメント、テスト、分析スキルで生産性向上。",
-    "ko": "개발자를 위한 최고의 TypeScript MCP 서버 및 AI Agent 도구를 만나보세요. 문서, 테스트, 분석 등 엄선된 스킬로 생산성을 높여드립니다.",
-    "es": "Explora los mejores servidores MCP para typescript. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour typescript. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für typescript. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para typescript. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для typescript. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ typescript. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Find TypeScript AI tools for building SDK-driven apps, improving test quality, automating docs, and integrating services across developer workflows.",
+    "zh": "发现适用于 SDK 驱动应用、测试质量提升、文档自动化与服务集成的 TypeScript AI 工具。",
+    "ja": "SDK 駆動アプリ開発、テスト品質向上、ドキュメント自動化、サービス連携に使える TypeScript AI ツールを紹介します。",
+    "ko": "SDK 중심 앱 개발, 테스트 품질 향상, 문서 자동화, 서비스 통합에 적합한 TypeScript AI 도구를 찾아보세요.",
+    "es": "Encuentra herramientas de IA en TypeScript para apps basadas en SDK, calidad de pruebas, documentación automatizada e integraciones de servicios.",
+    "fr": "Trouvez des outils IA TypeScript pour apps basées sur SDK, qualité des tests, documentation automatisée et intégrations de services.",
+    "de": "Finde TypeScript-KI-Tools für SDK-basierte Apps, bessere Testqualität, automatisierte Doku und Service-Integrationen.",
+    "pt": "Encontre ferramentas de IA em TypeScript para apps orientados a SDK, qualidade de testes, documentação automática e integrações.",
+    "ru": "Найдите TypeScript AI-инструменты для SDK-приложений, повышения качества тестов, автодокументации и сервисных интеграций.",
+    "ar": "اعثر على أدوات ذكاء اصطناعي في TypeScript لبناء تطبيقات قائمة على SDK وتحسين الاختبارات وأتمتة التوثيق وتكامل الخدمات."
   },
   "keywords": {
     "en": [
-      "TypeScript MCP Servers",
-      "Best TypeScript AI tools",
-      "AI Agent Skills",
-      "TypeScript developer tools",
-      "MCP Server directory"
+      "typescript ai tools",
+      "typescript developer workflows",
+      "typescript sdk tools",
+      "typescript app integrations",
+      "typescript testing automation",
+      "typescript developer utilities"
     ],
-    "zh": ["TypeScript MCP 服务器", "最佳 TypeScript AI 工具", "AI 代理技能", "TypeScript 开发工具", "MCP 服务器目录"],
+    "zh": [
+      "TypeScript AI 工具",
+      "TypeScript 开发工作流",
+      "TypeScript SDK 工具",
+      "TypeScript 应用集成",
+      "TypeScript 测试自动化",
+      "TypeScript 开发者工具"
+    ],
     "ja": [
-      "TypeScript MCP Servers",
-      "Best TypeScript AI tools",
-      "AI Agent Skills",
-      "TypeScript developer tools",
-      "MCP Server directory"
+      "typescript ai ツール",
+      "typescript 開発ワークフロー",
+      "typescript sdk ツール",
+      "typescript アプリ連携",
+      "typescript テスト自動化",
+      "typescript 開発ユーティリティ"
     ],
     "ko": [
-      "TypeScript MCP Servers",
-      "Best TypeScript AI tools",
-      "AI Agent Skills",
-      "TypeScript developer tools",
-      "MCP Server directory"
+      "typescript ai 도구",
+      "typescript 개발 워크플로우",
+      "typescript sdk 도구",
+      "typescript 앱 통합",
+      "typescript 테스트 자동화",
+      "typescript 개발자 유틸리티"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "typescript"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "typescript"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "typescript"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "typescript"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "typescript"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "typescript"]
+    "es": [
+      "herramientas ia typescript",
+      "workflows de desarrollo typescript",
+      "sdk typescript",
+      "integraciones de apps typescript",
+      "automatización de pruebas typescript",
+      "utilidades typescript"
+    ],
+    "fr": [
+      "outils ia typescript",
+      "workflows dev typescript",
+      "outils sdk typescript",
+      "intégrations apps typescript",
+      "tests automatisés typescript",
+      "utilitaires typescript"
+    ],
+    "de": [
+      "typescript ki tools",
+      "typescript entwickler-workflows",
+      "typescript sdk tools",
+      "typescript app-integrationen",
+      "typescript testautomatisierung",
+      "typescript utilities"
+    ],
+    "pt": [
+      "ferramentas ia typescript",
+      "workflows de desenvolvimento typescript",
+      "ferramentas sdk typescript",
+      "integrações de apps typescript",
+      "automação de testes typescript",
+      "utilitários typescript"
+    ],
+    "ru": [
+      "typescript ai инструменты",
+      "typescript workflow разработки",
+      "typescript sdk инструменты",
+      "интеграции приложений typescript",
+      "автоматизация тестов typescript",
+      "утилиты typescript"
+    ],
+    "ar": [
+      "أدوات ذكاء اصطناعي TypeScript",
+      "سير عمل تطوير TypeScript",
+      "أدوات SDK TypeScript",
+      "تكاملات تطبيقات TypeScript",
+      "أتمتة الاختبارات TypeScript",
+      "أدوات المطور TypeScript"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-typescript-ai-tools-developer-workflows",
+  "legacySlugs": ["top-typescript-mcp-servers"],
   "category": "typescript",
   "author": "Killer-Skills AI",
   "skills": [
@@ -95,15 +149,15 @@
     "f/prompts.chat"
   ],
   "longDescription": {
-    "en": "As the AI landscape continues to evolve, developers are increasingly turning to TypeScript to build robust, type-safe applications that can seamlessly integrate with AI agents and MCP servers. The demand for reliable, efficient, and scalable TypeScript tools has never been higher, with real-world use cases ranging from automated testing and documentation to workflow automation and analytics. By leveraging the right TypeScript AI tools, developers can significantly improve their workflow, reduce errors, and accelerate the development of innovative AI-powered solutions. This curated collection of top 12 TypeScript tools for AI agents and MCP servers is a game-changer for developers, providing a one-stop directory of essential tools for building, testing, and deploying AI applications. With a focus on type safety, performance, and ease of use, these tools have been carefully selected to help developers streamline their workflow, enhance collaboration, and drive business success. Whether you're working on a complex AI project or simply looking to upgrade your development toolkit, this collection of TypeScript AI tools is an indispensable resource, offering a unique combination of functionality, flexibility, and reliability that can take your AI applications to the next level.",
-    "zh": "随着AI领域的不断发展，开发人员越来越多地使用TypeScript来构建强大、类型安全的应用程序，这些应用程序可以无缝地与AI代理和MCP服务器集成。对可靠、高效、可扩展的TypeScript工具的需求从未如此之高，实际用例范围从自动化测试和文档到工作流自动化和分析。通过利用合适的TypeScript AI工具，开发人员可以显著改善工作流程，减少错误，并加速创新AI驱动解决方案的开发。这个为AI代理和MCP服务器精心策划的12个顶级TypeScript工具集合是开发人员的游戏规则改变者，提供了一个包含所有必备工具的目录，用于构建、测试和部署AI应用程序。凭借对类型安全性、性能和易用性的关注，这些工具已被仔细选择，以帮助开发人员简化工作流程、增强协作和驱动业务成功。无论您是否正在处理一个复杂的AI项目，还是只是想升级您的开发工具包，这个TypeScript AI工具集合都是一个不可或缺的资源，提供了一个独特的功能、灵活性和可靠性的组合，可以将您的AI应用程序提升到一个新的高度。",
-    "ja": "AIの分野が進化を続ける中、開発者は強固でタイプセーフなアプリケーションを構築するためにTypeScriptを使用することが増えています。これらのアプリケーションは、AIエージェントやMCPサーバーと無縫に統合することができます。信頼性が高く、効率的で、スケーラブルなTypeScriptツールに対する需要は、自動化されたテストやドキュメントからワークフローの自動化や分析まで、幅広い実際のユースケースをカバーするために、以前より高まっています。適切なTypeScript AIツールを利用することで、開発者はワークフローを大幅に改善し、エラーを減らし、革新的なAI駆動ソリューションの開発を加速することができます。このAIエージェントやMCPサーバー向けの12個のトップレベルのTypeScriptツールのキュレーションコレクションは、開発者にとってゲームチェンジャーとなります。開発者は、アプリケーションの構築、テスト、デプロイに必要なすべてのツールを網羅したディレクトリを提供します。タイプセーフティ、パフォーマンス、使いやすさに焦点を当てて、これらのツールは開発者のワークフローを簡素化し、コラボレーションを強化し、ビジネスの成功を促進するために慎重に選択されています。複雑なAIプロジェクトに取り組んでいるときでも、開発ツールキットをアップグレードしたいときでも、このTypeScript AIツールコレクションは不可欠なリソースとなり、機能、柔軟性、信頼性のユニークな組み合わせを提供し、AIアプリケーションを新たな高みに引き上げることができます。",
-    "ko": "AI 분야가 계속 발전함에 따라 개발자는 강력하고 유형 안전한 애플리케이션을 구축하기 위해 TypeScript를 사용하는 경우가 많아지고 있습니다. 이러한 애플리케이션은 AI 에이전트 및 MCP 서버와 무결점으로 통합될 수 있습니다. 신뢰할 수 있고 효율적이고 확장 가능한 TypeScript 도구에 대한需求은 자동화된 테스트 및 문서화에서 워크플로 자동화 및 분석에 이르기까지 다양한 실제 사용 사례를 다루는 데 필요합니다. 적절한 TypeScript AI 도구를 사용하면 개발자는 워크플로우를 크게 개선하고 오류를 줄이고 혁신적인 AI 구동 솔루션의 개발을 가속화할 수 있습니다. 이 AI 에이전트 및 MCP 서버를 위한 12개의 최상위 TypeScript 도구 컬렉션은 개발자를 위한 게임 체인저입니다. 개발자는 애플리케이션 구축, 테스트 및 배포에 필요한 모든 도구를 포함한 디렉토리를 제공합니다. 유형 안전성, 성능 및 사용 편의성에 중점을 두고 이러한 도구는 개발자의 워크플로우를 단순화하고 협력을 강화하며 비즈니스 성공을 추진하기 위해慎重하게 선택되었습니다. 복잡한 AI 프로젝트에取り組む 경우나 개발 도구 키트를 업그레이드하려는 경우에도 이 TypeScript AI 도구 컬렉션은 필수적인 리소스이며 기능, 유연성 및 신뢰성의 고유한 조합을 제공하여 AI 애플리케이션을 새로운 높이로 끌어올릴 수 있습니다.",
-    "es": "A medida que el paisaje de la IA sigue evolucionando, los desarrolladores están recurriendo cada vez más a TypeScript para construir aplicaciones robustas y seguras que puedan integrarse sin problemas con agentes de IA y servidores MCP. La demanda de herramientas de TypeScript confiables, eficientes y escalables nunca ha sido tan alta, con casos de uso reales que van desde pruebas y documentación automatizadas hasta automatización de flujos de trabajo y análisis. Al aprovechar las herramientas de IA de TypeScript adecuadas, los desarrolladores pueden mejorar significativamente su flujo de trabajo, reducir errores y acelerar el desarrollo de soluciones innovadoras impulsadas por la IA. Esta colección curada de las 12 mejores herramientas de TypeScript para agentes de IA y servidores MCP es un juego de cambió para los desarrolladores, proporcionando un directorio de herramientas esenciales para construir, probar y implementar aplicaciones de IA. Con un enfoque en la seguridad de tipos, el rendimiento y la facilidad de uso, estas herramientas han sido seleccionadas cuidadosamente para ayudar a los desarrolladores a simplificar su flujo de trabajo, mejorar la colaboración y impulsar el éxito empresarial. Ya sea que esté trabajando en un proyecto de IA complejo o simplemente busque mejorar su kit de herramientas de desarrollo, esta colección de herramientas de IA de TypeScript es un recurso indispensable, ofreciendo una combinación única de funcionalidad, flexibilidad y confiabilidad que puede llevar sus aplicaciones de IA al siguiente nivel.",
-    "fr": "Dans le domaine de l'intelligence artificielle, les développeurs sont constamment à la recherche d'outils pour améliorer la qualité et la fiabilité de leurs applications. C'est pourquoi notre collection de 12 outils TypeScript pour les serveurs MCP et les agents AI est essentielle pour les développeurs qui souhaitent créer des applications robustes et sécurisées. Les outils TypeScript pour les agents AI et les serveurs MCP sont cruciaux pour améliorer la productivité et la qualité des applications, en offrant des fonctionnalités telles que la documentation, les tests, l'analyse et l'automatisation des flux de travail. Dans des cas d'utilisation réels, ces outils peuvent aider les développeurs à améliorer la maintenance et la mise à jour de leurs applications, ainsi qu'à réduire les erreurs et les bugs. Notre collection est spécialement conçue pour les développeurs qui cherchent à améliorer leurs compétences en matière de développement d'applications AI, en leur offrant un accès à une sélection d'outils éprouvés et de haute qualité, qui peuvent être facilement intégrés à leurs projets. Les outils TypeScript pour les agents AI et les serveurs MCP sont donc un élément clé pour les développeurs qui souhaitent rester à la pointe de la technologie et offrir des applications de haute qualité à leurs utilisateurs.",
-    "de": "Im Bereich der künstlichen Intelligenz suchen Entwickler ständig nach Tools, um die Qualität und Zuverlässigkeit ihrer Anwendungen zu verbessern. Deshalb ist unsere Sammlung von 12 TypeScript-Tools für MCP-Server und AI-Agents unverzichtbar für Entwickler, die robuste und sichere Anwendungen erstellen möchten. TypeScript-Tools für AI-Agents und MCP-Server sind entscheidend, um die Produktivität und Qualität von Anwendungen zu verbessern, indem sie Funktionen wie Dokumentation, Tests, Analyse und Workflow-Automatisierung bieten. In realen Anwendungsfällen können diese Tools Entwicklern helfen, die Wartung und Aktualisierung ihrer Anwendungen zu verbessern, sowie Fehler und Bugs zu reduzieren. Unsere Sammlung ist speziell für Entwickler konzipiert, die ihre Fähigkeiten im Bereich der AI-Anwendungsentwicklung verbessern möchten, indem sie ihnen Zugang zu einer Auswahl an erprobten und hochwertigen Tools bieten, die leicht in ihre Projekte integriert werden können. TypeScript-Tools für AI-Agents und MCP-Server sind daher ein wichtiger Bestandteil für Entwickler, die an der Spitze der Technologie bleiben und hochwertige Anwendungen für ihre Benutzer anbieten möchten.",
-    "pt": "No domínio da inteligência artificial, os desenvolvedores estão constantemente procurando por ferramentas para melhorar a qualidade e a confiabilidade de suas aplicações. É por isso que nossa coleção de 12 ferramentas TypeScript para servidores MCP e agentes AI é essencial para os desenvolvedores que desejam criar aplicações robustas e seguras. As ferramentas TypeScript para agentes AI e servidores MCP são cruciais para melhorar a produtividade e a qualidade das aplicações, oferecendo funcionalidades como documentação, testes, análise e automação de fluxos de trabalho. Em casos de uso reais, essas ferramentas podem ajudar os desenvolvedores a melhorar a manutenção e a atualização de suas aplicações, bem como reduzir erros e bugs. Nossa coleção é especialmente projetada para os desenvolvedores que buscam melhorar suas habilidades em desenvolvimento de aplicações AI, oferecendo-lhes acesso a uma seleção de ferramentas comprovadas e de alta qualidade, que podem ser facilmente integradas a seus projetos. As ferramentas TypeScript para agentes AI e servidores MCP são, portanto, um elemento fundamental para os desenvolvedores que desejam permanecer à frente da tecnologia e oferecer aplicações de alta qualidade para seus usuários.",
-    "ru": "В области искусственного интеллекта разработчики постоянно ищут инструменты для улучшения качества и надежности своих приложений. Именно поэтому наша коллекция из 12 инструментов TypeScript для серверов MCP и агентов AI является необходимой для разработчиков, которые хотят создать robustные и безопасные приложения. Инструменты TypeScript для агентов AI и серверов MCP являются важными для улучшения производительности и качества приложений, предлагая функции такие как документация, тестирование, анализ и автоматизация рабочих процессов. В реальных случаях использования эти инструменты могут помочь разработчикам улучшить обслуживание и обновление своих приложений, а также уменьшить ошибки и баги. Наша коллекция специально разработана для разработчиков, которые хотят улучшить свои навыки в области разработки приложений AI, предлагая им доступ к выбору проверенных и высококачественных инструментов, которые могут быть легко интегрированы в их проекты. Инструменты TypeScript для агентов AI и серверов MCP являются, поэтому, важным элементом для разработчиков, которые хотят оставаться на переднем крае технологий и предлагать приложения высокого качества для своих пользователей.",
-    "ar": "في مجال الذكاء الاصطناعي، يبحث المطورون دائمًا عن أدوات لتحسين جودة وتوافق تطبيقاتهم. لهذا السبب، تعتبر مجموعتنا من 12 أداة TypeScript لخادم MCP ووكيل AI أمرًا ضروريًا للمطورين الذين يريدون إنشاء تطبيقات قوية وآمنة. أدوات TypeScript لوكيل AI وخادم MCP هي حاسمة لتحسين الإنتاجية وجودة التطبيقات، من خلال تقديم ميزات مثل التوثيق والاختبار والتحليل وأتمتة سير العمل. في حالات استخدام حقيقية، يمكن أن تساعد هذه الأدوات المطورين على تحسين الصيانة وتحديث تطبيقاتهم، وكذلك تقليل الأخطاء والعيوب. تم تصميم مجموعتنا خصيصًا للمطورين الذين يريدون تحسين مهاراتهم في مجال تطوير تطبيقات AI، من خلال تقديم لهم وصولًا إلى مجموعة من الأدوات المثبتة وجودة عالية، والتي يمكن دمجها بسهولة في مشاريعهم. أدوات TypeScript لوكيل AI وخادم MCP هي،因此، عنصر أساسي للمطورين الذين يريدون البقاء على صلة بالتكنولوجيا وتقديم تطبيقات عالية الجودة لمستخدميهم."
+    "en": "This TypeScript collection is built around developer workflow outcomes, not infrastructure labels. It highlights tools for SDK implementation, typed API integrations, test automation, release checks, and documentation pipelines that fit real product teams. You can still use MCP-compatible capabilities where useful, but the primary value is skills-first engineering: shipping safer code, reducing integration friction, and keeping frontend-backend collaboration efficient in production.",
+    "zh": "这个 TypeScript 集合以开发工作流结果为核心，而不是基础设施标签。重点覆盖 SDK 实现、类型化 API 集成、测试自动化、发布校验与文档流水线，贴合真实产品团队场景。需要时可以利用 MCP 兼容能力，但主价值仍是技能优先的工程实践：更安全地上线代码、降低集成摩擦、提升前后端协作效率。",
+    "ja": "この TypeScript コレクションは、インフラ名ではなく開発ワークフローの成果を軸にしています。SDK 実装、型安全な API 連携、テスト自動化、リリース前チェック、ドキュメントパイプラインなど、実際のプロダクト開発で効くツールを重視しています。MCP 互換機能は必要に応じて活用できますが、主眼はスキルファーストな開発実践にあり、安全なリリースと統合コスト削減、フロントエンドとバックエンドの連携効率向上を支援します。",
+    "ko": "이 TypeScript 컬렉션은 인프라 명칭보다 개발 워크플로우의 실제 성과에 초점을 둡니다. SDK 구현, 타입 안전 API 통합, 테스트 자동화, 릴리스 전 검증, 문서 파이프라인 등 제품 팀의 실전 업무에 맞는 도구를 다룹니다. 필요 시 MCP 호환 기능을 사용할 수 있지만 핵심 가치는 스킬 중심 엔지니어링에 있으며, 더 안전한 배포와 통합 비용 절감, 프런트엔드·백엔드 협업 효율 향상에 있습니다.",
+    "es": "Esta colección de TypeScript está pensada para resultados de workflow de desarrollo, no para etiquetas de infraestructura. Destaca herramientas para implementación de SDK, integraciones API tipadas, automatización de pruebas, validaciones de release y pipelines de documentación en equipos de producto reales. Puedes aprovechar capacidades compatibles con MCP cuando aporten valor, pero el enfoque principal es ingeniería orientada a habilidades: entregar código más seguro, reducir fricción de integración y mantener eficiente la colaboración frontend-backend.",
+    "fr": "Cette collection TypeScript est organisée autour des résultats concrets de workflow, pas autour d'étiquettes d'infrastructure. Elle met en avant des outils pour l'implémentation de SDK, les intégrations API typées, l'automatisation des tests, les contrôles de release et les pipelines de documentation adaptés aux équipes produit. Les capacités compatibles MCP peuvent être utilisées en complément, mais la valeur principale reste une approche skills-first: livrer du code plus sûr, réduire les frictions d'intégration et fluidifier la collaboration frontend-backend.",
+    "de": "Diese TypeScript-Sammlung ist auf Ergebnisse im Entwickler-Workflow ausgerichtet, nicht auf Infrastruktur-Labels. Sie fokussiert Tools für SDK-Implementierung, typisierte API-Integrationen, Testautomatisierung, Release-Checks und Dokumentationspipelines für echte Produktteams. MCP-kompatible Funktionen können ergänzend genutzt werden, doch der Kern ist skills-first Engineering: sicherer ausliefern, Integrationsaufwand reduzieren und die Zusammenarbeit zwischen Frontend und Backend in Produktion verbessern.",
+    "pt": "Esta coleção de TypeScript é orientada a resultados reais de workflow de desenvolvimento, não a rótulos de infraestrutura. Ela destaca ferramentas para implementação de SDK, integrações de API tipadas, automação de testes, validações de release e pipelines de documentação para times de produto. Capacidades compatíveis com MCP podem ser usadas como complemento, mas o valor principal é uma engenharia skills-first: entregar código mais seguro, reduzir atritos de integração e manter colaboração eficiente entre frontend e backend.",
+    "ru": "Эта TypeScript-коллекция ориентирована на результат в developer workflow, а не на инфраструктурные ярлыки. Здесь собраны инструменты для внедрения SDK, типобезопасных API-интеграций, автоматизации тестов, release-проверок и документационных пайплайнов для реальных продуктовых команд. Возможности, совместимые с MCP, можно использовать дополнительно, но основной акцент — skills-first инженерия: безопасные релизы, меньше трения при интеграциях и эффективное взаимодействие frontend/backend.",
+    "ar": "تم تصميم مجموعة TypeScript هذه حول نتائج سير عمل التطوير الفعلية وليس حول تسميات البنية التحتية. تركز على أدوات تنفيذ SDK والتكاملات المعرّفة بالأنواع والاختبارات الآلية وفحوصات الإصدار وخطوط التوثيق المناسبة لفرق المنتجات. يمكن الاستفادة من القدرات المتوافقة مع MCP عند الحاجة، لكن القيمة الأساسية هي نهج هندسي يضع المهارات أولًا: شحن شفرة أكثر أمانًا، وتقليل احتكاك التكامل، وتحسين تعاون الواجهة الأمامية مع الخلفية في بيئات الإنتاج."
   }
 }

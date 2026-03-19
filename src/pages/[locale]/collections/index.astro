@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { getCollectionCanonicalSlug } from '../../../lib/collection-slugs';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
 
@@ -32,11 +33,11 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
 };
 
 const collectionsSeoTitle = isZh
-  ? '精选自动化合集：AI Agent Skills 与 MCP Servers'
-  : 'Curated Automation Collections: AI Agent Skills & MCP';
+  ? '精选自动化合集：AI Agent Skills'
+  : 'Curated Automation Collections: AI Agent Skills';
 const collectionsSeoDescription = isZh
-  ? '按工作流浏览精选 AI Agent Skills 与 MCP Servers 组合，覆盖流程、文档、浏览器自动化与数据提取，并支持一键部署。'
-  : 'Explore curated AI agent skill and MCP server bundles for workflow, process, document, browser, and data automation with one-command setup.';
+  ? '按工作流浏览精选 AI Agent Skills 组合，覆盖流程、文档、浏览器自动化与数据提取，并支持统一安装流程。'
+  : 'Explore curated AI agent skill collections for workflow, process, document, browser, and data automation with a unified install flow.';
 const collectionsSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
@@ -46,7 +47,6 @@ const collectionsSeoKeywords = buildKeywordString(
   'browserAutomation',
   'dataWorkflow',
   'templates',
-  'mcp',
   'ideCompat',
   isZh ? 'AI Agent Skills 合集' : 'AI agent skill collections',
   'Killer-Skills',
@@ -56,14 +56,14 @@ const faqItems = [
   {
     question: isZh ? '这些合集适合哪些工作流？' : 'What workflows are these collections built for?',
     answer: isZh
-      ? '这些合集主要围绕工作流自动化、流程自动化、文档自动化、数据处理和 MCP 工具链组合而设计。'
-      : 'These collections are built around workflow automation, process automation, document operations, data workflows, and MCP tool stacks.',
+      ? '这些合集主要围绕工作流自动化、流程自动化、文档自动化、数据处理和可复用技能组合而设计。'
+      : 'These collections are built around workflow automation, process automation, document operations, data workflows, and reusable skill stacks.',
   },
   {
-    question: isZh ? '合集页和技能市场有什么区别？' : 'How is a collection different from the main skills marketplace?',
+    question: isZh ? '合集页和主技能目录有什么区别？' : 'How is a collection different from the main skills directory?',
     answer: isZh
-      ? '技能市场更适合逐个搜索和筛选，合集页更适合按完整工作流一次性找到互补技能组合。'
-      : 'The marketplace is better for direct search and filtering, while collections help you find complementary skills bundled around a complete workflow.',
+      ? '主技能目录更适合逐个搜索和筛选，合集页更适合按完整工作流一次性找到互补技能组合。'
+      : 'The skills directory is better for direct search and filtering, while collections help you find complementary skills bundled around a complete workflow.',
   },
   {
     question: isZh
@@ -123,7 +123,7 @@ const faqItems = [
             '@type': 'ListItem',
             position: i + 1,
             name: resolveLocalized(col.data.title, 'Untitled'),
-            url: `https://killer-skills.com/${locale}/collections/${col.id.replace(/\.json$/, '')}`,
+            url: `https://killer-skills.com/${locale}/collections/${getCollectionCanonicalSlug(col)}`,
           })),
         },
       })}
@@ -210,7 +210,7 @@ const faqItems = [
             collectionsCol.map((col) => {
               const title = resolveLocalized(col.data.title, 'Untitled Collection');
               const description = resolveLocalized(col.data.description, '');
-              const cleanSlug = col.id.replace(/\.json$/, '');
+              const cleanSlug = getCollectionCanonicalSlug(col);
 
               return (
                 <article class="brut-card group p-6 flex flex-col relative bg-white dark:bg-[#0a0a0a] min-h-[300px]">

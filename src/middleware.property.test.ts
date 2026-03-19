@@ -1,7 +1,19 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import * as fc from 'fast-check';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './i18n';
-import { detectLocale, isStaticOrApiPath, hasLocalePrefix, COUNTRY_TO_LOCALE } from './middleware-utils';
+import {
+  detectLocale,
+  isStaticOrApiPath,
+  hasLocalePrefix,
+  COUNTRY_TO_LOCALE,
+  checkAdminAuth,
+} from './middleware-utils';
+
+vi.mock('astro:middleware', () => ({
+  defineMiddleware: <T>(fn: T) => fn,
+}));
+
+import { onRequest } from './middleware';
 
 // ============================================================================
 // Generators
@@ -305,14 +317,77 @@ describe('Feature: nextjs-to-astro-migration, Property 4: 中间件路径放行'
 });
 
 // ============================================================================
-// Property 5: 管理员 Basic Auth
-// Feature: nextjs-to-astro-migration, Property 5: 管理员 Basic Auth
+// Property 5: 中间件 robots header
+// Feature: technical-seo, Property 5: 错误页 robots header
+// Validates: 404/410 页面默认 noindex
+// ============================================================================
+
+describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
+  function createContext(url: string) {
+    return {
+      url: new URL(url),
+      request: new Request(url),
+      cookies: {
+        get: () => undefined,
+      },
+      locals: {},
+    } as unknown as Parameters<typeof onRequest>[0];
+  }
+
+  it('adds noindex to locale 404 pages when downstream response has no robots header', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/missing-page'),
+      async () =>
+        new Response('Not Found', {
+          status: 404,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(404);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(response.headers.get('Content-Language')).toBe('en');
+  });
+
+  it('preserves explicit robots header on locale 404 pages', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/missing-page'),
+      async () =>
+        new Response('Not Found', {
+          status: 404,
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'X-Robots-Tag': 'noindex',
+          },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(404);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex');
+  });
+
+  it('keeps noindex, follow for locale skills search result pages', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?q=mcp'),
+      async () =>
+        new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+  });
+});
+
+// ============================================================================
+// Property 6: 管理员 Basic Auth
+// Feature: nextjs-to-astro-migration, Property 6: 管理员 Basic Auth
 // Validates: Requirements 4.1, 4.2, 4.3, 4.5
 // ============================================================================
 
-import { checkAdminAuth } from './middleware-utils';
-
-describe('Feature: nextjs-to-astro-migration, Property 5: 管理员 Basic Auth', () => {
+describe('Feature: nextjs-to-astro-migration, Property 6: 管理员 Basic Auth', () => {
   /** Helper to create a Basic Auth header value. */
   function makeBasicAuth(user: string, pass: string): string {
     return `Basic ${btoa(`${user}:${pass}`)}`;
