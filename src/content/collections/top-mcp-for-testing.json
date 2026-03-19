@@ -1,77 +1,113 @@
 {
   "title": {
-    "en": "Best MCP Servers for Software Testing",
-    "zh": "软件测试的最佳 MCP 服务器",
-    "ja": "ソフトウェアテストに最適なMCPサーバー",
-    "ko": "소프트웨어 테스트를 위한 최고의 MCP 服务器",
-    "es": "Mejores servidores MCP de for testing en 2024",
-    "fr": "Meilleurs serveurs MCP for testing en 2024",
-    "de": "Beste MCP-Server for testing 2024",
-    "pt": "Melhores servidores MCP for testing em 2024",
-    "ru": "Лучшие MCP серверы for testing 2024",
-    "ar": "أفضل خوادم MCP for testing لعام 2024"
+    "en": "Top Testing Automation & QA Workflow Tools",
+    "zh": "测试自动化与 QA 工作流工具精选",
+    "ja": "テスト自動化とQAワークフローツール集",
+    "ko": "테스트 자동화 및 QA 워크플로 도구 모음",
+    "es": "Herramientas de automatización de testing y workflow QA",
+    "fr": "Outils d’automatisation des tests et workflow QA",
+    "de": "Tools für Testautomatisierung und QA-Workflows",
+    "pt": "Ferramentas de automação de testes e workflow de QA",
+    "ru": "Инструменты автоматизации тестирования и QA-процессов",
+    "ar": "أدوات أتمتة الاختبار وسير عمل ضمان الجودة"
   },
   "description": {
-    "en": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "zh": "查找帮助自动测试、生成测试用例和执行代码质量分析的 MCP 服务器。",
-    "ja": "テストの自動化、テストケースの生成、コード品質分析を支援するMCPサーバーを見つけます.",
-    "ko": "테스트 자동화, 테스트 케이스 생성, 코드 품질 분석을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for testing. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for testing. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for testing. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for testing. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for testing. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for testing. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Find workflow tools for test automation, regression checks, and agent-assisted validation across CI and local environments.",
+    "zh": "聚焦测试自动化、回归检查与智能体辅助验证，覆盖 CI 与本地环境的质量流程。",
+    "ja": "テスト自動化、回帰チェック、エージェント支援バリデーションに対応したワークフローツールを、CIとローカル環境向けに厳選。",
+    "ko": "CI와 로컬 환경 전반에서 테스트 자동화, 회귀 점검, 에이전트 보조 검증을 지원하는 워크플로 도구를 제공합니다.",
+    "es": "Encuentra herramientas para automatización de pruebas, checks de regresión y validación asistida por agentes en CI y local.",
+    "fr": "Trouvez des outils de workflow pour l’automatisation des tests, les vérifications de régression et la validation assistée par agents en CI et en local.",
+    "de": "Finde Workflow-Tools für Testautomatisierung, Regressionsprüfungen und agentengestützte Validierung in CI und lokal.",
+    "pt": "Encontre ferramentas de workflow para automação de testes, checagens de regressão e validação assistida por agentes em CI e local.",
+    "ru": "Подборка инструментов для автоматизации тестов, регрессионных проверок и валидации с участием агентов в CI и локальной среде.",
+    "ar": "اعثر على أدوات سير عمل لأتمتة الاختبارات وفحوصات الانحدار والتحقق بمساعدة الوكلاء عبر بيئات CI والمحلية."
   },
   "seoTitle": {
-    "en": "Best MCP Servers for Software Testing 2026 | Killer-Skills",
-    "zh": "软件测试的最佳 MCP 服务器 2026 | Killer-Skills",
-    "ja": "ソフトウェアテストに最適なMCPサーバー 2026 | Killer-Skills",
-    "ko": "소프트웨어 테스트를 위한 최고의 MCP 服务器 2026 | Killer-Skills",
-    "es": "Mejores servidores MCP de for testing en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP for testing en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server for testing 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP for testing em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы for testing 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP for testing لعام 2024 2026 | Killer-Skills"
+    "en": "Top Testing Automation & QA Workflow Tools | Killer-Skills",
+    "zh": "测试自动化、QA 工作流与验证工具 | Killer-Skills",
+    "ja": "テスト自動化・QAワークフロー・検証ツール | Killer-Skills",
+    "ko": "테스트 자동화·QA 워크플로·검증 도구 | Killer-Skills",
+    "es": "Automatización de testing y workflow QA | Killer-Skills",
+    "fr": "Automatisation des tests et workflow QA | Killer-Skills",
+    "de": "Testautomatisierung und QA-Workflow-Tools | Killer-Skills",
+    "pt": "Automação de testes e workflow de QA | Killer-Skills",
+    "ru": "Автоматизация тестирования и QA-инструменты | Killer-Skills",
+    "ar": "أدوات أتمتة الاختبار وسير عمل QA | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "zh": "查找帮助自动测试、生成测试用例和执行代码质量分析的 MCP 服务器。",
-    "ja": "テストの自動化、テストケースの生成、コード品質分析を支援するMCPサーバーを見つけます.",
-    "ko": "테스트 자동화, 테스트 케이스 생성, 코드 품질 분석을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for testing. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for testing. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for testing. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for testing. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for testing. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for testing. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A practical collection of testing workflow tools, automation utilities, and companion integrations with MCP-enabled agent support.",
+    "zh": "面向实战的测试工作流工具与自动化实用组件集合，配合 MCP 能力进行智能体辅助。",
+    "ja": "実務向けのテストワークフローツールと自動化ユーティリティを厳選し、MCP対応のエージェント支援連携を提供。",
+    "ko": "실무 중심의 테스트 워크플로 도구와 자동화 유틸리티를 모아 MCP 기반 에이전트 지원 통합을 제공합니다.",
+    "es": "Colección práctica de herramientas de workflow de testing, utilidades de automatización e integraciones complementarias con soporte de agentes vía MCP.",
+    "fr": "Collection pratique d’outils de workflow QA, d’utilitaires d’automatisation et d’intégrations compagnons avec support agent via MCP.",
+    "de": "Praxisnahe Sammlung von Test-Workflow-Tools, Automatisierungs-Utilities und Begleit-Integrationen mit MCP-gestützter Agentenunterstützung.",
+    "pt": "Coleção prática de ferramentas de workflow de testes, utilitários de automação e integrações complementares com suporte de agentes via MCP.",
+    "ru": "Практичная коллекция инструментов тестового процесса, утилит автоматизации и вспомогательных интеграций с агентной поддержкой через MCP.",
+    "ar": "مجموعة عملية من أدوات سير عمل الاختبار وأدوات الأتمتة والتكاملات المساندة مع دعم الوكلاء عبر MCP."
   },
   "keywords": {
-    "en": ["mcp", "mcp server", "model context protocol", "testing"],
-    "zh": ["mcp", "mcp server", "model context protocol", "testing"],
-    "ja": ["mcp", "mcp server", "model context protocol", "testing"],
-    "ko": ["mcp", "mcp server", "model context protocol", "testing"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "mcp", "for", "testing"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "mcp", "for", "testing"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "mcp", "for", "testing"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "mcp", "for", "testing"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "mcp", "for", "testing"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "mcp", "for", "testing"]
+    "en": [
+      "testing automation tools",
+      "qa workflow",
+      "regression validation",
+      "ci testing utilities",
+      "mcp agent testing"
+    ],
+    "zh": ["测试自动化工具", "QA 工作流", "回归验证", "CI 测试工具", "MCP 智能体测试"],
+    "ja": ["テスト自動化ツール", "QAワークフロー", "回帰検証", "CIテストユーティリティ", "MCPエージェントテスト"],
+    "ko": ["테스트 자동화 도구", "QA 워크플로", "회귀 검증", "CI 테스트 유틸리티", "MCP 에이전트 테스트"],
+    "es": [
+      "herramientas de automatización de testing",
+      "workflow QA",
+      "validación de regresión",
+      "utilidades de testing en CI",
+      "testing con agentes MCP"
+    ],
+    "fr": [
+      "outils d’automatisation des tests",
+      "workflow QA",
+      "validation de régression",
+      "utilitaires de test CI",
+      "tests avec agents MCP"
+    ],
+    "de": [
+      "Testautomatisierungs-Tools",
+      "QA-Workflow",
+      "Regressionsvalidierung",
+      "CI-Test-Utilities",
+      "MCP-Agententests"
+    ],
+    "pt": [
+      "ferramentas de automação de testes",
+      "workflow de QA",
+      "validação de regressão",
+      "utilitários de teste em CI",
+      "testes com agentes MCP"
+    ],
+    "ru": [
+      "инструменты автоматизации тестирования",
+      "QA-процесс",
+      "регрессионная валидация",
+      "утилиты для CI-тестов",
+      "тестирование агентами MCP"
+    ],
+    "ar": ["أدوات أتمتة الاختبار", "سير عمل QA", "التحقق من الانحدار", "أدوات اختبار CI", "اختبار الوكلاء عبر MCP"]
   },
   "featured": false,
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "zh": "查找帮助自动测试、生成测试用例和执行代码质量分析的 MCP 服务器。",
-    "ja": "テストの自動化、テストケースの生成、コード品質分析を支援するMCPサーバーを見つけます.",
-    "ko": "테스트 자동화, 테스트 케이스 생성, 코드 품질 분석을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "fr": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "de": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "pt": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "ru": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis.",
-    "ar": "Find MCP servers that help automate testing, generate test cases, and perform code quality analysis."
+    "en": "This collection is built around real QA execution: writing tests faster, running automated checks reliably, and validating releases with agent-assisted workflows. It focuses on practical tools and integrations that improve testing operations end to end.",
+    "zh": "该集合围绕真实 QA 执行场景构建：更快编写测试、更稳定运行自动检查，并通过智能体辅助流程完成发布验证。它不再是泛化的 MCP 榜单，而是强调提升测试全链路效率的实用工具与集成。",
+    "ja": "本コレクションは、テスト作成の高速化、自動チェックの安定運用、エージェント支援によるリリース検証など、実務QAを中心に設計されています。汎用的なMCPランキングではなく、テスト運用を端から端まで改善する実用ツールと連携に焦点を当てています。",
+    "ko": "이 컬렉션은 실제 QA 실행에 맞춰 테스트 작성 속도 향상, 자동 점검의 안정적 운영, 에이전트 보조 릴리스 검증에 초점을 둡니다. 일반적인 MCP 서버 순위가 아니라 테스트 운영 전 과정을 개선하는 실용 도구와 통합을 제공합니다.",
+    "es": "Esta colección está orientada a la ejecución real de QA: escribir tests más rápido, ejecutar checks automáticos con fiabilidad y validar releases con workflows asistidos por agentes. En lugar de rankings genéricos de servidores MCP, prioriza herramientas e integraciones que mejoran la operación de testing de extremo a extremo.",
+    "fr": "Cette collection est pensée pour l’exécution QA réelle : écrire des tests plus vite, exécuter des checks automatiques de façon fiable et valider les releases avec des workflows assistés par agents. Plutôt qu’un classement générique de serveurs MCP, elle met l’accent sur des outils et intégrations concrets qui améliorent toute l’opération de test.",
+    "de": "Diese Sammlung richtet sich auf echte QA-Ausführung: schneller Tests schreiben, automatisierte Checks zuverlässig laufen lassen und Releases mit agentengestützten Workflows validieren. Statt generischer MCP-Server-Rankings stehen praxisnahe Tools und Integrationen im Fokus, die den Testbetrieb ganzheitlich verbessern.",
+    "pt": "Esta coleção é voltada para a execução real de QA: escrever testes mais rápido, rodar checks automáticos com confiabilidade e validar releases com workflows assistidos por agentes. Em vez de rankings genéricos de servidores MCP, prioriza ferramentas e integrações práticas que melhoram toda a operação de testes.",
+    "ru": "Коллекция ориентирована на реальное QA-исполнение: быстрее писать тесты, надежно выполнять автоматические проверки и валидировать релизы с агентными сценариями. Вместо общего рейтинга MCP-серверов акцент сделан на практичных инструментах и интеграциях, которые улучшают тестовые операции сквозным образом.",
+    "ar": "تُبنى هذه المجموعة حول التنفيذ الفعلي لضمان الجودة: كتابة الاختبارات بسرعة أكبر، وتشغيل الفحوصات الآلية بثبات، والتحقق من الإصدارات عبر سير عمل مدعوم بالوكلاء. وبدلاً من قوائم MCP العامة، تركز على أدوات وتكاملات عملية تحسن عمليات الاختبار من البداية إلى النهاية."
   }
 }

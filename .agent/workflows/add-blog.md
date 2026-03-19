@@ -61,9 +61,11 @@ npx tsx scripts/sync-blog-everything.ts
 
 ## 步骤 5：本地验证
 
+使用统一脚本运行 Astro 校验，它会先清理内容层缓存，避免 duplicate id 噪音：
+
 // turbo
 ```bash
-npx astro check 2>&1 | tail -5
+npm run check:astro
 ```
 
 然后 `npm run dev` 预览各语言渲染。

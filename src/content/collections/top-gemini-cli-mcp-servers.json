@@ -1,101 +1,130 @@
 {
   "title": {
-    "en": "Top 5 Gemini-CLI Tools for AI Developers",
-    "zh": "面向AI开发者的5大顶级Gemini-CLI工具",
-    "ja": "AI開発者向けGemini-CLIツール トップ5",
-    "ko": "AI 개발자를 위한 최고의 Gemini-CLI 도구 Top 5",
-    "es": "Mejores servidores MCP de gemini cli en 2024",
-    "fr": "Meilleurs serveurs MCP gemini cli en 2024",
-    "de": "Beste MCP-Server gemini cli 2024",
-    "pt": "Melhores servidores MCP gemini cli em 2024",
-    "ru": "Лучшие MCP серверы gemini cli 2024",
-    "ar": "أفضل خوادم MCP gemini cli لعام 2024"
+    "en": "Top Gemini CLI Workflow Tools & Terminal Automation Skills",
+    "zh": "顶级 Gemini CLI 工作流工具与终端自动化技能",
+    "ja": "Gemini CLI向けワークフローツール＆ターミナル自動化スキル",
+    "ko": "Gemini CLI 워크플로우 도구 & 터미널 자동화 스킬",
+    "es": "Herramientas de workflow y automatización terminal para Gemini CLI",
+    "fr": "Outils workflow et automatisation terminal pour Gemini CLI",
+    "de": "Gemini CLI Workflow-Tools und Terminal-Automation-Skills",
+    "pt": "Ferramentas de workflow e automação de terminal para Gemini CLI",
+    "ru": "Workflow-инструменты и terminal automation skills для Gemini CLI",
+    "ar": "أدوات workflow ومهارات أتمتة الطرفية لـ Gemini CLI"
   },
   "description": {
-    "en": "A professionally curated directory of the leading Gemini-CLI tools, MCP servers, and extensions. This collection empowers developers to supercharge their AI agent workflows, from team management and code review to full-stack development with next-gen frameworks.",
-    "zh": "专业精选的顶级Gemini-CLI工具、MCP服务器和扩展目录。本合集助力开发者增强AI智能体工作流，涵盖团队管理、代码审查及使用新一代框架的全栈开发。",
-    "ja": "主要なGemini-CLIツール、MCPサーバー、拡張機能をプロが厳選したディレクトリです。チーム管理やコードレビューから、次世代フレームワークを使ったフルスタック開発まで、AI Agentのワークフローを大幅に強化する開発者必見のコレクション。",
-    "ko": "선별된 최고의 Gemini-CLI 도구, MCP 서버 및 확장 프로그램 디렉토리입니다. 이 컬렉션은 팀 관리 및 코드 검토부터 차세대 프레임워크를 사용한 풀스택 개발에 이르기까지, 개발자들이 AI Agent 워크플로우를 혁신할 수 있도록 지원합니다.",
-    "es": "Explora los mejores servidores MCP para gemini cli. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour gemini cli. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für gemini cli. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para gemini cli. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для gemini cli. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ gemini cli. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A developer-first directory of Gemini CLI companion tools for terminal-based workflows. Includes reusable skills and integrations for coding operations, project automation, quality checks, and scripted team tasks.",
+    "zh": "面向开发者的 Gemini CLI 配套工具目录，服务于终端工作流。包含可复用技能与集成能力，覆盖编码运维、项目自动化、质量检查与脚本化团队任务。",
+    "ja": "ターミナル中心の開発ワークフロー向けに、Gemini CLIの補助ツールを厳選。コーディング運用、プロジェクト自動化、品質チェック、チーム向けスクリプト作業に使える再利用スキルと連携を収録。",
+    "ko": "터미널 중심 개발 워크플로우를 위한 Gemini CLI 보조 도구 디렉토리입니다. 코딩 운영, 프로젝트 자동화, 품질 점검, 팀 스크립트 작업을 위한 재사용 스킬과 연동을 제공합니다.",
+    "es": "Directorio developer-first de herramientas companion para Gemini CLI y workflows en terminal. Incluye skills reutilizables e integraciones para operaciones de código, automatización de proyectos, quality checks y tareas de equipo por scripts.",
+    "fr": "Répertoire developer-first d’outils companion Gemini CLI pour workflows en terminal. Inclut des skills réutilisables et des intégrations pour opérations de code, automatisation projet, quality checks et tâches d’équipe scriptées.",
+    "de": "Developer-first-Verzeichnis mit Gemini-CLI-Companion-Tools für terminalbasierte Workflows. Enthält wiederverwendbare Skills und Integrationen für Coding-Operationen, Projektautomatisierung, Qualitätschecks und skriptbasierte Teamaufgaben.",
+    "pt": "Diretório developer-first de ferramentas companion para Gemini CLI e workflows em terminal. Inclui skills reutilizáveis e integrações para operações de código, automação de projetos, quality checks e tarefas de equipe por script.",
+    "ru": "Developer-first каталог companion-инструментов Gemini CLI для terminal-based workflow. Включает переиспользуемые skills и интеграции для coding-операций, project automation, quality-check и скриптовых командных задач.",
+    "ar": "دليل موجه للمطورين لأدوات Gemini CLI المرافقة في workflows المعتمدة على الطرفية. يتضمن مهارات قابلة لإعادة الاستخدام وتكاملات لعمليات البرمجة وأتمتة المشاريع وفحوصات الجودة ومهام الفريق المؤتمتة بالسكربت."
   },
   "seoTitle": {
-    "en": "Best Gemini-CLI AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳Gemini-CLI AI工具和MCP服务器 | Killer-Skills",
-    "ja": "Gemini-CLI AIツール＆MCPサーバー | Killer-Skills",
-    "ko": "최고의 Gemini-CLI AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de gemini cli en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP gemini cli en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server gemini cli 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP gemini cli em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы gemini cli 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP gemini cli لعام 2024 2026 | Killer-Skills"
+    "en": "Top Gemini CLI Workflow Tools & Terminal Automation Skills | Killer-Skills",
+    "zh": "Gemini CLI 终端工作流与自动化工具 | Killer-Skills",
+    "ja": "Gemini CLI向けターミナルワークフロー＆自動化ツール | Killer-Skills",
+    "ko": "Gemini CLI 터미널 워크플로우 & 자동화 도구 | Killer-Skills",
+    "es": "Herramientas Gemini CLI para terminal y automatización | Killer-Skills",
+    "fr": "Outils Gemini CLI pour terminal et automatisation | Killer-Skills",
+    "de": "Gemini CLI Tools für Terminal-Workflows | Killer-Skills",
+    "pt": "Ferramentas Gemini CLI para terminal e automação | Killer-Skills",
+    "ru": "Инструменты Gemini CLI для terminal workflow | Killer-Skills",
+    "ar": "أدوات Gemini CLI لسير عمل الطرفية والأتمتة | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top 5 Gemini-CLI tools for AI development. Compare awesome-claude-skills, team-lifecycle, next & more for your AI agent workflow.",
-    "zh": "发现5大顶级Gemini-CLI AI开发工具。比较awesome-claude-skills、team-lifecycle、next等工具，优化您的AI智能体工作流。",
-    "ja": "AI開発に最適なGemini-CLIツール トップ5を発見。awesome-claude-skills、team-lifecycle、nextなどを比較してAI Agentワークフローを強化。",
-    "ko": "AI 개발을 위한 Gemini-CLI 도구 Top 5를 만나보세요. awesome-claude-skills, team-lifecycle 등을 비교하여 AI Agent 워크플로우를 최적화하세요.",
-    "es": "Explora los mejores servidores MCP para gemini cli. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour gemini cli. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für gemini cli. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para gemini cli. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для gemini cli. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ gemini cli. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Explore Gemini CLI skills and integrations for terminal automation, scripted workflows, developer productivity, and reliable engineering operations.",
+    "zh": "探索 Gemini CLI 技能与集成，用于终端自动化、脚本化流程、开发提效与稳定工程运维。",
+    "ja": "ターミナル自動化、スクリプト運用、開発生産性向上、安定したエンジニアリング運用を支えるGemini CLIスキルと連携を紹介。",
+    "ko": "터미널 자동화, 스크립트 워크플로우, 개발 생산성, 안정적인 엔지니어링 운영을 위한 Gemini CLI 스킬과 연동을 살펴보세요.",
+    "es": "Explora skills e integraciones de Gemini CLI para automatización en terminal, workflows por scripts, productividad developer y operaciones de ingeniería confiables.",
+    "fr": "Explorez des skills et intégrations Gemini CLI pour automatisation terminal, workflows scriptés, productivité développeur et opérations d’ingénierie fiables.",
+    "de": "Entdecke Gemini-CLI-Skills und Integrationen für Terminal-Automatisierung, skriptbasierte Workflows, Developer-Produktivität und verlässliche Engineering-Operationen.",
+    "pt": "Explore skills e integrações de Gemini CLI para automação de terminal, workflows por script, produtividade dev e operações de engenharia confiáveis.",
+    "ru": "Изучите Gemini CLI skills и интеграции для terminal automation, script-based workflow, developer productivity и надежных инженерных операций.",
+    "ar": "استكشف مهارات وتكاملات Gemini CLI لأتمتة الطرفية، وسير العمل المعتمد على السكربت، وإنتاجية المطورين، وعمليات هندسية موثوقة."
   },
   "keywords": {
     "en": [
-      "gemini-cli",
-      "MCP servers",
-      "AI agent tools",
-      "Claude extensions",
-      "AI development",
-      "awesome-claude-skills",
-      "team-lifecycle",
-      "next"
+      "gemini cli tools",
+      "terminal automation",
+      "developer workflows",
+      "scripted operations",
+      "ai coding assistants",
+      "workflow integrations"
     ],
-    "zh": [
-      "gemini-cli",
-      "MCP服务器",
-      "AI智能体工具",
-      "Claude扩展",
-      "AI开发",
-      "awesome-claude-skills",
-      "team-lifecycle",
-      "next"
-    ],
+    "zh": ["Gemini CLI 工具", "终端自动化", "开发者工作流", "脚本化运维", "AI 编码助手", "流程集成"],
     "ja": [
-      "gemini-cli",
-      "MCP servers",
-      "AI agent tools",
-      "Claude extensions",
-      "AI development",
-      "awesome-claude-skills",
-      "team-lifecycle",
-      "next"
+      "gemini cli tools",
+      "terminal automation",
+      "developer workflows",
+      "scripted operations",
+      "ai coding assistants",
+      "workflow integrations"
     ],
     "ko": [
-      "gemini-cli",
-      "MCP servers",
-      "AI agent tools",
-      "Claude extensions",
-      "AI development",
-      "awesome-claude-skills",
-      "team-lifecycle",
-      "next"
+      "gemini cli tools",
+      "terminal automation",
+      "developer workflows",
+      "scripted operations",
+      "ai coding assistants",
+      "workflow integrations"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "gemini", "cli"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "gemini", "cli"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "gemini", "cli"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "gemini", "cli"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "gemini", "cli"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "gemini", "cli"]
+    "es": [
+      "herramientas gemini cli",
+      "automatización terminal",
+      "workflows developer",
+      "operaciones por scripts",
+      "asistentes de código IA",
+      "integraciones"
+    ],
+    "fr": [
+      "outils gemini cli",
+      "automatisation terminal",
+      "workflows développeur",
+      "opérations scriptées",
+      "assistants code IA",
+      "intégrations"
+    ],
+    "de": [
+      "Gemini CLI Tools",
+      "Terminal-Automatisierung",
+      "Developer-Workflows",
+      "Skript-Operationen",
+      "KI-Coding-Assistenten",
+      "Workflow-Integrationen"
+    ],
+    "pt": [
+      "ferramentas gemini cli",
+      "automação de terminal",
+      "workflows developer",
+      "operações por script",
+      "assistentes de código IA",
+      "integrações"
+    ],
+    "ru": [
+      "gemini cli tools",
+      "terminal automation",
+      "developer workflows",
+      "scripted operations",
+      "ai coding assistants",
+      "workflow integrations"
+    ],
+    "ar": [
+      "أدوات Gemini CLI",
+      "أتمتة الطرفية",
+      "سير عمل المطور",
+      "عمليات بالسكربت",
+      "مساعدو برمجة بالذكاء الاصطناعي",
+      "تكاملات workflow"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-gemini-cli-workflow-tools-terminal-automation-skills",
+  "legacySlugs": ["top-gemini-cli-mcp-servers"],
   "category": "gemini-cli",
   "author": "Killer-Skills AI",
   "skills": [
@@ -106,15 +135,15 @@
     "janekbaraniewski/openusage"
   ],
   "longDescription": {
-    "en": "In today's rapidly evolving AI landscape, developers are constantly seeking innovative ways to streamline their workflows and maximize the potential of their AI agents. The demand for efficient, powerful tools to manage complex AI projects, from intricate model deployments to collaborative team environments, has never been higher. That's where the power of gemini-cli AI tools comes into play. This meticulously curated collection, \"Top 5 Gemini-CLI Tools for AI Developers,\" offers a professional directory of the leading gemini-cli AI tools, robust MCP servers, and essential extensions designed to supercharge your development process. Imagine effortlessly orchestrating your AI agent deployments, conducting seamless code reviews, or even building full-stack applications with next-generation frameworks – all directly from your command line. These gemini-cli AI tools are not just about convenience; they're about empowering you to achieve unprecedented levels of productivity and control. Whether you're managing a small team or scaling a large enterprise AI initiative, these selections provide the critical infrastructure and intuitive interfaces needed to accelerate your projects, reduce development cycles, and unlock new possibilities for your AI agent solutions. Dive into this collection and discover how these cutting-edge gemini-cli AI tools can transform your approach to AI development, making your workflows more efficient, collaborative, and ultimately, more successful.",
-    "zh": "在当今快速发展的AI领域，开发者们不断寻求创新方法来简化工作流程，并最大限度地发挥其AI代理的潜力。对高效、强大的工具的需求从未如此之高，这些工具能够管理复杂的AI项目，从复杂的模型部署到协作团队环境。这就是gemini-cli AI工具的力量所在。这个精心策划的系列，“AI开发者必备的5大Gemini-CLI工具”，提供了一个专业的目录，其中包含领先的gemini-cli AI工具、强大的MCP服务器和必要的扩展，旨在为您的开发过程注入超强动力。想象一下，您可以轻松地编排您的AI代理部署，进行无缝的代码审查，甚至使用下一代框架构建全栈应用程序——所有这些都直接通过命令行完成。这些gemini-cli AI工具不仅仅是为了方便；它们旨在让您实现前所未有的生产力和控制水平。无论您是管理小型团队还是扩展大型企业AI计划，这些精选工具都提供了关键的基础设施和直观的界面，以加速您的项目，缩短开发周期，并为您的AI代理解决方案开启新的可能性。深入探索这个系列，了解这些尖端的gemini-cli AI工具如何改变您的AI开发方法，使您的工作流程更高效、更协作，并最终取得更大的成功。",
-    "ja": "今日の急速に進化するAIランドスケープにおいて、開発者はAIエージェントの可能性を最大限に引き出し、ワークフローを合理化するための革新的な方法を常に模索しています。複雑なモデルのデプロイから共同作業環境まで、複雑なAIプロジェクトを管理するための効率的で強力なツールの需要はかつてないほど高まっています。そこでgemini-cli AIツールの力が発揮されます。この綿密にキュレーションされたコレクション「AI開発者向けGemini-CLIツール トップ5」は、開発プロセスを大幅に強化するために設計された、主要なgemini-cli AIツール、堅牢なMCPサーバー、および不可欠な拡張機能の専門的なディレクトリを提供します。AIエージェントのデプロイを楽にオーケストレーションしたり、シームレスなコードレビューを実施したり、次世代フレームワークでフルスタックアプリケーションを構築したりする様子を想像してみてください。これらすべてがコマンドラインから直接行えます。これらのgemini-cli AIツールは単なる利便性にとどまらず、前例のないレベルの生産性と制御を達成するための力を与えます。小規模なチームを管理している場合でも、大規模なエンタープライズAIイニシアチブを拡大している場合でも、これらの厳選されたツールは、プロジェクトを加速し、開発サイクルを短縮し、AIエージェントソリューションの新たな可能性を解き放くために必要な重要なインフラストラクチャと直感的なインターフェースを提供します。このコレクションを深く掘り下げて、これらの最先端のgemini-cli AIツールがAI開発へのアプローチをどのように変革し、ワークフローをより効率的で協調的、そして最終的にはより成功したものにするかを発見してください。",
-    "ko": "오늘날 빠르게 진화하는 AI 환경에서 개발자들은 AI 에이전트의 잠재력을 극대화하고 워크플로우를 간소화할 혁신적인 방법을 끊임없이 모색하고 있습니다. 복잡한 모델 배포부터 협업 팀 환경에 이르기까지, 복잡한 AI 프로젝트를 관리할 효율적이고 강력한 도구에 대한 수요는 그 어느 때보다 높습니다. 바로 여기서 gemini-cli AI 도구의 힘이 발휘됩니다. 세심하게 선별된 이 컬렉션, \"AI 개발자를 위한 상위 5가지 Gemini-CLI 도구\"는 개발 프로세스를 강력하게 지원하도록 설계된 선도적인 gemini-cli AI 도구, 견고한 MCP 서버 및 필수 확장 기능의 전문 디렉토리를 제공합니다. AI 에이전트 배포를 손쉽게 오케스트레이션하고, 원활한 코드 검토를 수행하며, 차세대 프레임워크로 풀스택 애플리케이션을 구축하는 것을 상상해 보십시오. 이 모든 것이 명령줄에서 직접 이루어집니다. 이 gemini-cli AI 도구들은 단순한 편의성을 넘어, 전례 없는 수준의 생산성과 제어를 달성할 수 있도록 지원합니다. 소규모 팀을 관리하든 대규모 엔터프라이즈 AI 이니셔티브를 확장하든, 이 엄선된 도구들은 프로젝트를 가속화하고 개발 주기를 단축하며 AI 에이전트 솔루션의 새로운 가능성을 열어주는 데 필요한 핵심 인프라와 직관적인 인터페이스를 제공합니다. 이 컬렉션을 통해 최첨단 gemini-cli AI 도구들이 AI 개발 접근 방식을 어떻게 변화시켜 워크플로우를 더욱 효율적이고 협력적이며 궁극적으로 더욱 성공적으로 만들 수 있는지 알아보십시오.",
-    "es": "En el panorama de la IA en rápida evolución actual, los desarrolladores buscan constantemente formas innovadoras de optimizar sus flujos de trabajo y maximizar el potencial de sus agentes de IA. La demanda de herramientas eficientes y potentes para gestionar proyectos complejos de IA, desde implementaciones de modelos intrincados hasta entornos de equipo colaborativos, nunca ha sido tan alta. Ahí es donde entra en juego el poder de las herramientas de IA gemini-cli. Esta colección meticulosamente curada, \"Las 5 mejores herramientas Gemini-CLI para desarrolladores de IA\", ofrece un directorio profesional de las principales herramientas de IA gemini-cli, robustos servidores MCP y extensiones esenciales diseñadas para potenciar su proceso de desarrollo. Imagine orquestar sin esfuerzo sus implementaciones de agentes de IA, realizar revisiones de código sin problemas o incluso construir aplicaciones de pila completa con marcos de próxima generación, todo directamente desde su línea de comandos. Estas herramientas de IA gemini-cli no son solo una cuestión de conveniencia; se trata de empoderarlo para lograr niveles de productividad y control sin precedentes. Ya sea que esté administrando un equipo pequeño o escalando una gran iniciativa de IA empresarial, estas selecciones proporcionan la infraestructura crítica y las interfaces intuitivas necesarias para acelerar sus proyectos, reducir los ciclos de desarrollo y desbloquear nuevas posibilidades para sus soluciones de agentes de IA. Sumérjase en esta colección y descubra cómo estas herramientas de IA gemini-cli de vanguardia pueden transformar su enfoque del desarrollo de IA, haciendo que sus flujos de trabajo sean más eficientes, colaborativos y, en última instancia, más exitosos.",
-    "fr": "Dans le paysage en constante évolution du développement d'IA, la rapidité et l'efficacité sont primordiales. Les développeurs d'IA sont constamment à la recherche d'outils qui rationalisent leurs flux de travail, améliorent la collaboration et accélèrent le déploiement de solutions innovantes. C'est précisément là que les outils Gemini-CLI AI deviennent indispensables. Ces interfaces de ligne de commande puissantes et polyvalentes sont conçues pour s'intégrer de manière transparente à l'écosystème Gemini, offrant un contrôle granulaire et une automatisation inégalée pour la gestion des agents d'IA, l'orchestration des modèles et l'interaction avec les MCP servers. Imaginez des scénarios où la révision de code est automatisée, la gestion d'équipe est simplifiée et le développement full-stack avec des frameworks de nouvelle génération est non seulement possible, mais aussi incroyablement efficace. Cette collection Killer-Skills présente un répertoire professionnellement organisé des 5 meilleurs outils Gemini-CLI, MCP servers et extensions, chacun choisi pour sa capacité à transformer la façon dont vous construisez, déployez et gérez vos agents d'IA. Que vous optimisiez les pipelines de données, affiniez les performances des modèles ou supervisiez des équipes distribuées, ces outils sont vos alliés stratégiques, vous permettant de débloquer de nouveaux niveaux de productivité et d'innovation dans vos projets d'IA.",
-    "de": "In der sich ständig weiterentwickelnden Landschaft der KI-Entwicklung sind Geschwindigkeit und Effizienz von größter Bedeutung. KI-Entwickler suchen ständig nach Tools, die ihre Workflows optimieren, die Zusammenarbeit verbessern und die Bereitstellung innovativer Lösungen beschleunigen. Genau hier werden Gemini-CLI AI Tools unverzichtbar. Diese leistungsstarken und vielseitigen Befehlszeilenschnittstellen wurden entwickelt, um sich nahtlos in das Gemini-Ökosystem zu integrieren und eine detaillierte Kontrolle sowie eine unübertroffene Automatisierung für die Verwaltung von KI-Agenten, die Modellorchestrierung und die Interaktion mit MCP servers zu bieten. Stellen Sie sich Szenarien vor, in denen die Codeüberprüfung automatisiert, die Teamverwaltung vereinfacht und die Full-Stack-Entwicklung mit Frameworks der nächsten Generation nicht nur möglich, sondern auch unglaublich effizient ist. Diese Killer-Skills-Sammlung präsentiert ein professionell kuratiertes Verzeichnis der Top 5 Gemini-CLI Tools, MCP servers und Erweiterungen, die jeweils aufgrund ihrer Fähigkeit ausgewählt wurden, die Art und Weise zu verändern, wie Sie Ihre KI-Agenten erstellen, bereitstellen und verwalten. Ob Sie Datenpipelines optimieren, die Modellleistung verfeinern oder verteilte Teams überwachen, diese Tools sind Ihre strategischen Verbündeten, die es Ihnen ermöglichen, neue Produktivitäts- und Innovationsstufen in Ihren KI-Projekten zu erschließen.",
-    "pt": "No cenário em constante evolução do desenvolvimento de IA, velocidade e eficiência são primordiais. Desenvolvedores de IA estão constantemente em busca de ferramentas que otimizem seus fluxos de trabalho, aprimorem a colaboração e acelerem a implantação de soluções inovadoras. É precisamente aqui que as ferramentas Gemini-CLI AI se tornam indispensáveis. Essas interfaces de linha de comando poderosas e versáteis são projetadas para se integrar perfeitamente ao ecossistema Gemini, oferecendo controle granular e automação incomparável para o gerenciamento de agentes de IA, orquestração de modelos e interação com MCP servers. Imagine cenários onde a revisão de código é automatizada, o gerenciamento de equipes é simplificado e o desenvolvimento full-stack com frameworks de próxima geração não é apenas possível, mas incrivelmente eficiente. Esta coleção Killer-Skills apresenta um diretório profissionalmente curado das 5 principais ferramentas Gemini-CLI, MCP servers e extensões, cada uma escolhida por sua capacidade de transformar a maneira como você constrói, implanta e gerencia seus agentes de IA. Seja otimizando pipelines de dados, refinando o desempenho de modelos ou supervisionando equipes distribuídas, essas ferramentas são seus aliados estratégicos, capacitando você a desbloquear novos níveis de produtividade e inovação em seus projetos de IA.",
-    "ru": "В постоянно развивающемся ландшафте разработки ИИ скорость и эффективность имеют первостепенное значение. Разработчики ИИ постоянно ищут инструменты, которые оптимизируют их рабочие процессы, улучшают совместную работу и ускоряют развертывание инновационных решений. Именно здесь инструменты Gemini-CLI AI становятся незаменимыми. Эти мощные и универсальные интерфейсы командной строки разработаны для бесшовной интеграции с экосистемой Gemini, предлагая детальный контроль и беспрецедентную автоматизацию для управления агентами ИИ, оркестрации моделей и взаимодействия с MCP servers. Представьте себе сценарии, где автоматизируется проверка кода, упрощается управление командой, а полнофункциональная разработка с фреймворками нового поколения не только возможна, но и невероятно эффективна. Эта коллекция Killer-Skills представляет собой профессионально подобранный каталог из 5 лучших инструментов Gemini-CLI, MCP servers и расширений, каждый из которых выбран за его способность изменить то, как вы создаете, развертываете и управляете своими агентами ИИ. Независимо от того, оптимизируете ли вы конвейеры данных, улучшаете производительность моделей или контролируете распределенные команды, эти инструменты являются вашими стратегическими союзниками, позволяя вам достичь новых уровней производительности и инноваций в ваших проектах ИИ.",
-    "ar": "في المشهد المتطور باستمرار لتطوير الذكاء الاصطناعي، تعد السرعة والكفاءة أمرًا بالغ الأهمية. يبحث مطورو الذكاء الاصطناعي باستمرار عن الأدوات التي تبسط سير عملهم، وتعزز التعاون، وتسرع نشر الحلول المبتكرة. وهنا بالتحديد تصبح أدوات Gemini-CLI AI لا غنى عنها. تم تصميم واجهات سطر الأوامر القوية والمتعددة الاستخدامات هذه للتكامل بسلاسة مع نظام Gemini البيئي، مما يوفر تحكمًا دقيقًا وأتمتة لا مثيل لها لإدارة وكلاء الذكاء الاصطناعي، وتنسيق النماذج، والتفاعل مع MCP servers. تخيل سيناريوهات يتم فيها أتمتة مراجعة التعليمات البرمجية، وتبسيط إدارة الفريق، ويصبح التطوير الشامل باستخدام أطر عمل الجيل التالي ليس ممكنًا فحسب، بل فعالًا بشكل لا يصدق. تقدم مجموعة Killer-Skills هذه دليلًا منسقًا باحتراف لأفضل 5 أدوات Gemini-CLI وMCP servers والإضافات، تم اختيار كل منها لقدرته على تغيير طريقة بناء ونشر وإدارة وكلاء الذكاء الاصطناعي لديك. سواء كنت تقوم بتحسين مسارات البيانات، أو تحسين أداء النموذج، أو الإشراف على فرق موزعة، فإن هذه الأدوات هي حلفاؤك الاستراتيجيون، مما يمكّنك من فتح مستويات جديدة من الإنتاجية والابتكار في مشاريع الذكاء الاصطناعي الخاصة بك."
+    "en": "For teams that prefer terminal-native development, this Gemini CLI collection provides practical workflow building blocks. It highlights reusable command-line skills, integration patterns, and automation helpers for coding tasks, release checks, and team scripts. MCP support can be included when a tool needs it, but the core purpose is to improve terminal productivity and make CLI-based engineering workflows more reliable.",
+    "zh": "对于偏好终端原生开发的团队，这个 Gemini CLI 专题提供实用的工作流构建模块。内容聚焦可复用命令行技能、集成模式与自动化助手，覆盖编码任务、发布检查与团队脚本流程。部分工具在需要时可包含 MCP 支持，但核心目标是提升终端生产力并增强 CLI 工程流程的可靠性。",
+    "ja": "ターミナル中心で開発するチーム向けに、このGemini CLIコレクションは実務的なワークフロー部品を提供します。再利用可能なCLIスキル、連携パターン、自動化ヘルパーに焦点を当て、コーディング作業、リリース確認、チームスクリプト運用を支援。必要に応じてMCP対応も含みますが、主目的はCLI開発の生産性と信頼性向上です。",
+    "ko": "터미널 중심 개발을 선호하는 팀을 위해 이 Gemini CLI 컬렉션은 실전 워크플로우 구성 요소를 제공합니다. 재사용 가능한 명령줄 스킬, 통합 패턴, 자동화 헬퍼를 통해 코딩 작업, 릴리스 체크, 팀 스크립트 운영을 지원합니다. 필요 시 MCP 지원이 포함될 수 있지만 핵심 목적은 CLI 기반 엔지니어링의 생산성과 안정성 향상입니다.",
+    "es": "Para equipos que trabajan de forma nativa en terminal, esta colección de Gemini CLI aporta bloques prácticos de workflow. Reúne skills reutilizables de línea de comandos, patrones de integración y helpers de automatización para tareas de código, checks de release y scripts de equipo. MCP puede aparecer cuando sea útil, pero el objetivo central es mejorar productividad y confiabilidad en workflows basados en CLI.",
+    "fr": "Pour les équipes orientées terminal, cette collection Gemini CLI fournit des briques workflow concrètes. Elle met en avant des skills CLI réutilisables, des patterns d’intégration et des aides d’automatisation pour tâches de code, checks de release et scripts d’équipe. MCP peut être présent si nécessaire, mais l’objectif principal reste la productivité et la fiabilité en workflow CLI.",
+    "de": "Für Teams mit terminalnativer Arbeitsweise bietet diese Gemini-CLI-Sammlung praktische Workflow-Bausteine. Sie zeigt wiederverwendbare Kommandozeilen-Skills, Integrationsmuster und Automationshelfer für Coding-Aufgaben, Release-Checks und Team-Skripte. MCP kann enthalten sein, wenn nötig, der Kern ist jedoch bessere Produktivität und Zuverlässigkeit im CLI-Workflow.",
+    "pt": "Para equipes que desenvolvem de forma nativa no terminal, esta coleção Gemini CLI entrega blocos práticos de workflow. Reúne skills reutilizáveis de linha de comando, padrões de integração e helpers de automação para tarefas de código, checks de release e scripts de equipe. MCP pode aparecer quando necessário, mas o foco principal é produtividade e confiabilidade no fluxo CLI.",
+    "ru": "Для команд, работающих в терминале, эта коллекция Gemini CLI дает практические блоки для workflow. В ней — переиспользуемые CLI-skills, интеграционные паттерны и automation-helpers для coding-задач, release-check и командных скриптов. MCP может подключаться при необходимости, но главная цель — повысить productivity и надежность CLI-процессов.",
+    "ar": "للفرق التي تفضّل التطوير المعتمد على الطرفية، توفّر هذه المجموعة الخاصة بـ Gemini CLI مكونات عملية لبناء workflow. تبرز مهارات سطر أوامر قابلة لإعادة الاستخدام، وأنماط تكامل، ومساعدات أتمتة لمهام البرمجة وفحوصات الإصدار وسكربتات الفريق. يمكن تضمين دعم MCP عند الحاجة، لكن الهدف الأساسي هو رفع إنتاجية الطرفية وزيادة موثوقية workflows المعتمدة على CLI."
   }
 }

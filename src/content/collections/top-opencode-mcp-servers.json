@@ -1,106 +1,136 @@
 {
   "title": {
-    "en": "Top 5 OpenCode MCP Servers & AI Tools",
-    "zh": "五大顶级 OpenCode MCP 服务器与 AI 工具",
-    "ja": "OpenCode向けMCPサーバー＆AIツール トップ5",
-    "ko": "상위 5가지 OpenCode MCP 서버 및 AI 도구",
-    "es": "Mejores servidores MCP de opencode en 2024",
-    "fr": "Meilleurs serveurs MCP opencode en 2024",
-    "de": "Beste MCP-Server opencode 2024",
-    "pt": "Melhores servidores MCP opencode em 2024",
-    "ru": "Лучшие MCP серверы opencode 2024",
-    "ar": "أفضل خوادم MCP opencode لعام 2024"
+    "en": "Top OpenCode Workflow Tools & Companion Integrations",
+    "zh": "顶级 OpenCode 工作流工具与配套集成",
+    "ja": "OpenCode向けワークフローツール＆連携コンポーネント",
+    "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동",
+    "es": "Herramientas de workflow e integraciones companion para OpenCode",
+    "fr": "Outils workflow et intégrations companion pour OpenCode",
+    "de": "OpenCode-Workflow-Tools und Companion-Integrationen",
+    "pt": "Ferramentas de workflow e integrações companion para OpenCode",
+    "ru": "OpenCode workflow-инструменты и companion-интеграции",
+    "ar": "أدوات workflow وتكاملات مرافقة لـ OpenCode"
   },
   "description": {
-    "en": "A curated collection of the most powerful and innovative MCP servers and AI tools for the OpenCode ecosystem. This expertly selected list helps developers and AI agents automate and enhance the code review, documentation, and project analysis workflow, boosting productivity and code quality.",
-    "zh": "专为 OpenCode 生态系统精选的最强大、最具创新性的 MCP 服务器和 AI 工具集合。此专家精选列表帮助开发者和 AI 代理自动化并增强代码审查、文档和项目分析工作流程，从而提高生产力和代码质量。",
-    "ja": "OpenCodeエコシステムで最も強力で革新的なMCPサーバーとAIツールを厳選しました。この専門家が選んだリストは、開発者やAI Agentがコードレビュー、ドキュメント作成、プロジェクト分析のワークフローを自動化・強化し、生産性とコード品質を向上させるのに役立ちます。",
-    "ko": "OpenCode 생태계를 위한 가장 강력하고 혁신적인 MCP 서버 및 AI 도구를 엄선했습니다. 이 전문적으로 선별된 목록은 개발자와 AI Agent가 코드 검토, 문서화 및 프로젝트 분석 워크플로우를 자동화하고 개선하여 생산성과 코드 품질을 향상시키는 데 도움을 줍니다.",
-    "es": "Explora los mejores servidores MCP para opencode. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour opencode. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für opencode. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para opencode. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для opencode. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ opencode. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A curated collection of OpenCode-oriented tooling for developer workflows: reusable skills, project automation components, and companion integrations for code quality, documentation flow, and delivery operations.",
+    "zh": "面向 OpenCode 场景的开发工作流工具合集：提供可复用技能、项目自动化组件与配套集成，覆盖代码质量、文档流转与交付运维。",
+    "ja": "OpenCodeを活用する開発ワークフロー向けに、再利用スキル、プロジェクト自動化コンポーネント、コード品質・ドキュメント運用・デリバリーを支える連携ツールを厳選しました。",
+    "ko": "OpenCode 중심 개발 워크플로우를 위한 큐레이션입니다. 재사용 스킬, 프로젝트 자동화 컴포넌트, 코드 품질·문서 흐름·전달 운영을 위한 컴패니언 연동을 제공합니다.",
+    "es": "Colección curada de tooling orientado a OpenCode para workflows de desarrollo: skills reutilizables, componentes de automatización de proyectos e integraciones companion para calidad de código, documentación y entrega.",
+    "fr": "Collection curée d’outillage orienté OpenCode pour workflows de développement: skills réutilisables, composants d’automatisation projet et intégrations companion pour qualité du code, documentation et delivery.",
+    "de": "Kuratiertes OpenCode-orientiertes Tooling für Entwickler-Workflows: wiederverwendbare Skills, Projekt-Automationskomponenten und Companion-Integrationen für Codequalität, Dokumentationsfluss und Delivery.",
+    "pt": "Coleção curada de tooling orientado a OpenCode para workflows de desenvolvimento: skills reutilizáveis, componentes de automação de projetos e integrações companion para qualidade de código, documentação e entrega.",
+    "ru": "Кураторская подборка OpenCode-ориентированного tooling для developer-workflow: переиспользуемые skills, компоненты project automation и companion-интеграции для качества кода, документации и delivery.",
+    "ar": "مجموعة منتقاة من الأدوات الموجهة لـ OpenCode ضمن سير عمل التطوير: مهارات قابلة لإعادة الاستخدام، ومكونات أتمتة المشاريع، وتكاملات مرافقة لجودة الكود وتدفق التوثيق وعمليات التسليم."
   },
   "seoTitle": {
-    "en": "Best OpenCode AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳 OpenCode AI 工具与 MCP 服务器 | Killer-Skills",
-    "ja": "OpenCode AIツール＆MCPサーバー ベスト5 | Killer-Skills",
-    "ko": "최고의 OpenCode AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de opencode en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP opencode en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server opencode 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP opencode em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы opencode 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP opencode لعام 2024 2026 | Killer-Skills"
+    "en": "Top OpenCode Workflow Tools & Companion Integrations | Killer-Skills",
+    "zh": "OpenCode 开发者工作流工具与技能 | Killer-Skills",
+    "ja": "OpenCode向け開発ワークフローツール＆スキル | Killer-Skills",
+    "ko": "OpenCode 개발 워크플로우 도구 & 스킬 | Killer-Skills",
+    "es": "Herramientas y skills de workflow OpenCode | Killer-Skills",
+    "fr": "Outils et skills workflow OpenCode | Killer-Skills",
+    "de": "OpenCode Workflow-Tools & Skills | Killer-Skills",
+    "pt": "Ferramentas e skills de workflow OpenCode | Killer-Skills",
+    "ru": "Инструменты и skills OpenCode workflow | Killer-Skills",
+    "ar": "أدوات ومهارات سير عمل OpenCode للمطورين | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top 5 OpenCode AI tools & MCP servers for automated code review, README sync, and project analysis. Boost dev workflow with AI.",
-    "zh": "探索五大顶级 OpenCode AI 工具和 MCP 服务器，用于自动化代码审查、README 同步和项目分析。用 AI 提升开发工作流。",
-    "ja": "OpenCode向けAIツール＆MCPサーバーのトップ5を発見。コードレビュー、README同期、プロジェクト分析を自動化し、開発ワークフローをAIで加速。",
-    "ko": "자동 코드 검토, README 동기화, 프로젝트 분석을 위한 상위 5가지 OpenCode AI 도구 및 MCP 서버를 만나보세요. AI로 개발 워크플로우를 혁신하세요.",
-    "es": "Explora los mejores servidores MCP para opencode. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour opencode. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für opencode. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para opencode. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для opencode. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ opencode. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Find OpenCode companion tooling and workflow skills for automation, code quality, documentation sync, and delivery-focused engineering.",
+    "zh": "查找 OpenCode 配套工具与工作流技能，支持自动化、代码质量、文档同步与以交付为导向的工程实践。",
+    "ja": "自動化、コード品質、ドキュメント同期、デリバリー志向の開発を支えるOpenCode向け補助ツールとワークフロースキルを紹介。",
+    "ko": "자동화, 코드 품질, 문서 동기화, 전달 중심 엔지니어링을 위한 OpenCode 컴패니언 도구와 워크플로우 스킬을 찾아보세요.",
+    "es": "Encuentra tooling companion y skills de workflow para OpenCode en automatización, calidad de código, sync de documentación y entrega de software.",
+    "fr": "Trouvez du tooling companion et des skills workflow OpenCode pour automatisation, qualité du code, sync documentation et delivery logiciel.",
+    "de": "Finde OpenCode-Companion-Tooling und Workflow-Skills für Automatisierung, Codequalität, Dokumentations-Sync und delivery-orientiertes Engineering.",
+    "pt": "Encontre tooling companion e skills de workflow OpenCode para automação, qualidade de código, sincronização de documentação e engenharia orientada à entrega.",
+    "ru": "Найдите OpenCode companion-tooling и workflow-skills для автоматизации, качества кода, синхронизации документации и delivery-ориентированной разработки.",
+    "ar": "اعثر على أدوات OpenCode المرافقة ومهارات workflow للأتمتة وجودة الكود ومزامنة التوثيق والهندسة الموجّهة للتسليم."
   },
   "keywords": {
     "en": [
-      "Best opencode AI tools",
-      "Top MCP servers for opencode",
-      "AI code review",
-      "automated documentation",
-      "Claude extensions",
-      "AI developer tools"
+      "opencode tools",
+      "developer workflows",
+      "automation skills",
+      "code quality tooling",
+      "documentation sync",
+      "companion integrations"
     ],
-    "zh": [
-      "最佳 opencode AI 工具",
-      "顶级 OpenCode MCP 服务器",
-      "AI 代码审查",
-      "自动化文档",
-      "Claude 扩展",
-      "AI 开发工具"
-    ],
+    "zh": ["OpenCode 工具", "开发者工作流", "自动化技能", "代码质量工具", "文档同步", "配套集成"],
     "ja": [
-      "Best opencode AI tools",
-      "Top MCP servers for opencode",
-      "AI code review",
-      "automated documentation",
-      "Claude extensions",
-      "AI developer tools"
+      "opencode tools",
+      "developer workflows",
+      "automation skills",
+      "code quality tooling",
+      "documentation sync",
+      "companion integrations"
     ],
     "ko": [
-      "Best opencode AI tools",
-      "Top MCP servers for opencode",
-      "AI code review",
-      "automated documentation",
-      "Claude extensions",
-      "AI developer tools"
+      "opencode tools",
+      "developer workflows",
+      "automation skills",
+      "code quality tooling",
+      "documentation sync",
+      "companion integrations"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "opencode"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "opencode"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "opencode"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "opencode"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "opencode"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "opencode"]
+    "es": [
+      "herramientas opencode",
+      "workflows developer",
+      "skills de automatización",
+      "tooling de calidad de código",
+      "sync de documentación",
+      "integraciones companion"
+    ],
+    "fr": [
+      "outils opencode",
+      "workflows développeur",
+      "skills d’automatisation",
+      "tooling qualité code",
+      "sync documentation",
+      "intégrations companion"
+    ],
+    "de": [
+      "OpenCode Tools",
+      "Developer-Workflows",
+      "Automatisierungs-Skills",
+      "Codequalitäts-Tooling",
+      "Dokumentations-Sync",
+      "Companion-Integrationen"
+    ],
+    "pt": [
+      "ferramentas opencode",
+      "workflows developer",
+      "skills de automação",
+      "tooling de qualidade de código",
+      "sincronização de documentação",
+      "integrações companion"
+    ],
+    "ru": [
+      "opencode tools",
+      "developer workflows",
+      "automation skills",
+      "code quality tooling",
+      "documentation sync",
+      "companion integrations"
+    ],
+    "ar": ["أدوات OpenCode", "سير عمل المطور", "مهارات الأتمتة", "أدوات جودة الكود", "مزامنة التوثيق", "تكاملات مرافقة"]
   },
   "featured": false,
+  "canonicalSlug": "top-opencode-workflow-tools-companion-integrations",
+  "legacySlugs": ["top-opencode-mcp-servers"],
   "category": "opencode",
   "author": "Killer-Skills AI",
   "skills": ["Soju06/codex-lb", "dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
   "longDescription": {
-    "en": "In today's fast-paced development landscape, maintaining high code quality, ensuring robust documentation, and streamlining project analysis are paramount for any successful software endeavor. The sheer volume and complexity of modern codebases often overwhelm traditional manual processes, leading to bottlenecks, increased technical debt, and delayed releases. This is precisely where the power of OpenCode AI tools and advanced MCP servers becomes indispensable. Imagine an AI agent seamlessly integrating into your CI/CD pipeline, autonomously reviewing pull requests for potential bugs, generating comprehensive API documentation from source code, or providing insightful analytics on project health and developer activity. Our expertly curated collection, \"Top 5 OpenCode MCP Servers & AI Tools,\" is designed to empower developers and AI agents alike to achieve unprecedented levels of efficiency and precision. These cutting-edge OpenCode AI tools and high-performance MCP servers transform tedious, error-prone tasks into automated, intelligent workflows. From real-time code quality checks that catch issues before they escalate, to AI-driven documentation generators that keep your project's knowledge base always up-to-date, and sophisticated project analysis tools that offer actionable insights, this selection represents the pinnacle of innovation. We've meticulously evaluated each tool for its integration capabilities, performance, and ability to significantly enhance the developer experience, ensuring that every solution on this list delivers tangible improvements in productivity and code quality within the OpenCode ecosystem.",
-    "zh": "在当今快节奏的开发环境中，保持高质量代码、确保完善文档以及简化项目分析对于任何成功的软件项目都至关重要。现代代码库的庞大体量和复杂性常常使传统手动流程不堪重负，导致瓶颈、技术债务增加和发布延迟。这正是OpenCode AI工具和先进MCP服务器力量变得不可或缺的地方。想象一下，一个AI代理无缝集成到您的CI/CD管道中，自主审查拉取请求以发现潜在错误，从源代码生成全面的API文档，或提供关于项目健康和开发者活动的深刻分析。我们精心策划的“五大OpenCode MCP服务器与AI工具”系列旨在赋能开发者和AI代理，实现前所未有的效率和精确度。这些尖端的OpenCode AI工具和高性能MCP服务器将繁琐、易错的任务转化为自动化、智能化的工作流程。从实时代码质量检查（在问题升级前发现它们），到AI驱动的文档生成器（使您的项目知识库始终保持最新），再到提供可操作洞察的复杂项目分析工具，此精选代表了创新的巅峰。我们对每个工具的集成能力、性能以及显著提升开发者体验的能力进行了细致评估，确保此列表中的每个解决方案都能在OpenCode生态系统中带来生产力和代码质量的显著提升。",
-    "ja": "今日の急速に進化する開発環境において、高いコード品質の維持、堅牢なドキュメントの確保、そしてプロジェクト分析の合理化は、あらゆる成功するソフトウェアプロジェクトにとって極めて重要です。現代のコードベースの膨大な量と複雑さは、従来のMCP手動プロセスを圧倒し、ボトルネック、技術的負債の増加、リリース遅延を引き起こすことがよくあります。まさにここで、OpenCode AIツールと高度なMCPサーバーの力が不可欠となります。AIエージェントがCI/CDパイプラインにシームレスに統合され、潜在的なバグのためにプルリクエストを自律的にレビューし、ソースコードから包括的なAPIドキュメントを生成し、またはプロジェクトの健全性と開発者アクティビティに関する洞察に富んだ分析を提供する様子を想像してみてください。当社の専門的に厳選されたコレクション「トップ5 OpenCode MCPサーバー＆AIツール」は、開発者とAIエージェントの両方が前例のないレベルの効率と精度を達成できるように設計されています。これらの最先端のOpenCode AIツールと高性能MCPサーバーは、退屈でエラーが発生しやすいタスクを自動化されたインテリジェントなワークフローに変革します。問題がエスカレートする前に発見するリアルタイムのコード品質チェックから、プロジェクトのナレッジベースを常に最新の状態に保つAI駆動のドキュメントジェネレーター、そして実用的な洞察を提供する洗練されたプロジェクト分析ツールまで、このセレクションはイノベーションの頂点を表しています。私たちは、各ツールの統合機能、パフォーマンス、および開発者エクスペリエンスを大幅に向上させる能力を綿密に評価し、このリストのすべてのソリューションがOpenCodeエコシステム内で生産性とコード品質の具体的な改善をもたらすことを保証します。",
-    "ko": "오늘날 빠르게 변화하는 개발 환경에서 높은 코드 품질 유지, 견고한 문서화 보장, 프로젝트 분석 간소화는 모든 성공적인 소프트웨어 프로젝트에 있어 가장 중요합니다. 현대 코드베이스의 방대한 양과 복잡성은 종종 전통적인 수동 프로세스를 압도하여 병목 현상, 기술 부채 증가, 출시 지연으로 이어집니다. 바로 이 지점에서 OpenCode AI 도구와 고급 MCP 서버의 힘이 필수 불가결해집니다. AI 에이전트가 CI/CD 파이프라인에 원활하게 통합되어 잠재적 버그에 대한 풀 리퀘스트를 자율적으로 검토하고, 소스 코드에서 포괄적인 API 문서를 생성하거나, 프로젝트 상태 및 개발자 활동에 대한 통찰력 있는 분석을 제공하는 것을 상상해 보십시오. 저희가 전문적으로 선별한 컬렉션인 \"상위 5개 OpenCode MCP 서버 및 AI 도구\"는 개발자와 AI 에이전트 모두가 전례 없는 수준의 효율성과 정확성을 달성할 수 있도록 설계되었습니다. 이 최첨단 OpenCode AI 도구와 고성능 MCP 서버는 지루하고 오류가 발생하기 쉬운 작업을 자동화되고 지능적인 워크플로우로 전환합니다. 문제가 확대되기 전에 감지하는 실시간 코드 품질 검사부터, 프로젝트 지식 기반을 항상 최신 상태로 유지하는 AI 기반 문서 생성기, 그리고 실행 가능한 통찰력을 제공하는 정교한 프로젝트 분석 도구에 이르기까지, 이 선택은 혁신의 정점을 나타냅니다. 우리는 각 도구의 통합 기능, 성능, 그리고 개발자 경험을 크게 향상시키는 능력을 면밀히 평가하여, 이 목록의 모든 솔루션이 OpenCode 생태계 내에서 생산성과 코드 품질의 실질적인 개선을 제공하도록 보장합니다.",
-    "es": "En el vertiginoso panorama de desarrollo actual, mantener una alta calidad de código, asegurar una documentación robusta y optimizar el análisis de proyectos son primordiales para cualquier empresa de software exitosa. El volumen y la complejidad de las bases de código modernas a menudo abruman los procesos manuales tradicionales, lo que lleva a cuellos de botella, un aumento de la deuda técnica y retrasos en los lanzamientos. Aquí es precisamente donde el poder de las herramientas de OpenCode AI y los servidores MCP avanzados se vuelve indispensable. Imagine un agente de IA integrándose sin problemas en su pipeline de CI/CD, revisando de forma autónoma las solicitudes de extracción en busca de posibles errores, generando documentación API completa a partir del código fuente o proporcionando análisis perspicaces sobre la salud del proyecto y la actividad del desarrollador. Nuestra colección cuidadosamente seleccionada, \"Los 5 Mejores Servidores MCP y Herramientas de IA de OpenCode\", está diseñada para empoderar tanto a desarrolladores como a agentes de IA para alcanzar niveles sin precedentes de eficiencia y precisión. Estas herramientas de OpenCode AI de vanguardia y servidores MCP de alto rendimiento transforman tareas tediosas y propensas a errores en flujos de trabajo automatizados e inteligentes. Desde verificaciones de calidad de código en tiempo real que detectan problemas antes de que escalen, hasta generadores de documentación impulsados por IA que mantienen la base de conocimientos de su proyecto siempre actualizada, y sofisticadas herramientas de análisis de proyectos que ofrecen información procesable, esta selección representa la cúspide de la innovación. Hemos evaluado meticulosamente cada herramienta por sus capacidades de integración, rendimiento y capacidad para mejorar significativamente la experiencia del desarrollador, asegurando que cada solución en esta lista ofrezca mejoras tangibles en la productividad y la calidad del código dentro del ecosistema OpenCode.",
-    "fr": "Dans le contexte actuel de développement logiciel, les développeurs sont constamment à la recherche de moyens pour améliorer leur productivité et la qualité de leur code. C'est là que les outils OpenCode AI et les serveurs MCP entrent en jeu, en offrant des solutions innovantes pour automatiser et améliorer les processus de revue de code, de documentation et d'analyse de projet. Les développeurs et les agents AI peuvent désormais profiter de ces outils pour rationaliser leur workflow et se concentrer sur les tâches les plus critiques. Par exemple, les outils OpenCode AI peuvent aider à détecter les erreurs et les vulnérabilités de sécurité, tandis que les serveurs MCP peuvent fournir des capacités d'analyse et de reporting avancées. Cette collection de cinq outils et serveurs MCP OpenCode AI a été soigneusement sélectionnée pour aider les développeurs et les agents AI à améliorer leur workflow et à booster leur productivité, en leur offrant les meilleures solutions pour répondre à leurs besoins spécifiques. Avec ces outils, les développeurs peuvent améliorer la qualité de leur code, réduire les délais de livraison et augmenter leur efficacité globale.",
-    "de": "In der aktuellen Software-Entwicklungsbranche suchen Entwickler ständig nach Möglichkeiten, ihre Produktivität und Code-Qualität zu verbessern. Hier kommen die OpenCode-AI-Tools und MCP-Server ins Spiel, indem sie innovative Lösungen zur Automatisierung und Verbesserung von Code-Review-, Dokumentations- und Projektanalyse-Prozessen anbieten. Entwickler und AI-Agenten können nun diese Tools nutzen, um ihren Workflow zu optimieren und sich auf die kritischsten Aufgaben zu konzentrieren. Zum Beispiel können OpenCode-AI-Tools dabei helfen, Fehler und Sicherheitslücken zu erkennen, während MCP-Server erweiterte Analyse- und Berichtsfunktionen bieten können. Diese Sammlung von fünf OpenCode-AI-Tools und MCP-Servern wurde sorgfältig ausgewählt, um Entwicklern und AI-Agenten zu helfen, ihren Workflow zu verbessern und ihre Produktivität zu steigern, indem sie ihnen die besten Lösungen für ihre spezifischen Anforderungen bietet. Mit diesen Tools können Entwickler die Code-Qualität verbessern, Lieferzeiten reduzieren und ihre Gesamteffizienz steigern.",
-    "pt": "No contexto atual do desenvolvimento de software, os desenvolvedores estão constantemente procurando maneiras de melhorar sua produtividade e a qualidade do seu código. É aí que as ferramentas OpenCode AI e os servidores MCP entram em cena, oferecendo soluções inovadoras para automatizar e melhorar os processos de revisão de código, documentação e análise de projeto. Os desenvolvedores e os agentes AI podem agora aproveitar essas ferramentas para otimizar seu fluxo de trabalho e se concentrar nas tarefas mais críticas. Por exemplo, as ferramentas OpenCode AI podem ajudar a detectar erros e vulnerabilidades de segurança, enquanto os servidores MCP podem fornecer capacidades de análise e relatórios avançadas. Esta coleção de cinco ferramentas e servidores MCP OpenCode AI foi cuidadosamente selecionada para ajudar os desenvolvedores e os agentes AI a melhorar seu fluxo de trabalho e aumentar sua produtividade, oferecendo-lhes as melhores soluções para atender às suas necessidades específicas. Com essas ferramentas, os desenvolvedores podem melhorar a qualidade do código, reduzir os prazos de entrega e aumentar sua eficiência geral.",
-    "ru": "В текущем контексте разработки программного обеспечения разработчики постоянно ищут способы улучшить свою производительность и качество кода. Именно здесь на сцену выходят инструменты OpenCode AI и серверы MCP, предлагая инновационные решения для автоматизации и улучшения процессов проверки кода, документации и анализа проекта. Разработчики и агенты AI могут теперь использовать эти инструменты, чтобы оптимизировать свой рабочий процесс и сосредоточиться на наиболее критических задачах. Например, инструменты OpenCode AI могут помочь обнаружить ошибки и уязвимости безопасности, в то время как серверы MCP могут предоставить расширенные возможности анализа и отчетности. Этот сборник из пяти инструментов и серверов MCP OpenCode AI был тщательно отобран, чтобы помочь разработчикам и агентам AI улучшить свой рабочий процесс и повысить производительность, предлагая им лучшие решения для удовлетворения их конкретных потребностей. С помощью этих инструментов разработчики могут улучшить качество кода, сократить сроки доставки и повысить общую эффективность.",
-    "ar": "في السياق الحالي لتنمية البرمجيات، يبحث المطورون باستمرار عن وسائل لتحسين إنتاجيتهم وجودة كودهم. وهنا يأتي دور أدوات OpenCode AI وخادمات MCP، حيث تقدم حلولاً مبتكرة لتحسين وتأتمتة عمليات مراجعة الكود والتوثيق وتحليل المشروع. يمكن للمطورين ووكلاء الذكاء الاصطناعي الآن الاستفادة من هذه الأدوات لتحسين تدفق العمل والتركيز على المهام الأكثر حرجاً. على سبيل المثال، يمكن لأدوات OpenCode AI مساعدة في الكشف عن الأخطاء والثغرات الأمنية، بينما يمكن لخادمات MCP تقديم قدرات تحليل وتقرير متقدمة. تم اختيار هذه المجموعة من خمس أدوات وخادمات MCP OpenCode AI بعناية لتمكين المطورين ووكلاء الذكاء الاصطناعي من تحسين تدفق العمل وزيادة الإنتاجية، من خلال تقديم أفضل الحلول لاحتياجاتهم المحددة. باستخدام هذه الأدوات، يمكن للمطورين تحسين جودة الكود وتقليل أوقات التسليم وزيادة الكفاءة العامة."
+    "en": "OpenCode workflows need more than a simple tool list. This collection highlights practical skills, integrations, and automation components that support real engineering outcomes: code quality controls, documentation consistency, and smoother delivery operations. MCP-enabled features may be present in selected items, but the page is designed as developer workflow guidance first, with tooling value tied to day-to-day execution.",
+    "zh": "OpenCode 工作流需要的不只是工具罗列。本专题强调能够落地产出的技能、集成与自动化组件，帮助你在代码质量控制、文档一致性与交付运维上获得实效。部分条目可含 MCP 能力，但页面首先是面向开发者工作流的方法与选型参考，强调日常执行价值。",
+    "ja": "OpenCodeのワークフローには、単なるツール一覧以上の視点が必要です。本コレクションでは、コード品質管理、ドキュメント整合性、デリバリー運用を改善する実践的なスキル・連携・自動化部品を重視。MCP対応機能を含む項目もありますが、主軸は日常開発で役立つワークフロー設計です。",
+    "ko": "OpenCode 워크플로우에는 단순한 도구 목록 이상의 접근이 필요합니다. 이 컬렉션은 코드 품질 제어, 문서 일관성, 전달 운영 개선에 실제로 기여하는 스킬·연동·자동화 컴포넌트를 강조합니다. 일부 항목은 MCP 기능을 포함할 수 있지만, 페이지의 중심은 개발자 워크플로우 가이드와 실무 적용성입니다.",
+    "es": "Los workflows con OpenCode requieren más que una lista simple de herramientas. Esta colección destaca skills, integraciones y componentes de automatización con impacto real: control de calidad de código, consistencia documental y operaciones de entrega más fluidas. Algunas opciones incluyen capacidades MCP, pero el enfoque principal es guiar workflows de developers con valor práctico diario.",
+    "fr": "Les workflows OpenCode demandent plus qu’une simple liste d’outils. Cette collection met en avant des skills, intégrations et composants d’automatisation orientés résultats réels: qualité du code, cohérence documentaire et delivery plus fluide. Certaines options peuvent inclure MCP, mais la priorité reste le workflow développeur et la valeur opérationnelle quotidienne.",
+    "de": "OpenCode-Workflows brauchen mehr als eine einfache Toolliste. Diese Sammlung hebt praxisnahe Skills, Integrationen und Automationskomponenten hervor, die reale Ergebnisse liefern: Codequalität, Dokumentationskonsistenz und reibungslosere Delivery-Prozesse. Teilweise gibt es MCP-Funktionen, der Hauptfokus liegt jedoch auf Entwickler-Workflows im Alltag.",
+    "pt": "Workflows com OpenCode exigem mais do que uma lista simples de ferramentas. Esta coleção destaca skills, integrações e componentes de automação com resultado real: qualidade de código, consistência da documentação e operações de entrega mais fluidas. Algumas opções podem incluir MCP, mas o foco principal é orientar workflows de desenvolvimento com valor prático no dia a dia.",
+    "ru": "Для OpenCode workflow нужна не просто витрина инструментов. Коллекция выделяет практические skills, интеграции и automation-компоненты с реальным эффектом: контроль качества кода, согласованность документации и более гладкие delivery-операции. В отдельных пунктах может быть MCP, но основной акцент — guidance по developer-workflow и ежедневная применимость.",
+    "ar": "تتطلب workflows الخاصة بـ OpenCode أكثر من قائمة أدوات بسيطة. تسلط هذه المجموعة الضوء على مهارات وتكاملات ومكوّنات أتمتة تحقق نتائج هندسية فعلية: ضبط جودة الكود، اتساق التوثيق، وعمليات تسليم أكثر سلاسة. قد تتضمن بعض الخيارات قدرات MCP، لكن التركيز الأساسي هو توجيه سير عمل المطورين بقيمة عملية يومية."
   }
 }
