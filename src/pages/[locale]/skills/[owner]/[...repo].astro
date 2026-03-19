@@ -5,6 +5,7 @@ import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../.
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
+import { getCollectionCanonicalSlug } from '../../../../lib/collection-slugs';
 import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import type { Env } from '../../../../lib/kv';
@@ -324,7 +325,6 @@ const seoKeywordParts = [
   ...skillSeoIntent.keywords,
   ...keywordsList.slice(0, 8),
   typedLocale === 'zh' ? 'AI Agent Skills' : 'AI agent skills',
-  'MCP server',
   'Claude Code',
   'Cursor',
   'Windsurf',
@@ -393,8 +393,8 @@ faqItems.push({
 faqItems.push({
   question: isZhLocale ? `如何安装 ${skill.name || repo}？` : `How do I install ${skill.name || repo}?`,
   answer: isZhLocale
-    ? `运行命令：${installCommand}。支持 Cursor、Windsurf、VS Code、Claude Code 等 15+ IDE/Agent。`
-    : `Run the command: ${installCommand}. It works with Cursor, Windsurf, VS Code, Claude Code, and 15+ other IDEs.`,
+    ? `运行命令：${installCommand}。支持 Cursor、Windsurf、VS Code、Claude Code 等 19+ IDE/Agent。`
+    : `Run the command: ${installCommand}. It works with Cursor, Windsurf, VS Code, Claude Code, and 19+ other IDEs.`,
 });
 
 // Q3: Use cases (from agentAnalysis)
@@ -1014,8 +1014,8 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                     {locale === 'zh' ? (
                       <span>
                         <strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源{' '}
-                        <strong>{category || '自动化'}</strong> MCP Server（大模型智能体插件）。它能够无缝集成到 Claude
-                        Desktop 或您的自定义 AI Agent 系统中，扩展核心功能。
+                        <strong>{category || '自动化'}</strong> AI Agent Skill。它可用于 Claude Code、Cursor、Windsurf
+                        等环境，帮助你的智能体获得更稳定的任务流程与领域能力。
                         {keywordsList.length > 0 && (
                           <span class="text-[var(--foreground)]">
                             此工具针对 <strong>{keywordsList.slice(0, 3).join('、')}</strong> 进行了深度优化。
@@ -1024,9 +1024,10 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       </span>
                     ) : (
                       <span>
-                        The <strong>{skill.name || repo}</strong> MCP Server by <strong>{owner}</strong> is an
-                        open-source <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> integration
-                        for Claude and other AI agents, enabling seamless task automation and capability expansion.{' '}
+                        The <strong>{skill.name || repo}</strong> skill by <strong>{owner}</strong> is an open-source
+                        <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> AI agent skill for
+                        Claude Code and other IDE workflows, helping agents execute tasks with better context,
+                        repeatability, and domain-specific guidance.
                         {keywordsList.length > 0 && (
                           <span class="text-[var(--foreground)]">
                             Optimized for <strong>{keywordsList.slice(0, 3).join(', ')}</strong>.
@@ -1061,7 +1062,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                           {/* SEO: Changed from h3 to h2 to index use-cases as dominant subtopics */}
                           <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
                             <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
-                            {t('Detail.useCases') || 'Use Cases'} for {skill.name || repo} MCP Server
+                            {t('Detail.useCases') || 'Use Cases'} for {skill.name || repo}
                           </h2>
                           <div class="flex flex-wrap gap-2">
                             {localizedUseCases.map((useCase: string) => (
@@ -1251,8 +1252,8 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                 {/* Long-Tail Competitive SEO Header */}
                 <h3 class="text-[var(--background)]/80 font-mono text-sm max-w-2xl font-normal">
                   {locale === 'zh'
-                    ? `寻找 ${skill.name || repo} 的替代方案 (Alternative) 或搭配使用的同类 ${category || 'AI'} MCP Server？探索以下热门开源大模型开发组件。`
-                    : `Looking for an alternative to ${skill.name || repo} or building a ${category || 'custom'} AI Agent? Explore these related open-source MCP Servers.`}
+                    ? `寻找 ${skill.name || repo} 的替代方案 (Alternative) 或可搭配使用的同类 ${category || 'AI'} Skill？探索以下相关开源技能。`
+                    : `Looking for an alternative to ${skill.name || repo} or another ${category || 'custom'} skill for your workflow? Explore these related open-source skills.`}
                 </h3>
               </div>
               <a
@@ -1298,7 +1299,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                 typeof col.data.title === 'object'
                   ? col.data.title[typedLocale] || col.data.title['en'] || 'Collection'
                   : col.data.title;
-              const cleanSlug = col.id.replace(/\.json$/, '');
+              const cleanSlug = getCollectionCanonicalSlug(col);
               return (
                 <a
                   href={`/${locale}/collections/${cleanSlug}`}

@@ -1,77 +1,119 @@
 {
   "title": {
-    "en": "Best MCP Servers for Data Analysis",
-    "zh": "数据分析和可视化的最佳 MCP 服务器",
-    "ja": "データ分析に最適なMCPサーバー",
-    "ko": "데이터 분석을 위한 최고의 MCP 서버",
-    "es": "Mejores servidores MCP de for data analysis en 2024",
-    "fr": "Meilleurs serveurs MCP for data analysis en 2024",
-    "de": "Beste MCP-Server for data analysis 2024",
-    "pt": "Melhores servidores MCP for data analysis em 2024",
-    "ru": "Лучшие MCP серверы for data analysis 2024",
-    "ar": "أفضل خوادم MCP for data analysis لعام 2024"
+    "en": "Top Data Workflow & Analysis Tools",
+    "zh": "数据工作流与分析工具精选",
+    "ja": "データワークフローと分析ツール集",
+    "ko": "데이터 워크플로 및 분석 도구 모음",
+    "es": "Herramientas de workflow y análisis de datos",
+    "fr": "Outils de workflow et d’analyse de données",
+    "de": "Tools für Daten-Workflows und Analyse",
+    "pt": "Ferramentas de workflow e análise de dados",
+    "ru": "Инструменты для data-workflow и аналитики",
+    "ar": "أدوات سير عمل البيانات والتحليل"
   },
   "description": {
-    "en": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "zh": "发现让 AI 智能体能够执行数据分析、数据库查询并从数据中获取洞察的 MCP 服务器。",
-    "ja": "AIエージェントがデータ分析、データベースクエリを実行し、データから洞察を生成できるMCPサーバーを発見します。",
-    "ko": "AI 에이전트가 데이터 분석, 데이터베이스 쿼리 수행, 데이터에서 인사이트 생성을 가능하게 하는 MCP 서버를 발견하세요.",
-    "es": "Explora los mejores servidores MCP para for data analysis. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for data analysis. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for data analysis. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for data analysis. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for data analysis. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for data analysis. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Explore tools for data workflows, notebooks, query automation, and pipeline operations with integration-ready companion capabilities.",
+    "zh": "聚焦数据工作流、Notebook、查询自动化与管道运维，并提供可集成的配套能力。",
+    "ja": "データワークフロー、ノートブック、クエリ自動化、パイプライン運用に使える連携前提のツールを厳選。",
+    "ko": "데이터 워크플로, 노트북, 쿼리 자동화, 파이프라인 운영을 위한 통합 친화형 도구를 제공합니다.",
+    "es": "Descubre herramientas para workflows de datos, notebooks, automatización de consultas y operaciones de pipelines con capacidades de integración.",
+    "fr": "Découvrez des outils pour les workflows data, notebooks, automatisation des requêtes et opérations de pipeline avec des capacités prêtes à intégrer.",
+    "de": "Entdecke Tools für Daten-Workflows, Notebooks, Query-Automatisierung und Pipeline-Betrieb mit integrationsfähigen Begleitfunktionen.",
+    "pt": "Explore ferramentas para workflows de dados, notebooks, automação de consultas e operações de pipelines com capacidades prontas para integração.",
+    "ru": "Подборка инструментов для data-процессов, notebook-сред, автоматизации запросов и эксплуатации пайплайнов с готовностью к интеграции.",
+    "ar": "استكشف أدوات لسير عمل البيانات ودفاتر الملاحظات وأتمتة الاستعلامات وتشغيل خطوط المعالجة مع قدرات جاهزة للتكامل."
   },
   "seoTitle": {
-    "en": "Best MCP Servers for Data Analysis 2026 | Killer-Skills",
-    "zh": "数据分析和可视化的最佳 MCP 服务器 2026 | Killer-Skills",
-    "ja": "データ分析に最適なMCPサーバー 2026 | Killer-Skills",
-    "ko": "데이터 분석을 위한 최고의 MCP 서버 2026 | Killer-Skills",
-    "es": "Mejores servidores MCP de for data analysis en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP for data analysis en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server for data analysis 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP for data analysis em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы for data analysis 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP for data analysis لعام 2024 2026 | Killer-Skills"
+    "en": "Top Data Workflow & Analysis Tools | Killer-Skills",
+    "zh": "数据工作流、分析与管道工具 | Killer-Skills",
+    "ja": "データワークフロー・分析・パイプラインツール | Killer-Skills",
+    "ko": "데이터 워크플로·분석·파이프라인 도구 | Killer-Skills",
+    "es": "Workflow, análisis y pipelines de datos | Killer-Skills",
+    "fr": "Workflow, analyse et pipelines de données | Killer-Skills",
+    "de": "Daten-Workflow-, Analyse- und Pipeline-Tools | Killer-Skills",
+    "pt": "Workflow, análise e pipelines de dados | Killer-Skills",
+    "ru": "Инструменты data-workflow, аналитики и пайплайнов | Killer-Skills",
+    "ar": "أدوات سير عمل البيانات والتحليل وخطوط المعالجة | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "zh": "发现让 AI 智能体能够执行数据分析、数据库查询并从数据中获取洞察的 MCP 服务器。",
-    "ja": "AIエージェントがデータ分析、データベースクエリを実行し、データから洞察を生成できるMCPサーバーを発見します。",
-    "ko": "AI 에이전트가 데이터 분석, 데이터베이스 쿼리 수행, 데이터에서 인사이트 생성을 가능하게 하는 MCP 서버를 발견하세요.",
-    "es": "Explora los mejores servidores MCP para for data analysis. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for data analysis. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for data analysis. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for data analysis. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for data analysis. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for data analysis. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A focused collection for operational data analysis workflows, notebooks, and pipeline automation with MCP-enabled integrations.",
+    "zh": "面向实战数据分析流程、Notebook 与管道自动化的精选集合，支持基于 MCP 的集成扩展。",
+    "ja": "実務データ分析ワークフロー、ノートブック、パイプライン自動化に特化したコレクション。MCP対応連携もカバー。",
+    "ko": "실무형 데이터 분석 워크플로, 노트북, 파이프라인 자동화에 집중한 컬렉션으로 MCP 기반 통합을 지원합니다.",
+    "es": "Colección enfocada en workflows operativos de análisis de datos, notebooks y automatización de pipelines con integraciones habilitadas por MCP.",
+    "fr": "Collection ciblée sur les workflows opérationnels d’analyse de données, notebooks et automatisation de pipelines avec intégrations compatibles MCP.",
+    "de": "Fokussierte Sammlung für operative Datenanalyse-Workflows, Notebooks und Pipeline-Automatisierung mit MCP-fähigen Integrationen.",
+    "pt": "Coleção focada em workflows operacionais de análise de dados, notebooks e automação de pipelines com integrações habilitadas por MCP.",
+    "ru": "Фокусная коллекция для операционных процессов аналитики данных, notebook-сред и автоматизации пайплайнов с интеграциями на базе MCP.",
+    "ar": "مجموعة مركزة لسير عمل تحليل البيانات التشغيلي ودفاتر الملاحظات وأتمتة خطوط المعالجة مع تكاملات مدعومة عبر MCP."
   },
   "keywords": {
-    "en": ["mcp", "mcp server", "model context protocol", "data analysis"],
-    "zh": ["mcp", "mcp server", "model context protocol", "data analysis"],
-    "ja": ["mcp", "mcp server", "model context protocol", "data analysis"],
-    "ko": ["mcp", "mcp server", "model context protocol", "data analysis"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "mcp", "for", "data"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "mcp", "for", "data"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "mcp", "for", "data"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "mcp", "for", "data"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "mcp", "for", "data"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "mcp", "for", "data"]
+    "en": [
+      "data workflow tools",
+      "analysis automation",
+      "notebook integrations",
+      "pipeline operations",
+      "mcp data integrations"
+    ],
+    "zh": ["数据工作流工具", "分析自动化", "Notebook 集成", "管道运维", "MCP 数据集成"],
+    "ja": ["データワークフローツール", "分析自動化", "ノートブック連携", "パイプライン運用", "MCPデータ連携"],
+    "ko": ["데이터 워크플로 도구", "분석 자동화", "노트북 통합", "파이프라인 운영", "MCP 데이터 통합"],
+    "es": [
+      "herramientas de workflow de datos",
+      "automatización de análisis",
+      "integraciones de notebooks",
+      "operaciones de pipelines",
+      "integraciones de datos MCP"
+    ],
+    "fr": [
+      "outils de workflow data",
+      "automatisation de l’analyse",
+      "intégrations notebooks",
+      "opérations de pipeline",
+      "intégrations data MCP"
+    ],
+    "de": [
+      "Daten-Workflow-Tools",
+      "Analyseautomatisierung",
+      "Notebook-Integrationen",
+      "Pipeline-Operations",
+      "MCP-Datenintegrationen"
+    ],
+    "pt": [
+      "ferramentas de workflow de dados",
+      "automação de análise",
+      "integrações de notebooks",
+      "operações de pipelines",
+      "integrações de dados MCP"
+    ],
+    "ru": [
+      "инструменты data-workflow",
+      "автоматизация аналитики",
+      "интеграции с notebooks",
+      "операции с пайплайнами",
+      "интеграции данных MCP"
+    ],
+    "ar": [
+      "أدوات سير عمل البيانات",
+      "أتمتة التحليل",
+      "تكاملات دفاتر الملاحظات",
+      "تشغيل خطوط المعالجة",
+      "تكاملات بيانات MCP"
+    ]
   },
   "featured": false,
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "zh": "发现让 AI 智能体能够执行数据分析、数据库查询并从数据中获取洞察的 MCP 服务器。",
-    "ja": "AIエージェントがデータ分析、データベースクエリを実行し、データから洞察を生成できるMCPサーバーを発見します。",
-    "ko": "AI 에이전트가 데이터 분석, 데이터베이스 쿼리 수행, 데이터에서 인사이트 생성을 가능하게 하는 MCP 서버를 발견하세요.",
-    "es": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "fr": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "de": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "pt": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "ru": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data.",
-    "ar": "Discover MCP servers that enable AI agents to perform data analysis, database queries, and generate insights from your data."
+    "en": "Designed for analysts and engineering teams, this collection prioritizes tools that keep data workflows moving: from notebook exploration to production pipeline operations. MCP appears here as a capability layer that helps connect query tools, automation utilities, and operational integrations into one coherent workflow.",
+    "zh": "该集合面向分析师与工程团队，强调让数据流程真正跑起来的工具：从 Notebook 探索到生产管道运维。MCP 在这里是能力层，用于连接查询工具、自动化组件与运营集成，形成连贯工作流。",
+    "ja": "本コレクションは、分析担当者とエンジニアリングチーム向けに、ノートブック探索から本番パイプライン運用までデータフローを止めない実用ツールを重視しています。MCPは、クエリツール・自動化ユーティリティ・運用連携を一つの流れに結ぶ機能レイヤーとして位置づけています。",
+    "ko": "이 컬렉션은 분석가와 엔지니어링 팀을 위해 노트북 탐색부터 프로덕션 파이프라인 운영까지 데이터 흐름을 지속시키는 도구를 우선합니다. MCP는 쿼리 도구, 자동화 유틸리티, 운영 통합을 하나의 워크플로로 연결하는 기능 계층으로 활용됩니다.",
+    "es": "Diseñada para analistas y equipos de ingeniería, esta colección prioriza herramientas que mantienen vivo el workflow de datos: desde la exploración en notebooks hasta la operación de pipelines en producción. MCP se usa como capa de capacidades para conectar consultas, utilidades de automatización e integraciones operativas en un flujo coherente.",
+    "fr": "Conçue pour les analystes et les équipes d’ingénierie, cette collection privilégie les outils qui font avancer les workflows data, de l’exploration en notebook aux opérations de pipeline en production. MCP y intervient comme couche de capacités pour relier requêtes, utilitaires d’automatisation et intégrations opérationnelles dans un flux cohérent.",
+    "de": "Diese Sammlung richtet sich an Analysten und Engineering-Teams und priorisiert Tools, die Daten-Workflows am Laufen halten: von Notebook-Exploration bis zum Betrieb produktiver Pipelines. MCP dient hier als Fähigkeitsschicht, um Query-Tools, Automatisierungs-Utilities und operative Integrationen zu einem konsistenten Workflow zu verbinden.",
+    "pt": "Pensada para analistas e times de engenharia, esta coleção prioriza ferramentas que mantêm o workflow de dados em movimento: da exploração em notebooks à operação de pipelines em produção. MCP aparece como camada de capacidades para conectar consultas, utilitários de automação e integrações operacionais em um fluxo coerente.",
+    "ru": "Коллекция создана для аналитиков и инженерных команд и делает акцент на инструментах, поддерживающих непрерывный data-процесс: от исследований в notebook до эксплуатации production-пайплайнов. MCP здесь выступает как слой возможностей, связывающий инструменты запросов, автоматизацию и операционные интеграции в единый рабочий контур.",
+    "ar": "صُممت هذه المجموعة للمحللين وفرق الهندسة، وتركز على الأدوات التي تُبقي سير عمل البيانات مستمراً: من الاستكشاف في الدفاتر إلى تشغيل خطوط الإنتاج. ويظهر MCP كطبقة قدرات تربط أدوات الاستعلام وأدوات الأتمتة والتكاملات التشغيلية ضمن سير عمل متماسك."
   }
 }

@@ -51,7 +51,7 @@ jobs:
         run: npm run seo:frontmatter:guard
 
       - name: Astro Check (TypeScript + Astro diagnostics)
-        run: npx astro check --root .
+        run: npm run check:astro
 
   test:
     if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')

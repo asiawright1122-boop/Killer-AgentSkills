@@ -1,97 +1,137 @@
 {
   "title": {
-    "en": "Top 12 Next.js AI Tools & MCP Servers for Developers",
-    "zh": "Next.js 顶级AI工具与MCP服务器精选（12款）",
-    "ja": "Next.js開発者向けAIツール＆MCPサーバー トップ12",
-    "ko": "개발자를 위한 Next.js AI 도구 및 MCP 서버 TOP 12",
-    "es": "Mejores servidores MCP de nextjs en 2024",
-    "fr": "Meilleurs serveurs MCP nextjs en 2024",
-    "de": "Beste MCP-Server nextjs 2024",
-    "pt": "Melhores servidores MCP nextjs em 2024",
-    "ru": "Лучшие MCP серверы nextjs 2024",
-    "ar": "أفضل خوادم MCP nextjs لعام 2024"
+    "en": "Top Next.js AI Tools for Full-Stack Developer Workflows",
+    "zh": "Next.js 全栈开发工作流 AI 工具精选",
+    "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集",
+    "ko": "Next.js 풀스택 개발 워크플로우 AI 도구 모음",
+    "es": "Mejores herramientas de IA para workflows full-stack con Next.js",
+    "fr": "Meilleurs outils IA Next.js pour workflows full-stack",
+    "de": "Top Next.js KI-Tools für Full-Stack-Workflows",
+    "pt": "Melhores ferramentas de IA Next.js para workflows full-stack",
+    "ru": "Лучшие Next.js AI-инструменты для full-stack workflow",
+    "ar": "أفضل أدوات Next.js للذكاء الاصطناعي لسير عمل التطوير الكامل"
   },
   "description": {
-    "en": "A professionally curated collection of the most powerful AI agents, MCP servers, and Claude extensions specifically designed for the Next.js ecosystem. This directory helps developers automate code reviews, streamline documentation, optimize SEO, generate UI components, and enhance productivity with intelligent, AI-driven tools.",
-    "zh": "专为Next.js生态系统精心挑选的强大AI智能体、MCP服务器和Claude扩展合集。本目录帮助开发者自动化代码审查、简化文档、优化SEO、生成UI组件，并通过智能AI工具显著提升开发效率。",
-    "ja": "Next.jsエコシステムに特化した、最も強力なAI Agent、MCPサーバー、Claude拡張機能のプロフェッショナルな厳選コレクションです。このディレクトリは、開発者がコードレビューの自動化、ドキュメントの効率化、SEOの最適化、UIコンポーネントの生成、そしてインテリジェントなAI駆動ツールによる生産性向上を支援します。",
-    "ko": "Next.js 생태계에 특화된 가장 강력한 AI Agent, MCP 서버, Claude 확장 프로그램들을 전문적으로 선별하여 모았습니다. 이 디렉토리는 개발자들이 AI 기반의 지능형 도구를 활용하여 코드 검토 자동화, 문서화 간소화, SEO 최적화, UI 컴포넌트 생성, 생산성 향상 등을 이룰 수 있도록 돕습니다.",
-    "es": "Explora los mejores servidores MCP para nextjs. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour nextjs. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für nextjs. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para nextjs. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для nextjs. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ nextjs. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A curated Next.js toolkit for full-stack workflows: routing, content pipelines, API integration, testing, release automation, and deployment helpers.",
+    "zh": "面向 Next.js 全栈场景的工具集合，覆盖路由、内容流水线、API 集成、测试、发布自动化与部署辅助。",
+    "ja": "ルーティング、コンテンツパイプライン、API 連携、テスト、自動リリース、デプロイ補助まで、Next.js のフルスタック開発を支える厳選ツール集です。",
+    "ko": "라우팅, 콘텐츠 파이프라인, API 통합, 테스트, 릴리스 자동화, 배포 헬퍼까지 Next.js 풀스택 개발을 지원하는 컬렉션입니다.",
+    "es": "Toolkit curado para Next.js y workflows full-stack: routing, pipelines de contenido, integración API, testing, automatización de releases y despliegue.",
+    "fr": "Boîte à outils Next.js pour workflows full-stack: routing, pipelines de contenu, intégrations API, tests, automatisation des releases et déploiement.",
+    "de": "Kuratiertes Next.js-Toolkit für Full-Stack-Workflows: Routing, Content-Pipelines, API-Integration, Testing, Release-Automatisierung und Deployment-Helfer.",
+    "pt": "Toolkit curado de Next.js para workflows full-stack: roteamento, pipelines de conteúdo, integração API, testes, automação de release e deploy.",
+    "ru": "Кураторский набор инструментов Next.js для full-stack workflow: роутинг, контент-пайплайны, API-интеграции, тесты, автоматизация релизов и деплой.",
+    "ar": "حزمة أدوات منتقاة لـ Next.js لسير عمل التطوير الكامل: التوجيه، وخطوط المحتوى، وتكاملات API، والاختبارات، وأتمتة الإصدار، ومساعدات النشر."
   },
   "seoTitle": {
-    "en": "Best Next.js AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳Next.js AI工具与MCP服务器 | Killer-Skills",
-    "ja": "Next.js AIツール＆MCPサーバー厳選 | Killer-Skills",
-    "ko": "최고의 Next.js AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de nextjs en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP nextjs en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server nextjs 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP nextjs em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы nextjs 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP nextjs لعام 2024 2026 | Killer-Skills"
+    "en": "Top Next.js AI Tools for Full-Stack Developer Workflows | Killer-Skills",
+    "zh": "Next.js AI 工具：路由、内容与部署工作流 | Killer-Skills",
+    "ja": "Next.js AI ツール：ルーティング・コンテンツ・デプロイ | Killer-Skills",
+    "ko": "Next.js AI 도구: 라우팅·콘텐츠·배포 워크플로우 | Killer-Skills",
+    "es": "Mejores herramientas de IA para workflows full-stack con Next.js",
+    "fr": "Outils IA Next.js pour routing, contenu et déploiement | Killer-Skills",
+    "de": "Top Next.js KI-Tools für Full-Stack-Workflows | Killer-Skills",
+    "pt": "Ferramentas IA Next.js para roteamento, conteúdo e deploy | Killer-Skills",
+    "ru": "Лучшие Next.js AI-инструменты для full-stack workflow",
+    "ar": "أفضل أدوات Next.js للذكاء الاصطناعي لسير عمل التطوير الكامل | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top 12 AI tools for Next.js: code review, SEO optimization, docs automation & more. Boost your development workflow with curated MCP servers.",
-    "zh": "探索12款顶级Next.js AI工具：代码审查、SEO优化、文档自动化等。通过精选MCP服务器提升您的开发工作流。",
-    "ja": "Next.js向けAIツール トップ12：コードレビュー、SEO最適化、ドキュメント自動化など。厳選MCPサーバーで開発ワークフローを加速。",
-    "ko": "Next.js를 위한 AI 도구 TOP 12를 만나보세요: 코드 검토, SEO 최적화, 문서 자동화 등. 엄선된 MCP 서버로 개발 워크플로우를 혁신하세요.",
-    "es": "Explora los mejores servidores MCP para nextjs. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour nextjs. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für nextjs. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para nextjs. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для nextjs. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ nextjs. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Explore Next.js AI tools for full-stack coding workflows, including routing, content updates, API integration, testing, and deployment automation.",
+    "zh": "探索用于 Next.js 全栈编码工作流的 AI 工具，包括路由、内容更新、API 集成、测试与部署自动化。",
+    "ja": "ルーティング、コンテンツ更新、API 連携、テスト、デプロイ自動化を含む Next.js フルスタック開発向け AI ツールを紹介します。",
+    "ko": "라우팅, 콘텐츠 업데이트, API 통합, 테스트, 배포 자동화를 포함한 Next.js 풀스택 코딩 워크플로우용 AI 도구를 살펴보세요.",
+    "es": "Explora herramientas IA para Next.js orientadas a workflows full-stack: routing, contenido, integración API, testing y automatización de despliegue.",
+    "fr": "Découvrez des outils IA Next.js pour workflows full-stack: routing, contenu, intégration API, tests et automatisation du déploiement.",
+    "de": "Entdecke Next.js-KI-Tools für Full-Stack-Workflows: Routing, Content-Updates, API-Integration, Testing und Deployment-Automatisierung.",
+    "pt": "Explore ferramentas de IA para Next.js em workflows full-stack: roteamento, conteúdo, integração API, testes e automação de deploy.",
+    "ru": "Изучите Next.js AI-инструменты для full-stack разработки: routing, обновление контента, API-интеграции, тестирование и автоматизация деплоя.",
+    "ar": "استكشف أدوات الذكاء الاصطناعي لـ Next.js لسير عمل التطوير الكامل، بما في ذلك التوجيه وتحديث المحتوى وتكامل API والاختبارات وأتمتة النشر."
   },
   "keywords": {
     "en": [
-      "Best nextjs AI tools",
-      "Top MCP servers for nextjs",
-      "nextjs AI agents",
-      "nextjs developer tools",
-      "nextjs automation",
-      "AI code review nextjs",
-      "nextjs SEO optimization"
+      "nextjs ai tools",
+      "nextjs full-stack workflows",
+      "nextjs routing tools",
+      "nextjs content workflow",
+      "nextjs deployment automation",
+      "nextjs developer utilities"
     ],
     "zh": [
-      "最佳Next.js AI工具",
-      "Next.js MCP服务器",
-      "Next.js AI智能体",
-      "Next.js开发工具",
-      "Next.js自动化",
-      "AI代码审查Next.js",
-      "Next.js SEO优化"
+      "Next.js AI 工具",
+      "Next.js 全栈工作流",
+      "Next.js 路由工具",
+      "Next.js 内容工作流",
+      "Next.js 部署自动化",
+      "Next.js 开发者工具"
     ],
     "ja": [
-      "Best nextjs AI tools",
-      "Top MCP servers for nextjs",
-      "nextjs AI agents",
-      "nextjs developer tools",
-      "nextjs automation",
-      "AI code review nextjs",
-      "nextjs SEO optimization"
+      "nextjs ai ツール",
+      "nextjs フルスタックワークフロー",
+      "nextjs ルーティングツール",
+      "nextjs コンテンツワークフロー",
+      "nextjs デプロイ自動化",
+      "nextjs 開発ユーティリティ"
     ],
     "ko": [
-      "Best nextjs AI tools",
-      "Top MCP servers for nextjs",
-      "nextjs AI agents",
-      "nextjs developer tools",
-      "nextjs automation",
-      "AI code review nextjs",
-      "nextjs SEO optimization"
+      "nextjs ai 도구",
+      "nextjs 풀스택 워크플로우",
+      "nextjs 라우팅 도구",
+      "nextjs 콘텐츠 워크플로우",
+      "nextjs 배포 자동화",
+      "nextjs 개발자 유틸리티"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "nextjs"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "nextjs"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "nextjs"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "nextjs"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "nextjs"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "nextjs"]
+    "es": [
+      "herramientas ia nextjs",
+      "workflows full-stack nextjs",
+      "routing nextjs",
+      "workflow de contenido nextjs",
+      "automatización de despliegue nextjs",
+      "utilidades nextjs"
+    ],
+    "fr": [
+      "outils ia nextjs",
+      "workflows full-stack nextjs",
+      "routing nextjs",
+      "workflow contenu nextjs",
+      "automatisation déploiement nextjs",
+      "utilitaires nextjs"
+    ],
+    "de": [
+      "nextjs ki tools",
+      "nextjs full-stack-workflows",
+      "nextjs routing tools",
+      "nextjs content-workflow",
+      "nextjs deployment-automatisierung",
+      "nextjs utilities"
+    ],
+    "pt": [
+      "ferramentas ia nextjs",
+      "workflows full-stack nextjs",
+      "ferramentas de roteamento nextjs",
+      "workflow de conteúdo nextjs",
+      "automação de deploy nextjs",
+      "utilitários nextjs"
+    ],
+    "ru": [
+      "nextjs ai инструменты",
+      "nextjs full-stack workflow",
+      "инструменты routing nextjs",
+      "контентный workflow nextjs",
+      "автоматизация деплоя nextjs",
+      "утилиты nextjs"
+    ],
+    "ar": [
+      "أدوات ذكاء اصطناعي Next.js",
+      "سير عمل Next.js الكامل",
+      "أدوات توجيه Next.js",
+      "سير عمل المحتوى Next.js",
+      "أتمتة نشر Next.js",
+      "أدوات مطور Next.js"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-nextjs-ai-tools-full-stack-developer-workflows",
+  "legacySlugs": ["top-nextjs-mcp-servers"],
   "category": "nextjs",
   "author": "Killer-Skills AI",
   "skills": [
@@ -109,15 +149,15 @@
     "co-r-e/dexcode"
   ],
   "longDescription": {
-    "en": "In today's rapidly evolving web development landscape, Next.js developers are constantly seeking innovative ways to accelerate their workflows, enhance application performance, and deliver exceptional user experiences. The integration of artificial intelligence has emerged as a game-changer, transforming how we build, test, and deploy modern web applications. This is precisely why we've meticulously curated the 'Top 12 Next.js AI Tools & MCP Servers for Developers' collection. This isn't just another list; it's a professionally vetted directory of the most powerful AI agents, cutting-edge MCP servers, and intelligent Claude extensions specifically engineered to supercharge your Next.js projects. Imagine automating tedious code reviews, generating comprehensive documentation with a single prompt, optimizing your application's SEO effortlessly, or even designing intricate UI components in seconds – these are the real-world workflow improvements these nextjs AI tools unlock. Our selection focuses on practical solutions that leverage AI to automate repetitive tasks, provide insightful code suggestions, and streamline complex development processes. Whether you're looking for an AI agent to refactor legacy code, an MCP server to manage your microservices architecture, or a specialized Claude extension to enhance your development environment, this collection offers unparalleled value. We understand the unique challenges Next.js developers face, and each tool here has been chosen for its ability to significantly boost productivity, reduce development cycles, and ultimately, help you build more robust and scalable Next.js applications with intelligent, AI-driven capabilities.",
-    "zh": "在当今快速发展的网络开发领域，Next.js 开发者一直在寻求创新方法来加速工作流程、提升应用程序性能并提供卓越的用户体验。人工智能的整合已成为颠覆性力量，改变了我们构建、测试和部署现代网络应用程序的方式。这正是我们精心策划“Next.js 开发者必备的 12 款顶级 AI 工具和 MCP 服务器”系列的原因。这不仅仅是另一个列表；它是一个经过专业审查的目录，其中包含最强大的 AI 代理、尖端的 MCP 服务器和智能 Claude 扩展，它们专为您的 Next.js 项目而设计。想象一下自动化繁琐的代码审查、通过一个提示生成全面的文档、轻松优化应用程序的 SEO，甚至在几秒钟内设计复杂的 UI 组件——这些都是这些 Next.js AI 工具所能实现的实际工作流程改进。我们的选择侧重于利用 AI 自动化重复任务、提供富有洞察力的代码建议并简化复杂开发流程的实用解决方案。无论您是寻找用于重构旧代码的 AI 代理、用于管理微服务架构的 MCP 服务器，还是用于增强开发环境的专用 Claude 扩展，此系列都能提供无与伦比的价值。我们了解 Next.js 开发者面临的独特挑战，这里的每个工具都因其能够显著提高生产力、缩短开发周期并最终帮助您构建更健壮、更具可扩展性的 Next.js 应用程序而入选，所有这些都得益于智能的 AI 驱动功能。",
-    "ja": "今日の急速に進化するウェブ開発の状況において、Next.js 開発者はワークフローを加速し、アプリケーションのパフォーマンスを向上させ、優れたユーザーエクスペリエンスを提供するための革新的な方法を常に模索しています。人工知能の統合は、私たちが最新のウェブアプリケーションを構築、テスト、デプロイする方法を変革するゲームチェンジャーとして登場しました。まさにこの理由から、私たちは「Next.js 開発者向けトップ12 AIツール＆MCPサーバー」コレクションを綿密にキュレーションしました。これは単なるリストではありません。Next.js プロジェクトを大幅に強化するために特別に設計された、最も強力な AI エージェント、最先端の MCP サーバー、そしてインテリジェントな Claude 拡張機能の専門的に精査されたディレクトリです。退屈なコードレビューの自動化、単一のプロンプトで包括的なドキュメントの生成、アプリケーションの SEO の楽な最適化、あるいは複雑な UI コンポーネントを数秒で設計することさえ想像してみてください。これらは、これらの Next.js AI ツールが実現する現実世界のワークフロー改善です。私たちの選択は、AI を活用して反復的なタスクを自動化し、洞察に富んだコードの提案を提供し、複雑な開発プロセスを合理化する実用的なソリューションに焦点を当てています。レガシーコードをリファクタリングする AI エージェント、マイクロサービスアーキテクチャを管理する MCP サーバー、または開発環境を強化する専門の Claude 拡張機能を探している場合でも、このコレクションは比類のない価値を提供します。私たちは Next.js 開発者が直面する独自の課題を理解しており、ここにある各ツールは、生産性を大幅に向上させ、開発サイクルを短縮し、最終的にインテリジェントな AI 駆動機能でより堅牢でスケーラブルな Next.js アプリケーションを構築するのに役立つ能力で選ばれています。",
-    "ko": "오늘날 빠르게 진화하는 웹 개발 환경에서 Next.js 개발자들은 워크플로우를 가속화하고, 애플리케이션 성능을 향상시키며, 뛰어난 사용자 경험을 제공하기 위한 혁신적인 방법을 끊임없이 모색하고 있습니다. 인공지능의 통합은 우리가 현대 웹 애플리케이션을 구축, 테스트 및 배포하는 방식을 변화시키는 게임 체인저로 부상했습니다. 바로 이러한 이유로 저희는 'Next.js 개발자를 위한 상위 12가지 AI 도구 및 MCP 서버' 컬렉션을 세심하게 선별했습니다. 이것은 단순한 목록이 아닙니다. Next.js 프로젝트를 강력하게 지원하도록 특별히 설계된 가장 강력한 AI 에이전트, 최첨단 MCP 서버 및 지능형 Claude 확장 기능에 대한 전문적으로 검증된 디렉토리입니다. 지루한 코드 검토를 자동화하고, 단일 프롬프트로 포괄적인 문서를 생성하며, 애플리케이션의 SEO를 손쉽게 최적화하거나, 심지어 복잡한 UI 구성 요소를 몇 초 만에 설계하는 것을 상상해보십시오. 이것이 바로 이러한 Next.js AI 도구들이 제공하는 실제 워크플로우 개선 사항입니다. 저희의 선택은 AI를 활용하여 반복적인 작업을 자동화하고, 통찰력 있는 코드 제안을 제공하며, 복잡한 개발 프로세스를 간소화하는 실용적인 솔루션에 중점을 둡니다. 레거시 코드를 리팩토링할 AI 에이전트, 마이크로서비스 아키텍처를 관리할 MCP 서버, 또는 개발 환경을 향상시킬 전문 Claude 확장 기능을 찾고 계시다면, 이 컬렉션은 비교할 수 없는 가치를 제공합니다. 저희는 Next.js 개발자들이 직면하는 고유한 과제를 이해하고 있으며, 여기에 있는 각 도구는 생산성을 크게 높이고, 개발 주기를 단축하며, 궁극적으로 지능적인 AI 기반 기능으로 더욱 강력하고 확장 가능한 Next.js 애플리케이션을 구축하는 데 도움이 되는 능력 때문에 선정되었습니다.",
-    "es": "En el panorama actual de desarrollo web en rápida evolución, los desarrolladores de Next.js buscan constantemente formas innovadoras de acelerar sus flujos de trabajo, mejorar el rendimiento de las aplicaciones y ofrecer experiencias de usuario excepcionales. La integración de la inteligencia artificial ha surgido como un cambio de juego, transformando la forma en que construimos, probamos e implementamos aplicaciones web modernas. Esta es precisamente la razón por la que hemos curado meticulosamente la colección 'Las 12 Mejores Herramientas de IA y Servidores MCP para Desarrolladores de Next.js'. Esto no es solo otra lista; es un directorio profesionalmente verificado de los agentes de IA más potentes, servidores MCP de vanguardia y extensiones inteligentes de Claude diseñadas específicamente para potenciar sus proyectos Next.js. Imagine automatizar revisiones de código tediosas, generar documentación completa con una sola indicación, optimizar el SEO de su aplicación sin esfuerzo o incluso diseñar componentes de UI intrincados en segundos: estas son las mejoras de flujo de trabajo del mundo real que estas herramientas de IA para Next.js desbloquean. Nuestra selección se centra en soluciones prácticas que aprovechan la IA para automatizar tareas repetitivas, proporcionar sugerencias de código perspicaces y agilizar procesos de desarrollo complejos. Ya sea que esté buscando un agente de IA para refactorizar código heredado, un servidor MCP para administrar su arquitectura de microservicios o una extensión especializada de Claude para mejorar su entorno de desarrollo, esta colección ofrece un valor inigualable. Entendemos los desafíos únicos que enfrentan los desarrolladores de Next.js, y cada herramienta aquí ha sido elegida por su capacidad para aumentar significativamente la productividad, reducir los ciclos de desarrollo y, en última instancia, ayudarlo a construir aplicaciones Next.js más robustas y escalables con capacidades inteligentes impulsadas por IA.",
-    "fr": "Dans le paysage en constante évolution du développement web, les développeurs Next.js sont constamment à la recherche d'outils innovants pour améliorer leur productivité et optimiser leurs workflows. C'est ici que notre collection de 12 outils AI Next.js, serveurs MCP et extensions Claude intervient, conçue spécifiquement pour répondre aux besoins des développeurs travaillant dans l'écosystème Next.js. En intégrant ces outils AI dans leur processus de développement, les développeurs peuvent automatiser les révisions de code, rationaliser la documentation, optimiser le référencement SEO, générer des composants d'interface utilisateur et améliorer globalement leur productivité grâce à des outils intelligents et impulsés par l'IA. Les cas d'utilisation réels de ces outils Next.js AI sont nombreux, allant de l'amélioration de la qualité du code à la réduction des temps de développement, en passant par l'optimisation des performances des applications. Notre collection se démarque par sa sélection minutieuse des outils les plus puissants et les plus pertinents pour les développeurs Next.js, offrant ainsi une ressource unique et pratique pour tous ceux qui cherchent à exploiter pleinement le potentiel de l'IA dans leur travail.",
-    "de": "In der ständig sich verändernden Landschaft der Webentwicklung suchen Next.js-Entwickler ständig nach innovativen Tools, um ihre Produktivität zu steigern und ihre Workflows zu optimieren. Hier kommt unsere Sammlung von 12 Next.js-AI-Tools, MCP-Servern und Claude-Erweiterungen ins Spiel, die speziell für die Bedürfnisse von Entwicklern im Next.js-Ökosystem konzipiert wurden. Durch die Integration dieser AI-Tools in ihren Entwicklungsprozess können Entwickler Code-Reviews automatisieren, Dokumentationen rationalisieren, SEO optimieren, Benutzeroberflächenkomponenten generieren und ihre Produktivität insgesamt durch intelligente, künstliche Intelligenz-getriebene Tools steigern. Die realen Anwendungsfälle dieser Next.js-AI-Tools sind vielfältig und reichen von der Verbesserung der Codequalität bis zur Reduzierung der Entwicklungszeit und der Optimierung der Anwendungsleistung. Unsere Sammlung zeichnet sich durch ihre sorgfältige Auswahl der leistungsstärksten und relevantesten Tools für Next.js-Entwickler aus, bietet damit eine einzigartige und praktische Ressource für alle, die das volle Potenzial von KI in ihrer Arbeit ausschöpfen möchten.",
-    "pt": "No cenário em constante evolução do desenvolvimento web, os desenvolvedores Next.js estão constantemente à procura de ferramentas inovadoras para melhorar sua produtividade e otimizar seus fluxos de trabalho. É aqui que nossa coleção de 12 ferramentas AI Next.js, servidores MCP e extensões Claude entra em cena, projetada especificamente para atender às necessidades dos desenvolvedores que trabalham no ecossistema Next.js. Ao integrar essas ferramentas AI em seu processo de desenvolvimento, os desenvolvedores podem automatizar revisões de código, racionalizar documentação, otimizar SEO, gerar componentes de interface do usuário e melhorar globalmente sua produtividade por meio de ferramentas inteligentes e impulsionadas por IA. Os casos de uso reais dessas ferramentas Next.js AI são numerosos, variando desde a melhoria da qualidade do código até a redução do tempo de desenvolvimento e a otimização do desempenho das aplicações. Nossa coleção se destaca por sua seleção cuidadosa das ferramentas mais poderosas e relevantes para os desenvolvedores Next.js, oferecendo assim um recurso único e prático para todos que buscam explorar completamente o potencial da IA em seu trabalho.",
-    "ru": "В постоянно меняющемся ландшафте веб-разработки разработчики Next.js постоянно ищут инновационные инструменты, чтобы повысить свою производительность и оптимизировать свои рабочие процессы. Именно здесь наша коллекция из 12 инструментов AI Next.js, серверов MCP и расширений Claude приходит на помощь, разработанных специально для удовлетворения потребностей разработчиков, работающих в экосистеме Next.js. Интегрируя эти инструменты AI в свой процесс разработки, разработчики могут автоматизировать проверку кода, рационализировать документацию, оптимизировать SEO, генерировать компоненты пользовательского интерфейса и повысить свою производительность в целом с помощью интеллектуальных, управляемых ИИ инструментов. Реальные случаи использования этих инструментов Next.js AI разнообразны и включают в себя улучшение качества кода, снижение времени разработки и оптимизацию производительности приложений. Наша коллекция отличается тщательным отбором самых мощных и актуальных инструментов для разработчиков Next.js, предлагая тем самым уникальный и практичный ресурс для всех, кто стремится полностью использовать потенциал ИИ в своей работе.",
-    "ar": "في مشهد التطوير الويب المتغير باستمرار، يبحث المطورون Next.js دائمًا عن أدوات مبتكرة لتحسين إنتاجيتهم وتنظيم سير عملهم. यहنا يأتي دور مجموعة أدواتنا التي تضم 12 أداة Next.js للذكاء الاصطناعي وخادم MCP وامتدادات Claude، المصممة خصيصًا لتلبية احتياجات المطورين الذين يعملون في نظام Next.js. من خلال دمج هذه الأدوات الذكية في عملية التطوير، يمكن للمطورين توفير وقت المراجعة والتوثيق وتحسين محركات البحث وإنشاء مكونات واجهة المستخدم وتحسين الإنتاجية بشكل عام باستخدام أدوات ذكية مدعومة بالذكاء الاصطناعي. تتنوع الحالات العملية لهذه الأدوات Next.js للذكاء الاصطناعي، وتشمل تحسين جودة الشفرة وتقليل وقت التطوير وتحسين أداء التطبيقات. تتميز مجموعة أدواتنا بانتقائها الدقيق للأدوات الأكثر قوة وملاءمة لمطوري Next.js، مما يوفر موردًا فريدًا وعمليًا لجميع من يرغبون في استغلال إمكانيات الذكاء الاصطناعي في عملهم بشكل كامل."
+    "en": "This Next.js page is organized around full-stack workflow execution: routing and rendering decisions, content publishing pipelines, API and service integrations, quality checks, and deployment readiness. It is designed for teams that need faster iteration without sacrificing reliability across frontend and backend boundaries. Some tools may expose MCP-compatible runtime capabilities, but the main story remains skills-first engineering—shipping production features with stronger automation, testing discipline, and operational clarity.",
+    "zh": "这个 Next.js 页面围绕全栈工作流执行展开：路由与渲染决策、内容发布流水线、API 与服务集成、质量检查以及部署准备。它服务于希望加快迭代、又不牺牲前后端可靠性的团队。部分工具可能具备 MCP 兼容运行能力，但页面主叙事仍是技能优先的工程实践：以更强的自动化、测试纪律和可运维性来交付生产功能。",
+    "ja": "この Next.js ページは、フルスタックのワークフロー実行を中心に構成されています。ルーティングとレンダリング設計、コンテンツ公開パイプライン、API/サービス連携、品質チェック、デプロイ準備までを実務視点で扱います。フロントエンドとバックエンドの境界をまたいで、信頼性を維持しながら反復速度を上げたいチームに向けた内容です。MCP 互換の実行機能を持つツールが含まれる場合もありますが、主軸はあくまでスキルファーストな開発運用です。",
+    "ko": "이 Next.js 페이지는 풀스택 워크플로우 실행을 중심으로 구성됩니다. 라우팅·렌더링 의사결정, 콘텐츠 퍼블리싱 파이프라인, API/서비스 통합, 품질 검증, 배포 준비까지 실무 기준으로 다룹니다. 프런트엔드와 백엔드 경계를 넘나들며 신뢰성을 유지한 채 반복 속도를 높여야 하는 팀에 적합합니다. 일부 도구가 MCP 호환 런타임 기능을 제공할 수 있지만, 핵심 서사는 여전히 스킬 중심 엔지니어링입니다.",
+    "es": "Esta página de Next.js está organizada alrededor de la ejecución del workflow full-stack: decisiones de routing y render, pipelines de publicación de contenido, integraciones API/servicios, controles de calidad y preparación para despliegue. Está pensada para equipos que necesitan iterar más rápido sin perder fiabilidad entre frontend y backend. Algunas herramientas pueden ofrecer capacidades de runtime compatibles con MCP, pero la narrativa principal sigue siendo ingeniería skills-first: entregar funciones en producción con mejor automatización, disciplina de testing y claridad operativa.",
+    "fr": "Cette page Next.js est structurée autour de l'exécution des workflows full-stack: choix de routing/rendu, pipelines de publication de contenu, intégrations API/services, contrôles qualité et préparation au déploiement. Elle vise les équipes qui veulent accélérer l'itération sans compromettre la fiabilité entre frontend et backend. Certaines solutions peuvent proposer des capacités runtime compatibles MCP, mais l'axe principal reste une approche skills-first: livrer en production avec plus d'automatisation, de rigueur de test et de clarté opérationnelle.",
+    "de": "Diese Next.js-Seite ist auf die Ausführung von Full-Stack-Workflows ausgerichtet: Routing- und Rendering-Entscheidungen, Content-Publishing-Pipelines, API-/Service-Integrationen, Qualitätsprüfungen und Deployment-Readiness. Sie richtet sich an Teams, die schneller iterieren möchten, ohne Zuverlässigkeit zwischen Frontend und Backend zu verlieren. Einige Tools bieten MCP-kompatible Laufzeitfunktionen, doch die zentrale Erzählung bleibt skills-first Engineering: Features produktionsreif mit stärkerer Automatisierung, Testdisziplin und operativer Klarheit ausliefern.",
+    "pt": "Esta página de Next.js é organizada em torno da execução de workflows full-stack: decisões de roteamento e renderização, pipelines de publicação de conteúdo, integrações de API/serviços, checagens de qualidade e prontidão para deploy. Ela atende equipes que precisam iterar mais rápido sem perder confiabilidade entre frontend e backend. Algumas ferramentas podem oferecer capacidades de runtime compatíveis com MCP, mas a narrativa principal permanece skills-first: entregar funcionalidades em produção com mais automação, disciplina de testes e clareza operacional.",
+    "ru": "Эта страница Next.js выстроена вокруг выполнения full-stack workflow: решения по routing и рендерингу, контентные пайплайны публикации, API/сервисные интеграции, проверки качества и готовность к деплою. Она предназначена для команд, которым нужна быстрая итерация без потери надежности на стыке frontend и backend. Некоторые инструменты могут иметь MCP-совместимые runtime-возможности, но главный фокус — skills-first инженерия: выпускать production-функции с более сильной автоматизацией, тестовой дисциплиной и операционной прозрачностью.",
+    "ar": "تُنظَّم صفحة Next.js هذه حول تنفيذ سير عمل التطوير الكامل: قرارات التوجيه والعرض، وخطوط نشر المحتوى، وتكاملات API والخدمات، وفحوصات الجودة، والاستعداد للنشر. وهي موجهة للفرق التي تحتاج إلى تسريع التكرار دون التضحية بالموثوقية بين الواجهة الأمامية والخلفية. قد توفر بعض الأدوات قدرات تشغيل متوافقة مع MCP، لكن السرد الرئيسي يبقى نهجًا هندسيًا يضع المهارات أولًا: تسليم ميزات إنتاجية بأتمتة أقوى وانضباط اختباري ووضوح تشغيلي أعلى."
   }
 }

@@ -1,65 +1,130 @@
 {
   "title": {
-    "en": "Top Codex AI Tools",
-    "zh": "顶级 Codex AI 工具",
-    "ja": "Codex AIツール トップセレクション",
-    "ko": "최고의 Codex AI 도구",
-    "es": "Mejores servidores MCP de codex en 2024",
-    "fr": "Meilleurs serveurs MCP codex en 2024",
-    "de": "Beste MCP-Server codex 2024",
-    "pt": "Melhores servidores MCP codex em 2024",
-    "ru": "Лучшие MCP серверы codex 2024",
-    "ar": "أفضل خوادم MCP codex لعام 2024"
+    "en": "Top Codex Workflow Skills & Developer Integrations",
+    "zh": "顶级 Codex 工作流技能与开发者集成",
+    "ja": "Codex向けワークフロースキル＆開発連携",
+    "ko": "Codex 워크플로우 스킬 & 개발 연동",
+    "es": "Skills e integraciones de workflow para Codex",
+    "fr": "Skills et intégrations workflow pour Codex",
+    "de": "Codex-Workflow-Skills und Entwickler-Integrationen",
+    "pt": "Skills e integrações de workflow para Codex",
+    "ru": "Workflow skills и интеграции для Codex",
+    "ar": "مهارات workflow وتكاملات للمطورين مع Codex"
   },
   "description": {
-    "en": "Discover the most powerful and curated Codex AI tools for developers and AI agents. Enhance your workflow with top-tier MCP servers, code review loops, and lifecycle management solutions.",
-    "zh": "发现为开发者和 AI 代理打造的最强大、精选的 Codex AI 工具。通过顶级 MCP 服务器、代码审查循环和生命周期管理解决方案来增强您的工作流程。",
-    "ja": "開発者やAI Agent向けの、最も強力で厳選されたCodex AIツールをご紹介します。最高級のMCPサーバー、コードレビュー、ライフサイクル管理ソリューションでワークフローを強化しましょう。",
-    "ko": "개발자와 AI Agent를 위한 가장 강력하고 엄선된 Codex AI 도구를 만나보세요. 최고 수준의 MCP 서버, 코드 검토 루프 및 라이프사이클 관리 솔루션으로 워크플로우를 향상시키세요.",
-    "es": "Explora los mejores servidores MCP para codex. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour codex. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für codex. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para codex. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для codex. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ codex. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A curated toolkit for Codex/OpenAI coding workflows, featuring reusable skills, automation helpers, and companion integrations for review, quality checks, and team delivery processes.",
+    "zh": "面向 Codex/OpenAI 编码工作流的精选工具集，包含可复用技能、自动化助手与配套集成，用于评审、质量校验和团队交付流程。",
+    "ja": "Codex/OpenAIのコーディングワークフロー向けに、再利用可能なスキル、自動化ヘルパー、レビューや品質チェック、チーム開発に役立つ連携ツールを厳選しました。",
+    "ko": "Codex/OpenAI 코딩 워크플로우를 위한 큐레이션 도구 모음입니다. 재사용 가능한 스킬, 자동화 헬퍼, 리뷰·품질 점검·팀 전달 프로세스를 위한 연동 도구를 제공합니다.",
+    "es": "Toolkit curado para workflows de código con Codex/OpenAI, con skills reutilizables, helpers de automatización e integraciones companion para revisión, calidad y entrega en equipo.",
+    "fr": "Toolkit curé pour les workflows de code Codex/OpenAI: skills réutilisables, aides d’automatisation et intégrations companion pour review, qualité et delivery d’équipe.",
+    "de": "Kuratiertes Toolkit für Codex/OpenAI-Coding-Workflows mit wiederverwendbaren Skills, Automationshelfern und Companion-Integrationen für Reviews, Qualitätschecks und Team-Delivery.",
+    "pt": "Toolkit curado para workflows de código com Codex/OpenAI, com skills reutilizáveis, helpers de automação e integrações companion para revisão, qualidade e entrega em equipe.",
+    "ru": "Кураторский toolkit для Codex/OpenAI coding workflow: переиспользуемые skills, automation-helpers и companion-интеграции для ревью, quality-check и командной поставки.",
+    "ar": "حزمة أدوات منتقاة لمسارات ترميز Codex/OpenAI، تتضمن مهارات قابلة لإعادة الاستخدام ومساعدات أتمتة وتكاملات مرافقة للمراجعة وفحوصات الجودة وعمليات التسليم الجماعي."
   },
   "seoTitle": {
-    "en": "Best Codex AI Tools & MCP Servers",
-    "zh": "最佳 Codex AI 工具和 MCP 服务器",
-    "ja": "最高のCodex AIツールとMCPサーバー",
-    "ko": "최고의 Codex AI 도구 & MCP 서버",
-    "es": "Mejores servidores MCP de codex en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP codex en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server codex 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP codex em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы codex 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP codex لعام 2024 2026 | Killer-Skills"
+    "en": "Top Codex Workflow Skills & Developer Integrations | Killer-Skills",
+    "zh": "Codex 编码工作流与自动化工具 | Killer-Skills",
+    "ja": "Codex向けコーディングワークフロー＆自動化ツール | Killer-Skills",
+    "ko": "Codex 코딩 워크플로우 & 자동화 도구 | Killer-Skills",
+    "es": "Herramientas Codex para workflow y automatización | Killer-Skills",
+    "fr": "Outils Codex pour workflow et automatisation | Killer-Skills",
+    "de": "Codex-Tools für Workflow und Automatisierung | Killer-Skills",
+    "pt": "Ferramentas Codex para workflow e automação | Killer-Skills",
+    "ru": "Инструменты Codex для workflow и автоматизации | Killer-Skills",
+    "ar": "أدوات Codex لسير العمل والأتمتة | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Explore the top Codex AI tools and MCP servers for enhanced AI agent development. Curated list of the best resources for code review, team lifecycle, and more.",
-    "zh": "探索顶级 Codex AI 工具和 MCP 服务器，以增强 AI 代理开发。精选最佳代码审查、团队生命周期等资源列表。",
-    "ja": "AI Agent開発を加速するCodex AIツールとMCPサーバーを探索。コードレビュー、チームライフサイクルなどに最適な厳選リソース集。",
-    "ko": "향상된 AI Agent 개발을 위한 최고의 Codex AI 도구 및 MCP 서버를 살펴보세요. 코드 검토, 팀 라이프사이클 등을 위한 엄선된 리소스 목록입니다.",
-    "es": "Explora los mejores servidores MCP para codex. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour codex. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für codex. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para codex. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для codex. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ codex. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover Codex-compatible skills and integrations for code review, quality automation, and faster team workflows.",
+    "zh": "发现适配 Codex 的技能与集成，用于代码评审、质量自动化与团队提效。",
+    "ja": "コードレビュー、品質自動化、チーム開発の高速化に役立つCodex対応スキルと連携を紹介。",
+    "ko": "코드 리뷰, 품질 자동화, 팀 워크플로우 가속에 유용한 Codex 호환 스킬과 연동을 찾아보세요.",
+    "es": "Descubre skills e integraciones compatibles con Codex para code review, automatización de calidad y workflows de equipo más rápidos.",
+    "fr": "Découvrez des skills et intégrations compatibles Codex pour la code review, l’automatisation qualité et des workflows d’équipe plus rapides.",
+    "de": "Entdecke Codex-kompatible Skills und Integrationen für Code-Review, Qualitätsautomatisierung und schnellere Team-Workflows.",
+    "pt": "Descubra skills e integrações compatíveis com Codex para revisão de código, automação de qualidade e workflows de equipe mais rápidos.",
+    "ru": "Изучите совместимые с Codex skills и интеграции для code review, quality automation и ускорения командных workflow.",
+    "ar": "اكتشف مهارات وتكاملات متوافقة مع Codex لمراجعة الكود وأتمتة الجودة وتسريع سير عمل الفريق."
   },
   "keywords": {
-    "en": ["codex", "AI tools", "MCP servers", "code review", "AI agents", "development"],
-    "zh": ["codex", "AI 工具", "MCP 服务器", "代码审查", "AI 代理", "开发"],
-    "ja": ["codex", "AI tools", "MCP servers", "code review", "AI agents", "development"],
-    "ko": ["codex", "AI tools", "MCP servers", "code review", "AI agents", "development"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "codex"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "codex"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "codex"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "codex"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "codex"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "codex"]
+    "en": [
+      "codex workflow",
+      "openai coding tools",
+      "developer automation",
+      "code review skills",
+      "quality checks",
+      "workflow integrations"
+    ],
+    "zh": ["Codex 工作流", "OpenAI 编码工具", "开发者自动化", "代码评审技能", "质量检查", "流程集成"],
+    "ja": [
+      "codex workflow",
+      "openai coding tools",
+      "developer automation",
+      "code review skills",
+      "quality checks",
+      "workflow integrations"
+    ],
+    "ko": [
+      "codex workflow",
+      "openai coding tools",
+      "developer automation",
+      "code review skills",
+      "quality checks",
+      "workflow integrations"
+    ],
+    "es": [
+      "workflow codex",
+      "herramientas de código openai",
+      "automatización developer",
+      "skills de review",
+      "quality checks",
+      "integraciones"
+    ],
+    "fr": [
+      "workflow codex",
+      "outils de code openai",
+      "automatisation développeur",
+      "skills de review",
+      "quality checks",
+      "intégrations"
+    ],
+    "de": [
+      "Codex-Workflow",
+      "OpenAI-Coding-Tools",
+      "Developer-Automatisierung",
+      "Code-Review-Skills",
+      "Qualitätschecks",
+      "Workflow-Integrationen"
+    ],
+    "pt": [
+      "workflow codex",
+      "ferramentas de código openai",
+      "automação developer",
+      "skills de review",
+      "quality checks",
+      "integrações"
+    ],
+    "ru": [
+      "codex workflow",
+      "openai coding tools",
+      "автоматизация разработчика",
+      "skills code review",
+      "quality checks",
+      "workflow интеграции"
+    ],
+    "ar": [
+      "workflow Codex",
+      "أدوات ترميز OpenAI",
+      "أتمتة للمطور",
+      "مهارات مراجعة الكود",
+      "فحوصات الجودة",
+      "تكاملات workflow"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-codex-workflow-skills-developer-integrations",
+  "legacySlugs": ["top-codex-mcp-servers"],
   "category": "codex",
   "author": "Killer-Skills AI",
   "skills": [
@@ -75,15 +140,15 @@
     "janekbaraniewski/openusage"
   ],
   "longDescription": {
-    "en": "In today's rapidly evolving software development landscape, where efficiency and precision are paramount, developers are constantly seeking cutting-edge solutions to streamline their workflows and elevate their projects. The demand for sophisticated automation and intelligent assistance has never been higher, especially when dealing with complex codebases and intricate deployment pipelines. This is precisely why our curated collection of Top Codex AI Tools is an indispensable resource. We understand the challenges developers face, from managing robust MCP servers to navigating intricate code review loops and ensuring seamless lifecycle management. These aren't just generic utilities; they are powerful, purpose-built codex AI tools designed to integrate effortlessly into your existing development environment, offering unparalleled support for everything from initial code generation to final deployment. Imagine an AI agent that intelligently suggests optimizations, automates repetitive tasks, and even helps identify potential vulnerabilities before they become critical issues. Our selection empowers you to achieve faster iteration cycles, reduce human error, and ultimately deliver higher-quality software. Each of the 10 tools featured here has been rigorously vetted for its performance, reliability, and ability to significantly enhance developer productivity, making this the go-to destination for anyone serious about leveraging the full potential of codex AI in their development journey.",
-    "zh": "在当今快速发展的软件开发领域，效率和精确性至关重要，开发人员不断寻求尖端解决方案来简化工作流程并提升项目水平。对复杂自动化和智能辅助的需求从未如此之高，尤其是在处理复杂代码库和错综复杂的部署管道时。这正是我们精选的“顶级 Codex AI 工具”系列成为不可或缺资源的原因。我们理解开发人员面临的挑战，从管理强大的 MCP 服务器到驾驭复杂的代码审查循环，再到确保无缝的生命周期管理。这些不仅仅是通用工具；它们是功能强大、专为集成到您现有开发环境而设计的 codex AI 工具，为从初始代码生成到最终部署的一切提供无与伦比的支持。想象一个 AI 代理，它能够智能地提出优化建议，自动化重复性任务，甚至在潜在漏洞成为关键问题之前帮助识别它们。我们的精选工具使您能够实现更快的迭代周期，减少人为错误，并最终交付更高质量的软件。此处展示的 10 种工具都经过严格审查，以评估其性能、可靠性以及显著提高开发人员生产力的能力，使其成为任何认真利用 codex AI 全部潜力进行开发的人的首选目的地。",
-    "ja": "今日の急速に進化するソフトウェア開発環境では、効率性と正確性が最重要視されており、開発者はワークフローを合理化し、プロジェクトを向上させるための最先端のソリューションを常に求めています。特に複雑なコードベースや入り組んだデプロイメントパイプラインを扱う場合、高度な自動化とインテリジェントな支援への需要はかつてないほど高まっています。これが、私たちが厳選した「トップ Codex AI ツール」コレクションが不可欠なリソースである理由です。私たちは、堅牢な MCP サーバーの管理から、複雑なコードレビューサイクルへの対応、シームレスなライフサイクル管理の確保まで、開発者が直面する課題を理解しています。これらは単なる汎用ユーティリティではありません。これらは、既存の開発環境に簡単に統合できるように設計された強力で目的別の codex AI ツールであり、初期コード生成から最終デプロイメントまで、あらゆるものに比類のないサポートを提供します。インテリジェントに最適化を提案し、反復的なタスクを自動化し、潜在的な脆弱性が重大な問題になる前に特定するのに役立つ AI エージェントを想像してみてください。私たちのセレクションは、より速いイテレーションサイクルを実現し、人為的なエラーを減らし、最終的により高品質なソフトウェアを提供することを可能にします。ここに掲載されている10のツールはすべて、そのパフォーマンス、信頼性、および開発者の生産性を大幅に向上させる能力について厳密に検証されており、開発の旅で codex AI の可能性を最大限に活用することに真剣に取り組むすべての人にとって、このコレクションは頼りになる場所となっています。",
-    "ko": "효율성과 정밀성이 최우선인 오늘날의 빠르게 진화하는 소프트웨어 개발 환경에서 개발자들은 워크플로우를 간소화하고 프로젝트를 향상시키기 위한 최첨단 솔루션을 끊임없이 찾고 있습니다. 특히 복잡한 코드베이스와 복잡한 배포 파이프라인을 다룰 때, 정교한 자동화 및 지능형 지원에 대한 수요는 그 어느 때보다 높습니다. 이것이 바로 엄선된 Top Codex AI Tools 컬렉션이 필수적인 리소스인 이유입니다. 우리는 강력한 MCP 서버 관리부터 복잡한 코드 검토 루프 탐색, 원활한 수명 주기 관리 보장에 이르기까지 개발자들이 직면하는 과제를 이해합니다. 이들은 단순한 일반 유틸리티가 아닙니다. 이들은 기존 개발 환경에 손쉽게 통합되도록 설계된 강력하고 목적에 맞는 codex AI 도구로, 초기 코드 생성부터 최종 배포에 이르기까지 모든 것에 비할 데 없는 지원을 제공합니다. 지능적으로 최적화를 제안하고, 반복적인 작업을 자동화하며, 잠재적인 취약점이 심각한 문제가 되기 전에 식별하는 데 도움을 주는 AI 에이전트를 상상해 보십시오. 저희의 선택은 더 빠른 반복 주기를 달성하고, 인적 오류를 줄이며, 궁극적으로 더 높은 품질의 소프트웨어를 제공할 수 있도록 지원합니다. 여기에 소개된 10가지 도구는 모두 성능, 신뢰성, 그리고 개발자 생산성을 크게 향상시키는 능력에 대해 엄격하게 검증되었으며, 이는 개발 여정에서 codex AI의 잠재력을 최대한 활용하고자 하는 모든 사람에게 최고의 목적지가 될 것입니다.",
-    "es": "En el panorama actual del desarrollo de software, en rápida evolución, donde la eficiencia y la precisión son primordiales, los desarrolladores buscan constantemente soluciones de vanguardia para optimizar sus flujos de trabajo y elevar sus proyectos. La demanda de automatización sofisticada y asistencia inteligente nunca ha sido tan alta, especialmente cuando se trata de bases de código complejas y pipelines de despliegue intrincados. Esta es precisamente la razón por la que nuestra colección curada de Top Codex AI Tools es un recurso indispensable. Entendemos los desafíos que enfrentan los desarrolladores, desde la gestión de robustos servidores MCP hasta la navegación por complejos bucles de revisión de código y la garantía de soluciones de gestión del ciclo de vida sin interrupciones. Estas no son solo utilidades genéricas; son potentes herramientas de codex AI, diseñadas específicamente para integrarse sin esfuerzo en su entorno de desarrollo existente, ofreciendo un soporte inigualable para todo, desde la generación inicial de código hasta el despliegue final. Imagine un AI agent que sugiere optimizaciones de forma inteligente, automatiza tareas repetitivas e incluso ayuda a identificar posibles vulnerabilidades antes de que se conviertan en problemas críticos. Nuestra selección le permite lograr ciclos de iteración más rápidos, reducir el error humano y, en última instancia, entregar software de mayor calidad. Cada una de las 10 herramientas presentadas aquí ha sido rigurosamente verificada por su rendimiento, fiabilidad y capacidad para mejorar significativamente la productividad del desarrollador, lo que convierte a esta colección en el destino ideal para cualquiera que se tome en serio el aprovechamiento de todo el potencial de la codex AI en su viaje de desarrollo.",
-    "fr": "Dans le paysage numérique en constante évolution d'aujourd'hui, les développeurs sont confrontés à une pression croissante pour innover plus rapidement et avec une plus grande précision. C'est là que les outils d'IA Codex deviennent indispensables, agissant comme des catalyseurs pour rationaliser les flux de travail complexes et amplifier la productivité. Notre collection exclusive, « Top Codex AI Tools », a été méticuleusement conçue pour répondre aux besoins critiques des développeurs et des agents IA, offrant une suite inégalée de solutions qui transforment la façon dont le code est écrit, révisé et déployé. Imaginez des boucles de révision de code automatisées qui détectent les erreurs avant même qu'elles ne se manifestent, ou des serveurs MCP (Managed Code Platform) qui garantissent une évolutivité et une sécurité sans faille pour vos applications les plus exigeantes. Ces outils d'IA Codex ne sont pas de simples améliorations ; ce sont des piliers fondamentaux pour la gestion du cycle de vie du développement logiciel, permettant aux équipes de se concentrer sur l'innovation plutôt que sur les tâches répétitives. Que vous cherchiez à optimiser les performances de votre agent IA, à accélérer le développement via des API et des SDK intuitifs, ou à garantir une intégration transparente avec les outils CLI existants, notre sélection de 10 outils de pointe est votre porte d'entrée vers une efficacité et une excellence inégalées. Chaque outil a été choisi pour sa capacité éprouvée à fournir une valeur tangible, vous aidant à construire, déployer et gérer des solutions logicielles avec une confiance et une rapidité sans précédent.",
-    "de": "In der heutigen, sich ständig weiterentwickelnden digitalen Landschaft stehen Entwickler unter ständigem Druck, schneller und präziser zu innovieren. Hier werden Codex AI Tools unverzichtbar, da sie als Katalysatoren für die Rationalisierung komplexer Arbeitsabläufe und die Steigerung der Produktivität dienen. Unsere exklusive Sammlung „Top Codex AI Tools“ wurde sorgfältig zusammengestellt, um die kritischen Anforderungen von Entwicklern und AI-Agenten zu erfüllen und eine unübertroffene Suite von Lösungen anzubieten, die die Art und Weise, wie Code geschrieben, überprüft und bereitgestellt wird, transformieren. Stellen Sie sich automatisierte Code-Review-Schleifen vor, die Fehler erkennen, bevor sie überhaupt auftreten, oder MCP-Server (Managed Code Platform), die eine nahtlose Skalierbarkeit und Sicherheit für Ihre anspruchsvollsten Anwendungen gewährleisten. Diese Codex AI Tools sind nicht nur Verbesserungen; sie sind grundlegende Säulen für das Softwareentwicklungs-Lebenszyklusmanagement und ermöglichen es Teams, sich auf Innovation statt auf sich wiederholende Aufgaben zu konzentrieren. Egal, ob Sie die Leistung Ihres AI-Agenten optimieren, die Entwicklung über intuitive APIs und SDKs beschleunigen oder eine nahtlose Integration mit bestehenden CLI-Tools sicherstellen möchten, unsere kuratierte Auswahl von 10 führenden Tools ist Ihr Tor zu beispielloser Effizienz und Exzellenz. Jedes Tool wurde aufgrund seiner nachgewiesenen Fähigkeit ausgewählt, einen greifbaren Mehrwert zu liefern, und hilft Ihnen, Softwarelösungen mit beispiellosem Vertrauen und Geschwindigkeit zu erstellen, bereitzustellen und zu verwalten.",
-    "pt": "No cenário digital em constante evolução de hoje, os desenvolvedores enfrentam uma pressão crescente para inovar mais rapidamente e com maior precisão. É aqui que as ferramentas de IA Codex se tornam indispensáveis, atuando como catalisadores para simplificar fluxos de trabalho complexos e amplificar a produtividade. Nossa coleção exclusiva, “Top Codex AI Tools”, foi meticulosamente selecionada para atender às necessidades críticas de desenvolvedores e agentes de IA, oferecendo um conjunto incomparável de soluções que transformam a maneira como o código é escrito, revisado e implantado. Imagine loops de revisão de código automatizados que detectam erros antes mesmo que eles se manifestem, ou servidores MCP (Managed Code Platform) que garantem escalabilidade e segurança perfeitas para suas aplicações mais exigentes. Essas ferramentas de IA Codex não são meras melhorias; são pilares fundamentais para o gerenciamento do ciclo de vida do desenvolvimento de software, capacitando as equipes a se concentrarem na inovação em vez de tarefas repetitivas. Se você busca otimizar o desempenho do seu agente de IA, acelerar o desenvolvimento por meio de APIs e SDKs intuitivos, ou garantir uma integração perfeita com as ferramentas CLI existentes, nossa seleção de 10 ferramentas de ponta é a sua porta de entrada para eficiência e excelência inigualáveis. Cada ferramenta foi escolhida por sua capacidade comprovada de entregar valor tangível, ajudando você a construir, implantar e gerenciar soluções de software com confiança e velocidade sem precedentes.",
-    "ru": "В сегодняшнем постоянно развивающемся цифровом ландшафте разработчики сталкиваются с растущим давлением, требующим более быстрых и точных инноваций. Именно здесь инструменты Codex AI становятся незаменимыми, выступая в качестве катализаторов для оптимизации сложных рабочих процессов и повышения производительности. Наша эксклюзивная коллекция «Top Codex AI Tools» была тщательно подобрана для удовлетворения критических потребностей разработчиков и AI-агентов, предлагая беспрецедентный набор решений, которые преобразуют способ написания, проверки и развертывания кода. Представьте себе автоматизированные циклы проверки кода, которые обнаруживают ошибки еще до их появления, или серверы MCP (Managed Code Platform), которые обеспечивают бесшовную масштабируемость и безопасность для ваших самых требовательных приложений. Эти инструменты Codex AI — это не просто улучшения; это фундаментальные столпы для управления жизненным циклом разработки программного обеспечения, позволяющие командам сосредоточиться на инновациях, а не на повторяющихся задачах. Независимо от того, стремитесь ли вы оптимизировать производительность своего AI-агента, ускорить разработку с помощью интуитивно понятных API и SDK или обеспечить бесшовную интеграцию с существующими инструментами CLI, наша тщательно отобранная подборка из 10 ведущих инструментов — это ваш путь к беспрецедентной эффективности и совершенству. Каждый инструмент был выбран за его доказанную способность приносить ощутимую пользу, помогая вам создавать, развертывать и управлять программными решениями с беспрецедентной уверенностью и скоростью.",
-    "ar": "في المشهد الرقمي المتطور باستمرار اليوم، يواجه المطورون ضغطًا متزايدًا للابتكار بشكل أسرع وبدقة أكبر. وهنا تصبح أدوات Codex AI لا غنى عنها، حيث تعمل كمحفزات لتبسيط سير العمل المعقد وتعزيز الإنتاجية. تم تصميم مجموعتنا الحصرية، \"أفضل أدوات Codex AI\"، بدقة لتلبية الاحتياجات الملحة للمطورين ووكلاء الذكاء الاصطناعي، وتقدم مجموعة لا مثيل لها من الحلول التي تحول طريقة كتابة التعليمات البرمجية ومراجعتها ونشرها. تخيل حلقات مراجعة التعليمات البرمجية الآلية التي تكتشف الأخطاء قبل ظهورها، أو خوادم MCP (Managed Code Platform) التي تضمن قابلية التوسع والأمان السلس لتطبيقاتك الأكثر تطلبًا. أدوات Codex AI هذه ليست مجرد تحسينات؛ إنها ركائز أساسية لإدارة دورة حياة تطوير البرمجيات، وتمكين الفرق من التركيز على الابتكار بدلاً من المهام المتكررة. سواء كنت تسعى إلى تحسين أداء وكيل الذكاء الاصطناعي الخاص بك، أو تسريع التطوير عبر واجهات برمجة التطبيقات (APIs) ومجموعات تطوير البرامج (SDKs) البديهية، أو ضمان التكامل السلس مع أدوات CLI الموجودة، فإن مجموعتنا المختارة من 10 أدوات رائدة هي بوابتك إلى كفاءة وتميز لا مثيل لهما. تم اختيار كل أداة لقدرتها المثبتة على تقديم قيمة ملموسة، مما يساعدك على بناء ونشر وإدارة حلول برمجية بثقة وسرعة غير مسبوقتين."
+    "en": "Built for Codex/OpenAI users, this collection emphasizes reliable engineering workflows over generic tool lists. It includes reusable skills, integration-ready components, and automation helpers for review cycles, quality gates, and delivery operations. MCP-enabled options may appear when relevant, but the page is centered on practical coding workflows and day-to-day developer execution.",
+    "zh": "该专题面向 Codex/OpenAI 用户，强调稳定可执行的工程工作流，而非泛化工具堆砌。你可以找到用于评审循环、质量门禁与交付流程的可复用技能、可集成组件和自动化助手。必要时会包含 MCP 能力，但页面中心始终是实用编码工作流与日常开发执行效率。",
+    "ja": "Codex/OpenAI利用者向けに、一般的なツール羅列ではなく、再現性のある開発ワークフローに重点を置いたコレクションです。レビューサイクル、品質ゲート、デリバリー運用に使える再利用スキルと連携可能コンポーネントを収録。必要に応じてMCP対応も含みますが、主軸は実務的なコーディング運用です。",
+    "ko": "Codex/OpenAI 사용자를 위해 구성된 이 컬렉션은 단순한 도구 나열보다 안정적인 엔지니어링 워크플로우에 초점을 둡니다. 리뷰 사이클, 품질 게이트, 전달 운영을 위한 재사용 스킬·연동 컴포넌트·자동화 헬퍼를 제공합니다. 필요 시 MCP 지원 옵션이 포함될 수 있지만 중심은 실무 코딩 워크플로우입니다.",
+    "es": "Pensada para usuarios de Codex/OpenAI, esta colección prioriza workflows de ingeniería confiables por encima de listas genéricas. Incluye skills reutilizables, componentes listos para integrar y helpers de automatización para ciclos de review, quality gates y operaciones de entrega. Puede incluir opciones con MCP cuando aporten valor, pero el foco sigue siendo el trabajo diario de desarrollo.",
+    "fr": "Conçue pour les utilisateurs Codex/OpenAI, cette collection privilégie des workflows d’ingénierie fiables plutôt qu’une simple liste d’outils. Elle regroupe des skills réutilisables, des composants prêts à intégrer et des aides d’automatisation pour cycles de review, quality gates et opérations de delivery. Des options MCP peuvent apparaître, mais l’objectif reste le workflow de code au quotidien.",
+    "de": "Für Codex/OpenAI-Nutzer konzipiert, priorisiert diese Sammlung verlässliche Engineering-Workflows statt generischer Listen. Sie bietet wiederverwendbare Skills, integrierbare Komponenten und Automationshelfer für Review-Zyklen, Quality-Gates und Delivery-Prozesse. MCP-Optionen sind möglich, im Mittelpunkt stehen jedoch praktische Coding-Abläufe.",
+    "pt": "Feita para usuários de Codex/OpenAI, esta coleção prioriza workflows de engenharia confiáveis em vez de listas genéricas. Reúne skills reutilizáveis, componentes prontos para integração e helpers de automação para ciclos de review, quality gates e operações de entrega. Pode incluir MCP quando fizer sentido, mas o foco é o workflow prático de desenvolvimento.",
+    "ru": "Коллекция для пользователей Codex/OpenAI с фокусом на надежные инженерные workflow, а не на абстрактные списки. Включает переиспользуемые skills, интеграционные компоненты и automation-helpers для review-циклов, quality-gates и delivery-процессов. MCP может встречаться как дополнительная возможность, но центр — повседневная разработка.",
+    "ar": "تم إعداد هذه المجموعة لمستخدمي Codex/OpenAI مع تركيز على سير عمل هندسي موثوق بدل القوائم العامة. تتضمن مهارات قابلة لإعادة الاستخدام ومكوّنات جاهزة للتكامل ومساعدات أتمتة لدورات المراجعة وبوابات الجودة وعمليات التسليم. قد تظهر خيارات تدعم MCP عند الحاجة، لكن المحور الأساسي هو تنفيذ workflow عملي يوميًا."
   }
 }

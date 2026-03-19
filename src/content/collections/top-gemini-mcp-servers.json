@@ -1,86 +1,130 @@
 {
   "title": {
-    "en": "Top 6 Gemini AI Tools: Essential MCP Servers & Extensions",
-    "zh": "六大顶级Gemini AI工具：必备MCP服务器与扩展",
-    "ja": "Gemini AIツール トップ6：必須のMCPサーバー＆拡張機能",
-    "ko": "상위 6가지 Gemini AI 도구: 필수 MCP 서버 및 확장 프로그램",
-    "es": "Mejores servidores MCP de gemini en 2024",
-    "fr": "Meilleurs serveurs MCP gemini en 2024",
-    "de": "Beste MCP-Server gemini 2024",
-    "pt": "Melhores servidores MCP gemini em 2024",
-    "ru": "Лучшие MCP серверы gemini 2024",
-    "ar": "أفضل خوادم MCP gemini لعام 2024"
+    "en": "Top Gemini-Compatible Dev Tools & Agent Workflow Skills",
+    "zh": "顶级 Gemini 兼容开发工具与智能体工作流技能",
+    "ja": "Gemini対応の開発ツール＆エージェントワークフロースキル",
+    "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬",
+    "es": "Herramientas dev y skills de workflow compatibles con Gemini",
+    "fr": "Outils dev et skills workflow compatibles Gemini",
+    "de": "Gemini-kompatible Dev-Tools und Agent-Workflow-Skills",
+    "pt": "Ferramentas dev e skills de workflow compatíveis com Gemini",
+    "ru": "Gemini-совместимые dev-инструменты и workflow skills",
+    "ar": "أدوات تطوير ومهارات workflow متوافقة مع Gemini"
   },
   "description": {
-    "en": "A professionally curated collection of the top Gemini AI tools, MCP servers, and extensions for developers. This directory features essential utilities like backend-code-review and zustand that enhance productivity, automate workflows, and unlock new capabilities for AI agents working with the Gemini ecosystem.",
-    "zh": "为开发者精心挑选的顶级Gemini AI工具、MCP服务器和扩展集合。本目录收录了如backend-code-review和zustand等必备实用程序，可提升生产力、自动化工作流程，并为AI智能体在Gemini生态系统中解锁新功能。",
-    "ja": "開発者向けに厳選されたGemini AIツール、MCPサーバー、拡張機能のコレクションです。このディレクトリには、backend-code-reviewやzustandのような必須ユーティリティが含まれており、Geminiエコシステムで動作するAI Agentの生産性を向上させ、ワークフローを自動化し、新たな機能を引き出します。",
-    "ko": "개발자를 위한 최고의 Gemini AI 도구, MCP 서버 및 확장 프로그램을 전문적으로 선별한 컬렉션입니다. 이 디렉토리는 백엔드 코드 검토 및 zustand와 같은 필수 유틸리티를 제공하여 생산성을 높이고, 워크플로우를 자동화하며, Gemini 생태계에서 작업하는 AI Agent의 새로운 기능을 잠금 해제합니다.",
-    "es": "Explora los mejores servidores MCP para gemini. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour gemini. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für gemini. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para gemini. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для gemini. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ gemini. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A curated set of Gemini-ready developer tools, automation skills, and workflow integrations for building reliable AI agent systems across coding, review, and delivery pipelines.",
+    "zh": "精选 Gemini 生态可用的开发工具、自动化技能与流程集成，用于在编码、评审与交付流水线中构建可靠 AI 智能体系统。",
+    "ja": "Gemini環境で活用しやすい開発ツール、自動化スキル、ワークフロー連携を厳選。コーディング、レビュー、デリバリーパイプライン全体で信頼性あるAIエージェント運用を支援します。",
+    "ko": "Gemini 환경에서 활용하기 좋은 개발 도구, 자동화 스킬, 워크플로우 연동을 선별했습니다. 코딩·리뷰·전달 파이프라인 전반에서 신뢰성 있는 AI 에이전트 운영을 지원합니다.",
+    "es": "Selección curada de herramientas para Gemini, skills de automatización e integraciones de workflow para construir sistemas de agentes confiables en código, revisión y entrega.",
+    "fr": "Sélection curée d’outils prêts pour Gemini, skills d’automatisation et intégrations workflow pour construire des systèmes d’agents fiables sur le code, la review et la delivery.",
+    "de": "Kuratiertes Set aus Gemini-fähigen Entwickler-Tools, Automatisierungs-Skills und Workflow-Integrationen für verlässliche Agentensysteme in Coding-, Review- und Delivery-Pipelines.",
+    "pt": "Seleção curada de ferramentas para Gemini, skills de automação e integrações de workflow para construir sistemas de agentes confiáveis em código, revisão e entrega.",
+    "ru": "Кураторский набор Gemini-ready инструментов, automation-skills и workflow-интеграций для надежных AI-agent систем в коде, ревью и delivery-пайплайнах.",
+    "ar": "مجموعة منتقاة من أدوات تطوير جاهزة لـ Gemini، ومهارات أتمتة، وتكاملات workflow لبناء أنظمة وكلاء موثوقة عبر البرمجة والمراجعة وخطوط التسليم."
   },
   "seoTitle": {
-    "en": "Best Gemini AI Tools & MCP Servers | Killer-Skills",
-    "zh": "最佳Gemini AI工具和MCP服务器 | Killer-Skills",
-    "ja": "Gemini AIツール＆MCPサーバー ベスト6 | Killer-Skills",
-    "ko": "최고의 Gemini AI 도구 & MCP 서버 | Killer-Skills",
-    "es": "Mejores servidores MCP de gemini en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP gemini en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server gemini 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP gemini em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы gemini 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP gemini لعام 2024 2026 | Killer-Skills"
+    "en": "Top Gemini-Compatible Dev Tools & Agent Workflow Skills | Killer-Skills",
+    "zh": "Gemini 开发工作流工具、技能与集成 | Killer-Skills",
+    "ja": "Gemini向け開発ワークフローツール・スキル・連携 | Killer-Skills",
+    "ko": "Gemini 개발 워크플로우 도구·스킬·연동 | Killer-Skills",
+    "es": "Tools y skills de workflow para Gemini | Killer-Skills",
+    "fr": "Outils et skills workflow pour Gemini | Killer-Skills",
+    "de": "Gemini-Workflow-Tools und Skills | Killer-Skills",
+    "pt": "Tools e skills de workflow para Gemini | Killer-Skills",
+    "ru": "Gemini workflow tools и skills | Killer-Skills",
+    "ar": "أدوات ومهارات workflow للتطوير مع Gemini | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top 6 curated Gemini AI tools & MCP servers for code review, state management, and workflow automation. Boost your AI agent's capabilities.",
-    "zh": "探索6大精选Gemini AI工具和MCP服务器，用于代码审查、状态管理和工作流自动化。增强您的AI智能体能力。",
-    "ja": "厳選されたGemini AIツールとMCPサーバーのトップ6を発見。コードレビュー、状態管理、ワークフロー自動化でAI Agentの能力を向上させましょう。",
-    "ko": "코드 검토, 상태 관리, 워크플로우 자동화를 위한 상위 6가지 Gemini AI 도구 및 MCP 서버를 만나보세요. AI Agent의 역량을 강화하세요.",
-    "es": "Explora los mejores servidores MCP para gemini. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour gemini. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für gemini. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para gemini. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для gemini. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ gemini. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Find Gemini-compatible skills and tooling for developer automation, quality checks, and reliable AI agent workflows.",
+    "zh": "查找 Gemini 兼容技能与工具链，支持开发自动化、质量校验与可靠的 AI 智能体工作流。",
+    "ja": "開発自動化、品質チェック、信頼性の高いAIエージェント運用を支えるGemini対応スキルとツールを紹介。",
+    "ko": "개발 자동화, 품질 점검, 안정적인 AI 에이전트 워크플로우를 위한 Gemini 호환 스킬과 툴링을 확인하세요.",
+    "es": "Encuentra skills y tooling compatibles con Gemini para automatización developer, control de calidad y workflows confiables de agentes IA.",
+    "fr": "Trouvez des skills et du tooling compatibles Gemini pour l’automatisation dev, les contrôles qualité et des workflows d’agents IA fiables.",
+    "de": "Finde Gemini-kompatible Skills und Tooling für Entwickler-Automatisierung, Qualitätschecks und verlässliche KI-Agenten-Workflows.",
+    "pt": "Encontre skills e tooling compatíveis com Gemini para automação dev, checks de qualidade e workflows confiáveis de agentes IA.",
+    "ru": "Найдите Gemini-совместимые skills и tooling для developer-автоматизации, quality-check и надежных AI-agent workflow.",
+    "ar": "اعثر على مهارات وأدوات متوافقة مع Gemini لأتمتة التطوير وفحوصات الجودة وسير عمل موثوق لوكلاء الذكاء الاصطناعي."
   },
   "keywords": {
     "en": [
-      "Gemini AI tools",
-      "MCP servers",
-      "AI agent extensions",
-      "best Gemini tools",
-      "code review AI",
-      "workflow automation"
+      "gemini developer tools",
+      "agent workflow skills",
+      "automation integrations",
+      "ai engineering",
+      "quality workflows",
+      "companion tooling"
     ],
-    "zh": ["Gemini AI工具", "MCP服务器", "AI智能体扩展", "最佳Gemini工具", "AI代码审查", "工作流自动化"],
+    "zh": ["Gemini 开发工具", "智能体工作流技能", "自动化集成", "AI 工程", "质量工作流", "配套工具链"],
     "ja": [
-      "Gemini AI tools",
-      "MCP servers",
-      "AI agent extensions",
-      "best Gemini tools",
-      "code review AI",
-      "workflow automation"
+      "gemini developer tools",
+      "agent workflow skills",
+      "automation integrations",
+      "ai engineering",
+      "quality workflows",
+      "companion tooling"
     ],
     "ko": [
-      "Gemini AI tools",
-      "MCP servers",
-      "AI agent extensions",
-      "best Gemini tools",
-      "code review AI",
-      "workflow automation"
+      "gemini developer tools",
+      "agent workflow skills",
+      "automation integrations",
+      "ai engineering",
+      "quality workflows",
+      "companion tooling"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "gemini"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "gemini"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "gemini"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "gemini"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "gemini"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "gemini"]
+    "es": [
+      "herramientas developer gemini",
+      "skills de workflow de agentes",
+      "integraciones de automatización",
+      "ingeniería IA",
+      "workflows de calidad",
+      "tooling companion"
+    ],
+    "fr": [
+      "outils développeur gemini",
+      "skills workflow agents",
+      "intégrations d’automatisation",
+      "ingénierie IA",
+      "workflows qualité",
+      "tooling companion"
+    ],
+    "de": [
+      "Gemini Entwickler-Tools",
+      "Agent-Workflow-Skills",
+      "Automatisierungs-Integrationen",
+      "KI-Engineering",
+      "Qualitäts-Workflows",
+      "Companion-Tooling"
+    ],
+    "pt": [
+      "ferramentas developer gemini",
+      "skills de workflow de agentes",
+      "integrações de automação",
+      "engenharia IA",
+      "workflows de qualidade",
+      "tooling companion"
+    ],
+    "ru": [
+      "gemini developer tools",
+      "agent workflow skills",
+      "automation integrations",
+      "AI engineering",
+      "quality workflows",
+      "companion tooling"
+    ],
+    "ar": [
+      "أدوات تطوير Gemini",
+      "مهارات workflow للوكلاء",
+      "تكاملات الأتمتة",
+      "هندسة الذكاء الاصطناعي",
+      "workflows الجودة",
+      "أدوات مرافقة"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-gemini-compatible-dev-tools-agent-workflow-skills",
+  "legacySlugs": ["top-gemini-mcp-servers"],
   "category": "gemini",
   "author": "Killer-Skills AI",
   "skills": [
@@ -92,15 +136,15 @@
     "f/prompts.chat"
   ],
   "longDescription": {
-    "en": "In the rapidly evolving landscape of AI development, harnessing the full potential of large language models like Gemini demands more than just raw processing power; it requires a sophisticated toolkit designed for efficiency, precision, and scalability. Developers today face the constant challenge of optimizing their workflows, ensuring code quality, and seamlessly integrating AI capabilities into complex applications. This is precisely why a robust suite of Gemini AI tools, including specialized MCP servers and extensions, has become indispensable. Imagine effortlessly reviewing backend code for potential vulnerabilities and performance bottlenecks with tools like 'backend-code-review', or managing complex state in your AI agents with the elegance of 'zustand'. These aren't just isolated utilities; they are critical components that streamline development cycles, automate repetitive tasks, and unlock unprecedented levels of productivity. Our professionally curated collection of the top 6 Gemini AI tools provides the essential infrastructure for any serious AI agent developer. We've meticulously selected these tools for their proven ability to enhance productivity, automate workflows, and unlock new capabilities within the Gemini ecosystem, transforming how you build, deploy, and manage your next-generation AI solutions. From optimizing API calls to simplifying data management, these Gemini AI tools empower you to focus on innovation, not integration headaches, making your AI agents smarter, faster, and more reliable.",
-    "zh": "在快速发展的AI开发领域，要充分发挥Gemini等大型语言模型的潜力，不仅仅需要原始的处理能力；它还需要一个为效率、精确性和可扩展性而设计的复杂工具包。今天的开发者面临着优化工作流程、确保代码质量以及将AI能力无缝集成到复杂应用程序中的持续挑战。这正是为什么一套强大的Gemini AI工具，包括专业的MCP服务器和扩展，变得不可或缺的原因。想象一下，使用像'backend-code-review'这样的工具轻松审查后端代码的潜在漏洞和性能瓶颈，或者使用'zustand'的优雅来管理AI代理中的复杂状态。这些不仅仅是独立的实用程序；它们是简化开发周期、自动化重复任务并释放前所未有的生产力水平的关键组件。我们专业策划的6款顶级Gemini AI工具集合为任何认真的AI代理开发者提供了必要的基础设施。我们精心挑选了这些工具，因为它们在增强生产力、自动化工作流程和解锁Gemini生态系统内的新功能方面表现出色，从而改变了您构建、部署和管理下一代AI解决方案的方式。从优化API调用到简化数据管理，这些Gemini AI工具使您能够专注于创新，而不是集成难题，让您的AI代理更智能、更快、更可靠。",
-    "ja": "AI開発の急速な進化において、Geminiのような大規模言語モデルの可能性を最大限に引き出すには、生の処理能力だけでは不十分です。効率性、正確性、スケーラビリティのために設計された洗練されたツールキットが不可欠となります。今日の開発者は、ワークフローの最適化、コード品質の確保、そしてAI機能を複雑なアプリケーションにシームレスに統合するという絶え間ない課題に直面しています。これこそが、専門のMCPサーバーや拡張機能を含む堅牢なGemini AIツールスイートが不可欠となっている理由です。例えば、「backend-code-review」のようなツールでバックエンドコードの潜在的な脆弱性やパフォーマンスのボトルネックを楽にレビューしたり、「zustand」のエレガンスでAIエージェントの複雑な状態を管理したりすることを想像してみてください。これらは単なる個別のユーティリティではなく、開発サイクルを合理化し、反復的なタスクを自動化し、前例のないレベルの生産性を解き放つ重要なコンポーネントです。当社のプロフェッショナルに厳選されたトップ6のGemini AIツールコレクションは、真剣なAIエージェント開発者にとって不可欠なインフラを提供します。私たちは、生産性の向上、ワークフローの自動化、Geminiエコシステム内での新しい機能の解放において実績のある能力を持つこれらのツールを慎重に選択し、次世代のAIソリューションを構築、デプロイ、管理する方法を変革します。API呼び出しの最適化からデータ管理の簡素化まで、これらのGemini AIツールは、統合の煩わしさではなくイノベーションに集中することを可能にし、AIエージェントをよりスマートに、より速く、より信頼性の高いものにします。",
-    "ko": "급변하는 AI 개발 환경에서 Gemini와 같은 대규모 언어 모델의 잠재력을 최대한 활용하려면 단순한 처리 능력 이상이 필요합니다. 효율성, 정밀성 및 확장성을 위해 설계된 정교한 툴킷이 필수적입니다. 오늘날 개발자들은 워크플로우를 최적화하고, 코드 품질을 보장하며, AI 기능을 복잡한 애플리케이션에 원활하게 통합하는 끊임없는 도전에 직면해 있습니다. 이것이 바로 전문 MCP 서버 및 확장 기능을 포함한 강력한 Gemini AI 도구 모음이 필수 불가결해진 이유입니다. 'backend-code-review'와 같은 도구를 사용하여 백엔드 코드의 잠재적 취약점과 성능 병목 현상을 손쉽게 검토하거나, 'zustand'의 우아함으로 AI 에이전트의 복잡한 상태를 관리하는 것을 상상해 보십시오. 이들은 단순한 개별 유틸리티가 아닙니다. 개발 주기를 간소화하고, 반복적인 작업을 자동화하며, 전례 없는 수준의 생산성을 이끌어내는 중요한 구성 요소입니다. Killer-Skills에서 전문적으로 선별한 상위 6가지 Gemini AI 도구 컬렉션은 모든 진지한 AI 에이전트 개발자에게 필수적인 인프라를 제공합니다. 우리는 생산성을 향상하고, 워크플로우를 자동화하며, Gemini 생태계 내에서 새로운 기능을 잠금 해제하는 입증된 능력을 가진 이 도구들을 신중하게 선택하여, 차세대 AI 솔루션을 구축, 배포 및 관리하는 방식을 혁신합니다. API 호출 최적화부터 데이터 관리 간소화에 이르기까지, 이 Gemini AI 도구들은 통합 문제 대신 혁신에 집중할 수 있도록 지원하여 AI 에이전트를 더 스마트하고, 더 빠르고, 더 안정적으로 만듭니다.",
-    "es": "En el panorama de rápido desarrollo de la IA, aprovechar todo el potencial de los grandes modelos de lenguaje como Gemini exige más que solo potencia de procesamiento bruta; requiere un conjunto de herramientas sofisticado diseñado para la eficiencia, la precisión y la escalabilidad. Los desarrolladores de hoy se enfrentan al desafío constante de optimizar sus flujos de trabajo, garantizar la calidad del código e integrar sin problemas las capacidades de IA en aplicaciones complejas. Esta es precisamente la razón por la que un conjunto robusto de herramientas de Gemini AI, incluidos servidores MCP especializados y extensiones, se ha vuelto indispensable. Imagine revisar sin esfuerzo el código backend en busca de posibles vulnerabilidades y cuellos de botella de rendimiento con herramientas como 'backend-code-review', o gestionar estados complejos en sus agentes de IA con la elegancia de 'zustand'. Estas no son solo utilidades aisladas; son componentes críticos que agilizan los ciclos de desarrollo, automatizan tareas repetitivas y desbloquean niveles de productividad sin precedentes. Nuestra colección profesionalmente curada de las 6 mejores herramientas de Gemini AI proporciona la infraestructura esencial para cualquier desarrollador serio de agentes de IA. Hemos seleccionado meticulosamente estas herramientas por su probada capacidad para mejorar la productividad, automatizar flujos de trabajo y desbloquear nuevas capacidades dentro del ecosistema Gemini, transformando la forma en que construye, implementa y gestiona sus soluciones de IA de próxima generación. Desde la optimización de llamadas a la API hasta la simplificación de la gestión de datos, estas herramientas de Gemini AI le permiten centrarse en la innovación, no en los dolores de cabeza de la integración, haciendo que sus agentes de IA sean más inteligentes, más rápidos y más fiables.",
-    "fr": "Dans le paysage en constante évolution du développement de l'IA, l'intégration d'outils robustes et efficaces est primordiale pour les développeurs cherchant à exploiter tout le potentiel des modèles Gemini. Notre collection exclusive, \"Top 6 Gemini AI Tools: Essential MCP Servers & Extensions\", est méticuleusement conçue pour répondre à ce besoin critique. Nous comprenons que la construction d'agents IA sophistiqués nécessite plus que de simples modèles ; elle exige un écosystème de support d'outils qui rationalisent les flux de travail, améliorent la qualité du code et débloquent de nouvelles capacités. C'est pourquoi nous avons sélectionné une suite d'outils Gemini AI indispensables, y compris des serveurs MCP et des extensions, qui transforment la façon dont les développeurs interagissent avec l'IA. Imaginez automatiser les révisions de code backend avec une précision inégalée ou gérer l'état de manière transparente avec des utilitaires comme zustand, libérant ainsi un temps précieux pour l'innovation. Ces outils ne sont pas de simples ajouts ; ce sont des catalyseurs pour l'efficacité, permettant à votre agent IA de fonctionner à des niveaux optimaux. Que vous cherchiez à optimiser les performances, à améliorer la collaboration ou à accélérer le déploiement, cette collection offre les solutions dont vous avez besoin pour propulser vos projets Gemini vers de nouveaux sommets. Chaque outil de cette liste a été choisi pour sa capacité prouvée à améliorer la productivité, à réduire la complexité et à fournir des résultats tangibles, garantissant que vos agents IA sont non seulement puissants, mais aussi incroyablement agiles et fiables.",
-    "de": "In der sich ständig weiterentwickelnden Landschaft der KI-Entwicklung ist die Integration robuster und effizienter Tools für Entwickler, die das volle Potenzial von Gemini-Modellen ausschöpfen möchten, von größter Bedeutung. Unsere exklusive Sammlung, \"Top 6 Gemini AI Tools: Essential MCP Servers & Extensions\", wurde sorgfältig zusammengestellt, um diesem kritischen Bedarf gerecht zu werden. Wir verstehen, dass der Aufbau anspruchsvoller KI-Agenten mehr als nur Modelle erfordert; er erfordert ein unterstützendes Ökosystem von Tools, die Workflows optimieren, die Codequalität verbessern und neue Funktionen freischalten. Aus diesem Grund haben wir eine Reihe unverzichtbarer Gemini AI Tools, einschließlich MCP-Server und Erweiterungen, kuratiert, die die Art und Weise verändern, wie Entwickler mit KI interagieren. Stellen Sie sich vor, Sie automatisieren Backend-Code-Reviews mit unübertroffener Präzision oder verwalten den Zustand nahtlos mit Dienstprogrammen wie zustand, wodurch wertvolle Zeit für Innovationen frei wird. Diese Tools sind nicht nur Ergänzungen; sie sind Katalysatoren für Effizienz und ermöglichen es Ihrem KI-Agenten, auf optimalem Niveau zu arbeiten. Egal, ob Sie die Leistung optimieren, die Zusammenarbeit verbessern oder die Bereitstellung beschleunigen möchten, diese Sammlung bietet die Lösungen, die Sie benötigen, um Ihre Gemini-Projekte auf neue Höhen zu bringen. Jedes Tool in dieser Liste wurde aufgrund seiner nachgewiesenen Fähigkeit ausgewählt, die Produktivität zu steigern, die Komplexität zu reduzieren und greifbare Ergebnisse zu liefern, um sicherzustellen, dass Ihre KI-Agenten nicht nur leistungsstark, sondern auch unglaublich agil und zuverlässig sind.",
-    "pt": "No cenário em constante evolução do desenvolvimento de IA, a integração de ferramentas robustas e eficientes é fundamental para desenvolvedores que buscam aproveitar todo o potencial dos modelos Gemini. Nossa coleção exclusiva, \"Top 6 Gemini AI Tools: Essential MCP Servers & Extensions\", é meticulosamente elaborada para atender a essa necessidade crítica. Entendemos que a construção de agentes de IA sofisticados exige mais do que apenas modelos; exige um ecossistema de suporte de ferramentas que otimizem os fluxos de trabalho, aprimorem a qualidade do código e desbloqueiem novas capacidades. É por isso que selecionamos um conjunto de ferramentas Gemini AI indispensáveis, incluindo servidores MCP e extensões, que transformam a maneira como os desenvolvedores interagem com a IA. Imagine automatizar revisões de código de backend com precisão incomparável ou gerenciar o estado de forma contínua com utilitários como zustand, liberando um tempo valioso para a inovação. Essas ferramentas não são meras adições; são catalisadores para a eficiência, permitindo que seu agente de IA opere em níveis ótimos. Seja você buscando otimizar o desempenho, aprimorar a colaboração ou acelerar a implantação, esta coleção oferece as soluções que você precisa para impulsionar seus projetos Gemini a novas alturas. Cada ferramenta nesta lista foi escolhida por sua capacidade comprovada de aumentar a produtividade, reduzir a complexidade e fornecer resultados tangíveis, garantindo que seus agentes de IA sejam não apenas poderosos, mas também incrivelmente ágeis e confiáveis.",
-    "ru": "В постоянно развивающейся сфере разработки ИИ интеграция надежных и эффективных инструментов имеет первостепенное значение для разработчиков, стремящихся раскрыть весь потенциал моделей Gemini. Наша эксклюзивная коллекция «Top 6 Gemini AI Tools: Essential MCP Servers & Extensions» тщательно разработана для удовлетворения этой критической потребности. Мы понимаем, что создание сложных ИИ-агентов требует больше, чем просто моделей; это требует поддерживающей экосистемы инструментов, которые оптимизируют рабочие процессы, повышают качество кода и открывают новые возможности. Вот почему мы подобрали набор незаменимых инструментов Gemini AI, включая серверы MCP и расширения, которые преобразуют то, как разработчики взаимодействуют с ИИ. Представьте себе автоматизацию проверки бэкэнд-кода с беспрецедентной точностью или бесшовное управление состоянием с помощью таких утилит, как zustand, высвобождая драгоценное время для инноваций. Эти инструменты — не просто дополнения; они являются катализаторами эффективности, позволяя вашему ИИ-агенту работать на оптимальном уровне. Независимо от того, стремитесь ли вы оптимизировать производительность, улучшить совместную работу или ускорить развертывание, эта коллекция предлагает решения, необходимые для вывода ваших проектов Gemini на новый уровень. Каждый инструмент в этом списке был выбран за его доказанную способность повышать производительность, снижать сложность и обеспечивать ощутимые результаты, гарантируя, что ваши ИИ-агенты будут не только мощными, но и невероятно гибкими и надежными.",
-    "ar": "في المشهد المتطور باستمرار لتطوير الذكاء الاصطناعي، يعد دمج الأدوات القوية والفعالة أمرًا بالغ الأهمية للمطورين الذين يسعون إلى استغلال الإمكانات الكاملة لنماذج Gemini. تم تصميم مجموعتنا الحصرية، \"أفضل 6 أدوات Gemini AI: خوادم MCP الأساسية والإضافات\"، بدقة لتلبية هذه الحاجة الملحة. نحن ندرك أن بناء وكلاء ذكاء اصطناعي متطورين يتطلب أكثر من مجرد نماذج؛ إنه يتطلب نظامًا بيئيًا داعمًا من الأدوات التي تبسط سير العمل، وتعزز جودة التعليمات البرمجية، وتفتح قدرات جديدة. لهذا السبب قمنا بتنظيم مجموعة من أدوات Gemini AI التي لا غنى عنها، بما في ذلك خوادم MCP والإضافات، التي تغير طريقة تفاعل المطورين مع الذكاء الاصطناعي. تخيل أتمتة مراجعات التعليمات البرمجية الخلفية بدقة لا مثيل لها أو إدارة الحالة بسلاسة باستخدام أدوات مساعدة مثل zustand، مما يوفر وقتًا ثمينًا للابتكار. هذه الأدوات ليست مجرد إضافات؛ إنها محفزات للكفاءة، مما يسمح لوكيل الذكاء الاصطناعي الخاص بك بالعمل على المستويات المثلى. سواء كنت تسعى إلى تحسين الأداء، أو تعزيز التعاون، أو تسريع النشر، فإن هذه المجموعة توفر الحلول التي تحتاجها لدفع مشاريع Gemini الخاصة بك إلى آفاق جديدة. تم اختيار كل أداة في هذه القائمة لقدرتها المؤكدة على زيادة الإنتاجية وتقليل التعقيد وتقديم نتائج ملموسة، مما يضمن أن وكلاء الذكاء الاصطناعي الخاصين بك ليسوا أقوياء فحسب، بل أيضًا رشيقون وموثوقون بشكل لا يصدق."
+    "en": "This Gemini-focused collection is built around developer execution: reusable skills, integration layers, and automation components that support coding, reviews, and delivery controls. It is intended for teams shipping real software with AI agents, not for generic rankings. MCP compatibility can be useful in selected cases, but the main emphasis is robust tooling and workflow reliability across the Gemini stack.",
+    "zh": "这个 Gemini 专题围绕开发者执行效率展开：提供可复用技能、集成层与自动化组件，覆盖编码、评审和交付控制。它服务于真正用 AI 智能体交付软件的团队，而不是泛排名页面。部分场景可用 MCP 兼容能力，但主重点是 Gemini 技术栈中的工具稳定性与工作流可靠性。",
+    "ja": "このGemini特集は、開発実行力を高めることに主眼を置いています。再利用スキル、連携レイヤー、自動化コンポーネントを通じて、コーディング、レビュー、デリバリー制御を支援。単なるランキングではなく、実際にAIエージェントでソフトウェアを出荷するチーム向けです。MCP互換は一部で有効ですが、中心はGeminiスタック全体の運用信頼性です。",
+    "ko": "이 Gemini 컬렉션은 개발 실행력에 초점을 맞춥니다. 재사용 가능한 스킬, 통합 레이어, 자동화 컴포넌트로 코딩·리뷰·전달 제어를 지원하며, 단순 순위형 페이지가 아니라 실제 소프트웨어를 배포하는 팀을 위한 구성입니다. 일부 사례에서 MCP 호환이 유용할 수 있지만 핵심은 Gemini 스택 전반의 워크플로우 신뢰성입니다.",
+    "es": "Esta colección enfocada en Gemini está diseñada para ejecución real de desarrollo: skills reutilizables, capas de integración y componentes de automatización para código, review y control de entrega. No es un ranking genérico; está orientada a equipos que lanzan software con agentes de IA. MCP puede ser útil en casos puntuales, pero el foco principal es la confiabilidad del workflow.",
+    "fr": "Cette collection orientée Gemini est pensée pour l’exécution développeur: skills réutilisables, couches d’intégration et composants d’automatisation pour le code, la review et le contrôle de delivery. Elle vise des équipes qui livrent réellement avec des agents IA, pas un simple classement. MCP peut aider selon les cas, mais l’essentiel reste la fiabilité du workflow.",
+    "de": "Diese Gemini-Sammlung ist auf Entwicklerausführung ausgelegt: wiederverwendbare Skills, Integrationsschichten und Automationskomponenten für Coding, Reviews und Delivery-Kontrolle. Sie richtet sich an Teams mit realer Auslieferung per KI-Agenten, nicht an generische Rankings. MCP-Kompatibilität kann hilfreich sein, Hauptfokus bleibt jedoch verlässliches Tooling und Workflow-Stabilität.",
+    "pt": "Esta coleção focada em Gemini foi feita para execução de desenvolvimento real: skills reutilizáveis, camadas de integração e componentes de automação para código, review e controle de entrega. Não é ranking genérico; é para times que entregam software com agentes de IA. MCP pode ser útil em casos específicos, mas o foco principal é confiabilidade de workflow.",
+    "ru": "Коллекция по Gemini ориентирована на реальную разработку: переиспользуемые skills, интеграционные слои и компоненты автоматизации для кода, ревью и контроля поставки. Это не абстрактный рейтинг, а набор для команд, выпускающих ПО с AI-агентами. MCP-совместимость возможна как дополнение, но главный приоритет — надежность workflow.",
+    "ar": "تم إعداد هذه المجموعة الخاصة بـ Gemini حول التنفيذ الفعلي للمطورين: مهارات قابلة لإعادة الاستخدام، وطبقات تكامل، ومكوّنات أتمتة تدعم البرمجة والمراجعة وضبط التسليم. ليست تصنيفًا عامًا، بل مناسبة للفرق التي تطلق برمجيات حقيقية مع الوكلاء. قد تكون توافقية MCP مفيدة في حالات محددة، لكن التركيز الرئيسي هو موثوقية الأدوات وسير العمل عبر منظومة Gemini."
   }
 }

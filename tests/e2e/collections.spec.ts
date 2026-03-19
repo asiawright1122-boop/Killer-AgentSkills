@@ -7,17 +7,102 @@ test.describe('Collections E2E', () => {
         // English locale collections index
         await page.goto(`${devUrl}/en/collections`);
 
-        // Verify title is Editor's Picks
-        await expect(page.locator('h1')).toHaveText(/Editor's Picks/i);
+        // Verify primary heading matches the current collections page copy
+        await expect(page.getByRole('heading', { level: 1, name: /Workflow Skill Bundles/i })).toBeVisible();
 
         // Verify at least one collection card exists
         const collectionLinks = page.locator('a[href^="/en/collections/"]');
         expect(await collectionLinks.count()).toBeGreaterThan(0);
     });
 
-    test('should load a collection detail page and verify schema and elements', async ({ page }) => {
-        // Navigate to known collection that we generated earlier
+    test('should redirect a legacy collection slug to the canonical slug', async ({ page }) => {
         await page.goto(`${devUrl}/en/collections/top-mcp-server-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-ai-agent-integration-frameworks-bridges-infra-tooling`);
+    });
+
+    test('should redirect a localized legacy agentic collection slug and keep canonical metadata aligned', async ({ page }) => {
+        await page.goto(`${devUrl}/es/collections/top-agentic-ai-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/es/collections/top-agentic-ai-platforms-orchestration-tools`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools'
+        );
+    });
+
+    test('should redirect a legacy cursor collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-cursor-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-cursor-compatible-skills-workflow-integrations`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-cursor-compatible-skills-workflow-integrations'
+        );
+    });
+
+    test('should redirect a legacy developer-tools collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-developer-tools-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-developer-tooling-ai-agent-work`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-developer-tooling-ai-agent-work'
+        );
+    });
+
+    test('should redirect a legacy openai collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-openai-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-openai-powered-ai-agent-tools`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-openai-powered-ai-agent-tools'
+        );
+    });
+
+    test('should redirect a legacy python collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-python-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-python-ai-agent-tools-developer-workflows`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-python-ai-agent-tools-developer-workflows'
+        );
+    });
+
+    test('should redirect a legacy typescript collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-typescript-mcp-servers`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-typescript-ai-tools-developer-workflows`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-typescript-ai-tools-developer-workflows'
+        );
+    });
+
+    test('should redirect a legacy vscode collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-mcp-for-vscode`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/vscode-compatible-skills`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/vscode-compatible-skills'
+        );
+    });
+
+    test('should redirect a legacy 2026 mcp collection slug to the canonical workflow slug', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-mcp-servers-2026`);
+
+        await expect(page).toHaveURL(`${devUrl}/en/collections/top-ai-agent-workflow-skills-integrations-2026`);
+        await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+            'href',
+            'https://killer-skills.com/en/collections/top-ai-agent-workflow-skills-integrations-2026'
+        );
+    });
+
+    test('should load a canonical collection detail page and verify schema and elements', async ({ page }) => {
+        await page.goto(`${devUrl}/en/collections/top-ai-agent-integration-frameworks-bridges-infra-tooling`);
 
         // Check main H1 title
         await expect(page.locator('h1')).toBeVisible();

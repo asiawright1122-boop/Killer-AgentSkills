@@ -1,86 +1,130 @@
 {
   "title": {
-    "en": "Top 12 Official AI Tools & MCP Servers",
-    "zh": "12 个顶级官方 AI 工具与 MCP 服务器",
-    "ja": "公式AIツール＆MCPサーバー トップ12",
-    "ko": "최고의 공식 AI 도구 및 MCP 서버 12가지",
-    "es": "Mejores servidores MCP de official en 2024",
-    "fr": "Meilleurs serveurs MCP official en 2024",
-    "de": "Beste MCP-Server official 2024",
-    "pt": "Melhores servidores MCP official em 2024",
-    "ru": "Лучшие MCP серверы official 2024",
-    "ar": "أفضل خوادم MCP official لعام 2024"
+    "en": "Top 12 Official AI Skills & Trusted Tools",
+    "zh": "12 个官方 AI Skills 与可信工具",
+    "ja": "公式AIスキル＆信頼できるツール トップ12",
+    "ko": "공식 AI 스킬 및 신뢰할 수 있는 도구 TOP 12",
+    "es": "Top 12 habilidades oficiales de IA y herramientas confiables",
+    "fr": "Top 12 des skills IA officiels et outils de confiance",
+    "de": "Top 12 offizielle KI-Skills und vertrauenswürdige Tools",
+    "pt": "Top 12 skills oficiais de IA e ferramentas confiáveis",
+    "ru": "Топ-12 официальных AI-скиллов и надежных инструментов",
+    "ar": "أفضل 12 مهارة ذكاء اصطناعي رسمية وأدوات موثوقة"
   },
   "description": {
-    "en": "A professionally curated collection of the most essential official tools for AI development. This definitive list features trusted MCP servers, Claude extensions, and AI agent skills directly from leading teams, designed to enhance productivity, streamline workflows, and build more powerful AI applications.",
-    "zh": "专业精选的 AI 开发必备官方工具集。此权威列表收录了来自领先团队的可信 MCP 服务器、Claude 扩展和 AI 智能体技能，旨在提高生产力、简化工作流程并构建更强大的 AI 应用程序。",
-    "ja": "AI開発に不可欠な公式ツールをプロが厳選。信頼できるMCPサーバー、Claude拡張機能、主要チームが提供するAI Agentスキルを網羅した決定版リストです。生産性向上、ワークフロー効率化、より強力なAIアプリケーション構築に貢献します。",
-    "ko": "AI 개발에 필수적인 공식 도구들을 전문적으로 선별했습니다. 이 목록은 선도적인 팀에서 직접 제공하는 신뢰할 수 있는 MCP 서버, Claude 확장 기능 및 AI Agent Skill을 포함하며, 생산성 향상, 워크플로우 간소화 및 더욱 강력한 AI 애플리케이션 구축을 위해 설계되었습니다.",
-    "es": "Explora los mejores servidores MCP para official. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour official. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für official. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para official. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для official. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ official. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "A curated set of first-party and trusted ecosystem tools for teams building with AI. Focus on official skills, production-ready integrations, and dependable tooling used by leading platforms.",
+    "zh": "面向 AI 开发团队的精选工具集，聚焦第一方与可信生态能力。重点覆盖官方 skills、可用于生产环境的集成能力，以及领先平台正在使用的稳定工具链。",
+    "ja": "AI開発チーム向けに、ファーストパーティーと信頼できるエコシステムツールを厳選。公式スキル、実運用向け連携、主要プラットフォームで使われる安定したツール群に焦点を当てています。",
+    "ko": "AI를 구축하는 팀을 위해 퍼스트파티 및 신뢰 가능한 생태계 도구를 엄선했습니다. 공식 스킬, 프로덕션 준비가 된 통합, 주요 플랫폼이 사용하는 안정적인 툴링에 집중합니다.",
+    "es": "Una selección de herramientas first-party y del ecosistema confiable para equipos que crean con IA. Prioriza skills oficiales, integraciones listas para producción y tooling sólido usado por plataformas líderes.",
+    "fr": "Une sélection d’outils first-party et d’écosystème de confiance pour les équipes qui développent avec l’IA. Priorité aux skills officiels, aux intégrations prêtes pour la production et à un outillage fiable.",
+    "de": "Eine kuratierte Auswahl an First-Party- und vertrauenswürdigen Ökosystem-Tools für Teams, die mit KI entwickeln. Im Fokus: offizielle Skills, produktionsreife Integrationen und verlässliches Tooling.",
+    "pt": "Uma seleção curada de ferramentas first-party e do ecossistema confiável para equipes que constroem com IA. O foco está em skills oficiais, integrações prontas para produção e tooling estável.",
+    "ru": "Кураторская подборка first-party и проверенных инструментов экосистемы для команд, создающих продукты с ИИ. Фокус — официальные скиллы, production-ready интеграции и надежный tooling.",
+    "ar": "مجموعة منتقاة من أدوات الطرف الأول وأدوات المنظومة الموثوقة للفرق التي تبني بالذكاء الاصطناعي. التركيز على المهارات الرسمية، والتكاملات الجاهزة للإنتاج، وأدوات العمل المعتمدة."
   },
   "seoTitle": {
-    "en": "Best Official AI Tools & MCP Servers 2024",
-    "zh": "2024 年最佳官方 AI 工具与 MCP 服务器",
-    "ja": "公式AIツール＆MCPサーバー ベストセレクション2024",
-    "ko": "최고의 공식 AI 도구 & MCP 서버 2024",
-    "es": "Mejores servidores MCP de official en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP official en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server official 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP official em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы official 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP official لعام 2024 2026 | Killer-Skills"
+    "en": "Top 12 Official AI Skills & Trusted Tools | Killer-Skills",
+    "zh": "官方 AI Skills 与可信生产工具 | Killer-Skills",
+    "ja": "公式AIスキル＆信頼できるツール トップ12 | Killer-Skills",
+    "ko": "공식 AI 스킬 및 신뢰할 수 있는 도구 TOP 12 | Killer-Skills",
+    "es": "Top 12 habilidades oficiales de IA y herramientas confiables | Killer-Skills",
+    "fr": "Top 12 des skills IA officiels et outils de confiance | Killer-Skills",
+    "de": "Top 12 offizielle KI-Skills und vertrauenswürdige Tools | Killer-Skills",
+    "pt": "Top 12 skills oficiais de IA e ferramentas confiáveis | Killer-Skills",
+    "ru": "Топ-12 официальных AI-скиллов и надежных инструментов | Killer-Skills",
+    "ar": "أفضل 12 مهارة ذكاء اصطناعي رسمية وأدوات موثوقة | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Discover the top official AI tools, MCP servers & Claude extensions. Our expert list helps you find the best trusted resources for AI development.",
-    "zh": "探索顶级的官方 AI 工具、MCP 服务器和 Claude 扩展。我们的专家列表助您找到 AI 开发的最佳可信资源。",
-    "ja": "公式AIツール、MCPサーバー、Claude拡張機能のトップを発見。AI開発に最適な信頼できるリソースを専門家リストでご紹介します。",
-    "ko": "최고의 공식 AI 도구, MCP 서버 및 Claude 확장 기능을 만나보세요. AI 개발을 위한 가장 신뢰할 수 있는 리소스를 전문가 목록에서 찾아보세요.",
-    "es": "Explora los mejores servidores MCP para official. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour official. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für official. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para official. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для official. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ official. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover official AI skills and trusted tooling from leading teams, including first-party integrations and robust infrastructure for reliable delivery.",
+    "zh": "发现来自领先团队的官方 AI skills 与可信工具，包括第一方集成能力与稳定基础设施，帮助你可靠交付 AI 应用。",
+    "ja": "主要チームが提供する公式AIスキルと信頼できるツールを紹介。ファーストパーティー連携と堅牢な基盤で、安定した提供を支えます。",
+    "ko": "주요 팀이 제공하는 공식 AI 스킬과 신뢰 가능한 툴링을 살펴보세요. 퍼스트파티 통합과 견고한 인프라로 안정적인 서비스 제공을 지원합니다.",
+    "es": "Descubre skills oficiales de IA y tooling confiable de equipos líderes, con integraciones first-party e infraestructura robusta para entregar con confianza.",
+    "fr": "Découvrez des skills IA officiels et un outillage fiable issus d’équipes de référence, avec des intégrations first-party et une infrastructure robuste.",
+    "de": "Entdecken Sie offizielle KI-Skills und verlässliches Tooling führender Teams – inklusive First-Party-Integrationen und robuster Infrastruktur.",
+    "pt": "Descubra skills oficiais de IA e tooling confiável de equipes líderes, com integrações first-party e infraestrutura robusta para entregas seguras.",
+    "ru": "Откройте официальные AI-скиллы и надежный tooling от ведущих команд: first-party интеграции и устойчивая инфраструктура для предсказуемой поставки.",
+    "ar": "اكتشف المهارات الرسمية للذكاء الاصطناعي وأدوات العمل الموثوقة من فرق رائدة، مع تكاملات طرف أول وبنية تحتية قوية للتسليم بثقة."
   },
   "keywords": {
     "en": [
-      "official ai tools",
-      "best mcp servers",
-      "claude extensions",
-      "ai agent skills",
-      "trusted ai resources",
-      "official developer tools"
+      "official ai skills",
+      "trusted ai tools",
+      "first-party integrations",
+      "production ai tooling",
+      "ecosystem developer tools",
+      "enterprise ai workflows"
     ],
-    "zh": ["官方AI工具", "最佳MCP服务器", "Claude扩展", "AI智能体技能", "可信AI资源", "官方开发工具"],
+    "zh": ["官方AI技能", "可信AI工具", "第一方集成", "生产级AI工具链", "生态开发工具", "企业AI工作流"],
     "ja": [
-      "official ai tools",
-      "best mcp servers",
-      "claude extensions",
-      "ai agent skills",
-      "trusted ai resources",
-      "official developer tools"
+      "公式AIスキル",
+      "信頼できるAIツール",
+      "ファーストパーティー連携",
+      "本番向けAIツール",
+      "エコシステム開発ツール",
+      "エンタープライズAIワークフロー"
     ],
     "ko": [
-      "official ai tools",
-      "best mcp servers",
-      "claude extensions",
-      "ai agent skills",
-      "trusted ai resources",
-      "official developer tools"
+      "공식 AI 스킬",
+      "신뢰 가능한 AI 도구",
+      "퍼스트파티 통합",
+      "프로덕션 AI 툴링",
+      "생태계 개발 도구",
+      "엔터프라이즈 AI 워크플로"
     ],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "official"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "official"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "official"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "official"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "official"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "official"]
+    "es": [
+      "skills oficiales de ia",
+      "herramientas de ia confiables",
+      "integraciones first-party",
+      "tooling de ia para producción",
+      "herramientas de ecosistema",
+      "flujos de trabajo empresariales con ia"
+    ],
+    "fr": [
+      "skills ia officiels",
+      "outils ia fiables",
+      "intégrations first-party",
+      "outillage ia de production",
+      "outils développeur écosystème",
+      "workflows ia entreprise"
+    ],
+    "de": [
+      "offizielle ki-skills",
+      "vertrauenswürdige ki-tools",
+      "first-party-integrationen",
+      "ki-tooling für produktion",
+      "entwickler-tools im ökosystem",
+      "enterprise-ki-workflows"
+    ],
+    "pt": [
+      "skills oficiais de ia",
+      "ferramentas de ia confiáveis",
+      "integrações first-party",
+      "tooling de ia para produção",
+      "ferramentas do ecossistema",
+      "fluxos de trabalho corporativos com ia"
+    ],
+    "ru": [
+      "официальные ai-скиллы",
+      "надежные ai-инструменты",
+      "first-party интеграции",
+      "production ai tooling",
+      "инструменты экосистемы для разработчиков",
+      "корпоративные ai-процессы"
+    ],
+    "ar": [
+      "مهارات ذكاء اصطناعي رسمية",
+      "أدوات ذكاء اصطناعي موثوقة",
+      "تكاملات الطرف الأول",
+      "أدوات ذكاء اصطناعي للإنتاج",
+      "أدوات تطوير المنظومة",
+      "سير عمل ذكاء اصطناعي للمؤسسات"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "top-official-ai-skills-trusted-tools",
+  "legacySlugs": ["top-official-mcp-servers"],
   "category": "official",
   "author": "Killer-Skills AI",
   "skills": [
@@ -98,15 +142,15 @@
     "n8n-io/n8n"
   ],
   "longDescription": {
-    "en": "In the rapidly evolving landscape of AI agent development, choosing the right tools can make or break your project. This curated collection brings together the most trusted official tools from industry-leading teams including Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face, and Sentry. Each tool in this list has been vetted for reliability, comprehensive documentation, and active maintenance by its parent organization. From Anthropic's own MCP servers that provide first-party Claude integration capabilities, to Cloudflare's edge-computing tools for deploying AI at scale, these official resources form the backbone of production-grade AI applications. Whether you're building conversational agents, code generation workflows, or automated DevOps pipelines, these handpicked tools ensure you're building on solid foundations with enterprise-grade support and regular updates. Stop wasting time evaluating unproven alternatives — start with the tools that leading AI companies trust for their own products.",
-    "zh": "在快速发展的 AI 智能体开发领域，选择正确的工具至关重要。本精选合集汇集了来自 Anthropic、Google Labs、Cloudflare、Vercel、Hugging Face 和 Sentry 等行业领先团队的最可信赖的官方工具。每个工具都经过可靠性、文档完善性和活跃维护的严格审查。从 Anthropic 自家的 MCP 服务器到 Cloudflare 的边缘计算工具，这些官方资源构成了生产级 AI 应用的基石。无论你是在构建对话代理、代码生成工作流还是自动化 DevOps 管道，这些精选工具都能确保你在坚实的基础上构建，享受企业级支持和定期更新。",
-    "ja": "急速に進化する AI エージェント開発の世界で、適切なツールを選ぶことはプロジェクトの成否を左右します。この厳選コレクションは、Anthropic、Google Labs、Cloudflare、Vercel、Hugging Face、Sentry など、業界をリードするチームの信頼できる公式ツールを集めたものです。各ツールは信頼性、包括的なドキュメント、組織による積極的なメンテナンスについて検証済みです。Anthropic の MCP サーバーから Cloudflare のエッジコンピューティングツールまで、これらの公式リソースはプロダクショングレードの AI アプリケーションの基盤を形成します。会話エージェント、コード生成ワークフロー、自動化 DevOps パイプラインの構築に、エンタープライズグレードのサポートと定期的なアップデートを備えた堅実な基盤で開発を始めましょう。",
-    "ko": "빠르게 발전하는 AI 에이전트 개발 환경에서 올바른 도구를 선택하는 것은 프로젝트의 성패를 좌우합니다. 이 선별된 컬렉션은 Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face, Sentry 등 업계 선도 팀의 가장 신뢰할 수 있는 공식 도구를 모았습니다. 각 도구는 신뢰성, 포괄적인 문서, 모기업의 적극적인 유지보수 측면에서 검증되었습니다. 대화 에이전트, 코드 생성 워크플로우, 자동화 DevOps 파이프라인을 구축할 때 엔터프라이즈급 지원과 정기 업데이트를 갖춘 견고한 기반 위에서 개발할 수 있습니다.",
-    "es": "En el panorama de desarrollo de agentes IA en constante evolución, elegir las herramientas adecuadas es fundamental. Esta colección curada reúne las herramientas oficiales más confiables de equipos líderes como Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face y Sentry, formando la base de aplicaciones de IA de nivel productivo.",
-    "fr": "Dans le paysage en rapide évolution du développement d'agents IA, choisir les bons outils est crucial. Cette collection réunit les outils officiels les plus fiables des équipes leaders comme Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face et Sentry, formant la base d'applications IA de qualité production.",
-    "de": "In der sich rasch entwickelnden Landschaft der KI-Agent-Entwicklung kann die Wahl der richtigen Tools über Erfolg oder Misserfolg entscheiden. Diese kuratierte Sammlung vereint die vertrauenswürdigsten offiziellen Tools von branchenführenden Teams wie Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face und Sentry.",
-    "pt": "No cenário em rápida evolução do desenvolvimento de agentes IA, escolher as ferramentas certas é fundamental. Esta coleção curada reúne as ferramentas oficiais mais confiáveis de equipes líderes como Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face e Sentry.",
-    "ru": "В стремительно развивающейся сфере разработки AI-агентов выбор правильных инструментов имеет решающее значение. Эта подборка объединяет самые надёжные официальные инструменты от ведущих команд: Anthropic, Google Labs, Cloudflare, Vercel, Hugging Face и Sentry, формируя основу для AI-приложений производственного уровня.",
-    "ar": "في عالم تطوير وكلاء الذكاء الاصطناعي سريع التطور، يُعد اختيار الأدوات الصحيحة أمرًا حاسمًا. تجمع هذه المجموعة المنسقة أكثر الأدوات الرسمية موثوقية من فرق رائدة مثل Anthropic وGoogle Labs وCloudflare وVercel وHugging Face وSentry."
+    "en": "This collection highlights official AI skills and trusted tools maintained by first-party teams and reputable ecosystem builders. It is designed for teams that need predictable quality, clear documentation, and production-ready integration paths. MCP can still play a role as compatibility infrastructure, but the priority is practical skills and tools that help you ship reliable AI products faster.",
+    "zh": "该合集聚焦由第一方团队与可信生态项目长期维护的官方 AI skills 与工具。它面向需要稳定质量、清晰文档与可落地集成路径的研发团队。MCP 仍可作为兼容基础设施的一部分，但核心优先级是能直接提升交付效率与可靠性的实用 skills 与工具。",
+    "ja": "このコレクションは、ファーストパーティーチームと信頼できるエコシステムが継続的に保守する公式AIスキルとツールに焦点を当てています。安定した品質、明確なドキュメント、本番導入しやすい連携経路を必要とするチーム向けです。MCPは互換基盤として活用できますが、優先すべきは、実際の開発と提供を加速する実用的なスキルとツールです。",
+    "ko": "이 컬렉션은 퍼스트파티 팀과 신뢰할 수 있는 생태계 빌더가 지속적으로 유지보수하는 공식 AI 스킬과 도구에 초점을 맞춥니다. 예측 가능한 품질, 명확한 문서, 프로덕션 적용 가능한 통합 경로가 필요한 팀을 위해 구성되었습니다. MCP는 호환성 인프라로 활용될 수 있지만, 우선순위는 실제 전달 속도와 안정성을 높여 주는 실용적인 스킬과 도구입니다.",
+    "es": "Esta colección destaca skills oficiales de IA y herramientas confiables mantenidas por equipos first-party y actores sólidos del ecosistema. Está pensada para equipos que necesitan calidad predecible, documentación clara e integraciones listas para producción. MCP puede aportar como capa de compatibilidad, pero la prioridad son skills y herramientas prácticas para entregar productos de IA con mayor velocidad y confianza.",
+    "fr": "Cette collection met en avant des skills IA officiels et des outils fiables, maintenus par des équipes first-party et des acteurs reconnus de l’écosystème. Elle s’adresse aux équipes qui recherchent une qualité prévisible, une documentation claire et des parcours d’intégration prêts pour la production. MCP peut rester une couche de compatibilité, mais la priorité va aux skills et outils qui accélèrent la livraison de produits IA fiables.",
+    "de": "Diese Sammlung stellt offizielle KI-Skills und vertrauenswürdige Tools in den Vordergrund, die von First-Party-Teams und etablierten Ökosystem-Akteuren gepflegt werden. Sie richtet sich an Teams mit Bedarf an planbarer Qualität, klarer Dokumentation und produktionsreifen Integrationen. MCP kann als Kompatibilitäts-Infrastruktur dienen, doch im Fokus stehen praktische Skills und Tools für eine schnellere, verlässliche Auslieferung von KI-Produkten.",
+    "pt": "Esta coleção reúne skills oficiais de IA e ferramentas confiáveis mantidas por equipes first-party e por players sólidos do ecossistema. Ela é voltada para times que precisam de qualidade previsível, documentação clara e caminhos de integração prontos para produção. MCP pode atuar como infraestrutura de compatibilidade, mas a prioridade está em skills e ferramentas práticas para acelerar entregas de IA com confiança.",
+    "ru": "В этой подборке собраны официальные AI-скиллы и надежные инструменты, которые поддерживаются first-party командами и зрелыми участниками экосистемы. Она подходит командам, которым важны предсказуемое качество, понятная документация и пути интеграции, готовые к production. MCP может использоваться как слой совместимости, но главный акцент — на практичных скиллах и инструментах для более быстрой и надежной поставки AI-продуктов.",
+    "ar": "تُبرز هذه المجموعة مهارات الذكاء الاصطناعي الرسمية والأدوات الموثوقة التي تديرها فرق الطرف الأول وجهات موثوقة في المنظومة. وهي موجهة للفرق التي تحتاج إلى جودة متوقعة، وتوثيق واضح، ومسارات تكامل جاهزة للإنتاج. يمكن أن يبقى MCP طبقة توافق ضمن البنية، لكن الأولوية للمهارات والأدوات العملية التي تساعد على تسليم منتجات ذكاء اصطناعي موثوقة بشكل أسرع."
   }
 }

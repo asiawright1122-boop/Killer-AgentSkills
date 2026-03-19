@@ -1,77 +1,142 @@
 {
   "title": {
-    "en": "Best MCP Servers for Workflow Automation",
-    "zh": "工作流自动化的最佳 MCP 服务器",
-    "ja": "ワークフロー自動化に最適なMCPサーバー",
-    "ko": "워크플로 자동화를 위한 최고의 MCP 서버",
-    "es": "Mejores servidores MCP de for automation workflows en 2024",
-    "fr": "Meilleurs serveurs MCP for automation workflows en 2024",
-    "de": "Beste MCP-Server for automation workflows 2024",
-    "pt": "Melhores servidores MCP for automation workflows em 2024",
-    "ru": "Лучшие MCP серверы for automation workflows 2024",
-    "ar": "أفضل خوادم MCP for automation workflows لعام 2024"
+    "en": "Automation Workflow Building Blocks and Agent Tools",
+    "zh": "自动化工作流构建模块与智能体工具",
+    "ja": "自動化ワークフローの構成要素とエージェントツール",
+    "ko": "자동화 워크플로 빌딩 블록 및 에이전트 도구",
+    "es": "Bloques para workflows de automatización y herramientas de agentes",
+    "fr": "Briques de workflow d'automatisation et outils d'agents",
+    "de": "Bausteine für Automatisierungs-Workflows und Agenten-Tools",
+    "pt": "Blocos de workflows de automação e ferramentas de agentes",
+    "ru": "Базовые блоки автоматизации процессов и агентные инструменты",
+    "ar": "لبنات بناء سير عمل الأتمتة وأدوات الوكلاء"
   },
   "description": {
-    "en": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "zh": "查找帮助自动执行重复任务、构建 CI/CD 管道和编排复杂工作流的 MCP 服务器。",
-    "ja": "反復的なタスクの自動化、CICDパイプラインの構築、複雑なワークフローのオーケストレーションを支援するMCPサーバーを見つけます。",
-    "ko": "반복적인 작업 자동화, CI/CD 파이프라인 구축, 복잡한 워크플로 오케스트레이션을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for automation workflows. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for automation workflows. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for automation workflows. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for automation workflows. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for automation workflows. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for automation workflows. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Discover reusable building blocks for workflow automation, task orchestration, data handoffs, and agent-driven operations.",
+    "zh": "发现可复用的自动化工作流构建模块，用于任务编排、数据交接与智能体驱动的运营流程。",
+    "ja": "タスクのオーケストレーション、データ受け渡し、エージェント駆動運用に使える再利用可能な自動化ワークフロー部品を紹介します。",
+    "ko": "작업 오케스트레이션, 데이터 핸드오프, 에이전트 기반 운영에 활용할 수 있는 재사용 가능한 자동화 워크플로 구성요소를 살펴보세요.",
+    "es": "Descubre bloques reutilizables para automatizar workflows, orquestar tareas, transferir datos y operar con agentes.",
+    "fr": "Découvrez des briques réutilisables pour automatiser les workflows, orchestrer les tâches, transférer les données et piloter des opérations par agents.",
+    "de": "Entdecken Sie wiederverwendbare Bausteine für Workflow-Automatisierung, Aufgabenorchestrierung, Datenübergaben und agentengesteuerte Abläufe.",
+    "pt": "Descubra blocos reutilizáveis para automação de workflows, orquestração de tarefas, passagem de dados e operações guiadas por agentes.",
+    "ru": "Изучите переиспользуемые блоки для автоматизации процессов, оркестрации задач, передачи данных и операций с участием агентов.",
+    "ar": "اكتشف مكوّنات قابلة لإعادة الاستخدام لأتمتة سير العمل، وتنسيق المهام، وتسليم البيانات، والعمليات المعتمدة على الوكلاء."
   },
   "seoTitle": {
-    "en": "Best MCP Servers for Workflow Automation 2026 | Killer-Skills",
-    "zh": "工作流自动化的最佳 MCP 服务器 2026 | Killer-Skills",
-    "ja": "ワークフロー自動化に最適なMCPサーバー 2026 | Killer-Skills",
-    "ko": "워크플로 자동화를 위한 최고의 MCP 서버 2026 | Killer-Skills",
-    "es": "Mejores servidores MCP de for automation workflows en 2024 2026 | Killer-Skills",
-    "fr": "Meilleurs serveurs MCP for automation workflows en 2024 2026 | Killer-Skills",
-    "de": "Beste MCP-Server for automation workflows 2024 2026 | Killer-Skills",
-    "pt": "Melhores servidores MCP for automation workflows em 2024 2026 | Killer-Skills",
-    "ru": "Лучшие MCP серверы for automation workflows 2024 2026 | Killer-Skills",
-    "ar": "أفضل خوادم MCP for automation workflows لعام 2024 2026 | Killer-Skills"
+    "en": "Workflow Automation Building Blocks, Integrations & Agent Operations | Killer-Skills",
+    "zh": "工作流自动化模块、集成与智能体运营工具 | Killer-Skills",
+    "ja": "ワークフロー自動化の構成要素・連携・エージェント運用 | Killer-Skills",
+    "ko": "워크플로 자동화 구성요소, 통합, 에이전트 운영 | Killer-Skills",
+    "es": "Bloques de automatización, integraciones y operaciones con agentes | Killer-Skills",
+    "fr": "Briques d'automatisation, intégrations et opérations par agents | Killer-Skills",
+    "de": "Automatisierungsbausteine, Integrationen und Agentenbetrieb | Killer-Skills",
+    "pt": "Blocos de automação, integrações e operações com agentes | Killer-Skills",
+    "ru": "Блоки автоматизации, интеграции и агентные операции | Killer-Skills",
+    "ar": "مكوّنات أتمتة سير العمل والتكاملات وعمليات الوكلاء | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "zh": "查找帮助自动执行重复任务、构建 CI/CD 管道和编排复杂工作流的 MCP 服务器。",
-    "ja": "反復的なタスクの自動化、CICDパイプラインの構築、複雑なワークフローのオーケストレーションを支援するMCPサーバーを見つけます。",
-    "ko": "반복적인 작업 자동화, CI/CD 파이프라인 구축, 복잡한 워크플로 오케스트레이션을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Explora los mejores servidores MCP para for automation workflows. Una colección curada de herramientas esenciales para desarrolladores que trabajan co",
-    "fr": "Découvrez les meilleurs serveurs MCP pour for automation workflows. Une collection sélectionnée d'outils essentiels pour les développeurs IA.",
-    "de": "Entdecken Sie die besten MCP-Server für for automation workflows. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.",
-    "pt": "Descubra os melhores servidores MCP para for automation workflows. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.",
-    "ru": "Откройте лучшие MCP-серверы для for automation workflows. Тщательно подобранная коллекция инструментов для разработчиков ИИ.",
-    "ar": "اكتشف أفضل خوادم MCP لـ for automation workflows. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي."
+    "en": "Curated tools for designing and scaling automation workflows, from trigger-action patterns to multi-step orchestrations across systems.",
+    "zh": "面向自动化工作流设计与规模化的精选工具集合，覆盖从触发-动作模式到跨系统多步骤编排。",
+    "ja": "トリガー・アクション型からシステム横断の多段オーケストレーションまで、自動化ワークフローの設計と拡張に役立つ厳選ツールです。",
+    "ko": "트리거-액션 패턴부터 시스템 간 다단계 오케스트레이션까지, 자동화 워크플로 설계와 확장을 위한 큐레이션 도구 모음입니다.",
+    "es": "Herramientas curadas para diseñar y escalar workflows de automatización, desde patrones trigger-action hasta orquestaciones multietapa entre sistemas.",
+    "fr": "Outils sélectionnés pour concevoir et faire évoluer des workflows d'automatisation, des patterns trigger-action aux orchestrations multi-étapes inter-systèmes.",
+    "de": "Kuratiertes Toolset zum Entwerfen und Skalieren von Automatisierungs-Workflows, von Trigger-Action-Mustern bis zu systemübergreifender Mehrschritt-Orchestrierung.",
+    "pt": "Ferramentas selecionadas para projetar e escalar workflows de automação, de padrões trigger-action a orquestrações multietapas entre sistemas.",
+    "ru": "Подборка инструментов для проектирования и масштабирования автоматизации: от trigger-action схем до многошаговой оркестрации между системами.",
+    "ar": "أدوات منتقاة لتصميم وتوسيع سير عمل الأتمتة، من أنماط trigger-action إلى التنسيق متعدد الخطوات عبر الأنظمة."
   },
   "keywords": {
-    "en": ["mcp", "mcp server", "model context protocol", "automation workflows"],
-    "zh": ["mcp", "mcp server", "model context protocol", "automation workflows"],
-    "ja": ["mcp", "mcp server", "model context protocol", "automation workflows"],
-    "ko": ["mcp", "mcp server", "model context protocol", "automation workflows"],
-    "es": ["mcp servers", "herramientas ai", "desarrollo ai", "claude", "mcp", "for", "automation"],
-    "fr": ["mcp servers", "outils ia", "développement ia", "claude", "mcp", "for", "automation"],
-    "de": ["mcp servers", "ki-werkzeuge", "ki-entwicklung", "claude", "mcp", "for", "automation"],
-    "pt": ["mcp servers", "ferramentas ia", "desenvolvimento ia", "claude", "mcp", "for", "automation"],
-    "ru": ["mcp серверы", "инструменты ии", "разработка ии", "claude", "mcp", "for", "automation"],
-    "ar": ["خوادم mcp", "أدوات الذكاء الاصطناعي", "تطوير الذكاء الاصطناعي", "كلود", "mcp", "for", "automation"]
+    "en": [
+      "workflow automation",
+      "task orchestration",
+      "agent automation tools",
+      "integration building blocks",
+      "trigger action patterns",
+      "process automation"
+    ],
+    "zh": ["工作流自动化", "任务编排", "智能体自动化工具", "集成构建模块", "触发动作模式", "流程自动化"],
+    "ja": [
+      "ワークフロー自動化",
+      "タスクオーケストレーション",
+      "エージェント自動化ツール",
+      "統合ビルディングブロック",
+      "トリガーアクション",
+      "プロセス自動化"
+    ],
+    "ko": [
+      "워크플로 자동화",
+      "작업 오케스트레이션",
+      "에이전트 자동화 도구",
+      "통합 빌딩 블록",
+      "트리거 액션 패턴",
+      "프로세스 자동화"
+    ],
+    "es": [
+      "automatización de workflows",
+      "orquestación de tareas",
+      "herramientas de automatización con agentes",
+      "bloques de integración",
+      "patrones trigger action",
+      "automatización de procesos"
+    ],
+    "fr": [
+      "automatisation des workflows",
+      "orchestration des tâches",
+      "outils d'automatisation par agents",
+      "briques d'intégration",
+      "patterns trigger action",
+      "automatisation des processus"
+    ],
+    "de": [
+      "Workflow-Automatisierung",
+      "Aufgabenorchestrierung",
+      "Agenten-Automatisierungstools",
+      "Integrationsbausteine",
+      "Trigger-Action-Muster",
+      "Prozessautomatisierung"
+    ],
+    "pt": [
+      "automação de workflows",
+      "orquestração de tarefas",
+      "ferramentas de automação com agentes",
+      "blocos de integração",
+      "padrões trigger action",
+      "automação de processos"
+    ],
+    "ru": [
+      "автоматизация процессов",
+      "оркестрация задач",
+      "агентные инструменты автоматизации",
+      "интеграционные блоки",
+      "паттерны trigger action",
+      "автоматизация workflow"
+    ],
+    "ar": [
+      "أتمتة سير العمل",
+      "تنسيق المهام",
+      "أدوات أتمتة الوكلاء",
+      "لبنات التكامل",
+      "أنماط trigger action",
+      "أتمتة العمليات"
+    ]
   },
   "featured": false,
+  "canonicalSlug": "workflow-automation-tools",
+  "legacySlugs": ["top-mcp-for-automation-workflows"],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "zh": "查找帮助自动执行重复任务、构建 CI/CD 管道和编排复杂工作流的 MCP 服务器。",
-    "ja": "反復的なタスクの自動化、CICDパイプラインの構築、複雑なワークフローのオーケストレーションを支援するMCPサーバーを見つけます。",
-    "ko": "반복적인 작업 자동화, CI/CD 파이프라인 구축, 복잡한 워크플로 오케스트레이션을 지원하는 MCP 서버를 찾으세요.",
-    "es": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "fr": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "de": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "pt": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "ru": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows.",
-    "ar": "Find MCP servers that help automate repetitive tasks, build CI/CD pipelines, and orchestrate complex workflows."
+    "en": "Use this collection to assemble practical automation stacks for internal ops, customer workflows, and cross-tool handoffs. MCP can be part of the integration surface, but the core emphasis is modular workflow design, observability, and dependable execution at scale.",
+    "zh": "你可以基于这组工具搭建面向内部运营、客户流程与跨工具数据交接的自动化技术栈。MCP 可作为集成表面的一部分，但核心重点是模块化工作流设计、可观测性与可规模化的稳定执行。",
+    "ja": "このコレクションを使えば、社内運用、顧客向けフロー、ツール間データ受け渡しに対応した実用的な自動化スタックを組み立てられます。MCPは統合面の一部として活用できますが、中心はモジュール型ワークフロー設計、可観測性、スケール時の安定実行です。",
+    "ko": "이 컬렉션으로 내부 운영, 고객 워크플로, 도구 간 데이터 핸드오프를 위한 실용적인 자동화 스택을 구성할 수 있습니다. MCP는 통합 계층의 일부가 될 수 있지만, 핵심은 모듈형 워크플로 설계, 관측 가능성, 대규모에서도 안정적인 실행입니다.",
+    "es": "Usa esta colección para montar stacks de automatización prácticos para operaciones internas, flujos de clientes y traspasos entre herramientas. MCP puede formar parte de la capa de integración, pero el énfasis principal está en el diseño modular de workflows, la observabilidad y la ejecución confiable a escala.",
+    "fr": "Utilisez cette collection pour assembler des stacks d'automatisation concrets pour les opérations internes, les workflows client et les transferts inter-outils. MCP peut faire partie de la couche d'intégration, mais l'accent principal porte sur la conception modulaire des workflows, l'observabilité et une exécution fiable à l'échelle.",
+    "de": "Mit dieser Sammlung lassen sich praktische Automatisierungs-Stacks für interne Abläufe, Kundenworkflows und toolübergreifende Übergaben aufbauen. MCP kann Teil der Integrationsoberfläche sein; der Schwerpunkt liegt jedoch auf modularer Workflow-Architektur, Observability und verlässlicher Ausführung im Maßstab.",
+    "pt": "Use esta coleção para montar stacks práticos de automação para operações internas, fluxos de clientes e handoffs entre ferramentas. O MCP pode compor a superfície de integração, mas o foco principal está no desenho modular de workflows, observabilidade e execução confiável em escala.",
+    "ru": "Используйте эту коллекцию для сборки практичных стеков автоматизации внутренних операций, клиентских процессов и передачи данных между инструментами. MCP может быть частью интеграционного слоя, но главный акцент — на модульном проектировании workflows, наблюдаемости и надежном исполнении в масштабе.",
+    "ar": "استخدم هذه المجموعة لبناء حِزم أتمتة عملية للعمليات الداخلية وتدفقات العملاء وتسليم المهام بين الأدوات. يمكن أن يكون MCP جزءًا من طبقة التكامل، لكن التركيز الأساسي على تصميم سير عمل معياري، وقابلية المراقبة، وتنفيذ موثوق على نطاق واسع."
   }
 }

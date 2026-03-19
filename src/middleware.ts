@@ -175,8 +175,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const isSkillsListingWithParams = /^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0;
     // X-Robots-Tag as HTTP header reinforcement for Googlebot
     if (!response.headers.has('X-Robots-Tag')) {
+      if (response.status >= 400) {
+        response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      }
       // noindex for search result pages (?q= / ?query=) — thin/dynamic content
-      if (isSkillsListingWithParams || searchParams.has('q') || searchParams.has('query')) {
+      else if (isSkillsListingWithParams || searchParams.has('q') || searchParams.has('query')) {
         response.headers.set('X-Robots-Tag', 'noindex, follow');
       } else {
         response.headers.set('X-Robots-Tag', 'index, follow');
