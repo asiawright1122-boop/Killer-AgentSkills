@@ -1,6 +1,6 @@
 ---
 title: "MCP vs REST API: Which Should You Use for AI Agents?"
-description: "Compare MCP and REST APIs through agent workflows, interoperability, and operational trade-offs."
+description: "MCP vs REST API for AI agents compared through workflows, interoperability, and operational trade-offs in AI development."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp

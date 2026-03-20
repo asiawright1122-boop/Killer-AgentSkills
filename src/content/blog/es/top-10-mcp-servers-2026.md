@@ -1,6 +1,6 @@
 ---
 title: "Top 10 herramientas e integraciones MCP para Claude Code y Cursor en 2026"
-description: "Compara herramientas e integraciones MCP para Claude Code y Cursor en 2026. Descubre capacidades prácticas de runtime para flujos de trabajo, bases de datos, documentos y automatización del navegador."
+description: "Descubre las mejores herramientas e integraciones MCP para Claude Code y Cursor en 2026, comparando capacidades prácticas para flujos de trabajo y"
 pubDate: 2026-03-05
 author: "Killer-Skills Team"
 tags: ["MCP", "Herramientas MCP", "AI Agent Skills", "Claude Code", "Cursor", "Automatización"]
