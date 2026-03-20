@@ -16,22 +16,16 @@ heroImage: "/blog/openclaw-killer-integration-hero.webp"
 
 通过 **Killer-Skills**，你可以为 OpenClaw 注入一套标准化的规则体系，使其能够自主发现并执行复杂的逻辑。
 
-## 第一步：安装 Killer-Skills CLI
+## 第一步：通过 npx 使用 Killer-Skills
 
-首先，确保你的系统中安装了 Node.js 环境。在终端中运行以下命令安装最新的 Killer-Skills CLI：
-
-```bash
-npm install -g killer-skills
-```
-
-安装完成后，你可以运行 `killer --version` 来确认版本是否为 **1.9.0 或更高版本**（从该版本开始正式支持 OpenClaw）。
+首先，确保你的系统中安装了 Node.js 环境。这个流程不需要全局安装 CLI，直接在项目里通过 `npx` 运行 Killer-Skills 即可。
 
 ## 第二步：在项目中初始化 OpenClaw 支持
 
 进入你想让 OpenClaw 工作的项目根目录，运行初始化命令：
 
 ```bash
-killer init
+npx killer-skills init
 ```
 
 当提示选择 IDE 或代理时，选择 **OpenClaw**。此操作会在你的项目中创建 `.openclaw` 标识文件以及 `AGENTS.md`（如果尚未存在），这是 OpenClaw 用来读取系统级指令的标准位置。
@@ -42,14 +36,14 @@ killer init
 
 1.  **搜索并安装技能**：
     ```bash
-    killer install frontend-design
+    npx killer-skills add frontend-design
     ```
 2.  **同步到 OpenClaw**：
     ```bash
-    killer sync --ide openclaw
+    npx killer-skills sync --ide openclaw
     ```
 
-`killer sync` 命令会自动生成一套 OpenClaw 能够理解的 XML 提示词块，并将它们注入到 `AGENTS.md` 中。
+`npx killer-skills sync --ide openclaw` 命令会自动生成一套 OpenClaw 能够理解的 XML 提示词块，并将它们注入到 `AGENTS.md` 中。
 
 ## 场景化技能包推荐 (Scenario-based Skill Packs)
 
@@ -58,22 +52,29 @@ killer init
 ### 1. 办公自动化版 (Office Pro)
 适合需要处理大量文档和报表的用户。
 ```bash
-killer install pdf xlsx docx humanizer
-killer sync --ide openclaw
+npx killer-skills add pdf
+npx killer-skills add xlsx
+npx killer-skills add docx
+npx killer-skills add humanizer
+npx killer-skills sync --ide openclaw
 ```
 
 ### 2. 开发者增强版 (Dev Alpha)
 适合需要 AI 辅助编程、测试和扩展工具链的开发者。
 ```bash
-killer install frontend-design webapp-testing mcp-builder
-killer sync --ide openclaw
+npx killer-skills add frontend-design
+npx killer-skills add webapp-testing
+npx killer-skills add mcp-builder
+npx killer-skills sync --ide openclaw
 ```
 
 ### 3. 内容创作版 (Creator Suite)
 适合博主、社交媒体运营及方案策划。
 ```bash
-killer install humanizer canvas-design internal-comms
-killer sync --ide openclaw
+npx killer-skills add humanizer
+npx killer-skills add canvas-design
+npx killer-skills add internal-comms
+npx killer-skills sync --ide openclaw
 ```
 
 ## 第四步：在 OpenClaw 中调用
@@ -88,13 +89,13 @@ OpenClaw 会检测到 `AGENTS.md` 中的技能定义，自动激活对应的逻�
 
 -   **标准化**：无需为每个项目手写系统提示（System Prompts）。
 -   **模块化**：像安装 NPM 包一样安装 AI 能力。
--   **跨平台同步**：如果你同时使用 [Cursor 或 Windsurf](/zh/blog/claude-code-vs-cursor-vs-windsurf)，`killer sync --all` 可以让你所有的 AI 工具共享同一套技能库。
+-   **跨平台同步**：如果你同时使用 [Cursor 或 Windsurf](/zh/blog/claude-code-vs-cursor-vs-windsurf)，`npx killer-skills sync --all` 可以让你所有的 AI 工具共享同一套技能库。
 
 ## 结语
 
 通过 Killer-Skills 与 OpenClaw 的结合，你不再仅仅是在使用一个聊天机器人，而是拥有了一个可以不断自我进化、技能树极其丰富的自主代理。
 
-快来 [技能市场](https://killer-skills.com/zh/blog) 挑选属于你的下一项“超能力”吧！
+快来 [技能目录](https://killer-skills.com/zh/skills) 挑选属于你的下一项“超能力”吧！
 
 ---
 

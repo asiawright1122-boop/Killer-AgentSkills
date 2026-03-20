@@ -64,7 +64,7 @@ Ask the agent to "Reader Test" your technical spec to see if a developer could i
 
 The `doc-coauthoring` skill raises the bar for what AI-assisted writing can be. It turns a solitary, exhausting task into a structured, high-quality dialogue. 
 
-Visit the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring) to download the skill and start writing documents that actually work.
+Visit the [doc-coauthoring skill](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring) in the Killer-Skills skills directory to get started writing documents that actually work.
 
 ---
 

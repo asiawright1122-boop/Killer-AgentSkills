@@ -70,7 +70,7 @@ Build a magazine-style portfolio that uses "Art Deco Geometric" patterns to show
 
 The `frontend-design` skill is the difference between a website that looks "produced by AI" and one that looks "designed by a world-class agency." It ensures that your frontend output is not just functional, but **emotionally resonant**.
 
-Check out the [frontend-design skill](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) on the Killer-Skills Marketplace today and start building the future of the web.
+Check out the [frontend-design skill](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) in the Killer-Skills skills directory today and start building the future of the web.
 
 ---
 

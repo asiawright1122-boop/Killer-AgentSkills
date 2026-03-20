@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 Навык `webapp-testing` является последней частью пазла профессионального развития. Он гарантирует, что красивый код, написанный вашим агентом, также является **надежным кодом**. Включая автоматизированное тестирование в рабочий процесс агента, он позволяет вам выпускать продукты с полной уверенностью.
 
-Перейдите на [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/webapp-testing) и начните создавать защищенные фронтенды уже сегодня.
+Перейдите к навыку [webapp-testing](https://killer-skills.com/ru/skills/anthropics/skills/webapp-testing) в каталоге навыков Killer-Skills и начните создавать надёжные фронтенды уже сегодня.
 
 ---
 

@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
-import { getCollectionCanonicalSlug } from '../../../lib/collection-slugs';
+import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../lib/collection-slugs';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
 
@@ -22,7 +22,7 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
 // Load all collections
-const collectionsCol = await getCollection('collections');
+const collectionsCol = getCanonicalCollections(await getCollection('collections'));
 collectionsCol.sort((a, b) => b.id.localeCompare(a.id)); // Simple sort by ID/Slug
 
 // Extract localized text safely

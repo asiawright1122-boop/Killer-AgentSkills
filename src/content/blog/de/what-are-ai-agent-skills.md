@@ -112,7 +112,7 @@ Mit der Zeit wächst die Datei, während du weitere Regeln hinzufügst. Einige u
 
 Skills sind noch in der frühen Phase. Das Format ist nicht für alle Agents standardisiert, die Fehlerbehandlung ist primitiv, und die Auffindbarkeit ist begrenzt. Aber die Kernidee (Ihrem KI-Assistenten schriftliche Anweisungen zu Ihrem Projekt zu geben) ist hier, um zu bleiben.
 
-Wenn Sie vorhandene Skills durchsehen oder eigene veröffentlichen möchten, besuchen Sie das [Skill-Verzeichnis](/en/skills). Derzeit gibt es über 1.000 von der Community beigetragene Skills, die alles von der Datenbankverwaltung bis zum UI-Design abdecken.
+Wenn Sie vorhandene Skills durchsehen oder eigene veröffentlichen möchten, besuchen Sie das [Skill-Verzeichnis](/de/skills). Derzeit gibt es über 2,500 von der Community beigetragene Skills, die alles von der Datenbankverwaltung bis zum UI-Design abdecken.
 
 ---
 

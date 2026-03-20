@@ -25,9 +25,9 @@ En el mundo de los agentes de inteligencia artificial (como [Claude Code](/es/bl
 
 We are proud to announce that **Killer-Skills now officially supports OpenClaw**!
 
-This means you can use our CLI tool to sync over 1,000 professional-grade AI skills with your OpenClaw assistant in one click. Whether you need to handle complex PDFs, automate Excel reports, or perform professional UI design, OpenClaw can now master these capabilities faster than ever.
+This means you can use our CLI tool to sync over 2,500 professional-grade AI skills with your OpenClaw assistant in one click. Whether you need to handle complex PDFs, automate Excel reports, or perform professional UI design, OpenClaw can now master these capabilities faster than ever.
 
-> **Tip**: Run `npm install -g killer-skills` and execute `killer-skills sync --ide openclaw` to start your autonomous AI journey.
+> **Tip**: Run `npx killer-skills sync --ide openclaw` in a project where you already added the skills you need to start your autonomous AI journey.
 ## Conclusión
 
 OpenClaw representa el futuro de los agentes de inteligencia artificial de código abierto: más privados, más autónomos y más potentes. En los próximos artículos de esta serie, profundizaremos en escenarios de aplicación específicos de OpenClaw y en cómo maximizar su potencial con Killer-Skills.

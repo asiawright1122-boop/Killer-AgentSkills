@@ -60,7 +60,7 @@ The `skill-creator` provides a step-by-step workflow for building your own capab
 
 The power of AI isn't just in the model; it's in the **infrastructure** surrounding it. With the `skill-creator` skill, you move from being a "prompt engineer" to a "capabilities architect." You aren't just telling the AI what to do; you're teaching it how to learn.
 
-Start building your custom AI workspace today on the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/skill-creator).
+Start building your custom AI workspace today with the [skill-creator skill](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) in the Killer-Skills skills directory.
 
 ---
 

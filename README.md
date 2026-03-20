@@ -1,8 +1,8 @@
 # Killer-Skills
 
-The ultimate directory of AI Development Skills for Agents (MCP, LangChain, etc.).
+The open directory for AI Agent Skills, IDE-native skill installation, and reusable automation workflows.
 
-AI Agent 开发技能终极目录（支持 MCP, LangChain 等）。
+面向 AI Agent Skills、IDE 原生技能安装与可复用自动化工作流的开放目录。
 
 🌍 **[Website / 官网](https://killer-skills.com)**
 
@@ -19,7 +19,7 @@ AI Agent 开发技能终极目录（支持 MCP, LangChain 等）。
 | **Search**     | Cloudflare Vectorize + Workers AI (semantic search)            |
 | **i18n**       | Native Astro i18n (10 locales) + Cloudflare AI Translation     |
 | **CI/CD**      | GitHub Actions — ESLint, Prettier, Vitest (hard gates)         |
-| **CLI**        | `killer` / `kiro` — skill management from terminal             |
+| **CLI**        | `killer-skills` — install, sync, and manage skills from terminal |
 
 **Key capabilities:**
 

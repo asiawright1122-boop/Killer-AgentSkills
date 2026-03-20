@@ -16,19 +16,13 @@ Em artigos anteriores, apresentamos o [enorme potencial do OpenClaw](/pt/blog/in
 Com **Habilidades Letais**, você pode injetar um sistema de regras padronizado no OpenClaw, permitindo que ele descubra e execute lógica complexa de forma independente.
 ## Passo 1: Instalar o Killer-Skills CLI
 
-Primeiro, certifique-se de que o Node.js esteja instalado no seu sistema. Execute o seguinte comando no seu terminal para instalar o Killer-Skills CLI mais recente:
-
-```bash
-npm install -g killer-skills
-```
-
-Após a instalação, você pode executar `killer --version` para confirmar que a versão é **1.9.0 ou superior** (o suporte oficial do OpenClaw começa a partir desta versão).
+Primeiro, certifique-se de que o Node.js esteja instalado no seu sistema. Este fluxo não exige instalação global da CLI — basta executar o Killer-Skills com `npx` dentro do projeto.
 ## Passo 2: Inicializar o Suporte do OpenClaw no Seu Projeto
 
 Navegue até o diretório raiz do projeto onde você deseja que o OpenClaw funcione e execute o comando de inicialização:
 
 ```bash
-killer init
+npx killer-skills init
 ```
 
 Quando solicitado a selecionar um IDE ou agente, escolha **OpenClaw**. Essa ação cria o arquivo de identificador `.openclaw` e `AGENTS.md` (se ainda não existir) no seu projeto, que é o local padrão onde o OpenClaw lê instruções de nível de sistema.
@@ -38,14 +32,14 @@ Agora, você pode escolher qualquer habilidade de que precise. Por exemplo, se v
 
 1.  **Pesquisar e Instalar Habilidade**:
     ```bash
-    killer install frontend-design
+    npx killer-skills add frontend-design
     ```
 2.  **Sincronizar com o OpenClaw**:
     ```bash
-    killer sync --ide openclaw
+    npx killer-skills sync --ide openclaw
     ```
 
-O comando `killer sync` gera automaticamente um conjunto de blocos de prompt XML que o OpenClaw entende e os injeta em `AGENTS.md`.
+O comando `npx killer-skills sync --ide openclaw` gera automaticamente um conjunto de blocos de prompt XML que o OpenClaw entende e os injeta em `AGENTS.md`.
 ## Pacotes de Habilidades Baseados em Cenários
 
 Para ajudá-lo a começar rapidamente, organizamos "pacotes de instalação em um clique" para diferentes cenários:
@@ -53,22 +47,29 @@ Para ajudá-lo a começar rapidamente, organizamos "pacotes de instalação em u
 ### 1. Pacote de Automação de Escritório (Office Pro)
 Adequado para usuários que precisam lidar com grandes volumes de documentos e relatórios.
 ```bash
-killer install pdf xlsx docx humanizer
-killer sync --ide openclaw
+npx killer-skills add pdf
+npx killer-skills add xlsx
+npx killer-skills add docx
+npx killer-skills add humanizer
+npx killer-skills sync --ide openclaw
 ```
 
 ### 2. Pacote de Melhoria para Desenvolvedores (Dev Alpha)
 Adequado para desenvolvedores que precisam de assistência de IA para codificação, teste e extensão de cadeias de ferramentas.
 ```bash
-killer install frontend-design webapp-testing mcp-builder
-killer sync --ide openclaw
+npx killer-skills add frontend-design
+npx killer-skills add webapp-testing
+npx killer-skills add mcp-builder
+npx killer-skills sync --ide openclaw
 ```
 
 ### 3. Pacote de Criação de Conteúdo (Creator Suite)
 Adequado para blogueiros, gerentes de mídia social e planejadores de propostas.
 ```bash
-killer install humanizer canvas-design internal-comms
-killer sync --ide openclaw
+npx killer-skills add humanizer
+npx killer-skills add canvas-design
+npx killer-skills add internal-comms
+npx killer-skills sync --ide openclaw
 ```
 ## Passo 4: Invocar em OpenClaw
 
@@ -81,12 +82,12 @@ O OpenClaw detectará as definições de habilidades em `AGENTS.md`, ativará au
 
 -   **Padronização**: Não há necessidade de escrever manualmente prompts de sistema para cada projeto.
 -   **Modularidade**: Instale capacidades de IA assim como instala pacotes NPM.
--   **Sincronização Cross-Platform**: Se você usa [Cursor ou Windsurf](/pt/blog/claude-code-vs-cursor-vs-windsurf) ao mesmo tempo, `killer sync --all` permite que todas as suas ferramentas de IA compartilhem a mesma biblioteca de habilidades.
+-   **Sincronização Cross-Platform**: Se você usa [Cursor ou Windsurf](/pt/blog/claude-code-vs-cursor-vs-windsurf) ao mesmo tempo, `npx killer-skills sync --all` permite que todas as suas ferramentas de IA compartilhem a mesma biblioteca de habilidades.
 ## Conclusão
 
 Ao combinar Killer-Skills com OpenClaw, você não está mais apenas usando um chatbot, mas um agente autônomo que pode evoluir continuamente com uma árvore de habilidades rica.
 
-Venha ao [Mercado de Habilidades](https://killer-skills.com/pt/blog) e escolha sua próxima "superpoder"!
+Navegue pelo [diretório de skills](https://killer-skills.com/pt/skills) e escolha seu próximo "superpoder"!
 
 ---
 

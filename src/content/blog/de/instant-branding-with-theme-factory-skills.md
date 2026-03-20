@@ -31,39 +31,39 @@ Die Fähigkeit kommt mit 10 vordefinierten Themes, jedes enthält:
 
 ### 2. Echtzeit-Theme-Generierung
 Wenn die vordefinierten Themes nicht passen, kann die Fähigkeit ein völlig neues Theme aus simpleen Beschreibungen wie "Cyberpunk-Finanz" oder "Umweltfreundliche Wellness" erstellen.
-## 探索入门主题
+## Die Starter-Themes entdecken
 
-以下是一些开箱即用的高端主题：
+Hier sind einige hochwertige Themes, die sofort verfügbar sind:
 
-- **海洋深处**：专业、沉稳且具有海洋风格——非常适合企业金融。
-- **现代极简主义**：为科技初创公司设计的干净、现代的灰度美学。
-- **午夜银河**：戏剧性且具有宇宙感的深色调，适合高影响力的演示。
-- **森林冠层**：自然且稳重的大地色调，适合可持续发展或健康项目。
-- **科技创新**：为开发者和工程师设计的现代科技美学。
+- **Ocean Depths**: Professionell, ruhig und maritim — ideal für Corporate-Finance.
+- **Modern Minimalist**: Eine klare, moderne Graustufen-Ästhetik für Tech-Startups.
+- **Midnight Galaxy**: Dramatische, kosmische Dunkeltöne für Präsentationen mit starker Wirkung.
+- **Forest Canopy**: Natürliche, geerdete Farbtöne für Nachhaltigkeits- oder Wellness-Projekte.
+- **Tech Innovation**: Eine markante, moderne Tech-Ästhetik für Entwickler und Ingenieure.
 ## Warum Branding für KI-Agents wichtig ist
 
-Für Entwickler und Produktmanager, die KI-Agents verwenden, um Tools wie [Web-Artefakte](https://killer-skills.com/de/blog/mastering-generative-art-with-claudecode-skills) zu erstellen, ist Konsistenz die größte Herausforderung. Ohne ein Theme-System kann jedes neue Komponente eine andere Blauschattierung oder eine leicht unterschiedliche Schriftstärke haben.
+Für Entwickler und Produktmanager, die KI-Agents verwenden, um Tools wie [Web-Artefakte](https://killer-skills.com/de/blog/mastering-generative-art-with-claudecode-skills) zu erstellen, ist Konsistenz die größte Herausforderung. Ohne ein Theme-System kann jede neue Komponente einen anderen Blauton oder eine leicht abweichende Schriftstärke mitbringen.
 
 `theme-factory` stellt sicher, dass:
 - **Konsistenz**: Ihr gesamtes Projekt aussieht, als wäre es von einer einzigen Person entworfen.
-- **Geschwindigkeit**: Sie keine CSS-Variablen manuell für jede neue Seite schreiben müssen.
-- **Qualität**: Sie auf in die Fähigkeitsgrundlagen integrierte Designprinzipien zurückgreifen.
-## 如何使用 Theme-Factory 与 Killer-Skills
+- **Geschwindigkeit**: Sie nicht für jede neue Seite manuell CSS-Variablen schreiben müssen.
+- **Qualität**: Sie Designprinzipien nutzen, die bereits in den Grundlagen des Skills verankert sind.
+## Wie Sie Theme-Factory mit Killer-Skills verwenden
 
-1.  **安装**: 使用 CLI 将该技能添加到您的项目中。
-2.  **展示**: 要求您的智能体“显示主题展示”，以查看所有 10 种视觉样式。
-3.  **应用**: 命令智能体“将‘海洋深处’主题应用到我的当前报告中。”
-4.  **自定义**: 如果需要，请求获取“日落大道”主题的“温暖且充满活力的版本”。
-## Conclusión
+1.  **Installieren**: Verwenden Sie die CLI, um den Skill Ihrem Projekt hinzuzufügen.
+2.  **Showcase**: Bitten Sie Ihren Agenten, „show the theme showcase“ auszuführen, um alle 10 visuellen Stile zu sehen.
+3.  **Anwenden**: Weisen Sie den Agenten an, „Wenden Sie das Theme ‚Ocean Depths‘ auf meinen aktuellen Bericht an.“
+4.  **Anpassen**: Falls nötig, fragen Sie nach einer „warmen und lebendigen Version“ des Themes „Sunset Boulevard“.
+## Fazit
 
-La habilidad `theme-factory` transforma a tu agente de IA de un simple programador en un diseñador consciente de la marca. Al asegurar que cada artefacto sea hermoso y consistente, eleva el listón de lo que el contenido generado por IA puede lograr.
+Die `theme-factory`-Fähigkeit verwandelt Ihren KI-Agenten von einem einfachen Coder in einen markenbewussten Designer. Indem jedes Artefakt schön und konsistent gestaltet wird, hebt sie die Messlatte für das, was KI-generierte Inhalte leisten können.
 
-Consulta la habilidad [theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) en el Killer-Skills Marketplace hoy mismo y dale a tus proyectos la ventaja profesional que merecen.
-
----
-
-*¿Quieres construir los componentes tú mismo? Combínalo con [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design) para el flujo de trabajo definitivo de desarrollo web.*
+Sehen Sie sich den [theme-factory-Skill](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) im Killer-Skills-Verzeichnis an und geben Sie Ihren Projekten den professionellen Vorsprung, den sie verdienen.
 
 ---
 
-*Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/que-son-las-habilidades-de-los-agentes-de-ia) y [Mejores habilidades de agentes de IA para 2026](/es/blog/mejores-habilidades-de-agentes-de-ia-2026)*
+*Möchten Sie die Komponenten selbst erstellen? Kombinieren Sie dies mit [frontend-design](https://killer-skills.com/de/skills/anthropics/skills/frontend-design) für den ultimativen Webentwicklungs-Workflow.*
+
+---
+
+*Weiterführende Lektüre: [Was sind AI-Agent-Skills?](/de/blog/what-are-ai-agent-skills) und [Die besten AI-Agent-Skills für 2026](/de/blog/best-ai-agent-skills-2026)*

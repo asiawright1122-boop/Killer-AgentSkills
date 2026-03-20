@@ -65,7 +65,7 @@ npx killer-skills add anthropics/skills/pdf
 
 `pdf`技能是现代开发者和数据分析师的必备工具。它消除了PDF处理的繁琐步骤，让你能够构建真正自动化、企业级的文档处理流程。
 
-立即从[Killer-Skills市场](https://killer-skills.com/zh/skills/anthropics/skills/pdf)安装pdf技能，开启自动化之旅。
+立即从 Killer-Skills 技能目录安装 [pdf 技能](https://killer-skills.com/zh/skills/anthropics/skills/pdf)，开启自动化之旅。
 
 ---
 

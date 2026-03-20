@@ -66,7 +66,7 @@ Automate multi-step user journeys, such as "Sign-up -> Payment -> Dashboard View
 
 The `webapp-testing` skill is the final piece of the professional development puzzle. It ensures that the beautiful code your agent writes is also **reliable code**. By bringing automated QA into the agentic workflow, it allows you to ship with total confidence.
 
-Head over to the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) and start building bulletproof frontends today.
+Head over to the [webapp-testing skill](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) in the Killer-Skills skills directory and start building bulletproof frontends today.
 
 ---
 

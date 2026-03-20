@@ -58,7 +58,7 @@ npx killer-skills add anthropics/skills/theme-factory
 
 `theme-factory` スキルは、あなたの AI エージェントをシンプルなコーダーからブランド意識のあるデザイナーに変えます。すべての成果物を美しく一貫性のあるものにすることで、AI によって生成されたコンテンツが達成できる水準を高めています。
 
-Killer-Skills マーケットプレイスで [theme-factory スキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) を確認し、プロジェクトに专业的なエッジを与えてみましょう。
+Killer-Skills のスキル一覧で [theme-factory スキル](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) をチェックして、プロジェクトにふさわしいプロ品質の仕上がりを実現しましょう。
 
 ---
 

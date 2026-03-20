@@ -65,7 +65,7 @@ PDF請求書のフォルダを読み込み、`pdf`スキルを使用して合計
 
 `pdf`スキルは、現代の開発者やデータアナリストにとって必須のツールです。PDF処理の煩わしさから解放され、真に自動化されたエンタープライズレベルのドキュメントパイプラインの構築を可能にします。
 
-[Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/pdf)からpdfスキルをインストールして、今日から自動化を始めましょう。
+Killer-Skills のスキル一覧から [pdf スキル](https://killer-skills.com/ja/skills/anthropics/skills/pdf) をインストールして、今日から自動化を始めましょう。
 
 ---
 

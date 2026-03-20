@@ -14,48 +14,48 @@ heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=
 Вы когда-нибудь просили свой ИИ-агент для написания кода «написать тесты для этого модуля», а в ответ получали что-то совершенно шаблонное, что игнорирует уникальную архитектуру вашего проекта?
 
 
-Here is the translated content in Chinese:
+## Как это на самом деле работает
 
-## 它们实际上是如何工作的
+Здесь нет никакой магии. Файл навыка состоит из двух частей:
 
-这里没有魔法。一个技能文件包含两个部分：
+1. **Frontmatter** с именем и описанием, чтобы агент понимал, когда его загружать
+2. **Инструкции**, написанные в обычном Markdown, — это и есть само знание
 
-1. **Frontmatter** 包含名称和描述（以便代理知道何时加载它）
-2. **指令** 用纯 Markdown 编写（实际的知识）
-
-这是一个真实的简化示例：
+Вот реальный упрощённый пример:
 
 ```yaml
 ---
 name: testing
-description: 如何在这个项目中编写和运行测试
+description: How to write and run tests in this project
 ---
 ```
 
 ```markdown
-# 在这个项目中测试
+# Testing in this project
 
-我们使用 Vitest。使用 `npm test` 运行测试。
+We use Vitest. Run tests with `npm test`.
 
-规则：
-- 每个新函数至少需要一个测试
-- 模拟外部 API，永远不要在测试中调用它们
-- 将测试文件放在源代码旁边：`utils.test.ts` 放在 `utils.ts` 旁边
+Rules:
+- Every new function needs at least one test
+- Mock external APIs, never call them in tests
+- Put test files next to the source: `utils.test.ts` beside `utils.ts`
 ```
 
-这就是整个格式。代理加载这个文件，读取指令，并相应地改变其行为。没有 SDK，没有 API 调用，除了文件本身之外没有其他配置。
-## Where skills run
+На этом весь формат и заканчивается. Агент загружает файл, читает инструкции и меняет своё поведение. Никакого SDK, никаких API-вызовов и никакой дополнительной конфигурации, кроме самого файла.
 
-Currently, several coding agents support SKILL.md files or similar formats:
+## Где работают навыки
 
-| Agent | Skill location | How it works |
-|-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Automatically reads skills based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+Сейчас несколько coding-агентов поддерживают файлы `SKILL.md` или похожие форматы:
 
-The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
+| Агент | Где лежит навык | Как это работает |
+|-------|-----------------|------------------|
+| Claude Code | `.claude/skills/` | Автоматически читает навыки по контексту |
+| Cursor | `.cursor/rules/` | Файлы правил на уровне проекта |
+| Windsurf | `.windsurfrules` | Единый файл правил в корне проекта |
+| GitHub Copilot | `.github/copilot-instructions.md` | Инструкции на уровне репозитория |
+
+Формат постепенно выравнивается. Навык, написанный для Claude, обычно можно использовать и в Cursor с минимальными изменениями путей.
+
 ## Когда навыки действительно помогают (и когда нет)
 
 Навыки хорошо работают для **проектно-специфических условностей**, которые ИИ не может угадать самостоятельно. Например:
@@ -65,26 +65,28 @@ The format is converging. A skill written for Claude usually works in Cursor wit
 - Запросы к базе данных должны проходить через определенный уровень абстракции
 - Тесты должны следовать определенной конвенции именования
 
-Навыки не очень помогают, когда задача достаточно общая, чтобы любой компетентный разработчик (или ИИ) мог решить ее одинаково. Вам не нужен навык для "того, как написать цикл for".
+Навыки не очень помогают, когда задача достаточно общая, чтобы любой компетентный разработчик (или ИИ) мог решить ее одинаково. Вам не нужен навык для того, чтобы объяснить, как написать цикл `for`.
 
-Сладкое место - это знания, которые живут в головах вашей команды, но еще не были записаны нигде. Навыки заставляют вас задокументировать их, и затем ИИ может следовать им тоже.
-# Finding skills you can use today
+Лучше всего навыки работают там, где знания живут в головах вашей команды, но ещё не записаны. Они заставляют вас документировать эти знания, а затем ИИ может им следовать.
 
-You can write your own skills from scratch, but there are also community skills available for common tasks:
+## Где искать навыки уже сегодня
 
-- **docx** - Generate and edit Word documents
-- **pdf** - Read, merge, split, and create PDFs
-- **xlsx** - Work with spreadsheets and formulas
-- **mcp-builder** - Build MCP servers for agent integrations
-- **frontend-design** - Create polished web interfaces
+Вы можете писать навыки с нуля, но для распространённых задач уже существуют community-навыки:
 
-You install them with one command:
+- **docx** — создание и редактирование Word-документов
+- **pdf** — чтение, объединение, разделение и создание PDF
+- **xlsx** — работа с таблицами и формулами
+- **mcp-builder** — создание MCP-серверов для агентных интеграций
+- **frontend-design** — создание аккуратных веб-интерфейсов
+
+Устанавливаются они одной командой:
 
 ```bash
 npx killer-skills add anthropics/skills/pdf
 ```
 
-This copies the SKILL.md file into your project's skills directory. The agent picks it up on the next conversation.
+Это копирует файл `SKILL.md` в каталог навыков вашего проекта. Агент подхватит его в следующем диалоге.
+
 ## Написание собственных навыков
 
 Лучшие навыки появляются из разочарования. Когда ваш агент постоянно делает что-то неправильно, это сигнал о том, что вам нужен навык для этого.
@@ -96,7 +98,7 @@ This copies the SKILL.md file into your project's skills directory. The agent pi
 
 Навыки всё ещё находятся на ранней стадии развития. Формат не стандартизирован для всех агентов, обработка ошибок примитивна, а возможности обнаружения ограничены. Но основная идея (предоставление вашему ИИ-ассистенту письменных инструкций о вашем проекте) останется с нами надолго.
 
-Если вы хотите просмотреть существующие навыки или опубликовать свои собственные, ознакомьтесь с [каталогом навыков](/en/skills). В настоящее время существует более 1000 навыков, созданных сообществом, которые охватывают всё от управления базами данных до проектирования пользовательского интерфейса.
+Если вы хотите просмотреть существующие навыки или опубликовать свои собственные, ознакомьтесь с [каталогом навыков](/ru/skills). В настоящее время существует более 2,500 навыков, созданных сообществом, которые охватывают всё от управления базами данных до проектирования пользовательского интерфейса.
 
 ---
 

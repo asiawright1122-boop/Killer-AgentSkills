@@ -6,120 +6,130 @@ import path from 'path';
 const COLLECTIONS_DIR = 'src/content/collections';
 const FIX_LOCALES = ['es', 'fr', 'de', 'pt', 'ru', 'ar'];
 
-// Proper title templates for each locale
-const TITLE_TEMPLATES: Record<string, (slug: string) => string> = {
-  es: (slug) => {
-    const terms = extractTerms(slug);
-    return `Mejores servidores MCP de ${terms} en 2024`;
-  },
-  fr: (slug) => {
-    const terms = extractTerms(slug);
-    return `Meilleurs serveurs MCP ${terms} en 2024`;
-  },
-  de: (slug) => {
-    const terms = extractTerms(slug);
-    return `Beste MCP-Server ${terms} 2024`;
-  },
-  pt: (slug) => {
-    const terms = extractTerms(slug);
-    return `Melhores servidores MCP ${terms} em 2024`;
-  },
-  ru: (slug) => {
-    const terms = extractTerms(slug);
-    return `Лучшие MCP серверы ${terms} 2024`;
-  },
-  ar: (slug) => {
-    const terms = extractTerms(slug);
-    return `أفضل خوادم MCP ${terms} لعام 2024`;
-  },
-};
-
-function extractTerms(slug: string): string {
-  const terms = slug
-    .replace('top-', '')
-    .replace('-mcp-servers', '')
+function extractTopicTerms(slug: string): string[] {
+  return slug
+    .toLowerCase()
+    .replace(/\.json$/i, '')
     .replace(/-/g, ' ')
     .split(' ')
-    .filter((t) => t.length > 2 && !['best', 'top', 'mcp', 'servers'].includes(t))
-    .slice(0, 3);
-  
-  if (terms.length === 0) return 'AI';
+    .filter(Boolean)
+    .filter((term) => !/^[0-9]{4}$/.test(term))
+    .filter(
+      (term) =>
+        ![
+          'best',
+          'top',
+          'mcp',
+          'server',
+          'servers',
+          'ai',
+          'tool',
+          'tools',
+          'workflow',
+          'workflows',
+          'collection',
+        ].includes(term)
+    )
+    .filter((term) => term.length > 2)
+    .slice(0, 4);
+}
+
+function formatTopic(slug: string, locale: string): string {
+  const terms = extractTopicTerms(slug);
+
+  if (terms.length === 0) {
+    const defaults: Record<string, string> = {
+      es: 'automatización y productividad',
+      fr: 'automatisation et productivité',
+      de: 'automatisierung und produktivität',
+      pt: 'automação e produtividade',
+      ru: 'автоматизация и продуктивность',
+      ar: 'الأتمتة والإنتاجية',
+    };
+    return defaults[locale] || defaults.es;
+  }
+
   return terms.join(' ');
 }
 
+const TITLE_TEMPLATES: Record<string, (slug: string) => string> = {
+  es: (slug) => `Skills y herramientas de IA: ${formatTopic(slug, 'es')}`,
+  fr: (slug) => `Compétences et outils IA : ${formatTopic(slug, 'fr')}`,
+  de: (slug) => `Skills und KI-Tools: ${formatTopic(slug, 'de')}`,
+  pt: (slug) => `Skills e ferramentas de IA: ${formatTopic(slug, 'pt')}`,
+  ru: (slug) => `Навыки и ИИ-инструменты: ${formatTopic(slug, 'ru')}`,
+  ar: (slug) => `المهارات وأدوات الذكاء الاصطناعي: ${formatTopic(slug, 'ar')}`,
+};
+
 function generateDescription(lang: string, slug: string): string {
-  const terms = extractTerms(slug);
+  const topic = formatTopic(slug, lang);
   const descriptions: Record<string, string> = {
-    es: `Explora los mejores servidores MCP para ${terms}. Una colección curada de herramientas esenciales para desarrolladores que trabajan con AI.`,
-    fr: `Découvrez les meilleurs serveurs MCP pour ${terms}. Une collection sélectionnée d'outils essentiels pour les développeurs IA.`,
-    de: `Entdecken Sie die besten MCP-Server für ${terms}. Eine kuratierte Auswahl wichtiger Tools für KI-Entwickler.`,
-    pt: `Descubra os melhores servidores MCP para ${terms}. Uma coleção selecionada de ferramentas essenciais para desenvolvedores de IA.`,
-    ru: `Откройте лучшие MCP-серверы для ${terms}. Тщательно подобранная коллекция инструментов для разработчиков ИИ.`,
-    ar: `اكتشف أفضل خوادم MCP لـ ${terms}. مجموعة مختارة من الأدوات الأساسية لمطوري الذكاء الاصطناعي.`,
+    es: `Colección curada de skills, herramientas de IA y flujos de trabajo prácticos. Tema principal: ${topic}.`,
+    fr: `Collection organisée de skills, d'outils IA et de workflows pratiques. Thème principal : ${topic}.`,
+    de: `Kuratiertе Sammlung aus Skills, KI-Tools und praktischen Workflows. Schwerpunkt: ${topic}.`,
+    pt: `Coleção curada de skills, ferramentas de IA e workflows práticos. Tema principal: ${topic}.`,
+    ru: `Кураторская коллекция навыков, ИИ-инструментов и практичных workflow. Основная тема: ${topic}.`,
+    ar: `مجموعة منسقة من المهارات وأدوات الذكاء الاصطناعي وسير العمل العملي. الموضوع الرئيسي: ${topic}.`,
   };
-  return descriptions[lang] || descriptions['en'];
+
+  return descriptions[lang] || descriptions.es;
 }
 
 function generateSeoTitle(title: string): string {
-  const year = new Date().getFullYear();
-  return `${title} ${year} | Killer-Skills`;
+  return `${title} | Killer-Skills`;
 }
 
 function generateSeoDescription(description: string): string {
-  return description.substring(0, 150);
+  const base = `${description} Killer-Skills.`;
+  return base.length > 155 ? `${base.slice(0, 152)}...` : base;
 }
 
 function generateKeywords(slug: string, locale: string): string[] {
-  const terms = slug
-    .replace('top-', '')
-    .replace('-mcp-servers', '')
-    .replace(/-/g, ' ')
-    .split(' ')
-    .filter((t) => t.length > 2);
-  
+  const terms = extractTopicTerms(slug);
+
   const localeKeywords: Record<string, string[]> = {
-    es: ['mcp servers', 'herramientas ai', 'desarrollo ai', 'claude'],
-    fr: ['mcp servers', 'outils ia', 'développement ia', 'claude'],
-    de: ['mcp servers', 'ki-werkzeuge', 'ki-entwicklung', 'claude'],
-    pt: ['mcp servers', 'ferramentas ia', 'desenvolvimento ia', 'claude'],
-    ru: ['mcp серверы', 'инструменты ии', 'разработка ии', 'claude'],
-    ar: ['خوادم mcp', 'أدوات الذكاء الاصطناعي', 'تطوير الذكاء الاصطناعي', 'كلود'],
+    es: ['skills', 'herramientas ia', 'workflows', 'automatización', 'productividad', 'claude'],
+    fr: ['skills', 'outils ia', 'workflows', 'automatisation', 'productivité', 'claude'],
+    de: ['skills', 'ki-tools', 'workflows', 'automatisierung', 'produktivität', 'claude'],
+    pt: ['skills', 'ferramentas ia', 'workflows', 'automação', 'produtividade', 'claude'],
+    ru: ['навыки', 'инструменты ии', 'workflow', 'автоматизация', 'продуктивность', 'claude'],
+    ar: ['مهارات', 'أدوات الذكاء الاصطناعي', 'سير العمل', 'الأتمتة', 'الإنتاجية', 'claude'],
   };
-  
-  return [...new Set([...(localeKeywords[locale] || localeKeywords['en']), ...terms])].slice(0, 7);
+
+  return [...new Set([...(localeKeywords[locale] || localeKeywords.es), ...terms])].slice(0, 8);
 }
 
 function processCollection(filePath: string) {
   const content = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
   const slug = path.basename(filePath, '.json');
   let modified = false;
-  
+
   FIX_LOCALES.forEach((locale) => {
     const newTitle = TITLE_TEMPLATES[locale](slug);
     const newDesc = generateDescription(locale, slug);
-    
+
     // Always overwrite for fixed locales
     content.title = content.title || {};
     content.title[locale] = newTitle;
     modified = true;
-    
+
     content.description = content.description || {};
     content.description[locale] = newDesc;
     modified = true;
-    
+
     content.seoTitle = content.seoTitle || {};
     content.seoTitle[locale] = generateSeoTitle(newTitle);
     modified = true;
-    
+
     content.seoDescription = content.seoDescription || {};
     content.seoDescription[locale] = generateSeoDescription(newDesc);
     modified = true;
-    
+
     content.keywords = content.keywords || {};
     content.keywords[locale] = generateKeywords(slug, locale);
     modified = true;
   });
-  
+
   if (modified) {
     fs.writeFileSync(filePath, JSON.stringify(content, null, 2) + '\n');
     return true;
@@ -130,9 +140,9 @@ function processCollection(filePath: string) {
 function main() {
   const files = fs.readdirSync(COLLECTIONS_DIR).filter((f) => f.endsWith('.json'));
   let updated = 0;
-  
+
   console.log(`Regenerating SEO metadata for ${files.length} collections...\n`);
-  
+
   files.forEach((file) => {
     const filePath = path.join(COLLECTIONS_DIR, file);
     if (processCollection(filePath)) {
@@ -140,7 +150,7 @@ function main() {
       updated++;
     }
   });
-  
+
   console.log(`\nDone! Updated ${updated} files.`);
 }
 

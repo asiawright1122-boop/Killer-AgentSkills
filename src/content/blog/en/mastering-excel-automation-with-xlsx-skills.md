@@ -67,7 +67,7 @@ Automate the creation of dozens of localized sales reports, each with custom cha
 
 The `xlsx` skill transforms your AI agent into a data scientist and financial analyst rolled into one. It ensures that your spreadsheets aren't just collections of numbers, but powerful, dynamic tools that drive better business decisions.
 
-Check out the [xlsx skill](https://killer-skills.com/en/skills/anthropics/skills/xlsx) on the Killer-Skills Marketplace and start building smarter data today.
+Check out the [xlsx skill](https://killer-skills.com/en/skills/anthropics/skills/xlsx) in the Killer-Skills skills directory and start building smarter data today.
 
 ---
 

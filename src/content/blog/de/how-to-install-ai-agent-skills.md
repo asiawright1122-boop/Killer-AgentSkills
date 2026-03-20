@@ -23,7 +23,7 @@ Sie müssen es nicht dauerhaft installieren. Sie können es direkt über `npx` (
 Öffnen Sie Ihr Terminal, wechseln Sie zu Ihrem Projektverzeichnis und führen Sie den folgenden Befehl aus:
 
 ```bash
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 ```
 
 Zum Beispiel, um die PDF-Automatisierungs-Fähigkeit zu installieren, führen Sie den folgenden Befehl aus:
@@ -52,7 +52,7 @@ Wenn Sie wissen, wonach Sie suchen, aber den genauen Repository-Pfad nicht mehr 
 npx killer-skills search auth
 ```
 
-Dies gibt eine Abfrage an die Community-Datenbank aus und gibt die besten Übereinstimmungen zurück, einschließlich ihrer Sternenzahlen und vollständigen Installationspfade. Sie können auch das vollständige Open-Source-Verzeichnis auf der [Killer-Skills-Website](/en/skills) durchblättern.
+Dies gibt eine Abfrage an die Community-Datenbank aus und gibt die besten Übereinstimmungen zurück, einschließlich ihrer Sternenzahlen und vollständigen Installationspfade. Sie können auch das vollständige Open-Source-Verzeichnis auf der [Killer-Skills-Website](/de/skills) durchblättern.
 ## Fähigkeiten auf dem neuesten Stand halten
 
 Fähigkeiten entwickeln sich weiter. Autoren fügen neue Randfälle hinzu, korrigieren schlechte Anweisungen und verbessern die Zuverlässigkeit von Prompts. Da Sie die Fähigkeit über die CLI installiert haben, können Sie sie genauso einfach aktualisieren.

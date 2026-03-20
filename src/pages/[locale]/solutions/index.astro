@@ -18,15 +18,14 @@ const intents = getSolutionIntents(typedLocale);
 
 const canonicalUrl = `https://killer-skills.com/${locale}/solutions`;
 const pageTitle = isZh
-  ? '可安装自动化方案：AI Agent Skills 与 MCP Servers'
-  : 'Installable Automation Solutions: AI Agent Skills & MCP';
+  ? '可安装自动化方案：AI Agent Skills'
+  : 'Installable Automation Solutions: AI Agent Skills';
 const pageDescription = isZh
-  ? '按高意图场景浏览可安装 AI Agent Skills 与 MCP Servers，覆盖工作流、流程、文档、浏览器自动化与数据提取。'
-  : 'Browse installable AI agent skills and MCP servers by high-intent use cases: workflow, process, document, browser, and data automation.';
+  ? '按高意图场景浏览可安装 AI Agent Skills，覆盖工作流、流程、文档、浏览器自动化与数据提取。'
+  : 'Browse installable AI agent skills by high-intent use cases: workflow, process, document, browser, and data automation.';
 const pageKeywords = buildKeywordString(
   typedLocale,
   'core',
-  'mcp',
   'workflowAutomation',
   'processAutomation',
   'documentAutomation',
@@ -150,7 +149,7 @@ const faqItems = [
           href={`/${locale}/skills`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '浏览全部技能市场' : 'Browse Full Skills Marketplace'}
+          {isZh ? '浏览全部技能目录' : 'Browse Full Skills Directory'}
         </a>
         <a
           href={`/${locale}/docs/installation`}

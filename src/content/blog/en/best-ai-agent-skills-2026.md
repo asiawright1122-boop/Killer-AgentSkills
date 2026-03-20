@@ -12,19 +12,19 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 
 # The best AI agent skills you can install right now
 
-**AI agent skills** are specialized, plug-and-play instruction modules that give coding assistants (like Claude Code, Cursor, and ContinueWindsurf) the context and capabilities to autonomously execute complex workflows. According to recent data from the Killer-Skills registry, developers using targeted agent skills report saving an average of 12.5 hours per week on repetitive formatting, testing, and documentation tasks.
+**AI agent skills** are specialized, plug-and-play instruction modules that give coding assistants (like Claude Code, Cursor, and Windsurf) the context and capabilities to autonomously execute complex workflows. According to recent data from the Killer-Skills registry, developers using targeted agent skills report saving an average of 12.5 hours per week on repetitive formatting, testing, and documentation tasks.
 
 > **Key Takeaways**
 > - **Document Automation**: Skills like `docx` and `xlsx` automate reporting, saving hours of manual data entry.
 > - **Visual & UI Design**: The `frontend-design` skill enables agents to generate production-grade, responsive UI components.
 > - **Developer Tooling**: Standardize server building and UI testing with zero-config skills like `mcp-builder`.
-> - **Universal Compatibility**: Install skills across 15+ IDEs globally using `npx killer-skills add <skill>`.
+> - **Universal Compatibility**: Install skills across 19+ IDEs globally using `npx killer-skills add owner/repo`.
 
 ## What is an AI agent skill?
 
 An **AI agent skill** is a specialized instruction protocol that teaches coding assistants—like Cursor, Windsurf, or Claude Code—how to execute complex, multi-step workflows autonomously. By installing these plug-and-play modules, developers give their AI agents the specific context and toolsets needed to perform specialized tasks without constant prompting.
 
-We maintain a directory of over 1,000 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
+We maintain a directory of over 2,500 agent skills and use dozens of them daily. Some are excellent. Many are mediocre. A few changed how we work.
 
 This is the list we wish someone had given us when we started. Every skill here has been tested in real projects, not just read through.
 
@@ -117,7 +117,7 @@ Based on Wikipedia's "Signs of AI writing" guide, this skill identifies and fixe
 We installed this globally. Every piece of content we produce goes through it. The difference is noticeable.
 
 ```bash
-npx killer-skills add blader/humanizer
+npx killer-skills add minhtungo/ai-agents-factory/humanizer
 ```
 
 ### internal-comms — Company communications
@@ -165,7 +165,7 @@ All skills use the same command:
 
 ```bash
 # Install to your project
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 
 # See what's available
 npx killer-skills search pdf
@@ -181,7 +181,7 @@ Browse the full collection at [killer-skills.com/en/skills](/en/skills).
 **AI agent skills** are specialized instruction sets and tools that teach coding assistants like Cursor and Claude Code how to perform specific tasks, such as generating PDFs, building UI components, or testing web applications.
 
 ### Which IDEs support these skills?
-These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI.
+These skills are compatible with 19+ major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI.
 
 ### How much time do agent skills save?
 While results vary by task, developers using targeted agent skills report saving an average of 12.5 hours per week on routine development and reporting tasks.
@@ -204,7 +204,7 @@ While results vary by task, developers using targeted agent skills report saving
       "name": "Which IDEs support these skills?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+        "text": "These skills are compatible with 19+ major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
       }
     },
     {

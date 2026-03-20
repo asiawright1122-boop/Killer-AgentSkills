@@ -24,7 +24,7 @@ heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 터미널을 열고 프로젝트 디렉토리로 이동하여 실행합니다:
 
 ```bash
-npx killer-skills add <소유자>/<저장소>/<스킬 이름>
+npx killer-skills add owner/repo
 ```
 
 예를 들어, PDF 자동화 스킬을 설치하려면 다음을 실행합니다:
@@ -53,7 +53,7 @@ npx killer-skills add anthropics/skills/pdf --all
 npx killer-skills search auth
 ```
 
-이 명령어는 커뮤니티 데이터베이스를 검색하여 상위 일치 항목을 반환하며, 이는 스킬의 별점 수와 전체 설치 경로를 포함합니다. 또한 [Killer-Skills 웹사이트](/en/skills)에서 전체 오픈소스 디렉토리를 브라우징할 수 있습니다.
+이 명령어는 커뮤니티 데이터베이스를 검색하여 상위 일치 항목을 반환하며, 이는 스킬의 별점 수와 전체 설치 경로를 포함합니다. 또한 [Killer-Skills 웹사이트](/ko/skills)에서 전체 오픈소스 디렉토리를 브라우징할 수 있습니다.
 ## 기술 스킬 유지하기
 
 기술 스킬은不断으로 발전합니다. 작성자들은 새로운 edge case를 추가하고, 잘못된 지침을 수정하며, 프롬프트 신뢰성을 향상시킵니다. CLI를 통해 기술 스킬을 설치하였으므로, 쉽게 업데이트할 수 있습니다.

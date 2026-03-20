@@ -56,7 +56,7 @@ AI时代最关键的资源是 **上下文窗口**。 一个设计良好的技能
 
 AI 的强大之处不仅在于模型本身，更在于其周边的**基础设施**。借助 `skill-creator` 技能，你将从“提示词工程师”升级为“能力架构师”。你不再仅仅是告诉 AI 该做什么，而是在教它如何学习。
 
-立即前往 [Killer-Skills 市场](https://killer-skills.com/zh/skills/anthropics/skills/skill-creator)，开始构建你的自定义 AI 工作区。
+立即通过 Killer-Skills 技能目录中的 [skill-creator 技能](https://killer-skills.com/zh/skills/anthropics/skills/skill-creator)，开始构建你的自定义 AI 工作区。
 
 ---
 

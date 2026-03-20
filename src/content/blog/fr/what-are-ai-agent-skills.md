@@ -26,9 +26,9 @@ Une **compétence d'agent IA** est un fichier Markdown spécialisé (généralem
 
 ```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # comment écrire les tests dans ce projet
+  deployment/SKILL.md    # checklist et configuration de déploiement
+  code-review/SKILL.md   # ce qu'il faut vérifier en revue
 ```
 
 L'agent lit le fichier lorsque le sujet est abordé, puis suit ces instructions au lieu de deviner.
@@ -44,19 +44,19 @@ Voici un exemple réel, simplifié :
 ```yaml
 ---
 name: testing
-description: How to write and run tests in this project
+description: Comment écrire et exécuter les tests dans ce projet
 ---
 ```
 
 ```markdown
-# Testing in this project
+# Les tests dans ce projet
 
-We use Vitest. Run tests with `npm test`.
+Nous utilisons Vitest. Exécutez les tests avec `npm test`.
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+Règles :
+- Chaque nouvelle fonction a besoin d'au moins un test
+- Simulez les API externes, ne les appelez jamais dans les tests
+- Placez les fichiers de test à côté du code source : `utils.test.ts` à côté de `utils.ts`
 ```
 
 C'est tout le format. L'agent charge ce fichier, lit les instructions et modifie son comportement en conséquence. Pas de SDK, pas d'appels API, aucune configuration au-delà du fichier lui-même.
@@ -112,7 +112,7 @@ Avec le temps, le fichier s'enrichit au fur et à mesure que vous ajoutez des r�
 
 Les compétences en sont encore à leurs débuts. Le format n'est pas standardisé entre tous les agents, la gestion des erreurs est rudimentaire et la découvrabilité est limitée. Mais l'idée centrale (donner à votre assistant IA des instructions écrites concernant votre projet) est là pour durer.
 
-Si vous souhaitez parcourir les compétences existantes ou publier les vôtres, consultez le [répertoire de compétences](/en/skills). Il existe actuellement plus de 1 000 compétences contribuées par la communauté, couvrant tout de la gestion de bases de données à la conception d'interface utilisateur.
+Si vous souhaitez parcourir les compétences existantes ou publier les vôtres, consultez le [répertoire de compétences](/fr/skills). Il existe actuellement plus de 2,500 compétences contribuées par la communauté, couvrant tout de la gestion de bases de données à la conception d'interface utilisateur.
 
 ---
 

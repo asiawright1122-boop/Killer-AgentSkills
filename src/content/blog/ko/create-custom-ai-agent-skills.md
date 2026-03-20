@@ -55,7 +55,7 @@ AI에게 무엇을 해야 하는지만 말하지 말고, 그것을 하는 도구
 
 AI의 힘은 모델 자체에만 있는 것이 아니라, 모델을 둘러싼 **인프라**에 있습니다. `skill-creator` 스킬을 사용하면, "prompt engineer"에서 "capabilities architect"로 변신할 수 있습니다. 단순히 AI에게 무엇을 해야 하는지 지시하는 것이 아니라, 어떻게 학습할 수 있는지 가르치는 것입니다.
 
-오늘부터 커스텀 AI 작업 공간을 [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator)에서 구축하세요.
+오늘부터 Killer-Skills 디렉터리의 [skill-creator 스킬](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator)로 커스텀 AI 작업 공간을 구축해 보세요.
 
 ---
 

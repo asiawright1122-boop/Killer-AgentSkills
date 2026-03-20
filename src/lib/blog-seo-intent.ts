@@ -22,8 +22,12 @@ const CATEGORY_CLUSTERS: Record<string, KeywordClusterId[]> = {
 export function getBlogKeywordClusters(category: string | undefined, slug: string): KeywordClusterId[] {
   const clusters = [...(CATEGORY_CLUSTERS[category || ''] || ['workflowAutomation'])];
 
-  if (/\bmcp\b|cursor|claude|windsurf|custom-ai-agent-skills|webapp-testing/i.test(slug)) {
-    clusters.push('mcp', 'ideCompat', 'developerExperience');
+  if (/\bmcp\b/i.test(slug)) {
+    clusters.push('mcp', 'developerExperience');
+  }
+
+  if (/cursor|claude|windsurf|custom-ai-agent-skills|webapp-testing/i.test(slug)) {
+    clusters.push('ideCompat', 'developerExperience');
   }
 
   if (/pdf|docx|xlsx|document|presentation|coauthoring/i.test(slug)) {
@@ -64,8 +68,8 @@ export function getBlogLongTailKeywords(slug: string, locale: Locale): string[] 
 
   if (/mcp/i.test(slug)) {
     return isZh
-      ? ['MCP Server 教程', 'MCP 开发', 'Claude Code MCP']
-      : ['mcp server tutorial', 'mcp development', 'claude code mcp'];
+      ? ['面向开发工作流的 AI Agent Skills', '开发工作流技能', 'Claude Code 与 MCP 集成']
+      : ['ai agent skills for developer workflows', 'developer workflow skills', 'claude code integrations with mcp'];
   }
 
   if (/internal-comms|communications/i.test(slug)) {
@@ -117,11 +121,11 @@ export function getBlogIntentLinks(locale: string, category: string | undefined,
   if (category === 'developer-experience' || /mcp|cursor|claude|windsurf|custom-ai-agent-skills/i.test(slug)) {
     return [
       {
-        title: isZh ? '查找 MCP Servers' : 'Find MCP Servers',
+        title: isZh ? '开发工作流所需技能' : 'Skills for Developer Workflows',
         description: isZh
-          ? '继续浏览 MCP、开发工作流与代理工具。'
-          : 'Keep browsing MCP, developer workflow, and agent tooling results.',
-        href: `/${locale}/skills?q=mcp server`,
+          ? '继续浏览开发工作流优先的 AI Agent Skills 与可集成能力。'
+          : 'Keep browsing skills-first developer workflow setups and integration-ready capabilities.',
+        href: `/${locale}/skills?q=skills for developer workflows`,
       },
       {
         title: isZh ? 'IDE 兼容与配置' : 'IDE Compatibility & Setup',
@@ -197,9 +201,9 @@ export function getBlogMetaOverride(locale: Locale, slug: string): BlogMetaOverr
       };
     case 'how-to-build-mcp-servers-with-agent-skills':
       return {
-        title: 'How to Build an MCP Server for Claude Code or Cursor',
+        title: 'Skills for Developer Workflows: Build MCP Integrations in Claude Code or Cursor',
         description:
-          'Build an MCP server for Claude Code or Cursor with step-by-step setup, tool design, testing, and deployment patterns you can reuse fast.',
+          'Build MCP integrations for Claude Code or Cursor with reusable AI agent skill workflows, step-by-step setup, tool design, testing, and deployment patterns.',
       };
     case 'how-to-install-ai-agent-skills':
       return {
@@ -209,15 +213,15 @@ export function getBlogMetaOverride(locale: Locale, slug: string): BlogMetaOverr
       };
     case 'top-10-mcp-servers-2026':
       return {
-        title: '10 Best MCP Servers for Claude Code, Cursor & Windsurf (2026)',
+        title: '10 MCP Tools & Integrations for Claude Code, Cursor, and Windsurf',
         description:
-          'See the 10 best MCP servers for Claude Code, Cursor, and Windsurf in 2026, with picks for GitHub, SQLite, browser automation, and docs.',
+          'Explore practical MCP tools, integrations, and workflow patterns for Claude Code, Cursor, and Windsurf across GitHub, SQLite, browser automation, and docs.',
       };
     case 'official-ai-agent-skills-guide':
       return {
-        title: 'Best Official AI Agent Skills to Install Right Now',
+        title: 'Official AI Agent Skills to Install Right Now',
         description:
-          'Find the best official AI agent skills for PDFs, frontend UI, SEO, MCP, and automation, plus which ones to install first for real work.',
+          'Find official AI agent skills for PDFs, frontend UI, SEO, MCP, and automation, plus which ones to install first for real work.',
       };
     case 'what-are-ai-agent-skills':
       return {
@@ -227,9 +231,9 @@ export function getBlogMetaOverride(locale: Locale, slug: string): BlogMetaOverr
       };
     case 'best-ai-agent-skills-2026':
       return {
-        title: 'Best AI Agent Skills for Claude Code, Cursor & Windsurf (2026)',
+        title: 'AI Agent Skills for Claude Code, Cursor & Windsurf (2026)',
         description:
-          'Compare the best AI agent skills for Claude Code, Cursor, and Windsurf in 2026, from document automation and UI to MCP and workflows.',
+          'Compare AI agent skills for Claude Code, Cursor, and Windsurf in 2026, from document automation and UI to MCP and workflows.',
       };
     case 'claude-code-vs-cursor-vs-windsurf':
       return {

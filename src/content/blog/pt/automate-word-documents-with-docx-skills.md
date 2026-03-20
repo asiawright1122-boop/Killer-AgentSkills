@@ -62,7 +62,7 @@ Ao usar esta skill com o Killer-Skills CLI, lembre-se que o agente pode "descomp
 
 A skill `docx` traz um profissionalismo de "Classe Empresarial" para seus fluxos de trabalho de IA. Ela garante que a saída do seu agente de codificação atenda aos mais altos padrões do mundo corporativo.
 
-Comece instalando a [skill docx](https://killer-skills.com/pt/skills/anthropics/skills/docx) no Killer-Skills Marketplace hoje.
+Comece instalando a habilidade [docx](https://killer-skills.com/pt/skills/anthropics/skills/docx) no diretório de skills do Killer-Skills.
 
 *Precisa lidar com dados primeiro? Confira nosso guia sobre a [skill xlsx](https://killer-skills.com/pt/blog/mastering-excel-automation-with-xlsx-skills) para automação de planilhas.*
 

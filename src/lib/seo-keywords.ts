@@ -25,8 +25,8 @@ const CLUSTERS: Record<KeywordClusterId, { en: string[]; zh: string[] }> = {
     zh: ['AI Agent Skills', 'AI 编程助手', '可安装技能', '智能体技能'],
   },
   mcp: {
-    en: ['MCP server', 'model context protocol', 'MCP tools'],
-    zh: ['MCP Server', '模型上下文协议', 'MCP 工具'],
+    en: ['MCP tools', 'model context protocol', 'MCP integrations'],
+    zh: ['MCP 工具', '模型上下文协议', 'MCP 集成'],
   },
   workflowAutomation: {
     en: ['workflow automation', 'AI workflow automation', 'agent workflow', 'multi-step automation'],
@@ -49,8 +49,8 @@ const CLUSTERS: Record<KeywordClusterId, { en: string[]; zh: string[] }> = {
     zh: ['数据提取', '数据流程', 'ETL 自动化', '报表流程'],
   },
   installSetup: {
-    en: ['install AI agent skills', 'skill installation guide', 'agent setup', 'npx skill install'],
-    zh: ['安装 AI Agent Skills', '技能安装指南', 'Agent 配置', 'npx 安装技能'],
+    en: ['install AI agent skills', 'skill installation guide', 'agent setup', 'killer-skills add'],
+    zh: ['安装 AI Agent Skills', '技能安装指南', 'Agent 配置', 'killer-skills add'],
   },
   compatibility: {
     en: ['IDE compatibility', 'supported IDEs', 'tool compatibility', 'agent environment support'],
@@ -128,7 +128,7 @@ export function getIntentKeywordClusters(intentId: string | undefined): KeywordC
     case 'windsurf-skills':
       return ['ideCompat', 'compatibility'];
     case 'mcp-servers':
-      return ['mcp'];
+      return ['developerExperience', 'ideCompat', 'installSetup', 'workflowAutomation', 'mcp'];
     case 'ai-agent-skills':
       return ['core', 'workflowAutomation'];
     default:

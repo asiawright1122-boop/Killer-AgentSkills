@@ -61,7 +61,7 @@ npx killer-skills add anthropics/skills/xlsx
 
 تجعلك مهارة `xlsx` - دون المساس بالكود البرمجي - وكيل الذكاء الاصطناعي الخاص بك عالم بيانات ومحللًا ماليًا في آن واحد. فهي تضمن أن تصبح جداول البيانات الخاصة بك ليست مجرد مجموعات من الأرقام، بل أدوات قوية وديناميكية تُسهم في اتخاذ قرارات أعمال أفضل.
 
-اطلع على [مهارة xlsx](https://killer-skills.com/ar/skills/anthropics/skills/xlsx) على منصة Killer-Skills Marketplace وابدأ في بناء بيانات أكثر ذكاءً اليوم.
+اطّلع على [مهارة xlsx](https://killer-skills.com/ar/skills/anthropics/skills/xlsx) في دليل مهارات Killer-Skills وابدأ اليوم في بناء بيانات أكثر ذكاءً.
 
 ---
 

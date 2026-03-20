@@ -54,7 +54,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 `mcp-builder` 技能对于任何想要弥合 AI 推理和实际执行之间差距的开发者来说都是必不可少的。通过遵循这些经过验证的模式，您可以构建不仅仅是 "可用" 的工具，而是真正赋予 AI 代理更高效的工具。
 
-准备开始构建？请查看 [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) 上的完整文档。
+准备开始构建？请查看 Killer-Skills 注册表中的 [mcp-builder 技能](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder) 完整文档。
 
 ---
 

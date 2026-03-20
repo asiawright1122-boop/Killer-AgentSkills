@@ -16,21 +16,21 @@ describe('Prompt Generation Logic', () => {
 
     it('Cursor prompt should include universal instructions', () => {
         const output = generateCursorPrompt(mockSkills);
-        expect(output).toContain('kiro list');
-        expect(output).toContain('kiro search');
-        expect(output).toContain('kiro read <tool-name>');
+        expect(output).toContain('npx killer-skills list');
+        expect(output).toContain('npx killer-skills search <keyword>');
+        expect(output).toContain('npx killer-skills read <tool-name>');
     });
 
     it('Windsurf prompt should include universal instructions', () => {
         const output = generateWindsurfPrompt(mockSkills);
-        expect(output).toContain('kiro list');
-        expect(output).toContain('kiro search');
+        expect(output).toContain('npx killer-skills list');
+        expect(output).toContain('npx killer-skills search <keyword>');
     });
 
     it('Copilot prompt should include universal instructions', () => {
         const output = generateCopilotPrompt(mockSkills);
-        expect(output).toContain('kiro list');
-        expect(output).toContain('kiro search');
+        expect(output).toContain('npx killer-skills list');
+        expect(output).toContain('npx killer-skills search <keyword>');
     });
 
     it('Kiro prompt should be valid JSON and include instructions', () => {
@@ -43,10 +43,10 @@ describe('Prompt Generation Logic', () => {
         if (jsonMatch) {
             const data = JSON.parse(jsonMatch[1]);
             expect(data.instructions).toBeDefined();
-            expect(data.instructions).toContain('kiro list');
-            expect(data.instructions).toContain('kiro search');
+            expect(data.instructions).toContain('npx killer-skills list');
+            expect(data.instructions).toContain('npx killer-skills search <keyword>');
             expect(data.skills).toHaveLength(2);
-            expect(data.skills[0].invoke).toBe('kiro read test-skill');
+            expect(data.skills[0].invoke).toBe('npx killer-skills read test-skill');
         }
     });
 

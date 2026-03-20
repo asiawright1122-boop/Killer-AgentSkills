@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-03-19",
+  "collections": [
+    {
+      "sourceSlug": "top-mcp-mcp-servers",
+      "decision": "keep",
+      "canonicalSlug": "top-ai-agent-workflow-skills-integrations-utilities",
+      "redirectPhase": "later",
+      "notes": "Keep distinct. This collection is currently framed around practical AI agent workflow skills, integrations, and utilities, and does not need another canonical merge in the current SEO cleanup phase."
+    },
+    {
+      "sourceSlug": "top-mcp-server-mcp-servers",
+      "decision": "keep",
+      "canonicalSlug": "top-ai-agent-integration-frameworks-bridges-infra-tooling",
+      "redirectPhase": "later",
+      "notes": "Keep distinct. This collection targets integration frameworks, bridges, and infrastructure tooling for production AI agent systems, which remains a narrower intent than the workflow-utilities collection."
+    }
+  ]
+}

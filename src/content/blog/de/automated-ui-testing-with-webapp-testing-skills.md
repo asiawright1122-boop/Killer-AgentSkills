@@ -60,7 +60,7 @@ Automatisieren Sie mehrschrittige Benutzerreisen, wie z. B. "Registrierung -> Za
 
 Die `webapp-testing`-Fähigkeit ist das letzte Teil des professionellen Entwicklungs-Puzzles. Sie stellt sicher, dass der schöne Code, den Ihr Agent schreibt, auch **zuverlässiger Code** ist. Durch die Integration von automatisierter Qualitätssicherung in den agentischen Workflow können Sie mit totaler Sicherheit ausliefern.
 
-Besuchen Sie den [Killer-Skills-Marktplatz](https://killer-skills.com/de/skills/anthropics/skills/webapp-testing) und beginnen Sie heute mit dem Aufbau von fehlerfreien Frontends.
+Besuchen Sie den [webapp-testing-Skill](https://killer-skills.com/de/skills/anthropics/skills/webapp-testing) im Killer-Skills-Verzeichnis und beginnen Sie noch heute mit dem Aufbau robuster Frontends.
 
 ---
 

@@ -59,7 +59,7 @@ Générez des graphiques pour les médias sociaux ou des livres blancs au format
 
 La compétence `brand-guidelines` est la touche finale qui transforme la "sortie IA" en "actif professionnel". Elle garantit que votre agent de codage comprend l'importance du contexte visuel et de l'autorité de la marque.
 
-Installez la compétence [brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) à partir du Marketplace Killer-Skills et commencez à concevoir avec autorité.
+Installez le skill [brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) depuis le répertoire de skills Killer-Skills et commencez à concevoir avec autorité.
 
 ---
 *Recherchez plus d'options de personnalisation ? Explorez [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) pour une gamme plus large de thèmes professionnels prédéfinis.*

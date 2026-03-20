@@ -43,15 +43,14 @@ const t = useTranslations(messages);
 const isZh = locale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}/blog`;
 const blogSeoTitle = isZh
-  ? 'AI Agent Skills 自动化指南与 MCP 实战博客'
-  : 'AI Agent Skills Blog for Automation Workflows & MCP Guides';
+  ? 'AI Agent Skills 指南、自动化工作流与实战博客'
+  : 'AI Agent Skills Guides, Workflow Tutorials, and Automation Blog';
 const blogSeoDescription = isZh
-  ? '阅读 AI Agent Skills 与 MCP Servers 的实战文章，聚焦工作流自动化、流程自动化、文档自动化、开发者效率与团队交付。'
-  : 'Read practical articles about AI agent skills and MCP servers for workflow automation, process automation, document automation, developer productivity, and team delivery.';
+  ? '阅读围绕 AI Agent Skills、IDE 工作流、自动化实践与开发者效率的实战文章。'
+  : 'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.';
 const blogSeoKeywords = buildKeywordString(
   locale as Locale,
   'core',
-  'mcp',
   'ideCompat',
   'workflowAutomation',
   'processAutomation',
@@ -62,7 +61,8 @@ const blogSeoKeywords = buildKeywordString(
   'developerExperience',
   'enterpriseWorkflows',
   isZh ? 'AI Agent Skills 博客' : 'AI agent skills blog',
-  isZh ? 'MCP Servers 教程' : 'MCP server guides',
+  isZh ? 'AI 工作流指南' : 'AI workflow guides',
+  isZh ? 'IDE 技能教程' : 'IDE skills tutorials',
   'Killer-Skills',
 );
 

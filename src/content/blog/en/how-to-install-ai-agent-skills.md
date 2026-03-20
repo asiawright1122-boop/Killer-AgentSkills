@@ -25,7 +25,7 @@ You don't need to install it permanently. You can run it directly via `npx` (whi
 Open your terminal, go to your project directory, and run:
 
 ```bash
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 ```
 
 For example, to install the PDF automation skill, you run:

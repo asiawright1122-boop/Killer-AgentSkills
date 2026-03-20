@@ -134,7 +134,7 @@ export function displayDependencyStatus(
             console.log(chalk.red(`   • ${dep.name}${dep.version ? `@${dep.version}` : ''}`));
         }
         console.log(chalk.dim('\nInstall missing dependencies:'));
-        console.log(chalk.cyan(`   killer install ${result.missing.map(d => d.name).join(' ')}`));
+        console.log(chalk.cyan(`   npx killer-skills add ${result.missing.map(d => d.name).join(' ')}`));
     }
 
     if (result.optional.length > 0) {

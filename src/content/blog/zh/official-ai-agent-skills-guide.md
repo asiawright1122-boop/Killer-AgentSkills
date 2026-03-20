@@ -12,13 +12,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 # 你应该立即使用的官方 AI 智能体技能
 
-什么是官方 AI 智能体技能，哪些值得安装？官方 AI 智能体技能是由核心 Killer-Skills 团队维护的、经过精心策划的高质量指令集，旨在为你的 AI 助手在 Cursor 和 Windsurf 等 15+ 种 IDE 中提供可靠且一致的能力。
+什么是官方 AI 智能体技能，哪些值得安装？官方 AI 智能体技能是由核心 Killer-Skills 团队维护的、经过精心策划的高质量指令集，旨在为你的 AI 助手在 Cursor 和 Windsurf 等 19+ 种 IDE 中提供可靠且一致的能力。
 
 > **核心要点**
 > - **文档处理利器**：`pdf` 和 `xlsx` 等技能可防止 Claude 在处理大型文件时产生幻觉数据。
 > - **前端生成**：`frontend-design` 强制智能体输出可用的、带样式的组件，而非通用样板代码。
 > - **营销与 SEO**：`geo-content-optimizer` 为你的内容进行结构化，以适应 AI 概览。
-> - **零配置**：所有官方技能均通过 `npx killer-skills add <skill>` 全局安装。
+> - **零配置**：所有官方技能均通过 `npx killer-skills add owner/repo` 全局安装。
 
 我与许多开发者交流过，他们将自己的 AI 助手视为花哨的自动补全工具。他们要求 Cursor “构建一个登录页面”或“读取此 PDF”，但当输出结果泛泛而谈或完全错误时，他们会感到沮丧。
 
@@ -66,7 +66,7 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 你不需要同时激活所有功能，这会让你的代理上下文窗口感到不知所措。选择解决你当前问题的功能，安装它，然后看看输出如何变化。我通常从添加 `frontend-design` 开始，然后继续进行。
 
-准备尝试了吗？你可以通过在终端运行 `npx killer-skills add <skillname>` 来安装任何这些功能。
+准备尝试了吗？你可以通过在终端运行 `npx killer-skills add owner/repo` 来安装任何这些功能。
 
 <script type="application/ld+json">
 {

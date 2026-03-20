@@ -78,7 +78,7 @@ Pour les développeurs, l'art génératif est le terrain de jeu ultime de la log
 
 L'avenir de l'art est collaboratif — une danse entre l'intention humaine et l'exécution machine. La compétence **algorithmic-art** vous permet d'en être le chorégraphe.
 
-Prêt à commencer à créer ? Rendez-vous sur le [Killer-Skills Marketplace](https://killer-skills.com/fr/skills/anthropics/skills/algorithmic-art) et installez-la dès aujourd'hui.
+Prêt à créer ? Rendez-vous sur le skill [algorithmic-art](https://killer-skills.com/fr/skills/anthropics/skills/algorithmic-art) dans le répertoire de skills Killer-Skills et installez-le dès aujourd'hui.
 
 ---
 

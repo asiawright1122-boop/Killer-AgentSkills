@@ -1,7 +1,7 @@
 {
   "Navigation": {
     "home": "Home",
-    "marketplace": "Marketplace",
+    "marketplace": "Skills",
     "categories": "Categories",
     "docs": "Docs",
     "blog": "Blog",
@@ -110,20 +110,20 @@
   "Home": {
     "heroTitle": "The Open Directory for",
     "heroTitleHighlight": "AI Agent Skills",
-    "heroBadge": "The ultimate marketplace for MCP Servers & Autonomous Capabilities",
-    "heroDesc1": "Discover, install, and manage 1000+ open-source AI Skills.",
-    "heroDesc2": "Equip Claude Code, Cursor, and Windsurf with tools to Browse, Automate, and Create.",
-    "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
+    "heroBadge": "The open directory and install entry for AI Agent Skills",
+    "heroDesc1": "Discover, install, and manage 2,500+ open-source AI agent skills.",
+    "heroDesc2": "Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.",
+    "searchPlaceholder": "Search for skills (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
     "tags": ["Research", "Coding", "Marketing", "Analysis"],
     "featuresTitle": "Built for Developers",
-    "featuresSubtitle": "Connect any AI capability, build the next gen of intelligent apps.",
+    "featuresSubtitle": "Browse reusable AI agent skills and install them in the right native format for your IDE.",
     "trendingTitle": "Featured Skills",
     "trendingSubtitle": "Top-rated and most popular skills from the community.",
     "viewAll": "View All",
     "stable": "Stable",
     "installs": "installs",
-    "footerDesc": "The open standard for AI agency. Built for the future of work.",
+    "footerDesc": "Open-source directory and installation entry point for AI agent skills. Built for real developer work.",
     "official": {
       "title": "Official Skill Collections",
       "featured": "Featured",
@@ -141,8 +141,8 @@
         "desc": "Seamlessly integrates with Cursor, Windsurf, and Claude Code."
       },
       "1": {
-        "title": "Standard Protocol",
-        "desc": "Built on MCP. Write once, run everywhere."
+        "title": "IDE-Native Formats",
+        "desc": "Install one skill across major IDEs and agent environments with the right native format."
       },
       "2": {
         "title": "Curated Quality",
@@ -196,7 +196,7 @@
     "theme": "Theme",
     "chinese": "中文",
     "english": "English",
-    "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping')",
+    "searchPlaceholder": "Search for skills (e.g., 'Web Scraping')",
     "search": "Search",
     "loading": "Loading...",
     "error": "Something went wrong",
@@ -224,7 +224,7 @@
     "subtitle": "High-quality skills maintained by the core team and trusted partners."
   },
   "Footer": {
-    "desc": "The open standard for AI agency. Built for the future of work.",
+    "desc": "Open-source directory for AI agent skills and IDE workflows. Built for real developer work.",
     "product": "Product",
     "resources": "Resources",
     "stayUpdated": "Stay Updated",
@@ -253,7 +253,7 @@
     "latest": "Latest Discovery",
     "latestDesc": "Explore the latest AI Agent skills and innovations",
     "allPurpose": "All Skills",
-    "allPurposeDesc": "Discover, install, and manage over 1000+ AI Agent skills",
+    "allPurposeDesc": "Discover, install, and manage over 2,500 AI agent skills",
     "discover": "Discover",
     "latestSkills": "Latest Skills",
     "allSkills": "All Skills",
@@ -296,42 +296,42 @@
     "noSkills": "No skills found",
     "heroDesc": "Explore different types of AI skills and find the perfect tools for you",
     "seoDescriptions": {
-      "development": "Discover the best Developer Tools MCP servers for Claude Code, Cursor, and other AI Agents in 2026. Automate coding, refactoring, and project management.",
-      "documentation": "Explore top Document Processing MCP servers for AI Agents. Enable Claude to read, write, and analyze PDFs, Word docs, and markdown seamlessly.",
-      "testing": "Find powerful Testing MCP servers to give your AI assistants the ability to write, run, and debug unit and E2E tests automatically.",
-      "data": "Discover Data & Analytics MCP servers. Equip your AI Agents with SQL querying, data visualization, and database management capabilities.",
-      "ai": "Browse AI & ML model integration MCP servers. Connect Claude and other agents directly to Hugging Face, OpenAI, and specialized ML pipelines.",
-      "devops": "Top DevOps & Cloud MCP servers for AI Agents. Let Claude manage your AWS, Docker, Kubernetes, and CI/CD pipelines autonomously.",
-      "design": "Creative & Design MCP servers for AI assistants. Enable image generation, UI/UX analysis, and design system management.",
-      "productivity": "Best Productivity MCP servers for AI Agents. Connect Claude to Notion, Slack, Jira, and your calendar to automate daily workflows.",
-      "code-review": "Automated Code Review MCP skills. Give your AI Agent the power to analyze PRs, find security flaws, and enforce linting rules.",
-      "git": "Git & GitHub MCP servers. Allow Claude to seamlessly clone repos, manage branches, and create pull requests autonomously.",
-      "cli": "Command Line Interface (CLI) MCP servers. Empower your AI Agents to execute terminal commands safely and effectively.",
-      "library": "Library & Package Management MCP servers for AI Agents. Search, install, and update npm, pip, and cargo packages automatically.",
-      "api": "API Integration MCP servers. Connect your AI assistant to any REST or GraphQL API instantly with standard protocol implementations.",
-      "database": "Database Management MCP servers. Give Claude direct, secure access to query and structure PostgreSQL, MySQL, MongoDB, and Redis.",
-      "browser": "Browser Automation & Web Scraping MCP servers. Enable AI Agents to navigate websites, click elements, and extract data dynamically.",
-      "search": "Web Search MCP servers for AI Agents. Equip Claude with Google, Bing, and Tavily search capabilities for real-time information retrieval.",
-      "web-scraping": "Advanced Web Scraping MCP skills. Allow your AI assistant to extract structured data from any website autonomously.",
-      "automation": "General Automation & RPA MCP servers. Connect your AI Agents to Zapier, Make, and local system automation tools.",
-      "social": "Social Media Management MCP servers. Enable AI assistants to post, analyze trends, and manage X/Twitter, LinkedIn, and more."
+      "development": "Discover developer workflow skills for Claude Code, Cursor, and other AI agents. Automate coding, refactoring, debugging, and project management.",
+      "documentation": "Explore document workflow skills for AI agents. Let Claude read, write, and analyze PDFs, Word docs, and markdown with reusable instructions.",
+      "testing": "Find testing and QA skills that help AI assistants write, run, and debug unit, integration, and E2E tests.",
+      "data": "Discover data and analytics skills for SQL querying, dashboards, data visualization, and database workflows.",
+      "ai": "Browse AI and ML workflow skills that connect agents to Hugging Face, OpenAI, and specialized model pipelines.",
+      "devops": "Top DevOps and cloud workflow skills for AWS, Docker, Kubernetes, CI/CD, and infrastructure automation.",
+      "design": "Creative and design skills for AI assistants, including image generation, UI/UX review, and design system workflows.",
+      "productivity": "Best productivity skills for AI agents. Connect Claude to Notion, Slack, Jira, and calendars to automate daily work.",
+      "code-review": "Automated code review skills that help AI agents inspect PRs, catch security issues, and enforce code quality.",
+      "git": "Git and GitHub workflow skills for repository navigation, branch management, commits, and pull request automation.",
+      "cli": "Command-line workflow skills that help AI agents execute terminal tasks safely and effectively.",
+      "library": "Library and package management skills for AI agents. Search, install, and update npm, pip, cargo, and more.",
+      "api": "API integration skills that connect your AI assistant to REST and GraphQL services with reusable workflows.",
+      "database": "Database management skills for PostgreSQL, MySQL, MongoDB, Redis, and secure query workflows.",
+      "browser": "Browser automation and web interaction skills that help AI agents navigate websites, click elements, and extract data.",
+      "search": "Web search skills for AI agents with real-time retrieval across Google, Bing, Tavily, and more.",
+      "web-scraping": "Advanced web scraping skills that extract structured data from websites through repeatable agent workflows.",
+      "automation": "General automation and RPA skills that connect AI agents to Zapier, Make, and local system workflows.",
+      "social": "Social media workflow skills for publishing, trend monitoring, and managing X, LinkedIn, and other channels."
     }
   },
   "Metadata": {
-    "title": "Killer-Skills - AI Agent Skills Marketplace",
+    "title": "Killer-Skills - AI Agent Skills Directory",
     "template": "%s | Killer-Skills",
     "description": "Discover, install, and manage AI Agent Skills. Support for Claude Code, Cursor, Windsurf, Antigravity, etc. One-click install to boost your AI coding capabilities.",
     "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
     "Skills": {
-      "title": "Skills Marketplace - Discover AI Agent Skills",
-      "description": "Browse and install thousands of AI Agent skills in the Killer-Skills marketplace. Supports Claude Code, Windsurf, Cursor, and more."
+      "title": "Skills Directory - Discover AI Agent Skills",
+      "description": "Browse and install thousands of AI Agent skills in the Killer-Skills directory. Supports Claude Code, Windsurf, Cursor, and more."
     }
   },
   "Personal": {
     "myFavorites": "My Favorites",
     "favoritesCount": "{count} skills",
     "noFavorites": "No favorites yet",
-    "noFavoritesHint": "Browse the skills market and click the heart icon to save skills",
+    "noFavoritesHint": "Browse the skills directory and click the heart icon to save skills",
     "browseSkills": "Browse Skills",
     "removeFavorite": "Remove",
     "savedAt": "Saved {date}",
@@ -369,57 +369,57 @@
         "desc": "Latest news and updates."
       }
     },
-    "heroDesc": "We are building the open source ecosystem for the AI era. Whether you are a developer, creator, or user, you belong here.",
-    "contributeDesc": "Killer-Skills is fully open source. You can submit PRs to fix bugs, add features, or contribute new skills.",
+    "heroDesc": "Join the builders, contributors, and teams improving reusable AI agent skills and IDE workflows.",
+    "contributeDesc": "Killer-Skills is open source. Contribute fixes, improve workflows, or publish reusable AI agent skills.",
     "feedbackDesc": "Have an idea? Found a bug? Let us know on Github Issues or Discord."
   },
   "Integrations": {
     "worksWhereYouWork": "Works Where You Work",
     "viewGuide": "View Setup Guide",
-    "missingTool": "Missing Your Tool?",
-    "learnProtocol": "Learn About The Protocol",
+    "missingTool": "Don't See Your IDE?",
+    "learnProtocol": "See How Skills Integrate",
     "cards": {
       "cursor": {
-        "desc": "Probably the best AI code editor right now."
+        "desc": "Use reusable AI agent skills directly inside Cursor."
       },
       "windsurf": {
-        "desc": "Powerful AI editor from Codeium, based on VS Code."
+        "desc": "Use reusable AI agent skills directly inside Windsurf."
       },
       "claude": {
-        "desc": "Official CLI agent coding tool from Anthropic."
+        "desc": "Use reusable AI agent skills directly inside Claude Code."
       },
       "goose": {
-        "desc": "Open source AI developer agent from Block (Square)."
+        "desc": "Use reusable AI agent skills directly inside Goose."
       }
     },
-    "heroDesc": "Killer-Skills natively supports all major MCP-based AI editors and agent frameworks.",
-    "missingToolDesc": "As long as it supports MCP (Model Context Protocol), it works with Killer-Skills."
+    "heroDesc": "Use Killer-Skills across major AI coding tools and IDEs with the same reusable skills.",
+    "missingToolDesc": "If your IDE can run skill instructions, Killer-Skills can usually work with it."
   },
   "CLI": {
-    "heroTitle": "Killer-Skills Platform",
-    "heroSubtitle": "The Open Standard for AI Agent Skills",
-    "heroDesc": "A centralized registry of 1000+ capabilities for your AI agents. Discover, share, and integrate skills into Cursor, Windsurf, and Claude Code.",
+    "heroTitle": "Killer-Skills CLI",
+    "heroSubtitle": "Install and manage AI agent skills",
+    "heroDesc": "Install, organize, and sync 2,500+ AI agent skills across Cursor, Windsurf, Claude Code, and other supported tools.",
     "optionalNote": "Note: The CLI tool is optional. You can use skills directly via npx without installing anything.",
     "install": "Install Now",
     "viewDocs": "View Documentation",
     "latestVersion": "Latest Version:",
-    "copyInstall": "npx killer-skills install <skill>",
+    "copyInstall": "npx killer-skills add <owner/repo>",
     "features": {
       "autoInvoke": {
-        "title": "Universal Registry",
-        "desc": "A massive library of community and official skills. From PDF processing to browser automation, find everything your agent needs."
+        "title": "Open Skills Registry",
+        "desc": "Browse community and official AI agent skills for PDF processing, browser automation, documentation, and more."
       },
       "syncAll": {
-        "title": "Universal Sync",
-        "desc": "One command to rule them all. 'killer sync --all' instantly distributes skills to every installed IDE on your machine."
+        "title": "Multi-IDE Sync",
+        "desc": "Sync installed skills across your supported IDEs and keep local skill files aligned."
       },
       "mcp": {
-        "title": "Deep MCP Integration",
-        "desc": "Built-in MCP Server allows your agents to self-install new skills at runtime. True autonomous evolution."
+        "title": "IDE-Native Skill Delivery",
+        "desc": "Install skills into the right native file format for Claude Code, Cursor, VS Code, Windsurf, and more."
       },
       "secure": {
         "title": "Enterprise Security",
-        "desc": "All skills run in isolated environments. GitHub Device Flow authentication ensures secure access."
+        "desc": "GitHub Device Flow authentication and transparent open-source delivery help teams install skills with confidence."
       }
     },
     "terminal": {
@@ -427,7 +427,7 @@
       "login": "Secure Login",
       "loginDesc": "GitHub Device Flow Auth",
       "sync": "One-click Sync",
-      "syncDesc": "Deploy to 17+ IDEs",
+      "syncDesc": "Sync across 19 IDEs",
       "do": "Natural Language",
       "doDesc": "AI Task Execution"
     },
@@ -436,16 +436,16 @@
       "feature": "Feature",
       "ks": "Killer-Skills CLI",
       "others": "Manual Prompting",
-      "row1": "1-Click Install to 17+ IDEs",
+      "row1": "1-Click Install to 19 IDEs",
       "row2": "Auto-Invoke (Zero Context Window Wasted)",
-      "row3": "Runtime Skill Discovery (MCP)",
+      "row3": "Runtime Skill Discovery & Sync",
       "row4": "Verified Secure Skills Registry"
     }
   },
   "SkillsManagerWidget": {
     "title": "Skills Manager",
     "subtitle": "Ecosystem Gateway",
-    "description": "Unlock infinite possibilities. Discover, install, and empower your AI agent with 1000+ capabilities instantly.",
+    "description": "Unlock more workflows instantly. Discover and install 2,500+ AI agent skills.",
     "cta": "Enter Manager"
   },
   "CLIInstall": {
@@ -471,8 +471,8 @@
   },
   "DocsSidebar": {
     "gettingStarted": "Getting Started",
-    "platformOverview": "Platform Overview",
-    "cliTooling": "CLI Tooling",
+    "platformOverview": "Skills Overview",
+    "cliTooling": "Using the CLI",
     "introduction": "Introduction",
     "quickStart": "Quick Start",
     "installation": "Installation",
@@ -509,7 +509,7 @@
   },
   "Blog": {
     "title": "Insights & Updates",
-    "subtitle": "Deep dives into AI agents, MCP servers, and the future of coding.",
+    "subtitle": "Deep dives into AI agent skills, developer workflows, and the future of coding.",
     "browseByCategory": "Browse by Category",
     "readTime": "{n} min read",
     "readArticle": "Read Article",
@@ -525,14 +525,14 @@
       "developer-experience": "Developer Experience",
       "developer-experience-desc": "The building blocks for AI-driven engineering.",
       "announcements": "Announcements",
-      "announcements-desc": "Latest news and platform updates."
+      "announcements-desc": "Latest news and skills updates."
     },
     "latestPosts": "Latest Posts",
     "log": "Log"
   },
   "Collections": {
     "editorPicks": "Editor's Picks",
-    "subtitle": "Curated lists of top-performing AI Agent skills, servers, and scripts tailored for specific industries and workflows.",
+    "subtitle": "Curated collections of top-performing AI agent skills and workflow building blocks for specific industries and use cases.",
     "items": "Items",
     "view": "View",
     "featured": "Featured",

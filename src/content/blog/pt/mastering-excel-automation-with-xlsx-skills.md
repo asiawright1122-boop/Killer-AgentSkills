@@ -62,7 +62,7 @@ Automatize a criação de dezenas de relatórios de vendas localizados, cada um 
 
 A habilidade `xlsx` transforma seu agente de IA em um cientista de dados e analista financeiro em um só. Ela garante que suas planilhas não sejam apenas coleções de números, mas ferramentas poderosas e dinâmicas que impulsionam melhores decisões de negócios.
 
-Confira a habilidade [xlsx](https://killer-skills.com/pt/skills/anthropics/skills/xlsx) no Marketplace Killer-Skills e comece a construir dados mais inteligentes hoje.
+Confira a habilidade [xlsx](https://killer-skills.com/pt/skills/anthropics/skills/xlsx) no diretório de skills do Killer-Skills e comece hoje a criar dados mais inteligentes.
 
 ---
 

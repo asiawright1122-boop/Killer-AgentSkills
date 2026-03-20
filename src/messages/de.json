@@ -1,7 +1,7 @@
 {
   "Navigation": {
     "home": "Startseite",
-    "marketplace": "Marktplatz",
+    "marketplace": "Verzeichnis",
     "categories": "Kategorien",
     "docs": "Dokumentation",
     "blog": "Blog",
@@ -18,7 +18,14 @@
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "searchButton": "Suchen",
     "hotTags": "Beliebt:",
-    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Browser", "Code-Review", "Dokumente"]
+    "suggestions": [
+      "PDF",
+      "Bildgenerator",
+      "Datenanalyse",
+      "Browser",
+      "Code-Review",
+      "Dokumente"
+    ]
   },
   "Skills": {
     "featured": "Vorgestellte Skills",
@@ -110,20 +117,25 @@
   "Home": {
     "heroTitle": "Rüsten Sie Ihre Agenten aus",
     "heroTitleHighlight": "Mit Superkräften",
-    "heroBadge": "Der Marktplatz für autonome Fähigkeiten",
-    "heroDesc1": "Entdecken, installieren und verwalten Sie über 1000 Open-Source-AI-Skills.",
+    "heroBadge": "Das offene Verzeichnis für autonome Fähigkeiten",
+    "heroDesc1": "Entdecken, installieren und verwalten Sie über 2,500 Open-Source-AI-Skills.",
     "heroDesc2": "Verleihen Sie Ihren Agenten sofort die Fähigkeit zu Browsen, Coden und Erstellen.",
     "searchPlaceholder": "Suchen Sie nach Fähigkeiten (z.B. 'Web Scraping', 'Data Viz')...",
     "searchButton": "Suchen",
-    "tags": ["Forschung", "Programmierung", "Marketing", "Analyse"],
+    "tags": [
+      "Forschung",
+      "Programmierung",
+      "Marketing",
+      "Analyse"
+    ],
     "featuresTitle": "Für Entwickler entwickelt",
-    "featuresSubtitle": "Verbinden Sie jede AI-Fähigkeit, bauen Sie die nächste Generation intelligenter Apps.",
+    "featuresSubtitle": "Installieren Sie wiederverwendbare KI-Agenten-Skills und bringen Sie wiederholbare Workflows in Ihre IDE.",
     "trendingTitle": "Trending Fähigkeiten",
-    "trendingSubtitle": "Am häufigsten integrierte Fähigkeiten dieser Woche.",
+    "trendingSubtitle": "Top-bewertete und beliebte Skills aus der Community.",
     "viewAll": "Alle anzeigen",
     "stable": "Stabil",
     "installs": "Installationen",
-    "footerDesc": "Der offene Standard für AI-Agenturen. Für die Zukunft der Arbeit entwickelt.",
+    "footerDesc": "Open-Source-Verzeichnis für KI-Agenten-Skills und IDE-Workflows. Entwickelt für echte Entwicklungsarbeit.",
     "official": {
       "title": "Offizielle Sammlungen",
       "featured": "Vorgestellt",
@@ -141,8 +153,8 @@
         "desc": "Nahtlose Integration mit Cursor, Windsurf und Claude Code."
       },
       "1": {
-        "title": "Standardprotokoll",
-        "desc": "Basiert auf MCP. Einmal schreiben, überall ausführen."
+        "title": "IDE-native Formate",
+        "desc": "Installieren Sie einen Skill mit dem passenden nativen Format in wichtige IDEs und Agent-Umgebungen."
       },
       "2": {
         "title": "Kuratierte Qualität",
@@ -190,7 +202,7 @@
   },
   "Common": {
     "home": "Startseite",
-    "skillsMarket": "Skills",
+    "skillsMarket": "Skills-Verzeichnis",
     "language": "Sprache",
     "theme": "Thema",
     "chinese": "Chinesisch",
@@ -224,7 +236,7 @@
     "subtitle": "Hochwertige Skills, die vom Core-Team und vertrauenswürdigen Partnern gepflegt werden."
   },
   "Footer": {
-    "desc": "Der offene Standard für AI-Agenturen. Entwickelt für die Zukunft der Arbeit.",
+    "desc": "Open-Source-Verzeichnis für KI-Agenten-Skills und IDE-Workflows. Entwickelt für echte Entwicklungsarbeit.",
     "product": "Produkt",
     "resources": "Ressourcen",
     "stayUpdated": "Bleiben Sie auf dem Laufenden",
@@ -253,7 +265,7 @@
     "latest": "Neueste Entdeckungen",
     "latestDesc": "Erkunden Sie die neuesten AI Agent Skills und Innovationen",
     "allPurpose": "Alle Fähigkeiten",
-    "allPurposeDesc": "Entdecken, installieren und verwalten Sie über 1000+ AI Agent Skills",
+    "allPurposeDesc": "Entdecken, installieren und verwalten Sie über 2,500 AI Agent Skills",
     "discover": "Entdecken",
     "latestSkills": "Neueste Skills",
     "allSkills": "Alle Skills",
@@ -296,42 +308,42 @@
     "noSkills": "Keine Skills gefunden",
     "heroDesc": "Entdecken Sie verschiedene Arten von AI-Skills und finden Sie die perfekten Tools für sich",
     "seoDescriptions": {
-      "development": "Entdecken Sie die besten Developer-Tools-MCP-Server für Claude Code, Cursor und andere KI-Agents 2026. Automatisieren Sie Codierung, Refactoring und Projektmanagement.",
-      "documentation": "Entdecken Sie die besten Document Processing MCP-Server für KI-Agents. Aktivieren Sie Claude, um PDFs, Word-Dokumente und Markdown nahtlos zu lesen, zu schreiben und zu analysieren.",
-      "testing": "Entdecken Sie leistungsstarke Testing-MCP-Server, um Ihren KI-Assistenten die Fähigkeit zu geben, Einheit- und End-to-End-Tests automatisch zu schreiben, auszuführen und zu debuggen.",
-      "data": "Entdecken Sie Data- & Analytics-MCP-Server. Rüsten Sie Ihre AI-Agenten mit SQL-Abfragen, Datenvisualisierung und Datenbankverwaltungskapazitäten aus.",
-      "ai": "Durchsuchen Sie AI- & ML-Modell-Integrationsserver für MCP. Verbinden Sie Claude und andere Agenten direkt mit Hugging Face, OpenAI und spezialisierten ML-Pipelines.",
-      "devops": "Top DevOps- & Cloud-MCP-Server für KI-Agents. Lassen Sie Claude Ihre AWS-, Docker-, Kubernetes- und CI/CD-Pipelines autonom verwalten.",
-      "design": "Kreative & Design-MCP-Server für KI-Assistenten. Aktivieren Sie Bildgenerierung, UI/UX-Analyse und Design-System-Management.",
-      "productivity": "Beste Produktivitäts-MCP-Server für KI-Agents. Verbinden Sie Claude mit Notion, Slack, Jira und Ihrem Kalender, um tägliche Workflows zu automatisieren.",
-      "code-review": "Automatisierte Code-Review MCP-Fähigkeiten. Geben Sie Ihrem KI-Agenten die Fähigkeit, PRs zu analysieren, Sicherheitslücken zu finden und Linting-Regeln durchzusetzen.",
-      "git": "Git- & GitHub-MCP-Server. Ermöglichen Sie Claude, Repositories nahtlos zu klonen, Branches zu verwalten und Pull-Requests autonom zu erstellen.",
-      "cli": "Command-Line-Interface (CLI)-MCP-Server. Ermöglichen Sie Ihren KI-Agents, Terminalbefehle sicher und effektiv auszuführen.",
-      "library": "Bibliothek & Paketverwaltung MCP-Server für KI-Agents. Suche, Installation und Update von npm-, pip- und cargo-Paketen automatisch.",
-      "api": "API-Integration von MCP-Servern. Verbinden Sie Ihren AI-Assistenten sofort mit jedem REST- oder GraphQL-API über Standardprotokollimplementierungen.",
-      "database": "Datenbankverwaltung für MCP-Server. Gewähren Sie Claude direkten, sicheren Zugriff auf Abfragen und Struktur von PostgreSQL, MySQL, MongoDB und Redis.",
-      "browser": "Browser-Automatisierung & Web-Scraping auf MCP-Servern. Aktivieren Sie KI-Agents, um Websites zu navigieren, Elemente zu klicken und Daten dynamisch zu extrahieren.",
-      "search": "Web-Suche-MCP-Server für KI-Agents. Rüsten Sie Claude mit Google-, Bing- und Tavily-Suchfunktionen für die Echtzeiterfassung von Informationen aus.",
-      "web-scraping": "Erweiterte Web-Scraping-MCP-Fähigkeiten. Ermöglichen Sie Ihrem KI-Assistenten, strukturierte Daten autonom von jeder Website zu extrahieren.",
-      "automation": "Allgemeine Automatisierung & RPA MCP-Server. Verbinden Sie Ihre KI-Agents mit Zapier, Make und lokalen Automatisierungstools.",
-      "social": "Social-Media-Management auf MCP-Servern. Aktivieren Sie KI-Assistenten, um zu posten, Trends zu analysieren und X/Twitter, LinkedIn und mehr zu verwalten."
+      "development": "Entdecken Sie Entwickler-Workflow-Skills für Claude Code, Cursor und andere KI-Agenten. Automatisieren Sie Coding, Refactoring, Debugging und Projektarbeit.",
+      "documentation": "Entdecken Sie Dokument-Workflow-Skills für KI-Agenten. Lassen Sie Claude PDFs, Word-Dateien und Markdown mit wiederverwendbaren Anweisungen lesen, schreiben und analysieren.",
+      "testing": "Finden Sie Testing- und QA-Skills, mit denen KI-Assistenten Unit-, Integrations- und E2E-Tests schreiben, ausführen und debuggen.",
+      "data": "Entdecken Sie Daten- und Analytics-Skills für SQL-Abfragen, Dashboards, Datenvisualisierung und Datenbank-Workflows.",
+      "ai": "Durchsuchen Sie KI- und ML-Workflow-Skills, die Agenten mit Hugging Face, OpenAI und spezialisierten Modell-Pipelines verbinden.",
+      "devops": "Top DevOps- und Cloud-Workflow-Skills für AWS, Docker, Kubernetes, CI/CD und Infrastruktur-Automatisierung.",
+      "design": "Kreative Design-Skills für KI-Assistenten, einschließlich Bildgenerierung, UI/UX-Review und Designsystem-Workflows.",
+      "productivity": "Die besten Produktivitäts-Skills für KI-Agenten. Verbinden Sie Claude mit Notion, Slack, Jira und Kalendern, um tägliche Arbeit zu automatisieren.",
+      "code-review": "Automatisierte Code-Review-Skills, mit denen KI-Agenten PRs prüfen, Sicherheitsprobleme erkennen und Codequalität durchsetzen.",
+      "git": "Git- und GitHub-Workflow-Skills für Repository-Navigation, Branch-Management, Commits und Pull-Request-Automatisierung.",
+      "cli": "Command-Line-Workflow-Skills, mit denen KI-Agenten Terminalaufgaben sicher und effizient ausführen.",
+      "library": "Bibliotheks- und Paketmanagement-Skills für KI-Agenten. Suchen, installieren und aktualisieren Sie npm-, pip-, cargo-Pakete und mehr.",
+      "api": "API-Integrations-Skills, die Ihren KI-Assistenten über wiederverwendbare Workflows mit REST- und GraphQL-Diensten verbinden.",
+      "database": "Datenbankmanagement-Skills für PostgreSQL, MySQL, MongoDB, Redis und sichere Abfrage-Workflows.",
+      "browser": "Browser-Automatisierungs- und Web-Interaktions-Skills, mit denen KI-Agenten Websites navigieren, Elemente klicken und Daten extrahieren.",
+      "search": "Web-Such-Skills für KI-Agenten mit Echtzeit-Recherche über Google, Bing, Tavily und mehr.",
+      "web-scraping": "Fortgeschrittene Web-Scraping-Skills, die strukturierte Daten über wiederholbare Agent-Workflows aus Websites extrahieren.",
+      "automation": "Allgemeine Automatisierungs- und RPA-Skills, die KI-Agenten mit Zapier, Make und lokalen System-Workflows verbinden.",
+      "social": "Social-Media-Workflow-Skills für Publishing, Trendbeobachtung und die Verwaltung von X, LinkedIn und weiteren Kanälen."
     }
   },
   "Metadata": {
-    "title": "Killer-Skills - Marktplatz für AI-Agentenfähigkeiten",
+    "title": "Killer-Skills - Verzeichnis für AI-Agentenfähigkeiten",
     "template": "%s | Killer-Skills",
     "description": "Entdecken, installieren und verwalten Sie AI-Agentenfähigkeiten. Unterstützung für Claude Code, Cursor, Windsurf.",
     "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
     "Skills": {
-      "title": "Skills-Marktplatz - Entdecken Sie AI Agent Skills",
-      "description": "Durchsuchen und installieren Sie Tausende von AI Agent Skills auf Killer-Skills. Kompatibel mit Claude Code, Windsurf, Cursor und mehr."
+      "title": "Skills-Verzeichnis - Entdecken Sie AI Agent Skills",
+      "description": "Durchsuchen und installieren Sie Tausende von AI Agent Skills im Killer-Skills-Verzeichnis. Kompatibel mit Claude Code, Windsurf, Cursor und mehr."
     }
   },
   "Personal": {
     "myFavorites": "Meine Favoriten",
     "favoritesCount": "{count} Skills",
     "noFavorites": "Noch keine Favoriten",
-    "noFavoritesHint": "Durchsuchen Sie den Markt und klicken Sie auf das Herzsymbol",
+    "noFavoritesHint": "Durchsuchen Sie das Skills-Verzeichnis und klicken Sie auf das Herzsymbol",
     "browseSkills": "Skills durchsuchen",
     "removeFavorite": "Entfernen",
     "savedAt": "Gespeichert am {date}",
@@ -376,50 +388,50 @@
   "Integrations": {
     "worksWhereYouWork": "Funktioniert in Ihrer Umgebung",
     "viewGuide": "Einrichtungsanleitung anzeigen",
-    "missingTool": "Ihr Tool fehlt?",
-    "learnProtocol": "Mehr über das Protokoll erfahren",
+    "missingTool": "Ihre IDE fehlt?",
+    "learnProtocol": "So werden Skills integriert",
     "cards": {
       "cursor": {
-        "desc": "Wahrscheinlich der beste AI-Code-Editor derzeit."
+        "desc": "Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Cursor."
       },
       "windsurf": {
-        "desc": "Leistungsstarker AI-Editor von Codeium, basiert auf VS Code."
+        "desc": "Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Windsurf."
       },
       "claude": {
-        "desc": "Offizielles CLI-Agent-Coding-Tool von Anthropic."
+        "desc": "Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Claude Code."
       },
       "goose": {
-        "desc": "Open-Source-AI-Entwickler-Agent von Block (Square)."
+        "desc": "Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Goose."
       }
     },
-    "heroDesc": "Killer-Skills unterstützt nativ alle wichtigen MCP-basierten AI-Editoren und Agent-Frameworks.",
-    "missingToolDesc": "Solange es MCP (Model Context Protocol) unterstützt, funktioniert es mit Killer-Skills."
+    "heroDesc": "Nutzen Sie Killer-Skills in wichtigen KI-Coding-Tools und IDEs mit denselben wiederverwendbaren Skills.",
+    "missingToolDesc": "Wenn Ihre IDE Skill-Anleitungen ausführen kann, funktioniert Killer-Skills in der Regel auch dort."
   },
   "CLI": {
-    "heroTitle": "Killer-Skills Plattform",
-    "heroSubtitle": "Der offene Standard für AI-Agenten-Skills",
-    "heroDesc": "Ein zentrales Register mit über 1000 Fähigkeiten für Ihre AI-Agenten. Entdecken, teilen und integrieren Sie Skills in Cursor, Windsurf und Claude Code.",
+    "heroTitle": "Killer-Skills CLI",
+    "heroSubtitle": "KI-Agenten-Skills installieren und verwalten",
+    "heroDesc": "Entdecken, installieren und synchronisieren Sie über 2,500 KI-Agenten-Skills in Cursor, Windsurf, Claude Code und weiteren Tools.",
     "optionalNote": "Hinweis: Das CLI-Tool ist optional. Sie können Skills direkt über npx nutzen, ohne etwas zu installieren.",
     "install": "Jetzt installieren",
     "viewDocs": "Dokumentation ansehen",
     "latestVersion": "Neueste Version:",
-    "copyInstall": "npx killer-skills install <skill>",
+    "copyInstall": "npx killer-skills add <owner/repo>",
     "features": {
       "autoInvoke": {
-        "title": "Universelles Register",
-        "desc": "Eine riesige Bibliothek von Community- und offiziellen Skills. Von PDF-Verarbeitung bis Browser-Automatisierung – finden Sie alles, was Ihr Agent braucht."
+        "title": "Offenes Skill-Register",
+        "desc": "Durchsuchen Sie Community- und offizielle KI-Agenten-Skills für PDF-Verarbeitung, Browser-Automatisierung, Dokumentation und mehr."
       },
       "syncAll": {
-        "title": "Universelle Synchronisierung",
-        "desc": "Ein Befehl, um sie alle zu beherrschen. 'killer sync --all' verteilt Skills sofort an alle installierten IDEs auf Ihrem Rechner."
+        "title": "Multi-IDE-Sync",
+        "desc": "Synchronisiere installierte Skills über deine unterstützten IDEs hinweg und halte lokale Skill-Dateien konsistent."
       },
       "mcp": {
-        "title": "Tiefe MCP-Integration",
-        "desc": "Der integrierte MCP-Server ermöglicht es Agenten, neue Skills zur Laufzeit selbst zu installieren. Wahre autonome Evolution."
+        "title": "IDE-native Skill-Auslieferung",
+        "desc": "Installiert Skills im richtigen nativen Dateiformat für Claude Code, Cursor, VS Code, Windsurf und weitere Umgebungen."
       },
       "secure": {
         "title": "Unternehmenssicherheit",
-        "desc": "Alle Skills laufen in isolierten Umgebungen. GitHub Device Flow Authentifizierung gewährleistet sicheren Zugriff."
+        "desc": "GitHub Device Flow-Authentifizierung und transparente Open-Source-Bereitstellung helfen Teams, Skills mit Vertrauen zu installieren."
       }
     },
     "terminal": {
@@ -427,7 +439,7 @@
       "login": "Sichere Anmeldung",
       "loginDesc": "GitHub Device Flow Auth",
       "sync": "1-Klick-Sync",
-      "syncDesc": "Deployment in 17+ IDEs",
+      "syncDesc": "Sync über 19+ IDEs",
       "do": "Natürliche Sprache",
       "doDesc": "AI-Aufgabenausführung"
     },
@@ -436,16 +448,16 @@
       "feature": "Funktion",
       "ks": "Killer-Skills CLI",
       "others": "Manuelles Prompting",
-      "row1": "1-Klick-Installation in 17+ IDEs",
+      "row1": "1-Klick-Installation in 19+ IDEs",
       "row2": "Automatischer Aufruf (Kein Kontext-Fenster verschwendet)",
-      "row3": "Laufzeit-Skill-Entdeckung (MCP)",
+      "row3": "Laufzeit-Skill-Entdeckung und Synchronisierung",
       "row4": "Verifiziertes sicheres Skill-Register"
     }
   },
   "SkillsManagerWidget": {
     "title": "Skills Manager",
     "subtitle": "Ökosystem-Gateway",
-    "description": "Entfesseln Sie unendliche Möglichkeiten. Entdecken, installieren und erweitern Sie Ihren AI-Agenten sofort mit über 1000 Funktionen.",
+    "description": "Entfesseln Sie unendliche Möglichkeiten. Entdecken, installieren und erweitern Sie Ihren AI-Agenten sofort mit über 2,500 Funktionen.",
     "cta": "Manager öffnen"
   },
   "CLIInstall": {
@@ -470,8 +482,8 @@
     "lastUpdated": "Zuletzt aktualisiert"
   },
   "DocsSidebar": {
-    "platformOverview": "Plattformübersicht",
-    "cliTooling": "CLI-Werkzeuge",
+    "platformOverview": "Skills-Übersicht",
+    "cliTooling": "CLI verwenden",
     "gettingStarted": "Erste Schritte",
     "introduction": "Einführung",
     "quickStart": "Schnellstart",
@@ -509,7 +521,7 @@
   },
   "Blog": {
     "title": "Einblicke & Updates",
-    "subtitle": "Tieftauchgänge in KI-Agenten, MCP-Server und die Zukunft des Programmierens.",
+    "subtitle": "Tiefgehende Einblicke in KI-Agenten-Skills, Entwickler-Workflows und die Zukunft des Programmierens.",
     "browseByCategory": "Nach Kategorie durchsuchen",
     "readTime": "{n} Min. Lesedauer",
     "readArticle": "Artikel lesen",
@@ -525,14 +537,14 @@
       "developer-experience": "Entwicklererlebnis",
       "developer-experience-desc": "Die Bausteine für KI-gestütztes Engineering.",
       "announcements": "Ankündigungen",
-      "announcements-desc": "Neueste Nachrichten und Plattform-Updates."
+      "announcements-desc": "Neueste Neuigkeiten und Skill-Updates."
     },
     "latestPosts": "Neueste Beiträge",
     "log": "Protokoll"
   },
   "Collections": {
     "editorPicks": "Empfehlungen der Redaktion",
-    "subtitle": "Kuratierte Listen der leistungsstärksten AI-Agent-Skills, Server und Skripte für bestimmte Branchen und Workflows.",
+    "subtitle": "Sorgfältig kuratierte Sammlungen hochwertiger KI-Agenten-Skills und Workflow-Bausteine für unterschiedliche Branchen und Einsatzfälle.",
     "items": "Einträge",
     "view": "Ansehen",
     "featured": "Empfohlen",

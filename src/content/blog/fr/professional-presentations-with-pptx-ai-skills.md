@@ -62,7 +62,7 @@ Importez un PDF de 50 pages dans la [compétence pdf](https://killer-skills.com/
 
 La compétence `pptx` va au-delà des simples formats de fichiers — elle concerne l'**autorité visuelle**. Elle garantit que lorsque votre agent IA crée une présentation, elle ressemble à avoir été conçue par un expert humain.
 
-Téléchargez la compétence [pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) sur le marché Killer-Skills et commencez à créer des diapositives qui vendent.
+Téléchargez le skill [pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) depuis le répertoire de skills Killer-Skills et commencez à créer des diapositives qui vendent.
 
 ---
 *Vous souhaitez personnaliser vos documents également ? Découvrez la compétence [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory).*

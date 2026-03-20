@@ -496,36 +496,39 @@ const isActive = (href: string) => {
         "
           >
             <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
-              Welcome to the Killer-Skills documentation. This guide will help you install, configure, and build your
-              own AI skills in minutes.
+              {
+                isZh
+                  ? '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。'
+                  : 'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.'
+              }
             </p>
 
             <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
               <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-4 flex items-center gap-3">
                 <Rocket className="w-8 h-8 text-[var(--primary)]" strokeWidth={3} />
-                Quick Start
+                {isZh ? '从第一个技能开始' : 'Start with Your First Skill'}
               </h3>
               <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
-                Get your first skill running in under 2 minutes.
+                {isZh ? '用一条命令把第一个 AI Agent 技能加入你的开发环境。' : 'Add your first AI agent skill to your development environment with one command.'}
               </p>
               <div class="flex gap-2 relative">
                 <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">
-                  npx killer-skills init my-new-skill
+                  npx killer-skills add owner/repo
                 </code>
               </div>
             </div>
 
-            <h2 class="mt-16 mb-8 text-4xl">Key Concepts</h2>
+            <h2 class="mt-16 mb-8 text-4xl">{isZh ? '核心概念' : 'Key Concepts'}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
               <a
                 href={`/${locale}/docs/concepts/skills`}
                 class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
               >
                 <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
-                  Skills
+                  {isZh ? '技能' : 'Skills'}
                 </h3>
                 <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
-                  Atomic units of AI capability
+                  {isZh ? 'AI Agent 的可复用指令单元' : 'Reusable instruction units for AI agents'}
                 </p>
               </a>
               <a
@@ -533,10 +536,10 @@ const isActive = (href: string) => {
                 class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
               >
                 <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
-                  Workflows
+                  {isZh ? '工作流' : 'Workflows'}
                 </h3>
                 <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
-                  Orchestrate complex tasks
+                  {isZh ? '可重复执行的多步骤自动化模式' : 'Repeatable multi-step automation patterns'}
                 </p>
               </a>
             </div>

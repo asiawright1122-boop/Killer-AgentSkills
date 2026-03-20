@@ -70,7 +70,7 @@ Automate the rotation of misaligned scans and the removal of "Draft" watermarks 
 
 The `pdf` skill is an essential tool for any modern developer or data analyst. It takes the pain out of PDF handling and allows you to build truly automated, enterprise-grade document pipelines.
 
-Install the [pdf skill](https://killer-skills.com/en/skills/anthropics/skills/pdf) from the Killer-Skills Marketplace and start automating today.
+Install the [pdf skill](https://killer-skills.com/en/skills/anthropics/skills/pdf) from the Killer-Skills directory and start automating today.
 
 ---
 

@@ -35,9 +35,9 @@ AI 에이전트(예: [Claude Code](/ko/blog/claude-code-vs-cursor-vs-windsurf))�
 
 **Killer-Skills가 OpenClaw를 공식 지원**하게 된 것을 알리게 되어 매우 기쁩니다!
 
-이것은 이제 우리의 CLI 도구를 사용해 1,000개 이상의 전문가 수준의 AI 기술을 한 번의 클릭으로 OpenClaw 어시스턴트와 동기화할 수 있음을 의미합니다. 복잡한 PDF 처리, Excel 보고서 자동화, 전문적인 UI 디자인 수행이 필요하든, OpenClaw는 이제 이전보다 더 빠르게 이러한 기능들을 마스터할 수 있습니다.
+이것은 이제 우리의 CLI 도구를 사용해 2,500개 이상의 전문가 수준의 AI 기술을 한 번의 클릭으로 OpenClaw 어시스턴트와 동기화할 수 있음을 의미합니다. 복잡한 PDF 처리, Excel 보고서 자동화, 전문적인 UI 디자인 수행이 필요하든, OpenClaw는 이제 이전보다 더 빠르게 이러한 기능들을 마스터할 수 있습니다.
 
-> **팁**: `npm install -g killer-skills`를 실행하고 `killer-skills sync --ide openclaw`를 실행하여 자율 AI 여정을 시작하세요.
+> **팁**: 필요한 스킬을 이미 추가한 프로젝트에서 `npx killer-skills sync --ide openclaw`를 실행해 자율 AI 워크플로를 시작하세요.
 ## 결론
 
 OpenClaw는 더 개인정보가 보장되고, 더 자율적이고, 더 강력한 오픈소스 AI 에이전트의未来를 대표합니다. 이 시리즈의 향후 기사에서 우리는 OpenClaw의 특정 응용 시나리오와 Killer-Skills로 그 잠재력을 최대화하는 방법에 대해 더 깊이 다룰 것입니다.

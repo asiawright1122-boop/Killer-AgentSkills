@@ -11,13 +11,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 ---
 # Die Offiziellen AI-Agenten-Fähigkeiten, Die Sie Sofort Nutzen Sollten
 
-Was sind die offiziellen AI-Agenten-Fähigkeiten, und welche sind es wert, zu installieren? Offizielle AI-Agenten-Fähigkeiten sind kuratierte, hochwertige Anweisungssätze, die vom Kern-Team von Killer-Skills gepflegt werden, um Ihren AI-Assistenten zuverlässige und konsistente Fähigkeiten über 15+ IDEs wie Cursor und Windsurf zu geben.
+Was sind die offiziellen AI-Agenten-Fähigkeiten, und welche sind es wert, zu installieren? Offizielle AI-Agenten-Fähigkeiten sind kuratierte, hochwertige Anweisungssätze, die vom Kern-Team von Killer-Skills gepflegt werden, um Ihren AI-Assistenten zuverlässige und konsistente Fähigkeiten über 19+ IDEs wie Cursor und Windsurf zu geben.
 
 > **Wichtige Punkte**
 > - **Schwere Dokumentenarbeit**: Fähigkeiten wie `pdf` und `xlsx` verhindern, dass Claude Daten aus großen Dateien halluciniert.
 > - **Frontend-Generierung**: `frontend-design` zwingt die Agenten, verwendbare, gestaltete Komponenten anstelle von generischem Boilerplate-Code auszugeben.
 > - **Marketing & SEO**: `geo-content-optimizer` strukturiert Ihren Inhalt für AI-Überblicksseiten.
-> - **Keine Einrichtung erforderlich**: Alle offiziellen Fähigkeiten werden global über `npx killer-skills add <skill>` installiert.
+> - **Keine Einrichtung erforderlich**: Alle offiziellen Fähigkeiten werden global über `npx killer-skills add owner/repo` installiert.
 
 Ich spreche mit vielen Entwicklern, die ihre AI-Assistenten wie eine aufwändige Autocomplete-Funktion behandeln. Sie bitten Cursor, "eine Login-Seite zu erstellen" oder "dieses PDF zu lesen" und werden frustriert, wenn die Ausgabe generisch oder einfach falsch ist.
 
@@ -65,7 +65,7 @@ Ja, alle offiziellen Skills sind Open-Source und kostenlos über den CLI install
 
 Sie benötigen nicht alle auf einmal aktiviert. Das würde den Kontextbereich Ihres Agents überfordern. Wählen Sie das aus, das Ihr aktuelles Problem löst, installieren Sie es und sehen Sie, wie sich die Ausgabe ändert. Ich beginne normalerweise ein neues Projekt, indem ich `frontend-design` hinzufüge und von dort aus weitermache.
 
-Bereit, es auszuprobieren? Sie können jedes davon sofort installieren, indem Sie `npx killer-skills add <skillname>` in Ihrem Terminal ausführen.
+Bereit, es auszuprobieren? Sie können jedes davon sofort installieren, indem Sie `npx killer-skills add owner/repo` in Ihrem Terminal ausführen.
 
 <script type="application/ld+json">
 {

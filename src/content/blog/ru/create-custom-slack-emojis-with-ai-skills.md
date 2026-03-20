@@ -63,7 +63,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 
 Навык `slack-gif-creator` представляет собой идеальное сочетание технической оптимизации и творческой свободы. Он превращает вашего агента ИИ в цифрового художника, который понимает "правила дорожного движения" для современной коммуникации на рабочем месте.
 
-Перейдите на [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/slack-gif-creator), чтобы начать работу.
+Откройте навык [slack-gif-creator](https://killer-skills.com/ru/skills/anthropics/skills/slack-gif-creator) в каталоге навыков Killer-Skills, чтобы начать.
 
 ---
 

@@ -6,8 +6,7 @@ import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/skills';
 import { buildKeywordString } from '../../lib/seo-keywords';
-import { getSolutionIntents } from '../../lib/solution-intents';
-import { getCollectionCanonicalSlug } from '../../lib/collection-slugs';
+import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
 import { getCollection } from 'astro:content';
 import type { Env } from '../../lib/kv';
 
@@ -35,63 +34,45 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
 // Load collections for Featured Collections section
-const allCollections = await getCollection('collections');
+const allCollections = getCanonicalCollections(await getCollection('collections'));
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
-// SEO: homepage metadata tuned for high-intent discovery queries
-const homeSeoTitle = isZh ? 'AI Agent Skills 与自动化工作流' : 'AI Agent Skills for Automation Workflows';
+// SEO: homepage metadata should describe the site itself, not query funnels
+const homeSeoTitle = isZh ? 'Killer-Skills - AI Agent Skills 开放目录' : 'Killer-Skills - Open Directory for AI Agent Skills';
 const homeSeoDescription = isZh
-  ? '发现并安装 2,500+ 个 AI Agent Skills，覆盖工作流自动化、流程自动化、文档自动化、浏览器自动化与数据提取等高意图场景，支持 Claude Code、Cursor、Windsurf。'
-  : 'Discover and install 2,500+ AI agent skills for workflow automation, process automation, document automation, browser automation, and data extraction in Claude Code, Cursor, and Windsurf.';
-const homeSeoKeywords = buildKeywordString(
-  typedLocale,
-  'core',
-  'workflowAutomation',
-  'processAutomation',
-  'documentAutomation',
-  'browserAutomation',
-  'dataWorkflow',
-  'templates',
-  'ideCompat',
-  'Killer-Skills',
-);
-const workflowEntryLinks = getSolutionIntents(typedLocale);
+  ? '发现、安装并管理 2,500+ 个 AI Agent Skills。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放技能目录与安装入口。'
+  : 'Discover, install, and manage 2,500+ AI agent skills. Killer-Skills is an open directory and installation entry point for Claude Code, Cursor, Windsurf, and 19+ IDEs.';
+const homeSeoKeywords = buildKeywordString(typedLocale, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
   {
-    question: isZh ? 'Killer-Skills 适合哪些自动化场景？' : 'What automation scenarios does Killer-Skills support?',
+    question: isZh ? 'Killer-Skills 是什么？' : 'What is Killer-Skills?',
     answer: isZh
-      ? 'Killer-Skills 适合工作流自动化、流程自动化、文档自动化、浏览器自动化、数据提取和 agent 协作流程等高意图场景。'
-      : 'Killer-Skills supports workflow automation, process automation, document automation, browser automation, data extraction, and agent-driven execution flows.',
-  },
-  {
-    question: isZh ? '如何找到更精确的长尾技能词？' : 'How do I find precise long-tail skill queries?',
-    answer: isZh
-      ? '从自动化、流程、文档、数据、浏览器等场景词开始，再进入技能目录按关键词继续筛选，通常会比直接搜宽泛词更容易获得高点击结果。'
-      : 'Start with intent terms like automation, process, document, data, or browser workflows, then refine further in the skills directory. That usually performs better than broad generic searches.',
+      ? 'Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。'
+      : 'Killer-Skills is an open directory and installation entry point for reusable AI agent skills across Claude Code, Cursor, Windsurf, and other compatible IDEs.',
   },
   {
     question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?',
     answer: isZh
-      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持一条命令安装。'
-      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 19+ other IDEs with a single install command.',
+      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持统一的安装流程。'
+      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 19+ other IDEs with a consistent installation flow.',
   },
   {
     question: isZh ? '如何安装这些技能？' : 'How do I install these skills?',
     answer: isZh
-      ? '你可以进入具体技能页，或直接使用 npx killer-skills add owner/repo 把技能安装到 Claude Code、Cursor、Windsurf 等支持环境。'
-      : 'You can open any skill page or use npx killer-skills add owner/repo to install a skill into Claude Code, Cursor, Windsurf, and other supported environments.',
+      ? '你可以进入具体技能页，或直接使用 `npx killer-skills add owner/repo` 把技能安装到支持的环境中。'
+      : 'You can open any skill page or use `npx killer-skills add owner/repo` to install a skill into any supported environment.',
   },
   {
-    question: isZh ? '为什么这些技能适合 IDE 工作流？' : 'Why are these skills useful inside IDE workflows?',
+    question: isZh ? '这些技能为什么适合放进 IDE？' : 'Why do these skills fit IDE workflows?',
     answer: isZh
-      ? '因为这些技能会把特定任务的说明、流程和最佳实践写入 IDE 原生技能文件，让 AI 助手在真实编码与自动化场景中更稳定地执行。'
-      : 'These skills package task-specific instructions, workflows, and best practices into IDE-native skill files so coding assistants can execute more consistently in real workflows.',
+      ? '因为它们会把任务说明、流程约束和最佳实践写入 IDE 原生技能文件，让 AI 助手在真实工作中执行得更稳定。'
+      : 'They package task instructions, workflow constraints, and best practices into IDE-native skill files so coding assistants execute more consistently in real work.',
   },
   {
-    question: isZh ? '如果任务需要外部工具怎么办？' : 'What if a workflow also needs external tools?',
+    question: isZh ? '如果任务还需要外部工具怎么办？' : 'What if a workflow also needs external tools?',
     answer: isZh
-      ? '当任务需要数据库、API 或浏览器等外部能力时，可以把技能与相应工具集成搭配使用；站点本身仍以技能组织与安装为核心。'
-      : 'If a workflow also needs databases, APIs, browsers, or other external tools, you can pair a skill with the right integration while the site itself stays focused on skill discovery and installation.',
+      ? '当任务还需要数据库、API、浏览器或其他外部能力时，可以把技能与对应工具配合使用；站点本身仍以技能目录与安装为核心。'
+      : 'If a workflow also needs databases, APIs, browsers, or other external capabilities, you can pair a skill with the right tool while the site itself stays focused on skills and installation.',
   },
 ];
 
@@ -285,40 +266,6 @@ const features = [
               ))
             }
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Long-tail Workflow Entry Points -->
-    <section class="border-t-[3px] border-[var(--border)] bg-[var(--card)] py-16 md:py-20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-10 max-w-3xl">
-          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)]">
-            {isZh ? '高意图自动化入口' : 'High-Intent Workflow Searches'}
-          </h2>
-          <p class="mt-3 text-[var(--muted-foreground)] font-mono text-sm md:text-base">
-            {
-              isZh
-                ? '这些词更接近真实点击意图，适合从自动化、流程化和具体任务场景切入。'
-                : 'These query paths are closer to real click intent and work better than broad generic discovery terms.'
-            }
-          </p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {
-            workflowEntryLinks.map((item) => (
-              <a
-                href={item.href}
-                class="brut-card bg-white dark:bg-[#0a0a0a] p-6 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
-              >
-                <div class="mb-4 inline-flex px-3 py-1 border-2 border-[var(--border)] font-mono text-xs font-black uppercase tracking-wider">
-                  {item.query}
-                </div>
-                <h3 class="text-xl font-black uppercase tracking-tight mb-3">{item.label}</h3>
-                <p class="text-sm leading-6 font-medium opacity-80">{item.cardDescription}</p>
-              </a>
-            ))
-          }
         </div>
       </div>
     </section>

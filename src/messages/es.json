@@ -1,7 +1,7 @@
 {
   "Navigation": {
     "home": "Inicio",
-    "marketplace": "Mercado",
+    "marketplace": "Directorio",
     "categories": "Categorías",
     "docs": "Documentación",
     "blog": "Blog",
@@ -117,20 +117,25 @@
   "Home": {
     "heroTitle": "Equipa a tus agentes",
     "heroTitleHighlight": "Con superpoderes",
-    "heroBadge": "El mercado para capacidades autónomas",
-    "heroDesc1": "Descubre, instala y gestiona más de 1000 AI Skills de código abierto.",
+    "heroBadge": "El directorio de capacidades autónomas",
+    "heroDesc1": "Descubre, instala y gestiona más de 2,500 AI Skills de código abierto.",
     "heroDesc2": "Dale instantáneamente a tus agentes la capacidad de Navegar, Codificar y Crear.",
     "searchPlaceholder": "Buscar capacidades (por ejemplo, 'Web Scraping', 'Data Viz')...",
     "searchButton": "Buscar",
-    "tags": ["Investigación", "Codificación", "Marketing", "Análisis"],
+    "tags": [
+      "Investigación",
+      "Codificación",
+      "Marketing",
+      "Análisis"
+    ],
     "featuresTitle": "Diseñado para Desarrolladores",
-    "featuresSubtitle": "Conecta cualquier capacidad de AI, crea la próxima generación de aplicaciones inteligentes.",
+    "featuresSubtitle": "Instala skills reutilizables de agentes de IA y lleva flujos de trabajo repetibles a tu IDE.",
     "trendingTitle": "Habilidades en tendencia",
-    "trendingSubtitle": "Habilidades más integradas esta semana.",
+    "trendingSubtitle": "Skills mejor valoradas y más populares de la comunidad.",
     "viewAll": "Ver todo",
     "stable": "Estable",
     "installs": "instalaciones",
-    "footerDesc": "El estándar abierto para la agencia de AI. Diseñado para el futuro del trabajo.",
+    "footerDesc": "Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.",
     "official": {
       "title": "Colecciones oficiales de habilidades",
       "featured": "Destacados",
@@ -148,8 +153,8 @@
         "desc": "Se integra perfectamente con Cursor, Windsurf y Claude Code."
       },
       "1": {
-        "title": "Protocolo Estándar",
-        "desc": "Basado en MCP. Escribe una vez, ejecuta en todas partes."
+        "title": "Formatos nativos del IDE",
+        "desc": "Instala una skill en los principales IDE y entornos de agentes con el formato nativo adecuado."
       },
       "2": {
         "title": "Calidad Curada",
@@ -197,7 +202,7 @@
   },
   "Common": {
     "home": "Inicio",
-    "skillsMarket": "Habilidades",
+    "skillsMarket": "Directorio de habilidades",
     "language": "Idioma",
     "theme": "Tema",
     "chinese": "Chino",
@@ -231,7 +236,7 @@
     "subtitle": "Habilidades de alta calidad mantenidas por el equipo central y socios de confianza."
   },
   "Footer": {
-    "desc": "El estándar abierto para la agencia de AI. Construido para el futuro del trabajo.",
+    "desc": "Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.",
     "product": "Producto",
     "resources": "Recursos",
     "stayUpdated": "Mantente Actualizado",
@@ -260,7 +265,7 @@
     "latest": "Últimos Descubrimientos",
     "latestDesc": "Explora las últimas habilidades de AI Agent e innovaciones",
     "allPurpose": "Todas las habilidades",
-    "allPurposeDesc": "Descubre, instala y gestiona más de 1000+ habilidades de AI Agent",
+    "allPurposeDesc": "Descubre, instala y gestiona más de 2,500 habilidades de AI Agent",
     "discover": "Descubrir",
     "latestSkills": "Últimas Habilidades",
     "allSkills": "Todas las Habilidades",
@@ -303,42 +308,42 @@
     "noSkills": "No se encontraron habilidades",
     "heroDesc": "Explora diferentes tipos de habilidades de AI y encuentra las herramientas perfectas para ti",
     "seoDescriptions": {
-      "development": "Descubre las mejores herramientas de desarrollador MCP para Claude Code, Cursor y otros agentes de IA en 2026. Automatiza la codificación, refactorización y gestión de proyectos.",
-      "documentation": "Explora los principales servidores de procesamiento de documentos MCP para agentes de IA. Habilita a Claude para leer, escribir y analizar PDF, documentos de Word y markdown de manera fluida.",
-      "testing": "Encuentra potentes servidores de prueba MCP para dar a tus asistentes de IA la capacidad de escribir, ejecutar y depurar pruebas unitarias y de extremo a extremo de forma automática.",
-      "data": "Descubre servidores MCP de Datos y Análisis. Equipa a tus Agentes de IA con capacidades de consulta SQL, visualización de datos y gestión de bases de datos.",
-      "ai": "Explora servidores MCP de integración de modelos de AI y ML. Conecta Claude y otros agentes directamente a Hugging Face, OpenAI y pipelines de ML especializados.",
-      "devops": "Los mejores servidores MCP de DevOps y Cloud para agentes de IA. Deja que Claude gestione de forma autónoma tus entornos de AWS, Docker, Kubernetes y tus pipelines de CI/CD.",
-      "design": "Servidores MCP de diseño creativo para asistentes de IA. Habilita la generación de imágenes, análisis de UI/UX y gestión de sistemas de diseño.",
-      "productivity": "Mejores servidores MCP de productividad para agentes de IA. Conecta Claude a Notion, Slack, Jira y tu calendario para automatizar flujos de trabajo diarios.",
-      "code-review": "Revisión de código automatizada con habilidades MCP. Dale a tu Agente de IA el poder para analizar PR, detectar fallos de seguridad y hacer cumplir las reglas de linting.",
-      "git": "Servidores Git y GitHub MCP. Permita que Claude clone repositorios de forma autónoma, gestione ramas y cree solicitudes de extracción de manera automática.",
-      "cli": "Interfaz de línea de comandos (CLI) de servidores MCP. Habilita a tus agentes de IA para ejecutar comandos de terminal de forma segura y efectiva.",
-      "library": "Biblioteca y administración de paquetes para servidores MCP de agentes de IA. Buscar, instalar y actualizar paquetes npm, pip y cargo de forma automática.",
-      "api": "Integración de API con servidores MCP. Conecta tu asistente de IA a cualquier API REST o GraphQL al instante con implementaciones de protocolo estándar.",
-      "database": "Gestión de bases de datos en servidores MCP. Proporciona a Claude acceso directo y seguro para consultar y estructurar PostgreSQL, MySQL, MongoDB y Redis.",
-      "browser": "Automatización de navegador y extracción de datos web en servidores MCP. Permite a los agentes de IA navegar por sitios web, hacer clic en elementos y extraer datos de forma dinámica.",
-      "search": "Búsqueda web en servidores MCP para agentes de IA. Equipa a Claude con capacidades de búsqueda de Google, Bing y Tavily para recuperación de información en tiempo real.",
-      "web-scraping": "Habilidades avanzadas de extracción de datos web MCP. Permita que su asistente de IA extraiga datos estructurados de cualquier sitio web de forma autónoma.",
-      "automation": "Automatización general y RPA en servidores MCP. Conecta tus agentes de IA a Zapier, Make y herramientas de automatización de sistemas locales.",
-      "social": "Gestión de redes sociales en servidores MCP. Habilita asistentes de IA para publicar, analizar tendencias y gestionar X/Twitter, LinkedIn y más."
+      "development": "Descubre skills de flujo de trabajo para desarrolladores en Claude Code, Cursor y otros agentes de IA. Automatiza programación, refactorización, depuración y gestión de proyectos.",
+      "documentation": "Explora skills de flujo documental para agentes de IA. Permite que Claude lea, escriba y analice PDF, Word y Markdown con instrucciones reutilizables.",
+      "testing": "Encuentra skills de testing y QA que ayudan a asistentes de IA a escribir, ejecutar y depurar pruebas unitarias, de integración y E2E.",
+      "data": "Descubre skills de datos y analítica para consultas SQL, paneles, visualización y flujos de trabajo de bases de datos.",
+      "ai": "Explora skills de flujos de IA y ML que conectan agentes con Hugging Face, OpenAI y pipelines de modelos especializados.",
+      "devops": "Los mejores skills de flujo DevOps y cloud para AWS, Docker, Kubernetes, CI/CD y automatización de infraestructura.",
+      "design": "Skills creativos y de diseño para asistentes de IA, incluyendo generación de imágenes, revisión UI/UX y flujos de sistemas de diseño.",
+      "productivity": "Los mejores skills de productividad para agentes de IA. Conecta Claude con Notion, Slack, Jira y calendarios para automatizar el trabajo diario.",
+      "code-review": "Skills de revisión de código automatizada que ayudan a agentes de IA a revisar PR, detectar problemas de seguridad y reforzar calidad de código.",
+      "git": "Skills de flujo Git y GitHub para navegación de repositorios, gestión de ramas, commits y automatización de pull requests.",
+      "cli": "Skills de flujo en línea de comandos que ayudan a agentes de IA a ejecutar tareas de terminal de forma segura y eficaz.",
+      "library": "Skills de gestión de librerías y paquetes para agentes de IA. Busca, instala y actualiza paquetes npm, pip, cargo y más.",
+      "api": "Skills de integración API que conectan tu asistente de IA con servicios REST y GraphQL mediante flujos reutilizables.",
+      "database": "Skills de gestión de bases de datos para PostgreSQL, MySQL, MongoDB, Redis y flujos de consulta seguros.",
+      "browser": "Skills de automatización de navegador e interacción web que ayudan a agentes de IA a navegar sitios, hacer clic y extraer datos.",
+      "search": "Skills de búsqueda web para agentes de IA con recuperación en tiempo real en Google, Bing, Tavily y más.",
+      "web-scraping": "Skills avanzados de web scraping que extraen datos estructurados de sitios web mediante flujos de agente repetibles.",
+      "automation": "Skills de automatización general y RPA que conectan agentes de IA con Zapier, Make y flujos de sistemas locales.",
+      "social": "Skills de flujo para redes sociales orientados a publicación, monitoreo de tendencias y gestión de X, LinkedIn y otros canales."
     }
   },
   "Metadata": {
-    "title": "Killer-Skills - Mercado de Habilidades para Agentes de AI",
+    "title": "Killer-Skills - Directorio de habilidades para agentes de AI",
     "template": "%s | Killer-Skills",
     "description": "Descubre, instala y gestiona habilidades para AI agents. Compatible com Claude Code, Cursor, Windsurf.",
     "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
     "Skills": {
-      "title": "Mercado de Habilidades - Descubre Skills para AI Agents",
-      "description": "Explora e instala miles de habilidades para AI Agents en Killer-Skills. Compatible con Claude Code, Windsurf, Cursor y más."
+      "title": "Directorio de habilidades - Descubre Skills para AI Agents",
+      "description": "Explora e instala miles de habilidades para AI Agents en el directorio de Killer-Skills. Compatible con Claude Code, Windsurf, Cursor y más."
     }
   },
   "Personal": {
     "myFavorites": "Mis Favoritos",
     "favoritesCount": "{count} habilidades",
     "noFavorites": "Aún no hay favoritos",
-    "noFavoritesHint": "Navega por el mercado y haz clic en el corazón para guardar habilidades",
+    "noFavoritesHint": "Navega por el directorio y haz clic en el corazón para guardar habilidades",
     "browseSkills": "Explorar habilidades",
     "removeFavorite": "Eliminar",
     "savedAt": "Guardado {date}",
@@ -383,50 +388,50 @@
   "Integrations": {
     "worksWhereYouWork": "Funciona donde tú trabajas",
     "viewGuide": "Ver Guía de Configuración",
-    "missingTool": "¿Falta tu herramienta?",
-    "learnProtocol": "Conoce el Protocolo",
+    "missingTool": "¿No ves tu IDE?",
+    "learnProtocol": "Ver cómo se integran los skills",
     "cards": {
       "cursor": {
-        "desc": "Probablemente el mejor editor de código con IA actualmente."
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Cursor."
       },
       "windsurf": {
-        "desc": "Potente editor IA de Codeium, basado en VS Code."
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Windsurf."
       },
       "claude": {
-        "desc": "Herramienta CLI oficial de Anthropic para codificación con agentes."
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Claude Code."
       },
       "goose": {
-        "desc": "Agente desarrollador IA de código abierto de Block (Square)."
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Goose."
       }
     },
-    "heroDesc": "Killer-Skills soporta nativamente todos los principales editores IA y frameworks de agentes basados en MCP.",
-    "missingToolDesc": "Mientras soporte MCP (Model Context Protocol), funciona con Killer-Skills."
+    "heroDesc": "Usa Killer-Skills en las principales herramientas de programación con IA e IDEs con los mismos skills reutilizables.",
+    "missingToolDesc": "Si tu IDE puede ejecutar instrucciones de skills, Killer-Skills normalmente también puede funcionar allí."
   },
   "CLI": {
-    "heroTitle": "Plataforma Killer-Skills",
-    "heroSubtitle": "El estándar abierto para habilidades de agentes de IA",
-    "heroDesc": "Un registro centralizado de más de 1000 capacidades para sus agentes de IA. Descubra, comparta e integre habilidades en Cursor, Windsurf y Claude Code.",
+    "heroTitle": "Killer-Skills CLI",
+    "heroSubtitle": "Instala y gestiona skills de agentes de IA",
+    "heroDesc": "Descubre, instala y sincroniza más de 2,500 skills de agentes de IA en Cursor, Windsurf, Claude Code y otras herramientas.",
     "optionalNote": "Nota: La herramienta CLI es opcional. Puede usar las habilidades directamente a través de npx sin instalar nada.",
     "install": "Instalar Ahora",
     "viewDocs": "Ver Documentación",
     "latestVersion": "Última Versión:",
-    "copyInstall": "npx killer-skills install <skill>",
+    "copyInstall": "npx killer-skills add <owner/repo>",
     "features": {
       "autoInvoke": {
-        "title": "Registro Universal",
-        "desc": "Una biblioteca masiva de habilidades comunitarias y oficiales. Desde el procesamiento de PDF hasta la automatización del navegador, encuentre todo lo que su agente necesita."
+        "title": "Registro Abierto de Skills",
+        "desc": "Explora skills comunitarios y oficiales de agentes de IA para procesamiento de PDF, automatización del navegador, documentación y más."
       },
       "syncAll": {
-        "title": "Sincronización Universal",
-        "desc": "Un comando para gobernarlos a todos. 'killer sync --all' distribuye instantáneamente las habilidades a todos los IDE instalados en su máquina."
+        "title": "Sincronización Multi-IDE",
+        "desc": "Sincroniza las habilidades instaladas en tus IDE compatibles y mantén alineados los archivos de habilidades locales."
       },
       "mcp": {
-        "title": "Integración Profunda de MCP",
-        "desc": "El servidor MCP integrado permite a los agentes autoinstalar nuevas habilidades en tiempo de ejecución. Verdadera evolución autónoma."
+        "title": "Entrega de skills nativa del IDE",
+        "desc": "Instala skills en el formato de archivo nativo correcto para Claude Code, Cursor, VS Code, Windsurf y más entornos."
       },
       "secure": {
         "title": "Seguridad Empresarial",
-        "desc": "Todas las habilidades se ejecutan en entornos aislados. La autenticación de flujo de dispositivos de GitHub garantiza un acceso seguro."
+        "desc": "La autenticación GitHub Device Flow y la distribución transparente de código abierto ayudan a los equipos a instalar skills con confianza."
       }
     },
     "terminal": {
@@ -434,7 +439,7 @@
       "login": "Inicio de Sesión Seguro",
       "loginDesc": "Auth de Flujo de Dispositivo GitHub",
       "sync": "Sincronización de un clic",
-      "syncDesc": "Desplegar a 17+ IDEs",
+      "syncDesc": "Sincroniza en 19+ IDEs",
       "do": "Lenguaje Natural",
       "doDesc": "Ejecución de Tareas de IA"
     },
@@ -443,16 +448,16 @@
       "feature": "Característica",
       "ks": "Killer-Skills CLI",
       "others": "Prompting Manual",
-      "row1": "Instalación en 1 clic en 17+ IDEs",
+      "row1": "Instalación en 1 clic en 19+ IDEs",
       "row2": "Invocación Automática (Sin desperdicio de ventana de contexto)",
-      "row3": "Descubrimiento de Habilidades en Tiempo de Ejecución (MCP)",
+      "row3": "Descubrimiento y sincronización de skills en tiempo de ejecución",
       "row4": "Registro de Habilidades Seguras y Verificadas"
     }
   },
   "SkillsManagerWidget": {
     "title": "Gestor de Habilidades",
     "subtitle": "Puerta al Ecosistema",
-    "description": "Desbloquea posibilidades infinitas. Descubre, instala y potencia tu agente de IA con más de 1000 capacidades al instante.",
+    "description": "Desbloquea posibilidades infinitas. Descubre, instala y potencia tu agente de IA con más de 2,500 capacidades al instante.",
     "cta": "Entrar al Gestor"
   },
   "CLIInstall": {
@@ -477,8 +482,8 @@
     "lastUpdated": "Última actualización"
   },
   "DocsSidebar": {
-    "platformOverview": "Descripción de la Plataforma",
-    "cliTooling": "Herramientas CLI",
+    "platformOverview": "Resumen de Skills",
+    "cliTooling": "Usar la CLI",
     "gettingStarted": "Empezando",
     "introduction": "Introducción",
     "quickStart": "Inicio Rápido",
@@ -516,7 +521,7 @@
   },
   "Blog": {
     "title": "Ideas y Novedades",
-    "subtitle": "Análisis profundos sobre agentes IA, servidores MCP y el futuro de la programación.",
+    "subtitle": "Análisis profundos sobre skills de agentes de IA, flujos de trabajo para desarrolladores y el futuro de la programación.",
     "browseByCategory": "Explorar por Categoría",
     "readTime": "{n} min de lectura",
     "readArticle": "Leer Artículo",
@@ -532,14 +537,14 @@
       "developer-experience": "Experiencia del Desarrollador",
       "developer-experience-desc": "Los bloques de construcción para la ingeniería impulsada por IA.",
       "announcements": "Anuncios",
-      "announcements-desc": "Últimas noticias y actualizaciones de la plataforma."
+      "announcements-desc": "Últimas noticias y actualizaciones de skills."
     },
     "latestPosts": "Últimas publicaciones",
     "log": "Registro"
   },
   "Collections": {
     "editorPicks": "Selección del Editor",
-    "subtitle": "Listas curadas de las mejores habilidades, servidores y scripts de AI Agent para industrias y flujos de trabajo específicos.",
+    "subtitle": "Colecciones curadas de skills de agentes de IA de alta calidad y bloques de construcción de workflows para distintos sectores y casos de uso.",
     "items": "Elementos",
     "view": "Ver",
     "featured": "Destacado",

@@ -65,7 +65,7 @@ Generate social media graphics or PDF whitepapers that are instantly recognizabl
 
 The `brand-guidelines` skill is the final polish that turns "AI-output" into "Professional Asset." It ensures that your coding agent understands the importance of visual context and brand authority.
 
-Install the [brand-guidelines skill](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) from the Killer-Skills Marketplace and start designing with authority.
+Install the [brand-guidelines skill](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) from the Killer-Skills directory and start designing with authority.
 
 ---
 

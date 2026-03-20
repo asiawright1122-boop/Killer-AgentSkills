@@ -62,7 +62,7 @@ Beim Einsatz dieser Funktion mit der Killer-Skills CLI beachten Sie: Der Agent k
 
 Die `docx`-Skill verleiht Ihren KI-Workflows einen „Enterprise-Grade“-Professionalismus. Sie stellt sicher, dass die Ausgabe Ihres Coding-Agents den höchsten Standards der Unternehmenswelt entspricht.
 
-Starten Sie noch heute, indem Sie die [docx-Skill](https://killer-skills.com/de/skills/anthropics/skills/docx) aus dem Killer-Skills Marketplace installieren.
+Starten Sie noch heute, indem Sie den [docx-Skill](https://killer-skills.com/de/skills/anthropics/skills/docx) aus dem Killer-Skills-Verzeichnis installieren.
 
 *Müssen Sie zuerst Daten verarbeiten? Werfen Sie einen Blick in unseren Guide zur [xlsx-Skill](https://killer-skills.com/de/blog/mastering-excel-automation-with-xlsx-skills) für die Tabellenkalkulations-Automatisierung.*
 

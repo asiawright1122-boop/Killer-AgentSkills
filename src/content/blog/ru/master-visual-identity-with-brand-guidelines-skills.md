@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 Навык `brand-guidelines` - это завершающий штрих, который превращает "вывод AI" в "Профессиональный Актив". Он гарантирует, что ваш агент кодирования понимает важность визуального контекста и бренд-авторитета.
 
-Установите навык [brand-guidelines](https://killer-skills.com/ru/skills/anthropics/skills/brand-guidelines) из Marketplace Killer-Skills и начните проектировать с авторитетом.
+Установите навык [brand-guidelines](https://killer-skills.com/ru/skills/anthropics/skills/brand-guidelines) из каталога навыков Killer-Skills и начните проектировать уверенно.
 
 ---
 

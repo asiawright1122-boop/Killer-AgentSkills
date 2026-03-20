@@ -58,7 +58,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 
 Навык `doc-coauthoring` поднимает планку того, что может предложить написание с помощью ИИ. Он превращает одиночную, изнурительную задачу в структурированный, высококачественный диалог.
 
-Посетите [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/doc-coauthoring), чтобы скачать навык и начать писать документы, которые действительно работают.
+Откройте навык [doc-coauthoring](https://killer-skills.com/ru/skills/anthropics/skills/doc-coauthoring) в каталоге навыков Killer-Skills и начните писать документы, которые действительно работают.
 
 ---
 *Нужно завершить форматирование? Сопоставьте это с навыком [docx](https://killer-skills.com/ru/skills/anthropics/skills/docx) для профессионального экспорта в Word.*

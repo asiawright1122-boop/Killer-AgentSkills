@@ -16,19 +16,13 @@ heroImage: "/blog/openclaw-killer-integration-hero.webp"
 С помощью **Killer-Skills** вы можете внедрить в OpenClaw стандартизированную систему правил, позволяющую ему самостоятельно обнаруживать и выполнять сложную логику.
 ## Шаг 1: Установка Killer-Skills CLI
 
-Сначала убедитесь, что у вас установлен Node.js на вашей системе. Запустите следующую команду в вашем терминале, чтобы установить последнюю версию Killer-Skills CLI:
-
-```bash
-npm install -g killer-skills
-```
-
-После установки вы можете запустить `killer --version`, чтобы подтвердить, что версия **1.9.0 или выше** (официальная поддержка OpenClaw начинается с этой версии).
+Сначала убедитесь, что у вас установлен Node.js на вашей системе. Для этого сценария не нужна глобальная установка CLI — просто запускайте Killer-Skills через `npx` прямо в проекте.
 ## Шаг 2: Инициализация поддержки OpenClaw в вашем проекте
 
 Перейдите в корневой каталог проекта, где вы хотите использовать OpenClaw, и выполните команду инициализации:
 
 ```bash
-killer init
+npx killer-skills init
 ```
 
 Когда появится запрос на выбор IDE или агента, выберите **OpenClaw**. Это действие создаст файл-идентификатор `.openclaw` и `AGENTS.md` (если он еще не существует) в вашем проекте, что является стандартным местом, где OpenClaw читает системные инструкции.
@@ -38,14 +32,14 @@ killer init
 
 1.  **Поиск и установка навыка**:
     ```bash
-    killer install frontend-design
+    npx killer-skills add frontend-design
     ```
 2.  **Синхронизация с OpenClaw**:
     ```bash
-    killer sync --ide openclaw
+    npx killer-skills sync --ide openclaw
     ```
 
-Команда `killer sync` автоматически генерирует набор блоков XML-пrompt, которые понимает OpenClaw, и вставляет их в `AGENTS.md`.
+Команда `npx killer-skills sync --ide openclaw` автоматически генерирует набор блоков XML-пrompt, которые понимает OpenClaw, и вставляет их в `AGENTS.md`.
 ## Сценарийные пакеты навыков
 
 Чтобы помочь вам быстро начать работу, мы организовали "пакеты однократной установки" для различных сценариев:
@@ -53,22 +47,29 @@ killer init
 ### 1. Пакет автоматизации офиса (Office Pro)
 Подходит для пользователей, которым необходимо xửлять большие объемы документов и отчетов.
 ```bash
-killer install pdf xlsx docx humanizer
-killer sync --ide openclaw
+npx killer-skills add pdf
+npx killer-skills add xlsx
+npx killer-skills add docx
+npx killer-skills add humanizer
+npx killer-skills sync --ide openclaw
 ```
 
 ### 2. Пакет расширения возможностей разработчика (Dev Alpha)
 Подходит для разработчиков, которым необходима помощь ИИ при кодировании, тестировании и расширении инструментальных цепочек.
 ```bash
-killer install frontend-design webapp-testing mcp-builder
-killer sync --ide openclaw
+npx killer-skills add frontend-design
+npx killer-skills add webapp-testing
+npx killer-skills add mcp-builder
+npx killer-skills sync --ide openclaw
 ```
 
 ### 3. Пакет создания контента (Creator Suite)
 Подходит для блогеров, менеджеров социальных сетей и планировщиков предложений.
 ```bash
-killer install humanizer canvas-design internal-comms
-killer sync --ide openclaw
+npx killer-skills add humanizer
+npx killer-skills add canvas-design
+npx killer-skills add internal-comms
+npx killer-skills sync --ide openclaw
 ```
 ## Шаг 4: Вызов в OpenClaw
 
@@ -81,12 +82,12 @@ OpenClaw обнаружит определения навыков в `AGENTS.md`
 
 -   **Стандартизация**: Нет необходимости手ически писать системные подсказки для каждого проекта.
 -   **Модульность**: Установите возможности ИИ так же, как устанавливаете пакеты NPM.
--   **Синхронизация на нескольких платформах**: Если вы используете [Cursor или Windsurf](/ru/blog/claude-code-vs-cursor-vs-windsurf) одновременно, `killer sync --all` позволяет всем вашим инструментам ИИ делиться одной и той же библиотекой навыков.
+-   **Синхронизация на нескольких платформах**: Если вы используете [Cursor или Windsurf](/ru/blog/claude-code-vs-cursor-vs-windsurf) одновременно, `npx killer-skills sync --all` позволяет всем вашим инструментам ИИ делиться одной и той же библиотекой навыков.
 ## Заключение
 
 Объединив Killer-Skills с OpenClaw, вы больше не просто используете чат-бот, а автономного агента, который может непрерывно эволюционировать с богатым деревом навыков.
 
-Посетите [Рынок Навыков](https://killer-skills.com/ru/blog) и выберите свой следующий "суперспособность"!
+Загляните в [каталог навыков](https://killer-skills.com/ru/skills) и выберите свою следующую "суперспособность"!
 
 ---
 

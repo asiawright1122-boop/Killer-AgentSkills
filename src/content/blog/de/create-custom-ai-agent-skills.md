@@ -55,7 +55,7 @@ Der `skill-creator` bietet einen schrittweisen Arbeitsablauf zur Erstellung Ihre
 
 Die Macht von KI liegt nicht nur im Modell, sondern auch in der **Infrastruktur**, die es umgibt. Mit dem `skill-creator`-Skill gehen Sie von einem "Prompt-Ingenieur" zu einem "Fähigkeits-Architekten" über. Sie sagen der KI nicht nur, was sie tun soll, sondern lehren sie, wie sie lernen kann.
 
-Beginnen Sie noch heute mit dem Aufbau Ihres benutzerdefinierten KI-Arbeitsbereichs auf dem [Killer-Skills-Marktplatz](https://killer-skills.com/de/skills/anthropics/skills/skill-creator).
+Beginnen Sie noch heute mit dem Aufbau Ihres benutzerdefinierten KI-Arbeitsbereichs mit dem [skill-creator-Skill](https://killer-skills.com/de/skills/anthropics/skills/skill-creator) im Killer-Skills-Verzeichnis.
 
 ---
 

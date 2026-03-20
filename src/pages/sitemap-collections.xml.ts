@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
-import { getCollectionCanonicalSlug } from '../lib/collection-slugs';
+import { getCanonicalCollections, getCollectionCanonicalSlug } from '../lib/collection-slugs';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../lib/seo-locales';
 
 export const prerender = false;
@@ -40,7 +40,7 @@ ${buildHreflangLinks('/collections', SUPPORTED_LOCALES)}
 
   // 2. Individual collection pages (/collections/{slug})
   try {
-    const collectionsCol = await getCollection('collections');
+    const collectionsCol = getCanonicalCollections(await getCollection('collections'));
     for (const col of collectionsCol) {
       const canonicalSlug = getCollectionCanonicalSlug(col);
       const pagePath = `/collections/${canonicalSlug}`;

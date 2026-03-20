@@ -61,7 +61,7 @@ npx killer-skills add anthropics/skills/pptx
 
 Навык `pptx` означает не только файловые форматы — это вопрос **визуальной авторитетности**. Он гарантирует, что когда ваш агент ИИ создает презентацию, она выглядит так, как если бы ее разработал человеческий эксперт.
 
-Скачайте навык [pptx](https://killer-skills.com/ru/skills/anthropics/skills/pptx) из Marketplace Killer-Skills и начните создавать слайды, которые продажи увеличивают.
+Скачайте навык [pptx](https://killer-skills.com/ru/skills/anthropics/skills/pptx) из каталога навыков Killer-Skills и начните создавать слайды, которые продают.
 
 ---
 *Хотите стилизовать свои документы тоже? Посмотрите на навык [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory).*

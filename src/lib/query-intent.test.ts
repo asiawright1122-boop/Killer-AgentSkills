@@ -42,6 +42,15 @@ describe('resolveQueryIntent', () => {
     expect(result?.displayTerm).toBe('Workflow Templates');
   });
 
+  it('keeps mcp queries discoverable while framing them as skills-first workflow discovery', () => {
+    const result = resolveQueryIntent('mcp tools for claude code', 'en');
+    expect(result?.id).toBe('mcp-servers');
+    expect(result?.displayTerm).toBe('AI Agent Skills for Integrations');
+    expect(result?.description).toContain('AI agent skills');
+    expect(result?.keywords).toContain('ai agent skills');
+    expect(result?.keywords).toContain('mcp integrations');
+  });
+
   it('falls back to existing cursor intent before generic skill intent', () => {
     const result = resolveQueryIntent('cursor skills', 'en');
     expect(result?.id).toBe('cursor-skills');

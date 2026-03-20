@@ -3,17 +3,20 @@
 
 // 已有的集合主题
 const existingCollections = [
-  'top-agentic-ai-mcp-servers', 'top-agents-mcp-servers', 'top-ai-agent-mcp-servers',
-  'top-ai-agents-mcp-servers', 'top-ai-assistant-mcp-servers', 'top-automation-mcp-servers',
-  'top-cli-mcp-servers', 'top-codex-mcp-servers', 'top-community-mcp-servers',
-  'top-copilot-mcp-servers', 'top-cursor-mcp-servers', 'top-developer-tools-mcp-servers',
-  'top-devops-mcp-servers', 'top-framework-mcp-servers', 'top-gemini-cli-mcp-servers',
-  'top-gemini-mcp-servers', 'top-hacktoberfest-mcp-servers', 'top-mcp-mcp-servers',
-  'top-mcp-server-mcp-servers', 'top-mcp-servers-2026', 'top-nextjs-mcp-servers',
-  'top-official-mcp-servers', 'top-openai-mcp-servers', 'top-opencode-mcp-servers',
-  'top-orchestration-mcp-servers', 'top-productivity-mcp-servers', 'top-prompt-engineering-mcp-servers',
-  'top-python-mcp-servers', 'top-react-mcp-servers', 'top-rust-mcp-servers',
-  'top-typescript-mcp-servers', 'top-workflow-mcp-servers'
+  'top-agentic-ai-platforms-orchestration-tools', 'top-agent-workflow-skills-companion-tools', 'top-ai-agent-tools-integrations-developer-workflows',
+  'top-ai-agent-platforms-orchestration-tools', 'top-ai-assistant-workflow-tools-developers', 'top-agent-workflow-automation-tools',
+  'top-cli-terminal-ai-agent-tools', 'top-codex-workflow-skills-developer-integrations', 'top-community-skills-ai-utilities',
+  'top-github-copilot-companion-skills-dev-tools', 'top-cursor-compatible-skills-workflow-integrations', 'top-developer-tooling-ai-agent-work',
+  'top-devops-operations-automation-tools', 'top-frameworks-sdk-foundations-agents', 'top-gemini-cli-workflow-tools-terminal-automation-skills',
+  'top-gemini-compatible-dev-tools-agent-workflow-skills', 'top-hacktoberfest-ai-skills-open-source-contributors', 'top-mcp-tools-integrations-workflow-utilities',
+  'top-mcp-server-frameworks-bridges-infra-tooling', 'mcp-tools-for-ai-agent-workflows', 'top-nextjs-ai-tools-full-stack-developer-workflows',
+  'top-official-ai-skills-trusted-tools', 'top-openai-powered-ai-agent-tools', 'top-opencode-workflow-tools-companion-integrations',
+  'top-orchestration-platforms-agent-execution', 'top-productivity-tools-ai-enabled-developers', 'top-prompt-engineering-tools-agent-workflows',
+  'top-python-ai-agent-tools-developer-workflows', 'top-react-ai-tools-ui-workflows-component-development', 'top-rust-ai-tools-systems-workflows-reliability',
+  'top-typescript-ai-tools-developer-workflows', 'top-agent-workflow-building-tools', 'workflow-automation-tools',
+  'docker-container-workflow-automation-tools', 'file-document-data-processing-automation-tools',
+  'fintech-data-workflows-and-automation-tools', 'github-actions-workflows-and-repo-automation-tools',
+  'healthcare-data-workflows-and-compliant-automation-tools', 'jetbrains-compatible-skills', 'vscode-compatible-skills'
 ];
 
 // 长尾关键词机会分类
@@ -102,22 +105,22 @@ console.log(`总计: ${totalOpportunities} 个长尾关键词机会`);
 console.log('='.repeat(60));
 
 // Priority recommendations
-console.log('\n## 🎯 高优先级建议 - 立即创建集合');
+console.log('\n## 🎯 高优先级建议 - 审核后再创建集合');
 console.log('-'.repeat(40));
 
 const priorityCollections = [
-  'top-mcp-for-data-analysis',
-  'top-mcp-for-automation-workflows', 
-  'top-mcp-for-file-processing',
-  'top-mcp-for-testing',
-  'top-mcp-for-github-actions',
-  'top-mcp-for-docker',
-  'top-mcp-for-vscode',
+  'data-workflows-and-analysis-tools',
+  'workflow-automation-tools',
+  'file-document-data-processing-automation-tools',
+  'testing-automation-and-qa-workflow-tools',
+  'github-actions-workflows-and-repo-automation-tools',
+  'docker-container-workflow-automation-tools',
+  'vscode-compatible-skills',
 ];
 
 priorityCollections.forEach(slug => {
   const exists = existingCollections.includes(slug);
-  console.log(`  ${exists ? '✅' : '➕'} ${slug}`);
+  console.log(`  ${exists ? '✅' : '🔎'} ${slug}`);
 });
 
 console.log('\n## 🎯 高优先级建议 - 立即创建博客');

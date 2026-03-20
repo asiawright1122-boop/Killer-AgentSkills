@@ -60,7 +60,7 @@ Automatize jornadas de usuário multi-etapas, como "Cadastro -> Pagamento -> Vis
 
 A habilidade `webapp-testing` é a peça final do quebra-cabeça do desenvolvimento profissional. Ela garante que o código bonito que o seu agente escreve também seja um **código confiável**. Ao trazer a QA automatizada para o fluxo de trabalho do agente, permite que você envie com total confiança.
 
-Acesse o [Mercado de Habilidades Killer-Skills](https://killer-skills.com/pt/skills/anthropics/skills/webapp-testing) e comece a construir frontends à prova de balas hoje.
+Acesse a habilidade [webapp-testing](https://killer-skills.com/pt/skills/anthropics/skills/webapp-testing) no diretório de skills do Killer-Skills e comece hoje a criar frontends à prova de falhas.
 
 ---
 

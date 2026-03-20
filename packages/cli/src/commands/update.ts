@@ -27,8 +27,8 @@ export const updateCommand = new Command('update')
             console.log(chalk.yellow('No skills installed.'));
             console.log('');
             console.log('Install skills:');
-            console.log(chalk.cyan('  killer install <skill-name>'));
-            console.log(chalk.cyan('  killer install owner/repo'));
+            console.log(chalk.cyan('  npx killer-skills add <skill-name>'));
+            console.log(chalk.cyan('  npx killer-skills add owner/repo'));
             return;
         }
 
@@ -171,7 +171,7 @@ export const updateCommand = new Command('update')
 
         if (updated > 0) {
             console.log('');
-            console.log(chalk.dim('💡 Run `killer sync` to update AGENTS.md'));
+            console.log(chalk.dim('💡 Run `npx killer-skills sync` to update AGENTS.md'));
         }
     });
 

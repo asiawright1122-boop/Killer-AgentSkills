@@ -39,9 +39,9 @@ In the world of AI agents (like [Claude Code](/en/blog/claude-code-vs-cursor-vs-
 
 We are proud to announce that **Killer-Skills now officially supports OpenClaw**!
 
-This means you can use our CLI tool to sync over 1,000 professional-grade AI skills with your OpenClaw assistant in one click. Whether you need to handle complex PDFs, automate Excel reports, or perform professional UI design, OpenClaw can now master these capabilities faster than ever.
+This means you can use our CLI tool to sync over 2,500 professional-grade AI skills with your OpenClaw assistant in one click. Whether you need to handle complex PDFs, automate Excel reports, or perform professional UI design, OpenClaw can now master these capabilities faster than ever.
 
-> **Tip**: Run `npm install -g killer-skills` and execute `killer-skills sync --ide openclaw` to start your autonomous AI journey.
+> **Tip**: Run `npx killer-skills sync --ide openclaw` in a project where you already added the skills you need to start your autonomous AI journey.
 
 ## Conclusion
 

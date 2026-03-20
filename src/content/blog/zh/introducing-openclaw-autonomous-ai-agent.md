@@ -39,9 +39,9 @@ heroImage: "/blog/openclaw-intro-hero.webp"
 
 我们非常自豪地宣布，**Killer-Skills 现已正式支持 OpenClaw**！
 
-这意味着你可以使用我们的 CLI 工具，将超过 1,000 个专业级的 AI 技能一键同步到你的 OpenClaw 助手。无论你需要处理复杂的 PDF、自动化 Excel 报表，还是进行专业的 UI 设计，OpenClaw 现在都能以前所未有的速度掌握这些能力。
+这意味着你可以使用我们的 CLI 工具，将超过 2,500 个专业级的 AI 技能一键同步到你的 OpenClaw 助手。无论你需要处理复杂的 PDF、自动化 Excel 报表，还是进行专业的 UI 设计，OpenClaw 现在都能以前所未有的速度掌握这些能力。
 
-> **提示**：运行 `npm install -g killer-skills` 并执行 `killer-skills sync --ide openclaw` 即可开始你的自主 AI 旅程。
+> **提示**：在已添加所需技能的项目中运行 `npx killer-skills sync --ide openclaw`，即可开始你的自主 AI 旅程。
 
 ## 结语
 
@@ -49,4 +49,4 @@ OpenClaw 代表了开源 AI 代理的未来 —— 更私密、更自主、更�
 
 ---
 
-*进一步阅读：[OpenClaw 的 5 个强大应用场景](/zh/blog/openclaw-application-scenarios) 和 [如何使用 Killer-Skills 增强你的 AI 代理](/zh/blog/enhancing-ai-agents-with-killer-skills-guide)*
+*进一步阅读：[OpenClaw 的 5 个强大应用场景](/zh/blog/openclaw-application-scenarios) 和 [如何使用 Killer-Skills 增强你的 AI 代理](/zh/blog/enhancing-openclaw-with-killer-skills-guide)*

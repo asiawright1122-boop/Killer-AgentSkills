@@ -20,7 +20,8 @@ O que aconteceria se o seu agente de codificação de IA pudesse fazer mais do q
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-Neste guia, você aprenderá tudo o que precisa saber sobre a construção de servidores MCP — desde a compreensão do protocolo até a implantação do seu primeiro servidor.
+Mais do que seguir um tutorial linear, o ponto central ao construir um servidor MCP é decidir quais capacidades realmente merecem virar ferramentas, como descrevê-las para agentes e como manter autenticação, limites e observabilidade sob controle desde o início.
+
 ## O que é um Servidor MCP?
 
 Um **servidor MCP** é um serviço padronizado que expõe ferramentas, recursos e prompts para agentes de IA consumirem. Pense nele como uma ponte entre seu assistente de IA e o mundo real — bancos de dados, APIs, sistemas de arquivos, serviços de nuvem e muito mais.
@@ -50,17 +51,11 @@ Ao contrário de construir do zero, a habilidade mcp-builder segue um fluxo de t
 | **Fase 2: Construção** | Implementa o servidor com tratamento de erros e autenticação adequados |
 | **Fase 3: Revisão** | Testa todas as ferramentas, valida respostas, verifica casos limite |
 | **Fase 4: Avaliação** | Cria avaliações automatizadas para verificar a qualidade |
-## Introdução: Construa Seu Primeiro Servidor MCP
+## Primeiros passos com uma base sólida
 
-### Etapa 1: Instalar a Habilidade
+### Instalar a Habilidade
 
-Primeiro, certifique-se de que você tem o Killer-Skills CLI instalado:
-
-```bash
-npm install -g killer-skills
-```
-
-Em seguida, adicione a habilidade mcp-builder ao seu projeto:
+Você não precisa de uma instalação global da CLI. Adicione a habilidade mcp-builder diretamente com `npx`:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
@@ -68,7 +63,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 A habilidade será adicionada ao diretório `.claude/skills/` e ativada automaticamente quando o Claude detectar tarefas de desenvolvimento de servidor MCP.
 
-### Etapa 2: Escolha Sua Pilha
+### Escolha sua pilha
 
 A habilidade mcp-builder suporta duas pilhas principais:
 
@@ -91,7 +86,7 @@ pip install mcp pydantic
 
 Python é uma ótima escolha se sua equipe já usa Python ou está integrando com APIs pesadas em Python.
 
-### Etapa 3: Definir Ferramentas
+### Definir ferramentas
 
 A chave para um ótimo servidor MCP é ferramentas bem projetadas. Aqui está um modelo:
 
@@ -126,7 +121,7 @@ server.tool(
 );
 ```
 
-### Etapa 4: Implementar Melhores Práticas
+### Aplicar as práticas mais importantes
 
 A habilidade mcp-builder impõe vários padrões críticos:
 
@@ -218,7 +213,7 @@ A habilidade mcp-builder gera avaliações automatizadas que testam:
 - **Cenários do mundo real** — Fluxos de trabalho multi-etapa que encadeiam ferramentas juntas
 ## Instalação via Killer-Skills
 
-A maneira mais rápida de começar é por meio do marketplace Killer-Skills:
+A maneira mais rápida de começar é pelo diretório de skills do Killer-Skills:
 
 ```bash
 # Browse the official skills
@@ -247,7 +242,7 @@ O futuro do desenvolvimento de IA não é sobre escrever mais código — é sob
 
 ---
 
-*Quer explorar mais habilidades? Navegue pelo [Mercado de Habilidades Killer-Skills](https://killer-skills.com/pt/skills) para descobrir centenas de Habilidades de Agente verificadas para seu fluxo de trabalho de codificação de IA.*
+*Quer explorar mais habilidades? Navegue pelo [diretório de skills do Killer-Skills](https://killer-skills.com/pt/skills) para descobrir centenas de Habilidades de Agente verificadas para seu fluxo de trabalho de codificação de IA.*
 
 ---
 

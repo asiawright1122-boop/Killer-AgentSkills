@@ -25,11 +25,11 @@ export const listCommand = new Command('list')
             console.log(chalk.yellow('No skills installed yet.'));
             console.log('');
             console.log('Install skills:');
-            console.log(chalk.cyan('  killer install <skill-name>'));
-            console.log(chalk.cyan('  killer install owner/repo'));
+            console.log(chalk.cyan('  npx killer-skills add <skill-name>'));
+            console.log(chalk.cyan('  npx killer-skills add owner/repo'));
             console.log('');
             console.log('Or run:');
-            console.log(chalk.cyan('  killer sync'));
+            console.log(chalk.cyan('  npx killer-skills sync'));
             console.log(chalk.dim('  to make existing skills discoverable by AI'));
             return;
         }
@@ -77,9 +77,9 @@ export const listCommand = new Command('list')
         // Tips
         console.log('');
         console.log(chalk.dim('💡 Commands:'));
-        console.log(chalk.dim(`   killer sync     - Make skills discoverable by AI`));
-        console.log(chalk.dim(`   killer read <s> - Read skill content`));
-        console.log(chalk.dim(`   killer manage   - Interactively manage skills`));
+        console.log(chalk.dim(`   npx killer-skills sync     - Make skills discoverable by AI`));
+        console.log(chalk.dim(`   npx killer-skills read <s> - Read skill content`));
+        console.log(chalk.dim(`   npx killer-skills manage   - Interactively manage skills`));
     });
 
 /**

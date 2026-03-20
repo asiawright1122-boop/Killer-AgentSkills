@@ -5,8 +5,8 @@
  * the task description to available skills and suggests/executes them.
  * 
  * Example:
- *   killer do "处理这个 PDF 文件"
- *   killer do "create algorithmic art"
+ *   npx killer-skills do "处理这个 PDF 文件"
+ *   npx killer-skills do "create algorithmic art"
  */
 
 import { Command } from 'commander';
@@ -45,7 +45,7 @@ export const doCommand = new Command('do')
             if (skills.length === 0) {
                 spinner.fail(chalk.red('No skills installed'));
                 console.log(chalk.dim('\nInstall skills first:'));
-                console.log(chalk.cyan('  killer install <skill-name>'));
+                console.log(chalk.cyan('  npx killer-skills add <skill-name>'));
                 process.exit(1);
             }
 
@@ -61,7 +61,7 @@ export const doCommand = new Command('do')
                 console.log(chalk.yellow('\n⚠️ No matching skills found for:'));
                 console.log(chalk.dim(`   "${task}"`));
                 console.log(chalk.dim('\n💡 Try installing more skills:'));
-                console.log(chalk.cyan('   killer search <query>'));
+                console.log(chalk.cyan('   npx killer-skills search <query>'));
                 return;
             }
 
@@ -126,7 +126,7 @@ export const doCommand = new Command('do')
             // Read skill content
             const content = readFileSync(selectedSkill.path, 'utf-8');
 
-            // Output skill content (like `killer read`)
+            // Output skill content (like `npx killer-skills read`)
             console.log(chalk.dim('─'.repeat(60)));
             console.log(content);
             console.log(chalk.dim('─'.repeat(60)));

@@ -41,7 +41,7 @@ const pkg = require('../package.json');
 const program = new Command();
 
 program
-    .name('killer')
+    .name('killer-skills')
     .description('Killer-Skills CLI - Install and manage Agent Skills')
     .version(pkg.version)
     .hook('preAction', async (_thisCommand, actionCommand) => {

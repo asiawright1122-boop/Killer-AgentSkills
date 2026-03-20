@@ -68,7 +68,7 @@ Generate pieces that prove something ephemeral can be studied and mapped. These 
 
 The `canvas-design` skill is for those who believe that design is a discipline, not a shortcut. It transforms your AI agent into an expert craftsman capable of producing work that demands a place in a gallery.
 
-Explore the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) to download and start designing today.
+Explore the [canvas-design skill](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) in the Killer-Skills skills directory to download it and start designing today.
 
 ---
 

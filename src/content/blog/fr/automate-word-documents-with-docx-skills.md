@@ -62,7 +62,7 @@ Lorsque vous utilisez cette compétence avec la CLI Killer-Skills, n'oubliez pas
 
 La compétence `docx` apporte un professionnalisme de niveau « Entreprise » à vos flux de travail d'IA. Elle garantit que la production de votre agent de codage répond aux normes les plus élevées du monde corporate.
 
-Commencez dès aujourd'hui en installant la [compétence docx](https://killer-skills.com/fr/skills/anthropics/skills/docx) depuis le Marketplace Killer-Skills.
+Commencez dès aujourd'hui en installant le skill [docx](https://killer-skills.com/fr/skills/anthropics/skills/docx) depuis le répertoire de skills Killer-Skills.
 
 *Vous devez d'abord traiter des données ? Consultez notre guide sur la [compétence xlsx](https://killer-skills.com/fr/blog/mastering-excel-automation-with-xlsx-skills) pour l'automatisation des feuilles de calcul.*
 

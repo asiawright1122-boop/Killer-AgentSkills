@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` 스킬은 "AI 출력"을 "전문 자산"으로 만드는 최종 마무리입니다. 이는 코드 에이전트가 시각적 맥락과 브랜드 권위의 중요성을 이해하도록 합니다.
 
-Killer-Skills Marketplace에서 [brand-guidelines 스킬](https://killer-skills.com/ko/skills/anthropics/skills/brand-guidelines)을 설치하고 권위 있게 디자인을 시작하세요.
+Killer-Skills 디렉터리에서 [brand-guidelines 스킬](https://killer-skills.com/ko/skills/anthropics/skills/brand-guidelines)을 설치하고 자신감 있게 디자인을 시작하세요.
 
 ---
 

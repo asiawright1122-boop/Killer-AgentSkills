@@ -12,18 +12,18 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 
 # 현재 설치할 수 있는 최고의 AI 에이전트 기술
 
-**AI 에이전트 기술**은 코드 어시스턴트(Claude Code, Cursor, ContinueWindsurf 등)에게 복잡한 워크플로를 자동으로 실행할 수 있는 컨텍스트와 능력을 제공하는 특수화된 플러그 앤 플레이 지침 모듈입니다. Killer-Skills 레지스트리의 최근 데이터에 따르면, 목표 에이전트 기술을 사용하는 개발자는 반복적인 형식 지정, 테스트 및 문서화 작업에서 평균 12.5시간을 절약한다고 보고합니다.
+**AI 에이전트 기술**은 코드 어시스턴트(Claude Code, Cursor, Windsurf 등)에게 복잡한 워크플로를 자동으로 실행할 수 있는 컨텍스트와 능력을 제공하는 특수화된 플러그 앤 플레이 지침 모듈입니다. Killer-Skills 레지스트리의 최근 데이터에 따르면, 목표 에이전트 기술을 사용하는 개발자는 반복적인 형식 지정, 테스트 및 문서화 작업에서 평균 12.5시간을 절약한다고 보고합니다.
 
 > **중요 요약**
 > - **문서 자동화**: `docx` 및 `xlsx`와 같은 기술은 보고서를 자동화하여 수동 데이터 입력 시간을 절약합니다.
 > - **시각적 및 UI 디자인**: `frontend-design` 기술을 사용하면 에이전트가 생산급, 반응형 UI 컴포넌트를 생성할 수 있습니다.
 > - **개발자 도구**: `mcp-builder`와 같은 영구 구성 기술을 사용하여 표준화된 서버 구축 및 UI 테스트를 수행합니다.
-> - **범용 호환성**: `npx killer-skills add <기술>`을 사용하여 전 세계 15개 이상의 IDE에 기술을 설치합니다.
+> - **범용 호환성**: `npx killer-skills add owner/repo`을 사용하여 전 세계 19개 이상의 IDE에 기술을 설치합니다.
 ## AI 에이전트 스킬이란 무엇인가?
 
 **AI 에이전트 스킬**은 Cursor, Windsurf, 또는 Claude Code와 같은 코딩 어시스턴트가 자동으로 복잡하고 다단계의 워크플로우를 실행하는 방법을教하는 전문적인 지시 프로토콜입니다. 이러한 플러그 앤 플레이 모듈을 설치하여 개발자는 AI 에이전트에게 특정한 컨텍스트와 도구 세트를 제공하여 지속적인 프롬프트 없이 전문적인 작업을 수행할 수 있습니다.
 
-우리는 1,000개가 넘는 에이전트 스킬의 디렉토리를 유지하며, 수십 가지를 일상적으로 사용합니다. 일부는 탁월합니다. 많은 부분은 중간 정도입니다. 몇 가지 스킬은 우리의 작업 방식을 바꿨습니다.
+우리는 2,500개가 넘는 에이전트 스킬의 디렉토리를 유지하며, 수십 가지를 일상적으로 사용합니다. 일부는 탁월합니다. 많은 부분은 중간 정도입니다. 몇 가지 스킬은 우리의 작업 방식을 바꿨습니다.
 
 이 목록은 우리가 시작할 때 누군가가 주었으면 하는 목록입니다. 여기 있는 모든 스킬은 실제 프로젝트에서 테스트되었으며, 단순히 읽은 것이 아닙니다.
 ## 문서 자동화
@@ -112,7 +112,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 전역적으로 설치했습니다. 생산하는 모든 콘텐츠가 이를 거치게 됩니다. 차이가 눈에 띄는 것입니다.
 
 ```bash
-npx killer-skills add blader/humanizer
+npx killer-skills add minhtungo/ai-agents-factory/humanizer
 ```
 
 ### internal-comms — 회사 커뮤니케이션
@@ -157,20 +157,20 @@ npx killer-skills add anthropics/skills/pptx
 
 ```bash
 # Install to your project
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 
 # See what's available
 npx killer-skills search pdf
 ```
 
-전체 컬렉션은 [killer-skills.com/en/skills](/en/skills)에서 확인할 수 있습니다.
+전체 컬렉션은 [killer-skills.com/ko/skills](/ko/skills)에서 확인할 수 있습니다。
 ## 자주 묻는 질문
 
 ### AI 에이전트 스킬이란 무엇인가요?
 **AI 에이전트 스킬**은 Cursor나 Claude Code와 같은 코딩 어시스턴트에게 PDF 생성, UI 컴포넌트 구축, 웹 애플리케이션 테스트 등 특정 작업을 수행하는 방법을 가르치는 전문적인 명령어 세트와 도구입니다.
 
 ### 어떤 IDE가 이러한 스킬을 지원하나요?
-이 스킬들은 Cursor, Windsurf, VS Code(Copilot 또는 Cline 통해), Trae, Claude Code CLI를 포함한 15개 이상의 주요 AI 코딩 환경과 호환됩니다.
+이 스킬들은 Cursor, Windsurf, VS Code(Copilot 또는 Cline 통해), Trae, Claude Code CLI를 포함한 19개 이상의 주요 AI 코딩 환경과 호환됩니다.
 
 ### 에이전트 스킬은 얼마나 많은 시간을 절약해 주나요?
 작업에 따라 결과는 다르지만, 타겟팅된 에이전트 스킬을 사용하는 개발자들은 일반적인 개발 및 보고 작업에 주당 평균 12.5시간을 절약한다고 보고합니다.
@@ -193,7 +193,7 @@ npx killer-skills search pdf
       "name": "Which IDEs support these skills?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+        "text": "These skills are compatible with 19+ major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
       }
     },
     {

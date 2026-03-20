@@ -26,7 +26,9 @@ describe('seo-keywords', () => {
 
   it('maps intent ids to keyword clusters', () => {
     expect(getIntentKeywordClusters('workflow-automation')).toContain('workflowAutomation');
-    expect(getIntentKeywordClusters('mcp-servers')).toContain('mcp');
+    expect(getIntentKeywordClusters('mcp-servers')).toEqual(
+      expect.arrayContaining(['mcp', 'developerExperience', 'ideCompat', 'installSetup', 'workflowAutomation']),
+    );
     expect(getIntentKeywordClusters('skill-installation')).toContain('installSetup');
     expect(getIntentKeywordClusters('workflow-templates')).toContain('templates');
   });

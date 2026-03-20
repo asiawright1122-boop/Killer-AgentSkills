@@ -60,7 +60,7 @@ Playwright를 사용하여 에이전트는 복잡한 시각적 및 기능적 검
 
 `webapp-testing` 스킬은 전문 개발의 마지막 조각입니다. 에이전트가 작성한 아름다운 코드가 또한 **신뢰할 수 있는 코드**임을 보장합니다. 자동화된 QA를 에이전트 워크플로에 통합함으로써, 완전한 확신을 가지고 배포할 수 있습니다.
 
-[Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/webapp-testing)로 이동하여 오늘부터 강력한 프론트엔드를 구축하세요.
+Killer-Skills 디렉터리에서 [webapp-testing 스킬](https://killer-skills.com/ko/skills/anthropics/skills/webapp-testing)을 확인하고 오늘부터 탄탄한 프론트엔드를 구축하세요.
 
 ---
 

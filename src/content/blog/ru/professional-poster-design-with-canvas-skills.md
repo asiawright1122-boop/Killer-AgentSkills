@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/canvas-design
 
 Навык `canvas-design` предназначен для тех, кто считает дизайн дисциплиной, а не быстрым решением. Он превращает вашего ИИ-агента в эксперта-ремесленника, способного создавать работы, достойные места в галерее.
 
-Изучите [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design), чтобы скачать навык и начать создавать дизайн уже сегодня.
+Откройте навык [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) в каталоге навыков Killer-Skills, чтобы скачать его и начать создавать дизайн уже сегодня.
 
 ---
 

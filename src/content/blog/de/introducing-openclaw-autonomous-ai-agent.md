@@ -35,9 +35,9 @@ In der Welt der KI-Agents (wie [Claude Code](/de/blog/claude-code-vs-cursor-vs-w
 
 Wir sind stolz darauf, bekannt zu geben, dass **Killer-Skills nun offiziell OpenClaw unterstützt**!
 
-Dies bedeutet, dass Sie unser CLI-Tool verwenden können, um über 1.000 professionelle KI-Fähigkeiten mit Ihrem OpenClaw-Assistenten in einem Klick zu synchronisieren. Egal, ob Sie komplexe PDFs bearbeiten, Excel-Berichte automatisieren oder professionelles UI-Design durchführen müssen, OpenClaw kann diese Fähigkeiten nun schneller als je zuvor meistern.
+Dies bedeutet, dass Sie unser CLI-Tool verwenden können, um über 2,500 professionelle KI-Fähigkeiten mit Ihrem OpenClaw-Assistenten in einem Klick zu synchronisieren. Egal, ob Sie komplexe PDFs bearbeiten, Excel-Berichte automatisieren oder professionelles UI-Design durchführen müssen, OpenClaw kann diese Fähigkeiten nun schneller als je zuvor meistern.
 
-> **Tipp**: Führen Sie `npm install -g killer-skills` aus und führen Sie `killer-skills sync --ide openclaw` aus, um Ihre autonome KI-Reise zu starten.
+> **Tipp**: Führen Sie `npx killer-skills sync --ide openclaw` in einem Projekt aus, in dem die benötigten Skills bereits hinzugefügt wurden, um Ihre autonome KI-Reise zu starten.
 ## Schlussfolgerung
 
 OpenClaw repräsentiert die Zukunft von Open-Source-KI-Agents - privatere, autonomere und leistungsfähigere. In den kommenden Artikeln dieser Serie werden wir tiefer in spezifische OpenClaw-Anwendungsszenarien eintauchen und zeigen, wie man sein Potenzial mit Killer-Skills maximieren kann.

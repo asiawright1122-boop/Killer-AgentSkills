@@ -20,7 +20,7 @@ heroImage: "/blog/openclaw-scenarios-hero.webp"
 
 -   **Пример Случая**: Когда вы находитесь на встрече или находитесь в пути, OpenClaw может обрабатывать входящие сообщения из разных каналов в фоновом режиме, выполнять простые запросы или отправлять вам сводки по конкретным каналам, когда обнаруживаются срочные дела.
 -   **🌟 Рекомендуемые Навыки**:
-    -   [`humanizer`](/ru/blog/humanizer-skill): Делает ответы ИИ более реалистичными и похожими на человеческие, избегая роботизированного тона.
+    -   [`humanizer`](/ru/skills/minhtungo/ai-agents-factory/humanizer): Делает ответы ИИ более реалистичными и похожими на человеческие, избегая роботизированного тона.
     -   [`internal-comms`](/ru/blog/professional-internal-communications-with-ai-skills): Профессиональные сводки сообщений и форматы отчетов.
 -   **Ключевые Слова**: Мультиплатформенный ИИ, автоматизация сообщений.
 ## 2. Бесшовное Управление Файлами и Автоматизация
@@ -58,8 +58,8 @@ OpenClaw имеет мощные возможности чтения и запи
 
 -   **Примерный случай**: Если вы обнаружите, что OpenClaw не поддерживает из коробки сложную обработку формул Excel, просто используйте **Killer-Skills CLI**:
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     За несколько секунд ваш OpenClaw освоит [профессиональные навыки автоматизации Excel](/ru/blog/mastering-excel-automation-with-xlsx-skills).
 ## Заключение

@@ -24,7 +24,7 @@ heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 打开您的终端，转到您的项目目录，并运行：
 
 ```bash
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 ```
 
 例如，要安装 PDF 自动化技能，您可以运行：
@@ -53,7 +53,7 @@ npx killer-skills add anthropics/skills/pdf --all
 npx killer-skills search auth
 ```
 
-这会查询社区数据库并返回最匹配的结果，包括它们的星级数和完整的安装路径。您也可以浏览完整的开源目录，位于 [Killer-Skills 网站](/en/skills)。
+这会查询社区数据库并返回最匹配的结果，包括它们的星级数和完整的安装路径。您也可以浏览完整的开源目录，位于 [Killer-Skills 网站](/zh/skills)。
 ## 更新技能
 
 技能会演变。作者会添加新的边缘情况，修复不良的指令，并提高提示的可靠性。由于您通过 CLI 安装了技能，因此可以同样轻松地更新它。

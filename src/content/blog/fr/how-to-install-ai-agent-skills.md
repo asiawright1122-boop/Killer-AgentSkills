@@ -23,7 +23,7 @@ Vous n'avez pas besoin de l'installer de manière permanente. Vous pouvez l'exé
 Ouvrez votre terminal, accédez à votre répertoire de projet et exécutez :
 
 ```bash
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 ```
 
 Par exemple, pour installer la compétence d'automatisation de PDF, vous exécutez :
@@ -52,7 +52,7 @@ Si vous savez ce que vous cherchez mais n'avez pas retenu le chemin de dépôt e
 npx killer-skills search auth
 ```
 
-Ceci interroge la base de données de la communauté et retourne les meilleures correspondances, y compris leurs comptes d'étoiles et les chemins d'installation complets. Vous pouvez également parcourir le répertoire open-source complet sur le site [Killer-Skills](/en/skills).
+Ceci interroge la base de données de la communauté et retourne les meilleures correspondances, y compris leurs comptes d'étoiles et les chemins d'installation complets. Vous pouvez également parcourir le répertoire open-source complet sur le site [Killer-Skills](/fr/skills).
 ## Maintenir les compétences à jour
 
 Les compétences évoluent. Les auteurs ajoutent de nouveaux cas limites, corrigent les mauvaises instructions et améliorent la fiabilité des invites. Puisque vous avez installé la compétence via la CLI, vous pouvez la mettre à jour tout aussi facilement.

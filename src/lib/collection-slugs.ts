@@ -61,3 +61,17 @@ export function resolveCollectionBySlug<T extends CollectionLike>(collections: T
 
   return null;
 }
+
+export function getCanonicalCollections<T extends CollectionLike>(collections: T[]): T[] {
+  const seenCanonicalSlugs = new Set<string>();
+
+  return collections.filter((collection) => {
+    const canonicalSlug = getCollectionCanonicalSlug(collection);
+    if (seenCanonicalSlugs.has(canonicalSlug)) {
+      return false;
+    }
+
+    seenCanonicalSlugs.add(canonicalSlug);
+    return true;
+  });
+}

@@ -20,7 +20,7 @@ C'est exactement ce que les **serveurs MCP** (Protocole de contexte de modèle) 
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-Dans ce guide, vous apprendrez tout ce que vous devez savoir sur la construction de serveurs MCP — desde la compréhension du protocole jusqu'au déploiement de votre premier serveur.
+Le plus utile n'est pas de suivre un long script à la lettre, mais de décider d'abord quelles capacités doivent devenir des outils, comment les décrire pour un agent et quelles limites d'exploitation poser dès le départ.
 ## Qu'est-ce qu'un serveur MCP ?
 
 Un **serveur MCP** est un service standardisé qui expose des outils, des ressources et des invites pour que les agents IA les consomment. Pensez-y comme un pont entre votre assistant IA et le monde réel — bases de données, API, systèmes de fichiers, services cloud, et plus.
@@ -50,17 +50,11 @@ Contrairement à une construction à partir de zéro, la compétence mcp-builder
 | **Phase 2 : Construction** | Implémente le serveur avec une gestion des erreurs et une authentification appropriées |
 | **Phase 3 : Révision** | Teste tous les outils, valide les réponses, vérifie les cas limites |
 | **Phase 4 : Évaluation** | Crée des évaluations automatisées pour vérifier la qualité |
-## Premiers Pas : Créez Votre Premier Serveur MCP
+## Poser une base utile avant d'implémenter
 
-### Étape 1 : Installer la Compétence
+### Installer la compétence
 
-Tout d'abord, assurez-vous d'avoir installé l'interface de ligne de commande Killer-Skills :
-
-```bash
-npm install -g killer-skills
-```
-
-Ensuite, ajoutez la compétence mcp-builder à votre projet :
+Vous n'avez pas besoin d'une installation globale du CLI. Ajoutez directement la compétence mcp-builder avec `npx` :
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
@@ -68,7 +62,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 La compétence sera ajoutée à votre répertoire `.claude/skills/` et activée automatiquement lorsque Claude détecte des tâches de développement de serveur MCP.
 
-### Étape 2 : Choisissez Votre Stack
+### Choisir votre stack
 
 La compétence mcp-builder prend en charge deux stacks principales :
 
@@ -79,7 +73,7 @@ npm install @modelcontextprotocol/sdk zod
 ```
 
 TypeScript est recommandé pour plusieurs raisons :
-- Une prise en charge de haute qualité de l'SDK officiel de l'équipe MCP
+- Une prise en charge de haute qualité du SDK officiel de l'équipe MCP
 - La saisie statique des erreurs détecte les erreurs avant l'exécution
 - Une forte compatibilité avec les environnements d'exécution
 - Les modèles d'IA excellent pour générer du code TypeScript
@@ -91,7 +85,7 @@ pip install mcp pydantic
 
 Python est un excellent choix si votre équipe utilise déjà Python ou que vous intégrez avec des API lourdes en Python.
 
-### Étape 3 : Définissez Vos Outils
+### Définir vos outils
 
 La clé d'un excellent serveur MCP réside dans des outils bien conçus. Voici un modèle :
 
@@ -126,7 +120,7 @@ server.tool(
 );
 ```
 
-### Étape 4 : Mettre en Œuvre les Meilleures Pratiques
+### Appliquer les modèles essentiels
 
 La compétence mcp-builder impose plusieurs modèles critiques :
 
@@ -218,7 +212,7 @@ La compétence mcp-builder génère des évaluations automatisées qui testent :
 - **Scénarios du monde réel** — Workflows multi-étapes qui enchaînent des outils ensemble
 ## Installation via Killer-Skills
 
-Le moyen le plus rapide pour commencer est de passer par le marché Killer-Skills :
+Le moyen le plus rapide pour commencer est de passer par l'annuaire de skills Killer-Skills :
 
 ```bash
 # Browse the official skills
@@ -243,11 +237,11 @@ Prêt à créer votre premier serveur MCP ? Voici comment commencer aujourd'hui 
 3. **Décrivez vos besoins** : Dites à Claude quels outils vous nécessitez, et il créera l'ensemble du serveur
 4. **Déployez et testez** : Utilisez les évaluations générées pour valider votre serveur
 
-Le futur du développement IA n'est pas à propos d'écrire plus de code — c'est à propos de donner aux agents IA les bons outils pour travailler. Les serveurs MCP et les compétences d'agent rendent ce futur possible aujourd'hui.
+Le futur du développement IA ne consiste pas à écrire plus de code, mais à donner aux agents IA les bons outils pour travailler. Les serveurs MCP et les compétences d'agent rendent ce futur possible aujourd'hui.
 
 ---
 
-*Vous souhaitez explorer plus de compétences ? Parcourez le [Marché des compétences Killer-Skills](https://killer-skills.com/fr/skills) pour découvrir des centaines de compétences d'agent vérifiées pour votre flux de travail de codage IA.*
+*Vous souhaitez explorer plus de compétences ? Parcourez le [répertoire de compétences Killer-Skills](https://killer-skills.com/fr/skills) pour découvrir des centaines de compétences d'agent vérifiées pour votre flux de travail de codage IA.*
 
 ---
 

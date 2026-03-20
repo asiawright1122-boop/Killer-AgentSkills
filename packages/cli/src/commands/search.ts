@@ -80,9 +80,9 @@ export const searchCommand = new Command('search')
                 console.log(chalk.dim('   • Try a broader search term'));
                 if (!token) {
                     console.log(chalk.dim('   • ' + chalk.yellow('Login to GitHub for better results:')));
-                    console.log(chalk.cyan('     killer login'));
+                    console.log(chalk.cyan('     npx killer-skills login'));
                 }
-                console.log(chalk.dim('   • Search GitHub directly: killer search <query> -s github'));
+                console.log(chalk.dim('   • Search GitHub directly: npx killer-skills search <query> -s github'));
                 return;
             }
 
@@ -100,7 +100,7 @@ export const searchCommand = new Command('search')
                     console.log(`  ${chalk.cyan('•')} ${chalk.bold(result.name)}`);
                     console.log(chalk.dim(`    ${truncate(result.description, 60)}`));
                     if (result.repo) {
-                        console.log(chalk.dim(`    Install: killer install ${result.name}`));
+                        console.log(chalk.dim(`    Install: npx killer-skills add ${result.name}`));
                     }
                     console.log('');
                 }
@@ -113,7 +113,7 @@ export const searchCommand = new Command('search')
                     console.log(`  ${chalk.gray('•')} ${chalk.bold(result.name)}`);
                     console.log(chalk.dim(`    ${truncate(result.description, 60)}`));
                     if (result.repo) {
-                        console.log(chalk.dim(`    Install: killer install ${result.repo}`));
+                        console.log(chalk.dim(`    Install: npx killer-skills add ${result.repo}`));
                     }
                     console.log('');
                 }

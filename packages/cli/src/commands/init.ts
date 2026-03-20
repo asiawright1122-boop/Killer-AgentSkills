@@ -95,9 +95,9 @@ export const initCommand = new Command('init')
             }
 
             console.log(chalk.dim('\nNext steps:'));
-            console.log(chalk.cyan('  1. Install skills: kiro install <skill-name>'));
-            console.log(chalk.cyan('  2. Create custom: kiro create my-skill'));
-            console.log(chalk.cyan('  3. Sync for AI:   kiro sync'));
+            console.log(chalk.cyan('  1. Install skills: npx killer-skills add <skill-name>'));
+            console.log(chalk.cyan('  2. Create custom: npx killer-skills create my-skill'));
+            console.log(chalk.cyan('  3. Sync for AI:   npx killer-skills sync'));
 
         } catch (error) {
             if ((error as Error).name === 'ExitPromptError') {
@@ -163,10 +163,10 @@ async function createIDEConfig(projectPath: string, ide: string, skipPrompt?: bo
 
 This project uses Killer-Skills for AI capabilities.
 
-Run \`killer sync\` to update this file with available skills.
+Run \`npx killer-skills sync\` to update this file with available skills.
 
 <!-- SKILLS_TABLE_START -->
-<!-- Run 'killer sync' to populate -->
+<!-- Run 'npx killer-skills sync' to populate -->
 <!-- SKILLS_TABLE_END -->
 `;
 

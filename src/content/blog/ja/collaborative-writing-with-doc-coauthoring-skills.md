@@ -58,7 +58,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 
 `doc-coauthoring` スキルは、AI アシストされたライティングの可能性を高めています。単独で行う、疲れるタスクを構造化された、高品質の対話に変えます。
 
-[Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/doc-coauthoring) を訪れて、スキルをダウンロードし、実際に機能する文書を作成してみましょう。
+Killer-Skills のスキル一覧で [doc-coauthoring スキル](https://killer-skills.com/ja/skills/anthropics/skills/doc-coauthoring) をチェックして、実際に機能する文書作成を始めましょう。
 
 ---
 

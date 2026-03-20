@@ -60,7 +60,7 @@ Automatisez des parcours utilisateurs multi-étapes, tels que "Inscription -> Pa
 
 La compétence `webapp-testing` est la dernière pièce du puzzle du développement professionnel. Elle garantit que le beau code que votre agent écrit est également un **code fiable**. En intégrant les tests automatisés dans le flux de travail de l'agent, elle vous permet de livrer avec une confiance totale.
 
-Rendez-vous sur le [Killer-Skills Marketplace](https://killer-skills.com/fr/skills/anthropics/skills/webapp-testing) et commencez à créer des interfaces utilisateur sans faille dès aujourd'hui.
+Rendez-vous sur le skill [webapp-testing](https://killer-skills.com/fr/skills/anthropics/skills/webapp-testing) dans le répertoire de skills Killer-Skills et commencez à créer des frontends fiables dès aujourd'hui.
 
 ---
 

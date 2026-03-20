@@ -153,8 +153,8 @@ export const syncCommand = new Command('sync')
             if (skills.length === 0) {
                 console.log(chalk.yellow('\nNo skills installed.'));
                 console.log(chalk.dim('Install skills first:'));
-                console.log(chalk.cyan('  killer install <skill-name>'));
-                console.log(chalk.cyan('  killer install owner/repo'));
+                console.log(chalk.cyan('  npx killer-skills add <skill-name>'));
+                console.log(chalk.cyan('  npx killer-skills add owner/repo'));
                 return;
             }
 
@@ -200,8 +200,8 @@ export const syncCommand = new Command('sync')
             // Print usage tips
             console.log(chalk.dim('\n💡 Tips:'));
             console.log(chalk.dim(`   • AI agents can now discover and use your skills`));
-            console.log(chalk.dim(`   • Use 'killer read <skill>' to load skill content`));
-            console.log(chalk.dim(`   • Run 'killer sync' again after installing new skills`));
+            console.log(chalk.dim(`   • Use 'npx killer-skills read <skill>' to load skill content`));
+            console.log(chalk.dim(`   • Run 'npx killer-skills sync' again after installing new skills`));
 
         } catch (error) {
             spinner.fail(chalk.red('Sync failed'));

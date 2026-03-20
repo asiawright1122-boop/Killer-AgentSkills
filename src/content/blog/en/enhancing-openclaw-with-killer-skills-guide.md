@@ -16,22 +16,16 @@ In previous articles, we introduced the [huge potential of OpenClaw](/en/blog/in
 
 With **Killer-Skills**, you can inject a standardized system of rules into OpenClaw, allowing it to independently discover and execute complex logic.
 
-## Step 1: Install Killer-Skills CLI
+## Step 1: Use Killer-Skills with npx
 
-First, ensure you have Node.js installed on your system. Run the following command in your terminal to install the latest Killer-Skills CLI:
-
-```bash
-npm install -g killer-skills
-```
-
-After installation, you can run `killer --version` to confirm that the version is **1.9.0 or higher** (official OpenClaw support starts from this version).
+First, ensure you have Node.js installed on your system. You do not need a global CLI install for this workflow — just run Killer-Skills directly with `npx` in your project.
 
 ## Step 2: Initialize OpenClaw Support in Your Project
 
 Navigate to the root directory of the project where you want OpenClaw to work and run the initialization command:
 
 ```bash
-killer init
+npx killer-skills init
 ```
 
 When prompted to select an IDE or agent, choose **OpenClaw**. This action creates the `.openclaw` identifier file and `AGENTS.md` (if it doesn't already exist) in your project, which is the standard location where OpenClaw reads system-level instructions.
@@ -42,14 +36,14 @@ Now, you can pick any skill you need. For example, if you want OpenClaw to have 
 
 1.  **Search and Install Skill**:
     ```bash
-    killer install frontend-design
+    npx killer-skills add frontend-design
     ```
 2.  **Sync to OpenClaw**:
     ```bash
-    killer sync --ide openclaw
+    npx killer-skills sync --ide openclaw
     ```
 
-The `killer sync` command automatically generates a set of XML prompt blocks that OpenClaw understands and injects them into `AGENTS.md`.
+The `npx killer-skills sync --ide openclaw` command automatically generates a set of XML prompt blocks that OpenClaw understands and injects them into `AGENTS.md`.
 
 ## Scenario-based Skill Packs
 
@@ -58,22 +52,29 @@ To help you get started quickly, we've organized "one-click installation packs" 
 ### 1. Office Automation Pack (Office Pro)
 Suitable for users who need to handle large volumes of documents and reports.
 ```bash
-killer install pdf xlsx docx humanizer
-killer sync --ide openclaw
+npx killer-skills add pdf
+npx killer-skills add xlsx
+npx killer-skills add docx
+npx killer-skills add humanizer
+npx killer-skills sync --ide openclaw
 ```
 
 ### 2. Developer Enhancement Pack (Dev Alpha)
 Suitable for developers who need AI assistance with coding, testing, and extending toolchains.
 ```bash
-killer install frontend-design webapp-testing mcp-builder
-killer sync --ide openclaw
+npx killer-skills add frontend-design
+npx killer-skills add webapp-testing
+npx killer-skills add mcp-builder
+npx killer-skills sync --ide openclaw
 ```
 
 ### 3. Content Creation Pack (Creator Suite)
 Suitable for bloggers, social media managers, and proposal planners.
 ```bash
-killer install humanizer canvas-design internal-comms
-killer sync --ide openclaw
+npx killer-skills add humanizer
+npx killer-skills add canvas-design
+npx killer-skills add internal-comms
+npx killer-skills sync --ide openclaw
 ```
 
 ## Step 4: Invoke in OpenClaw
@@ -88,13 +89,13 @@ OpenClaw will detect the skill definitions in `AGENTS.md`, automatically activat
 
 -   **Standardization**: No need to manually write system prompts for every project.
 -   **Modularity**: Install AI capabilities just like installing NPM packages.
--   **Cross-Platform Sync**: If you use [Cursor or Windsurf](/en/blog/claude-code-vs-cursor-vs-windsurf) at the same time, `killer sync --all` allows all your AI tools to share the same skill library.
+-   **Cross-Platform Sync**: If you use [Cursor or Windsurf](/en/blog/claude-code-vs-cursor-vs-windsurf) at the same time, `npx killer-skills sync --all` allows all your AI tools to share the same skill library.
 
 ## Conclusion
 
 By combining Killer-Skills with OpenClaw, you are no longer just using a chatbot, but an autonomous agent that can continuously evolve with an rich skill tree.
 
-Come to the [Skill Marketplace](https://killer-skills.com/en/blog) and pick your next "superpower"!
+Browse the [Skills Directory](https://killer-skills.com/en/skills) and pick your next "superpower"!
 
 ---
 

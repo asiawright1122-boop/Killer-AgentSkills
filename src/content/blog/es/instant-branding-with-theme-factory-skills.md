@@ -58,7 +58,7 @@ Para los desarrolladores y gerentes de productos que utilizan agentes de IA para
 
 La habilidad `theme-factory` transforma tu agente de IA de un simple programador en un diseñador consciente de la marca. Al garantizar que cada artefacto sea hermoso y consistente, eleva el listón de lo que el contenido generado por IA puede lograr.
 
-Consulta la [habilidad theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) en el Killer-Skills Marketplace hoy mismo y dale a tus proyectos el toque profesional que se merecen.
+Consulta la [habilidad theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) en el directorio de habilidades de Killer-Skills y dale a tus proyectos el toque profesional que se merecen.
 
 ---
 

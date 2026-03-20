@@ -14,7 +14,7 @@ hook-example/
 ## Installation
 
 ```bash
-killer plugin add ./hook-example
+npx killer-skills plugin add ./hook-example
 ```
 
 ## Available Hooks
@@ -29,7 +29,7 @@ killer plugin add ./hook-example
 
 1. Create a `plugin.json` with type `"hook"`
 2. Export hook functions from `index.js`
-3. Install with `killer plugin add ./your-plugin`
+3. Install with `npx killer-skills plugin add ./your-plugin`
 
 ## Example Use Cases
 

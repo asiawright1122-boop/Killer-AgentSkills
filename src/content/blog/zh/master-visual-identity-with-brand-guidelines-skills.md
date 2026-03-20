@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` 技能是将 "AI 输出" 转变为 "专业资产" 的最后润色。它确保您的编码代理理解视觉上下文和品牌权威的重要性。
 
-从 Killer-Skills 市场安装 [brand-guidelines 技能](https://killer-skills.com/zh/skills/anthropics/skills/brand-guidelines)，并开始以权威设计。
+从 Killer-Skills 技能目录安装 [brand-guidelines 技能](https://killer-skills.com/zh/skills/anthropics/skills/brand-guidelines)，开始更有章法地设计。
 
 ---
 

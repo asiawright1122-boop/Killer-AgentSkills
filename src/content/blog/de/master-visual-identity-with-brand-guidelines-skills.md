@@ -60,7 +60,7 @@ Erstellen Sie Social-Media-Grafiken oder PDF-Weißbücher, die durch ihre konseq
 
 Die `brand-guidelines`-Fähigkeit ist der finale Feinschliff, der "AI-Output" in "Professionelles Asset" verwandelt. Sie stellt sicher, dass Ihr Coding-Agent die Bedeutung von visuellem Kontext und Markenautorität versteht.
 
-Installieren Sie die [brand-guidelines-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/brand-guidelines) aus dem Killer-Skills-Marktplatz und beginnen Sie mit der Gestaltung mit Autorität.
+Installieren Sie den [brand-guidelines-Skill](https://killer-skills.com/de/skills/anthropics/skills/brand-guidelines) aus dem Killer-Skills-Verzeichnis und gestalten Sie mit Autorität.
 
 ---
 

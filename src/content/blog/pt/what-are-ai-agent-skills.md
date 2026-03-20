@@ -26,9 +26,9 @@ Uma **habilidade de agente de IA** é um arquivo markdown especializado (normalm
 
 ```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # como escrever testes neste projeto
+  deployment/SKILL.md    # checklist e configurações de implantação
+  code-review/SKILL.md   # o que revisar na análise de código
 ```
 
 O agente lê o arquivo quando o assunto surge e, em seguida, segue essas instruções em vez de adivinhar.
@@ -44,7 +44,7 @@ Aqui está um exemplo real, simplificado:
 ```yaml
 ---
 name: testing
-description: How to write and run tests in this project
+description: Como escrever e executar testes neste projeto
 ---
 ```
 
@@ -89,7 +89,7 @@ O ponto ideal é o conhecimento que vive na cabeça da sua equipe, mas que não 
 Você pode escrever suas próprias habilidades do zero, mas também há habilidades da comunidade disponíveis para tarefas comuns:
 
 - **docx** - Gere e edite documentos do Word
-- **pdf** - Leia, mergulhe, divida e crie PDFs
+- **pdf** - Leia, combine, divida e crie PDFs
 - **xlsx** - Trabalhe com planilhas e fórmulas
 - **mcp-builder** - Construa servidores MCP para integrações de agentes
 - **frontend-design** - Crie interfaces web polidas
@@ -109,6 +109,12 @@ Comece pequeno. Escreva 10 linhas sobre uma coisa específica. "Ao escrever rota
 
 Com o tempo, o arquivo cresce à medida que você adiciona mais regras. Algumas de nossas habilidades internas mais úteis começaram como notas de 5 linhas e evoluíram para documentos de referência completos.
 
-{
-  "translated_content": "## O que vem a seguir\n\nAs habilidades ainda estão em fase inicial. O formato não é padronizado em todos os agentes, o tratamento de erros é primitivo e a capacidade de descoberta é limitada. Mas a ideia central (dar instruções escritas ao seu assistente de IA sobre o seu projeto) veio para ficar.\n\nSe quiser navegar pelas habilidades existentes ou publicar as suas, consulte o [diretório de habilidades](/en/skills). Atualmente, existem mais de 1.000 habilidades contribuídas pela comunidade, abrangendo desde gestão de bases de dados até design de UI.\n\n---\n\n*Relacionado: [Como criar servidores MCP com habilidades de agente](/pt/blog/how-to-build-mcp-servers-with-agent-skills) e [Crie as suas próprias habilidades personalizadas de agente de IA](/pt/blog/create-custom-ai-agent-skills)*"
-}
+## O que vem a seguir
+
+As habilidades ainda estão em fase inicial. O formato não é padronizado entre todos os agentes, o tratamento de erros ainda é básico e a capacidade de descoberta é limitada. Mas a ideia central — dar instruções escritas ao seu assistente de IA sobre o seu projeto — veio para ficar.
+
+Se quiser navegar pelas habilidades existentes ou publicar as suas, consulte o [diretório de habilidades](/pt/skills). Atualmente, existem mais de 2,500 habilidades contribuídas pela comunidade, abrangendo desde gestão de bases de dados até design de UI.
+
+---
+
+*Relacionado: [Como criar servidores MCP com habilidades de agente](/pt/blog/how-to-build-mcp-servers-with-agent-skills) e [Crie as suas próprias habilidades personalizadas de agente de IA](/pt/blog/create-custom-ai-agent-skills)*

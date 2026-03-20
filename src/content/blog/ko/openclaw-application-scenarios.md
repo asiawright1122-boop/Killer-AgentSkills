@@ -20,7 +20,7 @@ OpenClaw는 WhatsApp, Telegram, Discord에 연결할 수 있으므로, 이를 �
 
 -   **예시 케이스**: 회의 중이거나 외출 중일 때, OpenClaw는 백그라운드에서 다양한 채널로부터 들어오는 메시지를 처리하고, 간단한 쿼리를 수행하거나, 긴급한 문제가 감지되면 특정 채널을 통해 요약본을 보낼 수 있습니다.
 -   **🌟 추천 스킬**:
-    -   [`humanizer`](/ko/blog/humanizer-skill): AI 응답을 더 현실적이고 인간처럼 만들어 로봇 같은 느낌을 피합니다.
+    -   [`humanizer`](/ko/skills/minhtungo/ai-agents-factory/humanizer): AI 응답을 더 현실적이고 인간처럼 만들어 로봇 같은 느낌을 피합니다.
     -   [`internal-comms`](/ko/blog/professional-internal-communications-with-ai-skills): 전문적인 메시지 요약 및 보고 형식.
 -   **키워드**: 올플랫폼 AI, 메시지 자동화.
 ## 2. 원활한 파일 관리 및 자동화
@@ -58,8 +58,8 @@ OpenClaw는 강력한 파일 읽기/쓰기 기능을 갖추고 있습니다. [Ki
 
 -   **예시 사례**: OpenClaw가 복잡한 Excel 수식 처리를 기본적으로 지원하지 않는 경우를 발견하면, **Killer-Skills CLI**를 사용할 수 있습니다:
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     단 몇 초 만에, OpenClaw는 전문적인 Excel 자동화 기술을 습득합니다. [전문적인 Excel 자동화 기술을 습득하는 방법](/ko/blog/mastering-excel-automation-with-xlsx-skills)
 ## 결론

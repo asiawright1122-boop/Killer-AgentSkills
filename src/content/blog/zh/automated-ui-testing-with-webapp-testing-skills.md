@@ -61,7 +61,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 `webapp-testing` 技能是专业发展的最后一块拼图。它确保您的代理编写的漂亮代码也是 **可靠的代码** 。通过将自动化 QA 引入代理工作流程中，它允许您以完全的信心交付。
 
-前往 [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing) 并开始构建防弹前端。
+前往 Killer-Skills 技能目录查看 [webapp-testing 技能](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing)，今天就开始构建更可靠的前端。
 
 ---
 

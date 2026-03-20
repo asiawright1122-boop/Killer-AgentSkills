@@ -14,7 +14,7 @@ ide-adapter-example/
 ## Installation
 
 ```bash
-killer plugin add ./ide-adapter-example
+npx killer-skills plugin add ./ide-adapter-example
 ```
 
 ## Required Exports
@@ -42,5 +42,5 @@ export const config = {
 
 1. Create `plugin.json` with type `"ide-adapter"`
 2. Export required functions from your adapter
-3. Install with `killer plugin add ./your-adapter`
-4. Your IDE will now appear in `killer list --ide` options
+3. Install with `npx killer-skills plugin add ./your-adapter`
+4. Your IDE will now appear in `npx killer-skills list --ide` options

@@ -81,7 +81,7 @@ npx killer-skills add anthropics/skills/algorithmic-art
 
 艺术的未来是协作的——人类意图和机器执行之间的舞蹈。 **算法艺术** 技能使您成为该舞蹈的编舞者。
 
-准备开始创作？前往 [Killer-Skills 市场](https://killer-skills.com/zh/skills/anthropics/skills/algorithmic-art) 并安装它今天。
+准备开始创作？前往 Killer-Skills 技能目录查看 [algorithmic-art 技能](https://killer-skills.com/zh/skills/anthropics/skills/algorithmic-art)，并立即安装。
 
 ---
 

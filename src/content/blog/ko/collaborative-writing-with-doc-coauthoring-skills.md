@@ -59,7 +59,7 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 
 `doc-coauthoring` 스킬은 AI 지원 작성을 새롭게 정의합니다.疲劳를 유발하는 단독 작업을 구조화된 고품질 대화로 전환합니다.
 
-[Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)를 방문하여 스킬을 다운로드하고 실제로 작동하는 문서를 작성해 보세요.
+Killer-Skills 디렉터리에서 [doc-coauthoring 스킬](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)을 확인하고 실제로 잘 작동하는 문서 작성을 시작해 보세요.
 
 ---
 *서식 지정 최종 확인이 필요합니까? [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)과 함께 사용하면 전문적인 워드 내보내기 기능을 사용할 수 있습니다.*

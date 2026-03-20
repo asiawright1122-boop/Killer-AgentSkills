@@ -22,7 +22,7 @@ OpenClaw 的真正魅力在于它的多才多艺。今天，我们将分享 5 �
 
 -   **应用示例**：当你正在开会或外出时，OpenClaw 可以在后台帮你处理来自不同渠道的信息，执行简单的查询任务，或是在检测到紧急事项时通过特定渠道向你发送摘要。
 -   **🌟 推荐技能**：
-    -   [`humanizer`](/zh/blog/humanizer-skill)：让 AI 回复更真实、人性化，避免机器人感。
+    -   [`humanizer`](/zh/skills/minhtungo/ai-agents-factory/humanizer)：让 AI 回复更真实、人性化，避免机器人感。
     -   [`internal-comms`](/zh/blog/professional-internal-communications-with-ai-skills)：专业的消息摘要和报告格式。
 -   **关键词**：全平台 AI、消息自动化。
 
@@ -64,8 +64,8 @@ OpenClaw 拥有强大的文件读写能力。配合 [Killer-Skills 的文件处�
 
 -   **应用示例**：如果你发现 OpenClaw 原生不支持某种复杂的 Excel 公式处理，只需使用 **Killer-Skills CLI**：
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     短短几秒钟，你的 OpenClaw 就掌握了 [专业的 Excel 自动化技能](/zh/blog/mastering-excel-automation-with-xlsx-skills)。
 

@@ -32,11 +32,11 @@ function generateBashCompletion(): string {
 
     return `# Killer-Skills bash completion
 # Add to ~/.bashrc:
-#   source <(killer completion bash)
+#   source <(killer-skills completion bash)
 # Or save to:
-#   killer completion bash > /etc/bash_completion.d/killer
+#   killer-skills completion bash > /etc/bash_completion.d/killer-skills
 
-_killer_completions() {
+_killer_skills_completions() {
     local cur="\${COMP_WORDS[COMP_CWORD]}"
     local prev="\${COMP_WORDS[COMP_CWORD-1]}"
     
@@ -47,7 +47,7 @@ _killer_completions() {
     local ides="${idesStr}"
     
     case "\${prev}" in
-        killer)
+        killer-skills)
             COMPREPLY=($(compgen -W "\${commands}" -- "\${cur}"))
             return 0
             ;;
@@ -85,22 +85,22 @@ _killer_completions() {
     esac
 }
 
-complete -F _killer_completions killer
+complete -F _killer_skills_completions killer-skills
 `;
 }
 
 function generateZshCompletion(): string {
     const idesStr = SUPPORTED_IDES.join(' ');
 
-    return `#compdef killer
+    return `#compdef killer-skills
 
 # Killer-Skills zsh completion
 # Add to ~/.zshrc:
-#   source <(killer completion zsh)
+#   source <(killer-skills completion zsh)
 # Or save to:
-#   killer completion zsh > ~/.zsh/completions/_killer
+#   killer-skills completion zsh > ~/.zsh/completions/_killer-skills
 
-_killer() {
+_killer_skills() {
     local -a commands
     commands=(
         'install:Install a skill from registry, GitHub, or local path'
@@ -137,7 +137,7 @@ _killer() {
     
     case $state in
         command)
-            _describe -t commands 'killer commands' commands
+            _describe -t commands 'killer-skills commands' commands
             ;;
         args)
             case $words[2] in
@@ -190,7 +190,7 @@ _killer() {
     esac
 }
 
-_killer "$@"
+_killer_skills "$@"
 `;
 }
 
@@ -198,58 +198,58 @@ function generateFishCompletion(): string {
     const idesStr = SUPPORTED_IDES.join(' ');
 
     return `# Killer-Skills fish completion
-# Save to: ~/.config/fish/completions/killer.fish
+# Save to: ~/.config/fish/completions/killer-skills.fish
 
 # Disable file completion by default
-complete -c killer -f
+complete -c killer-skills -f
 
 # Commands
-complete -c killer -n __fish_use_subcommand -a install -d 'Install a skill'
-complete -c killer -n __fish_use_subcommand -a list -d 'List installed skills'
-complete -c killer -n __fish_use_subcommand -a create -d 'Create a new skill'
-complete -c killer -n __fish_use_subcommand -a sync -d 'Sync skills to AGENTS.md'
-complete -c killer -n __fish_use_subcommand -a read -d 'Read skill content'
-complete -c killer -n __fish_use_subcommand -a update -d 'Update skills'
-complete -c killer -n __fish_use_subcommand -a manage -d 'Manage skills'
-complete -c killer -n __fish_use_subcommand -a search -d 'Search for skills'
-complete -c killer -n __fish_use_subcommand -a publish -d 'Publish a skill'
-complete -c killer -n __fish_use_subcommand -a init -d 'Initialize project'
-complete -c killer -n __fish_use_subcommand -a config -d 'Manage configuration'
-complete -c killer -n __fish_use_subcommand -a completion -d 'Generate shell completion'
-complete -c killer -n __fish_use_subcommand -a help -d 'Display help'
+complete -c killer-skills -n __fish_use_subcommand -a install -d 'Install a skill'
+complete -c killer-skills -n __fish_use_subcommand -a list -d 'List installed skills'
+complete -c killer-skills -n __fish_use_subcommand -a create -d 'Create a new skill'
+complete -c killer-skills -n __fish_use_subcommand -a sync -d 'Sync skills to AGENTS.md'
+complete -c killer-skills -n __fish_use_subcommand -a read -d 'Read skill content'
+complete -c killer-skills -n __fish_use_subcommand -a update -d 'Update skills'
+complete -c killer-skills -n __fish_use_subcommand -a manage -d 'Manage skills'
+complete -c killer-skills -n __fish_use_subcommand -a search -d 'Search for skills'
+complete -c killer-skills -n __fish_use_subcommand -a publish -d 'Publish a skill'
+complete -c killer-skills -n __fish_use_subcommand -a init -d 'Initialize project'
+complete -c killer-skills -n __fish_use_subcommand -a config -d 'Manage configuration'
+complete -c killer-skills -n __fish_use_subcommand -a completion -d 'Generate shell completion'
+complete -c killer-skills -n __fish_use_subcommand -a help -d 'Display help'
 
 # IDEs
 set -l ides ${idesStr}
 
 # install options
-complete -c killer -n '__fish_seen_subcommand_from install' -s i -l ide -xa "$ides" -d 'Target IDE'
-complete -c killer -n '__fish_seen_subcommand_from install' -s s -l scope -xa 'project global' -d 'Scope'
-complete -c killer -n '__fish_seen_subcommand_from install' -l all -d 'Install to all IDEs'
-complete -c killer -n '__fish_seen_subcommand_from install' -s y -l yes -d 'Skip prompts'
+complete -c killer-skills -n '__fish_seen_subcommand_from install' -s i -l ide -xa "$ides" -d 'Target IDE'
+complete -c killer-skills -n '__fish_seen_subcommand_from install' -s s -l scope -xa 'project global' -d 'Scope'
+complete -c killer-skills -n '__fish_seen_subcommand_from install' -l all -d 'Install to all IDEs'
+complete -c killer-skills -n '__fish_seen_subcommand_from install' -s y -l yes -d 'Skip prompts'
 
 # create options
-complete -c killer -n '__fish_seen_subcommand_from create' -s t -l template -xa 'minimal standard full' -d 'Template'
-complete -c killer -n '__fish_seen_subcommand_from create' -s d -l description -d 'Description'
-complete -c killer -n '__fish_seen_subcommand_from create' -s p -l path -rF -d 'Path'
-complete -c killer -n '__fish_seen_subcommand_from create' -l from -d 'Clone from skill'
-complete -c killer -n '__fish_seen_subcommand_from create' -s y -l yes -d 'Skip prompts'
+complete -c killer-skills -n '__fish_seen_subcommand_from create' -s t -l template -xa 'minimal standard full' -d 'Template'
+complete -c killer-skills -n '__fish_seen_subcommand_from create' -s d -l description -d 'Description'
+complete -c killer-skills -n '__fish_seen_subcommand_from create' -s p -l path -rF -d 'Path'
+complete -c killer-skills -n '__fish_seen_subcommand_from create' -l from -d 'Clone from skill'
+complete -c killer-skills -n '__fish_seen_subcommand_from create' -s y -l yes -d 'Skip prompts'
 
 # list options
-complete -c killer -n '__fish_seen_subcommand_from list' -s i -l ide -xa "$ides" -d 'Filter by IDE'
-complete -c killer -n '__fish_seen_subcommand_from list' -s v -l verbose -d 'Verbose output'
+complete -c killer-skills -n '__fish_seen_subcommand_from list' -s i -l ide -xa "$ides" -d 'Filter by IDE'
+complete -c killer-skills -n '__fish_seen_subcommand_from list' -s v -l verbose -d 'Verbose output'
 
 # sync options
-complete -c killer -n '__fish_seen_subcommand_from sync' -s i -l ide -xa "$ides" -d 'Target IDE'
-complete -c killer -n '__fish_seen_subcommand_from sync' -s o -l output -rF -d 'Output file'
-complete -c killer -n '__fish_seen_subcommand_from sync' -s y -l yes -d 'Skip prompts'
-complete -c killer -n '__fish_seen_subcommand_from sync' -l remove -d 'Remove section'
+complete -c killer-skills -n '__fish_seen_subcommand_from sync' -s i -l ide -xa "$ides" -d 'Target IDE'
+complete -c killer-skills -n '__fish_seen_subcommand_from sync' -s o -l output -rF -d 'Output file'
+complete -c killer-skills -n '__fish_seen_subcommand_from sync' -s y -l yes -d 'Skip prompts'
+complete -c killer-skills -n '__fish_seen_subcommand_from sync' -l remove -d 'Remove section'
 
 # completion shell options
-complete -c killer -n '__fish_seen_subcommand_from completion' -xa 'bash zsh fish' -d 'Shell'
+complete -c killer-skills -n '__fish_seen_subcommand_from completion' -xa 'bash zsh fish' -d 'Shell'
 
 # config options
-complete -c killer -n '__fish_seen_subcommand_from config' -l list -d 'List all config'
-complete -c killer -n '__fish_seen_subcommand_from config' -l reset -d 'Reset config'
-complete -c killer -n '__fish_seen_subcommand_from config' -l path -d 'Show config path'
+complete -c killer-skills -n '__fish_seen_subcommand_from config' -l list -d 'List all config'
+complete -c killer-skills -n '__fish_seen_subcommand_from config' -l reset -d 'Reset config'
+complete -c killer-skills -n '__fish_seen_subcommand_from config' -l path -d 'Show config path'
 `;
 }

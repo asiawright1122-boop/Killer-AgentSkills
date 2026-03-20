@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/pptx
 
 `pptx` 스킬은 단순한 파일 형식 이상으로 **시각적 권위**에 관한 것입니다. 이 스킬은 여러분의 AI 에이전트가 프레젠테이션을 생성할 때, 마치 인간 전문가가 설계한 것처럼 보이도록 보장합니다.
 
-Killer-Skills Marketplace에서 [pptx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pptx)을 다운로드하고, 판매를 주도하는 슬라이드를 제작하세요.
+Killer-Skills 디렉터리에서 [pptx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pptx)을 다운로드하고 성과를 만드는 슬라이드를 제작하세요.
 
 ---
 

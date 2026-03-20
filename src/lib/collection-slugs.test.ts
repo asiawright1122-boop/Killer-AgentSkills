@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import automationCollectionData from '../content/collections/top-automation-mcp-servers.json';
 import automationWorkflowsCollectionData from '../content/collections/top-mcp-for-automation-workflows.json';
+import aiAgentsCollectionData from '../content/collections/top-ai-agents-mcp-servers.json';
 import cliCollectionData from '../content/collections/top-cli-mcp-servers.json';
 import codexCollectionData from '../content/collections/top-codex-mcp-servers.json';
 import communityCollectionData from '../content/collections/top-community-mcp-servers.json';
@@ -9,9 +10,13 @@ import cursorCollectionData from '../content/collections/top-cursor-mcp-servers.
 import developerToolsCollectionData from '../content/collections/top-developer-tools-mcp-servers.json';
 import devopsCollectionData from '../content/collections/top-devops-mcp-servers.json';
 import dockerCollectionData from '../content/collections/top-mcp-for-docker.json';
+import dataAnalysisCollectionData from '../content/collections/top-mcp-for-data-analysis.json';
 import fileProcessingCollectionData from '../content/collections/top-mcp-for-file-processing.json';
 import fintechCollectionData from '../content/collections/top-mcp-for-fintech.json';
+import mcpFrameworksCollectionData from '../content/collections/top-mcp-server-mcp-servers.json';
+import mcpUtilitiesCollectionData from '../content/collections/top-mcp-mcp-servers.json';
 import frameworkCollectionData from '../content/collections/top-framework-mcp-servers.json';
+import collectionCanonicalMap from '../../data/seo-collection-canonical-map.json';
 import geminiCliCollectionData from '../content/collections/top-gemini-cli-mcp-servers.json';
 import geminiCollectionData from '../content/collections/top-gemini-mcp-servers.json';
 import githubActionsCollectionData from '../content/collections/top-mcp-for-github-actions.json';
@@ -28,6 +33,7 @@ import productivityCollectionData from '../content/collections/top-productivity-
 import promptEngineeringCollectionData from '../content/collections/top-prompt-engineering-mcp-servers.json';
 import pythonCollectionData from '../content/collections/top-python-mcp-servers.json';
 import reactCollectionData from '../content/collections/top-react-mcp-servers.json';
+import testingCollectionData from '../content/collections/top-mcp-for-testing.json';
 import rustCollectionData from '../content/collections/top-rust-mcp-servers.json';
 import typescriptCollectionData from '../content/collections/top-typescript-mcp-servers.json';
 import vscodeCollectionData from '../content/collections/top-mcp-for-vscode.json';
@@ -62,6 +68,15 @@ describe('getCollectionCanonicalSlug', () => {
 
     expect(getCollectionCanonicalSlug(collection)).toBe('top-agentic-ai-platforms-orchestration-tools');
   });
+
+  it('keeps the current canonical slugs for the remaining mcp-mcp overlap pair', () => {
+    expect(getCollectionCanonicalSlug({ id: 'top-mcp-mcp-servers.json', data: mcpUtilitiesCollectionData })).toBe(
+      'top-ai-agent-workflow-skills-integrations-utilities',
+    );
+    expect(getCollectionCanonicalSlug({ id: 'top-mcp-server-mcp-servers.json', data: mcpFrameworksCollectionData })).toBe(
+      'top-ai-agent-integration-frameworks-bridges-infra-tooling',
+    );
+  });
 });
 
 describe('getCollectionLegacySlugs', () => {
@@ -89,6 +104,28 @@ describe('getCollectionLegacySlugs', () => {
   });
 });
 
+describe('collection canonical map artifact', () => {
+  it('records the current keep-distinct decision for the remaining mcp overlap pair', () => {
+    expect(collectionCanonicalMap.generatedAt).toBe('2026-03-19');
+    expect(collectionCanonicalMap.collections).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          sourceSlug: 'top-mcp-mcp-servers',
+          decision: 'keep',
+          canonicalSlug: 'top-ai-agent-workflow-skills-integrations-utilities',
+          redirectPhase: 'later',
+        }),
+        expect.objectContaining({
+          sourceSlug: 'top-mcp-server-mcp-servers',
+          decision: 'keep',
+          canonicalSlug: 'top-ai-agent-integration-frameworks-bridges-infra-tooling',
+          redirectPhase: 'later',
+        }),
+      ]),
+    );
+  });
+});
+
 describe('resolveCollectionBySlug', () => {
   const collections: MockCollection[] = [
     {
@@ -102,6 +139,10 @@ describe('resolveCollectionBySlug', () => {
       data: {
         canonicalSlug: 'top-agentic-ai-platforms-orchestration-tools',
       },
+    },
+    {
+      id: 'top-ai-agents-mcp-servers.json',
+      data: aiAgentsCollectionData,
     },
     {
       id: 'top-automation-mcp-servers.json',
@@ -138,6 +179,10 @@ describe('resolveCollectionBySlug', () => {
     {
       id: 'top-mcp-for-docker.json',
       data: dockerCollectionData,
+    },
+    {
+      id: 'top-mcp-for-data-analysis.json',
+      data: dataAnalysisCollectionData,
     },
     {
       id: 'top-mcp-for-file-processing.json',
@@ -216,6 +261,10 @@ describe('resolveCollectionBySlug', () => {
       data: reactCollectionData,
     },
     {
+      id: 'top-mcp-for-testing.json',
+      data: testingCollectionData,
+    },
+    {
       id: 'top-community-mcp-servers.json',
       data: communityCollectionData,
     },
@@ -264,6 +313,16 @@ describe('resolveCollectionBySlug', () => {
     expect(resolved).not.toBeNull();
     expect(resolved?.canonicalSlug).toBe('top-agentic-ai-platforms-orchestration-tools');
     expect(resolved?.isCanonical).toBe(false);
+  });
+
+  it('merges overlapping ai-agents collection slugs into the agentic canonical target', () => {
+    expect(resolveCollectionBySlug(collections, 'top-ai-agents-mcp-servers')?.canonicalSlug).toBe(
+      'top-agentic-ai-platforms-orchestration-tools',
+    );
+    expect(resolveCollectionBySlug(collections, 'top-ai-agent-platforms-orchestration-tools')?.canonicalSlug).toBe(
+      'top-agentic-ai-platforms-orchestration-tools',
+    );
+    expect(resolveCollectionBySlug(collections, 'top-agentic-ai-platforms-orchestration-tools')?.isCanonical).toBe(true);
   });
 
   it('resolves third-batch legacy collection slugs to canonical workflow-first targets', () => {
@@ -360,6 +419,9 @@ describe('resolveCollectionBySlug', () => {
     expect(resolveCollectionBySlug(collections, 'top-mcp-for-docker')?.canonicalSlug).toBe(
       'docker-container-workflow-automation-tools',
     );
+    expect(resolveCollectionBySlug(collections, 'top-mcp-for-data-analysis')?.canonicalSlug).toBe(
+      'data-workflows-and-analysis-tools',
+    );
     expect(resolveCollectionBySlug(collections, 'top-mcp-for-file-processing')?.canonicalSlug).toBe(
       'file-document-data-processing-automation-tools',
     );
@@ -374,6 +436,9 @@ describe('resolveCollectionBySlug', () => {
     );
     expect(resolveCollectionBySlug(collections, 'top-mcp-for-jetbrains')?.canonicalSlug).toBe(
       'jetbrains-compatible-skills',
+    );
+    expect(resolveCollectionBySlug(collections, 'top-mcp-for-testing')?.canonicalSlug).toBe(
+      'testing-automation-and-qa-workflow-tools',
     );
     expect(resolveCollectionBySlug(collections, 'top-mcp-for-vscode')?.canonicalSlug).toBe('vscode-compatible-skills');
     expect(resolveCollectionBySlug(collections, 'top-mcp-servers-2026')?.canonicalSlug).toBe(

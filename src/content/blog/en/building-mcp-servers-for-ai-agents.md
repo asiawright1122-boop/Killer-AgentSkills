@@ -14,7 +14,7 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 In the rapidly evolving world of AI, the ability for an agent to "think" is only half the battle. To be truly useful, an agent must also be able to "act"—to search a database, post to GitHub, or query a custom internal API. This is where the **Model Context Protocol (MCP)** comes in.
 
-The **mcp-builder** skill is your definitive guide to creating robust, high-quality MCP servers. Whether you're working in TypeScript or Python, this skill provides the architectural blueprints and best practices needed to turn static APIs into dynamic agent tools.
+The **mcp-builder** skill is your definitive guide to creating robust, high-quality MCP servers. Skills and MCP play different roles here: the skill teaches the workflow, while the MCP server exposes live tools and resources at runtime. Whether you're working in TypeScript or Python, this skill provides the architectural blueprints and best practices needed to turn static APIs into dynamic agent tools.
 
 ```bash
 # Equip your agent with the mcp-builder skill
@@ -59,7 +59,7 @@ The `mcp-builder` skill outlines a structured path to success:
 
 The `mcp-builder` skill is essential for any developer looking to bridge the gap between AI reasoning and real-world execution. By following these proven patterns, you can build tools that don't just "work," but actually empower AI agents to be more productive.
 
-Ready to start building? Check out the full documentation on the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder).
+Ready to start building? Check out the full documentation in the [Killer-Skills directory](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder).
 
 ---
 

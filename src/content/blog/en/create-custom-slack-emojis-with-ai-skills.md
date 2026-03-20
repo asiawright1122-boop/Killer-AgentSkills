@@ -69,7 +69,7 @@ Custom reactions are more than just fun—they are **engagement drivers**. A cus
 
 The `slack-gif-creator` skill is the perfect blend of technical optimization and creative freedom. It turns your AI agent into a digital artist that understands the "rules of the road" for modern workplace communication.
 
-Head over to the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/slack-gif-creator) to get started.
+Head over to the [slack-gif-creator skill](https://killer-skills.com/en/skills/anthropics/skills/slack-gif-creator) in the Killer-Skills skills directory to get started.
 
 ---
 

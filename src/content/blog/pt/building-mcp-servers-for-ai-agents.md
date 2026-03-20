@@ -53,7 +53,7 @@ A habilidade `mcp-builder` traça um caminho estruturado para o sucesso:
 
 A habilidade `mcp-builder` é essencial para qualquer desenvolvedor que busque reduzir a distância entre o raciocínio da inteligência artificial e a execução no mundo real. Ao seguir esses padrões comprovados, você pode criar ferramentas que não apenas "funcionam", mas realmente permitem que os agentes de inteligência artificial sejam mais produtivos.
 
-Pronto para começar a construir? Confira a documentação completa no [Mercado de Habilidades Killer-Skills](https://killer-skills.com/pt/skills/anthropics/skills/mcp-builder).
+Pronto para começar a construir? Confira a documentação completa da habilidade [mcp-builder](https://killer-skills.com/pt/skills/anthropics/skills/mcp-builder) no registro do Killer-Skills.
 
 ---
 

@@ -40,8 +40,8 @@ export function generateSkillsXml(skills: SkillInfo[]): string {
 When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.
 
 How to use skills:
-- Invoke: \`killer read <skill-name>\` (run in your shell)
-  - For multiple: \`killer read skill-one,skill-two\`
+- Invoke: \`npx killer-skills read <skill-name>\` (run in your shell)
+  - For multiple: \`npx killer-skills read skill-one,skill-two\`
 - The skill content will load with detailed instructions on how to complete the task
 - Base directory provided in output for resolving bundled resources (references/, scripts/, assets/)
 

@@ -2,7 +2,7 @@
  * Skill Metadata Management
  * 
  * Tracks installation source for each skill, enabling:
- * - One-command updates via `killer update`
+ * - One-command updates via `npx killer-skills update`
  * - Version tracking and change detection
  * - Source transparency for users
  */

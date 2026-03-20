@@ -20,7 +20,7 @@ OpenClawはWhatsApp、Telegram、Discordに接続できるため、常時稼働�
 
 -   **ユースケース例**: 会議中や外出中でも、OpenClawはバックグラウンドでさまざまなチャネルからの受信メッセージを処理したり、簡単なクエリを実行したり、緊急の問題が検出された場合に特定のチャネルをまたいで要約を送信したりできます。
 -   **🌟 推奨スキル**:
-    -   [`humanizer`](/ja/blog/humanizer-skill): AIの応答をより現実的で人間らしくし、ロボットのような印象を避けます。
+    -   [`humanizer`](/ja/skills/minhtungo/ai-agents-factory/humanizer): AIの応答をより現実的で人間らしくし、ロボットのような印象を避けます。
     -   [`internal-comms`](/ja/blog/professional-internal-communications-with-ai-skills): プロフェッショナルなメッセージの要約と報告フォーマット。
 -   **キーワード**: 全プラットフォーム対応AI、メッセージ自動化。
 ## 2. シームレスなファイル管理と自動化
@@ -58,8 +58,8 @@ OpenClawは強力なファイル読み書き機能を備えています。[Kille
 
 -   **示例场景**：如果你发现 OpenClaw 原生不支持复杂的 Excel 公式处理，只需使用 **Killer-Skills CLI**：
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     只需几秒钟，你的 OpenClaw 就能掌握[专业的 Excel 自动化技能](/ja/blog/mastering-excel-automation-with-xlsx-skills)。
 ## まとめ

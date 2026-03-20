@@ -4,21 +4,21 @@
 
 This project uses Killer-Skills for AI capabilities.
 
-Run `killer sync` to update this file with available skills.
+Run `npx killer-skills sync` to update this file with available skills.
 
 <!-- SKILLS_TABLE_START -->
 <usage>
 IMPORTANT: You MUST automatically match user tasks against the available skills listed below.
 When a user's request falls within a skill's domain, invoke the skill IMMEDIATELY by running:
-  `kiro read <skill-name>`
+  `npx killer-skills read <skill-name>`
 Do NOT ask for permission — just load the skill and follow its instructions.
 If multiple skills match, load the most relevant one first.
 
 ## Tool Usage
-- **List all tools**: `kiro list`
-- **Search tools**: `kiro search <keyword>`
-- **Load tool**: `kiro read <tool-name>` (loads instructions into context)
-  - For multiple tools: `kiro read tool1,tool2`
+- **List all tools**: `npx killer-skills list`
+- **Search tools**: `npx killer-skills search <keyword>`
+- **Load tool**: `npx killer-skills read <tool-name>` (loads instructions into context)
+  - For multiple tools: `npx killer-skills read tool1,tool2`
 
 ## Usage Notes
 - Only use skills listed below

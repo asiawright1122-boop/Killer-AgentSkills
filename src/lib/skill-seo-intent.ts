@@ -22,25 +22,25 @@ export type SkillSeoIntent = {
 const CATEGORY_INTENTS: Record<string, IntentConfig> = {
   browser: {
     titleLabel: {
-      en: 'Browser Automation MCP Server',
-      zh: '浏览器自动化 MCP Server',
+      en: 'Browser Automation Skill',
+      zh: '浏览器自动化 Skill',
     },
     useCaseLabel: {
       en: 'web browsing, scraping, and browser automation',
       zh: '网页浏览、抓取与浏览器自动化',
     },
-    keywords: ['browser automation', 'web scraping', 'browser mcp'],
+    keywords: ['browser automation', 'web scraping', 'browser skill'],
   },
   finance: {
     titleLabel: {
-      en: 'Finance MCP Server',
-      zh: '金融支付 MCP Server',
+      en: 'Finance Automation Skill',
+      zh: '金融支付 Skill',
     },
     useCaseLabel: {
       en: 'payments, billing, and finance automation',
       zh: '支付、账单与金融自动化',
     },
-    keywords: ['finance mcp', 'payments automation', 'billing tools'],
+    keywords: ['finance automation', 'payments automation', 'billing tools'],
   },
   productivity: {
     titleLabel: {
@@ -55,25 +55,25 @@ const CATEGORY_INTENTS: Record<string, IntentConfig> = {
   },
   developer: {
     titleLabel: {
-      en: 'Developer Tool MCP Server',
-      zh: '开发工具 MCP Server',
+      en: 'Developer Tool Skill',
+      zh: '开发工具 Skill',
     },
     useCaseLabel: {
       en: 'coding, debugging, and developer automation',
       zh: '编码、调试与开发自动化',
     },
-    keywords: ['developer mcp server', 'code automation', 'developer tools'],
+    keywords: ['developer tool skill', 'code automation', 'developer tools'],
   },
   data: {
     titleLabel: {
-      en: 'Data MCP Server',
-      zh: '数据处理 MCP Server',
+      en: 'Data Workflow Skill',
+      zh: '数据处理 Skill',
     },
     useCaseLabel: {
       en: 'data access, analysis, and ETL workflows',
       zh: '数据访问、分析与 ETL 工作流',
     },
-    keywords: ['data mcp', 'data automation', 'etl workflows'],
+    keywords: ['data workflow skill', 'data automation', 'etl workflows'],
   },
   ai: {
     titleLabel: {
@@ -110,14 +110,14 @@ const CATEGORY_INTENTS: Record<string, IntentConfig> = {
   },
   devops: {
     titleLabel: {
-      en: 'DevOps MCP Server',
-      zh: 'DevOps MCP Server',
+      en: 'DevOps Automation Skill',
+      zh: 'DevOps 自动化 Skill',
     },
     useCaseLabel: {
       en: 'deployment, infrastructure, and ops automation',
       zh: '部署、基础设施与运维自动化',
     },
-    keywords: ['devops mcp', 'infrastructure automation', 'deployment workflows'],
+    keywords: ['devops automation', 'infrastructure automation', 'deployment workflows'],
   },
   security: {
     titleLabel: {
@@ -150,7 +150,7 @@ const CATEGORY_INTENTS: Record<string, IntentConfig> = {
       en: 'AI agent workflows and automation',
       zh: 'AI Agent 工作流与自动化',
     },
-    keywords: ['ai agent skill', 'mcp server', 'agent automation'],
+    keywords: ['ai agent skill', 'ide skills', 'agent automation'],
   },
 };
 
@@ -204,6 +204,14 @@ const LOW_INTENT_PATTERNS = [
 
 const INVALID_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 
+const MCP_FIRST_COMBINED_PATTERNS = [
+  /\bmodel context protocol\b/i,
+  /\bmcp\b[\s-]*\b(servers?|tools?)\b/i,
+  /\b(servers?|tools?)\b[\s-]*\bmcp\b/i,
+  /\bmodel context protocol\b[\s-]*\b(servers?|tools?)\b/i,
+  /\b(servers?|tools?)\b[\s-]*\bmodel context protocol\b/i,
+];
+
 const normalizeText = (text: string) => text.toLowerCase().replace(/\s+/g, ' ').trim();
 const sanitizeKeywordText = (text: string) =>
   text
@@ -228,6 +236,7 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
     if (keyword.includes('/')) continue;
     if (INVALID_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
     if (LOW_INTENT_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
+    if (MCP_FIRST_COMBINED_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
     if (normalizedGenericTerms.has(normalized)) continue;
     if (isAsciiOnly(keyword)) {
       const tokenCount = normalized.split(' ').filter(Boolean).length;

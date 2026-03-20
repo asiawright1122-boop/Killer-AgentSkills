@@ -45,8 +45,8 @@ export const readCommand = new Command('read')
             console.error('Searched in skill directories for all supported IDEs.');
             console.error('');
             console.error('Install skills:');
-            console.error(chalk.cyan('  killer install <skill-name>'));
-            console.error(chalk.cyan('  killer install owner/repo'));
+            console.error(chalk.cyan('  npx killer-skills add <skill-name>'));
+            console.error(chalk.cyan('  npx killer-skills add owner/repo'));
             process.exit(1);
         }
 

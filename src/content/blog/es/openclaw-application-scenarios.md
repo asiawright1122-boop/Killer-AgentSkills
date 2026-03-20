@@ -20,7 +20,7 @@ Dado que OpenClaw se puede conectar a WhatsApp, Telegram y Discord, puedes conve
 
 -   **Caso de ejemplo**: Mientras estás en una reunión o fuera, OpenClaw puede manejar los mensajes entrantes de diferentes canales en segundo plano, realizar consultas simples o enviarte resúmenes a través de canales específicos cuando se detectan asuntos urgentes.
 -   **🌟 Habilidades recomendadas**:
-    -   [`humanizer`](/es/blog/humanizer-skill): Hace que las respuestas de la IA sean más realistas y similares a las humanas, evitando una sensación robótica.
+    -   [`humanizer`](/es/skills/minhtungo/ai-agents-factory/humanizer): Hace que las respuestas de la IA sean más realistas y similares a las humanas, evitando una sensación robótica.
     -   [`internal-comms`](/es/blog/professional-internal-communications-with-ai-skills): Resúmenes de mensajes profesionales y formatos de informes.
 -   **Palabras clave**: IA multiplataforma, automatización de mensajes.
 ## 2. Gestión y Automatización de Archivos Sin Problemas
@@ -52,22 +52,22 @@ Gracias a su naturaleza de código abierto y soporte para shell/API, OpenClaw pu
     -   `shell-executor`: Llamar scripts locales para controlar dispositivos IoT.
     -   [`canvas-design`](/es/blog/professional-poster-design-with-canvas-skills): Generar gráficos de estado visualizados para tu panel de hogar inteligente.
 -   **Palabras Clave**: Hogar inteligente con IA, integración de IoT.
-## 5. 动态学习与能力扩展（通过 Killer-Skills）
+## 5. Aprendizaje dinámico y ampliación de capacidades (con Killer-Skills)
 
-这是 OpenClaw 最具前瞻性的功能。当它无法完成任务时，你可以立即“升级”它。
+Esta es la función más visionaria de OpenClaw. Cuando no puede completar una tarea, puedes “mejorarlo” al instante.
 
--   **示例场景**：如果你发现 OpenClaw 本身不支持复杂的 Excel 公式处理，只需使用 **Killer-Skills CLI**：
+-   **Caso de ejemplo**: Si descubres que OpenClaw no admite de forma nativa el manejo de fórmulas complejas de Excel, simplemente usa la **CLI de Killer-Skills**:
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
-    只需几秒钟，你的 OpenClaw 就能掌握[使用 xlsx 技能精通 Excel 自动化](/es/blog/mastering-excel-automation-with-xlsx-skills)。
-## 结语
+    En solo unos segundos, tu OpenClaw dominará las [habilidades profesionales de automatización de Excel](/es/blog/mastering-excel-automation-with-xlsx-skills).
+## Conclusión
 
-OpenClaw 的应用场景只受限于你的想象力。它结合了强大的 LLM 推理能力和本地执行能力，真正让 AI 走出聊天框，进入现实世界。
+Los escenarios de uso de OpenClaw solo están limitados por tu imaginación. Combina un potente razonamiento con LLM y ejecución local, lo que realmente permite que la IA salga de la ventana de chat y entre al mundo real.
 
-在下一篇文章中，我们将提供详细的配置指南，一步步教你如何使用 Killer-Skills 构建最强的 OpenClaw。
+En el próximo artículo, compartiremos una guía de configuración detallada para enseñarte paso a paso cómo usar Killer-Skills y construir tu OpenClaw más potente.
 
 ---
 
-*延伸阅读：[认识 OpenClaw：下一代开源自主 AI 智能体](/zh/blog/introducing-openclaw-autonomous-ai-agent) 和 [2026 年最佳 AI 智能体技能](/zh/blog/best-ai-agent-skills-2026)*
+*Lectura adicional: [Conoce OpenClaw: el agente autónomo de IA open source de nueva generación](/es/blog/introducing-openclaw-autonomous-ai-agent) y [Las mejores skills de agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*

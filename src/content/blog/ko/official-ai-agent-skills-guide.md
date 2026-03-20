@@ -12,13 +12,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 # 지금 바로 사용해야 할 공식 AI 에이전트 스킬
 
-공식 AI 에이전트 스킬이란 무엇이며, 어떤 것을 설치할 가치가 있을까요? 공식 AI 에이전트 스킬은 핵심 Killer-Skills 팀이 관리하는 선별된 고품질 명령어 세트로, Cursor나 Windsurf와 같은 15개 이상의 IDE에서 AI 어시스턴트에게 신뢰할 수 있고 일관된 능력을 제공하도록 설계되었습니다.
+공식 AI 에이전트 스킬이란 무엇이며, 어떤 것을 설치할 가치가 있을까요? 공식 AI 에이전트 스킬은 핵심 Killer-Skills 팀이 관리하는 선별된 고품질 명령어 세트로, Cursor나 Windsurf와 같은 19개 이상의 IDE에서 AI 어시스턴트에게 신뢰할 수 있고 일관된 능력을 제공하도록 설계되었습니다.
 
 > **주요 내용**
 > - **문서 처리 자동화**: `pdf` 및 `xlsx` 같은 스킬은 Claude가 대용량 파일에서 데이터를 환각(hallucination)하는 것을 방지합니다.
 > - **프론트엔드 생성**: `frontend-design`는 에이전트가 일반적인 보일러플레이트 대신 사용 가능한 스타일링된 컴포넌트를 출력하도록 강제합니다.
 > - **마케팅 & SEO**: `geo-content-optimizer`는 AI 개요(AI overviews)에 맞춰 콘텐츠 구조를 최적화합니다.
-> - **제로 설정**: 모든 공식 스킬은 `npx killer-skills add <스킬명>` 명령어로 전역 설치됩니다.
+> - **제로 설정**: 모든 공식 스킬은 `npx killer-skills add owner/repo` 명령어로 전역 설치됩니다.
 
 저는 많은 개발자들과 대화하는데, 그들은 자신의 AI 어시스턴트를 고급 자동 완성 도구처럼 취급합니다. 그들은 Cursor에게 "로그인 페이지를 만들어줘"나 "이 PDF를 읽어줘"라고 요청한 후, 출력 결과가 일반적이거나 틀렸을 때 좌절합니다.
 
@@ -66,7 +66,7 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 이 모든 것을 한 번에 활성화할 필요는 없습니다. 그러면 에이전트의 컨텍스트 창이 압도될 수 있습니다. 당면한 문제를 해결해 주는 하나를 선택하여 설치하고 출력이 어떻게 변화하는지 확인해 보세요. 저는 보통 새 프로젝트를 시작할 때 `frontend-design`를 추가하는 것부터 시작합니다.
 
-사용해 보실 준비가 되셨나요? 터미널에서 `npx killer-skills add <skillname>`을 실행하여 지금 바로 설치할 수 있습니다.
+사용해 보실 준비가 되셨나요? 터미널에서 `npx killer-skills add owner/repo`을 실행하여 지금 바로 설치할 수 있습니다.
 
 <script type="application/ld+json">
 {

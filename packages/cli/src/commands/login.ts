@@ -6,9 +6,9 @@
  * manual PAT as fallbacks.
  * 
  * Usage:
- *   killer login           - Start GitHub login (auto-selects best method)
- *   killer login --status  - Check current auth status
- *   killer login --logout  - Remove saved token
+ *   npx killer-skills login           - Start GitHub login (auto-selects best method)
+ *   npx killer-skills login --status  - Check current auth status
+ *   npx killer-skills login --logout  - Remove saved token
  */
 
 import { Command } from 'commander';
@@ -54,7 +54,7 @@ export const loginCommand = new Command('login')
                     }
                 } else {
                     console.log(chalk.yellow('❌ Not authenticated with GitHub'));
-                    console.log(chalk.dim('   Run: killer login'));
+                    console.log(chalk.dim('   Run: npx killer-skills login'));
                 }
                 return;
             }
@@ -99,8 +99,8 @@ export const loginCommand = new Command('login')
                     console.log(chalk.green('\n✅ Successfully authenticated via GitHub CLI!'));
                     console.log(chalk.dim('   Token is managed by gh CLI — no manual steps needed.\n'));
                     console.log(chalk.dim('💡 You can now use:'));
-                    console.log(chalk.dim('   killer search <query>  - Search for skills'));
-                    console.log(chalk.dim('   killer login --status  - Check auth status'));
+                    console.log(chalk.dim('   npx killer-skills search <query>  - Search for skills'));
+                    console.log(chalk.dim('   npx killer-skills login --status  - Check auth status'));
                     return;
                 }
 
@@ -158,9 +158,9 @@ export const loginCommand = new Command('login')
                 pollSpinner.succeed(chalk.green('✅ Successfully authenticated with GitHub!'));
 
                 console.log(chalk.dim('\n💡 You can now use:'));
-                console.log(chalk.dim('   killer search <query>  - Search for skills'));
-                console.log(chalk.dim('   killer login --status  - Check auth status'));
-                console.log(chalk.dim('   killer login --logout  - Sign out'));
+                console.log(chalk.dim('   npx killer-skills search <query>  - Search for skills'));
+                console.log(chalk.dim('   npx killer-skills login --status  - Check auth status'));
+                console.log(chalk.dim('   npx killer-skills login --logout  - Sign out'));
             } catch (error) {
                 pollSpinner.fail(chalk.red(`Authentication failed: ${(error as Error).message}`));
 
@@ -193,12 +193,12 @@ function printManualTokenGuide(ghInstalled: boolean) {
             console.log(chalk.dim('    winget install GitHub.cli'));
         }
         console.log(chalk.dim('    gh auth login'));
-        console.log(chalk.dim('    killer login            # Token auto-detected!\n'));
+        console.log(chalk.dim('    npx killer-skills login            # Token auto-detected!\n'));
     }
 
     console.log(chalk.cyan.bold(`  ${ghInstalled ? 'Option A' : 'Option B'}: Personal Access Token\n`));
     console.log(chalk.dim('    1. Visit: https://github.com/settings/tokens'));
     console.log(chalk.dim('    2. Generate a token (classic) with "public_repo" scope'));
     console.log(chalk.dim('    3. Run:'));
-    console.log(chalk.white('       killer config githubToken <your-token>\n'));
+    console.log(chalk.white('       npx killer-skills config githubToken <your-token>\n'));
 }

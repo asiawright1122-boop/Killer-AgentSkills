@@ -11,13 +11,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 ---
 # Les Compétences Officielles d'Agent IA Que Vous Devriez Utiliser Tout De Suite
 
-Quelles sont les compétences officielles d'agent IA, et lesquelles valent la peine d'être installées ? Les compétences officielles d'agent IA sont des ensembles d'instructions de haute qualité, maintenues par l'équipe centrale Killer-Skills, conçues pour donner à vos assistants IA des capacités fiables et cohérentes sur 15+ IDE comme Cursor et Windsurf.
+Quelles sont les compétences officielles d'agent IA, et lesquelles valent la peine d'être installées ? Les compétences officielles d'agent IA sont des ensembles d'instructions de haute qualité, maintenues par l'équipe centrale Killer-Skills, conçues pour donner à vos assistants IA des capacités fiables et cohérentes sur 19+ IDE comme Cursor et Windsurf.
 
 > **Principaux Points à Retenir**
 > - **Traitement de documents lourds** : Des compétences comme `pdf` et `xlsx` empêchent Claude de générer des données à partir de grands fichiers.
 > - **Génération de frontend** : `frontend-design` force les agents à produire des composants utilisables et stylisés au lieu de codes génériques.
 > - **Marketing & Référencement** : `geo-content-optimizer` structure votre contenu pour les overviews IA.
-> - **Configuration zéro** : Toutes les compétences officielles sont installées globalement via `npx killer-skills add <skill>`.
+> - **Configuration zéro** : Toutes les compétences officielles sont installées globalement via `npx killer-skills add owner/repo`.
 
 Je discute avec de nombreux développeurs qui traitent leurs assistants IA comme des outils d'autocomplétion sophistiqués. Ils demandent à Cursor de "créer une page de connexion" ou "lire ce PDF" et sont frustrés lorsqu'ils obtiennent un résultat générique ou simplement faux.
 
@@ -65,7 +65,7 @@ Oui, toutes les compétences officielles sont open-source et gratuites à instal
 
 Vous n'avez pas besoin que tous ces éléments soient actifs en même temps. Cela surchargerait la fenêtre de contexte de votre agent. Choisissez celui qui résout votre problème immédiat, installez-le et voyez comment la sortie change. Je commence généralement un nouveau projet en ajoutant `frontend-design` et je poursuis à partir de là.
 
-Prêt à les essayer ? Vous pouvez installer n'importe lequel d'entre eux dès maintenant en exécutant `npx killer-skills add <skillname>` dans votre terminal.
+Prêt à les essayer ? Vous pouvez installer n'importe lequel d'entre eux dès maintenant en exécutant `npx killer-skills add owner/repo` dans votre terminal.
 
 <script type="application/ld+json">
 {

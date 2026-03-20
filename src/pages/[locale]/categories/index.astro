@@ -57,10 +57,10 @@ const categories = CATEGORY_DEFS.map((def) => ({
   count: categoryCounts[def.id] || 0,
 })).filter((category) => category.count > 0);
 
-const pageTitle = isZh ? 'AI Agent Skills 分类目录' : 'AI Agent Skill Categories & MCP Server Use Cases';
+const pageTitle = isZh ? 'AI Agent Skills 分类目录' : 'AI Agent Skill Categories by Use Case';
 const pageDescription = isZh
-  ? `按开发、数据、AI、设计等分类浏览 ${skills.length}+ 个 AI Agent Skills 与 MCP Servers，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。`
-  : `Browse ${skills.length}+ AI agent skills and MCP servers by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`;
+  ? `按开发、数据、AI、设计等分类浏览 ${skills.length}+ 个 AI Agent Skills，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。`
+  : `Browse ${skills.length}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`;
 const topCategoryIds = [...categories]
   .sort((a, b) => b.count - a.count)
   .slice(0, 4)
@@ -68,11 +68,10 @@ const topCategoryIds = [...categories]
 const pageKeywords = buildKeywordString(
   typedLocale,
   'core',
-  'mcp',
   'ideCompat',
   ...topCategoryIds.flatMap((id) => getCategoryKeywordClusters(id)),
   isZh ? 'AI Agent Skills 分类' : 'AI agent skill categories',
-  isZh ? 'MCP Server 分类' : 'MCP server categories',
+  isZh ? '技能使用场景' : 'skill use cases',
   'Killer-Skills',
 );
 const topCategoryNames = [...categories]
@@ -87,20 +86,20 @@ const faqItems = [
   {
     question: isZh ? '这里有哪些 AI Agent Skills 分类？' : 'What AI agent skill categories can I browse here?',
     answer: isZh
-      ? `当前可以浏览 ${categories.length} 个分类，包括 ${categories.map((c) => c.name).join('、')}。每个分类都聚合了对应场景下的可安装技能和 MCP Servers。`
-      : `You can browse ${categories.length} categories here, including ${categories.map((c) => c.name).join(', ')}. Each category groups installable skills and MCP servers for a specific workflow.`,
+      ? `当前可以浏览 ${categories.length} 个分类，包括 ${categories.map((c) => c.name).join('、')}。每个分类都聚合了对应场景下的可安装技能。`
+      : `You can browse ${categories.length} categories here, including ${categories.map((c) => c.name).join(', ')}. Each category groups installable skills for a specific workflow.`,
   },
   {
     question: isZh ? 'Killer-Skills 一共有多少技能？' : 'How many skills are indexed on Killer-Skills?',
     answer: isZh
-      ? `目前平台已收录 ${skills.length}+ 个 AI Agent Skills 与 MCP Servers，热门分类集中在 ${topCategoryNames.join('、')}。`
-      : `Killer-Skills currently indexes ${skills.length}+ AI agent skills and MCP servers, with the most active categories including ${topCategoryNames.join(', ')}.`,
+      ? `目前平台已收录 ${skills.length}+ 个 AI Agent Skills，热门分类集中在 ${topCategoryNames.join('、')}。`
+      : `Killer-Skills currently indexes ${skills.length}+ AI agent skills, with the most active categories including ${topCategoryNames.join(', ')}.`,
   },
   {
     question: isZh ? '如何按分类查找适合我的技能？' : 'How do I find the right skills by category?',
     answer: isZh
-      ? '先进入与你当前任务最接近的分类，再在技能市场里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。'
-      : 'Start with the category closest to your current task, then narrow further in the marketplace using keywords, official repositories, or featured filters. That is usually faster than searching a broad term.',
+      ? '先进入与你当前任务最接近的分类，再在技能目录里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。'
+      : 'Start with the category closest to your current task, then narrow further in the skills directory using keywords, official repositories, or featured filters. That is usually faster than searching a broad term.',
   },
 ];
 ---

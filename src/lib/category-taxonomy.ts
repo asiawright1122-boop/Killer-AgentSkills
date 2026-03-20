@@ -33,8 +33,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'cyan',
     labelKey: 'Sidebar.categories.browser',
     seoDescription: {
-      en: 'Discover Browser Automation and Web Scraping MCP servers for AI agents. Let Claude Code, Cursor, and Windsurf navigate sites, click elements, and extract structured data.',
-      zh: '发现适用于 AI Agent 的浏览器自动化与网页抓取 MCP Server，让 Claude Code、Cursor、Windsurf 能浏览网页、点击元素并提取结构化数据。',
+      en: 'Discover browser automation and web scraping skills for AI agents. Let Claude Code, Cursor, and Windsurf navigate sites, click elements, and extract structured data.',
+      zh: '发现适用于 AI Agent 的浏览器自动化与网页抓取技能，让 Claude Code、Cursor、Windsurf 能浏览网页、点击元素并提取结构化数据。',
     },
   },
   {
@@ -43,8 +43,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'emerald',
     labelKey: 'Sidebar.categories.finance',
     seoDescription: {
-      en: 'Explore finance and payments MCP servers for AI agents. Connect billing, subscriptions, and transaction workflows directly into Claude Code, Cursor, and automation agents.',
-      zh: '探索面向 AI Agent 的金融与支付 MCP Server，将账单、订阅和交易工作流接入 Claude Code、Cursor 与自动化智能体。',
+      en: 'Explore finance and payments skills for AI agents. Connect billing, subscriptions, and transaction workflows directly into Claude Code, Cursor, and automation agents.',
+      zh: '探索面向 AI Agent 的金融与支付技能，将账单、订阅和交易工作流接入 Claude Code、Cursor 与自动化智能体。',
     },
   },
   {
@@ -53,8 +53,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'indigo',
     labelKey: 'Sidebar.categories.productivity',
     seoDescription: {
-      en: 'Best productivity MCP servers for AI agents. Connect Notion, Slack, calendars, and workflow tools to automate daily execution.',
-      zh: '适合 AI Agent 的生产力 MCP Server，连接 Notion、Slack、日历和工作流工具，自动处理日常执行任务。',
+      en: 'Best productivity workflow skills for AI agents. Connect Notion, Slack, calendars, and workflow tools to automate daily execution.',
+      zh: '适合 AI Agent 的生产力工作流技能，连接 Notion、Slack、日历和工作流工具，自动处理日常执行任务。',
     },
   },
   {
@@ -63,8 +63,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'blue',
     labelKey: 'Sidebar.categories.developer',
     seoDescription: {
-      en: 'Find developer tool MCP servers for Claude Code, Cursor, and other AI agents. Automate coding, debugging, refactoring, and project workflows.',
-      zh: '查找适用于 Claude Code、Cursor 等 AI Agent 的开发工具 MCP Server，自动处理编码、调试、重构和项目工作流。',
+      en: 'Find developer tool skills for Claude Code, Cursor, and other AI agents. Automate coding, debugging, refactoring, and project workflows.',
+      zh: '查找适用于 Claude Code、Cursor 等 AI Agent 的开发工具技能，自动处理编码、调试、重构和项目工作流。',
     },
   },
   {
@@ -73,8 +73,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'sky',
     labelKey: 'Sidebar.categories.data',
     seoDescription: {
-      en: 'Browse data MCP servers for SQL querying, analytics, ETL, and database workflows. Give AI agents access to structured data and pipelines.',
-      zh: '浏览适用于 SQL 查询、分析、ETL 和数据库工作的 Data MCP Server，让 AI Agent 具备结构化数据访问能力。',
+      en: 'Browse data workflow skills for SQL querying, analytics, ETL, and database workflows. Give AI agents access to structured data and pipelines.',
+      zh: '浏览适用于 SQL 查询、分析、ETL 和数据库工作的数据技能，让 AI Agent 具备结构化数据访问能力。',
     },
   },
   {
@@ -103,8 +103,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'amber',
     labelKey: 'Sidebar.categories.documentation',
     seoDescription: {
-      en: 'Documentation skills and MCP servers for markdown, PDFs, knowledge bases, and content operations.',
-      zh: '面向 Markdown、PDF、知识库与内容运营的文档技能和 MCP Server。',
+      en: 'Documentation skills for markdown, PDFs, knowledge bases, and content operations.',
+      zh: '面向 Markdown、PDF、知识库与内容运营的文档技能。',
     },
   },
   {
@@ -113,8 +113,8 @@ export const CATEGORY_DEFS: CategoryDef[] = [
     color: 'orange',
     labelKey: 'Sidebar.categories.devops',
     seoDescription: {
-      en: 'Top DevOps and cloud MCP servers for deployment, infrastructure, Docker, Kubernetes, and CI/CD workflows.',
-      zh: '适用于部署、基础设施、Docker、Kubernetes 和 CI/CD 流程的 DevOps 与云服务 MCP Server。',
+      en: 'Top DevOps and cloud skills for deployment, infrastructure, Docker, Kubernetes, and CI/CD workflows.',
+      zh: '适用于部署、基础设施、Docker、Kubernetes 和 CI/CD 流程的 DevOps 与云服务技能。',
     },
   },
   {

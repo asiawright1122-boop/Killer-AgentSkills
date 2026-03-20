@@ -15,8 +15,8 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 ## Key Facts
 - Total skills indexed: 2,500+ from verified source repositories on GitHub.
 - Languages supported: English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Arabic.
-- One-command install: npx killer-skills install <skill-name>
-- One-command copy: npx killer-skills copy <skill-name>
+- One-command install: npx killer-skills add <owner/repo>
+- Cross-IDE delivery: writes the right native skill file for each supported environment
 
 ## Directory structure
 - [Home](https://killer-skills.com/en)
@@ -26,13 +26,13 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 - [CLI Docs](https://killer-skills.com/en/cli)
 
 ## Featured Skills
-- [GitHub MCP Server](https://killer-skills.com/en/skills/modelcontextprotocol/servers/src/github) - Perform GitHub operations (search, issues, PRs)
-- [Postgres MCP Server](https://killer-skills.com/en/skills/modelcontextprotocol/servers/src/postgres) - Read and write Postgres databases
-- [Google Search MCP](https://killer-skills.com/en/skills/modelcontextprotocol/servers/src/google-maps) - Access real-time web information
-- [Sequential Thinking](https://killer-skills.com/en/skills/modelcontextprotocol/servers/src/sequentialthinking) - Enhanced reasoning for complex problem solving
+- [PDF Skill](https://killer-skills.com/en/skills/anthropics/skills/pdf) - PDF extraction, OCR, splitting, merging, and form workflows
+- [Algorithmic Art Skill](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) - Generate original algorithmic art with code-driven workflows
+- [Internal Comms Skill](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) - Draft updates, FAQs, reports, and internal communication artifacts
+- [Webapp Testing Skill](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) - Test local web apps with browser automation and UI verification
 
 ## Integration
-AI agents (like Claude Desktop, Antigravity, or Cursor) can consume these skills by reading the .md files in this repository or using the MCP (Model Context Protocol).
+AI tools like Claude Code, Cursor, Windsurf, and VS Code extensions can consume these skills by reading markdown-based instruction files or by using the Killer-Skills CLI to write the correct native format.
 
 For full details, visit [Killer-Skills](https://killer-skills.com).
 `.trim();

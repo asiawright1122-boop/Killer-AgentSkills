@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 مهارة `webapp-testing` هي الجزء الأخير من لغز التطوير المهني. она تضمن أن يكون الكود الجميل الذي يكتبه وكيلك هو أيضًا **كود موثوق**. من خلال إضافة الاختبار التلقائي لجودة المنتج إلى تدفق العمل الوكيل، يسمح لك بنقل المنتج بثقة تامة.
 
-انتقل إلى سوق [Killer-Skills Marketplace](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) وابدأ في بناء واجهات أمامية محكمة اليوم.
+انتقل إلى [مهارة webapp-testing](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) في دليل مهارات Killer-Skills وابدأ اليوم ببناء واجهات أمامية أكثر موثوقية.
 
 ---
 *تريد بناء الواجهة أولًا؟ تحقق من مهارة [تصميم الواجهة الأمامية](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design).*

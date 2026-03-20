@@ -67,7 +67,7 @@ Feed a 50-page PDF into the [pdf skill](https://killer-skills.com/en/blog/master
 
 The `pptx` skill is about more than just file formats—it's about **visual authority**. It ensures that when your AI agent builds a presentation, it looks like it was designed by a human expert.
 
-Download the [pptx skill](https://killer-skills.com/en/skills/anthropics/skills/pptx) from the Killer-Skills Marketplace and start building slides that sell.
+Download the [pptx skill](https://killer-skills.com/en/skills/anthropics/skills/pptx) from the Killer-Skills directory and start building slides that sell.
 
 ---
 

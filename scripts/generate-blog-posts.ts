@@ -145,9 +145,12 @@ Yes, when properly configured with authentication and security best practices, M
 }
 
 function main() {
+  console.error('Blocked: scripts/generate-blog-posts.ts still emits unsafe MCP-first boilerplate. Use the curated SEO content workflow instead.');
+  process.exit(1);
+
   const blogDir = 'src/content/blog/en';
   let created = 0;
-  
+
   console.log('Creating missing blog posts...\n');
   
   blogPosts.forEach(post => {

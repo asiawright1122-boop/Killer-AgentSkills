@@ -82,9 +82,9 @@ export const configCommand = new Command('config')
                 console.log(chalk.dim('─'.repeat(50)));
                 console.log(chalk.dim(`\nConfig file: ${CONFIG_FILE}`));
                 console.log(chalk.dim('\nUsage:'));
-                console.log(chalk.dim('  killer config <key> <value>  Set a value'));
-                console.log(chalk.dim('  killer config <key>          Get a value'));
-                console.log(chalk.dim('  killer config --reset        Reset to defaults'));
+                console.log(chalk.dim('  npx killer-skills config <key> <value>  Set a value'));
+                console.log(chalk.dim('  npx killer-skills config <key>          Get a value'));
+                console.log(chalk.dim('  npx killer-skills config --reset        Reset to defaults'));
                 return;
             }
 

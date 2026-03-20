@@ -78,7 +78,7 @@ npx killer-skills add anthropics/skills/algorithmic-art
 
 예술의 미래는 협력적입니다—인간의 의도와 기계의 실행이 함께 어우러지는 춤과 같죠. **알고리즘 아트** 스킬은 여러분이 그 춤의 안무가가 될 수 있도록 돕습니다.
 
-만들기를 시작할 준비가 되셨나요? 지금 바로 [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art)로 가서 설치하세요.
+창작을 시작할 준비가 되셨나요? Killer-Skills 디렉터리에서 [algorithmic-art 스킬](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art)을 열고 지금 바로 설치하세요.
 
 ---
 

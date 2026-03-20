@@ -65,7 +65,7 @@ Bauen Sie ein magazinähnliches Portfolio, das "Art Deco Geometric"-Muster verwe
 
 Die `frontend-design`-Fähigkeit ist der Unterschied zwischen einer Website, die "von KI produziert" aussieht, und einer, die "von einer Weltklasse-Agentur designed" aussieht. Sie stellt sicher, dass Ihre Frontend-Ausgabe nicht nur funktional, sondern auch **emotional ansprechend** ist.
 
-Besuchen Sie die [frontend-design-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/frontend-design) auf dem Killer-Skills-Marktplatz heute und beginnen Sie, die Zukunft des Webs zu gestalten.
+Sehen Sie sich den [frontend-design-Skill](https://killer-skills.com/de/skills/anthropics/skills/frontend-design) im Killer-Skills-Verzeichnis an und gestalten Sie die Zukunft des Webs.
 
 ---
 

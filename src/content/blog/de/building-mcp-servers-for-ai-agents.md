@@ -53,7 +53,7 @@ Der `mcp-builder`-Skill umreißt einen strukturierten Pfad zum Erfolg:
 
 Die `mcp-builder`-Fähigkeit ist für jeden Entwickler unerlässlich, der die Lücke zwischen AI-Argumentation und realer Ausführung überbrücken möchte. Indem Sie diesen bewährten Mustern folgen, können Sie Tools erstellen, die nicht nur "funktionieren", sondern tatsächlich AI-Agents ermöglichen, produktiver zu sein.
 
-Bereit, loszulegen? Lesen Sie die vollständige Dokumentation auf dem [Killer-Skills-Marktplatz](https://killer-skills.com/de/skills/anthropics/skills/mcp-builder).
+Bereit, loszulegen? Lesen Sie die vollständige Dokumentation zum [mcp-builder-Skill](https://killer-skills.com/de/skills/anthropics/skills/mcp-builder) im Killer-Skills-Register.
 
 ---
 

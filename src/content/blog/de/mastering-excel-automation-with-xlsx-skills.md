@@ -62,7 +62,7 @@ Automatisieren Sie die Erstellung von Dutzenden lokalisierter Verkaufsberichte, 
 
 Der `xlsx`-Skill verwandelt Ihren KI-Agenten in einen Datenwissenschaftler und Finanzanalysten in einem. Er stellt sicher, dass Ihre Tabellenkalkulationen nicht nur Sammlungen von Zahlen sind, sondern leistungsstarke, dynamische Werkzeuge, die bessere Geschäftsentscheidungen ermöglichen.
 
-Besuchen Sie den [xlsx-Skill](https://killer-skills.com/de/skills/anthropics/skills/xlsx) auf dem Killer-Skills-Marktplatz und beginnen Sie noch heute, intelligentere Daten zu erstellen.
+Sehen Sie sich den [xlsx-Skill](https://killer-skills.com/de/skills/anthropics/skills/xlsx) im Killer-Skills-Verzeichnis an und beginnen Sie noch heute, intelligentere Daten zu erstellen.
 
 ---
 

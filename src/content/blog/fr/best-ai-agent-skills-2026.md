@@ -11,18 +11,18 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 ---
 # Les meilleures compétences d'agent IA que vous pouvez installer dès maintenant
 
-Les **compétences d'agent IA** sont des modules d'instructions spécialisés et prêts à l'emploi qui donnent aux assistants de codage (comme Claude Code, Cursor et ContinueWindsurf) le contexte et les capacités nécessaires pour exécuter de manière autonome des workflows complexes. Selon les données récentes du registre Killer-Skills, les développeurs utilisant des compétences d'agent ciblées rapportent économiser en moyenne 12,5 heures par semaine sur les tâches répétitives de formatage, de test et de documentation.
+Les **compétences d'agent IA** sont des modules d'instructions spécialisés et prêts à l'emploi qui donnent aux assistants de codage (comme Claude Code, Cursor et Windsurf) le contexte et les capacités nécessaires pour exécuter de manière autonome des workflows complexes. Selon les données récentes du registre Killer-Skills, les développeurs utilisant des compétences d'agent ciblées rapportent économiser en moyenne 12,5 heures par semaine sur les tâches répétitives de formatage, de test et de documentation.
 
 > **Points Clés à Retenir**
 > - **Automatisation de la Documentation** : Des compétences comme `docx` et `xlsx` automatisent la génération de rapports, économisant des heures de saisie manuelle de données.
 > - **Conception Visuelle et d'Interface Utilisateur** : La compétence `frontend-design` permet aux agents de générer des composants d'interface utilisateur réactifs et de qualité production.
 > - **Outillage pour Développeurs** : Standardisez la construction de serveurs et les tests d'interface avec des compétences sans configuration comme `mcp-builder`.
-> - **Compatibilité Universelle** : Installez des compétences sur plus de 15 IDE dans le monde entier en utilisant `npx killer-skills add <skill>`.
+> - **Compatibilité Universelle** : Installez des compétences sur 19+ IDE dans le monde entier en utilisant `npx killer-skills add owner/repo`.
 ## Qu'est-ce qu'une compétence d'agent IA ?
 
 Une **compétence d'agent IA** est un protocole d'instruction spécialisé qui apprend aux assistants de codage — comme Cursor, Windsurf ou Claude Code — à exécuter de manière autonome des workflows complexes en plusieurs étapes. En installant ces modules prêts à l'emploi, les développeurs fournissent à leurs agents IA le contexte spécifique et les ensembles d'outils nécessaires pour effectuer des tâches spécialisées sans sollicitation constante.
 
-Nous maintenons un répertoire de plus de 1 000 compétences d'agents et en utilisons des dizaines quotidiennement. Certaines sont excellentes. Beaucoup sont médiocres. Quelques-unes ont changé notre façon de travailler.
+Nous maintenons un répertoire de plus de 2,500 compétences d'agents et en utilisons des dizaines quotidiennement. Certaines sont excellentes. Beaucoup sont médiocres. Quelques-unes ont changé notre façon de travailler.
 
 Voici la liste que nous aurions aimé qu'on nous donne quand nous avons commencé. Chaque compétence ici a été testée sur de vrais projets, pas seulement parcourue.
 ## Automatisation de documents
@@ -111,7 +111,7 @@ Basée sur le guide « Signes d'écriture IA » de Wikipédia, cette compétence
 Nous l'avons installée globalement. Chaque contenu que nous produisons passe par elle. La différence est notable.
 
 ```bash
-npx killer-skills add blader/humanizer
+npx killer-skills add minhtungo/ai-agents-factory/humanizer
 ```
 
 ### internal-comms — Communications internes
@@ -156,13 +156,13 @@ Toutes les compétences utilisent la même commande :
 
 ```bash
 # Installer dans votre projet
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 
 # Voir ce qui est disponible
 npx killer-skills search pdf
 ```
 
-Parcourez la collection complète sur [killer-skills.com/en/skills](/en/skills).
+Parcourez la collection complète sur [killer-skills.com/fr/skills](/fr/skills).
 
 ---
 ## Foire Aux Questions
@@ -171,7 +171,7 @@ Parcourez la collection complète sur [killer-skills.com/en/skills](/en/skills).
 Les **compétences d'agent IA** sont des ensembles d'instructions et des outils spécialisés qui apprennent aux assistants de codage comme Cursor et Claude Code à effectuer des tâches spécifiques, telles que la génération de PDFs, la création de composants d'interface utilisateur (UI) ou le test d'applications web.
 
 ### Quels IDE prennent en charge ces compétences ?
-Ces compétences sont compatibles avec plus de 15 environnements de codage IA majeurs, notamment Cursor, Windsurf, VS Code (via Copilot ou Cline), Trae, et Claude Code CLI.
+Ces compétences sont compatibles avec 19+ environnements de codage IA majeurs, notamment Cursor, Windsurf, VS Code (via Copilot ou Cline), Trae, et Claude Code CLI.
 
 ### Combien de temps les compétences d'agent permettent-elles de gagner ?
 Bien que les résultats varient selon la tâche, les développeurs utilisant des compétences d'agent ciblées rapportent économiser en moyenne 12,5 heures par semaine sur les tâches de développement et de reporting routinières.
@@ -194,7 +194,7 @@ Bien que les résultats varient selon la tâche, les développeurs utilisant des
       "name": "Which IDEs support these skills?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+        "text": "These skills are compatible with 19+ major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
       }
     },
     {

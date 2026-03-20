@@ -12,18 +12,18 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 
 # 目前可以安装的最佳 AI 代理技能
 
-**AI 代理技能** 是专门的、即插即用式的指令模块，能够为编码助手（如 Claude Code、Cursor 和 ContinueWindsurf）提供上下文和能力，以便自主执行复杂的工作流。根据 Killer-Skills 注册表的最新数据，使用有针对性代理技能的开发人员报告每周平均节省 12.5 小时的重复格式化、测试和文档任务时间。
+**AI 代理技能** 是专门的、即插即用式的指令模块，能够为编码助手（如 Claude Code、Cursor 和 Windsurf）提供上下文和能力，以便自主执行复杂的工作流。根据 Killer-Skills 注册表的最新数据，使用有针对性代理技能的开发人员报告每周平均节省 12.5 小时的重复格式化、测试和文档任务时间。
 
 > **关键要点**
 > - **文档自动化**：像 `docx` 和 `xlsx` 的技能自动化报告，节省了数小时的手动数据输入时间。
 > - **视觉和 UI 设计**：`frontend-design` 技能使代理能够生成生产级、响应式 UI 组件。
 > - **开发者工具**：使用像 `mcp-builder` 这样的零配置技能来标准化服务器构建和 UI 测试。
-> - **通用兼容性**：使用 `npx killer-skills add <skill>` 在全球 15+ 个 IDE 中安装技能。
+> - **通用兼容性**：使用 `npx killer-skills add owner/repo` 在全球 19+ 个 IDE 中安装技能。
 ## 什么是 AI 代理技能？
 
 **AI 代理技能** 是一种专门的指令协议，教导编码助手——如 Cursor、Windsurf 或 Claude Code——如何自主执行复杂的、多步骤的工作流程。通过安装这些即插即用模块，开发者为他们的 AI 代理提供了执行专门任务所需的特定上下文和工具集，无需不断提示。
 
-我们维护着一个包含 1,000 多个代理技能的目录，並且每天使用其中几十个。其中一些非常优秀，很多还算中规中矩。少数几个则改变了我们的工作方式。
+我们维护着一个包含 2,500 多个代理技能的目录，並且每天使用其中几十个。其中一些非常优秀，很多还算中规中矩。少数几个则改变了我们的工作方式。
 
 这是我们希望在开始时就能拥有的列表。这里的每个技能都经过了真实项目的测试，而不仅仅是被浏览过。
 ## 文档自动化
@@ -112,7 +112,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 我们已全局安装此技能。所有产出的内容都会经过它的处理。效果提升显著。
 
 ```bash
-npx killer-skills add blader/humanizer
+npx killer-skills add minhtungo/ai-agents-factory/humanizer
 ```
 
 ### internal-comms — 企业内部通信
@@ -157,13 +157,13 @@ npx killer-skills add anthropics/skills/pptx
 
 ```bash
 # 安装到你的项目中
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 
 # 查看可用技能
 npx killer-skills search pdf
 ```
 
-浏览完整技能集合，请访问 [killer-skills.com/en/skills](/en/skills)。
+浏览完整技能集合，请访问 [killer-skills.com/zh/skills](/zh/skills)。
 
 ---
 ## 常见问题
@@ -172,7 +172,7 @@ npx killer-skills search pdf
 **AI 代理技能** 是一种专门的指令集和工具，教导编码助手（如 Cursor 和 Claude Code）如何执行特定任务，例如生成 PDF、构建 UI 组件或测试 Web 应用程序。
 
 ### 哪些 IDE 支持这些技能？
-这些技能与 15 多个主要的 AI 编码环境兼容，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 和 Claude Code CLI。
+这些技能与 19+主要的 AI 编码环境兼容，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 和 Claude Code CLI。
 
 ### 代理技能可以节省多少时间？
 虽然结果因任务而异，但使用有针对性的代理技能的开发人员报告每周在常规开发和报告任务上平均节省 12.5 小时。
@@ -195,7 +195,7 @@ npx killer-skills search pdf
       "name": "哪些 IDE 支持这些技能？",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "这些技能与 15 多个主要的 AI 编码环境兼容，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 和 Claude Code CLI。"
+        "text": "这些技能与 19+主要的 AI 编码环境兼容，包括 Cursor、Windsurf、VS Code（通过 Copilot 或 Cline）、Trae 和 Claude Code CLI。"
       }
     },
     {

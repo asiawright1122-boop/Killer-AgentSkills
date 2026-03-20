@@ -28,7 +28,7 @@ async function generateLongDescription(
     const localeStr = targetLocales.join(', ');
     const localeExample = targetLocales.map(l => `"${l}": "..."`).join(', ');
 
-    const prompt = `You are a Senior Technical Writer for "Killer-Skills", an AI Agent skills marketplace.
+    const prompt = `You are a Senior Technical Writer for "Killer-Skills", an AI Agent skills directory.
 
 Write an engaging, SEO-optimized long-form paragraph (200-300 words) for a curated collection page.
 
@@ -39,9 +39,9 @@ Write an engaging, SEO-optimized long-form paragraph (200-300 words) for a curat
 - Short intro: "${enDescription}"
 
 ## Requirements:
-1. Write a comprehensive introduction that explains WHY developers need these ${category} tools
+1. Write a comprehensive introduction that explains WHY developers need these ${category} skills
 2. Mention real-world use cases and workflow improvements
-3. Include natural keyword density for "${category} AI tools", "MCP servers", "AI agent"
+3. Include natural keyword density for "${category} AI skills", "AI agent skills", "developer workflow"
 4. Use an authoritative but approachable tone
 5. Structure: Start with the industry context → explain the value proposition → highlight what makes this curated list special
 6. Do NOT use markdown formatting, bullet points, or headers - pure flowing prose paragraphs

@@ -63,7 +63,7 @@ npx killer-skills add anthropics/skills/docx
 
 `docx`技能为您的AI工作流带来了“企业级”的专业水准。它确保您的编程智能体输出符合企业界的最高标准。
 
-立即从[Killer-Skills技能市场](https://killer-skills.com/zh/skills/anthropics/skills/docx)安装[docx技能](https://killer-skills.com/zh/skills/anthropics/skills/docx)，开始使用。
+立即从 Killer-Skills 技能目录安装 [docx 技能](https://killer-skills.com/zh/skills/anthropics/skills/docx)，开始使用。
 
 *需要先处理数据？查看我们关于[电子表格自动化xlsx技能](https://killer-skills.com/zh/blog/mastering-excel-automation-with-xlsx-skills)的指南。*
 

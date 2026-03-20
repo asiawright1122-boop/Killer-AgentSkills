@@ -68,7 +68,7 @@ Draft monthly "All-Hands" newsletters that highlight team wins, new hires, and u
 
 The `internal-comms` skill is your secret weapon for professional visibility. It ensures that your work is not just done, but **effectively communicated** to the people who matter.
 
-Install the [internal-comms skill](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) from the Killer-Skills Marketplace and start speaking the language of leadership.
+Install the [internal-comms skill](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) from the Killer-Skills directory and start speaking the language of leadership.
 
 ---
 

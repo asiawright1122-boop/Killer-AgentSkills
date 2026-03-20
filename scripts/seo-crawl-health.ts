@@ -17,7 +17,9 @@ type UrlCheckResult = {
   error?: string;
 };
 
-const baseUrl = (process.argv[2] || 'https://killer-skills.com').replace(/\/+$/, '');
+const SITE_ORIGIN = 'https://killer-skills.com';
+const baseUrl = (process.argv[2] || SITE_ORIGIN).replace(/\/+$/, '');
+const baseOrigin = new URL(baseUrl).origin;
 const rootSitemapUrl = `${baseUrl}/sitemap.xml`;
 const crawlDate = new Date().toISOString();
 const crawlDateKey = crawlDate.slice(0, 10);
@@ -50,6 +52,12 @@ function isSitemapUrl(url: string): boolean {
   }
 }
 
+function toRequestUrl(url: string): string {
+  const parsed = new URL(url);
+  if (parsed.origin !== SITE_ORIGIN) return url;
+  return `${baseOrigin}${parsed.pathname}${parsed.search}`;
+}
+
 function sampleEvenly<T>(items: T[], limit: number): T[] {
   if (limit <= 0) return [];
   if (items.length <= limit) return items;
@@ -76,11 +84,12 @@ function classifyStatus(status: number): '2xx' | '3xx' | '4xx' | '5xx' | 'other'
 }
 
 async function fetchText(url: string): Promise<string> {
+  const requestUrl = toRequestUrl(url);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
-    const response = await fetch(url, { signal: controller.signal, redirect: 'follow' });
-    ensure(response.ok, `${url}: expected 200, got ${response.status}`);
+    const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'follow' });
+    ensure(response.ok, `${requestUrl}: expected 200, got ${response.status}`);
     return await response.text();
   } finally {
     clearTimeout(timer);
@@ -146,7 +155,8 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
-      const response = await fetch(url, { signal: controller.signal, redirect: 'follow' });
+      const requestUrl = toRequestUrl(url);
+      const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'follow' });
       lastStatus = response.status;
       lastFinalUrl = response.url;
       lastRedirected = response.redirected;

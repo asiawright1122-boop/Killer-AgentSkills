@@ -65,7 +65,7 @@ npx killer-skills add anthropics/skills/frontend-design
 
 `frontend-design` 스킬은 "AI가 만든 것처럼 보이는" 웹사이트와 "세계적 수준의 에이전시가 디자인한" 웹사이트의 차이를 만듭니다. 이 스킬은 당신의 프론트엔드 결과물이 단순히 기능적이기만 한 것이 아니라 **감정적으로 공감되는** 결과물이 되도록 보장합니다.
 
-Killer-Skills Marketplace에서 [frontend-design 스킬](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)을 확인하고 웹의 미래를 구축해 보세요.
+Killer-Skills 디렉터리에서 [frontend-design 스킬](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)을 확인하고 웹의 미래를 만들어 보세요.
 
 ---
 

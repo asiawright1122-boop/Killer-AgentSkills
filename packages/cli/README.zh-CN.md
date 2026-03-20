@@ -18,8 +18,8 @@
 - ⚡ **Auto-Invoke** - 技能安装后，AI Agent 可通过自然语言**自动调用**，无需手动指令
 - 🔐 **GitHub 无感认证** - 支持复用 `gh` CLI token 或通过 Device Flow 一键登录
 - 🔍 **智能搜索** - **[NEW]** 官网数据优先，支持交互式选择和自动打开文档
-- 🔄 **一键同步** - `kiro sync --all` 将技能同步到所有已安装 IDE
-- 🧩 **MCP Server** - 内置 MCP Server，支持 Agent 自我进化
+- 🔄 **一键同步** - `npx killer-skills sync --all` 将技能同步到所有已安装 IDE
+- 🔌 **自动注入 MCP** - **[NEW]** 自动解析 MCP server 的 `mcpCommand` 参数并写入 `claude_desktop_config.json`
 
 ### 支持的 IDE
 
@@ -41,13 +41,13 @@ Killer-Skills 会根据内部配置动态检测并配置 IDE。目前支持 **19
 | **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ 完美支持 |
 | **Aider, Codex, OpenCode, Amazon Q** | `AGENTS.md` | ✅ 支持 |
 
-*新 IDE 支持会定期添加。运行 `kiro completion` 可查看最新列表。*
+*新 IDE 支持会定期添加。运行 `npx killer-skills completion zsh` 可查看最新列表。*
 
 ### 快速开始
 
 ```bash
 # 使用 npx (推荐)
-npx killer-skills install <skill-or-repo>
+npx killer-skills add <owner/repo>
 
 # 或全局安装
 npm install -g killer-skills
@@ -59,14 +59,14 @@ npm install -g killer-skills
 
 ```bash
 # 方法 1: 复用 gh CLI (零配置)
-# 如果你安装了 GitHub CLI，killer 会自动使用它的 token
+# 如果你安装了 GitHub CLI，Killer-Skills 会自动使用它的 token
 
 # 方法 2: 一键登录 (Device Flow)
-kiro login
+npx killer-skills login
 # -> 自动打开浏览器完成授权
 
 # 方法 3: 手动设置
-kiro config githubToken ghp_xxxx
+npx killer-skills config githubToken ghp_xxxx
 ```
 
 ### 📦 安装与使用
@@ -75,13 +75,13 @@ kiro config githubToken ghp_xxxx
 
 ```bash
 # 交互式安装 (推荐)
-kiro install pdf
+npx killer-skills add pdf
 # -> 1. 优先搜索官网 API
 # -> 2. 显示交互式选择菜单
 # -> 3. 自动打开官网文档并安装
 
 # 从 GitHub 安装
-kiro install anthropics/killer-skills
+npx killer-skills add anthropics/skills
 
 # 安装后，技能会自动同步到当前检测到的 IDE
 # AI Agent 现在可以通过自然语言自动调用这个技能了！
@@ -103,37 +103,37 @@ AI 会自动读取规则文件，匹配 `pdf` / `pptx` / `frontend-design` 技�
 
 ```bash
 # 一键同步已安装技能到所有支持的 IDE
-kiro sync --all
+npx killer-skills sync --all
 ```
 
 ### 命令速查
 
 | 命令 | 说明 | 示例 |
 |------|------|------|
-| `install` | 安装 Skill | `kiro install pdf` |
-| `login` | **[NEW]** GitHub 登录 | `kiro login` |
-| `sync` | 同步配置 | `kiro sync --all` |
-| `list` | 列出已安装 | `kiro list` |
-| `search` | 搜索 Skills | `kiro search react` |
-| `create` | 创建新 Skill | `kiro create my-skill` |
-| `read` | 读取内容 | `kiro read pdf` |
-| `do` | 自然语言执行 | `kiro do "处理PDF"` |
-| `manage` | 交互式管理 | `kiro manage` |
-| `publish` | 发布 Skill | `kiro publish .` |
-| `init` | 初始化项目 | `kiro init` |
-| `config` | 配置管理 | `kiro config` |
-| `completion` | Shell 补全 | `kiro completion zsh` |
-| `stats` | 使用统计 | `kiro stats` |
+| `install`/`add` | 安装 Skill | `npx killer-skills add pdf` |
+| `login` | **[NEW]** GitHub 登录 | `npx killer-skills login` |
+| `sync` | 同步配置 | `npx killer-skills sync --all` |
+| `list` | 列出已安装 | `npx killer-skills list` |
+| `search` | 搜索 Skills | `npx killer-skills search react` |
+| `create` | 创建新 Skill | `npx killer-skills create my-skill` |
+| `read` | 读取内容 | `npx killer-skills read pdf` |
+| `do` | 自然语言执行 | `npx killer-skills do "处理PDF"` |
+| `manage` | 交互式管理 | `npx killer-skills manage` |
+| `publish` | 发布 Skill | `npx killer-skills publish .` |
+| `init` | 初始化项目 | `npx killer-skills init` |
+| `config` | 配置管理 | `npx killer-skills config` |
+| `completion` | Shell 补全 | `npx killer-skills completion zsh` |
+| `stats` | 使用统计 | `npx killer-skills stats` |
 
 ### 🔌 MCP Server
 
-启动内置 MCP Server，允许 AI Agent 自我安装技能：
+启动内置 MCP Server，为兼容的 AI 客户端暴露技能安装、搜索与读取工具：
 
 ```bash
 npx killer-skills-mcp
 ```
 
-**Exposed Tools:** `install_skill`, `list_skills`, `search_skills`, `read_skill`
+**可用工具：** `install_skill`, `list_skills`, `search_skills`, `read_skill`
 
 #### 配置指南
 

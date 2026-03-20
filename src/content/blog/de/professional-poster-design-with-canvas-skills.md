@@ -63,7 +63,7 @@ Erzeugen Sie Stücke, die beweisen, dass etwas Ephemeres studiert und kartiert w
 
 Die `canvas-design`-Fähigkeit ist für diejenigen, die glauben, dass Design eine Disziplin und kein Shortcut ist. Sie verwandelt Ihren KI-Agenten in einen erfahrenen Handwerker, der in der Lage ist, Arbeiten zu erstellen, die einen Platz in einer Galerie verdienen.
 
-Entdecken Sie den [Killer-Skills-Marktplatz](https://killer-skills.com/de/skills/anthropics/skills/canvas-design), um heute herunterzuladen und zu beginnen, zu designen.
+Entdecken Sie den [canvas-design-Skill](https://killer-skills.com/de/skills/anthropics/skills/canvas-design) im Killer-Skills-Verzeichnis, laden Sie ihn herunter und beginnen Sie noch heute mit dem Design.
 
 ---
 

@@ -22,7 +22,7 @@ export const manageCommand = new Command('manage')
             console.log(chalk.yellow('No skills installed.'));
             console.log('');
             console.log('Install skills:');
-            console.log(chalk.cyan('  killer install <skill-name>'));
+            console.log(chalk.cyan('  npx killer-skills add <skill-name>'));
             return;
         }
 
@@ -122,7 +122,7 @@ export const manageCommand = new Command('manage')
 
             // Reminder to sync
             console.log('');
-            console.log(chalk.dim('💡 Run `killer sync` to update AGENTS.md'));
+            console.log(chalk.dim('💡 Run `npx killer-skills sync` to update AGENTS.md'));
 
         } catch (error) {
             // Handle Ctrl+C gracefully

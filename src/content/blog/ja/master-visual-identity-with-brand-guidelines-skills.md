@@ -60,7 +60,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` スキルは、「AI 出力」を「プロフェッショナル アセット」に変える最後の磨きです。コーディング エージェントが視覚的なコンテキストとブランドの権威の重要性を理解できるようにします。
 
-[Killer-Skills マーケットプレイス](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) から `brand-guidelines` スキルをインストールし、権威を持ったデザインを始めましょう。
+Killer-Skills のスキル一覧から [brand-guidelines スキル](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) をインストールし、自信を持ってデザインを始めましょう。
 
 ---
 *さらにスタイリング オプションを探している場合は、[theme-factory](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) を調べて、より広範な事前設定されたプロフェッショナル テーマを探してみましょう。*

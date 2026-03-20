@@ -84,7 +84,7 @@ For developers, generative art is the ultimate playground for logic. The `algori
 
 The future of art is collaborative—a dance between human intent and machine execution. The **algorithmic-art** skill empowers you to be the choreographer of that dance.
 
-Ready to start creating? Head over to the [Killer-Skills Marketplace](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) and install it today.
+Ready to start creating? Head over to the [algorithmic-art skill](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) in the Killer-Skills skills directory and install it today.
 
 ---
 

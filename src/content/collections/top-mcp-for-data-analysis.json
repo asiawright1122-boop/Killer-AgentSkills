@@ -36,16 +36,16 @@
     "ar": "أدوات سير عمل البيانات والتحليل وخطوط المعالجة | Killer-Skills"
   },
   "seoDescription": {
-    "en": "A focused collection for operational data analysis workflows, notebooks, and pipeline automation with MCP-enabled integrations.",
-    "zh": "面向实战数据分析流程、Notebook 与管道自动化的精选集合，支持基于 MCP 的集成扩展。",
-    "ja": "実務データ分析ワークフロー、ノートブック、パイプライン自動化に特化したコレクション。MCP対応連携もカバー。",
-    "ko": "실무형 데이터 분석 워크플로, 노트북, 파이프라인 자동화에 집중한 컬렉션으로 MCP 기반 통합을 지원합니다.",
-    "es": "Colección enfocada en workflows operativos de análisis de datos, notebooks y automatización de pipelines con integraciones habilitadas por MCP.",
-    "fr": "Collection ciblée sur les workflows opérationnels d’analyse de données, notebooks et automatisation de pipelines avec intégrations compatibles MCP.",
-    "de": "Fokussierte Sammlung für operative Datenanalyse-Workflows, Notebooks und Pipeline-Automatisierung mit MCP-fähigen Integrationen.",
-    "pt": "Coleção focada em workflows operacionais de análise de dados, notebooks e automação de pipelines com integrações habilitadas por MCP.",
-    "ru": "Фокусная коллекция для операционных процессов аналитики данных, notebook-сред и автоматизации пайплайнов с интеграциями на базе MCP.",
-    "ar": "مجموعة مركزة لسير عمل تحليل البيانات التشغيلي ودفاتر الملاحظات وأتمتة خطوط المعالجة مع تكاملات مدعومة عبر MCP."
+    "en": "A focused collection for operational data analysis workflows, notebooks, and pipeline automation with integration-ready tooling.",
+    "zh": "面向实战数据分析流程、Notebook 与管道自动化的精选集合，强调可集成的数据工作流工具。",
+    "ja": "実務データ分析ワークフロー、ノートブック、パイプライン自動化に特化したコレクション。連携しやすいデータツールを厳選。",
+    "ko": "실무형 데이터 분석 워크플로, 노트북, 파이프라인 자동화에 집중한 컬렉션으로 통합 친화형 데이터 도구를 제공합니다.",
+    "es": "Colección enfocada en workflows operativos de análisis de datos, notebooks y automatización de pipelines con herramientas listas para integrarse.",
+    "fr": "Collection ciblée sur les workflows opérationnels d’analyse de données, notebooks et automatisation de pipelines avec des outils prêts à intégrer.",
+    "de": "Fokussierte Sammlung für operative Datenanalyse-Workflows, Notebooks und Pipeline-Automatisierung mit integrationsfähigen Tools.",
+    "pt": "Coleção focada em workflows operacionais de análise de dados, notebooks e automação de pipelines com ferramentas prontas para integração.",
+    "ru": "Фокусная коллекция для операционных процессов аналитики данных, notebook-сред и автоматизации пайплайнов с готовыми к интеграции инструментами.",
+    "ar": "مجموعة مركزة لسير عمل تحليل البيانات التشغيلي ودفاتر الملاحظات وأتمتة خطوط المعالجة مع أدوات جاهزة للتكامل."
   },
   "keywords": {
     "en": [
@@ -53,67 +53,69 @@
       "analysis automation",
       "notebook integrations",
       "pipeline operations",
-      "mcp data integrations"
+      "integration-ready data tools"
     ],
-    "zh": ["数据工作流工具", "分析自动化", "Notebook 集成", "管道运维", "MCP 数据集成"],
-    "ja": ["データワークフローツール", "分析自動化", "ノートブック連携", "パイプライン運用", "MCPデータ連携"],
-    "ko": ["데이터 워크플로 도구", "분석 자동화", "노트북 통합", "파이프라인 운영", "MCP 데이터 통합"],
+    "zh": ["数据工作流工具", "分析自动化", "Notebook 集成", "管道运维", "可集成数据工具"],
+    "ja": ["データワークフローツール", "分析自動化", "ノートブック連携", "パイプライン運用", "連携対応データツール"],
+    "ko": ["데이터 워크플로 도구", "분석 자동화", "노트북 통합", "파이프라인 운영", "통합 친화형 데이터 도구"],
     "es": [
       "herramientas de workflow de datos",
       "automatización de análisis",
       "integraciones de notebooks",
       "operaciones de pipelines",
-      "integraciones de datos MCP"
+      "herramientas de datos listas para integrar"
     ],
     "fr": [
       "outils de workflow data",
       "automatisation de l’analyse",
       "intégrations notebooks",
       "opérations de pipeline",
-      "intégrations data MCP"
+      "outils data prêts à intégrer"
     ],
     "de": [
       "Daten-Workflow-Tools",
       "Analyseautomatisierung",
       "Notebook-Integrationen",
       "Pipeline-Operations",
-      "MCP-Datenintegrationen"
+      "integrationsfähige Datentools"
     ],
     "pt": [
       "ferramentas de workflow de dados",
       "automação de análise",
       "integrações de notebooks",
       "operações de pipelines",
-      "integrações de dados MCP"
+      "ferramentas de dados prontas para integração"
     ],
     "ru": [
       "инструменты data-workflow",
       "автоматизация аналитики",
       "интеграции с notebooks",
       "операции с пайплайнами",
-      "интеграции данных MCP"
+      "инструменты данных для интеграции"
     ],
     "ar": [
       "أدوات سير عمل البيانات",
       "أتمتة التحليل",
       "تكاملات دفاتر الملاحظات",
       "تشغيل خطوط المعالجة",
-      "تكاملات بيانات MCP"
+      "أدوات بيانات جاهزة للتكامل"
     ]
   },
   "featured": false,
+  "canonicalSlug": "data-workflows-and-analysis-tools",
+  "legacySlugs": ["top-mcp-for-data-analysis"],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {
-    "en": "Designed for analysts and engineering teams, this collection prioritizes tools that keep data workflows moving: from notebook exploration to production pipeline operations. MCP appears here as a capability layer that helps connect query tools, automation utilities, and operational integrations into one coherent workflow.",
-    "zh": "该集合面向分析师与工程团队，强调让数据流程真正跑起来的工具：从 Notebook 探索到生产管道运维。MCP 在这里是能力层，用于连接查询工具、自动化组件与运营集成，形成连贯工作流。",
-    "ja": "本コレクションは、分析担当者とエンジニアリングチーム向けに、ノートブック探索から本番パイプライン運用までデータフローを止めない実用ツールを重視しています。MCPは、クエリツール・自動化ユーティリティ・運用連携を一つの流れに結ぶ機能レイヤーとして位置づけています。",
-    "ko": "이 컬렉션은 분석가와 엔지니어링 팀을 위해 노트북 탐색부터 프로덕션 파이프라인 운영까지 데이터 흐름을 지속시키는 도구를 우선합니다. MCP는 쿼리 도구, 자동화 유틸리티, 운영 통합을 하나의 워크플로로 연결하는 기능 계층으로 활용됩니다.",
-    "es": "Diseñada para analistas y equipos de ingeniería, esta colección prioriza herramientas que mantienen vivo el workflow de datos: desde la exploración en notebooks hasta la operación de pipelines en producción. MCP se usa como capa de capacidades para conectar consultas, utilidades de automatización e integraciones operativas en un flujo coherente.",
-    "fr": "Conçue pour les analystes et les équipes d’ingénierie, cette collection privilégie les outils qui font avancer les workflows data, de l’exploration en notebook aux opérations de pipeline en production. MCP y intervient comme couche de capacités pour relier requêtes, utilitaires d’automatisation et intégrations opérationnelles dans un flux cohérent.",
-    "de": "Diese Sammlung richtet sich an Analysten und Engineering-Teams und priorisiert Tools, die Daten-Workflows am Laufen halten: von Notebook-Exploration bis zum Betrieb produktiver Pipelines. MCP dient hier als Fähigkeitsschicht, um Query-Tools, Automatisierungs-Utilities und operative Integrationen zu einem konsistenten Workflow zu verbinden.",
-    "pt": "Pensada para analistas e times de engenharia, esta coleção prioriza ferramentas que mantêm o workflow de dados em movimento: da exploração em notebooks à operação de pipelines em produção. MCP aparece como camada de capacidades para conectar consultas, utilitários de automação e integrações operacionais em um fluxo coerente.",
-    "ru": "Коллекция создана для аналитиков и инженерных команд и делает акцент на инструментах, поддерживающих непрерывный data-процесс: от исследований в notebook до эксплуатации production-пайплайнов. MCP здесь выступает как слой возможностей, связывающий инструменты запросов, автоматизацию и операционные интеграции в единый рабочий контур.",
-    "ar": "صُممت هذه المجموعة للمحللين وفرق الهندسة، وتركز على الأدوات التي تُبقي سير عمل البيانات مستمراً: من الاستكشاف في الدفاتر إلى تشغيل خطوط الإنتاج. ويظهر MCP كطبقة قدرات تربط أدوات الاستعلام وأدوات الأتمتة والتكاملات التشغيلية ضمن سير عمل متماسك."
+    "en": "Designed for analysts and engineering teams, this collection prioritizes tools that keep data workflows moving: from notebook exploration to production pipeline operations. The emphasis is on query tools, automation utilities, and operational integrations that turn fragmented data tasks into one coherent workflow.",
+    "zh": "该集合面向分析师与工程团队，强调让数据流程真正跑起来的工具：从 Notebook 探索到生产管道运维。重点是把查询工具、自动化组件与运营集成串成连贯的数据工作流。",
+    "ja": "本コレクションは、分析担当者とエンジニアリングチーム向けに、ノートブック探索から本番パイプライン運用までデータフローを止めない実用ツールを重視しています。クエリツール、自動化ユーティリティ、運用連携を一つの連続したデータワークフローへまとめることに重点を置いています。",
+    "ko": "이 컬렉션은 분석가와 엔지니어링 팀을 위해 노트북 탐색부터 프로덕션 파이프라인 운영까지 데이터 흐름을 지속시키는 도구를 우선합니다. 쿼리 도구, 자동화 유틸리티, 운영 통합을 하나의 연속된 데이터 워크플로로 묶는 데 초점을 둡니다.",
+    "es": "Diseñada para analistas y equipos de ingeniería, esta colección prioriza herramientas que mantienen vivo el workflow de datos: desde la exploración en notebooks hasta la operación de pipelines en producción. El énfasis está en conectar consultas, utilidades de automatización e integraciones operativas dentro de un flujo de datos coherente.",
+    "fr": "Conçue pour les analystes et les équipes d’ingénierie, cette collection privilégie les outils qui font avancer les workflows data, de l’exploration en notebook aux opérations de pipeline en production. L’accent est mis sur les requêtes, les utilitaires d’automatisation et les intégrations opérationnelles réunis dans un flux cohérent.",
+    "de": "Diese Sammlung richtet sich an Analysten und Engineering-Teams und priorisiert Tools, die Daten-Workflows am Laufen halten: von Notebook-Exploration bis zum Betrieb produktiver Pipelines. Im Mittelpunkt stehen Query-Tools, Automatisierungs-Utilities und operative Integrationen, die fragmentierte Aufgaben zu einem konsistenten Daten-Workflow verbinden.",
+    "pt": "Pensada para analistas e times de engenharia, esta coleção prioriza ferramentas que mantêm o workflow de dados em movimento: da exploração em notebooks à operação de pipelines em produção. O foco está em conectar consultas, utilitários de automação e integrações operacionais em um fluxo de dados coerente.",
+    "ru": "Коллекция создана для аналитиков и инженерных команд и делает акцент на инструментах, поддерживающих непрерывный data-процесс: от исследований в notebook до эксплуатации production-пайплайнов. Основной упор сделан на инструменты запросов, автоматизацию и операционные интеграции, объединенные в единый рабочий контур данных.",
+    "ar": "صُممت هذه المجموعة للمحللين وفرق الهندسة، وتركز على الأدوات التي تُبقي سير عمل البيانات مستمراً: من الاستكشاف في الدفاتر إلى تشغيل خطوط الإنتاج. وينصب التركيز على ربط أدوات الاستعلام وأدوات الأتمتة والتكاملات التشغيلية ضمن سير عمل بيانات متماسك."
   }
 }

@@ -58,7 +58,7 @@ Pour les développeurs et les responsables de produits utilisant des agents IA p
 
 Le skill `theme-factory` transforme votre agent IA d'un simple codeur en un designer conscient de la marque. En s'assurant que chaque artifact est beau et cohérent, il élève la barre de ce que le contenu généré par IA peut réaliser.
 
-Découvrez le skill `theme-factory` sur le marché Killer-Skills aujourd'hui et donnez à vos projets l'avantage professionnel qu'ils méritent.
+Découvrez le skill [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) dans le répertoire de skills Killer-Skills et donnez à vos projets l'avantage professionnel qu'ils méritent.
 
 ---
 

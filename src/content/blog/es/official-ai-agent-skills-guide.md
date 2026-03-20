@@ -11,13 +11,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 ---
 # Las Habilidades Oficiales del Agente de IA que Debes Estar Utilizando Ahora
 
-¿Cuáles son las habilidades oficiales del agente de IA, y cuáles vale la pena instalar? Las habilidades oficiales del agente de IA son conjuntos de instrucciones curados y de alta calidad mantenidos por el equipo central de Killer-Skills, diseñados para dar a tus asistentes de IA capacidades fiables y consistentes en más de 15 IDE como Cursor y Windsurf.
+¿Cuáles son las habilidades oficiales del agente de IA, y cuáles vale la pena instalar? Las habilidades oficiales del agente de IA son conjuntos de instrucciones curados y de alta calidad mantenidos por el equipo central de Killer-Skills, diseñados para dar a tus asistentes de IA capacidades fiables y consistentes en 19+ IDE como Cursor y Windsurf.
 
 > **Puntos Clave**
 > - **Manipulación de documentos pesados**: Habilidades como `pdf` y `xlsx` evitan que Claude fabrique datos a partir de archivos grandes.
 > - **Generación de frontend**: `frontend-design` fuerza a los agentes a generar componentes estilizados y utilizables en lugar de plantillas genéricas.
 > - **Marketing y SEO**: `geo-content-optimizer` estructura tu contenido para resúmenes de IA.
-> - **Configuración cero**: Todas las habilidades oficiales se instalan de forma global a través de `npx killer-skills add <habilidad>`.
+> - **Configuración cero**: Todas las habilidades oficiales se instalan de forma global a través de `npx killer-skills add owner/repo`.
 
 Hablo con muchos desarrolladores que tratan a sus asistentes de IA como un autocompletado sofisticado. Piden a Cursor que "construya una página de inicio de sesión" o "lea este PDF" y se frustran cuando la salida es genérica o simplemente incorrecta.
 
@@ -65,7 +65,7 @@ Sí, todas las habilidades oficiales son de código abierto y gratuitas para ins
 
 No necesitas tener todos estos activos al mismo tiempo. Eso abrumaría la ventana de contexto de tu agente. Elige el que resuelva tu problema inmediato, instálalo y observa cómo cambia la salida. Por lo general, comienzo un nuevo proyecto agregando `frontend-design` y sigo desde allí.
 
-¿Estás listo para probarlos? Puedes instalar cualquiera de ellos ahora mismo ejecutando `npx killer-skills add <skillname>` en tu terminal.
+¿Estás listo para probarlos? Puedes instalar cualquiera de ellos ahora mismo ejecutando `npx killer-skills add owner/repo` en tu terminal.
 
 <script type="application/ld+json">
 {

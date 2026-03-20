@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/pptx
 
 `pptx` スキルは、ファイル形式だけでなく、**視覚的権威**についてもあります。AI エージェントがプレゼンテーションを構築するとき、プロのエキスパートが設計したように見えることを保証します。
 
-Killer-Skills Marketplace から [pptx スキル](https://killer-skills.com/ja/skills/anthropics/skills/pptx) をダウンロードし、売上をもたらすスライドを構築し始めます。
+Killer-Skills のスキル一覧から [pptx スキル](https://killer-skills.com/ja/skills/anthropics/skills/pptx) をダウンロードし、成果につながるスライド作成を始めましょう。
 
 ---
 

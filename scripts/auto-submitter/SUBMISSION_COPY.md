@@ -27,8 +27,8 @@
 > *(发现并安装 2000+ 适用于 Claude 和 Cursor 的官方技能)*
 
 **开发者极客版:**
-> The open-source AI Agent Skills Marketplace built for developers.
-> *(专为开发者打造的开源 AI 智能体技能市场)*
+> The open-source AI Agent Skills Directory built for developers.
+> *(专为开发者打造的开源 AI 智能体技能目录)*
 
 ---
 
@@ -55,7 +55,7 @@ Killer Skills is the definitive, open-source AI Agent Skills Marketplace—often
 
 Whether you are using Claude, Cursor, or Windsurf, Killer Skills supercharges your AI's capabilities:
 ✨ Massive Library: Browse 2000+ tools across developer utilities, AI/ML, data pipelines, finance, and productivity.
-⚡ One-Click Installation: Install any skill instantly using our powerful CLI (e.g., `npx killer-skills install stripe`).
+⚡ One-Click Installation: Install any skill instantly using our CLI (e.g., `npx killer-skills add stripe`).
 🔍 Quality Assurance: Every skill features comprehensive quality scoring and agent compatibility analysis.
 🌍 Truly Global: Fully localized UI in 8 languages (EN, ZH, JA, KO, ES, FR, DE, PT).
 
@@ -74,7 +74,7 @@ Built with Astro and entirely open-source, Killer Skills bridges the gap between
 *   `Productivity` (生产力)
 
 **热门标签 (Keywords / Tags):**
-`ai-agent, mcp, claude, cursor, windsurf, developer-tools, open-source, cli, coding-assistant, integrations`
+`ai-agent-skills, ide-skills, claude, cursor, windsurf, developer-tools, open-source, cli, coding-assistant, integrations`
 
 ---
 

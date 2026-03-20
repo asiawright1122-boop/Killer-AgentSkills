@@ -16,11 +16,11 @@ Was wäre, wenn Ihr KI-Coding-Agent mehr als nur Code schreiben könnte? Was wä
 Genau das machen **MCP-Server** (Model Context Protocol) möglich. Und mit dem offiziellen **mcp-builder**-Skill aus Anthropics Skills-Repository können Sie produktionssichere MCP-Server in Minuten statt Stunden erstellen.
 
 ```bash
-# Installieren Sie den mcp-builder-Skill mit einem Befehl
+# Installieren Sie den mcp-builder-Skill mit nur einem Befehl
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-In diesem Leitfaden erfahren Sie alles, was Sie wissen müssen, um MCP-Server zu erstellen — von der Verständnis des Protokolls bis zum Deployen Ihres ersten Servers.
+Wichtiger als ein starres Tutorial ist die Frage, welche Fähigkeiten Sie überhaupt als Tools freigeben wollen, wie klar diese für Agents beschrieben sind und welche Betriebsgrenzen von Anfang an gelten sollen.
 ## Was ist ein MCP-Server?
 
 Ein **MCP-Server** ist ein standardisierter Dienst, der Tools, Ressourcen und Prompts für KI-Agents zur Verfügung stellt. Denken Sie daran als eine Brücke zwischen Ihrem KI-Assistenten und der realen Welt — Datenbanken, APIs, Dateisysteme, Cloud-Dienste und mehr.
@@ -37,7 +37,7 @@ Hier sind die Gründe, warum MCP wichtig ist:
 
 Der **mcp-builder**-Skill ist einer der leistungsstärksten Skills im offiziellen Repository von Anthropic. Er verwandelt Claude in einen spezialisierten MCP-Server-Entwickler, indem er Folgendes bereitstellt:
 
-1. **Tiefes Protokollwissen** — Der Skill lädt die vollständige MCP-Spezifikation, so dass Claude jeden Detail versteht
+1. **Tiefes Protokollwissen** — Der Skill lädt die vollständige MCP-Spezifikation, sodass Claude jedes Detail versteht
 2. **Best Practices sind bereits enthalten** — Tool-Namensgebung, Fehlerbehandlung und Paginierungsmuster sind alle vorab konfiguriert
 3. **Framework-spezifische Anleitungen** — Optimierte Vorlagen für TypeScript und Python
 4. **Erstellung von Bewertungen** — Erstellt automatisch Test-Suites für Ihren MCP-Server
@@ -50,17 +50,11 @@ Im Gegensatz zum Aufbau von Grund auf folgt der mcp-builder-Skill einem struktur
 | **Phase 2: Erstellung** | Implementiert den Server mit ordnungsgemäßer Fehlerbehandlung und Authentifizierung |
 | **Phase 3: Überprüfung** | Testet alle Tools, validiert Antworten, überprüft Randfälle |
 | **Phase 4: Bewertung** | Erstellt automatisierte Bewertungen, um die Qualität zu überprüfen |
-## Erste Schritte: Erstellen Sie Ihren ersten MCP-Server
+## Mit einer soliden Basis starten
 
-### Schritt 1: Installieren Sie die Fähigkeit
+### Den Skill installieren
 
-Stellen Sie zunächst sicher, dass die Killer-Skills-CLI installiert ist:
-
-```bash
-npm install -g killer-skills
-```
-
-Fügen Sie dann die mcp-builder-Fähigkeit Ihrem Projekt hinzu:
+Sie brauchen keine globale CLI-Installation. Fügen Sie die mcp-builder-Fähigkeit direkt mit `npx` hinzu:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
@@ -68,7 +62,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 Die Fähigkeit wird Ihrem `.claude/skills/`-Verzeichnis hinzugefügt und automatisch aktiviert, wenn Claude MCP-Server-Entwicklungsaufgaben erkennt.
 
-### Schritt 2: Wählen Sie Ihren Stack
+### Den Stack auswählen
 
 Die mcp-builder-Fähigkeit unterstützt zwei primäre Stacks:
 
@@ -91,7 +85,7 @@ pip install mcp pydantic
 
 Python ist eine gute Wahl, wenn Ihr Team bereits Python verwendet oder wenn Sie mit Python-lastigen APIs integrieren.
 
-### Schritt 3: Definieren Sie Ihre Tools
+### Die Tools definieren
 
 Der Schlüssel zu einem großartigen MCP-Server sind gut entworfene Tools. Hier ist ein Template:
 
@@ -126,7 +120,7 @@ server.tool(
 );
 ```
 
-### Schritt 4: Implementieren Sie Best Practices
+### Wichtige Muster sauber umsetzen
 
 Die mcp-builder-Fähigkeit erzwingt mehrere kritische Muster:
 
@@ -218,10 +212,10 @@ Die mcp-builder-Fähigkeit generiert automatisierte Bewertungen, die testen:
 - **Reale Szenarien** — Mehrschrittige Workflows, die Tools zusammenketten
 ## Installation über Killer-Skills
 
-Der schnellste Weg, loszulegen, ist über den Killer-Skills-Marktplatz:
+Der schnellste Weg, loszulegen, führt über das Killer-Skills-Verzeichnis:
 
 ```bash
-# Browse die offiziellen Skills
+# Offizielle Skills durchsuchen
 npx killer-skills search mcp
 
 # Installiere mcp-builder
@@ -247,7 +241,7 @@ Die Zukunft der KI-Entwicklung besteht nicht darin, mehr Code zu schreiben – s
 
 ---
 
-*Möchten Sie weitere Skills erkunden? Durchstöbern Sie den [Killer-Skills Marketplace](https://killer-skills.com/de/skills), um Hunderte von verifizierten Agent Skills für Ihren KI-Coding-Workflow zu entdecken.*
+*Möchten Sie weitere Skills erkunden? Durchstöbern Sie das [Killer-Skills-Skill-Verzeichnis](https://killer-skills.com/de/skills), um Hunderte von verifizierten Agent Skills für Ihren KI-Coding-Workflow zu entdecken.*
 
 ---
 

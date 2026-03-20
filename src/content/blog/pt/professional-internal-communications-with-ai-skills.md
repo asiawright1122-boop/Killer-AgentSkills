@@ -62,7 +62,7 @@ Redija newsletters mensais "All-Hands" que destacam as conquistas da equipe, nov
 
 A habilidade `internal-comms` é sua arma secreta para visibilidade profissional. Garante que seu trabalho não seja apenas feito, mas **comunicado de forma eficaz** para as pessoas que importam.
 
-Instale a habilidade [internal-comms](https://killer-skills.com/pt/skills/anthropics/skills/internal-comms) do Marketplace Killer-Skills e comece a falar a linguagem da liderança.
+Instale a habilidade [internal-comms](https://killer-skills.com/pt/skills/anthropics/skills/internal-comms) no diretório de skills do Killer-Skills e comece a falar a linguagem da liderança.
 
 ---
 

@@ -20,7 +20,7 @@ Desde que o OpenClaw pode se conectar ao WhatsApp, Telegram e Discord, você pod
 
 -   **Caso de Exemplo**: Enquanto você estiver em uma reunião ou fora, o OpenClaw pode lidar com mensagens de entrada de diferentes canais em segundo plano, realizar consultas simples ou enviar resumos em canais específicos quando questões urgentes são detectadas.
 -   **🌟 Habilidades Recomendadas**:
-    -   [`humanizer`](/pt/blog/humanizer-skill): Torna as respostas de IA mais realistas e humanas, evitando uma sensação robótica.
+    -   [`humanizer`](/pt/skills/minhtungo/ai-agents-factory/humanizer): Torna as respostas de IA mais realistas e humanas, evitando uma sensação robótica.
     -   [`internal-comms`](/pt/blog/professional-internal-communications-with-ai-skills): Resumos de mensagens profissionais e formatos de relatórios.
 -   **Palavras-chave**: IA em todas as plataformas, automação de mensagens.
 ## 2. Gestão de Ficheiros e Automação Contínua
@@ -58,8 +58,8 @@ Esta é a funcionalidade mais inovadora do OpenClaw. Quando não consegue comple
 
 -   **Caso de Exemplo**: Se você descobrir que o OpenClaw não suporta nativamente o processamento de fórmulas complexas do Excel, basta usar o **Killer-Skills CLI**:
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     Em apenas alguns segundos, seu OpenClaw adquire [habilidades profissionais de automação do Excel](/pt/blog/mastering-excel-automation-with-xlsx-skills).
 ## Conclusão

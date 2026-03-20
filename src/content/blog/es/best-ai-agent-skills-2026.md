@@ -11,18 +11,18 @@ heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=256
 ---
 # Las mejores habilidades de agente de IA que puedes instalar ahora mismo
 
-**Las habilidades de agente de IA** son módulos de instrucciones especializados y listos para usar que brindan a los asistentes de codificación (como Claude Code, Cursor y ContinueWindsurf) el contexto y las capacidades para ejecutar de forma autónoma flujos de trabajo complejos. Según datos recientes del registro Killer-Skills, los desarrolladores que utilizan habilidades de agente específicas reportan un ahorro promedio de 12.5 horas por semana en tareas repetitivas de formato, pruebas y documentación.
+**Las habilidades de agente de IA** son módulos de instrucciones especializados y listos para usar que brindan a los asistentes de codificación (como Claude Code, Cursor y Windsurf) el contexto y las capacidades para ejecutar de forma autónoma flujos de trabajo complejos. Según datos recientes del registro Killer-Skills, los desarrolladores que utilizan habilidades de agente específicas reportan un ahorro promedio de 12.5 horas por semana en tareas repetitivas de formato, pruebas y documentación.
 
 > **Conclusiones clave**
 > - **Automatización de documentos**: Habilidades como `docx` y `xlsx` automatizan la generación de informes, ahorrando horas de entrada manual de datos.
 > - **Diseño visual y de interfaz de usuario**: La habilidad `frontend-design` permite a los agentes generar componentes de interfaz de usuario responsivos listos para producción.
 > - **Herramientas para desarrolladores**: Estandariza la creación de servidores y las pruebas de interfaz de usuario con habilidades de configuración cero como `mcp-builder`.
-> - **Compatibilidad universal**: Instala habilidades en más de 15 IDEs a nivel global usando `npx killer-skills add <skill>`.
+> - **Compatibilidad universal**: Instala habilidades en 19+ IDEs a nivel global usando `npx killer-skills add owner/repo`.
 ## ¿Qué es una habilidad de agente de IA?
 
 Una **habilidad de agente de IA** es un protocolo de instrucciones especializado que enseña a asistentes de codificación—como Cursor, Windsurf o Claude Code—a ejecutar flujos de trabajo complejos y multi-etapa de forma autónoma. Al instalar estos módulos plug-and-play, los desarrolladores dotan a sus agentes de IA del contexto específico y el conjunto de herramientas necesarios para realizar tareas especializadas sin necesidad de indicaciones constantes.
 
-Mantenemos un directorio con más de 1,000 habilidades de agente y usamos docenas de ellas a diario. Algunas son excelentes. Muchas son mediocres. Unas pocas cambiaron nuestra forma de trabajar.
+Mantenemos un directorio con más de 2,500 habilidades de agente y usamos docenas de ellas a diario. Algunas son excelentes. Muchas son mediocres. Unas pocas cambiaron nuestra forma de trabajar.
 
 Esta es la lista que nos hubiera gustado que nos dieran cuando empezamos. Cada habilidad aquí ha sido probada en proyectos reales, no solo leída por encima.
 ## Automatización de documentos
@@ -111,7 +111,7 @@ Basado en la guía de Wikipedia "Signos de escritura de IA", esta habilidad iden
 Lo instalamos globalmente. Todo el contenido que producimos pasa por él. La diferencia es notable.
 
 ```bash
-npx killer-skills add blader/humanizer
+npx killer-skills add minhtungo/ai-agents-factory/humanizer
 ```
 
 ### internal-comms — Comunicaciones internas
@@ -156,13 +156,13 @@ Todas las habilidades utilizan el mismo comando:
 
 ```bash
 # Instalar en tu proyecto
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 
 # Ver qué está disponible
 npx killer-skills search pdf
 ```
 
-Explora la colección completa en [killer-skills.com/en/skills](/en/skills).
+Explora la colección completa en [killer-skills.com/es/skills](/es/skills).
 
 ---
 ## Preguntas Frecuentes
@@ -171,7 +171,7 @@ Explora la colección completa en [killer-skills.com/en/skills](/en/skills).
 Las **habilidades de agente de IA** son conjuntos de instrucciones y herramientas especializadas que enseñan a asistentes de codificación como Cursor y Claude Code a realizar tareas específicas, como generar PDFs, construir componentes de interfaz de usuario o probar aplicaciones web.
 
 ### ¿Qué IDEs admiten estas habilidades?
-Estas habilidades son compatibles con más de 15 entornos de codificación con IA principales, incluidos Cursor, Windsurf, VS Code (a través de Copilot o Cline), Trae y Claude Code CLI.
+Estas habilidades son compatibles con 19+ entornos de codificación con IA principales, incluidos Cursor, Windsurf, VS Code (a través de Copilot o Cline), Trae y Claude Code CLI.
 
 ### ¿Cuánto tiempo ahorran las habilidades de agente?
 Aunque los resultados varían según la tarea, los desarrolladores que utilizan habilidades de agente específicas reportan un ahorro promedio de 12.5 horas por semana en tareas rutinarias de desarrollo e informes.
@@ -194,7 +194,7 @@ Aunque los resultados varían según la tarea, los desarrolladores que utilizan 
       "name": "Which IDEs support these skills?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "These skills are compatible with over 15 major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
+        "text": "These skills are compatible with 19+ major AI coding environments, including Cursor, Windsurf, VS Code (via Copilot or Cline), Trae, and Claude Code CLI."
       }
     },
     {

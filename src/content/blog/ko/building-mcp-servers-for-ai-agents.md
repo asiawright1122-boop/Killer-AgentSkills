@@ -54,7 +54,7 @@ MCP 이전에는 모든 AI 통합이 사용자 정의된 조각조각난 "해킹
 
 `mcp-builder` 스킬은 AI 추론과 실제 실행 사이의 격차를 메우려는 모든 개발자에게 필수적입니다. 이러한 검증된 패턴을 따라서 실제로 "작동"하는 도구를 넘어서 AI 에이전트가 더욱 생산적일 수 있도록 해주는 도구를 구축할 수 있습니다.
 
-구축을 시작하려면 [Killer-Skills Marketplace](https://killer-skills.com/ko/skills/anthropics/skills/mcp-builder)의 전체 문서를 확인하세요.
+구축을 시작할 준비가 되었다면 Killer-Skills 레지스트리의 [mcp-builder 스킬](https://killer-skills.com/ko/skills/anthropics/skills/mcp-builder) 전체 문서를 확인하세요.
 
 ---
 

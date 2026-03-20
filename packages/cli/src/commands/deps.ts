@@ -32,7 +32,7 @@ export const depsCommand = new Command('deps')
                 const skill = findSkill(skillName);
                 if (!skill) {
                     spinner.fail(chalk.red(`Skill not found: ${skillName}`));
-                    console.log(chalk.dim('\nRun `killer list` to see installed skills'));
+                    console.log(chalk.dim('\nRun `npx killer-skills list` to see installed skills'));
                     process.exit(1);
                 }
 
@@ -103,7 +103,7 @@ export const depsCommand = new Command('deps')
 
                 if (unsatisfied.length > 0) {
                     console.log(chalk.yellow(`\n⚠️  ${unsatisfied.length} skill(s) have missing dependencies`));
-                    console.log(chalk.dim('\nCheck specific skill: killer deps <skill-name>'));
+                    console.log(chalk.dim('\nCheck specific skill: npx killer-skills deps <skill-name>'));
                 } else {
                     console.log(chalk.green('\n✅ All skill dependencies satisfied!'));
                 }
@@ -111,7 +111,7 @@ export const depsCommand = new Command('deps')
 
             // Install missing deps option
             if (options.install) {
-                console.log(chalk.dim('\n💡 Install missing dependencies: killer install <skill-name>'));
+                console.log(chalk.dim('\n💡 Install missing dependencies: npx killer-skills add <skill-name>'));
             }
 
         } catch (error) {

@@ -41,7 +41,7 @@ export const publishCommand = new Command('publish')
             if (!await fs.pathExists(skillMdPath)) {
                 spinner.fail(chalk.red('No SKILL.md found'));
                 console.log(chalk.dim(`\nExpected: ${skillMdPath}`));
-                console.log(chalk.dim('Create a skill first: killer create <name>'));
+                console.log(chalk.dim('Create a skill first: npx killer-skills create <name>'));
                 process.exit(1);
             }
 
@@ -158,7 +158,7 @@ ${meta.description}
 ## Installation
 
 \`\`\`bash
-npx killer-skills install ${meta.name}
+npx killer-skills add ${meta.name}
 \`\`\`
 
 ## Usage
@@ -187,12 +187,12 @@ MIT
                 console.log(chalk.cyan('  2. Add remote: git remote add origin <your-repo-url>'));
                 console.log(chalk.cyan('  3. Push: git push -u origin main'));
                 console.log(chalk.dim('\nThen users can install with:'));
-                console.log(chalk.cyan(`  killer install <your-username>/${meta.name}`));
+                console.log(chalk.cyan(`  npx killer-skills add <your-username>/${meta.name}`));
             } else {
                 // Registry publication info
                 console.log(chalk.green('\n✅ Skill is ready to publish!'));
                 console.log(chalk.dim('\nTo publish to GitHub:'));
-                console.log(chalk.cyan(`  killer publish ${skillPath} --github`));
+                console.log(chalk.cyan(`  npx killer-skills publish ${skillPath} --github`));
                 console.log(chalk.dim('\nTo submit to the official registry:'));
                 console.log(chalk.cyan('  Visit: https://github.com/your-org/killer-skills/issues/new'));
             }

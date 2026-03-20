@@ -60,7 +60,7 @@ Playwrightを使用して、エージェントは複雑な視覚的および機�
 
 `webapp-testing` スキルは、プロフェッショナル開発の最後のピースです。エージェントが書く美しいコードが **信頼性の高いコード** であることを保証します。自動化された QA をエージェントのワークフローに組み込むことで、完全な自信を持って出荷できるようになります。
 
-[Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing) に移動して、今日から堅牢なフロントエンドを構築しましょう。
+Killer-Skills のスキル一覧で [webapp-testing スキル](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing) をチェックして、堅牢なフロントエンド開発を今日から始めましょう。
 
 ---
 

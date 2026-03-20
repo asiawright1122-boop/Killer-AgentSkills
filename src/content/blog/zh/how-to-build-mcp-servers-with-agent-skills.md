@@ -21,7 +21,7 @@ heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-在本指南中，您将学习关于构建 MCP 服务器所需的所有知识 —— 从理解协议到部署您的第一个服务器。
+真正值得先做的，不是照着长清单往下抄，而是先定义好要暴露哪些能力、怎样描述工具，以及服务上线后要守住哪些边界。
 ## 什么是MCP服务器？
 
 MCP服务器是一种标准化服务，向AI代理提供工具、资源和提示。可以把它看作是您AI助手和真实世界之间的桥梁——数据库、API、文件系统、云服务等。
@@ -53,15 +53,9 @@ MCP服务器是一种标准化服务，向AI代理提供工具、资源和提示
 | **阶段 4: 评估** | 创建自动评估以验证质量 |
 ## 快速入门：构建你的第一个 MCP 服务器
 
-### 步骤 1：安装技能
+### 安装技能
 
-首先，确保已安装 Killer-Skills CLI：
-
-```bash
-npm install -g killer-skills
-```
-
-然后将 mcp-builder 技能添加到你的项目中：
+你不需要全局安装 CLI，直接通过 `npx` 添加 mcp-builder 技能即可：
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
@@ -69,7 +63,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 该技能将被添加到你的 `.claude/skills/` 目录中，并在 Claude 检测到 MCP 服务器开发任务时自动激活。
 
-### 步骤 2：选择技术栈
+### 选择技术栈
 
 mcp-builder 技能支持两种主要技术栈：
 
@@ -92,7 +86,7 @@ pip install mcp pydantic
 
 如果你的团队已使用 Python 或需要与 Python 密集的 API 集成，Python 是个不错的选择。
 
-### 步骤 3：定义你的工具
+### 定义你的工具
 
 优秀 MCP 服务器的关键在于精心设计的工具。以下是一个模板：
 
@@ -127,7 +121,7 @@ server.tool(
 );
 ```
 
-### 步骤 4：实施最佳实践
+### 落实关键模式
 
 mcp-builder 技能强制实施几个关键模式：
 
@@ -219,7 +213,7 @@ mcp-builder 技能生成的自动化评估可测试：
 - **真实场景** — 将多个工具串联在一起的多步骤工作流
 ## 通过 Killer-Skills 安装
 
-通过 Killer-Skills 市场是开始使用的最快方式：
+通过 Killer-Skills 技能目录开始使用是最快的方式：
 
 ```bash
 # 浏览官方技能
@@ -248,7 +242,7 @@ AI 开发的未来不在于编写更多代码，而在于为 AI 代理提供合�
 
 ---
 
-*想探索更多技能？浏览 [Killer-Skills 技能市场](https://killer-skills.com/zh/skills)，为您的 AI 编程工作流发现数百种经过验证的智能体技能。*
+*想探索更多技能？浏览 [Killer-Skills 技能目录](https://killer-skills.com/zh/skills)，为您的 AI 编程工作流发现数百种经过验证的智能体技能。*
 
 ---
 

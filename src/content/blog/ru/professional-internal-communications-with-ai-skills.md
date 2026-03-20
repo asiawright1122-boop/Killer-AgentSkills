@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/internal-comms
 
 Навык `internal-comms` - это ваш секретный ключ к профессиональной видимости. Он гарантирует, что ваша работа не только выполнена, но и **эффективно передана** тем, кто имеет значение.
 
-Установите навык [internal-comms](https://killer-skills.com/ru/skills/anthropics/skills/internal-comms) из Killer-Skills Marketplace и начните говорить на языке лидерства.
+Установите навык [internal-comms](https://killer-skills.com/ru/skills/anthropics/skills/internal-comms) из каталога навыков Killer-Skills и начните говорить на языке лидерства.
 
 ---
 

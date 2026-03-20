@@ -21,7 +21,7 @@ That's exactly what **MCP servers** (Model Context Protocol) make possible. And 
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-In this guide, you'll learn everything you need to know about building MCP servers — from understanding the protocol to deploying your first server.
+A strong MCP server starts with choosing the right capabilities, tool contracts, and safety boundaries before you write implementation code.
 
 ## What Is an MCP Server?
 
@@ -54,17 +54,11 @@ Unlike building from scratch, the mcp-builder skill follows a structured 4-phase
 | **Phase 3: Review** | Tests all tools, validates responses, checks edge cases |
 | **Phase 4: Evaluate** | Creates automated evaluations to verify quality |
 
-## Getting Started: Build Your First MCP Server
+## Start with the practical decisions
 
-### Step 1: Install the Skill
+### Install the skill
 
-First, make sure you have the Killer-Skills CLI installed:
-
-```bash
-npm install -g killer-skills
-```
-
-Then add the mcp-builder skill to your project:
+You do not need a global CLI install. Add the mcp-builder skill directly with `npx`:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
@@ -72,7 +66,7 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
 
-### Step 2: Choose Your Stack
+### Choose your stack
 
 The mcp-builder skill supports two primary stacks:
 
@@ -95,7 +89,7 @@ pip install mcp pydantic
 
 Python is a great choice if your team already uses Python or you're integrating with Python-heavy APIs.
 
-### Step 3: Define Your Tools
+### Define your tools
 
 The key to a great MCP server is well-designed tools. Here's a template:
 
@@ -130,7 +124,7 @@ server.tool(
 );
 ```
 
-### Step 4: Implement Best Practices
+### Apply the patterns that matter
 
 The mcp-builder skill enforces several critical patterns:
 
@@ -225,7 +219,7 @@ The mcp-builder skill generates automated evaluations that test:
 
 ## Installing via Killer-Skills
 
-The fastest way to get started is through the Killer-Skills marketplace:
+The fastest way to get started is through the Killer-Skills directory:
 
 ```bash
 # Browse the official skills
@@ -255,7 +249,7 @@ The future of AI development isn't about writing more code — it's about giving
 
 ---
 
-*Want to explore more skills? Browse the [Killer-Skills Marketplace](https://killer-skills.com/en/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
+*Want to explore more skills? Browse the [Killer-Skills Skills Directory](https://killer-skills.com/en/skills) to discover hundreds of verified Agent Skills for your AI coding workflow.*
 
 ---
 

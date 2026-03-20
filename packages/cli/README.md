@@ -15,7 +15,7 @@
 - ⚡ **Auto-Invoke** - Installed skills can be **auto-invoked** by AI Agents via natural language without manual commands.
 - 🔐 **Seamless GitHub Auth** - Reuses `gh` CLI token or supports one-click Device Flow login.
 - 🔍 **Smart Search** - **[NEW]** Website-First search with interactive selection & auto-open docs.
-- 🔄 **One-Click Sync** - `kiro sync --all` syncs skills to all installed IDEs.
+- 🔄 **One-Click Sync** - `npx killer-skills sync --all` syncs skills to all installed IDEs.
 - 🔌 **Auto-Inject MCP** - **[NEW]** Automatically parses and wires up `mcpCommand` parameters from MCP servers into `claude_desktop_config.json`.
 
 ### Supported IDEs
@@ -38,13 +38,13 @@ Killer-Skills dynamically detects and configures IDEs based on its internal conf
 | **Kiro (AWS)** | `.kiro/agents/skills.md` (JSON) | ✅ Perfect |
 | **Aider, Codex, OpenCode, Amazon Q** | `AGENTS.md` | ✅ Supported |
 
-*New IDEs are added regularly. Run `kiro completion` to see the latest list.*
+*New IDEs are added regularly. Run `npx killer-skills completion zsh` to see the latest list.*
 
 ### Quick Start
 
 ```bash
 # Using npx (Recommended)
-npx killer-skills install <skill-or-repo>
+npx killer-skills add <owner/repo>
 
 # Or install globally
 npm install -g killer-skills
@@ -56,14 +56,14 @@ For higher API limits and better code search, logging into GitHub is recommended
 
 ```bash
 # Method 1: Reuse gh CLI (Zero Config)
-# If GitHub CLI is installed, killer uses its token automatically.
+# If GitHub CLI is installed, Killer-Skills uses its token automatically.
 
 # Method 2: One-Click Login (Device Flow)
-kiro login
+npx killer-skills login
 # -> Opens browser for authorization
 
 # Method 3: Manual Setup
-kiro config githubToken ghp_xxxx
+npx killer-skills config githubToken ghp_xxxx
 ```
 
 ### 📦 Installation & Usage
@@ -72,13 +72,13 @@ kiro config githubToken ghp_xxxx
 
 ```bash
 # Interactive Install (Recommended)
-kiro install pdf
-# -> 1. Searches Official Website API first
+npx killer-skills add pdf
+# -> 1. Searches official website API first
 # -> 2. Shows interactive selection menu
 # -> 3. Auto-opens website docs & installs skill
 
 # Install from GitHub
-kiro install anthropics/killer-skills
+npx killer-skills add anthropics/skills
 
 # Skills auto-sync to detected IDEs upon installation.
 # Your AI Agent can now use this skill via natural language!
@@ -100,7 +100,7 @@ If you use multiple IDEs:
 
 ```bash
 # Sync installed skills to all supported IDEs
-kiro sync --all
+npx killer-skills sync --all
 ```
 
 ### Command Reference
@@ -108,23 +108,23 @@ kiro sync --all
 | Command | Description | Example |
 |---------|-------------|---------|
 | `install`/`add` | Install Skill | `npx killer-skills add pdf` |
-| `login` | **[NEW]** GitHub Login | `kiro login` |
-| `sync` | Sync Config | `kiro sync --all` |
-| `list` | List Installed | `kiro list` |
-| `search` | Search Skills | `kiro search react` |
-| `create` | Create Skill | `kiro create my-skill` |
-| `read` | Read Content | `kiro read pdf` |
-| `do` | NL Execution | `kiro do "Process PDF"` |
-| `manage` | Interactive Mode | `kiro manage` |
-| `publish` | Publish Skill | `kiro publish .` |
-| `init` | Init Project | `kiro init` |
-| `config` | Manage Config | `kiro config` |
-| `completion` | Shell Completion | `kiro completion zsh` |
-| `stats` | Usage Stats | `kiro stats` |
+| `login` | **[NEW]** GitHub Login | `npx killer-skills login` |
+| `sync` | Sync Config | `npx killer-skills sync --all` |
+| `list` | List Installed | `npx killer-skills list` |
+| `search` | Search Skills | `npx killer-skills search react` |
+| `create` | Create Skill | `npx killer-skills create my-skill` |
+| `read` | Read Content | `npx killer-skills read pdf` |
+| `do` | NL Execution | `npx killer-skills do "Process PDF"` |
+| `manage` | Interactive Mode | `npx killer-skills manage` |
+| `publish` | Publish Skill | `npx killer-skills publish .` |
+| `init` | Init Project | `npx killer-skills init` |
+| `config` | Manage Config | `npx killer-skills config` |
+| `completion` | Shell Completion | `npx killer-skills completion zsh` |
+| `stats` | Usage Stats | `npx killer-skills stats` |
 
 ### 🔌 MCP Server
 
-Start the built-in MCP Server to allow AI Agents to self-install skills:
+Start the built-in MCP server to expose skill install, search, and read tools to compatible AI clients:
 
 ```bash
 npx killer-skills-mcp

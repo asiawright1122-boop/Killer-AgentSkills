@@ -17,8 +17,8 @@ describe('normalizeCategoryId', () => {
 
 describe('getCategorySeoDescription', () => {
   it('returns localized fallback descriptions', () => {
-    expect(getCategorySeoDescription('developer', 'en')).toContain('developer tool MCP servers');
-    expect(getCategorySeoDescription('developer', 'zh')).toContain('开发工具 MCP Server');
+    expect(getCategorySeoDescription('developer', 'en')).toContain('developer tool skills');
+    expect(getCategorySeoDescription('developer', 'zh')).toContain('开发工具技能');
   });
 });
 

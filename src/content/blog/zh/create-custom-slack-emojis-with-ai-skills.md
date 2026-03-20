@@ -64,7 +64,7 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 
 `slack-gif-creator` 技能是技术优化和创意自由的完美结合。它将您的 AI 代理转变为一名数字艺术家，理解现代工作场所沟通的“规则”。
 
-前往 [Killer-Skills Marketplace](https://killer-skills.com/zh/skills/anthropics/skills/slack-gif-creator) 开始使用。
+前往 Killer-Skills 技能目录查看 [slack-gif-creator 技能](https://killer-skills.com/zh/skills/anthropics/skills/slack-gif-creator)，即可开始使用。
 
 ---
 

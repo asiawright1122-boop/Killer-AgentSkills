@@ -65,7 +65,7 @@ Crie um portfólio no estilo de revista que utilize padrões "Art Déco Geométr
 
 A habilidade `frontend-design` é a diferença entre um site que parece "produzido por IA" e um que parece "desenhado por uma agência de classe mundial". Ela garante que a saída do frontend não seja apenas funcional, mas **ressonante emocionalmente**.
 
-Confira a habilidade [frontend-design](https://killer-skills.com/pt/skills/anthropics/skills/frontend-design) no Marketplace Killer-Skills hoje e comece a construir o futuro da web.
+Confira a habilidade [frontend-design](https://killer-skills.com/pt/skills/anthropics/skills/frontend-design) no diretório de skills do Killer-Skills e comece a construir o futuro da web.
 
 ---
 

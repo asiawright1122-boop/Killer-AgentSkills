@@ -26,8 +26,8 @@ const pageTitle = isZh
   ? 'AI Agent Skills CLI：安装、同步与自动化工作流指南'
   : 'AI Agent Skills CLI for Install, Sync & Automation Workflows';
 const pageDescription = isZh
-  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、配置并同步 AI Agent Skills，支持流程自动化与模板化执行，无需全局安装。'
-  : 'Use the Killer-Skills CLI to install, configure, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.';
+  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、管理和同步 AI Agent Skills，支持流程自动化与模板化执行，无需全局安装。'
+  : 'Use the Killer-Skills CLI to install, manage, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.';
 const pageKeywords = buildKeywordString(
   typedLocale,
   'cli',
@@ -76,27 +76,20 @@ const getDocContent = (slug: string) => {
   return page?.content[typedLocale] || page?.content['en'] || '';
 };
 
-const normalizeCliDocHtml = (html: string) =>
-  html
-    .replaceAll('npx killer-skills install <skill-name>', installInstruction)
-    .replaceAll('npx killer-skills install <skill>', installInstruction)
-    .replaceAll('npx killer-skills install &lt;skill-name&gt;', installInstruction)
-    .replaceAll('npx killer-skills install &lt;skill&gt;', installInstruction);
-
-const commandsContent = normalizeCliDocHtml(getDocContent('cli/commands'));
+const commandsContent = getDocContent('cli/commands');
 const configContent = getDocContent('cli/configuration');
 const faqItems = [
   {
     question: isZh ? 'Killer-Skills CLI 是什么？' : 'What is the Killer-Skills CLI?',
     answer: isZh
-      ? '它是一个通用命令行工具，用来在 15+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。'
-      : 'It is a universal command-line tool for installing, syncing, and managing AI agent skills across 15+ IDEs and AI coding assistants.',
+      ? '它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。'
+      : 'It is a skills-first CLI for installing, syncing, and managing AI agent skills across 19+ IDEs and AI coding assistants.',
   },
   {
     question: isZh ? '如何用 CLI 安装一个技能？' : 'How do I install a skill with the CLI?',
     answer: isZh
-      ? `在终端运行 \`${installInstruction}\`。CLI 会自动识别你的 IDE，并生成对应的技能文件。`
-      : `Run \`${installInstruction}\` in your terminal. The CLI detects your IDE automatically and writes the correct skill file.`,
+      ? `在终端运行 \`${installInstruction}\`。CLI 会自动识别你的 IDE，并写入正确的 IDE 原生技能文件。`
+      : `Run \`${installInstruction}\` in your terminal. The CLI detects your IDE automatically and writes the correct IDE-native skill file.`,
   },
   {
     question: isZh ? '需要全局安装 CLI 吗？' : 'Do I need to install the CLI globally?',
@@ -107,8 +100,8 @@ const faqItems = [
   {
     question: isZh ? 'CLI 支持哪些 IDE？' : 'Which IDEs does the CLI support?',
     answer: isZh
-      ? 'CLI 支持 Cursor、Claude Code、VS Code、Windsurf、JetBrains，以及其他 15+ IDE 和代理环境。'
-      : 'The CLI supports Cursor, Claude Code, VS Code, Windsurf, JetBrains, and 15+ other IDE and agent environments.',
+      ? 'CLI 支持 Cursor、Claude Code、VS Code、Windsurf、JetBrains，以及其他 19+ IDE 和代理环境。'
+      : 'The CLI supports Cursor, Claude Code, VS Code, Windsurf, JetBrains, and 19+ other IDE and agent environments.',
   },
 ];
 ---
@@ -378,12 +371,12 @@ const faqItems = [
                 >~/projects/my-agent</span
               >
               <span class="text-[var(--foreground)] font-black">$</span>
-              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">killer login</span>
+              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">npx killer-skills add anthropics/skills/pdf</span>
               <div class="mt-3 pl-4 border-l-4 border-emerald-900 dark:border-emerald-400 bg-emerald-500/5 py-2">
                 <span class="text-emerald-900 dark:text-emerald-400 font-black uppercase tracking-tighter"
-                  >LOGIN_SUCCESS</span
+                  >INSTALL_READY</span
                 >
-                <span class="text-[var(--foreground)] font-bold ml-2">:: authenticated via github flow</span>
+                <span class="text-[var(--foreground)] font-bold ml-2">:: detected IDE target and prepared IDE-native skill file</span>
               </div>
             </div>
 
@@ -391,9 +384,9 @@ const faqItems = [
               <span class="text-emerald-900 dark:text-emerald-400 font-black">➜</span>
               <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span>
               <span class="text-[var(--foreground)] font-black">$</span>
-              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">killer sync --all</span>
+              <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight">npx killer-skills sync</span>
               <div class="mt-4 text-[var(--foreground)] font-black italic tracking-widest text-[10px] uppercase">
-                [INIT] detecting ide environments...
+                [INIT] checking installed skill targets...
               </div>
               <div class="space-y-2.5 mt-4">
                 <div class="flex items-center gap-3">
@@ -420,7 +413,7 @@ const faqItems = [
                 <span class="text-emerald-900 dark:text-emerald-400 font-black tracking-tighter uppercase text-base"
                   >21_SKILLS_SYNCED</span
                 >
-                <span class="text-[var(--foreground)] font-bold ml-2 text-xs">to 4 targets</span>
+                <span class="text-[var(--foreground)] font-bold ml-2 text-xs">across detected IDE targets</span>
               </div>
             </div>
 
@@ -429,7 +422,7 @@ const faqItems = [
               <span class="text-[var(--foreground)] font-black">~/projects/my-agent</span>
               <span class="text-[var(--foreground)] font-black">$</span>
               <span class="text-[var(--foreground)] font-black ml-2 uppercase tracking-tight"
-                >killer do "generate pdf"</span
+                >npx killer-skills do "generate pdf"</span
               >
               <div
                 class="mt-4 p-4 border-2 border-dashed border-purple-900 dark:border-purple-400 bg-purple-500/5 flex items-center gap-4"

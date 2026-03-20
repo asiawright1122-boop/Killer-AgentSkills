@@ -142,11 +142,11 @@ export const outdatedCommand = new Command('outdated')
 
             // Summary and next steps
             if (outdated.length > 0) {
-                console.log(chalk.yellow(`\n💡 Run ${chalk.cyan('killer update')} to update all skills`));
-                console.log(chalk.dim(`   Or: killer update ${outdated.map(s => s.name).join(' ')}`));
+                console.log(chalk.yellow(`\n💡 Run ${chalk.cyan('npx killer-skills update')} to update all skills`));
+                console.log(chalk.dim(`   Or: npx killer-skills update ${outdated.map(s => s.name).join(' ')}`));
             } else if (unknown.length === results.length) {
                 console.log(chalk.dim('\n💡 Re-install skills to enable update tracking:'));
-                console.log(chalk.cyan('   killer install <skill-name>'));
+                console.log(chalk.cyan('   npx killer-skills add <skill-name>'));
             } else {
                 console.log(chalk.green('\n✅ All skills are up to date!'));
             }

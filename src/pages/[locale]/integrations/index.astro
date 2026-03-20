@@ -24,8 +24,8 @@ const pageTitle = isZh
   ? 'Cursor、Claude Code、VS Code 自动化工作流技能兼容与安装指南'
   : 'Cursor, Claude Code & VS Code AI Skill Setup for Automation Workflows';
 const pageDescription = isZh
-  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 15+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills，落地工作流自动化与流程自动化。'
-  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 15+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.';
+  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 19+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills，落地工作流自动化与流程自动化。'
+  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 19+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.';
 const pageKeywords = buildKeywordString(
   typedLocale,
   'core',
@@ -67,8 +67,8 @@ const integrations = [
 ];
 const heroTitle = isZh ? '你的 IDE 已经支持 AI Agent Skills' : 'Your IDE Already Supports AI Agent Skills';
 const heroIntro = isZh
-  ? '如果你在找“Cursor skills”“Claude Code skills”或“VS Code agent skills”，这里就是兼容性总览页。Killer-Skills 会自动识别 IDE 并写入正确格式。'
-  : 'If you are searching for Cursor skills, Claude Code skills, or VS Code agent skills, this page is the compatibility overview. Killer-Skills auto-detects your IDE and writes the correct native format.';
+  ? '如果你在找“Cursor skills”“Claude Code skills”或“VS Code agent skills”，这里就是技能优先的兼容性总览页。Killer-Skills 会自动识别 IDE 并写入正确的 IDE 原生技能格式。'
+  : 'If you are searching for Cursor skills, Claude Code skills, or VS Code agent skills, this page is the skills-first compatibility overview. Killer-Skills auto-detects your IDE and writes the correct IDE-native skill format.';
 const intentLinks = [
   {
     title: isZh ? '安装 AI Agent Skills' : 'Install AI Agent Skills',
@@ -76,7 +76,7 @@ const intentLinks = [
     href: `/${locale}/docs/installation`,
   },
   {
-    title: isZh ? 'Cursor / Claude Code 配置' : 'Cursor / Claude Code Setup',
+    title: isZh ? 'IDE 原生技能配置' : 'IDE-Native Skill Setup',
     description: isZh
       ? '了解不同 IDE 如何自动写入原生技能格式。'
       : 'Learn how each IDE gets its native skill format automatically.',
@@ -101,8 +101,8 @@ const faqItems = [
   {
     question: isZh ? 'Killer-Skills 支持哪些 IDE？' : 'Which IDEs does Killer-Skills support?',
     answer: isZh
-      ? 'Killer-Skills 支持 15+ AI 编程助手和 IDE，包括 Cursor、Windsurf、Claude Code、VS Code、JetBrains、Cline、Roo Code、Continue、Codex、Goose 等。'
-      : 'Killer-Skills supports 15+ AI coding assistants and IDEs, including Cursor, Windsurf, Claude Code, VS Code, JetBrains, Cline, Roo Code, Continue, Codex, and Goose.',
+      ? 'Killer-Skills 支持 19+ AI 编程助手和 IDE，包括 Cursor、Windsurf、Claude Code、VS Code、JetBrains、Trae、OpenClaw、Kiro、Augment Code、Continue、Codex、OpenCode、Goose 等。'
+      : 'Killer-Skills supports 19+ AI coding assistants and IDEs, including Cursor, Windsurf, Claude Code, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, and Goose.',
   },
   {
     question: isZh ? '如何在 IDE 中安装 AI Agent Skill？' : 'How do I install an AI agent skill in my IDE?',

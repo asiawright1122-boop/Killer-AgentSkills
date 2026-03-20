@@ -26,9 +26,9 @@ Una **habilidad de agente de IA** es un archivo markdown especializado (típicam
 
 ```text
 .claude/skills/
-  testing/SKILL.md       # how to write tests in this project
-  deployment/SKILL.md    # deployment checklist and configs
-  code-review/SKILL.md   # what to look for in reviews
+  testing/SKILL.md       # cómo escribir pruebas en este proyecto
+  deployment/SKILL.md    # checklist y configuración de despliegue
+  code-review/SKILL.md   # qué revisar en las revisiones
 ```
 
 El agente lee el archivo cuando surge el tema, luego sigue esas instrucciones en lugar de adivinar.
@@ -44,19 +44,19 @@ Aquí hay un ejemplo real, simplificado:
 ```yaml
 ---
 name: testing
-description: How to write and run tests in this project
+description: Cómo escribir y ejecutar pruebas en este proyecto
 ---
 ```
 
 ```markdown
-# Testing in this project
+# Pruebas en este proyecto
 
-We use Vitest. Run tests with `npm test`.
+Usamos Vitest. Ejecuta las pruebas con `npm test`.
 
-Rules:
-- Every new function needs at least one test
-- Mock external APIs, never call them in tests
-- Put test files next to the source: `utils.test.ts` beside `utils.ts`
+Reglas:
+- Cada función nueva necesita al menos una prueba
+- Simula APIs externas; nunca las llames en las pruebas
+- Coloca los archivos de prueba junto al código fuente: `utils.test.ts` al lado de `utils.ts`
 ```
 
 Ese es el formato completo. El agente carga este archivo, lee las instrucciones y cambia su comportamiento en consecuencia. Sin SDK, sin llamadas API, sin configuración más allá del archivo en sí.
@@ -112,7 +112,7 @@ Con el tiempo, el archivo crece a medida que añades más reglas. Algunas de nue
 
 Las habilidades aún están en una fase temprana. El formato no está estandarizado en todos los agentes, el manejo de errores es primitivo y la capacidad de descubrimiento es limitada. Pero la idea central (darle a tu asistente de IA instrucciones escritas sobre tu proyecto) llegó para quedarse.
 
-Si quieres explorar las habilidades existentes o publicar las tuyas propias, visita el [directorio de habilidades](/en/skills). Actualmente hay más de 1,000 habilidades contribuidas por la comunidad que cubren todo, desde gestión de bases de datos hasta diseño de interfaz de usuario.
+Si quieres explorar las habilidades existentes o publicar las tuyas propias, visita el [directorio de habilidades](/es/skills). Actualmente hay más de 2,500 habilidades contribuidas por la comunidad que cubren todo, desde gestión de bases de datos hasta diseño de interfaz de usuario.
 
 ---
 

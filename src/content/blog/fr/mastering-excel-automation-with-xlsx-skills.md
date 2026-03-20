@@ -61,7 +61,7 @@ Automatiser la création de dizaines de rapports de ventes localisés, chacun av
 
 Le skill `xlsx` transforme votre agent IA en un scientifique des données et un analyste financier en un seul. Il garantit que vos tableurs ne sont pas seulement des collections de chiffres, mais des outils puissants et dynamiques qui conduisent à de meilleures décisions commerciales.
 
-Découvrez le [skill xlsx](https://killer-skills.com/fr/skills/anthropics/skills/xlsx) sur le marché Killer-Skills et commencez à créer des données plus intelligentes aujourd'hui.
+Découvrez le skill [xlsx](https://killer-skills.com/fr/skills/anthropics/skills/xlsx) dans le répertoire de skills Killer-Skills et commencez à créer des données plus intelligentes dès aujourd'hui.
 
 ---
 

@@ -101,9 +101,9 @@ const checks: PageCheck[] = [
     expectJsonLd: true,
   },
   {
-    path: '/es/collections/top-agentic-ai-mcp-servers',
+    path: '/es/collections/top-agentic-ai-platforms-orchestration-tools',
     titleIncludes: 'Top',
-    canonical: 'https://killer-skills.com/en/collections/top-agentic-ai-mcp-servers',
+    canonical: 'https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools',
     expectNoindex: true,
     expectJsonLd: true,
   },

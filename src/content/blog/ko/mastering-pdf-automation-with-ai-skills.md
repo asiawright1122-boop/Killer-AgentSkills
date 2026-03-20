@@ -65,7 +65,7 @@ npx killer-skills add anthropics/skills/pdf
 
 `pdf` 스킬은 현대 개발자나 데이터 분석사에게 필수적인 도구입니다. PDF 처리의 어려움을 해소하고 진정한 자동화된 기업급 문서 파이프라인을 구축할 수 있게 해줍니다.
 
-Killer-Skills Marketplace에서 [pdf 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pdf)을 설치하고 오늘부터 자동화를 시작하세요.
+Killer-Skills 디렉터리에서 [pdf 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pdf)을 설치하고 오늘부터 자동화를 시작하세요.
 
 ---
 

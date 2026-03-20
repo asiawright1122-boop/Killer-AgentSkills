@@ -68,7 +68,7 @@ When using this skill with the Killer-Skills CLI, remember that the agent can "u
 
 The `docx` skill brings "Enterprise-Grade" professionalism to your AI workflows. It ensures that the output of your coding agent meets the highest standards of the corporate world.
 
-Get started by installing the [docx skill](https://killer-skills.com/en/skills/anthropics/skills/docx) from the Killer-Skills Marketplace today.
+Get started by installing the [docx skill](https://killer-skills.com/en/skills/anthropics/skills/docx) from the Killer-Skills directory today.
 
 *Need to handle data first? Check out our guide on the [xlsx skill](https://killer-skills.com/en/blog/mastering-excel-automation-with-xlsx-skills) for spreadsheet automation.*
 

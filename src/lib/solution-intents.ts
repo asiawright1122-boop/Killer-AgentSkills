@@ -79,14 +79,14 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
       zh: '多步骤 AI 工作流、编排链路与可复用执行模板。',
     },
     pageTitle: {
-      en: 'Workflow Automation AI Agent Skills & MCP Servers',
-      zh: '工作流自动化 AI Agent Skills 与 MCP Servers',
+      en: 'Workflow Automation AI Agent Skills',
+      zh: '工作流自动化 AI Agent Skills',
     },
     pageDescription: {
-      en: 'Discover installable AI agent skills and MCP servers for workflow automation, repeatable task chains, and multi-step execution.',
-      zh: '发现适合工作流自动化的 AI Agent Skills 与 MCP Servers，用于重复任务链路和多步骤执行。',
+      en: 'Discover installable AI agent skills for workflow automation, repeatable task chains, and multi-step execution.',
+      zh: '发现适合工作流自动化的 AI Agent Skills，用于重复任务链路和多步骤执行。',
     },
-    keywordClusters: ['workflowAutomation', 'templates', 'core', 'mcp'],
+    keywordClusters: ['workflowAutomation', 'templates', 'core'],
     fallbackCategories: ['productivity', 'developer', 'ai'],
   },
   {
@@ -109,7 +109,7 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
       en: 'Find AI agent skills for process automation, SOP handoffs, operations workflows, and team-ready execution patterns.',
       zh: '查找适合流程自动化、SOP 交接、运营流程和团队执行的 AI Agent Skills。',
     },
-    keywordClusters: ['processAutomation', 'enterpriseWorkflows', 'core', 'mcp'],
+    keywordClusters: ['processAutomation', 'enterpriseWorkflows', 'core', 'ideCompat'],
     fallbackCategories: ['productivity', 'communication', 'devops'],
   },
   {
@@ -155,7 +155,7 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
       en: 'Install AI agent skills for browser automation, web scraping workflows, and repeatable web operations.',
       zh: '安装适用于浏览器自动化、网页采集与可复用网站操作流程的 AI Agent Skills。',
     },
-    keywordClusters: ['browserAutomation', 'workflowAutomation', 'core', 'mcp'],
+    keywordClusters: ['browserAutomation', 'workflowAutomation', 'core', 'ideCompat'],
     fallbackCategories: ['browser'],
   },
   {
@@ -178,7 +178,7 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
       en: 'Explore AI agent skills for data extraction, ETL automation, and reporting workflows with structured output.',
       zh: '探索适合数据提取、ETL 自动化与报表流程的 AI Agent Skills，支持结构化结果输出。',
     },
-    keywordClusters: ['dataWorkflow', 'workflowAutomation', 'core', 'mcp'],
+    keywordClusters: ['dataWorkflow', 'workflowAutomation', 'core', 'ideCompat'],
     fallbackCategories: ['data', 'devops'],
   },
   {

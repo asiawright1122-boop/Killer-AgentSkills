@@ -113,7 +113,7 @@ All notable changes to Killer-Skills CLI will be documented in this file.
   - `killer deps <skill>` - Check specific skill
   - `killer deps --tree` - Show dependency tree
 
-- **Auto-sync option**: `killer install <source> --sync`
+- **Auto-sync option**: `killer add <source> --sync`
   - Automatically runs sync after installation
 
 - **Unit tests**: 24 test cases covering core utilities
@@ -157,10 +157,10 @@ All notable changes to Killer-Skills CLI will be documented in this file.
 ## [1.3.0] - 2026-01-31
 
 ### Added
-- **Unified install command**: Single entry point for all installation sources
-  - GitHub: `killer install owner/repo`
-  - Local: `killer install ./path` or `~/path`
-  - Registry: `killer install skill-name`
+- **Unified add command**: Single entry point for all installation sources
+  - GitHub: `killer add owner/repo`
+  - Local: `killer add ./path` or `~/path`
+  - Registry: `killer add skill-name`
 
 - **IDE-specific prompt templates**: Different formats for different IDEs
   - Claude/Antigravity: XML format (OpenSkills compatible)

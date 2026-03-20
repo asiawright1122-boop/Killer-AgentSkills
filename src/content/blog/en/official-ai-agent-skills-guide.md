@@ -12,13 +12,13 @@ heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=
 
 # The Official AI Agent Skills You Should Be Using Right Now
 
-What are the official AI agent skills, and which ones are worth installing? Official AI agent skills are curated, high-quality instruction sets maintained by the core Killer-Skills team, designed to give your AI assistants reliable and consistent capabilities across 15+ IDEs like Cursor and Windsurf.
+What are the official AI agent skills, and which ones are worth installing? Official AI agent skills are curated, high-quality instruction sets maintained by the core Killer-Skills team, designed to give your AI assistants reliable and consistent capabilities across 19+ IDEs like Cursor and Windsurf.
 
 > **Key Takeaways**
 > - **Document heavy lifting**: Skills like `pdf` and `xlsx` stop Claude from hallucinating data out of large files.
 > - **Frontend generation**: `frontend-design` forces agents to output usable, styled components instead of generic boilerplate.
 > - **Marketing & SEO**: `geo-content-optimizer` structures your content for AI overviews.
-> - **Zero setup**: All official skills are installed globally via `npx killer-skills add <skill>`.
+> - **Zero setup**: All official skills are installed globally via `npx killer-skills add owner/repo`.
 
 I talk to a lot of developers who treat their AI assistants like fancy autocomplete. They ask Cursor to "build a login page" or "read this PDF" and get frustrated when the output is generic or just wrong. 
 
@@ -72,7 +72,7 @@ Yes, all official skills are open-source and free to install via the CLI. You on
 
 You don't need all of these active at once. That would overwhelm your agent's context window. Pick the one that solves your immediate problem, install it, and see how the output changes. I usually start a new project by adding `frontend-design` and go from there.
 
-Ready to try them out? You can install any of these right now by running `npx killer-skills add <skillname>` in your terminal.
+Ready to try them out? You can install any of these right now by running `npx killer-skills add owner/repo` in your terminal.
 
 <script type="application/ld+json">
 {

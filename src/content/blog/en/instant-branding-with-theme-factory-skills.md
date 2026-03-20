@@ -64,7 +64,7 @@ For developers and product managers using AI agents to build tools like [Web Art
 
 The `theme-factory` skill transforms your AI agent from a simple coder into a brand-conscious designer. By ensuring every artifact is beautiful and consistent, it raises the bar for what AI-generated content can achieve.
 
-Check out the [theme-factory skill](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) on the Killer-Skills Marketplace today and give your projects the professional edge they deserve.
+Check out the [theme-factory skill](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) in the Killer-Skills skills directory today and give your projects the professional edge they deserve.
 
 ---
 

@@ -56,7 +56,7 @@ triggers: 技能, skills, 安装技能, 卸载技能, 搜索技能, 列出技能
 
 2. 调用搜索 API：
 ```
-https://killer-skills.vercel.app/api/skills/search?q=<关键词>
+https://killer-skills.com/api/skills/search?q=<关键词>
 ```
 
 3. 展示前 5 个结果：
@@ -78,7 +78,7 @@ https://killer-skills.vercel.app/api/skills/search?q=<关键词>
 
 2. 在终端执行安装命令：
 ```bash
-npx killer-skills install <owner/repo>
+npx killer-skills add <owner/repo>
 ```
 
 3. 监控输出，报告安装结果
@@ -93,12 +93,12 @@ npx killer-skills install <owner/repo>
 
 **执行步骤:**
 
-1. 执行卸载命令：
+1. 执行交互式管理命令：
 ```bash
-npx killer-skills remove <技能名>
+npx killer-skills manage
 ```
 
-2. 报告卸载结果
+2. 选择要移除的技能并报告结果
 
 ---
 
@@ -113,11 +113,11 @@ npx killer-skills remove <技能名>
 
 可用命令:
 • "列出技能" - 查看已安装的技能
-• "搜索 xxx" - 在市场中搜索技能  
+• "搜索 xxx" - 在目录中搜索技能
 • "安装技能 owner/repo" - 安装新技能
 • "卸载技能 xxx" - 移除技能
 
-技能市场: https://killer-skills.vercel.app
+技能目录: https://killer-skills.com
 ```
 
 ---

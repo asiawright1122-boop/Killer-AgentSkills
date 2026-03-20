@@ -349,8 +349,8 @@ export const createCommand = new Command('create')
                 console.log(`  4. Add examples to ${chalk.cyan('examples/')}`);
             }
 
-            console.log(`  ${templateType === 'minimal' ? '2' : templateType === 'standard' ? '3' : '5'}. Install locally: ${chalk.cyan(`killer install ${skillPath}`)}`);
-            console.log(`  ${templateType === 'minimal' ? '3' : templateType === 'standard' ? '4' : '6'}. Publish: ${chalk.cyan(`killer publish ${skillPath}`)}`);
+            console.log(`  ${templateType === 'minimal' ? '2' : templateType === 'standard' ? '3' : '5'}. Install locally: ${chalk.cyan(`npx killer-skills add ${skillPath}`)}`);
+            console.log(`  ${templateType === 'minimal' ? '3' : templateType === 'standard' ? '4' : '6'}. Publish: ${chalk.cyan(`npx killer-skills publish ${skillPath}`)}`);
 
         } catch (error) {
             if ((error as Error).name === 'ExitPromptError') {
@@ -377,7 +377,7 @@ async function cloneFromSkill(
     const skill = findSkill(sourceName);
     if (!skill) {
         spinner.fail(chalk.red(`Skill not found: ${sourceName}`));
-        console.log(chalk.dim('Run `killer list` to see installed skills'));
+        console.log(chalk.dim('Run `npx killer-skills list` to see installed skills'));
         process.exit(1);
     }
 

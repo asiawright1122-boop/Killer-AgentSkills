@@ -62,7 +62,7 @@ Verfassen Sie monatliche "All-Hands"-Newsletter, die Teamerfolge, neue Mitarbeit
 
 Der `internal-comms`-Skill ist Ihre geheime Waffe für professionelle Sichtbarkeit. Er stellt sicher, dass Ihre Arbeit nicht nur erledigt, sondern **effektiv kommuniziert** wird, an die Menschen, die es wissen müssen.
 
-Installieren Sie den [internal-comms-Skill](https://killer-skills.com/de/skills/anthropics/skills/internal-comms) aus dem Killer-Skills-Marktplatz und beginnen Sie, die Sprache der Führung zu sprechen.
+Installieren Sie den [internal-comms-Skill](https://killer-skills.com/de/skills/anthropics/skills/internal-comms) aus dem Killer-Skills-Verzeichnis und beginnen Sie, die Sprache der Führung zu sprechen.
 
 ---
 

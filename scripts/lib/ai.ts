@@ -109,9 +109,9 @@ export class AIService {
         if (cleaned.length > 0) return cleaned;
 
         const fallback = [
-            `${skillName} mcp server`,
+            `${skillName} ai agent skill`,
             `${skillName} automation`,
-            `${skillName} cli`
+            `${skillName} workflow tool`
         ].map((item) => sanitizeKeywordToken(item)).filter(Boolean);
 
         return Array.from(new Set(fallback.map((item) => normalizeKeywordToken(item))))

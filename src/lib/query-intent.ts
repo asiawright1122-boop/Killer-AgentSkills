@@ -26,14 +26,14 @@ const INTENTS: IntentConfig[] = [
     id: 'mcp-servers',
     patterns: [/\bmcp\b/i, /\bmcp\s*server/i, /model\s*context\s*protocol/i],
     label: {
-      en: 'MCP Servers',
-      zh: 'MCP Servers',
+      en: 'AI Agent Skills for Integrations',
+      zh: '面向集成的 AI Agent Skills',
     },
     description: {
-      en: 'Discover practical MCP servers for AI coding agents with one-command installation and workflow-ready use cases.',
-      zh: '发现适用于 AI 编码助手的实用 MCP Servers，提供一键安装与可落地工作流场景。',
+      en: 'Discover AI agent skills for integrations, developer workflows, and MCP-compatible setup paths across Claude Code, Cursor, and other IDEs.',
+      zh: '发现适合集成场景、开发工作流与 MCP 兼容配置路径的 AI Agent Skills，覆盖 Claude Code、Cursor 等 IDE。',
     },
-    keywords: ['mcp server', 'model context protocol', 'ai agent tools'],
+    keywords: ['ai agent skills', 'developer workflow skills', 'mcp integrations'],
   },
   {
     id: 'workflow-automation',
@@ -43,8 +43,8 @@ const INTENTS: IntentConfig[] = [
       zh: '工作流自动化技能',
     },
     description: {
-      en: 'Find workflow automation skills and MCP servers for repeatable agent tasks, multi-step execution, and practical AI operations.',
-      zh: '查找适合工作流自动化的技能与 MCP Servers，用于重复任务、多步骤执行与可落地的 AI 流程。',
+      en: 'Find workflow automation skills for repeatable agent tasks, multi-step execution, and practical AI operations.',
+      zh: '查找适合工作流自动化的技能，用于重复任务、多步骤执行与可落地的 AI 流程。',
     },
     keywords: ['workflow automation', 'agent workflow', 'automation workflow', 'ai workflow tools'],
   },
@@ -92,8 +92,8 @@ const INTENTS: IntentConfig[] = [
       zh: '浏览器自动化技能',
     },
     description: {
-      en: 'Browse browser automation skills and MCP servers for web actions, scraping, research, and repeatable site workflows.',
-      zh: '浏览适合网页操作、采集、研究与可重复站点流程的浏览器自动化技能与 MCP Servers。',
+      en: 'Browse browser automation skills for web actions, scraping, research, and repeatable site workflows.',
+      zh: '浏览适合网页操作、采集、研究与可重复站点流程的浏览器自动化技能。',
     },
     keywords: ['browser automation', 'web automation', 'web scraping', 'site workflow'],
   },
@@ -169,10 +169,10 @@ const INTENTS: IntentConfig[] = [
       zh: 'Claude Code Skills',
     },
     description: {
-      en: 'Find Claude Code compatible skills and MCP servers to expand coding, debugging, and automation capabilities.',
-      zh: '查找适配 Claude Code 的技能与 MCP Servers，扩展编码、调试与自动化能力。',
+      en: 'Find Claude Code compatible skills to expand coding, debugging, and automation capabilities.',
+      zh: '查找适配 Claude Code 的技能，扩展编码、调试与自动化能力。',
     },
-    keywords: ['claude code skills', 'claude mcp', 'claude tools'],
+    keywords: ['claude code skills', 'claude tools', 'claude code setup'],
   },
   {
     id: 'cursor-skills',
@@ -182,10 +182,10 @@ const INTENTS: IntentConfig[] = [
       zh: 'Cursor Skills',
     },
     description: {
-      en: 'Explore Cursor-ready skills and MCP servers for rapid coding workflows and AI-assisted development.',
-      zh: '探索适配 Cursor 的技能与 MCP Servers，提升 AI 辅助开发与快速编码效率。',
+      en: 'Explore Cursor-ready skills for rapid coding workflows and AI-assisted development.',
+      zh: '探索适配 Cursor 的技能，提升 AI 辅助开发与快速编码效率。',
     },
-    keywords: ['cursor skills', 'cursor mcp', 'cursor ai tools'],
+    keywords: ['cursor skills', 'cursor ai tools', 'cursor setup'],
   },
   {
     id: 'windsurf-skills',
@@ -195,10 +195,10 @@ const INTENTS: IntentConfig[] = [
       zh: 'Windsurf Skills',
     },
     description: {
-      en: 'Discover Windsurf-compatible AI agent skills and MCP servers for coding, docs, and workflow automation.',
-      zh: '发现适配 Windsurf 的 AI Agent Skills 与 MCP Servers，覆盖编码、文档与流程自动化。',
+      en: 'Discover Windsurf-compatible AI agent skills for coding, docs, and workflow automation.',
+      zh: '发现适配 Windsurf 的 AI Agent Skills，覆盖编码、文档与流程自动化。',
     },
-    keywords: ['windsurf skills', 'windsurf mcp', 'windsurf ai tools'],
+    keywords: ['windsurf skills', 'windsurf ai tools', 'windsurf setup'],
   },
 ];
 

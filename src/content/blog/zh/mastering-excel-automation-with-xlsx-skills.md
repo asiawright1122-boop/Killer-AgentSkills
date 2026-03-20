@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/xlsx
 
 `xlsx` 技能将您的 AI 代理转变为数据科学家和金融分析师的结合体。它确保您的电子表格不仅仅是数字的集合，而是强大的、动态的工具，驱动更好的商业决策。
 
-查看 Killer-Skills 市场上的 [xlsx 技能](https://killer-skills.com/zh/skills/anthropics/skills/xlsx)，并开始构建更智能的数据。
+查看 Killer-Skills 技能目录中的 [xlsx 技能](https://killer-skills.com/zh/skills/anthropics/skills/xlsx)，开始更智能地处理数据。
 
 ---
 

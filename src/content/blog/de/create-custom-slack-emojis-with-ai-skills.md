@@ -63,7 +63,7 @@ Benutzerdefinierte Reaktionen sind mehr als nur unterhaltsam – sie sind **Trei
 
 Der `slack-gif-creator`-Skill ist die perfekte Mischung aus technischer Optimierung und kreativer Freiheit. Er verwandelt Ihren AI-Agenten in einen digitalen Künstler, der die "Regeln der Straße" für die moderne Kommunikation am Arbeitsplatz versteht.
 
-Besuchen Sie den [Killer-Skills-Marktplatz](https://killer-skills.com/de/skills/anthropics/skills/slack-gif-creator), um loszulegen.
+Besuchen Sie den [slack-gif-creator-Skill](https://killer-skills.com/de/skills/anthropics/skills/slack-gif-creator) im Killer-Skills-Verzeichnis, um loszulegen.
 
 ---
 

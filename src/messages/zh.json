@@ -1,7 +1,7 @@
 {
   "Navigation": {
     "home": "首页",
-    "marketplace": "技能市场",
+    "marketplace": "技能",
     "categories": "分类",
     "docs": "文档",
     "blog": "博客",
@@ -18,7 +18,14 @@
     "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
     "searchButton": "搜索",
     "hotTags": "热门：",
-    "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"]
+    "suggestions": [
+      "PDF处理",
+      "图像生成",
+      "数据分析",
+      "浏览器自动化",
+      "代码审查",
+      "文档处理"
+    ]
   },
   "Skills": {
     "featured": "精选技能",
@@ -110,20 +117,25 @@
   "Home": {
     "heroTitle": "开放的 AI 智能体",
     "heroTitleHighlight": "技能中心",
-    "heroBadge": "MCP Servers 与自主能力的终极市场",
-    "heroDesc1": "发现、安装并管理 1000+ 开源的 AI 技能。",
-    "heroDesc2": "为 Claude Code、Cursor 和 Windsurf 赋予浏览、自动化和创造的能力。",
-    "searchPlaceholder": "搜索技能... 例如：网页爬取、数据可视化",
+    "heroBadge": "AI Agent Skills 的开放目录与安装入口",
+    "heroDesc1": "发现、安装并管理 2,500+ 开源 AI Agent 技能。",
+    "heroDesc2": "在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。",
+    "searchPlaceholder": "搜索技能，例如：网页爬取、数据可视化",
     "searchButton": "搜索",
-    "tags": ["研究", "编程", "营销", "分析"],
+    "tags": [
+      "研究",
+      "编程",
+      "营销",
+      "分析"
+    ],
     "featuresTitle": "专为开发者打造",
-    "featuresSubtitle": "连接一切 AI 能力，构建下一代智能应用。",
+    "featuresSubtitle": "浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。",
     "trendingTitle": "精选技能",
     "trendingSubtitle": "由社区评选的顶级技能。",
     "viewAll": "查看全部",
     "stable": "稳定",
     "installs": "安装",
-    "footerDesc": "AI自主能力的开放标准。为未来工作而生。",
+    "footerDesc": "面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。",
     "official": {
       "title": "官方技能集合",
       "featured": "精选",
@@ -132,7 +144,7 @@
     "cta": {
       "title": "开始使用 Killer Skills",
       "subtitle": "一行命令安装技能，让你的 AI 助手更加强大",
-      "browse": "浏览技能市场",
+      "browse": "浏览技能目录",
       "docs": "查看文档"
     },
     "features": {
@@ -141,8 +153,8 @@
         "desc": "无缝集成 Cursor、Windsurf 和 Claude Code。"
       },
       "1": {
-        "title": "标准协议",
-        "desc": "基于 MCP 协议，一次编写，到处运行。"
+        "title": "IDE 原生格式",
+        "desc": "同一个技能可安装到主流 IDE 与 Agent 环境，并自动写入正确的原生格式。"
       },
       "2": {
         "title": "严选质量",
@@ -191,12 +203,12 @@
   "Common": {
     "home": "首页",
     "explore": "发现",
-    "skillsMarket": "技能市场",
+    "skillsMarket": "技能目录",
     "language": "语言",
     "theme": "主题",
     "chinese": "简体中文",
     "english": "英语",
-    "searchPlaceholder": "搜索技能能力 (例如 '网页抓取')",
+    "searchPlaceholder": "搜索技能 (例如 '网页抓取')",
     "search": "搜索",
     "loading": "加载中...",
     "error": "出错了",
@@ -224,7 +236,7 @@
     "subtitle": "由核心团队和可信合作伙伴维护的高质量技能。"
   },
   "Footer": {
-    "desc": "AI自主能力的开放标准。为未来工作而生。",
+    "desc": "面向 AI Agent 技能与 IDE 工作流的开源目录。为真实开发工作而生。",
     "product": "产品",
     "resources": "资源",
     "stayUpdated": "保持更新",
@@ -253,7 +265,7 @@
     "latest": "最新发现",
     "latestDesc": "探索最新的 AI Agent 技能和创新",
     "allPurpose": "全部技能",
-    "allPurposeDesc": "发现、安装和管理超过 1000+ 个 AI Agent 技能",
+    "allPurposeDesc": "发现、安装和管理超过 2,500 个 AI Agent 技能",
     "discover": "发现",
     "latestSkills": "最新技能",
     "allSkills": "全部技能",
@@ -296,42 +308,42 @@
     "noSkills": "暂无技能",
     "heroDesc": "探索不同类型的AI技能，找到最适合你的工具",
     "seoDescriptions": {
-      "development": "发现 2026 年最适合 Claude Code、Cursor 等 AI Agent 的开发者工具 MCP Server。自动执行编码、重构和项目管理。",
-      "documentation": "探索强大的文档处理 MCP Server。让 Claude 能够无缝读取、写入和分析 PDF、Word 文档和 Markdown 文件。",
-      "testing": "寻找强大的测试 MCP Server，赋予您的 AI 助手自动编写、运行和调试单元测试及 E2E 测试的能力。",
-      "data": "发现数据与分析 MCP Server。为您的 AI Agent 配备 SQL 查询、数据可视化和数据库管理能力。",
-      "ai": "浏览 AI 与机器学习模型集成 MCP Server。将 Claude 与 Hugging Face、OpenAI 及专用 ML 管道直接连接。",
-      "devops": "顶尖的 DevOps & 云服务 MCP Server。让 Claude 自主管理您的 AWS、Docker、Kubernetes 和 CI/CD 流水线。",
-      "design": "适合 AI 助手的创意与设计 MCP Server。启用图像生成、UI/UX 分析和设计系统管理能力。",
-      "productivity": "最佳生产力 MCP Server。将 Claude 连接到 Notion、Slack、Jira 和您的日历，实现日常工作流自动化。",
-      "code-review": "自动化代码审查 MCP 技能。赋予您的 AI Agent 分析 PR、发现安全漏洞并执行代码检查规则的能力。",
-      "git": "Git 和 GitHub MCP Server。允许 Claude 自主地无缝克隆仓库、管理分支和创建拉取请求 (PR)。",
-      "cli": "命令行界面 (CLI) MCP Server。赋予您的 AI Agent 安全有效地执行终端命令的能力。",
-      "library": "适合 AI Agent 的库与包管理 MCP Server。自动搜索、安装和更新 npm、pip 和 cargo 包。",
-      "api": "API 集成 MCP Server。使用标准协议实现，让您的 AI 助手瞬间连接到任何 REST 或 GraphQL API。",
-      "database": "数据库管理 MCP Server。赋予 Claude 直接、安全地查询和构建 PostgreSQL、MySQL、MongoDB 和 Redis 的访问权限。",
-      "browser": "浏览器自动化与网页抓取 MCP Server。使 AI Agent 能够动态浏览网站、点击元素并提取数据。",
-      "search": "适合 AI Agent 的网络搜索 MCP Server。为 Claude 配备 Google、Bing 和 Tavily 搜索能力，实现实时信息检索。",
-      "web-scraping": "高级网页抓取 MCP 技能。允许您的 AI 助手自主地从任何网站提取结构化数据。",
-      "automation": "通用自动化 & RPA MCP Server。将您的 AI Agent 连接到 Zapier、Make 和本地系统自动化工具。",
-      "social": "社交媒体管理 MCP Server。使 AI 助手能够发布内容、分析趋势并管理 X/Twitter、LinkedIn 等平台。"
+      "development": "发现适合 Claude Code、Cursor 等 AI Agent 的开发者工具技能，用于编码、重构、调试与项目协作。",
+      "documentation": "探索强大的文档处理技能，让 Claude 无缝读取、写入并分析 PDF、Word 文档和 Markdown 文件。",
+      "testing": "寻找测试自动化技能，赋予您的 AI 助手编写、运行和调试单元测试及 E2E 测试的能力。",
+      "data": "发现数据与分析技能，为您的 AI Agent 配备 SQL 查询、数据可视化和数据库管理能力。",
+      "ai": "浏览 AI 与机器学习工作流技能，连接 Hugging Face、OpenAI 及专用 ML 管道。",
+      "devops": "顶尖的 DevOps 与云服务技能，让 Claude 协助管理 AWS、Docker、Kubernetes 和 CI/CD 流水线。",
+      "design": "适合 AI 助手的创意与设计技能，支持图像生成、UI/UX 分析和设计系统工作流。",
+      "productivity": "最佳生产力工作流技能，将 Claude 连接到 Notion、Slack、Jira 和日历，自动处理日常任务。",
+      "code-review": "自动化代码审查技能，赋予您的 AI Agent 分析 PR、发现安全问题并执行代码检查规则的能力。",
+      "git": "Git 和 GitHub 工作流技能，帮助 Claude 处理仓库浏览、分支协作和拉取请求流程。",
+      "cli": "命令行工作流技能，赋予您的 AI Agent 更安全高效地执行终端任务的能力。",
+      "library": "适合 AI Agent 的库与包管理技能，自动搜索、安装和更新 npm、pip 和 cargo 包。",
+      "api": "API 集成技能，让您的 AI 助手更快连接 REST 或 GraphQL API 并编排自动化流程。",
+      "database": "数据库管理技能，帮助 Claude 更安全地查询和构建 PostgreSQL、MySQL、MongoDB 和 Redis 工作流。",
+      "browser": "浏览器自动化与网页抓取技能，使 AI Agent 能动态浏览网站、点击元素并提取数据。",
+      "search": "适合 AI Agent 的网络搜索技能，为 Claude 配备 Google、Bing 和 Tavily 等实时检索能力。",
+      "web-scraping": "高级网页抓取技能，允许您的 AI 助手自主地从网站提取结构化数据。",
+      "automation": "通用自动化与 RPA 技能，将您的 AI Agent 连接到 Zapier、Make 和本地系统自动化工具。",
+      "social": "社交媒体管理技能，使 AI 助手能够发布内容、分析趋势并管理 X/Twitter、LinkedIn 等平台。"
     }
   },
   "Metadata": {
-    "title": "Killer-Skills - AI Agent Skills 聚合市场",
+    "title": "Killer-Skills - AI Agent Skills 目录",
     "template": "%s | Killer-Skills",
     "description": "发现、安装和管理 AI Agent Skills，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
     "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, 编程技能, AI 助手, 代码生成",
     "Skills": {
-      "title": "技能市场 - 发现 AI Agent 技能",
-      "description": "浏览和安装 Killer-Skills 市场中的数千个 AI Agent 技能。支持 Claude Code, Windsurf, Cursor 等。"
+      "title": "技能目录 - 发现 AI Agent 技能",
+      "description": "浏览和安装 Killer-Skills 目录中的数千个 AI Agent 技能。支持 Claude Code、Windsurf、Cursor 等。"
     }
   },
   "Personal": {
     "myFavorites": "我的收藏",
     "favoritesCount": "{count} 个技能",
     "noFavorites": "暂无收藏",
-    "noFavoritesHint": "浏览技能市场，点击心形图标收藏喜欢的技能",
+    "noFavoritesHint": "浏览技能目录，点击心形图标收藏喜欢的技能",
     "browseSkills": "浏览技能",
     "removeFavorite": "移除",
     "savedAt": "收藏于 {date}",
@@ -369,57 +381,57 @@
         "desc": "最新消息与更新"
       }
     },
-    "heroDesc": "我们正在构建 AI 时代的开源生态。无论你是开发者、创作者还是使用者，这里都有你的一席之地。",
-    "contributeDesc": "Killer-Skills 是完全开源的。您可以提交 PR 来修复 Bug、增加新功能或添加新的 Skill。",
+    "heroDesc": "加入一起打磨可复用 AI Agent 技能与 IDE 工作流的开发者、贡献者与团队。",
+    "contributeDesc": "Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。",
     "feedbackDesc": "有好的想法？发现了问题？欢迎在 Github Issues 或 Discord 中告诉我们。"
   },
   "Integrations": {
     "worksWhereYouWork": "无缝集成开发环境",
     "viewGuide": "查看配置指南",
-    "missingTool": "找不到你的工具？",
-    "learnProtocol": "了解标准协议",
+    "missingTool": "没看到你的 IDE？",
+    "learnProtocol": "查看技能接入方式",
     "cards": {
       "cursor": {
-        "desc": "可能是目前体验最好的 AI 代码编辑器。"
+        "desc": "在 Cursor 里直接使用可复用 AI Agent 技能。"
       },
       "windsurf": {
-        "desc": "Codeium 推出的强力 AI 编辑器，基于 VS Code。"
+        "desc": "在 Windsurf 里直接使用可复用 AI Agent 技能。"
       },
       "claude": {
-        "desc": "Anthropic 官方推出的命令行 Agent 编码工具。"
+        "desc": "在 Claude Code 里直接使用可复用 AI Agent 技能。"
       },
       "goose": {
-        "desc": "Block (Square) 开源的 AI 开发者 Agent。"
+        "desc": "在 Goose 里直接使用可复用 AI Agent 技能。"
       }
     },
-    "heroDesc": "Killer-Skills 原生支持所有基于 MCP 协议的主流 AI 编辑器和 Agent 框架。",
-    "missingToolDesc": "只要支持 MCP (Model Context Protocol)，就能使用 Killer-Skills。"
+    "heroDesc": "在主流 AI 编码工具和 IDE 中复用同一套 Killer-Skills 技能。",
+    "missingToolDesc": "只要 IDE 能运行技能说明，Killer-Skills 通常就能用。"
   },
   "CLI": {
-    "heroTitle": "Killer-Skills 技能平台",
-    "heroSubtitle": "AI 智能体能力的开放标准",
-    "heroDesc": "为您的 AI 智能体提供 1000+ 种能力的中心化注册表。在 Cursor、Windsurf 和 Claude Code 中发现、分享和集成技能。",
+    "heroTitle": "Killer-Skills CLI",
+    "heroSubtitle": "安装和管理 AI Agent 技能",
+    "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 2,500+ AI Agent 技能。",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
     "install": "立即安装",
     "viewDocs": "查看文档",
     "latestVersion": "最新版本：",
-    "copyInstall": "npx killer-skills install <skill>",
+    "copyInstall": "npx killer-skills add <owner/repo>",
     "features": {
       "autoInvoke": {
-        "title": "通用技能库",
-        "desc": "海量社区和官方技能库。从 PDF 处理到浏览器自动化，找到您的智能体所需的一切。"
+        "title": "开放技能目录",
+        "desc": "浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。"
       },
       "syncAll": {
-        "title": "全平台一键同步",
-        "desc": "一键统领全局。'killer sync --all' 瞬间将技能分发到本机安装的所有 IDE 中。"
+        "title": "多 IDE 同步",
+        "desc": "将已安装技能同步到你支持的 IDE，并保持本地技能文件一致。"
       },
       "mcp": {
-        "title": "深度 MCP 集成",
-        "desc": "内置 MCP Server，允许智能体在运行时自我安装新技能。实现真正的自主进化。"
+        "title": "IDE 原生技能分发",
+        "desc": "为 Claude Code、Cursor、VS Code、Windsurf 等环境写入正确的原生技能文件格式。"
       },
       "secure": {
         "title": "企业级安全",
-        "desc": "所有技能运行在隔离环境中。GitHub Device Flow 认证确保访问安全。"
+        "desc": "通过 GitHub Device Flow 认证与透明的开源分发流程，让团队更安心地安装和管理技能。"
       }
     },
     "terminal": {
@@ -427,7 +439,7 @@
       "login": "安全登录",
       "loginDesc": "GitHub 设备流认证",
       "sync": "一键同步",
-      "syncDesc": "部署到 17+ IDE",
+      "syncDesc": "同步到 19 个 IDE",
       "do": "自然语言",
       "doDesc": "AI 任务执行"
     },
@@ -436,16 +448,16 @@
       "feature": "功能",
       "ks": "Killer-Skills CLI",
       "others": "手动写 Prompt",
-      "row1": "一键安装到 17+ IDE",
+      "row1": "一键安装到 19 个 IDE",
       "row2": "自动调用 (零 Context 浪费)",
-      "row3": "运行时技能发现 (MCP)",
+      "row3": "运行时技能发现与同步",
       "row4": "经过验证的安全技能库"
     }
   },
   "SkillsManagerWidget": {
     "title": "技能管理器",
     "subtitle": "生态系统网关",
-    "description": "释放无限潜能。一键发现、安装并赋予您的 AI 智能体 1000+ 种超强能力。",
+    "description": "一键解锁更多工作流。发现并安装 2,500+ AI Agent 技能。",
     "cta": "进入管理器"
   },
   "CLIInstall": {
@@ -471,8 +483,8 @@
   },
   "DocsSidebar": {
     "gettingStarted": "开始使用",
-    "platformOverview": "平台概览",
-    "cliTooling": "CLI 工具",
+    "platformOverview": "技能概览",
+    "cliTooling": "使用 CLI",
     "introduction": "介绍",
     "quickStart": "快速开始",
     "installation": "安装指南",
@@ -509,7 +521,7 @@
   },
   "Blog": {
     "title": "洞察与更新",
-    "subtitle": "深入探讨 AI Agent、MCP 服务器和编程的未来。",
+    "subtitle": "深入探讨 AI Agent 技能、开发者工作流与编程的未来。",
     "browseByCategory": "按分类浏览",
     "readTime": "{n} 分钟阅读",
     "readArticle": "查看文章",
@@ -525,14 +537,14 @@
       "developer-experience": "开发者体验",
       "developer-experience-desc": "AI 驱动工程的基石。",
       "announcements": "公告",
-      "announcements-desc": "最新新闻与平台更新。"
+      "announcements-desc": "最新新闻与技能更新。"
     },
     "latestPosts": "最新文章",
     "log": "日志"
   },
   "Collections": {
     "editorPicks": "编辑精选",
-    "subtitle": "精心策划的顶级 AI Agent 技能、服务器和脚本合集，专为特定行业和工作流量身定制。",
+    "subtitle": "精心策划的高质量 AI Agent 技能与工作流组件合集，覆盖不同的行业场景与使用需求。",
     "items": "项",
     "view": "查看",
     "featured": "推荐",

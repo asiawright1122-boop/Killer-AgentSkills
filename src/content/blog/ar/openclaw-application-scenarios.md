@@ -20,7 +20,7 @@ heroImage: "/blog/openclaw-scenarios-hero.webp"
 
 -   **حالة مثال**: أثناء وجودك في اجتماع أو خارج المنزل ، يمكن لـ OpenClaw التعامل مع الرسائل الواردة من قنوات مختلفة في الخلفية ، أو أداء استفسارات بسيطة ، أو إرسال تلخيصات عبر قنوات محددة عند اكتشاف الأمور العاجلة.
 -   **🌟 المهارات الموصى بها**:
-    -   [`humanizer`](/ar/blog/humanizer-skill): يجعل استجابات الذكاء الاصطناعي أكثر واقعية وشبه إنسانية ، وتجنب الشعور بالآلة.
+    -   [`humanizer`](/ar/skills/minhtungo/ai-agents-factory/humanizer): يجعل استجابات الذكاء الاصطناعي أكثر واقعية وشبه إنسانية ، وتجنب الشعور بالآلة.
     -   [`internal-comms`](/ar/blog/professional-internal-communications-with-ai-skills): تلخيصات رسائل احترافية وتنسيقات تقارير.
 -   **الكلمات الرئيسية**: الذكاء الاصطناعي متعدد المنصات ، وتأتمة الرسائل.
 ## 2. إدارة الملفات وتأتييرها بشكل متكامل
@@ -57,8 +57,8 @@ OpenClaw لديها قدرات قوية لقراءة وكتابة الملفات
 
 -   **حالة مثال**: إذا وجدت أن OpenClaw لا تدعم معالجة الصيغ المعقدة في Excel بشكل أصلي، يمكنك ببساطة استخدام **Killer-Skills CLI**:
     ```bash
-    killer-skills install xlsx
-    killer-skills sync --ide openclaw
+    npx killer-skills add xlsx
+    npx killer-skills sync --ide openclaw
     ```
     في بضع ثوان، يصبح OpenClaw ماستر [مهارات الت автомати الحرفي ل Excel](/ar/blog/mastering-excel-automation-with-xlsx-skills).
 ## الخاتمة

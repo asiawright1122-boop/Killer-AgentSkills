@@ -120,7 +120,7 @@ Over time, the file grows as you add more rules. Some of our most useful interna
 
 Skills are still early. The format is not standardized across all agents, error handling is primitive, and discoverability is limited. But the core idea (giving your AI assistant written instructions about your project) is here to stay.
 
-If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 1,000 community-contributed skills covering everything from database management to UI design.
+If you want to browse existing skills or publish your own, check out the [skill directory](/en/skills). There are currently over 2,500 community-contributed skills covering everything from database management to UI design.
 
 ---
 

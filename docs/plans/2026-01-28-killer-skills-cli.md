@@ -95,7 +95,7 @@ git commit -m "feat(cli): initialize CLI project with Commander.js"
 
 ---
 
-## Task 2: Implement `killer install <skill>` Command
+## Task 2: Implement `killer add <skill>` Command
 
 **Files:**
 - Create: `packages/cli/src/commands/install.ts`

@@ -11,6 +11,35 @@ describe('public links and navigation copy', () => {
     expect(zh.Footer.community).toBe('社区');
   });
 
+  it('keeps homepage positioned as a skills directory, not a workflow-query hub', () => {
+    const zhHomeSource = readPageSource('../pages/[locale]/index.astro');
+
+    expect(zhHomeSource).not.toContain('高意图自动化入口');
+    expect(zhHomeSource).not.toContain('High-Intent Workflow Searches');
+    expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
+    expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
+    expect(zhHomeSource).toContain("Killer-Skills - AI Agent Skills 开放目录");
+    expect(zhHomeSource).toContain('Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口');
+  });
+
+  it('keeps homepage locale copy focused on directory and installation entry', () => {
+    expect(en.Home.heroBadge).toBe('The open directory and install entry for AI Agent Skills');
+    expect(en.Home.heroDesc2).toBe(
+      'Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.',
+    );
+    expect(en.Home.featuresSubtitle).toBe(
+      'Browse reusable AI agent skills and install them in the right native format for your IDE.',
+    );
+    expect(en.Home.footerDesc).toBe(
+      'Open-source directory and installation entry point for AI agent skills. Built for real developer work.',
+    );
+
+    expect(zh.Home.heroBadge).toBe('AI Agent Skills 的开放目录与安装入口');
+    expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
+    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
+    expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
+  });
+
   it('keeps evergreen blog counts aligned with current public totals', () => {
     const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
     const slugs = [
@@ -335,6 +364,16 @@ describe('public links and navigation copy', () => {
     }
   });
 
+  it('keeps top-10 MCP integrations articles free of placeholder install commands', () => {
+    const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+    const placeholderCommandPattern = /npx killer-skills add <[^>\n]+>(?:\/<[^>\n]+>)?/;
+
+    for (const locale of locales) {
+      const source = readPageSource(`../content/blog/${locale}/top-10-mcp-servers-2026.md`);
+      expect(source).not.toMatch(placeholderCommandPattern);
+    }
+  });
+
   it('keeps the how-to-build MCP server article free of cross-locale template scaffolding', () => {
     const localePatterns = [
       {
@@ -492,6 +531,7 @@ describe('public links and navigation copy', () => {
 
     expect(skillDetailSource).toContain("typedLocale === 'zh' ? 'AI Agent Skills' : 'AI agent skills'");
     expect(skillDetailSource).not.toContain("'MCP server'");
+    expect(skillDetailSource).not.toContain("'mcp server'");
     expect(skillDetailSource).not.toContain('MCP Server by');
   });
 
@@ -501,6 +541,7 @@ describe('public links and navigation copy', () => {
     const mcp2026Source = readPageSource('../content/collections/top-mcp-servers-2026.json');
     const communityToolsSource = readPageSource('../content/collections/top-community-mcp-servers.json');
     const testingSource = readPageSource('../content/collections/top-mcp-for-testing.json');
+    const dataAnalysisSource = readPageSource('../content/collections/top-mcp-for-data-analysis.json');
 
     expect(mcpUtilitiesSource).toContain('top-ai-agent-workflow-skills-integrations-utilities');
     expect(mcpUtilitiesSource).not.toContain('Top MCP Tools, Integrations, and Workflow Utilities');
@@ -513,6 +554,15 @@ describe('public links and navigation copy', () => {
     expect(communityToolsSource).not.toContain('Top Community MCP Tools and AI Utilities');
     expect(communityToolsSource).not.toContain('top-community-mcp-tools-ai-utilities');
     expect(communityToolsSource).not.toContain('community MCP tools');
+    expect(dataAnalysisSource).toContain('data-workflows-and-analysis-tools');
+    expect(dataAnalysisSource).not.toContain('mcp data integrations');
+    expect(testingSource).toContain('testing-automation-and-qa-workflow-tools');
+    expect(testingSource).not.toContain('mcp agent testing');
+    const aiAgentsSource = readPageSource('../content/collections/top-ai-agents-mcp-servers.json');
+    const agenticAiSource = readPageSource('../content/collections/top-agentic-ai-mcp-servers.json');
+    expect(aiAgentsSource).toContain('top-agentic-ai-platforms-orchestration-tools');
+    expect(aiAgentsSource).toContain('top-ai-agent-platforms-orchestration-tools');
+    expect(agenticAiSource).toContain('top-agentic-ai-platforms-orchestration-tools');
     expect(mcpFrameworksSource).not.toContain('protocol bridges');
     expect(mcpFrameworksSource).not.toContain('protocol compatibility');
     expect(testingSource).not.toContain('generic protocol directory');
@@ -524,6 +574,7 @@ describe('public links and navigation copy', () => {
     const homeSource = readPageSource('./[locale]/index.astro');
     const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 
+    expect(collectionsIndexSource).toContain('getCanonicalCollections(');
     expect(collectionsIndexSource).toContain('getCollectionCanonicalSlug(col)');
     expect(collectionsIndexSource).toContain(
       'url: `https://killer-skills.com/${locale}/collections/${getCollectionCanonicalSlug(col)}`',
@@ -531,6 +582,7 @@ describe('public links and navigation copy', () => {
     expect(collectionsIndexSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
     expect(collectionsIndexSource).not.toContain("col.id.replace(/\\.json$/, '')");
 
+    expect(collectionsSitemapSource).toContain('getCanonicalCollections(');
     expect(collectionsSitemapSource).toContain('const canonicalSlug = getCollectionCanonicalSlug(col);');
     expect(collectionsSitemapSource).toContain('const pagePath = `/collections/${canonicalSlug}`;');
     expect(collectionsSitemapSource).not.toContain("const cleanSlug = col.id.replace(/\\.json$/, '')");
@@ -544,11 +596,13 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).not.toContain("col.id.replace(/\\.json$/, '')");
   });
 
-  it('keeps the default skills landing heading tied to AI agent skills', () => {
+  it('keeps the default skills landing heading aligned with installable skills framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    expect(skillsIndexSource).toContain("'AI Agent 技能目录'");
-    expect(skillsIndexSource).toContain("'AI Agent Skills'");
+    expect(skillsIndexSource).toContain("'可安装 AI Agent Skills'");
+    expect(skillsIndexSource).toContain("'Installable AI Agent Skills'");
+    expect(skillsIndexSource).not.toContain("'AI Agent 技能目录'");
+    expect(skillsIndexSource).not.toContain("'AI Agent Skills'");
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
   });
 
@@ -594,5 +648,270 @@ describe('public links and navigation copy', () => {
     expect(zh.Integrations.cards.windsurf.desc).toBe('在 Windsurf 里直接使用可复用 AI Agent 技能。');
     expect(zh.Integrations.cards.claude.desc).toBe('在 Claude Code 里直接使用可复用 AI Agent 技能。');
     expect(zh.Integrations.cards.goose.desc).toBe('在 Goose 里直接使用可复用 AI Agent 技能。');
+  });
+
+  it('keeps high-priority ai-agent blog posts free of placeholder install commands', () => {
+    const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+    const slugs = [
+      'official-ai-agent-skills-guide',
+      'best-ai-agent-skills-2026',
+      'how-to-install-ai-agent-skills',
+    ];
+    const placeholderInstallCommandPattern = /npx killer-skills add <[^>\n]+>/;
+
+    for (const locale of locales) {
+      for (const slug of slugs) {
+        const source = readPageSource(`../content/blog/${locale}/${slug}.md`);
+        expect(source).not.toMatch(placeholderInstallCommandPattern);
+      }
+    }
+  });
+
+  it('keeps high-priority ai-agent blog posts free of template pollution and wrong-locale links', () => {
+    const enBestSkillsSource = readPageSource('../content/blog/en/best-ai-agent-skills-2026.md');
+    const zhBestSkillsSource = readPageSource('../content/blog/zh/best-ai-agent-skills-2026.md');
+    const deBestSkillsSource = readPageSource('../content/blog/de/best-ai-agent-skills-2026.md');
+    const frBestSkillsSource = readPageSource('../content/blog/fr/best-ai-agent-skills-2026.md');
+    const esBestSkillsSource = readPageSource('../content/blog/es/best-ai-agent-skills-2026.md');
+    const jaBestSkillsSource = readPageSource('../content/blog/ja/best-ai-agent-skills-2026.md');
+    const koBestSkillsSource = readPageSource('../content/blog/ko/best-ai-agent-skills-2026.md');
+    const ptBestSkillsSource = readPageSource('../content/blog/pt/best-ai-agent-skills-2026.md');
+    const ruBestSkillsSource = readPageSource('../content/blog/ru/best-ai-agent-skills-2026.md');
+    const arBestSkillsSource = readPageSource('../content/blog/ar/best-ai-agent-skills-2026.md');
+    const zhIntroOpenClawSource = readPageSource('../content/blog/zh/introducing-openclaw-autonomous-ai-agent.md');
+    const arHowToInstallSource = readPageSource('../content/blog/ar/how-to-install-ai-agent-skills.md');
+    const frHowToInstallSource = readPageSource('../content/blog/fr/how-to-install-ai-agent-skills.md');
+    const esHowToInstallSource = readPageSource('../content/blog/es/how-to-install-ai-agent-skills.md');
+    const deHowToInstallSource = readPageSource('../content/blog/de/how-to-install-ai-agent-skills.md');
+    const zhHowToInstallSource = readPageSource('../content/blog/zh/how-to-install-ai-agent-skills.md');
+    const ruHowToInstallSource = readPageSource('../content/blog/ru/how-to-install-ai-agent-skills.md');
+    const koHowToInstallSource = readPageSource('../content/blog/ko/how-to-install-ai-agent-skills.md');
+    const jaHowToInstallSource = readPageSource('../content/blog/ja/how-to-install-ai-agent-skills.md');
+    const ptHowToInstallSource = readPageSource('../content/blog/pt/how-to-install-ai-agent-skills.md');
+    const zhWhatAreSkillsSource = readPageSource('../content/blog/zh/what-are-ai-agent-skills.md');
+    const deWhatAreSkillsSource = readPageSource('../content/blog/de/what-are-ai-agent-skills.md');
+    const ruWhatAreSkillsSource = readPageSource('../content/blog/ru/what-are-ai-agent-skills.md');
+    const frWhatAreSkillsSource = readPageSource('../content/blog/fr/what-are-ai-agent-skills.md');
+    const esWhatAreSkillsSource = readPageSource('../content/blog/es/what-are-ai-agent-skills.md');
+    const jaWhatAreSkillsSource = readPageSource('../content/blog/ja/what-are-ai-agent-skills.md');
+    const koWhatAreSkillsSource = readPageSource('../content/blog/ko/what-are-ai-agent-skills.md');
+    const ptWhatAreSkillsSource = readPageSource('../content/blog/pt/what-are-ai-agent-skills.md');
+
+    expect(enBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(zhBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(deBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(frBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(esBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(jaBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(koBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(ptBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(ruBestSkillsSource).not.toContain('ContinueWindsurf');
+    expect(arBestSkillsSource).not.toContain('ContinueWindsurf');
+
+    for (const source of [
+      enBestSkillsSource,
+      zhBestSkillsSource,
+      deBestSkillsSource,
+      frBestSkillsSource,
+      esBestSkillsSource,
+      jaBestSkillsSource,
+      koBestSkillsSource,
+      ptBestSkillsSource,
+      ruBestSkillsSource,
+      arBestSkillsSource,
+    ]) {
+      expect(source).not.toContain('npx killer-skills add blader/humanizer');
+      expect(source).toContain('npx killer-skills add minhtungo/ai-agents-factory/humanizer');
+    }
+
+    expect(zhBestSkillsSource).toContain('](/zh/skills)');
+    expect(zhBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(deBestSkillsSource).toContain('](/de/skills)');
+    expect(deBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(frBestSkillsSource).toContain('](/fr/skills)');
+    expect(frBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(esBestSkillsSource).toContain('](/es/skills)');
+    expect(esBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(jaBestSkillsSource).toContain('](/ja/skills)');
+    expect(jaBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(koBestSkillsSource).toContain('](/ko/skills)');
+    expect(koBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(ptBestSkillsSource).toContain('](/pt/skills)');
+    expect(ptBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(ruBestSkillsSource).toContain('](/ru/skills)');
+    expect(ruBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(arBestSkillsSource).toContain('](/ar/skills)');
+    expect(arBestSkillsSource).not.toContain('](/en/skills)');
+
+    expect(arHowToInstallSource).toContain('](/ar/skills)');
+    expect(arHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(frHowToInstallSource).toContain('](/fr/skills)');
+    expect(frHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(esHowToInstallSource).toContain('](/es/skills)');
+    expect(esHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(deHowToInstallSource).toContain('](/de/skills)');
+    expect(deHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(zhHowToInstallSource).toContain('](/zh/skills)');
+    expect(zhHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(ruHowToInstallSource).toContain('](/ru/skills)');
+    expect(ruHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(koHowToInstallSource).toContain('](/ko/skills)');
+    expect(koHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(jaHowToInstallSource).toContain('](/ja/skills)');
+    expect(jaHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(ptHowToInstallSource).toContain('](/pt/skills)');
+    expect(ptHowToInstallSource).not.toContain('](/en/skills)');
+
+    expect(zhWhatAreSkillsSource).toContain('查看[技能目录](/zh/skills)');
+    expect(zhWhatAreSkillsSource).not.toContain('查看[技能目录](/en/skills)');
+
+    expect(deWhatAreSkillsSource).toContain('](/de/skills)');
+    expect(deWhatAreSkillsSource).not.toContain('](/en/skills)');
+
+    expect(ruWhatAreSkillsSource).toContain('](/ru/skills)');
+    expect(ruWhatAreSkillsSource).not.toContain('](/en/skills)');
+    expect(ruWhatAreSkillsSource).not.toContain('Here is the translated content in Chinese:');
+    expect(ruWhatAreSkillsSource).not.toContain('## 它们实际上是如何工作的');
+    expect(ruWhatAreSkillsSource).not.toContain('## Where skills run');
+    expect(ruWhatAreSkillsSource).not.toContain('# Finding skills you can use today');
+    expect(zhWhatAreSkillsSource).not.toContain('查看[技能目录](/en/skills)');
+
+    expect(frWhatAreSkillsSource).toContain('](/fr/skills)');
+    expect(frWhatAreSkillsSource).not.toContain('](/en/skills)');
+
+    expect(esWhatAreSkillsSource).toContain('](/es/skills)');
+    expect(esWhatAreSkillsSource).not.toContain('](/en/skills)');
+
+    expect(jaWhatAreSkillsSource).toContain('](/ja/skills)');
+    expect(jaWhatAreSkillsSource).not.toContain('](/en/skills)');
+    expect(jaWhatAreSkillsSource).not.toContain('Of course. Here is the translated content in Simplified Chinese:');
+    expect(jaWhatAreSkillsSource).not.toContain('## 它们实际上是如何工作的');
+
+    expect(koWhatAreSkillsSource).toContain('](/ko/skills)');
+    expect(koWhatAreSkillsSource).not.toContain('](/en/skills)');
+
+    expect(ptWhatAreSkillsSource).toContain('](/pt/skills)');
+    expect(ptWhatAreSkillsSource).not.toContain('](/en/skills)');
+    expect(ptWhatAreSkillsSource).not.toContain('"translated_content":');
+
+    expect(zhIntroOpenClawSource).toContain('/zh/blog/enhancing-openclaw-with-killer-skills-guide');
+    expect(zhIntroOpenClawSource).not.toContain('/zh/blog/enhancing-ai-agents-with-killer-skills-guide');
+  });
+
+  it('keeps the latest blog cleanup slice free of mixed-language bleed and broken humanizer links', () => {
+    const openClawLocales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+    const arIntroOpenClawSource = readPageSource('../content/blog/ar/introducing-openclaw-autonomous-ai-agent.md');
+    const esOpenClawScenariosSource = readPageSource('../content/blog/es/openclaw-application-scenarios.md');
+    const deThemeFactorySource = readPageSource('../content/blog/de/instant-branding-with-theme-factory-skills.md');
+    const jaCanvasDesignSource = readPageSource('../content/blog/ja/professional-poster-design-with-canvas-skills.md');
+
+    for (const locale of openClawLocales) {
+      const source = readPageSource(`../content/blog/${locale}/openclaw-application-scenarios.md`);
+      expect(source).not.toContain(`/${locale}/blog/humanizer-skill`);
+      expect(source).toContain(`/${locale}/skills/minhtungo/ai-agents-factory/humanizer`);
+    }
+
+    expect(arIntroOpenClawSource).not.toContain('## OpenClaw 的独特之处');
+    expect(arIntroOpenClawSource).not.toContain('/zh/blog/claude-code-vs-cursor-vs-windsurf');
+    expect(arIntroOpenClawSource).not.toContain('/zh/blog/what-are-ai-agent-skills');
+
+    expect(esOpenClawScenariosSource).not.toContain('## 5. 动态学习与能力扩展');
+    expect(esOpenClawScenariosSource).not.toContain('/zh/blog/introducing-openclaw-autonomous-ai-agent');
+    expect(esOpenClawScenariosSource).not.toContain('/zh/blog/best-ai-agent-skills-2026');
+
+    expect(deThemeFactorySource).not.toContain('## 探索入门主题');
+    expect(deThemeFactorySource).not.toContain('## 如何使用 Theme-Factory 与 Killer-Skills');
+    expect(deThemeFactorySource).not.toContain('## Conclusión');
+    expect(deThemeFactorySource).not.toContain('/es/blog/que-son-las-habilidades-de-los-agentes-de-ia');
+    expect(deThemeFactorySource).not.toContain('/es/blog/mejores-habilidades-de-agentes-de-ia-2026');
+
+    expect(jaCanvasDesignSource).not.toContain('title: "Static Design Mastery: Canvas-Design Skill"');
+    expect(jaCanvasDesignSource).not.toContain('description: "Master static design with our proven canvas-design skill guide');
+    expect(jaCanvasDesignSource).not.toContain('## Was macht Canvas-Design anders?');
+    expect(jaCanvasDesignSource).not.toContain('## Key Design Principles');
+    expect(jaCanvasDesignSource).not.toContain('Of course. Here is the translated Markdown content:');
+    expect(jaCanvasDesignSource).not.toContain('## Wie man es mit Killer-Skills verwendet');
+    expect(jaCanvasDesignSource).not.toContain('## Conclusión');
+    expect(jaCanvasDesignSource).not.toContain('https://killer-skills.com/es/skills/anthropics/skills/algorithmic-art');
+    expect(jaCanvasDesignSource).not.toContain('/es/blog/what-are-ai-agent-skills');
+    expect(jaCanvasDesignSource).not.toContain('/es/blog/best-ai-agent-skills-2026');
+  });
+
+  it('keeps the newly audited locale posts free of untranslated scaffolding and broken localized links', () => {
+    const deBestSkillsSource = readPageSource('../content/blog/de/best-ai-agent-skills-2026.md');
+    const esWhatAreSkillsSource = readPageSource('../content/blog/es/what-are-ai-agent-skills.md');
+    const frWhatAreSkillsSource = readPageSource('../content/blog/fr/what-are-ai-agent-skills.md');
+    const ptWhatAreSkillsSource = readPageSource('../content/blog/pt/what-are-ai-agent-skills.md');
+    const arOpenClawGuideSource = readPageSource('../content/blog/ar/enhancing-openclaw-with-killer-skills-guide.md');
+    const esGenerativeArtSource = readPageSource('../content/blog/es/mastering-generative-art-with-claudecode-skills.md');
+
+    expect(deBestSkillsSource).toContain('## Was ist eine KI-Agenten-Fähigkeit?');
+    expect(deBestSkillsSource).not.toContain('## What is an AI agent skill?');
+    expect(deBestSkillsSource).not.toContain('## Automatización de documentos');
+    expect(deBestSkillsSource).not.toContain('## Frontend and design');
+    expect(deBestSkillsSource).not.toContain('## Developer tooling');
+    expect(deBestSkillsSource).not.toContain("Here's the translated content in Simplified Chinese:");
+    expect(deBestSkillsSource).not.toContain('## How to choose');
+    expect(deBestSkillsSource).not.toContain('"name": "What are AI agent skills?"');
+
+    expect(esWhatAreSkillsSource).toContain('description: Cómo escribir y ejecutar pruebas en este proyecto');
+    expect(esWhatAreSkillsSource).toContain('# Pruebas en este proyecto');
+    expect(esWhatAreSkillsSource).not.toContain('description: How to write and run tests in this project');
+    expect(esWhatAreSkillsSource).not.toContain('# Testing in this project');
+    expect(esWhatAreSkillsSource).not.toContain('We use Vitest. Run tests with `npm test`.');
+
+    expect(frWhatAreSkillsSource).toContain('description: Comment écrire et exécuter les tests dans ce projet');
+    expect(frWhatAreSkillsSource).toContain('# Les tests dans ce projet');
+    expect(frWhatAreSkillsSource).not.toContain('description: How to write and run tests in this project');
+    expect(frWhatAreSkillsSource).not.toContain('# Testing in this project');
+    expect(frWhatAreSkillsSource).not.toContain('We use Vitest. Run tests with `npm test`.');
+
+    expect(ptWhatAreSkillsSource).toContain('description: Como escrever e executar testes neste projeto');
+    expect(ptWhatAreSkillsSource).toContain('# Testes neste projeto');
+    expect(ptWhatAreSkillsSource).toContain('- **pdf** - Leia, combine, divida e crie PDFs');
+    expect(ptWhatAreSkillsSource).not.toContain('description: How to write and run tests in this project');
+    expect(ptWhatAreSkillsSource).not.toContain('testing/SKILL.md       # how to write tests in this project');
+    expect(ptWhatAreSkillsSource).not.toContain('- **pdf** - Leia, mergulhe, divida e crie PDFs');
+
+    expect(arOpenClawGuideSource).toContain('## الخطوة 2: تهيئة دعم OpenClaw داخل مشروعك');
+    expect(arOpenClawGuideSource).toContain('npx killer-skills add anthropics/skills/frontend-design');
+    expect(arOpenClawGuideSource).toContain('npx killer-skills add minhtungo/ai-agents-factory/humanizer');
+    expect(arOpenClawGuideSource).not.toContain('## Step 2: Initialize OpenClaw Support in Your Project');
+    expect(arOpenClawGuideSource).not.toContain('## Scenario-based Skill Packs');
+    expect(arOpenClawGuideSource).not.toContain('適合');
+    expect(arOpenClawGuideSource).not.toContain('اشترِ экземпляр OpenClaw');
+    expect(arOpenClawGuideSource).not.toContain('npx killer-skills add frontend-design');
+    expect(arOpenClawGuideSource).not.toContain('npx killer-skills add pdf');
+
+    expect(esGenerativeArtSource).toContain('## Una mirada interna: la filosofía');
+    expect(esGenerativeArtSource).toContain('## Cómo empezar');
+    expect(esGenerativeArtSource).toContain('https://killer-skills.com/es/skills/anthropics/skills/canvas-design');
+    expect(esGenerativeArtSource).toContain('/es/blog/what-are-ai-agent-skills');
+    expect(esGenerativeArtSource).not.toContain('## A Look Under the Hood: The Philosophy');
+    expect(esGenerativeArtSource).not.toContain('# Getting Started');
+    expect(esGenerativeArtSource).not.toContain('## Step 1: Equip the Skill');
+    expect(esGenerativeArtSource).not.toContain('## Step 2: Prompt Your Agent');
+    expect(esGenerativeArtSource).not.toContain('## Step 3: Iterate and Explore');
+    expect(esGenerativeArtSource).not.toContain('## Why This Matters for Developers');
+    expect(esGenerativeArtSource).not.toContain('https://killer-skills.com/es/habilidades/antropicas/habilidades/canvas-design');
+    expect(esGenerativeArtSource).not.toContain('https://killer-skills.com/es/habilidades/antropicas/habilidades/theme-factory');
+    expect(esGenerativeArtSource).not.toContain('/es/blog/que-son-las-habilidades-de-agentes-de-ia');
+    expect(esGenerativeArtSource).not.toContain('/es/blog/mejores-habilidades-de-agentes-de-ia-2026');
   });
 });

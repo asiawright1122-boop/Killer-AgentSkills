@@ -144,15 +144,15 @@ export const installCommand = new Command('install')
                     execSync('npx killer-skills sync', { stdio: 'pipe' });
                     syncSpinner.succeed(chalk.green('Skills synced — AI agents can now discover and auto-invoke your skills'));
                 } catch {
-                    syncSpinner.warn(chalk.yellow('Auto-sync failed. Run manually: killer sync'));
+                    syncSpinner.warn(chalk.yellow('Auto-sync failed. Run manually: npx killer-skills sync'));
                 }
             }
 
             // Tips
             console.log(chalk.dim('\n💡 Next steps:'));
-            console.log(chalk.dim('   killer list   - View all installed skills'));
-            console.log(chalk.dim('   killer read <skill> - Load skill content'));
-            console.log(chalk.dim('   killer update - Update skills from source'));
+            console.log(chalk.dim('   npx killer-skills list   - View all installed skills'));
+            console.log(chalk.dim('   npx killer-skills read <skill> - Load skill content'));
+            console.log(chalk.dim('   npx killer-skills update - Update skills from source'));
 
         } catch (error) {
             spinner.fail(chalk.red(`Failed to install ${source}`));
@@ -547,7 +547,7 @@ async function installFromRegistry(
                 }
             });
 
-            console.log(chalk.blue('\n💡 Install with: killer install <owner/repo>'));
+            console.log(chalk.blue('\n💡 Install with: npx killer-skills add <owner/repo>'));
         } else {
             spinner.fail(chalk.yellow(`Skill '${skillName}' not found.`));
         }

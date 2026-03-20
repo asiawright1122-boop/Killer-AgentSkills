@@ -41,6 +41,8 @@ const collectionsCol = defineCollection({
     keywords: z.record(z.array(z.string())).optional(),
     longDescription: z.record(z.string()).optional(),
     skills: z.array(z.string()),
+    canonicalSlug: z.string().optional(),
+    legacySlugs: z.array(z.string()).optional(),
     author: z.string().default('Killer-Skills Team'),
     featured: z.boolean().default(false),
     category: z.string().optional(),

@@ -39,7 +39,7 @@ describe('Kiro Adapter Logic', () => {
         // Verify content
         const content = await fs.readJson(agentFile);
         expect(content.name).toBe(skillName);
-        expect(content.instructions).toContain('kiro list');
-        expect(content.instructions).toContain('kiro search');
+        expect(content.instructions).toContain('npx killer-skills list');
+        expect(content.instructions).toContain('npx killer-skills search <keyword>');
     });
 });

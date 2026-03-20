@@ -25,8 +25,22 @@ type DriftIssue = {
     | 'duplicate_mcp_slug_token'
     | 'duplicate_server_slug_token'
     | 'legacy_mcp_slug_copy_mismatch'
-    | 'legacy_mcp_servers_slug_copy_mismatch';
+    | 'legacy_mcp_servers_slug_copy_mismatch'
+    | 'canonical_map_mismatch';
   message: string;
+};
+
+type CanonicalMapEntry = {
+  sourceSlug: string;
+  canonicalSlug: string;
+  decision: 'keep' | 'merge' | 'retire';
+  redirectPhase?: string;
+  notes?: string;
+};
+
+type CanonicalMapArtifact = {
+  generatedAt: string;
+  collections: CanonicalMapEntry[];
 };
 
 type DriftReport = {
@@ -40,6 +54,7 @@ type DriftReport = {
 const workspaceRoot = process.cwd();
 const collectionsDir = resolve(workspaceRoot, 'src/content/collections');
 const outputPath = resolve(workspaceRoot, 'data/seo-collection-drift.json');
+const canonicalMapPath = resolve(workspaceRoot, 'data/seo-collection-canonical-map.json');
 
 const MCP_PATTERN = /\bmcp\b|model context protocol/i;
 const SERVER_PATTERN = /\bserver(?:s)?\b/i;
@@ -83,12 +98,23 @@ function countSlugToken(slug: string, token: 'mcp' | 'server'): number {
     .filter((part) => (token === 'mcp' ? part === 'mcp' : part === 'server' || part === 'servers')).length;
 }
 
-function collectIssues(file: string, entry: CollectionEntry): DriftIssue[] {
-  const slug = entry.canonicalSlug?.trim() || toSlug(file);
+function readCanonicalMap(): Map<string, CanonicalMapEntry> {
+  if (!existsSync(canonicalMapPath)) {
+    return new Map();
+  }
+
+  const artifact = readJson<CanonicalMapArtifact>(canonicalMapPath);
+  return new Map((artifact.collections || []).map((item) => [item.sourceSlug, item]));
+}
+
+function collectIssues(file: string, entry: CollectionEntry, canonicalMap: Map<string, CanonicalMapEntry>): DriftIssue[] {
+  const fileSlug = toSlug(file);
+  const slug = entry.canonicalSlug?.trim() || fileSlug;
   const visibleEnglishCopy = buildVisibleEnglishCopy(entry);
   const fullEnglishCopy = buildFullEnglishCopy(entry);
   const issues: DriftIssue[] = [];
 
+  const mappedCanonical = canonicalMap.get(fileSlug)?.canonicalSlug?.trim();
   const mcpTokenCount = countSlugToken(slug, 'mcp');
   const serverTokenCount = countSlugToken(slug, 'server');
 
@@ -132,6 +158,16 @@ function collectIssues(file: string, entry: CollectionEntry): DriftIssue[] {
     });
   }
 
+  if (mappedCanonical && mappedCanonical !== slug) {
+    issues.push({
+      file,
+      slug,
+      severity: 'warning',
+      code: 'canonical_map_mismatch',
+      message: `canonical map expects ${mappedCanonical} but collection resolves to ${slug}`,
+    });
+  }
+
   return issues;
 }
 
@@ -144,7 +180,8 @@ function buildReport(): DriftReport {
     .filter((file) => file.endsWith('.json'))
     .sort();
 
-  const items = files.flatMap((file) => collectIssues(file, readJson<CollectionEntry>(join(collectionsDir, file))));
+  const canonicalMap = readCanonicalMap();
+  const items = files.flatMap((file) => collectIssues(file, readJson<CollectionEntry>(join(collectionsDir, file)), canonicalMap));
   const issuesByCode = items.reduce<Record<string, number>>((acc, item) => {
     acc[item.code] = (acc[item.code] || 0) + 1;
     return acc;

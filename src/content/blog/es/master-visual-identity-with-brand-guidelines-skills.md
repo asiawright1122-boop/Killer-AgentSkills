@@ -60,7 +60,7 @@ Genera gráficos para redes sociales o documentos en PDF que son instantáneamen
 
 La habilidad `brand-guidelines` es el toque final que convierte la "salida de IA" en "activo profesional". Asegura que su agente de codificación comprenda la importancia del contexto visual y la autoridad de la marca.
 
-Instale la habilidad [brand-guidelines](https://killer-skills.com/es/skills/anthropics/skills/brand-guidelines) desde el Marketplace de Killer-Skills y comience a diseñar con autoridad.
+Instala la habilidad [brand-guidelines](https://killer-skills.com/es/skills/anthropics/skills/brand-guidelines) desde el directorio de habilidades de Killer-Skills y empieza a diseñar con autoridad.
 
 ---
 

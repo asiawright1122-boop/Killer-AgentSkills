@@ -55,7 +55,7 @@ AIに*何*をしなければならないかだけを伝えるのではなく、*
 
 AIの力は、モデルだけではなく、それを取り巻く**インフラストラクチャ**にある。`skill-creator`スキルを使用すると、「プロンプトエンジニア」から「機能アーキテクト」となり、AIに何をしなければならないのかを伝えるのではなく、どのように学ばせるかを教えることができる。
 
-今日から[Killer-Skills Marketplace](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator)でカスタムAIワークスペースの構築を開始してください。
+Killer-Skills のスキル一覧にある [skill-creator スキル](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator) で、今日からカスタム AI ワークスペースの構築を始めましょう。
 
 ---
 

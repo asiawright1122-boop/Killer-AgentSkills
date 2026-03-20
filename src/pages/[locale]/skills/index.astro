@@ -145,8 +145,8 @@ const workflowEntryLinks = getSolutionIntents(typedLocale);
 
 // Page title
 let pageTitle = isZh
-  ? '可安装 AI Agent Skills 与 MCP Servers（自动化）'
-  : 'Installable AI Agent Skills & MCP Servers for Automation';
+  ? '可安装 AI Agent Skills（自动化工作流）'
+  : 'Installable AI Agent Skills for Automation Workflows';
 if (cleanQuery)
   pageTitle = isZh ? `${cleanQuery}：可安装 AI Agent Skills` : `${cleanQuery}: Installable AI Agent Skills`;
 else if (category && category !== 'all')
@@ -154,16 +154,16 @@ else if (category && category !== 'all')
     isZh ? 'AI Agent Skills（可安装）' : 'Installable AI Agent Skills'
   }`;
 else if (view === 'official')
-  pageTitle = isZh ? '官方与认证 AI Agent Skills 与 MCP Servers' : 'Official AI Agent Skills & MCP Servers';
+  pageTitle = isZh ? '官方与认证 AI Agent Skills' : 'Official AI Agent Skills';
 else if (view === 'featured')
-  pageTitle = isZh ? '精选 AI Agent Skills 与 MCP Servers' : 'Featured AI Agent Skills & MCP Servers';
+  pageTitle = isZh ? '精选 AI Agent Skills' : 'Featured AI Agent Skills';
 else if (view === 'latest') pageTitle = isZh ? '最新可安装 AI Agent Skills' : 'Latest Installable AI Agent Skills';
 else if (topic) pageTitle = isZh ? `${topicParam}：相关 AI Agent Skills` : `${topicParam}: Related AI Agent Skills`;
 
 if (owner) {
   const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
   const ownerName = vendorConfig?.name || owner;
-  pageTitle = isZh ? `${ownerName} AI Agent Skills` : `${ownerName} AI Agent Skills & MCP Servers`;
+  pageTitle = isZh ? `${ownerName} AI Agent Skills` : `${ownerName} AI Agent Skills`;
 }
 if (queryIntent) {
   pageTitle = isZh
@@ -172,34 +172,34 @@ if (queryIntent) {
 }
 
 let pageDescription = isZh
-  ? '按自动化场景比较可安装 AI Agent Skills 与 MCP Servers，覆盖工作流、流程、文档、浏览器与数据提取任务，并支持一键部署。'
-  : 'Compare installable AI agent skills and MCP servers for workflow, process, document, browser, and data automation, then deploy with one command.';
+  ? '按自动化场景比较可安装 AI Agent Skills，覆盖工作流、流程、文档、浏览器与数据提取任务，并支持一键部署。'
+  : 'Compare installable AI agent skills for workflow, process, document, browser, and data automation, then deploy with one command.';
 if (cleanQuery) {
   pageDescription = isZh
-    ? `查找“${cleanQuery}”相关的可安装 AI Agent Skills 与 MCP Servers，并在 Claude Code、Cursor、Windsurf 中一键部署。`
-    : `Find installable AI agent skills and MCP servers for "${cleanQuery}", then deploy in Claude Code, Cursor, and Windsurf with one command.`;
+    ? `查找“${cleanQuery}”相关的可安装 AI Agent Skills，并在 Claude Code、Cursor、Windsurf 中一键部署。`
+    : `Find installable AI agent skills for "${cleanQuery}", then deploy in Claude Code, Cursor, and Windsurf with one command.`;
 } else if (owner) {
   pageDescription = isZh
-    ? `浏览 ${owner} 发布的 AI Agent Skills 与 MCP Servers，查看场景、质量信号与一键安装方式。`
-    : `Browse AI agent skills and MCP servers from ${owner}, including use cases, quality signals, and one-command installation.`;
+    ? `浏览 ${owner} 发布的 AI Agent Skills，查看场景、质量信号与一键安装方式。`
+    : `Browse AI agent skills from ${owner}, including use cases, quality signals, and one-command installation.`;
 } else if (category && category !== 'all') {
   pageDescription = getCategorySeoDescription(category, typedLocale) || t('Metadata.Skills.description');
 } else if (view === 'official') {
   pageDescription = isZh
-    ? '浏览官方与认证仓库发布的 AI Agent Skills 与 MCP Servers，优先选择稳定维护、可直接部署的方案。'
-    : 'Browse official and verified AI agent skills and MCP servers with reliable maintenance, trust signals, and direct install paths.';
+    ? '浏览官方与认证仓库发布的 AI Agent Skills，优先选择稳定维护、可直接部署的方案。'
+    : 'Browse official and verified AI agent skills with reliable maintenance, trust signals, and direct install paths.';
 } else if (view === 'featured') {
   pageDescription = isZh
-    ? '查看社区精选 AI Agent Skills 与 MCP Servers，按质量评分与热度快速发现高价值自动化能力。'
-    : 'Discover featured AI agent skills and MCP servers ranked by quality signals, popularity, and practical automation value.';
+    ? '查看社区精选 AI Agent Skills，按质量评分与热度快速发现高价值自动化能力。'
+    : 'Discover featured AI agent skills ranked by quality signals, popularity, and practical automation value.';
 } else if (view === 'latest') {
   pageDescription = isZh
-    ? '追踪最新收录与更新的 AI Agent Skills，快速获取新发布 MCP Servers 与自动化能力。'
-    : 'Track newly indexed AI agent skills to discover fresh MCP servers and automation capabilities early.';
+    ? '追踪最新收录与更新的 AI Agent Skills，快速发现新发布的自动化能力。'
+    : 'Track newly indexed AI agent skills to discover fresh automation capabilities early.';
 } else if (topic) {
   pageDescription = isZh
-    ? `按主题“${topicParam}”筛选可安装 AI Agent Skills 与 MCP Servers，查看相关能力并一键部署。`
-    : `Filter installable AI agent skills and MCP servers by topic "${topicParam}" to find relevant capabilities and deploy fast.`;
+    ? `按主题“${topicParam}”筛选可安装 AI Agent Skills，查看相关能力并一键部署。`
+    : `Filter installable AI agent skills by topic "${topicParam}" to find relevant capabilities and deploy fast.`;
 }
 if (queryIntent) {
   pageDescription = queryIntent.description;
@@ -208,7 +208,6 @@ if (queryIntent) {
 const pageKeywords = buildKeywordString(
   typedLocale,
   'core',
-  'mcp',
   'ideCompat',
   'browserAutomation',
   'dataWorkflow',
@@ -222,7 +221,7 @@ const pageKeywords = buildKeywordString(
   cleanQuery,
   queryIntent?.displayTerm,
   queryIntent?.keywords || [],
-  category && category !== 'all' ? [category, `${category} mcp server`] : [],
+  category && category !== 'all' ? [category] : [],
   topicParam,
   owner,
   view,
@@ -351,7 +350,9 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                               ? t('Sidebar.views.featured')
                               : view === 'latest'
                                 ? t('Sidebar.views.latest')
-                                : t('Common.explore')
+                                : isZh
+                                  ? '可安装 AI Agent Skills'
+                                  : 'Installable AI Agent Skills'
                   }
                 </h1>
                 <p
@@ -370,18 +371,14 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                     <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
                       {locale === 'zh' ? (
                         <p>
-                          探索全球最大的 <strong>AI Agent Skills (大模型插件技能)</strong> 与{' '}
-                          <strong>MCP Servers (Model Context Protocol 服务器)</strong> 开源生态目录。为您的 Claude
-                          Desktop、Cursor 或自定义智能体发现并安装高质量的开发者工具。无论是系统运维、API
-                          集成还是自动化数据查询，这里都有最全的经过验证的 MCP 开源实践。
+                          探索面向 <strong>AI Agent Skills</strong> 的开放目录，快速为 Claude Code、Cursor、Windsurf 与其他 IDE
+                          查找、安装并比较高质量技能。无论是工作流自动化、文档处理、浏览器操作还是数据提取，这里都聚合了可直接落地的技能与安装入口。
                         </p>
                       ) : (
                         <p>
-                          Discover the world's most comprehensive directory for <strong>AI Agent Skills</strong> and
-                          community-driven <strong>MCP Servers (Model Context Protocol)</strong>. Seamlessly find and
-                          install high-quality developer integrations for your Claude Desktop, Cursor, or custom AI
-                          agents. From cloud operations to API integrations, explore verified open-source MCP practices
-                          to supercharge your AI workflows.
+                          Explore an open directory built around <strong>AI Agent Skills</strong>, with fast ways to find,
+                          compare, and install high-quality skills for Claude Code, Cursor, Windsurf, and other IDEs.
+                          From workflow automation and document handling to browser actions and data extraction, this page focuses on installable skills with practical delivery paths.
                         </p>
                       )}
                     </div>

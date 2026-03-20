@@ -62,12 +62,12 @@ function generateSeoDescription(description: string): string {
 
 function generateKeywords(slug: string, locale: string): string[] {
   const baseKeywords: Record<string, string[]> = {
-    es: ['mcp servers', 'herramientas ai', 'desarrollo ai'],
-    fr: ['mcp servers', 'outils ia', 'développement ia'],
-    de: ['mcp servers', 'ki-werkzeuge', 'ki-entwicklung'],
-    pt: ['mcp servers', 'ferramentas ia', 'desenvolvimento ia'],
-    ru: ['mcp серверы', 'инструменты ии', 'разработка ии'],
-    ar: ['خوادم mcp', 'أدوات الذكاء الاصطناعي', 'تطوير الذكاء الاصطناعي']
+    es: ['ai agent skills', 'herramientas ai', 'flujos de trabajo'],
+    fr: ['ai agent skills', 'outils ia', 'workflows'],
+    de: ['ai agent skills', 'ki-werkzeuge', 'workflows'],
+    pt: ['ai agent skills', 'ferramentas ia', 'fluxos de trabalho'],
+    ru: ['ai agent skills', 'инструменты ии', 'рабочие процессы'],
+    ar: ['مهارات وكلاء الذكاء الاصطناعي', 'أدوات الذكاء الاصطناعي', 'سير العمل']
   };
   
   // Extract key terms from slug
@@ -104,7 +104,7 @@ function processCollection(filePath: string) {
     // Generate seoTitle if missing
     if (!content.seoTitle?.[locale]) {
       content.seoTitle = content.seoTitle || {};
-      const baseTitle = content.title?.[locale] || content.title?.en || 'MCP Servers';
+      const baseTitle = content.title?.[locale] || content.title?.en || 'AI Agent Skills';
       content.seoTitle[locale] = generateSeoTitle(baseTitle, locale);
       modified = true;
     }

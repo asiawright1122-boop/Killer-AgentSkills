@@ -29,7 +29,7 @@ export const pluginCommand = new Command('plugin')
                 if (plugins.length === 0) {
                     console.log(chalk.dim('  No plugins installed'));
                     console.log(chalk.dim('\n  Install a plugin:'));
-                    console.log(chalk.cyan('    killer plugin add ./my-plugin'));
+                    console.log(chalk.cyan('    npx killer-skills plugin add ./my-plugin'));
                 } else {
                     for (const plugin of plugins) {
                         const typeIcon = getTypeIcon(plugin.type);
@@ -48,7 +48,7 @@ export const pluginCommand = new Command('plugin')
             if (action === 'add' || action === 'install') {
                 if (!source) {
                     console.log(chalk.red('Please specify a plugin source'));
-                    console.log(chalk.dim('Example: killer plugin add ./my-plugin'));
+                    console.log(chalk.dim('Example: npx killer-skills plugin add ./my-plugin'));
                     process.exit(1);
                 }
 
@@ -68,7 +68,7 @@ export const pluginCommand = new Command('plugin')
             if (action === 'remove' || action === 'uninstall') {
                 if (!source) {
                     console.log(chalk.red('Please specify a plugin name'));
-                    console.log(chalk.dim('Example: killer plugin remove my-plugin'));
+                    console.log(chalk.dim('Example: npx killer-skills plugin remove my-plugin'));
                     process.exit(1);
                 }
 

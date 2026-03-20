@@ -58,7 +58,7 @@ Demandez à l'agent de "tester la lisibilité" de votre spécification technique
 
 Le skill `doc-coauthoring` élève le niveau de ce que peut être l'écriture assistée par l'IA. Il transforme une tâche solitaire et épuisante en un dialogue structuré et de haute qualité. 
 
-Visitez le [Killer-Skills Marketplace](https://killer-skills.com/fr/skills/anthropics/skills/doc-coauthoring) pour télécharger le skill et commencer à rédiger des documents qui fonctionnent vraiment.
+Visitez le skill [doc-coauthoring](https://killer-skills.com/fr/skills/anthropics/skills/doc-coauthoring) dans le répertoire de skills Killer-Skills pour commencer à rédiger des documents qui fonctionnent vraiment.
 
 ---
 

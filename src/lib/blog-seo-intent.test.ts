@@ -13,9 +13,9 @@ describe('blog-seo-intent', () => {
     );
   });
 
-  it('expands MCP posts into developer, ide, and mcp clusters', () => {
+  it('keeps MCP posts in developer workflow clusters while retaining MCP as a secondary signal', () => {
     expect(getBlogKeywordClusters('developer-experience', 'how-to-build-mcp-servers-with-agent-skills')).toEqual(
-      expect.arrayContaining(['mcp', 'ideCompat', 'developerExperience']),
+      expect.arrayContaining(['mcp', 'developerExperience', 'workflowAutomation']),
     );
   });
 
@@ -32,10 +32,33 @@ describe('blog-seo-intent', () => {
     expect(links[0]?.href).toContain('/skills?q=process automation');
   });
 
+  it('keeps mcp blog links developer-workflow-first instead of mcp-tool-first', () => {
+    const links = getBlogIntentLinks('en', 'developer-experience', 'how-to-build-mcp-servers-with-agent-skills');
+    expect(links[0]?.title).toContain('Skills for Developer Workflows');
+    expect(links[0]?.href).toContain('/skills?q=skills for developer workflows');
+    expect(links[0]?.title.toLowerCase()).not.toContain('mcp');
+    expect(links[0]?.href.toLowerCase()).not.toContain('q=mcp');
+  });
+
+  it('keeps mcp blog long-tail keywords skills-first with mcp as a modifier', () => {
+    const keywords = getBlogLongTailKeywords('how-to-build-mcp-servers-with-agent-skills', 'en');
+    expect(keywords).toContain('ai agent skills for developer workflows');
+    expect(keywords).toContain('developer workflow skills');
+    expect(keywords).toContain('claude code integrations with mcp');
+  });
+
   it('returns ctr-focused meta overrides for target english posts', () => {
     const meta = getBlogMetaOverride('en', 'how-to-install-ai-agent-skills');
     expect(meta?.title).toContain('Install AI Agent Skills');
     expect(meta?.description).toContain('npx killer-skills add');
+  });
+
+  it('keeps mcp meta override skills-first while retaining explicit mcp context', () => {
+    const meta = getBlogMetaOverride('en', 'how-to-build-mcp-servers-with-agent-skills');
+    expect(meta?.title).toContain('Skills for Developer Workflows');
+    expect(meta?.title).toContain('MCP');
+    expect(meta?.description).toContain('AI agent skill workflows');
+    expect(meta?.description).toContain('MCP integrations');
   });
 
   it('returns comparison-focused overrides for high-intent guide posts', () => {

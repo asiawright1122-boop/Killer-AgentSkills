@@ -55,7 +55,7 @@ O `skill-creator` fornece um fluxo de trabalho passo a passo para construir suas
 
 O poder da IA não está apenas no modelo; está na **infraestrutura** que o rodeia. Com a habilidade `skill-creator`, você passa de "engenheiro de prompts" a "arquiteto de capacidades". Você não está apenas dizendo à IA o que fazer; está ensinando-a a aprender.
 
-Comece a construir seu espaço de trabalho de IA personalizado hoje no [Mercado de Habilidades Killer-Skills](https://killer-skills.com/pt/skills/anthropics/skills/skill-creator).
+Comece a construir seu espaço de trabalho de IA personalizado com a habilidade [skill-creator](https://killer-skills.com/pt/skills/anthropics/skills/skill-creator) no diretório de skills do Killer-Skills.
 
 ---
 

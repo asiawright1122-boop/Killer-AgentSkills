@@ -24,7 +24,7 @@ heroImage: "https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 ターミナルを開き、プロジェクトディレクトリに移動し、次のコマンドを実行します：
 
 ```bash
-npx killer-skills add <owner>/<repo>/<skill-name>
+npx killer-skills add owner/repo
 ```
 
 例えば、PDF自動化スキルをインストールするには、次のコマンドを実行します：
@@ -53,7 +53,7 @@ npx killer-skills add anthropics/skills/pdf --all
 npx killer-skills search auth
 ```
 
-コミュニティデータベースを検索して、スター数やフルインストールパスを含む上位の一致を返します。さらに、[Killer-Skills ウェブサイト](/en/skills)でオープンソースディレクトリを全て閲覧することもできます。
+コミュニティデータベースを検索して、スター数やフルインストールパスを含む上位の一致を返します。さらに、[Killer-Skills ウェブサイト](/ja/skills)でオープンソースディレクトリを全て閲覧することもできます。
 ## スキルの最新化
 
 スキルは進化します。著者は新しいエッジケースを追加し、悪い説明を修正し、プロンプトの信頼性を向上させます。CLI経由でスキルをインストールしたため、同じように簡単に更新できます。

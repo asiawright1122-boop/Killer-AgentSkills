@@ -55,7 +55,7 @@ npx killer-skills add anthropics/skills/skill-creator
 
 Мощь ИИ не только в модели, но и в **инфраструктуре**, окружающей ее. С помощью навыка `skill-creator` вы переходите от роли "инженера-пrompt" к роли "архитектора-возможностей". Вы не просто указываете ИИ, что делать; вы учитесь ему, как учиться.
 
-Начните строить свою индивидуальную рабочую площадку ИИ сегодня на [Killer-Skills Marketplace](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator).
+Начните создавать своё персональное ИИ-пространство с навыком [skill-creator](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator) в каталоге навыков Killer-Skills.
 
 ---
 

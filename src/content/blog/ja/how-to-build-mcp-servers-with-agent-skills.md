@@ -20,7 +20,7 @@ heroImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-このガイドでは、MCPサーバーの構築方法について、プロトコルを理解することから最初のサーバーのデプロイまで、必要なすべてのことを学習します。
+優れたMCPサーバーを作るうえで重要なのは、長い手順をなぞることではなく、どの能力をツールとして公開するか、どう説明すればエージェントに伝わるか、そして運用上の境界をどう置くかを最初に決めることです。
 ## MCPサーバーとは？
 
 MCPサーバーは、AIエージェントが利用できるツール、リソース、プロンプトを提供する標準化されたサービスです。AIアシスタントと実世界 — データベース、API、ファイルシステム、クラウドサービスなど — の間の橋として考えることができます。
@@ -33,9 +33,9 @@ MCPが重要な理由は以下のとおりです:
 - **標準化されたインターフェイス** — ツール、リソース、プロンプトは一貫したスキーマに従います
 - **セキュリティを第一にした設計** — 認証、入力検証、パーミッション制御が組み込まれています
 - **構成可能なワークフロー** — エージェントは複数のMCPツールを連結して使用できます
-## Why Use the mcp-builder Skill?
+## mcp-builderスキルを使う理由
 
-The **mcp-builder** スキルは、Anthropic の公式リポジトリで最も強力なスキルの一つです。以下の機能を提供することで、Claude を専門の MCP サーバー開発者に変えることができます:
+**mcp-builder** スキルは、Anthropic の公式リポジトリでも特に強力なスキルのひとつです。Claude を MCP サーバー開発に強い相棒へ変える要素として、次の点が挙げられます。
 
 1. **深いプロトコル知識** — スキルは MCP の完全な仕様を読み込み、Claude が細部まで理解できるようにします
 2. **ベストプラクティスが組み込まれている** — ツール名、エラーハンドリング、ページネーションパターンなどがすべて事前に設定されています
@@ -50,27 +50,21 @@ The **mcp-builder** スキルは、Anthropic の公式リポジトリで最も�
 | **フェーズ 2: ビルド** | エラーハンドリングや認証を適切に行ったサーバーを実装します |
 | **フェーズ 3: レビュー** | すべてのツールをテストし、レスポンスを検証し、エッジケースを確認します |
 | **フェーズ 4: 評価** | 品質を検証する自動評価を生成します |
-## Getting Started: Build Your First MCP Server
+## 実装前に整理しておきたいこと
 
-### Step 1: Install the Skill
+### スキルを追加する
 
-First, make sure you have the Killer-Skills CLI installed:
-
-```bash
-npm install -g killer-skills
-```
-
-Then add the mcp-builder skill to your project:
+グローバルなCLIインストールは不要です。`npx` から直接 mcp-builder スキルを追加してください:
 
 ```bash
 npx killer-skills add anthropics/skills/mcp-builder
 ```
 
-The skill will be added to your `.claude/skills/` directory and automatically activated when Claude detects MCP server development tasks.
+スキルは `.claude/skills/` ディレクトリに追加され、Claude が MCP サーバー開発タスクを検出すると自動で有効になります。
 
-### Step 2: Choose Your Stack
+### スタックを選ぶ
 
-The mcp-builder skill supports two primary stacks:
+mcp-builderスキルは主に2つのスタックをサポートします。
 
 **TypeScript (Recommended)**
 ```bash
@@ -91,7 +85,7 @@ pip install mcp pydantic
 
 Pythonは、チームがすでにPythonを使用しているか、PythonヘビーのAPIと統合する場合に適した選択です。
 
-### Step 3: Define Your Tools
+### ツールを設計する
 
 優れたMCPサーバーの鍵は、よく設計されたツールです。以下はテンプレートです：
 
@@ -126,7 +120,7 @@ server.tool(
 );
 ```
 
-### Step 4: Implement Best Practices
+### 重要な設計パターンを反映する
 
 mcp-builderスキルは、いくつかの重要なパターンを強制します：
 
@@ -189,8 +183,8 @@ Claudeは:
 3. 正しいOAuth認証を備えた完全なサーバーを構築します
 4. 各ツールのテスト評価を生成します
 
-結果は、適切なエラーハンドリング、ペジネーション、レート制限、認証を備えた本番環境向けのサーバーになります。通常、手動で構築するには数日かかる作業です。
-## キーデザインプリンシプル for MCPサーバー
+結果として、適切なエラーハンドリング、ページネーション、レート制限、認証を備えた本番向けサーバーが得られます。これを手作業で組み上げるなら、通常は数日かかる内容です。
+## MCPサーバー設計で押さえたい原則
 
 ### APIカバレッジ vs. ワークフロー ツール
 
@@ -218,7 +212,7 @@ mcp-builder スキルは、自動評価を生成し、以下のものをテス�
 - **実際のシナリオ** — ツールを連結してワークフローを形成する多段階のワークフロー
 ## Killer-Skillsを介してのインストール
 
-最も迅速な開始方法は、Killer-Skillsマーケットプレイスを通じて行うことです：
+最も迅速な開始方法は、Killer-Skillsのスキルディレクトリを使うことです：
 
 ```bash
 # 公式のスキルをブラウズ
@@ -247,7 +241,7 @@ AI開発の将来は、より多くのコードを書くことではなく、AI�
 
 ---
 
-*さらにスキルを探す？[Killer-Skills Marketplace](https://killer-skills.com/ja/skills)を閲覧して、AIコーディングワークフロー用の数百の検証済みエージェントスキルを発見してください.*
+*さらにスキルを探すなら、[Killer-Skills スキルディレクトリ](https://killer-skills.com/ja/skills)を閲覧して、AIコーディングワークフロー用の数百の検証済みエージェントスキルを発見してください。*
 
 ---
 
