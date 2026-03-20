@@ -38,7 +38,9 @@ const allCollections = getCanonicalCollections(await getCollection('collections'
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
 // SEO: homepage metadata should describe the site itself, not query funnels
-const homeSeoTitle = isZh ? 'Killer-Skills - AI Agent Skills 开放目录' : 'Killer-Skills - Open Directory for AI Agent Skills';
+const homeSeoTitle = isZh
+  ? 'Killer-Skills - AI Agent Skills 开放目录'
+  : 'Killer-Skills - Open Directory for AI Agent Skills';
 const homeSeoDescription = isZh
   ? '发现、安装并管理 2,500+ 个 AI Agent Skills。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放技能目录与安装入口。'
   : 'Discover, install, and manage 2,500+ AI agent skills. Killer-Skills is an open directory and installation entry point for Claude Code, Cursor, Windsurf, and 19+ IDEs.';
@@ -63,16 +65,16 @@ const faqItems = [
       : 'You can open any skill page or use `npx killer-skills add owner/repo` to install a skill into any supported environment.',
   },
   {
-    question: isZh ? '这些技能为什么适合放进 IDE？' : 'Why do these skills fit IDE workflows?',
+    question: isZh ? '这些技能以什么形式提供？' : 'How are these skills packaged?',
     answer: isZh
-      ? '因为它们会把任务说明、流程约束和最佳实践写入 IDE 原生技能文件，让 AI 助手在真实工作中执行得更稳定。'
-      : 'They package task instructions, workflow constraints, and best practices into IDE-native skill files so coding assistants execute more consistently in real work.',
+      ? '它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。'
+      : 'They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.',
   },
   {
-    question: isZh ? '如果任务还需要外部工具怎么办？' : 'What if a workflow also needs external tools?',
+    question: isZh ? '为什么要从目录页进入技能详情？' : 'Why start from the skill directory?',
     answer: isZh
-      ? '当任务还需要数据库、API、浏览器或其他外部能力时，可以把技能与对应工具配合使用；站点本身仍以技能目录与安装为核心。'
-      : 'If a workflow also needs databases, APIs, browsers, or other external capabilities, you can pair a skill with the right tool while the site itself stays focused on skills and installation.',
+      ? '因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。'
+      : 'The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.',
   },
 ];
 

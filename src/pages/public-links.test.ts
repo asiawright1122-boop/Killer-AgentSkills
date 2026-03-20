@@ -18,7 +18,7 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).not.toContain('High-Intent Workflow Searches');
     expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
-    expect(zhHomeSource).toContain("Killer-Skills - AI Agent Skills 开放目录");
+    expect(zhHomeSource).toContain('Killer-Skills - AI Agent Skills 开放目录');
     expect(zhHomeSource).toContain('Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口');
   });
 
@@ -38,6 +38,18 @@ describe('public links and navigation copy', () => {
     expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
     expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
     expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
+  });
+
+  it('keeps homepage FAQ focused on skills, install flow, and supported IDEs', () => {
+    const homeSource = readPageSource('../pages/[locale]/index.astro');
+
+    expect(homeSource).toContain("question: isZh ? '如何安装这些技能？' : 'How do I install these skills?'");
+    expect(homeSource).toContain("question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?'");
+    expect(homeSource).toContain('npx killer-skills add owner/repo');
+    expect(homeSource).not.toContain('Why do these skills fit IDE workflows?');
+    expect(homeSource).not.toContain('What if a workflow also needs external tools?');
+    expect(homeSource).not.toContain('这些技能为什么适合放进 IDE？');
+    expect(homeSource).not.toContain('如果任务还需要外部工具怎么办？');
   });
 
   it('keeps evergreen blog counts aligned with current public totals', () => {
@@ -652,11 +664,7 @@ describe('public links and navigation copy', () => {
 
   it('keeps high-priority ai-agent blog posts free of placeholder install commands', () => {
     const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
-    const slugs = [
-      'official-ai-agent-skills-guide',
-      'best-ai-agent-skills-2026',
-      'how-to-install-ai-agent-skills',
-    ];
+    const slugs = ['official-ai-agent-skills-guide', 'best-ai-agent-skills-2026', 'how-to-install-ai-agent-skills'];
     const placeholderInstallCommandPattern = /npx killer-skills add <[^>\n]+>/;
 
     for (const locale of locales) {
@@ -842,7 +850,9 @@ describe('public links and navigation copy', () => {
     expect(deThemeFactorySource).not.toContain('/es/blog/mejores-habilidades-de-agentes-de-ia-2026');
 
     expect(jaCanvasDesignSource).not.toContain('title: "Static Design Mastery: Canvas-Design Skill"');
-    expect(jaCanvasDesignSource).not.toContain('description: "Master static design with our proven canvas-design skill guide');
+    expect(jaCanvasDesignSource).not.toContain(
+      'description: "Master static design with our proven canvas-design skill guide',
+    );
     expect(jaCanvasDesignSource).not.toContain('## Was macht Canvas-Design anders?');
     expect(jaCanvasDesignSource).not.toContain('## Key Design Principles');
     expect(jaCanvasDesignSource).not.toContain('Of course. Here is the translated Markdown content:');
@@ -859,7 +869,9 @@ describe('public links and navigation copy', () => {
     const frWhatAreSkillsSource = readPageSource('../content/blog/fr/what-are-ai-agent-skills.md');
     const ptWhatAreSkillsSource = readPageSource('../content/blog/pt/what-are-ai-agent-skills.md');
     const arOpenClawGuideSource = readPageSource('../content/blog/ar/enhancing-openclaw-with-killer-skills-guide.md');
-    const esGenerativeArtSource = readPageSource('../content/blog/es/mastering-generative-art-with-claudecode-skills.md');
+    const esGenerativeArtSource = readPageSource(
+      '../content/blog/es/mastering-generative-art-with-claudecode-skills.md',
+    );
 
     expect(deBestSkillsSource).toContain('## Was ist eine KI-Agenten-Fähigkeit?');
     expect(deBestSkillsSource).not.toContain('## What is an AI agent skill?');
@@ -909,8 +921,12 @@ describe('public links and navigation copy', () => {
     expect(esGenerativeArtSource).not.toContain('## Step 2: Prompt Your Agent');
     expect(esGenerativeArtSource).not.toContain('## Step 3: Iterate and Explore');
     expect(esGenerativeArtSource).not.toContain('## Why This Matters for Developers');
-    expect(esGenerativeArtSource).not.toContain('https://killer-skills.com/es/habilidades/antropicas/habilidades/canvas-design');
-    expect(esGenerativeArtSource).not.toContain('https://killer-skills.com/es/habilidades/antropicas/habilidades/theme-factory');
+    expect(esGenerativeArtSource).not.toContain(
+      'https://killer-skills.com/es/habilidades/antropicas/habilidades/canvas-design',
+    );
+    expect(esGenerativeArtSource).not.toContain(
+      'https://killer-skills.com/es/habilidades/antropicas/habilidades/theme-factory',
+    );
     expect(esGenerativeArtSource).not.toContain('/es/blog/que-son-las-habilidades-de-agentes-de-ia');
     expect(esGenerativeArtSource).not.toContain('/es/blog/mejores-habilidades-de-agentes-de-ia-2026');
   });

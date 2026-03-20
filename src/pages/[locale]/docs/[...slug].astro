@@ -496,11 +496,9 @@ const isActive = (href: string) => {
         "
           >
             <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
-              {
-                isZh
-                  ? '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。'
-                  : 'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.'
-              }
+              {isZh
+                ? '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。'
+                : 'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.'}
             </p>
 
             <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
@@ -509,7 +507,9 @@ const isActive = (href: string) => {
                 {isZh ? '从第一个技能开始' : 'Start with Your First Skill'}
               </h3>
               <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
-                {isZh ? '用一条命令把第一个 AI Agent 技能加入你的开发环境。' : 'Add your first AI agent skill to your development environment with one command.'}
+                {isZh
+                  ? '用一条命令把第一个 AI Agent 技能加入你的开发环境。'
+                  : 'Add your first AI agent skill to your development environment with one command.'}
               </p>
               <div class="flex gap-2 relative">
                 <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">

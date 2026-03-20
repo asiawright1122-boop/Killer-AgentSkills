@@ -18,14 +18,7 @@
     "searchPlaceholder": "Buscar habilidades... ex: PDF, Análise de Dados",
     "searchButton": "Buscar",
     "hotTags": "Populares:",
-    "suggestions": [
-      "PDF",
-      "Geração de Imagens",
-      "Análise de Dados",
-      "Navegador",
-      "Revisão de Código",
-      "Documentos"
-    ]
+    "suggestions": ["PDF", "Geração de Imagens", "Análise de Dados", "Navegador", "Revisão de Código", "Documentos"]
   },
   "Skills": {
     "featured": "Skills em Destaque",
@@ -122,12 +115,7 @@
     "heroDesc2": "Dê instantaneamente aos seus agentes a capacidade de Navegar, Codificar e Criar.",
     "searchPlaceholder": "Buscar capacidades (ex: 'Web Scraping', 'Visualização de Dados')...",
     "searchButton": "Buscar",
-    "tags": [
-      "Pesquisa",
-      "Codificação",
-      "Marketing",
-      "Análise"
-    ],
+    "tags": ["Pesquisa", "Codificação", "Marketing", "Análise"],
     "featuresTitle": "Feito para Desenvolvedores",
     "featuresSubtitle": "Instale skills reutilizáveis de agentes de IA e leve fluxos de trabalho repetíveis para sua IDE.",
     "trendingTitle": "Habilidades em Alta",

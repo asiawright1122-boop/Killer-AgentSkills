@@ -156,7 +156,23 @@
 ### Notes
 - 首页原有“高意图自动化入口”区块已从 `src/pages/[locale]/index.astro` 移除；首页 SEO title / description / FAQ 已收口回“AI Agent Skills 开放目录 / 安装入口”定位，不再把首页做成 workflow-query funnel
 - 首页中英文 messages 已继续收口：`src/messages/en.json` 与 `src/messages/zh.json` 的 `heroBadge`、`heroDesc2`、`featuresSubtitle`、`footerDesc` 已从 `IDE workflows / automation / repeatable workflows` 统一改回“目录 / 安装入口 / IDE 原生格式安装”口径
-- 首页定向验证通过：`npx vitest run src/pages/public-links.test.ts`（21/21）与 `npx astro check --root .`（0 errors, 0 warnings, 仅保留既有 unreachable-code hints）
+- 首页 FAQ 已继续收口：`src/pages/[locale]/index.astro` 中原先偏 `IDE workflows / external tools` 的两条 FAQ，已改为围绕 `skills packaging` 与 `skill detail install decision` 的问答
+- 首页定向验证通过：`npx vitest run src/pages/public-links.test.ts`（22/22）与 `npx astro check --root .`（0 errors, 0 warnings, 仅保留既有 unreachable-code hints）
+- 2026-03-20 workflow 修复已完成：GitHub Actions 日志中的两个失败域已分别收口
+  - `Unit Tests & Coverage` 根因是 `src/messages/public-copy.test.ts` 仍断言旧的 homepage copy；现已改为与当前 `src/messages/en.json` / `src/messages/zh.json` 一致的 skills directory / install entry 文案
+  - `Lint & Format` 根因是 `prettier --check "src/**/*.{ts,tsx,astro,css,json}"` 命中的 23 个 `src/**` 文件未格式化；现已统一通过 Prettier 收口
+- workflow 对应本地验证已通过：
+  - `npx vitest run src/messages/public-copy.test.ts`（14/14）
+  - `npm run format:check`
+  - `npm run format:check:seo-automation`
+  - `npm run lint`
+  - `npm run lint:seo-automation`
+  - `npm run seo:frontmatter:guard`
+  - `npm run check:astro`（0 errors, 0 warnings, 仅保留 `scripts/generate-blog-posts.ts` unreachable-code hints）
+  - `npx vitest run --coverage --reporter=default`（29 files / 364 tests passed）
+  - `npm run build`
+  - `npx vitest run --config vitest.build-validation.config.ts --reporter=default --no-coverage`（1 file / 3 tests passed）
+  - `npm run seo:smoke -- http://127.0.0.1:4321`
 - Existing hotfix PR: #1 `seo/canonical-collections-robots`
 - Vitest 定向运行已不再扫入 `.claude/worktrees/...` 的重复 suite
 - `npm run build` 通过，但仍输出非阻塞的 esbuild CSS minify warnings（`[file:line]` 相关）

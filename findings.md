@@ -92,6 +92,9 @@
 - 首页不应直接承载 `solution-intents` 这类 query-funnel 入口。`workflow automation / process automation / document automation ...` 这套入口更适合放在 `solutions` 或 `collections` 等 intent page，而不是站点首页；否则会把首页实体从“技能目录 / 安装入口”稀释成“自动化关键词入口页”。
 - 更稳的首页 contract 应锁住两件事：一是首页源码中不再出现 `高意图自动化入口` / `High-Intent Workflow Searches`；二是首页 FAQ 与 metadata 要明确回答“站点是什么、怎么安装、支持哪些 IDE”，而不是围绕 query harvesting 展开。
 - 首页 drift 不只会残留在 section / metadata 层，也会藏在 i18n messages 里。像 `Home.heroBadge`、`heroDesc2`、`featuresSubtitle`、`footerDesc` 这类首页 copy，即使删掉 query-funnel section，仍可能继续把首页讲成 `IDE workflows / automation` hub。更稳的做法是让 `src/pages/public-links.test.ts` 同时锁住页面源码 contract 和中英文 locale copy 的“目录 / 安装入口”表述。
+- 首页 FAQ 也容易继续泄露“workflow platform”心智，即使 title / description / hero 已经改对。更稳的 FAQ 角度应是：站点是什么、支持哪些 IDE、怎么安装、skill 以什么形式提供、为什么要从 detail page 判断是否适配；而不是讨论 workflow constraints 或 external tools orchestration。
+- CI / workflow 日志里的失败有一类并不是“实现坏了”，而是 **contract test 落后于 source-of-truth copy**。这次 `Unit Tests & Coverage` 的直接根因不是 `src/messages/en.json` / `src/messages/zh.json` 错，而是 `src/messages/public-copy.test.ts` 还在断言旧的 homepage wording；对这类公开 copy contract，修复点应优先落在测试预期与权威 messages 对齐。
+- `Lint & Format` 这类 workflow 失败应先分辨是“只缺格式化”还是“同时含语义变更”。这次日志里 Prettier 已直接列出 23 个 `src/**` 文件，根因很明确是未格式化而非 lint rule 设计问题；一次统一 `prettier --write` 就能闭环。
 
 ## Working assumptions for implementation
 

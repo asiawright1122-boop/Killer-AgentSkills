@@ -153,10 +153,8 @@ else if (category && category !== 'all')
   pageTitle = `${getCategoryLabel(category, t) || category} ${
     isZh ? 'AI Agent Skills（可安装）' : 'Installable AI Agent Skills'
   }`;
-else if (view === 'official')
-  pageTitle = isZh ? '官方与认证 AI Agent Skills' : 'Official AI Agent Skills';
-else if (view === 'featured')
-  pageTitle = isZh ? '精选 AI Agent Skills' : 'Featured AI Agent Skills';
+else if (view === 'official') pageTitle = isZh ? '官方与认证 AI Agent Skills' : 'Official AI Agent Skills';
+else if (view === 'featured') pageTitle = isZh ? '精选 AI Agent Skills' : 'Featured AI Agent Skills';
 else if (view === 'latest') pageTitle = isZh ? '最新可安装 AI Agent Skills' : 'Latest Installable AI Agent Skills';
 else if (topic) pageTitle = isZh ? `${topicParam}：相关 AI Agent Skills` : `${topicParam}: Related AI Agent Skills`;
 
@@ -371,14 +369,16 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                     <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
                       {locale === 'zh' ? (
                         <p>
-                          探索面向 <strong>AI Agent Skills</strong> 的开放目录，快速为 Claude Code、Cursor、Windsurf 与其他 IDE
+                          探索面向 <strong>AI Agent Skills</strong> 的开放目录，快速为 Claude Code、Cursor、Windsurf
+                          与其他 IDE
                           查找、安装并比较高质量技能。无论是工作流自动化、文档处理、浏览器操作还是数据提取，这里都聚合了可直接落地的技能与安装入口。
                         </p>
                       ) : (
                         <p>
-                          Explore an open directory built around <strong>AI Agent Skills</strong>, with fast ways to find,
-                          compare, and install high-quality skills for Claude Code, Cursor, Windsurf, and other IDEs.
-                          From workflow automation and document handling to browser actions and data extraction, this page focuses on installable skills with practical delivery paths.
+                          Explore an open directory built around <strong>AI Agent Skills</strong>, with fast ways to
+                          find, compare, and install high-quality skills for Claude Code, Cursor, Windsurf, and other
+                          IDEs. From workflow automation and document handling to browser actions and data extraction,
+                          this page focuses on installable skills with practical delivery paths.
                         </p>
                       )}
                     </div>

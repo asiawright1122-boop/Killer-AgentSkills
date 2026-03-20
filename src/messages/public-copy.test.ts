@@ -50,21 +50,29 @@ describe('public messages copy', () => {
   });
 
   it('keeps English and Chinese entry copy focused on skills instead of platform-first language', () => {
-    expect(en.Home.featuresSubtitle).toBe('Install reusable AI agent skills and bring repeatable workflows into your IDE.');
-    expect(en.Home.footerDesc).toBe('Open-source directory for AI agent skills and IDE workflows. Built for real developer work.');
-    expect(en.Footer.desc).toBe('Open-source directory for AI agent skills and IDE workflows. Built for real developer work.');
+    expect(en.Home.featuresSubtitle).toBe(
+      'Browse reusable AI agent skills and install them in the right native format for your IDE.',
+    );
+    expect(en.Home.footerDesc).toBe(
+      'Open-source directory and installation entry point for AI agent skills. Built for real developer work.',
+    );
+    expect(en.Footer.desc).toBe(
+      'Open-source directory for AI agent skills and IDE workflows. Built for real developer work.',
+    );
     expect(en.CLI.heroTitle).toBe('Killer-Skills CLI');
     expect(en.CLI.heroSubtitle).toBe('Install and manage AI agent skills');
 
-    expect(zh.Home.featuresSubtitle).toBe('安装可复用的 AI Agent 技能，把可重复工作流带进你的 IDE。');
-    expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能与 IDE 工作流的开源目录。为真实开发工作而生。');
+    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
+    expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
     expect(zh.Footer.desc).toBe('面向 AI Agent 技能与 IDE 工作流的开源目录。为真实开发工作而生。');
     expect(zh.CLI.heroTitle).toBe('Killer-Skills CLI');
     expect(zh.CLI.heroSubtitle).toBe('安装和管理 AI Agent 技能');
   });
 
   it('keeps home and CLI marketing copy tied to skills instead of generic capabilities', () => {
-    expect(en.Home.heroDesc2).toBe('Equip Claude Code, Cursor, and Windsurf with reusable skills for research, automation, and creation.');
+    expect(en.Home.heroDesc2).toBe(
+      'Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.',
+    );
     expect(en.Home.searchPlaceholder).toBe("Search for skills (e.g., 'Web Scraping', 'Data Viz')...");
     expect(en.Home.features['1'].title).toBe('IDE-Native Formats');
     expect(en.Home.features['1'].desc).toBe(
@@ -80,13 +88,15 @@ describe('public messages copy', () => {
       'Unlock more workflows instantly. Discover and install 2,500+ AI agent skills.',
     );
 
-    expect(zh.Home.heroDesc2).toBe('为 Claude Code、Cursor 和 Windsurf 配备可复用技能，用于研究、自动化与创作。');
-    expect(zh.Home.searchPlaceholder).toBe("搜索技能，例如：网页爬取、数据可视化");
+    expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
+    expect(zh.Home.searchPlaceholder).toBe('搜索技能，例如：网页爬取、数据可视化');
     expect(zh.Home.features['1'].title).toBe('IDE 原生格式');
     expect(zh.Home.features['1'].desc).toBe('同一个技能可安装到主流 IDE 与 Agent 环境，并自动写入正确的原生格式。');
     expect(zh.Common.searchPlaceholder).toBe("搜索技能 (例如 '网页抓取')");
     expect(zh.CLI.features.autoInvoke.title).toBe('开放技能目录');
-    expect(zh.CLI.features.autoInvoke.desc).toBe('浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。');
+    expect(zh.CLI.features.autoInvoke.desc).toBe(
+      '浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。',
+    );
     expect(zh.CLI.features.syncAll.title).toBe('多 IDE 同步');
     expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 2,500+ AI Agent 技能。');
   });
@@ -95,45 +105,56 @@ describe('public messages copy', () => {
     const expectations = [
       {
         messages: ar,
-        featuresSubtitle: 'ثبّت مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام وأدخل سير العمل القابل للتكرار إلى بيئة IDE الخاصة بك.',
+        featuresSubtitle:
+          'ثبّت مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام وأدخل سير العمل القابل للتكرار إلى بيئة IDE الخاصة بك.',
         trendingSubtitle: 'أفضل المهارات تقييماً وأكثرها شعبية من المجتمع.',
-        footerDesc: 'دليل مفتوح المصدر لمهارات وكلاء الذكاء الاصطناعي وسير العمل داخل IDE. صُمم لأعمال التطوير الحقيقية.',
+        footerDesc:
+          'دليل مفتوح المصدر لمهارات وكلاء الذكاء الاصطناعي وسير العمل داخل IDE. صُمم لأعمال التطوير الحقيقية.',
         formatTitle: 'تنسيقات IDE الأصلية',
         formatDesc: 'ثبّت مهارة واحدة عبر بيئات IDE ووكلاء الذكاء الاصطناعي الرئيسية مع التنسيق الأصلي المناسب.',
         announcementsDesc: 'آخر الأخبار وتحديثات المهارات.',
       },
       {
         messages: de,
-        featuresSubtitle: 'Installieren Sie wiederverwendbare KI-Agenten-Skills und bringen Sie wiederholbare Workflows in Ihre IDE.',
+        featuresSubtitle:
+          'Installieren Sie wiederverwendbare KI-Agenten-Skills und bringen Sie wiederholbare Workflows in Ihre IDE.',
         trendingSubtitle: 'Top-bewertete und beliebte Skills aus der Community.',
-        footerDesc: 'Open-Source-Verzeichnis für KI-Agenten-Skills und IDE-Workflows. Entwickelt für echte Entwicklungsarbeit.',
+        footerDesc:
+          'Open-Source-Verzeichnis für KI-Agenten-Skills und IDE-Workflows. Entwickelt für echte Entwicklungsarbeit.',
         formatTitle: 'IDE-native Formate',
-        formatDesc: 'Installieren Sie einen Skill mit dem passenden nativen Format in wichtige IDEs und Agent-Umgebungen.',
+        formatDesc:
+          'Installieren Sie einen Skill mit dem passenden nativen Format in wichtige IDEs und Agent-Umgebungen.',
         announcementsDesc: 'Neueste Neuigkeiten und Skill-Updates.',
       },
       {
         messages: es,
-        featuresSubtitle: 'Instala skills reutilizables de agentes de IA y lleva flujos de trabajo repetibles a tu IDE.',
+        featuresSubtitle:
+          'Instala skills reutilizables de agentes de IA y lleva flujos de trabajo repetibles a tu IDE.',
         trendingSubtitle: 'Skills mejor valoradas y más populares de la comunidad.',
-        footerDesc: 'Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.',
+        footerDesc:
+          'Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.',
         formatTitle: 'Formatos nativos del IDE',
         formatDesc: 'Instala una skill en los principales IDE y entornos de agentes con el formato nativo adecuado.',
         announcementsDesc: 'Últimas noticias y actualizaciones de skills.',
       },
       {
         messages: fr,
-        featuresSubtitle: 'Installez des skills d’agents IA réutilisables et apportez des workflows répétables dans votre IDE.',
+        featuresSubtitle:
+          'Installez des skills d’agents IA réutilisables et apportez des workflows répétables dans votre IDE.',
         trendingSubtitle: 'Les skills les mieux notés et les plus populaires de la communauté.',
-        footerDesc: 'Répertoire open source de skills d’agents IA et de workflows IDE. Conçu pour le vrai travail de développement.',
+        footerDesc:
+          'Répertoire open source de skills d’agents IA et de workflows IDE. Conçu pour le vrai travail de développement.',
         formatTitle: 'Formats natifs des IDE',
         formatDesc: 'Installez un skill dans les principaux IDE et environnements d’agents avec le bon format natif.',
         announcementsDesc: 'Dernières nouvelles et mises à jour des skills.',
       },
       {
         messages: ja,
-        featuresSubtitle: '再利用可能なAIエージェントスキルをインストールし、繰り返し使えるワークフローをIDEに持ち込みましょう。',
+        featuresSubtitle:
+          '再利用可能なAIエージェントスキルをインストールし、繰り返し使えるワークフローをIDEに持ち込みましょう。',
         trendingSubtitle: 'コミュニティで評価が高く人気のスキル。',
-        footerDesc: 'AIエージェントスキルとIDEワークフローのためのオープンソースディレクトリ。実際の開発作業のために構築。',
+        footerDesc:
+          'AIエージェントスキルとIDEワークフローのためのオープンソースディレクトリ。実際の開発作業のために構築。',
         formatTitle: 'IDEネイティブ形式',
         formatDesc: '1つのスキルを主要IDEとエージェント環境に適切なネイティブ形式でインストールできます。',
         announcementsDesc: '最新ニュースとスキル更新。',
@@ -149,16 +170,19 @@ describe('public messages copy', () => {
       },
       {
         messages: pt,
-        featuresSubtitle: 'Instale skills reutilizáveis de agentes de IA e leve fluxos de trabalho repetíveis para sua IDE.',
+        featuresSubtitle:
+          'Instale skills reutilizáveis de agentes de IA e leve fluxos de trabalho repetíveis para sua IDE.',
         trendingSubtitle: 'Skills mais bem avaliadas e mais populares da comunidade.',
-        footerDesc: 'Diretório open source de skills de agentes de IA e fluxos de trabalho para IDE. Feito para trabalho real de desenvolvimento.',
+        footerDesc:
+          'Diretório open source de skills de agentes de IA e fluxos de trabalho para IDE. Feito para trabalho real de desenvolvimento.',
         formatTitle: 'Formatos nativos de IDE',
         formatDesc: 'Instale uma skill nos principais IDEs e ambientes de agentes com o formato nativo correto.',
         announcementsDesc: 'Últimas notícias e atualizações de skills.',
       },
       {
         messages: ru,
-        featuresSubtitle: 'Устанавливайте переиспользуемые навыки AI-агентов и приносите повторяемые рабочие процессы в вашу IDE.',
+        featuresSubtitle:
+          'Устанавливайте переиспользуемые навыки AI-агентов и приносите повторяемые рабочие процессы в вашу IDE.',
         trendingSubtitle: 'Самые популярные и высоко оценённые навыки от сообщества.',
         footerDesc: 'Open-source каталог навыков AI-агентов и IDE-воркфлоу. Создан для реальной разработки.',
         formatTitle: 'Нативные форматы IDE',
@@ -205,9 +229,13 @@ describe('public messages copy', () => {
     const cliSource = readPageSource('../pages/[locale]/cli/index.astro');
     const integrationsSource = readPageSource('../pages/[locale]/integrations/index.astro');
 
-    expect(cliSource).toContain('It is a skills-first CLI for installing, syncing, and managing AI agent skills across 19+ IDEs and AI coding assistants.');
+    expect(cliSource).toContain(
+      'It is a skills-first CLI for installing, syncing, and managing AI agent skills across 19+ IDEs and AI coding assistants.',
+    );
     expect(cliSource).not.toContain('It is a universal command-line tool');
-    expect(cliSource).toContain('它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。');
+    expect(cliSource).toContain(
+      '它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。',
+    );
     expect(cliSource).not.toContain('它是一个通用命令行工具');
 
     expect(cliSource).toContain(
@@ -322,34 +350,58 @@ describe('public messages copy', () => {
     expect(ar.CLI.features.autoInvoke.desc).toBe(
       'تصفّح مهارات وكلاء الذكاء الاصطناعي من المجتمع والجهات الرسمية لمعالجة PDF وأتمتة المتصفح والوثائق والمزيد.',
     );
-    expect(ar.Integrations.cards.cursor.desc).toBe('استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Cursor.');
-    expect(ar.Integrations.cards.windsurf.desc).toBe('استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Windsurf.');
-    expect(ar.Integrations.cards.claude.desc).toBe('استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Claude Code.');
-    expect(ar.Integrations.cards.goose.desc).toBe('استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Goose.');
+    expect(ar.Integrations.cards.cursor.desc).toBe(
+      'استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Cursor.',
+    );
+    expect(ar.Integrations.cards.windsurf.desc).toBe(
+      'استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Windsurf.',
+    );
+    expect(ar.Integrations.cards.claude.desc).toBe(
+      'استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Claude Code.',
+    );
+    expect(ar.Integrations.cards.goose.desc).toBe(
+      'استخدم مهارات وكلاء الذكاء الاصطناعي القابلة لإعادة الاستخدام داخل Goose.',
+    );
 
     expect(de.CLI.features.autoInvoke.desc).toBe(
       'Durchsuchen Sie Community- und offizielle KI-Agenten-Skills für PDF-Verarbeitung, Browser-Automatisierung, Dokumentation und mehr.',
     );
     expect(de.Integrations.cards.cursor.desc).toBe('Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Cursor.');
-    expect(de.Integrations.cards.windsurf.desc).toBe('Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Windsurf.');
-    expect(de.Integrations.cards.claude.desc).toBe('Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Claude Code.');
+    expect(de.Integrations.cards.windsurf.desc).toBe(
+      'Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Windsurf.',
+    );
+    expect(de.Integrations.cards.claude.desc).toBe(
+      'Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Claude Code.',
+    );
     expect(de.Integrations.cards.goose.desc).toBe('Nutzen Sie wiederverwendbare KI-Agenten-Skills direkt in Goose.');
 
     expect(es.CLI.features.autoInvoke.desc).toBe(
       'Explora skills comunitarios y oficiales de agentes de IA para procesamiento de PDF, automatización del navegador, documentación y más.',
     );
     expect(es.Integrations.cards.cursor.desc).toBe('Usa skills reutilizables de agentes de IA directamente en Cursor.');
-    expect(es.Integrations.cards.windsurf.desc).toBe('Usa skills reutilizables de agentes de IA directamente en Windsurf.');
-    expect(es.Integrations.cards.claude.desc).toBe('Usa skills reutilizables de agentes de IA directamente en Claude Code.');
+    expect(es.Integrations.cards.windsurf.desc).toBe(
+      'Usa skills reutilizables de agentes de IA directamente en Windsurf.',
+    );
+    expect(es.Integrations.cards.claude.desc).toBe(
+      'Usa skills reutilizables de agentes de IA directamente en Claude Code.',
+    );
     expect(es.Integrations.cards.goose.desc).toBe('Usa skills reutilizables de agentes de IA directamente en Goose.');
 
     expect(fr.CLI.features.autoInvoke.desc).toBe(
       'Parcourez des skills d’agents IA communautaires et officiels pour le traitement PDF, l’automatisation du navigateur, la documentation et plus encore.',
     );
-    expect(fr.Integrations.cards.cursor.desc).toBe('Utilisez des skills d’agents IA réutilisables directement dans Cursor.');
-    expect(fr.Integrations.cards.windsurf.desc).toBe('Utilisez des skills d’agents IA réutilisables directement dans Windsurf.');
-    expect(fr.Integrations.cards.claude.desc).toBe('Utilisez des skills d’agents IA réutilisables directement dans Claude Code.');
-    expect(fr.Integrations.cards.goose.desc).toBe('Utilisez des skills d’agents IA réutilisables directement dans Goose.');
+    expect(fr.Integrations.cards.cursor.desc).toBe(
+      'Utilisez des skills d’agents IA réutilisables directement dans Cursor.',
+    );
+    expect(fr.Integrations.cards.windsurf.desc).toBe(
+      'Utilisez des skills d’agents IA réutilisables directement dans Windsurf.',
+    );
+    expect(fr.Integrations.cards.claude.desc).toBe(
+      'Utilisez des skills d’agents IA réutilisables directement dans Claude Code.',
+    );
+    expect(fr.Integrations.cards.goose.desc).toBe(
+      'Utilisez des skills d’agents IA réutilisables directement dans Goose.',
+    );
 
     expect(ja.CLI.features.autoInvoke.desc).toBe(
       'PDF処理、ブラウザ自動化、ドキュメント作業などに使える、コミュニティ製および公式のAIエージェントスキルを探せます。',
@@ -363,24 +415,36 @@ describe('public messages copy', () => {
       'PDF 처리, 브라우저 자동화, 문서 작업 등 다양한 용도의 커뮤니티 및 공식 AI 에이전트 스킬을 둘러보세요.',
     );
     expect(ko.Integrations.cards.cursor.desc).toBe('Cursor에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.');
-    expect(ko.Integrations.cards.windsurf.desc).toBe('Windsurf에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.');
-    expect(ko.Integrations.cards.claude.desc).toBe('Claude Code에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.');
+    expect(ko.Integrations.cards.windsurf.desc).toBe(
+      'Windsurf에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.',
+    );
+    expect(ko.Integrations.cards.claude.desc).toBe(
+      'Claude Code에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.',
+    );
     expect(ko.Integrations.cards.goose.desc).toBe('Goose에서 재사용 가능한 AI 에이전트 스킬을 사용할 수 있습니다.');
 
     expect(pt.CLI.features.autoInvoke.desc).toBe(
       'Explore skills comunitários e oficiais de agentes de IA para processamento de PDF, automação de navegador, documentação e muito mais.',
     );
     expect(pt.Integrations.cards.cursor.desc).toBe('Use skills reutilizáveis de agentes de IA diretamente no Cursor.');
-    expect(pt.Integrations.cards.windsurf.desc).toBe('Use skills reutilizáveis de agentes de IA diretamente no Windsurf.');
-    expect(pt.Integrations.cards.claude.desc).toBe('Use skills reutilizáveis de agentes de IA diretamente no Claude Code.');
+    expect(pt.Integrations.cards.windsurf.desc).toBe(
+      'Use skills reutilizáveis de agentes de IA diretamente no Windsurf.',
+    );
+    expect(pt.Integrations.cards.claude.desc).toBe(
+      'Use skills reutilizáveis de agentes de IA diretamente no Claude Code.',
+    );
     expect(pt.Integrations.cards.goose.desc).toBe('Use skills reutilizáveis de agentes de IA diretamente no Goose.');
 
     expect(ru.CLI.features.autoInvoke.desc).toBe(
       'Просматривайте навыки AI-агентов от сообщества и официальных авторов для обработки PDF, автоматизации браузера, работы с документацией и многого другого.',
     );
     expect(ru.Integrations.cards.cursor.desc).toBe('Используйте переиспользуемые навыки AI-агентов прямо в Cursor.');
-    expect(ru.Integrations.cards.windsurf.desc).toBe('Используйте переиспользуемые навыки AI-агентов прямо в Windsurf.');
-    expect(ru.Integrations.cards.claude.desc).toBe('Используйте переиспользуемые навыки AI-агентов прямо в Claude Code.');
+    expect(ru.Integrations.cards.windsurf.desc).toBe(
+      'Используйте переиспользуемые навыки AI-агентов прямо в Windsurf.',
+    );
+    expect(ru.Integrations.cards.claude.desc).toBe(
+      'Используйте переиспользуемые навыки AI-агентов прямо в Claude Code.',
+    );
     expect(ru.Integrations.cards.goose.desc).toBe('Используйте переиспользуемые навыки AI-агентов прямо в Goose.');
   });
 
@@ -395,7 +459,9 @@ describe('public messages copy', () => {
 
     expect(zh.Community.heroDesc).toBe('加入一起打磨可复用 AI Agent 技能与 IDE 工作流的开发者、贡献者与团队。');
     expect(zh.Community.heroDesc).not.toContain('开源生态');
-    expect(zh.Community.contributeDesc).toBe('Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。');
+    expect(zh.Community.contributeDesc).toBe(
+      'Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。',
+    );
   });
 
   it('keeps localized docs sidebar labels focused on skills and CLI usage instead of platform/tooling wording', () => {

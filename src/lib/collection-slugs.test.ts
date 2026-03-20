@@ -73,9 +73,9 @@ describe('getCollectionCanonicalSlug', () => {
     expect(getCollectionCanonicalSlug({ id: 'top-mcp-mcp-servers.json', data: mcpUtilitiesCollectionData })).toBe(
       'top-ai-agent-workflow-skills-integrations-utilities',
     );
-    expect(getCollectionCanonicalSlug({ id: 'top-mcp-server-mcp-servers.json', data: mcpFrameworksCollectionData })).toBe(
-      'top-ai-agent-integration-frameworks-bridges-infra-tooling',
-    );
+    expect(
+      getCollectionCanonicalSlug({ id: 'top-mcp-server-mcp-servers.json', data: mcpFrameworksCollectionData }),
+    ).toBe('top-ai-agent-integration-frameworks-bridges-infra-tooling');
   });
 });
 
@@ -322,7 +322,9 @@ describe('resolveCollectionBySlug', () => {
     expect(resolveCollectionBySlug(collections, 'top-ai-agent-platforms-orchestration-tools')?.canonicalSlug).toBe(
       'top-agentic-ai-platforms-orchestration-tools',
     );
-    expect(resolveCollectionBySlug(collections, 'top-agentic-ai-platforms-orchestration-tools')?.isCanonical).toBe(true);
+    expect(resolveCollectionBySlug(collections, 'top-agentic-ai-platforms-orchestration-tools')?.isCanonical).toBe(
+      true,
+    );
   });
 
   it('resolves third-batch legacy collection slugs to canonical workflow-first targets', () => {

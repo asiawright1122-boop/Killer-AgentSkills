@@ -19,8 +19,13 @@
 - [ ] 后续继续推进剩余 P2/P3：blog corpus、collections cannibalization、更多高权重页面 guard
 - [x] 首页 query-funnel 偏移已收口：`src/pages/[locale]/index.astro` 中的“高意图自动化入口 / High-Intent Workflow Searches”区块已移除，首页 SEO metadata 与 FAQ 已恢复到“AI Agent Skills 开放目录 / 安装入口”定位，并由 `src/pages/public-links.test.ts` 锁定回归
 - [x] 首页 messages 层剩余 workflow / automation 口径已收口：`src/messages/en.json` 与 `src/messages/zh.json` 的 hero / features / footer copy 已统一回“目录 / 安装入口 / IDE 原生安装”定位，并由 `src/pages/public-links.test.ts` 锁定回归
+- [x] 首页 FAQ 层剩余 workflow 外显表述已收口：`src/pages/[locale]/index.astro` 中的 FAQ 已从 “IDE workflows / external tools” 角度改回 “skills packaging / detail page install decision” 角度，并由 `src/pages/public-links.test.ts` 锁定回归
 - [x] 当前新增 humanizer 收口已完成：`openclaw-application-scenarios` 10 个 locale 的坏 blog 链已切到 canonical skills detail URL，`best-ai-agent-skills-2026` 10 个 locale 的错误安装命令已切到 canonical install path，并由 `src/pages/public-links.test.ts` 锁定回归
 - [x] 当前新增高价值 blog 污染收口已完成：`de/best-ai-agent-skills-2026` 的英/西/中串线正文与英文 FAQ JSON-LD 已恢复为德语；`es/fr/pt` 的 `what-are-ai-agent-skills` example scaffolding 已本地化；`ar/enhancing-openclaw-with-killer-skills-guide` 的混语言段落与短名 skill pack 命令已收口到阿语 + canonical repo path；`es/mastering-generative-art-with-claudecode-skills` 的英文 heading 与错误 `/es/habilidades/...` / 翻译 slug 已修正，并由 `src/pages/public-links.test.ts` 锁定回归
+- [x] workflow 当前阻塞项已收口：
+  - `src/messages/public-copy.test.ts` 已从旧 homepage 文案预期更新为当前的 skills directory / install entry 文案，解决 `Unit Tests & Coverage` 失败
+  - `prettier --check "src/**/*.{ts,tsx,astro,css,json}"` 命中的 23 个 `src/**` 文件已统一格式化，解决 `Lint & Format` 失败
+  - workflow 对应本地验证已完成：`npx vitest run src/messages/public-copy.test.ts`、`npm run format:check`、`npm run format:check:seo-automation`、`npm run lint`、`npm run lint:seo-automation`、`npm run seo:frontmatter:guard`、`npm run check:astro`、`npx vitest run --coverage --reporter=default`、`npm run build`、`npx vitest run --config vitest.build-validation.config.ts --reporter=default --no-coverage`、`npm run seo:smoke -- http://127.0.0.1:4321`
 
 ## Success criteria
 
@@ -114,6 +119,8 @@
 36. 本轮定向验证已通过：`npx vitest run src/pages/public-links.test.ts`（19/19）、`npx astro check --root .`（0 errors, 0 warnings）；`astro check` 仍仅输出既有 duplicate id warnings 与 `scripts/generate-blog-posts.ts` unreachable code hints
 37. `src/messages/en.json`、`src/messages/zh.json` 的 `Home` 区块已进一步完成文案收口：`heroBadge`、`heroDesc2`、`featuresSubtitle`、`footerDesc` 已从 `IDE workflows` / `automation` / `repeatable workflows` 收口到“开放目录 / 安装入口 / IDE 原生格式安装”定位
 38. `src/pages/public-links.test.ts` 已新增 homepage locale copy contract，锁住上述首页 messages 不再回退到 workflow-query 口径；`npx vitest run src/pages/public-links.test.ts`（21/21）与 `npx astro check --root .` 已重新通过
+39. `src/pages/public-links.test.ts` 已继续新增 homepage FAQ contract，锁住首页 FAQ 必须围绕“安装命令 / 支持 IDE / skills packaging / detail page decision”展开，不再回退到 `Why do these skills fit IDE workflows?` / `What if a workflow also needs external tools?`
+40. `src/pages/[locale]/index.astro` 已对应完成 FAQ 收口：将末尾两条问答改为 “How are these skills packaged?” / “Why start from the skill directory?”，`npx vitest run src/pages/public-links.test.ts`（22/22）与 `npx astro check --root .` 已重新通过
 
 当前建议的下一 slice：
 
