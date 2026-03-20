@@ -1,6 +1,6 @@
 ---
 title: "MCP Authentication Guide: Secure Your Server Setup"
-description: "Design MCP server authentication around identity, credential flow, least privilege, and auditability."
+description: "Secure your MCP server setup with a robust authentication guide, focusing on identity, credential flow, least privilege, and auditability for a safer"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-authentication-guide-secure-setup.webp
