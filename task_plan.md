@@ -148,3 +148,27 @@
 ## Next action
 
 继续按 test-first 推进 blog corpus 的下一轮 Skills-first 清理，并评估其余高重叠 collections 的 canonical 收口机会；首页层面则保持“目录 / 安装入口”定位，不再把 solution-intent query funnel 直接暴露在首页主干。
+
+
+## 2026-03-21 Completed
+
+### Code Quality P1 (e19073f)
+41. Extract parseSkillMd() to src/lib/skill-md-parser.ts (+4 tests); submit.ts Zod SubmitBodySchema; kv.ts all any types replaced; atob() replaced with Buffer.from()
+
+### Blog Locale Links (8e83396)
+42. 9 how-to-install blog posts: /en/skills/anthropics/skills/docx -> /{locale}/skills/... (ar/de/es/fr/ja/ko/pt/ru/zh)
+
+### Korean Contamination Cleanup (b35c8cb)
+43. 15 Korean posts: all Japanese Hiragana/Katakana removed. Scanner verified: 0 Japanese chars remaining
+
+### Arabic Contamination Cleanup (702be44)
+44. 7 Arabic posts: Chinese/Russian/Vietnamese mixed characters removed
+
+### Verification (2026-03-21)
+45. npx vitest run (30 files / 368 tests); npm run check:astro (0 errors); npm run lint (0 warnings)
+
+### Next
+- [ ] Continue scanning remaining blog corpus for unlocalized examples, bad slugs
+- [ ] P2 architecture: hardcoded domain, CATEGORY_GROUPS extraction, fallbackPreview refactor
+- [ ] P2 testing: API route tests for /submit, /search, /translate
+

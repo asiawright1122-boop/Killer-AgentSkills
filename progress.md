@@ -3,6 +3,7 @@
 ## 2026-03-19
 
 ### Completed
+
 - [x] 使用相关 skills 审查现有 SEO workflow
 - [x] 确认当前核心问题为 Skills-first ontology drift，而非基础 technical SEO 失效
 - [x] 盘点可复用的 canonical / hreflang / noindex / sitemap 基础设施
@@ -95,6 +96,7 @@
   - `npx astro check --root .`
 
 ### In progress
+
 - [~] 继续评估下一批 blog corpus 与高重叠 collections 的收口项
 - [x] 完成下一对高重叠 collections 的只读审查与 canonical map 草案：
   - `src/content/collections/top-mcp-mcp-servers.json` 继续保留到 `top-ai-agent-workflow-skills-integrations-utilities`
@@ -136,6 +138,7 @@
   - `astro check` 仍仅输出既有 duplicate id warnings 与 `scripts/generate-blog-posts.ts` unreachable code hints，不阻塞本轮修复
 
 ### Next
+
 - [x] 收口 `humanizer` 的 canonical target：
   - 从 `data/skills-cache.json` 确认 canonical skill id 为 `minhtungo/ai-agents-factory/humanizer`
   - 将 `src/content/blog/{ar,de,en,es,fr,ja,ko,pt,ru,zh}/openclaw-application-scenarios.md` 中的 `/<locale>/blog/humanizer-skill` 批量改为 `/<locale>/skills/minhtungo/ai-agents-factory/humanizer`
@@ -154,6 +157,7 @@
 - [ ] 视需要单独清理 build 中现存的非阻塞 CSS minify warnings
 
 ### Notes
+
 - 首页原有“高意图自动化入口”区块已从 `src/pages/[locale]/index.astro` 移除；首页 SEO title / description / FAQ 已收口回“AI Agent Skills 开放目录 / 安装入口”定位，不再把首页做成 workflow-query funnel
 - 首页中英文 messages 已继续收口：`src/messages/en.json` 与 `src/messages/zh.json` 的 `heroBadge`、`heroDesc2`、`featuresSubtitle`、`footerDesc` 已从 `IDE workflows / automation / repeatable workflows` 统一改回“目录 / 安装入口 / IDE 原生格式安装”口径
 - 首页 FAQ 已继续收口：`src/pages/[locale]/index.astro` 中原先偏 `IDE workflows / external tools` 的两条 FAQ，已改为围绕 `skills packaging` 与 `skill detail install decision` 的问答
@@ -176,3 +180,30 @@
 - Existing hotfix PR: #1 `seo/canonical-collections-robots`
 - Vitest 定向运行已不再扫入 `.claude/worktrees/...` 的重复 suite
 - `npm run build` 通过，但仍输出非阻塞的 esbuild CSS minify warnings（`[file:line]` 相关）
+
+## 2026-03-21
+
+### Completed
+
+- [x] 完成 code quality P1 修复：提取 `parseSkillMd` 到 `src/lib/skill-md-parser.ts`，消除 submit.ts 和 skills/[owner]/[repo]/index.ts 中的重复代码
+- [x] 完成 Zod schema validation：submit.ts 中添加 `SubmitBodySchema`，验证 `repoUrl` 为非空 URL
+- [x] 完成 kv.ts 类型安全：定义 `SkillListingItem` 和 `D1Row` 接口，消除所有 `any` 类型（6个函数）
+- [x] 完成 skills.ts 类型检查：验证无新增 `any` 类型
+- [x] 完成 middleware-utils.ts 修复：`atob()` → `Buffer.from(authValue, 'base64')`
+- [x] 完成 SkillCard.astro 类型对齐：`seo.features`/`keywords` 改为可选
+- [x] 完成 9 个 how-to-install blog 的 `/en/skills` 跨语言链接修正（ar/de/es/fr/ja/ko/pt/ru/zh）
+- [x] 完成 Korean blog 污染清理：15 个 Korean posts 中的日语字符全部清除（scanner 验证 0 日语字符残留）
+- [x] 完成 Arabic blog 污染清理：7 个 Arabic posts 中的中文/俄语/越南语字符清除
+- [x] 完成 2026-03-21 批次定向验证：
+  - `npx vitest run`（30 files / 368 tests passed）
+  - `npm run check:astro`（0 errors, 0 warnings）
+  - `npm run lint`（0 warnings）
+  - `npm run format:check`（All clean）
+- [x] 提交 4 个 commits：e19073f（code quality），8e83396（blog locale links），b35c8cb（Korean contamination），702be44（Arabic contamination）
+
+### Next
+
+- [ ] 继续扫描剩余 blog corpus 的 example 未本地化、错误 related slug
+- [ ] 评估 P2/P3 architecture issues（hardcoded domain、CATEGORY_GROUPS extraction）
+- [ ] 评估 P2 testing：API route tests for /submit, /search, /translate
+- [ ] 如需降低 CI / 本地噪音，再单独清理当前 build 中残留的非阻塞 CSS minify warnings
