@@ -381,15 +381,12 @@ async function runLiveProviders(
   throw new Error(reason);
 }
 
-function fallbackPreview(profileId: SkillTryProfileId, input: string, locale?: string): string {
-  const trimmed = input.trim();
-  const shortInput = trimmed.length > 220 ? `${trimmed.slice(0, 220)}...` : trimmed;
-  const zh = isZhLocale(locale);
-
-  if (profileId === 'copywriting') {
-    return zh
-      ? `## 标题
-让 ${shortInput} 立刻更高效
+const FALLBACK_TEMPLATES: Readonly<{
+  [K in SkillTryProfileId]: Readonly<{ zh: string; en: string }>;
+}> = {
+  copywriting: {
+    zh: `## 标题
+让 {{input}} 立刻更高效
 
 ## 副标题
 用更少时间完成更多高价值任务，减少重复劳动，提升团队交付速度。
@@ -400,9 +397,9 @@ function fallbackPreview(profileId: SkillTryProfileId, input: string, locale?: s
 - 更省成本：让团队把时间用在关键决策上
 
 ## CTA
-立即体验，7 天内看到可衡量提升。`
-      : `## Headline
-Make ${shortInput} dramatically more efficient
+立即体验，7 天内看到可衡量提升。`,
+    en: `## Headline
+Make {{input}} dramatically more efficient
 
 ## Subheadline
 Deliver high-value outcomes faster, reduce repetitive work, and improve team velocity.
@@ -413,43 +410,39 @@ Deliver high-value outcomes faster, reduce repetitive work, and improve team vel
 - Lower cost: keep the team focused on high-impact decisions
 
 ## CTA
-Start now and see measurable improvements in 7 days.`;
-  }
-
-  if (profileId === 'meta-tags-optimizer') {
-    return zh
-      ? `## Title Tag
-${shortInput} | 免费在线工具与最佳实践
+Start now and see measurable improvements in 7 days.`,
+  },
+  'meta-tags-optimizer': {
+    zh: `## Title Tag
+{{input}} | 免费在线工具与最佳实践
 
 ## Meta Description
-快速获取 ${shortInput} 的实用方案与操作步骤。支持在线试用，帮助你更快完成落地并提升转化效率。
+快速获取 {{input}} 的实用方案与操作步骤。支持在线试用，帮助你更快完成落地并提升转化效率。
 
 ## OG Title
-${shortInput}：一键生成可落地结果
+{{input}}：一键生成可落地结果
 
 ## OG Description
-在线试用 + 清晰步骤 + 可复用模板，快速把想法变成可执行方案。`
-      : `## Title Tag
-${shortInput} | Free Online Tool and Practical Guide
+在线试用 + 清晰步骤 + 可复用模板，快速把想法变成可执行方案。`,
+    en: `## Title Tag
+{{input}} | Free Online Tool and Practical Guide
 
 ## Meta Description
-Get actionable steps for ${shortInput}. Try it online and move from idea to implementation faster with conversion-focused copy.
+Get actionable steps for {{input}}. Try it online and move from idea to implementation faster with conversion-focused copy.
 
 ## OG Title
-${shortInput}: Get Production-Ready Output Fast
+{{input}}: Get Production-Ready Output Fast
 
 ## OG Description
-Try online, follow clear steps, and reuse practical templates to ship faster.`;
-  }
-
-  if (profileId === 'schema-markup-generator') {
-    return zh
-      ? `## JSON-LD（示例）
+Try online, follow clear steps, and reuse practical templates to ship faster.`,
+  },
+  'schema-markup-generator': {
+    zh: `## JSON-LD（示例）
 \`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "${shortInput}",
+  "name": "{{input}}",
   "description": "围绕该主题的可执行步骤说明",
   "step": [
     { "@type": "HowToStep", "name": "准备输入信息" },
@@ -462,13 +455,13 @@ Try online, follow clear steps, and reuse practical templates to ship faster.`;
 ## 实施清单
 - 放到页面 \`<head>\` 或主体末尾
 - 用 Rich Results Test 校验语法
-- 上线后观察抓取和展现变化`
-      : `## JSON-LD (Sample)
+- 上线后观察抓取和展现变化`,
+    en: `## JSON-LD (Sample)
 \`\`\`json
 {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  "name": "${shortInput}",
+  "name": "{{input}}",
   "description": "Actionable step-by-step implementation",
   "step": [
     { "@type": "HowToStep", "name": "Prepare your input data" },
@@ -481,13 +474,12 @@ Try online, follow clear steps, and reuse practical templates to ship faster.`;
 ## Implementation Checklist
 - Add this block in your page head or near the end of body
 - Validate with Rich Results Test
-- Monitor impressions and rich-result visibility after publish`;
-  }
-
-  return zh
-    ? `## 文档草稿大纲
+- Monitor impressions and rich-result visibility after publish`,
+  },
+  'doc-coauthoring': {
+    zh: `## 文档草稿大纲
 ### 1. 背景与目标
-说明为什么要做：${shortInput}
+说明为什么要做：{{input}}
 
 ### 2. 范围
 - 本次包含
@@ -501,10 +493,10 @@ Try online, follow clear steps, and reuse practical templates to ship faster.`;
 ### 4. 里程碑
 - M1: Demo 可用
 - M2: 小范围验证
-- M3: 正式发布`
-    : `## Draft Outline
+- M3: 正式发布`,
+    en: `## Draft Outline
 ### 1. Context and Goal
-Why this matters: ${shortInput}
+Why this matters: {{input}}
 
 ### 2. Scope
 - In scope
@@ -518,7 +510,14 @@ Why this matters: ${shortInput}
 ### 4. Milestones
 - M1: Working demo
 - M2: Limited validation
-- M3: Production rollout`;
+- M3: Production rollout`,
+  },
+} as const;
+
+function fallbackPreview(profileId: SkillTryProfileId, input: string, locale?: string): string {
+  const shortInput = input.trim().length > 220 ? `${input.trim().slice(0, 220)}...` : input.trim();
+  const template = FALLBACK_TEMPLATES[profileId];
+  return (isZhLocale(locale) ? template.zh : template.en).replace('{{input}}', shortInput);
 }
 
 function json(body: unknown, status = 200): Response {
