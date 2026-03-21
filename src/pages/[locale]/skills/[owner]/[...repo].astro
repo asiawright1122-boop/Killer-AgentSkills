@@ -65,19 +65,11 @@ const normalizeFlag = (value: unknown) =>
   String(value ?? '')
     .trim()
     .toLowerCase();
-const stableHash = (input: string) => {
-  let hash = 0;
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
-  }
-  return hash;
-};
 
 // Load skill data - use full ID for sub-skills
 const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 const seoVariantMode = normalizeFlag(runtimeEnv.SEO_TITLE_VARIANT).toUpperCase();
-const seoVariant =
-  seoVariantMode === 'B' ? 'B' : seoVariantMode === 'AUTO' ? (stableHash(fullId) % 2 === 0 ? 'A' : 'B') : 'A';
+const seoVariant = seoVariantMode === 'B' ? 'B' : 'A';
 const seoForceTemplate = ['1', 'true', 'yes', 'on'].includes(normalizeFlag(runtimeEnv.SEO_FORCE_TEMPLATE));
 
 // ⚡ PARALLEL: fetch skill data + translations + related skills concurrently

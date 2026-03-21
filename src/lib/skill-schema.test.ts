@@ -15,7 +15,8 @@ describe('skill-schema', () => {
     expect(schema['@type']).toBe('SoftwareApplication');
     expect(schema.description).toContain('AI Agent Skill');
     expect(schema).not.toHaveProperty('aggregateRating');
-    expect(schema.offers.price).toBe(0);
+    expect(schema).not.toHaveProperty('offers');
+    expect(schema.isAccessibleForFree).toBe(true);
   });
 
   it('keeps skills-first public keywords and avoids MCP-first keyword defaults', () => {

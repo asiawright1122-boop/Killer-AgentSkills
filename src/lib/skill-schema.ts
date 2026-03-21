@@ -40,12 +40,6 @@ export function buildSkillSoftwareApplicationSchema({
     },
     dateModified: toISO8601(updatedAt),
     datePublished: toISO8601(lastSynced ?? updatedAt),
-    offers: {
-      '@type': 'Offer',
-      price: 0,
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      url: canonicalUrl,
-    },
+    isAccessibleForFree: true,
   };
 }

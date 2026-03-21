@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
+import type { Locale } from '../i18n';
 import {
   getBlogIntentLinks,
   getBlogKeywordClusters,
   getBlogLongTailKeywords,
   getBlogMetaOverride,
 } from './blog-seo-intent';
+
+const ALL_LOCALES: Locale[] = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
 
 describe('blog-seo-intent', () => {
   it('expands document automation posts into document and template clusters', () => {
@@ -82,6 +85,54 @@ describe('blog-seo-intent', () => {
     for (const slug of slugs) {
       const meta = getBlogMetaOverride('en', slug);
       expect(meta?.description.length).toBeLessThanOrEqual(160);
+    }
+  });
+
+  it('returns localized overrides for non-english locales (zh)', () => {
+    const meta = getBlogMetaOverride('zh', 'how-to-install-ai-agent-skills');
+    expect(meta).not.toBeNull();
+    expect(meta?.title).toContain('安装');
+    expect(meta?.title).toContain('AI Agent Skills');
+  });
+
+  it('returns localized overrides for non-english locales (ja)', () => {
+    const meta = getBlogMetaOverride('ja', 'what-are-ai-agent-skills');
+    expect(meta).not.toBeNull();
+    expect(meta?.title).toContain('AI Agent Skills');
+  });
+
+  it('falls back to english when locale has no translation', () => {
+    const meta = getBlogMetaOverride('en', 'how-to-install-ai-agent-skills');
+    expect(meta).not.toBeNull();
+    expect(meta?.title).toContain('Install AI Agent Skills');
+  });
+
+  it('returns null for unknown slug across all locales', () => {
+    for (const locale of ALL_LOCALES) {
+      const meta = getBlogMetaOverride(locale, 'nonexistent-post-slug');
+      expect(meta).toBeNull();
+    }
+  });
+
+  it('provides localized overrides for all 10 supported locales', () => {
+    const slugs = [
+      'mastering-pdf-automation-with-ai-skills',
+      'how-to-build-mcp-servers-with-agent-skills',
+      'how-to-install-ai-agent-skills',
+      'top-10-mcp-servers-2026',
+      'official-ai-agent-skills-guide',
+      'what-are-ai-agent-skills',
+      'best-ai-agent-skills-2026',
+      'claude-code-vs-cursor-vs-windsurf',
+    ];
+
+    for (const slug of slugs) {
+      for (const locale of ALL_LOCALES) {
+        const meta = getBlogMetaOverride(locale, slug);
+        expect(meta).not.toBeNull();
+        expect(meta?.title.length).toBeGreaterThan(0);
+        expect(meta?.description.length).toBeGreaterThan(0);
+      }
     }
   });
 });
