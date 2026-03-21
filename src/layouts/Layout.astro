@@ -20,7 +20,7 @@ interface Props {
   xDefaultLocale?: string;
 }
 
-const SITE_URL = 'https://killer-skills.com';
+const SITE_URL = import.meta.env.SITE ?? 'https://killer-skills.com';
 
 const {
   locale,
