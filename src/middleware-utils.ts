@@ -157,7 +157,7 @@ export function checkAdminAuth(
 
   try {
     const authValue = authHeader.split(' ')[1];
-    const decoded = atob(authValue);
+    const decoded = Buffer.from(authValue, 'base64').toString('utf-8');
     // RFC 7617: split only on the first colon — password may contain ':'
     const colonIndex = decoded.indexOf(':');
     if (colonIndex === -1) return 'unauthorized';

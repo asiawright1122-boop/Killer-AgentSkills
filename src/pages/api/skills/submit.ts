@@ -1,8 +1,10 @@
 import type { APIRoute } from 'astro';
+import { z } from 'zod';
 import type { Env } from '../../../lib/kv';
 import { COMMON_BRANCHES, getSkillMdPaths, getRepository } from '../../../lib/github';
 import { fetchWithTimeout } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
+import { parseSkillMd } from '../../../lib/skill-md-parser';
 
 export const prerender = false;
 
@@ -61,50 +63,9 @@ async function getSkillMd(owner: string, repo: string): Promise<string | null> {
 /**
  * Parse SKILL.md frontmatter.
  */
-function parseSkillMd(content: string): {
-  name?: string;
-  description?: string;
-  version?: string;
-  author?: string;
-  tags?: string[];
-  body: string;
-} {
-  const normalizedContent = content.replace(/\r\n/g, '\n').trim();
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/;
-  const match = normalizedContent.match(frontmatterRegex);
-
-  if (!match) {
-    return { body: normalizedContent };
-  }
-
-  const [, frontmatter, body] = match;
-  const result: Record<string, unknown> = { body };
-
-  const lines = frontmatter.split('\n');
-  for (const line of lines) {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex > 0) {
-      const key = line.slice(0, colonIndex).trim();
-      let value = line.slice(colonIndex + 1).trim();
-
-      if (value.startsWith('[') && value.endsWith(']')) {
-        value = value.slice(1, -1);
-        result[key] = value.split(',').map((s) => s.trim().replace(/['"]/g, ''));
-      } else {
-        result[key] = value.replace(/['"]/g, '');
-      }
-    }
-  }
-
-  return result as {
-    name?: string;
-    description?: string;
-    version?: string;
-    author?: string;
-    tags?: string[];
-    body: string;
-  };
-}
+const SubmitBodySchema = z.object({
+  repoUrl: z.string().min(1).url().max(500),
+});
 
 /**
  * POST /api/skills/submit
@@ -116,37 +77,45 @@ function parseSkillMd(content: string): {
  * checks for duplicates in KV, and stores the submission in KV.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
-  // Rate limit check
   const clientIP = getClientIP(request);
   if (submitLimiter.isLimited(clientIP)) {
     return rateLimitResponse();
   }
 
+  let repoUrl: string;
   try {
-    const body = (await request.json()) as { repoUrl?: string };
-    const { repoUrl } = body;
-
-    if (!repoUrl) {
-      return new Response(JSON.stringify({ error: 'Please provide a repository URL' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-
-    // Parse repository URL
-    const parsed = parseRepoUrl(repoUrl);
-    if (!parsed) {
+    const raw = await request.json();
+    const parsed = SubmitBodySchema.safeParse(raw);
+    if (!parsed.success) {
       return new Response(
         JSON.stringify({
-          error: 'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
+          error: 'Invalid request body: ' + parsed.error.issues.map((i) => i.message).join(', '),
         }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
+        { status: 400, headers: { 'Content-Type': 'application/json' } },
       );
     }
+    repoUrl = parsed.data.repoUrl;
+  } catch {
+    return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
+      status: 400,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
 
+  const parsed = parseRepoUrl(repoUrl);
+  if (!parsed) {
+    return new Response(
+      JSON.stringify({
+        error: 'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
+      }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
+  }
+
+  try {
     const { owner, repo } = parsed;
 
     // Validate repository exists

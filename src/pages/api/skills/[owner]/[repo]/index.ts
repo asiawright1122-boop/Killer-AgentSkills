@@ -3,6 +3,7 @@ import { getSkillByOwnerRepo } from '../../../../../lib/skills';
 import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES, getRepository, type RepoInfo } from '../../../../../lib/github';
+import { parseSkillMd } from '../../../../../lib/skill-md-parser';
 
 export const prerender = false;
 
@@ -62,54 +63,6 @@ async function getSkillMd(owner: string, repo: string, path?: string): Promise<s
     }
   }
   return null;
-}
-
-/**
- * Parse SKILL.md frontmatter.
- */
-function parseSkillMd(content: string): {
-  name?: string;
-  description?: string;
-  version?: string;
-  author?: string;
-  tags?: string[];
-  body: string;
-} {
-  const normalizedContent = content.replace(/\r\n/g, '\n').trim();
-  const frontmatterRegex = /^---\n([\s\S]*?)\n---\n?([\s\S]*)$/;
-  const match = normalizedContent.match(frontmatterRegex);
-
-  if (!match) {
-    return { body: normalizedContent };
-  }
-
-  const [, frontmatter, body] = match;
-  const result: Record<string, unknown> = { body };
-
-  const lines = frontmatter.split('\n');
-  for (const line of lines) {
-    const colonIndex = line.indexOf(':');
-    if (colonIndex > 0) {
-      const key = line.slice(0, colonIndex).trim();
-      let value = line.slice(colonIndex + 1).trim();
-
-      if (value.startsWith('[') && value.endsWith(']')) {
-        value = value.slice(1, -1);
-        result[key] = value.split(',').map((s) => s.trim().replace(/['"]/g, ''));
-      } else {
-        result[key] = value.replace(/['"]/g, '');
-      }
-    }
-  }
-
-  return result as {
-    name?: string;
-    description?: string;
-    version?: string;
-    author?: string;
-    tags?: string[];
-    body: string;
-  };
 }
 
 /**

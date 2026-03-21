@@ -27,10 +27,43 @@ export interface Env {
 // Local mock for dev if needed, though wrangler dev usually handles bindings
 const localCache = new Map<string, string>();
 
-let _localSkillsCache: any[] | null = null;
+export interface SkillListingItem {
+  id: string;
+  name: string;
+  skillName: string;
+  owner: string;
+  repo: string;
+  repoPath?: string;
+  description: string | Record<string, string>;
+  category: string;
+  topics: string[];
+  stars: number;
+  source: 'verified' | 'featured' | 'cache';
+  updatedAt: string;
+  lastSynced?: string;
+  qualityScore: number;
+  filePath?: string;
+  seo?: {
+    definition: Record<string, string>;
+    features?: Record<string, string[]>;
+    keywords?: Record<string, string[]>;
+  };
+  forks?: number;
+  skillMd?: {
+    name?: string;
+    description?: string;
+    body?: string;
+    bodyPreview?: string;
+  };
+}
+
+type TrackedSkillRow = Record<string, unknown>;
+type D1Row = Record<string, unknown>;
+
+let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
 
-function normalizeTrackedSkillFallback(row: any): any | null {
+function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
   if (!row || typeof row !== 'object') return null;
 
   const owner = typeof row.owner === 'string' ? row.owner.trim() : '';
@@ -59,6 +92,7 @@ function normalizeTrackedSkillFallback(row: any): any | null {
     category: typeof row.category === 'string' ? row.category : '',
     qualityScore: typeof row.qualityScore === 'number' ? row.qualityScore : 0,
     filePath: typeof row.filePath === 'string' ? row.filePath : '',
+    source: 'cache' as const,
     skillMd: {
       name,
       description: descriptionText || `${name} AI agent skill.`,
@@ -191,7 +225,7 @@ export async function getLocalSkillsFallback(): Promise<any[]> {
       const data = JSON.parse(content);
       const normalized = (Array.isArray(data) ? data : [])
         .map((row) => normalizeTrackedSkillFallback(row))
-        .filter(Boolean);
+        .filter((row): row is SkillListingItem => row !== null);
       _localSkillsCache = normalized;
       _localSkillsCacheTime = Date.now();
       return _localSkillsCache || [];
@@ -255,7 +289,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
     const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
 
     if (result.success && result.results) {
-      return result.results.map((row: any) => JSON.parse(row.data_json));
+      return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
     }
     return [];
   } catch (e) {
@@ -269,7 +303,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
  * Reduces D1 payload from ~56MB to ~1MB (56x reduction).
  * Use this for /skills listing pages instead of getSkillsFromKV.
  */
-export async function getSkillsListing(env: Env): Promise<any[]> {
+export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
   if (!env?.DB) {
     console.warn('[D1] No DB binding found, falling back to local file array for listing');
     const all = await getLocalSkillsFallback();
@@ -318,22 +352,24 @@ export async function getSkillsListing(env: Env): Promise<any[]> {
     ).all();
 
     if (result.success && result.results) {
-      return result.results.map((row: any) => ({
-        id: row.id,
-        name: row.name || row.skillName || row.repo,
-        skillName: row.skillName || row.name || '',
-        owner: row.owner,
-        repo: row.repo,
-        description: row.description ? tryParseJSON(row.description, row.description) : '',
-        category: row.category || '',
-        topics: row.topics ? tryParseJSON(row.topics, []) : [],
-        stars: row.stars || 0,
-        source: row.source || 'cache',
-        updatedAt: row.updated_at || '',
-        qualityScore: row.qualityScore || row.quality_score || 0,
-        filePath: row.filePath || '',
-        seo: row.seoDefinition ? { definition: tryParseJSON(row.seoDefinition, {}) } : undefined,
-      }));
+      return result.results.map(
+        (row: D1Row): SkillListingItem => ({
+          id: String(row.id ?? ''),
+          name: String(row.name ?? row.skillName ?? row.repo ?? ''),
+          skillName: String(row.skillName ?? row.name ?? ''),
+          owner: String(row.owner ?? ''),
+          repo: String(row.repo ?? ''),
+          description: row.description ? tryParseJSON(String(row.description), String(row.description)) : '',
+          category: String(row.category ?? ''),
+          topics: row.topics ? tryParseJSON(String(row.topics), []) : [],
+          stars: Number(row.stars ?? 0),
+          source: String(row.source ?? 'cache') as SkillListingItem['source'],
+          updatedAt: String(row.updated_at ?? ''),
+          qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+          filePath: String(row.filePath ?? ''),
+          seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
+        }),
+      );
     }
     return [];
   } catch (e) {
@@ -352,27 +388,31 @@ export async function getRelatedSkillsFast(
   currentId: string,
   category: string,
   limit: number = 4,
-): Promise<any[]> {
+): Promise<SkillListingItem[]> {
   if (!env?.DB) {
     const all = await getLocalSkillsFallback();
     const filtered = all
       .filter((s) => s.category === category && s.id !== currentId)
       .sort((a, b) => (b.stars || 0) - (a.stars || 0))
       .slice(0, limit);
-    return filtered.map((row) => ({
-      id: row.id,
-      name: row.name || row.skillName || row.repo,
-      skillName: row.skillName || row.name || '',
-      owner: row.owner,
-      repo: row.repo,
-      description: row.description,
-      category: row.category || '',
-      topics: row.topics || [],
-      stars: row.stars || 0,
-      qualityScore: row.qualityScore || row.quality_score || 0,
-      updatedAt: row.updatedAt || row.updated_at || '',
-      seo: row.seo || undefined,
-    }));
+    return filtered.map(
+      (row): SkillListingItem => ({
+        id: row.id,
+        name: row.name || row.skillName || row.repo,
+        skillName: row.skillName || row.name || '',
+        owner: row.owner,
+        repo: row.repo,
+        description: row.description,
+        category: row.category || '',
+        topics: row.topics || [],
+        stars: row.stars || 0,
+        source: row.source || 'cache',
+        updatedAt: row.updatedAt || row.updated_at || '',
+        qualityScore: row.qualityScore || row.quality_score || 0,
+        filePath: row.filePath || '',
+        seo: row.seo || undefined,
+      }),
+    );
   }
 
   try {
@@ -395,20 +435,24 @@ export async function getRelatedSkillsFast(
       .all();
 
     if (result.success && result.results) {
-      return result.results.map((row: any) => ({
-        id: row.id,
-        name: row.name || row.skillName || row.repo,
-        skillName: row.skillName || row.name || '',
-        owner: row.owner,
-        repo: row.repo,
-        description: row.description ? tryParseJSON(row.description, row.description) : '',
-        category: row.category || '',
-        topics: row.topics ? tryParseJSON(row.topics, []) : [],
-        stars: row.stars || 0,
-        qualityScore: row.qualityScore || row.quality_score || 0,
-        updatedAt: row.updated_at || '',
-        seo: row.seoDefinition ? { definition: tryParseJSON(row.seoDefinition, {}) } : undefined,
-      }));
+      return result.results.map(
+        (row: D1Row): SkillListingItem => ({
+          id: String(row.id ?? ''),
+          name: String(row.name ?? row.skillName ?? row.repo ?? ''),
+          skillName: String(row.skillName ?? row.name ?? ''),
+          owner: String(row.owner ?? ''),
+          repo: String(row.repo ?? ''),
+          description: row.description ? tryParseJSON(String(row.description), String(row.description)) : '',
+          category: String(row.category ?? ''),
+          topics: row.topics ? tryParseJSON(String(row.topics), []) : [],
+          stars: Number(row.stars ?? 0),
+          source: 'cache',
+          updatedAt: String(row.updated_at ?? ''),
+          qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+          filePath: String(row.filePath ?? ''),
+          seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
+        }),
+      );
     }
     return [];
   } catch (e) {
@@ -527,25 +571,27 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     return Number.isFinite(ms) ? ms : 0;
   };
 
-  const getReadmeContent = (raw: any): string => {
+  const getReadmeContent = (raw: unknown): string => {
     if (!raw || typeof raw !== 'object') return '';
 
-    if (typeof raw.skillBody === 'string' && raw.skillBody.trim().length > 0) {
-      return raw.skillBody;
+    const obj = raw as Record<string, unknown>;
+    if (typeof obj.skillBody === 'string' && obj.skillBody.trim().length > 0) {
+      return obj.skillBody;
     }
 
-    if (typeof raw.skillBodyPreview === 'string' && raw.skillBodyPreview.trim().length > 0) {
-      return raw.skillBodyPreview;
+    if (typeof obj.skillBodyPreview === 'string' && obj.skillBodyPreview.trim().length > 0) {
+      return obj.skillBodyPreview;
     }
 
-    const skillMd = raw.skillMd;
+    const skillMd = obj.skillMd;
     if (skillMd && typeof skillMd === 'object') {
-      if (typeof skillMd.body === 'string' && skillMd.body.trim().length > 0) {
-        return skillMd.body;
+      const sm = skillMd as Record<string, unknown>;
+      if (typeof sm.body === 'string' && sm.body.trim().length > 0) {
+        return sm.body;
       }
 
-      if (typeof skillMd.bodyPreview === 'string' && skillMd.bodyPreview.trim().length > 0) {
-        return skillMd.bodyPreview;
+      if (typeof sm.bodyPreview === 'string' && sm.bodyPreview.trim().length > 0) {
+        return sm.bodyPreview;
       }
     }
 
@@ -585,14 +631,15 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     return '';
   };
 
-  const getFallbackDescription = (raw: any): string => {
+  const getFallbackDescription = (raw: unknown): string => {
+    const obj = raw as Record<string, unknown> | null;
     const candidates = [
-      raw?.descriptionEn,
-      raw?.seoDefinitionEn,
-      raw?.descriptionRaw,
-      raw?.seoDefinitionRaw,
-      raw?.description,
-      raw?.seo?.definition,
+      obj?.descriptionEn,
+      obj?.seoDefinitionEn,
+      obj?.descriptionRaw,
+      obj?.seoDefinitionRaw,
+      obj?.description,
+      (obj?.seo as Record<string, unknown>)?.definition,
     ];
 
     for (const candidate of candidates) {
@@ -602,7 +649,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     return '';
   };
 
-  const isIndexableByReadme = (raw: any): boolean => {
+  const isIndexableByReadme = (raw: unknown): boolean => {
     const content = getReadmeContent(raw);
     const contentSize = content ? textEncoder.encode(content).length : 0;
     if (content && contentSize >= MIN_INDEXABLE_SKILL_README_BYTES) {
@@ -612,7 +659,8 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     const fallbackDescription = getFallbackDescription(raw);
     if (!fallbackDescription) return false;
 
-    const skillName = pickText(raw?.skillName) || raw?.repo || 'Skill';
+    const obj = raw as Record<string, unknown> | null;
+    const skillName = pickText(obj?.skillName) || String(obj?.repo ?? 'Skill');
     const synthesizedContent = [content, `# ${skillName}\n\n${fallbackDescription}`]
       .filter((part) => typeof part === 'string' && part.trim().length > 0)
       .join('\n\n');
@@ -622,21 +670,22 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
   // Normalize, validate, and dedupe by owner/repo.
   // If duplicates exist, keep the newest updatedAt.
   const normalizeAndDedupe = (
-    items: any[],
+    items: unknown[],
     options?: { skipReadmeFilter?: boolean },
   ): { owner: string; repo: string; updatedAt?: string }[] => {
     const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
 
     for (const raw of items) {
       if (!raw || typeof raw !== 'object') continue;
-      if (!options?.skipReadmeFilter && !isIndexableByReadme(raw)) continue;
+      const obj = raw as Record<string, unknown>;
+      if (!options?.skipReadmeFilter && !isIndexableByReadme(obj)) continue;
 
-      const owner = typeof raw.owner === 'string' ? raw.owner.trim() : '';
-      const repo = typeof raw.repo === 'string' ? raw.repo.trim() : '';
+      const owner = typeof obj.owner === 'string' ? obj.owner.trim() : '';
+      const repo = typeof obj.repo === 'string' ? obj.repo.trim() : '';
       if (!owner || !repo) continue;
       if (!GITHUB_OWNER_RE.test(owner) || !GITHUB_REPO_RE.test(repo)) continue;
 
-      const updatedAtRaw = typeof raw.updatedAt === 'string' ? raw.updatedAt : raw.updated_at;
+      const updatedAtRaw = typeof obj.updatedAt === 'string' ? obj.updatedAt : obj.updated_at;
       const updatedAt =
         typeof updatedAtRaw === 'string' && updatedAtRaw.trim().length > 0 ? updatedAtRaw.trim() : undefined;
       const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
@@ -669,7 +718,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
          WHERE owner IS NOT NULL AND repo IS NOT NULL`,
       ).all();
       if (result.success && result.results) {
-        return normalizeAndDedupe(result.results as any[]);
+        return normalizeAndDedupe(result.results as unknown[]);
       }
     } catch (e) {
       console.error('[D1] Error reading sitemap skills from D1:', e);
@@ -688,18 +737,24 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
         const data = JSON.parse(content);
         const skills = Array.isArray(data) ? data : data.skills || [];
         return normalizeAndDedupe(
-          skills.map((s: any) => ({
-            owner: s.owner,
-            repo: s.repo,
-            updatedAt: s.updatedAt,
-            skillBody: s.skillMd?.body,
-            skillBodyPreview: s.skillMd?.bodyPreview,
-            skillName: s.name || s.skillName || s.repo,
-            descriptionEn: typeof s.description === 'object' ? s.description?.en : undefined,
-            descriptionRaw: s.description,
-            seoDefinitionEn: s.seo?.definition?.en,
-            seoDefinitionRaw: s.seo?.definition,
-          })),
+          skills.map((s: Record<string, unknown>) => {
+            const skillMd = s.skillMd as Record<string, unknown> | null | undefined;
+            const seo = s.seo as Record<string, unknown> | null | undefined;
+            const definition = seo?.definition as Record<string, unknown> | null | undefined;
+            const description = s.description as Record<string, unknown> | string | null | undefined;
+            return {
+              owner: s.owner,
+              repo: s.repo,
+              updatedAt: s.updatedAt,
+              skillBody: skillMd?.body,
+              skillBodyPreview: skillMd?.bodyPreview,
+              skillName: s.name || s.skillName || s.repo,
+              descriptionEn: typeof description === 'object' ? (description as Record<string, unknown>)?.en : undefined,
+              descriptionRaw: description,
+              seoDefinitionEn: definition?.en,
+              seoDefinitionRaw: definition,
+            };
+          }),
         );
       }
 
