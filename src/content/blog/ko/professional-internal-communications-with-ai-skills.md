@@ -40,7 +40,7 @@ npx killer-skills add anthropics/skills/internal-comms
 이 skill은 단순한 현황 보고뿐만 아니라 내부적 필요의 전체 스펙트럼을 처리합니다:
 
 - **Company Newsletters**(사내 뉴스레터): 전문적이고 매력적인 대규모 업데이트.
-- **Incident Reports**(사고 보고서): 기술적 또는 비즈니스 문제에 대한 객관적이고 구조化的인 사후 분석.
+- **Incident Reports**(사고 보고서): 기술적 또는 비즈니스 문제에 대한 객관적이고 구조적인 사후 분석.
 - **FAQ Responses**(FAQ 응답): 팀 내 일반적인 질문에 대한 명확하고 권위 있는 답변.
 - **Leadership Updates**(리더십 업데이트): SVP 및 C-level 임원들을 위한 높은 수준의 요약.
 

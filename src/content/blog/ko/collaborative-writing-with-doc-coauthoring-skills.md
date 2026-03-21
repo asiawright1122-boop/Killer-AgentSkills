@@ -1,13 +1,13 @@
 ---
-title: "협업 엔진: 문서 공저술 기술의 마스터링"
-description: "공식적인 문서 공저술 기술로 세계 수준의 문서를 작성하는 방법을 배우십시오. PRD, 사양, 제안을 위한 3단계 워크플로우를 발견하십시오."
+title: '협업 엔진: 문서 공저술 기술의 마스터링'
+description: '공식적인 문서 공저술 기술로 세계 수준의 문서를 작성하는 방법을 배우십시오. PRD, 사양, 제안을 위한 3단계 워크플로우를 발견하십시오.'
 pubDate: 2026-02-13
-author: "Killer-Skills Team"
-tags: ["Documentation", "Collaboration", "Agent Skills", "Technical Writing"]
-lang: "ko"
+author: 'Killer-Skills Team'
+tags: ['Documentation', 'Collaboration', 'Agent Skills', 'Technical Writing']
+lang: 'ko'
 featured: false
-category: "enterprise-solutions"
-heroImage: "https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop"
+category: 'enterprise-solutions'
+heroImage: 'https://images.unsplash.com/photo-1510074377623-8cf13fb86c08?q=80&w=2560&auto=format&fit=crop'
 ---
 
 # 더 잘 쓰기, 더 빠르게 쓰기: 문서 공저 기술 해금
@@ -20,49 +20,64 @@ Anthropic의 공식 **문서 공저** 기술은귀하의 AI 에이전트를 선�
 # 에이전트에 문서 공저 기술을 부여합니다
 npx killer-skills add anthropics/skills/doc-coauthoring
 ```
+
 ## Doc-Coauthoring Skill이란?
 
 `doc-coauthoring` 스킬은 공식적인 워크플로우 오케스트레이션 엔진입니다. 문서 작성의 거대한 작업을 세 가지 다른, 관리 가능한 단계로 나눕니다.
 
 ### 1단계: 컨텍스트 심화
+
 컨텍스트가 충분하지 않으면 문서화가 실패합니다. 이 단계에서는:
+
 - **정보 덤프**: 원시적인 생각, Slack 링크, 또는 터미널 로그를 제공합니다.
-- **명확한 질문**: 에이전트는 "지식 격차"를 메우기 위해 5-10개의 구체적인 질문을 질문하고, 프로젝트의 *왜* 를 이해하는 것을 보장합니다. 단순히 *무엇* 에 대한 내용만을 이해하는 것이 아닙니다.
+- **명확한 질문**: 에이전트는 "지식 격차"를 메우기 위해 5-10개의 구체적인 질문을 질문하고, 프로젝트의 _왜_ 를 이해하는 것을 보장합니다. 단순히 _무엇_ 에 대한 내용만을 이해하는 것이 아닙니다.
 
 ### 2단계: 구조적 세부사항
+
 컨텍스트가 수집되면 에이전트는 문서를 섹션별로 구축합니다:
+
 - **브레인스토밍**: 각 섹션에 대해 에이전트는 5-20개의 옵션 또는 각도를 제공합니다.
 - **정밀 초고**: 전체 문서를 다시 출력하는 대신, 에이전트는귀하의 피드백을 기반으로 내용을 정교하게 수정하여귀하의 "목소리"를 학습합니다.
 
 ### 3단계: "리더 테스트" (비밀 무기)
+
 이 스킬의 가장 고유한 기능은 **리더 테스트**입니다. 에이전트는 "신선한" 하위 에이전트를 호출합니다. 즉,귀하의 대화에 대한 컨텍스트가 없는 에이전트를 호출하고, 문서를 읽고 질문에 답하도록 요청합니다.
 신선한 에이전트가 무언가를 잘못 이해하거나 지시를 모호하게 찾으면, 인간 리더도 그렇게 할 것입니다. 이 프로세스는 게시하기 전에 "블라인드 스폿"을 잡습니다.
+
 ## 기술 팀이 사랑하는 이유
 
 소프트웨어 엔지니어링 팀을 위한 이 기술은 다음을 위해 게임 체인저입니다:
+
 - **PRD 및 디자인 문서**: 모든 기술적 트레이드 오프가 문서화되고 모든 에지 케이스가 커버되는지 확인합니다.
 - **RFC(의견 요청)**: 명확하고, 간결하며, 논리적으로 일관된 문서를 생성하여 합의를 구축합니다.
 - **온보딩 가이드**: 서브 에이전트 리더 테스트를 통해 실제로 작동하는지 확인하여 "시작" 가이드의 유효성을 검증합니다.
+
 ## 실제 사용 사례
 
 ### Slack 채팅에서 PRD로
-새로운 기능에 대한 긴 Slack 스레드를 에이전트에 붙여넣습니다. `doc-coauthoring` 스킬을 사용하여 그杂한 토론을 전문적인 제품 요구 사항 문서로 구조화합니다.
+
+새로운 기능에 대한 긴 Slack 스레드를 에이전트에 붙여넣습니다. `doc-coauthoring` 스킬을 사용하여 그 잡힌 토론을 전문적인 제품 요구 사항 문서로 구조화합니다.
 
 ### 자동화된 논리 검사
+
 에이전트에게 제공된 텍스트만으로 개발자가 기능을 구현할 수 있는지 확인하기 위해 기술 사양에 "Reader Test"를 요청합니다.
+
 ## 사용 방법: Killer-Skills와 함께
 
 1.  **설치**: `npx killer-skills add anthropics/skills/doc-coauthoring`
 2.  **실행**: "새로운 API에 대한 기술 제안 초안을 작성하고 싶습니다. doc-coauthoring 워크플로를 사용해 보겠습니다."
 3.  **협업**: 에이전트의 리드를 따라 세 단계를 진행합니다.
+
 ## 결론
 
-`doc-coauthoring` 스킬은 AI 지원 작성을 새롭게 정의합니다.疲劳를 유발하는 단독 작업을 구조화된 고품질 대화로 전환합니다.
+`doc-coauthoring` 스킬은 AI 지원 작성을 새롭게 정의합니다.피로를 유발하는 단독 작업을 구조화된 고품질 대화로 전환합니다.
 
 Killer-Skills 디렉터리에서 [doc-coauthoring 스킬](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)을 확인하고 실제로 잘 작동하는 문서 작성을 시작해 보세요.
 
 ---
-*서식 지정 최종 확인이 필요합니까? [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)과 함께 사용하면 전문적인 워드 내보내기 기능을 사용할 수 있습니다.*
+
+_서식 지정 최종 확인이 필요합니까? [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)과 함께 사용하면 전문적인 워드 내보내기 기능을 사용할 수 있습니다._
 
 ---
-*관련된 내용: [AI 에이전트 스킬이란 무엇인가?](/ko/blog/what-are-ai-agent-skills) 및 [2026년을 위한 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)*
+
+_관련된 내용: [AI 에이전트 스킬이란 무엇인가?](/ko/blog/what-are-ai-agent-skills) 및 [2026년을 위한 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)_

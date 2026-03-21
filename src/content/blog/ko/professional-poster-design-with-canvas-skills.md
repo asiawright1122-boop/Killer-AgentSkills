@@ -1,13 +1,13 @@
 ---
-title: "정적 디자인 마스터리: 캔버스-디자인 스킬 탐구"
-description: "공식 캔버스-디자인 스킬을 사용하여 박물관급 포스터와 정적 디자인을 생성하는 방법을 발견하세요. 디자인 선언과 시각 철학에 대해 알아보세요."
+title: '정적 디자인 마스터리: 캔버스-디자인 스킬 탐구'
+description: '공식 캔버스-디자인 스킬을 사용하여 박물관급 포스터와 정적 디자인을 생성하는 방법을 발견하세요. 디자인 선언과 시각 철학에 대해 알아보세요.'
 pubDate: 2026-02-13
-author: "Killer-Skills Team"
-tags: ["Graphic Design", "Minimalism", "Agent Skills", "Poster Design"]
-lang: "ko"
+author: 'Killer-Skills Team'
+tags: ['Graphic Design', 'Minimalism', 'Agent Skills', 'Poster Design']
+lang: 'ko'
 featured: false
-category: "creative-tools"
-heroImage: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop"
+category: 'creative-tools'
+heroImage: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=2560&auto=format&fit=crop'
 ---
 
 # 템플릿을 넘어서: Canvas-Design으로 만들어지는 박물관급 아트
@@ -20,45 +20,59 @@ Anthropic의 공식 **canvas-design** 스킬은 AI 에이전트가 레이아웃�
 # canvas-design 스킬을 툴킷에 추가
 npx killer-skills add anthropics/skills/canvas-design
 ```
+
 ## Canvas-Design이 다른 점은 무엇입니까?
 
 대부분의 AI 도구는 무엇이 잘 보이는지 "추측"하려고 합니다. 그러나 `canvas-design` 스킬은 **선언문 우선** 방식으로 작동합니다. 모든 디자인 요청을 새로운 미학 운동으로 간주합니다.
 
 ### 1. 시각 철학 생성
+
 단 하나의 도형을 그리기 전에, 에이전트는 **시각 철학**을 생성합니다. 이것은 체크리스트가 아니라, 운동의 영혼에 대한 깊은 분석입니다. 예를 들어:
+
 - **"브루탈리스트 쥬얼"**: 거대한 형태와 날 것의 정직.
 - **"색채적 침묵"**: 색상을 주요 정보 시스템으로 사용하며, 최소한의 텍스트를 사용합니다.
 - **"아날로그 명상"**: 그레인, 블리드, 방대한 음영 공간을 받아들이는 것입니다.
 
 ### 2. 공간 커뮤니케이션
+
 스킬은 텍스트보다 **공간 커뮤니케이션**을 강조합니다. 90/10 규칙을 따릅니다: 90% 시각 디자인, 10% 필수 텍스트. 텍스트는 정보 블록이 아니라, 작품의 건축물에 통합된 강력한 제스처인 시각적인 악센트로 간주됩니다.
+
 ## 핵심 디자인 원칙
 
-`canvas-design` 스킬은 다음과 같은 비판적標準을 통해 박물관 수준의 공정을 강요합니다:
+`canvas-design` 스킬은 다음과 같은 비판적 표준을 통해 박물관 수준의 공정을 강요합니다:
 
 ### 중복 없음 & 완벽한 여백
+
 전문적인 실행이란 페이지에서 아무것도 넘치지 않고, 아무것도 의도하지 않게 중복되지 않는 것을 의미합니다. 모든 요소는 "호흡할 수 있는 공간"을 가지고, 깨끗하고, 임상적이고, 세련된 모습을 보장합니다.
 
 ### 전문 타이포그래피
+
 이 스킬은 고품질 글꼴을 사용하며, 타이포그래피를 예술의 일부로 간주합니다. 직관적인 "타입세팅"을 피하고, 기하학적 형태로 텍스트를 통합하는 것을 선호합니다.
 
 ### 노동집약적 품질
+
 목표는 수작업으로 **수많은 시간**을 들여 만든 것 같은 작품을 생산하는 것입니다. 구성은 명상 연습의 주의와 균형을 가지고, 지속적인 시청을 보상합니다.
+
 ## 실용적인 사용 사례
 
 ### 부티크 이벤트 포스터
+
 수집품 같은 포스터를 생성하세요. "콘크리트 시"와 같은 움직임을 사용하여 대리자는 거대한 색상 블록과 조각적인 타이포그래피를 구축하여 즉시 주목을 받을 수 있습니다.
 
 ### 미니멀리스트 브랜드 아이덴티티
+
 제약과 질서를 가치 지는 브랜드를 위한 시각 언어를 개발하세요. "기하학적 침묵"은 격자 기반의 정밀도와 극적인 부정적인 공간을 사용하여 고급 감성을 창조합니다.
 
 ### 아트 아티팩트
+
 무언가 일시적인 것이 연구되고 매핑될 수 있음을 증명하는 작품을 생성하세요. 이러한 "가상 학문" 다이어그램은 집중적인 마크의 축적과 계층화된 패턴을 사용하여 깊은 의미 있는 예술을 창조합니다.
+
 ## Killer-Skills와 함께 사용하는 방법
 
 1.  **설치**: `npx killer-skills add anthropics/skills/canvas-design`
 2.  **프롬프트**: "제목이 'Blue Note'인 재즈 페스티벌을 위한 미니멀리스트 포스터를 만들어 줘. canvas-design 스킬을 사용하고, 'Analog Meditation' 운동 같은 느낌이 나도록 해줘."
 3.  **수정**: 에이전트에게 "더 많은 그래픽을 추가하는 대신 기존 구성(cohesion)을 더 조화롭게 만들어 줘"라고 요청하세요.
+
 ## 결론
 
 `canvas-design` 스킬은 디자인이 지름길이 아닌 하나의 훈련 분야라고 믿는 분들을 위한 것입니다. 이 스킬은 여러분의 AI 에이전트를 갤러리에 전시될 만한 작품을 창조할 수 있는 전문 장인으로 변모시킵니다.
@@ -67,8 +81,8 @@ npx killer-skills add anthropics/skills/canvas-design
 
 ---
 
-*더 찾고 계신가요? 코드 기반 생성 예술은 [algorithmic-art](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art)를 확인해 보세요.*
+_더 찾고 계신가요? 코드 기반 생성 예술은 [algorithmic-art](https://killer-skills.com/ko/skills/anthropics/skills/algorithmic-art)를 확인해 보세요._
 
 ---
 
-*관련 항목: [AI 에이전트 스킬이란?](/ko/blog/what-are-ai-agent-skills) 및 [2026년 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)*
+_관련 항목: [AI 에이전트 스킬이란?](/ko/blog/what-are-ai-agent-skills) 및 [2026년 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)_
