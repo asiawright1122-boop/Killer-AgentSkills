@@ -1227,12 +1227,17 @@
   {
     "owner": "systeminit",
     "repo": "swamp",
-    "updatedAt": "2026-03-13T23:51:45Z"
+    "updatedAt": "2026-03-21T01:53:18Z"
   },
   {
     "owner": "segmentio",
     "repo": "action-destinations",
     "updatedAt": "2026-03-11T08:30:14Z"
+  },
+  {
+    "owner": "systeminit",
+    "repo": "swamp",
+    "updatedAt": "2026-03-13T23:51:45Z"
   },
   {
     "owner": "openai",
@@ -1760,14 +1765,14 @@
     "updatedAt": "2026-02-10T12:52:47Z"
   },
   {
-    "owner": "anam-org",
-    "repo": "metaxy",
-    "updatedAt": "2026-03-16T22:04:27Z"
-  },
-  {
     "owner": "hyperlane-xyz",
     "repo": "hyperlane-monorepo",
     "updatedAt": "2026-03-16T19:47:01Z"
+  },
+  {
+    "owner": "anam-org",
+    "repo": "metaxy",
+    "updatedAt": "2026-03-16T22:04:27Z"
   },
   {
     "owner": "wbrown",
@@ -1775,19 +1780,24 @@
     "updatedAt": "2026-03-19T00:14:54Z"
   },
   {
-    "owner": "sfc-gh-dflippo",
-    "repo": "snowflake-dbt-demo",
-    "updatedAt": "2026-03-14T16:00:05Z"
-  },
-  {
     "owner": "promptadvisers",
     "repo": "n8n-powerhouse",
     "updatedAt": "2026-03-12T13:04:31Z"
   },
   {
+    "owner": "sfc-gh-dflippo",
+    "repo": "snowflake-dbt-demo",
+    "updatedAt": "2026-03-14T16:00:05Z"
+  },
+  {
     "owner": "oimiragieo",
     "repo": "agent-studio",
     "updatedAt": "2026-03-17T08:26:20Z"
+  },
+  {
+    "owner": "sddevelopment-be",
+    "repo": "quickstart_agent-augmented-development",
+    "updatedAt": "2026-02-14T12:32:47Z"
   },
   {
     "owner": "alohays",
@@ -1805,6 +1815,21 @@
     "updatedAt": "2026-03-09T20:49:16Z"
   },
   {
+    "owner": "HR-AR",
+    "repo": "Project-Conductor",
+    "updatedAt": "2026-01-29T00:47:48Z"
+  },
+  {
+    "owner": "AIA-11-HN-MIB",
+    "repo": "MIB-MockInterviewAIBot",
+    "updatedAt": "2026-01-11T22:10:16Z"
+  },
+  {
+    "owner": "cacr92",
+    "repo": "WeReply",
+    "updatedAt": "2026-03-13T01:28:46Z"
+  },
+  {
     "owner": "mkatogui",
     "repo": "universal-design-system",
     "updatedAt": "2026-03-17T10:34:34Z"
@@ -1812,7 +1837,7 @@
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
-    "updatedAt": "2026-03-20T13:40:37.361Z"
+    "updatedAt": "2026-03-21T02:52:01.839Z"
   },
   {
     "owner": "foomakers",
@@ -2290,6 +2315,11 @@
     "updatedAt": "2026-02-25T02:23:09Z"
   },
   {
+    "owner": "carere",
+    "repo": "zaidan",
+    "updatedAt": "2026-03-18T08:24:03Z"
+  },
+  {
     "owner": "pikkujs",
     "repo": "pikku",
     "updatedAt": "2026-03-12T12:16:54Z"
@@ -2310,11 +2340,6 @@
     "updatedAt": "2026-02-23T16:11:00Z"
   },
   {
-    "owner": "carere",
-    "repo": "zaidan",
-    "updatedAt": "2026-03-18T08:24:03Z"
-  },
-  {
     "owner": "ArtemYurov",
     "repo": "TomoBar",
     "updatedAt": "2026-03-16T14:21:48Z"
@@ -2328,6 +2353,11 @@
     "owner": "RosyGameStudio",
     "repo": "forge-gpu",
     "updatedAt": "2026-03-16T21:59:51Z"
+  },
+  {
+    "owner": "gmelli",
+    "repo": "public-OpenAI-DeepResearch-aget",
+    "updatedAt": "2026-03-09T04:21:34Z"
   },
   {
     "owner": "SarthakMishra",
@@ -2690,9 +2720,14 @@
     "updatedAt": "2026-03-04T06:19:11Z"
   },
   {
-    "owner": "rzx007",
-    "repo": "nanobot-ts",
-    "updatedAt": "2026-03-13T07:02:19Z"
+    "owner": "DXHeroes",
+    "repo": "local-mcp-gateway",
+    "updatedAt": "2026-03-20T15:17:23Z"
+  },
+  {
+    "owner": "re-cinq",
+    "repo": "wave",
+    "updatedAt": "2026-03-21T01:41:46Z"
   },
   {
     "owner": "niznik-dev",
@@ -2700,9 +2735,9 @@
     "updatedAt": "2026-03-11T19:27:46Z"
   },
   {
-    "owner": "re-cinq",
-    "repo": "wave",
-    "updatedAt": "2026-03-12T00:06:09Z"
+    "owner": "rzx007",
+    "repo": "nanobot-ts",
+    "updatedAt": "2026-03-13T07:02:19Z"
   },
   {
     "owner": "loft-sh",
@@ -2713,6 +2748,11 @@
     "owner": "Nate-Vish",
     "repo": "Auto-Mates",
     "updatedAt": "2026-03-17T08:06:03Z"
+  },
+  {
+    "owner": "RoukSonix",
+    "repo": "claude-code-octopus",
+    "updatedAt": "2026-03-17T06:12:54Z"
   },
   {
     "owner": "DNYoussef",
@@ -2740,29 +2780,24 @@
     "updatedAt": "2026-02-09T17:34:21Z"
   },
   {
-    "owner": "rnwolfe",
-    "repo": "forge",
-    "updatedAt": "2026-03-14T13:58:36Z"
-  },
-  {
     "owner": "bjornslib",
     "repo": "cobuilder-harness",
     "updatedAt": "2026-03-17T12:05:09Z"
   },
   {
-    "owner": "pinkroosterai",
-    "repo": "PinkRoosterMcp",
-    "updatedAt": "2026-03-16T11:50:05Z"
-  },
-  {
-    "owner": "cacr92",
-    "repo": "WeReply",
-    "updatedAt": "2026-03-13T01:28:46Z"
+    "owner": "rnwolfe",
+    "repo": "forge",
+    "updatedAt": "2026-03-14T13:58:36Z"
   },
   {
     "owner": "beyondeye",
     "repo": "aitasks",
     "updatedAt": "2026-03-17T13:21:21Z"
+  },
+  {
+    "owner": "pinkroosterai",
+    "repo": "PinkRoosterMcp",
+    "updatedAt": "2026-03-16T11:50:05Z"
   },
   {
     "owner": "TalonT-Org",
@@ -2772,22 +2807,22 @@
   {
     "owner": "github",
     "repo": "awesome-copilot",
-    "updatedAt": "2026-03-20T13:40:37.367Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "GBSOSS",
     "repo": "skill-from-masters",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "eannnnnn",
     "repo": "taptik-labs",
-    "updatedAt": "2026-03-20T13:40:37.371Z"
+    "updatedAt": "2026-03-21T02:52:01.848Z"
   },
   {
     "owner": "sonyho2715",
@@ -2800,14 +2835,14 @@
     "updatedAt": "2026-01-18T21:19:03Z"
   },
   {
-    "owner": "kynoptic",
-    "repo": "wikipedia-reliable-sources",
-    "updatedAt": "2026-02-09T02:48:53Z"
-  },
-  {
     "owner": "lastcow",
     "repo": "innozverse",
     "updatedAt": "2026-01-05T16:21:26Z"
+  },
+  {
+    "owner": "kynoptic",
+    "repo": "wikipedia-reliable-sources",
+    "updatedAt": "2026-02-09T02:48:53Z"
   },
   {
     "owner": "tinkermonkey",
@@ -2832,7 +2867,7 @@
   {
     "owner": "soliblue",
     "repo": "cloude",
-    "updatedAt": "2026-03-20T13:39:21Z"
+    "updatedAt": "2026-03-20T13:56:59Z"
   },
   {
     "owner": "feordin",
@@ -2848,6 +2883,11 @@
     "owner": "ubnt-intrepid",
     "repo": "openspec-example-moneylog",
     "updatedAt": "2026-03-19T12:32:48Z"
+  },
+  {
+    "owner": "re-cinq",
+    "repo": "wave",
+    "updatedAt": "2026-03-12T00:06:09Z"
   },
   {
     "owner": "AgentWorkforce",
@@ -2995,11 +3035,6 @@
     "updatedAt": "2026-02-24T05:10:46Z"
   },
   {
-    "owner": "RoukSonix",
-    "repo": "claude-code-octopus",
-    "updatedAt": "2026-02-28T14:21:26Z"
-  },
-  {
     "owner": "telum-ai",
     "repo": "speck",
     "updatedAt": "2026-03-01T14:49:13Z"
@@ -3058,11 +3093,6 @@
     "owner": "kslhunter",
     "repo": "simplysm",
     "updatedAt": "2026-03-06T06:23:00.208Z"
-  },
-  {
-    "owner": "ColdstartLabs-ca",
-    "repo": "myimageupscaler.com",
-    "updatedAt": "2026-03-11T03:50:31Z"
   },
   {
     "owner": "GaitanS",
@@ -3478,11 +3508,6 @@
     "owner": "elsolal",
     "repo": "Skillz-Claude",
     "updatedAt": "2026-03-12T01:55:36.026Z"
-  },
-  {
-    "owner": "juanlamadrid20",
-    "repo": "dbrx-multi-agent-retail-intelligence",
-    "updatedAt": "2026-03-12T01:55:36.028Z"
   },
   {
     "owner": "benjaminshoemaker",
@@ -4125,6 +4150,11 @@
     "updatedAt": "2026-03-12T02:34:42Z"
   },
   {
+    "owner": "madarasz",
+    "repo": "always-be-running",
+    "updatedAt": "2026-03-18T22:19:09Z"
+  },
+  {
     "owner": "vechain",
     "repo": "inspector-app",
     "updatedAt": "2026-02-10T16:48:35Z"
@@ -4155,14 +4185,14 @@
     "updatedAt": "2026-03-20T10:53:12Z"
   },
   {
-    "owner": "matteing",
-    "repo": "opal",
-    "updatedAt": "2026-03-09T06:24:53Z"
-  },
-  {
     "owner": "covoiturage-gouv-fr",
     "repo": "mono",
     "updatedAt": "2026-03-20T01:03:52Z"
+  },
+  {
+    "owner": "matteing",
+    "repo": "opal",
+    "updatedAt": "2026-03-09T06:24:53Z"
   },
   {
     "owner": "yspreen",
@@ -4170,19 +4200,9 @@
     "updatedAt": "2026-03-16T17:08:01Z"
   },
   {
-    "owner": "madarasz",
-    "repo": "always-be-running",
-    "updatedAt": "2026-03-18T22:19:09Z"
-  },
-  {
     "owner": "vitorsilva",
     "repo": "saberloop",
     "updatedAt": "2026-01-23T15:10:00Z"
-  },
-  {
-    "owner": "tomgun",
-    "repo": "agentic-framework",
-    "updatedAt": "2026-03-20T13:21:15Z"
   },
   {
     "owner": "leboncoin",
@@ -4395,6 +4415,11 @@
     "updatedAt": "2026-02-13T23:08:50Z"
   },
   {
+    "owner": "aget-framework",
+    "repo": "aget",
+    "updatedAt": "2026-03-09T07:11:52Z"
+  },
+  {
     "owner": "whddltjdwhd",
     "repo": "bellog",
     "updatedAt": "2026-02-23T12:59:04Z"
@@ -4423,11 +4448,6 @@
     "owner": "henderni",
     "repo": "minecraft-mega-knights",
     "updatedAt": "2026-03-08T07:12:56Z"
-  },
-  {
-    "owner": "jcteague",
-    "repo": "wheelbase",
-    "updatedAt": "2026-03-17T20:38:52Z"
   },
   {
     "owner": "NmBoyd",
@@ -4460,11 +4480,6 @@
     "updatedAt": "2026-02-19T07:16:55Z"
   },
   {
-    "owner": "aget-framework",
-    "repo": "aget",
-    "updatedAt": "2026-03-09T07:11:52Z"
-  },
-  {
     "owner": "natea",
     "repo": "fitfinder",
     "updatedAt": "2026-02-18T23:09:51Z"
@@ -4473,6 +4488,11 @@
     "owner": "cuioss",
     "repo": "nifi-extensions",
     "updatedAt": "2026-03-12T11:57:41Z"
+  },
+  {
+    "owner": "helpermedia",
+    "repo": "AppWaffle",
+    "updatedAt": "2026-02-12T19:47:34Z"
   },
   {
     "owner": "NammDev",
@@ -4485,19 +4505,14 @@
     "updatedAt": "2026-01-28T07:55:48Z"
   },
   {
-    "owner": "gmelli",
-    "repo": "public-OpenAI-DeepResearch-aget",
-    "updatedAt": "2026-03-09T04:21:34Z"
+    "owner": "LopeWale",
+    "repo": "dev_ignition",
+    "updatedAt": "2026-03-13T21:40:29Z"
   },
   {
     "owner": "rust-works",
     "repo": "omni-dev",
     "updatedAt": "2026-02-25T20:33:46Z"
-  },
-  {
-    "owner": "LopeWale",
-    "repo": "dev_ignition",
-    "updatedAt": "2026-03-13T21:40:29Z"
   },
   {
     "owner": "omerakben",
@@ -4512,7 +4527,7 @@
   {
     "owner": "cablate",
     "repo": "Agentic-MCP-Skill",
-    "updatedAt": "2026-03-20T13:40:37.366Z"
+    "updatedAt": "2026-03-21T02:52:01.843Z"
   },
   {
     "owner": "mgoericke",
@@ -4530,6 +4545,11 @@
     "updatedAt": "2026-03-09T17:35:32Z"
   },
   {
+    "owner": "aget-framework",
+    "repo": "template-executive-aget",
+    "updatedAt": "2026-03-20T01:44:57Z"
+  },
+  {
     "owner": "alvaldes",
     "repo": "alvaldes.dots",
     "updatedAt": "2026-03-16T18:59:59Z"
@@ -4540,6 +4560,11 @@
     "updatedAt": "2026-03-10T14:55:43Z"
   },
   {
+    "owner": "jcteague",
+    "repo": "wheelbase",
+    "updatedAt": "2026-03-20T23:56:09Z"
+  },
+  {
     "owner": "dudusoar",
     "repo": "sdr-sentiment-analysis",
     "updatedAt": "2026-01-09T01:58:33Z"
@@ -4548,6 +4573,11 @@
     "owner": "usermaum",
     "repo": "Themoon",
     "updatedAt": "2026-03-03T15:08:58Z"
+  },
+  {
+    "owner": "aifuun",
+    "repo": "u-safe",
+    "updatedAt": "2026-03-20T13:50:11Z"
   },
   {
     "owner": "forwardimpact",
@@ -4573,11 +4603,6 @@
     "owner": "emaginebr",
     "repo": "NNews",
     "updatedAt": "2026-03-15T18:53:47Z"
-  },
-  {
-    "owner": "aget-framework",
-    "repo": "template-executive-aget",
-    "updatedAt": "2026-03-11T05:32:55.330Z"
   },
   {
     "owner": "ParadeTo",
@@ -5295,6 +5320,11 @@
     "updatedAt": "2026-02-22T15:46:34Z"
   },
   {
+    "owner": "Smana",
+    "repo": "cloud-native-ref",
+    "updatedAt": "2026-03-19T04:26:12Z"
+  },
+  {
     "owner": "vamseeachanta",
     "repo": "workspace-hub",
     "updatedAt": "2026-03-16T11:51:07Z"
@@ -5312,7 +5342,7 @@
   {
     "owner": "yangliu2060",
     "repo": "clawdchat-analysis",
-    "updatedAt": "2026-03-20T13:40:37.365Z"
+    "updatedAt": "2026-03-21T02:52:01.842Z"
   },
   {
     "owner": "mag123c",
@@ -5425,6 +5455,11 @@
     "updatedAt": "2026-03-12T09:53:02Z"
   },
   {
+    "owner": "duc01226",
+    "repo": "EasyPlatform",
+    "updatedAt": "2026-03-15T04:05:45Z"
+  },
+  {
     "owner": "cbbkrd-tech",
     "repo": "jl-finishes",
     "updatedAt": "2026-03-09T10:04:46Z"
@@ -5435,14 +5470,14 @@
     "updatedAt": "2026-02-22T15:40:38Z"
   },
   {
-    "owner": "man-group",
-    "repo": "ArcticDB",
-    "updatedAt": "2026-03-13T04:22:49Z"
-  },
-  {
     "owner": "catlog22",
     "repo": "Claude-Code-Workflow",
     "updatedAt": "2026-03-18T09:26:05Z"
+  },
+  {
+    "owner": "man-group",
+    "repo": "ArcticDB",
+    "updatedAt": "2026-03-13T04:22:49Z"
   },
   {
     "owner": "LIDR-academy",
@@ -5450,14 +5485,14 @@
     "updatedAt": "2026-03-12T14:15:58Z"
   },
   {
-    "owner": "victoriacity",
-    "repo": "openakari",
-    "updatedAt": "2026-03-16T06:14:08Z"
-  },
-  {
     "owner": "kdeldycke",
     "repo": "repomatic",
     "updatedAt": "2026-03-12T10:52:18Z"
+  },
+  {
+    "owner": "victoriacity",
+    "repo": "openakari",
+    "updatedAt": "2026-03-16T06:14:08Z"
   },
   {
     "owner": "SpillwaveSolutions",
@@ -5468,11 +5503,6 @@
     "owner": "danielsogl",
     "repo": "copilot-workflow-demo",
     "updatedAt": "2026-03-16T09:29:13Z"
-  },
-  {
-    "owner": "duc01226",
-    "repo": "EasyPlatform",
-    "updatedAt": "2026-03-15T04:05:45Z"
   },
   {
     "owner": "aj47",
@@ -5495,6 +5525,11 @@
     "updatedAt": "2026-03-03T03:39:39Z"
   },
   {
+    "owner": "AWS-Educate",
+    "repo": "template-nextjs-sanity-tailwind-amplify",
+    "updatedAt": "2026-03-12T14:22:03Z"
+  },
+  {
     "owner": "gounthar",
     "repo": "bazel-riscv",
     "updatedAt": "2025-11-26T17:08:05Z"
@@ -5505,9 +5540,9 @@
     "updatedAt": "2026-02-16T07:59:22Z"
   },
   {
-    "owner": "AWS-Educate",
-    "repo": "template-nextjs-sanity-tailwind-amplify",
-    "updatedAt": "2026-03-12T14:22:03Z"
+    "owner": "WouterWisse",
+    "repo": "wouterwisse.com",
+    "updatedAt": "2026-03-16T00:33:46Z"
   },
   {
     "owner": "pisithrps",
@@ -5785,6 +5820,11 @@
     "updatedAt": "2026-02-24T17:48:22Z"
   },
   {
+    "owner": "rarebit-one",
+    "repo": "ground-control-api",
+    "updatedAt": "2026-03-20T08:12:55Z"
+  },
+  {
     "owner": "cooper538",
     "repo": "eshop-demo",
     "updatedAt": "2026-02-13T10:56:11Z"
@@ -5815,14 +5855,14 @@
     "updatedAt": "2026-02-24T19:34:11Z"
   },
   {
-    "owner": "islamu-ngo",
-    "repo": "Event",
-    "updatedAt": "2026-02-22T16:34:32Z"
-  },
-  {
     "owner": "kettleofketchup",
     "repo": "DraftForge",
     "updatedAt": "2026-03-16T14:26:38Z"
+  },
+  {
+    "owner": "islamu-ngo",
+    "repo": "Event",
+    "updatedAt": "2026-02-22T16:34:32Z"
   },
   {
     "owner": "arcasilesgroup",
@@ -5840,11 +5880,6 @@
     "updatedAt": "2026-03-12T10:37:00Z"
   },
   {
-    "owner": "houfu",
-    "repo": "codraft",
-    "updatedAt": "2026-03-10T16:31:10Z"
-  },
-  {
     "owner": "Jasrags",
     "repo": "ShadowMaster",
     "updatedAt": "2026-03-13T01:59:46Z"
@@ -5855,6 +5890,11 @@
     "updatedAt": "2026-03-06T21:53:10Z"
   },
   {
+    "owner": "NhiLe-Team-Webs",
+    "repo": "nedu",
+    "updatedAt": "2026-03-16T13:38:40Z"
+  },
+  {
     "owner": "yudame",
     "repo": "research",
     "updatedAt": "2026-03-09T15:35:14Z"
@@ -5862,17 +5902,12 @@
   {
     "owner": "airbytehq",
     "repo": "airbyte-agent-connectors",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
-  },
-  {
-    "owner": "rarebit-one",
-    "repo": "ground-control-api",
-    "updatedAt": "2026-03-20T08:12:55Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "tvproductions",
     "repo": "gzkit",
-    "updatedAt": "2026-03-20T11:18:03Z"
+    "updatedAt": "2026-03-20T23:02:35Z"
   },
   {
     "owner": "Bobby44-max",
@@ -5883,6 +5918,11 @@
     "owner": "jg-chalk-io",
     "repo": "Nora-LiveKit",
     "updatedAt": "2025-11-24T17:38:29Z"
+  },
+  {
+    "owner": "houfu",
+    "repo": "codraft",
+    "updatedAt": "2026-03-10T16:31:10Z"
   },
   {
     "owner": "IsKenKenYa",
@@ -6637,7 +6677,7 @@
   {
     "owner": "sepivip",
     "repo": "SeekerClaw",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "Strategy11",
@@ -6770,14 +6810,14 @@
     "updatedAt": "2026-03-01T04:56:15Z"
   },
   {
-    "owner": "DarkMonkDev",
-    "repo": "WitchCityRope",
-    "updatedAt": "2026-03-16T04:44:10Z"
+    "owner": "Thank-you-Linus",
+    "repo": "Linus-Dashboard",
+    "updatedAt": "2026-03-17T18:37:41Z"
   },
   {
-    "owner": "landim32",
-    "repo": "GitNews",
-    "updatedAt": "2026-03-16T00:04:07Z"
+    "owner": "codeyousef",
+    "repo": "summon",
+    "updatedAt": "2026-03-18T12:30:54Z"
   },
   {
     "owner": "emaginebr",
@@ -6785,9 +6825,14 @@
     "updatedAt": "2026-03-15T21:52:39Z"
   },
   {
-    "owner": "emaginebr",
-    "repo": "devblog",
-    "updatedAt": "2026-03-17T01:31:53Z"
+    "owner": "landim32",
+    "repo": "GitNews",
+    "updatedAt": "2026-03-16T00:04:07Z"
+  },
+  {
+    "owner": "DarkMonkDev",
+    "repo": "WitchCityRope",
+    "updatedAt": "2026-03-16T04:44:10Z"
   },
   {
     "owner": "laceto",
@@ -6795,19 +6840,29 @@
     "updatedAt": "2026-03-19T19:53:13Z"
   },
   {
-    "owner": "hoyvoh",
-    "repo": "claude-workspace-prototype",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "owner": "drewdresser",
+    "repo": "aws-solutions-architect-bench",
+    "updatedAt": "2026-02-04T01:14:49Z"
   },
   {
     "owner": "not-matthias",
     "repo": "dotfiles-nix",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
+  },
+  {
+    "owner": "hoyvoh",
+    "repo": "claude-workspace-prototype",
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "mashharuki",
     "repo": "car",
     "updatedAt": "2026-01-19T04:48:26Z"
+  },
+  {
+    "owner": "emaginebr",
+    "repo": "devblog",
+    "updatedAt": "2026-03-17T01:31:53Z"
   },
   {
     "owner": "agentgptsmith",
@@ -7042,12 +7097,12 @@
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
-    "updatedAt": "2026-03-20T13:40:37.366Z"
+    "updatedAt": "2026-03-21T02:52:01.843Z"
   },
   {
     "owner": "jaraim",
     "repo": "opencode-chinese",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "updatedAt": "2026-03-21T02:52:01.847Z"
   },
   {
     "owner": "OmuNaman",
@@ -7057,7 +7112,7 @@
   {
     "owner": "pjcau",
     "repo": "agent-orchestrator",
-    "updatedAt": "2026-03-19T23:35:44Z"
+    "updatedAt": "2026-03-20T22:39:58Z"
   },
   {
     "owner": "MarioPasc",
@@ -7755,6 +7810,11 @@
     "updatedAt": "2026-03-10T08:20:41Z"
   },
   {
+    "owner": "j1king",
+    "repo": "grovr",
+    "updatedAt": "2026-03-13T11:11:27Z"
+  },
+  {
     "owner": "optave",
     "repo": "codegraph",
     "updatedAt": "2026-03-17T13:46:09Z"
@@ -7787,7 +7847,7 @@
   {
     "owner": "igorbelchior86",
     "repo": "Cerebro",
-    "updatedAt": "2026-03-20T13:40:37.372Z"
+    "updatedAt": "2026-03-21T02:52:01.849Z"
   },
   {
     "owner": "pikkujs",
@@ -8330,14 +8390,14 @@
     "updatedAt": "2026-03-18T18:04:43Z"
   },
   {
-    "owner": "JetBrains",
-    "repo": "youtrackdb",
-    "updatedAt": "2026-03-20T05:19:56Z"
-  },
-  {
     "owner": "nicepkg",
     "repo": "ai-workflow",
     "updatedAt": "2026-03-13T09:12:29Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "youtrackdb",
+    "updatedAt": "2026-03-20T05:19:56Z"
   },
   {
     "owner": "zio",
@@ -8350,14 +8410,14 @@
     "updatedAt": "2026-03-17T17:03:12Z"
   },
   {
-    "owner": "NhiLe-Team-Webs",
-    "repo": "nedu",
-    "updatedAt": "2026-03-16T13:38:40Z"
-  },
-  {
     "owner": "eneakllomollari",
     "repo": "mpad",
     "updatedAt": "2026-03-15T15:49:40Z"
+  },
+  {
+    "owner": "smadgerano",
+    "repo": "Opencode-Intern-Claude-Code-Skill",
+    "updatedAt": "2026-01-20T06:37:36Z"
   },
   {
     "owner": "brianium",
@@ -8670,11 +8730,6 @@
     "updatedAt": "2026-02-21T06:51:20Z"
   },
   {
-    "owner": "briankeane",
-    "repo": "node-react-scaffold",
-    "updatedAt": "2026-03-01T21:28:42Z"
-  },
-  {
     "owner": "lwhguge-dot",
     "repo": "Online-Education-Platform",
     "updatedAt": "2026-02-22T13:21:31Z"
@@ -8957,17 +9012,17 @@
   {
     "owner": "CoralShades",
     "repo": "acm-ai",
-    "updatedAt": "2026-03-20T11:15:32Z"
-  },
-  {
-    "owner": "tatargabor",
-    "repo": "wt-project-base",
-    "updatedAt": "2026-03-15T20:16:22Z"
+    "updatedAt": "2026-03-21T02:47:25Z"
   },
   {
     "owner": "tatargabor",
     "repo": "wt-project-web",
     "updatedAt": "2026-03-18T04:54:09Z"
+  },
+  {
+    "owner": "tatargabor",
+    "repo": "wt-project-base",
+    "updatedAt": "2026-03-15T20:16:22Z"
   },
   {
     "owner": "zio",
@@ -9315,11 +9370,6 @@
     "updatedAt": "2026-03-12T13:22:39Z"
   },
   {
-    "owner": "deanmoses",
-    "repo": "tacocat-gallery-hosting-aws",
-    "updatedAt": "2026-01-11T21:02:59Z"
-  },
-  {
     "owner": "Kurrawong",
     "repo": "prez-lite",
     "updatedAt": "2026-03-10T08:46:18Z"
@@ -9348,6 +9398,16 @@
     "owner": "hashi-demo-lab",
     "repo": "terraform-provider-aap",
     "updatedAt": "2026-03-11T06:16:44Z"
+  },
+  {
+    "owner": "wingedsheep",
+    "repo": "stride",
+    "updatedAt": "2026-03-20T14:32:40Z"
+  },
+  {
+    "owner": "deanmoses",
+    "repo": "tacocat-gallery-hosting-aws",
+    "updatedAt": "2026-01-11T21:02:59Z"
   },
   {
     "owner": "comet-ml",
@@ -9563,6 +9623,11 @@
     "owner": "freshtechbro",
     "repo": "claudedesignskills",
     "updatedAt": "2026-03-10T00:52:48Z"
+  },
+  {
+    "owner": "TobiasWooldridge",
+    "repo": "WaveCap-SDR",
+    "updatedAt": "2026-01-14T09:43:08Z"
   },
   {
     "owner": "heuuLZP",
@@ -10370,6 +10435,11 @@
     "updatedAt": "2026-03-16T20:48:45Z"
   },
   {
+    "owner": "notum-cz",
+    "repo": "strapi-plugin-tiptap-editor",
+    "updatedAt": "2026-03-17T13:02:20Z"
+  },
+  {
     "owner": "amak07",
     "repo": "acr-automotive",
     "updatedAt": "2026-03-13T03:52:11Z"
@@ -10400,19 +10470,14 @@
     "updatedAt": "2026-03-07T17:43:01Z"
   },
   {
-    "owner": "notum-cz",
-    "repo": "strapi-plugin-tiptap-editor",
-    "updatedAt": "2026-03-17T13:02:20Z"
+    "owner": "AbdullahMalik17",
+    "repo": "My_skills",
+    "updatedAt": "2026-03-07T09:59:37Z"
   },
   {
     "owner": "AbdullahMalik17",
     "repo": "Hacathan_5",
     "updatedAt": "2026-03-07T09:59:27Z"
-  },
-  {
-    "owner": "AbdullahMalik17",
-    "repo": "My_skills",
-    "updatedAt": "2026-03-07T09:59:37Z"
   },
   {
     "owner": "ProjectEuropa",
@@ -10870,6 +10935,11 @@
     "updatedAt": "2026-02-28T01:25:16Z"
   },
   {
+    "owner": "shaneauerbach",
+    "repo": "thereplacements",
+    "updatedAt": "2026-01-17T20:20:46Z"
+  },
+  {
     "owner": "jcafazzo",
     "repo": "TheWolfondChair.ca",
     "updatedAt": "2026-03-04T23:59:56Z"
@@ -11090,6 +11160,11 @@
     "updatedAt": "2026-03-19T19:01:59Z"
   },
   {
+    "owner": "jiahongc",
+    "repo": "credit-card-skills",
+    "updatedAt": "2026-03-19T09:00:59Z"
+  },
+  {
     "owner": "twofoldtech-dakota",
     "repo": "plugin-migration-planner",
     "updatedAt": "2026-03-04T00:30:32Z"
@@ -11097,12 +11172,12 @@
   {
     "owner": "jarosser06",
     "repo": "drift",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "chandima",
     "repo": "opencode-config",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "mariotoffia",
@@ -11112,12 +11187,12 @@
   {
     "owner": "phoenixvc",
     "repo": "agentkit-forge",
-    "updatedAt": "2026-03-19T03:09:46Z"
+    "updatedAt": "2026-03-21T01:34:37Z"
   },
   {
     "owner": "manavkushwaha10",
     "repo": "apple-health",
-    "updatedAt": "2026-03-20T12:52:23Z"
+    "updatedAt": "2026-03-21T01:46:02Z"
   },
   {
     "owner": "haenel881988",
@@ -11840,11 +11915,6 @@
     "updatedAt": "2026-02-27T11:44:29Z"
   },
   {
-    "owner": "jimmymalhan",
-    "repo": "codereview-pilot",
-    "updatedAt": "2026-03-11T19:11:27Z"
-  },
-  {
     "owner": "Lucasdoreac",
     "repo": "mutuapix-workspace",
     "updatedAt": "2025-10-20T22:49:10Z"
@@ -11885,9 +11955,19 @@
     "updatedAt": "2026-02-08T06:13:34Z"
   },
   {
+    "owner": "jimmymalhan",
+    "repo": "codereview-pilot",
+    "updatedAt": "2026-03-20T15:56:05Z"
+  },
+  {
+    "owner": "LucasBiason",
+    "repo": "engineering-knowledge-base",
+    "updatedAt": "2026-03-20T20:38:47Z"
+  },
+  {
     "owner": "The-Skyy-Rose-Collection-LLC",
     "repo": "DevSkyy",
-    "updatedAt": "2026-03-20T13:40:37.370Z"
+    "updatedAt": "2026-03-21T02:52:01.848Z"
   },
   {
     "owner": "daemn256",
@@ -12305,11 +12385,6 @@
     "updatedAt": "2026-03-11T00:46:59Z"
   },
   {
-    "owner": "TobiasWooldridge",
-    "repo": "WaveCap-SDR",
-    "updatedAt": "2026-01-14T09:43:08Z"
-  },
-  {
     "owner": "dduquenne",
     "repo": "unanima-platform",
     "updatedAt": "2026-03-20T11:35:26Z"
@@ -12317,7 +12392,7 @@
   {
     "owner": "openclaw",
     "repo": "skills",
-    "updatedAt": "2026-03-20T13:40:37.367Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "hnabyz-bot",
@@ -12327,7 +12402,7 @@
   {
     "owner": "MCrank",
     "repo": "code-compress",
-    "updatedAt": "2026-03-20T09:59:55Z"
+    "updatedAt": "2026-03-20T22:47:34Z"
   },
   {
     "owner": "tung68nt",
@@ -12545,6 +12620,11 @@
     "updatedAt": "2025-10-30T05:07:38Z"
   },
   {
+    "owner": "JonathanWilson1",
+    "repo": "PodcastAlarm-Site",
+    "updatedAt": "2026-03-20T13:11:16Z"
+  },
+  {
     "owner": "fadymondy",
     "repo": "health-debug",
     "updatedAt": "2026-03-12T19:44:34Z"
@@ -12590,14 +12670,14 @@
     "updatedAt": "2026-03-19T10:18:32Z"
   },
   {
-    "owner": "ivfarias",
-    "repo": "ceo",
-    "updatedAt": "2026-03-09T18:36:49Z"
-  },
-  {
     "owner": "hirokazu-kobayashi-koba-hiro",
     "repo": "idp-server",
     "updatedAt": "2026-03-13T12:28:23Z"
+  },
+  {
+    "owner": "ivfarias",
+    "repo": "ceo",
+    "updatedAt": "2026-03-09T18:36:49Z"
   },
   {
     "owner": "agude",
@@ -12647,17 +12727,12 @@
   {
     "owner": "trotsky1997",
     "repo": "My-Claude-Agent-Skills",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "devkit-stack",
     "repo": "Claude",
     "updatedAt": "2026-02-06T15:19:11Z"
-  },
-  {
-    "owner": "JonathanWilson1",
-    "repo": "PodcastAlarm-Site",
-    "updatedAt": "2026-03-20T13:11:16Z"
   },
   {
     "owner": "ryanmaclean",
@@ -13737,7 +13812,7 @@
   {
     "owner": "aAAaqwq",
     "repo": "AGI-Super-Team",
-    "updatedAt": "2026-03-20T13:40:37.368Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "thiagobraddock",
@@ -13865,6 +13940,11 @@
     "updatedAt": "2026-02-27T09:33:20Z"
   },
   {
+    "owner": "FRIKKern",
+    "repo": "doey",
+    "updatedAt": "2026-03-19T17:11:41Z"
+  },
+  {
     "owner": "heyuan110",
     "repo": "heyuan110.github.io",
     "updatedAt": "2026-03-13T08:05:36Z"
@@ -13940,14 +14020,14 @@
     "updatedAt": "2026-03-10T10:00:00Z"
   },
   {
-    "owner": "aalmada",
-    "repo": "BookStore",
-    "updatedAt": "2026-03-10T08:33:06Z"
-  },
-  {
     "owner": "futuresearch",
     "repo": "futuresearch-python",
     "updatedAt": "2026-03-19T21:14:42Z"
+  },
+  {
+    "owner": "aalmada",
+    "repo": "BookStore",
+    "updatedAt": "2026-03-10T08:33:06Z"
   },
   {
     "owner": "futuresearch",
@@ -13985,14 +14065,14 @@
     "updatedAt": "2026-02-12T14:44:10Z"
   },
   {
-    "owner": "FRIKKern",
-    "repo": "doey",
-    "updatedAt": "2026-03-19T17:11:41Z"
-  },
-  {
     "owner": "copyleftdev",
     "repo": "blsmesh",
     "updatedAt": "2026-02-24T08:27:51Z"
+  },
+  {
+    "owner": "darthlinuxer",
+    "repo": "Agentic-Skills",
+    "updatedAt": "2026-03-15T06:51:01Z"
   },
   {
     "owner": "SpreadWorks",
@@ -14002,7 +14082,7 @@
   {
     "owner": "rongarede",
     "repo": "skill-snapshots",
-    "updatedAt": "2026-03-20T13:40:37.367Z"
+    "updatedAt": "2026-03-21T02:52:01.845Z"
   },
   {
     "owner": "uukuguy",
@@ -14022,7 +14102,7 @@
   {
     "owner": "brianwestphal",
     "repo": "hotsheet",
-    "updatedAt": "2026-03-20T01:32:13Z"
+    "updatedAt": "2026-03-21T02:42:11Z"
   },
   {
     "owner": "uchidayuma",
@@ -14037,7 +14117,7 @@
   {
     "owner": "rosinbum",
     "repo": "usopc-athlete-support-agent",
-    "updatedAt": "2026-03-20T04:46:22Z"
+    "updatedAt": "2026-03-21T01:55:51Z"
   },
   {
     "owner": "WalkerHi11",
@@ -14985,9 +15065,14 @@
     "updatedAt": "2026-02-07T16:18:09Z"
   },
   {
+    "owner": "GTM-Strategist",
+    "repo": "gtm-strategist-skills",
+    "updatedAt": "2026-03-15T17:46:16Z"
+  },
+  {
     "owner": "NextronSystems",
     "repo": "thor-skill",
-    "updatedAt": "2026-03-20T13:40:37.367Z"
+    "updatedAt": "2026-03-21T02:52:01.844Z"
   },
   {
     "owner": "yu-iskw",
@@ -15205,6 +15290,11 @@
     "updatedAt": "2026-02-19T20:15:49Z"
   },
   {
+    "owner": "yxhpy",
+    "repo": "qcc_plus",
+    "updatedAt": "2026-03-16T04:45:56Z"
+  },
+  {
     "owner": "rustyrazorblade",
     "repo": "easy-db-lab",
     "updatedAt": "2026-03-19T19:12:54Z"
@@ -15225,14 +15315,29 @@
     "updatedAt": "2026-03-16T04:11:28Z"
   },
   {
+    "owner": "ifsp-projects",
+    "repo": "frontend",
+    "updatedAt": "2026-03-14T12:36:13Z"
+  },
+  {
+    "owner": "Scooli-app",
+    "repo": "web-app",
+    "updatedAt": "2026-03-10T22:15:22Z"
+  },
+  {
+    "owner": "EthGlobalBangkok",
+    "repo": "polyswap-dapp",
+    "updatedAt": "2026-03-08T22:12:36Z"
+  },
+  {
     "owner": "erikvullings",
     "repo": "mithril-ui-form",
-    "updatedAt": "2026-03-20T13:40:37.361Z"
+    "updatedAt": "2026-03-21T02:52:01.838Z"
   },
   {
     "owner": "totoroyyb",
     "repo": "amag",
-    "updatedAt": "2026-03-20T13:40:37.370Z"
+    "updatedAt": "2026-03-21T02:52:01.847Z"
   },
   {
     "owner": "jimutt",
@@ -15325,6 +15430,11 @@
     "updatedAt": "2026-03-12T04:03:39Z"
   },
   {
+    "owner": "crmagz",
+    "repo": "cdk-constructs-library",
+    "updatedAt": "2026-01-20T13:02:49Z"
+  },
+  {
     "owner": "k1-c",
     "repo": "linear-tui",
     "updatedAt": "2026-03-10T06:06:01Z"
@@ -15405,14 +15515,14 @@
     "updatedAt": "2026-02-16T07:34:44Z"
   },
   {
+    "owner": "will-head",
+    "repo": "coding-agent-launcher",
+    "updatedAt": "2026-03-20T12:08:49Z"
+  },
+  {
     "owner": "arkcle83",
     "repo": "crewdeck",
     "updatedAt": "2026-03-09T15:59:12Z"
-  },
-  {
-    "owner": "AdobeDocs",
-    "repo": "blueprints-learn.pt-BR",
-    "updatedAt": "2026-03-17T23:37:22Z"
   },
   {
     "owner": "joungwoo-lee",
@@ -15430,14 +15540,19 @@
     "updatedAt": "2026-03-19T03:43:49Z"
   },
   {
-    "owner": "NVIDIA-NeMo",
-    "repo": "DataDesigner",
-    "updatedAt": "2026-03-20T01:39:44Z"
+    "owner": "FastLED",
+    "repo": "FastLED",
+    "updatedAt": "2026-03-21T02:20:40Z"
   },
   {
     "owner": "videojs",
     "repo": "v10",
     "updatedAt": "2026-03-12T07:06:53Z"
+  },
+  {
+    "owner": "NVIDIA-NeMo",
+    "repo": "DataDesigner",
+    "updatedAt": "2026-03-20T01:39:44Z"
   },
   {
     "owner": "opentabs-dev",
@@ -15448,11 +15563,6 @@
     "owner": "sanand0",
     "repo": "scientific-research",
     "updatedAt": "2026-02-11T16:54:41Z"
-  },
-  {
-    "owner": "crmagz",
-    "repo": "cdk-constructs-library",
-    "updatedAt": "2026-01-20T13:02:49Z"
   },
   {
     "owner": "karloscodes",
@@ -15475,24 +15585,44 @@
     "updatedAt": "2026-03-18T15:24:21Z"
   },
   {
-    "owner": "copyleftdev",
-    "repo": "zgrok",
-    "updatedAt": "2026-01-26T06:01:32Z"
+    "owner": "shanraisshan",
+    "repo": "shanraisshan",
+    "updatedAt": "2026-03-19T15:20:46Z"
   },
   {
-    "owner": "achousal",
-    "repo": "EngramR",
-    "updatedAt": "2026-03-15T15:22:09Z"
-  },
-  {
-    "owner": "d0nghyun",
-    "repo": "neuron",
-    "updatedAt": "2026-03-16T13:30:04Z"
+    "owner": "awesomedays",
+    "repo": "awesomedays",
+    "updatedAt": "2026-03-13T01:23:08Z"
   },
   {
     "owner": "myoshi2891",
     "repo": "Multi-Vendor-E-Commerce",
     "updatedAt": "2026-03-14T05:35:27Z"
+  },
+  {
+    "owner": "zorgentech",
+    "repo": "archon",
+    "updatedAt": "2026-03-03T10:54:50Z"
+  },
+  {
+    "owner": "yasudaProduct",
+    "repo": "chord-chart",
+    "updatedAt": "2026-03-04T13:16:54Z"
+  },
+  {
+    "owner": "copyleftdev",
+    "repo": "zgrok",
+    "updatedAt": "2026-01-26T06:01:32Z"
+  },
+  {
+    "owner": "mo4islona",
+    "repo": "sqd-query-engine",
+    "updatedAt": "2026-03-14T10:03:20Z"
+  },
+  {
+    "owner": "achousal",
+    "repo": "EngramR",
+    "updatedAt": "2026-03-15T15:22:09Z"
   },
   {
     "owner": "p-iknow",
@@ -15503,6 +15633,11 @@
     "owner": "greenheadHQ",
     "repo": "nixos-config",
     "updatedAt": "2026-03-17T04:35:23Z"
+  },
+  {
+    "owner": "d0nghyun",
+    "repo": "neuron",
+    "updatedAt": "2026-03-16T13:30:04Z"
   },
   {
     "owner": "edochi",
@@ -15517,7 +15652,7 @@
   {
     "owner": "majiayu000",
     "repo": "claude-arsenal",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "martin-janci",
@@ -15540,9 +15675,9 @@
     "updatedAt": "2026-02-25T03:09:18Z"
   },
   {
-    "owner": "will-head",
-    "repo": "coding-agent-launcher",
-    "updatedAt": "2026-03-20T12:08:49Z"
+    "owner": "AdobeDocs",
+    "repo": "blueprints-learn.pt-BR",
+    "updatedAt": "2026-03-20T23:37:16Z"
   },
   {
     "owner": "ropesend",
@@ -16420,29 +16555,29 @@
     "updatedAt": "2026-03-12T17:27:01Z"
   },
   {
-    "owner": "darthlinuxer",
-    "repo": "Agentic-Skills",
-    "updatedAt": "2026-03-15T06:51:01Z"
-  },
-  {
     "owner": "Smarter-Dev",
     "repo": "smarter-dev",
     "updatedAt": "2026-03-14T16:46:28Z"
   },
   {
+    "owner": "AbdulSamad94",
+    "repo": "Personal-AI-Employee",
+    "updatedAt": "2026-03-15T01:23:56Z"
+  },
+  {
     "owner": "addozhang",
     "repo": "openclaw-forge",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "hongyangAndroid",
     "repo": "blog_ai",
-    "updatedAt": "2026-03-20T13:40:37.370Z"
+    "updatedAt": "2026-03-21T02:52:01.847Z"
   },
   {
     "owner": "poisontr33s",
     "repo": "chthonic-archive",
-    "updatedAt": "2026-03-20T13:33:24Z"
+    "updatedAt": "2026-03-20T20:29:23Z"
   },
   {
     "owner": "arbgjr",
@@ -16462,7 +16597,7 @@
   {
     "owner": "sendo-kakeru",
     "repo": "family-photo",
-    "updatedAt": "2026-03-08T00:29:31Z"
+    "updatedAt": "2026-03-21T00:01:18Z"
   },
   {
     "owner": "kim-yeo-appweb-lab",
@@ -16635,6 +16770,11 @@
     "updatedAt": "2026-01-13T23:06:52Z"
   },
   {
+    "owner": "miyaRY777",
+    "repo": "hobby-matching-app",
+    "updatedAt": "2026-03-20T13:21:19Z"
+  },
+  {
     "owner": "carlosnetto",
     "repo": "x9.150-py",
     "updatedAt": "2026-03-09T13:05:30Z"
@@ -16646,13 +16786,13 @@
   },
   {
     "owner": "Sibyl-Research-Team",
-    "repo": "sibyl-research-system",
-    "updatedAt": "2026-03-13T13:26:38Z"
+    "repo": "AutoResearch-SibylSystem",
+    "updatedAt": "2026-03-18T06:32:15Z"
   },
   {
     "owner": "Sibyl-Research-Team",
-    "repo": "AutoResearch-SibylSystem",
-    "updatedAt": "2026-03-18T06:32:15Z"
+    "repo": "sibyl-research-system",
+    "updatedAt": "2026-03-13T13:26:38Z"
   },
   {
     "owner": "limehawk",
@@ -16695,14 +16835,14 @@
     "updatedAt": "2026-03-08T18:51:22Z"
   },
   {
-    "owner": "KaltWulx",
-    "repo": "prompts",
-    "updatedAt": "2026-03-20T13:40:37.369Z"
+    "owner": "sakamotchi",
+    "repo": "sql-query-build",
+    "updatedAt": "2026-03-10T01:43:37Z"
   },
   {
-    "owner": "rmunoz33",
-    "repo": "dnd-homebrew-frontend",
-    "updatedAt": "2026-03-08T22:39:34Z"
+    "owner": "KaltWulx",
+    "repo": "prompts",
+    "updatedAt": "2026-03-21T02:52:01.846Z"
   },
   {
     "owner": "bluewaves-creations",
@@ -16717,17 +16857,17 @@
   {
     "owner": "duanegoodner",
     "repo": "agentrelay",
-    "updatedAt": "2026-03-20T03:56:05Z"
-  },
-  {
-    "owner": "miyaRY777",
-    "repo": "hobby-matching-app",
-    "updatedAt": "2026-03-20T13:21:19Z"
+    "updatedAt": "2026-03-20T20:43:36Z"
   },
   {
     "owner": "kis9a",
     "repo": "claude-skills-demo",
     "updatedAt": "2025-10-23T05:49:56Z"
+  },
+  {
+    "owner": "rmunoz33",
+    "repo": "dnd-homebrew-frontend",
+    "updatedAt": "2026-03-08T22:39:34Z"
   },
   {
     "owner": "robbyt",
@@ -17235,6 +17375,11 @@
     "updatedAt": "2026-03-15T03:31:39Z"
   },
   {
+    "owner": "avifenesh",
+    "repo": "glidemq-hapi",
+    "updatedAt": "2026-03-20T11:30:52Z"
+  },
+  {
     "owner": "swanono",
     "repo": "arrathon",
     "updatedAt": "2026-03-17T01:48:34Z"
@@ -17260,14 +17405,9 @@
     "updatedAt": "2026-03-16T22:42:36Z"
   },
   {
-    "owner": "avifenesh",
-    "repo": "glidemq-hapi",
-    "updatedAt": "2026-03-20T11:30:52Z"
-  },
-  {
-    "owner": "Scooli-app",
-    "repo": "web-app",
-    "updatedAt": "2026-03-10T22:15:22Z"
+    "owner": "seanchiuai",
+    "repo": "claude-web-template",
+    "updatedAt": "2026-01-26T08:03:24Z"
   },
   {
     "owner": "grndlvl",
@@ -17278,6 +17418,11 @@
     "owner": "bivex",
     "repo": "loreSystem",
     "updatedAt": "2026-03-19T21:04:38Z"
+  },
+  {
+    "owner": "dabowman",
+    "repo": "Figmagent",
+    "updatedAt": "2026-03-18T23:57:14Z"
   },
   {
     "owner": "cloudQuant",
@@ -17545,6 +17690,11 @@
     "updatedAt": "2026-03-09T13:09:55.837Z"
   },
   {
+    "owner": "nabondance",
+    "repo": "Trailhead-Banner",
+    "updatedAt": "2026-03-13T10:01:20Z"
+  },
+  {
     "owner": "BluMintInc",
     "repo": "eslint-custom-rules",
     "updatedAt": "2026-02-23T15:04:44Z"
@@ -17557,7 +17707,12 @@
   {
     "owner": "mahlernim",
     "repo": "aptner-bulk-reserver",
-    "updatedAt": "2026-03-20T13:40:37.367Z"
+    "updatedAt": "2026-03-21T02:52:01.844Z"
+  },
+  {
+    "owner": "tomgun",
+    "repo": "agentic-framework",
+    "updatedAt": "2026-03-20T21:59:47Z"
   },
   {
     "owner": "miyakawa2449",
@@ -17575,14 +17730,19 @@
     "updatedAt": "2026-03-04T11:05:37Z"
   },
   {
-    "owner": "aditya30103",
-    "repo": "ContentDeck",
-    "updatedAt": "2026-03-17T06:05:23Z"
-  },
-  {
     "owner": "harryeslick",
     "repo": "pyTemplate",
     "updatedAt": "2026-03-19T11:01:55Z"
+  },
+  {
+    "owner": "jenniferied",
+    "repo": "virtuelle-welten-worldbuilding",
+    "updatedAt": "2026-02-18T18:13:23Z"
+  },
+  {
+    "owner": "aditya30103",
+    "repo": "ContentDeck",
+    "updatedAt": "2026-03-17T06:05:23Z"
   },
   {
     "owner": "vladm3105",
@@ -17670,6 +17830,16 @@
     "updatedAt": "2026-03-03T13:05:37.111Z"
   },
   {
+    "owner": "bh213",
+    "repo": "hx-multianim",
+    "updatedAt": "2026-03-03T22:59:02Z"
+  },
+  {
+    "owner": "Oussemasahbeni",
+    "repo": "spartan-admin-dashboard",
+    "updatedAt": "2026-03-20T11:44:50Z"
+  },
+  {
     "owner": "StartaleGroup",
     "repo": "app-sdk",
     "updatedAt": "2026-03-19T13:44:29Z"
@@ -17690,19 +17860,9 @@
     "updatedAt": "2025-10-16T18:57:08Z"
   },
   {
-    "owner": "bh213",
-    "repo": "hx-multianim",
-    "updatedAt": "2026-03-03T22:59:02Z"
-  },
-  {
     "owner": "odysseyalive",
     "repo": "omarchy-seashells-theme",
     "updatedAt": "2026-03-05T04:34:15Z"
-  },
-  {
-    "owner": "Oussemasahbeni",
-    "repo": "spartan-admin-dashboard",
-    "updatedAt": "2026-03-20T11:44:50Z"
   },
   {
     "owner": "pplmx",
@@ -17727,7 +17887,7 @@
   {
     "owner": "qte77",
     "repo": "claude-code-utils-plugin",
-    "updatedAt": "2026-03-18T09:27:13Z"
+    "updatedAt": "2026-03-20T17:37:28Z"
   },
   {
     "owner": "gamaware",
@@ -18380,6 +18540,11 @@
     "updatedAt": "2026-03-18T20:00:43Z"
   },
   {
+    "owner": "0r0loo",
+    "repo": "my-claude-code-toolkit",
+    "updatedAt": "2026-03-20T09:32:24Z"
+  },
+  {
     "owner": "lsimatt2",
     "repo": "resisters",
     "updatedAt": "2026-03-18T01:01:20Z"
@@ -18415,9 +18580,9 @@
     "updatedAt": "2026-03-19T05:29:38Z"
   },
   {
-    "owner": "0r0loo",
-    "repo": "my-claude-code-toolkit",
-    "updatedAt": "2026-03-20T09:32:24Z"
+    "owner": "Loupax",
+    "repo": "coffee-pool",
+    "updatedAt": "2026-03-20T18:09:12Z"
   },
   {
     "owner": "vuthuonghai-steve",
@@ -19007,7 +19172,7 @@
   {
     "owner": "milc3sar",
     "repo": "AtomicCommit-Pro",
-    "updatedAt": "2026-03-20T13:40:37.364Z"
+    "updatedAt": "2026-03-21T02:52:01.841Z"
   },
   {
     "owner": "yusufcmg",
@@ -19458,6 +19623,11 @@
     "owner": "cypherair",
     "repo": "cypherair",
     "updatedAt": "2026-03-20T13:20:11Z"
+  },
+  {
+    "owner": "roadgnar",
+    "repo": "mcp-demo",
+    "updatedAt": "2026-03-20T17:30:38Z"
   },
   {
     "owner": "easydev991",
