@@ -11,7 +11,7 @@ heroImage: "/blog/openclaw-killer-integration-hero.webp"
 ---
 # 단계별 가이드: Killer-Skills를 사용하여 OpenClaw 강화
 
-이전의 기사에서 우리는 [OpenClaw의巨大한 잠재력](/ko/blog/introducing-openclaw-autonomous-ai-agent)과 [다양한 적용 시나리오](/ko/blog/openclaw-application-scenarios)를介绍했습니다. 오늘, 우리는 실제 적용 부분으로 이동합니다: **어떻게 OpenClaw 에이전트에 수천개의 전문 기술을 즉시 부여할 수 있을까요?**
+이전의 기사에서 우리는 [OpenClaw의 엄청난 잠재력](/ko/blog/introducing-openclaw-autonomous-ai-agent)과 [다양한 적용 시나리오](/ko/blog/openclaw-application-scenarios)를 소개했습니다. 오늘, 우리는 실제 적용 부분으로 이동합니다: **어떻게 OpenClaw 에이전트에 수천개의 전문 기술을 즉시 부여할 수 있을까요?**
 
 **Killer-Skills**를 사용하면 표준화된 규칙 시스템을 OpenClaw에 주입할 수 있어, 복잡한 논리를 독립적으로 발견하고 실행할 수 있습니다.
 ## Step 1: Killer-Skills CLI 
@@ -82,7 +82,7 @@ OpenClaw는 `AGENTS.md`의 스킬 정의를 감지하고, 자동으로 해당 �
 
 -   **표준화**: 매 프로젝트마다 수동으로 시스템 프롬프트를 작성할 필요가 없습니다.
 -   **모듈화**: NPM 패키지를 설치하는 것처럼 AI 기능을 설치할 수 있습니다.
--   **크로스 플랫폼 동기화**: [Cursor 또는 Windsurf](/ko/blog/claude-code-vs-cursor-vs-windsurf)를同時에 사용하는 경우, `npx killer-skills sync --all` 명령어로 모든 AI 도구가 동일한 스킬 라이브러리를 공유할 수 있습니다.
+-   **크로스 플랫폼 동기화**: [Cursor 또는 Windsurf](/ko/blog/claude-code-vs-cursor-vs-windsurf)를 동시에 사용하는 경우, `npx killer-skills sync --all` 명령어로 모든 AI 도구가 동일한 스킬 라이브러리를 공유할 수 있습니다.
 ## 결론
 
 Killer-Skills와 OpenClaw를 결합하면 채팅봇을 사용하는 것이 아니라 지속적으로 진화하는 풍부한 스킬 트리를 가진 자율 에이전트를 사용할 수 있습니다.

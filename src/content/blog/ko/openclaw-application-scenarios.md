@@ -64,7 +64,7 @@ OpenClaw는 강력한 파일 읽기/쓰기 기능을 갖추고 있습니다. [Ki
     단 몇 초 만에, OpenClaw는 전문적인 Excel 자동화 기술을 습득합니다. [전문적인 Excel 자동화 기술을 습득하는 방법](/ko/blog/mastering-excel-automation-with-xlsx-skills)
 ## 결론
 
-OpenClaw의 적용 시나리오는 여러분의 상상력만큼으로 제한됩니다. 강력한 LLM 추론과 로컬 실행을 결합하여,真正로 AI가 채팅 상자에서 현실 세계로 나아갈 수 있게 합니다.
+OpenClaw의 적용 시나리오는 여러분의 상상력만큼으로 제한됩니다. 강력한 LLM 추론과 로컬 실행을 결합하여,진정으로 AI가 채팅 상자에서 현실 세계로 나아갈 수 있게 합니다.
 
 다음 글에서, 우리는 Killer-Skills를 사용하여 가장 강력한 OpenClaw를 구축하는 방법에 대한 자세한 구성 가이드를 제공할 것입니다.
 

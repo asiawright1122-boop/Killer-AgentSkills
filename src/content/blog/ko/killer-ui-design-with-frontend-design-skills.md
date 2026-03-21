@@ -1,13 +1,13 @@
 ---
-title: "일반적인 것을 넘어선 것: Frontend-Design으로 기억에 남는 UI 만들기"
-description: "공식 frontend-design 스킬로 개성 있는 프로덕션급 UI를 만드는 방법을 소개합니다. 레이아웃, 타이포그래피, 모션 설계를 실전 예시로 설명합니다."
+title: '일반적인 것을 넘어선 것: Frontend-Design으로 기억에 남는 UI 만들기'
+description: '공식 frontend-design 스킬로 개성 있는 프로덕션급 UI를 만드는 방법을 소개합니다. 레이아웃, 타이포그래피, 모션 설계를 실전 예시로 설명합니다.'
 pubDate: 2026-02-13
-author: "Killer-Skills Team"
-tags: ["UI/UX", "Web Development", "Frontend", "Agent Skills", "Design Systems"]
-lang: "ko"
+author: 'Killer-Skills Team'
+tags: ['UI/UX', 'Web Development', 'Frontend', 'Agent Skills', 'Design Systems']
+lang: 'ko'
 featured: false
-category: "developer-experience"
-heroImage: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop"
+category: 'developer-experience'
+heroImage: 'https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=2560&auto=format&fit=crop'
 ---
 
 # 일반적인 것을 넘어선 것: Frontend-Design을 통해 기억에 남는 UI 만들기
@@ -20,47 +20,62 @@ Anthropic의 공식 **프론트엔드 디자인** 스킬은 일반적인 것을 
 # 에이전트에 frontend-design 스킬을 장착합니다
 npx killer-skills add anthropics/skills/frontend-design
 ```
+
 ## 프론트엔드-디자인 스킬이란 무엇인가?
 
-`frontend-design` 스킬은 단순히 코드를 작성하는 것만이 아니다; 그것은 **디자인思考**에 관한 것이다. 첫 번째 CSS 라인이 작성되기 전에, 스킬은 에이전트가 대담한 미적 방향에.commit하도록 강제한다.
+`frontend-design` 스킬은 단순히 코드를 작성하는 것만이 아니다; 그것은 **디자인 사고**에 관한 것이다. 첫 번째 CSS 라인이 작성되기 전에, 스킬은 에이전트가 대담한 미적 방향에 커밋하도록 강제한다.
 
 ### 1. 개념적 톤 선택
+
 에이전트는 단순히 "잘 보이도록" 만드는 것이 아니다. 프로젝트에 대한 극적인 분위기를 선택한다. 예를 들어:
+
 - **브루탈리스트 조이**: 날 것이고, 정직하며, 기념비적이다.
 - **편집자 잡지**: 고급 타이포그래피와 극적인 여백을 갖춘다.
-- **레트로-퓨처리스틱**: 향수를 현대 기술의光으로融合한다.
+- **레트로-퓨처리스틱**: 향수를 현대 기술의빛으로 융합한다.
 - **최소주의 정밀도**: 임의의, 깨끗하고, 매우 의도적인 것이다.
 
 ### 2. 타이포그래피 권위
+
 스킬은 명시적으로 "일반적"인 폰트인 Arial이나 Roboto를 금지한다. 대신, 독특한 디스플레이 폰트를 정교한 본문 타입과 쌍으로하여, 모든 사이트에 대한 고유한 목소리를 생성한다. 그것은 타이포그래피를 핵심 건축 요소로 간주하며, 사고 후의 생각이 아니다.
+
 ## 고급스러운 미적 가이드라인
 
 ### 모션 및 상호작용
+
 `frontend-design`은 "지그재그 방식의 요소 노출"과 스크롤 트리거 애니메이션을 우선시합니다. 잘 구성된 한 번의 페이지 로드는 수많은 흩어진 마이크로 인터랙션보다 가치 있습니다. 목표는 사용자를 압도하지 않으면서도 놀라움과 즐거움을 선사하는 것입니다.
 
 ### 공간 구성
+
 이 기술은 "그리드 파괴" 요소를 장려합니다. 비대칭, 겹쳐진 레이어, 대각선 흐름을 활용하여 에이전트는 단색으로는 절대 구현할 수 없는 깊이와 분위기를 창출합니다.
 
 ### 시각적 텍스처
+
 단순한 평면 배경 대신, 이 기술은 다음과 같은 창의적인 형태를 활용합니다:
+
 - **그라데이션 메시**: 유기적이고 유동적인 깊이감을 위해.
 - **노이즈 & 그레인 오버레이**: 촉각적인 고급스러운 종이 질감을 더하기 위해.
 - **드라마틱한 그림자**: 물리적인 레이어링과 계층 구조의 느낌을 창조하기 위해.
+
 ## 실제 사용 사례
 
 ### 높은 전환률 랜딩 페이지
+
 단순히 제품을 설명하는 것이 아닌 "Luxury Refined" 디자인을 통해 독점적인 경험을 제공하는 랜딩 페이지를 생성합니다.
 
 ### 사용자 정의 관리자 대시보드
-데이터가 많은 내부 도구를美丽하고 매우 기능적인 "Industrial Utilitarian" 대시보드로 변환합니다.
+
+데이터가 많은 내부 도구를아름답고 매우 기능적인 "Industrial Utilitarian" 대시보드로 변환합니다.
 
 ### 창의적인 포트폴리오
-실제로 잊을 수 없는 방식으로 작업을展示하는 "Art Deco Geometric" 패턴을 사용하는 매거진 스타일의 포트폴리오를 구축합니다.
+
+실제로 잊을 수 없는 방식으로 작업을전시하는 "Art Deco Geometric" 패턴을 사용하는 매거진 스타일의 포트폴리오를 구축합니다.
+
 ## Killer-Skills와 함께 사용하는 방법
 
 1.  **설치**: `npx killer-skills add anthropics/skills/frontend-design`
 2.  **프롬프트**: "새로운 AI 도구를 위한 랜딩 페이지를 제작해 주세요. frontend-design 스킬을 사용하고, 'Brutalist Raw' 미학에 굵은 타이포그래피를 적용해 주세요."
 3.  **수정**: "계단식으로 요소가 나타나는 방식을 사용하여 페이지 로드 순서를 더 영화처럼 느껴지게 만들어 주세요."
+
 ## 결론
 
 `frontend-design` 스킬은 "AI가 만든 것처럼 보이는" 웹사이트와 "세계적 수준의 에이전시가 디자인한" 웹사이트의 차이를 만듭니다. 이 스킬은 당신의 프론트엔드 결과물이 단순히 기능적이기만 한 것이 아니라 **감정적으로 공감되는** 결과물이 되도록 보장합니다.
@@ -69,8 +84,8 @@ Killer-Skills 디렉터리에서 [frontend-design 스킬](https://killer-skills.
 
 ---
 
-*전체 프로젝트의 브랜딩이 필요하신가요? [brand-guidelines](https://killer-skills.com/ko/skills/anthropics/skills/brand-guidelines) 스킬과 함께 사용해 보세요.*
+_전체 프로젝트의 브랜딩이 필요하신가요? [brand-guidelines](https://killer-skills.com/ko/skills/anthropics/skills/brand-guidelines) 스킬과 함께 사용해 보세요._
 
 ---
 
-*관련 내용: [AI 에이전트 스킬이란?](/ko/blog/what-are-ai-agent-skills) 및 [2026년을 위한 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)*
+_관련 내용: [AI 에이전트 스킬이란?](/ko/blog/what-are-ai-agent-skills) 및 [2026년을 위한 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)_
