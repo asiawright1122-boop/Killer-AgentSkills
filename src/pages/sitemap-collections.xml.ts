@@ -3,10 +3,11 @@ import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../lib/collection-slugs';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../lib/seo-locales';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
+const SITE = SITE_URL;
 
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 

@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
@@ -19,22 +20,22 @@ An AI Agent Skill is a plug-and-play instruction module, typically a markdown fi
 - Cross-IDE delivery: writes the right native skill file for each supported environment
 
 ## Directory structure
-- [Home](https://killer-skills.com/en)
-- [All Skills](https://killer-skills.com/en/skills)
-- [Collections](https://killer-skills.com/en/collections)
-- [Documentation](https://killer-skills.com/en/docs)
-- [CLI Docs](https://killer-skills.com/en/cli)
+- [Home](${SITE_URL}/en)
+- [All Skills](${SITE_URL}/en/skills)
+- [Collections](${SITE_URL}/en/collections)
+- [Documentation](${SITE_URL}/en/docs)
+- [CLI Docs](${SITE_URL}/en/cli)
 
 ## Featured Skills
-- [PDF Skill](https://killer-skills.com/en/skills/anthropics/skills/pdf) - PDF extraction, OCR, splitting, merging, and form workflows
-- [Algorithmic Art Skill](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) - Generate original algorithmic art with code-driven workflows
-- [Internal Comms Skill](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) - Draft updates, FAQs, reports, and internal communication artifacts
-- [Webapp Testing Skill](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) - Test local web apps with browser automation and UI verification
+- [PDF Skill](${SITE_URL}/en/skills/anthropics/skills/pdf) - PDF extraction, OCR, splitting, merging, and form workflows
+- [Algorithmic Art Skill](${SITE_URL}/en/skills/anthropics/skills/algorithmic-art) - Generate original algorithmic art with code-driven workflows
+- [Internal Comms Skill](${SITE_URL}/en/skills/anthropics/skills/internal-comms) - Draft updates, FAQs, reports, and internal communication artifacts
+- [Webapp Testing Skill](${SITE_URL}/en/skills/anthropics/skills/webapp-testing) - Test local web apps with browser automation and UI verification
 
 ## Integration
 AI tools like Claude Code, Cursor, Windsurf, and VS Code extensions can consume these skills by reading markdown-based instruction files or by using the Killer-Skills CLI to write the correct native format.
 
-For full details, visit [Killer-Skills](https://killer-skills.com).
+For full details, visit [Killer-Skills](${SITE_URL}).
 `.trim();
 
   return new Response(content, {

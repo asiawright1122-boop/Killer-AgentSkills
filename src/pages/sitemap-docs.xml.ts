@@ -1,12 +1,13 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
+import { SITE_URL } from '../lib/site-config';
 
 // @ts-ignore -- JSON import without type declaration
 import docsCache from '../../data/docs-cache.json';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
+const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
 function buildHreflangLinks(pagePath: string): string {

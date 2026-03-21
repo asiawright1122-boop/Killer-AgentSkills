@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
+const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 const FILE_EXT_SEGMENT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
 

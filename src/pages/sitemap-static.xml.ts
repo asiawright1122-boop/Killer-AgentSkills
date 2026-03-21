@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SOLUTION_INTENT_SLUGS } from '../lib/solution-intents';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
+const SITE = SITE_URL;
 const STATIC_PAGES = [
   '', // Home
   '/skills',

@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
@@ -99,25 +100,25 @@ The CLI automatically detects the user's IDE and writes skills to the correct fi
 
 | Collection | Skills | URL |
 |-----------|--------|-----|
-| Top AI Agent Skills | 7 | https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools/ |
-| Top Developer Tools | 12 | https://killer-skills.com/en/collections/top-developer-tooling-ai-agent-work/ |
-| Top Workflow Automation Skills | 9 | https://killer-skills.com/en/collections/top-agent-workflow-automation-tools/ |
-| Top Python Skills | 12 | https://killer-skills.com/en/collections/top-python-ai-agent-tools-developer-workflows/ |
-| Top React Skills | 12 | https://killer-skills.com/en/collections/top-react-ai-tools-ui-workflows-component-development/ |
-| Top TypeScript Skills | 12 | https://killer-skills.com/en/collections/top-typescript-ai-tools-developer-workflows/ |
-| Top DevOps Skills | 6 | https://killer-skills.com/en/collections/top-devops-operations-automation-tools/ |
+| Top AI Agent Skills | 7 | ${SITE_URL}/en/collections/top-agentic-ai-platforms-orchestration-tools/ |
+| Top Developer Tools | 12 | ${SITE_URL}/en/collections/top-developer-tooling-ai-agent-work/ |
+| Top Workflow Automation Skills | 9 | ${SITE_URL}/en/collections/top-agent-workflow-automation-tools/ |
+| Top Python Skills | 12 | ${SITE_URL}/en/collections/top-python-ai-agent-tools-developer-workflows/ |
+| Top React Skills | 12 | ${SITE_URL}/en/collections/top-react-ai-tools-ui-workflows-component-development/ |
+| Top TypeScript Skills | 12 | ${SITE_URL}/en/collections/top-typescript-ai-tools-developer-workflows/ |
+| Top DevOps Skills | 6 | ${SITE_URL}/en/collections/top-devops-operations-automation-tools/ |
 
 ## API Endpoints
 
 ### Skills Search API
 \`\`\`
-GET https://killer-skills.com/api/skills/search?q={query}&category={category}&page={page}
+GET \${SITE_URL}/api/skills/search?q={query}&category={category}&page={page}
 \`\`\`
 Returns paginated skill results with name, description, quality score, stars, and owner.
 
 ### Skill Detail API
 \`\`\`
-GET https://killer-skills.com/api/skills/{owner}/{repo}
+GET \${SITE_URL}/api/skills/{owner}/{repo}
 \`\`\`
 Returns full skill details including description, README, installation instructions, and metadata.
 
@@ -125,14 +126,14 @@ Returns full skill details including description, README, installation instructi
 
 | Page | URL | Description |
 |------|-----|-------------|
-| Home | https://killer-skills.com/en/ | Search and discover AI agent skills |
-| Skills Directory | https://killer-skills.com/en/skills/ | Browse all 2,500+ skills with filters |
-| Categories | https://killer-skills.com/en/categories/ | Browse skills by category |
-| Collections | https://killer-skills.com/en/collections/ | 30+ curated skill collections |
-| CLI Docs | https://killer-skills.com/en/cli/ | CLI installation and usage guide |
-| Blog | https://killer-skills.com/en/blog/ | Tutorials, guides, and industry news |
-| Integrations | https://killer-skills.com/en/integrations/ | IDE and platform integrations |
-| Documentation | https://killer-skills.com/en/docs/ | Technical documentation |
+| Home | ${SITE_URL}/en/ | Search and discover AI agent skills |
+| Skills Directory | ${SITE_URL}/en/skills/ | Browse all 2,500+ skills with filters |
+| Categories | ${SITE_URL}/en/categories/ | Browse skills by category |
+| Collections | ${SITE_URL}/en/collections/ | 30+ curated skill collections |
+| CLI Docs | ${SITE_URL}/en/cli/ | CLI installation and usage guide |
+| Blog | ${SITE_URL}/en/blog/ | Tutorials, guides, and industry news |
+| Integrations | ${SITE_URL}/en/integrations/ | IDE and platform integrations |
+| Documentation | ${SITE_URL}/en/docs/ | Technical documentation |
 
 ## Frequently Asked Questions
 
@@ -166,7 +167,7 @@ A: The directory runs automated crawls twice daily to discover new skills and up
 
 ## Links
 
-- Website: https://killer-skills.com
+- Website: ${SITE_URL}
 - GitHub: https://github.com/asiawright1122-boop/Killer-AgentSkills
 - npm: https://www.npmjs.com/package/killer-skills
 - Discord: https://discord.com/invite/killer-skills

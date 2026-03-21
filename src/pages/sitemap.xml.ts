@@ -1,9 +1,10 @@
 import type { APIRoute } from 'astro';
 import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
-const SITE = 'https://killer-skills.com';
+const SITE = SITE_URL;
 
 /**
  * Sitemap Index — Splits the sitemap into logical sub-sitemaps for better

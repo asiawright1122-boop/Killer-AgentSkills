@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
@@ -66,13 +67,13 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-Sitemap: https://killer-skills.com/sitemap.xml
-Host: https://killer-skills.com
+Sitemap: ${SITE_URL}/sitemap.xml
+Host: ${SITE_URL}
 
 # AI/LLM Crawler Information
 # See https://llmstxt.org/
-LLMs-Txt: https://killer-skills.com/llms.txt
-LLMs-Full-Txt: https://killer-skills.com/llms-full.txt`;
+LLMs-Txt: ${SITE_URL}/llms.txt
+LLMs-Full-Txt: ${SITE_URL}/llms-full.txt`;
 
   return new Response(body, {
     status: 200,

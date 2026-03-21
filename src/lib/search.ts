@@ -122,7 +122,7 @@ export function searchSkills(skills: UnifiedSkill[], query: string, locale: stri
  * Simple category filter.
  * Supports category group mapping for broader category matching.
  */
-export const CATEGORY_GROUPS: Record<string, string[]> = {
+export const CATEGORY_GROUPS: Readonly<Record<string, readonly string[]>> = {
   // Specific domains first
   finance: [
     'finance',

@@ -1,6 +1,7 @@
 import { defineMiddleware } from 'astro:middleware';
 import { isStaticOrApiPath, hasLocalePrefix, checkAdminAuth, detectLocale } from './middleware-utils';
 import { logger, generateRequestId } from './lib/logger';
+import { SITE_DOMAIN } from './lib/site-config';
 
 // Re-export for backward compatibility
 export {
@@ -25,10 +26,10 @@ function setSecurityHeaders(response: Response): void {
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
 
-  // 0. Enforce canonical domain: redirect www.killer-skills.com to killer-skills.com
-  if (context.url.hostname === 'www.killer-skills.com') {
+  // 0. Enforce canonical domain: redirect www to non-www
+  if (context.url.hostname === `www.${SITE_DOMAIN}`) {
     const url = new URL(context.url);
-    url.hostname = 'killer-skills.com';
+    url.hostname = SITE_DOMAIN;
     return new Response(null, {
       status: 301,
       headers: {
