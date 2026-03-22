@@ -1,6 +1,6 @@
 ---
 title: "MCP-Server funktioniert nicht? Umfassender Troubleshooting-Leitfaden"
-description: "MCP-Server-Probleme? Hier finden Sie eine Anleitung zur Fehlerbehebung"
+description: "MCP-Server funktioniert nicht? Hier ist ein umfassender Leitfaden zur Fehlerbehebung und Lösung von MCP-Server-Problemen"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp
