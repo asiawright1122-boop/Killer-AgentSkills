@@ -12,6 +12,35 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Rate limiting configuration
+const MAX_CONCURRENT_REQUESTS = Number(process.env.AI_CONCURRENCY_LIMIT || '5');
+const RETRY_DELAYS = [1000, 2000, 4000, 8000, 16000]; // Exponential backoff: 1s, 2s, 4s, 8s, 16s
+let activeRequests = 0;
+const requestQueue: (() => void)[] = [];
+
+const acquireSlot = async (): Promise<() => void> => {
+  if (activeRequests < MAX_CONCURRENT_REQUESTS) {
+    activeRequests++;
+    return () => {
+      activeRequests--;
+      const next = requestQueue.shift();
+      if (next) next();
+    };
+  }
+  return new Promise((resolve) => {
+    requestQueue.push(() => {
+      activeRequests++;
+      resolve(() => {
+        activeRequests--;
+        const next = requestQueue.shift();
+        if (next) next();
+      });
+    });
+  });
+};
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Load default .env first
 dotenv.config();
 
@@ -295,19 +324,24 @@ export class AIService {
   }
 
   /**
-   * Call AI with RACE mode: all providers called simultaneously.
-   * First successful response wins. Maximum speed.
-   *
-   * Architecture: Promise.any() across all available providers.
-   * - All NVIDIA keys + SiliconFlow + OpenRouter + Cloudflare fire at once
-   * - First valid response is returned immediately
-   * - Losers are discarded (AbortController cancels them)
+   * Call AI with rate limiting and exponential backoff retry.
+   * - Limits concurrent requests to MAX_CONCURRENT_REQUESTS
+   * - Retries on 429 errors with exponential backoff
+   * - Uses Promise.race across all available providers
    */
   async callAI(prompt: string, jsonMode: boolean = false): Promise<string | null> {
-    const controllers: AbortController[] = [];
-    const promises: Promise<{ result: string; provider: string }>[] = [];
+    const releaseSlot = await acquireSlot();
+    try {
+      return await this.executeCallWithRetry(prompt, jsonMode);
+    } finally {
+      releaseSlot();
+    }
+  }
 
-    // Helper: wrap callAISingle with abort support
+  private async executeCallWithRetry(prompt: string, jsonMode: boolean, attempt: number = 0): Promise<string | null> {
+    const controllers: AbortController[] = [];
+    const promises: Promise<{ result: string; provider: string; error?: Error }>[] = [];
+
     const raceEntry = (
       provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare',
       key: string,
@@ -316,14 +350,12 @@ export class AIService {
       const controller = new AbortController();
       controllers.push(controller);
       promises.push(
-        this.callAISingle(prompt, provider, key, jsonMode, controller.signal).then((result) => ({
-          result,
-          provider: label,
-        })),
+        this.callAISingle(prompt, provider, key, jsonMode, controller.signal)
+          .then((result) => ({ result, provider: label }))
+          .catch((error) => ({ result: '' as string, provider: label, error })),
       );
     };
 
-    // Add all available providers
     for (let i = 0; i < this.config.nvidiaKeys.length; i++) {
       raceEntry('nvidia', this.config.nvidiaKeys[i], `N${i}`);
     }
@@ -342,24 +374,56 @@ export class AIService {
     if (promises.length === 0) return null;
 
     try {
-      const winner = await Promise.any(promises);
-      // Cancel all other in-flight requests
-      controllers.forEach((c) => c.abort());
-      // Track stats
-      if (winner.provider.startsWith('N')) this.stats.nvidia++;
-      else if (winner.provider === 'S') this.stats.siliconflow++;
-      else if (winner.provider === 'O') this.stats.openrouter++;
-      else if (winner.provider === 'C') this.stats.cloudflare++;
-      process.stdout.write(winner.provider);
-      return winner.result;
-    } catch (e: any) {
-      // All providers failed
-      if (e.errors) {
-        console.error(`[AIService] All providers failed. Errors:`, e.errors);
-      } else {
-        console.error(`[AIService] All providers failed. Error:`, e);
+      const results = await Promise.allSettled(promises);
+
+      const successfulResults = results
+        .filter(
+          (r): r is PromiseFulfilledResult<{ result: string; provider: string }> =>
+            r.status === 'fulfilled' && r.value.result !== null,
+        )
+        .map((r) => r.value);
+
+      if (successfulResults.length > 0) {
+        const winner = successfulResults[0];
+        controllers.forEach((c) => c.abort());
+
+        if (winner.provider.startsWith('N')) this.stats.nvidia++;
+        else if (winner.provider === 'S') this.stats.siliconflow++;
+        else if (winner.provider === 'O') this.stats.openrouter++;
+        else if (winner.provider === 'C') this.stats.cloudflare++;
+
+        process.stdout.write(winner.provider);
+        return winner.result;
       }
+
+      const failedResults = results
+        .filter(
+          (r): r is PromiseFulfilledResult<{ result: string; provider: string; error: Error }> =>
+            r.status === 'fulfilled' && !!r.value.error,
+        )
+        .map((r) => r.value.error);
+
+      const has429 = failedResults.some((e) => e.message.includes('429'));
+
+      if (has429 && attempt < RETRY_DELAYS.length) {
+        const delay = RETRY_DELAYS[attempt];
+        console.warn(
+          `[AIService] Rate limited (429), retrying in ${delay}ms (attempt ${attempt + 1}/${RETRY_DELAYS.length})...`,
+        );
+        controllers.forEach((c) => c.abort());
+        await sleep(delay);
+        return this.executeCallWithRetry(prompt, jsonMode, attempt + 1);
+      }
+
+      console.error(
+        `[AIService] All providers failed after ${attempt + 1} attempts. Errors:`,
+        failedResults.map((e) => e.message).join('; '),
+      );
       controllers.forEach((c) => c.abort());
+      return null;
+    } catch (e: any) {
+      controllers.forEach((c) => c.abort());
+      console.error(`[AIService] Unexpected error:`, e);
       return null;
     }
   }
