@@ -6,8 +6,8 @@ author: "Killer-Skills Team"
 tags: ["MCP", "Ferramentas MCP", "AI Agent Skills", "Claude Code", "Cursor", "Automação"]
 lang: "pt"
 featured: true
-category: "developer-experience"
-heroImage: "/images/blog/mcp-servers-hero.webp"
+category: ""
+heroImage: ""
 ---
 
 # Top 10 ferramentas e integrações MCP para Claude Code e Cursor em 2026

@@ -6,8 +6,8 @@ author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
 lang: "ru"
 featured: true
-category: "guides"
-heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
+category: ""
+heroImage: ""
 ---
 # Что такое навыки ИИ-агентов?
 

@@ -6,8 +6,8 @@ author: "Killer-Skills 团队"
 tags: ["MCP", "MCP 工具", "AI Agent 技能", "Claude Code", "Cursor", "自动化"]
 lang: "zh"
 featured: true
-category: "developer-experience"
-heroImage: "/images/blog/mcp-servers-hero.webp"
+category: ""
+heroImage: ""
 ---
 
 # 2026 年 Claude Code 与 Cursor 值得关注的 10 个 MCP 工具与集成

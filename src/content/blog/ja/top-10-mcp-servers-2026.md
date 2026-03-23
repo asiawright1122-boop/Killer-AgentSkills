@@ -6,8 +6,8 @@ author: "Killer-Skills Team"
 tags: ["MCP", "MCPツール", "AI Agent Skills", "Claude Code", "Cursor", "自動化"]
 lang: "ja"
 featured: true
-category: "developer-experience"
-heroImage: "/images/blog/mcp-servers-hero.webp"
+category: ""
+heroImage: ""
 ---
 
 # 2026年のClaude CodeとCursor向けMCPツール＆統合10選

@@ -6,8 +6,8 @@ author: "Killer-Skills Team"
 tags: ["MCP", "أدوات MCP", "AI Agent Skills", "Claude Code", "Cursor", "الأتمتة"]
 lang: "ar"
 featured: true
-category: "developer-experience"
-heroImage: "/images/blog/mcp-servers-hero.webp"
+category: ""
+heroImage: ""
 ---
 
 # أفضل 10 أدوات وتكاملات MCP لـ Claude Code وCursor في 2026
