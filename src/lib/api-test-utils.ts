@@ -97,10 +97,3 @@ export function mockGitHubRepo(owner: string, repo: string, data?: Record<string
 export function mockGitHubRaw(content: string, status = 200) {
   return new Response(content, { status });
 }
-
-export function mockGitHubContents(files: Array<{ name: string; path: string; type: string }>) {
-  return new Response(JSON.stringify(files), {
-    status: 200,
-    headers: { 'Content-Type': 'application/json' },
-  });
-}

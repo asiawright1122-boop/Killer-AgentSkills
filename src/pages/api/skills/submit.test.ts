@@ -5,7 +5,6 @@ import {
   createAPIContext,
   mockGitHubRepo,
   mockGitHubRaw,
-  mockGitHubContents,
 } from '../../../lib/api-test-utils';
 
 const VALID_SKILL_MD = `---

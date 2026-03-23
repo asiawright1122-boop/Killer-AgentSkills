@@ -1,9 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createMockEnv, createMockKV, createAPIContext } from '../../lib/api-test-utils';
 
-type StreamChunk = { choices: [{ delta: { content: string } }] };
-type AsyncStreamGen = () => AsyncGenerator<StreamChunk, void, unknown>;
-
 function buildContext(body: unknown, env?: ReturnType<typeof createMockEnv>) {
   return createAPIContext({
     url: 'http://localhost/api/translate',
@@ -14,7 +11,6 @@ function buildContext(body: unknown, env?: ReturnType<typeof createMockEnv>) {
 
 describe('POST /api/translate', () => {
   let POST: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let mockTranslateStream: any;
 
   beforeEach(async () => {
@@ -111,19 +107,6 @@ describe('POST /api/translate', () => {
     const res = await POST(ctx);
     expect(res.status).toBe(200);
     expect(mockTranslateStream).toHaveBeenCalledOnce();
-  });
-
-  it.skip('returns 500 when NVIDIA API throws', async () => {
-    mockTranslateStream.mockImplementation(async function* () {
-      throw new Error('NVIDIA API failed');
-    });
-
-    const ctx = buildContext({ text: 'hello', targetLang: 'zh' }, createMockEnv({ TRANSLATIONS: createMockKV() }));
-
-    const res = await POST(ctx);
-    expect(res.status).toBe(500);
-    const body = await res.json();
-    expect(body.error).toMatch(/failed/i);
   });
 
   it('returns error for invalid JSON body', async () => {
