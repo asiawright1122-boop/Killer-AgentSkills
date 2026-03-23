@@ -301,7 +301,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
           results.map(async (kv) => {
             const value = await env.SKILLS_CACHE.get(kv.name);
             return value ? JSON.parse(value as string) : null;
-          })
+          }),
         );
         return skills.filter(Boolean);
       }
