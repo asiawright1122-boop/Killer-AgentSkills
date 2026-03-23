@@ -267,6 +267,32 @@ function checkSkill(skill: Skill): string[] {
 }
 
 async function main() {
+  const args = process.argv.slice(2);
+
+  if (args.includes('--help') || args.includes('-h')) {
+    console.log(`
+🎯 Theme Alignment Audit Script
+
+Usage:
+  npx tsx scripts/audit-theme-alignment.ts        # Audit only
+  npx tsx scripts/audit-theme-alignment.ts --fix  # Auto-fix issues
+  npx tsx scripts/audit-theme-alignment.ts --dry-run --fix  # Preview fixes
+
+Options:
+  --fix      Auto-fix issues (remove off-topic, flag missing SEO)
+  --dry-run  Preview changes without applying them
+  --help     Show this help message
+
+Issue Types:
+  UNTHEMATIC_DETECTED - Skills with content unrelated to AI agents (will be removed)
+  NO_SEO_DATA         - Skills missing SEO metadata (need regeneration)
+`);
+    process.exit(0);
+  }
+
+  const doFix = args.includes('--fix');
+  const dryRun = args.includes('--dry-run');
+
   const cachePath = join(process.cwd(), 'data/skills-cache.json');
   console.log(`📂 Loading skills cache from: ${cachePath}\n`);
 
@@ -275,12 +301,21 @@ async function main() {
 
   console.log(`🔍 Analyzing ${skills.length} skills for theme alignment...\n`);
 
+  if (doFix && !dryRun) {
+    console.log('🔧 FIX MODE ENABLED - Will modify the cache file\n');
+  } else if (dryRun) {
+    console.log('🔍 DRY RUN MODE - No changes will be made\n');
+  }
+
   const report = {
     total: skills.length,
     issues: 0,
     skillsWithIssues: 0,
     byType: {} as Record<string, number>,
   };
+
+  const skillsToRemove: string[] = [];
+  const skillsNeedingSEO: string[] = [];
 
   for (const skill of skills) {
     const skillId = skill.id || `${skill.owner}/${skill.repo}`;
@@ -290,10 +325,21 @@ async function main() {
       report.skillsWithIssues++;
       report.issues += skillIssues.length;
 
-      console.log(`⚠️ ${skillId}`);
       for (const issue of skillIssues) {
+        const issueType = issue.split(' - ')[0];
+        report.byType[issueType] = (report.byType[issueType] || 0) + 1;
+
+        if (issueType === 'UNTHEMATIC_DETECTED') {
+          skillsToRemove.push(skillId);
+          console.log(`🗑️  ${skillId} - Will be removed`);
+        } else if (issueType === 'NO_SEO_DATA') {
+          skillsNeedingSEO.push(skillId);
+        }
+      }
+
+      for (const issue of skillIssues) {
+        console.log(`⚠️ ${skillId}`);
         console.log(`   - ${issue}`);
-        report.byType[issue.split(' - ')[0]] = (report.byType[issue.split(' - ')[0]] || 0) + 1;
       }
     }
   }
@@ -311,10 +357,49 @@ async function main() {
     console.log(`  ${type}: ${count}`);
   }
 
+  // Apply fixes if requested
+  if (doFix && (skillsToRemove.length > 0 || skillsNeedingSEO.length > 0)) {
+    console.log('\n' + '='.repeat(60));
+    console.log('🔧 APPLYING FIXES');
+    console.log('='.repeat(60));
+
+    if (skillsToRemove.length > 0) {
+      console.log(`\n🗑️  Removing ${skillsToRemove.length} off-topic skills...`);
+      const skillsToRemoveSet = new Set(skillsToRemove);
+      const beforeCount = skills.length;
+      const newSkills = skills.filter((s) => {
+        const id = s.id || `${s.owner}/${s.repo}`;
+        return !skillsToRemoveSet.has(id);
+      });
+      const afterCount = newSkills.length;
+
+      if (!dryRun) {
+        cache.skills = newSkills;
+        writeFileSync(cachePath, JSON.stringify(cache, null, 2));
+      }
+
+      console.log(`   Removed ${beforeCount - afterCount} skills (${beforeCount} -> ${afterCount})`);
+    }
+
+    if (skillsNeedingSEO.length > 0) {
+      console.log(`\n📝 ${skillsNeedingSEO.length} skills need SEO generation.`);
+      console.log('   Run: npx tsx scripts/generate-seo.ts --help');
+      console.log('   Or manually regenerate SEO for these skills.');
+    }
+  }
+
   if (report.skillsWithIssues > 0) {
-    console.log('\n⚠️ WARNING: Some skills have theme alignment issues.');
-    console.log('   Consider regenerating SEO for these skills.');
-    process.exit(1);
+    if (doFix && !dryRun) {
+      console.log('\n✅ Fixes applied successfully!');
+      process.exit(0);
+    } else if (dryRun) {
+      console.log('\n🔍 Dry run complete. No changes made.');
+      process.exit(1);
+    } else {
+      console.log('\n⚠️  WARNING: Some skills have theme alignment issues.');
+      console.log('   Run with --fix to auto-fix, or --dry-run --fix to preview.');
+      process.exit(1);
+    }
   } else {
     console.log('\n✅ All skills are theme-aligned!');
     process.exit(0);
