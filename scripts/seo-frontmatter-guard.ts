@@ -52,7 +52,7 @@ function findField(frontmatter: string, key: FieldName, baseLine: number): Field
 
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index]!;
-    const match = line.match(new RegExp(`^${key}:\\s*"(.*)"\\s*$`));
+    const match = line.match(new RegExp(`^${key}:\\s*["'](.*)["']\\s*$`));
     if (match) {
       return {
         value: match[1] ?? '',
