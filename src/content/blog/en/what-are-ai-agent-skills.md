@@ -1,18 +1,18 @@
 ---
-title: "What are AI agent skills, and why should you care?"
-description: "Discover AI agent skills, reusable files that instruct coding agents like Claude and Cursor, and learn how they work, when they help, and why they matter"
+title: 'What are AI agent skills, and why should you care?'
+description: 'Discover AI agent skills—reusable SKILL.md files that instruct coding agents like Claude Code, Cursor, and Windsurf to follow your project conventions with Model Context Protocol (MCP) support.'
 pubDate: 2026-02-23
-author: "Killer-Skills Team"
-tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
-lang: "en"
+author: 'Killer-Skills Team'
+tags: ['AI Agent Skills', 'SKILL.md', 'Claude Code', 'Cursor', 'Developer Tools', 'Automation']
+lang: 'en'
 featured: true
-category: "guides"
-heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
+category: 'guides'
+heroImage: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop'
 ---
 
 # What are AI agent skills?
 
-Have you ever asked your AI coding agent to "write tests for this module," only for it to write something completely generic that ignores your project's unique architecture? 
+Have you ever asked your AI coding agent to "write tests for this module," only for it to write something completely generic that ignores your project's unique architecture?
 
 ## What is an AI Agent Skill?
 
@@ -57,6 +57,7 @@ description: How to write and run tests in this project
 We use Vitest. Run tests with `npm test`.
 
 Rules:
+
 - Every new function needs at least one test
 - Mock external APIs, never call them in tests
 - Put test files next to the source: `utils.test.ts` beside `utils.ts`
@@ -68,12 +69,12 @@ That is the whole format. The agent loads this file, reads the instructions, and
 
 Right now, several coding agents support SKILL.md files or something similar:
 
-| Agent | Skill location | How it works |
-|-------|---------------|--------------|
-| Claude Code | `.claude/skills/` | Reads skills automatically based on context |
-| Cursor | `.cursor/rules/` | Project-level rule files |
-| Windsurf | `.windsurfrules` | Single rules file at project root |
-| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions |
+| Agent          | Skill location                    | How it works                                |
+| -------------- | --------------------------------- | ------------------------------------------- |
+| Claude Code    | `.claude/skills/`                 | Reads skills automatically based on context |
+| Cursor         | `.cursor/rules/`                  | Project-level rule files                    |
+| Windsurf       | `.windsurfrules`                  | Single rules file at project root           |
+| GitHub Copilot | `.github/copilot-instructions.md` | Repository-level instructions               |
 
 The format is converging. A skill written for Claude usually works in Cursor with minor path changes.
 
@@ -124,4 +125,4 @@ If you want to browse existing skills or publish your own, check out the [skill 
 
 ---
 
-*Related: [How to build MCP servers with agent skills](/en/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/en/blog/create-custom-ai-agent-skills)*
+_Related: [How to build MCP servers with agent skills](/en/blog/how-to-build-mcp-servers-with-agent-skills) and [Create your own custom AI agent skills](/en/blog/create-custom-ai-agent-skills)_

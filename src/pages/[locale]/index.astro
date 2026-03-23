@@ -39,11 +39,43 @@ const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.d
 
 // SEO: homepage metadata should describe the site itself, not query funnels
 const homeSeoTitle = isZh
-  ? 'Killer-Skills - AI Agent Skills 开放目录'
-  : 'Killer-Skills - Open Directory for AI Agent Skills';
+  ? 'Killer-Skills - AI Agent Skills 开放目录 | Claude Code & Cursor 技能'
+  : locale === 'ja'
+    ? 'Killer-Skills - AIエージェントスキル＆MCPサーバーディレクトリ | Claude Code＆Cursorスキル'
+    : locale === 'ko'
+      ? 'Killer-Skills - AI 에이전트 스킬＆MCP 서버 디렉터리 | Claude Code＆Cursor 스킬'
+      : locale === 'es'
+        ? 'Killer-Skills - Directorio de habilidades AI Agent y servidores MCP | Skills Claude Code＆Cursor'
+        : locale === 'fr'
+          ? 'Killer-Skills - Répertoire d\'habiletés AI Agent et serveurs MCP | Skills Claude Code＆Cursor'
+          : locale === 'de'
+            ? 'Killer-Skills - KI-Agent-Fähigkeiten & MCP-Server-Verzeichnis | Claude Code＆Cursor-Skills'
+            : locale === 'pt'
+              ? 'Killer-Skills - Diretório de habilidades AI Agent e servidores MCP | Skills Claude Code＆Cursor'
+              : locale === 'ru'
+                ? 'Killer-Skills - Каталог навыков AI Agent и серверов MCP | Навыки Claude Code и Cursor'
+                : locale === 'ar'
+                  ? 'Killer-Skills - دليل مهارات وكلاء الذكاء الاصطناعي وخوادم MCP | مهارات Claude Code و Cursor'
+                  : 'Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills';
 const homeSeoDescription = isZh
-  ? '发现、安装并管理 2,500+ 个 AI Agent Skills。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放技能目录与安装入口。'
-  : 'Discover, install, and manage 2,500+ AI agent skills. Killer-Skills is an open directory and installation entry point for Claude Code, Cursor, Windsurf, and 19+ IDEs.';
+  ? '发现 2,500+ 个 Claude Code、Cursor 技能与 MCP 服务器。Killer-Skills 是面向 Model Context Protocol 的开放 AI Agent Skills 目录，支持 19+ IDE，一键安装。'
+  : locale === 'ja'
+    ? 'Claude Code、Cursor、19以上のIDE向け2,500以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。'
+    : locale === 'ko'
+      ? 'Claude Code, Cursor 및 19개 이상의 IDE용 2,500개 이상의 AI 에이전트 스킬과 MCP 서버를 발견하세요. Killer-Skills는 Model Context Protocol의 열린 디렉터리입니다.'
+      : locale === 'es'
+        ? 'Descubre más de 2,500 habilidades de agente IA y servidores MCP para Claude Code, Cursor y más de 19 IDE. Killer-Skills es el directorio abierto de Model Context Protocol.'
+        : locale === 'fr'
+          ? 'Découvrez plus de 2 500 compétences d\'agents IA et serveurs MCP pour Claude Code, Cursor et plus de 19 IDE. Killer-Skills est le répertoire ouvert de Model Context Protocol.'
+          : locale === 'de'
+            ? 'Entdecken Sie über 2.500 KI-Agent-Fähigkeiten und MCP-Server für Claude Code, Cursor und 19+ IDEs. Killer-Skills ist das offene Model Context Protocol-Verzeichnis.'
+            : locale === 'pt'
+              ? 'Descubra mais de 2.500 habilidades de agentes de IA e servidores MCP para Claude Code, Cursor e mais de 19 IDEs. Killer-Skills é o diretório aberto do Model Context Protocol.'
+              : locale === 'ru'
+                ? 'Откройте для себя более 2500 навыков ИИ-агентов и серверов MCP для Claude Code, Cursor и более 19 IDE. Killer-Skills — открытый каталог Model Context Protocol.'
+                : locale === 'ar'
+                  ? 'اكتشف أكثر من 2500 مهارة لوكلاء الذكاء الاصطناعي وخوادم MCP لـ Claude Code و Cursor و IDEs الأخرى. Killer-Skills هو الدليل المفتوح لـ Model Context Protocol.'
+                  : 'Discover 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.';
 const homeSeoKeywords = buildKeywordString(typedLocale, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
   {
