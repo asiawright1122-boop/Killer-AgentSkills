@@ -21,9 +21,15 @@ describe('seo generator guardrails', () => {
     ]);
 
     expect(keywords).toEqual(
-      expect.arrayContaining(['Playwright ai agent skill', 'Playwright automation', 'Playwright workflow tool']),
+      expect.arrayContaining([
+        'Playwright AI agent skill for Claude Code',
+        'Playwright AI agent skill for Cursor',
+        'Playwright AI agent skill for Windsurf',
+        'Playwright MCP server',
+        'Playwright AI skill installation',
+        'Playwright agent skill workflow',
+      ]),
     );
-    expect(keywords.join(' ')).not.toMatch(/mcp server/i);
   });
 
   it('keeps long-tail collection generator aligned with skills-first copy and canonical metadata', () => {
