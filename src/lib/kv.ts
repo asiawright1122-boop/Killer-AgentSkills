@@ -279,23 +279,40 @@ export async function setKV(env: Env, key: string, value: string, ttl: number = 
  * For listing pages, use getSkillsListing() instead.
  */
 export async function getSkillsFromKV(env: Env): Promise<any[]> {
-  if (!env?.DB) {
-    console.warn('[D1] No DB binding found, falling back to local file array');
-    return getLocalSkillsFallback();
-  }
-
-  try {
-    // We pull the full data_json payloads for application layer mapping
-    const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
-
-    if (result.success && result.results) {
-      return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
+  // 1. Try D1 first (fastest)
+  if (env?.DB) {
+    try {
+      const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC`).all();
+      if (result.success && result.results) {
+        return result.results.map((row: D1Row) => JSON.parse(row.data_json as string));
+      }
+    } catch (e) {
+      console.warn('[D1] Query failed, falling back to KV:', e);
     }
-    return [];
-  } catch (e) {
-    console.error('[D1] Error querying skills from SQLite:', e);
-    return [];
   }
+
+  // 2. Try KV namespace (SKILLS_CACHE)
+  if (env?.SKILLS_CACHE) {
+    try {
+      const listResult = await env.SKILLS_CACHE.list({ prefix: 'skill:' });
+      const results = listResult?.keys || listResult?.results || [];
+      if (results && results.length > 0) {
+        const skills = await Promise.all(
+          results.map(async (kv) => {
+            const value = await env.SKILLS_CACHE.get(kv.name);
+            return value ? JSON.parse(value as string) : null;
+          })
+        );
+        return skills.filter(Boolean);
+      }
+    } catch (e) {
+      console.warn('[KV] Read failed, falling back to local file:', e);
+    }
+  }
+
+  // 3. Last resort: local file fallback (dev mode)
+  console.warn('[D1] No DB binding found, falling back to local file array');
+  return getLocalSkillsFallback();
 }
 
 /**
