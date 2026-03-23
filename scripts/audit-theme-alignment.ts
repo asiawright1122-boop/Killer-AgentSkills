@@ -53,7 +53,7 @@ function hasUnthematicKeywords(text: string): boolean {
   return UNTHEMATIC_KEYWORDS.some((kw) => lower.includes(kw.toLowerCase()));
 }
 
-function checkSkill(skill: Skill, owner: string, repo: string) {
+function checkSkill(skill: Skill): string[] {
   const issues: string[] = [];
 
   const name = skill.name || '';
@@ -106,7 +106,7 @@ async function main() {
 
   for (const skill of skills) {
     const skillId = skill.id || `${skill.owner}/${skill.repo}`;
-    const skillIssues = checkSkill(skill, skill.owner, skill.repo);
+    const skillIssues = checkSkill(skill);
 
     if (skillIssues.length > 0) {
       report.skillsWithIssues++;

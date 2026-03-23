@@ -5,11 +5,24 @@ export function createMockKV(store: Map<string, unknown> = new Map()): KVNamespa
   return {
     get: vi.fn(async (key: string) => {
       const value = store.get(key);
-      return value ?? null;
+      if (value === undefined) return null;
+      return typeof value === 'string' ? value : JSON.stringify(value);
     }),
     put: vi.fn(async () => {}),
     delete: vi.fn(async () => {}),
-    list: vi.fn(),
+    list: vi.fn(async ({ prefix }: { prefix?: string } = {}) => {
+      const keys: Array<{ name: string }> = [];
+      for (const key of store.keys()) {
+        if (!prefix || key.startsWith(prefix)) {
+          keys.push({ name: key });
+        }
+      }
+      return {
+        keys,
+        list_complete: true,
+        cacheStatus: 'reserved',
+      };
+    }),
     getWithMetadata: vi.fn(),
   } as unknown as KVNamespace;
 }

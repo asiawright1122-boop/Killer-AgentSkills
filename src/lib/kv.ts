@@ -295,7 +295,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
   if (env?.SKILLS_CACHE) {
     try {
       const listResult = await env.SKILLS_CACHE.list({ prefix: 'skill:' });
-      const results = listResult?.keys || listResult?.results || [];
+      const results = listResult?.keys || [];
       if (results && results.length > 0) {
         const skills = await Promise.all(
           results.map(async (kv) => {
