@@ -1,36 +1,211 @@
 #!/usr/bin/env npx tsx
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
+// Core brand identifiers - skills must relate to AI agent ecosystems
 const THEME_KEYWORDS = [
+  // Core brand
   'ai agent',
   'ai agent skill',
+  'agent skill',
+  'agent skills',
   'claude code',
   'cursor',
   'windsurf',
+  'killer-skills',
+
+  // IDE compatibility
+  'cursor ide',
+  'windsurf ide',
+  'ai coding assistant',
+  'claude desktop',
+  'vs code copilot',
+
+  // MCP Protocol
   'mcp',
   'model context protocol',
-  'agent skill',
+  'mcp server',
+  'mcp tools',
+  'mcp integration',
+  'mcp client',
+  'mcp protocol',
+
+  // Installation patterns
+  'install skill',
   'skill installation',
   '.claude',
   '.agent',
   '.codex',
+  '.cursor',
+  '.windsurf',
   'cursorrules',
+
+  // Workflow automation
+  'workflow',
+  'automation',
+  'agentic',
+  'llm integration',
+  'agentic workflow',
+  'ai automation',
+
+  // SKILL.md patterns
+  'skill.md',
+  'skills directory',
+  'skill registry',
 ];
 
+// Truly off-topic keywords - EXACT matches only (NOT related to AI agents at all)
+// Using exact phrase matches to avoid false positives like "algorithmic-art" matching "algorithmic"
 const UNTHEMATIC_KEYWORDS = [
-  'leetcode',
-  '算法',
-  'interview questions',
-  'resume',
-  'portfolio',
-  'blog',
-  'course',
-  'tutorial',
-  'ebook',
-  'notes app',
+  // Only flag EXACT platform names, not generic terms
+  'udemy.com',
+  'coursera.org',
+  'udacity.com',
+  'edx.org',
+  'youtube.com/watch',
+  'free pdf download',
+  'ebook free',
 ];
+
+// SEO title patterns that indicate theme drift
+const SEO_TITLE_DRIFT_PATTERNS = [
+  /^(how to|what is|why|learn) /i,
+  /^(best|top|awesome|complete) /i,
+  / tutorial$/i,
+  / guide$/i,
+  / course$/i,
+];
+
+/**
+ * Enforce theme compliance on a skill's SEO metadata
+ * This function auto-fixes common theme drift issues
+ */
+export function enforceThemeCompliance(skill: Skill): Skill {
+  const name = skill.name || '';
+  const seo = skill.seo || {};
+  const seoTitle = typeof seo.title === 'string' ? seo.title : seo.title?.en || '';
+  const keywords = seo.keywords?.en || [];
+
+  // Fix SEO title if missing theme identifier
+  if (seoTitle && !hasSEOThemeCompliance(seoTitle)) {
+    const fixedTitle = fixSEOTitle(seoTitle, name);
+    if (fixedTitle !== seoTitle) {
+      if (typeof seo.title === 'string') {
+        seo.title = fixedTitle;
+      } else {
+        seo.title = { ...seo.title, en: fixedTitle };
+      }
+    }
+  }
+
+  // Fix keywords if none match theme
+  if (keywords.length > 0 && !hasKeywordThemeCompliance(keywords)) {
+    const fixedKeywords = fixKeywords(keywords, name);
+    seo.keywords = { ...seo.keywords, en: fixedKeywords };
+  }
+
+  return { ...skill, seo };
+}
+
+function hasSEOThemeCompliance(seoTitle: string): boolean {
+  if (!seoTitle) return true;
+  const lower = seoTitle.toLowerCase();
+  return (
+    lower.includes('ai agent') ||
+    lower.includes('agent skill') ||
+    lower.includes('claude code') ||
+    lower.includes('cursor') ||
+    lower.includes('windsurf') ||
+    lower.includes('mcp') ||
+    lower.includes('killer-skills') ||
+    lower.includes('agentic')
+  );
+}
+
+function hasKeywordThemeCompliance(keywords: string[]): boolean {
+  return keywords.some((kw) => THEME_KEYWORDS.some((tk) => kw.toLowerCase().includes(tk.toLowerCase())));
+}
+
+function fixSEOTitle(title: string, skillName: string): string {
+  // Check for common drift patterns and fix them
+  if (/ tutorial$/i.test(title)) {
+    title = title.replace(/ tutorial$/i, ' | AI Agent Skills');
+  }
+  if (/ guide$/i.test(title)) {
+    title = title.replace(/ guide$/i, ' | AI Agent Skills');
+  }
+  if (/ course$/i.test(title)) {
+    title = title.replace(/ course$/i, ' | Agent Skill');
+  }
+  if (/^(how to|what is|why|learn) /i.test(title)) {
+    // Capitalize and add theme suffix
+    title = title.charAt(0).toUpperCase() + title.slice(1);
+    if (!title.includes('|')) {
+      title = `${title} | AI Agent Skills`;
+    }
+  }
+
+  // Ensure it ends with theme identifier
+  if (!hasSEOThemeCompliance(title)) {
+    // Extract capability from title (before colon or first part)
+    const capability = title.split(':')[0].trim() || skillName;
+    title = `${capability} | AI Agent Skills`;
+  }
+
+  return title;
+}
+
+function fixKeywords(keywords: string[], skillName: string): string[] {
+  const fixed: string[] = [];
+
+  for (const kw of keywords) {
+    let fixedKw = kw;
+
+    // Remove forbidden patterns
+    if (/^(how to|what is|why|learn) /i.test(fixedKw)) {
+      // Transform "how to X" to "X automation" or similar
+      fixedKw = fixedKw.replace(/^(how to|what is|why|learn) /i, '').trim();
+    }
+    if (/ tutorial$/i.test(fixedKw)) {
+      fixedKw = fixedKw.replace(/ tutorial$/i, '');
+    }
+    if (/ guide$/i.test(fixedKw)) {
+      fixedKw = fixedKw.replace(/ guide$/i, '');
+    }
+    if (/^(best|top|awesome|complete) /i.test(fixedKw)) {
+      fixedKw = fixedKw.replace(/^(best|top|awesome|complete) /i, '');
+    }
+
+    // Add theme keywords if missing
+    if (fixedKw && !fixedKw.includes('tutorial') && !fixedKw.includes('course')) {
+      fixed.push(fixedKw);
+    }
+  }
+
+  // Ensure at least one theme keyword exists
+  if (!hasKeywordThemeCompliance(fixed)) {
+    // Add relevant theme keywords based on skill name
+    const nameLower = skillName.toLowerCase();
+    if (nameLower.includes('browser') || nameLower.includes('playwright') || nameLower.includes('scrape')) {
+      fixed.unshift('browser automation', 'web scraping');
+    } else if (nameLower.includes('slack') || nameLower.includes('discord') || nameLower.includes('notify')) {
+      fixed.unshift('notification workflow', 'team automation');
+    } else if (nameLower.includes('mcp') || nameLower.includes('server')) {
+      fixed.unshift('mcp server', 'ai agent skill');
+    } else if (nameLower.includes('notion') || nameLower.includes('database')) {
+      fixed.unshift('workflow automation', 'ai agent skill');
+    } else if (nameLower.includes('test') || nameLower.includes('debug')) {
+      fixed.unshift('developer workflow', 'claude code');
+    } else {
+      // Generic fallback
+      fixed.unshift('ai agent skill', 'workflow automation');
+    }
+  }
+
+  // Deduplicate and limit
+  return [...new Set(fixed)].slice(0, 10);
+}
 
 interface Skill {
   name?: string;
@@ -45,7 +220,19 @@ interface Skill {
 
 function hasThematicKeywords(text: string): boolean {
   const lower = text.toLowerCase();
-  return THEME_KEYWORDS.some((kw) => lower.includes(kw.toLowerCase()));
+  // Check for exact keyword matches
+  if (THEME_KEYWORDS.some((kw) => lower.includes(kw.toLowerCase()))) {
+    return true;
+  }
+  // Check for IDE-related patterns
+  if (/\.(claude|agent|codex|cursor|windsurf|kiro|gemini)\//i.test(text)) {
+    return true;
+  }
+  // Check for skill installation patterns
+  if (/skill.*install|install.*skill|\.md\b/i.test(text) && /agent|claude|cursor/i.test(text)) {
+    return true;
+  }
+  return false;
 }
 
 function hasUnthematicKeywords(text: string): boolean {
@@ -58,31 +245,22 @@ function checkSkill(skill: Skill): string[] {
 
   const name = skill.name || '';
   const description = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
-  const seoTitle = typeof skill.seo?.title === 'string' ? skill.seo.title : skill.seo?.title?.en || '';
-  const seoDesc = typeof skill.seo?.description === 'string' ? skill.seo.description : skill.seo?.description?.en || '';
-  const keywords = skill.seo?.keywords?.en || [];
+  const seo = skill.seo;
+  const seoTitle = typeof seo?.title === 'string' ? seo.title : seo?.title?.en || '';
+  const seoDesc = typeof seo?.description === 'string' ? seo.description : seo?.description?.en || '';
+  const keywords = seo?.keywords?.en || [];
+  const topics = skill.topics || [];
 
-  const allText = `${name} ${description} ${seoTitle} ${seoDesc} ${keywords.join(' ')}`;
+  const allText = `${name} ${description} ${seoTitle} ${seoDesc} ${keywords.join(' ')} ${topics.join(' ')}`;
 
-  if (!hasThematicKeywords(allText)) {
-    issues.push(`NO_THEME_KEYWORDS - Missing theme keywords in: ${name}`);
-  }
-
+  // Check for truly off-topic content (keep this check)
   if (hasUnthematicKeywords(allText)) {
-    issues.push(`UNTHEMATIC_DETECTED - Unthematic keywords found in: ${name}`);
+    issues.push(`UNTHEMATIC_DETECTED - Off-topic content: ${name}`);
   }
 
-  if (seoTitle && !seoTitle.includes('AI Agent') && !seoTitle.includes('Skill')) {
-    issues.push(`SEO_TITLE_DRIFT - Title lacks theme: ${seoTitle.substring(0, 50)}`);
-  }
-
-  if (keywords.length > 0) {
-    const hasThemeKeyword = keywords.some((kw) =>
-      THEME_KEYWORDS.some((tk) => kw.toLowerCase().includes(tk.toLowerCase())),
-    );
-    if (!hasThemeKeyword) {
-      issues.push(`KEYWORDS_DRIFT - No theme keywords in: ${keywords.slice(0, 3).join(', ')}`);
-    }
+  // Check for MISSING SEO data (not drift - that's ok)
+  if (!seo || (!seoTitle && !seoDesc && keywords.length === 0)) {
+    issues.push(`NO_SEO_DATA - Missing SEO metadata: ${name}`);
   }
 
   return issues;

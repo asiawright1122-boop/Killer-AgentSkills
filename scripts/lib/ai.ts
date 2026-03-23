@@ -534,42 +534,57 @@ Analyze this AI Agent Skill (for Claude Code, Cursor, Windsurf, or other AI codi
 - **Tags**: ${topics}
 ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : ''}
 
-## CRITICAL RULES
-1. This skill is for the AI Agent Skills ecosystem (Killer-Skills.com directory) - MUST emphasize this in title/keywords
-2. ALL content must be SPECIFIC to "${skillName}" and its use with AI coding assistants. Reference actual technical details from the content above.
-3. Do NOT use generic phrases like "enhances productivity" or "powerful tool". Instead, cite specific technologies, commands, file formats, or protocols found in the content.
-4. SEO Title MUST include a value-add phrase (e.g., "for Claude Code", "for Cursor", "Setup Guide", "Best Practices") — NEVER just the raw skill name.
-5. Meta Description MUST be different from the main Description.
-6. Features MUST be extracted from the actual SKILL.md content — list real capabilities, not generic benefits.
-7. Keywords MUST include: "AI agent skill", "MCP server", "Claude Code skill", "Cursor skill", or similar AI Agent ecosystem terms
+## 🚨 STRICT THEME ENFORCEMENT (FAIL IF NOT FOLLOWED)
+1. SEO Title MUST include ONE of these identifiers (non-negotiable):
+   - "AI Agent Skill" OR "Agent Skill"
+   - OR "for Claude Code" / "for Cursor" / "for Windsurf"
+   - OR "| Killer-Skills" or "| AI Agent Skills"
+   
+2. Keywords MUST include at least 3 of these theme terms:
+   - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
+   - OR automation-specific terms: "workflow", "automation", "browser automation"
+   - OR installation terms: ".claude", "skill installation", "install"
+
+3. FORBIDDEN keyword patterns (will cause theme drift):
+   - ❌ "how to", "what is", "why", "learn"
+   - ❌ "best", "top", "awesome", "complete" at start
+   - ❌ "tutorial", "course", "guide", "ebook"
+   - ❌ "vs", "versus", "alternative", "comparison"
+   - ❌ "free download", "pdf", "cheatsheet"
+
+4. Title format examples:
+   ✅ GOOD: "PostgreSQL: Optimized SQL Queries | AI Agent Skills"
+   ✅ GOOD: "Browser Automation: Playwright Setup | Claude Code Skill"
+   ✅ GOOD: "Slack Integration: Team Notifications for Cursor"
+   ❌ BAD: "expo-tailwind-setup: Universal Styling Setup Guide"
+   ❌ BAD: "Python Patterns: Best Practices & PEP 8"
 
 ## Generate these fields (English only):
 
 ### A. SEO Title (50-60 chars)
-Format: "[Skill Name]: [Value Proposition] | AI Agent Skills"
-Example: "PostgreSQL Skill: Optimized SQL Query Generation | AI Agent Skills"
+Format: "[Capability]: [Specific Use Case] | AI Agent Skills"
+MUST include "AI Agent Skills" or IDE reference in the title.
 
 ### B. Meta Description (150-160 chars)
-SERP-optimized click bait. Must differ from Description. Include a call-to-action or unique angle.
+SERP-optimized. Focus on what the skill DOES and WHO benefits.
+Include CTA or unique angle. DIFFERENT from Description.
 
 ### C. Main Description (1-2 sentences, 50-80 words)
-Technical summary explaining WHAT the skill does and WHO benefits.
+Technical summary: WHAT it does + WHO benefits + HOW it helps with AI coding.
 
 ### D. Definition (40-60 words)
-Encyclopedic "what is it" format for Google Featured Snippet. Start with "${skillName} is..."
+Start with "${skillName} is a..." for Featured Snippet format.
 
 ### E. Key Features (4-6 items)
-Extract REAL capabilities from the SKILL.md content. Each feature should reference a specific technology, command, or behavior.
-BAD: "Easy to use", "Improves workflow"
-GOOD: "Generates deterministic SVG flow fields using p5.js", "Supports hot-reload via Vite dev server"
+Extract from SKILL.md content - specific capabilities, not generic benefits.
+Format: "[Action] using [Technology/Method]"
 
 ### F. Keywords (6-10 items)
-Capability-first long-tail phrases:
-- Use concrete task + technology combinations (2-5 words), e.g. "playwright browser automation"
-- Include at most ONE install/setup phrase
-- NEVER output query wrappers or comparison bait: "how to", "what is", "vs", "best", "top", "alternative", "tutorial", "guide"
+MUST include theme terms. Use: "capability + technology" format.
+GOOD: "playwright browser automation", "claude code mcp server", "notion workflow sync"
+BAD: "how to use playwright", "what is automation"
 
-Output STRICT JSON only, no markdown wrapping:
+Output STRICT JSON only:
 {
   "seoTitle": { "en": "..." },
   "metaDescription": { "en": "..." },
