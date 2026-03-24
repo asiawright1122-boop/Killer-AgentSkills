@@ -1,0 +1,193 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-03-24",
+  "description": "Standardized terminology translations for Killer-Skills content",
+  "terms": {
+    "AI Agent": {
+      "en": "AI Agent",
+      "zh": "AI 智能体",
+      "ja": "AIエージェント",
+      "ko": "AI 에이전트",
+      "notes": "Use '智能体' not '代理' for better clarity"
+    },
+    "AI Agent Skill": {
+      "en": "AI Agent Skill",
+      "zh": "AI Agent Skill",
+      "ja": "AIエージェントスキル",
+      "ko": "AI 에이전트 스킬",
+      "notes": "Keep 'Skill' in English for brand consistency"
+    },
+    "Agent Skill": {
+      "en": "Agent Skill",
+      "zh": "Agent Skill",
+      "ja": "エージェントスキル",
+      "ko": "에이전트 스킬",
+      "notes": "Shorter form, keep 'Skill' in English"
+    },
+    "SKILL.md": {
+      "en": "SKILL.md",
+      "zh": "SKILL.md",
+      "ja": "SKILL.md",
+      "ko": "SKILL.md",
+      "notes": "Always keep filename as-is"
+    },
+    "Claude Code": {
+      "en": "Claude Code",
+      "zh": "Claude Code",
+      "ja": "Claude Code",
+      "ko": "Claude Code",
+      "notes": "Product name, never translate"
+    },
+    "Cursor": {
+      "en": "Cursor",
+      "zh": "Cursor",
+      "ja": "Cursor",
+      "ko": "Cursor",
+      "notes": "Product name, never translate"
+    },
+    "Windsurf": {
+      "en": "Windsurf",
+      "zh": "Windsurf",
+      "ja": "Windsurf",
+      "ko": "Windsurf",
+      "notes": "Product name, never translate"
+    },
+    "MCP": {
+      "en": "MCP",
+      "zh": "MCP",
+      "ja": "MCP",
+      "ko": "MCP",
+      "notes": "Model Context Protocol acronym, never translate"
+    },
+    "MCP Server": {
+      "en": "MCP Server",
+      "zh": "MCP Server",
+      "ja": "MCPサーバー",
+      "ko": "MCP 서버",
+      "notes": "Keep MCP, translate Server"
+    },
+    "Workflow": {
+      "en": "Workflow",
+      "zh": "工作流",
+      "ja": "ワークフロー",
+      "ko": "워크플로",
+      "notes": "Standard translation"
+    },
+    "Automation": {
+      "en": "Automation",
+      "zh": "自动化",
+      "ja": "自動化",
+      "ko": "자동화",
+      "notes": "Standard translation"
+    },
+    "IDE": {
+      "en": "IDE",
+      "zh": "IDE",
+      "ja": "IDE",
+      "ko": "IDE",
+      "notes": "Keep acronym"
+    },
+    "Developer Tools": {
+      "en": "Developer Tools",
+      "zh": "开发工具",
+      "ja": "開発ツール",
+      "ko": "개발 도구",
+      "notes": "Standard translation"
+    },
+    "Coding Assistant": {
+      "en": "Coding Assistant",
+      "zh": "编码助手",
+      "ja": "コーディングアシスタント",
+      "ko": "코딩 어시스턴트",
+      "notes": "Standard translation"
+    },
+    "AI Coding Assistant": {
+      "en": "AI Coding Assistant",
+      "zh": "AI 编码助手",
+      "ja": "AIコーディングアシスタント",
+      "ko": "AI 코딩 어시스턴트",
+      "notes": "Standard translation"
+    },
+    "Prompt": {
+      "en": "Prompt",
+      "zh": "提示词",
+      "ja": "プロンプト",
+      "ko": "프롬프트",
+      "notes": "Standard translation for AI context"
+    },
+    "Repository": {
+      "en": "Repository",
+      "zh": "仓库",
+      "ja": "リポジトリ",
+      "ko": "저장소",
+      "notes": "Git context"
+    },
+    "Installation": {
+      "en": "Installation",
+      "zh": "安装",
+      "ja": "インストール",
+      "ko": "설치",
+      "notes": "Standard translation"
+    },
+    "CLI": {
+      "en": "CLI",
+      "zh": "CLI",
+      "ja": "CLI",
+      "ko": "CLI",
+      "notes": "Command Line Interface acronym"
+    },
+    "Frontmatter": {
+      "en": "Frontmatter",
+      "zh": "Frontmatter",
+      "ja": "フロントマター",
+      "ko": "프론트매터",
+      "notes": "Markdown metadata term"
+    },
+    "Intelligent Agent": {
+      "en": "Intelligent Agent",
+      "zh": "智能体",
+      "ja": "知的エージェント",
+      "ko": "지능형 에이전트",
+      "notes": "Alternative to AI Agent"
+    },
+    "Agent Persona": {
+      "en": "Agent Persona",
+      "zh": "智能体角色",
+      "ja": "エージェントペルソナ",
+      "ko": "에이전트 페르소나",
+      "notes": "Context-specific role"
+    },
+    "Skill Directory": {
+      "en": "Skill Directory",
+      "zh": "技能目录",
+      "ja": "スキルディレクトリ",
+      "ko": "스킬 디렉토리",
+      "notes": "Killer-Skills directory"
+    },
+    "Community Skills": {
+      "en": "Community Skills",
+      "zh": "社区技能",
+      "ja": "コミュニティスキル",
+      "ko": "커뮤니티 스킬",
+      "notes": "User-contributed skills"
+    },
+    "Official Skills": {
+      "en": "Official Skills",
+      "zh": "官方技能",
+      "ja": "公式スキル",
+      "ko": "공식 스킬",
+      "notes": "Anthropic/official skills"
+    }
+  },
+  "deprecatedTranslations": {
+    "zh": {
+      "代理": "智能体",
+      "AI 代理": "AI 智能体",
+      "AI代理": "AI 智能体",
+      "代理技能": "Agent Skill",
+      "智能体技能": "Agent Skill"
+    },
+    "ja": {},
+    "ko": {}
+  }
+}
