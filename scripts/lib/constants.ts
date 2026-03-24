@@ -36,6 +36,11 @@ export const EXCLUDE_KEYWORDS = [
   'learning',
   'study',
   'guide',
+  'product manager',
+  'product management',
+  'mvp builder',
+  'mvp-generator',
+  'startup',
   'studiojinsei', // Added to prevent crawling leaked API keys
 ];
 
@@ -128,22 +133,20 @@ export const CATEGORY_RULES: Record<string, string[]> = {
   ],
   browser: [
     'browser',
-    'web',
     'scraping',
-    'pupeteer',
+    'puppeteer',
     'selenium',
     'playwright',
     'chrome',
     'firefox',
-    'automation',
     'crawler',
+    'headless',
+    'browser-use',
   ],
   productivity: [
     'productivity',
     'workflow',
-    'automation',
     'utility',
-    'tool',
     'manager',
     'organize',
     'time',

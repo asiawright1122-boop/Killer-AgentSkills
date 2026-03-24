@@ -2,14 +2,15 @@ import { describe, expect, it } from 'vitest';
 import {
   buildKeywordString,
   getCategoryKeywordClusters,
+  getCollectionKeywordClusters,
   getIntentKeywordClusters,
   getKeywordCluster,
 } from './seo-keywords';
 
 describe('seo-keywords', () => {
   it('returns locale-specific keyword clusters', () => {
-    expect(getKeywordCluster('workflowAutomation', 'en')).toContain('workflow automation');
-    expect(getKeywordCluster('workflowAutomation', 'zh')).toContain('工作流自动化');
+    expect(getKeywordCluster('workflowAutomation', 'en')).toContain('workflow automation skills');
+    expect(getKeywordCluster('workflowAutomation', 'zh')).toContain('工作流自动化技能');
   });
 
   it('deduplicates merged keyword strings', () => {
@@ -24,6 +25,14 @@ describe('seo-keywords', () => {
     expect(keywords).toContain('agent workflow');
   });
 
+  it('filters low-intent and polluted keywords from merged output', () => {
+    const keywords = buildKeywordString('en', 'core', 'what is mcp', 'product manager workflow', 'mvp builder');
+    expect(keywords).toContain('AI agent skills');
+    expect(keywords).not.toContain('what is mcp');
+    expect(keywords).not.toContain('product manager workflow');
+    expect(keywords).not.toContain('mvp builder');
+  });
+
   it('maps intent ids to keyword clusters', () => {
     expect(getIntentKeywordClusters('workflow-automation')).toContain('workflowAutomation');
     expect(getIntentKeywordClusters('mcp-servers')).toEqual(
@@ -36,5 +45,10 @@ describe('seo-keywords', () => {
   it('maps normalized categories to keyword clusters', () => {
     expect(getCategoryKeywordClusters('documentation')).toContain('documentAutomation');
     expect(getCategoryKeywordClusters('browser')).toContain('browserAutomation');
+  });
+
+  it('infers focused collection keyword clusters from category and slug', () => {
+    const clusters = getCollectionKeywordClusters('documentation', 'top-pdf-claude-code-skills');
+    expect(clusters).toEqual(expect.arrayContaining(['core', 'documentAutomation', 'ideCompat']));
   });
 });

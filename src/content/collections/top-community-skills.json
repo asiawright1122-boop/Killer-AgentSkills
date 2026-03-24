@@ -1,116 +1,142 @@
 {
   "title": {
-    "en": "Top Community Skills & Frameworks for AI Agent Builders",
-    "zh": "AI Agent 构建者常用的社区技能与框架",
-    "ja": "AIエージェント開発者向けコミュニティスキル＆フレームワーク",
-    "ko": "AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크",
-    "es": "Mejores skills y frameworks de la comunidad para creadores de agentes de IA",
-    "fr": "Top skills et frameworks communautaires pour créer des agents IA",
-    "de": "Top-Community-Skills und Frameworks für KI-Agent-Builders",
-    "pt": "Principais skills e frameworks da comunidade para criadores de agentes de IA",
-    "ru": "Лучшие community skills и фреймворки для разработчиков ИИ-агентов",
-    "ar": "أفضل مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي"
+    "en": "Community Skills & Frameworks for AI Agent Builders | AI Agent Skills",
+    "zh": "AI Agent 构建者常用的社区技能与框架 | AI Agent Skills",
+    "ja": "AIエージェント開発者向けコミュニティスキル＆フレームワーク | AI Agent Skills",
+    "ko": "AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크 | AI Agent Skills",
+    "es": "skills y frameworks de la comunidad para creadores de agentes de IA | AI Agent Skills",
+    "fr": "skills et frameworks communautaires pour créer des agents IA | AI Agent Skills",
+    "de": "Top-Community-Skills und Frameworks für KI-Agent-Builders | AI Agent Skills",
+    "pt": "skills e frameworks da comunidade para criadores de agentes de IA | AI Agent Skills",
+    "ru": "community skills и фреймворки для разработчиков ИИ-агентов | AI Agent Skills",
+    "ar": "مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي | AI Agent Skills"
   },
   "description": {
-    "en": "A focused list of community tools, reusable skills, and open frameworks for developers building AI agents.",
-    "zh": "面向 AI Agent 开发者的社区工具、可复用技能与开源框架精选。",
-    "ja": "AIエージェントを開発するチーム向けに、コミュニティ製ツール、再利用可能なスキル、オープンなフレームワークを厳選した一覧です。",
-    "ko": "AI 에이전트를 만드는 개발자를 위해 커뮤니티 도구, 재사용 가능한 스킬, 오픈 프레임워크를 엄선했습니다.",
-    "es": "Lista enfocada de herramientas comunitarias, skills reutilizables y frameworks abiertos para desarrolladores de agentes de IA.",
-    "fr": "Sélection ciblée d’outils communautaires, de skills réutilisables et de frameworks ouverts pour les développeurs d’agents IA.",
-    "de": "Fokussierte Auswahl an Community-Tools, wiederverwendbaren Skills und offenen Frameworks für Entwickler von KI-Agenten.",
-    "pt": "Lista focada de ferramentas da comunidade, skills reutilizáveis e frameworks abertos para desenvolvedores de agentes de IA.",
-    "ru": "Сфокусированная подборка community-инструментов, переиспользуемых навыков и открытых фреймворков для разработчиков ИИ-агентов.",
-    "ar": "قائمة مركزة من أدوات المجتمع والمهارات القابلة لإعادة الاستخدام والأطر المفتوحة لمطوري وكلاء الذكاء الاصطناعي."
+    "en": "Installable AI agent skills for community developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 community AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの community AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 community AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de community en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur community dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für community Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em community no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в community для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات community داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top Community Skills & Frameworks for AI Agent Builders | Killer-Skills",
-    "zh": "AI Agent 开发者的社区工具与框架",
-    "ja": "AIエージェント開発者向けコミュニティツールとフレームワーク",
-    "ko": "AI 에이전트 빌더를 위한 커뮤니티 도구와 프레임워크",
-    "es": "Mejores skills y frameworks de la comunidad para creadores de agentes de IA",
-    "fr": "Top skills et frameworks communautaires pour créer des agents IA | Killer-Skills",
-    "de": "Top-Community-Skills und Frameworks für KI-Agent-Builders | Killer-Skills",
-    "pt": "Principais skills e frameworks da comunidade para criadores de agentes de IA",
-    "ru": "Лучшие community skills и фреймворки для разработчиков ИИ-агентов",
-    "ar": "أفضل مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي | Killer-Skills"
+    "en": "AI Agent Skills - Community Skills & Frameworks for AI Ag...",
+    "zh": "AI Agent Skills - AI Agent 构建者常用的社区技能与框架 | Killer-Skills",
+    "ja": "AI Agent Skills - AIエージェント開発者向けコミュニティスキル＆フレームワーク | Killer...",
+    "ko": "AI Agent Skills - AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크 | Killer...",
+    "es": "AI Agent Skills - skills y frameworks de la comunidad par...",
+    "fr": "AI Agent Skills - skills et frameworks communautaires pou...",
+    "de": "AI Agent Skills - Top-Community-Skills und Frameworks für...",
+    "pt": "AI Agent Skills - skills e frameworks da comunidade para ...",
+    "ru": "AI Agent Skills - community skills и фреймворки для разра...",
+    "ar": "AI Agent Skills - مهارات وأطر المجتمع لبناة وكلاء الذكاء ..."
   },
   "seoDescription": {
-    "en": "Explore community-driven skills, tools, and frameworks that help AI agent builders prototype faster, debug reliably, and ship with confidence.",
-    "zh": "探索由社区驱动的技能、工具与框架，帮助 AI Agent 开发者更快原型、稳定调试并可靠交付。",
-    "ja": "コミュニティ主導のスキル、ツール、フレームワークを活用し、AIエージェント開発の試作速度、デバッグ品質、リリースの確実性を高めます。",
-    "ko": "커뮤니티 기반 스킬, 도구, 프레임워크를 통해 AI 에이전트 빌더가 더 빠르게 프로토타이핑하고 안정적으로 디버깅하며 자신 있게 출시할 수 있습니다.",
-    "es": "Explora skills, herramientas y frameworks impulsados por la comunidad que ayudan a crear prototipos más rápido, depurar con confianza y lanzar mejor agentes de IA.",
-    "fr": "Découvrez des skills, outils et frameworks portés par la communauté pour prototyper plus vite, déboguer de façon fiable et livrer des agents IA avec confiance.",
-    "de": "Entdecke community-getriebene Skills, Tools und Frameworks, mit denen KI-Agent-Builders schneller prototypen, zuverlässig debuggen und sicher ausliefern.",
-    "pt": "Explore skills, ferramentas e frameworks orientados pela comunidade para prototipar mais rápido, depurar com confiabilidade e publicar agentes de IA com confiança.",
-    "ru": "Изучите community-ориентированные навыки, инструменты и фреймворки, которые помогают быстрее прототипировать, надежно отлаживать и уверенно выпускать ИИ-агентов.",
-    "ar": "استكشف مهارات وأدوات وأطرًا تقودها المجتمع تساعد بناة وكلاء الذكاء الاصطناعي على النمذجة السريعة والتصحيح الموثوق والإطلاق بثقة."
+    "en": "Installable AI agent skills for community developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 community AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの community AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 community AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de community en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur community dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für community Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em community no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в community для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات community داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "community ai tools",
-      "ai agent skills",
-      "open agent frameworks",
-      "agent developer workflow",
-      "community-built utilities"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
-    "zh": ["社区 AI 工具", "AI Agent 技能", "开源 Agent 框架", "Agent 开发工作流", "社区实用工具"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
+    ],
     "ja": [
-      "コミュニティAIツール",
-      "AIエージェント スキル",
-      "オープンエージェントフレームワーク",
-      "エージェント開発ワークフロー",
-      "コミュニティ製ユーティリティ"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "ko": [
-      "커뮤니티 AI 도구",
-      "AI 에이전트 스킬",
-      "오픈 에이전트 프레임워크",
-      "에이전트 개발 워크플로",
-      "커뮤니티 유틸리티"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "es": [
-      "herramientas comunitarias de IA",
-      "skills para agentes de IA",
-      "frameworks abiertos para agentes",
-      "workflow de desarrollo de agentes",
-      "utilidades creadas por la comunidad"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "fr": [
-      "outils IA communautaires",
-      "skills pour agents IA",
-      "frameworks ouverts pour agents",
-      "workflow de développement d’agents",
-      "utilitaires créés par la communauté"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "de": [
-      "Community-KI-Tools",
-      "KI-Agenten-Skills",
-      "offene Agenten-Frameworks",
-      "Agenten-Entwicklungsworkflow",
-      "community-entwickelte Utilities"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "pt": [
-      "ferramentas comunitárias de IA",
-      "skills para agentes de IA",
-      "frameworks abertos para agentes",
-      "workflow de desenvolvimento de agentes",
-      "utilitários da comunidade"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "ru": [
-      "community инструменты ИИ",
-      "навыки для ИИ-агентов",
-      "открытые фреймворки агентов",
-      "workflow разработки агентов",
-      "утилиты от сообщества"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ],
     "ar": [
-      "أدوات ذكاء اصطناعي مجتمعية",
-      "مهارات لوكلاء الذكاء الاصطناعي",
-      "أطر مفتوحة للوكلاء",
-      "سير عمل تطوير الوكلاء",
-      "أدوات مبنية من المجتمع"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "community AI agent skills",
+      "community developer workflow",
+      "community workflow automation"
     ]
   },
   "skills": [

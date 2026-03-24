@@ -1,8 +1,35 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { CATEGORY_GROUPS } from '../../../lib/search';
 
 export const prerender = false;
+
+function inferCategoryFromText(skill: any): string {
+  const topics = Array.isArray(skill?.topics) ? skill.topics.map((topic: unknown) => String(topic).toLowerCase()) : [];
+  const topicsSet = new Set(topics);
+  const textToSearch = `${skill?.name || ''} ${JSON.stringify(skill?.description || {})} ${topics.join(' ')}`.toLowerCase();
+
+  let bestCategory = '';
+  let bestScore = 0;
+
+  for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
+    let score = 0;
+    for (const keyword of keywords) {
+      const k = keyword.toLowerCase();
+      if (!k) continue;
+      if (topicsSet.has(k)) score += 10;
+      if (String(skill?.name || '').toLowerCase().includes(k)) score += 5;
+      if (textToSearch.includes(k)) score += 1;
+    }
+    if (score > bestScore) {
+      bestScore = score;
+      bestCategory = groupName;
+    }
+  }
+
+  return bestScore > 0 ? bestCategory : '';
+}
 
 /**
  * POST /api/admin/sync
@@ -45,29 +72,15 @@ export const POST: APIRoute = async ({ locals }) => {
 
     const batches = [];
     for (const skill of skills) {
-      // ⚡ Smart Categorization: Infer category from text if missing or 'community'
-      let assignedCategory = skill.category;
-      if (!assignedCategory || assignedCategory.toLowerCase() === 'community') {
-        const textToSearch = (
-          skill.name +
-          ' ' +
-          JSON.stringify(skill.description || {}) +
-          ' ' +
-          (skill.topics || []).join(' ')
-        ).toLowerCase();
-
-        for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-          if (keywords.some((k) => textToSearch.includes(k.toLowerCase()))) {
-            assignedCategory = groupName;
-            break;
-          }
-        }
-      }
+      const normalizedExplicitCategory = normalizeCategoryId(skill.category);
+      const shouldInfer = !normalizedExplicitCategory || normalizedExplicitCategory === 'community';
+      const inferredCategory = shouldInfer ? inferCategoryFromText(skill) : '';
+      const assignedCategory = normalizedExplicitCategory || inferredCategory || 'community';
 
       batches.push(
         stmt.bind(
           skill.id || `${skill.owner}/${skill.repo}`,
-          assignedCategory || 'community',
+          assignedCategory,
           skill.owner || '',
           skill.repo || '',
           skill.repoPath || '',

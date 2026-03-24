@@ -1,126 +1,158 @@
 {
   "title": {
-    "en": "Top OpenCode Workflow Tools & Companion Integrations",
-    "zh": "顶级 OpenCode 工作流工具与配套集成",
-    "ja": "OpenCode向けワークフローツール＆連携コンポーネント",
-    "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동",
-    "es": "Herramientas de workflow e integraciones companion para OpenCode",
-    "fr": "Outils workflow et intégrations companion pour OpenCode",
-    "de": "OpenCode-Workflow-Tools und Companion-Integrationen",
-    "pt": "Ferramentas de workflow e integrações companion para OpenCode",
-    "ru": "OpenCode workflow-инструменты и companion-интеграции",
-    "ar": "أدوات workflow وتكاملات مرافقة لـ OpenCode"
+    "en": "OpenCode Workflow Tools & Companion Integrations | AI Agent Skills",
+    "zh": "顶级 OpenCode 工作流工具与配套集成 | AI Agent Skills",
+    "ja": "OpenCode向けワークフローツール＆連携コンポーネント | AI Agent Skills",
+    "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동 | AI Agent Skills",
+    "es": "Herramientas de workflow e integraciones companion para OpenCode | AI Agent Skills",
+    "fr": "Outils workflow et intégrations companion pour OpenCode | AI Agent Skills",
+    "de": "OpenCode-Workflow-Tools und Companion-Integrationen | AI Agent Skills",
+    "pt": "Ferramentas de workflow e integrações companion para OpenCode | AI Agent Skills",
+    "ru": "OpenCode workflow-инструменты и companion-интеграции | AI Agent Skills",
+    "ar": "أدوات workflow وتكاملات مرافقة لـ OpenCode | AI Agent Skills"
   },
   "description": {
-    "en": "A curated collection of OpenCode-oriented tooling for developer workflows: reusable skills, project automation components, and companion integrations for code quality, documentation flow, and delivery operations.",
-    "zh": "面向 OpenCode 场景的开发工作流工具合集：提供可复用技能、项目自动化组件与配套集成，覆盖代码质量、文档流转与交付运维。",
-    "ja": "OpenCodeを活用する開発ワークフロー向けに、再利用スキル、プロジェクト自動化コンポーネント、コード品質・ドキュメント運用・デリバリーを支える連携ツールを厳選しました。",
-    "ko": "OpenCode 중심 개발 워크플로우를 위한 큐레이션입니다. 재사용 스킬, 프로젝트 자동화 컴포넌트, 코드 품질·문서 흐름·전달 운영을 위한 컴패니언 연동을 제공합니다.",
-    "es": "Colección curada de tooling orientado a OpenCode para workflows de desarrollo: skills reutilizables, componentes de automatización de proyectos e integraciones companion para calidad de código, documentación y entrega.",
-    "fr": "Collection curée d’outillage orienté OpenCode pour workflows de développement: skills réutilisables, composants d’automatisation projet et intégrations companion pour qualité du code, documentation et delivery.",
-    "de": "Kuratiertes OpenCode-orientiertes Tooling für Entwickler-Workflows: wiederverwendbare Skills, Projekt-Automationskomponenten und Companion-Integrationen für Codequalität, Dokumentationsfluss und Delivery.",
-    "pt": "Coleção curada de tooling orientado a OpenCode para workflows de desenvolvimento: skills reutilizáveis, componentes de automação de projetos e integrações companion para qualidade de código, documentação e entrega.",
-    "ru": "Кураторская подборка OpenCode-ориентированного tooling для developer-workflow: переиспользуемые skills, компоненты project automation и companion-интеграции для качества кода, документации и delivery.",
-    "ar": "مجموعة منتقاة من الأدوات الموجهة لـ OpenCode ضمن سير عمل التطوير: مهارات قابلة لإعادة الاستخدام، ومكونات أتمتة المشاريع، وتكاملات مرافقة لجودة الكود وتدفق التوثيق وعمليات التسليم."
+    "en": "Installable AI agent skills for opencode companion integrations developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 opencode companion integrations AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの opencode companion integrations AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 opencode companion integrations AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de opencode companion integrations en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur opencode companion integrations dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für opencode companion integrations Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em opencode companion integrations no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в opencode companion integrations для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات opencode companion integrations داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top OpenCode Workflow Tools & Companion Integrations | Killer-Skills",
-    "zh": "OpenCode 开发者工作流工具与技能 | Killer-Skills",
-    "ja": "OpenCode向け開発ワークフローツール＆スキル | Killer-Skills",
-    "ko": "OpenCode 개발 워크플로우 도구 & 스킬 | Killer-Skills",
-    "es": "Herramientas y skills de workflow OpenCode | Killer-Skills",
-    "fr": "Outils et skills workflow OpenCode | Killer-Skills",
-    "de": "OpenCode Workflow-Tools & Skills | Killer-Skills",
-    "pt": "Ferramentas e skills de workflow OpenCode | Killer-Skills",
-    "ru": "Инструменты и skills OpenCode workflow | Killer-Skills",
-    "ar": "أدوات ومهارات سير عمل OpenCode للمطورين | Killer-Skills"
+    "en": "AI Agent Skills - OpenCode Workflow Tools & Companion Int...",
+    "zh": "AI Agent Skills - 顶级 OpenCode 工作流工具与配套集成 | Killer-Skills",
+    "ja": "AI Agent Skills - OpenCode向けワークフローツール＆連携コンポーネント | Killer-...",
+    "ko": "AI Agent Skills - OpenCode 워크플로우 도구 & 컴패니언 연동 | Killer-Sk...",
+    "es": "AI Agent Skills - Herramientas de workflow e integracione...",
+    "fr": "AI Agent Skills - Outils workflow et intégrations compani...",
+    "de": "AI Agent Skills - OpenCode-Workflow-Tools und Companion-I...",
+    "pt": "AI Agent Skills - Ferramentas de workflow e integrações c...",
+    "ru": "AI Agent Skills - OpenCode workflow-инструменты и compani...",
+    "ar": "AI Agent Skills - أدوات workflow وتكاملات مرافقة لـ OpenC..."
   },
   "seoDescription": {
-    "en": "Find OpenCode companion tooling and workflow skills for automation, code quality, documentation sync, and delivery-focused engineering.",
-    "zh": "查找 OpenCode 配套工具与工作流技能，支持自动化、代码质量、文档同步与以交付为导向的工程实践。",
-    "ja": "自動化、コード品質、ドキュメント同期、デリバリー志向の開発を支えるOpenCode向け補助ツールとワークフロースキルを紹介。",
-    "ko": "자동화, 코드 품질, 문서 동기화, 전달 중심 엔지니어링을 위한 OpenCode 컴패니언 도구와 워크플로우 스킬을 찾아보세요.",
-    "es": "Encuentra tooling companion y skills de workflow para OpenCode en automatización, calidad de código, sync de documentación y entrega de software.",
-    "fr": "Trouvez du tooling companion et des skills workflow OpenCode pour automatisation, qualité du code, sync documentation et delivery logiciel.",
-    "de": "Finde OpenCode-Companion-Tooling und Workflow-Skills für Automatisierung, Codequalität, Dokumentations-Sync und delivery-orientiertes Engineering.",
-    "pt": "Encontre tooling companion e skills de workflow OpenCode para automação, qualidade de código, sincronização de documentação e engenharia orientada à entrega.",
-    "ru": "Найдите OpenCode companion-tooling и workflow-skills для автоматизации, качества кода, синхронизации документации и delivery-ориентированной разработки.",
-    "ar": "اعثر على أدوات OpenCode المرافقة ومهارات workflow للأتمتة وجودة الكود ومزامنة التوثيق والهندسة الموجّهة للتسليم."
+    "en": "Installable AI agent skills for opencode companion integrations developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 opencode companion integrations AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの opencode companion integrations AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 opencode companion integrations AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de opencode companion integrations en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur opencode companion integrations dans Claude Code, Cursor et Windsurf. Killer-S...",
+    "de": "Installierbare AI Agent Skills für opencode companion integrations Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em opencode companion integrations no Claude Code, Cursor e Windsurf. Killer-Sk...",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в opencode companion integrations для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات opencode companion integrations داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "opencode tools",
-      "developer workflows",
-      "automation skills",
-      "code quality tooling",
-      "documentation sync",
-      "companion integrations"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
-    "zh": ["OpenCode 工具", "开发者工作流", "自动化技能", "代码质量工具", "文档同步", "配套集成"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
+    ],
     "ja": [
-      "opencode tools",
-      "developer workflows",
-      "automation skills",
-      "code quality tooling",
-      "documentation sync",
-      "companion integrations"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "ko": [
-      "opencode tools",
-      "developer workflows",
-      "automation skills",
-      "code quality tooling",
-      "documentation sync",
-      "companion integrations"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "es": [
-      "herramientas opencode",
-      "workflows developer",
-      "skills de automatización",
-      "tooling de calidad de código",
-      "sync de documentación",
-      "integraciones companion"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "fr": [
-      "outils opencode",
-      "workflows développeur",
-      "skills d’automatisation",
-      "tooling qualité code",
-      "sync documentation",
-      "intégrations companion"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "de": [
-      "OpenCode Tools",
-      "Developer-Workflows",
-      "Automatisierungs-Skills",
-      "Codequalitäts-Tooling",
-      "Dokumentations-Sync",
-      "Companion-Integrationen"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "pt": [
-      "ferramentas opencode",
-      "workflows developer",
-      "skills de automação",
-      "tooling de qualidade de código",
-      "sincronização de documentação",
-      "integrações companion"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
     "ru": [
-      "opencode tools",
-      "developer workflows",
-      "automation skills",
-      "code quality tooling",
-      "documentation sync",
-      "companion integrations"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
     ],
-    "ar": ["أدوات OpenCode", "سير عمل المطور", "مهارات الأتمتة", "أدوات جودة الكود", "مزامنة التوثيق", "تكاملات مرافقة"]
+    "ar": [
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "opencode companion integrations AI agent skills",
+      "opencode companion integrations developer workflow",
+      "opencode companion integrations workflow automation"
+    ]
   },
   "featured": false,
   "canonicalSlug": "top-opencode-workflow-tools-companion-integrations",
-  "legacySlugs": ["top-opencode-mcp-servers"],
+  "legacySlugs": [
+    "top-opencode-mcp-servers"
+  ],
   "category": "opencode",
   "author": "Killer-Skills AI",
-  "skills": ["Soju06/codex-lb", "dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
+  "skills": [
+    "Soju06/codex-lb",
+    "dkapellusch/AO",
+    "ssdeanx/AgentStack",
+    "lbb00/ai-rules-sync",
+    "lorehq/lore"
+  ],
   "longDescription": {
     "en": "OpenCode workflows need more than a simple tool list. This collection highlights practical skills, integrations, and automation components that support real engineering outcomes: code quality controls, documentation consistency, and smoother delivery operations. MCP-enabled features may be present in selected items, but the page is designed as developer workflow guidance first, with tooling value tied to day-to-day execution.",
     "zh": "OpenCode 工作流需要的不只是工具罗列。本专题强调能够落地产出的技能、集成与自动化组件，帮助你在代码质量控制、文档一致性与交付运维上获得实效。部分条目可含 MCP 能力，但页面首先是面向开发者工作流的方法与选型参考，强调日常执行价值。",

@@ -1,103 +1,149 @@
 {
   "title": {
-    "en": "Top JetBrains-Compatible Skills & IDE Workflow Integrations",
-    "zh": "JetBrains 兼容技能与 IDE 工作流集成精选",
-    "ja": "JetBrains対応スキルとIDEワークフロー連携集",
-    "ko": "JetBrains 호환 스킬 및 IDE 워크플로 통합 모음",
-    "es": "Skills compatibles con JetBrains e integraciones de workflow IDE",
-    "fr": "Skills compatibles JetBrains et intégrations de workflow IDE",
-    "de": "JetBrains-kompatible Skills und IDE-Workflow-Integrationen",
-    "pt": "Skills compatíveis com JetBrains e integrações de workflow IDE",
-    "ru": "Навыки для JetBrains и интеграции IDE-процессов",
-    "ar": "مهارات متوافقة مع JetBrains وتكاملات سير عمل IDE"
+    "en": "JetBrains-Compatible Skills & IDE Workflow Integrations | AI Agent Skills",
+    "zh": "JetBrains 兼容技能与 IDE 工作流集成精选 | AI Agent Skills",
+    "ja": "JetBrains対応スキルとIDEワークフロー連携集 | AI Agent Skills",
+    "ko": "JetBrains 호환 스킬 및 IDE 워크플로 통합 모음 | AI Agent Skills",
+    "es": "Skills compatibles con JetBrains e integraciones de workflow IDE | AI Agent Skills",
+    "fr": "Skills compatibles JetBrains et intégrations de workflow IDE | AI Agent Skills",
+    "de": "JetBrains-kompatible Skills und IDE-Workflow-Integrationen | AI Agent Skills",
+    "pt": "Skills compatíveis com JetBrains e integrações de workflow IDE | AI Agent Skills",
+    "ru": "Навыки для JetBrains и интеграции IDE-процессов | AI Agent Skills",
+    "ar": "مهارات متوافقة مع JetBrains وتكاملات سير عمل IDE | AI Agent Skills"
   },
   "description": {
-    "en": "Discover JetBrains-friendly skills and integrations for IntelliJ-based workflows, from coding assistance to project operations.",
-    "zh": "聚焦 IntelliJ 系列场景，提供 JetBrains 友好的技能与集成能力，覆盖编码辅助到项目运维流程。",
-    "ja": "IntelliJ系ワークフロー向けに、コーディング支援から運用作業まで対応するJetBrains向けスキルと連携を集約。",
-    "ko": "IntelliJ 기반 워크플로에 맞춰 코딩 지원부터 프로젝트 운영 작업까지 연결하는 JetBrains 친화형 스킬과 통합을 제공합니다.",
-    "es": "Encuentra skills e integraciones para JetBrains e IntelliJ que cubren desde asistencia de código hasta operaciones del proyecto.",
-    "fr": "Retrouvez des skills et intégrations JetBrains/IntelliJ couvrant l’assistance au code jusqu’aux opérations de projet.",
-    "de": "Finde JetBrains- und IntelliJ-taugliche Skills sowie Integrationen von Coding-Unterstützung bis zu Projekt-Operations.",
-    "pt": "Encontre skills e integrações para JetBrains/IntelliJ, da assistência de código às operações do projeto.",
-    "ru": "Подборка совместимых с JetBrains и IntelliJ навыков и интеграций: от помощи при кодировании до проектных операций.",
-    "ar": "اكتشف مهارات وتكاملات مناسبة لبيئة JetBrains وIntelliJ، من مساعدة البرمجة إلى مهام تشغيل المشاريع."
+    "en": "Installable AI agent skills for jetbrains compatible developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 jetbrains compatible AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの jetbrains compatible AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 jetbrains compatible AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de jetbrains compatible en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur jetbrains compatible dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für jetbrains compatible Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em jetbrains compatible no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в jetbrains compatible для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات jetbrains compatible داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top JetBrains-Compatible Skills & IDE Workflow Integrations | Killer-Skills",
-    "zh": "JetBrains 兼容技能与 IDE 集成 | Killer-Skills",
-    "ja": "JetBrains対応スキルとIDE連携 | Killer-Skills",
-    "ko": "JetBrains 호환 스킬 및 IDE 통합 | Killer-Skills",
-    "es": "Skills compatibles con JetBrains e integraciones IDE | Killer-Skills",
-    "fr": "Skills compatibles JetBrains et intégrations IDE | Killer-Skills",
-    "de": "JetBrains-Skills und IDE-Integrationen | Killer-Skills",
-    "pt": "Skills para JetBrains e integrações IDE | Killer-Skills",
-    "ru": "Совместимые с JetBrains навыки и IDE-интеграции | Killer-Skills",
-    "ar": "مهارات متوافقة مع JetBrains وتكاملات IDE | Killer-Skills"
+    "en": "AI Agent Skills - JetBrains-Compatible Skills & IDE Workf...",
+    "zh": "AI Agent Skills - JetBrains 兼容技能与 IDE 工作流集成精选 | Killer-Sk...",
+    "ja": "AI Agent Skills - JetBrains対応スキルとIDEワークフロー連携集 | Killer-Sk...",
+    "ko": "AI Agent Skills - JetBrains 호환 스킬 및 IDE 워크플로 통합 모음 | Kill...",
+    "es": "AI Agent Skills - Skills compatibles con JetBrains e inte...",
+    "fr": "AI Agent Skills - Skills compatibles JetBrains et intégra...",
+    "de": "AI Agent Skills - JetBrains-kompatible Skills und IDE-Wor...",
+    "pt": "AI Agent Skills - Skills compatíveis com JetBrains e inte...",
+    "ru": "AI Agent Skills - Навыки для JetBrains и интеграции IDE-п...",
+    "ar": "AI Agent Skills - مهارات متوافقة مع JetBrains وتكاملات سي..."
   },
   "seoDescription": {
-    "en": "A practical set of JetBrains-compatible skills, companion integrations, and workflow tooling for real IDE-based development.",
-    "zh": "面向真实 IDE 开发流程的 JetBrains 兼容技能、配套集成与工作流工具集合。",
-    "ja": "実際のIDE開発フローで使えるJetBrains対応スキル、補助連携、ワークフローツールを厳選。",
-    "ko": "실제 IDE 기반 개발 흐름에 맞춘 JetBrains 호환 스킬, 보조 통합, 워크플로 도구 모음입니다.",
-    "es": "Conjunto práctico de skills compatibles con JetBrains, integraciones complementarias y tooling para desarrollo real en IDE.",
-    "fr": "Ensemble pratique de skills compatibles JetBrains, intégrations compagnons et outils de workflow pour un développement IDE réel.",
-    "de": "Praxisnahe Auswahl JetBrains-kompatibler Skills, Begleit-Integrationen und Workflow-Tools für echte IDE-Entwicklung.",
-    "pt": "Conjunto prático de skills compatíveis com JetBrains, integrações complementares e tooling para desenvolvimento real em IDE.",
-    "ru": "Практичная подборка совместимых с JetBrains навыков, вспомогательных интеграций и инструментов под реальные IDE-процессы.",
-    "ar": "مجموعة عملية من المهارات المتوافقة مع JetBrains والتكاملات المساندة وأدوات سير العمل لتطوير IDE الحقيقي."
+    "en": "Installable AI agent skills for jetbrains compatible developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 jetbrains compatible AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの jetbrains compatible AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 jetbrains compatible AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de jetbrains compatible en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur jetbrains compatible dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für jetbrains compatible Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em jetbrains compatible no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в jetbrains compatible для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات jetbrains compatible داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "jetbrains compatible skills",
-      "intellij workflow tools",
-      "ide integrations",
-      "developer productivity",
-      "mcp workflow"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
-    "zh": ["JetBrains 兼容技能", "IntelliJ 工作流工具", "IDE 集成", "开发者效率", "MCP 工作流"],
-    "ja": ["JetBrains対応スキル", "IntelliJワークフローツール", "IDE連携", "開発生産性", "MCPワークフロー"],
-    "ko": ["JetBrains 호환 스킬", "IntelliJ 워크플로 도구", "IDE 통합", "개발 생산성", "MCP 워크플로"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
+    ],
+    "ja": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
+    ],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
+    ],
     "es": [
-      "skills compatibles JetBrains",
-      "herramientas workflow IntelliJ",
-      "integraciones IDE",
-      "productividad developer",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
     "fr": [
-      "skills compatibles JetBrains",
-      "outils de workflow IntelliJ",
-      "intégrations IDE",
-      "productivité développeur",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
     "de": [
-      "JetBrains-kompatible Skills",
-      "IntelliJ-Workflow-Tools",
-      "IDE-Integrationen",
-      "Entwicklerproduktivität",
-      "MCP-Workflow"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
     "pt": [
-      "skills compatíveis com JetBrains",
-      "ferramentas de workflow IntelliJ",
-      "integrações IDE",
-      "produtividade dev",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
     "ru": [
-      "навыки для JetBrains",
-      "инструменты рабочего процесса IntelliJ",
-      "интеграции IDE",
-      "продуктивность разработчика",
-      "MCP workflow"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
     ],
-    "ar": ["مهارات متوافقة مع JetBrains", "أدوات سير عمل IntelliJ", "تكاملات IDE", "إنتاجية المطور", "سير عمل MCP"]
+    "ar": [
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "jetbrains compatible AI agent skills",
+      "jetbrains compatible developer workflow",
+      "jetbrains compatible workflow automation"
+    ]
   },
   "featured": false,
   "canonicalSlug": "jetbrains-compatible-skills",
-  "legacySlugs": ["top-mcp-for-jetbrains"],
+  "legacySlugs": [
+    "top-mcp-for-jetbrains"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

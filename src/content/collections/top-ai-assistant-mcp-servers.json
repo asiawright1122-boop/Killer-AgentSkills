@@ -1,123 +1,149 @@
 {
   "title": {
-    "en": "Top AI Assistant Workflow Tools for Developers",
-    "zh": "面向开发者的顶级 AI 助手工作流工具",
-    "ja": "開発者向けAIアシスタント・ワークフローツール",
-    "ko": "개발자를 위한 AI 어시스턴트 워크플로우 도구",
-    "es": "Herramientas de workflow para asistentes de IA",
-    "fr": "Outils de workflow pour assistants IA",
-    "de": "Workflow-Tools für KI-Assistenten",
-    "pt": "Ferramentas de workflow para assistentes de IA",
-    "ru": "Инструменты workflow для AI-ассистентов",
-    "ar": "أدوات سير العمل لمساعدي الذكاء الاصطناعي"
+    "en": "AI Assistant Workflow Tools for Developers | AI Agent Skills",
+    "zh": "面向开发者的顶级 AI 助手工作流工具 | AI Agent Skills",
+    "ja": "開発者向けAIアシスタント・ワークフローツール | AI Agent Skills",
+    "ko": "개발자를 위한 AI 어시스턴트 워크플로우 도구 | AI Agent Skills",
+    "es": "Herramientas de workflow para asistentes de IA | AI Agent Skills",
+    "fr": "Outils de workflow pour assistants IA | AI Agent Skills",
+    "de": "Workflow-Tools für KI-Assistenten | AI Agent Skills",
+    "pt": "Ferramentas de workflow para assistentes de IA | AI Agent Skills",
+    "ru": "Инструменты workflow для AI-ассистентов | AI Agent Skills",
+    "ar": "أدوات سير العمل لمساعدي الذكاء الاصطناعي | AI Agent Skills"
   },
   "description": {
-    "en": "A practical collection of AI assistant tools, skills, and integrations for daily developer workflows. Compare companion tooling for code, docs, automation, and team operations across modern assistant ecosystems.",
-    "zh": "面向日常开发流程的实用 AI 助手工具、技能与集成合集。可对比代码、文档、自动化与团队协作场景下的配套工具能力。",
-    "ja": "日々の開発業務で使えるAIアシスタント向けツール、スキル、連携を実践重視で厳選。コード、ドキュメント、自動化、チーム運用に役立つ補助ツールを比較できます。",
-    "ko": "일상적인 개발 업무에 맞춘 AI 어시스턴트 도구, 스킬, 연동 모음입니다. 코드·문서·자동화·팀 운영에 필요한 컴패니언 툴링을 비교할 수 있습니다.",
-    "es": "Colección práctica de herramientas, skills e integraciones para asistentes de IA en el trabajo diario de desarrollo. Compara tooling companion para código, documentación, automatización y operación de equipos.",
-    "fr": "Collection pratique d’outils, skills et intégrations pour assistants IA dans les workflows de développement quotidiens. Comparez le tooling companion pour le code, la documentation, l’automatisation et l’opération d’équipe.",
-    "de": "Praxisnahe Sammlung von Tools, Skills und Integrationen für KI-Assistenten im Entwickleralltag. Vergleiche Companion-Tooling für Code, Doku, Automatisierung und Teamprozesse.",
-    "pt": "Coleção prática de ferramentas, skills e integrações para assistentes de IA no dia a dia de desenvolvimento. Compare tooling companion para código, documentação, automação e operação de times.",
-    "ru": "Практичная подборка инструментов, skills и интеграций для AI-ассистентов в ежедневной разработке. Сравнивайте companion-tooling для кода, документации, автоматизации и командных процессов.",
-    "ar": "مجموعة عملية من الأدوات والمهارات والتكاملات لمساعدي الذكاء الاصطناعي في سير عمل التطوير اليومي. قارن أدوات مرافقة للكود والتوثيق والأتمتة وتشغيل الفرق."
+    "en": "Installable AI agent skills for assistant developers developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 assistant developers AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur assistant developers dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für assistant developers Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em assistant developers no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в assistant developers для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات assistant developers داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top AI Assistant Workflow Tools for Developers | Killer-Skills",
-    "zh": "开发者工作流中的 AI 助手工具 | Killer-Skills",
-    "ja": "開発ワークフロー向けAIアシスタントツール | Killer-Skills",
-    "ko": "개발 워크플로우용 AI 어시스턴트 도구 | Killer-Skills",
-    "es": "Herramientas de asistentes IA para developers | Killer-Skills",
-    "fr": "Outils d’assistants IA pour développeurs | Killer-Skills",
-    "de": "KI-Assistenten-Tools für Entwickler-Workflows | Killer-Skills",
-    "pt": "Ferramentas de assistentes IA para workflows dev | Killer-Skills",
-    "ru": "AI-assistant tools для developer-workflow | Killer-Skills",
-    "ar": "أدوات مساعدي الذكاء الاصطناعي لسير عمل المطورين | Killer-Skills"
+    "en": "AI Agent Skills - AI Assistant Workflow Tools for Develop...",
+    "zh": "AI Agent Skills - 面向开发者的顶级 AI 助手工作流工具 | Killer-Skills",
+    "ja": "AI Agent Skills - 開発者向けAIアシスタント・ワークフローツール | Killer-Skills",
+    "ko": "AI Agent Skills - 개발자를 위한 AI 어시스턴트 워크플로우 도구 | Killer-Skills",
+    "es": "AI Agent Skills - Herramientas de workflow para asistente...",
+    "fr": "AI Agent Skills - Outils de workflow pour assistants IA |...",
+    "de": "AI Agent Skills - Workflow-Tools für KI-Assistenten | Kil...",
+    "pt": "AI Agent Skills - Ferramentas de workflow para assistente...",
+    "ru": "AI Agent Skills - Инструменты workflow для AI-ассистентов...",
+    "ar": "AI Agent Skills - أدوات سير العمل لمساعدي الذكاء الاصطناع..."
   },
   "seoDescription": {
-    "en": "Find AI assistant tooling, reusable skills, and integrations that improve coding, documentation, and team automation workflows.",
-    "zh": "查找可提升编码、文档与团队自动化流程的 AI 助手工具、可复用技能与集成能力。",
-    "ja": "コーディング、ドキュメント作成、チーム自動化を改善するAIアシスタント向けツール、再利用スキル、連携機能を探せます。",
-    "ko": "코딩·문서화·팀 자동화 워크플로우를 개선하는 AI 어시스턴트 툴링, 재사용 스킬, 연동 기능을 찾아보세요.",
-    "es": "Encuentra tooling de asistentes de IA, skills reutilizables e integraciones para mejorar código, documentación y automatización de equipo.",
-    "fr": "Trouvez du tooling d’assistant IA, des skills réutilisables et des intégrations pour améliorer code, documentation et automatisation d’équipe.",
-    "de": "Finde KI-Assistenten-Tooling, wiederverwendbare Skills und Integrationen für bessere Coding-, Doku- und Team-Automatisierungsprozesse.",
-    "pt": "Encontre tooling de assistentes de IA, skills reutilizáveis e integrações para melhorar código, documentação e automação de equipe.",
-    "ru": "Найдите AI-assistant tooling, переиспользуемые skills и интеграции для улучшения кода, документации и командной автоматизации.",
-    "ar": "اعثر على أدوات مساعد ذكي ومهارات قابلة لإعادة الاستخدام وتكاملات تحسّن البرمجة والتوثيق وأتمتة الفريق."
+    "en": "Installable AI agent skills for assistant developers developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 assistant developers AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur assistant developers dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für assistant developers Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em assistant developers no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в assistant developers для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات assistant developers داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "ai assistant tools",
-      "developer workflows",
-      "automation skills",
-      "coding assistants",
-      "workflow integrations",
-      "team tooling"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
-    "zh": ["AI 助手工具", "开发者工作流", "自动化技能", "编码助手", "流程集成", "团队工具链"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
+    ],
     "ja": [
-      "ai assistant tools",
-      "developer workflows",
-      "automation skills",
-      "coding assistants",
-      "workflow integrations",
-      "team tooling"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "ko": [
-      "ai assistant tools",
-      "developer workflows",
-      "automation skills",
-      "coding assistants",
-      "workflow integrations",
-      "team tooling"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "es": [
-      "herramientas de asistente IA",
-      "workflows de desarrollo",
-      "skills de automatización",
-      "asistentes de código",
-      "integraciones",
-      "tooling de equipo"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "fr": [
-      "outils assistant IA",
-      "workflows développeur",
-      "skills d’automatisation",
-      "assistant de code",
-      "intégrations",
-      "tooling d’équipe"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "de": [
-      "KI-Assistenten-Tools",
-      "Entwickler-Workflows",
-      "Automatisierungs-Skills",
-      "Coding-Assistent",
-      "Integrationen",
-      "Team-Tooling"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "pt": [
-      "ferramentas de assistente IA",
-      "workflows de desenvolvimento",
-      "skills de automação",
-      "assistente de código",
-      "integrações",
-      "tooling de time"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
     "ru": [
-      "инструменты AI-ассистента",
-      "developer workflows",
-      "skills автоматизации",
-      "помощник по коду",
-      "интеграции",
-      "team tooling"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
     ],
-    "ar": ["أدوات مساعد الذكاء الاصطناعي", "سير عمل المطور", "مهارات الأتمتة", "مساعد برمجة", "تكاملات", "أدوات الفريق"]
+    "ar": [
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "assistant developers AI agent skills",
+      "assistant developers developer workflow",
+      "assistant developers workflow automation"
+    ]
   },
   "featured": false,
   "canonicalSlug": "top-ai-assistant-workflow-tools-developers",
-  "legacySlugs": ["top-ai-assistant-mcp-servers"],
+  "legacySlugs": [
+    "top-ai-assistant-mcp-servers"
+  ],
   "category": "ai-assistant",
   "author": "Killer-Skills AI",
   "skills": [

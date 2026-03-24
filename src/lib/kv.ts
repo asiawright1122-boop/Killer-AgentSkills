@@ -62,6 +62,9 @@ type D1Row = Record<string, unknown>;
 
 let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
+let _sitemapSkillsCache: { owner: string; repo: string; updatedAt?: string }[] | null = null;
+let _sitemapSkillsCacheTime = 0;
+const SITEMAP_SKILLS_CACHE_TTL_MS = 5 * 60 * 1000;
 
 function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
   if (!row || typeof row !== 'object') return null;
@@ -577,6 +580,10 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
  * usage: await getSitemapSkillsFromKV(context.locals.runtime.env)
  */
 export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string; repo: string; updatedAt?: string }[]> {
+  if (_sitemapSkillsCache && Date.now() - _sitemapSkillsCacheTime < SITEMAP_SKILLS_CACHE_TTL_MS) {
+    return _sitemapSkillsCache;
+  }
+
   const GITHUB_OWNER_RE = /^[a-z\d](?:[a-z\d-]{0,38})$/i;
   const GITHUB_REPO_RE = /^[A-Za-z0-9._-]{1,100}$/;
   const MIN_INDEXABLE_SKILL_README_BYTES = 200;
@@ -735,7 +742,10 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
          WHERE owner IS NOT NULL AND repo IS NOT NULL`,
       ).all();
       if (result.success && result.results) {
-        return normalizeAndDedupe(result.results as unknown[]);
+        const normalized = normalizeAndDedupe(result.results as unknown[]);
+        _sitemapSkillsCache = normalized;
+        _sitemapSkillsCacheTime = Date.now();
+        return normalized;
       }
     } catch (e) {
       console.error('[D1] Error reading sitemap skills from D1:', e);
@@ -753,7 +763,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
         const content = fs.readFileSync(mainCachePath, 'utf-8');
         const data = JSON.parse(content);
         const skills = Array.isArray(data) ? data : data.skills || [];
-        return normalizeAndDedupe(
+        const normalized = normalizeAndDedupe(
           skills.map((s: Record<string, unknown>) => {
             const skillMd = s.skillMd as Record<string, unknown> | null | undefined;
             const seo = s.seo as Record<string, unknown> | null | undefined;
@@ -773,6 +783,9 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
             };
           }),
         );
+        _sitemapSkillsCache = normalized;
+        _sitemapSkillsCacheTime = Date.now();
+        return normalized;
       }
 
       const sitemapPath = path.resolve(process.cwd(), 'data/sitemap-skills.json');
@@ -780,12 +793,20 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
         const content = fs.readFileSync(sitemapPath, 'utf-8');
         const data = JSON.parse(content);
         if (Array.isArray(data)) {
-          return normalizeAndDedupe(data, { skipReadmeFilter: true });
+          const normalized = normalizeAndDedupe(data, { skipReadmeFilter: true });
+          _sitemapSkillsCache = normalized;
+          _sitemapSkillsCacheTime = Date.now();
+          return normalized;
         }
       }
     } catch (e) {
       console.warn('[Local] Failed to read local sitemap skills cache:', e);
     }
+  }
+
+  if (_sitemapSkillsCache) {
+    console.warn('[Sitemap] Falling back to stale in-memory sitemap cache');
+    return _sitemapSkillsCache;
   }
 
   console.warn('[Sitemap] No data source available for sitemap');

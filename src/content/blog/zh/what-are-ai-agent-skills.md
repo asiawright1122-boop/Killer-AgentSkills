@@ -1,18 +1,18 @@
 ---
-title: "AI 代理技能是什么，它们为什么重要？"
-description: "AI 代理技能是可重用的指令文件，告诉诸如 Claude、Cursor 和 Windsurf 之类的编码代理如何执行特定工作。这里介绍了它们是什么、如何工作以及何时实际上有帮助。"
+title: "AI 智能体技能是什么，它们为什么重要？"
+description: "AI 智能体技能是可复用的 SKILL.md 指令文件，告诉 Claude Code、Cursor 和 Windsurf 等 AI 编码助手如何执行特定工作。了解它们是什么、如何工作以及何时真正有帮助。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "SKILL.md", "Claude Code", "Cursor", "Developer Tools", "Automation"]
 lang: "zh"
 featured: true
-category: ""
-heroImage: ""
+category: "guides"
+heroImage: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2560&auto=format&fit=crop"
 ---
 
-# 什么是 AI 代理技能？
+# 什么是 AI 智能体技能？
 
-你是否曾要求你的 AI 编码代理“为这个模块编写测试”，结果它却写出了一些完全通用、忽略了你项目独特架构的东西？
+你是否曾要求你的 AI 编码助手“为这个模块编写测试”，结果它却写出了一些完全通用、忽略了你项目独特架构的东西？
 ## 什么是 AI 智能体技能？
 
 **AI 智能体技能** 是一种专门的 Markdown 文件（通常命名为 `SKILL.md`），它为像 Claude、Cursor 和 Windsurf 这样的编码助手提供特定领域的指令。通过将这些文件放置在您的项目目录中，智能体可以自动学习您特定的约定、工作流程和规则，而无需重复提示。
@@ -104,17 +104,17 @@ npx killer-skills add anthropics/skills/pdf
 这会将 `SKILL.md` 文件复制到您项目的 `skills` 目录中。智能体将在下一次对话时自动识别并使用它。
 ## 编写专属技能
 
-最好的技能往往源于挫败感。当你的代理反复犯同一个错误时，这就是需要为其创建技能的明确信号。
+最好的技能往往源于挫败感。当你的 AI 助手反复犯同一个错误时，这就是需要为其创建技能的明确信号。
 
-从简单的开始。针对某个具体场景写下十行规范：「在本项目中编写 API 路由时，请始终使用我们的 `withAuth` 包装器并按指定格式返回错误」。这短短一条指令就能避免你每次手动纠正代理。
+从简单的开始。针对某个具体场景写下十行规范：「在本项目中编写 API 路由时，请始终使用我们的 `withAuth` 包装器并按指定格式返回错误」。这短短一条指令就能避免你每次手动纠正 AI 助手。
 
 随着规则不断补充，这个文件会逐渐扩展。我们内部一些最实用的技能最初只是五行的简短说明，后来逐渐发展成完整的参考文档。
 ## 下一步计划
 
-技能功能仍处于早期阶段。不同智能体之间的格式尚未标准化，错误处理机制较为原始，可发现性也有限。但核心理念（为你的AI助手提供关于项目的书面指令）将会持续存在。
+技能功能仍处于早期阶段。不同智能体之间的格式尚未标准化，错误处理机制较为原始，可发现性也有限。但核心理念（为你的 AI 助手提供关于项目的书面指令）将会持续存在。
 
 如果你想浏览现有技能或发布自己的技能，请查看[技能目录](/zh/skills)。目前已有超过2,500个社区贡献的技能，涵盖从数据库管理到UI设计的各个领域。
 
 ---
 
-*相关阅读：[如何通过代理技能构建MCP服务器](/zh/blog/how-to-build-mcp-servers-with-agent-skills) 和 [创建自定义AI代理技能](/zh/blog/create-custom-ai-agent-skills)*
+*相关阅读：[如何通过智能体技能构建 MCP 服务器](/zh/blog/how-to-build-mcp-servers-with-agent-skills) 和 [创建自定义 AI 智能体技能](/zh/blog/create-custom-ai-agent-skills)*

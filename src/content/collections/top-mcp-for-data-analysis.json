@@ -1,109 +1,149 @@
 {
   "title": {
-    "en": "Top Data Workflow & Analysis Tools",
-    "zh": "数据工作流与分析工具精选",
-    "ja": "データワークフローと分析ツール集",
-    "ko": "데이터 워크플로 및 분석 도구 모음",
-    "es": "Herramientas de workflow y análisis de datos",
-    "fr": "Outils de workflow et d’analyse de données",
-    "de": "Tools für Daten-Workflows und Analyse",
-    "pt": "Ferramentas de workflow e análise de dados",
-    "ru": "Инструменты для data-workflow и аналитики",
-    "ar": "أدوات سير عمل البيانات والتحليل"
+    "en": "Data Workflow & Analysis Tools | AI Agent Skills",
+    "zh": "数据工作流与分析工具精选 | AI Agent Skills",
+    "ja": "データワークフローと分析ツール集 | AI Agent Skills",
+    "ko": "데이터 워크플로 및 분석 도구 모음 | AI Agent Skills",
+    "es": "Herramientas de workflow y análisis de datos | AI Agent Skills",
+    "fr": "Outils de workflow et d’analyse de données | AI Agent Skills",
+    "de": "Tools für Daten-Workflows und Analyse | AI Agent Skills",
+    "pt": "Ferramentas de workflow e análise de dados | AI Agent Skills",
+    "ru": "Инструменты для data-workflow и аналитики | AI Agent Skills",
+    "ar": "أدوات سير عمل البيانات والتحليل | AI Agent Skills"
   },
   "description": {
-    "en": "Explore tools for data workflows, notebooks, query automation, and pipeline operations with integration-ready companion capabilities.",
-    "zh": "聚焦数据工作流、Notebook、查询自动化与管道运维，并提供可集成的配套能力。",
-    "ja": "データワークフロー、ノートブック、クエリ自動化、パイプライン運用に使える連携前提のツールを厳選。",
-    "ko": "데이터 워크플로, 노트북, 쿼리 자동화, 파이프라인 운영을 위한 통합 친화형 도구를 제공합니다.",
-    "es": "Descubre herramientas para workflows de datos, notebooks, automatización de consultas y operaciones de pipelines con capacidades de integración.",
-    "fr": "Découvrez des outils pour les workflows data, notebooks, automatisation des requêtes et opérations de pipeline avec des capacités prêtes à intégrer.",
-    "de": "Entdecke Tools für Daten-Workflows, Notebooks, Query-Automatisierung und Pipeline-Betrieb mit integrationsfähigen Begleitfunktionen.",
-    "pt": "Explore ferramentas para workflows de dados, notebooks, automação de consultas e operações de pipelines com capacidades prontas para integração.",
-    "ru": "Подборка инструментов для data-процессов, notebook-сред, автоматизации запросов и эксплуатации пайплайнов с готовностью к интеграции.",
-    "ar": "استكشف أدوات لسير عمل البيانات ودفاتر الملاحظات وأتمتة الاستعلامات وتشغيل خطوط المعالجة مع قدرات جاهزة للتكامل."
+    "en": "Installable AI agent skills for data analysis developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 data analysis AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの data analysis AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 data analysis AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de data analysis en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur data analysis dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für data analysis Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em data analysis no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в data analysis для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات data analysis داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top Data Workflow & Analysis Tools | Killer-Skills",
-    "zh": "数据工作流、分析与管道工具 | Killer-Skills",
-    "ja": "データワークフロー・分析・パイプラインツール | Killer-Skills",
-    "ko": "데이터 워크플로·분석·파이프라인 도구 | Killer-Skills",
-    "es": "Workflow, análisis y pipelines de datos | Killer-Skills",
-    "fr": "Workflow, analyse et pipelines de données | Killer-Skills",
-    "de": "Daten-Workflow-, Analyse- und Pipeline-Tools | Killer-Skills",
-    "pt": "Workflow, análise e pipelines de dados | Killer-Skills",
-    "ru": "Инструменты data-workflow, аналитики и пайплайнов | Killer-Skills",
-    "ar": "أدوات سير عمل البيانات والتحليل وخطوط المعالجة | Killer-Skills"
+    "en": "AI Agent Skills - Data Workflow & Analysis Tools | Killer...",
+    "zh": "AI Agent Skills - 数据工作流与分析工具精选 | Killer-Skills",
+    "ja": "AI Agent Skills - データワークフローと分析ツール集 | Killer-Skills",
+    "ko": "AI Agent Skills - 데이터 워크플로 및 분석 도구 모음 | Killer-Skills",
+    "es": "AI Agent Skills - Herramientas de workflow y análisis de ...",
+    "fr": "AI Agent Skills - Outils de workflow et d’analyse de donn...",
+    "de": "AI Agent Skills - Tools für Daten-Workflows und Analyse |...",
+    "pt": "AI Agent Skills - Ferramentas de workflow e análise de da...",
+    "ru": "AI Agent Skills - Инструменты для data-workflow и аналити...",
+    "ar": "AI Agent Skills - أدوات سير عمل البيانات والتحليل | Kille..."
   },
   "seoDescription": {
-    "en": "A focused collection for operational data analysis workflows, notebooks, and pipeline automation with integration-ready tooling.",
-    "zh": "面向实战数据分析流程、Notebook 与管道自动化的精选集合，强调可集成的数据工作流工具。",
-    "ja": "実務データ分析ワークフロー、ノートブック、パイプライン自動化に特化したコレクション。連携しやすいデータツールを厳選。",
-    "ko": "실무형 데이터 분석 워크플로, 노트북, 파이프라인 자동화에 집중한 컬렉션으로 통합 친화형 데이터 도구를 제공합니다.",
-    "es": "Colección enfocada en workflows operativos de análisis de datos, notebooks y automatización de pipelines con herramientas listas para integrarse.",
-    "fr": "Collection ciblée sur les workflows opérationnels d’analyse de données, notebooks et automatisation de pipelines avec des outils prêts à intégrer.",
-    "de": "Fokussierte Sammlung für operative Datenanalyse-Workflows, Notebooks und Pipeline-Automatisierung mit integrationsfähigen Tools.",
-    "pt": "Coleção focada em workflows operacionais de análise de dados, notebooks e automação de pipelines com ferramentas prontas para integração.",
-    "ru": "Фокусная коллекция для операционных процессов аналитики данных, notebook-сред и автоматизации пайплайнов с готовыми к интеграции инструментами.",
-    "ar": "مجموعة مركزة لسير عمل تحليل البيانات التشغيلي ودفاتر الملاحظات وأتمتة خطوط المعالجة مع أدوات جاهزة للتكامل."
+    "en": "Installable AI agent skills for data analysis developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 data analysis AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの data analysis AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 data analysis AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de data analysis en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur data analysis dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für data analysis Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em data analysis no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в data analysis для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات data analysis داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "data workflow tools",
-      "analysis automation",
-      "notebook integrations",
-      "pipeline operations",
-      "integration-ready data tools"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
-    "zh": ["数据工作流工具", "分析自动化", "Notebook 集成", "管道运维", "可集成数据工具"],
-    "ja": ["データワークフローツール", "分析自動化", "ノートブック連携", "パイプライン運用", "連携対応データツール"],
-    "ko": ["데이터 워크플로 도구", "분석 자동화", "노트북 통합", "파이프라인 운영", "통합 친화형 데이터 도구"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
+    ],
+    "ja": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
+    ],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
+    ],
     "es": [
-      "herramientas de workflow de datos",
-      "automatización de análisis",
-      "integraciones de notebooks",
-      "operaciones de pipelines",
-      "herramientas de datos listas para integrar"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
     "fr": [
-      "outils de workflow data",
-      "automatisation de l’analyse",
-      "intégrations notebooks",
-      "opérations de pipeline",
-      "outils data prêts à intégrer"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
     "de": [
-      "Daten-Workflow-Tools",
-      "Analyseautomatisierung",
-      "Notebook-Integrationen",
-      "Pipeline-Operations",
-      "integrationsfähige Datentools"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
     "pt": [
-      "ferramentas de workflow de dados",
-      "automação de análise",
-      "integrações de notebooks",
-      "operações de pipelines",
-      "ferramentas de dados prontas para integração"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
     "ru": [
-      "инструменты data-workflow",
-      "автоматизация аналитики",
-      "интеграции с notebooks",
-      "операции с пайплайнами",
-      "инструменты данных для интеграции"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ],
     "ar": [
-      "أدوات سير عمل البيانات",
-      "أتمتة التحليل",
-      "تكاملات دفاتر الملاحظات",
-      "تشغيل خطوط المعالجة",
-      "أدوات بيانات جاهزة للتكامل"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "data analysis AI agent skills",
+      "data analysis developer workflow",
+      "data analysis workflow automation"
     ]
   },
   "featured": false,
   "canonicalSlug": "data-workflows-and-analysis-tools",
-  "legacySlugs": ["top-mcp-for-data-analysis"],
+  "legacySlugs": [
+    "top-mcp-for-data-analysis"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

@@ -80,13 +80,13 @@ export function getBlogLongTailKeywords(slug: string, locale: Locale): string[] 
 
   if (/install|setup/i.test(slug)) {
     return isZh
-      ? ['安装 AI Agent Skills', '技能配置指南', 'IDE 兼容']
-      : ['install ai agent skills', 'skill setup guide', 'ide compatibility'];
+      ? ['安装 AI Agent Skills', '技能配置', 'IDE 兼容']
+      : ['install ai agent skills', 'skill setup', 'ide compatibility'];
   }
 
   return isZh
-    ? ['工作流自动化', 'AI Agent Skills 教程', '技能模板']
-    : ['workflow automation', 'ai agent skills guide', 'skill templates'];
+    ? ['开发者工作流技能', 'AI Agent Skills', '技能模板']
+    : ['developer workflow skills', 'ai agent skills', 'skill templates'];
 }
 
 export function getBlogIntentLinks(locale: string, category: string | undefined, slug: string): BlogIntentLink[] {

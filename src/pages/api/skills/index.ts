@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getSkillsFromKV, type Env } from '../../../lib/kv';
-import { getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
+import { type Env } from '../../../lib/kv';
+import { getAllSkills, getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
 import { jsonResponse, errorResponse } from '../../../lib/api-utils';
 
 export const prerender = false;
@@ -25,11 +25,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const env = locals.runtime?.env as Env | undefined;
 
     // 1. Load all skills from KV
-    let skills: UnifiedSkill[] = [];
-    if (env) {
-      const raw = await getSkillsFromKV(env);
-      skills = raw as UnifiedSkill[];
-    }
+    const skillsBase = env ? await getAllSkills(env) : [];
+    let skills: UnifiedSkill[] = skillsBase;
 
     // 2. Localize descriptions
     skills = skills.map((skill) => ({

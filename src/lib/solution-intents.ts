@@ -62,8 +62,8 @@ const INTENT_TOKEN_STOP_WORDS = new Set([
   'automation',
 ]);
 
-const MIN_PRIMARY_INTENT_SCORE = 6;
-const MIN_FALLBACK_INTENT_SCORE = 3;
+const MIN_PRIMARY_INTENT_SCORE = 10;
+const MIN_FALLBACK_INTENT_SCORE = 5;
 
 const SOLUTION_INTENTS: SolutionIntentConfig[] = [
   {
@@ -329,18 +329,25 @@ function calculateIntentScore(
   const categoryAligned = hasCategoryAlignment(searchText.category, intent);
 
   // Guardrail: avoid broad token-only matches that cause low-intent query drift.
-  if (primaryHits === 0 && phraseHits === 0 && tokenHits < 3 && !(categoryAligned && tokenHits >= 2)) {
+  // Stricter requirements: need either phrase/primary hits OR more tokens + category alignment
+  if (primaryHits === 0 && phraseHits === 0) {
+    // No phrase match: require either category alignment + 4+ tokens, or 6+ tokens alone
+    if (!(categoryAligned && tokenHits >= 4) && tokenHits < 6) {
+      return 0;
+    }
+  } else if (primaryHits === 0 && phraseHits < 2 && tokenHits < 3) {
+    // Weak phrase match: require more tokens
     return 0;
   }
 
   let score = 0;
-  score += primaryHits * 8;
-  score += phraseHits * 5;
-  score += tokenHits;
-  if (categoryAligned) score += 2;
+  score += primaryHits * 10;  // Increased weight for primary query match
+  score += phraseHits * 6;     // Increased weight for phrase match
+  score += tokenHits * 0.5;   // Reduced weight for token-only matches
+  if (categoryAligned) score += 3;
 
-  if (skill.source === 'verified') score += 3;
-  if (skill.source === 'featured') score += 2;
+  if (skill.source === 'verified') score += 4;
+  if (skill.source === 'featured') score += 3;
 
   score += Math.min(skill.stars || 0, 10000) / 2000;
   return score;

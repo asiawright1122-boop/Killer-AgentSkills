@@ -314,23 +314,22 @@ const metaDescription = truncateText(
 );
 
 // Limit keyword set to avoid stuffing while keeping entity + intent terms
-const seoKeywordParts = [
+const seoKeywordSeed = [
   skillName,
   repo,
-  owner,
   category,
   ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
   ...(isN8nLoomTranscriptPage ? ['loom transcript automation'] : []),
   skillSeoIntent.supportTerm,
   ...skillSeoIntent.keywords,
   ...keywordsList.slice(0, 8),
-  typedLocale === 'zh' ? 'AI Agent Skills' : 'AI agent skills',
-  'Claude Code',
-  'Cursor',
-  'Windsurf',
 ];
-const seoKeywords = Array.from(new Set(seoKeywordParts.map((k) => k?.toString().trim()).filter(Boolean)))
-  .slice(0, 12)
+const sanitizedKeywordSeed = sanitizeSkillKeywords(seoKeywordSeed.map((k) => k?.toString().trim()).filter(Boolean), {
+  max: 10,
+});
+const platformKeywords = ['Claude Code', 'Cursor', 'Windsurf'];
+const seoKeywords = Array.from(new Set([...sanitizedKeywordSeed, ...platformKeywords]))
+  .slice(0, 11)
   .join(', ');
 
 // Structured Data (JSON-LD) — SoftwareApplication

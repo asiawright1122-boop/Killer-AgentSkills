@@ -12,28 +12,43 @@ import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
 import { extractJSONCandidates, robustParseJSON, cleanAndTruncate } from './lib/utils';
 import type { CacheData, SkillCache } from './lib/types';
+import { getNonTargetSkillReason } from '../src/lib/shared/validation';
 
 const aiService = new AIService();
 
-async function generateLocalizedCollection(
-    category: string,
-    skills: SkillCache[],
-    targetLocales: string[]
-): Promise<any> {
-    const listCount = skills.length;
+function isCollectionEligibleSkill(skill: SkillCache): boolean {
+  const description = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
+  return !getNonTargetSkillReason({
+    name: skill.name,
+    owner: skill.owner,
+    repo: skill.repo,
+    body: skill.skillMd?.body || skill.skillMd?.bodyPreview || '',
+    description,
+    topics: skill.topics || [],
+    category: skill.category,
+    filePath: skill.repoPath,
+  });
+}
 
-    // Provide AI with the actual context of these tools to generate accurate summaries
-    const toolContexts = skills.slice(0, 10).map((s, i) => `
+async function generateLocalizedCollection(
+  category: string,
+  skills: SkillCache[],
+  targetLocales: string[]
+): Promise<any> {
+  const listCount = skills.length;
+
+  // Provide AI with the actual context of these tools to generate accurate summaries
+  const toolContexts = skills.slice(0, 10).map((s, i) => `
 ${i + 1}. [${s.name}]
 Description: ${typeof s.description === 'string' ? s.description : s.description?.en || ''}
 Tags: ${(s.topics || []).join(', ')}`).join('\n');
 
-    const localeStr = targetLocales.join(', ');
-    const localeExample = targetLocales.map(l => `"${l}": "..."`).join(', ');
-    const localeArrayExample = targetLocales.map(l => `"${l}": ["..."]`).join(', ');
+  const localeStr = targetLocales.join(', ');
+  const localeExample = targetLocales.map(l => `"${l}": "..."`).join(', ');
+  const localeArrayExample = targetLocales.map(l => `"${l}": ["..."]`).join(', ');
 
-    const prompt = `You are a Senior Technical SEO Editor for "Killer-Skills", an AI Agent Tools directory.
-Task: Generate a highly-optimized "Top ${listCount} Best ${category} Tools" collection landing page.
+  const prompt = `You are a Senior Technical SEO Editor for "Killer-Skills", an installable AI Agent Skills directory for developer workflows.
+Task: Generate a highly-optimized collection landing page for installable ${category} AI agent skills.
 
 ## Tools in this Collection:
 ${toolContexts}
@@ -41,12 +56,13 @@ ${toolContexts}
 ## Target Languages: ${localeStr}
 
 CRITICAL RULES:
-1. "seoTitle" MUST be catchy and include a value proposition (e.g., "Top ${listCount} ${category} Tools for AI Agents [2026]"). MAX 60 chars.
-2. "seoDescription" is for the meta tag. MAX 160 chars. Should drive clicks.
-3. "title" is the H1 on the page. e.g. "Top ${listCount} ${category} Frameworks & Tools".
-4. "description" MUST be an engaging introductory paragraph summarizing WHY developers need these ${category} tools. 
-5. "keywords" should target long-tail dev searches mixing navigational and informational queries.
-6. Keep technical terms (CLI, MCP, Agent, Python, API) in English, but translate the selling points to the native locales perfectly.
+1. Everything must stay skills-first and developer-workflow-first. Do not frame the page as interview prep, product management, MVP building, startup tooling, or generic AI platforms.
+2. "seoTitle" MUST clearly signal installable skills or developer workflows. MAX 60 chars.
+3. "seoDescription" is for the meta tag. MAX 160 chars. It should mention installable AI agent skills, developer workflows, or Claude Code/Cursor/Windsurf compatibility where natural.
+4. "title" is the H1 on the page and should describe a collection of installable skills, not a generic tools comparison or "Top N best tools" page.
+5. "description" MUST explain why developers would install these skills in real coding, workflow, or automation setups.
+6. "keywords" should focus on high-intent developer searches and avoid low-intent phrases like interview, what is, tutorial, best, top, comparison, free, product manager, or MVP.
+7. Keep technical terms (CLI, MCP, Agent, Python, API) in English, but translate the selling points naturally for each locale.
 
 Output STRICT JSON only:
 {
@@ -93,6 +109,7 @@ async function run() {
     // 2. Group by category
     const categoryMap = new Map<string, SkillCache[]>();
     for (const skill of data.skills) {
+        if (!isCollectionEligibleSkill(skill)) continue;
         if (!skill.category || skill.category === 'uncategorized' || skill.category === 'developer' || skill.category === 'ai' || skill.category === 'official') continue;
         const list = categoryMap.get(skill.category) || [];
         list.push(skill);
@@ -160,8 +177,8 @@ async function run() {
             }
 
             // Format check / fallback for critical en string
-            if (!merged.seoTitle.en) merged.seoTitle.en = Object.values(merged.seoTitle)[0] || `Top ${sortedSkills.length} ${category} Skills`;
-            if (!merged.seoDescription.en) merged.seoDescription.en = Object.values(merged.seoDescription)[0] || `Explore the best ${category} AI tools.`;
+            if (!merged.seoTitle.en) merged.seoTitle.en = Object.values(merged.seoTitle)[0] || `${category} AI Agent Skills for Developer Workflows`;
+            if (!merged.seoDescription.en) merged.seoDescription.en = Object.values(merged.seoDescription)[0] || `Explore installable ${category} AI agent skills for developer workflows and practical automation.`;
 
             // Enforce character limits
             merged.seoTitle = cleanAndTruncate(merged.seoTitle, 60);

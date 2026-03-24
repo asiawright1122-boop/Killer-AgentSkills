@@ -1,13 +1,42 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
-import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
 const SITE = SITE_URL;
+
+// Pre-built sitemap data — avoids D1 query and CPU timeout (1102)
+import sitemapSkillsData from '../../data/sitemap-skills.json';
+
+type SitemapSkillEntry = { owner: string; repo: string; updatedAt?: string };
+
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 const FILE_EXT_SEGMENT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
+
+const parseDateMs = (value?: string) => {
+  if (!value) return 0;
+  const ms = Date.parse(value);
+  return Number.isFinite(ms) ? ms : 0;
+};
+
+function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
+  const deduped = new Map<string, SitemapSkillEntry>();
+
+  for (const skill of skills) {
+    const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
+    const repo = typeof skill.repo === 'string' ? skill.repo.trim() : '';
+    if (!owner || !repo) continue;
+
+    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const current = deduped.get(key);
+    if (!current || parseDateMs(skill.updatedAt) > parseDateMs(current.updatedAt)) {
+      deduped.set(key, { owner, repo, ...(skill.updatedAt ? { updatedAt: skill.updatedAt } : {}) });
+    }
+  }
+
+  return Array.from(deduped.values());
+}
 
 function isValidSkillSegment(segment: string): boolean {
   if (!segment) return false;
@@ -29,8 +58,7 @@ function formatDate(date: Date | string): string {
   return d.toISOString().split('T')[0];
 }
 
-export const GET: APIRoute = async ({ locals, params }) => {
-  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
+export const GET: APIRoute = async ({ params }) => {
   const pageParam = params.page || '1';
   const page = parseInt(pageParam, 10);
   const LIMIT = 200; // Skills per sitemap file
@@ -41,12 +69,10 @@ export const GET: APIRoute = async ({ locals, params }) => {
 
   const today = formatDate(new Date());
 
-  let skills: { owner: string; repo: string; updatedAt?: string }[] = [];
-  try {
-    skills = await getSitemapSkillsFromKV(env as Env);
-  } catch (e) {
-    console.error('[sitemap-skills] Failed to load skills', e);
-  }
+  // Use pre-built static data instead of D1 query to avoid CPU timeout (1102)
+  const skills: SitemapSkillEntry[] = dedupeSitemapSkills(
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : (sitemapSkillsData as any).skills || [],
+  );
 
   // Pagination Logic
   const start = (page - 1) * LIMIT;

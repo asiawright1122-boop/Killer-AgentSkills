@@ -1,10 +1,38 @@
 import type { APIRoute } from 'astro';
-import { getSitemapSkillsFromKV, type Env } from '../lib/kv';
 import { SITE_URL } from '../lib/site-config';
 
 export const prerender = false;
 
 const SITE = SITE_URL;
+
+// Pre-built sitemap data — avoids D1 query and CPU timeout (1102)
+import sitemapSkillsData from '../../data/sitemap-skills.json';
+
+type SitemapSkillEntry = { owner: string; repo: string; updatedAt?: string };
+
+const parseDateMs = (value?: string) => {
+  if (!value) return 0;
+  const ms = Date.parse(value);
+  return Number.isFinite(ms) ? ms : 0;
+};
+
+function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
+  const deduped = new Map<string, SitemapSkillEntry>();
+
+  for (const skill of skills) {
+    const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
+    const repo = typeof skill.repo === 'string' ? skill.repo.trim() : '';
+    if (!owner || !repo) continue;
+
+    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const current = deduped.get(key);
+    if (!current || parseDateMs(skill.updatedAt) > parseDateMs(current.updatedAt)) {
+      deduped.set(key, { owner, repo, ...(skill.updatedAt ? { updatedAt: skill.updatedAt } : {}) });
+    }
+  }
+
+  return Array.from(deduped.values());
+}
 
 /**
  * Sitemap Index — Splits the sitemap into logical sub-sitemaps for better
@@ -14,27 +42,25 @@ const SITE = SITE_URL;
  *   /sitemap.xml          → This file (Sitemap Index)
  *   /sitemap-static.xml   → Static pages (home, categories, cli, etc.)
  *   /sitemap-docs.xml     → Documentation pages
- *   /sitemap-skills.xml   → All skill detail pages
+ *   /sitemap-blog.xml     → Blog pages
+ *   /sitemap-collections.xml → Collection pages
+ *   /sitemap-skills-N.xml → Skill detail pages (paginated)
  */
-export const GET: APIRoute = async ({ locals }) => {
-  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
+export const GET: APIRoute = async () => {
+  // Use pre-built static data instead of D1 query to avoid CPU timeout (1102)
+  const skills: SitemapSkillEntry[] = dedupeSitemapSkills(
+    Array.isArray(sitemapSkillsData) ? sitemapSkillsData : (sitemapSkillsData as any).skills || [],
+  );
 
   // Get last modification date for skills
   let skillsLastMod = new Date().toISOString().split('T')[0];
-  let skills: { owner?: string; updatedAt?: string }[] = [];
-  try {
-    skills = (await getSitemapSkillsFromKV(env as Env)) || [];
-    if (skills.length > 0) {
-      // Use the most recent updatedAt as the sitemap lastmod
-      const latest = skills
-        .filter((s) => s.updatedAt)
-        .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
-      if (latest?.updatedAt) {
-        skillsLastMod = new Date(latest.updatedAt).toISOString().split('T')[0];
-      }
+  if (skills.length > 0) {
+    const latest = skills
+      .filter((s) => s.updatedAt)
+      .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
+    if (latest?.updatedAt) {
+      skillsLastMod = new Date(latest.updatedAt).toISOString().split('T')[0];
     }
-  } catch (e) {
-    console.error('[sitemap-index] Failed to get skills last mod', e);
   }
 
   const today = new Date().toISOString().split('T')[0];

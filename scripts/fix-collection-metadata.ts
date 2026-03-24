@@ -4,7 +4,79 @@ import fs from 'fs';
 import path from 'path';
 
 const COLLECTIONS_DIR = 'src/content/collections';
-const FIX_LOCALES = ['es', 'fr', 'de', 'pt', 'ru', 'ar'];
+const FIX_LOCALES = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
+
+const TOPIC_STOP_WORDS = new Set([
+  'top',
+  'best',
+  'tools',
+  'tool',
+  'servers',
+  'server',
+  'skills',
+  'skill',
+  'for',
+  'and',
+  'the',
+  'build',
+  'building',
+  'agent',
+  'agents',
+  'ai',
+  'workflow',
+  'workflows',
+  'developer',
+  'development',
+]);
+
+const TITLE_SUFFIX: Record<string, string> = {
+  en: 'AI Agent Skills',
+  zh: 'AI Agent Skills',
+  ja: 'AI Agent Skills',
+  ko: 'AI Agent Skills',
+  es: 'AI Agent Skills',
+  fr: 'AI Agent Skills',
+  de: 'AI Agent Skills',
+  pt: 'AI Agent Skills',
+  ru: 'AI Agent Skills',
+  ar: 'AI Agent Skills',
+};
+
+const DESCRIPTION_TEMPLATES: Record<string, (topic: string, hasMcp: boolean) => string> = {
+  en: (topic, hasMcp) =>
+    `Installable AI agent skills for ${topic} developer workflows in Claude Code, Cursor, and Windsurf${hasMcp ? ' with MCP-ready automation patterns' : ''}.`,
+  zh: (topic, hasMcp) =>
+    `面向 Claude Code、Cursor 与 Windsurf 的 ${topic} AI Agent Skills，聚焦 developer workflow automation${hasMcp ? ' 与 MCP 集成模式' : ''}。`,
+  ja: (topic, hasMcp) =>
+    `Claude Code・Cursor・Windsurf 向けの ${topic} AI Agent Skills 集合。developer workflow automation${hasMcp ? ' と MCP 連携' : ''} を重視します。`,
+  ko: (topic, hasMcp) =>
+    `Claude Code, Cursor, Windsurf용 ${topic} AI Agent Skills 모음입니다. developer workflow automation${hasMcp ? ' 및 MCP 통합' : ''}에 초점을 둡니다.`,
+  es: (topic, hasMcp) =>
+    `Colección de AI Agent Skills instalables para workflows de desarrollo de ${topic} en Claude Code, Cursor y Windsurf${hasMcp ? ' con patrones de automatización MCP' : ''}.`,
+  fr: (topic, hasMcp) =>
+    `Collection de AI Agent Skills installables pour les workflows développeur ${topic} dans Claude Code, Cursor et Windsurf${hasMcp ? ' avec des patterns MCP' : ''}.`,
+  de: (topic, hasMcp) =>
+    `Installierbare AI Agent Skills für ${topic} Developer Workflows in Claude Code, Cursor und Windsurf${hasMcp ? ' mit MCP-Automatisierung' : ''}.`,
+  pt: (topic, hasMcp) =>
+    `Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em ${topic} no Claude Code, Cursor e Windsurf${hasMcp ? ' com padrões MCP' : ''}.`,
+  ru: (topic, hasMcp) =>
+    `Подборка installable AI Agent Skills для developer workflow в ${topic} для Claude Code, Cursor и Windsurf${hasMcp ? ' с MCP-интеграциями' : ''}.`,
+  ar: (topic, hasMcp) =>
+    `مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات ${topic} داخل Claude Code وCursor وWindsurf${hasMcp ? ' مع أنماط MCP' : ''}.`,
+};
+
+const KEYWORD_BASE: Record<string, string[]> = {
+  en: ['AI agent skills', 'developer workflow skills', 'Claude Code skills', 'workflow automation'],
+  zh: ['AI Agent Skills', '开发者工作流', 'Claude Code 技能', '工作流自动化'],
+  ja: ['AI Agent Skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  ko: ['AI Agent Skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  es: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  fr: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  de: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  pt: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  ru: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+  ar: ['AI agent skills', 'developer workflow', 'Claude Code skills', 'workflow automation'],
+};
 
 function extractTopicTerms(slug: string): string[] {
   return slug
@@ -14,89 +86,83 @@ function extractTopicTerms(slug: string): string[] {
     .split(' ')
     .filter(Boolean)
     .filter((term) => !/^[0-9]{4}$/.test(term))
-    .filter(
-      (term) =>
-        ![
-          'best',
-          'top',
-          'mcp',
-          'server',
-          'servers',
-          'ai',
-          'tool',
-          'tools',
-          'workflow',
-          'workflows',
-          'collection',
-        ].includes(term)
-    )
+    .filter((term) => !TOPIC_STOP_WORDS.has(term))
     .filter((term) => term.length > 2)
     .slice(0, 4);
 }
 
-function formatTopic(slug: string, locale: string): string {
-  const terms = extractTopicTerms(slug);
+function pickTopicSource(content: any, slug: string): string {
+  return content.canonicalSlug || slug;
+}
+
+function formatTopic(content: any, slug: string, locale: string): string {
+  const terms = extractTopicTerms(pickTopicSource(content, slug));
 
   if (terms.length === 0) {
     const defaults: Record<string, string> = {
-      es: 'automatización y productividad',
-      fr: 'automatisation et productivité',
-      de: 'automatisierung und produktivität',
-      pt: 'automação e produtividade',
-      ru: 'автоматизация и продуктивность',
-      ar: 'الأتمتة والإنتاجية',
+      en: 'developer workflows',
+      zh: '开发工作流',
+      ja: '開発ワークフロー',
+      ko: '개발 워크플로우',
+      es: 'workflows de desarrollo',
+      fr: 'workflows développeur',
+      de: 'Developer Workflows',
+      pt: 'workflows de desenvolvimento',
+      ru: 'developer workflow',
+      ar: 'سير عمل المطورين',
     };
-    return defaults[locale] || defaults.es;
+    return defaults[locale] || defaults.en;
   }
 
   return terms.join(' ');
 }
 
-const TITLE_TEMPLATES: Record<string, (slug: string) => string> = {
-  es: (slug) => `Skills y herramientas de IA: ${formatTopic(slug, 'es')}`,
-  fr: (slug) => `Compétences et outils IA : ${formatTopic(slug, 'fr')}`,
-  de: (slug) => `Skills und KI-Tools: ${formatTopic(slug, 'de')}`,
-  pt: (slug) => `Skills e ferramentas de IA: ${formatTopic(slug, 'pt')}`,
-  ru: (slug) => `Навыки и ИИ-инструменты: ${formatTopic(slug, 'ru')}`,
-  ar: (slug) => `المهارات وأدوات الذكاء الاصطناعي: ${formatTopic(slug, 'ar')}`,
-};
+function cleanTitle(rawTitle: string): string {
+  return rawTitle
+    .replace(/\s*\|\s*Killer-Skills$/i, '')
+    .replace(/\s*\|\s*AI Agent Skills$/i, '')
+    .replace(/\b(top|best|mejores|meilleurs|melhores|beste|principais|лучшие|أفضل)\s*-?\s*\d+\b/gi, '')
+    .replace(/^(top|best|mejores|meilleurs|melhores|beste|principais|лучшие|أفضل)\s+/i, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
 
-function generateDescription(lang: string, slug: string): string {
-  const topic = formatTopic(slug, lang);
-  const descriptions: Record<string, string> = {
-    es: `Colección curada de skills, herramientas de IA y flujos de trabajo prácticos. Tema principal: ${topic}.`,
-    fr: `Collection organisée de skills, d'outils IA et de workflows pratiques. Thème principal : ${topic}.`,
-    de: `Kuratiertе Sammlung aus Skills, KI-Tools und praktischen Workflows. Schwerpunkt: ${topic}.`,
-    pt: `Coleção curada de skills, ferramentas de IA e workflows práticos. Tema principal: ${topic}.`,
-    ru: `Кураторская коллекция навыков, ИИ-инструментов и практичных workflow. Основная тема: ${topic}.`,
-    ar: `مجموعة منسقة من المهارات وأدوات الذكاء الاصطناعي وسير العمل العملي. الموضوع الرئيسي: ${topic}.`,
-  };
+function generateTitle(content: any, slug: string, locale: string): string {
+  const topic = formatTopic(content, slug, locale);
+  const existing = cleanTitle(content.title?.[locale] || content.title?.en || '');
+  const base = existing || topic;
+  if (base.toLowerCase().includes('ai agent skills')) return base;
+  return `${base} | ${TITLE_SUFFIX[locale] || TITLE_SUFFIX.en}`;
+}
 
-  return descriptions[lang] || descriptions.es;
+function generateDescription(content: any, locale: string, slug: string): string {
+  const topic = formatTopic(content, slug, locale);
+  const source = pickTopicSource(content, slug).toLowerCase();
+  const hasMcp = source.includes('mcp');
+  return DESCRIPTION_TEMPLATES[locale]?.(topic, hasMcp) || DESCRIPTION_TEMPLATES.en(topic, hasMcp);
 }
 
 function generateSeoTitle(title: string): string {
-  return `${title} | Killer-Skills`;
+  const base = cleanTitle(title);
+  const normalized = `AI Agent Skills - ${base} | Killer-Skills`;
+  return normalized.length > 60 ? `${normalized.slice(0, 57)}...` : normalized;
 }
 
 function generateSeoDescription(description: string): string {
-  const base = `${description} Killer-Skills.`;
+  const base = description.includes('Killer-Skills') ? description : `${description} Killer-Skills.`;
   return base.length > 155 ? `${base.slice(0, 152)}...` : base;
 }
 
-function generateKeywords(slug: string, locale: string): string[] {
-  const terms = extractTopicTerms(slug);
-
-  const localeKeywords: Record<string, string[]> = {
-    es: ['skills', 'herramientas ia', 'workflows', 'automatización', 'productividad', 'claude'],
-    fr: ['skills', 'outils ia', 'workflows', 'automatisation', 'productivité', 'claude'],
-    de: ['skills', 'ki-tools', 'workflows', 'automatisierung', 'produktivität', 'claude'],
-    pt: ['skills', 'ferramentas ia', 'workflows', 'automação', 'produtividade', 'claude'],
-    ru: ['навыки', 'инструменты ии', 'workflow', 'автоматизация', 'продуктивность', 'claude'],
-    ar: ['مهارات', 'أدوات الذكاء الاصطناعي', 'سير العمل', 'الأتمتة', 'الإنتاجية', 'claude'],
-  };
-
-  return [...new Set([...(localeKeywords[locale] || localeKeywords.es), ...terms])].slice(0, 8);
+function generateKeywords(content: any, slug: string, locale: string): string[] {
+  const topic = formatTopic(content, slug, locale);
+  const source = pickTopicSource(content, slug).toLowerCase();
+  const topicKeywords = [
+    `${topic} AI agent skills`,
+    `${topic} developer workflow`,
+    `${topic} workflow automation`,
+  ];
+  const mcpKeywords = source.includes('mcp') ? ['MCP integrations', 'MCP workflow automation'] : [];
+  return [...new Set([...(KEYWORD_BASE[locale] || KEYWORD_BASE.en), ...topicKeywords, ...mcpKeywords])].slice(0, 8);
 }
 
 function processCollection(filePath: string) {
@@ -105,10 +171,9 @@ function processCollection(filePath: string) {
   let modified = false;
 
   FIX_LOCALES.forEach((locale) => {
-    const newTitle = TITLE_TEMPLATES[locale](slug);
-    const newDesc = generateDescription(locale, slug);
+    const newTitle = generateTitle(content, slug, locale);
+    const newDesc = generateDescription(content, locale, slug);
 
-    // Always overwrite for fixed locales
     content.title = content.title || {};
     content.title[locale] = newTitle;
     modified = true;
@@ -126,7 +191,7 @@ function processCollection(filePath: string) {
     modified = true;
 
     content.keywords = content.keywords || {};
-    content.keywords[locale] = generateKeywords(slug, locale);
+    content.keywords[locale] = generateKeywords(content, slug, locale);
     modified = true;
   });
 

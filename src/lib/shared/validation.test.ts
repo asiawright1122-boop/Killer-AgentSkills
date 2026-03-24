@@ -79,6 +79,16 @@ describe('isValidAgentSkill', () => {
     const result = isValidAgentSkill(skill);
     expect(result.valid).toBe(true);
   });
+
+  it('should reject non-target product manager skills', () => {
+    const skill = {
+      ...validSkill,
+      description: 'A product manager workflow for PRD drafting and stakeholder planning.',
+    };
+    const result = isValidAgentSkill(skill);
+    expect(result.valid).toBe(false);
+    expect(result.reason).toContain('Non-target skill theme');
+  });
 });
 
 describe('calculateQualityScore', () => {
@@ -177,12 +187,21 @@ describe('calculateQualityScore', () => {
   it('should cap score at 100', () => {
     expect(calculateQualityScore(baseSkill)).toBeLessThanOrEqual(100);
   });
+
+  it('should return 0 for MVP builder themed skills', () => {
+    const skill = {
+      ...baseSkill,
+      description: 'An MVP builder workflow for startup launch experiments.',
+    };
+    expect(calculateQualityScore(skill)).toBe(0);
+  });
 });
 
 describe('Constants', () => {
   it('EXCLUDE_KEYWORDS should contain expected entries', () => {
     expect(EXCLUDE_KEYWORDS).toContain('tutorial');
     expect(EXCLUDE_KEYWORDS).toContain('leetcode');
+    expect(EXCLUDE_KEYWORDS).toContain('product manager');
     expect(EXCLUDE_KEYWORDS.length).toBeGreaterThan(5);
   });
 

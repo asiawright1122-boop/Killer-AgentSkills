@@ -34,6 +34,23 @@ export const EXCLUDE_KEYWORDS = [
   'learning',
   'study',
   'guide',
+  'product manager',
+  'product management',
+  'mvp builder',
+  'mvp-generator',
+];
+
+const NON_TARGET_THEME_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
+  { pattern: /\b(interview|mock\s*interview|interview\s*prep|interview\s*questions?)\b/i, reason: 'interview' },
+  { pattern: /\b(resume|portfolio|leetcode)\b/i, reason: 'career-prep' },
+  {
+    pattern: /\b(product\s*manager|product\s*managers|product\s*management|pm-os|prd-writer|jobs-to-be-done)\b/i,
+    reason: 'product-management',
+  },
+  {
+    pattern: /\b(mvp\s*builder|mvp-builder|mvp\s*generator|minimum\s*viable\s+product|startup\s*pitch)\b/i,
+    reason: 'mvp-startup',
+  },
 ];
 
 /**
@@ -110,6 +127,8 @@ export interface SkillValidationInput {
   body: string;
   description?: string;
   topics?: string[];
+  category?: string;
+  filePath?: string;
 }
 
 /**
@@ -129,6 +148,37 @@ export interface ValidationResult {
   reason: string;
 }
 
+function toValidationText(value: unknown): string {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  if (Array.isArray(value)) return value.map((item) => toValidationText(item)).join(' ');
+  if (typeof value === 'object') return Object.values(value as Record<string, unknown>).map((item) => toValidationText(item)).join(' ');
+  return String(value);
+}
+
+export function getNonTargetSkillReason(skill: SkillValidationInput): string {
+  const repo = (skill as SkillScoringInput).repo || '';
+  const combinedText = [
+    skill.name,
+    skill.owner,
+    repo,
+    skill.description || '',
+    ...(skill.topics || []),
+    skill.category || '',
+    skill.filePath || '',
+    skill.body,
+  ]
+    .map((value) => toValidationText(value))
+    .join(' ')
+    .toLowerCase();
+
+  for (const entry of NON_TARGET_THEME_PATTERNS) {
+    if (entry.pattern.test(combinedText)) return entry.reason;
+  }
+
+  return '';
+}
+
 // ============ Validation Functions ============
 
 /**
@@ -139,6 +189,11 @@ export function isValidAgentSkill(skill: SkillValidationInput): ValidationResult
   const { name, owner, body, description = '', topics = [] } = skill;
   const repo = (skill as SkillScoringInput).repo;
   const isOfficial = isOfficialRepo(owner, repo);
+
+  const nonTargetReason = getNonTargetSkillReason(skill);
+  if (!isOfficial && nonTargetReason) {
+    return { valid: false, reason: `Non-target skill theme: ${nonTargetReason}` };
+  }
 
   // 1. Check exclude keywords in description/topics
   const combinedText = [description, ...topics].join(' ').toLowerCase();
@@ -211,6 +266,7 @@ export function calculateQualityScore(skill: SkillScoringInput): number {
 
   // 1. Critical Errors (Automatic 0)
   if (!skill.name) return 0;
+  if (!isOfficial && getNonTargetSkillReason(skill)) return 0;
 
   // Check for suspicious names
   const nameLower = skill.name.toLowerCase();

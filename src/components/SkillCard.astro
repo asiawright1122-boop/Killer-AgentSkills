@@ -2,6 +2,7 @@
 import { getLocalizedDescription } from '../lib/skills';
 import { OFFICIAL_REPOS } from '../lib/skills-config';
 import { CATEGORY_GROUPS } from '../lib/search';
+import { getCategoryDef, normalizeCategoryId } from '../lib/category-taxonomy';
 
 // Install command prefix
 const INSTALL_PREFIX = 'npx killer-skills add';
@@ -174,61 +175,31 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
     <!-- Right: Category Tag -->
     {
       (() => {
-        let matchedCategory = '';
+        const normalizedExplicitCategory = normalizeCategoryId(skill.category);
+        let matchedCategory = getCategoryDef(normalizedExplicitCategory) ? normalizedExplicitCategory : '';
 
-        // 1. Prioritize explicit category if it matches a sidebar group (e.g. from overrides)
-        if (skill.category && CATEGORY_GROUPS[skill.category.toLowerCase()]) {
-          matchedCategory = skill.category;
-        }
-
-        // 2. If no valid explicit category, try to match topics to a sidebar category
         if (!matchedCategory && topics && topics.length > 0) {
-          for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-            if (topics.some((t) => keywords.some((k) => t.toLowerCase().includes(k)))) {
-              matchedCategory = groupName;
-              break;
-            }
+          const normalizedTopicCategory = topics
+            .map((topic) => normalizeCategoryId(topic))
+            .find((topicCategory) => Boolean(getCategoryDef(topicCategory)));
+          if (normalizedTopicCategory) {
+            matchedCategory = normalizedTopicCategory;
           }
         }
 
-        // 3. Fallback to explicit category if it exists and isn't a reserved source label
-        if (
-          !matchedCategory &&
-          skill.category &&
-          !['official', 'community', 'featured'].includes(skill.category.toLowerCase())
-        ) {
-          matchedCategory = skill.category;
-        }
-
-        // 3.5. Smart Categorization: Infer from name and description if topics are missing
         if (!matchedCategory) {
-          const textToSearch = (
-            skill.name +
-            ' ' +
-            JSON.stringify(skill.description || {}) +
-            ' ' +
-            (topics || []).join(' ')
-          ).toLowerCase();
           for (const [groupName, keywords] of Object.entries(CATEGORY_GROUPS)) {
-            if (keywords.some((k) => textToSearch.includes(k.toLowerCase()))) {
+            const topicMatchCount = topics.filter((topic) =>
+              keywords.some((keyword) => topic.toLowerCase().includes(keyword)),
+            ).length;
+            if (topicMatchCount >= 2) {
               matchedCategory = groupName;
               break;
             }
           }
         }
 
-        // 4. Final fallback to first topic or 'Developer'
-        let displayCat = matchedCategory || (topics && topics.length > 0 ? topics[0] : 'developer');
-
-        // Cleanup: Remove "agent-skills" or "agent skills" and map to AI or just filter
-        const lowerCat = displayCat.toLowerCase();
-        if (['agent-skills', 'agent skills', 'agents', 'agent'].includes(lowerCat)) {
-          // If we have other topics, try to find a better one
-          const altTopic = topics.find(
-            (t) => !['agent-skills', 'agent skills', 'agents', 'agent'].includes(t.toLowerCase()),
-          );
-          displayCat = altTopic || 'AI'; // Fallback to AI if only agent-skills tags exist
-        }
+        const displayCat = matchedCategory || 'developer';
 
         let displayLabel = displayCat.charAt(0).toUpperCase() + displayCat.slice(1).replace(/-/g, ' ');
 
@@ -254,19 +225,15 @@ const avatarUrl = `https://github.com/${owner}.png?size=40`;
           if (displayCat.toLowerCase() === 'cli') displayLabel = 'CLI';
         }
 
-        const categoryLink = matchedCategory ? `/${locale}/skills?category=${matchedCategory}` : null;
+        const categoryLink = `/${locale}/skills?category=${displayCat}`;
 
-        return categoryLink ? (
+        return (
           <a
             href={categoryLink}
             class="relative z-10 px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] hover:bg-[var(--primary)] transition-colors"
           >
             {displayLabel}
           </a>
-        ) : (
-          <span class="px-2 py-1 text-[10px] font-bold bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)]">
-            {displayLabel}
-          </span>
         );
       })()
     }

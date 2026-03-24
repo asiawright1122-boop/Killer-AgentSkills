@@ -116,7 +116,7 @@ export class AIService {
     };
   }
 
-  private sanitizeSeoKeywordList(skillName: string, keywords: string[]): string[] {
+  private sanitizeSeoKeywordList(skillName: string, keywords: string[], category?: string): string[] {
     const normalizedSkillName = normalizeKeywordToken(skillName);
     const seen = new Set<string>();
     const cleaned: string[] = [];
@@ -145,7 +145,122 @@ export class AIService {
 
     if (cleaned.length > 0) return cleaned;
 
-    const fallback = [
+    // Category-aware fallback keywords
+    const fallback = this.generateCategoryAwareFallback(skillName, category);
+
+    return Array.from(new Set(fallback.map((item) => normalizeKeywordToken(item))))
+      .map((normalized) => fallback.find((item) => normalizeKeywordToken(item) === normalized)!)
+      .slice(0, 6);
+  }
+
+  /**
+   * Generate category-aware fallback keywords based on skill category.
+   * This produces more relevant keywords than generic templates.
+   */
+  private generateCategoryAwareFallback(skillName: string, category?: string): string[] {
+    const categoryLower = (category || '').toLowerCase();
+    
+    // Category-specific keyword templates
+    const categoryKeywords: Record<string, string[]> = {
+      browser: [
+        `${skillName} browser automation skill`,
+        `${skillName} web scraping workflow`,
+        `${skillName} Playwright automation`,
+        `${skillName} Puppeteer integration`,
+        `${skillName} for Claude Code browser tasks`,
+        `${skillName} AI agent web automation`,
+      ],
+      data: [
+        `${skillName} data analysis workflow`,
+        `${skillName} SQL query automation`,
+        `${skillName} database integration skill`,
+        `${skillName} ETL pipeline automation`,
+        `${skillName} for data-driven AI agents`,
+        `${skillName} analytics skill for Cursor`,
+      ],
+      developer: [
+        `${skillName} developer tool skill`,
+        `${skillName} code automation workflow`,
+        `${skillName} CLI integration for AI agents`,
+        `${skillName} for Claude Code development`,
+        `${skillName} TypeScript automation skill`,
+        `${skillName} AI coding assistant plugin`,
+      ],
+      productivity: [
+        `${skillName} productivity automation`,
+        `${skillName} workflow integration skill`,
+        `${skillName} Notion Slack automation`,
+        `${skillName} task automation for AI agents`,
+        `${skillName} for Claude Code workflows`,
+        `${skillName} AI assistant productivity`,
+      ],
+      ai: [
+        `${skillName} AI model integration`,
+        `${skillName} LLM workflow skill`,
+        `${skillName} prompt engineering automation`,
+        `${skillName} RAG pipeline skill`,
+        `${skillName} for AI agent development`,
+        `${skillName} Claude Code AI integration`,
+      ],
+      devops: [
+        `${skillName} DevOps automation skill`,
+        `${skillName} CI/CD pipeline workflow`,
+        `${skillName} Docker Kubernetes integration`,
+        `${skillName} deployment automation for AI`,
+        `${skillName} infrastructure as code skill`,
+        `${skillName} for Claude Code DevOps`,
+      ],
+      security: [
+        `${skillName} security audit skill`,
+        `${skillName} authentication workflow`,
+        `${skillName} vulnerability detection automation`,
+        `${skillName} compliance automation for AI`,
+        `${skillName} secure coding skill`,
+        `${skillName} AI agent security integration`,
+      ],
+      documentation: [
+        `${skillName} documentation automation`,
+        `${skillName} markdown PDF workflow`,
+        `${skillName} knowledge base skill`,
+        `${skillName} content generation for AI`,
+        `${skillName} for Claude Code docs`,
+        `${skillName} AI documentation assistant`,
+      ],
+      finance: [
+        `${skillName} fintech automation skill`,
+        `${skillName} payment workflow integration`,
+        `${skillName} financial data skill`,
+        `${skillName} trading automation for AI`,
+        `${skillName} crypto blockchain skill`,
+        `${skillName} AI agent finance integration`,
+      ],
+      communication: [
+        `${skillName} messaging automation skill`,
+        `${skillName} Discord Slack integration`,
+        `${skillName} notification workflow for AI`,
+        `${skillName} team communication skill`,
+        `${skillName} for Claude Code messaging`,
+        `${skillName} AI agent communication`,
+      ],
+      design: [
+        `${skillName} UI design automation`,
+        `${skillName} frontend workflow skill`,
+        `${skillName} creative automation for AI`,
+        `${skillName} Figma Tailwind integration`,
+        `${skillName} for Claude Code design`,
+        `${skillName} AI design assistant skill`,
+      ],
+    };
+
+    // Find matching category keywords
+    for (const [catKey, keywords] of Object.entries(categoryKeywords)) {
+      if (categoryLower.includes(catKey) || catKey.includes(categoryLower)) {
+        return keywords.map((item) => sanitizeKeywordToken(item)).filter(Boolean);
+      }
+    }
+
+    // Default fallback for unknown categories
+    return [
       `${skillName} AI agent skill for Claude Code`,
       `${skillName} AI agent skill for Cursor`,
       `${skillName} AI agent skill for Windsurf`,
@@ -155,20 +270,17 @@ export class AIService {
     ]
       .map((item) => sanitizeKeywordToken(item))
       .filter(Boolean);
-
-    return Array.from(new Set(fallback.map((item) => normalizeKeywordToken(item))))
-      .map((normalized) => fallback.find((item) => normalizeKeywordToken(item) === normalized)!)
-      .slice(0, 6);
   }
 
   private sanitizeSeoKeywordsMap(
     skillName: string,
     keywordsByLocale: Record<string, string[]>,
+    category?: string,
   ): Record<string, string[]> {
     const entries = Object.entries(keywordsByLocale || {});
     const cleaned: Record<string, string[]> = {};
     for (const [locale, keywords] of entries) {
-      const sanitized = this.sanitizeSeoKeywordList(skillName, keywords || []);
+      const sanitized = this.sanitizeSeoKeywordList(skillName, keywords || [], category);
       if (sanitized.length > 0) cleaned[locale] = sanitized;
     }
 
@@ -647,23 +759,42 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
 
 ## Generate for locales: ${localeStr}
 
-CRITICAL RULES:
-1. This skill is for the AI Agent Skills ecosystem (Killer-Skills.com directory)
-2. ALL content must be SPECIFIC to "${skillName}" and its use with AI coding assistants
-3. For SEO Title, NEVER output just the raw skill name. Add a value-add phrase like "for Claude Code", "for Cursor", "Setup Guide", etc.
-4. For non-English locales, seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., Japanese: "AIエージェント", Russian: "ИИ Агенты"). Keep technical terms (React, Python, CLI) in English.
-5. Features MUST reference specific technologies or capabilities from the skill content, not generic benefits.
-6. Keywords should focus on "AI agent skill", "MCP server", "Claude Code skill", "Cursor skill", "Windsurf skill"
+## 🚨 STRICT THEME ENFORCEMENT (FAIL IF NOT FOLLOWED)
+1. SEO Title MUST include ONE of these identifiers (non-negotiable):
+   - "AI Agent Skill" OR "Agent Skill" (translated to locale language)
+   - OR "for Claude Code" / "for Cursor" / "for Windsurf"
+   - OR "| Killer-Skills" or "| AI Agent Skills"
+   
+2. Keywords MUST include at least 3 of these theme terms (translated appropriately):
+   - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
+   - OR automation-specific terms: "workflow", "automation", "browser automation"
+   - OR installation terms: ".claude", "skill installation", "install"
 
-### A. SEO Title (50-60 chars) — unique, clickable, includes skill function
+3. FORBIDDEN keyword patterns (will cause theme drift):
+   - ❌ "how to", "what is", "why", "learn" (or locale equivalents)
+   - ❌ "best", "top", "awesome", "complete" at start (or locale equivalents)
+   - ❌ "tutorial", "course", "guide", "ebook" (or locale equivalents)
+   - ❌ "vs", "versus", "alternative", "comparison" (or locale equivalents)
+   - ❌ "free download", "pdf", "cheatsheet" (or locale equivalents)
+
+4. Title format examples:
+   ✅ GOOD: "PostgreSQL: Optimized SQL Queries | AI Agent Skills"
+   ✅ GOOD: "Browser Automation: Playwright Setup | Claude Code Skill"
+   ✅ GOOD: "Slack Integration: Team Notifications for Cursor"
+   ❌ BAD: "expo-tailwind-setup: Universal Styling Setup Guide"
+   ❌ BAD: "Python Patterns: Best Practices & PEP 8"
+
+5. For non-English locales, seamlessly integrate the most popular local search term for "AI Agents" or "AI Tools" (e.g., Japanese: "AIエージェント", Chinese: "AI智能体", Russian: "ИИ Агенты"). Keep technical terms (React, Python, CLI) in English.
+
+### A. SEO Title (50-60 chars) — MUST include theme identifier
 ### B. Meta Description (150-160 chars) — different from main description, for SERP CTR
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
 ### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
 ### E. Key Features (4-6 items) — real technical highlights extracted from content
-### F. Keywords (6-10 items) — capability-first search terms
+### F. Keywords (6-10 items) — MUST include theme terms, capability-first search terms
 - Prefer task + technology phrases (2-5 words), e.g. "static asset optimization workflow"
 - Include at most ONE install/setup phrase
-- NEVER output low-intent wrappers or comparison bait ("how to", "what is", "vs", "best", "top", "alternative", "tutorial", "guide")
+- NEVER output low-intent wrappers or comparison bait
 
 Output STRICT JSON only, no markdown wrapping:
 {
@@ -742,7 +873,7 @@ Output STRICT JSON only, no markdown wrapping:
         description: cleanAndTruncate(mergedMetaDesc.en ? mergedMetaDesc : mergedDesc, 160),
         definition: mergedDefinition.en ? mergedDefinition : { en: text },
         features: mergedFeatures,
-        keywords: this.sanitizeSeoKeywordsMap(skillName || 'AI Skill', mergedKeywords),
+        keywords: this.sanitizeSeoKeywordsMap(skillName || 'AI Skill', mergedKeywords, context?.category),
       },
     };
   }

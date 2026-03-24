@@ -23,6 +23,7 @@ export interface TranslateContext {
     name?: string;
     topics?: string[];
     bodyPreview?: string;
+    category?: string;
 }
 
 export interface SkillCache {

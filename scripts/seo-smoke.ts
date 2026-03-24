@@ -12,6 +12,7 @@ type PageCheck = {
 
 const SITE_ORIGIN = 'https://killer-skills.com';
 const baseUrl = (process.argv[2] || 'http://127.0.0.1:4321').replace(/\/+$/, '');
+const isLocalBaseUrl = /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/i.test(baseUrl);
 const MISSING_DOCS_SLUG = '/en/docs/__seo-smoke_missing_slug_404_guard__';
 const TRANSIENT_STATUS_CODES = new Set([429, 500, 502, 503, 504, 522, 524]);
 const SKILL_FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
@@ -102,16 +103,10 @@ const checks: PageCheck[] = [
   },
   {
     path: '/es/collections/top-agentic-ai-platforms-orchestration-tools',
-    titleIncludes: 'Top',
+    titleIncludes: 'AI Agent Skills',
     canonical: 'https://killer-skills.com/en/collections/top-agentic-ai-platforms-orchestration-tools',
     expectNoindex: true,
     expectJsonLd: true,
-  },
-  {
-    path: '/en/skills/anthropics/skills/algorithmic-art',
-    canonical: 'https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art',
-    expectJsonLd: true,
-    mustNotContain: ['aggregateRating', 'ratingValue'],
   },
 ];
 
@@ -309,6 +304,26 @@ async function fetchHtml(path: string): Promise<string> {
   return fetchText(path);
 }
 
+async function resolveRepresentativeSkillPath(skillPaths: string[]): Promise<string | null> {
+  ensure(skillPaths.length > 0, 'skills sitemap must contain at least one skill URL');
+
+  for (const skillPath of skillPaths.slice(0, 20)) {
+    try {
+      await fetchWithRetry(skillPath);
+      return skillPath;
+    } catch {
+      continue;
+    }
+  }
+
+  if (isLocalBaseUrl) {
+    console.warn('SEO smoke skipped skill detail checks: local preview has no accessible skill detail pages from sitemap sample.');
+    return null;
+  }
+
+  throw new Error('skills sitemap sample paths did not resolve to any 200 skill detail page');
+}
+
 async function runCheck(check: PageCheck) {
   const html = await fetchHtml(check.path);
   const title = readTagContent(html, /<title>(.*?)<\/title>/i);
@@ -388,10 +403,7 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
     const parsed = new URL(loc);
     ensure(parsed.origin === SITE_ORIGIN, `skills sitemap loc must use canonical origin: ${loc}`);
     ensure(parsed.search === '', `skills sitemap loc must not contain query params: ${loc}`);
-    ensure(
-      /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname),
-      `skills sitemap loc has invalid path depth/format: ${loc}`,
-    );
+    ensure(/^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname), `skills sitemap loc has invalid path depth/format: ${loc}`);
     const segments = parsed.pathname.split('/').filter(Boolean);
     const repoSegment = segments[segments.length - 1] || '';
     ensure(!SKILL_FILE_EXT_REGEX.test(repoSegment), `skills sitemap loc must not use file-like repo slug: ${loc}`);
@@ -402,10 +414,22 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
   return allSkillPaths;
 }
 
-async function runInvalidSubSkillRedirectCheck(skillPaths: string[]) {
-  ensure(skillPaths.length > 0, 'skills sitemap must contain at least one skill URL');
+async function runRepresentativeSkillCheck(skillPath: string | null) {
+  if (!skillPath) return;
+  const html = await fetchHtml(skillPath);
+  const canonical = readTagContent(html, /<link\s+rel="canonical"\s+href="(.*?)"/i);
 
-  const parentPath = skillPaths[0]!;
+  ensure(Boolean(canonical), `${skillPath}: missing canonical`);
+  ensure(canonical === `${SITE_ORIGIN}${skillPath}`, `${skillPath}: canonical mismatch (${canonical})`);
+  ensure(html.includes('application/ld+json'), `${skillPath}: expected structured data script`);
+  ensure(!html.includes('aggregateRating'), `${skillPath}: unexpected HTML content "aggregateRating"`);
+  ensure(!html.includes('ratingValue'), `${skillPath}: unexpected HTML content "ratingValue"`);
+
+  console.log(`SEO smoke passed: representative skill detail page (${skillPath})`);
+}
+
+async function runInvalidSubSkillRedirectCheck(parentPath: string | null) {
+  if (!parentPath) return;
   const fakeSubSkillPath = `${parentPath}/__seo_smoke_invalid_sub_skill_guard__`;
   const redirectResponse = await fetchRedirectWithRetry(withCacheBust(fakeSubSkillPath), 301);
   const location = redirectResponse.headers.get('location') || '';
@@ -453,7 +477,9 @@ async function main() {
 
   await runMissingDocs404Check();
   const skillPaths = await runSkillsSitemapChecks();
-  await runInvalidSubSkillRedirectCheck(skillPaths);
+  const representativeSkillPath = await resolveRepresentativeSkillPath(skillPaths);
+  await runRepresentativeSkillCheck(representativeSkillPath);
+  await runInvalidSubSkillRedirectCheck(representativeSkillPath);
   await runBlogSitemapChecks();
 
   console.log(`SEO smoke completed successfully against ${baseUrl}`);

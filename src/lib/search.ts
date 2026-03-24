@@ -158,22 +158,20 @@ export const CATEGORY_GROUPS: Readonly<Record<string, readonly string[]>> = {
   ],
   browser: [
     'browser',
-    'web',
     'scraping',
-    'pupeteer',
+    'puppeteer',
     'selenium',
     'playwright',
     'chrome',
     'firefox',
-    'automation',
     'crawler',
+    'headless',
+    'browser-use',
   ],
   productivity: [
     'productivity',
     'workflow',
-    'automation',
     'utility',
-    'tool',
     'manager',
     'organize',
     'time',
@@ -261,6 +259,30 @@ export const CATEGORY_GROUPS: Readonly<Record<string, readonly string[]>> = {
   documentation: ['documentation', 'markdown', 'docs', 'readme', 'pdf'],
 };
 
+const BROAD_CATEGORIES = new Set(['ai', 'developer', 'productivity', 'browser']);
+
+function collectSearchableText(skill: UnifiedSkill): string {
+  const descriptionText =
+    typeof skill.description === 'string'
+      ? skill.description
+      : Object.values(skill.description || {})
+          .filter((value): value is string => typeof value === 'string')
+          .join(' ');
+
+  return [skill.name, skill.skillName, descriptionText, ...(skill.topics || [])].join(' ').toLowerCase();
+}
+
+function countKeywordMatches(text: string, keywords: readonly string[]): number {
+  let count = 0;
+  for (const keyword of keywords) {
+    if (!keyword) continue;
+    if (text.includes(keyword.toLowerCase())) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
 export function filterByCategory(skills: UnifiedSkill[], category: string): UnifiedSkill[] {
   const normalizedCategory = normalizeCategoryId(category);
   const categoryKey = normalizedCategory || category.toLowerCase();
@@ -277,6 +299,7 @@ export function filterByCategory(skills: UnifiedSkill[], category: string): Unif
   });
 
   const targetKeywords = CATEGORY_GROUPS[categoryKey] || [categoryKey];
+  const minTextMatchCount = BROAD_CATEGORIES.has(categoryKey) ? 2 : 1;
 
   return skills.filter((s) => {
     const normalizedSkillCategory = normalizeCategoryId(s.category);
@@ -289,10 +312,9 @@ export function filterByCategory(skills: UnifiedSkill[], category: string): Unif
       return true;
     }
 
-    // 4. Fallback: Check if name or description contains the category keyword itself
-    const textToCheck = `${s.name} ${s.description}`.toLowerCase();
-    const isPrimaryKeywordMatch = targetKeywords.some((k) => textToCheck.includes(k));
-
-    return isPrimaryKeywordMatch;
+    // 4. Fallback: require stronger evidence from aggregated text to prevent drift.
+    const textToCheck = collectSearchableText(s);
+    const matchCount = countKeywordMatches(textToCheck, targetKeywords);
+    return matchCount >= minTextMatchCount;
   });
 }

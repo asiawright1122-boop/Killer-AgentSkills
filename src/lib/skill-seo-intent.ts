@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import { normalizeCategoryId } from './category-taxonomy';
 
 type LocalizedText = {
   en: string;
@@ -273,7 +274,8 @@ export function resolveSkillSeoIntent(
   rawKeywords: string[],
   locale: Locale,
 ): SkillSeoIntent {
-  const intentId = category && CATEGORY_INTENTS[category] ? category : 'default';
+  const normalizedCategory = normalizeCategoryId(category);
+  const intentId = normalizedCategory && CATEGORY_INTENTS[normalizedCategory] ? normalizedCategory : 'default';
   const config = CATEGORY_INTENTS[intentId];
   const isZh = locale === 'zh';
   const localizedKeywords = config.keywords;

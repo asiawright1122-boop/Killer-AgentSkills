@@ -6,6 +6,7 @@
 import type { Env } from './kv';
 import { getSkillsFromKV, getSkillsKV, getSkillsListing, getLocalSkillsFallback } from './kv';
 import { OFFICIAL_REPOS } from './skills-config';
+import { getNonTargetSkillReason } from './shared/validation';
 
 export interface UnifiedSkill {
   id: string;
@@ -56,6 +57,29 @@ export function getLocalizedDescription(description: UnifiedSkill['description']
   return description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '';
 }
 
+function getValidationDescription(description: UnifiedSkill['description'] | undefined): string {
+  if (!description) return '';
+  if (typeof description === 'string') return description;
+  return Object.values(description).join(' ');
+}
+
+export function isPublicSkill(skill: UnifiedSkill): boolean {
+  return !getNonTargetSkillReason({
+    name: skill.name || skill.skillName || skill.repo,
+    owner: skill.owner,
+    repo: skill.repo,
+    body: skill.skillMd?.body || skill.skillMd?.bodyPreview || '',
+    description: getValidationDescription(skill.description),
+    topics: skill.topics || [],
+    category: skill.category,
+    filePath: skill.filePath,
+  });
+}
+
+export function filterPublicSkills(skills: UnifiedSkill[]): UnifiedSkill[] {
+  return skills.filter((skill) => isPublicSkill(skill));
+}
+
 /**
  * Augment skills with explicit categories from OFFICIAL_REPOS config.
  * Extracted to eliminate 3x duplication of this pattern.
@@ -68,6 +92,10 @@ function augmentWithOfficialCategories(skills: UnifiedSkill[]): UnifiedSkill[] {
     }
     return skill;
   });
+}
+
+function normalizePublicSkills(skills: UnifiedSkill[]): UnifiedSkill[] {
+  return filterPublicSkills(augmentWithOfficialCategories(skills));
 }
 
 // Module-level cache for getAllSkills within a single Worker request
@@ -101,7 +129,7 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
       cache = (caches as unknown as { default: Cache }).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
-        const skills = (await cachedResponse.json()) as UnifiedSkill[];
+        const skills = normalizePublicSkills((await cachedResponse.json()) as UnifiedSkill[]);
         _cachedSkills = skills;
         _cacheTs = Date.now();
         return skills;
@@ -114,7 +142,7 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
   console.time('getAllSkills DB Fetch & Parse');
   // 3. Fallback: Full DB query and JSON parse (slow path)
   const raw = await getSkillsFromKV(env);
-  const skills = augmentWithOfficialCategories(raw as UnifiedSkill[]);
+  const skills = normalizePublicSkills(raw as UnifiedSkill[]);
 
   console.timeEnd('getAllSkills DB Fetch & Parse');
 
@@ -163,7 +191,7 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
       cache = (caches as unknown as { default: Cache }).default;
       const cachedResponse = await cache.match(cacheKey);
       if (cachedResponse) {
-        const skills = (await cachedResponse.json()) as UnifiedSkill[];
+        const skills = normalizePublicSkills((await cachedResponse.json()) as UnifiedSkill[]);
         _cachedLightSkills = skills;
         _cacheLightTs = Date.now();
         return skills;
@@ -176,7 +204,7 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   console.time('getLightweightSkills DB Fetch');
   // 3. Fallback: D1 listing query (fast path, extracts only card fields)
   const raw = await getSkillsListing(env);
-  const skills = augmentWithOfficialCategories(raw as UnifiedSkill[]);
+  const skills = normalizePublicSkills(raw as UnifiedSkill[]);
 
   console.timeEnd('getLightweightSkills DB Fetch');
 
@@ -209,7 +237,9 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
  */
 export async function getSkillById(env: Env, id: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${id}`);
-  return direct ? (direct as UnifiedSkill) : null;
+  if (!direct) return null;
+  const skill = direct as UnifiedSkill;
+  return isPublicSkill(skill) ? skill : null;
 }
 
 /**
@@ -220,7 +250,9 @@ export async function getSkillById(env: Env, id: string): Promise<UnifiedSkill |
  */
 export async function getSkillByOwnerRepo(env: Env, owner: string, repo: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${owner}/${repo}`);
-  return direct ? (direct as UnifiedSkill) : null;
+  if (!direct) return null;
+  const skill = direct as UnifiedSkill;
+  return isPublicSkill(skill) ? skill : null;
 }
 
 /**
@@ -246,7 +278,7 @@ export async function getFeaturedSkillsDirect(env: Env, limit: number = 6): Prom
     const result = await env.DB.prepare(`SELECT data_json FROM skills ORDER BY stars DESC LIMIT ?`).bind(limit).all();
 
     if (result.success && result.results) {
-      return augmentWithOfficialCategories(result.results.map((row: any) => JSON.parse(row.data_json) as UnifiedSkill));
+      return normalizePublicSkills(result.results.map((row: any) => JSON.parse(row.data_json) as UnifiedSkill));
     }
     return [];
   } catch (e) {

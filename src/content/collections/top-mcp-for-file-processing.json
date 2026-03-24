@@ -1,109 +1,149 @@
 {
   "title": {
-    "en": "Top File, Document & Data Processing Automation Tools",
-    "zh": "文件、文档与数据处理自动化工具精选",
-    "ja": "ファイル・文書・データ処理の自動化ツール集",
-    "ko": "파일·문서·데이터 처리 자동화 도구 모음",
-    "es": "Herramientas de automatización para archivos, documentos y datos",
-    "fr": "Outils d’automatisation pour fichiers, documents et données",
-    "de": "Automatisierungstools für Datei-, Dokument- und Datenverarbeitung",
-    "pt": "Ferramentas de automação para processamento de arquivos e dados",
-    "ru": "Инструменты автоматизации обработки файлов, документов и данных",
-    "ar": "أدوات أتمتة معالجة الملفات والمستندات والبيانات"
+    "en": "File, Document & Data Processing Automation Tools | AI Agent Skills",
+    "zh": "文件、文档与数据处理自动化工具精选 | AI Agent Skills",
+    "ja": "ファイル・文書・データ処理の自動化ツール集 | AI Agent Skills",
+    "ko": "파일·문서·데이터 처리 자동화 도구 모음 | AI Agent Skills",
+    "es": "Herramientas de automatización para archivos, documentos y datos | AI Agent Skills",
+    "fr": "Outils d’automatisation pour fichiers, documents et données | AI Agent Skills",
+    "de": "Automatisierungstools für Datei-, Dokument- und Datenverarbeitung | AI Agent Skills",
+    "pt": "Ferramentas de automação para processamento de arquivos e dados | AI Agent Skills",
+    "ru": "Инструменты автоматизации обработки файлов, документов и данных | AI Agent Skills",
+    "ar": "أدوات أتمتة معالجة الملفات والمستندات والبيانات | AI Agent Skills"
   },
   "description": {
-    "en": "Find workflow tools for document parsing, file transformation, structured extraction, and automated data handling tasks.",
-    "zh": "聚焦文档解析、文件转换、结构化提取与数据处理自动化等高频工作流任务。",
-    "ja": "ドキュメント解析、ファイル変換、構造化抽出、データ処理自動化に対応する実務向けツールを厳選。",
-    "ko": "문서 파싱, 파일 변환, 구조화 추출, 데이터 처리 자동화 등 실무 중심 워크플로 도구를 제공합니다.",
-    "es": "Encuentra herramientas de workflow para parsing de documentos, transformación de archivos, extracción estructurada y manejo automático de datos.",
-    "fr": "Trouvez des outils de workflow pour le parsing de documents, la transformation de fichiers, l’extraction structurée et le traitement automatisé des données.",
-    "de": "Finde Workflow-Tools für Dokumenten-Parsing, Dateikonvertierung, strukturierte Extraktion und automatisierte Datenverarbeitung.",
-    "pt": "Encontre ferramentas de workflow para parsing de documentos, transformação de arquivos, extração estruturada e tratamento automatizado de dados.",
-    "ru": "Подборка инструментов для разбора документов, преобразования файлов, структурированного извлечения и автоматической обработки данных.",
-    "ar": "اعثر على أدوات سير عمل لتحليل المستندات وتحويل الملفات والاستخراج المنظم والمعالجة الآلية للبيانات."
+    "en": "Installable AI agent skills for file document data processing developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 file document data processing AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの file document data processing AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 file document data processing AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de file document data processing en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur file document data processing dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für file document data processing Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em file document data processing no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в file document data processing для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات file document data processing داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top File, Document & Data Processing Automation Tools | Killer-Skills",
-    "zh": "文件与文档处理工作流工具 | Killer-Skills",
-    "ja": "ファイル・文書処理ワークフローツール | Killer-Skills",
-    "ko": "파일·문서 처리 워크플로 도구 | Killer-Skills",
-    "es": "Herramientas de workflow para archivos y documentos | Killer-Skills",
-    "fr": "Outils de workflow fichiers et documents | Killer-Skills",
-    "de": "Workflow-Tools für Datei- und Dokumentverarbeitung | Killer-Skills",
-    "pt": "Ferramentas de workflow para arquivos e documentos | Killer-Skills",
-    "ru": "Инструменты workflow для файлов и документов | Killer-Skills",
-    "ar": "أدوات سير عمل معالجة الملفات والمستندات | Killer-Skills"
+    "en": "AI Agent Skills - File, Document & Data Processing Automa...",
+    "zh": "AI Agent Skills - 文件、文档与数据处理自动化工具精选 | Killer-Skills",
+    "ja": "AI Agent Skills - ファイル・文書・データ処理の自動化ツール集 | Killer-Skills",
+    "ko": "AI Agent Skills - 파일·문서·데이터 처리 자동화 도구 모음 | Killer-Skills",
+    "es": "AI Agent Skills - Herramientas de automatización para arc...",
+    "fr": "AI Agent Skills - Outils d’automatisation pour fichiers, ...",
+    "de": "AI Agent Skills - Automatisierungstools für Datei-, Dokum...",
+    "pt": "AI Agent Skills - Ferramentas de automação para processam...",
+    "ru": "AI Agent Skills - Инструменты автоматизации обработки фай...",
+    "ar": "AI Agent Skills - أدوات أتمتة معالجة الملفات والمستندات و..."
   },
   "seoDescription": {
-    "en": "A practical collection for file and document automation workflows, with companion integrations for reliable operational processing.",
-    "zh": "面向文件与文档自动化流程的实用集合，提供稳定可扩展的配套集成能力。",
-    "ja": "ファイル・文書の自動化ワークフローを実務で回すためのコレクション。安定運用に役立つ連携機能を重視。",
-    "ko": "파일·문서 자동화 워크플로를 실무에 적용하기 위한 컬렉션으로 안정적인 운영 통합에 초점을 둡니다.",
-    "es": "Colección práctica para workflows de automatización de archivos y documentos, con integraciones complementarias para procesamiento operativo confiable.",
-    "fr": "Collection pratique pour les workflows d’automatisation de fichiers et documents, avec des intégrations compagnons pour un traitement opérationnel fiable.",
-    "de": "Praxisnahe Sammlung für Datei- und Dokumentautomatisierung mit Begleit-Integrationen für zuverlässige operative Verarbeitung.",
-    "pt": "Coleção prática para workflows de automação de arquivos e documentos, com integrações complementares para processamento operacional confiável.",
-    "ru": "Практичная коллекция для автоматизации обработки файлов и документов со вспомогательными интеграциями для надежной операционной работы.",
-    "ar": "مجموعة عملية لسير عمل أتمتة الملفات والمستندات مع تكاملات مساندة لمعالجة تشغيلية موثوقة."
+    "en": "Installable AI agent skills for file document data processing developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 file document data processing AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの file document data processing AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 file document data processing AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de file document data processing en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur file document data processing dans Claude Code, Cursor et Windsurf. Killer-Ski...",
+    "de": "Installierbare AI Agent Skills für file document data processing Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em file document data processing no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в file document data processing для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات file document data processing داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "file processing automation",
-      "document workflow tools",
-      "data extraction utilities",
-      "file transformation",
-      "mcp processing integrations"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
-    "zh": ["文件处理自动化", "文档工作流工具", "数据提取工具", "文件转换", "MCP 处理集成"],
-    "ja": ["ファイル処理自動化", "文書ワークフローツール", "データ抽出ユーティリティ", "ファイル変換", "MCP処理連携"],
-    "ko": ["파일 처리 자동화", "문서 워크플로 도구", "데이터 추출 유틸리티", "파일 변환", "MCP 처리 통합"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
+    ],
+    "ja": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
+    ],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
+    ],
     "es": [
-      "automatización de procesamiento de archivos",
-      "herramientas de workflow documental",
-      "utilidades de extracción de datos",
-      "transformación de archivos",
-      "integraciones de procesamiento MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
     "fr": [
-      "automatisation du traitement de fichiers",
-      "outils de workflow documentaire",
-      "utilitaires d’extraction de données",
-      "transformation de fichiers",
-      "intégrations de traitement MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
     "de": [
-      "Automatisierung der Dateiverarbeitung",
-      "Dokumenten-Workflow-Tools",
-      "Datenextraktions-Utilities",
-      "Dateitransformation",
-      "MCP-Verarbeitungsintegrationen"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
     "pt": [
-      "automação de processamento de arquivos",
-      "ferramentas de workflow documental",
-      "utilitários de extração de dados",
-      "transformação de arquivos",
-      "integrações de processamento MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
     "ru": [
-      "автоматизация обработки файлов",
-      "инструменты документного workflow",
-      "утилиты извлечения данных",
-      "преобразование файлов",
-      "интеграции обработки MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ],
     "ar": [
-      "أتمتة معالجة الملفات",
-      "أدوات سير عمل المستندات",
-      "أدوات استخراج البيانات",
-      "تحويل الملفات",
-      "تكاملات المعالجة عبر MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "file document data processing AI agent skills",
+      "file document data processing developer workflow",
+      "file document data processing workflow automation"
     ]
   },
   "featured": false,
   "canonicalSlug": "file-document-data-processing-automation-tools",
-  "legacySlugs": ["top-mcp-for-file-processing"],
+  "legacySlugs": [
+    "top-mcp-for-file-processing"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

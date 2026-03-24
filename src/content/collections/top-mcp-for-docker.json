@@ -1,109 +1,149 @@
 {
   "title": {
-    "en": "Top Container Workflow & Docker Automation Tools",
-    "zh": "容器工作流与 Docker 自动化工具精选",
-    "ja": "コンテナワークフローとDocker自動化ツール集",
-    "ko": "컨테이너 워크플로 및 Docker 자동화 도구 모음",
-    "es": "Herramientas de workflow de contenedores y automatización Docker",
-    "fr": "Outils de workflow conteneur et automatisation Docker",
-    "de": "Tools für Container-Workflows und Docker-Automatisierung",
-    "pt": "Ferramentas de workflow de contêineres e automação Docker",
-    "ru": "Инструменты для контейнерных процессов и автоматизации Docker",
-    "ar": "أدوات سير عمل الحاويات وأتمتة Docker"
+    "en": "Container Workflow & Docker Automation Tools | AI Agent Skills",
+    "zh": "容器工作流与 Docker 自动化工具精选 | AI Agent Skills",
+    "ja": "コンテナワークフローとDocker自動化ツール集 | AI Agent Skills",
+    "ko": "컨테이너 워크플로 및 Docker 자동화 도구 모음 | AI Agent Skills",
+    "es": "Herramientas de workflow de contenedores y automatización Docker | AI Agent Skills",
+    "fr": "Outils de workflow conteneur et automatisation Docker | AI Agent Skills",
+    "de": "Tools für Container-Workflows und Docker-Automatisierung | AI Agent Skills",
+    "pt": "Ferramentas de workflow de contêineres e automação Docker | AI Agent Skills",
+    "ru": "Инструменты для контейнерных процессов и автоматизации Docker | AI Agent Skills",
+    "ar": "أدوات سير عمل الحاويات وأتمتة Docker | AI Agent Skills"
   },
   "description": {
-    "en": "Discover tools for container workflows, local infrastructure setup, and development environment automation around Docker operations.",
-    "zh": "聚焦容器工作流、本地基础设施搭建与开发环境自动化，覆盖核心 Docker 运维场景。",
-    "ja": "コンテナワークフロー、ローカル基盤構築、開発環境自動化など、Docker運用の実務に役立つツールを厳選。",
-    "ko": "컨테이너 워크플로, 로컬 인프라 구성, 개발 환경 자동화 등 Docker 운영 중심의 실무 도구를 제공합니다.",
-    "es": "Encuentra herramientas para workflows de contenedores, setup de infraestructura local y automatización del entorno de desarrollo en Docker.",
-    "fr": "Découvrez des outils pour les workflows conteneurs, la mise en place d’infra locale et l’automatisation des environnements de dev autour de Docker.",
-    "de": "Finde Tools für Container-Workflows, lokales Infrastruktur-Setup und automatisierte Entwicklungsumgebungen rund um Docker.",
-    "pt": "Descubra ferramentas para workflows de contêineres, setup de infraestrutura local e automação de ambiente de desenvolvimento com Docker.",
-    "ru": "Подборка инструментов для контейнерных процессов, локальной инфраструктуры и автоматизации dev-окружений вокруг Docker.",
-    "ar": "اكتشف أدوات لسير عمل الحاويات وإعداد البنية المحلية وأتمتة بيئات التطوير حول عمليات Docker."
+    "en": "Installable AI agent skills for docker container automation developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 docker container automation AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの docker container automation AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 docker container automation AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de docker container automation en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur docker container automation dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für docker container automation Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em docker container automation no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в docker container automation для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات docker container automation داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top Container Workflow & Docker Automation Tools | Killer-Skills",
-    "zh": "Docker、容器与开发环境自动化工具 | Killer-Skills",
-    "ja": "Docker・コンテナ・開発環境自動化ツール | Killer-Skills",
-    "ko": "Docker·컨테이너·개발 환경 자동화 도구 | Killer-Skills",
-    "es": "Docker, contenedores y automatización de entornos dev | Killer-Skills",
-    "fr": "Docker, conteneurs et automatisation des environnements dev | Killer-Skills",
-    "de": "Docker-, Container- und Dev-Environment-Automatisierung | Killer-Skills",
-    "pt": "Docker, contêineres e automação de ambiente dev | Killer-Skills",
-    "ru": "Docker, контейнеры и автоматизация dev-сред | Killer-Skills",
-    "ar": "Docker والحاويات وأتمتة بيئات التطوير | Killer-Skills"
+    "en": "AI Agent Skills - Container Workflow & Docker Automation ...",
+    "zh": "AI Agent Skills - 容器工作流与 Docker 自动化工具精选 | Killer-Skills",
+    "ja": "AI Agent Skills - コンテナワークフローとDocker自動化ツール集 | Killer-Skills",
+    "ko": "AI Agent Skills - 컨테이너 워크플로 및 Docker 자동화 도구 모음 | Killer-S...",
+    "es": "AI Agent Skills - Herramientas de workflow de contenedore...",
+    "fr": "AI Agent Skills - Outils de workflow conteneur et automat...",
+    "de": "AI Agent Skills - Tools für Container-Workflows und Docke...",
+    "pt": "AI Agent Skills - Ferramentas de workflow de contêineres ...",
+    "ru": "AI Agent Skills - Инструменты для контейнерных процессов ...",
+    "ar": "AI Agent Skills - أدوات سير عمل الحاويات وأتمتة Docker | ..."
   },
   "seoDescription": {
-    "en": "A workflow-first collection for container operations, local infra tooling, and companion integrations for Docker-heavy teams.",
-    "zh": "面向容器运维与本地基础设施的工作流优先集合，适合 Docker 密集型团队的配套集成场景。",
-    "ja": "コンテナ運用とローカル基盤を重視するチーム向けに、Docker中心の実務ワークフローと連携ツールを厳選。",
-    "ko": "컨테이너 운영과 로컬 인프라를 중시하는 Docker 중심 팀을 위한 워크플로 우선 컬렉션입니다.",
-    "es": "Colección orientada a workflow para operaciones de contenedores, tooling de infra local e integraciones complementarias en equipos centrados en Docker.",
-    "fr": "Collection orientée workflow pour les opérations conteneurs, l’outillage d’infra locale et les intégrations compagnons des équipes orientées Docker.",
-    "de": "Workflow-orientierte Sammlung für Containerbetrieb, lokale Infra-Tools und Begleit-Integrationen für Docker-lastige Teams.",
-    "pt": "Coleção orientada a workflow para operações de contêineres, tooling de infra local e integrações complementares para equipes focadas em Docker.",
-    "ru": "Коллекция с фокусом на процессы контейнеризации, локальную инфраструктуру и вспомогательные интеграции для команд с Docker-стеком.",
-    "ar": "مجموعة تضع سير العمل أولاً لعمليات الحاويات وأدوات البنية المحلية والتكاملات المساندة للفرق المعتمدة على Docker."
+    "en": "Installable AI agent skills for docker container automation developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 docker container automation AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの docker container automation AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 docker container automation AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de docker container automation en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur docker container automation dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für docker container automation Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em docker container automation no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в docker container automation для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات docker container automation داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "docker workflow tools",
-      "container automation",
-      "local infra setup",
-      "dev environment automation",
-      "mcp docker integrations"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
-    "zh": ["Docker 工作流工具", "容器自动化", "本地基础设施搭建", "开发环境自动化", "MCP Docker 集成"],
-    "ja": ["Dockerワークフローツール", "コンテナ自動化", "ローカル基盤構築", "開発環境自動化", "MCP Docker連携"],
-    "ko": ["Docker 워크플로 도구", "컨테이너 자동화", "로컬 인프라 구성", "개발 환경 자동화", "MCP Docker 통합"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
+    ],
+    "ja": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
+    ],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
+    ],
     "es": [
-      "herramientas workflow Docker",
-      "automatización de contenedores",
-      "setup de infra local",
-      "automatización de entorno dev",
-      "integraciones Docker MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
     "fr": [
-      "outils de workflow Docker",
-      "automatisation des conteneurs",
-      "setup infra locale",
-      "automatisation environnement dev",
-      "intégrations Docker MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
     "de": [
-      "Docker-Workflow-Tools",
-      "Container-Automatisierung",
-      "lokales Infra-Setup",
-      "Dev-Environment-Automatisierung",
-      "MCP-Docker-Integrationen"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
     "pt": [
-      "ferramentas de workflow Docker",
-      "automação de contêineres",
-      "setup de infra local",
-      "automação de ambiente dev",
-      "integrações Docker MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
     "ru": [
-      "инструменты Docker workflow",
-      "автоматизация контейнеров",
-      "настройка локальной инфраструктуры",
-      "автоматизация dev-среды",
-      "интеграции Docker MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ],
     "ar": [
-      "أدوات سير عمل Docker",
-      "أتمتة الحاويات",
-      "إعداد البنية المحلية",
-      "أتمتة بيئة التطوير",
-      "تكاملات Docker عبر MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "docker container automation AI agent skills",
+      "docker container automation developer workflow",
+      "docker container automation workflow automation"
     ]
   },
   "featured": false,
   "canonicalSlug": "docker-container-workflow-automation-tools",
-  "legacySlugs": ["top-mcp-for-docker"],
+  "legacySlugs": [
+    "top-mcp-for-docker"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

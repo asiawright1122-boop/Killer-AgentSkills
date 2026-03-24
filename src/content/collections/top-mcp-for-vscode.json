@@ -1,103 +1,149 @@
 {
   "title": {
-    "en": "Top VS Code-Compatible Skills & Workflow Tools",
-    "zh": "VS Code 兼容技能与开发工作流工具精选",
-    "ja": "VS Code対応スキルと開発ワークフローツール集",
-    "ko": "VS Code 호환 스킬 및 개발 워크플로 도구 모음",
-    "es": "Skills compatibles con VS Code y herramientas de workflow",
-    "fr": "Skills compatibles avec VS Code et outils de workflow",
-    "de": "VS Code-kompatible Skills und Entwickler-Workflow-Tools",
-    "pt": "Skills compatíveis com VS Code e ferramentas de workflow",
-    "ru": "Навыки и инструменты рабочего процесса для VS Code",
-    "ar": "مهارات متوافقة مع VS Code وأدوات سير عمل المطورين"
+    "en": "VS Code-Compatible Skills & Workflow Tools | AI Agent Skills",
+    "zh": "VS Code 兼容技能与开发工作流工具精选 | AI Agent Skills",
+    "ja": "VS Code対応スキルと開発ワークフローツール集 | AI Agent Skills",
+    "ko": "VS Code 호환 스킬 및 개발 워크플로 도구 모음 | AI Agent Skills",
+    "es": "Skills compatibles con VS Code y herramientas de workflow | AI Agent Skills",
+    "fr": "Skills compatibles avec VS Code et outils de workflow | AI Agent Skills",
+    "de": "VS Code-kompatible Skills und Entwickler-Workflow-Tools | AI Agent Skills",
+    "pt": "Skills compatíveis com VS Code e ferramentas de workflow | AI Agent Skills",
+    "ru": "Навыки и инструменты рабочего процесса для VS Code | AI Agent Skills",
+    "ar": "مهارات متوافقة مع VS Code وأدوات سير عمل المطورين | AI Agent Skills"
   },
   "description": {
-    "en": "Explore VS Code-ready skills, IDE integrations, and companion tooling that improve coding, review, and debugging workflows.",
-    "zh": "聚合适配 VS Code 的技能、IDE 集成与配套工具，帮助你优化编码、评审与调试流程。",
-    "ja": "コーディング、レビュー、デバッグの流れを改善できる、VS Code対応スキルとIDE連携ツールをまとめています。",
-    "ko": "코딩, 리뷰, 디버깅 흐름을 개선할 수 있도록 VS Code 호환 스킬, IDE 연동, 보조 도구를 모았습니다.",
-    "es": "Descubre skills listas para VS Code, integraciones de IDE y utilidades complementarias para mejorar coding, review y debugging.",
-    "fr": "Découvrez des skills prêtes pour VS Code, des intégrations IDE et des outils compagnons pour améliorer le code, la review et le debug.",
-    "de": "Entdecke VS Code-fähige Skills, IDE-Integrationen und ergänzende Tools für bessere Coding-, Review- und Debugging-Workflows.",
-    "pt": "Explore skills prontas para VS Code, integrações de IDE e utilitários complementares para melhorar coding, review e debugging.",
-    "ru": "Подборка навыков для VS Code, IDE-интеграций и вспомогательных инструментов для эффективной разработки, ревью и отладки.",
-    "ar": "اكتشف مهارات جاهزة لـ VS Code وتكاملات IDE وأدوات مساندة لتحسين سير عمل البرمجة والمراجعة وتصحيح الأخطاء."
+    "en": "Installable AI agent skills for vscode compatible developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 vscode compatible AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの vscode compatible AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 vscode compatible AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de vscode compatible en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur vscode compatible dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für vscode compatible Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em vscode compatible no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в vscode compatible для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات vscode compatible داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top VS Code-Compatible Skills & Workflow Tools | Killer-Skills",
-    "zh": "VS Code 兼容技能与 IDE 工作流工具 | Killer-Skills",
-    "ja": "VS Code対応スキルとIDEワークフローツール | Killer-Skills",
-    "ko": "VS Code 호환 스킬 및 IDE 워크플로 도구 | Killer-Skills",
-    "es": "Skills compatibles con VS Code y herramientas de IDE | Killer-Skills",
-    "fr": "Skills compatibles VS Code et outils de workflow IDE | Killer-Skills",
-    "de": "VS Code-Skills und IDE-Workflow-Tools | Killer-Skills",
-    "pt": "Skills para VS Code e ferramentas de workflow IDE | Killer-Skills",
-    "ru": "Совместимые с VS Code навыки и IDE-инструменты | Killer-Skills",
-    "ar": "مهارات متوافقة مع VS Code وأدوات سير عمل IDE | Killer-Skills"
+    "en": "AI Agent Skills - VS Code-Compatible Skills & Workflow To...",
+    "zh": "AI Agent Skills - VS Code 兼容技能与开发工作流工具精选 | Killer-Skills",
+    "ja": "AI Agent Skills - VS Code対応スキルと開発ワークフローツール集 | Killer-Skills",
+    "ko": "AI Agent Skills - VS Code 호환 스킬 및 개발 워크플로 도구 모음 | Killer-...",
+    "es": "AI Agent Skills - Skills compatibles con VS Code y herram...",
+    "fr": "AI Agent Skills - Skills compatibles avec VS Code et outi...",
+    "de": "AI Agent Skills - VS Code-kompatible Skills und Entwickle...",
+    "pt": "AI Agent Skills - Skills compatíveis com VS Code e ferram...",
+    "ru": "AI Agent Skills - Навыки и инструменты рабочего процесса ...",
+    "ar": "AI Agent Skills - مهارات متوافقة مع VS Code وأدوات سير عم..."
   },
   "seoDescription": {
-    "en": "A focused collection of VS Code-compatible skills and integrations for practical developer workflows, not generic server lists.",
-    "zh": "聚焦真实开发流程的 VS Code 兼容技能与集成工具集合，而非泛化榜单。",
-    "ja": "汎用的な一覧ではなく、実務ワークフローに役立つVS Code対応スキルと連携ツールを厳選。",
-    "ko": "일반적인 목록이 아닌, 실제 개발 워크플로에 맞춘 VS Code 호환 스킬과 연동 도구를 제공합니다.",
-    "es": "Colección enfocada en workflows reales con skills e integraciones para VS Code, no una lista genérica de servidores.",
-    "fr": "Collection centrée sur les workflows réels avec des skills et intégrations VS Code, pas un classement générique de serveurs.",
-    "de": "Fokussierte Sammlung für reale Entwickler-Workflows mit VS Code-Skills und Integrationen statt generischer Serverlisten.",
-    "pt": "Coleção focada em workflows reais com skills e integrações para VS Code, em vez de listas genéricas de servidores.",
-    "ru": "Фокусная подборка навыков и интеграций для VS Code под реальные процессы разработки, а не общий рейтинг серверов.",
-    "ar": "مجموعة مركزة على سير العمل الحقيقي في VS Code عبر مهارات وتكاملات عملية، وليست قائمة عامة بالخوادم."
+    "en": "Installable AI agent skills for vscode compatible developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 vscode compatible AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの vscode compatible AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 vscode compatible AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de vscode compatible en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur vscode compatible dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für vscode compatible Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em vscode compatible no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в vscode compatible для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات vscode compatible داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "vs code compatible skills",
-      "ide integrations",
-      "developer workflow tools",
-      "coding automation",
-      "mcp workflow"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
-    "zh": ["VS Code 兼容技能", "IDE 集成", "开发工作流工具", "编码自动化", "MCP 工作流"],
-    "ja": ["VS Code対応スキル", "IDE連携", "開発ワークフローツール", "コーディング自動化", "MCPワークフロー"],
-    "ko": ["VS Code 호환 스킬", "IDE 통합", "개발 워크플로 도구", "코딩 자동화", "MCP 워크플로"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
+    ],
+    "ja": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
+    ],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
+    ],
     "es": [
-      "skills compatibles VS Code",
-      "integraciones IDE",
-      "herramientas de workflow dev",
-      "automatización de código",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
     "fr": [
-      "skills compatibles VS Code",
-      "intégrations IDE",
-      "outils de workflow développeur",
-      "automatisation du code",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
     "de": [
-      "VS Code-kompatible Skills",
-      "IDE-Integrationen",
-      "Entwickler-Workflow-Tools",
-      "Coding-Automatisierung",
-      "MCP-Workflow"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
     "pt": [
-      "skills compatíveis com VS Code",
-      "integrações IDE",
-      "ferramentas de workflow dev",
-      "automação de código",
-      "workflow MCP"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
     "ru": [
-      "навыки для VS Code",
-      "интеграции IDE",
-      "инструменты рабочего процесса разработчика",
-      "автоматизация кодирования",
-      "MCP workflow"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
     ],
-    "ar": ["مهارات متوافقة مع VS Code", "تكاملات IDE", "أدوات سير عمل المطورين", "أتمتة البرمجة", "سير عمل MCP"]
+    "ar": [
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "vscode compatible AI agent skills",
+      "vscode compatible developer workflow",
+      "vscode compatible workflow automation"
+    ]
   },
   "featured": false,
   "canonicalSlug": "vscode-compatible-skills",
-  "legacySlugs": ["top-mcp-for-vscode"],
+  "legacySlugs": [
+    "top-mcp-for-vscode"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

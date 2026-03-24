@@ -1,109 +1,149 @@
 {
   "title": {
-    "en": "Top Testing Automation & QA Workflow Tools",
-    "zh": "测试自动化与 QA 工作流工具精选",
-    "ja": "テスト自動化とQAワークフローツール集",
-    "ko": "테스트 자동화 및 QA 워크플로 도구 모음",
-    "es": "Herramientas de automatización de testing y workflow QA",
-    "fr": "Outils d’automatisation des tests et workflow QA",
-    "de": "Tools für Testautomatisierung und QA-Workflows",
-    "pt": "Ferramentas de automação de testes e workflow de QA",
-    "ru": "Инструменты автоматизации тестирования и QA-процессов",
-    "ar": "أدوات أتمتة الاختبار وسير عمل ضمان الجودة"
+    "en": "Testing Automation & QA Workflow Tools | AI Agent Skills",
+    "zh": "测试自动化与 QA 工作流工具精选 | AI Agent Skills",
+    "ja": "テスト自動化とQAワークフローツール集 | AI Agent Skills",
+    "ko": "테스트 자동화 및 QA 워크플로 도구 모음 | AI Agent Skills",
+    "es": "Herramientas de automatización de testing y workflow QA | AI Agent Skills",
+    "fr": "Outils d’automatisation des tests et workflow QA | AI Agent Skills",
+    "de": "Tools für Testautomatisierung und QA-Workflows | AI Agent Skills",
+    "pt": "Ferramentas de automação de testes e workflow de QA | AI Agent Skills",
+    "ru": "Инструменты автоматизации тестирования и QA-процессов | AI Agent Skills",
+    "ar": "أدوات أتمتة الاختبار وسير عمل ضمان الجودة | AI Agent Skills"
   },
   "description": {
-    "en": "Find workflow tools for test automation, regression checks, and agent-assisted validation across CI and local environments.",
-    "zh": "聚焦测试自动化、回归检查与智能体辅助验证，覆盖 CI 与本地环境的质量流程。",
-    "ja": "テスト自動化、回帰チェック、エージェント支援バリデーションに対応したワークフローツールを、CIとローカル環境向けに厳選。",
-    "ko": "CI와 로컬 환경 전반에서 테스트 자동화, 회귀 점검, 에이전트 보조 검증을 지원하는 워크플로 도구를 제공합니다.",
-    "es": "Encuentra herramientas para automatización de pruebas, checks de regresión y validación asistida por agentes en CI y local.",
-    "fr": "Trouvez des outils de workflow pour l’automatisation des tests, les vérifications de régression et la validation assistée par agents en CI et en local.",
-    "de": "Finde Workflow-Tools für Testautomatisierung, Regressionsprüfungen und agentengestützte Validierung in CI und lokal.",
-    "pt": "Encontre ferramentas de workflow para automação de testes, checagens de regressão e validação assistida por agentes em CI e local.",
-    "ru": "Подборка инструментов для автоматизации тестов, регрессионных проверок и валидации с участием агентов в CI и локальной среде.",
-    "ar": "اعثر على أدوات سير عمل لأتمتة الاختبارات وفحوصات الانحدار والتحقق بمساعدة الوكلاء عبر بيئات CI والمحلية."
+    "en": "Installable AI agent skills for testing automation developer workflows in Claude Code, Cursor, and Windsurf.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 testing automation AI Agent Skills，聚焦 developer workflow automation。",
+    "ja": "Claude Code・Cursor・Windsurf 向けの testing automation AI Agent Skills 集合。developer workflow automation を重視します。",
+    "ko": "Claude Code, Cursor, Windsurf용 testing automation AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de testing automation en Claude Code, Cursor y Windsurf.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur testing automation dans Claude Code, Cursor et Windsurf.",
+    "de": "Installierbare AI Agent Skills für testing automation Developer Workflows in Claude Code, Cursor und Windsurf.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em testing automation no Claude Code, Cursor e Windsurf.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в testing automation для Claude Code, Cursor и Windsurf.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات testing automation داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "Top Testing Automation & QA Workflow Tools | Killer-Skills",
-    "zh": "测试自动化、QA 工作流与验证工具 | Killer-Skills",
-    "ja": "テスト自動化・QAワークフロー・検証ツール | Killer-Skills",
-    "ko": "테스트 자동화·QA 워크플로·검증 도구 | Killer-Skills",
-    "es": "Automatización de testing y workflow QA | Killer-Skills",
-    "fr": "Automatisation des tests et workflow QA | Killer-Skills",
-    "de": "Testautomatisierung und QA-Workflow-Tools | Killer-Skills",
-    "pt": "Automação de testes e workflow de QA | Killer-Skills",
-    "ru": "Автоматизация тестирования и QA-инструменты | Killer-Skills",
-    "ar": "أدوات أتمتة الاختبار وسير عمل QA | Killer-Skills"
+    "en": "AI Agent Skills - Testing Automation & QA Workflow Tools ...",
+    "zh": "AI Agent Skills - 测试自动化与 QA 工作流工具精选 | Killer-Skills",
+    "ja": "AI Agent Skills - テスト自動化とQAワークフローツール集 | Killer-Skills",
+    "ko": "AI Agent Skills - 테스트 자동화 및 QA 워크플로 도구 모음 | Killer-Skills",
+    "es": "AI Agent Skills - Herramientas de automatización de testi...",
+    "fr": "AI Agent Skills - Outils d’automatisation des tests et wo...",
+    "de": "AI Agent Skills - Tools für Testautomatisierung und QA-Wo...",
+    "pt": "AI Agent Skills - Ferramentas de automação de testes e wo...",
+    "ru": "AI Agent Skills - Инструменты автоматизации тестирования ...",
+    "ar": "AI Agent Skills - أدوات أتمتة الاختبار وسير عمل ضمان الجو..."
   },
   "seoDescription": {
-    "en": "A practical collection of testing workflow tools, automation utilities, and agent-assisted validation for CI and local environments.",
-    "zh": "面向实战的测试工作流工具与自动化实用组件集合，覆盖 CI 与本地环境中的智能体辅助验证。",
-    "ja": "実務向けのテストワークフローツールと自動化ユーティリティを厳選し、CI とローカル環境でのエージェント支援バリデーションに対応します。",
-    "ko": "실무 중심의 테스트 워크플로 도구와 자동화 유틸리티를 모아 CI와 로컬 환경 전반의 에이전트 보조 검증을 지원합니다.",
-    "es": "Colección práctica de herramientas de workflow de testing, utilidades de automatización y validación asistida por agentes en CI y local.",
-    "fr": "Collection pratique d’outils de workflow QA, d’utilitaires d’automatisation et de validation assistée par agents en CI et en local.",
-    "de": "Praxisnahe Sammlung von Test-Workflow-Tools, Automatisierungs-Utilities und agentengestützter Validierung in CI und lokal.",
-    "pt": "Coleção prática de ferramentas de workflow de testes, utilitários de automação e validação assistida por agentes em CI e local.",
-    "ru": "Практичная коллекция инструментов тестового процесса, утилит автоматизации и валидации с участием агентов в CI и локальной среде.",
-    "ar": "مجموعة عملية من أدوات سير عمل الاختبار وأدوات الأتمتة والتحقق بمساعدة الوكلاء عبر بيئات CI والمحلية."
+    "en": "Installable AI agent skills for testing automation developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
+    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 testing automation AI Agent Skills，聚焦 developer workflow automation。 Killer-Skills.",
+    "ja": "Claude Code・Cursor・Windsurf 向けの testing automation AI Agent Skills 集合。developer workflow automation を重視します。 Killer-Skills.",
+    "ko": "Claude Code, Cursor, Windsurf용 testing automation AI Agent Skills 모음입니다. developer workflow automation에 초점을 둡니다. Killer-Skills.",
+    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de testing automation en Claude Code, Cursor y Windsurf. Killer-Skills.",
+    "fr": "Collection de AI Agent Skills installables pour les workflows développeur testing automation dans Claude Code, Cursor et Windsurf. Killer-Skills.",
+    "de": "Installierbare AI Agent Skills für testing automation Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
+    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em testing automation no Claude Code, Cursor e Windsurf. Killer-Skills.",
+    "ru": "Подборка installable AI Agent Skills для developer workflow в testing automation для Claude Code, Cursor и Windsurf. Killer-Skills.",
+    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات testing automation داخل Claude Code وCursor وWindsurf. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "testing automation tools",
-      "qa workflow",
-      "regression validation",
-      "ci testing utilities",
-      "agent-assisted validation"
+      "AI agent skills",
+      "developer workflow skills",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
-    "zh": ["测试自动化工具", "QA 工作流", "回归验证", "CI 测试工具", "智能体辅助验证"],
+    "zh": [
+      "AI Agent Skills",
+      "开发者工作流",
+      "Claude Code 技能",
+      "工作流自动化",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
+    ],
     "ja": [
-      "テスト自動化ツール",
-      "QAワークフロー",
-      "回帰検証",
-      "CIテストユーティリティ",
-      "エージェント支援バリデーション"
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
-    "ko": ["테스트 자동화 도구", "QA 워크플로", "회귀 검증", "CI 테스트 유틸리티", "에이전트 보조 검증"],
+    "ko": [
+      "AI Agent Skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
+    ],
     "es": [
-      "herramientas de automatización de testing",
-      "workflow QA",
-      "validación de regresión",
-      "utilidades de testing en CI",
-      "validación asistida por agentes"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
     "fr": [
-      "outils d’automatisation des tests",
-      "workflow QA",
-      "validation de régression",
-      "utilitaires de test CI",
-      "validation assistée par agents"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
     "de": [
-      "Testautomatisierungs-Tools",
-      "QA-Workflow",
-      "Regressionsvalidierung",
-      "CI-Test-Utilities",
-      "agentengestützte Validierung"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
     "pt": [
-      "ferramentas de automação de testes",
-      "workflow de QA",
-      "validação de regressão",
-      "utilitários de teste em CI",
-      "validação assistida por agentes"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
     "ru": [
-      "инструменты автоматизации тестирования",
-      "QA-процесс",
-      "регрессионная валидация",
-      "утилиты для CI-тестов",
-      "валидация с участием агентов"
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
     ],
-    "ar": ["أدوات أتمتة الاختبار", "سير عمل QA", "التحقق من الانحدار", "أدوات اختبار CI", "التحقق بمساعدة الوكلاء"]
+    "ar": [
+      "AI agent skills",
+      "developer workflow",
+      "Claude Code skills",
+      "workflow automation",
+      "testing automation AI agent skills",
+      "testing automation developer workflow",
+      "testing automation workflow automation"
+    ]
   },
   "featured": false,
   "canonicalSlug": "testing-automation-and-qa-workflow-tools",
-  "legacySlugs": ["top-mcp-for-testing"],
+  "legacySlugs": [
+    "top-mcp-for-testing"
+  ],
   "category": "developer-tools",
   "skills": [],
   "longDescription": {

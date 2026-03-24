@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
-import { getSkillsFromKV, type Env } from '../../../lib/kv';
+import { type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
-import { getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
+import { getAllSkills, getLocalizedDescription, isPublicSkill, type UnifiedSkill } from '../../../lib/skills';
 import { errorResponse } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 
@@ -85,16 +85,14 @@ export const GET: APIRoute = async ({ request, locals }) => {
         ]);
 
         if (countResult && dataResult.success) {
-          _total = (countResult as { total: number }).total;
-
-          // Parse JSON and localize
-          _skills = dataResult.results.map((row: Record<string, unknown>) => {
-            const skill = JSON.parse(row.data_json as string) as UnifiedSkill;
-            return {
+          _skills = dataResult.results
+            .map((row: Record<string, unknown>) => JSON.parse(row.data_json as string) as UnifiedSkill)
+            .filter((skill) => isPublicSkill(skill))
+            .map((skill) => ({
               ...skill,
               description: getLocalizedDescription(skill.description, locale),
-            };
-          });
+            }));
+          _total = _skills.length;
 
           return new Response(
             JSON.stringify({
@@ -120,10 +118,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // 2. SLOW PATH: KV + JS Memory (Fallback)
     // ==========================================
-    if (env) {
-      const raw = await getSkillsFromKV(env);
-      _skills = raw as UnifiedSkill[];
-    }
+    _skills = env ? await getAllSkills(env) : [];
 
     // Localize descriptions
     _skills = _skills.map((skill: UnifiedSkill) => ({

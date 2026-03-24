@@ -110,6 +110,60 @@ function isValidSkillFile(filePath: string): boolean {
 }
 
 /**
+ * 验证 SKILL.md 内容是否包含有效的 frontmatter
+ * 有效 SKILL.md 必须包含 YAML frontmatter，且至少有 name 或 description 字段
+ */
+function isValidSkillContent(content: string): { valid: boolean; reason?: string } {
+    if (!content || content.trim().length === 0) {
+        return { valid: false, reason: 'Empty file' };
+    }
+
+    // 检查是否有 YAML frontmatter (--- 包围)
+    const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+    if (!frontmatterMatch) {
+        return { valid: false, reason: 'Missing YAML frontmatter' };
+    }
+
+    const frontmatter = frontmatterMatch[1];
+    
+    // 检查是否有 name 或 description 字段
+    const hasName = /^name\s*:/m.test(frontmatter);
+    const hasDescription = /^description\s*:/m.test(frontmatter);
+    
+    if (!hasName && !hasDescription) {
+        return { valid: false, reason: 'Frontmatter missing both name and description fields' };
+    }
+
+    // 检查内容长度 (至少 100 字符，排除纯占位文件)
+    const bodyContent = content.slice(frontmatterMatch[0].length).trim();
+    if (bodyContent.length < 100) {
+        return { valid: false, reason: 'Body content too short (< 100 chars)' };
+    }
+
+    return { valid: true };
+}
+
+/**
+ * 获取 SKILL.md 文件内容进行预检
+ * 使用 GitHub Contents API 获取原始文件内容
+ */
+async function fetchSkillContent(owner: string, repo: string, filePath: string): Promise<string | null> {
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
+    try {
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `token ${GITHUB_TOKEN}`,
+                'Accept': 'application/vnd.github.v3.raw'
+            }
+        });
+        if (!response.ok) return null;
+        return await response.text();
+    } catch {
+        return null;
+    }
+}
+
+/**
  * 检查仓库是否在黑名单中
  */
 function isBlockedRepo(owner: string, repo: string): boolean {
@@ -419,6 +473,7 @@ async function main() {
             if (items.length === 0) break;
 
             let pageNewCount = 0;
+            let pageInvalidCount = 0;
             for (const item of items) {
                 const filePath = item.path;
 
@@ -441,6 +496,18 @@ async function main() {
                 const key = `${owner}/${repo}/${filePath}`;
                 if (existingKeys.has(key)) continue;
 
+                // 内容预检：验证 SKILL.md 包含有效 frontmatter
+                // 这会增加 API 调用，但可以过滤无效文件
+                const content = await fetchSkillContent(owner, repo, filePath);
+                if (content) {
+                    const validation = isValidSkillContent(content);
+                    if (!validation.valid) {
+                        pageInvalidCount++;
+                        skippedCount++;
+                        continue; // 跳过无效的 SKILL.md
+                    }
+                }
+
                 // Note: Code Search API 不返回 stars/forks
                 // 先存 0，后面批量用 Repos API 补充
                 const skill: HarvestedSkill = {
@@ -461,7 +528,7 @@ async function main() {
                 pageNewCount++;
             }
 
-            console.log(`      Page ${page}: ${items.length} results, ${pageNewCount} new.`);
+            console.log(`      Page ${page}: ${items.length} results, ${pageNewCount} new, ${pageInvalidCount} invalid.`);
 
             if (items.length < PER_PAGE) break; // No more pages
         }

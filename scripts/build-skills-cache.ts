@@ -34,6 +34,7 @@ import {
   discoverNewSkillsFromGitHub,
 } from './lib/github';
 import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
+import { getNonTargetSkillReason } from '../src/lib/shared/validation';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
@@ -43,6 +44,29 @@ if (fs.existsSync('.env.local')) {
 // ===== Service Instances =====
 const aiService = new AIService();
 
+function getThemeExclusionReason(skill: {
+  name?: string;
+  owner?: string;
+  repo?: string;
+  body?: string;
+  description?: string | Record<string, string>;
+  topics?: string[];
+  category?: string;
+  filePath?: string;
+}): string {
+  const description = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
+  return getNonTargetSkillReason({
+    name: skill.name || '',
+    owner: skill.owner || '',
+    repo: skill.repo,
+    body: skill.body || '',
+    description,
+    topics: skill.topics || [],
+    category: skill.category,
+    filePath: skill.filePath,
+  });
+}
+
 // ===== Build-Specific Scoring Logic =====
 function sharedCalculateQualityScore(skill: any): number {
   // ══════════════════════════════════════════════════════════════════
@@ -50,9 +74,6 @@ function sharedCalculateQualityScore(skill: any): number {
   //
   //   必须有:
   //     1. YAML frontmatter（---...---）
-  //     2. frontmatter 中的 name 字段（非空）
-  //     3. frontmatter 中的 description 字段（非空）
-  //     4. Markdown body（指令内容，≥ 100 字符）
   //
   //   score = 0  → 结构无效，不收录
   //   score > 0  → 结构有效，收录到全部技能
@@ -80,6 +101,16 @@ function sharedCalculateQualityScore(skill: any): number {
   // 必须有 body 内容（Markdown 指令）
   const body = skill.body || '';
   if (!isOfficial && body.length < 100) return 0;
+  if (!isOfficial && getThemeExclusionReason({
+    name: skill.name,
+    owner: skill.owner,
+    repo: skill.repo,
+    body,
+    description: desc,
+    topics: skill.topics,
+    category: skill.category,
+    filePath: skill.filePath,
+  })) return 0;
 
   // ── 通过结构验证 → 计算精选排序分（越高越精选）──────────
   let score = 10; // 结构有效基础分
@@ -248,6 +279,33 @@ function getSkillIndexableContentBytes(skill: SkillCache): number {
 
 function isSkillIndexableForSitemap(skill: SkillCache): boolean {
   return getSkillIndexableContentBytes(skill) >= MIN_INDEXABLE_SKILL_CONTENT_BYTES;
+}
+
+function parseDateMs(value?: string): number {
+  if (!value) return 0;
+  const ms = Date.parse(value);
+  return Number.isFinite(ms) ? ms : 0;
+}
+
+function buildSitemapSkillsData(skills: SkillCache[]): Array<{ owner: string; repo: string; updatedAt?: string }> {
+  const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
+
+  for (const skill of skills) {
+    if (!skill.owner || !skill.repo || !isSkillIndexableForSitemap(skill)) continue;
+    const owner = String(skill.owner).trim();
+    const repo = String(skill.repo).trim();
+    if (!owner || !repo) continue;
+
+    const updatedAt = skill.updatedAt || undefined;
+    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const current = deduped.get(key);
+
+    if (!current || parseDateMs(updatedAt) > parseDateMs(current.updatedAt)) {
+      deduped.set(key, { owner, repo, ...(updatedAt ? { updatedAt } : {}) });
+    }
+  }
+
+  return Array.from(deduped.values()).sort((a, b) => parseDateMs(b.updatedAt) - parseDateMs(a.updatedAt));
 }
 
 async function buildCache(): Promise<void> {
@@ -930,6 +988,21 @@ async function buildCache(): Promise<void> {
             // Invalid structure - not a proper SKILL.md
             return;
           }
+          if (
+            getThemeExclusionReason({
+              name: skillMd.name,
+              owner: item.owner,
+              repo: item.repo,
+              body: skillMd.body || skillMd.bodyPreview || '',
+              description: skillMd.description || item.description || '',
+              topics: item.topics || [],
+              category: item.category,
+              filePath: item.filePath,
+            })
+          ) {
+            process.stdout.write('X');
+            return;
+          }
 
           // 2. Generate Unique ID
           // Use repoPath + skillName to allow multiple skills per repo
@@ -1067,6 +1140,20 @@ async function buildCache(): Promise<void> {
         try {
           const skillMd = parseSkillMd(item.content);
           if (!skillMd || !skillMd.name) return;
+          if (
+            getThemeExclusionReason({
+              name: skillMd.name,
+              owner: item.owner,
+              repo: item.repo,
+              body: skillMd.body || skillMd.bodyPreview || '',
+              description: skillMd.description || item.description || '',
+              topics: item.topics || [],
+              category: item.category,
+              filePath: item.filePath,
+            })
+          ) {
+            return;
+          }
 
           const repoPath = `${item.owner}/${item.repo}`;
           const skillId = `${repoPath}/${skillMd.name}`;
@@ -1381,9 +1468,7 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
   console.log(`   📁 Output: ${outputFile}`);
 
   // ========== Generate Sitemap Data ==========
-  const sitemapData = cleanedSkills
-    .filter((s) => s.owner && s.repo && isSkillIndexableForSitemap(s))
-    .map((s) => ({ owner: s.owner, repo: s.repo, updatedAt: s.updatedAt }));
+  const sitemapData = buildSitemapSkillsData(cleanedSkills);
   const sitemapFile = path.join(outputDir, 'sitemap-skills.json');
   fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
   console.log(`   🗺️  Sitemap data generated: ${sitemapFile} (${sitemapData.length} items)`);
@@ -1451,6 +1536,10 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     skills: uniqueSkills,
   };
   fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
+
+  const sitemapData = buildSitemapSkillsData(uniqueSkills);
+  const sitemapFile = path.join(outputDir, 'sitemap-skills.json');
+  fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
 }
 
 const LOW_INTENT_SEO_KEYWORD_PATTERNS = [

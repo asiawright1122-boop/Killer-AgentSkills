@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../src/i18n';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../src/lib/seo-locales';
@@ -48,7 +48,26 @@ function readJson<T>(path: string): T {
 
 function toOwnerRepoKey(owner?: string, repo?: string): string | null {
   if (!owner || !repo) return null;
-  return `${owner}/${repo}`;
+  return `${owner.trim().toLowerCase()}/${repo.trim().toLowerCase()}`;
+}
+
+function writeDriftArtifacts(onlyInSitemap: string[], onlyInCache: string[]): void {
+  const reportDir = resolve(workspaceRoot, 'reports/seo');
+  mkdirSync(reportDir, { recursive: true });
+
+  const payload = {
+    generatedAt: new Date().toISOString(),
+    counts: {
+      onlyInSitemap: onlyInSitemap.length,
+      onlyInIndexableCache: onlyInCache.length,
+    },
+    onlyInSitemap,
+    onlyInIndexableCache: onlyInCache,
+  };
+
+  writeFileSync(resolve(reportDir, 'index-drift.json'), JSON.stringify(payload, null, 2), 'utf8');
+  writeFileSync(resolve(reportDir, 'index-drift-sitemap-only.txt'), `${onlyInSitemap.join('\n')}\n`, 'utf8');
+  writeFileSync(resolve(reportDir, 'index-drift-cache-only.txt'), `${onlyInCache.join('\n')}\n`, 'utf8');
 }
 
 function summarizeList(items: string[], limit = 12): string {
@@ -143,6 +162,11 @@ function main() {
 
     const onlyInSitemap = Array.from(sitemapIds).filter((id) => !indexableCacheIds.has(id));
     const onlyInCache = Array.from(indexableCacheIds).filter((id) => !sitemapIds.has(id));
+
+    if (onlyInSitemap.length > 0 || onlyInCache.length > 0) {
+      writeDriftArtifacts(onlyInSitemap, onlyInCache);
+      warnings.push('drift artifacts written: reports/seo/index-drift.json (+ txt lists)');
+    }
 
     if (onlyInSitemap.length > 0 || onlyInCache.length > 0) {
       const message = [

@@ -158,6 +158,25 @@ const sampleSkills: UnifiedSkill[] = [
   },
 ];
 
+const pollutedSkill: UnifiedSkill = {
+  id: '4',
+  name: 'PM Interview Copilot',
+  skillName: 'pm-interview-copilot',
+  owner: 'noisy-owner',
+  repo: 'pm-interview-copilot',
+  description: 'Product manager interview preparation and MVP builder workflow.',
+  category: 'productivity',
+  topics: ['product manager', 'interview'],
+  stars: 88,
+  source: 'cache',
+  updatedAt: new Date().toISOString(),
+  skillMd: {
+    name: 'PM Interview Copilot',
+    description: 'Product manager interview preparation and MVP builder workflow.',
+    bodyPreview: 'Interview prep workflow for product management roles.',
+  },
+};
+
 describe('getLocalizedDescription', () => {
   it('should return empty string for undefined description', () => {
     expect(getLocalizedDescription(undefined, 'en')).toBe('');
@@ -200,6 +219,12 @@ describe('getAllSkills', () => {
     expect(result[0].name).toBe('Anthropic Skills');
   });
 
+  it('should filter non-target skills from public results', async () => {
+    const env = createMockEnv([...sampleSkills, pollutedSkill]);
+    const result = await getAllSkills(env);
+    expect(result.some((skill) => skill.id === pollutedSkill.id)).toBe(false);
+  });
+
   it('should return empty array when KV is empty', async () => {
     const env = createMockEnv([]);
     const result = await getAllSkills(env);
@@ -240,6 +265,13 @@ describe('getSkillByOwnerRepo', () => {
   it('should return null when skill is not found', async () => {
     const env = createMockEnv(sampleSkills);
     const result = await getSkillByOwnerRepo(env, 'nonexistent', 'repo');
+    expect(result).toBeNull();
+  });
+
+  it('should return null for non-target public skills', async () => {
+    const extraKV = new Map([[`skill:${pollutedSkill.owner}/${pollutedSkill.repo}`, JSON.stringify(pollutedSkill)]]);
+    const env = createMockEnv([...sampleSkills, pollutedSkill], extraKV);
+    const result = await getSkillByOwnerRepo(env, pollutedSkill.owner, pollutedSkill.repo);
     expect(result).toBeNull();
   });
 });
@@ -372,6 +404,12 @@ describe('getLightweightSkills', () => {
     const env = createMockEnv(sampleSkills);
     const result = await getLightweightSkills(env);
     expect(Array.isArray(result)).toBe(true);
+  });
+
+  it('should exclude non-target skills from lightweight listings', async () => {
+    const env = createMockEnv([...sampleSkills, pollutedSkill]);
+    const result = await getLightweightSkills(env);
+    expect(result.some((skill) => skill.id === pollutedSkill.id)).toBe(false);
   });
 
   it('should use module cache on subsequent calls', async () => {

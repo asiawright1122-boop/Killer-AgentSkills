@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { getSkillsFromKV, type Env } from '../../../lib/kv';
-import type { UnifiedSkill } from '../../../lib/skills';
+import { type Env } from '../../../lib/kv';
+import { getAllSkills, type UnifiedSkill } from '../../../lib/skills';
 
 export const prerender = false;
 
@@ -14,11 +14,7 @@ export const GET: APIRoute = async ({ locals }) => {
   try {
     const env = locals.runtime?.env as Env | undefined;
 
-    let skills: UnifiedSkill[] = [];
-    if (env) {
-      const raw = await getSkillsFromKV(env);
-      skills = raw as UnifiedSkill[];
-    }
+    const skills: UnifiedSkill[] = env ? await getAllSkills(env) : [];
 
     const totalSkills = skills.length;
     const categories = new Set(skills.map((s) => s.category).filter(Boolean));

@@ -4,7 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
-import { buildKeywordString } from '../../../lib/seo-keywords';
+import { buildKeywordString, getCollectionKeywordClusters } from '../../../lib/seo-keywords';
 import { getLightweightSkills } from '../../../lib/skills';
 import {
   getLocalizedSeoEligibleLocales,
@@ -83,18 +83,13 @@ const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
 const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${canonicalSlug}`;
+const collectionKeywordClusters = getCollectionKeywordClusters(cData.category, canonicalSlug);
 const collectionSeoKeywords = buildKeywordString(
   typedLocale,
-  'core',
-  'workflowAutomation',
-  'processAutomation',
-  'documentAutomation',
-  'browserAutomation',
-  'dataWorkflow',
-  'templates',
-  'ideCompat',
+  ...collectionKeywordClusters,
   keywords,
-  title,
+  cData.category ? [String(cData.category).replace(/-/g, ' ')] : [],
+  'Killer-Skills',
 );
 const longDescription = resolveLocalized(cData.longDescription, '');
 
