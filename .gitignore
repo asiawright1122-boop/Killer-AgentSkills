@@ -24,18 +24,17 @@ discovery.log
 .env
 .env.production
 
-# jetbrains setting folder
+# IDE / Editor
+.claude/
 .idea/
-
-# Custom Backups
-_backup_nextjs_v1/
-
-# System / Editor
+.vscode/
 .kiro/
 .windsurf/*
 !.windsurf/workflows/
 .wrangler/
-.vscode/
+
+# Custom Backups
+_backup_nextjs_v1/
 
 # Local Env
 .env.local
