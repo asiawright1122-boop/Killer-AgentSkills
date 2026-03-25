@@ -14,9 +14,9 @@ describe('isValidAgentSkill', () => {
   const validSkill: SkillValidationInput = {
     name: 'my-skill',
     owner: 'user123',
-    body: '# Usage\nThis skill does something.\n## Input\nSome input.\n## Output\nSome output.',
-    description: 'A useful skill',
-    topics: ['automation'],
+    body: '# Usage\nThis skill does something for Claude Code and AI agents.\n## Input\nSome input.\n## Output\nSome output.',
+    description: 'A useful agent skill for AI coding assistants',
+    topics: ['claude', 'ai agent'],
   };
 
   it('should return valid for a well-formed skill', () => {
@@ -74,7 +74,7 @@ describe('isValidAgentSkill', () => {
   it('should pass skills with enough functional keywords even without headers', () => {
     const skill = {
       ...validSkill,
-      body: 'This skill provides an action to trigger the api tool and process the input with schema validation for the output command.',
+      body: 'This skill provides an action to trigger the api tool and process the input with schema validation for the output command. Works with Claude and MCP.',
     };
     const result = isValidAgentSkill(skill);
     expect(result.valid).toBe(true);

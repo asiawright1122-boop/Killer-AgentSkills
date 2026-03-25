@@ -34,7 +34,7 @@ import {
   discoverNewSkillsFromGitHub,
 } from './lib/github';
 import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
-import { getNonTargetSkillReason } from '../src/lib/shared/validation';
+import { getNonTargetSkillReason, POSITIVE_THEME_KEYWORDS, isOfficialRepo } from '../src/lib/shared/validation';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
@@ -54,17 +54,34 @@ function getThemeExclusionReason(skill: {
   category?: string;
   filePath?: string;
 }): string {
+  const owner = skill.owner || '';
+  const repo = skill.repo || '';
+  const isOfficial = isOfficialRepo(owner, repo);
   const description = typeof skill.description === 'string' ? skill.description : skill.description?.en || '';
-  return getNonTargetSkillReason({
+
+  // Negative theme filter (interview, resume, product-management, etc.)
+  const negativeReason = getNonTargetSkillReason({
     name: skill.name || '',
-    owner: skill.owner || '',
-    repo: skill.repo,
+    owner,
+    repo,
     body: skill.body || '',
     description,
     topics: skill.topics || [],
     category: skill.category,
     filePath: skill.filePath,
   });
+  if (negativeReason) return negativeReason;
+
+  // Positive theme gate: non-official skills must reference AI agent ecosystem.
+  if (!isOfficial) {
+    const fullText = [skill.body || '', description, ...(skill.topics || [])].join(' ').toLowerCase();
+    const hasPositiveTheme = POSITIVE_THEME_KEYWORDS.some((kw) => fullText.includes(kw));
+    if (!hasPositiveTheme) {
+      return 'no-ai-agent-context';
+    }
+  }
+
+  return '';
 }
 
 // ===== Build-Specific Scoring Logic =====
@@ -1588,6 +1605,14 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
   if (hasSeoSnippetArtifact(enTitle) || hasSeoSnippetArtifact(enDescription)) {
     return false;
   }
+  // Title must contain at least one theme identifier to prevent theme drift.
+  const TITLE_THEME_TERMS = [
+    'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp',
+    'killer-skills', 'agentic', 'skill guide',
+  ];
+  if (!TITLE_THEME_TERMS.some((t) => enTitle.toLowerCase().includes(t))) {
+    return false;
+  }
 
   // Features and Keywords validation (AI sometimes omits 'en' if source is EN, check if at least one language got populated)
   const features = skill.seo?.features;
@@ -1612,6 +1637,19 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
     return false;
   }
   if (enKeywords.some((keyword) => hasLowIntentSeoKeyword(String(keyword)))) {
+    return false;
+  }
+  // Theme compliance: at least one keyword must contain a theme term.
+  // Skills missing theme terms need re-generation even if other checks pass.
+  const SEO_THEME_TERMS = [
+    'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp', 'killer-skills',
+    'workflow', 'automation', 'skill installation', '.claude', 'agentic',
+  ];
+  const hasThemeTerm = enKeywords.some((kw) => {
+    const kwLower = String(kw).toLowerCase();
+    return SEO_THEME_TERMS.some((t) => kwLower.includes(t));
+  });
+  if (!hasThemeTerm) {
     return false;
   }
 

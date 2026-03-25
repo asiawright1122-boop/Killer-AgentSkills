@@ -92,7 +92,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
               ...skill,
               description: getLocalizedDescription(skill.description, locale),
             }));
-          _total = _skills.length;
+          _total = Number(countResult.total) || _skills.length;
 
           return new Response(
             JSON.stringify({

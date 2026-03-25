@@ -1,5 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getKV, setKV, getSkillsFromKV, getSkillsKV, getSitemapSkillsFromKV, type Env } from './kv';
+import { getKV, setKV, getSkillsFromKV, getSkillsKV, getSitemapSkillsFromKV, _clearSitemapSkillsCacheForTest, type Env } from './kv';
+
+// Set test environment to disable local file fallback in kv.ts
+process.env.NODE_ENV = 'test';
+process.env.DISABLE_LOCAL_SITEMAP_FALLBACK = '1';
 
 vi.mock('node:fs', async (importOriginal) => {
   const actual = await importOriginal<typeof import('node:fs')>();
@@ -15,6 +19,8 @@ const originalDev = import.meta.env.DEV;
 beforeEach(() => {
   // @ts-ignore -- vitest allows mutating import.meta.env
   import.meta.env.DEV = false;
+  // Clear sitemap cache to prevent test cross-contamination
+  _clearSitemapSkillsCacheForTest();
 });
 afterEach(() => {
   // @ts-ignore -- restore original DEV value

@@ -22,12 +22,10 @@ describe('seo generator guardrails', () => {
 
     expect(keywords).toEqual(
       expect.arrayContaining([
-        'Playwright AI agent skill for Claude Code',
-        'Playwright AI agent skill for Cursor',
-        'Playwright AI agent skill for Windsurf',
-        'Playwright MCP server',
-        'Playwright AI skill installation',
-        'Playwright agent skill workflow',
+        'Playwright browser automation skill',
+        'Playwright web scraping workflow',
+        'Playwright for Claude Code browser tasks',
+        'Playwright AI agent web automation',
       ]),
     );
   });

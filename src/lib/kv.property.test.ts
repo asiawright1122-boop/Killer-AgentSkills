@@ -2,6 +2,11 @@ import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { getKV, setKV, type Env } from './kv';
 
+// Cloudflare Workers type declaration
+type Fetcher = {
+  fetch: (request: Request) => Promise<Response>;
+};
+
 // ============================================================================
 // Generators
 // ============================================================================

@@ -64,7 +64,14 @@ let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
 let _sitemapSkillsCache: { owner: string; repo: string; updatedAt?: string }[] | null = null;
 let _sitemapSkillsCacheTime = 0;
+
 const SITEMAP_SKILLS_CACHE_TTL_MS = 5 * 60 * 1000;
+
+/** Clear sitemap skills cache - for testing only */
+export function _clearSitemapSkillsCacheForTest(): void {
+  _sitemapSkillsCache = null;
+  _sitemapSkillsCacheTime = 0;
+}
 
 function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
   if (!row || typeof row !== 'object') return null;
@@ -753,7 +760,19 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
   }
 
   // Fallback: Dev mode local file
-  if (import.meta.env.DEV) {
+  // Note: Use function call to check env at runtime, not compile time
+  // Tests can set DISABLE_LOCAL_SITEMAP_FALLBACK=1 to disable this fallback
+  const isDevMode = () => {
+    try {
+      if (typeof process !== 'undefined' && process.env?.DISABLE_LOCAL_SITEMAP_FALLBACK === '1') {
+        return false;
+      }
+      return import.meta.env.DEV === true;
+    } catch {
+      return false;
+    }
+  };
+  if (isDevMode()) {
     try {
       const fs = await import('node:fs');
       const path = await import('node:path');

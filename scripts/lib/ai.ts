@@ -143,7 +143,38 @@ export class AIService {
       if (cleaned.length >= 10) break;
     }
 
-    if (cleaned.length > 0) return cleaned;
+    if (cleaned.length > 0) {
+      // Theme compliance: ensure at least 2 keywords contain theme terms.
+      // If AI-generated keywords passed low-intent filter but are all generic tech terms,
+      // inject theme-anchored keywords to prevent SEO theme drift.
+      const THEME_TERMS = [
+        'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp',
+        'killer-skills', 'workflow', 'automation', 'skill installation', '.claude', 'agentic',
+      ];
+      const themeCount = cleaned.filter((kw) => {
+        const kwLower = kw.toLowerCase();
+        return THEME_TERMS.some((t) => kwLower.includes(t));
+      }).length;
+
+      if (themeCount < 2) {
+        // Inject theme-anchored keywords, keeping total ≤ 10
+        const injected = [
+          `${skillName} AI agent skill`,
+          `${skillName} for Claude Code`,
+          `${skillName} agent skill workflow`,
+        ].map((item) => sanitizeKeywordToken(item)).filter(Boolean);
+        const combined = [...cleaned, ...injected];
+        const deduped: string[] = [];
+        const seenNorm = new Set<string>();
+        for (const kw of combined) {
+          const n = normalizeKeywordToken(kw);
+          if (!seenNorm.has(n)) { seenNorm.add(n); deduped.push(kw); }
+          if (deduped.length >= 10) break;
+        }
+        return deduped;
+      }
+      return cleaned;
+    }
 
     // Category-aware fallback keywords
     const fallback = this.generateCategoryAwareFallback(skillName, category);
@@ -277,11 +308,47 @@ export class AIService {
     keywordsByLocale: Record<string, string[]>,
     category?: string,
   ): Record<string, string[]> {
+    // Locale-aware theme term anchors for injection when AI output lacks theme terms.
+    // Product names (Claude Code, Cursor, MCP) stay in English per terminology glossary.
+    const LOCALE_THEME_ANCHORS: Record<string, string[]> = {
+      zh: [`${skillName} AI Agent Skill`, `${skillName} Claude Code 技能`, `${skillName} MCP 工作流`],
+      ja: [`${skillName} AIエージェントスキル`, `${skillName} Claude Code スキル`, `${skillName} MCP ワークフロー`],
+      ko: [`${skillName} AI 에이전트 스킬`, `${skillName} Claude Code 스킬`, `${skillName} MCP 워크플로`],
+      es: [`${skillName} habilidad AI agent`, `${skillName} para Claude Code`, `${skillName} flujo MCP`],
+      fr: [`${skillName} compétence AI agent`, `${skillName} pour Claude Code`, `${skillName} flux MCP`],
+      de: [`${skillName} KI-Agent-Skill`, `${skillName} für Claude Code`, `${skillName} MCP-Workflow`],
+      pt: [`${skillName} habilidade AI agent`, `${skillName} para Claude Code`, `${skillName} fluxo MCP`],
+      ru: [`${skillName} навык ИИ-агента`, `${skillName} для Claude Code`, `${skillName} MCP рабочий процесс`],
+      ar: [`${skillName} مهارة وكيل الذكاء الاصطناعي`, `${skillName} لـ Claude Code`, `${skillName} سير عمل MCP`],
+    };
+
     const entries = Object.entries(keywordsByLocale || {});
     const cleaned: Record<string, string[]> = {};
     for (const [locale, keywords] of entries) {
       const sanitized = this.sanitizeSeoKeywordList(skillName, keywords || [], category);
-      if (sanitized.length > 0) cleaned[locale] = sanitized;
+      if (sanitized.length > 0) {
+        // For non-English locales, check theme compliance using broader match
+        // (includes both English product names and localized theme terms)
+        const THEME_TERMS = [
+          'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp',
+          'killer-skills', 'agentic', 'workflow', 'automation',
+          // Localized variants
+          '智能体', 'エージェント', '에이전트', 'агент', 'وكيل',
+        ];
+        const themeCount = sanitized.filter((kw) => {
+          const kwLower = kw.toLowerCase();
+          return THEME_TERMS.some((t) => kwLower.includes(t));
+        }).length;
+
+        if (locale !== 'en' && themeCount < 1 && LOCALE_THEME_ANCHORS[locale]) {
+          const anchors = LOCALE_THEME_ANCHORS[locale]
+            .map((item) => sanitizeKeywordToken(item))
+            .filter(Boolean);
+          cleaned[locale] = [...sanitized, ...anchors].slice(0, 10);
+        } else {
+          cleaned[locale] = sanitized;
+        }
+      }
     }
 
     if (!cleaned.en || cleaned.en.length === 0) {

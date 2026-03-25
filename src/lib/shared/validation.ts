@@ -27,7 +27,9 @@ export const EXCLUDE_KEYWORDS = [
   'resume',
   'portfolio',
   'leetcode',
-  'algorithm',
+  'algorithm interview',
+  'algorithm questions',
+  'algorithm practice',
   'tutorial',
   'course',
   'book',
@@ -38,6 +40,32 @@ export const EXCLUDE_KEYWORDS = [
   'product management',
   'mvp builder',
   'mvp-generator',
+  'startup',
+  'studiojinsei',
+  'cheatsheet',
+  'cheat sheet',
+  'awesome list',
+  'dotfiles',
+  'my dotfiles',
+  'personal config',
+];
+
+/**
+ * Positive theme keywords — at least one must appear in body or description/topics
+ * for a non-official skill to be indexed. Prevents generic programming docs from
+ * polluting the AI Agent Skill index.
+ */
+export const POSITIVE_THEME_KEYWORDS = [
+  // Core AI agent platforms
+  'claude', 'cursor', 'windsurf', 'copilot', 'gemini', 'kiro',
+  // Protocol & tooling
+  'mcp', 'model context protocol', 'skill.md', '.claude', '.cursor', '.windsurf', '.codex',
+  // Agent / LLM ecosystem
+  'ai agent', 'agent skill', 'llm', 'large language model', 'agentic', 'prompt',
+  // Coding assistant context
+  'coding assistant', 'ai coding', 'ai-powered', 'ai assistant',
+  // Automation in agent context
+  'workflow automation', 'ai workflow', 'agent workflow',
 ];
 
 const NON_TARGET_THEME_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
@@ -237,6 +265,14 @@ export function isValidAgentSkill(skill: SkillValidationInput): ValidationResult
     }
     if (bodyLower.length < 50) {
       return { valid: false, reason: 'Content too short' };
+    }
+
+    // 6. Positive theme gate: body or description/topics must reference AI agent ecosystem.
+    // Prevents generic programming docs from passing structural checks and polluting the index.
+    const fullText = [bodyLower, combinedText].join(' ');
+    const hasPositiveTheme = POSITIVE_THEME_KEYWORDS.some((kw) => fullText.includes(kw));
+    if (!hasPositiveTheme) {
+      return { valid: false, reason: 'No AI agent ecosystem context found (missing: claude, cursor, windsurf, mcp, llm, agent skill, etc.)' };
     }
   }
 

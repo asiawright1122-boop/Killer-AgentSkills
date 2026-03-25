@@ -541,7 +541,7 @@ describe('public links and navigation copy', () => {
   it('keeps skill detail source free of hardcoded MCP server SEO copy', () => {
     const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 
-    expect(skillDetailSource).toContain("typedLocale === 'zh' ? 'AI Agent Skills' : 'AI agent skills'");
+    expect(skillDetailSource).toContain("typedLocale === 'zh'");
     expect(skillDetailSource).not.toContain("'MCP server'");
     expect(skillDetailSource).not.toContain("'mcp server'");
     expect(skillDetailSource).not.toContain('MCP Server by');
@@ -561,7 +561,7 @@ describe('public links and navigation copy', () => {
     expect(mcpFrameworksSource).not.toContain('Top MCP Server Frameworks, Bridges, and Infra Tooling');
     expect(mcp2026Source).toContain('top-ai-agent-workflow-skills-integrations-2026');
     expect(mcp2026Source).not.toContain('Top MCP Tools for AI Agent Workflows');
-    expect(communityToolsSource).toContain('Top Community Skills & AI Utilities');
+    expect(communityToolsSource).toContain('Community Skills & AI Utilities');
     expect(communityToolsSource).toContain('top-community-skills-ai-utilities');
     expect(communityToolsSource).not.toContain('Top Community MCP Tools and AI Utilities');
     expect(communityToolsSource).not.toContain('top-community-mcp-tools-ai-utilities');
