@@ -116,7 +116,7 @@ export function parseSkillMd(content: string): SkillCache['skillMd'] & { body?: 
             description: content.slice(0, 500).replace(/[\r\n]+/g, ' ').trim(),
             version: undefined,
             tags: undefined,
-            bodyPreview: content.slice(0, 500).trim(),
+            bodyPreview: content.slice(0, 3000).trim(),
             body: content
         };
     }
@@ -145,7 +145,7 @@ export function parseSkillMd(content: string): SkillCache['skillMd'] & { body?: 
         description: meta.description || '',
         version: meta.version,
         tags: meta.tags,
-        bodyPreview: body.slice(0, 500).trim(),
+        bodyPreview: body.slice(0, 3000).trim(),
         body: body // Return full body for validation
     };
 }
