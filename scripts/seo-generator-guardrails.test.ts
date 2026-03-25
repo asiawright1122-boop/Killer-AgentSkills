@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { AIService } from './lib/ai';
 
 describe('seo generator guardrails', () => {
-  it('keeps AIService fallback keywords skills-first', () => {
+  it('keeps AIService category fallback keywords for browser skills', () => {
     const service = new AIService({
       nvidiaKeys: [],
       siliconFlowKey: '',
@@ -88,7 +88,7 @@ describe('seo generator guardrails', () => {
     expect(mcpKeywords).toEqual(expect.arrayContaining(['MCP server proxy']));
   });
 
-  it('default fallback keywords do not contain MCP server or skill installation', () => {
+  it('default fallback returns only 2 theme anchors, no generic fillers', () => {
     const service = new AIService({
       nvidiaKeys: [],
       siliconFlowKey: '',
@@ -103,9 +103,43 @@ describe('seo generator guardrails', () => {
       'best testskill tool',
       '???',
     ]);
-    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/MCP server/i)]));
-    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/skill installation/i)]));
+    expect(keywords).toHaveLength(2);
     expect(keywords).toEqual(expect.arrayContaining([expect.stringMatching(/AI agent skill/i)]));
+    expect(keywords).toEqual(expect.arrayContaining([expect.stringMatching(/Claude Code/i)]));
+  });
+
+  it('filters generic filler keywords that apply to all skills', () => {
+    const service = new AIService({
+      nvidiaKeys: [],
+      siliconFlowKey: '',
+      openRouterKeys: [],
+      cfAccountId: '',
+      cfApiToken: '',
+    });
+
+    const keywords = (service as any).sanitizeSeoKeywordList(
+      'algorithmic-art',
+      [
+        'AI agent skill',
+        'p5.js generative art',
+        'agentic workflow automation',
+        'cursor workflow automation',
+        'ai coding agent workflow',
+        'interactive parameter exploration',
+        'claude code skills',
+        'seeded randomness visualization',
+      ],
+      'official',
+    );
+    // Generic fillers must be removed
+    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/agentic workflow/i)]));
+    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/cursor workflow automation/i)]));
+    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/ai coding agent workflow/i)]));
+    expect(keywords).not.toEqual(expect.arrayContaining([expect.stringMatching(/^claude code skills$/i)]));
+    // Capability-specific keywords must survive
+    expect(keywords).toEqual(expect.arrayContaining(['p5.js generative art']));
+    expect(keywords).toEqual(expect.arrayContaining(['interactive parameter exploration']));
+    expect(keywords).toEqual(expect.arrayContaining(['seeded randomness visualization']));
   });
 
   it('makes collection drift audit consume the canonical map artifact', () => {

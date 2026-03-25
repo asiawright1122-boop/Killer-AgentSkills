@@ -93,6 +93,25 @@ const LOW_INTENT_KEYWORD_PATTERNS = [
   /(とは|使い方|チュートリアル|ガイド|比較|代替|おすすめ|無料)/,
   /(무엇|사용법|튜토리얼|가이드|비교|대안|추천|무료)/,
 ];
+
+// Generic filler keywords that appear across ALL skills and carry no unique signal.
+// These are filtered post-generation to enforce capability-specific precision.
+const GENERIC_FILLER_KEYWORDS = new Set([
+  'agentic workflow',
+  'agentic workflow automation',
+  'ai coding workflow',
+  'ai coding agent workflow',
+  'cursor workflow automation',
+  'workflow automation',
+  'workflow optimization',
+  'automation skill',
+  'ai agent skills for developers',
+  'claude code skills',
+  'windsurf skills',
+  'cursor skills',
+  'ai automation',
+  'agent skill workflow',
+]);
 const INVALID_SEO_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 const sanitizeKeywordToken = (raw: string): string =>
   String(raw || '')
@@ -147,6 +166,7 @@ export class AIService {
       if (keyword.includes('/')) continue;
       if (INVALID_SEO_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
       if (LOW_INTENT_KEYWORD_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
+      if (GENERIC_FILLER_KEYWORDS.has(normalized)) continue;
       if (normalized === normalizedSkillName) continue;
 
       // Cross-category contamination filter: reject domain-specific filler
@@ -182,11 +202,10 @@ export class AIService {
       }).length;
 
       if (themeCount < 2) {
-        // Inject theme-anchored keywords, keeping total ≤ 10
+        // Inject ONLY theme anchors (no generic fillers), keeping total ≤ 10
         const injected = [
           `${skillName} AI agent skill`,
           `${skillName} for Claude Code`,
-          `${skillName} agent skill workflow`,
         ].map((item) => sanitizeKeywordToken(item)).filter(Boolean);
         const combined = [...cleaned, ...injected];
         const deduped: string[] = [];
@@ -317,14 +336,10 @@ export class AIService {
       }
     }
 
-    // Default fallback for unknown categories
+    // Default fallback: 2 theme anchors only (capability keywords must come from AI)
     return [
       `${skillName} AI agent skill`,
       `${skillName} for Claude Code`,
-      `${skillName} for Cursor`,
-      `${skillName} agentic workflow`,
-      `${skillName} automation skill`,
-      `${skillName} agent skill workflow`,
     ]
       .map((item) => sanitizeKeywordToken(item))
       .filter(Boolean);
@@ -746,21 +761,20 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
    - OR "for Claude Code" / "for Cursor" / "for Windsurf"
    - OR "| Killer-Skills" or "| AI Agent Skills"
    
-2. Keywords MUST include at least 2-3 of these theme terms:
-   - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
-   - OR workflow terms: "workflow", "automation", "agentic"
-   - ⚠️ DOMAIN RELEVANCE: Only use domain-specific terms that match THIS skill's actual capability.
-     Do NOT add "browser automation" unless the skill IS browser-related.
-     Do NOT add "MCP server" unless the skill IS a server/integration tool.
-     Do NOT add "skill installation" unless the skill IS about setup/config.
+2. Keywords structure (STRICT — exactly this ratio):
+   - EXACTLY 2 theme anchors from: "AI agent skill", "for Claude Code", "for Cursor"
+   - REMAINING 4-8 keywords MUST be CAPABILITY-SPECIFIC to THIS skill:
+     They must describe what THIS skill uniquely does — its technologies, methods, or use cases.
+     Ask yourself: "Would this keyword ONLY apply to THIS skill, not to every other skill?"
+     If the answer is no, do NOT include it.
 
-3. FORBIDDEN keyword patterns (will cause theme drift):
-   - ❌ "how to", "what is", "why", "learn"
-   - ❌ "best", "top", "awesome", "complete" at start
-   - ❌ "tutorial", "course", "guide", "ebook"
-   - ❌ "vs", "versus", "alternative", "comparison"
-   - ❌ "free download", "pdf", "cheatsheet"
-   - ❌ Generic filler: "browser automation" on non-browser skills, "MCP server" on non-server skills
+3. FORBIDDEN keyword patterns:
+   - ❌ Low-intent: "how to", "what is", "why", "learn", "tutorial", "guide", "vs", "alternative"
+   - ❌ Generic fillers that apply to ALL skills (these WILL be rejected):
+     "agentic workflow", "agentic workflow automation", "ai coding workflow",
+     "ai coding agent workflow", "cursor workflow automation", "workflow automation",
+     "workflow optimization", "automation skill", "ai agent skills for developers"
+   - ❌ Cross-domain: "browser automation" (unless browser skill), "MCP server" (unless server skill)
 
 4. Title format examples:
    ✅ GOOD: "PostgreSQL: Optimized SQL Queries | AI Agent Skills"
@@ -790,10 +804,13 @@ Extract from SKILL.md content - specific capabilities, not generic benefits.
 Format: "[Action] using [Technology/Method]"
 
 ### F. Keywords (6-10 items)
-MUST include 2-3 theme terms. Remaining 4-7 keywords MUST be capability-specific.
-Use: "capability + technology" format — words that describe what THIS skill actually does.
-GOOD: "playwright browser automation", "claude code mcp server", "notion workflow sync"
-BAD: "how to use playwright", "what is automation", "browser automation" (on a non-browser skill)
+STRICTLY 2 theme anchors + 4-8 capability keywords.
+Capability keywords MUST name specific technologies, methods, or use cases unique to THIS skill.
+
+Example for a "docx" skill:
+✅ GOOD: ["AI agent skill", "for Claude Code", "docx creation", "Word document parsing", "tracked changes automation", "docx-js XML manipulation", "pandoc document conversion", "document template generation"]
+❌ BAD: ["AI agent skill", "claude code skills", "cursor workflow automation", "agentic workflow automation", "ai coding agent workflow", "document automation", "workflow optimization"]
+   (BAD because 5 out of 7 are generic fillers that apply to ANY skill, not specific to docx)
 
 High-value seed terms to cluster around (use when relevant to this skill):
 - Navigational: ${SEED_KEYWORDS.navigational.slice(0, 4).map((k) => `"${k}"`).join(', ')}
@@ -869,19 +886,17 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
    - OR "for Claude Code" / "for Cursor" / "for Windsurf"
    - OR "| Killer-Skills" or "| AI Agent Skills"
    
-2. Keywords MUST include at least 2-3 of these theme terms (translated appropriately):
-   - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
-   - OR workflow terms: "workflow", "automation", "agentic"
-   - ⚠️ DOMAIN RELEVANCE: Only use domain-specific terms matching THIS skill's capability.
-     Do NOT add "browser automation" unless skill IS browser-related.
-     Do NOT add "MCP server" unless skill IS a server/integration tool.
+2. Keywords structure (STRICT — exactly this ratio, translated appropriately):
+   - EXACTLY 2 theme anchors from: "AI agent skill", "for Claude Code", "for Cursor" (translated)
+   - REMAINING 4-8 keywords MUST be CAPABILITY-SPECIFIC to THIS skill:
+     They must describe what THIS skill uniquely does — its technologies, methods, or use cases.
+     If a keyword could apply to ANY skill, do NOT include it.
 
-3. FORBIDDEN keyword patterns (will cause theme drift):
-   - ❌ "how to", "what is", "why", "learn" (or locale equivalents)
-   - ❌ "best", "top", "awesome", "complete" at start (or locale equivalents)
-   - ❌ "tutorial", "course", "guide", "ebook" (or locale equivalents)
-   - ❌ "vs", "versus", "alternative", "comparison" (or locale equivalents)
-   - ❌ "free download", "pdf", "cheatsheet" (or locale equivalents)
+3. FORBIDDEN keyword patterns (or locale equivalents):
+   - ❌ Low-intent: "how to", "what is", "why", "learn", "tutorial", "guide", "vs", "alternative"
+   - ❌ Generic fillers: "agentic workflow", "ai coding workflow", "cursor workflow automation",
+     "workflow automation", "workflow optimization", "automation skill"
+   - ❌ Cross-domain: "browser automation" (unless browser skill), "MCP server" (unless server skill)
 
 4. Title format examples:
    ✅ GOOD: "PostgreSQL: Optimized SQL Queries | AI Agent Skills"
@@ -897,9 +912,9 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
 ### C. Main Description (1-2 sentences, 50-80 words) — clear, technical summary
 ### D. Definition (40-60 words) — encyclopedic "what is it" for Featured Snippet
 ### E. Key Features (4-6 items) — real technical highlights extracted from content
-### F. Keywords (6-10 items) — MUST include theme terms, capability-first search terms
-- Prefer task + technology phrases (2-5 words), e.g. "static asset optimization workflow"
-- Include at most ONE install/setup phrase
+### F. Keywords (6-10 items) — STRICTLY 2 theme anchors + 4-8 capability keywords
+- Capability keywords MUST name specific technologies, methods, or use cases unique to THIS skill
+- Do NOT pad with generic fillers like "agentic workflow automation" or "ai coding agent workflow"
 - NEVER output low-intent wrappers or comparison bait
 
 Output STRICT JSON only, no markdown wrapping:
