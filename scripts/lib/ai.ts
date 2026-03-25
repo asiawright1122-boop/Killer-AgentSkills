@@ -149,6 +149,13 @@ export class AIService {
       if (LOW_INTENT_KEYWORD_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
       if (normalized === normalizedSkillName) continue;
 
+      // Cross-category contamination filter: reject domain-specific filler
+      // that doesn't match the skill's actual category.
+      const catLower = (category || '').toLowerCase();
+      if (/browser automation/i.test(normalized) && !catLower.includes('browser') && !skillName.toLowerCase().includes('browser') && !skillName.toLowerCase().includes('playwright') && !skillName.toLowerCase().includes('puppeteer')) continue;
+      if (/\bmcp server\b/i.test(normalized) && !catLower.includes('mcp') && !skillName.toLowerCase().includes('mcp') && !skillName.toLowerCase().includes('server')) continue;
+      if (/\bskill installation\b/i.test(normalized) && !catLower.includes('install') && !skillName.toLowerCase().includes('install') && !skillName.toLowerCase().includes('setup')) continue;
+
       if (isAsciiKeyword(keyword)) {
         const tokenCount = normalized.split(' ').filter(Boolean).length;
         if (tokenCount === 1 && normalized.length < 6) continue;
@@ -167,7 +174,7 @@ export class AIService {
       // inject theme-anchored keywords to prevent SEO theme drift.
       const THEME_TERMS = [
         'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp',
-        'killer-skills', 'workflow', 'automation', 'skill installation', '.claude', 'agentic',
+        'killer-skills', 'workflow', 'automation', '.claude', 'agentic',
       ];
       const themeCount = cleaned.filter((kw) => {
         const kwLower = kw.toLowerCase();
@@ -301,20 +308,22 @@ export class AIService {
       ],
     };
 
-    // Find matching category keywords
-    for (const [catKey, keywords] of Object.entries(categoryKeywords)) {
-      if (categoryLower.includes(catKey) || catKey.includes(categoryLower)) {
-        return keywords.map((item) => sanitizeKeywordToken(item)).filter(Boolean);
+    // Find matching category keywords (require non-empty category for match)
+    if (categoryLower) {
+      for (const [catKey, keywords] of Object.entries(categoryKeywords)) {
+        if (categoryLower.includes(catKey) || catKey.includes(categoryLower)) {
+          return keywords.map((item) => sanitizeKeywordToken(item)).filter(Boolean);
+        }
       }
     }
 
     // Default fallback for unknown categories
     return [
-      `${skillName} AI agent skill for Claude Code`,
-      `${skillName} AI agent skill for Cursor`,
-      `${skillName} AI agent skill for Windsurf`,
-      `${skillName} MCP server`,
-      `${skillName} AI skill installation`,
+      `${skillName} AI agent skill`,
+      `${skillName} for Claude Code`,
+      `${skillName} for Cursor`,
+      `${skillName} agentic workflow`,
+      `${skillName} automation skill`,
       `${skillName} agent skill workflow`,
     ]
       .map((item) => sanitizeKeywordToken(item))
@@ -737,10 +746,13 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
    - OR "for Claude Code" / "for Cursor" / "for Windsurf"
    - OR "| Killer-Skills" or "| AI Agent Skills"
    
-2. Keywords MUST include at least 3 of these theme terms:
+2. Keywords MUST include at least 2-3 of these theme terms:
    - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
-   - OR automation-specific terms: "workflow", "automation", "browser automation"
-   - OR installation terms: ".claude", "skill installation", "install"
+   - OR workflow terms: "workflow", "automation", "agentic"
+   - ⚠️ DOMAIN RELEVANCE: Only use domain-specific terms that match THIS skill's actual capability.
+     Do NOT add "browser automation" unless the skill IS browser-related.
+     Do NOT add "MCP server" unless the skill IS a server/integration tool.
+     Do NOT add "skill installation" unless the skill IS about setup/config.
 
 3. FORBIDDEN keyword patterns (will cause theme drift):
    - ❌ "how to", "what is", "why", "learn"
@@ -748,6 +760,7 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
    - ❌ "tutorial", "course", "guide", "ebook"
    - ❌ "vs", "versus", "alternative", "comparison"
    - ❌ "free download", "pdf", "cheatsheet"
+   - ❌ Generic filler: "browser automation" on non-browser skills, "MCP server" on non-server skills
 
 4. Title format examples:
    ✅ GOOD: "PostgreSQL: Optimized SQL Queries | AI Agent Skills"
@@ -777,9 +790,10 @@ Extract from SKILL.md content - specific capabilities, not generic benefits.
 Format: "[Action] using [Technology/Method]"
 
 ### F. Keywords (6-10 items)
-MUST include theme terms. Use: "capability + technology" format.
+MUST include 2-3 theme terms. Remaining 4-7 keywords MUST be capability-specific.
+Use: "capability + technology" format — words that describe what THIS skill actually does.
 GOOD: "playwright browser automation", "claude code mcp server", "notion workflow sync"
-BAD: "how to use playwright", "what is automation"
+BAD: "how to use playwright", "what is automation", "browser automation" (on a non-browser skill)
 
 High-value seed terms to cluster around (use when relevant to this skill):
 - Navigational: ${SEED_KEYWORDS.navigational.slice(0, 4).map((k) => `"${k}"`).join(', ')}
@@ -855,10 +869,12 @@ ${bodySnippet ? `- **Technical Content (from SKILL.md)**:\n"${bodySnippet}"` : '
    - OR "for Claude Code" / "for Cursor" / "for Windsurf"
    - OR "| Killer-Skills" or "| AI Agent Skills"
    
-2. Keywords MUST include at least 3 of these theme terms (translated appropriately):
+2. Keywords MUST include at least 2-3 of these theme terms (translated appropriately):
    - "AI agent skill", "agent skill", "MCP", "Claude Code", "Cursor", "Windsurf"
-   - OR automation-specific terms: "workflow", "automation", "browser automation"
-   - OR installation terms: ".claude", "skill installation", "install"
+   - OR workflow terms: "workflow", "automation", "agentic"
+   - ⚠️ DOMAIN RELEVANCE: Only use domain-specific terms matching THIS skill's capability.
+     Do NOT add "browser automation" unless skill IS browser-related.
+     Do NOT add "MCP server" unless skill IS a server/integration tool.
 
 3. FORBIDDEN keyword patterns (will cause theme drift):
    - ❌ "how to", "what is", "why", "learn" (or locale equivalents)
