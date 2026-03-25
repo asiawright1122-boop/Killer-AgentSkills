@@ -18,7 +18,14 @@
     "searchPlaceholder": "スキルを検索... 例: PDF, データ分析",
     "searchButton": "検索",
     "hotTags": "人気:",
-    "suggestions": ["PDF", "画像生成", "データ分析", "ブラウザ", "コードレビュー", "ドキュメント"]
+    "suggestions": [
+      "PDF",
+      "画像生成",
+      "データ分析",
+      "ブラウザ",
+      "コードレビュー",
+      "ドキュメント"
+    ]
   },
   "Skills": {
     "featured": "注目のスキル",
@@ -115,7 +122,12 @@
     "heroDesc2": "エージェントにブラウズ、コード、クリエイトの能力を即座に付与。",
     "searchPlaceholder": "機能を検索（例：'Webスクレイピング'、'データ可視化'）...",
     "searchButton": "検索",
-    "tags": ["リサーチ", "コーディング", "マーケティング", "分析"],
+    "tags": [
+      "リサーチ",
+      "コーディング",
+      "マーケティング",
+      "分析"
+    ],
     "featuresTitle": "開発者のために構築",
     "featuresSubtitle": "再利用可能なAIエージェントスキルをインストールし、繰り返し使えるワークフローをIDEに持ち込みましょう。",
     "trendingTitle": "トレンドスキル",
@@ -152,7 +164,21 @@
         "title": "オープンソース",
         "desc": "透明、安全、コミュニティ主導。"
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - AIエージェントスキル＆MCPサーバーディレクトリ | Claude Code＆Cursorスキル",
+    "seoDescription": "Claude Code、Cursor、19以上のIDE向け2,500以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。",
+    "faqTitle": "ホームページ FAQ",
+    "faqSubtitle": "ホームページのスニペット、表示コンテンツ、構造化データの整合性を維持。",
+    "faq1Q": "Killer-Skillsとは？",
+    "faq1A": "Killer-Skillsは、Claude Code、Cursor、Windsurf、その他のIDE向けの再利用可能なAIエージェントスキルのオープンディレクトリとインストール入口です。",
+    "faq2Q": "これらのスキルはどのIDEで使えますか？",
+    "faq2A": "ほとんどのスキルはClaude Code、Cursor、Windsurf、VS Code、その他19以上のIDEで統一されたインストールフローで動作します。",
+    "faq3Q": "スキルのインストール方法は？",
+    "faq3A": "任意のスキルページを開くか、`npx killer-skills add owner/repo` で対応環境にインストールできます。",
+    "faq4Q": "スキルはどのような形式で提供されますか？",
+    "faq4A": "IDE ネイティブのスキルファイルとして提供され、Claude Code、Cursor、Windsurf、その他の環境で直接インストール・再利用できます。",
+    "faq5Q": "なぜスキルディレクトリから始めるべきですか？",
+    "faq5A": "詳細ページにはインストールコマンド、対応IDE、ソースリポジトリ、関連スキルがまとまっており、タスクに合うか素早く判断できます。"
   },
   "Sidebar": {
     "discover": "発見",
@@ -547,6 +573,27 @@
     "collectionsTitle": "注目のコレクション",
     "collectionsSubtitle": "あらゆるニーズに対応する厳選スキルコレクションを発見",
     "viewAllCollections": "すべてのコレクションを見る",
-    "relatedCollections": "関連コレクション"
+    "relatedCollections": "関連コレクション",
+    "seoTitle": "厳選自動化コレクション：AIエージェントスキル",
+    "seoDescription": "ワークフロー、プロセス、ドキュメント、ブラウザ、データ自動化向けの厳選AIエージェントスキルコレクションを統一インストールフローで探索。",
+    "seoKeyword1": "AIエージェントスキルコレクション",
+    "seoKeyword2": "開発者ワークフロースキルコレクション",
+    "heroTitle": "ワークフロースキルバンドル",
+    "faq1Q": "これらのコレクションはどのワークフロー向けですか？",
+    "faq1A": "ワークフロー自動化、プロセス自動化、ドキュメント操作、データワークフロー、再利用可能なスキルスタックを中心に構成されています。",
+    "faq2Q": "コレクションとメインスキルディレクトリの違いは？",
+    "faq2A": "スキルディレクトリは直接検索やフィルタリングに適し、コレクションは完全なワークフロー向けの補完的スキルをまとめて見つけるのに適しています。",
+    "faq3Q": "これらのコレクションをClaude CodeやCursorにインストールできますか？",
+    "faq3A": "はい。コレクション内のスキルは通常、Claude Code、Cursor、Windsurf、その他の対応環境で統一インストールフローにより動作します。"
+  },
+  "Solutions": {
+    "solutions": "ソリューション",
+    "backToSolutions": "ソリューション一覧へ",
+    "noSkills": "まだマッチするスキルがありません。他のソリューションページをお試しください。",
+    "faq1QTemplate": "{label} シナリオは何を解決しますか？",
+    "faq2Q": "これらのスキルはCursorやClaude Codeに直接インストールできますか？",
+    "faq2A": "はい。ここに掲載されているスキルはKiller-Skillsの統一インストールフローでCursor、Claude Code、Windsurf等に対応しています。",
+    "faq3Q": "結果がまだ広すぎる場合はどうすれば？",
+    "faq3A": "スキル詳細ページでキーワードやユースケースを確認し、プラットフォーム名、ファイルタイプ、ビジネスアクションなどの具体的な用語で絞り込んでください。"
   }
 }

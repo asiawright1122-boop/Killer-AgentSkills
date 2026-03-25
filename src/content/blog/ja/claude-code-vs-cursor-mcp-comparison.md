@@ -11,6 +11,7 @@ tags:
   - "cursor mcp"
   - "claude vs cursor"
   - "ai editor comparison"
+lang: ja
 ---
 ## Claude Code と Cursor の MCP 対応をどう比べるか
 

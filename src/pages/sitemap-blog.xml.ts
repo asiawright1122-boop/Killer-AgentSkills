@@ -39,7 +39,9 @@ export const GET: APIRoute = async () => {
   for (const post of allPosts) {
     const parts = post.id.split('/');
     const slug = parts.length > 1 ? parts.slice(1).join('/').replace(/\.md$/, '') : post.id.replace(/\.md$/, '');
-    const locale = post.data.lang;
+    // Use directory-based locale (consistent with blog page routing in [...slug].astro)
+    // instead of post.data.lang which defaults to 'en' when frontmatter omits lang field
+    const locale = parts.length > 1 ? parts[0] : post.data.lang;
     if (!slug || !locale || !SUPPORTED_LOCALE_SET.has(locale)) continue;
 
     const localeMap = postsBySlug.get(slug) || new Map<string, (typeof allPosts)[number]>();

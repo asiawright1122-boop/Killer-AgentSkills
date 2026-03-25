@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: zh
 ---
 
 了解如何正确为您的 MCP 服务器配置身份验证。本指南涵盖 API 密钥、OAuth、基于令牌的身份验证以及保护 AI 代理集成的最佳实践。

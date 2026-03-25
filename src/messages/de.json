@@ -18,7 +18,14 @@
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "searchButton": "Suchen",
     "hotTags": "Beliebt:",
-    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Browser", "Code-Review", "Dokumente"]
+    "suggestions": [
+      "PDF",
+      "Bildgenerator",
+      "Datenanalyse",
+      "Browser",
+      "Code-Review",
+      "Dokumente"
+    ]
   },
   "Skills": {
     "featured": "Vorgestellte Skills",
@@ -115,7 +122,12 @@
     "heroDesc2": "Verleihen Sie Ihren Agenten sofort die Fähigkeit zu Browsen, Coden und Erstellen.",
     "searchPlaceholder": "Suchen Sie nach Fähigkeiten (z.B. 'Web Scraping', 'Data Viz')...",
     "searchButton": "Suchen",
-    "tags": ["Forschung", "Programmierung", "Marketing", "Analyse"],
+    "tags": [
+      "Forschung",
+      "Programmierung",
+      "Marketing",
+      "Analyse"
+    ],
     "featuresTitle": "Für Entwickler entwickelt",
     "featuresSubtitle": "Installieren Sie wiederverwendbare KI-Agenten-Skills und bringen Sie wiederholbare Workflows in Ihre IDE.",
     "trendingTitle": "Trending Fähigkeiten",
@@ -152,7 +164,21 @@
         "title": "Open Source",
         "desc": "Transparent, sicher und von der Community getragen."
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - KI-Agent-Fähigkeiten & MCP-Server-Verzeichnis | Claude Code＆Cursor-Skills",
+    "seoDescription": "Entdecken Sie über 2.500 KI-Agent-Fähigkeiten und MCP-Server für Claude Code, Cursor und 19+ IDEs. Killer-Skills ist das offene Model Context Protocol-Verzeichnis.",
+    "faqTitle": "Startseite FAQ",
+    "faqSubtitle": "Ausrichtung von Startseiten-Snippet, sichtbarem Inhalt und strukturierten Daten.",
+    "faq1Q": "Was ist Killer-Skills?",
+    "faq1A": "Killer-Skills ist ein offenes Verzeichnis und Installationspunkt für wiederverwendbare KI-Agent-Fähigkeiten in Claude Code, Cursor, Windsurf und anderen kompatiblen IDEs.",
+    "faq2Q": "Welche IDEs unterstützen diese Skills?",
+    "faq2A": "Die meisten Skills funktionieren mit Claude Code, Cursor, Windsurf, VS Code und 19+ weiteren IDEs mit einem einheitlichen Installationsablauf.",
+    "faq3Q": "Wie installiere ich diese Skills?",
+    "faq3A": "Öffnen Sie eine Skill-Seite oder verwenden Sie `npx killer-skills add owner/repo` zur Installation in einer unterstützten Umgebung.",
+    "faq4Q": "In welchem Format werden die Skills bereitgestellt?",
+    "faq4A": "Sie werden als IDE-native Skill-Dateien bereitgestellt, sodass sie direkt in Claude Code, Cursor, Windsurf und anderen kompatiblen Umgebungen installiert und wiederverwendet werden können.",
+    "faq5Q": "Warum vom Skill-Verzeichnis aus starten?",
+    "faq5A": "Die Detailseite fasst Installationsbefehl, unterstützte IDEs, Quell-Repository und verwandte Skills zusammen, sodass Sie schnell entscheiden können, ob ein Skill zu Ihrer Aufgabe passt."
   },
   "Sidebar": {
     "discover": "Entdecken",
@@ -547,6 +573,27 @@
     "collectionsTitle": "Beliebte Sammlungen",
     "collectionsSubtitle": "Entdecken Sie kuratierte Skill-Sammlungen für jeden Bedarf",
     "viewAllCollections": "Alle Sammlungen anzeigen",
-    "relatedCollections": "Verwandte Sammlungen"
+    "relatedCollections": "Verwandte Sammlungen",
+    "seoTitle": "Kuratierte Automatisierungssammlungen: KI-Agent-Skills",
+    "seoDescription": "Entdecken Sie kuratierte KI-Agent-Skill-Sammlungen für Workflow-, Dokument-, Browser- und Datenautomatisierung mit einheitlichem Installationsablauf.",
+    "seoKeyword1": "KI-Agent-Skill-Sammlungen",
+    "seoKeyword2": "Entwickler-Workflow-Skill-Sammlungen",
+    "heroTitle": "Workflow-Skill-Pakete",
+    "faq1Q": "Für welche Workflows sind diese Sammlungen gedacht?",
+    "faq1A": "Diese Sammlungen sind rund um Workflow-Automatisierung, Prozessautomatisierung, Dokumentenoperationen, Datenworkflows und wiederverwendbare Skill-Stacks aufgebaut.",
+    "faq2Q": "Was unterscheidet eine Sammlung vom Hauptverzeichnis?",
+    "faq2A": "Das Verzeichnis eignet sich besser für direkte Suche, während Sammlungen komplementäre Skills um einen vollständigen Workflow bündeln.",
+    "faq3Q": "Kann ich diese Sammlungen für Claude Code oder Cursor installieren?",
+    "faq3A": "Ja. Die Skills in diesen Sammlungen funktionieren in der Regel in Claude Code, Cursor, Windsurf und anderen unterstützten Umgebungen über einen einheitlichen Installationsablauf."
+  },
+  "Solutions": {
+    "solutions": "Lösungen",
+    "backToSolutions": "Zurück zu Lösungen",
+    "noSkills": "Noch keine passenden Skills. Versuchen Sie eine andere Lösungsseite.",
+    "faq1QTemplate": "Was löst das {label}-Szenario?",
+    "faq2Q": "Können diese Skills direkt in Cursor oder Claude Code installiert werden?",
+    "faq2A": "Ja. Die hier aufgeführten Skills unterstützen den einheitlichen Killer-Skills-Installationsablauf für Cursor, Claude Code, Windsurf und andere IDEs.",
+    "faq3Q": "Was tun, wenn die Ergebnisse zu breit sind?",
+    "faq3A": "Öffnen Sie Skill-Detailseiten, um Keywords und Anwendungsfälle zu prüfen, und verfeinern Sie dann mit spezifischen Begriffen wie Plattformnamen, Dateitypen oder Geschäftsaktionen."
   }
 }

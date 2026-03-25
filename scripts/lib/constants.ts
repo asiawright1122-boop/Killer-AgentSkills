@@ -22,6 +22,9 @@ export function isOfficialRepo(owner: string, repo?: string): boolean {
 }
 
 // ===== Validation Constants =====
+// NOTE: These should stay in sync with src/lib/shared/validation.ts (single source of truth).
+// Use precise phrases (e.g. 'algorithm interview') instead of bare 'algorithm'
+// to avoid false-positiving legitimate skills like 'algorithmic-art'.
 export const EXCLUDE_KEYWORDS = [
   'interview',
   'notes',
@@ -29,7 +32,9 @@ export const EXCLUDE_KEYWORDS = [
   'resume',
   'portfolio',
   'leetcode',
-  'algorithm',
+  'algorithm interview',
+  'algorithm questions',
+  'algorithm practice',
   'tutorial',
   'course',
   'book',
@@ -42,6 +47,12 @@ export const EXCLUDE_KEYWORDS = [
   'mvp-generator',
   'startup',
   'studiojinsei', // Added to prevent crawling leaked API keys
+  'cheatsheet',
+  'cheat sheet',
+  'awesome list',
+  'dotfiles',
+  'my dotfiles',
+  'personal config',
 ];
 
 export const SUSPICIOUS_NAMES = ['test', 'demo', 'example', 'hello-world', 'todo', 'temp', 'dummy'];

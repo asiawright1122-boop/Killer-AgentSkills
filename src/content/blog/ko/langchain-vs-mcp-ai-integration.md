@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: ko
 ---
 ## LangChain과 MCP는 경쟁 관계라기보다 역할이 다르다
 

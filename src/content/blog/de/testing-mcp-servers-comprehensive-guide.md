@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: de
 ---
 ## Ein MCP-Server gilt nicht als gut getestet, nur weil ein einzelner Tool-Aufruf funktioniert.
 Entscheidend ist, ob Transport, Tool-Schemas, Berechtigungen, Fehlerpfade und externe Abhängigkeiten unter realistischen Bedingungen zuverlässig zusammenspielen.

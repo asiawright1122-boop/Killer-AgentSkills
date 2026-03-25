@@ -18,7 +18,14 @@
     "searchPlaceholder": "스킬 검색... 예: PDF, 데이터 분석",
     "searchButton": "검색",
     "hotTags": "인기:",
-    "suggestions": ["PDF", "이미지 생성", "데이터 분석", "브라우저", "코드 리뷰", "문서"]
+    "suggestions": [
+      "PDF",
+      "이미지 생성",
+      "데이터 분석",
+      "브라우저",
+      "코드 리뷰",
+      "문서"
+    ]
   },
   "Skills": {
     "featured": "추천 스킬",
@@ -115,7 +122,12 @@
     "heroDesc2": "에이전트에게 검색, 코딩 및 생성 능력을 즉시 부여하세요.",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
-    "tags": ["연구", "코딩", "마케팅", "분석"],
+    "tags": [
+      "연구",
+      "코딩",
+      "마케팅",
+      "분석"
+    ],
     "featuresTitle": "개발자를 위해 구축됨",
     "featuresSubtitle": "재사용 가능한 AI 에이전트 스킬을 설치하고 반복 가능한 워크플로를 IDE로 가져오세요.",
     "trendingTitle": "인기 스킬",
@@ -152,7 +164,21 @@
         "title": "오픈 소스",
         "desc": "투명하고 안전하며 커뮤니티 주도적입니다."
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - AI 에이전트 스킬＆MCP 서버 디렉터리 | Claude Code＆Cursor 스킬",
+    "seoDescription": "Claude Code, Cursor 및 19개 이상의 IDE용 2,500개 이상의 AI 에이전트 스킬과 MCP 서버를 발견하세요. Killer-Skills는 Model Context Protocol의 열린 디렉터리입니다.",
+    "faqTitle": "홈페이지 FAQ",
+    "faqSubtitle": "홈페이지 스니펫, 표시 콘텐츠, 구조화된 데이터의 정합성을 유지합니다.",
+    "faq1Q": "Killer-Skills란 무엇인가요?",
+    "faq1A": "Killer-Skills는 Claude Code, Cursor, Windsurf 및 기타 호환 IDE에서 재사용 가능한 AI 에이전트 스킬을 위한 오픈 디렉터리이자 설치 진입점입니다.",
+    "faq2Q": "이 스킬들은 어떤 IDE에서 사용할 수 있나요?",
+    "faq2A": "대부분의 스킬은 Claude Code, Cursor, Windsurf, VS Code 및 19개 이상의 IDE에서 일관된 설치 흐름으로 작동합니다.",
+    "faq3Q": "이 스킬들을 어떻게 설치하나요?",
+    "faq3A": "스킬 페이지에서 또는 `npx killer-skills add owner/repo` 명령으로 지원 환경에 설치할 수 있습니다.",
+    "faq4Q": "이 스킬들은 어떤 형태로 제공되나요?",
+    "faq4A": "IDE 네이티브 스킬 파일로 제공되어 Claude Code, Cursor, Windsurf 및 기타 호환 환경에서 바로 설치하고 재사용할 수 있습니다.",
+    "faq5Q": "왜 스킬 디렉터리에서 시작해야 하나요?",
+    "faq5A": "상세 페이지에서 설치 명령, 지원 IDE, 소스 저장소, 관련 스킬을 한눈에 확인하여 작업에 적합한지 빠르게 판단할 수 있습니다."
   },
   "Sidebar": {
     "discover": "발견",
@@ -547,6 +573,27 @@
     "collectionsTitle": "추천 컬렉션",
     "collectionsSubtitle": "모든 니즈에 맞는 엄선된 스킬 컬렉션을 발견하세요",
     "viewAllCollections": "모든 컬렉션 보기",
-    "relatedCollections": "관련 컬렉션"
+    "relatedCollections": "관련 컬렉션",
+    "seoTitle": "큐레이션 자동화 컬렉션: AI 에이전트 스킬",
+    "seoDescription": "워크플로, 프로세스, 문서, 브라우저, 데이터 자동화를 위한 큐레이션 AI 에이전트 스킬 컬렉션을 통합 설치 흐름으로 탐색하세요.",
+    "seoKeyword1": "AI 에이전트 스킬 컬렉션",
+    "seoKeyword2": "개발자 워크플로 스킬 컬렉션",
+    "heroTitle": "워크플로 스킬 번들",
+    "faq1Q": "이 컬렉션들은 어떤 워크플로를 위해 만들어졌나요?",
+    "faq1A": "워크플로 자동화, 프로세스 자동화, 문서 작업, 데이터 워크플로 및 재사용 가능한 스킬 스택을 중심으로 구성되어 있습니다.",
+    "faq2Q": "컬렉션과 메인 스킬 디렉터리의 차이점은?",
+    "faq2A": "스킬 디렉터리는 직접 검색과 필터링에 적합하고, 컬렉션은 완전한 워크플로를 위한 보완적 스킬 묶음을 찾는 데 적합합니다.",
+    "faq3Q": "이 컬렉션들을 Claude Code나 Cursor에 설치할 수 있나요?",
+    "faq3A": "네. 이 컬렉션의 스킬들은 일반적으로 Claude Code, Cursor, Windsurf 및 기타 지원 환경에서 통합 설치 흐름으로 작동합니다."
+  },
+  "Solutions": {
+    "solutions": "솔루션",
+    "backToSolutions": "솔루션으로 돌아가기",
+    "noSkills": "아직 매칭되는 스킬이 없습니다. 다른 솔루션 페이지를 시도해보세요.",
+    "faq1QTemplate": "{label} 시나리오는 어떤 문제를 해결하나요?",
+    "faq2Q": "이 스킬들을 Cursor나 Claude Code에 직접 설치할 수 있나요?",
+    "faq2A": "네. 여기 나열된 스킬들은 Killer-Skills 통합 설치 흐름을 통해 Cursor, Claude Code, Windsurf 및 기타 IDE에서 사용할 수 있습니다.",
+    "faq3Q": "결과가 너무 광범위하면 어떻게 하나요?",
+    "faq3A": "스킬 상세 페이지에서 키워드와 사용 사례를 확인한 후, 플랫폼 이름, 파일 유형 또는 비즈니스 액션 등 구체적인 용어로 검색을 세분화하세요."
   }
 }

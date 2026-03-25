@@ -16,7 +16,6 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}/collections`;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
@@ -32,44 +31,23 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
   return field[typedLocale] || field['en'] || fallback;
 };
 
-const collectionsSeoTitle = isZh
-  ? '精选自动化合集：AI Agent Skills'
-  : 'Curated Automation Collections: AI Agent Skills';
-const collectionsSeoDescription = isZh
-  ? '按工作流浏览精选 AI Agent Skills 组合，覆盖流程、文档、浏览器自动化与数据提取，并支持统一安装流程。'
-  : 'Explore curated AI agent skill collections for workflow, process, document, browser, and data automation with a unified install flow.';
+const collectionsSeoTitle = t('Collections.seoTitle');
+const collectionsSeoDescription = t('Collections.seoDescription');
 const collectionsSeoKeywords = buildKeywordString(
   typedLocale,
   'core',
   'templates',
   'developerExperience',
   'ideCompat',
-  isZh ? 'AI Agent Skills 合集' : 'AI agent skill collections',
-  isZh ? '开发者工作流技能合集' : 'developer workflow skill collections',
+  t('Collections.seoKeyword1'),
+  t('Collections.seoKeyword2'),
   'Killer-Skills',
 );
 const workflowLinks = getSolutionIntents(typedLocale).slice(0, 3);
 const faqItems = [
-  {
-    question: isZh ? '这些合集适合哪些工作流？' : 'What workflows are these collections built for?',
-    answer: isZh
-      ? '这些合集主要围绕工作流自动化、流程自动化、文档自动化、数据处理和可复用技能组合而设计。'
-      : 'These collections are built around workflow automation, process automation, document operations, data workflows, and reusable skill stacks.',
-  },
-  {
-    question: isZh ? '合集页和主技能目录有什么区别？' : 'How is a collection different from the main skills directory?',
-    answer: isZh
-      ? '主技能目录更适合逐个搜索和筛选，合集页更适合按完整工作流一次性找到互补技能组合。'
-      : 'The skills directory is better for direct search and filtering, while collections help you find complementary skills bundled around a complete workflow.',
-  },
-  {
-    question: isZh
-      ? '这些合集能在 Claude Code 或 Cursor 中安装吗？'
-      : 'Can I install these collections for Claude Code or Cursor?',
-    answer: isZh
-      ? '可以。合集里的技能通常都可在 Claude Code、Cursor、Windsurf 等环境中使用，并支持统一安装流程。'
-      : 'Yes. Skills inside these collections generally work in Claude Code, Cursor, Windsurf, and other supported environments through a unified install flow.',
-  },
+  { question: t('Collections.faq1Q'), answer: t('Collections.faq1A') },
+  { question: t('Collections.faq2Q'), answer: t('Collections.faq2A') },
+  { question: t('Collections.faq3Q'), answer: t('Collections.faq3A') },
 ];
 ---
 
@@ -176,7 +154,7 @@ const faqItems = [
             <h1
               class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words"
             >
-              {isZh ? '自动化工作流合集' : 'Workflow Skill Bundles'}
+              {t('Collections.heroTitle')}
             </h1>
           </div>
           <p

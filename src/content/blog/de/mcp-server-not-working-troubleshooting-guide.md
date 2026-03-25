@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: de
 ---
 ## Wenn ein MCP-Server nicht funktioniert, hilft selten blinder Aktionismus.
 Am schnellsten kommen Sie voran, wenn Sie die Fehlersuche in einer festen Reihenfolge durchführen: Transport, Prozesszustand, Authentifizierung, Tool-Definitionen und erst danach die eigentliche Geschäftslogik.

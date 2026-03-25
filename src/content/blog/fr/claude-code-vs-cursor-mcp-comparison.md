@@ -11,6 +11,7 @@ tags:
   - 'cursor mcp'
   - 'claude vs cursor'
   - 'ai editor comparison'
+lang: fr
 ---
 
 ## Comparez le support du serveur MCP entre Claude Code et Cursor IDE

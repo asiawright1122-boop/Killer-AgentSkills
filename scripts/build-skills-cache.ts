@@ -15,7 +15,6 @@ import * as crypto from 'crypto';
 import { AIService } from './lib/ai';
 import {
   OFFICIAL_REPOS,
-  isOfficialRepo,
   CATEGORY_RULES,
   SUSPICIOUS_NAMES,
   SKILL_HEADERS,

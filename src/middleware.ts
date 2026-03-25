@@ -58,8 +58,18 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (isAdminApi || isAdminPage) {
     const authHeader = context.request.headers.get('authorization');
     const env = context.locals.runtime?.env;
-    const validUser = env?.ADMIN_USER || 'admin';
-    const validPass = env?.ADMIN_PASSWORD || 'admin';
+    const validUser = env?.ADMIN_USER;
+    const validPass = env?.ADMIN_PASSWORD;
+
+    // Fail closed: reject all admin access if credentials are not configured
+    if (!validUser || !validPass) {
+      return isAdminApi
+        ? new Response(JSON.stringify({ error: 'Admin credentials not configured' }), {
+            status: 503,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        : new Response('Admin not configured', { status: 503 });
+    }
 
     const authResult = checkAdminAuth(authHeader, validUser, validPass);
     if (authResult === 'pass') {

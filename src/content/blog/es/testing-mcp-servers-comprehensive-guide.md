@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: es
 ---
 ## Aprende diversas estrategias de prueba para servidores MCP, incluyendo pruebas unitarias, pruebas de integración, simulación y automatización de CI/CD. Crea integraciones de agentes de inteligencia artificial confiables.
 

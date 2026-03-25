@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: fr
 ---
 ## Déployer un serveur MCP sur Cloudflare Workers
 Cloudflare Workers est une option séduisante pour exposer un serveur MCP proche des utilisateurs, avec une surface opérationnelle réduite. En contrepartie, il faut tenir compte des limites de l'environnement edge : durée d'exécution, modèle réseau, persistance restreinte et contraintes d'observabilité.

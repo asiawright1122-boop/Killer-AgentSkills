@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: pt
 ---
 ## Autenticação em MCP: proteger o servidor sem atrapalhar o uso
 Um servidor MCP seguro não depende apenas de estar no ar ou responder rápido. Ele precisa deixar claro quem pode acessar quais tools, com que escopo e por quanto tempo. A autenticação mal desenhada vira um problema duplo: abre brechas de segurança e ainda cria erros difíceis de depurar para quem consome o servidor.

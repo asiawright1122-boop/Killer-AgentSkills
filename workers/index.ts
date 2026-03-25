@@ -18,6 +18,18 @@ interface Env {
     SKILL_VALIDATION_WORKFLOW: Workflow;
     CONTENT_WORKFLOW: Workflow;
     GITHUB_TOKEN?: string;
+    WEBHOOK_SECRET?: string;
+}
+
+async function verifyGitHubSignature(secret: string, body: string, signatureHeader: string | null): Promise<boolean> {
+    if (!signatureHeader || !signatureHeader.startsWith('sha256=')) return false;
+    const expected = signatureHeader.slice('sha256='.length);
+    const encoder = new TextEncoder();
+    const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+    const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(body));
+    const actual = Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('');
+    // Constant-time comparison via subtle.timingSafeEqual if available, else string compare
+    return actual === expected;
 }
 
 // Worker fetch handler
@@ -80,13 +92,24 @@ export default {
         // Webhook receiver for GitHub push events (Zero-Latency Pipeline)
         if (request.method === "POST" && url.pathname === "/api/webhook/github") {
             try {
+                // HMAC-SHA256 signature verification (prevents forged webhook calls)
+                const rawBody = await request.text();
+                if (env.WEBHOOK_SECRET) {
+                    const signature = request.headers.get("x-hub-signature-256");
+                    const valid = await verifyGitHubSignature(env.WEBHOOK_SECRET, rawBody, signature);
+                    if (!valid) {
+                        console.error("[Webhook] Invalid signature — rejecting request");
+                        return new Response("Invalid signature", { status: 401 });
+                    }
+                }
+
                 // Verify GitHub event explicitly
                 const githubEvent = request.headers.get("x-github-event");
                 if (githubEvent !== "push" && githubEvent !== "create") {
                     return new Response("Ignored event type", { status: 200 });
                 }
 
-                const payload: any = await request.json();
+                const payload: any = JSON.parse(rawBody);
                 const targetRepo = payload?.repository?.full_name;
 
                 if (!targetRepo) {

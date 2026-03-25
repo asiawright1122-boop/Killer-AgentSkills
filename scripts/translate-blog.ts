@@ -134,7 +134,7 @@ Original Description: "${desc}" (currently ${desc.length} characters)`;
 async function main() {
   console.log('🚀 Starting Blog Translation Workflow...');
   if (DRY_RUN) console.log('👀 DRY RUN MODE: No files will be written.');
-  if (SPECIFIC_SLUG) console.log(`Tiargeting single slug: ${SPECIFIC_SLUG}`);
+  if (SPECIFIC_SLUG) console.log(`Targeting single slug: ${SPECIFIC_SLUG}`);
 
   // 1. Get English posts
   const enFiles = fs.readdirSync(EN_DIR).filter((f) => f.endsWith('.md'));
@@ -166,10 +166,37 @@ async function main() {
         shouldTranslate = true;
       } else {
         const locContent = fs.readFileSync(targetPath, 'utf-8');
-        const locTitleMatch = locContent.match(/title:\s*"(.*?)"/);
-        const enTitleMatch = content.match(/title:\s*"(.*?)"/);
+        const locTitleMatch = locContent.match(/title:\s*["'](.+?)["']/);
+        const enTitleMatch = content.match(/title:\s*["'](.+?)["']/);
         if (locTitleMatch && enTitleMatch && locTitleMatch[1] === enTitleMatch[1]) {
+          // Title still matches English — needs translation
           shouldTranslate = true;
+        }
+
+        // [H5 fix] Detect corrupted translations: if a CJK locale file has a title
+        // that is mostly ASCII (not properly translated), flag for re-translation
+        if (!shouldTranslate && locTitleMatch) {
+          const CJK_LOCALES = ['zh', 'ja', 'ko', 'ar', 'ru'];
+          if (CJK_LOCALES.includes(locale)) {
+            const title = locTitleMatch[1];
+            const nonAscii = [...title].filter((c) => c.charCodeAt(0) > 127).length;
+            const ratio = title.length > 0 ? nonAscii / title.length : 0;
+            if (ratio < 0.15) {
+              // Less than 15% non-ASCII in a CJK/Arabic/Russian title = likely broken
+              console.log(`     ⚠️  Corrupted title detected (${(ratio * 100).toFixed(0)}% non-ASCII): "${title.slice(0, 50)}"`);
+              shouldTranslate = true;
+            }
+          }
+        }
+
+        // Also detect untranslated descriptions (description still in English for non-en locale)
+        if (!shouldTranslate) {
+          const locDescMatch = locContent.match(/description:\s*["'](.+?)["']/);
+          const enDescMatch = content.match(/description:\s*["'](.+?)["']/);
+          if (locDescMatch && enDescMatch && locDescMatch[1] === enDescMatch[1]) {
+            console.log(`     ⚠️  Untranslated description detected for ${locale}`);
+            shouldTranslate = true;
+          }
         }
       }
 

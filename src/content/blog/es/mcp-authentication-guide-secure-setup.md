@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: es
 ---
 ## Aprende a configurar correctamente la autenticación para tus servidores MCP. Esta guía cubre claves de API, OAuth, autenticación basada en tokens y las mejores prácticas para proteger tus integraciones de agentes de inteligencia artificial.
 

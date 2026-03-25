@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: zh
 ---
 
 ## 测试 MCP 服务器：面向 AI 开发者的完整指南

@@ -1,8 +1,10 @@
 ---
-// Root path redirects to default locale via server-side 301.
-// The middleware handles language detection (Cookie > CF-IPCountry > Accept-Language > default),
-// but if a request reaches this page directly, redirect to /en.
+// Root path redirects to default locale via server-side 302.
+// The middleware handles language detection (Cookie > CF-IPCountry > Accept-Language > default)
+// and will intercept most requests before they reach this page.
+// If a request bypasses middleware, fall back to /en with 302 (not 301)
+// to avoid caching a permanent redirect that conflicts with per-user locale detection.
 export const prerender = false;
 
-return Astro.redirect('/en', 301);
+return Astro.redirect('/en', 302);
 ---

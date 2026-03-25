@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: de
 ---
 ## Cloudflare Workers eignet sich gut für MCP-Server mit moderater Latenz, klaren Tool-Grenzen und planbarem Traffic.
 Wirklich erfolgreich wird ein Deployment aber erst dann, wenn Transport, Zustandsmodell, Authentifizierung und Beobachtbarkeit von Anfang an sauber mitgedacht werden.

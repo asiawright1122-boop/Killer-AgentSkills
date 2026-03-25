@@ -1,6 +1,6 @@
 ---
-title: "MCP vs REST API: AI"
-description: "A comprehensive comparison between Model Context Protocol (MCP) and traditional REST APIs. Learn when to use MCP servers vs REST endpoints for your AI agent applications."
+title: "MCP vs REST API：AIエージェント統合における比較ガイド"
+description: "Model Context Protocol（MCP）と従来のREST APIの包括的な比較。AIエージェントアプリケーションでMCPサーバーとRESTエンドポイントを使い分ける基準を解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp
@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: ja
 ---
 ## MCP と REST API は置き換えではなく設計思想が違う
 

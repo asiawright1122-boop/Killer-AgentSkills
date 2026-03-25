@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: es
 ---
 ## Teniendo problemas con su servidor MCP!
 Esta guía de solución de problemas integral cubre errores comunes, problemas de conexión y soluciones paso a paso para volver a poner en funcionamiento su servidor de Protocolo de Contexto de Modelo.

@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: pt
 ---
 ## Como testar servidores MCP sem ficar restrito ao caminho feliz
 Testar um servidor MCP exige mais do que verificar se uma tool responde uma vez. Em produção, os problemas costumam aparecer nas bordas: parâmetros inválidos, autenticação inconsistente, timeouts, dependências externas lentas e mudanças de contrato que quebram clientes silenciosamente. Uma estratégia de testes útil precisa cobrir essas camadas.

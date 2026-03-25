@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: ko
 ---
 ## MCP 서버 보안은 도구 기능보다 통제 지점 설계가 핵심이다
 

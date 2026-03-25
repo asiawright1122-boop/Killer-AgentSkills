@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: es
 ---
 ## Tutorial paso a paso para implementar su servidor MCP en Cloudflare Workers. Ahorra costos, mejora la latencia y escala automáticamente con computación de borde.
 

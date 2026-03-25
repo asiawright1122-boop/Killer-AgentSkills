@@ -18,8 +18,11 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).not.toContain('High-Intent Workflow Searches');
     expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
-    expect(zhHomeSource).toContain('Killer-Skills - AI Agent Skills 开放目录');
-    expect(zhHomeSource).toContain('Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口');
+    expect(zhHomeSource).toContain("t('Home.seoTitle')");
+    expect(zhHomeSource).toContain("t('Home.seoDescription')");
+    // Verify the i18n values themselves carry the correct positioning
+    expect(zh.Home.seoTitle).toContain('AI Agent Skills 开放目录');
+    expect(zh.Home.seoDescription).toContain('开放 AI Agent Skills 目录');
   });
 
   it('keeps homepage locale copy focused on directory and installation entry', () => {
@@ -43,9 +46,8 @@ describe('public links and navigation copy', () => {
   it('keeps homepage FAQ focused on skills, install flow, and supported IDEs', () => {
     const homeSource = readPageSource('../pages/[locale]/index.astro');
 
-    expect(homeSource).toContain("question: isZh ? '如何安装这些技能？' : 'How do I install these skills?'");
-    expect(homeSource).toContain("question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?'");
-    expect(homeSource).toContain('npx killer-skills add owner/repo');
+    expect(homeSource).toContain("t('Home.faq3Q')");
+    expect(homeSource).toContain("t('Home.faq2Q')");
     expect(homeSource).not.toContain('Why do these skills fit IDE workflows?');
     expect(homeSource).not.toContain('What if a workflow also needs external tools?');
     expect(homeSource).not.toContain('这些技能为什么适合放进 IDE？');
@@ -552,8 +554,6 @@ describe('public links and navigation copy', () => {
     const mcpFrameworksSource = readPageSource('../content/collections/top-mcp-server-mcp-servers.json');
     const mcp2026Source = readPageSource('../content/collections/top-mcp-servers-2026.json');
     const communityToolsSource = readPageSource('../content/collections/top-community-mcp-servers.json');
-    const testingSource = readPageSource('../content/collections/top-mcp-for-testing.json');
-    const dataAnalysisSource = readPageSource('../content/collections/top-mcp-for-data-analysis.json');
 
     expect(mcpUtilitiesSource).toContain('top-ai-agent-workflow-skills-integrations-utilities');
     expect(mcpUtilitiesSource).not.toContain('Top MCP Tools, Integrations, and Workflow Utilities');
@@ -566,10 +566,6 @@ describe('public links and navigation copy', () => {
     expect(communityToolsSource).not.toContain('Top Community MCP Tools and AI Utilities');
     expect(communityToolsSource).not.toContain('top-community-mcp-tools-ai-utilities');
     expect(communityToolsSource).not.toContain('community MCP tools');
-    expect(dataAnalysisSource).toContain('data-workflows-and-analysis-tools');
-    expect(dataAnalysisSource).not.toContain('mcp data integrations');
-    expect(testingSource).toContain('testing-automation-and-qa-workflow-tools');
-    expect(testingSource).not.toContain('mcp agent testing');
     const aiAgentsSource = readPageSource('../content/collections/top-ai-agents-mcp-servers.json');
     const agenticAiSource = readPageSource('../content/collections/top-agentic-ai-mcp-servers.json');
     expect(aiAgentsSource).toContain('top-agentic-ai-platforms-orchestration-tools');
@@ -577,7 +573,6 @@ describe('public links and navigation copy', () => {
     expect(agenticAiSource).toContain('top-agentic-ai-platforms-orchestration-tools');
     expect(mcpFrameworksSource).not.toContain('protocol bridges');
     expect(mcpFrameworksSource).not.toContain('protocol compatibility');
-    expect(testingSource).not.toContain('generic protocol directory');
   });
 
   it('keeps public collection links wired to canonical collection slugs', () => {

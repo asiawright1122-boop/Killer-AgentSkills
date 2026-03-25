@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: pt
 ---
 ## Segurança de servidor MCP em produção: o que realmente merece atenção
 Quando um servidor MCP sai do ambiente de teste e passa a operar com dados reais, o risco deixa de ser teórico. Ferramentas expostas via MCP podem ler documentos internos, acionar automações, consultar bancos e modificar sistemas críticos. Por isso, segurança não pode ser tratada como um checklist genérico no final do projeto.

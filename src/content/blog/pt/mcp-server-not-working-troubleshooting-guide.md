@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: pt
 ---
 ## Servidor MCP não funciona? Comece pela ordem certa de diagnóstico
 Quando um servidor MCP para de responder, a tentação é mudar várias coisas ao mesmo tempo. Isso quase sempre piora o diagnóstico. O caminho mais rápido costuma ser seguir uma ordem simples: confirmar que o servidor sobe, validar o transporte, checar autenticação e só então investigar a lógica das tools.

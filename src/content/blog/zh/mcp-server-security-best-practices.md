@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: zh
 ---
 
 ## 为生产环境中的 MCP 服务器添加安全措施

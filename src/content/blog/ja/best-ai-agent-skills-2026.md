@@ -1,6 +1,6 @@
 ---
-title: "2026Claude, Cursor, WindsurfBest AI"
-description: "Discover the best AI models in 2026, tested across Claude, Cursor, and Windsurf. Get the essential list of what they do well, sorted by performance."
+title: "2026年 Claude、Cursor、Windsurf向けベストAIエージェントスキル"
+description: "2026年にインストールすべき最高のAIエージェントスキルを厳選。Claude Code、Cursor、Windsurfでテスト済みの実用スキルをカテゴリ別にご紹介します。"
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]

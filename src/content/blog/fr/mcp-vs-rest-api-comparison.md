@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: fr
 ---
 ## Comparaison complète entre le protocole de contexte de modèle (MCP) et les API REST traditionnelles
 MCP et REST peuvent tous deux exposer des capacités applicatives, mais ils ne ciblent pas la même ergonomie. REST organise des ressources et des opérations pour des applications classiques ; MCP structure des outils et du contexte pour des clients IA et des agents.

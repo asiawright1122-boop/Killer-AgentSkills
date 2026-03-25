@@ -138,12 +138,12 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
     <link rel="dns-prefetch" href="https://github.com" />
 
-    <!-- Standard font loading with preconnect for optimal LCP -->
+    <!-- Async font loading: print→all swap avoids render-blocking while ensuring fonts load -->
     <link
-      rel="preload"
+      rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
-      as="style"
-      fetchpriority="high"
+      media="print"
+      onload="this.media='all'"
     />
     <noscript
       ><link

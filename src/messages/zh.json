@@ -18,7 +18,14 @@
     "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
     "searchButton": "搜索",
     "hotTags": "热门：",
-    "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"]
+    "suggestions": [
+      "PDF处理",
+      "图像生成",
+      "数据分析",
+      "浏览器自动化",
+      "代码审查",
+      "文档处理"
+    ]
   },
   "Skills": {
     "featured": "精选技能",
@@ -115,7 +122,12 @@
     "heroDesc2": "在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。",
     "searchPlaceholder": "搜索技能，例如：网页爬取、数据可视化",
     "searchButton": "搜索",
-    "tags": ["研究", "编程", "营销", "分析"],
+    "tags": [
+      "研究",
+      "编程",
+      "营销",
+      "分析"
+    ],
     "featuresTitle": "专为开发者打造",
     "featuresSubtitle": "浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。",
     "trendingTitle": "精选技能",
@@ -152,7 +164,21 @@
         "title": "完全开源",
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - AI Agent Skills 开放目录 | Claude Code & Cursor 技能",
+    "seoDescription": "发现 2,500+ 个 Claude Code、Cursor 技能与 MCP 服务器。Killer-Skills 是面向 Model Context Protocol 的开放 AI Agent Skills 目录，支持 19+ IDE，一键安装。",
+    "faqTitle": "首页常见问题",
+    "faqSubtitle": "让首页摘要、落地内容和结构化数据保持一致。",
+    "faq1Q": "Killer-Skills 是什么？",
+    "faq1A": "Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。",
+    "faq2Q": "这些技能支持哪些 IDE？",
+    "faq2A": "大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持统一的安装流程。",
+    "faq3Q": "如何安装这些技能？",
+    "faq3A": "你可以进入具体技能页，或直接使用 `npx killer-skills add owner/repo` 把技能安装到支持的环境中。",
+    "faq4Q": "这些技能以什么形式提供？",
+    "faq4A": "它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。",
+    "faq5Q": "为什么要从目录页进入技能详情？",
+    "faq5A": "因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。"
   },
   "Sidebar": {
     "discover": "发现",
@@ -547,6 +573,27 @@
     "collectionsTitle": "精选合集",
     "collectionsSubtitle": "发现为每种需求精心策划的技能合集",
     "viewAllCollections": "查看所有合集",
-    "relatedCollections": "相关合集"
+    "relatedCollections": "相关合集",
+    "seoTitle": "精选自动化合集：AI Agent Skills",
+    "seoDescription": "按工作流浏览精选 AI Agent Skills 组合，覆盖流程、文档、浏览器自动化与数据提取，并支持统一安装流程。",
+    "seoKeyword1": "AI Agent Skills 合集",
+    "seoKeyword2": "开发者工作流技能合集",
+    "heroTitle": "自动化工作流合集",
+    "faq1Q": "这些合集适合哪些工作流？",
+    "faq1A": "这些合集主要围绕工作流自动化、流程自动化、文档自动化、数据处理和可复用技能组合而设计。",
+    "faq2Q": "合集页和主技能目录有什么区别？",
+    "faq2A": "主技能目录更适合逐个搜索和筛选，合集页更适合按完整工作流一次性找到互补技能组合。",
+    "faq3Q": "这些合集能在 Claude Code 或 Cursor 中安装吗？",
+    "faq3A": "可以。合集里的技能通常都可在 Claude Code、Cursor、Windsurf 等环境中使用，并支持统一安装流程。"
+  },
+  "Solutions": {
+    "solutions": "解决方案",
+    "backToSolutions": "返回解决方案",
+    "noSkills": "当前场景暂无匹配技能，请尝试其他场景页。",
+    "faq1QTemplate": "{label} 场景通常解决什么问题？",
+    "faq2Q": "这些技能可以直接安装到 Cursor 或 Claude Code 吗？",
+    "faq2A": "可以。页面中的技能支持 Killer-Skills 统一安装流程，可用于 Cursor、Claude Code、Windsurf 等环境。",
+    "faq3Q": "如果结果不够精准怎么办？",
+    "faq3A": "建议先查看技能详情页中的关键词与用例，再返回搜索页追加更具体词，如平台名、文件类型或业务动作。"
   }
 }

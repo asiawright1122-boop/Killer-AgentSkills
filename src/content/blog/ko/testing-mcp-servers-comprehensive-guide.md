@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: ko
 ---
 ## MCP 서버 테스트는 기능 확인보다 실패 방식 검증이 중요하다
 

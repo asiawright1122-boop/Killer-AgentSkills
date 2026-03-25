@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: ko
 ---
 ## MCP 서버가 안 될 때는 증상보다 경로를 먼저 나눠야 한다
 

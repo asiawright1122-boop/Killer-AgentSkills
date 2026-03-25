@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: ko
 ---
 ## MCP 인증은 연결 성공보다 권한 경계가 더 중요하다
 

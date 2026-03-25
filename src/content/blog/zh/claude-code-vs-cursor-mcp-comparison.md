@@ -11,6 +11,7 @@ tags:
   - "cursor mcp"
   - "claude vs cursor"
   - "ai editor comparison"
+lang: zh
 ---
 
 比较 Claude Code 和 Cursor IDE 的 MCP 服务器支持。了解哪个编辑器提供更好的 AI 代理集成、更快的性能和更好的开发体验。

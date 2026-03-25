@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: ja
 ---
 ## まずは症状を分けて考える
 

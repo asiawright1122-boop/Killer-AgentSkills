@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: de
 ---
 ## MCP und REST-APIs sind keine direkten Gegenspieler, sondern unterschiedliche Integrationsmodelle.
 REST beschreibt allgemeine Web-Schnittstellen zwischen Systemen. MCP beschreibt, wie Modelle und Agenten strukturierte Tools und Kontextquellen verwenden können. Die bessere Wahl hängt davon ab, welche Ebene Sie vereinheitlichen möchten.

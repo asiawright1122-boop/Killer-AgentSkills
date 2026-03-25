@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: ja
 ---
 ## 本番運用では便利さより被害を広げない設計が重要
 

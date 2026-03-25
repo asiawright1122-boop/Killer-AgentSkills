@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: es
 ---
 ## Una comparación exhaustiva entre el Protocolo de Contexto de Modelo (MCP) y las API REST tradicionales.
 Aprende cuándo utilizar servidores MCP en lugar de puntos finales REST para tus aplicaciones de agentes de inteligencia artificial.

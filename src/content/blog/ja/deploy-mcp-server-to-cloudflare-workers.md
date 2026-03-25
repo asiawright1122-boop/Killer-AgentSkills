@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: ja
 ---
 ## Cloudflare Workers で MCP サーバーを動かす意味
 

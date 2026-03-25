@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: fr
 ---
 ## Découvrez comment configurer correctement l'authentification pour vos serveurs MCP
 Une authentification MCP bien pensée ne se limite pas au choix entre clé API et OAuth. Elle doit refléter la nature des outils exposés, le niveau de confiance entre client et serveur, ainsi que les exigences d'audit de votre organisation.

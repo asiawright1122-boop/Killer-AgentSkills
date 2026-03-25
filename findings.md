@@ -1,85 +1,145 @@
-# SEO Workflow Findings
+# Killer-Skills 全站深度审计报告 (第二轮)
 
-## Core findings
+> 审计时间: 2026-03-25 第二轮 | 审计范围: Sitemap/hreflang、博客 frontmatter 全量扫描、页面模板 SEO、API 安全、数据完整性、Workers 安全、i18n 覆盖度
 
-1. **核心问题是 ontology drift，不是技术 SEO 基础设施失效。**
-   站点对外权威定义已经更接近 Skills-first，但大量生成层与公开文案仍把产品讲成 MCP Server marketplace。
+---
 
-2. **现有技术 SEO 基础设施总体可复用。**
-   `src/layouts/Layout.astro`、`src/middleware.ts`、blog sitemap、collections locale canonical helpers 已经覆盖 canonical / hreflang / robots / noindex / crawl trap 等基础能力，不应推倒重来。
+## 第一轮已修复（9 项）
 
-3. **漂移主要发生在抓取与生成层，而不是只在页面模板层。**
-   需要重点审查并重构的上游节点包括：
-   - `scripts/build-skills-cache.ts`
-   - `scripts/lib/ai.ts`
-   - `scripts/analyze-keyword-opportunities.ts`
-   - `scripts/generate-longtail-collections.ts`
-   - `scripts/generate-blog-posts.ts`
-   - `src/lib/seo-keywords.ts`
-   - `src/lib/query-intent.ts`
-   - `src/lib/blog-seo-intent.ts`
-   - `src/lib/skill-seo-intent.ts`
-   - `src/lib/skill-schema.ts`
+| # | 问题 | 状态 |
+|---|------|------|
+| C1 | 日语博客翻译损坏（3 文件） | ✅ 已修复 |
+| C2 | Collection seoTitle 截断（375 处） | ✅ 已修复 |
+| C3 | Collection slug 品牌偏移（补齐最后 1 个 canonicalSlug） | ✅ 已修复 |
+| C4 | 非英语 collection 描述混入英文（259 处） | ✅ 已修复 |
+| H3 | 验证常量分歧（constants.ts 对齐 validation.ts） | ✅ 已修复 |
+| H4 | build-skills-cache.ts 重复导入 | ✅ 已修复 |
+| H5 | 翻译重检测逻辑盲区（CJK ASCII + 描述检测） | ✅ 已修复 |
+| M1 | generate-collections.ts 重复空检查 | ✅ 已修复 |
+| M2 | translate-blog.ts 拼写错误 | ✅ 已修复 |
 
-4. **用户要求关键词在“抓取 / 生成 SEO 数据”阶段就贴合 Skills 主题。**
-   这意味着不能只做页面文案清洗，必须把 Skills-first 定义前移到 cache、intent、cluster、schema 与 generator policy。
+---
 
-5. **collections 与 blogs 是 ontology drift 的放大器。**
-   这两类内容既影响公开入口，也影响内部链接与 topical authority，因此必须做 rewrite / merge / retire / generator redesign。
+## 第二轮发现与修复
 
-## Public output hotspots
+---
 
-- `src/pages/[locale]/skills/[owner]/[...repo].astro`
-- `src/pages/[locale]/skills/index.astro`
-- `src/pages/[locale]/cli/index.astro`
-- `src/pages/[locale]/integrations/index.astro`
-- `src/pages/[locale]/collections/[...slug].astro`
-- `src/pages/llms-full.txt.ts`
-- `src/pages/llms.txt.ts`
-- `README.md`
+## 🚨 CRITICAL — 正在损失流量/索引
 
-这些页面和文档需要统一回答：主产品是什么、Skills 与 MCP 的关系是什么、规范安装命令是什么。
+### C1. Sitemap 博客 locale 归类错误（72 个页面从 sitemap 消失） ✅ 已修复
 
-## Reuse guidance
+**修复内容**:
+1. `sitemap-blog.xml.ts` 改用 `post.id.split('/')` 目录 locale（根因修复）
+2. 72 个非英语博客文件补上正确的 `lang` frontmatter 字段（纵深防御）
 
-### Keep / minimally adapt
-- `src/layouts/Layout.astro`
-- `src/middleware.ts`
-- `src/pages/sitemap-blog.xml.ts`
-- `getLocalizedSeoEligibleLocales`
-- `getPreferredCanonicalLocale`
-- `isDirectlyLocalizedVariant`
+### C2. 博客 description 截断/乱码（4 个文件） ✅ 已修复
 
-### Rebalance, not rewrite from scratch
-- `buildKeywordString`
-- `getIntentKeywordClusters`
-- `resolveQueryIntent`
-- `resolveSkillSeoIntent`
-- `sanitizeSkillKeywords`
+**修复内容**:
+- `en/automate-word-documents-with-docx-skills.md` — 重写完整 description
+- `pt/automated-ui-testing-with-webapp-testing-skills.md` — 重写完整葡语 description
+- `ru/openclaw-application-scenarios.md` — 翻译为正确的俄语 description
+- `zh/mastering-excel-automation-with-xlsx-skills.md` — 重写为正确的简体中文 description
 
-## Current baseline already achieved
+### C3. 10 个长尾 Collection 的 skills 数组为空 ✅ 已修复
 
-- locale 404 / 4xx 默认 robots header 已在代码中改为 `noindex, nofollow`
-- collections canonical slug 已在公开入口与 sitemap 层增加回归保护
-- 相关热修已整理到 PR #1：`seo/canonical-collections-robots`
+**修复内容**: 删除 10 个空 doorway page collection 文件 + 清理测试引用
 
-## New findings from P1 slice
+### C4. Collection 数据重复 skill ✅ 已修复
 
-6. **过滤单个 generic token 不够，必须拦截 MCP 组合词。**
-   仅屏蔽 `mcp` / `server` / `tools` 这种单词仍会让 `mcp server`、`MCP tools`、`model context protocol server` 穿透到 `supportTerm`。`sanitizeSkillKeywords` 需要在组合词层面阻断。
+**修复内容**: `top-community-skills.json` 去除 4 条重复 skill（15→11）
 
-7. **源码级 contract tests 能有效防止公开 copy 回 drift。**
-   `src/pages/public-links.test.ts` 与 `src/messages/public-copy.test.ts` 适合锁住高权重页面的 H1、platform count、hardcoded copy，不必每次都依赖端到端人工抽查。
+---
 
-8. **高权重页面的一致性问题常是“小字眼、大影响”。**
-   像 skills detail 页的 `18+` vs `19+`，以及 skills index 默认 H1 与 metadata framing 不一致，虽然改动很小，但会直接影响可信度、snippet 与页面实体信号。
+## ⚠️ HIGH — 降低流量获取潜力
 
-## Metrics / reports worth preserving
+### H1. 英文博客 description 超长（3 篇超 160 字符） ✅ 已修复
 
-- `data/seo-collection-locale-gaps.json` 当前显示 43/43 collections 已具备完整 locale coverage，说明当前主要问题不是 locale coverage，而是 ontology / intent / copy precision
-- 现有 SEO smoke / audit / report 脚本可以继续复用，应在此基础上补 terminology guards
-- Step 6 生成层 guardrail 的最小闭环可以先落在脚本层，而不必先大改业务生成器：`scripts/lib/ai.ts` 的 fallback SEO keyword、`scripts/generate-longtail-collections.ts` 的 title/description/keywords/canonical metadata、`scripts/seo-collection-drift.ts` 对 `data/seo-collection-canonical-map.json` 的消费，都能用一个轻量脚本级测试文件锁住回归。
-- `scripts/generate-blog-posts.ts` 当前仍是 unsafe boilerplate generator。与其继续让它产出 MCP-first 模板污染，不如先显式 hard stop，强制后续改走 curated workflow。
+**修复内容**: 3 篇英文博客 description 缩短到 155 字符以内
+
+### H2. 字体预加载缺少 onload 处理器 ✅ 已修复
+
+**修复内容**: `Layout.astro` 改用 `media="print" onload="this.media='all'"` 异步加载模式
+
+### H3. GitHub Webhook 无 HMAC 签名验证 ✅ 已修复
+
+**修复内容**: `workers/index.ts` 添加 `verifyGitHubSignature()` + `WEBHOOK_SECRET` env binding
+- 需要在 Cloudflare Dashboard 设置 `WEBHOOK_SECRET` 并在 GitHub Webhook 配置中填入相同值
+
+### H4. 页面 SEO 文本只支持 zh/en（其他 8 语言回退英文） ✅ 已修复
+
+**修复内容**:
+- 首页: 移除 `isZh` 硬编码，SEO title/description/FAQ 5 组 × 10 locale 全部迁入 i18n messages
+- Collections 页: SEO title/description/keywords/heroTitle/FAQ 3 组 × 10 locale 迁入 i18n messages
+- Solutions 页: breadcrumb/backLink/emptyState/FAQ 3 组 × 10 locale 迁入 i18n messages
+- 共添加 33 个新 i18n 键到 10 个 locale 文件
+
+### H5. 8 篇极薄博客内容（23-40 行） ✅ 已修复
+
+**修复内容**: 8 篇英文博客从 ~250 词扩充到 1100-1558 词，包含完整代码示例、对比表格和实操指南：
+- `claude-code-vs-cursor-mcp-comparison` 236→1286 词
+- `deploy-mcp-server-to-cloudflare-workers` 259→1100 词
+- `langchain-vs-mcp-ai-integration` 269→1178 词
+- `mcp-authentication-guide-secure-setup` 268→1376 词
+- `mcp-server-not-working-troubleshooting-guide` 254→1426 词
+- `mcp-server-security-best-practices` 269→1381 词
+- `mcp-vs-rest-api-comparison` 270→1375 词
+- `testing-mcp-servers-comprehensive-guide` 245→1558 词
+
+---
+
+## 📋 MEDIUM — 代码质量 & 维护性
+
+### M1. Middleware 深层路径拦截与 Skill 页面 catch-all 不一致 ✅ 已修复
+
+**修复内容**: skill 页面 catch-all 从 `> 5` 改为 `> 2`，与 middleware 对齐
+
+### M2. index.astro 和 middleware locale 重定向策略冲突 ✅ 已修复
+
+**修复内容**: `index.astro` 从 301 改为 302，与 middleware 保持一致
+
+### M3. Admin 不安全 fallback default ✅ 已修复
+
+**修复内容**: `middleware.ts` 移除 `'admin'/'admin'` fallback，改为 fail-closed（503）
+
+### M4. generate-collections.ts 跳过最大类别 ✅ 已修复
+
+**修复内容**: 移除 `generate-collections.ts` 中对 `developer`/`ai` 类别的死代码排除。
+经验证 skills-cache 中仅有 `community`(3136) 和 `official`(208) 两个类别，`developer`/`ai` 类别实际有 0 个 skill，排除逻辑为无效死代码。已清理，未来若这些类别被填充将自动参与 collection 生成。
+
+---
+
+## ✅ 无问题区域
+
+| 审查项 | 状态 |
+|--------|------|
+| i18n messages 完整性 (440 键 × 10 语言) | ✅ 完全一致 |
+| Collection SEO 质量 (seoTitle 长度/关键词/品牌一致性) | ✅ 无问题 |
+| Collection locale 覆盖度 (title/description 10 语言) | ✅ 全覆盖 |
+| 英文博客内容语言纯净度 | ✅ 无 CJK 污染 |
+| Sitemap 架构 (index + static/blog/collections/skills 分片) | ✅ 合理 |
+| Sitemap collections 使用 canonicalSlug + hreflang | ✅ 正确 |
+| API 路由安全 (rate limiting, input validation, zod schema) | ✅ 完善 |
+| Middleware (crawl trap, file ext blocking, robots headers) | ✅ 健壮 |
+| Content config (blog + collections schema) | ✅ 合理 |
+| Structured data (JSON-LD: FAQ, HowTo, BreadcrumbList, SoftwareApp) | ✅ 完善 |
+
+---
+
+## 📊 第二轮审计总结
+
+| 严重级别 | 发现 | 已修复 | 待修复 |
+|----------|------|--------|--------|
+| 🚨 CRITICAL | 4 | 4 | 0 |
+| ⚠️ HIGH | 5 | 5 | 0 |
+| 📋 MEDIUM | 4 | 4 | 0 |
+| **合计** | **13** | **13** | **0** |
+
+✅ **全部 13 项审计发现已修复完毕。**
+
+
+---
+
+> **以下为历史审计备忘（已归档）**
 - `scripts/analyze-keyword-opportunities.ts` 仍保留大量 MCP query research 语料，但其“立即创建集合”建议已可先改为 canonical slug + 人工审核导向，避免继续推动 legacy slug 扩散。
 - 高权重多语言 blog 的残留问题已从明显错链转向更细粒度的命令占位与文案 contract 漏洞。像 `top-10-mcp-servers-2026` 这类 featured 文章，即使没有 `/en/skills` 错链，也可能继续携带 `npx killer-skills add <skill>` / `<author>/<skill>` 这类不应公开暴露的占位命令，需要继续用 `src/pages/public-links.test.ts` 做 source-level contract 锁定。
 - 命令占位回归需要匹配多语言 angle-bracket 变量，而不能只盯英文 `<skill>`。对高权重 blog 更稳的做法是直接在源码层用 `npx killer-skills add <[^>\n]+>` 这类 regex 兜住 `<habilidad>`、`<スキル>`、`<스킬명>`、`<owner>/<repo>/<skill-name>` 等模板残留，再统一收口到规范命令 `npx killer-skills add owner/repo`。

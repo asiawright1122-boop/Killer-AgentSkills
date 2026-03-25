@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: zh
 ---
 
 ## 遇到 MCP 服务器问题？

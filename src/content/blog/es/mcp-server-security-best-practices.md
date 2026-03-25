@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: es
 ---
 ## Proteja sus servidores MCP para uso en producción. Cubre la validación de entrada, el límite de velocidad, el registro de auditoría, la seguridad de red y las consideraciones de cumplimiento para implementaciones empresariales.
 

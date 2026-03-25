@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: de
 ---
 ## LangChain und MCP lösen unterschiedliche Ebenen desselben Problems.
 LangChain hilft beim Orchestrieren von LLM-Anwendungen, während MCP vor allem einen standardisierten Weg bietet, Tools und Datenquellen für Modelle zugänglich zu machen.

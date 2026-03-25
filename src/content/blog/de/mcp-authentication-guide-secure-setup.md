@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: de
 ---
 ## Gute MCP-Authentifizierung beginnt nicht mit einem Token, sondern mit einem klaren Vertrauensmodell.
 Bevor Sie API-Schlüssel, OAuth oder Sitzungs-Token auswählen, sollten Sie festlegen, wer auf welche Tools zugreifen darf, wie Identitäten geprüft werden und wie sich Rechte im Betrieb nachvollziehen lassen.

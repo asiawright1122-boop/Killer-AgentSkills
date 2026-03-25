@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: pt
 ---
 ## Como levar um servidor MCP para o Cloudflare Workers sem complicar a operação
 Executar MCP na borda pode reduzir latência e simplificar a escala, mas o ganho real só aparece quando o servidor é adaptado ao modelo do Workers. Nem todo servidor pensado para processo persistente ou conexões longas funciona bem sem ajustes. Por isso, o deploy precisa começar pela arquitetura, não pelo comando final de publicação.

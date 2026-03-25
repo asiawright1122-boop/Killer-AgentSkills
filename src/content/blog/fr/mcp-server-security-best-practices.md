@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: fr
 ---
 ## Sécurisez vos serveurs MCP pour une utilisation en production
 La sécurité d'un serveur MCP doit être pensée comme un ensemble cohérent de contrôles. Protéger l'authentification ne suffit pas si les outils exposés sont trop puissants, si les entrées ne sont pas validées ou si les journaux révèlent des données sensibles.

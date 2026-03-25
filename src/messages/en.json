@@ -18,7 +18,14 @@
     "searchPlaceholder": "Search skills... e.g., PDF, Data Analysis",
     "searchButton": "Search",
     "hotTags": "Popular:",
-    "suggestions": ["PDF", "Image Gen", "Data Analysis", "Browser", "Code Review", "Documents"]
+    "suggestions": [
+      "PDF",
+      "Image Gen",
+      "Data Analysis",
+      "Browser",
+      "Code Review",
+      "Documents"
+    ]
   },
   "Skills": {
     "featured": "Featured Skills",
@@ -115,7 +122,12 @@
     "heroDesc2": "Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.",
     "searchPlaceholder": "Search for skills (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
-    "tags": ["Research", "Coding", "Marketing", "Analysis"],
+    "tags": [
+      "Research",
+      "Coding",
+      "Marketing",
+      "Analysis"
+    ],
     "featuresTitle": "Built for Developers",
     "featuresSubtitle": "Browse reusable AI agent skills and install them in the right native format for your IDE.",
     "trendingTitle": "Featured Skills",
@@ -152,7 +164,21 @@
         "title": "Open Source",
         "desc": "Transparent, secure, and community-driven."
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills",
+    "seoDescription": "Discover 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.",
+    "faqTitle": "Homepage FAQ",
+    "faqSubtitle": "Keeping the homepage snippet, visible content, and structured data aligned.",
+    "faq1Q": "What is Killer-Skills?",
+    "faq1A": "Killer-Skills is an open directory and installation entry point for reusable AI agent skills across Claude Code, Cursor, Windsurf, and other compatible IDEs.",
+    "faq2Q": "Which IDEs can use these skills?",
+    "faq2A": "Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 19+ other IDEs with a consistent installation flow.",
+    "faq3Q": "How do I install these skills?",
+    "faq3A": "You can open any skill page or use `npx killer-skills add owner/repo` to install a skill into any supported environment.",
+    "faq4Q": "How are these skills packaged?",
+    "faq4A": "They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.",
+    "faq5Q": "Why start from the skill directory?",
+    "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task."
   },
   "Sidebar": {
     "discover": "Discover",
@@ -547,6 +573,27 @@
     "collectionsTitle": "Featured Collections",
     "collectionsSubtitle": "Discover curated skill collections for every need",
     "viewAllCollections": "View All Collections",
-    "relatedCollections": "Related Collections"
+    "relatedCollections": "Related Collections",
+    "seoTitle": "Curated Automation Collections: AI Agent Skills",
+    "seoDescription": "Explore curated AI agent skill collections for workflow, process, document, browser, and data automation with a unified install flow.",
+    "seoKeyword1": "AI agent skill collections",
+    "seoKeyword2": "developer workflow skill collections",
+    "heroTitle": "Workflow Skill Bundles",
+    "faq1Q": "What workflows are these collections built for?",
+    "faq1A": "These collections are built around workflow automation, process automation, document operations, data workflows, and reusable skill stacks.",
+    "faq2Q": "How is a collection different from the main skills directory?",
+    "faq2A": "The skills directory is better for direct search and filtering, while collections help you find complementary skills bundled around a complete workflow.",
+    "faq3Q": "Can I install these collections for Claude Code or Cursor?",
+    "faq3A": "Yes. Skills inside these collections generally work in Claude Code, Cursor, Windsurf, and other supported environments through a unified install flow."
+  },
+  "Solutions": {
+    "solutions": "Solutions",
+    "backToSolutions": "Back to Solutions",
+    "noSkills": "No matching skills yet. Try another solution page.",
+    "faq1QTemplate": "What does the {label} scenario solve?",
+    "faq2Q": "Can these skills be installed directly in Cursor or Claude Code?",
+    "faq2A": "Yes. Skills listed here support the Killer-Skills unified install flow for Cursor, Claude Code, Windsurf, and other IDEs.",
+    "faq3Q": "What if the results are still too broad?",
+    "faq3A": "Open skill detail pages to review keywords and use cases, then refine with specific terms such as platform names, file types, or business actions."
   }
 }

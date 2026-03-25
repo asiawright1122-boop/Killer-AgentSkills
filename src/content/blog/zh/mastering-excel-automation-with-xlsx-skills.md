@@ -1,6 +1,6 @@
 ---
 title: "動態數據掌握：XLSX 技能指南"
-description: "Master 動態數據掌握 with XLSX 技能指南. Learn how to automate Excel tasks, create financial models, and generate dynamic reports. now."
+description: "掌握 XLSX 技能，自动化 Excel 任务、创建财务模型并生成动态报表。AI Agent 一键安装，提升数据处理效率。"
 pubDate: 2026-02-13
 author: "Killer-Skills Team"
 tags: ["Excel", "Data Science", "Financial Modeling", "Agent Skills"]

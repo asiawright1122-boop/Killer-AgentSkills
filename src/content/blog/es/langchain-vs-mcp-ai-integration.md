@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: es
 ---
 ## Comparar LangChain con Protocolo de Contexto de Modelo (MCP) para el desarrollo de agentes de inteligencia artificial
 Entienda las diferencias, casos de uso y cuándo elegir cada enfoque.

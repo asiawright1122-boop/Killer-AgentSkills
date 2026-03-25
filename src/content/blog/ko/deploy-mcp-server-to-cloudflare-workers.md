@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: ko
 ---
 ## Cloudflare Workers에 MCP 서버를 올리기 전에 알아둘 점
 

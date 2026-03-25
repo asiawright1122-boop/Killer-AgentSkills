@@ -18,7 +18,14 @@
     "searchPlaceholder": "Rechercher... ex: PDF, Analyse de données",
     "searchButton": "Rechercher",
     "hotTags": "Populaire:",
-    "suggestions": ["PDF", "Génération d'images", "Analyse de données", "Navigateur", "Revue de code", "Documents"]
+    "suggestions": [
+      "PDF",
+      "Génération d'images",
+      "Analyse de données",
+      "Navigateur",
+      "Revue de code",
+      "Documents"
+    ]
   },
   "Skills": {
     "featured": "Skills en Vedette",
@@ -115,7 +122,12 @@
     "heroDesc2": "Donnez instantanément à vos agents la capacité de Naviguer, Coder et Créer.",
     "searchPlaceholder": "Rechercher des capacités (ex: 'Web Scraping', 'Data Viz')...",
     "searchButton": "Rechercher",
-    "tags": ["Recherche", "Codage", "Marketing", "Analyse"],
+    "tags": [
+      "Recherche",
+      "Codage",
+      "Marketing",
+      "Analyse"
+    ],
     "featuresTitle": "Conçu pour les Développeurs",
     "featuresSubtitle": "Installez des skills d’agents IA réutilisables et apportez des workflows répétables dans votre IDE.",
     "trendingTitle": "Compétences Tendance",
@@ -152,7 +164,21 @@
         "title": "Open Source",
         "desc": "Transparent, sécurisé et piloté par la communauté."
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - Répertoire d'habiletés AI Agent et serveurs MCP | Skills Claude Code＆Cursor",
+    "seoDescription": "Découvrez plus de 2 500 compétences d'agents IA et serveurs MCP pour Claude Code, Cursor et plus de 19 IDE. Killer-Skills est le répertoire ouvert de Model Context Protocol.",
+    "faqTitle": "FAQ de la page d'accueil",
+    "faqSubtitle": "Aligner l'extrait de la page d'accueil, le contenu visible et les données structurées.",
+    "faq1Q": "Qu'est-ce que Killer-Skills ?",
+    "faq1A": "Killer-Skills est un répertoire ouvert et un point d'installation pour des compétences réutilisables d'agents IA dans Claude Code, Cursor, Windsurf et d'autres IDE compatibles.",
+    "faq2Q": "Quels IDE peuvent utiliser ces compétences ?",
+    "faq2A": "La plupart des compétences fonctionnent avec Claude Code, Cursor, Windsurf, VS Code et plus de 19 IDE avec un processus d'installation uniforme.",
+    "faq3Q": "Comment installer ces compétences ?",
+    "faq3A": "Ouvrez une page de compétence ou utilisez `npx killer-skills add owner/repo` pour l'installer dans un environnement pris en charge.",
+    "faq4Q": "Sous quel format sont livrées ces compétences ?",
+    "faq4A": "Elles sont généralement livrées sous forme de fichiers de compétences natifs IDE pour une installation directe dans Claude Code, Cursor, Windsurf et d'autres environnements compatibles.",
+    "faq5Q": "Pourquoi commencer par le répertoire de compétences ?",
+    "faq5A": "La page de détail rassemble la commande d'installation, les IDE supportés, le dépôt source et les compétences associées pour décider rapidement si elle convient à votre tâche."
   },
   "Sidebar": {
     "discover": "Découvrir",
@@ -547,6 +573,27 @@
     "collectionsTitle": "Collections en Vedette",
     "collectionsSubtitle": "Découvrez des collections de compétences pour chaque besoin",
     "viewAllCollections": "Voir toutes les collections",
-    "relatedCollections": "Collections associées"
+    "relatedCollections": "Collections associées",
+    "seoTitle": "Collections d'automatisation organisées : compétences AI Agent",
+    "seoDescription": "Explorez des collections organisées de compétences d'agents IA pour l'automatisation de flux, documents, navigateur et données avec un flux d'installation unifié.",
+    "seoKeyword1": "collections de compétences AI Agent",
+    "seoKeyword2": "collections de compétences de flux de travail",
+    "heroTitle": "Ensembles de compétences de flux de travail",
+    "faq1Q": "Pour quels flux de travail ces collections sont-elles conçues ?",
+    "faq1A": "Ces collections sont conçues autour de l'automatisation de flux, processus, documents, données et piles de compétences réutilisables.",
+    "faq2Q": "Quelle est la différence entre une collection et le répertoire principal ?",
+    "faq2A": "Le répertoire est meilleur pour la recherche directe, tandis que les collections regroupent des compétences complémentaires autour d'un flux complet.",
+    "faq3Q": "Puis-je installer ces collections pour Claude Code ou Cursor ?",
+    "faq3A": "Oui. Les compétences de ces collections fonctionnent généralement dans Claude Code, Cursor, Windsurf et d'autres environnements via un flux d'installation unifié."
+  },
+  "Solutions": {
+    "solutions": "Solutions",
+    "backToSolutions": "Retour aux Solutions",
+    "noSkills": "Aucune compétence correspondante pour l'instant. Essayez une autre page de solution.",
+    "faq1QTemplate": "Que résout le scénario {label} ?",
+    "faq2Q": "Ces compétences peuvent-elles être installées directement dans Cursor ou Claude Code ?",
+    "faq2A": "Oui. Les compétences listées ici prennent en charge le flux d'installation unifié Killer-Skills pour Cursor, Claude Code, Windsurf et d'autres IDE.",
+    "faq3Q": "Que faire si les résultats sont encore trop larges ?",
+    "faq3A": "Ouvrez les pages de détail des compétences pour examiner les mots-clés et cas d'usage, puis affinez avec des termes spécifiques comme les noms de plateforme, types de fichiers ou actions métier."
   }
 }

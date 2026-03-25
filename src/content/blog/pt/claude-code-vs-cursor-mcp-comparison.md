@@ -11,6 +11,7 @@ tags:
   - "cursor mcp"
   - "claude vs cursor"
   - "ai editor comparison"
+lang: pt
 ---
 ## Claude Code vs Cursor no uso diário com servidores MCP
 Se você trabalha com agentes, automação e ferramentas conectadas ao editor, a diferença entre Claude Code e Cursor aparece menos no marketing e mais na operação do dia a dia. Ambos conseguem conversar com servidores MCP, mas a experiência muda bastante quando entram em cena autenticação, descoberta de ferramentas, depuração e previsibilidade do fluxo.

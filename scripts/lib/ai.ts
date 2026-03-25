@@ -12,6 +12,24 @@ import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Seed keywords — loaded once at startup from data/seed-keywords.json
+// Edit that file to adjust SEO targeting without touching code.
+interface SeedKeywords {
+  navigational: string[];
+  informational: string[];
+  transactional: string[];
+  long_tail: string[];
+  theme_anchors: string[];
+}
+const SEED_KEYWORDS: SeedKeywords = (() => {
+  try {
+    const seedPath = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../data/seed-keywords.json');
+    return JSON.parse(fs.readFileSync(seedPath, 'utf-8')) as SeedKeywords;
+  } catch {
+    return { navigational: [], informational: [], transactional: [], long_tail: [], theme_anchors: [] };
+  }
+})();
+
 // Rate limiting configuration
 const MAX_CONCURRENT_REQUESTS = Number(process.env.AI_CONCURRENCY_LIMIT || '5');
 const RETRY_DELAYS = [1000, 2000, 4000, 8000, 16000]; // Exponential backoff: 1s, 2s, 4s, 8s, 16s
@@ -762,6 +780,11 @@ Format: "[Action] using [Technology/Method]"
 MUST include theme terms. Use: "capability + technology" format.
 GOOD: "playwright browser automation", "claude code mcp server", "notion workflow sync"
 BAD: "how to use playwright", "what is automation"
+
+High-value seed terms to cluster around (use when relevant to this skill):
+- Navigational: ${SEED_KEYWORDS.navigational.slice(0, 4).map((k) => `"${k}"`).join(', ')}
+- Informational: ${SEED_KEYWORDS.informational.slice(0, 4).map((k) => `"${k}"`).join(', ')}
+- Long-tail: ${SEED_KEYWORDS.long_tail.slice(0, 4).map((k) => `"${k}"`).join(', ')}
 
 Output STRICT JSON only:
 {

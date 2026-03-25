@@ -1,6 +1,6 @@
 ---
-title: "LangChain vs MCP: AI"
-description: "Compare LangChain with Model Context Protocol (MCP) for AI agent development. Understand the differences, use cases, and when to choose each approach."
+title: "LangChain vs MCP：AIエージェント統合フレームワークの比較"
+description: "AIエージェント開発におけるLangChainとModel Context Protocol（MCP）の違いを比較。ユースケース別の選択基準と、それぞれの強みを解説します。"
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/langchain-vs-mcp-ai-integration.webp
@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: ja
 ---
 ## LangChain と MCP は競合ではなく役割が違う
 

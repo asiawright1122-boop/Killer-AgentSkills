@@ -21,7 +21,6 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const intent = getSolutionIntentBySlug(typedLocale, topic || '');
 if (!intent) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
@@ -53,23 +52,11 @@ const displaySkills: UnifiedSkill[] = matchSkillsForIntent(skillsFetched, intent
 
 const faqItems = [
   {
-    question: isZh ? `${intent.label} 场景通常解决什么问题？` : `What does the ${intent.label} scenario solve?`,
+    question: t('Solutions.faq1QTemplate').replace('{label}', intent.label),
     answer: intent.pageDescription,
   },
-  {
-    question: isZh
-      ? '这些技能可以直接安装到 Cursor 或 Claude Code 吗？'
-      : 'Can these skills be installed directly in Cursor or Claude Code?',
-    answer: isZh
-      ? '可以。页面中的技能支持 Killer-Skills 统一安装流程，可用于 Cursor、Claude Code、Windsurf 等环境。'
-      : 'Yes. Skills listed here support the Killer-Skills unified install flow for Cursor, Claude Code, Windsurf, and other IDEs.',
-  },
-  {
-    question: isZh ? '如果结果不够精准怎么办？' : 'What if the results are still too broad?',
-    answer: isZh
-      ? '建议先查看技能详情页中的关键词与用例，再返回搜索页追加更具体词，如平台名、文件类型或业务动作。'
-      : 'Open skill detail pages to review keywords and use cases, then refine with specific terms such as platform names, file types, or business actions.',
-  },
+  { question: t('Solutions.faq2Q'), answer: t('Solutions.faq2A') },
+  { question: t('Solutions.faq3Q'), answer: t('Solutions.faq3A') },
 ];
 ---
 
@@ -119,7 +106,7 @@ const faqItems = [
           {
             '@type': 'ListItem',
             position: 2,
-            name: isZh ? '解决方案' : 'Solutions',
+            name: t('Solutions.solutions'),
             item: `https://killer-skills.com/${locale}/solutions`,
           },
           {
@@ -156,7 +143,7 @@ const faqItems = [
           href={`/${locale}/solutions`}
           class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] text-xs font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '返回解决方案' : 'Back to Solutions'}
+          {t('Solutions.backToSolutions')}
         </a>
         <div
           class="mt-4 inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
@@ -179,7 +166,7 @@ const faqItems = [
         displaySkills.length === 0 && (
           <div class="mb-10 text-center py-16 border-4 border-dashed border-[var(--border)] bg-[var(--background)]">
             <p class="text-[var(--muted-foreground)] font-mono font-bold text-lg">
-              {isZh ? '当前场景暂无匹配技能，请尝试其他场景页。' : 'No matching skills yet. Try another solution page.'}
+              {t('Solutions.noSkills')}
             </p>
           </div>
         )

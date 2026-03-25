@@ -12,6 +12,7 @@ tags:
   - "mcp api key"
   - "mcp oauth"
   - "secure mcp"
+lang: ja
 ---
 ## MCP 認証は接続できることより安全に運用できることが重要
 

@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: fr
 ---
 ## Apprenez diverses stratégies de test pour les serveurs MCP, notamment les tests unitaires, les tests d'intégration, la simulation et l'automatisation CI/CD
 Tester un serveur MCP ne consiste pas seulement à vérifier qu'il démarre. Il faut confirmer que les outils exposés sont corrects, que les erreurs restent compréhensibles, que l'authentification fonctionne et que le comportement reste stable quand le client agentique varie.

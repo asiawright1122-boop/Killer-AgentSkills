@@ -20,7 +20,6 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}`;
 
 // Get env from Cloudflare runtime
@@ -37,77 +36,16 @@ const t = useTranslations(messages);
 const allCollections = getCanonicalCollections(await getCollection('collections'));
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
-// SEO: homepage metadata should describe the site itself, not query funnels
-const homeSeoTitle = isZh
-  ? 'Killer-Skills - AI Agent Skills 开放目录 | Claude Code & Cursor 技能'
-  : locale === 'ja'
-    ? 'Killer-Skills - AIエージェントスキル＆MCPサーバーディレクトリ | Claude Code＆Cursorスキル'
-    : locale === 'ko'
-      ? 'Killer-Skills - AI 에이전트 스킬＆MCP 서버 디렉터리 | Claude Code＆Cursor 스킬'
-      : locale === 'es'
-        ? 'Killer-Skills - Directorio de habilidades AI Agent y servidores MCP | Skills Claude Code＆Cursor'
-        : locale === 'fr'
-          ? "Killer-Skills - Répertoire d'habiletés AI Agent et serveurs MCP | Skills Claude Code＆Cursor"
-          : locale === 'de'
-            ? 'Killer-Skills - KI-Agent-Fähigkeiten & MCP-Server-Verzeichnis | Claude Code＆Cursor-Skills'
-            : locale === 'pt'
-              ? 'Killer-Skills - Diretório de habilidades AI Agent e servidores MCP | Skills Claude Code＆Cursor'
-              : locale === 'ru'
-                ? 'Killer-Skills - Каталог навыков AI Agent и серверов MCP | Навыки Claude Code и Cursor'
-                : locale === 'ar'
-                  ? 'Killer-Skills - دليل مهارات وكلاء الذكاء الاصطناعي وخوادم MCP | مهارات Claude Code و Cursor'
-                  : 'Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills';
-const homeSeoDescription = isZh
-  ? '发现 2,500+ 个 Claude Code、Cursor 技能与 MCP 服务器。Killer-Skills 是面向 Model Context Protocol 的开放 AI Agent Skills 目录，支持 19+ IDE，一键安装。'
-  : locale === 'ja'
-    ? 'Claude Code、Cursor、19以上のIDE向け2,500以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。'
-    : locale === 'ko'
-      ? 'Claude Code, Cursor 및 19개 이상의 IDE용 2,500개 이상의 AI 에이전트 스킬과 MCP 서버를 발견하세요. Killer-Skills는 Model Context Protocol의 열린 디렉터리입니다.'
-      : locale === 'es'
-        ? 'Descubre más de 2,500 habilidades de agente IA y servidores MCP para Claude Code, Cursor y más de 19 IDE. Killer-Skills es el directorio abierto de Model Context Protocol.'
-        : locale === 'fr'
-          ? "Découvrez plus de 2 500 compétences d'agents IA et serveurs MCP pour Claude Code, Cursor et plus de 19 IDE. Killer-Skills est le répertoire ouvert de Model Context Protocol."
-          : locale === 'de'
-            ? 'Entdecken Sie über 2.500 KI-Agent-Fähigkeiten und MCP-Server für Claude Code, Cursor und 19+ IDEs. Killer-Skills ist das offene Model Context Protocol-Verzeichnis.'
-            : locale === 'pt'
-              ? 'Descubra mais de 2.500 habilidades de agentes de IA e servidores MCP para Claude Code, Cursor e mais de 19 IDEs. Killer-Skills é o diretório aberto do Model Context Protocol.'
-              : locale === 'ru'
-                ? 'Откройте для себя более 2500 навыков ИИ-агентов и серверов MCP для Claude Code, Cursor и более 19 IDE. Killer-Skills — открытый каталог Model Context Protocol.'
-                : locale === 'ar'
-                  ? 'اكتشف أكثر من 2500 مهارة لوكلاء الذكاء الاصطناعي وخوادم MCP لـ Claude Code و Cursor و IDEs الأخرى. Killer-Skills هو الدليل المفتوح لـ Model Context Protocol.'
-                  : 'Discover 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.';
+// SEO: homepage metadata from i18n messages
+const homeSeoTitle = t('Home.seoTitle');
+const homeSeoDescription = t('Home.seoDescription');
 const homeSeoKeywords = buildKeywordString(typedLocale, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
-  {
-    question: isZh ? 'Killer-Skills 是什么？' : 'What is Killer-Skills?',
-    answer: isZh
-      ? 'Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。'
-      : 'Killer-Skills is an open directory and installation entry point for reusable AI agent skills across Claude Code, Cursor, Windsurf, and other compatible IDEs.',
-  },
-  {
-    question: isZh ? '这些技能支持哪些 IDE？' : 'Which IDEs can use these skills?',
-    answer: isZh
-      ? '大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持统一的安装流程。'
-      : 'Most skills work with Claude Code, Cursor, Windsurf, VS Code, and 19+ other IDEs with a consistent installation flow.',
-  },
-  {
-    question: isZh ? '如何安装这些技能？' : 'How do I install these skills?',
-    answer: isZh
-      ? '你可以进入具体技能页，或直接使用 `npx killer-skills add owner/repo` 把技能安装到支持的环境中。'
-      : 'You can open any skill page or use `npx killer-skills add owner/repo` to install a skill into any supported environment.',
-  },
-  {
-    question: isZh ? '这些技能以什么形式提供？' : 'How are these skills packaged?',
-    answer: isZh
-      ? '它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。'
-      : 'They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.',
-  },
-  {
-    question: isZh ? '为什么要从目录页进入技能详情？' : 'Why start from the skill directory?',
-    answer: isZh
-      ? '因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。'
-      : 'The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.',
-  },
+  { question: t('Home.faq1Q'), answer: t('Home.faq1A') },
+  { question: t('Home.faq2Q'), answer: t('Home.faq2A') },
+  { question: t('Home.faq3Q'), answer: t('Home.faq3A') },
+  { question: t('Home.faq4Q'), answer: t('Home.faq4A') },
+  { question: t('Home.faq5Q'), answer: t('Home.faq5A') },
 ];
 
 // Features data with SVG paths (Lucide icons style)
@@ -520,14 +458,10 @@ const features = [
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-10 max-w-3xl">
           <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)]">
-            {isZh ? '首页常见问题' : 'Homepage FAQ'}
+            {t('Home.faqTitle')}
           </h2>
           <p class="mt-3 text-[var(--muted-foreground)] font-mono text-sm md:text-base">
-            {
-              isZh
-                ? '让首页摘要、落地内容和结构化数据保持一致。'
-                : 'Keeping the homepage snippet, visible content, and structured data aligned.'
-            }
+            {t('Home.faqSubtitle')}
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

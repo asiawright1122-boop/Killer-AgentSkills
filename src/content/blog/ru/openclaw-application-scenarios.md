@@ -1,6 +1,6 @@
 ---
 title: "5 Мощных Случаев Использования OpenClaw: От Личного Помощника До Эксперта По Автоматизации"
-description: "Discover 5 powerful use cases of OpenClaw, from personal assistant to automation expert. Boost your efficiency with this AI agent."
+description: "Откройте 5 мощных сценариев использования OpenClaw — от личного помощника до эксперта по автоматизации. Повысьте продуктивность с этим ИИ-агентом."
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "AI Automation", "Productivity"]

@@ -1,6 +1,6 @@
 ---
 title: 'Top 10 MCP Tools & Integrations for Claude Code & Cursor in 2026'
-description: 'A comprehensive guide to the top 10 Model Context Protocol (MCP) tools and integrations for Claude Code, Cursor, and Windsurf in 2026—enhancing AI agent skills with database, documentation, and workflow automation.'
+description: 'Top 10 MCP tools and integrations for Claude Code, Cursor, and Windsurf in 2026. Enhance AI agent skills with database, docs, and workflow automation.'
 pubDate: 2026-03-05
 author: 'Killer-Skills Team'
 tags: ['MCP', 'MCP Tools', 'AI Agent Skills', 'Claude Code', 'Cursor', 'Automation']

@@ -11,6 +11,7 @@ tags:
   - "mcp best practices"
   - "secure mcp server"
   - "mcp production"
+lang: de
 ---
 ## Ein produktiver MCP-Server ist Teil Ihrer Angriffsfläche und sollte genauso behandelt werden.
 Wer nur auf funktionierende Tool-Aufrufe schaut, übersieht schnell die eigentlichen Risiken: zu breite Rechte, unklare Eingabegrenzen, mangelhafte Beobachtbarkeit und fehlende Trennung sensibler Integrationen.

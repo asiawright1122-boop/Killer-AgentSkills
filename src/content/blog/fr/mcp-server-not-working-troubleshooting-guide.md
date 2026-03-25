@@ -11,6 +11,7 @@ tags:
   - "mcp troubleshooting"
   - "mcp error fix"
   - "mcp connection issues"
+lang: fr
 ---
 ## Résoudre les problèmes avec votre serveur MCP
 Quand un serveur MCP cesse de répondre, le plus important est d'éviter le diagnostic au hasard. La plupart des pannes viennent d'un petit nombre de causes récurrentes : mauvais démarrage, transport mal configuré, authentification invalide ou outil qui échoue silencieusement.

@@ -1,6 +1,8 @@
 # Roadmap — Killer-Skills v1.0
 
-## Phase 1 — Theme Integrity Fixes ✅ COMPLETE
+## Phase 1: Theme Integrity Fixes ✅ COMPLETE
+
+**Goal**: Fix all code-level SEO theme compliance gaps.
 
 All code fixes done. Next action: run AI regeneration pipeline.
 
@@ -8,7 +10,7 @@ All code fixes done. Next action: run AI regeneration pipeline.
 
 ---
 
-## Phase 2 — Re-Enrichment Pipeline Run 🔲
+## Phase 2: Re-Enrichment Pipeline Run 🔲
 
 **Goal**: Regenerate AI SEO for all skills failing theme checks.
 
@@ -22,7 +24,9 @@ All code fixes done. Next action: run AI regeneration pipeline.
 
 ---
 
-## Phase 3 — SEO Structure Improvements 🔲
+## Phase 3: SEO Structure Improvements 🔲
+
+**Goal**: Improve technical SEO structure for all pages.
 
 ### 3a. JSON-LD Schema Markup
 - Add `SoftwareApplication` schema to skill detail pages (`/[locale]/skills/[owner]/[repo]`)
@@ -42,7 +46,9 @@ All code fixes done. Next action: run AI regeneration pipeline.
 
 ---
 
-## Phase 4 — Keyword Research Integration 🔲
+## Phase 4: Keyword Research Integration 🔲
+
+**Goal**: Inject proven seed keywords into AI SEO pipeline for maximum organic traffic.
 
 ### 4a. Seed Keyword List
 Create `data/seed-keywords.json` with high-intent, theme-aligned terms:
@@ -61,7 +67,9 @@ Feed seed keywords into AI SEO prompt as examples so generated keywords cluster 
 
 ---
 
-## Phase 5 — Traffic Quality Monitoring 🔲
+## Phase 5: Traffic Quality Monitoring 🔲
+
+**Goal**: Wire analytics and search console data into automated reporting.
 
 - Wire GSC data (`scripts/gsc-fetch-report.ts`) to automated weekly report
 - Track CTR by skill page, identify underperforming titles

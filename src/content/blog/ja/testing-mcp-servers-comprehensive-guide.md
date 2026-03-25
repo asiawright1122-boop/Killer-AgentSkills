@@ -11,6 +11,7 @@ tags:
   - "mcp server test"
   - "mcp integration testing"
   - "mcp ci cd"
+lang: ja
 ---
 ## MCP サーバーのテストは接続確認だけでは足りない
 

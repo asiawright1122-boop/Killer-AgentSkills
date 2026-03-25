@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: zh
 ---
 
 ## Model Context Protocol (MCP) 与传统 REST API 的全面比较

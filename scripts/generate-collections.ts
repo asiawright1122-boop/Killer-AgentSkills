@@ -79,7 +79,7 @@ Output STRICT JSON only:
         console.error(`[DEBUG] Raw AI returned empty for ${category}`);
         throw new Error(`No AI response for collection ${category} batch ${localeStr}`);
     }
-    if (!response) throw new Error(`No AI response for collection ${category} batch ${localeStr}`);
+    // Duplicate null check removed (dead code)
 
     const candidates = extractJSONCandidates(response);
     for (const item of candidates) {
@@ -110,7 +110,7 @@ async function run() {
     const categoryMap = new Map<string, SkillCache[]>();
     for (const skill of data.skills) {
         if (!isCollectionEligibleSkill(skill)) continue;
-        if (!skill.category || skill.category === 'uncategorized' || skill.category === 'developer' || skill.category === 'ai' || skill.category === 'official') continue;
+        if (!skill.category || skill.category === 'uncategorized' || skill.category === 'official') continue;
         const list = categoryMap.get(skill.category) || [];
         list.push(skill);
         categoryMap.set(skill.category, list);

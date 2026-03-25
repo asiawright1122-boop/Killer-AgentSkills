@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: zh
 ---
 
 比较 LangChain 与模型上下文协议（MCP）在 AI 代理开发中的区别。了解两者差异、使用场景以及如何选择。

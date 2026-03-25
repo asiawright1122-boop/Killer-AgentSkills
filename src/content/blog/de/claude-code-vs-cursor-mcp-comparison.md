@@ -11,6 +11,7 @@ tags:
   - "cursor mcp"
   - "claude vs cursor"
   - "ai editor comparison"
+lang: de
 ---
 ## Claude Code und Cursor verfolgen bei MCP sehr unterschiedliche Ansätze.
 Dieser Vergleich konzentriert sich auf die Punkte, die im Alltag wirklich zählen: Einrichtungsaufwand, Tool-Nutzung, Transparenz, Zuverlässigkeit und Kontrolle über Server und Berechtigungen.

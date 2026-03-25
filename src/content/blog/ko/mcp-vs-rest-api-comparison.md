@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: ko
 ---
 ## MCP와 REST API는 서로를 대체하기보다 쓰임새가 다르다
 

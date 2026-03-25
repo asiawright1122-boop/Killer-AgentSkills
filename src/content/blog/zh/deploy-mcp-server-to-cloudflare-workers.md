@@ -11,6 +11,7 @@ tags:
   - "cloudflare workers mcp"
   - "mcp edge deployment"
   - "serverless mcp"
+lang: zh
 ---
 
 将 MCP 服务器部署到 Cloudflare Workers 的分步教程。通过边缘计算节省成本、改善延迟并自动扩展。

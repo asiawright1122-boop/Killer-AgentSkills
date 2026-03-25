@@ -1,6 +1,6 @@
 ---
 title: 'What are AI agent skills, and why should you care?'
-description: 'Discover AI agent skills—reusable SKILL.md files that instruct coding agents like Claude Code, Cursor, and Windsurf to follow your project conventions with Model Context Protocol (MCP) support.'
+description: 'AI agent skills are reusable SKILL.md files that instruct Claude Code, Cursor, and Windsurf to follow your project conventions. Learn how they work.'
 pubDate: 2026-02-23
 author: 'Killer-Skills Team'
 tags: ['AI Agent Skills', 'SKILL.md', 'Claude Code', 'Cursor', 'Developer Tools', 'Automation']

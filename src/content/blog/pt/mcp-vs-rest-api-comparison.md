@@ -12,6 +12,7 @@ tags:
   - "mcp protocol"
   - "when to use mcp"
   - "ai agent integration"
+lang: pt
 ---
 ## MCP vs REST API: a diferença entre integrar para humanos e integrar para agentes
 REST continua sendo uma das formas mais comuns de expor sistemas, dados e operações. MCP surge em outro ponto do problema: tornar ferramentas e contexto mais fáceis de consumir por clientes de IA. Os dois podem coexistir, mas escolher bem a camada certa evita acoplamento desnecessário e retrabalho.

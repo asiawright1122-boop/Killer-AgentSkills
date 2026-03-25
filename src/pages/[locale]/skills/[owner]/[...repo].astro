@@ -49,8 +49,9 @@ const subSkillName = repoParts.length > 1 ? repoParts.slice(1).join('/') : undef
 const canonicalSkillPath = `/${locale}/skills/${owner}/${repo}`;
 const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
 
-// SEO: Limit catch-all depth to prevent infinite crawling of deep paths
-if (repoParts.length > 5) {
+// SEO: Limit catch-all depth — only repo (1) and repo/sub-skill (2) are valid.
+// Aligns with middleware crawl-trap guard which blocks 2+ extra segments after owner/repo.
+if (repoParts.length > 2) {
   Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400');
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }

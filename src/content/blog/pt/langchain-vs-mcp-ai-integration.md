@@ -11,6 +11,7 @@ tags:
   - "mcp ai framework"
   - "langchain alternative"
   - "ai agent protocol"
+lang: pt
 ---
 ## LangChain vs MCP: diferenças que importam em projetos reais
 LangChain e MCP aparecem com frequência na mesma conversa, mas eles não resolvem exatamente o mesmo problema. LangChain organiza fluxos de aplicação, encadeamento de chamadas, memória, retrieval e orquestração. MCP, por outro lado, padroniza a forma como modelos e clientes acessam ferramentas e fontes de contexto externas.

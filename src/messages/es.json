@@ -122,7 +122,12 @@
     "heroDesc2": "Dale instantáneamente a tus agentes la capacidad de Navegar, Codificar y Crear.",
     "searchPlaceholder": "Buscar capacidades (por ejemplo, 'Web Scraping', 'Data Viz')...",
     "searchButton": "Buscar",
-    "tags": ["Investigación", "Codificación", "Marketing", "Análisis"],
+    "tags": [
+      "Investigación",
+      "Codificación",
+      "Marketing",
+      "Análisis"
+    ],
     "featuresTitle": "Diseñado para Desarrolladores",
     "featuresSubtitle": "Instala skills reutilizables de agentes de IA y lleva flujos de trabajo repetibles a tu IDE.",
     "trendingTitle": "Habilidades en tendencia",
@@ -159,7 +164,21 @@
         "title": "Código Abierto",
         "desc": "Transparente, seguro e impulsado por la comunidad."
       }
-    }
+    },
+    "seoTitle": "Killer-Skills - Directorio de habilidades AI Agent y servidores MCP | Skills Claude Code＆Cursor",
+    "seoDescription": "Descubre más de 2,500 habilidades de agente IA y servidores MCP para Claude Code, Cursor y más de 19 IDE. Killer-Skills es el directorio abierto de Model Context Protocol.",
+    "faqTitle": "Preguntas frecuentes",
+    "faqSubtitle": "Manteniendo alineados el fragmento de la página, el contenido visible y los datos estructurados.",
+    "faq1Q": "¿Qué es Killer-Skills?",
+    "faq1A": "Killer-Skills es un directorio abierto y punto de instalación para habilidades reutilizables de agentes IA en Claude Code, Cursor, Windsurf y otros IDE compatibles.",
+    "faq2Q": "¿Qué IDE pueden usar estas habilidades?",
+    "faq2A": "La mayoría de las habilidades funcionan con Claude Code, Cursor, Windsurf, VS Code y más de 19 IDE con un flujo de instalación consistente.",
+    "faq3Q": "¿Cómo instalo estas habilidades?",
+    "faq3A": "Puedes abrir cualquier página de habilidad o usar `npx killer-skills add owner/repo` para instalar en cualquier entorno compatible.",
+    "faq4Q": "¿En qué formato se empaquetan estas habilidades?",
+    "faq4A": "Normalmente se empaquetan como archivos de habilidades nativos del IDE para instalarlos y reutilizarlos directamente en Claude Code, Cursor, Windsurf y otros entornos compatibles.",
+    "faq5Q": "¿Por qué empezar desde el directorio de habilidades?",
+    "faq5A": "La página de detalle reúne el comando de instalación, los IDE compatibles, el repositorio fuente y las habilidades relacionadas para que puedas decidir rápidamente si es adecuada para tu tarea."
   },
   "Sidebar": {
     "discover": "Descubrir",
@@ -554,6 +573,27 @@
     "collectionsTitle": "Colecciones Destacadas",
     "collectionsSubtitle": "Descubre colecciones curadas de habilidades para cada necesidad",
     "viewAllCollections": "Ver todas las colecciones",
-    "relatedCollections": "Colecciones relacionadas"
+    "relatedCollections": "Colecciones relacionadas",
+    "seoTitle": "Colecciones curadas de automatización: habilidades AI Agent",
+    "seoDescription": "Explora colecciones curadas de habilidades de agentes IA para automatización de flujos, documentos, navegador y datos con instalación unificada.",
+    "seoKeyword1": "colecciones de habilidades AI Agent",
+    "seoKeyword2": "colecciones de habilidades de flujos de trabajo",
+    "heroTitle": "Paquetes de habilidades de flujo de trabajo",
+    "faq1Q": "¿Para qué flujos de trabajo están diseñadas estas colecciones?",
+    "faq1A": "Estas colecciones están diseñadas para automatización de flujos, procesos, documentos, datos y pilas de habilidades reutilizables.",
+    "faq2Q": "¿Cómo se diferencia una colección del directorio principal?",
+    "faq2A": "El directorio es mejor para búsqueda directa, mientras las colecciones ayudan a encontrar habilidades complementarias agrupadas por flujo completo.",
+    "faq3Q": "¿Puedo instalar estas colecciones para Claude Code o Cursor?",
+    "faq3A": "Sí. Las habilidades de estas colecciones generalmente funcionan en Claude Code, Cursor, Windsurf y otros entornos mediante instalación unificada."
+  },
+  "Solutions": {
+    "solutions": "Soluciones",
+    "backToSolutions": "Volver a Soluciones",
+    "noSkills": "Aún no hay habilidades coincidentes. Prueba otra página de solución.",
+    "faq1QTemplate": "¿Qué resuelve el escenario {label}?",
+    "faq2Q": "¿Se pueden instalar estas habilidades directamente en Cursor o Claude Code?",
+    "faq2A": "Sí. Las habilidades aquí listadas soportan el flujo de instalación unificado de Killer-Skills para Cursor, Claude Code, Windsurf y otros IDE.",
+    "faq3Q": "¿Qué hacer si los resultados son demasiado amplios?",
+    "faq3A": "Abre las páginas de detalle de habilidades para revisar palabras clave y casos de uso, luego refina con términos específicos como nombres de plataforma, tipos de archivo o acciones comerciales."
   }
 }
