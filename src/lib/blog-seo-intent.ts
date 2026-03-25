@@ -89,8 +89,79 @@ export function getBlogLongTailKeywords(slug: string, locale: Locale): string[] 
     : ['developer workflow skills', 'ai agent skills', 'skill templates'];
 }
 
+const SLUG_SKILL_LINKS: Record<string, { en: BlogIntentLink; zh: BlogIntentLink }> = {
+  'automate-word-documents-with-docx-skills': {
+    en: { title: 'docx Skill — Word Document Automation', description: 'Install the docx skill to create, edit, and format .docx files with your AI agent.', href: `LOCALE/skills/anthropics/skills/docx` },
+    zh: { title: 'docx 技能 — Word 文档自动化', description: '安装 docx 技能，让 AI Agent 创建和编辑 Word 文档。', href: `LOCALE/skills/anthropics/skills/docx` },
+  },
+  'mastering-excel-automation-with-xlsx-skills': {
+    en: { title: 'xlsx Skill — Excel Automation', description: 'Install the xlsx skill to read, write, and manipulate Excel files with your AI agent.', href: `LOCALE/skills/anthropics/skills/xlsx` },
+    zh: { title: 'xlsx 技能 — Excel 自动化', description: '安装 xlsx 技能，让 AI Agent 操作 Excel 文件。', href: `LOCALE/skills/anthropics/skills/xlsx` },
+  },
+  'mastering-pdf-automation-with-ai-skills': {
+    en: { title: 'pdf Skill — PDF Automation', description: 'Install the pdf skill for OCR, extraction, merging, and PDF generation with AI.', href: `LOCALE/skills/anthropics/skills/pdf` },
+    zh: { title: 'pdf 技能 — PDF 自动化', description: '安装 pdf 技能，支持 OCR、提取与 PDF 生成。', href: `LOCALE/skills/anthropics/skills/pdf` },
+  },
+  'killer-ui-design-with-frontend-design-skills': {
+    en: { title: 'frontend-design Skill', description: 'Install the frontend-design skill for AI-powered UI component generation.', href: `LOCALE/skills/anthropics/skills/frontend-design` },
+    zh: { title: 'frontend-design 技能', description: '安装 frontend-design 技能，用 AI 生成 UI 组件。', href: `LOCALE/skills/anthropics/skills/frontend-design` },
+  },
+  'master-visual-identity-with-brand-guidelines-skills': {
+    en: { title: 'brand-guidelines Skill', description: 'Install the brand-guidelines skill for consistent visual identity generation with AI.', href: `LOCALE/skills/anthropics/skills/brand-guidelines` },
+    zh: { title: 'brand-guidelines 技能', description: '安装 brand-guidelines 技能，用 AI 保持品牌视觉一致性。', href: `LOCALE/skills/anthropics/skills/brand-guidelines` },
+  },
+  'mastering-generative-art-with-claudecode-skills': {
+    en: { title: 'algorithmic-art Skill', description: 'Install the algorithmic-art skill to generate creative visual outputs with Claude Code.', href: `LOCALE/skills/anthropics/skills/algorithmic-art` },
+    zh: { title: 'algorithmic-art 技能', description: '安装 algorithmic-art 技能，用 Claude Code 生成创意视觉作品。', href: `LOCALE/skills/anthropics/skills/algorithmic-art` },
+  },
+  'professional-presentations-with-pptx-ai-skills': {
+    en: { title: 'pptx Skill — Presentation Automation', description: 'Install the pptx skill to create and edit PowerPoint files with your AI agent.', href: `LOCALE/skills/anthropics/skills/pptx` },
+    zh: { title: 'pptx 技能 — 演示文稿自动化', description: '安装 pptx 技能，让 AI Agent 创建 PowerPoint 文件。', href: `LOCALE/skills/anthropics/skills/pptx` },
+  },
+  'professional-poster-design-with-canvas-skills': {
+    en: { title: 'canvas Skill — Poster & Image Design', description: 'Install the canvas skill for AI-generated posters, banners, and graphics.', href: `LOCALE/skills/anthropics/skills/canvas` },
+    zh: { title: 'canvas 技能 — 海报与图像设计', description: '安装 canvas 技能，用 AI 生成海报和图像。', href: `LOCALE/skills/anthropics/skills/canvas` },
+  },
+  'collaborative-writing-with-doc-coauthoring-skills': {
+    en: { title: 'doc-coauthoring Skill', description: 'Install the doc-coauthoring skill for AI-assisted collaborative document writing.', href: `LOCALE/skills/anthropics/skills/doc-coauthoring` },
+    zh: { title: 'doc-coauthoring 技能', description: '安装 doc-coauthoring 技能，实现 AI 辅助协作写作。', href: `LOCALE/skills/anthropics/skills/doc-coauthoring` },
+  },
+  'automated-ui-testing-with-webapp-testing-skills': {
+    en: { title: 'webapp-testing Skill', description: 'Install the webapp-testing skill for AI-driven UI and end-to-end test automation.', href: `LOCALE/skills/anthropics/skills/webapp-testing` },
+    zh: { title: 'webapp-testing 技能', description: '安装 webapp-testing 技能，实现 AI 驱动的 UI 自动化测试。', href: `LOCALE/skills/anthropics/skills/webapp-testing` },
+  },
+  'instant-branding-with-theme-factory-skills': {
+    en: { title: 'theme-factory Skill', description: 'Install the theme-factory skill for instant AI-generated brand themes and color systems.', href: `LOCALE/skills/anthropics/skills/theme-factory` },
+    zh: { title: 'theme-factory 技能', description: '安装 theme-factory 技能，即时生成品牌主题和配色系统。', href: `LOCALE/skills/anthropics/skills/theme-factory` },
+  },
+  'create-custom-slack-emojis-with-ai-skills': {
+    en: { title: 'slack-emoji Skill', description: 'Install the slack-emoji skill to generate custom Slack emojis with your AI agent.', href: `LOCALE/skills/anthropics/skills/slack-emoji` },
+    zh: { title: 'slack-emoji 技能', description: '安装 slack-emoji 技能，用 AI 生成自定义 Slack 表情。', href: `LOCALE/skills/anthropics/skills/slack-emoji` },
+  },
+};
+
 export function getBlogIntentLinks(locale: string, category: string | undefined, slug: string): BlogIntentLink[] {
   const isZh = locale === 'zh';
+
+  // Slug-specific: inject direct skill page link as first intent card
+  const slugEntry = SLUG_SKILL_LINKS[slug];
+  if (slugEntry) {
+    const skillLink = isZh ? slugEntry.zh : slugEntry.en;
+    const localizedHref = skillLink.href.replace('LOCALE', `/${locale}`);
+    return [
+      { ...skillLink, href: localizedHref },
+      {
+        title: isZh ? '浏览全部技能' : 'Browse All Skills',
+        description: isZh ? '探索更多可用于 AI Agent 工作流的技能。' : 'Explore more skills for your AI agent workflow.',
+        href: `/${locale}/skills`,
+      },
+      {
+        title: isZh ? '安装与 CLI 指南' : 'Install & CLI Guide',
+        description: isZh ? '查看安装、CLI 命令与配置步骤。' : 'See installation, CLI commands, and setup steps.',
+        href: `/${locale}/docs/installation`,
+      },
+    ];
+  }
 
   if (category === 'document-automation' || /pdf|docx|xlsx|document/i.test(slug)) {
     return [
