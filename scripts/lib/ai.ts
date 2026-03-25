@@ -112,6 +112,7 @@ const GENERIC_FILLER_KEYWORDS = new Set([
   'ai automation',
   'agent skill workflow',
 ]);
+const LONG_CONTEXT_TRIGGER_CHARS = 6000;
 const INVALID_SEO_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 const sanitizeKeywordToken = (raw: string): string =>
   String(raw || '')
@@ -721,7 +722,7 @@ Output ONLY the summary, no intro/outro.`;
     const bodyPreview = context?.bodyPreview || '';
 
     // Map-Reduce for extremely long texts
-    if (text.length > 3000 || bodyPreview.length > 3000) {
+    if (text.length > LONG_CONTEXT_TRIGGER_CHARS || bodyPreview.length > LONG_CONTEXT_TRIGGER_CHARS) {
       const fullRawText = text + '\n---\n' + bodyPreview;
       processedText = await this.generateLongContextSummary(skillName, fullRawText);
     } else {
@@ -1011,7 +1012,7 @@ Output STRICT JSON only, no markdown wrapping:
     | undefined
   > {
     let processedText = description + '\n' + bodyPreview;
-    if (processedText.length > 3000) {
+    if (processedText.length > LONG_CONTEXT_TRIGGER_CHARS) {
       processedText = await this.generateLongContextSummary(skillName, processedText);
     } else {
       processedText = processedText.slice(0, 3000);
