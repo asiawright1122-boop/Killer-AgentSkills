@@ -122,12 +122,7 @@
     "heroDesc2": "Dale instantáneamente a tus agentes la capacidad de Navegar, Codificar y Crear.",
     "searchPlaceholder": "Buscar capacidades (por ejemplo, 'Web Scraping', 'Data Viz')...",
     "searchButton": "Buscar",
-    "tags": [
-      "Investigación",
-      "Codificación",
-      "Marketing",
-      "Análisis"
-    ],
+    "tags": ["Investigación", "Codificación", "Marketing", "Análisis"],
     "featuresTitle": "Diseñado para Desarrolladores",
     "featuresSubtitle": "Instala skills reutilizables de agentes de IA y lleva flujos de trabajo repetibles a tu IDE.",
     "trendingTitle": "Habilidades en tendencia",
@@ -242,7 +237,13 @@
     "skipToContent": "Ir al contenido",
     "documentation": "Documentación",
     "darkMode": "Modo oscuro",
-    "lightMode": "Modo claro"
+    "lightMode": "Modo claro",
+    "officialPartner": "Socio oficial",
+    "communityVendor": "Proveedor de la comunidad",
+    "skillsCount": "Skills",
+    "page": "Página",
+    "goToPage": "Ir a la página",
+    "pageJumpError": "Ingrese un número de página válido entre 1 y {max}"
   },
   "OfficialSkills": {
     "title": "Habilidades Oficiales",

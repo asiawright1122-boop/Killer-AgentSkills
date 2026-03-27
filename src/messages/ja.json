@@ -18,14 +18,7 @@
     "searchPlaceholder": "スキルを検索... 例: PDF, データ分析",
     "searchButton": "検索",
     "hotTags": "人気:",
-    "suggestions": [
-      "PDF",
-      "画像生成",
-      "データ分析",
-      "ブラウザ",
-      "コードレビュー",
-      "ドキュメント"
-    ]
+    "suggestions": ["PDF", "画像生成", "データ分析", "ブラウザ", "コードレビュー", "ドキュメント"]
   },
   "Skills": {
     "featured": "注目のスキル",
@@ -122,12 +115,7 @@
     "heroDesc2": "エージェントにブラウズ、コード、クリエイトの能力を即座に付与。",
     "searchPlaceholder": "機能を検索（例：'Webスクレイピング'、'データ可視化'）...",
     "searchButton": "検索",
-    "tags": [
-      "リサーチ",
-      "コーディング",
-      "マーケティング",
-      "分析"
-    ],
+    "tags": ["リサーチ", "コーディング", "マーケティング", "分析"],
     "featuresTitle": "開発者のために構築",
     "featuresSubtitle": "再利用可能なAIエージェントスキルをインストールし、繰り返し使えるワークフローをIDEに持ち込みましょう。",
     "trendingTitle": "トレンドスキル",
@@ -242,7 +230,13 @@
     "skipToContent": "コンテンツへスキップ",
     "documentation": "ドキュメント",
     "darkMode": "ダークモード",
-    "lightMode": "ライトモード"
+    "lightMode": "ライトモード",
+    "officialPartner": "公式パートナー",
+    "communityVendor": "コミュニティベンダー",
+    "skillsCount": "スキル",
+    "page": "ページ",
+    "goToPage": "ページに移動",
+    "pageJumpError": "1から{max}の間の有効なページ番号を入力してください"
   },
   "OfficialSkills": {
     "title": "公式スキル",

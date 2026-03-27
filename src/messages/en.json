@@ -18,14 +18,7 @@
     "searchPlaceholder": "Search skills... e.g., PDF, Data Analysis",
     "searchButton": "Search",
     "hotTags": "Popular:",
-    "suggestions": [
-      "PDF",
-      "Image Gen",
-      "Data Analysis",
-      "Browser",
-      "Code Review",
-      "Documents"
-    ]
+    "suggestions": ["PDF", "Image Gen", "Data Analysis", "Browser", "Code Review", "Documents"]
   },
   "Skills": {
     "featured": "Featured Skills",
@@ -122,12 +115,7 @@
     "heroDesc2": "Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.",
     "searchPlaceholder": "Search for skills (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
-    "tags": [
-      "Research",
-      "Coding",
-      "Marketing",
-      "Analysis"
-    ],
+    "tags": ["Research", "Coding", "Marketing", "Analysis"],
     "featuresTitle": "Built for Developers",
     "featuresSubtitle": "Browse reusable AI agent skills and install them in the right native format for your IDE.",
     "trendingTitle": "Featured Skills",
@@ -242,7 +230,13 @@
     "skipToContent": "Skip to content",
     "documentation": "Documentation",
     "darkMode": "Dark Mode",
-    "lightMode": "Light Mode"
+    "lightMode": "Light Mode",
+    "officialPartner": "Official Partner",
+    "communityVendor": "Community Vendor",
+    "skillsCount": "Skills",
+    "page": "Page",
+    "goToPage": "Go to page",
+    "pageJumpError": "Please enter a valid page number between 1 and {max}"
   },
   "OfficialSkills": {
     "title": "Official Skills",

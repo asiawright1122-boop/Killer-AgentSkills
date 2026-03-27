@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
 import { buildKeywordString, getCollectionKeywordClusters } from '../../../lib/seo-keywords';
@@ -179,6 +180,15 @@ const itemListSchema = {
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
     <main class="relative z-10 pt-12 md:pt-24 pb-20 border-b-[3px] border-[var(--border)]">
       <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Breadcrumb */}
+        <Breadcrumb
+          items={[
+            { label: t('Common.home'), href: `/${locale}` },
+            { label: t('Collections.collections') || 'Collections', href: `/${locale}/collections` },
+            { label: title },
+          ]}
+        />
+
         {/* Back Link */}
         <a
           href={`/${locale}/collections`}

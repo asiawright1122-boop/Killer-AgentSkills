@@ -18,14 +18,7 @@
     "searchPlaceholder": "Rechercher... ex: PDF, Analyse de données",
     "searchButton": "Rechercher",
     "hotTags": "Populaire:",
-    "suggestions": [
-      "PDF",
-      "Génération d'images",
-      "Analyse de données",
-      "Navigateur",
-      "Revue de code",
-      "Documents"
-    ]
+    "suggestions": ["PDF", "Génération d'images", "Analyse de données", "Navigateur", "Revue de code", "Documents"]
   },
   "Skills": {
     "featured": "Skills en Vedette",
@@ -122,12 +115,7 @@
     "heroDesc2": "Donnez instantanément à vos agents la capacité de Naviguer, Coder et Créer.",
     "searchPlaceholder": "Rechercher des capacités (ex: 'Web Scraping', 'Data Viz')...",
     "searchButton": "Rechercher",
-    "tags": [
-      "Recherche",
-      "Codage",
-      "Marketing",
-      "Analyse"
-    ],
+    "tags": ["Recherche", "Codage", "Marketing", "Analyse"],
     "featuresTitle": "Conçu pour les Développeurs",
     "featuresSubtitle": "Installez des skills d’agents IA réutilisables et apportez des workflows répétables dans votre IDE.",
     "trendingTitle": "Compétences Tendance",
@@ -242,7 +230,13 @@
     "skipToContent": "Aller au contenu",
     "documentation": "Documentation",
     "darkMode": "Mode sombre",
-    "lightMode": "Mode clair"
+    "lightMode": "Mode clair",
+    "officialPartner": "Partenaire officiel",
+    "communityVendor": "Fournisseur communautaire",
+    "skillsCount": "Skills",
+    "page": "Page",
+    "goToPage": "Aller à la page",
+    "pageJumpError": "Veuillez entrer un numéro de page valide entre 1 et {max}"
   },
   "OfficialSkills": {
     "title": "Compétences Officielles",

@@ -18,14 +18,7 @@
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "searchButton": "Suchen",
     "hotTags": "Beliebt:",
-    "suggestions": [
-      "PDF",
-      "Bildgenerator",
-      "Datenanalyse",
-      "Browser",
-      "Code-Review",
-      "Dokumente"
-    ]
+    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Browser", "Code-Review", "Dokumente"]
   },
   "Skills": {
     "featured": "Vorgestellte Skills",
@@ -122,12 +115,7 @@
     "heroDesc2": "Verleihen Sie Ihren Agenten sofort die Fähigkeit zu Browsen, Coden und Erstellen.",
     "searchPlaceholder": "Suchen Sie nach Fähigkeiten (z.B. 'Web Scraping', 'Data Viz')...",
     "searchButton": "Suchen",
-    "tags": [
-      "Forschung",
-      "Programmierung",
-      "Marketing",
-      "Analyse"
-    ],
+    "tags": ["Forschung", "Programmierung", "Marketing", "Analyse"],
     "featuresTitle": "Für Entwickler entwickelt",
     "featuresSubtitle": "Installieren Sie wiederverwendbare KI-Agenten-Skills und bringen Sie wiederholbare Workflows in Ihre IDE.",
     "trendingTitle": "Trending Fähigkeiten",
@@ -242,7 +230,13 @@
     "skipToContent": "Zum Inhalt springen",
     "documentation": "Dokumentation",
     "darkMode": "Dunkelmodus",
-    "lightMode": "Hellmodus"
+    "lightMode": "Hellmodus",
+    "officialPartner": "Offizieller Partner",
+    "communityVendor": "Community-Anbieter",
+    "skillsCount": "Skills",
+    "page": "Seite",
+    "goToPage": "Zur Seite gehen",
+    "pageJumpError": "Bitte geben Sie eine gültige Seitenzahl zwischen 1 und {max} ein"
   },
   "OfficialSkills": {
     "title": "Offizielle Skills",

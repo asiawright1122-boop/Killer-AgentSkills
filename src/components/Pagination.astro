@@ -165,7 +165,7 @@ const pages = getPageNumbers();
         type="number"
         min="1"
         max={totalPages}
-        placeholder="页码"
+        placeholder={t('Common.page') || 'Page'}
         aria-label={t('Common.page') || 'Page number'}
         class="jump-page-input w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
       />
@@ -183,6 +183,7 @@ const pages = getPageNumbers();
     data-base-url={baseUrl}
     data-search-params={JSON.stringify(searchParams)}
     data-total-pages={totalPages}
+    data-error-msg={t('Common.pageJumpError') || 'Please enter a valid page number'}
   >
   </div>
 </nav>
@@ -199,7 +200,7 @@ const pages = getPageNumbers();
 
       if (!input || !button || !dataEl) return;
 
-      const { baseUrl, searchParams, totalPages } = dataEl.dataset;
+      const { baseUrl, searchParams, totalPages, errorMsg } = dataEl.dataset;
       const parsedParams = JSON.parse(searchParams || '{}');
       const maxPages = parseInt(totalPages || '1');
 
@@ -218,7 +219,8 @@ const pages = getPageNumbers();
           const joinChar = baseUrl?.includes('?') ? '&' : '?';
           window.location.href = `${baseUrl}${joinChar}${params.toString()}`;
         } else {
-          alert(`请输入 1 到 ${maxPages} 之间的有效页码`);
+          const msg = (errorMsg || 'Please enter a page between 1 and {max}').replace('{max}', String(maxPages));
+          alert(msg);
         }
       };
 

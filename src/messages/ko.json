@@ -18,14 +18,7 @@
     "searchPlaceholder": "스킬 검색... 예: PDF, 데이터 분석",
     "searchButton": "검색",
     "hotTags": "인기:",
-    "suggestions": [
-      "PDF",
-      "이미지 생성",
-      "데이터 분석",
-      "브라우저",
-      "코드 리뷰",
-      "문서"
-    ]
+    "suggestions": ["PDF", "이미지 생성", "데이터 분석", "브라우저", "코드 리뷰", "문서"]
   },
   "Skills": {
     "featured": "추천 스킬",
@@ -122,12 +115,7 @@
     "heroDesc2": "에이전트에게 검색, 코딩 및 생성 능력을 즉시 부여하세요.",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
-    "tags": [
-      "연구",
-      "코딩",
-      "마케팅",
-      "분석"
-    ],
+    "tags": ["연구", "코딩", "마케팅", "분석"],
     "featuresTitle": "개발자를 위해 구축됨",
     "featuresSubtitle": "재사용 가능한 AI 에이전트 스킬을 설치하고 반복 가능한 워크플로를 IDE로 가져오세요.",
     "trendingTitle": "인기 스킬",
@@ -242,7 +230,13 @@
     "skipToContent": "콘텐츠로 건너뛰기",
     "documentation": "문서",
     "darkMode": "다크 모드",
-    "lightMode": "라이트 모드"
+    "lightMode": "라이트 모드",
+    "officialPartner": "공식 파트너",
+    "communityVendor": "커뮤니티 벤더",
+    "skillsCount": "스킬",
+    "page": "페이지",
+    "goToPage": "페이지로 이동",
+    "pageJumpError": "1에서 {max} 사이의 유효한 페이지 번호를 입력하세요"
   },
   "OfficialSkills": {
     "title": "공식 스킬",
