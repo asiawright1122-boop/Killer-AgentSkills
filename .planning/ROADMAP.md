@@ -10,6 +10,28 @@ All code fixes done. Next action: run AI regeneration pipeline.
 
 ---
 
+### Phase 01.1: Stabilize frontend interactions, breadcrumbs, i18n, and SEO contracts (INSERTED)
+
+**Goal:** Restore reliable public-page interaction, eliminate leaked/mixed-language UI output, and unify breadcrumb/i18n/SEO contracts behind shared builders and tests.
+**Requirements**: [BASELINE-01, PUBLIC-CLICK-01, I18N-01, SEO-01, SEO-02, LOCALE-01, REGRESSION-01]
+Requirement map:
+- `BASELINE-01`: local dev baseline restored
+- `PUBLIC-CLICK-01`: public pages clickable on desktop/mobile
+- `I18N-01`: no raw translation keys on public pages
+- `SEO-01`: breadcrumb UI and JSON-LD aligned
+- `SEO-02`: canonical/hreflang logic unified
+- `LOCALE-01`: locale definitions centralized
+- `REGRESSION-01`: regression coverage added
+**Depends on:** Phase 1
+**Plans:** 5 plans
+
+Plans:
+- [x] 01.1-01-PLAN.md — Restore local Astro/Cloudflare reproducibility and add a reusable public-surface validation command
+- [ ] 01.1-02-PLAN.md — Normalize shared card click behavior and mobile overlay teardown with local E2E coverage
+- [ ] 01.1-03-PLAN.md — Centralize locale definitions and add explicit missing-translation helpers
+- [ ] 01.1-04-PLAN.md — Unify breadcrumb and metadata builders across layout and collections pages
+- [ ] 01.1-05-PLAN.md — Remove remaining public-shell key leakage and add repo/live smoke guards
+
 ## Phase 2: Re-Enrichment Pipeline Run 🔲
 
 **Goal**: Regenerate AI SEO for all skills failing theme checks.
