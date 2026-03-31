@@ -219,8 +219,8 @@ describe('public messages copy', () => {
     expect(integrationsSource).not.toContain('15+ IDE');
     expect(skillDetailSource).toContain('19+ IDE/Agent');
     expect(skillDetailSource).toContain('19+ other IDEs');
-    expect(skillDetailSource).toContain("locale === 'zh' ? '支持 19+ 平台' : 'Supports 19+ Platforms'");
-    expect(skillDetailSource).not.toContain("locale === 'zh' ? '支持 18+ 平台' : 'Supports 18+ Platforms'");
+    expect(skillDetailSource).toContain("typedLocale === 'zh' ? '支持 19+ 平台' : 'Supports 19+ Platforms'");
+    expect(skillDetailSource).not.toContain("typedLocale === 'zh' ? '支持 18+ 平台' : 'Supports 18+ Platforms'");
     expect(skillDetailSource).not.toContain('15+ IDE/Agent');
     expect(skillDetailSource).not.toContain('15+ other IDEs');
   });
@@ -486,6 +486,18 @@ describe('public messages copy', () => {
     expect(ko.DocsSidebar.cliTooling).toBe('CLI 사용');
     expect(pt.DocsSidebar.cliTooling).toBe('Usar a CLI');
     expect(ru.DocsSidebar.cliTooling).toBe('Использование CLI');
+  });
+
+  it('keeps skill-card and skill-detail fallback copy on explicit public-surface contracts', () => {
+    const skillCardSource = readPageSource('../components/SkillCard.astro');
+    const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+
+    expect(skillCardSource).toContain('translateOr(messages, key, fallback)');
+    expect(skillCardSource).toContain("resolveCopy('Common.noDescription', 'No description available')");
+    expect(skillCardSource).not.toContain("t ? t('Common.noDescription')");
+    expect(skillDetailSource).toContain("tr('Skills.noResults', 'No skills found')");
+    expect(skillDetailSource).toContain("tr(\n  'Metadata.description'");
+    expect(skillDetailSource).toContain('buildBreadcrumbTrail(');
   });
 
   it('keeps stale manager widget capability counts out of public messages', () => {

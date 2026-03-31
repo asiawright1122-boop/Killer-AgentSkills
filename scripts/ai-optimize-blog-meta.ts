@@ -176,11 +176,12 @@ async function main() {
     }
   }
 
-  // 限制数量以避免 API 限额（每次处理 10 篇）
-  const BATCH_SIZE = 10;
+  // CI 模式下处理全部（最多50篇），本地模式每次10篇
+  const isCI = args.includes('--ci') || process.env.CI === 'true';
+  const BATCH_SIZE = isCI ? 50 : 10;
   const batch = toOptimize.slice(0, BATCH_SIZE);
 
-  console.log(`📋 待优化: ${toOptimize.length} 篇 (本次处理 ${batch.length} 篇)\n`);
+  console.log(`📋 待优化: ${toOptimize.length} 篇 (本次处理 ${batch.length} 篇${isCI ? ' [CI模式]' : ''})\n`);
   console.log(`策略: 120-158 字符, 包含 CTA, 使用 Power Words\n`);
 
   // 逐个调用 AI 优化

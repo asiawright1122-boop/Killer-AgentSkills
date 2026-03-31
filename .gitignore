@@ -87,3 +87,10 @@ valid_new_sites.json
 
 # Generated reports
 reports/
+
+# Large data files (git history cleanup)
+db/seeds/
+data/embeddings-cache.json
+
+# Claude Code worktree residuals
+.claude/worktrees/

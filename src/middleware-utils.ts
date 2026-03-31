@@ -146,11 +146,7 @@ export type AdminAuthResult = 'pass' | 'unauthorized';
  * @param validUser - The expected username (defaults to 'admin')
  * @param validPass - The expected password (defaults to 'admin')
  */
-export function checkAdminAuth(
-  authHeader: string | null,
-  validUser: string = 'admin',
-  validPass: string = 'admin',
-): AdminAuthResult {
+export function checkAdminAuth(authHeader: string | null, validUser: string, validPass: string): AdminAuthResult {
   if (!authHeader) {
     return 'unauthorized';
   }

@@ -148,6 +148,28 @@ export function cleanAndTruncate(obj: Record<string, string>, limit: number): Re
     return res;
 }
 
+/**
+ * Clamp string values to a max length without adding snippet artifacts like "..."
+ * This is preferred for SEO fields where ellipsis would later fail validation.
+ */
+export function cleanAndClamp(obj: Record<string, string>, limit: number): Record<string, string> {
+    const res: Record<string, string> = {};
+    for (const [k, v] of Object.entries(obj)) {
+        let val = typeof v === 'string' ? v : String(v || '');
+        val = val.replace(/\s+/g, ' ').trim();
+        if (val.length > limit) {
+            let trimmed = val.slice(0, limit).trim();
+            const lastSpace = trimmed.lastIndexOf(' ');
+            if (lastSpace >= Math.max(12, Math.floor(limit * 0.6))) {
+                trimmed = trimmed.slice(0, lastSpace).trim();
+            }
+            val = trimmed.replace(/[|:;,\-–\s]+$/g, '').trim();
+        }
+        res[k] = val;
+    }
+    return res;
+}
+
 // ===== Concurrency =====
 
 /**

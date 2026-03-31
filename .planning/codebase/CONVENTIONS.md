@@ -1,51 +1,43 @@
 # Code Conventions
 
-## TypeScript Config & Strictness
-- Target: not confirmed (tsconfig not read in full), but Astro defaults to ESNext
-- Path alias: `@` → `/src`
-- Strict mode implied via `tseslint.configs.recommended`
-- `no-explicit-any`: **OFF** — `any` is used freely throughout (especially in pipeline scripts)
-- `@ts-ignore` allowed if accompanied by a description comment
+## TypeScript Style
+- **Strict mode**: `strict: true` in tsconfig
+- **Module system**: ESM (`"type": "module"` in package.json)
+- **Import style**: Named imports preferred, `type` keyword for type-only imports
+- **Error handling**: Try-catch with typed errors, `e instanceof Error` pattern
+- **Null safety**: Optional chaining (`?.`) + nullish coalescing (`??`) extensively used
 
-## Linting Setup
-- ESLint flat config (`eslint.config.js`) with:
-  - `@eslint/js` recommended
-  - `typescript-eslint` recommended
-  - `eslint-plugin-astro` recommended
-  - `eslint-config-prettier` (no style conflicts)
-- Key rules:
-  - Unused vars: **warn** (underscore prefix `_` suppresses warning)
-  - `no-console`: OFF (scripts use console extensively)
-  - `no-empty`: error, except empty catch blocks
-  - `triple-slash-reference`: OFF
+## i18n Convention
+- **Source of truth**: `src/messages/en.json` (797 keys)
+- **Translation accessor**: `tr(key, fallback)` function in `src/i18n.ts`
+- **Key structure**: Namespace.SubKey pattern — `Metadata.title`, `CLI.pageTitle`, `Seo.Keywords.core`
+- **No hardcoded locale checks**: All `isZh` / `locale === 'zh'` eliminated, replaced with `text[locale] || text['en']`
+- **Brand terms untranslated**: "Killer-Skills", "Claude Code", "Cursor", "Windsurf", "MCP" stay English
 
-## Formatting
-- Prettier integrated via `eslint-config-prettier`
-- No `.prettierrc` found at root; defaults apply
+## SEO Convention
+- **Title format**: `[Capability]: [Use Case] | AI Agent Skills`
+- **Meta description**: 120-160 chars EN, 60-160 chars CJK, must include CTA
+- **Keywords**: 2 theme anchors + 4-8 capability-specific terms
+- **Forbidden terms**: "how to", "what is", "tutorial", "agentic workflow", generic fillers
+- **Quality gate**: `isSkillFullyOptimized()` checks 12 conditions before skipping re-generation
 
 ## Naming Conventions
-- Files: `kebab-case.ts` for lib/scripts, `PascalCase.astro` for components, `PascalCase.tsx` for React islands
-- Functions: `camelCase`
-- Types/Interfaces: `PascalCase` (e.g. `UnifiedSkill`, `SkillListingItem`, `Env`)
-- Constants: `SCREAMING_SNAKE_CASE` (e.g. `EXCLUDE_KEYWORDS`, `OFFICIAL_REPOS`, `SKILL_HEADERS`)
-- Test files: co-located as `*.test.ts` or `*.property.test.ts`
-- Locale routes: `[locale]` segment in page paths
+| Type | Pattern | Example |
+|------|---------|---------|
+| Scripts | `verb-noun.ts` | `build-skills-cache.ts`, `translate-locales.ts` |
+| Lib files | `kebab-case.ts` | `seo-keywords.ts`, `category-taxonomy.ts` |
+| Tests | `*.test.ts` (co-located) | `src/lib/skills.test.ts` |
+| Pages | `[locale]/section/index.astro` | `[locale]/cli/index.astro` |
+| API routes | `api/resource/index.ts` | `api/skills/search.ts` |
+| Components | `PascalCase.tsx/.astro` | `SkillCard.tsx` |
+| JSON data | `kebab-case.json` | `skills-cache.json` |
+
+## Git Conventions
+- **Branches**: `main` only (no feature branches in current workflow)
+- **Commits**: Conventional commits — `feat:`, `fix:`, `docs:`, `chore:`
+- **Hooks**: Husky + lint-staged (ESLint + Prettier on commit)
 
 ## Error Handling Patterns
-- API endpoints: return `Response` objects with JSON error bodies and appropriate HTTP status codes
-- Scripts: `try/catch` with `console.error` + `process.exit(1)` on fatal errors
-- KV reads: explicit `null` checks before parsing; returns `null` not throws on miss
-- D1 queries: `.first()` returns null on miss (no throw), `.all()` always returns results array
-- Empty catch blocks allowed (via eslint rule) for optional operations
-
-## Import/Export Patterns
-- Named exports preferred; no default exports in lib files
-- Re-exports for backward compatibility: `export { OFFICIAL_REPOS, isOfficialRepo }` from `validation.ts`
-- Dynamic imports not observed in core lib
-- Cloudflare-specific: `node:fs`, `node:crypto`, `node:path` externalized in Vite SSR config
-
-## API Endpoint Pattern
-- All API endpoints export a `GET` (or `POST`) function receiving `APIContext`
-- `env` accessed via `context.locals.runtime.env`
-- Prerendering disabled on all API routes (`export const prerender = false`)
-- Rate limiting via `src/lib/rate-limit.ts` on public endpoints
+- **AI calls**: Race strategy with fallback, 429 retry with exponential backoff
+- **Data pipeline**: Auto-save progress, graceful shutdown on SIGINT, max-duration timeout
+- **API routes**: Standard HTTP status codes, JSON error responses

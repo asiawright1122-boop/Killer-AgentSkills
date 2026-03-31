@@ -1,10 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { LOCALE_NAMES, NON_DEFAULT_LOCALES } from '../../config/locales.mjs';
 
 // ===== Core Constants =====
-export const SUPPORTED_LOCALES = ['zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
+export const SUPPORTED_LOCALES = [...NON_DEFAULT_LOCALES];
+export const NON_DEFAULT_SCRIPT_LOCALES = [...NON_DEFAULT_LOCALES];
 export const GITHUB_API = 'https://api.github.com';
-export const KV_NAMESPACE_ID = process.env.CLOUDFLARE_SKILLS_CACHE_NAMESPACE_ID || '6130f39a06e14319b0ee4becb0d09842';
+export const KV_NAMESPACE_ID = process.env.CLOUDFLARE_SKILLS_CACHE_NAMESPACE_ID || 'a03429dfb1ad4992a8624626540d93d6';
 
 // ===== Official Repos =====
 const officialReposPath = path.join(process.cwd(), 'data/official-repos.json');
@@ -242,14 +244,6 @@ export const CATEGORY_RULES: Record<string, string[]> = {
 };
 
 // ===== Language Names (for translation UIs) =====
-export const LANG_NAMES: Record<string, string> = {
-  zh: 'Chinese (Simplified)',
-  ja: 'Japanese',
-  ko: 'Korean',
-  de: 'German',
-  es: 'Spanish',
-  fr: 'French',
-  pt: 'Portuguese',
-  ru: 'Russian',
-  ar: 'Arabic',
-};
+export const LANG_NAMES: Record<string, string> = Object.fromEntries(
+  SUPPORTED_LOCALES.map((locale) => [locale, LOCALE_NAMES[locale]]),
+);

@@ -327,11 +327,25 @@ function buildSitemapSkillsData(skills: SkillCache[]): Array<{ owner: string; re
 async function buildCache(): Promise<void> {
   // Parse arguments
   const args = process.argv.slice(2);
+  const reportRegeneration = args.includes('--report-regeneration');
+  const batchSizeArg = args.find((arg) => arg.startsWith('--batch-size='));
+  const reportBatchSize = batchSizeArg ? parseInt(batchSizeArg.split('=')[1], 10) : DEFAULT_REGEN_BATCH_SIZE;
+  const batchArg = args.find((arg) => arg.startsWith('--batch='));
+  const selectedBatchNumber = batchArg ? parseInt(batchArg.split('=')[1], 10) : 0;
+  const batchPlanArg = args.find((arg) => arg.startsWith('--batch-plan='));
+  const checkpointArg = args.find((arg) => arg.startsWith('--checkpoint-file='));
+  const resumeBatch = args.includes('--resume') || args.includes('--resume-batch');
+  const dryRunBatch = args.includes('--dry-run-batch');
+  const maxItemsArg = args.find((arg) => arg.startsWith('--max-items='));
+  const maxItems = maxItemsArg ? parseInt(maxItemsArg.split('=')[1], 10) : 0;
+  const batchPlanPath = path.resolve(process.cwd(), batchPlanArg ? batchPlanArg.split('=')[1] : 'reports/seo/phase-02-regeneration-baseline.json');
+  const checkpointPath = path.resolve(process.cwd(), checkpointArg ? checkpointArg.split('=')[1] : 'reports/seo/phase-02-batch-progress.json');
   const modeArg = args.find((arg) => arg.startsWith('--mode='));
   const mode = modeArg ? modeArg.split('=')[1] : 'update'; // default to update (full)
   const force = args.includes('--force'); // Force re-generation of AI content
   const filterArg = args.find((arg) => arg.startsWith('--filter='));
   const filters = filterArg ? filterArg.split('=')[1].toLowerCase().split(',') : [];
+  const existingOnly = args.includes('--existing-only') || selectedBatchNumber > 0;
 
   // Max duration parameter for CI/CD timeout prevention
   const durationArg = args.find((arg) => arg.startsWith('--max-duration='));
@@ -378,6 +392,182 @@ async function buildCache(): Promise<void> {
   // Snapshot the full initial cache so saveStateOnly never loses startup-loaded data
   globalExistingMap = new Map(existingMap);
 
+  if (reportRegeneration) {
+    if (existingMap.size === 0) {
+      throw new Error('Cannot build a regeneration baseline without an existing data/skills-cache.json snapshot.');
+    }
+
+    const report = writeRegenerationBaselineReport(Array.from(existingMap.values()), {
+      batchSize: reportBatchSize,
+    });
+
+    console.log(
+      `📊 Regeneration baseline ready: ${report.queuedCount} skills queued across ${report.batchCount} batch(es).`,
+    );
+    console.log(`   Markdown: ${path.relative(process.cwd(), report.markdownPath)}`);
+    console.log(`   JSON: ${path.relative(process.cwd(), report.jsonPath)}`);
+    return;
+  }
+
+  let selectedBatchIds: Set<string> | null = null;
+  const completedBatchIds = new Set<string>();
+  const skippedBatchIds = new Set<string>();
+  let failedBatchEntries: Array<{ id: string; error: string }> = [];
+  let batchProgress: Record<string, unknown> | null = null;
+
+  const persistBatchProgress = () => {
+    if (!batchProgress || !selectedBatchIds) return;
+    const selectedIds = Array.from(selectedBatchIds);
+    const failedIds = new Set(failedBatchEntries.map((entry) => entry.id));
+    batchProgress = {
+      ...batchProgress,
+      lastUpdated: new Date().toISOString(),
+      completedIds: Array.from(completedBatchIds).sort(),
+      skippedIds: Array.from(skippedBatchIds).sort(),
+      failedIds: failedBatchEntries,
+      pendingIds: selectedIds.filter(
+        (id) => !completedBatchIds.has(id) && !skippedBatchIds.has(id) && !failedIds.has(id),
+      ),
+    };
+    fs.mkdirSync(path.dirname(checkpointPath), { recursive: true });
+    fs.writeFileSync(checkpointPath, JSON.stringify(batchProgress, null, 2));
+  };
+
+  const recordBatchCompletion = (id: string, status: 'completed' | 'skipped', error?: string) => {
+    if (!selectedBatchIds || !selectedBatchIds.has(id)) return;
+    if (status === 'completed') completedBatchIds.add(id);
+    if (status === 'skipped') skippedBatchIds.add(id);
+    if (error) {
+      failedBatchEntries = failedBatchEntries.filter((entry) => entry.id !== id);
+      failedBatchEntries.push({ id, error });
+    } else {
+      failedBatchEntries = failedBatchEntries.filter((entry) => entry.id !== id);
+    }
+    persistBatchProgress();
+  };
+
+  const recordBatchFailure = (id: string, error: unknown) => {
+    if (!selectedBatchIds || !selectedBatchIds.has(id)) return;
+    failedBatchEntries = failedBatchEntries.filter((entry) => entry.id !== id);
+    failedBatchEntries.push({
+      id,
+      error: error instanceof Error ? error.message : String(error),
+    });
+    persistBatchProgress();
+  };
+
+  if (selectedBatchNumber > 0) {
+    const relativeBatchPlanPath = path.relative(process.cwd(), batchPlanPath);
+    type BatchPlanEntry = {
+      batch: number;
+      ids: string[];
+      firstId?: string;
+      lastId?: string;
+      topReasons?: Array<[string, number]>;
+    };
+    type BatchCheckpoint = {
+      batch?: number;
+      batchPlanPath?: string;
+      selectedIds?: string[];
+      completedIds?: string[];
+      skippedIds?: string[];
+      failedIds?: Array<{ id: string; error: string }>;
+      pendingIds?: string[];
+      firstId?: string;
+      lastId?: string;
+      topReasons?: Array<[string, number]>;
+      startedAt?: string;
+    };
+
+    let batchEntry: BatchPlanEntry | undefined;
+    let checkpointSnapshotIds: string[] = [];
+    let checkpointStartedAt: string | undefined;
+    let checkpointFirstId: string | undefined;
+    let checkpointLastId: string | undefined;
+    let checkpointTopReasons: Array<[string, number]> | undefined;
+
+    if (resumeBatch && fs.existsSync(checkpointPath)) {
+      try {
+        const checkpoint = JSON.parse(fs.readFileSync(checkpointPath, 'utf-8')) as BatchCheckpoint;
+        if (checkpoint.batch === selectedBatchNumber && checkpoint.batchPlanPath === relativeBatchPlanPath) {
+          for (const id of checkpoint.completedIds || []) completedBatchIds.add(id);
+          for (const id of checkpoint.skippedIds || []) skippedBatchIds.add(id);
+          failedBatchEntries = Array.isArray(checkpoint.failedIds) ? checkpoint.failedIds.slice() : [];
+
+          const reconstructedIds =
+            Array.isArray(checkpoint.selectedIds) && checkpoint.selectedIds.length > 0
+              ? checkpoint.selectedIds
+              : Array.from(
+                  new Set([
+                    ...(checkpoint.completedIds || []),
+                    ...(checkpoint.skippedIds || []),
+                    ...((checkpoint.failedIds || []).map((entry) => entry.id)),
+                    ...(checkpoint.pendingIds || []),
+                  ]),
+                );
+          checkpointSnapshotIds = reconstructedIds.filter((id) => typeof id === 'string' && id.trim().length > 0);
+          checkpointStartedAt = checkpoint.startedAt;
+          checkpointFirstId = checkpoint.firstId;
+          checkpointLastId = checkpoint.lastId;
+          checkpointTopReasons = checkpoint.topReasons;
+        }
+      } catch (error) {
+        console.warn(`⚠️ Failed to load batch checkpoint ${checkpointPath}:`, error);
+      }
+    }
+
+    if (fs.existsSync(batchPlanPath)) {
+      const baseline = JSON.parse(fs.readFileSync(batchPlanPath, 'utf-8')) as {
+        batches?: BatchPlanEntry[];
+      };
+      batchEntry = baseline.batches?.find((entry) => entry.batch === selectedBatchNumber);
+    } else if (!checkpointSnapshotIds.length) {
+      throw new Error(`Batch plan not found: ${batchPlanPath}`);
+    }
+
+    let scopedIds: string[];
+    if (checkpointSnapshotIds.length > 0) {
+      scopedIds = maxItems > 0 ? checkpointSnapshotIds.slice(0, maxItems) : checkpointSnapshotIds.slice();
+      if (batchEntry) {
+        const batchEntryIds = maxItems > 0 ? batchEntry.ids.slice(0, maxItems) : batchEntry.ids.slice();
+        const sameSelection =
+          batchEntryIds.length === scopedIds.length && batchEntryIds.every((id, index) => id === scopedIds[index]);
+        if (!sameSelection) {
+          console.warn(
+            `⚠️ Resume checkpoint selection diverged from current batch plan. Continuing with checkpoint snapshot from ${checkpointPath} to avoid cross-batch drift.`,
+          );
+        }
+      }
+    } else {
+      if (!batchEntry) {
+        throw new Error(`Batch ${selectedBatchNumber} not found in ${batchPlanPath}`);
+      }
+      scopedIds = maxItems > 0 ? batchEntry.ids.slice(0, maxItems) : batchEntry.ids.slice();
+    }
+
+    selectedBatchIds = new Set(scopedIds);
+
+    console.log(
+      `📦 Batch mode active: batch ${selectedBatchNumber} with ${scopedIds.length} selected skill(s) (${existingOnly ? 'existing-only' : 'full'})`,
+    );
+
+    batchProgress = {
+      version: 1,
+      batch: selectedBatchNumber,
+      batchPlanPath: relativeBatchPlanPath,
+      dryRun: dryRunBatch,
+      existingOnly,
+      selectedCount: scopedIds.length,
+      selectedIds: scopedIds,
+      firstId: checkpointFirstId || batchEntry?.firstId || scopedIds[0] || '',
+      lastId: checkpointLastId || batchEntry?.lastId || scopedIds[scopedIds.length - 1] || '',
+      topReasons: checkpointTopReasons || batchEntry?.topReasons || [],
+      startedAt: checkpointStartedAt || new Date().toISOString(),
+      lastUpdated: new Date().toISOString(),
+    };
+    persistBatchProgress();
+  }
+
   const skills: SkillCache[] = [];
   globalSkillsRef = skills; // Global ref for SIGINT handler
   const processedRepos = new Set<string>();
@@ -422,7 +612,7 @@ async function buildCache(): Promise<void> {
   }
 
   // 1. 处理官方仓库 (仅在 update 模式下，或者 discover 模式下检查是否存在)
-  if (mode === 'update') {
+  if (mode === 'update' && !existingOnly) {
     console.log('📦 Processing official repos...');
     for (const repo of OFFICIAL_REPOS) {
       if (isTimeUp()) break;
@@ -834,15 +1024,16 @@ async function buildCache(): Promise<void> {
       }
     }
   } else {
-    console.log('📦 Skipping official repos check (Discover Mode)');
+    console.log(existingOnly ? '📦 Skipping official repos check (--existing-only)' : '📦 Skipping official repos check (Discover Mode)');
     // In discover mode, we still need to keep existing official skills in the list
     // We'll load them from existingMap later in step 3
   }
 
-  // 2. 搜索更多 Skills
-  console.log('\n🔍 Searching for more skills...');
-  const searchResults = await searchGitHubSkills();
-  const skillsToProcess: any[] = [];
+  if (!existingOnly) {
+    // 2. 搜索更多 Skills
+    console.log('\n🔍 Searching for more skills...');
+    const searchResults = await searchGitHubSkills();
+    const skillsToProcess: any[] = [];
 
   for (const item of searchResults) {
     // Handle both GitHub API format and local backup format
@@ -1140,18 +1331,18 @@ async function buildCache(): Promise<void> {
     ),
   );
 
-  // 2.5 自动发现 GitHub 上新发布的 Skills
-  console.log('\n🔎 Auto-discovering new Skills from GitHub...');
-  const discoveredSkills = await discoverNewSkillsFromGitHub(
-    processedRepos,
-    lastCacheUpdate,
-    mode === 'full-discovery',
-  );
+    // 2.5 自动发现 GitHub 上新发布的 Skills
+    console.log('\n🔎 Auto-discovering new Skills from GitHub...');
+    const discoveredSkills = await discoverNewSkillsFromGitHub(
+      processedRepos,
+      lastCacheUpdate,
+      mode === 'full-discovery',
+    );
 
-  const limit2 = pLimit(8);
-  await Promise.all(
-    discoveredSkills.map((item) =>
-      limit2(async () => {
+    const limit2 = pLimit(8);
+    await Promise.all(
+      discoveredSkills.map((item) =>
+        limit2(async () => {
         if (isTimeUp()) return;
         try {
           const skillMd = parseSkillMd(item.content);
@@ -1251,12 +1442,15 @@ async function buildCache(): Promise<void> {
         } catch (e) {
           console.error(`\n❌ Error processing discovered skill:`, e);
         }
-      }),
-    ),
-  );
+        }),
+      ),
+    );
 
-  if (discoveredSkills.length > 0) {
-    console.log(`\n   → Added ${discoveredSkills.length} newly discovered Skills`);
+    if (discoveredSkills.length > 0) {
+      console.log(`\n   → Added ${discoveredSkills.length} newly discovered Skills`);
+    }
+  } else {
+    console.log('\n⏭️ Skipping GitHub search and auto-discovery (--existing-only)');
   }
 
   // 3. 保留并重新优化现有缓存项 (Preserve & Smart Update)
@@ -1269,6 +1463,14 @@ async function buildCache(): Promise<void> {
   if (mode === 'update') {
     for (const [id, skill] of existingMap.entries()) {
       if (!processedRepos.has(id)) {
+        if (selectedBatchIds && !selectedBatchIds.has(id)) {
+          skills.push(skill);
+          continue;
+        }
+        if (selectedBatchIds && (completedBatchIds.has(id) || skippedBatchIds.has(id))) {
+          skills.push(skill);
+          continue;
+        }
         // Apply Filter for existing items
         if (filters.length > 0) {
           const match = filters.some(
@@ -1354,55 +1556,91 @@ async function buildCache(): Promise<void> {
 
     console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY} (4 NVIDIA keys × 1 each)...`);
 
+    if (dryRunBatch && selectedBatchIds) {
+      persistBatchProgress();
+      console.log(`\n🧪 Dry-run batch ready. Pending ids: ${tasks.length}`);
+      return;
+    }
+
     const promises = tasks.map((skill, _index) =>
       limit(async () => {
-        if (isTimeUp()) {
-          skills.push(skill); // CRITICAL: Preserve the un-updated skill so it isn't deleted from the cache
-          return;
-        }
-
-        const currentDesc = typeof skill.description === 'string' ? skill.description : skill.description.en || '';
-
-        // 增量翻译: 翻译完整 + SEO 完整 + 无更新 → 跳过
-        if (isSkillFullyOptimized(skill) && !hasSkillUpdated(skill)) {
-          skills.push(skill);
-          process.stdout.write('S'); // Skip (Optimized)
-        } else {
-          const rawDesc = skill.skillMd?.description || currentDesc || '';
-          const context = {
-            name: skill.name,
-            topics: skill.topics,
-            bodyPreview: skill.skillMd?.bodyPreview,
-          };
-
-          // Add random delay to prevent initial burst
-          await new Promise((r) => setTimeout(r, Math.random() * 2000));
-
-          const metadata = await processMetadata(skill.id, rawDesc, context);
-          skill.description = metadata.description;
-          skill.seo = metadata.seo;
-
-          // Generate Agent Analysis + translate (same NVIDIA key)
-          const rawAgentAnalysis = await aiService.generateAgentAnalysis(
-            skill.name,
-            currentDesc,
-            context.bodyPreview || '',
-          );
-          if (rawAgentAnalysis) {
-            skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+        try {
+          if (isTimeUp()) {
+            skills.push(skill); // CRITICAL: Preserve the un-updated skill so it isn't deleted from the cache
+            return;
           }
 
-          skill.lastSynced = new Date().toISOString();
+          const originalSkill = JSON.parse(JSON.stringify(skill)) as SkillCache;
+          const currentDesc = typeof skill.description === 'string' ? skill.description : skill.description.en || '';
 
-          skills.push(skill);
-          processedCount++;
-          process.stdout.write('U'); // update (需要翻译)
+          // 增量翻译: 翻译完整 + SEO 完整 + 无更新 → 跳过
+          if (isSkillFullyOptimized(skill) && !hasSkillUpdated(skill)) {
+            skills.push(skill);
+            recordBatchCompletion(skill.id, 'skipped');
+            process.stdout.write('S'); // Skip (Optimized)
+          } else {
+            const rawDesc = skill.skillMd?.description || currentDesc || '';
+            const context = {
+              name: skill.name,
+              topics: skill.topics,
+              bodyPreview: skill.skillMd?.bodyPreview,
+            };
 
-          // Periodic Save every 50 updates
-          if (processedCount % 50 === 0) {
-            console.log(`\n💾 Auto-saving checkpoint (${processedCount} updates)...`);
-            await saveStateOnly(skills);
+            // Add random delay to prevent initial burst
+            await new Promise((r) => setTimeout(r, Math.random() * 2000));
+
+            const metadata = await processMetadata(skill.id, rawDesc, context);
+            skill.description = metadata.description;
+            skill.seo = metadata.seo;
+
+            // Generate Agent Analysis + translate (same NVIDIA key)
+            const rawAgentAnalysis = await aiService.generateAgentAnalysis(
+              skill.name,
+              currentDesc,
+              context.bodyPreview || '',
+            );
+            if (rawAgentAnalysis) {
+              skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+            }
+
+            skill.lastSynced = new Date().toISOString();
+
+            if (!isSkillFullyOptimized(skill)) {
+              const issueCodes = collectOptimizationIssues(skill).map((issue) => issue.code);
+              if (process.env.AI_DEBUG_METADATA === '1') {
+                console.warn(
+                  `[SEO Gate] ${skill.id} failed with issues: ${issueCodes.join(', ') || 'unknown'}`,
+                );
+                console.warn(
+                  `[SEO Gate] title=${JSON.stringify(skill.seo?.title?.en || '')} keywords=${JSON.stringify(skill.seo?.keywords?.en || [])}`,
+                );
+              }
+              skills.push(originalSkill);
+              recordBatchFailure(
+                skill.id,
+                new Error(
+                  `Regenerated output did not satisfy the optimization gate${issueCodes.length ? `: ${issueCodes.join(', ')}` : ''}`,
+                ),
+              );
+              process.stdout.write('F');
+              return;
+            }
+
+            skills.push(skill);
+            processedCount++;
+            recordBatchCompletion(skill.id, 'completed');
+            process.stdout.write('U'); // update (需要翻译)
+
+            // Periodic Save every 50 updates
+            if (processedCount % 50 === 0) {
+              console.log(`\n💾 Auto-saving checkpoint (${processedCount} updates)...`);
+              await saveStateOnly(skills);
+            }
           }
+        } catch (error) {
+          skills.push(skill);
+          recordBatchFailure(skill.id, error);
+          console.error(`\n❌ Error processing ${skill.id}:`, error);
         }
       }),
     );
@@ -1417,6 +1655,24 @@ async function buildCache(): Promise<void> {
     await saveStateOnly(skills);
   } else {
     await finalizeAndSave(skills);
+  }
+
+  if (batchProgress) {
+    const hasPendingSelectedIds = Boolean(
+      selectedBatchIds &&
+        Array.from(selectedBatchIds).some(
+          (id) =>
+            !completedBatchIds.has(id) &&
+            !skippedBatchIds.has(id) &&
+            !failedBatchEntries.some((entry) => entry.id === id),
+        ),
+    );
+    batchProgress = {
+      ...batchProgress,
+      status: hasPendingSelectedIds ? 'paused' : failedBatchEntries.length > 0 ? 'partial' : 'completed',
+      completedAt: hasPendingSelectedIds ? null : new Date().toISOString(),
+    };
+    persistBatchProgress();
   }
 }
 
@@ -1566,6 +1822,70 @@ const LOW_INTENT_SEO_KEYWORD_PATTERNS = [
 ];
 const SEO_SNIPPET_TRUNCATION_PATTERN = /(\.\.\.|…)/;
 const ENGLISH_CTA_PATTERN = /\b(Get started|Learn now|Read more)\b/i;
+const TITLE_THEME_TERMS = [
+  'agent skill',
+  'ai agent',
+  'claude code',
+  'cursor',
+  'windsurf',
+  'mcp',
+  'killer-skills',
+  'agentic',
+  'skill guide',
+];
+const SEO_THEME_TERMS = [
+  'agent skill',
+  'ai agent',
+  'claude code',
+  'cursor',
+  'windsurf',
+  'mcp',
+  'killer-skills',
+  'workflow',
+  'automation',
+  'skill installation',
+  '.claude',
+  'agentic',
+];
+const DEFAULT_REGEN_BATCH_SIZE = 100;
+const REGENERATION_TIER_ORDER = ['tier_1_theme', 'tier_2_localization', 'tier_3_content_risk'] as const;
+const OPTIMIZATION_ISSUE_PRIORITY = [
+  'keywords_missing_theme_term',
+  'title_missing_theme_identifier',
+  'low_intent_en_keywords',
+  'stale_or_truncated_seo_snippet',
+  'agent_analysis_version_stale',
+  'missing_en_seo_title',
+  'missing_en_seo_description',
+  'empty_en_seo_title_or_description',
+  'missing_seo_features',
+  'missing_seo_keywords',
+  'missing_en_keywords',
+  'description_not_localized',
+  'missing_description_locale',
+  'description_fell_back_to_english',
+  'missing_agent_analysis',
+  'suitability_not_localized',
+  'missing_suitability_locale',
+  'suitability_fell_back_to_english',
+  'use_cases_not_localized',
+  'missing_use_cases_locale',
+] as const;
+type RegenerationTier = (typeof REGENERATION_TIER_ORDER)[number];
+type OptimizationIssueCode = (typeof OPTIMIZATION_ISSUE_PRIORITY)[number];
+
+interface OptimizationIssue {
+  code: OptimizationIssueCode;
+  category: 'theme' | 'metadata' | 'translation' | 'analysis';
+  summary: string;
+  detail?: string;
+}
+
+interface ContentRisk {
+  code: 'missing_body_or_preview' | 'thin_body_preview';
+  summary: string;
+  detail?: string;
+}
 
 const normalizeSeoToken = (value: string): string => value.toLowerCase().replace(/\s+/g, ' ').trim();
 
@@ -1605,10 +1925,6 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
     return false;
   }
   // Title must contain at least one theme identifier to prevent theme drift.
-  const TITLE_THEME_TERMS = [
-    'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp',
-    'killer-skills', 'agentic', 'skill guide',
-  ];
   if (!TITLE_THEME_TERMS.some((t) => enTitle.toLowerCase().includes(t))) {
     return false;
   }
@@ -1640,10 +1956,6 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
   }
   // Theme compliance: at least one keyword must contain a theme term.
   // Skills missing theme terms need re-generation even if other checks pass.
-  const SEO_THEME_TERMS = [
-    'agent skill', 'ai agent', 'claude code', 'cursor', 'windsurf', 'mcp', 'killer-skills',
-    'workflow', 'automation', 'skill installation', '.claude', 'agentic',
-  ];
   const hasThemeTerm = enKeywords.some((kw) => {
     const kwLower = String(kw).toLowerCase();
     return SEO_THEME_TERMS.some((t) => kwLower.includes(t));
@@ -1701,6 +2013,536 @@ function isSkillFullyOptimized(skill: SkillCache): boolean {
   }
 
   return true;
+}
+
+function collectOptimizationIssues(skill: SkillCache): OptimizationIssue[] {
+  const issues: OptimizationIssue[] = [];
+
+  if (!skill.agentAnalysis?.version || skill.agentAnalysis.version < 4) {
+    issues.push({
+      code: 'agent_analysis_version_stale',
+      category: 'theme',
+      summary: 'Still on a pre-v4 SEO/agent-analysis prompt version',
+      detail: `version=${skill.agentAnalysis?.version ?? 'missing'}`,
+    });
+  }
+
+  const hasEnSeoDescription = Boolean(skill.seo?.description?.en);
+  const hasEnSeoTitle = Boolean(skill.seo?.title?.en);
+  const enTitle = skill.seo?.title?.en?.trim() || '';
+  const enDescription = skill.seo?.description?.en?.trim() || '';
+
+  if (!hasEnSeoDescription) {
+    issues.push({
+      code: 'missing_en_seo_description',
+      category: 'metadata',
+      summary: 'Missing English SEO description',
+    });
+  }
+  if (!hasEnSeoTitle) {
+    issues.push({
+      code: 'missing_en_seo_title',
+      category: 'metadata',
+      summary: 'Missing English SEO title',
+    });
+  }
+  if ((hasEnSeoTitle && !enTitle) || (hasEnSeoDescription && !enDescription)) {
+    issues.push({
+      code: 'empty_en_seo_title_or_description',
+      category: 'metadata',
+      summary: 'English SEO title or description is blank after trimming',
+    });
+  }
+  if ((enTitle && hasSeoSnippetArtifact(enTitle)) || (enDescription && hasSeoSnippetArtifact(enDescription))) {
+    issues.push({
+      code: 'stale_or_truncated_seo_snippet',
+      category: 'metadata',
+      summary: 'SEO title or description still contains truncation or stale CTA artifacts',
+    });
+  }
+  if (enTitle && !TITLE_THEME_TERMS.some((term) => enTitle.toLowerCase().includes(term))) {
+    issues.push({
+      code: 'title_missing_theme_identifier',
+      category: 'theme',
+      summary: 'English SEO title is missing a required theme identifier',
+    });
+  }
+
+  const features = skill.seo?.features;
+  if (
+    !features ||
+    typeof features !== 'object' ||
+    !Object.values(features).some((arr) => Array.isArray(arr) && arr.length > 0)
+  ) {
+    issues.push({
+      code: 'missing_seo_features',
+      category: 'metadata',
+      summary: 'SEO feature bullets are missing across all locales',
+    });
+  }
+
+  const keywords = skill.seo?.keywords;
+  if (
+    !keywords ||
+    typeof keywords !== 'object' ||
+    !Object.values(keywords).some((arr) => Array.isArray(arr) && arr.length > 0)
+  ) {
+    issues.push({
+      code: 'missing_seo_keywords',
+      category: 'metadata',
+      summary: 'SEO keywords are missing across all locales',
+    });
+  }
+
+  const enKeywords = Array.isArray(skill.seo?.keywords?.en) ? skill.seo.keywords.en : [];
+  if (enKeywords.length === 0) {
+    issues.push({
+      code: 'missing_en_keywords',
+      category: 'metadata',
+      summary: 'English SEO keywords are empty',
+    });
+  }
+  if (enKeywords.some((keyword) => hasLowIntentSeoKeyword(String(keyword)))) {
+    issues.push({
+      code: 'low_intent_en_keywords',
+      category: 'theme',
+      summary: 'English SEO keywords still contain low-intent query patterns',
+    });
+  }
+  if (
+    enKeywords.length > 0 &&
+    !enKeywords.some((keyword) => SEO_THEME_TERMS.some((term) => String(keyword).toLowerCase().includes(term)))
+  ) {
+    issues.push({
+      code: 'keywords_missing_theme_term',
+      category: 'theme',
+      summary: 'English SEO keywords are missing required AI-agent theme anchors',
+    });
+  }
+
+  if (typeof skill.description !== 'object') {
+    issues.push({
+      code: 'description_not_localized',
+      category: 'translation',
+      summary: 'Description is not localized into the supported locale map',
+    });
+  } else {
+    const missingDescriptionLocales: string[] = [];
+    const descriptionFallbackLocales: string[] = [];
+    for (const locale of SUPPORTED_LOCALES) {
+      const value = skill.description[locale];
+      if (!value) {
+        missingDescriptionLocales.push(locale);
+        continue;
+      }
+      const englishValue = skill.description.en;
+      if (
+        locale !== 'en' &&
+        typeof value === 'string' &&
+        typeof englishValue === 'string' &&
+        value.length > 10 &&
+        value === englishValue
+      ) {
+        descriptionFallbackLocales.push(locale);
+      }
+    }
+    if (missingDescriptionLocales.length > 0) {
+      issues.push({
+        code: 'missing_description_locale',
+        category: 'translation',
+        summary: 'Description is missing one or more locale entries',
+        detail: missingDescriptionLocales.join(', '),
+      });
+    }
+    if (descriptionFallbackLocales.length > 0) {
+      issues.push({
+        code: 'description_fell_back_to_english',
+        category: 'translation',
+        summary: 'Description still falls back to English for some non-English locales',
+        detail: descriptionFallbackLocales.join(', '),
+      });
+    }
+  }
+
+  if (!skill.agentAnalysis) {
+    issues.push({
+      code: 'missing_agent_analysis',
+      category: 'analysis',
+      summary: 'Agent analysis payload is missing',
+    });
+    return issues;
+  }
+
+  if (typeof skill.agentAnalysis.suitability !== 'object') {
+    issues.push({
+      code: 'suitability_not_localized',
+      category: 'analysis',
+      summary: 'Agent suitability is not localized into the supported locale map',
+    });
+  } else {
+    const suitability = skill.agentAnalysis.suitability as Record<string, string>;
+    const missingSuitabilityLocales: string[] = [];
+    const suitabilityFallbackLocales: string[] = [];
+
+    for (const locale of SUPPORTED_LOCALES) {
+      const value = suitability[locale];
+      if (!value) {
+        missingSuitabilityLocales.push(locale);
+        continue;
+      }
+      const englishValue = suitability.en;
+      if (locale !== 'en' && englishValue && value.length > 5 && value === englishValue) {
+        suitabilityFallbackLocales.push(locale);
+      }
+    }
+
+    if (missingSuitabilityLocales.length > 0) {
+      issues.push({
+        code: 'missing_suitability_locale',
+        category: 'analysis',
+        summary: 'Agent suitability is missing one or more locale entries',
+        detail: missingSuitabilityLocales.join(', '),
+      });
+    }
+    if (suitabilityFallbackLocales.length > 0) {
+      issues.push({
+        code: 'suitability_fell_back_to_english',
+        category: 'analysis',
+        summary: 'Agent suitability still falls back to English for some locales',
+        detail: suitabilityFallbackLocales.join(', '),
+      });
+    }
+  }
+
+  if (typeof skill.agentAnalysis.useCases === 'object' && !Array.isArray(skill.agentAnalysis.useCases)) {
+    const useCases = skill.agentAnalysis.useCases as Record<string, string[]>;
+    const missingUseCaseLocales = SUPPORTED_LOCALES.filter((locale) => !useCases[locale] || useCases[locale].length === 0);
+    if (missingUseCaseLocales.length > 0) {
+      issues.push({
+        code: 'missing_use_cases_locale',
+        category: 'analysis',
+        summary: 'Agent use cases are missing one or more locale arrays',
+        detail: missingUseCaseLocales.join(', '),
+      });
+    }
+  } else {
+    issues.push({
+      code: 'use_cases_not_localized',
+      category: 'analysis',
+      summary: 'Agent use cases are not localized into per-locale arrays',
+    });
+  }
+
+  return issues;
+}
+
+function collectContentRisks(skill: SkillCache): { risks: ContentRisk[]; rawBytes: number } {
+  const content = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
+  const rawBytes = skillTextEncoder.encode(content).length;
+  const risks: ContentRisk[] = [];
+
+  if (!content.trim()) {
+    risks.push({
+      code: 'missing_body_or_preview',
+      summary: 'Missing skill body and bodyPreview content',
+    });
+  } else if (rawBytes < MIN_INDEXABLE_SKILL_CONTENT_BYTES) {
+    risks.push({
+      code: 'thin_body_preview',
+      summary: `Skill body/bodyPreview is thinner than ${MIN_INDEXABLE_SKILL_CONTENT_BYTES} bytes`,
+      detail: `${rawBytes} bytes`,
+    });
+  }
+
+  return { risks, rawBytes };
+}
+
+function getOptimizationIssuePriority(code: OptimizationIssueCode): number {
+  const index = OPTIMIZATION_ISSUE_PRIORITY.indexOf(code);
+  return index >= 0 ? index : OPTIMIZATION_ISSUE_PRIORITY.length + 1;
+}
+
+function getPrimaryOptimizationIssue(issues: OptimizationIssue[]): OptimizationIssue {
+  return issues
+    .slice()
+    .sort((left, right) => getOptimizationIssuePriority(left.code) - getOptimizationIssuePriority(right.code))[0];
+}
+
+function getRegenerationTier(issues: OptimizationIssue[], contentRisks: ContentRisk[]): RegenerationTier {
+  if (contentRisks.length > 0) return 'tier_3_content_risk';
+  if (issues.some((issue) => issue.category === 'theme' || issue.category === 'metadata')) {
+    return 'tier_1_theme';
+  }
+  return 'tier_2_localization';
+}
+
+function getTierLabel(tier: RegenerationTier): string {
+  switch (tier) {
+    case 'tier_1_theme':
+      return 'Tier 1 - theme or metadata repair';
+    case 'tier_2_localization':
+      return 'Tier 2 - localization or agent-analysis repair';
+    case 'tier_3_content_risk':
+      return 'Tier 3 - content risk, manual review last';
+  }
+}
+
+function getSkillReportKey(skill: SkillCache): string {
+  if (skill.id) return skill.id;
+  const ownerRepo = [skill.owner, skill.repo].filter(Boolean).join('/');
+  return ownerRepo || skill.name;
+}
+
+function summarizeCountMap(entries: Array<[string, number]>, limit = 8): string {
+  const preview = entries.slice(0, limit).map(([key, count]) => `${key} (${count})`);
+  if (entries.length > limit) {
+    preview.push(`... (+${entries.length - limit} more)`);
+  }
+  return preview.length > 0 ? preview.join(', ') : 'none';
+}
+
+function writeRegenerationBaselineReport(skills: SkillCache[], options?: { batchSize?: number; outputDir?: string }): {
+  markdownPath: string;
+  jsonPath: string;
+  queuedCount: number;
+  batchCount: number;
+} {
+  const batchSize = Math.max(1, options?.batchSize || DEFAULT_REGEN_BATCH_SIZE);
+  const outputDir = options?.outputDir || path.join(process.cwd(), 'reports', 'seo');
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  const markdownPath = path.join(outputDir, 'phase-02-regeneration-baseline.md');
+  const jsonPath = path.join(outputDir, 'phase-02-regeneration-baseline.json');
+  const generatedAt = new Date().toISOString();
+
+  const candidates = skills
+    .map((skill) => {
+      const issues = collectOptimizationIssues(skill);
+      if (issues.length === 0) return null;
+
+      const { risks: contentRisks, rawBytes } = collectContentRisks(skill);
+      const primaryIssue = getPrimaryOptimizationIssue(issues);
+      const tier = getRegenerationTier(issues, contentRisks);
+
+      return {
+        id: getSkillReportKey(skill),
+        name: skill.name,
+        owner: skill.owner,
+        repo: skill.repo,
+        repoPath: skill.repoPath || '',
+        updatedAt: skill.updatedAt || '',
+        tier,
+        tierLabel: getTierLabel(tier),
+        primaryIssueCode: primaryIssue.code,
+        primaryIssueSummary: primaryIssue.summary,
+        primaryIssueDetail: primaryIssue.detail || '',
+        issueCodes: issues.map((issue) => issue.code),
+        issues: issues.map((issue) => ({
+          code: issue.code,
+          category: issue.category,
+          summary: issue.summary,
+          detail: issue.detail || '',
+        })),
+        contentRisks: contentRisks.map((risk) => ({
+          code: risk.code,
+          summary: risk.summary,
+          detail: risk.detail || '',
+        })),
+        rawBytes,
+      };
+    })
+    .filter((candidate): candidate is NonNullable<typeof candidate> => Boolean(candidate));
+
+  const fullyOptimizedCount = skills.length - candidates.length;
+  const issueCounts = new Map<string, number>();
+  const primaryIssueCounts = new Map<string, number>();
+  const contentRiskCounts = new Map<string, number>();
+  const tierCounts = new Map<RegenerationTier, number>();
+
+  for (const tier of REGENERATION_TIER_ORDER) tierCounts.set(tier, 0);
+
+  for (const candidate of candidates) {
+    primaryIssueCounts.set(candidate.primaryIssueCode, (primaryIssueCounts.get(candidate.primaryIssueCode) || 0) + 1);
+    tierCounts.set(candidate.tier, (tierCounts.get(candidate.tier) || 0) + 1);
+    for (const issue of candidate.issues) {
+      issueCounts.set(issue.code, (issueCounts.get(issue.code) || 0) + 1);
+    }
+    for (const risk of candidate.contentRisks) {
+      contentRiskCounts.set(risk.code, (contentRiskCounts.get(risk.code) || 0) + 1);
+    }
+  }
+
+  const sortedCandidates = candidates.slice().sort((left, right) => {
+    const tierDiff =
+      REGENERATION_TIER_ORDER.indexOf(left.tier) - REGENERATION_TIER_ORDER.indexOf(right.tier);
+    if (tierDiff !== 0) return tierDiff;
+
+    const issueDiff =
+      getOptimizationIssuePriority(left.primaryIssueCode) - getOptimizationIssuePriority(right.primaryIssueCode);
+    if (issueDiff !== 0) return issueDiff;
+
+    const ownerRepoDiff = `${left.owner}/${left.repo}`.localeCompare(`${right.owner}/${right.repo}`);
+    if (ownerRepoDiff !== 0) return ownerRepoDiff;
+
+    const repoPathDiff = left.repoPath.localeCompare(right.repoPath);
+    if (repoPathDiff !== 0) return repoPathDiff;
+
+    return left.id.localeCompare(right.id);
+  });
+
+  const batches = [];
+  for (let index = 0; index < sortedCandidates.length; index += batchSize) {
+    const batchItems = sortedCandidates.slice(index, index + batchSize);
+    const perTier = Object.fromEntries(REGENERATION_TIER_ORDER.map((tier) => [tier, 0])) as Record<RegenerationTier, number>;
+    const batchReasons = new Map<string, number>();
+
+    for (const item of batchItems) {
+      perTier[item.tier] += 1;
+      batchReasons.set(item.primaryIssueCode, (batchReasons.get(item.primaryIssueCode) || 0) + 1);
+    }
+
+    batches.push({
+      batch: Math.floor(index / batchSize) + 1,
+      size: batchItems.length,
+      firstId: batchItems[0]?.id || '',
+      lastId: batchItems[batchItems.length - 1]?.id || '',
+      tierCounts: perTier,
+      topReasons: Array.from(batchReasons.entries()).sort((a, b) => b[1] - a[1]).slice(0, 5),
+      ids: batchItems.map((item) => item.id),
+    });
+  }
+
+  let driftSummary: { onlyInSitemap: number; onlyInIndexableCache: number } | null = null;
+  const driftPath = path.join(outputDir, 'index-drift.json');
+  if (fs.existsSync(driftPath)) {
+    try {
+      const drift = JSON.parse(fs.readFileSync(driftPath, 'utf-8')) as {
+        counts?: { onlyInSitemap?: number; onlyInIndexableCache?: number };
+      };
+      driftSummary = {
+        onlyInSitemap: drift.counts?.onlyInSitemap || 0,
+        onlyInIndexableCache: drift.counts?.onlyInIndexableCache || 0,
+      };
+    } catch {
+      driftSummary = null;
+    }
+  }
+
+  const reportPayload = {
+    generatedAt,
+    batchSize,
+    totals: {
+      totalSkills: skills.length,
+      fullyOptimized: fullyOptimizedCount,
+      queuedForRegeneration: candidates.length,
+    },
+    driftSummary,
+    primaryIssueCounts: Array.from(primaryIssueCounts.entries()).sort((a, b) => b[1] - a[1]),
+    allIssueCounts: Array.from(issueCounts.entries()).sort((a, b) => b[1] - a[1]),
+    contentRiskCounts: Array.from(contentRiskCounts.entries()).sort((a, b) => b[1] - a[1]),
+    tierCounts: REGENERATION_TIER_ORDER.map((tier) => ({
+      tier,
+      label: getTierLabel(tier),
+      count: tierCounts.get(tier) || 0,
+    })),
+    ordering: {
+      sort: 'tier asc, primary issue priority asc, owner/repo asc, repoPath asc, id asc',
+      publishSafeCriteria: [
+        'Batch checkpoint and skipped/failure IDs recorded before any publish step',
+        'Local audit:seo:index-quality re-run does not introduce worse drift, missing-body, or thin-content totals',
+        'Representative title/keyword/locale samples from the batch are spot-checked before D1 publish',
+      ],
+    },
+    batches,
+    samples: {
+      queued: sortedCandidates.slice(0, 15).map((item) => ({
+        id: item.id,
+        tier: item.tier,
+        primaryIssue: item.primaryIssueCode,
+      })),
+      contentRisk: sortedCandidates
+        .filter((item) => item.contentRisks.length > 0)
+        .slice(0, 15)
+        .map((item) => ({
+          id: item.id,
+          contentRisks: item.contentRisks.map((risk) => risk.code),
+        })),
+    },
+    candidates: sortedCandidates,
+  };
+
+  fs.writeFileSync(jsonPath, JSON.stringify(reportPayload, null, 2));
+
+  const markdownLines = [
+    '# Phase 02 Regeneration Baseline',
+    '',
+    `- Generated: ${generatedAt}`,
+    `- Total skills in cache: ${skills.length}`,
+    `- Fully optimized already: ${fullyOptimizedCount}`,
+    `- Queued for regeneration: ${candidates.length}`,
+    `- Default batch size: ${batchSize}`,
+    driftSummary
+      ? `- Current drift snapshot: sitemap-only ${driftSummary.onlyInSitemap}, indexable-cache-only ${driftSummary.onlyInIndexableCache}`
+      : '- Current drift snapshot: unavailable (run `npm run audit:seo:index-quality` first to refresh)',
+    '',
+    '## Primary Regeneration Reasons',
+    '',
+    '| Reason | Count |',
+    '|-------|------:|',
+    ...Array.from(primaryIssueCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, count]) => `| ${code} | ${count} |`),
+    '',
+    '## Content Risks',
+    '',
+    '| Risk | Count |',
+    '|------|------:|',
+    ...Array.from(contentRiskCounts.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([code, count]) => `| ${code} | ${count} |`),
+    ...(contentRiskCounts.size === 0 ? ['| none | 0 |'] : []),
+    '',
+    '## Execution Tiers',
+    '',
+    '| Tier | Count | Notes |',
+    '|------|------:|-------|',
+    ...REGENERATION_TIER_ORDER.map(
+      (tier) => `| ${getTierLabel(tier)} | ${tierCounts.get(tier) || 0} | ${tier === 'tier_3_content_risk' ? 'Manual review or low-confidence content last' : 'Safe to batch automatically after spot checks'} |`,
+    ),
+    '',
+    '## Batch Plan',
+    '',
+    '- Ordering rule: tier asc, primary issue priority asc, owner/repo asc, repoPath asc, id asc',
+    '- Publish-safe batch criteria:',
+    '  - checkpoint artifact updated with completed and skipped IDs',
+    '  - `npm run audit:seo:index-quality` rerun after local cache update',
+    '  - representative title/keyword/locale spot checks passed before D1 publish',
+    '',
+    '| Batch | Size | First ID | Last ID | Top reasons |',
+    '|------:|-----:|----------|---------|-------------|',
+    ...batches.map(
+      (batch) =>
+        `| ${batch.batch} | ${batch.size} | ${batch.firstId} | ${batch.lastId} | ${summarizeCountMap(batch.topReasons)} |`,
+    ),
+    '',
+    '## Representative Samples',
+    '',
+    ...sortedCandidates.slice(0, 12).map((item) => `- ${item.id} — ${item.tierLabel} — ${item.primaryIssueCode}`),
+    '',
+    '## Output Artifacts',
+    '',
+    `- Markdown report: \`${path.relative(process.cwd(), markdownPath)}\``,
+    `- JSON inventory and batches: \`${path.relative(process.cwd(), jsonPath)}\``,
+  ];
+
+  fs.writeFileSync(markdownPath, `${markdownLines.join('\n')}\n`);
+
+  return {
+    markdownPath,
+    jsonPath,
+    queuedCount: candidates.length,
+    batchCount: batches.length,
+  };
 }
 
 // Global reference for SIGINT handler

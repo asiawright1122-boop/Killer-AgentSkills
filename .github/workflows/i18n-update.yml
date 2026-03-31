@@ -55,6 +55,8 @@ jobs:
         run: |
           echo "--- Phase 0: Backfill zh-only posts to en ---"
           npx tsx scripts/backfill-en-from-zh.ts
+          echo "--- Phase 0.5: Sync translation keys (en.json → all locales) ---"
+          npx tsx scripts/sync-translations.ts --write
           echo "--- Phase 1: Translate UI strings ---"
           npx tsx scripts/translate-locales.ts
           echo "--- Phase 2: Translate blog posts ---"

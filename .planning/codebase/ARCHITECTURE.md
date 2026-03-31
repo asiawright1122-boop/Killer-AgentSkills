@@ -1,51 +1,72 @@
 # Architecture
 
-## Overview
-Killer-Skills is a server-side-rendered Astro application deployed on Cloudflare Pages/Workers. It is a skill discovery platform for Claude Agent Skills (SKILL.md-based), supporting 10 locales with AI-translated content.
+## Pattern: SSR Multi-tenant i18n Directory Site
+Astro 5 SSR with dynamic routing per locale, backed by Cloudflare's edge infrastructure.
 
-## Request Flow
+## System Layers
+
 ```
-Browser → Cloudflare CDN → Astro SSR (Workers) → KV / D1 / NVIDIA API
+┌─────────────────────────────────────────────────────────┐
+│  Presentation (Astro SSR + React Islands)               │
+│  src/pages/[locale]/*.astro → src/components/*.tsx       │
+├─────────────────────────────────────────────────────────┤
+│  Data Layer (Static JSON + KV + D1)                     │
+│  data/skills-cache.json → KV SKILLS_CACHE → API routes  │
+├─────────────────────────────────────────────────────────┤
+│  i18n Layer (11 locales)                                │
+│  src/messages/*.json → src/i18n.ts → tr(key, fallback)  │
+├─────────────────────────────────────────────────────────┤
+│  SEO Layer (Sitemaps + Meta + Keywords)                 │
+│  src/lib/seo-*.ts + src/lib/skill-seo-intent.ts         │
+├─────────────────────────────────────────────────────────┤
+│  Pipeline Layer (GitHub Actions → Scripts → AI → Data)  │
+│  .github/workflows/* → scripts/* → scripts/lib/ai.ts    │
+├─────────────────────────────────────────────────────────┤
+│  Workers Layer (Async Workflows)                        │
+│  workers/*.ts → translation, validation, content        │
+└─────────────────────────────────────────────────────────┘
 ```
 
-## Core Data Flow
-1. **Harvest** (`scripts/harvest-github-skills.ts`) — crawls GitHub for repos containing SKILL.md files
-2. **Build Cache** (`scripts/build-skills-cache.ts`) — validates, scores, and AI-enriches skills (SEO, descriptions, translations via NVIDIA/SiliconFlow/OpenRouter APIs)
-3. **Sync to Storage** (`scripts/sync-to-kv.ts`, `scripts/sync-d1-delta.ts`) — writes enriched skill data to Cloudflare KV (`SKILLS_CACHE`) and D1 (FTS5 full-text search)
-4. **Runtime Serving** (`src/lib/kv.ts`, `src/lib/skills.ts`) — reads from D1 (fast path) or KV (fallback) per request
+## Data Flow
 
-## Storage Architecture
-| Store | Purpose | Access Pattern |
-|-------|---------|----------------|
-| Cloudflare D1 (`DB`) | Primary skill store with FTS5 full-text search | All skill queries |
-| Cloudflare KV (`SKILLS_CACHE`) | Skill listing cache, individual skill blobs | Read-heavy, fallback |
-| Cloudflare KV (`TRANSLATIONS`) | Translated documentation strings | Read per locale |
-| Local `data/skills-cache.json` | Dev fallback only (2.9MB, never in prod) | Dev mode only |
+### Skill Discovery → Display
+```
+GitHub repositories → harvest-github-skills.ts → expanded-github-skills.json
+                    → build-skills-cache.ts (+ AI SEO) → skills-cache.json
+                    → sync-to-kv.ts → Cloudflare KV
+                    → sync-d1-delta.ts → Cloudflare D1
+SSR request → src/lib/kv.ts → KV read → page render
+```
 
-## Search Architecture
-- **Primary (D1 FTS5)**: SQL FTS5 prefix matching, concurrent count+data queries, ordered by rank/quality/stars
-- **Fallback (Fuse.js)**: Client-side fuzzy search via `src/lib/search.ts` when D1 unavailable
-- **Rate limiting**: 30 req/min per IP on `/api/skills/search`
+### Blog Content → Multilingual
+```
+en/*.md (source) → translate-blog.ts (AI) → {locale}/*.md
+                 → sync-blog-everything.ts (metadata sync)
+                 → ai-optimize-blog-meta.ts (SEO polish)
+```
 
-## Routing Structure
-- `src/pages/index.astro` — root redirect
-- `src/pages/[locale]/index.astro` — localized home
-- `src/pages/[locale]/skills/[owner]/[...repo].astro` — individual skill pages
-- `src/pages/[locale]/collections/[...slug].astro` — collections
-- `src/pages/[locale]/solutions/[topic].astro` — solutions hub
-- `src/pages/[locale]/blog/[...slug].astro` — blog (MDX)
-- `src/pages/api/**` — API endpoints (prerender=false)
+### UI Strings → Translation
+```
+en.json (source of truth) → sync-translations.ts (structure sync)
+                          → translate-locales.ts (AI translation)
+                          → src/i18n.ts → tr(key, fallback)
+```
 
-## i18n
-- 10 locales: `en`, `zh`, `ja`, `ko`, `es`, `fr`, `de`, `pt`, `ru`, `ar`
-- Default locale: `en` with prefix routing enabled
-- All routes prefixed: `/en/skills/...`, `/zh/skills/...`
-- Translations stored in KV (`TRANSLATIONS` binding)
-- AI-translated descriptions stored inline in skill JSON as `Record<locale, string>`
+## Entry Points
+| Type | Path | Description |
+|------|------|-------------|
+| SSR | `src/pages/[locale]/index.astro` | Homepage per locale |
+| API | `src/pages/api/skills/*.ts` | REST API |
+| Worker | `workers/index.ts` | Async workflows |
+| CLI | `packages/cli/` | `killer-skills` CLI |
+| Pipeline | `.github/workflows/data-pipeline.yml` | Data harvesting |
 
-## Key Libraries
-- **Astro** (SSR, Cloudflare adapter) — framework
-- **React** — interactive islands (search, favorites, skill actions)
-- **Fuse.js** — client fuzzy search fallback
-- **Tailwind CSS v4** — styling
-- **react-markdown** — skill README rendering
+## Key Abstractions
+| File | Responsibility |
+|------|---------------|
+| `src/lib/kv.ts` | KV 读写封装，支持 fallback 到本地 JSON |
+| `src/lib/skills.ts` | Skill 数据模型，搜索，过滤 |
+| `src/i18n.ts` | 翻译加载 + `tr()` 函数 |
+| `scripts/lib/ai.ts` | Multi-provider AI 调用 (race strategy) |
+| `scripts/lib/constants.ts` | SUPPORTED_LOCALES, categories 等 |
+| `src/lib/seo-keywords.ts` | SEO 关键词集群管理 |

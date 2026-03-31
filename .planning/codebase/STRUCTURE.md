@@ -1,94 +1,75 @@
-# Project Structure
+# Directory Structure
 
-## Top-Level
 ```
-killer-skills/
-├── src/                    # Application source
-├── scripts/                # Build/pipeline/SEO scripts (Node.js/tsx)
-├── data/                   # Local skill cache (dev fallback)
-├── docs/                   # Documentation source JSON
-├── workers/                # Standalone Cloudflare Worker scripts
-├── packages/               # Shared packages (excluded from TS build)
-├── public/                 # Static assets
-├── .planning/              # GSD planning documents
-├── astro.config.mjs        # Astro + Cloudflare config
-├── wrangler.toml           # CF Workers/Pages + KV/D1 bindings
-├── vitest.config.ts        # Test config
-└── package.json
-```
-
-## src/ Structure
-```
-src/
-├── pages/
-│   ├── index.astro                    # Root redirect
-│   ├── [locale]/
-│   │   ├── index.astro                # Home page
-│   │   ├── skills/[owner]/[...repo].astro  # Skill detail
-│   │   ├── skills/index.astro         # Skills listing
-│   │   ├── collections/[...slug].astro
-│   │   ├── solutions/[topic].astro
-│   │   ├── blog/[...slug].astro
-│   │   ├── docs/[...slug].astro
-│   │   ├── favorites/index.astro
-│   │   ├── history/index.astro
-│   │   ├── labs/skill-try.astro       # AI skill playground
-│   │   └── [legal pages]/
-│   └── api/
-│       ├── skills/search.ts           # GET /api/skills/search
-│       ├── skills/[owner]/[repo]/*.ts # Skill CRUD
-│       ├── crawled-skills/*.ts        # Crawl submission endpoints
-│       └── admin/skills.ts            # Admin API
-├── lib/
-│   ├── kv.ts                          # Core KV/D1 data access layer
-│   ├── skills.ts                      # UnifiedSkill type + public filter
-│   ├── skills-config.ts               # OFFICIAL_REPOS + quality thresholds
-│   ├── search.ts                      # Fuse.js search + quality scoring
-│   ├── category-taxonomy.ts           # Category normalization
-│   ├── favorites.ts / history.ts      # Client localStorage state
-│   ├── rate-limit.ts                  # IP-based rate limiter
-│   ├── api-utils.ts                   # Error response helpers
-│   ├── nvidia.ts                      # NVIDIA AI API client
-│   └── shared/
-│       ├── validation.ts              # EXCLUDE_KEYWORDS, NON_TARGET_THEME_PATTERNS, scoring
-│       ├── official-repos.ts          # OFFICIAL_REPOS list
-│       └── validation.test.ts
-├── islands/                           # React interactive components
-│   ├── SkillActions.tsx               # Favorite/copy/share actions
-│   ├── HeaderActions.tsx              # Search bar
-│   └── withErrorBoundary.tsx
-├── components/                        # Astro components
-│   ├── CollectionCard.astro
-│   ├── OfficialSkills.astro
-│   ├── blog/BlogHero.astro
-│   └── cli/ComparisonTable.astro
-├── content/
-│   └── blog/[locale]/*.md             # Blog posts (10 locales)
-├── stores/                            # Nanostores state
-├── styles/                            # Syntax highlight themes
-├── i18n.ts                            # i18n string lookup
-└── content.config.ts                  # Astro content collections config
+Killer-Skills/
+├── .github/workflows/          # CI/CD (4 workflows)
+│   ├── ci.yml                  # Build + Deploy + SEO checks
+│   ├── data-pipeline.yml       # Skill harvesting + AI SEO + KV/D1 sync
+│   ├── i18n-update.yml         # Translation sync + blog translate
+│   └── seo-monitoring.yml      # SEO health audits
+│
+├── config/
+│   └── locales.mjs             # Locale definitions (shared across Astro + scripts)
+│
+├── data/                       # Static data files (git-tracked, pipeline-generated)
+│   ├── skills-cache.json       # 103MB — 3477 skills, full SEO + translations
+│   ├── embeddings-cache.json   # 40MB — vector embeddings
+│   ├── expanded-github-skills.json  # Raw harvested data
+│   ├── sitemap-skills.json     # Sitemap generation data
+│   ├── official-repos.json     # GitHub repo list for data pipeline
+│   └── seed-keywords.json      # SEO seed keywords
+│
+├── db/seeds/                   # D1 database seeds
+│
+├── packages/                   # Monorepo sub-packages
+│   ├── cli/                    # `killer-skills` CLI tool
+│   ├── killer-skills-manager/  # Skill management library
+│   └── og-server/              # Open Graph image server
+│
+├── scripts/                    # 57 automation scripts
+│   ├── lib/                    # Shared libraries
+│   │   ├── ai.ts               # Multi-provider AI service (1329 lines)
+│   │   ├── constants.ts        # SUPPORTED_LOCALES, SEED_KEYWORDS, categories
+│   │   ├── meta-description.ts # Meta description validators
+│   │   └── utils.ts            # JSON parsing, sanitization
+│   ├── build-skills-cache.ts   # Core: skill harvesting → AI SEO → cache (2515 lines)
+│   ├── harvest-github-skills.ts # GitHub API skill discovery
+│   ├── translate-*.ts          # Translation scripts
+│   ├── ai-optimize-blog-meta.ts # AI meta description optimization
+│   ├── sync-*.ts               # Data sync scripts (KV, D1, translations)
+│   ├── seo-*.ts                # SEO audit/monitoring scripts
+│   └── auto-submitter/         # Directory submission automation
+│
+├── src/
+│   ├── components/             # 14 Astro/React components
+│   ├── content/                # Content collections
+│   │   ├── blog/               # 340 blog posts (11 locale dirs)
+│   │   └── collections/        # Skill collections
+│   ├── islands/                # React islands (interactive)
+│   ├── layouts/                # Layout components
+│   ├── lib/                    # Runtime libraries (44 files)
+│   │   ├── kv.ts               # Cloudflare KV read/write
+│   │   ├── skills.ts           # Skill data model + search
+│   │   ├── seo-keywords.ts     # SEO keyword clusters
+│   │   ├── category-taxonomy.ts # Category definitions
+│   │   └── *.test.ts           # Co-located tests
+│   ├── messages/               # 11 locale JSON files (797 keys each)
+│   ├── pages/                  # 24 Astro pages + 33 API routes
+│   │   ├── [locale]/           # Locale-aware pages
+│   │   ├── api/                # REST API endpoints
+│   │   └── sitemap-*.xml.ts    # Dynamic sitemaps
+│   ├── stores/                 # Nanostores state
+│   └── styles/                 # Global CSS
+│
+├── tests/e2e/                  # 4 Playwright E2E specs
+├── workers/                    # Cloudflare Workers (3 workflows)
+├── public/                     # Static assets
+└── reports/seo/                # Generated SEO reports
 ```
 
-## scripts/ Structure
-```
-scripts/
-├── harvest-github-skills.ts           # Step 1: GitHub crawler
-├── build-skills-cache.ts              # Step 2: AI enrichment + scoring
-├── sync-to-kv.ts                      # Step 3: Push to KV
-├── sync-d1-delta.ts                   # Step 3b: Push to D1 (delta)
-├── build-docs-cache.ts                # Translate docs to 9 locales via AI
-├── generate-collections.ts            # Generate collection pages
-├── push-d1-direct.ts                  # Direct D1 push utility
-├── seo-*.ts / seo-*.mjs               # SEO audit/report tools
-├── submit-*.mjs                       # IndexNow / Baidu / Google submit
-├── audit-*.ts                         # Quality audits
-├── remove-skill.ts / clean-broken-skills.js  # Data maintenance
-├── run-pipeline.sh                    # Orchestrator (harvest→build→sync)
-├── run-full-automation.sh             # Extended automation
-├── auto-submitter/                    # Playwright-based directory submissions
-└── lib/
-    ├── kv.ts                          # Script-side KV client
-    ├── github.ts                      # GitHub API client
-    └── utils.test.ts
-```
+## Key Naming Conventions
+- Pages: `[locale]/[section]/index.astro` — locale-prefixed routing
+- API: `api/[resource]/index.ts` — RESTful structure
+- Tests: `*.test.ts` — co-located with source in `src/lib/`
+- Scripts: verb-noun pattern — `build-skills-cache`, `translate-locales`
+- Locale files: ISO 639-1 codes — `en.json`, `zh.json`, `ja.json`

@@ -50,6 +50,9 @@ jobs:
       - name: Validate Blog SEO Frontmatter
         run: npm run seo:frontmatter:guard
 
+      - name: Translation Key Sync Check
+        run: npx tsx scripts/sync-translations.ts --check
+
       - name: Astro Check (TypeScript + Astro diagnostics)
         run: npm run check:astro
 

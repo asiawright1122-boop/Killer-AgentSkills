@@ -69,7 +69,7 @@ if (fs.existsSync(localEnv)) {
 }
 import { SUPPORTED_LOCALES } from './constants';
 import type { SeoData, AgentAnalysis, TranslateContext } from './types';
-import { robustParseJSON, extractJSONCandidates, cleanAndTruncate } from './utils';
+import { robustParseJSON, extractJSONCandidates, cleanAndTruncate, cleanAndClamp } from './utils';
 
 export interface AIConfig {
   nvidiaKeys: string[];
@@ -114,6 +114,7 @@ const GENERIC_FILLER_KEYWORDS = new Set([
 ]);
 const LONG_CONTEXT_TRIGGER_CHARS = 6000;
 const INVALID_SEO_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
+const AI_DEBUG_METADATA = process.env.AI_DEBUG_METADATA === '1';
 const sanitizeKeywordToken = (raw: string): string =>
   String(raw || '')
     .replace(/\s+/g, ' ')
@@ -133,6 +134,114 @@ export class AIService {
   };
 
   private currentOpenrouterKeyIndex = 0;
+
+  private logMetadataDebug(scope: 'en' | 'batch', skillName: string, detail: string, response?: string): void {
+    if (!AI_DEBUG_METADATA) return;
+    const snippet = response ? `\n[AIService][${scope}] raw: ${response.slice(0, 1200)}` : '';
+    console.warn(`[AIService][${scope}] ${skillName}: ${detail}${snippet}`);
+  }
+
+  private clampSeoText(value: string, limit: number): string {
+    return cleanAndClamp({ value }, limit).value || '';
+  }
+
+  private fitEnglishTitleWithSuffix(base: string, suffix: string, limit: number = 60): string {
+    const normalizedBase = String(base || '')
+      .replace(/(\.\.\.|…)+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (!normalizedBase) {
+      return suffix.trim().slice(0, limit);
+    }
+    if (normalizedBase.length + suffix.length <= limit) {
+      return `${normalizedBase}${suffix}`;
+    }
+    const available = Math.max(limit - suffix.length, 0);
+    const clampedBase = this.clampSeoText(normalizedBase, available);
+    return `${clampedBase}${suffix}`.trim();
+  }
+
+  private sanitizeEnglishSeoTitle(skillName: string, title: string): string {
+    const fallbackBase = String(skillName || 'AI Skill').replace(/\s+/g, ' ').trim();
+    const normalized = String(title || '')
+      .replace(/(\.\.\.|…)+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const source = normalized || fallbackBase;
+    const suffixRules = [
+      { pattern: /\s*\|\s*AI Agent Skills?$/i, suffix: ' | AI Agent Skills' },
+      { pattern: /\s*\|\s*Killer-Skills$/i, suffix: ' | Killer-Skills' },
+      { pattern: /\s+for Claude Code$/i, suffix: ' for Claude Code' },
+      { pattern: /\s+for Cursor$/i, suffix: ' for Cursor' },
+      { pattern: /\s+for Windsurf$/i, suffix: ' for Windsurf' },
+    ];
+
+    for (const rule of suffixRules) {
+      if (rule.pattern.test(source)) {
+        const base = source.replace(rule.pattern, '').replace(/[|:;,\-–\s]+$/g, '').trim() || fallbackBase;
+        return this.fitEnglishTitleWithSuffix(base, rule.suffix, 60);
+      }
+    }
+
+    if (/(agent skill|ai agent|claude code|cursor|windsurf|mcp|killer-skills|agentic|skill guide)/i.test(source)) {
+      return this.clampSeoText(source, 60);
+    }
+
+    const base = source.replace(/\s*\|\s*.*$/, '').replace(/[|:;,\-–\s]+$/g, '').trim() || fallbackBase;
+    return this.fitEnglishTitleWithSuffix(base, ' | AI Agent Skills', 60);
+  }
+
+  private sanitizeEnglishSeoDescription(description: string, fallback: string): string {
+    const normalized = String(description || '')
+      .replace(/(\.\.\.|…)+/g, ' ')
+      .replace(/\b(Get started|Learn now|Read more)\b[\s:,-]*/gi, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    const source = normalized || String(fallback || '').replace(/\s+/g, ' ').trim();
+    return this.clampSeoText(source, 160);
+  }
+
+  private sanitizeSeoDescriptionMap(
+    descriptions: Record<string, string>,
+    fallbackDescriptions: Record<string, string>,
+  ): Record<string, string> {
+    const mergedLocales = new Set<string>([
+      ...Object.keys(descriptions || {}),
+      ...Object.keys(fallbackDescriptions || {}),
+    ]);
+    const cleaned: Record<string, string> = {};
+
+    for (const locale of mergedLocales) {
+      const value = descriptions?.[locale] || fallbackDescriptions?.[locale] || '';
+      if (!value) continue;
+      cleaned[locale] =
+        locale === 'en'
+          ? this.sanitizeEnglishSeoDescription(value, fallbackDescriptions?.[locale] || fallbackDescriptions?.en || '')
+          : this.clampSeoText(String(value), 160);
+    }
+
+    if (!cleaned.en) {
+      cleaned.en = this.sanitizeEnglishSeoDescription(
+        descriptions?.en || fallbackDescriptions?.en || '',
+        fallbackDescriptions?.en || '',
+      );
+    }
+
+    return cleaned;
+  }
+
+  private sanitizeSeoTitleMap(skillName: string, titles: Record<string, string>): Record<string, string> {
+    const cleaned: Record<string, string> = {};
+    for (const [locale, value] of Object.entries(titles || {})) {
+      const normalized = String(value || '').replace(/\s+/g, ' ').trim();
+      if (!normalized) continue;
+      cleaned[locale] = locale === 'en' ? this.sanitizeEnglishSeoTitle(skillName, normalized) : this.clampSeoText(normalized, 60);
+    }
+    if (!cleaned.en) {
+      cleaned.en = this.sanitizeEnglishSeoTitle(skillName, titles?.en || skillName || 'AI Skill');
+    }
+    return cleaned;
+  }
 
   constructor(config?: Partial<AIConfig>) {
     this.config = {
@@ -562,7 +671,8 @@ export class AIService {
 
   private async executeCallWithRetry(prompt: string, jsonMode: boolean, attempt: number = 0): Promise<string | null> {
     const controllers: AbortController[] = [];
-    const promises: Promise<{ result: string; provider: string; error?: Error }>[] = [];
+    const promises: Promise<{ result: string; provider: string }>[] = [];
+    const providerErrors: string[] = [];
 
     const raceEntry = (
       provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare',
@@ -573,8 +683,12 @@ export class AIService {
       controllers.push(controller);
       promises.push(
         this.callAISingle(prompt, provider, key, jsonMode, controller.signal)
-          .then((result) => ({ result, provider: label }))
-          .catch((error) => ({ result: '' as string, provider: label, error })),
+          .catch((error) => {
+            const message = error instanceof Error ? error.message : String(error);
+            providerErrors.push(`${label}:${message}`);
+            throw error;
+          })
+          .then((result) => ({ result, provider: label })),
       );
     };
 
@@ -596,36 +710,24 @@ export class AIService {
     if (promises.length === 0) return null;
 
     try {
-      const results = await Promise.allSettled(promises);
+      const winner = await Promise.any(promises);
+      controllers.forEach((c) => c.abort());
 
-      const successfulResults = results
-        .filter(
-          (r): r is PromiseFulfilledResult<{ result: string; provider: string }> =>
-            r.status === 'fulfilled' && r.value.result !== null,
-        )
-        .map((r) => r.value);
+      if (winner.provider.startsWith('N')) this.stats.nvidia++;
+      else if (winner.provider === 'S') this.stats.siliconflow++;
+      else if (winner.provider === 'O') this.stats.openrouter++;
+      else if (winner.provider === 'C') this.stats.cloudflare++;
 
-      if (successfulResults.length > 0) {
-        const winner = successfulResults[0];
-        controllers.forEach((c) => c.abort());
-
-        if (winner.provider.startsWith('N')) this.stats.nvidia++;
-        else if (winner.provider === 'S') this.stats.siliconflow++;
-        else if (winner.provider === 'O') this.stats.openrouter++;
-        else if (winner.provider === 'C') this.stats.cloudflare++;
-
-        process.stdout.write(winner.provider);
-        return winner.result;
-      }
-
-      const failedResults = results
-        .filter(
-          (r): r is PromiseFulfilledResult<{ result: string; provider: string; error: Error }> =>
-            r.status === 'fulfilled' && !!r.value.error,
-        )
-        .map((r) => r.value.error);
-
-      const has429 = failedResults.some((e) => e.message.includes('429'));
+      process.stdout.write(winner.provider);
+      return winner.result;
+    } catch (e: any) {
+      const aggregateErrors: Error[] =
+        e instanceof AggregateError
+          ? e.errors.filter((item: unknown): item is Error => item instanceof Error)
+          : e instanceof Error
+            ? [e]
+            : [];
+      const has429 = aggregateErrors.some((error) => error.message.includes('429'));
 
       if (has429 && attempt < RETRY_DELAYS.length) {
         const delay = RETRY_DELAYS[attempt];
@@ -639,13 +741,9 @@ export class AIService {
 
       console.error(
         `[AIService] All providers failed after ${attempt + 1} attempts. Errors:`,
-        failedResults.map((e) => e.message).join('; '),
+        providerErrors.join('; ') || aggregateErrors.map((error) => error.message).join('; '),
       );
       controllers.forEach((c) => c.abort());
-      return null;
-    } catch (e: any) {
-      controllers.forEach((c) => c.abort());
-      console.error(`[AIService] Unexpected error:`, e);
       return null;
     }
   }
@@ -832,22 +930,57 @@ Output STRICT JSON only:
       const enResponse = await this.callAI(enPrompt, true);
       if (enResponse) {
         const enCandidates = extractJSONCandidates(enResponse);
+        if (enCandidates.length === 0) {
+          this.logMetadataDebug('en', skillName, 'No JSON candidate found in English SEO response', enResponse);
+        }
         for (const item of enCandidates) {
           const parsed = robustParseJSON(item);
           if (parsed && typeof parsed === 'object') {
-            // Extract English values
-            if (parsed.seoTitle?.en) mergedSeoTitle.en = parsed.seoTitle.en;
-            if (parsed.metaDescription?.en) mergedMetaDesc.en = parsed.metaDescription.en;
-            if (parsed.description?.en) mergedDesc.en = parsed.description.en;
-            if (parsed.definition?.en) mergedDefinition.en = parsed.definition.en;
-            if (Array.isArray(parsed.features?.en) && parsed.features.en.length > 0)
-              mergedFeatures.en = parsed.features.en;
-            if (Array.isArray(parsed.keywords?.en) && parsed.keywords.en.length > 0)
-              mergedKeywords.en = parsed.keywords.en;
-            successCount++;
-            process.stdout.write('E'); // E = English SEO generated
-            break;
+            const seoTitle = typeof parsed.seoTitle === 'string' ? parsed.seoTitle : parsed.seoTitle?.en;
+            const metaDescription =
+              typeof parsed.metaDescription === 'string'
+                ? parsed.metaDescription
+                : parsed.metaDescription?.en || parsed.meta_description?.en;
+            const description = typeof parsed.description === 'string' ? parsed.description : parsed.description?.en;
+            const definition = typeof parsed.definition === 'string' ? parsed.definition : parsed.definition?.en;
+            const features = Array.isArray(parsed.features) ? parsed.features : parsed.features?.en;
+            const keywords = Array.isArray(parsed.keywords) ? parsed.keywords : parsed.keywords?.en;
+
+            if (seoTitle) mergedSeoTitle.en = seoTitle;
+            if (metaDescription) mergedMetaDesc.en = metaDescription;
+            if (description) mergedDesc.en = description;
+            if (definition) mergedDefinition.en = definition;
+            if (Array.isArray(features) && features.length > 0) mergedFeatures.en = features;
+            if (Array.isArray(keywords) && keywords.length > 0) mergedKeywords.en = keywords;
+
+            const hasUsefulEnglishPayload =
+              !!(seoTitle || metaDescription || description || definition) ||
+              (Array.isArray(features) && features.length > 0) ||
+              (Array.isArray(keywords) && keywords.length > 0);
+
+            if (hasUsefulEnglishPayload) {
+              successCount++;
+              process.stdout.write('E');
+              break;
+            }
+
+            this.logMetadataDebug(
+              'en',
+              skillName,
+              `Parsed English candidate without usable fields: ${Object.keys(parsed).join(', ')}`,
+              item,
+            );
+          } else {
+            this.logMetadataDebug('en', skillName, 'Failed to parse English JSON candidate', item);
           }
+        }
+        if (!mergedDesc.en && !mergedSeoTitle.en) {
+          this.logMetadataDebug(
+            'en',
+            skillName,
+            'English SEO response produced candidates but no usable English fields were extracted',
+            enResponse,
+          );
         }
       }
     } catch (e) {
@@ -932,6 +1065,9 @@ Output STRICT JSON only, no markdown wrapping:
         if (!response) throw new Error(`No response for [${localeStr}]`);
 
         const candidates = extractJSONCandidates(response);
+        if (candidates.length === 0) {
+          this.logMetadataDebug('batch', skillName, `No JSON candidate found for batch [${localeStr}]`, response);
+        }
         for (const item of candidates) {
           const candidate = robustParseJSON(item);
           if (
@@ -941,6 +1077,12 @@ Output STRICT JSON only, no markdown wrapping:
           ) {
             return { parsed: candidate, batch };
           }
+          this.logMetadataDebug(
+            'batch',
+            skillName,
+            `Candidate parsed without expected metadata fields for batch [${localeStr}]`,
+            item,
+          );
         }
         throw new Error(`No valid JSON for [${localeStr}]`);
       }),
@@ -964,6 +1106,7 @@ Output STRICT JSON only, no markdown wrapping:
       }
     };
 
+    const batchErrors: string[] = [];
     for (const result of batchResults) {
       if (result.status === 'fulfilled') {
         const { parsed, batch } = result.value;
@@ -974,13 +1117,16 @@ Output STRICT JSON only, no markdown wrapping:
         mergeArray(mergedFeatures, parsed.features);
         mergeArray(mergedKeywords, parsed.keywords);
         successCount++;
+      } else {
+        batchErrors.push(result.reason instanceof Error ? result.reason.message : String(result.reason));
       }
     }
     process.stdout.write('.');
 
     // If no batches succeeded, return default
     if (successCount === 0) {
-      console.warn(`⚠️ All batches failed for ${skillName}, using default`);
+      const detail = batchErrors.length > 0 ? ` Reasons: ${batchErrors.join('; ')}` : '';
+      console.warn(`⚠️ All batches failed for ${skillName}, using default.${detail}`);
       return defaultResult;
     }
 
@@ -991,8 +1137,8 @@ Output STRICT JSON only, no markdown wrapping:
     return {
       description: cleanAndTruncate(mergedDesc, 300),
       seo: {
-        title: cleanAndTruncate(mergedSeoTitle, 60),
-        description: cleanAndTruncate(mergedMetaDesc.en ? mergedMetaDesc : mergedDesc, 160),
+        title: this.sanitizeSeoTitleMap(skillName || 'AI Skill', mergedSeoTitle),
+        description: this.sanitizeSeoDescriptionMap(mergedMetaDesc.en ? mergedMetaDesc : mergedDesc, mergedDesc),
         definition: mergedDefinition.en ? mergedDefinition : { en: text },
         features: mergedFeatures,
         keywords: this.sanitizeSeoKeywordsMap(skillName || 'AI Skill', mergedKeywords, context?.category),

@@ -1,54 +1,456 @@
 {
-  "Navigation": {
-    "home": "Inicio",
-    "marketplace": "Directorio",
-    "categories": "Categorías",
-    "docs": "Documentación",
-    "blog": "Blog",
-    "github": "GitHub",
-    "getStarted": "Comenzar",
-    "history": "Historial",
-    "favorites": "Favoritos"
+  "Aria": {
+    "viewSkill": "View {name}",
+    "switchLanguage": "Switch Language",
+    "toggleTheme": "Toggle Theme",
+    "toggleMenu": "Toggle Menu",
+    "addToFavorites": "Add to favorites",
+    "removeFromFavorites": "Remove from favorites",
+    "shareSkill": "Share this skill",
+    "backToSkills": "Back to skills",
+    "copyCommand": "Copy command"
   },
-  "Hero": {
-    "badge": "80,000+ Habilidades Disponibles",
-    "title": "Descubre Habilidades de Agentes de AI",
-    "titleHighlight": "AI Agent",
-    "subtitle": "Explora posibilidades infinitas, potencia a tu asistente de AI",
-    "searchPlaceholder": "Buscar habilidades... ej., PDF, Análisis de Datos",
-    "searchButton": "Buscar",
-    "hotTags": "Populares:",
-    "suggestions": [
-      "PDF",
-      "Generador de Imágenes",
-      "Análisis de Datos",
-      "Navegador",
-      "Revisión de Código",
-      "Documentos"
-    ]
+  "Blog": {
+    "title": "Ideas y Novedades",
+    "subtitle": "Análisis profundos sobre skills de agentes de IA, flujos de trabajo para desarrolladores y el futuro de la programación.",
+    "browseByCategory": "Explorar por Categoría",
+    "readTime": "{n} min de lectura",
+    "readArticle": "Leer Artículo",
+    "comingSoon": "Próximamente...",
+    "featured": "Destacado",
+    "categories": {
+      "creative-tools": "Herramientas Creativas",
+      "creative-tools-desc": "Arte generativo, estilismo y automatización creativa.",
+      "document-automation": "Automatización de Documentos",
+      "document-automation-desc": "Transformando PDF, Docs y Sheets en inteligencia.",
+      "enterprise-solutions": "Soluciones Empresariales",
+      "enterprise-solutions-desc": "Herramientas de grado profesional para flujos de trabajo empresariales.",
+      "developer-experience": "Experiencia del Desarrollador",
+      "developer-experience-desc": "Los bloques de construcción para la ingeniería impulsada por IA.",
+      "announcements": "Anuncios",
+      "announcements-desc": "Últimas noticias y actualizaciones de skills."
+    },
+    "latestPosts": "Últimas publicaciones",
+    "log": "Registro",
+    "IntentLinks": {
+      "automate-word-documents-with-docx-skills": {
+        "title": "docx Skill — Word Document Automation",
+        "description": "Install the docx skill to create, edit, and format .docx files with your AI agent."
+      },
+      "mastering-excel-automation-with-xlsx-skills": {
+        "title": "xlsx Skill — Excel Automation",
+        "description": "Install the xlsx skill to read, write, and manipulate Excel files with your AI agent."
+      },
+      "mastering-pdf-automation-with-ai-skills": {
+        "title": "pdf Skill — PDF Automation",
+        "description": "Install the pdf skill for OCR, extraction, merging, and PDF generation with AI."
+      },
+      "killer-ui-design-with-frontend-design-skills": {
+        "title": "frontend-design Skill",
+        "description": "Install the frontend-design skill for AI-powered UI component generation."
+      },
+      "master-visual-identity-with-brand-guidelines-skills": {
+        "title": "brand-guidelines Skill",
+        "description": "Install the brand-guidelines skill for consistent visual identity generation with AI."
+      },
+      "mastering-generative-art-with-claudecode-skills": {
+        "title": "algorithmic-art Skill",
+        "description": "Install the algorithmic-art skill to generate creative visual outputs with Claude Code."
+      },
+      "professional-presentations-with-pptx-ai-skills": {
+        "title": "pptx Skill — Presentation Automation",
+        "description": "Install the pptx skill to create and edit PowerPoint files with your AI agent."
+      },
+      "professional-poster-design-with-canvas-skills": {
+        "title": "canvas Skill — Poster & Image Design",
+        "description": "Install the canvas skill for AI-generated posters, banners, and graphics."
+      },
+      "collaborative-writing-with-doc-coauthoring-skills": {
+        "title": "doc-coauthoring Skill",
+        "description": "Install the doc-coauthoring skill for AI-assisted collaborative document writing."
+      },
+      "automated-ui-testing-with-webapp-testing-skills": {
+        "title": "webapp-testing Skill",
+        "description": "Install the webapp-testing skill for AI-driven UI and end-to-end test automation."
+      },
+      "instant-branding-with-theme-factory-skills": {
+        "title": "theme-factory Skill",
+        "description": "Install the theme-factory skill for instant AI-generated brand themes and color systems."
+      },
+      "create-custom-slack-emojis-with-ai-skills": {
+        "title": "slack-emoji Skill",
+        "description": "Install the slack-emoji skill to generate custom Slack emojis with your AI agent."
+      }
+    },
+    "LongTail": {
+      "pdf": "pdf automation, ocr automation, document extraction workflow",
+      "xlsx": "excel automation, report automation, spreadsheet workflow",
+      "docx": "word automation, document templates, report templates",
+      "mcp": "ai agent skills for developer workflows, developer workflow skills, claude code integrations with mcp",
+      "internalComms": "process automation, internal communication templates, team update workflows",
+      "installSetup": "install ai agent skills, skill setup, ide compatibility",
+      "default": "developer workflow skills, ai agent skills, skill templates"
+    },
+    "Misc": {
+      "browseAllSkills": "Browse All Skills",
+      "exploreMoreSkills": "Explore more skills for your AI agent workflow.",
+      "installGuide": "Install & CLI Guide",
+      "seeInstallSteps": "See installation, CLI commands, and setup steps.",
+      "browseDocumentAutomations": "Browse Document Automation Skills",
+      "keepExploringPdf": "Keep exploring PDF, DOCX, Excel, and report automation skills.",
+      "workflowTemplateEntry": "Workflow Template Entry",
+      "moveIntoReusable": "Move into reusable templates and document workflow collections.",
+      "skillsForDeveloperWorkflows": "Skills for Developer Workflows",
+      "keepBrowsingSkills": "Keep browsing skills-first developer workflow setups and integration-ready capabilities.",
+      "ideCompatibility": "IDE Compatibility & Setup",
+      "reviewCursorClaude": "Review Cursor, Claude Code, and VS Code compatibility entry points.",
+      "installSkillsCLI": "Install Skills with the CLI",
+      "headToCLI": "Head to the CLI page for installation and sync commands.",
+      "browseProcessAutomation": "Browse Process Automation Skills",
+      "exploreTeamProcess": "Explore team, process, and business automation skills next.",
+      "browseWorkflowTemplates": "Browse Workflow Templates",
+      "reviewSOPs": "Review SOPs, templates, and reusable automation scenarios.",
+      "docsSetupEntry": "Docs & Setup Entry",
+      "moveIntoDocs": "Move into documentation, installation, and setup pages.",
+      "browseWorkflowAutomation": "Browse Workflow Automation Skills",
+      "continueIntoPrecise": "Continue into more precise workflow automation search results.",
+      "installSetupDocs": "Install & Setup Docs",
+      "seeInstallSetup": "See install, setup, and compatibility entry points.",
+      "browseWorkflowCollections": "Browse Workflow Collections",
+      "exploreFullerTemplate": "Explore fuller template and workflow collections.",
+      "blogSeoTitle": "AI Agent Skills Guides, Workflow Tutorials, and Automation Blog",
+      "blogSeoDescription": "Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.",
+      "blogSeoKeywords": "AI agent skills blog, developer workflow skills, IDE skill articles"
+    },
+    "MetaOverride": {
+      "mastering-pdf-automation-with-ai-skills": {
+        "title": "PDF Automation with AI: OCR, Extraction & Report Workflows",
+        "description": "Automate PDFs with AI for OCR, table extraction, and report generation. See install steps, real workflows, and the best skill for document automation."
+      },
+      "how-to-build-mcp-servers-with-agent-skills": {
+        "title": "Skills for Developer Workflows: Build MCP Integrations in Claude Code or Cursor",
+        "description": "Build MCP integrations for Claude Code or Cursor with reusable AI agent skill workflows, step-by-step setup, tool design, testing, and deployment patterns."
+      },
+      "how-to-install-ai-agent-skills": {
+        "title": "How to Install AI Agent Skills in Cursor, Claude Code, or Windsurf",
+        "description": "Install AI agent skills in Cursor, Claude Code, or Windsurf with npx killer-skills add. Follow the fastest setup for one IDE or all of them."
+      },
+      "top-10-mcp-servers-2026": {
+        "title": "10 MCP Tools & Integrations for Claude Code, Cursor, and Windsurf",
+        "description": "Explore practical MCP tools, integrations, and workflow patterns for Claude Code, Cursor, and Windsurf across GitHub, SQLite, browser automation, and docs."
+      },
+      "official-ai-agent-skills-guide": {
+        "title": "Official AI Agent Skills to Install Right Now",
+        "description": "Find official AI agent skills for PDFs, frontend UI, SEO, MCP, and automation, plus which ones to install first for real work."
+      },
+      "what-are-ai-agent-skills": {
+        "title": "What Are AI Agent Skills? How They Work in Claude Code, Cursor & Windsurf",
+        "description": "Understand what AI agent skills are, how SKILL.md files work, where to place them, and why they help Claude Code, Cursor, and Windsurf."
+      },
+      "best-ai-agent-skills-2026": {
+        "title": "AI Agent Skills for Claude Code, Cursor & Windsurf (2026)",
+        "description": "Compare AI agent skills for Claude Code, Cursor, and Windsurf in 2026, from document automation and UI to MCP and workflows."
+      },
+      "claude-code-vs-cursor-vs-windsurf": {
+        "title": "Claude Code vs Cursor vs Windsurf for AI Agent Skills",
+        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills, including file formats, loading behavior, context limits, and setup tradeoffs."
+      }
+    }
   },
-  "Skills": {
-    "featured": "Habilidades Destacadas",
-    "searchResults": "resultados de búsqueda",
-    "trending": "Tendencias",
-    "recent": "Recientes",
-    "noResults": "No se encontraron habilidades",
-    "noResultsHint": "Intenta con diferentes palabras clave",
-    "stars": "Estrellas",
-    "forks": "Bifurcaciones",
-    "updated": "Actualizado",
-    "version": "Versión",
-    "downloads": "Descargas",
-    "creators": "Creadores Activos",
-    "install": "Código de Instalación",
+  "CLI": {
+    "heroTitle": "Killer-Skills CLI",
+    "heroSubtitle": "Instala y gestiona skills de agentes de IA",
+    "heroDesc": "Descubre, instala y sincroniza más de 2,500 skills de agentes de IA en Cursor, Windsurf, Claude Code y otras herramientas.",
+    "optionalNote": "Nota: La herramienta CLI es opcional. Puede usar las habilidades directamente a través de npx sin instalar nada.",
+    "install": "Instalar Ahora",
+    "viewDocs": "Ver Documentación",
+    "latestVersion": "Última Versión:",
+    "copyInstall": "npx killer-skills add <owner/repo>",
+    "features": {
+      "autoInvoke": {
+        "title": "Registro Abierto de Skills",
+        "desc": "Explora skills comunitarios y oficiales de agentes de IA para procesamiento de PDF, automatización del navegador, documentación y más."
+      },
+      "syncAll": {
+        "title": "Sincronización Multi-IDE",
+        "desc": "Sincroniza las habilidades instaladas en tus IDE compatibles y mantén alineados los archivos de habilidades locales."
+      },
+      "mcp": {
+        "title": "Entrega de skills nativa del IDE",
+        "desc": "Instala skills en el formato de archivo nativo correcto para Claude Code, Cursor, VS Code, Windsurf y más entornos."
+      },
+      "secure": {
+        "title": "Seguridad Empresarial",
+        "desc": "La autenticación GitHub Device Flow y la distribución transparente de código abierto ayudan a los equipos a instalar skills con confianza."
+      }
+    },
+    "terminal": {
+      "title": "Experiencia del Desarrollador Primero",
+      "login": "Inicio de Sesión Seguro",
+      "loginDesc": "Auth de Flujo de Dispositivo GitHub",
+      "sync": "Sincronización de un clic",
+      "syncDesc": "Sincroniza en 19+ IDEs",
+      "do": "Lenguaje Natural",
+      "doDesc": "Ejecución de Tareas de IA"
+    },
+    "comparison": {
+      "title": "¿Por qué Killer-Skills CLI?",
+      "feature": "Característica",
+      "ks": "Killer-Skills CLI",
+      "others": "Prompting Manual",
+      "row1": "Instalación en 1 clic en 19+ IDEs",
+      "row2": "Invocación Automática (Sin desperdicio de ventana de contexto)",
+      "row3": "Descubrimiento y sincronización de skills en tiempo de ejecución",
+      "row4": "Registro de Habilidades Seguras y Verificadas"
+    },
+    "pageTitle": "CLI de AI Agent Skills: Instala, sincroniza y configura con un comando",
+    "pageDescription": "Usa el CLI de Killer-Skills para instalar, sincronizar y gestionar AI agent skills en Cursor, Claude Code, Windsurf y más de 19 IDEs.",
+    "quickLinks": {
+      "install": {
+        "title": "Install AI Agent Skills",
+        "desc": "Start from zero with install, initialization, and first-run steps."
+      },
+      "ide": {
+        "title": "Set Up Cursor / Claude Code",
+        "desc": "See how each IDE gets its native skill format automatically."
+      },
+      "commands": {
+        "title": "CLI Commands & Sync",
+        "desc": "Review commands, sync behavior, and configuration options."
+      },
+      "templates": {
+        "title": "Workflow Template Entry Points",
+        "desc": "Move from docs into automation and template workflows."
+      }
+    },
+    "faq1Q": "How do I install AI agent skills with the CLI?",
+    "faq1A": "Run npx killer-skills add owner/repo in your project directory. The CLI auto-detects your IDE and writes the correct skill format.",
+    "faq2Q": "Which IDEs does the CLI support?",
+    "faq2A": "The CLI supports 19+ environments including Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae, and more.",
+    "faq3Q": "Can I sync skills across multiple projects?",
+    "faq3A": "Yes. Use killer-skills sync to keep skills updated across repos. The CLI handles format conversion automatically.",
+    "faq4Q": "How do I update installed skills?",
+    "faq4A": "Run killer-skills update to pull the latest versions. The CLI preserves your local customizations.",
+    "faqTitle": "Frequently Asked Questions"
+  },
+  "CLIInstall": {
+    "product": "Killer CLI",
+    "headline": "Construye tu librería de habilidades IA",
+    "subheadline": "Potencia a tus agentes para escribir código profesional al instante",
+    "cta": "Inicio instantáneo con una línea",
+    "install": "Instalar",
+    "features": {
+      "multiPlatform": "Multiplataforma",
+      "secureSandbox": "Sandbox seguro",
+      "hotReload": "Recarga en caliente"
+    },
+    "copy": "COPIAR",
+    "copied": "LISTO",
+    "viewOnNpm": "Ver en NPM"
+  },
+  "Categories": {
+    "development": "Desarrollo",
+    "documentation": "Documentación",
+    "testing": "Pruebas",
+    "data": "Datos y Análisis",
+    "ai": "AI & ML",
+    "devops": "DevOps",
+    "design": "Diseño",
+    "productivity": "Productividad",
+    "code-review": "Revisión de Código",
+    "git": "Git",
+    "cli": "CLI",
+    "library": "Biblioteca",
+    "api": "API",
+    "database": "Base de Datos",
+    "browser": "Navegador",
+    "search": "Búsqueda",
+    "web-scraping": "Web Scraping",
+    "automation": "Automatización",
+    "social": "Redes Sociales",
+    "community": "Comunidad",
+    "browseByCategory": "Explorar por categoría",
+    "skillCategories": "Categorías de Habilidades",
+    "relatedSkills": "Habilidades relacionadas",
+    "viewAll": "Ver Todo",
+    "noSkills": "No se encontraron habilidades",
+    "heroDesc": "Explora diferentes tipos de habilidades de AI y encuentra las herramientas perfectas para ti",
+    "seoDescriptions": {
+      "development": "Descubre skills de flujo de trabajo para desarrolladores en Claude Code, Cursor y otros agentes de IA. Automatiza programación, refactorización, depuración y gestión de proyectos.",
+      "documentation": "Explora skills de flujo documental para agentes de IA. Permite que Claude lea, escriba y analice PDF, Word y Markdown con instrucciones reutilizables.",
+      "testing": "Encuentra skills de testing y QA que ayudan a asistentes de IA a escribir, ejecutar y depurar pruebas unitarias, de integración y E2E.",
+      "data": "Descubre skills de datos y analítica para consultas SQL, paneles, visualización y flujos de trabajo de bases de datos.",
+      "ai": "Explora skills de flujos de IA y ML que conectan agentes con Hugging Face, OpenAI y pipelines de modelos especializados.",
+      "devops": "Los mejores skills de flujo DevOps y cloud para AWS, Docker, Kubernetes, CI/CD y automatización de infraestructura.",
+      "design": "Skills creativos y de diseño para asistentes de IA, incluyendo generación de imágenes, revisión UI/UX y flujos de sistemas de diseño.",
+      "productivity": "Los mejores skills de productividad para agentes de IA. Conecta Claude con Notion, Slack, Jira y calendarios para automatizar el trabajo diario.",
+      "code-review": "Skills de revisión de código automatizada que ayudan a agentes de IA a revisar PR, detectar problemas de seguridad y reforzar calidad de código.",
+      "git": "Skills de flujo Git y GitHub para navegación de repositorios, gestión de ramas, commits y automatización de pull requests.",
+      "cli": "Skills de flujo en línea de comandos que ayudan a agentes de IA a ejecutar tareas de terminal de forma segura y eficaz.",
+      "library": "Skills de gestión de librerías y paquetes para agentes de IA. Busca, instala y actualiza paquetes npm, pip, cargo y más.",
+      "api": "Skills de integración API que conectan tu asistente de IA con servicios REST y GraphQL mediante flujos reutilizables.",
+      "database": "Skills de gestión de bases de datos para PostgreSQL, MySQL, MongoDB, Redis y flujos de consulta seguros.",
+      "browser": "Skills de automatización de navegador e interacción web que ayudan a agentes de IA a navegar sitios, hacer clic y extraer datos.",
+      "search": "Skills de búsqueda web para agentes de IA con recuperación en tiempo real en Google, Bing, Tavily y más.",
+      "web-scraping": "Skills avanzados de web scraping que extraen datos estructurados de sitios web mediante flujos de agente repetibles.",
+      "automation": "Skills de automatización general y RPA que conectan agentes de IA con Zapier, Make y flujos de sistemas locales.",
+      "social": "Skills de flujo para redes sociales orientados a publicación, monitoreo de tendencias y gestión de X, LinkedIn y otros canales."
+    },
+    "pageTitle": "Categorías de AI Agent Skills: Explora por tipo",
+    "pageDescription": "Explora AI agent skills organizados por categoría — automatización de documentos, flujos de desarrollo, herramientas creativas y soluciones empresariales.",
+    "keyword1": "AI agent skill categories",
+    "keyword2": "skill type browser",
+    "heroTitle": "Skill Categories",
+    "heroIntro": "Browse AI agent skills by category to find the right tool for your workflow.",
+    "faq1Q": "How are skills categorized?",
+    "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
+    "faq2Q": "Can I browse skills from multiple categories?",
+    "faq2A": "Yes. Use the skills directory to search across all categories, or filter by specific tags.",
+    "faq3Q": "How do I install a skill from a category page?",
+    "faq3A": "Click any skill card to view details, then use the install command shown on the skill page."
+  },
+  "Category": {
+    "Intents": {
+      "browser": {
+        "titleLabel": "Browser Automation Skill",
+        "useCaseLabel": "web browsing, scraping, and browser automation"
+      },
+      "finance": {
+        "titleLabel": "Finance Automation Skill",
+        "useCaseLabel": "payments, billing, and finance automation"
+      },
+      "productivity": {
+        "titleLabel": "Productivity Workflow Skill",
+        "useCaseLabel": "productivity workflows, task execution, and automation"
+      },
+      "developer": {
+        "titleLabel": "Developer Tool Skill",
+        "useCaseLabel": "coding, debugging, and developer automation"
+      },
+      "data": {
+        "titleLabel": "Data Workflow Skill",
+        "useCaseLabel": "data access, analysis, and ETL workflows"
+      },
+      "ai": {
+        "titleLabel": "AI Workflow Skill",
+        "useCaseLabel": "LLM workflows, evaluation, and AI automation"
+      },
+      "design": {
+        "titleLabel": "Design Automation Skill",
+        "useCaseLabel": "UI generation, design systems, and visual workflows"
+      },
+      "documentation": {
+        "titleLabel": "Documentation Skill",
+        "useCaseLabel": "documentation, knowledge base, and content workflows"
+      },
+      "devops": {
+        "titleLabel": "DevOps Automation Skill",
+        "useCaseLabel": "deployment, infrastructure, and ops automation"
+      },
+      "security": {
+        "titleLabel": "Security Audit Skill",
+        "useCaseLabel": "security reviews, vulnerability checks, and compliance"
+      },
+      "communication": {
+        "titleLabel": "Communication Skill",
+        "useCaseLabel": "messaging, handoffs, and team collaboration"
+      },
+      "default": {
+        "titleLabel": "AI Agent Skill",
+        "useCaseLabel": "AI agent workflows and automation"
+      }
+    }
+  },
+  "Collections": {
+    "editorPicks": "Selección del Editor",
+    "subtitle": "Colecciones curadas de skills de agentes de IA de alta calidad y bloques de construcción de workflows para distintos sectores y casos de uso.",
+    "items": "Elementos",
+    "view": "Ver",
+    "featured": "Destacado",
+    "backToCollections": "Colecciones",
+    "collection": "Colección",
+    "noSkills": "No se encontraron habilidades activas para esta colección actualmente.",
+    "noCollections": "Aún no hay colecciones disponibles.",
+    "installAll": "Instalar todo vía CLI",
+    "installHint": "Instala todas las habilidades de esta colección con un comando",
     "copy": "Copiar",
-    "copied": "¡Copiado!",
-    "viewOnGithub": "Ver en GitHub",
-    "original": "Original",
-    "translation": "Traducción",
-    "translating": "Traduciendo...",
-    "showOriginal": "Mostrar Original",
-    "showTranslation": "Mostrar Traducción"
+    "copied": "Copiado",
+    "collectionsTitle": "Colecciones Destacadas",
+    "collectionsSubtitle": "Descubre colecciones curadas de habilidades para cada necesidad",
+    "viewAllCollections": "Ver todas las colecciones",
+    "relatedCollections": "Colecciones relacionadas",
+    "seoTitle": "Colecciones curadas de automatización: habilidades AI Agent",
+    "seoDescription": "Explora colecciones curadas de habilidades de agentes IA para automatización de flujos, documentos, navegador y datos con instalación unificada.",
+    "seoKeyword1": "colecciones de habilidades AI Agent",
+    "seoKeyword2": "colecciones de habilidades de flujos de trabajo",
+    "heroTitle": "Paquetes de habilidades de flujo de trabajo",
+    "faq1Q": "¿Para qué flujos de trabajo están diseñadas estas colecciones?",
+    "faq1A": "Estas colecciones están diseñadas para automatización de flujos, procesos, documentos, datos y pilas de habilidades reutilizables.",
+    "faq2Q": "¿Cómo se diferencia una colección del directorio principal?",
+    "faq2A": "El directorio es mejor para búsqueda directa, mientras las colecciones ayudan a encontrar habilidades complementarias agrupadas por flujo completo.",
+    "faq3Q": "¿Puedo instalar estas colecciones para Claude Code o Cursor?",
+    "faq3A": "Sí. Las habilidades de estas colecciones generalmente funcionan en Claude Code, Cursor, Windsurf y otros entornos mediante instalación unificada."
+  },
+  "Common": {
+    "home": "Inicio",
+    "skillsMarket": "Directorio de habilidades",
+    "language": "Idioma",
+    "theme": "Tema",
+    "chinese": "Chino",
+    "english": "Inglés",
+    "searchPlaceholder": "Buscar capacidades (p. ej., 'Web Scraping')",
+    "search": "Buscar",
+    "loading": "Loading...",
+    "error": "Algo salió mal",
+    "back": "Atrás",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "pageInfo": "Page {current} of {total} ({count} skills)",
+    "official": "Oficial",
+    "verified": "Verificado",
+    "explore": "Explore",
+    "viewAll": "Ver todo",
+    "collections": "Colecciones",
+    "go": "Ir",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "featured": "Destacado",
+    "noDescription": "Sin descripción",
+    "skipToContent": "Ir al contenido",
+    "documentation": "Documentación",
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "officialPartner": "Socio oficial",
+    "communityVendor": "Proveedor de la comunidad",
+    "skillsCount": "Skills",
+    "page": "Página",
+    "goToPage": "Ir a la página",
+    "pageJumpError": "Ingrese un número de página válido entre 1 y {max}"
+  },
+  "Community": {
+    "title": "Comunidad",
+    "join": "Únete a la Comunidad",
+    "contribute": "Contribuir Código",
+    "readGuide": "Leer la Guía de Contribución ->",
+    "shareFeedback": "Compartir Comentarios",
+    "submitIssue": "Enviar un Issue ->",
+    "cards": {
+      "source": {
+        "title": "Código Abierto",
+        "desc": "Código fuente, issues y PRs."
+      },
+      "chat": {
+        "title": "Discord",
+        "desc": "Chat en tiempo real y soporte."
+      },
+      "news": {
+        "title": "Twitter",
+        "desc": "Últimas noticias y actualizaciones."
+      }
+    },
+    "heroDesc": "Estamos construyendo el ecosistema de código abierto para la era de la IA. Ya seas desarrollador, creador o usuario, tu lugar está aquí.",
+    "contributeDesc": "Killer-Skills es completamente de código abierto. Puedes enviar PRs para corregir errores, agregar funcionalidades o contribuir nuevas habilidades.",
+    "feedbackDesc": "¿Tienes una idea? ¿Encontraste un error? Cuéntanos en Github Issues o Discord."
   },
   "Detail": {
     "back": "Volver a la lista",
@@ -61,7 +463,7 @@
     "downloads": "Descargas",
     "info": "Información",
     "author": "Autor",
-    "updated": "Actualizado",
+    "updated": "Updated",
     "viewOnGithub": "Ver en GitHub",
     "features": "Características",
     "qualityScore": "Puntuación de Calidad",
@@ -112,7 +514,163 @@
     "limitations": "Seguridad y limitaciones",
     "precautions": "Precauciones",
     "relatedSkills": "Habilidades relacionadas",
-    "coreTopics": "Temas principales"
+    "coreTopics": "Core Topics",
+    "verified": "Verified",
+    "top5Percent": "Top 5%",
+    "installNow": "Install Now",
+    "platformSupport": "Supports 19+ Platforms",
+    "plusMore": "+12 more",
+    "faqInstallTitle": "FAQ & Installation Steps",
+    "faqTitle": "Frequently Asked Questions",
+    "howToInstallTitle": "How To Install",
+    "relatedPaths": "Related Paths",
+    "openMainN8n": "Open the main n8n skill page",
+    "seeMainN8n": "See the main n8n skill page, install command, and broader workflow automation context.",
+    "browseWorkflowSolutions": "Browse workflow automation solutions",
+    "exploreWorkflowUseCases": "Explore workflow automation use cases, related skills, and install-ready solution paths.",
+    "seeCliInstall": "See CLI install and management",
+    "learnHowToInstall": "Learn how to install, sync, and manage this skill through the Killer-Skills CLI.",
+    "checkIdeSupport": "Check IDE integration support",
+    "confirmHowThisSkill": "Confirm how this skill fits Claude Code, Cursor, Windsurf, and other supported IDEs.",
+    "tryOutputLangEN": "English",
+    "tryOutputLangZH": "Simplified Chinese",
+    "installTemplateA": "Install {{name}}, an AI agent skill for {{useCase}}. Works with Claude Code, Cursor, and Windsurf with one-command setup.",
+    "installTemplateB": "{{name}} helps with {{intentUseCase}}. Explore features, use cases, and one-command setup for Claude Code, Cursor, and Windsurf.",
+    "seoTitleA": "{{name}} {{titleLabel}}",
+    "seoTitleB": "{{name}}: {{titleLabel}} for Claude Code",
+    "faqWhatIs": "What is {{name}}?",
+    "faqWhatIsAnswer": "{{name}} is an AI agent skill available on Killer-Skills.",
+    "faqHowInstall": "How do I install {{name}}?",
+    "faqHowInstallAnswer": "Run the command: {{installCommand}}. It works with Cursor, Windsurf, VS Code, Claude Code, and 19+ other IDEs.",
+    "faqUseCases": "What are the use cases for {{name}}?",
+    "faqUseCasesAnswer": "Key use cases include: {{useCases}}.",
+    "faqIDEs": "Which IDEs are compatible with {{name}}?",
+    "faqIDEsAnswer": "This skill is compatible with {{supportedPlatforms}}. Use the Killer-Skills CLI for universal one-command installation.",
+    "faqLimitations": "Are there any limitations for {{name}}?",
+    "howToName1": "Open your terminal",
+    "howToText1": "Open the terminal or command line in your project directory.",
+    "howToName2": "Run the install command",
+    "howToText2": "Run: {{installCommand}}. The CLI will automatically detect your IDE or AI agent and configure the skill.",
+    "howToName3": "Start using the skill",
+    "howToText3": "The skill is now active. Your AI agent can use {{name}} immediately in the current project.",
+    "howToDescription": "Install the {{name}} skill for your AI coding agent in seconds using the Killer-Skills CLI."
+  },
+  "Docs": {
+    "gettingStarted": "Empezando",
+    "tableOfContents": "En esta página",
+    "editPage": "Editar esta página",
+    "lastUpdated": "Última actualización",
+    "navLabel": "Documentation navigation",
+    "toggleSidebar": "Toggle documentation sidebar",
+    "closeSidebar": "Close sidebar",
+    "guide": "Guide",
+    "returnToIntro": "Return to Introduction",
+    "indexTitle": "Documentación de AI Agent Skills: Instalación, configuración y plantillas",
+    "titleSuffix": "AI Agent Skills Docs",
+    "indexDescription": "Lee la documentación de Killer-Skills para instalación, configuración, comandos CLI, compatibilidad con IDEs y plantillas de flujo de trabajo.",
+    "cliDesc": "learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.",
+    "installDesc": "follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.",
+    "workflowDesc": "learn reusable AI agent skill patterns for workflow automation, process automation, and templates.",
+    "apiDesc": "understand MCP, API integration, and scalable AI agent workflow implementation.",
+    "securityDesc": "cover skill security, risk controls, and production-ready deployment practices.",
+    "defaultDesc": "Killer-Skills documentation for setup, configuration, and practical automation usage.",
+    "welcomeText": "Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.",
+    "startFirstSkill": "Start with Your First Skill",
+    "addFirstSkill": "Add your first AI agent skill to your development environment with one command.",
+    "keyConcepts": "Key Concepts",
+    "skills": "Skills",
+    "skillsDesc": "Reusable instruction units for AI agents",
+    "workflows": "Workflows",
+    "workflowsDesc": "Repeatable multi-step automation patterns",
+    "entry": {
+      "install": {
+        "title": "Install AI Agent Skills",
+        "desc": "Start from zero with install, initialization, and first-run steps."
+      },
+      "ide": {
+        "title": "Set Up Cursor / Claude Code",
+        "desc": "See how each IDE gets its native skill format automatically."
+      },
+      "cli": {
+        "title": "CLI Commands & Sync",
+        "desc": "Review commands, sync behavior, and configuration options."
+      },
+      "templates": {
+        "title": "Workflow Template Entry Points",
+        "desc": "Move from docs into automation and template workflows."
+      }
+    },
+    "faq1Q": "How do I install AI agent skills?",
+    "faq1A": "Start with the installation docs and run npx killer-skills add owner/repo to add a skill. The CLI auto-detects your IDE and writes the correct format.",
+    "faq2Q": "What setup information is covered in the docs?",
+    "faq2A": "The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.",
+    "faq3Q": "Where can I find workflow templates and automation ideas?",
+    "faq3A": "Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios."
+  },
+  "DocsSidebar": {
+    "platformOverview": "Resumen de Skills",
+    "cliTooling": "Usar la CLI",
+    "gettingStarted": "Empezando",
+    "introduction": "Introducción",
+    "quickStart": "Inicio Rápido",
+    "installation": "Instalación",
+    "architecture": "Arquitectura",
+    "cliReference": "Referencia CLI",
+    "overview": "Resumen",
+    "commands": "Comandos",
+    "configuration": "Configuración",
+    "coreConcepts": "Conceptos Básicos",
+    "skills": "Habilidades (Skills)",
+    "tools": "Herramientas (Tools)",
+    "workflows": "Flujos de Trabajo",
+    "guides": "Guías",
+    "creatingSkills": "Crear Habilidades",
+    "integrations": "Integraciones",
+    "security": "Seguridad",
+    "apiReference": "Referencia API",
+    "restApi": "API REST",
+    "authentication": "Autenticación",
+    "community": "Comunidad",
+    "contributing": "Contribuir",
+    "codeOfConduct": "Código de Conducta"
+  },
+  "Footer": {
+    "desc": "Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.",
+    "product": "Producto",
+    "resources": "Recursos",
+    "stayUpdated": "Mantente Actualizado",
+    "subscribeDesc": "Recibe las últimas habilidades y actualizaciones en tu bandeja de entrada.",
+    "emailPlaceholder": "Ingrese su correo electrónico",
+    "browse": "Explorar habilidades",
+    "docs": "Documentación",
+    "cli": "Herramienta CLI",
+    "integrations": "Integraciones",
+    "community": "Comunidad",
+    "showcase": "Exposición",
+    "blog": "Blog",
+    "help": "Centro de ayuda",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de servicio",
+    "cookie": "Política de cookies",
+    "rights": "Todos los derechos reservados.",
+    "categories": "Categorías"
+  },
+  "Hero": {
+    "badge": "80,000+ Habilidades Disponibles",
+    "title": "Descubre Habilidades de Agentes de AI",
+    "titleHighlight": "AI Agent",
+    "subtitle": "Explora posibilidades infinitas, potencia a tu asistente de AI",
+    "searchPlaceholder": "Buscar habilidades... ej., PDF, Análisis de Datos",
+    "searchButton": "Buscar",
+    "hotTags": "Populares:",
+    "suggestions": [
+      "PDF",
+      "Generador de Imágenes",
+      "Análisis de Datos",
+      "Navegador",
+      "Revisión de Código",
+      "Documentos"
+    ]
   },
   "Home": {
     "heroTitle": "Equipa a tus agentes",
@@ -175,101 +733,27 @@
     "faq5Q": "¿Por qué empezar desde el directorio de habilidades?",
     "faq5A": "La página de detalle reúne el comando de instalación, los IDE compatibles, el repositorio fuente y las habilidades relacionadas para que puedas decidir rápidamente si es adecuada para tu tarea."
   },
-  "Sidebar": {
-    "discover": "Descubrir",
-    "views": {
-      "official": "Oficial",
-      "featured": "Destacados",
-      "latest": "Recientes"
+  "Integrations": {
+    "worksWhereYouWork": "Funciona donde tú trabajas",
+    "viewGuide": "Ver Guía de Configuración",
+    "missingTool": "¿No ves tu IDE?",
+    "learnProtocol": "Ver cómo se integran los skills",
+    "cards": {
+      "cursor": {
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Cursor."
+      },
+      "windsurf": {
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Windsurf."
+      },
+      "claude": {
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Claude Code."
+      },
+      "goose": {
+        "desc": "Usa skills reutilizables de agentes de IA directamente en Goose."
+      }
     },
-    "categories": {
-      "title": "Categorías",
-      "all": "Todas",
-      "browser": "Navegador",
-      "finance": "Finanzas",
-      "productivity": "Productividad",
-      "developer": "Desarrollador",
-      "data": "Datos",
-      "ai": "Inteligencia Artificial",
-      "design": "Diseño",
-      "documentation": "Documentation",
-      "devops": "DevOps & Cloud",
-      "security": "Security",
-      "communication": "Communication"
-    },
-    "frameworks": "Frameworks"
-  },
-  "Stats": {
-    "totalSkills": "Habilidades totales",
-    "activeUsers": "Usuarios Activos",
-    "supportedIDEs": "IDEs Soportados",
-    "dailyInstalls": "Instalaciones Diarias",
-    "ecosystemGrowth": "Crecimiento del Ecosistema",
-    "totalDownloads": "Descargas Totales",
-    "activeCreators": "Creadores Activos",
-    "skills": "Habilidades"
-  },
-  "Common": {
-    "home": "Inicio",
-    "skillsMarket": "Directorio de habilidades",
-    "language": "Idioma",
-    "theme": "Tema",
-    "chinese": "Chino",
-    "english": "Inglés",
-    "searchPlaceholder": "Buscar capacidades (p. ej., 'Web Scraping')",
-    "search": "Buscar",
-    "loading": "Loading...",
-    "error": "Algo salió mal",
-    "back": "Atrás",
-    "prev": "Anterior",
-    "next": "Siguiente",
-    "pageInfo": "Page {current} of {total} ({count} skills)",
-    "official": "Oficial",
-    "verified": "Verificado",
-    "explore": "Explore",
-    "viewAll": "Ver todo",
-    "collections": "Colecciones",
-    "go": "Ir",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "featured": "Destacado",
-    "noDescription": "Sin descripción",
-    "skipToContent": "Ir al contenido",
-    "documentation": "Documentación",
-    "darkMode": "Modo oscuro",
-    "lightMode": "Modo claro",
-    "officialPartner": "Socio oficial",
-    "communityVendor": "Proveedor de la comunidad",
-    "skillsCount": "Skills",
-    "page": "Página",
-    "goToPage": "Ir a la página",
-    "pageJumpError": "Ingrese un número de página válido entre 1 y {max}"
-  },
-  "OfficialSkills": {
-    "title": "Habilidades Oficiales",
-    "verified": "Verificado",
-    "subtitle": "Habilidades de alta calidad mantenidas por el equipo central y socios de confianza."
-  },
-  "Footer": {
-    "desc": "Directorio de código abierto de skills de agentes de IA y flujos de trabajo para IDE. Creado para el trabajo real de desarrollo.",
-    "product": "Producto",
-    "resources": "Recursos",
-    "stayUpdated": "Mantente Actualizado",
-    "subscribeDesc": "Recibe las últimas habilidades y actualizaciones en tu bandeja de entrada.",
-    "emailPlaceholder": "Ingrese su correo electrónico",
-    "browse": "Explorar habilidades",
-    "docs": "Documentación",
-    "cli": "Herramienta CLI",
-    "integrations": "Integraciones",
-    "community": "Comunidad",
-    "showcase": "Exposición",
-    "blog": "Blog",
-    "help": "Centro de ayuda",
-    "privacy": "Política de privacidad",
-    "terms": "Términos de servicio",
-    "cookie": "Política de cookies",
-    "rights": "Todos los derechos reservados.",
-    "categories": "Categorías"
+    "heroDesc": "Usa Killer-Skills en las principales herramientas de programación con IA e IDEs con los mismos skills reutilizables.",
+    "missingToolDesc": "Si tu IDE puede ejecutar instrucciones de skills, Killer-Skills normalmente también puede funcionar allí."
   },
   "Marketplace": {
     "title": "Todas las habilidades",
@@ -295,55 +779,6 @@
     "viewSkills": "Ver Habilidades",
     "popular": "Popular"
   },
-  "Categories": {
-    "development": "Desarrollo",
-    "documentation": "Documentación",
-    "testing": "Pruebas",
-    "data": "Datos y Análisis",
-    "ai": "AI & ML",
-    "devops": "DevOps",
-    "design": "Diseño",
-    "productivity": "Productividad",
-    "code-review": "Revisión de Código",
-    "git": "Git",
-    "cli": "CLI",
-    "library": "Biblioteca",
-    "api": "API",
-    "database": "Base de Datos",
-    "browser": "Navegador",
-    "search": "Búsqueda",
-    "web-scraping": "Web Scraping",
-    "automation": "Automatización",
-    "social": "Redes Sociales",
-    "community": "Comunidad",
-    "browseByCategory": "Explorar por categoría",
-    "skillCategories": "Categorías de Habilidades",
-    "relatedSkills": "Habilidades relacionadas",
-    "viewAll": "Ver Todo",
-    "noSkills": "No se encontraron habilidades",
-    "heroDesc": "Explora diferentes tipos de habilidades de AI y encuentra las herramientas perfectas para ti",
-    "seoDescriptions": {
-      "development": "Descubre skills de flujo de trabajo para desarrolladores en Claude Code, Cursor y otros agentes de IA. Automatiza programación, refactorización, depuración y gestión de proyectos.",
-      "documentation": "Explora skills de flujo documental para agentes de IA. Permite que Claude lea, escriba y analice PDF, Word y Markdown con instrucciones reutilizables.",
-      "testing": "Encuentra skills de testing y QA que ayudan a asistentes de IA a escribir, ejecutar y depurar pruebas unitarias, de integración y E2E.",
-      "data": "Descubre skills de datos y analítica para consultas SQL, paneles, visualización y flujos de trabajo de bases de datos.",
-      "ai": "Explora skills de flujos de IA y ML que conectan agentes con Hugging Face, OpenAI y pipelines de modelos especializados.",
-      "devops": "Los mejores skills de flujo DevOps y cloud para AWS, Docker, Kubernetes, CI/CD y automatización de infraestructura.",
-      "design": "Skills creativos y de diseño para asistentes de IA, incluyendo generación de imágenes, revisión UI/UX y flujos de sistemas de diseño.",
-      "productivity": "Los mejores skills de productividad para agentes de IA. Conecta Claude con Notion, Slack, Jira y calendarios para automatizar el trabajo diario.",
-      "code-review": "Skills de revisión de código automatizada que ayudan a agentes de IA a revisar PR, detectar problemas de seguridad y reforzar calidad de código.",
-      "git": "Skills de flujo Git y GitHub para navegación de repositorios, gestión de ramas, commits y automatización de pull requests.",
-      "cli": "Skills de flujo en línea de comandos que ayudan a agentes de IA a ejecutar tareas de terminal de forma segura y eficaz.",
-      "library": "Skills de gestión de librerías y paquetes para agentes de IA. Busca, instala y actualiza paquetes npm, pip, cargo y más.",
-      "api": "Skills de integración API que conectan tu asistente de IA con servicios REST y GraphQL mediante flujos reutilizables.",
-      "database": "Skills de gestión de bases de datos para PostgreSQL, MySQL, MongoDB, Redis y flujos de consulta seguros.",
-      "browser": "Skills de automatización de navegador e interacción web que ayudan a agentes de IA a navegar sitios, hacer clic y extraer datos.",
-      "search": "Skills de búsqueda web para agentes de IA con recuperación en tiempo real en Google, Bing, Tavily y más.",
-      "web-scraping": "Skills avanzados de web scraping que extraen datos estructurados de sitios web mediante flujos de agente repetibles.",
-      "automation": "Skills de automatización general y RPA que conectan agentes de IA con Zapier, Make y flujos de sistemas locales.",
-      "social": "Skills de flujo para redes sociales orientados a publicación, monitoreo de tendencias y gestión de X, LinkedIn y otros canales."
-    }
-  },
   "Metadata": {
     "title": "Killer-Skills - Directorio de habilidades para agentes de AI",
     "template": "%s | Killer-Skills",
@@ -353,6 +788,22 @@
       "title": "Directorio de habilidades - Descubre Skills para AI Agents",
       "description": "Explora e instala miles de habilidades para AI Agents en el directorio de Killer-Skills. Compatible con Claude Code, Windsurf, Cursor y más."
     }
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "marketplace": "Directorio",
+    "categories": "Categorías",
+    "docs": "Documentación",
+    "blog": "Blog",
+    "github": "GitHub",
+    "getStarted": "Comenzar",
+    "history": "Historial",
+    "favorites": "Favoritos"
+  },
+  "OfficialSkills": {
+    "title": "Habilidades Oficiales",
+    "verified": "Verificado",
+    "subtitle": "Habilidades de alta calidad mantenidas por el equipo central y socios de confianza."
   },
   "Personal": {
     "myFavorites": "Mis Favoritos",
@@ -375,217 +826,130 @@
       "agoD": "Hace {count} d"
     }
   },
-  "Community": {
-    "title": "Comunidad",
-    "join": "Únete a la Comunidad",
-    "contribute": "Contribuir Código",
-    "readGuide": "Leer la Guía de Contribución ->",
-    "shareFeedback": "Compartir Comentarios",
-    "submitIssue": "Enviar un Issue ->",
-    "cards": {
-      "source": {
-        "title": "Código Abierto",
-        "desc": "Código fuente, issues y PRs."
+  "Query": {
+    "Intents": {
+      "mcp-servers": {
+        "label": "Habilidades de IA para Integraciones",
+        "description": "Discover AI agent skills for integrations, developer workflows, and MCP-compatible setup paths across Claude Code, Cursor, and other IDEs."
       },
-      "chat": {
-        "title": "Discord",
-        "desc": "Chat en tiempo real y soporte."
+      "workflow-automation": {
+        "label": "Workflow Automation Skills",
+        "description": "Find workflow automation skills for repeatable agent tasks, multi-step execution, and practical AI operations."
       },
-      "news": {
-        "title": "Twitter",
-        "desc": "Últimas noticias y actualizaciones."
+      "process-automation": {
+        "label": "Process Automation Skills",
+        "description": "Discover process automation skills for SOPs, handoffs, repetitive operations, and AI-assisted business workflows."
+      },
+      "document-automation": {
+        "label": "Document Automation Skills",
+        "description": "Explore document automation skills for reports, PDFs, spreadsheets, templates, and repeatable content workflows."
+      },
+      "browser-automation": {
+        "label": "Browser Automation Skills",
+        "description": "Browse browser automation skills for web actions, scraping, research, and repeatable site workflows."
+      },
+      "data-extraction": {
+        "label": "Data Workflow Skills",
+        "description": "Find data workflow skills for extraction, ETL, reporting, and structured AI-assisted data operations."
+      },
+      "skill-installation": {
+        "label": "Skill Installation Guides",
+        "description": "Find installation guides, setup docs, and CLI steps for adding AI agent skills to Cursor, Claude Code, VS Code, and more."
+      },
+      "workflow-templates": {
+        "label": "Workflow Templates",
+        "description": "Browse workflow templates, automation starters, and reusable skill playbooks for repeatable AI tasks."
+      },
+      "ai-agent-skills": {
+        "label": "AI Agent Skills",
+        "description": "Browse high-quality AI agent skills for coding, automation, data, and productivity across major IDEs."
+      },
+      "claude-code-skills": {
+        "label": "Claude Code Skills",
+        "description": "Find Claude Code compatible skills to expand coding, debugging, and automation capabilities."
+      },
+      "cursor-skills": {
+        "label": "Cursor Skills",
+        "description": "Explore Cursor-ready skills for rapid coding workflows and AI-assisted development."
+      },
+      "windsurf-skills": {
+        "label": "Windsurf Skills",
+        "description": "Discover Windsurf-compatible AI agent skills for coding, docs, and workflow automation."
       }
-    },
-    "heroDesc": "Estamos construyendo el ecosistema de código abierto para la era de la IA. Ya seas desarrollador, creador o usuario, tu lugar está aquí.",
-    "contributeDesc": "Killer-Skills es completamente de código abierto. Puedes enviar PRs para corregir errores, agregar funcionalidades o contribuir nuevas habilidades.",
-    "feedbackDesc": "¿Tienes una idea? ¿Encontraste un error? Cuéntanos en Github Issues o Discord."
-  },
-  "Integrations": {
-    "worksWhereYouWork": "Funciona donde tú trabajas",
-    "viewGuide": "Ver Guía de Configuración",
-    "missingTool": "¿No ves tu IDE?",
-    "learnProtocol": "Ver cómo se integran los skills",
-    "cards": {
-      "cursor": {
-        "desc": "Usa skills reutilizables de agentes de IA directamente en Cursor."
-      },
-      "windsurf": {
-        "desc": "Usa skills reutilizables de agentes de IA directamente en Windsurf."
-      },
-      "claude": {
-        "desc": "Usa skills reutilizables de agentes de IA directamente en Claude Code."
-      },
-      "goose": {
-        "desc": "Usa skills reutilizables de agentes de IA directamente en Goose."
-      }
-    },
-    "heroDesc": "Usa Killer-Skills en las principales herramientas de programación con IA e IDEs con los mismos skills reutilizables.",
-    "missingToolDesc": "Si tu IDE puede ejecutar instrucciones de skills, Killer-Skills normalmente también puede funcionar allí."
-  },
-  "CLI": {
-    "heroTitle": "Killer-Skills CLI",
-    "heroSubtitle": "Instala y gestiona skills de agentes de IA",
-    "heroDesc": "Descubre, instala y sincroniza más de 2,500 skills de agentes de IA en Cursor, Windsurf, Claude Code y otras herramientas.",
-    "optionalNote": "Nota: La herramienta CLI es opcional. Puede usar las habilidades directamente a través de npx sin instalar nada.",
-    "install": "Instalar Ahora",
-    "viewDocs": "Ver Documentación",
-    "latestVersion": "Última Versión:",
-    "copyInstall": "npx killer-skills add <owner/repo>",
-    "features": {
-      "autoInvoke": {
-        "title": "Registro Abierto de Skills",
-        "desc": "Explora skills comunitarios y oficiales de agentes de IA para procesamiento de PDF, automatización del navegador, documentación y más."
-      },
-      "syncAll": {
-        "title": "Sincronización Multi-IDE",
-        "desc": "Sincroniza las habilidades instaladas en tus IDE compatibles y mantén alineados los archivos de habilidades locales."
-      },
-      "mcp": {
-        "title": "Entrega de skills nativa del IDE",
-        "desc": "Instala skills en el formato de archivo nativo correcto para Claude Code, Cursor, VS Code, Windsurf y más entornos."
-      },
-      "secure": {
-        "title": "Seguridad Empresarial",
-        "desc": "La autenticación GitHub Device Flow y la distribución transparente de código abierto ayudan a los equipos a instalar skills con confianza."
-      }
-    },
-    "terminal": {
-      "title": "Experiencia del Desarrollador Primero",
-      "login": "Inicio de Sesión Seguro",
-      "loginDesc": "Auth de Flujo de Dispositivo GitHub",
-      "sync": "Sincronización de un clic",
-      "syncDesc": "Sincroniza en 19+ IDEs",
-      "do": "Lenguaje Natural",
-      "doDesc": "Ejecución de Tareas de IA"
-    },
-    "comparison": {
-      "title": "¿Por qué Killer-Skills CLI?",
-      "feature": "Característica",
-      "ks": "Killer-Skills CLI",
-      "others": "Prompting Manual",
-      "row1": "Instalación en 1 clic en 19+ IDEs",
-      "row2": "Invocación Automática (Sin desperdicio de ventana de contexto)",
-      "row3": "Descubrimiento y sincronización de skills en tiempo de ejecución",
-      "row4": "Registro de Habilidades Seguras y Verificadas"
     }
+  },
+  "Seo": {
+    "Keywords": {
+      "core": "Habilidades de agentes de IA",
+      "mcp": "Habilidades de agentes de IA con integraciones MCP, integraciones de flujo de trabajo MCP, integraciones Claude Code MCP",
+      "workflowAutomation": "Habilidades de automatización de flujos, automatización de flujos de desarrollo, habilidades de workflow de agentes",
+      "processAutomation": "Habilidades de automatización de procesos, automatización de SOP, habilidades de flujo operativo",
+      "documentAutomation": "Habilidades de automatización de documentos, automatización de informes, automatización de PDF",
+      "browserAutomation": "Habilidades de automatización de navegador, automatización web, habilidades de web scraping",
+      "dataWorkflow": "Habilidades de flujo de datos, extracción de datos, automatización ETL, habilidades de flujo analítico",
+      "installSetup": "Instalar habilidades de agentes de IA, instalación de Killer-Skills, configuración de Claude Code",
+      "compatibility": "Compatibilidad IDE para habilidades de IA, IDEs compatibles, compatibilidad Claude Code Cursor Windsurf",
+      "templates": "Plantillas de habilidades, plantillas de flujo de trabajo, plantillas de automatización",
+      "ideCompat": "Habilidades Claude Code, habilidades Cursor, habilidades Windsurf, habilidades VS Code AI",
+      "cli": "CLI de habilidades de agentes de IA, killer-skills add, CLI de instalación de habilidades",
+      "docs": "Documentación de habilidades de agentes de IA, guía de configuración, documentación de instalación de Claude Code",
+      "developerExperience": "Habilidades de flujo de trabajo para desarrolladores, automatización de código, habilidades de productividad",
+      "enterpriseWorkflows": "Habilidades de flujo de trabajo en equipo, automatización de operaciones, habilidades de flujo empresarial",
+      "creativeWorkflows": "Habilidades de flujo creativo, automatización de diseño, herramientas de creación de contenido"
+    }
+  },
+  "Sidebar": {
+    "discover": "Descubrir",
+    "views": {
+      "official": "Oficial",
+      "featured": "Destacados",
+      "latest": "Recientes"
+    },
+    "categories": {
+      "title": "Categorías",
+      "all": "Todas",
+      "browser": "Navegador",
+      "finance": "Finanzas",
+      "productivity": "Productividad",
+      "developer": "Desarrollador",
+      "data": "Datos",
+      "ai": "Inteligencia Artificial",
+      "design": "Diseño",
+      "documentation": "Documentation",
+      "devops": "DevOps & Cloud",
+      "security": "Security",
+      "communication": "Communication"
+    },
+    "frameworks": "Frameworks"
+  },
+  "Skills": {
+    "featured": "Habilidades Destacadas",
+    "searchResults": "resultados de búsqueda",
+    "trending": "Tendencias",
+    "recent": "Recientes",
+    "noResults": "No se encontraron habilidades",
+    "noResultsHint": "Intenta con diferentes palabras clave",
+    "stars": "Estrellas",
+    "forks": "Bifurcaciones",
+    "updated": "Actualizado",
+    "version": "Versión",
+    "downloads": "Descargas",
+    "creators": "Creadores Activos",
+    "install": "Código de Instalación",
+    "copy": "Copiar",
+    "copied": "¡Copiado!",
+    "viewOnGithub": "Ver en GitHub",
+    "original": "Original",
+    "translation": "Traducción",
+    "translating": "Traduciendo...",
+    "showOriginal": "Mostrar Original",
+    "showTranslation": "Mostrar Traducción"
   },
   "SkillsManagerWidget": {
     "title": "Gestor de Habilidades",
     "subtitle": "Puerta al Ecosistema",
     "description": "Desbloquea posibilidades infinitas. Descubre, instala y potencia tu agente de IA con más de 2,500 capacidades al instante.",
     "cta": "Entrar al Gestor"
-  },
-  "CLIInstall": {
-    "product": "Killer CLI",
-    "headline": "Construye tu librería de habilidades IA",
-    "subheadline": "Potencia a tus agentes para escribir código profesional al instante",
-    "cta": "Inicio instantáneo con una línea",
-    "install": "Instalar",
-    "features": {
-      "multiPlatform": "Multiplataforma",
-      "secureSandbox": "Sandbox seguro",
-      "hotReload": "Recarga en caliente"
-    },
-    "copy": "COPIAR",
-    "copied": "LISTO",
-    "viewOnNpm": "Ver en NPM"
-  },
-  "Docs": {
-    "gettingStarted": "Empezando",
-    "tableOfContents": "En esta página",
-    "editPage": "Editar esta página",
-    "lastUpdated": "Última actualización"
-  },
-  "DocsSidebar": {
-    "platformOverview": "Resumen de Skills",
-    "cliTooling": "Usar la CLI",
-    "gettingStarted": "Empezando",
-    "introduction": "Introducción",
-    "quickStart": "Inicio Rápido",
-    "installation": "Instalación",
-    "architecture": "Arquitectura",
-    "cliReference": "Referencia CLI",
-    "overview": "Resumen",
-    "commands": "Comandos",
-    "configuration": "Configuración",
-    "coreConcepts": "Conceptos Básicos",
-    "skills": "Habilidades (Skills)",
-    "tools": "Herramientas (Tools)",
-    "workflows": "Flujos de Trabajo",
-    "guides": "Guías",
-    "creatingSkills": "Crear Habilidades",
-    "integrations": "Integraciones",
-    "security": "Seguridad",
-    "apiReference": "Referencia API",
-    "restApi": "API REST",
-    "authentication": "Autenticación",
-    "community": "Comunidad",
-    "contributing": "Contribuir",
-    "codeOfConduct": "Código de Conducta"
-  },
-  "Aria": {
-    "viewSkill": "View {name}",
-    "switchLanguage": "Switch Language",
-    "toggleTheme": "Toggle Theme",
-    "toggleMenu": "Toggle Menu",
-    "addToFavorites": "Add to favorites",
-    "removeFromFavorites": "Remove from favorites",
-    "shareSkill": "Share this skill",
-    "backToSkills": "Back to skills",
-    "copyCommand": "Copy command"
-  },
-  "Blog": {
-    "title": "Ideas y Novedades",
-    "subtitle": "Análisis profundos sobre skills de agentes de IA, flujos de trabajo para desarrolladores y el futuro de la programación.",
-    "browseByCategory": "Explorar por Categoría",
-    "readTime": "{n} min de lectura",
-    "readArticle": "Leer Artículo",
-    "comingSoon": "Próximamente...",
-    "featured": "Destacado",
-    "categories": {
-      "creative-tools": "Herramientas Creativas",
-      "creative-tools-desc": "Arte generativo, estilismo y automatización creativa.",
-      "document-automation": "Automatización de Documentos",
-      "document-automation-desc": "Transformando PDF, Docs y Sheets en inteligencia.",
-      "enterprise-solutions": "Soluciones Empresariales",
-      "enterprise-solutions-desc": "Herramientas de grado profesional para flujos de trabajo empresariales.",
-      "developer-experience": "Experiencia del Desarrollador",
-      "developer-experience-desc": "Los bloques de construcción para la ingeniería impulsada por IA.",
-      "announcements": "Anuncios",
-      "announcements-desc": "Últimas noticias y actualizaciones de skills."
-    },
-    "latestPosts": "Últimas publicaciones",
-    "log": "Registro"
-  },
-  "Collections": {
-    "editorPicks": "Selección del Editor",
-    "subtitle": "Colecciones curadas de skills de agentes de IA de alta calidad y bloques de construcción de workflows para distintos sectores y casos de uso.",
-    "items": "Elementos",
-    "view": "Ver",
-    "featured": "Destacado",
-    "backToCollections": "Colecciones",
-    "collection": "Colección",
-    "noSkills": "No se encontraron habilidades activas para esta colección actualmente.",
-    "noCollections": "Aún no hay colecciones disponibles.",
-    "installAll": "Instalar todo vía CLI",
-    "installHint": "Instala todas las habilidades de esta colección con un comando",
-    "copy": "Copiar",
-    "copied": "Copiado",
-    "collectionsTitle": "Colecciones Destacadas",
-    "collectionsSubtitle": "Descubre colecciones curadas de habilidades para cada necesidad",
-    "viewAllCollections": "Ver todas las colecciones",
-    "relatedCollections": "Colecciones relacionadas",
-    "seoTitle": "Colecciones curadas de automatización: habilidades AI Agent",
-    "seoDescription": "Explora colecciones curadas de habilidades de agentes IA para automatización de flujos, documentos, navegador y datos con instalación unificada.",
-    "seoKeyword1": "colecciones de habilidades AI Agent",
-    "seoKeyword2": "colecciones de habilidades de flujos de trabajo",
-    "heroTitle": "Paquetes de habilidades de flujo de trabajo",
-    "faq1Q": "¿Para qué flujos de trabajo están diseñadas estas colecciones?",
-    "faq1A": "Estas colecciones están diseñadas para automatización de flujos, procesos, documentos, datos y pilas de habilidades reutilizables.",
-    "faq2Q": "¿Cómo se diferencia una colección del directorio principal?",
-    "faq2A": "El directorio es mejor para búsqueda directa, mientras las colecciones ayudan a encontrar habilidades complementarias agrupadas por flujo completo.",
-    "faq3Q": "¿Puedo instalar estas colecciones para Claude Code o Cursor?",
-    "faq3A": "Sí. Las habilidades de estas colecciones generalmente funcionan en Claude Code, Cursor, Windsurf y otros entornos mediante instalación unificada."
   },
   "Solutions": {
     "solutions": "Soluciones",
@@ -595,6 +959,102 @@
     "faq2Q": "¿Se pueden instalar estas habilidades directamente en Cursor o Claude Code?",
     "faq2A": "Sí. Las habilidades aquí listadas soportan el flujo de instalación unificado de Killer-Skills para Cursor, Claude Code, Windsurf y otros IDE.",
     "faq3Q": "¿Qué hacer si los resultados son demasiado amplios?",
-    "faq3A": "Abre las páginas de detalle de habilidades para revisar palabras clave y casos de uso, luego refina con términos específicos como nombres de plataforma, tipos de archivo o acciones comerciales."
+    "faq3A": "Abre las páginas de detalle de habilidades para revisar palabras clave y casos de uso, luego refina con términos específicos como nombres de plataforma, tipos de archivo o acciones comerciales.",
+    "pageTitle": "Soluciones de automatización instalables: AI Agent Skills",
+    "pageDescription": "Explora AI agent skills instalables por casos de uso: automatización de flujos, procesos, documentos, navegación y datos.",
+    "keyword1": "high-intent skill use cases",
+    "badge": "Solutions",
+    "openSolution": "Open Solution",
+    "browseSkills": "Browse Full Skills Directory",
+    "readDocs": "Read Installation Docs",
+    "installCli": "Install via CLI",
+    "tryDemo": "Try Skill Online Demo",
+    "faq1Q": "Why use solution pages instead of ad-hoc keyword searches?",
+    "faq1A": "Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing."
+  },
+  "Stats": {
+    "totalSkills": "Habilidades totales",
+    "activeUsers": "Usuarios Activos",
+    "supportedIDEs": "IDEs Soportados",
+    "dailyInstalls": "Instalaciones Diarias",
+    "ecosystemGrowth": "Crecimiento del Ecosistema",
+    "totalDownloads": "Descargas Totales",
+    "activeCreators": "Creadores Activos",
+    "skills": "Habilidades"
+  },
+  "IntegrationsPage": {
+    "pageTitle": "Integraciones IDE de AI Agent Skills: Cursor, Claude Code, VS Code y más",
+    "pageDescription": "Killer-Skills se integra con más de 19 IDEs y asistentes de IA. Un comando de instalación, formato nativo para cada entorno.",
+    "heroTitle": "IDE Integrations",
+    "heroIntro": "Killer-Skills works with every major AI coding assistant. Install once, use everywhere.",
+    "intentLinks": {
+      "install": {
+        "title": "Install AI Agent Skills",
+        "desc": "Start from zero with install, initialization, and first-run steps."
+      },
+      "ide": {
+        "title": "Set Up Your IDE",
+        "desc": "See how each IDE gets its native skill format automatically."
+      },
+      "supported": {
+        "title": "Supported Environments",
+        "desc": "Full list of 19+ supported IDEs and AI assistants."
+      },
+      "templates": {
+        "title": "Workflow Templates",
+        "desc": "Pre-built automation patterns for common development tasks."
+      }
+    },
+    "faq1Q": "Which IDEs does Killer-Skills support?",
+    "faq1A": "Killer-Skills supports 19+ environments including Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, Goose, and more.",
+    "faq2Q": "Do I need to configure each IDE separately?",
+    "faq2A": "No. The CLI auto-detects your IDE and writes the correct native skill format. Zero manual configuration needed.",
+    "faq3Q": "Can the same skill work across different IDEs?",
+    "faq3A": "Yes. Killer-Skills uses a unified skill format that automatically converts to each IDE native configuration."
+  },
+  "Labs": {
+    "pageTitle": "Demo online de Skills",
+    "pageDescription": "Vista previa de la salida de skills directamente en el navegador: elige un skill, introduce tu solicitud, ejecuta online y decide si instalar vía CLI.",
+    "emptyInput": "Please enter your request first.",
+    "running": "Running...",
+    "runLabel": "Run Online Preview",
+    "modeAi": "Live Model Mode",
+    "modeTemplate": "Template Fallback Mode",
+    "errorPrefix": "Request failed: ",
+    "demoBadge": "Labs Demo",
+    "chooseSkill": "Choose Skill",
+    "waiting": "Waiting",
+    "runStatusHint": "Results will appear after you run the preview.",
+    "installCommandLabel": "Related Install Command",
+    "outputLabel": "Online Trial Output",
+    "outputHint": "Your preview output will appear here. This demo prefers NVIDIA, falls back to SiliconFlow and OpenRouter, then uses a template if all AI providers are unavailable."
+  },
+  "BlogIndex": {
+    "seoTitle": "Guías de AI Agent Skills, tutoriales de flujo de trabajo y blog de automatización",
+    "seoDescription": "Lee artículos prácticos sobre AI agent skills, flujos de trabajo en IDEs, prácticas de automatización y productividad para desarrolladores.",
+    "keyword1": "AI agent skills blog",
+    "keyword2": "developer workflow skills",
+    "keyword3": "IDE skill articles"
+  },
+  "BlogCategory": {
+    "guideSuffix": "AI Agent Skill Guides",
+    "implementGuide": "implementation guide",
+    "seoTitle": {
+      "document-automation": "Document Automation Guides for PDF, Excel & Templates",
+      "developer-experience": "Developer Workflow Guides for Cursor & Claude Code",
+      "enterprise-solutions": "Process Automation & Team Workflow Guides",
+      "creative-tools": "Creative Workflow & Design Automation Guides"
+    },
+    "seoDesc": {
+      "document-automation": "Explore document automation guides for PDF, Excel, DOCX, and reusable templates with practical AI agent skills and workflow patterns.",
+      "developer-experience": "Explore developer workflow guides for Cursor, Claude Code, and installable AI agent skills with practical setup steps.",
+      "enterprise-solutions": "Explore process automation and team workflow guides for enterprise use cases, repeatable operations, and deployable AI agent skills.",
+      "creative-tools": "Explore creative workflow and design automation guides with practical AI agent skills for content, assets, and visual production."
+    },
+    "faq1Q": "What does the {categoryName} category cover?",
+    "faq2Q": "Are these guides practical to implement?",
+    "faq2A": "Yes. These guides prioritize installation, setup, templates, workflows, and concrete skill usage instead of abstract overviews.",
+    "faq3Q": "Where should I go after reading these guides?",
+    "faq3A": "You can continue into skills search results, installation docs, the CLI page, or workflow collections based on your next-step intent."
   }
 }

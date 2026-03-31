@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { tryParseJSON, cleanAndTruncate } from './utils';
+import { tryParseJSON, cleanAndClamp, cleanAndTruncate } from './utils';
 
 describe('utils', () => {
     describe('tryParseJSON', () => {
@@ -41,6 +41,19 @@ describe('utils', () => {
             expect(result.empty).toBe('');
             expect(result.nullVal).toBe('');
             expect(result.undefinedVal).toBe('');
+        });
+    });
+
+    describe('cleanAndClamp', () => {
+        it('should clamp strings without appending ellipsis', () => {
+            const input = {
+                short: 'hello',
+                long: 'Feedback Observing: Operational Pattern Detection | AI Agent Skills'
+            };
+            const result = cleanAndClamp(input, 60);
+            expect(result.short).toBe('hello');
+            expect(result.long.includes('...')).toBe(false);
+            expect(result.long.length).toBeLessThanOrEqual(60);
         });
     });
 });

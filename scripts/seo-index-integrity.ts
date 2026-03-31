@@ -15,6 +15,7 @@ type SkillCacheEntry = {
   repo?: string;
   id?: string;
   name?: string;
+  repoPath?: string;
   description?: string | Record<string, string>;
   seo?: {
     definition?: string | Record<string, string>;
@@ -72,8 +73,9 @@ function writeDriftArtifacts(onlyInSitemap: string[], onlyInCache: string[]): vo
 
 function summarizeList(items: string[], limit = 12): string {
   if (items.length === 0) return 'none';
-  const preview = items.slice(0, limit).join(', ');
-  return items.length > limit ? `${preview}, ... (+${items.length - limit} more)` : preview;
+  const uniqueItems = Array.from(new Set(items));
+  const preview = uniqueItems.slice(0, limit).join(', ');
+  return uniqueItems.length > limit ? `${preview}, ... (+${uniqueItems.length - limit} more)` : preview;
 }
 
 function getSkillReadmeContent(skill: SkillCacheEntry): string {
@@ -81,8 +83,9 @@ function getSkillReadmeContent(skill: SkillCacheEntry): string {
 }
 
 function toSkillKey(skill: SkillCacheEntry): string {
-  if (skill.owner && skill.repo) return `${skill.owner}/${skill.repo}`;
   if (skill.id) return skill.id;
+  if (skill.owner && skill.repo && skill.repoPath) return `${skill.owner}/${skill.repo}#${skill.repoPath}`;
+  if (skill.owner && skill.repo) return `${skill.owner}/${skill.repo}`;
   return 'unknown-skill';
 }
 
@@ -190,16 +193,18 @@ function main() {
     });
 
     if (missingBodies.length > 0) {
-      const message = `skills missing body/bodyPreview: ${missingBodies.length} | sample: ${summarizeList(
-        missingBodies.map(toSkillKey),
-      )}`;
+      const missingBodyKeys = missingBodies.map(toSkillKey);
+      const message = `skills missing body/bodyPreview: ${missingBodies.length} | unique ids: ${
+        new Set(missingBodyKeys).size
+      } | sample: ${summarizeList(missingBodyKeys)}`;
       if (failOnMissingBody) errors.push(message);
       else warnings.push(message);
     }
     if (thinSkills.length > 0) {
+      const thinSkillKeys = thinSkills.map(toSkillKey);
       const message = `skills with indexable content under ${MIN_INDEXABLE_SKILL_README_BYTES} bytes: ${
         thinSkills.length
-      } | sample: ${summarizeList(thinSkills.map(toSkillKey))}`;
+      } | unique ids: ${new Set(thinSkillKeys).size} | sample: ${summarizeList(thinSkillKeys)}`;
       if (failOnThin) errors.push(message);
       else warnings.push(message);
     }

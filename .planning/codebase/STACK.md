@@ -1,77 +1,67 @@
 # Technology Stack
 
-**Analysis Date:** 2026-03-24
-
 ## Runtime & Framework
+- **Framework**: Astro 5.17 (SSR mode, `output: 'server'`)
+- **UI**: React 19 (islands architecture via `@astrojs/react`)
+- **Styling**: Tailwind CSS 4.1 (via `@tailwindcss/vite`)
+- **Language**: TypeScript 5.9
+- **Build**: Vite (bundled with Astro)
+- **Hosting**: Cloudflare Pages + Workers
 
-**Runtime:**
-- Node.js (npm lockfile v3 present — Node 18+ inferred from Astro 5.x requirements)
-- Cloudflare Workers runtime (production execution via `@astrojs/cloudflare` adapter)
+## Cloudflare Services
+| Service | Binding | Purpose |
+|---------|---------|---------|
+| KV `TRANSLATIONS` | d5ab5c6705774d779d9b1342eda5f9ac | 翻译缓存 |
+| KV `SKILLS_CACHE` | 6130f39a06e14319b0ee4becb0d09842 | Skills 数据缓存 |
+| D1 `DB` | killer-skills-db | 结构化数据持久化 |
+| Workers `WORKFLOWS_SERVICE` | killer-skills-workflows | 异步工作流 |
+| Vectorize `VECTORIZE` | — | 向量搜索 |
+| R2 (inferred) | — | 对象存储 |
 
-**Framework:**
-- Astro `5.6.1` — full-stack web framework, SSR mode, output `server`
-  - Config: `astro.config.mjs`
-  - Adapter: `@astrojs/cloudflare` `^12.4.0` — deploys to Cloudflare Workers/Pages
-
-## Languages
-
-**Primary:**
-- TypeScript `~5.7.2` — all source files under `src/`
-
-**Secondary:**
-- MDX — content authoring (`@astrojs/mdx ^4.2.3`)
-- CSS / Tailwind — styling
-
-## Build Tools
-
-**Build:**
-- Astro CLI (`astro build`) — production build
-- Wrangler `^4.2.0` — Cloudflare deployment and local dev tunneling
-  - Config: `wrangler.toml`
-
-**Dev Server:**
-- `astro dev` — local development
-- `astro preview` — local preview of production build
-
-**Type Checking:**
-- `tsc` (TypeScript compiler) — `tsconfig.json` extends `astro/tsconfigs/strict`
-
-**Package Manager:**
-- npm
-- Lockfile: `package-lock.json` present (lockfileVersion 3)
-
-## Key Dependencies (Production)
-
+## Key Dependencies
 | Package | Version | Purpose |
-|---|---|---|
-| `astro` | `5.6.1` | Core framework |
-| `@astrojs/cloudflare` | `^12.4.0` | Cloudflare Workers/Pages SSR adapter |
-| `@astrojs/mdx` | `^4.2.3` | MDX content support |
-| `@astrojs/sitemap` | `^3.2.1` | Sitemap generation |
-| `@astrojs/tailwind` | `^5.1.4` | Tailwind CSS integration |
-| `tailwindcss` | `^3.4.17` | Utility-first CSS framework |
-| `@cloudflare/workers-types` | `^4.20250317.0` | TypeScript types for CF Workers runtime |
-| `sharp` | `^0.33.5` | Image processing (build-time) |
+|---------|---------|---------|
+| `astro` | ^5.17.1 | Core framework |
+| `react` / `react-dom` | ^19.2.4 | UI components |
+| `tailwindcss` | ^4.1.18 | Styling |
+| `fuse.js` | ^7.1.0 | Client-side fuzzy search |
+| `better-sqlite3` | ^12.6.2 | Local D1 development |
+| `nanostores` | ^1.1.0 | State management |
+| `lucide-react` | ^0.563.0 | Icons |
+| `react-markdown` | ^10.1.0 | Markdown rendering |
+| `react-syntax-highlighter` | ^16.1.0 | Code highlighting |
+| `dotenv` | ^17.2.4 | Env management |
 
-## Dev Dependencies
+## Dev & Testing
+| Tool | Purpose |
+|------|---------|
+| Vitest + coverage-v8 | Unit/integration tests (222 test files) |
+| Playwright | E2E testing (4 specs) |
+| ESLint + Prettier | Linting + formatting |
+| fast-check | Property-based testing |
+| Husky + lint-staged | Git hooks |
+| PM2 | Process management |
 
-| Package | Version | Purpose |
-|---|---|---|
-| `wrangler` | `^4.2.0` | Cloudflare deployment CLI, local KV/D1 emulation |
-| `typescript` | `~5.7.2` | TypeScript compiler |
-| `@types/node` | `^22.13.10` | Node.js type definitions |
-| `vitest` | (check package.json — not detected in top-level deps) | — |
+## AI Providers (for SEO/Translation)
+| Provider | Model | Usage |
+|----------|-------|-------|
+| NVIDIA | Llama 3.3 70B Instruct | Primary AI (SEO, translation) |
+| SiliconFlow | Qwen 2.5 72B | Fallback |
+| OpenRouter | Gemini 2.5 Flash | Fallback |
+| Cloudflare Workers AI | Llama 3.3 70B FP8 | Fallback |
 
-> Note: No test framework was detected in `package.json` dependencies. However `src/lib/kv.test.ts` exists in git status, suggesting a test runner may be configured separately or is a newer addition.
+## Data Files
+| File | Size | Content |
+|------|------|---------|
+| `data/skills-cache.json` | 103 MB | 3477 skills with SEO, translations, agent analysis |
+| `data/embeddings-cache.json` | 40 MB | Vector embeddings for search |
+| `data/expanded-github-skills.json` | 662 KB | Raw harvested GitHub data |
+| `data/sitemap-skills.json` | 308 KB | Sitemap generation data |
+| `data/docs-cache.json` | 189 KB | Documentation cache |
 
-## Configuration Files
-
-- `astro.config.mjs` — Astro framework config (adapter, integrations, vite settings)
-- `wrangler.toml` — Cloudflare Workers/Pages deployment config (KV namespaces, D1, routes)
-- `tsconfig.json` — TypeScript config, extends `astro/tsconfigs/strict`
-- `tailwind.config.*` — Tailwind CSS config (if present alongside astro integration)
-- `package.json` — npm manifest
-
----
-
-*Stack analysis: 2026-03-24*
+## Monorepo Packages
+| Package | Path | Purpose |
+|---------|------|---------|
+| `cli` | `packages/cli/` | `killer-skills` CLI tool |
+| `killer-skills-manager` | `packages/killer-skills-manager/` | Skill management library |
+| `og-server` | `packages/og-server/` | Open Graph image generation |

@@ -10,7 +10,7 @@ import * as path from 'path';
 import 'dotenv/config';
 import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
-import { extractJSONCandidates, robustParseJSON, cleanAndTruncate } from './lib/utils';
+import { extractJSONCandidates, robustParseJSON, cleanAndClamp } from './lib/utils';
 import type { CacheData, SkillCache } from './lib/types';
 import { getNonTargetSkillReason } from '../src/lib/shared/validation';
 
@@ -181,8 +181,8 @@ async function run() {
             if (!merged.seoDescription.en) merged.seoDescription.en = Object.values(merged.seoDescription)[0] || `Explore installable ${category} AI agent skills for developer workflows and practical automation.`;
 
             // Enforce character limits
-            merged.seoTitle = cleanAndTruncate(merged.seoTitle, 60);
-            merged.seoDescription = cleanAndTruncate(merged.seoDescription, 160);
+            merged.seoTitle = cleanAndClamp(merged.seoTitle, 60);
+            merged.seoDescription = cleanAndClamp(merged.seoDescription, 160);
 
             fs.writeFileSync(filePath, JSON.stringify(merged, null, 2));
             console.log(`   ✅ Saved to: src/content/collections/${slug}.json`);

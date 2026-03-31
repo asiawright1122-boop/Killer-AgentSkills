@@ -66,15 +66,20 @@ function unflattenKeys(flatObj: Record<string, string>): Messages {
 
 // 调用 AI 翻译
 async function translateText(text: string, targetLang: string, context: string): Promise<string> {
-    const prompt = `You are an SEO Localization Expert. Translate the following UI text from English to ${targetLang}.
-Context: ${context}
+    const prompt = `You are an SEO Localization Expert for Killer-Skills — a directory and installation platform for AI Agent Skills. Users install skills into IDEs like Cursor, Claude Code, Windsurf, and VS Code to enhance their AI coding assistants.
+
+Translate the following UI text from English to ${targetLang}.
+Context key: ${context}
+
 Original: "${text}"
 
 ## RULES:
-1. **SEO Optimization**: Use keywords that users in ${targetLang} actually search for.
-2. **Length Constraint**: Keep the translation length close to the original to avoid UI breakage or SERP truncation.
-3. **Tone**: Professional, technical, yet accessible. 
-4. **No Fluff**: Do not explain. Return ONLY the translated text.
+1. **SEO Optimization**: Use keywords that users in ${targetLang} actually search for in the AI agent tools and developer workflow space.
+2. **Site Theme**: This is for an AI Agent Skills marketplace. Keep translations relevant to: AI agents, skills, workflows, IDE integrations, MCP servers, developer tools.
+3. **Length Constraint**: Keep the translation length close to the original to avoid UI breakage or SERP truncation.
+4. **Tone**: Professional, technical, yet accessible.
+5. **Brand Terms**: Keep "Killer-Skills", "Claude Code", "Cursor", "Windsurf", "MCP" untranslated.
+6. **No Fluff**: Do not explain. Return ONLY the translated text.
 
 Reply ONLY with the translated text.`;
 
@@ -96,7 +101,6 @@ async function main() {
 
     // 2. 遍历其他语言
     for (const locale of SUPPORTED_LOCALES) {
-        if (locale === 'en') continue;
 
         console.log(`\nChecking locale: ${locale}...`);
         const localePath = path.join(MESSAGES_DIR, `${locale}.json`);
