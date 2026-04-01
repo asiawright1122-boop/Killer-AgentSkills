@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
 
@@ -13,44 +13,48 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const intents = getSolutionIntents(typedLocale);
 
+const messages = await loadMessages(typedLocale);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+
 const canonicalUrl = `https://killer-skills.com/${locale}/solutions`;
-const pageTitle = isZh ? '可安装自动化方案：AI Agent Skills' : 'Installable Automation Solutions: AI Agent Skills';
-const pageDescription = isZh
-  ? '按高意图场景浏览可安装 AI Agent Skills，覆盖工作流、流程、文档、浏览器自动化与数据提取。'
-  : 'Browse installable AI agent skills by high-intent use cases: workflow, process, document, browser, and data automation.';
+const pageTitle = tr('Solutions.pageTitle', 'Installable Automation Solutions: AI Agent Skills');
+const pageDescription = tr(
+  'Solutions.pageDescription',
+  'Browse installable AI agent skills by high-intent use cases: workflow, process, document, browser, and data automation.',
+);
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  (k: string) => tr(k, k),
   'core',
   'workflowAutomation',
   'processAutomation',
   'ideCompat',
-  isZh ? '高意图技能场景' : 'high-intent skill use cases',
+  tr('Solutions.keyword1', 'high-intent skill use cases'),
   'Killer-Skills',
 );
 
 const faqItems = [
   {
-    question: isZh
-      ? '为什么要用场景页而不是直接搜关键词？'
-      : 'Why use solution pages instead of ad-hoc keyword searches?',
-    answer: isZh
-      ? '场景页会把高意图词、可安装技能和落地路径聚合在一起，减少无效浏览并提高点击质量。'
-      : 'Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing.',
+    question: tr('Solutions.faq1Q', 'Why use solution pages instead of ad-hoc keyword searches?'),
+    answer: tr(
+      'Solutions.faq1A',
+      'Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing.',
+    ),
   },
   {
-    question: isZh ? '这些场景页支持哪些 IDE？' : 'Which IDEs are supported by these solutions?',
-    answer: isZh
-      ? '这些技能覆盖 Claude Code、Cursor、Windsurf、VS Code 等主流 IDE，并支持统一安装流程。'
-      : 'These skills support Claude Code, Cursor, Windsurf, VS Code, and other mainstream IDEs through a unified install flow.',
+    question: tr('Solutions.faq2Q', 'Which IDEs are supported by these solutions?'),
+    answer: tr(
+      'Solutions.faq2A',
+      'These skills support Claude Code, Cursor, Windsurf, VS Code, and other mainstream IDEs through a unified install flow.',
+    ),
   },
   {
-    question: isZh ? '下一步应该如何执行？' : 'What should I do next after picking a solution?',
-    answer: isZh
-      ? '进入具体场景页后先选择技能，再到 CLI 或安装文档执行一条命令安装并验证。'
-      : 'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and validation.',
+    question: tr('Solutions.faq3Q', 'What should I do next after picking a solution?'),
+    answer: tr(
+      'Solutions.faq3A',
+      'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and validation.',
+    ),
   },
 ];
 ---
@@ -109,7 +113,7 @@ const faqItems = [
         <span
           class="inline-flex items-center px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
         >
-          {isZh ? '解决方案' : 'Solutions'}
+          {tr('Solutions.badge', 'Solutions')}
         </span>
         <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
         <p
@@ -132,7 +136,7 @@ const faqItems = [
               <h2 class="text-2xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
               <p class="text-sm leading-6 font-medium opacity-80">{item.cardDescription}</p>
               <div class="mt-4 text-xs font-black uppercase tracking-widest">
-                {isZh ? '进入场景' : 'Open Solution'} →
+                {tr('Solutions.openSolution', 'Open Solution')} →
               </div>
             </a>
           ))
@@ -144,25 +148,25 @@ const faqItems = [
           href={`/${locale}/skills`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '浏览全部技能目录' : 'Browse Full Skills Directory'}
+          {tr('Solutions.browseSkills', 'Browse Full Skills Directory')}
         </a>
         <a
           href={`/${locale}/docs/installation`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '查看安装文档' : 'Read Installation Docs'}
+          {tr('Solutions.readDocs', 'Read Installation Docs')}
         </a>
         <a
           href={`/${locale}/cli`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '使用 CLI 一键安装' : 'Install via CLI'}
+          {tr('Solutions.installCli', 'Install via CLI')}
         </a>
         <a
           href={`/${locale}/labs/skill-try`}
           class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
         >
-          {isZh ? '在线试用 Skill Demo' : 'Try Skill Online Demo'}
+          {tr('Solutions.tryDemo', 'Try Skill Online Demo')}
         </a>
       </section>
     </main>

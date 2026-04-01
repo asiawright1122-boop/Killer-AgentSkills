@@ -72,6 +72,21 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleNavigation = () => {
+      setIsMenuOpen(false);
+      setIsLangOpen(false);
+    };
+
+    document.addEventListener('astro:after-swap', handleNavigation);
+    window.addEventListener('popstate', handleNavigation);
+
+    return () => {
+      document.removeEventListener('astro:after-swap', handleNavigation);
+      window.removeEventListener('popstate', handleNavigation);
+    };
+  }, []);
+
   // Body scroll lock when mobile menu is open
   useEffect(() => {
     if (isMenuOpen) {
@@ -97,9 +112,13 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
   const switchLanguage = (newLocale: string) => {
     if (newLocale === locale) {
+      setIsMenuOpen(false);
       setIsLangOpen(false);
       return;
     }
+    setIsMenuOpen(false);
+    setIsLangOpen(false);
+    document.body.style.overflow = '';
     document.cookie = `locale=${newLocale};path=/;max-age=31536000;SameSite=Lax`;
     const currentPath = window.location.pathname;
     const newPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${newLocale}$1`);
@@ -123,8 +142,11 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
   const mobileOverlay = mounted
     ? createPortal(
         <div
+          data-testid="mobile-menu-overlay"
+          data-state={isMenuOpen ? 'open' : 'closed'}
+          aria-hidden={!isMenuOpen}
           className={`fixed inset-0 z-[60] md:hidden transition-all duration-150 ease-out ${
-            isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            isMenuOpen ? 'visible opacity-100 pointer-events-auto' : 'invisible opacity-0 pointer-events-none'
           }`}
         >
           {/* Backdrop: Solid background instead of blur for Neo-Brutalist feel */}
@@ -132,6 +154,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
           {/* Content: Sharp bordered panel */}
           <div
+            data-testid="mobile-menu-panel"
             className={`absolute right-4 top-4 bottom-4 left-16 border-[3px] border-[var(--border)] bg-[var(--card)] shadow-[8px_8px_0px_0px_var(--border)] flex flex-col transition-transform duration-200 ease-out ${
               isMenuOpen ? 'translate-x-0 translate-y-0' : 'translate-x-full translate-y-4'
             }`}
@@ -202,6 +225,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                     <button
                       key={code}
                       type="button"
+                      data-testid={`mobile-locale-option-${code}`}
                       onClick={() => switchLanguage(code)}
                       className={`text-left px-4 py-3 text-sm font-black uppercase border-2 transition-all ${
                         code === locale
@@ -223,11 +247,16 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
   return (
     <>
-      <div className="flex items-center gap-2 md:gap-4">
+      <div
+        className="flex items-center gap-2 md:gap-4"
+        data-testid="header-actions"
+        data-mounted={mounted ? 'true' : 'false'}
+      >
         {/* Language Selector Dropdown - Desktop */}
         <div className="relative hidden md:block" ref={langDropdownRef}>
           <button
             onClick={() => setIsLangOpen(!isLangOpen)}
+            data-testid="desktop-locale-toggle"
             className="px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-black uppercase text-sm tracking-wide"
             aria-label={labels.switchLanguage}
             aria-expanded={isLangOpen}
@@ -245,6 +274,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                 <button
                   key={code}
                   type="button"
+                  data-testid={`desktop-locale-option-${code}`}
                   onClick={() => switchLanguage(code)}
                   className={`w-full text-left px-4 py-2 flex items-center justify-between border-y border-transparent transition-colors ${
                     code === locale
@@ -280,6 +310,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
         {/* Mobile Menu Toggle */}
         <button
+          data-testid="mobile-menu-toggle"
           className="md:hidden p-2.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={labels.toggleMenu}

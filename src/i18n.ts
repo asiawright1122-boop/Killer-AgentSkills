@@ -1,19 +1,7 @@
-export const SUPPORTED_LOCALES = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'] as const;
-export type Locale = (typeof SUPPORTED_LOCALES)[number];
-export const DEFAULT_LOCALE: Locale = 'en';
+import { DEFAULT_LOCALE, LOCALE_NAMES, SUPPORTED_LOCALES, isSupportedLocale } from '../config/locales.mjs';
 
-export const LOCALE_NAMES: Record<Locale, string> = {
-  en: 'English',
-  zh: '简体中文',
-  ja: '日本語',
-  ko: '한국어',
-  es: 'Español',
-  fr: 'Français',
-  de: 'Deutsch',
-  pt: 'Português',
-  ru: 'Русский',
-  ar: 'العربية',
-};
+export { DEFAULT_LOCALE, LOCALE_NAMES, SUPPORTED_LOCALES };
+export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
 export async function loadMessages(locale: Locale): Promise<Record<string, any>> {
   const messages = await import(`./messages/${locale}.json`);
@@ -22,21 +10,36 @@ export async function loadMessages(locale: Locale): Promise<Record<string, any>>
 
 export function getLangFromUrl(url: URL): Locale {
   const [, lang] = url.pathname.split('/');
-  if (SUPPORTED_LOCALES.includes(lang as Locale)) return lang as Locale;
+  if (isSupportedLocale(lang)) return lang as Locale;
   return DEFAULT_LOCALE;
+}
+
+function resolveTranslationValue(messages: Record<string, any>, key: string): string | undefined {
+  const keys = key.split('.');
+  let value: any = messages;
+
+  for (const segment of keys) {
+    if (value && typeof value === 'object' && segment in value) {
+      value = value[segment];
+      continue;
+    }
+
+    return undefined;
+  }
+
+  return typeof value === 'string' ? value : undefined;
+}
+
+export function hasTranslation(messages: Record<string, any>, key: string): boolean {
+  return resolveTranslationValue(messages, key) !== undefined;
+}
+
+export function translateOr(messages: Record<string, any>, key: string, fallback: string): string {
+  return resolveTranslationValue(messages, key) ?? fallback;
 }
 
 export function useTranslations(messages: Record<string, any>) {
   return function t(key: string): string {
-    const keys = key.split('.');
-    let value: any = messages;
-    for (const k of keys) {
-      if (value && typeof value === 'object' && k in value) {
-        value = value[k];
-      } else {
-        return key; // fallback to key name
-      }
-    }
-    return typeof value === 'string' ? value : key;
+    return translateOr(messages, key, key);
   };
 }

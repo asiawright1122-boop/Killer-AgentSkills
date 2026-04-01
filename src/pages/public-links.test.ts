@@ -4,11 +4,136 @@ import en from '../messages/en.json';
 import zh from '../messages/zh.json';
 
 const readPageSource = (relativePath: string) => readFileSync(new URL(relativePath, import.meta.url), 'utf8');
+const readLocaleMessages = (locale: string) =>
+  JSON.parse(readFileSync(new URL(`../messages/${locale}.json`, import.meta.url), 'utf8')) as Record<string, unknown>;
+const allLocaleMessages = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'].map((locale) => ({
+  locale,
+  messages: readLocaleMessages(locale),
+}));
+
+const resolveMessageKey = (messages: Record<string, unknown>, key: string): unknown =>
+  key.split('.').reduce<unknown>((value, segment) => {
+    if (value && typeof value === 'object' && segment in (value as Record<string, unknown>)) {
+      return (value as Record<string, unknown>)[segment];
+    }
+    return undefined;
+  }, messages);
+
+const extractTranslationKeys = (source: string): string[] => {
+  const keys = new Set<string>();
+  const translationKeyPattern = /translateOr\([^,]+,\s*'([^']+)'|\btr\('([^']+)'\)|\bt\('([^']+)'\)/g;
+
+  for (const match of source.matchAll(translationKeyPattern)) {
+    const key = match[1] || match[2] || match[3];
+    if (key) {
+      keys.add(key);
+    }
+  }
+
+  return [...keys];
+};
 
 describe('public links and navigation copy', () => {
+  it('keeps smoke-scope public surfaces on explicit translation fallbacks', () => {
+    const files = [
+      '../components/Header.astro',
+      '../components/Footer.astro',
+      '../components/Pagination.astro',
+      '../components/SkillCard.astro',
+      '../layouts/Layout.astro',
+      '../pages/[locale]/index.astro',
+      '../pages/[locale]/skills/index.astro',
+      '../pages/[locale]/skills/[owner]/[...repo].astro',
+      '../pages/[locale]/blog/index.astro',
+      '../pages/[locale]/blog/category/[category].astro',
+      '../pages/[locale]/blog/[...slug].astro',
+      '../pages/[locale]/docs/[...slug].astro',
+      '../pages/[locale]/solutions/[topic].astro',
+    ];
+    const leakedFallbackPattern = /(?<![a-zA-Z])t\(['"`][^'"`]+['"`]\)\s*\|\||t\s*\?\s*t\(['"`][^'"`]+['"`]/;
+
+    for (const file of files) {
+      expect(readPageSource(file)).not.toMatch(leakedFallbackPattern);
+    }
+  });
+
+  it('keeps shared metadata and breadcrumb builders wired into public shells', () => {
+    const layoutSource = readPageSource('../layouts/Layout.astro');
+    const collectionsIndexSource = readPageSource('../pages/[locale]/collections/index.astro');
+    const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
+
+    expect(layoutSource).toContain('buildPageMetadata');
+    expect(collectionsIndexSource).toContain('buildBreadcrumbTrail');
+    expect(collectionsDetailSource).toContain('buildBreadcrumbTrail');
+  });
+
   it('keeps community navigation wired to a live community page', () => {
     expect(en.Footer.community).toBe('Community');
     expect(zh.Footer.community).toBe('社区');
+  });
+
+  it('keeps homepage seo intro and footer subscribe labels localized in shipped message catalogs', () => {
+    expect(en.Home.seoIntro).toContain('open-source directory');
+    expect(zh.Home.seoIntro).toContain('开源');
+    expect(en.Footer.subscribeBtn).toBe('Subscribe');
+    expect(zh.Footer.subscribeBtn).toBe('订阅');
+  });
+
+  it('keeps touched public shell and collections pages on explicit i18n and shared builders', () => {
+    const headerSource = readPageSource('../components/Header.astro');
+    const footerSource = readPageSource('../components/Footer.astro');
+    const skillCardSource = readPageSource('../components/SkillCard.astro');
+    const layoutSource = readPageSource('../layouts/Layout.astro');
+    const homeSource = readPageSource('./[locale]/index.astro');
+    const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
+    const collectionDetailSource = readPageSource('./[locale]/collections/[...slug].astro');
+
+    expect(headerSource).not.toMatch(/t\('[^']+'\)\s*\|\|/);
+    expect(footerSource).not.toMatch(/t\('[^']+'\)\s*\|\|/);
+    expect(skillCardSource).not.toMatch(/t\s*\?\s*t\('[^']+'/);
+    expect(homeSource).not.toMatch(/t\('[^']+'\)\s*\|\|/);
+
+    expect(headerSource).toContain('translateOr(');
+    expect(footerSource).toContain('translateOr(');
+    expect(skillCardSource).toContain('translateOr(');
+    expect(homeSource).toContain('translateOr(');
+    expect(layoutSource).toContain('buildPageMetadata(');
+    expect(collectionsIndexSource).toContain('buildBreadcrumbTrail(');
+    expect(collectionDetailSource).toContain('buildBreadcrumbTrail(');
+
+    expect(collectionsIndexSource).not.toContain("'@type': 'BreadcrumbList'");
+    expect(collectionDetailSource).not.toContain("'@type': 'BreadcrumbList'");
+  });
+
+  it('keeps the representative skill detail page on shared breadcrumb and metadata contracts', () => {
+    const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
+
+    expect(skillDetailSource).toContain('buildBreadcrumbTrail(');
+    expect(skillDetailSource).toContain('breadcrumb.jsonLd');
+    expect(skillDetailSource).toContain('customCanonical={canonicalSkillUrl}');
+    expect(skillDetailSource).not.toContain('const breadcrumbSchema = {');
+    expect(skillDetailSource).not.toContain("metaDescription || t('Metadata.description')");
+    expect(skillDetailSource).not.toContain("description || t('Skills.noResults')");
+  });
+
+  it('keeps touched public translation keys defined across all shipped locales', () => {
+    const touchedSources = [
+      readPageSource('../components/Header.astro'),
+      readPageSource('../components/Footer.astro'),
+      readPageSource('../layouts/Layout.astro'),
+      readPageSource('./[locale]/index.astro'),
+      readPageSource('./[locale]/collections/index.astro'),
+      readPageSource('./[locale]/collections/[...slug].astro'),
+    ];
+    const keys = new Set(touchedSources.flatMap((source) => extractTranslationKeys(source)));
+
+    for (const { locale, messages } of allLocaleMessages) {
+      for (const key of keys) {
+        const value = resolveMessageKey(messages, key);
+        expect(typeof value, `${locale} is missing translation key ${key}`).toBe('string');
+        expect(String(value).length, `${locale} has empty translation for ${key}`).toBeGreaterThan(0);
+      }
+    }
   });
 
   it('keeps homepage positioned as a skills directory, not a workflow-query hub', () => {
@@ -18,8 +143,8 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).not.toContain('High-Intent Workflow Searches');
     expect(zhHomeSource).not.toContain('What automation scenarios does Killer-Skills support?');
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
-    expect(zhHomeSource).toContain("t('Home.seoTitle')");
-    expect(zhHomeSource).toContain("t('Home.seoDescription')");
+    expect(zhHomeSource).toContain("'Home.seoTitle'");
+    expect(zhHomeSource).toContain("'Home.seoDescription'");
     // Verify the i18n values themselves carry the correct positioning
     expect(zh.Home.seoTitle).toContain('AI Agent Skills 开放目录');
     expect(zh.Home.seoDescription).toContain('开放 AI Agent Skills 目录');
@@ -606,11 +731,13 @@ describe('public links and navigation copy', () => {
   it('keeps the default skills landing heading aligned with installable skills framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    expect(skillsIndexSource).toContain("'可安装 AI Agent Skills'");
-    expect(skillsIndexSource).toContain("'Installable AI Agent Skills'");
+    // Title now comes from message files via t('Marketplace.seoTitle')
+    expect(skillsIndexSource).toContain("t('Marketplace.seoTitle')");
     expect(skillsIndexSource).not.toContain("'AI Agent 技能目录'");
-    expect(skillsIndexSource).not.toContain("'AI Agent Skills'");
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
+    // Verify the en/zh message values carry the correct framing
+    expect(en.Marketplace.seoTitle).toContain('Installable AI Agent Skills');
+    expect(zh.Marketplace.seoTitle).toContain('可安装 AI Agent Skills');
   });
 
   it('keeps Discord and X links consistent across public entry points', () => {

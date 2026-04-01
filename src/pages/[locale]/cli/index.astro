@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import docsCache from '../../../../data/docs-cache.json';
 import { Sparkles, RefreshCw, Bot, Shield, Check, X, Minus } from 'lucide-react';
@@ -10,26 +10,25 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
 
 // Validate locale
 const { locale } = Astro.params;
+const typedLocale = locale as Locale;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}/cli`;
 
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = isZh
-  ? 'AI Agent Skills CLI：安装、同步与自动化工作流指南'
-  : 'AI Agent Skills CLI for Install, Sync & Automation Workflows';
-const pageDescription = isZh
-  ? '使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、管理和同步 AI Agent Skills，支持流程自动化与模板化执行，无需全局安装。'
-  : 'Use the Killer-Skills CLI to install, manage, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.';
+const pageTitle = tr('CLI.pageTitle', 'AI Agent Skills CLI for Install, Sync & Automation Workflows');
+const pageDescription = tr(
+  'CLI.pageDescription',
+  'Use the Killer-Skills CLI to install, manage, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.',
+);
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'cli',
   'installSetup',
   'compatibility',
@@ -44,29 +43,32 @@ const primaryCommand = 'npx killer-skills add anthropics/skills/pdf';
 const installInstruction = 'npx killer-skills add owner/repo';
 const quickLinks = [
   {
-    title: isZh ? '安装一个技能' : 'Install a Skill',
-    description: isZh ? '先看一条命令安装和初始化步骤。' : 'Start with the one-command install and first-run steps.',
+    title: tr('CLI.quickLinks.install.title', 'Install a Skill'),
+    description: tr('CLI.quickLinks.install.desc', 'Start with the one-command install and first-run steps.'),
     href: `/${locale}/docs/installation`,
   },
   {
-    title: isZh ? '配置 IDE 兼容' : 'Set Up IDE Compatibility',
-    description: isZh
-      ? '了解 Cursor、Claude Code、VS Code 等环境如何自动适配。'
-      : 'See how Cursor, Claude Code, VS Code, and more are configured automatically.',
+    title: tr('CLI.quickLinks.ide.title', 'Set Up IDE Compatibility'),
+    description: tr(
+      'CLI.quickLinks.ide.desc',
+      'See how Cursor, Claude Code, VS Code, and more are configured automatically.',
+    ),
     href: `/${locale}/integrations`,
   },
   {
-    title: isZh ? '查看 CLI 命令' : 'Read CLI Commands',
-    description: isZh
-      ? '直接跳到命令说明、同步与配置细节。'
-      : 'Jump straight into commands, sync behavior, and configuration details.',
+    title: tr('CLI.quickLinks.commands.title', 'Read CLI Commands'),
+    description: tr(
+      'CLI.quickLinks.commands.desc',
+      'Jump straight into commands, sync behavior, and configuration details.',
+    ),
     href: `/${locale}/docs/cli/commands`,
   },
   {
-    title: isZh ? '浏览工作流模板' : 'Browse Workflow Templates',
-    description: isZh
-      ? '从安装进入可复用的自动化与模板场景。'
-      : 'Move from installation into reusable automation and template flows.',
+    title: tr('CLI.quickLinks.templates.title', 'Browse Workflow Templates'),
+    description: tr(
+      'CLI.quickLinks.templates.desc',
+      'Move from installation into reusable automation and template flows.',
+    ),
     href: `/${locale}/collections`,
   },
 ];
@@ -80,28 +82,29 @@ const commandsContent = getDocContent('cli/commands');
 const configContent = getDocContent('cli/configuration');
 const faqItems = [
   {
-    question: isZh ? 'Killer-Skills CLI 是什么？' : 'What is the Killer-Skills CLI?',
-    answer: isZh
-      ? '它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。'
-      : 'It is a skills-first CLI for installing, syncing, and managing AI agent skills across 19+ IDEs and AI coding assistants.',
+    question: tr('CLI.faq1Q', 'What is the Killer-Skills CLI?'),
+    answer: tr(
+      'CLI.faq1A',
+      'It is a skills-first CLI for installing, syncing, and managing AI agent skills across 19+ IDEs and AI coding assistants.',
+    ),
   },
   {
-    question: isZh ? '如何用 CLI 安装一个技能？' : 'How do I install a skill with the CLI?',
-    answer: isZh
-      ? `在终端运行 \`${installInstruction}\`。CLI 会自动识别你的 IDE，并写入正确的 IDE 原生技能文件。`
-      : `Run \`${installInstruction}\` in your terminal. The CLI detects your IDE automatically and writes the correct IDE-native skill file.`,
+    question: tr('CLI.faq2Q', 'How do I install a skill with the CLI?'),
+    answer: tr(
+      'CLI.faq2A',
+      `Run \`${installInstruction}\` in your terminal. The CLI detects your IDE automatically and writes the correct IDE-native skill file.`,
+    ),
   },
   {
-    question: isZh ? '需要全局安装 CLI 吗？' : 'Do I need to install the CLI globally?',
-    answer: isZh
-      ? '不需要。直接通过 npx 运行即可，因此可以零全局安装开始使用。'
-      : 'No. You can run it through npx, so there is no need for a global installation.',
+    question: tr('CLI.faq3Q', 'Do I need to install the CLI globally?'),
+    answer: tr('CLI.faq3A', 'No. You can run it through npx, so there is no need for a global installation.'),
   },
   {
-    question: isZh ? 'CLI 支持哪些 IDE？' : 'Which IDEs does the CLI support?',
-    answer: isZh
-      ? 'CLI 支持 Cursor、Claude Code、VS Code、Windsurf、JetBrains，以及其他 19+ IDE 和代理环境。'
-      : 'The CLI supports Cursor, Claude Code, VS Code, Windsurf, JetBrains, and 19+ other IDE and agent environments.',
+    question: tr('CLI.faq4Q', 'Which IDEs does the CLI support?'),
+    answer: tr(
+      'CLI.faq4A',
+      'The CLI supports Cursor, Claude Code, VS Code, Windsurf, JetBrains, and 19+ other IDE and agent environments.',
+    ),
   },
 ];
 ---
@@ -570,7 +573,7 @@ const faqItems = [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
       <div class="mb-8 border-l-8 border-[var(--primary)] pl-6">
         <h2 class="text-4xl font-black text-[var(--foreground)] tracking-tighter uppercase leading-none">
-          {isZh ? '常见问题' : 'CLI FAQ'}
+          {tr('CLI.faqTitle', 'CLI FAQ')}
         </h2>
         <div class="mt-2 text-sm font-mono font-black text-[var(--muted-foreground)]">// SEARCH_INTENT_SUPPORT</div>
       </div>

@@ -1,12 +1,15 @@
 ---
+import { translateOr } from '../i18n';
+
 interface Props {
   locale: string;
-  t: (key: string) => string;
+  messages: Record<string, any>;
   compact?: boolean;
 }
 
-const { locale, t, compact = false } = Astro.props;
+const { locale, messages, compact = false } = Astro.props;
 const currentYear = new Date().getFullYear();
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 ---
 
 <footer
@@ -21,7 +24,9 @@ const currentYear = new Date().getFullYear();
             <a href={`/${locale}`} class="flex items-center gap-2 group">
               <span class="font-black text-2xl tracking-tight uppercase text-[var(--foreground)]">Killer-Skills</span>
             </a>
-            <p class="text-[var(--muted-foreground)] leading-relaxed text-sm font-medium">{t('Footer.desc')}</p>
+            <p class="text-[var(--muted-foreground)] leading-relaxed text-sm font-medium">
+              {tr('Footer.desc', 'Open-source directory for AI agent skills and IDE workflows.')}
+            </p>
             <div class="flex gap-4">
               <a
                 href="https://x.com/killerskills"
@@ -39,14 +44,14 @@ const currentYear = new Date().getFullYear();
 
           {/* Product */}
           <nav aria-label="Product">
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{t('Footer.product')}</h4>
+            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{tr('Footer.product', 'Product')}</h4>
             <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
               <li>
                 <a
                   href={`/${locale}/skills`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.browse')}
+                  {tr('Footer.browse', 'Browse skills')}
                 </a>
               </li>
               <li>
@@ -54,7 +59,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/categories`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.categories')}
+                  {tr('Footer.categories', 'Categories')}
                 </a>
               </li>
               <li>
@@ -62,7 +67,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/cli`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.cli')}
+                  {tr('Footer.cli', 'CLI')}
                 </a>
               </li>
             </ul>
@@ -70,14 +75,14 @@ const currentYear = new Date().getFullYear();
 
           {/* Resources */}
           <nav aria-label="Resources">
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{t('Footer.resources')}</h4>
+            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{tr('Footer.resources', 'Resources')}</h4>
             <ul class="space-y-3 text-sm text-[var(--muted-foreground)] font-bold">
               <li>
                 <a
                   href={`/${locale}/docs`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.docs')}
+                  {tr('Footer.docs', 'Docs')}
                 </a>
               </li>
               <li>
@@ -85,7 +90,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/community`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.community')}
+                  {tr('Footer.community', 'Community')}
                 </a>
               </li>
               <li>
@@ -93,7 +98,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/blog`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.blog')}
+                  {tr('Footer.blog', 'Blog')}
                 </a>
               </li>
               <li>
@@ -101,7 +106,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/integrations`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Footer.integrations') || 'Integrations'}
+                  {tr('Footer.integrations', 'Integrations')}
                 </a>
               </li>
               <li>
@@ -109,7 +114,7 @@ const currentYear = new Date().getFullYear();
                   href={`/${locale}/collections`}
                   class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
                 >
-                  {t('Common.collections') || 'Collections'}
+                  {tr('Common.collections', 'Collections')}
                 </a>
               </li>
             </ul>
@@ -117,21 +122,25 @@ const currentYear = new Date().getFullYear();
 
           {/* Newsletter */}
           <div>
-            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">{t('Footer.stayUpdated')}</h4>
-            <p class="text-sm text-[var(--muted-foreground)] mb-4 font-medium">{t('Footer.subscribeDesc')}</p>
+            <h4 class="font-black text-[var(--foreground)] mb-4 uppercase">
+              {tr('Footer.stayUpdated', 'Stay Updated')}
+            </h4>
+            <p class="text-sm text-[var(--muted-foreground)] mb-4 font-medium">
+              {tr('Footer.subscribeDesc', 'Get updates about new skills and workflow guides.')}
+            </p>
             <div class="flex gap-2">
               <label for="footer-email" class="sr-only">
-                {t('Footer.emailPlaceholder') || 'Email'}
+                {tr('Footer.emailPlaceholder', 'Email')}
               </label>
               <input
                 id="footer-email"
                 type="email"
                 autocomplete="email"
-                placeholder={t('Footer.emailPlaceholder')}
+                placeholder={tr('Footer.emailPlaceholder', 'Email')}
                 class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-3 py-2 text-sm w-full focus:outline-none focus:ring-2 focus:ring-cyan-500/20 focus:border-cyan-500 transition-all"
               />
               <button
-                aria-label={t('Footer.subscribeBtn') || 'Subscribe'}
+                aria-label={tr('Footer.subscribeBtn', 'Subscribe')}
                 class="bg-cyan-600 hover:bg-cyan-700 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 →
@@ -147,17 +156,17 @@ const currentYear = new Date().getFullYear();
       class={`flex flex-col md:flex-row items-center justify-between gap-4 ${compact ? '' : 'pt-8 border-t border-slate-200 dark:border-slate-800'}`}
     >
       <div class="text-xs text-slate-500 dark:text-slate-500">
-        © {currentYear} Killer-Skills Inc. {t('Footer.rights')}
+        © {currentYear} Killer-Skills Inc. {tr('Footer.rights', 'All rights reserved.')}
       </div>
       <nav aria-label="Legal" class="flex gap-6 text-xs text-slate-500 dark:text-slate-500">
         <a href={`/${locale}/privacy`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{t('Footer.privacy')}</a
+          >{tr('Footer.privacy', 'Privacy')}</a
         >
         <a href={`/${locale}/terms`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{t('Footer.terms')}</a
+          >{tr('Footer.terms', 'Terms')}</a
         >
         <a href={`/${locale}/cookies`} class="hover:text-slate-900 dark:hover:text-white transition-colors"
-          >{t('Footer.cookie')}</a
+          >{tr('Footer.cookie', 'Cookies')}</a
         >
       </nav>
     </div>

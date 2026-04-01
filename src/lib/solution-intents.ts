@@ -14,6 +14,7 @@ export type SolutionSlug =
 type LocalizedText = {
   en: string;
   zh: string;
+  [locale: string]: string;
 };
 
 type SolutionIntentConfig = {
@@ -207,7 +208,7 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
 ];
 
 function resolveText(text: LocalizedText, locale: Locale): string {
-  return locale === 'zh' ? text.zh : text.en;
+  return text[locale] || text.en;
 }
 
 export const SOLUTION_INTENT_SLUGS: SolutionSlug[] = SOLUTION_INTENTS.map((item) => item.slug);
@@ -341,9 +342,9 @@ function calculateIntentScore(
   }
 
   let score = 0;
-  score += primaryHits * 10;  // Increased weight for primary query match
-  score += phraseHits * 6;     // Increased weight for phrase match
-  score += tokenHits * 0.5;   // Reduced weight for token-only matches
+  score += primaryHits * 10; // Increased weight for primary query match
+  score += phraseHits * 6; // Increased weight for phrase match
+  score += tokenHits * 0.5; // Reduced weight for token-only matches
   if (categoryAligned) score += 3;
 
   if (skill.source === 'verified') score += 4;

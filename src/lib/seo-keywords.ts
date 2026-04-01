@@ -1,4 +1,3 @@
-import type { Locale } from '../i18n';
 import { normalizeCategoryId } from './category-taxonomy';
 
 export type KeywordClusterId =
@@ -19,72 +18,24 @@ export type KeywordClusterId =
   | 'enterpriseWorkflows'
   | 'creativeWorkflows';
 
-const CLUSTERS: Record<KeywordClusterId, { en: string[]; zh: string[] }> = {
-  core: {
-    en: ['AI agent skills', 'installable AI agent skills', 'Claude Code skills', 'developer skills for AI coding assistants'],
-    zh: ['AI Agent Skills', '可安装 AI Agent Skills', 'Claude Code 技能', '面向 AI 编程助手的开发者技能'],
-  },
-  mcp: {
-    en: ['AI agent skills with MCP integrations', 'developer workflow integrations with MCP', 'Claude Code MCP integrations'],
-    zh: ['带 MCP 集成的 AI Agent Skills', '面向开发工作流的 MCP 集成', 'Claude Code MCP 集成'],
-  },
-  workflowAutomation: {
-    en: ['workflow automation skills', 'developer workflow automation', 'agent workflow skills', 'multi-step execution skills'],
-    zh: ['工作流自动化技能', '开发者工作流自动化', 'Agent 工作流技能', '多步骤执行技能'],
-  },
-  processAutomation: {
-    en: ['process automation skills', 'business process workflow skills', 'SOP automation skills', 'operations workflow skills'],
-    zh: ['流程自动化技能', '业务流程技能', 'SOP 自动化技能', '运营流程技能'],
-  },
-  documentAutomation: {
-    en: ['document automation skills', 'report automation skills', 'PDF automation skills', 'document workflow skills'],
-    zh: ['文档自动化技能', '报告自动化技能', 'PDF 自动化技能', '文档流程技能'],
-  },
-  browserAutomation: {
-    en: ['browser automation skills', 'web automation skills', 'web scraping skills', 'site workflow automation'],
-    zh: ['浏览器自动化技能', '网页自动化技能', '网页抓取技能', '站点工作流自动化'],
-  },
-  dataWorkflow: {
-    en: ['data workflow skills', 'data extraction skills', 'ETL automation skills', 'analytics workflow skills'],
-    zh: ['数据流程技能', '数据提取技能', 'ETL 自动化技能', '分析工作流技能'],
-  },
-  installSetup: {
-    en: ['install AI agent skills', 'Killer-Skills install flow', 'Claude Code skill setup', 'killer-skills add'],
-    zh: ['安装 AI Agent Skills', 'Killer-Skills 安装流程', 'Claude Code 技能配置', 'killer-skills add'],
-  },
-  compatibility: {
-    en: ['IDE compatibility for AI agent skills', 'supported IDEs for skills', 'Claude Code Cursor Windsurf compatibility', 'skill environment support'],
-    zh: ['AI Agent Skills 的 IDE 兼容性', '支持 Skills 的 IDE', 'Claude Code Cursor Windsurf 兼容性', '技能运行环境支持'],
-  },
-  templates: {
-    en: ['skill templates', 'workflow skill templates', 'automation skill templates', 'reusable agent playbooks'],
-    zh: ['技能模板', '工作流技能模板', '自动化技能模板', '可复用 Agent 手册'],
-  },
-  ideCompat: {
-    en: ['Claude Code skills', 'Cursor skills', 'Windsurf skills', 'VS Code AI agent skills'],
-    zh: ['Claude Code 技能', 'Cursor 技能', 'Windsurf 技能', 'VS Code AI Agent 技能'],
-  },
-  cli: {
-    en: ['AI agent skills CLI', 'killer-skills add', 'skill installation CLI', 'CLI for installable skills'],
-    zh: ['AI Agent Skills CLI', 'killer-skills add', '技能安装 CLI', '面向可安装技能的命令行'],
-  },
-  docs: {
-    en: ['AI agent skills docs', 'skill setup docs', 'installation docs for Claude Code', 'developer skill documentation'],
-    zh: ['AI Agent Skills 文档', '技能配置文档', 'Claude Code 安装文档', '开发者技能文档'],
-  },
-  developerExperience: {
-    en: ['developer workflow skills', 'coding automation skills', 'developer productivity skills', 'AI developer tools for coding'],
-    zh: ['开发者工作流技能', '编码自动化技能', '开发效率技能', '面向编码的 AI 开发工具'],
-  },
-  enterpriseWorkflows: {
-    en: ['team workflow skills', 'operations automation skills', 'business workflow skills', 'operations playbooks for AI agents'],
-    zh: ['团队工作流技能', '运营自动化技能', '业务流程技能', '面向 AI Agent 的运营手册'],
-  },
-  creativeWorkflows: {
-    en: ['creative workflow skills', 'design automation skills', 'content creation workflow skills', 'creative tools for AI agents'],
-    zh: ['创意工作流技能', '设计自动化技能', '内容创作流程技能', '面向 AI Agent 的创意工具'],
-  },
-};
+const VALID_CLUSTERS = new Set<KeywordClusterId>([
+  'core',
+  'mcp',
+  'workflowAutomation',
+  'processAutomation',
+  'documentAutomation',
+  'browserAutomation',
+  'dataWorkflow',
+  'installSetup',
+  'compatibility',
+  'templates',
+  'ideCompat',
+  'cli',
+  'docs',
+  'developerExperience',
+  'enterpriseWorkflows',
+  'creativeWorkflows',
+]);
 
 const LOW_INTENT_KEYWORD_PATTERNS = [
   /(^|\b)(how to|what is|why|guide|tutorial|vs|versus|alternative|alternatives|best|top\s*\d*|comparison|compare|free|download)\b/i,
@@ -118,19 +69,18 @@ function isAllowedKeyword(keyword: string): boolean {
   return true;
 }
 
-export function getKeywordCluster(id: KeywordClusterId, locale: Locale): string[] {
-  const isZh = locale === 'zh';
-  return isZh ? CLUSTERS[id].zh : CLUSTERS[id].en;
+export function getKeywordCluster(id: KeywordClusterId, t: (k: string, fb?: string) => string): string[] {
+  return t(`Seo.Keywords.${id}`, '').split(', ');
 }
 
 export function buildKeywordString(
-  locale: Locale,
+  t: (k: string, fb?: string) => string,
   ...parts: Array<KeywordClusterId | string | string[] | undefined>
 ): string {
   const keywords = parts.flatMap((part) => {
     if (!part) return [];
     if (Array.isArray(part)) return part;
-    if (part in CLUSTERS) return getKeywordCluster(part as KeywordClusterId, locale);
+    if (VALID_CLUSTERS.has(part as KeywordClusterId)) return getKeywordCluster(part as KeywordClusterId, t);
     return [part];
   });
 

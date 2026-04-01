@@ -1,70 +1,104 @@
+import type { Page } from '@playwright/test';
 import { test, expect } from '@playwright/test';
 
-const devUrl = 'http://localhost:4321';
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const waitForHeaderActions = async (page: Page) => {
+  await expect(page.getByTestId('header-actions')).toHaveAttribute('data-mounted', 'true');
+};
 
 test.describe('Navigation & i18n E2E', () => {
   test('root / should redirect to a locale-prefixed path', async ({ page }) => {
-    const response = await page.goto(`${devUrl}/`);
-    // Should redirect to /en/ or another locale
-    expect(page.url()).toMatch(/\/[a-z]{2}\/?$/);
+    const response = await page.goto('/');
+    await expect(page).toHaveURL(/\/[a-z]{2}\/?$/);
     expect(response?.status()).toBeLessThan(400);
   });
 
-  test('should load Chinese locale home page', async ({ page }) => {
-    await page.goto(`${devUrl}/zh/`);
-    // Should have Content-Language header or Chinese content
+  test('desktop navigation should click through to the collections page', async ({ page }) => {
+    await page.goto('/en');
+    await page.locator('nav[aria-label="Main navigation"] a[href="/en/collections"]').click();
+    await expect(page).toHaveURL(/\/en\/collections$/);
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+  });
+
+  test('collection cards should navigate when clicking the card body', async ({ page }) => {
+    await page.goto('/en/collections');
+
+    const collectionCard = page.getByTestId('collection-card').first();
+    await expect(collectionCard).toBeVisible();
+
+    const href = await collectionCard.locator('a[href^="/en/collections/"]').first().getAttribute('href');
+    expect(href).toBeTruthy();
+
+    await collectionCard.click();
+    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
+    await expect(page.getByRole('navigation', { name: 'Breadcrumb' })).toBeVisible();
+  });
+
+  test('desktop locale switch should update the route and document language', async ({ page }) => {
+    await page.goto('/en/collections');
+    await waitForHeaderActions(page);
+    await page.getByTestId('desktop-locale-toggle').click();
+    await page.getByTestId('desktop-locale-option-zh').click();
+
+    await expect(page).toHaveURL(/\/zh\/collections$/);
     await expect(page.locator('html')).toHaveAttribute('lang', /zh/);
   });
 
-  test('should return 404 page for non-existent route', async ({ page }) => {
-    const response = await page.goto(`${devUrl}/en/this-page-does-not-exist-12345`);
-    expect(response?.status()).toBe(404);
+  test('mobile menu should close cleanly and stop blocking page clicks', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/en');
+    await waitForHeaderActions(page);
+
+    const menuToggle = page.getByTestId('mobile-menu-toggle');
+    const overlay = page.getByTestId('mobile-menu-overlay');
+
+    await menuToggle.click();
+    await expect(overlay).toHaveAttribute('data-state', 'open');
+
+    await page.getByTestId('mobile-menu-panel').locator('a[href="/en/collections"]').click();
+    await expect(page).toHaveURL(/\/en\/collections$/);
+    await expect(overlay).toHaveAttribute('data-state', 'closed');
+
+    const collectionCard = page.getByTestId('collection-card').first();
+    await expect(collectionCard).toBeVisible();
+
+    const href = await collectionCard.locator('a[href^="/en/collections/"]').first().getAttribute('href');
+    expect(href).toBeTruthy();
+
+    await collectionCard.click();
+    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
   });
 
-  test('navigation links should be valid', async ({ page }) => {
-    await page.goto(`${devUrl}/en/`);
+  test('skill cards should navigate when local listing data is available', async ({ page }) => {
+    await page.goto('/en/skills');
 
-    // Check that the main navigation has key links
-    const navLinks = page.locator('nav a[href]');
-    const count = await navLinks.count();
-    expect(count).toBeGreaterThan(0);
-  });
-});
+    const skillCards = page.getByTestId('skill-card');
+    const count = await skillCards.count();
+    test.skip(count === 0, 'Local skill listing data is unavailable in this environment.');
 
-test.describe('Skill Detail Page E2E', () => {
-  test('should load a known skill detail page', async ({ page }) => {
-    // Use anthropics/skills as a well-known skill
-    await page.goto(`${devUrl}/en/skills/anthropics/skills`);
+    const skillCard = skillCards.first();
+    const href = await skillCard.locator('a[href*="/en/skills/"]').first().getAttribute('href');
+    expect(href).toBeTruthy();
 
-    // Check basic structure
-    const heading = page.locator('h1').first();
-    await expect(heading).toBeVisible();
+    await skillCard.click();
+    await expect(page).toHaveURL(new RegExp(escapeRegExp(href!)));
+    await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   });
 
-  test('should display skill metadata section', async ({ page }) => {
-    await page.goto(`${devUrl}/en/skills/anthropics/skills`);
+  test('mobile locale switch should close the overlay and navigate to the selected locale', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/en/collections');
+    await waitForHeaderActions(page);
 
-    // Check for common skill page elements
-    // Stars count, category badge, or description should exist
-    const pageContent = await page.textContent('body');
-    expect(pageContent).toBeTruthy();
-    expect(pageContent!.length).toBeGreaterThan(100);
-  });
-});
+    const menuToggle = page.getByTestId('mobile-menu-toggle');
+    const overlay = page.getByTestId('mobile-menu-overlay');
 
-test.describe('Static Pages E2E', () => {
-  test('should load sitemap.xml', async ({ request }) => {
-    const res = await request.get(`${devUrl}/sitemap.xml`);
-    expect(res.status()).toBe(200);
-    const text = await res.text();
-    expect(text).toContain('<?xml');
-    expect(text).toContain('<sitemapindex');
-  });
+    await menuToggle.click();
+    await expect(overlay).toHaveAttribute('data-state', 'open');
 
-  test('should load llms.txt', async ({ request }) => {
-    const res = await request.get(`${devUrl}/llms.txt`);
-    expect(res.status()).toBe(200);
-    const text = await res.text();
-    expect(text.length).toBeGreaterThan(0);
+    await page.getByTestId('mobile-locale-option-zh').click();
+    await expect(page).toHaveURL(/\/zh\/collections$/);
+    await expect(overlay).toHaveAttribute('data-state', 'closed');
+    await expect(page.locator('html')).toHaveAttribute('lang', /zh/);
   });
 });

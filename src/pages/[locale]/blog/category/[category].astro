@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../../../layouts/Layout.astro';
 import BlogCard from '../../../../components/blog/BlogCard.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
 import { buildKeywordString, type KeywordClusterId } from '../../../../lib/seo-keywords';
 import { getBlogIntentLinks } from '../../../../lib/blog-seo-intent';
 import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
 }
 
 const { locale, category } = Astro.params;
-const isZh = locale === 'zh';
+const typedLocale = locale as Locale;
 
 // Get posts for current locale and category
 let posts = await getCollection('blog', ({ data }) => {
@@ -51,8 +51,9 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const categoryName = t(`Blog.categories.${category}`) || category;
+const categoryName = tr(`Blog.categories.${category}`, category || '');
 const categorySeoTitles: Record<string, { en: string; zh: string }> = {
   'document-automation': {
     en: 'Document Automation Guides for PDF, Excel & Templates',
@@ -90,20 +91,14 @@ const categorySeoDescriptions: Record<string, { en: string; zh: string }> = {
   },
 };
 const pageTitle = categorySeoTitles[category || '']
-  ? isZh
-    ? categorySeoTitles[category || ''].zh
-    : categorySeoTitles[category || ''].en
-  : isZh
-    ? `${categoryName}：AI Agent Skills 指南`
-    : `${categoryName}: AI Agent Skill Guides`;
+  ? tr(`BlogCategory.seoTitle.${category}`, categorySeoTitles[category || ''].en)
+  : `${categoryName}: ${tr('BlogCategory.guideSuffix', 'AI Agent Skill Guides')}`;
 const pageDescription = categorySeoDescriptions[category || '']
-  ? isZh
-    ? categorySeoDescriptions[category || ''].zh
-    : categorySeoDescriptions[category || ''].en
-  : t(`Blog.categories.${category}-desc`) ||
-    (isZh
-      ? `浏览 ${categoryName} 主题下的 AI Agent Skills 文章，获取实战教程与最佳实践。`
-      : `Explore ${categoryName} articles about AI agent skills, with practical tutorials and implementation guides.`);
+  ? tr(`BlogCategory.seoDesc.${category}`, categorySeoDescriptions[category || ''].en)
+  : tr(
+      `Blog.categories.${category}-desc`,
+      `Explore ${categoryName} articles about AI agent skills, with practical tutorials and implementation guides.`,
+    );
 const categoryKeywordClusters: Record<string, KeywordClusterId[]> = {
   'document-automation': ['documentAutomation', 'workflowAutomation'],
   'developer-experience': ['developerExperience', 'workflowAutomation'],
@@ -111,33 +106,35 @@ const categoryKeywordClusters: Record<string, KeywordClusterId[]> = {
   'creative-tools': ['creativeWorkflows', 'workflowAutomation'],
 };
 const pageKeywords = buildKeywordString(
-  locale as Locale,
+  t,
   'core',
   'ideCompat',
   ...(categoryKeywordClusters[category || ''] || ['workflowAutomation']),
   categoryName,
   `${categoryName} ai agent`,
-  ...(isZh ? ['技能教程'] : ['implementation guide']),
+  ...[tr('BlogCategory.implementGuide', 'implementation guide')],
 );
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/category/${category}`;
 const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Tags;
-const intentLinks = getBlogIntentLinks(locale || 'en', category, category || '');
+const intentLinks = getBlogIntentLinks(locale || 'en', category, category || '', t);
 const faqItems = [
   {
-    question: isZh ? `${categoryName} 里有哪些内容？` : `What does the ${categoryName} category cover?`,
+    question: tr('BlogCategory.faq1Q', `What does the ${categoryName} category cover?`),
     answer: pageDescription,
   },
   {
-    question: isZh ? '这些文章适合直接拿来落地吗？' : 'Are these guides practical to implement?',
-    answer: isZh
-      ? '是的，这些文章优先覆盖安装、配置、模板、工作流与具体技能用法，而不是只讲概念。'
-      : 'Yes. These guides prioritize installation, setup, templates, workflows, and concrete skill usage instead of abstract overviews.',
+    question: tr('BlogCategory.faq2Q', 'Are these guides practical to implement?'),
+    answer: tr(
+      'BlogCategory.faq2A',
+      'Yes. These guides prioritize installation, setup, templates, workflows, and concrete skill usage instead of abstract overviews.',
+    ),
   },
   {
-    question: isZh ? '看完后下一步去哪？' : 'Where should I go after reading these guides?',
-    answer: isZh
-      ? '你可以继续进入 skills 搜索结果、文档安装页、CLI 页面或工作流合集，按更精准的意图继续深入。'
-      : 'You can continue into skills search results, installation docs, the CLI page, or workflow collections based on your next-step intent.',
+    question: tr('BlogCategory.faq3Q', 'Where should I go after reading these guides?'),
+    answer: tr(
+      'BlogCategory.faq3A',
+      'You can continue into skills search results, installation docs, the CLI page, or workflow collections based on your next-step intent.',
+    ),
   },
 ];
 ---
@@ -160,10 +157,15 @@ const faqItems = [
           {
             '@type': 'ListItem',
             position: 1,
-            name: t('Common.home') || 'Home',
+            name: tr('Common.home', 'Home'),
             item: `https://killer-skills.com/${locale}`,
           },
-          { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: tr('Blog.title', 'Blog'),
+            item: `https://killer-skills.com/${locale}/blog`,
+          },
           {
             '@type': 'ListItem',
             position: 3,
@@ -222,7 +224,7 @@ const faqItems = [
         class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
       >
         <ArrowLeft size={16} strokeWidth={3} />
-        {t('Common.back') || 'Back'}
+        {tr('Common.back', 'Back')}
       </a>
 
       {/* Header */}
@@ -269,7 +271,7 @@ const faqItems = [
         ) : (
           <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
             <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">
-              {t('Marketplace.noSkills') || 'No articles found in this category.'}
+              {tr('Marketplace.noSkills', 'No articles found in this category.')}
             </p>
           </div>
         )

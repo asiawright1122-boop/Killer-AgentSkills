@@ -4,6 +4,7 @@ import { defineConfig, passthroughImageService } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './config/locales.mjs';
 
 const isCi = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
 const enablePlatformProxy = !isCi && process.env.CF_PLATFORM_PROXY !== 'false';
@@ -61,8 +62,8 @@ export default defineConfig({
   },
 
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'],
+    defaultLocale: DEFAULT_LOCALE,
+    locales: [...SUPPORTED_LOCALES],
     routing: {
       prefixDefaultLocale: true,
       redirectToDefaultLocale: false,

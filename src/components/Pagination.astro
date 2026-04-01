@@ -5,9 +5,16 @@ interface Props {
   baseUrl: string; // Base URL including locale and path, e.g. /zh/skills
   searchParams: Record<string, string>;
   t: (key: any) => string;
+  tr?: (key: string, fallback: string) => string;
 }
 
-const { currentPage, totalPages, baseUrl, searchParams, t } = Astro.props;
+const { currentPage, totalPages, baseUrl, searchParams, t, tr } = Astro.props;
+const resolveLabel =
+  tr ??
+  ((key: string, fallback: string) => {
+    const value = t(key);
+    return value === key ? fallback : value;
+  });
 
 // Logic to calculate the range of page numbers to show
 const getPageNumbers = () => {
@@ -159,22 +166,22 @@ const pages = getPageNumbers();
   <!-- Jump to Page -->
   <div class="flex items-center gap-3">
     <div class="relative group">
-      <label for="jump-page" class="sr-only">{t('Common.page') || 'Page number'}</label>
+      <label for="jump-page" class="sr-only">{resolveLabel('Common.page', 'Page number')}</label>
       <input
         id="jump-page"
         type="number"
         min="1"
         max={totalPages}
-        placeholder={t('Common.page') || 'Page'}
-        aria-label={t('Common.page') || 'Page number'}
+        placeholder={resolveLabel('Common.page', 'Page')}
+        aria-label={resolveLabel('Common.page', 'Page number')}
         class="jump-page-input w-20 bg-[var(--background)] border-2 border-[var(--border)] px-3 py-2 font-mono font-black text-[var(--foreground)] focus:ring-0 focus:border-[var(--primary)] transition-all shadow-[2px_2px_0px_0px_var(--border)]"
       />
     </div>
     <button
-      aria-label={t('Common.goToPage') || 'Go to page'}
+      aria-label={resolveLabel('Common.goToPage', 'Go to page')}
       class="jump-page-button bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--border)] px-4 py-2 font-black uppercase tracking-widest text-sm hover:bg-[var(--primary)] hover:text-black hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
     >
-      {t('Common.go') || 'GO'}
+      {resolveLabel('Common.go', 'Go')}
     </button>
   </div>
 
@@ -183,7 +190,7 @@ const pages = getPageNumbers();
     data-base-url={baseUrl}
     data-search-params={JSON.stringify(searchParams)}
     data-total-pages={totalPages}
-    data-error-msg={t('Common.pageJumpError') || 'Please enter a valid page number'}
+    data-error-msg={resolveLabel('Common.pageJumpError', 'Please enter a valid page number between 1 and {max}')}
   >
   </div>
 </nav>

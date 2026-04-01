@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
 import {
@@ -33,13 +33,14 @@ const [skillsFetched, messages] = await Promise.all([
 ]);
 
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 const allIntents = getSolutionIntents(typedLocale).filter((item) => item.slug !== (topic as SolutionSlug));
 const canonicalUrl = `https://killer-skills.com/${locale}/solutions/${intent.slug}`;
 const pageTitle = intent.pageTitle;
 const pageDescription = intent.pageDescription;
 
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'ideCompat',
   ...intent.keywordClusters,
@@ -100,7 +101,7 @@ const faqItems = [
           {
             '@type': 'ListItem',
             position: 1,
-            name: t('Common.home') || 'Home',
+            name: tr('Common.home', 'Home'),
             item: `https://killer-skills.com/${locale}`,
           },
           {
@@ -159,15 +160,13 @@ const faqItems = [
       </header>
 
       <section class="mb-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {displaySkills.map((skill) => <SkillCard skill={skill} locale={locale} t={t} />)}
+        {displaySkills.map((skill) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)}
       </section>
 
       {
         displaySkills.length === 0 && (
           <div class="mb-10 text-center py-16 border-4 border-dashed border-[var(--border)] bg-[var(--background)]">
-            <p class="text-[var(--muted-foreground)] font-mono font-bold text-lg">
-              {t('Solutions.noSkills')}
-            </p>
+            <p class="text-[var(--muted-foreground)] font-mono font-bold text-lg">{t('Solutions.noSkills')}</p>
           </div>
         )
       }

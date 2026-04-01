@@ -3,7 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import BlogCard from '../../../components/blog/BlogCard.astro';
 import BlogHero from '../../../components/blog/BlogHero.astro';
-import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
@@ -40,23 +40,23 @@ const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
-const isZh = locale === 'zh';
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+
 const canonicalUrl = `https://killer-skills.com/${locale}/blog`;
-const blogSeoTitle = isZh
-  ? 'AI Agent Skills 指南、自动化工作流与实战博客'
-  : 'AI Agent Skills Guides, Workflow Tutorials, and Automation Blog';
-const blogSeoDescription = isZh
-  ? '阅读围绕 AI Agent Skills、IDE 工作流、自动化实践与开发者效率的实战文章。'
-  : 'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.';
+const blogSeoTitle = tr('BlogIndex.seoTitle', 'AI Agent Skills Guides, Workflow Tutorials, and Automation Blog');
+const blogSeoDescription = tr(
+  'BlogIndex.seoDescription',
+  'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.',
+);
 const blogSeoKeywords = buildKeywordString(
-  locale as Locale,
+  t,
   'core',
   'developerExperience',
   'docs',
   'ideCompat',
-  isZh ? 'AI Agent Skills 博客' : 'AI agent skills blog',
-  isZh ? '开发者工作流技能' : 'developer workflow skills',
-  isZh ? 'IDE 技能文章' : 'IDE skill articles',
+  tr('BlogIndex.keyword1', 'AI agent skills blog'),
+  tr('BlogIndex.keyword2', 'developer workflow skills'),
+  tr('BlogIndex.keyword3', 'IDE skill articles'),
   'Killer-Skills',
 );
 
@@ -98,13 +98,13 @@ const categories = [
           {
             '@type': 'ListItem',
             position: 1,
-            name: t('Common.home') || 'Home',
+            name: tr('Common.home', 'Home'),
             item: `https://killer-skills.com/${locale}`,
           },
           {
             '@type': 'ListItem',
             position: 2,
-            name: t('Blog.title'),
+            name: tr('Blog.title', 'Blog'),
             item: canonicalUrl,
           },
         ],
@@ -145,10 +145,10 @@ const categories = [
           class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]"
         >
           <span class="w-2 h-2 rounded-none bg-[var(--foreground)] mr-2 animate-pulse"></span>
-          {t('Blog.log') || 'LOG'}
+          {tr('Blog.log', 'LOG')}
         </div>
         <h1 class="text-4xl md:text-5xl font-black tracking-tighter mb-6 text-[var(--foreground)] uppercase">
-          {t('Blog.title') || 'Insights & Updates'}
+          {tr('Blog.title', 'Insights & Updates')}
         </h1>
         <p
           class="text-lg md:text-xl text-[var(--muted-foreground)] font-bold max-w-2xl mx-auto leading-relaxed text-balance"
@@ -173,7 +173,7 @@ const categories = [
             <Tags size={28} strokeWidth={3} />
           </div>
           <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)]">
-            {t('Blog.browseByCategory') || 'Browse by Category'}
+            {tr('Blog.browseByCategory', 'Browse by Category')}
           </h2>
         </div>
 
@@ -189,10 +189,10 @@ const categories = [
                     <cat.icon size={32} strokeWidth={2.5} />
                   </div>
                   <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-3 px-1 -ml-1 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors tracking-tight line-clamp-1 w-fit">
-                    {t(`Blog.categories.${cat.id}`) || cat.id}
+                    {tr(`Blog.categories.${cat.id}`, cat.id)}
                   </h3>
                   <p class="text-[var(--muted-foreground)] font-mono font-bold text-sm leading-relaxed mt-auto">
-                    {t(`Blog.categories.${cat.id}-desc`) || ''}
+                    {tr(`Blog.categories.${cat.id}-desc`, '')}
                   </p>
                 </div>
               </a>
@@ -204,7 +204,7 @@ const categories = [
       {/* Post Grid */}
       <div class="flex items-center gap-4 mb-10 border-b-[3px] border-[var(--border)] pb-4">
         <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)]">
-          {t('Blog.latestPosts') || 'LATEST COMMITS'}
+          {tr('Blog.latestPosts', 'Latest Posts')}
         </h2>
       </div>
 
@@ -221,7 +221,7 @@ const categories = [
           !featuredPost && (
             <div class="text-center py-24 bg-[var(--muted)] border-4 border-[var(--border)] border-dashed">
               <p class="text-[var(--muted-foreground)] font-mono font-bold text-xl">
-                {t('Blog.comingSoon') || 'Coming soon...'}
+                {tr('Blog.comingSoon', 'Coming soon...')}
               </p>
             </div>
           )

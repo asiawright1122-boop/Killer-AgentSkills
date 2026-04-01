@@ -14,6 +14,7 @@ import {
     type WorkflowEvent,
 } from "cloudflare:workers";
 import { isValidAgentSkill } from "./lib/validation";
+import { SUPPORTED_LOCALES } from "../config/locales.mjs";
 
 // ===== Types =====
 
@@ -66,9 +67,6 @@ interface ProcessedContent {
         limitations: string[] | Record<string, string[]>;
     };
 }
-
-// 支持的语言
-const SUPPORTED_LOCALES = ["en", "zh", "es", "ja", "ko", "fr", "de", "pt", "ru", "ar"];
 
 // ===== Workflow Definition =====
 

@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, getLangFromUrl, useTranslations } from './i18n';
+import {
+  DEFAULT_LOCALE,
+  SUPPORTED_LOCALES,
+  getLangFromUrl,
+  hasTranslation,
+  translateOr,
+  useTranslations,
+} from './i18n';
 
 // ============================================================================
 // Generators
@@ -147,6 +154,25 @@ describe('Feature: nextjs-to-astro-migration, Property 1: i18n 翻译函数嵌�
         const t = useTranslations({});
         const dotKey = keyPath.join('.');
         expect(t(dotKey)).toBe(dotKey);
+      }),
+      { numRuns: 100 },
+    );
+  });
+
+  it('translateOr should return the provided fallback when the key cannot resolve to a string', () => {
+    fc.assert(
+      fc.property(keyPathArb, keyPathArb, leafValueArb, leafValueArb, (existingPath, lookupPath, value, fallback) => {
+        fc.pre(lookupPath.join('.') !== existingPath.join('.'));
+
+        const messages = buildNestedObject(existingPath, value);
+        const dotKey = lookupPath.join('.');
+        const result = translateOr(messages, dotKey, fallback);
+
+        if (hasTranslation(messages, dotKey)) {
+          expect(result).toBe(useTranslations(messages)(dotKey));
+        } else {
+          expect(result).toBe(fallback);
+        }
       }),
       { numRuns: 100 },
     );

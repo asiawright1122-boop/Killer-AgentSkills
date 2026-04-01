@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 
 export const prerender = false;
@@ -8,26 +8,28 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-
 
 // Validate locale
 const { locale } = Astro.params;
+const typedLocale = locale as Locale;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}/integrations`;
 
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = isZh
-  ? 'Cursor、Claude Code、VS Code 自动化工作流技能兼容与安装指南'
-  : 'Cursor, Claude Code & VS Code AI Skill Setup for Automation Workflows';
-const pageDescription = isZh
-  ? '查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 19+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills，落地工作流自动化与流程自动化。'
-  : 'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 19+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.';
+const pageTitle = tr(
+  'IntegrationsPage.pageTitle',
+  'Cursor, Claude Code & VS Code AI Skill Setup for Automation Workflows',
+);
+const pageDescription = tr(
+  'IntegrationsPage.pageDescription',
+  'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 19+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.',
+);
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'ideCompat',
   'compatibility',
@@ -65,56 +67,66 @@ const integrations = [
     link: 'https://github.com/block/goose',
   },
 ];
-const heroTitle = isZh ? '你的 IDE 已经支持 AI Agent Skills' : 'Your IDE Already Supports AI Agent Skills';
-const heroIntro = isZh
-  ? '如果你在找“Cursor skills”“Claude Code skills”或“VS Code agent skills”，这里就是技能优先的兼容性总览页。Killer-Skills 会自动识别 IDE 并写入正确的 IDE 原生技能格式。'
-  : 'If you are searching for Cursor skills, Claude Code skills, or VS Code agent skills, this page is the skills-first compatibility overview. Killer-Skills auto-detects your IDE and writes the correct IDE-native skill format.';
+const heroTitle = tr('IntegrationsPage.heroTitle', 'Your IDE Already Supports AI Agent Skills');
+const heroIntro = tr(
+  'IntegrationsPage.heroIntro',
+  'If you are searching for Cursor skills, Claude Code skills, or VS Code agent skills, this page is the skills-first compatibility overview. Killer-Skills auto-detects your IDE and writes the correct IDE-native skill format.',
+);
 const intentLinks = [
   {
-    title: isZh ? '安装 AI Agent Skills' : 'Install AI Agent Skills',
-    description: isZh ? '查看一条命令安装与首次配置步骤。' : 'See the one-command install and first-time setup flow.',
+    title: tr('IntegrationsPage.intentLinks.install.title', 'Install AI Agent Skills'),
+    description: tr(
+      'IntegrationsPage.intentLinks.install.desc',
+      'See the one-command install and first-time setup flow.',
+    ),
     href: `/${locale}/docs/installation`,
   },
   {
-    title: isZh ? 'IDE 原生技能配置' : 'IDE-Native Skill Setup',
-    description: isZh
-      ? '了解不同 IDE 如何自动写入原生技能格式。'
-      : 'Learn how each IDE gets its native skill format automatically.',
+    title: tr('IntegrationsPage.intentLinks.ide.title', 'IDE-Native Skill Setup'),
+    description: tr(
+      'IntegrationsPage.intentLinks.ide.desc',
+      'Learn how each IDE gets its native skill format automatically.',
+    ),
     href: `/${locale}/cli`,
   },
   {
-    title: isZh ? '支持的 IDE 与兼容性' : 'Supported IDEs & Compatibility',
-    description: isZh
-      ? '快速查看当前支持的环境与适配范围。'
-      : 'Review the supported environments and compatibility scope.',
+    title: tr('IntegrationsPage.intentLinks.supported.title', 'Supported IDEs & Compatibility'),
+    description: tr(
+      'IntegrationsPage.intentLinks.supported.desc',
+      'Review the supported environments and compatibility scope.',
+    ),
     href: '#supported-ides',
   },
   {
-    title: isZh ? '工作流与模板文档' : 'Workflow & Template Docs',
-    description: isZh
-      ? '从安装转到可复用流程与模板入口。'
-      : 'Move from setup into reusable workflows and template entry points.',
+    title: tr('IntegrationsPage.intentLinks.templates.title', 'Workflow & Template Docs'),
+    description: tr(
+      'IntegrationsPage.intentLinks.templates.desc',
+      'Move from setup into reusable workflows and template entry points.',
+    ),
     href: `/${locale}/docs`,
   },
 ];
 const faqItems = [
   {
-    question: isZh ? 'Killer-Skills 支持哪些 IDE？' : 'Which IDEs does Killer-Skills support?',
-    answer: isZh
-      ? 'Killer-Skills 支持 19+ AI 编程助手和 IDE，包括 Cursor、Windsurf、Claude Code、VS Code、JetBrains、Trae、OpenClaw、Kiro、Augment Code、Continue、Codex、OpenCode、Goose 等。'
-      : 'Killer-Skills supports 19+ AI coding assistants and IDEs, including Cursor, Windsurf, Claude Code, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, and Goose.',
+    question: tr('IntegrationsPage.faq1Q', 'Which IDEs does Killer-Skills support?'),
+    answer: tr(
+      'IntegrationsPage.faq1A',
+      'Killer-Skills supports 19+ AI coding assistants and IDEs, including Cursor, Windsurf, Claude Code, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, and Goose.',
+    ),
   },
   {
-    question: isZh ? '如何在 IDE 中安装 AI Agent Skill？' : 'How do I install an AI agent skill in my IDE?',
-    answer: isZh
-      ? '在终端运行 `npx killer-skills add owner/repo`。CLI 会自动识别当前 IDE，并写入对应的技能文件格式，无需手动配置。'
-      : 'Run `npx killer-skills add owner/repo` in your terminal. The CLI auto-detects your IDE and writes the correct skill file format, so there is no manual setup.',
+    question: tr('IntegrationsPage.faq2Q', 'How do I install an AI agent skill in my IDE?'),
+    answer: tr(
+      'IntegrationsPage.faq2A',
+      'Run `npx killer-skills add owner/repo` in your terminal. The CLI auto-detects your IDE and writes the correct skill file format, so there is no manual setup.',
+    ),
   },
   {
-    question: isZh ? '同一个技能能否跨多个 IDE 使用？' : 'Can I use the same skill across multiple IDEs?',
-    answer: isZh
-      ? '可以。Killer-Skills 使用统一技能格式，在不同 IDE 中会自动转换为各自需要的配置文件。'
-      : 'Yes. Killer-Skills uses a universal skill format and converts it into the native config each IDE expects.',
+    question: tr('IntegrationsPage.faq3Q', 'Can I use the same skill across multiple IDEs?'),
+    answer: tr(
+      'IntegrationsPage.faq3A',
+      'Yes. Killer-Skills uses a universal skill format and converts it into the native config each IDE expects.',
+    ),
   },
 ];
 ---

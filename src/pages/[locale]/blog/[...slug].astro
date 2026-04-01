@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
-import { type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import Info from '../../../components/Info.astro';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import {
@@ -33,24 +33,25 @@ const typedLocale = (locale || 'en') as Locale;
 const { Content, headings } = await render(post);
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 const tb = messages.Blog;
 const category = post.data.category;
 const slug = Astro.params.slug || '';
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/${slug}`;
-const metaOverride = getBlogMetaOverride(typedLocale, slug);
+const metaOverride = getBlogMetaOverride(slug, t);
 const seoTitle = metaOverride?.title || post.data.title;
 const seoDescription = metaOverride?.description || post.data.description;
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'docs',
   ...getBlogKeywordClusters(category, slug),
   ...(post.data.tags || []),
-  ...getBlogLongTailKeywords(slug, typedLocale),
-  category ? [t(`Blog.categories.${category}`) || category] : [],
+  ...getBlogLongTailKeywords(slug, t),
+  category ? [tr(`Blog.categories.${category}`, category)] : [],
   'Killer-Skills',
 );
-const intentLinks = getBlogIntentLinks(locale || 'en', category, slug);
+const intentLinks = getBlogIntentLinks(locale || 'en', category, slug, t);
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -102,8 +103,13 @@ const blogBreadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `https://killer-skills.com/${locale}` },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `https://killer-skills.com/${locale}/blog` },
+    { '@type': 'ListItem', position: 1, name: tr('Common.home', 'Home'), item: `https://killer-skills.com/${locale}` },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: tr('Blog.title', 'Blog'),
+      item: `https://killer-skills.com/${locale}/blog`,
+    },
     {
       '@type': 'ListItem',
       position: 3,
@@ -168,7 +174,7 @@ const blogBreadcrumbSchema = {
             class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
           >
             <ArrowLeft size={16} strokeWidth={3} />
-            {t('Common.back') || 'Back'}
+            {tr('Common.back', 'Back')}
           </a>
 
           {/* Header */}

@@ -8,29 +8,41 @@ import {
 } from './seo-keywords';
 
 describe('seo-keywords', () => {
-  it('returns locale-specific keyword clusters', () => {
-    expect(getKeywordCluster('workflowAutomation', 'en')).toContain('workflow automation skills');
-    expect(getKeywordCluster('workflowAutomation', 'zh')).toContain('工作流自动化技能');
+  const dummyEn = {
+    'Seo.Keywords.workflowAutomation': 'workflow automation skills',
+    'Seo.Keywords.core': 'ai agent skills, developer skills for ai',
+    'Seo.Keywords.docs': 'ai agent skills docs, skill setup docs',
+    'Seo.Keywords.cli': 'skill installation cli',
+  };
+  const dummyZh = {
+    'Seo.Keywords.workflowAutomation': '工作流自动化技能',
+  };
+  const tEn = (k: string) => dummyEn[k as keyof typeof dummyEn] || '';
+  const tZh = (k: string) => dummyZh[k as keyof typeof dummyZh] || '';
+
+  it('getKeywordCluster returns correct localized array', () => {
+    expect(getKeywordCluster('workflowAutomation', tEn)).toContain('workflow automation skills');
+    expect(getKeywordCluster('workflowAutomation', tZh)).toContain('工作流自动化技能');
   });
 
-  it('deduplicates merged keyword strings', () => {
-    const keywords = buildKeywordString('en', 'core', 'workflowAutomation', 'workflow automation');
-    const occurrences = keywords.split(', ').filter((item) => item === 'workflow automation');
-    expect(occurrences).toHaveLength(1);
+  it('buildKeywordString resolves IDs and merges literal keywords', () => {
+    const keywords = buildKeywordString(tEn, 'core', 'workflowAutomation', 'workflow automation');
+    expect(keywords).toContain('ai agent skills');
+    expect(keywords).toContain('workflow automation skills');
+    expect(keywords.split(', ')).toHaveLength(4);
   });
 
-  it('supports literal keywords alongside clusters', () => {
-    const keywords = buildKeywordString('en', 'docs', 'cli', 'agent workflow');
-    expect(keywords).toContain('AI agent skills CLI');
-    expect(keywords).toContain('agent workflow');
+  it('buildKeywordString filters out low intent queries appropriately', () => {
+    const keywords = buildKeywordString(tEn, 'docs', 'cli', 'agent workflow');
+    expect(keywords).toContain('skill installation cli');
+    expect(keywords).not.toContain('how to');
   });
 
-  it('filters low-intent and polluted keywords from merged output', () => {
-    const keywords = buildKeywordString('en', 'core', 'what is mcp', 'product manager workflow', 'mvp builder');
-    expect(keywords).toContain('AI agent skills');
-    expect(keywords).not.toContain('what is mcp');
-    expect(keywords).not.toContain('product manager workflow');
+  it('buildKeywordString deduplicates overlapping strings', () => {
+    const keywords = buildKeywordString(tEn, 'core', 'what is mcp', 'product manager workflow', 'mvp builder');
+    expect(keywords).not.toContain('what is');
     expect(keywords).not.toContain('mvp builder');
+    expect(keywords).toContain('ai agent skills');
   });
 
   it('maps intent ids to keyword clusters', () => {

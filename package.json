@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "validate:public-surface": "node scripts/dev-server-smoke.mjs && npm run build && npx vitest run src/messages/public-copy.test.ts src/i18n.test.ts src/i18n.property.test.ts src/middleware.property.test.ts src/pages/public-links.test.ts",
     "preview": "wrangler pages dev dist",
     "deploy": "wrangler pages deploy dist --project-name killer-skills",
     "astro": "astro",
@@ -37,6 +38,7 @@
     "report:seo:crawl-health": "npx tsx scripts/seo-crawl-health.ts",
     "report:seo:collection-locale-gaps": "node --import tsx scripts/seo-collection-locale-gaps.ts",
     "report:seo:collection-drift": "node --import tsx scripts/seo-collection-drift.ts",
+    "report:seo:regeneration-baseline": "node --import tsx scripts/build-skills-cache.ts --report-regeneration",
     "report:gsc": "npx tsx scripts/gsc-ctr-report.ts",
     "report:gsc:fetch": "npx tsx scripts/gsc-fetch-report.ts",
     "setup:gsc:secrets": "bash scripts/setup-gsc-secrets.sh",
@@ -59,7 +61,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "^13.1.3",
+    "@astrojs/cloudflare": "12.6.12",
     "@astrojs/react": "^4.4.2",
     "@nanostores/react": "^1.0.0",
     "@tailwindcss/vite": "^4.1.18",

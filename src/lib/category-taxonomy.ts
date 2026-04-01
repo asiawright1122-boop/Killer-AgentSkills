@@ -5,10 +5,7 @@ type CategoryDef = {
   icon: string;
   color: string;
   labelKey: string;
-  seoDescription: {
-    en: string;
-    zh: string;
-  };
+  seoDescription: Record<string, string>;
 };
 
 const CATEGORY_ALIASES: Record<string, string> = {
@@ -155,7 +152,7 @@ export function getCategoryDef(category: string | undefined): CategoryDef | unde
 export function getCategorySeoDescription(category: string | undefined, locale: Locale): string {
   const def = getCategoryDef(category);
   if (!def) return '';
-  return locale === 'zh' ? def.seoDescription.zh : def.seoDescription.en;
+  return def.seoDescription[locale] || def.seoDescription['en'] || '';
 }
 
 export function getCategoryLabel(category: string | undefined, t: (key: string) => string): string {

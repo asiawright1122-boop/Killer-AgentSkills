@@ -4,7 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
-import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import { buildKeywordString, getCollectionKeywordClusters } from '../../../lib/seo-keywords';
 import { getLightweightSkills } from '../../../lib/skills';
 import {
@@ -13,6 +13,7 @@ import {
   isDirectlyLocalizedVariant,
 } from '../../../lib/seo-locales';
 import { resolveCollectionBySlug } from '../../../lib/collection-slugs';
+import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -53,6 +54,7 @@ const [allSkills, messages] = await Promise.all([
 ]);
 
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 // Filter the skills the collection requested
 const skillIds = new Set(cData.skills);
@@ -86,13 +88,21 @@ const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${canonicalSlug}`;
 const collectionKeywordClusters = getCollectionKeywordClusters(cData.category, canonicalSlug);
 const collectionSeoKeywords = buildKeywordString(
-  typedLocale,
+  t,
   ...collectionKeywordClusters,
   keywords,
   cData.category ? [String(cData.category).replace(/-/g, ' ')] : [],
   'Killer-Skills',
 );
 const longDescription = resolveLocalized(cData.longDescription, '');
+const breadcrumb = buildBreadcrumbTrail(
+  [
+    { label: translateOr(messages, 'Common.home', 'Home'), href: `/${locale}` },
+    { label: translateOr(messages, 'Common.collections', 'Collections'), href: `/${locale}/collections` },
+    { label: title },
+  ],
+  { currentUrl: canonicalUrl },
+);
 
 // OG Image
 
@@ -147,47 +157,14 @@ const itemListSchema = {
         url: canonicalUrl,
       })}
     />
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: t('Common.home') || 'Home',
-            item: `https://killer-skills.com/${locale}`,
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: t('Common.collections') || 'Collections',
-            item: `https://killer-skills.com/${locale}/collections`,
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
-            name: title,
-            item: canonicalUrl,
-          },
-        ],
-      })}
-    />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumb.jsonLd)} />
   </Fragment>
 
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
     <main class="relative z-10 pt-12 md:pt-24 pb-20 border-b-[3px] border-[var(--border)]">
       <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <Breadcrumb
-          items={[
-            { label: t('Common.home'), href: `/${locale}` },
-            { label: t('Collections.collections') || 'Collections', href: `/${locale}/collections` },
-            { label: title },
-          ]}
-        />
+        <Breadcrumb items={breadcrumb.items} />
 
         {/* Back Link */}
         <a
@@ -195,7 +172,7 @@ const itemListSchema = {
           class="inline-flex items-center gap-2 px-4 py-2 bg-[var(--foreground)] text-[var(--background)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)] transition-all mb-12"
         >
           <ArrowLeft size={16} strokeWidth={3} />
-          {t('Collections.backToCollections')}
+          {tr('Collections.backToCollections', 'Back to collections')}
         </a>
 
         {/* Hero Section */}
@@ -205,7 +182,7 @@ const itemListSchema = {
               class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2"
             >
               <LayoutGrid size={14} />
-              {t('Collections.collection')}
+              {tr('Collections.collection', 'Collection')}
             </span>
             {
               cData.category && (
@@ -242,11 +219,11 @@ const itemListSchema = {
 
         {/* Grid of Dynamic Live Skills */}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {featuredSkills.map((skill) => <SkillCard skill={skill} locale={locale} t={t} />)}
+          {featuredSkills.map((skill) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)}
           {
             featuredSkills.length === 0 && (
               <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
-                {t('Collections.noSkills')}
+                {tr('Collections.noSkills', 'No skills found in this collection.')}
               </div>
             )
           }
@@ -264,7 +241,7 @@ const itemListSchema = {
                 CLI
               </span>
               <span class="font-mono text-[var(--muted-foreground)] hidden md:inline">
-                {t('Collections.installHint')}
+                {tr('Collections.installHint', 'Use the CLI to install skills from this collection.')}
               </span>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto">
@@ -276,7 +253,7 @@ const itemListSchema = {
                 href={`/${locale}/cli`}
                 class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
               >
-                {t('Collections.installAll')} →
+                {tr('Collections.installAll', 'Install with CLI')} →
               </a>
             </div>
           </div>

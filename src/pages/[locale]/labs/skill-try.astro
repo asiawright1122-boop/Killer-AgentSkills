@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, type Locale } from '../../../i18n';
 import { SKILL_TRY_PROFILES, localizeText } from '../../../lib/skill-try-profiles';
 
 export const prerender = false;
@@ -12,12 +12,15 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 
-const pageTitle = isZh ? 'Skill 在线试用 Demo' : 'Skill Online Trial Demo';
-const pageDescription = isZh
-  ? '在网页内直接体验 Skill 的输出效果：选择 Skill、输入需求、在线运行，再决定是否通过 CLI 安装。'
-  : 'Preview skill outputs directly in the browser: choose a skill, enter your request, run online, then decide whether to install via CLI.';
+const messages = await loadMessages(typedLocale);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+
+const pageTitle = tr('Labs.pageTitle', 'Skill Online Trial Demo');
+const pageDescription = tr(
+  'Labs.pageDescription',
+  'Preview skill outputs directly in the browser: choose a skill, enter your request, run online, then decide whether to install via CLI.',
+);
 const canonicalUrl = `https://killer-skills.com/${typedLocale}/labs/skill-try`;
 
 const localizedProfiles = SKILL_TRY_PROFILES.map((profile) => ({
@@ -44,19 +47,19 @@ const initialProfile = localizedProfiles[0];
     id="skill-try-app"
     class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans"
     data-locale={typedLocale}
-    data-empty-input={isZh ? '请先输入你的需求。' : 'Please enter your request first.'}
-    data-running={isZh ? '运行中...' : 'Running...'}
-    data-run-label={isZh ? '在线试用' : 'Run Online Preview'}
-    data-mode-ai={isZh ? '实时模型模式' : 'Live Model Mode'}
-    data-mode-template={isZh ? '模板回退模式' : 'Template Fallback Mode'}
-    data-error-prefix={isZh ? '请求失败：' : 'Request failed: '}
+    data-empty-input={tr('Labs.emptyInput', 'Please enter your request first.')}
+    data-running={tr('Labs.running', 'Running...')}
+    data-run-label={tr('Labs.runLabel', 'Run Online Preview')}
+    data-mode-ai={tr('Labs.modeAi', 'Live Model Mode')}
+    data-mode-template={tr('Labs.modeTemplate', 'Template Fallback Mode')}
+    data-error-prefix={tr('Labs.errorPrefix', 'Request failed: ')}
   >
     <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
       <header class="mb-10 border-b-[3px] border-[var(--border)] pb-8">
         <div
           class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest"
         >
-          {isZh ? '实验室 Demo' : 'Labs Demo'}
+          {tr('Labs.demoBadge', 'Labs Demo')}
         </div>
         <h1 class="mt-4 text-4xl md:text-6xl font-black tracking-tight uppercase">{pageTitle}</h1>
         <p class="mt-4 max-w-3xl text-base md:text-lg font-medium text-[var(--muted-foreground)] leading-relaxed">
@@ -68,7 +71,7 @@ const initialProfile = localizedProfiles[0];
         <form id="skill-try-form" class="border-2 border-[var(--border)] bg-white dark:bg-[#0a0a0a] p-6 space-y-5">
           <div>
             <label for="skill-select" class="block text-sm font-black uppercase tracking-wider mb-2">
-              {isZh ? '选择 Skill' : 'Choose Skill'}
+              {tr('Labs.chooseSkill', 'Choose Skill')}
             </label>
             <select
               id="skill-select"
@@ -111,7 +114,7 @@ const initialProfile = localizedProfiles[0];
             type="submit"
             class="inline-flex items-center justify-center px-5 py-3 border-2 border-[var(--border)] font-black uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] hover:opacity-90 transition-opacity"
           >
-            {isZh ? '在线试用' : 'Run Online Preview'}
+            {tr('Labs.runLabel', 'Run Online Preview')}
           </button>
         </form>
 
@@ -121,30 +124,28 @@ const initialProfile = localizedProfiles[0];
               id="mode-badge"
               class="inline-flex px-3 py-1 border-2 border-[var(--border)] text-xs font-black uppercase tracking-widest"
             >
-              {isZh ? '等待运行' : 'Waiting'}
+              {tr('Labs.waiting', 'Waiting')}
             </span>
             <p id="run-status" class="text-sm text-[var(--muted-foreground)]">
-              {isZh ? '点击在线试用后显示结果。' : 'Results will appear after you run the preview.'}
+              {tr('Labs.runStatusHint', 'Results will appear after you run the preview.')}
             </p>
           </div>
 
           <div class="border-2 border-[var(--border)] p-4">
             <p class="text-xs font-black uppercase tracking-widest mb-2">
-              {isZh ? '对应安装命令' : 'Related Install Command'}
+              {tr('Labs.installCommandLabel', 'Related Install Command')}
             </p>
             <code id="install-command" class="text-sm font-mono">npx killer-skills add {initialProfile.skillRef}</code>
           </div>
 
           <div class="border-2 border-[var(--border)] p-4 bg-[var(--background)]">
             <p class="text-xs font-black uppercase tracking-widest mb-3">
-              {isZh ? '在线试用输出' : 'Online Trial Output'}
+              {tr('Labs.outputLabel', 'Online Trial Output')}
             </p>
             <pre
               id="result-output"
               class="text-sm whitespace-pre-wrap leading-6 text-[var(--foreground)]">
-{isZh
-  ? '这里会显示试用结果。当前 Demo 会优先使用 NVIDIA；失败时自动切换 SiliconFlow、OpenRouter；全部不可用时回退模板结果。'
-  : 'Your preview output will appear here. This demo prefers NVIDIA, falls back to SiliconFlow and OpenRouter, then uses a template if all AI providers are unavailable.'}
+{tr('Labs.outputHint', 'Your preview output will appear here. This demo prefers NVIDIA, falls back to SiliconFlow and OpenRouter, then uses a template if all AI providers are unavailable.')}
             </pre>
           </div>
         </div>

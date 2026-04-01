@@ -3,7 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { ClientRouter } from 'astro:transitions';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../i18n';
+import { loadMessages, translateOr, useTranslations, type Locale } from '../i18n';
+import { buildPageMetadata } from '../lib/site/metadata';
 
 interface Props {
   locale: string;
@@ -49,81 +50,19 @@ try {
   console.error(`[Layout] Error loading translations for ${locale}:`, e);
 }
 
-// Helper to strip trailing slashes for canonical and hreflang consolidation (except root)
-const stripTrailingSlash = (url: string) => {
-  if (url === SITE_URL || url === `${SITE_URL}/`) return url;
-  return url.replace(/\/+$/, '');
-};
-
 // Build absolute image URL for OG/Twitter meta tags
 const absoluteImage = image.startsWith('http') ? image : `${SITE_URL}${image}`;
-
-let canonicalUrl = customCanonical;
-if (!canonicalUrl) {
-  canonicalUrl =
-    Astro.url.pathname === '/' || Astro.url.pathname === `/${locale}`
-      ? `${SITE_URL}${Astro.url.pathname}`
-      : stripTrailingSlash(`${SITE_URL}${Astro.url.pathname}`);
-}
-
-// Build hreflang alternate URLs for all supported locales
-const currentPath =
-  Astro.url.pathname.endsWith('/') && Astro.url.pathname.length > 1
-    ? Astro.url.pathname.slice(0, -1)
-    : Astro.url.pathname;
-
-const normalizedAvailableLocales = SUPPORTED_LOCALES.filter((loc) => availableLocales?.includes(loc) ?? true);
-const effectiveLocales = normalizedAvailableLocales.length > 0 ? normalizedAvailableLocales : [locale as Locale];
-
-const hreflangUrls = effectiveLocales.map((loc) => {
-  // Replace the current locale segment with each alternate locale
-  const altPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${loc}$1`);
-  const finalHref = altPath === `/${loc}` ? `${SITE_URL}${altPath}` : stripTrailingSlash(`${SITE_URL}${altPath}`);
-  return { locale: loc, href: finalHref };
+const metadata = buildPageMetadata({
+  pathname: Astro.url.pathname,
+  locale,
+  title,
+  description,
+  customCanonical,
+  availableLocales,
+  xDefaultLocale: customXDefaultLocale,
+  appendBrand,
+  siteUrl: SITE_URL,
 });
-const resolvedXDefaultLocale =
-  customXDefaultLocale && effectiveLocales.includes(customXDefaultLocale as Locale)
-    ? customXDefaultLocale
-    : effectiveLocales.includes('en')
-      ? 'en'
-      : effectiveLocales[0];
-const xDefaultPath = currentPath.replace(new RegExp(`^/${locale}(/|$)`), `/${resolvedXDefaultLocale}$1`);
-const xDefaultUrl =
-  xDefaultPath === `/${resolvedXDefaultLocale}`
-    ? `${SITE_URL}${xDefaultPath}`
-    : stripTrailingSlash(`${SITE_URL}${xDefaultPath}`);
-
-// SEO: Title length optimization (Target ~60 chars max)
-const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');
-let fullTitle = title;
-if (appendBrand) {
-  const fullBrand = ' | Killer-Skills - AI Agent Directory';
-  const shortBrand = ' | Killer-Skills';
-  if ((title + fullBrand).length <= 60) {
-    fullTitle = isSubpage ? title + fullBrand : title + shortBrand;
-  } else if ((title + shortBrand).length <= 60) {
-    fullTitle = title + shortBrand;
-  }
-}
-
-// SEO: Meta Description length optimization (Target ~155 chars max)
-const cleanDesc = description || 'The ultimate directory of AI Development Skills for Agents.';
-const optimizedDescription = cleanDesc.length > 155 ? cleanDesc.slice(0, 152).trim() + '...' : cleanDesc;
-
-// OG Locale mapping (BCP-47 → Open Graph format)
-const OG_LOCALE_MAP: Record<string, string> = {
-  en: 'en_US',
-  zh: 'zh_CN',
-  ja: 'ja_JP',
-  ko: 'ko_KR',
-  es: 'es_ES',
-  fr: 'fr_FR',
-  de: 'de_DE',
-  pt: 'pt_BR',
-  ru: 'ru_RU',
-  ar: 'ar_SA',
-};
-const ogLocale = OG_LOCALE_MAP[locale] || locale;
 ---
 
 <!doctype html>
@@ -152,7 +91,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
       /></noscript
     >
 
-    <meta name="description" content={optimizedDescription} />
+    <meta name="description" content={metadata.description} />
     {
       noindex ? (
         <meta name="robots" content="noindex, nofollow" />
@@ -164,31 +103,34 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <meta name="generator" content={Astro.generator} />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="canonical" href={metadata.canonicalUrl} />
 
     <!-- hreflang for multilingual SEO -->
-    {hreflangUrls.map(({ locale: loc, href }) => <link rel="alternate" hreflang={loc} href={href} />)}
-    <link rel="alternate" hreflang="x-default" href={xDefaultUrl} />
+    {metadata.alternates.map(({ locale: loc, href }) => <link rel="alternate" hreflang={loc} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={metadata.xDefaultUrl} />
 
     <!-- SEO Keywords -->
-    <meta name="keywords" content={keywords || t('Metadata.keywords')} />
+    <meta
+      name="keywords"
+      content={keywords || translateOr(messages || {}, 'Metadata.keywords', 'Killer-Skills, AI agent skills')}
+    />
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Killer-Skills" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={optimizedDescription} />
+    <meta property="og:title" content={metadata.socialTitle} />
+    <meta property="og:description" content={metadata.description} />
     <meta property="og:image" content={absoluteImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={title} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:image:alt" content={metadata.socialTitle} />
+    <meta property="og:url" content={metadata.canonicalUrl} />
+    <meta property="og:locale" content={metadata.ogLocale} />
     <ClientRouter fallback="swap" />
     {/* OG alternate locales for social sharing */}
     {
-      SUPPORTED_LOCALES.filter((loc) => loc !== locale).map((loc) => (
-        <meta property="og:locale:alternate" content={OG_LOCALE_MAP[loc] || loc} />
+      metadata.ogAlternateLocales.map((alternateLocale) => (
+        <meta property="og:locale:alternate" content={alternateLocale} />
       ))
     }
 
@@ -196,12 +138,12 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@killerskills" />
     <meta name="twitter:creator" content="@killerskills" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={optimizedDescription} />
+    <meta name="twitter:title" content={metadata.socialTitle} />
+    <meta name="twitter:description" content={metadata.description} />
     <meta name="twitter:image" content={absoluteImage} />
-    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:image:alt" content={metadata.socialTitle} />
 
-    <title>{fullTitle}</title>
+    <title>{metadata.documentTitle}</title>
 
     <!-- Theme Toggle Script (No FOUC) -->
     <script>
@@ -233,8 +175,9 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
   <body
     class="min-h-screen flex flex-col bg-[var(--background)] text-[var(--foreground)] selection:bg-[var(--primary)] selection:text-[var(--primary-foreground)]"
   >
-    <a href="#main-content" class="skip-nav">{t('Common.skipToContent') || 'Skip to content'}</a>
-    <Header locale={locale} t={t} />
+    <a href="#main-content" class="skip-nav">{translateOr(messages || {}, 'Common.skipToContent', 'Skip to content')}</a
+    >
+    <Header locale={locale} messages={messages || {}} />
 
     <div id="main-content" class="flex-1 relative" role="main">
       <!-- Global Astro Navigation Loader -->
@@ -245,7 +188,7 @@ const ogLocale = OG_LOCALE_MAP[locale] || locale;
       </div>
       <slot />
     </div>
-    {showFooter && <Footer locale={locale} t={t} />}
+    {showFooter && <Footer locale={locale} messages={messages || {}} />}
 
     <!-- Native Router Progress Script -->
     <script>

@@ -1,5 +1,14 @@
 # Roadmap — Killer-Skills v1.0
 
+## Milestone Checklist
+
+- [x] **Phase 1:** Theme Integrity Fixes (completed 2026-03-31)
+- [x] **Phase 01.1:** Stabilize frontend interactions, breadcrumbs, i18n, and SEO contracts (completed 2026-03-31)
+- [ ] **Phase 2:** Re-Enrichment Pipeline Run
+- [ ] **Phase 3:** SEO Structure Improvements
+- [ ] **Phase 4:** Keyword Research Integration
+- [ ] **Phase 5:** Traffic Quality Monitoring
+
 ## Phase 1: Theme Integrity Fixes ✅ COMPLETE
 
 **Goal**: Fix all code-level SEO theme compliance gaps.
@@ -10,9 +19,10 @@ All code fixes done. Next action: run AI regeneration pipeline.
 
 ---
 
-### Phase 01.1: Stabilize frontend interactions, breadcrumbs, i18n, and SEO contracts (INSERTED)
+### Phase 01.1: Stabilize frontend interactions, breadcrumbs, i18n, and SEO contracts ✅ COMPLETE (INSERTED)
 
 **Goal:** Restore reliable public-page interaction, eliminate leaked/mixed-language UI output, and unify breadcrumb/i18n/SEO contracts behind shared builders and tests.
+**Status:** Completed 2026-03-31.
 **Requirements**: [BASELINE-01, PUBLIC-CLICK-01, I18N-01, SEO-01, SEO-02, LOCALE-01, REGRESSION-01]
 Requirement map:
 - `BASELINE-01`: local dev baseline restored
@@ -23,24 +33,37 @@ Requirement map:
 - `LOCALE-01`: locale definitions centralized
 - `REGRESSION-01`: regression coverage added
 **Depends on:** Phase 1
-**Plans:** 5 plans
+**Plans:** 6/6 plans complete
 
 Plans:
 - [x] 01.1-01-PLAN.md — Restore local Astro/Cloudflare reproducibility and add a reusable public-surface validation command
-- [ ] 01.1-02-PLAN.md — Normalize shared card click behavior and mobile overlay teardown with local E2E coverage
-- [ ] 01.1-03-PLAN.md — Centralize locale definitions and add explicit missing-translation helpers
-- [ ] 01.1-04-PLAN.md — Unify breadcrumb and metadata builders across layout and collections pages
-- [ ] 01.1-05-PLAN.md — Remove remaining public-shell key leakage and add repo/live smoke guards
+- [x] 01.1-02-PLAN.md — Normalize shared card click behavior and mobile overlay teardown with local E2E coverage
+- [x] 01.1-03-PLAN.md — Centralize locale definitions and add explicit missing-translation helpers
+- [x] 01.1-04-PLAN.md — Unify breadcrumb and metadata builders across layout and collections pages
+- [x] 01.1-05-PLAN.md — Remove public-shell, homepage, and skills-index fallback leakage on the highest-traffic public surfaces
+- [x] 01.1-06-PLAN.md — Clean remaining public route fallback leakage and add repo/local/post-deploy smoke guards
 
 ## Phase 2: Re-Enrichment Pipeline Run 🔲
 
 **Goal**: Regenerate AI SEO for all skills failing theme checks.
+**Plans:** 4 planned
 
 **Steps**:
-1. Run `npm run build:cache` (or `npm run pipeline:run`) — the new `isSkillFullyOptimized()` checks will flag ~1046+ skills for re-enrichment
-2. Sync to D1: `npm run sync:d1:delta`
-3. Sync to KV: `npm run sync:kv`
-4. Verify: `node --import tsx scripts/seo-index-integrity.ts --strict`
+1. Run `npm run build:cache` (or `npm run pipeline:run`) so the new theme-compliance gates regenerate the flagged skill subset instead of treating them as already optimized
+2. Audit local output quality before publish: `npm run audit:seo:index-quality`
+3. Publish regenerated skill data to the canonical runtime store: `npm run sync:d1:delta`
+4. Sync supporting KV assets only where needed: `npm run sync:kv`
+5. Verify integrity and drift gates: `node --import tsx scripts/seo-index-integrity.ts --strict`
+
+**Notes**:
+- Skill page runtime data now treats D1 as the source of truth; `sync:kv` is supporting infrastructure for docs and sitemap assets, not the canonical publish gate for regenerated skill SEO.
+- This phase should remain resumable and audit-first: prefer batch-safe reruns plus before/after metrics over one opaque "big bang" push.
+
+Plans:
+- [x] `02-01-PLAN.md` — Establish the flagged-skill baseline, dry-run reporting, and resumable batch inventory
+- [ ] `02-02-PLAN.md` — Regenerate the flagged SEO dataset with checkpointed multilingual safeguards
+- [ ] `02-03-PLAN.md` — Publish regenerated skill data through D1 and sync supporting KV assets
+- [ ] `02-04-PLAN.md` — Run integrity audits, locale spot checks, and publish-ready reporting
 
 **Expected outcome**: Skills with theme-compliant keywords increase from 2273 → 3319 (100%)
 

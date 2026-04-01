@@ -1,8 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
+import CardOverlayLink from '../../../components/CardOverlayLink.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
-import { SUPPORTED_LOCALES, type Locale, loadMessages, useTranslations } from '../../../i18n';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
+import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../lib/collection-slugs';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
@@ -19,6 +22,7 @@ const typedLocale = locale as Locale;
 const canonicalUrl = `https://killer-skills.com/${locale}/collections`;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 // Load all collections
 const collectionsCol = getCanonicalCollections(await getCollection('collections'));
@@ -31,24 +35,46 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
   return field[typedLocale] || field['en'] || fallback;
 };
 
-const collectionsSeoTitle = t('Collections.seoTitle');
-const collectionsSeoDescription = t('Collections.seoDescription');
+const collectionsSeoTitle = tr('Collections.seoTitle', 'AI Agent Skill Collections');
+const collectionsSeoDescription = tr(
+  'Collections.seoDescription',
+  'Explore curated AI agent skill collections and workflow bundles.',
+);
 const collectionsSeoKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'templates',
   'developerExperience',
   'ideCompat',
-  t('Collections.seoKeyword1'),
-  t('Collections.seoKeyword2'),
+  tr('Collections.seoKeyword1', 'AI agent skill collections'),
+  tr('Collections.seoKeyword2', 'workflow skill bundles'),
   'Killer-Skills',
 );
 const workflowLinks = getSolutionIntents(typedLocale).slice(0, 3);
 const faqItems = [
-  { question: t('Collections.faq1Q'), answer: t('Collections.faq1A') },
-  { question: t('Collections.faq2Q'), answer: t('Collections.faq2A') },
-  { question: t('Collections.faq3Q'), answer: t('Collections.faq3A') },
+  {
+    question: tr('Collections.faq1Q', 'What is a collection?'),
+    answer: tr('Collections.faq1A', 'A collection groups related AI agent skills into one workflow-oriented bundle.'),
+  },
+  {
+    question: tr('Collections.faq2Q', 'How do I use a collection?'),
+    answer: tr('Collections.faq2A', 'Open a collection to browse the included skills and install the ones you need.'),
+  },
+  {
+    question: tr('Collections.faq3Q', 'Who are collections for?'),
+    answer: tr(
+      'Collections.faq3A',
+      'Collections help developers find sets of skills for a specific workflow or stack.',
+    ),
+  },
 ];
+const breadcrumb = buildBreadcrumbTrail(
+  [
+    { label: translateOr(messages, 'Common.home', 'Home'), href: `/${locale}` },
+    { label: translateOr(messages, 'Common.collections', 'Collections') },
+  ],
+  { currentUrl: canonicalUrl },
+);
 ---
 
 <Layout
@@ -59,28 +85,7 @@ const faqItems = [
   customCanonical={canonicalUrl}
 >
   <Fragment slot="head">
-    <script
-      is:inline
-      type="application/ld+json"
-      set:html={JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          {
-            '@type': 'ListItem',
-            position: 1,
-            name: t('Common.home') || 'Home',
-            item: `https://killer-skills.com/${locale}`,
-          },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: t('Common.collections') || 'Collections',
-            item: canonicalUrl,
-          },
-        ],
-      })}
-    />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumb.jsonLd)} />
     <script
       is:inline
       type="application/ld+json"
@@ -138,6 +143,8 @@ const faqItems = [
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
     <main class="relative z-10 pt-12 md:pt-24 pb-32 border-b-[3px] border-[var(--border)]">
       <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <Breadcrumb items={breadcrumb.items} />
+
         {/* Header Section */}
         <div
           class="mb-16 border-b-4 border-[var(--border)] pb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
@@ -148,13 +155,13 @@ const faqItems = [
                 class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2"
               >
                 <LayoutGrid size={14} />
-                {t('Common.collections')}
+                {tr('Common.collections', 'Collections')}
               </span>
             </div>
             <h1
               class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words"
             >
-              {t('Collections.heroTitle')}
+              {tr('Collections.heroTitle', 'Collections')}
             </h1>
           </div>
           <p
@@ -188,41 +195,43 @@ const faqItems = [
               const cleanSlug = getCollectionCanonicalSlug(col);
 
               return (
-                <article class="brut-card group p-6 flex flex-col relative bg-white dark:bg-[#0a0a0a] min-h-[300px]">
-                  {/* Stretched Link */}
-                  <a
+                <article
+                  class="brut-card group relative flex min-h-[300px] flex-col bg-white p-6 dark:bg-[#0a0a0a]"
+                  data-testid="collection-card"
+                >
+                  <CardOverlayLink
                     href={`/${locale}/collections/${cleanSlug}`}
-                    class="absolute inset-0 z-0 focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"
+                    ariaLabel={`${tr('Collections.view', 'View')} ${title}`}
                   />
 
                   {/* Icon / Category */}
-                  <div class="relative z-1 flex justify-between items-start mb-6 pointer-events-none">
+                  <div class="relative z-0 mb-6 flex items-start justify-between pointer-events-none">
                     <div class="w-12 h-12 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:border-[var(--primary)] group-hover:shadow-[4px_4px_0px_0px_var(--primary)] transition-all">
                       <Layers size={24} strokeWidth={2.5} />
                     </div>
                     {col.data.featured && (
                       <span class="shrink-0 inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] uppercase tracking-widest">
-                        [ {t('Collections.featured')} ]
+                        [ {tr('Collections.featured', 'Featured')} ]
                       </span>
                     )}
                   </div>
 
                   {/* Content */}
-                  <h3 class="relative z-1 text-2xl font-black text-[var(--foreground)] tracking-tight uppercase mb-4 pointer-events-none line-clamp-2">
+                  <h3 class="relative z-0 mb-4 line-clamp-2 text-2xl font-black uppercase tracking-tight text-[var(--foreground)] pointer-events-none">
                     {title}
                   </h3>
 
-                  <p class="relative z-1 text-[var(--muted-foreground)] font-bold text-sm leading-relaxed mb-8 flex-grow pointer-events-none line-clamp-3">
+                  <p class="relative z-0 mb-8 flex-grow line-clamp-3 text-sm font-bold leading-relaxed text-[var(--muted-foreground)] pointer-events-none">
                     {description}
                   </p>
 
                   {/* Footer */}
-                  <div class="relative z-1 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 pointer-events-none font-mono">
+                  <div class="relative z-0 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 font-mono pointer-events-none">
                     <div class="text-xs font-bold text-[var(--foreground)]">
-                      [{col.data.skills.length} {t('Collections.items')}]
+                      [{col.data.skills.length} {tr('Collections.items', 'items')}]
                     </div>
                     <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">
-                      {t('Collections.view')} <ArrowRight size={16} strokeWidth={3} />
+                      {tr('Collections.view', 'View')} <ArrowRight size={16} strokeWidth={3} />
                     </div>
                   </div>
                 </article>
@@ -233,7 +242,7 @@ const faqItems = [
           {
             collectionsCol.length === 0 && (
               <div class="col-span-full py-20 text-center border-4 border-dashed border-[var(--border)] font-mono text-[var(--muted-foreground)] text-lg font-bold">
-                {t('Collections.noCollections')}
+                {tr('Collections.noCollections', 'No collections available yet.')}
               </div>
             )
           }

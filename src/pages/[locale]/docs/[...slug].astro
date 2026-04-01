@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import Footer from '../../../components/Footer.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 import docsCache from '../../../../data/docs-cache.json';
@@ -32,7 +32,6 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 
 const env = Astro.locals.runtime?.env as Env;
 
@@ -45,6 +44,7 @@ try {
 } catch (e) {
   console.error('[Docs] Error loading translations:', e);
 }
+const tr = (key: string, fallback: string) => translateOr(messages || {}, key, fallback);
 
 // Determine if this is the docs index or a specific doc page
 const isIndex = !slug;
@@ -55,6 +55,11 @@ const isInstallDoc = currentSlug.includes('installation') || currentSlug.include
 const isWorkflowDoc = currentSlug.includes('workflows') || currentSlug.includes('templates');
 const isApiDoc = currentSlug.includes('api');
 const isSecurityDoc = currentSlug.includes('security');
+const docsNavigationLabel = tr('Docs.navLabel', 'Documentation navigation');
+const toggleDocsSidebarLabel = tr('Docs.toggleSidebar', 'Toggle documentation sidebar');
+const closeDocsSidebarLabel = tr('Docs.closeSidebar', 'Close sidebar');
+const docsBadgeLabel = isIndex ? tr('Common.documentation', 'Documentation') : tr('Docs.guide', 'Guide');
+const returnToIntroductionLabel = tr('Docs.returnToIntro', 'Return to Introduction');
 
 interface DocData {
   title: string;
@@ -119,7 +124,7 @@ if (!isIndex && !docContent) {
 // Fallback title if not loaded from KV
 if (!docTitle) {
   if (isIndex) {
-    docTitle = t('Docs.gettingStarted') || 'Getting Started';
+    docTitle = tr('Docs.gettingStarted', 'Getting Started');
   } else {
     const segments = slug!.split('/');
     docTitle = segments[segments.length - 1].replace(/-/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase());
@@ -127,41 +132,26 @@ if (!docTitle) {
 }
 
 const pageTitle = isIndex
-  ? isZh
-    ? 'AI Agent Skills 安装、配置与工作流模板文档'
-    : 'AI Agent Skills Docs for Install, Setup & Workflow Templates'
-  : isZh
-    ? `${docTitle}｜AI Agent Skills 文档`
-    : `${docTitle} | AI Agent Skills Docs`;
+  ? tr('Docs.indexTitle', 'AI Agent Skills Docs for Install, Setup & Workflow Templates')
+  : `${docTitle} | ${tr('Docs.titleSuffix', 'AI Agent Skills Docs')}`;
 const pageDescription = isIndex
-  ? isZh
-    ? '查看 Killer-Skills 的安装、配置、CLI 命令、IDE 兼容性与工作流模板文档，快速开始使用 AI Agent Skills。'
-    : 'Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.'
+  ? tr(
+      'Docs.indexDescription',
+      'Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.',
+    )
   : isCliDoc
-    ? isZh
-      ? `${docTitle}：查看 AI Agent Skills CLI 命令、同步与配置细节，快速完成自动化工作流落地。`
-      : `${docTitle}: learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.`
+    ? `${docTitle}: ${tr('Docs.cliDesc', 'learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.')}`
     : isInstallDoc
-      ? isZh
-        ? `${docTitle}：获取在 Cursor、Claude Code、VS Code 等环境安装 AI Agent Skills 的完整步骤。`
-        : `${docTitle}: follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.`
+      ? `${docTitle}: ${tr('Docs.installDesc', 'follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.')}`
       : isWorkflowDoc
-        ? isZh
-          ? `${docTitle}：围绕工作流自动化、流程自动化与模板化执行，学习可复用的 AI Agent Skills 实践。`
-          : `${docTitle}: learn reusable AI agent skill patterns for workflow automation, process automation, and templates.`
+        ? `${docTitle}: ${tr('Docs.workflowDesc', 'learn reusable AI agent skill patterns for workflow automation, process automation, and templates.')}`
         : isApiDoc
-          ? isZh
-            ? `${docTitle}：了解 MCP、API 调用和集成方式，构建可扩展的 AI Agent 工作流。`
-            : `${docTitle}: understand MCP, API integration, and scalable AI agent workflow implementation.`
+          ? `${docTitle}: ${tr('Docs.apiDesc', 'understand MCP, API integration, and scalable AI agent workflow implementation.')}`
           : isSecurityDoc
-            ? isZh
-              ? `${docTitle}：掌握技能安全、风险防护和生产环境部署的关键规范。`
-              : `${docTitle}: cover skill security, risk controls, and production-ready deployment practices.`
-            : isZh
-              ? `${docTitle}：Killer-Skills 文档，提供安装、配置与自动化实践说明。`
-              : `${docTitle}: Killer-Skills documentation for setup, configuration, and practical automation usage.`;
+            ? `${docTitle}: ${tr('Docs.securityDesc', 'cover skill security, risk controls, and production-ready deployment practices.')}`
+            : `${docTitle}: ${tr('Docs.defaultDesc', 'Killer-Skills documentation for setup, configuration, and practical automation usage.')}`;
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'docs',
   'core',
   'workflowAutomation',
@@ -189,31 +179,26 @@ const canonicalUrl = `https://killer-skills.com${currentPath}`;
 const docsEntryLinks = isIndex
   ? [
       {
-        title: isZh ? '安装 AI Agent Skills' : 'Install AI Agent Skills',
-        description: isZh
-          ? '从零开始完成安装、初始化与首次运行。'
-          : 'Start from zero with install, initialization, and first-run steps.',
+        title: tr('Docs.entry.install.title', 'Install AI Agent Skills'),
+        description: tr(
+          'Docs.entry.install.desc',
+          'Start from zero with install, initialization, and first-run steps.',
+        ),
         href: `/${locale}/docs/installation`,
       },
       {
-        title: isZh ? '配置 Cursor / Claude Code' : 'Set Up Cursor / Claude Code',
-        description: isZh
-          ? '了解各 IDE 如何自动写入原生技能格式。'
-          : 'See how each IDE gets its native skill format automatically.',
+        title: tr('Docs.entry.ide.title', 'Set Up Cursor / Claude Code'),
+        description: tr('Docs.entry.ide.desc', 'See how each IDE gets its native skill format automatically.'),
         href: `/${locale}/integrations`,
       },
       {
-        title: isZh ? 'CLI 命令与同步' : 'CLI Commands & Sync',
-        description: isZh
-          ? '查看命令、同步逻辑与配置选项。'
-          : 'Review commands, sync behavior, and configuration options.',
+        title: tr('Docs.entry.cli.title', 'CLI Commands & Sync'),
+        description: tr('Docs.entry.cli.desc', 'Review commands, sync behavior, and configuration options.'),
         href: `/${locale}/docs/cli/commands`,
       },
       {
-        title: isZh ? '工作流模板入口' : 'Workflow Template Entry Points',
-        description: isZh
-          ? '从文档继续进入自动化与模板场景。'
-          : 'Move from docs into automation and template workflows.',
+        title: tr('Docs.entry.templates.title', 'Workflow Template Entry Points'),
+        description: tr('Docs.entry.templates.desc', 'Move from docs into automation and template workflows.'),
         href: `/${locale}/collections`,
       },
     ]
@@ -221,24 +206,25 @@ const docsEntryLinks = isIndex
 const docsFaqItems = isIndex
   ? [
       {
-        question: isZh ? '如何安装 AI Agent Skills？' : 'How do I install AI agent skills?',
-        answer: isZh
-          ? '从安装文档开始，使用 `npx killer-skills add owner/repo` 添加技能。CLI 会自动识别 IDE 并写入对应格式。'
-          : 'Start with the installation docs and run `npx killer-skills add owner/repo` to add a skill. The CLI auto-detects your IDE and writes the correct format.',
+        question: tr('Docs.faq1Q', 'How do I install AI agent skills?'),
+        answer: tr(
+          'Docs.faq1A',
+          'Start with the installation docs and run `npx killer-skills add owner/repo` to add a skill. The CLI auto-detects your IDE and writes the correct format.',
+        ),
       },
       {
-        question: isZh ? '文档里包含哪些配置内容？' : 'What setup information is covered in the docs?',
-        answer: isZh
-          ? '文档覆盖安装、CLI 命令、配置、工作流概念，以及 Cursor、Claude Code、VS Code 等环境的兼容性入口。'
-          : 'The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.',
+        question: tr('Docs.faq2Q', 'What setup information is covered in the docs?'),
+        answer: tr(
+          'Docs.faq2A',
+          'The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.',
+        ),
       },
       {
-        question: isZh
-          ? '哪里可以看工作流模板和自动化场景？'
-          : 'Where can I find workflow templates and automation ideas?',
-        answer: isZh
-          ? '先看文档中的 workflows 概念页，再进入 collections 和 skills 页面浏览可复用的自动化与模板场景。'
-          : 'Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios.',
+        question: tr('Docs.faq3Q', 'Where can I find workflow templates and automation ideas?'),
+        answer: tr(
+          'Docs.faq3A',
+          'Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios.',
+        ),
       },
     ]
   : [];
@@ -314,13 +300,13 @@ const isActive = (href: string) => {
         {
           '@type': 'ListItem',
           position: 1,
-          name: t('Common.home') || 'Home',
+          name: tr('Common.home', 'Home'),
           item: `https://killer-skills.com/${locale}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
-          name: t('Footer.docs') || 'Docs',
+          name: tr('Footer.docs', 'Docs'),
           item: `https://killer-skills.com/${locale}/docs`,
         },
         ...(!isIndex ? [{ '@type': 'ListItem', position: 3, name: docTitle, item: canonicalUrl }] : []),
@@ -356,11 +342,11 @@ const isActive = (href: string) => {
     >
       <span class="font-black uppercase flex items-center gap-2">
         <Book className="w-5 h-5" strokeWidth={3} />
-        {t('Common.documentation') || 'Documentation'}
+        {tr('Common.documentation', 'Documentation')}
       </span>
       <button
         id="mobile-menu-btn"
-        aria-label="Toggle documentation sidebar"
+        aria-label={toggleDocsSidebarLabel}
         class="hover:bg-[var(--foreground)] hover:text-[var(--background)] p-1 transition-colors border-2 border-transparent hover:border-[var(--foreground)]"
       >
         <Menu className="w-6 h-6" strokeWidth={3} />
@@ -370,7 +356,7 @@ const isActive = (href: string) => {
     {/* Sidebar Navigation */}
     <aside
       id="docs-sidebar"
-      aria-label="Documentation navigation"
+      aria-label={docsNavigationLabel}
       class="fixed inset-y-0 left-0 z-30 w-72 bg-[var(--card)] border-r-4 border-[var(--foreground)] transform -translate-x-full transition-transform duration-300 ease-in-out
       md:translate-x-0 md:static md:h-[calc(100vh-64px)] md:sticky md:top-16 overflow-y-auto"
     >
@@ -379,7 +365,7 @@ const isActive = (href: string) => {
         <div class="flex md:hidden justify-end mb-4">
           <button
             id="close-sidebar-btn"
-            aria-label="Close sidebar"
+            aria-label={closeDocsSidebarLabel}
             class="border-2 border-[var(--foreground)] p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors"
           >
             <X className="w-6 h-6" strokeWidth={3} />
@@ -426,7 +412,7 @@ const isActive = (href: string) => {
         <p
           class="inline-flex items-center px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] font-mono text-xs font-bold uppercase tracking-widest border-2 border-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--foreground)] mb-6"
         >
-          {isIndex ? 'Documentation' : 'Guide'}
+          {docsBadgeLabel}
         </p>
         {
           isIndex && (
@@ -496,20 +482,22 @@ const isActive = (href: string) => {
         "
           >
             <p class="text-xl font-bold text-[var(--foreground)] leading-relaxed mb-10">
-              {isZh
-                ? '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。'
-                : 'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.'}
+              {tr(
+                'Docs.welcomeText',
+                'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.',
+              )}
             </p>
 
             <div class="my-10 p-8 bg-[var(--card)] border-4 border-[var(--foreground)] shadow-[8px_8px_0px_0px_var(--foreground)] not-prose">
               <h3 class="text-2xl font-black text-[var(--foreground)] uppercase mb-4 flex items-center gap-3">
                 <Rocket className="w-8 h-8 text-[var(--primary)]" strokeWidth={3} />
-                {isZh ? '从第一个技能开始' : 'Start with Your First Skill'}
+                {tr('Docs.startFirstSkill', 'Start with Your First Skill')}
               </h3>
               <p class="text-[var(--muted-foreground)] font-bold mb-6 text-lg">
-                {isZh
-                  ? '用一条命令把第一个 AI Agent 技能加入你的开发环境。'
-                  : 'Add your first AI agent skill to your development environment with one command.'}
+                {tr(
+                  'Docs.addFirstSkill',
+                  'Add your first AI agent skill to your development environment with one command.',
+                )}
               </p>
               <div class="flex gap-2 relative">
                 <code class="flex-1 bg-black text-[#00ffcc] border-4 border-black px-6 py-4 font-mono font-bold text-lg overflow-x-auto shadow-[4px_4px_0px_0px_var(--primary)]">
@@ -518,17 +506,17 @@ const isActive = (href: string) => {
               </div>
             </div>
 
-            <h2 class="mt-16 mb-8 text-4xl">{isZh ? '核心概念' : 'Key Concepts'}</h2>
+            <h2 class="mt-16 mb-8 text-4xl">{tr('Docs.keyConcepts', 'Key Concepts')}</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 not-prose">
               <a
                 href={`/${locale}/docs/concepts/skills`}
                 class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
               >
                 <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
-                  {isZh ? '技能' : 'Skills'}
+                  {tr('Docs.skills', 'Skills')}
                 </h3>
                 <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
-                  {isZh ? 'AI Agent 的可复用指令单元' : 'Reusable instruction units for AI agents'}
+                  {tr('Docs.skillsDesc', 'Reusable instruction units for AI agents')}
                 </p>
               </a>
               <a
@@ -536,10 +524,10 @@ const isActive = (href: string) => {
                 class="block p-6 bg-[var(--card)] border-4 border-[var(--foreground)] hover:bg-[var(--primary)] group transition-all hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
               >
                 <h3 class="text-2xl font-black uppercase tracking-tight text-[var(--foreground)] group-hover:text-[var(--primary-foreground)] mb-2">
-                  {isZh ? '工作流' : 'Workflows'}
+                  {tr('Docs.workflows', 'Workflows')}
                 </h3>
                 <p class="font-mono font-bold text-sm text-[var(--muted-foreground)] group-hover:text-[var(--primary-foreground)] opacity-90 uppercase">
-                  {isZh ? '可重复执行的多步骤自动化模式' : 'Repeatable multi-step automation patterns'}
+                  {tr('Docs.workflowsDesc', 'Repeatable multi-step automation patterns')}
                 </p>
               </a>
             </div>
@@ -559,7 +547,7 @@ const isActive = (href: string) => {
                 href={`/${locale}/docs`}
                 class="inline-flex items-center px-6 py-3 bg-[var(--foreground)] text-[var(--background)] font-black uppercase tracking-widest hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors border-2 border-[var(--foreground)]"
               >
-                Return to Introduction
+                {returnToIntroductionLabel}
               </a>
             </div>
           </div>
@@ -583,7 +571,7 @@ const isActive = (href: string) => {
 
       {/* Footer inside content area */}
       <div class="mt-24 pt-8 border-t-4 border-[var(--foreground)]">
-        <Footer locale={locale} t={t} compact />
+        <Footer locale={locale} messages={messages || {}} compact />
       </div>
     </main>
 

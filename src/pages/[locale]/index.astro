@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import SkillCard from '../../components/SkillCard.astro';
 import OfficialSkills from '../../components/OfficialSkills.astro';
 import SearchBar from '../../islands/SearchBar';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/skills';
 import { buildKeywordString } from '../../lib/seo-keywords';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
@@ -31,15 +31,22 @@ const featuredSkills = await getFeaturedSkillsDirect(env, 6);
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 // Load collections for Featured Collections section
 const allCollections = getCanonicalCollections(await getCollection('collections'));
 const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
 
 // SEO: homepage metadata from i18n messages
-const homeSeoTitle = t('Home.seoTitle');
-const homeSeoDescription = t('Home.seoDescription');
-const homeSeoKeywords = buildKeywordString(typedLocale, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
+const homeSeoTitle = tr(
+  'Home.seoTitle',
+  'Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills',
+);
+const homeSeoDescription = tr(
+  'Home.seoDescription',
+  'Discover 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.',
+);
+const homeSeoKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
   { question: t('Home.faq1Q'), answer: t('Home.faq1A') },
   { question: t('Home.faq2Q'), answer: t('Home.faq2A') },
@@ -47,6 +54,10 @@ const faqItems = [
   { question: t('Home.faq4Q'), answer: t('Home.faq4A') },
   { question: t('Home.faq5Q'), answer: t('Home.faq5A') },
 ];
+const seoIntro = tr(
+  'Home.seoIntro',
+  'Killer-Skills is an open-source directory of 2,500+ AI agent skills. Developers use it to discover, install, and manage reusable instruction modules for Claude Code, Cursor, Windsurf, and 19+ other IDEs from one install flow.',
+);
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
@@ -111,7 +122,7 @@ const features = [
     set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: t('Metadata.title'),
+      name: tr('Metadata.title', 'Killer-Skills'),
       speakable: {
         '@type': 'SpeakableSpecification',
         cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
@@ -152,7 +163,10 @@ const features = [
         width: 1200,
         height: 630,
       },
-      description: t('Metadata.description'),
+      description: tr(
+        'Metadata.description',
+        'Discover 80,000+ AI agent skills for Claude Code, Cursor, and Windsurf. Open-source skill marketplace with one-command installation.',
+      ),
       foundingDate: '2025',
       knowsAbout: [
         'AI Agent Skills',
@@ -206,10 +220,7 @@ const features = [
         <p
           class="seo-intro-paragraph text-sm text-[var(--muted-foreground)] max-w-2xl mx-auto mb-10 leading-relaxed opacity-80"
         >
-          {
-            t('Home.seoIntro') ||
-              'Killer-Skills is an open-source directory of 2,500+ AI agent skills. Developers use it to discover, install, and manage plug-and-play instruction modules for AI coding assistants including Claude Code, Cursor, Windsurf, and 19+ other IDEs — all with a single CLI command.'
-          }
+          {seoIntro}
         </p>
 
         <!-- Search Bar (React Island) -->
@@ -320,7 +331,7 @@ const features = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {
           featuredSkills.length > 0 ? (
-            featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} t={t} />)
+            featuredSkills.map((skill: any) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)
           ) : (
             <div class="col-span-full text-center py-12 text-[var(--muted-foreground)] font-mono border-2 border-[var(--border)] border-dashed">
               <p>{t('Skills.noResults')}</p>

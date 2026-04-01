@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { SUPPORTED_LOCALES, DEFAULT_LOCALE, LOCALE_NAMES, getLangFromUrl, useTranslations } from './i18n';
+import {
+  SUPPORTED_LOCALES,
+  DEFAULT_LOCALE,
+  LOCALE_NAMES,
+  getLangFromUrl,
+  hasTranslation,
+  translateOr,
+  useTranslations,
+} from './i18n';
 
 describe('SUPPORTED_LOCALES', () => {
   it('should contain exactly 10 locales', () => {
@@ -103,5 +111,47 @@ describe('useTranslations', () => {
   it('should work with empty messages', () => {
     const t = useTranslations({});
     expect(t('any.key')).toBe('any.key');
+  });
+});
+
+describe('hasTranslation', () => {
+  const messages = {
+    Common: {
+      home: 'Home',
+      nested: {
+        label: 'Nested label',
+      },
+    },
+  };
+
+  it('returns true for string translations', () => {
+    expect(hasTranslation(messages, 'Common.home')).toBe(true);
+    expect(hasTranslation(messages, 'Common.nested.label')).toBe(true);
+  });
+
+  it('returns false for missing or object-valued keys', () => {
+    expect(hasTranslation(messages, 'Common.missing')).toBe(false);
+    expect(hasTranslation(messages, 'Common.nested')).toBe(false);
+  });
+});
+
+describe('translateOr', () => {
+  const messages = {
+    Common: {
+      home: 'Home',
+      nested: {
+        label: 'Nested label',
+      },
+    },
+  };
+
+  it('returns the translated string when the key exists', () => {
+    expect(translateOr(messages, 'Common.home', 'Fallback')).toBe('Home');
+    expect(translateOr(messages, 'Common.nested.label', 'Fallback')).toBe('Nested label');
+  });
+
+  it('returns the provided fallback only when the key is missing', () => {
+    expect(translateOr(messages, 'Common.missing', 'Fallback')).toBe('Fallback');
+    expect(translateOr(messages, 'Common.nested', 'Fallback')).toBe('Fallback');
   });
 });

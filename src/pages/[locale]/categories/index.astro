@@ -1,7 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { CATEGORY_DEFS, getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
 import { getLightweightSkills } from '../../../lib/skills';
 import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
@@ -11,12 +11,11 @@ Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while
 
 // Validate locale
 const { locale } = Astro.params;
+const typedLocale = locale as Locale;
 if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const typedLocale = locale as Locale;
-const isZh = typedLocale === 'zh';
 const canonicalUrl = `https://killer-skills.com/${locale}/categories`;
 
 // Get env from Cloudflare runtime
@@ -28,6 +27,7 @@ const skills = await getLightweightSkills(env).catch(() => []);
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 const categoryColors: Record<string, string> = {
   cyan: 'text-cyan-600 dark:text-cyan-400',
@@ -57,49 +57,59 @@ const categories = CATEGORY_DEFS.map((def) => ({
   count: categoryCounts[def.id] || 0,
 })).filter((category) => category.count > 0);
 
-const pageTitle = isZh ? 'AI Agent Skills 分类目录' : 'AI Agent Skill Categories by Use Case';
-const pageDescription = isZh
-  ? `按开发、数据、AI、设计等分类浏览 ${skills.length}+ 个 AI Agent Skills，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。`
-  : `Browse ${skills.length}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`;
+const pageTitle = tr('Categories.pageTitle', 'AI Agent Skill Categories by Use Case');
+const pageDescription = tr(
+  'Categories.pageDescription',
+  `Browse ${skills.length}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`,
+);
+
 const topCategoryIds = [...categories]
   .sort((a, b) => b.count - a.count)
   .slice(0, 4)
   .map((category) => category.id);
+
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'ideCompat',
   ...topCategoryIds.flatMap((id) => getCategoryKeywordClusters(id)),
-  isZh ? 'AI Agent Skills 分类' : 'AI agent skill categories',
-  isZh ? '技能使用场景' : 'skill use cases',
+  tr('Categories.keyword1', 'AI agent skill categories'),
+  tr('Categories.keyword2', 'skill use cases'),
   'Killer-Skills',
 );
+
 const topCategoryNames = [...categories]
   .sort((a, b) => b.count - a.count)
   .slice(0, 3)
   .map((category) => category.name);
-const heroTitle = isZh ? '按场景浏览 AI Agent Skills' : 'Browse AI Agent Skills by Use Case';
-const heroIntro = isZh
-  ? `最常被浏览的分类包括 ${topCategoryNames.join('、')}。从开发到数据，再到 AI 自动化，你可以直接进入分类页筛选可安装技能。`
-  : `Popular starting points include ${topCategoryNames.join(', ')}. Jump straight into the category that matches your workflow and find installable skills faster.`;
+
+const heroTitle = tr('Categories.heroTitle', 'Browse AI Agent Skills by Use Case');
+const heroIntro = tr(
+  'Categories.heroIntro',
+  `Popular starting points include ${topCategoryNames.join(', ')}. Jump straight into the category that matches your workflow and find installable skills faster.`,
+);
+
 const faqItems = [
   {
-    question: isZh ? '这里有哪些 AI Agent Skills 分类？' : 'What AI agent skill categories can I browse here?',
-    answer: isZh
-      ? `当前可以浏览 ${categories.length} 个分类，包括 ${categories.map((c) => c.name).join('、')}。每个分类都聚合了对应场景下的可安装技能。`
-      : `You can browse ${categories.length} categories here, including ${categories.map((c) => c.name).join(', ')}. Each category groups installable skills for a specific workflow.`,
+    question: tr('Categories.faq1Q', 'What AI agent skill categories can I browse here?'),
+    answer: tr(
+      'Categories.faq1A',
+      `You can browse ${categories.length} categories here, including ${categories.map((c) => c.name).join(', ')}. Each category groups installable skills for a specific workflow.`,
+    ),
   },
   {
-    question: isZh ? 'Killer-Skills 一共有多少技能？' : 'How many skills are indexed on Killer-Skills?',
-    answer: isZh
-      ? `目前平台已收录 ${skills.length}+ 个 AI Agent Skills，热门分类集中在 ${topCategoryNames.join('、')}。`
-      : `Killer-Skills currently indexes ${skills.length}+ AI agent skills, with the most active categories including ${topCategoryNames.join(', ')}.`,
+    question: tr('Categories.faq2Q', 'How many skills are indexed on Killer-Skills?'),
+    answer: tr(
+      'Categories.faq2A',
+      `Killer-Skills currently indexes ${skills.length}+ AI agent skills, with the most active categories including ${topCategoryNames.join(', ')}.`,
+    ),
   },
   {
-    question: isZh ? '如何按分类查找适合我的技能？' : 'How do I find the right skills by category?',
-    answer: isZh
-      ? '先进入与你当前任务最接近的分类，再在技能目录里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。'
-      : 'Start with the category closest to your current task, then narrow further in the skills directory using keywords, official repositories, or featured filters. That is usually faster than searching a broad term.',
+    question: tr('Categories.faq3Q', 'How do I find the right skills by category?'),
+    answer: tr(
+      'Categories.faq3A',
+      'Start with the category closest to your current task, then narrow further in the skills directory using keywords, official repositories, or featured filters. That is usually faster than searching a broad term.',
+    ),
   },
 ];
 ---

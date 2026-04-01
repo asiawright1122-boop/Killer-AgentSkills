@@ -1,6 +1,7 @@
 ---
 import { OFFICIAL_REPOS } from '../lib/skills-config';
 import { loadMessages, useTranslations, type Locale } from '../i18n';
+import CardOverlayLink from './CardOverlayLink.astro';
 
 interface Props {
   owner: string;
@@ -27,15 +28,14 @@ const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 ---
 
-<div class="brut-card group p-6 h-full flex flex-col relative bg-white dark:bg-[#0a0a0a]">
-  <!-- Stretched Link -->
-  <a
-    href={link}
-    class="absolute inset-0 z-[1] focus:outline-none focus:ring-4 focus:ring-[var(--primary)]"
-    aria-label={`${t('Common.viewAll')} ${displayName} skills`}></a>
+<article
+  class="brut-card group relative flex h-full flex-col bg-white p-6 dark:bg-[#0a0a0a]"
+  data-testid="vendor-collection-card"
+>
+  <CardOverlayLink href={link} ariaLabel={`${t('Common.viewAll')} ${displayName} skills`} />
 
   <!-- Header: Avatar + Title -->
-  <div class="relative flex items-center gap-5 mb-6 pointer-events-none">
+  <div class="relative z-0 mb-6 flex items-center gap-5 pointer-events-none">
     <div class="w-16 h-16 flex-shrink-0 overflow-hidden border-2 border-[var(--foreground)] bg-white">
       <img
         src={avatarUrl}
@@ -62,7 +62,7 @@ const t = useTranslations(messages);
   </div>
 
   <!-- Description/Stats -->
-  <div class="relative mt-auto pointer-events-none border-t-2 border-[var(--border)] pt-4">
+  <div class="relative z-0 mt-auto border-t-2 border-[var(--border)] pt-4 pointer-events-none">
     <div class="flex items-center justify-between">
       <div
         class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-sm font-bold uppercase tracking-wider"
@@ -80,4 +80,4 @@ const t = useTranslations(messages);
       }
     </div>
   </div>
-</div>
+</article>

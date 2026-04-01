@@ -3,6 +3,7 @@ export type SkillTryProfileId = 'copywriting' | 'meta-tags-optimizer' | 'schema-
 export interface LocalizedText {
   en: string;
   zh: string;
+  [locale: string]: string;
 }
 
 export interface SkillTryProfile {
@@ -119,5 +120,5 @@ export function getSkillTryProfile(id: string): SkillTryProfile | undefined {
 }
 
 export function localizeText(text: LocalizedText, locale: string): string {
-  return locale === 'zh' ? text.zh : text.en;
+  return text[locale] || text.en;
 }

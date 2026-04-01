@@ -4,7 +4,7 @@ import SkillCard from '../../../components/SkillCard.astro';
 import CollectionCard from '../../../components/CollectionCard.astro';
 import SkillsSidebar from '../../../components/SkillsSidebar.astro';
 import Pagination from '../../../components/Pagination.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
 
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from '../../../lib/category-taxonomy';
@@ -33,6 +33,7 @@ const [skillsFetched, messages] = await Promise.all([
   getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>),
   loadMessages(typedLocale),
 ]);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 let skills: UnifiedSkill[] = skillsFetched;
 
@@ -138,73 +139,152 @@ const paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, current
 
 // translations already loaded in parallel above
 const t = useTranslations(messages);
-const isZh = typedLocale === 'zh';
 const cleanQuery = query.trim().slice(0, 60);
-const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, typedLocale) : null;
+const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, t) : null;
 const workflowEntryLinks = getSolutionIntents(typedLocale);
+const defaultSkillsSeoDescription = tr(
+  'Metadata.Skills.description',
+  'Browse and install thousands of AI Agent skills in the Killer-Skills directory. Supports Claude Code, Windsurf, Cursor, and more.',
+);
+const resolveCategoryDescription = (categoryId: string) => {
+  const seoDescription = getCategorySeoDescription(categoryId, typedLocale);
+  return seoDescription && seoDescription.trim().length > 0 ? seoDescription : defaultSkillsSeoDescription;
+};
 
-// Page title
-let pageTitle = isZh
-  ? '可安装 AI Agent Skills（自动化工作流）'
-  : 'Installable AI Agent Skills for Automation Workflows';
+// Helper: simple template interpolation for message file values
+const tpl = (tplStr: string, vars: Record<string, string>) =>
+  Object.entries(vars).reduce((s, [k, v]) => s.replaceAll(`{${k}}`, v), tplStr);
+
+// Page title — use message file keys for all 10 locales
+let pageTitle = tr(
+  'Marketplace.seoTitle',
+  typedLocale === 'zh' ? '浏览与安装 AI Agent 技能' : 'Browse and Install AI Agent Skills',
+);
 if (cleanQuery)
-  pageTitle = isZh ? `${cleanQuery}：可安装 AI Agent Skills` : `${cleanQuery}: Installable AI Agent Skills`;
+  pageTitle = tpl(
+    tr(
+      'Marketplace.searchSeoTitle',
+      typedLocale === 'zh' ? '搜索结果：{query}｜AI Agent 技能' : '{query} AI Agent Skills Search Results',
+    ),
+    { query: cleanQuery },
+  );
 else if (category && category !== 'all')
-  pageTitle = `${getCategoryLabel(category, t) || category} ${
-    isZh ? 'AI Agent Skills（可安装）' : 'Installable AI Agent Skills'
-  }`;
-else if (view === 'official') pageTitle = isZh ? '官方与认证 AI Agent Skills' : 'Official AI Agent Skills';
-else if (view === 'featured') pageTitle = isZh ? '精选 AI Agent Skills' : 'Featured AI Agent Skills';
-else if (view === 'latest') pageTitle = isZh ? '最新可安装 AI Agent Skills' : 'Latest Installable AI Agent Skills';
-else if (topic) pageTitle = isZh ? `${topicParam}：相关 AI Agent Skills` : `${topicParam}: Related AI Agent Skills`;
+  pageTitle = tpl(
+    tr(
+      'Marketplace.categorySeoTitle',
+      typedLocale === 'zh' ? '{category} AI Agent 技能' : '{category} AI Agent Skills',
+    ),
+    { category: getCategoryLabel(category, t) || category },
+  );
+else if (view === 'official')
+  pageTitle = tr(
+    'Marketplace.officialSeoTitle',
+    typedLocale === 'zh' ? '官方 AI Agent 技能' : 'Official AI Agent Skills',
+  );
+else if (view === 'featured')
+  pageTitle = tr(
+    'Marketplace.featuredSeoTitle',
+    typedLocale === 'zh' ? '精选 AI Agent 技能' : 'Featured AI Agent Skills',
+  );
+else if (view === 'latest')
+  pageTitle = tr(
+    'Marketplace.latestSeoTitle',
+    typedLocale === 'zh' ? '最新发现的 AI Agent 技能' : 'Latest AI Agent Skills',
+  );
+else if (topic)
+  pageTitle = tpl(
+    tr('Marketplace.topicSeoTitle', typedLocale === 'zh' ? '{topic} 相关 AI Agent 技能' : '{topic} AI Agent Skills'),
+    { topic: topicParam },
+  );
 
 if (owner) {
   const vendorConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
   const ownerName = vendorConfig?.name || owner;
-  pageTitle = isZh ? `${ownerName} AI Agent Skills` : `${ownerName} AI Agent Skills`;
+  pageTitle = tpl(
+    tr(
+      'Marketplace.ownerSeoTitle',
+      typedLocale === 'zh' ? '{owner} 发布的 AI Agent 技能' : 'AI Agent Skills by {owner}',
+    ),
+    { owner: ownerName },
+  );
 }
 if (queryIntent) {
-  pageTitle = isZh
-    ? `${queryIntent.displayTerm}：可安装 AI Agent Skills`
-    : `${queryIntent.displayTerm}: Installable AI Agent Skills`;
+  pageTitle = tpl(
+    tr(
+      'Marketplace.searchSeoTitle',
+      typedLocale === 'zh' ? '搜索结果：{query}｜AI Agent 技能' : '{query} AI Agent Skills Search Results',
+    ),
+    { query: queryIntent.displayTerm },
+  );
 }
 
-let pageDescription = isZh
-  ? '按自动化场景比较可安装 AI Agent Skills，覆盖工作流、流程、文档、浏览器与数据提取任务，并支持一键部署。'
-  : 'Compare installable AI agent skills for workflow, process, document, browser, and data automation, then deploy with one command.';
+// Page description — use message file keys for all 10 locales
+let pageDescription = tr(
+  'Marketplace.seoDescription',
+  typedLocale === 'zh'
+    ? '浏览并安装适用于 Claude Code、Cursor、Windsurf 等环境的 AI Agent 技能，按搜索、分类、主题和官方来源快速筛选。'
+    : 'Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.',
+);
 if (cleanQuery) {
-  pageDescription = isZh
-    ? `查找“${cleanQuery}”相关的可安装 AI Agent Skills，并在 Claude Code、Cursor、Windsurf 中一键部署。`
-    : `Find installable AI agent skills for "${cleanQuery}", then deploy in Claude Code, Cursor, and Windsurf with one command.`;
+  pageDescription = tpl(
+    tr(
+      'Marketplace.searchSeoDesc',
+      typedLocale === 'zh'
+        ? '查看与 {query} 相关的 AI Agent 技能结果，快速找到可直接安装到 Claude Code、Cursor 和 Windsurf 的能力模块。'
+        : 'Explore AI Agent skills related to {query} and find installable capabilities for Claude Code, Cursor, Windsurf, and other supported environments.',
+    ),
+    { query: cleanQuery },
+  );
 } else if (owner) {
-  pageDescription = isZh
-    ? `浏览 ${owner} 发布的 AI Agent Skills，查看场景、质量信号与一键安装方式。`
-    : `Browse AI agent skills from ${owner}, including use cases, quality signals, and one-command installation.`;
+  pageDescription = tpl(
+    tr(
+      'Marketplace.ownerSeoDesc',
+      typedLocale === 'zh'
+        ? '浏览 {owner} 发布的 AI Agent 技能，查看其在 Claude Code、Cursor、Windsurf 等环境中的可安装能力。'
+        : 'Browse AI Agent skills published by {owner} and review installable capabilities for Claude Code, Cursor, Windsurf, and more.',
+    ),
+    { owner },
+  );
 } else if (category && category !== 'all') {
-  pageDescription = getCategorySeoDescription(category, typedLocale) || t('Metadata.Skills.description');
+  pageDescription = resolveCategoryDescription(category);
 } else if (view === 'official') {
-  pageDescription = isZh
-    ? '浏览官方与认证仓库发布的 AI Agent Skills，优先选择稳定维护、可直接部署的方案。'
-    : 'Browse official and verified AI agent skills with reliable maintenance, trust signals, and direct install paths.';
+  pageDescription = tr(
+    'Marketplace.officialSeoDesc',
+    typedLocale === 'zh'
+      ? '浏览由官方团队维护的 AI Agent 技能，优先查看高可信、可直接安装的工作流能力。'
+      : 'Browse official AI Agent skills maintained by trusted teams and review high-confidence, install-ready workflow capabilities.',
+  );
 } else if (view === 'featured') {
-  pageDescription = isZh
-    ? '查看社区精选 AI Agent Skills，按质量评分与热度快速发现高价值自动化能力。'
-    : 'Discover featured AI agent skills ranked by quality signals, popularity, and practical automation value.';
+  pageDescription = tr(
+    'Marketplace.featuredSeoDesc',
+    typedLocale === 'zh'
+      ? '浏览精选 AI Agent 技能，快速发现社区认可度高、适合直接加入开发流程的能力模块。'
+      : 'Browse featured AI Agent skills and discover highly rated capabilities that fit directly into real developer workflows.',
+  );
 } else if (view === 'latest') {
-  pageDescription = isZh
-    ? '追踪最新收录与更新的 AI Agent Skills，快速发现新发布的自动化能力。'
-    : 'Track newly indexed AI agent skills to discover fresh automation capabilities early.';
+  pageDescription = tr(
+    'Marketplace.latestSeoDesc',
+    typedLocale === 'zh'
+      ? '查看最新收录的 AI Agent 技能，跟进新出现的工作流、自动化与开发者工具能力。'
+      : 'Review the latest AI Agent skills added to the directory and keep up with new workflow, automation, and developer-tool capabilities.',
+  );
 } else if (topic) {
-  pageDescription = isZh
-    ? `按主题“${topicParam}”筛选可安装 AI Agent Skills，查看相关能力并一键部署。`
-    : `Filter installable AI agent skills by topic "${topicParam}" to find relevant capabilities and deploy fast.`;
+  pageDescription = tpl(
+    tr(
+      'Marketplace.topicSeoDesc',
+      typedLocale === 'zh'
+        ? '浏览与 {topic} 相关的 AI Agent 技能，快速定位适合当前任务的可安装能力模块。'
+        : 'Browse AI Agent skills related to {topic} and quickly find installable capabilities for your current workflow.',
+    ),
+    { topic: topicParam },
+  );
 }
 if (queryIntent) {
   pageDescription = queryIntent.description;
 }
 
 const pageKeywords = buildKeywordString(
-  typedLocale,
+  t,
   'core',
   'ideCompat',
   ...(queryIntent ? getIntentKeywordClusters(queryIntent.id) : ['developerExperience', 'workflowAutomation']),
@@ -266,7 +346,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: `https://killer-skills.com/${locale}` },
+        { '@type': 'ListItem', position: 1, name: t('Common.home'), item: `https://killer-skills.com/${locale}` },
         { '@type': 'ListItem', position: 2, name: pageTitle, item: baseSkillsUrl },
       ],
     })}
@@ -343,39 +423,32 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                               ? t('Sidebar.views.featured')
                               : view === 'latest'
                                 ? t('Sidebar.views.latest')
-                                : isZh
-                                  ? '可安装 AI Agent Skills'
-                                  : 'Installable AI Agent Skills'
+                                : tr(
+                                    'Marketplace.seoTitle',
+                                    typedLocale === 'zh'
+                                      ? '浏览与安装 AI Agent 技能'
+                                      : 'Browse and Install AI Agent Skills',
+                                  )
                   }
                 </h1>
                 <p
                   class="text-[var(--muted-foreground)] font-mono text-base md:text-lg font-bold opacity-80 leading-relaxed max-w-4xl mt-3"
                 >
-                  {
-                    category
-                      ? getCategorySeoDescription(category, typedLocale) || t('Metadata.Skills.description')
-                      : t('Metadata.Skills.description')
-                  }
+                  {category ? resolveCategoryDescription(category) : defaultSkillsSeoDescription}
                 </p>
 
                 {/* SEO Context Injection for Topical Authority */}
                 {
                   !query && !owner && (
                     <div class="mt-6 text-sm text-[var(--foreground)] leading-relaxed max-w-4xl font-mono border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                      {locale === 'zh' ? (
-                        <p>
-                          探索面向 <strong>AI Agent Skills</strong> 的开放目录，快速为 Claude Code、Cursor、Windsurf
-                          与其他 IDE
-                          查找、安装并比较高质量技能。无论是工作流自动化、文档处理、浏览器操作还是数据提取，这里都聚合了可直接落地的技能与安装入口。
-                        </p>
-                      ) : (
-                        <p>
-                          Explore an open directory built around <strong>AI Agent Skills</strong>, with fast ways to
-                          find, compare, and install high-quality skills for Claude Code, Cursor, Windsurf, and other
-                          IDEs. From workflow automation and document handling to browser actions and data extraction,
-                          this page focuses on installable skills with practical delivery paths.
-                        </p>
-                      )}
+                      <p>
+                        {tr(
+                          'Marketplace.seoIntro',
+                          typedLocale === 'zh'
+                            ? '这个技能目录把可安装的 AI Agent 技能集中在一起，方便你按搜索、分类、主题和官方来源快速筛选，并直接安装到 Claude Code、Cursor、Windsurf 等环境。'
+                            : 'This directory brings installable AI Agent skills into one place so you can filter by search, category, topic, and official source, then install them directly into Claude Code, Cursor, Windsurf, and other supported environments.',
+                        )}
+                      </p>
                     </div>
                   )
                 }
@@ -475,7 +548,14 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
             >
               <span class="shrink-0 text-[var(--muted-foreground)]">// {t('Marketplace.popular')}:</span>
               {
-                ['PDF Processing', 'Data Analysis', 'Web Scraping', 'Code Review'].map((tag) => (
+                (
+                  (messages?.Marketplace?.hotTags as string[] | undefined) || [
+                    'PDF Processing',
+                    'Data Analysis',
+                    'Web Scraping',
+                    'Code Review',
+                  ]
+                ).map((tag: string) => (
                   <a
                     href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
                     class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap"
@@ -509,7 +589,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {paginatedSkills.map((skill) => (
                     <div class="h-full">
-                      <SkillCard skill={skill} locale={locale} t={t} />
+                      <SkillCard skill={skill} locale={locale} messages={messages} t={t} />
                     </div>
                   ))}
                 </div>
@@ -549,6 +629,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                   ...(owner && { owner }),
                 }}
                 t={t}
+                tr={tr}
               />
             )
           }
