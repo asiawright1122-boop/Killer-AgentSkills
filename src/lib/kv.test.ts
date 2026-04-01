@@ -1,5 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { getKV, setKV, getSkillsFromKV, getSkillsKV, getSitemapSkillsFromKV, _clearSitemapSkillsCacheForTest, type Env } from './kv';
+import {
+  getKV,
+  setKV,
+  getSkillsFromKV,
+  getSkillsKV,
+  getSitemapSkillsFromKV,
+  _clearSitemapSkillsCacheForTest,
+  type Env,
+} from './kv';
 
 // Set test environment to disable local file fallback in kv.ts
 process.env.NODE_ENV = 'test';
@@ -45,7 +53,7 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
   } as unknown as KVNamespace;
 }
 
-const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(220);
+const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(400);
 const withIndexableBody = <T extends Record<string, any>>(entry: T): T => ({
   ...entry,
   skillMd: {
@@ -57,34 +65,13 @@ const withIndexableBody = <T extends Record<string, any>>(entry: T): T => ({
 function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
   // Create D1 mock based on `skills` array for testing getSkillsFromKV/getSkillsKV
   const mockDB = {
-    prepare: vi.fn((sql: string) => ({
-      bind: vi.fn((...args: any[]) => ({
-        first: vi.fn(async () => {
-          if (sql.includes('WHERE id = ?')) {
-            const match = skills.find((s) => s.id === args[0]);
-            return match ? { data_json: JSON.stringify(match) } : null;
-          }
-          if (sql.includes('LIKE ?')) {
-            const pattern = args[0]?.replace(/%/g, '');
-            const match = skills.find((s) => `${s.owner}/${s.repo}`.startsWith(pattern));
-            return match ? { data_json: JSON.stringify(match) } : null;
-          }
-          if (sql.includes('WHERE owner = ? AND repo = ?')) {
-            const match = skills.find((s) => s.owner === args[0] && s.repo === args[1]);
-            return match ? { data_json: JSON.stringify(match) } : null;
-          }
-          return null;
-        }),
-        all: vi.fn(async () => {
-          return { success: true, results: [] };
-        }),
-      })),
-      all: vi.fn(async () => {
+    prepare: vi.fn((sql: string) => {
+      const executeAll = () => {
         if (sql.includes('ORDER BY stars DESC')) {
           const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
           return { success: true, results: sorted.map((s) => ({ data_json: JSON.stringify(s) })) };
         }
-        if (sql.includes('WHERE owner IS NOT NULL AND repo IS NOT NULL')) {
+        if (sql.includes('WHERE owner IS NOT NULL') || sql.includes('WHERE length(json_extract')) {
           return {
             success: true,
             results: skills
@@ -105,8 +92,31 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
           };
         }
         return { success: true, results: [] };
-      }),
-    })),
+      };
+
+      return {
+        bind: vi.fn((...args: any[]) => ({
+          first: vi.fn(async () => {
+            if (sql.includes('WHERE id = ?')) {
+              const match = skills.find((s) => s.id === args[0]);
+              return match ? { data_json: JSON.stringify(match) } : null;
+            }
+            if (sql.includes('LIKE ?')) {
+              const pattern = args[0]?.replace(/%/g, '');
+              const match = skills.find((s) => `${s.owner}/${s.repo}`.startsWith(pattern));
+              return match ? { data_json: JSON.stringify(match) } : null;
+            }
+            if (sql.includes('WHERE owner = ? AND repo = ?')) {
+              const match = skills.find((s) => s.owner === args[0] && s.repo === args[1]);
+              return match ? { data_json: JSON.stringify(match) } : null;
+            }
+            return null;
+          }),
+          all: vi.fn(async () => executeAll()),
+        })),
+        all: vi.fn(async () => executeAll()),
+      };
+    }),
   };
 
   return {

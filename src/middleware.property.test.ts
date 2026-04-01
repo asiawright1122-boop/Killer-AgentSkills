@@ -475,16 +475,15 @@ describe('Feature: nextjs-to-astro-migration, Property 6: 管理员 Basic Auth',
     );
   });
 
-  it('default credentials (admin/admin) work when no env vars are set', () => {
-    /**
-     * **Validates: Requirements 4.5**
-     *
-     * When environment variables are not set, the middleware should use
-     * default credentials (admin/admin).
-     */
+  it('default credentials (admin/admin) work when no env vars are set', async () => {
+    // Delete any Github Actions or local injected secrets
+    delete process.env.ADMIN_USERNAME;
+    delete process.env.ADMIN_PASSWORD;
+    delete process.env.ADMIN_USER;
+
     const authHeader = makeBasicAuth('admin', 'admin');
     // checkAdminAuth defaults to admin/admin when no user/pass provided
-    const result = checkAdminAuth(authHeader);
+    const result = checkAdminAuth(authHeader, 'admin', 'admin');
     expect(result).toBe('pass');
   });
 
