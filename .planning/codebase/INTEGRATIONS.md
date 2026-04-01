@@ -1,55 +1,20 @@
 # External Integrations
 
-## Cloudflare Platform
-| Service | Files | Purpose |
-|---------|-------|---------|
-| Pages | `wrangler.toml`, `astro.config.mjs` | Site hosting + SSR |
-| KV | `src/lib/kv.ts` | Translations + Skills cache |
-| D1 | `db/seeds/`, `scripts/sync-d1-delta.ts` | Structured data (skills, admin) |
-| Workers | `workers/index.ts` | 3 async workflows |
-| Vectorize | `scripts/generate-embeddings.ts` | Semantic search |
-| Workers AI | `scripts/lib/ai.ts` (Llama 3.3 70B) | SEO generation fallback |
+## Hosting and Cloud Services
+- **Cloudflare Pages**: Primary hosting and edge deployment target (`wrangler pages deploy`).
+- **Cloudflare KV**: Session management, intermediate caching, and high-read document storage.
+- **Cloudflare D1**: Primary relational database for tracking skill caches and complex query capabilities.
 
-## AI API Providers
-- **NVIDIA** (`integrate.api.nvidia.com`) — Primary SEO/translation, Llama 3.3 70B
-- **SiliconFlow** (`api.siliconflow.cn`) — Qwen 2.5 72B
-- **OpenRouter** (`openrouter.ai/api`) — Gemini 2.5 Flash
-- **All configured via** `scripts/lib/ai.ts`, race strategy (Promise.any)
+## AI Infrastructure
+The project integrates multiple AI data pipelines for autonomous content harvesting and translation via scripts (as seen in GitHub actions):
+- **Nvidia API**: High-performance AI model inferences.
+- **SiliconFlow API**: Primary generative APIs for translations.
+- **OpenRouter**: Intelligent model routing for data pipeline fallback processing.
 
-## GitHub API
-| Feature | Files |
-|---------|-------|
-| Skill harvesting | `scripts/harvest-github-skills.ts` |
-| Repo metadata | `src/lib/github.ts` |
-| Webhook verification | `workers/index.ts` |
-| GitHub Actions | `.github/workflows/*.yml` |
+## Browsing & Web Interactions
+- **Playwright**: Utilized via `--with-deps chromium` inside `auto-submitter` workflows to crawl and perform blind submissions across skill aggregator directories.
 
-## Search Engine Integrations
-| Engine | Files | Method |
-|--------|-------|--------|
-| Google Search Console | `scripts/gsc-*.ts` | OAuth2, Search Analytics API |
-| IndexNow | `scripts/submit-indexnow.mjs` | POST API |
-| Baidu Push | `scripts/submit-baidu.mjs` | URL Push API |
-| Google Indexing | `scripts/submit-google.mjs` | Indexing API |
-| Bing Webmasters | via IndexNow | Automatic |
-
-## Directory Submitters
-- **Auto-submitter system**: `scripts/auto-submitter/src/`
-  - Automated submission to AI tool directories
-  - Auth setup: `scripts/auto-submitter/src/auth-setup.ts`
-  - Discovery: `scripts/auto-submitter/src/discover.ts`
-
-## Sitemaps
-| File | Content |
-|------|---------|
-| `sitemap.xml.ts` | Index (links to sub-sitemaps) |
-| `sitemap-skills-[page].xml.ts` | Skills pages (paginated) |
-| `sitemap-blog.xml.ts` | Blog posts |
-| `sitemap-collections.xml.ts` | Collection pages |
-| `sitemap-docs.xml.ts` | Documentation |
-| `sitemap-static.xml.ts` | Static pages |
-| `sitemap-owners-[page].xml.ts` | Owner/repo pages |
-
-## LLM Integration
-- `llms.txt.ts` — Structured data for LLM crawlers
-- `llms-full.txt.ts` — Full skill directory dump for LLM training
+## Developer Portals & Third-Party Platforms
+- **WebContainers API**: Allows initializing isolated Node.js environments inside the frontend (React + Xterm) for the `WebTerminal.tsx` simulator island.
+- **GitHub Actions**: Heavily entrenched CI/CD runner. Responsible for running SEO sweeps, D1 seeding, translation generation, caching, and edge bounds logic.
+- **Search Engines**: Integrated webhooks/APIs invoking IndexNow, Baidu, and Google Search Console data fetching pipelines.

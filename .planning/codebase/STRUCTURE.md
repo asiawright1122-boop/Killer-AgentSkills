@@ -1,75 +1,28 @@
 # Directory Structure
 
-```
-Killer-Skills/
-├── .github/workflows/          # CI/CD (4 workflows)
-│   ├── ci.yml                  # Build + Deploy + SEO checks
-│   ├── data-pipeline.yml       # Skill harvesting + AI SEO + KV/D1 sync
-│   ├── i18n-update.yml         # Translation sync + blog translate
-│   └── seo-monitoring.yml      # SEO health audits
-│
-├── config/
-│   └── locales.mjs             # Locale definitions (shared across Astro + scripts)
-│
-├── data/                       # Static data files (git-tracked, pipeline-generated)
-│   ├── skills-cache.json       # 103MB — 3477 skills, full SEO + translations
-│   ├── embeddings-cache.json   # 40MB — vector embeddings
-│   ├── expanded-github-skills.json  # Raw harvested data
-│   ├── sitemap-skills.json     # Sitemap generation data
-│   ├── official-repos.json     # GitHub repo list for data pipeline
-│   └── seed-keywords.json      # SEO seed keywords
-│
-├── db/seeds/                   # D1 database seeds
-│
-├── packages/                   # Monorepo sub-packages
-│   ├── cli/                    # `killer-skills` CLI tool
-│   ├── killer-skills-manager/  # Skill management library
-│   └── og-server/              # Open Graph image server
-│
-├── scripts/                    # 57 automation scripts
-│   ├── lib/                    # Shared libraries
-│   │   ├── ai.ts               # Multi-provider AI service (1329 lines)
-│   │   ├── constants.ts        # SUPPORTED_LOCALES, SEED_KEYWORDS, categories
-│   │   ├── meta-description.ts # Meta description validators
-│   │   └── utils.ts            # JSON parsing, sanitization
-│   ├── build-skills-cache.ts   # Core: skill harvesting → AI SEO → cache (2515 lines)
-│   ├── harvest-github-skills.ts # GitHub API skill discovery
-│   ├── translate-*.ts          # Translation scripts
-│   ├── ai-optimize-blog-meta.ts # AI meta description optimization
-│   ├── sync-*.ts               # Data sync scripts (KV, D1, translations)
-│   ├── seo-*.ts                # SEO audit/monitoring scripts
-│   └── auto-submitter/         # Directory submission automation
-│
-├── src/
-│   ├── components/             # 14 Astro/React components
-│   ├── content/                # Content collections
-│   │   ├── blog/               # 340 blog posts (11 locale dirs)
-│   │   └── collections/        # Skill collections
-│   ├── islands/                # React islands (interactive)
-│   ├── layouts/                # Layout components
-│   ├── lib/                    # Runtime libraries (44 files)
-│   │   ├── kv.ts               # Cloudflare KV read/write
-│   │   ├── skills.ts           # Skill data model + search
-│   │   ├── seo-keywords.ts     # SEO keyword clusters
-│   │   ├── category-taxonomy.ts # Category definitions
-│   │   └── *.test.ts           # Co-located tests
-│   ├── messages/               # 11 locale JSON files (797 keys each)
-│   ├── pages/                  # 24 Astro pages + 33 API routes
-│   │   ├── [locale]/           # Locale-aware pages
-│   │   ├── api/                # REST API endpoints
-│   │   └── sitemap-*.xml.ts    # Dynamic sitemaps
-│   ├── stores/                 # Nanostores state
-│   └── styles/                 # Global CSS
-│
-├── tests/e2e/                  # 4 Playwright E2E specs
-├── workers/                    # Cloudflare Workers (3 workflows)
-├── public/                     # Static assets
-└── reports/seo/                # Generated SEO reports
-```
+## High-Level Layout
+The project follows a monorepo-lite design that splits concerns between the web frontend, local ETL data pipelines, and workflow automation.
 
-## Key Naming Conventions
-- Pages: `[locale]/[section]/index.astro` — locale-prefixed routing
-- API: `api/[resource]/index.ts` — RESTful structure
-- Tests: `*.test.ts` — co-located with source in `src/lib/`
-- Scripts: verb-noun pattern — `build-skills-cache`, `translate-locales`
-- Locale files: ISO 639-1 codes — `en.json`, `zh.json`, `ja.json`
+### Frontend (`src/`)
+- `src/components/`: Astro components that deal with layout, UI blocks, headers, and SEO properties (e.g., `SkillTryBox.astro`, `Header.astro`).
+- `src/islands/`: Interactive React components compiled exclusively for client-side hydration (e.g., `SubmitSkillModal.tsx`, `WebTerminal.tsx`).
+- `src/layouts/`: Baseline shells ensuring global styles, web font preloads, and Astro view transitions (`Layout.astro`).
+- `src/pages/`: Astro routing controllers.
+  - `src/pages/api/`: Edge serverless functions acting as lightweight backend routes (e.g., form submissions).
+  - `src/pages/[locale]/`: The core dynamic router handling internationalized content routes.
+  - Sitemaps (`src/pages/*.xml.ts`): Highly optimized dynamically generated sitemap indices.
+- `src/lib/`: Core service logic, adapters for Cloudflare D1/KV, and shared configuration.
+- `src/messages/`: JSON translation dictionaries.
+- `src/content/`: Managed Astro content collections spanning Markdown blogs to structured JSON schemas.
+
+### ETL & Tasks (`scripts/`)
+- `scripts/`: Holds imperative `tsx` and shell scripts controlling AI content harvesting, KV synchronizations, automated Github deployments, crawler scripts, and massive bulk search-engine submissions.
+
+### DevSecOps (`.github/workflows/`)
+- `.github/workflows/`: Full suite of deeply integrated CI/CD workflows spanning QA validation (`ci.yml`), DB syncing (`data-pipeline.yml`), and bot automations (`i18n-update.yml`).
+
+## Naming Conventions
+- React Client Components use `PascalCase.tsx`.
+- Astro components use `PascalCase.astro`.
+- General utilities use `kebab-case.ts`.
+- Sub-category routes map directly to URL paths.

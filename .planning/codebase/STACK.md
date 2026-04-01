@@ -1,67 +1,30 @@
 # Technology Stack
 
-## Runtime & Framework
-- **Framework**: Astro 5.17 (SSR mode, `output: 'server'`)
-- **UI**: React 19 (islands architecture via `@astrojs/react`)
-- **Styling**: Tailwind CSS 4.1 (via `@tailwindcss/vite`)
-- **Language**: TypeScript 5.9
-- **Build**: Vite (bundled with Astro)
-- **Hosting**: Cloudflare Pages + Workers
+## Core Technologies
+- **Framework**: [Astro](https://astro.build/) (v5.17+) supporting hybrid SSR/SSG.
+- **UI Libraries**: [React](https://react.dev/) (v19.2) integrated via `@astrojs/react`.
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) (v4.1.18) with `@tailwindcss/vite` and typography plugins.
+- **Language**: TypeScript (v5.9.3) natively configured across the monorepo-style setup.
 
-## Cloudflare Services
-| Service | Binding | Purpose |
-|---------|---------|---------|
-| KV `TRANSLATIONS` | d5ab5c6705774d779d9b1342eda5f9ac | 翻译缓存 |
-| KV `SKILLS_CACHE` | 6130f39a06e14319b0ee4becb0d09842 | Skills 数据缓存 |
-| D1 `DB` | killer-skills-db | 结构化数据持久化 |
-| Workers `WORKFLOWS_SERVICE` | killer-skills-workflows | 异步工作流 |
-| Vectorize `VECTORIZE` | — | 向量搜索 |
-| R2 (inferred) | — | 对象存储 |
+## Cloud & Edge Architecture
+- **Adapter**: Cloudflare Pages (`@astrojs/cloudflare` v12.6.12).
+- **Database**: Cloudflare D1 (managed via SQLite adapters `better-sqlite3`).
+- **Cache / Storage**: Cloudflare KV.
+- **Execution CLI**: Wrangler (CF deployment).
 
-## Key Dependencies
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `astro` | ^5.17.1 | Core framework |
-| `react` / `react-dom` | ^19.2.4 | UI components |
-| `tailwindcss` | ^4.1.18 | Styling |
-| `fuse.js` | ^7.1.0 | Client-side fuzzy search |
-| `better-sqlite3` | ^12.6.2 | Local D1 development |
-| `nanostores` | ^1.1.0 | State management |
-| `lucide-react` | ^0.563.0 | Icons |
-| `react-markdown` | ^10.1.0 | Markdown rendering |
-| `react-syntax-highlighter` | ^16.1.0 | Code highlighting |
-| `dotenv` | ^17.2.4 | Env management |
+## Advanced Capabilities
+- **In-Browser Compute**: WebContainers API (`@webcontainer/api` v1.6.1) for live sandbox terminals.
+- **Terminal Rendering**: Xterm.js (`@xterm/xterm` v6.0) used alongside `@xterm/addon-fit`.
+- **Search Engine**: Local fuzzy indexing powered by `fuse.js` (v7.1).
+- **Markdown Processing**: `react-markdown` paired with `remark-gfm` for robust GitHub-flavored rendering.
+- **State Management**: `nanostores` (v1.1) and `@nanostores/react` for framework-agnostic atom states.
 
-## Dev & Testing
-| Tool | Purpose |
-|------|---------|
-| Vitest + coverage-v8 | Unit/integration tests (222 test files) |
-| Playwright | E2E testing (4 specs) |
-| ESLint + Prettier | Linting + formatting |
-| fast-check | Property-based testing |
-| Husky + lint-staged | Git hooks |
-| PM2 | Process management |
-
-## AI Providers (for SEO/Translation)
-| Provider | Model | Usage |
-|----------|-------|-------|
-| NVIDIA | Llama 3.3 70B Instruct | Primary AI (SEO, translation) |
-| SiliconFlow | Qwen 2.5 72B | Fallback |
-| OpenRouter | Gemini 2.5 Flash | Fallback |
-| Cloudflare Workers AI | Llama 3.3 70B FP8 | Fallback |
-
-## Data Files
-| File | Size | Content |
-|------|------|---------|
-| `data/skills-cache.json` | 103 MB | 3477 skills with SEO, translations, agent analysis |
-| `data/embeddings-cache.json` | 40 MB | Vector embeddings for search |
-| `data/expanded-github-skills.json` | 662 KB | Raw harvested GitHub data |
-| `data/sitemap-skills.json` | 308 KB | Sitemap generation data |
-| `data/docs-cache.json` | 189 KB | Documentation cache |
-
-## Monorepo Packages
-| Package | Path | Purpose |
-|---------|------|---------|
-| `cli` | `packages/cli/` | `killer-skills` CLI tool |
-| `killer-skills-manager` | `packages/killer-skills-manager/` | Skill management library |
-| `og-server` | `packages/og-server/` | Open Graph image generation |
+## Build Tools & DX
+- **Testing**:
+  - Unit/Integrations: Vitest (`@vitest/coverage-v8`).
+  - End-to-End: Playwright (`@playwright/test` v1.58.2).
+- **Code Quality**:
+  - ESLint with TypeScript and Astro plugins (`eslint-plugin-astro`, `typescript-eslint`).
+  - Prettier for formatting (`prettier-plugin-astro`).
+  - Git Hooks: `husky` and `lint-staged` with strict `--max-warnings 0` constraints.
+- **Scripting Execution**: `tsx` for on-the-fly TypeScript automation scripts.

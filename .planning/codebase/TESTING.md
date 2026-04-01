@@ -1,45 +1,15 @@
 # Testing
 
-## Framework
-- **Unit/Integration**: Vitest (v4.0+) with `@vitest/coverage-v8`
-- **Property-based**: fast-check
-- **E2E**: Playwright (v1.58)
-- **Total test files**: 222
+## Frameworks
+Killer-Skills utilizes two distinct testing frameworks driven by different scopes of the stack:
+- **Vitest**: Controls unit testing, property-based testing (using `fast-check`), state-level assertions, and Astro page logic mock verifications.
+- **Playwright**: Used exclusively in the end-to-end and UI-heavy pipelines for browser-emulated checks (`npm run test:e2e`).
 
-## Test Distribution
-| Layer | Files | Examples |
-|-------|-------|---------|
-| `src/lib/*.test.ts` | ~20 | `skills.test.ts`, `kv.test.ts`, `seo-keywords.test.ts` |
-| `src/pages/api/*.test.ts` | ~5 | `search.test.ts`, `submit.test.ts`, `translate.test.ts` |
-| `src/messages/*.test.ts` | ~3 | `public-copy.test.ts`, i18n property tests |
-| `src/i18n.property.test.ts` | 1 | Property-based i18n validation |
-| `tests/e2e/*.spec.ts` | 4 | `home.spec.ts`, `api.spec.ts`, `navigation.spec.ts`, `collections.spec.ts` |
+## Testing Structure & Philosophy
+- **Collocation**: `.test.ts` files reside directly alongside their corresponding codebase files. E.g., `src/pages/public-links.test.ts` lives intimately near `src/pages/`.
+- **Property-based Integrity**: Extensively tests internal middlewares and logic using randomized input seeds (e.g., `middleware.property.test.ts`, `i18n.property.test.ts`).
+- **Astro Source Checking**: Uniquely asserting static template output or source-layout composition using file-reading mocks (`readPageSource()`) to prevent component link regressions prior to actual DOM rendering. E.g., Verifying all sitemap hardcoded relative endpoints.
 
-## Test Patterns
-- **Co-located**: Tests beside source files in `src/lib/`
-- **Naming**: `*.test.ts` for unit/integration, `*.spec.ts` for E2E
-- **Property tests**: `*.property.test.ts` using fast-check for i18n invariants
-
-## CI Test Pipeline
-```yaml
-# ci.yml
-npm run seo:smoke           # SEO frontmatter + meta checks
-npm run seo:frontmatter:guard  # Blog SEO validation
-npx tsx scripts/sync-translations.ts --check  # Translation key sync
-npm run check:astro         # TypeScript + Astro diagnostics
-npm run build               # Full build
-npx vitest run --reporter=verbose  # All unit tests
-```
-
-## Coverage
-- Tool: `@vitest/coverage-v8`
-- Reports: `coverage/lcov-report/`
-- No enforced threshold in CI (manual review)
-
-## E2E Tests
-| File | Coverage |
-|------|----------|
-| `home.spec.ts` | Homepage rendering, locale switching |
-| `api.spec.ts` | API endpoint responses |
-| `navigation.spec.ts` | Page navigation flows |
-| `collections.spec.ts` | Collection page rendering |
+## Coverage & Validation
+- **CI Guard**: `npx vitest run --coverage` executes inside CI blocking deployments if the baseline coverage falters.
+- **Post-Build Validation**: An entirely isolated test suite (`vitest.build-validation.config.ts`) runs purely against the built `dist/` envelope post-compilation to catch edge-rendering snags early.
