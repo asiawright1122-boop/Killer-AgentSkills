@@ -1,0 +1,81 @@
+---
+/**
+ * SkillFaq — FAQ questions + HowTo installation steps.
+ * Mirrors structured data for rich search results.
+ */
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface HowToStep {
+  name: string;
+  text: string;
+}
+
+interface Props {
+  locale: string;
+  faqInstallTitle: string;
+  faqTitle: string;
+  howToInstallTitle: string;
+  faqItems: FaqItem[];
+  howToSteps: HowToStep[];
+}
+
+const { locale, faqInstallTitle, faqTitle, howToInstallTitle, faqItems, howToSteps } = Astro.props;
+---
+
+<section
+  class="mt-12 border-[3px] border-[var(--border)] bg-[var(--background)] shadow-[8px_8px_0px_0px_var(--border)] p-6 md:p-8"
+>
+  <div class="flex flex-col gap-2 mb-6 border-b-4 border-[var(--border)] pb-4">
+    <h2 class="text-2xl md:text-3xl font-black text-[var(--foreground)] uppercase tracking-tight">
+      {faqInstallTitle}
+    </h2>
+    <p class="text-sm font-mono text-[var(--muted-foreground)]">
+      {
+        locale === 'zh'
+          ? '以下问题与步骤与页面结构化数据保持一致，便于搜索引擎理解页面内容。'
+          : 'These questions and steps mirror the structured data on this page for better search understanding.'
+      }
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div>
+      <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
+        <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">?</span>
+        {faqTitle}
+      </h3>
+      <div class="space-y-4">
+        {
+          faqItems.map((item) => (
+            <article class="border-2 border-[var(--border)] p-4 bg-[var(--background)]">
+              <h4 class="font-black text-sm md:text-base text-[var(--foreground)] mb-2">{item.question}</h4>
+              <p class="text-sm md:text-base text-[var(--foreground)]/90 leading-relaxed">{item.answer}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
+        <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
+        {howToInstallTitle}
+      </h3>
+      <ol class="space-y-3">
+        {
+          howToSteps.map((step, index) => (
+            <li class="border-2 border-[var(--border)] p-4 bg-[var(--background)]">
+              <p class="font-black text-sm md:text-base text-[var(--foreground)] mb-1">
+                {index + 1}. {step.name}
+              </p>
+              <p class="text-sm md:text-base text-[var(--foreground)]/90 leading-relaxed">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
