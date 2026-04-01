@@ -308,9 +308,7 @@ function extractBreadcrumbJsonLdLabels(html: string): string[] {
       continue;
     }
 
-    return object.itemListElement
-      .map((item: Record<string, any>) => String(item?.name || '').trim())
-      .filter(Boolean);
+    return object.itemListElement.map((item: Record<string, any>) => String(item?.name || '').trim()).filter(Boolean);
   }
 
   for (const match of html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -333,7 +331,11 @@ function extractBreadcrumbJsonLdLabels(html: string): string[] {
 
 function extractJsonLdPayloadPreviews(html: string): string[] {
   return Array.from(html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi))
-    .map((match) => decodeHtmlEntities(match[1] || '').replace(/\s+/g, ' ').trim())
+    .map((match) =>
+      decodeHtmlEntities(match[1] || '')
+        .replace(/\s+/g, ' ')
+        .trim(),
+    )
     .filter(Boolean)
     .slice(0, 4);
 }
@@ -364,7 +366,10 @@ function assertLocaleMetadata(check: PageCheck, html: string) {
   const hreflangs = extractHreflangs(html);
   const expectedOgLocale = OG_LOCALE_BY_LOCALE[check.locale];
 
-  ensure(htmlLang === check.locale, `${check.path}: expected html lang "${check.locale}", got "${htmlLang || 'missing'}"`);
+  ensure(
+    htmlLang === check.locale,
+    `${check.path}: expected html lang "${check.locale}", got "${htmlLang || 'missing'}"`,
+  );
   ensure(
     hreflangs.includes(check.locale),
     `${check.path}: expected hreflang "${check.locale}" to be present (got ${hreflangs.join(', ') || 'none'})`,
@@ -490,7 +495,10 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
     const parsed = new URL(loc);
     ensure(parsed.origin === SITE_ORIGIN, `skills sitemap loc must use canonical origin: ${loc}`);
     ensure(parsed.search === '', `skills sitemap loc must not contain query params: ${loc}`);
-    ensure(/^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname), `skills sitemap loc has invalid path depth/format: ${loc}`);
+    ensure(
+      /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname),
+      `skills sitemap loc has invalid path depth/format: ${loc}`,
+    );
 
     const segments = parsed.pathname.split('/').filter(Boolean);
     const repoSegment = segments[segments.length - 1] || '';
@@ -515,7 +523,9 @@ async function resolveRepresentativeSkillPath(skillPaths: string[]): Promise<str
   }
 
   if (isLocalBaseUrl) {
-    console.warn('SEO smoke skipped skill detail checks: local preview has no accessible skill detail pages from sitemap sample.');
+    console.warn(
+      'SEO smoke skipped skill detail checks: local preview has no accessible skill detail pages from sitemap sample.',
+    );
     return null;
   }
 
