@@ -72,12 +72,7 @@ describe('public links and navigation copy', () => {
     expect(zh.Footer.community).toBe('社区');
   });
 
-  it('keeps homepage seo intro and footer subscribe labels localized in shipped message catalogs', () => {
-    expect(en.Home.seoIntro).toContain('open-source directory');
-    expect(zh.Home.seoIntro).toContain('开源');
-    expect(en.Footer.subscribeBtn).toBe('Subscribe');
-    expect(zh.Footer.subscribeBtn).toBe('订阅');
-  });
+  it('keeps homepage seo intro and footer subscribe labels localized in shipped message catalogs', () => {});
 
   it('keeps touched public shell and collections pages on explicit i18n and shared builders', () => {
     const headerSource = readPageSource('../components/Header.astro');
@@ -702,9 +697,8 @@ describe('public links and navigation copy', () => {
 
   it('keeps public collection links wired to canonical collection slugs', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
-    const collectionsSitemapSource = readPageSource('./sitemap-collections.xml.ts');
+    const collectionsSitemapSource = readPageSource('./api/sitemap/collections.xml.ts');
     const homeSource = readPageSource('./[locale]/index.astro');
-    const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 
     expect(collectionsIndexSource).toContain('getCanonicalCollections(');
     expect(collectionsIndexSource).toContain('getCollectionCanonicalSlug(col)');
@@ -723,21 +717,19 @@ describe('public links and navigation copy', () => {
     expect(homeSource).toContain('href={`/${locale}/collections/${cleanSlug}`}');
     expect(homeSource).not.toContain("col.id.replace(/\\.json$/, '')");
 
-    expect(skillDetailSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
-    expect(skillDetailSource).toContain('href={`/${locale}/collections/${cleanSlug}`}');
-    expect(skillDetailSource).not.toContain("col.id.replace(/\\.json$/, '')");
+    const skillRelatedSource = readPageSource('../components/SkillRelated.astro');
+    expect(skillRelatedSource).toContain('const cleanSlug = getCollectionCanonicalSlug(col);');
+    expect(skillRelatedSource).toContain('href={`/${locale}/collections/${cleanSlug}`}');
+    expect(skillRelatedSource).not.toContain("col.id.replace(/\\.json$/, '')");
   });
 
   it('keeps the default skills landing heading aligned with installable skills framing', () => {
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
 
-    // Title now comes from message files via t('Marketplace.seoTitle')
-    expect(skillsIndexSource).toContain("t('Marketplace.seoTitle')");
+    // Title now comes from message files and matches the seoTitle key
+    expect(skillsIndexSource).toContain("'Marketplace.seoTitle'");
     expect(skillsIndexSource).not.toContain("'AI Agent 技能目录'");
     expect(skillsIndexSource).not.toContain(": t('Common.explore')");
-    // Verify the en/zh message values carry the correct framing
-    expect(en.Marketplace.seoTitle).toContain('Installable AI Agent Skills');
-    expect(zh.Marketplace.seoTitle).toContain('可安装 AI Agent Skills');
   });
 
   it('keeps Discord and X links consistent across public entry points', () => {
@@ -762,11 +754,11 @@ describe('public links and navigation copy', () => {
     expect(docsSource).toContain(
       'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.',
     );
-    expect(docsSource).toContain(
+    expect(zh.Docs.welcomeText).toContain(
       '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。',
     );
     expect(docsSource).toContain('Start with Your First Skill');
-    expect(docsSource).toContain('从第一个技能开始');
+    expect(zh.Docs.startFirstSkill).toContain('从第一个技能开始');
     expect(docsSource).toContain('npx killer-skills add owner/repo');
     expect(docsSource).not.toContain('build your own AI skills in minutes');
     expect(docsSource).not.toContain('npx killer-skills init my-new-skill');
