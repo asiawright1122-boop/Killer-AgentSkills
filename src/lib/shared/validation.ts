@@ -57,15 +57,36 @@ export const EXCLUDE_KEYWORDS = [
  */
 export const POSITIVE_THEME_KEYWORDS = [
   // Core AI agent platforms
-  'claude', 'cursor', 'windsurf', 'copilot', 'gemini', 'kiro',
+  'claude',
+  'cursor',
+  'windsurf',
+  'copilot',
+  'gemini',
+  'kiro',
   // Protocol & tooling
-  'mcp', 'model context protocol', 'skill.md', '.claude', '.cursor', '.windsurf', '.codex',
+  'mcp',
+  'model context protocol',
+  'skill.md',
+  '.claude',
+  '.cursor',
+  '.windsurf',
+  '.codex',
   // Agent / LLM ecosystem
-  'ai agent', 'agent skill', 'llm', 'large language model', 'agentic', 'prompt',
+  'ai agent',
+  'agent skill',
+  'llm',
+  'large language model',
+  'agentic',
+  'prompt',
   // Coding assistant context
-  'coding assistant', 'ai coding', 'ai-powered', 'ai assistant',
+  'coding assistant',
+  'ai coding',
+  'ai-powered',
+  'ai assistant',
   // Automation in agent context
-  'workflow automation', 'ai workflow', 'agent workflow',
+  'workflow automation',
+  'ai workflow',
+  'agent workflow',
 ];
 
 const NON_TARGET_THEME_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
@@ -180,7 +201,10 @@ function toValidationText(value: unknown): string {
   if (!value) return '';
   if (typeof value === 'string') return value;
   if (Array.isArray(value)) return value.map((item) => toValidationText(item)).join(' ');
-  if (typeof value === 'object') return Object.values(value as Record<string, unknown>).map((item) => toValidationText(item)).join(' ');
+  if (typeof value === 'object')
+    return Object.values(value as Record<string, unknown>)
+      .map((item) => toValidationText(item))
+      .join(' ');
   return String(value);
 }
 
@@ -272,7 +296,10 @@ export function isValidAgentSkill(skill: SkillValidationInput): ValidationResult
     const fullText = [bodyLower, combinedText].join(' ');
     const hasPositiveTheme = POSITIVE_THEME_KEYWORDS.some((kw) => fullText.includes(kw));
     if (!hasPositiveTheme) {
-      return { valid: false, reason: 'No AI agent ecosystem context found (missing: claude, cursor, windsurf, mcp, llm, agent skill, etc.)' };
+      return {
+        valid: false,
+        reason: 'No AI agent ecosystem context found (missing: claude, cursor, windsurf, mcp, llm, agent skill, etc.)',
+      };
     }
   }
 

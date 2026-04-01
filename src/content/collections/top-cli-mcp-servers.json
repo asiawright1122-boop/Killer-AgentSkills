@@ -156,9 +156,7 @@
   "author": "Killer-Skills AI",
   "featured": true,
   "canonicalSlug": "top-cli-terminal-ai-agent-tools",
-  "legacySlugs": [
-    "top-cli-mcp-servers"
-  ],
+  "legacySlugs": ["top-cli-mcp-servers"],
   "category": "cli",
   "longDescription": {
     "en": "This collection highlights AI agent tools that feel native in the terminal. The focus is on practical developer workflows: automating repetitive steps, running agent pipelines, handling schema or data tasks, and speeding up day-to-day coding. Some projects can integrate with MCP or external providers, but the core value here is command-line productivity and reliable execution. If your team builds and ships from the terminal, these tools are strong starting points.",

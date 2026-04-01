@@ -62,7 +62,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-        const env = (locals.runtime?.env || {}) as Env;
+    const env = (locals.runtime?.env || {}) as Env;
     const ftsQuery = buildFtsQuery(sanitizedQuery);
 
     let semanticMatches: any[] = [];
@@ -77,7 +77,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           const embeddingResp: any = await env.AI.run('@cf/baai/bge-base-en-v1.5', { text: [sanitizedQuery] });
           const data = embeddingResp.data;
           const vector = data ? (Array.isArray(data[0]) ? data[0] : data) : embeddingResp;
-          
+
           if (vector && Array.isArray(vector)) {
             const vectorizeResp = await env.VECTORIZE!.query(vector, { topK: RESULT_LIMIT, returnMetadata: 'all' });
             semanticMatches = vectorizeResp.matches || [];
@@ -92,8 +92,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (env.DB && ftsQuery) {
       const keywordPromise = async () => {
         try {
-          const ftsResp = await env.DB!.prepare(
-            `
+          const ftsResp = await env
+            .DB!.prepare(
+              `
               SELECT
                 s.id,
                 s.owner,
@@ -108,8 +109,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
               WHERE skills_fts MATCH ?
               ORDER BY rank
               LIMIT ?
-            `
-          ).bind(ftsQuery, RESULT_LIMIT).all();
+            `,
+            )
+            .bind(ftsQuery, RESULT_LIMIT)
+            .all();
           keywordMatches = Array.isArray(ftsResp.results) ? ftsResp.results : [];
         } catch (err) {
           console.error('D1 FTS search failed:', err);
@@ -122,15 +125,18 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // 2. RRF (Reciprocal Rank Fusion) Scoring
     const rrfK = 60;
-    const combinedScores = new Map<string, {
-      score: number;
-      owner: string;
-      repo: string;
-      name: string;
-      category: string;
-      stars: number;
-      source: string;
-    }>();
+    const combinedScores = new Map<
+      string,
+      {
+        score: number;
+        owner: string;
+        repo: string;
+        name: string;
+        category: string;
+        stars: number;
+        source: string;
+      }
+    >();
 
     // Map Keyword Results
     keywordMatches.forEach((row, index) => {
@@ -148,7 +154,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // Merge Vector Results
     semanticMatches.forEach((match, index) => {
-      const rrfScore = 1.2 / (rrfK + index + 1); // Slight 20% boost to semantic matches 
+      const rrfScore = 1.2 / (rrfK + index + 1); // Slight 20% boost to semantic matches
       const existing = combinedScores.get(match.id);
       if (existing) {
         existing.score += rrfScore; // Additive RRF
@@ -201,7 +207,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
         'Cache-Control': 'public, max-age=60',
       },
     });
-
   } catch (e) {
     console.error('Search API Error:', e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Internal Server Error' }), {

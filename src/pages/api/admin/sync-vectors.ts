@@ -37,7 +37,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
       `SELECT id, owner, repo, name, category, COALESCE(description, '') as description, stars, quality_score
        FROM skills 
        ORDER BY updated_at DESC
-       LIMIT ? OFFSET ?`
+       LIMIT ? OFFSET ?`,
     )
       .bind(limit, offset)
       .all();
@@ -63,18 +63,20 @@ Description: ${skill.description || 'A Claude Code skill plugin.'}
 `;
       // AI.run format varies based on exact CF adapter version, but typically:
       const embeddingResp: any = await env.AI.run('@cf/baai/bge-base-en-v1.5', {
-        text: [semanticContext]
+        text: [semanticContext],
       });
 
       // Check if embeddingResp contains data
       const data = embeddingResp.data;
-      const embeddingVector = data 
-          ? (Array.isArray(data[0]) ? data[0] : data) // handle both batched and flat returns
-          : embeddingResp;
-      
+      const embeddingVector = data
+        ? Array.isArray(data[0])
+          ? data[0]
+          : data // handle both batched and flat returns
+        : embeddingResp;
+
       if (!embeddingVector || !Array.isArray(embeddingVector) || typeof embeddingVector[0] !== 'number') {
-          console.warn(`Failed to generate embedding for ${skill.id}`);
-          continue;
+        console.warn(`Failed to generate embedding for ${skill.id}`);
+        continue;
       }
 
       vectorsToUpsert.push({
@@ -86,8 +88,8 @@ Description: ${skill.description || 'A Claude Code skill plugin.'}
           name: skill.name || skill.repo,
           category: skill.category || '',
           stars: skill.stars || 0,
-          qualityScore: skill.quality_score || 0
-        }
+          qualityScore: skill.quality_score || 0,
+        },
       });
     }
 
@@ -106,7 +108,7 @@ Description: ${skill.description || 'A Claude Code skill plugin.'}
       {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
-      }
+      },
     );
   } catch (err: any) {
     console.error('Vectorize Sync Error:', err);

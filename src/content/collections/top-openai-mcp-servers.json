@@ -156,9 +156,7 @@
   "author": "Killer-Skills AI",
   "featured": true,
   "canonicalSlug": "top-openai-powered-ai-agent-tools",
-  "legacySlugs": [
-    "top-openai-mcp-servers"
-  ],
+  "legacySlugs": ["top-openai-mcp-servers"],
   "category": "openai",
   "longDescription": {
     "en": "This featured collection is focused on tools that use OpenAI models in practical developer workflows. It includes products for prompt design, agent building, coding assistance, evaluation, and runtime visibility. The goal is not to list protocols, but to help teams choose tooling that improves daily engineering outcomes: faster iteration, better quality checks, and clearer operational insight. Some tools may support MCP alongside other integrations, yet OpenAI-driven workflows and developer productivity remain the main theme.",

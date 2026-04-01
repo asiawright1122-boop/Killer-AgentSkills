@@ -141,18 +141,10 @@
   },
   "featured": false,
   "canonicalSlug": "top-opencode-workflow-tools-companion-integrations",
-  "legacySlugs": [
-    "top-opencode-mcp-servers"
-  ],
+  "legacySlugs": ["top-opencode-mcp-servers"],
   "category": "opencode",
   "author": "Killer-Skills AI",
-  "skills": [
-    "Soju06/codex-lb",
-    "dkapellusch/AO",
-    "ssdeanx/AgentStack",
-    "lbb00/ai-rules-sync",
-    "lorehq/lore"
-  ],
+  "skills": ["Soju06/codex-lb", "dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
   "longDescription": {
     "en": "OpenCode workflows need more than a simple tool list. This collection highlights practical skills, integrations, and automation components that support real engineering outcomes: code quality controls, documentation consistency, and smoother delivery operations. MCP-enabled features may be present in selected items, but the page is designed as developer workflow guidance first, with tooling value tied to day-to-day execution.",
     "zh": "OpenCode 工作流需要的不只是工具罗列。本专题强调能够落地产出的技能、集成与自动化组件，帮助你在代码质量控制、文档一致性与交付运维上获得实效。部分条目可含 MCP 能力，但页面首先是面向开发者工作流的方法与选型参考，强调日常执行价值。",

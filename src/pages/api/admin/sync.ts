@@ -8,7 +8,8 @@ export const prerender = false;
 function inferCategoryFromText(skill: any): string {
   const topics = Array.isArray(skill?.topics) ? skill.topics.map((topic: unknown) => String(topic).toLowerCase()) : [];
   const topicsSet = new Set(topics);
-  const textToSearch = `${skill?.name || ''} ${JSON.stringify(skill?.description || {})} ${topics.join(' ')}`.toLowerCase();
+  const textToSearch =
+    `${skill?.name || ''} ${JSON.stringify(skill?.description || {})} ${topics.join(' ')}`.toLowerCase();
 
   let bestCategory = '';
   let bestScore = 0;
@@ -19,7 +20,12 @@ function inferCategoryFromText(skill: any): string {
       const k = keyword.toLowerCase();
       if (!k) continue;
       if (topicsSet.has(k)) score += 10;
-      if (String(skill?.name || '').toLowerCase().includes(k)) score += 5;
+      if (
+        String(skill?.name || '')
+          .toLowerCase()
+          .includes(k)
+      )
+        score += 5;
       if (textToSearch.includes(k)) score += 1;
     }
     if (score > bestScore) {

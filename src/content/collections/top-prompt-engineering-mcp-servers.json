@@ -141,18 +141,10 @@
   },
   "featured": false,
   "canonicalSlug": "top-prompt-engineering-tools-agent-workflows",
-  "legacySlugs": [
-    "top-prompt-engineering-mcp-servers"
-  ],
+  "legacySlugs": ["top-prompt-engineering-mcp-servers"],
   "category": "prompt-engineering",
   "author": "Killer-Skills AI",
-  "skills": [
-    "langwatch/langwatch",
-    "petbrains/mvp-builder",
-    "shinpr/agentic-code",
-    "comet-ml/opik",
-    "f/prompts.chat"
-  ],
+  "skills": ["langwatch/langwatch", "petbrains/mvp-builder", "shinpr/agentic-code", "comet-ml/opik", "f/prompts.chat"],
   "longDescription": {
     "en": "This collection is built for teams that treat prompt engineering as an engineering discipline, not ad-hoc tweaking. It covers design patterns, evaluation loops, regression checks, and versioned workflows that keep agent behavior stable as products evolve. MCP may show up as a supporting integration in some setups, but the core is repeatable prompt quality and reliable execution in production.",
     "zh": "本集合面向把提示工程当作“工程实践”而非临时试错的团队，覆盖提示设计模式、评测闭环、回归检查与版本化流程，确保产品迭代中 Agent 行为持续稳定。部分方案可能以 MCP 作为配套集成能力，但核心是可复现的提示质量与生产级可靠执行。",
