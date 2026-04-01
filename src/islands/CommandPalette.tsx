@@ -92,10 +92,9 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh] p-4 sm:p-6 animate-in fade-in zoom-in-95 duration-200">
       {/* Backdrop */}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      
+
       {/* Neo-Brutalism Modal Palette */}
       <div className="relative w-full max-w-2xl bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden flex flex-col max-h-[80vh]">
-        
         {/* Input Header */}
         <div className="flex items-center px-4 py-3 border-b-4 border-[var(--border)] bg-[var(--card)]">
           <Search strokeWidth={3} className="w-6 h-6 text-[var(--muted-foreground)] mr-3" />
@@ -108,11 +107,14 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
             onKeyDown={handleKeyDown}
           />
           {loading && <Loader2 strokeWidth={3} className="w-5 h-5 animate-spin text-[var(--muted-foreground)] ml-3" />}
-          <button onClick={onClose} className="p-1 ml-2 uppercase font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+          <button
+            onClick={onClose}
+            className="p-1 ml-2 uppercase font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]"
+          >
             <X strokeWidth={3} className="w-6 h-6" />
           </button>
         </div>
-        
+
         {/* Results Area */}
         {results.length > 0 && (
           <div className="overflow-y-auto p-2 scrollbar-hide">
@@ -121,14 +123,16 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
                 key={i}
                 href={result.url}
                 className={`block p-4 mb-2 border-2 transition-all ${
-                  i === selectedIndex 
-                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] -translate-y-1' 
+                  i === selectedIndex
+                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] -translate-y-1'
                     : 'border-transparent hover:bg-[var(--muted)] hover:border-[var(--border)]'
                 }`}
                 onMouseEnter={() => setSelectedIndex(i)}
               >
                 <div className="font-black text-lg truncate tracking-tight">{result.title}</div>
-                <div className={`text-sm mt-1 line-clamp-1 opacity-90 font-bold ${i === selectedIndex ? 'text-current' : 'text-[var(--muted-foreground)]'}`}>
+                <div
+                  className={`text-sm mt-1 line-clamp-1 opacity-90 font-bold ${i === selectedIndex ? 'text-current' : 'text-[var(--muted-foreground)]'}`}
+                >
                   {result.description}
                 </div>
               </a>
@@ -144,16 +148,33 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
         )}
         {!query.trim() && (
           <div className="p-10 text-center text-[var(--muted-foreground)] font-black">
-            <p className="mb-6 uppercase tracking-widest">{locale === 'zh' ? '输入任意关键词检索全库' : 'Type to search the entire database'}</p>
+            <p className="mb-6 uppercase tracking-widest">
+              {locale === 'zh' ? '输入任意关键词检索全库' : 'Type to search the entire database'}
+            </p>
             <div className="flex flex-wrap justify-center gap-3">
-              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('UI')}>UI Design</span>
-              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('SEO')}>SEO Audit</span>
-              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('Python')}>Python</span>
+              <span
+                className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5"
+                onClick={() => setQuery('UI')}
+              >
+                UI Design
+              </span>
+              <span
+                className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5"
+                onClick={() => setQuery('SEO')}
+              >
+                SEO Audit
+              </span>
+              <span
+                className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5"
+                onClick={() => setQuery('Python')}
+              >
+                Python
+              </span>
             </div>
           </div>
         )}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
