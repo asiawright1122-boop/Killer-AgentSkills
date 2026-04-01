@@ -1,268 +1,159 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, Command, ArrowRight, Server, FileText, X } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
+import Search from 'lucide-react/dist/esm/icons/search';
+import X from 'lucide-react/dist/esm/icons/x';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
 
-interface ResultItem {
-  id: string;
-  score: number;
-  owner: string;
-  repo: string;
-  name: string;
-  category: string;
-  stars: number;
-  source: string;
+interface SkillResult {
+  title: string;
+  description: string;
+  url: string;
 }
 
 interface CommandPaletteProps {
+  isOpen: boolean;
+  onClose: () => void;
   locale: string;
-  isOpen?: boolean;
-  onClose?: () => void;
 }
 
-export default function CommandPalette({ locale, isOpen: externalIsOpen, onClose }: CommandPaletteProps) {
-  const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const isOpen = externalIsOpen !== undefined ? externalIsOpen : internalIsOpen;
-  const setIsOpen = (nextState: boolean | ((prev: boolean) => boolean)) => {
-    if (typeof nextState === 'function') {
-      const stateObj = nextState(isOpen);
-      if (onClose && !stateObj) onClose();
-      setInternalIsOpen(stateObj);
-    } else {
-      if (onClose && !nextState) onClose();
-      setInternalIsOpen(nextState);
-    }
-  };
+export default function CommandPalette({ isOpen, onClose, locale }: CommandPaletteProps) {
+  const [mounted, setMounted] = useState(false);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<ResultItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState<SkillResult[]>([]);
+  const [loading, setLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-
   const inputRef = useRef<HTMLInputElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
 
-  // Toggle Modal on Cmd+K / Ctrl+K
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsOpen((prev) => !prev);
-      }
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen]);
+    setMounted(true);
+  }, []);
 
-  // Focus input when opened
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 10);
-      setQuery('');
-      setResults([]);
-      setSelectedIndex(0);
-    }
-  }, [isOpen]);
-
-  // Prevent scroll when modal is open
+  // Lock scroll and auto-focus
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      setTimeout(() => inputRef.current?.focus(), 100);
     } else {
       document.body.style.overflow = '';
+      setTimeout(() => {
+        setQuery('');
+        setResults([]);
+        setSelectedIndex(0);
+      }, 300); // Wait for exit animation
     }
     return () => {
       document.body.style.overflow = '';
     };
   }, [isOpen]);
 
-  // Debounced API Search
+  // Debounced Search API Hook
   useEffect(() => {
     if (!query.trim()) {
       setResults([]);
-      setIsLoading(false);
+      setLoading(false);
       return;
     }
-
-    setIsLoading(true);
-    const debounceTimer = setTimeout(async () => {
+    setLoading(true);
+    const timeoutId = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${locale}`);
-        if (!res.ok) throw new Error('Search failed');
-        const data = (await res.json()) as { results: ResultItem[] };
-        setResults(data.results || []);
-        setSelectedIndex(0);
-      } catch (error) {
-        console.error('Search error:', error);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        if (res.ok) {
+          const data = (await res.json()) as SkillResult[];
+          setResults(data.slice(0, 8)); // Top 8 results
+          setSelectedIndex(0);
+        }
+      } catch (err) {
+        console.error('Search failed:', err);
       } finally {
-        setIsLoading(false);
+        setLoading(false);
       }
-    }, 400); // 400ms debounce
+    }, 300);
 
-    return () => clearTimeout(debounceTimer);
-  }, [query, locale]);
+    return () => clearTimeout(timeoutId);
+  }, [query]);
 
-  // Handle Keyboard Navigation
-  const handleInputKeyDown = (e: React.KeyboardEvent) => {
+  // Keyboard Navigation Support
+  const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      setSelectedIndex((prev) => Math.min(prev + 1, results.length - 1));
+      setSelectedIndex((prev) => (prev < results.length - 1 ? prev + 1 : prev));
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setSelectedIndex((prev) => Math.max(prev - 1, 0));
-    } else if (e.key === 'Enter') {
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    } else if (e.key === 'Enter' && results.length > 0) {
       e.preventDefault();
-      if (results.length > 0 && results[selectedIndex]) {
-        handleSelect(results[selectedIndex]);
-      }
+      window.location.href = results[selectedIndex].url;
     }
   };
 
-  // Keep selected item active in scroll view
-  useEffect(() => {
-    if (!listRef.current || results.length === 0) return;
-    const activeChild = listRef.current.children[selectedIndex] as HTMLElement;
-    if (activeChild) {
-      activeChild.scrollIntoView({ block: 'nearest' });
-    }
-  }, [selectedIndex, results]);
+  if (!mounted || !isOpen) return null;
 
-  const handleSelect = (item: ResultItem) => {
-    setIsOpen(false);
-    window.location.href = `/${locale}/skills/${item.owner}/${item.repo}`;
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 z-50 flex pt-[10vh] items-start justify-center p-4 sm:p-0">
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onClick={() => setIsOpen(false)} />
-
-      <div className="relative w-full max-w-2xl bg-[var(--background)] border-4 border-[var(--foreground)] shadow-[12px_12px_0px_0px_var(--foreground)] overflow-hidden flex flex-col">
-        {/* Search Header */}
-        <div className="flex items-center border-b-4 border-[var(--foreground)] px-4 py-3 bg-[var(--card)]">
-          <Search className="w-6 h-6 text-[var(--foreground)] mr-3 opacity-50" strokeWidth={3} />
+  return createPortal(
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[10vh] p-4 sm:p-6 animate-in fade-in zoom-in-95 duration-200">
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      
+      {/* Neo-Brutalism Modal Palette */}
+      <div className="relative w-full max-w-2xl bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] overflow-hidden flex flex-col max-h-[80vh]">
+        
+        {/* Input Header */}
+        <div className="flex items-center px-4 py-3 border-b-4 border-[var(--border)] bg-[var(--card)]">
+          <Search strokeWidth={3} className="w-6 h-6 text-[var(--muted-foreground)] mr-3" />
           <input
             ref={inputRef}
-            type="text"
-            className="flex-1 bg-transparent border-none text-xl font-black text-[var(--foreground)] placeholder-[var(--muted-foreground)] focus:ring-0 focus:outline-none"
-            placeholder="Search agents, skills, workflows..."
+            className="flex-1 bg-transparent outline-none text-xl font-black text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]"
+            placeholder={locale === 'zh' ? '搜索技能、工作流与智能体...' : 'Search skills, workflows, agents...'}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleInputKeyDown}
+            onKeyDown={handleKeyDown}
           />
-          {isLoading && (
-            <div className="w-5 h-5 border-4 border-[var(--primary)] border-t-transparent rounded-full animate-spin ml-3"></div>
-          )}
-          <button
-            onClick={() => setIsOpen(false)}
-            className="ml-3 p-1 hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-transparent hover:border-[var(--foreground)] transition-colors"
-          >
-            <X className="w-5 h-5" strokeWidth={3} />
+          {loading && <Loader2 strokeWidth={3} className="w-5 h-5 animate-spin text-[var(--muted-foreground)] ml-3" />}
+          <button onClick={onClose} className="p-1 ml-2 uppercase font-bold text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+            <X strokeWidth={3} className="w-6 h-6" />
           </button>
         </div>
-
-        {/* Search Results */}
-        <div ref={listRef} className="max-h-[60vh] overflow-y-auto">
-          {query.trim() === '' ? (
-            <div className="p-8 text-center text-[var(--muted-foreground)] font-bold">
-              <Command className="w-12 h-12 mx-auto mb-4 opacity-20" strokeWidth={2} />
-              <p className="text-lg">Type something to search...</p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <span className="px-3 py-1 bg-[var(--card)] border-2 border-[var(--border)] text-xs uppercase tracking-widest font-black">
-                  Trending: C++ Optimization
-                </span>
-                <span className="px-3 py-1 bg-[var(--card)] border-2 border-[var(--border)] text-xs uppercase tracking-widest font-black">
-                  Trending: Python CI/CD
-                </span>
-                <span className="px-3 py-1 bg-[var(--card)] border-2 border-[var(--border)] text-xs uppercase tracking-widest font-black">
-                  Trending: AI Prompt
-                </span>
-              </div>
-            </div>
-          ) : results.length === 0 && !isLoading ? (
-            <div className="p-8 text-center text-[var(--muted-foreground)] font-bold">
-              <p className="text-lg">No results found for "{query}"</p>
-              <p className="text-sm mt-2 opacity-70">Try adjusting your generic keywords or category terms.</p>
-            </div>
-          ) : (
-            results.map((item, index) => {
-              const isActive = index === selectedIndex;
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => handleSelect(item)}
-                  onMouseEnter={() => setSelectedIndex(index)}
-                  className={`flex flex-col sm:flex-row sm:items-center justify-between p-4 border-b-2 border-[var(--border)] cursor-pointer transition-colors ${
-                    isActive ? 'bg-[var(--primary)] text-[var(--primary-foreground)]' : 'hover:bg-[var(--muted)]'
-                  }`}
-                >
-                  <div className="flex items-center gap-3 mb-2 sm:mb-0">
-                    <div
-                      className={`p-2 border-2 ${isActive ? 'bg-black text-[var(--primary)] border-black' : 'bg-[var(--background)] border-[var(--foreground)]'}`}
-                    >
-                      {item.source === 'admin' ? (
-                        <Server size={18} strokeWidth={3} />
-                      ) : (
-                        <FileText size={18} strokeWidth={3} />
-                      )}
-                    </div>
-                    <div>
-                      <h4 className="font-black text-lg tracking-tight leading-none mb-1">{item.name}</h4>
-                      <p
-                        className={`font-mono text-xs font-bold opacity-80 ${isActive ? 'text-black/80' : 'text-[var(--muted-foreground)]'}`}
-                      >
-                        {item.owner}/{item.repo}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between sm:justify-end gap-4">
-                    <span
-                      className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest border-2 ${isActive ? 'border-black/50 text-black/80' : 'border-[var(--border)] text-[var(--muted-foreground)]'}`}
-                    >
-                      {item.category || 'General'}
-                    </span>
-                    <span
-                      className={`font-mono text-xs font-bold flex items-center gap-1 ${isActive ? 'text-black' : 'text-[var(--foreground)]'}`}
-                    >
-                      {item.score >= 0.8 ? '🔥' : '✨'} {(item.score * 100).toFixed(0)}% Match
-                    </span>
-                    <ArrowRight
-                      className={`w-5 h-5 hidden sm:block ${isActive ? 'opacity-100 translate-x-1' : 'opacity-0'}`}
-                      strokeWidth={3}
-                    />
-                  </div>
+        
+        {/* Results Area */}
+        {results.length > 0 && (
+          <div className="overflow-y-auto p-2 scrollbar-hide">
+            {results.map((result, i) => (
+              <a
+                key={i}
+                href={result.url}
+                className={`block p-4 mb-2 border-2 transition-all ${
+                  i === selectedIndex 
+                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] -translate-y-1' 
+                    : 'border-transparent hover:bg-[var(--muted)] hover:border-[var(--border)]'
+                }`}
+                onMouseEnter={() => setSelectedIndex(i)}
+              >
+                <div className="font-black text-lg truncate tracking-tight">{result.title}</div>
+                <div className={`text-sm mt-1 line-clamp-1 opacity-90 font-bold ${i === selectedIndex ? 'text-current' : 'text-[var(--muted-foreground)]'}`}>
+                  {result.description}
                 </div>
-              );
-            })
-          )}
-        </div>
-
-        {/* Footer shortcuts */}
-        <div className="border-t-4 border-[var(--foreground)] bg-[var(--card)] p-3 flex items-center justify-between text-xs font-bold text-[var(--muted-foreground)] uppercase tracking-wider">
-          <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
-                ↑↓
-              </kbd>{' '}
-              to Navigate
-            </span>
-            <span className="flex items-center gap-1">
-              <kbd className="px-1.5 py-0.5 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
-                ↵
-              </kbd>{' '}
-              to Select
-            </span>
+              </a>
+            ))}
           </div>
-          <span className="flex items-center gap-1">
-            <kbd className="px-1.5 py-0.5 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)]">
-              ESC
-            </kbd>{' '}
-            to Dismiss
-          </span>
-        </div>
+        )}
+
+        {/* Empty States */}
+        {!loading && query.trim() && results.length === 0 && (
+          <div className="p-10 text-center text-lg text-[var(--muted-foreground)] font-black uppercase tracking-widest">
+            {locale === 'zh' ? '未找到相关结果，换个词试试？' : 'No results found. Try something else!'}
+          </div>
+        )}
+        {!query.trim() && (
+          <div className="p-10 text-center text-[var(--muted-foreground)] font-black">
+            <p className="mb-6 uppercase tracking-widest">{locale === 'zh' ? '输入任意关键词检索全库' : 'Type to search the entire database'}</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('UI')}>UI Design</span>
+              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('SEO')}>SEO Audit</span>
+              <span className="px-3 py-1 border-2 border-[var(--border)] text-xs text-[var(--foreground)] tracking-wider bg-[var(--card)] shadow-[2px_2px_0px_0px_var(--border)] cursor-pointer hover:-translate-y-0.5" onClick={() => setQuery('Python')}>Python</span>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

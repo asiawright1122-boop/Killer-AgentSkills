@@ -80,6 +80,18 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Global Cmd+K / Ctrl+K listener for Command Palette
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
+
   useEffect(() => {
     const handleNavigation = () => {
       setIsMenuOpen(false);
