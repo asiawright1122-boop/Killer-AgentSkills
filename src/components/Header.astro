@@ -28,36 +28,36 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
     <!-- Desktop Nav -->
     <nav
       aria-label="Main navigation"
-      class="hidden md:flex items-center gap-6 text-sm font-bold uppercase tracking-wide text-[var(--foreground)]"
+      class="hidden lg:flex items-center gap-1 xl:gap-5 text-sm font-bold uppercase tracking-wide text-[var(--foreground)] whitespace-nowrap shrink-0"
     >
       <a
         href={`/${locale}`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Common.home', 'Home')}</a
       >
       <a
         href={`/${locale}/skills`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Common.skillsMarket', 'Skills')}</a
       >
       <a
         href={`/${locale}/collections`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Common.collections', 'Collections')}</a
       >
       <a
         href={`/${locale}/blog`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Navigation.blog', 'Blog')}</a
       >
       <a
         href={`/${locale}/docs`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Footer.docs', 'Docs')}</a
       >
       <a
         href={`/${locale}/cli`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Footer.cli', 'CLI')}</a
       >
     </nav>

@@ -309,21 +309,20 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
           </button>
 
           {isLangOpen && (
-            <div className="absolute right-0 top-full mt-1 w-48 bg-[var(--background)] border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] z-50 py-1 max-h-80 overflow-y-auto font-black uppercase text-sm">
+            <div className="absolute right-0 top-full mt-2 w-[340px] bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] z-50 p-3 font-black uppercase text-xs sm:text-sm grid grid-cols-2 gap-2">
               {Object.entries(localeNames).map(([code, name]) => (
                 <button
                   key={code}
                   type="button"
                   data-testid={`desktop-locale-option-${code}`}
                   onClick={() => switchLanguage(code)}
-                  className={`w-full text-left px-4 py-2 flex items-center justify-between border-y border-transparent transition-colors ${
+                  className={`w-full text-left px-3 py-2 border-2 transition-all flex items-center justify-between ${
                     code === locale
-                      ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-y-[var(--border)]'
-                      : 'text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-y-[var(--border)] hover:border-y-[var(--foreground)]'
+                      ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] translate-x-[-2px] translate-y-[-2px] shadow-[2px_2px_0px_0px_var(--border)]'
+                      : 'bg-[var(--card)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[2px_2px_0px_0px_var(--border)]'
                   }`}
                 >
-                  <span>{name}</span>
-                  {code === locale && <span className="ml-2 font-mono">[*]</span>}
+                  <span className="truncate">{name}</span>
                 </button>
               ))}
             </div>
@@ -333,7 +332,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
         {/* Search Trigger - Desktop */}
         <button
           onClick={() => setIsSearchOpen(true)}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] transition-colors font-black text-sm shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] uppercase"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] transition-colors font-black text-sm shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] uppercase whitespace-nowrap shrink-0"
           aria-label={labels.search}
         >
           <Search className="w-4 h-4" />
@@ -346,7 +345,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
         {/* Submit Skill - Desktop */}
         <button
           onClick={() => setIsSubmitOpen(true)}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500 hover:text-white transition-colors font-black uppercase tracking-wide text-sm"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500 hover:text-white transition-colors font-black uppercase tracking-wide text-sm whitespace-nowrap shrink-0"
           aria-label={labels.submitSkill}
         >
           <Rocket className="w-4 h-4" />
