@@ -1,0 +1,173 @@
+---
+import { loadMessages, translateOr, type Locale } from '../i18n';
+
+export interface Props {
+  skillId: string;
+  skillRef: string;
+  locale: string;
+}
+
+const { skillId, skillRef, locale } = Astro.props;
+const typedLocale = locale as Locale;
+
+const messages = await loadMessages(typedLocale);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+
+// Use simpler translations for the generic box
+const inputLabel = tr('Labs.chooseSkill', 'Test Input');
+const inputPlaceholder =
+  typedLocale === 'zh' ? '输入你的请求测试技能效果...' : 'Enter your request to test this skill...';
+const outputHintText =
+  typedLocale === 'zh'
+    ? '此平台将调用开源模型动态模拟该技能的运行效果。'
+    : 'This platform will call open-source models to dynamically simulate the skill output.';
+---
+
+<div
+  class="my-12 border-[3px] border-[var(--border)] bg-white dark:bg-[#0a0a0a] shadow-sm relative skill-try-box-instance"
+  data-skill-id={skillId}
+  data-skill-ref={skillRef}
+  data-locale={typedLocale}
+  data-empty-input={tr('Labs.emptyInput', 'Please enter your request first.')}
+  data-running={tr('Labs.running', 'Running...')}
+  data-run-label={tr('Labs.runLabel', 'Run Online Preview')}
+  data-mode-ai={tr('Labs.modeAi', 'Live Model Mode')}
+  data-mode-template={tr('Labs.modeTemplate', 'Template Fallback Mode')}
+  data-error-prefix={tr('Labs.errorPrefix', 'Request failed: ')}
+>
+  <div class="px-5 py-3 border-b-2 border-[var(--border)] bg-gray-50 dark:bg-[#111] flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <span
+        class="inline-flex px-2 py-0.5 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-[10px] font-black uppercase tracking-widest"
+      >
+        {tr('Labs.demoBadge', 'Interactive Try')}
+      </span>
+      <h3 class="font-bold text-sm tracking-tight uppercase">Live Sandbox</h3>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 divide-y lg:divide-y-0 lg:divide-x border-[var(--border)]">
+    <form class="skill-try-form p-6 space-y-5 flex flex-col">
+      <div class="flex-grow flex flex-col">
+        <label class="block text-sm font-black uppercase tracking-wider mb-2">
+          {inputLabel}
+        </label>
+        <textarea
+          class="skill-input flex-grow w-full min-h-[160px] border-2 border-[var(--border)] bg-transparent px-3 py-3 text-sm leading-6 focus:ring-0 focus:border-gray-500 transition-colors"
+          placeholder={inputPlaceholder}
+          required></textarea>
+        <p class="mt-2 text-xs font-mono text-[var(--muted-foreground)] opacity-80">
+          {outputHintText}
+        </p>
+      </div>
+
+      <button
+        type="submit"
+        class="run-button inline-flex items-center justify-center px-4 py-2 border-2 border-[var(--border)] font-black text-sm uppercase tracking-widest bg-[var(--foreground)] text-[var(--background)] hover:opacity-90 transition-opacity"
+      >
+        {tr('Labs.runLabel', 'Run Online Preview')}
+      </button>
+    </form>
+
+    <div class="p-6 space-y-4 bg-gray-50/50 dark:bg-[#0c0c0c]/50 flex flex-col">
+      <div class="flex flex-wrap items-center gap-3">
+        <span
+          class="mode-badge inline-flex px-2 py-0.5 border-2 border-[var(--border)] text-[10px] font-black uppercase tracking-widest"
+        >
+          {tr('Labs.waiting', 'Waiting')}
+        </span>
+        <p class="run-status text-xs text-[var(--muted-foreground)]">
+          {tr('Labs.runStatusHint', 'Results will appear after you run the preview.')}
+        </p>
+      </div>
+
+      <div
+        class="flex-grow border-2 border-[var(--border)] p-4 bg-white dark:bg-black/50 overflow-y-auto max-h-[300px]"
+      >
+        <pre
+          class="result-output text-xs md:text-sm whitespace-pre-wrap leading-relaxed text-[var(--foreground)] font-mono">{tr('Labs.outputHint', 'Your preview output will appear here. This demo uses free open-source models.')}</pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  // Use event delegation or target specific instances to allow multiple boxes per page if needed
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.skill-try-box-instance').forEach((app) => {
+      const form = app.querySelector('.skill-try-form');
+      const input = app.querySelector('.skill-input');
+      const runButton = app.querySelector('.run-button');
+      const modeBadge = app.querySelector('.mode-badge');
+      const runStatus = app.querySelector('.run-status');
+      const resultOutput = app.querySelector('.result-output');
+
+      if (!form || !input || !runButton || !modeBadge || !runStatus || !resultOutput) return;
+
+      const skillId = app.dataset.skillId;
+      const locale = app.dataset.locale || 'en';
+      const emptyInputText = app.dataset.emptyInput || 'Please enter your request first.';
+      const runningText = app.dataset.running || 'Running...';
+      const runLabel = app.dataset.runLabel || 'Run';
+      const modeAiText = app.dataset.modeAi || 'Live Model Mode';
+      const modeTemplateText = app.dataset.modeTemplate || 'Template Fallback Mode';
+      const errorPrefix = app.dataset.errorPrefix || 'Request failed: ';
+
+      const providerName = (provider) => {
+        if (provider === 'nvidia') return 'NVIDIA';
+        if (provider === 'siliconflow') return 'SiliconFlow';
+        if (provider === 'openrouter') return 'OpenRouter';
+        return locale === 'zh' ? '实时模型' : 'live model';
+      };
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const userInput = input.value.trim();
+        if (!userInput) {
+          runStatus.textContent = emptyInputText;
+          return;
+        }
+
+        runButton.disabled = true;
+        runButton.textContent = runningText;
+        runStatus.textContent = runningText;
+        modeBadge.textContent = runningText;
+
+        try {
+          const response = await fetch('/api/skills/try', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              skillId: skillId,
+              input: userInput,
+              locale,
+            }),
+          });
+
+          const data = await response.json();
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Unknown error');
+          }
+
+          modeBadge.textContent = data.mode === 'ai' ? modeAiText : modeTemplateText;
+          runStatus.textContent =
+            data.mode === 'ai'
+              ? locale === 'zh'
+                ? `由 ${providerName(data.provider)} 生成响应。`
+                : `Rendered via ${providerName(data.provider)}.`
+              : locale === 'zh'
+                ? '模型排队中，已回退到模板预览。'
+                : 'AI unavailable, fallback output shown.';
+          resultOutput.textContent = data.outputMarkdown || '';
+        } catch (error) {
+          modeBadge.textContent = locale === 'zh' ? '执行失败' : 'Run Failed';
+          runStatus.textContent = `${errorPrefix}${error instanceof Error ? error.message : 'Unknown error'}`;
+        } finally {
+          runButton.disabled = false;
+          runButton.textContent = runLabel;
+        }
+      });
+    });
+  });
+</script>

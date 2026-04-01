@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import type { Env } from '../../../lib/kv';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 import { getSkillTryProfile, type SkillTryProfile, type SkillTryProfileId } from '../../../lib/skill-try-profiles';
+import { getSkillById } from '../../../lib/skills';
 
 export const prerender = false;
 
@@ -55,10 +56,13 @@ function isZhLocale(locale?: string): boolean {
   return (locale || '').toLowerCase().startsWith('zh');
 }
 
-function buildSystemPrompt(locale?: string): string {
+function buildSystemPrompt(locale?: string, customRules?: string): string {
   const outputLanguage = isZhLocale(locale) ? 'Simplified Chinese' : 'English';
   return `You are an AI skill runtime preview engine.
 You are simulating how an installed skill would respond.
+
+${customRules ? `--- SKILL EXECUTION RULES ---\n${customRules}\n-----------------------------\n` : ''}
+
 Return practical, actionable output in ${outputLanguage}.
 Use Markdown headings and bullets.
 Do not add policy disclaimers unless safety is directly relevant.
@@ -517,6 +521,12 @@ Why this matters: {{input}}
 function fallbackPreview(profileId: SkillTryProfileId, input: string, locale?: string): string {
   const shortInput = input.trim().length > 220 ? `${input.trim().slice(0, 220)}...` : input.trim();
   const template = FALLBACK_TEMPLATES[profileId];
+  if (!template) {
+    // Dynamic skills won't have a template in the hardcoded map.
+    return isZhLocale(locale)
+      ? `## 动态预览输出 (基于模板)\n\n针对输入: ${shortInput}\n(请使用实时模型查看完整运行结果)`
+      : `## Dynamic Preview Output (Template Mode)\n\nInput: ${shortInput}\n(Enable Live Model for complete output)`;
+  }
   return (isZhLocale(locale) ? template.zh : template.en).replace('{{input}}', shortInput);
 }
 
@@ -539,9 +549,44 @@ export const POST: APIRoute = async ({ request, locals }) => {
   try {
     const body = (await request.json()) as TrySkillRequestBody;
     const skillId = body.skillId?.trim() || '';
-    const profile = getSkillTryProfile(skillId);
+    let profile = getSkillTryProfile(skillId);
+    let dynamicRules = '';
+
+    const env = (locals.runtime?.env || {}) as TrialEnv;
+
     if (!profile) {
-      return json({ success: false, error: 'Unsupported skillId.' }, 400);
+      // dynamic generation fallback
+      const dynamicSkill = await getSkillById(env, skillId);
+      if (!dynamicSkill) {
+        return json({ success: false, error: 'Unsupported skillId and no dynamic skill found in database.' }, 400);
+      }
+
+      const rawDescEn =
+        typeof dynamicSkill.description === 'object'
+          ? dynamicSkill.description.en || dynamicSkill.description.zh || ''
+          : typeof dynamicSkill.description === 'string'
+            ? dynamicSkill.description
+            : '';
+      const skillMdBody = dynamicSkill.skillMd?.body || dynamicSkill.skillMd?.bodyPreview || '';
+
+      // Pass the real skill rules safely up to ~4000 chars to avoid breaking openrouter limits on small models
+      dynamicRules = skillMdBody.slice(0, 4000);
+
+      const fallbackDescEn = `Provides logic based on: ${rawDescEn}`;
+      const fallbackDescZh = `基于该技能逻辑：${rawDescEn}`;
+
+      profile = {
+        id: dynamicSkill.id as SkillTryProfileId,
+        skillRef: `${dynamicSkill.owner}/${dynamicSkill.repo}`,
+        label: { en: dynamicSkill.skillName || dynamicSkill.name, zh: dynamicSkill.skillName || dynamicSkill.name },
+        description: { en: fallbackDescEn, zh: fallbackDescZh },
+        inputLabel: { en: 'Preview Input', zh: '预览请求' },
+        inputPlaceholder: { en: 'Enter your request to test this skill...', zh: '输入请求测试技能效果...' },
+        outputHint: {
+          en: 'Apply the custom skill rules to format the output.',
+          zh: '严格遵循该技能的自定义规则生成输出。',
+        },
+      };
     }
 
     const input = body.input?.trim() || '';
@@ -552,15 +597,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const sanitizedInput = input.slice(0, 3000);
     const locale = body.locale || 'en';
 
-    const env = (locals.runtime?.env || {}) as TrialEnv;
-    const systemPrompt = buildSystemPrompt(locale);
+    const systemPrompt = buildSystemPrompt(locale, dynamicRules);
     const userPrompt = buildUserPrompt(profile, sanitizedInput, locale);
     const origin = new URL(request.url).origin;
     const cacheKey = createOutputCacheKey(profile.id, sanitizedInput, locale);
 
     let mode: TryMode = 'template';
     let provider: LiveProvider | 'template' = 'template';
-    let outputMarkdown = fallbackPreview(profile.id, sanitizedInput, locale);
+    let outputMarkdown = fallbackPreview(profile.id as SkillTryProfileId, sanitizedInput, locale);
     let fallbackReason = '';
 
     const cachedRaw = await readStringStore(env, cacheKey);

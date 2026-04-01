@@ -10,6 +10,7 @@ import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
 import SkillRelated from '../../../../components/SkillRelated.astro';
+import SkillTryBox from '../../../../components/SkillTryBox.astro';
 import { buildBreadcrumbTrail } from '../../../../lib/site/breadcrumbs';
 import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
@@ -965,6 +966,9 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           }
         </div>
       </div>
+
+      {/* Interactive Hub: Dynamic Try Sandbox */}
+      <SkillTryBox skillId={fullId} skillRef={`${owner}/${repo}`} locale={typedLocale} />
 
       {/* Bottom Row: File Manager | SKILL.md Preview */}
       <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mt-8 cv-auto">

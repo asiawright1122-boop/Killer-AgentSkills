@@ -139,12 +139,9 @@ export async function getAllSkills(env: Env): Promise<UnifiedSkill[]> {
     console.warn('[Cache API] Miss or Error:', e);
   }
 
-  console.time('getAllSkills DB Fetch & Parse');
   // 3. Fallback: Full DB query and JSON parse (slow path)
   const raw = await getSkillsFromKV(env);
   const skills = normalizePublicSkills(raw as UnifiedSkill[]);
-
-  console.timeEnd('getAllSkills DB Fetch & Parse');
 
   _cachedSkills = skills;
   _cacheTs = Date.now();
@@ -201,12 +198,9 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
     console.warn('[Cache API] Miss or Error:', e);
   }
 
-  console.time('getLightweightSkills DB Fetch');
   // 3. Fallback: D1 listing query (fast path, extracts only card fields)
   const raw = await getSkillsListing(env);
   const skills = normalizePublicSkills(raw as UnifiedSkill[]);
-
-  console.timeEnd('getLightweightSkills DB Fetch');
 
   _cachedLightSkills = skills;
   _cacheLightTs = Date.now();
