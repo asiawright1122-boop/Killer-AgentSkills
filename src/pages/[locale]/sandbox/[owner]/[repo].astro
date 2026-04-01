@@ -1,0 +1,106 @@
+---
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr } from '../../../../i18n';
+import WebTerminal from '../../../../islands/WebTerminal';
+
+export const prerender = false;
+
+// 🛡️ WebContainer requires Cross-Origin isolation
+Astro.response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
+Astro.response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+// Do not cache the sandbox execution environment
+Astro.response.headers.set('Cache-Control', 'no-store, must-revalidate');
+
+const { locale, owner, repo } = Astro.params;
+
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+if (!owner || !repo) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const typedLocale = locale as Locale;
+const messages = await loadMessages(typedLocale);
+---
+
+<!doctype html>
+<html lang={typedLocale} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox: {owner}</title><style>
+      :root {
+        --background: #000000;
+        --foreground: #ffffff;
+        --primary: #00ffcc;
+      }
+      body {
+        margin: 0;
+        background-color: var(--background);
+        color: var(--foreground);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .sandbox-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.5rem;
+        background: #111;
+        border-bottom: 2px solid #333;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      .badge {
+        background: var(--primary);
+        color: #000;
+        padding: 0.1rem 0.5rem;
+        font-size: 0.7rem;
+        font-weight: bold;
+      }
+      .return-link {
+        color: #888;
+        text-decoration: none;
+        font-size: 0.8rem;
+        transition: color 0.2s;
+      }
+      .return-link:hover {
+        color: var(--primary);
+      }
+      .terminal-container {
+        flex: 1;
+        position: relative;
+        background: #000;
+      }
+      /* xterm generic styling fixes */
+      .xterm-viewport {
+        overflow-y: auto !important;
+      }
+    </style></head
+  >/{repo} | Killer-Skills
+  {/* Minimal styling for the sandbox shell */}
+</html>
+<body>
+  <header class="sandbox-header">
+    <div class="brand">
+      <span class="badge">LIVE ENV</span>
+      {owner} / {repo}
+    </div>
+    <a href={`/${locale}/skills/${owner}/${repo}`} class="return-link"> ← Exit Sandbox </a>
+  </header>
+
+  <main class="terminal-container">
+    {/* React Island for the Terminal */}
+    <WebTerminal client:only="react" owner={owner!} repo={repo!} />
+  </main>
+</body>

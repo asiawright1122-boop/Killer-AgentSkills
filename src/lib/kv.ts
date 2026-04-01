@@ -595,7 +595,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
 
   const GITHUB_OWNER_RE = /^[a-z\d](?:[a-z\d-]{0,38})$/i;
   const GITHUB_REPO_RE = /^[A-Za-z0-9._-]{1,100}$/;
-  const MIN_INDEXABLE_SKILL_README_BYTES = 200;
+  const MIN_INDEXABLE_SKILL_README_BYTES = 250;
   const textEncoder = new TextEncoder();
 
   const parseDateMs = (value?: string): number => {

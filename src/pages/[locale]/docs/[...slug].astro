@@ -36,7 +36,7 @@ const typedLocale = locale as Locale;
 const env = Astro.locals.runtime?.env as Env;
 
 // Load translations
-let messages;
+let messages: any;
 let t: (key: string) => string = (k: string) => k;
 try {
   messages = await loadMessages(typedLocale);

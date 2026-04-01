@@ -5,7 +5,7 @@ import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../.
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
-import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../../lib/collection-slugs';
+import { getCanonicalCollections } from '../../../../lib/collection-slugs';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -19,13 +19,14 @@ import { getCollection } from 'astro:content';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
-import SkillCard from '../../../../components/SkillCard.astro';
 import Github from 'lucide-react/dist/esm/icons/github';
 import Star from 'lucide-react/dist/esm/icons/star';
 import GitFork from 'lucide-react/dist/esm/icons/git-fork';
 import Calendar from 'lucide-react/dist/esm/icons/calendar';
 import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
 import Zap from 'lucide-react/dist/esm/icons/zap';
+import Bot from 'lucide-react/dist/esm/icons/bot';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 
@@ -118,7 +119,7 @@ const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === own
 const isVerified = (skill as any).verified ?? officialConfig?.verified ?? false;
 
 const t = useTranslations(messages);
-const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+const tr = (key: string, fallback?: string) => translateOr(messages, key, fallback || '');
 const verifiedLabel = tr('Detail.verified', 'Verified');
 const updatedLabel = tr('Detail.updated', 'Updated');
 const scoreBadgeLabel = tr('Detail.top5Percent', 'Top 5%');
@@ -516,11 +517,11 @@ const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || ''
 const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
 const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
 const readmeContent =
-  rawReadmeContent && rawReadmeSize >= 200
+  rawReadmeContent && rawReadmeSize >= 250
     ? rawReadmeContent
     : [rawReadmeContent, fallbackReadmeContent].filter((part) => part && part.trim().length > 0).join('\n\n');
 const readmeSize = textEncoder.encode(readmeContent).length;
-const isThinContent = readmeSize < 200; // Block indexing if extremely short (Thin Content penalty)
+const isThinContent = readmeSize < 250; // Block indexing if extremely short (Thin Content penalty)
 const formatSize = (bytes: number) => {
   if (bytes < 1024) return bytes + ' B';
   return (bytes / 1024).toFixed(1) + ' KB';
@@ -800,18 +801,22 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         </div>
       </div>
 
-            {/* Main Layout: Sticky Sidebar + Flow Content */}
+      {/* Main Layout: Sticky Sidebar + Flow Content */}
       <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-8 pb-12">
         {/* Left: Sticky Sidebar (Tools & Metadata) */}
         <aside class="w-full lg:w-[380px] shrink-0 space-y-8 lg:sticky lg:top-8 z-10 cv-auto">
           {/* Quality Score */}
-          <div class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
+          <div
+            class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
+          >
             <div class="flex items-center justify-between mb-6 relative z-10">
               <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
                 <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
                 {t('Detail.qualityScore')}
               </h3>
-              <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
+              <div
+                class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]"
+              >
                 {scoreBadgeLabel}
               </div>
             </div>
@@ -819,9 +824,13 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
             <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
               <div class="relative w-20 h-20 shrink-0">
                 <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3"></div>
-                <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0">
+                <div
+                  class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0"
+                >
                 </div>
-                <div class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]">
+                <div
+                  class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]"
+                >
                   <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
                 </div>
               </div>
@@ -847,7 +856,9 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           />
 
           {/* File Manager */}
-          <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
+          <div
+            class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
+          >
             <SkillFileManager
               client:idle
               files={files}
@@ -1000,7 +1011,26 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
           </div>
 
           {/* SKILL.md Preview */}
-          <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1">
+          {
+            isThinContent && (
+              <div class="mb-6 brut-card border-2 border-amber-500 dark:border-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4">
+                <h3 class="text-sm font-black text-amber-700 dark:text-amber-500 uppercase tracking-widest mb-1 font-mono">
+                  <span class="bg-amber-700 dark:bg-amber-500 text-white dark:text-black px-1 mr-2 tracking-tighter">
+                    !
+                  </span>
+                  {typedLocale === 'zh' ? '内容质量警告 (Thin Content)' : 'Thin Content Warning'}
+                </h3>
+                <p class="text-sm text-amber-900 dark:text-amber-400/90 font-medium font-mono leading-relaxed mt-2">
+                  {typedLocale === 'zh'
+                    ? '此技能仓库未提供详实的 README 描述，目前已被搜索引擎防火墙拦截。建议直接前往 GitHub 审查源码后再决定是否安装。'
+                    : 'This skill repository lacks comprehensive documentation and has been blocked from search indexing. Double check the source code before installing.'}
+                </p>
+              </div>
+            )
+          }
+          <div
+            class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1"
+          >
             <SkillReadme
               client:idle
               initialContent={readmeContent}

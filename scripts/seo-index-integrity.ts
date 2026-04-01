@@ -40,7 +40,7 @@ const failOnPartialCollections = args.has('--fail-on-partial-collections');
 const workspaceRoot = process.cwd();
 const dataDir = resolve(workspaceRoot, 'data');
 const collectionsDir = resolve(workspaceRoot, 'src/content/collections');
-const MIN_INDEXABLE_SKILL_README_BYTES = 200;
+const MIN_INDEXABLE_SKILL_README_BYTES = 250;
 const textEncoder = new TextEncoder();
 
 function readJson<T>(path: string): T {

@@ -18,7 +18,7 @@ interface Props {
   repo: string;
   category: string;
   messages: any;
-  t: (key: string, fallback?: string) => string;
+  t: (key: string, params?: Record<string, string>) => string;
   tr: (key: string, fallback?: string) => string;
 }
 

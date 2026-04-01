@@ -15,6 +15,10 @@ import FileText from 'lucide-react/dist/esm/icons/file-text';
 import Terminal from 'lucide-react/dist/esm/icons/terminal';
 import Users from 'lucide-react/dist/esm/icons/users';
 import Layers from 'lucide-react/dist/esm/icons/layers';
+import Rocket from 'lucide-react/dist/esm/icons/rocket';
+import Search from 'lucide-react/dist/esm/icons/search';
+import SubmitSkillModal from './SubmitSkillModal';
+import CommandPalette from './CommandPalette';
 
 interface HeaderActionsProps {
   locale: string;
@@ -39,6 +43,8 @@ interface HeaderActionsProps {
     favoritesAria: string;
     darkMode?: string;
     lightMode?: string;
+    submitSkill: string;
+    search: string;
   };
 }
 
@@ -46,6 +52,8 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
   const [isDark, setIsDark] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isSubmitOpen, setIsSubmitOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const langDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -196,6 +204,26 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
               {/* Quick actions */}
               <div className="flex flex-col border-b-[3px] border-[var(--border)] bg-[var(--card)]">
+                <button
+                  onClick={() => {
+                    closeMenu();
+                    setIsSearchOpen(true);
+                  }}
+                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors text-left"
+                >
+                  <Search className="w-5 h-5 flex-shrink-0" />
+                  {labels.search}
+                </button>
+                <button
+                  onClick={() => {
+                    closeMenu();
+                    setIsSubmitOpen(true);
+                  }}
+                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-emerald-600 dark:text-emerald-400 border-b border-[var(--border)] hover:bg-emerald-500 hover:text-white transition-colors text-left"
+                >
+                  <Rocket className="w-5 h-5 flex-shrink-0" />
+                  {labels.submitSkill}
+                </button>
                 <a
                   href={`/${locale}/favorites`}
                   onClick={closeMenu}
@@ -290,6 +318,29 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
           )}
         </div>
 
+        {/* Search Trigger - Desktop */}
+        <button
+          onClick={() => setIsSearchOpen(true)}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] transition-colors font-black text-sm shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] uppercase"
+          aria-label={labels.search}
+        >
+          <Search className="w-4 h-4" />
+          <span>{labels.search || 'Search'}</span>
+          <kbd className="hidden lg:inline-flex ml-2 h-5 items-center gap-1 border border-current px-1 text-[10px] font-mono opacity-60 rounded-sm">
+            <span className="text-[10px]">⌘</span>K
+          </kbd>
+        </button>
+
+        {/* Submit Skill - Desktop */}
+        <button
+          onClick={() => setIsSubmitOpen(true)}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500 hover:text-white transition-colors font-black uppercase tracking-wide text-sm"
+          aria-label={labels.submitSkill}
+        >
+          <Rocket className="w-4 h-4" />
+          <span>{labels.submitSkill}</span>
+        </button>
+
         {/* Favorites - Desktop */}
         <a
           href={`/${locale}/favorites`}
@@ -322,6 +373,12 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
       {/* Mobile overlay via portal */}
       {mobileOverlay}
+
+      {/* Submit Skill Modal */}
+      <SubmitSkillModal isOpen={isSubmitOpen} onClose={() => setIsSubmitOpen(false)} locale={locale} />
+
+      {/* Command Palette */}
+      <CommandPalette locale={locale} isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }
