@@ -25,5 +25,6 @@ export const SUPPORTED_LOCALE_SET = new Set(SUPPORTED_LOCALES);
  * @param {string | undefined | null} locale
  */
 export function isSupportedLocale(locale) {
+  // @ts-ignore: Set.has supports strings but TS strict literal types complain
   return typeof locale === 'string' && SUPPORTED_LOCALE_SET.has(locale);
 }
