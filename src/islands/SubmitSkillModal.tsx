@@ -44,7 +44,7 @@ export default function SubmitSkillModal({ isOpen, onClose, locale }: SubmitSkil
 
   if (!mounted || !isOpen) return null;
 
-  const handleValidate = async (e: React.FormEvent) => {
+  const handleValidate = async (e: any) => {
     e.preventDefault();
     if (!url.trim()) return;
 

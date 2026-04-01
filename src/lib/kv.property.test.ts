@@ -2,11 +2,6 @@ import { describe, it, expect } from 'vitest';
 import * as fc from 'fast-check';
 import { getKV, setKV, type Env } from './kv';
 
-// Cloudflare Workers type declaration
-type Fetcher = {
-  fetch: (request: Request) => Promise<Response>;
-};
-
 // ============================================================================
 // Generators
 // ============================================================================
@@ -49,7 +44,8 @@ function createFunctionalEnv(store: Map<string, string> = new Map()): Env {
   return {
     TRANSLATIONS: createFunctionalMockKV(store),
     SKILLS_CACHE: createFunctionalMockKV(),
-    ASSETS: {} as Fetcher,
+    // @ts-ignore: mock ASSETS fetcher
+    ASSETS: {},
   };
 }
 
@@ -60,7 +56,8 @@ function createEnvWithoutTranslations(): Env {
   return {
     TRANSLATIONS: undefined as unknown as KVNamespace,
     SKILLS_CACHE: createFunctionalMockKV(),
-    ASSETS: {} as Fetcher,
+    // @ts-ignore: mock ASSETS fetcher
+    ASSETS: {},
   };
 }
 

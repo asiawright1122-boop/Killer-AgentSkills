@@ -32,7 +32,6 @@ export async function getStaticPaths() {
 }
 
 const { locale, category } = Astro.params;
-const typedLocale = locale as Locale;
 
 // Get posts for current locale and category
 let posts = await getCollection('blog', ({ data }) => {

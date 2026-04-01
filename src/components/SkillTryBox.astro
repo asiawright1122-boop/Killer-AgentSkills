@@ -7,20 +7,13 @@ export interface Props {
   locale: string;
 }
 
-const { skillId, skillRef, locale } = Astro.props;
+const { skillRef, locale } = Astro.props;
 const typedLocale = locale as Locale;
 
 const messages = await loadMessages(typedLocale);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-// Use simpler translations for the generic box
-const inputLabel = tr('Labs.chooseSkill', 'Test Input');
-const inputPlaceholder =
-  typedLocale === 'zh' ? '输入你的请求测试技能效果...' : 'Enter your request to test this skill...';
-const outputHintText =
-  typedLocale === 'zh'
-    ? '此平台将调用开源模型动态模拟该技能的运行效果。'
-    : 'This platform will call open-source models to dynamically simulate the skill output.';
+// Removed generic labels
 ---
 
 <div

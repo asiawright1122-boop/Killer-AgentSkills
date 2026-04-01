@@ -1,5 +1,5 @@
 ---
-import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr } from '../../../../i18n';
+import { SUPPORTED_LOCALES, type Locale } from '../../../../i18n';
 import WebTerminal from '../../../../islands/WebTerminal';
 
 export const prerender = false;
@@ -21,7 +21,6 @@ if (!owner || !repo) {
 }
 
 const typedLocale = locale as Locale;
-const messages = await loadMessages(typedLocale);
 ---
 
 <!doctype html>

@@ -43,10 +43,10 @@ const {
 const isRtl = locale === 'ar';
 
 let messages;
-let t = (k: string) => k;
+// Removed unused t
 try {
   messages = await loadMessages(locale as Locale);
-  t = useTranslations(messages);
+  useTranslations(messages);
 } catch (e) {
   console.error(`[Layout] Error loading translations for ${locale}:`, e);
 }
@@ -83,7 +83,7 @@ const metadata = buildPageMetadata({
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
       media="print"
-      onload="this.media='all'"
+      onload="this.setAttribute('media','all')"
     />
     <noscript
       ><link
