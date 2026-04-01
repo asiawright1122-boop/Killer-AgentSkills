@@ -697,7 +697,7 @@ describe('public links and navigation copy', () => {
 
   it('keeps public collection links wired to canonical collection slugs', () => {
     const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
-    const collectionsSitemapSource = readPageSource('./api/sitemap/collections.xml.ts');
+    const collectionsSitemapSource = readPageSource('./sitemap-collections.xml.ts');
     const homeSource = readPageSource('./[locale]/index.astro');
 
     expect(collectionsIndexSource).toContain('getCanonicalCollections(');
