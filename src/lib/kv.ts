@@ -2,6 +2,8 @@ export interface Env {
   TRANSLATIONS: KVNamespace;
   SKILLS_CACHE: KVNamespace;
   DB?: D1Database;
+  VECTORIZE?: VectorizeIndex;
+  AI?: any; // Type 'Ai' from @cloudflare/workers-types if available
   ASSETS: Fetcher; // Static assets binding
   ADMIN_USER?: string;
   ADMIN_PASSWORD?: string;

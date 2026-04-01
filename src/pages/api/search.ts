@@ -62,56 +62,138 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const env = (locals.runtime?.env || {}) as Env;
+        const env = (locals.runtime?.env || {}) as Env;
     const ftsQuery = buildFtsQuery(sanitizedQuery);
 
-    if (env?.DB && ftsQuery) {
-      const ftsResp = await env.DB.prepare(
-        `
-          SELECT
-            s.id,
-            s.owner,
-            s.repo,
-            s.name,
-            s.stars,
-            s.category,
-            json_extract(s.data_json, '$.source') AS source,
-            bm25(skills_fts) AS rank
-          FROM skills_fts
-          JOIN skills s ON s.id = skills_fts.id
-          WHERE skills_fts MATCH ?
-          ORDER BY rank
-          LIMIT ?
-        `,
-      )
-        .bind(ftsQuery, RESULT_LIMIT)
-        .all();
+    let semanticMatches: any[] = [];
+    let keywordMatches: any[] = [];
 
-      const rows = Array.isArray(ftsResp.results) ? ftsResp.results : [];
-      if (rows.length > 0) {
-        const results = rows.map((row: any, index: number) => ({
-          id: row.id,
-          score: Number((1 / (1 + Math.abs(Number(row.rank) || index + 1))).toFixed(4)),
-          owner: row.owner,
-          repo: row.repo,
-          name: row.name || row.repo,
-          stars: Number(row.stars || 0),
-          category: row.category || '',
-          source: normalizeSource(row.source),
-        }));
+    // 1. Fetch from Vectorize (Semantic Search) and D1 (Keyword Search) concurrently
+    const searchPromises = [];
 
-        return new Response(JSON.stringify({ results }), {
-          headers: {
-            'Content-Type': 'application/json',
-            'Cache-Control': 'public, max-age=60',
-          },
-        });
-      }
+    if (env.AI && env.VECTORIZE) {
+      const semanticPromise = async () => {
+        try {
+          const embeddingResp: any = await env.AI.run('@cf/baai/bge-base-en-v1.5', { text: [sanitizedQuery] });
+          const data = embeddingResp.data;
+          const vector = data ? (Array.isArray(data[0]) ? data[0] : data) : embeddingResp;
+          
+          if (vector && Array.isArray(vector)) {
+            const vectorizeResp = await env.VECTORIZE!.query(vector, { topK: RESULT_LIMIT, returnMetadata: 'all' });
+            semanticMatches = vectorizeResp.matches || [];
+          }
+        } catch (err) {
+          console.error('Vectorize/AI search failed:', err);
+        }
+      };
+      searchPromises.push(semanticPromise());
     }
 
-    const skills = await getLightweightSkills(env);
-    const ranked = searchSkills(skills, sanitizedQuery, locale).slice(0, RESULT_LIMIT);
-    const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length));
+    if (env.DB && ftsQuery) {
+      const keywordPromise = async () => {
+        try {
+          const ftsResp = await env.DB!.prepare(
+            `
+              SELECT
+                s.id,
+                s.owner,
+                s.repo,
+                s.name,
+                s.stars,
+                s.category,
+                json_extract(s.data_json, '$.source') AS source,
+                bm25(skills_fts) AS rank
+              FROM skills_fts
+              JOIN skills s ON s.id = skills_fts.id
+              WHERE skills_fts MATCH ?
+              ORDER BY rank
+              LIMIT ?
+            `
+          ).bind(ftsQuery, RESULT_LIMIT).all();
+          keywordMatches = Array.isArray(ftsResp.results) ? ftsResp.results : [];
+        } catch (err) {
+          console.error('D1 FTS search failed:', err);
+        }
+      };
+      searchPromises.push(keywordPromise());
+    }
+
+    await Promise.allSettled(searchPromises);
+
+    // 2. RRF (Reciprocal Rank Fusion) Scoring
+    const rrfK = 60;
+    const combinedScores = new Map<string, {
+      score: number;
+      owner: string;
+      repo: string;
+      name: string;
+      category: string;
+      stars: number;
+      source: string;
+    }>();
+
+    // Map Keyword Results
+    keywordMatches.forEach((row, index) => {
+      const rrfScore = 1 / (rrfK + index + 1); // Exact match rank 1 gets highest RRF score from exact matching
+      combinedScores.set(row.id, {
+        score: rrfScore,
+        owner: row.owner,
+        repo: row.repo,
+        name: row.name || row.repo,
+        category: row.category || '',
+        stars: Number(row.stars || 0),
+        source: normalizeSource(row.source),
+      });
+    });
+
+    // Merge Vector Results
+    semanticMatches.forEach((match, index) => {
+      const rrfScore = 1.2 / (rrfK + index + 1); // Slight 20% boost to semantic matches 
+      const existing = combinedScores.get(match.id);
+      if (existing) {
+        existing.score += rrfScore; // Additive RRF
+      } else {
+        const meta = match.metadata || {};
+        combinedScores.set(match.id, {
+          score: rrfScore,
+          owner: (meta.owner as string) || '',
+          repo: (meta.repo as string) || '',
+          name: (meta.name as string) || (meta.repo as string) || match.id,
+          category: (meta.category as string) || '',
+          stars: typeof meta.stars === 'number' ? meta.stars : 0,
+          source: 'cache',
+        });
+      }
+    });
+
+    // If both failed or empty, fallback to fuse.js memory search
+    if (combinedScores.size === 0) {
+      const skills = await getLightweightSkills(env);
+      const ranked = searchSkills(skills, sanitizedQuery, locale).slice(0, RESULT_LIMIT);
+      const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length));
+
+      return new Response(JSON.stringify({ results }), {
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'public, max-age=60',
+        },
+      });
+    }
+
+    // 3. Sort by RRF and return top K
+    const results = Array.from(combinedScores.entries())
+      .sort((a, b) => b[1].score - a[1].score)
+      .slice(0, RESULT_LIMIT)
+      .map(([id, data]) => ({
+        id,
+        score: Number(data.score.toFixed(4)),
+        owner: data.owner,
+        repo: data.repo,
+        name: data.name,
+        stars: data.stars,
+        category: data.category,
+        source: data.source,
+      }));
 
     return new Response(JSON.stringify({ results }), {
       headers: {
@@ -119,6 +201,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
         'Cache-Control': 'public, max-age=60',
       },
     });
+
   } catch (e) {
     console.error('Search API Error:', e);
     return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Internal Server Error' }), {

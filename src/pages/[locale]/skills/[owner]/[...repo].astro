@@ -582,7 +582,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
     >
     </div>
 
-    <main class="max-w-[1400px] mx-auto px-6 py-12 relative z-10">
+    <main class="max-w-7xl mx-auto px-6 py-12 relative z-10">
       <Breadcrumb items={breadcrumb.items} />
 
       {/* Header Section */}
@@ -800,22 +800,18 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
         </div>
       </div>
 
-      {/* Top Row: Quality Score + Install Card | Agent Analysis */}
-      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mb-8">
-        {/* Left: Quality Score + Install Card */}
-        <div class="space-y-8">
+            {/* Main Layout: Sticky Sidebar + Flow Content */}
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start mt-8 pb-12">
+        {/* Left: Sticky Sidebar (Tools & Metadata) */}
+        <aside class="w-full lg:w-[380px] shrink-0 space-y-8 lg:sticky lg:top-8 z-10 cv-auto">
           {/* Quality Score */}
-          <div
-            class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
-          >
+          <div class="brut-card p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
             <div class="flex items-center justify-between mb-6 relative z-10">
               <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
                 <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
                 {t('Detail.qualityScore')}
               </h3>
-              <div
-                class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]"
-              >
+              <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
                 {scoreBadgeLabel}
               </div>
             </div>
@@ -823,13 +819,9 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
             <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
               <div class="relative w-20 h-20 shrink-0">
                 <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3"></div>
-                <div
-                  class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0"
-                >
+                <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0">
                 </div>
-                <div
-                  class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]"
-                >
+                <div class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]">
                   <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
                 </div>
               </div>
@@ -853,10 +845,48 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
             platformSupportLabel={platformSupportLabel}
             plusMoreLabel={plusMoreLabel}
           />
-        </div>
 
-        {/* Right: Agent Analysis */}
-        <div class="min-w-0">
+          {/* File Manager */}
+          <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]">
+            <SkillFileManager
+              client:idle
+              files={files}
+              selectedFile="SKILL.md"
+              labels={{
+                explorer: t('Detail.explorer'),
+                project: t('Detail.project'),
+              }}
+            />
+          </div>
+
+          {/* Tags */}
+          <div>
+            <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
+              <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
+              {t('Detail.tags')}
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              {
+                topics.length > 0 ? (
+                  topics.map((topic) => (
+                    <a
+                      href={`/${locale}/skills?topic=${encodeURIComponent(topic)}`}
+                      class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+                    >
+                      [{topic}]
+                    </a>
+                  ))
+                ) : (
+                  <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
+                )
+              }
+            </div>
+          </div>
+        </aside>
+
+        {/* Right Main Content Stream */}
+        <article class="flex-1 min-w-0 w-full max-w-4xl space-y-12">
+          {/* Agent Analysis */}
           {
             skill.agentAnalysis && (
               <div class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-white dark:bg-[#0a0a0a] p-6 relative overflow-hidden">
@@ -876,7 +906,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                     </h2>
                   </div>
 
-                  {/* SEO Dynamic Intro Paragraph — moved here from header */}
+                  {/* SEO Dynamic Intro Paragraph */}
                   <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] mb-6 font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
                     {locale === 'zh' ? (
                       <span>
@@ -891,7 +921,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       </span>
                     ) : (
                       <span>
-                        The <strong>{skill.name || repo}</strong> skill by <strong>{owner}</strong> is an open-source
+                        The <strong>{skill.name || repo}</strong> skill by <strong>{owner}</strong> is an open-source{' '}
                         <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> AI agent skill for
                         Claude Code and other IDE workflows, helping agents execute tasks with better context,
                         repeatability, and domain-specific guidance.
@@ -926,7 +956,6 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
                       {localizedUseCases.length > 0 && (
                         <div>
-                          {/* SEO: Changed from h3 to h2 to index use-cases as dominant subtopics */}
                           <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
                             <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
                             {typedLocale === 'zh'
@@ -934,7 +963,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                               : `${tr('Detail.useCases', 'Use Cases')} for ${skill.name || repo}`}
                           </h2>
                           <div class="flex flex-wrap gap-2">
-                            {localizedUseCases.map((useCase: string) => (
+                            {localizedUseCases.map((useCase) => (
                               <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
                                 {useCase}
                               </div>
@@ -950,7 +979,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                             {tr('Detail.limitations', typedLocale === 'zh' ? '使用限制与门槛' : 'Limitations')}
                           </h3>
                           <ul class="space-y-2">
-                            {localizedLimitations.map((limitation: string) => (
+                            {localizedLimitations.map((limitation) => (
                               <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
                                 <span>{limitation}</span>
                               </li>
@@ -964,98 +993,53 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
               </div>
             )
           }
-        </div>
-      </div>
 
-      {/* Interactive Hub: Dynamic Try Sandbox */}
-      <SkillTryBox skillId={fullId} skillRef={`${owner}/${repo}`} locale={typedLocale} />
+          {/* Interactive Hub: Dynamic Try Sandbox */}
+          <div class="w-full">
+            <SkillTryBox skillId={fullId} skillRef={`${owner}/${repo}`} locale={typedLocale} />
+          </div>
 
-      {/* Bottom Row: File Manager | SKILL.md Preview */}
-      <div class="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 items-start mt-8 cv-auto">
-        {/* Left: File Manager + Tags */}
-        <div class="space-y-8 lg:sticky lg:top-8">
-          {/* File Manager */}
-          <div
-            class="brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)]"
-          >
-            <SkillFileManager
+          {/* SKILL.md Preview */}
+          <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1">
+            <SkillReadme
               client:idle
-              files={files}
-              selectedFile="SKILL.md"
-              labels={{
-                explorer: t('Detail.explorer'),
-                project: t('Detail.project'),
+              initialContent={readmeContent}
+              initialFiles={{
+                'SKILL.md': readmeContent,
+                '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
+                'package.json': JSON.stringify(
+                  {
+                    name: `${owner}-${repo}-skill`,
+                    version: version,
+                    description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
+                    keywords: topics,
+                    author: owner,
+                    license: 'MIT',
+                    homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+                    repository: {
+                      type: 'git',
+                      url: `https://github.com/${owner}/${repo}`,
+                    },
+                  },
+                  null,
+                  2,
+                ),
               }}
+              name="SKILL.md"
             />
           </div>
 
-          {/* Tags */}
-          <div>
-            <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
-              <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
-              {t('Detail.tags')}
-            </h3>
-            <div class="flex flex-wrap gap-2">
-              {
-                topics.length > 0 ? (
-                  topics.map((topic: string) => (
-                    <a
-                      href={`/${locale}/skills?topic=${encodeURIComponent(topic)}`}
-                      class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
-                    >
-                      [{topic}]
-                    </a>
-                  ))
-                ) : (
-                  <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
-                )
-              }
-            </div>
-          </div>
-        </div>
-
-        {/* Right: SKILL.md Preview */}
-        <div
-          class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1"
-        >
-          <SkillReadme
-            client:idle
-            initialContent={readmeContent}
-            initialFiles={{
-              'SKILL.md': readmeContent,
-              '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
-              'package.json': JSON.stringify(
-                {
-                  name: `${owner}-${repo}-skill`,
-                  version: version,
-                  description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
-                  keywords: topics,
-                  author: owner,
-                  license: 'MIT',
-                  homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
-                  repository: {
-                    type: 'git',
-                    url: `https://github.com/${owner}/${repo}`,
-                  },
-                },
-                null,
-                2,
-              ),
-            }}
-            name="SKILL.md"
+          {/* FAQ & Installation Steps */}
+          <SkillFaq
+            locale={locale}
+            faqInstallTitle={faqInstallTitle}
+            faqTitle={faqTitle}
+            howToInstallTitle={howToInstallTitle}
+            faqItems={faqItems}
+            howToSteps={howToSteps}
           />
-        </div>
+        </article>
       </div>
-
-      {/* FAQ & Installation Steps */}
-      <SkillFaq
-        locale={locale}
-        faqInstallTitle={faqInstallTitle}
-        faqTitle={faqTitle}
-        howToInstallTitle={howToInstallTitle}
-        faqItems={faqItems}
-        howToSteps={howToSteps}
-      />
     </main>
 
     {/* Related Skills + Collections */}

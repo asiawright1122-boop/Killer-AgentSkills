@@ -10,6 +10,7 @@ type ENV = {
   SKILLS_CACHE: KVNamespace;
   DB: D1Database;
   VECTORIZE: VectorizeIndex;
+  AI: any; // Type 'Ai' from @cloudflare/workers-types if available
   WORKFLOWS_SERVICE: Fetcher;
   ASSETS: Fetcher;
   ADMIN_USER?: string;
