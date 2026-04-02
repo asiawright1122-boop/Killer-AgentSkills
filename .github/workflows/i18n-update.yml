@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Translation
         env:
-          NVIDIA_API_KEYS: ${{ secrets.NVIDIA_API_KEYS }}
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
           SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
           OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
