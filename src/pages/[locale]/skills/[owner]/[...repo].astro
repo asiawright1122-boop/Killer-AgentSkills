@@ -637,9 +637,15 @@ const version = skill.skillMd?.version || '1.0.0';
       <Breadcrumb items={breadcrumb.items} />
 
       {/* Header Section - Bento Hero Block */}
-      <div class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group">
+      <div
+        class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group"
+      >
         {/* Decorative Grid Background */}
-        <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: var(--background-pattern)"></div>
+        <div
+          class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
+          style="background-image: var(--background-pattern)"
+        >
+        </div>
         {/* Info */}
         <div class="w-full relative z-10">
           <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
