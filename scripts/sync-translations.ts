@@ -1,132 +1,100 @@
 /**
  * sync-translations.ts
- *
- * Ensures every locale message file has the same key structure as en.json.
- * Missing keys are filled with the English default value.
- * Extra keys (locale-specific overrides like zh-only text) are preserved.
- *
- * Usage:
- *   npx tsx scripts/sync-translations.ts          # dry-run (report only)
- *   npx tsx scripts/sync-translations.ts --write   # write changes to disk
- *   npx tsx scripts/sync-translations.ts --check   # CI mode: exit 1 if gaps found
+ * 
+ * Auto-syncs all locale UI dictionaries based on a baseline (en.json).
+ * Any missing keys in other locales will be populated with the English equivalent, 
+ * marking a baseline structure for all 10 supported languages, eliminating UI crashes.
  */
 
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const MESSAGES_DIR = path.resolve(__dirname, '../src/messages');
-const EN_FILE = path.join(MESSAGES_DIR, 'en.json');
+const LOCALES = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'hi', 'ja', 'ko', 'pt', 'ru'];
+const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
 
-// ─── Helpers ────────────────────────────────────────────────────
+async function main() {
+  console.log('🔄 Starting Translation Synchronization...');
+  
+  // 1. Read EN and ZH because zh currently holds lots of super keys not even in EN
+  const enRaw = await fs.readFile(path.join(MESSAGES_DIR, 'en.json'), 'utf-8');
+  const zhRaw = await fs.readFile(path.join(MESSAGES_DIR, 'zh.json'), 'utf-8');
 
-type NestedRecord = { [key: string]: string | NestedRecord };
+  let enDict = JSON.parse(enRaw);
+  const zhDict = JSON.parse(zhRaw);
 
-/** Recursively collect all dot-path keys from a nested object */
-function collectKeys(obj: NestedRecord, prefix = ''): Set<string> {
-  const keys = new Set<string>();
-  for (const [k, v] of Object.entries(obj)) {
-    const full = prefix ? `${prefix}.${k}` : k;
-    if (typeof v === 'object' && v !== null) {
-      for (const sub of collectKeys(v as NestedRecord, full)) {
-        keys.add(sub);
+  // 2. Discover missing superkeys in EN from ZH
+  // Because the previous author added features strictly to zh.json first
+  console.log('📦 Merging missing baselines from ZH -> EN...');
+  let enUpdated = false;
+  for (const ns of Object.keys(zhDict)) {
+    if (!enDict[ns]) {
+      enDict[ns] = {};
+      enUpdated = true;
+    }
+    for (const key of Object.keys(zhDict[ns] || {})) {
+      if (!enDict[ns].hasOwnProperty(key)) {
+        enDict[ns][key] = zhDict[ns][key]; // Temporarily fall back to ZH string if strictly no English counterpart exists
+        enUpdated = true;
       }
-    } else {
-      keys.add(full);
     }
   }
-  return keys;
-}
 
-/** Get a nested value by dot-path */
-function getNestedValue(obj: NestedRecord, dotPath: string): string | NestedRecord | undefined {
-  const parts = dotPath.split('.');
-  let current: any = obj;
-  for (const part of parts) {
-    if (current === undefined || current === null || typeof current !== 'object') return undefined;
-    current = current[part];
+  // Rewrite EN if it was updated
+  if (enUpdated) {
+    await fs.writeFile(path.join(MESSAGES_DIR, 'en.json'), JSON.stringify(enDict, null, 2) + '\n', 'utf-8');
+    console.log('✅ Updated en.json with new structural nodes.');
   }
-  return current;
-}
 
-/** Set a nested value by dot-path, creating intermediate objects as needed */
-function setNestedValue(obj: NestedRecord, dotPath: string, value: string | NestedRecord): void {
-  const parts = dotPath.split('.');
-  let current: any = obj;
-  for (let i = 0; i < parts.length - 1; i++) {
-    if (!(parts[i] in current) || typeof current[parts[i]] !== 'object') {
-      current[parts[i]] = {};
+  // 3. Mirror the baseline EN structurally to all other locales
+  for (const code of LOCALES) {
+    if (code === 'en') continue;
+
+    const locPath = path.join(MESSAGES_DIR, `${code}.json`);
+    let locDict: Record<string, Record<string, string>> = {};
+    
+    try {
+      const raw = await fs.readFile(locPath, 'utf-8');
+      locDict = JSON.parse(raw);
+    } catch {
+      console.log(`⚠️  ${code}.json not found or corrupted. Building from scratch...`);
     }
-    current = current[parts[i]];
-  }
-  current[parts[parts.length - 1]] = value;
-}
 
-// ─── Main ───────────────────────────────────────────────────────
-
-function main() {
-  const args = process.argv.slice(2);
-  const writeMode = args.includes('--write');
-  const checkMode = args.includes('--check');
-
-  // Load English baseline
-  const en: NestedRecord = JSON.parse(fs.readFileSync(EN_FILE, 'utf8'));
-  const enKeys = collectKeys(en);
-
-  console.log(`📋 English baseline: ${enKeys.size} keys\n`);
-
-  const localeFiles = fs.readdirSync(MESSAGES_DIR)
-    .filter(f => f.endsWith('.json') && f !== 'en.json')
-    .sort();
-
-  let totalGaps = 0;
-  const report: { locale: string; missing: number; extra: number; filled: string[] }[] = [];
-
-  for (const file of localeFiles) {
-    const locale = file.replace('.json', '');
-    const filePath = path.join(MESSAGES_DIR, file);
-    const data: NestedRecord = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-    const localeKeys = collectKeys(data);
-
-    const missing = [...enKeys].filter(k => !localeKeys.has(k));
-    const extra = [...localeKeys].filter(k => !enKeys.has(k));
-
-    if (missing.length > 0) {
-      totalGaps += missing.length;
-
-      if (writeMode) {
-        // Fill missing keys with English defaults
-        for (const key of missing) {
-          const enValue = getNestedValue(en, key);
-          if (enValue !== undefined) {
-            setNestedValue(data, key, enValue as string);
-          }
+    let modified = false;
+    for (const ns of Object.keys(enDict)) {
+      if (!locDict[ns]) {
+        locDict[ns] = {};
+        modified = true;
+      }
+      for (const key of Object.keys(enDict[ns])) {
+        if (!locDict[ns].hasOwnProperty(key)) {
+          // Fill missing key with the English default to prevent component crashes
+          locDict[ns][key] = enDict[ns][key];
+          modified = true;
         }
-        fs.writeFileSync(filePath, JSON.stringify(data, null, 2) + '\n');
       }
     }
 
-    report.push({ locale, missing: missing.length, extra: extra.length, filled: missing });
+    // Advanced: sorting keys alphabetically to preserve Git cleanliness
+    const orderedDict: typeof locDict = {};
+    Object.keys(enDict).sort().forEach(ns => {
+      orderedDict[ns] = {};
+      Object.keys(enDict[ns]).sort().forEach(key => {
+        orderedDict[ns][key] = locDict[ns]?.[key] || enDict[ns][key];
+      });
+    });
 
-    const status = missing.length === 0 ? '✅' : writeMode ? '🔧' : '❌';
-    console.log(`${status} ${locale}: ${localeKeys.size} keys | missing: ${missing.length} | extra: ${extra.length}${writeMode && missing.length > 0 ? ' → filled' : ''}`);
+    if (modified || Object.keys(locDict).length !== Object.keys(orderedDict).length) {
+      await fs.writeFile(locPath, JSON.stringify(orderedDict, null, 2) + '\n', 'utf-8');
+      console.log(`✅ Synchronized UI Dictionary for [ ${code.toUpperCase()} ] -- Missing keys injected!`);
+    } else {
+      console.log(`👍 [ ${code.toUpperCase()} ] is structurally sound.`);
+    }
   }
-
-  console.log(`\n📊 Total gaps: ${totalGaps}`);
-
-  if (writeMode && totalGaps > 0) {
-    console.log(`✅ All gaps filled with English defaults. Run 'npm run build' to verify.`);
-  } else if (checkMode && totalGaps > 0) {
-    console.log(`\n❌ CI check failed: ${totalGaps} missing translation keys found.`);
-    console.log(`Run 'npx tsx scripts/sync-translations.ts --write' to fix.`);
-    process.exit(1);
-  } else if (!writeMode && totalGaps > 0) {
-    console.log(`\n💡 Run with --write to fill missing keys with English defaults.`);
-  } else if (totalGaps === 0) {
-    console.log(`\n✅ All locale files are in sync with en.json.`);
-  }
+  
+  console.log('🚀 Synchronization Sequence Completed.');
 }
 
-main();
+main().catch(e => {
+  console.error('Fatal Sync Error:', e);
+  process.exit(1);
+});

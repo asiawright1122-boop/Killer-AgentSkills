@@ -181,9 +181,36 @@ export const POST: APIRoute = async ({ request, locals }) => {
         await env.SKILLS_CACHE.put(submissionKey, JSON.stringify(submission), {
           expirationTtl: 31536000, // 1 year
         });
+
+        // Trigger AI Review Workflow in GitHub Actions
+        const githubPat = env.GITHUB_PAT || env.GITHUB_TOKEN;
+        if (githubPat) {
+          const repoOwner = env.GITHUB_OWNER || 'asiawright1122-boop';
+          const repoName = env.GITHUB_REPO || 'Killer-AgentSkills';
+          try {
+            await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/dispatches`, {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/vnd.github.v3+json',
+                'Authorization': `token ${githubPat}`,
+                'User-Agent': 'Killer-Skills-Cloudflare-Worker'
+              },
+              body: JSON.stringify({
+                event_type: 'skill-submission',
+                client_payload: {
+                  owner,
+                  repo,
+                }
+              })
+            });
+            console.log(`Dispatched GitHub workflow 'skill-submission' for ${owner}/${repo}`);
+          } catch (dispatchError) {
+            console.error('Failed to dispatch GitHub workflow:', dispatchError);
+          }
+        }
       } catch (e) {
-        console.error('Failed to store submission in KV:', e);
-        // Don't fail the request if KV write fails
+        console.error('Failed to store submission in KV or dispatch event:', e);
+        // Don't fail the request if background triggers fail
       }
     }
 

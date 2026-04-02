@@ -44,15 +44,36 @@ const {
   </div>
 
   <div class="p-6 relative bg-[var(--background)]">
-    {/* Install Button */}
-    <button
-      id="install-btn"
-      class="w-full mb-4 flex items-center justify-center gap-2 px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
-      data-install-command={installCommand}
-    >
-      <Download size={18} strokeWidth={3} />
-      <span>{installNowLabel}</span>
-    </button>
+    {/* Install Button & Deep Links */}
+    <div class="mb-5 space-y-3">
+      <button
+        id="install-btn"
+        class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] font-black uppercase tracking-widest shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+        data-install-command={installCommand}
+      >
+        <Download size={18} strokeWidth={3} />
+        <span>{installNowLabel}</span>
+      </button>
+
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          class="ide-deep-link-btn flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold text-xs shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+          data-command={installCommand}
+          data-scheme="cursor://"
+          title="Open in Cursor IDE"
+        >
+          <Monitor size={14} strokeWidth={3} /> <span class="uppercase tracking-wider">Cursor</span>
+        </button>
+        <button
+          class="ide-deep-link-btn flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold text-xs shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
+          data-command={installCommand}
+          data-scheme="windsurf://"
+          title="Open in Windsurf IDE"
+        >
+          <Laptop size={14} strokeWidth={3} /> <span class="uppercase tracking-wider">Windsurf</span>
+        </button>
+      </div>
+    </div>
 
     <div class="border-4 border-[var(--border)] p-4 font-mono text-sm relative group/code bg-[var(--background)]">
       <div
@@ -131,3 +152,51 @@ const {
     </div>
   </div>
 </div>
+
+<script>
+  // Setup Deep Link behavior
+  const bindDeepLinks = () => {
+    document.querySelectorAll('.ide-deep-link-btn').forEach((btn) => {
+      // Remove any previously attached listeners on client-side navigation
+      const newBtn = btn.cloneNode(true) as HTMLButtonElement;
+      if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
+      
+      newBtn.addEventListener('click', async (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const command = target.dataset.command;
+        const scheme = target.dataset.scheme;
+        
+        if (command && scheme) {
+          try {
+            await navigator.clipboard.writeText(command);
+            
+            // Visual feedback loop
+            const originalContent = target.innerHTML;
+            target.innerHTML = '<span class="font-black text-[10px] tracking-widest uppercase">COPIED! LAUNCHING...</span>';
+            target.style.backgroundColor = 'var(--primary)';
+            target.style.color = 'var(--primary-foreground)';
+            target.style.borderColor = 'var(--foreground)';
+            
+            setTimeout(() => {
+               window.location.href = scheme;
+            }, 300);
+
+            setTimeout(() => {
+               target.innerHTML = originalContent;
+               target.style.backgroundColor = '';
+               target.style.color = '';
+               target.style.borderColor = '';
+            }, 2500);
+          } catch (err) {
+            console.error('Clipboard write failed, trying fallback launch', err);
+            window.location.href = scheme;
+          }
+        }
+      });
+    });
+  };
+
+  // Run on initial load and Astro view transitions
+  bindDeepLinks();
+  document.addEventListener('astro:page-load', bindDeepLinks);
+</script>

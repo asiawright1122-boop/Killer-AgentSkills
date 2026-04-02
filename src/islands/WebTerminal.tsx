@@ -87,18 +87,13 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
           shellProcess.input.getWriter().write(data);
         });
 
-        term.writeln('\x1b[1;36m[System] Injecting starter files and typing your first command...\x1b[0m');
+        term.writeln('\x1b[1;36m[System] Launching automated skill installation pipeline...\x1b[0m');
 
         // Simulate an interactive script setup by writing to the shell process
-        const initScript = `echo "mkdir -p workspace && cd workspace" | sh\n`;
+        const initScript = `mkdir -p try-skill && cd try-skill && npm init -y > /dev/null && echo '\\x1b[1;32m[System] Initializing Agent Sandbox...\\x1b[0m' && npx killer-skills add ${owner}/${repo}\n`;
         const writer = shellProcess.input.getWriter();
         await writer.write(initScript);
 
-        // Then we can run a simulated download or just give them a greeting note
-        await writer.write(`echo "\\033[1;32mWelcome to the Sandbox! You can interact directly with Node.\\033[0m"\n`);
-
-        // For demonstration, let's type `npx killer-skills add owner/repo` automatically but not run it so they can see it!
-        // No, let's just let them run stuff.
         writer.releaseLock();
 
         setStatus('ready');
@@ -124,13 +119,13 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
   }, [owner, repo]);
 
   return (
-    <div className="w-full h-full p-4 relative flex flex-col">
+    <div className="w-full h-[calc(100vh-80px)] min-h-[500px] p-4 relative flex flex-col bg-[var(--background)]">
       {status === 'initializing' || status === 'booting' ? (
-        <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/80 backdrop-blur-sm pointer-events-none">
-          <div className="flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-[#00ffcc]/30 border-t-[#00ffcc] rounded-full animate-spin"></div>
-            <p className="text-[#00ffcc] font-mono tracking-widest uppercase font-bold text-sm">
-              {status === 'initializing' ? 'Initializing XTerm...' : 'Booting WebContainer v1...'}
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-[var(--background)]/90 backdrop-blur-sm pointer-events-none">
+          <div className="flex flex-col items-center gap-5">
+            <div className="w-14 h-14 border-[5px] border-dashed border-[var(--primary)] rounded-full animate-[spin_4s_linear_infinite]" />
+            <p className="text-[var(--foreground)] font-mono tracking-widest uppercase font-black text-sm bg-[var(--primary)] px-3 py-1.5 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
+              {status === 'initializing' ? 'INITIALIZING XTERM...' : 'BOOTING WEBCONTAINER ENGINE...'}
             </p>
           </div>
         </div>
@@ -138,7 +133,8 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
 
       <div
         ref={terminalRef}
-        className="flex-1 w-full rounded-sm overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,1)] border border-[#333]"
+        className="flex-1 w-full overflow-hidden border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[#000000] p-3 transition-opacity duration-300"
+        style={{ opacity: status === 'ready' ? 1 : 0.5 }}
       />
     </div>
   );

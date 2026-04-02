@@ -26,7 +26,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
       >
         {tr('Labs.demoBadge', 'Interactive Try')}
       </span>
-      <h3 class="font-black text-sm tracking-tight uppercase">Browser Sandbox Environment</h3>
+      <h3 class="font-black text-sm tracking-tight uppercase">{tr('Labs.sandboxTitle', 'Browser Sandbox Environment')}</h3>
     </div>
   </div>
 
@@ -35,20 +35,20 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
       <h4
         class="text-3xl font-black uppercase tracking-tight text-[var(--foreground)] flex items-center justify-center gap-2"
       >
-        <span class="text-[var(--primary)]">⚡️</span> Ready to unleash?
+        <span class="text-[var(--primary)]">⚡️</span> {tr('Labs.readyToUnleash', 'Ready to unleash?')}
       </h4>
       <p class="text-[var(--muted-foreground)] font-bold text-base leading-relaxed px-4">
-        Experience this Agent in a zero-setup browser environment powered by <span
+        {tr('Labs.sandboxDescPre', 'Experience this Agent in a zero-setup browser environment powered by')} <span
           class="text-[var(--foreground)] underline decoration-2 decoration-[var(--primary)]">WebContainers</span
-        >. No installation required.
+        >. {tr('Labs.sandboxDescPost', 'No installation required.')}
       </p>
     </div>
     <a
       href={`/${locale}/sandbox/${skillRef}`}
       target="_blank"
-      class="mt-6 inline-flex items-center justify-center px-8 py-4 bg-[var(--primary)] text-black font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-white transition-all border-4 border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+      class="mt-6 inline-flex items-center justify-center px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all border-4 border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
     >
-      Boot Container Sandbox
+      {tr('Labs.bootSandbox', 'Boot Container Sandbox')}
     </a>
   </div>
 </div>

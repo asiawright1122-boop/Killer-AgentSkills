@@ -22,6 +22,8 @@
     "skills:harvest": "npx tsx scripts/harvest-github-skills.ts",
     "pipeline:run": "./scripts/run-pipeline.sh",
     "build:docs": "npx tsx scripts/build-docs-cache.ts",
+    "i18n:sync": "npx tsx scripts/sync-translations.ts",
+    "cache:warmup": "npx tsx scripts/warmup-ssr-cache.ts",
     "build:all": "npm run build:cache && npm run sync:kv",
     "clean:kv": "rm -rf .wrangler/state/v3/kv/eb71984285c54c3488c17a32391b9fe5",
     "sync:admin:d1": "npx tsx scripts/sync-admin-d1.ts",

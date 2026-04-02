@@ -7,6 +7,10 @@ export interface Env {
   ASSETS: Fetcher; // Static assets binding
   ADMIN_USER?: string;
   ADMIN_PASSWORD?: string;
+  GITHUB_PAT?: string;
+  GITHUB_TOKEN?: string;
+  GITHUB_OWNER?: string;
+  GITHUB_REPO?: string;
   NVIDIA_API_KEY?: string;
   NVIDIA_API_KEYS?: string;
   NVIDIA_API_KEYS_2?: string;

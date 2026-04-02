@@ -231,7 +231,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                     closeMenu();
                     setIsSubmitOpen(true);
                   }}
-                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-emerald-600 dark:text-emerald-400 border-b border-[var(--border)] hover:bg-emerald-500 hover:text-white transition-colors text-left"
+                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-black uppercase tracking-widest text-[#000000] bg-emerald-400 border-[3px] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all m-4 mt-2"
                 >
                   <Rocket className="w-5 h-5 flex-shrink-0" />
                   {labels.submitSkill}
@@ -345,7 +345,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
         {/* Submit Skill - Desktop */}
         <button
           onClick={() => setIsSubmitOpen(true)}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-500 hover:text-white transition-colors font-black uppercase tracking-wide text-sm whitespace-nowrap shrink-0"
+          className="hidden md:flex items-center gap-2 px-3 py-2 border-2 border-[var(--border)] bg-[#00ffcc] text-black hover:bg-emerald-400 transition-all font-black uppercase tracking-widest text-sm shadow-[3px_3px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[5px_5px_0px_0px_var(--border)] whitespace-nowrap shrink-0"
           aria-label={labels.submitSkill}
         >
           <Rocket className="w-4 h-4" />

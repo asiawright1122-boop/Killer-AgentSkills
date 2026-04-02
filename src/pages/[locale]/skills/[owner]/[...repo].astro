@@ -16,6 +16,7 @@ import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/sk
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import type { Env } from '../../../../lib/kv';
 import { getCollection } from 'astro:content';
+import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
@@ -278,7 +279,25 @@ const n8nHeroIntroOverride =
         : ''
     : '';
 const heroTagline = n8nHeroTaglineOverride || tagline;
-const heroIntro = firstNonEmpty(n8nHeroIntroOverride, description, defaultNoResultsLabel);
+const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, description, defaultNoResultsLabel);
+
+// --- SSR Dynamic Translation Interception ---
+const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations] = await Promise.all([
+  translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
+  translateString(env, heroIntroRaw, typedLocale, 'text'),
+  translateArray(env, features, typedLocale),
+  translateArray(env, keywordsList, typedLocale),
+  translateArray(env, localizedUseCases, typedLocale),
+  translateArray(env, localizedLimitations, typedLocale),
+]);
+
+const heroIntro = t_heroIntro;
+description = t_description;
+const renderedFeatures = t_features;
+const renderedTopics = t_topics;
+const renderedUseCases = t_useCases;
+const renderedLimitations = t_limitations;
+// --------------------------------------------
 const n8nInternalLinks = isN8nRepoPage
   ? [
       ...(isN8nLoomTranscriptPage
@@ -404,13 +423,13 @@ faqItems.push({
 });
 
 // Q3: Use cases (from agentAnalysis)
-if (localizedUseCases.length > 0) {
+if (renderedUseCases.length > 0) {
   faqItems.push({
     question: tpl('Detail.faqUseCases', { name: skillDisplayName }, `What are the use cases for ${skillDisplayName}?`),
     answer: tpl(
       'Detail.faqUseCasesAnswer',
-      { name: skillDisplayName, useCases: localizedUseCases.join(isZhLocale ? '、' : ', ') },
-      `Key use cases include: ${localizedUseCases.join(', ')}.`,
+      { name: skillDisplayName, useCases: renderedUseCases.join(isZhLocale ? '、' : ', ') },
+      `Key use cases include: ${renderedUseCases.join(', ')}.`,
     ),
   });
 }
@@ -428,14 +447,14 @@ faqItems.push({
 });
 
 // Q5: Limitations (from agentAnalysis)
-if (localizedLimitations.length > 0) {
+if (renderedLimitations.length > 0) {
   faqItems.push({
     question: tpl(
       'Detail.faqLimitations',
       { name: skillDisplayName },
       `Are there any limitations for ${skillDisplayName}?`,
     ),
-    answer: localizedLimitations.join(isZhLocale ? '；' : '. ') + (isZhLocale ? '。' : '.'),
+    answer: renderedLimitations.join(isZhLocale ? '；' : '. ') + (isZhLocale ? '。' : '.'),
   });
 }
 
@@ -509,17 +528,51 @@ const starsDisplay =
 const githubUrl = `https://github.com/${owner}/${repo}`;
 
 // Topics
-const topics = skill.topics || [];
+const rawTopics = skill.topics || [];
 
 // Prepare file list
 const textEncoder = new TextEncoder();
 const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
 const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
 const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
-const readmeContent =
+const readmeContentSource =
   rawReadmeContent && rawReadmeSize >= 250
     ? rawReadmeContent
     : [rawReadmeContent, fallbackReadmeContent].filter((part) => part && part.trim().length > 0).join('\n\n');
+
+// ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
+const relatedSkillsSource = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
+
+// --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---
+let readmeContent = readmeContentSource;
+let relatedSkills = relatedSkillsSource;
+let topics = rawTopics;
+
+if (typedLocale !== 'en') {
+  const relatedNames = relatedSkillsSource.map((s) => s.skillName || s.name);
+  const relatedDesc = relatedSkillsSource.map((s) =>
+    typeof s.description === 'string'
+      ? s.description
+      : (s.description as any)?.[typedLocale] || (s.description as any)?.['en'] || '',
+  );
+
+  const [t_readme, t_relatedNames, t_relatedDesc, t_topics] = await Promise.all([
+    translateString(env, readmeContentSource, typedLocale, 'text'),
+    translateArray(env, relatedNames, typedLocale),
+    translateArray(env, relatedDesc, typedLocale),
+    translateArray(env, rawTopics, typedLocale),
+  ]);
+
+  readmeContent = t_readme;
+  topics = t_topics;
+  relatedSkills = relatedSkillsSource.map((s, index) => ({
+    ...s,
+    skillName: t_relatedNames[index] || s.skillName,
+    description: t_relatedDesc[index] || s.description,
+  }));
+}
+// --------------------------------------------------------------------------
+
 const readmeSize = textEncoder.encode(readmeContent).length;
 const isThinContent = readmeSize < 250; // Block indexing if extremely short (Thin Content penalty)
 const formatSize = (bytes: number) => {
@@ -534,9 +587,6 @@ const files = [
 ];
 
 const version = skill.skillMd?.version || '1.0.0';
-// ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
-// But it's a targeted D1 query (4 rows × ~200 bytes) — very fast
-const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
 ---
 
 <Layout
@@ -698,7 +748,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                   <section class="mb-10">
                     <h2 class="sr-only">{t('Detail.features')}</h2>
                     <div class="flex flex-wrap gap-2">
-                      {features.map((feature: string) => (
+                      {renderedFeatures.map((feature: string) => (
                         <div class="flex items-center gap-1.5 text-xs font-bold text-[var(--primary-foreground)] bg-[var(--primary)] px-2.5 py-1.5 border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
                           <Zap size={12} strokeWidth={3} className="shrink-0" />
                           <span>{feature}</span>
@@ -718,7 +768,7 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
                       {tr('Detail.coreTopics', 'Core Topics')}
                     </h2>
                     <div class="flex flex-wrap gap-2">
-                      {keywordsList.slice(0, 6).map((keyword: string) => (
+                      {renderedTopics.slice(0, 6).map((keyword: string) => (
                         <a
                           href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}
                           class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
@@ -878,15 +928,18 @@ const relatedSkills = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.
             </h3>
             <div class="flex flex-wrap gap-2">
               {
-                topics.length > 0 ? (
-                  topics.map((topic) => (
-                    <a
-                      href={`/${locale}/skills?topic=${encodeURIComponent(topic)}`}
-                      class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
-                    >
-                      [{topic}]
-                    </a>
-                  ))
+                rawTopics.length > 0 ? (
+                  rawTopics.map((rawTopic, index) => {
+                    const translatedTopic = topics[index] || rawTopic;
+                    return (
+                      <a
+                        href={`/${locale}/skills?topic=${encodeURIComponent(rawTopic)}`}
+                        class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
+                      >
+                        [{translatedTopic}]
+                      </a>
+                    );
+                  })
                 ) : (
                   <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">[{t('Detail.noTags')}]</span>
                 )

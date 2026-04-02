@@ -1,0 +1,68 @@
+name: Async AI Review for Skill Submissions
+
+on:
+  repository_dispatch:
+    types: [skill-submission]
+
+jobs:
+  review-and-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Create Review Branch
+        id: branch
+        run: |
+          AUTHOR="${{ github.event.client_payload.owner }}"
+          REPO="${{ github.event.client_payload.repo }}"
+          BRANCH_NAME="add-skill-${AUTHOR}-${REPO}-$(date +%s)"
+          git checkout -b $BRANCH_NAME
+          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Execute LLM Review and Integration
+        env:
+          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          SUBMISSION_OWNER: ${{ github.event.client_payload.owner }}
+          SUBMISSION_REPO: ${{ github.event.client_payload.repo }}
+        run: |
+          npx tsx scripts/review-submission.ts
+
+      - name: Commit and Create PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          AUTHOR="${{ github.event.client_payload.owner }}"
+          REPO="${{ github.event.client_payload.repo }}"
+          BRANCH_NAME="${{ steps.branch.outputs.branch_name }}"
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          git add .
+          
+          if ! git diff --cached --quiet; then
+            git commit -m "feat(skill): Add new submitted skill $AUTHOR/$REPO"
+            git push origin $BRANCH_NAME
+            
+            gh pr create \
+              --title "feat(skill): Accept Community Submission - ${AUTHOR}/${REPO}" \
+              --body "This PR was generated automatically by the \`skill-submission\` edge hook. It contains an AI-reviewed evaluation, meta enrichment, and localization of the submitted skill. Please review the resulting files before merging." \
+              --base main \
+              --head $BRANCH_NAME
+          else
+            echo "No changes detected. The review script might have failed or the skill already exists."
+          fi
