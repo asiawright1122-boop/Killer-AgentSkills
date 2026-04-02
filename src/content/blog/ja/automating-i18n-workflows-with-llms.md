@@ -1,11 +1,6 @@
 ---
-<<<<<<< Updated upstream
 title: "LLMを用いた多言語ワークフローの自動化：10言語へのスケーリング"
 description: "大規模言語モデル（LLM）を使用して、ドキュメントやコンポーネントを10以上の言語にシームレスに翻訳する堅牢なパイプラインを構築し、ハードコードされた制約を解決する方法を学びます。"
-=======
-title: "LLM"
-description: "Large Language Models, or LLMs, are revolutionizing the way we interact with technology and each other, enabling more natural and intuitive communication."
->>>>>>> Stashed changes
 pubDate: 2026-04-02
 author: "Killer-Skills Meta Team"
 heroImage: "/blog/automating-i18n-hero.png"
