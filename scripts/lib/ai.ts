@@ -735,7 +735,7 @@ export class AIService {
     if (has429 && attempt < RETRY_DELAYS.length) {
       const delay = RETRY_DELAYS[attempt];
       console.warn(
-        `\n[AIService] Rate limited (429) across all providers, retrying in ${delay}ms (attempt ${attempt + 1}/${RETRY_DELAYS.length})...`,
+        `\n[AIService] All providers failed. Found 429, retrying in ${delay}ms (attempt ${attempt + 1}/${RETRY_DELAYS.length})... | Errors: ${providerErrors.join(' ; ')}`,
       );
       await sleep(delay);
       return this.executeCallWithRetry(prompt, jsonMode, attempt + 1);
