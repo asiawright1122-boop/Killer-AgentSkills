@@ -459,7 +459,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                       {workflowEntryLinks.map((term) => (
                         <a
                           href={term.href}
-                          class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] bg-white text-[var(--foreground)] text-xs font-black uppercase tracking-wide hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+                          class="inline-flex items-center px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] text-xs font-black uppercase tracking-wide hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-1px] hover:translate-y-[-1px] hover:shadow-[3px_3px_0px_0px_var(--border)] transition-all"
                         >
                           {term.query}
                         </a>

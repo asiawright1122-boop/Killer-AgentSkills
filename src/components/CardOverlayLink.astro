@@ -13,6 +13,7 @@ const { href, ariaLabel, className = '', testId } = Astro.props;
   href={href}
   aria-label={ariaLabel}
   data-testid={testId}
+  data-astro-prefetch="hover"
   class:list={[
     'absolute inset-0 z-10 block focus:outline-none focus-visible:ring-4 focus-visible:ring-[var(--primary)]',
     className,
