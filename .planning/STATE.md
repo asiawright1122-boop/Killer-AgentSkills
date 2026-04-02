@@ -1,13 +1,82 @@
-# Project State Memory
+---
+gsd_state_version: '1.0'
+milestone: v1.0
+milestone_name: Reliability and Growth Operations
+current_phase: '02'
+current_phase_name: re-enrichment-pipeline-run
+current_plan: '2'
+status: executing
+last_updated: '2026-04-02T06:58:03Z'
+last_activity: '2026-04-02'
+progress:
+  total_phases: 9
+  completed_phases: 7
+  total_plans: 18
+  completed_plans: 16
+  percent: 89
+---
 
-## Current Focus
-Deep repository audit and framework onboarding into the native `gsd` control systems. The codebase has completed its 7-layer dimensional extraction and the `gsd-new-project` logic has been fulfilled.
+# Project State
 
-## Recent Triumphs
-- **[Phase 8 Executed]**: Created dynamic Neo-Brutalist `TutorialShell.astro` rendering layouts fully capable of holding AI-expanded content payloads natively on Astro SSR boundaries.
-- **[Phase 7 Executed]**: Deployed the automated Node.js intelligence script (`ai-enrich-thin-skills.ts`) capable of dynamically expanding "thin content" markdown via SiliconFlow/Nvidia LLMs without breaking upstream schemas.
-- **[Phase 5 Executed]**: The Command Palette (`Cmd+K`) was engineered and physically wired to the `/api/search.ts` backend. `npm run check:astro` passed cleanly.
-- **[Phase 1 & 2 Executed]**: UI component test drift resolved and `process.env` secrets physically isolated in properties tests, clearing all GitHub Action CI bottlenecks.
-- 100% CI Pipeline Stabilization achieved across Vitest, ESLint (max warning 0), Prettier, and Astro diagnostics.
-- Architecture mapped entirely into `.planning/codebase/`.
-- Project initialization materialized via `yolo` configs and parallelization optimization logic.
+## Project Reference
+
+See: `.planning/PROJECT.md` (updated 2026-04-01)
+
+**Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
+**Current focus:** Phase 02 — re-enrichment-pipeline-run
+
+## Current Position
+
+**Current Phase:** 02
+**Current Phase Name:** re-enrichment-pipeline-run
+**Total Phases:** 9
+**Current Plan:** 2
+**Total Plans in Phase:** 4
+**Status:** Executing Phase 02
+**Last Activity:** 2026-04-02
+**Last Activity Description:** Added batch no-rewrite safety guard, completed clean `02-02` pilot rerun (`3/3`), and revalidated `02-03`/`02-04` evidence; full regeneration scope remains open.
+
+**Progress:** 89%
+
+## Performance Metrics
+
+**Velocity:**
+- **Completed Plans:** 16
+- **Total Planned:** 18
+- **Plan Completion Ratio:** 89%
+
+**By Phase:**
+
+| Phase | Plans | Summaries | Status |
+|------|-------|-----------|--------|
+| 01 | 1 | 1 | Complete |
+| 01.1 | 6 | 6 | Complete |
+| 02 | 4 | 3 | In progress |
+| 02A | 1 | 1 | Complete |
+| 05 | 2 | 2 | Complete |
+| 07 | 1 | 1 | Complete |
+| 08 | 1 | 1 | Complete |
+| 29 | 1 | 1 | Complete |
+| 30 | 1 | 0 | In progress |
+
+## Decisions Made
+
+| Phase | Decision | Rationale |
+|------|----------|-----------|
+| 01.1 | Centralized locale/breadcrumb/metadata contracts | Prevent repeated regressions and key leakage across public surfaces. |
+| 02 | Use report-first, checkpointed regeneration | Enable resumable execution and auditable publish decisions. |
+| 02 | Add batch no-rewrite guard when no runnable tasks exist | Prevent stale checkpoint resumes from mutating cache unexpectedly. |
+| 02A | Isolate CI-injected secrets in property tests | Keep auth-property tests deterministic across runners. |
+| 29 | Require production-surface smoke verification in audit closure | Ensure unattended pipeline health reflects real user-facing behavior rather than local-only checks. |
+
+## Blockers
+
+- Phase 02 Plan `02-02` is not fully closed: pilot rerun succeeded (`3/3`) but full queued scope (`3436`) is still pending.
+- Strict quality gate remains red (`npm run audit:seo:index-quality`): drift `28`, missing body/bodyPreview `47`, thin-content `51`.
+- Scale risk: broad rerun waves may hit transient provider/network instability and require checkpoint-resume operations to continue.
+
+## Session
+
+**Last Date:** 2026-04-02
+**Stopped At:** Batch safety fix + pilot rerun complete; Phase 02 pending full-scope regeneration and strict quality gate pass.
+**Resume File:** None

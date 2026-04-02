@@ -1,6 +1,6 @@
 ---
 status: passed
-phase: 02-isolate-secrets
+phase: 02A-isolate-secrets
 started: 2026-04-01
 updated: 2026-04-01
 ---

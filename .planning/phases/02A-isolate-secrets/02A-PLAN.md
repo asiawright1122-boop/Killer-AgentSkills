@@ -6,7 +6,7 @@ files_modified:
 autonomous: true
 ---
 
-# Phase 2: Isolate overlapping GitHub Action injection secrets
+# Phase 2A: Isolate overlapping GitHub Action injection secrets
 
 <objective>
 Fix the property-based tests in `src/middleware.property.test.ts` to explicitly isolate themselves from CI environment variable injections (like `ADMIN_USER`) to prevent false-negative authentication failures in GitHub Actions workflows.

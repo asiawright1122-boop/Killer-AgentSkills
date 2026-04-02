@@ -1,12 +1,10 @@
-import { AIService } from './scripts/lib/ai.js';
-import * as dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' });
+import { AIService } from './scripts/lib/ai';
 
-async function run() {
-    const ai = new AIService();
-    const prompt = "Translate this word to zh (Chinese): 'Hello World'";
-    console.log("Asking AI...");
-    const result = await ai.callAI(prompt, false);
-    console.log("Result:", result);
+async function main() {
+  const aiService = new AIService();
+  console.log('Available providers:', (aiService as any).getAvailableProviders().map(p => p.label));
+  const res = await aiService.callAI('Respond with {"hello": "world"}', true);
+  console.log('Result:', res);
 }
-run();
+
+main().catch(console.error);

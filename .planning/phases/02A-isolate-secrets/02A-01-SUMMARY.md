@@ -1,6 +1,6 @@
-# Plan 02-01 Summary: Isolate GitHub Action injection secrets
+# Plan 02A-01 Summary: Isolate GitHub Action injection secrets
 
-**Phase:** 02-isolate-secrets
+**Phase:** 02A-isolate-secrets
 **Date:** 2026-04-01
 
 ## What was Changed
