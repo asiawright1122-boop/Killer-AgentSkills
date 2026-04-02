@@ -297,7 +297,7 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
           <button
             onClick={() => setIsLangOpen(!isLangOpen)}
             data-testid="desktop-locale-toggle"
-            className="px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-black uppercase text-sm tracking-wide"
+            className="px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors flex items-center gap-2 font-black uppercase text-sm tracking-wide shrink-0 whitespace-nowrap"
             aria-label={labels.switchLanguage}
             aria-expanded={isLangOpen}
           >

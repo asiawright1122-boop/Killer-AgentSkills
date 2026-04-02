@@ -193,16 +193,40 @@ const metadata = buildPageMetadata({
 
     <!-- Native Router Progress Script -->
     <script>
+      // Global click interceptor to provide INSTANT visual feedback for SPA routing
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
+        const link = target.closest('a');
+        if (
+          link &&
+          link.href &&
+          link.hostname === window.location.hostname &&
+          !link.hasAttribute('download') &&
+          link.target !== '_blank' &&
+          !e.defaultPrevented
+        ) {
+          const bar = document.getElementById('route-progress');
+          if (bar) {
+            bar.style.transition = 'transform 8s cubic-bezier(0.1, 0.8, 0.2, 1)';
+            bar.style.transform = 'scaleX(0.85)';
+            bar.style.opacity = '1';
+          }
+          document.body.style.cursor = 'wait';
+        }
+      });
+
       document.addEventListener('astro:before-preparation', () => {
         const bar = document.getElementById('route-progress');
         if (bar) {
           bar.style.transition = 'transform 3s cubic-bezier(0.1, 0.8, 0.2, 1)';
-          bar.style.transform = 'scaleX(0.7)';
+          bar.style.transform = 'scaleX(0.95)';
           bar.style.opacity = '1';
         }
       });
 
       document.addEventListener('astro:after-swap', () => {
+        document.body.style.cursor = '';
         const bar = document.getElementById('route-progress');
         if (bar) {
           bar.style.transition = 'transform 0.2s ease-out';
