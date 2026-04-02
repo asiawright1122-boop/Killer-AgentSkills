@@ -11,12 +11,9 @@ import Home from 'lucide-react/dist/esm/icons/home';
 import Compass from 'lucide-react/dist/esm/icons/compass';
 import Grid3X3 from 'lucide-react/dist/esm/icons/grid-3x3';
 import BookOpen from 'lucide-react/dist/esm/icons/book-open';
-import FileText from 'lucide-react/dist/esm/icons/file-text';
-import Terminal from 'lucide-react/dist/esm/icons/terminal';
 import Users from 'lucide-react/dist/esm/icons/users';
 import Layers from 'lucide-react/dist/esm/icons/layers';
 import Rocket from 'lucide-react/dist/esm/icons/rocket';
-import Search from 'lucide-react/dist/esm/icons/search';
 import SubmitSkillModal from './SubmitSkillModal';
 
 interface HeaderActionsProps {

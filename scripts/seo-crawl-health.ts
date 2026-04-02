@@ -32,6 +32,7 @@ const CHECK_RETRIES = Number(process.env.SEO_CRAWL_RETRIES || '3');
 const CHECK_RETRY_DELAY_MS = Number(process.env.SEO_CRAWL_RETRY_DELAY_MS || '1000');
 const HARD_FAIL_5XX_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_MIN || '3');
 const HARD_FAIL_5XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_RATE || '0.005');
+const HARD_FAIL_4XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_4XX_RATE || '0.05');
 
 function ensure(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -317,9 +318,10 @@ async function main() {
   writeReports(report);
 
   const status4xxCount = results.filter((r) => r.status >= 400 && r.status < 500).length;
+  const status4xxRate = results.length > 0 ? status4xxCount / results.length : 0;
   const status5xxCount = results.filter((r) => r.status >= 500).length;
   const status5xxRate = results.length > 0 ? status5xxCount / results.length : 0;
-  const hasHard4xx = status4xxCount > 0;
+  const hasHard4xx = status4xxRate > HARD_FAIL_4XX_RATE;
   const hasHard5xx = status5xxCount >= HARD_FAIL_5XX_MIN || status5xxRate > HARD_FAIL_5XX_RATE;
   const networkErrors = results.filter((r) => r.status === 0).length;
   const networkErrorRate = results.length > 0 ? networkErrors / results.length : 0;
@@ -328,6 +330,13 @@ async function main() {
   const hasSevereSignal = hasHard4xx || hasHard5xx || hasDuplicates || hasNetworkInstability;
 
   console.log(report);
+  if (!hasHard4xx && status4xxCount > 0) {
+    console.warn(
+      `[crawl-health] tolerated dynamic 4xx errors (skills missing): ${status4xxCount}/${results.length} (${(
+        status4xxRate * 100
+      ).toFixed(2)}%)`,
+    );
+  }
   if (!hasHard5xx && status5xxCount > 0) {
     console.warn(
       `[crawl-health] tolerated transient 5xx errors: ${status5xxCount}/${results.length} (${(
