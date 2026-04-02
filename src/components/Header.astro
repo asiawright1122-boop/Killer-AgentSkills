@@ -52,16 +52,6 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
         class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Navigation.blog', 'Blog')}</a
       >
-      <a
-        href={`/${locale}/docs`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Footer.docs', 'Docs')}</a
-      >
-      <a
-        href={`/${locale}/cli`}
-        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
-        >{tr('Footer.cli', 'CLI')}</a
-      >
     </nav>
 
     <!-- Rights/Actions -->

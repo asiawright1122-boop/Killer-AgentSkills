@@ -636,10 +636,12 @@ const version = skill.skillMd?.version || '1.0.0';
     <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 md:py-8 relative z-10">
       <Breadcrumb items={breadcrumb.items} />
 
-      {/* Header Section */}
-      <div class="relative pt-2 pb-6 border-b-[3px] border-[var(--border)] mb-6 md:mb-8">
+      {/* Header Section - Bento Hero Block */}
+      <div class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group">
+        {/* Decorative Grid Background */}
+        <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none" style="background-image: var(--background-pattern)"></div>
         {/* Info */}
-        <div class="w-full">
+        <div class="w-full relative z-10">
           <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
             <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
               <h1
@@ -790,12 +792,12 @@ const version = skill.skillMd?.version || '1.0.0';
                     alt={owner}
                     width="28"
                     height="28"
-                    class="w-8 h-8 rounded-none border-2 border-[var(--border)] group-hover:shadow-[2px_2px_0px_0px_var(--border)] transition-all grayscale group-hover:grayscale-0"
+                    class="w-10 h-10 rounded-none border-[3px] border-[var(--border)] group-hover:shadow-[4px_4px_0px_0px_var(--border)] group-hover:-translate-y-1 transition-all grayscale group-hover:grayscale-0"
                     loading="lazy"
                     decoding="async"
                   />
                   <span
-                    class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-1 transition-colors"
+                    class="group-hover:text-[var(--primary)] group-hover:bg-[var(--foreground)] px-2 py-0.5 text-base transition-colors font-black"
                     >{owner}</span
                   >
                 </div>
@@ -852,12 +854,12 @@ const version = skill.skillMd?.version || '1.0.0';
       </div>
 
       {/* Main Layout: Sticky Sidebar + Flow Content */}
-      <div class="flex flex-col lg:flex-row gap-6 items-start mt-6 pb-12">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start mt-4 pb-16">
         {/* Left: Sticky Sidebar (Tools & Metadata) */}
         <aside class="w-full lg:w-[320px] shrink-0 space-y-5 lg:sticky lg:top-8 z-10 cv-auto">
           {/* Quality Score */}
           <div
-            class="brut-card p-4 md:p-5 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)]"
+            class="brut-card p-4 md:p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"
           >
             <div class="flex items-center justify-between mb-6 relative z-10">
               <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
@@ -1082,7 +1084,7 @@ const version = skill.skillMd?.version || '1.0.0';
             )
           }
           <div
-            class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-1"
+            class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden"
           >
             <SkillReadme
               client:idle

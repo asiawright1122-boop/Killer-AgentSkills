@@ -35,7 +35,7 @@ jobs:
 
       - name: Execute LLM Review and Integration
         env:
-          NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+          NVIDIA_API_KEY: ${{ secrets['NVIDIA_API_KEY'] }}
           SUBMISSION_OWNER: ${{ github.event.client_payload.owner }}
           SUBMISSION_REPO: ${{ github.event.client_payload.repo }}
         run: |

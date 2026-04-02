@@ -18,7 +18,6 @@ import Layers from 'lucide-react/dist/esm/icons/layers';
 import Rocket from 'lucide-react/dist/esm/icons/rocket';
 import Search from 'lucide-react/dist/esm/icons/search';
 import SubmitSkillModal from './SubmitSkillModal';
-import CommandPalette from './CommandPalette';
 
 interface HeaderActionsProps {
   locale: string;
@@ -53,7 +52,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isSubmitOpen, setIsSubmitOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const langDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -78,18 +76,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Global Cmd+K / Ctrl+K listener for Command Palette
-  useEffect(() => {
-    const handleGlobalKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-        e.preventDefault();
-        setIsSearchOpen((prev) => !prev);
-      }
-    };
-    window.addEventListener('keydown', handleGlobalKeyDown);
-    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
   useEffect(() => {
@@ -153,8 +139,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
     { href: `/${locale}/collections`, label: labels.collections || 'Collections', icon: Layers },
     { href: `/${locale}/categories`, label: labels.categories, icon: Grid3X3 },
     { href: `/${locale}/blog`, label: labels.blog, icon: BookOpen },
-    { href: `/${locale}/docs`, label: labels.docs, icon: FileText },
-    { href: `/${locale}/cli`, label: labels.cli, icon: Terminal },
     { href: `/${locale}/community`, label: labels.community, icon: Users },
   ];
 
@@ -216,16 +200,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
               {/* Quick actions */}
               <div className="flex flex-col border-b-[3px] border-[var(--border)] bg-[var(--card)]">
-                <button
-                  onClick={() => {
-                    closeMenu();
-                    setIsSearchOpen(true);
-                  }}
-                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors text-left"
-                >
-                  <Search className="w-5 h-5 flex-shrink-0" />
-                  {labels.search}
-                </button>
                 <button
                   onClick={() => {
                     closeMenu();
@@ -329,19 +303,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
           )}
         </div>
 
-        {/* Search Trigger - Desktop */}
-        <button
-          onClick={() => setIsSearchOpen(true)}
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] text-[var(--foreground)] hover:text-[var(--background)] transition-colors font-black text-sm shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] uppercase whitespace-nowrap shrink-0"
-          aria-label={labels.search}
-        >
-          <Search className="w-4 h-4" />
-          <span>{labels.search || 'Search'}</span>
-          <kbd className="hidden lg:inline-flex ml-2 h-5 items-center gap-1 border border-current px-1 text-[10px] font-mono opacity-60 rounded-sm">
-            <span className="text-[10px]">⌘</span>K
-          </kbd>
-        </button>
-
         {/* Submit Skill - Desktop */}
         <button
           onClick={() => setIsSubmitOpen(true)}
@@ -387,9 +348,6 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
       {/* Submit Skill Modal */}
       <SubmitSkillModal isOpen={isSubmitOpen} onClose={() => setIsSubmitOpen(false)} locale={locale} />
-
-      {/* Command Palette */}
-      <CommandPalette locale={locale} isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 }
