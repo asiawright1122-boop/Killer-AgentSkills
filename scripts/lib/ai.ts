@@ -134,6 +134,7 @@ export class AIService {
   };
 
   private currentOpenrouterKeyIndex = 0;
+  private currentNvidiaKeyIndex = 0;
 
   private logMetadataDebug(scope: 'en' | 'batch', skillName: string, detail: string, response?: string): void {
     if (!AI_DEBUG_METADATA) return;
@@ -692,8 +693,11 @@ export class AIService {
       );
     };
 
-    for (let i = 0; i < this.config.nvidiaKeys.length; i++) {
-      raceEntry('nvidia', this.config.nvidiaKeys[i], `N${i}`);
+    if (this.config.nvidiaKeys.length > 0) {
+      const nvIndex = this.currentNvidiaKeyIndex % this.config.nvidiaKeys.length;
+      const nvKey = this.config.nvidiaKeys[nvIndex];
+      this.currentNvidiaKeyIndex++;
+      raceEntry('nvidia', nvKey, `N${nvIndex}`);
     }
     if (this.config.siliconFlowKey) {
       raceEntry('siliconflow', this.config.siliconFlowKey, 'S');
