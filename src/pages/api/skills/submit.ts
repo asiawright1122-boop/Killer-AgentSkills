@@ -191,17 +191,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
             await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/dispatches`, {
               method: 'POST',
               headers: {
-                'Accept': 'application/vnd.github.v3+json',
-                'Authorization': `token ${githubPat}`,
-                'User-Agent': 'Killer-Skills-Cloudflare-Worker'
+                Accept: 'application/vnd.github.v3+json',
+                Authorization: `token ${githubPat}`,
+                'User-Agent': 'Killer-Skills-Cloudflare-Worker',
               },
               body: JSON.stringify({
                 event_type: 'skill-submission',
                 client_payload: {
                   owner,
                   repo,
-                }
-              })
+                },
+              }),
             });
             console.log(`Dispatched GitHub workflow 'skill-submission' for ${owner}/${repo}`);
           } catch (dispatchError) {

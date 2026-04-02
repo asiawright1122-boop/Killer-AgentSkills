@@ -62,7 +62,8 @@ const {
           data-scheme="cursor://"
           title="Open in Cursor IDE"
         >
-          <Monitor size={14} strokeWidth={3} /> <span class="uppercase tracking-wider">Cursor</span>
+          <Monitor size={14} strokeWidth={3} />
+          <span class="uppercase tracking-wider">Cursor</span>
         </button>
         <button
           class="ide-deep-link-btn flex items-center justify-center gap-2 px-3 py-2.5 bg-[var(--background)] text-[var(--foreground)] hover:bg-[var(--foreground)] hover:text-[var(--background)] border-2 border-[var(--border)] font-bold text-xs shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[-1px] hover:translate-y-[-1px]"
@@ -70,7 +71,8 @@ const {
           data-scheme="windsurf://"
           title="Open in Windsurf IDE"
         >
-          <Laptop size={14} strokeWidth={3} /> <span class="uppercase tracking-wider">Windsurf</span>
+          <Laptop size={14} strokeWidth={3} />
+          <span class="uppercase tracking-wider">Windsurf</span>
         </button>
       </div>
     </div>
@@ -160,32 +162,33 @@ const {
       // Remove any previously attached listeners on client-side navigation
       const newBtn = btn.cloneNode(true) as HTMLButtonElement;
       if (btn.parentNode) btn.parentNode.replaceChild(newBtn, btn);
-      
+
       newBtn.addEventListener('click', async (e) => {
         const target = e.currentTarget as HTMLButtonElement;
         const command = target.dataset.command;
         const scheme = target.dataset.scheme;
-        
+
         if (command && scheme) {
           try {
             await navigator.clipboard.writeText(command);
-            
+
             // Visual feedback loop
             const originalContent = target.innerHTML;
-            target.innerHTML = '<span class="font-black text-[10px] tracking-widest uppercase">COPIED! LAUNCHING...</span>';
+            target.innerHTML =
+              '<span class="font-black text-[10px] tracking-widest uppercase">COPIED! LAUNCHING...</span>';
             target.style.backgroundColor = 'var(--primary)';
             target.style.color = 'var(--primary-foreground)';
             target.style.borderColor = 'var(--foreground)';
-            
+
             setTimeout(() => {
-               window.location.href = scheme;
+              window.location.href = scheme;
             }, 300);
 
             setTimeout(() => {
-               target.innerHTML = originalContent;
-               target.style.backgroundColor = '';
-               target.style.color = '';
-               target.style.borderColor = '';
+              target.innerHTML = originalContent;
+              target.style.backgroundColor = '';
+              target.style.color = '';
+              target.style.borderColor = '';
             }, 2500);
           } catch (err) {
             console.error('Clipboard write failed, trying fallback launch', err);
