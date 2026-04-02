@@ -176,7 +176,7 @@ const breadcrumb = buildBreadcrumbTrail(
             workflowLinks.map((item) => (
               <a
                 href={item.href}
-                class="brut-card p-5 bg-white dark:bg-[#0a0a0a] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all"
+                class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all duration-200"
               >
                 <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.query}</div>
                 <h2 class="text-xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
@@ -196,7 +196,7 @@ const breadcrumb = buildBreadcrumbTrail(
 
               return (
                 <article
-                  class="brut-card group relative flex min-h-[300px] flex-col bg-white p-6 dark:bg-[#0a0a0a]"
+                  class="brut-card group relative flex min-h-[300px] flex-col bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] transition-all duration-200 hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)]"
                   data-testid="collection-card"
                 >
                   <CardOverlayLink
@@ -251,9 +251,9 @@ const breadcrumb = buildBreadcrumbTrail(
         <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {
             faqItems.map((item) => (
-              <article class="brut-card p-6 bg-white dark:bg-[#0a0a0a]">
+              <article class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)]">
                 <h2 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h2>
-                <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.answer}</p>
+                <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium font-mono">{item.answer}</p>
               </article>
             ))
           }

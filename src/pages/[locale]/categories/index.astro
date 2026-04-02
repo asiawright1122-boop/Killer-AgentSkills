@@ -169,208 +169,229 @@ const faqItems = [
       })),
     })}
   />
-  <div class="bg-slate-50/50 dark:bg-slate-950/50 min-h-screen">
-    <!-- Header Section -->
-    <div
-      class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 pt-12 pb-8 md:pt-16 md:pb-12"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-3xl">
-          <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-600 to-blue-600">
+  <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
+    <main class="relative z-10 pt-12 md:pt-24 pb-32 border-b-[3px] border-[var(--border)]">
+      <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header Section */}
+        <div
+          class="mb-16 border-b-4 border-[var(--border)] pb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
+        >
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <span
+                class="px-3 py-1 font-mono text-xs font-bold bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)] flex items-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  ></path></svg
+                >
+                {t('Common.categories')}
+              </span>
+            </div>
+            <h1
+              class="text-5xl md:text-7xl font-black text-[var(--foreground)] tracking-tighter uppercase text-balance break-words"
+            >
               {heroTitle}
-            </span>
-          </h1>
-          <p class="seo-intro-paragraph text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-            {pageDescription}
-          </p>
-          <p class="mt-3 text-sm text-slate-500 dark:text-slate-400 max-w-2xl">{heroIntro}</p>
+            </h1>
+          </div>
+          <div class="max-w-lg">
+            <p class="seo-intro-paragraph text-lg md:text-xl text-[var(--muted-foreground)] font-mono font-bold mb-2">
+              {pageDescription}
+            </p>
+            <p class="mt-3 text-sm text-[var(--muted-foreground)] opacity-80">{heroIntro}</p>
+          </div>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {
+              categories.map((cat) => (
+                <a
+                  href={`/${locale}/skills?category=${cat.id}`}
+                  class="brut-card group relative flex flex-col bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] transition-all duration-200 hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)]"
+                >
+                  <div class="mb-6 w-14 h-14 bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:shadow-[4px_4px_0px_0px_var(--primary)] transition-all">
+                    {cat.icon === 'code' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'globe' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 010 18M12 3a15.3 15.3 0 000 18"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'credit-card' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 10h20" />
+                      </svg>
+                    )}
+                    {cat.icon === 'bar-chart' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'cpu' && (
+                      <svg
+                        class="w-8 h-8"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M4.5 3h15" />
+                        <path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3" />
+                        <path d="M6 14h12" />
+                      </svg>
+                    )}
+                    {cat.icon === 'cloud' && (
+                      <svg
+                        class="w-8 h-8"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M17.5 19A5.5 5.5 0 0 0 18 8.02a7 7 0 1 0-11.66 6.77" />
+                        <path d="M12 13v9" />
+                        <path d="m9 19 3 3 3-3" />
+                      </svg>
+                    )}
+                    {cat.icon === 'pen-tool' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'book' && (
+                      <svg
+                        class="w-8 h-8"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                      </svg>
+                    )}
+                    {cat.icon === 'zap' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'server' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="6" rx="1" stroke-width="2" />
+                        <rect x="3" y="14" width="18" height="6" rx="1" stroke-width="2" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 17h.01" />
+                      </svg>
+                    )}
+                    {cat.icon === 'shield' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z"
+                        />
+                      </svg>
+                    )}
+                    {cat.icon === 'message-circle' && (
+                      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.6-5.2a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8z"
+                        />
+                      </svg>
+                    )}
+                  </div>
+                  <h2 class="text-xl font-black text-[var(--foreground)] uppercase tracking-tight mb-2 group-hover:bg-[var(--foreground)] group-hover:text-[var(--background)] transition-colors self-start px-1 -ml-1">
+                    {cat.name}
+                  </h2>
+                  <div class="mt-auto border-t-2 border-[var(--border)] pt-4 mt-6">
+                    <p class="inline-flex items-center px-2 py-1 bg-[var(--foreground)] text-[var(--background)] font-mono text-sm font-bold uppercase tracking-wider">
+                      <span class="text-[var(--primary)] mr-2">{cat.count}</span>
+                      {t('Marketplace.availableSkills').toLowerCase()}
+                    </p>
+                  </div>
+                </a>
+              ))
+            }
+          </div>
+
+          <div class="mt-16 text-center border-t-4 border-[var(--border)] pt-12">
+            <p class="text-[var(--foreground)] font-mono font-bold text-lg mb-6">
+              [ {skills.length}
+              {t('Marketplace.availableSkills').toUpperCase()} INDEXED ]
+            </p>
+            <a
+              href={`/${locale}/skills`}
+              class="inline-flex items-center justify-center px-6 py-3 font-mono font-black uppercase tracking-wider bg-[var(--primary)] text-[var(--primary-foreground)] border-[3px] border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--foreground)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_var(--foreground)] transition-all"
+            >
+              {t('Marketplace.viewAll')} →
+            </a>
+          </div>
+
+          <section class="mt-20 grid gap-8 md:grid-cols-3">
+            {
+              faqItems.map((item) => (
+                <article class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)]">
+                  <h2 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h2>
+                  <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium font-mono">{item.answer}</p>
+                </article>
+              ))
+            }
+          </section>
         </div>
       </div>
-    </div>
-
-    <!-- Categories Grid -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {
-          categories.map((cat) => (
-            <a
-              href={`/${locale}/skills?category=${cat.id}`}
-              class="group bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-md hover:border-cyan-300 dark:hover:border-cyan-700 transition-all duration-200"
-            >
-              <div class={`mb-4 ${categoryColors[cat.color]}`}>
-                {cat.icon === 'code' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'globe' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M3.6 9h16.8M3.6 15h16.8M12 3a15.3 15.3 0 010 18M12 3a15.3 15.3 0 000 18"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'credit-card' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="2" y="5" width="20" height="14" rx="2" stroke-width="2" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 10h20" />
-                  </svg>
-                )}
-                {cat.icon === 'bar-chart' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'cpu' && (
-                  <svg
-                    class="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4.5 3h15" />
-                    <path d="M6 3v16a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V3" />
-                    <path d="M6 14h12" />
-                  </svg>
-                )}
-                {cat.icon === 'cloud' && (
-                  <svg
-                    class="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M17.5 19A5.5 5.5 0 0 0 18 8.02a7 7 0 1 0-11.66 6.77" />
-                    <path d="M12 13v9" />
-                    <path d="m9 19 3 3 3-3" />
-                  </svg>
-                )}
-                {cat.icon === 'pen-tool' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'book' && (
-                  <svg
-                    class="w-8 h-8"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    aria-hidden="true"
-                  >
-                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-                  </svg>
-                )}
-                {cat.icon === 'zap' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M13 10V3L4 14h7v7l9-11h-7z"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'server' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <rect x="3" y="4" width="18" height="6" rx="1" stroke-width="2" />
-                    <rect x="3" y="14" width="18" height="6" rx="1" stroke-width="2" />
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 17h.01" />
-                  </svg>
-                )}
-                {cat.icon === 'shield' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7l7-4z"
-                    />
-                  </svg>
-                )}
-                {cat.icon === 'message-circle' && (
-                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.6-5.2a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8z"
-                    />
-                  </svg>
-                )}
-              </div>
-              <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
-                {cat.name}
-              </h2>
-              <p class="text-sm text-slate-500 dark:text-slate-400">
-                {cat.count} {t('Marketplace.availableSkills').toLowerCase()}
-              </p>
-            </a>
-          ))
-        }
-      </div>
-
-      <!-- Total skills summary -->
-      <div class="mt-12 text-center">
-        <p class="text-slate-500 dark:text-slate-400 text-sm">
-          {skills.length}
-          {t('Marketplace.availableSkills').toLowerCase()}
-        </p>
-        <a
-          href={`/${locale}/skills`}
-          class="inline-flex items-center mt-4 px-6 py-2.5 bg-cyan-600 hover:bg-cyan-700 text-white font-medium rounded-xl transition-colors text-sm shadow-lg shadow-cyan-500/20"
-        >
-          {t('Marketplace.viewAll')} →
-        </a>
-      </div>
-
-      <section class="mt-12 grid gap-4 md:grid-cols-3">
-        {
-          faqItems.map((item) => (
-            <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <h2 class="mb-3 text-lg font-semibold text-slate-900 dark:text-white">{item.question}</h2>
-              <p class="text-sm leading-6 text-slate-600 dark:text-slate-400">{item.answer}</p>
-            </article>
-          ))
-        }
-      </section>
-    </div>
+    </main>
   </div>
 </Layout>
