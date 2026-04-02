@@ -1,6 +1,6 @@
 ---
-title: "LLM"
-description: "Large Language Models LLMs are AI systems that process human language, generating text and answering questions with increasing accuracy and coherence"
+title: "LLMを用いた多言語ワークフローの自動化：10言語へのスケーリング"
+description: "大規模言語モデル（LLM）を使用して、ドキュメントやコンポーネントを10以上の言語にシームレスに翻訳する堅牢なパイプラインを構築し、ハードコードされた制約を解決する方法を学びます。"
 pubDate: 2026-04-02
 author: "Killer-Skills Meta Team"
 heroImage: "/blog/automating-i18n-hero.png"

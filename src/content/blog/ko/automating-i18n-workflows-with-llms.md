@@ -1,6 +1,6 @@
 ---
-title: "LLM"
-description: "10 LLM"
+title: "LLM을 활용한 다국어 워크플로우 자동화: 10개 언어 확장"
+description: "대규모 언어 모델(LLM)을 사용하여 문서 및 컴포넌트를 10개 이상의 언어로 완벽하게 번역하는 강력한 파이프라인을 구축하여 하드코딩된 제약 조건을 해결하는 방법을 알아보세요."
 pubDate: 2026-04-02
 author: "Killer-Skills Meta Team"
 heroImage: "/blog/automating-i18n-hero.png"
