@@ -670,86 +670,82 @@ export class AIService {
     }
   }
 
+  private getAvailableProviders(): { provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare'; key: string; label: string }[] {
+    const list: { provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare'; key: string; label: string }[] = [];
+    
+    if (this.config.nvidiaKeys.length > 0) {
+      for (let i = 0; i < this.config.nvidiaKeys.length; i++) {
+        const nvIndex = (this.currentNvidiaKeyIndex + i) % this.config.nvidiaKeys.length;
+        list.push({ provider: 'nvidia', key: this.config.nvidiaKeys[nvIndex], label: `N${nvIndex}` });
+      }
+      this.currentNvidiaKeyIndex++;
+    }
+    
+    if (this.config.siliconFlowKey) {
+      list.push({ provider: 'siliconflow', key: this.config.siliconFlowKey, label: 'S' });
+    }
+    
+    if (this.config.openRouterKeys.length > 0) {
+      for (let i = 0; i < this.config.openRouterKeys.length; i++) {
+        const orIndex = (this.currentOpenrouterKeyIndex + i) % this.config.openRouterKeys.length;
+        list.push({ provider: 'openrouter', key: this.config.openRouterKeys[orIndex], label: `O${orIndex}` });
+      }
+      this.currentOpenrouterKeyIndex++;
+    }
+    
+    if (this.config.cfAccountId && this.config.cfApiToken) {
+      list.push({ provider: 'cloudflare', key: this.config.cfApiToken, label: 'C' });
+    }
+    
+    return list;
+  }
+
   private async executeCallWithRetry(prompt: string, jsonMode: boolean, attempt: number = 0): Promise<string | null> {
-    const controllers: AbortController[] = [];
-    const promises: Promise<{ result: string; provider: string }>[] = [];
+    const providers = this.getAvailableProviders();
+    if (providers.length === 0) return null;
+
     const providerErrors: string[] = [];
 
-    const raceEntry = (
-      provider: 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare',
-      key: string,
-      label: string,
-    ) => {
+    // Waterfall + Strict Round-Robin Single Trial
+    for (const p of providers) {
       const controller = new AbortController();
-      controllers.push(controller);
-      promises.push(
-        this.callAISingle(prompt, provider, key, jsonMode, controller.signal)
-          .catch((error) => {
-            const message = error instanceof Error ? error.message : String(error);
-            providerErrors.push(`${label}:${message}`);
-            throw error;
-          })
-          .then((result) => ({ result, provider: label })),
-      );
-    };
+      try {
+        const result = await this.callAISingle(prompt, p.provider, p.key, jsonMode, controller.signal);
+        
+        if (p.provider === 'nvidia') this.stats.nvidia++;
+        else if (p.provider === 'siliconflow') this.stats.siliconflow++;
+        else if (p.provider === 'openrouter') this.stats.openrouter++;
+        else if (p.provider === 'cloudflare') this.stats.cloudflare++;
 
-    if (this.config.nvidiaKeys.length > 0) {
-      const nvIndex = this.currentNvidiaKeyIndex % this.config.nvidiaKeys.length;
-      const nvKey = this.config.nvidiaKeys[nvIndex];
-      this.currentNvidiaKeyIndex++;
-      raceEntry('nvidia', nvKey, `N${nvIndex}`);
-    }
-    if (this.config.siliconFlowKey) {
-      raceEntry('siliconflow', this.config.siliconFlowKey, 'S');
-    }
-    if (this.config.openRouterKeys.length > 0) {
-      const orKey = this.config.openRouterKeys[this.currentOpenrouterKeyIndex % this.config.openRouterKeys.length];
-      this.currentOpenrouterKeyIndex++;
-      raceEntry('openrouter', orKey, 'O');
-    }
-    if (this.config.cfAccountId && this.config.cfApiToken) {
-      raceEntry('cloudflare', this.config.cfApiToken, 'C');
-    }
-
-    if (promises.length === 0) return null;
-
-    try {
-      const winner = await Promise.any(promises);
-      controllers.forEach((c) => c.abort());
-
-      if (winner.provider.startsWith('N')) this.stats.nvidia++;
-      else if (winner.provider === 'S') this.stats.siliconflow++;
-      else if (winner.provider === 'O') this.stats.openrouter++;
-      else if (winner.provider === 'C') this.stats.cloudflare++;
-
-      process.stdout.write(winner.provider);
-      return winner.result;
-    } catch (e: any) {
-      const aggregateErrors: Error[] =
-        e instanceof AggregateError
-          ? e.errors.filter((item: unknown): item is Error => item instanceof Error)
-          : e instanceof Error
-            ? [e]
-            : [];
-      const has429 = aggregateErrors.some((error) => error.message.includes('429'));
-
-      if (has429 && attempt < RETRY_DELAYS.length) {
-        const delay = RETRY_DELAYS[attempt];
-        console.warn(
-          `[AIService] Rate limited (429), retrying in ${delay}ms (attempt ${attempt + 1}/${RETRY_DELAYS.length})...`,
-        );
-        controllers.forEach((c) => c.abort());
-        await sleep(delay);
-        return this.executeCallWithRetry(prompt, jsonMode, attempt + 1);
+        process.stdout.write(p.label);
+        return result;
+      } catch (error: any) {
+        controller.abort();
+        const message = error instanceof Error ? error.message : String(error);
+        providerErrors.push(`${p.label}:${message}`);
+        // If a request fails, we simply loop to the next provider in the sequence!
+        // No waiting. This seamlessly switches from a 429'd NVIDIA key to the next NVIDIA key.
+        continue;
       }
-
-      console.error(
-        `[AIService] All providers failed after ${attempt + 1} attempts. Errors:`,
-        providerErrors.join('; ') || aggregateErrors.map((error) => error.message).join('; '),
-      );
-      controllers.forEach((c) => c.abort());
-      return null;
     }
+
+    // If ALL providers failed, check if ANY failed due to 429 to trigger an exponential backoff retry.
+    const has429 = providerErrors.some((error) => error.includes('429'));
+
+    if (has429 && attempt < RETRY_DELAYS.length) {
+      const delay = RETRY_DELAYS[attempt];
+      console.warn(
+        `\n[AIService] Rate limited (429) across all providers, retrying in ${delay}ms (attempt ${attempt + 1}/${RETRY_DELAYS.length})...`,
+      );
+      await sleep(delay);
+      return this.executeCallWithRetry(prompt, jsonMode, attempt + 1);
+    }
+
+    console.error(
+      `\n[AIService] All providers failed after ${attempt + 1} attempts. Errors:`,
+      providerErrors.join('; '),
+    );
+    return null;
   }
 
   /**
@@ -995,7 +991,7 @@ Output STRICT JSON only:
     // STEP 1: Batch translate to non-English locales (existing logic)
     // ═══════════════════════════════════════════════════════════════
     const localeBatches: string[][] = [];
-    const BATCH_SIZE = 3;
+    const BATCH_SIZE = SUPPORTED_LOCALES.length; // Massive Language Batching
     for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
       localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
     }
@@ -1287,7 +1283,7 @@ Your Response (for "${skillName}"):
     const limitationsMap: Record<string, string[]> = { en: raw.limitations };
 
     // Split locales into batches
-    const BATCH_SIZE = 3;
+    const BATCH_SIZE = SUPPORTED_LOCALES.length; // Massive Language Batching
     const localeBatches: string[][] = [];
     for (let i = 0; i < SUPPORTED_LOCALES.length; i += BATCH_SIZE) {
       localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));

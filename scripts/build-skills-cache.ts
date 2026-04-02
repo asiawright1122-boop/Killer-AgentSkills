@@ -458,6 +458,17 @@ async function buildCache(): Promise<void> {
     persistBatchProgress();
   };
 
+  const batchHasPendingSelectedIds = (): boolean =>
+    Boolean(
+      selectedBatchIds &&
+        Array.from(selectedBatchIds).some(
+          (id) =>
+            !completedBatchIds.has(id) &&
+            !skippedBatchIds.has(id) &&
+            !failedBatchEntries.some((entry) => entry.id === id),
+        ),
+    );
+
   if (selectedBatchNumber > 0) {
     const relativeBatchPlanPath = path.relative(process.cwd(), batchPlanPath);
     type BatchPlanEntry = {
@@ -594,7 +605,6 @@ async function buildCache(): Promise<void> {
       .digest('hex');
   }
 
-  // Helper to get or translate metadata (Description + SEO)
   async function processMetadata(
     id: string,
     text: string,
@@ -603,7 +613,8 @@ async function buildCache(): Promise<void> {
   ): Promise<{ description: string | Record<string, string>; seo?: SeoData }> {
     const existing = existingMap.get(id);
 
-    // 增量翻译: 已完整优化 + 没有更新 → 跳过
+    // 内部降级守门员: 如果最外层的 Hash 校对网漏掉了因数据残缺跳避的旧技能，
+    // 我们再次依据 updatedAt 进行保底判定，避免触发无谓的大模型调用。
     if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, freshUpdatedAt)) {
       process.stdout.write('s'); // s = skip (已完成)
       return { description: existing.description, seo: existing.seo };
@@ -1558,6 +1569,24 @@ async function buildCache(): Promise<void> {
 
     console.log(`\n🚀 Processing ${tasks.length} skills with Concurrency=${CONCURRENCY}...`);
 
+    if (selectedBatchIds && tasks.length === 0) {
+      const hasPendingSelectedIds = batchHasPendingSelectedIds();
+      if (batchProgress) {
+        batchProgress = {
+          ...batchProgress,
+          status: hasPendingSelectedIds ? 'paused' : failedBatchEntries.length > 0 ? 'partial' : 'completed',
+          completedAt: hasPendingSelectedIds ? null : new Date().toISOString(),
+        };
+        persistBatchProgress();
+      }
+      console.log(
+        hasPendingSelectedIds
+          ? '\n⚠️ Batch mode has no runnable tasks but still has pending selected IDs. Keeping checkpoint and skipping cache rewrite.'
+          : '\n✅ Batch mode already fully processed for selected IDs. Skipping cache rewrite.',
+      );
+      return;
+    }
+
     if (dryRunBatch && selectedBatchIds) {
       persistBatchProgress();
       console.log(`\n🧪 Dry-run batch ready. Pending ids: ${tasks.length}`);
@@ -1660,15 +1689,7 @@ async function buildCache(): Promise<void> {
   }
 
   if (batchProgress) {
-    const hasPendingSelectedIds = Boolean(
-      selectedBatchIds &&
-        Array.from(selectedBatchIds).some(
-          (id) =>
-            !completedBatchIds.has(id) &&
-            !skippedBatchIds.has(id) &&
-            !failedBatchEntries.some((entry) => entry.id === id),
-        ),
-    );
+    const hasPendingSelectedIds = batchHasPendingSelectedIds();
     batchProgress = {
       ...batchProgress,
       status: hasPendingSelectedIds ? 'paused' : failedBatchEntries.length > 0 ? 'partial' : 'completed',
