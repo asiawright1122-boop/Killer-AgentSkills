@@ -55,7 +55,7 @@ if (activeView) {
 <aside class="w-full md:w-72 shrink-0 md:sticky md:top-24 h-fit z-30">
   <!-- Navigation Card -->
   <nav
-    class="bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-4 overflow-hidden"
+    class="bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] p-4 overflow-hidden"
   >
     <!-- Mobile Toggle Header -->
     <div
@@ -106,8 +106,8 @@ if (activeView) {
                 class:list={[
                   'flex items-center justify-between px-4 py-3 border-2 transition-all font-bold uppercase text-[15px] group',
                   activeView === view.id
-                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
-                    : 'bg-[var(--background)] text-[var(--foreground)] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
+                    ? 'bg-[var(--primary)] text-[var(--primary-foreground)] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] translate-x-[-2px] translate-y-[-2px]'
+                    : 'bg-[var(--background)] text-[var(--foreground)] border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
                 ]}
               >
                 <div class="flex items-center gap-3">
@@ -141,8 +141,8 @@ if (activeView) {
                 class:list={[
                   'flex items-center gap-3 px-4 py-3 border-2 transition-all font-bold uppercase text-[14px] group',
                   activeCategory === category.id
-                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-[4px_4px_0px_0px_var(--primary)] translate-x-[-2px] translate-y-[-2px]'
-                    : 'bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
+                    ? 'bg-[var(--foreground)] text-[var(--background)] border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--primary)] translate-x-[-2px] translate-y-[-2px]'
+                    : 'bg-[var(--background)] text-[var(--foreground)] border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]',
                 ]}
               >
                 <span>{category.name}</span>

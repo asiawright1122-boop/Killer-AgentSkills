@@ -28,7 +28,7 @@ const displayCategory = post.data.category
 
 <a
   href={`/${locale}/blog/${post.id.split('/').pop()}`}
-  class="brut-card group relative flex flex-col h-full bg-[var(--card)] w-full overflow-hidden"
+  class="brut-card group relative flex flex-col h-full bg-[var(--card)] w-full overflow-hidden border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] transition-all hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)]"
 >
   {/* Image Section */}
   <div

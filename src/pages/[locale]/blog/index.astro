@@ -139,7 +139,7 @@ const categories = [
     <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
       {/* Header */}
       <header
-        class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-4 border-[var(--foreground)] bg-[var(--card)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--foreground)]"
+        class="mb-16 md:mb-24 text-center max-w-4xl mx-auto border-[3px] border-[var(--border)] bg-[var(--background)] p-8 md:p-16 shadow-[8px_8px_0px_0px_var(--border)]"
       >
         <div
           class="inline-flex items-center px-4 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase tracking-wider mb-8 shadow-[2px_2px_0px_0px_var(--border)]"
@@ -182,7 +182,7 @@ const categories = [
             categories.map((cat) => (
               <a
                 href={`/${locale}/blog/category/${cat.id}`}
-                class="brut-card group relative p-6 bg-[var(--card)] flex flex-col h-full"
+                class="brut-card group relative p-6 bg-[var(--background)] flex flex-col h-full border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"
               >
                 <div class="relative z-10 flex flex-col h-full">
                   <div class="mb-6 w-16 h-16 border-2 border-[var(--foreground)] bg-[var(--background)] text-[var(--foreground)] flex items-center justify-center shadow-[4px_4px_0px_0px_var(--foreground)] group-hover:bg-[var(--primary)] group-hover:text-[var(--primary-foreground)] transition-colors">

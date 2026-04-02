@@ -15,3 +15,6 @@
 ## Milestone 4: Content Intelligence Engine (Upcoming)
 - **Phase 7**: Batch harvest "thin" content agents/skills globally across GitHub ecosystem.
 - **Phase 8**: Integrate Nvidia/SiliconFlow models to auto-expand documentation and deploy robust tutorial shells natively on Astro Edge.
+
+## Milestone 5: Global Layout & Visual Unification (Upcoming)
+- **Phase 9**: Execute brutalist dark-mode bento-grid refactoring across all application routes (Home, Collections, Blog, Docs, Modals).
