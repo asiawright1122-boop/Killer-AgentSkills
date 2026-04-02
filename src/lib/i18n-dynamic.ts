@@ -27,6 +27,7 @@ export async function translateString(
   text: string | undefined | null,
   targetLang: string,
   type: 'text' | 'markdown' = 'text',
+  allowRealtime: boolean = false,
 ): Promise<string> {
   if (!text || text.trim().length === 0) return '';
   if (targetLang === 'en') return text; // Skip for default English assuming source is mostly English
@@ -42,16 +43,18 @@ export async function translateString(
     console.warn('[i18n-dynamic] KV read failed:', e);
   }
 
-  try {
-    // We use standard translation without streaming because SSR needs the complete string
-    const translated = await translateText(text, targetLang, type, env);
-    if (translated && translated.trim().length > 0) {
-      // Cache indefinitely since source text is hashed
-      await setKV(env, cacheKey, translated).catch((e) => console.warn('[i18n-dynamic] KV set failed:', e));
-      return translated;
+  if (allowRealtime) {
+    try {
+      // We use standard translation without streaming because SSR needs the complete string
+      const translated = await translateText(text, targetLang, type, env);
+      if (translated && translated.trim().length > 0) {
+        // Cache indefinitely since source text is hashed
+        await setKV(env, cacheKey, translated).catch((e) => console.warn('[i18n-dynamic] KV set failed:', e));
+        return translated;
+      }
+    } catch (e) {
+      console.error(`[i18n-dynamic] LLM translation failed for string of length ${text.length}:`, e);
     }
-  } catch (e) {
-    console.error(`[i18n-dynamic] LLM translation failed for string of length ${text.length}:`, e);
   }
 
   // Fallback to original text on failure
@@ -66,6 +69,7 @@ export async function translateArray(
   env: Env,
   items: string[] | undefined | null,
   targetLang: string,
+  allowRealtime: boolean = false,
 ): Promise<string[]> {
   if (!items || items.length === 0) return [];
   if (targetLang === 'en') return items; // Skip for default English
@@ -86,39 +90,35 @@ export async function translateArray(
     console.warn('[i18n-dynamic] KV read failed for array:', e);
   }
 
-  try {
-    const translated = await translateText(
-      `Translate the following list of terms/phrases. MAINTAIN the exactly same "${ARRAY_DELIMITER.trim()}" delimiters between each item!\n\n${combinedText}`,
-      targetLang,
-      'text',
-      env,
-    );
+  if (allowRealtime) {
+    try {
+      const translated = await translateText(
+        `Translate the following list of terms/phrases. MAINTAIN the exactly same "${ARRAY_DELIMITER.trim()}" delimiters between each item!\n\n${combinedText}`,
+        targetLang,
+        'text',
+        env,
+      );
 
-    if (translated && translated.trim().length > 0) {
-      // Sometimes the LLM might strip the newlines around the delimiter or format differently
-      // Let's attempt to dynamically split
-      let splitTranslated = translated.split(ARRAY_DELIMITER);
-      // Fallback if LLM altered the delimiter slightly
-      if (splitTranslated.length !== validItems.length) {
-        splitTranslated = translated.split('|||');
+      if (translated && translated.trim().length > 0) {
+        // Sometimes the LLM might strip the newlines around the delimiter or format differently
+        // Let's attempt to dynamically split
+        let splitTranslated = translated.split(ARRAY_DELIMITER);
+        if (splitTranslated.length !== validItems.length) {
+          // Fallback to simpler split mechanism if the LLM messed up the exact token
+          splitTranslated = translated.split(/\|\|\|/g).map((s) => s.trim());
+        }
+
+        if (splitTranslated.length >= validItems.length) {
+          const finalResult = splitTranslated.slice(0, validItems.length).map((s) => s.trim());
+          await setKV(env, cacheKey, finalResult.join(ARRAY_DELIMITER)).catch((e) =>
+            console.warn('[i18n-dynamic] KV set array failed:', e),
+          );
+          return finalResult;
+        }
       }
-
-      const finalItems = splitTranslated.map((s) => s.trim());
-
-      // If lengths match, caching is safe
-      if (finalItems.length === validItems.length) {
-        await setKV(env, cacheKey, finalItems.join(ARRAY_DELIMITER)).catch((e) =>
-          console.warn('[i18n-dynamic] KV set failed for array:', e),
-        );
-        return finalItems;
-      }
-
-      // If LLM completely broke the array format, log warning and use partial or fallback
-      console.warn(`[i18n-dynamic] Array split mismatch: Expected ${validItems.length}, got ${finalItems.length}`);
-      return validItems; // Fallback to original avoiding corruption
+    } catch (e) {
+      console.error(`[i18n-dynamic] LLM translation failed for array of ${validItems.length} items:`, e);
     }
-  } catch (e) {
-    console.error(`[i18n-dynamic] LLM translation failed for array of size ${validItems.length}:`, e);
   }
 
   // Fallback to original array on failure
