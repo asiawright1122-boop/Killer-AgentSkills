@@ -558,9 +558,9 @@ if (typedLocale !== 'en') {
 
   const [t_readme, t_relatedNames, t_relatedDesc, t_topics] = await Promise.all([
     translateString(env, readmeContentSource, typedLocale, 'text'),
-    translateArray(env, relatedNames, typedLocale),
-    translateArray(env, relatedDesc, typedLocale),
-    translateArray(env, rawTopics, typedLocale),
+    Promise.all(relatedNames.map((n) => translateString(env, n, typedLocale, 'text'))),
+    Promise.all(relatedDesc.map((d) => translateString(env, d, typedLocale, 'text'))),
+    Promise.all(rawTopics.map((t) => translateString(env, t, typedLocale, 'text'))),
   ]);
 
   readmeContent = t_readme;
