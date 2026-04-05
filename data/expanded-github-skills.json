@@ -2129,6 +2129,16 @@
     "filePath": ".claude/skills/analyze-oops/SKILL.md"
   },
   {
+    "owner": "daloopa",
+    "repo": "investing",
+    "description": null,
+    "stars": 422,
+    "forks": 97,
+    "topics": [],
+    "updatedAt": "2026-04-05T07:16:53Z",
+    "filePath": ".claude/skills/tearsheet/SKILL.md"
+  },
+  {
     "owner": "ziggy42",
     "repo": "epsilon",
     "description": "A WASM virtual machine written in Go with 0 dependencies",
@@ -13718,6 +13728,16 @@
     "filePath": ".agents/skills/nexus/SKILL.md"
   },
   {
+    "owner": "dayronobregon",
+    "repo": "wallanoti",
+    "description": null,
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-01T05:53:03Z",
+    "filePath": ".agents/skills/tdd/SKILL.md"
+  },
+  {
     "owner": "turbot",
     "repo": "guardrails-docs",
     "description": "Turbot Guardrails documentation content in markdown format.",
@@ -15033,6 +15053,16 @@
     "topics": [],
     "updatedAt": "2026-04-03T18:05:15Z",
     "filePath": ".claude/skills/testing-modules/SKILL.md"
+  },
+  {
+    "owner": "DNYoussef",
+    "repo": "ai-chrome-extension",
+    "description": null,
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-24T09:45:34Z",
+    "filePath": ".claude/skills/testing-quality/when-detecting-fake-code-use-theater-detection/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -21904,6 +21934,52 @@
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
+    "owner": "declanshanaghy",
+    "repo": "fenrir-ledger",
+    "description": "Break free from fee traps. Credit card churn tracker for rewards optimizers.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T04:23:59Z",
+    "filePath": ".claude/skills/touch-sweep/SKILL.md"
+  },
+  {
+    "owner": "matthewdeaves",
+    "repo": "rockport",
+    "description": "OpenAI-compatible LiteLLM proxy on EC2 behind Cloudflare Tunnel — routes Claude Code and any OpenAI SDK client to AWS Bedrock models. Chat, image generation (Nova Canvas, Titan, Stability AI), video generation (Nova Reel, Luma Ray2), virtual API keys, budgets, and spend tracking. Terraform-managed infrastructure with hardened systemd services.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "aws-bedrock",
+      "claude-code",
+      "cloudflare-access",
+      "cloudflare-tunnel",
+      "fastapi",
+      "image-generation",
+      "infrastructure-as-code",
+      "litellm",
+      "luma-ray2",
+      "nova-canvas",
+      "nova-reel",
+      "openai-compatible",
+      "stability-ai",
+      "terraform",
+      "video-generation"
+    ],
+    "updatedAt": "2026-04-05T11:49:52Z",
+    "filePath": ".claude/skills/pentest-review/SKILL.md"
+  },
+  {
+    "owner": "Docaari",
+    "repo": "GrindfyManager",
+    "description": "GrindfyManager",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-27T23:23:00Z",
+    "filePath": ".claude/skills/system-architect/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -23409,7 +23485,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T22:13:13Z",
+    "updatedAt": "2026-04-05T04:56:09Z",
     "filePath": ".claude/skills/bmad-help/SKILL.md"
   },
   {
@@ -23429,7 +23505,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T10:32:25Z",
+    "updatedAt": "2026-04-05T09:37:14Z",
     "filePath": ".claude/skills/claw-release/SKILL.md"
   },
   {
@@ -23475,7 +23551,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-29T21:52:16Z",
+    "updatedAt": "2026-04-05T04:58:34Z",
     "filePath": ".claude/skills/push/SKILL.md"
   },
   {
@@ -23911,7 +23987,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-02T11:08:35Z",
+    "updatedAt": "2026-04-05T05:52:20Z",
     "filePath": ".claude/skills/deployment-aws-canary-setup/SKILL.md"
   },
   {
@@ -23941,7 +24017,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-25T20:52:59Z",
+    "updatedAt": "2026-04-05T07:07:00Z",
     "filePath": ".claude/skills/compliance-manager/SKILL.md"
   },
   {
@@ -24258,7 +24334,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-04-04T15:40:59Z",
+    "updatedAt": "2026-04-05T07:47:40Z",
     "filePath": ".claude/skills/aget-review-budget/SKILL.md"
   },
   {
@@ -24268,7 +24344,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T02:59:17Z",
+    "updatedAt": "2026-04-05T12:33:54Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -24611,7 +24687,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T05:52:09Z",
+    "updatedAt": "2026-04-05T10:56:35Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -24641,7 +24717,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T05:52:09Z",
+    "updatedAt": "2026-04-05T10:56:35Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -24995,7 +25071,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-04-04T22:18:43Z",
+    "updatedAt": "2026-04-05T07:47:57Z",
     "filePath": ".claude/skills/aget-enhance-spec/SKILL.md"
   },
   {
@@ -25380,7 +25456,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T22:13:13Z",
+    "updatedAt": "2026-04-05T04:56:09Z",
     "filePath": ".claude/skills/bmad-review-adversarial/SKILL.md"
   },
   {
@@ -25616,7 +25692,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-03T14:40:45Z",
+    "updatedAt": "2026-04-05T04:24:48Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -25712,7 +25788,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-05T03:10:12Z",
+    "updatedAt": "2026-04-05T11:58:51Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -25892,7 +25968,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T19:26:45Z",
+    "updatedAt": "2026-04-05T07:21:36Z",
     "filePath": ".claude/skills/drafting-notes/SKILL.md"
   },
   {
@@ -26026,7 +26102,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T03:32:30Z",
+    "updatedAt": "2026-04-05T06:11:51Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -26126,7 +26202,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T23:51:38Z",
+    "updatedAt": "2026-04-05T11:09:31Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -26931,7 +27007,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-27T11:52:25Z",
+    "updatedAt": "2026-04-05T13:24:38Z",
     "filePath": ".claude/skills/hint/SKILL.md"
   },
   {
@@ -27184,7 +27260,7 @@
       "boutique-hotel",
       "hospitality"
     ],
-    "updatedAt": "2026-04-05T02:54:27Z",
+    "updatedAt": "2026-04-05T13:21:04Z",
     "filePath": ".claude/skills/design-system/SKILL.md"
   },
   {
@@ -27464,7 +27540,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T10:27:44Z",
+    "updatedAt": "2026-04-05T08:53:28Z",
     "filePath": ".claude/skills/architect/SKILL.md"
   },
   {
@@ -27619,7 +27695,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T20:30:09Z",
+    "updatedAt": "2026-04-05T11:41:46Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -27859,7 +27935,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-03T15:52:17Z",
+    "updatedAt": "2026-04-05T04:50:26Z",
     "filePath": ".claude/skills/worktree/SKILL.md"
   },
   {
@@ -27879,7 +27955,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-03T08:33:34Z",
+    "updatedAt": "2026-04-05T08:57:33Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -28273,7 +28349,7 @@
       "boutique-hotel",
       "hospitality"
     ],
-    "updatedAt": "2026-04-05T02:54:27Z",
+    "updatedAt": "2026-04-05T13:21:04Z",
     "filePath": ".claude/skills/admin/SKILL.md"
   },
   {
@@ -38045,5 +38121,191 @@
     "topics": [],
     "updatedAt": "2026-04-01T10:04:37Z",
     "filePath": ".agents/skills/gstack-land-and-deploy/SKILL.md"
+  },
+  {
+    "owner": "jrmatherly",
+    "repo": "shipit",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T06:36:52Z",
+    "filePath": ".claude/skills/shipit-kit-parallel-task/SKILL.md"
+  },
+  {
+    "owner": "geocarp24",
+    "repo": "alex-real-estate-system",
+    "description": "ALEX — Sistema Multi-Agente de Inversión Inmobiliaria",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T05:23:48Z",
+    "filePath": ".claude/skills/confluence-expert/SKILL.md"
+  },
+  {
+    "owner": "Nerfherder16",
+    "repo": "BrickLayer",
+    "description": "Autonomous failure boundary research framework — AI-driven stress testing with specialist agents, dashboard, and inter-agent Recall communication",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T18:08:29Z",
+    "filePath": ".claude/skills/homelab-deploy/SKILL.md"
+  },
+  {
+    "owner": "korchasa",
+    "repo": "flowai-workflows",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T01:33:00Z",
+    "filePath": ".claude/skills/flowai-skill-setup-ai-ide-devcontainer/SKILL.md"
+  },
+  {
+    "owner": "korchasa",
+    "repo": "flowai-workflows",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T01:33:00Z",
+    "filePath": ".claude/skills/flowai-skill-manage-github-tickets/SKILL.md"
+  },
+  {
+    "owner": "stopitdan",
+    "repo": "recommendagame",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T10:10:28Z",
+    "filePath": ".claude/skills/enhance-evals/SKILL.md"
+  },
+  {
+    "owner": "SincerelyPDM",
+    "repo": "launch-flow",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-25T09:38:10Z",
+    "filePath": ".claude/skills/00-market-research/SKILL.md"
+  },
+  {
+    "owner": "muhendisleksi",
+    "repo": "Metraj",
+    "description": "AutoCAD/Civil 3D metraj (quantity surveying) eklentisi",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-31T08:44:32Z",
+    "filePath": ".claude/skills/tr-metraj-muhendisi/SKILL.md"
+  },
+  {
+    "owner": "vitoropereira",
+    "repo": "claude-starter-kit",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-02T14:52:53Z",
+    "filePath": ".claude/skills/frontend/performance/SKILL.md"
+  },
+  {
+    "owner": "eliferjunior",
+    "repo": "Claude",
+    "description": "Code",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T12:48:20Z",
+    "filePath": ".claude/skills/ts-unusual-whales-api/SKILL.md"
+  },
+  {
+    "owner": "Foysal201452",
+    "repo": "dev-events-crash-course-nextjs16",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-06T01:26:05Z",
+    "filePath": ".claude/skills/posthog-integration-nextjs-app-router/SKILL.md"
+  },
+  {
+    "owner": "Zack289",
+    "repo": "devevents-nextjs",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-15T17:53:56Z",
+    "filePath": ".claude/skills/posthog-integration-nextjs-app-router/SKILL.md"
+  },
+  {
+    "owner": "gallisak",
+    "repo": "dev-events-nextjs16-crash-course",
+    "description": "The Hub for Every Dev Event You Mustn't Miss",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "nextjs",
+      "nextjs16"
+    ],
+    "updatedAt": "2026-03-01T17:38:03Z",
+    "filePath": ".claude/skills/posthog-integration-nextjs-app-router/SKILL.md"
+  },
+  {
+    "owner": "Nagigata",
+    "repo": "dev-events-nextjs16",
+    "description": "The Hub for Every Dev Event You Mustn't Miss",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "nextjs",
+      "nextjs16"
+    ],
+    "updatedAt": "2026-03-07T08:30:04Z",
+    "filePath": ".claude/skills/posthog-integration-nextjs-app-router/SKILL.md"
+  },
+  {
+    "owner": "shinjw4929",
+    "repo": "Project-SOS-Backend",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T06:08:17Z",
+    "filePath": ".claude/skills/create-skill/SKILL.md"
+  },
+  {
+    "owner": "mrtony",
+    "repo": "todoapp_using_antigravity",
+    "description": "在 Antigravity IDE中, 使用opus 4.6 建立 Todo App",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-05T15:54:49Z",
+    "filePath": ".agents/skills/vite/SKILL.md"
+  },
+  {
+    "owner": "jkker",
+    "repo": "react-template",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T06:23:53Z",
+    "filePath": ".agents/skills/zustand-x/SKILL.md"
+  },
+  {
+    "owner": "anuragchoudhary2313",
+    "repo": "Ai-content-factory",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-23T18:55:43Z",
+    "filePath": ".agents/skills/claimable-postgres/SKILL.md"
   }
 ]
