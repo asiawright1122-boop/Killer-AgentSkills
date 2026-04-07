@@ -1691,6 +1691,21 @@
     "filePath": ".claude/skills/generate-subsystem-skills/SKILL.md"
   },
   {
+    "owner": "yutkat",
+    "repo": "my-neovim-pluginlist",
+    "description": "My personal list of Neovim plugins",
+    "stars": 813,
+    "forks": 11,
+    "topics": [
+      "awesome-list",
+      "github-pages",
+      "neovim",
+      "neovim-plugins"
+    ],
+    "updatedAt": "2026-04-07T09:25:25Z",
+    "filePath": ".codex/skills/add/SKILL.md"
+  },
+  {
     "owner": "bear2u",
     "repo": "my-skills",
     "description": "자주 사용하는 스킬들을 모은 나의 클로드 스킬들입니다. ",
@@ -1806,6 +1821,24 @@
     "filePath": ".claude/skills/fxa-review-quick/SKILL.md"
   },
   {
+    "owner": "liveloveapp",
+    "repo": "hashbrown",
+    "description": "Hashbrown is a framework for building agents that run the browser. Built for Angular and React.",
+    "stars": 663,
+    "forks": 56,
+    "topics": [
+      "ai",
+      "angular",
+      "llms",
+      "react",
+      "typescript",
+      "ui",
+      "ux"
+    ],
+    "updatedAt": "2026-04-05T09:54:09Z",
+    "filePath": ".codex/skills/ideate/SKILL.md"
+  },
+  {
     "owner": "dropseed",
     "repo": "plain",
     "description": "A web framework for building products with Python.",
@@ -1818,6 +1851,16 @@
     ],
     "updatedAt": "2026-03-30T18:49:48Z",
     "filePath": ".claude/skills/future/SKILL.md"
+  },
+  {
+    "owner": "inline-chat",
+    "repo": "inline",
+    "description": "Inline is a fast, lightweight, scalable, and powerful work chat app which enables unprecedented collaboration bandwidth.",
+    "stars": 646,
+    "forks": 26,
+    "topics": [],
+    "updatedAt": "2026-04-06T20:22:39Z",
+    "filePath": ".codex/skills/finalize/SKILL.md"
   },
   {
     "owner": "artsy",
@@ -2006,6 +2049,20 @@
     "filePath": ".claude/skills/v3-core-implementation/SKILL.md"
   },
   {
+    "owner": "doccker",
+    "repo": "cc-use-exp",
+    "description": "让 Claude Code、Gemini CLI、Codex、Cursor 开箱即用的分层配置模板，减少 token 浪费和 AI翻车，持续完善中……",
+    "stars": 525,
+    "forks": 53,
+    "topics": [
+      "claude-code",
+      "codex",
+      "gemini-cli"
+    ],
+    "updatedAt": "2026-04-07T09:54:02Z",
+    "filePath": ".codex/skills/cc-fix/SKILL.md"
+  },
+  {
     "owner": "a5c-ai",
     "repo": "babysitter",
     "description": "Babysitter enforces obedience to agentic workforces and enables them to manage extremely complex tasks and workflows through deterministic, hallucination-free self-orchestration",
@@ -2147,6 +2204,20 @@
     "filePath": ".claude/skills/gum-layout/SKILL.md"
   },
   {
+    "owner": "JustLookAtNow",
+    "repo": "pt_mate",
+    "description": "基于 Flutter（Material Design 3）开发的私有种子站点客户端，支持多种PT站点的种子浏览、搜索和下载管理。目前支持M-Team和NexusPHP类型的站点。",
+    "stars": 438,
+    "forks": 28,
+    "topics": [
+      "m-team",
+      "nexusphp",
+      "pt"
+    ],
+    "updatedAt": "2026-04-07T09:22:46Z",
+    "filePath": ".codex/skills/release/SKILL.md"
+  },
+  {
     "owner": "benbrastmckie",
     "repo": "nvim",
     "description": "NeoVim configuration optimized for writing in LaTeX with AI integration for Avante, Lectic, and Claude-Code",
@@ -2191,6 +2262,31 @@
     ],
     "updatedAt": "2026-03-22T14:12:48Z",
     "filePath": ".agents/skills/release/SKILL.md"
+  },
+  {
+    "owner": "bitsocialnet",
+    "repo": "seedit",
+    "description": "A Bitsocial app with an old.reddit UI",
+    "stars": 414,
+    "forks": 22,
+    "topics": [
+      "bitsocial",
+      "clone-app",
+      "clone-website",
+      "decentralized",
+      "decentralized-social",
+      "ipfs",
+      "message-board",
+      "p2p",
+      "p2p-social",
+      "pkc",
+      "reddit",
+      "reddit-alternative",
+      "seedit",
+      "social-media"
+    ],
+    "updatedAt": "2026-04-06T13:44:11Z",
+    "filePath": ".codex/skills/translate/SKILL.md"
   },
   {
     "owner": "daloopa",
@@ -2245,6 +2341,24 @@
     "topics": [],
     "updatedAt": "2026-03-26T11:23:04Z",
     "filePath": ".claude/skills/dcf/SKILL.md"
+  },
+  {
+    "owner": "eclipse-rdf4j",
+    "repo": "rdf4j",
+    "description": "Eclipse RDF4J: scalable RDF for Java",
+    "stars": 398,
+    "forks": 184,
+    "topics": [
+      "hacktoberfest",
+      "java",
+      "linked-data",
+      "rdf",
+      "semantic-web",
+      "shacl",
+      "sparql"
+    ],
+    "updatedAt": "2026-04-07T07:28:07Z",
+    "filePath": ".codex/skills/review/SKILL.md"
   },
   {
     "owner": "backengineering",
@@ -2580,6 +2694,21 @@
     "topics": [],
     "updatedAt": "2026-03-17T02:12:09Z",
     "filePath": ".claude/skills/worktree/SKILL.md"
+  },
+  {
+    "owner": "Peiiii",
+    "repo": "AgentVerse",
+    "description": "Multi-Agent Collaboration  Platform✨",
+    "stars": 285,
+    "forks": 72,
+    "topics": [
+      "agent",
+      "ai",
+      "chatbot",
+      "multi-agent"
+    ],
+    "updatedAt": "2026-03-30T16:45:36Z",
+    "filePath": ".codex/skills/project-os/SKILL.md"
   },
   {
     "owner": "Runchuan-BU",
@@ -3377,6 +3506,16 @@
     "filePath": ".claude/skills/sibyl-supervisor/SKILL.md"
   },
   {
+    "owner": "banteg",
+    "repo": "crimson",
+    "description": "a faithful rewrite of crimsonland 1.9.93 from 2003",
+    "stars": 149,
+    "forks": 15,
+    "topics": [],
+    "updatedAt": "2026-04-01T17:38:33Z",
+    "filePath": ".codex/skills/ast-grep/SKILL.md"
+  },
+  {
     "owner": "Nikolay-Shirokov",
     "repo": "cc-1c-skills",
     "description": "Набор навыков для AI(ИИ)-агентов (Claude Code, Cursor, Codex и др.), помогающий охватить полный цикл разработки на платформе 1С:Предприятие 8.3. Даёт модели абстракции над XML-форматами и CLI конфигуратора, а также глаза и руки для тестирования через веб-клиент. AI skills for 1C:Enterprise 8.3.",
@@ -3440,6 +3579,23 @@
     "topics": [],
     "updatedAt": "2026-03-29T23:34:18Z",
     "filePath": ".claude/skills/graphviz.causal_kg_style/SKILL.md"
+  },
+  {
+    "owner": "regenrek",
+    "repo": "peky",
+    "description": "All your AI Agents like Claude Code, Codex CLI in a single TUI to keep things organized.",
+    "stars": 143,
+    "forks": 6,
+    "topics": [
+      "agentic-coding",
+      "ai-coding",
+      "cli",
+      "multi-agent",
+      "project-manager",
+      "tui"
+    ],
+    "updatedAt": "2026-03-31T16:38:55Z",
+    "filePath": ".codex/skills/peky/SKILL.md"
   },
   {
     "owner": "tractorjuice",
@@ -3555,6 +3711,31 @@
     ],
     "updatedAt": "2026-03-20T20:04:18Z",
     "filePath": ".claude/skills/tui/SKILL.md"
+  },
+  {
+    "owner": "managedcode",
+    "repo": "Storage",
+    "description": "Storage library provides a universal interface for accessing and manipulating data in different cloud blob storage providers",
+    "stars": 132,
+    "forks": 28,
+    "topics": [
+      "aws",
+      "aws-s3",
+      "azure",
+      "azure-storage",
+      "blob",
+      "blob-storage",
+      "dropbox",
+      "gcp",
+      "google-cloud-storage",
+      "google-drive",
+      "onedrive",
+      "s3",
+      "s3-bucket",
+      "storage"
+    ],
+    "updatedAt": "2026-04-01T13:34:00Z",
+    "filePath": ".codex/skills/mcaf-nfr/SKILL.md"
   },
   {
     "owner": "nicepkg",
@@ -4544,6 +4725,16 @@
     "filePath": ".claude/skills/10up-css/SKILL.md"
   },
   {
+    "owner": "AmaniDawn",
+    "repo": "DGame",
+    "description": "根据TEngine框架，结合工作经验，修改和增加一些实用性拓展修改的框架（包括但不限于工具方法，工具编辑器，部分底层逻辑调整）。不合入TEngine，主要是不想让TEngine太冗杂。",
+    "stars": 86,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-04-07T09:30:29Z",
+    "filePath": ".codex/skills/dgame-dev/SKILL.md"
+  },
+  {
     "owner": "OpenDCAI",
     "repo": "Mycel",
     "description": "Real world multi-agent workforce.",
@@ -4995,6 +5186,36 @@
     "topics": [],
     "updatedAt": "2026-03-28T22:18:39Z",
     "filePath": ".agents/skills/android-emulator/SKILL.md"
+  },
+  {
+    "owner": "motoya0118",
+    "repo": "pavlok_CLI_agent",
+    "description": "CLI agentにpavlokを使用させたらどうなるか自傷実験",
+    "stars": 71,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-29T04:01:52Z",
+    "filePath": ".codex/skills/slack/SKILL.md"
+  },
+  {
+    "owner": "motoya0118",
+    "repo": "pavlok_CLI_agent",
+    "description": "CLI agentにpavlokを使用させたらどうなるか自傷実験",
+    "stars": 71,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-29T04:01:52Z",
+    "filePath": ".codex/skills/pavlok/SKILL.md"
+  },
+  {
+    "owner": "motoya0118",
+    "repo": "pavlok_CLI_agent",
+    "description": "CLI agentにpavlokを使用させたらどうなるか自傷実験",
+    "stars": 71,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-29T04:01:52Z",
+    "filePath": ".codex/skills/repentance/SKILL.md"
   },
   {
     "owner": "nwiizo",
@@ -5757,6 +5978,26 @@
     "filePath": ".claude/skills/screenwriter/SKILL.md"
   },
   {
+    "owner": "chongdashu",
+    "repo": "threejs-capacitor-ios-game",
+    "description": "A vibe coded mobile point and click adventure game  using agent skills. ",
+    "stars": 49,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-04-02T20:01:28Z",
+    "filePath": ".codex/skills/threejs-builder/SKILL.md"
+  },
+  {
+    "owner": "catlog22",
+    "repo": "Maestro-Flow",
+    "description": "Workflow orchestration CLI with MCP endpoint support and multi-agent dashboard",
+    "stars": 49,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-04-07T11:54:42Z",
+    "filePath": ".codex/skills/maestro/SKILL.md"
+  },
+  {
     "owner": "nich2533",
     "repo": "just_say_no",
     "description": "Altered state slash commands for Claude Code. 12 substance-themed personality modes that change how Claude approaches your tasks.",
@@ -6024,6 +6265,43 @@
     "filePath": ".agents/skills/bunli/SKILL.md"
   },
   {
+    "owner": "moonbit-community",
+    "repo": "fastcc",
+    "description": "The c compiler optimized for speed written in MoonBit",
+    "stars": 44,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-04-02T15:14:09Z",
+    "filePath": ".codex/skills/moonbit-lang-skill/SKILL.md"
+  },
+  {
+    "owner": "snakeying",
+    "repo": "Textum",
+    "description": "Structured workflow that stops AI from forgetting your requirements. 4 phases with validation gates. Not smarter AI, just controllable process. Weave ideas into code that actually works.",
+    "stars": 43,
+    "forks": 4,
+    "topics": [
+      "claude-code",
+      "claude-skill",
+      "codex",
+      "codex-skill",
+      "skills",
+      "vibe-coding"
+    ],
+    "updatedAt": "2026-03-25T11:22:07Z",
+    "filePath": ".codex/skills/textum/SKILL.md"
+  },
+  {
+    "owner": "RainerSeventeen",
+    "repo": "paper-tracker",
+    "description": "Keyword-based academic paper tracker supporting arXiv & OpenAlex, with LLM-powered translation and multi-format output (JSON/Markdown/HTML). ",
+    "stars": 43,
+    "forks": 13,
+    "topics": [],
+    "updatedAt": "2026-04-07T08:13:18Z",
+    "filePath": ".codex/skills/create-pr/SKILL.md"
+  },
+  {
     "owner": "skilluse",
     "repo": "skilluse",
     "description": "Agent Skills Registry & CLI",
@@ -6233,6 +6511,60 @@
     "filePath": ".claude/skills/go/SKILL.md"
   },
   {
+    "owner": "shirokun20",
+    "repo": "nhasixapp",
+    "description": "Unofficial NHentai mobile app with flutter and bloc",
+    "stars": 40,
+    "forks": 2,
+    "topics": [
+      "crotpedia",
+      "doujinshi",
+      "downloader-image",
+      "flutter",
+      "komiktap",
+      "mobile-app",
+      "mobile-development",
+      "nhentai",
+      "nhentai-app",
+      "nhentai-client",
+      "nhentai-clone",
+      "offline-reading",
+      "scraping",
+      "serverless",
+      "unofficial",
+      "unofficial-nhentai"
+    ],
+    "updatedAt": "2026-04-04T06:32:07Z",
+    "filePath": ".codex/skills/di-setup/SKILL.md"
+  },
+  {
+    "owner": "shirokun20",
+    "repo": "nhasixapp",
+    "description": "Unofficial NHentai mobile app with flutter and bloc",
+    "stars": 40,
+    "forks": 2,
+    "topics": [
+      "crotpedia",
+      "doujinshi",
+      "downloader-image",
+      "flutter",
+      "komiktap",
+      "mobile-app",
+      "mobile-development",
+      "nhentai",
+      "nhentai-app",
+      "nhentai-client",
+      "nhentai-clone",
+      "offline-reading",
+      "scraping",
+      "serverless",
+      "unofficial",
+      "unofficial-nhentai"
+    ],
+    "updatedAt": "2026-04-04T06:32:07Z",
+    "filePath": ".codex/skills/clean-arch/SKILL.md"
+  },
+  {
     "owner": "aniketpanjwani",
     "repo": "payload-plugin-email-newsletter",
     "description": "Payload CMS Plugin for creating an email newsletter.",
@@ -6351,6 +6683,16 @@
     "topics": [],
     "updatedAt": "2026-03-26T13:52:36Z",
     "filePath": ".claude/skills/qa/SKILL.md"
+  },
+  {
+    "owner": "msbaek",
+    "repo": "dotfiles",
+    "description": null,
+    "stars": 38,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-01T13:27:01Z",
+    "filePath": ".claude/skills/gh/SKILL.md"
   },
   {
     "owner": "yoloshii",
@@ -6728,6 +7070,26 @@
     "filePath": ".claude/skills/agent-to-bricks/SKILL.md"
   },
   {
+    "owner": "akiojin",
+    "repo": "unity-cli",
+    "description": "Rust CLI for Unity Editor automation over Unity TCP protocol",
+    "stars": 34,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-05T13:58:52Z",
+    "filePath": ".codex/skills/gh-pr/SKILL.md"
+  },
+  {
+    "owner": "TEN-framework",
+    "repo": "portal",
+    "description": "Official website of TEN, built on top of Fumadocs",
+    "stars": 34,
+    "forks": 8,
+    "topics": [],
+    "updatedAt": "2026-04-03T08:24:04Z",
+    "filePath": ".codex/skills/biome/SKILL.md"
+  },
+  {
     "owner": "matteing",
     "repo": "opal",
     "description": "🔮 A smol coding agent in Elixir",
@@ -6806,6 +7168,45 @@
     "topics": [],
     "updatedAt": "2026-03-16T17:08:01Z",
     "filePath": ".agents/skills/convex-component-authoring/SKILL.md"
+  },
+  {
+    "owner": "modxcms-jp",
+    "repo": "evolution-jp",
+    "description": null,
+    "stars": 33,
+    "forks": 23,
+    "topics": [],
+    "updatedAt": "2026-02-21T04:19:27Z",
+    "filePath": ".codex/skills/exec-plan/SKILL.md"
+  },
+  {
+    "owner": "pentoai",
+    "repo": "ml-ralph",
+    "description": "Autonomous ML agent for running experiments using Claude.",
+    "stars": 33,
+    "forks": 3,
+    "topics": [
+      "agents",
+      "aicoding",
+      "claude-code",
+      "codex",
+      "machine-learning",
+      "python",
+      "ralph",
+      "wandb"
+    ],
+    "updatedAt": "2026-04-01T19:42:47Z",
+    "filePath": ".codex/skills/ml-ralph/SKILL.md"
+  },
+  {
+    "owner": "chongdashu",
+    "repo": "phaserjs-tinyswords",
+    "description": null,
+    "stars": 33,
+    "forks": 7,
+    "topics": [],
+    "updatedAt": "2026-04-06T02:45:26Z",
+    "filePath": ".codex/skills/phaser-gamedev/SKILL.md"
   },
   {
     "owner": "richardgill",
@@ -7191,6 +7592,36 @@
     "filePath": ".claude/skills/erne-worker/SKILL.md"
   },
   {
+    "owner": "indexedlabs",
+    "repo": "pydantic-ai-gepa",
+    "description": "GEPA extension for pydantic-ai",
+    "stars": 28,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-04-02T00:45:56Z",
+    "filePath": ".codex/skills/plan/SKILL.md"
+  },
+  {
+    "owner": "indexedlabs",
+    "repo": "pydantic-ai-gepa",
+    "description": "GEPA extension for pydantic-ai",
+    "stars": 28,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-04-02T00:45:56Z",
+    "filePath": ".codex/skills/tasks/SKILL.md"
+  },
+  {
+    "owner": "indexedlabs",
+    "repo": "pydantic-ai-gepa",
+    "description": "GEPA extension for pydantic-ai",
+    "stars": 28,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-04-02T00:45:56Z",
+    "filePath": ".codex/skills/mighty/SKILL.md"
+  },
+  {
     "owner": "wildcard",
     "repo": "caro",
     "description": "caro: fast Rust CLI that turns natural‑language tasks into a safe POSIX command. Built for macOS (MLX/Metal) with a built‑in model; supports vLLM/Ollama/LM Studio. JSON‑only output, safety checks, confirmation, multi‑step goals, devcontainer included.",
@@ -7570,6 +8001,34 @@
     "filePath": ".claude/skills/tina4-developer/SKILL.md"
   },
   {
+    "owner": "frmoretto",
+    "repo": "hardstop",
+    "description": "Don't let AI destroy your hard work! HardStop is a rock-solid protection for AI-generated commands. Pre-execution safety validation for Claude Code, Claude Cowork. Catches dangerous commands before they run: whether from AI mistakes, hallucinations, prompt injection, or misunderstood instructions. Seatbelts for the agentic AI era.",
+    "stars": 26,
+    "forks": 1,
+    "topics": [
+      "agentic-ai",
+      "ai-safety",
+      "claude",
+      "claude-ai",
+      "claude-code",
+      "claude-code-hooks",
+      "claude-code-plugin",
+      "claude-code-plugin-marketplace",
+      "claude-code-plugins",
+      "claude-code-plugins-marketplace",
+      "claude-cowork",
+      "cowork",
+      "developer-tools",
+      "llm",
+      "pre-commit-hook",
+      "prompt-injection",
+      "security"
+    ],
+    "updatedAt": "2026-04-05T06:00:09Z",
+    "filePath": ".codex/skills/hs/SKILL.md"
+  },
+  {
     "owner": "promptadvisers",
     "repo": "n8n-powerhouse",
     "description": "Claude Code skills framework for n8n automation - Turn Claude into an n8n expert",
@@ -7804,6 +8263,266 @@
     "topics": [],
     "updatedAt": "2026-03-31T11:22:04Z",
     "filePath": ".claude/skills/debug/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-ffi/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-web/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-pin/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-dpdk/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-ebpf/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-auth/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-error/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-async/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-const/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-cache/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-skill/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-macro/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-actor/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-coding/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-unsafe/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-learner/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-resource/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-embedded/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-coroutine/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-zero-cost/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-ownership/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-ecosystem/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-mutability/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-middleware/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-anti-pattern/SKILL.md"
+  },
+  {
+    "owner": "huiali",
+    "repo": "rust-skills",
+    "description": "An AI expert capability layer for Rust engineering practices, centered on modular skill orchestration and collaborative execution chains. It turns Rust’s core knowledge structures into callable reasoning and decision units, enabling diagnosis, design, and optimization in complex real-world scenarios.",
+    "stars": 25,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-04-05T11:33:36Z",
+    "filePath": ".codex/skills/rust-async-pattern/SKILL.md"
   },
   {
     "owner": "washanhanzi",
@@ -8181,6 +8900,16 @@
     "topics": [],
     "updatedAt": "2026-03-25T20:15:08Z",
     "filePath": ".agents/skills/pmf-status/SKILL.md"
+  },
+  {
+    "owner": "acrognale",
+    "repo": "pasture",
+    "description": "Pasture is a desktop GUI for Codex",
+    "stars": 23,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-10T09:10:18Z",
+    "filePath": ".codex/skills/codex-patches/SKILL.md"
   },
   {
     "owner": "vechain",
@@ -8676,6 +9405,26 @@
     "filePath": ".agents/skills/dev/SKILL.md"
   },
   {
+    "owner": "castle-x",
+    "repo": "skills-x",
+    "description": "AI Agent Skills Repo",
+    "stars": 20,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-03T03:39:15Z",
+    "filePath": ".codex/skills/skills-x/SKILL.md"
+  },
+  {
+    "owner": "am-will",
+    "repo": "taskery",
+    "description": null,
+    "stars": 20,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-19T10:07:56Z",
+    "filePath": ".codex/skills/taskery/SKILL.md"
+  },
+  {
     "owner": "Prorise-cool",
     "repo": "prorise-claude-skills",
     "description": "开源 Claude Code Skills 集合 - 自动更新的 skills 云盘",
@@ -9038,6 +9787,26 @@
     "filePath": ".agents/skills/trustless-work-dev/SKILL.md"
   },
   {
+    "owner": "Zendevve",
+    "repo": "opentweak",
+    "description": null,
+    "stars": 18,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-07T22:33:27Z",
+    "filePath": ".codex/skills/mcaf-testing/SKILL.md"
+  },
+  {
+    "owner": "onmax",
+    "repo": "nuxt-convex",
+    "description": "Nuxt module for Convex",
+    "stars": 18,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T04:37:34Z",
+    "filePath": ".codex/skills/nuxt/SKILL.md"
+  },
+  {
     "owner": "lbb00",
     "repo": "ai-rules-sync",
     "description": "Synchronize, manage, and share your ai rules, skills, commands, subagents (Cursor, Claude Code, Copilot, OpenCode, Trae AI, Codex, Gemini CLI, Warp) with ease.",
@@ -9259,6 +10028,20 @@
     "topics": [],
     "updatedAt": "2026-03-25T09:54:48Z",
     "filePath": ".agents/skills/social-writer/SKILL.md"
+  },
+  {
+    "owner": "gh123man",
+    "repo": "OpenSnek",
+    "description": "Lightweight configuration software for USB and bluetooth Razer devices on macOS",
+    "stars": 17,
+    "forks": 0,
+    "topics": [
+      "mouse-control",
+      "peripherals",
+      "razer"
+    ],
+    "updatedAt": "2026-04-06T15:17:36Z",
+    "filePath": ".codex/skills/release/SKILL.md"
   },
   {
     "owner": "edwnh",
@@ -9554,6 +10337,36 @@
     "filePath": ".agents/skills/run-agent/SKILL.md"
   },
   {
+    "owner": "s-hiraoku",
+    "repo": "vscode-sidebar-terminal",
+    "description": null,
+    "stars": 16,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-04-07T12:51:14Z",
+    "filePath": ".codex/skills/debug/SKILL.md"
+  },
+  {
+    "owner": "amkessler",
+    "repo": "nicar2026_skills_in_codex_claude",
+    "description": "Materials for NICAR 2026 session on using \"skills\" to aid in more reliable, reproducible analysis tasks when using Codex and Claude Code",
+    "stars": 16,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-07T08:17:30Z",
+    "filePath": ".codex/skills/image-rotator/SKILL.md"
+  },
+  {
+    "owner": "gakonst",
+    "repo": "dotfiles",
+    "description": "My dotfiles along with a script to deploy them to your environment.",
+    "stars": 16,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-29T04:52:19Z",
+    "filePath": ".codex/skills/js/SKILL.md"
+  },
+  {
     "owner": "tobi",
     "repo": "liquid-il",
     "description": "A Liquid template engine, 100% vibe coded by Claude Code against liquid-spec",
@@ -9778,6 +10591,35 @@
     ],
     "updatedAt": "2026-04-06T13:50:22Z",
     "filePath": ".claude/skills/tina4-developer/SKILL.md"
+  },
+  {
+    "owner": "Traves-Theberge",
+    "repo": "Orchestra",
+    "description": "Orchestra is a desktop development workspace that integrates AI coding agents with project management, terminals, and real-time collaboration tools.",
+    "stars": 15,
+    "forks": 1,
+    "topics": [
+      "claude",
+      "codex",
+      "configuration",
+      "gemini",
+      "kanban",
+      "opencode",
+      "orchestration",
+      "tmux"
+    ],
+    "updatedAt": "2026-04-04T06:25:20Z",
+    "filePath": ".codex/skills/land/SKILL.md"
+  },
+  {
+    "owner": "antorsae",
+    "repo": "dual-agent",
+    "description": "Dual-agent development environment pairing Claude Code with Codex CLI in a collaborative tmux session",
+    "stars": 15,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-03-24T09:27:33Z",
+    "filePath": ".codex/skills/read-task/SKILL.md"
   },
   {
     "owner": "WayfinderFoundation",
@@ -10228,6 +11070,55 @@
     "topics": [],
     "updatedAt": "2026-04-06T10:49:58Z",
     "filePath": ".agents/skills/tmux/SKILL.md"
+  },
+  {
+    "owner": "arun-gupta",
+    "repo": "agentic-tictactoe",
+    "description": null,
+    "stars": 13,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-15T17:07:18Z",
+    "filePath": ".claude/skills/si/SKILL.md"
+  },
+  {
+    "owner": "go-go-golems",
+    "repo": "docmgr",
+    "description": null,
+    "stars": 13,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-25T10:47:46Z",
+    "filePath": ".codex/skills/cursor-diary/SKILL.md"
+  },
+  {
+    "owner": "duplojs",
+    "repo": "utils",
+    "description": "@duplojs/utils is the TypeScript utility toolbox used across the DuploJS ecosystem. It focuses on strong typing, good DX, and small composable primitives that scale from simple helpers to full validation pipelines.",
+    "stars": 13,
+    "forks": 0,
+    "topics": [
+      "array-utils",
+      "clean-architecture",
+      "curried",
+      "data-parser",
+      "date-utils",
+      "ddd",
+      "duplojs",
+      "either",
+      "flow",
+      "functional-programming",
+      "immutable",
+      "monad",
+      "object-utils",
+      "pattern-matching",
+      "pipe",
+      "string-utils",
+      "typescript",
+      "utils"
+    ],
+    "updatedAt": "2026-04-04T20:47:43Z",
+    "filePath": ".codex/skills/writeJsDoc/SKILL.md"
   },
   {
     "owner": "sorryhyun",
@@ -11672,6 +12563,16 @@
     "filePath": ".agents/skills/code-reviewing/SKILL.md"
   },
   {
+    "owner": "Crainax",
+    "repo": "War3Lib",
+    "description": "The Share War3 Maps Library for myself.",
+    "stars": 9,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-03-11T13:57:34Z",
+    "filePath": ".codex/skills/zinc-j/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -12079,6 +12980,59 @@
     "topics": [],
     "updatedAt": "2026-04-02T19:48:14Z",
     "filePath": ".agents/skills/eval-harness/SKILL.md"
+  },
+  {
+    "owner": "impactaky",
+    "repo": "vk",
+    "description": "cli for vibe-kanban",
+    "stars": 8,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-31T08:07:41Z",
+    "filePath": ".codex/skills/lint/SKILL.md"
+  },
+  {
+    "owner": "brifl",
+    "repo": "coding-agent-orchestration",
+    "description": "Unifying prompt, context, skill, and process management for Claude, Gemini, and Codex.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-03-21T09:01:39Z",
+    "filePath": ".codex/skills/vibe-run/SKILL.md"
+  },
+  {
+    "owner": "brifl",
+    "repo": "coding-agent-orchestration",
+    "description": "Unifying prompt, context, skill, and process management for Claude, Gemini, and Codex.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-03-21T09:01:39Z",
+    "filePath": ".codex/skills/rag-index/SKILL.md"
+  },
+  {
+    "owner": "brifl",
+    "repo": "coding-agent-orchestration",
+    "description": "Unifying prompt, context, skill, and process management for Claude, Gemini, and Codex.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-03-21T09:01:39Z",
+    "filePath": ".codex/skills/vibe-loop/SKILL.md"
+  },
+  {
+    "owner": "PotatoDog1669",
+    "repo": "skills-hub",
+    "description": "Unify your AI skillbox. A local hub to visualize, manage, and sync skills across Antigravity, Claude, Cursor, Trae, and other AI agents.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "agent-skills",
+      "claude-code"
+    ],
+    "updatedAt": "2026-03-27T03:12:31Z",
+    "filePath": ".codex/skills/skills-hub/SKILL.md"
   },
   {
     "owner": "kaihendry",
@@ -12597,6 +13551,28 @@
     "topics": [],
     "updatedAt": "2026-03-03T12:38:46Z",
     "filePath": ".agents/skills/md-to-pdf/SKILL.md"
+  },
+  {
+    "owner": "DanTsai0903",
+    "repo": "namingpaper",
+    "description": "A CLI tool that renames academic PDF papers using AI-extracted metadata",
+    "stars": 7,
+    "forks": 1,
+    "topics": [
+      "academic-papers",
+      "ai",
+      "claude",
+      "cli",
+      "gemini",
+      "metadata-extraction",
+      "ollama",
+      "openai",
+      "pdf",
+      "python",
+      "rename"
+    ],
+    "updatedAt": "2026-02-23T07:49:54Z",
+    "filePath": ".codex/skills/uv-rules/SKILL.md"
   },
   {
     "owner": "ocn",
@@ -14209,6 +15185,112 @@
     "filePath": ".agents/skills/tsdown/SKILL.md"
   },
   {
+    "owner": "wd041216-bit",
+    "repo": "cross-validated-search",
+    "description": "Evidence-backed search, claim verification, and report generation for AI agents.",
+    "stars": 5,
+    "forks": 4,
+    "topics": [
+      "agent-tools",
+      "ai-agents",
+      "claim-verification",
+      "evidence-verification",
+      "fact-checking",
+      "mcp",
+      "model-context-protocol",
+      "python",
+      "source-citations",
+      "web-search"
+    ],
+    "updatedAt": "2026-03-31T15:12:21Z",
+    "filePath": ".codex/SKILL.md"
+  },
+  {
+    "owner": "protoLabsAI",
+    "repo": "protoMaker",
+    "description": "An autonomous development studio where ideas become shipped software — orchestrated by AI, validated by humans.",
+    "stars": 5,
+    "forks": 3,
+    "topics": [
+      "agents",
+      "ai",
+      "claude",
+      "claude-code"
+    ],
+    "updatedAt": "2026-04-07T06:03:17Z",
+    "filePath": ".codex/skills/ava/SKILL.md"
+  },
+  {
+    "owner": "sid2baker",
+    "repo": "ethercat",
+    "description": null,
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T09:16:26Z",
+    "filePath": ".codex/skills/land/SKILL.md"
+  },
+  {
+    "owner": "sid2baker",
+    "repo": "ethercat",
+    "description": null,
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T09:16:26Z",
+    "filePath": ".codex/skills/push/SKILL.md"
+  },
+  {
+    "owner": "sid2baker",
+    "repo": "ethercat",
+    "description": null,
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T09:16:26Z",
+    "filePath": ".codex/skills/pull/SKILL.md"
+  },
+  {
+    "owner": "akiojin",
+    "repo": "llmlb",
+    "description": "Distributed LLM router with load balancing and automatic model distribution",
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T08:32:43Z",
+    "filePath": ".codex/skills/drawio/SKILL.md"
+  },
+  {
+    "owner": "akiojin",
+    "repo": "llmlb",
+    "description": "Distributed LLM router with load balancing and automatic model distribution",
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T08:32:43Z",
+    "filePath": ".codex/skills/hotfix/SKILL.md"
+  },
+  {
+    "owner": "sid2baker",
+    "repo": "ethercat",
+    "description": null,
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T09:16:26Z",
+    "filePath": ".codex/skills/commit/SKILL.md"
+  },
+  {
+    "owner": "sid2baker",
+    "repo": "ethercat",
+    "description": null,
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T09:16:26Z",
+    "filePath": ".codex/skills/linear/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -15224,6 +16306,16 @@
     "topics": [],
     "updatedAt": "2026-04-01T09:05:59Z",
     "filePath": ".agents/skills/groove/SKILL.md"
+  },
+  {
+    "owner": "yuya296",
+    "repo": "markbloom",
+    "description": "Markdown editor for VSCode",
+    "stars": 4,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-16T10:21:03Z",
+    "filePath": ".codex/skills/dod/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -25003,7 +26095,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-03T13:17:55Z",
+    "updatedAt": "2026-04-07T13:01:25Z",
     "filePath": ".claude/skills/tdd/SKILL.md"
   },
   {
@@ -25643,8 +26735,14 @@
     "description": "This is a bridge between the stateless world and the stateful such as Lambda <-> MQTT or Azure Service Bus",
     "stars": 0,
     "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-04-06T16:23:45Z",
+    "topics": [
+      "aws",
+      "azure",
+      "broker",
+      "mqtt",
+      "serverless"
+    ],
+    "updatedAt": "2026-04-07T12:49:10Z",
     "filePath": ".claude/skills/deployment-aws-canary-setup/SKILL.md"
   },
   {
@@ -25874,7 +26972,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T00:48:09Z",
+    "updatedAt": "2026-04-07T09:46:56Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -26001,7 +27099,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T03:30:19Z",
+    "updatedAt": "2026-04-07T13:19:58Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -26264,7 +27362,7 @@
       "local-first",
       "task-management"
     ],
-    "updatedAt": "2026-04-06T09:33:28Z",
+    "updatedAt": "2026-04-07T11:33:55Z",
     "filePath": ".claude/skills/hs-investigation/SKILL.md"
   },
   {
@@ -26344,7 +27442,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T10:56:35Z",
+    "updatedAt": "2026-04-07T09:12:54Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -26374,7 +27472,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T10:56:35Z",
+    "updatedAt": "2026-04-07T09:12:54Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -26522,7 +27620,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-28T06:37:51Z",
+    "updatedAt": "2026-04-07T05:50:53Z",
     "filePath": ".claude/skills/pr-summary/SKILL.md"
   },
   {
@@ -26685,7 +27783,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T13:18:45Z",
+    "updatedAt": "2026-04-07T05:31:38Z",
     "filePath": ".claude/skills/commit/SKILL.md"
   },
   {
@@ -27077,7 +28175,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-30T17:13:07Z",
+    "updatedAt": "2026-04-07T07:45:51Z",
     "filePath": ".claude/skills/plan-feature/SKILL.md"
   },
   {
@@ -27307,16 +28405,6 @@
     "filePath": ".claude/skills/issue-resolution/SKILL.md"
   },
   {
-    "owner": "yuki-programmer",
-    "repo": "savesmart_app",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-04-03T03:55:02Z",
-    "filePath": ".claude/skills/ui-ux-psychology/SKILL.md"
-  },
-  {
     "owner": "sethdavis512",
     "repo": "iridium-tambo",
     "description": null,
@@ -27333,7 +28421,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T02:42:19Z",
+    "updatedAt": "2026-04-07T05:11:17Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -27429,7 +28517,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-07T01:52:45Z",
+    "updatedAt": "2026-04-07T13:12:14Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -27609,7 +28697,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T07:04:52Z",
+    "updatedAt": "2026-04-07T07:04:39Z",
     "filePath": ".claude/skills/drafting-notes/SKILL.md"
   },
   {
@@ -27743,7 +28831,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T04:42:02Z",
+    "updatedAt": "2026-04-07T05:15:51Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -27843,7 +28931,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T15:37:32Z",
+    "updatedAt": "2026-04-07T09:08:24Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -27873,7 +28961,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T01:24:11Z",
+    "updatedAt": "2026-04-07T06:20:28Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -27963,7 +29051,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T07:04:57Z",
+    "updatedAt": "2026-04-07T09:42:11Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -28190,7 +29278,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-01T04:56:59Z",
+    "updatedAt": "2026-04-07T06:54:59Z",
     "filePath": ".claude/skills/justicehub-context/SKILL.md"
   },
   {
@@ -28618,7 +29706,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T16:09:24Z",
+    "updatedAt": "2026-04-07T11:44:54Z",
     "filePath": ".claude/skills/hint/SKILL.md"
   },
   {
@@ -28628,7 +29716,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T00:48:09Z",
+    "updatedAt": "2026-04-07T09:46:56Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -29296,7 +30384,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T19:16:11Z",
+    "updatedAt": "2026-04-07T13:42:14Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -29326,7 +30414,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T16:47:26Z",
+    "updatedAt": "2026-04-07T13:51:32Z",
     "filePath": ".claude/skills/buf-regen/SKILL.md"
   },
   {
@@ -29393,7 +30481,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-06T21:56:31Z",
+    "updatedAt": "2026-04-07T13:10:09Z",
     "filePath": ".claude/skills/ship/SKILL.md"
   },
   {
@@ -29436,7 +30524,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-23T05:28:35Z",
+    "updatedAt": "2026-04-07T05:41:25Z",
     "filePath": ".claude/skills/Coding/SKILL.md"
   },
   {
@@ -29608,7 +30696,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T03:26:20Z",
+    "updatedAt": "2026-04-07T04:12:30Z",
     "filePath": ".claude/skills/dev-agent-orchestration/SKILL.md"
   },
   {
@@ -29927,7 +31015,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T19:44:48Z",
+    "updatedAt": "2026-04-07T11:35:31Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -30090,7 +31178,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-19T00:05:08Z",
+    "updatedAt": "2026-03-25T10:42:07Z",
     "filePath": ".claude/skills/coops-tdd-auto/SKILL.md"
   },
   {
@@ -30100,7 +31188,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-12T01:50:24Z",
+    "updatedAt": "2026-03-22T19:40:42Z",
     "filePath": ".claude/.skills/hookify/skills/writing-rules/SKILL.md"
   },
   {
@@ -40506,5 +41594,25 @@
     "topics": [],
     "updatedAt": "2026-03-28T14:22:24Z",
     "filePath": ".agents/skills/cloning-skill/skill.md"
+  },
+  {
+    "owner": "guillermobustamante",
+    "repo": "BOMComparevX",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-24T12:22:19Z",
+    "filePath": ".codex/skills/ui-qa/skill.md"
+  },
+  {
+    "owner": "mashharuki",
+    "repo": "lify-sample",
+    "description": "DEXアグリゲーター lifyを検証するためのサンプルコード",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-01-31T12:13:37Z",
+    "filePath": ".codex/skills/lifi-dev/skill.md"
   }
 ]
