@@ -3338,6 +3338,35 @@
     "filePath": ".claude/skills/meta-remove/SKILL.md"
   },
   {
+    "owner": "shangyankeji",
+    "repo": "super-dev",
+    "description": "Engineering workflow layer for AI coding tools with specs, review, quality gates, and traceability.为 AI 编程工具提供工程化流程、质量门禁与可追溯能力。",
+    "stars": 213,
+    "forks": 62,
+    "topics": [
+      "ai-coding",
+      "ai-ide",
+      "ai-workflow",
+      "aic",
+      "aicli",
+      "aicoding",
+      "claude-code",
+      "code-review",
+      "codex",
+      "coding-assistant",
+      "cursor",
+      "developer-tools",
+      "productivity",
+      "quality-gates",
+      "software-engineering",
+      "traceability",
+      "vibe-coding",
+      "vibecoding"
+    ],
+    "updatedAt": "2026-04-12T12:34:18Z",
+    "filePath": ".agents/skills/super-dev/SKILL.md"
+  },
+  {
     "owner": "K9i-0",
     "repo": "ccpocket",
     "description": "Mobile client for Claude Code and Codex — control coding agents from your phone via WebSocket bridge",
@@ -4414,6 +4443,24 @@
     "topics": [],
     "updatedAt": "2026-04-06T13:59:20Z",
     "filePath": ".claude/skills/triage/SKILL.md"
+  },
+  {
+    "owner": "vana-com",
+    "repo": "personal-server",
+    "description": "TypeScript implementation of the Vana Data Portability Protocol's Personal Server",
+    "stars": 114,
+    "forks": 24,
+    "topics": [
+      "data-portability",
+      "open-source",
+      "personal-server",
+      "privacy",
+      "typescript",
+      "vana",
+      "web3"
+    ],
+    "updatedAt": "2026-04-09T08:54:06Z",
+    "filePath": ".agents/skills/yeet/SKILL.md"
   },
   {
     "owner": "vinta",
@@ -11013,6 +11060,16 @@
     "filePath": ".agents/skills/frontend-slides/SKILL.md"
   },
   {
+    "owner": "simonepri",
+    "repo": "ifttt-lint",
+    "description": "🔗 IfThisThenThat linter — enforce atomic cross-file changes via LINT.IfChange / LINT.ThenChange directives.",
+    "stars": 18,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T09:07:12Z",
+    "filePath": ".agents/skills/amend/SKILL.md"
+  },
+  {
     "owner": "lbb00",
     "repo": "ai-rules-sync",
     "description": "Synchronize, manage, and share your ai rules, skills, commands, subagents (Cursor, Claude Code, Copilot, OpenCode, Trae AI, Codex, Gemini CLI, Warp) with ease.",
@@ -16441,6 +16498,16 @@
     "filePath": ".agents/skills/wget/SKILL.md"
   },
   {
+    "owner": "duc01226",
+    "repo": "EasyPlatform",
+    "description": null,
+    "stars": 6,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-12T05:34:53Z",
+    "filePath": ".claude/skills/arch-security-review/SKILL.md"
+  },
+  {
     "owner": "troydai",
     "repo": "gwt",
     "description": "A git worktree management CLI",
@@ -18847,6 +18914,34 @@
     "topics": [],
     "updatedAt": "2026-03-12T07:52:49Z",
     "filePath": ".agents/skills/spec-kitty-dashboard/SKILL.md"
+  },
+  {
+    "owner": "vana-com",
+    "repo": "personal-server-ts",
+    "description": "TypeScript implementation of the Vana Data Portability Protocol's Personal Server",
+    "stars": 4,
+    "forks": 0,
+    "topics": [
+      "data-portability",
+      "open-source",
+      "personal-server",
+      "privacy",
+      "typescript",
+      "vana",
+      "web3"
+    ],
+    "updatedAt": "2026-03-23T22:08:33Z",
+    "filePath": ".agents/skills/yeet/SKILL.md"
+  },
+  {
+    "owner": "DebVisor",
+    "repo": "PyAgent",
+    "description": "Python Agent",
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T23:48:15Z",
+    "filePath": ".agents/skills/elixir-docs-review/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -29069,6 +29164,36 @@
     "filePath": ".agents/skills/Codex-Skills/n8n-validation-expert/SKILL.md"
   },
   {
+    "owner": "Piracola",
+    "repo": "madugong-skill",
+    "description": "数字马督工",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T12:12:50Z",
+    "filePath": ".claude/skills/madugong-perspective/SKILL.md"
+  },
+  {
+    "owner": "CleanExpo",
+    "repo": "CCW-CRM",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T12:59:09Z",
+    "filePath": ".claude/skills/setup-deploy/SKILL.md"
+  },
+  {
+    "owner": "svange",
+    "repo": "augint-github",
+    "description": "Tools for automating workflows involving GitHub",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T14:43:46Z",
+    "filePath": ".agents/skills/ai-prepare-branch/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -30696,7 +30821,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-16T17:21:21Z",
+    "updatedAt": "2026-04-12T09:07:58Z",
     "filePath": ".claude/skills/init-import-sorter/SKILL.md"
   },
   {
@@ -30922,7 +31047,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T01:13:01Z",
+    "updatedAt": "2026-04-12T11:34:06Z",
     "filePath": ".claude/skills/webapp-testing/SKILL.md"
   },
   {
@@ -31744,7 +31869,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-28T06:13:30Z",
+    "updatedAt": "2026-04-12T09:07:58Z",
     "filePath": ".claude/skills/init-import-sorter/SKILL.md"
   },
   {
@@ -31825,7 +31950,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-04-12T02:59:58Z",
+    "updatedAt": "2026-04-12T05:51:37Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -32749,7 +32874,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-12T03:26:46Z",
+    "updatedAt": "2026-04-12T12:03:35Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -32977,7 +33102,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T16:50:15Z",
+    "updatedAt": "2026-04-12T08:23:33Z",
     "filePath": ".claude/skills/claudecode/SKILL.md"
   },
   {
@@ -33193,7 +33318,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-11T17:22:46Z",
+    "updatedAt": "2026-04-12T12:57:50Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -33283,7 +33408,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T00:16:45Z",
+    "updatedAt": "2026-04-12T13:08:49Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -33580,7 +33705,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T01:49:14Z",
+    "updatedAt": "2026-04-12T10:40:52Z",
     "filePath": ".claude/skills/flow-maintenance/SKILL.md"
   },
   {
@@ -34428,7 +34553,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-09T11:36:05Z",
+    "updatedAt": "2026-04-12T13:16:57Z",
     "filePath": ".claude/skills/architect/SKILL.md"
   },
   {
@@ -34833,7 +34958,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T01:21:19Z",
+    "updatedAt": "2026-04-12T13:09:54Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -35234,7 +35359,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T01:13:01Z",
+    "updatedAt": "2026-04-12T11:34:06Z",
     "filePath": ".claude/skills/prototype/SKILL.md"
   },
   {
@@ -35414,7 +35539,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-11T12:23:40Z",
+    "updatedAt": "2026-04-12T07:51:43Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -35454,7 +35579,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T03:42:28Z",
+    "updatedAt": "2026-04-12T13:05:39Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -49932,5 +50057,415 @@
     "topics": [],
     "updatedAt": "2026-03-03T05:41:06Z",
     "filePath": ".agents/skills/i18n/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/bash-pro/SKILL.md"
+  },
+  {
+    "owner": "javajavawhale",
+    "repo": "gtd-agent-framework",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T07:17:44Z",
+    "filePath": ".claude/skills/gtd-capture/SKILL.md"
+  },
+  {
+    "owner": "fangshengshi",
+    "repo": "workflow",
+    "description": "个人AI工作台 — 融合GSD×gstack×Superpowers×CE-*×ECC×best-practice",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:21:08Z",
+    "filePath": ".claude/skills/gsd-undo/SKILL.md"
+  },
+  {
+    "owner": "Rieki777",
+    "repo": "ReGenCivics.Earth",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T02:20:31Z",
+    "filePath": ".claude/skills/ln-400-story-executor/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/pki-advanced/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/api-pagination/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/xgboost-patterns/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/foundry-core-making-ops/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/sustainability-governance/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/liquefied-natural-gas-ops/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/claimable-postgres/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/avalonia-zafiro-development/SKILL.md"
+  },
+  {
+    "owner": "peintangos",
+    "repo": "deep-agents-example",
+    "description": "Deep Agents (TypeScript) を使った Mastra 監査エージェントのデモ実装",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T12:23:44Z",
+    "filePath": ".claude/skills/backport/SKILL.md"
+  },
+  {
+    "owner": "razinkele",
+    "repo": "osmopy",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T10:14:41Z",
+    "filePath": ".claude/skills/profile-engine/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/fp-types-ref/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/erp-integration/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/stakeholder-management/SKILL.md"
+  },
+  {
+    "owner": "fangshengshi",
+    "repo": "workflow",
+    "description": "个人AI工作台 — 融合GSD×gstack×Superpowers×CE-*×ECC×best-practice",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:21:08Z",
+    "filePath": ".claude/skills/gsd-plan-milestone-gaps/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/aquaculture-drone-monitoring/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/k12-equity-management-platform/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/windows-shell-reliability/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/stride-analysis-patterns/SKILL.md"
+  },
+  {
+    "owner": "Oratias07",
+    "repo": "CHAM-Agent",
+    "description": "automatic students grade system by AI ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T16:59:46Z",
+    "filePath": ".claude/skills/web-accessibility/SKILL.md"
+  },
+  {
+    "owner": "fangshengshi",
+    "repo": "workflow",
+    "description": "个人AI工作台 — 融合GSD×gstack×Superpowers×CE-*×ECC×best-practice",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:21:08Z",
+    "filePath": ".claude/skills/ecc-energy-procurement/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/angular-migration/SKILL.md"
+  },
+  {
+    "owner": "fangshengshi",
+    "repo": "workflow",
+    "description": "个人AI工作台 — 融合GSD×gstack×Superpowers×CE-*×ECC×best-practice",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:21:08Z",
+    "filePath": ".claude/skills/gsd-thread/SKILL.md"
+  },
+  {
+    "owner": "managementmaars-art",
+    "repo": "MAARS-infinity-alpha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T09:10:03Z",
+    "filePath": ".claude/skills/goreleaser/SKILL.md"
+  },
+  {
+    "owner": "MichealJou",
+    "repo": "catui",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-24T02:37:29Z",
+    "filePath": ".agents/skills/yuque-document-management/skill.md"
+  },
+  {
+    "owner": "d-subrahmanyam",
+    "repo": "deno-fresh-microservices",
+    "description": "A production-ready microservices-based online store application built with Deno, Fresh framework, PostgreSQL, and Redis. Features a complete e-commerce workflow with shopping carts, order management, authentication, and product browsing.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "deno",
+      "docker",
+      "docker-compose",
+      "fresh",
+      "kubernetes",
+      "microservices-architecture",
+      "tailwindcss",
+      "typescript",
+      "vitejs"
+    ],
+    "updatedAt": "2026-03-24T12:57:55Z",
+    "filePath": ".agents/skills/yup/SKILL.md"
+  },
+  {
+    "owner": "ruiming2ai",
+    "repo": "GB-MEP-Drawing-Review",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T01:36:28Z",
+    "filePath": ".agents/skills/cc-guide/SKILL.md"
+  },
+  {
+    "owner": "fabianferno",
+    "repo": "check-fi",
+    "description": "for xrpl",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T12:03:43Z",
+    "filePath": ".agents/skills/boundless/SKILL.md"
+  },
+  {
+    "owner": "sandrasocial",
+    "repo": "sselfie-9g",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T11:42:25Z",
+    "filePath": ".agents/skills/resend-cli/SKILL.md"
+  },
+  {
+    "owner": "malkKhalid",
+    "repo": "cloud-restaurants-3d",
+    "description": "\"A high-end, 3D immersive landing page for Cloud Restaurants Management (Dubai). Built with Next.js, Framer Motion, and Three.js to showcase a futuristic cloud kitchen experience with seamless Arabic/English RTL support.\"",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T07:23:00Z",
+    "filePath": ".agents/skills/bash-pro/SKILL.md"
+  },
+  {
+    "owner": "dcelorrio",
+    "repo": "debtdashborad",
+    "description": "debt_dashboard",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-30T10:57:18Z",
+    "filePath": ".agents/skills_library/docx-official/SKILL.md"
+  },
+  {
+    "owner": "cristian473",
+    "repo": "ps-landing-2",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-25T14:39:08Z",
+    "filePath": ".agents/skills/popup-cro/SKILL.md"
+  },
+  {
+    "owner": "ketzal88",
+    "repo": "gym-counter",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-04T01:23:58Z",
+    "filePath": ".agents/skills/popup-cro/SKILL.md"
+  },
+  {
+    "owner": "karyna1661",
+    "repo": "Audioform-",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T06:20:39Z",
+    "filePath": ".agents/skills/popup-cro/SKILL.md"
+  },
+  {
+    "owner": "Hans3010",
+    "repo": "Hanstec-Automate",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-01T19:21:06Z",
+    "filePath": ".agents/skills/popup-cro/SKILL.md"
+  },
+  {
+    "owner": "projectmiluju",
+    "repo": "cnrikorea_assignment",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T10:38:56Z",
+    "filePath": ".agents/skills/spec/SKILL.md"
+  },
+  {
+    "owner": "dcelorrio",
+    "repo": "debtdashborad",
+    "description": "debt_dashboard",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-30T10:57:18Z",
+    "filePath": ".agents/skills_library/angular-migration/SKILL.md"
   }
 ]
