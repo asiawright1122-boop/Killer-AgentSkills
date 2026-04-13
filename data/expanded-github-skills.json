@@ -20591,6 +20591,16 @@
     "filePath": ".claude/plugins/llm-application-dev/skills/prompt-engineering-patterns/SKILL.md"
   },
   {
+    "owner": "pjcau",
+    "repo": "esp32-emu-turbo",
+    "description": "Handheld retro gaming console based on ESP32-S3 for NES and SNES emulation",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T13:44:04Z",
+    "filePath": ".claude/skills/pcb-review/SKILL.md"
+  },
+  {
     "owner": "zenchantlive",
     "repo": "Asset-Hatch",
     "description": "AI-powered asset + game creation platform — Plan and generate 2D/3D assets, then build a playable Babylon.js game in Hatch Studios.",
@@ -22848,6 +22858,16 @@
     "topics": [],
     "updatedAt": "2026-04-10T18:07:06Z",
     "filePath": ".agents/skills/git-commit/SKILL.md"
+  },
+  {
+    "owner": "Sorcha-Platform",
+    "repo": "Sorcha",
+    "description": "Decentralized Secure Data Registers ",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T13:55:33Z",
+    "filePath": ".claude/skills/walkthrough-builder/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -29362,6 +29382,36 @@
     "filePath": ".agents/skills/gsd-new-project/SKILL.md"
   },
   {
+    "owner": "konabe",
+    "repo": "classical-music-lake",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T12:32:32Z",
+    "filePath": ".claude/skills/start-01-requirement/SKILL.md"
+  },
+  {
+    "owner": "forwardimpact",
+    "repo": "monorepo",
+    "description": "Applications that help teams grow and cultivate world-class engineers in the age of AI",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T22:36:17Z",
+    "filePath": ".claude/skills/fit-landmark/SKILL.md"
+  },
+  {
+    "owner": "ronniepinnell",
+    "repo": "benchsight",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T23:25:13Z",
+    "filePath": ".claude/skills/process-notes/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -31205,7 +31255,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T01:30:04Z",
+    "updatedAt": "2026-04-13T09:29:04Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -31335,7 +31385,7 @@
       "mqtt",
       "serverless"
     ],
-    "updatedAt": "2026-04-10T16:17:37Z",
+    "updatedAt": "2026-04-13T09:28:48Z",
     "filePath": ".claude/skills/deployment-aws-canary-setup/SKILL.md"
   },
   {
@@ -31917,7 +31967,7 @@
       "local-first",
       "task-management"
     ],
-    "updatedAt": "2026-04-09T06:27:24Z",
+    "updatedAt": "2026-04-13T07:03:47Z",
     "filePath": ".claude/skills/hs-investigation/SKILL.md"
   },
   {
@@ -33032,7 +33082,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-13T01:54:16Z",
+    "updatedAt": "2026-04-13T13:14:19Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -33466,7 +33516,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T14:53:51Z",
+    "updatedAt": "2026-04-13T13:55:11Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -33556,7 +33606,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T00:01:53Z",
+    "updatedAt": "2026-04-13T13:20:28Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -33673,7 +33723,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T00:33:33Z",
+    "updatedAt": "2026-04-13T13:15:05Z",
     "filePath": ".claude/skills/writing-react-effects/SKILL.md"
   },
   {
@@ -33753,7 +33803,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T23:05:23Z",
+    "updatedAt": "2026-04-13T13:07:25Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -34411,7 +34461,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-07T20:19:06Z",
+    "updatedAt": "2026-04-13T08:09:59Z",
     "filePath": ".claude/skills/sg-makefile/SKILL.md"
   },
   {
@@ -34856,7 +34906,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T19:37:50Z",
+    "updatedAt": "2026-04-13T09:29:26Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -34953,7 +35003,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T13:58:00Z",
+    "updatedAt": "2026-04-13T13:23:14Z",
     "filePath": ".claude/skills/ship/SKILL.md"
   },
   {
@@ -35106,7 +35156,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T13:09:54Z",
+    "updatedAt": "2026-04-13T07:12:06Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -35687,7 +35737,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T17:36:43Z",
+    "updatedAt": "2026-04-13T09:06:32Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -35727,7 +35777,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T02:49:19Z",
+    "updatedAt": "2026-04-13T13:42:52Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -35757,7 +35807,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T23:28:06Z",
+    "updatedAt": "2026-04-13T12:19:02Z",
     "filePath": ".claude/skills/frontend-responsive/SKILL.md"
   },
   {
@@ -35799,16 +35849,6 @@
     "topics": [],
     "updatedAt": "2026-04-01T19:13:12Z",
     "filePath": ".claude/skills/go-check/SKILL.md"
-  },
-  {
-    "owner": "davidlramirez95",
-    "repo": "towcommand",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-03-17T12:06:58Z",
-    "filePath": ".claude/skills/methodology/e2e-evidence-per-pr/SKILL.md"
   },
   {
     "owner": "EmaBilibili",
@@ -50931,5 +50971,145 @@
     "topics": [],
     "updatedAt": "2026-04-07T07:23:00Z",
     "filePath": ".agents/skills/angular-migration/SKILL.md"
+  },
+  {
+    "owner": "softmg",
+    "repo": "product-tracker",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T07:23:13Z",
+    "filePath": ".claude/skills/audit-workflow/SKILL.md"
+  },
+  {
+    "owner": "RavBogard",
+    "repo": "DAN",
+    "description": "My personal PAUL / CARL",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-29T17:21:46Z",
+    "filePath": ".claude/skills/dan-unify/SKILL.md"
+  },
+  {
+    "owner": "figulazmi",
+    "repo": "token-monitor",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T06:50:56Z",
+    "filePath": ".claude/skills/artifacts-builder/SKILL.md"
+  },
+  {
+    "owner": "korchasa",
+    "repo": "flowai-workflow",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:49:44Z",
+    "filePath": ".claude/skills/flowai-skill-manage-github-tickets/SKILL.md"
+  },
+  {
+    "owner": "korchasa",
+    "repo": "flowai-workflow",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:49:44Z",
+    "filePath": ".claude/skills/flowai-skill-setup-ai-ide-devcontainer/SKILL.md"
+  },
+  {
+    "owner": "NoriStock1983",
+    "repo": "vibeProjectManagement",
+    "description": "Claude Codeにプロジェクトマネジメントをさせる。実験",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-09T14:15:06Z",
+    "filePath": ".claude/skills/requirements/create-stakeholder-register/SKILL.md"
+  },
+  {
+    "owner": "fosejary",
+    "repo": "simple-todo",
+    "description": "simple-todo",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T07:43:21Z",
+    "filePath": ".claude/skills/feature-expansion/skill.md"
+  },
+  {
+    "owner": "ak110",
+    "repo": "pyfltr",
+    "description": "pyfltr: Python Formatters, Linters, and Testers Runner.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T14:05:33Z",
+    "filePath": ".claude/skills/pyfltr-add-tool/SKILL.md"
+  },
+  {
+    "owner": "rally19",
+    "repo": "goform",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T11:50:16Z",
+    "filePath": ".claude/skills/resend-cli/SKILL.md"
+  },
+  {
+    "owner": "Teeny-Cards",
+    "repo": "TaroFlash",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T04:32:51Z",
+    "filePath": ".claude/skills/update-docs/SKILL.md"
+  },
+  {
+    "owner": "ramybarsoum",
+    "repo": "RStack-V0",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T20:31:58Z",
+    "filePath": ".claude/skills/tech-design/SKILL.md"
+  },
+  {
+    "owner": "jsschrstrcks1",
+    "repo": "Romans",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T13:04:20Z",
+    "filePath": ".claude/skills/voice-audit/SKILL.md"
+  },
+  {
+    "owner": "iDako7",
+    "repo": "Smart_Grocery_Agent",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T06:32:30Z",
+    "filePath": ".claude/skills/tdd-workflow/SKILL.md"
+  },
+  {
+    "owner": "yoogoc",
+    "repo": "xclaw",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T01:13:00Z",
+    "filePath": ".claude/skills/rust-patterns/SKILL.md"
   }
 ]
