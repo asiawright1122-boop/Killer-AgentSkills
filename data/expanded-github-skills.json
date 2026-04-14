@@ -3323,6 +3323,22 @@
     "filePath": ".claude/skills/fix/SKILL.md"
   },
   {
+    "owner": "alamenai",
+    "repo": "terrae",
+    "description": "Composable and animated components that replace imperative layers with simple props. The perfect companion for shadcn/ui.",
+    "stars": 221,
+    "forks": 5,
+    "topics": [
+      "mapbox",
+      "mapbox-react",
+      "react-map-gl",
+      "react-mapbox-gl",
+      "shadcn-re"
+    ],
+    "updatedAt": "2026-04-12T21:30:16Z",
+    "filePath": ".claude/skills/pr/SKILL.md"
+  },
+  {
     "owner": "systeminit",
     "repo": "swamp",
     "description": "Stinemates, Watson, Adam, Mahir, Paul ",
@@ -29523,6 +29539,26 @@
     "filePath": ".claude/skills/committing-staged-with-message/SKILL.md"
   },
   {
+    "owner": "gaebalai",
+    "repo": "claude-code-kit-ko",
+    "description": "Claude Code용 한글 실무 스킬 킷트 (스킬 설계 · CI/CD · API · DB · 운영 · 팀 도입까지) 총 40가지 스킬 + Hooks, 템플릿입니다.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T05:01:27Z",
+    "filePath": ".claude/skills/deploy-script-review/SKILL.md"
+  },
+  {
+    "owner": "ayokura",
+    "repo": "kalimba-transcription",
+    "description": "Record kalimba audio and convert performances into multiple notation styles.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T13:54:08Z",
+    "filePath": ".claude/skills/score-alignment/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -31130,7 +31166,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-01T14:20:25Z",
+    "updatedAt": "2026-04-14T09:04:07Z",
     "filePath": ".claude/skills/start/SKILL.md"
   },
   {
@@ -31930,7 +31966,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-10T10:28:18Z",
+    "updatedAt": "2026-04-14T13:30:05Z",
     "filePath": ".claude/skills/fastapi-templates/SKILL.md"
   },
   {
@@ -32078,7 +32114,7 @@
       "local-first",
       "task-management"
     ],
-    "updatedAt": "2026-04-13T22:32:10Z",
+    "updatedAt": "2026-04-14T09:15:23Z",
     "filePath": ".claude/skills/hs-investigation/SKILL.md"
   },
   {
@@ -32736,7 +32772,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T00:43:16Z",
+    "updatedAt": "2026-04-14T05:35:24Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -32991,7 +33027,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T00:43:16Z",
+    "updatedAt": "2026-04-14T05:35:24Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -33193,7 +33229,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-14T01:08:24Z",
+    "updatedAt": "2026-04-14T13:09:58Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -33421,7 +33457,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T08:23:33Z",
+    "updatedAt": "2026-04-14T04:55:07Z",
     "filePath": ".claude/skills/claudecode/SKILL.md"
   },
   {
@@ -33607,7 +33643,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T20:07:48Z",
+    "updatedAt": "2026-04-14T10:57:24Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -33627,7 +33663,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T01:34:44Z",
+    "updatedAt": "2026-04-14T06:47:20Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -33808,16 +33844,6 @@
     "filePath": ".claude/skills/the-linter/SKILL.md"
   },
   {
-    "owner": "gaebalai",
-    "repo": "claude-code-kit-ko",
-    "description": "Claude Code용 한글 실무 스킬 킷트 (스킬 설계 · CI/CD · API · DB · 운영 · 팀 도입까지) 총 40가지 스킬 + Hooks, 템플릿입니다.",
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-02-25T03:09:18Z",
-    "filePath": ".claude/skills/deploy-script-review/SKILL.md"
-  },
-  {
     "owner": "Hoang604",
     "repo": "get-thing-done",
     "description": null,
@@ -33914,7 +33940,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T21:06:48Z",
+    "updatedAt": "2026-04-14T12:05:10Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -34722,7 +34748,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-18T14:54:38Z",
+    "updatedAt": "2026-04-14T06:46:22Z",
     "filePath": ".claude/skills/validate_paper_links/SKILL.md"
   },
   {
@@ -35017,7 +35043,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T23:19:38Z",
+    "updatedAt": "2026-04-14T08:27:54Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -35057,7 +35083,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T21:13:55Z",
+    "updatedAt": "2026-04-14T13:27:22Z",
     "filePath": ".claude/skills/nuxt-content/SKILL.md"
   },
   {
@@ -35267,7 +35293,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T01:53:57Z",
+    "updatedAt": "2026-04-14T12:48:53Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -35638,7 +35664,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T21:49:55Z",
+    "updatedAt": "2026-04-14T13:07:55Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -35848,7 +35874,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T19:48:22Z",
+    "updatedAt": "2026-04-14T07:18:45Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -35918,7 +35944,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T12:19:02Z",
+    "updatedAt": "2026-04-14T13:42:37Z",
     "filePath": ".claude/skills/frontend-responsive/SKILL.md"
   },
   {
@@ -35978,7 +36004,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-11T05:08:45Z",
+    "updatedAt": "2026-04-14T13:30:05Z",
     "filePath": ".claude/skills/nanobanana-ppt-skills/SKILL.md"
   },
   {
@@ -51316,5 +51342,142 @@
     "topics": [],
     "updatedAt": "2026-04-13T15:17:51Z",
     "filePath": ".claude/skills/n8n-validation-expert/SKILL.md"
+  },
+  {
+    "owner": "AlvaroLaraFF",
+    "repo": "strava-coach",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T18:15:57Z",
+    "filePath": ".claude/skills/personal-heatmap/SKILL.md"
+  },
+  {
+    "owner": "EndUser123",
+    "repo": "why",
+    "description": "Claude Code package: why",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T00:11:06Z",
+    "filePath": ".claude/skills/code-typescript/SKILL.md"
+  },
+  {
+    "owner": "cenmiao",
+    "repo": "openspec-pro",
+    "description": "OpenSpec-Pro with Superpowers integration - TDD, two-stage review, verification-before-completion",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-31T14:17:52Z",
+    "filePath": ".claude/skills/openspec-onboard/SKILL.md"
+  },
+  {
+    "owner": "malikkaraoui",
+    "repo": "claude-atelier",
+    "description": "Framework Claude Code : hooks d'enforcement, agents nommés (Steve, Isaac), Challenger, satellites par stack, mode nuit, permissions proactives. 11 rails / 16 règles. Zero dependency.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "ai-agent",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "cli",
+      "developer-tools",
+      "enforcement",
+      "hooks",
+      "llm",
+      "prompt-engineering"
+    ],
+    "updatedAt": "2026-04-14T13:46:34Z",
+    "filePath": ".claude/skills/integrate-review/SKILL.md"
+  },
+  {
+    "owner": "EndUser123",
+    "repo": "why",
+    "description": "Claude Code package: why",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T00:11:06Z",
+    "filePath": ".claude/skills/task-unresolved/SKILL.md"
+  },
+  {
+    "owner": "peintangos",
+    "repo": "langgraph-tutorial-ts",
+    "description": "LangGraph / LangSmith 進化系ハンズオンチュートリアル（TypeScript）",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T15:32:12Z",
+    "filePath": ".claude/skills/backport/SKILL.md"
+  },
+  {
+    "owner": "DatBeat",
+    "repo": "GIFMakerz",
+    "description": "GIF creation tool — create, edit and export animated GIFs",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T12:42:14Z",
+    "filePath": ".claude/skills/content/error-message-copy/SKILL.md"
+  },
+  {
+    "owner": "denid88",
+    "repo": "nopanic-ai",
+    "description": "No Panic Project which was written via Claude Code",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T05:24:33Z",
+    "filePath": ".claude/skills/grill-me/SKILL.md"
+  },
+  {
+    "owner": "RajAryanIITBHU",
+    "repo": "bny",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-13T20:24:45Z",
+    "filePath": ".claude/skills/clerk-vue-patterns/SKILL.md"
+  },
+  {
+    "owner": "Norfolk-Group",
+    "repo": "H-Analytics",
+    "description": "H+ Analytics",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "boutique-hotel",
+      "estate",
+      "hospitality",
+      "investment",
+      "real"
+    ],
+    "updatedAt": "2026-04-14T13:48:47Z",
+    "filePath": ".claude/archive/agents-skills-snapshot/database/SKILL.md"
+  },
+  {
+    "owner": "0dot77",
+    "repo": "lecture-kit",
+    "description": "Interactive web-based lecture material platform for media art education",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T07:56:30Z",
+    "filePath": ".claude/skills/lecture-slides/SKILL.md"
+  },
+  {
+    "owner": "artosetrov",
+    "repo": "iron-fist-arena-backend",
+    "description": "iron-fist-arena-backend",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T13:45:13Z",
+    "filePath": ".claude/skills/remove-background/SKILL.md"
   }
 ]
