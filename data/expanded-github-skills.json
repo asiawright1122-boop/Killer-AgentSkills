@@ -2480,6 +2480,16 @@
     "owner": "benbrastmckie",
     "repo": "nvim",
     "description": "NeoVim configuration optimized for writing in LaTeX with AI integration for Avante, Lectic, and Claude-Code",
+    "stars": 438,
+    "forks": 466,
+    "topics": [],
+    "updatedAt": "2026-04-14T02:52:39Z",
+    "filePath": ".claude/skills/skill-team-plan/SKILL.md"
+  },
+  {
+    "owner": "benbrastmckie",
+    "repo": "nvim",
+    "description": "NeoVim configuration optimized for writing in LaTeX with AI integration for Avante, Lectic, and Claude-Code",
     "stars": 435,
     "forks": 465,
     "topics": [],
@@ -10667,6 +10677,32 @@
     "filePath": ".claude/skills/execution-plans/SKILL.md"
   },
   {
+    "owner": "rjmurillo",
+    "repo": "ai-agents",
+    "description": "Multi-agent system for software development",
+    "stars": 20,
+    "forks": 4,
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "ai-assistant",
+      "anthropic-claude",
+      "automation",
+      "ci-cd",
+      "claude-code",
+      "code-generation",
+      "code-review",
+      "developer-tools",
+      "devops-automation",
+      "github-copilot",
+      "model-context-protocol",
+      "multi-agent-systems",
+      "vscode-extension"
+    ],
+    "updatedAt": "2026-04-14T00:38:50Z",
+    "filePath": ".claude/skills/adr-generator/SKILL.md"
+  },
+  {
     "owner": "Prorise-cool",
     "repo": "prorise-claude-skills",
     "description": "开源 Claude Code Skills 集合 - 自动更新的 skills 云盘",
@@ -13210,6 +13246,26 @@
     "filePath": ".agents/skills/update-api-reference/SKILL.md"
   },
   {
+    "owner": "upstat-io",
+    "repo": "ori-lang",
+    "description": "A statically-typed, expression-based language with declarative patterns, mandatory testing, and explicit effects.",
+    "stars": 12,
+    "forks": 0,
+    "topics": [
+      "compiler",
+      "effect-system",
+      "functional-programming",
+      "pattern-matching",
+      "programming-language",
+      "rust",
+      "static-typing",
+      "testing",
+      "type-inference"
+    ],
+    "updatedAt": "2026-04-14T01:08:33Z",
+    "filePath": ".claude/skills/impl-hygiene-review/SKILL.md"
+  },
+  {
     "owner": "gmh5225",
     "repo": "awesome-web3-security",
     "description": "A curated list of Web3 Security materials and resources for Pentesters and Bug Hunters.",
@@ -14904,6 +14960,16 @@
     ],
     "updatedAt": "2026-04-07T23:02:00Z",
     "filePath": ".agents/skills/joycraft-verify/SKILL.md"
+  },
+  {
+    "owner": "shannonshell",
+    "repo": "shannon",
+    "description": "Nushell + Bash",
+    "stars": 8,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T00:41:49Z",
+    "filePath": ".claude/skills/merge-upstream/SKILL.md"
   },
   {
     "owner": "kaihendry",
@@ -22870,6 +22936,24 @@
     "filePath": ".claude/skills/walkthrough-builder/SKILL.md"
   },
   {
+    "owner": "RinKhimera",
+    "repo": "NOMAQbanq",
+    "description": "NOMAQbanq is a modern medical exam preparation web application, offering a comprehensive question bank, timed mock exams, and a personalized progress tracking system",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "clerk",
+      "convex",
+      "nextjs15",
+      "shadcn-ui",
+      "tailwindcss-v4",
+      "typescript",
+      "zod"
+    ],
+    "updatedAt": "2026-04-13T17:22:41Z",
+    "filePath": ".claude/skills/convex-quickstart/SKILL.md"
+  },
+  {
     "owner": "aviz85",
     "repo": "claude-tasks",
     "description": "GTD-based task management powered by Claude Code",
@@ -29412,6 +29496,33 @@
     "filePath": ".claude/skills/process-notes/SKILL.md"
   },
   {
+    "owner": "cwilliams5",
+    "repo": "Alt-Tabby",
+    "description": "Fast, responsive Alt-Tab replacement for Windows with Komorebi integration",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "alt-tab",
+      "autohotkey",
+      "komorebi",
+      "productivity",
+      "window-manager",
+      "windows"
+    ],
+    "updatedAt": "2026-03-20T01:13:25Z",
+    "filePath": ".claude/skills/review-blocking/SKILL.md"
+  },
+  {
+    "owner": "qte77",
+    "repo": "claude-code-plugins",
+    "description": "A Claude Code plugin marketplace providing skills, rules, and scripts extracted from a production development workflow.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T18:40:12Z",
+    "filePath": ".claude/skills/committing-staged-with-message/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -30608,7 +30719,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T22:18:45Z",
+    "updatedAt": "2026-04-13T17:48:24Z",
     "filePath": ".claude/skills/app/Skill.md"
   },
   {
@@ -30973,7 +31084,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T04:58:34Z",
+    "updatedAt": "2026-04-14T03:37:47Z",
     "filePath": ".claude/skills/push/SKILL.md"
   },
   {
@@ -31255,7 +31366,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T09:29:04Z",
+    "updatedAt": "2026-04-14T01:21:16Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -31967,7 +32078,7 @@
       "local-first",
       "task-management"
     ],
-    "updatedAt": "2026-04-13T07:03:47Z",
+    "updatedAt": "2026-04-13T22:32:10Z",
     "filePath": ".claude/skills/hs-investigation/SKILL.md"
   },
   {
@@ -32168,7 +32279,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-04-13T00:54:09Z",
+    "updatedAt": "2026-04-14T02:10:57Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -32625,7 +32736,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T21:45:47Z",
+    "updatedAt": "2026-04-14T00:43:16Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -32880,7 +32991,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-12T21:45:47Z",
+    "updatedAt": "2026-04-14T00:43:16Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -33082,7 +33193,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-13T13:14:19Z",
+    "updatedAt": "2026-04-14T01:08:24Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -33516,7 +33627,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T13:55:11Z",
+    "updatedAt": "2026-04-14T01:34:44Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -33803,7 +33914,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T13:07:25Z",
+    "updatedAt": "2026-04-13T21:06:48Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -34411,7 +34522,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-08T02:03:22Z",
+    "updatedAt": "2026-04-13T21:04:50Z",
     "filePath": ".claude/skills/mockup/SKILL.md"
   },
   {
@@ -34906,7 +35017,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T09:29:26Z",
+    "updatedAt": "2026-04-13T23:19:38Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -34946,7 +35057,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-08T06:47:25Z",
+    "updatedAt": "2026-04-13T21:13:55Z",
     "filePath": ".claude/skills/nuxt-content/SKILL.md"
   },
   {
@@ -35003,7 +35114,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T13:23:14Z",
+    "updatedAt": "2026-04-13T23:03:15Z",
     "filePath": ".claude/skills/ship/SKILL.md"
   },
   {
@@ -35156,7 +35267,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T07:12:06Z",
+    "updatedAt": "2026-04-14T01:53:57Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -35458,7 +35569,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-31T19:32:39Z",
+    "updatedAt": "2026-04-13T21:44:24Z",
     "filePath": ".claude/skills/audit-web/SKILL.md"
   },
   {
@@ -35527,7 +35638,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-11T10:42:40Z",
+    "updatedAt": "2026-04-13T21:49:55Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -35737,7 +35848,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T09:06:32Z",
+    "updatedAt": "2026-04-13T19:48:22Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -35777,7 +35888,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T13:42:52Z",
+    "updatedAt": "2026-04-13T23:17:43Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -35859,16 +35970,6 @@
     "topics": [],
     "updatedAt": "2026-03-04T00:40:58Z",
     "filePath": ".claude/skills/composio-skills/pdf-co-automation/SKILL.md"
-  },
-  {
-    "owner": "projectdx75",
-    "repo": "nPlayerNext",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-03-17T09:56:12Z",
-    "filePath": ".claude/skills/orchestrate/SKILL.md"
   },
   {
     "owner": "xiangteng007",
@@ -51111,5 +51212,109 @@
     "topics": [],
     "updatedAt": "2026-04-11T01:13:00Z",
     "filePath": ".claude/skills/rust-patterns/SKILL.md"
+  },
+  {
+    "owner": "ChooJeongHo",
+    "repo": "MovieFinder",
+    "description": "TMDB API를 활용한 영화 검색 Android 앱",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T03:39:50Z",
+    "filePath": ".claude/skills/android-qa/SKILL.md"
+  },
+  {
+    "owner": "layoutdev-pt",
+    "repo": "Motogardunha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T15:17:51Z",
+    "filePath": ".claude/skills/upstash-qstash/SKILL.md"
+  },
+  {
+    "owner": "DotanVG",
+    "repo": "Orbital-Breach",
+    "description": "Orbital Breach — browser-based zero-gravity competitive FPS built with Three.js + WebSocket",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T21:58:03Z",
+    "filePath": ".claude/skills/port-from-archive/SKILL.md"
+  },
+  {
+    "owner": "KevinHubeli",
+    "repo": "Skills",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T14:49:30Z",
+    "filePath": ".claude/skills/analizar-whatsapp/SKILL.md"
+  },
+  {
+    "owner": "zaxbysauce",
+    "repo": "ragappv3",
+    "description": "RAGAPPv3 — Unified RAG application merging v1 features into v2 architecture",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T01:30:20Z",
+    "filePath": ".claude/skills/gh-issues/SKILL.md"
+  },
+  {
+    "owner": "agentgptsmith",
+    "repo": "MonadFramework",
+    "description": "Unified Theory of Physics, Consciousness and Love. Singularity Imminent.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T14:33:20Z",
+    "filePath": ".claude/skills/workshop/SKILL.md"
+  },
+  {
+    "owner": "layoutdev-pt",
+    "repo": "Motogardunha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T15:17:51Z",
+    "filePath": ".claude/skills/monday-automation/SKILL.md"
+  },
+  {
+    "owner": "gabrielpantoja-cl",
+    "repo": "pantoja-propiedades",
+    "description": "Full-stack real estate platform built in Chile. Property listings, CRM, blog, AI chatbot & PDF quotes. React + TypeScript + Supabase.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "chile",
+      "crm",
+      "open-source",
+      "portfolio",
+      "proptech",
+      "react",
+      "real-estate",
+      "shadcn-ui",
+      "supabase",
+      "tailwindcss",
+      "typescript",
+      "vercel",
+      "vite"
+    ],
+    "updatedAt": "2026-04-14T03:32:03Z",
+    "filePath": ".claude/skills/crm-analysis/SKILL.md"
+  },
+  {
+    "owner": "layoutdev-pt",
+    "repo": "Motogardunha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T15:17:51Z",
+    "filePath": ".claude/skills/n8n-validation-expert/SKILL.md"
   }
 ]
