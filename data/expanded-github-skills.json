@@ -4167,6 +4167,33 @@
     "owner": "JetBrains",
     "repo": "youtrackdb",
     "description": "YouTrackDB is a general-use object-oriented graph database with storage format native to handle graph relations. YouTrackDB supports Gremlin queries and ACID transactions.",
+    "stars": 135,
+    "forks": 8,
+    "topics": [
+      "acid",
+      "dbms",
+      "dbms-project",
+      "graph-database",
+      "graph-databases",
+      "graphdatabase",
+      "gremlin",
+      "gremlin-api",
+      "gremlin-server",
+      "nosql",
+      "nosql-data-storage",
+      "nosql-database",
+      "nosql-databases",
+      "object-database",
+      "object-oriented-database",
+      "youtrackdb"
+    ],
+    "updatedAt": "2026-04-14T18:21:27Z",
+    "filePath": ".claude/skills/profile-query-bottleneck/SKILL.md"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "youtrackdb",
+    "description": "YouTrackDB is a general-use object-oriented graph database with storage format native to handle graph relations. YouTrackDB supports Gremlin queries and ACID transactions.",
     "stars": 134,
     "forks": 9,
     "topics": [
@@ -17741,6 +17768,16 @@
     "filePath": ".agents/skills/task-specification-creator/SKILL.md"
   },
   {
+    "owner": "brujack",
+    "repo": "dotfiles",
+    "description": null,
+    "stars": 5,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-15T00:27:07Z",
+    "filePath": ".claude/skills/pr-review/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -19100,6 +19137,32 @@
     "topics": [],
     "updatedAt": "2026-04-07T23:48:15Z",
     "filePath": ".agents/skills/copilot-instructions-blueprint-generator/SKILL.md"
+  },
+  {
+    "owner": "kengio",
+    "repo": "onebrain",
+    "description": "Your personal AI OS — memory that learns and evolves with you, 24+ skills, and a full local stack for Claude Code, Gemini CLI, or any AI agent. Built on Obsidian + plain Markdown.",
+    "stars": 4,
+    "forks": 0,
+    "topics": [
+      "ai-agent",
+      "ai-os",
+      "claude-code",
+      "gemini-cli",
+      "knowledge-base",
+      "local-first",
+      "markdown",
+      "memory",
+      "note-taking",
+      "obsidian",
+      "personal-ai",
+      "personal-knowledge-management",
+      "pkm",
+      "productivity",
+      "second-brain"
+    ],
+    "updatedAt": "2026-04-15T03:03:40Z",
+    "filePath": ".claude/plugins/onebrain/skills/distill/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -29559,6 +29622,26 @@
     "filePath": ".claude/skills/score-alignment/SKILL.md"
   },
   {
+    "owner": "Deland78",
+    "repo": "Claude-Writing-Skills",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T22:15:27Z",
+    "filePath": ".claude/skills/act-outline/SKILL.md"
+  },
+  {
+    "owner": "pnils08",
+    "repo": "GodWorld",
+    "description": "World Simulation ",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T03:35:34Z",
+    "filePath": ".claude/skills/write-supplemental/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -30755,7 +30838,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T17:48:24Z",
+    "updatedAt": "2026-04-14T21:10:43Z",
     "filePath": ".claude/skills/app/Skill.md"
   },
   {
@@ -30932,7 +31015,7 @@
     "repo": "lee-meadows-saas",
     "description": "Professional cryptocurrency investment platform for Lee Meadows - BG Wealth Sharing Investment Group Partner. Next.js 15, TypeScript, Tailwind CSS, live crypto prices, comprehensive legal compliance.",
     "stars": 0,
-    "forks": 0,
+    "forks": 1,
     "topics": [],
     "updatedAt": "2026-01-09T04:56:45Z",
     "filePath": ".claude/skills/accessibility-specialist/skill.md"
@@ -31090,7 +31173,7 @@
       "github-settings",
       "governance"
     ],
-    "updatedAt": "2026-04-06T04:05:03Z",
+    "updatedAt": "2026-04-14T20:16:42Z",
     "filePath": ".claude/skills/exclude-repo/SKILL.md"
   },
   {
@@ -31334,16 +31417,6 @@
     "topics": [],
     "updatedAt": "2026-02-06T15:19:11Z",
     "filePath": ".claude/skills/react-email/SKILL.md"
-  },
-  {
-    "owner": "Deland78",
-    "repo": "Claude-Writing-Skills",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-02-15T05:04:30Z",
-    "filePath": ".claude/skills/act-outline/SKILL.md"
   },
   {
     "owner": "JoernStoehler",
@@ -32114,7 +32187,7 @@
       "local-first",
       "task-management"
     ],
-    "updatedAt": "2026-04-14T09:15:23Z",
+    "updatedAt": "2026-04-15T02:38:06Z",
     "filePath": ".claude/skills/hs-investigation/SKILL.md"
   },
   {
@@ -32315,7 +32388,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-04-14T02:10:57Z",
+    "updatedAt": "2026-04-14T23:09:20Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -32435,7 +32508,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-08T13:09:01Z",
+    "updatedAt": "2026-04-14T22:44:30Z",
     "filePath": ".claude/skills/run/SKILL.md"
   },
   {
@@ -33133,7 +33206,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-08T22:28:14Z",
+    "updatedAt": "2026-04-15T00:46:21Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -33229,7 +33302,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-14T13:09:58Z",
+    "updatedAt": "2026-04-15T01:06:41Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -33457,7 +33530,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T04:55:07Z",
+    "updatedAt": "2026-04-14T16:41:33Z",
     "filePath": ".claude/skills/claudecode/SKILL.md"
   },
   {
@@ -33643,7 +33716,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T10:57:24Z",
+    "updatedAt": "2026-04-15T00:56:31Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -33753,7 +33826,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T13:20:28Z",
+    "updatedAt": "2026-04-14T23:27:06Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -34548,7 +34621,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T21:04:50Z",
+    "updatedAt": "2026-04-15T02:51:37Z",
     "filePath": ".claude/skills/mockup/SKILL.md"
   },
   {
@@ -34608,7 +34681,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-30T04:28:43Z",
+    "updatedAt": "2026-04-14T23:37:00Z",
     "filePath": ".claude/skills/new-release/SKILL.md"
   },
   {
@@ -34808,7 +34881,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-17T18:03:23Z",
+    "updatedAt": "2026-04-14T15:19:53Z",
     "filePath": ".claude/skills/vite/SKILL.md"
   },
   {
@@ -35073,7 +35146,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-10T23:26:34Z",
+    "updatedAt": "2026-04-14T14:48:27Z",
     "filePath": ".claude/skills/buf-regen/SKILL.md"
   },
   {
@@ -35140,7 +35213,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T23:03:15Z",
+    "updatedAt": "2026-04-14T16:32:48Z",
     "filePath": ".claude/skills/ship/SKILL.md"
   },
   {
@@ -35193,7 +35266,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-28T09:50:07Z",
+    "updatedAt": "2026-04-14T22:09:20Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -35223,7 +35296,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-11T21:46:33Z",
+    "updatedAt": "2026-04-15T01:15:38Z",
     "filePath": ".claude/skills/swayimg/SKILL.md"
   },
   {
@@ -35273,7 +35346,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-09T15:25:10Z",
+    "updatedAt": "2026-04-15T01:01:15Z",
     "filePath": ".claude/skills/worktree/SKILL.md"
   },
   {
@@ -35293,7 +35366,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T12:48:53Z",
+    "updatedAt": "2026-04-14T14:56:02Z",
     "filePath": ".claude/skills/save-note/SKILL.md"
   },
   {
@@ -35313,7 +35386,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-11T21:46:33Z",
+    "updatedAt": "2026-04-15T01:15:38Z",
     "filePath": ".claude/skills/eww-widgets/SKILL.md"
   },
   {
@@ -35535,7 +35608,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-01-22T00:25:48Z",
+    "updatedAt": "2026-04-14T16:05:33Z",
     "filePath": ".claude/skills/rspress-frontmatter/SKILL.md"
   },
   {
@@ -35664,7 +35737,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T13:07:55Z",
+    "updatedAt": "2026-04-14T16:13:37Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -35874,7 +35947,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-14T07:18:45Z",
+    "updatedAt": "2026-04-14T21:00:50Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -35914,7 +35987,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-13T23:17:43Z",
+    "updatedAt": "2026-04-14T15:22:11Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -51479,5 +51552,45 @@
     "topics": [],
     "updatedAt": "2026-04-14T13:45:13Z",
     "filePath": ".claude/skills/remove-background/SKILL.md"
+  },
+  {
+    "owner": "RahmanBhuiyan",
+    "repo": "monthly-budget-planning-rd",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-14T15:06:32Z",
+    "filePath": ".claude/skills/done/SKILL.md"
+  },
+  {
+    "owner": "fontesmidias",
+    "repo": "gestao-ferias",
+    "description": "Sistema de Gestão de Férias",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T03:29:37Z",
+    "filePath": ".claude/skills/evo-help/SKILL.md"
+  },
+  {
+    "owner": "jasona",
+    "repo": "ai-tools",
+    "description": "The various tools that I use for successfully running AI projects.",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-14T23:49:54Z",
+    "filePath": ".claude/skills/tasks/SKILL.md"
+  },
+  {
+    "owner": "layoutdev-pt",
+    "repo": "Motogardunha",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T15:17:51Z",
+    "filePath": ".claude/skills/semgrep-rule-creator/SKILL.md"
   }
 ]
