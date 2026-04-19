@@ -1370,6 +1370,36 @@
     "filePath": ".claude/skills/l-pr/SKILL.md"
   },
   {
+    "owner": "calesthio",
+    "repo": "OpenMontage",
+    "description": "World's first open-source, agentic video production system. 12 pipelines, 52 tools, 500+ agent skills. Turn your AI coding assistant into a full video production studio.",
+    "stars": 2663,
+    "forks": 497,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "ai",
+      "claude",
+      "copilot",
+      "cursor",
+      "elevenlabs",
+      "ffmpeg",
+      "flux",
+      "image-generation",
+      "open-source",
+      "openai",
+      "python",
+      "remotion",
+      "stable-diffusion",
+      "text-to-speech",
+      "text-to-video",
+      "video-generation",
+      "video-production"
+    ],
+    "updatedAt": "2026-04-19T03:45:44Z",
+    "filePath": ".agents/skills/hyperframes-registry/SKILL.md"
+  },
+  {
     "owner": "kagent-dev",
     "repo": "kagent",
     "description": "Cloud Native Agentic AI | Discord: https://bit.ly/kagentdiscord",
@@ -4458,6 +4488,37 @@
     "filePath": ".codex/skills/peky/SKILL.md"
   },
   {
+    "owner": "devantler-tech",
+    "repo": "ksail",
+    "description": "All-in-one Kubernetes SDK: create, manage, and operate clusters across distributions (Kind, K3d, Talos, VCluster) with built-in GitOps, secrets, AI assistant, and MCP server. Only requires Docker.",
+    "stars": 143,
+    "forks": 8,
+    "topics": [
+      "argocd",
+      "chat",
+      "cli",
+      "cloud-native",
+      "developer-tool",
+      "devops",
+      "docker",
+      "flux",
+      "github-copilot",
+      "gitops",
+      "helm",
+      "k3s",
+      "kind",
+      "kubernetes",
+      "local-development",
+      "mcp-server",
+      "provisioner",
+      "talos",
+      "tui",
+      "vcluster"
+    ],
+    "updatedAt": "2026-04-19T01:35:32Z",
+    "filePath": ".agents/skills/copilot-sdk/SKILL.md"
+  },
+  {
     "owner": "tractorjuice",
     "repo": "arc-kit",
     "description": "Enterprise Architecture Governance & Vendor Procurement Toolkit",
@@ -4896,6 +4957,35 @@
     ],
     "updatedAt": "2026-04-02T08:19:57Z",
     "filePath": ".claude/skills/md2docx/SKILL.md"
+  },
+  {
+    "owner": "jmagly",
+    "repo": "aiwg",
+    "description": "Cognitive architecture for AI-augmented software development. Specialized agents, structured workflows, and multi-platform deployment. Claude Code · Codex · Copilot · Cursor · Factory · Warp · Windsurf.",
+    "stars": 119,
+    "forks": 16,
+    "topics": [
+      "agentic-coding",
+      "ai-framework",
+      "anthropic",
+      "autonomous-agents",
+      "claude-code",
+      "codex",
+      "copilot",
+      "cursor",
+      "developer-tools",
+      "fine-tuning",
+      "multi-agent",
+      "multi-platform",
+      "orchestration",
+      "prompt-engineering",
+      "sdlc",
+      "training-data",
+      "warp",
+      "workflow-automation"
+    ],
+    "updatedAt": "2026-04-18T21:31:26Z",
+    "filePath": ".agents/skills/supply-chain-forensics/SKILL.md"
   },
   {
     "owner": "bartstc",
@@ -5806,6 +5896,16 @@
     "topics": [],
     "updatedAt": "2026-04-04T00:56:44Z",
     "filePath": ".agents/skills/github-issue-dedupe/SKILL.md"
+  },
+  {
+    "owner": "catlog22",
+    "repo": "Maestro-Flow",
+    "description": "Workflow orchestration CLI with MCP endpoint support and multi-agent dashboard",
+    "stars": 88,
+    "forks": 12,
+    "topics": [],
+    "updatedAt": "2026-04-18T15:34:55Z",
+    "filePath": ".codex/skills/maestro-coordinate/SKILL.md"
   },
   {
     "owner": "petenelson",
@@ -11191,6 +11291,22 @@
     "filePath": ".claude/SKILL.md"
   },
   {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 22,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-04-18T19:20:12Z",
+    "filePath": ".codex/skills/animate/SKILL.md"
+  },
+  {
     "owner": "intent-integrity-chain",
     "repo": "kit",
     "description": "Intent Integrity Kit - Closing the intent-to-code chasm",
@@ -13243,6 +13359,27 @@
     ],
     "updatedAt": "2026-04-07T19:50:50Z",
     "filePath": ".agents/skills/ralph/SKILL.md"
+  },
+  {
+    "owner": "loveSunning",
+    "repo": "FastCuda",
+    "description": "FastCuda is a handwritten CUDA operator library featuring progressive GEMM and Reduce kernels, cuBLAS benchmarking, and C/C++/Python interfaces for learning, profiling, and performance optimization.",
+    "stars": 15,
+    "forks": 0,
+    "topics": [
+      "cudac",
+      "flash-attention",
+      "hgemm",
+      "reduce",
+      "sgemm",
+      "sgemv",
+      "spmm",
+      "spmv",
+      "tensor-core",
+      "wmma"
+    ],
+    "updatedAt": "2026-03-19T00:25:56Z",
+    "filePath": ".codex/skills/cuda-env-audit/SKILL.md"
   },
   {
     "owner": "WayfinderFoundation",
@@ -15927,6 +16064,20 @@
     "filePath": ".codex/vendor_imports/skills/skills/.curated/security-ownership-map/SKILL.md"
   },
   {
+    "owner": "liliang-cn",
+    "repo": "TactileCSS",
+    "description": "A minimal neumorphic CSS library with outer, inner, and clay shadow styles. Physical material themes included.",
+    "stars": 9,
+    "forks": 0,
+    "topics": [
+      "neumorphic-design",
+      "neumorphic-ui",
+      "ui"
+    ],
+    "updatedAt": "2026-03-17T02:33:32Z",
+    "filePath": ".codex/skills/tactile-component-library/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -16493,6 +16644,18 @@
     ],
     "updatedAt": "2026-04-15T02:28:50Z",
     "filePath": ".agents/skills/next-session-handoff/SKILL.md"
+  },
+  {
+    "owner": "hmcts",
+    "repo": "opal-frontend",
+    "description": null,
+    "stars": 8,
+    "forks": 1,
+    "topics": [
+      "jenkins-sds"
+    ],
+    "updatedAt": "2026-04-17T17:43:17Z",
+    "filePath": ".codex/skills/opal-frontend/opal-vitest-guard/SKILL.md"
   },
   {
     "owner": "kaihendry",
@@ -18547,6 +18710,16 @@
     "topics": [],
     "updatedAt": "2026-03-19T19:45:11Z",
     "filePath": ".codex/skills/world42-shadow-mapping/SKILL.md"
+  },
+  {
+    "owner": "bpodwinski",
+    "repo": "World42",
+    "description": "WebGL2 project, Quadtree LOD real scale Planet built with Babylon.js",
+    "stars": 6,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-19T19:45:11Z",
+    "filePath": ".codex/skills/world42-origin-camera/SKILL.md"
   },
   {
     "owner": "troydai",
@@ -21222,6 +21395,22 @@
     "filePath": ".codex/skills/application-advisor/SKILL.md"
   },
   {
+    "owner": "EvilBit-Labs",
+    "repo": "DaemonEye",
+    "description": "Continuous monitoring; instant alerts.",
+    "stars": 4,
+    "forks": 0,
+    "topics": [
+      "cybersecurity",
+      "detection",
+      "monitoring-tool",
+      "processes",
+      "security"
+    ],
+    "updatedAt": "2026-04-18T18:59:49Z",
+    "filePath": ".claude/skills/rust-testing/SKILL.md"
+  },
+  {
     "owner": "turbot",
     "repo": "guardrails-docs",
     "description": "Turbot Guardrails documentation content in markdown format.",
@@ -22977,6 +23166,16 @@
     "topics": [],
     "updatedAt": "2026-04-16T07:22:54Z",
     "filePath": ".agents/skills/excalidraw-diagram/SKILL.md"
+  },
+  {
+    "owner": "chrisfrantz",
+    "repo": "nanoclaw",
+    "description": "codex it",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T11:16:23Z",
+    "filePath": ".codex/skills/convert-to-docker/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -25577,6 +25776,86 @@
     "topics": [],
     "updatedAt": "2026-04-18T10:27:51Z",
     "filePath": ".agents/skills/m365-agents-dotnet/SKILL.md"
+  },
+  {
+    "owner": "bwadecodes",
+    "repo": "bracketmadness-skills",
+    "description": "Claude Code & Codex skills for competing in the AI Agent Bracket Challenge at bracketmadness.ai",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-19T16:35:16Z",
+    "filePath": ".codex/skills/bracketmadness/SKILL.md"
+  },
+  {
+    "owner": "Ahmed-chouaya",
+    "repo": "algomath",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:31:45Z",
+    "filePath": ".codex/skills/gsd-quick/SKILL.md"
+  },
+  {
+    "owner": "ijindal1",
+    "repo": "jaunt",
+    "description": "jaunt, dont code.",
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-06T08:42:25Z",
+    "filePath": ".codex/skills/openai-gpt5-prompting/SKILL.md"
+  },
+  {
+    "owner": "Ahmed-chouaya",
+    "repo": "algomath",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:31:45Z",
+    "filePath": ".codex/skills/gsd-add-phase/SKILL.md"
+  },
+  {
+    "owner": "Ahmed-chouaya",
+    "repo": "algomath",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:31:45Z",
+    "filePath": ".codex/skills/gsd-pause-work/SKILL.md"
+  },
+  {
+    "owner": "solana-foundation",
+    "repo": "conf-speakers",
+    "description": null,
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-17T22:02:05Z",
+    "filePath": ".codex/skills/airtable-event-onboarding/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "Synaxis",
+    "description": null,
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-17T14:40:38Z",
+    "filePath": ".codex/skills/dotnet-middleware-patterns/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "Synaxis",
+    "description": null,
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-17T14:40:38Z",
+    "filePath": ".codex/skills/dotnet-container-deployment/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -33049,6 +33328,242 @@
     "filePath": ".agents/skills/speckit-implement/SKILL.md"
   },
   {
+    "owner": "brianwestphal",
+    "repo": "hotsheet",
+    "description": "A local, single user ticket management system, especially for working with AI tools",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "agentic-coding",
+      "ai-coding",
+      "claude-code",
+      "cli",
+      "developer-tools",
+      "local-first",
+      "task-management"
+    ],
+    "updatedAt": "2026-04-19T01:30:46Z",
+    "filePath": ".claude/skills/hs-investigation/SKILL.md"
+  },
+  {
+    "owner": "lowcodejsorg",
+    "repo": "lowcodejs",
+    "description": null,
+    "stars": 1,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-04-17T03:09:37Z",
+    "filePath": ".claude/skills/maiyu-sh/frontend-filter/SKILL.md"
+  },
+  {
+    "owner": "davidianstyle",
+    "repo": "openbrain-template",
+    "description": "Portable template for a personal AI Chief of Staff built on an Obsidian LYT vault and Claude Code. One-script setup wires multi-account Gmail, Calendar, Drive, Slack, Asana, and Fathom MCPs, plus 21 Chief of Staff skills.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T20:47:25Z",
+    "filePath": ".claude/skills/genericize/SKILL.md"
+  },
+  {
+    "owner": "jackey8616",
+    "repo": "my-claw",
+    "description": null,
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-19T03:29:51Z",
+    "filePath": ".claude/skills/weekly-ingest/SKILL.md"
+  },
+  {
+    "owner": "Arshgill01",
+    "repo": "Discharge-Gatekeeper",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T22:11:49Z",
+    "filePath": ".codex/skills/eval-and-trace-designer/SKILL.md"
+  },
+  {
+    "owner": "alexhouse-ua",
+    "repo": "BookHelper",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T21:49:58Z",
+    "filePath": ".codex/skills/gsd-code-review/SKILL.md"
+  },
+  {
+    "owner": "bitsocialnet",
+    "repo": "bitsocial-web",
+    "description": "Official Bitsocial website: intro, docs, apps explorer, and future flagship client",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "bitsocial",
+      "bso",
+      "dapps",
+      "decentralized-application",
+      "decentralized-social",
+      "docs",
+      "grafana-dashboard",
+      "landing-page",
+      "p2p-network",
+      "p2p-social"
+    ],
+    "updatedAt": "2026-04-18T07:56:12Z",
+    "filePath": ".codex/skills/readme/SKILL.md"
+  },
+  {
+    "owner": "pinkpixel-dev",
+    "repo": "sorbet",
+    "description": "A desktop terminal workspace with draggable terminal cards, PTY-backed shells, themes, and persistent layouts.",
+    "stars": 1,
+    "forks": 1,
+    "topics": [
+      "developer-tools",
+      "electron",
+      "linux",
+      "node-pty",
+      "open-source",
+      "productivity",
+      "react",
+      "terminal",
+      "terminal-emulator",
+      "tiling",
+      "tiling-window-manager",
+      "typescript",
+      "windows",
+      "workspace",
+      "xterm",
+      "xtermjs"
+    ],
+    "updatedAt": "2026-03-31T07:40:33Z",
+    "filePath": ".codex/skills/technical-writer/SKILL.md"
+  },
+  {
+    "owner": "thiago-ss",
+    "repo": "jazz-bot",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T23:07:38Z",
+    "filePath": ".codex/skills/mini-rpi/SKILL.md"
+  },
+  {
+    "owner": "yuiseki",
+    "repo": "ai-secretary",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T03:28:38Z",
+    "filePath": ".codex/skills/heartbeat/SKILL.md"
+  },
+  {
+    "owner": "SeoulMomentTech",
+    "repo": "seoul-moment-fe",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T13:15:47Z",
+    "filePath": ".codex/skills/commit-helper/SKILL.md"
+  },
+  {
+    "owner": "rdfitted",
+    "repo": "Claude-Code-Setup",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-02T00:09:57Z",
+    "filePath": ".codex/skills/validate-issue/SKILL.md"
+  },
+  {
+    "owner": "future3OOO",
+    "repo": "agentic-cockpit",
+    "description": "Fapple codex",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-31T07:45:09Z",
+    "filePath": ".codex/skills/cockpit-continuity-ledger/SKILL.md"
+  },
+  {
+    "owner": "scaixeta",
+    "repo": "CindyAgent",
+    "description": "Cindy OC - Bootstrap local DOC2.5 with Railway, n8n e Docker",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T23:34:30Z",
+    "filePath": ".codex/skills/n8n-error-handling/SKILL.md"
+  },
+  {
+    "owner": "scaixeta",
+    "repo": "CindyAgent",
+    "description": "Cindy OC - Bootstrap local DOC2.5 with Railway, n8n e Docker",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T23:34:30Z",
+    "filePath": ".codex/skills/grafana-dashboards/SKILL.md"
+  },
+  {
+    "owner": "dayk1235",
+    "repo": "Snacks911",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T21:12:45Z",
+    "filePath": ".codex/skills/gsd-list-workspaces/SKILL.md"
+  },
+  {
+    "owner": "scaixeta",
+    "repo": "CindyAgent",
+    "description": "Cindy OC - Bootstrap local DOC2.5 with Railway, n8n e Docker",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T23:34:30Z",
+    "filePath": ".codex/skills/.system/skill-creator/SKILL.md"
+  },
+  {
+    "owner": "yuiseki",
+    "repo": "ai-secretary",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T03:28:38Z",
+    "filePath": ".codex/skills/vision-desktop-status/SKILL.md"
+  },
+  {
+    "owner": "daphatpharm4",
+    "repo": "rosesein",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-09T21:17:52Z",
+    "filePath": ".codex/skills/roblox-systems-scripter/SKILL.md"
+  },
+  {
+    "owner": "daphatpharm4",
+    "repo": "rosesein",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-09T21:17:52Z",
+    "filePath": ".codex/skills/performance-benchmarker/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -34245,7 +34760,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-17T16:50:30Z",
+    "updatedAt": "2026-04-18T16:45:48Z",
     "filePath": ".claude/skills/app/Skill.md"
   },
   {
@@ -34656,7 +35171,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-16T02:26:40Z",
+    "updatedAt": "2026-04-19T03:52:43Z",
     "filePath": ".claude/skills/start/SKILL.md"
   },
   {
@@ -34882,7 +35397,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-17T16:49:53Z",
+    "updatedAt": "2026-04-18T23:57:18Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -35339,7 +35854,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-04-12T16:20:44Z",
+    "updatedAt": "2026-04-18T21:41:36Z",
     "filePath": ".claude/skills/aget-review-budget/SKILL.md"
   },
   {
@@ -35553,24 +36068,6 @@
     "filePath": ".claude/skills/figma-analyze/SKILL.md"
   },
   {
-    "owner": "brianwestphal",
-    "repo": "hotsheet",
-    "description": "A local, single user ticket management system, especially for working with AI tools",
-    "stars": 0,
-    "forks": 0,
-    "topics": [
-      "agentic-coding",
-      "ai-coding",
-      "claude-code",
-      "cli",
-      "developer-tools",
-      "local-first",
-      "task-management"
-    ],
-    "updatedAt": "2026-04-18T01:52:36Z",
-    "filePath": ".claude/skills/hs-investigation/SKILL.md"
-  },
-  {
     "owner": "AdeptMind",
     "repo": "pr-emojis-in-slack",
     "description": null,
@@ -35627,7 +36124,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-02T20:31:55Z",
+    "updatedAt": "2026-04-18T17:44:25Z",
     "filePath": ".claude/skills/obsidian-cli/SKILL.md"
   },
   {
@@ -35768,7 +36265,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-04-17T02:08:26Z",
+    "updatedAt": "2026-04-19T01:05:33Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -35995,7 +36492,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-04-12T16:27:03Z",
+    "updatedAt": "2026-04-18T21:41:58Z",
     "filePath": ".claude/skills/aget-enhance-spec/SKILL.md"
   },
   {
@@ -36215,7 +36712,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T13:06:27Z",
+    "updatedAt": "2026-04-19T03:26:18Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -36470,7 +36967,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T13:06:27Z",
+    "updatedAt": "2026-04-19T03:26:18Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -36672,7 +37169,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-18T13:25:13Z",
+    "updatedAt": "2026-04-19T02:44:46Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -37086,7 +37583,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T11:42:34Z",
+    "updatedAt": "2026-04-18T17:44:30Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -37106,7 +37603,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T13:27:11Z",
+    "updatedAt": "2026-04-18T14:59:11Z",
     "filePath": ".claude/skills/senior-qa/SKILL.md"
   },
   {
@@ -37303,7 +37800,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-17T15:14:20Z",
+    "updatedAt": "2026-04-19T03:48:36Z",
     "filePath": ".claude/skills/writing-react-effects/SKILL.md"
   },
   {
@@ -37483,7 +37980,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-17T18:37:50Z",
+    "updatedAt": "2026-04-19T01:37:22Z",
     "filePath": ".claude/skills/flow-maintenance/SKILL.md"
   },
   {
@@ -37633,7 +38130,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T06:19:53Z",
+    "updatedAt": "2026-04-18T22:01:58Z",
     "filePath": ".claude/skills/learn/SKILL.md"
   },
   {
@@ -37931,7 +38428,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-04T16:17:15Z",
+    "updatedAt": "2026-04-18T16:53:22Z",
     "filePath": ".claude/skills/pm/SKILL.md"
   },
   {
@@ -38221,7 +38718,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T00:25:34Z",
+    "updatedAt": "2026-04-18T16:26:54Z",
     "filePath": ".claude/skills/stripe-supabase-webhooks/SKILL.md"
   },
   {
@@ -38506,7 +39003,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T00:44:31Z",
+    "updatedAt": "2026-04-19T02:42:18Z",
     "filePath": ".claude/skills/nuxt-content/SKILL.md"
   },
   {
@@ -38696,7 +39193,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-17T23:37:40Z",
+    "updatedAt": "2026-04-19T03:30:18Z",
     "filePath": ".claude/skills/worktree/SKILL.md"
   },
   {
@@ -39087,7 +39584,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T05:50:03Z",
+    "updatedAt": "2026-04-18T19:40:24Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -39327,7 +39824,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-05T12:59:34Z",
+    "updatedAt": "2026-04-18T23:43:08Z",
     "filePath": ".claude/skills/weather/SKILL.md"
   },
   {
@@ -39337,7 +39834,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-18T03:43:34Z",
+    "updatedAt": "2026-04-19T03:54:32Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -58278,5 +58775,876 @@
     "topics": [],
     "updatedAt": "2026-04-16T14:21:16Z",
     "filePath": ".agents/skills/add-api/SKILL.md"
+  },
+  {
+    "owner": "sam9s",
+    "repo": "Raven_Design_Studio",
+    "description": "This repo will be used specifically for any short videos, animated videos, for advertisements and publicity for social media. I will be creating using Claude code, Claude design, and hyper frame skill.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-19T03:03:23Z",
+    "filePath": ".claude/skills/hyperframes-registry/SKILL.md"
+  },
+  {
+    "owner": "abmbodj",
+    "repo": "Riven",
+    "description": "Study smarter with AI flashcards, notes, and mock exams. The Student OS built to help you win school.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T23:04:24Z",
+    "filePath": ".claude/skills/fastapi-templates/SKILL.md"
+  },
+  {
+    "owner": "jpimasreiser11-gif",
+    "repo": "youtubeclon",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T18:54:17Z",
+    "filePath": ".claude/skills/02-awesome-claude-skills/composio-skills/ip2location-io-automation/SKILL.md"
+  },
+  {
+    "owner": "mirror-factory",
+    "repo": "audio-layer",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T23:54:48Z",
+    "filePath": ".claude/skills/mfdr-creator/SKILL.md"
+  },
+  {
+    "owner": "hakon1233",
+    "repo": "notiva-releases",
+    "description": "Notiva Desktop App releases",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T22:11:02Z",
+    "filePath": ".claude/skills/workflow-management/SKILL.md"
+  },
+  {
+    "owner": "JuantoC",
+    "repo": "BlueStack-Test-Automation-Framework",
+    "description": "Automatización de test Selenium para BlueStack Admin",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-19T02:28:01Z",
+    "filePath": ".claude/skills/senior-prompt-engineer/SKILL.md"
+  },
+  {
+    "owner": "ibragimov-oasis",
+    "repo": "vibe-coder",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T16:22:00Z",
+    "filePath": ".claude/skills/flow-nexus-platform/SKILL.md"
+  },
+  {
+    "owner": "jpimasreiser11-gif",
+    "repo": "youtubeclon",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T18:54:17Z",
+    "filePath": ".claude/skills/02-awesome-claude-skills/composio-skills/abuselpdb-automation/SKILL.md"
+  },
+  {
+    "owner": "Simon-Fontaine",
+    "repo": "scrimflow",
+    "description": "Overwatch 2 team management platform developed as part of a final-year thesis (Bachelor's degree) at EPHEC.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T13:06:56Z",
+    "filePath": ".claude/skills/gsd-review-backlog/SKILL.md"
+  },
+  {
+    "owner": "nominalgeek",
+    "repo": "paper-wheel",
+    "description": "a simple home",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T21:18:59Z",
+    "filePath": ".claude/skills/new/SKILL.md"
+  },
+  {
+    "owner": "21428122",
+    "repo": "herogowista",
+    "description": "The PM command center for Claude Code — 36 skills for discovery, strategy, execution, measurement, comms, and growth. Built for product managers by Shravani Dorlikar.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:33:41Z",
+    "filePath": ".claude/skills/one-pager/SKILL.md"
+  },
+  {
+    "owner": "AnubisQuantumCipher",
+    "repo": "ziros",
+    "description": "Zero-Knowledge Operating System. Agent-operated proving on Apple Silicon with formally verified Metal GPU kernels, 9 backends, and fail-closed attestation chains.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "ai-agents",
+      "cryptography",
+      "formal-verification",
+      "gpu",
+      "metal",
+      "rust",
+      "zero-knowledge",
+      "zk-proofs"
+    ],
+    "updatedAt": "2026-04-18T12:36:53Z",
+    "filePath": ".codex/skills/ziros-operator-core/SKILL.md"
+  },
+  {
+    "owner": "equaltoai",
+    "repo": "lesser-host",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T15:26:18Z",
+    "filePath": ".codex/skills/review-advisor-brief/SKILL.md"
+  },
+  {
+    "owner": "WilderHerrera13",
+    "repo": "convision",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T18:49:48Z",
+    "filePath": ".codex/skills/gsd-cleanup/SKILL.md"
+  },
+  {
+    "owner": "Taz-dingo",
+    "repo": "ruoshui",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T07:30:22Z",
+    "filePath": ".codex/skills/ruoshui-supersplat/SKILL.md"
+  },
+  {
+    "owner": "minchanpark",
+    "repo": "mail_service",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:32:33Z",
+    "filePath": ".codex/skills/inbox-one-llm-safety/SKILL.md"
+  },
+  {
+    "owner": "henriquescastilho",
+    "repo": "my-claude",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-19T00:10:13Z",
+    "filePath": ".codex/vendor_imports/claude/marketplaces/obsidian-skills/skills/obsidian-cli/SKILL.md"
+  },
+  {
+    "owner": "alexaundre",
+    "repo": "mycc_init",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T08:53:21Z",
+    "filePath": ".codex/skills/security-ownership-map/SKILL.md"
+  },
+  {
+    "owner": "DavidxDD1",
+    "repo": "qiwei-wechat-miniapp",
+    "description": "1",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T06:17:26Z",
+    "filePath": ".codex/skills/e2e-testing/SKILL.md"
+  },
+  {
+    "owner": "frydaiii",
+    "repo": "manbot",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T16:03:08Z",
+    "filePath": ".codex/skills/backtest-debug/SKILL.md"
+  },
+  {
+    "owner": "Dragoon0x",
+    "repo": "meridian",
+    "description": "Map your project's design DNA. 62 commands, 8-axis genome, 5 tiers. Project-aware design intelligence.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-20T16:52:30Z",
+    "filePath": ".codex/prompts/m-breakpoints/SKILL.md"
+  },
+  {
+    "owner": "ormastes",
+    "repo": "simple",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "gemini-cli-extension"
+    ],
+    "updatedAt": "2026-04-19T03:50:02Z",
+    "filePath": ".codex/skills/impl/SKILL.md"
+  },
+  {
+    "owner": "Dragoon0x",
+    "repo": "optik",
+    "description": "The Lighthouse for design quality. 58 commands, 0-100 scoring, anti-pattern detection. Works with Claude Code, Cursor, Gemini CLI, Codex CLI, Copilot, Kiro, OpenCode.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T14:12:36Z",
+    "filePath": ".codex/prompts/semantic-color/SKILL.md"
+  },
+  {
+    "owner": "juaniitos",
+    "repo": "AnyoneAIInterviewerBackend",
+    "description": "AnyoneAIInterviewerBackend",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T22:02:06Z",
+    "filePath": ".codex/skills/gsd-do/SKILL.md"
+  },
+  {
+    "owner": "robertxluo",
+    "repo": "catsafe-plants",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-01T02:39:18Z",
+    "filePath": ".codex/skills/feature/SKILL.md"
+  },
+  {
+    "owner": "Quantisan",
+    "repo": "dotfiles",
+    "description": ".files, including ~/.osx — sensible hacker defaults for OS X",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-16T20:21:01Z",
+    "filePath": ".codex/skills/walk-branch-changes/SKILL.md"
+  },
+  {
+    "owner": "SHUAXINDIARY",
+    "repo": "index-page",
+    "description": "replace bento ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "homepage",
+      "profile"
+    ],
+    "updatedAt": "2026-04-19T02:04:03Z",
+    "filePath": ".codex/skills/colorize/SKILL.md"
+  },
+  {
+    "owner": "DaveCThompson",
+    "repo": "dave-portfolio",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:44:23Z",
+    "filePath": ".codex/skills/security/SKILL.md"
+  },
+  {
+    "owner": "itsimonfredlingjack",
+    "repo": "codex-dev-plugin",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-02-05T09:39:44Z",
+    "filePath": ".codex/skills/workflow/SKILL.md"
+  },
+  {
+    "owner": "mashirou1234",
+    "repo": "yesod-auth",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T17:03:56Z",
+    "filePath": ".codex/skills/ci-status-inspector/SKILL.md"
+  },
+  {
+    "owner": "ev3rlit",
+    "repo": "magam-canonical-archive",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T14:07:17Z",
+    "filePath": ".codex/skills/gsd-quick/SKILL.md"
+  },
+  {
+    "owner": "Tassadar2499",
+    "repo": "NovaTune",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-13T20:53:53Z",
+    "filePath": ".codex/skills/implement-player-app/SKILL.md"
+  },
+  {
+    "owner": "FelipeFerreiradv",
+    "repo": "dexo",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T22:58:23Z",
+    "filePath": ".codex/skills/gsd-thread/SKILL.md"
+  },
+  {
+    "owner": "JNZader",
+    "repo": "consorcio-canalero",
+    "description": "Sistema integral de gestión para Consorcio Canalero 10 de Mayo - Bell Ville. Monitoreo satelital, reportes ciudadanos, gestión administrativa.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T16:32:21Z",
+    "filePath": ".codex/skills/maplibre-tile-sources/SKILL.md"
+  },
+  {
+    "owner": "cmcp0",
+    "repo": "credit-applications-hub",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-18T06:44:21Z",
+    "filePath": ".codex/skills/compile-agents-context/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "rulesync-dotnet",
+    "description": "C# SDK for RuleSync - generate AI tool configurations programmatically from .NET applications",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T05:23:34Z",
+    "filePath": ".codex/skills/dotnet-winforms-basics/SKILL.md"
+  },
+  {
+    "owner": "tachiiri-org",
+    "repo": "agent-ops",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-12T05:08:18Z",
+    "filePath": ".codex/skills/implement-py/SKILL.md"
+  },
+  {
+    "owner": "ledzepp1109",
+    "repo": "SYSopGPTWSL",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-09T10:38:45Z",
+    "filePath": ".codex/skills/sysop-kernel/SKILL.md"
+  },
+  {
+    "owner": "duplojs",
+    "repo": "playwright",
+    "description": "@duplojs/playwright is a library that rethinks Playwright testing through website, page, and component building blocks for a more natural representation of your app.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "duplojs",
+      "playwright",
+      "testing"
+    ],
+    "updatedAt": "2026-04-13T15:28:49Z",
+    "filePath": ".codex/skills/write-js-doc/SKILL.md"
+  },
+  {
+    "owner": "ev3rlit",
+    "repo": "magam-canonical-archive",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T14:07:17Z",
+    "filePath": ".codex/skills/gsd-add-todo/SKILL.md"
+  },
+  {
+    "owner": "kindyakov",
+    "repo": "voxel-pilot",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-16T13:02:14Z",
+    "filePath": ".codex/skills/gsd-plan-milestone-gaps/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "dotnet-harness-plugin",
+    "description": "Distribution packages for dotnet-agent-harness — per-platform zip bundles and OpenCode npm plugin for comprehensive .NET development guidance",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-27T21:33:22Z",
+    "filePath": ".codex/skills/dotnet-snapshot-testing/SKILL.md"
+  },
+  {
+    "owner": "himatts",
+    "repo": "LimePipeline",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-16T17:09:16Z",
+    "filePath": ".codex/skills/package-addon/SKILL.md"
+  },
+  {
+    "owner": "Drake7098",
+    "repo": "scene-pilot",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T17:17:30Z",
+    "filePath": ".codex/skills/live-dev-sync/SKILL.md"
+  },
+  {
+    "owner": "DaveCThompson",
+    "repo": "dave-portfolio",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T18:44:23Z",
+    "filePath": ".codex/skills/research-deep/SKILL.md"
+  },
+  {
+    "owner": "QinDayee",
+    "repo": "codex-agent-template",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T11:02:44Z",
+    "filePath": ".codex/skills/change-review/SKILL.md"
+  },
+  {
+    "owner": "yusuke124358",
+    "repo": "keiba",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-08T12:27:20Z",
+    "filePath": ".codex/skills/chatgpt-bridge/SKILL.md"
+  },
+  {
+    "owner": "itsimonfredlingjack",
+    "repo": "codex-dev-plugin",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-02-05T09:39:44Z",
+    "filePath": ".codex/skills/flutter-expert/SKILL.md"
+  },
+  {
+    "owner": "blakegallagher1",
+    "repo": "gpc-cres",
+    "description": "GPC Commercial Real Estate System - Internal operating system for commercial real estate investment analysis",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-19T00:20:23Z",
+    "filePath": ".codex/skills/type-hardening/SKILL.md"
+  },
+  {
+    "owner": "gouravsingh311",
+    "repo": "splice-app",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T18:04:25Z",
+    "filePath": ".codex/skills/enhance-prompt/SKILL.md"
+  },
+  {
+    "owner": "norrbacka",
+    "repo": "threejs_codex_base",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-03T15:52:49Z",
+    "filePath": ".codex/superpowers/skills/brainstorming/SKILL.md"
+  },
+  {
+    "owner": "d25037",
+    "repo": "trading25",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T00:59:37Z",
+    "filePath": ".codex/skills/bt-market-sync-strategies/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "rulesync-dotnet",
+    "description": "C# SDK for RuleSync - generate AI tool configurations programmatically from .NET applications",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T05:23:34Z",
+    "filePath": ".codex/skills/dotnet-serena-refactoring/SKILL.md"
+  },
+  {
+    "owner": "TaoWangRUB",
+    "repo": "ackermann_rover_humble",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-12T11:10:20Z",
+    "filePath": ".codex/skills/ackermann-rover/SKILL.md"
+  },
+  {
+    "owner": "MazzDh",
+    "repo": "NER-legal-doc-vi",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T12:39:17Z",
+    "filePath": ".codex/skills/gsd-workstreams/SKILL.md"
+  },
+  {
+    "owner": "jeickmeier",
+    "repo": "agentic-finstack",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-16T02:06:52Z",
+    "filePath": ".codex/skills/code-simplifier/SKILL.md"
+  },
+  {
+    "owner": "lalitnayyar",
+    "repo": "finally",
+    "description": "FinAlly AI Trading Workstation",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T22:38:59Z",
+    "filePath": ".codex/skills/gsd-list-phase-assumptions/SKILL.md"
+  },
+  {
+    "owner": "poisontr33s",
+    "repo": "chthonic-archive",
+    "description": "Rust/Vulkan Isometric RPG Engine - The Temple of Eternal Sadhana",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T23:57:18Z",
+    "filePath": ".codex/skills/artifact-upcycle/SKILL.md"
+  },
+  {
+    "owner": "fabiolk00",
+    "repo": "ats-expert",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T22:28:47Z",
+    "filePath": ".codex/skills/gsd-map-codebase/SKILL.md"
+  },
+  {
+    "owner": "fabiolk00",
+    "repo": "ats-expert",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T22:28:47Z",
+    "filePath": ".codex/skills/gsd-new-workspace/SKILL.md"
+  },
+  {
+    "owner": "DaveCThompson",
+    "repo": "besthuman-analysis",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T17:55:50Z",
+    "filePath": ".codex/skills/audit-performance/SKILL.md"
+  },
+  {
+    "owner": "rudironsoni",
+    "repo": "rulesync-dotnet",
+    "description": "C# SDK for RuleSync - generate AI tool configurations programmatically from .NET applications",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T05:23:34Z",
+    "filePath": ".codex/skills/dotnet-service-communication/SKILL.md"
+  },
+  {
+    "owner": "DesmondChoy",
+    "repo": "buttery_smooth_jamming",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T23:28:47Z",
+    "filePath": ".codex/skills/playwright-testing/SKILL.md"
+  },
+  {
+    "owner": "frvnkfrmchicago",
+    "repo": "skills-library-v2",
+    "description": "50 Agent Skills, 49 Librarians — cross-platform (Antigravity, Claude Code, Cursor, Codex)",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-09T17:35:32Z",
+    "filePath": ".codex/skills/component-building/SKILL.md"
+  },
+  {
+    "owner": "nurakmaljalil91",
+    "repo": "FantasyTactics",
+    "description": "A FFTA like game in 3D",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-29T09:29:45Z",
+    "filePath": ".codex/skills/write-opengl-shader/SKILL.md"
+  },
+  {
+    "owner": "MithrilMan",
+    "repo": "neomithril-ui",
+    "description": "Standalone React UI component library with neumorphic surfaces, design tokens, theming utilities, Storybook docs, and agent-friendly manifest exports.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-29T12:10:45Z",
+    "filePath": ".codex/skills/agent-notepad-prune/SKILL.md"
+  },
+  {
+    "owner": "juaniitos",
+    "repo": "anyone-ai-interviewer-frontend",
+    "description": "anyone-ai-interviewer-frontend",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T18:47:55Z",
+    "filePath": ".codex/skills/gsd-reapply-patches/SKILL.md"
+  },
+  {
+    "owner": "Itshalffull",
+    "repo": "Concept-Oriented-Programming-Framework",
+    "description": "A concept first, spec first, multi language programming framework",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T19:20:25Z",
+    "filePath": ".codex/skills/score-api/SKILL.md"
+  },
+  {
+    "owner": "ITValley-School",
+    "repo": "agents-skills-ai",
+    "description": "skills usadas na IT Valley para desenvolvimento do alunos",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-03-16T03:00:41Z",
+    "filePath": ".codex/agents/08-p-o-product-owner/SKILL.md"
+  },
+  {
+    "owner": "osdeving",
+    "repo": "calculo-em-movimento",
+    "description": "Livro-laboratorio de cinematica com conteudo em Markdown e renderizacao separada",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-27T22:58:56Z",
+    "filePath": ".codex/skills/livro-incluir-figura/SKILL.md"
+  },
+  {
+    "owner": "Birdiz",
+    "repo": "Birdiz",
+    "description": "Config files for my GitHub profile.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "config",
+      "github-config"
+    ],
+    "updatedAt": "2026-02-23T21:40:14Z",
+    "filePath": ".codex/skills/plan-confirm-workflow/SKILL.md"
+  },
+  {
+    "owner": "seefreed",
+    "repo": "enstudy",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-01-21T07:56:23Z",
+    "filePath": ".codex/skills/url-readmode-markdown/SKILL.md"
+  },
+  {
+    "owner": "siriushex",
+    "repo": "hba1c",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-02T07:45:14Z",
+    "filePath": ".codex/skills/data-security-storage/SKILL.md"
+  },
+  {
+    "owner": "vigneshsinna",
+    "repo": "Dhanvanthiri",
+    "description": "Dhanvanthiri ecommerce",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-08T10:32:52Z",
+    "filePath": ".codex/skills/openai-skills--linear/SKILL.md"
+  },
+  {
+    "owner": "mokkun55",
+    "repo": "mokkun-tech",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T07:58:47Z",
+    "filePath": ".codex/skills/github-issue-workflow/SKILL.md"
+  },
+  {
+    "owner": "MazzDh",
+    "repo": "NER-legal-doc-vi",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T12:39:17Z",
+    "filePath": ".codex/skills/gsd-extract_learnings/SKILL.md"
+  },
+  {
+    "owner": "jts599",
+    "repo": "QuickApp",
+    "description": "A framework for making React Apps with minimal overhead",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-22T23:17:28Z",
+    "filePath": ".codex/skills/shared-model-refactor/SKILL.md"
+  },
+  {
+    "owner": "SKANL",
+    "repo": "abogado-sala",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T06:42:26Z",
+    "filePath": ".codex/skills/nextjs-best-practices/SKILL.md"
+  },
+  {
+    "owner": "itsimonfredlingjack",
+    "repo": "codex-dev-plugin",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-02-05T09:39:44Z",
+    "filePath": ".codex/skills/breakpoint-strategies/SKILL.md"
+  },
+  {
+    "owner": "GhAli21",
+    "repo": "cleanmatex",
+    "description": "for cleanmatex",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T05:20:54Z",
+    "filePath": ".codex/skills/feature-implementation/SKILL.md"
+  },
+  {
+    "owner": "beardcoder",
+    "repo": "mens-circle",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-18T10:42:01Z",
+    "filePath": ".codex/skills/tailwindcss-development/SKILL.md"
+  },
+  {
+    "owner": "fabbitinc",
+    "repo": "fabbit-server",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T15:33:03Z",
+    "filePath": ".codex/skills/eventhandler-conventions/SKILL.md"
+  },
+  {
+    "owner": "itsimonfredlingjack",
+    "repo": "codex-dev-plugin",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-02-05T09:39:44Z",
+    "filePath": ".codex/skills/event-sourcing-architect/SKILL.md"
+  },
+  {
+    "owner": "kvcop",
+    "repo": "ai-kb-assistant",
+    "description": "AI KB assistant template: KB-first workflow + Telegram↔Codex bridge bot",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-25T15:21:29Z",
+    "filePath": ".codex/skills/kb-orchestrator-workflow/SKILL.md"
+  },
+  {
+    "owner": "timurb",
+    "repo": "cli2docker",
+    "description": "Install CLI npm utils as docker container for increased security",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-02T11:55:02Z",
+    "filePath": ".codex/skills/openspec-main-spec-format/SKILL.md"
   }
 ]
