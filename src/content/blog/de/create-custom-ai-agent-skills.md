@@ -31,8 +31,8 @@ Die wichtigste Ressource im Zeitalter der KI ist das **Kontextfenster**. Eine gu
 
 ### 2. Übereinstimmung der Freiheitsgrade
 Nicht jede Aufgabe sollte auf die gleiche Weise gehandhabt werden:
-- **Hohe Freiheit**: Reine Textanweisungen für Aufgaben, die kreative Heuristiken erfordern (z. B. [frontend-design](https://killer-skills.com/de/skills/anthropics/skills/frontend-design)).
-- **Niedrige Freiheit**: Rigide Skripte für fragile, deterministische Operationen (z. B. [docx](https://killer-skills.com/de/skills/anthropics/skills/docx)-Manipulation).
+- **Hohe Freiheit**: Reine Textanweisungen für Aufgaben, die kreative Heuristiken erfordern (z. B. [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **Niedrige Freiheit**: Rigide Skripte für fragile, deterministische Operationen (z. B. [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)-Manipulation).
 
 ### 3. Prozedurales vs. deklaratives Wissen
 Sagen Sie der KI nicht nur, *was* sie tun soll; geben Sie ihr die *Werkzeuge*, um es zu tun. Die `skill-creator`-Fähigkeit fördert die Verwendung von:
@@ -55,11 +55,11 @@ Der `skill-creator` bietet einen schrittweisen Arbeitsablauf zur Erstellung Ihre
 
 Die Macht von KI liegt nicht nur im Modell, sondern auch in der **Infrastruktur**, die es umgibt. Mit dem `skill-creator`-Skill gehen Sie von einem "Prompt-Ingenieur" zu einem "Fähigkeits-Architekten" über. Sie sagen der KI nicht nur, was sie tun soll, sondern lehren sie, wie sie lernen kann.
 
-Beginnen Sie noch heute mit dem Aufbau Ihres benutzerdefinierten KI-Arbeitsbereichs mit dem [skill-creator-Skill](https://killer-skills.com/de/skills/anthropics/skills/skill-creator) im Killer-Skills-Verzeichnis.
+Beginnen Sie noch heute mit dem Aufbau Ihres benutzerdefinierten KI-Arbeitsbereichs mit dem [skill-creator-Skill](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) im Killer-Skills-Verzeichnis.
 
 ---
 
-*Bereit, Ihre neue Fähigkeit zu deployen? Erfahren Sie, wie Sie einen [MCP-Server aufbauen](https://killer-skills.com/de/skills/anthropics/skills/mcp-builder), um ihn zu hosten.*
+*Bereit, Ihre neue Fähigkeit zu deployen? Erfahren Sie, wie Sie einen [MCP-Server aufbauen](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder), um ihn zu hosten.*
 
 ---
 

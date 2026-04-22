@@ -4,6 +4,8 @@ import { getLocalizedDescription } from '../lib/skills';
 import { OFFICIAL_REPOS } from '../lib/skills-config';
 import { CATEGORY_GROUPS } from '../lib/search';
 import { getCategoryDef, normalizeCategoryId } from '../lib/category-taxonomy';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../lib/skill-locale-link';
 import CardOverlayLink from './CardOverlayLink.astro';
 
 // Install command prefix
@@ -68,8 +70,10 @@ const starsDisplay = stars > 1000 ? (stars / 1000).toFixed(1) + 'k' : String(sta
 const forksDisplay = forks > 1000 ? (forks / 1000).toFixed(1) + 'k' : String(forks);
 
 // Build link - use id if available (handles sub-skills like anthropics/skills/algorithmic-art)
-const skillIdPath = skill.id || `${owner}/${repo}`;
-const skillLink = `/${locale}/skills/${skillIdPath}`;
+const skillRoutePath = getSkillRoutePath({ id: skill.id, owner, repo }) || repo;
+const skillLinkLocale = resolveSkillDetailLocale(owner, skillRoutePath, locale);
+const skillLink = buildLocalizedSkillPath(skillLinkLocale, owner, skillRoutePath);
+const installPath = `${owner}/${skillRoutePath}`;
 
 // GitHub avatar
 const avatarUrl = `https://github.com/${owner}.png?size=40`;
@@ -165,12 +169,12 @@ const descriptionText = descText && descText.trim().length > 0 ? descText : noDe
   >
     <button
       class="install-copy-btn pointer-events-auto w-full cursor-pointer border-2 border-[var(--foreground)] bg-[var(--foreground)] px-3 py-2.5 font-mono text-xs font-black uppercase tracking-wider text-[var(--background)] shadow-[3px_3px_0px_0px_var(--border)] transition-all hover:translate-x-[2px] hover:translate-y-[2px] hover:border-[var(--primary)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:shadow-[1px_1px_0px_0px_var(--border)]"
-      data-command={`${INSTALL_PREFIX} ${owner}/${repo}`}
-      title={`${INSTALL_PREFIX} ${owner}/${repo}`}
+      data-command={`${INSTALL_PREFIX} ${installPath}`}
+      title={`${INSTALL_PREFIX} ${installPath}`}
       aria-label={`Copy install command for ${name}`}
     >
       <span class="shrink-0 text-[var(--primary)] bg-[var(--background)] px-1 text-[10px]">▶</span>
-      <span class="truncate">{INSTALL_PREFIX} {owner}/{repo}</span>
+      <span class="truncate">{INSTALL_PREFIX} {installPath}</span>
       <span class="install-icon shrink-0 ml-auto text-[10px]">⧉ {copyLabel}</span>
       <span class="install-ok shrink-0 ml-auto text-[10px] hidden">✓ {copiedLabel}</span>
     </button>

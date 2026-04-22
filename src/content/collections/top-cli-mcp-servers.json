@@ -154,9 +154,7 @@
   "author": "Killer-Skills AI",
   "featured": true,
   "canonicalSlug": "top-cli-terminal-ai-agent-tools",
-  "legacySlugs": [
-    "top-cli-mcp-servers"
-  ],
+  "legacySlugs": ["top-cli-mcp-servers"],
   "category": "cli",
   "longDescription": {
     "en": "If your team lives in the terminal, this collection should shorten the shortlist quickly instead of sending you into another repo crawl. It compares CLI-native helpers, command-line automation tools, and terminal-first workflow companions, then points the next click into installation docs, CLI validation, and a repeatable rollout path.",

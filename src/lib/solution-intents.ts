@@ -1,4 +1,4 @@
-import type { Locale } from '../i18n';
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from '../i18n';
 import type { KeywordClusterId } from './seo-keywords';
 import { filterByCategory } from './search';
 import { getLocalizedDescription, type UnifiedSkill } from './skills';
@@ -209,6 +209,33 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
 
 function resolveText(text: LocalizedText, locale: Locale): string {
   return text[locale] || text.en;
+}
+
+function hasDirectLocalizedText(text: LocalizedText, locale: Locale): boolean {
+  return typeof text[locale] === 'string' && text[locale].trim().length > 0;
+}
+
+export function getSolutionSeoEligibleLocales(
+  slug?: SolutionSlug,
+  locales: readonly Locale[] = SUPPORTED_LOCALES,
+): Locale[] {
+  const sourceIntents = slug ? SOLUTION_INTENTS.filter((item) => item.slug === slug) : SOLUTION_INTENTS;
+
+  if (sourceIntents.length === 0) {
+    return [DEFAULT_LOCALE];
+  }
+
+  const eligibleLocales = locales.filter((locale) =>
+    sourceIntents.every(
+      (item) =>
+        hasDirectLocalizedText(item.label, locale) &&
+        hasDirectLocalizedText(item.cardDescription, locale) &&
+        hasDirectLocalizedText(item.pageTitle, locale) &&
+        hasDirectLocalizedText(item.pageDescription, locale),
+    ),
+  );
+
+  return eligibleLocales.length > 0 ? eligibleLocales : [DEFAULT_LOCALE];
 }
 
 export const SOLUTION_INTENT_SLUGS: SolutionSlug[] = SOLUTION_INTENTS.map((item) => item.slug);

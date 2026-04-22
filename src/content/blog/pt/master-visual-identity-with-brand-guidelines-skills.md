@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## O que é a Habilidade Brand-Guidelines?
 
-A habilidade `brand-guidelines` é um motor de design que impõe padrões visuais estritos. Ela é projetada para ser usada em conjunto com outras habilidades criativas, como [pptx](https://killer-skills.com/pt/skills/anthropics/skills/pptx) ou [canvas-design](https://killer-skills.com/pt/skills/anthropics/skills/canvas-design), para garantir que elas permaneçam "dentro da marca".
+A habilidade `brand-guidelines` é um motor de design que impõe padrões visuais estritos. Ela é projetada para ser usada em conjunto com outras habilidades criativas, como [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) ou [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design), para garantir que elas permaneçam "dentro da marca".
 
 ### 1. A Paleta de Cores Oficial
 A habilidade fornece valores RGB e HEX precisos para a identidade oficial:
@@ -60,11 +60,11 @@ Gere gráficos para mídias sociais ou whitepapers em PDF que são instantaneame
 
 A habilidade `brand-guidelines` é o acabamento final que transforma a "saída de IA" em "Ativo Profissional". Ela garante que o seu agente de codificação entenda a importância do contexto visual e da autoridade da marca.
 
-Instale a habilidade [brand-guidelines](https://killer-skills.com/pt/skills/anthropics/skills/brand-guidelines) no diretório de skills do Killer-Skills e comece a projetar com autoridade.
+Instale a habilidade [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) no diretório de skills do Killer-Skills e comece a projetar com autoridade.
 
 ---
 
-*Procurando mais opções de estilização? Explore [theme-factory](https://killer-skills.com/pt/skills/anthropics/skills/theme-factory) para uma gama mais ampla de temas profissionais pré-definidos.*
+*Procurando mais opções de estilização? Explore [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) para uma gama mais ampla de temas profissionais pré-definidos.*
 
 ---
 

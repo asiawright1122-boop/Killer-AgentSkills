@@ -53,11 +53,11 @@ Le skill `mcp-builder` détaille un chemin structuré vers la réussite :
 
 Le skill `mcp-builder` est essentiel pour tout développeur souhaitant combler le fossé entre le raisonnement de l'IA et l'exécution dans le monde réel. En suivant ces modèles éprouvés, vous pouvez créer des outils qui ne fonctionnent pas seulement, mais qui permettent réellement aux agents IA d'être plus productifs.
 
-Prêt à commencer ? Consultez la documentation complète du skill [mcp-builder](https://killer-skills.com/fr/skills/anthropics/skills/mcp-builder) dans le registre Killer-Skills.
+Prêt à commencer ? Consultez la documentation complète du skill [mcp-builder](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) dans le registre Killer-Skills.
 
 ---
 
-*Besoin de vérifier vos nouveaux outils ? Associez-les avec le skill [webapp-testing](https://killer-skills.com/fr/skills/anthropics/skills/webapp-testing).*
+*Besoin de vérifier vos nouveaux outils ? Associez-les avec le skill [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing).*
 
 ---
 

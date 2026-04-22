@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Next.js AI Tools for Full-Stack Developer Workflows | AI Agent Skills",
-    "zh": "Next.js 全栈开发工作流 AI 工具精选 | AI Agent Skills",
+    "en": "Next.js Workflow Tools to Install First",
+    "zh": "优先安装的 Next.js 工作流工具",
     "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集 | AI Agent Skills",
     "ko": "Next.js 풀스택 개발 워크플로우 AI 도구 모음 | AI Agent Skills",
     "es": "herramientas de IA para workflows full-stack con Next.js | AI Agent Skills",
@@ -12,131 +12,121 @@
     "ar": "أدوات Next.js للذكاء الاصطناعي لسير عمل التطوير الكامل | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for nextjs full stack developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 nextjs full stack AI Agent Skills，聚焦 开发者工作流自动化。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの nextjs full stack AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
-    "ko": "Claude Code, Cursor, Windsurf용 nextjs full stack AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de nextjs full stack en Claude Code, Cursor y Windsurf.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur nextjs full stack dans Claude Code, Cursor et Windsurf.",
-    "de": "Installierbare AI Agent Skills für nextjs full stack Developer Workflows in Claude Code, Cursor und Windsurf.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em nextjs full stack no Claude Code, Cursor e Windsurf.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в nextjs full stack для Claude Code, Cursor и Windsurf.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات nextjs full stack داخل Claude Code وCursor وWindsurf."
+    "en": "Compare Next.js workflow tools, then move into installation docs, CLI validation, and rollout paths for full-stack product teams.",
+    "zh": "先比较 Next.js 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于全栈产品团队。",
+    "ja": "Next.jsワークフローツールを比較し、そのままインストール手順、CLI検証、フルスタック製品チーム向けの展開フローへ進めます。",
+    "ko": "Next.js 워크플로 도구를 비교한 뒤 바로 설치 문서, CLI 검증, 풀스택 제품 팀용 배포 경로로 이어집니다.",
+    "es": "Compara herramientas de workflow para Next.js y pasa directamente a la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos de producto full-stack.",
+    "fr": "Comparez des outils de workflow pour Next.js, puis passez directement à la documentation d’installation, à la validation CLI et aux parcours de déploiement pour les équipes produit full-stack.",
+    "de": "Vergleichen Sie Next.js-Workflow-Tools und wechseln Sie dann direkt zu Installationsdokumentation, CLI-Validierung und Rollout-Pfaden für Full-Stack-Produktteams.",
+    "pt": "Compare ferramentas de workflow para Next.js e siga direto para a documentação de instalação, a validação por CLI e os caminhos de rollout para equipes de produto full-stack.",
+    "ru": "Сравните Next.js workflow-инструменты, а затем сразу переходите к документации по установке, CLI-проверке и путям развертывания для full-stack продуктовых команд.",
+    "ar": "قارن بين أدوات سير عمل Next.js، ثم انتقل مباشرة إلى وثائق التثبيت والتحقق عبر CLI ومسارات الإطلاق لفرق المنتجات المتكاملة."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Next.js AI Tools for Full-Stack Develop",
-    "zh": "AI Agent Skills - Next.js 全栈开发工作流 AI 工具精选 | Killer-Skills",
-    "ja": "AI Agent Skills - Next.js フルスタック開発ワークフロー向け AI ツール集 | Kill",
-    "ko": "AI Agent Skills - Next.js 풀스택 개발 워크플로우 AI 도구 모음 | Killer-",
-    "es": "AI Agent Skills - herramientas de IA para workflows full-",
-    "fr": "AI Agent Skills - outils IA Next.js pour workflows full-s",
-    "de": "AI Agent Skills - Next.js KI-Tools für Full-Stack-Workflo",
-    "pt": "AI Agent Skills - ferramentas de IA Next.js para workflow",
-    "ru": "AI Agent Skills - Next.js AI-инструменты для full-stack w",
-    "ar": "AI Agent Skills - أدوات Next.js للذكاء الاصطناعي لسير عمل"
+    "en": "Next.js Workflow Tools to Install First",
+    "zh": "优先安装的 Next.js 工作流工具",
+    "ja": "先に導入すべきNext.jsワークフローツール | Killer-Skills",
+    "ko": "먼저 설치할 Next.js 워크플로 도구 | Killer-Skills",
+    "es": "Herramientas de workflow para Next.js para instalar primero | Killer-Skills",
+    "fr": "Outils de workflow Next.js a installer en premier | Killer-Skills",
+    "de": "Next.js-Workflow-Tools für den ersten Start | Killer-Skills",
+    "pt": "Ferramentas de workflow para Next.js para instalar primeiro | Killer-Skills",
+    "ru": "Next.js workflow-инструменты для первого выбора | Killer-Skills",
+    "ar": "أدوات سير عمل Next.js للبدء | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for nextjs full stack developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 nextjs full stack AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
-    "ja": "Claude Code・Cursor・Windsurf 向けの nextjs full stack AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
-    "ko": "Claude Code, Cursor, Windsurf용 nextjs full stack AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de nextjs full stack en Claude Code, Cursor y Windsurf. Killer-Skills.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur nextjs full stack dans Claude Code, Cursor et Windsurf. Killer-Skills.",
-    "de": "Installierbare AI Agent Skills für nextjs full stack Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em nextjs full stack no Claude Code, Cursor e Windsurf. Killer-Skills.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в nextjs full stack для Claude Code, Cursor и Windsurf. Killer-Skills.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات nextjs full stack داخل Claude Code وCursor وWindsurf. Killer-Skills."
+    "en": "Compare Next.js workflow tools, then move into installation docs, CLI validation, and rollout paths for full-stack product teams.",
+    "zh": "先比较 Next.js 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于全栈产品团队。",
+    "ja": "Next.jsワークフローツールを比較し、インストール手順、CLI検証、フルスタック製品チーム向けの展開フローへ進めます。Killer-Skills.",
+    "ko": "Next.js 워크플로 도구를 비교하고 설치 문서, CLI 검증, 풀스택 제품 팀용 배포 경로까지 이어집니다. Killer-Skills.",
+    "es": "Compara herramientas de workflow para Next.js y continúa hacia la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos de producto full-stack. Killer-Skills.",
+    "fr": "Comparez des outils de workflow pour Next.js, puis accédez à la documentation d’installation, à la validation CLI et aux parcours de déploiement pour les équipes produit full-stack. Killer-Skills.",
+    "de": "Vergleichen Sie Next.js-Workflow-Tools und wechseln Sie dann direkt zu Installationsdokumentation, CLI-Validierung und Rollout-Pfaden für Full-Stack-Produktteams. Killer-Skills.",
+    "pt": "Compare ferramentas de workflow para Next.js e siga para a documentação de instalação, a validação por CLI e os caminhos de rollout para equipes de produto full-stack. Killer-Skills.",
+    "ru": "Сравните Next.js workflow-инструменты, а затем переходите к документации по установке, CLI-проверке и путям развертывания для full-stack продуктовых команд. Killer-Skills.",
+    "ar": "قارن بين أدوات سير عمل Next.js، ثم انتقل إلى وثائق التثبيت والتحقق عبر CLI ومسارات الإطلاق لفرق المنتجات المتكاملة. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js workflow tools",
+      "Next.js developer tools",
+      "full-stack AI workflow tools",
+      "deployment and review tools",
+      "Next.js coding workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js 工作流工具",
+      "Next.js 开发工具",
+      "全栈 AI 工作流工具",
+      "部署与评审工具",
+      "Next.js 编码工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
-      "AI Agent Skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js workflow tools",
+      "full-stack product workflows",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "ko": [
-      "AI Agent Skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js workflow tools",
+      "full-stack product workflows",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "es": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "herramientas Next.js",
+      "workflows full-stack",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "fr": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "outils Next.js",
+      "workflows full-stack",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "de": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js-Tools",
+      "Full-Stack-Workflows",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "pt": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "ferramentas Next.js",
+      "workflows full-stack",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "ru": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "Next.js tools",
+      "full-stack workflows",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ],
     "ar": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "nextjs full stack AI agent skills",
-      "nextjs full stack developer workflow",
-      "nextjs full stack workflow automation"
+      "أدوات Next.js",
+      "workflows full-stack",
+      "deployment tools",
+      "review tools",
+      "content operations",
+      "install AI agent skills"
     ]
   },
   "featured": false,
@@ -159,8 +149,8 @@
     "co-r-e/dexcode"
   ],
   "longDescription": {
-    "en": "This Next.js page is organized around full-stack workflow execution: routing and rendering decisions, content publishing pipelines, API and service integrations, quality checks, and deployment readiness. It is designed for teams that need faster iteration without sacrificing reliability across frontend and backend boundaries. Some tools may expose MCP-compatible runtime capabilities, but the main story remains skills-first engineering—shipping production features with stronger automation, testing discipline, and operational clarity.",
-    "zh": "这个 Next.js 页面围绕全栈工作流执行展开：路由与渲染决策、内容发布流水线、API 与服务集成、质量检查以及部署准备。它服务于希望加快迭代、又不牺牲前后端可靠性的团队。部分工具可能具备 MCP 兼容运行能力，但页面主叙事仍是技能优先的工程实践：以更强的自动化、测试纪律和可运维性来交付生产功能。",
+    "en": "If your team ships with Next.js, this page should narrow the shortlist fast instead of sending you into another full-stack tooling crawl. It compares workflow helpers, guardrail tools, and developer companions that fit Next.js delivery, then moves the next click into installation docs, CLI validation, and a repeatable rollout path. That makes it a better decision page than a broad framework roundup.",
+    "zh": "如果你的团队正在用 Next.js 交付产品，这页就应该帮助你快速收口，而不是把你重新送回无休止的全栈工具比较。它聚焦适合 Next.js 交付路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。这比泛化框架榜单更适合作为真正的决策入口。",
     "ja": "この Next.js ページは、フルスタックのワークフロー実行を中心に構成されています。ルーティングとレンダリング設計、コンテンツ公開パイプライン、API/サービス連携、品質チェック、デプロイ準備までを実務視点で扱います。フロントエンドとバックエンドの境界をまたいで、信頼性を維持しながら反復速度を上げたいチームに向けた内容です。MCP 互換の実行機能を持つツールが含まれる場合もありますが、主軸はあくまでスキルファーストな開発運用です。",
     "ko": "이 Next.js 페이지는 풀스택 워크플로우 실행을 중심으로 구성됩니다. 라우팅·렌더링 의사결정, 콘텐츠 퍼블리싱 파이프라인, API/서비스 통합, 품질 검증, 배포 준비까지 실무 기준으로 다룹니다. 프런트엔드와 백엔드 경계를 넘나들며 신뢰성을 유지한 채 반복 속도를 높여야 하는 팀에 적합합니다. 일부 도구가 MCP 호환 런타임 기능을 제공할 수 있지만, 핵심 서사는 여전히 스킬 중심 엔지니어링입니다.",
     "es": "Esta página de Next.js está organizada alrededor de la ejecución del workflow full-stack: decisiones de routing y render, pipelines de publicación de contenido, integraciones API/servicios, controles de calidad y preparación para despliegue. Está pensada para equipos que necesitan iterar más rápido sin perder fiabilidad entre frontend y backend. Algunas herramientas pueden ofrecer capacidades de runtime compatibles con MCP, pero la narrativa principal sigue siendo ingeniería skills-first: entregar funciones en producción con mejor automatización, disciplina de testing y claridad operativa.",
@@ -169,5 +159,139 @@
     "pt": "Esta página de Next.js é organizada em torno da execução de workflows full-stack: decisões de roteamento e renderização, pipelines de publicação de conteúdo, integrações de API/serviços, checagens de qualidade e prontidão para deploy. Ela atende equipes que precisam iterar mais rápido sem perder confiabilidade entre frontend e backend. Algumas ferramentas podem oferecer capacidades de runtime compatíveis com MCP, mas a narrativa principal permanece skills-first: entregar funcionalidades em produção com mais automação, disciplina de testes e clareza operacional.",
     "ru": "Эта страница Next.js выстроена вокруг выполнения full-stack workflow: решения по routing и рендерингу, контентные пайплайны публикации, API/сервисные интеграции, проверки качества и готовность к деплою. Она предназначена для команд, которым нужна быстрая итерация без потери надежности на стыке frontend и backend. Некоторые инструменты могут иметь MCP-совместимые runtime-возможности, но главный фокус — skills-first инженерия: выпускать production-функции с более сильной автоматизацией, тестовой дисциплиной и операционной прозрачностью.",
     "ar": "تُنظَّم صفحة Next.js هذه حول تنفيذ سير عمل التطوير الكامل: قرارات التوجيه والعرض، وخطوط نشر المحتوى، وتكاملات API والخدمات، وفحوصات الجودة، والاستعداد للنشر. وهي موجهة للفرق التي تحتاج إلى تسريع التكرار دون التضحية بالموثوقية بين الواجهة الأمامية والخلفية. قد توفر بعض الأدوات قدرات تشغيل متوافقة مع MCP، لكن السرد الرئيسي يبقى نهجًا هندسيًا يضع المهارات أولًا: تسليم ميزات إنتاجية بأتمتة أقوى وانضباط اختباري ووضوح تشغيلي أعلى."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against Next.js workflow fit, installation clarity, operator handoff, and full-stack delivery usefulness. This page is now positioned as an install-first Next.js entry point instead of a broad framework roundup.",
+      "zh": "已于 2026-04-17 按 Next.js 工作流适配度、安装清晰度、操作交接和全栈交付价值完成复核。现在这页被重新定位为“安装优先”的 Next.js 入口，而不是泛化框架榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because Next.js-intent users usually need a shortlist they can install, validate, and carry into real full-stack release loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 Next.js 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实全栈发布闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical Next.js workflow value such as shipping routes, content updates, review loops, and release guardrails.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable product delivery, not for vague framework keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 Next.js 工作流，例如路由交付、内容更新、评审闭环与发布护栏。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用的产品交付，而不是空泛的框架关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a Next.js-centered workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering shipping, review, content, and release support.",
+        "Use installation as the bridge from Next.js discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 Next.js 主导工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖发布、评审、内容更新与上线支持。",
+        "把安装作为从 Next.js 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or Next.js workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 Next.js 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with trust, install-path, and operator checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验信任信号、安装路径与运维可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one Next.js workflow tool first",
+          "zh": "先安装一个 Next.js 工作流工具"
+        },
+        "summary": {
+          "en": "Use this page when you want one Next.js companion that can enter a real product loop without turning evaluation into another endless framework-tool comparison.",
+          "zh": "如果你要找的是一个能进入真实产品流程的 Next.js 伴侣工具，而不是继续掉进无休止的框架工具比较，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more Next.js-related repositories.",
+            "Choose one tool that best supports shipping, review, release, or content operations.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider full-stack workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多与 Next.js 相关的仓库。",
+            "选择一个最适合发布、评审、上线或内容运维的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的全栈工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Stabilize a Next.js release loop",
+          "zh": "稳定一条 Next.js 发布闭环"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need Next.js-adjacent tools that improve release quality without overcomplicating the stack.",
+          "zh": "当你想为 Next.js 邻接工作流补上发布质量与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more routes, services, or teammates.",
+            "Document the chosen Next.js workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多路由、服务或团队成员。",
+            "在首次稳定落地后，把选定的 Next.js 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from Next.js workflow discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从Next.js工作流发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the trusted starter collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到可信起步合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

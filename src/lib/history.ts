@@ -10,10 +10,11 @@
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface HistoryItem {
-  id: string; // "owner/repo"
+  id: string; // "owner/repo[/subskill]"
   name: string;
   owner: string;
   repo: string;
+  routePath?: string; // "repo[/subskill]"
   description: string;
   visitedAt: string; // ISO date string
 }

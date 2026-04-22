@@ -1,0 +1,105 @@
+{
+  "milestone": "v1.5",
+  "milestoneName": "Traffic Recovery Proof and Demand Restart",
+  "goal": "Convert stable technical recovery into fresh business evidence, ranked recovery opportunities, and structural search governance that removes the site's strongest low-value aggregation signals.",
+  "sourceMilestone": "v1.4",
+  "sourceMilestoneName": "Traffic Recovery Closure",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.4-ROADMAP.md",
+    ".planning/milestones/v1.4-REQUIREMENTS.md",
+    ".planning/milestones/v1.4-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**SEO-14**: Fresh Search Console summary and page/query opportunity data should be available weekly without manual export hunting.",
+    "**SEO-15**: Coverage Drilldown raw exports should stay inside a freshness SLA with explicit missing-input handling.",
+    "**SEO-16**: Recovery reporting should attribute traffic and indexing gaps by page, query, locale, and issue cluster instead of only global status.",
+    "**GOV-10**: Operators should have a ranked recovery-control board that separates blocked, recoverable, and already-recovered surfaces.",
+    "**GEO-01**: Highest-impact recovery surfaces should turn into an execution queue with measurable content, metadata, and internal-link actions.",
+    "**UX-EXP-01**: Expand public discovery surfaces only after recovery KPIs remain green and operator noise stays bounded."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "46",
+      "slug": "fresh-search-console-and-coverage-ingestion",
+      "requirements": [
+        "SEO-14",
+        "SEO-15"
+      ]
+    },
+    {
+      "number": "47",
+      "slug": "traffic-diagnosis-and-recovery-priority-board",
+      "requirements": [
+        "SEO-16",
+        "GOV-10"
+      ]
+    },
+    {
+      "number": "48",
+      "slug": "priority-surface-recovery-execution-loop",
+      "requirements": [
+        "GEO-01"
+      ]
+    },
+    {
+      "number": "49",
+      "slug": "skill-locale-index-governance",
+      "requirements": [
+        "SEO-17",
+        "GOV-11"
+      ]
+    },
+    {
+      "number": "50",
+      "slug": "skill-originality-contract-and-template-reset",
+      "requirements": [
+        "SEO-18"
+      ]
+    },
+    {
+      "number": "51",
+      "slug": "corpus-pruning-and-canonical-rollout-validation",
+      "requirements": [
+        "SEO-19",
+        "GOV-11"
+      ]
+    },
+    {
+      "number": "52",
+      "slug": "authority-surface-repositioning-and-editorial-rebuild",
+      "requirements": [
+        "SEO-20"
+      ]
+    },
+    {
+      "number": "53",
+      "slug": "authority-surface-proof-and-install-bridge",
+      "requirements": [
+        "SEO-20"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-14",
+    "SEO-15",
+    "SEO-16",
+    "GOV-10",
+    "GEO-01",
+    "SEO-17",
+    "SEO-18",
+    "SEO-19",
+    "GOV-11",
+    "SEO-20"
+  ]
+}

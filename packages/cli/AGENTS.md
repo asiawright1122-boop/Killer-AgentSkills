@@ -114,7 +114,7 @@ If multiple skills match, load the most relevant one first.
 
 <skill>
 <name>humanizer</name>
-<description>|</description>
+<description>Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written.</description>
 <location>global</location>
 </skill>
 

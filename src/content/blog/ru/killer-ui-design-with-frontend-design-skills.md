@@ -65,11 +65,11 @@ npx killer-skills add anthropics/skills/frontend-design
 
 Навык `frontend-design` является тем, что отличает веб-сайт, выглядящий как "созданный с помощью ИИ", от того, который выглядит как "разработанный мировым агентством". Он гарантирует, что ваш frontend-результат не только функционален, но и **эмоционально резонирует**.
 
-Посетите навык [frontend-design](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design) на рынке Killer-Skills сегодня и начните строить будущее веба.
+Посетите навык [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) на рынке Killer-Skills сегодня и начните строить будущее веба.
 
 ---
 
-*Вам нужно брендировать весь проект? Сочетайте это с [brand-guidelines](https://killer-skills.com/ru/skills/anthropics/skills/brand-guidelines).*
+*Вам нужно брендировать весь проект? Сочетайте это с [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines).*
 
 ---
 

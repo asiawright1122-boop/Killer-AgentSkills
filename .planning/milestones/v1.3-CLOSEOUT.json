@@ -1,0 +1,42 @@
+{
+  "milestone": "v1.3",
+  "milestoneName": "Adaptive Provider Control and Escalation Automation",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 4,
+    "completed": 4
+  },
+  "requirementCounts": {
+    "satisfied": 6,
+    "partial": 0,
+    "pending": 0,
+    "total": 6
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards/39-01-SUMMARY.md",
+    ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards/39-VERIFICATION.md",
+    ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls/40-01-SUMMARY.md",
+    ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls/40-VERIFICATION.md",
+    ".planning/milestones/v1.3-phases/41-remediation-handoff-automation/41-01-SUMMARY.md",
+    ".planning/milestones/v1.3-phases/41-remediation-handoff-automation/41-VERIFICATION.md",
+    ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation/42-01-SUMMARY.md",
+    ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation/42-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.3-phases",
+    ".planning/milestones/v1.3-ROADMAP.md",
+    ".planning/milestones/v1.3-REQUIREMENTS.md",
+    ".planning/milestones/v1.3-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.3-BOOTSTRAP.md",
+    ".planning/milestones/v1.3-CLOSEOUT.md"
+  ]
+}

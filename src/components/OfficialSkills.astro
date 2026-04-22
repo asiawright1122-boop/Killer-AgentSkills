@@ -15,6 +15,7 @@ const env = Astro.locals.runtime?.env as Env;
 // Load translations
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
+const isZhCopy = locale.startsWith('zh');
 
 // Get official repo owners from config
 const officialRepoOwners = [
@@ -47,10 +48,10 @@ const sortedOwners = await getOfficialSkillCounts(env, officialRepoOwners, 6);
       </p>
     </div>
     <a
-      href={`/${locale}/skills?view=official`}
+      href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
       class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
     >
-      {t('Common.viewAll')}
+      {isZhCopy ? '查看可信合集' : 'Open Trusted Collection'}
       <span class="font-mono ml-2">→</span>
     </a>
   </div>

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../lib/kv';
-import { getAllSkills, type UnifiedSkill } from '../../lib/skills';
+import { getLightweightSkillsCategorySummary } from '../../lib/skills';
 import { errorResponse } from '../../lib/api-utils';
 
 export const prerender = false;
@@ -13,20 +13,11 @@ export const prerender = false;
 export const GET: APIRoute = async ({ locals }) => {
   try {
     const env = locals.runtime?.env as Env | undefined;
-
-    const skills: UnifiedSkill[] = env ? await getAllSkills(env) : [];
-
-    // Group skills by category
-    const categoryMap = new Map<string, number>();
-    for (const skill of skills) {
-      const cat = skill.category || 'other';
-      categoryMap.set(cat, (categoryMap.get(cat) || 0) + 1);
-    }
-
-    // Build response
-    const categories = Array.from(categoryMap.entries())
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => b.count - a.count);
+    const summary = env ? await getLightweightSkillsCategorySummary(env) : { total: 0, categories: [] };
+    const categories = summary.categories.map((item) => ({
+      name: item.category || 'other',
+      count: item.count,
+    }));
 
     return new Response(JSON.stringify({ categories, total: categories.length }), {
       status: 200,

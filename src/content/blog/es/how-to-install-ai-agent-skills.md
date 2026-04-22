@@ -12,7 +12,7 @@ heroImage: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 
 # Cómo instalar habilidades de agente de IA
 
-Encontraste una habilidad de agente de IA que deseas utilizar. Tal vez sea la [habilidad de automatización de docx](/es/skills/anthropics/skills/docx), o tal vez un generador de interfaz de usuario frontend especializado. Ahora necesitas incorporarla a tu proyecto para que tu agente de codificación pueda leerla realmente.
+Encontraste una habilidad de agente de IA que deseas utilizar. Tal vez sea la [habilidad de automatización de docx](/en/skills/anthropics/skills/docx), o tal vez un generador de interfaz de usuario frontend especializado. Ahora necesitas incorporarla a tu proyecto para que tu agente de codificación pueda leerla realmente.
 
 Puedes copiar y pegar manualmente el texto en markdown, crear los directorios correctos y corregir el formato de frontmatter tú mismo. O puedes ejecutar un solo comando que lo haga por ti.
 

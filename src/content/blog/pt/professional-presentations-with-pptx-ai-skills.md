@@ -61,11 +61,11 @@ Alimente um PDF de 50 páginas na [habilidade de pdf](https://killer-skills.com/
 
 A habilidade `pptx` vai além de simples formatos de arquivo — trata-se de **autoridade visual**. Ela garante que, quando seu agente de IA cria uma apresentação, ela pareça ter sido projetada por um especialista humano.
 
-Baixe a habilidade [pptx](https://killer-skills.com/pt/skills/anthropics/skills/pptx) no diretório de skills do Killer-Skills e comece a criar slides que vendem.
+Baixe a habilidade [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) no diretório de skills do Killer-Skills e comece a criar slides que vendem.
 
 ---
 
-*Quer estilizar seus documentos também? Confira a [habilidade theme-factory](https://killer-skills.com/pt/skills/anthropics/skills/theme-factory).*
+*Quer estilizar seus documentos também? Confira a [habilidade theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory).*
 
 ---
 

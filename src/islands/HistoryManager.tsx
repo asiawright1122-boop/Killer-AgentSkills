@@ -10,6 +10,7 @@ import {
   formatRelativeTime,
   type HistoryItem,
 } from '../lib/history';
+import { buildLocalizedSkillPath } from '../lib/skill-route-paths';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
 
@@ -169,7 +170,7 @@ interface HistoryCardProps {
 
 function HistoryCard({ item, locale, onRemove, removeHistoryLabel, timeLabels }: HistoryCardProps) {
   const { owner, repo } = item;
-  const detailUrl = `/${locale}/skills/${owner}/${repo}`;
+  const detailUrl = buildLocalizedSkillPath(locale, owner, item.routePath || repo);
 
   return (
     <a href={detailUrl} className="block group">

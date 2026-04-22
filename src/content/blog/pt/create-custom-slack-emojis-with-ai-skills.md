@@ -63,11 +63,11 @@ Reações personalizadas são mais do que apenas divertidas — elas são **impu
 
 O `slack-gif-creator` é a combinação perfeita de otimização técnica e liberdade criativa. Ele transforma seu agente de IA em um artista digital que entende as "regras da estrada" para a comunicação no local de trabalho moderno.
 
-Acesse a habilidade [slack-gif-creator](https://killer-skills.com/pt/skills/anthropics/skills/slack-gif-creator) no diretório de skills do Killer-Skills para começar.
+Acesse a habilidade [slack-gif-creator](https://killer-skills.com/en/skills/anthropics/skills/slack-gif-creator) no diretório de skills do Killer-Skills para começar.
 
 ---
 
-*Procurando mais mestria visual? Explore [canvas-design](https://killer-skills.com/pt/skills/anthropics/skills/canvas-design) para cartazes estáticos de alta qualidade.*
+*Procurando mais mestria visual? Explore [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) para cartazes estáticos de alta qualidade.*
 
 ---
 

@@ -84,11 +84,11 @@ Para los desarrolladores, el arte generativo es un laboratorio ideal para la ló
 
 El futuro del arte es colaborativo: una danza entre la intención humana y la ejecución de la máquina. La habilidad **algorithmic-art** te permite ser el coreógrafo de esa danza.
 
-¿Listo para empezar? Visita la habilidad [algorithmic-art](https://killer-skills.com/es/skills/anthropics/skills/algorithmic-art) en el directorio de Killer-Skills e instálala hoy mismo.
+¿Listo para empezar? Visita la habilidad [algorithmic-art](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) en el directorio de Killer-Skills e instálala hoy mismo.
 
 ---
 
-*Explora más habilidades creativas como [canvas-design](https://killer-skills.com/es/skills/anthropics/skills/canvas-design) y [theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) en Killer-Skills.*
+*Explora más habilidades creativas como [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) y [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) en Killer-Skills.*
 
 ---
 

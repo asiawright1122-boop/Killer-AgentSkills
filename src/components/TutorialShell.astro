@@ -1,44 +1,47 @@
 ---
+import type { MarkdownTocItem } from '../lib/markdown-headings';
+
 interface Props {
   title: string;
   description: string;
+  tocItems?: MarkdownTocItem[];
 }
-const { title, description } = Astro.props;
+const { title, description, tocItems = [] } = Astro.props;
 ---
 
 <div class="tutorial-shell grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto px-6 py-12">
-  <aside class="col-span-1 hidden md:block">
-    <div
-      class="sticky top-24 bg-[var(--card)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-6"
-    >
-      <h3 class="font-black text-lg uppercase tracking-widest border-b-4 border-[var(--border)] pb-4 mb-4">
-        Table of Contents
-      </h3>
-      <nav class="flex flex-col gap-3 font-bold text-[var(--muted-foreground)]">
-        <a href="#overview" class="hover:text-[var(--foreground)] hover:translate-x-1 transition-transform uppercase"
-          >Overview</a
-        >
-        <a href="#usage" class="hover:text-[var(--foreground)] hover:translate-x-1 transition-transform uppercase"
-          >Usage & Setup</a
-        >
-        <a
-          href="#architecture"
-          class="hover:text-[var(--foreground)] hover:translate-x-1 transition-transform uppercase">Architecture</a
-        >
-        <a href="#features" class="hover:text-[var(--foreground)] hover:translate-x-1 transition-transform uppercase"
-          >Key Features</a
-        >
-      </nav>
-    </div>
-  </aside>
+  {
+    tocItems.length > 0 && (
+      <aside class="col-span-1 hidden md:block">
+        <div class="sticky top-24 bg-[var(--card)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-6">
+          <h3 class="font-black text-lg uppercase tracking-widest border-b-4 border-[var(--border)] pb-4 mb-4">
+            Table of Contents
+          </h3>
+          <nav class="flex flex-col gap-3 font-bold text-[var(--muted-foreground)]" aria-label="Table of Contents">
+            {tocItems.map((item) => (
+              <a
+                href={`#${item.id}`}
+                class:list={[
+                  'hover:text-[var(--foreground)] hover:translate-x-1 transition-transform',
+                  item.level > 2 ? 'pl-4 text-sm uppercase tracking-wide' : 'uppercase',
+                ]}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+      </aside>
+    )
+  }
 
   <main
-    class="col-span-1 md:col-span-3 prose prose-invert max-w-none bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-12 neo-markdown"
+    class:list={[
+      'bg-[var(--background)] border-4 border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] p-8 md:p-12 neo-markdown',
+      tocItems.length > 0 ? 'col-span-1 md:col-span-3' : 'col-span-1 md:col-span-4',
+    ]}
   >
-    <h1
-      id="overview"
-      class="text-4xl md:text-5xl font-black uppercase tracking-tight border-b-4 border-[var(--border)] pb-6"
-    >
+    <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight border-b-4 border-[var(--border)] pb-6">
       {title}
     </h1>
     <p class="text-xl font-bold text-[var(--muted-foreground)] mb-12">{description}</p>
@@ -48,21 +51,70 @@ const { title, description } = Astro.props;
 
 <style is:global>
   .neo-markdown h2 {
-    @apply text-3xl font-black uppercase tracking-widest border-b-4 border-[var(--border)] pb-4 mt-16 mb-8 text-[var(--foreground)];
+    font-size: clamp(1.75rem, 2vw, 2rem);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 4px solid var(--border);
+    padding-bottom: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+    color: var(--foreground);
   }
   .neo-markdown h3 {
-    @apply text-xl font-bold uppercase tracking-wide mt-10 mb-4 text-[var(--foreground)];
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--foreground);
+  }
+  .neo-markdown :is(h1, h2, h3, h4) {
+    scroll-margin-top: 7rem;
   }
   .neo-markdown pre {
-    @apply bg-[var(--card)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--primary)] p-6 my-8 overflow-x-auto;
+    background: var(--card);
+    border: 4px solid var(--border);
+    box-shadow: 6px 6px 0 0 var(--primary);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    overflow-x: auto;
   }
   .neo-markdown code {
-    @apply font-mono text-emerald-500 dark:text-emerald-400 font-bold bg-[var(--card)] px-1 relative;
+    font-family:
+      ui-monospace,
+      SFMono-Regular,
+      Menlo,
+      Monaco,
+      Consolas,
+      Liberation Mono,
+      Courier New,
+      monospace;
+    color: #10b981;
+    font-weight: 700;
+    background: var(--card);
+    padding: 0 0.25rem;
+    position: relative;
   }
   .neo-markdown p {
-    @apply text-lg leading-relaxed mb-6 font-medium text-[var(--foreground)] opacity-90;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    color: var(--foreground);
+    opacity: 0.9;
   }
   .neo-markdown a {
-    @apply text-[var(--primary)] underline decoration-4 underline-offset-4 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:no-underline transition-all;
+    color: var(--primary);
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 4px;
+    transition: all 0.2s ease;
+  }
+  .neo-markdown a:hover {
+    background: var(--primary);
+    color: var(--primary-foreground);
+    text-decoration: none;
   }
 </style>

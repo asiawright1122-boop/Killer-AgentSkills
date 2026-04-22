@@ -62,11 +62,11 @@ npx killer-skills add anthropics/skills/pptx
 
 `pptx`技能不仅仅关乎文件格式——它关乎**视觉权威性**。它能确保您的AI智能体构建的演示文稿看起来如同出自人类专家之手。
 
-立即从 Killer-Skills 技能目录下载 [pptx 技能](https://killer-skills.com/zh/skills/anthropics/skills/pptx)，开始制作更有说服力的专业幻灯片。
+立即从 Killer-Skills 技能目录下载 [pptx 技能](https://killer-skills.com/en/skills/anthropics/skills/pptx)，开始制作更有说服力的专业幻灯片。
 
 ---
 
-*也想为您的文档增添风格？快来了解[theme-factory技能](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory)。*
+*也想为您的文档增添风格？快来了解[theme-factory技能](https://killer-skills.com/en/skills/anthropics/skills/theme-factory)。*
 
 ---
 

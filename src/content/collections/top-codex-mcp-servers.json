@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Codex Workflow Skills & Developer Integrations | AI Agent Skills",
-    "zh": "顶级 Codex 工作流技能与开发者集成 | AI Agent Skills",
+    "en": "Best Codex Workflow Tools to Install First",
+    "zh": "优先安装的 Codex 工作流工具",
     "ja": "Codex向けワークフロースキル＆開発連携 | AI Agent Skills",
     "ko": "Codex 워크플로우 스킬 & 개발 연동 | AI Agent Skills",
     "es": "Skills e integraciones de workflow para Codex | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "مهارات workflow وتكاملات للمطورين مع Codex | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for codex integrations developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 codex integrations AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "A practical Codex shortlist for terminal-first coding teams that need repo review, handoff support, and safer day-to-day execution.",
+    "zh": "面向终端优先编码团队的 Codex 实用清单，帮助你更快比较仓库评审、交接支持与更稳的日常执行工具。",
     "ja": "Claude Code・Cursor・Windsurf 向けの codex integrations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 codex integrations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de codex integrations en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات codex integrations داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Codex Workflow Skills & Developer Integ",
-    "zh": "AI Agent Skills - 顶级 Codex 工作流技能与开发者集成 | Killer-Skills",
+    "en": "Codex Workflow Tools for Terminal-First Coding Teams",
+    "zh": "优先安装的 Codex 工作流工具",
     "ja": "AI Agent Skills - Codex向けワークフロースキル＆開発連携 | Killer-Skills",
     "ko": "AI Agent Skills - Codex 워크플로우 스킬 & 개발 연동 | Killer-Skills",
     "es": "AI Agent Skills - Skills e integraciones de workflow para",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - مهارات workflow وتكاملات للمطورين مع Co"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for codex integrations developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 codex integrations AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare Codex tools for repo review, handoff support, and terminal-first delivery. Start with the shortlist teams can validate quickly.",
+    "zh": "比较适合 Codex 团队的仓库评审、交接支持与终端优先交付工具，先从团队能快速验证的候选清单开始。",
     "ja": "Claude Code・Cursor・Windsurf 向けの codex integrations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 codex integrations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de codex integrations en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,23 +49,14 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "codex integrations AI agent skills",
-      "codex integrations developer workflow",
-      "codex integrations workflow automation"
+      "Codex workflow tools",
+      "terminal-first coding",
+      "Codex review tools",
+      "Codex handoff workflow",
+      "repo review tooling",
+      "Codex CLI teams"
     ],
-    "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "codex integrations AI agent skills",
-      "codex integrations developer workflow",
-      "codex integrations workflow automation"
-    ],
+    "zh": ["Codex 工作流工具", "终端优先编码", "Codex 评审工具", "Codex 交接流程", "仓库评审工具", "Codex CLI 团队"],
     "ja": [
       "AI Agent Skills",
       "developer workflow",
@@ -156,9 +147,143 @@
     "ruvnet/ruflo",
     "janekbaraniewski/openusage"
   ],
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 for setup clarity, maintainer reliability, repo review coverage, and handoff readiness. We kept the tools that help Codex operators move from first install to steady daily use.",
+      "zh": "已于 2026-04-17 按安装清晰度、维护者可靠性、仓库评审覆盖度与交接就绪度完成复核。我们保留的是那些能帮助 Codex 操作员从首次安装走向稳定日常使用的工具。"
+    },
+    "selectionReason": {
+      "en": "Most people landing here already know they want to work in Codex. What they need next is a smaller list tied to review, handoff, and terminal execution instead of another broad integrations directory.",
+      "zh": "来到这页的大多数用户已经知道自己要在 Codex 里工作。他们下一步需要的不是更大的集成目录，而是一份围绕评审、交接与终端执行场景缩小过的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Each entry solves a concrete Codex job such as repo review, shell safety, handoff, or CLI workflow support.",
+        "We keep tools with public setup docs, visible maintenance, and a clear first-use path.",
+        "Preference goes to tools a team can trial in one repository before adopting more widely."
+      ],
+      "zh": [
+        "每个条目都对应一个明确的 Codex 任务，例如仓库评审、Shell 安全、交接或 CLI 工作流支持。",
+        "我们优先保留安装文档公开、维护状态可见、首次使用路径清楚的工具。",
+        "筛选更偏向那些能先在单个仓库试跑、再逐步推广到团队的工具。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Start with tools that remove the first bottleneck in a Codex CLI loop instead of the noisiest repository.",
+        "Keep the list small enough to compare quickly while still covering review, handoff, automation, and baseline workflow structure.",
+        "Route the next step toward install docs, CLI behavior, and a concrete rollout checklist."
+      ],
+      "zh": [
+        "先从能解决 Codex CLI 闭环里第一个瓶颈的工具开始，而不是从最热闹的仓库开始。",
+        "列表保持足够小，便于快速比较，同时仍覆盖评审、交接、自动化与基础工作流结构。",
+        "下一步直接连接到安装文档、CLI 行为说明与具体的落地检查清单。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or Codex workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 Codex 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Killer-Skills editorial review with monthly collection checks.",
+        "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Pick one Codex tool for repo review or handoff",
+          "zh": "先选一个解决评审或交接的 Codex 工具"
+        },
+        "summary": {
+          "en": "Start here when your team already codes in Codex and needs one extra layer for review, shell safety, or cleaner handoffs.",
+          "zh": "如果团队已经在 Codex 里编码，现在只想补上一层评审、Shell 安全或更顺手的交接支持，就从这里开始。"
+        },
+        "steps": {
+          "en": [
+            "Choose the single gap you need to close first: repo review, shell safety, handoff, or workflow scaffolding.",
+            "Open the install docs for the tool that best matches that gap.",
+            "Verify what the CLI writes, how sync behaves, and what an operator must check after the first run.",
+            "If the tool works cleanly in one repo, document the baseline before rolling it out more widely."
+          ],
+          "zh": [
+            "先确定当前最先要补的缺口：仓库评审、Shell 安全、交接还是工作流骨架。",
+            "打开最匹配这个缺口的工具安装文档。",
+            "确认 CLI 会写入什么、同步如何发生，以及首轮运行后操作员要检查哪些点。",
+            "如果它能在单个仓库跑顺，再先记录基线做法，再扩大推广。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Stabilize a Codex CLI baseline",
+          "zh": "先稳定一条 Codex CLI 基线路径"
+        },
+        "summary": {
+          "en": "Use this collection when different operators are starting to drift and you need one documented way to review, sync, and hand off work in Codex.",
+          "zh": "当不同操作员的做法开始漂移，你需要一条能在 Codex 中稳定执行评审、同步与交接的基线路径时，就把这个合集当作过滤器。"
+        },
+        "steps": {
+          "en": [
+            "Check maintainer activity and public setup guidance before adding any new tool.",
+            "Prefer the tool that reduces operator ambiguity rather than the one with the longest feature list.",
+            "Pilot the workflow in one active repo, then capture the handoff rules for the rest of the team.",
+            "Revisit the shortlist only after the first baseline is working."
+          ],
+          "zh": [
+            "在引入新工具前，先检查维护活跃度和公开安装指引。",
+            "优先选择能减少操作歧义的工具，而不是功能列表最长的工具。",
+            "先在一个活跃仓库里试跑流程，再把交接规则写给团队其他人。",
+            "等第一条基线路径跑顺后，再决定是否回来看更多候选。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Start with the install guide so the first trial is concrete instead of another round of browsing.",
+          "zh": "先看安装指南，让第一次试跑变得具体，而不是继续来回浏览更多仓库。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Check what the CLI writes, what it syncs, and which checkpoints an operator should verify after setup.",
+          "zh": "确认 CLI 会写入什么、会同步什么，以及安装后操作员应该核对哪些检查点。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "After the first trial works, compare it with the trusted starter collection before standardizing.",
+          "zh": "等第一轮试跑通过后，再回到可信起步合集做一次交叉核对，再决定是否标准化。"
+        }
+      }
+    ]
+  },
   "longDescription": {
-    "en": "Built for Codex/OpenAI users, this collection emphasizes reliable engineering workflows over generic tool lists. It includes reusable skills, integration-ready components, and automation helpers for review cycles, quality gates, and delivery operations. MCP-enabled options may appear when relevant, but the page is centered on practical coding workflows and day-to-day developer execution.",
-    "zh": "该专题面向 Codex/OpenAI 用户，强调稳定可执行的工程工作流，而非泛化工具堆砌。你可以找到用于评审循环、质量门禁与交付流程的可复用技能、可集成组件和自动化助手。必要时会包含 MCP 能力，但页面中心始终是实用编码工作流与日常开发执行效率。",
+    "en": "Codex users rarely need another giant integrations list. They usually need one dependable tool for repo review, shell safety, handoff, or lightweight workflow support. This collection narrows the field to tools a terminal-first team can test in one repo, document clearly, and adopt without adding unnecessary process.",
+    "zh": "Codex 用户通常并不需要另一张巨大的集成目录，而是需要一个能解决仓库评审、Shell 安全、交接或轻量工作流支持的可靠工具。这个合集把范围收敛到那些可以先在单个仓库验证、说明清楚、再平稳推广的选择。",
     "ja": "Codex/OpenAI利用者向けに、一般的なツール羅列ではなく、再現性のある開発ワークフローに重点を置いたコレクションです。レビューサイクル、品質ゲート、デリバリー運用に使える再利用スキルと連携可能コンポーネントを収録。必要に応じてMCP対応も含みますが、主軸は実務的なコーディング運用です。",
     "ko": "Codex/OpenAI 사용자를 위해 구성된 이 컬렉션은 단순한 도구 나열보다 안정적인 엔지니어링 워크플로우에 초점을 둡니다. 리뷰 사이클, 품질 게이트, 전달 운영을 위한 재사용 스킬·연동 컴포넌트·자동화 헬퍼를 제공합니다. 필요 시 MCP 지원 옵션이 포함될 수 있지만 중심은 실무 코딩 워크플로우입니다.",
     "es": "Pensada para usuarios de Codex/OpenAI, esta colección prioriza workflows de ingeniería confiables por encima de listas genéricas. Incluye skills reutilizables, componentes listos para integrar y helpers de automatización para ciclos de review, quality gates y operaciones de entrega. Puede incluir opciones con MCP cuando aporten valor, pero el foco sigue siendo el trabajo diario de desarrollo.",

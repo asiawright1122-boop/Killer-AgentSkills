@@ -65,11 +65,11 @@ npx killer-skills add anthropics/skills/frontend-design
 
 `frontend-design` スキルは、ウェブサイトが「AIによって生成された」と見なされるか、「世界トップクラスのエージェンシーによってデザインされた」と見なされるかという違いを生み出します。フロントエンドの出力が機能的であるだけでなく、**感情を揺さぶる**ものであることを保証します。
 
-Killer-Skills のスキル一覧で [frontend-design スキル](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design) をチェックして、Web の未来を形にしましょう。
+Killer-Skills のスキル一覧で [frontend-design スキル](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) をチェックして、Web の未来を形にしましょう。
 
 ---
 
-*プロジェクト全体にブランディングが必要ですか? [ブランドガイドライン](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) と組み合わせてください.*
+*プロジェクト全体にブランディングが必要ですか? [ブランドガイドライン](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) と組み合わせてください.*
 
 ---
 

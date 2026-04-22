@@ -1,7 +1,8 @@
 #!/usr/bin/env npx tsx
 
+import * as dotenv from 'dotenv';
 import { createSign } from 'node:crypto';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import {
   compareGscSnapshots,
@@ -15,7 +16,15 @@ import {
   type QueryPrecisionRisk,
 } from '../src/lib/gsc-report';
 
+dotenv.config();
+const localEnv = resolve(process.cwd(), '.env.local');
+if (existsSync(localEnv)) {
+  dotenv.config({ path: localEnv, override: true });
+}
+
 type Dimension = 'query' | 'page';
+type ReportStatus = 'clear' | 'warning' | 'blocking';
+type GscSourceMode = 'live-api' | 'missing-config' | 'request-failed';
 
 type Config = {
   clientEmail: string;
@@ -24,6 +33,13 @@ type Config = {
   days: number;
   rowLimit: number;
   outputDir: string;
+};
+
+type ConfigResolution = {
+  config: Config | null;
+  missingEnv: string[];
+  outputDir: string;
+  siteUrl: string | null;
 };
 
 type Period = {
@@ -45,22 +61,55 @@ type SearchAnalyticsApiResponse = {
   rows?: SearchAnalyticsApiRow[];
 };
 
-function getConfig(): Config | null {
+type GscReportArtifact = {
+  generatedAt: string;
+  status: ReportStatus;
+  sourceMode: GscSourceMode;
+  site: string | null;
+  currentPeriod: { start: string; end: string } | null;
+  previousPeriod: { start: string; end: string } | null;
+  queryRows: number | null;
+  pageRows: number | null;
+  priorityQueryOpportunities: number | null;
+  priorityPageOpportunities: number | null;
+  queryPrecisionRisks: number | null;
+  failureReason: string | null;
+  nextStep: string | null;
+};
+
+function getConfig(): ConfigResolution {
   const clientEmail = (process.env.GSC_CLIENT_EMAIL || '').trim();
   const privateKey = (process.env.GSC_PRIVATE_KEY || '').replace(/\\n/g, '\n').trim();
   const siteUrl = (process.env.GSC_SITE_URL || '').trim();
+  const outputDir = resolve(process.env.GSC_OUTPUT_DIR || 'reports/gsc');
 
-  if (!clientEmail || !privateKey || !siteUrl) {
-    return null;
+  const missingEnv = [
+    !clientEmail ? 'GSC_CLIENT_EMAIL' : null,
+    !privateKey ? 'GSC_PRIVATE_KEY' : null,
+    !siteUrl ? 'GSC_SITE_URL' : null,
+  ].filter((value): value is string => Boolean(value));
+
+  if (missingEnv.length > 0) {
+    return {
+      config: null,
+      missingEnv,
+      outputDir,
+      siteUrl: siteUrl || null,
+    };
   }
 
   return {
-    clientEmail,
-    privateKey,
+    config: {
+      clientEmail,
+      privateKey,
+      siteUrl,
+      days: Number(process.env.GSC_REPORT_DAYS || 7) || 7,
+      rowLimit: Number(process.env.GSC_ROW_LIMIT || 250) || 250,
+      outputDir,
+    },
+    missingEnv: [],
+    outputDir,
     siteUrl,
-    days: Number(process.env.GSC_REPORT_DAYS || 7) || 7,
-    rowLimit: Number(process.env.GSC_ROW_LIMIT || 250) || 250,
-    outputDir: resolve(process.env.GSC_OUTPUT_DIR || 'reports/gsc'),
   };
 }
 
@@ -261,14 +310,14 @@ function renderPrecisionSection(title: string, risks: QueryPrecisionRisk[]): str
   return `## ${title}\n\n${lines.join('\n\n')}\n`;
 }
 
-function buildReport(
+function buildSuccessArtifact(
   currentQueries: GscRow[],
   previousQueries: GscRow[],
   currentPages: GscRow[],
   previousPages: GscRow[],
   periods: Period,
   siteUrl: string,
-): string {
+): { artifact: GscReportArtifact; sections: string } {
   const queryOpportunities = findCtrOpportunities(currentQueries, 'query', 15);
   const pageOpportunities = findCtrOpportunities(currentPages, 'page', 15);
   const queryComparisons = compareGscSnapshots(currentQueries, previousQueries, 15);
@@ -276,30 +325,119 @@ function buildReport(
   const queryPrecisionRisks = findQueryPrecisionRisks(currentQueries, 15);
   const quickWins = [...summarize(queryOpportunities), ...summarize(pageOpportunities).slice(0, 3)];
 
-  return [
+  return {
+    artifact: {
+      generatedAt: new Date().toISOString(),
+      status: 'clear',
+      sourceMode: 'live-api',
+      site: siteUrl,
+      currentPeriod: { start: periods.currentStart, end: periods.currentEnd },
+      previousPeriod: { start: periods.previousStart, end: periods.previousEnd },
+      queryRows: currentQueries.length,
+      pageRows: currentPages.length,
+      priorityQueryOpportunities: queryOpportunities.length,
+      priorityPageOpportunities: pageOpportunities.length,
+      queryPrecisionRisks: queryPrecisionRisks.length,
+      failureReason: null,
+      nextStep: null,
+    },
+    sections: [
+      '## Quick Wins',
+      '',
+      ...(quickWins.length > 0 ? quickWins : ['- No obvious quick wins in the current periods.']),
+      '',
+      renderPrecisionSection('Query Precision Risks', queryPrecisionRisks),
+      renderSection('Query Opportunities', queryOpportunities),
+      renderSection('Page Opportunities', pageOpportunities),
+      renderComparisonSection('Query Period Comparison', queryComparisons),
+      renderComparisonSection('Page Period Comparison', pageComparisons),
+    ].join('\n'),
+  };
+}
+
+function buildBlockingArtifact(options: {
+  sourceMode: GscSourceMode;
+  siteUrl: string | null;
+  reason: string;
+  nextStep: string;
+}): GscReportArtifact {
+  return {
+    generatedAt: new Date().toISOString(),
+    status: 'blocking',
+    sourceMode: options.sourceMode,
+    site: options.siteUrl,
+    currentPeriod: null,
+    previousPeriod: null,
+    queryRows: null,
+    pageRows: null,
+    priorityQueryOpportunities: null,
+    priorityPageOpportunities: null,
+    queryPrecisionRisks: null,
+    failureReason: options.reason,
+    nextStep: options.nextStep,
+  };
+}
+
+function formatOptionalNumber(value: number | null): string {
+  return value === null ? 'n/a' : String(value);
+}
+
+function formatOptionalPeriod(period: { start: string; end: string } | null): string {
+  return period ? `${period.start} to ${period.end}` : 'n/a';
+}
+
+function renderReportMarkdown(artifact: GscReportArtifact, sections = ''): string {
+  const lines = [
     '# GSC CTR Report',
     '',
     '## Summary',
     '',
-    `- Generated: ${new Date().toISOString()}`,
-    `- Site: ${siteUrl}`,
-    `- Current period: ${periods.currentStart} to ${periods.currentEnd}`,
-    `- Previous period: ${periods.previousStart} to ${periods.previousEnd}`,
-    `- Query rows: ${currentQueries.length}`,
-    `- Page rows: ${currentPages.length}`,
-    `- Priority query opportunities: ${queryOpportunities.length}`,
-    `- Priority page opportunities: ${pageOpportunities.length}`,
-    `- Query precision risks: ${queryPrecisionRisks.length}`,
+    `- Generated: ${artifact.generatedAt}`,
+    `- Status: ${artifact.status}`,
+    `- Source mode: ${artifact.sourceMode}`,
+    `- Site: ${artifact.site || 'n/a'}`,
+    `- Current period: ${formatOptionalPeriod(artifact.currentPeriod)}`,
+    `- Previous period: ${formatOptionalPeriod(artifact.previousPeriod)}`,
+    `- Query rows: ${formatOptionalNumber(artifact.queryRows)}`,
+    `- Page rows: ${formatOptionalNumber(artifact.pageRows)}`,
+    `- Priority query opportunities: ${formatOptionalNumber(artifact.priorityQueryOpportunities)}`,
+    `- Priority page opportunities: ${formatOptionalNumber(artifact.priorityPageOpportunities)}`,
+    `- Query precision risks: ${formatOptionalNumber(artifact.queryPrecisionRisks)}`,
+  ];
+
+  if (artifact.failureReason) {
+    lines.push(`- Failure reason: ${artifact.failureReason}`);
+  }
+  if (artifact.nextStep) {
+    lines.push(`- Next step: ${artifact.nextStep}`);
+  }
+
+  if (artifact.status === 'blocking') {
+    lines.push('', '## Blocking Reason', '', artifact.failureReason || 'Unknown blocking reason.');
+    if (artifact.nextStep) {
+      lines.push('', '## Next Step', '', artifact.nextStep);
+    }
+  } else if (sections.trim()) {
+    lines.push('', sections.trimEnd());
+  }
+
+  return `${lines.join('\n')}\n`;
+}
+
+function renderMonitoringSkippedMarkdown(artifact: GscReportArtifact): string {
+  return [
+    '# SEO Monitoring Skipped',
     '',
-    '## Quick Wins',
+    `- Generated: ${artifact.generatedAt}`,
+    `- Status: ${artifact.status}`,
+    `- Source mode: ${artifact.sourceMode}`,
+    `- Failure reason: ${artifact.failureReason || 'Unknown blocking reason.'}`,
+    `- Next step: ${artifact.nextStep || 'Inspect configuration and rerun the report.'}`,
     '',
-    ...(quickWins.length > 0 ? quickWins : ['- No obvious quick wins in the current periods.']),
+    artifact.failureReason || 'Unknown blocking reason.',
     '',
-    renderPrecisionSection('Query Precision Risks', queryPrecisionRisks),
-    renderSection('Query Opportunities', queryOpportunities),
-    renderSection('Page Opportunities', pageOpportunities),
-    renderComparisonSection('Query Period Comparison', queryComparisons),
-    renderComparisonSection('Page Period Comparison', pageComparisons),
+    artifact.nextStep || 'Inspect configuration and rerun the report.',
+    '',
   ].join('\n');
 }
 
@@ -308,49 +446,108 @@ function writeFile(path: string, content: string) {
   writeFileSync(path, content, 'utf8');
 }
 
-async function main() {
-  const config = getConfig();
-  if (!config) {
-    console.log('Skipping GSC fetch report: GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, or GSC_SITE_URL is missing.');
-    process.exit(0);
+function writeArtifacts(
+  outputDir: string,
+  artifact: GscReportArtifact,
+  options: {
+    datedReportName?: string;
+    sections?: string;
+  } = {},
+): { latestReportPath: string; latestJsonPath: string; datedReportPath: string | null } {
+  const latestReportPath = resolve(outputDir, 'latest-ctr-report.md');
+  const latestJsonPath = resolve(outputDir, 'latest-ctr-report.json');
+  const datedReportPath = options.datedReportName ? resolve(outputDir, options.datedReportName) : null;
+  const markdown = renderReportMarkdown(artifact, options.sections);
+
+  writeFile(latestReportPath, markdown);
+  writeFile(latestJsonPath, JSON.stringify(artifact, null, 2));
+  if (datedReportPath) {
+    writeFile(datedReportPath, markdown);
+  }
+  if (artifact.status === 'blocking') {
+    writeFile(resolve(outputDir, 'monitoring-skipped.md'), renderMonitoringSkippedMarkdown(artifact));
   }
 
-  const periods = getPeriods(config.days);
-  const accessToken = await fetchAccessToken(config);
-
-  const [currentQueries, previousQueries, currentPages, previousPages] = await Promise.all([
-    fetchDimensionRows(config, accessToken, 'query', periods.currentStart, periods.currentEnd),
-    fetchDimensionRows(config, accessToken, 'query', periods.previousStart, periods.previousEnd),
-    fetchDimensionRows(config, accessToken, 'page', periods.currentStart, periods.currentEnd),
-    fetchDimensionRows(config, accessToken, 'page', periods.previousStart, periods.previousEnd),
-  ]);
-
-  const currentRangeLabel = `${periods.currentStart}-to-${periods.currentEnd}`;
-  const previousRangeLabel = `${periods.previousStart}-to-${periods.previousEnd}`;
-  const snapshotDir = resolve(config.outputDir, 'snapshots');
-  const currentQueriesPath = resolve(snapshotDir, `${currentRangeLabel}-queries.csv`);
-  const previousQueriesPath = resolve(snapshotDir, `${previousRangeLabel}-queries.csv`);
-  const currentPagesPath = resolve(snapshotDir, `${currentRangeLabel}-pages.csv`);
-  const previousPagesPath = resolve(snapshotDir, `${previousRangeLabel}-pages.csv`);
-  const reportPath = resolve(config.outputDir, `${currentRangeLabel}-ctr-report.md`);
-  const latestReportPath = resolve(config.outputDir, 'latest-ctr-report.md');
-
-  writeFile(currentQueriesPath, toCsv(currentQueries, 'query'));
-  writeFile(previousQueriesPath, toCsv(previousQueries, 'query'));
-  writeFile(currentPagesPath, toCsv(currentPages, 'page'));
-  writeFile(previousPagesPath, toCsv(previousPages, 'page'));
-
-  const report = buildReport(currentQueries, previousQueries, currentPages, previousPages, periods, config.siteUrl);
-  writeFile(reportPath, report);
-  writeFile(latestReportPath, report);
-
-  console.log(`Wrote report: ${reportPath}`);
-  console.log(`Latest report: ${latestReportPath}`);
-  console.log(`Current query rows: ${currentQueries.length}`);
-  console.log(`Current page rows: ${currentPages.length}`);
+  return { latestReportPath, latestJsonPath, datedReportPath };
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+async function main() {
+  const resolved = getConfig();
+
+  if (!resolved.config) {
+    const missingSettings = resolved.missingEnv.join(', ');
+    const artifact = buildBlockingArtifact({
+      sourceMode: 'missing-config',
+      siteUrl: resolved.siteUrl,
+      reason: `Missing one or more required Search Console settings: ${missingSettings}.`,
+      nextStep:
+        'Set GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, and GSC_SITE_URL, then rerun `npx tsx scripts/gsc-fetch-report.ts`.',
+    });
+    const paths = writeArtifacts(resolved.outputDir, artifact);
+    console.log(`Wrote blocking report: ${paths.latestReportPath}`);
+    console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+    console.log(artifact.failureReason);
+    return;
+  }
+
+  const config = resolved.config;
+
+  try {
+    const periods = getPeriods(config.days);
+    const accessToken = await fetchAccessToken(config);
+
+    const [currentQueries, previousQueries, currentPages, previousPages] = await Promise.all([
+      fetchDimensionRows(config, accessToken, 'query', periods.currentStart, periods.currentEnd),
+      fetchDimensionRows(config, accessToken, 'query', periods.previousStart, periods.previousEnd),
+      fetchDimensionRows(config, accessToken, 'page', periods.currentStart, periods.currentEnd),
+      fetchDimensionRows(config, accessToken, 'page', periods.previousStart, periods.previousEnd),
+    ]);
+
+    const currentRangeLabel = `${periods.currentStart}-to-${periods.currentEnd}`;
+    const previousRangeLabel = `${periods.previousStart}-to-${periods.previousEnd}`;
+    const snapshotDir = resolve(config.outputDir, 'snapshots');
+    const currentQueriesPath = resolve(snapshotDir, `${currentRangeLabel}-queries.csv`);
+    const previousQueriesPath = resolve(snapshotDir, `${previousRangeLabel}-queries.csv`);
+    const currentPagesPath = resolve(snapshotDir, `${currentRangeLabel}-pages.csv`);
+    const previousPagesPath = resolve(snapshotDir, `${previousRangeLabel}-pages.csv`);
+
+    writeFile(currentQueriesPath, toCsv(currentQueries, 'query'));
+    writeFile(previousQueriesPath, toCsv(previousQueries, 'query'));
+    writeFile(currentPagesPath, toCsv(currentPages, 'page'));
+    writeFile(previousPagesPath, toCsv(previousPages, 'page'));
+
+    const { artifact, sections } = buildSuccessArtifact(
+      currentQueries,
+      previousQueries,
+      currentPages,
+      previousPages,
+      periods,
+      config.siteUrl,
+    );
+    const paths = writeArtifacts(config.outputDir, artifact, {
+      datedReportName: `${currentRangeLabel}-ctr-report.md`,
+      sections,
+    });
+
+    console.log(`Wrote report: ${paths.datedReportPath}`);
+    console.log(`Latest report: ${paths.latestReportPath}`);
+    console.log(`Latest JSON: ${paths.latestJsonPath}`);
+    console.log(`Current query rows: ${currentQueries.length}`);
+    console.log(`Current page rows: ${currentPages.length}`);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    const artifact = buildBlockingArtifact({
+      sourceMode: 'request-failed',
+      siteUrl: config.siteUrl,
+      reason,
+      nextStep:
+        'Check Search Console service-account access, property permissions, and API quota, then rerun `npx tsx scripts/gsc-fetch-report.ts`.',
+    });
+    const paths = writeArtifacts(config.outputDir, artifact);
+    console.error(reason);
+    console.log(`Wrote blocking report: ${paths.latestReportPath}`);
+    console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+  }
+}
+
+main();

@@ -4,7 +4,18 @@
  */
 
 import type { Env } from './kv';
-import { getSkillsFromKV, getSkillsKV, getSkillsListing, getLocalSkillsFallback } from './kv';
+import {
+  getSkillsFromKV,
+  getSkillsCategorySummary,
+  getSkillsKV,
+  getSkillsListing,
+  getSkillsListingByRefs,
+  getSkillsListingPage,
+  getSkillsListingTop,
+  getLocalSkillsFallback,
+  type SkillsCategorySummary,
+  type SkillsListingPageResult,
+} from './kv';
 import { OFFICIAL_REPOS } from './skills-config';
 import { getNonTargetSkillReason } from './shared/validation';
 
@@ -57,19 +68,13 @@ export function getLocalizedDescription(description: UnifiedSkill['description']
   return description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '';
 }
 
-function getValidationDescription(description: UnifiedSkill['description'] | undefined): string {
-  if (!description) return '';
-  if (typeof description === 'string') return description;
-  return Object.values(description).join(' ');
-}
-
 export function isPublicSkill(skill: UnifiedSkill): boolean {
   return !getNonTargetSkillReason({
     name: skill.name || skill.skillName || skill.repo,
     owner: skill.owner,
     repo: skill.repo,
     body: skill.skillMd?.body || skill.skillMd?.bodyPreview || '',
-    description: getValidationDescription(skill.description),
+    description: skill.description,
     topics: skill.topics || [],
     category: skill.category,
     filePath: skill.filePath,
@@ -222,6 +227,34 @@ export async function getLightweightSkills(env: Env): Promise<UnifiedSkill[]> {
   }
 
   return skills;
+}
+
+export async function getLightweightSkillsPage(
+  env: Env,
+  page: number,
+  pageSize: number,
+): Promise<{ skills: UnifiedSkill[]; total: number; page: number; pageSize: number }> {
+  const paged: SkillsListingPageResult = await getSkillsListingPage(env, page, pageSize);
+  return {
+    skills: normalizePublicSkills(paged.items as UnifiedSkill[]),
+    total: paged.total,
+    page: paged.page,
+    pageSize: paged.pageSize,
+  };
+}
+
+export async function getLightweightSkillsTop(env: Env, limit: number): Promise<UnifiedSkill[]> {
+  const rows = await getSkillsListingTop(env, limit);
+  return normalizePublicSkills(rows as UnifiedSkill[]);
+}
+
+export async function getLightweightSkillsCategorySummary(env: Env): Promise<SkillsCategorySummary> {
+  return getSkillsCategorySummary(env);
+}
+
+export async function getLightweightSkillsByRefs(env: Env, skillRefs: string[]): Promise<UnifiedSkill[]> {
+  const rows = await getSkillsListingByRefs(env, skillRefs);
+  return normalizePublicSkills(rows as UnifiedSkill[]);
 }
 
 /**

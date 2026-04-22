@@ -72,11 +72,11 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 
 يرفع مهارة `doc-coauthoring` العبارة لما يمكن أن يكون عليه الكتابة بمساعدة الذكاء الاصطناعي. فهي تحول مهمة شاقة ومنفرة إلى حوار منظم وذو جودة عالية.
 
-زر [مهارة doc-coauthoring](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring) في دليل مهارات Killer-Skills وابدأ كتابة مستندات تعمل فعلاً.
+زر [مهارة doc-coauthoring](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring) في دليل مهارات Killer-Skills وابدأ كتابة مستندات تعمل فعلاً.
 
 ---
 
-- تحتاج إلى تحديد التنسيق النهائي؟ ادمج هذا مع مهارة [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) للحصول على تصديرprofessionel من Word.
+- تحتاج إلى تحديد التنسيق النهائي؟ ادمج هذا مع مهارة [docx](https://killer-skills.com/en/skills/anthropics/skills/docx) للحصول على تصديرprofessionel من Word.
 
 ---
 

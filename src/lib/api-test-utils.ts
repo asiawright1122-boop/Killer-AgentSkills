@@ -1,3 +1,4 @@
+import type { APIContext } from 'astro';
 import { vi } from 'vitest';
 import type { Env } from './kv';
 
@@ -62,7 +63,7 @@ export function createAPIContext(options: {
   env?: Env;
   body?: unknown;
   headers?: Record<string, string>;
-}) {
+}): APIContext<Record<string, any>, Record<string, string | undefined>> {
   const url = new URL(options.url || 'http://localhost/api/test');
   return {
     request: new Request(url.toString(), {
@@ -86,7 +87,7 @@ export function createAPIContext(options: {
       has: vi.fn(),
     },
     redirect: vi.fn(),
-  };
+  } as unknown as APIContext<Record<string, any>, Record<string, string | undefined>>;
 }
 
 export function mockGitHubRepo(owner: string, repo: string, data?: Record<string, unknown>) {

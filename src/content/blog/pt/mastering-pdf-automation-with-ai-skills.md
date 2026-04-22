@@ -64,11 +64,11 @@ Automatize a rotação de digitalizações desalinhadas e a remoção de marcas 
 
 A habilidade `pdf` é uma ferramenta essencial para qualquer desenvolvedor ou analista de dados moderno. Ela elimina o desconforto do manuseio de PDF e permite que você construa pipelines de documentos verdadeiramente automatizados e de nível empresarial.
 
-Instale a habilidade [pdf](https://killer-skills.com/pt/skills/anthropics/skills/pdf) no diretório de skills do Killer-Skills e comece a automatizar hoje.
+Instale a habilidade [pdf](https://killer-skills.com/en/skills/anthropics/skills/pdf) no diretório de skills do Killer-Skills e comece a automatizar hoje.
 
 ---
 
-*Precisa gerar documentos Word editáveis em vez disso? Confira a habilidade [docx](https://killer-skills.com/pt/skills/anthropics/skills/docx).*
+*Precisa gerar documentos Word editáveis em vez disso? Confira a habilidade [docx](https://killer-skills.com/en/skills/anthropics/skills/docx).*
 
 ---
 

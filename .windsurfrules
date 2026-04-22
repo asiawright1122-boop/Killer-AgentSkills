@@ -50,7 +50,7 @@ If multiple skills match, load the most relevant one first.
 | seo | Installed via Killer-Skills MCP | global |
 | seo-audit | Installed via Killer-Skills MCP | global |
 | seo-content-writer | Use when the user asks to "write SEO content", "create a blo | global |
-| humanizer | | | global |
+| humanizer | Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written. | global |
 | planning-with-files | Implements Manus-style file-based planning for complex tasks | global |
 | pptx | Presentation creation, editing, and analysis. When Claude ne | global |
 | seo-review | Perform a focused SEO audit on JavaScript concept pages to m | global |

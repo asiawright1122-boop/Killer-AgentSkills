@@ -78,11 +78,11 @@ npx killer-skills add anthropics/skills/algorithmic-art
 
 アートの未来は協調的です。人間の意図と機械の実行の間のダンスのようなものです。**algorithmic-art**スキルは、そのダンスの振付師となる力をあなたに与えます。
 
-作成を始める準備はできましたか？Killer-Skills のスキル一覧で [algorithmic-art スキル](https://killer-skills.com/ja/skills/anthropics/skills/algorithmic-art) を開いて、今すぐインストールしましょう。
+作成を始める準備はできましたか？Killer-Skills のスキル一覧で [algorithmic-art スキル](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) を開いて、今すぐインストールしましょう。
 
 ---
 
-*Killer-Skillsでは、[canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design)や[theme-factory](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory)のような、さらに多くのクリエイティブスキルを探索できます。*
+*Killer-Skillsでは、[canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design)や[theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory)のような、さらに多くのクリエイティブスキルを探索できます。*
 
 ---
 

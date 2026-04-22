@@ -22,7 +22,7 @@ OpenClaw는 WhatsApp, Telegram, Discord에 연결할 수 있으므로, 이를 �
 
 - **예시 케이스**: 회의 중이거나 외출 중일 때, OpenClaw는 백그라운드에서 다양한 채널로부터 들어오는 메시지를 처리하고, 간단한 쿼리를 수행하거나, 긴급한 문제가 감지되면 특정 채널을 통해 요약본을 보낼 수 있습니다.
 - **🌟 추천 스킬**:
-  - [`humanizer`](/ko/skills/minhtungo/ai-agents-factory/humanizer): AI 응답을 더 현실적이고 인간처럼 만들어 로봇 같은 느낌을 피합니다.
+  - [`humanizer`](/en/skills/minhtungo/ai-agents-factory/humanizer): AI 응답을 더 현실적이고 인간처럼 만들어 로봇 같은 느낌을 피합니다.
   - [`internal-comms`](/ko/blog/professional-internal-communications-with-ai-skills): 전문적인 메시지 요약 및 보고 형식.
 - **키워드**: 올플랫폼 AI, 메시지 자동화.
 

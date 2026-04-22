@@ -10,6 +10,9 @@ interface SearchResult {
   score: number;
   owner: string;
   repo: string;
+  routePath: string;
+  detailLocale: string;
+  href: string;
   name: string;
   stars: number;
   category: string;
@@ -108,7 +111,7 @@ export default function CommandBar({ locale }: CommandBarProps) {
   const navigateToResult = (index: number) => {
     if (results.length > 0 && results[index]) {
       const result = results[index];
-      window.location.href = `/${locale}/skills/${result.owner}/${result.repo}`;
+      window.location.href = result.href;
     }
   };
 
@@ -196,6 +199,7 @@ export default function CommandBar({ locale }: CommandBarProps) {
             <ul className="space-y-1 pb-2">
               {results.map((result, index) => {
                 const isSelected = selectedIndex === index;
+                const displayPath = result.routePath || result.repo;
                 return (
                   <li key={result.id}>
                     <button
@@ -225,7 +229,7 @@ export default function CommandBar({ locale }: CommandBarProps) {
                           className={`flex items-center gap-3 text-sm font-mono truncate ${isSelected ? 'opacity-90' : 'text-[var(--muted-foreground)]'}`}
                         >
                           <span className="truncate">
-                            {result.owner}/{result.repo}
+                            {result.owner}/{displayPath}
                           </span>
                           <span className="shrink-0 flex items-center gap-1">
                             <Star size={12} strokeWidth={3} /> {result.stars}

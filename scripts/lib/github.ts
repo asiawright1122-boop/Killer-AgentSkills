@@ -3,6 +3,7 @@ import * as path from 'path';
 import { GITHUB_API } from './constants';
 import { fetchWithTimeout } from './utils';
 import type { SkillCache } from './types';
+import { deriveSkillStubTargetPath } from './skill-source';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -60,19 +61,36 @@ export async function fetchRepoInfo(owner: string, repo: string, etag?: string):
 }
 
 export async function fetchSkillMd(owner: string, repo: string, skillsPath: string): Promise<string | null> {
-    // If skillsPath ends in .md (or other extensions), treat it as a specific file, not a directory
-    if (skillsPath && (skillsPath.endsWith('.md') || skillsPath.endsWith('.cursorrules'))) {
-        const paths = [skillsPath];
-        for (const p of paths) {
-            for (const branch of ['main', 'master', 'canary', 'develop']) {
-                try {
-                    const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                    const response = await fetchWithTimeout(url);
-                    if (response.ok) return response.text();
-                } catch { continue; }
+    async function fetchRawFile(filePath: string, branchesToTry: string[]): Promise<string | null> {
+        for (const branch of branchesToTry) {
+            try {
+                const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${filePath}`;
+                const response = await fetchWithTimeout(url);
+                if (!response.ok) continue;
+
+                const content = await response.text();
+                const stubTarget = deriveSkillStubTargetPath(filePath, content);
+                if (stubTarget) {
+                    const resolved = await fetchRawFile(
+                        stubTarget,
+                        Array.from(new Set([branch, ...branchesToTry])),
+                    );
+                    if (resolved) return resolved;
+                }
+
+                return content;
+            } catch {
+                continue;
             }
         }
         return null;
+    }
+
+    const branchesToTry = ['main', 'master', 'canary', 'develop'];
+
+    // If skillsPath ends in .md (or other extensions), treat it as a specific file, not a directory
+    if (skillsPath && (skillsPath.endsWith('.md') || skillsPath.endsWith('.cursorrules'))) {
+        return fetchRawFile(skillsPath, branchesToTry);
     }
 
     const paths = skillsPath
@@ -88,17 +106,9 @@ export async function fetchSkillMd(owner: string, repo: string, skillsPath: stri
             `.claude/skills/${repo}/SKILL.md`
         ];
 
-    const branchesToTry = ['main', 'master', 'canary', 'develop'];
     for (const p of paths) {
-        for (const branch of branchesToTry) {
-            try {
-                const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
-                const response = await fetchWithTimeout(url);
-                if (response.ok) return response.text();
-            } catch {
-                continue;
-            }
-        }
+        const content = await fetchRawFile(p, branchesToTry);
+        if (content) return content;
     }
     return null;
 }
@@ -320,15 +330,9 @@ export async function discoverNewSkillsFromGitHub(existingIds: Set<string>, last
                         continue;
                     }
 
-                    // 获取 SKILL.md 内容
-                    const branch = item.repository?.default_branch || 'main';
-                    const rawUrl = `https://raw.githubusercontent.com/${repoFullName}/${branch}/${filePath}`;
-
                     try {
-                        const contentRes = await fetchWithTimeout(rawUrl);
-                        if (!contentRes.ok) continue;
-
-                        const content = await contentRes.text();
+                        const content = await fetchSkillMd(owner, repo, filePath);
+                        if (!content) continue;
 
                         // 验证是否有有效的 frontmatter
                         if (!content.includes('---') || !content.includes('name:')) {

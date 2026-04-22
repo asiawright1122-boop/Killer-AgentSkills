@@ -11,6 +11,7 @@ import * as path from 'path';
 import 'dotenv/config';
 
 import * as dotenv from 'dotenv';
+import { AIService } from './lib/ai';
 
 if (fs.existsSync('.env.local')) {
   const envConfig = dotenv.parse(fs.readFileSync('.env.local'));
@@ -20,6 +21,7 @@ if (fs.existsSync('.env.local')) {
 const CF_API_TOKEN = process.env.CLOUDFLARE_API_TOKEN;
 const CF_ACCOUNT_ID = process.env.CLOUDFLARE_ACCOUNT_ID;
 const KV_NAMESPACE_ID = process.env.CLOUDFLARE_TRANSLATIONS_NAMESPACE_ID || 'd5ab5c6705774d779d9b1342eda5f9ac';
+const aiService = new AIService();
 
 const LOCALES = ['zh', 'ja', 'ko', 'de', 'es', 'fr', 'pt', 'ru', 'ar'];
 
@@ -88,9 +90,6 @@ async function writeToKVBulk(items: Array<{ key: string; value: string }>): Prom
   return false;
 }
 
-const SILICONFLOW_API_KEY = process.env.SILICONFLOW_API_KEY;
-const NVIDIA_API_KEYS = process.env.NVIDIA_API_KEYS?.split(',').filter(Boolean) || [];
-
 async function callLLM(text: string, targetLang: string): Promise<string> {
   const langNameMap: Record<string, string> = {
     zh: 'Simplified Chinese',
@@ -105,47 +104,8 @@ async function callLLM(text: string, targetLang: string): Promise<string> {
   };
   const langName = langNameMap[targetLang] || targetLang;
   const prompt = `Translate the following Markdown or text context into ${langName}. Keep all Markdown syntax and codeblocks intact. Output ONLY the raw translated text.\n\n${text}`;
-
-  if (NVIDIA_API_KEYS.length > 0) {
-    try {
-      const apiKey = NVIDIA_API_KEYS[Math.floor(Math.random() * NVIDIA_API_KEYS.length)].trim();
-      const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-        body: JSON.stringify({
-          model: 'meta/llama-3.1-70b-instruct',
-          messages: [{ role: 'user', content: prompt }],
-          temperature: 0.1,
-          max_tokens: 3000,
-        }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        const content = data.choices[0]?.message?.content || text;
-        return content;
-      }
-    } catch {}
-  }
-
-  if (SILICONFLOW_API_KEY) {
-    try {
-      const res = await fetch('https://api.siliconflow.cn/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${SILICONFLOW_API_KEY}` },
-        body: JSON.stringify({
-          model: 'Qwen/Qwen2.5-72B-Instruct',
-          messages: [{ role: 'user', content: prompt }],
-          temperature: 0.1,
-          max_tokens: 3000,
-        }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        return data.choices[0]?.message?.content || text;
-      }
-    } catch {}
-  }
-  return text;
+  const response = await aiService.callAI(prompt, false);
+  return response?.trim() || text;
 }
 
 async function main() {
@@ -202,7 +162,7 @@ async function main() {
 
   let translatedBuffer: Array<{ key: string; value: string }> = [];
   // Heavy concurrency requires stable APIs. Nvidia/SiliconFlow can take ~10
-  const CONCURRENCY = 10;
+  const CONCURRENCY = Math.max(1, Number.parseInt(process.env.AI_CONCURRENCY_LIMIT || '5', 10) || 5);
   let completed = 0;
 
   // Cut jobs if exceeding 2 hours in extreme cases, Action will continue on next scheduled run

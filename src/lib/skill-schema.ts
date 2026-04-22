@@ -30,7 +30,7 @@ export function buildSkillSoftwareApplicationSchema({
     name,
     operatingSystem: 'Any',
     applicationCategory: 'DeveloperApplication',
-    keywords: `AI Agent Skills, IDE Skills, Claude Code, Developer Tools, ${category}`,
+    keywords: `AI Agent Skills, IDE Skills, Developer Tools, ${category}`,
     description: description ? `AI Agent Skill for ${category}: ${description}` : '',
     url: canonicalUrl,
     author: {

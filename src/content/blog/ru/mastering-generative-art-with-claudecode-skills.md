@@ -77,11 +77,11 @@ npx killer-skills add anthropics/skills/algorithmic-art
 
 Будущее искусства — это совместное творчество, танец между человеческим замыслом и машинным исполнением. Навык **algorithmic-art** позволяет вам стать хореографом этого танца.
 
-Готовы начать творить? Откройте навык [algorithmic-art](https://killer-skills.com/ru/skills/anthropics/skills/algorithmic-art) в каталоге навыков Killer-Skills и установите его уже сегодня.
+Готовы начать творить? Откройте навык [algorithmic-art](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) в каталоге навыков Killer-Skills и установите его уже сегодня.
 
 ---
 
-*Исследуйте другие творческие навыки, такие как [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design) и [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory) на Killer-Skills.*
+*Исследуйте другие творческие навыки, такие как [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) и [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) на Killer-Skills.*
 
 ---
 

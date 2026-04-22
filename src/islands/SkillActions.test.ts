@@ -48,10 +48,11 @@ Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock, wri
 // ── Test data (simulates SkillActions props) ───────────────────────────────────
 
 const skillProps = {
-  skillId: 'testowner/testrepo',
+  skillId: 'testowner/testrepo/sub-skill',
   skillName: 'Test Skill',
   owner: 'testowner',
   repo: 'testrepo',
+  routePath: 'testrepo/sub-skill',
   description: 'A great test skill',
   locale: 'en',
 };
@@ -95,6 +96,7 @@ describe('SkillActions – mount flow (favorites check + history recording)', ()
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
@@ -103,12 +105,14 @@ describe('SkillActions – mount flow (favorites check + history recording)', ()
     expect(updated[0].name).toBe(skillProps.skillName);
     expect(updated[0].owner).toBe(skillProps.owner);
     expect(updated[0].repo).toBe(skillProps.repo);
+    expect(updated[0].routePath).toBe('testrepo/sub-skill');
     expect(updated[0].visitedAt).toBeTruthy();
 
     // Verify it was persisted
     const stored = JSON.parse(store.get(HIST_STORAGE_KEY)!);
     expect(stored).toHaveLength(1);
     expect(stored[0].id).toBe(skillProps.skillId);
+    expect(stored[0].routePath).toBe('testrepo/sub-skill');
   });
 
   it('moves existing history entry to front when revisiting', () => {
@@ -125,6 +129,7 @@ describe('SkillActions – mount flow (favorites check + history recording)', ()
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
@@ -146,6 +151,7 @@ describe('SkillActions – mount flow (favorites check + history recording)', ()
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
@@ -162,12 +168,14 @@ describe('SkillActions – favorite toggle flow', () => {
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
     expect(result.isFavorite).toBe(true);
     expect(result.favorites).toHaveLength(1);
     expect(result.favorites[0].id).toBe(skillProps.skillId);
+    expect(result.favorites[0].routePath).toBe('testrepo/sub-skill');
     expect(result.favorites[0].addedAt).toBeTruthy();
 
     // Verify persisted
@@ -182,6 +190,7 @@ describe('SkillActions – favorite toggle flow', () => {
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
     expect(added.isFavorite).toBe(true);
@@ -192,6 +201,7 @@ describe('SkillActions – favorite toggle flow', () => {
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
@@ -213,6 +223,7 @@ describe('SkillActions – favorite toggle flow', () => {
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 
@@ -224,6 +235,7 @@ describe('SkillActions – favorite toggle flow', () => {
       name: skillProps.skillName,
       owner: skillProps.owner,
       repo: skillProps.repo,
+      routePath: skillProps.routePath,
       description: skillProps.description,
     });
 

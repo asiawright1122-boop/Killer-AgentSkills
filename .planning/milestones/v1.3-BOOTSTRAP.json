@@ -1,0 +1,69 @@
+{
+  "milestone": "v1.3",
+  "milestoneName": "Adaptive Provider Control and Escalation Automation",
+  "goal": "Convert the remaining provider-volatility watchlist into workload-aware routing, deduplicated remediation handoffs, and lifecycle-safe planning automation without weakening the NVIDIA-primary or Workers `free-only` contract.",
+  "sourceMilestone": "v1.2",
+  "sourceMilestoneName": "Operator Automation and Runtime Convergence",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.2-ROADMAP.md",
+    ".planning/milestones/v1.2-REQUIREMENTS.md",
+    ".planning/milestones/v1.2-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**AIOPS-08**: Introduce operator-approved adaptive provider weighting by workload class, not just global history.",
+    "**GOV-07**: Governance remediation seeds can open GitHub issues or PR scaffolds automatically when configured.",
+    "**TRACE-05**: Phase directories can be archived or restored automatically as milestones open and close.",
+    "**UX-EXP-01**: Expand public discovery surfaces only after operator automation is strong enough to keep content and provider drift from silently accumulating."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "39",
+      "slug": "workload-aware-provider-routing-and-budget-guards",
+      "requirements": [
+        "AIOPS-08",
+        "AIOPS-10"
+      ]
+    },
+    {
+      "number": "40",
+      "slug": "rate-pressure-evidence-and-operator-controls",
+      "requirements": [
+        "AIOPS-09"
+      ]
+    },
+    {
+      "number": "41",
+      "slug": "remediation-handoff-automation",
+      "requirements": [
+        "GOV-07",
+        "GOV-08"
+      ]
+    },
+    {
+      "number": "42",
+      "slug": "phase-archive-lifecycle-automation",
+      "requirements": [
+        "TRACE-05"
+      ]
+    }
+  ],
+  "requirements": [
+    "AIOPS-08",
+    "AIOPS-09",
+    "AIOPS-10",
+    "GOV-07",
+    "GOV-08",
+    "TRACE-05"
+  ]
+}

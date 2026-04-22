@@ -225,6 +225,19 @@ jobs:
       - name: Install dependencies
         run: HUSKY=0 npm ci
 
+      - name: Validate AI Guardrails
+        run: npm run guard:ai-config
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+
       - name: Run Harvest
         if: needs.resolve.outputs.run_harvest == 'true'
         run: |
@@ -263,6 +276,10 @@ jobs:
           OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
 
       - name: Build SSR Translations Cache
         if: needs.resolve.outputs.mode != 'harvest'
@@ -272,6 +289,11 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
           SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
 
       - name: Commit and Push
         run: |
@@ -362,6 +384,65 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
+      - name: Refresh AI Runtime Probe
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: npm run probe:ai:runtime
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+
+      - name: Refresh Direct AI Provider Probe
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: npm run probe:ai:providers -- --fail-on=none
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+
+      - name: Build AI Provider Health Report
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: npm run report:ai:health -- --limit=20 --fail-on=${AI_ALERT_FAIL_ON_SEVERITY:-critical}
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+
+      - name: Upload AI Telemetry Artifact
+        if: always() && needs.resolve.outputs.mode != 'harvest'
+        uses: actions/upload-artifact@v7
+        with:
+          name: ai-telemetry-report
+          path: |
+            reports/seo/latest-ai-config-guard.json
+            reports/seo/latest-ai-config-guard.md
+            reports/seo/latest-ai-runtime-summary.json
+            reports/seo/latest-ai-runtime-summary.md
+            reports/seo/latest-ai-provider-probe.json
+            reports/seo/latest-ai-provider-probe.md
+            reports/seo/latest-ai-provider-probe-trend.json
+            reports/seo/latest-ai-provider-probe-trend.md
+            reports/seo/latest-ai-telemetry-summary.md
+            reports/seo/latest-ai-telemetry-trend.json
+            reports/seo/latest-ai-telemetry-trend.md
+            reports/seo/latest-ai-provider-health.json
+            reports/seo/latest-ai-provider-health.md
+            reports/seo/phase-02-batch-progress*.summary.md
+          if-no-files-found: warn
+          retention-days: 21
+
       - name: Submit IndexNow
         if: needs.resolve.outputs.mode != 'harvest' && success()
         continue-on-error: true
@@ -369,6 +450,8 @@ jobs:
 
       - name: Publish Pipeline Summary
         if: always()
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
         run: |
           echo "# Data Pipeline" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
@@ -379,6 +462,36 @@ jobs:
           echo "- Build mode: ${{ needs.resolve.outputs.build_mode }}" >> "$GITHUB_STEP_SUMMARY"
           echo "- Build filter: ${{ needs.resolve.outputs.build_filter || 'none' }}" >> "$GITHUB_STEP_SUMMARY"
           echo "- Force regenerate: ${{ needs.resolve.outputs.build_force }}" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f reports/seo/latest-ai-config-guard.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,160p' reports/seo/latest-ai-config-guard.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-ai-provider-health.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,240p' reports/seo/latest-ai-provider-health.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ -f reports/seo/latest-ai-telemetry-trend.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## AI Provider Health" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "- Threshold: ${AI_ALERT_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-ai-telemetry-trend.md >> "$GITHUB_STEP_SUMMARY"
+            if [ -f reports/seo/latest-ai-runtime-summary.md ]; then
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              sed -n '1,220p' reports/seo/latest-ai-runtime-summary.md >> "$GITHUB_STEP_SUMMARY"
+            elif [ -f reports/seo/latest-ai-telemetry-summary.md ]; then
+              echo "" >> "$GITHUB_STEP_SUMMARY"
+              sed -n '1,220p' reports/seo/latest-ai-telemetry-summary.md >> "$GITHUB_STEP_SUMMARY"
+            fi
+          else
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## AI Provider Health" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "- Threshold: ${AI_ALERT_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+            echo "- Provider health report was not generated in this run." >> "$GITHUB_STEP_SUMMARY"
+          fi
 
   auto-submit:
     needs: resolve

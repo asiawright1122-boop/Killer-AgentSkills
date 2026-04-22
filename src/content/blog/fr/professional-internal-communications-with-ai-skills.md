@@ -62,11 +62,11 @@ Rédigez des bulletins d'information mensuels "Toutes les mains" qui mettent en 
 
 Le skill `internal-comms` est votre arme secrète pour une visibilité professionnelle. Il garantit que votre travail n'est pas seulement réalisé, mais **communiqué de manière efficace** aux personnes qui comptent.
 
-Installez le skill [internal-comms](https://killer-skills.com/fr/skills/anthropics/skills/internal-comms) depuis le répertoire de skills Killer-Skills et commencez à parler le langage du leadership.
+Installez le skill [internal-comms](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) depuis le répertoire de skills Killer-Skills et commencez à parler le langage du leadership.
 
 ---
 
-*Besoin de collaborer sur des documents plus complexes ? Découvrez le skill [doc-coauthoring](https://killer-skills.com/fr/skills/anthropics/skills/doc-coauthoring).*
+*Besoin de collaborer sur des documents plus complexes ? Découvrez le skill [doc-coauthoring](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 

@@ -45,18 +45,17 @@ ${buildHreflangLinks('/collections', SUPPORTED_LOCALES)}
     for (const col of collectionsCol) {
       const canonicalSlug = getCollectionCanonicalSlug(col);
       const pagePath = `/collections/${canonicalSlug}`;
-      const eligibleLocales = getLocalizedSeoEligibleLocales(col.data, SUPPORTED_LOCALES);
-      if (eligibleLocales.length === 0) continue;
+      const localizedSeoLocales = getLocalizedSeoEligibleLocales(col.data, SUPPORTED_LOCALES);
+      if (localizedSeoLocales.length === 0) continue;
 
-      for (const locale of eligibleLocales) {
-        urls.push(`<url>
-<loc>${normalizeUrl(`${SITE}/${locale}${pagePath}`)}</loc>
+      const canonicalLocale = getPreferredCanonicalLocale(localizedSeoLocales);
+      urls.push(`<url>
+<loc>${normalizeUrl(`${SITE}/${canonicalLocale}${pagePath}`)}</loc>
 <lastmod>${today}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.7</priority>
-${buildHreflangLinks(pagePath, eligibleLocales)}
+${buildHreflangLinks(pagePath, [canonicalLocale])}
 </url>`);
-      }
     }
   } catch (e) {
     console.error('[sitemap-collections] Failed to load collections:', e);

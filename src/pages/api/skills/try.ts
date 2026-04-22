@@ -1,6 +1,14 @@
 import type { APIRoute } from 'astro';
 import crypto from 'node:crypto';
+import { parseAIFallbackPolicy, type AIFallbackRoutingPolicy } from '../../../lib/ai-fallback-policy';
+import { resolveAIProviderModel, SKILL_TRY_PROVIDER_MODEL_ALLOWLIST } from '../../../lib/ai-provider-models';
+import { parseAIProviderWorkloadProfile, type AIProviderWorkloadProfileName } from '../../../lib/ai-provider-routing';
 import type { Env } from '../../../lib/kv';
+import {
+  LiveAIRuntime,
+  type LiveAIProviderName as LiveProvider,
+  type LiveAIRoutingSnapshot as LiveRoutingSnapshot,
+} from '../../../lib/live-ai-runtime';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 import { getSkillTryProfile, type SkillTryProfile, type SkillTryProfileId } from '../../../lib/skill-try-profiles';
 import { getSkillById } from '../../../lib/skills';
@@ -18,39 +26,20 @@ interface TrySkillRequestBody {
 interface CachedTrialOutput {
   provider: LiveProvider;
   outputMarkdown: string;
+  workloadProfile?: AIProviderWorkloadProfileName;
 }
 
 type TrialEnv = Env & Record<string, unknown>;
 
 type TryMode = 'ai' | 'template';
-type LiveProvider = 'nvidia' | 'siliconflow' | 'openrouter';
+const DEFAULT_SKILL_TRY_WORKLOAD_PROFILE: AIProviderWorkloadProfileName = 'interactive_demo';
 
 const OUTPUT_CACHE_TTL_SECONDS = 6 * 60 * 60;
 const USAGE_COUNTER_TTL_SECONDS = 3 * 24 * 60 * 60;
 const DEFAULT_DAILY_LIVE_LIMIT = 500;
-const PROVIDER_FAILURE_THRESHOLD = 4;
-const PROVIDER_COOLDOWN_MS = 2 * 60 * 1000;
-
-const FREE_MODEL_WHITELIST: Record<LiveProvider, readonly string[]> = {
-  nvidia: ['deepseek-ai/deepseek-v3.1'],
-  siliconflow: ['deepseek-ai/DeepSeek-V3'],
-  openrouter: ['google/gemma-3-27b-it:free'],
-};
-
-const DEFAULT_PROVIDER_MODEL: Record<LiveProvider, string> = {
-  nvidia: 'deepseek-ai/deepseek-v3.1',
-  siliconflow: 'deepseek-ai/DeepSeek-V3',
-  openrouter: 'google/gemma-3-27b-it:free',
-};
-
-const PROVIDER_MODEL_ENV_KEYS: Record<LiveProvider, string> = {
-  nvidia: 'SKILL_TRY_MODEL_NVIDIA',
-  siliconflow: 'SKILL_TRY_MODEL_SILICONFLOW',
-  openrouter: 'SKILL_TRY_MODEL_OPENROUTER',
-};
+const warnedRejectedSkillTryModels = new Set<string>();
 
 const localKvFallback = new Map<string, { value: string; expiresAt: number }>();
-const providerState = new Map<LiveProvider, { failures: number; openUntil: number }>();
 
 function isZhLocale(locale?: string): boolean {
   return (locale || '').toLowerCase().startsWith('zh');
@@ -80,35 +69,6 @@ User Input:
 ${input}
 
 Please produce the final answer directly.`;
-}
-
-function extractAiText(payload: unknown): string | null {
-  const data = payload as any;
-  const candidates: unknown[] = [
-    data?.result?.response,
-    data?.response,
-    data?.result?.text,
-    data?.result?.output_text,
-    data?.output_text,
-    data?.choices?.[0]?.message?.content,
-    data?.choices?.[0]?.text,
-  ];
-
-  for (const candidate of candidates) {
-    if (typeof candidate === 'string' && candidate.trim()) {
-      return candidate.trim();
-    }
-    if (Array.isArray(candidate)) {
-      const merged = candidate
-        .map((item) => (typeof item === 'string' ? item : item?.text || item?.content || ''))
-        .filter(Boolean)
-        .join('\n')
-        .trim();
-      if (merged) return merged;
-    }
-  }
-
-  return null;
 }
 
 function getEnvString(env: TrialEnv, key: string): string {
@@ -184,205 +144,75 @@ function createOutputCacheKey(profileId: string, input: string, locale: string):
 }
 
 function getProviderModel(env: TrialEnv, provider: LiveProvider): string {
-  const modelEnvKey = PROVIDER_MODEL_ENV_KEYS[provider];
-  const override = getEnvString(env, modelEnvKey);
-  const allowList = FREE_MODEL_WHITELIST[provider];
+  const resolution = resolveAIProviderModel(provider, {
+    scope: 'skill_try',
+    env,
+    getEnvString: (sourceEnv, key) => getEnvString((sourceEnv || env) as TrialEnv, key),
+    allowList: SKILL_TRY_PROVIDER_MODEL_ALLOWLIST[provider],
+  });
 
-  if (override && allowList.includes(override)) {
-    return override;
+  if (resolution.rejectedOverride) {
+    const warnKey = `${provider}:${resolution.rejectedOverride.envKey}:${resolution.rejectedOverride.model}`;
+    if (!warnedRejectedSkillTryModels.has(warnKey)) {
+      warnedRejectedSkillTryModels.add(warnKey);
+      console.warn(
+        `[SkillTryDemo] Ignoring non-allowlisted ${provider} model from ${resolution.rejectedOverride.envKey}: ${resolution.rejectedOverride.model}`,
+      );
+    }
   }
 
-  if (override && !allowList.includes(override)) {
-    console.warn(`[SkillTryDemo] Ignoring non-whitelisted ${provider} model: ${override}`);
-  }
-
-  return DEFAULT_PROVIDER_MODEL[provider];
+  return resolution.model;
 }
 
-function isProviderCoolingDown(provider: LiveProvider): boolean {
-  const entry = providerState.get(provider);
-  if (!entry) return false;
-  return Date.now() < entry.openUntil;
+function getSkillTryFallbackPolicy(env: TrialEnv): AIFallbackRoutingPolicy {
+  return parseAIFallbackPolicy(getEnvString(env, 'AI_FALLBACK_POLICY'));
 }
 
-function noteProviderSuccess(provider: LiveProvider) {
-  providerState.set(provider, { failures: 0, openUntil: 0 });
-}
-
-function noteProviderFailure(provider: LiveProvider) {
-  const current = providerState.get(provider) || { failures: 0, openUntil: 0 };
-  const failures = current.failures + 1;
-  const openUntil = failures >= PROVIDER_FAILURE_THRESHOLD ? Date.now() + PROVIDER_COOLDOWN_MS : 0;
-  providerState.set(provider, { failures, openUntil });
-}
-
-function splitKeys(...sources: string[]): string[] {
-  return sources
-    .filter(Boolean)
-    .join(',')
-    .split(',')
-    .map((item) => item.trim())
-    .filter(Boolean);
-}
-
-function getNvidiaKeys(env: TrialEnv): string[] {
-  return splitKeys(
-    getEnvString(env, 'NVIDIA_API_KEYS'),
-    getEnvString(env, 'NVIDIA_API_KEY'),
-    getEnvString(env, 'NVIDIA_API_KEYS_2'),
-    getEnvString(env, 'NVIDIA_API_KEYS_3'),
-    getEnvString(env, 'NVIDIA_API_KEYS_4'),
-    getEnvString(env, 'NVIDIA_API_KEYS_5'),
+function getSkillTryWorkloadProfile(env: TrialEnv): AIProviderWorkloadProfileName {
+  return parseAIProviderWorkloadProfile(
+    getEnvString(env, 'SKILL_TRY_WORKLOAD_PROFILE'),
+    DEFAULT_SKILL_TRY_WORKLOAD_PROFILE,
   );
 }
 
-function getOpenRouterKeys(env: TrialEnv): string[] {
-  return splitKeys(getEnvString(env, 'OPENROUTER_API_KEYS'), getEnvString(env, 'OPENROUTER_API_KEY'));
+function getSkillTryFallbackAlwaysReason(env: TrialEnv): string {
+  return getEnvString(env, 'AI_FALLBACK_ALWAYS_REASON') || 'policy_always';
 }
 
-interface ProviderRequest {
-  provider: LiveProvider;
-  url: string;
-  apiKey: string;
-  model: string;
-  systemPrompt: string;
-  userPrompt: string;
-  extraHeaders?: Record<string, string>;
-}
-
-async function callProvider(request: ProviderRequest): Promise<string> {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 30_000);
-
-  try {
-    const response = await fetch(request.url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${request.apiKey}`,
-        ...request.extraHeaders,
-      },
-      body: JSON.stringify({
-        model: request.model,
-        messages: [
-          { role: 'system', content: request.systemPrompt },
-          { role: 'user', content: request.userPrompt },
-        ],
-        temperature: 0.25,
-        max_tokens: 700,
-        stream: false,
-      }),
-      signal: controller.signal,
-    });
-
-    const raw = await response.text();
-    if (!response.ok) {
-      throw new Error(`${request.provider} HTTP ${response.status}: ${raw.slice(0, 220)}`);
-    }
-
-    let payload: unknown = null;
-    try {
-      payload = raw ? JSON.parse(raw) : {};
-    } catch {
-      throw new Error(`${request.provider} returned non-JSON response`);
-    }
-
-    const text = extractAiText(payload);
-    if (!text) {
-      throw new Error(`${request.provider} returned empty text output`);
-    }
-    return text;
-  } finally {
-    clearTimeout(timeout);
-  }
-}
+const skillTryRuntime = new LiveAIRuntime<TrialEnv>({
+  fallbackPolicy: (env) => getSkillTryFallbackPolicy(env),
+  workloadProfile: (env) => getSkillTryWorkloadProfile(env),
+  fallbackAlwaysReason: (env) => getSkillTryFallbackAlwaysReason(env),
+  providerModels: (env, provider) => getProviderModel(env, provider),
+  defaultOpenRouterTitle: 'Killer-Skills Skill Trial',
+  requestTimeoutMs: 30_000,
+});
 
 async function runLiveProviders(
   env: TrialEnv,
   systemPrompt: string,
   userPrompt: string,
   origin: string,
-): Promise<{ provider: LiveProvider; output: string }> {
-  const errors: string[] = [];
-  const nvidiaModel = getProviderModel(env, 'nvidia');
-  const siliconFlowModel = getProviderModel(env, 'siliconflow');
-  const openRouterModel = getProviderModel(env, 'openrouter');
+): Promise<{
+  provider: LiveProvider;
+  output: string;
+  workloadProfile: AIProviderWorkloadProfileName;
+  routing: LiveRoutingSnapshot;
+}> {
+  const result = await skillTryRuntime.callText(env, {
+    systemPrompt,
+    userPrompt,
+    maxTokens: 700,
+    temperature: 0.25,
+    openRouterReferer: origin,
+  });
 
-  if (!isProviderCoolingDown('nvidia')) {
-    const nvidiaKeys = getNvidiaKeys(env);
-    for (const apiKey of nvidiaKeys) {
-      try {
-        const output = await callProvider({
-          provider: 'nvidia',
-          url: 'https://integrate.api.nvidia.com/v1/chat/completions',
-          apiKey,
-          model: nvidiaModel,
-          systemPrompt,
-          userPrompt,
-        });
-        noteProviderSuccess('nvidia');
-        return { provider: 'nvidia', output };
-      } catch (error) {
-        noteProviderFailure('nvidia');
-        errors.push(error instanceof Error ? error.message : String(error));
-      }
-    }
-  } else {
-    errors.push('nvidia cooling down after recent failures');
-  }
-
-  if (!isProviderCoolingDown('siliconflow')) {
-    const siliconFlowKey = getEnvString(env, 'SILICONFLOW_API_KEY');
-    if (siliconFlowKey) {
-      try {
-        const output = await callProvider({
-          provider: 'siliconflow',
-          url: 'https://api.siliconflow.cn/v1/chat/completions',
-          apiKey: siliconFlowKey,
-          model: siliconFlowModel,
-          systemPrompt,
-          userPrompt,
-        });
-        noteProviderSuccess('siliconflow');
-        return { provider: 'siliconflow', output };
-      } catch (error) {
-        noteProviderFailure('siliconflow');
-        errors.push(error instanceof Error ? error.message : String(error));
-      }
-    }
-  } else {
-    errors.push('siliconflow cooling down after recent failures');
-  }
-
-  if (!isProviderCoolingDown('openrouter')) {
-    const openRouterKeys = getOpenRouterKeys(env);
-    for (const apiKey of openRouterKeys) {
-      try {
-        const output = await callProvider({
-          provider: 'openrouter',
-          url: 'https://openrouter.ai/api/v1/chat/completions',
-          apiKey,
-          model: openRouterModel,
-          systemPrompt,
-          userPrompt,
-          extraHeaders: {
-            'HTTP-Referer': origin,
-            'X-Title': 'Killer-Skills Skill Trial',
-          },
-        });
-        noteProviderSuccess('openrouter');
-        return { provider: 'openrouter', output };
-      } catch (error) {
-        noteProviderFailure('openrouter');
-        errors.push(error instanceof Error ? error.message : String(error));
-      }
-    }
-  } else {
-    errors.push('openrouter cooling down after recent failures');
-  }
-
-  const reason = errors.length > 0 ? errors.join(' | ') : 'No NVIDIA/SiliconFlow/OpenRouter keys configured.';
-  throw new Error(reason);
+  return {
+    provider: result.provider,
+    output: result.text,
+    workloadProfile: result.workloadProfile,
+    routing: result.routing,
+  };
 }
 
 const FALLBACK_TEMPLATES: Readonly<{
@@ -604,8 +434,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     let mode: TryMode = 'template';
     let provider: LiveProvider | 'template' = 'template';
+    let workloadProfile = getSkillTryWorkloadProfile(env);
     let outputMarkdown = fallbackPreview(profile.id as SkillTryProfileId, sanitizedInput, locale);
     let fallbackReason = '';
+    let routing: LiveRoutingSnapshot | undefined;
 
     const cachedRaw = await readStringStore(env, cacheKey);
     if (cachedRaw) {
@@ -619,6 +451,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
             skillId: profile.id,
             skillRef: profile.skillRef,
             outputMarkdown: cached.outputMarkdown,
+            workloadProfile: cached.workloadProfile || workloadProfile,
+            routing,
             cached: true,
             installCommand: `npx killer-skills add ${profile.skillRef}`,
           });
@@ -638,6 +472,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
         skillId: profile.id,
         skillRef: profile.skillRef,
         outputMarkdown,
+        workloadProfile,
+        routing,
         fallbackReason,
         installCommand: `npx killer-skills add ${profile.skillRef}`,
       });
@@ -648,6 +484,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       outputMarkdown = liveResult.output;
       mode = 'ai';
       provider = liveResult.provider;
+      workloadProfile = liveResult.workloadProfile;
+      routing = liveResult.routing;
 
       await writeStringStore(
         env,
@@ -655,6 +493,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         JSON.stringify({
           provider: liveResult.provider,
           outputMarkdown: liveResult.output,
+          workloadProfile: liveResult.workloadProfile,
         } satisfies CachedTrialOutput),
         OUTPUT_CACHE_TTL_SECONDS,
       );
@@ -670,6 +509,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
       skillId: profile.id,
       skillRef: profile.skillRef,
       outputMarkdown,
+      workloadProfile,
+      routing,
       fallbackReason: fallbackReason || undefined,
       installCommand: `npx killer-skills add ${profile.skillRef}`,
     });

@@ -79,11 +79,11 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 
 `slack-gif-creator` 스킬은 기술 최적화와 창의적 자유의 완벽한 조합입니다. 이는귀하의 AI 에이전트를 현대적인 작업장 커뮤니케이션의 "규칙"을 이해하는 디지털 아티스트로 변환합니다.
 
-시작하려면 Killer-Skills 디렉터리에서 [slack-gif-creator 스킬](https://killer-skills.com/ko/skills/anthropics/skills/slack-gif-creator)을 확인하세요.
+시작하려면 Killer-Skills 디렉터리에서 [slack-gif-creator 스킬](https://killer-skills.com/en/skills/anthropics/skills/slack-gif-creator)을 확인하세요.
 
 ---
 
-_보다 더 시각적인 마스터리를 찾고 계십니까? 고급 정적 포스터를 위한 [canvas-design](https://killer-skills.com/ko/skills/anthropics/skills/canvas-design)을 탐색하세요._
+_보다 더 시각적인 마스터리를 찾고 계십니까? 고급 정적 포스터를 위한 [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design)을 탐색하세요._
 
 ---
 

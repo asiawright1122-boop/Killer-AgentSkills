@@ -58,10 +58,10 @@ Pide al agente que realice una "prueba de lectura" de tu especificación técnic
 
 La habilidad `doc-coauthoring` eleva el listón de lo que la escritura asistida por IA puede ser. Convierte una tarea solitaria y agotadora en un diálogo estructurado y de alta calidad. 
 
-Visita la habilidad [doc-coauthoring](https://killer-skills.com/es/skills/anthropics/skills/doc-coauthoring) en el directorio de habilidades de Killer-Skills para empezar a escribir documentos que realmente funcionan.
+Visita la habilidad [doc-coauthoring](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring) en el directorio de habilidades de Killer-Skills para empezar a escribir documentos que realmente funcionan.
 
 ---
-*¿Necesita finalizar el formato? Combine esto con la habilidad [docx](https://killer-skills.com/es/skills/anthropics/skills/docx) para una exportación profesional de Word.*
+*¿Necesita finalizar el formato? Combine esto con la habilidad [docx](https://killer-skills.com/en/skills/anthropics/skills/docx) para una exportación profesional de Word.*
 
 ---
 *Relacionado: [¿Qué son las habilidades de los agentes de IA?](/es/blog/what-are-ai-agent-skills) y [Las mejores habilidades de los agentes de IA para 2026](/es/blog/best-ai-agent-skills-2026)*

@@ -18,11 +18,12 @@ import Share2 from 'lucide-react/dist/esm/icons/share-2';
 import Check from 'lucide-react/dist/esm/icons/check';
 import { loadFavorites, toggleFavorite, isFavorite as checkIsFavorite, type FavoriteSkill } from '../lib/favorites';
 import { loadHistory, addToHistory } from '../lib/history';
+import { getSkillRoutePath } from '../lib/skill-route-paths';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
 
 export interface SkillActionsProps {
-  skillId: string; // "owner/repo"
+  skillId: string; // "owner/repo[/subskill]"
   skillName: string;
   owner: string;
   repo: string;
@@ -43,6 +44,7 @@ function SkillActions({ skillId, skillName, owner, repo, description, locale: _l
   const [isFav, setIsFav] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [shareState, setShareState] = useState<'idle' | 'copied'>('idle');
+  const routePath = getSkillRoutePath({ id: skillId, owner, repo }) || repo;
 
   // On mount: load favorites, check status, record history visit
   useEffect(() => {
@@ -58,9 +60,10 @@ function SkillActions({ skillId, skillName, owner, repo, description, locale: _l
       name: skillName,
       owner,
       repo,
+      routePath,
       description,
     });
-  }, [skillId, skillName, owner, repo, description]);
+  }, [skillId, skillName, owner, repo, routePath, description]);
 
   // Toggle favorite
   const handleToggleFavorite = useCallback(() => {
@@ -70,12 +73,13 @@ function SkillActions({ skillId, skillName, owner, repo, description, locale: _l
         name: skillName,
         owner,
         repo,
+        routePath,
         description,
       });
       setIsFav(result.isFavorite);
       return result.favorites;
     });
-  }, [skillId, skillName, owner, repo, description]);
+  }, [skillId, skillName, owner, repo, routePath, description]);
 
   // Share / copy URL
   const handleShare = useCallback(async () => {

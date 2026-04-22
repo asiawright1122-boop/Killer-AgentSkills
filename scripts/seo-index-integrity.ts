@@ -4,11 +4,8 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join, resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../src/i18n';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../src/lib/seo-locales';
-
-type SitemapSkill = {
-  owner?: string;
-  repo?: string;
-};
+import { buildIndexDriftSnapshot } from './lib/index-drift';
+import type { SkillLocaleGovernanceRecord } from './lib/skill-locale-governance';
 
 type SkillCacheEntry = {
   owner?: string;
@@ -27,6 +24,13 @@ type SkillCacheEntry = {
   };
 };
 
+type SitemapSkill = {
+  owner?: string;
+  repo?: string;
+  routePath?: string;
+  id?: string;
+};
+
 type CollectionEntry = {
   title?: Record<string, string>;
   description?: Record<string, string>;
@@ -41,6 +45,7 @@ const workspaceRoot = process.cwd();
 const dataDir = resolve(workspaceRoot, 'data');
 const collectionsDir = resolve(workspaceRoot, 'src/content/collections');
 const MIN_INDEXABLE_SKILL_README_BYTES = 250;
+const MIN_SITEMAP_INDEXABLE_SKILL_BYTES = 200;
 const textEncoder = new TextEncoder();
 
 function readJson<T>(path: string): T {
@@ -80,6 +85,12 @@ function summarizeList(items: string[], limit = 12): string {
 
 function getSkillReadmeContent(skill: SkillCacheEntry): string {
   return skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
+}
+
+function buildSkillFallbackReadme(skill: SkillCacheEntry): string {
+  const fallbackDescription = getFallbackDescription(skill);
+  if (!fallbackDescription) return '';
+  return `# ${skill.name || skill.repo || 'Skill'}\n\n${fallbackDescription}`;
 }
 
 function toSkillKey(skill: SkillCacheEntry): string {
@@ -137,51 +148,78 @@ function isIndexableSkill(skill: SkillCacheEntry): boolean {
   return getSkillIndexableBytes(skill) >= MIN_INDEXABLE_SKILL_README_BYTES;
 }
 
+function getSkillSitemapIndexableBytes(skill: SkillCacheEntry): number {
+  const readmeContent = getSkillReadmeContent(skill);
+  if (readmeContent) {
+    return textEncoder.encode(readmeContent).length;
+  }
+
+  const fallbackReadme = buildSkillFallbackReadme(skill);
+  if (!fallbackReadme) return 0;
+  return textEncoder.encode(fallbackReadme).length;
+}
+
+function isSitemapIndexableSkill(skill: SkillCacheEntry): boolean {
+  return getSkillSitemapIndexableBytes(skill) >= MIN_SITEMAP_INDEXABLE_SKILL_BYTES;
+}
+
 function main() {
   const errors: string[] = [];
   const warnings: string[] = [];
 
   const sitemapSkillsPath = join(dataDir, 'sitemap-skills.json');
   const skillsCachePath = join(dataDir, 'skills-cache.json');
+  const localeGovernancePath = join(dataDir, 'seo-skill-locale-governance.json');
+  const sitemapBlocklistPath = join(dataDir, 'seo-sitemap-blocklist.json');
 
-  if (existsSync(sitemapSkillsPath) && existsSync(skillsCachePath)) {
+  if (existsSync(sitemapSkillsPath) && existsSync(skillsCachePath) && existsSync(localeGovernancePath) && existsSync(sitemapBlocklistPath)) {
     const sitemapSkillsRaw = readJson<SitemapSkill[] | { skills?: SitemapSkill[] }>(sitemapSkillsPath);
     const skillsCacheRaw = readJson<SkillCacheEntry[] | { skills?: SkillCacheEntry[] }>(skillsCachePath);
+    const localeGovernanceRaw = readJson<SkillLocaleGovernanceRecord[] | { skills?: SkillLocaleGovernanceRecord[] }>(
+      localeGovernancePath,
+    );
+    const sitemapBlocklistRaw = readJson<unknown>(sitemapBlocklistPath);
 
     const sitemapSkills = Array.isArray(sitemapSkillsRaw) ? sitemapSkillsRaw : sitemapSkillsRaw.skills || [];
     const skillsCache = Array.isArray(skillsCacheRaw) ? skillsCacheRaw : skillsCacheRaw.skills || [];
+    const localeGovernance = Array.isArray(localeGovernanceRaw) ? localeGovernanceRaw : localeGovernanceRaw.skills || [];
 
-    const sitemapIds = new Set(
-      sitemapSkills
-        .map((item) => toOwnerRepoKey(item.owner, item.repo))
-        .filter((value): value is string => Boolean(value)),
-    );
-    const indexableCacheIds = new Set(
-      skillsCache
-        .filter((item) => isIndexableSkill(item))
-        .map((item) => toOwnerRepoKey(item.owner, item.repo))
-        .filter((value): value is string => Boolean(value)),
-    );
+    const driftSnapshot = buildIndexDriftSnapshot({
+      skills: skillsCache as any,
+      localeGovernance,
+      sitemapSkills,
+      blocklistData: sitemapBlocklistRaw as any,
+    });
 
-    const onlyInSitemap = Array.from(sitemapIds).filter((id) => !indexableCacheIds.has(id));
-    const onlyInCache = Array.from(indexableCacheIds).filter((id) => !sitemapIds.has(id));
+    const onlyInSitemap = driftSnapshot.onlyInSitemap;
+    const onlyInCache = driftSnapshot.onlyInIndexableCache;
 
-    if (onlyInSitemap.length > 0 || onlyInCache.length > 0) {
-      writeDriftArtifacts(onlyInSitemap, onlyInCache);
-      warnings.push('drift artifacts written: reports/seo/index-drift.json (+ txt lists)');
-    }
+    writeDriftArtifacts(onlyInSitemap, onlyInCache);
+    warnings.push('drift artifacts written: reports/seo/index-drift.json (+ txt lists)');
 
     if (onlyInSitemap.length > 0 || onlyInCache.length > 0) {
       const message = [
-        `skill source drift detected`,
+        `governed route drift detected`,
         `only in sitemap: ${onlyInSitemap.length}`,
-        `only in indexable cache: ${onlyInCache.length}`,
+        `only in governed indexable corpus: ${onlyInCache.length}`,
         `sample sitemap-only: ${summarizeList(onlyInSitemap)}`,
-        `sample indexable-cache-only: ${summarizeList(onlyInCache)}`,
+        `sample governed-corpus-only: ${summarizeList(onlyInCache)}`,
       ].join(' | ');
 
       if (strict) errors.push(message);
       else warnings.push(message);
+    }
+
+    const routelessIndexableRepoIds = new Set(
+      skillsCache
+        .filter((item) => isSitemapIndexableSkill(item))
+        .map((item) => toOwnerRepoKey(item.owner, item.repo))
+        .filter((value): value is string => Boolean(value)),
+    );
+    if (routelessIndexableRepoIds.size > 0) {
+      warnings.push(
+        `legacy repo-level indexable candidates observed: ${routelessIndexableRepoIds.size} | sample: ${summarizeList(routelessIndexableRepoIds)}`,
+      );
     }
 
     const thinSkills = skillsCache.filter((skill) => {
@@ -209,7 +247,7 @@ function main() {
       else warnings.push(message);
     }
   } else {
-    warnings.push('data snapshots missing; skipped skill source integrity checks');
+    warnings.push('data snapshots missing; skipped governed drift integrity checks');
   }
 
   if (existsSync(collectionsDir)) {

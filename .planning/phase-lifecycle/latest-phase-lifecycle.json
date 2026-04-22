@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-04-16T06:20:54.711Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "activeMilestone": null,
+  "activeMilestoneName": null,
+  "status": "clean",
+  "activePhaseArchivePath": null,
+  "activePhases": [],
+  "archivedMilestones": [
+    {
+      "milestone": "v1.0",
+      "phaseArchivePath": ".planning/milestones/v1.0-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.0-phases/01-resolve-ui",
+        ".planning/milestones/v1.0-phases/01.1-stabilize-frontend-interactions-breadcrumbs-i18n-and-seo-contracts",
+        ".planning/milestones/v1.0-phases/02-re-enrichment-pipeline-run",
+        ".planning/milestones/v1.0-phases/02A-isolate-secrets",
+        ".planning/milestones/v1.0-phases/05-command-palette",
+        ".planning/milestones/v1.0-phases/07-content-intelligence",
+        ".planning/milestones/v1.0-phases/08-tutorial-shells",
+        ".planning/milestones/v1.0-phases/29-automation-audit",
+        ".planning/milestones/v1.0-phases/30-audit-comprehensive"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.0-phases/01-resolve-ui",
+        ".planning/milestones/v1.0-phases/01.1-stabilize-frontend-interactions-breadcrumbs-i18n-and-seo-contracts",
+        ".planning/milestones/v1.0-phases/02-re-enrichment-pipeline-run",
+        ".planning/milestones/v1.0-phases/02A-isolate-secrets",
+        ".planning/milestones/v1.0-phases/05-command-palette",
+        ".planning/milestones/v1.0-phases/07-content-intelligence",
+        ".planning/milestones/v1.0-phases/08-tutorial-shells",
+        ".planning/milestones/v1.0-phases/29-automation-audit",
+        ".planning/milestones/v1.0-phases/30-audit-comprehensive"
+      ]
+    },
+    {
+      "milestone": "v1.1",
+      "phaseArchivePath": ".planning/milestones/v1.1-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.1-phases/31-provider-telemetry-and-alerting",
+        ".planning/milestones/v1.1-phases/32-workers-free-only-and-fallback-guards",
+        ".planning/milestones/v1.1-phases/33-planning-traceability-and-phase-hygiene",
+        ".planning/milestones/v1.1-phases/34-locale-content-governance-guards"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.1-phases/31-provider-telemetry-and-alerting",
+        ".planning/milestones/v1.1-phases/32-workers-free-only-and-fallback-guards",
+        ".planning/milestones/v1.1-phases/33-planning-traceability-and-phase-hygiene",
+        ".planning/milestones/v1.1-phases/34-locale-content-governance-guards"
+      ]
+    },
+    {
+      "milestone": "v1.2",
+      "phaseArchivePath": ".planning/milestones/v1.2-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.2-phases/35-provider-history-and-runtime-convergence",
+        ".planning/milestones/v1.2-phases/36-automated-operator-monitoring",
+        ".planning/milestones/v1.2-phases/37-remediation-seeding-and-ops-summary",
+        ".planning/milestones/v1.2-phases/38-planning-bootstrap-and-closeout-automation"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.2-phases/35-provider-history-and-runtime-convergence",
+        ".planning/milestones/v1.2-phases/36-automated-operator-monitoring",
+        ".planning/milestones/v1.2-phases/37-remediation-seeding-and-ops-summary",
+        ".planning/milestones/v1.2-phases/38-planning-bootstrap-and-closeout-automation"
+      ]
+    },
+    {
+      "milestone": "v1.3",
+      "phaseArchivePath": ".planning/milestones/v1.3-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards",
+        ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls",
+        ".planning/milestones/v1.3-phases/41-remediation-handoff-automation",
+        ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards",
+        ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls",
+        ".planning/milestones/v1.3-phases/41-remediation-handoff-automation",
+        ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation"
+      ]
+    },
+    {
+      "milestone": "v1.4",
+      "phaseArchivePath": ".planning/milestones/v1.4-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.4-phases/43-production-sitemap-and-dynamic-404-closure",
+        ".planning/milestones/v1.4-phases/44-recovery-observability-and-kpi-board",
+        ".planning/milestones/v1.4-phases/45-provider-resilience-under-recovery-guardrails"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.4-phases/43-production-sitemap-and-dynamic-404-closure",
+        ".planning/milestones/v1.4-phases/44-recovery-observability-and-kpi-board",
+        ".planning/milestones/v1.4-phases/45-provider-resilience-under-recovery-guardrails"
+      ]
+    },
+    {
+      "milestone": "v1.5",
+      "phaseArchivePath": ".planning/milestones/v1.5-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion",
+        ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board",
+        ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop",
+        ".planning/milestones/v1.5-phases/49-skill-locale-index-governance",
+        ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset",
+        ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation",
+        ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild",
+        ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion",
+        ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board",
+        ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop",
+        ".planning/milestones/v1.5-phases/49-skill-locale-index-governance",
+        ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset",
+        ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation",
+        ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild",
+        ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge"
+      ]
+    },
+    {
+      "milestone": "v1.6",
+      "phaseArchivePath": ".planning/milestones/v1.6-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window",
+        ".planning/milestones/v1.6-phases/55-recovery-delta-attribution-and-cohort-board",
+        ".planning/milestones/v1.6-phases/56-authority-surface-uplift-program-and-promotion-gates",
+        ".planning/milestones/v1.6-phases/57-recovery-experiment-ladder-and-automation-readiness"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window",
+        ".planning/milestones/v1.6-phases/55-recovery-delta-attribution-and-cohort-board",
+        ".planning/milestones/v1.6-phases/56-authority-surface-uplift-program-and-promotion-gates",
+        ".planning/milestones/v1.6-phases/57-recovery-experiment-ladder-and-automation-readiness"
+      ]
+    }
+  ],
+  "archiveActions": [],
+  "restoreActions": [],
+  "createActions": [],
+  "unmanagedPhaseDirs": [],
+  "conflicts": [],
+  "rewrittenFiles": []
+}

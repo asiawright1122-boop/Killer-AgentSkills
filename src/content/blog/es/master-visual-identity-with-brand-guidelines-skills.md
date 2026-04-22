@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## ¿Qué es la habilidad Brand-Guidelines?
 
-La habilidad `brand-guidelines` es un motor de diseño que impone estrictos estándares visuales. Está diseñada para ser utilizada en conjunto con otras habilidades creativas como [pptx](https://killer-skills.com/es/skills/anthropics/skills/pptx) o [canvas-design](https://killer-skills.com/es/skills/anthropics/skills/canvas-design) para asegurarse de que se mantengan "dentro de la marca".
+La habilidad `brand-guidelines` es un motor de diseño que impone estrictos estándares visuales. Está diseñada para ser utilizada en conjunto con otras habilidades creativas como [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) o [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) para asegurarse de que se mantengan "dentro de la marca".
 
 ### 1. La Paleta de Colores Oficial
 La habilidad proporciona valores precisos de RGB y HEX para la identidad oficial:
@@ -60,11 +60,11 @@ Genera gráficos para redes sociales o documentos en PDF que son instantáneamen
 
 La habilidad `brand-guidelines` es el toque final que convierte la "salida de IA" en "activo profesional". Asegura que su agente de codificación comprenda la importancia del contexto visual y la autoridad de la marca.
 
-Instala la habilidad [brand-guidelines](https://killer-skills.com/es/skills/anthropics/skills/brand-guidelines) desde el directorio de habilidades de Killer-Skills y empieza a diseñar con autoridad.
+Instala la habilidad [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) desde el directorio de habilidades de Killer-Skills y empieza a diseñar con autoridad.
 
 ---
 
-*¿Busca más opciones de estilo? Explore [theme-factory](https://killer-skills.com/es/skills/anthropics/skills/theme-factory) para una amplia gama de temas profesionales preestablecidos.*
+*¿Busca más opciones de estilo? Explore [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) para una amplia gama de temas profesionales preestablecidos.*
 
 ---
 

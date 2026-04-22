@@ -88,6 +88,9 @@ valid_new_sites.json
 # Generated reports
 reports/
 
+# Runtime AI usage counters
+.tmp/workers-ai-usage.json
+
 # Large data files (git history cleanup)
 db/seeds/
 data/embeddings-cache.json

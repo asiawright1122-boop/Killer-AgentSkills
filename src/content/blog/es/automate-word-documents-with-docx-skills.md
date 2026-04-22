@@ -62,7 +62,7 @@ Cuando utilices esta habilidad con la CLI de Killer-Skills, recuerda que el agen
 
 La habilidad `docx` aporta un nivel de profesionalidad "de Grado Empresarial" a tus flujos de trabajo de IA. Garantiza que el resultado de tu agente de codificación cumpla con los más altos estándares del mundo corporativo.
 
-Empieza instalando la habilidad [docx](https://killer-skills.com/es/skills/anthropics/skills/docx) desde el directorio de habilidades de Killer-Skills.
+Empieza instalando la habilidad [docx](https://killer-skills.com/en/skills/anthropics/skills/docx) desde el directorio de habilidades de Killer-Skills.
 
 *¿Necesitas manejar datos primero? Consulta nuestra guía sobre la [habilidad xlsx](https://killer-skills.com/es/blog/mastering-excel-automation-with-xlsx-skills) para la automatización de hojas de cálculo.*
 

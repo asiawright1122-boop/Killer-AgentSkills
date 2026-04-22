@@ -4,6 +4,10 @@ import { translateText } from './nvidia';
 
 // The delimiter used to safely join arrays of strings for bulk translation
 const ARRAY_DELIMITER = '\n|||\n';
+// For SSR reads (allowRealtime=false), skip KV hash/lookups for very large payloads.
+// This avoids CPU-heavy key generation on huge markdown bodies during crawl spikes.
+const MAX_NON_REALTIME_TRANSLATION_CHARS = 4000;
+const MAX_NON_REALTIME_ARRAY_CHARS = 6000;
 
 function generateTranslationKey(text: string, lang: string): string {
   let hash = 0;
@@ -31,6 +35,7 @@ export async function translateString(
 ): Promise<string> {
   if (!text || text.trim().length === 0) return '';
   if (targetLang === 'en') return text; // Skip for default English assuming source is mostly English
+  if (!allowRealtime && text.length > MAX_NON_REALTIME_TRANSLATION_CHARS) return text;
 
   const cacheKey = generateTranslationKey(text, targetLang);
 
@@ -79,6 +84,7 @@ export async function translateArray(
   if (validItems.length === 0) return [];
 
   const combinedText = validItems.join(ARRAY_DELIMITER);
+  if (!allowRealtime && combinedText.length > MAX_NON_REALTIME_ARRAY_CHARS) return validItems;
   const cacheKey = generateTranslationKey(combinedText, targetLang);
 
   try {

@@ -77,6 +77,7 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
             results: skills
               .filter((s) => s && typeof s === 'object' && s.owner && s.repo)
               .map((s) => ({
+                id: s.id,
                 owner: s.owner,
                 repo: s.repo,
                 updatedAt: s.updatedAt,
@@ -88,6 +89,9 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
                 seoDefinitionEn:
                   s.seoDefinitionEn ?? (typeof s.seo?.definition === 'object' ? s.seo?.definition?.en : undefined),
                 seoDefinitionRaw: s.seoDefinitionRaw ?? s.seo?.definition,
+                topicsRaw: s.topicsRaw ?? s.topics,
+                category: s.category,
+                filePath: s.filePath,
               })),
           };
         }
@@ -328,70 +332,90 @@ describe('getSkillsKV', () => {
 describe('getSitemapSkillsFromKV', () => {
   it('should read valid sitemap skills from D1', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'anthropics', repo: 'skills' }),
-      withIndexableBody({ owner: 'vercel', repo: 'next.js' }),
+      withIndexableBody({ id: 'anthropics/skills/algorithmic-art', owner: 'anthropics', repo: 'skills' }),
+      withIndexableBody({ id: 'vercel/nextjs', owner: 'vercel', repo: 'nextjs' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
     expect(result).toEqual([
-      { owner: 'anthropics', repo: 'skills' },
-      { owner: 'vercel', repo: 'next.js' },
+      { owner: 'anthropics', repo: 'skills', routePath: 'skills/algorithmic-art' },
+      { owner: 'vercel', repo: 'nextjs', routePath: 'nextjs' },
     ]);
     expect(result).toHaveLength(2);
   });
 
-  it('should dedupe owner/repo entries and keep the latest updatedAt', async () => {
+  it('should dedupe identical route paths and keep the latest updatedAt', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'anthropics', repo: 'skills', updatedAt: '2026-03-01T00:00:00.000Z' }),
-      withIndexableBody({ owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' }),
-      withIndexableBody({ owner: 'vercel', repo: 'next.js', updatedAt: '2026-02-01T00:00:00.000Z' }),
+      withIndexableBody({
+        id: 'anthropics/skills/algorithmic-art',
+        owner: 'anthropics',
+        repo: 'skills',
+        updatedAt: '2026-03-01T00:00:00.000Z',
+      }),
+      withIndexableBody({
+        id: 'Anthropics/skills/algorithmic-art',
+        owner: 'Anthropics',
+        repo: 'skills',
+        updatedAt: '2026-03-10T00:00:00.000Z',
+      }),
+      withIndexableBody({
+        id: 'vercel/nextjs',
+        owner: 'vercel',
+        repo: 'nextjs',
+        updatedAt: '2026-02-01T00:00:00.000Z',
+      }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
     expect(result).toHaveLength(2);
-    expect(result[0]).toEqual({ owner: 'Anthropics', repo: 'skills', updatedAt: '2026-03-10T00:00:00.000Z' });
+    expect(result[0]).toEqual({
+      owner: 'Anthropics',
+      repo: 'skills',
+      routePath: 'skills/algorithmic-art',
+      updatedAt: '2026-03-10T00:00:00.000Z',
+    });
   });
 
   it('should filter out invalid GitHub owner/repo formats', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'valid-owner', repo: 'valid_repo' }),
-      withIndexableBody({ owner: 'bad owner', repo: 'repo' }),
-      withIndexableBody({ owner: 'owner', repo: 'bad/repo' }),
+      withIndexableBody({ id: 'valid-owner/valid_repo/my-skill', owner: 'valid-owner', repo: 'valid_repo' }),
+      withIndexableBody({ id: 'bad owner/repo/my-skill', owner: 'bad owner', repo: 'repo' }),
+      withIndexableBody({ id: 'owner/bad/repo/my-skill', owner: 'owner', repo: 'bad/repo' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid_repo' }]);
+    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid_repo', routePath: 'valid_repo/my-skill' }]);
   });
 
   it('should filter out entries with missing owner', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'anthropics', repo: 'skills' }),
-      withIndexableBody({ owner: '', repo: 'bad-repo' }),
-      withIndexableBody({ owner: undefined, repo: 'another' }),
-      withIndexableBody({ repo: 'no-owner' }),
+      withIndexableBody({ id: 'anthropics/skills/algorithmic-art', owner: 'anthropics', repo: 'skills' }),
+      withIndexableBody({ id: 'skills/bad-repo', owner: '', repo: 'bad-repo' }),
+      withIndexableBody({ id: 'another/repo', owner: undefined, repo: 'another' }),
+      withIndexableBody({ id: 'no-owner/repo', repo: 'no-owner' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
     expect(result).toHaveLength(1);
-    expect(result[0]).toEqual({ owner: 'anthropics', repo: 'skills' });
+    expect(result[0]).toEqual({ owner: 'anthropics', repo: 'skills', routePath: 'skills/algorithmic-art' });
   });
 
   it('should filter out entries with missing repo', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'valid', repo: 'data' }),
-      withIndexableBody({ owner: 'has-owner', repo: '' }),
-      withIndexableBody({ owner: 'has-owner', repo: undefined }),
-      withIndexableBody({ owner: 'has-owner' }),
+      withIndexableBody({ id: 'valid/data/data-workflow', owner: 'valid', repo: 'data' }),
+      withIndexableBody({ id: 'has-owner/empty', owner: 'has-owner', repo: '' }),
+      withIndexableBody({ id: 'has-owner/undefined', owner: 'has-owner', repo: undefined }),
+      withIndexableBody({ id: 'has-owner/missing', owner: 'has-owner' }),
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
     expect(result).toHaveLength(1);
-    expect(result[0]).toEqual({ owner: 'valid', repo: 'data' });
+    expect(result[0]).toEqual({ owner: 'valid', repo: 'data', routePath: 'data/data-workflow' });
   });
 
   it('should filter out null entries', async () => {
@@ -404,18 +428,71 @@ describe('getSitemapSkillsFromKV', () => {
 
   it('should filter out thin readme entries from sitemap', async () => {
     const sitemapData = [
-      withIndexableBody({ owner: 'valid-owner', repo: 'valid-repo' }),
-      { owner: 'thin-owner', repo: 'thin-repo', skillMd: { bodyPreview: 'tiny readme' } },
+      withIndexableBody({ id: 'valid-owner/valid-repo/valid-skill', owner: 'valid-owner', repo: 'valid-repo' }),
+      {
+        id: 'thin-owner/thin-repo/thin-skill',
+        owner: 'thin-owner',
+        repo: 'thin-repo',
+        skillMd: { bodyPreview: 'tiny readme' },
+      },
     ];
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid-repo' }]);
+    expect(result).toEqual([{ owner: 'valid-owner', repo: 'valid-repo', routePath: 'valid-repo/valid-skill' }]);
+  });
+
+  it('should filter out non-public skills even when readme content is indexable', async () => {
+    const sitemapData = [
+      withIndexableBody({
+        id: 'anthropics/skills/algorithmic-art',
+        owner: 'anthropics',
+        repo: 'skills',
+        description: { en: 'Procedural p5.js art skill for Claude Code workflows.' },
+        topics: ['claude', 'agent skill'],
+        category: 'official',
+      }),
+      withIndexableBody({
+        id: 'marswangyang/Roger/resume-latex-pdf-generator',
+        owner: 'marswangyang',
+        repo: 'Roger',
+        name: 'resume-latex-pdf-generator',
+        description: { en: 'Generates and compiles a single-page US Letter LaTeX resume.' },
+        topics: ['latex', 'resume'],
+        category: 'community',
+      }),
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'anthropics', repo: 'skills', routePath: 'skills/algorithmic-art' }]);
+  });
+
+  it('should keep skills when only localized summary boilerplate contains resume', async () => {
+    const sitemapData = [
+      withIndexableBody({
+        id: 'eannnnnn/taptik-labs/gh',
+        owner: 'eannnnnn',
+        repo: 'taptik-labs',
+        name: 'gh',
+        description: {
+          en: 'GitHub CLI automation skill for AI agent repository workflows.',
+          fr: 'Resume localise : GitHub CLI automation skill for AI agent repository workflows.',
+        },
+        topics: ['claude', 'mcp'],
+        category: 'community',
+      }),
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'eannnnnn', repo: 'taptik-labs', routePath: 'taptik-labs/gh' }]);
   });
 
   it('should keep thin-readme entries when fallback description is indexable', async () => {
     const sitemapData = [
       {
+        id: 'fallback-owner/fallback-repo/fallback-skill',
         owner: 'fallback-owner',
         repo: 'fallback-repo',
         skillMd: { bodyPreview: 'tiny' },
@@ -425,7 +502,40 @@ describe('getSitemapSkillsFromKV', () => {
     const env = createMockEnv({}, sitemapData);
 
     const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual([{ owner: 'fallback-owner', repo: 'fallback-repo' }]);
+    expect(result).toEqual([
+      { owner: 'fallback-owner', repo: 'fallback-repo', routePath: 'fallback-repo/fallback-skill' },
+    ]);
+  });
+
+  it('should map README root skills back to the repo root route path', async () => {
+    const sitemapData = [
+      withIndexableBody({
+        id: 'neondatabase/mcp-server-neon/README.md',
+        owner: 'neondatabase',
+        repo: 'mcp-server-neon',
+        name: 'README.md',
+        description: {
+          en: 'Neon MCP Server skill for managing Neon Postgres databases with natural language.',
+        },
+        topics: ['mcp', 'llm'],
+        category: 'official',
+      }),
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'neondatabase', repo: 'mcp-server-neon', routePath: 'mcp-server-neon' }]);
+  });
+
+  it('should filter out non-routeable multi-level skill ids', async () => {
+    const sitemapData = [
+      withIndexableBody({ id: 'owner/repo/valid-skill', owner: 'owner', repo: 'repo' }),
+      withIndexableBody({ id: 'owner/repo/nested/skill', owner: 'owner', repo: 'repo' }),
+    ];
+    const env = createMockEnv({}, sitemapData);
+
+    const result = await getSitemapSkillsFromKV(env);
+    expect(result).toEqual([{ owner: 'owner', repo: 'repo', routePath: 'repo/valid-skill' }]);
   });
 
   it('should return empty array when DB binding is unavailable in production (no local fallback)', async () => {

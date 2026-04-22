@@ -1,0 +1,69 @@
+{
+  "milestone": "v1.2",
+  "milestoneName": "Operator Automation and Runtime Convergence",
+  "goal": "Turn `v1.1`'s operator-ready hardening into automated, self-seeding control loops that absorb provider volatility, keep Workers AI inside the free-only envelope, and eliminate remaining runtime policy drift.",
+  "sourceMilestone": "v1.1",
+  "sourceMilestoneName": "Observability and Governance Hardening",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.1-ROADMAP.md",
+    ".planning/milestones/v1.1-REQUIREMENTS.md",
+    ".planning/milestones/v1.1-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**AIOPS-05**: Provider selection can self-tune based on longer-window success rates without hiding operator control.",
+    "**AIOPS-06**: Provider health history is available in a persistent dashboard or review artifact beyond per-run reports.",
+    "**GOV-04**: Content-governance drift can auto-open or auto-seed remediation work when thresholds are crossed.",
+    "**TRACE-04**: Milestone bootstrap and closeout flows create all planning index files automatically, including milestone registry/history."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "35",
+      "slug": "provider-history-and-runtime-convergence",
+      "requirements": [
+        "AIOPS-05",
+        "AIOPS-07"
+      ]
+    },
+    {
+      "number": "36",
+      "slug": "automated-operator-monitoring",
+      "requirements": [
+        "AIOPS-06",
+        "GOV-05"
+      ]
+    },
+    {
+      "number": "37",
+      "slug": "remediation-seeding-and-ops-summary",
+      "requirements": [
+        "GOV-04",
+        "GOV-06"
+      ]
+    },
+    {
+      "number": "38",
+      "slug": "planning-bootstrap-and-closeout-automation",
+      "requirements": [
+        "TRACE-04"
+      ]
+    }
+  ],
+  "requirements": [
+    "AIOPS-05",
+    "AIOPS-06",
+    "AIOPS-07",
+    "GOV-04",
+    "GOV-05",
+    "GOV-06",
+    "TRACE-04"
+  ]
+}

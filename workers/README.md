@@ -9,11 +9,15 @@
 后台执行 AI 翻译任务。
 
 **功能：**
+
+- NVIDIA 多 key 健康度排序
+- `guarded` fallback 到 SiliconFlow / OpenRouter
 - 自动重试 (3 次，指数退避)
 - 状态持久化 (崩溃后可恢复)
 - 结果缓存到 KV
 
 **触发方式：**
+
 ```bash
 wrangler workflows trigger translation-workflow \
   --payload '{"text":"Hello world","targetLang":"zh","type":"text","cacheKey":"test:hello:zh"}'
@@ -24,12 +28,14 @@ wrangler workflows trigger translation-workflow \
 验证 GitHub 仓库的 SKILL.md 并更新缓存。
 
 **功能：**
+
 - 获取并解析 SKILL.md
 - 获取仓库元信息 (stars, topics)
 - 更新 KV 缓存
 - 触发多语言翻译
 
 **触发方式：**
+
 ```bash
 wrangler workflows trigger skill-validation-workflow \
   --payload '{"owner":"anthropics","repo":"anthropic-cookbook"}'
@@ -56,7 +62,11 @@ wrangler deploy workers/skill-validation-workflow.ts --name skill-validation-wor
 
 需要在 Cloudflare Dashboard 或通过 `wrangler secret put` 配置：
 
-- `NVIDIA_API_KEY`: NVIDIA NIM API 密钥 (用于翻译)
+- `NVIDIA_API_KEY` / `NVIDIA_API_KEYS`: NVIDIA NIM API 密钥
+- `SILICONFLOW_API_KEY`: SiliconFlow 备用密钥
+- `OPENROUTER_API_KEY` / `OPENROUTER_API_KEYS`: OpenRouter 备用密钥
+- `AI_FALLBACK_POLICY`: 建议使用 `guarded`，仅在 NVIDIA 不可用时放开备援
+- `AI_FALLBACK_ALWAYS_REASON`: 可选，记录 `always` 模式的触发原因
 
 ```bash
 wrangler secret put NVIDIA_API_KEY

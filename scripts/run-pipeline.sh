@@ -12,6 +12,15 @@ LOG_DIR="logs"
 LOCK_FILE=".pipeline.lock"
 HARVEST_TARGET=${HARVEST_TARGET:-500}  # Default: 500
 SLEEP_INTERVAL=${SLEEP_INTERVAL:-3600} # Default: 1 hour
+AI_FALLBACK_POLICY=${AI_FALLBACK_POLICY:-guarded}
+WORKERS_AI_MODE=${WORKERS_AI_MODE:-free-only}
+WORKERS_AI_FREE_MAX_CALLS=${WORKERS_AI_FREE_MAX_CALLS:-60}
+WORKERS_AI_FREE_DAILY_MAX_CALLS=${WORKERS_AI_FREE_DAILY_MAX_CALLS:-60}
+
+export AI_FALLBACK_POLICY
+export WORKERS_AI_MODE
+export WORKERS_AI_FREE_MAX_CALLS
+export WORKERS_AI_FREE_DAILY_MAX_CALLS
 
 # Create logs directory if not exists
 mkdir -p "$LOG_DIR"
@@ -49,6 +58,17 @@ run_pipeline() {
     LOG_FILE="$LOG_DIR/pipeline-$TODAY.log"
     
     log "🚀 Starting pipeline execution..." | tee -a "$LOG_FILE"
+    log "🧭 AI fallback policy: $AI_FALLBACK_POLICY" | tee -a "$LOG_FILE"
+    log "🤖 Workers AI mode: $WORKERS_AI_MODE (run/day caps: $WORKERS_AI_FREE_MAX_CALLS/$WORKERS_AI_FREE_DAILY_MAX_CALLS)" | tee -a "$LOG_FILE"
+
+    # Step 0: AI guardrail validation
+    log "🛡️  Step 0: Validating AI guardrails..." | tee -a "$LOG_FILE"
+    if npm run guard:ai-config >> "$LOG_FILE" 2>&1; then
+        log "✅ AI guardrails validated." | tee -a "$LOG_FILE"
+    else
+        log "❌ AI guardrail validation failed. Aborting pipeline." | tee -a "$LOG_FILE"
+        return 1
+    fi
 
     # Step 1: Harvest
     log "🌾 Step 1: Harvesting GitHub Skills (Target: $HARVEST_TARGET)..." | tee -a "$LOG_FILE"
@@ -66,6 +86,33 @@ run_pipeline() {
         log "✅ Build completed." | tee -a "$LOG_FILE"
     else
         log "❌ Build failed. Aborting sync." | tee -a "$LOG_FILE"
+        return 1
+    fi
+
+    # Step 2.5: AI Provider Health Gate
+    log "🧪 Step 2.5: Refreshing AI Runtime Probe..." | tee -a "$LOG_FILE"
+    if npm run probe:ai:runtime >> "$LOG_FILE" 2>&1; then
+        log "✅ AI runtime probe refreshed." | tee -a "$LOG_FILE"
+    else
+        log "❌ AI runtime probe failed. Aborting sync." | tee -a "$LOG_FILE"
+        return 1
+    fi
+
+    # Step 2.6: Refresh direct provider probe
+    log "🧭 Step 2.6: Refreshing direct AI provider probe..." | tee -a "$LOG_FILE"
+    if npm run probe:ai:providers -- --fail-on=none >> "$LOG_FILE" 2>&1; then
+        log "✅ Direct AI provider probe refreshed." | tee -a "$LOG_FILE"
+    else
+        log "❌ Direct AI provider probe failed. Aborting sync." | tee -a "$LOG_FILE"
+        return 1
+    fi
+
+    # Step 2.7: AI Provider Health Gate
+    log "🩺 Step 2.7: Evaluating AI Provider Health..." | tee -a "$LOG_FILE"
+    if npx tsx scripts/ai-provider-health.ts --limit=20 --fail-on="${AI_ALERT_FAIL_ON_SEVERITY:-critical}" >> "$LOG_FILE" 2>&1; then
+        log "✅ AI provider health gate passed." | tee -a "$LOG_FILE"
+    else
+        log "❌ AI provider health gate failed. Aborting sync." | tee -a "$LOG_FILE"
         return 1
     fi
 

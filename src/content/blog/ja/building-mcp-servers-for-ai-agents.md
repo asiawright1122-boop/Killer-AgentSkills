@@ -54,11 +54,11 @@ MCP以前は、すべてのAI統合はカスタマイズされた、脆弱な「
 
 `mcp-builder` スキルは、AI の推論と実世界の実行のギャップを埋めるために、開発者にとって不可欠です。証明済みのパターンに従うことで、単に「動作する」ツールではなく、実際に AI エージェントの生産性を高めるツールを作成できます。
 
-構築を始める準備ができたら、Killer-Skills のレジストリにある [mcp-builder スキル](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder) の完全なドキュメントを確認してください。
+構築を始める準備ができたら、Killer-Skills のレジストリにある [mcp-builder スキル](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) の完全なドキュメントを確認してください。
 
 ---
 
-*新しいツールを検証する必要がありますか？[webapp-testing スキル](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing) とペアにします。*
+*新しいツールを検証する必要がありますか？[webapp-testing スキル](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) とペアにします。*
 
 ---
 

@@ -1,20 +1,21 @@
 #!/usr/bin/env npx tsx
 /**
- * AI 批量优化博客 meta description（使用 NVIDIA API）
+ * AI 批量优化博客 meta description（使用统一 AI 路由）
  * 基于 meta-tags-optimizer 技能的最佳实践：120–158 字符、包含 CTA、Power Words
  *
  * 用法:
  *   npx tsx scripts/ai-optimize-blog-meta.ts              # 交互模式
  *   npx tsx scripts/ai-optimize-blog-meta.ts --dry-run   # 仅预览
  *   npx tsx scripts/ai-optimize-blog-meta.ts --lang=en   # 只处理英文
+ *   npx tsx scripts/ai-optimize-blog-meta.ts --api-key=xxx # 临时覆盖 NVIDIA 主 key
  */
 
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import * as path from 'path';
+import { AIService } from './lib/ai';
 import { getDescriptionLengthRange, sanitizeMetaDescription, trimDescriptionToMax } from './lib/meta-description';
 
-// 加载 .env.local
 const envPath = path.join(process.cwd(), '.env.local');
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
@@ -22,79 +23,90 @@ if (fs.existsSync(envPath)) {
 
 const BLOG_DIR = path.join(process.cwd(), 'src/content/blog');
 
-// 从环境变量或命令行参数获取 NVIDIA API Keys
-function getNvidiaKeys(): string[] {
-  // 首先检查命令行参数
-  const args = process.argv.slice(2);
-  const apiKeyArg = args.find((a) => a.startsWith('--api-key='));
-  if (apiKeyArg) {
-    return [apiKeyArg.replace('--api-key=', '')];
-  }
-
-  const keys = [
-    process.env.NVIDIA_API_KEY,
-    process.env.NVIDIA_API_KEYS,
-    process.env.NVIDIA_API_KEYS_2,
-    process.env.NVIDIA_API_KEYS_3,
-    process.env.NVIDIA_API_KEYS_4,
-    process.env.NVIDIA_API_KEYS_5,
-  ]
+function splitKeys(...sources: Array<string | undefined>): string[] {
+  return sources
     .filter(Boolean)
     .join(',')
     .split(',')
-    .map((k) => k.trim())
+    .map((item) => item.trim())
     .filter(Boolean);
-
-  return keys;
 }
 
-let keyIndex = 0;
-function getNextKey(keys: string[]): string {
-  const key = keys[keyIndex % keys.length];
-  keyIndex++;
-  return key;
+function getCliApiKeyOverride(): string | null {
+  const args = process.argv.slice(2);
+  const apiKeyArg = args.find((arg) => arg.startsWith('--api-key='));
+  if (!apiKeyArg) return null;
+  return apiKeyArg.replace('--api-key=', '').trim() || null;
 }
 
-// 调用 NVIDIA API
-async function callNvidia(apiKey: string, prompt: string): Promise<string> {
-  const response = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: 'meta/llama-3.1-70b-instruct',
-      messages: [
-        {
-          role: 'system',
-          content: `You are an SEO expert specializing in meta description optimization.
+function getConfiguredNvidiaKeys(cliApiKey: string | null): string[] {
+  return cliApiKey
+    ? [cliApiKey]
+    : splitKeys(
+        process.env.NVIDIA_API_KEY,
+        process.env.NVIDIA_API_KEYS,
+        process.env.NVIDIA_API_KEYS_2,
+        process.env.NVIDIA_API_KEYS_3,
+        process.env.NVIDIA_API_KEYS_4,
+        process.env.NVIDIA_API_KEYS_5,
+      );
+}
+
+function getConfiguredOpenRouterKeys(): string[] {
+  return splitKeys(process.env.OPENROUTER_API_KEY, process.env.OPENROUTER_API_KEYS);
+}
+
+function hasCloudflareWorkersAi(): boolean {
+  return Boolean(process.env.CLOUDFLARE_ACCOUNT_ID && process.env.CLOUDFLARE_API_TOKEN);
+}
+
+function buildOptimizationPrompt(
+  title: string,
+  oldDescription: string,
+  locale: string,
+  minLen: number,
+  maxLen: number,
+): string {
+  return `You are an SEO expert specializing in meta description optimization.
 
 CRITICAL RULES:
-- Respect the target length requirement provided by the user prompt
+- Respect the target length requirement exactly
 - Keep language natural for the target locale
 - Do NOT append English CTA phrases to non-English descriptions
 - Avoid snippet truncation markers like "..." or "…"
-- Output ONLY the description, no quotes, no explanations`,
-        },
-        {
-          role: 'user',
-          content: prompt,
-        },
-      ],
-      temperature: 0.3,
-      max_tokens: 80,
-      top_p: 1,
-    }),
-  });
+- Output ONLY the description, no quotes, no explanations
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`NVIDIA API Error ${response.status}: ${error}`);
+Blog Title: ${title}
+Current Description: ${oldDescription}
+Target Locale: ${locale}
+
+Rewrite to ${minLen}-${maxLen} characters.
+
+Requirements:
+- Include primary keyword
+- Keep language natural for ${locale}
+- Do not use English CTA phrases in non-English descriptions
+- Do not output truncation markers like "..." or "…"
+
+Output ONLY the description.`;
+}
+
+async function optimizeMetaDescription(
+  aiService: AIService,
+  title: string,
+  oldDescription: string,
+  locale: string,
+  minLen: number,
+  maxLen: number,
+): Promise<string> {
+  const prompt = buildOptimizationPrompt(title, oldDescription, locale, minLen, maxLen);
+  const result = await aiService.callAI(prompt, false, 'batch_generation');
+
+  if (!result || !result.trim()) {
+    throw new Error('All configured AI providers failed or returned empty output');
   }
 
-  const data = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
-  return data.choices?.[0]?.message?.content?.trim() || '';
+  return result.trim();
 }
 
 function extractFrontmatter(filePath: string): { title: string; description: string; content: string } | null {
@@ -108,7 +120,6 @@ function extractFrontmatter(filePath: string): { title: string; description: str
 
   if (!titleMatch || !descMatch) return null;
 
-  // 提取正文（前 1000 字符作为上下文）
   const bodyStart = raw.indexOf('---', 4);
   const body = bodyStart > 0 ? raw.slice(bodyStart + 3, bodyStart + 1200).trim() : '';
 
@@ -127,10 +138,10 @@ function updateDescription(filePath: string, newDesc: string): void {
 
 function walk(dir: string, files: string[] = []): string[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
-  for (const e of entries) {
-    const full = path.join(dir, e.name);
-    if (e.isDirectory()) walk(full, files);
-    else if (e.name.endsWith('.md') || e.name.endsWith('.mdx')) files.push(full);
+  for (const entry of entries) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, files);
+    else if (entry.name.endsWith('.md') || entry.name.endsWith('.mdx')) files.push(full);
   }
   return files;
 }
@@ -138,24 +149,39 @@ function walk(dir: string, files: string[] = []): string[] {
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run') || args.includes('--dry');
-  const langFilter = args.find((a) => a.startsWith('--lang='))?.replace('--lang=', '') || null;
+  const langFilter = args.find((arg) => arg.startsWith('--lang='))?.replace('--lang=', '') || null;
+  const cliApiKey = getCliApiKeyOverride();
+  const nvidiaKeys = getConfiguredNvidiaKeys(cliApiKey);
+  const siliconFlowConfigured = Boolean(process.env.SILICONFLOW_API_KEY);
+  const openRouterKeys = getConfiguredOpenRouterKeys();
+  const cloudflareConfigured = hasCloudflareWorkersAi();
 
-  const keys = getNvidiaKeys();
-  if (keys.length === 0) {
-    console.error('❌ 未配置 NVIDIA_API_KEY，请在 .env 中设置');
+  if (nvidiaKeys.length === 0 && !siliconFlowConfigured && openRouterKeys.length === 0 && !cloudflareConfigured) {
+    console.error(
+      '❌ 未检测到可用 AI Provider。请配置 NVIDIA、SiliconFlow、OpenRouter，或受限的 Cloudflare Workers AI 环境变量。',
+    );
     process.exit(1);
   }
-  console.log(`\n🤖 使用 NVIDIA API 优化博客 Meta Description\n`);
-  console.log(`📡 检测到 ${keys.length} 个 API Keys\n`);
+
+  const aiService = new AIService({
+    nvidiaKeys,
+    siliconFlowKey: process.env.SILICONFLOW_API_KEY || '',
+    openRouterKeys,
+    cfAccountId: process.env.CLOUDFLARE_ACCOUNT_ID || '',
+    cfApiToken: process.env.CLOUDFLARE_API_TOKEN || '',
+    workloadProfile: 'batch_generation',
+  });
+
+  console.log(`\n🤖 使用统一 AI 路由优化博客 Meta Description\n`);
+  console.log(
+    `📡 Provider 配置: NVIDIA=${nvidiaKeys.length} key(s), SiliconFlow=${siliconFlowConfigured ? 'on' : 'off'}, OpenRouter=${openRouterKeys.length} key(s), WorkersAI=${cloudflareConfigured ? process.env.WORKERS_AI_MODE || 'free-only' : 'off'}\n`,
+  );
 
   const all = walk(BLOG_DIR);
   const toOptimize: { path: string; rel: string; title: string; oldDesc: string; length: number }[] = [];
 
-  // 收集需要优化的博客
   for (const filePath of all) {
     const rel = path.relative(process.cwd(), filePath);
-
-    // 语言过滤
     if (langFilter && !rel.includes(`/blog/${langFilter}/`)) continue;
 
     const data = extractFrontmatter(filePath);
@@ -176,15 +202,13 @@ async function main() {
     }
   }
 
-  // CI 模式下处理全部（最多50篇），本地模式每次10篇
   const isCI = args.includes('--ci') || process.env.CI === 'true';
-  const BATCH_SIZE = isCI ? 50 : 10;
-  const batch = toOptimize.slice(0, BATCH_SIZE);
+  const batchSize = isCI ? 50 : 10;
+  const batch = toOptimize.slice(0, batchSize);
 
   console.log(`📋 待优化: ${toOptimize.length} 篇 (本次处理 ${batch.length} 篇${isCI ? ' [CI模式]' : ''})\n`);
   console.log(`策略: 120-158 字符, 包含 CTA, 使用 Power Words\n`);
 
-  // 逐个调用 AI 优化
   for (const item of batch) {
     console.log(`\n🔄 处理: ${item.rel}`);
     console.log(`   标题: ${item.title.slice(0, 50)}...`);
@@ -193,25 +217,8 @@ async function main() {
     const locale = item.rel.split(path.sep)[2] || 'en';
     const { min: minLen, max: maxLen } = getDescriptionLengthRange(locale);
 
-    const prompt = `
-Blog Title: ${item.title}
-Current Description: ${item.oldDesc}
-Target Locale: ${locale}
-
-Rewrite to ${minLen}-${maxLen} characters.
-
-Requirements:
-- Include primary keyword
-- Keep language natural for ${locale}
-- Do not use English CTA phrases in non-English descriptions
-- Do not output truncation markers like "..." or "…"
-
-Output ONLY the description (no quotes).`;
-
     try {
-      const apiKey = getNextKey(keys);
-      let newDesc = await callNvidia(apiKey, prompt);
-
+      let newDesc = await optimizeMetaDescription(aiService, item.title, item.oldDesc, locale, minLen, maxLen);
       newDesc = sanitizeMetaDescription(newDesc, locale);
       newDesc = trimDescriptionToMax(newDesc, maxLen);
 
@@ -220,18 +227,16 @@ Output ONLY the description (no quotes).`;
         continue;
       }
 
-      const newLen = newDesc.length;
-
-      console.log(`   ✅ 新描述 (${newLen}字符): ${newDesc.slice(0, 60)}...`);
+      console.log(`   ✅ 新描述 (${newDesc.length}字符): ${newDesc.slice(0, 60)}...`);
 
       if (!dryRun) {
         updateDescription(item.path, newDesc);
-        console.log(`   💾 已写入`);
+        console.log('   💾 已写入');
       } else {
-        console.log(`   (Dry run - 未写入)`);
+        console.log('   (Dry run - 未写入)');
       }
     } catch (error) {
-      console.error(`   ❌ API 错误: ${error}`);
+      console.error(`   ❌ AI 路由错误: ${error}`);
     }
   }
 
@@ -242,7 +247,7 @@ Output ONLY the description (no quotes).`;
   }
 
   if (dryRun) {
-    console.log(`\n(Dry run 模式 - 未写入任何文件)`);
+    console.log('\n(Dry run 模式 - 未写入任何文件)');
   }
 }
 

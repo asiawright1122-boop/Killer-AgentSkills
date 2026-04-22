@@ -64,11 +64,11 @@ Automatisez la rotation des scans mal alignés et la suppression des filigranes 
 
 La compétence `pdf` est un outil essentiel pour tout développeur ou analyste de données moderne. Elle simplifie la manipulation des PDF et vous permet de construire des pipelines de documents véritablement automatisés et de qualité professionnelle.
 
-Installez le skill [pdf](https://killer-skills.com/fr/skills/anthropics/skills/pdf) depuis le répertoire de skills Killer-Skills et commencez à automatiser dès aujourd'hui.
+Installez le skill [pdf](https://killer-skills.com/en/skills/anthropics/skills/pdf) depuis le répertoire de skills Killer-Skills et commencez à automatiser dès aujourd'hui.
 
 ---
 
-*Vous avez besoin de générer des documents Word modifiables ? Découvrez la [compétence docx](https://killer-skills.com/fr/skills/anthropics/skills/docx).*
+*Vous avez besoin de générer des documents Word modifiables ? Découvrez la [compétence docx](https://killer-skills.com/en/skills/anthropics/skills/docx).*
 
 ---
 

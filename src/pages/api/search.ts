@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
 import type { Env } from '../../lib/kv';
 import { searchSkills } from '../../lib/search';
+import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/skills';
 
 // Protects search endpoint from abuse.
@@ -26,13 +27,17 @@ function normalizeSource(source: unknown): string {
   return source.replace(/^"(.*)"$/, '$1');
 }
 
-function mapSkillResult(skill: UnifiedSkill, index: number, total: number) {
+function mapSkillResult(skill: UnifiedSkill, index: number, total: number, locale: string) {
   const fallbackScore = total > 1 ? Math.max(0.2, 1 - index / total) : 1;
+  const detail = resolveSkillDetailLink(skill, locale);
   return {
     id: skill.id,
     score: Number(fallbackScore.toFixed(4)),
     owner: skill.owner,
     repo: skill.repo,
+    routePath: detail?.routePath || skill.repo,
+    detailLocale: detail?.detailLocale || locale,
+    href: detail?.href || `/${locale}/skills/${encodeURIComponent(skill.owner)}/${encodeURIComponent(skill.repo)}`,
     name: skill.name || skill.skillName || skill.repo,
     stars: skill.stars || 0,
     category: skill.category || '',
@@ -176,7 +181,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     if (combinedScores.size === 0) {
       const skills = await getLightweightSkills(env);
       const ranked = searchSkills(skills, sanitizedQuery, locale).slice(0, RESULT_LIMIT);
-      const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length));
+      const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length, locale));
 
       return new Response(JSON.stringify({ results }), {
         headers: {
@@ -190,16 +195,30 @@ export const GET: APIRoute = async ({ request, locals }) => {
     const results = Array.from(combinedScores.entries())
       .sort((a, b) => b[1].score - a[1].score)
       .slice(0, RESULT_LIMIT)
-      .map(([id, data]) => ({
-        id,
-        score: Number(data.score.toFixed(4)),
-        owner: data.owner,
-        repo: data.repo,
-        name: data.name,
-        stars: data.stars,
-        category: data.category,
-        source: data.source,
-      }));
+      .map(([id, data]) => {
+        const detail = resolveSkillDetailLink(
+          {
+            id,
+            owner: data.owner,
+            repo: data.repo,
+          },
+          locale,
+        );
+
+        return {
+          id,
+          score: Number(data.score.toFixed(4)),
+          owner: data.owner,
+          repo: data.repo,
+          routePath: detail?.routePath || data.repo,
+          detailLocale: detail?.detailLocale || locale,
+          href: detail?.href || `/${locale}/skills/${encodeURIComponent(data.owner)}/${encodeURIComponent(data.repo)}`,
+          name: data.name,
+          stars: data.stars,
+          category: data.category,
+          source: data.source,
+        };
+      });
 
     return new Response(JSON.stringify({ results }), {
       headers: {

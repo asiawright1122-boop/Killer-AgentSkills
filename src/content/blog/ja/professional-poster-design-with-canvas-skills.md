@@ -69,7 +69,7 @@ npx killer-skills add anthropics/skills/canvas-design
 
 `canvas-design` は、デザインを近道ではなく規律ある営みだと考える人のためのスキルです。AI エージェントを、ギャラリーに飾る価値のある作品を生み出せる熟練の作り手へと変えてくれます。
 
-Killer-Skills のスキル一覧で [canvas-design スキル](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) をチェックして、今すぐデザインを始めましょう。
+Killer-Skills のスキル一覧で [canvas-design スキル](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) をチェックして、今すぐデザインを始めましょう。
 
 ---
 

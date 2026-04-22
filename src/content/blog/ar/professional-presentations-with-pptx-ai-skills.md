@@ -61,9 +61,9 @@ npx killer-skills add anthropics/skills/pptx
 
 مهارة `pptx` تتجاوز التنسيقات الملفية—إنها تتعلق بالـ **السلطة البصرية**. وهي تضمن أن عندما يقوم وكيلك الإصطناعي بإنشاء عرض تقديمي، يبدو وكأنه تم تصميمه بواسطة خبير بشري.
 
-تحميل مهارة `pptx` من [سوق Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/pptx) وبدء بناء الشرائح التي تبيع.
+تحميل مهارة `pptx` من [سوق Killer-Skills](https://killer-skills.com/en/skills/anthropics/skills/pptx) وبدء بناء الشرائح التي تبيع.
 
 ---
-* تريد تنسيق وثائقك أيضًا؟ تحقق من مهارة [theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory).
+* تريد تنسيق وثائقك أيضًا؟ تحقق من مهارة [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory).
 ---
 * متعلق: [ما هي مهارات الوكيل الإصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكيل إصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)

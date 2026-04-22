@@ -37,8 +37,8 @@ AI 시대에서 가장 중요한 자원은 **컨텍스트 윈도우**이다. 잘
 
 모든 작업을 동일한 방식으로 처리해서는 안 된다:
 
-- **고 자유도**: 창의적 휴리스틱이 필요한 작업을 위한 순수 텍스트 지침 (예: [프론트엔드 디자인](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)).
-- **저 자유도**: 취약하고 결정적인 작업을 위한 엄격한 스크립트 (예: [docx](https://killer-skills.com/ko/skills/anthropics/skills/docx) 조작).
+- **고 자유도**: 창의적 휴리스틱이 필요한 작업을 위한 순수 텍스트 지침 (예: [프론트엔드 디자인](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **저 자유도**: 취약하고 결정적인 작업을 위한 엄격한 스크립트 (예: [docx](https://killer-skills.com/en/skills/anthropics/skills/docx) 조작).
 
 ### 3. 절차적 지식 대 선언적 지식
 
@@ -67,11 +67,11 @@ AI에게 무엇을 해야 하는지만 말하지 말고, 그것을 하는 도구
 
 AI의 힘은 모델 자체에만 있는 것이 아니라, 모델을 둘러싼 **인프라**에 있습니다. `skill-creator` 스킬을 사용하면, "prompt engineer"에서 "capabilities architect"로 변신할 수 있습니다. 단순히 AI에게 무엇을 해야 하는지 지시하는 것이 아니라, 어떻게 학습할 수 있는지 가르치는 것입니다.
 
-오늘부터 Killer-Skills 디렉터리의 [skill-creator 스킬](https://killer-skills.com/ko/skills/anthropics/skills/skill-creator)로 커스텀 AI 작업 공간을 구축해 보세요.
+오늘부터 Killer-Skills 디렉터리의 [skill-creator 스킬](https://killer-skills.com/en/skills/anthropics/skills/skill-creator)로 커스텀 AI 작업 공간을 구축해 보세요.
 
 ---
 
-_새로운 스킬을 배포할 준비가 되셨나요? [MCP 서버 구축 방법](https://killer-skills.com/ko/skills/anthropics/skills/mcp-builder)을 통해 호스팅하는 방법을 배우세요._
+_새로운 스킬을 배포할 준비가 되셨나요? [MCP 서버 구축 방법](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder)을 통해 호스팅하는 방법을 배우세요._
 
 ---
 

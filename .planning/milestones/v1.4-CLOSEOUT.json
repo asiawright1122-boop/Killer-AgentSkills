@@ -1,0 +1,40 @@
+{
+  "milestone": "v1.4",
+  "milestoneName": "Traffic Recovery Closure",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 3,
+    "completed": 3
+  },
+  "requirementCounts": {
+    "satisfied": 5,
+    "partial": 0,
+    "pending": 0,
+    "total": 5
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/milestones/v1.4-phases/43-production-sitemap-and-dynamic-404-closure/43-01-SUMMARY.md",
+    ".planning/milestones/v1.4-phases/43-production-sitemap-and-dynamic-404-closure/43-VERIFICATION.md",
+    ".planning/milestones/v1.4-phases/44-recovery-observability-and-kpi-board/44-01-SUMMARY.md",
+    ".planning/milestones/v1.4-phases/44-recovery-observability-and-kpi-board/44-VERIFICATION.md",
+    ".planning/milestones/v1.4-phases/45-provider-resilience-under-recovery-guardrails/45-01-SUMMARY.md",
+    ".planning/milestones/v1.4-phases/45-provider-resilience-under-recovery-guardrails/45-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.4-phases",
+    ".planning/milestones/v1.4-ROADMAP.md",
+    ".planning/milestones/v1.4-REQUIREMENTS.md",
+    ".planning/milestones/v1.4-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.4-BOOTSTRAP.md",
+    ".planning/milestones/v1.4-CLOSEOUT.md"
+  ]
+}

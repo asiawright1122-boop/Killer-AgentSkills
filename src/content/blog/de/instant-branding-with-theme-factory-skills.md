@@ -58,11 +58,11 @@ Für Entwickler und Produktmanager, die KI-Agents verwenden, um Tools wie [Web-A
 
 Die `theme-factory`-Fähigkeit verwandelt Ihren KI-Agenten von einem einfachen Coder in einen markenbewussten Designer. Indem jedes Artefakt schön und konsistent gestaltet wird, hebt sie die Messlatte für das, was KI-generierte Inhalte leisten können.
 
-Sehen Sie sich den [theme-factory-Skill](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) im Killer-Skills-Verzeichnis an und geben Sie Ihren Projekten den professionellen Vorsprung, den sie verdienen.
+Sehen Sie sich den [theme-factory-Skill](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) im Killer-Skills-Verzeichnis an und geben Sie Ihren Projekten den professionellen Vorsprung, den sie verdienen.
 
 ---
 
-*Möchten Sie die Komponenten selbst erstellen? Kombinieren Sie dies mit [frontend-design](https://killer-skills.com/de/skills/anthropics/skills/frontend-design) für den ultimativen Webentwicklungs-Workflow.*
+*Möchten Sie die Komponenten selbst erstellen? Kombinieren Sie dies mit [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) für den ultimativen Webentwicklungs-Workflow.*
 
 ---
 

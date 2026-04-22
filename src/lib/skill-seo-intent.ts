@@ -1,6 +1,8 @@
 import { normalizeCategoryId } from './category-taxonomy';
 
 type IntentConfig = {
+  titleLabel: string;
+  useCaseLabel: string;
   keywords: string[];
 };
 
@@ -13,18 +15,66 @@ export type SkillSeoIntent = {
 };
 
 const CATEGORY_INTENTS: Record<string, IntentConfig> = {
-  browser: { keywords: ['browser automation', 'web scraping', 'browser skill'] },
-  finance: { keywords: ['finance automation', 'payments automation', 'billing tools'] },
-  productivity: { keywords: ['productivity skill', 'workflow automation', 'task automation'] },
-  developer: { keywords: ['developer tool skill', 'code automation', 'developer tools'] },
-  data: { keywords: ['data workflow skill', 'data automation', 'etl workflows'] },
-  ai: { keywords: ['ai workflow skill', 'llm automation', 'agentic workflows'] },
-  design: { keywords: ['design automation', 'ui generation', 'design systems'] },
-  documentation: { keywords: ['documentation skill', 'knowledge base automation', 'content workflows'] },
-  devops: { keywords: ['devops automation', 'infrastructure automation', 'deployment workflows'] },
-  security: { keywords: ['security audit skill', 'vulnerability scanning', 'security automation'] },
-  communication: { keywords: ['communication skill', 'team collaboration', 'messaging automation'] },
-  default: { keywords: ['ai agent skill', 'ide skills', 'agent automation'] },
+  browser: {
+    titleLabel: 'Browser Automation Skill',
+    useCaseLabel: 'web browsing, scraping, and browser automation',
+    keywords: ['browser automation', 'web scraping', 'browser skill'],
+  },
+  finance: {
+    titleLabel: 'Finance Automation Skill',
+    useCaseLabel: 'payments, billing, and finance automation',
+    keywords: ['finance automation', 'payments automation', 'billing tools'],
+  },
+  productivity: {
+    titleLabel: 'Productivity Workflow Skill',
+    useCaseLabel: 'productivity workflows, task execution, and automation',
+    keywords: ['productivity skill', 'workflow automation', 'task automation'],
+  },
+  developer: {
+    titleLabel: 'Developer Tool Skill',
+    useCaseLabel: 'coding, debugging, and developer automation',
+    keywords: ['developer tool skill', 'code automation', 'developer tools'],
+  },
+  data: {
+    titleLabel: 'Data Workflow Skill',
+    useCaseLabel: 'data access, analysis, and ETL workflows',
+    keywords: ['data workflow skill', 'data automation', 'etl workflows'],
+  },
+  ai: {
+    titleLabel: 'AI Workflow Skill',
+    useCaseLabel: 'LLM workflows, evaluation, and AI automation',
+    keywords: ['ai workflow skill', 'llm automation', 'agentic workflows'],
+  },
+  design: {
+    titleLabel: 'Design Automation Skill',
+    useCaseLabel: 'UI generation, design systems, and visual workflows',
+    keywords: ['design automation', 'ui generation', 'design systems'],
+  },
+  documentation: {
+    titleLabel: 'Documentation Skill',
+    useCaseLabel: 'documentation, knowledge base, and content workflows',
+    keywords: ['documentation skill', 'knowledge base automation', 'content workflows'],
+  },
+  devops: {
+    titleLabel: 'DevOps Automation Skill',
+    useCaseLabel: 'deployment, infrastructure, and ops automation',
+    keywords: ['devops automation', 'infrastructure automation', 'deployment workflows'],
+  },
+  security: {
+    titleLabel: 'Security Audit Skill',
+    useCaseLabel: 'security reviews, vulnerability checks, and compliance',
+    keywords: ['security audit skill', 'vulnerability scanning', 'security automation'],
+  },
+  communication: {
+    titleLabel: 'Communication Skill',
+    useCaseLabel: 'messaging, handoffs, and team collaboration',
+    keywords: ['communication skill', 'team collaboration', 'messaging automation'],
+  },
+  default: {
+    titleLabel: 'AI Agent Skill',
+    useCaseLabel: 'AI agent workflows and automation',
+    keywords: ['ai agent skill', 'ide skills', 'agent automation'],
+  },
 };
 
 const GENERIC_TERMS = [
@@ -157,10 +207,16 @@ export function resolveSkillSeoIntent(
   const localizedKeywords = config.keywords;
   const supportTerm = pickSupportTerm(rawKeywords, localizedKeywords);
 
+  const titleKey = `Seo.Category.${intentId}.titleLabel`;
+  const useCaseKey = `Seo.Category.${intentId}.useCaseLabel`;
+  const localizedTitleLabel = t(titleKey, config.titleLabel);
+  const localizedUseCaseLabel = t(useCaseKey, config.useCaseLabel);
+
   return {
     id: intentId,
-    titleLabel: t(`Seo.Category.${intentId}.titleLabel`, ''),
-    useCaseLabel: t(`Seo.Category.${intentId}.useCaseLabel`, ''),
+    titleLabel: localizedTitleLabel && localizedTitleLabel !== titleKey ? localizedTitleLabel : config.titleLabel,
+    useCaseLabel:
+      localizedUseCaseLabel && localizedUseCaseLabel !== useCaseKey ? localizedUseCaseLabel : config.useCaseLabel,
     keywords: localizedKeywords,
     supportTerm,
   };

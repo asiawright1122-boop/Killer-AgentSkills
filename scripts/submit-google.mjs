@@ -1,96 +1,119 @@
-// Submit ALL URLs from the live sitemap index to Google Indexing API
-// Requires: npm install google-auth-library
-// usage: GOOGLE_APPLICATION_CREDENTIALS=service-account.json node scripts/submit-google.mjs
+#!/usr/bin/env node
 
+// Submit the live sitemap index to Google Search Console.
+// Uses the Search Console sitemaps.submit endpoint rather than the Indexing API,
+// which is reserved for a narrow set of page types.
+
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import dotenv from 'dotenv';
 import { JWT } from 'google-auth-library';
-import fs from 'fs';
 
-const HOST = 'killer-skills.com';
-const SITEMAP_URL = `https://${HOST}/sitemap.xml`;
-
-async function fetchXml(url) {
-    try {
-        const res = await fetch(url);
-        if (!res.ok) return null;
-        return res.text();
-    } catch {
-        return null;
-    }
+dotenv.config();
+const localEnvPath = resolve(process.cwd(), '.env.local');
+if (existsSync(localEnvPath)) {
+  dotenv.config({ path: localEnvPath, override: true });
 }
 
-function extractLocs(xml) {
-    const urls = [];
-    const locRegex = /<loc>(.*?)<\/loc>/g;
-    let match;
-    while ((match = locRegex.exec(xml)) !== null) {
-        urls.push(match[1]);
+const HOST = 'killer-skills.com';
+const DEFAULT_SITE_URL = `sc-domain:${HOST}`;
+const DEFAULT_SITEMAP_URL = `https://${HOST}/sitemap.xml`;
+
+function resolveConfig() {
+  const siteUrl = (process.env.GSC_SITE_URL || DEFAULT_SITE_URL).trim();
+  const clientEmail = (process.env.GSC_CLIENT_EMAIL || '').trim();
+  const privateKey = (process.env.GSC_PRIVATE_KEY || '').replace(/\\n/g, '\n').trim();
+  const credentialsPath = (process.env.GOOGLE_APPLICATION_CREDENTIALS || '').trim();
+
+  if (clientEmail && privateKey) {
+    return {
+      siteUrl,
+      clientEmail,
+      privateKey,
+      source: 'gsc-env',
+    };
+  }
+
+  if (credentialsPath && existsSync(credentialsPath)) {
+    const key = JSON.parse(readFileSync(credentialsPath, 'utf8'));
+    const fileClientEmail = String(key.client_email || '').trim();
+    const filePrivateKey = String(key.private_key || '').trim();
+    if (fileClientEmail && filePrivateKey) {
+      return {
+        siteUrl,
+        clientEmail: fileClientEmail,
+        privateKey: filePrivateKey,
+        source: 'service-account-json',
+      };
     }
-    return urls;
+  }
+
+  return null;
+}
+
+function buildSitemapsEndpoint(siteUrl, sitemapUrl) {
+  return `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(siteUrl)}/sitemaps/${encodeURIComponent(sitemapUrl)}`;
 }
 
 async function main() {
-    const authPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
-    if (!authPath || !fs.existsSync(authPath)) {
-        console.error('❌ Error: GOOGLE_APPLICATION_CREDENTIALS environment variable pointing to a service account JSON is required.');
-        process.exit(1);
-    }
+  const config = resolveConfig();
+  if (!config) {
+    console.error(
+      '❌ Error: Google Search Console credentials are missing. Set GSC_CLIENT_EMAIL + GSC_PRIVATE_KEY, or GOOGLE_APPLICATION_CREDENTIALS.',
+    );
+    process.exit(1);
+  }
 
-    const key = JSON.parse(fs.readFileSync(authPath, 'utf8'));
-    const client = new JWT({
-        email: key.client_email,
-        key: key.private_key,
-        scopes: ['https://www.googleapis.com/auth/indexing'],
+  const client = new JWT({
+    email: config.clientEmail,
+    key: config.privateKey,
+    scopes: ['https://www.googleapis.com/auth/webmasters'],
+  });
+
+  console.log(`🚀 Starting Google sitemap submission for ${HOST}...`);
+  console.log(`   → Property: ${config.siteUrl}`);
+  console.log(`   → Sitemap: ${DEFAULT_SITEMAP_URL}`);
+  console.log(`   → Credential source: ${config.source}`);
+
+  const endpoint = buildSitemapsEndpoint(config.siteUrl, DEFAULT_SITEMAP_URL);
+
+  try {
+    await client.request({
+      url: endpoint,
+      method: 'PUT',
     });
+    console.log('✅ Google Search Console accepted the sitemap submission.');
+  } catch (error) {
+    const status = error?.response?.status;
+    const details =
+      typeof error?.response?.data === 'string'
+        ? error.response.data
+        : JSON.stringify(error?.response?.data || {});
+    console.error(`❌ Sitemap submission failed${status ? ` (${status})` : ''}: ${details || error.message}`);
+    process.exit(1);
+  }
 
-    console.log(`🚀 Starting Google Indexing submission for ${HOST}...`);
-
-    let indexXml = await fetchXml(SITEMAP_URL);
-    if (!indexXml) {
-        console.error('❌ Failed to fetch sitemap index.');
-        return;
-    }
-
-    const allUrls = new Set();
-    const isSitemapIndex = indexXml.includes('<sitemapindex');
-
-    if (isSitemapIndex) {
-        const subSitemapUrls = extractLocs(indexXml);
-        for (const subUrl of subSitemapUrls) {
-            console.log(`📥 Fetching ${subUrl}...`);
-            const subXml = await fetchXml(subUrl);
-            if (!subXml) continue;
-            extractLocs(subXml).forEach(u => allUrls.add(u));
-        }
-    } else {
-        extractLocs(indexXml).forEach(u => allUrls.add(u));
-    }
-
-    const urlList = [...allUrls];
-    console.log(`\n🔗 Total unique URLs to submit to Google: ${urlList.length}\n`);
-
-    // Google Indexing API has a quota (typically 200/day).
-    // Use for most important pages first if list is long.
-    for (const url of urlList) {
-        console.log(`📡 Submitting: ${url}`);
-        try {
-            await client.request({
-                url: 'https://indexing.googleapis.com/v3/urlNotifications:publish',
-                method: 'POST',
-                data: {
-                    url: url,
-                    type: 'URL_UPDATED',
-                },
-            });
-            console.log(`   ✅ Success`);
-        } catch (err) {
-            if (err.response?.status === 429) {
-                console.error('❌ Error: Quota exceeded (429). Google Indexing API typically allows 200 requests/day.');
-                break;
-            }
-            console.error(`   ❌ Failed: ${err.message}`);
-        }
-    }
-    console.log('\n🎉 Google submission complete!');
+  try {
+    const verification = await client.request({
+      url: endpoint,
+      method: 'GET',
+    });
+    const data = verification?.data || {};
+    console.log('🔎 Search Console sitemap status snapshot:');
+    console.log(`   → isPending: ${String(data.isPending ?? 'unknown')}`);
+    console.log(`   → lastSubmitted: ${String(data.lastSubmitted ?? 'unknown')}`);
+    console.log(`   → lastDownloaded: ${String(data.lastDownloaded ?? 'unknown')}`);
+    console.log(`   → warnings: ${String(data.warnings ?? 'unknown')}`);
+    console.log(`   → errors: ${String(data.errors ?? 'unknown')}`);
+  } catch (error) {
+    const status = error?.response?.status;
+    console.warn(
+      `⚠️ Submission succeeded, but sitemap status lookup failed${status ? ` (${status})` : ''}: ${error.message}`,
+    );
+  }
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(`❌ Unexpected error: ${error instanceof Error ? error.message : String(error)}`);
+  process.exit(1);
+});

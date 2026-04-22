@@ -145,12 +145,14 @@ All PRs must pass:
 | `/api/skills`                      | GET    | List all skills (paginated)      |
 | `/api/skills/search`               | GET    | Search skills by query           |
 | `/api/skills/submit`               | POST   | Submit a new skill               |
-| `/api/skills/[owner]/[repo]`       | GET    | Get skill detail                 |
-| `/api/skills/[owner]/[repo]/files` | GET    | List skill files                 |
-| `/api/skills/[owner]/[repo]/file`  | GET    | Get file content                 |
+| `/api/skills/[owner]/[repo]`       | GET    | Get machine-readable skill metadata |
+| `/api/skills/[owner]/[repo]/files` | GET    | List repository helper files     |
+| `/api/skills/[owner]/[repo]/file`  | GET    | Read a repository helper file    |
 | `/api/search`                      | GET    | Semantic search (Vectorize + AI) |
 | `/api/categories`                  | GET    | List skill categories            |
 | `/api/translate`                   | GET    | AI translation                   |
+
+Public API routes are a machine-readable helper surface for apps and automation. They are intentionally served as `noindex`; use the public site pages on `killer-skills.com` as the canonical human-readable content surface.
 
 ---
 

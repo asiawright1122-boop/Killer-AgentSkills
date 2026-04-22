@@ -31,8 +31,8 @@ AI時代最も重要なリソースは、**コンテキストウィンドウ**�
 
 ### 2. 自由度のマッチング
 すべてのタスクを同じ方法で処理する必要はない：
-- **高自由度**: 創造性のあるヒューリスティックが必要なタスクのための純粋なテキスト指示 (例： [フロントエンド設計](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design))。
-- **低自由度**: 脆弱で決定論的な操作のための厳格なスクリプト (例： [docx](https://killer-skills.com/ja/skills/anthropics/skills/docx) 操作)。
+- **高自由度**: 創造性のあるヒューリスティックが必要なタスクのための純粋なテキスト指示 (例： [フロントエンド設計](https://killer-skills.com/en/skills/anthropics/skills/frontend-design))。
+- **低自由度**: 脆弱で決定論的な操作のための厳格なスクリプト (例： [docx](https://killer-skills.com/en/skills/anthropics/skills/docx) 操作)。
 
 ### 3. 手続き的知識 vs. 宣言的知識
 AIに*何*をしなければならないかだけを伝えるのではなく、*それを行うためのツール*を与える必要があります。`skill-creator`スキルは、以下の使用を推奨しています：
@@ -55,11 +55,11 @@ AIに*何*をしなければならないかだけを伝えるのではなく、*
 
 AIの力は、モデルだけではなく、それを取り巻く**インフラストラクチャ**にある。`skill-creator`スキルを使用すると、「プロンプトエンジニア」から「機能アーキテクト」となり、AIに何をしなければならないのかを伝えるのではなく、どのように学ばせるかを教えることができる。
 
-Killer-Skills のスキル一覧にある [skill-creator スキル](https://killer-skills.com/ja/skills/anthropics/skills/skill-creator) で、今日からカスタム AI ワークスペースの構築を始めましょう。
+Killer-Skills のスキル一覧にある [skill-creator スキル](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) で、今日からカスタム AI ワークスペースの構築を始めましょう。
 
 ---
 
-*新しいスキルをデプロイする準備はできましたか？[MCPサーバーを構築](https://killer-skills.com/ja/skills/anthropics/skills/mcp-builder)してホストする方法を学びましょう.*
+*新しいスキルをデプロイする準備はできましたか？[MCPサーバーを構築](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder)してホストする方法を学びましょう.*
 
 ---
 

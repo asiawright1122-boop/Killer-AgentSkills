@@ -15,6 +15,38 @@ type UrlCheckResult = {
   redirected: boolean;
   finalUrl: string;
   error?: string;
+  attempts: number;
+  fiveXxAttempts: number;
+  recoveredFrom5xx: boolean;
+  sawCloudflare1102: boolean;
+};
+
+type CrawlHealthJsonReport = {
+  generatedAt: string;
+  rootSitemap: string;
+  totals: {
+    sitemapFilesDiscovered: number;
+    pageUrlsDiscovered: number;
+    pageUrlsChecked: number;
+  };
+  statusSummary: {
+    status2xx: number;
+    status3xx: number;
+    status4xx: number;
+    status5xx: number;
+    statusOther: number;
+  };
+  sampledCoverage: Array<{
+    sitemapUrl: string;
+    sampled: number;
+    total: number;
+  }>;
+  redirects: UrlCheckResult[];
+  flakyRecovered: UrlCheckResult[];
+  cloudflare1102: UrlCheckResult[];
+  errors: UrlCheckResult[];
+  duplicates: string[];
+  results: UrlCheckResult[];
 };
 
 const SITE_ORIGIN = 'https://killer-skills.com';
@@ -33,6 +65,9 @@ const CHECK_RETRY_DELAY_MS = Number(process.env.SEO_CRAWL_RETRY_DELAY_MS || '100
 const HARD_FAIL_5XX_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_MIN || '3');
 const HARD_FAIL_5XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_5XX_RATE || '0.005');
 const HARD_FAIL_4XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_4XX_RATE || '0.05');
+const HARD_FAIL_FLAKY_5XX_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_FLAKY_5XX_MIN || '5');
+const HARD_FAIL_FLAKY_5XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_FLAKY_5XX_RATE || '0.02');
+const HARD_FAIL_CF1102_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_CF1102_MIN || '1');
 
 function ensure(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -82,6 +117,36 @@ function classifyStatus(status: number): '2xx' | '3xx' | '4xx' | '5xx' | 'other'
   if (status >= 400 && status < 500) return '4xx';
   if (status >= 500 && status < 600) return '5xx';
   return 'other';
+}
+
+function routeBucketFromUrl(url: string): string {
+  let pathname: string;
+  try {
+    pathname = new URL(url).pathname;
+  } catch {
+    pathname = url;
+  }
+
+  if (/^\/[a-z]{2}\/skills\/[^/]+\/.+/.test(pathname)) return 'skills_detail';
+  if (/^\/[a-z]{2}\/skills$/.test(pathname)) return 'skills_index';
+  if (/^\/[a-z]{2}\/collections(?:\/|$)/.test(pathname)) return 'collections';
+  if (/^\/[a-z]{2}\/categories(?:\/|$)/.test(pathname)) return 'categories';
+  if (/^\/[a-z]{2}\/solutions(?:\/|$)/.test(pathname)) return 'solutions';
+  if (/^\/[a-z]{2}\/blog(?:\/|$)/.test(pathname)) return 'blog';
+  if (/^\/[a-z]{2}\/docs(?:\/|$)/.test(pathname)) return 'docs';
+  return 'other';
+}
+
+function countByRouteBucket(rows: UrlCheckResult[]): Array<{ bucket: string; count: number }> {
+  const counts = new Map<string, number>();
+  for (const row of rows) {
+    const bucket = routeBucketFromUrl(row.finalUrl || row.url);
+    counts.set(bucket, (counts.get(bucket) || 0) + 1);
+  }
+
+  return Array.from(counts.entries())
+    .map(([bucket, count]) => ({ bucket, count }))
+    .sort((a, b) => b.count - a.count);
 }
 
 async function fetchText(url: string): Promise<string> {
@@ -151,8 +216,12 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
   let lastStatus = 0;
   let lastFinalUrl = url;
   let lastRedirected = false;
+  let attempts = 0;
+  let fiveXxAttempts = 0;
+  let sawCloudflare1102 = false;
 
   for (let attempt = 1; attempt <= CHECK_RETRIES + 1; attempt++) {
+    attempts = attempt;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
     try {
@@ -162,9 +231,21 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
       lastFinalUrl = response.url;
       lastRedirected = response.redirected;
 
-      if (response.status >= 500 && attempt <= CHECK_RETRIES) {
-        await new Promise((resolve) => setTimeout(resolve, attempt * CHECK_RETRY_DELAY_MS));
-        continue;
+      if (response.status >= 500) {
+        fiveXxAttempts++;
+        try {
+          const body = await response.text();
+          if (/\berror code:\s*1102\b/i.test(body)) {
+            sawCloudflare1102 = true;
+          }
+        } catch {
+          // ignore body parse failures
+        }
+
+        if (attempt <= CHECK_RETRIES) {
+          await new Promise((resolve) => setTimeout(resolve, attempt * CHECK_RETRY_DELAY_MS));
+          continue;
+        }
       }
 
       return {
@@ -172,6 +253,10 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
         status: response.status,
         redirected: response.redirected,
         finalUrl: response.url,
+        attempts,
+        fiveXxAttempts,
+        recoveredFrom5xx: response.status < 500 && fiveXxAttempts > 0,
+        sawCloudflare1102,
       };
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
@@ -190,6 +275,10 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
     redirected: lastRedirected,
     finalUrl: lastFinalUrl,
     error: lastError || 'unknown error',
+    attempts,
+    fiveXxAttempts,
+    recoveredFrom5xx: lastStatus > 0 && lastStatus < 500 && fiveXxAttempts > 0,
+    sawCloudflare1102,
   };
 }
 
@@ -224,7 +313,12 @@ function buildReport(
   const errors = results.filter((r) => r.status === 0 || r.status >= 400);
   const networkErrors = results.filter((r) => r.status === 0);
   const networkErrorRate = results.length > 0 ? networkErrors.length / results.length : 0;
+  const flakyRecovered = results.filter((r) => r.recoveredFrom5xx);
+  const urlsWith5xxAttempts = results.filter((r) => r.fiveXxAttempts > 0);
+  const cloudflare1102Hits = results.filter((r) => r.sawCloudflare1102);
   const duplicates = findDuplicates(crawl.allDiscoveredUrls);
+  const flakyByRouteBucket = countByRouteBucket(flakyRecovered);
+  const errorByRouteBucket = countByRouteBucket(errors);
 
   const lines: string[] = [];
   lines.push('# SEO Crawl Health Report');
@@ -243,6 +337,23 @@ function buildReport(
   lines.push(`- 5xx: ${statusBuckets['5xx']}`);
   lines.push(`- Other/Network: ${statusBuckets['other']}`);
   lines.push(`- Network failure rate: ${(networkErrorRate * 100).toFixed(2)}%`);
+  lines.push(`- URLs with any 5xx attempt: ${urlsWith5xxAttempts.length}`);
+  lines.push(`- Recovered flaky 5xx URLs: ${flakyRecovered.length}`);
+  lines.push(`- Cloudflare 1102 signals: ${cloudflare1102Hits.length}`);
+
+  if (flakyByRouteBucket.length > 0) {
+    lines.push('- Recovered flaky 5xx by route bucket:');
+    for (const item of flakyByRouteBucket.slice(0, 8)) {
+      lines.push(`  - ${item.bucket}: ${item.count}`);
+    }
+  }
+
+  if (errorByRouteBucket.length > 0) {
+    lines.push('- Error URLs by route bucket:');
+    for (const item of errorByRouteBucket.slice(0, 8)) {
+      lines.push(`  - ${item.bucket}: ${item.count}`);
+    }
+  }
   lines.push('');
   lines.push('## Sitemap Sampling Coverage');
   lines.push('');
@@ -275,12 +386,43 @@ function buildReport(
     }
   }
 
+  if (flakyRecovered.length > 0) {
+    lines.push('');
+    lines.push('## Recovered Flaky 5xx (Sample)');
+    lines.push('');
+    for (const row of flakyRecovered.slice(0, 30)) {
+      lines.push(`- ${row.url} -> ${row.finalUrl} (${row.status}, retries=${row.fiveXxAttempts})`);
+    }
+    if (flakyRecovered.length > 30) {
+      lines.push(`- ... and ${flakyRecovered.length - 30} more`);
+    }
+  }
+
+  if (cloudflare1102Hits.length > 0) {
+    lines.push('');
+    lines.push('## Cloudflare 1102 Signals (Sample)');
+    lines.push('');
+    for (const row of cloudflare1102Hits.slice(0, 30)) {
+      lines.push(`- ${row.url} -> ${row.status || 'NETWORK_ERROR'} (attempts=${row.attempts})`);
+    }
+    if (cloudflare1102Hits.length > 30) {
+      lines.push(`- ... and ${cloudflare1102Hits.length - 30} more`);
+    }
+  }
+
   if (errors.length > 0) {
     lines.push('');
     lines.push('## Errors (4xx/5xx/Network)');
     lines.push('');
     for (const row of errors.slice(0, 50)) {
-      lines.push(`- ${row.url} -> ${row.status || 'NETWORK_ERROR'}${row.error ? ` (${row.error})` : ''}`);
+      const errorBits: string[] = [];
+      if (row.error) errorBits.push(row.error);
+      if (row.fiveXxAttempts > 0) errorBits.push(`5xx-attempts=${row.fiveXxAttempts}`);
+      if (row.recoveredFrom5xx) errorBits.push('recovered-after-retry');
+      if (row.sawCloudflare1102) errorBits.push('cf-1102');
+      lines.push(
+        `- ${row.url} -> ${row.status || 'NETWORK_ERROR'}${errorBits.length > 0 ? ` (${errorBits.join('; ')})` : ''}`,
+      );
     }
     if (errors.length > 50) {
       lines.push(`- ... and ${errors.length - 50} more`);
@@ -288,6 +430,52 @@ function buildReport(
   }
 
   return `${lines.join('\n')}\n`;
+}
+
+function buildJsonReport(
+  crawl: SitemapsCollected,
+  sampledUrls: string[],
+  sampledBySitemap: Map<string, number>,
+  results: UrlCheckResult[],
+): CrawlHealthJsonReport {
+  const statusBuckets = { ['2xx']: 0, ['3xx']: 0, ['4xx']: 0, ['5xx']: 0, ['other']: 0 };
+  for (const result of results) {
+    statusBuckets[classifyStatus(result.status)]++;
+  }
+
+  const redirects = results.filter((r) => r.redirected);
+  const errors = results.filter((r) => r.status === 0 || r.status >= 400);
+  const flakyRecovered = results.filter((r) => r.recoveredFrom5xx);
+  const cloudflare1102 = results.filter((r) => r.sawCloudflare1102);
+  const duplicates = findDuplicates(crawl.allDiscoveredUrls);
+
+  return {
+    generatedAt: crawlDate,
+    rootSitemap: rootSitemapUrl,
+    totals: {
+      sitemapFilesDiscovered: crawl.sitemapUrls.length,
+      pageUrlsDiscovered: crawl.allDiscoveredUrls.length,
+      pageUrlsChecked: sampledUrls.length,
+    },
+    statusSummary: {
+      status2xx: statusBuckets['2xx'],
+      status3xx: statusBuckets['3xx'],
+      status4xx: statusBuckets['4xx'],
+      status5xx: statusBuckets['5xx'],
+      statusOther: statusBuckets['other'],
+    },
+    sampledCoverage: Array.from(sampledBySitemap.entries()).map(([sitemapUrl, sampled]) => ({
+      sitemapUrl,
+      sampled,
+      total: crawl.urlsBySitemap.get(sitemapUrl)?.filter((loc) => !isSitemapUrl(loc)).length || 0,
+    })),
+    redirects,
+    flakyRecovered,
+    cloudflare1102,
+    errors,
+    duplicates,
+    results,
+  };
 }
 
 function findDuplicates(urls: string[]): string[] {
@@ -300,11 +488,13 @@ function findDuplicates(urls: string[]): string[] {
     .map(([url]) => url);
 }
 
-function writeReports(content: string): void {
+function writeReports(markdown: string, json: CrawlHealthJsonReport): void {
   const reportDir = resolve(process.cwd(), 'reports/seo');
   mkdirSync(reportDir, { recursive: true });
-  writeFileSync(resolve(reportDir, `crawl-health-${crawlDateKey}.md`), content, 'utf8');
-  writeFileSync(resolve(reportDir, 'latest-crawl-health.md'), content, 'utf8');
+  writeFileSync(resolve(reportDir, `crawl-health-${crawlDateKey}.md`), markdown, 'utf8');
+  writeFileSync(resolve(reportDir, 'latest-crawl-health.md'), markdown, 'utf8');
+  writeFileSync(resolve(reportDir, `crawl-health-${crawlDateKey}.json`), `${JSON.stringify(json, null, 2)}\n`, 'utf8');
+  writeFileSync(resolve(reportDir, 'latest-crawl-health.json'), `${JSON.stringify(json, null, 2)}\n`, 'utf8');
 }
 
 async function main() {
@@ -315,19 +505,27 @@ async function main() {
 
   const results = await checkUrls(sampledUrls);
   const report = buildReport(crawl, sampledUrls, bySitemap, results);
-  writeReports(report);
+  const jsonReport = buildJsonReport(crawl, sampledUrls, bySitemap, results);
+  writeReports(report, jsonReport);
 
   const status4xxCount = results.filter((r) => r.status >= 400 && r.status < 500).length;
   const status4xxRate = results.length > 0 ? status4xxCount / results.length : 0;
   const status5xxCount = results.filter((r) => r.status >= 500).length;
   const status5xxRate = results.length > 0 ? status5xxCount / results.length : 0;
+  const flakyRecoveredCount = results.filter((r) => r.recoveredFrom5xx).length;
+  const flakyRecoveredRate = results.length > 0 ? flakyRecoveredCount / results.length : 0;
+  const cloudflare1102Count = results.filter((r) => r.sawCloudflare1102).length;
   const hasHard4xx = status4xxRate > HARD_FAIL_4XX_RATE;
   const hasHard5xx = status5xxCount >= HARD_FAIL_5XX_MIN || status5xxRate > HARD_FAIL_5XX_RATE;
+  const hasHardFlaky5xx =
+    flakyRecoveredCount >= HARD_FAIL_FLAKY_5XX_MIN || flakyRecoveredRate > HARD_FAIL_FLAKY_5XX_RATE;
+  const hasCloudflare1102 = cloudflare1102Count >= HARD_FAIL_CF1102_MIN;
   const networkErrors = results.filter((r) => r.status === 0).length;
   const networkErrorRate = results.length > 0 ? networkErrors / results.length : 0;
   const hasNetworkInstability = networkErrors >= 5 && networkErrorRate > 0.05;
   const hasDuplicates = findDuplicates(crawl.allDiscoveredUrls).length > 0;
-  const hasSevereSignal = hasHard4xx || hasHard5xx || hasDuplicates || hasNetworkInstability;
+  const hasSevereSignal =
+    hasHard4xx || hasHard5xx || hasHardFlaky5xx || hasCloudflare1102 || hasDuplicates || hasNetworkInstability;
 
   console.log(report);
   if (!hasHard4xx && status4xxCount > 0) {
@@ -343,6 +541,21 @@ async function main() {
         status5xxRate * 100
       ).toFixed(2)}%)`,
     );
+  }
+  if (!hasHardFlaky5xx && flakyRecoveredCount > 0) {
+    console.warn(
+      `[crawl-health] recovered flaky 5xx URLs detected: ${flakyRecoveredCount}/${results.length} (${(
+        flakyRecoveredRate * 100
+      ).toFixed(2)}%)`,
+    );
+  }
+  if (cloudflare1102Count > 0) {
+    const cloudflare1102Message = `[crawl-health] Cloudflare 1102 signals detected: ${cloudflare1102Count}/${results.length}`;
+    if (hasCloudflare1102) {
+      console.error(cloudflare1102Message);
+    } else {
+      console.warn(cloudflare1102Message);
+    }
   }
   if (hasSevereSignal) {
     console.error('[crawl-health] failed: hard crawl/indexing errors detected');

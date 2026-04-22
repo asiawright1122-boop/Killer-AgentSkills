@@ -31,8 +31,8 @@ npx killer-skills add anthropics/skills/skill-creator
 
 ### 2. Соответствие Степеням Свободы
 Не каждая задача должна обрабатываться одинаково:
-- **Высокая Свобода**: Чистые текстовые инструкции для задач, требующих творческих эвристик (например, [frontend-design](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design)).
-- **Низкая Свобода**: Жесткие скрипты для хрупких, детерминированных операций (например, манипуляция [docx](https://killer-skills.com/ru/skills/anthropics/skills/docx)).
+- **Высокая Свобода**: Чистые текстовые инструкции для задач, требующих творческих эвристик (например, [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **Низкая Свобода**: Жесткие скрипты для хрупких, детерминированных операций (например, манипуляция [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)).
 
 ### 3. Процедурные и Декларативные Знания
 Не просто говорите ИИ, *что* делать; дайте ему *инструменты*, чтобы сделать это. Навык `skill-creator` поощряет использование:
@@ -55,11 +55,11 @@ npx killer-skills add anthropics/skills/skill-creator
 
 Мощь ИИ не только в модели, но и в **инфраструктуре**, окружающей ее. С помощью навыка `skill-creator` вы переходите от роли "инженера-пrompt" к роли "архитектора-возможностей". Вы не просто указываете ИИ, что делать; вы учитесь ему, как учиться.
 
-Начните создавать своё персональное ИИ-пространство с навыком [skill-creator](https://killer-skills.com/ru/skills/anthropics/skills/skill-creator) в каталоге навыков Killer-Skills.
+Начните создавать своё персональное ИИ-пространство с навыком [skill-creator](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) в каталоге навыков Killer-Skills.
 
 ---
 
-*Готовы развернуть свой новый навык? Узнайте, как [создать сервер MCP](https://killer-skills.com/ru/skills/anthropics/skills/mcp-builder), чтобы разместить его.*
+*Готовы развернуть свой новый навык? Узнайте, как [создать сервер MCP](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder), чтобы разместить его.*
 
 ---
 

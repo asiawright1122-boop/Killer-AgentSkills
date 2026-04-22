@@ -1,0 +1,161 @@
+{
+  "generatedAt": "2026-04-07T08:39:56.840Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "milestone": "v1.3",
+  "milestoneName": "Adaptive Provider Control and Escalation Automation",
+  "activePhases": [
+    {
+      "phaseNumber": "39",
+      "slug": "workload-aware-provider-routing-and-budget-guards",
+      "requirements": [
+        "AIOPS-08",
+        "AIOPS-10"
+      ],
+      "phaseDirs": [
+        "39-workload-aware-provider-routing-and-budget-guards"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards/39-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.3-phases/39-workload-aware-provider-routing-and-budget-guards/39-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-08",
+        "AIOPS-10"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-08",
+        "AIOPS-10"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "40",
+      "slug": "rate-pressure-evidence-and-operator-controls",
+      "requirements": [
+        "AIOPS-09"
+      ],
+      "phaseDirs": [
+        "40-rate-pressure-evidence-and-operator-controls"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls/40-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.3-phases/40-rate-pressure-evidence-and-operator-controls/40-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-09"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-09"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "41",
+      "slug": "remediation-handoff-automation",
+      "requirements": [
+        "GOV-07",
+        "GOV-08"
+      ],
+      "phaseDirs": [
+        "41-remediation-handoff-automation"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.3-phases/41-remediation-handoff-automation/41-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.3-phases/41-remediation-handoff-automation/41-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "GOV-07",
+        "GOV-08"
+      ],
+      "verificationRequirementsCompleted": [
+        "GOV-07",
+        "GOV-08"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "42",
+      "slug": "phase-archive-lifecycle-automation",
+      "requirements": [
+        "TRACE-05"
+      ],
+      "phaseDirs": [
+        "42-phase-archive-lifecycle-automation"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation/42-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.3-phases/42-phase-archive-lifecycle-automation/42-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "TRACE-05"
+      ],
+      "verificationRequirementsCompleted": [
+        "TRACE-05"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    }
+  ],
+  "requirements": [
+    {
+      "id": "AIOPS-08",
+      "expectedPhase": "39",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "AIOPS-09",
+      "expectedPhase": "40",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "AIOPS-10",
+      "expectedPhase": "39",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-07",
+      "expectedPhase": "41",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-08",
+      "expectedPhase": "41",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "TRACE-05",
+      "expectedPhase": "42",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    }
+  ],
+  "hygiene": {
+    "status": "clean",
+    "legacyPhaseDirs": [],
+    "orphanPhaseDirs": [],
+    "duplicateActivePhaseDirs": [],
+    "missingActivePhaseDirs": []
+  }
+}

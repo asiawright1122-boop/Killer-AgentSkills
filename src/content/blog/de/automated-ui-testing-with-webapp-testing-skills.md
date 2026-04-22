@@ -44,7 +44,7 @@ Die Fähigkeit fördert ein fortschrittliches Testmuster:
 ## Praktische Anwendungsfälle
 
 ### Kontinuierliche UI-Validierung
-Jedes Mal, wenn Sie ein [frontend-design](https://killer-skills.com/de/skills/anthropics/skills/frontend-design) -Komponente refaktorisieren, lassen Sie den Agenten ein `webapp-testing`-Skript ausführen, um sicherzustellen, dass Buttons noch geklickt werden können und Formulare noch übermittelt werden.
+Jedes Mal, wenn Sie ein [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) -Komponente refaktorisieren, lassen Sie den Agenten ein `webapp-testing`-Skript ausführen, um sicherzustellen, dass Buttons noch geklickt werden können und Formulare noch übermittelt werden.
 
 ### Cross-Browser-Debugging
 Lassen Sie den Agenten eine headless-Chromium-Instanz starten, um einen von einem Benutzer gemeldeten Fehler zu reproduzieren, wobei Screenshots und Konsolenprotokolle auf dem Weg zur sofortigen Analyse aufgezeichnet werden.
@@ -60,11 +60,11 @@ Automatisieren Sie mehrschrittige Benutzerreisen, wie z. B. "Registrierung -> Za
 
 Die `webapp-testing`-Fähigkeit ist das letzte Teil des professionellen Entwicklungs-Puzzles. Sie stellt sicher, dass der schöne Code, den Ihr Agent schreibt, auch **zuverlässiger Code** ist. Durch die Integration von automatisierter Qualitätssicherung in den agentischen Workflow können Sie mit totaler Sicherheit ausliefern.
 
-Besuchen Sie den [webapp-testing-Skill](https://killer-skills.com/de/skills/anthropics/skills/webapp-testing) im Killer-Skills-Verzeichnis und beginnen Sie noch heute mit dem Aufbau robuster Frontends.
+Besuchen Sie den [webapp-testing-Skill](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) im Killer-Skills-Verzeichnis und beginnen Sie noch heute mit dem Aufbau robuster Frontends.
 
 ---
 
-*Möchten Sie das UI zuerst aufbauen? Überprüfen Sie die [frontend-design-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/frontend-design).*
+*Möchten Sie das UI zuerst aufbauen? Überprüfen Sie die [frontend-design-Fähigkeit](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 

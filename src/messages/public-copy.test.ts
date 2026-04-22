@@ -18,18 +18,18 @@ const cliMessages = [en, zh, ar, de, es, fr, ja, ko, pt, ru];
 describe('public messages copy', () => {
   it('keeps public skill counts aligned on localized home, marketplace, and CLI pages', () => {
     for (const messages of localizedMessages) {
-      expect(messages.Home.heroDesc1).toContain('2,500');
+      expect(messages.Home.heroDesc1).toContain('3,400');
       expect(messages.Home.heroDesc1).not.toContain('1000');
-      expect(messages.Marketplace.allPurposeDesc).toContain('2,500');
+      expect(messages.Marketplace.allPurposeDesc).toContain('3,400');
       expect(messages.Marketplace.allPurposeDesc).not.toContain('1000');
-      expect(messages.CLI.heroDesc).toContain('2,500');
+      expect(messages.CLI.heroDesc).toContain('3,400');
       expect(messages.CLI.heroDesc).not.toContain('1000');
     }
   });
 
   it('keeps translated CLI counts aligned with current public totals', () => {
     for (const messages of cliMessages) {
-      expect(messages.CLI.heroDesc).toContain('2,500');
+      expect(messages.CLI.heroDesc).toContain('3,400');
       expect(messages.CLI.heroDesc).not.toContain('1000');
       expect(messages.CLI.terminal.syncDesc).toContain('19');
       expect(messages.CLI.terminal.syncDesc).not.toContain('17');
@@ -85,7 +85,7 @@ describe('public messages copy', () => {
     );
     expect(en.CLI.features.syncAll.title).toBe('Multi-IDE Sync');
     expect(en.SkillsManagerWidget.description).toBe(
-      'Unlock more workflows instantly. Discover and install 2,500+ AI agent skills.',
+      'Unlock more workflows instantly. Discover and install 3,400+ AI agent skills.',
     );
 
     expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
@@ -98,7 +98,7 @@ describe('public messages copy', () => {
       '浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。',
     );
     expect(zh.CLI.features.syncAll.title).toBe('多 IDE 同步');
-    expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 2,500+ AI Agent 技能。');
+    expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 3,400+ AI Agent 技能。');
   });
 
   it('keeps remaining localized home copy aligned with skills-first messaging', () => {
@@ -437,7 +437,7 @@ describe('public messages copy', () => {
 
   it('keeps stale manager widget capability counts out of public messages', () => {
     for (const messages of localizedMessages) {
-      expect(messages.SkillsManagerWidget.description).toContain('2,500');
+      expect(messages.SkillsManagerWidget.description).toContain('3,400');
       expect(messages.SkillsManagerWidget.description).not.toContain('1000');
     }
   });

@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## Что такое навык Brand-Guidelines?
 
-Навык `brand-guidelines` является дизайн-движком, который обеспечивает соблюдение строгих визуальных стандартов. Он предназначен для использования в сочетании с другими творческими навыками, такими как [pptx](https://killer-skills.com/ru/skills/anthropics/skills/pptx) или [canvas-design](https://killer-skills.com/ru/skills/anthropics/skills/canvas-design), чтобы обеспечить соблюдение бренда.
+Навык `brand-guidelines` является дизайн-движком, который обеспечивает соблюдение строгих визуальных стандартов. Он предназначен для использования в сочетании с другими творческими навыками, такими как [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) или [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design), чтобы обеспечить соблюдение бренда.
 
 ### 1. Официальная цветовая палитра
 Навык предоставляет точные значения RGB и HEX для официальной идентичности:
@@ -60,11 +60,11 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 Навык `brand-guidelines` - это завершающий штрих, который превращает "вывод AI" в "Профессиональный Актив". Он гарантирует, что ваш агент кодирования понимает важность визуального контекста и бренд-авторитета.
 
-Установите навык [brand-guidelines](https://killer-skills.com/ru/skills/anthropics/skills/brand-guidelines) из каталога навыков Killer-Skills и начните проектировать уверенно.
+Установите навык [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) из каталога навыков Killer-Skills и начните проектировать уверенно.
 
 ---
 
-*Ищете больше вариантов стилизации? Изучите [theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory) для более широкого диапазона предустановленных профессиональных тем.*
+*Ищете больше вариантов стилизации? Изучите [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) для более широкого диапазона предустановленных профессиональных тем.*
 
 ---
 

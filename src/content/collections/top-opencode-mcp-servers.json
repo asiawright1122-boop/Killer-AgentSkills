@@ -139,18 +139,10 @@
   },
   "featured": false,
   "canonicalSlug": "top-opencode-workflow-tools-companion-integrations",
-  "legacySlugs": [
-    "top-opencode-mcp-servers"
-  ],
+  "legacySlugs": ["top-opencode-mcp-servers"],
   "category": "opencode",
   "author": "Killer-Skills AI",
-  "skills": [
-    "Soju06/codex-lb",
-    "dkapellusch/AO",
-    "ssdeanx/AgentStack",
-    "lbb00/ai-rules-sync",
-    "lorehq/lore"
-  ],
+  "skills": ["Soju06/codex-lb", "dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
   "longDescription": {
     "en": "If your team already works around OpenCode, this page should narrow the shortlist quickly instead of sending you into another companion-tools crawl. It compares workflow helpers, review tools, and developer integrations that fit OpenCode-centered execution, then moves the next click into installation docs, CLI validation, and a repeatable rollout path.",
     "zh": "如果你的团队已经围绕 OpenCode 工作，这页就应该帮助你快速收口，而不是把你重新送回无休止的配套工具比较。它聚焦适合 OpenCode 执行路径的工作流助手、评审工具与开发集成，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",

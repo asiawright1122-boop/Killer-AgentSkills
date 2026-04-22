@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## 什么是品牌指南技能？
 
-`brand-guidelines` 技能是一个设计引擎，强制执行严格的视觉标准。它旨在与其他创意技能（如 [pptx](https://killer-skills.com/zh/skills/anthropics/skills/pptx) 或 [canvas-design](https://killer-skills.com/zh/skills/anthropics/skills/canvas-design)）结合使用，以确保它们保持“品牌一致性”。
+`brand-guidelines` 技能是一个设计引擎，强制执行严格的视觉标准。它旨在与其他创意技能（如 [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) 或 [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design)）结合使用，以确保它们保持“品牌一致性”。
 
 ### 1. 官方色彩板
 该技能提供官方身份的精确 RGB 和 HEX 值：
@@ -60,11 +60,11 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` 技能是将 "AI 输出" 转变为 "专业资产" 的最后润色。它确保您的编码代理理解视觉上下文和品牌权威的重要性。
 
-从 Killer-Skills 技能目录安装 [brand-guidelines 技能](https://killer-skills.com/zh/skills/anthropics/skills/brand-guidelines)，开始更有章法地设计。
+从 Killer-Skills 技能目录安装 [brand-guidelines 技能](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines)，开始更有章法地设计。
 
 ---
 
-*寻找更多样式选项？探索 [theme-factory](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory) 以获取更广泛的预设专业主题.*
+*寻找更多样式选项？探索 [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) 以获取更广泛的预设专业主题.*
 
 ---
 

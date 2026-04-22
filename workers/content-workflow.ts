@@ -8,338 +8,304 @@
  * 4. 存入 KV 缓存
  */
 
-import {
-    WorkflowEntrypoint,
-    type WorkflowStep,
-    type WorkflowEvent,
-} from "cloudflare:workers";
-import { isValidAgentSkill } from "./lib/validation";
-import { SUPPORTED_LOCALES } from "../config/locales.mjs";
+import { WorkflowEntrypoint, type WorkflowStep, type WorkflowEvent } from 'cloudflare:workers';
+import { WorkerAiRuntime, type WorkerAiRuntimeEnv } from './lib/ai-runtime';
+import { isValidAgentSkill } from './lib/validation';
+import { SUPPORTED_LOCALES } from '../config/locales.mjs';
 
 // ===== Types =====
 
 export interface ContentProcessingParams {
-    owner: string;
-    repo: string;
-    skillPath?: string; // sub-skill 路径，如 "skills/my-skill"
-    forceRefresh?: boolean; // 强制重新处理
+  owner: string;
+  repo: string;
+  skillPath?: string; // sub-skill 路径，如 "skills/my-skill"
+  forceRefresh?: boolean; // 强制重新处理
 }
 
-export interface Env {
-    SKILLS_CACHE: KVNamespace;
-    TRANSLATIONS: KVNamespace;
-    SILICONFLOW_API_KEY?: string; // Siliconflow API Key for fallback
-    NVIDIA_API_KEYS?: string;
-    NVIDIA_API_KEY?: string;
-    NVIDIA_API_KEYS_2?: string;
-    NVIDIA_API_KEYS_3?: string;
+export interface Env extends WorkerAiRuntimeEnv {
+  SKILLS_CACHE: KVNamespace;
+  TRANSLATIONS: KVNamespace;
 }
 
 interface SkillMdContent {
-    name: string;
-    description: string;
-    version?: string;
-    tags?: string[];
-    body: string;
+  name: string;
+  description: string;
+  version?: string;
+  tags?: string[];
+  body: string;
 }
 
 interface ProcessedContent {
-    skillMd: SkillMdContent;
-    seo: {
-        definition: Record<string, string>;
-        features: Record<string, string[]>;
-        keywords: Record<string, string[]>;
-        title: Record<string, string>;
-        description: Record<string, string>;
-    };
-    aiQualityScore?: number;
-    aiQualityReason?: string;
-    faq: Record<string, Array<{ question: string; answer: string }>>; // AI-generated FAQ
-    translations: {
-        description: Record<string, string>;
-        body: Record<string, string>;
-    };
-    processedAt: string;
-    agentAnalysis?: {
-        suitability: string | Record<string, string>;
-        recommendation: string | Record<string, string>;
-        useCases: string[] | Record<string, string[]>;
-        limitations: string[] | Record<string, string[]>;
-    };
+  skillMd: SkillMdContent;
+  seo: {
+    definition: Record<string, string>;
+    features: Record<string, string[]>;
+    keywords: Record<string, string[]>;
+    title: Record<string, string>;
+    description: Record<string, string>;
+  };
+  aiQualityScore?: number;
+  aiQualityReason?: string;
+  faq: Record<string, Array<{ question: string; answer: string }>>; // AI-generated FAQ
+  translations: {
+    description: Record<string, string>;
+    body: Record<string, string>;
+  };
+  processedAt: string;
+  agentAnalysis?: {
+    suitability: string | Record<string, string>;
+    recommendation: string | Record<string, string>;
+    useCases: string[] | Record<string, string[]>;
+    limitations: string[] | Record<string, string[]>;
+  };
 }
 
 // ===== Workflow Definition =====
 
 export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
-    private nvidiaKeys: string[] = [];
-    private currentKeyIndex = 0;
+  private aiRuntime: WorkerAiRuntime<Env> | null = null;
 
-    async run(event: WorkflowEvent<ContentProcessingParams>, step: WorkflowStep) {
-        const { owner, repo, skillPath, forceRefresh } = event.payload;
-        const cacheKey = skillPath ? `skill:${owner}/${repo}/${skillPath}` : `skill:${owner}/${repo}`;
+  async run(event: WorkflowEvent<ContentProcessingParams>, step: WorkflowStep) {
+    const { owner, repo, skillPath, forceRefresh } = event.payload;
+    const cacheKey = skillPath ? `skill:${owner}/${repo}/${skillPath}` : `skill:${owner}/${repo}`;
 
-        // 初始化 API Keys
-        this.initializeKeys();
-
-        // Step 1: 检查是否已有缓存
-        if (!forceRefresh) {
-            const cached = await step.do("check-cache", async () => {
-                const data = await this.env.SKILLS_CACHE.get(cacheKey, "json") as ProcessedContent | null;
-                // 7 天内的缓存视为有效
-                if (data?.processedAt) {
-                    const age = Date.now() - new Date(data.processedAt).getTime();
-                    if (age < 7 * 24 * 60 * 60 * 1000) {
-                        return data;
-                    }
-                }
-                return null;
-            });
-
-            if (cached) {
-                return { success: true, cached: true, cacheKey };
-            }
+    // Step 1: 检查是否已有缓存
+    if (!forceRefresh) {
+      const cached = await step.do('check-cache', async () => {
+        const data = (await this.env.SKILLS_CACHE.get(cacheKey, 'json')) as ProcessedContent | null;
+        // 7 天内的缓存视为有效
+        if (data?.processedAt) {
+          const age = Date.now() - new Date(data.processedAt).getTime();
+          if (age < 7 * 24 * 60 * 60 * 1000) {
+            return data;
+          }
         }
-
-        // Step 2: 获取 SKILL.md 内容
-        const skillMd = await step.do(
-            "fetch-skill-md",
-            { retries: { limit: 2, delay: "3 second" }, timeout: "30 seconds" },
-            async () => {
-                return await this.fetchSkillMd(owner, repo, skillPath);
-            }
-        );
-
-        if (!skillMd) {
-            throw new Error(`Failed to fetch SKILL.md for ${cacheKey}`);
-        }
-
-        // Step 3: 验证内容质量 (防止垃圾 Skill 进入缓存)
-        const validation = this.validateSkill(skillMd, owner, repo);
-        if (!validation.valid) {
-            console.warn(`Skipping invalid skill ${cacheKey}: ${validation.reason}`);
-            // 可选：存入一个标记，表明该 repo 无效，避免重复抓取
-            return { success: false, reason: validation.reason, cacheKey };
-        }
-
-        // Step 4: 生成 SEO 内容 (如果 description 存在)
-        const seoContent = await step.do(
-            "generate-seo",
-            { retries: { limit: 2, delay: "5 second" }, timeout: "2 minutes" },
-            async () => {
-                return await this.generateSeoContent(skillMd.description, skillMd.name);
-            }
-        );
-
-        // Step 5: 翻译所有内容
-        const translations = await step.do(
-            "translate-all",
-            { retries: { limit: 2, delay: "10 second" }, timeout: "5 minutes" },
-            async () => {
-                return await this.translateAllContent(skillMd, seoContent);
-            }
-        );
-
-        // Step 6: Generate AI FAQ
-        const faq = await step.do(
-            "generate-faq",
-            { retries: { limit: 2, delay: "5 second" }, timeout: "3 minutes" },
-            async () => {
-                return await this.generateFAQ(skillMd, seoContent.definition);
-            }
-        );
-
-        // Step 7: Generate Agent Analysis (New Phase 2)
-        const agentAnalysisRaw = await step.do(
-            "generate-agent-analysis",
-            { retries: { limit: 2, delay: "5 second" }, timeout: "3 minutes" },
-            async () => {
-                return await this.generateAgentAnalysis(skillMd, seoContent.definition);
-            }
-        );
-
-        // Step 8: Translate Agent Analysis to all languages
-        const agentAnalysis = await step.do(
-            "translate-agent-analysis",
-            { retries: { limit: 1, delay: "5 second" }, timeout: "5 minutes" },
-            async () => {
-                return await this.translateAgentAnalysis(agentAnalysisRaw);
-            }
-        );
-
-        // Step 9: 组装并存入 KV
-        const processedContent: ProcessedContent = {
-            skillMd,
-            seo: translations.seo,
-            aiQualityScore: seoContent.qualityScore,
-            aiQualityReason: seoContent.qualityReason,
-            faq,
-            agentAnalysis,
-            translations: {
-                description: translations.description,
-                body: translations.body,
-            },
-            processedAt: new Date().toISOString(),
-        };
-
-        await step.do("save-to-kv", async () => {
-            await this.env.SKILLS_CACHE.put(cacheKey, JSON.stringify(processedContent), {
-                expirationTtl: 60 * 60 * 24 * 30, // 30 days
-            });
-        });
-
-        return { success: true, cached: false, cacheKey, locales: SUPPORTED_LOCALES };
-    }
-
-    // ===== Helper Methods =====
-
-    private initializeKeys(): void {
-        const rawKeys = [
-            this.env.NVIDIA_API_KEYS,
-            this.env.NVIDIA_API_KEY,
-            this.env.NVIDIA_API_KEYS_2,
-            this.env.NVIDIA_API_KEYS_3,
-        ]
-            .filter(Boolean)
-            .join(",");
-
-        this.nvidiaKeys = rawKeys
-            .split(",")
-            .map((k) => k.trim())
-            .filter(Boolean);
-    }
-
-    private getNextKey(): string {
-        if (this.nvidiaKeys.length === 0) {
-            throw new Error("No NVIDIA API Keys configured");
-        }
-        const key = this.nvidiaKeys[this.currentKeyIndex];
-        this.currentKeyIndex = (this.currentKeyIndex + 1) % this.nvidiaKeys.length;
-        return key;
-    }
-
-    /**
-     * 从 GitHub 获取并解析 SKILL.md
-     * 尝试多种路径模式以处理不同的仓库结构
-     */
-    private async fetchSkillMd(
-        owner: string,
-        repo: string,
-        skillPath?: string
-    ): Promise<SkillMdContent | null> {
-        // 构建多个可能的路径尝试
-        const pathsToTry: string[] = [];
-
-        if (skillPath) {
-            // 1. 直接路径: skillPath/SKILL.md
-            pathsToTry.push(`${skillPath}/SKILL.md`);
-            // 2. 带 skills/ 前缀: skills/skillPath/SKILL.md (常见于官方 skills 仓库)
-            if (!skillPath.startsWith('skills/')) {
-                pathsToTry.push(`skills/${skillPath}/SKILL.md`);
-                pathsToTry.push(`.codex/skills/${skillPath}/SKILL.md`);
-                pathsToTry.push(`.claude/skills/${skillPath}/SKILL.md`);
-            }
-        } else {
-            // 无 skillPath 时尝试根目录及常见位置
-            pathsToTry.push("SKILL.md");
-            pathsToTry.push(".codex/skills/SKILL.md");
-            pathsToTry.push(".claude/skills/SKILL.md");
-            pathsToTry.push(".agent/skills/SKILL.md");
-            pathsToTry.push(`skills/${repo}/SKILL.md`);
-            pathsToTry.push(`.codex/skills/${repo}/SKILL.md`);
-            pathsToTry.push(`.claude/skills/${repo}/SKILL.md`);
-        }
-
-        for (const path of pathsToTry) {
-            // 尝试 main 分支
-            const mainUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
-            const mainResponse = await fetch(mainUrl);
-            if (mainResponse.ok) {
-                return this.parseSkillMd(await mainResponse.text());
-            }
-
-            // 尝试 master 分支
-            const masterUrl = mainUrl.replace("/main/", "/master/");
-            const masterResponse = await fetch(masterUrl);
-            if (masterResponse.ok) {
-                return this.parseSkillMd(await masterResponse.text());
-            }
-        }
-
         return null;
+      });
+
+      if (cached) {
+        return { success: true, cached: true, cacheKey };
+      }
     }
 
+    // Step 2: 获取 SKILL.md 内容
+    const skillMd = await step.do(
+      'fetch-skill-md',
+      { retries: { limit: 2, delay: '3 second' }, timeout: '30 seconds' },
+      async () => {
+        return await this.fetchSkillMd(owner, repo, skillPath);
+      },
+    );
 
-    /**
-     * 解析 SKILL.md frontmatter
-     */
-    private parseSkillMd(content: string): SkillMdContent {
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-
-        if (!frontmatterMatch) {
-            return {
-                name: "Unknown",
-                description: "",
-                body: content,
-            };
-        }
-
-        const [, frontmatter, body] = frontmatterMatch;
-        const metadata: Record<string, string | string[]> = {};
-
-        // 简单的 YAML 解析
-        for (const line of frontmatter.split("\n")) {
-            const match = line.match(/^(\w+):\s*(.+)$/);
-            if (match) {
-                const [, key, value] = match;
-                // 处理数组格式
-                if (value.startsWith("[") && value.endsWith("]")) {
-                    metadata[key] = value
-                        .slice(1, -1)
-                        .split(",")
-                        .map((s) => s.trim().replace(/^["']|["']$/g, ""));
-                } else {
-                    metadata[key] = value.replace(/^["']|["']$/g, "");
-                }
-            }
-        }
-
-        return {
-            name: (metadata.name as string) || "Unknown",
-            description: (metadata.description as string) || "",
-            version: metadata.version as string,
-            tags: metadata.tags as string[],
-            body: body.trim(),
-        };
+    if (!skillMd) {
+      throw new Error(`Failed to fetch SKILL.md for ${cacheKey}`);
     }
 
-    /**
-     * 验证 Skill 内容质量
-     * 使用共享验证模块，保持逻辑一致性
-     */
-    private validateSkill(skill: SkillMdContent, owner: string, repo: string): { valid: boolean; reason: string } {
-        return isValidAgentSkill({
-            name: skill.name,
-            owner,
-            repo,
-            body: skill.body,
-            description: skill.description,
-            topics: skill.tags
-        });
+    // Step 3: 验证内容质量 (防止垃圾 Skill 进入缓存)
+    const validation = this.validateSkill(skillMd, owner, repo);
+    if (!validation.valid) {
+      console.warn(`Skipping invalid skill ${cacheKey}: ${validation.reason}`);
+      // 可选：存入一个标记，表明该 repo 无效，避免重复抓取
+      return { success: false, reason: validation.reason, cacheKey };
     }
 
-    /**
- * 使用 AI 生成 SEO 内容
- * Phase 8: Upgraded prompt aligned with offline pipeline (ai.ts) quality standards
- */
-    private async generateSeoContent(
-        description: string,
-        name: string
-    ): Promise<{ definition: string; features: string[]; keywords: string[]; title: string; description: string; qualityScore?: number; qualityReason?: string }> {
-        if (!description || description.length < 10) {
-            return { definition: description || "", features: [], keywords: [], title: name, description: description || "", };
-        }
+    // Step 4: 生成 SEO 内容 (如果 description 存在)
+    const seoContent = await step.do(
+      'generate-seo',
+      { retries: { limit: 2, delay: '5 second' }, timeout: '2 minutes' },
+      async () => {
+        return await this.generateSeoContent(skillMd.description, skillMd.name);
+      },
+    );
 
-        const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate specializing in AI developer tools.
+    // Step 5: 翻译所有内容
+    const translations = await step.do(
+      'translate-all',
+      { retries: { limit: 2, delay: '10 second' }, timeout: '5 minutes' },
+      async () => {
+        return await this.translateAllContent(skillMd, seoContent);
+      },
+    );
+
+    // Step 6: Generate AI FAQ
+    const faq = await step.do(
+      'generate-faq',
+      { retries: { limit: 2, delay: '5 second' }, timeout: '3 minutes' },
+      async () => {
+        return await this.generateFAQ(skillMd, seoContent.definition);
+      },
+    );
+
+    // Step 7: Generate Agent Analysis (New Phase 2)
+    const agentAnalysisRaw = await step.do(
+      'generate-agent-analysis',
+      { retries: { limit: 2, delay: '5 second' }, timeout: '3 minutes' },
+      async () => {
+        return await this.generateAgentAnalysis(skillMd, seoContent.definition);
+      },
+    );
+
+    // Step 8: Translate Agent Analysis to all languages
+    const agentAnalysis = await step.do(
+      'translate-agent-analysis',
+      { retries: { limit: 1, delay: '5 second' }, timeout: '5 minutes' },
+      async () => {
+        return await this.translateAgentAnalysis(agentAnalysisRaw);
+      },
+    );
+
+    // Step 9: 组装并存入 KV
+    const processedContent: ProcessedContent = {
+      skillMd,
+      seo: translations.seo,
+      aiQualityScore: seoContent.qualityScore,
+      aiQualityReason: seoContent.qualityReason,
+      faq,
+      agentAnalysis,
+      translations: {
+        description: translations.description,
+        body: translations.body,
+      },
+      processedAt: new Date().toISOString(),
+    };
+
+    await step.do('save-to-kv', async () => {
+      await this.env.SKILLS_CACHE.put(cacheKey, JSON.stringify(processedContent), {
+        expirationTtl: 60 * 60 * 24 * 30, // 30 days
+      });
+    });
+
+    return { success: true, cached: false, cacheKey, locales: SUPPORTED_LOCALES };
+  }
+
+  // ===== Helper Methods =====
+
+  /**
+   * 从 GitHub 获取并解析 SKILL.md
+   * 尝试多种路径模式以处理不同的仓库结构
+   */
+  private async fetchSkillMd(owner: string, repo: string, skillPath?: string): Promise<SkillMdContent | null> {
+    // 构建多个可能的路径尝试
+    const pathsToTry: string[] = [];
+
+    if (skillPath) {
+      // 1. 直接路径: skillPath/SKILL.md
+      pathsToTry.push(`${skillPath}/SKILL.md`);
+      // 2. 带 skills/ 前缀: skills/skillPath/SKILL.md (常见于官方 skills 仓库)
+      if (!skillPath.startsWith('skills/')) {
+        pathsToTry.push(`skills/${skillPath}/SKILL.md`);
+        pathsToTry.push(`.codex/skills/${skillPath}/SKILL.md`);
+        pathsToTry.push(`.claude/skills/${skillPath}/SKILL.md`);
+      }
+    } else {
+      // 无 skillPath 时尝试根目录及常见位置
+      pathsToTry.push('SKILL.md');
+      pathsToTry.push('.codex/skills/SKILL.md');
+      pathsToTry.push('.claude/skills/SKILL.md');
+      pathsToTry.push('.agent/skills/SKILL.md');
+      pathsToTry.push(`skills/${repo}/SKILL.md`);
+      pathsToTry.push(`.codex/skills/${repo}/SKILL.md`);
+      pathsToTry.push(`.claude/skills/${repo}/SKILL.md`);
+    }
+
+    for (const path of pathsToTry) {
+      // 尝试 main 分支
+      const mainUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${path}`;
+      const mainResponse = await fetch(mainUrl);
+      if (mainResponse.ok) {
+        return this.parseSkillMd(await mainResponse.text());
+      }
+
+      // 尝试 master 分支
+      const masterUrl = mainUrl.replace('/main/', '/master/');
+      const masterResponse = await fetch(masterUrl);
+      if (masterResponse.ok) {
+        return this.parseSkillMd(await masterResponse.text());
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * 解析 SKILL.md frontmatter
+   */
+  private parseSkillMd(content: string): SkillMdContent {
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+
+    if (!frontmatterMatch) {
+      return {
+        name: 'Unknown',
+        description: '',
+        body: content,
+      };
+    }
+
+    const [, frontmatter, body] = frontmatterMatch;
+    const metadata: Record<string, string | string[]> = {};
+
+    // 简单的 YAML 解析
+    for (const line of frontmatter.split('\n')) {
+      const match = line.match(/^(\w+):\s*(.+)$/);
+      if (match) {
+        const [, key, value] = match;
+        // 处理数组格式
+        if (value.startsWith('[') && value.endsWith(']')) {
+          metadata[key] = value
+            .slice(1, -1)
+            .split(',')
+            .map((s) => s.trim().replace(/^["']|["']$/g, ''));
+        } else {
+          metadata[key] = value.replace(/^["']|["']$/g, '');
+        }
+      }
+    }
+
+    return {
+      name: (metadata.name as string) || 'Unknown',
+      description: (metadata.description as string) || '',
+      version: metadata.version as string,
+      tags: metadata.tags as string[],
+      body: body.trim(),
+    };
+  }
+
+  /**
+   * 验证 Skill 内容质量
+   * 使用共享验证模块，保持逻辑一致性
+   */
+  private validateSkill(skill: SkillMdContent, owner: string, repo: string): { valid: boolean; reason: string } {
+    return isValidAgentSkill({
+      name: skill.name,
+      owner,
+      repo,
+      body: skill.body,
+      description: skill.description,
+      topics: skill.tags,
+    });
+  }
+
+  /**
+   * 使用 AI 生成 SEO 内容
+   * Phase 8: Upgraded prompt aligned with offline pipeline (ai.ts) quality standards
+   */
+  private async generateSeoContent(
+    description: string,
+    name: string,
+  ): Promise<{
+    definition: string;
+    features: string[];
+    keywords: string[];
+    title: string;
+    description: string;
+    qualityScore?: number;
+    qualityReason?: string;
+  }> {
+    if (!description || description.length < 10) {
+      return { definition: description || '', features: [], keywords: [], title: name, description: description || '' };
+    }
+
+    const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate specializing in AI developer tools.
 
 Analyze this AI Agent Skill and generate SEO content:
 
@@ -372,69 +338,69 @@ Respond in JSON format:
 
 Only output the JSON, nothing else.`;
 
-        try {
-            const result = await this.callAI(prompt);
-            const parsed = JSON.parse(result);
-            // Post-processing: enforce character limits (aligned with offline pipeline)
-            let seoTitle = parsed.title || name;
-            if (seoTitle.length > 60) seoTitle = seoTitle.slice(0, 57) + '...';
-            let seoDescription = parsed.description || description;
-            if (seoDescription.length > 160) seoDescription = seoDescription.slice(0, 157) + '...';
-            return {
-                definition: parsed.definition || description,
-                features: parsed.features || [],
-                keywords: parsed.keywords || [],
-                title: seoTitle,
-                description: seoDescription,
-                qualityScore: typeof parsed.qualityScore === 'number' ? parsed.qualityScore : undefined,
-                qualityReason: parsed.qualityReason || undefined,
-            };
-        } catch {
-            // 如果 AI 失败，使用原始描述
-            return { definition: description, features: [], keywords: [], title: name, description, };
-        }
+    try {
+      const result = await this.callAI(prompt);
+      const parsed = JSON.parse(result);
+      // Post-processing: enforce character limits (aligned with offline pipeline)
+      let seoTitle = parsed.title || name;
+      if (seoTitle.length > 60) seoTitle = seoTitle.slice(0, 57) + '...';
+      let seoDescription = parsed.description || description;
+      if (seoDescription.length > 160) seoDescription = seoDescription.slice(0, 157) + '...';
+      return {
+        definition: parsed.definition || description,
+        features: parsed.features || [],
+        keywords: parsed.keywords || [],
+        title: seoTitle,
+        description: seoDescription,
+        qualityScore: typeof parsed.qualityScore === 'number' ? parsed.qualityScore : undefined,
+        qualityReason: parsed.qualityReason || undefined,
+      };
+    } catch {
+      // 如果 AI 失败，使用原始描述
+      return { definition: description, features: [], keywords: [], title: name, description };
+    }
+  }
+
+  /**
+   * 使用 AI 生成个性化 FAQ
+   */
+  private async generateFAQ(
+    skillMd: SkillMdContent,
+    seoDefinition: string,
+  ): Promise<Record<string, Array<{ question: string; answer: string }>>> {
+    const result: Record<string, Array<{ question: string; answer: string }>> = {};
+
+    // 生成英文 FAQ
+    const enFaq = await this.generateFAQForLang(skillMd, seoDefinition, 'en');
+    result['en'] = enFaq;
+
+    // 翻译 FAQ 到其他语言
+    for (const locale of SUPPORTED_LOCALES) {
+      if (locale === 'en') continue;
+      try {
+        result[locale] = await this.translateFAQ(enFaq, locale);
+      } catch (error) {
+        console.error(`Failed to translate FAQ to ${locale}:`, error);
+        result[locale] = enFaq; // fallback to English
+      }
     }
 
-    /**
-     * 使用 AI 生成个性化 FAQ
-     */
-    private async generateFAQ(
-        skillMd: SkillMdContent,
-        seoDefinition: string
-    ): Promise<Record<string, Array<{ question: string; answer: string }>>> {
-        const result: Record<string, Array<{ question: string; answer: string }>> = {};
+    return result;
+  }
 
-        // 生成英文 FAQ
-        const enFaq = await this.generateFAQForLang(skillMd, seoDefinition, "en");
-        result["en"] = enFaq;
-
-        // 翻译 FAQ 到其他语言
-        for (const locale of SUPPORTED_LOCALES) {
-            if (locale === "en") continue;
-            try {
-                result[locale] = await this.translateFAQ(enFaq, locale);
-            } catch (error) {
-                console.error(`Failed to translate FAQ to ${locale}:`, error);
-                result[locale] = enFaq; // fallback to English
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * 为特定语言生成 FAQ
-     */
-    private async generateFAQForLang(
-        skillMd: SkillMdContent,
-        seoDefinition: string,
-        _lang: string
-    ): Promise<Array<{ question: string; answer: string }>> {
-        const prompt = `You are an SEO expert creating FAQ content for an AI Agent Skill.
+  /**
+   * 为特定语言生成 FAQ
+   */
+  private async generateFAQForLang(
+    skillMd: SkillMdContent,
+    seoDefinition: string,
+    _lang: string,
+  ): Promise<Array<{ question: string; answer: string }>> {
+    const prompt = `You are an SEO expert creating FAQ content for an AI Agent Skill.
 
 Skill Name: ${skillMd.name}
 Description: ${skillMd.description || seoDefinition}
-Tags: ${skillMd.tags?.join(", ") || "N/A"}
+Tags: ${skillMd.tags?.join(', ') || 'N/A'}
 
 Content Preview:
 ${skillMd.body.slice(0, 1500)}
@@ -454,53 +420,53 @@ Return ONLY valid JSON array:
 
 Make answers detailed but concise (2-3 sentences each). Do not include generic installation questions.`;
 
-        try {
-            const result = await this.callAI(prompt);
-            // 提取 JSON 部分
-            const jsonMatch = result.match(/\[[\s\S]*\]/);
-            if (jsonMatch) {
-                return JSON.parse(jsonMatch[0]);
-            }
-            return [];
-        } catch {
-            return [];
-        }
+    try {
+      const result = await this.callAI(prompt);
+      // 提取 JSON 部分
+      const jsonMatch = result.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+      return [];
+    } catch {
+      return [];
     }
+  }
 
-    /**
-     * 翻译 FAQ 到目标语言
-     */
-    private async translateFAQ(
-        faq: Array<{ question: string; answer: string }>,
-        targetLang: string
-    ): Promise<Array<{ question: string; answer: string }>> {
-        if (faq.length === 0) return [];
+  /**
+   * 翻译 FAQ 到目标语言
+   */
+  private async translateFAQ(
+    faq: Array<{ question: string; answer: string }>,
+    targetLang: string,
+  ): Promise<Array<{ question: string; answer: string }>> {
+    if (faq.length === 0) return [];
 
-        const langName = this.getLangName(targetLang);
-        const prompt = `Translate this FAQ to ${langName}. Return ONLY the translated JSON array.
+    const langName = this.getLangName(targetLang);
+    const prompt = `Translate this FAQ to ${langName}. Return ONLY the translated JSON array.
 
 ${JSON.stringify(faq, null, 2)}`;
 
-        try {
-            const result = await this.callAI(prompt);
-            const jsonMatch = result.match(/\[[\s\S]*\]/);
-            if (jsonMatch) {
-                return JSON.parse(jsonMatch[0]);
-            }
-            return faq;
-        } catch {
-            return faq;
-        }
+    try {
+      const result = await this.callAI(prompt);
+      const jsonMatch = result.match(/\[[\s\S]*\]/);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
+      return faq;
+    } catch {
+      return faq;
     }
+  }
 
-    /**
-     * Phase 2: Generate Agent Analysis
-     */
-    private async generateAgentAnalysis(
-        skillMd: SkillMdContent,
-        seoDefinition: string
-    ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
-        const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
+  /**
+   * Phase 2: Generate Agent Analysis
+   */
+  private async generateAgentAnalysis(
+    skillMd: SkillMdContent,
+    seoDefinition: string,
+  ): Promise<{ suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined> {
+    const prompt = `You are an AI Agent Ecosystem Expert. Analyze this skill for compatibility with modern AI Agents (e.g., Cursor, Windsurf, Claude Code, AutoGPT, LangChain).
 
 Skill: ${skillMd.name}
 Description: ${skillMd.description || seoDefinition}
@@ -522,316 +488,253 @@ Return JSON ONLY:
   "limitations": ["Requires local filesystem permissions", "Not safe for untrusted sandboxes"]
 }`;
 
-        try {
-            const result = await this.callAI(prompt);
-            const jsonMatch = result.match(/\{[\s\S]*\}/);
-            if (jsonMatch) {
-                const parsed = JSON.parse(jsonMatch[0]);
-                return {
-                    suitability: parsed.suitability || "Suitable for general AI agents.",
-                    recommendation: parsed.recommendation || "",
-                    useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
-                    limitations: Array.isArray(parsed.limitations) ? parsed.limitations : []
-                };
-            }
-        } catch (e) {
-            console.error("Failed to generate agent analysis", e);
-        }
-        return undefined;
-    }
-
-    /**
-     * Translate Agent Analysis to all supported languages
-     * Converts single-language agentAnalysis to multi-language Records
-     */
-    private async translateAgentAnalysis(
-        raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined
-    ): Promise<ProcessedContent['agentAnalysis'] | undefined> {
-        if (!raw) return undefined;
-
-        const result: ProcessedContent['agentAnalysis'] = {
-            suitability: { en: raw.suitability } as Record<string, string>,
-            recommendation: { en: raw.recommendation } as Record<string, string>,
-            useCases: { en: raw.useCases } as Record<string, string[]>,
-            limitations: { en: raw.limitations } as Record<string, string[]>,
+    try {
+      const result = await this.callAI(prompt);
+      const jsonMatch = result.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        const parsed = JSON.parse(jsonMatch[0]);
+        return {
+          suitability: parsed.suitability || 'Suitable for general AI agents.',
+          recommendation: parsed.recommendation || '',
+          useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
+          limitations: Array.isArray(parsed.limitations) ? parsed.limitations : [],
         };
+      }
+    } catch (e) {
+      console.error('Failed to generate agent analysis', e);
+    }
+    return undefined;
+  }
 
-        for (const locale of SUPPORTED_LOCALES) {
-            if (locale === "en") continue;
+  /**
+   * Translate Agent Analysis to all supported languages
+   * Converts single-language agentAnalysis to multi-language Records
+   */
+  private async translateAgentAnalysis(
+    raw: { suitability: string; recommendation: string; useCases: string[]; limitations: string[] } | undefined,
+  ): Promise<ProcessedContent['agentAnalysis'] | undefined> {
+    if (!raw) return undefined;
 
-            try {
+    const result: ProcessedContent['agentAnalysis'] = {
+      suitability: { en: raw.suitability } as Record<string, string>,
+      recommendation: { en: raw.recommendation } as Record<string, string>,
+      useCases: { en: raw.useCases } as Record<string, string[]>,
+      limitations: { en: raw.limitations } as Record<string, string[]>,
+    };
 
-                // Translate suitability (short text)
-                if (raw.suitability) {
-                    (result.suitability as Record<string, string>)[locale] = await this.translateText(
-                        raw.suitability, locale, "text"
-                    );
-                }
+    for (const locale of SUPPORTED_LOCALES) {
+      if (locale === 'en') continue;
 
-                // Translate recommendation (paragraph)
-                if (raw.recommendation) {
-                    (result.recommendation as Record<string, string>)[locale] = await this.translateText(
-                        raw.recommendation, locale, "text"
-                    );
-                }
-
-                // Translate useCases (array of short phrases)
-                if (raw.useCases.length > 0) {
-                    const useCasesText = raw.useCases.join("\n");
-                    const translated = await this.translateText(useCasesText, locale, "text");
-                    (result.useCases as Record<string, string[]>)[locale] = translated.split("\n").filter(Boolean);
-                }
-
-                // Translate limitations (array of short phrases)
-                if (raw.limitations.length > 0) {
-                    const limitationsText = raw.limitations.join("\n");
-                    const translated = await this.translateText(limitationsText, locale, "text");
-                    (result.limitations as Record<string, string[]>)[locale] = translated.split("\n").filter(Boolean);
-                }
-            } catch (error) {
-                console.error(`Failed to translate agent analysis to ${locale}:`, error);
-                // Fallback: skip this locale, en is already set
-            }
+      try {
+        // Translate suitability (short text)
+        if (raw.suitability) {
+          (result.suitability as Record<string, string>)[locale] = await this.translateText(
+            raw.suitability,
+            locale,
+            'text',
+          );
         }
 
-        return result;
-    }
-
-    /**
- * 翻译所有内容到所有语言
- * Phase 7: Now also translates keywords, title, and description
- */
-    private async translateAllContent(
-
-        skillMd: SkillMdContent,
-        seoContent: { definition: string; features: string[]; keywords: string[]; title: string; description: string }
-    ): Promise<{
-        seo: { definition: Record<string, string>; features: Record<string, string[]>; keywords: Record<string, string[]>; title: Record<string, string>; description: Record<string, string> };
-        description: Record<string, string>;
-        body: Record<string, string>;
-    }> {
-        const result = {
-            seo: {
-                definition: { en: seoContent.definition } as Record<string, string>,
-                features: { en: seoContent.features } as Record<string, string[]>,
-                keywords: { en: seoContent.keywords } as Record<string, string[]>,
-                title: { en: seoContent.title } as Record<string, string>,
-                description: { en: seoContent.description } as Record<string, string>,
-            },
-            description: { en: skillMd.description } as Record<string, string>,
-            body: { en: skillMd.body } as Record<string, string>,
-        };
-
-        // CJK locales that need non-empty validation
-        const CJK_LOCALES = ['zh', 'ja', 'ko'];
-
-        // 翻译到其他语言
-        for (const locale of SUPPORTED_LOCALES) {
-            if (locale === "en") continue;
-
-            try {
-                // 翻译 SEO definition
-                if (seoContent.definition) {
-                    const translated = await this.translateText(
-                        seoContent.definition,
-                        locale,
-                        "text"
-                    );
-                    // CJK validation: reject empty or suspiciously short translations
-                    if (CJK_LOCALES.includes(locale) && (!translated || translated.trim().length < 5)) {
-                        console.warn(`[CJK] Empty/short ${locale} definition, using English fallback`);
-                        result.seo.definition[locale] = seoContent.definition;
-                    } else {
-                        result.seo.definition[locale] = translated;
-                    }
-                }
-
-                // 翻译 features
-                if (seoContent.features.length > 0) {
-                    const featuresText = seoContent.features.join("\n");
-                    const translatedFeatures = await this.translateText(featuresText, locale, "text");
-                    result.seo.features[locale] = translatedFeatures.split("\n").filter(Boolean);
-                }
-
-                // 翻译 SEO keywords (translate as a batch for efficiency)
-                if (seoContent.keywords.length > 0) {
-                    const keywordsText = seoContent.keywords.join("\n");
-                    const translatedKeywords = await this.translateText(keywordsText, locale, "text");
-                    result.seo.keywords[locale] = translatedKeywords.split("\n").filter(Boolean);
-                }
-
-                // 翻译 SEO title (with char limit enforcement)
-                if (seoContent.title) {
-                    let translatedTitle = await this.translateText(
-                        seoContent.title,
-                        locale,
-                        "text"
-                    );
-                    if (translatedTitle.length > 60) translatedTitle = translatedTitle.slice(0, 57) + '...';
-                    // CJK validation
-                    if (CJK_LOCALES.includes(locale) && (!translatedTitle || translatedTitle.trim().length < 3)) {
-                        result.seo.title[locale] = seoContent.title;
-                    } else {
-                        result.seo.title[locale] = translatedTitle;
-                    }
-                }
-
-                // 翻译 SEO description (with char limit enforcement)
-                if (seoContent.description) {
-                    let translatedDesc = await this.translateText(
-                        seoContent.description,
-                        locale,
-                        "text"
-                    );
-                    if (translatedDesc.length > 160) translatedDesc = translatedDesc.slice(0, 157) + '...';
-                    // CJK validation
-                    if (CJK_LOCALES.includes(locale) && (!translatedDesc || translatedDesc.trim().length < 5)) {
-                        result.seo.description[locale] = seoContent.description;
-                    } else {
-                        result.seo.description[locale] = translatedDesc;
-                    }
-                }
-
-                // 翻译 description
-                if (skillMd.description) {
-                    const translated = await this.translateText(
-                        skillMd.description,
-                        locale,
-                        "text"
-                    );
-                    // CJK validation for main description
-                    if (CJK_LOCALES.includes(locale) && (!translated || translated.trim().length < 5)) {
-                        result.description[locale] = skillMd.description;
-                    } else {
-                        result.description[locale] = translated;
-                    }
-                }
-
-                // 翻译 body (SKILL.md 全文)
-                if (skillMd.body) {
-                    result.body[locale] = await this.translateText(skillMd.body, locale, "markdown");
-                }
-            } catch (error) {
-                console.error(`Failed to translate to ${locale}:`, error);
-                // 继续处理其他语言
-            }
+        // Translate recommendation (paragraph)
+        if (raw.recommendation) {
+          (result.recommendation as Record<string, string>)[locale] = await this.translateText(
+            raw.recommendation,
+            locale,
+            'text',
+          );
         }
 
-        return result;
-    }
-
-    /**
-     * 调用 AI 翻译
-     */
-    private async translateText(
-        text: string,
-        targetLang: string,
-        type: "text" | "markdown"
-    ): Promise<string> {
-        const langName = this.getLangName(targetLang);
-        const prompt =
-            type === "markdown"
-                ? `Translate the following Markdown content into ${langName}. Keep ALL Markdown formatting intact. Do NOT translate code blocks. Output ONLY the translated Markdown.\n\n${text}`
-                : `Translate the following text into ${langName}. Output ONLY the translated text.\n\n${text}`;
-
-        return await this.callAI(prompt);
-    }
-
-    /**
-     * 调用 AI (NVIDIA 优先，Siliconflow 备用)
-     */
-    private async callAI(prompt: string): Promise<string> {
-        // 尝试 NVIDIA
-        if (this.nvidiaKeys.length > 0) {
-            try {
-                const apiKey = this.getNextKey();
-                const response = await fetch(
-                    "https://integrate.api.nvidia.com/v1/chat/completions",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${apiKey}`,
-                        },
-                        body: JSON.stringify({
-                            model: "meta/llama-3.1-70b-instruct",
-                            messages: [{ role: "user", content: prompt }],
-                            temperature: 0.2,
-                            max_tokens: 4096,
-                        }),
-                    }
-                );
-
-                if (response.ok) {
-                    const data = (await response.json()) as {
-                        choices: Array<{ message: { content: string } }>;
-                    };
-                    return data.choices[0]?.message?.content || "";
-                }
-            } catch (error) {
-                console.log("[NVIDIA] Failed, falling back to Siliconflow", error);
-            }
+        // Translate useCases (array of short phrases)
+        if (raw.useCases.length > 0) {
+          const useCasesText = raw.useCases.join('\n');
+          const translated = await this.translateText(useCasesText, locale, 'text');
+          (result.useCases as Record<string, string[]>)[locale] = translated.split('\n').filter(Boolean);
         }
 
-        // 备用 Siliconflow
-        if (!this.env.SILICONFLOW_API_KEY) {
-            throw new Error("NVIDIA API failed and no SILICONFLOW_API_KEY configured for fallback");
+        // Translate limitations (array of short phrases)
+        if (raw.limitations.length > 0) {
+          const limitationsText = raw.limitations.join('\n');
+          const translated = await this.translateText(limitationsText, locale, 'text');
+          (result.limitations as Record<string, string[]>)[locale] = translated.split('\n').filter(Boolean);
         }
-
-        console.log("[Siliconflow] Using as fallback");
-        const response = await fetch(
-            "https://api.siliconflow.cn/v1/chat/completions",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${this.env.SILICONFLOW_API_KEY}`,
-                },
-                body: JSON.stringify({
-                    model: "Qwen/Qwen2.5-72B-Instruct",
-                    messages: [{ role: "user", content: prompt }],
-                    temperature: 0.2,
-                    max_tokens: 4096,
-                }),
-            }
-        );
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Siliconflow API Error ${response.status}: ${errorText}`);
-        }
-
-        const data = (await response.json()) as {
-            choices: Array<{ message: { content: string } }>;
-        };
-
-        return data.choices[0]?.message?.content || "";
+      } catch (error) {
+        console.error(`Failed to translate agent analysis to ${locale}:`, error);
+        // Fallback: skip this locale, en is already set
+      }
     }
 
-    private getLangName(code: string): string {
-        const langMap: Record<string, string> = {
-            zh: "Chinese (Simplified)",
-            "zh-TW": "Chinese (Traditional)",
-            es: "Spanish",
-            ja: "Japanese",
-            ko: "Korean",
-            fr: "French",
-            de: "German",
-            pt: "Portuguese",
-            ru: "Russian",
-            ar: "Arabic",
-        };
-        return langMap[code] || code;
+    return result;
+  }
+
+  /**
+   * 翻译所有内容到所有语言
+   * Phase 7: Now also translates keywords, title, and description
+   */
+  private async translateAllContent(
+    skillMd: SkillMdContent,
+    seoContent: { definition: string; features: string[]; keywords: string[]; title: string; description: string },
+  ): Promise<{
+    seo: {
+      definition: Record<string, string>;
+      features: Record<string, string[]>;
+      keywords: Record<string, string[]>;
+      title: Record<string, string>;
+      description: Record<string, string>;
+    };
+    description: Record<string, string>;
+    body: Record<string, string>;
+  }> {
+    const result = {
+      seo: {
+        definition: { en: seoContent.definition } as Record<string, string>,
+        features: { en: seoContent.features } as Record<string, string[]>,
+        keywords: { en: seoContent.keywords } as Record<string, string[]>,
+        title: { en: seoContent.title } as Record<string, string>,
+        description: { en: seoContent.description } as Record<string, string>,
+      },
+      description: { en: skillMd.description } as Record<string, string>,
+      body: { en: skillMd.body } as Record<string, string>,
+    };
+
+    // CJK locales that need non-empty validation
+    const CJK_LOCALES = ['zh', 'ja', 'ko'];
+
+    // 翻译到其他语言
+    for (const locale of SUPPORTED_LOCALES) {
+      if (locale === 'en') continue;
+
+      try {
+        // 翻译 SEO definition
+        if (seoContent.definition) {
+          const translated = await this.translateText(seoContent.definition, locale, 'text');
+          // CJK validation: reject empty or suspiciously short translations
+          if (CJK_LOCALES.includes(locale) && (!translated || translated.trim().length < 5)) {
+            console.warn(`[CJK] Empty/short ${locale} definition, using English fallback`);
+            result.seo.definition[locale] = seoContent.definition;
+          } else {
+            result.seo.definition[locale] = translated;
+          }
+        }
+
+        // 翻译 features
+        if (seoContent.features.length > 0) {
+          const featuresText = seoContent.features.join('\n');
+          const translatedFeatures = await this.translateText(featuresText, locale, 'text');
+          result.seo.features[locale] = translatedFeatures.split('\n').filter(Boolean);
+        }
+
+        // 翻译 SEO keywords (translate as a batch for efficiency)
+        if (seoContent.keywords.length > 0) {
+          const keywordsText = seoContent.keywords.join('\n');
+          const translatedKeywords = await this.translateText(keywordsText, locale, 'text');
+          result.seo.keywords[locale] = translatedKeywords.split('\n').filter(Boolean);
+        }
+
+        // 翻译 SEO title (with char limit enforcement)
+        if (seoContent.title) {
+          let translatedTitle = await this.translateText(seoContent.title, locale, 'text');
+          if (translatedTitle.length > 60) translatedTitle = translatedTitle.slice(0, 57) + '...';
+          // CJK validation
+          if (CJK_LOCALES.includes(locale) && (!translatedTitle || translatedTitle.trim().length < 3)) {
+            result.seo.title[locale] = seoContent.title;
+          } else {
+            result.seo.title[locale] = translatedTitle;
+          }
+        }
+
+        // 翻译 SEO description (with char limit enforcement)
+        if (seoContent.description) {
+          let translatedDesc = await this.translateText(seoContent.description, locale, 'text');
+          if (translatedDesc.length > 160) translatedDesc = translatedDesc.slice(0, 157) + '...';
+          // CJK validation
+          if (CJK_LOCALES.includes(locale) && (!translatedDesc || translatedDesc.trim().length < 5)) {
+            result.seo.description[locale] = seoContent.description;
+          } else {
+            result.seo.description[locale] = translatedDesc;
+          }
+        }
+
+        // 翻译 description
+        if (skillMd.description) {
+          const translated = await this.translateText(skillMd.description, locale, 'text');
+          // CJK validation for main description
+          if (CJK_LOCALES.includes(locale) && (!translated || translated.trim().length < 5)) {
+            result.description[locale] = skillMd.description;
+          } else {
+            result.description[locale] = translated;
+          }
+        }
+
+        // 翻译 body (SKILL.md 全文)
+        if (skillMd.body) {
+          result.body[locale] = await this.translateText(skillMd.body, locale, 'markdown');
+        }
+      } catch (error) {
+        console.error(`Failed to translate to ${locale}:`, error);
+        // 继续处理其他语言
+      }
     }
+
+    return result;
+  }
+
+  /**
+   * 调用 AI 翻译
+   */
+  private async translateText(text: string, targetLang: string, type: 'text' | 'markdown'): Promise<string> {
+    const langName = this.getLangName(targetLang);
+    const prompt =
+      type === 'markdown'
+        ? `Translate the following Markdown content into ${langName}. Keep ALL Markdown formatting intact. Do NOT translate code blocks. Output ONLY the translated Markdown.\n\n${text}`
+        : `Translate the following text into ${langName}. Output ONLY the translated text.\n\n${text}`;
+
+    return await this.callAI(prompt);
+  }
+
+  /**
+   * 调用统一 AI runtime (NVIDIA 优先，guarded fallback 到 SiliconFlow / OpenRouter)
+   */
+  private async callAI(prompt: string): Promise<string> {
+    const result = await this.getAiRuntime().callText(this.env, {
+      userPrompt: prompt,
+      maxTokens: 4096,
+      temperature: 0.2,
+    });
+    return result.text;
+  }
+
+  private getAiRuntime(): WorkerAiRuntime<Env> {
+    if (!this.aiRuntime) {
+      this.aiRuntime = new WorkerAiRuntime({
+        workloadProfile: 'balanced',
+        defaultOpenRouterTitle: 'Killer-Skills Content Workflow',
+      });
+    }
+
+    return this.aiRuntime;
+  }
+
+  private getLangName(code: string): string {
+    const langMap: Record<string, string> = {
+      zh: 'Chinese (Simplified)',
+      'zh-TW': 'Chinese (Traditional)',
+      es: 'Spanish',
+      ja: 'Japanese',
+      ko: 'Korean',
+      fr: 'French',
+      de: 'German',
+      pt: 'Portuguese',
+      ru: 'Russian',
+      ar: 'Arabic',
+    };
+    return langMap[code] || code;
+  }
 }
 
 // ===== Default Export =====
 
 export default {
-    async fetch(): Promise<Response> {
-        return new Response(
-            "Content Processing Workflow - use wrangler workflows trigger to invoke",
-            { status: 200 }
-        );
-    },
+  async fetch(): Promise<Response> {
+    return new Response('Content Processing Workflow - use wrangler workflows trigger to invoke', { status: 200 });
+  },
 };

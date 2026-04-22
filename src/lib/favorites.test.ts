@@ -122,11 +122,20 @@ describe('addFavorite', () => {
   });
 
   it('persists the updated list to localStorage', () => {
-    const skill = { id: 'x/y', name: 'Y', owner: 'x', repo: 'y', description: '' };
+    const skill = { id: 'x/y/z', name: 'Y', owner: 'x', repo: 'y', routePath: 'y/z', description: '' };
     addFavorite([], skill);
     const stored = JSON.parse(store.get(STORAGE_KEY)!);
     expect(stored).toHaveLength(1);
-    expect(stored[0].id).toBe('x/y');
+    expect(stored[0].id).toBe('x/y/z');
+    expect(stored[0].routePath).toBe('y/z');
+  });
+
+  it('keeps sibling subskills in the same repo as distinct favorites', () => {
+    const first = addFavorite([], { id: 'a/repo/skill-a', name: 'A', owner: 'a', repo: 'repo', description: '' });
+    const second = addFavorite(first, { id: 'a/repo/skill-b', name: 'B', owner: 'a', repo: 'repo', description: '' });
+
+    expect(second).toHaveLength(2);
+    expect(second.map((item) => item.id)).toEqual(['a/repo/skill-a', 'a/repo/skill-b']);
   });
 });
 
@@ -150,6 +159,17 @@ describe('removeFavorite', () => {
     const stored = JSON.parse(store.get(STORAGE_KEY)!);
     expect(stored).toHaveLength(1);
     expect(stored[0].id).toBe('c/d');
+  });
+
+  it('removes only the targeted subskill when sibling subskills share the same repo', () => {
+    const favs = [
+      makeFavorite({ id: 'owner/repo/skill-a', repo: 'repo', routePath: 'repo/skill-a' }),
+      makeFavorite({ id: 'owner/repo/skill-b', repo: 'repo', routePath: 'repo/skill-b' }),
+    ];
+
+    const result = removeFavorite(favs, 'owner/repo/skill-a');
+    expect(result).toHaveLength(1);
+    expect(result[0].id).toBe('owner/repo/skill-b');
   });
 });
 

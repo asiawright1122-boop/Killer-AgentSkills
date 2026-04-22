@@ -1,0 +1,291 @@
+{
+  "generatedAt": "2026-04-16T03:56:50.129Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "milestone": "v1.5",
+  "milestoneName": "Traffic Recovery Proof and Demand Restart",
+  "activePhases": [
+    {
+      "phaseNumber": "46",
+      "slug": "fresh-search-console-and-coverage-ingestion",
+      "requirements": [
+        "SEO-14",
+        "SEO-15"
+      ],
+      "phaseDirs": [
+        "46-fresh-search-console-and-coverage-ingestion"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion/46-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion/46-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-14",
+        "SEO-15"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-14",
+        "SEO-15"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "47",
+      "slug": "traffic-diagnosis-and-recovery-priority-board",
+      "requirements": [
+        "SEO-16",
+        "GOV-10"
+      ],
+      "phaseDirs": [
+        "47-traffic-diagnosis-and-recovery-priority-board"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board/47-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board/47-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-16",
+        "GOV-10"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-16",
+        "GOV-10"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "48",
+      "slug": "priority-surface-recovery-execution-loop",
+      "requirements": [
+        "GEO-01"
+      ],
+      "phaseDirs": [
+        "48-priority-surface-recovery-execution-loop"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop/48-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop/48-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "GEO-01"
+      ],
+      "verificationRequirementsCompleted": [
+        "GEO-01"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "49",
+      "slug": "skill-locale-index-governance",
+      "requirements": [
+        "SEO-17",
+        "GOV-11"
+      ],
+      "phaseDirs": [
+        "49-skill-locale-index-governance"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/49-skill-locale-index-governance/49-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/49-skill-locale-index-governance/49-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-17",
+        "GOV-11"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-17",
+        "GOV-11"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "50",
+      "slug": "skill-originality-contract-and-template-reset",
+      "requirements": [
+        "SEO-18"
+      ],
+      "phaseDirs": [
+        "50-skill-originality-contract-and-template-reset"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset/50-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset/50-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-18"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-18"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "51",
+      "slug": "corpus-pruning-and-canonical-rollout-validation",
+      "requirements": [
+        "SEO-19",
+        "GOV-11"
+      ],
+      "phaseDirs": [
+        "51-corpus-pruning-and-canonical-rollout-validation"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation/51-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation/51-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-19",
+        "GOV-11"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-19",
+        "GOV-11"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "52",
+      "slug": "authority-surface-repositioning-and-editorial-rebuild",
+      "requirements": [
+        "SEO-20"
+      ],
+      "phaseDirs": [
+        "52-authority-surface-repositioning-and-editorial-rebuild"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild/52-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild/52-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-20"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-20"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "53",
+      "slug": "authority-surface-proof-and-install-bridge",
+      "requirements": [
+        "SEO-20"
+      ],
+      "phaseDirs": [
+        "53-authority-surface-proof-and-install-bridge"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge/53-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge/53-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-20"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-20"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    }
+  ],
+  "requirements": [
+    {
+      "id": "SEO-14",
+      "expectedPhase": "46",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-15",
+      "expectedPhase": "46",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-16",
+      "expectedPhase": "47",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-10",
+      "expectedPhase": "47",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GEO-01",
+      "expectedPhase": "48",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-17",
+      "expectedPhase": "49",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-18",
+      "expectedPhase": "50",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-19",
+      "expectedPhase": "51",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-11",
+      "expectedPhase": "51",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-20",
+      "expectedPhase": "53",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    }
+  ],
+  "hygiene": {
+    "status": "clean",
+    "legacyPhaseDirs": [],
+    "orphanPhaseDirs": [],
+    "duplicateActivePhaseDirs": [],
+    "missingActivePhaseDirs": []
+  }
+}

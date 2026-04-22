@@ -77,11 +77,11 @@ Für Entwickler ist generative Kunst der ultimative Spielplatz für Logik. Die `
 
 Die Zukunft der Kunst ist kollaborativ – ein Tanz zwischen menschlicher Intention und maschineller Ausführung. Die **algorithmic-art**-Fähigkeit befähigt Sie, der Choreograf dieses Tanzes zu sein.
 
-Bereit, mit dem Erstellen zu beginnen? Besuchen Sie den [algorithmic-art-Skill](https://killer-skills.com/de/skills/anthropics/skills/algorithmic-art) im Killer-Skills-Verzeichnis und installieren Sie ihn noch heute.
+Bereit, mit dem Erstellen zu beginnen? Besuchen Sie den [algorithmic-art-Skill](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) im Killer-Skills-Verzeichnis und installieren Sie ihn noch heute.
 
 ---
 
-*Entdecken Sie weitere kreative Fähigkeiten wie [canvas-design](https://killer-skills.com/de/skills/anthropics/skills/canvas-design) und [theme-factory](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) auf Killer-Skills.*
+*Entdecken Sie weitere kreative Fähigkeiten wie [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) und [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) auf Killer-Skills.*
 
 ---
 

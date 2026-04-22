@@ -64,11 +64,11 @@ Construisez un portfolio de style magazine qui utilise des motifs "Art Déco Gé
 
 Le skill `frontend-design` fait la différence entre un site web qui a l'air "produit par l'IA" et un qui a l'air "conçu par une agence de classe mondiale". Il assure que votre sortie frontend n'est pas seulement fonctionnelle, mais **émouvante sur le plan émotionnel**.
 
-Découvrez le skill [frontend-design](https://killer-skills.com/fr/skills/anthropics/skills/frontend-design) dans le répertoire de skills Killer-Skills et commencez à construire l'avenir du web.
+Découvrez le skill [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) dans le répertoire de skills Killer-Skills et commencez à construire l'avenir du web.
 
 ---
 
-*Besoin de donner une identité visuelle à votre projet entier ? Associez-le avec les [directives de marque](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines).*
+*Besoin de donner une identité visuelle à votre projet entier ? Associez-le avec les [directives de marque](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines).*
 
 ---
 

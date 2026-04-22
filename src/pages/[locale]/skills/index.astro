@@ -9,7 +9,8 @@ import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Loc
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
-import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
+import { getLightweightSkills, getLightweightSkillsPage, type UnifiedSkill } from '../../../lib/skills';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { resolveQueryIntent } from '../../../lib/query-intent';
 import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
@@ -23,125 +24,166 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
-
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
 
-// ⚡ PARALLEL: Load lightweight skills + translations concurrently
-// Wrap D1 call in try-catch to prevent 5xx when database is unavailable
-const [skillsFetched, messages] = await Promise.all([
-  getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>),
-  loadMessages(typedLocale),
-]);
-const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-
-let skills: UnifiedSkill[] = skillsFetched;
-
-// If D1/KV returned no skills, show empty state gracefully
-if (skills.length === 0) {
-  console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
-}
-
-skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
-
 // Get URL search params for filtering
 const url = Astro.url;
-const query = url.searchParams.get('q') || url.searchParams.get('query') || '';
+const rawQuery = url.searchParams.get('q') || url.searchParams.get('query') || '';
+const query = rawQuery.trim().replace(/\s+/g, ' ').slice(0, 80);
+const NOISY_QUERY_REGEX =
+  /(https?:\/\/|[\\/]|(?:^|\s)[\w.-]+\.(?:md|mdx|ts|tsx|js|jsx|py|json|go|yaml|yml|toml|rs|rb|css|xml|txt|csv|lock)(?:\b|$))/i;
+const shouldSkipFullScanQuery = Boolean(query) && (query.length > 60 || NOISY_QUERY_REGEX.test(query));
 const category = normalizeCategoryId(url.searchParams.get('category') || '');
 const view = url.searchParams.get('view') || '';
 const owner = url.searchParams.get('owner') || '';
 const topicParam = (url.searchParams.get('topic') || '').trim();
 const normalizeFacet = (value: string) => value.toLowerCase().replace(/\s+/g, ' ').trim();
 const topic = normalizeFacet(topicParam);
-const page = parseInt(url.searchParams.get('page') || '1', 10);
 const ITEMS_PER_PAGE = 12;
+const requestedPageRaw = Number.parseInt(url.searchParams.get('page') || '1', 10);
+const requestedPage = Number.isFinite(requestedPageRaw) && requestedPageRaw > 0 ? requestedPageRaw : 1;
+const usePagedListing = !query && !category && !view && !owner && !topic;
+const shouldLoadFullListingData = !usePagedListing && !shouldSkipFullScanQuery;
 
-// Identify Official Skills
-const officialOwners = Object.values(OFFICIAL_REPOS)
-  .filter((r) => r.type === 'official')
-  .map((r) => r.owner);
+// ⚡ PARALLEL: Load listing data + translations concurrently.
+// For plain listing pages (no filters), use paged D1 query to avoid full-table scans.
+const emptyPagedResult = {
+  skills: [] as UnifiedSkill[],
+  total: 0,
+  page: requestedPage,
+  pageSize: ITEMS_PER_PAGE,
+};
+const [skillsFetched, pagedSkillsResult, messages] = await Promise.all([
+  shouldLoadFullListingData
+    ? getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>)
+    : Promise.resolve([] as Awaited<ReturnType<typeof getLightweightSkills>>),
+  usePagedListing
+    ? getLightweightSkillsPage(env, requestedPage, ITEMS_PER_PAGE).catch(() => emptyPagedResult)
+    : Promise.resolve(null as Awaited<ReturnType<typeof getLightweightSkillsPage>> | null),
+  loadMessages(typedLocale),
+]);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-// Apply view filter
-if (view === 'official') {
-  skills = skills.filter((s) => officialOwners.includes(s.owner));
-} else if (view === 'featured') {
-  // 精选 = 官方仓库 OR qualityScore >= 阈值
-  const allOfficialOwners = Object.values(OFFICIAL_REPOS).map((r) => r.owner);
-  skills = skills
-    .filter((s) => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
-    .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
-} else if (view === 'latest') {
-  skills = [...skills].sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
-}
-
-// Apply owner filter
-if (owner) {
-  skills = skills.filter((s) => s.owner === owner);
-}
-
-// Apply topic filter
-if (topic) {
-  skills = skills.filter((s) => {
-    const topics = Array.isArray(s.topics) ? s.topics : [];
-    return topics.some((item) => {
-      const normalized = normalizeFacet(String(item || ''));
-      if (!normalized) return false;
-      return normalized === topic || normalized.includes(topic) || topic.includes(normalized);
-    });
-  });
-}
-
-// Apply search filter
-if (query) {
-  skills = searchSkills(skills, query, typedLocale);
-}
-
-// Apply category filter (skip 'all' since it means show everything)
-if (category && category !== 'all') {
-  skills = filterByCategory(skills, category);
-}
-
-// Calculate collections if needed (Moved up for pagination)
-let skillsByOwner: Record<string, number> = {};
-if (view === 'official' && !owner) {
-  skillsByOwner = skills.reduce(
-    (acc, skill) => {
-      const skillOwner = skill.owner;
-      acc[skillOwner] = (acc[skillOwner] || 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
-}
-
-// Calculate pagination
-// For 'Official' view (without owner filter), we paginate based on COLLECTIONS (owners), not skills
-let totalItems = skills.length;
+let skills: UnifiedSkill[] = [];
+let totalItems = 0;
+let totalSkills = 0;
+let totalPages = 1;
+let currentPage = 1;
+let paginatedSkills: UnifiedSkill[] = [];
 let paginatedCollections: [string, number][] = [];
 
-if (view === 'official' && !owner) {
-  const owners = Object.entries(skillsByOwner);
-  totalItems = owners.length;
+if (usePagedListing) {
+  let paged = pagedSkillsResult || emptyPagedResult;
+  const firstTotalPages = Math.max(1, Math.ceil((paged.total || 0) / ITEMS_PER_PAGE));
+  const clampedPage = Math.max(1, Math.min(requestedPage, firstTotalPages));
 
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-  const currentPage = Math.max(1, Math.min(page, totalPages || 1));
+  // Keep pagination stable on out-of-range page numbers without full-table fallback.
+  if (clampedPage !== requestedPage) {
+    paged = await getLightweightSkillsPage(env, clampedPage, ITEMS_PER_PAGE).catch(() => paged);
+  }
 
-  // Slice the collections
-  paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  skills = paged.skills;
+  totalItems = paged.total;
+  totalSkills = paged.total;
+  totalPages = Math.max(1, Math.ceil(totalItems / ITEMS_PER_PAGE));
+  currentPage = clampedPage;
+  paginatedSkills = skills;
 
-  // For template compatibility, we'll keep paginatedSkills empty or unused in this mode
+  if (totalSkills === 0) {
+    console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
+  }
+} else {
+  skills = skillsFetched;
+
+  // If D1/KV returned no skills, show empty state gracefully
+  if (skills.length === 0) {
+    console.warn('[SSR] No skills found from D1/KV. Returning empty list.');
+  }
+
+  skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+
+  // Identify Official Skills
+  const officialOwners = Object.values(OFFICIAL_REPOS)
+    .filter((r) => r.type === 'official')
+    .map((r) => r.owner);
+
+  // Apply view filter
+  if (view === 'official') {
+    skills = skills.filter((s) => officialOwners.includes(s.owner));
+  } else if (view === 'featured') {
+    // 精选 = 官方仓库 OR qualityScore >= 阈值
+    const allOfficialOwners = Object.values(OFFICIAL_REPOS).map((r) => r.owner);
+    skills = skills
+      .filter((s) => allOfficialOwners.includes(s.owner) || (s.qualityScore || 0) >= FEATURED_SCORE_THRESHOLD)
+      .sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+  } else if (view === 'latest') {
+    skills = [...skills].sort((a, b) => new Date(b.updatedAt || 0).getTime() - new Date(a.updatedAt || 0).getTime());
+  }
+
+  // Apply owner filter
+  if (owner) {
+    skills = skills.filter((s) => s.owner === owner);
+  }
+
+  // Apply topic filter
+  if (topic) {
+    skills = skills.filter((s) => {
+      const topics = Array.isArray(s.topics) ? s.topics : [];
+      return topics.some((item) => {
+        const normalized = normalizeFacet(String(item || ''));
+        if (!normalized) return false;
+        return normalized === topic || normalized.includes(topic) || topic.includes(normalized);
+      });
+    });
+  }
+
+  // Apply search filter
+  if (query) {
+    skills = shouldSkipFullScanQuery ? [] : searchSkills(skills, query, typedLocale);
+  }
+
+  // Apply category filter (skip 'all' since it means show everything)
+  if (category && category !== 'all') {
+    skills = filterByCategory(skills, category);
+  }
+
+  // Calculate pagination
+  // For 'Official' view (without owner filter), paginate based on collections (owners), not skills.
+  totalItems = skills.length;
+
+  if (view === 'official' && !owner) {
+    const skillsByOwner = skills.reduce(
+      (acc, skill) => {
+        const skillOwner = skill.owner;
+        acc[skillOwner] = (acc[skillOwner] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+
+    const owners = Object.entries(skillsByOwner);
+    totalItems = owners.length;
+    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    currentPage = Math.max(1, Math.min(requestedPage, totalPages || 1));
+    paginatedCollections = owners.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  } else {
+    totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+    currentPage = Math.max(1, Math.min(requestedPage, totalPages || 1));
+  }
+
+  totalSkills = skills.length;
+  paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 }
-
-const totalSkills = skills.length; // Keep for display stats
-const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-const currentPage = Math.max(1, Math.min(page, totalPages || 1));
-const paginatedSkills = skills.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
 
 // translations already loaded in parallel above
 const t = useTranslations(messages);
 const cleanQuery = query.trim().slice(0, 60);
 const queryIntent = cleanQuery ? resolveQueryIntent(cleanQuery, t) : null;
 const workflowEntryLinks = getSolutionIntents(typedLocale);
+const skillsSemanticLinks = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['collections-hub', 'docs-installation', 'solution-agent-workflows'],
+}).map((surface) => surface.href);
 const defaultSkillsSeoDescription = tr(
   'Metadata.Skills.description',
   'Browse and install thousands of AI Agent skills in the Killer-Skills directory. Supports Claude Code, Windsurf, Cursor, and more.',
@@ -301,7 +343,6 @@ const pageKeywords = buildKeywordString(
   'Killer-Skills',
 );
 
-// Pagination SEO: build rel prev/next URLs
 const buildPaginationUrl = (p: number) => {
   const params = new URLSearchParams();
   if (query) params.set('q', query);
@@ -364,6 +405,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
         cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
       },
       url: currentCanonicalUrl || baseSkillsUrl,
+      significantLink: skillsSemanticLinks,
     })}
   />
   {/* CollectionPage + ItemList JSON-LD */}
@@ -493,7 +535,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
 
                   <!-- Refined Number -->
                   <div class="text-5xl font-black tracking-tighter tabular-nums leading-none mb-2">
-                    {skills.length}
+                    {totalSkills}
                   </div>
 
                   <!-- Label tight to the number -->

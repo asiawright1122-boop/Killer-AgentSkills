@@ -1,0 +1,68 @@
+{
+  "milestone": "v1.6",
+  "milestoneName": "Post-Governance Recovery Proof and Authority Lift",
+  "goal": "Prove whether the `v1.5` search-governance reset and authority-surface strategy are producing real recovery, then use that evidence to decide what to deepen, expand, or automate next.",
+  "sourceMilestone": "v1.5",
+  "sourceMilestoneName": "Traffic Recovery Proof and Demand Restart",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.5-ROADMAP.md",
+    ".planning/milestones/v1.5-REQUIREMENTS.md",
+    ".planning/milestones/v1.5-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**UX-EXP-01**: Reopen public discovery expansion only after traffic proof, governance rollout, and authority-surface recovery stay inside guardrails.",
+    "**GEO-02**: Automate authority-surface recovery experiments only after the manual governance and editorial loop proves which interventions consistently move traffic.",
+    "**AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "54",
+      "slug": "post-governance-recovery-proof-window",
+      "requirements": [
+        "SEO-21"
+      ]
+    },
+    {
+      "number": "55",
+      "slug": "recovery-delta-attribution-and-cohort-board",
+      "requirements": [
+        "SEO-22"
+      ]
+    },
+    {
+      "number": "56",
+      "slug": "authority-surface-uplift-program-and-promotion-gates",
+      "requirements": [
+        "SEO-23",
+        "GOV-12",
+        "UX-EXP-01"
+      ]
+    },
+    {
+      "number": "57",
+      "slug": "recovery-experiment-ladder-and-automation-readiness",
+      "requirements": [
+        "GEO-02"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-21",
+    "SEO-22",
+    "SEO-23",
+    "GOV-12",
+    "UX-EXP-01",
+    "GEO-02"
+  ]
+}

@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/docx
 
 Навык `docx` привносит в ваши AI-воркфлоу профессионализм «корпоративного уровня». Он гарантирует, что результаты работы вашего кодирующего агента соответствуют высочайшим стандартам бизнес-среды.
 
-Начните работу, установив [навык docx](https://killer-skills.com/ru/skills/anthropics/skills/docx) из Маркетплейса Killer-Skills уже сегодня.
+Начните работу, установив [навык docx](https://killer-skills.com/en/skills/anthropics/skills/docx) из Маркетплейса Killer-Skills уже сегодня.
 
 *Нужно сначала обработать данные? Ознакомьтесь с нашим руководством по [навыку xlsx](https://killer-skills.com/ru/blog/mastering-excel-automation-with-xlsx-skills) для автоматизации работы с электронными таблицами.*
 

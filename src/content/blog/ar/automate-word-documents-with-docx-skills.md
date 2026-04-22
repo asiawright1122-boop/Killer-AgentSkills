@@ -62,7 +62,7 @@ npx killer-skills add anthropics/skills/docx
 
 تضيف مهارة `docx` لمسة احترافية من "الدرجة المؤسساتية" إلى سير عمل الذكاء الاصطناعي الخاص بك. فهي تضمن أن نتائج وكيل البرمجة الخاص بك تلبي أعلى المعايير في العالم الشركاتي.
 
-ابدأ الآن عن طريق تثبيت [مهارة docx](https://killer-skills.com/ar/skills/anthropics/skills/docx) من متجر Killer-Skills.
+ابدأ الآن عن طريق تثبيت [مهارة docx](https://killer-skills.com/en/skills/anthropics/skills/docx) من متجر Killer-Skills.
 
 *هل تحتاج إلى معالجة البيانات أولاً؟ اطلع على دليلنا حول [مهارة xlsx](https://killer-skills.com/ar/blog/mastering-excel-automation-with-xlsx-skills) لأتمتة جداول البيانات.*
 

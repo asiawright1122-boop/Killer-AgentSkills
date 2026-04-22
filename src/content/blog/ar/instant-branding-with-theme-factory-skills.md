@@ -68,11 +68,11 @@ npx killer-skills add anthropics/skills/theme-factory
 
 تتحول مهارة `theme-factory` وكيل الذكاء الاصطناعي الخاص بك من مبرمج بسيط إلى مصمم واعٍ بالهوية التجارية. من خلال ضمان أن تكون كل قطعة منتجة جميلة ومتسقة، ترفع هذه المهارة سقف ما يمكن تحقيقه بواسطة المحتوى المُنشَأ بالذكاء الاصطناعي.
 
-اطلع على [مهارة theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) في سوق Killer-Skills اليوم وامنح مشاريعك اللمسة الاحترافية التي تستحقها.
+اطلع على [مهارة theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) في سوق Killer-Skills اليوم وامنح مشاريعك اللمسة الاحترافية التي تستحقها.
 
 ---
 
-_هل تريد بناء المكونات بنفسك؟ زود هذه المهارة بـ [frontend-design](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design) لتحصل على سير عمل مثالي لتطوير الويب._
+_هل تريد بناء المكونات بنفسك؟ زود هذه المهارة بـ [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) لتحصل على سير عمل مثالي لتطوير الويب._
 
 ---
 

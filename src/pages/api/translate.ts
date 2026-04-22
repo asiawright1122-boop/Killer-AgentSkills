@@ -69,31 +69,43 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // 2. Call NVIDIA API Streaming
     // We pass 'env' to help it find keys
     const response = translateTextStream(text, lang, type as 'text' | 'markdown', env);
+    const iterator = response[Symbol.asyncIterator]();
+    const firstChunk = await iterator.next();
+
+    if (firstChunk.done) {
+      throw new Error('Translation stream returned no content');
+    }
 
     // 3. Transform Stream & Cache
     let fullContent = '';
+    const enqueueChunk = (controller: ReadableStreamDefaultController<Uint8Array>, chunk: any) => {
+      const content = chunk?.choices?.[0]?.delta?.content || '';
+      if (!content) return;
+      fullContent += content;
+      const streamChunk = `0:${JSON.stringify(content)}\n`;
+      controller.enqueue(new TextEncoder().encode(streamChunk));
+    };
+
     const readableStream = new ReadableStream({
       async start(controller) {
         try {
-          for await (const chunk of response) {
-            const content = chunk.choices?.[0]?.delta?.content || '';
-            if (content) {
-              fullContent += content;
-              const streamChunk = `0:${JSON.stringify(content)}\n`;
-              controller.enqueue(new TextEncoder().encode(streamChunk));
-            }
+          enqueueChunk(controller, firstChunk.value);
+
+          while (true) {
+            const nextChunk = await iterator.next();
+            if (nextChunk.done) break;
+            enqueueChunk(controller, nextChunk.value);
           }
+
           controller.close();
 
-          // Cache to KV on completion
           if (fullContent) {
             console.log(`[API] Stream completed, caching to KV: ${cacheKey}`);
             await setKV(env, cacheKey, fullContent);
           }
         } catch (err) {
-          // controller.error(err); // Astro/Cloudflare stream might not support explicit error downstream?
           console.error('Stream processing error:', err);
-          controller.close();
+          controller.error(err);
         }
       },
     });

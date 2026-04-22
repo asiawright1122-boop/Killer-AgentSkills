@@ -20,7 +20,7 @@ OpenClawはWhatsApp、Telegram、Discordに接続できるため、常時稼働�
 
 -   **ユースケース例**: 会議中や外出中でも、OpenClawはバックグラウンドでさまざまなチャネルからの受信メッセージを処理したり、簡単なクエリを実行したり、緊急の問題が検出された場合に特定のチャネルをまたいで要約を送信したりできます。
 -   **🌟 推奨スキル**:
-    -   [`humanizer`](/ja/skills/minhtungo/ai-agents-factory/humanizer): AIの応答をより現実的で人間らしくし、ロボットのような印象を避けます。
+    -   [`humanizer`](/en/skills/minhtungo/ai-agents-factory/humanizer): AIの応答をより現実的で人間らしくし、ロボットのような印象を避けます。
     -   [`internal-comms`](/ja/blog/professional-internal-communications-with-ai-skills): プロフェッショナルなメッセージの要約と報告フォーマット。
 -   **キーワード**: 全プラットフォーム対応AI、メッセージ自動化。
 ## 2. シームレスなファイル管理と自動化

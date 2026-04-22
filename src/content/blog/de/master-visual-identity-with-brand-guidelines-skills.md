@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## Was sind die Brand-Guidelines-Skills?
 
-Die `brand-guidelines`-Skill ist ein Design-Engine, der strenge visuelle Standards durchsetzt. Sie ist dafür konzipiert, in Verbindung mit anderen kreativen Skills wie [pptx](https://killer-skills.com/de/skills/anthropics/skills/pptx) oder [canvas-design](https://killer-skills.com/de/skills/anthropics/skills/canvas-design) verwendet zu werden, um sicherzustellen, dass sie "on-brand" bleiben.
+Die `brand-guidelines`-Skill ist ein Design-Engine, der strenge visuelle Standards durchsetzt. Sie ist dafür konzipiert, in Verbindung mit anderen kreativen Skills wie [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) oder [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) verwendet zu werden, um sicherzustellen, dass sie "on-brand" bleiben.
 
 ### 1. Die offizielle Farbpalette
 Die Skill bietet präzise RGB- und HEX-Werte für die offizielle Identität:
@@ -60,11 +60,11 @@ Erstellen Sie Social-Media-Grafiken oder PDF-Weißbücher, die durch ihre konseq
 
 Die `brand-guidelines`-Fähigkeit ist der finale Feinschliff, der "AI-Output" in "Professionelles Asset" verwandelt. Sie stellt sicher, dass Ihr Coding-Agent die Bedeutung von visuellem Kontext und Markenautorität versteht.
 
-Installieren Sie den [brand-guidelines-Skill](https://killer-skills.com/de/skills/anthropics/skills/brand-guidelines) aus dem Killer-Skills-Verzeichnis und gestalten Sie mit Autorität.
+Installieren Sie den [brand-guidelines-Skill](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) aus dem Killer-Skills-Verzeichnis und gestalten Sie mit Autorität.
 
 ---
 
-*Suchen Sie nach mehr Stiloptionen? Erkunden Sie [theme-factory](https://killer-skills.com/de/skills/anthropics/skills/theme-factory) für eine breitere Palette von voreingestellten professionellen Themen.*
+*Suchen Sie nach mehr Stiloptionen? Erkunden Sie [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) für eine breitere Palette von voreingestellten professionellen Themen.*
 
 ---
 

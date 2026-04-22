@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, isValidElement, type ReactNode } from 'react';
 import withErrorBoundary from './withErrorBoundary';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -21,6 +21,8 @@ import markdown from 'react-syntax-highlighter/dist/esm/languages/prism/markdown
 import css from 'react-syntax-highlighter/dist/esm/languages/prism/css';
 import vscDarkPlus from '../styles/highlight-theme';
 import vs from '../styles/highlight-theme-light';
+import { slugifyHeading } from '../lib/markdown-headings';
+import { resolveRepositoryMarkdownImage, resolveRepositoryMarkdownLink } from '../lib/markdown-source-links';
 
 SyntaxHighlighter.registerLanguage('javascript', js);
 SyntaxHighlighter.registerLanguage('js', js);
@@ -38,7 +40,20 @@ interface SkillReadmeProps {
   initialContent: string;
   initialFiles?: Record<string, string>;
   name?: string;
+  headerTitle?: string;
+  headerDescription?: string;
+  headerBadge?: string;
+  sourceRepositoryOwner?: string;
+  sourceRepositoryRepo?: string;
+  sourceFilePath?: string;
 }
+
+const flattenText = (value: ReactNode): string => {
+  if (typeof value === 'string' || typeof value === 'number') return String(value);
+  if (Array.isArray(value)) return value.map((item) => flattenText(item)).join('');
+  if (isValidElement<{ children?: ReactNode }>(value)) return flattenText(value.props.children);
+  return '';
+};
 
 // Hook to detect theme changes
 function useTheme() {
@@ -59,7 +74,17 @@ function useTheme() {
   return isDark;
 }
 
-function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.md' }: SkillReadmeProps) {
+function SkillReadme({
+  initialContent,
+  initialFiles = {},
+  name: _name = 'SKILL.md',
+  headerTitle,
+  headerDescription,
+  headerBadge,
+  sourceRepositoryOwner,
+  sourceRepositoryRepo,
+  sourceFilePath,
+}: SkillReadmeProps) {
   const [copied, setCopied] = useState(false);
   const selected = useStore(currentFile);
   const contents = useStore(fileContents);
@@ -76,6 +101,7 @@ function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.m
   const content = contents[selected] || initialContent;
   const isMarkdown = selected.endsWith('.md');
   const isJson = selected.endsWith('.json');
+  const canResolveRepositoryLinks = Boolean(sourceRepositoryOwner && sourceRepositoryRepo);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(content);
@@ -84,12 +110,53 @@ function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.m
   };
 
   const memoizedContentBody = useMemo(() => {
+    const headingCounts = new Map<string, number>();
+    const getHeadingId = (children: ReactNode) => {
+      const baseId = slugifyHeading(flattenText(children));
+      if (!baseId) return undefined;
+      const nextCount = (headingCounts.get(baseId) || 0) + 1;
+      headingCounts.set(baseId, nextCount);
+      return nextCount === 1 ? baseId : `${baseId}-${nextCount}`;
+    };
+
     return isMarkdown ? (
       <div className="p-8">
         <article className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-gray-100 dark:prose-pre:bg-[#0e0e0e] prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-white/10 prose-pre:text-gray-900 dark:prose-pre:text-gray-50">
           <ReactMarkdown
             remarkPlugins={gfmPlugin}
             components={{
+              h1(props) {
+                const { children, node: _node, ...rest } = props;
+                return (
+                  <h1 id={getHeadingId(children)} {...rest}>
+                    {children}
+                  </h1>
+                );
+              },
+              h2(props) {
+                const { children, node: _node, ...rest } = props;
+                return (
+                  <h2 id={getHeadingId(children)} {...rest}>
+                    {children}
+                  </h2>
+                );
+              },
+              h3(props) {
+                const { children, node: _node, ...rest } = props;
+                return (
+                  <h3 id={getHeadingId(children)} {...rest}>
+                    {children}
+                  </h3>
+                );
+              },
+              h4(props) {
+                const { children, node: _node, ...rest } = props;
+                return (
+                  <h4 id={getHeadingId(children)} {...rest}>
+                    {children}
+                  </h4>
+                );
+              },
               code(props) {
                 const { children, className, node: _node, ref, ...rest } = props;
                 const match = /language-(\w+)/.exec(className || '');
@@ -121,6 +188,42 @@ function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.m
                     {children}
                   </code>
                 );
+              },
+              a(props) {
+                const { href = '', children, node: _node, ...rest } = props;
+                const resolvedLink =
+                  canResolveRepositoryLinks && sourceRepositoryOwner && sourceRepositoryRepo
+                    ? resolveRepositoryMarkdownLink(href, {
+                        owner: sourceRepositoryOwner,
+                        repo: sourceRepositoryRepo,
+                        sourceFilePath,
+                      })
+                    : { href, isExternal: /^https?:/i.test(href), fromRepositoryRelative: false };
+
+                return (
+                  <a
+                    {...rest}
+                    href={resolvedLink.href}
+                    target={resolvedLink.isExternal ? '_blank' : undefined}
+                    rel={resolvedLink.isExternal ? 'nofollow noopener noreferrer' : undefined}
+                    data-source-link={resolvedLink.fromRepositoryRelative ? 'repository-relative' : undefined}
+                  >
+                    {children}
+                  </a>
+                );
+              },
+              img(props) {
+                const { src = '', alt = '', node: _node, ...rest } = props;
+                const resolvedImage =
+                  canResolveRepositoryLinks && sourceRepositoryOwner && sourceRepositoryRepo
+                    ? resolveRepositoryMarkdownImage(src, {
+                        owner: sourceRepositoryOwner,
+                        repo: sourceRepositoryRepo,
+                        sourceFilePath,
+                      })
+                    : { href: src, isExternal: /^https?:/i.test(src), fromRepositoryRelative: false };
+
+                return <img {...rest} src={resolvedImage.href} alt={alt} loading="lazy" decoding="async" />;
               },
             }}
           >
@@ -185,6 +288,30 @@ function SkillReadme({ initialContent, initialFiles = {}, name: _name = 'SKILL.m
           </button>
         </div>
       </div>
+
+      {(headerTitle || headerDescription || headerBadge) && (
+        <div className="border-b border-gray-200 dark:border-white/5 bg-cyan-50/70 dark:bg-cyan-500/10 px-4 py-3 transition-colors duration-300">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div className="min-w-0">
+              {headerTitle && (
+                <div className="text-sm font-black uppercase tracking-widest text-gray-900 dark:text-cyan-100">
+                  {headerTitle}
+                </div>
+              )}
+              {headerDescription && (
+                <div className="text-xs font-mono font-bold text-gray-600 dark:text-cyan-50/80 mt-1 leading-relaxed">
+                  {headerDescription}
+                </div>
+              )}
+            </div>
+            {headerBadge && (
+              <span className="px-2 py-1 rounded-none border border-gray-300 dark:border-cyan-200/30 bg-white dark:bg-cyan-400/15 text-[10px] font-black uppercase tracking-widest text-gray-700 dark:text-cyan-100">
+                {headerBadge}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Content with Background Grid */}
       <div className="relative h-[800px] group/scroll">

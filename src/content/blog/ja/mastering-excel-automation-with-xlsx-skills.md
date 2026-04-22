@@ -62,11 +62,11 @@ Python で合計を計算し、セルに「5000」と書き込むのではなく
 
 `xlsx` スキルにより、AI エージェントはデータ サイエンティストとファイナンシャル アナリストを兼ねた強力なツールとなります。スプレッドシートが単なる数字の集まりではなく、動的なツールとなり、より優れたビジネス上の決定を下せるようになります。
 
-Killer-Skills のスキル一覧で [xlsx スキル](https://killer-skills.com/ja/skills/anthropics/skills/xlsx) をチェックして、今日からより賢いデータ活用を始めましょう。
+Killer-Skills のスキル一覧で [xlsx スキル](https://killer-skills.com/en/skills/anthropics/skills/xlsx) をチェックして、今日からより賢いデータ活用を始めましょう。
 
 ---
 
-* 発表する必要がありますか? [pptx スキル](https://killer-skills.com/ja/skills/anthropics/skills/pptx) と組み合わせて、自動化されたピッチ デッキを作成しましょう。
+* 発表する必要がありますか? [pptx スキル](https://killer-skills.com/en/skills/anthropics/skills/pptx) と組み合わせて、自動化されたピッチ デッキを作成しましょう。
 
 ---
 

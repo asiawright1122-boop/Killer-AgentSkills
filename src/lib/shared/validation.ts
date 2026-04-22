@@ -91,7 +91,11 @@ export const POSITIVE_THEME_KEYWORDS = [
 
 const NON_TARGET_THEME_PATTERNS: Array<{ pattern: RegExp; reason: string }> = [
   { pattern: /\b(interview|mock\s*interview|interview\s*prep|interview\s*questions?)\b/i, reason: 'interview' },
-  { pattern: /\b(resume|portfolio|leetcode)\b/i, reason: 'career-prep' },
+  {
+    pattern:
+      /\bleetcode\b|(?:\bportfolio\b[\s\S]{0,24}\b(personal|resume|cv|site|showcase|template|builder|generator|writer)\b)|(?:\b(resume|cv|curriculum\s+vitae)\b[\s\S]{0,32}\b(job|career|hiring|application|screening|template|builder|generator|writer|latex)\b)/i,
+    reason: 'career-prep',
+  },
   {
     pattern: /\b(product\s*manager|product\s*managers|product\s*management|pm-os|prd-writer|jobs-to-be-done)\b/i,
     reason: 'product-management',
@@ -174,7 +178,7 @@ export interface SkillValidationInput {
   owner: string;
   repo?: string; // Optional for validation, required for full scoring
   body: string;
-  description?: string;
+  description?: unknown;
   topics?: string[];
   category?: string;
   filePath?: string;
@@ -208,13 +212,47 @@ function toValidationText(value: unknown): string {
   return String(value);
 }
 
+const PREFERRED_VALIDATION_KEYS = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'] as const;
+
+function pickPreferredValidationText(value: unknown): string {
+  if (!value) return '';
+  if (typeof value === 'string') return value.trim();
+
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      const candidate = pickPreferredValidationText(item);
+      if (candidate) return candidate;
+    }
+    return '';
+  }
+
+  if (typeof value === 'object') {
+    const record = value as Record<string, unknown>;
+
+    for (const key of PREFERRED_VALIDATION_KEYS) {
+      const candidate = record[key];
+      if (typeof candidate === 'string' && candidate.trim().length > 0) {
+        return candidate.trim();
+      }
+    }
+
+    for (const candidate of Object.values(record)) {
+      const picked = pickPreferredValidationText(candidate);
+      if (picked) return picked;
+    }
+  }
+
+  return String(value);
+}
+
 export function getNonTargetSkillReason(skill: SkillValidationInput): string {
   const repo = (skill as SkillScoringInput).repo || '';
+  const descriptionText = pickPreferredValidationText(skill.description);
   const combinedText = [
     skill.name,
     skill.owner,
     repo,
-    skill.description || '',
+    descriptionText,
     ...(skill.topics || []),
     skill.category || '',
     skill.filePath || '',
@@ -241,6 +279,7 @@ export function isValidAgentSkill(skill: SkillValidationInput): ValidationResult
   const { name, owner, body, description = '', topics = [] } = skill;
   const repo = (skill as SkillScoringInput).repo;
   const isOfficial = isOfficialRepo(owner, repo);
+  const descriptionText = pickPreferredValidationText(description);
 
   const nonTargetReason = getNonTargetSkillReason(skill);
   if (!isOfficial && nonTargetReason) {
@@ -248,7 +287,10 @@ export function isValidAgentSkill(skill: SkillValidationInput): ValidationResult
   }
 
   // 1. Check exclude keywords in description/topics
-  const combinedText = [description, ...topics].join(' ').toLowerCase();
+  const combinedText = [descriptionText, ...topics]
+    .map((value) => toValidationText(value))
+    .join(' ')
+    .toLowerCase();
   for (const kw of EXCLUDE_KEYWORDS) {
     if (combinedText.includes(kw)) {
       return { valid: false, reason: `Matches exclusion keyword: ${kw}` };
@@ -379,7 +421,7 @@ export function calculateQualityScore(skill: SkillScoringInput): number {
   if (skill.version) score += 5;
   if (skill.tags && skill.tags.length > 0) score += 5;
 
-  const desc = skill.description || '';
+  const desc = typeof skill.description === 'string' ? skill.description : '';
   if (desc.length > 50) score += 10;
 
   // 5. Activity & Reputation

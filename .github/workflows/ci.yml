@@ -74,8 +74,47 @@ jobs:
       - name: Install Dependencies
         run: HUSKY=0 npm ci
 
+      - name: Validate AI Guardrails
+        env:
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run guard:ai-config
+
+      - name: Run AI Fallback Regression Suite
+        run: npm run test:ai
+
       - name: Run Unit Tests with Coverage
         run: npx vitest run --coverage --reporter=default
+
+      - name: Refresh AI Runtime Probe
+        env:
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run probe:ai:runtime
+
+      - name: Build AI Provider Health Artifact
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run report:ai:health -- --limit=20 --fail-on=${AI_ALERT_FAIL_ON_SEVERITY}
+
+      - name: Build Content Governance Artifact
+        env:
+          CONTENT_GOVERNANCE_FAIL_ON_SEVERITY: blocking
+        run: npm run report:content:governance -- --fail-on=${CONTENT_GOVERNANCE_FAIL_ON_SEVERITY}
+
+      - name: Build Operator Ops Summary
+        env:
+          OPS_REMEDIATION_AI_THRESHOLD: warning
+          OPS_REMEDIATION_GOVERNANCE_THRESHOLD: warning
+        run: npm run report:ops:summary -- --ai-threshold=${OPS_REMEDIATION_AI_THRESHOLD} --governance-threshold=${OPS_REMEDIATION_GOVERNANCE_THRESHOLD}
 
       - name: Upload Coverage Report
         if: success()
@@ -84,6 +123,66 @@ jobs:
           name: coverage-report
           path: coverage/
           retention-days: 14
+
+      - name: Upload Operator Reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: operator-reports-ci
+          path: |
+            reports/seo/latest-ai-config-guard.json
+            reports/seo/latest-ai-config-guard.md
+            reports/seo/latest-ai-runtime-summary.json
+            reports/seo/latest-ai-runtime-summary.md
+            reports/seo/latest-ai-provider-health.json
+            reports/seo/latest-ai-provider-health.md
+            reports/seo/latest-ai-provider-probe-trend.json
+            reports/seo/latest-ai-provider-probe-trend.md
+            reports/seo/latest-ai-telemetry-summary.md
+            reports/seo/latest-ai-telemetry-trend.json
+            reports/seo/latest-ai-telemetry-trend.md
+            reports/seo/latest-content-governance.json
+            reports/seo/latest-content-governance.md
+            reports/seo/latest-ops-summary.json
+            reports/seo/latest-ops-summary.md
+            reports/seo/latest-ops-remediation.json
+            reports/seo/latest-ops-remediation.md
+            reports/seo/latest-ops-handoff.json
+            reports/seo/latest-ops-handoff.md
+            reports/seo/latest-ops-handoff-publication.json
+            reports/seo/latest-ops-handoff-publication.md
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Publish Operator Summary
+        if: always()
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
+          CONTENT_GOVERNANCE_FAIL_ON_SEVERITY: blocking
+          OPS_REMEDIATION_AI_THRESHOLD: warning
+          OPS_REMEDIATION_GOVERNANCE_THRESHOLD: warning
+        run: |
+          echo "# CI Operator Checks" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- AI health threshold: ${AI_ALERT_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Content governance threshold: ${CONTENT_GOVERNANCE_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Remediation AI threshold: ${OPS_REMEDIATION_AI_THRESHOLD}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Remediation governance threshold: ${OPS_REMEDIATION_GOVERNANCE_THRESHOLD}" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f reports/seo/latest-ai-config-guard.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,160p' reports/seo/latest-ai-config-guard.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-ops-summary.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-ops-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-ops-handoff.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-ops-handoff.md >> "$GITHUB_STEP_SUMMARY"
+          fi
 
   build:
     if: github.event_name != 'push' || !contains(github.event.head_commit.message, '[skip ci]')

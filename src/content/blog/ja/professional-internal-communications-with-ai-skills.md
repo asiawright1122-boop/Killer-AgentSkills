@@ -62,11 +62,11 @@ npx killer-skills add anthropics/skills/internal-comms
 
 `internal-comms`スキルは、プロフェッショナルとしての存在感を高めるための秘密兵器です。このスキルは、あなたの仕事が単に「完了」するだけでなく、重要な人々に**効果的に伝達**されることを保証します。
 
-Killer-Skills のスキル一覧から [internal-comms スキル](https://killer-skills.com/ja/skills/anthropics/skills/internal-comms) をインストールして、リーダーシップの言語を話し始めましょう。
+Killer-Skills のスキル一覧から [internal-comms スキル](https://killer-skills.com/en/skills/anthropics/skills/internal-comms) をインストールして、リーダーシップの言語を話し始めましょう。
 
 ---
 
-*より複雑な文書での協業が必要ですか？ [doc-coauthoringスキル](https://killer-skills.com/ja/skills/anthropics/skills/doc-coauthoring)をチェックしてください。*
+*より複雑な文書での協業が必要ですか？ [doc-coauthoringスキル](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring)をチェックしてください。*
 
 ---
 

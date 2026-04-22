@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Gemini-Compatible Dev Tools & Agent Workflow Skills | AI Agent Skills",
-    "zh": "顶级 Gemini 兼容开发工具与智能体工作流技能 | AI Agent Skills",
+    "en": "Gemini Workflow Tools for Coding and Review Teams",
+    "zh": "面向编码与评审团队的 Gemini 工具",
     "ja": "Gemini対応の開発ツール＆エージェントワークフロースキル | AI Agent Skills",
     "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬 | AI Agent Skills",
     "es": "Herramientas dev y skills de workflow compatibles con Gemini | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات تطوير ومهارات workflow متوافقة مع Gemini | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for gemini compatible dev developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 gemini compatible dev AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "A practical Gemini shortlist for coding support, review loops, rules sync, and safer rollout decisions.",
+    "zh": "围绕编码支持、评审闭环、规则同步与更稳落地决策整理的一份 Gemini 候选清单。",
     "ja": "Claude Code・Cursor・Windsurf 向けの gemini compatible dev AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 gemini compatible dev AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de gemini compatible dev en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات gemini compatible dev داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Gemini-Compatible Dev Tools & Agent Wor",
-    "zh": "AI Agent Skills - 顶级 Gemini 兼容开发工具与智能体工作流技能 | Killer-Skills",
+    "en": "Gemini Workflow Tools for Coding and Review Teams",
+    "zh": "面向编码与评审团队的 Gemini 工具",
     "ja": "AI Agent Skills - Gemini対応の開発ツール＆エージェントワークフロースキル | Killer",
     "ko": "AI Agent Skills - Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬 | Kille",
     "es": "AI Agent Skills - Herramientas dev y skills de workflow c",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات تطوير ومهارات workflow متوافقة مع"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for gemini compatible dev developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 gemini compatible dev AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare Gemini tools for coding support, review loops, rules sync, and safer rollout decisions. Start with the shortlist teams can validate quickly.",
+    "zh": "比较适合 Gemini 团队的编码支持、评审闭环、规则同步与更稳落地工具，先从能快速验证的清单开始。",
     "ja": "Claude Code・Cursor・Windsurf 向けの gemini compatible dev AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 gemini compatible dev AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de gemini compatible dev en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "gemini compatible dev AI agent skills",
-      "gemini compatible dev developer workflow",
-      "gemini compatible dev workflow automation"
+      "Gemini workflow tools",
+      "Gemini coding support",
+      "Gemini review tools",
+      "rules sync for Gemini",
+      "Gemini rollout workflow",
+      "Gemini developer teams"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "gemini compatible dev AI agent skills",
-      "gemini compatible dev developer workflow",
-      "gemini compatible dev workflow automation"
+      "Gemini 工作流工具",
+      "Gemini 编码支持",
+      "Gemini 评审工具",
+      "Gemini 规则同步",
+      "Gemini 落地流程",
+      "Gemini 开发团队"
     ],
     "ja": [
       "AI Agent Skills",
@@ -153,8 +151,8 @@
     "f/prompts.chat"
   ],
   "longDescription": {
-    "en": "This Gemini-focused collection is built around developer execution: reusable skills, integration layers, and automation components that support coding, reviews, and delivery controls. It is intended for teams shipping real software with AI agents, not for generic rankings. MCP compatibility can be useful in selected cases, but the main emphasis is robust tooling and workflow reliability across the Gemini stack.",
-    "zh": "这个 Gemini 专题围绕开发者执行效率展开：提供可复用技能、集成层与自动化组件，覆盖编码、评审和交付控制。它服务于真正用 AI 智能体交付软件的团队，而不是泛排名页面。部分场景可用 MCP 兼容能力，但主重点是 Gemini 技术栈中的工具稳定性与工作流可靠性。",
+    "en": "Gemini teams usually want fewer tools, not more. They need something they can test around coding, review, policy sync, or release control without turning the stack into another compatibility project. This collection keeps the shortlist focused on tools a team can trial quickly and keep if they improve daily execution.",
+    "zh": "Gemini 团队通常需要的不是更多工具，而是更少、更稳的选择。他们需要的是能围绕编码、评审、规则同步或发布控制先快速试跑的工具，而不是再做一轮兼容性工程。这个合集只保留那些能改善日常执行、并且能快速试用的候选。",
     "ja": "このGemini特集は、開発実行力を高めることに主眼を置いています。再利用スキル、連携レイヤー、自動化コンポーネントを通じて、コーディング、レビュー、デリバリー制御を支援。単なるランキングではなく、実際にAIエージェントでソフトウェアを出荷するチーム向けです。MCP互換は一部で有効ですが、中心はGeminiスタック全体の運用信頼性です。",
     "ko": "이 Gemini 컬렉션은 개발 실행력에 초점을 맞춥니다. 재사용 가능한 스킬, 통합 레이어, 자동화 컴포넌트로 코딩·리뷰·전달 제어를 지원하며, 단순 순위형 페이지가 아니라 실제 소프트웨어를 배포하는 팀을 위한 구성입니다. 일부 사례에서 MCP 호환이 유용할 수 있지만 핵심은 Gemini 스택 전반의 워크플로우 신뢰성입니다.",
     "es": "Esta colección enfocada en Gemini está diseñada para ejecución real de desarrollo: skills reutilizables, capas de integración y componentes de automatización para código, review y control de entrega. No es un ranking genérico; está orientada a equipos que lanzan software con agentes de IA. MCP puede ser útil en casos puntuales, pero el foco principal es la confiabilidad del workflow.",
@@ -163,5 +161,139 @@
     "pt": "Esta coleção focada em Gemini foi feita para execução de desenvolvimento real: skills reutilizáveis, camadas de integração e componentes de automação para código, review e controle de entrega. Não é ranking genérico; é para times que entregam software com agentes de IA. MCP pode ser útil em casos específicos, mas o foco principal é confiabilidade de workflow.",
     "ru": "Коллекция по Gemini ориентирована на реальную разработку: переиспользуемые skills, интеграционные слои и компоненты автоматизации для кода, ревью и контроля поставки. Это не абстрактный рейтинг, а набор для команд, выпускающих ПО с AI-агентами. MCP-совместимость возможна как дополнение, но главный приоритет — надежность workflow.",
     "ar": "تم إعداد هذه المجموعة الخاصة بـ Gemini حول التنفيذ الفعلي للمطورين: مهارات قابلة لإعادة الاستخدام، وطبقات تكامل، ومكوّنات أتمتة تدعم البرمجة والمراجعة وضبط التسليم. ليست تصنيفًا عامًا، بل مناسبة للفرق التي تطلق برمجيات حقيقية مع الوكلاء. قد تكون توافقية MCP مفيدة في حالات محددة، لكن التركيز الرئيسي هو موثوقية الأدوات وسير العمل عبر منظومة Gemini."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 for setup clarity, maintainer reliability, review coverage, and rollout readiness. We kept the tools that help Gemini teams move from experiments to dependable delivery habits.",
+      "zh": "已于 2026-04-17 按安装清晰度、维护者可靠性、评审覆盖度与落地就绪度完成复核。我们保留的是那些能帮助 Gemini 团队从试验走向稳定交付习惯的工具。"
+    },
+    "selectionReason": {
+      "en": "People landing here usually already know they are building around Gemini. What they need next is a smaller list tied to coding, review, policy sync, and rollout control.",
+      "zh": "来到这页的人通常已经知道自己是围绕 Gemini 在构建。接下来他们需要的，是一份围绕编码、评审、规则同步与落地控制缩小过的工具清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Each entry strengthens a concrete Gemini workflow such as coding support, review, rules sync, or repeatable rollout.",
+        "We keep tools with public setup docs, visible maintenance, and a clear first-use path.",
+        "Preference goes to tools teams can test in one active project before wider rollout."
+      ],
+      "zh": [
+        "每个条目都对应一个明确的 Gemini 工作流环节，例如编码支持、评审、规则同步或可重复落地。",
+        "我们优先保留安装文档公开、维护状态可见、首次使用路径清楚的工具。",
+        "筛选更偏向那些能先在一个活跃项目中验证，再逐步扩大使用范围的工具。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Start with the tool that removes the first source of workflow drift around Gemini.",
+        "Keep the list compact while still covering coding, review, rules sync, and automation support.",
+        "Move the next click into install docs, CLI behavior, and a concrete rollout checklist."
+      ],
+      "zh": [
+        "先从能解决 Gemini 周边第一处工作流漂移的工具开始。",
+        "列表保持紧凑，但仍覆盖编码、评审、规则同步与自动化支持。",
+        "下一次点击直接导向安装文档、CLI 行为说明与具体落地检查清单。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or Gemini workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 Gemini 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Killer-Skills editorial review with monthly collection checks.",
+        "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Pick one Gemini tool for coding or review",
+          "zh": "先选一个解决编码或评审的 Gemini 工具"
+        },
+        "summary": {
+          "en": "Start here when the team already works with Gemini and needs one extra layer for coding support, review loops, or safer operator handoff.",
+          "zh": "如果团队已经在用 Gemini，现在只想补上一层编码支持、评审闭环或更稳的操作交接，就从这里开始。"
+        },
+        "steps": {
+          "en": [
+            "Decide whether the first need is coding support, review, rules sync, or rollout control.",
+            "Open the install docs for the tool that best matches that need.",
+            "Verify what the CLI writes, how it fits the current workflow, and what the operator must review after setup.",
+            "Expand only after one active project proves the setup is worth keeping."
+          ],
+          "zh": [
+            "先判断当前最先要补的是编码支持、评审、规则同步还是落地控制。",
+            "打开最匹配这个需求的工具安装文档。",
+            "确认 CLI 会写入什么、它如何嵌入现有工作流，以及安装后操作员要核对哪些点。",
+            "等一个活跃项目证明它值得保留后，再考虑扩大使用范围。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Reduce workflow drift around Gemini",
+          "zh": "降低 Gemini 周边的工作流漂移"
+        },
+        "summary": {
+          "en": "Use the collection as a filter when different teammates are starting to use Gemini with inconsistent rules, review habits, or rollout steps.",
+          "zh": "当团队成员开始以不一致的规则、评审习惯或落地步骤使用 Gemini 时，可以把这个合集当作过滤器。"
+        },
+        "steps": {
+          "en": [
+            "Check maintainer activity and public setup guidance before adding any new tool.",
+            "Prefer the tool that reduces ambiguity for operators instead of the tool with the largest feature set.",
+            "Pilot in one active workflow, then document the rules for the rest of the team.",
+            "Revisit the shortlist only after the first baseline is stable."
+          ],
+          "zh": [
+            "在引入新工具前，先检查维护活跃度与公开安装指引。",
+            "优先选择能减少操作歧义的工具，而不是功能最多的工具。",
+            "先在一条活跃工作流里试跑，再把规则写给团队其他人。",
+            "等第一条基线路径稳定后，再决定是否回来看更多候选。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Start with the install guide so the first Gemini tool trial has a concrete setup path.",
+          "zh": "先看安装指南，让第一次 Gemini 工具试跑有一条明确的落地路径。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and which operator checks matter after setup.",
+          "zh": "确认 CLI 会写入什么、同步如何发生，以及安装后操作员最该核对哪些点。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "After the first workflow trial succeeds, compare it with the trusted starter collection before standardizing.",
+          "zh": "等第一条工作流试跑成功后，再用可信起步合集做一次交叉核对，再决定是否标准化。"
+        }
+      }
+    ]
   }
 }

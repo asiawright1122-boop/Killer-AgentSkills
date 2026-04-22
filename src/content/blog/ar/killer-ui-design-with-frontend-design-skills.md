@@ -67,7 +67,7 @@ npx killer-skills add anthropics/skills/frontend-design
 
 ---
 
-*هل تحتاج إلى تسويق مشروعك بالكامل؟ اقترن هذا مع [brand-guidelines](https://killer-skills.com/ar/skills/anthropics/skills/brand-guidelines).*
+*هل تحتاج إلى تسويق مشروعك بالكامل؟ اقترن هذا مع [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines).*
 
 ---
 

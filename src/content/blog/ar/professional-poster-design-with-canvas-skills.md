@@ -63,11 +63,11 @@ npx killer-skills add anthropics/skills/canvas-design
 
 مهارة `canvas-design` مخصصة لمن يؤمنون أن التصميم هو تخصص وليس اختصارًا. إنها تحول وكيل الذكاء الاصطناعي الخاص بك إلى حرفي خبير قادر على إنتاج أعمال تستحق مكانًا في معرض فني.
 
-اكتشف [سوق Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) لتحميل المهارة والبدء في التصميم اليوم.
+اكتشف [سوق Killer-Skills](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) لتحميل المهارة والبدء في التصميم اليوم.
 
 ---
 
-*هل تبحث عن المزيد؟ تحقق من [algorithmic-art](https://killer-skills.com/ar/skills/anthropics/skills/algorithmic-art) للفن التوليدي القائم على البرمجة.*
+*هل تبحث عن المزيد؟ تحقق من [algorithmic-art](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) للفن التوليدي القائم على البرمجة.*
 
 ---
 

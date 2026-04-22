@@ -162,16 +162,16 @@ const pageDescription = isIndex
       ? '用 npx 安装 AI Agent Skills，验证 Cursor、Claude Code、VS Code 等环境中的原生文件写入，并继续进入可信合集与工作流方案页。'
       : 'Install AI agent skills with npx, verify IDE-native files for Cursor, Claude Code, VS Code, and move into trusted collections and workflow solutions.'
     : isCliDoc
-    ? `${docTitle}: ${tr('Docs.cliDesc', 'learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.')}`
-    : isInstallDoc
-      ? `${docTitle}: ${tr('Docs.installDesc', 'follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.')}`
-      : isWorkflowDoc
-        ? `${docTitle}: ${tr('Docs.workflowDesc', 'learn reusable AI agent skill patterns for workflow automation, process automation, and templates.')}`
-        : isApiDoc
-          ? `${docTitle}: ${tr('Docs.apiDesc', 'understand MCP, API integration, and scalable AI agent workflow implementation.')}`
-          : isSecurityDoc
-            ? `${docTitle}: ${tr('Docs.securityDesc', 'cover skill security, risk controls, and production-ready deployment practices.')}`
-            : `${docTitle}: ${tr('Docs.defaultDesc', 'Killer-Skills documentation for setup, configuration, and practical automation usage.')}`;
+      ? `${docTitle}: ${tr('Docs.cliDesc', 'learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.')}`
+      : isInstallDoc
+        ? `${docTitle}: ${tr('Docs.installDesc', 'follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.')}`
+        : isWorkflowDoc
+          ? `${docTitle}: ${tr('Docs.workflowDesc', 'learn reusable AI agent skill patterns for workflow automation, process automation, and templates.')}`
+          : isApiDoc
+            ? `${docTitle}: ${tr('Docs.apiDesc', 'understand MCP, API integration, and scalable AI agent workflow implementation.')}`
+            : isSecurityDoc
+              ? `${docTitle}: ${tr('Docs.securityDesc', 'cover skill security, risk controls, and production-ready deployment practices.')}`
+              : `${docTitle}: ${tr('Docs.defaultDesc', 'Killer-Skills documentation for setup, configuration, and practical automation usage.')}`;
 const pageKeywords = buildKeywordString(
   t,
   'docs',
@@ -306,7 +306,12 @@ const installHowToSteps = isInstallationPage
   : [];
 const installBridgeSurfaces = isInstallDoc
   ? getAuthoritySurfaceEntries(typedLocale, {
-      ids: ['collection-official-trusted-tools', 'collection-agent-workflows', 'solution-agent-workflows', 'blog-how-to-install-ai-agent-skills'],
+      ids: [
+        'collection-official-trusted-tools',
+        'collection-agent-workflows',
+        'solution-agent-workflows',
+        'blog-how-to-install-ai-agent-skills',
+      ],
     })
   : [];
 const installBridgeCards = isInstallDoc
@@ -356,9 +361,7 @@ const installValidationSteps = isInstallDoc
 const installReviewMeta = isInstallDoc
   ? {
       reviewedAt: '2026-04-19',
-      maintainedBy: isZhCopy
-        ? 'Killer-Skills 团队'
-        : 'Killer-Skills Team',
+      maintainedBy: isZhCopy ? 'Killer-Skills 团队' : 'Killer-Skills Team',
       verification: isZhCopy
         ? '命令路径、IDE 原生文件写入、CLI 承接路径与可信下一步入口'
         : 'Command path, IDE-native file writes, CLI handoff, and trusted next-step routes',
@@ -395,12 +398,12 @@ const installDecisionTracks = isInstallDoc
           ? [
               '先确认你选的是官方或高可信生态工具，而不是随意继续刷仓库。',
               '完成安装后，马上验证 IDE 原生文件是否写入正确位置。',
-              '只有首条可信安装路径跑通后，再决定是否继续扩栈。'
+              '只有首条可信安装路径跑通后，再决定是否继续扩栈。',
             ]
           : [
               'Confirm the tool is official or strongly trusted before you keep browsing repos.',
               'Validate the IDE-native file writes immediately after installation.',
-              'Only expand the stack after the first trusted install path works cleanly.'
+              'Only expand the stack after the first trusted install path works cleanly.',
             ],
         primaryHref: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
         primaryLabel: isZhCopy ? '回到官方可信工具合集' : 'Open Official Trusted Tools',
@@ -418,12 +421,12 @@ const installDecisionTracks = isInstallDoc
           ? [
               '运行 `npx killer-skills list`，确认当前环境里已经能看见刚装的技能。',
               '核对 `.cursorrules`、`.claude/skills/`、`.github/copilot-instructions.md` 或 `.windsurf/rules/` 等目标文件。',
-              '把“命令成功”与“环境真正可用”拆开验证。'
+              '把“命令成功”与“环境真正可用”拆开验证。',
             ]
           : [
               'Run `npx killer-skills list` and confirm the installed skill is visible in the environment.',
               'Check the target files such as `.cursorrules`, `.claude/skills/`, `.github/copilot-instructions.md`, or `.windsurf/rules/`.',
-              'Treat “the command passed” and “the environment is actually usable” as separate validations.'
+              'Treat “the command passed” and “the environment is actually usable” as separate validations.',
             ],
         primaryHref: `/${locale}/docs/cli/overview`,
         primaryLabel: isZhCopy ? '打开 CLI 总览' : 'Open CLI Overview',
@@ -441,12 +444,12 @@ const installDecisionTracks = isInstallDoc
           ? [
               '先决定它服务的是工作流骨架、操作者护栏，还是场景型方案。',
               '避免再次回到全量目录，把下一次点击限制在高意图承接面内。',
-              '把这次安装沉淀成团队可复用的默认动作。'
+              '把这次安装沉淀成团队可复用的默认动作。',
             ]
           : [
               'Decide whether the tool serves workflow scaffolding, operator guardrails, or a scenario-specific solution.',
               'Do not reset back to the full directory; keep the next click inside high-intent surfaces.',
-              'Turn the install into a repeatable default for the team instead of a one-off action.'
+              'Turn the install into a repeatable default for the team instead of a one-off action.',
             ],
         primaryHref: `/${locale}/collections/top-agent-workflow-building-tools`,
         primaryLabel: isZhCopy ? '进入工作流合集' : 'Open Workflow Collection',
@@ -458,7 +461,9 @@ const installNextStepCards = isInstallationPage
       {
         href: `/${locale}/collections`,
         badge: isZhCopy ? 'HUB' : 'HUB',
-        title: isZhCopy ? '还不确定下一步装什么？返回精选 Collections' : 'Not Sure What to Install Next? Return to Collections',
+        title: isZhCopy
+          ? '还不确定下一步装什么？返回精选 Collections'
+          : 'Not Sure What to Install Next? Return to Collections',
         description: isZhCopy
           ? '先回到精选合集总入口，再按可信度和任务意图选择下一批技能。'
           : 'Return to the curated collections hub before you choose the next skills by trust level and job to be done.',
@@ -466,7 +471,9 @@ const installNextStepCards = isInstallationPage
       {
         href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
         badge: isZhCopy ? 'TRUST' : 'TRUST',
-        title: isZhCopy ? '想要安全默认选型？回到官方可信工具合集' : 'Need the safest defaults? Go to Official Trusted Tools',
+        title: isZhCopy
+          ? '想要安全默认选型？回到官方可信工具合集'
+          : 'Need the safest defaults? Go to Official Trusted Tools',
         description: isZhCopy
           ? '优先查看官方和高可信生态维护的技能与工具。'
           : 'Prioritize official and strongly trusted ecosystem tools before you standardize a shared stack.',
@@ -474,7 +481,9 @@ const installNextStepCards = isInstallationPage
       {
         href: `/${locale}/collections/top-agent-workflow-building-tools`,
         badge: isZhCopy ? 'WORKFLOW' : 'WORKFLOW',
-        title: isZhCopy ? '想搭团队工作流栈？回到 Agent Workflow Building Tools' : 'Building a Team Workflow Stack? Return to Agent Workflow Tools',
+        title: isZhCopy
+          ? '想搭团队工作流栈？回到 Agent Workflow Building Tools'
+          : 'Building a Team Workflow Stack? Return to Agent Workflow Tools',
         description: isZhCopy
           ? '从工作流角度继续挑选路由、审批、交接和执行骨架。'
           : 'Continue from a workflow perspective to choose routing, approvals, handoff, and execution scaffolds.',
@@ -482,7 +491,9 @@ const installNextStepCards = isInstallationPage
       {
         href: `/${locale}/solutions/agent-workflows`,
         badge: isZhCopy ? 'SOLUTION' : 'SOLUTION',
-        title: isZhCopy ? '想按场景选组合？进入 Agent Workflows 方案页' : 'Need a Scenario-Based Stack? Open Agent Workflows',
+        title: isZhCopy
+          ? '想按场景选组合？进入 Agent Workflows 方案页'
+          : 'Need a Scenario-Based Stack? Open Agent Workflows',
         description: isZhCopy
           ? '如果你的问题已经是具体场景，就直接进入方案页而不是继续逛仓库。'
           : 'If your next step is a concrete workflow problem, move into the solution page instead of browsing more repositories.',
@@ -772,13 +783,11 @@ const isActive = (href: string) => {
                 {docTitle}
               </h1>
               <p class="max-w-3xl text-lg font-bold leading-8 text-[var(--foreground)]">{pageDescription}</p>
-              {
-                docsLastUpdated && (
-                  <p class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                    {tr('Docs.lastUpdated', 'Last updated')}: {docsLastUpdated}
-                  </p>
-                )
-              }
+              {docsLastUpdated && (
+                <p class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
+                  {tr('Docs.lastUpdated', 'Last updated')}: {docsLastUpdated}
+                </p>
+              )}
             </div>
           )
         }
@@ -865,7 +874,9 @@ const isActive = (href: string) => {
                   <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
                     {track.badge}
                   </div>
-                  <h3 class="mb-3 text-xl font-black uppercase tracking-tight text-[var(--foreground)]">{track.title}</h3>
+                  <h3 class="mb-3 text-xl font-black uppercase tracking-tight text-[var(--foreground)]">
+                    {track.title}
+                  </h3>
                   <p class="mb-4 text-sm font-medium leading-6 text-[var(--muted-foreground)]">{track.description}</p>
                   <p class="mb-4 border-l-4 border-[var(--primary)] pl-3 text-xs font-bold leading-6 text-[var(--foreground)]/85">
                     {track.whenToUse}
@@ -1076,7 +1087,9 @@ const isActive = (href: string) => {
                 {isZhCopy ? '下一步路径' : 'Next-Step Paths'}
               </div>
               <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
-                {isZhCopy ? '安装不是终点，而是进入可信使用路径的入口' : 'Installation Is the Start of a Trusted Usage Path'}
+                {isZhCopy
+                  ? '安装不是终点，而是进入可信使用路径的入口'
+                  : 'Installation Is the Start of a Trusted Usage Path'}
               </h2>
               <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
                 {isZhCopy

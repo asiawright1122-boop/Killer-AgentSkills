@@ -63,11 +63,11 @@ npx killer-skills add anthropics/skills/internal-comms
 
 `internal-comms` 技能是您提升职场能见度的秘密武器。它不仅能确保您完成工作，更重要的是能将工作成果**高效传达**给关键决策者。
 
-立即从 Killer-Skills 技能目录安装 [internal-comms 技能](https://killer-skills.com/zh/skills/anthropics/skills/internal-comms)，开始掌握领导者的沟通语言。
+立即从 Killer-Skills 技能目录安装 [internal-comms 技能](https://killer-skills.com/en/skills/anthropics/skills/internal-comms)，开始掌握领导者的沟通语言。
 
 ---
 
-*需要协作处理更复杂的文档？试试 [文档协同编写技能](https://killer-skills.com/zh/skills/anthropics/skills/doc-coauthoring)。*
+*需要协作处理更复杂的文档？试试 [文档协同编写技能](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring)。*
 
 ---
 

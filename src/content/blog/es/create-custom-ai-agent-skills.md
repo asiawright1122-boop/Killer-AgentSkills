@@ -31,8 +31,8 @@ El recurso más crítico en la era de la IA es la **ventana de contexto**. Una h
 
 ### 2. Grados de libertad coincidentes
 No todas las tareas deben manejarse de la misma manera:
-- **Alta libertad**: Instrucciones de texto puro para tareas que requieren heurísticas creativas (por ejemplo, [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design)).
-- **Baja libertad**: Scripts rígidos para operaciones frágiles y deterministas (por ejemplo, manipulación de [docx](https://killer-skills.com/es/skills/anthropics/skills/docx)).
+- **Alta libertad**: Instrucciones de texto puro para tareas que requieren heurísticas creativas (por ejemplo, [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **Baja libertad**: Scripts rígidos para operaciones frágiles y deterministas (por ejemplo, manipulación de [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)).
 
 ### 3. Conocimiento procedimental vs. declarativo
 No solo le diga a la IA *qué* hacer; proporciónele las *herramientas* para hacerlo. La habilidad `skill-creator` fomenta el uso de:
@@ -55,11 +55,11 @@ El `skill-creator` proporciona un flujo de trabajo paso a paso para construir tu
 
 El poder de la IA no reside solo en el modelo; está en la **infraestructura** que lo rodea. Con la habilidad `skill-creator`, pasas de ser un "ingeniero de prompts" a un "arquitecto de capacidades". No solo le estás diciendo a la IA qué hacer; le estás enseñando cómo aprender.
 
-Empieza a crear tu espacio de trabajo de IA personalizado con la habilidad [skill-creator](https://killer-skills.com/es/skills/anthropics/skills/skill-creator) en el directorio de habilidades de Killer-Skills.
+Empieza a crear tu espacio de trabajo de IA personalizado con la habilidad [skill-creator](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) en el directorio de habilidades de Killer-Skills.
 
 ---
 
-*¿Listo para implementar tu nueva habilidad? Aprende cómo [construir un servidor MCP](https://killer-skills.com/es/skills/anthropics/skills/mcp-builder) para alojarla.*
+*¿Listo para implementar tu nueva habilidad? Aprende cómo [construir un servidor MCP](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) para alojarla.*
 
 ---
 
