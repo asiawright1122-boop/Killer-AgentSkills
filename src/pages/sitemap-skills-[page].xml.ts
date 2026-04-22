@@ -1,4 +1,6 @@
 import type { APIRoute } from 'astro';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
 import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from '../lib/skill-route-paths';
@@ -12,7 +14,6 @@ const SITE = SITE_URL;
 import sitemapSkillsData from '../../data/sitemap-skills.json';
 import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 import skillLocaleGovernanceData from '../../data/seo-skill-locale-governance.json';
-import skillIndexabilityReportData from '../../reports/seo/latest-skill-indexability.json';
 
 const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
@@ -37,6 +38,17 @@ const parseDateMs = (value?: string) => {
   const ms = Date.parse(value);
   return Number.isFinite(ms) ? ms : 0;
 };
+
+function loadSkillIndexabilityReport(): unknown {
+  const reportPath = resolve(process.cwd(), 'reports/seo/latest-skill-indexability.json');
+  if (!existsSync(reportPath)) return null;
+
+  try {
+    return JSON.parse(readFileSync(reportPath, 'utf-8'));
+  } catch {
+    return null;
+  }
+}
 
 function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
   const deduped = new Map<string, SitemapSkillEntry>();
@@ -76,6 +88,8 @@ const skillLocaleGovernanceMap = (() => {
 
   return map;
 })();
+
+const skillIndexabilityReportData = loadSkillIndexabilityReport();
 
 const skillIndexabilityRecords = (
   typeof skillIndexabilityReportData === 'object' &&
