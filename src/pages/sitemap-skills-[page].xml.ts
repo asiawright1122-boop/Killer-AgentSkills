@@ -97,7 +97,12 @@ const skillIndexabilityRecords = (
   'skills' in skillIndexabilityReportData &&
   Array.isArray((skillIndexabilityReportData as { skills?: unknown[] }).skills)
     ? (skillIndexabilityReportData as { skills: unknown[] }).skills
-    : []
+    : skillLocaleGovernanceRecords.map((record) => ({
+        owner: record.owner,
+        routePath: record.routePath,
+        canonicalLocale: record.canonicalLocale,
+        isIndexable: Array.isArray(record.eligibleLocales) ? record.eligibleLocales.length > 0 : true,
+      }))
 ) as SkillIndexabilityEntry[];
 
 const skillIndexabilityMap = (() => {
