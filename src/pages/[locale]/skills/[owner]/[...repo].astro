@@ -145,8 +145,51 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
-const hasSkill = Boolean(skillResult);
-const skill = skillResult || ({} as any);
+const blocklist = compileSitemapBlocklist(sitemapBlocklistData);
+const rawSitemapSkills = Array.isArray(sitemapSkillsData)
+  ? (sitemapSkillsData as Array<{ owner?: string; routePath?: string; updatedAt?: string }>)
+  : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
+    []);
+const exactSitemapSkill =
+  !skillResult && subSkillName
+    ? rawSitemapSkills.find((entry) => {
+        const entryOwner = String(entry.owner || '').trim();
+        const routePath = String(entry.routePath || '').trim();
+        if (!entryOwner || !routePath) return false;
+        if (entryOwner.toLowerCase() !== owner.toLowerCase()) return false;
+        if (isSitemapSkillBlocked(entryOwner, routePath, blocklist)) return false;
+        return routePath.toLowerCase() === canonicalRoutePath.toLowerCase();
+      })
+    : null;
+const sitemapSkillFallback =
+  exactSitemapSkill && subSkillName
+    ? {
+        id: `${owner}/${canonicalRoutePath}`,
+        name: subSkillName,
+        skillName: subSkillName,
+        owner,
+        repo,
+        description: '',
+        category: 'developer',
+        topics: [],
+        stars: 0,
+        source: 'cache' as const,
+        updatedAt: String(exactSitemapSkill.updatedAt || new Date().toISOString()),
+        qualityScore: 0,
+        forks: 0,
+        skillMd: {
+          name: subSkillName,
+          description: '',
+          version: '1.0.0',
+          tags: [],
+          body: `# ${subSkillName}\n\nSource repository listing available. Detailed cache payload is unavailable in this environment.`,
+          bodyPreview: `# ${subSkillName}\n\nSource repository listing available.`,
+        },
+      }
+    : null;
+
+const hasSkill = Boolean(skillResult || sitemapSkillFallback);
+const skill = skillResult || sitemapSkillFallback || ({} as any);
 
 const repoListingCandidates =
   !hasSkill && !subSkillName ? await getSkillsListingByRefs(env, [`${owner}/${repo}`]).catch(() => []) : [];
@@ -159,14 +202,10 @@ let repoDirectorySkills = repoSubskills.sort((a, b) => (b.stars || 0) - (a.stars
 let usedSitemapFallback = false;
 
 if (!repoDirectorySkills.length && !hasSkill && !subSkillName) {
-  const blocklist = compileSitemapBlocklist(sitemapBlocklistData);
   const ownerLower = owner.toLowerCase();
   const repoLower = repo.toLowerCase();
-  const rawSkills = Array.isArray(sitemapSkillsData)
-    ? (sitemapSkillsData as Array<{ owner?: string; routePath?: string }>)
-    : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string }> }).skills ?? []);
 
-  const fallback: SkillListingItem[] = rawSkills
+  const fallback: SkillListingItem[] = rawSitemapSkills
     .filter((entry) => {
       const entryOwner = String(entry.owner || '').trim();
       const routePath = String(entry.routePath || '').trim();
