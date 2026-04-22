@@ -2,14 +2,24 @@
 import Layout from '../../../layouts/Layout.astro';
 import SkillCard from '../../../components/SkillCard.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import { getLightweightSkills, type UnifiedSkill } from '../../../lib/skills';
+import {
+  getLightweightSkills,
+  getLightweightSkillsByRefs,
+  getLightweightSkillsTop,
+  type UnifiedSkill,
+} from '../../../lib/skills';
+import { getPreferredCanonicalLocale, isDirectlyLocalizedVariant } from '../../../lib/seo-locales';
 import {
   getSolutionIntentBySlug,
   getSolutionIntents,
+  getSolutionSeoEligibleLocales,
   matchSkillsForIntent,
   type SolutionSlug,
 } from '../../../lib/solution-intents';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
 import type { Env } from '../../../lib/kv';
 
 export const prerender = false;
@@ -21,23 +31,84 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
 const intent = getSolutionIntentBySlug(typedLocale, topic || '');
 if (!intent) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 const env = Astro.locals.runtime?.env as Env;
-const [skillsFetched, messages] = await Promise.all([
-  getLightweightSkills(env).catch(() => [] as UnifiedSkill[]),
+const normalizeFlag = (value: string | null) => (value || '').toLowerCase();
+const userAgent = normalizeFlag(Astro.request.headers.get('user-agent'));
+const isCrawlerRequest =
+  /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
+const CRAWLER_SKILL_SAMPLE_LIMIT = 160;
+
+if (isCrawlerRequest) {
+  console.info(
+    `[SSR] solutions crawler lightweight mode enabled (topic=${intent.slug}, limit=${CRAWLER_SKILL_SAMPLE_LIMIT})`,
+  );
+}
+
+const solutionFeaturedSkillRefsBySlug: Partial<Record<SolutionSlug, string[]>> = {
+  'agent-workflows': [
+    'anthropics/skills/claude-api',
+    'cloudflare/skills/building-mcp-server-on-cloudflare',
+    'n8n-io/n8n/spec-driven-development',
+    'getsentry/skills/security-review',
+    'langgenius/dify/orpc-contract-first',
+    'vercel-labs/skills/find-skills',
+  ],
+};
+const solutionDecisionTrackSkillRefsBySlug: Partial<Record<SolutionSlug, string[]>> = {
+  'agent-workflows': [
+    'anthropics/skills/claude-api',
+    'cloudflare/skills/building-mcp-server-on-cloudflare',
+    'vercel-labs/skills/find-skills',
+    'getsentry/skills/security-review',
+    'n8n-io/n8n/spec-driven-development',
+    'affaan-m/everything-claude-code/context-budget',
+    'langgenius/dify/orpc-contract-first',
+    'ComposioHQ/awesome-claude-skills',
+    'expo/skills/expo-api-routes',
+  ],
+};
+const solutionExactSkillRefs = Array.from(
+  new Set([
+    ...(solutionFeaturedSkillRefsBySlug[intent.slug] || []),
+    ...(solutionDecisionTrackSkillRefsBySlug[intent.slug] || []),
+  ]),
+);
+
+const [baseSkillsFetched, exactSkillsFetched, messages] = await Promise.all([
+  isCrawlerRequest
+    ? getLightweightSkillsTop(env, CRAWLER_SKILL_SAMPLE_LIMIT).catch(() => [] as UnifiedSkill[])
+    : getLightweightSkills(env).catch(() => [] as UnifiedSkill[]),
+  solutionExactSkillRefs.length > 0
+    ? getLightweightSkillsByRefs(env, solutionExactSkillRefs).catch(() => [] as UnifiedSkill[])
+    : Promise.resolve([] as UnifiedSkill[]),
   loadMessages(typedLocale),
 ]);
+const skillsFetched = Array.from(
+  new Map([...baseSkillsFetched, ...exactSkillsFetched].map((skill) => [skill.id, skill])).values(),
+);
 
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 const allIntents = getSolutionIntents(typedLocale).filter((item) => item.slug !== (topic as SolutionSlug));
-const canonicalUrl = `https://killer-skills.com/${locale}/solutions/${intent.slug}`;
+const availableLocales = getSolutionSeoEligibleLocales(intent.slug);
+const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
+const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
+const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/solutions/${intent.slug}`;
 const pageTitle = intent.pageTitle;
 const pageDescription = intent.pageDescription;
+const buildSkillDetailHref = (skill: UnifiedSkill) => {
+  const routePath = getSkillRoutePath(skill) || skill.repo;
+  const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);
+  return buildLocalizedSkillPath(detailLocale, skill.owner, routePath);
+};
+const buildSkillDetailUrl = (skill: UnifiedSkill) => `https://killer-skills.com${buildSkillDetailHref(skill)}`;
 
 const pageKeywords = buildKeywordString(
   t,
@@ -50,6 +121,155 @@ const pageKeywords = buildKeywordString(
 );
 
 const displaySkills: UnifiedSkill[] = matchSkillsForIntent(skillsFetched, intent, typedLocale, 60);
+const skillsById = new Map(skillsFetched.map((skill) => [skill.id, skill]));
+const resolveSkillsByRefs = (refs: string[]) =>
+  refs.map((ref) => skillsById.get(ref)).filter((skill): skill is UnifiedSkill => Boolean(skill));
+const featuredSolutionSkills = (
+  solutionFeaturedSkillRefsBySlug[intent.slug]?.length
+    ? resolveSkillsByRefs(solutionFeaturedSkillRefsBySlug[intent.slug] || [])
+    : displaySkills.slice(0, 6)
+).slice(0, 6);
+const featuredSolutionSkillIds = new Set(featuredSolutionSkills.map((skill) => skill.id));
+const secondarySkillLimit = intent.slug === 'agent-workflows' ? 6 : 9;
+const secondaryDisplaySkills = displaySkills
+  .filter((skill) => !featuredSolutionSkillIds.has(skill.id))
+  .slice(0, secondarySkillLimit);
+const solutionReviewMeta = {
+  reviewedAt: '2026-04-20',
+  maintainedBy: isZhCopy
+    ? '由 Killer-Skills 团队持续维护，并定期检查内容准确性、安装路径与可用性'
+    : 'Maintained by the Killer-Skills team with recurring checks for accuracy, install flow, and usability',
+  verification: isZhCopy
+    ? '场景意图、代表技能、安装桥梁、CLI 验证与后续决策路径'
+    : 'Scenario intent, representative skills, install bridges, CLI validation, and next decision paths',
+  audience: isZhCopy
+    ? '这页优先服务于“已经知道自己要解决什么工作流问题”的高意图用户。'
+    : 'This page serves high-intent users who already know the workflow problem they need to solve.',
+};
+const solutionReviewSignals = [
+  isZhCopy
+    ? 'Solution 页必须先解释为什么这组技能适合这个场景，而不是把更多技能卡片平铺出来。'
+    : 'Solution pages must explain why a scenario deserves this skill set before they flatten more cards onto the screen.',
+  isZhCopy
+    ? '代表技能只是入口，真正的下一步仍然要回到安装、CLI 验证和可信下一步路径。'
+    : 'Representative skills are only the entry point. The real next step still runs through installation, CLI validation, and trusted next-step paths.',
+  isZhCopy
+    ? '如果用户已经知道问题类型，就不该再被送回随机仓库浏览。'
+    : 'Once users know the problem type, they should not be pushed back into random repository browsing.',
+];
+const solutionAuthorityBridgeIdsBySlug: Partial<Record<SolutionSlug, string[]>> = {
+  'agent-workflows': [
+    'docs-installation',
+    'docs-cli-overview',
+    'collection-official-trusted-tools',
+    'collection-agent-workflows',
+  ],
+};
+const solutionAuthorityBridges = getAuthoritySurfaceEntries(typedLocale, {
+  ids: solutionAuthorityBridgeIdsBySlug[intent.slug] || [
+    'docs-installation',
+    'docs-cli-overview',
+    'collection-official-trusted-tools',
+    'collection-agent-workflows',
+  ],
+});
+const solutionDecisionTracks =
+  intent.slug === 'agent-workflows'
+    ? [
+        {
+          badge: isZhCopy ? 'TRUST' : 'TRUST',
+          title: isZhCopy ? '先选可信锚点，再扩到工作流' : 'Pick a Trusted Anchor Before You Expand the Workflow',
+          description: isZhCopy
+            ? '如果当前最重要的是先把第一条团队路径跑通，就从第一方或高可信生态工具切入，再决定是否继续扩到更复杂的 workflow builder。'
+            : 'If the immediate goal is to make the first team path work, start with first-party or strongly trusted ecosystem tools before you expand into broader workflow builders.',
+          whenToUse: isZhCopy
+            ? '适合团队刚开始标准化、或你还不想把第一次安装建立在不稳定社区信号上的时候。'
+            : 'Use it when the team is just standardizing, or when you do not want the first install to depend on unstable community signals.',
+          checkpoints: isZhCopy
+            ? [
+                '先确认归属、安装文档和发布姿态都足够清楚。',
+                '让第一条安装路径先服务真实工作流，而不是继续做工具比较。',
+                '安装完成后，再进入 CLI 验证环境是否真的可用。',
+              ]
+            : [
+                'Confirm ownership, install docs, and release posture before you move.',
+                'Make the first install serve a real workflow instead of another tool comparison loop.',
+                'After installation, use CLI validation to confirm the environment is actually usable.',
+              ],
+          skillRefs: [
+            'anthropics/skills/claude-api',
+            'cloudflare/skills/building-mcp-server-on-cloudflare',
+            'vercel-labs/skills/find-skills',
+          ],
+          primaryHref: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+          primaryLabel: isZhCopy ? '回到官方可信工具合集' : 'Open Official Trusted Tools',
+        },
+        {
+          badge: isZhCopy ? 'OPS' : 'OPS',
+          title: isZhCopy ? '补齐操作者护栏与执行纪律' : 'Add Operator Guardrails and Execution Discipline',
+          description: isZhCopy
+            ? '如果技术上已经能装起来，但团队执行仍然容易漂移，就先锁定评审、上下文预算和规范化执行路径。'
+            : 'If the tools can already be installed technically but team execution still drifts, lock review, context budget, and spec discipline before you expand the stack.',
+          whenToUse: isZhCopy
+            ? '适合安装本身不是瓶颈，真正瓶颈是评审、交接和失败边界的时候。'
+            : 'Use it when installation is not the bottleneck, but review, handoff, and failure boundaries still are.',
+          checkpoints: isZhCopy
+            ? [
+                '先明确谁负责安全评审、谁负责规范执行、谁负责上下文边界。',
+                '不要把“装上了”误当成“团队已经可控”。',
+                '把 CLI 行为和验证清单沉淀成可复用操作流程。',
+              ]
+            : [
+                'Define who owns security review, spec discipline, and context boundaries first.',
+                'Do not confuse “it installed” with “the team now has control”.',
+                'Turn CLI behavior and validation into a reusable operator flow.',
+              ],
+          skillRefs: [
+            'getsentry/skills/security-review',
+            'n8n-io/n8n/spec-driven-development',
+            'affaan-m/everything-claude-code/context-budget',
+          ],
+          primaryHref: `/${locale}/docs/cli/overview`,
+          primaryLabel: isZhCopy ? '打开 CLI 总览' : 'Open CLI Overview',
+        },
+        {
+          badge: isZhCopy ? 'BUILD' : 'BUILD',
+          title: isZhCopy ? '把可信路径扩成可复用工作流栈' : 'Expand the Trusted Path Into a Reusable Workflow Stack',
+          description: isZhCopy
+            ? '当第一条可信安装路径和操作者护栏都清楚之后，再决定哪些 workflow builder、集成能力和 IDE 技能应进入下一条执行链路。'
+            : 'After the trusted install path and operator guardrails are clear, decide which workflow builders, integration layers, and IDE-native skills belong in the next execution lane.',
+          whenToUse: isZhCopy
+            ? '适合你已经不再选“第一条路径”，而是在决定“下一条可复用工作流栈”时。'
+            : 'Use it when you are no longer choosing the first path, but the next reusable workflow stack.',
+          checkpoints: isZhCopy
+            ? [
+                '下一项工具是在扩展现有可信栈，而不是重新推倒重选。',
+                '要让每个新增能力都能映射回具体场景和 operator checkpoint。',
+                '安装之后，继续回到 collections 或 solution，而不是重新刷全量目录。',
+              ]
+            : [
+                'Each added tool should expand the trusted stack instead of resetting the choice from scratch.',
+                'Map every new capability back to a concrete scenario and operator checkpoint.',
+                'After installation, continue through collections or solutions instead of the full directory.',
+              ],
+          skillRefs: [
+            'langgenius/dify/orpc-contract-first',
+            'ComposioHQ/awesome-claude-skills',
+            'expo/skills/expo-api-routes',
+          ],
+          primaryHref: `/${locale}/collections/top-agent-workflow-building-tools`,
+          primaryLabel: isZhCopy ? '进入工作流合集' : 'Open Workflow Collection',
+        },
+      ]
+    : [];
+const resolvedSolutionDecisionTracks = solutionDecisionTracks.map((track) => ({
+  ...track,
+  shortlistedSkills: resolveSkillsByRefs(track.skillRefs).map((skill) => ({
+    id: skill.id,
+    name: skill.name || skill.skillName || skill.repo,
+    href: buildSkillDetailHref(skill),
+  })),
+}));
 
 const faqItems = [
   {
@@ -59,6 +279,9 @@ const faqItems = [
   { question: t('Solutions.faq2Q'), answer: t('Solutions.faq2A') },
   { question: t('Solutions.faq3Q'), answer: t('Solutions.faq3A') },
 ];
+const solutionSignificantLinks = solutionAuthorityBridges
+  .slice(0, 4)
+  .map((surface) => `https://killer-skills.com${surface.href}`);
 ---
 
 <Layout
@@ -67,6 +290,9 @@ const faqItems = [
   description={pageDescription}
   keywords={pageKeywords}
   customCanonical={canonicalUrl}
+  noindex={!isIndexableLocale}
+  availableLocales={availableLocales}
+  xDefaultLocale={canonicalLocale}
 >
   <Fragment slot="head">
     <script
@@ -85,10 +311,34 @@ const faqItems = [
           itemListElement: displaySkills.slice(0, 20).map((skill, index) => ({
             '@type': 'ListItem',
             position: index + 1,
-            url: `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}`,
+            url: buildSkillDetailUrl(skill),
             name: skill.name || skill.repo,
           })),
         },
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: canonicalUrl,
+        inLanguage: typedLocale,
+        dateModified: solutionReviewMeta.reviewedAt,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        about: {
+          '@type': 'DefinedTerm',
+          name: intent.label,
+          description: intent.pageDescription,
+        },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+        },
+        significantLink: solutionSignificantLinks,
       })}
     />
     <script
@@ -159,9 +409,221 @@ const faqItems = [
         </p>
       </header>
 
-      <section class="mb-10 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        {displaySkills.map((skill) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)}
+      <section
+        class="mb-10 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+      >
+        <div class="max-w-3xl mb-6">
+          <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+            {isZhCopy ? '页面级审查标准' : 'Page-Level Review Standard'}
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+            {
+              isZhCopy
+                ? '这页是场景决策面，而不只是关键词落地页'
+                : 'This Page Is a Scenario Decision Surface, Not Just a Keyword Landing Page'
+            }
+          </h2>
+          <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+            {
+              isZhCopy
+                ? 'Solution 页的任务，不是把更多技能卡片堆给你，而是先解释这个场景为什么需要这组技能、下一步该先安装什么、以及之后该进入哪条下一步路径。'
+                : 'A solution page should not dump more cards onto the screen. It should explain why this scenario deserves this skill set, what to install first, and which next-step path should handle the decision after that.'
+            }
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+          <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+            <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+              {isZhCopy ? '最近复核' : 'Reviewed On'}
+            </div>
+            <div class="text-sm font-black leading-6">{solutionReviewMeta.reviewedAt}</div>
+          </div>
+          <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+            <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+              {isZhCopy ? '维护方式' : 'Maintained By'}
+            </div>
+            <div class="text-sm font-black leading-6">{solutionReviewMeta.maintainedBy}</div>
+          </div>
+          <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+            <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+              {isZhCopy ? '验证范围' : 'Verification Scope'}
+            </div>
+            <div class="text-sm font-black leading-6">{solutionReviewMeta.verification}</div>
+          </div>
+          <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+            <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+              {isZhCopy ? '适用对象' : 'Primary Audience'}
+            </div>
+            <div class="text-sm font-black leading-6">{solutionReviewMeta.audience}</div>
+          </div>
+        </div>
+
+        <div class="border-t-[3px] border-[var(--border)] pt-6">
+          <h3 class="text-xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+            {isZhCopy ? '这页的 3 条最低交付标准' : 'Three Minimum Standards For This Solution'}
+          </h3>
+          <ul class="space-y-3">
+            {
+              solutionReviewSignals.map((item) => (
+                <li class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">- {item}</li>
+              ))
+            }
+          </ul>
+        </div>
       </section>
+
+      {
+        resolvedSolutionDecisionTracks.length > 0 && (
+          <section class="mb-10 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+            <div class="max-w-4xl mb-8">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '场景轨道' : 'Scenario Tracks'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy
+                  ? '先判断你当前卡在哪一条 Agent 工作流链路里'
+                  : 'Start With the Agent Workflow Lane You Are Actually Blocked On'}
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? '真正高意图的 solution 页，不该把所有技能一次性丢给你。先确认你当前卡在可信首装、操作者护栏，还是工作流扩张，再进入对应轨道。'
+                  : 'A high-intent solution page should not dump every compatible skill at once. Decide whether you are blocked on the first trusted install, operator guardrails, or workflow expansion, then move into the matching lane.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+              {resolvedSolutionDecisionTracks.map((track) => (
+                <article class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)]">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {track.badge}
+                  </div>
+                  <h3 class="text-xl font-black uppercase tracking-tight mb-3">{track.title}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{track.description}</p>
+                  <p class="text-xs leading-6 font-bold text-[var(--foreground)]/85 border-l-2 border-[var(--primary)] pl-3 mb-4">
+                    {track.whenToUse}
+                  </p>
+                  <ul class="space-y-2 mb-5">
+                    {track.checkpoints.map((checkpoint) => (
+                      <li class="text-sm leading-6 font-medium text-[var(--foreground)]/85">- {checkpoint}</li>
+                    ))}
+                  </ul>
+                  {track.shortlistedSkills.length > 0 && (
+                    <div class="mb-5">
+                      <h4 class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                        {isZhCopy ? '先看这组代表技能' : 'Start With These Representative Skills'}
+                      </h4>
+                      <div class="flex flex-wrap gap-2">
+                        {track.shortlistedSkills.map((skill) => (
+                          <a
+                            href={skill.href}
+                            class="inline-flex items-center gap-2 px-3 py-2 bg-[var(--card)] border-2 border-[var(--border)] font-bold text-xs text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                          >
+                            <span class="text-[var(--primary)] text-[10px]">■</span>
+                            {skill.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <a
+                    href={track.primaryHref}
+                    class="inline-flex items-center px-4 py-2 border-2 border-[var(--foreground)] font-black text-xs uppercase tracking-widest hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                  >
+                    {track.primaryLabel}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        featuredSolutionSkills.length > 0 && (
+          <section class="mb-10">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '代表技能入口' : 'Representative Skill Entry Points'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy ? '先从这组更像“起点”的技能开始' : 'Start With the Skills That Behave Like Real Entry Points'}
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? '这组技能不是为了覆盖一切，而是作为更适合当前场景的起点，帮助你先进入可信安装、CLI 验证和工作流落地链路。'
+                  : 'These skills are not meant to cover everything. They act as better starting points for this scenario so users can move into trusted installation, CLI validation, and workflow rollout faster.'}
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {featuredSolutionSkills.map((skill) => (
+                <SkillCard skill={skill} locale={locale} messages={messages} t={t} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        solutionAuthorityBridges.length > 0 && (
+          <section class="mb-10 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '下一步路径' : 'Next Decision Paths'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy
+                  ? '场景判断之后，继续进入更具体的执行入口'
+                  : 'After the Scenario Decision, Continue Into More Actionable Paths'}
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? 'Solution 页不该独自完成全部决策。选定场景后，下一步要继续进入安装文档、CLI 总览、可信合集或工作流合集，把判断推进成可执行动作。'
+                  : 'A solution page should not try to finish the entire decision on its own. Once the scenario is clear, continue into installation docs, CLI overview, trusted collections, or workflow collections so the decision becomes executable.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+              {solutionAuthorityBridges.map((surface) => (
+                <a
+                  href={surface.href}
+                  class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                >
+                  <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        secondaryDisplaySkills.length > 0 && (
+          <section class="mb-10">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '补充兼容技能' : 'Additional Compatible Skills'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy
+                  ? '当代表入口还不够时，再继续看这组补充候选'
+                  : 'Use These Broader Candidates Only After the Entry Points Are Clear'}
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? '这组卡片是当前场景的补充候选，而不是第一跳入口。先用上方代表技能和下一步路径收口，再决定是否需要继续扩展。'
+                  : 'These cards are supporting candidates for the scenario, not the first click. Use the representative skills and next-step bridges above to narrow the choice before you expand further.'}
+              </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {secondaryDisplaySkills.map((skill) => (
+                <SkillCard skill={skill} locale={locale} messages={messages} t={t} />
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       {
         displaySkills.length === 0 && (

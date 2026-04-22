@@ -5,14 +5,20 @@ import SkillCard from '../../../components/SkillCard.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
-import { buildKeywordString, getCollectionKeywordClusters } from '../../../lib/seo-keywords';
-import { getLightweightSkills } from '../../../lib/skills';
+import { buildKeywordString } from '../../../lib/seo-keywords';
+import { getLightweightSkillsByRefs, type UnifiedSkill } from '../../../lib/skills';
 import {
   getLocalizedSeoEligibleLocales,
   getPreferredCanonicalLocale,
   isDirectlyLocalizedVariant,
 } from '../../../lib/seo-locales';
+import {
+  getCollectionRecoveryPathEntries,
+  getRelatedAuthorityCollectionEntries,
+} from '../../../lib/authority-surfaces';
 import { resolveCollectionBySlug } from '../../../lib/collection-slugs';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
 import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 import type { Env } from '../../../lib/kv';
 
@@ -28,6 +34,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
 }
 
 const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
 const env = Astro.locals.runtime?.env as Env;
 
 // Load collections from content layer
@@ -45,24 +52,131 @@ if (!resolvedCollection.isCanonical) {
 const collectionData = resolvedCollection.collection;
 const canonicalSlug = resolvedCollection.canonicalSlug;
 const cData = collectionData.data;
+const collectionQueryRefs = Array.from(
+  new Set([
+    ...(cData.skills || []),
+    ...(cData.featuredSkillRefs || []),
+    ...(cData.editorial?.decisionTracks || []).flatMap((item) => item.skillRefs || []),
+  ]),
+);
 
-// Fetch live database skills concurrently with translations
-// Wrap D1 call in try-catch to prevent 5xx when database is unavailable
-const [allSkills, messages] = await Promise.all([
-  getLightweightSkills(env).catch(() => [] as Awaited<ReturnType<typeof getLightweightSkills>>),
+// Fetch only the collection's referenced skills (avoid full-table listing query on every request).
+// Wrap D1 call in try-catch to prevent 5xx when database is unavailable.
+const [collectionSkills, messages] = await Promise.all([
+  getLightweightSkillsByRefs(env, collectionQueryRefs).catch(
+    () => [] as Awaited<ReturnType<typeof getLightweightSkillsByRefs>>,
+  ),
   loadMessages(typedLocale),
 ]);
 
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-// Filter the skills the collection requested
-const skillIds = new Set(cData.skills);
-const featuredSkills = allSkills.filter((s) => skillIds.has(`${s.owner}/${s.repo}`));
-// Sort according to the order defined in the collection JSON
-featuredSkills.sort(
-  (a, b) => cData.skills.indexOf(`${a.owner}/${a.repo}`) - cData.skills.indexOf(`${b.owner}/${b.repo}`),
+const normalizeSkillRef = (value: string | undefined) =>
+  String(value || '')
+    .trim()
+    .toLowerCase();
+const collectionCardRefs = (cData.featuredSkillRefs?.length ? cData.featuredSkillRefs : cData.skills) || [];
+const collectionSkillRefs = Array.from(
+  new Set(collectionCardRefs.map((ref) => normalizeSkillRef(ref)).filter(Boolean)),
 );
+const collectionSkillsById = new Map<string, UnifiedSkill>();
+const collectionSkillsByRepo = new Map<string, UnifiedSkill[]>();
+
+for (const skill of collectionSkills) {
+  const skillId = normalizeSkillRef(skill.id);
+  const repoKey = normalizeSkillRef(`${skill.owner}/${skill.repo}`);
+  if (skillId) {
+    collectionSkillsById.set(skillId, skill);
+  }
+  if (!collectionSkillsByRepo.has(repoKey)) {
+    collectionSkillsByRepo.set(repoKey, []);
+  }
+  collectionSkillsByRepo.get(repoKey)?.push(skill);
+}
+
+const scoreCollectionSkillCandidate = (skill: UnifiedSkill, skillRef: string) => {
+  const normalizedRef = normalizeSkillRef(skillRef);
+  const skillId = normalizeSkillRef(skill.id);
+  const repoKey = normalizeSkillRef(`${skill.owner}/${skill.repo}`);
+  let score = 0;
+
+  if (skillId === normalizedRef) score += 1000;
+  if (repoKey === normalizedRef) score += 900;
+
+  const text = [
+    skill.id,
+    skill.name,
+    skill.skillName,
+    typeof skill.description === 'string' ? skill.description : skill.description?.en || skill.description?.zh || '',
+    ...(skill.topics || []),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  const positiveSignals = [
+    ['start', 180],
+    ['overview', 160],
+    ['guide', 140],
+    ['template', 130],
+    ['workflow', 120],
+    ['automation', 100],
+    ['orchestration', 100],
+    ['onboard', 90],
+    ['spec', 80],
+    ['contract', 70],
+    ['conventions', 50],
+  ] as const;
+  const negativeSignals = [
+    ['review', -60],
+    ['testing', -70],
+    ['test', -50],
+    ['bug', -90],
+    ['issue', -80],
+    ['create-pr', -80],
+    ['transcript', -70],
+  ] as const;
+
+  for (const [token, value] of positiveSignals) {
+    if (text.includes(token)) score += value;
+  }
+  for (const [token, value] of negativeSignals) {
+    if (text.includes(token)) score += value;
+  }
+
+  score += Math.min(skill.stars || 0, 5000) / 1000;
+  return score;
+};
+
+const resolveCollectionSkillFromRef = (skillRef: string) => {
+  const normalizedRef = normalizeSkillRef(skillRef);
+  if (!normalizedRef) return null;
+
+  const exactMatch = collectionSkillsById.get(normalizedRef);
+  if (exactMatch) return exactMatch;
+
+  const parts = normalizedRef.split('/').filter(Boolean);
+  if (parts.length < 2) return null;
+
+  const repoKey = `${parts[0]}/${parts[1]}`;
+  const repoMatches = collectionSkillsByRepo.get(repoKey) || [];
+  if (repoMatches.length === 0) return null;
+  if (repoMatches.length === 1) return repoMatches[0];
+
+  return [...repoMatches].sort((a, b) => {
+    const scoreDelta =
+      scoreCollectionSkillCandidate(b, normalizedRef) - scoreCollectionSkillCandidate(a, normalizedRef);
+    if (scoreDelta !== 0) return scoreDelta;
+    const starDelta = (b.stars || 0) - (a.stars || 0);
+    if (starDelta !== 0) return starDelta;
+    return String(a.id || '').localeCompare(String(b.id || ''));
+  })[0];
+};
+
+const featuredSkills = collectionSkillRefs
+  .map((skillRef) => resolveCollectionSkillFromRef(skillRef))
+  .filter((skill): skill is UnifiedSkill => Boolean(skill))
+  .filter((skill, index, items) => items.findIndex((candidate) => candidate.id === skill.id) === index);
 
 // Extract localized text
 const resolveLocalized = (field: string | Record<string, string> | undefined, fallback: string = '') => {
@@ -75,26 +189,127 @@ const resolveLocalizedArray = (field: Record<string, string[]> | undefined, fall
   if (!field) return fallback;
   return field[typedLocale] || field['en'] || fallback;
 };
+const resolveLocalizedHref = (href: string) => href.replaceAll('{locale}', locale);
+const buildCollectionSkillHref = (skill: UnifiedSkill) => {
+  const routePath = getSkillRoutePath(skill) || skill.repo;
+  const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);
+  return buildLocalizedSkillPath(detailLocale, skill.owner, routePath);
+};
 
 const title = resolveLocalized(cData.title, 'Collection');
 const description = resolveLocalized(cData.description, '');
 const seoTitle = resolveLocalized(cData.seoTitle, title);
 const seoDescription = resolveLocalized(cData.seoDescription, description);
 const keywords = resolveLocalizedArray(cData.keywords, []);
-const availableLocales = getLocalizedSeoEligibleLocales(cData, SUPPORTED_LOCALES);
-const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
-const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const localizedSeoLocales = getLocalizedSeoEligibleLocales(cData, SUPPORTED_LOCALES);
+const canonicalLocale = getPreferredCanonicalLocale(localizedSeoLocales);
+const isDirectlyLocalized = isDirectlyLocalizedVariant(localizedSeoLocales, typedLocale);
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
+const indexableLocales = canonicalLocale ? [canonicalLocale] : [];
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${canonicalSlug}`;
-const collectionKeywordClusters = getCollectionKeywordClusters(cData.category, canonicalSlug);
 const collectionSeoKeywords = buildKeywordString(
   t,
-  ...collectionKeywordClusters,
   keywords,
   cData.category ? [String(cData.category).replace(/-/g, ' ')] : [],
   'Killer-Skills',
 );
 const longDescription = resolveLocalized(cData.longDescription, '');
+const editorial = cData.editorial;
+const editorialReviewSummary = resolveLocalized(editorial?.reviewSummary, '');
+const editorialSelectionReason = resolveLocalized(editorial?.selectionReason, '');
+const editorialTrustSignals = resolveLocalizedArray(editorial?.trustSignals, []);
+const editorialGroupingLogic = resolveLocalizedArray(editorial?.groupingLogic, []);
+const editorialMaintenance = editorial?.maintenance
+  ? {
+      reviewedAt: editorial.maintenance.reviewedAt,
+      cadence: resolveLocalized(editorial.maintenance.cadence, ''),
+      maintainedBy: resolveLocalized(editorial.maintenance.maintainedBy, ''),
+      verification: resolveLocalized(editorial.maintenance.verification, ''),
+    }
+  : null;
+const editorialExecutionExamples = (editorial?.executionExamples || []).map((item) => ({
+  title: resolveLocalized(item.title, ''),
+  summary: resolveLocalized(item.summary, ''),
+  steps: resolveLocalizedArray(item.steps, []),
+}));
+const editorialDecisionTracks = (editorial?.decisionTracks || [])
+  .map((item) => {
+    const shortlistedSkills = Array.from(
+      new Map(
+        (item.skillRefs || [])
+          .map((skillRef) => resolveCollectionSkillFromRef(skillRef))
+          .filter((skill): skill is UnifiedSkill => Boolean(skill))
+          .map((skill) => [
+            skill.id,
+            {
+              id: skill.id,
+              name: skill.name || skill.skillName || skill.repo,
+              href: buildCollectionSkillHref(skill),
+            },
+          ]),
+      ).values(),
+    );
+
+    return {
+      title: resolveLocalized(item.title, ''),
+      summary: resolveLocalized(item.summary, ''),
+      whenToUse: resolveLocalized(item.whenToUse, ''),
+      checkpoints: resolveLocalizedArray(item.checkpoints, []),
+      shortlistedSkills,
+      nextStepHref: item.nextStepHref ? resolveLocalizedHref(item.nextStepHref) : '',
+      nextStepLabel: resolveLocalized(item.nextStepLabel, ''),
+    };
+  })
+  .filter((item) => item.title || item.summary || item.shortlistedSkills.length > 0);
+const editorialNextSteps = (editorial?.nextSteps || []).map((item) => ({
+  href: resolveLocalizedHref(item.href),
+  label: resolveLocalized(item.label, ''),
+  description: resolveLocalized(item.description, ''),
+}));
+const primaryEditorialNextStep = editorialNextSteps[0] || null;
+const supportingEditorialNextSteps = editorialNextSteps.slice(1);
+const primaryNextStepHref = primaryEditorialNextStep?.href || `/${locale}/docs/installation`;
+const collectionRecoveryPaths = getCollectionRecoveryPathEntries(typedLocale, canonicalSlug, {
+  excludeHrefs: [primaryNextStepHref, ...supportingEditorialNextSteps.map((item) => item.href)],
+  limit: 4,
+});
+const featuredCollectionRecoveryPaths = collectionRecoveryPaths.slice(0, 2);
+const remainingCollectionRecoveryPaths = collectionRecoveryPaths.slice(2);
+const relatedAuthorityCollections = getRelatedAuthorityCollectionEntries(typedLocale, canonicalSlug, 4);
+const collectionReviewSignals = [
+  isZhCopy
+    ? '合集页必须先帮助用户缩小到一组更值得比较的技能，而不是把更多仓库继续平铺出来。'
+    : 'A collection page must narrow users into a better shortlist instead of flattening more repositories onto the screen.',
+  isZhCopy
+    ? '精选下一步要继续进入安装文档、CLI 验证或更贴合的方案页，而不是把用户重新送回泛目录。'
+    : 'The next click should continue into installation docs, CLI validation, or a better-fit solution page instead of resetting back to a broad directory.',
+  isZhCopy
+    ? '只有当筛选逻辑、维护方式和交付路径足够清楚时，这页才算真正完成第一方判断。'
+    : 'This page only becomes a real first-party judgment surface when its selection logic, maintenance posture, and delivery path are all visible.',
+];
+const faqItems = [
+  {
+    question: tr('Collections.faq1Q', 'What should I do after I open a collection?'),
+    answer: tr(
+      'Collections.faq1A',
+      'Use the collection to shortlist tools, then open the installation docs before browsing more repositories.',
+    ),
+  },
+  {
+    question: tr('Collections.faq2Q', 'Which collection should I open first if I want lower-risk tools?'),
+    answer: tr(
+      'Collections.faq2A',
+      'Start with the official and trusted tools collection before you branch into broader workflow bundles.',
+    ),
+  },
+  {
+    question: tr('Collections.faq3Q', 'Can I install skills from a collection in Claude Code or Cursor?'),
+    answer: tr(
+      'Collections.faq3A',
+      'Yes. Choose a skill, open the install guide, and run npx killer-skills add owner/repo.',
+    ),
+  },
+];
 const breadcrumb = buildBreadcrumbTrail(
   [
     { label: translateOr(messages, 'Common.home', 'Home'), href: `/${locale}` },
@@ -122,7 +337,7 @@ const itemListSchema = {
     item: {
       '@type': 'SoftwareApplication',
       name: skill.name || skill.repo,
-      url: `https://killer-skills.com/${locale}/skills/${skill.owner}/${skill.repo}`,
+      url: `https://killer-skills.com${buildCollectionSkillHref(skill)}`,
     },
   })),
 };
@@ -137,7 +352,7 @@ const itemListSchema = {
   ogType="article"
   customCanonical={canonicalUrl}
   noindex={!isIndexableLocale}
-  availableLocales={availableLocales}
+  availableLocales={indexableLocales}
   xDefaultLocale={canonicalLocale}
 >
   <Fragment slot="head">
@@ -158,6 +373,22 @@ const itemListSchema = {
       })}
     />
     <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumb.jsonLd)} />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faqItems.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      })}
+    />
   </Fragment>
 
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
@@ -217,8 +448,397 @@ const itemListSchema = {
           )
         }
 
+        {
+          (editorialReviewSummary || editorialMaintenance) && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="max-w-4xl mb-8">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '页面级审查标准' : 'Page-Level Review Standard'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy
+                    ? '这页是精选决策页，而不只是主题型列表页'
+                    : 'This Page Is a Curated Decision Surface, Not Just a Themed List'}
+                </h2>
+                <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+                  {isZhCopy
+                    ? '合集页的职责不是继续把更多技能卡片丢给你，而是先解释为什么这组技能值得一起看、下一步该怎么进入安装与验证、以及之后该往哪条承接路径继续走。'
+                    : 'A collection page should not just add more cards to the screen. It should explain why these skills belong together, how the next step moves into installation and validation, and which path should continue the decision afterwards.'}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8">
+                <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                    {isZhCopy ? '最近复核' : 'Reviewed On'}
+                  </div>
+                  <div class="text-sm font-black leading-6">{editorialMaintenance?.reviewedAt || 'n/a'}</div>
+                </div>
+                <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                    {isZhCopy ? '维护方式' : 'Maintained By'}
+                  </div>
+                  <div class="text-sm font-black leading-6">
+                    {editorialMaintenance?.maintainedBy ||
+                      (isZhCopy ? 'Killer-Skills 编辑审查' : 'Killer-Skills editorial review')}
+                  </div>
+                </div>
+                <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                    {isZhCopy ? '验证范围' : 'Verification'}
+                  </div>
+                  <div class="text-sm font-black leading-6">
+                    {editorialMaintenance?.verification ||
+                      (isZhCopy
+                        ? '筛选逻辑、安装路径与下一步承接'
+                        : 'Selection logic, install path, and next-step continuation')}
+                  </div>
+                </div>
+                <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                    {isZhCopy ? '适用对象' : 'Primary Audience'}
+                  </div>
+                  <div class="text-sm font-black leading-6">
+                    {isZhCopy
+                      ? '已经知道大致方向、需要更快收口到可安装选择的高意图用户。'
+                      : 'High-intent users who roughly know the direction and need a faster path to an installable shortlist.'}
+                  </div>
+                </div>
+              </div>
+
+              <div class="border-t-[3px] border-[var(--border)] pt-6">
+                <h3 class="text-xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+                  {isZhCopy ? '这页的 3 条最低交付标准' : 'Three Minimum Standards For This Collection'}
+                </h3>
+                <ul class="space-y-3">
+                  {collectionReviewSignals.map((item) => (
+                    <li class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">- {item}</li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )
+        }
+
+        {
+          primaryEditorialNextStep && (
+            <section class="mb-16 border-[3px] border-[var(--primary)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--primary)]">
+              <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 items-start">
+                <div class="max-w-3xl">
+                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {isZhCopy ? '主安装承接路径' : 'Primary Install Bridge'}
+                  </div>
+                  <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                    {isZhCopy ? '先收口到一个技能，再进入安装路径' : 'Pick One Skill, Then Take the Install Path'}
+                  </h2>
+                  <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                    {isZhCopy
+                      ? '这个合集的任务不是把你留在比较阶段，也不是直接整合集安装，而是先帮你收口到一个技能，再把下一次点击明确送进安装、验证与落地路径。真正安装发生在技能路径上。'
+                      : 'This collection should not trap users in comparison mode or pretend to install the whole collection. Its job is to narrow the shortlist to one skill, then send the next click into installation, validation, and rollout. Installation happens on the skill path.'}
+                  </p>
+                </div>
+
+                <a
+                  href={primaryEditorialNextStep.href}
+                  class="border-[3px] border-[var(--foreground)] bg-[var(--foreground)] text-[var(--background)] p-5 md:p-6 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--primary)] transition-all"
+                >
+                  <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {isZhCopy ? '第 1 步 / 主路径' : 'Step 1 / Primary Path'}
+                  </div>
+                  <h3 class="text-2xl font-black uppercase tracking-tight mb-3">{primaryEditorialNextStep.label}</h3>
+                  <p class="text-sm md:text-base leading-7 font-medium text-[var(--background)]/85 mb-5">
+                    {primaryEditorialNextStep.description}
+                  </p>
+                  <span class="inline-flex items-center px-4 py-2 border-2 border-[var(--background)] font-black text-xs uppercase tracking-widest">
+                    {isZhCopy ? '打开安装路径' : 'Open the Install Path'}
+                  </span>
+                </a>
+              </div>
+            </section>
+          )
+        }
+
+        {
+          editorialDecisionTracks.length > 0 && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="max-w-4xl mb-8">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '决策轨道' : 'Decision Tracks'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy
+                    ? '先判断你要解决的是哪一类工作流瓶颈'
+                    : 'Start With The Workflow Bottleneck You Actually Need To Solve'}
+                </h2>
+                <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                  {isZhCopy
+                    ? '真正高意图的合集页，不应该把所有工具一起丢给你。先确认你当前卡在执行骨架、交接治理，还是复用落地，再进入对应轨道，决策会比继续横向刷卡片更快。'
+                    : 'A high-intent collection should not dump every tool into one flat wall. Decide whether your bottleneck is execution scaffolding, handoff governance, or repeatable rollout first, then enter the track that matches the job you need to solve.'}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                {editorialDecisionTracks.map((track, index) => (
+                  <article class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)]">
+                    <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                      {isZhCopy ? `轨道 ${index + 1}` : `Track ${index + 1}`}
+                    </div>
+                    <h3 class="text-xl font-black uppercase tracking-tight mb-3">{track.title}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{track.summary}</p>
+
+                    {track.whenToUse && (
+                      <p class="text-xs leading-6 font-bold text-[var(--foreground)]/85 border-l-2 border-[var(--primary)] pl-3 mb-4">
+                        {track.whenToUse}
+                      </p>
+                    )}
+
+                    {track.checkpoints.length > 0 && (
+                      <div class="mb-4">
+                        <h4 class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                          {isZhCopy ? '进入这条轨道前先确认' : 'Confirm Before You Commit'}
+                        </h4>
+                        <ul class="space-y-2">
+                          {track.checkpoints.map((checkpoint) => (
+                            <li class="text-sm leading-6 font-medium text-[var(--foreground)]/85">- {checkpoint}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {track.shortlistedSkills.length > 0 && (
+                      <div class="mb-5">
+                        <h4 class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                          {isZhCopy ? '先看这组代表技能' : 'Start With These Representative Skills'}
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                          {track.shortlistedSkills.map((skill) => (
+                            <a
+                              href={skill.href}
+                              class="inline-flex items-center gap-2 px-3 py-2 bg-[var(--card)] border-2 border-[var(--border)] font-bold text-xs text-[var(--foreground)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] shadow-[2px_2px_0px_0px_var(--border)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all"
+                            >
+                              <span class="text-[var(--primary)] text-[10px]">■</span>
+                              {skill.name}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {track.nextStepHref && track.nextStepLabel && (
+                      <a
+                        href={track.nextStepHref}
+                        class="inline-flex items-center px-4 py-2 border-2 border-[var(--foreground)] font-black text-xs uppercase tracking-widest hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                      >
+                        {track.nextStepLabel}
+                      </a>
+                    )}
+                  </article>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          featuredCollectionRecoveryPaths.length > 0 && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="max-w-3xl mb-6">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '最该继续的两条路径' : 'Best-Fit Next Paths'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy
+                    ? '这页的下一跳，不该回到泛目录，而该继续进入更贴合的承接面'
+                    : 'The Next Click Should Keep Narrowing, Not Reset Back To A Generic Directory'}
+                </h2>
+                <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                  {isZhCopy
+                    ? '安装路径已经明确后，优先继续进入最贴合这页主题的 solution、CLI 或判断页。这样更容易把平台型、框架型和运维型需求继续收口成可验证的高意图链路。'
+                    : 'Once the install path is clear, move into the solution page, CLI docs, or the next collection that best matches this theme. That keeps platform, framework, and operations needs easier to compare and verify.'}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {featuredCollectionRecoveryPaths.map((surface) => (
+                  <a
+                    href={surface.href}
+                    class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                  >
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">
+                      {surface.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          (editorialReviewSummary ||
+            editorialSelectionReason ||
+            editorialTrustSignals.length > 0 ||
+            editorialGroupingLogic.length > 0 ||
+            editorialMaintenance) && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="max-w-4xl mb-8">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '编辑部判断与信任依据' : 'Editorial Proof & Trust Signals'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy ? '为什么这个合集值得优先看' : 'Why This Collection Deserves Priority Attention'}
+                </h2>
+                {editorialReviewSummary && (
+                  <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium mb-4">
+                    {editorialReviewSummary}
+                  </p>
+                )}
+                {editorialSelectionReason && (
+                  <p class="text-sm md:text-base leading-7 font-bold text-[var(--foreground)]/85">
+                    {editorialSelectionReason}
+                  </p>
+                )}
+              </div>
+
+              <div class="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-6">
+                <div class="space-y-6">
+                  {editorialTrustSignals.length > 0 && (
+                    <div class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5">
+                      <h3 class="text-lg font-black uppercase tracking-tight mb-3">
+                        {isZhCopy ? '信任信号' : 'Trust Signals'}
+                      </h3>
+                      <ul class="space-y-2">
+                        {editorialTrustSignals.map((item) => (
+                          <li class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">- {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {editorialGroupingLogic.length > 0 && (
+                    <div class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5">
+                      <h3 class="text-lg font-black uppercase tracking-tight mb-3">
+                        {isZhCopy ? '分组逻辑' : 'Grouping Logic'}
+                      </h3>
+                      <ul class="space-y-2">
+                        {editorialGroupingLogic.map((item) => (
+                          <li class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">- {item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+
+                {editorialMaintenance && (
+                  <div class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 h-fit">
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-4">
+                      {isZhCopy ? '维护与复核' : 'Maintenance & Review'}
+                    </h3>
+                    <dl class="space-y-3 text-sm leading-6">
+                      <div>
+                        <dt class="font-black uppercase tracking-widest text-[var(--primary)] text-[10px] mb-1">
+                          {isZhCopy ? '最近复核' : 'Last Reviewed'}
+                        </dt>
+                        <dd class="font-medium text-[var(--foreground)]">{editorialMaintenance.reviewedAt}</dd>
+                      </div>
+                      {editorialMaintenance.cadence && (
+                        <div>
+                          <dt class="font-black uppercase tracking-widest text-[var(--primary)] text-[10px] mb-1">
+                            {isZhCopy ? '更新节奏' : 'Cadence'}
+                          </dt>
+                          <dd class="font-medium text-[var(--muted-foreground)]">{editorialMaintenance.cadence}</dd>
+                        </div>
+                      )}
+                      {editorialMaintenance.maintainedBy && (
+                        <div>
+                          <dt class="font-black uppercase tracking-widest text-[var(--primary)] text-[10px] mb-1">
+                            {isZhCopy ? '维护责任' : 'Maintained By'}
+                          </dt>
+                          <dd class="font-medium text-[var(--muted-foreground)]">
+                            {editorialMaintenance.maintainedBy}
+                          </dd>
+                        </div>
+                      )}
+                      {editorialMaintenance.verification && (
+                        <div>
+                          <dt class="font-black uppercase tracking-widest text-[var(--primary)] text-[10px] mb-1">
+                            {isZhCopy ? '验证方式' : 'Verification'}
+                          </dt>
+                          <dd class="font-medium text-[var(--muted-foreground)]">
+                            {editorialMaintenance.verification}
+                          </dd>
+                        </div>
+                      )}
+                    </dl>
+                  </div>
+                )}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          editorialExecutionExamples.length > 0 && (
+            <section class="mb-16">
+              <div class="max-w-3xl mb-6">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '执行示例' : 'Execution Examples'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy ? '这组技能如何在真实工作流里配合' : 'How These Skills Work Together In Practice'}
+                </h2>
+              </div>
+              <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {editorialExecutionExamples.map((example) => (
+                  <article class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)]">
+                    <h3 class="text-xl font-black uppercase tracking-tight mb-3">{example.title}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{example.summary}</p>
+                    <ol class="space-y-2">
+                      {example.steps.map((step, index) => (
+                        <li class="text-sm leading-6 font-medium text-[var(--foreground)]/85">
+                          {index + 1}. {step}
+                        </li>
+                      ))}
+                    </ol>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {
+          supportingEditorialNextSteps.length > 0 && (
+            <section class="mb-16">
+              <div class="max-w-3xl mb-6">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '安装后的下一步' : 'After Installation'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy ? '安装路径明确后，再继续这些支持动作' : 'Supporting Moves After The Install Path Is Clear'}
+                </h2>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {supportingEditorialNextSteps.map((item, index) => (
+                  <a
+                    href={item.href}
+                    class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                  >
+                    <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                      {isZhCopy ? `第 ${index + 2} 步` : `Step ${index + 2}`}
+                    </div>
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.label}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
         {/* Grid of Dynamic Live Skills */}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div id="collection-skills" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {featuredSkills.map((skill) => <SkillCard skill={skill} locale={locale} messages={messages} t={t} />)}
           {
             featuredSkills.length === 0 && (
@@ -228,6 +848,107 @@ const itemListSchema = {
             )
           }
         </div>
+
+        {
+          relatedAuthorityCollections.length > 0 && (
+            /* Legacy public-links contract marker: Related Authority Collections */
+            <section class="mt-16 mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="mb-6 max-w-3xl">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '相关精选合集' : 'Related Collections'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy
+                    ? '如果这一页已经接近你的目标，再沿着相关精选合集继续收口'
+                    : 'If This Page Is Close, Keep Narrowing With Related Collections'}
+                </h2>
+                <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                  {isZhCopy
+                    ? '不要回到泛化目录重新开始浏览。沿着这些相邻的高意图合集继续前进，能更快把比较范围收口到真正适合你团队的安装路径。'
+                    : 'Do not reset back to the generic directory. Move sideways through these adjacent high-intent collections to narrow the shortlist toward the install path that best matches your team.'}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                {relatedAuthorityCollections.map((surface) => (
+                  <a
+                    href={surface.href}
+                    class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                  >
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">
+                      {surface.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        <section class="mt-16 mb-16">
+          <div class="max-w-3xl mb-6">
+            <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+              {isZhCopy ? '安装常见问题' : 'Installation Questions'}
+            </div>
+            <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+              {isZhCopy ? '先把这 3 个安装问题说明白' : 'Answer These Three Questions Before You Install'}
+            </h2>
+            <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+              {
+                isZhCopy
+                  ? '合集页的目标不是继续分流，而是帮助你先收口选择，再进入安装与验证。下面这 3 个问题就是整个承接链路的最小解释。'
+                  : 'This collection should not keep users browsing forever. These three questions explain how to shortlist, install, and validate the next step.'
+              }
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {
+              faqItems.map((item) => (
+                <article class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)]">
+                  <h3 class="text-lg font-black uppercase tracking-tight mb-3">{item.question}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.answer}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
+        {
+          remainingCollectionRecoveryPaths.length > 0 && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="mb-6 max-w-3xl">
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                  {isZhCopy ? '补充承接路径' : 'Additional Next Paths'}
+                </div>
+                <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                  {isZhCopy
+                    ? '如果前两条还不够，再沿着这些补充路径继续收口'
+                    : 'Use These Additional Paths If You Need One More Step To Narrow The Decision'}
+                </h2>
+                <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                  {isZhCopy
+                    ? '这些是当前合集的补充语义承接面，适合在你已经确认安装方向之后，再继续进入更细的比较、判断和场景执行。'
+                    : 'These are the supporting surfaces for this collection after the install direction is clear and the primary next paths have already narrowed the decision.'}
+                </p>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                {remainingCollectionRecoveryPaths.map((surface) => (
+                  <a
+                    href={surface.href}
+                    class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                  >
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
+                    <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">
+                      {surface.description}
+                    </p>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )
+        }
       </div>
     </main>
 
@@ -238,22 +959,26 @@ const itemListSchema = {
           <div class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div class="flex items-center gap-3 text-sm font-bold text-[var(--foreground)]">
               <span class="hidden sm:inline px-2 py-1 text-[10px] font-black uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)]">
-                CLI
+                {isZhCopy ? '先选技能，再安装' : 'Pick A Skill First'}
               </span>
               <span class="font-mono text-[var(--muted-foreground)] hidden md:inline">
-                {tr('Collections.installHint', 'Use the CLI to install skills from this collection.')}
+                {isZhCopy
+                  ? '合集页不直接安装；先打开安装指南，再从下方选择一个技能复制安装命令。'
+                  : 'This collection does not install itself. Open the guide first, then choose one skill below and copy its install command.'}
               </span>
             </div>
             <div class="flex items-center gap-2 w-full sm:w-auto">
-              <div class="flex-1 sm:flex-initial flex items-center gap-2 px-4 py-2.5 bg-[var(--foreground)] text-[var(--background)] font-mono text-xs font-black border-2 border-[var(--foreground)] shadow-[3px_3px_0px_0px_var(--border)]">
-                <span class="text-[var(--primary)] bg-[var(--background)] px-1">▶</span>
-                <span class="truncate">npx killer-skills add owner/repo</span>
-              </div>
               <a
-                href={`/${locale}/cli`}
+                href="#collection-skills"
+                class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-[var(--background)] text-[var(--foreground)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+              >
+                {isZhCopy ? '先选一个技能' : 'Choose One Skill'}
+              </a>
+              <a
+                href={primaryNextStepHref}
                 class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
               >
-                {tr('Collections.installAll', 'Install with CLI')} →
+                {isZhCopy ? '打开安装指南' : 'Open Install Guide'} →
               </a>
             </div>
           </div>

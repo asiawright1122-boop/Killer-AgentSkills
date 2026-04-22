@@ -6,6 +6,7 @@ import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../i18n';
 import { getFeaturedSkillsDirect } from '../../lib/skills';
 import { buildKeywordString } from '../../lib/seo-keywords';
+import { getAuthoritySurfaceEntries } from '../../lib/authority-surfaces';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
 import { getCollection } from 'astro:content';
 import type { Env } from '../../lib/kv';
@@ -21,6 +22,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 const canonicalUrl = `https://killer-skills.com/${locale}`;
+const isZhCopy = typedLocale.startsWith('zh');
 
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
@@ -33,9 +35,55 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
+const homeAuthoritySurfaceIds = [
+  'collections-hub',
+  'docs-installation',
+  'collection-official-trusted-tools',
+  'solution-agent-workflows',
+  'collection-agent-workflows',
+  'solutions-hub',
+  'collection-claude-code',
+  'collection-windsurf',
+];
+const homeFeaturedCollectionIds = [
+  'collection-nextjs',
+  'collection-python',
+  'collection-react',
+  'collection-typescript',
+  'collection-rust',
+  'collection-devops',
+  'collection-framework',
+  'collection-community',
+  'collection-claude-code',
+  'collection-windsurf',
+  'collection-gemini',
+  'collection-opencode',
+];
+
 // Load collections for Featured Collections section
 const allCollections = getCanonicalCollections(await getCollection('collections'));
-const homeCollections = allCollections.sort((a, b) => b.data.skills.length - a.data.skills.length).slice(0, 6);
+const homeFeaturedCollectionPriority = new Map(
+  getAuthoritySurfaceEntries(typedLocale, { ids: homeFeaturedCollectionIds })
+    .filter((surface) => surface.surfaceClass === 'collection')
+    .map((surface, index) => [surface.href.split('/').pop() || '', index]),
+);
+const homeCollections = [...allCollections]
+  .sort((a, b) => {
+    const aSlug = getCollectionCanonicalSlug(a);
+    const bSlug = getCollectionCanonicalSlug(b);
+    const aPriority = homeFeaturedCollectionPriority.get(aSlug);
+    const bPriority = homeFeaturedCollectionPriority.get(bSlug);
+
+    if (aPriority !== undefined && bPriority !== undefined && aPriority !== bPriority) {
+      return aPriority - bPriority;
+    }
+
+    if (aPriority !== undefined) return -1;
+    if (bPriority !== undefined) return 1;
+
+    return b.data.skills.length - a.data.skills.length;
+  })
+  .slice(0, 8);
 
 // SEO: homepage metadata from i18n messages
 const homeSeoTitle = tr(
@@ -44,7 +92,7 @@ const homeSeoTitle = tr(
 );
 const homeSeoDescription = tr(
   'Home.seoDescription',
-  'Discover 2,500+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.',
+  'Discover 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.',
 );
 const homeSeoKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
@@ -56,8 +104,53 @@ const faqItems = [
 ];
 const seoIntro = tr(
   'Home.seoIntro',
-  'Killer-Skills is an open-source directory of 2,500+ AI agent skills. Developers use it to discover, install, and manage reusable instruction modules for Claude Code, Cursor, Windsurf, and 19+ other IDEs from one install flow.',
+  'Killer-Skills is an open directory and installation hub for 3,400+ AI agent skills. Developers use it to find trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow.',
 );
+const homeAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
+  ids: homeAuthoritySurfaceIds,
+});
+const homeSelectionGuidance = isZhCopy
+  ? [
+      {
+        title: '先选可信起点',
+        description: '如果你现在最关心的是先装对第一条路径，就先看可信起步合集，而不是直接刷完整目录。',
+      },
+      {
+        title: '按场景收口决策',
+        description: '如果你已经知道自己要解决的是 agent workflow、浏览器自动化或数据提取，就先走 solution 页面。',
+      },
+      {
+        title: '把发现推进成可执行安装',
+        description: '当方向确定后，下一步就进入安装文档和 CLI 验证，而不是继续做无边界的仓库比较。',
+      },
+    ]
+  : [
+      {
+        title: 'Start With a Trusted Anchor',
+        description:
+          'If the immediate goal is to get the first path installed correctly, begin with the trusted starter collection instead of the full directory.',
+      },
+      {
+        title: 'Use the Scenario to Narrow the Choice',
+        description:
+          'If you already know you need agent workflows, browser automation, or data extraction, move through the solution page before browsing individual skills.',
+      },
+      {
+        title: 'Turn Discovery Into Installation',
+        description:
+          'Once the direction is clear, continue into installation docs and CLI validation instead of reopening a broad repo comparison loop.',
+      },
+    ];
+const homeAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['blog-official-ai-agent-skills-guide', 'blog-how-to-install-ai-agent-skills', 'blog-ide-comparison'],
+});
+const homePrimaryCtaSurfaces = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['collection-official-trusted-tools', 'docs-installation', 'solution-agent-workflows'],
+});
+const homeSupportingSurface = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['skills-directory'],
+  includeSupporting: true,
+})[0];
 
 // Features data with SVG paths (Lucide icons style)
 const features = [
@@ -165,7 +258,7 @@ const features = [
       },
       description: tr(
         'Metadata.description',
-        'Discover 80,000+ AI agent skills for Claude Code, Cursor, and Windsurf. Open-source skill marketplace with one-command installation.',
+        'Discover 3,400+ AI agent skills for Claude Code, Cursor, and Windsurf. Open-source skill marketplace with one-command installation.',
       ),
       foundingDate: '2025',
       knowsAbout: [
@@ -253,6 +346,93 @@ const features = [
       </div>
     </section>
 
+    <section class="py-16 md:py-20 border-b-[3px] border-[var(--border)] bg-[var(--background)] cv-auto">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] mb-10">
+          <div>
+            <span
+              class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-4"
+            >
+              {isZhCopy ? '可信入口路径' : 'Trusted Entry Paths'}
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+              {
+                isZhCopy
+                  ? '先从精选入口开始，而不是直接跳进原始目录'
+                  : 'Start From Curated Paths, Not Raw Directory Browsing'
+              }
+            </h2>
+            <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
+              {
+                isZhCopy
+                  ? 'Killer-Skills 最有价值的地方，不是把更多仓库堆给你，而是先帮你判断应该从官方可信工具、场景方案页，还是安装验证路径开始。'
+                  : 'The value of Killer-Skills is not showing more repositories. It is helping users decide whether to begin with trusted tools, scenario pages, or installation guidance first.'
+              }
+            </p>
+          </div>
+          <div class="grid gap-4">
+            {
+              homeSelectionGuidance.map((item) => (
+                <div class="border-[3px] border-[var(--border)] bg-[var(--background)] p-4 shadow-[4px_4px_0px_0px_var(--border)]">
+                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                    {item.title}
+                  </div>
+                  <p class="text-sm leading-6 text-[var(--muted-foreground)] font-medium">{item.description}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+          {
+            homeAuthoritySurfaces.map((surface) => (
+              <a
+                href={surface.href}
+                class="brut-card group bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"
+              >
+                <h3 class="text-xl font-black uppercase tracking-tight mb-3">{surface.title}</h3>
+                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{surface.description}</p>
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)]">
+                  {isZhCopy ? '查看详情' : 'Open'} →
+                </div>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-4">
+          {
+            homeAuthorityGuides.map((surface) => (
+              <a
+                href={surface.href}
+                class="border-2 border-[var(--border)] bg-[var(--background)] p-5 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+              >
+                <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
+                <p class="text-sm leading-6 font-medium opacity-80">{surface.description}</p>
+              </a>
+            ))
+          }
+        </div>
+
+        {
+          homeSupportingSurface && (
+            <div class="mt-8 flex flex-wrap items-center gap-3 border-t-[3px] border-[var(--border)] pt-6">
+              <span class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
+                {isZhCopy ? '参考目录入口' : 'Reference Directory'}
+              </span>
+              <a
+                href={homeSupportingSurface.href}
+                class="inline-flex items-center px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] text-[var(--foreground)] text-xs font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors"
+              >
+                {homeSupportingSurface.title} →
+              </a>
+            </div>
+          )
+        }
+      </div>
+    </section>
+
     <!-- Official Skills Section -->
     <OfficialSkills locale={locale} />
 
@@ -266,7 +446,7 @@ const features = [
             class="bg-[var(--primary)] p-8 flex flex-col items-center justify-center border-b-[3px] border-r-[3px] md:border-none border-[var(--border)]"
           >
             <div class="text-5xl md:text-7xl font-black mb-3 tracking-tighter mix-blend-difference text-white">
-              2,500+
+              3,400+
             </div>
             <div
               class="inline-block bg-[var(--foreground)] text-[var(--background)] px-3 py-1 text-sm md:text-base font-bold uppercase tracking-wider font-mono"
@@ -320,10 +500,10 @@ const features = [
           <p class="text-[var(--muted-foreground)] font-mono text-sm">{t('Home.trendingSubtitle')}</p>
         </div>
         <a
-          href={`/${locale}/skills`}
+          href={`/${locale}/collections`}
           class="hidden md:flex items-center gap-2 px-6 py-3 border-2 border-[var(--border)] bg-transparent text-[var(--foreground)] font-bold uppercase hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
         >
-          {t('Home.viewAll')}
+          {isZhCopy ? '浏览精选合集' : 'Browse Collections'}
           <span class="font-mono ml-2">→</span>
         </a>
       </div>
@@ -445,22 +625,35 @@ const features = [
     <section
       class="py-16 border-t-[3px] border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] cv-auto"
     >
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">{t('Home.cta.title')}</h2>
-        <p class="text-lg md:text-2xl font-mono font-bold mb-10 opacity-80">{t('Home.cta.subtitle')}</p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
-          <a
-            href={`/${locale}/skills`}
-            class="px-8 py-4 bg-[var(--foreground)] text-[var(--background)] font-bold text-lg uppercase border-[3px] border-[var(--foreground)] shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,0.5)] transition-all"
-          >
-            {t('Home.cta.browse')}
-          </a>
-          <a
-            href={`/${locale}/docs`}
-            class="px-8 py-4 bg-[var(--primary)] text-[var(--foreground)] font-bold text-lg uppercase border-[3px] border-[var(--foreground)] shadow-[6px_6px_0px_0px_rgba(0,0,0,0.3)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_rgba(0,0,0,0.3)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all"
-          >
-            {t('Home.cta.docs')}
-          </a>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-10">
+          <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
+            {isZhCopy ? '先把下一步路径选对，再继续安装' : 'Choose the Right Next Step Before You Install'}
+          </h2>
+          <p class="text-lg md:text-2xl font-mono font-bold opacity-80">
+            {
+              isZhCopy
+                ? '首页的主任务不是把你重新送回目录，而是把你送进更可信、更容易落地的入口。'
+                : 'The homepage should move users into trusted collections, scenario pages, and install guidance instead of sending them back into raw directory browsing.'
+            }
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {
+            homePrimaryCtaSurfaces.map((surface) => (
+              <a
+                href={surface.href}
+                class="bg-[var(--background)] text-[var(--foreground)] border-[3px] border-[var(--foreground)] p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,0.38)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,0.45)] transition-all"
+              >
+                <h3 class="text-2xl font-black uppercase tracking-tight mb-3">{surface.title}</h3>
+                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{surface.description}</p>
+                <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)]">
+                  {isZhCopy ? '立即查看' : 'Open'} →
+                </div>
+              </a>
+            ))
+          }
         </div>
       </div>
     </section>

@@ -1,8 +1,10 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, type Locale } from '../../../i18n';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
+import { getPreferredCanonicalLocale, isDirectlyLocalizedVariant } from '../../../lib/seo-locales';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import { getSolutionIntents } from '../../../lib/solution-intents';
+import { getSolutionIntents, getSolutionSeoEligibleLocales } from '../../../lib/solution-intents';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -13,16 +15,24 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
 const intents = getSolutionIntents(typedLocale);
+const availableLocales = getSolutionSeoEligibleLocales();
+const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
+const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
+const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
 
 const messages = await loadMessages(typedLocale);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const canonicalUrl = `https://killer-skills.com/${locale}/solutions`;
-const pageTitle = tr('Solutions.pageTitle', 'Installable Automation Solutions: AI Agent Skills');
+const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/solutions`;
+const pageTitle = tr(
+  'Solutions.pageTitle',
+  'Installable AI Agent Workflow Solutions for Docs, Browser & Data Automation',
+);
 const pageDescription = tr(
   'Solutions.pageDescription',
-  'Browse installable AI agent skills by high-intent use cases: workflow, process, document, browser, and data automation.',
+  'Browse installable AI agent workflow solutions for document, browser, data, and process automation, with clear next steps into collections, skills, and installation docs.',
 );
 const pageKeywords = buildKeywordString(
   (k: string) => tr(k, k),
@@ -33,6 +43,25 @@ const pageKeywords = buildKeywordString(
   tr('Solutions.keyword1', 'high-intent skill use cases'),
   'Killer-Skills',
 );
+const solutionsAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
+  ids: [
+    'collections-hub',
+    'solutions-hub',
+    'docs-installation',
+    'collection-agent-workflows',
+    'collection-devops',
+    'collection-framework',
+    'collection-nextjs',
+    'collection-react',
+    'collection-community',
+  ],
+});
+const solutionsAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['blog-how-to-install-ai-agent-skills', 'blog-ide-comparison'],
+});
+const solutionsPriorityNextSteps = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['collection-official-trusted-tools', 'docs-installation', 'docs-cli-overview', 'solution-agent-workflows'],
+});
 
 const faqItems = [
   {
@@ -57,6 +86,10 @@ const faqItems = [
     ),
   },
 ];
+const solutionsHubUpdatedAt = '2026-04-20';
+const solutionsHubSignificantLinks = solutionsPriorityNextSteps
+  .slice(0, 4)
+  .map((surface) => `https://killer-skills.com${surface.href}`);
 ---
 
 <Layout
@@ -65,6 +98,9 @@ const faqItems = [
   description={pageDescription}
   keywords={pageKeywords}
   customCanonical={canonicalUrl}
+  noindex={!isIndexableLocale}
+  availableLocales={availableLocales}
+  xDefaultLocale={canonicalLocale}
 >
   <Fragment slot="head">
     <script
@@ -87,6 +123,25 @@ const faqItems = [
             url: `https://killer-skills.com${item.href}`,
           })),
         },
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: canonicalUrl,
+        inLanguage: typedLocale,
+        dateModified: solutionsHubUpdatedAt,
+        isPartOf: { '@type': 'WebSite', name: 'Killer-Skills', url: 'https://killer-skills.com' },
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+        },
+        significantLink: solutionsHubSignificantLinks,
       })}
     />
     <script
@@ -143,31 +198,94 @@ const faqItems = [
         }
       </section>
 
-      <section class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-        <a
-          href={`/${locale}/skills`}
-          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-        >
-          {tr('Solutions.browseSkills', 'Browse Full Skills Directory')}
-        </a>
-        <a
-          href={`/${locale}/docs/installation`}
-          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-        >
-          {tr('Solutions.readDocs', 'Read Installation Docs')}
-        </a>
-        <a
-          href={`/${locale}/cli`}
-          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-        >
-          {tr('Solutions.installCli', 'Install via CLI')}
-        </a>
-        <a
-          href={`/${locale}/labs/skill-try`}
-          class="border-2 border-[var(--border)] p-5 font-mono text-sm font-bold hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
-        >
-          {tr('Solutions.tryDemo', 'Try Skill Online Demo')}
-        </a>
+      <section
+        class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+      >
+        <div class="max-w-3xl mb-8">
+          <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+            {isZhCopy ? '高意图承接面' : 'High-Intent Continuation'}
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+            {
+              isZhCopy
+                ? '先用场景页收口问题，再继续进入可信安装和工作流路径'
+                : 'Use Solutions to Narrow the Problem, Then Continue Into Trusted Install and Workflow Paths'
+            }
+          </h2>
+          <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+            {
+              isZhCopy
+                ? '如果用户已经知道自己要解决哪类工作流问题，solutions 的任务就是先帮他缩小下一步，再把动作交给官方可信合集、安装文档、CLI 总览或更具体的场景页。'
+                : 'When users already know the kind of workflow problem they need to solve, solutions should narrow the next move first, then hand the action into trusted collections, installation docs, CLI guidance, or a more specific scenario page.'
+            }
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5 mb-5">
+          {
+            solutionsAuthoritySurfaces.map((surface) => (
+              <a
+                href={surface.href}
+                class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+              >
+                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
+                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
+              </a>
+            ))
+          }
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {
+            solutionsAuthorityGuides.map((surface) => (
+              <a
+                href={surface.href}
+                class="border-2 border-[var(--border)] bg-[var(--background)] p-5 hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors"
+              >
+                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
+                <p class="text-sm leading-6 font-medium opacity-80">{surface.description}</p>
+              </a>
+            ))
+          }
+        </div>
+      </section>
+
+      <section
+        class="border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+      >
+        <div class="max-w-3xl mb-6">
+          <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+            {isZhCopy ? '优先下一步' : 'Priority Next Steps'}
+          </div>
+          <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+            {
+              isZhCopy
+                ? '别回到全量目录，直接进入更强的承接面'
+                : 'Skip the Full Directory and Move Into Stronger Next-Step Surfaces'
+            }
+          </h2>
+          <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+            {
+              isZhCopy
+                ? '当你已经从 solutions 里确定了问题类型，下一步更适合进入可信合集、安装文档、CLI 总览或 agent workflow 场景页，而不是重新浏览全量 skills。'
+                : 'Once the problem type is clear, the next click should usually go into trusted collections, installation docs, CLI guidance, or the agent workflow scenario page instead of the full skills directory.'
+            }
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          {
+            solutionsPriorityNextSteps.map((surface) => (
+              <a
+                href={surface.href}
+                class="border-[3px] border-[var(--border)] p-5 bg-[var(--background)] hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+              >
+                <h2 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h2>
+                <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
+              </a>
+            ))
+          }
+        </div>
       </section>
     </main>
   </div>

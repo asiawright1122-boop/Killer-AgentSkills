@@ -7,6 +7,7 @@ import { ArrowRight, LayoutGrid, Layers } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../lib/collection-slugs';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
 
@@ -20,13 +21,13 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 const canonicalUrl = `https://killer-skills.com/${locale}/collections`;
+const isZhCopy = typedLocale.startsWith('zh');
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
 // Load all collections
 const collectionsCol = getCanonicalCollections(await getCollection('collections'));
-collectionsCol.sort((a, b) => b.id.localeCompare(a.id)); // Simple sort by ID/Slug
 
 // Extract localized text safely
 const resolveLocalized = (field: string | Record<string, string> | undefined, fallback: string = '') => {
@@ -34,11 +35,15 @@ const resolveLocalized = (field: string | Record<string, string> | undefined, fa
   if (typeof field === 'string') return field;
   return field[typedLocale] || field['en'] || fallback;
 };
+const resolveLocalizedHref = (href: string | undefined) => (href ? href.replaceAll('{locale}', locale) : '');
 
-const collectionsSeoTitle = tr('Collections.seoTitle', 'AI Agent Skill Collections');
+const collectionsSeoTitle = tr(
+  'Collections.seoTitle',
+  'Curated AI Agent Skill Collections for Claude Code, Cursor & Windsurf',
+);
 const collectionsSeoDescription = tr(
   'Collections.seoDescription',
-  'Explore curated AI agent skill collections and workflow bundles.',
+  'Browse curated AI agent skill collections with trusted picks, workflow bundles, and next-step installation paths for Claude Code, Cursor, and Windsurf.',
 );
 const collectionsSeoKeywords = buildKeywordString(
   t,
@@ -51,6 +56,128 @@ const collectionsSeoKeywords = buildKeywordString(
   'Killer-Skills',
 );
 const workflowLinks = getSolutionIntents(typedLocale).slice(0, 3);
+const collectionsAuthorityAnchorIds = ['collection-official-trusted-tools', 'collection-agent-workflows'];
+const collectionsAuthoritySurfaces = [
+  ...getAuthoritySurfaceEntries(typedLocale, { ids: collectionsAuthorityAnchorIds }),
+  ...getAuthoritySurfaceEntries(typedLocale, { placement: 'collections' })
+    .filter((surface) => surface.surfaceClass === 'collection' && !collectionsAuthorityAnchorIds.includes(surface.id))
+    .slice(0, 10),
+];
+const collectionsSupportingSurface = getAuthoritySurfaceEntries(typedLocale, {
+  ids: ['skills-directory'],
+  includeSupporting: true,
+})[0];
+const collectionRecoveryPriority = [
+  ...getAuthoritySurfaceEntries(typedLocale, { placement: 'collections' })
+    .filter((surface) => surface.surfaceClass === 'collection')
+    .map((surface) => surface.href.split('/').pop() || '')
+    .filter(Boolean),
+  'top-ai-assistant-workflow-tools-developers',
+  'top-agent-workflow-automation-tools',
+];
+const collectionPriorityMap = new Map([...new Set(collectionRecoveryPriority)].map((slug, index) => [slug, index]));
+collectionsCol.sort((a, b) => {
+  const aSlug = getCollectionCanonicalSlug(a);
+  const bSlug = getCollectionCanonicalSlug(b);
+  const aPriority = collectionPriorityMap.get(aSlug);
+  const bPriority = collectionPriorityMap.get(bSlug);
+
+  if (aPriority !== undefined && bPriority !== undefined && aPriority !== bPriority) {
+    return aPriority - bPriority;
+  }
+
+  if (aPriority !== undefined) return -1;
+  if (bPriority !== undefined) return 1;
+
+  if (Boolean(a.data.featured) !== Boolean(b.data.featured)) {
+    return Number(Boolean(b.data.featured)) - Number(Boolean(a.data.featured));
+  }
+
+  if (Boolean(a.data.editorial?.reviewSummary) !== Boolean(b.data.editorial?.reviewSummary)) {
+    return Number(Boolean(b.data.editorial?.reviewSummary)) - Number(Boolean(a.data.editorial?.reviewSummary));
+  }
+
+  return aSlug.localeCompare(bSlug);
+});
+const collectionsInstallBridgeCards = [
+  {
+    badge: isZhCopy ? '第 1 步 / 主路径' : 'Step 1 / Primary Path',
+    title: isZhCopy ? '第 1 步：打开安装文档' : 'Step 1: Open the installation docs',
+    description: isZhCopy
+      ? '如果你已经开始比较合集，下一步不应该是随机打开更多仓库，而是先确定统一的安装与验证路径。'
+      : 'If you are already comparing collections, the next move should be a unified install and validation path, not more random repository browsing.',
+    href: `/${locale}/docs/installation`,
+  },
+  {
+    badge: isZhCopy ? '第 2 步 / CLI' : 'Step 2 / CLI',
+    title: isZhCopy ? '第 2 步：确认 CLI 写入与同步行为' : 'Step 2: Check CLI write and sync behavior',
+    description: isZhCopy
+      ? '先看清 CLI 会写入哪些 IDE 原生文件，再决定如何把合集里的技能纳入团队栈。'
+      : 'Review which IDE-native files the CLI writes before you standardize any collection into a team stack.',
+    href: `/${locale}/docs/cli/overview`,
+  },
+  {
+    badge: isZhCopy ? '第 3 步 / 可信复核' : 'Step 3 / Trusted Recheck',
+    title: isZhCopy ? '第 3 步：安装后再用可信合集复核' : 'Step 3: Cross-check with trusted picks',
+    description: isZhCopy
+      ? '当安装路径和 CLI 验证已经明确，再用可信起步合集复核是否值得推广到团队。'
+      : 'Once installation and CLI validation are clear, use the trusted starter collection to sanity-check whether a tool belongs in the team stack.',
+    href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+  },
+];
+const collectionStartTracks = [
+  {
+    badge: isZhCopy ? '低风险起步' : 'Lower-Risk Start',
+    title: isZhCopy ? '先从可信起步合集开始' : 'Start With the Trusted Starter Collection',
+    description: isZhCopy
+      ? '如果你当前最重要的是先选一条更稳的路径，而不是一次性看很多工具，就先从可信起步合集开始。'
+      : 'If the immediate goal is to choose a safer first path instead of comparing too many tools at once, begin with the trusted starter collection.',
+    href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+  },
+  {
+    badge: isZhCopy ? '工作流优先' : 'Workflow First',
+    title: isZhCopy ? '先打开工作流构建合集' : 'Open the Workflow Building Collection',
+    description: isZhCopy
+      ? '如果你已经知道自己在搭多步 agent 执行链路，就直接进入工作流合集，而不是继续横向刷整个目录。'
+      : 'If you already know the job is building a multi-step agent workflow, go straight to the workflow collection instead of scanning the whole directory.',
+    href: `/${locale}/collections/top-agent-workflow-building-tools`,
+  },
+  {
+    badge: isZhCopy ? '场景先行' : 'Scenario First',
+    title: isZhCopy ? '按具体问题进入方案页' : 'Enter Through a Concrete Solution Page',
+    description: isZhCopy
+      ? '如果你知道自己要解决的是 agent workflow、浏览器自动化或数据提取，就先走场景页，再决定该打开哪类合集。'
+      : 'If you already know the problem is agent workflows, browser automation, or data extraction, use the solution page first and let it decide which collection to open next.',
+    href: `/${locale}/solutions/agent-workflows`,
+  },
+];
+const reviewedCollectionCount = collectionsCol.filter((col) => Boolean(col.data.editorial?.reviewSummary)).length;
+const collectionReviewCriteria = [
+  {
+    title: isZhCopy ? '先看第一方判断' : 'Start With First-Party Judgment',
+    description: isZhCopy
+      ? '优先展示带有筛选理由、维护说明和可信下一步的合集，而不是继续平铺更多仓库。'
+      : 'Lead with collections that explain selection logic, maintenance posture, and trusted next steps instead of flattening more repository links.',
+  },
+  {
+    title: isZhCopy ? '安装路径必须清晰' : 'Installation Must Stay Clear',
+    description: isZhCopy
+      ? '合集的职责是把用户送进安装、CLI 验证与场景页，而不是把比较阶段无限拉长。'
+      : 'Collections must send users into installation, CLI validation, and scenario pages instead of extending comparison forever.',
+  },
+  {
+    title: isZhCopy ? '工作流而不是热榜' : 'Workflow Over Leaderboard',
+    description: isZhCopy
+      ? '我们优先按任务、工作流和可信交接来组织合集，而不是只按 stars 或 owner 做聚合。'
+      : 'We organize collections around jobs, workflows, and trusted handoffs instead of just stars or owner aggregation.',
+  },
+  {
+    title: isZhCopy ? '目录只是参考层' : 'Directory Is Supporting Only',
+    description: isZhCopy
+      ? '全量目录仍然可用，但它是精选发现之后的参考层，不是这个页面想让你优先点开的入口。'
+      : 'The full directory remains available, but it is supporting context after curated discovery, not the entry this page wants users to open first.',
+  },
+];
 const faqItems = [
   {
     question: tr('Collections.faq1Q', 'What is a collection?'),
@@ -171,28 +298,202 @@ const breadcrumb = buildBreadcrumbTrail(
           </p>
         </div>
 
-        <section class="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div class="max-w-3xl">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '先选哪一类入口' : 'Choose the Right Entry Track'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {
+                  isZhCopy
+                    ? '先判断你现在需要的是可信起点、工作流合集，还是场景方案页'
+                    : 'Decide Whether You Need a Trusted Start, a Workflow Collection, or a Scenario Page First'
+                }
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {
+                  isZhCopy
+                    ? 'Collections hub 不该只是把全部合集排给你。它应该先帮你判断：你现在该从更稳的可信集合起步，还是直接进入工作流构建集合，或先用场景页收口问题。'
+                    : 'The collections hub should not just flatten every collection onto one page. It should help users decide whether the next click belongs to a safer trusted collection, a workflow-building bundle, or a scenario page that narrows the problem first.'
+                }
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {
+              collectionStartTracks.map((item) => (
+                <a
+                  href={item.href}
+                  class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                >
+                  <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                    {item.badge}
+                  </div>
+                  <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div class="max-w-3xl">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '主安装承接路径' : 'Primary Install Bridge'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {
+                  isZhCopy
+                    ? '合集页的下一步应该是安装，而不是继续盲逛'
+                    : 'The Next Step From Collections Should Be Installation'
+                }
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {
+                  isZhCopy
+                    ? '合集总页的任务，不只是帮助用户比较主题，还要把他们送进统一的安装、验证和高信任收口路径。'
+                    : 'The collections hub should not only help users compare themes. It should move them into a unified install, validation, and trusted decision path.'
+                }
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {
+              collectionsInstallBridgeCards.map((item) => (
+                <a
+                  href={item.href}
+                  class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                >
+                  <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                    {item.badge}
+                  </div>
+                  <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
+                </a>
+              ))
+            }
+          </div>
+        </section>
+
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div class="max-w-3xl">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '精选合集路径' : 'Curated Collection Paths'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {
+                  isZhCopy
+                    ? 'Collections 应该帮助决策，而不只是继续浏览'
+                    : 'Collections Should Help You Choose, Not Just Browse'
+                }
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {
+                  isZhCopy
+                    ? '合集页真正的价值，不是再多包一层仓库链接，而是通过精选路径、安装桥梁和下一步承接，把比较变成更容易执行的决策。'
+                    : 'The real value of collection pages is not wrapping more repository links. It is turning comparison into a more executable decision through curated paths, install bridges, and better next-step guidance.'
+                }
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            {
+              collectionsAuthoritySurfaces.map((surface) => (
+                <a
+                  href={surface.href}
+                  class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
+                >
+                  <h3 class="text-lg font-black uppercase tracking-tight mb-2">{surface.title}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-3">{surface.description}</p>
+                </a>
+              ))
+            }
+          </div>
+
           {
-            workflowLinks.map((item) => (
-              <a
-                href={item.href}
-                class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all duration-200"
-              >
-                <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.query}</div>
-                <h2 class="text-xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
-                <p class="text-sm font-medium opacity-80 leading-6">{item.cardDescription}</p>
-              </a>
-            ))
+            collectionsSupportingSurface && (
+              <div class="mt-6 flex flex-wrap items-center gap-3 border-t-2 border-[var(--border)] pt-5">
+                <span class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
+                  {isZhCopy ? '参考目录入口' : 'Reference Directory'}
+                </span>
+                <a
+                  href={collectionsSupportingSurface.href}
+                  class="inline-flex items-center px-4 py-2 border-2 border-[var(--border)] text-xs font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors"
+                >
+                  {collectionsSupportingSurface.title} →
+                </a>
+              </div>
+            )
           }
         </section>
 
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
+            <div class="max-w-3xl">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '合集评审方式' : 'How Collections Are Reviewed'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {
+                  isZhCopy
+                    ? '我们先评审合集，再把目录留作参考'
+                    : 'We Review Collections First And Keep The Directory Secondary'
+                }
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {
+                  isZhCopy
+                    ? `当前共有 ${reviewedCollectionCount} / ${collectionsCol.length} 个合集带有明确的编辑审查说明。首页、搜索入口和方案页更应该优先把流量交给这些有筛选逻辑的合集，而不是继续送回泛浏览路径。`
+                    : `${reviewedCollectionCount} of ${collectionsCol.length} collections currently carry explicit editorial review notes. Home, search, and solution pages should lead with these reviewed collections before sending users back into generic browse paths.`
+                }
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+            {
+              collectionReviewCriteria.map((item) => (
+                <article class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 shadow-[6px_6px_0px_0px_var(--border)]">
+                  <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
+                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
+                </article>
+              ))
+            }
+          </div>
+        </section>
+
         {/* Collections Grid */}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="collections-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {
             collectionsCol.map((col) => {
               const title = resolveLocalized(col.data.title, 'Untitled Collection');
               const description = resolveLocalized(col.data.description, '');
               const cleanSlug = getCollectionCanonicalSlug(col);
+              const reviewSummary = resolveLocalized(col.data.editorial?.reviewSummary, '');
+              const isReviewedCollection = Boolean(reviewSummary);
+              const nextStepRaw = col.data.editorial?.nextSteps?.[0];
+              const nextStep = nextStepRaw
+                ? {
+                    href: resolveLocalizedHref(nextStepRaw.href),
+                    label: resolveLocalized(nextStepRaw.label, ''),
+                    description: resolveLocalized(nextStepRaw.description, ''),
+                  }
+                : null;
 
               return (
                 <article
@@ -216,6 +517,14 @@ const breadcrumb = buildBreadcrumbTrail(
                     )}
                   </div>
 
+                  {isReviewedCollection && (
+                    <div class="relative z-0 mb-4 pointer-events-none">
+                      <span class="inline-flex items-center px-2 py-1 text-[10px] font-black bg-[var(--foreground)] text-[var(--background)] border-2 border-[var(--foreground)] uppercase tracking-widest">
+                        {isZhCopy ? '[ 已审查 ]' : '[ Reviewed ]'}
+                      </span>
+                    </div>
+                  )}
+
                   {/* Content */}
                   <h3 class="relative z-0 mb-4 line-clamp-2 text-2xl font-black uppercase tracking-tight text-[var(--foreground)] pointer-events-none">
                     {title}
@@ -225,13 +534,35 @@ const breadcrumb = buildBreadcrumbTrail(
                     {description}
                   </p>
 
+                  {nextStep && (
+                    <a
+                      href={nextStep.href}
+                      class="relative z-20 mb-5 block border-2 border-[var(--border)] bg-[var(--card)] p-4 pointer-events-auto hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                      aria-label={`${isZhCopy ? '打开建议下一步' : 'Open recommended next step'}: ${nextStep.label}`}
+                    >
+                      <div class="mb-2 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                        {isZhCopy ? '建议下一步' : 'Recommended Next Step'}
+                      </div>
+                      <p class="text-sm font-black leading-6 text-[var(--foreground)]">{nextStep.label}</p>
+                      <p class="mt-2 text-xs leading-5 font-medium text-[var(--muted-foreground)] line-clamp-2">
+                        {nextStep.description}
+                      </p>
+                    </a>
+                  )}
+
+                  {reviewSummary && (
+                    <p class="relative z-0 mb-5 text-xs leading-5 font-bold text-[var(--foreground)]/80 pointer-events-none line-clamp-3">
+                      {reviewSummary}
+                    </p>
+                  )}
+
                   {/* Footer */}
                   <div class="relative z-0 mt-auto flex items-center justify-between border-t-2 border-[var(--border)] pt-4 font-mono pointer-events-none">
                     <div class="text-xs font-bold text-[var(--foreground)]">
                       [{col.data.skills.length} {tr('Collections.items', 'items')}]
                     </div>
                     <div class="flex items-center gap-1 text-[var(--primary)] font-bold uppercase text-sm group-hover:translate-x-1 transition-transform">
-                      {tr('Collections.view', 'View')} <ArrowRight size={16} strokeWidth={3} />
+                      {isZhCopy ? '查看合集路径' : 'Open Collection Path'} <ArrowRight size={16} strokeWidth={3} />
                     </div>
                   </div>
                 </article>
@@ -249,6 +580,36 @@ const breadcrumb = buildBreadcrumbTrail(
         </div>
 
         <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="md:col-span-3 max-w-3xl">
+            <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+              {isZhCopy ? '安装后的场景页' : 'Scenario Pages After Installation'}
+            </div>
+            <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+              {isZhCopy ? '安装与验证路径明确后，再进入具体场景' : 'Explore Workflow Scenarios After Setup'}
+            </h2>
+            <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+              {
+                isZhCopy
+                  ? '当安装文档和 CLI 验证路径已经明确，再用这些场景页继续判断应该把哪类合集纳入你的实际工作流。'
+                  : 'Once the install guide and CLI validation path are clear, use these scenario pages to decide which collection direction best matches your real workflow.'
+              }
+            </p>
+          </div>
+          {
+            workflowLinks.map((item) => (
+              <a
+                href={item.href}
+                class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_0px_var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all duration-200"
+              >
+                <div class="mb-3 text-xs font-mono font-black uppercase tracking-widest">{item.query}</div>
+                <h2 class="text-xl font-black uppercase tracking-tight mb-2">{item.label}</h2>
+                <p class="text-sm font-medium opacity-80 leading-6">{item.cardDescription}</p>
+              </a>
+            ))
+          }
+        </section>
+
+        <section class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {
             faqItems.map((item) => (
               <article class="brut-card p-6 bg-[var(--background)] border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)]">
@@ -260,5 +621,42 @@ const breadcrumb = buildBreadcrumbTrail(
         </section>
       </div>
     </main>
+
+    <div
+      class="sticky bottom-0 z-40 border-t-4 border-[var(--border)] bg-[var(--background)] shadow-[0_-4px_0px_0px_var(--border)]"
+    >
+      <div
+        class="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-3"
+      >
+        <div class="flex items-center gap-3 text-sm font-bold text-[var(--foreground)]">
+          <span
+            class="hidden sm:inline px-2 py-1 text-[10px] font-black uppercase tracking-widest bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--primary)]"
+          >
+            {isZhCopy ? '安装优先' : 'Install First'}
+          </span>
+          <span class="font-mono text-[var(--muted-foreground)] hidden md:inline">
+            {
+              isZhCopy
+                ? '先打开安装文档，再用合集缩小范围；标准化前先回到可信起步合集复核。'
+                : 'Open the install guide first, use collections to narrow the shortlist, then cross-check trusted picks before standardizing.'
+            }
+          </span>
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <a
+            href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
+            class="flex-1 sm:flex-initial inline-flex items-center justify-center px-4 py-2.5 bg-[var(--background)] text-[var(--foreground)] font-bold text-xs uppercase border-2 border-[var(--foreground)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+          >
+            {isZhCopy ? '先看可信合集' : 'Start With Trusted Picks'}
+          </a>
+          <a
+            href={`/${locale}/docs/installation`}
+            class="shrink-0 px-4 py-2.5 bg-[var(--primary)] text-[var(--primary-foreground)] font-bold text-xs uppercase border-2 border-[var(--primary)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+          >
+            {isZhCopy ? '打开安装指南' : 'Open Install Guide'} →
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </Layout>
