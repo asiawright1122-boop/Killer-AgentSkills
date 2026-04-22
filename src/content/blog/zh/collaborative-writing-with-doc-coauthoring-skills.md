@@ -59,10 +59,10 @@ npx killer-skills add anthropics/skills/doc-coauthoring
 
 `doc-coauthoring` 技能将 AI 辅助写作提升到一个新的高度。它将原本单调、耗费精力的任务转变为结构化的、高质量的对话。
 
-访问 Killer-Skills 技能目录中的 [doc-coauthoring 技能](https://killer-skills.com/zh/skills/anthropics/skills/doc-coauthoring)，开始编写真正有效的文档。
+访问 Killer-Skills 技能目录中的 [doc-coauthoring 技能](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring)，开始编写真正有效的文档。
 
 ---
-* 需要完成格式化？将其与 [docx 技能](https://killer-skills.com/zh/skills/anthropics/skills/docx) 配对，实现专业的 Word 导出。*
+* 需要完成格式化？将其与 [docx 技能](https://killer-skills.com/en/skills/anthropics/skills/docx) 配对，实现专业的 Word 导出。*
 
 ---
 * 相关：[什么是 AI 代理技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最好的 AI 代理技能](/zh/blog/best-ai-agent-skills-2026)*

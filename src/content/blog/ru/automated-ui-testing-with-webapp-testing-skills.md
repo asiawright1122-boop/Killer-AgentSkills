@@ -44,7 +44,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 ## Практические случаи использования
 
 ### Непрерывная валидация интерфейса
-Каждый раз, когда вы рефакторите компонент [frontend-design](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design), пусть агент запускает скрипт `webapp-testing`, чтобы убедиться, что кнопки все еще кликаются, а формы все еще отправляются.
+Каждый раз, когда вы рефакторите компонент [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design), пусть агент запускает скрипт `webapp-testing`, чтобы убедиться, что кнопки все еще кликаются, а формы все еще отправляются.
 
 ### Отладка на нескольких браузерах
 Пусть агент создаст экземпляр Chromium без интерфейса, чтобы воспроизвести ошибку, сообщенную пользователем, захватывая экраны и журналы консоли на протяжении всего процесса для немедленного анализа.
@@ -60,11 +60,11 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 Навык `webapp-testing` является последней частью пазла профессионального развития. Он гарантирует, что красивый код, написанный вашим агентом, также является **надежным кодом**. Включая автоматизированное тестирование в рабочий процесс агента, он позволяет вам выпускать продукты с полной уверенностью.
 
-Перейдите к навыку [webapp-testing](https://killer-skills.com/ru/skills/anthropics/skills/webapp-testing) в каталоге навыков Killer-Skills и начните создавать надёжные фронтенды уже сегодня.
+Перейдите к навыку [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) в каталоге навыков Killer-Skills и начните создавать надёжные фронтенды уже сегодня.
 
 ---
 
-*Хотите построить интерфейс пользователя сначала? Посетите страницу навыка [дизайна фронтенда](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design).*
+*Хотите построить интерфейс пользователя сначала? Посетите страницу навыка [дизайна фронтенда](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 

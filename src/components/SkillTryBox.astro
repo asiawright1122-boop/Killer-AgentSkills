@@ -50,6 +50,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
     <a
       href={`/${locale}/sandbox/${skillRef}`}
       target="_blank"
+      rel="nofollow noopener noreferrer"
       class="mt-6 inline-flex items-center justify-center px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all border-4 border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
     >
       {tr('Labs.bootSandbox', 'Boot Container Sandbox')}

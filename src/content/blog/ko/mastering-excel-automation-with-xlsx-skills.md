@@ -61,10 +61,10 @@ npx killer-skills add anthropics/skills/xlsx
 
 `xlsx` 스킬은 AI 에이전트를 데이터 과학자와 재무 분석가로 변모시킵니다. 스프레드시트가 단순한 숫자의 집합이 아닌, 더 나은 비즈니스 의사결정을 위한 강력하고 동적인 도구가 되도록 보장합니다.
 
-Killer-Skills 디렉터리에서 [xlsx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/xlsx)을 확인하고 오늘부터 더 똑똑한 데이터 작업을 시작하세요.
+Killer-Skills 디렉터리에서 [xlsx 스킬](https://killer-skills.com/en/skills/anthropics/skills/xlsx)을 확인하고 오늘부터 더 똑똑한 데이터 작업을 시작하세요.
 
 ---
-* 결과를 제시해야 합니까? 자동화된 피치 덱을 위해 [pptx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/pptx)과 함께 사용하세요.
+* 결과를 제시해야 합니까? 자동화된 피치 덱을 위해 [pptx 스킬](https://killer-skills.com/en/skills/anthropics/skills/pptx)과 함께 사용하세요.
 
 ---
 * 관련: [AI 에이전트 스킬이란 무엇인가?](/ko/blog/what-are-ai-agent-skills) 및 [2026년을 위한 최고의 AI 에이전트 스킬](/ko/blog/best-ai-agent-skills-2026)

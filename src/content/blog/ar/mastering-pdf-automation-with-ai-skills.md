@@ -84,7 +84,7 @@ npx killer-skills add anthropics/skills/pdf
 
 ---
 
-_هل تحتاج إلى إنشاء مستندات Word قابلة للتحرير بدلاً من ذلك؟ قم بزيارة مهارة [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx)._
+_هل تحتاج إلى إنشاء مستندات Word قابلة للتحرير بدلاً من ذلك؟ قم بزيارة مهارة [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)._
 
 ---
 

@@ -44,7 +44,7 @@ A habilidade incentiva um padrão de teste sofisticado:
 ## Casos de Uso Práticos
 
 ### Validação Contínua de UI
-Toda vez que você refatora um componente de [frontend-design](https://killer-skills.com/pt/skills/anthropics/skills/frontend-design), faça com que o agente execute um script de `webapp-testing` para garantir que os botões ainda funcionem e os formulários ainda sejam submetidos.
+Toda vez que você refatora um componente de [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design), faça com que o agente execute um script de `webapp-testing` para garantir que os botões ainda funcionem e os formulários ainda sejam submetidos.
 
 ### Depuração Cross-Browser
 Faça com que o agente inicie uma instância headless do Chromium para reproduzir um bug relatado por um usuário, capturando telas e logs de console ao longo do caminho para análise imediata.
@@ -60,11 +60,11 @@ Automatize jornadas de usuário multi-etapas, como "Cadastro -> Pagamento -> Vis
 
 A habilidade `webapp-testing` é a peça final do quebra-cabeça do desenvolvimento profissional. Ela garante que o código bonito que o seu agente escreve também seja um **código confiável**. Ao trazer a QA automatizada para o fluxo de trabalho do agente, permite que você envie com total confiança.
 
-Acesse a habilidade [webapp-testing](https://killer-skills.com/pt/skills/anthropics/skills/webapp-testing) no diretório de skills do Killer-Skills e comece hoje a criar frontends à prova de falhas.
+Acesse a habilidade [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) no diretório de skills do Killer-Skills e comece hoje a criar frontends à prova de falhas.
 
 ---
 
-*Quer construir a UI primeiro? Confira a habilidade [frontend-design](https://killer-skills.com/pt/skills/anthropics/skills/frontend-design).*
+*Quer construir a UI primeiro? Confira a habilidade [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 

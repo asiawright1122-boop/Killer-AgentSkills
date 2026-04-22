@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { CATEGORY_DEFS, getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
-import { getLightweightSkills } from '../../../lib/skills';
+import { getLightweightSkillsCategorySummary } from '../../../lib/skills';
 import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 
@@ -21,33 +21,20 @@ const canonicalUrl = `https://killer-skills.com/${locale}/categories`;
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
 
-// Use lightweight listing query to avoid full JSON scan on category landing pages.
-const skills = await getLightweightSkills(env).catch(() => []);
+// Use lightweight aggregate query to avoid full-table scans on category landing pages.
+const categorySummary = await getLightweightSkillsCategorySummary(env).catch(() => ({ total: 0, categories: [] }));
+const totalSkillCount = categorySummary.total || 0;
 
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const categoryColors: Record<string, string> = {
-  cyan: 'text-cyan-600 dark:text-cyan-400',
-  blue: 'text-blue-600 dark:text-blue-400',
-  sky: 'text-sky-600 dark:text-sky-400',
-  violet: 'text-violet-600 dark:text-violet-400',
-  orange: 'text-orange-600 dark:text-orange-400',
-  pink: 'text-pink-600 dark:text-pink-400',
-  amber: 'text-amber-600 dark:text-amber-400',
-  indigo: 'text-indigo-600 dark:text-indigo-400',
-  emerald: 'text-emerald-600 dark:text-emerald-400',
-  rose: 'text-rose-600 dark:text-rose-400',
-  teal: 'text-teal-600 dark:text-teal-400',
-};
-
 // Count skills per category
 const categoryCounts: Record<string, number> = {};
-for (const skill of skills) {
-  const cat = normalizeCategoryId(skill.category) || 'other';
-  categoryCounts[cat] = (categoryCounts[cat] || 0) + 1;
+for (const entry of categorySummary.categories) {
+  const cat = normalizeCategoryId(entry.category) || 'other';
+  categoryCounts[cat] = (categoryCounts[cat] || 0) + Number(entry.count || 0);
 }
 
 // Build category data with counts
@@ -60,7 +47,7 @@ const categories = CATEGORY_DEFS.map((def) => ({
 const pageTitle = tr('Categories.pageTitle', 'AI Agent Skill Categories by Use Case');
 const pageDescription = tr(
   'Categories.pageDescription',
-  `Browse ${skills.length}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`,
+  `Browse ${totalSkillCount}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`,
 );
 
 const topCategoryIds = [...categories]
@@ -101,7 +88,7 @@ const faqItems = [
     question: tr('Categories.faq2Q', 'How many skills are indexed on Killer-Skills?'),
     answer: tr(
       'Categories.faq2A',
-      `Killer-Skills currently indexes ${skills.length}+ AI agent skills, with the most active categories including ${topCategoryNames.join(', ')}.`,
+      `Killer-Skills currently indexes ${totalSkillCount}+ AI agent skills, with the most active categories including ${topCategoryNames.join(', ')}.`,
     ),
   },
   {
@@ -369,7 +356,7 @@ const faqItems = [
 
           <div class="mt-16 text-center border-t-4 border-[var(--border)] pt-12">
             <p class="text-[var(--foreground)] font-mono font-bold text-lg mb-6">
-              [ {skills.length}
+              [ {totalSkillCount}
               {t('Marketplace.availableSkills').toUpperCase()} INDEXED ]
             </p>
             <a

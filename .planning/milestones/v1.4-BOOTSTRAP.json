@@ -1,0 +1,60 @@
+{
+  "milestone": "v1.4",
+  "milestoneName": "Traffic Recovery Closure",
+  "goal": "Convert recent crawl recovery into durable indexing and traffic recovery with measurable production gates.",
+  "sourceMilestone": "v1.3",
+  "sourceMilestoneName": "Adaptive Provider Control and Escalation Automation",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.3-ROADMAP.md",
+    ".planning/milestones/v1.3-REQUIREMENTS.md",
+    ".planning/milestones/v1.3-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**AIOPS-11**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.",
+    "**GOV-09**: Publish remediation and provider-pressure state into a richer operator dashboard beyond repo-local reports.",
+    "**UX-EXP-01**: Expand public discovery surfaces only after operator automation is strong enough to keep content and provider drift from silently accumulating."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "43",
+      "slug": "production-sitemap-and-dynamic-404-closure",
+      "requirements": [
+        "SEO-11",
+        "SEO-12"
+      ]
+    },
+    {
+      "number": "44",
+      "slug": "recovery-observability-and-kpi-board",
+      "requirements": [
+        "SEO-13",
+        "GOV-09"
+      ]
+    },
+    {
+      "number": "45",
+      "slug": "provider-resilience-under-recovery-guardrails",
+      "requirements": [
+        "AIOPS-11"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-11",
+    "SEO-12",
+    "SEO-13",
+    "GOV-09",
+    "AIOPS-11"
+  ]
+}

@@ -7,12 +7,19 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { execSync } from 'node:child_process';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
 
 // ===== Shared Lib Imports =====
 import * as crypto from 'crypto';
 import { AIService } from './lib/ai';
+import type { AIProviderTelemetrySnapshot } from './lib/ai';
+import {
+  getSiblingAiTelemetrySummaryPath,
+  renderAiTelemetryReport,
+  type TelemetryCheckpoint,
+} from './lib/ai-telemetry-report';
 import {
   OFFICIAL_REPOS,
   CATEGORY_RULES,
@@ -36,6 +43,9 @@ import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/typ
 import { getNonTargetSkillReason, POSITIVE_THEME_KEYWORDS, isOfficialRepo } from '../src/lib/shared/validation';
 import { isSkillFullyOptimized, collectOptimizationIssues, DEFAULT_REGEN_BATCH_SIZE, TITLE_THEME_TERMS, SEO_THEME_TERMS } from './lib/skill-quality';
 import { writeRegenerationBaselineReport } from './lib/regeneration-report';
+import { getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
+import { buildSkillLocaleGovernanceIndex } from './lib/skill-locale-governance';
+import { resolveSkillScoringPath } from './lib/skill-source';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
@@ -44,6 +54,65 @@ if (fs.existsSync('.env.local')) {
 
 // ===== Service Instances =====
 const aiService = new AIService();
+const AI_RUNTIME_REPORT_DIR = path.resolve(process.cwd(), 'reports/seo');
+const AI_RUNTIME_SUMMARY_PATH = path.join(AI_RUNTIME_REPORT_DIR, 'latest-ai-runtime-summary.md');
+const AI_RUNTIME_JSON_PATH = path.join(AI_RUNTIME_REPORT_DIR, 'latest-ai-runtime-summary.json');
+
+type AiRuntimeSummaryContext = {
+  startedAt: string;
+  selectedBatchNumber: number;
+  batchPlanPath: string;
+  selectedBatchIds: Set<string> | null;
+  completedBatchIds: Set<string>;
+  skippedBatchIds: Set<string>;
+  failedBatchEntries: Array<{ id: string; error: string }>;
+};
+
+let globalAiRuntimeSummaryContext: AiRuntimeSummaryContext | null = null;
+let globalPauseBatchProgress: (() => void) | null = null;
+
+function persistAiRuntimeSummary(status: string): void {
+  if (!globalAiRuntimeSummaryContext) return;
+
+  const {
+    startedAt,
+    selectedBatchNumber,
+    batchPlanPath,
+    selectedBatchIds,
+    completedBatchIds,
+    skippedBatchIds,
+    failedBatchEntries,
+  } = globalAiRuntimeSummaryContext;
+
+  const runtimeCheckpoint: TelemetryCheckpoint = {
+    status,
+    batch: selectedBatchNumber > 0 ? selectedBatchNumber : undefined,
+    batchPlanPath: selectedBatchNumber > 0 ? path.relative(process.cwd(), batchPlanPath) : undefined,
+    startedAt,
+    lastUpdated: new Date().toISOString(),
+    selectedCount: selectedBatchIds?.size,
+    completedIds: selectedBatchIds ? Array.from(completedBatchIds).sort() : undefined,
+    skippedIds: selectedBatchIds ? Array.from(skippedBatchIds).sort() : undefined,
+    failedIds: selectedBatchIds ? failedBatchEntries.slice() : undefined,
+    pendingIds:
+      selectedBatchIds
+        ? Array.from(selectedBatchIds).filter(
+            (id) =>
+              !completedBatchIds.has(id) &&
+              !skippedBatchIds.has(id) &&
+              !failedBatchEntries.some((entry) => entry.id === id),
+          )
+        : undefined,
+    aiTelemetry: aiService.getTelemetrySnapshot(),
+  };
+
+  fs.mkdirSync(AI_RUNTIME_REPORT_DIR, { recursive: true });
+  fs.writeFileSync(AI_RUNTIME_JSON_PATH, JSON.stringify(runtimeCheckpoint, null, 2));
+  fs.writeFileSync(
+    AI_RUNTIME_SUMMARY_PATH,
+    renderAiTelemetryReport(runtimeCheckpoint, AI_RUNTIME_JSON_PATH, runtimeCheckpoint.lastUpdated),
+  );
+}
 
 function getThemeExclusionReason(skill: {
   name?: string;
@@ -66,7 +135,7 @@ function getThemeExclusionReason(skill: {
     owner,
     repo,
     body: skill.body || '',
-    description,
+    description: skill.description,
     topics: skill.topics || [],
     category: skill.category,
     filePath: skill.filePath,
@@ -223,7 +292,7 @@ function calculateQualityScore(skill: SkillCache): number {
     owner: skill.owner,
     repo: skill.repo,
     body: bodyRaw,
-    repoPath: skill.repoPath,
+    repoPath: resolveSkillScoringPath(skill.filePath, skill.repoPath),
     description: desc,
     stars: skill.stars,
     updatedAt: skill.updatedAt,
@@ -233,6 +302,7 @@ function calculateQualityScore(skill: SkillCache): number {
 }
 
 const MIN_INDEXABLE_SKILL_CONTENT_BYTES = 200;
+const MIN_ENRICHED_FALLBACK_README_BYTES = 250;
 const skillTextEncoder = new TextEncoder();
 
 function pickPreferredLocalizedText(value: unknown): string {
@@ -250,6 +320,21 @@ function pickPreferredLocalizedText(value: unknown): string {
   return '';
 }
 
+function pickPreferredLocalizedArray(value: unknown): string[] {
+  if (!value) return [];
+  if (Array.isArray(value)) return value.map((item) => String(item || '').trim()).filter(Boolean);
+  if (typeof value !== 'object') return [];
+
+  const record = value as Record<string, unknown>;
+  const preferred = [record.en, record.zh, ...Object.values(record)];
+  for (const candidate of preferred) {
+    if (!Array.isArray(candidate)) continue;
+    const cleaned = candidate.map((item) => String(item || '').trim()).filter(Boolean);
+    if (cleaned.length > 0) return cleaned;
+  }
+  return [];
+}
+
 function getSkillFallbackDescription(skill: SkillCache): string {
   return (
     pickPreferredLocalizedText(skill.description) ||
@@ -259,27 +344,107 @@ function getSkillFallbackDescription(skill: SkillCache): string {
   );
 }
 
+function getSkillAgentFallbackDescription(skill: SkillCache): string {
+  return (
+    pickPreferredLocalizedText(skill.agentAnalysis?.recommendation) ||
+    pickPreferredLocalizedText(skill.agentAnalysis?.suitability) ||
+    ''
+  );
+}
+
 function buildSkillFallbackReadme(skill: SkillCache): string {
   const fallbackDescription = getSkillFallbackDescription(skill);
-  if (!fallbackDescription) return '';
-  return `# ${skill.name || skill.repo || 'Skill'}\n\n${fallbackDescription}`;
+  const agentFallbackDescription = getSkillAgentFallbackDescription(skill);
+  const useCases = pickPreferredLocalizedArray(skill.agentAnalysis?.useCases).slice(0, 4);
+  const limitations = pickPreferredLocalizedArray(skill.agentAnalysis?.limitations).slice(0, 3);
+  const topics = (skill.topics || []).map((topic) => String(topic || '').trim()).filter(Boolean).slice(0, 6);
+  const genericSummary =
+    fallbackDescription ||
+    agentFallbackDescription ||
+    `${skill.name || skill.repo || 'This skill'} helps AI agents handle repository-specific developer workflows. ` +
+      `It is especially relevant for ${topics.slice(0, 4).join(', ') || 'Claude Code and MCP-driven automation'} ` +
+      `setups where teams need clearer execution guidance, stronger defaults, and reusable implementation patterns.`;
+  const summary = genericSummary.trim();
+
+  if (!summary && useCases.length === 0 && limitations.length === 0 && topics.length === 0) return '';
+
+  const sections = [`# ${skill.name || skill.repo || 'Skill'}`];
+  if (summary) sections.push(summary);
+  if (useCases.length > 0) {
+    sections.push(`## Use Cases\n${useCases.map((item) => `- ${item}`).join('\n')}`);
+  }
+  if (limitations.length > 0) {
+    sections.push(`## Limitations\n${limitations.map((item) => `- ${item}`).join('\n')}`);
+  }
+  if (topics.length > 0) {
+    sections.push(`## Topics\n${topics.map((item) => `- ${item}`).join('\n')}`);
+  }
+  return sections.join('\n\n').trim();
+}
+
+function stripFallbackHeading(markdown: string): string {
+  return markdown.replace(/^# .+\n\n?/, '').trim();
 }
 
 function ensureSkillMdContent(skill: SkillCache): SkillCache {
   const body = skill.skillMd?.body || '';
   const bodyPreview = skill.skillMd?.bodyPreview || '';
-  if (body.trim().length > 0 || bodyPreview.trim().length > 0) {
-    return skill;
+  const fallbackReadme = buildSkillFallbackReadme(skill);
+  const fallbackWithoutHeading = stripFallbackHeading(fallbackReadme);
+
+  if (body.trim().length > 0) {
+    const bodyBytes = skillTextEncoder.encode(body).length;
+    if (bodyBytes >= MIN_ENRICHED_FALLBACK_README_BYTES || !fallbackWithoutHeading) {
+      return skill;
+    }
+
+    const enrichedBody = [body.trim(), fallbackWithoutHeading].filter(Boolean).join('\n\n').trim();
+    if (skillTextEncoder.encode(enrichedBody).length <= bodyBytes) {
+      return skill;
+    }
+
+    return {
+      ...skill,
+      skillMd: {
+        name: skill.skillMd?.name || skill.name || skill.repo,
+        description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
+        version: skill.skillMd?.version,
+        tags: skill.skillMd?.tags,
+        body: enrichedBody,
+        bodyPreview: enrichedBody.slice(0, 5000).trim(),
+      },
+    };
   }
 
-  const fallbackReadme = buildSkillFallbackReadme(skill);
   if (!fallbackReadme) return skill;
+
+  if (bodyPreview.trim().length > 0) {
+    const currentBytes = skillTextEncoder.encode(bodyPreview).length;
+    if (currentBytes >= MIN_ENRICHED_FALLBACK_README_BYTES) {
+      return skill;
+    }
+
+    if (skillTextEncoder.encode(fallbackReadme).length <= currentBytes) {
+      return skill;
+    }
+
+    return {
+      ...skill,
+      skillMd: {
+        name: skill.skillMd?.name || skill.name || skill.repo,
+        description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
+        version: skill.skillMd?.version,
+        tags: skill.skillMd?.tags,
+        bodyPreview: fallbackReadme.slice(0, 5000).trim(),
+      },
+    };
+  }
 
   return {
     ...skill,
     skillMd: {
       name: skill.skillMd?.name || skill.name || skill.repo,
-      description: skill.skillMd?.description || getSkillFallbackDescription(skill),
+      description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
       version: skill.skillMd?.version,
       tags: skill.skillMd?.tags,
       bodyPreview: fallbackReadme.slice(0, 5000).trim(),
@@ -299,31 +464,63 @@ function isSkillIndexableForSitemap(skill: SkillCache): boolean {
   return getSkillIndexableContentBytes(skill) >= MIN_INDEXABLE_SKILL_CONTENT_BYTES;
 }
 
+function isPublicSkillForSitemap(skill: SkillCache): boolean {
+  return !getNonTargetSkillReason({
+    name: skill.name || skill.skillName || skill.repo || '',
+    owner: skill.owner || '',
+    repo: skill.repo || '',
+    body: skill.skillMd?.body || skill.skillMd?.bodyPreview || '',
+    description: skill.description,
+    topics: Array.isArray(skill.topics) ? skill.topics : [],
+    category: skill.category,
+    filePath: skill.filePath,
+  });
+}
+
 function parseDateMs(value?: string): number {
   if (!value) return 0;
   const ms = Date.parse(value);
   return Number.isFinite(ms) ? ms : 0;
 }
 
-function buildSitemapSkillsData(skills: SkillCache[]): Array<{ owner: string; repo: string; updatedAt?: string }> {
-  const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
+function buildSitemapSkillsData(skills: SkillCache[]): SitemapSkillEntry[] {
+  const deduped = new Map<string, SitemapSkillEntry>();
 
   for (const skill of skills) {
     if (!skill.owner || !skill.repo || !isSkillIndexableForSitemap(skill)) continue;
+    if (!isPublicSkillForSitemap(skill)) continue;
     const owner = String(skill.owner).trim();
     const repo = String(skill.repo).trim();
     if (!owner || !repo) continue;
+    const routePath = getSkillRoutePath({
+      id: skill.id,
+      owner,
+      repo,
+    });
+    if (!routePath) continue;
 
     const updatedAt = skill.updatedAt || undefined;
-    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const key = `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
     const current = deduped.get(key);
 
     if (!current || parseDateMs(updatedAt) > parseDateMs(current.updatedAt)) {
-      deduped.set(key, { owner, repo, ...(updatedAt ? { updatedAt } : {}) });
+      deduped.set(key, { owner, repo, routePath, ...(updatedAt ? { updatedAt } : {}) });
     }
   }
 
   return Array.from(deduped.values()).sort((a, b) => parseDateMs(b.updatedAt) - parseDateMs(a.updatedAt));
+}
+
+function refreshGovernedSkillCorpus(): void {
+  execSync('npx tsx scripts/seo-corpus-governance.ts', {
+    stdio: 'inherit',
+  });
+}
+
+function refreshSkillIndexabilityReport(): void {
+  execSync('npx tsx scripts/seo-skill-indexability-report.ts', {
+    stdio: 'inherit',
+  });
 }
 
 async function buildCache(): Promise<void> {
@@ -416,6 +613,21 @@ async function buildCache(): Promise<void> {
   const skippedBatchIds = new Set<string>();
   let failedBatchEntries: Array<{ id: string; error: string }> = [];
   let batchProgress: Record<string, unknown> | null = null;
+  const buildStartedAt = new Date().toISOString();
+  globalAiRuntimeSummaryContext = {
+    startedAt: buildStartedAt,
+    selectedBatchNumber,
+    batchPlanPath,
+    selectedBatchIds,
+    completedBatchIds,
+    skippedBatchIds,
+    failedBatchEntries,
+  };
+  const syncAiRuntimeSummaryContext = () => {
+    if (!globalAiRuntimeSummaryContext) return;
+    globalAiRuntimeSummaryContext.selectedBatchIds = selectedBatchIds;
+    globalAiRuntimeSummaryContext.failedBatchEntries = failedBatchEntries;
+  };
 
   const persistBatchProgress = () => {
     if (!batchProgress || !selectedBatchIds) return;
@@ -424,6 +636,7 @@ async function buildCache(): Promise<void> {
     batchProgress = {
       ...batchProgress,
       lastUpdated: new Date().toISOString(),
+      aiTelemetry: aiService.getTelemetrySnapshot(),
       completedIds: Array.from(completedBatchIds).sort(),
       skippedIds: Array.from(skippedBatchIds).sort(),
       failedIds: failedBatchEntries,
@@ -433,6 +646,22 @@ async function buildCache(): Promise<void> {
     };
     fs.mkdirSync(path.dirname(checkpointPath), { recursive: true });
     fs.writeFileSync(checkpointPath, JSON.stringify(batchProgress, null, 2));
+    const telemetrySummaryPath = getSiblingAiTelemetrySummaryPath(checkpointPath);
+    fs.writeFileSync(
+      telemetrySummaryPath,
+      renderAiTelemetryReport(batchProgress as BatchCheckpoint, checkpointPath, new Date().toISOString()),
+    );
+    persistAiRuntimeSummary(String((batchProgress as BatchCheckpoint).status || 'running'));
+  };
+
+  globalPauseBatchProgress = () => {
+    if (!batchProgress || !selectedBatchIds) return;
+    batchProgress = {
+      ...batchProgress,
+      status: 'paused',
+      completedAt: null,
+    };
+    persistBatchProgress();
   };
 
   const recordBatchCompletion = (id: string, status: 'completed' | 'skipped', error?: string) => {
@@ -445,6 +674,7 @@ async function buildCache(): Promise<void> {
     } else {
       failedBatchEntries = failedBatchEntries.filter((entry) => entry.id !== id);
     }
+    syncAiRuntimeSummaryContext();
     persistBatchProgress();
   };
 
@@ -455,6 +685,7 @@ async function buildCache(): Promise<void> {
       id,
       error: error instanceof Error ? error.message : String(error),
     });
+    syncAiRuntimeSummaryContext();
     persistBatchProgress();
   };
 
@@ -490,6 +721,7 @@ async function buildCache(): Promise<void> {
       lastId?: string;
       topReasons?: Array<[string, number]>;
       startedAt?: string;
+      aiTelemetry?: AIProviderTelemetrySnapshot;
     };
 
     let batchEntry: BatchPlanEntry | undefined;
@@ -498,6 +730,7 @@ async function buildCache(): Promise<void> {
     let checkpointFirstId: string | undefined;
     let checkpointLastId: string | undefined;
     let checkpointTopReasons: Array<[string, number]> | undefined;
+    let checkpointAiTelemetry: AIProviderTelemetrySnapshot | undefined;
 
     if (resumeBatch && fs.existsSync(checkpointPath)) {
       try {
@@ -523,10 +756,16 @@ async function buildCache(): Promise<void> {
           checkpointFirstId = checkpoint.firstId;
           checkpointLastId = checkpoint.lastId;
           checkpointTopReasons = checkpoint.topReasons;
+          checkpointAiTelemetry = checkpoint.aiTelemetry;
+          syncAiRuntimeSummaryContext();
         }
       } catch (error) {
         console.warn(`⚠️ Failed to load batch checkpoint ${checkpointPath}:`, error);
       }
+    }
+
+    if (checkpointAiTelemetry) {
+      aiService.restoreTelemetrySnapshot(checkpointAiTelemetry);
     }
 
     if (fs.existsSync(batchPlanPath)) {
@@ -559,6 +798,7 @@ async function buildCache(): Promise<void> {
     }
 
     selectedBatchIds = new Set(scopedIds);
+    syncAiRuntimeSummaryContext();
 
     console.log(
       `📦 Batch mode active: batch ${selectedBatchNumber} with ${scopedIds.length} selected skill(s) (${existingOnly ? 'existing-only' : 'full'})`,
@@ -750,39 +990,14 @@ async function buildCache(): Promise<void> {
                 }
               }
 
+              const isSingleFile = skillDir.type === 'file';
+              const skillFilePath = isSingleFile ? repo.skillsPath : `${repo.skillsPath}/${skillDir.name}`;
               let skillMdContent = '';
-              let isSingleFile = false;
 
-              if (skillDir.type === 'file') {
-                isSingleFile = true;
-                try {
-                  // Use download_url from API if available, otherwise construct raw URL
-                  const url =
-                    skillDir.download_url ||
-                    `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/main/${repo.skillsPath}`;
-                  const res = await fetchWithTimeout(url);
-                  if (res.ok) {
-                    skillMdContent = await res.text();
-                  }
-                } catch (e) {
-                  console.log(`      ⚠️ Failed to fetch file content: ${e}`);
-                }
-              } else {
-                const skillMdPath = `${repo.skillsPath}/${skillDir.name}/SKILL.md`;
-                const defaultBranch = repoInfo?.default_branch;
-                const branches = [defaultBranch, 'main', 'master', 'canary', 'develop'].filter(
-                  (b, i, a) => b && a.indexOf(b) === i,
-                );
-                for (const branch of branches) {
-                  try {
-                    const mdUrl = `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/${branch}/${skillMdPath}`;
-                    const mdRes = await fetchWithTimeout(mdUrl);
-                    if (mdRes.ok) {
-                      skillMdContent = await mdRes.text();
-                      break;
-                    }
-                  } catch {}
-                }
+              try {
+                skillMdContent = (await fetchSkillMd(repo.owner, repo.repo, skillFilePath)) || '';
+              } catch (e) {
+                console.log(`      ⚠️ Failed to fetch file content: ${e}`);
               }
 
               const parsed = skillMdContent ? parseSkillMd(skillMdContent) : undefined;
@@ -837,6 +1052,7 @@ async function buildCache(): Promise<void> {
                   name: skillMd?.name || skillDir.name,
                   topics: repoInfo.topics || [],
                   bodyPreview: skillMd?.bodyPreview,
+                  category: 'official',
                 });
                 metadataDescription = metadata.description;
                 metadataSeo = metadata.seo;
@@ -859,6 +1075,7 @@ async function buildCache(): Promise<void> {
                 owner: repo.owner,
                 repo: repo.repo,
                 repoPath,
+                filePath: isSingleFile ? repo.skillsPath : `${repo.skillsPath}/${skillDir.name}/SKILL.md`,
                 stars: repoInfo.stargazers_count,
                 forks: repoInfo.forks_count,
                 updatedAt: repoInfo.updated_at,
@@ -989,6 +1206,7 @@ async function buildCache(): Promise<void> {
               name: skillMd?.name || repoInfo.name,
               topics: repoInfo.topics || [],
               bodyPreview: skillMd?.bodyPreview,
+              category: 'official',
             });
             metadataDescription = metadata.description;
             metadataSeo = metadata.seo;
@@ -1011,6 +1229,7 @@ async function buildCache(): Promise<void> {
             owner: repo.owner,
             repo: repo.repo,
             repoPath,
+            filePath: repo.skillsPath || 'SKILL.md',
             stars: repoInfo.stargazers_count,
             forks: repoInfo.forks_count,
             updatedAt: repoInfo.updated_at,
@@ -1167,19 +1386,7 @@ async function buildCache(): Promise<void> {
                 (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
 
               if (isValidFile) {
-                const branch = 'main';
-                const rawUrl = `https://raw.githubusercontent.com/${repoPath}/${branch}/${filePath}`;
-                let res = await fetchWithTimeout(rawUrl);
-                if (res.ok) {
-                  item.content = await res.text();
-                } else {
-                  // Try master branch
-                  const masterUrl = `https://raw.githubusercontent.com/${repoPath}/master/${filePath}`;
-                  res = await fetchWithTimeout(masterUrl);
-                  if (res.ok) {
-                    item.content = await res.text();
-                  }
-                }
+                item.content = (await fetchSkillMd(item.owner, item.repo, filePath)) || '';
               }
               // Jitter delay (100-500ms)
               await new Promise((r) => setTimeout(r, 100 + Math.random() * 400));
@@ -1288,6 +1495,7 @@ async function buildCache(): Promise<void> {
               name: skillMd.name,
               topics: item.topics || [],
               bodyPreview: skillMd.bodyPreview,
+              category: item.category || 'community',
             });
             metadataDescription = metadata.description;
             metadataSeo = metadata.seo;
@@ -1310,6 +1518,7 @@ async function buildCache(): Promise<void> {
             owner: item.owner,
             repo: item.repo,
             repoPath,
+            filePath: item.filePath,
             stars: item.stars || 0,
             forks: item.forks || 0,
             updatedAt: item.updatedAt || new Date().toISOString(),
@@ -1400,6 +1609,7 @@ async function buildCache(): Promise<void> {
             owner: item.owner,
             repo: item.repo,
             repoPath: `${item.owner}/${item.repo}`,
+            filePath: item.filePath,
             stars: item.stars || 0,
             updatedAt: item.updatedAt || new Date().toISOString(),
             skillMd: skillMd,
@@ -1423,6 +1633,7 @@ async function buildCache(): Promise<void> {
             name: skillMd.name,
             topics: item.topics || [],
             bodyPreview: skillMd.bodyPreview,
+            category: item.category || 'community',
           });
 
           const skill: SkillCache = {
@@ -1434,6 +1645,7 @@ async function buildCache(): Promise<void> {
             owner: item.owner,
             repo: item.repo,
             repoPath: `${item.owner}/${item.repo}`,
+            filePath: item.filePath,
             stars: item.stars || 0,
             forks: item.forks || 0,
             updatedAt: item.fetchedAt || item.updatedAt || new Date().toISOString(),
@@ -1615,24 +1827,64 @@ async function buildCache(): Promise<void> {
               name: skill.name,
               topics: skill.topics,
               bodyPreview: skill.skillMd?.bodyPreview,
+              category: skill.category,
             };
+            const repairedMetadata = aiService.repairMetadataDeterministically(rawDesc, context, {
+              description: skill.description,
+              seo: skill.seo,
+            });
+            const repairedDescriptionText =
+              typeof repairedMetadata.description === 'string'
+                ? repairedMetadata.description
+                : repairedMetadata.description.en || '';
+            const repairedAgentAnalysis = aiService.repairAgentAnalysisDeterministically(
+              skill.name,
+              repairedDescriptionText,
+              context.bodyPreview || '',
+              skill.agentAnalysis,
+            );
+            const locallyRepairedSkill: SkillCache = {
+              ...skill,
+              description: repairedMetadata.description,
+              seo: repairedMetadata.seo,
+              agentAnalysis: repairedAgentAnalysis,
+              lastSynced: new Date().toISOString(),
+            };
+
+            if (isSkillFullyOptimized(locallyRepairedSkill)) {
+              skills.push(locallyRepairedSkill);
+              processedCount++;
+              recordBatchCompletion(skill.id, 'completed');
+              process.stdout.write('R'); // deterministic local repair
+              return;
+            }
 
             // Add random delay to prevent initial burst
             await new Promise((r) => setTimeout(r, Math.random() * 2000));
 
             const metadata = await processMetadata(skill.id, rawDesc, context);
-            skill.description = metadata.description;
-            skill.seo = metadata.seo;
+            const normalizedMetadata = aiService.repairMetadataDeterministically(rawDesc, context, {
+              description: metadata.description,
+              seo: metadata.seo,
+            });
+            skill.description = normalizedMetadata.description;
+            skill.seo = normalizedMetadata.seo;
 
             // Generate Agent Analysis + translate (same NVIDIA key)
             const rawAgentAnalysis = await aiService.generateAgentAnalysis(
               skill.name,
-              currentDesc,
+              typeof skill.description === 'string' ? skill.description : skill.description.en || currentDesc,
               context.bodyPreview || '',
             );
-            if (rawAgentAnalysis) {
-              skill.agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
-            }
+            const translatedAgentAnalysis = rawAgentAnalysis
+              ? await aiService.translateAgentAnalysis(rawAgentAnalysis)
+              : locallyRepairedSkill.agentAnalysis;
+            skill.agentAnalysis = aiService.repairAgentAnalysisDeterministically(
+              skill.name,
+              typeof skill.description === 'string' ? skill.description : skill.description.en || currentDesc,
+              context.bodyPreview || '',
+              translatedAgentAnalysis,
+            );
 
             skill.lastSynced = new Date().toISOString();
 
@@ -1683,7 +1935,7 @@ async function buildCache(): Promise<void> {
 
   if (isTimeUp()) {
     console.log(`\n⏳ Time limit reached! Saving progress via merge to prevent wiping unprocessed skills...`);
-    await saveStateOnly(skills);
+    await saveStateOnly(skills, 'paused');
   } else {
     await finalizeAndSave(skills);
   }
@@ -1697,6 +1949,8 @@ async function buildCache(): Promise<void> {
     };
     persistBatchProgress();
   }
+
+  globalPauseBatchProgress = null;
 }
 
 /**
@@ -1738,15 +1992,16 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
   }
 
   const cleanedSkills = Array.from(idMap.values()).sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
+  const normalizedSkills = cleanedSkills.map(ensureSkillMdContent);
   console.log(`   → Removed ${beforeCount - cleanedSkills.length} low-quality/duplicate skills`);
-  console.log(`   → Final count: ${cleanedSkills.length}`);
+  console.log(`   → Final count: ${normalizedSkills.length}`);
 
   // 4. 保存缓存
   const cacheData: CacheData = {
     version: 1,
     lastUpdated: new Date().toISOString(),
-    totalCount: cleanedSkills.length,
-    skills: cleanedSkills,
+    totalCount: normalizedSkills.length,
+    skills: normalizedSkills,
   };
 
   const outputDir = path.join(process.cwd(), 'data');
@@ -1757,16 +2012,30 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
   }
 
   fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
+  persistAiRuntimeSummary('completed');
 
   console.log(`\n✅ Cache saved successfully!`);
   console.log(`   📊 Total skills: ${cleanedSkills.length}`);
   console.log(`   📁 Output: ${outputFile}`);
 
   // ========== Generate Sitemap Data ==========
-  const sitemapData = buildSitemapSkillsData(cleanedSkills);
+  const sitemapData = buildSitemapSkillsData(normalizedSkills);
   const sitemapFile = path.join(outputDir, 'sitemap-skills.json');
   fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
   console.log(`   🗺️  Sitemap data generated: ${sitemapFile} (${sitemapData.length} items)`);
+
+  const skillLocaleGovernance = buildSkillLocaleGovernanceIndex(normalizedSkills);
+  const skillLocaleGovernanceFile = path.join(outputDir, 'seo-skill-locale-governance.json');
+  fs.writeFileSync(skillLocaleGovernanceFile, JSON.stringify(skillLocaleGovernance, null, 2));
+  console.log(
+    `   🌐 Skill locale governance generated: ${skillLocaleGovernanceFile} (${skillLocaleGovernance.summary.eligibleVariants} eligible variants)`,
+  );
+
+  refreshSkillIndexabilityReport();
+  console.log(`   📉 Skill indexability report refreshed: reports/seo/latest-skill-indexability.json`);
+
+  refreshGovernedSkillCorpus();
+  console.log(`   🧭 Governed skill corpus refreshed: ${sitemapFile}`);
 
   // ========== 清除本地 miniflare KV 缓存 ==========
   // 确保 dev server 使用最新的 skills-cache.json 而非过期的 miniflare KV 数据
@@ -1793,7 +2062,7 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
  * Reuses KV_NAMESPACE_ID from line ~237 and env vars from dotenv.
  */
 
-async function saveStateOnly(skills: SkillCache[]): Promise<void> {
+async function saveStateOnly(skills: SkillCache[], runtimeStatus: 'running' | 'paused' = 'running'): Promise<void> {
   const outputDir = path.join(process.cwd(), 'data');
   const outputFile = path.join(outputDir, 'skills-cache.json');
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
@@ -1831,10 +2100,15 @@ async function saveStateOnly(skills: SkillCache[]): Promise<void> {
     skills: uniqueSkills,
   };
   fs.writeFileSync(outputFile, JSON.stringify(cacheData, null, 2));
+  persistAiRuntimeSummary(runtimeStatus);
 
   const sitemapData = buildSitemapSkillsData(uniqueSkills);
   const sitemapFile = path.join(outputDir, 'sitemap-skills.json');
   fs.writeFileSync(sitemapFile, JSON.stringify(sitemapData, null, 2));
+
+  const skillLocaleGovernance = buildSkillLocaleGovernanceIndex(uniqueSkills);
+  const skillLocaleGovernanceFile = path.join(outputDir, 'seo-skill-locale-governance.json');
+  fs.writeFileSync(skillLocaleGovernanceFile, JSON.stringify(skillLocaleGovernance, null, 2));
 }
 
 // Quality assessment and report generation extracted to:
@@ -1852,7 +2126,10 @@ let globalExistingMap: Map<string, SkillCache> = new Map();
   globalSkillsRef = []; // Initialize
   process.on('SIGINT', async () => {
     console.log('\n\n🛑 Received SIGINT (Ctrl+C). Saving current progress...');
-    await saveStateOnly(globalSkillsRef);
+    if (globalPauseBatchProgress) {
+      globalPauseBatchProgress();
+    }
+    await saveStateOnly(globalSkillsRef, 'paused');
     console.log('✅ Progress saved. Exiting.');
     process.exit(0);
   });

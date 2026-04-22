@@ -21,7 +21,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## Qu'est-ce que la compétence Brand-Guidelines ?
 
-La compétence `brand-guidelines` est un moteur de conception qui impose des normes visuelles strictes. Elle est conçue pour être utilisée en conjonction avec d'autres compétences créatives comme [pptx](https://killer-skills.com/fr/skills/anthropics/skills/pptx) ou [canvas-design](https://killer-skills.com/fr/skills/anthropics/skills/canvas-design) pour garantir qu'elles restent "dans le ton de la marque".
+La compétence `brand-guidelines` est un moteur de conception qui impose des normes visuelles strictes. Elle est conçue pour être utilisée en conjonction avec d'autres compétences créatives comme [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) ou [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) pour garantir qu'elles restent "dans le ton de la marque".
 
 ### 1. La palette de couleurs officielle
 La compétence fournit des valeurs RGB et HEX précises pour l'identité officielle :
@@ -59,10 +59,10 @@ Générez des graphiques pour les médias sociaux ou des livres blancs au format
 
 La compétence `brand-guidelines` est la touche finale qui transforme la "sortie IA" en "actif professionnel". Elle garantit que votre agent de codage comprend l'importance du contexte visuel et de l'autorité de la marque.
 
-Installez le skill [brand-guidelines](https://killer-skills.com/fr/skills/anthropics/skills/brand-guidelines) depuis le répertoire de skills Killer-Skills et commencez à concevoir avec autorité.
+Installez le skill [brand-guidelines](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) depuis le répertoire de skills Killer-Skills et commencez à concevoir avec autorité.
 
 ---
-*Recherchez plus d'options de personnalisation ? Explorez [theme-factory](https://killer-skills.com/fr/skills/anthropics/skills/theme-factory) pour une gamme plus large de thèmes professionnels prédéfinis.*
+*Recherchez plus d'options de personnalisation ? Explorez [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) pour une gamme plus large de thèmes professionnels prédéfinis.*
 
 ---
 *Liens connexes : [Qu'est-ce que les compétences des agents IA ?](/fr/blog/what-are-ai-agent-skills) et [Meilleures compétences d'agent IA pour 2026](/fr/blog/best-ai-agent-skills-2026)*

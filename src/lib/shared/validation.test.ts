@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   isValidAgentSkill,
   calculateQualityScore,
+  getNonTargetSkillReason,
   EXCLUDE_KEYWORDS,
   SUSPICIOUS_NAMES,
   SKILL_HEADERS,
@@ -88,6 +89,64 @@ describe('isValidAgentSkill', () => {
     const result = isValidAgentSkill(skill);
     expect(result.valid).toBe(false);
     expect(result.reason).toContain('Non-target skill theme');
+  });
+
+  it('should ignore localized summary boilerplate when the preferred description is safe', () => {
+    const skill: SkillValidationInput = {
+      ...validSkill,
+      name: 'github-workflow',
+      description: {
+        en: 'GitHub workflow automation skill for Claude Code and MCP-based repository tasks.',
+        fr: 'Resume localise : GitHub workflow automation skill for Claude Code and MCP-based repository tasks.',
+      },
+    };
+
+    expect(getNonTargetSkillReason(skill)).toBe('');
+  });
+
+  it('should still flag real resume skills from the preferred description', () => {
+    const skill: SkillValidationInput = {
+      ...validSkill,
+      name: 'resume-latex-pdf-generator',
+      description: {
+        en: 'Generates and compiles a single-page US Letter LaTeX resume for job applications.',
+        fr: 'Resume localise : Generateur de CV LaTeX.',
+      },
+      topics: ['resume', 'latex'],
+    };
+
+    expect(getNonTargetSkillReason(skill)).toBe('career-prep');
+  });
+
+  it('should not flag technical resume commands without career context', () => {
+    const skill: SkillValidationInput = {
+      ...validSkill,
+      name: 'slash-commands',
+      description: 'Create and use Claude Code slash commands for repository workflows.',
+      body: [
+        '# Usage',
+        'Use `/resume` to continue a session.',
+        'Use `resume from cursor` to continue pagination.',
+        'This skill is for Claude Code and MCP-driven command workflows.',
+      ].join('\n'),
+    };
+
+    expect(getNonTargetSkillReason(skill)).toBe('');
+  });
+
+  it('should not flag portfolio-performance language that is unrelated to personal portfolios', () => {
+    const skill: SkillValidationInput = {
+      ...validSkill,
+      name: 'build-plugin',
+      description: 'Build a production-ready OpenTabs plugin for Claude Code workflows.',
+      body: [
+        '# Usage',
+        'This Claude Code skill documents API helpers for accounts, portfolio performance, and crypto workflows.',
+        'It supports MCP and browser automation tasks for AI agents.',
+      ].join('\n'),
+    };
+
+    expect(getNonTargetSkillReason(skill)).toBe('');
   });
 });
 

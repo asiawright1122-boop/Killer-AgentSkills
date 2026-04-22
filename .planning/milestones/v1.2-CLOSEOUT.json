@@ -1,0 +1,39 @@
+{
+  "milestone": "v1.2",
+  "milestoneName": "Operator Automation and Runtime Convergence",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 4,
+    "completed": 4
+  },
+  "requirementCounts": {
+    "satisfied": 7,
+    "partial": 0,
+    "pending": 0,
+    "total": 7
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/milestones/v1.2-phases/35-provider-history-and-runtime-convergence/35-01-SUMMARY.md",
+    ".planning/milestones/v1.2-phases/35-provider-history-and-runtime-convergence/35-VERIFICATION.md",
+    ".planning/milestones/v1.2-phases/36-automated-operator-monitoring/36-01-SUMMARY.md",
+    ".planning/milestones/v1.2-phases/36-automated-operator-monitoring/36-VERIFICATION.md",
+    ".planning/milestones/v1.2-phases/37-remediation-seeding-and-ops-summary/37-01-SUMMARY.md",
+    ".planning/milestones/v1.2-phases/37-remediation-seeding-and-ops-summary/37-VERIFICATION.md",
+    ".planning/milestones/v1.2-phases/38-planning-bootstrap-and-closeout-automation/38-01-SUMMARY.md",
+    ".planning/milestones/v1.2-phases/38-planning-bootstrap-and-closeout-automation/38-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.2-ROADMAP.md",
+    ".planning/milestones/v1.2-REQUIREMENTS.md",
+    ".planning/milestones/v1.2-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.2-BOOTSTRAP.md",
+    ".planning/milestones/v1.2-CLOSEOUT.md"
+  ]
+}

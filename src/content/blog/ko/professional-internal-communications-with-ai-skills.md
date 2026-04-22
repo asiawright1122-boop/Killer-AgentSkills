@@ -76,11 +76,11 @@ npx killer-skills add anthropics/skills/internal-comms
 
 `internal-comms` 스킬은 전문적인 가시성을 높여주는 비밀 무기입니다. 이 스킬은 여러분의 업무가 단순히 완료되는 것을 넘어, 중요한 사람들에게 **효과적으로 전달**되도록 보장합니다.
 
-Killer-Skills 디렉터리에서 [internal-comms 스킬](https://killer-skills.com/ko/skills/anthropics/skills/internal-comms)을 설치하고 리더십의 언어로 소통을 시작하세요.
+Killer-Skills 디렉터리에서 [internal-comms 스킬](https://killer-skills.com/en/skills/anthropics/skills/internal-comms)을 설치하고 리더십의 언어로 소통을 시작하세요.
 
 ---
 
-_더 복잡한 문서에 협업이 필요하신가요? [doc-coauthoring 스킬](https://killer-skills.com/ko/skills/anthropics/skills/doc-coauthoring)을 확인해 보세요._
+_더 복잡한 문서에 협업이 필요하신가요? [doc-coauthoring 스킬](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring)을 확인해 보세요._
 
 ---
 

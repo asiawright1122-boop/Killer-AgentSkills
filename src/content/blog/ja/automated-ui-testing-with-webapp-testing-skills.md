@@ -44,7 +44,7 @@ Playwrightを使用して、エージェントは複雑な視覚的および機�
 ## 実践的なユースケース
 
 ### 連続的なUIバリデーション
-毎回、[フロントエンドデザイン](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design)コンポーネントをリファクタリングする際に、エージェントが`webapp-testing`スクリプトを実行して、ボタンがまだクリックされ、フォームがまだ送信されることを確認します。
+毎回、[フロントエンドデザイン](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)コンポーネントをリファクタリングする際に、エージェントが`webapp-testing`スクリプトを実行して、ボタンがまだクリックされ、フォームがまだ送信されることを確認します。
 
 ### クロスブラウザーデバッグ
 エージェントがヘッドレスChromiumインスタンスを立ち上げて、ユーザーが報告したバグを再現し、スクリーンショットとコンソールログをキャプチャして、すぐに分析します。
@@ -60,11 +60,11 @@ Playwrightを使用して、エージェントは複雑な視覚的および機�
 
 `webapp-testing` スキルは、プロフェッショナル開発の最後のピースです。エージェントが書く美しいコードが **信頼性の高いコード** であることを保証します。自動化された QA をエージェントのワークフローに組み込むことで、完全な自信を持って出荷できるようになります。
 
-Killer-Skills のスキル一覧で [webapp-testing スキル](https://killer-skills.com/ja/skills/anthropics/skills/webapp-testing) をチェックして、堅牢なフロントエンド開発を今日から始めましょう。
+Killer-Skills のスキル一覧で [webapp-testing スキル](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) をチェックして、堅牢なフロントエンド開発を今日から始めましょう。
 
 ---
 
-*UI を先に構築したい場合は、[フロントエンドデザインスキル](https://killer-skills.com/ja/skills/anthropics/skills/frontend-design) をチェックしてください.*
+*UI を先に構築したい場合は、[フロントエンドデザインスキル](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) をチェックしてください.*
 
 ---
 

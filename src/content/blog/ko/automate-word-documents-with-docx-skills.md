@@ -62,7 +62,7 @@ Killer-Skills CLI에서 이 스킬을 사용할 때, 에이전트가 Word 파일
 
 `docx` 스킬은 AI 워크플로우에 "엔터프라이즈급" 전문성을 제공합니다. 이 스킬은 코딩 에이전트의 출력이 기업 세계의 최고 기준을 충족하도록 보장합니다.
 
-지금 바로 Killer-Skills 디렉터리에서 [docx 스킬](https://killer-skills.com/ko/skills/anthropics/skills/docx)을 설치해 시작해 보세요.
+지금 바로 Killer-Skills 디렉터리에서 [docx 스킬](https://killer-skills.com/en/skills/anthropics/skills/docx)을 설치해 시작해 보세요.
 
 *데이터를 먼저 처리해야 하나요? 스프레드시트 자동화를 위한 [xlsx 스킬 가이드](https://killer-skills.com/ko/blog/mastering-excel-automation-with-xlsx-skills)를 확인해 보세요.*
 

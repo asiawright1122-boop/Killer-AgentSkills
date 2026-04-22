@@ -45,6 +45,19 @@ jobs:
       - name: Install dependencies
         run: HUSKY=0 npm ci
 
+      - name: Validate AI Guardrails
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run guard:ai-config
+
       - name: Run Translation
         env:
           NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
@@ -52,6 +65,10 @@ jobs:
           OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
         run: |
           echo "--- Phase 0: Backfill zh-only posts to en ---"
           npx tsx scripts/backfill-en-from-zh.ts

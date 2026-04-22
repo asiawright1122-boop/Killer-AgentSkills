@@ -64,7 +64,7 @@ If multiple skills match, load the most relevant one first.
   - **seo**: Installed via Killer-Skills MCP
   - **seo-audit**: Installed via Killer-Skills MCP
   - **seo-content-writer**: Use when the user asks to "write SEO content", "create a blog post", "write an article", "content writing", "draft optimized content", "write me an article", "create a blog post about", "help me write SEO content", or "draft content for". Creates high-quality, SEO-optimized content that ranks in search engines. Applies on-page SEO best practices, keyword optimization, and content structure for maximum visibility and engagement. For AI citation optimization, see geo-content-optimizer. For updating existing content, see content-refresher.
-  - **humanizer**: |
+  - **humanizer**: Remove signs of AI-generated writing from text. Use when editing or reviewing text to make it sound more natural and human-written.
   - **planning-with-files**: Implements Manus-style file-based planning for complex tasks. Creates task_plan.md, findings.md, and progress.md. Use when starting complex multi-step tasks, research projects, or any task requiring >5 tool calls. Now with automatic session recovery after /clear.
   - **pptx**: Presentation creation, editing, and analysis. When Claude needs to work with presentations (.pptx files) for: (1) Creating new presentations, (2) Modifying or editing content, (3) Working with layouts, (4) Adding comments or speaker notes, or any other presentation tasks
   - **seo-review**: Perform a focused SEO audit on JavaScript concept pages to maximize search visibility, featured snippet optimization, and ranking potential

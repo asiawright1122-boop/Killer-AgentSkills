@@ -1,0 +1,600 @@
+# Plan 02-02 Progress Note (updated 2026-04-06)
+
+## Context
+- Plan 02-02 requires checkpointed regeneration for the flagged subset with resumable behavior.
+- Earlier resume attempts reused legacy checkpoint state and produced selection drift plus accidental cache rewrite side effects when no runnable tasks were found.
+
+## Implemented Safeguard
+- Updated `scripts/build-skills-cache.ts` batch mode behavior:
+  - Added `batchHasPendingSelectedIds()` helper.
+  - Added early-return guard when `selectedBatchIds` exists and `tasks.length === 0`.
+  - In this case, checkpoint status is updated and cache rewrite is skipped.
+- Verified by hash-check:
+  - Before and after rerun hashes for `data/skills-cache.json` and `data/sitemap-skills.json` remained identical in no-task batch mode.
+
+## Controlled Pilot Rerun
+- Refreshed baseline:
+  - `npm run report:seo:regeneration-baseline`
+  - current queue: `3436` skills, `35` batches.
+- Used isolated checkpoint file to avoid legacy state coupling:
+  - `reports/seo/phase-02-batch-progress.rerun.json`
+- Dry run:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.rerun.json --max-items=3 --dry-run-batch`
+  - pending IDs verified: `3`.
+- Real run:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.rerun.json --resume --max-items=3 --max-duration=8`
+  - checkpoint result: `completed=3`, `failed=0`, `pending=0`, `status=completed`.
+
+## Expanded Rerun Slice (10 IDs)
+- Dry run with dedicated checkpoint:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.rerun10.json --max-items=10 --dry-run-batch`
+  - pending ids verified: `10`.
+- First real pass (10 IDs):
+  - result snapshot: `completed=2`, `skipped=3`, `failed=5`, `pending=0`, `status=partial`.
+- Resume retry on same checkpoint (only failed IDs retried):
+  - improved snapshot: `completed=3`, `skipped=3`, `failed=4`, `pending=0`.
+  - dominant failure patterns:
+    - `missing_description_locale`
+    - `suitability_fell_back_to_english`
+  - provider-level instability observed during run:
+    - repeated `siliconflow 403`
+    - repeated `openrouter 402`
+    - fallback abort cascades across providers in some attempts.
+
+## AI-Gated Rerun Slice (2026-04-04)
+- New isolated checkpoint under the hardened provider architecture:
+  - `reports/seo/phase-02-batch-progress.ai-gated-rerun10.json`
+- Dry run locked the same first-batch rerun slice at `10` IDs:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun10.json --max-items=10 --dry-run-batch`
+  - pending IDs verified: `10`.
+- Real run with bounded duration:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun10.json --resume --max-items=10 --max-duration=10`
+  - result snapshot: `completed=1`, `skipped=9`, `failed=0`, `pending=0`, `status=completed`.
+  - newly regenerated ID: `aehrc/pathling/fhir-api`.
+- AI telemetry outcome for this rerun:
+  - `Workers AI` stayed fully unused (`callsThisRun=0`) and remained inside free-tier guardrails.
+  - NVIDIA handled the successful completion end-to-end; no SiliconFlow/OpenRouter/Cloudflare fallback was required.
+  - `N1` hit repeated retryable network failures and was quarantined for the run as designed (`N1:retryable-failures:3`).
+  - Other NVIDIA labels (`N0`, `N3`) continued serving requests successfully after the quarantine, preventing whole-provider cascade failure.
+  - Latest AI trend remains a `soft warning`, driven by historical NVIDIA volatility plus the latest quarantined label, but there are still `0` critical alerts.
+
+## AI-Gated Expansion Slice (50 IDs, controlled stop on 2026-04-04)
+- Expanded isolated checkpoint:
+  - `reports/seo/phase-02-batch-progress.ai-gated-rerun50.json`
+- Dry run fixed the larger batch-1 slice at `50` IDs:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun50.json --max-items=50 --dry-run-batch`
+- Real run with bounded duration:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun50.json --resume --max-items=50 --max-duration=10`
+  - controlled stop after evidence capture preserved checkpoint progress at `completed=3`, `failed=0`, `pending=47`.
+  - completed IDs captured so far:
+    - `BIGSHOL/ijw-Calander/generate-import-modal`
+    - `bartstc/vite-ts-react-template/playwright-page-objects`
+    - `blocknavi/convex-batch-processor/convex-component-authoring`
+- AI telemetry outcome for the larger slice:
+  - NVIDIA delivered `28` successes with only `1` retryable failure and `1` cooldown event.
+  - no active quarantined labels, no hard-disabled providers, and no fallback-provider traffic were required.
+  - `Workers AI` again remained fully unused (`callsThisRun=0`) and stayed within free-only limits.
+  - after adding this sample to trend analysis, latest AI alert status returned to a single `soft warning` for historical NVIDIA volatility only; the latest snapshot itself recovered full provider availability.
+- Resumability hardening follow-up:
+  - identified that manual `SIGINT` interruption preserved checkpoint counts but left checkpoint `status` ambiguous.
+  - updated `scripts/build-skills-cache.ts` so interrupt-driven saves now mark batch checkpoints as `paused` and keep runtime telemetry summaries consistent.
+  - validated with dedicated `pause-check-2` artifact: `status=paused`, `skipped=3`, `pending=47`, clean exit with no `ReferenceError`.
+
+## AI Architecture Hardening Follow-up (2026-04-04)
+- Continued the same isolated `rerun50` checkpoint with a second bounded window:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun50.json --resume --max-items=50 --max-duration=10`
+  - checkpoint advanced to `status=paused`, `completed=10`, `failed=3`, `skipped=2`, `pending=35`.
+- Mid-run telemetry evidence from that larger resume:
+  - latest runtime summary showed `Workers AI callsThisRun=20`, still inside the configured free-only budget.
+  - latest trend flipped from `soft warning` to `blocking` / `critical` because the newest snapshot exhausted provider rotation and hard-disabled fallback providers (`openrouter 402`, `siliconflow 403`).
+  - the recovered run still revealed a key resume problem: restoring prior-run NVIDIA quarantines would make the next `--resume` start with no primary labels available.
+- Hardened `scripts/lib/ai.ts` based on the above evidence:
+  - added free-only Workers AI run protection so repeated retryable Cloudflare failures hard-disable the provider for the current run instead of stretching tail retries indefinitely.
+  - changed telemetry restore behavior to keep provider health counts/order but drop run-scoped quarantines on checkpoint resume, allowing NVIDIA labels to re-enter rotation on the next bounded slice.
+- Added focused regression coverage in `scripts/lib/ai.test.ts`:
+  - verifies Cloudflare is hard-disabled after repeated retryable free-only failures.
+  - verifies Cloudflare stays in cooldown rather than hard-disable below the threshold.
+  - verifies checkpoint restore does not carry forward transient NVIDIA quarantine or Cloudflare retryable-failure hard-disable.
+- Verification:
+  - `npx vitest run scripts/lib/ai.test.ts`
+  - `npx tsc -p tsconfig.json --noEmit --pretty false`
+  - both passed after the architecture changes.
+
+## Live Resume Validation After Fixes (2026-04-04)
+- Re-ran the same isolated checkpoint with a shorter validation slice:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.ai-gated-rerun50.json --resume --max-items=50 --max-duration=5`
+- Validation outcome:
+  - resume immediately re-opened NVIDIA traffic (`N1`, `N2`, `N3`, `N0` all attempted again), confirming transient quarantine no longer deadlocks the next checkpoint run.
+  - Cloudflare no longer owned the tail indefinitely; after repeated failures it was hard-disabled as `C:schema` instead of consuming a long retry tail.
+  - the checkpoint is now fully exhausted as `status=partial`, `completed=11`, `failed=29`, `skipped=10`, `pending=0`.
+  - only one additional skill completed in the final validation window: `ai-service-incubator/celebrities-shorts-video/generate-video`.
+- Latest runtime telemetry after the live validation:
+  - `Workers AI callsThisRun=9`, `dailyCalls=29`, still within free-only limits.
+  - latest provider state again ended with `no available providers in rotation`.
+  - `cloudflare` is hard-disabled as `C:schema`, `openrouter` remains hard-disabled on `402`, and `siliconflow` remains hard-disabled on `403`.
+- Dominant final failure modes across the exhausted `50`-ID slice:
+  - two IDs still fail with `suitability_fell_back_to_english`.
+  - one ID fails with `missing_description_locale`.
+  - the bulk of the remaining `26` failed IDs now fail on a common low-quality default-output signature:
+    - `title_missing_theme_identifier`
+    - `missing_seo_features`
+    - `missing_seo_keywords`
+    - `missing_en_keywords`
+    - `missing_description_locale`
+- Latest trend evidence:
+  - `npm run report:ai:trend -- --limit=20 --fail-on=critical`
+  - remains `blocking` / `critical` with:
+    - hard-disabled AI providers present in latest snapshot
+    - provider rotation exhausted
+    - quarantined NVIDIA labels in latest snapshot
+    - ongoing historical NVIDIA volatility warning
+- Strict quality confirmation after the slice was exhausted:
+  - `npm run audit:seo:index-quality`
+  - remains red with the same headline counts as before the architecture work:
+    - `drift 28`
+    - `missing body/bodyPreview 47`
+    - `thin-content 51`
+  - this confirms the current blocker is no longer just provider orchestration; regeneration quality itself still needs targeted remediation.
+
+## Deterministic Repair-First Validation (2026-04-05)
+- Reframed the next wave away from broad AI reruns and toward cheap local repair:
+  - exposed deterministic repair helpers in `scripts/lib/ai.ts` for metadata and agent analysis.
+  - update path in `scripts/build-skills-cache.ts` now tries local repair first and only calls AI when the repaired skill still fails the optimization gate.
+  - localized agent-analysis validation now treats English-copy translations as fallback candidates instead of accepting them as successful translations.
+- Added regression coverage in `scripts/lib/ai.test.ts`:
+  - verifies legacy metadata plus agent-analysis payloads can be deterministically repaired into a gate-passing skill.
+  - existing AI architecture tests still pass after the new repair-first behavior.
+- Verification:
+  - `npx vitest run scripts/lib/ai.test.ts`
+  - `npx tsc -p tsconfig.json --noEmit --pretty false`
+  - both passed.
+
+## Batch 1 Local-Repair Wave (2026-04-05)
+- Ran the first fresh baseline slice under the new repair-first path:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch1.json --resume --max-items=100 --max-duration=5`
+- Result:
+  - checkpoint completed at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - process log showed the majority of items finishing via local repair (`R`), with only a small tail invoking NVIDIA-backed AI generation.
+- AI telemetry outcome:
+  - `Workers AI` remained completely unused (`callsThisRun=0`).
+  - no fallback-provider traffic was required.
+  - latest runtime summary ended healthy with no active quarantine, cooldown, or hard-disable flags.
+- Baseline impact after regenerating the report:
+  - fully optimized count increased from `75` to `175`.
+  - queued-for-regeneration count dropped from `3381` to `3281`.
+  - `keywords_missing_theme_term` dropped from `402` to `302`.
+
+## Batch 2 Local-Repair Wave (2026-04-05)
+- Repeated the same approach on the newly refreshed batch 1:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch2.json --resume --max-items=100 --max-duration=5`
+- Result:
+  - checkpoint completed at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - again, most items were solved by deterministic repair before AI was needed.
+- AI telemetry outcome:
+  - NVIDIA handled the tail AI calls (`nvidia=40`, `nvidiaFail=11`).
+  - `Workers AI` stayed within the free tier (`callsThisRun=1`, `dailyRemaining=119`).
+  - a late-run fallback probe still hard-disabled `siliconflow` (`403`), `openrouter` (`402`), and `cloudflare` (`C:schema`) for that run, while NVIDIA still carried the batch to completion.
+- Baseline impact after the second report refresh:
+  - fully optimized count increased again from `175` to `275`.
+  - queued-for-regeneration count dropped from `3281` to `3181` across `32` batches.
+  - `keywords_missing_theme_term` dropped from `302` to `202`.
+  - the queue is now increasingly dominated by:
+    - `title_missing_theme_identifier` (`2064`)
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `low_intent_en_keywords` (`193`)
+
+## Batch 3 Local-Repair Wave (2026-04-05)
+- Continued the same repair-first execution path on the refreshed first batch:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch3.json --resume --max-items=100 --max-duration=5`
+- Result:
+  - checkpoint completed at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - nearly the entire batch was handled by local repair (`R`) with only a very small NVIDIA tail.
+- AI telemetry outcome:
+  - `Workers AI` remained unused (`callsThisRun=0`).
+  - NVIDIA handled the small tail (`nvidia=8`, `nvidiaFail=2`).
+  - no fallback-provider traffic was required.
+- Baseline impact after the third report refresh:
+  - fully optimized count increased from `275` to `375`.
+  - queued-for-regeneration count dropped from `3181` to `3081` across `31` batches.
+  - the queue composition remained led by:
+    - `title_missing_theme_identifier` (`2064`)
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `keywords_missing_theme_term` (`102`)
+
+## Batch 4 Local-Repair Wave (2026-04-05)
+- Ran the next refreshed first batch with the same bounded window:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch4.json --resume --max-items=100 --max-duration=5`
+- First window result:
+  - checkpoint paused cleanly at `85 completed / 0 failed / 0 skipped / 15 pending`.
+  - the batch was still mostly local repair, but the AI tail was heavier than batch 3.
+- Telemetry during the first window:
+  - NVIDIA handled the tail (`nvidia=31`, `nvidiaFail=16`).
+  - `Workers AI` stayed inside the free-only guardrail with only `1` Cloudflare call.
+  - OpenRouter and SiliconFlow were hard-disabled for the run tail (`402` / `403`), while NVIDIA still carried the batch to a resumable pause.
+- Resume outcome:
+  - re-ran the same checkpoint and the remaining `15` skills all completed via local repair with no extra AI calls.
+  - final checkpoint state is `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+- Baseline impact after refresh:
+  - fully optimized count increased from `375` to `475`.
+  - queued-for-regeneration count dropped from `3081` to `2981` across `30` batches.
+  - `keywords_missing_theme_term` was reduced to `17`, leaving the queue increasingly dominated by:
+    - `title_missing_theme_identifier` (`2049`)
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `low_intent_en_keywords` (`193`)
+
+## Batch 5 Local-Repair Wave (2026-04-05)
+- Repeated the same process against the newly refreshed first batch:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch5.json --resume --max-items=100 --max-duration=5`
+- Result:
+  - checkpoint completed at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - the entire batch was solved by deterministic local repair with no AI usage.
+- AI telemetry outcome:
+  - `Workers AI` remained unused (`0` calls).
+  - NVIDIA, OpenRouter, SiliconFlow, and Cloudflare all stayed at `0` calls for the run.
+- Baseline impact after refresh:
+  - fully optimized count increased from `475` to `575`.
+  - queued-for-regeneration count dropped from `2981` to `2881` across `29` batches.
+  - `title_missing_theme_identifier` dropped again from `2049` to `1949`.
+
+## Batch 6 Local-Repair Wave (2026-04-05)
+- Executed one more refreshed first batch to confirm the repair-first path still scales after the easy keyword lane was exhausted:
+  - `npm run build:cache -- --batch=1 --batch-plan=reports/seo/phase-02-regeneration-baseline.json --checkpoint-file=reports/seo/phase-02-batch-progress.local-repair-batch6.json --resume --max-items=100 --max-duration=5`
+- Result:
+  - checkpoint completed at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `99` items finished through local repair before a single translation tail item needed NVIDIA-backed AI.
+- AI telemetry outcome:
+  - `Workers AI` again remained unused (`0` calls) and therefore stayed strictly inside the free-only budget.
+  - NVIDIA handled the tiny tail (`nvidia=8`, `nvidiaFail=3`) and eventually completed the last pending item without involving fallback providers.
+- Baseline impact after refresh:
+  - fully optimized count increased from `575` to `675`.
+  - queued-for-regeneration count dropped from `2881` to `2781` across `28` batches.
+  - the remaining queue is now led by:
+    - `title_missing_theme_identifier` (`1849`)
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `low_intent_en_keywords` (`193`)
+
+## Batch 7-11 Local-Repair Waves (2026-04-05)
+- Continued the same repair-first workflow through five more refreshed first-batch slices:
+  - `local-repair-batch7`
+  - `local-repair-batch8`
+  - `local-repair-batch9`
+  - `local-repair-batch10`
+  - `local-repair-batch11`
+- Result:
+  - all five checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - four of the five waves (`batch7`, `batch8`, `batch10`, `batch11`) were pure deterministic local repair with zero AI traffic.
+  - only `batch9` touched the AI tail at all, and it still stayed small (`nvidia=8`, `nvidiaFail=3`) with no fallback-provider or Workers AI traffic.
+- Baseline impact across the five waves:
+  - fully optimized count increased from `675` to `1175`.
+  - queued-for-regeneration count dropped from `2781` to `2281`.
+  - total batches dropped from `28` to `23`.
+  - `title_missing_theme_identifier` fell from `1849` to `1349`.
+- Latest baseline after batch 11:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - current queue: `2281` skills across `23` batches.
+  - current drift snapshot: `sitemap-only 0`, `indexable-cache-only 0`.
+  - current content-risk counts in the baseline report:
+    - `thin_body_preview 36`
+
+## Strict Audit Remediation Follow-up (2026-04-05)
+- Fixed the public-surface drift mismatch in [`scripts/seo-index-integrity.ts`](scripts/seo-index-integrity.ts):
+  - aligned drift comparison with sitemap-style indexability instead of the stricter fallback-combined audit heuristic.
+  - changed drift artifacts to always write the latest snapshot, including the `0/0` case.
+- Result after rerunning the strict audit:
+  - `drift` improved from `28` to `0`.
+  - `reports/seo/index-drift.json` now records `onlyInSitemap=0` and `onlyInIndexableCache=0`.
+- Extended content normalization in [`scripts/build-skills-cache.ts`](scripts/build-skills-cache.ts):
+  - `ensureSkillMdContent()` can now synthesize missing `skillMd.bodyPreview` from existing description or `agentAnalysis` recommendation/use-cases/limitations.
+  - the main save path now normalizes all skills before writing `data/skills-cache.json`, not just partial-save checkpoints.
+  - short preview-only entries without full bodies now get an enriched fallback preview when the generated content is materially better.
+- Strict audit impact after those normalization changes were written back through fresh build waves:
+  - `missing body/bodyPreview` improved from `47` to `0`.
+  - `thin-content under 250 bytes` improved from `51` to `10`, then from `10` to `4`.
+  - the only remaining strict failures are four source-derived thin-body entries:
+    - `itsimonfredlingjack/codex-dev-plugin/sync-policies`
+    - `carrizoja/Nest-Dating-Backend/Project Guidelines`
+    - `artsy/force/beep`
+    - `udecode/better-convex/review`
+  - these are all entries with real short `skillMd.body` values, so they are a different class from the previously missing-body `affaan-m/everything-claude-code` records.
+
+## Final Thin-Content Closure (2026-04-05)
+- Extended [`scripts/build-skills-cache.ts`](scripts/build-skills-cache.ts) one more time so deterministic normalization also enriches entries that already have a real `skillMd.body` when that body is still too short for strict indexability:
+  - the original short body is preserved at the top.
+  - deterministic fallback sections derived from existing description or `agentAnalysis` are appended beneath it.
+  - enrichment only applies when the synthesized content is materially richer than the current short body.
+- Result after writing the change back through fresh cache builds:
+  - the last four strict thin-content outliers were cleared:
+    - `itsimonfredlingjack/codex-dev-plugin/sync-policies`
+    - `carrizoja/Nest-Dating-Backend/Project Guidelines`
+    - `artsy/force/beep`
+    - `udecode/better-convex/review`
+  - `npm run audit:seo:index-quality` now passes fully.
+  - current public-surface integrity state is:
+    - `drift 0`
+    - `missing body/bodyPreview 0`
+    - `thin-content 0`
+
+## Post-Wave Audit and Telemetry (2026-04-05)
+- Strict SEO audit rerun:
+  - `npm run audit:seo:index-quality`
+  - remained unchanged at:
+    - `drift 28`
+    - `missing body/bodyPreview 47`
+    - `thin-content 51`
+  - confirms the local repair waves improved the regeneration queue but did not change the strict body/drift audit blockers.
+- Latest AI trend rerun:
+  - `npm run report:ai:trend -- --limit=20 --fail-on=critical`
+  - latest snapshot status is `completed`, but the overall alert state is still `blocking` / `critical`.
+  - current latest snapshot recovered `N1 -> N2 -> N3` availability, while `N0` is quarantined for retryable failures and fallback providers are still hard-disabled in the latest window sample.
+
+## Latest Audit and Telemetry Refresh (2026-04-05)
+- Re-ran the strict audit after the additional repair-first waves:
+  - `npm run audit:seo:index-quality`
+  - the strict profile has now improved materially:
+    - `drift 0`
+    - `missing body/bodyPreview 0`
+    - `thin-content 4`
+  - this confirms the new deterministic normalization work can close real strict-quality debt, not just the regeneration queue.
+- Re-ran the AI trend after batch 6:
+  - `npm run report:ai:trend -- --limit=20 --fail-on=critical`
+  - alert state still remains `blocking` / `critical`, but the profile kept improving across the later local-repair waves:
+    - latest snapshot now shows full provider availability with no hard-disabled providers and no quarantined labels.
+    - the only remaining critical alert is historical `providers_unavailable` rotation exhaustion in the analyzed 20-sample window (`18` events), plus a warning for historical NVIDIA volatility.
+    - `Workers AI` remains available and still bounded to the free-only budget window (`max calls this run=9`, `max daily calls observed=39`).
+- Latest baseline after batch 11:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - current queue: `2281` skills across `23` batches.
+  - fully optimized count: `1175`.
+
+## Batch 12-13 Local-Repair Waves (2026-04-05)
+- Continued the same repair-first execution path through two additional refreshed batch-1 slices:
+  - `local-repair-batch12`
+  - `local-repair-batch13`
+- Result:
+  - both checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - both waves were pure deterministic local repair with zero AI calls across all providers.
+- Baseline impact across the two waves:
+  - fully optimized count increased from `1175` to `1375`.
+  - queued-for-regeneration count dropped from `2281` to `2081`.
+  - total batches dropped from `23` to `21`.
+  - `title_missing_theme_identifier` fell from `1349` to `1166`.
+
+## Batch 14-16 Local-Repair Waves (2026-04-05)
+- Continued the same repair-first execution path through three more refreshed batch-1 slices:
+  - `local-repair-batch14`
+  - `local-repair-batch15`
+  - `local-repair-batch16`
+- Result:
+  - all three checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `batch14` remained tail-light (`nvidia=8`, `nvidiaFail=3`) and did not hard-disable fallback providers.
+  - `batch15` also completed cleanly with a small NVIDIA tail (`nvidia=8`, `nvidiaFail=2`) and no fallback-provider hard-disable state.
+  - `batch16` still completed `100/100`, but the final tail escaped into fallback probing and reintroduced run-scoped hard-disables on:
+    - `openrouter` (`O0:402`, `O1:402`)
+    - `siliconflow` (`S:403`)
+- Baseline impact across the three waves:
+  - fully optimized count increased from `1375` to `1675`.
+  - queued-for-regeneration count dropped from `2081` to `1781`.
+  - total batches dropped from `21` to `18`.
+  - `title_missing_theme_identifier` fell from `1166` to `866`.
+- Latest baseline after batch 16:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - current queue: `1781` skills across `18` batches.
+  - fully optimized count: `1675`.
+  - strict content-risk counts remain green in the report.
+
+## Batch 17-19 Local-Repair Waves (2026-04-05)
+- Continued the same repair-first execution path through three more refreshed batch-1 slices:
+  - `local-repair-batch17`
+  - `local-repair-batch18`
+  - `local-repair-batch19`
+- Result:
+  - all three checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `batch17` stayed healthy with a modest NVIDIA-only tail (`nvidia=16`, `nvidiaFail=6`) and no fallback-provider or Workers AI traffic.
+  - `batch18` was pure deterministic local repair with zero AI calls across all providers.
+  - `batch19` again stayed NVIDIA-only on the small tail (`nvidia=8`, `nvidiaFail=8`) and still avoided OpenRouter, SiliconFlow, and Workers AI entirely.
+- Baseline impact across the three waves:
+  - fully optimized count increased from `1675` to `1975`.
+  - queued-for-regeneration count dropped from `1781` to `1481`.
+  - total batches dropped from `18` to `15`.
+  - `title_missing_theme_identifier` fell from `866` to `566`.
+  - `stale_or_truncated_seo_snippet` is now the single largest remaining reason at `596`.
+- AI telemetry impact across the three waves:
+  - the first healthy latest snapshot after `batch17` removed the latest hard-disabled-provider state, but the 20-sample trend still remained `blocking` / `critical` because of historical `providers_unavailable` events.
+  - after `batch19`, the trend fully recovered to `soft warning` only:
+    - no critical alerts remain.
+    - latest snapshot shows full provider availability and no hard-disabled providers.
+    - Workers AI is still strictly within the intended free-only posture (`max calls this run observed = 1`, `max daily calls observed = 3` in the current 20-sample window).
+- Latest reports after batch 19:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - `reports/seo/latest-ai-telemetry-trend.md`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch17.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch18.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch19.json`
+
+## Batch 20-24 Follow-up Waves (2026-04-05)
+- Continued the same repair-first execution path through five more checkpoints:
+  - `local-repair-batch20`
+  - `local-repair-batch21`
+  - `local-repair-batch22`
+  - `local-repair-batch23`
+  - `local-repair-batch24`
+- Result:
+  - `batch20`, `batch22`, `batch23`, and `batch24` all completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `batch21` exposed an execution hygiene issue rather than a regeneration failure:
+    - it reused the pre-refresh baseline after `batch20`
+    - all `100` selected IDs were safely skipped (`0 completed / 100 skipped / 0 failed`)
+    - the no-op guard held and strict quality remained unchanged
+    - the recovery path was simply to refresh the baseline before continuing
+  - `batch20` stayed NVIDIA-only (`nvidia=16`, `nvidiaFail=8`) with no fallback-provider or Workers AI traffic, though one run-scoped NVIDIA label quarantine was recorded for `N0`.
+  - `batch22` also stayed NVIDIA-only (`nvidia=16`, `nvidiaFail=5`) with no fallback-provider hard-disables and `Workers AI=0`.
+  - `batch23` completed `100/100` but briefly regressed the latest snapshot:
+    - fallback providers were hard-disabled for the run tail:
+      - `cloudflare (C:schema)`
+      - `openrouter (O1:402)` and effectively `O0:402`
+      - `siliconflow (S:403)`
+    - `Workers AI` still remained inside the free-only guardrail (`callsThisRun=1`, `dailyCalls=4`)
+  - `batch24` immediately restored the healthier pattern:
+    - `100/100` complete
+    - NVIDIA-only (`nvidia=16`, `nvidiaFail=11`)
+    - no hard-disabled providers in the latest snapshot
+    - `Workers AI=0`
+- Baseline impact across the effective optimization waves (`batch20`, `batch22`, `batch23`, `batch24`):
+  - fully optimized count increased from `1975` to `2375`.
+  - queued-for-regeneration count dropped from `1481` to `1081`.
+  - total batches dropped from `15` to `11`.
+  - `title_missing_theme_identifier` fell from `566` to `166`.
+  - the remaining queue is now dominated by:
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `low_intent_en_keywords` (`193`)
+    - `title_missing_theme_identifier` (`166`)
+- AI telemetry impact across the five checkpoints:
+  - after `batch20`, latest snapshot remained healthy despite one run-scoped NVIDIA quarantine.
+  - after `batch23`, `npm run report:ai:trend -- --limit=20 --fail-on=critical` flipped back to `blocking` / `critical` because the latest snapshot again contained fallback-provider hard-disables.
+  - after `batch24`, the trend recovered back to `soft warning`:
+    - no critical alerts remain
+    - latest snapshot shows full provider availability and no hard-disabled providers
+    - the only remaining alert is historical NVIDIA volatility (`59` failures, `58` cooldowns across the current 20-sample window)
+    - Workers AI remains strictly inside the intended free-only posture (`max calls this run observed = 1`, `max daily calls observed = 4`, minimum daily remaining observed = `116`)
+- Latest reports after batch 24:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - `reports/seo/latest-ai-telemetry-trend.md`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch20.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch21.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch22.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch23.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch24.json`
+
+## Batch 25-26 Follow-up Waves (2026-04-05)
+- Continued the same repair-first execution path through two more refreshed checkpoints:
+  - `local-repair-batch25`
+  - `local-repair-batch26`
+- Result:
+  - both checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `batch25` was a pure deterministic local-repair sweep:
+    - all providers stayed at `0` calls
+    - `Workers AI=0`
+    - no NVIDIA tail and no fallback-provider traffic at all
+  - `batch26` reintroduced only a very small NVIDIA tail:
+    - `nvidia=8`, `nvidiaFail=4`
+    - `openrouter=0`, `siliconflow=0`, `cloudflare=0`
+    - `Workers AI=0`
+    - no hard-disabled providers in the latest snapshot
+- Baseline impact across the two waves:
+  - fully optimized count increased from `2375` to `2575`.
+  - queued-for-regeneration count dropped from `1081` to `881`.
+  - total batches dropped from `11` to `9`.
+  - `low_intent_en_keywords` fell from `193` to `159`.
+  - `title_missing_theme_identifier` fell out of the primary-reason table entirely, leaving the remaining queue dominated by:
+    - `stale_or_truncated_seo_snippet` (`596`)
+    - `low_intent_en_keywords` (`159`)
+    - `missing_description_locale` (`85`)
+- AI telemetry impact across the two waves:
+  - `batch25` produced a fully clean latest snapshot with no AI traffic at all.
+  - `batch26` kept the latest snapshot healthy despite a small NVIDIA retry tail.
+  - after rerunning `npm run report:ai:trend -- --limit=20 --fail-on=critical`, the trend remained at `soft warning`:
+    - no critical alerts remain
+    - latest snapshot shows full provider availability and no hard-disabled providers
+    - the only remaining alert is historical NVIDIA volatility (`60` failures, `59` cooldowns across the current 20-sample window)
+    - Workers AI remains strictly inside the intended free-only posture (`max calls this run observed = 1`, `max daily calls observed = 4`, minimum daily remaining observed = `116`)
+- Latest reports after batch 26:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - `reports/seo/latest-ai-telemetry-trend.md`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch25.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch26.json`
+
+## Batch 27-30 Follow-up Waves (2026-04-06)
+- Continued the same repair-first execution path through four more refreshed checkpoints:
+  - `local-repair-batch27`
+  - `local-repair-batch28`
+  - `local-repair-batch29`
+  - `local-repair-batch30`
+- Result:
+  - all four checkpoints completed cleanly at `100 selected / 100 completed / 0 failed / 0 skipped / 0 pending`.
+  - `batch27` carried only a small NVIDIA-only tail (`nvidia=8`, `nvidiaFail=6`) and still avoided all fallback providers plus Workers AI.
+  - `batch28`, `batch29`, and `batch30` were pure deterministic local-repair sweeps:
+    - all providers stayed at `0` calls
+    - `Workers AI=0`
+    - no NVIDIA tail and no fallback-provider traffic at all
+- Baseline impact across the four waves:
+  - fully optimized count increased from `2575` to `2975`.
+  - queued-for-regeneration count dropped from `881` to `481`.
+  - total batches dropped from `9` to `5`.
+  - `low_intent_en_keywords` was largely cleared and fell out of the leading tail after the batch-27/28/29 lane.
+  - the remaining queue is now concentrated in:
+    - `stale_or_truncated_seo_snippet` (`355`)
+    - `missing_description_locale` (`85`)
+    - `agent_analysis_version_stale` (`21`)
+    - `missing_seo_features` (`14`)
+    - `suitability_fell_back_to_english` (`6`)
+- AI telemetry impact across the four waves:
+  - all four latest snapshots remained healthy with no hard-disabled providers.
+  - after local-date rollover to `2026-04-06`, the latest trend report showed Workers AI daily capacity reset cleanly:
+    - latest snapshot `Workers remaining: run=120, daily=120`
+    - Workers AI still remained unused in every added wave
+  - rerunning `npm run report:ai:trend -- --limit=20 --fail-on=critical` after the later waves kept the project at `soft warning` only:
+    - no critical alerts remain
+    - latest snapshot shows full provider availability and no hard-disabled providers
+    - the only remaining alert is historical NVIDIA volatility (`63` failures, `62` cooldowns across the current 20-sample window)
+- Latest reports after batch 30:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - `reports/seo/latest-ai-telemetry-trend.md`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch27.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch28.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch29.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch30.json`
+
+## Batch 31-35 Final Closure Waves (2026-04-06)
+- Continued the same repair-first execution path through the final five refreshed checkpoints:
+  - `local-repair-batch31`
+  - `local-repair-batch32`
+  - `local-repair-batch33`
+  - `local-repair-batch34`
+  - `local-repair-batch35`
+- Result:
+  - all five checkpoints completed cleanly with no failures:
+    - `batch31`: `100/100`
+    - `batch32`: `100/100`
+    - `batch33`: `100/100`
+    - `batch34`: `100/100`
+    - `batch35`: `81/81`
+  - `batch31` through `batch35` were all deterministic local-repair sweeps with zero AI traffic:
+    - `nvidia=0`
+    - `openrouter=0`
+    - `siliconflow=0`
+    - `cloudflare=0`
+    - `Workers AI=0`
+- Baseline impact across the five closure waves:
+  - fully optimized count increased from `2975` to `3456`.
+  - queued-for-regeneration count dropped from `481` to `0`.
+  - total batches dropped from `5` to `0`.
+  - all remaining regeneration reasons were cleared from the baseline report.
+  - final baseline state is:
+    - `Fully optimized already: 3456`
+    - `Queued for regeneration: 0`
+    - `Tier 1 / Tier 2 / Tier 3 counts: 0 / 0 / 0`
+- AI telemetry impact across the five closure waves:
+  - all five latest snapshots remained healthy with no hard-disabled providers.
+  - the latest trend report remains `soft warning` only:
+    - no critical alerts remain
+    - latest snapshot shows full provider availability and no hard-disabled providers
+    - the only remaining alert is historical NVIDIA volatility (`52` failures, `51` cooldowns across the current 20-sample window)
+  - Workers AI remained completely unused throughout the closure waves and stayed strictly within the free-only posture:
+    - latest snapshot `Workers remaining: run=120, daily=120`
+    - no Workers AI unavailability observed
+- Latest reports after batch 35:
+  - `reports/seo/phase-02-regeneration-baseline.md`
+  - `reports/seo/latest-ai-telemetry-trend.md`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch31.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch32.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch33.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch34.json`
+  - `reports/seo/phase-02-batch-progress.local-repair-batch35.json`
+
+## Current Assessment
+- Regeneration path is runnable and checkpoint isolation works.
+- Resume semantics are safer and the regeneration strategy is now materially more scalable: thirty-four effective repair-first waves have completed `3381/3381` newly optimized queued skills, and the one additional stale-baseline checkpoint (`batch21`) failed safe by skipping `100` already-fixed records instead of mutating the queue unexpectedly.
+- Deterministic local repair is now the highest-leverage Phase 02 path for Tier 1 issues because it removes large classes of `title_missing_theme_identifier` and residual metadata debt without consuming fallback providers.
+- Deterministic content normalization is now also proven on the strict-quality lane: it cleared drift, missing-body debt, and the final thin-content strict failures, so the strict index-integrity audit is fully green.
+- Workers AI stayed inside the intended free-only posture across all new waves, and it did not become the dominant tail path in any of the added batches.
+- Fallback-provider reliability is still worth watching operationally, but it is no longer blocking Plan `02-02`: the latest eight waves (`batch28` through `batch35`) never touched a fallback provider, and the latest snapshot remains healthy.
+- Plan `02-02` has now achieved its execution objective end-to-end: the regeneration queue has been reduced from `3381` to `0`, the strict-quality lane is green, checkpoint resumability is proven, and the multilingual/free-tier provider guardrails held through closure.

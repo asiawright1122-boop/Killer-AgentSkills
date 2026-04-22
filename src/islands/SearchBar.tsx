@@ -12,6 +12,9 @@ interface SearchResult {
   name: string;
   owner: string;
   repo: string;
+  routePath: string;
+  detailLocale: string;
+  href: string;
   category?: string;
   stars?: number;
   score: number;
@@ -46,9 +49,9 @@ function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBar
     const timeoutId = setTimeout(async () => {
       setIsSearching(true);
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${encodeURIComponent(locale)}`);
         if (res.ok) {
-          const data = (await res.json()) as { results?: any[] };
+          const data = (await res.json()) as { results?: SearchResult[] };
           setResults(data.results || []);
           setIsOpen(true);
         }
@@ -60,7 +63,7 @@ function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBar
     }, 400); // 400ms debounce
 
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [query, locale]);
 
   const handleSearch = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -131,13 +134,13 @@ function SearchBar({ locale = 'en', placeholder, buttonText = 'RUN' }: SearchBar
               {results.map((r, _i) => (
                 <li key={r.id} className={`border-b-2 border-[var(--border)] last:border-b-0`}>
                   <a
-                    href={`/${locale}/skills/${r.owner}/${r.repo}`}
+                    href={r.href}
                     className="flex items-center justify-between p-4 hover:bg-[var(--primary)] hover:text-[var(--foreground)] transition-colors group"
                   >
                     <div className="flex flex-col overflow-hidden">
                       <span className="font-bold truncate text-lg group-hover:text-black">{r.name}</span>
                       <span className="text-sm opacity-70 truncate font-mono mt-1 group-hover:text-black">
-                        {r.owner}/{r.repo} {r.category ? `• ${r.category}` : ''}
+                        {r.owner}/{r.routePath || r.repo} {r.category ? `• ${r.category}` : ''}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">

@@ -20,7 +20,7 @@ Da OpenClaw eine Verbindung zu WhatsApp, Telegram und Discord herstellen kann, k
 
 -   **Beispiel**: Wenn Sie in einem Meeting sind oder unterwegs, kann OpenClaw eingehende Nachrichten von verschiedenen Kanälen im Hintergrund bearbeiten, einfache Anfragen ausführen oder Ihnen Zusammenfassungen über bestimmte Kanäle senden, wenn dringende Angelegenheiten erkannt werden.
 -   **🌟 Empfohlene Fähigkeiten**:
-    -   [`humanizer`](/de/skills/minhtungo/ai-agents-factory/humanizer): Macht KI-Antworten realistischer und menschlicher, vermeidet einen roboterhaften Charakter.
+    -   [`humanizer`](/en/skills/minhtungo/ai-agents-factory/humanizer): Macht KI-Antworten realistischer und menschlicher, vermeidet einen roboterhaften Charakter.
     -   [`internal-comms`](/de/blog/professional-internal-communications-with-ai-skills): Professionelle Nachrichtenzusammenfassungen und Berichtsformate.
 -   **Schlüsselwörter**: All-Plattform-KI, Nachrichtenautomatisierung.
 ## 2. Nahtlose Dateiverwaltung und Automation

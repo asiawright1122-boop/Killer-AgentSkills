@@ -1,82 +1,88 @@
 ---
 gsd_state_version: '1.0'
-milestone: v1.0
-milestone_name: Reliability and Growth Operations
-current_phase: '02'
-current_phase_name: re-enrichment-pipeline-run
-current_plan: '2'
-status: executing
-last_updated: '2026-04-02T06:58:03Z'
-last_activity: '2026-04-02'
+status: planning_next_milestone
+last_updated: '2026-04-21T06:25:35Z'
+last_activity: '2026-04-21'
 progress:
-  total_phases: 9
-  completed_phases: 7
-  total_plans: 18
-  completed_plans: 16
-  percent: 89
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-04-01)
+See: `.planning/PROJECT.md` (updated 2026-04-16)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** Phase 02 — re-enrichment-pipeline-run
+**Current focus:** The project is between milestones and should define the next scope from the latest `2026-04-21` proof / delta / uplift reports instead of the stale `2026-04-16` transition snapshot.
 
 ## Current Position
 
-**Current Phase:** 02
-**Current Phase Name:** re-enrichment-pipeline-run
-**Total Phases:** 9
-**Current Plan:** 2
-**Total Plans in Phase:** 4
-**Status:** Executing Phase 02
-**Last Activity:** 2026-04-02
-**Last Activity Description:** Added batch no-rewrite safety guard, completed clean `02-02` pilot rerun (`3/3`), and revalidated `02-03`/`02-04` evidence; full regeneration scope remains open.
-
-**Progress:** 89%
+**Current Milestone:** none active
+**Current Phase:** next milestone setup
+**Current Plan:** not yet defined
+**Status:** Between milestones; `v1.6` is archived, the recovery reports are refreshed, and the latest 404 remediation rules are materialized locally
+**Last Activity:** 2026-04-21
+**Last Activity Description:** Refreshed the recovery proof window, delta board, authority uplift scorecard, and experiment ladder; regenerated `data/seo-404-rules.json` from the latest remediation audits; and revalidated middleware / canonical-drift coverage.
+**Progress:** 0%
 
 ## Performance Metrics
 
-**Velocity:**
-- **Completed Plans:** 16
-- **Total Planned:** 18
-- **Plan Completion Ratio:** 89%
+**Most recent shipped milestone:**
 
-**By Phase:**
+- **Milestone:** `v1.6` Post-Governance Recovery Proof and Authority Lift
+- **Completed Phases:** 4
+- **Completed Plans:** 4
+- **Requirement Coverage:** 6/6 satisfied
+- **Audit Status:** Passed
 
-| Phase | Plans | Summaries | Status |
-|------|-------|-----------|--------|
-| 01 | 1 | 1 | Complete |
-| 01.1 | 6 | 6 | Complete |
-| 02 | 4 | 3 | In progress |
-| 02A | 1 | 1 | Complete |
-| 05 | 2 | 2 | Complete |
-| 07 | 1 | 1 | Complete |
-| 08 | 1 | 1 | Complete |
-| 29 | 1 | 1 | Complete |
-| 30 | 1 | 0 | In progress |
+**Current operational truth:**
+
+- Technical crawl recovery remains clear.
+- Coverage Drilldown freshness is back inside SLA with the latest local raw export dated `2026-04-16`.
+- Structural search governance is live across locale eligibility, originality, governed corpus publication, and authority-surface prioritization.
+- The latest comparable proof window on `2026-04-21` is no longer baseline-seeding, but business recovery is still only `warning`, not promotion-ready proof.
+- The local 404 remediation rules are materialized from the latest audit inputs, so missing-cluster and source-file trap handling is wired into middleware for the current workspace.
+- Discovery expansion remains closed at `0 promote / 31 hold / 1 stop`, and automation remains locked.
 
 ## Decisions Made
 
-| Phase | Decision | Rationale |
-|------|----------|-----------|
-| 01.1 | Centralized locale/breadcrumb/metadata contracts | Prevent repeated regressions and key leakage across public surfaces. |
-| 02 | Use report-first, checkpointed regeneration | Enable resumable execution and auditable publish decisions. |
-| 02 | Add batch no-rewrite guard when no runnable tasks exist | Prevent stale checkpoint resumes from mutating cache unexpectedly. |
-| 02A | Isolate CI-injected secrets in property tests | Keep auth-property tests deterministic across runners. |
-| 29 | Require production-surface smoke verification in audit closure | Ensure unattended pipeline health reflects real user-facing behavior rather than local-only checks. |
+| Scope | Decision | Rationale |
+| --- | --- | --- |
+| v1.6 scope | Prove post-governance movement before expanding surfaces or automating experiments | Structural repair without outcome proof is not enough |
+| Authority expansion | Keep gated behind evidence thresholds | Avoid reopening low-value growth patterns too early |
+| Experiment posture | Manual proof first, automation second | Automation should reinforce winning loops, not compensate for uncertainty |
+| AI posture | Keep NVIDIA primary and Workers AI `free-only` | Recovery planning should not weaken runtime guardrails |
+| Next milestone posture | Scope from fresh proof gaps, not from generic growth pressure | The current truth still shows blocking proof, closed expansion, and locked automation |
 
 ## Blockers
 
-- Phase 02 Plan `02-02` is not fully closed: pilot rerun succeeded (`3/3`) but full queued scope (`3436`) is still pending.
-- Strict quality gate remains red (`npm run audit:seo:index-quality`): drift `28`, missing body/bodyPreview `47`, thin-content `51`.
-- Scale risk: broad rerun waves may hit transient provider/network instability and require checkpoint-resume operations to continue.
+- Another trustworthy comparable proof window is still required before authority-surface expansion can be approved.
+- No authority surface currently qualifies for promotion; discovery expansion remains explicitly closed until at least two primary surfaces clear the uplift gates.
+- High-impact issue clusters still need manual execution follow-through, especially the missing-cluster split, source-file cleanup, and trailing-slash / query-parameter / locale follow-ups.
+
+## Accumulated Context
+
+### Shipped Milestone Context
+
+- `v1.5` closed the truthful recovery-evidence lane, recovery prioritization lane, skill corpus governance lane, and authority-surface rebuild lane.
+- The governed skill publish set is now `1099` kept routes from a `2950`-route pre-governance corpus.
+- The authority program currently tracks `17` surfaces and an editorial queue of `5` items.
+
+### Carry-Forward Context
+
+- Coverage Drilldown freshness is no longer the main blocker; the next milestone should convert fresh evidence into another trustworthy comparable proof window.
+- A second trustworthy proof window is required before expansion claims become durable.
+- `deep_skill_path` risk has improved materially, but broader missing-cluster and source-file cohorts still dominate the blocked lane.
+- Authority uplift should remain gated until at least one primary surface earns promotion on evidence.
+- Recovery experiment automation should remain deferred until manual patterns prove repeatable.
 
 ## Session
 
-**Last Date:** 2026-04-02
-**Stopped At:** Batch safety fix + pilot rerun complete; Phase 02 pending full-scope regeneration and strict quality gate pass.
-**Resume File:** None
+**Last Date:** 2026-04-21
+**Stopped At:** Reports and 404 remediation rules are refreshed through the `2026-04-21` local state, but no active milestone is currently defined.
+**Resume File:** `.planning/ROADMAP.md`

@@ -77,11 +77,11 @@ npx killer-skills add anthropics/skills/algorithmic-art
 
 مستقبل الفن تعاوني - رقصة بين النية البشرية وتنفيذ الآلة. مهارة **الفن الخوارزمي** تسلحك لتكون مصمم تلك الرقصة.
 
-جاهز لبدء الإبداع؟ انتقل إلى [سوق Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/algorithmic-art) وثبتها اليوم.
+جاهز لبدء الإبداع؟ انتقل إلى [سوق Killer-Skills](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) وثبتها اليوم.
 
 ---
 
-*استكشف المزيد من المهارات الإبداعية مثل [تصميم الكanvas](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) و [مصنع السمات](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) على Killer-Skills.*
+*استكشف المزيد من المهارات الإبداعية مثل [تصميم الكanvas](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) و [مصنع السمات](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) على Killer-Skills.*
 
 ---
 

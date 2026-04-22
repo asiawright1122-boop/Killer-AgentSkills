@@ -1,4 +1,4 @@
-name: SEO Monitoring
+name: SEO And Operator Monitoring
 
 on:
   workflow_dispatch:
@@ -8,6 +8,8 @@ on:
 
 permissions:
   contents: read
+  issues: write
+  pull-requests: write
 
 jobs:
   gsc-monitoring:
@@ -25,6 +27,73 @@ jobs:
 
       - name: Install Dependencies
         run: HUSKY=0 npm ci
+
+      - name: Validate AI Guardrails
+        env:
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run guard:ai-config
+
+      - name: Refresh AI Runtime Probe
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run probe:ai:runtime
+
+      - name: Refresh Direct AI Provider Probe
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run probe:ai:providers -- --fail-on=none
+
+      - name: Build AI Provider Health Report
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
+          AI_FALLBACK_POLICY: guarded
+          WORKERS_AI_MODE: free-only
+          WORKERS_AI_FREE_MAX_CALLS: '60'
+          WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
+        run: npm run report:ai:health -- --limit=20 --fail-on=${AI_ALERT_FAIL_ON_SEVERITY}
+
+      - name: Build Content Governance Report
+        env:
+          CONTENT_GOVERNANCE_FAIL_ON_SEVERITY: blocking
+        run: npm run report:content:governance -- --fail-on=${CONTENT_GOVERNANCE_FAIL_ON_SEVERITY}
+
+      - name: Build Operator Ops Summary
+        env:
+          OPS_REMEDIATION_AI_THRESHOLD: warning
+          OPS_REMEDIATION_GOVERNANCE_THRESHOLD: warning
+          OPS_HANDOFF_MODE: ${{ vars.OPS_HANDOFF_MODE || 'none' }}
+          OPS_HANDOFF_OWNER: ${{ vars.OPS_HANDOFF_OWNER || github.repository_owner }}
+          OPS_HANDOFF_REPO: ${{ vars.OPS_HANDOFF_REPO || github.event.repository.name }}
+          OPS_HANDOFF_BASE_BRANCH: ${{ vars.OPS_HANDOFF_BASE_BRANCH || github.event.repository.default_branch }}
+          OPS_HANDOFF_LABELS: ${{ vars.OPS_HANDOFF_LABELS || 'ops-remediation,automated' }}
+        run: npm run report:ops:summary -- --ai-threshold=${OPS_REMEDIATION_AI_THRESHOLD} --governance-threshold=${OPS_REMEDIATION_GOVERNANCE_THRESHOLD}
+
+      - name: Publish Operator Remediation Handoff
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPS_HANDOFF_MODE: ${{ vars.OPS_HANDOFF_MODE || 'none' }}
+          OPS_HANDOFF_OWNER: ${{ vars.OPS_HANDOFF_OWNER || github.repository_owner }}
+          OPS_HANDOFF_REPO: ${{ vars.OPS_HANDOFF_REPO || github.event.repository.name }}
+          OPS_HANDOFF_BASE_BRANCH: ${{ vars.OPS_HANDOFF_BASE_BRANCH || github.event.repository.default_branch }}
+          OPS_HANDOFF_LABELS: ${{ vars.OPS_HANDOFF_LABELS || 'ops-remediation,automated' }}
+        run: npm run publish:ops:handoff
 
       - name: Run Production SEO Smoke
         env:
@@ -67,9 +136,41 @@ jobs:
           SEO_CRAWL_TIMEOUT_MS: '15000'
           SEO_CRAWL_RETRIES: '4'
           SEO_CRAWL_RETRY_DELAY_MS: '1000'
+          SEO_CRAWL_HARD_FAIL_5XX_MIN: '3'
+          SEO_CRAWL_HARD_FAIL_5XX_RATE: '0.005'
+          SEO_CRAWL_HARD_FAIL_FLAKY_5XX_MIN: '3'
+          SEO_CRAWL_HARD_FAIL_FLAKY_5XX_RATE: '0.002'
+          SEO_CRAWL_HARD_FAIL_CF1102_MIN: '1'
+          SEO_CRAWL_HARD_FAIL_4XX_RATE: '0.05'
         run: |
           mkdir -p reports/seo
           npm run report:seo:crawl-health -- https://killer-skills.com
+
+      - name: Build SEO 404 Rules Artifact
+        if: always()
+        run: |
+          if [ -f reports/seo/latest-404-remediation-plan.json ]; then
+            npm run report:seo:404-rules
+          else
+            echo "Skip SEO 404 rules generation: reports/seo/latest-404-remediation-plan.json not found"
+          fi
+
+      - name: Build SEO Sitemap Blocklist Artifact
+        if: always()
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
+        run: |
+          if [ -f reports/seo/latest-crawl-health.json ] || [ -f reports/seo/latest-crawl-health.md ]; then
+            if [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
+              npm run report:seo:sitemap-blocklist:d1
+            else
+              npm run report:seo:sitemap-blocklist
+            fi
+          else
+            echo "Skip sitemap blocklist generation: crawl health reports not found"
+          fi
 
       - name: Upload GSC Monitoring Artifact
         if: always()
@@ -83,18 +184,83 @@ jobs:
 
       - name: Publish Job Summary
         if: always()
+        env:
+          AI_ALERT_FAIL_ON_SEVERITY: critical
+          CONTENT_GOVERNANCE_FAIL_ON_SEVERITY: blocking
+          OPS_REMEDIATION_AI_THRESHOLD: warning
+          OPS_REMEDIATION_GOVERNANCE_THRESHOLD: warning
         run: |
+          echo "# Operator Monitoring" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- AI health threshold: ${AI_ALERT_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Content governance threshold: ${CONTENT_GOVERNANCE_FAIL_ON_SEVERITY}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Remediation AI threshold: ${OPS_REMEDIATION_AI_THRESHOLD}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Remediation governance threshold: ${OPS_REMEDIATION_GOVERNANCE_THRESHOLD}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl 5xx min/rate: 3 / 0.005" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl flaky 5xx min/rate: 3 / 0.002" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl Cloudflare 1102 min: 1" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl 4xx rate: 0.05" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -f reports/seo/latest-ops-summary.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-ops-summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-ops-handoff-publication.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-ops-handoff-publication.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
           if [ -f reports/gsc/latest-ctr-report.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
             sed -n '1,220p' reports/gsc/latest-ctr-report.md >> "$GITHUB_STEP_SUMMARY"
           elif [ -f reports/gsc/monitoring-skipped.md ]; then
-            cat reports/gsc/monitoring-skipped.md >> "$GITHUB_STEP_SUMMARY"
-          else
-            echo "# SEO Monitoring" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "No report artifact was produced." >> "$GITHUB_STEP_SUMMARY"
+            cat reports/gsc/monitoring-skipped.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
           if [ -f reports/seo/latest-crawl-health.md ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
             sed -n '1,220p' reports/seo/latest-crawl-health.md >> "$GITHUB_STEP_SUMMARY"
+          elif [ ! -f reports/seo/latest-ai-provider-health.md ] && [ ! -f reports/seo/latest-content-governance.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "No operator monitoring report artifact was produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-crawl-health.json ]; then
+            node <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          const fs = require('node:fs');
+          try {
+            const crawl = JSON.parse(fs.readFileSync('reports/seo/latest-crawl-health.json', 'utf8'));
+            const totals = crawl?.totals || {};
+            const status = crawl?.statusSummary || {};
+            console.log('');
+            console.log('### Crawl Health JSON Snapshot');
+            console.log(`- Discovered URLs: ${totals.pageUrlsDiscovered ?? 'n/a'}`);
+            console.log(`- Checked URLs: ${totals.pageUrlsChecked ?? 'n/a'}`);
+            console.log(`- 2xx/3xx/4xx/5xx: ${status.status2xx ?? 0}/${status.status3xx ?? 0}/${status.status4xx ?? 0}/${status.status5xx ?? 0}`);
+          } catch (error) {
+            console.log('');
+            console.log(`Crawl JSON parse failed: ${error instanceof Error ? error.message : String(error)}`);
+          }
+          EOF
+          fi
+
+          if [ -f data/seo-sitemap-blocklist.json ]; then
+            node <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          const fs = require('node:fs');
+          try {
+            const blocklist = JSON.parse(fs.readFileSync('data/seo-sitemap-blocklist.json', 'utf8'));
+            const stats = blocklist?.stats || {};
+            console.log('');
+            console.log('### Sitemap Blocklist Snapshot');
+            console.log(`- Mode: ${blocklist?.mode || 'replace'}`);
+            console.log(`- excludeExact: ${stats.excludeExact ?? 0}`);
+            console.log(`- excludeRepo: ${stats.excludeRepo ?? 0}`);
+            console.log(`- ignored: ${stats.ignored ?? 0}`);
+          } catch (error) {
+            console.log('');
+            console.log(`Sitemap blocklist parse failed: ${error instanceof Error ? error.message : String(error)}`);
+          }
+          EOF
           fi

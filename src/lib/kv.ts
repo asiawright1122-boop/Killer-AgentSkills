@@ -1,3 +1,6 @@
+import { getNonTargetSkillReason } from './shared/validation';
+import { normalizeSitemapSkillEntry, type SitemapSkillEntry } from './skill-route-paths';
+
 export interface Env {
   TRANSLATIONS: KVNamespace;
   SKILLS_CACHE: KVNamespace;
@@ -17,10 +20,20 @@ export interface Env {
   NVIDIA_API_KEYS_3?: string;
   NVIDIA_API_KEYS_4?: string;
   NVIDIA_API_KEYS_5?: string;
+  NVIDIA_MODEL?: string;
   SILICONFLOW_API_KEY?: string;
+  SILICONFLOW_MODEL?: string;
   OPENROUTER_API_KEY?: string;
   OPENROUTER_API_KEYS?: string;
+  OPENROUTER_MODEL?: string;
+  AI_FALLBACK_POLICY?: string;
+  AI_FALLBACK_ALWAYS_REASON?: string;
+  TRANSLATE_WORKLOAD_PROFILE?: string;
+  TRANSLATE_MODEL_NVIDIA?: string;
+  TRANSLATE_MODEL_SILICONFLOW?: string;
+  TRANSLATE_MODEL_OPENROUTER?: string;
   SKILL_TRY_DAILY_LIMIT?: string;
+  SKILL_TRY_WORKLOAD_PROFILE?: string;
   SKILL_TRY_MODEL_NVIDIA?: string;
   SKILL_TRY_MODEL_SILICONFLOW?: string;
   SKILL_TRY_MODEL_OPENROUTER?: string;
@@ -63,20 +76,113 @@ export interface SkillListingItem {
   };
 }
 
+export interface SkillsListingPageResult {
+  items: SkillListingItem[];
+  total: number;
+  page: number;
+  pageSize: number;
+}
+
+export interface SkillsCategoryCountItem {
+  category: string;
+  count: number;
+}
+
+export interface SkillsCategorySummary {
+  total: number;
+  categories: SkillsCategoryCountItem[];
+}
+
 type TrackedSkillRow = Record<string, unknown>;
 type D1Row = Record<string, unknown>;
+type TimedCacheEntry<T> = { value: T; ts: number };
 
 let _localSkillsCache: SkillListingItem[] | null = null;
 let _localSkillsCacheTime = 0;
-let _sitemapSkillsCache: { owner: string; repo: string; updatedAt?: string }[] | null = null;
+let _sitemapSkillsCache: SitemapSkillEntry[] | null = null;
 let _sitemapSkillsCacheTime = 0;
+let _skillsTotalCountCache: TimedCacheEntry<number> | null = null;
+let _skillsCategorySummaryCache: TimedCacheEntry<SkillsCategorySummary> | null = null;
+const _skillsListingPageCache = new Map<string, TimedCacheEntry<SkillsListingPageResult>>();
+const _skillsListingTopCache = new Map<string, TimedCacheEntry<SkillListingItem[]>>();
+const _skillsListingByRefsCache = new Map<string, TimedCacheEntry<SkillListingItem[]>>();
 
 const SITEMAP_SKILLS_CACHE_TTL_MS = 5 * 60 * 1000;
+const SKILLS_TOTAL_COUNT_CACHE_TTL_MS = 60 * 1000;
+const SKILLS_LISTING_PAGE_CACHE_TTL_MS = 30 * 1000;
+const SKILLS_LISTING_TOP_CACHE_TTL_MS = 30 * 1000;
+const SKILLS_LISTING_BY_REFS_CACHE_TTL_MS = 2 * 60 * 1000;
+const SKILLS_CATEGORY_SUMMARY_CACHE_TTL_MS = 2 * 60 * 1000;
+const SKILLS_LISTING_PAGE_CACHE_MAX = 120;
+const SKILLS_LISTING_TOP_CACHE_MAX = 40;
+const SKILLS_LISTING_BY_REFS_CACHE_MAX = 200;
+
+function isPublicSitemapSkillCandidate(skill: Record<string, unknown>): boolean {
+  return !getNonTargetSkillReason({
+    name:
+      (typeof skill.skillName === 'string' && skill.skillName) ||
+      (typeof skill.name === 'string' && skill.name) ||
+      (typeof skill.repo === 'string' && skill.repo) ||
+      '',
+    owner: typeof skill.owner === 'string' ? skill.owner : '',
+    repo: typeof skill.repo === 'string' ? skill.repo : '',
+    body:
+      (typeof skill.skillBody === 'string' && skill.skillBody) ||
+      (typeof skill.skillBodyPreview === 'string' && skill.skillBodyPreview) ||
+      '',
+    description:
+      skill.descriptionRaw ||
+      (typeof skill.descriptionEn === 'string' ? skill.descriptionEn : '') ||
+      skill.seoDefinitionRaw ||
+      (typeof skill.seoDefinitionEn === 'string' ? skill.seoDefinitionEn : ''),
+    topics: Array.isArray(skill.topicsRaw)
+      ? (skill.topicsRaw as string[])
+      : typeof skill.topicsRaw === 'string'
+        ? [skill.topicsRaw]
+        : [],
+    category: typeof skill.category === 'string' ? skill.category : '',
+    filePath: typeof skill.filePath === 'string' ? skill.filePath : '',
+  });
+}
 
 /** Clear sitemap skills cache - for testing only */
 export function _clearSitemapSkillsCacheForTest(): void {
   _sitemapSkillsCache = null;
   _sitemapSkillsCacheTime = 0;
+}
+
+function getTimedValue<T>(entry: TimedCacheEntry<T> | null, ttlMs: number): T | null {
+  if (!entry) return null;
+  if (Date.now() - entry.ts > ttlMs) return null;
+  return entry.value;
+}
+
+function getTimedMapValue<T>(cache: Map<string, TimedCacheEntry<T>>, key: string, ttlMs: number): T | null {
+  const entry = cache.get(key);
+  if (!entry) return null;
+  if (Date.now() - entry.ts > ttlMs) {
+    cache.delete(key);
+    return null;
+  }
+  return entry.value;
+}
+
+function setTimedMapValue<T>(cache: Map<string, TimedCacheEntry<T>>, key: string, value: T, maxEntries: number): void {
+  cache.set(key, { value, ts: Date.now() });
+  if (cache.size <= maxEntries) return;
+  const oldestKey = cache.keys().next().value;
+  if (oldestKey) cache.delete(oldestKey);
+}
+
+function cloneListingItems(items: SkillListingItem[]): SkillListingItem[] {
+  return items.map((item) => ({ ...item }));
+}
+
+function cloneCategorySummary(summary: SkillsCategorySummary): SkillsCategorySummary {
+  return {
+    total: summary.total,
+    categories: summary.categories.map((item) => ({ ...item })),
+  };
 }
 
 function normalizeTrackedSkillFallback(row: TrackedSkillRow): SkillListingItem | null {
@@ -385,30 +491,302 @@ export async function getSkillsListing(env: Env): Promise<SkillListingItem[]> {
     ).all();
 
     if (result.success && result.results) {
-      return result.results.map(
-        (row: D1Row): SkillListingItem => ({
-          id: String(row.id ?? ''),
-          name: String(row.name ?? row.skillName ?? row.repo ?? ''),
-          skillName: String(row.skillName ?? row.name ?? ''),
-          owner: String(row.owner ?? ''),
-          repo: String(row.repo ?? ''),
-          description: row.description ? tryParseJSON(String(row.description), String(row.description)) : '',
-          category: String(row.category ?? ''),
-          topics: row.topics ? tryParseJSON(String(row.topics), []) : [],
-          stars: Number(row.stars ?? 0),
-          source: String(row.source ?? 'cache') as SkillListingItem['source'],
-          updatedAt: String(row.updated_at ?? ''),
-          qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
-          filePath: String(row.filePath ?? ''),
-          seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
-        }),
-      );
+      return result.results.map((row: D1Row): SkillListingItem => mapD1ListingRow(row));
     }
     return [];
   } catch (e) {
     console.error('[D1] Error in listing query:', e);
     return [];
   }
+}
+
+/**
+ * ⚡ Paged listing query for high-traffic listing routes.
+ * Fetches only the requested page instead of the full table to reduce Worker CPU.
+ */
+export async function getSkillsListingPage(env: Env, page: number, pageSize: number): Promise<SkillsListingPageResult> {
+  const safePage = Number.isFinite(page) && page > 0 ? Math.floor(page) : 1;
+  const safePageSize = Number.isFinite(pageSize) && pageSize > 0 ? Math.min(Math.floor(pageSize), 100) : 12;
+  const offset = (safePage - 1) * safePageSize;
+  const pageCacheKey = `${safePage}:${safePageSize}`;
+
+  const cachedPage = getTimedMapValue(_skillsListingPageCache, pageCacheKey, SKILLS_LISTING_PAGE_CACHE_TTL_MS);
+  if (cachedPage) {
+    return {
+      ...cachedPage,
+      items: cloneListingItems(cachedPage.items),
+    };
+  }
+
+  if (!env?.DB) {
+    const all = await getLocalSkillsFallback();
+    const normalized = all.map((row) => mapLocalListingRow(row)).sort((a, b) => b.stars - a.stars);
+    const fallbackResult: SkillsListingPageResult = {
+      items: normalized.slice(offset, offset + safePageSize),
+      total: normalized.length,
+      page: safePage,
+      pageSize: safePageSize,
+    };
+    setTimedMapValue(_skillsListingPageCache, pageCacheKey, fallbackResult, SKILLS_LISTING_PAGE_CACHE_MAX);
+
+    return {
+      ...fallbackResult,
+      items: cloneListingItems(fallbackResult.items),
+    };
+  }
+
+  try {
+    let total = getTimedValue(_skillsTotalCountCache, SKILLS_TOTAL_COUNT_CACHE_TTL_MS);
+    if (total === null) {
+      const totalResult = await env.DB.prepare(`SELECT COUNT(*) as total FROM skills`).first();
+      total = Number((totalResult as D1Row | null)?.total ?? 0);
+      _skillsTotalCountCache = { value: total, ts: Date.now() };
+    }
+
+    const result = await env.DB.prepare(
+      `
+            SELECT
+                id,
+                owner,
+                repo,
+                name,
+                category,
+                stars,
+                quality_score,
+                updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills
+            ORDER BY stars DESC
+            LIMIT ?1 OFFSET ?2
+        `,
+    )
+      .bind(safePageSize, offset)
+      .all();
+
+    const items = result.success && result.results ? result.results.map((row: D1Row) => mapD1ListingRow(row)) : [];
+    const pagedResult: SkillsListingPageResult = { items, total, page: safePage, pageSize: safePageSize };
+    setTimedMapValue(_skillsListingPageCache, pageCacheKey, pagedResult, SKILLS_LISTING_PAGE_CACHE_MAX);
+    return { ...pagedResult, items: cloneListingItems(pagedResult.items) };
+  } catch (e) {
+    console.error('[D1] Error in paged listing query:', e);
+    return { items: [], total: 0, page: safePage, pageSize: safePageSize };
+  }
+}
+
+/**
+ * Lightweight top-N listing query.
+ * Used by crawler-safe pages that need intent matching without full-table scans.
+ */
+export async function getSkillsListingTop(env: Env, limit: number): Promise<SkillListingItem[]> {
+  const safeLimit = Number.isFinite(limit) && limit > 0 ? Math.min(Math.floor(limit), 500) : 120;
+  const topCacheKey = `top:${safeLimit}`;
+  const cachedTop = getTimedMapValue(_skillsListingTopCache, topCacheKey, SKILLS_LISTING_TOP_CACHE_TTL_MS);
+  if (cachedTop) return cloneListingItems(cachedTop);
+
+  if (!env?.DB) {
+    const all = await getLocalSkillsFallback();
+    const fallbackTop = all
+      .map((row) => mapLocalListingRow(row))
+      .sort((a, b) => b.stars - a.stars)
+      .slice(0, safeLimit);
+    setTimedMapValue(_skillsListingTopCache, topCacheKey, fallbackTop, SKILLS_LISTING_TOP_CACHE_MAX);
+    return cloneListingItems(fallbackTop);
+  }
+
+  try {
+    const result = await env.DB.prepare(
+      `
+            SELECT
+                id,
+                owner,
+                repo,
+                name,
+                category,
+                stars,
+                quality_score,
+                updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills
+            ORDER BY stars DESC
+            LIMIT ?1
+        `,
+    )
+      .bind(safeLimit)
+      .all();
+
+    if (!result.success || !result.results) return [];
+    const rows = result.results.map((row: D1Row) => mapD1ListingRow(row));
+    setTimedMapValue(_skillsListingTopCache, topCacheKey, rows, SKILLS_LISTING_TOP_CACHE_MAX);
+    return cloneListingItems(rows);
+  } catch (e) {
+    console.error('[D1] Error in top listing query:', e);
+    return [];
+  }
+}
+
+/**
+ * Lightweight category aggregation query for category landing pages.
+ * Avoids loading full skill rows when only counts are needed.
+ */
+export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategorySummary> {
+  const cachedSummary = getTimedValue(_skillsCategorySummaryCache, SKILLS_CATEGORY_SUMMARY_CACHE_TTL_MS);
+  if (cachedSummary) return cloneCategorySummary(cachedSummary);
+
+  if (!env?.DB) {
+    const all = await getLocalSkillsFallback();
+    const counts = new Map<string, number>();
+    for (const row of all) {
+      const mapped = mapLocalListingRow(row);
+      const category = String(mapped.category || '')
+        .trim()
+        .toLowerCase();
+      counts.set(category, (counts.get(category) || 0) + 1);
+    }
+
+    const fallbackSummary: SkillsCategorySummary = {
+      total: all.length,
+      categories: Array.from(counts.entries())
+        .map(([category, count]) => ({ category, count }))
+        .sort((a, b) => b.count - a.count),
+    };
+    _skillsCategorySummaryCache = { value: fallbackSummary, ts: Date.now() };
+    return cloneCategorySummary(fallbackSummary);
+  }
+
+  try {
+    const [totalResult, groupedResult] = await Promise.all([
+      env.DB.prepare(`SELECT COUNT(*) as total FROM skills`).first(),
+      env.DB.prepare(
+        `
+          SELECT
+            TRIM(LOWER(COALESCE(category, ''))) as category,
+            COUNT(*) as count
+          FROM skills
+          GROUP BY TRIM(LOWER(COALESCE(category, '')))
+        `,
+      ).all(),
+    ]);
+
+    const total = Number((totalResult as D1Row | null)?.total ?? 0);
+    const categories =
+      groupedResult.success && groupedResult.results
+        ? groupedResult.results
+            .map((row: D1Row) => ({
+              category: String(row.category || '')
+                .trim()
+                .toLowerCase(),
+              count: Number(row.count || 0),
+            }))
+            .filter((item) => item.count > 0)
+            .sort((a, b) => b.count - a.count)
+        : [];
+
+    const summary: SkillsCategorySummary = { total, categories };
+    _skillsCategorySummaryCache = { value: summary, ts: Date.now() };
+    return cloneCategorySummary(summary);
+  } catch (e) {
+    console.error('[D1] Error in category summary query:', e);
+    return { total: 0, categories: [] };
+  }
+}
+
+/**
+ * Fetch listing rows for a specific owner/repo set.
+ * Used by collection pages to avoid full-table scans.
+ */
+export async function getSkillsListingByRefs(env: Env, skillRefs: string[]): Promise<SkillListingItem[]> {
+  const parsedRefs = Array.from(
+    new Set(
+      skillRefs
+        .map((ref) => String(ref || '').trim())
+        .filter(Boolean)
+        .map((ref) => ref.toLowerCase()),
+    ),
+  )
+    .map((ref) => ref.split('/'))
+    .filter((parts) => parts.length >= 2)
+    .map((parts) => [parts[0], parts[1]] as const);
+
+  if (parsedRefs.length === 0) return [];
+  const refsCacheKey = parsedRefs
+    .map(([owner, repo]) => `${owner}/${repo}`)
+    .sort()
+    .join('|');
+  const cachedRefs = getTimedMapValue(_skillsListingByRefsCache, refsCacheKey, SKILLS_LISTING_BY_REFS_CACHE_TTL_MS);
+  if (cachedRefs) return cloneListingItems(cachedRefs);
+
+  if (!env?.DB) {
+    const wanted = new Set(parsedRefs.map(([owner, repo]) => `${owner}/${repo}`));
+    const all = await getLocalSkillsFallback();
+    const fallbackRows = all
+      .filter((row) => wanted.has(`${String(row.owner || '').toLowerCase()}/${String(row.repo || '').toLowerCase()}`))
+      .map((row) => mapLocalListingRow(row));
+    setTimedMapValue(_skillsListingByRefsCache, refsCacheKey, fallbackRows, SKILLS_LISTING_BY_REFS_CACHE_MAX);
+    return cloneListingItems(fallbackRows);
+  }
+
+  const CHUNK_SIZE = 80;
+  const deduped = new Map<string, SkillListingItem>();
+
+  for (let start = 0; start < parsedRefs.length; start += CHUNK_SIZE) {
+    const chunk = parsedRefs.slice(start, start + CHUNK_SIZE);
+    const predicates = chunk.map(() => `(owner = ? AND repo = ?)`).join(' OR ');
+    const binds = chunk.flatMap(([owner, repo]) => [owner, repo]);
+
+    try {
+      const result = await env.DB.prepare(
+        `
+            SELECT
+                id,
+                owner,
+                repo,
+                name,
+                category,
+                stars,
+                quality_score,
+                updated_at,
+                json_extract(data_json, '$.skillName') as skillName,
+                json_extract(data_json, '$.description') as description,
+                json_extract(data_json, '$.topics') as topics,
+                json_extract(data_json, '$.source') as source,
+                json_extract(data_json, '$.qualityScore') as qualityScore,
+                json_extract(data_json, '$.filePath') as filePath,
+                json_extract(data_json, '$.seo.definition') as seoDefinition
+            FROM skills
+            WHERE ${predicates}
+        `,
+      )
+        .bind(...binds)
+        .all();
+
+      if (!result.success || !result.results) continue;
+
+      for (const row of result.results as D1Row[]) {
+        const mapped = mapD1ListingRow(row);
+        if (mapped.id) {
+          deduped.set(mapped.id, mapped);
+        }
+      }
+    } catch (e) {
+      console.error('[D1] Error in listing-by-refs query:', e);
+    }
+  }
+
+  const matched = Array.from(deduped.values());
+  setTimedMapValue(_skillsListingByRefsCache, refsCacheKey, matched, SKILLS_LISTING_BY_REFS_CACHE_MAX);
+  return cloneListingItems(matched);
 }
 
 /**
@@ -504,6 +882,44 @@ function tryParseJSON<T>(str: string, fallback: T): T {
   }
 }
 
+function mapD1ListingRow(row: D1Row): SkillListingItem {
+  return {
+    id: String(row.id ?? ''),
+    name: String(row.name ?? row.skillName ?? row.repo ?? ''),
+    skillName: String(row.skillName ?? row.name ?? ''),
+    owner: String(row.owner ?? ''),
+    repo: String(row.repo ?? ''),
+    description: row.description ? tryParseJSON(String(row.description), String(row.description)) : '',
+    category: String(row.category ?? ''),
+    topics: row.topics ? tryParseJSON(String(row.topics), []) : [],
+    stars: Number(row.stars ?? 0),
+    source: String(row.source ?? 'cache') as SkillListingItem['source'],
+    updatedAt: String(row.updated_at ?? ''),
+    qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+    filePath: String(row.filePath ?? ''),
+    seo: row.seoDefinition ? { definition: tryParseJSON(String(row.seoDefinition), {}) } : undefined,
+  };
+}
+
+function mapLocalListingRow(row: Record<string, unknown>): SkillListingItem {
+  return {
+    id: String(row.id ?? ''),
+    name: String(row.name ?? row.skillName ?? row.repo ?? ''),
+    skillName: String(row.skillName ?? row.name ?? ''),
+    owner: String(row.owner ?? ''),
+    repo: String(row.repo ?? ''),
+    description: (row.description as SkillListingItem['description']) || '',
+    category: String(row.category ?? ''),
+    topics: (row.topics as string[]) || [],
+    stars: Number(row.stars ?? 0),
+    source: String(row.source ?? 'cache') as SkillListingItem['source'],
+    updatedAt: String(row.updatedAt ?? row.updated_at ?? ''),
+    qualityScore: Number(row.qualityScore ?? row.quality_score ?? 0),
+    filePath: String(row.filePath ?? ''),
+    seo: (row.seo as SkillListingItem['seo']) || undefined,
+  };
+}
+
 /**
  * Read a specific key from D1 namespace as JSON.
  * Supports exact ID match and fuzzy match for multi-segment IDs.
@@ -592,7 +1008,7 @@ export async function getSkillsKV(env: Env, key: string): Promise<any | null> {
  * Filters out any entries with missing owner/repo to prevent undefined URLs.
  * usage: await getSitemapSkillsFromKV(context.locals.runtime.env)
  */
-export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string; repo: string; updatedAt?: string }[]> {
+export async function getSitemapSkillsFromKV(env: Env): Promise<SitemapSkillEntry[]> {
   if (_sitemapSkillsCache && Date.now() - _sitemapSkillsCacheTime < SITEMAP_SKILLS_CACHE_TTL_MS) {
     return _sitemapSkillsCache;
   }
@@ -704,13 +1120,10 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     return textEncoder.encode(synthesizedContent).length >= MIN_INDEXABLE_SKILL_README_BYTES;
   };
 
-  // Normalize, validate, and dedupe by owner/repo.
+  // Normalize, validate, and dedupe by canonical skill route.
   // If duplicates exist, keep the newest updatedAt.
-  const normalizeAndDedupe = (
-    items: unknown[],
-    options?: { skipReadmeFilter?: boolean },
-  ): { owner: string; repo: string; updatedAt?: string }[] => {
-    const deduped = new Map<string, { owner: string; repo: string; updatedAt?: string }>();
+  const normalizeAndDedupe = (items: unknown[], options?: { skipReadmeFilter?: boolean }): SitemapSkillEntry[] => {
+    const deduped = new Map<string, SitemapSkillEntry>();
 
     for (const raw of items) {
       if (!raw || typeof raw !== 'object') continue;
@@ -721,15 +1134,15 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
       const repo = typeof obj.repo === 'string' ? obj.repo.trim() : '';
       if (!owner || !repo) continue;
       if (!GITHUB_OWNER_RE.test(owner) || !GITHUB_REPO_RE.test(repo)) continue;
+      if (!isPublicSitemapSkillCandidate(obj)) continue;
+      const normalized = normalizeSitemapSkillEntry(obj);
+      if (!normalized) continue;
 
-      const updatedAtRaw = typeof obj.updatedAt === 'string' ? obj.updatedAt : obj.updated_at;
-      const updatedAt =
-        typeof updatedAtRaw === 'string' && updatedAtRaw.trim().length > 0 ? updatedAtRaw.trim() : undefined;
-      const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+      const key = `${normalized.owner.toLowerCase()}/${normalized.routePath.toLowerCase()}`;
       const current = deduped.get(key);
 
-      if (!current || parseDateMs(updatedAt) > parseDateMs(current.updatedAt)) {
-        deduped.set(key, { owner, repo, ...(updatedAt ? { updatedAt } : {}) });
+      if (!current || parseDateMs(normalized.updatedAt) > parseDateMs(current.updatedAt)) {
+        deduped.set(key, normalized);
       }
     }
 
@@ -741,6 +1154,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
     try {
       const result = await env.DB.prepare(
         `SELECT
+            id,
             owner,
             repo,
             updated_at as updatedAt,
@@ -750,7 +1164,10 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
             json_extract(data_json, '$.description.en') as descriptionEn,
             json_extract(data_json, '$.description') as descriptionRaw,
             json_extract(data_json, '$.seo.definition.en') as seoDefinitionEn,
-            json_extract(data_json, '$.seo.definition') as seoDefinitionRaw
+            json_extract(data_json, '$.seo.definition') as seoDefinitionRaw,
+            json_extract(data_json, '$.topics') as topicsRaw,
+            json_extract(data_json, '$.category') as category,
+            json_extract(data_json, '$.filePath') as filePath
          FROM skills
          WHERE owner IS NOT NULL AND repo IS NOT NULL`,
       ).all();
@@ -795,6 +1212,7 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
             const definition = seo?.definition as Record<string, unknown> | null | undefined;
             const description = s.description as Record<string, unknown> | string | null | undefined;
             return {
+              id: s.id,
               owner: s.owner,
               repo: s.repo,
               updatedAt: s.updatedAt,
@@ -805,6 +1223,9 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<{ owner: string;
               descriptionRaw: description,
               seoDefinitionEn: definition?.en,
               seoDefinitionRaw: definition,
+              topicsRaw: s.topics,
+              category: s.category,
+              filePath: s.filePath,
             };
           }),
         );

@@ -64,11 +64,11 @@ Here is the translated content in Simplified Chinese:
 
 Die `pptx`-Fähigkeit geht über reine Dateiformate hinaus – es geht um **visuelle Autorität**. Sie stellt sicher, dass Präsentationen, die Ihr KI-Agent erstellt, aussehen, als wären sie von einem menschlichen Experten designed.
 
-Laden Sie den [pptx-Skill](https://killer-skills.com/de/skills/anthropics/skills/pptx) aus dem Killer-Skills-Verzeichnis herunter und beginnen Sie mit dem Erstellen überzeugender Folien.
+Laden Sie den [pptx-Skill](https://killer-skills.com/en/skills/anthropics/skills/pptx) aus dem Killer-Skills-Verzeichnis herunter und beginnen Sie mit dem Erstellen überzeugender Folien.
 
 ---
 
-*Möchten Sie auch Ihre Dokumente gestalten? Werfen Sie einen Blick auf die [theme-factory-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/theme-factory).*
+*Möchten Sie auch Ihre Dokumente gestalten? Werfen Sie einen Blick auf die [theme-factory-Fähigkeit](https://killer-skills.com/en/skills/anthropics/skills/theme-factory).*
 
 ---
 

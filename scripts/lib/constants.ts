@@ -6,7 +6,7 @@ import { LOCALE_NAMES, NON_DEFAULT_LOCALES } from '../../config/locales.mjs';
 export const SUPPORTED_LOCALES = [...NON_DEFAULT_LOCALES];
 export const NON_DEFAULT_SCRIPT_LOCALES = [...NON_DEFAULT_LOCALES];
 export const GITHUB_API = 'https://api.github.com';
-export const KV_NAMESPACE_ID = process.env.CLOUDFLARE_SKILLS_CACHE_NAMESPACE_ID || 'a03429dfb1ad4992a8624626540d93d6';
+export const KV_NAMESPACE_ID = process.env.CLOUDFLARE_SKILLS_CACHE_NAMESPACE_ID || '6130f39a06e14319b0ee4becb0d09842';
 
 // ===== Official Repos =====
 const officialReposPath = path.join(process.cwd(), 'data/official-repos.json');

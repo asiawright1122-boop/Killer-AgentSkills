@@ -33,6 +33,7 @@ export interface SkillCache {
     owner: string;
     repo: string;
     repoPath: string;
+    filePath?: string;
     stars: number;
     forks: number;
     updatedAt: string;

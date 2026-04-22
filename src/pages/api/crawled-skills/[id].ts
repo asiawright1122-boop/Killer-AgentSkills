@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { sanitizePublicSkillLikeRecord, withPublicApiHeaders } from '../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -26,9 +27,9 @@ export const GET: APIRoute = async ({ params, locals }) => {
       try {
         const direct = await env.SKILLS_CACHE.get(`crawled:${id}`, 'json');
         if (direct) {
-          return new Response(JSON.stringify(direct), {
+          return new Response(JSON.stringify(sanitizePublicSkillLikeRecord(direct)), {
             status: 200,
-            headers: { 'Content-Type': 'application/json' },
+            headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
           });
         }
       } catch {
@@ -41,9 +42,9 @@ export const GET: APIRoute = async ({ params, locals }) => {
         if (Array.isArray(data)) {
           const skill = data.find((s: any) => s.id === id || `${s.owner}/${s.repo}` === id);
           if (skill) {
-            return new Response(JSON.stringify(skill), {
+            return new Response(JSON.stringify(sanitizePublicSkillLikeRecord(skill)), {
               status: 200,
-              headers: { 'Content-Type': 'application/json' },
+              headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
             });
           }
         }

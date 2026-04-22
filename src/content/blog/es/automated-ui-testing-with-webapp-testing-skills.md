@@ -44,7 +44,7 @@ La habilidad fomenta un patrón de prueba sofisticado:
 ## Casos de uso prácticos
 
 ### Validación continua de la interfaz de usuario
-Cada vez que refactorices un componente de [frontend-design](https://killer-skills.com/es/skills/anthropics/skills/frontend-design), haz que el agente ejecute un script de `webapp-testing` para asegurarte de que los botones aún funcionan y los formularios aún se envían.
+Cada vez que refactorices un componente de [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design), haz que el agente ejecute un script de `webapp-testing` para asegurarte de que los botones aún funcionan y los formularios aún se envían.
 
 ### Depuración entre navegadores
 Haz que el agente inicie una instancia de Chromium sin cabeza para reproducir un error informado por un usuario, capturando capturas de pantalla y registros de consola en el camino para un análisis inmediato.
@@ -60,11 +60,11 @@ Automatiza trayectos de usuario de varios pasos, como "Registro -> Pago -> Vista
 
 La habilidad `webapp-testing` es la pieza final del rompecabezas del desarrollo profesional. Asegura que el hermoso código que escribe su agente también sea **código confiable**. Al incorporar la QA automatizada en el flujo de trabajo de la agencia, le permite enviar con total confianza.
 
-Consulta la habilidad [webapp-testing](https://killer-skills.com/es/skills/anthropics/skills/webapp-testing) en el directorio de habilidades de Killer-Skills y empieza hoy a crear frontends a prueba de fallos.
+Consulta la habilidad [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) en el directorio de habilidades de Killer-Skills y empieza hoy a crear frontends a prueba de fallos.
 
 ---
 
-*¿Quiere construir la UI primero? Consulte la habilidad [diseño de frontend](https://killer-skills.com/es/skills/anthropics/skills/frontend-design).*
+*¿Quiere construir la UI primero? Consulte la habilidad [diseño de frontend](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 

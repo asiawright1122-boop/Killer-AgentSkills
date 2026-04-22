@@ -22,7 +22,7 @@ OpenClaw 的真正魅力在于它的多才多艺。今天，我们将分享 5 �
 
 -   **应用示例**：当你正在开会或外出时，OpenClaw 可以在后台帮你处理来自不同渠道的信息，执行简单的查询任务，或是在检测到紧急事项时通过特定渠道向你发送摘要。
 -   **🌟 推荐技能**：
-    -   [`humanizer`](/zh/skills/minhtungo/ai-agents-factory/humanizer)：让 AI 回复更真实、人性化，避免机器人感。
+    -   [`humanizer`](/en/skills/minhtungo/ai-agents-factory/humanizer)：让 AI 回复更真实、人性化，避免机器人感。
     -   [`internal-comms`](/zh/blog/professional-internal-communications-with-ai-skills)：专业的消息摘要和报告格式。
 -   **关键词**：全平台 AI、消息自动化。
 

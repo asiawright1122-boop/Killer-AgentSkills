@@ -37,8 +37,8 @@ npx killer-skills add anthropics/skills/skill-creator
 
 ليس كل مهمة يجب التعامل معها بنفس الطريقة:
 
-- **درجة حرية عالية**: تعليمات نصية نقية للمهام التي تتطلب هيورستيات إبداعية (على سبيل المثال، [تصميم الواجهة الأمامية](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)).
-- **درجة حرية منخفضة**: سكريبتات صارمة للعمليات الحاسمة والحازمة (على سبيل المثال، تعامل مع [docx](https://killer-skills.com/ar/skills/anthropics/skills/docx)).
+- **درجة حرية عالية**: تعليمات نصية نقية للمهام التي تتطلب هيورستيات إبداعية (على سبيل المثال، [تصميم الواجهة الأمامية](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **درجة حرية منخفضة**: سكريبتات صارمة للعمليات الحاسمة والحازمة (على سبيل المثال، تعامل مع [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)).
 
 ### 3. المعرفة الإجرائية مقابل المعرفة الإعلانية
 
@@ -67,11 +67,11 @@ npx killer-skills add anthropics/skills/skill-creator
 
 قوة الذكاء الاصطناعي لا تكمن فقط في النموذج؛ بل في **البنية التحتية** المحيطة به. باستخدام مهارة `skill-creator`، تنتقل من كونك "مهندس أوامر" إلى "مهندس قدرات". أنت لا تخبر الذكاء الاصطناعي بما يجب فعله فحسب؛ بل تعلمه كيف يتعلم.
 
-ابدأ في بناء مساحة عمل الذكاء الاصطناعي المخصصة الخاصة بك اليوم على [سوق مهارات Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/skill-creator).
+ابدأ في بناء مساحة عمل الذكاء الاصطناعي المخصصة الخاصة بك اليوم على [سوق مهارات Killer-Skills](https://killer-skills.com/en/skills/anthropics/skills/skill-creator).
 
 ---
 
-_هل أنت مستعد لنشر مهارتك الجديدة؟ تعلم كيفية [بناء خادم MCP](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) لاستضافتها._
+_هل أنت مستعد لنشر مهارتك الجديدة؟ تعلم كيفية [بناء خادم MCP](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) لاستضافتها._
 
 ---
 

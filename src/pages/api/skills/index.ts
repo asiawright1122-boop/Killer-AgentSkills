@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
 import { getAllSkills, getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
 import { jsonResponse, errorResponse } from '../../../lib/api-utils';
+import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -44,14 +45,14 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     return jsonResponse(
       {
-        skills: paginatedSkills,
+        skills: paginatedSkills.map((skill) => sanitizePublicSkill(skill)),
         total: skills.length,
         page,
         limit,
         hasMore: end < skills.length,
       },
       200,
-      { 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' },
+      withPublicApiHeaders({ 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' }),
     );
   } catch (error) {
     console.error('Skills List API error:', error);

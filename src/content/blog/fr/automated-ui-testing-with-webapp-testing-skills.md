@@ -44,7 +44,7 @@ La compétence encourage un modèle de test sophistiqué :
 ## Cas d'utilisation pratiques
 
 ### Validation continue de l'interface utilisateur
-Chaque fois que vous refactorisez un composant de [frontend-design](https://killer-skills.com/fr/skills/anthropics/skills/frontend-design), faites exécuter un script de `webapp-testing` à l'agent pour vous assurer que les boutons fonctionnent toujours et que les formulaires sont toujours soumis.
+Chaque fois que vous refactorisez un composant de [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design), faites exécuter un script de `webapp-testing` à l'agent pour vous assurer que les boutons fonctionnent toujours et que les formulaires sont toujours soumis.
 
 ### Débogage cross-navigateur
 Faites démarrer une instance Chromium sans tête à l'agent pour reproduire un bogue signalé par un utilisateur, en capturant des captures d'écran et des journaux de console sur le chemin pour une analyse immédiate.
@@ -60,11 +60,11 @@ Automatisez des parcours utilisateurs multi-étapes, tels que "Inscription -> Pa
 
 La compétence `webapp-testing` est la dernière pièce du puzzle du développement professionnel. Elle garantit que le beau code que votre agent écrit est également un **code fiable**. En intégrant les tests automatisés dans le flux de travail de l'agent, elle vous permet de livrer avec une confiance totale.
 
-Rendez-vous sur le skill [webapp-testing](https://killer-skills.com/fr/skills/anthropics/skills/webapp-testing) dans le répertoire de skills Killer-Skills et commencez à créer des frontends fiables dès aujourd'hui.
+Rendez-vous sur le skill [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) dans le répertoire de skills Killer-Skills et commencez à créer des frontends fiables dès aujourd'hui.
 
 ---
 
-*Vous souhaitez construire l'interface utilisateur en premier ? Consultez la [compétence de conception de frontend](https://killer-skills.com/fr/skills/anthropics/skills/frontend-design).*
+*Vous souhaitez construire l'interface utilisateur en premier ? Consultez la [compétence de conception de frontend](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 

@@ -53,11 +53,11 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 Навык `mcp-builder` необходим для любого разработчика, стремящегося мостить разрыв между рассуждениями ИИ и реализацией в реальном мире. Следуя этим проверенным шаблонам, вы можете создавать инструменты, которые не просто "работают", но действительно позволяют ИИ-агентам быть более продуктивными.
 
-Готовы начать разработку? Ознакомьтесь с полной документацией по навыку [mcp-builder](https://killer-skills.com/ru/skills/anthropics/skills/mcp-builder) в реестре Killer-Skills.
+Готовы начать разработку? Ознакомьтесь с полной документацией по навыку [mcp-builder](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) в реестре Killer-Skills.
 
 ---
 
-*Нужно проверить новые инструменты? Сочетайте это с навыком [webapp-testing](https://killer-skills.com/ru/skills/anthropics/skills/webapp-testing).*
+*Нужно проверить новые инструменты? Сочетайте это с навыком [webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing).*
 
 ---
 

@@ -10,11 +10,11 @@ type AuthoritySurfaceRecord = {
   href: string;
   title: LocalizedText;
   description: LocalizedText;
-  placements: string[];
+  placements: readonly string[];
 };
 
 type AuthoritySurfaceData = {
-  surfaces: AuthoritySurfaceRecord[];
+  surfaces: readonly AuthoritySurfaceRecord[];
 };
 
 export type ResolvedAuthoritySurface = Omit<AuthoritySurfaceRecord, 'href' | 'title' | 'description'> & {

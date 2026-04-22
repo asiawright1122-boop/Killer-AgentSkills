@@ -12,7 +12,7 @@ heroImage: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 
 # Comment installer les compétences d'agent IA
 
-Vous avez trouvé une compétence d'agent IA que vous souhaitez utiliser. Peut-être s'agit-il de la [compétence d'automatisation docx](/fr/skills/anthropics/skills/docx), ou peut-être d'un générateur d'interface utilisateur frontend spécialisé. Maintenant, vous devez l'intégrer dans votre projet afin que votre agent de codage puisse réellement le lire.
+Vous avez trouvé une compétence d'agent IA que vous souhaitez utiliser. Peut-être s'agit-il de la [compétence d'automatisation docx](/en/skills/anthropics/skills/docx), ou peut-être d'un générateur d'interface utilisateur frontend spécialisé. Maintenant, vous devez l'intégrer dans votre projet afin que votre agent de codage puisse réellement le lire.
 
 Vous pouvez copier et coller manuellement le texte markdown, créer les répertoires appropriés et corriger le formatage du frontmatter vous-même. Ou vous pouvez exécuter une commande qui le fait pour vous.
 

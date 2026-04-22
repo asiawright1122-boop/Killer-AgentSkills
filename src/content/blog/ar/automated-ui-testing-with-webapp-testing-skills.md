@@ -44,7 +44,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 ## حالات استخدام عملية
 
 ### التحقق المستمر من واجهة المستخدم
-في كل مرة تقوم بإعادة هيكلة [مكون واجهة المستخدم](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design)، اجعل الوكيل ينفذ سكريبت `webapp-testing` للتأكد من أن الأزرار لا تزال قابلة للنقر والنماذج لا تزال تُرسل.
+في كل مرة تقوم بإعادة هيكلة [مكون واجهة المستخدم](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)، اجعل الوكيل ينفذ سكريبت `webapp-testing` للتأكد من أن الأزرار لا تزال قابلة للنقر والنماذج لا تزال تُرسل.
 
 ### تصحيح الأخطاء عبر المتصفحات المختلفة
 اجعل الوكيل يشغّل نسخة headless من متصفح Chromium لإعادة إنتاج خطأ أبلغ عنه مستخدم، مع التقاط لقطات الشاشة وسجلات الكونسول خلال العملية للتحليل الفوري.
@@ -60,10 +60,10 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 مهارة `webapp-testing` هي الجزء الأخير من لغز التطوير المهني. она تضمن أن يكون الكود الجميل الذي يكتبه وكيلك هو أيضًا **كود موثوق**. من خلال إضافة الاختبار التلقائي لجودة المنتج إلى تدفق العمل الوكيل، يسمح لك بنقل المنتج بثقة تامة.
 
-انتقل إلى [مهارة webapp-testing](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing) في دليل مهارات Killer-Skills وابدأ اليوم ببناء واجهات أمامية أكثر موثوقية.
+انتقل إلى [مهارة webapp-testing](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing) في دليل مهارات Killer-Skills وابدأ اليوم ببناء واجهات أمامية أكثر موثوقية.
 
 ---
-*تريد بناء الواجهة أولًا؟ تحقق من مهارة [تصميم الواجهة الأمامية](https://killer-skills.com/ar/skills/anthropics/skills/frontend-design).*
+*تريد بناء الواجهة أولًا؟ تحقق من مهارة [تصميم الواجهة الأمامية](https://killer-skills.com/en/skills/anthropics/skills/frontend-design).*
 
 ---
 *متعلق: [ما هي مهارات الوكيل الذكي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات الوكيل الذكي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

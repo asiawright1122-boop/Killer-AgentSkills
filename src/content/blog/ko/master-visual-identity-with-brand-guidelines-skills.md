@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## 브랜드 가이드라인 스킬이란?
 
-`brand-guidelines` 스킬은 엄격한 시각적 표준을 강제하는 디자인 엔진입니다. 다른 창의적 스킬과 함께 사용되도록 설계되어 있으며, 예를 들어 [pptx](https://killer-skills.com/ko/skills/anthropics/skills/pptx) 또는 [canvas-design](https://killer-skills.com/ko/skills/anthropics/skills/canvas-design)과 같은 스킬이 "브랜드에 맞게" 유지되도록 합니다.
+`brand-guidelines` 스킬은 엄격한 시각적 표준을 강제하는 디자인 엔진입니다. 다른 창의적 스킬과 함께 사용되도록 설계되어 있으며, 예를 들어 [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) 또는 [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design)과 같은 스킬이 "브랜드에 맞게" 유지되도록 합니다.
 
 ### 1. 공식 색상 팔레트
 스킬은 공식 정체성을 위한 정확한 RGB 및 HEX 값을 제공합니다:
@@ -60,11 +60,11 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` 스킬은 "AI 출력"을 "전문 자산"으로 만드는 최종 마무리입니다. 이는 코드 에이전트가 시각적 맥락과 브랜드 권위의 중요성을 이해하도록 합니다.
 
-Killer-Skills 디렉터리에서 [brand-guidelines 스킬](https://killer-skills.com/ko/skills/anthropics/skills/brand-guidelines)을 설치하고 자신감 있게 디자인을 시작하세요.
+Killer-Skills 디렉터리에서 [brand-guidelines 스킬](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines)을 설치하고 자신감 있게 디자인을 시작하세요.
 
 ---
 
-*더 많은 스타일링 옵션을 찾고 계신가요? 더 넓은 범위의 사전 설정된 전문 테마를 위한 [theme-factory](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory)를 탐색하세요.*
+*더 많은 스타일링 옵션을 찾고 계신가요? 더 넓은 범위의 사전 설정된 전문 테마를 위한 [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory)를 탐색하세요.*
 
 ---
 

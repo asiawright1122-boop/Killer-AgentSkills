@@ -64,11 +64,11 @@ Automatisieren Sie die Rotation fehlerhaft ausgerichteter Scans und die Entfernu
 
 Die `pdf`-Fähigkeit ist ein unverzichtbares Werkzeug für jeden modernen Entwickler oder Datenanalysten. Sie nimmt die Mühsal aus der PDF-Bearbeitung und ermöglicht den Aufbau echter automatisierter, unternehmensfähiger Dokumenten-Pipelines.
 
-Installieren Sie den [pdf-Skill](https://killer-skills.com/de/skills/anthropics/skills/pdf) aus dem Killer-Skills-Verzeichnis und starten Sie noch heute mit der Automatisierung.
+Installieren Sie den [pdf-Skill](https://killer-skills.com/en/skills/anthropics/skills/pdf) aus dem Killer-Skills-Verzeichnis und starten Sie noch heute mit der Automatisierung.
 
 ---
 
-*Müssen Sie stattdessen bearbeitbare Word-Dokumente erstellen? Werfen Sie einen Blick auf die [docx-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/docx).*
+*Müssen Sie stattdessen bearbeitbare Word-Dokumente erstellen? Werfen Sie einen Blick auf die [docx-Fähigkeit](https://killer-skills.com/en/skills/anthropics/skills/docx).*
 
 ---
 

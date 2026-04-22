@@ -44,7 +44,7 @@ Playwright를 사용하여 에이전트는 복잡한 시각적 및 기능적 검
 ## 실제 사용 사례
 
 ### 지속적인 UI 검증
-프론트엔드 디자인 컴포넌트를 리팩토링할 때마다 에이전트가 `webapp-testing` 스크립트를 실행하여 버튼이 여전히 클릭되고 양식이 제출되는지 확인하십시오. [프론트엔드 디자인](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)
+프론트엔드 디자인 컴포넌트를 리팩토링할 때마다 에이전트가 `webapp-testing` 스크립트를 실행하여 버튼이 여전히 클릭되고 양식이 제출되는지 확인하십시오. [프론트엔드 디자인](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)
 
 ### 크로스 브라우저 디버깅
 에이전트가 헤드리스 크로미움 인스턴스를 시작하여 사용자가 보고한 버그를 재현하고 스크린샷과 콘솔 로그를 캡처하여 즉시 분석합니다.
@@ -60,11 +60,11 @@ Playwright를 사용하여 에이전트는 복잡한 시각적 및 기능적 검
 
 `webapp-testing` 스킬은 전문 개발의 마지막 조각입니다. 에이전트가 작성한 아름다운 코드가 또한 **신뢰할 수 있는 코드**임을 보장합니다. 자동화된 QA를 에이전트 워크플로에 통합함으로써, 완전한 확신을 가지고 배포할 수 있습니다.
 
-Killer-Skills 디렉터리에서 [webapp-testing 스킬](https://killer-skills.com/ko/skills/anthropics/skills/webapp-testing)을 확인하고 오늘부터 탄탄한 프론트엔드를 구축하세요.
+Killer-Skills 디렉터리에서 [webapp-testing 스킬](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing)을 확인하고 오늘부터 탄탄한 프론트엔드를 구축하세요.
 
 ---
 
-*UI를 먼저 구축하고 싶으신가요? [프론트엔드 디자인 스킬](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)을 확인하세요.*
+*UI를 먼저 구축하고 싶으신가요? [프론트엔드 디자인 스킬](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)을 확인하세요.*
 
 ---
 

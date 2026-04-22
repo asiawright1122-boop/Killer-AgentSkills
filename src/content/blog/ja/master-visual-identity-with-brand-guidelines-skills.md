@@ -22,7 +22,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## ブランドガイドラインスキルの概要
 
-`brand-guidelines` スキルは、厳格な視覚的な基準を強制するデザインエンジンです。[pptx](https://killer-skills.com/ja/skills/anthropics/skills/pptx) または [canvas-design](https://killer-skills.com/ja/skills/anthropics/skills/canvas-design) のような他のクリエイティブスキルと組み合わせて使用するために設計されており、ブランドの基準を維持することを目的としています。
+`brand-guidelines` スキルは、厳格な視覚的な基準を強制するデザインエンジンです。[pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) または [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) のような他のクリエイティブスキルと組み合わせて使用するために設計されており、ブランドの基準を維持することを目的としています。
 
 ### 1. 公式カラーパレット
 スキルは、公式のアイデンティティのための正確な RGB と HEX 値を提供します。
@@ -60,10 +60,10 @@ npx killer-skills add anthropics/skills/brand-guidelines
 
 `brand-guidelines` スキルは、「AI 出力」を「プロフェッショナル アセット」に変える最後の磨きです。コーディング エージェントが視覚的なコンテキストとブランドの権威の重要性を理解できるようにします。
 
-Killer-Skills のスキル一覧から [brand-guidelines スキル](https://killer-skills.com/ja/skills/anthropics/skills/brand-guidelines) をインストールし、自信を持ってデザインを始めましょう。
+Killer-Skills のスキル一覧から [brand-guidelines スキル](https://killer-skills.com/en/skills/anthropics/skills/brand-guidelines) をインストールし、自信を持ってデザインを始めましょう。
 
 ---
-*さらにスタイリング オプションを探している場合は、[theme-factory](https://killer-skills.com/ja/skills/anthropics/skills/theme-factory) を調べて、より広範な事前設定されたプロフェッショナル テーマを探してみましょう。*
+*さらにスタイリング オプションを探している場合は、[theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) を調べて、より広範な事前設定されたプロフェッショナル テーマを探してみましょう。*
 
 ---
 *関連情報: [AI エージェント スキルとは何か?](/ja/blog/what-are-ai-agent-skills) と [2026 年のベスト AI エージェント スキル](/ja/blog/best-ai-agent-skills-2026)*

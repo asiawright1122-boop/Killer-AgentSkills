@@ -160,7 +160,7 @@
   "CLI": {
     "heroTitle": "Killer-Skills CLI",
     "heroSubtitle": "AIエージェントスキルをインストールして管理",
-    "heroDesc": "Cursor、Windsurf、Claude Codeなどのツールで、2,500以上のAIエージェントスキルを発見・インストール・同期できます。",
+    "heroDesc": "Cursor、Windsurf、Claude Codeなどのツールで、3,400以上のAIエージェントスキルを発見・インストール・同期できます。",
     "optionalNote": "注: CLIツールはオプションです。何もインストールせずにnpx経由で直接スキルを使用できます。",
     "install": "今すぐインストール",
     "viewDocs": "ドキュメントを見る",
@@ -656,7 +656,7 @@
     "categories": "カテゴリ"
   },
   "Hero": {
-    "badge": "80,000+ スキル利用可能",
+    "badge": "3,400+ スキル利用可能",
     "title": "AIエージェントのスキルを発見",
     "titleHighlight": "AIエージェント",
     "subtitle": "無限の可能性を探索し、AIアシスタントを強化しましょう",
@@ -669,7 +669,7 @@
     "heroTitle": "エージェントに装備する",
     "heroTitleHighlight": "スーパーパワー",
     "heroBadge": "自律機能のためのオープンディレクトリ",
-    "heroDesc1": "2,500種類以上のオープンソースAIスキルを発見、インストール、管理しましょう。",
+    "heroDesc1": "3,400種類以上のオープンソースAIスキルを発見、インストール、管理しましょう。",
     "heroDesc2": "エージェントにブラウズ、コード、クリエイトの能力を即座に付与。",
     "searchPlaceholder": "機能を検索（例：'Webスクレイピング'、'データ可視化'）...",
     "searchButton": "検索",
@@ -712,7 +712,7 @@
       }
     },
     "seoTitle": "Killer-Skills - AIエージェントスキル＆MCPサーバーディレクトリ | Claude Code＆Cursorスキル",
-    "seoDescription": "Claude Code、Cursor、19以上のIDE向け2,500以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。",
+    "seoDescription": "Claude Code、Cursor、19以上のIDE向け3,400以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。",
     "faqTitle": "ホームページ FAQ",
     "faqSubtitle": "ホームページのスニペット、表示コンテンツ、構造化データの整合性を維持。",
     "faq1Q": "Killer-Skillsとは？",
@@ -757,7 +757,7 @@
     "latest": "最新の発見",
     "latestDesc": "最新のAIエージェントのスキルとイノベーションを探索",
     "allPurpose": "すべてのスキル",
-    "allPurposeDesc": "2,500以上のAIエージェントスキルを発見、インストール、管理",
+    "allPurposeDesc": "3,400以上のAIエージェントスキルを発見、インストール、管理",
     "discover": "発見",
     "latestSkills": "最新のスキル",
     "allSkills": "すべてのスキル",
@@ -941,7 +941,7 @@
   "SkillsManagerWidget": {
     "title": "スキルマネージャー",
     "subtitle": "エコシステムゲートウェイ",
-    "description": "無限の可能性を解き放つ。2,500以上のAIエージェント機能を即座に発見、インストール、強化します。",
+    "description": "無限の可能性を解き放つ。3,400以上のAIエージェント機能を即座に発見、インストール、強化します。",
     "cta": "マネージャーを開く"
   },
   "Solutions": {

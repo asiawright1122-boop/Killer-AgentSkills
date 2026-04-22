@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { sanitizePublicSkillLikeRecord, withPublicApiHeaders } from '../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -31,17 +32,17 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     return new Response(
       JSON.stringify({
-        skills: paginated,
+        skills: sanitizePublicSkillLikeRecord(paginated),
         total: crawledSkills.length,
         page,
         hasMore: start + limit < crawledSkills.length,
       }),
       {
         status: 200,
-        headers: {
+        headers: withPublicApiHeaders({
           'Content-Type': 'application/json',
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-        },
+        }),
       },
     );
   } catch (error) {

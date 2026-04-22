@@ -1,0 +1,42 @@
+{
+  "milestone": "v1.6",
+  "milestoneName": "Post-Governance Recovery Proof and Authority Lift",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 4,
+    "completed": 4
+  },
+  "requirementCounts": {
+    "satisfied": 6,
+    "partial": 0,
+    "pending": 0,
+    "total": 6
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/phases/54-post-governance-recovery-proof-window/54-01-SUMMARY.md",
+    ".planning/phases/54-post-governance-recovery-proof-window/54-VERIFICATION.md",
+    ".planning/phases/55-recovery-delta-attribution-and-cohort-board/55-01-SUMMARY.md",
+    ".planning/phases/55-recovery-delta-attribution-and-cohort-board/55-VERIFICATION.md",
+    ".planning/phases/56-authority-surface-uplift-program-and-promotion-gates/56-01-SUMMARY.md",
+    ".planning/phases/56-authority-surface-uplift-program-and-promotion-gates/56-VERIFICATION.md",
+    ".planning/phases/57-recovery-experiment-ladder-and-automation-readiness/57-01-SUMMARY.md",
+    ".planning/phases/57-recovery-experiment-ladder-and-automation-readiness/57-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.6-phases",
+    ".planning/milestones/v1.6-ROADMAP.md",
+    ".planning/milestones/v1.6-REQUIREMENTS.md",
+    ".planning/milestones/v1.6-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.6-BOOTSTRAP.md",
+    ".planning/milestones/v1.6-CLOSEOUT.md"
+  ]
+}

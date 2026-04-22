@@ -53,11 +53,11 @@ Der `mcp-builder`-Skill umreißt einen strukturierten Pfad zum Erfolg:
 
 Die `mcp-builder`-Fähigkeit ist für jeden Entwickler unerlässlich, der die Lücke zwischen AI-Argumentation und realer Ausführung überbrücken möchte. Indem Sie diesen bewährten Mustern folgen, können Sie Tools erstellen, die nicht nur "funktionieren", sondern tatsächlich AI-Agents ermöglichen, produktiver zu sein.
 
-Bereit, loszulegen? Lesen Sie die vollständige Dokumentation zum [mcp-builder-Skill](https://killer-skills.com/de/skills/anthropics/skills/mcp-builder) im Killer-Skills-Register.
+Bereit, loszulegen? Lesen Sie die vollständige Dokumentation zum [mcp-builder-Skill](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) im Killer-Skills-Register.
 
 ---
 
-*Müssen Sie Ihre neuen Tools überprüfen? Kombinieren Sie dies mit der [webapp-testing-Fähigkeit](https://killer-skills.com/de/skills/anthropics/skills/webapp-testing).*
+*Müssen Sie Ihre neuen Tools überprüfen? Kombinieren Sie dies mit der [webapp-testing-Fähigkeit](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing).*
 
 ---
 *Verwandt: [Was sind AI-Agenten-Fähigkeiten?](/de/blog/what-are-ai-agent-skills) und [Beste AI-Agenten-Fähigkeiten für 2026](/de/blog/best-ai-agent-skills-2026)*

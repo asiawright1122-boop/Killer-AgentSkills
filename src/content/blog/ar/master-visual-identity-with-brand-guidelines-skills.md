@@ -21,7 +21,7 @@ npx killer-skills add anthropics/skills/brand-guidelines
 ```
 ## ما هي مهارة إرشادات العلامة التجارية؟
 
-مهارة `brand-guidelines` هي محرك تصميم يفرض معايير بصرية صارمة. تم تصميمها لاستخدامها جنبًا إلى جنب مع مهارات إبداعية أخرى مثل [pptx](https://killer-skills.com/ar/skills/anthropics/skills/pptx) أو [canvas-design](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) لضمان بقائها "متوافقة مع العلامة التجارية".
+مهارة `brand-guidelines` هي محرك تصميم يفرض معايير بصرية صارمة. تم تصميمها لاستخدامها جنبًا إلى جنب مع مهارات إبداعية أخرى مثل [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) أو [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) لضمان بقائها "متوافقة مع العلامة التجارية".
 
 ### 1. لوحة الألوان الرسمية
 توفر المهارة قيم RGB و HEX الدقيقة للهوية الرسمية:
@@ -62,7 +62,7 @@ skill `brand-guidelines` هي اللمسة النهائية التي تحول "�
 قم بتثبيت مهارة `brand-guidelines` من سوق Killer-Skills وابدأ التصميم بالصلاحية.
 
 ---
-*تبحث عن المزيد من خيارات التصميم؟ استكشف [theme-factory](https://killer-skills.com/ar/skills/anthropics/skills/theme-factory) للحصول على مجموعة أوسع من السمات المهنية المسبقة.*
+*تبحث عن المزيد من خيارات التصميم؟ استكشف [theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) للحصول على مجموعة أوسع من السمات المهنية المسبقة.*
 
 ---
 *متعلق: [ما هي مهارات وكلاء الذكاء الاصطناعي؟](/ar/blog/what-are-ai-agent-skills) و [أفضل مهارات وكلاء الذكاء الاصطناعي لعام 2026](/ar/blog/best-ai-agent-skills-2026)*

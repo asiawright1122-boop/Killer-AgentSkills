@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
 An AI Agent Skill is a plug-and-play instruction module, typically a markdown file, that teaches AI coding assistants how to perform specialized tasks autonomously. Unlike traditional plugins, skills operate at the domain level; they inject specific knowledge, workflows, and constraints directly into the AI agent.
 
 ## Key Facts
-- Total skills indexed: 2,500+ from verified source repositories on GitHub.
+- Total skills indexed: 3,400+ from verified source repositories on GitHub.
 - Languages supported: English, Chinese, Japanese, Korean, Spanish, French, German, Portuguese, Russian, Arabic.
 - One-command install: npx killer-skills add <owner/repo>
 - Cross-IDE delivery: writes the right native skill file for each supported environment

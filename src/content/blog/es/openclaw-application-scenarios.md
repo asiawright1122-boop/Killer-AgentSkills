@@ -20,7 +20,7 @@ Dado que OpenClaw se puede conectar a WhatsApp, Telegram y Discord, puedes conve
 
 -   **Caso de ejemplo**: Mientras estás en una reunión o fuera, OpenClaw puede manejar los mensajes entrantes de diferentes canales en segundo plano, realizar consultas simples o enviarte resúmenes a través de canales específicos cuando se detectan asuntos urgentes.
 -   **🌟 Habilidades recomendadas**:
-    -   [`humanizer`](/es/skills/minhtungo/ai-agents-factory/humanizer): Hace que las respuestas de la IA sean más realistas y similares a las humanas, evitando una sensación robótica.
+    -   [`humanizer`](/en/skills/minhtungo/ai-agents-factory/humanizer): Hace que las respuestas de la IA sean más realistas y similares a las humanas, evitando una sensación robótica.
     -   [`internal-comms`](/es/blog/professional-internal-communications-with-ai-skills): Resúmenes de mensajes profesionales y formatos de informes.
 -   **Palabras clave**: IA multiplataforma, automatización de mensajes.
 ## 2. Gestión y Automatización de Archivos Sin Problemas

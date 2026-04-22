@@ -152,11 +152,43 @@ describe('addToHistory', () => {
   });
 
   it('persists the updated list to localStorage', () => {
-    const skill = { id: 'x/y', name: 'Y', owner: 'x', repo: 'y', description: '' };
+    const skill = { id: 'x/y/z', name: 'Y', owner: 'x', repo: 'y', routePath: 'y/z', description: '' };
     addToHistory([], skill);
     const stored = JSON.parse(store.get(STORAGE_KEY)!);
     expect(stored).toHaveLength(1);
-    expect(stored[0].id).toBe('x/y');
+    expect(stored[0].id).toBe('x/y/z');
+    expect(stored[0].routePath).toBe('y/z');
+  });
+
+  it('keeps sibling subskills separate and only reorders the revisited entry', () => {
+    const withFirst = addToHistory([], {
+      id: 'owner/repo/skill-a',
+      name: 'A',
+      owner: 'owner',
+      repo: 'repo',
+      routePath: 'repo/skill-a',
+      description: '',
+    });
+    const withSecond = addToHistory(withFirst, {
+      id: 'owner/repo/skill-b',
+      name: 'B',
+      owner: 'owner',
+      repo: 'repo',
+      routePath: 'repo/skill-b',
+      description: '',
+    });
+    const revisited = addToHistory(withSecond, {
+      id: 'owner/repo/skill-a',
+      name: 'A',
+      owner: 'owner',
+      repo: 'repo',
+      routePath: 'repo/skill-a',
+      description: '',
+    });
+
+    expect(revisited).toHaveLength(2);
+    expect(revisited[0].id).toBe('owner/repo/skill-a');
+    expect(revisited[1].id).toBe('owner/repo/skill-b');
   });
 });
 

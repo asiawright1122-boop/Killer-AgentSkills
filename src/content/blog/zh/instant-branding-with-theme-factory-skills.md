@@ -59,10 +59,10 @@ npx killer-skills add anthropics/skills/theme-factory
 
 `theme-factory` 技能将您的 AI 代理从简单的编码者转变为品牌意识强烈的设计师。通过确保每个构件都美观且一致，它提高了 AI 生成内容的标准。
 
-今天就前往 Killer-Skills 技能目录查看 [theme-factory 技能](https://killer-skills.com/zh/skills/anthropics/skills/theme-factory)，为您的项目带来应有的专业质感。
+今天就前往 Killer-Skills 技能目录查看 [theme-factory 技能](https://killer-skills.com/en/skills/anthropics/skills/theme-factory)，为您的项目带来应有的专业质感。
 
 ---
-*想要构建组件本身？将其与 [frontend-design](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design) 结合，实现最终的 Web 开发工作流程.*
+*想要构建组件本身？将其与 [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) 结合，实现最终的 Web 开发工作流程.*
 
 ---
 *相关：[什么是 AI 代理技能？](/zh/blog/what-are-ai-agent-skills) 和 [2026 年最好的 AI 代理技能](/zh/blog/best-ai-agent-skills-2026)*

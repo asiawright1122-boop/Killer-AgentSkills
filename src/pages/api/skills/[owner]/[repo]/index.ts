@@ -4,6 +4,11 @@ import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES, getRepository, type RepoInfo } from '../../../../../lib/github';
 import { parseSkillMd } from '../../../../../lib/skill-md-parser';
+import {
+  sanitizePublicSkillLikeRecord,
+  sanitizePublicSkillMd,
+  withPublicApiHeaders,
+} from '../../../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -113,29 +118,33 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
     // 3. Build response merging KV data and GitHub data
     const responseData = {
-      ...(repoInfo || {}),
-      ...(kvSkill || {}),
+      ...(sanitizePublicSkillLikeRecord({
+        ...(repoInfo || {}),
+        ...(kvSkill || {}),
+      }) as Record<string, unknown>),
       name: skillPath ? skillPath.split('/').pop() || (repoInfo?.name ?? repo) : (repoInfo?.name ?? repo),
-      skillPath: skillPath || null,
-      skillMd: skillMd
-        ? {
-            name: skillMd.name || (skillPath ? skillPath.split('/').pop() : (repoInfo?.name ?? repo)),
-            description: skillMd.description || repoInfo?.description || '',
-            version: skillMd.version || '1.0.0',
-            author: skillMd.author || owner,
-            tags: skillMd.tags || repoInfo?.topics || [],
-            body: skillMd.body,
-          }
-        : null,
-      rawSkillMd: skillMdContent,
+      skillMd:
+        sanitizePublicSkillMd(
+          skillMd
+            ? {
+                name: skillMd.name || (skillPath ? skillPath.split('/').pop() : (repoInfo?.name ?? repo)),
+                description: skillMd.description || repoInfo?.description || '',
+                version: skillMd.version || '1.0.0',
+                author: skillMd.author || owner,
+                tags: skillMd.tags || repoInfo?.topics || [],
+                body: skillMd.body,
+              }
+            : ((kvSkill as { skillMd?: unknown } | null)?.skillMd as any),
+          { includeBodyPreview: true },
+        ) || null,
     };
 
     return new Response(JSON.stringify(responseData), {
       status: 200,
-      headers: {
+      headers: withPublicApiHeaders({
         'Content-Type': 'application/json',
         'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-      },
+      }),
     });
   } catch (error) {
     console.error('Skill detail API error:', error);

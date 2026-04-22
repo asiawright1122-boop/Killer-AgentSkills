@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../lib/site-config';
+import type { SitemapSkillEntry } from '../lib/skill-route-paths';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
 
 export const prerender = false;
 
@@ -7,8 +9,9 @@ const SITE = SITE_URL;
 
 // Pre-built sitemap data — avoids D1 query and CPU timeout (1102)
 import sitemapSkillsData from '../../data/sitemap-skills.json';
+import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 
-type SitemapSkillEntry = { owner: string; repo: string; updatedAt?: string };
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 const parseDateMs = (value?: string) => {
   if (!value) return 0;
@@ -22,12 +25,14 @@ function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
   for (const skill of skills) {
     const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
     const repo = typeof skill.repo === 'string' ? skill.repo.trim() : '';
-    if (!owner || !repo) continue;
+    const routePath = typeof skill.routePath === 'string' ? skill.routePath.trim() : '';
+    if (!owner || !repo || !routePath) continue;
+    if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) continue;
 
-    const key = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+    const key = `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
     const current = deduped.get(key);
     if (!current || parseDateMs(skill.updatedAt) > parseDateMs(current.updatedAt)) {
-      deduped.set(key, { owner, repo, ...(skill.updatedAt ? { updatedAt: skill.updatedAt } : {}) });
+      deduped.set(key, { owner, repo, routePath, ...(skill.updatedAt ? { updatedAt: skill.updatedAt } : {}) });
     }
   }
 

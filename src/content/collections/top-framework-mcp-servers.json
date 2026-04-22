@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Frameworks and SDK Foundations for Agents | AI Agent Skills",
-    "zh": "顶级 Agent 框架与 SDK 基础组件 | AI Agent Skills",
+    "en": "Agent Framework Tools to Install First",
+    "zh": "优先安装的 Agent Framework 工具",
     "ja": "注目のエージェント向けフレームワークとSDK基盤 | AI Agent Skills",
     "ko": "주목할 만한 에이전트 프레임워크 및 SDK 기반 | AI Agent Skills",
     "es": "frameworks y SDK base para agentes | AI Agent Skills",
@@ -12,131 +12,121 @@
     "ar": "الأطر وواجهات SDK الأساسية للوكلاء الذكيين | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for frameworks sdk foundations developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 frameworks sdk foundations AI Agent Skills，聚焦 开发者工作流自动化。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの frameworks sdk foundations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
-    "ko": "Claude Code, Cursor, Windsurf용 frameworks sdk foundations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de frameworks sdk foundations en Claude Code, Cursor y Windsurf.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur frameworks sdk foundations dans Claude Code, Cursor et Windsurf.",
-    "de": "Installierbare AI Agent Skills für frameworks sdk foundations Developer Workflows in Claude Code, Cursor und Windsurf.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em frameworks sdk foundations no Claude Code, Cursor e Windsurf.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в frameworks sdk foundations для Claude Code, Cursor и Windsurf.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات frameworks sdk foundations داخل Claude Code وCursor وWindsurf."
+    "en": "Compare agent frameworks and SDK tools, then move into installation docs, CLI validation, and rollout paths for platform builders.",
+    "zh": "先比较 agent framework 与 SDK 工具，再进入安装文档、CLI 验证与团队落地路径，适用于平台构建团队。",
+    "ja": "Agent framework と SDK ツールを比較し、そのままインストール手順、CLI検証、プラットフォーム構築向けの展開フローへ進めます。",
+    "ko": "Agent framework 및 SDK 도구를 비교한 뒤 바로 설치 문서, CLI 검증, 플랫폼 구축용 배포 경로로 이어집니다.",
+    "es": "Compara frameworks de agentes y herramientas SDK, y pasa directamente a la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos que construyen plataformas.",
+    "fr": "Comparez des frameworks d’agents et des outils SDK, puis passez directement à la documentation d’installation, à la validation CLI et aux parcours de déploiement pour les équipes qui construisent des plateformes.",
+    "de": "Vergleichen Sie Agenten-Frameworks und SDK-Tools und wechseln Sie dann direkt zu Installationsdokumentation, CLI-Validierung und Rollout-Pfaden für Plattform-Teams.",
+    "pt": "Compare frameworks de agentes e ferramentas SDK e siga direto para a documentação de instalação, a validação por CLI e os caminhos de rollout para equipes que constroem plataformas.",
+    "ru": "Сравните фреймворки агентов и SDK-инструменты, а затем сразу переходите к документации по установке, CLI-проверке и путям развертывания для платформенных команд.",
+    "ar": "قارن بين أطر الوكلاء وأدوات SDK، ثم انتقل مباشرة إلى وثائق التثبيت والتحقق عبر CLI ومسارات الإطلاق لفرق بناء المنصات."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Frameworks and SDK Foundations for Agen",
-    "zh": "AI Agent Skills - 顶级 Agent 框架与 SDK 基础组件 | Killer-Skills",
-    "ja": "AI Agent Skills - 注目のエージェント向けフレームワークとSDK基盤 | Killer-Skills",
-    "ko": "AI Agent Skills - 주목할 만한 에이전트 프레임워크 및 SDK 기반 | Killer-Skills",
-    "es": "AI Agent Skills - frameworks y SDK base para agentes | Ki",
-    "fr": "AI Agent Skills - frameworks et SDK de base pour agents |",
-    "de": "AI Agent Skills - Top-Frameworks und SDK-Bausteine für Ag",
-    "pt": "AI Agent Skills - frameworks e SDKs base para agentes | K",
-    "ru": "AI Agent Skills - фреймворки и SDK-основы для агентов | K",
-    "ar": "AI Agent Skills - الأطر وواجهات SDK الأساسية للوكلاء الذك"
+    "en": "Agent Framework Tools to Install First",
+    "zh": "优先安装的 Agent Framework 工具",
+    "ja": "先に導入すべきAgent Frameworkツール | Killer-Skills",
+    "ko": "먼저 설치할 Agent Framework 도구 | Killer-Skills",
+    "es": "Frameworks de agentes y herramientas SDK para instalar primero | Killer-Skills",
+    "fr": "Frameworks d’agents et outils SDK a installer en premier | Killer-Skills",
+    "de": "Agenten-Frameworks und SDK-Tools für den ersten Start | Killer-Skills",
+    "pt": "Frameworks de agentes e ferramentas SDK para instalar primeiro | Killer-Skills",
+    "ru": "Фреймворки агентов и SDK-инструменты для первого выбора | Killer-Skills",
+    "ar": "أطر الوكلاء وأدوات SDK للبدء | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for frameworks sdk foundations developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 frameworks sdk foundations AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
-    "ja": "Claude Code・Cursor・Windsurf 向けの frameworks sdk foundations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
-    "ko": "Claude Code, Cursor, Windsurf용 frameworks sdk foundations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de frameworks sdk foundations en Claude Code, Cursor y Windsurf. Killer-Skills.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur frameworks sdk foundations dans Claude Code, Cursor et Windsurf. Killer-Skills.",
-    "de": "Installierbare AI Agent Skills für frameworks sdk foundations Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em frameworks sdk foundations no Claude Code, Cursor e Windsurf. Killer-Skills.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в frameworks sdk foundations для Claude Code, Cursor и Windsurf. Killer-Skills.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات frameworks sdk foundations داخل Claude Code وCursor وWindsurf. Killer-Skills."
+    "en": "Compare agent frameworks and SDK tools, then move into installation docs, CLI validation, and rollout paths for platform builders.",
+    "zh": "先比较 agent framework 与 SDK 工具，再进入安装文档、CLI 验证与团队落地路径，适用于平台构建团队。",
+    "ja": "Agent framework と SDK ツールを比較し、インストール手順、CLI検証、プラットフォーム構築向けの展開フローへ進めます。Killer-Skills.",
+    "ko": "Agent framework 및 SDK 도구를 비교하고 설치 문서, CLI 검증, 플랫폼 구축용 배포 경로까지 이어집니다. Killer-Skills.",
+    "es": "Compara frameworks de agentes y herramientas SDK, y continúa hacia la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos que construyen plataformas. Killer-Skills.",
+    "fr": "Comparez des frameworks d’agents et des outils SDK, puis accédez à la documentation d’installation, à la validation CLI et aux parcours de déploiement pour les équipes qui construisent des plateformes. Killer-Skills.",
+    "de": "Vergleichen Sie Agenten-Frameworks und SDK-Tools und wechseln Sie dann direkt zu Installationsdokumentation, CLI-Validierung und Rollout-Pfaden für Plattform-Teams. Killer-Skills.",
+    "pt": "Compare frameworks de agentes e ferramentas SDK e siga para a documentação de instalação, a validação por CLI e os caminhos de rollout para equipes que constroem plataformas. Killer-Skills.",
+    "ru": "Сравните фреймворки агентов и SDK-инструменты, а затем переходите к документации по установке, CLI-проверке и путям развертывания для платформенных команд. Killer-Skills.",
+    "ar": "قارن بين أطر الوكلاء وأدوات SDK، ثم انتقل إلى وثائق التثبيت والتحقق عبر CLI ومسارات الإطلاق لفرق بناء المنصات. Killer-Skills."
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "agent framework tools",
+      "agent SDK tools",
+      "framework developer tools",
+      "platform builder workflows",
+      "agent architecture tools",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "agent framework 工具",
+      "agent SDK 工具",
+      "框架开发工具",
+      "平台构建工作流",
+      "agent 架构工具",
+      "安装 AI Agent Skills"
     ],
     "ja": [
-      "AI Agent Skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "agent framework tools",
+      "agent SDK tools",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "ko": [
-      "AI Agent Skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "agent framework tools",
+      "agent SDK tools",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "es": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "frameworks de agentes",
+      "herramientas SDK",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "fr": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "frameworks d’agents",
+      "outils SDK",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "de": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "Agenten-Frameworks",
+      "SDK-Tools",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "pt": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "frameworks de agentes",
+      "ferramentas SDK",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "ru": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "фреймворки агентов",
+      "SDK tools",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ],
     "ar": [
-      "AI agent skills",
-      "developer workflow",
-      "Claude Code skills",
-      "workflow automation",
-      "frameworks sdk foundations AI agent skills",
-      "frameworks sdk foundations developer workflow",
-      "frameworks sdk foundations workflow automation"
+      "أطر الوكلاء",
+      "أدوات SDK",
+      "platform builders",
+      "architecture tools",
+      "framework workflows",
+      "install AI agent skills"
     ]
   },
   "featured": false,
@@ -152,8 +142,8 @@
     "radioactive-labs/plutonium-core"
   ],
   "longDescription": {
-    "en": "This page focuses on the reusable foundations behind agent systems: frameworks, SDKs, and core libraries that make implementations easier to maintain and extend. It is aimed at teams that need clean abstractions, consistent interfaces, and production-ready architecture patterns. MCP may be present as one integration path, while the primary perspective remains framework-level engineering for AI agent skills.",
-    "zh": "本页聚焦 Agent 系统背后的可复用基础能力：框架、SDK 与核心库，帮助团队构建更易维护、易扩展的实现。目标读者是需要清晰抽象、统一接口和生产级架构模式的开发团队。MCP 可能是某些方案中的一种集成路径，但主视角仍是 AI Agent Skills 的框架级工程实践。",
+    "en": "If your team is building on agent frameworks and SDK foundations, this page should narrow the shortlist fast instead of sending you into another architecture-tool crawl. It compares workflow helpers, guardrail tools, and developer companions that fit framework-led delivery, then moves the next click into installation docs, CLI validation, and a repeatable rollout path. That makes it a better decision page than a broad framework roundup.",
+    "zh": "如果你的团队正在围绕 agent framework 与 SDK 基础层构建平台，这页就应该帮助你快速收口，而不是把你重新送回无休止的架构工具比较。它聚焦适合 framework 驱动交付路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。这比泛化框架榜单更适合作为真正的决策入口。",
     "ja": "このページは、エージェントシステムを支える再利用可能な基盤、つまりフレームワーク・SDK・コアライブラリに焦点を当てています。目的は、保守しやすく拡張しやすい実装を実現することです。明確な抽象化、統一インターフェース、本番対応パターンが必要なチームに向いています。MCPは連携経路の一つになり得ますが、主眼はAI Agent Skillsの基盤設計です。",
     "ko": "이 페이지는 에이전트 시스템의 재사용 가능한 기반인 프레임워크, SDK, 핵심 라이브러리에 초점을 맞춥니다. 유지보수와 확장이 쉬운 구현을 원하는 팀을 위한 내용으로, 명확한 추상화와 일관된 인터페이스, 프로덕션급 아키텍처 패턴을 중시합니다. MCP는 통합 경로 중 하나일 수 있지만, 핵심 관점은 AI 에이전트 스킬을 위한 프레임워크 수준의 엔지니어링입니다.",
     "es": "Esta página se centra en las bases reutilizables de los sistemas de agentes: frameworks, SDK y librerías núcleo que facilitan mantenimiento y evolución. Está pensada para equipos que necesitan abstracciones limpias, interfaces consistentes y patrones de arquitectura listos para producción. MCP puede aparecer como una vía de integración, pero la perspectiva principal es ingeniería de frameworks para skills de agentes de IA.",
@@ -162,5 +152,139 @@
     "pt": "Esta página foca nas fundações reutilizáveis de sistemas de agentes: frameworks, SDKs e bibliotecas centrais que facilitam manutenção e evolução. É voltada para times que precisam de abstrações limpas, interfaces consistentes e padrões arquiteturais prontos para produção. MCP pode aparecer como um caminho de integração, mas a perspectiva principal é engenharia de framework para skills de agentes de IA.",
     "ru": "Эта страница посвящена переиспользуемой основе агентных систем: фреймворкам, SDK и базовым библиотекам, которые упрощают поддержку и развитие решений. Она рассчитана на команды, которым нужны чистые абстракции, единые интерфейсы и production-ready архитектурные паттерны. MCP может встречаться как путь интеграции, но основной фокус — framework-инженерия для AI Agent Skills.",
     "ar": "تركّز هذه الصفحة على الأساسات القابلة لإعادة الاستخدام في أنظمة الوكلاء: الأطر وSDK والمكتبات الأساسية التي تسهّل الصيانة والتوسّع. وهي موجّهة للفرق التي تحتاج تجريدات واضحة وواجهات متسقة وأنماط معمارية جاهزة للإنتاج. قد يظهر MCP كمسار تكامل، لكن المنظور الرئيسي هو هندسة الأطر لمهارات الوكلاء الذكيين."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against framework workflow fit, installation clarity, operator handoff, and platform engineering usefulness. This page is now positioned as an install-first agent framework entry point instead of a broad framework roundup.",
+      "zh": "已于 2026-04-17 按 framework 工作流适配度、安装清晰度、操作交接和平台工程价值完成复核。现在这页被重新定位为“安装优先”的 agent framework 入口，而不是泛化框架榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because framework-intent users usually need a shortlist they can install, validate, and carry into real platform delivery loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 framework 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实平台交付闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical framework workflow value such as reusable abstractions, SDK delivery, platform consistency, and architectural clarity.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable platform engineering, not for vague framework keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 framework 工作流，例如可复用抽象、SDK 交付、平台一致性与架构清晰度。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用平台工程，而不是空泛的框架关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a framework-centered workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering SDKs, abstractions, review, and platform support.",
+        "Use installation as the bridge from framework discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 framework 主导工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖 SDK、抽象层、评审与平台支持。",
+        "把安装作为从 framework 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or framework workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 framework 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with trust, install-path, and operator checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验信任信号、安装路径与运维可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one agent framework tool first",
+          "zh": "先安装一个 agent framework 工具"
+        },
+        "summary": {
+          "en": "Use this page when you want one framework companion that can enter real platform work without turning evaluation into another endless architecture comparison.",
+          "zh": "如果你要找的是一个能进入真实平台工程流程的 framework 伴侣工具，而不是继续掉进无休止的架构比较，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more framework-related repositories.",
+            "Choose one tool that best supports SDK work, abstractions, platform consistency, or architecture delivery.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider framework workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多与 framework 相关的仓库。",
+            "选择一个最适合 SDK 开发、抽象层、平台一致性或架构交付的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的 framework 工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Reduce architecture selection drift",
+          "zh": "降低架构选型漂移"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need framework-adjacent tools that improve platform confidence without overcomplicating the stack.",
+          "zh": "当你想为 framework 邻接工作流补上平台信心与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more packages, services, or teammates.",
+            "Document the chosen framework workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多包、服务或团队成员。",
+            "在首次稳定落地后，把选定的 framework 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from Agent Framework Tools discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从当前发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the trusted starter collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到可信起步合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

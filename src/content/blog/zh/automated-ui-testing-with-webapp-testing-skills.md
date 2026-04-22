@@ -45,7 +45,7 @@ npx killer-skills add anthropics/skills/webapp-testing
 ## 实际用例
 
 ### 持续 UI 验证
-每次您重构一个 [前端设计](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design) 组件时，均让代理运行一个 `webapp-testing` 脚本，以确保按钮仍可点击、表单仍可提交。
+每次您重构一个 [前端设计](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) 组件时，均让代理运行一个 `webapp-testing` 脚本，以确保按钮仍可点击、表单仍可提交。
 
 ### 跨浏览器调试
 让代理启动一个无头 Chromium 实例，以复现用户报告的 bug，同时捕获屏幕截图和控制台日志，便于立即分析。
@@ -61,11 +61,11 @@ npx killer-skills add anthropics/skills/webapp-testing
 
 `webapp-testing` 技能是专业发展的最后一块拼图。它确保您的代理编写的漂亮代码也是 **可靠的代码** 。通过将自动化 QA 引入代理工作流程中，它允许您以完全的信心交付。
 
-前往 Killer-Skills 技能目录查看 [webapp-testing 技能](https://killer-skills.com/zh/skills/anthropics/skills/webapp-testing)，今天就开始构建更可靠的前端。
+前往 Killer-Skills 技能目录查看 [webapp-testing 技能](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing)，今天就开始构建更可靠的前端。
 
 ---
 
-*想要先构建 UI？请查看 [前端设计技能](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design)。*
+*想要先构建 UI？请查看 [前端设计技能](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)。*
 
 ---
 

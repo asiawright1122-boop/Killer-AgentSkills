@@ -63,11 +63,11 @@ npx killer-skills add anthropics/skills/mcp-builder
 
 مهارة `mcp-builder` ضرورية لأي مطور يبحث عن جسر الفجوة بين المنطق الاصطناعي والتنفيذ في العالم الحقيقي. من خلال اتباع هذه الأنماط المثبتة، يمكنك بناء أدوات لا تعمل فقط، ولكنها تعمل على تمكين وكلاء الذكاء الاصطناعي ليكونوا أكثر إنتاجية.
 
-جاهز لبدء البناء؟ راجع الوثائق الكاملة لـ [مهارة mcp-builder](https://killer-skills.com/ar/skills/anthropics/skills/mcp-builder) في سجل Killer-Skills.
+جاهز لبدء البناء؟ راجع الوثائق الكاملة لـ [مهارة mcp-builder](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) في سجل Killer-Skills.
 
 ---
 
-_هل تحتاج إلى التحقق من أدواتك الجديدة؟ اقترن هذا مع مهارة [تجربة التطبيق على الويب](https://killer-skills.com/ar/skills/anthropics/skills/webapp-testing)._
+_هل تحتاج إلى التحقق من أدواتك الجديدة؟ اقترن هذا مع مهارة [تجربة التطبيق على الويب](https://killer-skills.com/en/skills/anthropics/skills/webapp-testing)._
 
 ---
 

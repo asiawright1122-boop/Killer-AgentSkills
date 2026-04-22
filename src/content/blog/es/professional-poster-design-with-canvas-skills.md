@@ -63,11 +63,11 @@ Genera piezas que demuestran que algo efímero puede ser estudiado y cartografia
 
 La habilidad `canvas-design` es para aquellos que creen que el diseño es una disciplina, no un atajo. Transforma a tu agente de inteligencia artificial en un artesano experto capaz de producir trabajos que demandan un lugar en una galería.
 
-Explora la habilidad [canvas-design](https://killer-skills.com/es/skills/anthropics/skills/canvas-design) en el directorio de habilidades de Killer-Skills para descargarla y empezar a diseñar hoy.
+Explora la habilidad [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) en el directorio de habilidades de Killer-Skills para descargarla y empezar a diseñar hoy.
 
 ---
 
-*¿Buscas más? Consulta [arte-algorítmico](https://killer-skills.com/es/skills/anthropics/skills/algorithmic-art) para arte generativo basado en código.*
+*¿Buscas más? Consulta [arte-algorítmico](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) para arte generativo basado en código.*
 
 ---
 

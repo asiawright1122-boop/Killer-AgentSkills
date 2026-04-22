@@ -58,11 +58,11 @@ Bitten Sie den Agenten, Ihren technischen Spezifikationen einen "Reader Test" zu
 
 Der `doc-coauthoring`-Skill hebt die Latte für das, was AI-unterstütztes Schreiben sein kann, an. Er verwandelt eine einsame, erschöpfende Aufgabe in ein strukturiertes, hochwertiges Dialog. 
 
-Besuchen Sie den [doc-coauthoring-Skill](https://killer-skills.com/de/skills/anthropics/skills/doc-coauthoring) im Killer-Skills-Verzeichnis, um mit Dokumenten zu arbeiten, die wirklich funktionieren.
+Besuchen Sie den [doc-coauthoring-Skill](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring) im Killer-Skills-Verzeichnis, um mit Dokumenten zu arbeiten, die wirklich funktionieren.
 
 ---
 
-*Benötigen Sie eine finale Formatierung? Kombinieren Sie dies mit dem [docx-Skill](https://killer-skills.com/de/skills/anthropics/skills/docx) für eine professionelle Word-Export.*
+*Benötigen Sie eine finale Formatierung? Kombinieren Sie dies mit dem [docx-Skill](https://killer-skills.com/en/skills/anthropics/skills/docx) für eine professionelle Word-Export.*
 
 ---
 

@@ -12,7 +12,7 @@ heroImage: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 
 # 如何安装 AI 代理技能
 
-您找到了一种想要使用的 AI 代理技能。也许是 [docx 自动化技能](/zh/skills/anthropics/skills/docx)，或者是一种专门的前端 UI 生成器。现在，您需要将其添加到您的项目中，以便您的编码代理可以实际读取它。
+您找到了一种想要使用的 AI 代理技能。也许是 [docx 自动化技能](/en/skills/anthropics/skills/docx)，或者是一种专门的前端 UI 生成器。现在，您需要将其添加到您的项目中，以便您的编码代理可以实际读取它。
 
 您可以手动复制和粘贴 markdown 文本，创建正确的目录，并自己修复前置格式。或者，您可以运行一条命令来为您完成这些操作。
 

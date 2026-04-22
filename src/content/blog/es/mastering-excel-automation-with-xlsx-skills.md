@@ -62,11 +62,11 @@ Automatiza la creación de decenas de informes de ventas localizados, cada uno c
 
 La habilidad `xlsx` transforma a tu agente de IA en un científico de datos y analista financiero en uno. Asegura que tus hojas de cálculo no sean solo colecciones de números, sino herramientas poderosas y dinámicas que impulsan mejores decisiones comerciales.
 
-Consulta la habilidad [xlsx](https://killer-skills.com/es/skills/anthropics/skills/xlsx) en el directorio de habilidades de Killer-Skills y empieza hoy a crear datos más inteligentes.
+Consulta la habilidad [xlsx](https://killer-skills.com/en/skills/anthropics/skills/xlsx) en el directorio de habilidades de Killer-Skills y empieza hoy a crear datos más inteligentes.
 
 ---
 
-*¿Necesitas presentar tus hallazgos? Combina esto con la habilidad [pptx](https://killer-skills.com/es/skills/anthropics/skills/pptx) para crear decks de presentación automatizados.*
+*¿Necesitas presentar tus hallazgos? Combina esto con la habilidad [pptx](https://killer-skills.com/en/skills/anthropics/skills/pptx) para crear decks de presentación automatizados.*
 
 ---
 

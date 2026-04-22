@@ -4,6 +4,17 @@ import Search from 'lucide-react/dist/esm/icons/search';
 import X from 'lucide-react/dist/esm/icons/x';
 import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
 
+interface SearchApiResult {
+  id: string;
+  name: string;
+  owner: string;
+  repo: string;
+  routePath: string;
+  detailLocale: string;
+  href: string;
+  category?: string;
+}
+
 interface SkillResult {
   title: string;
   description: string;
@@ -56,10 +67,20 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
     setLoading(true);
     const timeoutId = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}&locale=${encodeURIComponent(locale)}`);
         if (res.ok) {
-          const data = (await res.json()) as SkillResult[];
-          setResults(data.slice(0, 8)); // Top 8 results
+          const data = (await res.json()) as { results?: SearchApiResult[] };
+          const nextResults = (data.results || []).slice(0, 8).map((result) => ({
+            title: result.name,
+            description: [
+              result.owner ? `${result.owner}/${result.routePath || result.repo}` : result.routePath || result.repo,
+              result.category,
+            ]
+              .filter(Boolean)
+              .join(' • '),
+            url: result.href,
+          }));
+          setResults(nextResults);
           setSelectedIndex(0);
         }
       } catch (err) {
@@ -70,7 +91,7 @@ export default function CommandPalette({ isOpen, onClose, locale }: CommandPalet
     }, 300);
 
     return () => clearTimeout(timeoutId);
-  }, [query]);
+  }, [query, locale]);
 
   // Keyboard Navigation Support
   const handleKeyDown = (e: React.KeyboardEvent) => {

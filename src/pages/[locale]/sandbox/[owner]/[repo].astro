@@ -9,6 +9,8 @@ Astro.response.headers.set('Cross-Origin-Embedder-Policy', 'require-corp');
 Astro.response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
 // Do not cache the sandbox execution environment
 Astro.response.headers.set('Cache-Control', 'no-store, must-revalidate');
+// Sandbox is a product utility surface, not an organic landing page.
+Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
 
 const { locale, owner, repo } = Astro.params;
 
@@ -21,6 +23,9 @@ if (!owner || !repo) {
 }
 
 const typedLocale = locale as Locale;
+const canonicalSkillUrl = `https://killer-skills.com/${typedLocale}/skills/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+const pageTitle = `Sandbox: ${owner}/${repo} | Killer-Skills`;
+const pageDescription = `Interactive sandbox for ${owner}/${repo}. Use the reviewed skill page as the primary landing page.`;
 ---
 
 <!doctype html>
@@ -28,7 +33,11 @@ const typedLocale = locale as Locale;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sandbox: {owner}</title><style>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="canonical" href={canonicalSkillUrl} />
+    <meta name="description" content={pageDescription} />
+    <title>{pageTitle}</title>
+    <style>
       :root {
         --background: #000000;
         --foreground: #ffffff;
@@ -85,22 +94,20 @@ const typedLocale = locale as Locale;
       .xterm-viewport {
         overflow-y: auto !important;
       }
-    </style></head
-  >/{repo}
-  | Killer-Skills
-  {/* Minimal styling for the sandbox shell */}
-</html>
-<body>
-  <header class="sandbox-header">
-    <div class="brand">
-      <span class="badge">LIVE ENV</span>
-      {owner} / {repo}
-    </div>
-    <a href={`/${locale}/skills/${owner}/${repo}`} class="return-link"> ← Exit Sandbox </a>
-  </header>
+    </style>
+  </head>
+  <body>
+    <header class="sandbox-header">
+      <div class="brand">
+        <span class="badge">LIVE ENV</span>
+        {owner} / {repo}
+      </div>
+      <a href={`/${locale}/skills/${owner}/${repo}`} class="return-link"> ← Exit Sandbox </a>
+    </header>
 
-  <main class="terminal-container">
-    {/* React Island for the Terminal */}
-    <WebTerminal client:only="react" owner={owner!} repo={repo!} />
-  </main>
-</body>
+    <main class="terminal-container">
+      {/* React Island for the Terminal */}
+      <WebTerminal client:only="react" owner={owner!} repo={repo!} />
+    </main>
+  </body>
+</html>

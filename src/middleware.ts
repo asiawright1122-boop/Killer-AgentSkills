@@ -33,7 +33,8 @@ type SeoGoneRule = {
   path: string;
 };
 
-const SKILL_SOURCE_FILE_EXT_RE = /\.(md|mdx|ts|tsx|js|jsx|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt|ini|csv|lock)$/i;
+const SKILL_SOURCE_FILE_EXT_RE =
+  /\.(md|mdx|ts|tsx|js|jsx|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt|ini|csv|lock)$/i;
 
 const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
@@ -42,9 +43,10 @@ function normalizeSitemapSkillRecord(record: Partial<SitemapSkillEntry>): Canoni
   const rawRoutePath = typeof record.routePath === 'string' ? record.routePath.trim() : '';
   if (!owner || !rawRoutePath) return null;
 
-  const inferredRepo = typeof record.repo === 'string' && record.repo.trim().length > 0
-    ? record.repo.trim()
-    : rawRoutePath.split('/').filter(Boolean)[0] || '';
+  const inferredRepo =
+    typeof record.repo === 'string' && record.repo.trim().length > 0
+      ? record.repo.trim()
+      : rawRoutePath.split('/').filter(Boolean)[0] || '';
   const routePath = getSkillRoutePath({
     owner,
     repo: inferredRepo,
@@ -319,7 +321,8 @@ function resolveGovernedSkillDetailPath(localeSegment: string, owner: string, ro
   const governance = skillLocaleGovernanceMap.get(`${owner.toLowerCase()}/${routePath.toLowerCase()}`);
   if (!governance?.canonicalLocale) return null;
 
-  const publishedLocales = governance.publishedLocales.length > 0 ? governance.publishedLocales : [governance.canonicalLocale];
+  const publishedLocales =
+    governance.publishedLocales.length > 0 ? governance.publishedLocales : [governance.canonicalLocale];
   if (publishedLocales.includes(requestedLocale) || governance.canonicalLocale === requestedLocale) {
     return null;
   }
@@ -710,7 +713,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   if (isCrawlerRequest && skillPathMatch) {
     const ownerSegment = safeDecodePathSegment(skillPathMatch[2]).trim();
     const routeSegment = safeDecodePathSegment(skillPathMatch[3]).trim();
-    const directCanonical = ownerSegment && routeSegment ? resolveCanonicalSkillRoute(ownerSegment, routeSegment) : null;
+    const directCanonical =
+      ownerSegment && routeSegment ? resolveCanonicalSkillRoute(ownerSegment, routeSegment) : null;
 
     if (routeSegment.includes('/')) {
       if (!directCanonical) {

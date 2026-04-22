@@ -79,11 +79,11 @@ npx killer-skills add anthropics/skills/slack-gif-creator
 
 مهمة `slack-gif-creator` هي المزج المثالي بين التحسين الفني وتحرير الإبداع. إنها تحول وكيلك الإصطناعي إلى فنان رقمي يفهم "قواعد السير" للتواصل في مكان العمل الحديث.
 
-انتقل إلى [سوق Killer-Skills](https://killer-skills.com/ar/skills/anthropics/skills/slack-gif-creator) لبدء الاستخدام.
+انتقل إلى [سوق Killer-Skills](https://killer-skills.com/en/skills/anthropics/skills/slack-gif-creator) لبدء الاستخدام.
 
 ---
 
-_تبحث عن إتقان مرئي أكثر؟ استكشف [canvas-design](https://killer-skills.com/ar/skills/anthropics/skills/canvas-design) من أجل ملصقات ثابتة عالية الجودة._
+_تبحث عن إتقان مرئي أكثر؟ استكشف [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) من أجل ملصقات ثابتة عالية الجودة._
 
 ---
 

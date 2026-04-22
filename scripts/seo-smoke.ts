@@ -1,6 +1,18 @@
 #!/usr/bin/env npx tsx
 
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../src/lib/sitemap-blocklist';
+import { type SitemapSkillEntry } from '../src/lib/skill-route-paths';
+import { isFileLikeSkillRouteTail } from './lib/coverage-url-classification';
+import {
+  pickBlocklistedSkillSample,
+  pickSingleRouteRepoRedirectSample,
+  pickSuppressedLocaleRedirectSample,
+  readRedirectPathname,
+  type SkillLocaleGovernanceRecord,
+} from './lib/seo-smoke-samples';
 
 type PageCheck = {
   path: string;
@@ -21,6 +33,9 @@ type RunningDevServer = {
 };
 
 const SITE_ORIGIN = 'https://killer-skills.com';
+const SITEMAP_BLOCKLIST_PATH = resolve(process.cwd(), 'data/seo-sitemap-blocklist.json');
+const SITEMAP_SKILLS_PATH = resolve(process.cwd(), 'data/sitemap-skills.json');
+const SKILL_LOCALE_GOVERNANCE_PATH = resolve(process.cwd(), 'data/seo-skill-locale-governance.json');
 const MISSING_DOCS_SLUG = '/en/docs/__seo-smoke_missing_slug_404_guard__';
 const TRANSIENT_STATUS_CODES = new Set([429, 500, 502, 503, 504, 522, 524]);
 const SKILL_FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
@@ -38,7 +53,6 @@ const OG_LOCALE_BY_LOCALE: Record<string, string> = {
   ru: 'ru_RU',
   zh: 'zh_CN',
 };
-
 const rawArgs = process.argv.slice(2);
 const spawnDev = rawArgs.includes('--spawn-dev');
 const positionalArgs = rawArgs.filter((arg) => !arg.startsWith('--'));
@@ -52,6 +66,7 @@ const FETCH_RETRY_ATTEMPTS = readPositiveInt(
 );
 const FETCH_RETRY_DELAY_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_RETRY_DELAY_MS, 2000);
 const SEO_SMOKE_CACHE_BUST = process.env.SEO_SMOKE_CACHE_BUST === '1';
+const SEO_SMOKE_SITEMAP_ONLY = process.env.SEO_SMOKE_SITEMAP_ONLY === '1';
 const CACHE_BUST_VALUE = Date.now();
 
 const checks: PageCheck[] = [
@@ -249,6 +264,59 @@ function toLocalPath(url: string): string {
   const parsed = new URL(url);
   ensure(parsed.origin === SITE_ORIGIN, `sitemap loc origin mismatch: ${url}`);
   return `${parsed.pathname}${parsed.search}`;
+}
+
+function loadSitemapBlocklist() {
+  if (!existsSync(SITEMAP_BLOCKLIST_PATH)) {
+    return null;
+  }
+
+  try {
+    const raw = JSON.parse(readFileSync(SITEMAP_BLOCKLIST_PATH, 'utf8'));
+    return compileSitemapBlocklist(raw);
+  } catch (error) {
+    throw new Error(
+      `failed to parse sitemap blocklist (${SITEMAP_BLOCKLIST_PATH}): ${error instanceof Error ? error.message : String(error)}`,
+      { cause: error },
+    );
+  }
+}
+
+function loadJsonFile<T>(filePath: string): T | null {
+  if (!existsSync(filePath)) {
+    return null;
+  }
+
+  try {
+    return JSON.parse(readFileSync(filePath, 'utf8')) as T;
+  } catch (error) {
+    throw new Error(`failed to parse JSON (${filePath}): ${error instanceof Error ? error.message : String(error)}`, {
+      cause: error,
+    });
+  }
+}
+
+function loadSitemapSkills(): SitemapSkillEntry[] {
+  const raw = loadJsonFile<Array<Partial<SitemapSkillEntry>> | { skills?: Array<Partial<SitemapSkillEntry>> }>(
+    SITEMAP_SKILLS_PATH,
+  );
+  const records = Array.isArray(raw) ? raw : raw?.skills || [];
+
+  return records
+    .map((record) => ({
+      owner: typeof record.owner === 'string' ? record.owner.trim() : '',
+      repo: typeof record.repo === 'string' ? record.repo.trim() : '',
+      routePath: typeof record.routePath === 'string' ? record.routePath.trim() : '',
+      updatedAt: typeof record.updatedAt === 'string' ? record.updatedAt : undefined,
+    }))
+    .filter((record) => record.owner && record.repo && record.routePath);
+}
+
+function loadSkillLocaleGovernance(): SkillLocaleGovernanceRecord[] {
+  const raw = loadJsonFile<{ skills?: SkillLocaleGovernanceRecord[]; records?: SkillLocaleGovernanceRecord[] }>(
+    SKILL_LOCALE_GOVERNANCE_PATH,
+  );
+  return raw?.skills || raw?.records || [];
 }
 
 function stripTags(value: string): string {
@@ -476,6 +544,8 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
 
   const allSkillLocs: string[] = [];
   const allSkillPaths: string[] = [];
+  const blocklist = loadSitemapBlocklist();
+  const blockedLocs: string[] = [];
   for (const sitemapLoc of skillSitemapLocs) {
     const localPath = toLocalPath(sitemapLoc);
     const xml = await fetchText(withCacheBust(localPath));
@@ -496,14 +566,45 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
     ensure(parsed.origin === SITE_ORIGIN, `skills sitemap loc must use canonical origin: ${loc}`);
     ensure(parsed.search === '', `skills sitemap loc must not contain query params: ${loc}`);
     ensure(
-      /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+$/.test(parsed.pathname),
+      /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+(?:\/[^/]+)?$/.test(parsed.pathname),
       `skills sitemap loc has invalid path depth/format: ${loc}`,
     );
 
     const segments = parsed.pathname.split('/').filter(Boolean);
-    const repoSegment = segments[segments.length - 1] || '';
-    ensure(!SKILL_FILE_EXT_REGEX.test(repoSegment), `skills sitemap loc must not use file-like repo slug: ${loc}`);
+    const routeSegments = segments.slice(3);
+    ensure(
+      routeSegments.length === 1 || routeSegments.length === 2,
+      `skills sitemap loc has invalid route depth: ${loc}`,
+    );
+    ensure(
+      !isFileLikeSkillRouteTail(routeSegments, SKILL_FILE_EXT_REGEX),
+      `skills sitemap loc must not use file-like tail segments: ${loc}`,
+    );
+
+    if (blocklist) {
+      const owner = segments[2] || '';
+      const routePath = routeSegments.join('/');
+      if (isSitemapSkillBlocked(owner, routePath, blocklist)) {
+        blockedLocs.push(loc);
+      }
+    }
+
     allSkillPaths.push(`${parsed.pathname}${parsed.search}`);
+  }
+
+  if (blocklist) {
+    ensure(
+      blockedLocs.length === 0,
+      `skills sitemap contains blocklisted URLs:\n${blockedLocs
+        .slice(0, 15)
+        .map((item) => `- ${item}`)
+        .join('\n')}`,
+    );
+    console.log(
+      `SEO smoke passed: sitemap blocklist exclusion (${blocklist.exactKeys.size} exact, ${blocklist.repoKeys.size} repo rules)`,
+    );
+  } else {
+    console.warn(`SEO smoke skipped sitemap blocklist exclusion check: ${SITEMAP_BLOCKLIST_PATH} not found`);
   }
 
   console.log(`SEO smoke passed: skills sitemap dedupe + URL shape (${allSkillLocs.length} URLs)`);
@@ -556,15 +657,76 @@ async function runRepresentativeSkillCheck(skillPath: string | null) {
 async function runInvalidSubSkillRedirectCheck(parentPath: string | null) {
   if (!parentPath) return;
 
-  const fakeSubSkillPath = `${parentPath}/__seo_smoke_invalid_sub_skill_guard__`;
+  const pathSegments = parentPath.split('/').filter(Boolean);
+  const repoLevelPath = pathSegments.length >= 5 ? `/${pathSegments.slice(0, 4).join('/')}` : parentPath;
+  const fakeSubSkillPath = `${repoLevelPath}/__seo_smoke_invalid_sub_skill_guard__`;
   const redirectResponse = await fetchRedirectWithRetry(withCacheBust(fakeSubSkillPath), 301);
   const location = redirectResponse.headers.get('location') || '';
+  const redirectedPathname = readRedirectPathname(location);
 
   ensure(
-    location === parentPath,
-    `${fakeSubSkillPath}: expected redirect location "${parentPath}", got "${location || 'missing'}"`,
+    redirectedPathname === repoLevelPath,
+    `${fakeSubSkillPath}: expected redirect location "${repoLevelPath}", got "${location || 'missing'}"`,
   );
-  console.log(`SEO smoke passed: invalid sub-skill redirects to parent (${fakeSubSkillPath} -> ${parentPath})`);
+  console.log(`SEO smoke passed: invalid sub-skill redirects to parent (${fakeSubSkillPath} -> ${repoLevelPath})`);
+}
+
+async function runSingleRouteRepoRedirectCheck() {
+  const sample = pickSingleRouteRepoRedirectSample(loadSitemapSkills(), loadSitemapBlocklist());
+  if (!sample) {
+    console.warn('SEO smoke skipped repo-root single-route redirect check: no eligible sample found');
+    return;
+  }
+
+  const response = await fetchRedirectWithRetry(withCacheBust(sample.sourcePath), 301);
+  const location = response.headers.get('location') || '';
+  const redirectedPathname = readRedirectPathname(location);
+  ensure(
+    redirectedPathname === sample.expectedPath,
+    `${sample.sourcePath}: expected repo-root redirect to "${sample.expectedPath}", got "${location || 'missing'}"`,
+  );
+  console.log(
+    `SEO smoke passed: repo-root redirects to sole public skill (${sample.sourcePath} -> ${sample.expectedPath})`,
+  );
+}
+
+async function runSuppressedLocaleRedirectCheck() {
+  const sample = pickSuppressedLocaleRedirectSample(
+    loadSitemapSkills(),
+    loadSkillLocaleGovernance(),
+    loadSitemapBlocklist(),
+  );
+  if (!sample) {
+    console.warn('SEO smoke skipped suppressed-locale redirect check: no eligible governance sample found');
+    return;
+  }
+
+  const response = await fetchRedirectWithRetry(withCacheBust(sample.sourcePath), 301);
+  const location = response.headers.get('location') || '';
+  const redirectedPathname = readRedirectPathname(location);
+  ensure(
+    redirectedPathname === sample.expectedPath,
+    `${sample.sourcePath}: expected locale-governed redirect to "${sample.expectedPath}", got "${location || 'missing'}"`,
+  );
+  console.log(
+    `SEO smoke passed: suppressed locale redirects to canonical (${sample.sourcePath} -> ${sample.expectedPath})`,
+  );
+}
+
+async function runBlocklistedSkill410Check() {
+  const sample = pickBlocklistedSkillSample(loadSitemapBlocklist());
+  if (!sample) {
+    console.warn('SEO smoke skipped blocklisted skill 410 check: no eligible blocklist sample found');
+    return;
+  }
+
+  const response = await fetchWithRetry(withCacheBust(sample.sourcePath), 410);
+  const robots = response.headers.get('x-robots-tag') || response.headers.get('X-Robots-Tag') || '';
+  ensure(
+    robots.toLowerCase() === 'noindex, nofollow',
+    `${sample.sourcePath}: expected X-Robots-Tag noindex, nofollow, got "${robots || 'missing'}"`,
+  );
+  console.log(`SEO smoke passed: blocklisted skill returns 410 (${sample.sourcePath})`);
 }
 
 function captureLog(logs: string[], chunk: Buffer | string) {
@@ -658,9 +820,16 @@ async function main() {
 
     await runMissingDocs404Check();
     const skillPaths = await runSkillsSitemapChecks();
-    const representativeSkillPath = await resolveRepresentativeSkillPath(skillPaths);
-    await runRepresentativeSkillCheck(representativeSkillPath);
-    await runInvalidSubSkillRedirectCheck(representativeSkillPath);
+    if (!SEO_SMOKE_SITEMAP_ONLY) {
+      await runSingleRouteRepoRedirectCheck();
+      await runSuppressedLocaleRedirectCheck();
+      await runBlocklistedSkill410Check();
+      const representativeSkillPath = await resolveRepresentativeSkillPath(skillPaths);
+      await runRepresentativeSkillCheck(representativeSkillPath);
+      await runInvalidSubSkillRedirectCheck(representativeSkillPath);
+    } else {
+      console.log('SEO smoke skipped representative skill checks (SEO_SMOKE_SITEMAP_ONLY=1)');
+    }
 
     console.log(`SEO smoke completed successfully against ${activeBaseUrl}`);
   } finally {

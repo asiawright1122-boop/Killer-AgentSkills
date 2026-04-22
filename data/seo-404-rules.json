@@ -1,0 +1,2015 @@
+{
+  "generatedAt": "2026-04-22T03:51:59.612Z",
+  "sourceReport": "reports/seo/latest-404-remediation-plan.json",
+  "sourceGeneratedAt": "2026-04-19T13:54:26.533Z",
+  "sourceIssueName": "未找到 (404)",
+  "stats": {
+    "redirect301": 1,
+    "gone410": 496,
+    "ignored": 17,
+    "redirect301CandidateTotal": 155,
+    "redirect301CoveredByMiddleware": 154,
+    "redirect301Materialized": 1,
+    "gone410CandidateTotal": 828,
+    "gone410CoveredByMiddleware": 332,
+    "gone410Materialized": 496,
+    "manualReviewCandidateTotal": 12,
+    "observeCandidateTotal": 5,
+    "skippedInvalidOrProtected": 0
+  },
+  "rules": {
+    "redirect301": [
+      {
+        "fromPath": "/ar/collections/top-community-skills",
+        "toPath": "/ar/collections/top-community-contributed-ai-agent-skills",
+        "reason": "legacy_collection_slug_redirect"
+      }
+    ],
+    "gone410": [
+      {
+        "path": "/ar/skills/AbdullahMalik17/Digital-FTE",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/affaan-m/everything-claude-code/golang-testing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/agnaldo4j/kanban_vision_api_iex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/ailabs-393/ai-labs-claude-skills/seo-optimizer",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/am-will/codex-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/Arvmor/xByte",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/asteroid-belt/skulto",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/barateza/mcp-plesk-extension-guide",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/bartstc/vite-ts-react-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/benbrastmckie/ModelChecker",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/bjeber/cc-md-search-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/bretstarr2024/The-Long-Walk",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/CharlesHoskinson/dancesWithClaws/summarize",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/chongdashu/threejs-forest-census",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/cockroachdb/cockroach",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/commands/c-research.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/dallay/agentsync",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/danielmiessler/Personal_AI_Infrastructure/Council",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/Dillind/sprout-expo",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/dirnbauer/webconsulting-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/DivineDominion/textbundler-extension",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/dojoengine/daimyo",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/ElliotJLT/Claude-Skill-Potions",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/evorto-app/app",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/Fancu1/dotfile/deep-research",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/gordonwatts/exam-helper",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/gscalzo/gscalzo.github.io",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/HankLiu447/SuperSpec",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/igorder-dev/apex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/ingpoc/SKILLS",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/jawsbaek/openclaw-agent-configs",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/jcdoll/agents/code-review",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/jdorfman/www",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/jesus-bazan-entel/platform-android.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/jjm-batwo/batwo-AI-maketing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/kasiopeiya/oidc-learning-sandbox/code-review",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/KatTate/Katalyst-Lexicon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/kim-yeo-appweb-lab/trend-korea-app",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/krishantt/customization.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/laurenceputra/sg-cc-mile-subcaps-limits-viewer/code-review",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/luongnv89/claude-howto",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/majiayu000/claude-skill-registry/develop-ai-functions-example",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/majiayu000/claude-skill-registry/nanobanana-skill",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/MarioPasc/MenGrowth",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/maxfraieho/garden-seedling",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/medhatgalal/Core-Prompts",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/MQFacultyOfArts/PromptGrimoireTool/code-review",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/mullaned/next-sanity-dave",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/n8n-io/n8n/loom-transcript",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/oaustegard/claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/optave/codegraph",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/peparhugo/github-copilot-command-demo",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/phamhoangtuan/learn-de-opencode",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/prowler-cloud/prowler/prowler-compliance",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/pythrick/codex-conductor",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/qte77/RDI-AgentBeats-TestBehaveAlign",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/reown-com/reown-docs",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/richardgill/nix",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/Salmanferozkhan/Cloud-and-fast-api",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/satsigner/satsigner",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ar/skills/shakefu/contextium",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/sltc-dev/core-foundry",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/spallempati/AI-Studio",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/srbhr/Resume-Matcher/nextjs15-performance",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/StuartF303/vandaemon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/sunholo-data/ailang",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/TeraSky-OSS/backstage-plugins",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/termdock/termdock-issues/termdock-ast",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/Treytucker05/pt-study-sop",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/withakay/ito",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/WSU-Carbon-Lab/pyref",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ar/skills/xenitV1/frontend_reference.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/YunosukeYoshino/PATTERNS.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/zorgentech/archon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/affaan-m/everything-claude-code",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/affaan-m/everything-claude-code/ralphinho-rfc-pipeline",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/am-will/codex-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/anbeime/skill",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/Arvmor/xByte",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/asteroid-belt/skulto",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/barateza/mcp-plesk-extension-guide",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/benbrastmckie/ModelChecker",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/brendadeeznuts1111/tier-1380-omega/project-planning",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/cannuri/lobsidian",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/CharlesHoskinson/dancesWithClaws",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/CharlesHoskinson/dancesWithClaws/food-order",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/consuelohq/openengineer/github-dev",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/coollabsio/laravel-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/davidkimai/ralph-zero",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/deanpeters/Product-Manager-Skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/dojoengine/torii",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/fefogarcia/approved-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/FireworkSky/RotatingartLauncher",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/Gentleman-Programming/Gentleman.Dots/go-testing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/google-labs-code/stitch-skills/enhance-prompt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/gscalzo/gscalzo.github.io",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/hereandnowai/hotel-booking-ai-chatbot",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/hmu332233/playground.playwright-cli",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/HoangNguyen0403/agent-skills-standard",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/intent-integrity-chain/kit",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/iOfficeAI/AionUi",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/ionfury/homelab/sre",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/iulspop/personal-app-template-sqlite-fly-io",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/jaxxstorm/landlord",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/jeremylongshore/claude-code-plugins-plus-skills/sdk-documentation-generator",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/jesus-bazan-entel/mobile-typography.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/korchasa/flow-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/kubb-labs/kubb/documentation",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/larrykoo711/new-macos-starter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/lem0n4id/learnin10",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/MMorit00/fund-portfolio-bot",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/onejs/one",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/pluginagentmarketplace/custom-plugin-cpp",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/pnils08/GodWorld",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/pyinx/ceo-skills-plugin",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/qwibitai/nanoclaw",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/RMF112018/Project-Controls",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/rshade/finfocus",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/sabaronnie/AI-Driven-Cronut-CEO-Agent",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/sailscastshq/boring-stack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/SpacePlushy/portfolio",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/studyzy/imewlconverter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/venturecrane/dfg-console",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/webdevtodayjason/titanium-plugins",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/WhatIfWeDigDeeper/typescript-features-by-version",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/de/skills/withakay/ito",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/adaptyvbio/protein-design-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/affaan-m/everything-claude-code/api-design",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/affaan-m/everything-claude-code/enterprise-agent-ops",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/affaan-m/everything-claude-code/postgres-patterns",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/agnaldo4j/kanban_vision_api_iex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/barateza/mcp-plesk-extension-guide",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/billlzzz18/skills-cli/openai-docs",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/Blackhorse311/BotMind",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/bretstarr2024/The-Long-Walk",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/cannuri/lobsidian",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/coollabsio/laravel-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/dadbodgeoff/drift",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/dagger/dagger",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/en/skills/davila7/agent-development",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/deanpeters/Product-Manager-Skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/dirnbauer/webconsulting-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/evolv3ai/claude-skills-archive",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/FireworkSky/RotatingartLauncher",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/Gentleman-Programming/Gentleman.Dots/go-testing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/Genuifx/claude-code-env-manager",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/gscalzo/gscalzo.github.io",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/hereandnowai/hotel-booking-ai-chatbot",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/hereandnowai/transformers-simplified",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/HoangNguyen0403/agent-skills-standard",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/husamql3/pstrack",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/j-greig/wibandwob-dos",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/jeremylongshore/claude-code-plugins-plus-skills/api-reference-creator",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/jlowin/fastmcp",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/jlowin/fastmcp/reviewing-code",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/joolbits/latitude",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/K-Dense-AI/claude-scientific-skills/denario",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/K-Dense-AI/claude-scientific-skills/neuropixels-analysis",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/Kbediako/codex-termux-pocket",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/kim-yeo-appweb-lab/trend-korea-app",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/kreuzberg-dev/kreuzberg",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/kungfuai/CVlization",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/laurenceputra/goal-portfolio-viewer",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/leonardomso/33-js-concepts",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/lilliangreenberg/valuations-autonomous_coding",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/loonghao/vx/vx-usage",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/majiayu000/claude-skill-registry/effect-testing-mocking",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/majiayu000/claude-skill-registry/ralph",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/MarioPasc/MenGrowth",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/notedit/happy-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/OneKeyHQ/app-monorepo",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/Pama-Lee/Ordo",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/payloadcms/payload",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/pyinx/ceo-skills-plugin",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/rohitg00/manim-video-generator",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/rshade/finfocus",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/sailscastshq/boring-stack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/samarv/Shanon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/StefKors/Commitment-tauri",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/thoreinstein/agents",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/vaoan/SND",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/en/skills/verygoodmurph/figma-plugin-starter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/w-winter/dot314",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/aboustayyef/InfraRead",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/affaan-m/everything-claude-code",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/affaan-m/everything-claude-code/cpp-testing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/affaan-m/everything-claude-code/investor-outreach",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/affaan-m/everything-claude-code/kotlin-testing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/avivsinai/sabx",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/azap026/smetalabv3",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/cdeistopened/skill-stack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/chandima/opencode-config",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/davila7/deploy",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/daymade/iOS-APP-developer",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/dills122/wap-labs/sprint-plan",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/dirnbauer/webconsulting-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/evolv3ai/claude-skills-archive",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/Fancu1/dotfile/deep-research",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/forgivesam168/ai-dev-workflow",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/google-labs-code/stitch-skills/enhance-prompt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/interactive-inc/open-stack-app",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/iOfficeAI/AionUi",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/jamie8johnson/cqs/release",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/jeremylongshore/claude-code-plugins-plus-skills/presentation-slide-outliner",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/louisburroughs/durion",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/mrmps/mobile-backend.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/novuhq/novu",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/openai/codex/babysit-pr",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/petbrains/mvp-builder",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/phamhoangtuan/learn-de-opencode",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/proficientlyjobs/proficiently-claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/proyecto26/projectx",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/qwibitai/nanoclaw",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/rshade/finfocus",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/skobak/pix",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/SYUNTA99/NS-ENGINE",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/es/skills/walkeros-understanding-stores/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/wolverine__create_operation/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/xenitV1/frontend_reference.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/xiangteng007/XXT-AGENT/voice-ai-development",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/yusufcmg/Agent_Memory_System",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/affaan-m/everything-claude-code/django-tdd",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/affaan-m/everything-claude-code/springboot-security",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/affaan-m/everything-claude-code/swift-actor-persistence",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/agnaldo4j/kanban_vision_api_iex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/anthonylee991/gemini-superpowers-antigravity",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/Arvmor/xByte",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/avivsinai/sabx",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/AWS-Educate/template-nextjs-sanity-tailwind-amplify",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/BenniKiel/S.A.G.E.--Systematic-Agentic-Guidance-Environment-",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/blockmatic/basilic",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/briansunter/kungfu",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/bybren-llc/story-systems-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/cin12211/orca-q/nextjs-expert",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/crowi/crowi",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/fr/skills/dirnbauer/webconsulting-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/dojoengine/torii",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/dolsoon/my-awesome-project",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/ElliotJLT/Claude-Skill-Potions",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/fstandhartinger/ralph-wiggum",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/hereandnowai/hotel-booking-ai-chatbot",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/hereandnowai/vision-rag",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/igorder-dev/apex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/jamie8johnson/cqs/release",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/jaxxstorm/landlord",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/jdorfman/www",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/jeremyjouvancedev/AstraForge/debug",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/karstenheld3/SharePoint-GPT-Middleware",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/KatTate/Bmad-for-Replit",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/kim-yeo-appweb-lab/trend-korea-app",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/leonardomso/33-js-concepts",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/Liinkiing/larastack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/louisburroughs/durion",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/ma1orek/replay/cloudflare-python-workers",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/majiayu000/claude-skill-registry/backlog-grooming-assistant",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/majiayu000/claude-skill-registry/ec2",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/mattfuster/aisef-setup",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/mattgierhart/PRD-driven-context-engineering",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/maxfraieho/garden-bloom/documentation",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/mullaned/next-sanity-dave",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/nevir/agentfill",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/Paramchoudhary/ResumeSkills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/phuchau26/giatsay",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/pnils08/GodWorld",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/pythrick/codex-conductor",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/samarv/Shanon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/siluat/web-projects",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/skobak/pix",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/sorafujitani/claudedot",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/SpacePlushy/portfolio",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/venturecrane/dc-console",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/fr/skills/verygoodmurph/figma-plugin-starter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/fr/skills/w-winter/dot314",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/AbdullahMalik17/Digital-FTE",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/adaptyvbio/protein-design-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/affaan-m/everything-claude-code/nextjs-turbopack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/ajdhoward/moltbot-sandbox1",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/asheshgoplani/agent-deck",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/Asmayaseen/hackathon-2",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/AWS-Educate/template-nextjs-sanity-tailwind-amplify",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/billlzzz18/skills-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/blockmatic/basilic",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/dseirz-rgb/worker",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/dspangenberg/twc-ui",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/EthGlobalBangkok/polyswap-dapp",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/gannonh/kata-orchestrator",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/ingpoc/SKILLS",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/interactive-inc/open-stack-app",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/jenarvaezg/cunhaobot",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/jeremylongshore/claude-code-plugins-plus-skills/api-key-auth-setup",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/jlowin/fastmcp/reviewing-code",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/juanlamadrid20/alerts_guidance.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/lem0n4id/learnin10",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/Liinkiing/larastack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/ma1orek/replay",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/majiayu000/claude-skill-registry/doc-workflow",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/mattgierhart/PRD-driven-context-engineering/ghm-gate-check",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/microsoft/playwright/playwright-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/modu-ai/cc-plugins",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/ncrmro/deepwork-permanent-portfolio",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/openakita/openakita",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ja/skills/Paramchoudhary/ResumeSkills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/petbrains/mvp-builder",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/phrazzld/claude-config",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/proficientlyjobs/proficiently-claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/pyinx/ceo-skills-plugin",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/python-maintainer/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/rohitg00/manim-video-generator",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/sabaronnie/AI-Driven-Cronut-CEO-Agent",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/santosrai/santosrai.github.io",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/simnova/sharethrift",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/slidevjs/slidev",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/StuartF303/vandaemon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/tfunk1030/bnredo",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/tygwan/ultra-codex-init",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/ubnt-intrepid/openspec-example-moneylog",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/untitled-data-company/data-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/verygoodmurph/figma-plugin-starter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/xu-cell/ai-engineering-init",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/yldgio/codereview-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/yusufcmg/Agent_Memory_System",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ja/skills/yxhpy/qcc_plus/codex",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/a1flecke/games-for-my-kids",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/affaan-m/everything-claude-code/article-writing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/affaan-m/everything-claude-code/security-scan",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/alexanderop/second-brain-nuxt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/amannoufel/PLP/math-visualizer",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/amruthpillai/reactive-resume/resume-builder",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/asheshgoplani/agent-deck",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/Blackhorse311/BotMind",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/consuelohq/openengineer",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/denis1011101/getcourt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/dermatologist/crisp-t",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/Dillind/sprout-expo",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/dipenmagdani/portfolio-v2",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/dirnbauer/webconsulting-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/dojoengine/daimyo",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/dojoengine/torii",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/Fancu1/dotfile",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/Fancu1/dotfile/deep-research",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/fstandhartinger/ralph-wiggum",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/HiroyukiMakita/dev-kintone-plugin",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/igorder-dev/apex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/iQeda/MyRust-NeetCode",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/JasonRowe/Wahoo-KICKR-Randomizer",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/jaxxstorm/landlord",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/jjm-batwo/batwo-AI-maketing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/joolbits/latitude",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/Kbediako/codex-termux-pocket",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/kdeldycke/meta-package-manager/repomatic-audit",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/kis9a/claude-skills-demo",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/kmp-navigation/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/kreuzberg-dev/kreuzberg",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/larrykoo711/new-macos-starter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/lemline/lemline",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ko/skills/Liinkiing/larastack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/majcheradam/ocrbase",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/majiayu000/claude-skill-registry",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/mindfold-ai/Trellis",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/nevir/agentfill",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/onejs/one",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/OpenGradient/OpenGradient-SDK",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/Paramchoudhary/ResumeSkills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/phrazzld/codex-config/pr",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/promptadvisers/business-stack-analysis.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/RefoundAI/lenny-skills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/scotttrinh/nook",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/SpacePlushy/portfolio",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/takemo101/compose-workflow",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/tuannvm/pagent",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/tygwan/ultra-codex-init",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/venturecrane/dfg-console",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/walkeros-using-step-examples/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/yldgio/codereview-skills/gh-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/zylos-ai/zylos-core",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/andreaskelm/pm-brain",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/brendadeeznuts1111/tier-1380-omega",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/cesaroeduardo/icon-library-visualization",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/chongdashu/threejs-forest-census",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/coollabsio/laravel-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/diana-uk/senior-interview-mentor",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/Fancu1/dotfile/deep-research",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/fefogarcia/approved-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/Gingi892/automation-shamai",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/hackmdio/hackmd-cli/hackmd-cli",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/pt/skills/hnabyz-bot/mcp-agent-server",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/igorder-dev/apex",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/jawsbaek/openclaw-agent-configs",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/jjm-batwo/batwo-AI-maketing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/junerver/ComposeHooks",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/jwilger/eventcore",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/karanchawla/vvm",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/luongnv89/claude-howto",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/majiayu000/claude-skill-registry/github-cli",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/majiayu000/claude-skill-registry/project-workflow",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/MarioPasc/MenGrowth",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/MhL5/mhl5.vercel.app",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/microsoft/playwright",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/MohmmedAshraf/laravel-translations",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/mosif16/codex-Skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/official/remotion",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/pluginagentmarketplace/custom-plugin-cpp",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/pnils08/GodWorld",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/proficientlyjobs/proficiently-claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/pyinx/ceo-skills-plugin",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/QualityUnit/README.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/r1cA18/dotfiles",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/shren207/awesome-anki",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/sunholo-data/ailang",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/testing/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/USW-Circle-Link/detail-app-bar.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/USW-Circle-Link/filter-tab-bar.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/USW-Circle-Link/notification-overlay.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/USW-Circle-Link/policy-dialog.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/viralcode/openwhale",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/withakay/ito",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/AbdullahMalik17/Digital-FTE",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/alexanderop/second-brain-nuxt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/arku3/phpspreadsheet-js",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/asheshgoplani/agent-deck",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/aztr0nutzs/XENGENiX/gameplay-integrator",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/benbrastmckie/ModelChecker",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/davidkimai/ralph-zero",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/dhcgn/iot-ephemeral-value-store/gh-cli",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/evolv3ai/claude-skills-archive",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/FrontMage/codex_helper",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/fstandhartinger/ralph-wiggum",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/HAMMERHEAD-Space/AgenticCodingRules/brainstorming",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/JordanGunn/skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/kks0488/vibe-claude",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/lanasdev/lanasdev",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ru/skills/lemline/lemline",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ru/skills/loonghao/vx/vx-usage",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/MarioPasc/MenGrowth",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/mcauduro0/Macro_Trading/ln-730-devops-setup",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/MitchellkellerLG/claude-workspace-template",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/MMorit00/fund-portfolio-bot",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/OneKeyHQ/app-monorepo/1k-pr-daily-report",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/Paramchoudhary/ResumeSkills",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/petbrains/mvp-builder",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/QualityUnit/README.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/scotttrinh/nook",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/siluat/web-projects",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/SYUNTA99/NS-ENGINE",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ru/skills/USW-Circle-Link/circle-detail-overlay.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/USW-Circle-Link/circle-item.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/USW-Circle-Link/circle-list.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/USW-Circle-Link/drawer-item.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/USW-Circle-Link/selected-category-chip-list.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ru/skills/vitalyiegorov/suuudokuuu",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/affaan-m/everything-claude-code",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/ajdhoward/moltbot-sandbox1",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/aryasoni98/mcpatlas",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/boomNDS/new_portfolio",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/brendadeeznuts1111/tier-1380-omega",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/Crainax/War3Lib",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/danieldekay/simulator_milonga",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/denis1011101/getcourt",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/diana-uk/senior-interview-mentor",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/dills122/wap-labs/sprint-plan",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/dojoengine/daimyo",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/dseirz-rgb/worker",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/dyoshikawa/mcp-server.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/eval-suite-maintainer/SKILL.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/felixzhu97/finpulse",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/fierzone/agent-skills-standard",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/HoangNguyen0403/agent-skills-standard",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/intent-integrity-chain/kit",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/jjm-batwo/batwo-AI-maketing",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/karanchawla/vvm",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/Liinkiing/larastack",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/majiayu000/claude-skill-registry/github-search",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/MakiOmar/DoctorAppointmenets",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/maxfraieho/garden-bloom/documentation",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/mkaput/elixirij",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/neondatabase/mcp-server-neon",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/OpenAEC-Foundation/conventions",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/OPS-PIvers/claude-resources",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/phamhoangtuan/learn-de-opencode",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/pyinx/ceo-skills-plugin",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/rohitg00/manim-video-generator",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/Salmanferozkhan/Cloud-and-fast-api",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/sanity-io/plugins",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/StarKnightt/MineCraft/web-games",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/studyzy/imewlconverter",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/tadata-org/examples",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/tkersey/dotfiles",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/venturecrane/dfg-console",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/withakay/ito",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/Yeachan-Heo/oh-my-claudecode",
+        "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/zh/skills/ZoneMix/ostendo",
+        "reason": "missing_from_sitemap_and_cache"
+      }
+    ]
+  }
+}

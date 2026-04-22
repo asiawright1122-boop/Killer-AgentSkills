@@ -12,7 +12,7 @@ heroImage: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?q=80&w=
 
 # Wie man AI-Agenten-Fähigkeiten installiert
 
-Sie haben eine AI-Agenten-Fähigkeit gefunden, die Sie verwenden möchten. Vielleicht ist es die [docx Automation-Fähigkeit](/de/skills/anthropics/skills/docx) oder vielleicht ein spezialisierter Frontend-UI-Generator. Jetzt müssen Sie sie in Ihr Projekt einfügen, damit Ihr Codier-Agent sie tatsächlich lesen kann.
+Sie haben eine AI-Agenten-Fähigkeit gefunden, die Sie verwenden möchten. Vielleicht ist es die [docx Automation-Fähigkeit](/en/skills/anthropics/skills/docx) oder vielleicht ein spezialisierter Frontend-UI-Generator. Jetzt müssen Sie sie in Ihr Projekt einfügen, damit Ihr Codier-Agent sie tatsächlich lesen kann.
 
 Sie können den Markdown-Text manuell kopieren und einfügen, die richtigen Verzeichnisse erstellen und die Frontmatter-Formatierung selbst korrigieren. Oder Sie können einen Befehl ausführen, der all dies für Sie erledigt.
 

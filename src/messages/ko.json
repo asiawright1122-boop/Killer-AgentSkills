@@ -160,7 +160,7 @@
   "CLI": {
     "heroTitle": "Killer-Skills CLI",
     "heroSubtitle": "AI 에이전트 스킬을 설치하고 관리",
-    "heroDesc": "Cursor, Windsurf, Claude Code 같은 도구에서 2,500개 이상의 AI 에이전트 스킬을 발견하고 설치하고 동기화하세요.",
+    "heroDesc": "Cursor, Windsurf, Claude Code 같은 도구에서 3,400개 이상의 AI 에이전트 스킬을 발견하고 설치하고 동기화하세요.",
     "optionalNote": "참고: CLI 도구는 선택 사항입니다. 설치 없이 npx를 통해 스킬을 직접 사용할 수 있습니다.",
     "install": "지금 설치",
     "viewDocs": "문서 보기",
@@ -656,7 +656,7 @@
     "categories": "카테고리"
   },
   "Hero": {
-    "badge": "80,000+ 스킬 사용 가능",
+    "badge": "3,400+ 스킬 사용 가능",
     "title": "AI 에이전트 스킬 발견",
     "titleHighlight": "AI 에이전트",
     "subtitle": "무한한 가능성을 탐색하고 AI 어시스턴트를 강화하세요",
@@ -669,7 +669,7 @@
     "heroTitle": "에이전트에게",
     "heroTitleHighlight": "초능력을 장착하세요",
     "heroBadge": "자율 기능을 위한 오픈 디렉터리",
-    "heroDesc1": "2,500개 이상의 오픈 소스 AI 스킬을 검색, 설치 및 관리하세요.",
+    "heroDesc1": "3,400개 이상의 오픈 소스 AI 스킬을 검색, 설치 및 관리하세요.",
     "heroDesc2": "에이전트에게 검색, 코딩 및 생성 능력을 즉시 부여하세요.",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
@@ -712,7 +712,7 @@
       }
     },
     "seoTitle": "Killer-Skills - AI 에이전트 스킬＆MCP 서버 디렉터리 | Claude Code＆Cursor 스킬",
-    "seoDescription": "Claude Code, Cursor 및 19개 이상의 IDE용 2,500개 이상의 AI 에이전트 스킬과 MCP 서버를 발견하세요. Killer-Skills는 Model Context Protocol의 열린 디렉터리입니다.",
+    "seoDescription": "Claude Code, Cursor 및 19개 이상의 IDE용 3,400개 이상의 AI 에이전트 스킬과 MCP 서버를 발견하세요. Killer-Skills는 Model Context Protocol의 열린 디렉터리입니다.",
     "faqTitle": "홈페이지 FAQ",
     "faqSubtitle": "홈페이지 스니펫, 표시 콘텐츠, 구조화된 데이터의 정합성을 유지합니다.",
     "faq1Q": "Killer-Skills란 무엇인가요?",
@@ -757,7 +757,7 @@
     "latest": "최신 발견",
     "latestDesc": "최신 AI 에이전트 스킬 탐색",
     "allPurpose": "모든 스킬",
-    "allPurposeDesc": "2,500개 이상의 AI 에이전트 스킬 발견 및 관리",
+    "allPurposeDesc": "3,400개 이상의 AI 에이전트 스킬 발견 및 관리",
     "discover": "발견",
     "latestSkills": "최신 스킬",
     "allSkills": "모든 스킬",
@@ -941,7 +941,7 @@
   "SkillsManagerWidget": {
     "title": "스킬 매니저",
     "subtitle": "에코시스템 게이트웨이",
-    "description": "무한한 가능성을 열어보세요. 2,500개 이상의 AI 에이전트 기능을 즉시 검색하고 설치하여 강화하세요.",
+    "description": "무한한 가능성을 열어보세요. 3,400개 이상의 AI 에이전트 기능을 즉시 검색하고 설치하여 강화하세요.",
     "cta": "매니저 입장"
   },
   "Solutions": {

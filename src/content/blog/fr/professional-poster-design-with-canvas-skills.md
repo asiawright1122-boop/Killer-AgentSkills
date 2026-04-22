@@ -63,11 +63,11 @@ Générez des pièces qui prouvent qu'une chose éphémère peut être étudiée
 
 Le skill `canvas-design` est destiné à ceux qui pensent que la conception est une discipline, et non un raccourci. Il transforme votre agent IA en un artisan expert capable de produire des œuvres qui méritent une place dans une galerie.
 
-Explorez le skill [canvas-design](https://killer-skills.com/fr/skills/anthropics/skills/canvas-design) dans le répertoire de skills Killer-Skills pour le télécharger et commencer à concevoir dès aujourd'hui.
+Explorez le skill [canvas-design](https://killer-skills.com/en/skills/anthropics/skills/canvas-design) dans le répertoire de skills Killer-Skills pour le télécharger et commencer à concevoir dès aujourd'hui.
 
 ---
 
-*Recherchez plus ? Découvrez [algorithmic-art](https://killer-skills.com/fr/skills/anthropics/skills/algorithmic-art) pour l'art génératif basé sur le code.*
+*Recherchez plus ? Découvrez [algorithmic-art](https://killer-skills.com/en/skills/anthropics/skills/algorithmic-art) pour l'art génératif basé sur le code.*
 
 ---
 

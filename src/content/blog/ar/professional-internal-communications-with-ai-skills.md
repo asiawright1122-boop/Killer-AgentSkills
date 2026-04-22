@@ -67,7 +67,7 @@ npx killer-skills add anthropics/skills/internal-comms
 
 ---
 
-*هل تحتاج إلى التعاون على وثائق أكثر تعقيدا؟ تحقق من موهبة [التعاون على الوثائق](https://killer-skills.com/ar/skills/anthropics/skills/doc-coauthoring).*
+*هل تحتاج إلى التعاون على وثائق أكثر تعقيدا؟ تحقق من موهبة [التعاون على الوثائق](https://killer-skills.com/en/skills/anthropics/skills/doc-coauthoring).*
 
 ---
 

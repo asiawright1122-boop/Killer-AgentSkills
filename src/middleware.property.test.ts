@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import * as fc from 'fast-check';
 import { SUPPORTED_LOCALES, DEFAULT_LOCALE } from './i18n';
+import seo404RulesData from '../data/seo-404-rules.json';
 import {
   detectLocale,
   isStaticOrApiPath,
@@ -14,6 +15,11 @@ vi.mock('astro:middleware', () => ({
 }));
 
 import { onRequest } from './middleware';
+
+const explicitGone410SamplePath =
+  ((seo404RulesData as { rules?: { gone410?: Array<{ path?: string }> } }).rules?.gone410 ?? []).find((entry) =>
+    typeof entry.path === 'string' ? /^\/[a-z]{2}\/skills\//.test(entry.path) : false,
+  )?.path || '/de/skills/gscalzo/gscalzo.github.io';
 
 // ============================================================================
 // Generators
@@ -323,10 +329,10 @@ describe('Feature: nextjs-to-astro-migration, Property 4: 中间件路径放行'
 // ============================================================================
 
 describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
-  function createContext(url: string) {
+  function createContext(url: string, init?: { headers?: HeadersInit }) {
     return {
       url: new URL(url),
-      request: new Request(url),
+      request: new Request(url, { headers: init?.headers }),
       cookies: {
         get: () => undefined,
       },
@@ -378,6 +384,148 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
+  });
+
+  it('applies noindex, nofollow to API responses by default', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/api/categories'),
+      async () =>
+        new Response(JSON.stringify({ categories: [] }), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('returns 410 for explicit trap paths generated from 404 remediation rules', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext(`https://killer-skills.com${explicitGone410SamplePath}`),
+      async () => {
+        nextCalled = true;
+        return new Response('ok', { status: 200 });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('redirects legacy collection aliases once 404 remediation rules materialize them', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ar/collections/top-community-skills'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe('/ar/collections/top-community-contributed-ai-agent-skills');
+  });
+
+  it('redirects legacy docs aliases to the canonical docs page before SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/docs/development/create-skill'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe('/en/docs/creating-skills');
+  });
+
+  it('does not block valid repeated route paths that exist in sitemap map', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/IstiN/dmtools/dmtools'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('index, follow');
+  });
+
+  it('crawler requests short-circuit invalid skill detail URLs before downstream SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/not-a-real-owner/not-a-real-route', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(404);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('crawler requests short-circuit blocklisted sitemap skill routes before downstream SSR', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/karyna1661/Audioform-', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('crawler requests keep valid canonical skill detail URLs reachable', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/IstiN/dmtools/dmtools', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
   });
 });
 

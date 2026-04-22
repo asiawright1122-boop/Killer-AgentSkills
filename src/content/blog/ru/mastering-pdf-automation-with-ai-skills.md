@@ -64,11 +64,11 @@ npx killer-skills add anthropics/skills/pdf
 
 Навык `pdf` — это важный инструмент для любого современного разработчика или аналитика данных. Он избавляет от сложностей работы с PDF и позволяет создавать по-настоящему автоматизированные, корпоративные конвейеры обработки документов.
 
-Установите [навык pdf](https://killer-skills.com/ru/skills/anthropics/skills/pdf) из Маркетплейса Killer-Skills и начните автоматизировать уже сегодня.
+Установите [навык pdf](https://killer-skills.com/en/skills/anthropics/skills/pdf) из Маркетплейса Killer-Skills и начните автоматизировать уже сегодня.
 
 ---
 
-*Нужно создавать редактируемые документы Word? Ознакомьтесь с [навыком docx](https://killer-skills.com/ru/skills/anthropics/skills/docx).*
+*Нужно создавать редактируемые документы Word? Ознакомьтесь с [навыком docx](https://killer-skills.com/en/skills/anthropics/skills/docx).*
 
 ---
 

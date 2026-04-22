@@ -1,0 +1,161 @@
+{
+  "generatedAt": "2026-04-16T06:08:27.669Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "milestone": "v1.6",
+  "milestoneName": "Post-Governance Recovery Proof and Authority Lift",
+  "activePhases": [
+    {
+      "phaseNumber": "54",
+      "slug": "post-governance-recovery-proof-window",
+      "requirements": [
+        "SEO-21"
+      ],
+      "phaseDirs": [
+        "54-post-governance-recovery-proof-window"
+      ],
+      "summaryFiles": [
+        ".planning/phases/54-post-governance-recovery-proof-window/54-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/54-post-governance-recovery-proof-window/54-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-21"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-21"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "55",
+      "slug": "recovery-delta-attribution-and-cohort-board",
+      "requirements": [
+        "SEO-22"
+      ],
+      "phaseDirs": [
+        "55-recovery-delta-attribution-and-cohort-board"
+      ],
+      "summaryFiles": [
+        ".planning/phases/55-recovery-delta-attribution-and-cohort-board/55-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/55-recovery-delta-attribution-and-cohort-board/55-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-22"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-22"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "56",
+      "slug": "authority-surface-uplift-program-and-promotion-gates",
+      "requirements": [
+        "SEO-23",
+        "GOV-12",
+        "UX-EXP-01"
+      ],
+      "phaseDirs": [
+        "56-authority-surface-uplift-program-and-promotion-gates"
+      ],
+      "summaryFiles": [
+        ".planning/phases/56-authority-surface-uplift-program-and-promotion-gates/56-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/56-authority-surface-uplift-program-and-promotion-gates/56-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "SEO-23",
+        "GOV-12",
+        "UX-EXP-01"
+      ],
+      "verificationRequirementsCompleted": [
+        "SEO-23",
+        "GOV-12",
+        "UX-EXP-01"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "57",
+      "slug": "recovery-experiment-ladder-and-automation-readiness",
+      "requirements": [
+        "GEO-02"
+      ],
+      "phaseDirs": [
+        "57-recovery-experiment-ladder-and-automation-readiness"
+      ],
+      "summaryFiles": [
+        ".planning/phases/57-recovery-experiment-ladder-and-automation-readiness/57-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/57-recovery-experiment-ladder-and-automation-readiness/57-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "GEO-02"
+      ],
+      "verificationRequirementsCompleted": [
+        "GEO-02"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    }
+  ],
+  "requirements": [
+    {
+      "id": "SEO-21",
+      "expectedPhase": "54",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-22",
+      "expectedPhase": "55",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "SEO-23",
+      "expectedPhase": "56",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-12",
+      "expectedPhase": "56",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "UX-EXP-01",
+      "expectedPhase": "56",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GEO-02",
+      "expectedPhase": "57",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    }
+  ],
+  "hygiene": {
+    "status": "clean",
+    "legacyPhaseDirs": [],
+    "orphanPhaseDirs": [],
+    "duplicateActivePhaseDirs": [],
+    "missingActivePhaseDirs": []
+  }
+}

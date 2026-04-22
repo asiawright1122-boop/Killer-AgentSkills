@@ -4,6 +4,7 @@ import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getAllSkills, getLocalizedDescription, isPublicSkill, type UnifiedSkill } from '../../../lib/skills';
 import { errorResponse } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
+import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -96,17 +97,17 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
           return new Response(
             JSON.stringify({
-              skills: _skills,
+              skills: _skills.map((skill) => sanitizePublicSkill(skill)),
               total: _total,
               page,
               hasMore: page * limit < _total,
             }),
             {
               status: 200,
-              headers: {
+              headers: withPublicApiHeaders({
                 'Content-Type': 'application/json',
                 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-              },
+              }),
             },
           );
         }
@@ -151,17 +152,17 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     return new Response(
       JSON.stringify({
-        skills: paginatedSkills,
+        skills: paginatedSkills.map((skill) => sanitizePublicSkill(skill)),
         total: _total,
         page,
         hasMore: end < _total,
       }),
       {
         status: 200,
-        headers: {
+        headers: withPublicApiHeaders({
           'Content-Type': 'application/json',
           'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120',
-        },
+        }),
       },
     );
   } catch (error) {

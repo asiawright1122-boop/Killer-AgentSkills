@@ -58,11 +58,11 @@ npx killer-skills add anthropics/skills/theme-factory
 
 Навык `theme-factory` превращает вашего ИИ-агента из простого кодера в бренд-ориентированного дизайнера. Гарантируя, что каждый артефакт будет красивым и последовательным, он поднимает планку того, чего может достичь контент, созданный искусственным интеллектом.
 
-Ознакомьтесь с [навыком theme-factory](https://killer-skills.com/ru/skills/anthropics/skills/theme-factory) на Маркетплейсе Killer-Skills уже сегодня и придайте своим проектам профессиональное преимущество, которого они заслуживают.
+Ознакомьтесь с [навыком theme-factory](https://killer-skills.com/en/skills/anthropics/skills/theme-factory) на Маркетплейсе Killer-Skills уже сегодня и придайте своим проектам профессиональное преимущество, которого они заслуживают.
 
 ---
 
-*Хотите создавать компоненты самостоятельно? Сочетайте его с [frontend-design](https://killer-skills.com/ru/skills/anthropics/skills/frontend-design) для идеального рабочего процесса веб-разработки.*
+*Хотите создавать компоненты самостоятельно? Сочетайте его с [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design) для идеального рабочего процесса веб-разработки.*
 
 ---
 

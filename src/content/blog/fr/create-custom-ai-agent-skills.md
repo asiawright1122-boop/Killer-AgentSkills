@@ -31,8 +31,8 @@ La ressource la plus critique à l'ère de l'IA est la **fenêtre contextuelle**
 
 ### 2. Degrés de liberté correspondants
 Toute tâche ne doit pas être traitée de la même manière :
-- **Degré de liberté élevé** : Instructions de texte pur pour les tâches qui nécessitent des heuristiques créatives (par exemple, [frontend-design](https://killer-skills.com/fr/skills/anthropics/skills/frontend-design)).
-- **Degré de liberté faible** : Scripts rigides pour les opérations fragiles et déterministes (par exemple, manipulation de [docx](https://killer-skills.com/fr/skills/anthropics/skills/docx)).
+- **Degré de liberté élevé** : Instructions de texte pur pour les tâches qui nécessitent des heuristiques créatives (par exemple, [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)).
+- **Degré de liberté faible** : Scripts rigides pour les opérations fragiles et déterministes (par exemple, manipulation de [docx](https://killer-skills.com/en/skills/anthropics/skills/docx)).
 
 ### 3. Connaissance procédurale vs. déclarative
 Ne dites pas simplement à l'IA *ce qu'elle doit faire* ; donnez-lui les *outils* pour le faire. La compétence `skill-creator` encourage l'utilisation de :
@@ -55,11 +55,11 @@ Le `skill-creator` fournit un flux de travail étape par étape pour construire 
 
 Le pouvoir de l'IA ne réside pas seulement dans le modèle, mais dans l'**infrastructure** qui l'entoure. Avec la compétence `skill-creator`, vous passez d'ingénieur de prompts à architecte de capacités. Vous n'indiquez pas seulement à l'IA ce qu'elle doit faire, mais vous lui enseignez comment apprendre.
 
-Créez votre espace de travail IA personnalisé dès aujourd'hui avec le skill [skill-creator](https://killer-skills.com/fr/skills/anthropics/skills/skill-creator) dans le répertoire de skills Killer-Skills.
+Créez votre espace de travail IA personnalisé dès aujourd'hui avec le skill [skill-creator](https://killer-skills.com/en/skills/anthropics/skills/skill-creator) dans le répertoire de skills Killer-Skills.
 
 ---
 
-*Prêt à déployer votre nouvelle compétence ? Découvrez comment [créer un serveur MCP](https://killer-skills.com/fr/skills/anthropics/skills/mcp-builder) pour l'héberger.*
+*Prêt à déployer votre nouvelle compétence ? Découvrez comment [créer un serveur MCP](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder) pour l'héberger.*
 
 ---
 

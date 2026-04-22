@@ -58,11 +58,11 @@ npx killer-skills add anthropics/skills/theme-factory
 
 `theme-factory` 스킬은 여러분의 AI 에이전트를 단순한 코더에서 브랜드 의식을 갖춘 디자이너로 변모시킵니다. 모든 산출물이 아름답고 일관성을 유지하도록 보장함으로써, AI 생성 콘텐츠가 달성할 수 있는 기준을 높여줍니다.
 
-지금 바로 Killer-Skills 디렉터리에서 [theme-factory 스킬](https://killer-skills.com/ko/skills/anthropics/skills/theme-factory)을 확인하고 프로젝트에 필요한 전문적인 완성도를 더해 보세요.
+지금 바로 Killer-Skills 디렉터리에서 [theme-factory 스킬](https://killer-skills.com/en/skills/anthropics/skills/theme-factory)을 확인하고 프로젝트에 필요한 전문적인 완성도를 더해 보세요.
 
 ---
 
-*컴포넌트를 직접 구축하고 싶으신가요? [frontend-design](https://killer-skills.com/ko/skills/anthropics/skills/frontend-design)과 함께 사용하면 궁극의 웹 개발 워크플로를 구현할 수 있습니다.*
+*컴포넌트를 직접 구축하고 싶으신가요? [frontend-design](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)과 함께 사용하면 궁극의 웹 개발 워크플로를 구현할 수 있습니다.*
 
 ---
 

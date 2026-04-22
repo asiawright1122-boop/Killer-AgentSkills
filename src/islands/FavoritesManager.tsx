@@ -3,6 +3,7 @@ import Heart from 'lucide-react/dist/esm/icons/heart';
 import ArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right';
 import X from 'lucide-react/dist/esm/icons/x';
 import { loadFavorites, removeFavorite as removeFav, type FavoriteSkill } from '../lib/favorites';
+import { buildLocalizedSkillPath } from '../lib/skill-route-paths';
 
 // ── Props ──────────────────────────────────────────────────────────────────────
 
@@ -139,7 +140,7 @@ interface FavoriteCardProps {
 
 function FavoriteCard({ skill, locale, onRemove, removeFavoriteLabel, savedAtTemplate }: FavoriteCardProps) {
   const { owner, repo } = skill;
-  const detailUrl = `/${locale}/skills/${owner}/${repo}`;
+  const detailUrl = buildLocalizedSkillPath(locale, owner, skill.routePath || repo);
   const addedDate = new Date(skill.addedAt).toLocaleDateString();
 
   return (

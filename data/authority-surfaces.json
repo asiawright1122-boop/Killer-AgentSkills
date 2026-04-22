@@ -1,0 +1,801 @@
+{
+  "strategy": {
+    "thesis": {
+      "en": "Organic recovery should flow through fewer, stronger, first-party entry points instead of a flat bulk-skill corpus.",
+      "zh": "自然流量恢复必须依赖更少、更强、带有一手判断的入口页，而不是重新回到扁平化的大批量 skill 语料。"
+    },
+    "principles": [
+      {
+        "id": "curated-first",
+        "title": {
+          "en": "Curated First",
+          "zh": "先精选后扩张"
+        },
+        "description": {
+          "en": "Homepage and browse hubs should lead with curated collections, trusted tools, and editorial guides before generic directory browsing.",
+          "zh": "首页和核心浏览页必须先展示精选合集、可信工具和编辑型指南，再给全量目录入口。"
+        }
+      },
+      {
+        "id": "proof-over-wrapper",
+        "title": {
+          "en": "Proof Over Wrapper",
+          "zh": "证明优先于包装"
+        },
+        "description": {
+          "en": "Authority pages need first-party selection logic, install guidance, comparisons, and operational context instead of template wrappers around imported content.",
+          "zh": "权威页面要靠一手筛选、安装指导、对比判断和运维上下文建立价值，而不是给导入内容再包一层模板。"
+        }
+      },
+      {
+        "id": "next-step-clarity",
+        "title": {
+          "en": "Next-Step Clarity",
+          "zh": "下一步路径清晰"
+        },
+        "description": {
+          "en": "Each authority surface should hand users to the next best action: compare, install, validate, or move deeper into a curated workflow.",
+          "zh": "每个 authority surface 都要明确交给用户下一步动作：继续对比、安装、验证，或进入更深的精选工作流。"
+        }
+      }
+    ]
+  },
+  "surfaces": [
+    {
+      "id": "home-root",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "hub",
+      "href": "/{locale}",
+      "title": {
+        "en": "Homepage Root Hub",
+        "zh": "首页总入口"
+      },
+      "description": {
+        "en": "The root page must route discovery into curated collections, official tools, solutions, and installation guidance.",
+        "zh": "首页必须把发现流量导向精选合集、官方工具、solutions 和安装文档。"
+      },
+      "rationale": {
+        "en": "This is the strongest sitewide signal for what Killer-Skills considers its best public entry points.",
+        "zh": "这是站点层面最强的信号，用来告诉 Google 和用户 Killer-Skills 真正重视哪些公开入口。"
+      },
+      "placements": ["report", "collections", "skills", "solutions", "docs"]
+    },
+    {
+      "id": "collections-hub",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "hub",
+      "href": "/{locale}/collections",
+      "title": {
+        "en": "Collections Hub",
+        "zh": "Collections 总入口"
+      },
+      "description": {
+        "en": "Curated collection pages carry clearer topical scope, stronger first-party framing, and safer canonical signals than bulk skill listings.",
+        "zh": "精选 collections 比全量 skill 列表拥有更清晰的主题边界、更强的一手框架和更稳定的 canonical 信号。"
+      },
+      "rationale": {
+        "en": "Collections are the cleanest scalable way to show selection, grouping, and user intent without reopening the thin-detail trap.",
+        "zh": "Collections 是当前最适合规模化承接流量的页面形态，既能体现筛选能力，又不会重新掉回薄弱详情页陷阱。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-official-trusted-tools",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+      "title": {
+        "en": "Official AI Skills & Trusted Tools",
+        "zh": "官方 AI Skills 与可信工具"
+      },
+      "description": {
+        "en": "A high-trust collection that lets the site lead with official and strongly verified ecosystems instead of random long-tail repos.",
+        "zh": "这是高信任合集，能让站点优先展示官方和强验证生态，而不是随机的长尾仓库。"
+      },
+      "rationale": {
+        "en": "Trusted-brand collections are the fastest way to rebuild authority after pruning.",
+        "zh": "围绕官方工具的编辑型合集，是裁剪后最快能重建权威感的页面形态。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-agent-workflows",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-agent-workflow-building-tools",
+      "title": {
+        "en": "Agent Workflow Building Tools",
+        "zh": "Agent 工作流构建工具"
+      },
+      "description": {
+        "en": "A workflow-first collection that explains why related skills belong together and what job they solve.",
+        "zh": "这是工作流优先的合集，能解释相关 skills 为什么要放在一起，以及它们共同解决什么任务。"
+      },
+      "rationale": {
+        "en": "Workflow collections add first-party judgment that generic skill detail pages struggle to communicate.",
+        "zh": "工作流合集能补上一手判断，而这恰恰是普通 skill 详情页最难说清楚的部分。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-claude-code",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-claude-code-skills",
+      "title": {
+        "en": "Top Claude Code Skills",
+        "zh": "顶级 Claude Code Skills"
+      },
+      "description": {
+        "en": "A platform-specific collection for one of the clearest demand clusters in the product ecosystem.",
+        "zh": "这是平台型合集，面向产品生态里最清晰的需求簇之一。"
+      },
+      "rationale": {
+        "en": "Platform collections let the site recover with narrower, more trustworthy topical intent.",
+        "zh": "平台合集能让站点用更窄、更可信的主题意图恢复流量。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-cursor",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-cursor-compatible-skills-workflow-integrations",
+      "title": {
+        "en": "Cursor-Compatible Skills",
+        "zh": "Cursor 兼容 Skills"
+      },
+      "description": {
+        "en": "A clean surface for editor-specific demand with explicit workflow intent.",
+        "zh": "这是编辑器型需求的干净入口，能够明确承接 workflow intent。"
+      },
+      "rationale": {
+        "en": "Editor-specific demand should land on curated surfaces, not random repo coverage.",
+        "zh": "编辑器型需求应该落到精选页，而不是随机 repo 覆盖页。"
+      },
+      "placements": ["skills", "solutions"]
+    },
+    {
+      "id": "collection-windsurf",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-windsurf-skills",
+      "title": {
+        "en": "Top Windsurf Skills",
+        "zh": "顶级 Windsurf Skills"
+      },
+      "description": {
+        "en": "A platform collection that turns IDE demand into a stronger curated hub.",
+        "zh": "这是把 IDE 需求转成更强精选入口的平台合集。"
+      },
+      "rationale": {
+        "en": "The more specific the editor intent, the more important curated selection becomes.",
+        "zh": "越具体的编辑器意图，越需要精选筛选而不是平铺式目录。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-gemini",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-gemini-compatible-dev-tools-agent-workflow-skills",
+      "title": {
+        "en": "Gemini Workflow Tools to Install First",
+        "zh": "优先安装的 Gemini 工作流工具"
+      },
+      "description": {
+        "en": "A Gemini-specific collection that turns compatibility research into a curated install path for real delivery teams.",
+        "zh": "这是 Gemini 场景下的精选合集，把兼容性研究导向更清晰的安装路径，适合真实交付团队。"
+      },
+      "rationale": {
+        "en": "Gemini demand is easier to trust when it lands on a curated shortlist instead of a loose compatibility wrapper.",
+        "zh": "Gemini 相关需求落到精选候选集上，比落到松散的兼容性包装页上更容易建立信任。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-opencode",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-opencode-workflow-tools-companion-integrations",
+      "title": {
+        "en": "OpenCode Workflow Tools to Install First",
+        "zh": "优先安装的 OpenCode 工作流工具"
+      },
+      "description": {
+        "en": "A focused OpenCode collection that shortens companion-tool selection before installation and rollout.",
+        "zh": "这是聚焦 OpenCode 的精选合集，帮助团队在安装和落地前更快收口 companion tool 选择。"
+      },
+      "rationale": {
+        "en": "OpenCode-intent users need a tighter curated bridge than a broad integrations list can provide.",
+        "zh": "OpenCode 意图用户需要比宽泛 integrations 列表更紧凑的精选承接桥梁。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-nextjs",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-nextjs-ai-tools-full-stack-developer-workflows",
+      "title": {
+        "en": "Next.js Workflow Tools to Install First",
+        "zh": "优先安装的 Next.js 工作流工具"
+      },
+      "description": {
+        "en": "A full-stack workflow collection for Next.js teams that need a faster path from evaluation into install and rollout.",
+        "zh": "这是面向 Next.js 团队的全栈工作流合集，帮助用户更快从评估进入安装与落地。"
+      },
+      "rationale": {
+        "en": "Framework-specific collections create stronger topical authority than broad developer-tool roundups.",
+        "zh": "框架型精选合集比泛开发工具榜单更容易建立清晰的主题权威。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-python",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-python-ai-agent-tools-developer-workflows",
+      "title": {
+        "en": "Python Workflow Tools to Install First",
+        "zh": "优先安装的 Python 工作流工具"
+      },
+      "description": {
+        "en": "A Python engineering collection built for teams choosing installable workflow helpers instead of browsing raw packages.",
+        "zh": "这是面向 Python 工程团队的精选合集，帮助用户选择可安装的工作流工具，而不是继续浏览原始包列表。"
+      },
+      "rationale": {
+        "en": "Python demand converts better when the site looks like an install guide with judgment, not a bulk package mirror.",
+        "zh": "Python 需求更适合落在带判断力的安装型精选页上，而不是像大体量包镜像站的页面。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-react",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-react-ai-tools-ui-workflows-component-development",
+      "title": {
+        "en": "React Workflow Tools to Install First",
+        "zh": "优先安装的 React 工作流工具"
+      },
+      "description": {
+        "en": "A UI-focused React collection for teams comparing component, review, and interface workflow tools.",
+        "zh": "这是面向 UI 团队的 React 精选合集，适合比较组件、评审和界面工作流工具。"
+      },
+      "rationale": {
+        "en": "React demand deserves its own curated surface instead of being buried inside generic frontend inventory.",
+        "zh": "React 相关需求应该拥有独立精选入口，而不是埋在泛前端库存页里。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-typescript",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-typescript-ai-tools-developer-workflows",
+      "title": {
+        "en": "TypeScript Workflow Tools to Install First",
+        "zh": "优先安装的 TypeScript 工作流工具"
+      },
+      "description": {
+        "en": "A typed-development collection that helps product teams shortlist TypeScript workflow tools with clear next steps.",
+        "zh": "这是面向类型化开发的精选合集，帮助产品团队更快筛出 TypeScript 工作流工具并进入下一步。"
+      },
+      "rationale": {
+        "en": "TypeScript intent is strong enough to support a dedicated authority page instead of another mixed language roundup.",
+        "zh": "TypeScript 意图足够强，值得用独立 authority 页承接，而不是继续放进混杂的语言榜单。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-rust",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-rust-ai-tools-systems-workflows-reliability",
+      "title": {
+        "en": "Rust Workflow Tools to Install First",
+        "zh": "优先安装的 Rust 工作流工具"
+      },
+      "description": {
+        "en": "A systems-focused Rust collection for teams evaluating reliability, release, and guardrail workflows.",
+        "zh": "这是面向系统工程的 Rust 精选合集，适合评估可靠性、发布和护栏类工作流工具。"
+      },
+      "rationale": {
+        "en": "Rust traffic is more valuable when it lands on a systems-aware shortlist instead of a generic language wrapper.",
+        "zh": "Rust 流量落到理解系统工程语境的精选页上，比落到泛语言包装页上更有价值。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-devops",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-devops-operations-automation-tools",
+      "title": {
+        "en": "DevOps Workflow Tools to Install First",
+        "zh": "优先安装的 DevOps 工作流工具"
+      },
+      "description": {
+        "en": "An operations-first collection for platform teams choosing release, incident, and automation helpers.",
+        "zh": "这是运维优先的精选合集，适合平台团队筛选发布、事故响应和自动化辅助工具。"
+      },
+      "rationale": {
+        "en": "Operational intent is high value and should be routed into curated workflow picks instead of generic tool sprawl.",
+        "zh": "运维型需求价值很高，应该导向精选工作流候选，而不是继续落到泛工具堆叠页。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-framework",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-frameworks-sdk-foundations-agents",
+      "title": {
+        "en": "Agent Framework Tools to Install First",
+        "zh": "优先安装的 Agent Framework 工具"
+      },
+      "description": {
+        "en": "A framework and SDK collection for teams building agent foundations, not just browsing vendor names.",
+        "zh": "这是 framework 与 SDK 精选合集，适合搭建 agent 基础设施的团队，而不是只看厂商品牌名单。"
+      },
+      "rationale": {
+        "en": "Framework intent strengthens the site's product judgment and reduces the mirror-site posture.",
+        "zh": "Framework 型需求能强化站点的产品判断，也更有助于摆脱镜像站姿态。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-community",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-community-contributed-ai-agent-skills",
+      "title": {
+        "en": "Community Skills to Install First",
+        "zh": "优先安装的 Community Skills"
+      },
+      "description": {
+        "en": "A community-tested collection for builders who want reusable skills without falling back to unfiltered repository browsing.",
+        "zh": "这是面向构建者的 community 精选合集，帮助用户找到可复用 skills，而不是回到无筛选的仓库浏览。"
+      },
+      "rationale": {
+        "en": "Community demand can still look authoritative when it is filtered through explicit curation and rollout logic.",
+        "zh": "社区型需求只要经过明确筛选和落地逻辑，也能建立足够强的权威感。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-productivity",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-productivity-tools-ai-enabled-developers",
+      "title": {
+        "en": "AI Productivity Tools for Developers",
+        "zh": "开发者 AI 生产力工具"
+      },
+      "description": {
+        "en": "A practical collection around everyday execution gains instead of generic repository breadth.",
+        "zh": "这是围绕日常执行效率的实用合集，而不是泛泛的仓库覆盖。"
+      },
+      "rationale": {
+        "en": "Productivity framing helps the site compete on utility instead of volume.",
+        "zh": "生产力 framing 能让站点靠实用性竞争，而不是靠语料体量竞争。"
+      },
+      "placements": ["home", "collections"]
+    },
+    {
+      "id": "solutions-hub",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "hub",
+      "href": "/{locale}/solutions",
+      "title": {
+        "en": "Solutions Hub",
+        "zh": "Solutions 总入口"
+      },
+      "description": {
+        "en": "Solutions pages bundle use-case demand into clearer action paths than open-ended directory browsing.",
+        "zh": "Solutions 页面能把 use-case 需求整理成更清晰的行动路径，比开放式目录浏览更适合承接高意图流量。"
+      },
+      "rationale": {
+        "en": "This is the bridge between topical demand and installable next steps.",
+        "zh": "这是从主题型需求走向可安装下一步动作的桥梁。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "solution-agent-workflows",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/agent-workflows",
+      "title": {
+        "en": "Agent Workflows Solution",
+        "zh": "Agent 工作流方案页"
+      },
+      "description": {
+        "en": "A scenario page for users who already know the workflow problem they need to solve.",
+        "zh": "这是面向“已经知道自己要解决什么工作流问题”的用户的场景页。"
+      },
+      "rationale": {
+        "en": "High-intent solution pages are safer recovery surfaces than broad skill detail expansion.",
+        "zh": "高意图 solution 页面，比继续扩张宽泛的 skill 详情页更适合做恢复入口。"
+      },
+      "placements": ["home", "skills", "solutions"]
+    },
+    {
+      "id": "solution-workflow-automation",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/workflow-automation",
+      "title": {
+        "en": "Workflow Automation Solution",
+        "zh": "工作流自动化方案页"
+      },
+      "description": {
+        "en": "A use-case page for users searching for repeatable automation patterns instead of one-off tools.",
+        "zh": "这是为寻找“可复用自动化模式”而不是一次性工具的用户准备的场景页。"
+      },
+      "rationale": {
+        "en": "Workflow automation demand is easier to satisfy with curated intent clusters than with flat directory coverage.",
+        "zh": "工作流自动化需求更适合用精选意图簇来满足，而不是靠扁平目录覆盖。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "solution-process-automation",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/process-automation",
+      "title": {
+        "en": "Process Automation Solution",
+        "zh": "流程自动化方案页"
+      },
+      "description": {
+        "en": "A solution page for teams turning SOPs, handoffs, and operations into repeatable AI-assisted execution paths.",
+        "zh": "这是为 SOP、交接和运营流程寻找可复用 AI 执行路径的团队准备的方案页。"
+      },
+      "rationale": {
+        "en": "Operational intent deserves a stronger bridge than generic tooling lists can provide.",
+        "zh": "运营型意图需要比通用工具列表更强的承接桥梁。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "solution-document-automation",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/document-automation",
+      "title": {
+        "en": "Document Automation Solution",
+        "zh": "文档自动化方案页"
+      },
+      "description": {
+        "en": "A solution page for reports, PDFs, templates, and repeatable content delivery workflows.",
+        "zh": "这是面向报告、PDF、模板与可复用内容交付流程的方案页。"
+      },
+      "rationale": {
+        "en": "Document-intent users respond better to workflow framing than to flat inventories.",
+        "zh": "文档型意图更适合承接到 workflow framing，而不是扁平库存页。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "solution-browser-automation",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/browser-automation",
+      "title": {
+        "en": "Browser Automation Solution",
+        "zh": "浏览器自动化方案页"
+      },
+      "description": {
+        "en": "A solution page for web actions, browser agents, and repeatable site operations.",
+        "zh": "这是面向网页操作、浏览器 Agent 与可复用站点任务的方案页。"
+      },
+      "rationale": {
+        "en": "Browser workflows need intent-rich context, not just broad skill coverage.",
+        "zh": "浏览器工作流需要高意图上下文，而不只是宽泛 skill 覆盖。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "solution-data-extraction",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "solution",
+      "href": "/{locale}/solutions/data-extraction",
+      "title": {
+        "en": "Data Extraction Solution",
+        "zh": "数据提取方案页"
+      },
+      "description": {
+        "en": "A solution page for ETL, structured output, reporting pipelines, and data-heavy automation work.",
+        "zh": "这是为 ETL、结构化输出、报表管线和重数据自动化场景准备的方案页。"
+      },
+      "rationale": {
+        "en": "Data-heavy search demand is easier to recover through focused solution pages than through generic directories.",
+        "zh": "重数据搜索需求更适合由聚焦的 solution 页面承接，而不是继续落到通用目录。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "docs-installation",
+      "role": "primary",
+      "tier": "P0",
+      "surfaceClass": "guide",
+      "href": "/{locale}/docs/installation",
+      "title": {
+        "en": "Installation Docs",
+        "zh": "安装文档"
+      },
+      "description": {
+        "en": "Installation docs prove the site offers first-party setup guidance, not just discovery wrappers.",
+        "zh": "安装文档能证明站点提供的是一手配置指导，而不只是发现层包装。"
+      },
+      "rationale": {
+        "en": "Users and crawlers both need a clear bridge from discovery into practical setup.",
+        "zh": "无论用户还是爬虫，都需要从发现页进入实际配置流程的清晰桥梁。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "docs-cli-overview",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "guide",
+      "href": "/{locale}/docs/cli/overview",
+      "title": {
+        "en": "CLI Overview Docs",
+        "zh": "CLI 总览文档"
+      },
+      "description": {
+        "en": "A practical bridge into command behavior, sync rules, and what operators should validate after installation.",
+        "zh": "这是进入命令行为、同步规则和安装后验证动作的实操桥梁。"
+      },
+      "rationale": {
+        "en": "CLI documentation proves the site has operational depth beyond discovery wrappers.",
+        "zh": "CLI 文档能证明站点除了发现层之外，还有明确的操作深度。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "blog-official-ai-agent-skills-guide",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "guide",
+      "href": "/{locale}/blog/official-ai-agent-skills-guide",
+      "title": {
+        "en": "Official AI Agent Skills Guide",
+        "zh": "官方 AI Agent Skills 指南"
+      },
+      "description": {
+        "en": "An editorial guide that explains why certain skills are trusted and how to choose among them.",
+        "zh": "这是一篇编辑型指南，能解释为什么某些 skills 值得信任，以及该如何选择。"
+      },
+      "rationale": {
+        "en": "Editorial guides let the site lead with reasoning instead of raw inventory.",
+        "zh": "编辑型指南能让站点靠判断力，而不是靠原始库存数量来建立地位。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "blog-how-to-install-ai-agent-skills",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "guide",
+      "href": "/{locale}/blog/how-to-install-ai-agent-skills",
+      "title": {
+        "en": "How to Install AI Agent Skills",
+        "zh": "如何安装 AI Agent Skills"
+      },
+      "description": {
+        "en": "A practical onboarding guide that bridges high-intent discovery into CLI and docs without forcing repository-level browsing first.",
+        "zh": "这是一篇实操型入门指南，可以把高意图流量直接交给 CLI 和文档，而不是先逼用户浏览 repo 级目录。"
+      },
+      "rationale": {
+        "en": "Installation intent is one of the site's clearest forms of first-party utility.",
+        "zh": "安装意图本身，就是这个站最清晰的一手价值之一。"
+      },
+      "placements": ["home", "solutions"]
+    },
+    {
+      "id": "blog-ide-comparison",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "comparison",
+      "href": "/{locale}/blog/claude-code-vs-cursor-vs-windsurf",
+      "title": {
+        "en": "Claude Code vs Cursor vs Windsurf",
+        "zh": "Claude Code vs Cursor vs Windsurf 对比"
+      },
+      "description": {
+        "en": "Comparison pages are one of the best ways to prove independent judgment and avoid the mirror-site posture.",
+        "zh": "对比页是证明独立判断、摆脱“镜像/聚合站”姿态的最好页面形态之一。"
+      },
+      "rationale": {
+        "en": "Comparisons make Killer-Skills look editorial-first instead of repo-wrapper-first.",
+        "zh": "对比页能让 Killer-Skills 更像 editorial-first 的站，而不是 repo-wrapper-first 的站。"
+      },
+      "placements": ["home", "skills", "solutions"]
+    },
+    {
+      "id": "blog-mcp-vs-rest-api",
+      "role": "primary",
+      "tier": "P2",
+      "surfaceClass": "comparison",
+      "href": "/{locale}/blog/mcp-vs-rest-api-comparison",
+      "title": {
+        "en": "MCP vs REST API Comparison",
+        "zh": "MCP vs REST API 对比"
+      },
+      "description": {
+        "en": "A comparison guide that turns protocol intent into a strong editorial surface with practical evaluation context.",
+        "zh": "这是把协议型需求转成强编辑页的对比指南，适合承接更偏评估和选型的流量。"
+      },
+      "rationale": {
+        "en": "Protocol comparisons build authority with original reasoning, not just inventory coverage.",
+        "zh": "协议对比依赖原创判断，而不是单纯的库存覆盖，因此更能建立权威。"
+      },
+      "placements": ["collections", "solutions"]
+    },
+    {
+      "id": "skills-directory",
+      "role": "supporting",
+      "tier": "P3",
+      "surfaceClass": "directory",
+      "href": "/{locale}/skills",
+      "title": {
+        "en": "Full Skills Directory",
+        "zh": "全量 Skills 目录"
+      },
+      "description": {
+        "en": "The directory still matters for breadth and retrieval, but it should behave as a supporting discovery surface after curated entry points.",
+        "zh": "全量目录仍然有广度和检索价值，但它应该退居为“精选入口之后的支持型发现页”。"
+      },
+      "rationale": {
+        "en": "The directory is useful, but it should not carry the whole recovery strategy on its own.",
+        "zh": "目录有用，但它不该继续独自承担整个恢复策略。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    }
+  ],
+  "editorialQueue": [
+    {
+      "id": "home-root-curated-paths",
+      "surfaceId": "home-root",
+      "priority": "now",
+      "action": {
+        "en": "Reframe the homepage around user-facing selection criteria, curated entry paths, and trusted next steps instead of recovery-heavy or directory-heavy messaging.",
+        "zh": "把首页重构成面向用户的筛选标准、精选入口与可信下一步页面，而不是继续暴露恢复期话术或目录导向话术。"
+      },
+      "why": {
+        "en": "The homepage is the strongest sitewide signal, so it cannot read like an SEO control board or a raw directory gateway.",
+        "zh": "首页是站点层面最强的总信号，不能继续像 SEO 控制台或原始目录入口。"
+      }
+    },
+    {
+      "id": "collections-hub-curation-proof",
+      "surfaceId": "collections-hub",
+      "priority": "now",
+      "action": {
+        "en": "Make the collections hub explain how collections are reviewed, when to use curated paths, and why the full directory remains secondary.",
+        "zh": "让 collections 总页明确说明合集如何被审查、什么时候应该走精选路径，以及为什么全量目录只是次级入口。"
+      },
+      "why": {
+        "en": "Collections should feel like a decision-making product surface, not a softer wrapper around bulk browsing.",
+        "zh": "Collections 总页应该让用户感受到这是一层帮助决策的产品界面，而不是更柔和的目录包装。"
+      }
+    },
+    {
+      "id": "official-collection-proof",
+      "surfaceId": "collection-official-trusted-tools",
+      "priority": "now",
+      "action": {
+        "en": "Add stronger first-party selection notes, trust reasons, and maintenance timestamps to the official collection.",
+        "zh": "给官方合集补更强的一手筛选说明、信任理由和维护时间戳。"
+      },
+      "why": {
+        "en": "This is the cleanest high-trust collection to use as a public recovery spearhead.",
+        "zh": "这是当前最适合作为公开恢复尖刀页的高信任合集。"
+      }
+    },
+    {
+      "id": "workflow-collection-proof",
+      "surfaceId": "collection-agent-workflows",
+      "priority": "now",
+      "action": {
+        "en": "Strengthen the workflow collection with execution examples, grouping logic, and clearer handoff paths into installation docs.",
+        "zh": "给工作流合集补执行示例、分组逻辑，以及更清晰的安装文档跳转。"
+      },
+      "why": {
+        "en": "Workflow bundles can explain practical value better than isolated skill detail pages.",
+        "zh": "工作流合集比孤立的 skill 详情页更能解释站点的实际价值。"
+      }
+    },
+    {
+      "id": "install-guide-bridge",
+      "surfaceId": "docs-installation",
+      "priority": "now",
+      "action": {
+        "en": "Use installation docs as the primary trust bridge from discovery pages into CLI action and validation.",
+        "zh": "把安装文档做成从发现页进入 CLI 行动与验证的主桥梁。"
+      },
+      "why": {
+        "en": "The site needs more visible proof of practical setup guidance.",
+        "zh": "站点需要更明显的一手安装指导证明。"
+      }
+    },
+    {
+      "id": "official-guide-refresh",
+      "surfaceId": "blog-official-ai-agent-skills-guide",
+      "priority": "next",
+      "action": {
+        "en": "Refresh the official skills guide with current selection logic and links into top collections.",
+        "zh": "更新官方 skills 指南，让它反映当前筛选逻辑并连向重点 collections。"
+      },
+      "why": {
+        "en": "Editorial guides should reinforce the new collections-first posture.",
+        "zh": "编辑型指南应该反向强化 collections-first 的新姿态。"
+      }
+    },
+    {
+      "id": "comparison-refresh",
+      "surfaceId": "blog-ide-comparison",
+      "priority": "next",
+      "action": {
+        "en": "Keep comparison pages fresh so the site shows independent evaluation, not just repository listing coverage.",
+        "zh": "持续更新对比页，让站点呈现独立评估能力，而不是只靠仓库收录。"
+      },
+      "why": {
+        "en": "Comparison pages are the clearest proof that the site is not just mirroring GitHub content.",
+        "zh": "对比页是证明站点不是 GitHub 镜像/聚合站的最直接证据之一。"
+      }
+    }
+  ],
+  "linkingRules": [
+    {
+      "id": "home-and-skills-curated-first",
+      "rule": {
+        "en": "Homepage and /skills should link to collections, solutions, docs, and editorial guides before asking users to browse the full directory.",
+        "zh": "首页和 /skills 必须先链接到 collections、solutions、docs 和编辑型指南，再让用户去浏览全量目录。"
+      }
+    },
+    {
+      "id": "collections-need-next-steps",
+      "rule": {
+        "en": "Collection pages should always offer next-step paths into install docs, solutions, and trusted supporting guides.",
+        "zh": "Collection 页面必须总是给出进入安装文档、solutions 和可信 supporting guide 的下一步路径。"
+      }
+    },
+    {
+      "id": "directory-is-supporting",
+      "rule": {
+        "en": "The full skills directory stays available, but it is a supporting surface after curated discovery, not the lead recovery bet.",
+        "zh": "全量 skills 目录继续保留，但它是精选发现之后的 supporting surface，不再是恢复主赌注。"
+      }
+    }
+  ]
+}

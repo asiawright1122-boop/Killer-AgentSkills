@@ -32,8 +32,8 @@ AI时代最关键的资源是 **上下文窗口**。 一个设计良好的技能
 
 ### 2. 匹配自由度
 并非所有任务都应该以相同的方式处理：
-- **高自由度**：纯文本指令，用于需要创造性启发式的任务（例如，[前端设计](https://killer-skills.com/zh/skills/anthropics/skills/frontend-design)）。
-- **低自由度**：用于脆弱、确定性操作的严格脚本（例如，[docx](https://killer-skills.com/zh/skills/anthropics/skills/docx) 操作）。
+- **高自由度**：纯文本指令，用于需要创造性启发式的任务（例如，[前端设计](https://killer-skills.com/en/skills/anthropics/skills/frontend-design)）。
+- **低自由度**：用于脆弱、确定性操作的严格脚本（例如，[docx](https://killer-skills.com/en/skills/anthropics/skills/docx) 操作）。
 
 ### 3. 过程性与声明性知识
 不要只是告诉AI *什么* 要做；给它 *工具* 来做。 `skill-creator` 技能鼓励使用：
@@ -56,11 +56,11 @@ AI时代最关键的资源是 **上下文窗口**。 一个设计良好的技能
 
 AI 的强大之处不仅在于模型本身，更在于其周边的**基础设施**。借助 `skill-creator` 技能，你将从“提示词工程师”升级为“能力架构师”。你不再仅仅是告诉 AI 该做什么，而是在教它如何学习。
 
-立即通过 Killer-Skills 技能目录中的 [skill-creator 技能](https://killer-skills.com/zh/skills/anthropics/skills/skill-creator)，开始构建你的自定义 AI 工作区。
+立即通过 Killer-Skills 技能目录中的 [skill-creator 技能](https://killer-skills.com/en/skills/anthropics/skills/skill-creator)，开始构建你的自定义 AI 工作区。
 
 ---
 
-*准备好部署你的新技能了吗？了解如何[构建一个 MCP 服务器](https://killer-skills.com/zh/skills/anthropics/skills/mcp-builder)来托管它。*
+*准备好部署你的新技能了吗？了解如何[构建一个 MCP 服务器](https://killer-skills.com/en/skills/anthropics/skills/mcp-builder)来托管它。*
 
 ---
 

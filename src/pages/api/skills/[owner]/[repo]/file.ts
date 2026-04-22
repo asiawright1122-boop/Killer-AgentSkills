@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES } from '../../../../../lib/github';
+import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
 
 export const prerender = false;
 
@@ -121,7 +122,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
       }),
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
       },
     );
   } catch (error) {

@@ -1,0 +1,50 @@
+{
+  "milestone": "v1.5",
+  "milestoneName": "Traffic Recovery Proof and Demand Restart",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 8,
+    "completed": 8
+  },
+  "requirementCounts": {
+    "satisfied": 10,
+    "partial": 0,
+    "pending": 0,
+    "total": 10
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion/46-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/46-fresh-search-console-and-coverage-ingestion/46-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board/47-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/47-traffic-diagnosis-and-recovery-priority-board/47-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop/48-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/48-priority-surface-recovery-execution-loop/48-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/49-skill-locale-index-governance/49-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/49-skill-locale-index-governance/49-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset/50-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/50-skill-originality-contract-and-template-reset/50-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation/51-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/51-corpus-pruning-and-canonical-rollout-validation/51-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild/52-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/52-authority-surface-repositioning-and-editorial-rebuild/52-VERIFICATION.md",
+    ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge/53-01-SUMMARY.md",
+    ".planning/milestones/v1.5-phases/53-authority-surface-proof-and-install-bridge/53-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.5-phases",
+    ".planning/milestones/v1.5-ROADMAP.md",
+    ".planning/milestones/v1.5-REQUIREMENTS.md",
+    ".planning/milestones/v1.5-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.5-BOOTSTRAP.md",
+    ".planning/milestones/v1.5-CLOSEOUT.md"
+  ]
+}

@@ -63,7 +63,7 @@ Killer-Skills CLIでこのスキルを使用する際は、エージェントが
 
 `docx`スキルは、AIワークフローに「エンタープライズグレード」のプロフェッショナリズムをもたらします。これにより、コーディングエージェントの出力が企業世界の最高水準を満たすことが保証されます。
 
-Killer-Skills のスキル一覧から [docx スキル](https://killer-skills.com/ja/skills/anthropics/skills/docx) をインストールして、今すぐ使い始めましょう。
+Killer-Skills のスキル一覧から [docx スキル](https://killer-skills.com/en/skills/anthropics/skills/docx) をインストールして、今すぐ使い始めましょう。
 
 *まずデータを処理する必要がありますか？スプレッドシート自動化に関するガイドは、[xlsxスキル](https://killer-skills.com/ja/blog/mastering-excel-automation-with-xlsx-skills)をご覧ください。*
 

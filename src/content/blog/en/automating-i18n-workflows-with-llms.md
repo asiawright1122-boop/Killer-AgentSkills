@@ -19,7 +19,7 @@ In the modern era of the internet, building an AI agent ecosystem is only half t
 
 Historically, executing offline verification scripts and syncing routines naturally invited short-sighted code logic. For example, our `clean-broken-skills.js` script actively maintained an internal locale matrix `const locales = ['zh', 'ja', 'ko'];`, inherently blinding the system metrics for other demographics like Arabic, Hindi, and Portuguese. When the platform scaled, this created a massive void in SSR fallback coverage.
 
-By embracing an open [Developer Experience](/en/skills/owner/repo/) model, we recognized that scripts needed a central `SUPPORTED_LOCALES` pipeline.
+By embracing an open Developer Experience model, we recognized that scripts needed a central `SUPPORTED_LOCALES` pipeline.
 
 ## LLAMA Driven Translation Pipeline
 
