@@ -1,4 +1,4 @@
-import authoritySurfacesData from '../../data/authority-surfaces.json';
+import { authoritySurfacePublicData } from './authority-surface-public-data';
 
 type LocalizedText = Record<string, string>;
 
@@ -15,17 +15,6 @@ type AuthoritySurfaceRecord = {
 
 type AuthoritySurfaceData = {
   surfaces: AuthoritySurfaceRecord[];
-  editorialQueue: Array<{
-    id: string;
-    surfaceId: string;
-    priority: string;
-    action: LocalizedText;
-    why: LocalizedText;
-  }>;
-  linkingRules: Array<{
-    id: string;
-    rule: LocalizedText;
-  }>;
 };
 
 export type ResolvedAuthoritySurface = Omit<AuthoritySurfaceRecord, 'href' | 'title' | 'description'> & {
@@ -34,7 +23,7 @@ export type ResolvedAuthoritySurface = Omit<AuthoritySurfaceRecord, 'href' | 'ti
   description: string;
 };
 
-const data = authoritySurfacesData as AuthoritySurfaceData;
+const data = authoritySurfacePublicData as AuthoritySurfaceData;
 const relatedAuthorityCollectionIdsBySlug: Record<string, string[]> = {
   'top-claude-code-skills': [
     'collection-windsurf',
@@ -348,24 +337,4 @@ export function getCollectionRecoveryPathEntries(
   );
 
   return [...prioritized, ...fallback].slice(0, limit);
-}
-
-export function getAuthorityLinkingRules(locale: string): string[] {
-  return data.linkingRules.map((rule) => resolveAuthorityText(rule.rule, locale));
-}
-
-export function getAuthorityEditorialQueue(locale: string): Array<{
-  id: string;
-  surfaceId: string;
-  priority: string;
-  action: string;
-  why: string;
-}> {
-  return data.editorialQueue.map((item) => ({
-    id: item.id,
-    surfaceId: item.surfaceId,
-    priority: item.priority,
-    action: resolveAuthorityText(item.action, locale),
-    why: resolveAuthorityText(item.why, locale),
-  }));
 }

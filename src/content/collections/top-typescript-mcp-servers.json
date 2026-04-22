@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "TypeScript AI Tools for Developer Workflows | AI Agent Skills",
-    "zh": "面向开发工作流的 TypeScript AI 工具精选 | AI Agent Skills",
+    "en": "TypeScript Workflow Tools to Install First",
+    "zh": "优先安装的 TypeScript 工作流工具",
     "ja": "開発ワークフロー向け TypeScript AI ツール集 | AI Agent Skills",
     "ko": "개발 워크플로우를 위한 TypeScript AI 도구 모음 | AI Agent Skills",
     "es": "herramientas de IA en TypeScript para workflows | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات الذكاء الاصطناعي في TypeScript لسير عمل المطورين | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for typescript developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 typescript AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare TypeScript workflow tools, then move into installation docs, CLI validation, and rollout paths for typed product teams.",
+    "zh": "先比较 TypeScript 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于类型化产品团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの typescript AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 typescript AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de typescript en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات typescript داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - TypeScript AI Tools for Developer Workf",
-    "zh": "AI Agent Skills - 面向开发工作流的 TypeScript AI 工具精选 | Killer-Sk",
+    "en": "TypeScript Workflow Tools to Install First",
+    "zh": "优先安装的 TypeScript 工作流工具",
     "ja": "AI Agent Skills - 開発ワークフロー向け TypeScript AI ツール集 | Killer-",
     "ko": "AI Agent Skills - 개발 워크플로우를 위한 TypeScript AI 도구 모음 | Kill",
     "es": "AI Agent Skills - herramientas de IA en TypeScript para w",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات الذكاء الاصطناعي في TypeScript لس"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for typescript developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 typescript AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare TypeScript workflow tools, then move into installation docs, CLI validation, and rollout paths for typed product teams.",
+    "zh": "先比较 TypeScript 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于类型化产品团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの typescript AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 typescript AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de typescript en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "typescript AI agent skills",
-      "typescript developer workflow",
-      "typescript workflow automation"
+      "TypeScript workflow tools",
+      "TypeScript developer tools",
+      "typed API workflow tools",
+      "release and review tools",
+      "TypeScript coding workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "typescript AI agent skills",
-      "typescript developer workflow",
-      "typescript workflow automation"
+      "TypeScript 工作流工具",
+      "TypeScript 开发工具",
+      "类型化 API 工作流工具",
+      "发布与评审工具",
+      "TypeScript 编码工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -141,7 +139,9 @@
   },
   "featured": false,
   "canonicalSlug": "top-typescript-ai-tools-developer-workflows",
-  "legacySlugs": ["top-typescript-mcp-servers"],
+  "legacySlugs": [
+    "top-typescript-mcp-servers"
+  ],
   "category": "typescript",
   "author": "Killer-Skills AI",
   "skills": [
@@ -159,8 +159,8 @@
     "f/prompts.chat"
   ],
   "longDescription": {
-    "en": "This TypeScript collection is built around developer workflow outcomes, not infrastructure labels. It highlights tools for SDK implementation, typed API integrations, test automation, release checks, and documentation pipelines that fit real product teams. You can still use MCP-compatible capabilities where useful, but the primary value is skills-first engineering: shipping safer code, reducing integration friction, and keeping frontend-backend collaboration efficient in production.",
-    "zh": "这个 TypeScript 集合以开发工作流结果为核心，而不是基础设施标签。重点覆盖 SDK 实现、类型化 API 集成、测试自动化、发布校验与文档流水线，贴合真实产品团队场景。需要时可以利用 MCP 兼容能力，但主价值仍是技能优先的工程实践：更安全地上线代码、降低集成摩擦、提升前后端协作效率。",
+    "en": "If your team ships with TypeScript, this page should narrow the shortlist fast instead of sending you into another typed-tooling crawl. It compares workflow helpers, guardrail tools, and developer companions that fit TypeScript delivery, then moves the next click into installation docs, CLI validation, and a repeatable rollout path.",
+    "zh": "如果你的团队正在用 TypeScript 交付产品，这页就应该帮助你快速收口，而不是把你重新送回无休止的类型化工具比较。它聚焦适合 TypeScript 交付路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",
     "ja": "この TypeScript コレクションは、インフラ名ではなく開発ワークフローの成果を軸にしています。SDK 実装、型安全な API 連携、テスト自動化、リリース前チェック、ドキュメントパイプラインなど、実際のプロダクト開発で効くツールを重視しています。MCP 互換機能は必要に応じて活用できますが、主眼はスキルファーストな開発実践にあり、安全なリリースと統合コスト削減、フロントエンドとバックエンドの連携効率向上を支援します。",
     "ko": "이 TypeScript 컬렉션은 인프라 명칭보다 개발 워크플로우의 실제 성과에 초점을 둡니다. SDK 구현, 타입 안전 API 통합, 테스트 자동화, 릴리스 전 검증, 문서 파이프라인 등 제품 팀의 실전 업무에 맞는 도구를 다룹니다. 필요 시 MCP 호환 기능을 사용할 수 있지만 핵심 가치는 스킬 중심 엔지니어링에 있으며, 더 안전한 배포와 통합 비용 절감, 프런트엔드·백엔드 협업 효율 향상에 있습니다.",
     "es": "Esta colección de TypeScript está pensada para resultados de workflow de desarrollo, no para etiquetas de infraestructura. Destaca herramientas para implementación de SDK, integraciones API tipadas, automatización de pruebas, validaciones de release y pipelines de documentación en equipos de producto reales. Puedes aprovechar capacidades compatibles con MCP cuando aporten valor, pero el enfoque principal es ingeniería orientada a habilidades: entregar código más seguro, reducir fricción de integración y mantener eficiente la colaboración frontend-backend.",
@@ -169,5 +169,139 @@
     "pt": "Esta coleção de TypeScript é orientada a resultados reais de workflow de desenvolvimento, não a rótulos de infraestrutura. Ela destaca ferramentas para implementação de SDK, integrações de API tipadas, automação de testes, validações de release e pipelines de documentação para times de produto. Capacidades compatíveis com MCP podem ser usadas como complemento, mas o valor principal é uma engenharia skills-first: entregar código mais seguro, reduzir atritos de integração e manter colaboração eficiente entre frontend e backend.",
     "ru": "Эта TypeScript-коллекция ориентирована на результат в developer workflow, а не на инфраструктурные ярлыки. Здесь собраны инструменты для внедрения SDK, типобезопасных API-интеграций, автоматизации тестов, release-проверок и документационных пайплайнов для реальных продуктовых команд. Возможности, совместимые с MCP, можно использовать дополнительно, но основной акцент — skills-first инженерия: безопасные релизы, меньше трения при интеграциях и эффективное взаимодействие frontend/backend.",
     "ar": "تم تصميم مجموعة TypeScript هذه حول نتائج سير عمل التطوير الفعلية وليس حول تسميات البنية التحتية. تركز على أدوات تنفيذ SDK والتكاملات المعرّفة بالأنواع والاختبارات الآلية وفحوصات الإصدار وخطوط التوثيق المناسبة لفرق المنتجات. يمكن الاستفادة من القدرات المتوافقة مع MCP عند الحاجة، لكن القيمة الأساسية هي نهج هندسي يضع المهارات أولًا: شحن شفرة أكثر أمانًا، وتقليل احتكاك التكامل، وتحسين تعاون الواجهة الأمامية مع الخلفية في بيئات الإنتاج."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against TypeScript workflow fit, installation clarity, operator handoff, and day-to-day product engineering usefulness. This page is now positioned as an install-first TypeScript entry point instead of a broad language roundup.",
+      "zh": "已于 2026-04-17 按 TypeScript 工作流适配度、安装清晰度、操作交接和日常产品工程价值完成复核。现在这页被重新定位为“安装优先”的 TypeScript 入口，而不是泛化语言榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because TypeScript-intent users usually need a shortlist they can install, validate, and carry into real typed delivery loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 TypeScript 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实类型化交付闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical TypeScript workflow value such as typed APIs, SDK work, release checks, review loops, and safe refactors.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable product engineering, not for vague language keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 TypeScript 工作流，例如类型化 API、SDK 开发、发布校验、评审闭环与安全重构。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用产品工程，而不是空泛的语言关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a TypeScript-centered workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering typed APIs, release checks, review, and refactor support.",
+        "Use installation as the bridge from TypeScript discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 TypeScript 主导工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖类型化 API、发布校验、评审与重构支持。",
+        "把安装作为从 TypeScript 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or TypeScript workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 TypeScript 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and TypeScript workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 TypeScript 工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one TypeScript workflow helper first",
+          "zh": "先安装一个 TypeScript 工作流工具"
+        },
+        "summary": {
+          "en": "Use this page when you want one TypeScript companion that can enter real product work without turning evaluation into another endless typed-tool comparison.",
+          "zh": "如果你要找的是一个能进入真实产品流程的 TypeScript 伴侣工具，而不是继续掉进无休止的类型化工具比较，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more TypeScript-related repositories.",
+            "Choose one tool that best supports typed APIs, SDK work, release checks, or review flow.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider TypeScript workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多与 TypeScript 相关的仓库。",
+            "选择一个最适合类型化 API、SDK 开发、发布校验或评审流的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的 TypeScript 工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Harden a TypeScript release loop",
+          "zh": "加固一条 TypeScript 发布闭环"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need TypeScript-adjacent tools that improve delivery safety without overcomplicating the stack.",
+          "zh": "当你想为 TypeScript 邻接工作流补上交付安全与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more services, packages, or teammates.",
+            "Document the chosen TypeScript workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多服务、包或团队成员。",
+            "在首次稳定落地后，把选定的 TypeScript 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from TypeScript workflow discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从TypeScript工作流发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到官方可信合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

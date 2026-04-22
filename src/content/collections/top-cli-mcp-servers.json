@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "12 CLI & Terminal AI Agent Tools | AI Agent Skills",
-    "zh": "12 款高质量 CLI 与终端 AI 智能体工具 | AI Agent Skills",
+    "en": "CLI Workflow Tools to Install First",
+    "zh": "优先安装的 CLI 工作流工具",
     "ja": "CLI・ターミナル向け AI エージェントツール 12選 | AI Agent Skills",
     "ko": "CLI·터미널 AI 에이전트 도구 12선 | AI Agent Skills",
     "es": "12 herramientas de IA para agentes en CLI y terminal | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "12 أداة وكلاء ذكاء اصطناعي للـ CLI والطرفية | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for cli terminal developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 cli terminal AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare CLI workflow tools, then move into installation docs, CLI validation, and rollout paths for terminal-first developer teams.",
+    "zh": "先比较 CLI 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于终端优先的开发团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの cli terminal AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 cli terminal AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de cli terminal en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات cli terminal داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - 12 CLI & Terminal AI Agent Tools | Kill",
-    "zh": "AI Agent Skills - 12 款高质量 CLI 与终端 AI 智能体工具 | Killer-Skills",
+    "en": "CLI Workflow Tools to Install First",
+    "zh": "优先安装的 CLI 工作流工具",
     "ja": "AI Agent Skills - CLI・ターミナル向け AI エージェントツール 12選 | Killer-S",
     "ko": "AI Agent Skills - CLI·터미널 AI 에이전트 도구 12선 | Killer-Skills",
     "es": "AI Agent Skills - 12 herramientas de IA para agentes en C",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - 12 أداة وكلاء ذكاء اصطناعي للـ CLI والط"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for cli terminal developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 cli terminal AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare CLI workflow tools, then move into installation docs, CLI validation, and rollout paths for terminal-first developer teams.",
+    "zh": "比较 CLI 工作流工具，然后进入安装文档、CLI 验证与团队落地路径，适用于终端优先的开发团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの cli terminal AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 cli terminal AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de cli terminal en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "cli terminal AI agent skills",
-      "cli terminal developer workflow",
-      "cli terminal workflow automation"
+      "CLI workflow tools",
+      "terminal developer tools",
+      "terminal-first automation",
+      "command-line AI workflows",
+      "CLI coding workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "cli terminal AI agent skills",
-      "cli terminal developer workflow",
-      "cli terminal workflow automation"
+      "CLI 工作流工具",
+      "终端开发工具",
+      "终端优先自动化",
+      "命令行 AI 工作流",
+      "CLI 编码工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -156,11 +154,13 @@
   "author": "Killer-Skills AI",
   "featured": true,
   "canonicalSlug": "top-cli-terminal-ai-agent-tools",
-  "legacySlugs": ["top-cli-mcp-servers"],
+  "legacySlugs": [
+    "top-cli-mcp-servers"
+  ],
   "category": "cli",
   "longDescription": {
-    "en": "This collection highlights AI agent tools that feel native in the terminal. The focus is on practical developer workflows: automating repetitive steps, running agent pipelines, handling schema or data tasks, and speeding up day-to-day coding. Some projects can integrate with MCP or external providers, but the core value here is command-line productivity and reliable execution. If your team builds and ships from the terminal, these tools are strong starting points.",
-    "zh": "这个合集聚焦真正适合终端使用的 AI 智能体工具。重点是开发者的实际工作流：自动化重复步骤、执行智能体流水线、处理数据或模式任务，并提升日常编码效率。部分项目可对接 MCP 或其他服务，但页面核心价值是命令行生产力与稳定执行能力。若你的团队主要在终端完成开发与交付，这些工具是很好的起点。",
+    "en": "If your team lives in the terminal, this collection should shorten the shortlist quickly instead of sending you into another repo crawl. It compares CLI-native helpers, command-line automation tools, and terminal-first workflow companions, then points the next click into installation docs, CLI validation, and a repeatable rollout path.",
+    "zh": "如果你的团队主要在终端里工作，这个合集就应该帮助你快速收口，而不是把你重新送回无休止的仓库浏览。它聚焦 CLI 原生助手、命令行自动化工具和终端优先的工作流伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",
     "ja": "このコレクションは、ターミナルで自然に使える AI エージェントツールに絞って紹介します。重視するのは、反復作業の自動化、エージェントパイプラインの実行、データやスキーマ操作、日々の実装速度向上といった実務ワークフローです。MCP や外部サービスと連携できるツールもありますが、主眼はコマンドラインでの生産性と安定運用にあります。ターミナル中心で開発・運用するチームに適した選定です。",
     "ko": "이 컬렉션은 터미널 환경에 자연스럽게 맞는 AI 에이전트 도구에 집중합니다. 반복 작업 자동화, 에이전트 파이프라인 실행, 데이터/스키마 처리, 일상적인 코딩 속도 향상 같은 실무 워크플로가 핵심입니다. 일부 도구는 MCP나 외부 서비스와 연동할 수 있지만, 이 페이지의 중심 가치는 명령줄 생산성과 안정적인 실행입니다. 터미널 중심으로 개발·배포하는 팀에 특히 유용한 선택입니다.",
     "es": "Esta colección reúne herramientas de agentes de IA que funcionan bien en terminal. El enfoque está en flujos reales de desarrollo: automatizar tareas repetitivas, ejecutar pipelines de agentes, operar con datos o esquemas y acelerar el trabajo diario de código. Algunas herramientas pueden integrarse con MCP u otros servicios, pero el valor principal aquí es la productividad en línea de comandos y la ejecución confiable. Si tu equipo construye y entrega desde terminal, este listado te servirá como base sólida.",
@@ -169,5 +169,139 @@
     "pt": "Esta coleção destaca ferramentas de agentes de IA que funcionam de forma natural no terminal. O foco está em fluxos reais de desenvolvimento: automatizar etapas repetitivas, executar pipelines de agentes, lidar com dados e esquemas e acelerar a programação do dia a dia. Alguns projetos podem integrar com MCP ou provedores externos, mas o valor principal é produtividade em linha de comando com execução confiável. Para equipes que desenvolvem e entregam via terminal, esta seleção é um ótimo ponto de partida.",
     "ru": "Эта коллекция собрана из AI-инструментов, которые действительно удобны в терминале. Основной акцент — на практических сценариях: автоматизация повторяющихся шагов, запуск агентных пайплайнов, работа с данными и схемами, ускорение ежедневной разработки. Некоторые проекты поддерживают интеграции с MCP или внешними сервисами, но ключевая ценность — продуктивность в командной строке и надежное выполнение. Для команд, работающих через терминал, это хороший стартовый набор.",
     "ar": "تجمع هذه المجموعة أدوات وكلاء ذكاء اصطناعي مناسبة فعليًا للعمل داخل الطرفية. التركيز على سير عمل المطور الواقعي: أتمتة الخطوات المتكررة، تشغيل مسارات الوكلاء، التعامل مع البيانات والمخططات، وتسريع كتابة الكود يوميًا. بعض المشاريع تدعم التكامل مع MCP أو مزودات خارجية، لكن القيمة الأساسية هنا هي الإنتاجية عبر سطر الأوامر مع تنفيذ موثوق. إذا كان فريقك يبني ويطلق من الطرفية، فهذه المجموعة نقطة بداية قوية."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against CLI-native workflow fit, installation clarity, operator handoff, and terminal-first execution value. This page is now positioned as an install-first terminal workflow entry point instead of a generic AI tools list.",
+      "zh": "已于 2026-04-17 按 CLI 原生工作流适配度、安装清晰度、操作交接和终端优先执行价值完成复核。现在这页被重新定位为“安装优先”的终端工作流入口，而不是泛化 AI 工具列表。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because terminal-intent users usually need a shortlist they can install and validate without leaving the shell for another round of vague tooling research.",
+      "zh": "之所以优先强化这页，是因为带着终端意图进来的用户，通常需要的是一份能直接在 shell 内安装和验证的候选清单，而不是再次掉进模糊的工具研究里。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for terminal-native execution value such as command-line automation, shell workflows, and operator-friendly validation steps.",
+        "Selection favors tools with public documentation and clear setup paths that teams can verify before standardizing a terminal stack.",
+        "The page is curated for repeatable terminal operations, not for broad AI tooling adjacency or repository popularity alone."
+      ],
+      "zh": [
+        "入选工具优先服务于终端原生执行，例如命令行自动化、shell 工作流与面向操作者的验证步骤。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在标准化前快速验证的工具。",
+        "这个页面服务的是可重复的终端操作，而不是泛化 AI 工具挂靠或单纯仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a terminal-first workflow without pulling teams back into heavy GUI setup ambiguity.",
+        "Keep the shortlist compact enough for fast comparison while still covering command execution, automation, and operator handoff.",
+        "Use installation as the bridge from terminal discovery into validated day-to-day execution."
+      ],
+      "zh": [
+        "优先展示能较快进入终端优先工作流、且不会把团队拉回高歧义 GUI 配置的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖命令执行、自动化和操作交接。",
+        "把安装作为从终端发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or terminal workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或终端工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and terminal-workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与终端工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, shell fit, operator clarity, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、shell 适配度、操作清晰度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one terminal-first companion before standardizing the shell workflow",
+          "zh": "先安装一个终端优先工具，再决定是否标准化 shell 工作流"
+        },
+        "summary": {
+          "en": "Use this page when you want one CLI companion that can enter real terminal work immediately instead of turning evaluation into another tooling spiral.",
+          "zh": "如果你要找的是一个能马上进入真实终端工作流的 CLI 工具，而不是继续陷入工具比较循环，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more CLI-related repositories.",
+            "Choose one tool that best supports command execution, terminal automation, or operator handoff.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider shell workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多 CLI 相关仓库。",
+            "选择一个最适合命令执行、终端自动化或操作交接的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的 shell 工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Keep the team inside the terminal",
+          "zh": "尽量让团队留在终端里完成工作"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need terminal-first tools that speed up delivery without forcing a context switch into another UI stack.",
+          "zh": "当你想用终端优先工具提升交付速度、又不想把团队重新拉进另一套 UI 栈时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated terminal path before scaling it to more repos or more teammates.",
+            "Document the chosen terminal baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证的终端路径，再决定是否扩展到更多仓库或团队成员。",
+            "在首次稳定落地后，把选定的终端基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from CLI and terminal workflow discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从CLI 与终端工作流发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check CLI tooling choices before you standardize a terminal-first stack.",
+          "zh": "在团队标准化之前，回到官方可信合集，对 CLI 工具选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import Footer from '../../../components/Footer.astro';
+import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
+import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 import docsCache from '../../../../data/docs-cache.json';
@@ -14,6 +16,7 @@ type DocPage = {
 };
 
 type DocsCache = {
+  lastUpdated?: string;
   pages: DocPage[];
   sidebar: Record<string, { title: Record<string, string>; items: string[] }>;
 };
@@ -32,6 +35,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 }
 
 const typedLocale = locale as Locale;
+const isZhCopy = typedLocale.startsWith('zh');
 
 const env = Astro.locals.runtime?.env as Env;
 
@@ -52,6 +56,7 @@ const currentSlug = isIndex ? 'index' : slug;
 const currentPath = `/${locale}/docs${slug ? `/${slug}` : ''}`;
 const isCliDoc = currentSlug.includes('cli');
 const isInstallDoc = currentSlug.includes('installation') || currentSlug.includes('getting-started');
+const isInstallationPage = currentSlug === 'installation';
 const isWorkflowDoc = currentSlug.includes('workflows') || currentSlug.includes('templates');
 const isApiDoc = currentSlug.includes('api');
 const isSecurityDoc = currentSlug.includes('security');
@@ -104,6 +109,13 @@ const getDocFromCache = (cache: DocsCache, slug: string, lang: string) => {
   };
 };
 
+function localizeDocHtmlLinks(html: string, locale: string): string {
+  return html.replace(
+    /href="\/(docs|cli|collections|solutions|blog|integrations)(\/[^"]*)?"/g,
+    (_match, section: string, rest: string | undefined) => `href="/${locale}/${section}${rest || ''}"`,
+  );
+}
+
 // Fallback to local JSON cache (Local Dev / Build w/o KV)
 if (!docContent) {
   const localDoc = getDocFromCache(localDocsCache, currentSlug, typedLocale);
@@ -111,6 +123,10 @@ if (!docContent) {
     docTitle = localDoc.title;
     docContent = localDoc.content;
   }
+}
+
+if (docContent) {
+  docContent = localizeDocHtmlLinks(docContent, typedLocale);
 }
 
 // Important for crawl hygiene:
@@ -133,13 +149,19 @@ if (!docTitle) {
 
 const pageTitle = isIndex
   ? tr('Docs.indexTitle', 'AI Agent Skills Docs for Install, Setup & Workflow Templates')
-  : `${docTitle} | ${tr('Docs.titleSuffix', 'AI Agent Skills Docs')}`;
+  : isInstallationPage
+    ? `${docTitle} | Cursor, Claude Code & VS Code Setup`
+    : `${docTitle} | ${tr('Docs.titleSuffix', 'AI Agent Skills Docs')}`;
 const pageDescription = isIndex
   ? tr(
       'Docs.indexDescription',
       'Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.',
     )
-  : isCliDoc
+  : isInstallationPage
+    ? isZhCopy
+      ? '用 npx 安装 AI Agent Skills，验证 Cursor、Claude Code、VS Code 等环境中的原生文件写入，并继续进入可信合集与工作流方案页。'
+      : 'Install AI agent skills with npx, verify IDE-native files for Cursor, Claude Code, VS Code, and move into trusted collections and workflow solutions.'
+    : isCliDoc
     ? `${docTitle}: ${tr('Docs.cliDesc', 'learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.')}`
     : isInstallDoc
       ? `${docTitle}: ${tr('Docs.installDesc', 'follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.')}`
@@ -176,6 +198,16 @@ const pageKeywords = buildKeywordString(
   isIndex ? ['workflow automation', 'process automation'] : [docTitle],
 );
 const canonicalUrl = `https://killer-skills.com${currentPath}`;
+const docsLastUpdated = localDocsCache.lastUpdated
+  ? new Intl.DateTimeFormat(typedLocale, { year: 'numeric', month: 'short', day: 'numeric' }).format(
+      new Date(localDocsCache.lastUpdated),
+    )
+  : '';
+const breadcrumbItems = [
+  { label: tr('Common.home', 'Home'), href: `/${locale}` },
+  { label: tr('Footer.docs', 'Docs'), href: `/${locale}/docs` },
+  ...(!isIndex ? [{ label: docTitle }] : []),
+];
 const docsEntryLinks = isIndex
   ? [
       {
@@ -225,6 +257,235 @@ const docsFaqItems = isIndex
           'Docs.faq3A',
           'Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios.',
         ),
+      },
+    ]
+  : [];
+const installFaqItems = isInstallationPage
+  ? [
+      {
+        question: isZhCopy ? '必须先全局安装吗？' : 'Do I need a global install first?',
+        answer: isZhCopy
+          ? '不用。推荐路径是 `npx`，因为它更轻、更稳，也更适合团队复现和新机器接入。'
+          : 'No. The recommended path is `npx`, because it stays lightweight, current, and easy to repeat across teams and machines.',
+      },
+      {
+        question: isZhCopy ? '怎样确认写入的是正确的 IDE 文件？' : 'How do I verify the right IDE files were written?',
+        answer: isZhCopy
+          ? '先运行 `npx killer-skills list`，再检查 `.cursorrules`、`.claude/skills/`、`.github/copilot-instructions.md` 或 `.windsurf/rules/` 等目标位置。'
+          : 'Run `npx killer-skills list`, then confirm the CLI updated the expected targets such as `.cursorrules`, `.claude/skills/`, `.github/copilot-instructions.md`, or `.windsurf/rules/`.',
+      },
+      {
+        question: isZhCopy ? '第一次安装成功后下一步去哪里？' : 'What should I do after the first successful install?',
+        answer: isZhCopy
+          ? '继续进入 CLI 总览、官方可信工具合集或 Agent 工作流方案页，把一次安装推进成可复用的操作路径。'
+          : 'Continue into the CLI overview, the official trusted tools collection, or the agent workflows solution page so installation becomes a repeatable operating path.',
+      },
+    ]
+  : [];
+const installHowToSteps = isInstallationPage
+  ? [
+      {
+        name: isZhCopy ? '打开项目终端' : 'Open your project terminal',
+        text: isZhCopy
+          ? '进入你希望 AI 助手获得新能力的项目目录。'
+          : 'Open the project where your AI assistant should gain a new capability.',
+      },
+      {
+        name: isZhCopy ? '运行安装命令' : 'Run the install command',
+        text: isZhCopy
+          ? '执行 `npx killer-skills add owner/repo`，让 CLI 自动识别当前 IDE 并写入对应格式。'
+          : 'Run `npx killer-skills add owner/repo` and let the CLI detect your IDE and write the matching skill format.',
+      },
+      {
+        name: isZhCopy ? '完成安装验证' : 'Validate the installation',
+        text: isZhCopy
+          ? '检查 `npx killer-skills list` 的输出，并确认目标 IDE 文件已经写入。'
+          : 'Check `npx killer-skills list` and confirm the expected IDE-native files were written.',
+      },
+    ]
+  : [];
+const installBridgeSurfaces = isInstallDoc
+  ? getAuthoritySurfaceEntries(typedLocale, {
+      ids: ['collection-official-trusted-tools', 'collection-agent-workflows', 'solution-agent-workflows', 'blog-how-to-install-ai-agent-skills'],
+    })
+  : [];
+const installBridgeCards = isInstallDoc
+  ? [
+      {
+        href: `/${locale}/cli`,
+        title: tr('Docs.installBridge.cli.title', 'Open CLI Control Center'),
+        description: tr(
+          'Docs.installBridge.cli.desc',
+          'Move straight from install docs into the CLI page for commands, sync behavior, and operator-safe setup paths.',
+        ),
+        badge: 'CLI',
+      },
+      {
+        href: `/${locale}/docs/cli/overview`,
+        title: tr('Docs.installBridge.overview.title', 'Review CLI Overview'),
+        description: tr(
+          'Docs.installBridge.overview.desc',
+          'Use the docs overview to confirm install flow, compatibility behavior, and what happens after the first command.',
+        ),
+        badge: 'DOCS',
+      },
+      ...installBridgeSurfaces.map((surface) => ({
+        href: surface.href,
+        title: surface.title,
+        description: surface.description,
+        badge: isZhCopy ? '下一步' : 'NEXT',
+      })),
+    ]
+  : [];
+const installValidationSteps = isInstallDoc
+  ? [
+      tr(
+        'Docs.installBridge.validate1',
+        'Run `npx killer-skills add owner/repo` and confirm the CLI writes the IDE-native skill format instead of a generic fallback.',
+      ),
+      tr(
+        'Docs.installBridge.validate2',
+        'Use `npx killer-skills list` or the CLI page to verify the skill is now present in your environment.',
+      ),
+      tr(
+        'Docs.installBridge.validate3',
+        'Open one trusted collection or workflow page to decide what to install next instead of browsing the full directory blindly.',
+      ),
+    ]
+  : [];
+const installReviewMeta = isInstallDoc
+  ? {
+      reviewedAt: '2026-04-19',
+      maintainedBy: isZhCopy
+        ? 'Killer-Skills 团队'
+        : 'Killer-Skills Team',
+      verification: isZhCopy
+        ? '命令路径、IDE 原生文件写入、CLI 承接路径与可信下一步入口'
+        : 'Command path, IDE-native file writes, CLI handoff, and trusted next-step routes',
+      scope: isZhCopy
+        ? '这页优先服务于“先安装、再验证、再决定下一步”的高意图用户。'
+        : 'This page serves high-intent users who need to install, validate, and then choose the next trusted step.',
+    }
+  : null;
+const installReviewSignals = isInstallDoc
+  ? [
+      isZhCopy
+        ? '先确认安装命令，再确认 CLI 会把内容写入正确的 IDE 原生文件。'
+        : 'Confirm the install command first, then confirm the CLI writes to the correct IDE-native files.',
+      isZhCopy
+        ? '把安装后的验证作为主流程，而不是让用户继续回到仓库列表里盲逛。'
+        : 'Treat post-install validation as a primary step instead of sending users back into blind repository browsing.',
+      isZhCopy
+        ? '每个安装路径都要继续连向 CLI、可信合集或工作流方案页。'
+        : 'Every install path should continue into CLI docs, trusted collections, or workflow solution pages.',
+    ]
+  : [];
+const installDecisionTracks = isInstallDoc
+  ? [
+      {
+        badge: isZhCopy ? 'TRUST' : 'TRUST',
+        title: isZhCopy ? '先走最低风险的首装路径' : 'Take the Lowest-Risk First Install Path',
+        description: isZhCopy
+          ? '如果你当前最在意的是“先装对、别踩空”，就先回到官方可信工具合集，再从那里进入安装。这样最容易把团队默认起步路径先跑顺。'
+          : 'If the main goal is to get the first install right without guessing, return to the official trusted collection first and enter installation from there. That keeps the team baseline clear and repeatable.',
+        whenToUse: isZhCopy
+          ? '适合第一次安装、共享团队默认方案，或需要先确认工具归属和文档是否可信的时候。'
+          : 'Use it for the first install, a shared team default, or whenever ownership and docs trust need to be confirmed before rollout.',
+        checkpoints: isZhCopy
+          ? [
+              '先确认你选的是官方或高可信生态工具，而不是随意继续刷仓库。',
+              '完成安装后，马上验证 IDE 原生文件是否写入正确位置。',
+              '只有首条可信安装路径跑通后，再决定是否继续扩栈。'
+            ]
+          : [
+              'Confirm the tool is official or strongly trusted before you keep browsing repos.',
+              'Validate the IDE-native file writes immediately after installation.',
+              'Only expand the stack after the first trusted install path works cleanly.'
+            ],
+        primaryHref: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+        primaryLabel: isZhCopy ? '回到官方可信工具合集' : 'Open Official Trusted Tools',
+      },
+      {
+        badge: isZhCopy ? 'CLI' : 'CLI',
+        title: isZhCopy ? '把安装变成可验证的操作链路' : 'Turn Installation Into a Verifiable Operator Path',
+        description: isZhCopy
+          ? '如果命令已经准备好，下一步就不该再靠感觉判断。继续进入 CLI 总览，确认会写入什么、如何同步、以及操作者应该验证哪些检查点。'
+          : 'Once the command is ready, the next step should not rely on intuition. Continue into the CLI overview to confirm what gets written, how sync behaves, and which checkpoints operators should verify.',
+        whenToUse: isZhCopy
+          ? '适合已经接近执行阶段，或已经完成首装但需要确认写入、同步和验证行为的时候。'
+          : 'Use it when execution is imminent, or after the first install succeeds but write, sync, and validation behavior still need to be checked.',
+        checkpoints: isZhCopy
+          ? [
+              '运行 `npx killer-skills list`，确认当前环境里已经能看见刚装的技能。',
+              '核对 `.cursorrules`、`.claude/skills/`、`.github/copilot-instructions.md` 或 `.windsurf/rules/` 等目标文件。',
+              '把“命令成功”与“环境真正可用”拆开验证。'
+            ]
+          : [
+              'Run `npx killer-skills list` and confirm the installed skill is visible in the environment.',
+              'Check the target files such as `.cursorrules`, `.claude/skills/`, `.github/copilot-instructions.md`, or `.windsurf/rules/`.',
+              'Treat “the command passed” and “the environment is actually usable” as separate validations.'
+            ],
+        primaryHref: `/${locale}/docs/cli/overview`,
+        primaryLabel: isZhCopy ? '打开 CLI 总览' : 'Open CLI Overview',
+      },
+      {
+        badge: isZhCopy ? 'WORKFLOW' : 'WORKFLOW',
+        title: isZhCopy ? '把一次安装推进成团队工作流' : 'Move a One-Off Install Into a Team Workflow',
+        description: isZhCopy
+          ? '安装成功后，下一步不该回到随机浏览。继续进入工作流合集或方案页，把这次安装映射到路由、审批、交接和可复用落地链路。'
+          : 'After installation succeeds, the next move should not be random browsing again. Continue into workflow collections or solution pages to map the install into routing, approvals, handoff, and repeatable rollout.',
+        whenToUse: isZhCopy
+          ? '适合安装已经验证完成，但你还需要决定它在团队执行链路里应该扮演什么角色的时候。'
+          : 'Use it when installation is already validated, but you still need to decide what role the tool should play in the team workflow lane.',
+        checkpoints: isZhCopy
+          ? [
+              '先决定它服务的是工作流骨架、操作者护栏，还是场景型方案。',
+              '避免再次回到全量目录，把下一次点击限制在高意图承接面内。',
+              '把这次安装沉淀成团队可复用的默认动作。'
+            ]
+          : [
+              'Decide whether the tool serves workflow scaffolding, operator guardrails, or a scenario-specific solution.',
+              'Do not reset back to the full directory; keep the next click inside high-intent surfaces.',
+              'Turn the install into a repeatable default for the team instead of a one-off action.'
+            ],
+        primaryHref: `/${locale}/collections/top-agent-workflow-building-tools`,
+        primaryLabel: isZhCopy ? '进入工作流合集' : 'Open Workflow Collection',
+      },
+    ]
+  : [];
+const installNextStepCards = isInstallationPage
+  ? [
+      {
+        href: `/${locale}/collections`,
+        badge: isZhCopy ? 'HUB' : 'HUB',
+        title: isZhCopy ? '还不确定下一步装什么？返回精选 Collections' : 'Not Sure What to Install Next? Return to Collections',
+        description: isZhCopy
+          ? '先回到精选合集总入口，再按可信度和任务意图选择下一批技能。'
+          : 'Return to the curated collections hub before you choose the next skills by trust level and job to be done.',
+      },
+      {
+        href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+        badge: isZhCopy ? 'TRUST' : 'TRUST',
+        title: isZhCopy ? '想要安全默认选型？回到官方可信工具合集' : 'Need the safest defaults? Go to Official Trusted Tools',
+        description: isZhCopy
+          ? '优先查看官方和高可信生态维护的技能与工具。'
+          : 'Prioritize official and strongly trusted ecosystem tools before you standardize a shared stack.',
+      },
+      {
+        href: `/${locale}/collections/top-agent-workflow-building-tools`,
+        badge: isZhCopy ? 'WORKFLOW' : 'WORKFLOW',
+        title: isZhCopy ? '想搭团队工作流栈？回到 Agent Workflow Building Tools' : 'Building a Team Workflow Stack? Return to Agent Workflow Tools',
+        description: isZhCopy
+          ? '从工作流角度继续挑选路由、审批、交接和执行骨架。'
+          : 'Continue from a workflow perspective to choose routing, approvals, handoff, and execution scaffolds.',
+      },
+      {
+        href: `/${locale}/solutions/agent-workflows`,
+        badge: isZhCopy ? 'SOLUTION' : 'SOLUTION',
+        title: isZhCopy ? '想按场景选组合？进入 Agent Workflows 方案页' : 'Need a Scenario-Based Stack? Open Agent Workflows',
+        description: isZhCopy
+          ? '如果你的问题已经是具体场景，就直接进入方案页而不是继续逛仓库。'
+          : 'If your next step is a concrete workflow problem, move into the solution page instead of browsing more repositories.',
       },
     ]
   : [];
@@ -335,6 +596,73 @@ const isActive = (href: string) => {
       />
     )
   }
+  {
+    isInstallationPage && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: installFaqItems.map((item) => ({
+            '@type': 'Question',
+            name: item.question,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.answer,
+            },
+          })),
+        })}
+        slot="head"
+      />
+    )
+  }
+  {
+    isInstallationPage && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: isZhCopy ? '如何安装 AI Agent Skills' : 'How to Install AI Agent Skills',
+          description: pageDescription,
+          totalTime: 'PT2M',
+          tool: {
+            '@type': 'HowToTool',
+            name: isZhCopy ? '终端 / 命令行' : 'Terminal / Command Line',
+          },
+          step: installHowToSteps.map((step, index) => ({
+            '@type': 'HowToStep',
+            position: index + 1,
+            name: step.name,
+            text: step.text,
+          })),
+        })}
+        slot="head"
+      />
+    )
+  }
+  {
+    isInstallationPage && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: canonicalUrl,
+          speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['h1', '.prose .lead', '.prose h2'],
+          },
+        })}
+        slot="head"
+      />
+    )
+  }
   <div class="bg-[var(--background)] text-[var(--foreground)] min-h-screen flex flex-col md:flex-row font-sans">
     {/* Mobile Toggle (Visible only on small screens) */}
     <div
@@ -407,6 +735,8 @@ const isActive = (href: string) => {
 
     {/* Main Content Area */}
     <main class="flex-1 w-full max-w-4xl min-w-0 px-4 py-8 md:px-12 xl:px-16 md:py-16">
+      <Breadcrumb items={breadcrumbItems} />
+
       {/* Content Header */}
       <div class="mb-12 border-b-4 border-[var(--foreground)] pb-8">
         <p
@@ -417,6 +747,9 @@ const isActive = (href: string) => {
         {
           isIndex && (
             <div class="space-y-6">
+              <h1 class="max-w-4xl text-4xl font-black uppercase tracking-tight text-[var(--foreground)] md:text-6xl">
+                {tr('Docs.indexTitle', 'AI Agent Skills Docs for Install, Setup & Workflow Templates')}
+              </h1>
               <p class="max-w-3xl text-lg font-bold leading-8 text-[var(--foreground)]">{pageDescription}</p>
               <div class="grid grid-cols-1 gap-4 md:grid-cols-2 not-prose">
                 {docsEntryLinks.map((item) => (
@@ -432,7 +765,174 @@ const isActive = (href: string) => {
             </div>
           )
         }
+        {
+          !isIndex && (
+            <div class="space-y-4">
+              <h1 class="max-w-4xl text-4xl font-black uppercase tracking-tight text-[var(--foreground)] md:text-6xl">
+                {docTitle}
+              </h1>
+              <p class="max-w-3xl text-lg font-bold leading-8 text-[var(--foreground)]">{pageDescription}</p>
+              {
+                docsLastUpdated && (
+                  <p class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
+                    {tr('Docs.lastUpdated', 'Last updated')}: {docsLastUpdated}
+                  </p>
+                )
+              }
+            </div>
+          )
+        }
       </div>
+
+      {
+        isInstallDoc && installReviewMeta && (
+          <section class="mb-12 border-[4px] border-[var(--foreground)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--foreground)]">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '页面级审查标准' : 'Page-Level Review Standard'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                {isZhCopy ? '这页聚焦安装与验证，而不只是展示命令' : 'This Page Focuses On Installation And Validation'}
+              </h2>
+              <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+                {isZhCopy
+                  ? '安装页的职责是帮你完成安装、验证结果，并顺着清晰的下一步继续，而不是把页面变成内部策略说明。'
+                  : 'The installation page should help you install, verify the result, and continue into a clear next step instead of exposing internal process language.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-8 not-prose">
+              <div class="border-4 border-[var(--foreground)] bg-[var(--card)] p-4">
+                <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                  {isZhCopy ? '最近复核' : 'Reviewed On'}
+                </div>
+                <div class="text-sm font-black leading-6">{installReviewMeta.reviewedAt}</div>
+              </div>
+              <div class="border-4 border-[var(--foreground)] bg-[var(--card)] p-4">
+                <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                  {isZhCopy ? '维护方式' : 'Maintained By'}
+                </div>
+                <div class="text-sm font-black leading-6">{installReviewMeta.maintainedBy}</div>
+              </div>
+              <div class="border-4 border-[var(--foreground)] bg-[var(--card)] p-4">
+                <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                  {isZhCopy ? '验证范围' : 'Verification Scope'}
+                </div>
+                <div class="text-sm font-black leading-6">{installReviewMeta.verification}</div>
+              </div>
+              <div class="border-4 border-[var(--foreground)] bg-[var(--card)] p-4">
+                <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                  {isZhCopy ? '适用对象' : 'Primary Audience'}
+                </div>
+                <div class="text-sm font-black leading-6">{installReviewMeta.scope}</div>
+              </div>
+            </div>
+
+            <div class="border-t-4 border-[var(--foreground)] pt-6">
+              <h3 class="text-xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+                {isZhCopy ? '这页的 3 条最低交付标准' : 'Three Minimum Standards For This Guide'}
+              </h3>
+              <ul class="space-y-3">
+                {installReviewSignals.map((item) => (
+                  <li class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">- {item}</li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )
+      }
+
+      {
+        isInstallDoc && installDecisionTracks.length > 0 && (
+          <section class="mb-12 border-[4px] border-[var(--foreground)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--foreground)]">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '安装轨道' : 'Installation Tracks'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                {isZhCopy ? '先判断你现在处在哪一种安装阶段' : 'Start With the Installation Stage You Are Actually In'}
+              </h2>
+              <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+                {isZhCopy
+                  ? '安装页不该只给一个命令，然后把用户重新送回随机浏览。先确认你现在是来做首装、做 CLI 验证，还是要把这次安装推进成团队工作流，再沿着对应轨道往下走。'
+                  : 'The install page should not dump one command and send users back into random browsing. Decide whether you are here for the first trusted install, CLI validation, or turning the install into a team workflow, then follow the matching lane.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-5 not-prose">
+              {installDecisionTracks.map((track) => (
+                <article class="border-4 border-[var(--foreground)] bg-[var(--card)] p-5 shadow-[4px_4px_0px_0px_var(--foreground)]">
+                  <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
+                    {track.badge}
+                  </div>
+                  <h3 class="mb-3 text-xl font-black uppercase tracking-tight text-[var(--foreground)]">{track.title}</h3>
+                  <p class="mb-4 text-sm font-medium leading-6 text-[var(--muted-foreground)]">{track.description}</p>
+                  <p class="mb-4 border-l-4 border-[var(--primary)] pl-3 text-xs font-bold leading-6 text-[var(--foreground)]/85">
+                    {track.whenToUse}
+                  </p>
+                  <ul class="mb-5 space-y-2">
+                    {track.checkpoints.map((item) => (
+                      <li class="text-sm font-medium leading-6 text-[var(--muted-foreground)]">- {item}</li>
+                    ))}
+                  </ul>
+                  <a
+                    href={track.primaryHref}
+                    class="inline-flex items-center border-2 border-[var(--foreground)] px-4 py-2 text-xs font-black uppercase tracking-widest text-[var(--foreground)] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+                  >
+                    {track.primaryLabel}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        isInstallDoc && (
+          <section class="mb-12 border-[4px] border-[var(--foreground)] bg-[var(--card)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--foreground)]">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '安装桥梁' : 'Install Bridge'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                {isZhCopy ? '从发现页继续进入 CLI 与验证' : 'Move From Discovery Into CLI Action and Validation'}
+              </h2>
+              <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+                {isZhCopy
+                  ? '安装文档不只是命令说明。它应该把你从精选发现页继续带到 CLI 执行、安装验证，以及下一批可信入口。'
+                  : 'Installation docs should not stop at command syntax. They should carry users from curated discovery into CLI action, install validation, and the next trusted surfaces.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mb-8 not-prose">
+              {installBridgeCards.map((item) => (
+                <a
+                  href={item.href}
+                  class="block border-4 border-[var(--foreground)] bg-[var(--background)] p-5 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+                >
+                  <div class="mb-2 text-[10px] font-black uppercase tracking-widest opacity-70">{item.badge}</div>
+                  <h3 class="mb-2 text-xl font-black uppercase tracking-tight">{item.title}</h3>
+                  <p class="text-sm font-bold leading-6 opacity-80">{item.description}</p>
+                </a>
+              ))}
+            </div>
+
+            <div class="border-t-4 border-[var(--foreground)] pt-6">
+              <h3 class="text-xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+                {isZhCopy ? '安装后验证清单' : 'Post-Install Validation Checklist'}
+              </h3>
+              <ol class="space-y-3">
+                {installValidationSteps.map((step, index) => (
+                  <li class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
+                    {index + 1}. {step}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+        )
+      }
 
       {
         currentSlug === 'cli/overview' && (
@@ -568,6 +1068,38 @@ const isActive = (href: string) => {
           </section>
         )
       }
+      {
+        isInstallationPage && (
+          <section class="mt-16 border-[4px] border-[var(--foreground)] bg-[var(--card)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--foreground)]">
+            <div class="max-w-3xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '下一步路径' : 'Next-Step Paths'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                {isZhCopy ? '安装不是终点，而是进入可信使用路径的入口' : 'Installation Is the Start of a Trusted Usage Path'}
+              </h2>
+              <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
+                {isZhCopy
+                  ? '当安装完成后，下一步不应该重新回到随机浏览。你应该沿着合集、方案页和 CLI 说明，把一次性安装变成可复用的团队路径。'
+                  : 'After installation, the next move should not be random browsing again. Continue into collections, solution pages, and CLI guidance so a one-off install becomes a reusable team path.'}
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2 not-prose">
+              {installNextStepCards.map((item) => (
+                <a
+                  href={item.href}
+                  class="block border-4 border-[var(--foreground)] bg-[var(--background)] p-5 transition-all hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+                >
+                  <div class="mb-2 text-[10px] font-black uppercase tracking-widest opacity-70">{item.badge}</div>
+                  <h3 class="mb-2 text-xl font-black uppercase tracking-tight">{item.title}</h3>
+                  <p class="text-sm font-bold leading-6 opacity-80">{item.description}</p>
+                </a>
+              ))}
+            </div>
+          </section>
+        )
+      }
 
       {/* Footer inside content area */}
       <div class="mt-24 pt-8 border-t-4 border-[var(--foreground)]">
@@ -695,6 +1227,13 @@ const isActive = (href: string) => {
     padding: 0 !important;
     border-radius: 0 !important;
     font-weight: inherit !important;
+  }
+
+  article :global(.lead) {
+    color: var(--foreground);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1.8;
   }
 
   /* Show copy button on hover */

@@ -14,7 +14,12 @@ const blog = defineCollection({
   // Actually, checking docs: src/content.config.ts requires "loader" property for ALL collections?
   // "type" is for legacy "src/content/config.ts".
   // If I use "src/content.config.ts", I should use "glob" loader for files.
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/blog' }),
+  loader: glob({
+    pattern: '**/[^_]*.{md,mdx}',
+    base: './src/content/blog',
+    // Keep locale folders in the content id so translated posts do not collide.
+    generateId: ({ entry }) => entry.replace(/\.(md|mdx)$/i, '').replaceAll('\\', '/'),
+  }),
   schema: z.object({
     title: z.string(),
     // SEO: meta description 建议 120–158 字符，以在搜索结果中完整展示并提升 CTR。运行 npx tsx scripts/audit-blog-meta-descriptions.ts 审计过短条目。
@@ -41,11 +46,59 @@ const collectionsCol = defineCollection({
     keywords: z.record(z.array(z.string())).optional(),
     longDescription: z.record(z.string()).optional(),
     skills: z.array(z.string()),
+    featuredSkillRefs: z.array(z.string()).optional(),
     canonicalSlug: z.string().optional(),
     legacySlugs: z.array(z.string()).optional(),
     author: z.string().default('Killer-Skills Team'),
     featured: z.boolean().default(false),
     category: z.string().optional(),
+    editorial: z
+      .object({
+        reviewSummary: z.record(z.string()).optional(),
+        selectionReason: z.record(z.string()).optional(),
+        trustSignals: z.record(z.array(z.string())).optional(),
+        groupingLogic: z.record(z.array(z.string())).optional(),
+        maintenance: z
+          .object({
+            reviewedAt: z.string(),
+            cadence: z.record(z.string()).optional(),
+            maintainedBy: z.record(z.string()).optional(),
+            verification: z.record(z.string()).optional(),
+          })
+          .optional(),
+        executionExamples: z
+          .array(
+            z.object({
+              title: z.record(z.string()),
+              summary: z.record(z.string()),
+              steps: z.record(z.array(z.string())),
+            }),
+          )
+          .optional(),
+        decisionTracks: z
+          .array(
+            z.object({
+              title: z.record(z.string()),
+              summary: z.record(z.string()),
+              whenToUse: z.record(z.string()).optional(),
+              checkpoints: z.record(z.array(z.string())).optional(),
+              skillRefs: z.array(z.string()).optional(),
+              nextStepHref: z.string().optional(),
+              nextStepLabel: z.record(z.string()).optional(),
+            }),
+          )
+          .optional(),
+        nextSteps: z
+          .array(
+            z.object({
+              href: z.string(),
+              label: z.record(z.string()),
+              description: z.record(z.string()),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
   }),
 });
 

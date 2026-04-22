@@ -1,7 +1,12 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
+import { extname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { resolveSkillDetailLocale } from '../../src/lib/skill-locale-link';
 import en from '../../src/messages/en.json';
 import zh from '../../src/messages/zh.json';
+
+const REPO_ROOT = resolve(fileURLToPath(new URL('../..', import.meta.url)));
 
 const readPageSource = (relativePath: string) => {
   const normalizedRelativePath = relativePath.startsWith('./')
@@ -12,6 +17,8 @@ const readPageSource = (relativePath: string) => {
 
   return readFileSync(new URL(`../../${normalizedRelativePath}`, import.meta.url), 'utf8');
 };
+const readRepoSource = (relativePath: string) =>
+  readFileSync(new URL(`../../${relativePath}`, import.meta.url), 'utf8');
 const readLocaleMessages = (locale: string) =>
   JSON.parse(readFileSync(new URL(`../../src/messages/${locale}.json`, import.meta.url), 'utf8')) as Record<
     string,
@@ -43,6 +50,34 @@ const extractTranslationKeys = (source: string): string[] => {
 
   return [...keys];
 };
+
+const SOURCE_FILE_EXTENSIONS = new Set(['.md', '.astro', '.ts', '.tsx']);
+
+const collectRepoFiles = (relativeDir: string): string[] => {
+  const absoluteDir = resolve(REPO_ROOT, relativeDir);
+  const results: string[] = [];
+
+  const walk = (currentDir: string) => {
+    for (const entry of readdirSync(currentDir, { withFileTypes: true })) {
+      const absolutePath = resolve(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        walk(absolutePath);
+        continue;
+      }
+
+      if (!SOURCE_FILE_EXTENSIONS.has(extname(entry.name))) continue;
+      results.push(absolutePath.slice(REPO_ROOT.length + 1));
+    }
+  };
+
+  walk(absoluteDir);
+  return results.sort();
+};
+
+const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
+const SITE_URL_QUERY_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`]*\?[^\s)"'`]*/g;
+const HARDCODED_SKILL_LINK_PATTERN =
+  /(?:https:\/\/killer-skills\.com)?\/(ar|de|en|es|fr|ja|ko|pt|ru|zh)\/skills\/([^/\s)"'`]+)\/([^\s)"'`]+)/g;
 
 describe('public links and navigation copy', () => {
   it('keeps smoke-scope public surfaces on explicit translation fallbacks', () => {
@@ -231,6 +266,52 @@ describe('public links and navigation copy', () => {
 
     for (const source of pageSources) {
       expect(source).not.toContain('surface.rationale');
+    }
+  });
+
+  it('does not ship internal authority strategy copy into public authority-surface data', () => {
+    const authoritySurfaceSource = readPageSource('../lib/authority-surface-public-data.ts');
+    const leakedPhrases = [
+      '自然流量恢复必须依赖更少、更强、带有一手判断的入口页',
+      '精选 collections 比全量 skill 列表拥有更清晰的主题边界',
+      '更稳定的 canonical 信号',
+      '这是工作流优先的合集，能解释相关 skills 为什么要放在一起',
+      '这是平台型合集，面向产品生态里最清晰的需求簇之一',
+      'first-party framing',
+      'safer canonical signals',
+      'mirror-site posture',
+    ];
+
+    for (const phrase of leakedPhrases) {
+      expect(authoritySurfaceSource).not.toContain(phrase);
+    }
+  });
+
+  it('keeps high-visibility public copy free of internal recovery jargon', () => {
+    const auditedSources = [
+      readPageSource('../pages/[locale]/collections/[...slug].astro'),
+      readPageSource('../pages/[locale]/docs/[...slug].astro'),
+      readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro'),
+      readRepoSource('src/content/collections/top-automation-mcp-servers.json'),
+      readRepoSource('src/content/collections/top-cli-mcp-servers.json'),
+      readRepoSource('src/content/collections/top-community-skills.json'),
+    ].join('\n');
+
+    const blockedPhrases = [
+      'recovery surface',
+      'recovery-focused authority queue',
+      'authority queue',
+      'first-party judgment surface',
+      'first-party trust signals',
+      'operators and crawlers alike',
+      '恢复期 authority 队列',
+      '恢复期承接页',
+      '更适合作为恢复入口',
+      'organic recovery',
+    ];
+
+    for (const phrase of blockedPhrases) {
+      expect(auditedSources).not.toContain(phrase);
     }
   });
 
@@ -1065,7 +1146,7 @@ describe('public links and navigation copy', () => {
     for (const locale of openClawLocales) {
       const source = readPageSource(`../content/blog/${locale}/openclaw-application-scenarios.md`);
       expect(source).not.toContain(`/${locale}/blog/humanizer-skill`);
-      expect(source).toContain(`/${locale}/skills/minhtungo/ai-agents-factory/humanizer`);
+      expect(source).toContain('/en/skills/minhtungo/ai-agents-factory/humanizer');
     }
 
     expect(arIntroOpenClawSource).not.toContain('## OpenClaw 的独特之处');
@@ -1146,7 +1227,7 @@ describe('public links and navigation copy', () => {
 
     expect(esGenerativeArtSource).toContain('## Una mirada interna: la filosofía');
     expect(esGenerativeArtSource).toContain('## Cómo empezar');
-    expect(esGenerativeArtSource).toContain('https://killer-skills.com/es/skills/anthropics/skills/canvas-design');
+    expect(esGenerativeArtSource).toContain('https://killer-skills.com/en/skills/anthropics/skills/canvas-design');
     expect(esGenerativeArtSource).toContain('/es/blog/what-are-ai-agent-skills');
     expect(esGenerativeArtSource).not.toContain('## A Look Under the Hood: The Philosophy');
     expect(esGenerativeArtSource).not.toContain('# Getting Started');
@@ -1162,5 +1243,75 @@ describe('public links and navigation copy', () => {
     );
     expect(esGenerativeArtSource).not.toContain('/es/blog/que-son-las-habilidades-de-agentes-de-ia');
     expect(esGenerativeArtSource).not.toContain('/es/blog/mejores-habilidades-de-agentes-de-ia-2026');
+  });
+
+  it('keeps authored public URLs free of trailing-slash regressions and query-string leaks', () => {
+    const auditedFiles = [
+      ...collectRepoFiles('src/content'),
+      ...collectRepoFiles('src/pages'),
+      ...collectRepoFiles('src/components'),
+      ...collectRepoFiles('src/layouts'),
+      ...collectRepoFiles('docs'),
+    ];
+    const trailingSlashMatches: string[] = [];
+    const queryMatches: Array<{ file: string; url: string }> = [];
+
+    for (const relativePath of auditedFiles) {
+      const source = readRepoSource(relativePath);
+
+      for (const match of source.matchAll(SITE_URL_TRAILING_SLASH_PATTERN)) {
+        trailingSlashMatches.push(`${relativePath}: ${match[0]}`);
+      }
+
+      for (const match of source.matchAll(SITE_URL_QUERY_PATTERN)) {
+        queryMatches.push({ file: relativePath, url: match[0] });
+      }
+    }
+
+    expect(trailingSlashMatches).toEqual([]);
+    expect(queryMatches).toEqual([
+      {
+        file: 'src/pages/[locale]/categories/index.astro',
+        url: 'https://killer-skills.com/${locale}/skills?category=${cat.id}',
+      },
+      {
+        file: 'src/pages/[locale]/index.astro',
+        url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
+      },
+      {
+        file: 'src/pages/[locale]/skills/index.astro',
+        url: 'https://killer-skills.com/${locale}/skills?${serialized}',
+      },
+    ]);
+  });
+
+  it('keeps hardcoded public skill links aligned with locale suppression governance', () => {
+    const auditedFiles = [
+      ...collectRepoFiles('src/content'),
+      ...collectRepoFiles('src/pages'),
+      ...collectRepoFiles('src/components'),
+      ...collectRepoFiles('src/layouts'),
+    ];
+    const mismatches: string[] = [];
+
+    for (const relativePath of auditedFiles) {
+      const source = readRepoSource(relativePath);
+
+      for (const match of source.matchAll(HARDCODED_SKILL_LINK_PATTERN)) {
+        const actualLocale = match[1];
+        const owner = decodeURIComponent(match[2]);
+        const routePath = match[3]
+          .split('/')
+          .map((segment) => decodeURIComponent(segment))
+          .join('/');
+        const expectedLocale = resolveSkillDetailLocale(owner, routePath, actualLocale);
+
+        if (actualLocale !== expectedLocale) {
+          mismatches.push(`${relativePath}: /${actualLocale}/skills/${owner}/${routePath} -> expected /${expectedLocale}/`);
+        }
+      }
+    }
+
+    expect(mismatches).toEqual([]);
   });
 });

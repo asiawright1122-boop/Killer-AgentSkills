@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Community Skills & Frameworks for AI Agent Builders | AI Agent Skills",
-    "zh": "AI Agent 构建者常用的社区技能与框架 | AI Agent Skills",
+    "en": "Community Skills to Install First",
+    "zh": "优先安装的 Community Skills",
     "ja": "AIエージェント開発者向けコミュニティスキル＆フレームワーク | AI Agent Skills",
     "ko": "AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크 | AI Agent Skills",
     "es": "skills y frameworks de la comunidad para creadores de agentes de IA | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "مهارات وأطر المجتمع لبناة وكلاء الذكاء الاصطناعي | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for community developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 社区 AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare community-tested skills, then move into installation docs, CLI validation, and rollout paths for fast-moving builder teams.",
+    "zh": "先比较经过社区验证的 skills，再进入安装文档、CLI 验证与团队落地路径，适用于快速迭代的构建团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの コミュニティ AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 커뮤니티 AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de community en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات community داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Community Skills & Frameworks for AI Ag",
-    "zh": "AI Agent Skills - AI Agent 构建者常用的社区技能与框架 | Killer-Skills",
+    "en": "Community Skills to Install First",
+    "zh": "优先安装的 Community Skills",
     "ja": "AI Agent Skills - AIエージェント開発者向けコミュニティスキル＆フレームワーク | Killer",
     "ko": "AI Agent Skills - AI 에이전트 빌더를 위한 커뮤니티 스킬 및 프레임워크 | Killer",
     "es": "AI Agent Skills - skills y frameworks de la comunidad par",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - مهارات وأطر المجتمع لبناة وكلاء الذكاء "
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for community developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 社区 AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare community-tested skills, then move into installation docs, CLI validation, and rollout paths for fast-moving builder teams.",
+    "zh": "先比较经过社区验证的 skills，再进入安装文档、CLI 验证与团队落地路径，适用于快速迭代的构建团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの コミュニティ AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 커뮤니티 AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de community en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "community AI agent skills",
-      "community developer workflow",
-      "community workflow automation"
+      "community skills",
+      "community-tested AI skills",
+      "builder workflow tools",
+      "open-source skill tools",
+      "community developer workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "community AI agent skills",
-      "community developer workflow",
-      "community workflow automation"
+      "community skills",
+      "社区验证 AI skills",
+      "构建团队工作流工具",
+      "开源 skill 工具",
+      "社区开发工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -153,13 +151,15 @@
     "udecode/plate"
   ],
   "canonicalSlug": "top-community-contributed-ai-agent-skills",
-  "legacySlugs": ["top-community-skills"],
+  "legacySlugs": [
+    "top-community-skills"
+  ],
   "author": "Killer-Skills AI",
   "featured": true,
   "category": "community",
   "longDescription": {
-    "en": "This collection is for AI agent builders who rely on community ecosystems. It brings together practical tools, reusable skills, and frameworks that support prototyping, debugging, evaluation, and integration work. The goal is to help teams move from experiments to production with clearer workflows and fewer custom one-off solutions.",
-    "zh": "这个集合面向依赖社区生态的 AI Agent 构建者，汇总了用于原型开发、调试、评估与集成的实用工具、可复用技能和框架。核心目标是帮助团队以更清晰的工作流，从实验更顺畅地走向生产，减少一次性定制方案。",
+    "en": "If your team relies on community ecosystems, this page should narrow the shortlist fast instead of sending you into another open-source crawl. It compares workflow helpers, reusable skills, and developer companions that have practical community value, then moves the next click into installation docs, CLI validation, and a repeatable rollout path.",
+    "zh": "如果你的团队依赖社区生态，这页就应该帮助你快速收口，而不是把你重新送回无休止的开源仓库浏览。它聚焦具有真实社区价值的工作流助手、可复用 skills 与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",
     "ja": "このコレクションは、コミュニティエコシステムを活用するAIエージェント開発者向けです。試作、デバッグ、評価、統合作業を支える実用ツール、再利用可能なスキル、フレームワークをまとめています。目的は、ワークフローを整理し、場当たり的な実装を減らしながら、実験から本番運用へ移行しやすくすることです。",
     "ko": "이 컬렉션은 커뮤니티 생태계를 활용하는 AI 에이전트 빌더를 위한 것입니다. 프로토타이핑, 디버깅, 평가, 통합 작업에 필요한 실용 도구와 재사용 가능한 스킬, 프레임워크를 모았습니다. 목표는 워크플로를 명확히 하고 일회성 커스텀 구현을 줄여 실험에서 프로덕션까지 더 안정적으로 이어지게 하는 것입니다.",
     "es": "Esta colección está pensada para quienes construyen agentes de IA apoyándose en el ecosistema comunitario. Reúne herramientas prácticas, skills reutilizables y frameworks para prototipado, depuración, evaluación e integración. El objetivo es pasar de la experimentación a producción con flujos más claros y menos soluciones aisladas.",
@@ -168,5 +168,139 @@
     "pt": "Esta coleção é voltada para quem constrói agentes de IA com apoio do ecossistema da comunidade. Ela reúne ferramentas práticas, skills reutilizáveis e frameworks para prototipagem, depuração, avaliação e integração. O objetivo é levar experimentos para produção com fluxos mais claros e menos soluções pontuais.",
     "ru": "Эта коллекция предназначена для разработчиков ИИ-агентов, которые опираются на экосистему сообщества. В ней собраны практичные инструменты, переиспользуемые навыки и фреймворки для прототипирования, отладки, оценки и интеграции. Цель — упростить переход от экспериментов к продакшену за счет более понятных процессов и меньшего числа разовых решений.",
     "ar": "هذا التجميع مخصص لبناة وكلاء الذكاء الاصطناعي الذين يعتمدون على منظومة المجتمع. يجمع أدوات عملية ومهارات قابلة لإعادة الاستخدام وأطرًا تدعم النمذجة الأولية والتصحيح والتقييم والتكامل. الهدف هو مساعدة الفرق على الانتقال من التجارب إلى الإنتاج عبر سير عمل أوضح وحلول أقل عشوائية."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against community workflow fit, installation clarity, operator handoff, and builder usefulness. This page is now positioned as an install-first community entry point instead of a broad community roundup.",
+      "zh": "已于 2026-04-17 按 community 工作流适配度、安装清晰度、操作交接和 builder 价值完成复核。现在这页被重新定位为“安装优先”的 community 入口，而不是泛化 community 榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because community-intent users usually need a shortlist they can install, validate, and carry into real builder loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 community 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实 builder 闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical community workflow value such as reuse, experimentation, debugging support, and installability.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable builder execution, not for vague community keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 community 工作流，例如复用、实验、调试支持与可安装性。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用 builder 执行，而不是空泛的 community 关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a community-driven workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering reuse, debugging, experimentation, and workflow support.",
+        "Use installation as the bridge from community discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 community 驱动工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖复用、调试、实验与工作流支持。",
+        "把安装作为从 community 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or community workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 community 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and community-workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与社区工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one community skill first",
+          "zh": "先安装一个 community skill"
+        },
+        "summary": {
+          "en": "Use this page when you want one community-tested skill that can enter real builder work without turning evaluation into another endless repo crawl.",
+          "zh": "如果你要找的是一个能进入真实 builder 流程的社区验证 skill，而不是继续掉进无休止的仓库浏览，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more community repositories.",
+            "Choose one skill that best supports reuse, debugging, experimentation, or workflow speed.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider team workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多社区仓库。",
+            "选择一个最适合复用、调试、实验或提升工作流速度的 skill。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Reduce open-source selection drag",
+          "zh": "降低开源选型拖累"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need community-adjacent tools that improve builder confidence without overcomplicating the stack.",
+          "zh": "当你想为 community 邻接工作流补上 builder 信心与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more repos, flows, or teammates.",
+            "Document the chosen community workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多仓库、流程或团队成员。",
+            "在首次稳定落地后，把选定的 community 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from Community Skills discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从当前发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到官方可信合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

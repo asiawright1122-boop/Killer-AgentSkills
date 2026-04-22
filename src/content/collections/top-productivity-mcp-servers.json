@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Productivity Tools for AI-Enabled Developers | AI Agent Skills",
-    "zh": "顶级 AI 开发者生产力工具 | AI Agent Skills",
+    "en": "Productivity Tools to Install First",
+    "zh": "优先安装的开发者提效工具",
     "ja": "AI時代の開発者向け生産性ツール | AI Agent Skills",
     "ko": "AI 시대 개발자를 위한 생산성 도구 | AI Agent Skills",
     "es": "herramientas de productividad para desarrolladores con IA | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات الإنتاجية للمطورين المدعومين بالذكاء الاصطناعي | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for productivity enabled developers developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 productivity enabled developers AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare productivity tools, then move into installation docs, CLI validation, and rollout paths for faster daily developer execution.",
+    "zh": "先比较开发者提效工具，再进入安装文档、CLI 验证与团队落地路径，适用于更快的日常执行。",
     "ja": "Claude Code・Cursor・Windsurf 向けの productivity enabled developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 productivity enabled developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de productivity enabled developers en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات productivity enabled developers داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Productivity Tools for AI-Enabled Devel",
-    "zh": "AI Agent Skills - 顶级 AI 开发者生产力工具 | Killer-Skills",
+    "en": "Productivity Tools to Install First",
+    "zh": "优先安装的开发者提效工具",
     "ja": "AI Agent Skills - AI時代の開発者向け生産性ツール | Killer-Skills",
     "ko": "AI Agent Skills - AI 시대 개발자를 위한 생산성 도구 | Killer-Skills",
     "es": "AI Agent Skills - herramientas de productividad para desa",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات الإنتاجية للمطورين المدعومين بالذ"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for productivity enabled developers developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 productivity enabled developers AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare productivity tools, then move into installation docs, CLI validation, and rollout paths for faster daily developer execution.",
+    "zh": "比较开发者提效工具，然后进入安装文档、CLI 验证与团队落地路径，适用于更快的日常执行。",
     "ja": "Claude Code・Cursor・Windsurf 向けの productivity enabled developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 productivity enabled developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de productivity enabled developers en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "productivity enabled developers AI agent skills",
-      "productivity enabled developers developer workflow",
-      "productivity enabled developers workflow automation"
+      "developer productivity tools",
+      "reduce context switching",
+      "daily coding acceleration",
+      "team execution rhythm",
+      "AI developer productivity",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "productivity enabled developers AI agent skills",
-      "productivity enabled developers developer workflow",
-      "productivity enabled developers workflow automation"
+      "开发者生产力工具",
+      "减少上下文切换",
+      "日常编码提速",
+      "团队执行节奏",
+      "AI 开发者生产力",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -141,7 +139,9 @@
   },
   "featured": false,
   "canonicalSlug": "top-productivity-tools-ai-enabled-developers",
-  "legacySlugs": ["top-productivity-mcp-servers"],
+  "legacySlugs": [
+    "top-productivity-mcp-servers"
+  ],
   "category": "productivity",
   "author": "Killer-Skills AI",
   "skills": [
@@ -152,8 +152,8 @@
     "cwilliams5/Alt-Tabby"
   ],
   "longDescription": {
-    "en": "This collection is about day-to-day developer productivity with AI assistance. It highlights tools that reduce context switching, speed up common coding tasks, and improve personal and team execution rhythm without adding operational complexity. MCP-related integrations can exist where useful, but the main goal is practical productivity gains in real development workflows.",
-    "zh": "本集合关注 AI 辅助下的日常开发者生产力，强调那些能够减少上下文切换、加速常见编码任务、并提升个人与团队执行节奏的工具，同时避免额外运维复杂度。若有需要可结合 MCP 类集成能力，但核心目标是现实开发流程中的可量化效率提升。",
+    "en": "This collection focuses on the tools that actually help developers keep momentum: fewer context switches, less repeated setup, and faster day-to-day execution. Instead of becoming a soft lifestyle list, it should help users shortlist one productivity layer, move into installation docs, validate the CLI path, and keep only what improves the main workflow.",
+    "zh": "这个合集关注的是真正能帮开发者保持推进速度的工具：更少的上下文切换、更少的重复配置，以及更快的日常执行。它不应该沦为泛化的“效率生活方式”清单，而是要帮助用户先收口一个生产力层，再进入安装文档、验证 CLI 路径，只保留那些真正改善主工作流的工具。",
     "ja": "このコレクションは、AI支援による日々の開発者生産性に焦点を当てています。コンテキストスイッチを減らし、よくある実装作業を速め、運用負荷を増やさずに個人・チームの実行テンポを高めるツールを重視しています。必要に応じてMCP連携も利用できますが、主目的は実務フローでの実用的な生産性向上です。",
     "ko": "이 컬렉션은 AI 지원을 활용한 일상 개발자 생산성에 초점을 맞춥니다. 컨텍스트 전환을 줄이고 자주 하는 코딩 작업을 빠르게 하며, 운영 복잡도를 크게 늘리지 않으면서 개인과 팀의 실행 속도를 높이는 도구를 강조합니다. 필요 시 MCP 연동을 활용할 수 있지만 핵심 목표는 실제 개발 흐름에서의 체감 가능한 생산성 향상입니다.",
     "es": "Esta colección trata sobre productividad diaria de desarrolladores con asistencia de IA. Destaca herramientas que reducen cambios de contexto, aceleran tareas comunes de código y mejoran el ritmo de ejecución individual y de equipo sin añadir complejidad operativa. Puede haber integraciones MCP cuando aporten valor, pero el objetivo principal es una mejora práctica de productividad.",
@@ -162,5 +162,139 @@
     "pt": "Esta coleção é sobre produtividade diária de desenvolvedores com apoio de IA. Ela destaca ferramentas que reduzem troca de contexto, aceleram tarefas comuns de código e melhoram o ritmo de execução individual e de equipe sem aumentar complexidade operacional. Integrações MCP podem existir quando úteis, mas o objetivo principal é ganho prático de produtividade.",
     "ru": "Эта коллекция о повседневной продуктивности разработчиков с ИИ-поддержкой. Она выделяет инструменты, которые снижают переключение контекста, ускоряют типовые задачи кодинга и улучшают ритм работы отдельных специалистов и команд без лишней операционной сложности. MCP-интеграции могут присутствовать при необходимости, но главный фокус — практический рост продуктивности.",
     "ar": "تدور هذه المجموعة حول إنتاجية المطور اليومية مع دعم الذكاء الاصطناعي. وهي تبرز أدوات تقلّل تبديل السياق وتسرّع مهام البرمجة الشائعة وتحسّن إيقاع التنفيذ للفرد والفريق دون زيادة التعقيد التشغيلي. قد تتوفر تكاملات MCP عند الحاجة، لكن الهدف الأساسي هو مكاسب إنتاجية عملية في سير العمل الحقيقي."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against daily execution fit, installation clarity, context-switch reduction, and operator simplicity. This page is now positioned as an install-first productivity entry point instead of a soft productivity roundup.",
+      "zh": "已于 2026-04-17 按日常执行适配度、安装清晰度、上下文切换减少效果与操作简洁性完成复核。现在这页被重新定位为“安装优先”的生产力入口，而不是泛化的效率盘点。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because productivity-intent users usually want one tool worth keeping in the main workflow, not another broad list they browse and forget.",
+      "zh": "之所以优先强化这页，是因为带着生产力意图进来的用户，通常想找的是一个值得长期留在主工作流里的工具，而不是又一个看完就忘的宽泛列表。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for reducing repeated work, shrinking context switching, and improving execution rhythm inside real coding days.",
+        "Selection favors tools with public docs and setup paths that teams can validate before they spread them across everyday workflows.",
+        "The page is curated for practical momentum gains, not for soft productivity branding or generic AI adjacency."
+      ],
+      "zh": [
+        "入选工具优先服务于减少重复劳动、降低上下文切换，并改善真实编码日中的执行节奏。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在日常推广前完成验证的工具。",
+        "这个页面服务的是实际推进速度，而不是泛化的效率品牌词或模糊 AI 挂靠。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can fit the current coding loop without forcing a full stack reset.",
+        "Keep the shortlist compact enough for quick comparison while still covering personal acceleration and team execution rhythm.",
+        "Use installation as the bridge from productivity discovery into validated daily use."
+      ],
+      "zh": [
+        "优先展示能嵌入当前编码闭环、而不要求整套栈重来的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖个人提速与团队执行节奏。",
+        "把安装作为从生产力发现页进入已验证日常使用的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or productivity relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或生产力相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and productivity-workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与效率工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, workflow fit, operator clarity, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、工作流适配度、操作清晰度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one daily accelerator before reshaping the whole stack",
+          "zh": "先安装一个日常提速工具，再决定是否调整整套栈"
+        },
+        "summary": {
+          "en": "Use this page when you want one productivity tool that genuinely saves time in the daily loop instead of adding another layer of busywork.",
+          "zh": "如果你想找的是一个真正能在日常闭环里节省时间的生产力工具，而不是再增加一层忙碌感，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more productivity-tool repositories.",
+            "Choose one tool that best reduces repeated work, context switching, or setup drag.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider team workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多生产力工具仓库。",
+            "选择一个最能减少重复劳动、上下文切换或配置拖累的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Protect execution rhythm across the team",
+          "zh": "把团队执行节奏保护下来"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need tools that keep developers moving without forcing them into another broad migration or platform reset.",
+          "zh": "当你需要的是能让开发者继续往前推进、又不会逼着他们做一次更大迁移的平台时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated productivity path before scaling it to more repos or more teammates.",
+            "Document the chosen productivity baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证的生产力路径，再决定是否扩展到更多仓库或团队成员。",
+            "在首次稳定落地后，把选定的生产力基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from developer productivity discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从开发者生产力发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check productivity choices before you standardize them across the main workflow.",
+          "zh": "在团队标准化之前，回到官方可信合集，对生产力工具选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

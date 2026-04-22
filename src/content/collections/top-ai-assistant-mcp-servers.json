@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "AI Assistant Workflow Tools for Developers | AI Agent Skills",
-    "zh": "面向开发者的顶级 AI 助手工作流工具 | AI Agent Skills",
+    "en": "AI Assistant Workflow Tools for Developers to Install First",
+    "zh": "开发者优先安装的 AI 助手工作流工具",
     "ja": "開発者向けAIアシスタント・ワークフローツール | AI Agent Skills",
     "ko": "개발자를 위한 AI 어시스턴트 워크플로우 도구 | AI Agent Skills",
     "es": "Herramientas de workflow para asistentes de IA | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات سير العمل لمساعدي الذكاء الاصطناعي | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for assistant developers developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 assistant developers AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare AI assistant workflow tools for developers, then move straight into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
+    "zh": "先比较适合开发者的 AI 助手工作流工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات assistant developers داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - AI Assistant Workflow Tools for Develop",
-    "zh": "AI Agent Skills - 面向开发者的顶级 AI 助手工作流工具 | Killer-Skills",
+    "en": "AI Assistant Workflow Tools for Developers to Install First",
+    "zh": "开发者优先安装的 AI 助手工作流工具",
     "ja": "AI Agent Skills - 開発者向けAIアシスタント・ワークフローツール | Killer-Skills",
     "ko": "AI Agent Skills - 개발자를 위한 AI 어시스턴트 워크플로우 도구 | Killer-Skills",
     "es": "AI Agent Skills - Herramientas de workflow para asistente",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات سير العمل لمساعدي الذكاء الاصطناع"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for assistant developers developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 assistant developers AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare AI assistant workflow tools for developers, then move into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
+    "zh": "比较适合开发者的 AI 助手工作流工具，然后进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -52,96 +52,98 @@
       "AI agent skills",
       "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "zh": [
       "AI Agent Skills",
       "开发者工作流",
       "Claude Code 技能",
-      "工作流自动化",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI 助手工作流工具",
+      "开发者 AI 助手",
+      "编码助手工具",
+      "安装 AI Agent Skills"
     ],
     "ja": [
-      "AI Agent Skills",
-      "developer workflow",
+      "AI agent skills",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "ko": [
-      "AI Agent Skills",
-      "developer workflow",
+      "AI agent skills",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "es": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "fr": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "de": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "pt": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "ru": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ],
     "ar": [
       "AI agent skills",
-      "developer workflow",
+      "developer workflow skills",
       "Claude Code skills",
-      "workflow automation",
-      "assistant developers AI agent skills",
-      "assistant developers developer workflow",
-      "assistant developers workflow automation"
+      "AI assistant workflow tools",
+      "developer AI assistant tools",
+      "coding assistant tools",
+      "install AI agent skills"
     ]
   },
   "featured": false,
   "canonicalSlug": "top-ai-assistant-workflow-tools-developers",
-  "legacySlugs": ["top-ai-assistant-mcp-servers"],
+  "legacySlugs": [
+    "top-ai-assistant-mcp-servers"
+  ],
   "category": "ai-assistant",
   "author": "Killer-Skills AI",
   "skills": [
@@ -152,8 +154,8 @@
     "u9401066/med-paper-assistant"
   ],
   "longDescription": {
-    "en": "This page is built for developers who use AI assistants as part of real delivery workflows. It highlights practical skills, integrations, and companion tools that help with coding tasks, documentation quality, release checks, and team coordination. MCP integrations can be included where useful, but the focus stays on productive workflows and reliable execution in day-to-day engineering.",
-    "zh": "这个页面服务于把 AI 助手真正纳入交付流程的开发者。内容重点是可落地的技能、集成与配套工具，帮助你提升编码效率、文档质量、发布检查与团队协作。MCP 集成可以作为能力补充，但核心仍是提升日常工程工作流的稳定性与产出效率。",
+    "en": "If you already know your team needs an AI assistant layer, this collection is a better starting point than opening random repositories. It focuses on assistant workflow tools that can support coding, review, documentation, and day-to-day delivery, while still giving users a clear bridge into installation, validation, and rollout.",
+    "zh": "如果你已经明确团队需要一层 AI 开发助手，这个合集比随机打开仓库更适合作为起点。它聚焦能进入编码、评审、文档和日常交付流程的助手工具，同时保留清晰的安装、验证与推广路径，因此比扁平比较页更适合帮助团队推进下一步。",
     "ja": "本ページは、AIアシスタントを実際の開発デリバリーに組み込む開発者向けです。コーディング、ドキュメント品質、リリース確認、チーム連携に効く実践的なスキルと連携ツールを中心に紹介します。MCP連携は必要に応じて扱いますが、主眼は日常開発での再現性と生産性です。",
     "ko": "이 페이지는 AI 어시스턴트를 실제 개발 납품 워크플로우에 활용하는 개발자를 위한 컬렉션입니다. 코딩 작업, 문서 품질, 릴리스 체크, 팀 협업을 개선하는 실전형 스킬·연동·컴패니언 툴을 중심으로 구성했습니다. MCP 연동은 보조적으로 포함될 수 있지만 핵심은 일상 엔지니어링 생산성입니다.",
     "es": "Esta página está pensada para developers que usan asistentes de IA dentro de flujos de entrega reales. Reúne skills prácticas, integraciones y herramientas companion para mejorar código, documentación, checks de release y coordinación del equipo. MCP puede aparecer como capacidad secundaria, pero el foco es productividad y ejecución confiable.",
@@ -162,5 +164,139 @@
     "pt": "Esta página foi feita para devs que usam assistentes de IA em workflows reais de entrega. Ela destaca skills práticas, integrações e ferramentas companion para código, documentação, checks de release e coordenação de time. MCP pode entrar como recurso complementar, mas o foco é produtividade com execução confiável.",
     "ru": "Страница для разработчиков, которые используют AI-ассистентов в реальных delivery-процессах. Здесь — практические skills, интеграции и companion-инструменты для кода, документации, release-check и командной координации. MCP может выступать дополнением, но фокус — стабильный workflow и результат.",
     "ar": "هذه الصفحة مخصصة للمطورين الذين يستخدمون مساعدي الذكاء الاصطناعي ضمن مسارات تسليم فعلية. نعرض مهارات عملية وتكاملات وأدوات مرافقة لتحسين الكود والتوثيق وفحوصات الإصدار وتنسيق الفريق. يمكن تضمين MCP كقدرة مساندة، لكن التركيز الأساسي هو سير عمل منتج وموثوق يوميًا."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against developer workflow fit, install clarity, operational usefulness, and day-to-day assistant value. This page is now positioned as an install-first comparison surface instead of a vague tooling list.",
+      "zh": "已于 2026-04-17 按开发工作流适配度、安装清晰度、落地可用性和日常助手价值完成复核。现在这页被重新定位为“先安装、再比较”的入口，而不是泛化工具清单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page for users who already know they need an AI assistant layer in daily development. The right move is to shortlist a tool, install it, validate the path, and only then expand into broader workflow decisions.",
+      "zh": "对于已经明确需要开发助手层的用户，这页应该先帮助他们收口候选工具，再进入安装与验证，而不是继续发散到更宽泛的生态比较。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries focus on tools that can support real coding, review, documentation, or coordination work.",
+        "Selection favors installable tools with enough public documentation and operator clarity to validate quickly.",
+        "The collection is curated for repeatable developer workflows, not novelty demos or generic prompt packs."
+      ],
+      "zh": [
+        "入选工具优先支持真实的编码、评审、文档或协作工作。",
+        "筛选优先考虑可安装且文档公开清晰、便于快速验证的工具。",
+        "这个合集服务的是可复用的开发工作流，而不是新奇演示或泛化 prompt 包。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with assistant tools that can enter a real developer workflow without heavy setup ambiguity.",
+        "Keep discovery tight enough to compare quickly, but broad enough to cover coding, review, planning, and delivery support.",
+        "Route users into installation before sending them toward bigger workflow architecture choices."
+      ],
+      "zh": [
+        "优先展示能较快进入真实开发工作流、且不需要高不确定性配置的助手工具。",
+        "列表既要足够精简方便比较，又要覆盖编码、评审、规划与交付支持。",
+        "先把用户送进安装路径，再让他们做更大的工作流架构选择。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when maintainer posture, install flow, or workflow fit changes upstream; otherwise review monthly.",
+        "zh": "当维护主体、安装流程或工作流适配性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and assistant-workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 AI 助手工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, maintainer trust, workflow relevance, and operator clarity before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、维护者可信度、工作流相关性和操作清晰度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Shortlist a daily coding assistant",
+          "zh": "先收口一个日常编码助手"
+        },
+        "summary": {
+          "en": "Use this page when you want one assistant layer that can help in real development, not just another tool to compare endlessly.",
+          "zh": "如果你要找的是能进入真实开发流程的助手层，而不是继续无休止比较的新工具，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more assistant repositories.",
+            "Choose one tool that best matches coding, review, or documentation support needs.",
+            "Install it and verify the IDE-native path before team rollout.",
+            "Only after the install path works, expand into broader workflow planning."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多助手仓库。",
+            "选择一个最适合编码、评审或文档支持需求的工具。",
+            "先安装并验证 IDE 原生路径，再考虑团队推广。",
+            "只有安装路径跑通后，再扩展到更广的工作流规划。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Reduce review and documentation drag",
+          "zh": "降低评审与文档拖累"
+        },
+        "summary": {
+          "en": "Use the collection as an editorial filter when you need assistants that improve output quality without overcomplicating the stack.",
+          "zh": "当你想提升产出质量、又不想把技术栈复杂度抬得太高时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the assistant tool has a stable maintainer and visible install docs.",
+            "Review the CLI overview so operators know what will be written and synced.",
+            "Add the tool into one concrete developer workflow before expanding scope.",
+            "Document the validated assistant path as the default team entry point."
+          ],
+          "zh": [
+            "先确认助手工具是否有稳定维护者和清晰安装文档。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先把工具接入一个具体开发工作流，再决定是否扩展范围。",
+            "把验证通过的助手路径沉淀为团队默认入口。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from assistant-tool comparison into install flow, validation checklist, and first command path before branching out.",
+          "zh": "先从助手工具比较进入安装流程、验证清单与第一条命令路径，再决定是否继续扩展。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes and how sync behaves after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么，以及同步如何工作。"
+        }
+      },
+      {
+        "href": "/{locale}/solutions/agent-workflows",
+        "label": {
+          "en": "Step 3: Map the assistant into a workflow",
+          "zh": "第 3 步：把助手工具映射到工作流"
+        },
+        "description": {
+          "en": "Use the workflow solution page after installation to decide where the assistant should sit in the delivery stack.",
+          "zh": "完成安装后，再进入工作流方案页，决定这个助手工具应该放在交付栈的哪个位置。"
+        }
+      }
+    ]
   }
 }

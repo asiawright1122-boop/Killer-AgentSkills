@@ -154,7 +154,7 @@ const collectionStartTracks = [
 const reviewedCollectionCount = collectionsCol.filter((col) => Boolean(col.data.editorial?.reviewSummary)).length;
 const collectionReviewCriteria = [
   {
-    title: isZhCopy ? '先看第一方判断' : 'Start With First-Party Judgment',
+    title: isZhCopy ? '先看官方与精选判断' : 'Start With Official and Curated Judgment',
     description: isZhCopy
       ? '优先展示带有筛选理由、维护说明和可信下一步的合集，而不是继续平铺更多仓库。'
       : 'Lead with collections that explain selection logic, maintenance posture, and trusted next steps instead of flattening more repository links.',

@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Python AI Agent Tools for Developer Workflows | AI Agent Skills",
-    "zh": "面向开发工作流的 Python AI Agent 工具精选 | AI Agent Skills",
+    "en": "Python Workflow Tools to Install First",
+    "zh": "优先安装的 Python 工作流工具",
     "ja": "開発ワークフロー向け Python AI エージェントツール集 | AI Agent Skills",
     "ko": "개발 워크플로우를 위한 Python AI 에이전트 도구 모음 | AI Agent Skills",
     "es": "herramientas de agentes de IA en Python para workflows | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات وكلاء الذكاء الاصطناعي في Python لسير عمل المطورين | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for python developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 python AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare Python workflow tools, then move into installation docs, CLI validation, and rollout paths for Python engineering teams.",
+    "zh": "先比较 Python 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于 Python 工程团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの python AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 python AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de python en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات python داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Python AI Agent Tools for Developer Wor",
-    "zh": "AI Agent Skills - 面向开发工作流的 Python AI Agent 工具精选 | Killer-",
+    "en": "Python Workflow Tools to Install First",
+    "zh": "优先安装的 Python 工作流工具",
     "ja": "AI Agent Skills - 開発ワークフロー向け Python AI エージェントツール集 | Kille",
     "ko": "AI Agent Skills - 개발 워크플로우를 위한 Python AI 에이전트 도구 모음 | Kil",
     "es": "AI Agent Skills - herramientas de agentes de IA en Python",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات وكلاء الذكاء الاصطناعي في Python "
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for python developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 python AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare Python workflow tools, then move into installation docs, CLI validation, and rollout paths for Python engineering teams.",
+    "zh": "先比较 Python 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于 Python 工程团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの python AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 python AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de python en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "python AI agent skills",
-      "python developer workflow",
-      "python workflow automation"
+      "Python workflow tools",
+      "Python developer tools",
+      "script automation tools",
+      "testing and review tools",
+      "Python coding workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "python AI agent skills",
-      "python developer workflow",
-      "python workflow automation"
+      "Python 工作流工具",
+      "Python 开发工具",
+      "脚本自动化工具",
+      "测试与评审工具",
+      "Python 编码工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -141,7 +139,9 @@
   },
   "featured": false,
   "canonicalSlug": "top-python-ai-agent-tools-developer-workflows",
-  "legacySlugs": ["top-python-mcp-servers"],
+  "legacySlugs": [
+    "top-python-mcp-servers"
+  ],
   "category": "python",
   "author": "Killer-Skills AI",
   "skills": [
@@ -159,8 +159,8 @@
     "vangberg/pdit"
   ],
   "longDescription": {
-    "en": "This collection reframes Python as a workflow-first AI engineering stack: tools for writing and refactoring code, automating scripts, validating outputs, and connecting data pipelines across real projects. It prioritizes practical developer skills such as test automation, CI-friendly checks, and integration-ready utilities, with MCP compatibility treated as a secondary runtime capability when relevant. If your team ships production code with Python, this page helps you choose tools that improve delivery speed, reliability, and day-to-day engineering focus.",
-    "zh": "这个集合将 Python 定位为以工作流为核心的 AI 工程栈：覆盖编码与重构、脚本自动化、结果校验以及数据管道协同。内容重点放在测试自动化、可接入 CI 的检查能力、面向集成的开发工具等真实技能上；如有需要可兼容 MCP，但不作为主叙事。对于持续交付 Python 生产项目的团队，这页更关注速度、可靠性与日常工程效率。",
+    "en": "If your team ships with Python, this page should narrow the shortlist fast instead of sending you into another package-and-tool crawl. It compares workflow helpers, guardrail tools, and developer companions that fit Python execution, then moves the next click into installation docs, CLI validation, and a repeatable rollout path.",
+    "zh": "如果你的团队正在用 Python 交付项目，这页就应该帮助你快速收口，而不是把你重新送回无休止的包与工具比较。它聚焦适合 Python 执行路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",
     "ja": "このコレクションは、Python を“ワークフロー中心”の AI エンジニアリング基盤として捉え直します。コード作成・リファクタリング、スクリプト自動化、出力検証、データパイプライン連携まで、実務で効く開発スキルを重視しています。テスト自動化や CI 向けチェック、統合しやすいユーティリティを優先し、MCP は必要に応じた副次的な実行互換として扱います。Python で本番運用するチームが、速度・信頼性・日々の開発効率を高めるための選定に役立つページです。",
     "ko": "이 컬렉션은 Python을 워크플로우 중심의 AI 엔지니어링 스택으로 재구성합니다. 코드 작성·리팩터링, 스크립트 자동화, 결과 검증, 데이터 파이프라인 연계를 실제 개발 관점에서 다룹니다. 테스트 자동화, CI 친화적 검증, 통합 가능한 유틸리티 같은 실전 역량을 우선하며, MCP는 필요할 때 활용하는 보조 런타임 호환성으로만 다룹니다. Python으로 프로덕션을 운영하는 팀이 속도·신뢰성·개발 집중도를 높이는 도구를 고르는 데 도움이 됩니다.",
     "es": "Esta colección replantea Python como una base de ingeniería de IA orientada al workflow: herramientas para programar y refactorizar, automatizar scripts, validar resultados y conectar pipelines de datos en proyectos reales. Prioriza habilidades prácticas de desarrollo como pruebas automatizadas, verificaciones compatibles con CI y utilidades listas para integración; la compatibilidad con MCP queda como capacidad secundaria cuando aplica. Si tu equipo entrega software en producción con Python, aquí encontrarás opciones para mejorar velocidad, fiabilidad y foco técnico.",
@@ -169,5 +169,139 @@
     "pt": "Esta coleção reposiciona Python como uma base de engenharia de IA orientada a workflow: ferramentas para codificar e refatorar, automatizar scripts, validar resultados e conectar pipelines de dados em projetos reais. O foco está em habilidades práticas de desenvolvimento, como testes automatizados, verificações compatíveis com CI e utilitários prontos para integração; a compatibilidade com MCP aparece como capacidade secundária quando relevante. Para equipes que entregam software em produção com Python, a página ajuda a escolher ferramentas que elevam velocidade, confiabilidade e foco de engenharia.",
     "ru": "Эта коллекция рассматривает Python как workflow-first стек для AI-разработки: инструменты для написания и рефакторинга кода, автоматизации скриптов, проверки результатов и интеграции data-pipeline в реальных проектах. Приоритет отдан практическим инженерным навыкам — автотестам, CI-совместимым проверкам и утилитам для интеграций; совместимость с MCP упоминается как вторичная runtime-возможность. Для команд, которые поставляют Python в продакшен, эта страница помогает выбрать инструменты для скорости, надежности и устойчивой ежедневной разработки.",
     "ar": "تعيد هذه المجموعة تقديم Python كمنصة هندسة ذكاء اصطناعي تركّز على سير العمل: أدوات لكتابة الشفرة وإعادة هيكلتها، وأتمتة السكربتات، والتحقق من المخرجات، وربط خطوط البيانات في مشاريع حقيقية. التركيز على مهارات المطور العملية مثل الاختبارات الآلية وفحوصات CI والأدوات الجاهزة للتكامل، بينما تبقى قابلية MCP قدرة تشغيلية ثانوية عند الحاجة. إذا كان فريقك يطلق برمجيات Python في بيئات إنتاجية، فهذه الصفحة تساعدك على اختيار أدوات ترفع السرعة والموثوقية وكفاءة العمل اليومي."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against Python workflow fit, installation clarity, operator handoff, and day-to-day engineering usefulness. This page is now positioned as an install-first Python entry point instead of a broad language roundup.",
+      "zh": "已于 2026-04-17 按 Python 工作流适配度、安装清晰度、操作交接和日常工程价值完成复核。现在这页被重新定位为“安装优先”的 Python 入口，而不是泛化语言榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because Python-intent users usually need a shortlist they can install, validate, and carry into real automation and delivery loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 Python 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实自动化与交付闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical Python workflow value such as scripting, automation, testing, review, and repeatable execution.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable engineering execution, not for vague language keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 Python 工作流，例如脚本执行、自动化、测试、评审与可重复运行。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用工程执行，而不是空泛的语言关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a Python-centered workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering scripting, testing, review, and automation support.",
+        "Use installation as the bridge from Python discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 Python 主导工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖脚本执行、测试、评审与自动化支持。",
+        "把安装作为从 Python 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or Python workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 Python 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and Python workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 Python 工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one Python workflow helper first",
+          "zh": "先安装一个 Python 工作流工具"
+        },
+        "summary": {
+          "en": "Use this page when you want one Python companion that can enter real engineering work without turning evaluation into another endless package comparison.",
+          "zh": "如果你要找的是一个能进入真实工程流程的 Python 伴侣工具，而不是继续掉进无休止的包比较，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more Python-related repositories.",
+            "Choose one tool that best supports scripting, automation, testing, or review work.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider Python workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多与 Python 相关的仓库。",
+            "选择一个最适合脚本、自动化、测试或评审工作的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的 Python 工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Tighten a Python automation loop",
+          "zh": "收紧一条 Python 自动化闭环"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need Python-adjacent tools that improve engineering quality without overcomplicating the stack.",
+          "zh": "当你想为 Python 邻接工作流补上工程质量与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more scripts, jobs, or teammates.",
+            "Document the chosen Python workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多脚本、作业或团队成员。",
+            "在首次稳定落地后，把选定的 Python 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from Python workflow discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从Python工作流发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到官方可信合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }

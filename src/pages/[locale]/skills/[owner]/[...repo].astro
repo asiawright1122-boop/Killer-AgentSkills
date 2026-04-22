@@ -1,25 +1,36 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
-import { getSkillByOwnerRepo, getSkillById, getLocalizedDescription } from '../../../../lib/skills';
+import { getSkillById, getLocalizedDescription } from '../../../../lib/skills';
+import { getSkillsListingByRefs } from '../../../../lib/kv';
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
-import { getCanonicalCollections } from '../../../../lib/collection-slugs';
+import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../../lib/collection-slugs';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
+import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
+import sitemapBlocklistData from '../../../../../data/seo-sitemap-blocklist.json';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
 import SkillRelated from '../../../../components/SkillRelated.astro';
 import SkillTryBox from '../../../../components/SkillTryBox.astro';
+import TutorialShell from '../../../../components/TutorialShell.astro';
 import { buildBreadcrumbTrail } from '../../../../lib/site/breadcrumbs';
+import { extractMarkdownHeadings } from '../../../../lib/markdown-headings';
 import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
-import type { Env } from '../../../../lib/kv';
+import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexability';
+import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
+import type { Env, SkillListingItem } from '../../../../lib/kv';
 import { getCollection } from 'astro:content';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
+import SkillCard from '../../../../components/SkillCard.astro';
 import Github from 'lucide-react/dist/esm/icons/github';
 import Star from 'lucide-react/dist/esm/icons/star';
 import GitFork from 'lucide-react/dist/esm/icons/git-fork';
@@ -44,8 +55,19 @@ if (!owner || !repoRest) {
 const repoParts = repoRest.split('/');
 const repo = repoParts[0]; // The actual repo name
 const subSkillName = repoParts.length > 1 ? repoParts.slice(1).join('/') : undefined;
-const canonicalSkillPath = `/${locale}/skills/${owner}/${repo}`;
-const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
+const requestedSkillId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
+const canonicalRoutePath = getSkillRoutePath({
+  id: requestedSkillId,
+  owner,
+  repo,
+});
+
+if (!canonicalRoutePath) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+const requestedSkillPath = buildLocalizedSkillPath(locale, owner, canonicalRoutePath);
+const requestedSkillUrl = `https://killer-skills.com${requestedSkillPath}`;
 
 // SEO: Limit catch-all depth — only repo (1) and repo/sub-skill (2) are valid.
 // Aligns with middleware crawl-trap guard which blocks 2+ extra segments after owner/repo.
@@ -55,6 +77,7 @@ if (repoParts.length > 2) {
 }
 
 const typedLocale = locale as Locale;
+const isZhLocale = typedLocale.startsWith('zh');
 
 // Get env from Cloudflare runtime
 const env = Astro.locals.runtime?.env as Env;
@@ -64,6 +87,10 @@ const normalizeFlag = (value: unknown) =>
   String(value ?? '')
     .trim()
     .toLowerCase();
+const parsePositiveInt = (value: unknown, fallback: number) => {
+  const parsed = Number.parseInt(String(value ?? ''), 10);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
+};
 const stableHash = (input: string) => {
   let hash = 0;
   for (let i = 0; i < input.length; i++) {
@@ -71,9 +98,41 @@ const stableHash = (input: string) => {
   }
   return hash;
 };
+const userAgent = normalizeFlag(Astro.request.headers.get('user-agent'));
+const isCrawlerRequest =
+  /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
+const maxHeavyLocalizationReadmeBytes = parsePositiveInt(runtimeEnv.SSR_HEAVY_LOCALIZATION_MAX_README_BYTES, 12000);
+const maxReadmeRenderBytes = parsePositiveInt(runtimeEnv.SSR_MAX_README_RENDER_BYTES, 90000);
+const maxReadmeRenderBytesCrawler = parsePositiveInt(runtimeEnv.SSR_MAX_README_RENDER_BYTES_CRAWLER, 24000);
+const truncateMarkdownForSsr = (markdown: string, maxBytes: number) => {
+  if (!markdown || maxBytes <= 0) {
+    return { content: '', truncated: false };
+  }
+
+  const encoder = new TextEncoder();
+  const markdownBytes = encoder.encode(markdown).length;
+  if (markdownBytes <= maxBytes) {
+    return { content: markdown, truncated: false };
+  }
+
+  const safeTargetBytes = Math.max(Math.floor(maxBytes * 0.9), 512);
+  let end = Math.max(200, Math.floor(markdown.length * (safeTargetBytes / markdownBytes)));
+  let candidate = markdown.slice(0, end);
+  let candidateBytes = encoder.encode(candidate).length;
+
+  while (candidateBytes > safeTargetBytes && end > 200) {
+    end = Math.max(200, Math.floor(end * 0.85));
+    candidate = markdown.slice(0, end);
+    candidateBytes = encoder.encode(candidate).length;
+  }
+
+  const trimmed = candidate.replace(/\n[^\n]*$/, '').trimEnd();
+  const suffix = '\n\n> Content trimmed for stable page rendering.';
+  return { content: `${trimmed}${suffix}`, truncated: true };
+};
 
 // Load skill data - use full ID for sub-skills
-const fullId = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
+const fullId = requestedSkillId;
 const seoVariantMode = normalizeFlag(runtimeEnv.SEO_TITLE_VARIANT).toUpperCase();
 const seoVariant =
   seoVariantMode === 'B' ? 'B' : seoVariantMode === 'AUTO' ? (stableHash(fullId) % 2 === 0 ? 'A' : 'B') : 'A';
@@ -86,34 +145,125 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
-// Load collections that contain this skill
-const allCollections = getCanonicalCollections(await getCollection('collections'));
-const skillKey = `${owner}/${repo}`;
-const relatedCollections = allCollections.filter((col) => col.data.skills.includes(skillKey));
+const hasSkill = Boolean(skillResult);
+const skill = skillResult || ({} as any);
 
-let skill = skillResult;
-if (!skill && !subSkillName) {
-  // Keep owner/repo fallback only for parent skill pages.
-  // Sub-skill URLs must resolve by exact ID to avoid false-positive 200 pages.
-  skill = await getSkillByOwnerRepo(env, owner, repo).catch(() => null);
+const repoListingCandidates =
+  !hasSkill && !subSkillName
+    ? await getSkillsListingByRefs(env, [`${owner}/${repo}`]).catch(() => [])
+    : [];
+const repoSubskills = repoListingCandidates.filter((item) => {
+  const id = String(item?.id || '').trim();
+  const parts = id.split('/').filter(Boolean);
+  return parts.length >= 3;
+});
+let repoDirectorySkills = repoSubskills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+let usedSitemapFallback = false;
+
+if (!repoDirectorySkills.length && !hasSkill && !subSkillName) {
+  const blocklist = compileSitemapBlocklist(sitemapBlocklistData);
+  const ownerLower = owner.toLowerCase();
+  const repoLower = repo.toLowerCase();
+  const rawSkills = Array.isArray(sitemapSkillsData)
+    ? (sitemapSkillsData as Array<{ owner?: string; routePath?: string }>)
+    : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string }> }).skills ?? []);
+
+  const fallback: SkillListingItem[] = rawSkills
+    .filter((entry) => {
+      const entryOwner = String(entry.owner || '').trim();
+      const routePath = String(entry.routePath || '').trim();
+      if (!entryOwner || !routePath) return false;
+      if (entryOwner.toLowerCase() !== ownerLower) return false;
+      if (isSitemapSkillBlocked(entryOwner, routePath, blocklist)) return false;
+      const segments = routePath.split('/').filter(Boolean);
+      if (segments.length < 2) return false;
+      const routeRepo = segments[0];
+      return routeRepo?.toLowerCase() === repoLower;
+    })
+    .map((entry) => {
+      const routePath = String(entry.routePath || '').trim();
+      const segments = routePath.split('/').filter(Boolean);
+      const subSkill = segments[1] || routePath;
+      return {
+        id: `${owner}/${routePath}`,
+        owner,
+        repo,
+        name: subSkill,
+        skillName: subSkill,
+        description: '',
+        category: 'developer',
+        stars: 0,
+        source: 'cache',
+        updatedAt: new Date().toISOString(),
+        qualityScore: 0,
+        forks: 0,
+        topics: [],
+      };
+    });
+
+  if (fallback.length > 0) {
+    repoDirectorySkills = fallback;
+    usedSitemapFallback = true;
+  }
 }
 
-if (!skill) {
+const renderRepoDirectory = !hasSkill && !subSkillName && repoDirectorySkills.length > 1;
+const redirectSingleRepoSkill = !hasSkill && !subSkillName && repoDirectorySkills.length === 1;
+
+if (usedSitemapFallback) {
+  console.warn(`[SSR] Repo directory fallback used for ${owner}/${repo}.`);
+}
+
+if (!hasSkill && !renderRepoDirectory) {
   // SEO: If this was a sub-skill path, 301 redirect to parent skill page
   // to recover link equity instead of returning empty 404
   if (subSkillName) {
     return new Response(null, {
       status: 301,
       headers: {
-        Location: canonicalSkillPath,
+        Location: buildLocalizedSkillPath(locale, owner, repo),
         'Cache-Control': 'public, s-maxage=86400',
       },
     });
+  }
+  if (redirectSingleRepoSkill) {
+    const onlySkill = repoDirectorySkills[0];
+    const onlyRoutePath = getSkillRoutePath({
+      id: onlySkill?.id,
+      owner: onlySkill?.owner || owner,
+      repo: onlySkill?.repo || repo,
+    });
+    if (onlyRoutePath) {
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: buildLocalizedSkillPath(locale, owner, onlyRoutePath),
+          'Cache-Control': 'public, s-maxage=86400',
+        },
+      });
+    }
   }
   // Cache 404 responses to prevent Googlebot from re-crawling
   Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600');
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
+
+// Load collections only after skill is resolved.
+// This keeps invalid bot-hit URLs cheap while still exposing curated review signals on valid pages.
+const relatedCollections = await (async () => {
+  if (renderRepoDirectory) {
+    return [];
+  }
+
+  try {
+    const allCollections = getCanonicalCollections(await getCollection('collections'));
+    const collectionSkillKeys = new Set([`${owner}/${repo}`, fullId]);
+    return allCollections.filter((col) => col.data.skills.some((skillRef) => collectionSkillKeys.has(skillRef)));
+  } catch (error) {
+    console.warn('[SSR] Failed to load related collections for skill detail page:', error);
+    return [];
+  }
+})();
 
 // Determine verified status (mirrors SkillCard.astro logic)
 const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);
@@ -132,11 +282,40 @@ const faqTitle = tr('Detail.faqTitle', 'Frequently Asked Questions');
 const howToInstallTitle = tr('Detail.howToInstallTitle', 'How To Install');
 const defaultMetaDescription = tr(
   'Metadata.description',
-  'Discover, install, and manage AI Agent Skills. Support for Claude Code, Cursor, Windsurf, Antigravity, etc. One-click install to boost your AI coding capabilities.',
+  'Discover installable AI agent skills with review notes, use cases, limitations, and setup guidance for real developer workflows.',
 );
 const defaultNoResultsLabel = tr('Skills.noResults', 'No skills found');
 const firstNonEmpty = (...values: Array<string | undefined>) =>
   values.find((value) => typeof value === 'string' && value.trim().length > 0) || '';
+const getLocalizedCollectionValue = (value: string | Record<string, string> | undefined, fallback = '') => {
+  if (!value) return fallback;
+  if (typeof value === 'string') return value;
+  return value[typedLocale] || value.en || Object.values(value)[0] || fallback;
+};
+const repoDisplayName = `${owner}/${repo}`;
+const repoDirectorySkillCount = repoDirectorySkills.length;
+const repoDirectoryTitle = isZhLocale
+  ? `${repoDisplayName} 技能目录`
+  : `${repoDisplayName} Skills Directory`;
+const repoDirectoryDescription = isZhLocale
+  ? `该仓库包含多个子技能。先选择与你当前工作流匹配的技能，再查看评审结论与安装路径。`
+  : `This repository contains multiple skills. Choose the one that matches your workflow before reviewing the installation path.`;
+const repoDirectoryIntro = isZhLocale
+  ? `该仓库共有 ${repoDirectorySkillCount} 个技能。`
+  : `This repository contains ${repoDirectorySkillCount} skills.`;
+const repoDirectoryKeywords = sanitizeSkillKeywords(
+  [
+    repo,
+    owner,
+    `${repo} skills`,
+    `${repo} AI agent skills`,
+    'AI agent skill',
+    'skill installation',
+    'developer workflow',
+  ],
+  { max: 10 },
+).join(', ');
+const repoDirectoryMetaDescription = firstNonEmpty(repoDirectoryDescription, defaultMetaDescription);
 
 // Extract localized agentAnalysis fields (supports both old string and new Record<locale, string> format)
 const localizedSuitability: string | undefined = skill.agentAnalysis?.suitability
@@ -213,8 +392,8 @@ const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const templateTitleA = `${skillName} ${skillSeoIntent.titleLabel}`;
 const templateTitleB =
   typedLocale === 'zh'
-    ? `${skillName}：${skillSeoIntent.titleLabel}，支持 Claude Code`
-    : `${skillName}: ${skillSeoIntent.titleLabel} for Claude Code`;
+    ? `${skillName}：${skillSeoIntent.titleLabel}安装与评审`
+    : `${skillName}: ${skillSeoIntent.titleLabel} Review & Install`;
 const selectedTemplateTitle = seoVariant === 'B' ? templateTitleB : templateTitleA;
 const titleIntentSignals = [
   skillSeoIntent.titleLabel,
@@ -239,12 +418,12 @@ const seoDescriptionRaw = skill.seo?.description?.[typedLocale] || skill.seo?.de
 const intentUseCase = skillSeoIntent.supportTerm || skillSeoIntent.useCaseLabel;
 const templateDescriptionA =
   typedLocale === 'zh'
-    ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。支持 Claude Code、Cursor、Windsurf，一键安装。`
-    : `Install ${skillName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Works with Claude Code, Cursor, and Windsurf with one-command setup.`;
+    ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看评审结论、使用场景与安装路径。`
+    : `Install ${skillName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Review the use cases, limitations, and setup path before rollout.`;
 const templateDescriptionB =
   typedLocale === 'zh'
-    ? `${skillName} 适合${intentUseCase}场景，支持 Claude Code、Cursor、Windsurf，查看功能、使用场景与安装命令。`
-    : `${skillName} helps with ${intentUseCase}. Explore features, use cases, and one-command setup for Claude Code, Cursor, and Windsurf.`;
+    ? `${skillName} 适合${intentUseCase}场景，查看功能、使用场景、限制条件与安装命令。`
+    : `${skillName} helps with ${intentUseCase}. Explore features, use cases, tradeoffs, and installation guidance.`;
 const selectedTemplateDescription = seoVariant === 'B' ? templateDescriptionB : templateDescriptionA;
 const descriptionIntentSignals = [
   skillSeoIntent.useCaseLabel,
@@ -282,14 +461,17 @@ const heroTagline = n8nHeroTaglineOverride || tagline;
 const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, description, defaultNoResultsLabel);
 
 // --- SSR Dynamic Translation Interception ---
-const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations] = await Promise.all([
-  translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
-  translateString(env, heroIntroRaw, typedLocale, 'text'),
-  translateArray(env, features, typedLocale),
-  translateArray(env, keywordsList, typedLocale),
-  translateArray(env, localizedUseCases, typedLocale),
-  translateArray(env, localizedLimitations, typedLocale),
-]);
+const shouldRunLightLocalization = typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory;
+const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations] = shouldRunLightLocalization
+  ? await Promise.all([
+      translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
+      translateString(env, heroIntroRaw, typedLocale, 'text'),
+      translateArray(env, features, typedLocale),
+      translateArray(env, keywordsList, typedLocale),
+      translateArray(env, localizedUseCases, typedLocale),
+      translateArray(env, localizedLimitations, typedLocale),
+    ])
+  : [description, heroIntroRaw, features, keywordsList, localizedUseCases, localizedLimitations];
 
 const heroIntro = t_heroIntro;
 description = t_description;
@@ -362,10 +544,184 @@ const seoKeywordSeed = [
 const sanitizedKeywordSeed = sanitizeSkillKeywords(seoKeywordSeed.map((k) => k?.toString().trim()).filter(Boolean), {
   max: 10,
 });
-const platformKeywords = ['Claude Code', 'Cursor', 'Windsurf'];
-const seoKeywords = Array.from(new Set([...sanitizedKeywordSeed, ...platformKeywords]))
-  .slice(0, 11)
-  .join(', ');
+const seoKeywords = sanitizedKeywordSeed.join(', ');
+
+// Detect locale governance from crawler-visible metadata and README content.
+const textEncoder = new TextEncoder();
+const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
+const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
+const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
+const readmeContentSource =
+  rawReadmeContent && rawReadmeSize >= 250
+    ? rawReadmeContent
+    : [rawReadmeContent, fallbackReadmeContent].filter((part) => part && part.trim().length > 0).join('\n\n');
+const skillLocaleGovernance = renderRepoDirectory
+  ? null
+  : getSkillSeoLocaleGovernance(
+      {
+        title: skill.seo?.title || (skill.name || repo),
+        description: skill.seo?.description || skill.description || skill.seo?.definition,
+        body: readmeContentSource,
+      },
+      typedLocale,
+      SUPPORTED_LOCALES,
+    );
+const skillAvailableLocales = skillLocaleGovernance?.publishedLocales;
+const skillXDefaultLocale = skillLocaleGovernance?.canonicalLocale;
+const skillIndexability = renderRepoDirectory
+  ? null
+  : buildSkillIndexabilityAssessment(
+      {
+        qualityScore: skill.qualityScore,
+        verified: isVerified,
+        description: skill.description,
+        agentAnalysis: skill.agentAnalysis,
+        seo: {
+          features: skill.seo?.features,
+        },
+        readmeContent: readmeContentSource,
+        localeGovernance: skillLocaleGovernance,
+      },
+      typedLocale,
+    );
+const canonicalSkillPath =
+  renderRepoDirectory || !skillXDefaultLocale
+    ? requestedSkillPath
+    : buildLocalizedSkillPath(skillXDefaultLocale, owner, canonicalRoutePath);
+const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
+const reviewPostureLabel = renderRepoDirectory
+  ? ''
+  : skillIndexability?.isIndexable
+    ? tr('Detail.reviewedLandingPage', 'Reviewed Landing Page')
+    : tr('Detail.referenceOnlyPage', 'Reference-Only Page');
+const reviewPostureDescription = renderRepoDirectory
+  ? ''
+  : skillIndexability?.isIndexable
+    ? tr(
+        'Detail.reviewedLandingPageDesc',
+        'Killer-Skills keeps this page indexable because it adds recommendation, limitations, and review signals beyond the upstream repository text.',
+      )
+    : tr(
+        'Detail.referenceOnlyPageDesc',
+        'This page remains useful for operators, but Killer-Skills treats it as reference material instead of a primary organic landing page.',
+      );
+const reviewReasons = renderRepoDirectory || !skillIndexability
+  ? []
+  : [
+      skillIndexability.signals.hasRecommendation
+        ? tr('Detail.reasonRecommendation', 'Original recommendation layer')
+        : null,
+      skillIndexability.signals.hasUseCases ? tr('Detail.reasonUseCases', 'Concrete use-case guidance') : null,
+      skillIndexability.signals.hasLimitations ? tr('Detail.reasonLimitations', 'Explicit limitations and caution') : null,
+      skillIndexability.signals.hasStrongQualitySignal
+        ? tr('Detail.reasonQuality', 'Quality floor passed for review')
+        : null,
+      skillIndexability.signals.localeEligible ? tr('Detail.reasonLocale', 'Locale and body language aligned') : null,
+    ].filter((value): value is string => Boolean(value));
+const reviewBlockers = renderRepoDirectory || !skillIndexability
+  ? []
+  : skillIndexability.blockers.map((blocker) => {
+      switch (blocker) {
+        case 'locale_contract_failed':
+          return tr('Detail.blockerLocale', 'Current locale does not satisfy the locale-governance contract.');
+        case 'missing_recommendation_layer':
+          return tr('Detail.blockerRecommendation', 'The page lacks a strong recommendation layer.');
+        case 'missing_use_case_layer':
+          return tr('Detail.blockerUseCases', 'The page lacks concrete use-case guidance.');
+        case 'missing_limitations_layer':
+          return tr('Detail.blockerLimitations', 'The page lacks explicit limitations or caution signals.');
+        case 'quality_below_review_floor':
+          return tr('Detail.blockerQuality', 'The underlying skill quality score is below the review floor.');
+        case 'source_material_too_thin':
+          return tr('Detail.blockerSource', 'The supporting repository material is too thin to back a reviewed page.');
+        default:
+          return blocker;
+      }
+    });
+const evidencePanelItems = renderRepoDirectory || !skillIndexability
+  ? []
+  : [
+      {
+        label: tr('Detail.reviewScore', 'Review Score'),
+        value: `${skillIndexability.score}/11`,
+      },
+      {
+        label: tr('Detail.qualityFloor', 'Quality Score'),
+        value: String(skill.qualityScore || 0),
+      },
+      {
+        label: tr('Detail.canonicalLocale', 'Canonical Locale'),
+        value: skillLocaleGovernance?.canonicalLocale || typedLocale,
+      },
+      {
+        label: tr('Detail.detectedBodyLocale', 'Detected Body Locale'),
+        value: skillLocaleGovernance?.detectedBodyLocale || 'unknown',
+      },
+    ];
+const sourceEvidenceTitle = tr('Detail.sourceEvidenceTitle', 'Upstream Repository Material');
+const sourceEvidenceDescription = tr(
+  'Detail.sourceEvidenceDescription',
+  'The section below is imported from the upstream repository and should be treated as secondary evidence. Use the Killer-Skills review above as the primary layer for fit, risk, and installation decisions.',
+);
+const reviewNextSteps = renderRepoDirectory
+  ? []
+  : [
+      {
+        badge: isZhLocale ? '安装路径' : 'Install Path',
+        title: isZhLocale ? '先进入安装与验证' : 'Start With Installation And Validation',
+        description: isZhLocale
+          ? '如果这项技能值得继续，下一步应该先确认安装命令、CLI 写入路径与环境验证。'
+          : 'If this skill is worth continuing with, the next step is to confirm the install command, CLI write path, and environment validation.',
+        href: `/${locale}/docs/installation`,
+      },
+      {
+        badge: isZhLocale ? '可信复核' : 'Trusted Recheck',
+        title: isZhLocale ? '回到可信合集再做一次复核' : 'Cross-Check Against Trusted Picks',
+        description: isZhLocale
+          ? '如果你还在比较不同技能或供应方，先回到可信合集做二次判断，而不是继续放大仓库噪音。'
+          : 'If you are still comparing multiple skills or vendors, go back to the trusted collection before amplifying repository noise.',
+        href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
+      },
+      {
+        badge: isZhLocale ? '工作流' : 'Workflow',
+        title: isZhLocale ? '如果要进团队流转，转到工作流集合' : 'Move To Workflow Collections For Team Rollout',
+        description: isZhLocale
+          ? '当你的目标已经不是单个技能，而是团队协作、审批和交接，就应该转到工作流合集继续决策。'
+          : 'When the goal shifts from a single skill to team handoff, approvals, and repeatable execution, move into workflow collections.',
+        href: `/${locale}/collections/top-agent-workflow-building-tools`,
+      },
+    ];
+const reviewedCollectionSignals = renderRepoDirectory
+  ? []
+  : relatedCollections
+      .map((collection) => {
+        const canonicalSlug = getCollectionCanonicalSlug(collection);
+        return {
+          href: `/${locale}/collections/${canonicalSlug}`,
+          title: getLocalizedCollectionValue(collection.data?.title, 'Collection'),
+          reviewSummary: getLocalizedCollectionValue(
+            collection.data?.editorial?.reviewSummary,
+            getLocalizedCollectionValue(collection.data?.description, ''),
+          ),
+          selectionReason: getLocalizedCollectionValue(collection.data?.editorial?.selectionReason, ''),
+          reviewedAt: collection.data?.editorial?.maintenance?.reviewedAt || '',
+          maintainedBy: getLocalizedCollectionValue(collection.data?.editorial?.maintenance?.maintainedBy, ''),
+          skillCount: Array.isArray(collection.data?.skills) ? collection.data.skills.length : 0,
+          featured: Boolean(collection.data?.featured),
+        };
+      })
+      .filter((collection) => collection.reviewSummary || collection.selectionReason || collection.reviewedAt)
+      .sort((a, b) => {
+        if (a.featured !== b.featured) {
+          return Number(b.featured) - Number(a.featured);
+        }
+        const reviewDateCompare = (b.reviewedAt || '').localeCompare(a.reviewedAt || '');
+        if (reviewDateCompare !== 0) {
+          return reviewDateCompare;
+        }
+        return b.skillCount - a.skillCount;
+      })
+      .slice(0, 3);
 
 // Structured Data (JSON-LD) — SoftwareApplication
 const schema = buildSkillSoftwareApplicationSchema({
@@ -377,6 +733,28 @@ const schema = buildSkillSoftwareApplicationSchema({
   updatedAt: skill.updatedAt,
   lastSynced: skill.lastSynced,
 });
+const buildRepoSkillUrl = (item: { id?: string; owner?: string; repo?: string }) => {
+  const itemOwner = item.owner || owner;
+  const itemRepo = item.repo || repo;
+  const routePath = getSkillRoutePath({ id: item.id, owner: itemOwner, repo: itemRepo });
+  if (!routePath) return requestedSkillUrl;
+  const itemLocale = resolveSkillDetailLocale(itemOwner, routePath, locale);
+  return `https://killer-skills.com${buildLocalizedSkillPath(itemLocale, itemOwner, routePath)}`;
+};
+const repoDirectoryItemList = repoDirectorySkills.slice(0, 20).map((item, index) => ({
+  '@type': 'ListItem',
+  position: index + 1,
+  name: item.name || item.skillName || item.repo || repo,
+  url: buildRepoSkillUrl(item),
+}));
+const repoDirectorySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: repoDirectoryTitle,
+  description: repoDirectoryDescription,
+  url: requestedSkillUrl,
+  itemListElement: repoDirectoryItemList,
+};
 const breadcrumb = buildBreadcrumbTrail(
   [
     { label: tr('Common.home', 'Home'), href: `/${locale}` },
@@ -386,11 +764,19 @@ const breadcrumb = buildBreadcrumbTrail(
   ],
   { currentUrl: canonicalSkillUrl },
 );
+const repoDirectoryBreadcrumb = buildBreadcrumbTrail(
+  [
+    { label: tr('Common.home', 'Home'), href: `/${locale}` },
+    { label: tr('Common.skillsMarket', 'Skills'), href: `/${locale}/skills` },
+    { label: repoDisplayName },
+  ],
+  { currentUrl: requestedSkillUrl },
+);
+const activeBreadcrumb = renderRepoDirectory ? repoDirectoryBreadcrumb : breadcrumb;
 
 // Install command - use full path for sub-skills (declared early for FAQ/HowTo schemas)
 const installPath = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 const installCommand = `npx killer-skills add ${installPath}`;
-const isZhLocale = typedLocale === 'zh';
 
 // FAQ JSON-LD — dynamically generated from skill data
 const faqItems: { question: string; answer: string }[] = [];
@@ -519,6 +905,9 @@ const howToSchema = {
 
 // OG image URL pointing to static fallback until external CDN is established
 const ogImageUrl = new URL(`/og-image.webp`, Astro.url).toString();
+const speakableSelectors = renderRepoDirectory
+  ? ['h1', '.repo-directory-intro', 'h2']
+  : ['h1', '.seo-intro-paragraph', 'h2'];
 
 // Format stars
 const starsDisplay =
@@ -528,27 +917,30 @@ const starsDisplay =
 const githubUrl = `https://github.com/${owner}/${repo}`;
 
 // Topics
-const rawTopics = skill.topics || [];
+const rawTopics: string[] = skill.topics || [];
 
-// Prepare file list
-const textEncoder = new TextEncoder();
-const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
-const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
-const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
-const readmeContentSource =
-  rawReadmeContent && rawReadmeSize >= 250
-    ? rawReadmeContent
-    : [rawReadmeContent, fallbackReadmeContent].filter((part) => part && part.trim().length > 0).join('\n\n');
+const maxReadmeRenderBudget = isCrawlerRequest ? maxReadmeRenderBytesCrawler : maxReadmeRenderBytes;
+const readmeRenderBudget = truncateMarkdownForSsr(readmeContentSource, maxReadmeRenderBudget);
+if (readmeRenderBudget.truncated) {
+  console.warn(
+    `[SSR] Trimmed readme for stable render (locale=${typedLocale}, crawler=${isCrawlerRequest}, rawReadmeBytes=${rawReadmeSize}, budgetBytes=${maxReadmeRenderBudget})`,
+  );
+}
 
 // ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
-const relatedSkillsSource = await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
+const relatedSkillsSource = isCrawlerRequest || renderRepoDirectory
+  ? []
+  : await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---
-let readmeContent = readmeContentSource;
+let readmeContent = readmeRenderBudget.content;
 let relatedSkills = relatedSkillsSource;
 let topics = rawTopics;
 
-if (typedLocale !== 'en') {
+const shouldRunHeavyLocalization =
+  typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory && rawReadmeSize <= maxHeavyLocalizationReadmeBytes;
+
+if (typedLocale !== 'en' && shouldRunHeavyLocalization) {
   const relatedNames = relatedSkillsSource.map((s) => s.skillName || s.name);
   const relatedDesc = relatedSkillsSource.map((s) =>
     typeof s.description === 'string'
@@ -557,7 +949,7 @@ if (typedLocale !== 'en') {
   );
 
   const [t_readme, t_relatedNames, t_relatedDesc, t_topics] = await Promise.all([
-    translateString(env, readmeContentSource, typedLocale, 'text'),
+    translateString(env, readmeRenderBudget.content, typedLocale, 'text'),
     Promise.all(relatedNames.map((n) => translateString(env, n, typedLocale, 'text'))),
     Promise.all(relatedDesc.map((d) => translateString(env, d, typedLocale, 'text'))),
     Promise.all(rawTopics.map((t) => translateString(env, t, typedLocale, 'text'))),
@@ -570,11 +962,16 @@ if (typedLocale !== 'en') {
     skillName: t_relatedNames[index] || s.skillName,
     description: t_relatedDesc[index] || s.description,
   }));
+} else if (typedLocale !== 'en') {
+  console.warn(
+    `[SSR] Skipping heavy detail localization (locale=${typedLocale}, crawler=${isCrawlerRequest}, readmeBytes=${rawReadmeSize})`,
+  );
 }
 // --------------------------------------------------------------------------
 
 const readmeSize = textEncoder.encode(readmeContent).length;
 const isThinContent = readmeSize < 250; // Block indexing if extremely short (Thin Content penalty)
+const tutorialTocItems = isCrawlerRequest ? [] : extractMarkdownHeadings(readmeContent, [2, 3]).slice(0, 12);
 const formatSize = (bytes: number) => {
   if (bytes < 1024) return bytes + ' B';
   return (bytes / 1024).toFixed(1) + ' KB';
@@ -587,23 +984,37 @@ const files = [
 ];
 
 const version = skill.skillMd?.version || '1.0.0';
+const layoutTitle = renderRepoDirectory ? repoDirectoryTitle : pageTitle;
+const layoutDescription = renderRepoDirectory ? repoDirectoryMetaDescription : resolvedMetaDescription;
+const layoutKeywords = renderRepoDirectory ? repoDirectoryKeywords : seoKeywords;
+const layoutOgType = renderRepoDirectory ? 'website' : 'product';
+const layoutNoindex = renderRepoDirectory ? true : !skillIndexability?.isIndexable;
+const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
 ---
 
 <Layout
   locale={locale}
-  title={pageTitle}
-  description={resolvedMetaDescription}
-  keywords={seoKeywords}
+  title={layoutTitle}
+  description={layoutDescription}
+  keywords={layoutKeywords}
   image={ogImageUrl}
-  ogType="product"
-  noindex={isThinContent}
+  ogType={layoutOgType}
+  noindex={layoutNoindex}
   customCanonical={canonicalSkillUrl}
+  availableLocales={skillAvailableLocales}
+  xDefaultLocale={skillXDefaultLocale}
 >
   <Fragment slot="head">
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumb.jsonLd)} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(layoutSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(activeBreadcrumb.jsonLd)} />
+    {
+      !renderRepoDirectory && (
+        <Fragment>
+          <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+          <script is:inline type="application/ld+json" set:html={JSON.stringify(howToSchema)} />
+        </Fragment>
+      )
+    }
     {/* GEO: Speakable Schema for AI citation engines */}
     <script
       is:inline
@@ -611,10 +1022,10 @@ const version = skill.skillMd?.version || '1.0.0';
       set:html={JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'WebPage',
-        name: pageTitle,
+        name: layoutTitle,
         speakable: {
           '@type': 'SpeakableSpecification',
-          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+          cssSelector: speakableSelectors,
         },
         url: canonicalSkillUrl,
       })}
@@ -634,61 +1045,119 @@ const version = skill.skillMd?.version || '1.0.0';
     </div>
 
     <main class="max-w-7xl mx-auto px-3 sm:px-6 py-6 md:py-8 relative z-10">
-      <Breadcrumb items={breadcrumb.items} />
+      <Breadcrumb items={activeBreadcrumb.items} />
 
-      {/* Header Section - Bento Hero Block */}
-      <div
-        class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group"
-      >
-        {/* Decorative Grid Background */}
-        <div
-          class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
-          style="background-image: var(--background-pattern)"
-        >
-        </div>
-        {/* Info */}
-        <div class="w-full relative z-10">
-          <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
-            <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
-              <h1
-                class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-1 leading-none"
+      {
+        renderRepoDirectory ? (
+          <section class="space-y-8">
+            <div class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] overflow-hidden group">
+              <div
+                class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
+                style="background-image: var(--background-pattern)"
               >
-                <span>{skill.name || repo}</span>
-                {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
-                {
-                  heroTagline && (
-                    <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
-                      — {heroTagline}
+              </div>
+              <div class="relative z-10 flex flex-col gap-6">
+                <div class="flex items-start justify-between flex-wrap gap-4">
+                  <div class="min-w-0">
+                    <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight uppercase break-words">
+                      {repoDisplayName}
+                    </h1>
+                    <p class="repo-directory-intro text-lg md:text-xl font-mono text-[var(--muted-foreground)] mt-3">
+                      {repoDirectoryIntro}
+                    </p>
+                    <p class="text-sm md:text-base font-mono text-[var(--foreground)] opacity-80 mt-2 max-w-3xl">
+                      {repoDirectoryDescription}
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-3 flex-wrap">
+                    <span class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
+                      {repoDirectorySkillCount} {isZhLocale ? '个技能' : 'Skills'}
                     </span>
-                  )
-                }
-                {/* Hidden actual keywords for deeper matching if not inside tagline */}
-                <span class="sr-only">{seoKeywords}</span>
-              </h1>
-              <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
-                {
-                  isVerified && (
-                    <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
-                      <CheckCircle2 size={14} strokeWidth={3} className="w-3.5 h-3.5" />
-                      {verifiedLabel}
-                    </div>
-                  )
-                }
-                <span
-                  class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase"
-                >
-                  v{version}
-                </span>
+                    <a
+                      href={githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center gap-2 px-4 py-2 border-2 border-[var(--border)] bg-[var(--background)] hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-colors text-[var(--foreground)] text-xs font-black uppercase tracking-wider shadow-[4px_4px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px]"
+                    >
+                      <Github size={14} className="text-current" />
+                      <span>GitHub</span>
+                    </a>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between flex-wrap gap-3 text-xs font-mono font-bold text-[var(--muted-foreground)] uppercase tracking-widest">
+                  <span>{tr('Detail.chooseSkill', 'Choose a skill')}</span>
+                  <span>{tr('Detail.sortedByStars', 'Sorted by stars')}</span>
+                </div>
               </div>
             </div>
-          </div>
+
+            {
+              repoDirectorySkills.length > 0 ? (
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {repoDirectorySkills.map((repoSkill) => (
+                    <SkillCard skill={repoSkill} locale={locale} messages={messages} />
+                  ))}
+                </div>
+              ) : (
+                <div class="text-sm font-mono text-[var(--muted-foreground)]">{defaultNoResultsLabel}</div>
+              )
+            }
+          </section>
+        ) : (
+          <Fragment>
+            {/* Header Section - Bento Hero Block */}
+            <div
+              class="relative p-6 md:p-10 border-[4px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] mb-8 md:mb-10 overflow-hidden group"
+            >
+              {/* Decorative Grid Background */}
+              <div
+                class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] pointer-events-none"
+                style="background-image: var(--background-pattern)"
+              >
+              </div>
+              {/* Info */}
+              <div class="w-full relative z-10">
+                <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
+                  <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
+                    <h1
+                      class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-1 leading-none"
+                    >
+                      <span>{skill.name || repo}</span>
+                      {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
+                      {
+                        heroTagline && (
+                          <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
+                            — {heroTagline}
+                          </span>
+                        )
+                      }
+                      {/* Hidden actual keywords for deeper matching if not inside tagline */}
+                      <span class="sr-only">{seoKeywords}</span>
+                    </h1>
+                    <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
+                      {
+                        isVerified && (
+                          <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
+                            <CheckCircle2 size={14} strokeWidth={3} className="w-3.5 h-3.5" />
+                            {verifiedLabel}
+                          </div>
+                        )
+                      }
+                      <span
+                        class="px-2 py-1 bg-[var(--background)] text-[var(--foreground)] border-2 border-[var(--border)] text-xs font-bold shadow-[2px_2px_0px_0px_var(--border)] uppercase"
+                      >
+                        v{version}
+                      </span>
+                    </div>
+                  </div>
+                </div>
 
           {/* Mobile Actions (Under Title) */}
           <div class="flex lg:hidden items-center gap-3 mb-6 flex-wrap w-full mt-4">
             <div class="border-2 border-[var(--border)] shadow-[4px_4px_0px_0px_var(--border)]">
               <SkillActions
                 client:visible
-                skillId={`${owner}/${repo}`}
+                skillId={fullId}
                 skillName={skill.name || repo}
                 owner={owner}
                 repo={repo}
@@ -836,7 +1305,7 @@ const version = skill.skillMd?.version || '1.0.0';
               >
                 <SkillActions
                   client:visible
-                  skillId={`${owner}/${repo}`}
+                  skillId={fullId}
                   skillName={skill.name || repo}
                   owner={owner}
                   repo={repo}
@@ -958,166 +1427,252 @@ const version = skill.skillMd?.version || '1.0.0';
 
         {/* Right Main Content Stream */}
         <article class="flex-1 min-w-0 w-full max-w-4xl space-y-6">
-          {/* Agent Analysis */}
+          {/* Killer-Skills curated review */}
           {
-            skill.agentAnalysis && (
-              <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5 relative overflow-hidden">
-                {/* Background Pattern */}
+            !renderRepoDirectory && skillIndexability && (
+              <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5 relative overflow-hidden">
                 <div
                   class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
                   style="background-image: var(--background-pattern)"
                 />
 
-                <div class="relative z-10">
-                  <div class="flex items-center gap-3 mb-6 border-b-4 border-[var(--border)] pb-4">
+                <div class="relative z-10 space-y-6">
+                  <div class="flex items-center gap-3 border-b-4 border-[var(--border)] pb-4">
                     <div class="p-2 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] shadow-[2px_2px_0px_0px_var(--border)]">
                       <Bot size={28} strokeWidth={3} />
                     </div>
-                    <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
-                      {tr('Detail.agentAnalysis', 'Agent Capability Analysis')}
-                    </h2>
-                  </div>
-
-                  {/* SEO Dynamic Intro Paragraph */}
-                  <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] mb-6 font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
-                    {locale === 'zh' ? (
-                      <span>
-                        <strong>{skill.name || repo}</strong> 是一款由 <strong>{owner}</strong> 维护的开源{' '}
-                        <strong>{category || '自动化'}</strong> AI Agent Skill。它可用于 Claude Code、Cursor、Windsurf
-                        等环境，帮助你的智能体获得更稳定的任务流程与领域能力。
-                        {keywordsList.length > 0 && (
-                          <span class="text-[var(--foreground)]">
-                            此工具针对 <strong>{keywordsList.slice(0, 3).join('、')}</strong> 进行了深度优化。
-                          </span>
-                        )}
-                      </span>
-                    ) : (
-                      <span>
-                        The <strong>{skill.name || repo}</strong> skill by <strong>{owner}</strong> is an open-source{' '}
-                        <strong>{category ? category.replace('-', ' ') : 'automation'}</strong> AI agent skill for
-                        Claude Code and other IDE workflows, helping agents execute tasks with better context,
-                        repeatability, and domain-specific guidance.
-                        {keywordsList.length > 0 && (
-                          <span class="text-[var(--foreground)]">
-                            Optimized for <strong>{keywordsList.slice(0, 3).join(', ')}</strong>.
-                          </span>
-                        )}
-                      </span>
-                    )}
-                  </p>
-
-                  <div class="space-y-6">
-                    {localizedSuitability && (
-                      <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
-                        <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                          {tr('Detail.suitability', 'Ideal Agent Persona')}
-                        </h3>
-                        <p class="text-[var(--foreground)] font-bold leading-relaxed">{localizedSuitability}</p>
-                      </div>
-                    )}
-
-                    {localizedRecommendation && (
-                      <div class="border-l-4 border-purple-500 pl-4 py-1">
-                        <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
-                          {tr('Detail.recommendation', typedLocale === 'zh' ? '核心价值' : 'Recommendation')}
-                        </h3>
-                        <p class="text-[var(--foreground)] leading-relaxed font-bold">{localizedRecommendation}</p>
-                      </div>
-                    )}
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
-                      {localizedUseCases.length > 0 && (
-                        <div>
-                          <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                            <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
-                            {typedLocale === 'zh'
-                              ? `${tr('Detail.useCases', '赋予的主要能力')} · ${skill.name || repo}`
-                              : `${tr('Detail.useCases', 'Use Cases')} for ${skill.name || repo}`}
-                          </h2>
-                          <div class="flex flex-wrap gap-2">
-                            {localizedUseCases.map((useCase) => (
-                              <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
-                                {useCase}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {localizedLimitations.length > 0 && (
-                        <div>
-                          <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
-                            <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
-                            {tr('Detail.limitations', typedLocale === 'zh' ? '使用限制与门槛' : 'Limitations')}
-                          </h3>
-                          <ul class="space-y-2">
-                            {localizedLimitations.map((limitation) => (
-                              <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
-                                <span>{limitation}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
+                    <div>
+                      <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
+                        {tr('Detail.killerSkillsReview', 'Killer-Skills Review')}
+                      </h2>
+                      <p class="text-xs font-mono font-bold uppercase tracking-widest text-[var(--muted-foreground)] mt-1">
+                        {tr('Detail.killerSkillsReviewSub', 'Decision support comes first. Repository text comes second.')}
+                      </p>
                     </div>
                   </div>
+
+                  <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.8fr)] gap-5 items-start">
+                    <div class="border-[3px] border-[var(--border)] bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] p-4">
+                      <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
+                        <span class="px-3 py-1 border-2 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] text-xs font-black uppercase tracking-widest">
+                          {reviewPostureLabel}
+                        </span>
+                        <span class="text-xs font-mono font-bold uppercase tracking-widest text-[var(--muted-foreground)]">
+                          {tr('Detail.reviewScore', 'Review Score')}: {skillIndexability.score}/11
+                        </span>
+                      </div>
+                      <p class="text-sm md:text-base font-mono font-bold text-[var(--foreground)] leading-relaxed mb-4">
+                        {reviewPostureDescription}
+                      </p>
+                      {
+                        reviewReasons.length > 0 && (
+                          <div class="flex flex-wrap gap-2">
+                            {reviewReasons.map((reason) => (
+                              <span class="px-2.5 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
+                                {reason}
+                              </span>
+                            ))}
+                          </div>
+                        )
+                      }
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                      {evidencePanelItems.map((item) => (
+                        <div class="border-2 border-[var(--border)] bg-[var(--background)] px-3 py-3 shadow-[3px_3px_0px_0px_var(--border)]">
+                          <div class="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] font-mono mb-1">
+                            {item.label}
+                          </div>
+                          <div class="text-sm font-black text-[var(--foreground)] break-words uppercase">{item.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <p class="seo-intro-paragraph text-sm md:text-base text-[var(--muted-foreground)] font-mono leading-relaxed border-l-4 border-[var(--primary)] pl-4 py-2 bg-[var(--foreground)]/5 dark:bg-[var(--foreground)]/10">
+                    {heroIntro}
+                  </p>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border-l-4 border-[var(--primary)] pl-4 py-1">
+                      <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
+                        {tr('Detail.recommendation', typedLocale === 'zh' ? '核心价值' : 'Recommendation')}
+                      </h3>
+                      <p class="text-[var(--foreground)] leading-relaxed font-bold">
+                        {localizedRecommendation || heroIntro}
+                      </p>
+                    </div>
+
+                    <div class="border-l-4 border-purple-500 pl-4 py-1">
+                      <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
+                        {tr('Detail.suitability', 'Ideal Agent Persona')}
+                      </h3>
+                      <p class="text-[var(--foreground)] font-bold leading-relaxed">
+                        {localizedSuitability || tr('Detail.suitabilityFallback', 'Suitable for operator workflows that need explicit guardrails before installation and execution.')}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t-2 border-dashed border-[var(--border)]">
+                    <div>
+                      <h3 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
+                        <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
+                        {typedLocale === 'zh'
+                          ? `${tr('Detail.useCases', '赋予的主要能力')} · ${skill.name || repo}`
+                          : `${tr('Detail.useCases', 'Use Cases')} for ${skill.name || repo}`}
+                      </h3>
+                      <div class="flex flex-wrap gap-2">
+                        {renderedUseCases.map((useCase) => (
+                          <div class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] shadow-[2px_2px_0px_0px_var(--border)]">
+                            {useCase}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 class="text-xs font-black text-rose-600 dark:text-rose-500 uppercase tracking-widest mb-3 font-mono">
+                        <span class="text-rose-600 bg-[var(--foreground)] dark:text-rose-500 px-1 mr-1">!</span>
+                        {tr('Detail.limitations', typedLocale === 'zh' ? '使用限制与门槛' : 'Limitations')}
+                      </h3>
+                      <ul class="space-y-2">
+                        {renderedLimitations.map((limitation) => (
+                          <li class="flex items-start gap-2 text-sm font-bold text-[var(--foreground)] border-l-2 border-rose-500 pl-2">
+                            <span>{limitation}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {
+                    reviewBlockers.length > 0 && (
+                      <div class="border-[3px] border-amber-500 bg-amber-50 dark:bg-amber-950/30 shadow-[4px_4px_0px_0px_var(--border)] p-4">
+                        <h3 class="text-xs font-black uppercase tracking-widest text-amber-800 dark:text-amber-400 font-mono mb-3">
+                          {tr('Detail.referenceWhy', 'Why this page is reference-only')}
+                        </h3>
+                        <ul class="space-y-2">
+                          {reviewBlockers.map((item) => (
+                            <li class="text-sm font-bold text-amber-900 dark:text-amber-300 leading-relaxed">- {item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )
+                  }
+
+                  <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
+                    <h3 class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] font-mono mb-2">
+                      {tr('Detail.sourceBoundaryTitle', 'Source Boundary')}
+                    </h3>
+                    <p class="text-sm font-mono font-bold text-[var(--foreground)] leading-relaxed">
+                      {sourceEvidenceDescription}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </section>
+            )
+          }
+
+          {
+            !renderRepoDirectory && reviewedCollectionSignals.length > 0 && (
+              <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5">
+                <div class="max-w-3xl mb-5">
+                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {isZhLocale ? '精选合集复核' : 'Curated Collection Review'}
+                  </div>
+                  <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                    {isZhLocale ? '这个技能已进入哪些精选合集的复核范围' : 'Reviewed In Curated Collections'}
+                  </h2>
+                  <p class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
+                    {isZhLocale
+                      ? '这部分展示的是 Killer-Skills 如何在精选合集里收录、复核和维护这个技能，帮助你看到它在真实选择路径中的位置，而不只是继续放大上游 README。'
+                      : 'This section shows how Killer-Skills includes, reviews, and maintains this skill inside curated collections, so you can see where it fits in practical selection paths instead of relying only on the upstream README.'}
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {reviewedCollectionSignals.map((collection) => (
+                    <a
+                      href={collection.href}
+                      class="border-[3px] border-[var(--border)] bg-[var(--card)] p-5 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                    >
+                      <div class="flex items-start justify-between gap-3 mb-3">
+                        <div>
+                          <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                            {isZhLocale ? '已复核合集' : 'Reviewed Collection'}
+                          </div>
+                          <h3 class="text-lg font-black uppercase tracking-tight text-[var(--foreground)]">
+                            {collection.title}
+                          </h3>
+                        </div>
+                        {
+                          collection.reviewedAt && (
+                            <span class="px-2 py-1 border-2 border-[var(--border)] bg-[var(--background)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] whitespace-nowrap">
+                              {isZhLocale ? `复核于 ${collection.reviewedAt}` : `Reviewed ${collection.reviewedAt}`}
+                            </span>
+                          )
+                        }
+                      </div>
+
+                      <p class="text-sm leading-6 font-medium text-[var(--foreground)] mb-3">
+                        {collection.reviewSummary}
+                      </p>
+
+                      {
+                        collection.selectionReason && (
+                          <p class="text-xs leading-6 font-bold text-[var(--muted-foreground)] border-l-2 border-[var(--primary)] pl-3 mb-4">
+                            {collection.selectionReason}
+                          </p>
+                        )
+                      }
+
+                      <div class="flex items-center justify-between gap-3 pt-3 border-t-2 border-dashed border-[var(--border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">
+                        <span>{isZhLocale ? `收录 ${collection.skillCount} 项` : `${collection.skillCount} entries`}</span>
+                        <span>{collection.maintainedBy || (isZhLocale ? '查看合集' : 'Open Collection')}</span>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )
+          }
+
+          {
+            !renderRepoDirectory && reviewNextSteps.length > 0 && (
+              <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5">
+                <div class="max-w-3xl mb-5">
+                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {isZhLocale ? '评审后的下一步' : 'After The Review'}
+                  </div>
+                  <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
+                    {isZhLocale ? '先决定动作，再继续看上游仓库材料' : 'Decide The Next Action Before You Keep Reading Repository Material'}
+                  </h2>
+                  <p class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
+                    {isZhLocale
+                      ? 'Killer-Skills 的主价值不应该停在“帮你打开仓库说明”，而是先帮你判断这项技能是否值得安装、是否应该回到可信集合复核，以及是否已经进入工作流落地阶段。'
+                      : 'Killer-Skills should not stop at opening repository instructions. It should help you decide whether to install this skill, when to cross-check against trusted collections, and when to move into workflow rollout.'}
+                  </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {reviewNextSteps.map((item) => (
+                    <a
+                      href={item.href}
+                      class="border-[3px] border-[var(--border)] bg-[var(--card)] p-5 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                    >
+                      <div class="mb-2 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">{item.badge}</div>
+                      <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
+                      <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
+                    </a>
+                  ))}
+                </div>
+              </section>
             )
           }
 
           {/* Interactive Hub: Dynamic Try Sandbox */}
           <div class="w-full">
             <SkillTryBox skillId={fullId} skillRef={`${owner}/${repo}`} locale={typedLocale} />
-          </div>
-
-          {/* SKILL.md Preview */}
-          {
-            isThinContent && (
-              <div class="mb-6 brut-card border-2 border-amber-500 dark:border-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4">
-                <h3 class="text-sm font-black text-amber-700 dark:text-amber-500 uppercase tracking-widest mb-1 font-mono">
-                  <span class="bg-amber-700 dark:bg-amber-500 text-white dark:text-black px-1 mr-2 tracking-tighter">
-                    !
-                  </span>
-                  {typedLocale === 'zh' ? '内容质量警告 (Thin Content)' : 'Thin Content Warning'}
-                </h3>
-                <p class="text-sm text-amber-900 dark:text-amber-400/90 font-medium font-mono leading-relaxed mt-2">
-                  {typedLocale === 'zh'
-                    ? '此技能仓库未提供详实的 README 描述，目前已被搜索引擎防火墙拦截。建议直接前往 GitHub 审查源码后再决定是否安装。'
-                    : 'This skill repository lacks comprehensive documentation and has been blocked from search indexing. Double check the source code before installing.'}
-                </p>
-              </div>
-            )
-          }
-          <div
-            class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden"
-          >
-            <SkillReadme
-              client:idle
-              initialContent={readmeContent}
-              initialFiles={{
-                'SKILL.md': readmeContent,
-                '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
-                'package.json': JSON.stringify(
-                  {
-                    name: `${owner}-${repo}-skill`,
-                    version: version,
-                    description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
-                    keywords: topics,
-                    author: owner,
-                    license: 'MIT',
-                    homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
-                    repository: {
-                      type: 'git',
-                      url: `https://github.com/${owner}/${repo}`,
-                    },
-                  },
-                  null,
-                  2,
-                ),
-              }}
-              name="SKILL.md"
-            />
           </div>
 
           {/* FAQ & Installation Steps */}
@@ -1129,23 +1684,112 @@ const version = skill.skillMd?.version || '1.0.0';
             faqItems={faqItems}
             howToSteps={howToSteps}
           />
+
+          {/* Supporting repository material */}
+          {
+            !skillIndexability?.isIndexable && (
+              <div class="brut-card border-2 border-amber-500 dark:border-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4">
+                <h3 class="text-sm font-black text-amber-700 dark:text-amber-500 uppercase tracking-widest mb-1 font-mono">
+                  <span class="bg-amber-700 dark:bg-amber-500 text-white dark:text-black px-1 mr-2 tracking-tighter">
+                    !
+                  </span>
+                  {tr('Detail.referenceOnlyWarning', typedLocale === 'zh' ? '参考页模式' : 'Reference-Only Mode')}
+                </h3>
+                <p class="text-sm text-amber-900 dark:text-amber-400/90 font-medium font-mono leading-relaxed mt-2">
+                  {typedLocale === 'zh'
+                    ? '此页面仍可作为安装与查阅参考，但 Killer-Skills 不再把它视为主要可索引落地页。请优先阅读上方评审结论，再决定是否继续查看上游仓库说明。'
+                    : 'This page remains useful for installation and reference, but Killer-Skills no longer treats it as a primary indexable landing page. Read the review above before relying on the upstream repository instructions.'}
+                </p>
+                {
+                  isThinContent && (
+                    <p class="text-xs text-amber-900 dark:text-amber-300 font-mono font-bold leading-relaxed mt-3">
+                      {typedLocale === 'zh'
+                        ? '补充提示：该仓库提供的源材料本身也偏薄，作为支持证据的可信度有限。'
+                        : 'Additional note: the upstream repository material is also relatively thin, so its value as supporting evidence is limited.'}
+                    </p>
+                  )
+                }
+              </div>
+            )
+          }
+
+          <section class="space-y-3">
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <div>
+                <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight text-[var(--foreground)]">
+                  {sourceEvidenceTitle}
+                </h2>
+                <p class="text-sm font-mono font-bold text-[var(--muted-foreground)] mt-2 max-w-3xl">
+                  {sourceEvidenceDescription}
+                </p>
+              </div>
+              <span class="px-3 py-1 border-2 border-[var(--border)] bg-[var(--background)] text-xs font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_var(--border)]">
+                {tr('Detail.supportingEvidenceBadge', 'Upstream Source')}
+              </span>
+            </div>
+            <TutorialShell title={skillDisplayName} description={resolvedMetaDescription} tocItems={tutorialTocItems}>
+              <div
+                class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden"
+              >
+                <SkillReadme
+                  client:idle
+                  initialContent={readmeContent}
+                  initialFiles={{
+                    'SKILL.md': readmeContent,
+                    '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
+                    'package.json': JSON.stringify(
+                      {
+                        name: `${owner}-${repo}-skill`,
+                        version: version,
+                        description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
+                        keywords: topics,
+                        author: owner,
+                        license: 'MIT',
+                        homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+                        repository: {
+                          type: 'git',
+                          url: `https://github.com/${owner}/${repo}`,
+                        },
+                      },
+                      null,
+                      2,
+                    ),
+                  }}
+                  name="SKILL.md"
+                  headerTitle={sourceEvidenceTitle}
+                  headerDescription={sourceEvidenceDescription}
+                  headerBadge={tr('Detail.supportingEvidenceBadge', 'Supporting Evidence')}
+                  sourceRepositoryOwner={owner}
+                  sourceRepositoryRepo={repo}
+                  sourceFilePath={skill.filePath || 'SKILL.md'}
+                />
+              </div>
+            </TutorialShell>
+          </section>
         </article>
       </div>
+          </Fragment>
+        )
+      }
     </main>
 
     {/* Related Skills + Collections */}
-    <SkillRelated
-      locale={locale}
-      typedLocale={typedLocale}
-      relatedSkills={relatedSkills}
-      relatedCollections={relatedCollections}
-      skillName={skill.name || repo}
-      repo={repo}
-      category={category}
-      messages={messages}
-      t={t}
-      tr={tr}
-    />
+    {
+      !renderRepoDirectory && (
+        <SkillRelated
+          locale={locale}
+          typedLocale={typedLocale}
+          relatedSkills={relatedSkills}
+          relatedCollections={relatedCollections}
+          skillName={skill.name || repo}
+          repo={repo}
+          category={category}
+          messages={messages}
+          t={t}
+          tr={tr}
+        />
+      )
+    }
   </div>
 
   <!-- Install / Copy handlers are in Layout.astro (event delegation for View Transitions) -->

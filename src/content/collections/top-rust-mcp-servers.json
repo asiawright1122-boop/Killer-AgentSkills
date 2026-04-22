@@ -1,7 +1,7 @@
 {
   "title": {
-    "en": "Rust AI Tools for Systems Workflows & Engineering Reliability | AI Agent Skills",
-    "zh": "Rust 系统工作流与工程可靠性 AI 工具精选 | AI Agent Skills",
+    "en": "Rust Workflow Tools to Install First",
+    "zh": "优先安装的 Rust 工作流工具",
     "ja": "Rust のシステム開発ワークフローと信頼性向上向け AI ツール集 | AI Agent Skills",
     "ko": "Rust 시스템 워크플로우·엔지니어링 신뢰성 AI 도구 모음 | AI Agent Skills",
     "es": "herramientas de IA en Rust para workflows de sistemas y fiabilidad | AI Agent Skills",
@@ -12,8 +12,8 @@
     "ar": "أدوات الذكاء الاصطناعي في Rust لسير عمل الأنظمة وموثوقية الهندسة | AI Agent Skills"
   },
   "description": {
-    "en": "Installable AI agent skills for rust systems reliability developer workflows in Claude Code, Cursor, and Windsurf.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 rust systems reliability AI Agent Skills，聚焦 开发者工作流自动化。",
+    "en": "Compare Rust workflow tools, then move into installation docs, CLI validation, and rollout paths for systems engineering teams.",
+    "zh": "先比较 Rust 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于系统工程团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの rust systems reliability AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 rust systems reliability AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de rust systems reliability en Claude Code, Cursor y Windsurf.",
@@ -24,8 +24,8 @@
     "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات rust systems reliability داخل Claude Code وCursor وWindsurf."
   },
   "seoTitle": {
-    "en": "AI Agent Skills - Rust AI Tools for Systems Workflows & E",
-    "zh": "AI Agent Skills - Rust 系统工作流与工程可靠性 AI 工具精选 | Killer-Skills",
+    "en": "Rust Workflow Tools to Install First",
+    "zh": "优先安装的 Rust 工作流工具",
     "ja": "AI Agent Skills - Rust のシステム開発ワークフローと信頼性向上向け AI ツール集 | Ki",
     "ko": "AI Agent Skills - Rust 시스템 워크플로우·엔지니어링 신뢰성 AI 도구 모음 | Kil",
     "es": "AI Agent Skills - herramientas de IA en Rust para workflo",
@@ -36,8 +36,8 @@
     "ar": "AI Agent Skills - أدوات الذكاء الاصطناعي في Rust لسير عمل"
   },
   "seoDescription": {
-    "en": "Installable AI agent skills for rust systems reliability developer workflows in Claude Code, Cursor, and Windsurf. Killer-Skills.",
-    "zh": "面向 Claude Code、Cursor 与 Windsurf 的 rust systems reliability AI Agent Skills，聚焦 开发者工作流自动化。 Killer-Skills.",
+    "en": "Compare Rust workflow tools, then move into installation docs, CLI validation, and rollout paths for systems engineering teams.",
+    "zh": "先比较 Rust 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于系统工程团队。",
     "ja": "Claude Code・Cursor・Windsurf 向けの rust systems reliability AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 rust systems reliability AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de rust systems reliability en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -49,22 +49,20 @@
   },
   "keywords": {
     "en": [
-      "AI agent skills",
-      "developer workflow skills",
-      "Claude Code skills",
-      "workflow automation",
-      "rust systems reliability AI agent skills",
-      "rust systems reliability developer workflow",
-      "rust systems reliability workflow automation"
+      "Rust workflow tools",
+      "Rust developer tools",
+      "systems engineering tools",
+      "reliability and release tools",
+      "Rust coding workflows",
+      "install AI agent skills"
     ],
     "zh": [
-      "AI Agent Skills",
-      "开发者工作流",
-      "Claude Code 技能",
-      "工作流自动化",
-      "rust systems reliability AI agent skills",
-      "rust systems reliability developer workflow",
-      "rust systems reliability workflow automation"
+      "Rust 工作流工具",
+      "Rust 开发工具",
+      "系统工程工具",
+      "可靠性与发布工具",
+      "Rust 编码工作流",
+      "安装 AI Agent Skills"
     ],
     "ja": [
       "AI Agent Skills",
@@ -141,7 +139,9 @@
   },
   "featured": false,
   "canonicalSlug": "top-rust-ai-tools-systems-workflows-reliability",
-  "legacySlugs": ["top-rust-mcp-servers"],
+  "legacySlugs": [
+    "top-rust-mcp-servers"
+  ],
   "category": "rust",
   "author": "Killer-Skills AI",
   "skills": [
@@ -154,8 +154,8 @@
     "foxzool/open-lark"
   ],
   "longDescription": {
-    "en": "This Rust collection is centered on systems-level developer workflows: building dependable tooling, tuning performance, enforcing reliability checks, and automating release pipelines with confidence. Instead of presenting a server leaderboard, it emphasizes practical engineering skills that improve correctness, observability, and operational stability in production. MCP-compatible integrations can still appear where helpful, but they remain supporting capabilities behind the primary goal: reliable and high-performance software delivery.",
-    "zh": "这个 Rust 集合围绕系统级开发工作流展开：构建可靠工具链、进行性能调优、执行可靠性校验，并稳定地自动化发布流水线。它不再以“服务器榜单”为中心，而是强调能够提升正确性、可观测性与生产稳定性的工程技能。若有 MCP 兼容集成可作为补充能力出现，但核心目标始终是可靠且高性能的软件交付。",
+    "en": "If your team ships with Rust, this page should narrow the shortlist fast instead of sending you into another systems-tool crawl. It compares workflow helpers, guardrail tools, and developer companions that fit Rust execution, then moves the next click into installation docs, CLI validation, and a repeatable rollout path.",
+    "zh": "如果你的团队正在用 Rust 交付系统工程项目，这页就应该帮助你快速收口，而不是把你重新送回无休止的系统工具比较。它聚焦适合 Rust 执行路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。",
     "ja": "この Rust コレクションは、システムレベルの開発ワークフローを中心に構成されています。信頼できるツール群の整備、性能チューニング、信頼性チェックの徹底、そしてリリースパイプラインの自動化を実務的に支援します。サーバーのランキングではなく、正確性・可観測性・運用安定性を高めるエンジニアリングスキルを重視しています。MCP 互換連携は必要に応じて補助的に扱い、主目的はあくまで高信頼・高性能なソフトウェア提供です。",
     "ko": "이 Rust 컬렉션은 시스템 레벨 개발 워크플로우에 초점을 맞춥니다. 신뢰할 수 있는 도구 구성, 성능 튜닝, 신뢰성 검증, 릴리스 파이프라인 자동화를 실무적으로 지원합니다. 서버 순위가 아니라 정확성·관측 가능성·운영 안정성을 높이는 엔지니어링 역량을 강조하며, MCP 호환 통합은 필요 시 보조 기능으로만 다룹니다. 핵심 목표는 결국 신뢰성과 성능을 동시에 갖춘 소프트웨어 전달입니다.",
     "es": "Esta colección de Rust está centrada en workflows de desarrollo a nivel de sistemas: construir tooling confiable, ajustar rendimiento, aplicar checks de fiabilidad y automatizar pipelines de release con control. En lugar de un ranking de servidores, prioriza habilidades de ingeniería que mejoran corrección, observabilidad y estabilidad operativa en producción. Las integraciones compatibles con MCP pueden aparecer como apoyo, pero el objetivo principal es la entrega de software confiable y de alto rendimiento.",
@@ -164,5 +164,139 @@
     "pt": "Esta coleção de Rust é centrada em workflows de desenvolvimento de sistemas: construir tooling confiável, ajustar performance, aplicar checks de confiabilidade e automatizar pipelines de release com segurança. Em vez de ranking de servidores, ela enfatiza habilidades práticas de engenharia que melhoram correção, observabilidade e estabilidade operacional em produção. Integrações compatíveis com MCP podem aparecer como apoio, mas o objetivo principal é entrega de software confiável e de alto desempenho.",
     "ru": "Эта Rust-коллекция сосредоточена на системных workflow разработчика: построение надежного tooling, тюнинг производительности, внедрение reliability-проверок и автоматизация release-пайплайнов. Вместо рейтинга серверов акцент сделан на практических инженерных навыках, повышающих корректность, наблюдаемость и операционную стабильность в продакшене. MCP-совместимые интеграции могут присутствовать как вспомогательная возможность, но главная цель — надежная и высокопроизводительная поставка ПО.",
     "ar": "تتمحور هذه المجموعة الخاصة بـ Rust حول سير عمل التطوير على مستوى الأنظمة: بناء أدوات موثوقة، وضبط الأداء، وفرض فحوصات الموثوقية، وأتمتة خطوط الإصدار بثقة. وبدلًا من عرض قائمة ترتيب للخوادم، فهي تركز على مهارات هندسية عملية تحسّن صحة النتائج وقابلية المراقبة والاستقرار التشغيلي في الإنتاج. قد تظهر تكاملات متوافقة مع MCP كقدرات داعمة، لكن الهدف الأساسي يظل تسليم برمجيات عالية الأداء وموثوقة."
+  },
+  "editorial": {
+    "reviewSummary": {
+      "en": "Reviewed on 2026-04-17 against Rust workflow fit, installation clarity, operator handoff, and systems engineering usefulness. This page is now positioned as an install-first Rust entry point instead of a broad language roundup.",
+      "zh": "已于 2026-04-17 按 Rust 工作流适配度、安装清晰度、操作交接和系统工程价值完成复核。现在这页被重新定位为“安装优先”的 Rust 入口，而不是泛化语言榜单。"
+    },
+    "selectionReason": {
+      "en": "We prioritize this page because Rust-intent users usually need a shortlist they can install, validate, and carry into real reliability and release loops quickly.",
+      "zh": "之所以优先强化这页，是因为带着 Rust 意图进来的用户，通常需要的是一份可以快速安装、验证并带入真实可靠性与发布闭环的候选清单。"
+    },
+    "trustSignals": {
+      "en": [
+        "Entries are chosen for practical Rust workflow value such as reliability checks, performance-sensitive delivery, release automation, and operational clarity.",
+        "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
+        "The page is curated for repeatable systems engineering, not for vague language keyword coverage or generic repository popularity."
+      ],
+      "zh": [
+        "入选工具优先服务于真实 Rust 工作流，例如可靠性校验、性能敏感交付、发布自动化与操作清晰度。",
+        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "这个页面服务的是可复用系统工程，而不是空泛的语言关键词覆盖或泛化仓库热度。"
+      ]
+    },
+    "groupingLogic": {
+      "en": [
+        "Lead with tools that can enter a Rust-centered workflow without adding heavy setup ambiguity.",
+        "Keep the shortlist compact enough for quick comparison while still covering reliability, release, review, and performance support.",
+        "Use installation as the bridge from Rust discovery into validated daily execution."
+      ],
+      "zh": [
+        "优先展示能较快进入 Rust 主导工作流、且不会带来高配置歧义的工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖可靠性、发布、评审与性能支持。",
+        "把安装作为从 Rust 发现页进入已验证日常执行的桥梁。"
+      ]
+    },
+    "maintenance": {
+      "reviewedAt": "2026-04-17",
+      "cadence": {
+        "en": "Re-check when install flow, maintainer posture, or Rust workflow relevance changes upstream; otherwise review monthly.",
+        "zh": "当安装流程、维护者状态或 Rust 工作流相关性发生变化时立即复查；否则按月复审。"
+      },
+      "maintainedBy": {
+        "en": "Maintained through Killer-Skills editorial review with install, documentation, and Rust workflow checks.",
+        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 Rust 工作流可用性。"
+      },
+      "verification": {
+        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+      }
+    },
+    "executionExamples": [
+      {
+        "title": {
+          "en": "Install one Rust workflow tool first",
+          "zh": "先安装一个 Rust 工作流工具"
+        },
+        "summary": {
+          "en": "Use this page when you want one Rust companion that can enter real systems work without turning evaluation into another endless toolchain comparison.",
+          "zh": "如果你要找的是一个能进入真实系统工程流程的 Rust 伴侣工具，而不是继续掉进无休止的工具链比较，就先用这页收口。"
+        },
+        "steps": {
+          "en": [
+            "Open the installation docs before opening more Rust-related repositories.",
+            "Choose one tool that best supports reliability, release, review, or performance-sensitive work.",
+            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Only after the base path works, expand the setup across the wider Rust workflow."
+          ],
+          "zh": [
+            "先打开安装文档，而不是继续点开更多与 Rust 相关的仓库。",
+            "选择一个最适合可靠性、发布、评审或性能敏感工作的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "只有基础路径跑通后，再把它扩展到更广的 Rust 工作流。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Tighten a Rust release loop",
+          "zh": "收紧一条 Rust 发布闭环"
+        },
+        "summary": {
+          "en": "Treat the collection as an editorial filter when you need Rust-adjacent tools that improve engineering confidence without overcomplicating the stack.",
+          "zh": "当你想为 Rust 邻接工作流补上工程信心与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+        },
+        "steps": {
+          "en": [
+            "Check whether the tool has stable ownership and visible install guidance.",
+            "Review CLI behavior so operators know what will be written and synced.",
+            "Use one validated path before scaling it to more crates, services, or teammates.",
+            "Document the chosen Rust workflow baseline after the first clean rollout."
+          ],
+          "zh": [
+            "先确认工具是否有稳定维护主体和清晰的安装指引。",
+            "通过 CLI 总览确认会写入什么、同步如何发生。",
+            "先用一条已验证路径，再决定是否扩展到更多 crate、服务或团队成员。",
+            "在首次稳定落地后，把选定的 Rust 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      }
+    ],
+    "nextSteps": [
+      {
+        "href": "/{locale}/docs/installation",
+        "label": {
+          "en": "Step 1: Open the installation docs",
+          "zh": "第 1 步：打开安装文档"
+        },
+        "description": {
+          "en": "Move from Rust discovery into the install flow, validation checklist, and first command path before comparing anything else.",
+          "zh": "先从当前发现页进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+        }
+      },
+      {
+        "href": "/{locale}/docs/cli/overview",
+        "label": {
+          "en": "Step 2: Check CLI write and sync behavior",
+          "zh": "第 2 步：确认 CLI 写入与同步行为"
+        },
+        "description": {
+          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+        }
+      },
+      {
+        "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
+        "label": {
+          "en": "Step 3: Cross-check with trusted tools",
+          "zh": "第 3 步：用可信工具再交叉核对"
+        },
+        "description": {
+          "en": "Use the official trusted collection to sanity-check workflow choices before you standardize a team stack.",
+          "zh": "在团队标准化之前，回到官方可信合集，对工作流工具的选择做一次交叉核对。"
+        }
+      }
+    ]
   }
 }
