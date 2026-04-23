@@ -1,6 +1,6 @@
 ---
 title: "MCP vs REST-API: Welche verwenden Sie für KI-Agents?"
-description: "Vergleich von Model Context Protocol und REST-APIs für KI-Anwendungen."
+description: "Welche Technologie ist für Ihre KI-Agenten geeignet: MCP oder REST-API? Erfahren Sie mehr über die Vorteile und Unterschiede beider Protokolle."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-vs-rest-api-comparison.webp
