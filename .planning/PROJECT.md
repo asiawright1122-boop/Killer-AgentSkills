@@ -16,7 +16,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - The skills corpus is now structurally governed: locale eligibility, originality, canonicalization, and governed publish-surface rules are all explicit and auditable.
 - The public discovery model now prioritizes `17` authority surfaces instead of a bulk multilingual skill corpus.
 - `v1.7` closed the public trust issue on the audited public entry surfaces, and reusable copy-boundary guardrails now protect public pages, locale messages, shared authority-surface data, and collection JSON sources.
-- Business recovery is still not proven. The newest trustworthy truth still shows a seeded proof baseline, a stale local Coverage Drilldown raw export dated `2026-04-03`, and no promote-ready authority surface.
+- Business recovery is still not proven. The newest trustworthy truth still shows a seeded proof baseline, a freshest local Coverage Drilldown raw export dated `2026-04-16` that is inside the hard SLA but still outside the preferred freshness window, and no promote-ready authority surface.
 - `v1.8` now focuses on refreshing the proof inputs, producing another trustworthy comparable window, and reassessing promotion and intervention readiness from current evidence.
 
 ## Most Recent Shipment: v1.7 Public Trust Surface and Copy Boundary Hardening
@@ -120,7 +120,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 - The latest production crawl-health sample still reports `1650` `2xx`, `0` `4xx`, `0` `5xx`, and `0` `Cloudflare 1102` across `1650` sampled URLs.
 - The latest recovery scorecard remains `blocking` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=warning`.
-- The freshest local Coverage Drilldown raw export is still dated `2026-04-03`, which means cluster-level recovery proof is not yet trustworthy enough for stronger expansion decisions.
+- The freshest local Coverage Drilldown raw export is now dated `2026-04-16`, which restores the hard freshness SLA but still leaves Coverage evidence in `warning` because it sits outside the preferred 3-day window.
 - The latest skill locale governance report shows `3445` skills analyzed, `3315` eligible indexable variants, and `12228` suppressed metadata variants.
 - The latest skill indexability report shows `1422` indexable canonical pages and `2034` reference-only canonical pages.
 - The latest corpus governance report reduced the governed publish set from `2950` routes to `1099` kept routes.
@@ -166,4 +166,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-04-23 after starting v1.8 Fresh Recovery Inputs and Comparable Proof Refresh._
+_Last updated: 2026-04-23 after Phase 61 freshness-contract verification._

@@ -42,7 +42,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REC-24 | Phase 61 | Pending |
+| REC-24 | Phase 61 | Complete |
 | REC-25 | Phase 62 | Pending |
 | UX-EXP-03 | Phase 63 | Pending |
 | GEO-03 | Phase 63 | Pending |

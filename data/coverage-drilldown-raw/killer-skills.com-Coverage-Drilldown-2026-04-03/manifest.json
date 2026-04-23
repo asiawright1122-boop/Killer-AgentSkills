@@ -1,16 +1,16 @@
 {
-  "ingestedAt": "2026-04-17T08:09:48.617Z",
+  "ingestedAt": "2026-04-23T02:56:44.515Z",
   "sourceKind": "directory",
   "sourcePath": "/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-04-03",
   "folderName": "killer-skills.com-Coverage-Drilldown-2026-04-03",
   "detectedDate": "2026-04-03",
-  "archiveDirectory": "/Users/kaka/Dev/Killer-Skills/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03",
+  "archiveDirectory": "/Users/kaka/Dev/Killer-Skills-clean-main/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03",
   "files": [
     {
       "role": "metadata",
       "sourceFileName": "元数据.csv",
       "sourcePath": "/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-04-03/元数据.csv",
-      "archivePath": "/Users/kaka/Dev/Killer-Skills/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/metadata.csv",
+      "archivePath": "/Users/kaka/Dev/Killer-Skills-clean-main/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/metadata.csv",
       "sha256": "2c4bae09933bc9ea4620e1a27cb6c35da4d1d3d25fba57b71f77568df470719f",
       "bytes": 77
     },
@@ -18,7 +18,7 @@
       "role": "chart",
       "sourceFileName": "图表.csv",
       "sourcePath": "/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-04-03/图表.csv",
-      "archivePath": "/Users/kaka/Dev/Killer-Skills/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/chart.csv",
+      "archivePath": "/Users/kaka/Dev/Killer-Skills-clean-main/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/chart.csv",
       "sha256": "e5ee3d192db11001d5da5eaedeeafa91479b32e1ad67abe9c2ba7ccd76044304",
       "bytes": 849
     },
@@ -26,7 +26,7 @@
       "role": "table",
       "sourceFileName": "表格.csv",
       "sourcePath": "/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-04-03/表格.csv",
-      "archivePath": "/Users/kaka/Dev/Killer-Skills/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/table.csv",
+      "archivePath": "/Users/kaka/Dev/Killer-Skills-clean-main/data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-03/table.csv",
       "sha256": "18c44e8cd38b698ebc1500f0fe8534d7d7d1e549e3cd9be8518f669d01d16c93",
       "bytes": 72247
     }

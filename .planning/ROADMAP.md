@@ -10,7 +10,7 @@ This milestone returns the project to the recovery-proof lane. The goal is to re
 
 ## Immediate Next Actions
 
-- Plan Phase `61` so Coverage Drilldown freshness is restored with dated proof inputs and a clear ingest contract.
+- Plan Phase `62` so the refreshed Coverage Drilldown evidence can feed another trustworthy comparable proof window.
 - Keep discovery expansion closed until Phase `63` re-evaluates authority readiness from refreshed proof.
 - Keep automation locked until the refreshed proof set says at least one manual intervention is repeatable.
 
@@ -41,10 +41,16 @@ This milestone returns the project to the recovery-proof lane. The goal is to re
 1. Operators can ingest fresh Coverage Drilldown raw inputs and prove the dated freshness state from repository-local artifacts.
 2. Recovery reports stop relying on the stale `2026-04-03` local export as the current proof input.
 3. The repo exposes one durable freshness contract that downstream proof and promotion work can trust.
-**Plans:** 0 plans
+**Plans:** 1/1 complete
 
 Plans:
-- [ ] TBD (run `$gsd-plan-phase 61` to break down)
+- [x] `61-01`: Harden the freshness contract around Coverage Drilldown raw input selection, ingest evidence, and operator-facing freshness reporting.
+
+**Delivered details:**
+
+- Confirmed the repo-local raw Coverage archive now includes `2026-04-16` and that the ingest lane selects it as the latest archived source instead of inheriting `2026-04-03` as the freshest input.
+- Regenerated the ingest and coverage reports so operators now have dated machine-readable and Markdown evidence for raw-source selection, freshness status, and blocker posture.
+- Verified the freshest Coverage source is now `warning` rather than `blocking`: inside the hard 7-day SLA, but still outside the preferred 3-day window that Phase `62` should improve upon.
 
 ### Phase 62: comparable-proof-window-refresh-and-delta-revalidation
 
@@ -97,6 +103,6 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 61. coverage-drilldown-input-refresh-and-freshness-contract | v1.8 | 0/0 | Not started | - |
+| 61. coverage-drilldown-input-refresh-and-freshness-contract | v1.8 | 1/1 | Complete | 2026-04-23 |
 | 62. comparable-proof-window-refresh-and-delta-revalidation | v1.8 | 0/0 | Not started | - |
 | 63. authority-and-intervention-readiness-reassessment | v1.8 | 0/0 | Not started | - |

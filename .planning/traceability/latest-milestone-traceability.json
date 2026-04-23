@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T02:51:27.065Z",
+  "generatedAt": "2026-04-23T03:00:18.855Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
   "milestone": "v1.8",
   "milestoneName": "Fresh Recovery Inputs and Comparable Proof Refresh",
@@ -13,12 +13,20 @@
       "phaseDirs": [
         "61-coverage-drilldown-input-refresh-and-freshness-contract"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-24"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-24"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     },
     {
       "phaseNumber": "62",
@@ -58,9 +66,9 @@
     {
       "id": "REC-24",
       "expectedPhase": "61",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "REC-25",
