@@ -1,26 +1,58 @@
 # Requirements: Killer-Skills Agent Directory
 
-**Status:** No active milestone. `v1.7 Public Trust Surface and Copy Boundary Hardening` shipped on `2026-04-23`, and its milestone-scoped requirements are archived in [`v1.7-REQUIREMENTS.md`](./milestones/v1.7-REQUIREMENTS.md).
+**Defined:** 2026-04-23
+**Status:** Active milestone: `v1.8 Fresh Recovery Inputs and Comparable Proof Refresh`
 **Core Value:** Maximize discoverability and operational reliability of AI developer tooling through unattended, auditable content enrichment, publish, and verification loops.
 
-## Next Milestone Intake
+## v1.8 Requirements
 
-- Fresh Coverage Drilldown raw inputs inside SLA so cluster truth is not blocked by stale exports.
-- A second trustworthy post-governance proof window after the seeded baseline.
-- At least one promote-ready primary authority surface before discovery expansion is reconsidered.
-- At least one repeatable manual recovery intervention that can legitimately enter limited-rollout review.
+### Proof Inputs
 
-## Standing Constraints
+- [ ] **REC-24**: Operator can ingest and verify fresh Coverage Drilldown raw inputs with dated freshness evidence before recovery decisions are made.
+- [ ] **REC-25**: Operator can generate a second trustworthy post-governance proof window and compare it against the seeded baseline without relying on stale local inputs.
 
-- Workers AI must remain `free-only` unless a future milestone explicitly changes the policy with audit coverage.
-- Recovery proof should stay truthful: technical recovery and business recovery must not be conflated.
-- Bulk skill-detail re-expansion should remain blocked until stronger authority surfaces prove durable lift.
-- Public product surfaces should not expose internal reasoning, planning scaffolds, SEO strategy shorthand, or operator-only terminology.
+### Promotion Readiness
 
-## Note
+- [ ] **UX-EXP-03**: Operator can reassess primary authority surfaces against refreshed proof inputs before any discovery expansion is reconsidered.
 
-Define the next active milestone requirements with `$gsd-new-milestone` so `ROADMAP.md`, `REQUIREMENTS.md`, and `STATE.md` advance together.
+### Experiment Governance
+
+- [ ] **GEO-03**: Operator can re-score manual recovery interventions for repeatability from the refreshed proof set before limited rollout or automation is considered.
+
+## Future Requirements
+
+### Operator Control
+
+- **AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
+
+### Growth Expansion
+
+- **GROW-01**: Reopen broader discovery expansion only after at least one primary authority surface earns promote-ready status from trustworthy proof.
+
+## Out of Scope
+
+| Feature | Reason |
+|---------|--------|
+| Paid Workers AI expansion | Budget and policy remain unchanged; this milestone is evidence-first, not provider-expansion work |
+| Bulk skill-detail re-expansion | Index volume is still subordinate to evidence-backed authority recovery |
+| Net-new authority surfaces | Existing surfaces must earn promotion before adding breadth |
+| Another public copy cleanup milestone | `v1.7` already closed the current trust-surface leak class and guardrails now cover it |
+
+## Traceability
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| REC-24 | Phase 61 | Pending |
+| REC-25 | Phase 62 | Pending |
+| UX-EXP-03 | Phase 63 | Pending |
+| GEO-03 | Phase 63 | Pending |
+
+**Coverage:**
+- v1.8 requirements: 4 total
+- Mapped to phases: 4
+- Unmapped: 0
 
 ---
 
-_Last updated: 2026-04-23 after archiving v1.7._
+*Requirements defined: 2026-04-23*
+*Last updated: 2026-04-23 after starting v1.8 Fresh Recovery Inputs and Comparable Proof Refresh*
