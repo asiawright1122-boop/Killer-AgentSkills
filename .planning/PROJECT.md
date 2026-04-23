@@ -11,13 +11,13 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ## Current State
 
 - `v1.0` through `v1.7` are shipped.
-- The project is currently between milestones.
+- `v1.8 Fresh Recovery Inputs and Comparable Proof Refresh` is now active.
 - The main domain remains technically stable: the latest sampled crawl baseline is still `1650/1650` `2xx`, `4xx=0`, `5xx=0`, and `Cloudflare 1102=0`.
 - The skills corpus is now structurally governed: locale eligibility, originality, canonicalization, and governed publish-surface rules are all explicit and auditable.
 - The public discovery model now prioritizes `17` authority surfaces instead of a bulk multilingual skill corpus.
 - `v1.7` closed the public trust issue on the audited public entry surfaces, and reusable copy-boundary guardrails now protect public pages, locale messages, shared authority-surface data, and collection JSON sources.
 - Business recovery is still not proven. The newest trustworthy truth still shows a seeded proof baseline, a stale local Coverage Drilldown raw export dated `2026-04-03`, and no promote-ready authority surface.
-- The next milestone should return to fresh recovery-proof inputs and expansion evidence rather than more public copy-boundary cleanup.
+- `v1.8` now focuses on refreshing the proof inputs, producing another trustworthy comparable window, and reassessing promotion and intervention readiness from current evidence.
 
 ## Most Recent Shipment: v1.7 Public Trust Surface and Copy Boundary Hardening
 
@@ -41,16 +41,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Added an authority uplift scorecard with explicit `promote / hold / stop` gates and a closed discovery-expansion boundary.
 - Added a guarded recovery experiment ladder that keeps automation locked until manual interventions prove repeatable.
 
-## Next Milestone Framing
+## Current Milestone: v1.8 Fresh Recovery Inputs and Comparable Proof Refresh
 
-**Goal:** Return to the recovery-proof lane with fresher inputs while preserving the new public trust-surface boundary.
+**Goal:** Refresh the stale recovery inputs, generate another trustworthy comparable proof window, and reassess promotion and intervention readiness without reopening expansion prematurely.
 
-**Candidate features:**
+**Target features:**
 
 - Refresh Coverage Drilldown raw inputs so cluster truth is no longer blocked by stale local exports.
 - Capture another trustworthy post-governance proof window and compare it against the seeded baseline.
 - Re-evaluate whether any primary authority surface is approaching promote-ready status once the fresh proof inputs land.
-- Identify whether any manual recovery intervention is becoming repeatable enough to justify limited-rollout review.
+- Re-score manual recovery interventions for repeatability before any limited rollout or automation posture changes.
 
 ## Deferred Beyond v1.7
 
@@ -104,8 +104,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 - [ ] [Fresh Coverage Inputs] - Refresh Coverage Drilldown raw inputs so cluster truth is no longer blocked by stale local exports.
 - [ ] [Second Trustworthy Proof Window] - Capture another comparable post-governance proof window after the seeded baseline.
-- [ ] [Promote-Ready Authority Surface] - Re-evaluate whether any primary authority surface is approaching promote-ready status once fresh proof inputs land.
-- [ ] [Repeatable Manual Recovery Intervention] - Confirm at least one manual recovery loop is strong enough to justify limited-rollout review.
+- [ ] [Authority Promotion Reassessment] - Re-evaluate whether any primary authority surface is approaching promote-ready status once fresh proof inputs land.
+- [ ] [Manual Intervention Repeatability Review] - Re-score manual recovery interventions for repeatability before limited rollout or automation is reconsidered.
 
 ### Out of Scope
 
@@ -130,6 +130,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - AI posture remains policy-compliant and explicit: NVIDIA primary, Workers AI `free-only`, backups guarded and auditable.
 - The newly confirmed public trust issue that triggered `v1.7` is now remediated on the audited surfaces: the main public entry pages and shared public sources no longer emit the strongest internal-language families that read like operator notes.
 - The reusable public copy-boundary guardrail now protects public templates, locale catalogs, shared authority-surface data, and collection JSON sources against the known leak families.
+- The next active gap is evidence freshness and comparability: promotion and automation decisions are still blocked by stale inputs and the lack of a second trustworthy comparable proof window.
 
 ## Constraints
 
@@ -157,11 +158,12 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 | Automation after repeatability | Recovery automation must remain behind manual proof and rollback discipline | Active |
 | Public pages must sound user-facing, not operator-facing | Trust surfaces should guide visitors, not expose internal strategy or process reasoning | Validated |
 | Shared public sources should be fixed at the source, not only in rendered shells | Repeated leak families were seeded through collection JSON, locale catalogs, and helper data, not just page templates | Validated |
+| Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Active |
 
 ## Evolution
 
-This document advances at phase transitions and milestone boundaries. Use `.planning/MILESTONES.md` for shipped history, archived milestone files for detailed evidence, and keep the next cycle focused on fresher proof inputs and trustworthy recovery evidence before expanding scope.
+This document advances at phase transitions and milestone boundaries. Use `.planning/MILESTONES.md` for shipped history, archived milestone files for detailed evidence, and keep the current cycle focused on fresher proof inputs and trustworthy recovery evidence before expanding scope.
 
 ---
 
-_Last updated: 2026-04-23 after archiving v1.7 Public Trust Surface and Copy Boundary Hardening._
+_Last updated: 2026-04-23 after starting v1.8 Fresh Recovery Inputs and Comparable Proof Refresh._
