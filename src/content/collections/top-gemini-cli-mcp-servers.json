@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare Gemini CLI workflow tools, then move straight into installation docs, CLI validation, and rollout paths for terminal-first developer workflows.",
-    "zh": "先比较 Gemini CLI 工作流工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于终端优先的开发工作流。",
+    "zh": "先比较 Gemini CLI 工作流工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于终端优先的开发工作流。",
     "ja": "Claude Code・Cursor・Windsurf 向けの gemini cli terminal automation AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 gemini cli terminal automation AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de gemini cli terminal automation en Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare Gemini CLI workflow tools, then move straight into installation docs, CLI validation, and rollout paths for terminal-first developer workflows.",
-    "zh": "先比较 Gemini CLI 工作流工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于终端优先的开发工作流。",
+    "zh": "先比较 Gemini CLI 工作流工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于终端优先的开发工作流。",
     "ja": "Claude Code・Cursor・Windsurf 向けの gemini cli terminal automation AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 gemini cli terminal automation AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de gemini cli terminal automation en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -151,8 +151,8 @@
   ],
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against terminal workflow fit, installation clarity, operator handoff, and day-to-day CLI usefulness. This page is now positioned as an install-first Gemini CLI entry point instead of a broad terminal-tools list.",
-      "zh": "已于 2026-04-17 按终端工作流适配度、安装清晰度、操作交接和日常 CLI 价值完成复核。现在这页被重新定位为“安装优先”的 Gemini CLI 入口，而不是宽泛的终端工具列表。"
+      "en": "Reviewed on 2026-04-17 against terminal workflow fit, installation clarity, team adoption, and day-to-day CLI usefulness. This page is now positioned as an installation-focused Gemini CLI entry point instead of a broad terminal-tools list.",
+      "zh": "已于 2026-04-17 按终端工作流适配度、安装清晰度、团队协作适配和日常 CLI 价值完成复核。现在这页被重新定位为“安装优先”的 Gemini CLI 入口，而不是宽泛的终端工具列表。"
     },
     "selectionReason": {
       "en": "We prioritize this page because Gemini CLI users usually need one shortlist they can install, validate, and connect to real terminal-native workflows quickly.",
@@ -167,7 +167,7 @@
       "zh": [
         "入选工具优先服务于真实 Gemini CLI 工作流，例如脚本、发布检查、自动化与终端原生执行。",
         "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
-        "这个页面服务的是可复用 CLI 操作，而不是宽泛的终端关键词流量承接。"
+        "这个页面服务的是可复用 CLI 操作，而不是宽泛的终端关键词流量。"
       ]
     },
     "groupingLogic": {
@@ -189,12 +189,12 @@
         "zh": "当安装流程、维护者状态或工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with install, documentation, and Gemini CLI workflow checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 Gemini CLI 工作流可用性。"
+        "en": "Maintained through Killer-Skills curation review with install, documentation, and Gemini CLI workflow checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验安装、文档与 Gemini CLI 工作流可用性。"
       },
       "verification": {
-        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+        "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -205,19 +205,19 @@
         },
         "summary": {
           "en": "Use this page when you need one Gemini CLI-adjacent toolchain that can move from command-line experimentation into real coding and release work.",
-          "zh": "如果你需要一条能从命令行实验走到真实编码与发布工作的 Gemini CLI 工具链，就先用这页收口。"
+          "zh": "如果你需要一条能从命令行实验走到真实编码与发布工作的 Gemini CLI 工具链，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before opening more Gemini CLI-related repositories.",
             "Choose one tool that best supports scripting, release checks, automation, or terminal execution.",
-            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Install it and verify the CLI write path, sync behavior, and first key validation step.",
             "Only after the base path works, expand the setup across the wider team workflow."
           ],
           "zh": [
             "先打开安装文档，而不是继续点开更多与 Gemini CLI 相关的仓库。",
             "选择一个最适合脚本、发布检查、自动化或终端执行的工具。",
-            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道关键验证步骤。",
             "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
           ]
         }
@@ -228,20 +228,20 @@
           "zh": "把 CLI 发布检查先标准化"
         },
         "summary": {
-          "en": "Treat the collection as an editorial filter when you need Gemini CLI-adjacent tools that improve terminal reliability without overcomplicating the stack.",
-          "zh": "当你想为 Gemini CLI 邻接工作流补上终端可靠性护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+          "en": "Use this collection when you need Gemini CLI-adjacent tools that improve terminal reliability without overcomplicating the stack.",
+          "zh": "当你想为 Gemini CLI 邻接工作流补上终端可靠性护栏、又不想把栈变得过于复杂时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the tool has stable ownership and visible install guidance.",
-            "Review CLI behavior so operators know what will be written and synced.",
+            "Review CLI behavior so teams know what will be written and synced.",
             "Use one validated path before scaling it to more projects or more teammates.",
             "Document the chosen Gemini CLI workflow baseline after the first clean rollout."
           ],
           "zh": [
             "先确认工具是否有稳定维护主体和清晰的安装指引。",
             "通过 CLI 总览确认会写入什么、同步如何发生。",
-            "先用一条已验证路径，再决定是否扩展到更多项目或团队成员。",
+            "先用一条已确认可用的路径，再决定是否扩展到更多项目或团队成员。",
             "在首次稳定落地后，把选定的 Gemini CLI 基线路径沉淀成团队默认做法。"
           ]
         }
@@ -266,7 +266,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -274,18 +274,18 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the official trusted collection to sanity-check tool choices before you standardize a team stack.",
-          "zh": "在团队标准化之前，回到官方可信合集，对工具选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check tool choices before you standardize a team stack.",
+          "zh": "在团队推广给团队之前，回到官方可信合集，对工具选择做一次再确认。"
         }
       }
     ]
   },
   "longDescription": {
     "en": "If your team prefers terminal-native development, this collection is a better starting point than opening random CLI repos. It helps you compare scripting helpers, automation tools, and release guardrails, then pushes the next click into installation docs, CLI validation, and a repeatable rollout path.",
-    "zh": "如果你的团队偏好终端原生开发，这个合集比随机打开 CLI 仓库更适合作为起点。它会先帮助你比较脚本辅助、自动化工具与发布护栏，再把下一次点击送进安装文档、CLI 验证与可重复落地路径，因此比扁平的终端榜单更适合作为恢复期承接面。",
+    "zh": "如果你的团队偏好终端原生开发，这个合集比随机打开 CLI 仓库更适合作为起点。它会先帮助你比较脚本辅助、自动化工具与发布护栏，再把下一次点击送进安装文档、CLI 验证与可重复后续使用步骤，因此比扁平的终端榜单更适合作为推荐入口。",
     "ja": "ターミナル中心で開発するチーム向けに、このGemini CLIコレクションは実務的なワークフロー部品を提供します。再利用可能なCLIスキル、連携パターン、自動化ヘルパーに焦点を当て、コーディング作業、リリース確認、チームスクリプト運用を支援。必要に応じてMCP対応も含みますが、主目的はCLI開発の生産性と信頼性向上です。",
     "ko": "터미널 중심 개발을 선호하는 팀을 위해 이 Gemini CLI 컬렉션은 실전 워크플로우 구성 요소를 제공합니다. 재사용 가능한 명령줄 스킬, 통합 패턴, 자동화 헬퍼를 통해 코딩 작업, 릴리스 체크, 팀 스크립트 운영을 지원합니다. 필요 시 MCP 지원이 포함될 수 있지만 핵심 목적은 CLI 기반 엔지니어링의 생산성과 안정성 향상입니다.",
     "es": "Para equipos que trabajan de forma nativa en terminal, esta colección de Gemini CLI aporta bloques prácticos de workflow. Reúne skills reutilizables de línea de comandos, patrones de integración y helpers de automatización para tareas de código, checks de release y scripts de equipo. MCP puede aparecer cuando sea útil, pero el objetivo central es mejorar productividad y confiabilidad en workflows basados en CLI.",

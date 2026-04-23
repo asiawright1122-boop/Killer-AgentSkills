@@ -1,0 +1,44 @@
+{
+  "milestone": "v1.7",
+  "milestoneName": "Public Trust Surface and Copy Boundary Hardening",
+  "status": "archived",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 3,
+    "completed": 3
+  },
+  "requirementCounts": {
+    "satisfied": 3,
+    "partial": 0,
+    "pending": 0,
+    "total": 3
+  },
+  "hygieneStatus": "archived-clean",
+  "evidenceFiles": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/milestones/v1.7-ROADMAP.md",
+    ".planning/milestones/v1.7-REQUIREMENTS.md",
+    ".planning/milestones/v1.7-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.7-TRACEABILITY.md",
+    ".planning/milestones/v1.7-BOOTSTRAP.md",
+    ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory/58-01-SUMMARY.md",
+    ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory/58-VERIFICATION.md",
+    ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization/59-01-SUMMARY.md",
+    ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization/59-VERIFICATION.md",
+    ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails/60-01-SUMMARY.md",
+    ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails/60-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v1.7-phases",
+    ".planning/milestones/v1.7-ROADMAP.md",
+    ".planning/milestones/v1.7-REQUIREMENTS.md",
+    ".planning/milestones/v1.7-MILESTONE-AUDIT.md",
+    ".planning/milestones/v1.7-TRACEABILITY.md",
+    ".planning/milestones/v1.7-BOOTSTRAP.md",
+    ".planning/milestones/v1.7-CLOSEOUT.md"
+  ]
+}

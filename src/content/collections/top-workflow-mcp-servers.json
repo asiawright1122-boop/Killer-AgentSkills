@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare agent workflow building tools, then move straight into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "先比较 Agent 工作流构建工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "先比较 Agent 工作流构建工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurfで使うAgentワークフロー構築ツールを比較し、そのままインストール手順、CLI検証、展開フローへ進めます。",
     "ko": "Claude Code, Cursor, Windsurf에서 사용할 Agent 워크플로 구축 도구를 비교한 뒤 바로 설치 문서, CLI 검증, 배포 경로로 이어집니다.",
     "es": "Compara herramientas para construir workflows de agentes, y pasa directamente a la documentación de instalación, la validación por CLI y las rutas de despliegue para Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare agent workflow building tools, then move into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较 Agent 工作流构建工具，然后进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "比较 Agent 工作流构建工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf向けに、Agentワークフロー構築ツールを比較し、インストール手順・CLI検証・展開フローまでつなげます。Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 Agent 워크플로 구축 도구를 비교하고 설치 문서, CLI 검증, 배포 경로까지 이어집니다. Killer-Skills.",
     "es": "Compara herramientas para construir workflows de agentes, y continúa hacia la documentación de instalación, la validación por CLI y las rutas de despliegue para Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -52,7 +52,7 @@
       "AI agent workflow tools",
       "agent workflow building tools",
       "workflow scaffolding tools",
-      "context handoff tools",
+      "context coordination tools",
       "approval workflow automation",
       "install AI agent skills"
     ],
@@ -60,7 +60,7 @@
       "AI Agent 工作流工具",
       "Agent 工作流构建工具",
       "工作流骨架工具",
-      "上下文交接工具",
+      "上下文协作衔接工具",
       "审批工作流自动化",
       "安装 AI Agent Skills"
     ],
@@ -69,7 +69,7 @@
       "workflow building tools",
       "Claude Code skills",
       "workflow automation",
-      "context handoff tools",
+      "context coordination tools",
       "install AI agent skills"
     ],
     "ko": [
@@ -77,7 +77,7 @@
       "workflow building tools",
       "Claude Code skills",
       "workflow automation",
-      "context handoff tools",
+      "context coordination tools",
       "install AI agent skills"
     ],
     "es": [
@@ -85,7 +85,7 @@
       "herramientas para construir workflows",
       "Claude Code skills",
       "automatización de workflows",
-      "handoff con contexto",
+      "contexto compartido",
       "instalar AI agent skills"
     ],
     "fr": [
@@ -93,7 +93,7 @@
       "outils de construction de workflows",
       "Claude Code skills",
       "automatisation des workflows",
-      "handoff contextuel",
+      "contexte partagé",
       "installer des AI agent skills"
     ],
     "de": [
@@ -101,7 +101,7 @@
       "Tools zum Workflow-Aufbau",
       "Claude Code skills",
       "Workflow-Automatisierung",
-      "Kontext-Handoff-Tools",
+      "Kontext-Kontextfreigabe-Tools",
       "AI Agent Skills installieren"
     ],
     "pt": [
@@ -109,7 +109,7 @@
       "ferramentas para construir workflows",
       "Claude Code skills",
       "automação de workflows",
-      "handoff com contexto",
+      "compartilhamento de contexto",
       "instalar AI agent skills"
     ],
     "ru": [
@@ -117,7 +117,7 @@
       "инструменты для построения workflow",
       "Claude Code skills",
       "автоматизация workflow",
-      "handoff с контекстом",
+      "передача контекста",
       "установить AI agent skills"
     ],
     "ar": [
@@ -154,22 +154,22 @@
   ],
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against workflow fit, installation clarity, operator handoff, and repeatable execution value. This page is now positioned as an install-first workflow gateway instead of a generic tooling roundup.",
-      "zh": "已于 2026-04-17 按工作流适配度、安装清晰度、操作交接和可重复执行价值完成复核。现在这页被重新定位为“安装优先”的工作流入口，而不是泛化工具清单。"
+      "en": "Reviewed on 2026-04-17 against workflow fit, installation clarity, team adoption, and repeatable execution value. This page is now positioned as an installation-focused workflow gateway instead of a generic tooling roundup.",
+      "zh": "已于 2026-04-17 按工作流适配度、安装清晰度、团队协作适配和可重复执行价值完成复核。现在这页被重新定位为“安装优先”的工作流入口，而不是泛化工具清单。"
     },
     "selectionReason": {
-      "en": "We prioritize this page because workflow-intent users should move from comparison into installation, validation, and team rollout quickly. A guided shortlist is more useful than keeping them inside another broad repo crawl.",
-      "zh": "之所以优先强化这页，是因为带着工作流意图进来的用户，应该尽快从比较进入安装、验证与团队落地，而不是继续陷在宽泛的仓库浏览里。对他们来说，带有判断的短名单比继续刷一层大列表更有用。"
+      "en": "We prioritize this page because users comparing workflow tools should move from comparison into installation, validation, and team adoption quickly. A guided shortlist is more useful than keeping them inside another broad repo crawl.",
+      "zh": "之所以优先强化这页，是因为带着工作流需求进来的用户，应该尽快从比较进入安装、验证与团队使用，而不是继续陷在宽泛的仓库浏览里。对他们来说，带有判断的短名单比继续刷一层大列表更有用。"
     },
     "groupingLogic": {
       "en": [
-        "Lead with workflow tools that can turn routing, approvals, handoff, and execution scaffolding into one installable path.",
-        "Keep the shortlist compact enough for fast comparison while still covering orchestration, reusable scaffolds, and operator checkpoints.",
+        "Lead with workflow tools that can turn routing, approvals, coordination, and execution scaffolding into one installable path.",
+        "Keep the shortlist compact enough for fast comparison while still covering orchestration, reusable scaffolds, and key validation steps.",
         "Use installation as the bridge from workflow discovery into validated multi-step execution."
       ],
       "zh": [
-        "优先展示能把路由、审批、交接和执行骨架收束成一条可安装路径的工作流工具。",
-        "列表保持足够紧凑，方便快速比较，同时覆盖编排、可复用 scaffold 与操作检查点。",
+        "优先展示能把路由、审批、协作衔接和执行骨架收束成一条可安装路径的工作流工具。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖编排、可复用 scaffold 与关键验证步骤。",
         "把安装作为从 workflow 发现页走向已验证多步执行的桥梁。"
       ]
     },
@@ -180,12 +180,12 @@
         "zh": "按月复审；若某个工作流条目的接入复杂度、维护主体或生产定位发生变化，则立即更新。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills editorial review with workflow-fit, install-path, and operator-handoff checks.",
-        "zh": "由 Killer-Skills 编辑审查流程结合工作流适配度、安装路径与操作者交接检查持续维护。"
+        "en": "Killer-Skills curation review with workflow-fit, install-path, and team-coordination checks.",
+        "zh": "由 Killer-Skills 内容审核流程结合工作流适配度、安装路径与团队协作检查检查持续维护。"
       },
       "verification": {
-        "en": "Each entry must still represent a concrete workflow role, remain installable, and connect cleanly to operator-facing docs or setup guidance.",
-        "zh": "每个条目都必须持续对应明确的工作流角色、保持可安装状态，并能连接到面向操作者的文档或配置指引。"
+        "en": "Each entry must still represent a concrete workflow role, remain installable, and connect cleanly to team-facing docs or setup guidance.",
+        "zh": "每个条目都必须持续对应明确的工作流角色、保持可安装状态，并能连接到面向团队成员的文档或配置指引。"
       }
     },
     "executionExamples": [
@@ -196,19 +196,19 @@
         },
         "summary": {
           "en": "Use this page when you need to shortlist one workflow stack, validate it quickly, and only then roll it out to more contributors or agents.",
-          "zh": "如果你要先收口一套工作流栈、快速验证、再决定是否推广给更多贡献者或 Agent，就先用这页。"
+          "zh": "如果你要先筛选一套工作流栈、快速验证、再决定是否推广给更多贡献者或 Agent，就先用这页。"
         },
         "steps": {
           "en": [
             "Open the installation docs before evaluating more workflow repositories.",
             "Pick one scaffold or orchestration tool that matches the execution path you need now.",
-            "Install it and verify the CLI write path, handoff behavior, and first checkpoint.",
+            "Install it and verify the CLI write path, coordination behavior, and first validation step.",
             "Only after the base lane works, standardize it across the team."
           ],
           "zh": [
             "先打开安装文档，而不是继续评估更多 workflow 仓库。",
             "选择一个最适合当前执行路径的 scaffold 或编排工具。",
-            "先安装并验证 CLI 写入路径、交接行为和第一道检查点。",
+            "先安装并验证 CLI 写入路径、协作衔接情况和第一道检查点。",
             "只有基础链路跑通后，再决定是否在团队内标准化。"
           ]
         }
@@ -226,33 +226,33 @@
           "en": [
             "Use an automation builder to connect triggers, data, and downstream actions.",
             "Insert a review or approval gate before irreversible changes happen.",
-            "Document the validation path so operators know what to confirm after each run."
+            "Document the validation path so teams know what to confirm after each run."
           ],
           "zh": [
             "先用自动化构建工具串起触发器、数据和下游动作。",
             "在不可逆变更前插入 review 或 approval gate。",
-            "把验证路径写清楚，让操作者知道每次运行后该确认什么。"
+            "把验证路径写清楚，让团队知道每次运行后该确认什么。"
           ]
         }
       },
       {
         "title": {
-          "en": "Context-rich handoff between tools",
-          "zh": "上下文完整的工具间交接"
+          "en": "Context-rich context shared between tools",
+          "zh": "上下文完整的工具间协作衔接"
         },
         "summary": {
-          "en": "A workflow stack is most useful when handoffs preserve project state, not just payload text.",
-          "zh": "只有在交接过程中保留项目状态，而不只是传递文本片段，workflow stack 才真正有用。"
+          "en": "A workflow stack is most useful when shared context preserves project state, not just payload text.",
+          "zh": "只有在协作衔接过程中保留项目状态，而不只是传递文本片段，workflow stack 才真正有用。"
         },
         "steps": {
           "en": [
             "Define which tool owns planning, which tool executes, and which step verifies outputs.",
-            "Keep shared context in docs, prompts, or memory artifacts that survive handoff.",
+            "Keep shared context in docs, prompts, or memory artifacts that stay useful across tool changes.",
             "Send users into installation or CLI docs when the next step requires concrete environment setup."
           ],
           "zh": [
             "先定义哪个工具负责规划、哪个工具负责执行、哪个步骤负责验证。",
-            "把共享上下文沉淀到文档、提示词或可跨交接保留的记忆工件里。",
+            "把共享上下文沉淀到文档、提示词或可跨协作衔接保留的记忆工件里。",
             "当下一步需要真实环境配置时，把用户送进安装文档或 CLI 文档。"
           ]
         }
@@ -265,21 +265,21 @@
           "zh": "先搭执行骨架，再扩大范围"
         },
         "summary": {
-          "en": "Choose this lane when the real problem is routing, automation, or multi-step execution ownership. It helps you compare workflow stacks that can carry triggers, approvals, and operator checkpoints without turning setup into another research loop.",
-          "zh": "当真正的问题是路由、自动化，或多步执行到底由谁承接时，就先走这条轨道。它帮助你比较能承接触发器、审批和操作检查点的 workflow 栈，而不是继续掉进配置研究循环。"
+          "en": "Choose this lane when the real problem is routing, automation, or multi-step execution ownership. It helps you compare workflow stacks that can carry triggers, approvals, and key validation steps without turning setup into another research loop.",
+          "zh": "当真正的问题是路由、自动化，或多步执行到底该如何协作时，就先走这条轨道。它帮助你比较能处理触发器、审批和关键验证步骤的 workflow 栈，而不是继续掉进配置研究循环。"
         },
         "whenToUse": {
-          "en": "Use it when the team already knows the outcome it wants, but still lacks a reliable path for triggers, approvals, retries, or step-to-step handoff.",
-          "zh": "当团队已经知道想要的结果，但还没有一条稳定的触发、审批、重试与步骤交接链路时，就先走这条轨道。"
+          "en": "Use it when the team already knows the outcome it wants, but still lacks a reliable path for triggers, approvals, retries, or step-to-step coordination.",
+          "zh": "当团队已经知道想要的结果，但还没有一条稳定的触发、审批、重试与步骤协作衔接链路时，就先走这条轨道。"
         },
         "checkpoints": {
           "en": [
-            "Operators can see where routing, retries, and approvals actually happen.",
+            "Teams can see where routing, retries, and approvals actually happen.",
             "The first workflow can be installed and validated without heavy custom glue.",
-            "The team knows which tool owns the trigger, the action, and the checkpoint."
+            "The team knows which tool owns the trigger, the action, and the validation check."
           ],
           "zh": [
-            "操作者能看清路由、重试和审批到底发生在哪里。",
+            "团队成员能看清路由、重试和审批到底发生在哪里。",
             "第一条工作流能够在不依赖大量自定义胶水层的前提下完成安装和验证。",
             "团队知道哪个工具负责触发、哪个工具负责动作、哪个步骤负责检查点。"
           ]
@@ -297,26 +297,26 @@
       },
       {
         "title": {
-          "en": "Stabilize planning and handoff",
-          "zh": "先稳住规划与交接"
+          "en": "Stabilize planning and coordination",
+          "zh": "先稳住规划与协作衔接"
         },
         "summary": {
-          "en": "Choose this lane when the workflow keeps breaking between ideation, PRD, coding, and review. The goal is to preserve context, standards, and operator intent before you automate the rest.",
-          "zh": "如果工作流总是在想法、PRD、编码和评审之间断裂，就先走这条轨道。目标不是马上自动化更多，而是先把上下文、标准和操作者意图稳住。"
+          "en": "Choose this lane when the workflow keeps breaking between ideation, PRD, coding, and review. The goal is to preserve context, standards, and workflow needs before you automate the rest.",
+          "zh": "如果工作流总是在想法、PRD、编码和评审之间断裂，就先走这条轨道。目标不是马上自动化更多，而是先把上下文、标准和团队成员意图稳住。"
         },
         "whenToUse": {
-          "en": "Use it when good ideas keep degrading during handoff, spec writing, or AI-assisted execution.",
-          "zh": "当好想法总是在交接、规格书编写或 AI 协作执行阶段被稀释时，就先走这条轨道。"
+          "en": "Use it when good ideas keep degrading during coordination, spec writing, or AI-assisted execution.",
+          "zh": "当好想法总是在协作衔接、规格书编写或 AI 协作执行阶段被稀释时，就先走这条轨道。"
         },
         "checkpoints": {
           "en": [
             "The team can tell where requirements live before coding starts.",
-            "Handoff artifacts survive more than one agent or contributor change.",
+            "Shared context artifacts stay useful across more than one agent or contributor change.",
             "Review and documentation standards are visible before execution expands."
           ],
           "zh": [
             "团队能明确知道编码前需求到底沉淀在哪里。",
-            "交接工件可以穿过不止一次 agent 或成员切换而不丢失。",
+            "协作衔接工件可以穿过不止一次 agent 或成员切换而不丢失。",
             "在扩大执行范围之前，评审与文档标准已经对外可见。"
           ]
         },
@@ -327,8 +327,8 @@
         ],
         "nextStepHref": "/{locale}/docs/cli/overview",
         "nextStepLabel": {
-          "en": "Check CLI and handoff behavior",
-          "zh": "确认 CLI 与交接行为"
+          "en": "Check CLI and coordination behavior",
+          "zh": "确认 CLI 与协作衔接情况"
         }
       },
       {
@@ -348,12 +348,12 @@
           "en": [
             "One project can prove the template and quality gate without extra exceptions.",
             "The rollout path is easy enough for the next contributor to follow.",
-            "You can still sanity-check the stack against trusted tools before standardizing wider."
+            "You can still double-check the stack against trusted tools before standardizing wider."
           ],
           "zh": [
             "至少有一个项目能在没有额外例外规则的情况下证明模板和质量门槛可用。",
-            "这条落地路径足够清晰，下一位贡献者也能跟得上。",
-            "在更大范围标准化之前，仍然能用可信工具集合做一次交叉复核。"
+            "这条后续使用步骤足够清晰，下一位贡献者也能跟得上。",
+            "在更大范围推广给团队之前，仍然能用可信工具集合做一次交叉复核。"
           ]
         },
         "skillRefs": [
@@ -387,7 +387,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -395,37 +395,37 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the trusted starter collection to sanity-check workflow choices before you standardize a team stack.",
-          "zh": "在团队标准化之前，回到可信起步合集对工作流工具的选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check workflow choices before you standardize a team stack.",
+          "zh": "在团队推广给团队之前，回到官方可信合集对工作流工具的选择做一次再确认。"
         }
       }
     ],
     "trustSignals": {
       "en": [
-        "Entries are selected because they solve a concrete workflow role such as routing, approvals, handoff, or execution scaffolding.",
-        "Included tools still connect cleanly to operator-facing setup docs, installation paths, or trusted workflow guidance.",
+        "Entries are selected because they solve a concrete workflow role such as routing, approvals, coordination, or execution scaffolding.",
+        "Included tools still connect cleanly to team-facing setup docs, installation paths, or trusted workflow guidance.",
         "Selection favors repeatable delivery value over generic repository popularity or trend-driven tool lists."
       ],
       "zh": [
-        "入选条目都对应明确的工作流角色，例如路由、审批、交接或执行骨架。",
-        "这些工具仍然能够清晰衔接到面向操作者的安装文档、配置路径或可信工作流指引。",
+        "入选条目都对应明确的工作流角色，例如路由、审批、协作衔接或执行骨架。",
+        "这些工具仍然能够清晰衔接到面向团队成员的安装文档、配置路径或可信工作流指引。",
         "筛选优先考虑可复用交付价值，而不是泛化的仓库热度或短期趋势。"
       ]
     }
   },
   "longDescription": {
-    "en": "If your team is designing multi-step agent execution, this collection is a better starting point than opening random workflow repos. It helps you compare routing, approvals, context handoff, and scaffold tools, then pushes the next click into installation docs, CLI validation, and a repeatable rollout path. That makes it a better decision page than another broad workflow list.",
-    "zh": "如果你的团队正在设计多步 Agent 执行链路，这个合集比随机打开 workflow 仓库更适合作为起点。它会先帮助你比较路由、审批、上下文交接和 scaffold 工具，再把下一次点击送进安装文档、CLI 验证与可重复落地路径，因此比泛化工作流榜单更适合作为真正的决策入口。",
+    "en": "If your team is designing multi-step agent execution, this collection is a better starting point than opening random workflow repos. It helps you compare routing, approvals, context coordination, and scaffold tools, then pushes the next click into installation docs, CLI validation, and a repeatable rollout path. That makes it a better decision page than another broad workflow list.",
+    "zh": "如果你的团队正在设计多步 Agent 执行链路，这个合集比随机打开 workflow 仓库更适合作为起点。它会先帮助你比较路由、审批、上下文协作衔接和 scaffold 工具，再把下一次点击送进安装文档、CLI 验证与可重复后续使用步骤，因此比泛化工作流榜单更适合作为真正的推荐入口。",
     "ja": "このコレクションは、現代的なエージェントアーキテクチャで使われるワークフロー構成要素に焦点を当てています。ルーティング、文脈を保った引き継ぎ、承認チェックポイント、再利用可能な多段パターンなどを整理でき、チーム横断で標準化しやすくなります。MCP接続に対応する選択肢もありますが、主眼はAI Agent SkillsとIDE開発向けの実践的な設計です。",
     "ko": "이 컬렉션은 현대적인 에이전트 아키텍처에서 쓰이는 워크플로 빌딩 블록에 초점을 맞춥니다. 라우팅, 컨텍스트를 유지한 핸드오프, 승인 체크포인트, 재사용 가능한 다단계 패턴을 지원하는 도구를 통해 팀 간 표준화를 쉽게 만들 수 있습니다. 일부는 MCP 연결을 제공하지만, 핵심은 AI Agent Skills와 IDE 중심 개발을 위한 실용적 워크플로 설계입니다.",
-    "es": "Esta colección destaca bloques de workflow usados en arquitecturas modernas de agentes. Incluye herramientas para enrutamiento, handoffs con contexto, checkpoints de aprobación y patrones reutilizables de varios pasos que los equipos pueden estandarizar. Algunas opciones integran MCP, pero el foco principal es el diseño práctico de workflows para skills de agentes e IDE.",
-    "fr": "Cette collection met en avant les briques de workflow utilisées dans les architectures d’agents modernes. Vous y trouverez des outils pour le routage, les handoffs contextuels, les checkpoints de validation et des patterns multi-étapes réutilisables. Certaines options proposent une connectivité MCP, mais l’objectif principal reste la conception pratique de workflows pour les skills d’agents IA et le développement orienté IDE.",
-    "de": "Diese Sammlung zeigt Workflow-Bausteine für moderne Agentenarchitekturen. Enthalten sind Tools für Routing, kontextbewusste Handoffs, Freigabe-Checkpoints und wiederverwendbare Multi-Step-Muster, die Teams projektübergreifend standardisieren können. Teilweise ist MCP-Konnektivität vorhanden, im Fokus steht jedoch praxisnahes Workflow-Design für KI-Agenten-Skills und IDE-Workflows.",
-    "pt": "Esta coleção destaca blocos de workflow usados em arquiteturas modernas de agentes. Você encontrará ferramentas para roteamento, handoffs com contexto, checkpoints de aprovação e padrões reutilizáveis de múltiplas etapas que podem ser padronizados entre times. Algumas opções incluem conectividade MCP, mas o foco principal é o design prático de workflows para skills de agentes e desenvolvimento no IDE.",
-    "ru": "Эта подборка показывает строительные блоки workflow для современных агентных архитектур. Здесь есть инструменты для маршрутизации, контекстных handoff, точек согласования и переиспользуемых многошаговых паттернов, которые команды могут стандартизировать между проектами. Некоторые решения поддерживают MCP-интеграции, но основной акцент — практичный дизайн workflow для AI Agent Skills и IDE-разработки.",
+    "es": "Esta colección destaca bloques de workflow usados en arquitecturas modernas de agentes. Incluye herramientas para enrutamiento, coordinación con contexto, pasos de aprobación y patrones reutilizables de varios pasos que los equipos pueden estandarizar. Algunas opciones integran MCP, pero el foco principal es el diseño práctico de workflows para skills de agentes e IDE.",
+    "fr": "Cette collection met en avant les briques de workflow utilisées dans les architectures d’agents modernes. Vous y trouverez des outils pour le routage, la coordination avec contexte, des étapes de validation et des patterns multi-étapes réutilisables. Certaines options proposent une connectivité MCP, mais l’objectif principal reste la conception pratique de workflows pour les skills d’agents IA et le développement orienté IDE.",
+    "de": "Diese Sammlung zeigt Workflow-Bausteine für moderne Agentenarchitekturen. Enthalten sind Tools für Routing, kontextbewusste Zusammenarbeit, Freigabeschritte und wiederverwendbare Multi-Step-Muster, die Teams projektübergreifend standardisieren können. Teilweise ist MCP-Konnektivität vorhanden, im Fokus steht jedoch praxisnahes Workflow-Design für KI-Agenten-Skills und IDE-Workflows.",
+    "pt": "Esta coleção destaca blocos de workflow usados em arquiteturas modernas de agentes. Você encontrará ferramentas para roteamento, coordenação com contexto, etapas de aprovação e padrões reutilizáveis de múltiplas etapas que podem ser padronizados entre times. Algumas opções incluem conectividade MCP, mas o foco principal é o design prático de workflows para skills de agentes e desenvolvimento no IDE.",
+    "ru": "Эта подборка показывает строительные блоки workflow для современных агентных архитектур. Здесь есть инструменты для маршрутизации, контекстной координации, точек согласования и переиспользуемых многошаговых паттернов, которые команды могут стандартизировать между проектами. Некоторые решения поддерживают MCP-интеграции, но основной акцент — практичный дизайн workflow для AI Agent Skills и IDE-разработки.",
     "ar": "تُبرز هذه المجموعة لبنات بناء سير العمل المستخدمة في معماريات الوكلاء الحديثة. ستجد أدوات للتوجيه وتسليم المهام مع الحفاظ على السياق ونقاط الموافقة وأنماط متعددة الخطوات قابلة لإعادة الاستخدام يمكن توحيدها عبر المشاريع. بعض الخيارات تدعم تكامل MCP، لكن التركيز الأساسي هو تصميم سير عمل عملي لمهارات الوكلاء والتطوير داخل IDE."
   }
 }

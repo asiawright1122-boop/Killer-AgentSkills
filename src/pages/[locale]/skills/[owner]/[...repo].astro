@@ -638,7 +638,7 @@ const reviewPostureDescription = renderRepoDirectory
       )
     : tr(
         'Detail.referenceOnlyPageDesc',
-        'This page remains useful for operators, but Killer-Skills treats it as reference material instead of a primary organic landing page.',
+        'This page remains useful for teams, but Killer-Skills treats it as reference material instead of a primary organic landing page.',
       );
 const reviewReasons =
   renderRepoDirectory || !skillIndexability
@@ -729,8 +729,8 @@ const reviewNextSteps = renderRepoDirectory
         badge: isZhLocale ? '工作流' : 'Workflow',
         title: isZhLocale ? '如果要进团队流转，转到工作流集合' : 'Move To Workflow Collections For Team Rollout',
         description: isZhLocale
-          ? '当你的目标已经不是单个技能，而是团队协作、审批和交接，就应该转到工作流合集继续决策。'
-          : 'When the goal shifts from a single skill to team handoff, approvals, and repeatable execution, move into workflow collections.',
+          ? '当你的目标已经不是单个技能，而是团队协作、审批和可重复执行，就应该转到工作流合集继续比较。'
+          : 'When the goal shifts from a single skill to team workflows, approvals, and repeatable execution, move into workflow collections.',
         href: `/${locale}/collections/top-agent-workflow-building-tools`,
       },
     ];
@@ -1521,7 +1521,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                             {localizedSuitability ||
                               tr(
                                 'Detail.suitabilityFallback',
-                                'Suitable for operator workflows that need explicit guardrails before installation and execution.',
+                                'Suitable for team workflows that need explicit guardrails before installation and execution.',
                               )}
                           </p>
                         </div>

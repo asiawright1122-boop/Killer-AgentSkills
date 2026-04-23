@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare DevOps workflow tools, then move into installation docs, CLI validation, and rollout paths for operations and platform teams.",
-    "zh": "先比较 DevOps 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于运维与平台团队。",
+    "zh": "先比较 DevOps 工作流工具，再进入安装文档、CLI 验证与团队后续使用步骤，适用于运维与平台团队。",
     "ja": "DevOpsワークフローツールを比較し、そのままインストール手順、CLI検証、運用チーム向けの展開フローへ進めます。",
     "ko": "DevOps 워크플로 도구를 비교한 뒤 바로 설치 문서, CLI 검증, 운영 팀용 배포 경로로 이어집니다.",
     "es": "Compara herramientas de workflow DevOps y pasa directamente a la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos de operaciones y plataforma.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare DevOps workflow tools, then move into installation docs, CLI validation, and rollout paths for operations and platform teams.",
-    "zh": "先比较 DevOps 工作流工具，再进入安装文档、CLI 验证与团队落地路径，适用于运维与平台团队。",
+    "zh": "先比较 DevOps 工作流工具，再进入安装文档、CLI 验证与团队后续使用步骤，适用于运维与平台团队。",
     "ja": "DevOpsワークフローツールを比較し、インストール手順、CLI検証、運用チーム向けの展開フローへ進めます。Killer-Skills.",
     "ko": "DevOps 워크플로 도구를 비교하고 설치 문서, CLI 검증, 운영 팀용 배포 경로까지 이어집니다. Killer-Skills.",
     "es": "Compara herramientas de workflow DevOps y continúa hacia la documentación de instalación, la validación por CLI y las rutas de despliegue para equipos de operaciones y plataforma. Killer-Skills.",
@@ -144,7 +144,7 @@
   ],
   "longDescription": {
     "en": "If your team runs production systems, this page should narrow the shortlist fast instead of sending you into another operations-tool crawl. It compares workflow helpers, guardrail tools, and developer companions that fit DevOps execution, then moves the next click into installation docs, CLI validation, and a repeatable rollout path. That makes it a better decision page than a broad automation roundup.",
-    "zh": "如果你的团队正在运行生产系统，这页就应该帮助你快速收口，而不是把你重新送回无休止的运维工具比较。它聚焦适合 DevOps 执行路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的落地路径。这比泛化自动化榜单更适合作为真正的决策入口。",
+    "zh": "如果你的团队正在运行生产系统，这页就应该帮助你快速筛选，而不是把你重新送回无休止的运维工具比较。它聚焦适合 DevOps 执行路径的工作流助手、护栏工具与开发伴侣，然后把下一次点击明确导向安装文档、CLI 验证与可重复的后续使用步骤。这比泛化自动化榜单更适合作为真正的推荐入口。",
     "ja": "このコレクションは、本番運用を担うチーム向けです。リリース自動化、インフラ管理、アラート対応、信頼性運用を幅広く扱い、手作業を減らして変化への対応速度を高めます。MCPが連携手段として登場する場合はありますが、中心は現代的な開発体制における運用品質です。",
     "ko": "이 컬렉션은 프로덕션 운영 팀을 위한 구성입니다. 릴리스 자동화, 인프라 관리, 알림 대응, 신뢰성 운영 전반을 다루며 수작업 부담을 줄이고 변화 대응 속도를 높입니다. MCP는 통합 옵션으로 포함될 수 있지만, 핵심 서사는 현대 엔지니어링 워크플로의 운영 우수성입니다.",
     "es": "Esta colección está pensada para equipos que operan software en producción. Cubre automatización DevOps en releases, gestión de infraestructura, manejo de alertas y rutinas de confiabilidad para reducir trabajo manual y reaccionar más rápido. MCP puede aparecer como opción de integración, pero el enfoque central es la excelencia operativa.",
@@ -156,8 +156,8 @@
   },
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against DevOps workflow fit, installation clarity, operator handoff, and production operations usefulness. This page is now positioned as an install-first DevOps entry point instead of a broad automation roundup.",
-      "zh": "已于 2026-04-17 按 DevOps 工作流适配度、安装清晰度、操作交接和生产运维价值完成复核。现在这页被重新定位为“安装优先”的 DevOps 入口，而不是泛化自动化榜单。"
+      "en": "Reviewed on 2026-04-17 against DevOps workflow fit, installation clarity, team adoption, and production operations usefulness. This page is now positioned as an installation-focused DevOps entry point instead of a broad automation roundup.",
+      "zh": "已于 2026-04-17 按 DevOps 工作流适配度、安装清晰度、团队协作适配和生产运维价值完成复核。现在这页被重新定位为“安装优先”的 DevOps 入口，而不是泛化自动化榜单。"
     },
     "selectionReason": {
       "en": "We prioritize this page because DevOps-intent users usually need a shortlist they can install, validate, and carry into real release and incident loops quickly.",
@@ -165,12 +165,12 @@
     },
     "trustSignals": {
       "en": [
-        "Entries are chosen for practical DevOps workflow value such as release operations, incident response, platform maintenance, and operator clarity.",
+        "Entries are chosen for practical DevOps workflow value such as release operations, incident response, platform maintenance, and setup clarity.",
         "Selection favors tools with public documentation and clear setup paths that teams can validate before wider rollout.",
         "The page is curated for repeatable operations execution, not for vague automation keyword coverage or generic repository popularity."
       ],
       "zh": [
-        "入选工具优先服务于真实 DevOps 工作流，例如发布运维、事故响应、平台维护与操作清晰度。",
+        "入选工具优先服务于真实 DevOps 工作流，例如发布运维、事故响应、平台维护与配置清晰度。",
         "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
         "这个页面服务的是可复用运维执行，而不是空泛的自动化关键词覆盖或泛化仓库热度。"
       ]
@@ -194,12 +194,12 @@
         "zh": "当安装流程、维护者状态或 DevOps 工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with trust, install-path, and operator checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验信任信号、安装路径与运维可用性。"
+        "en": "Maintained through Killer-Skills curation review with trust, install-path, and setup checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验信任信号、安装路径与运维可用性。"
       },
       "verification": {
-        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+        "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -210,19 +210,19 @@
         },
         "summary": {
           "en": "Use this page when you want one DevOps companion that can enter real production work without turning evaluation into another endless tooling audit.",
-          "zh": "如果你要找的是一个能进入真实生产运维流程的 DevOps 伴侣工具，而不是继续掉进无休止的工具审计，就先用这页收口。"
+          "zh": "如果你要找的是一个能进入真实生产运维流程的 DevOps 伴侣工具，而不是继续掉进无休止的工具审计，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before opening more DevOps-related repositories.",
             "Choose one tool that best supports release operations, incidents, automation, or platform maintenance.",
-            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Install it and verify the CLI write path, sync behavior, and first key validation step.",
             "Only after the base path works, expand the setup across the wider DevOps workflow."
           ],
           "zh": [
             "先打开安装文档，而不是继续点开更多与 DevOps 相关的仓库。",
             "选择一个最适合发布运维、事故处理、自动化或平台维护的工具。",
-            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道关键验证步骤。",
             "只有基础路径跑通后，再把它扩展到更广的 DevOps 工作流。"
           ]
         }
@@ -233,20 +233,20 @@
           "zh": "降低平台运维拖累"
         },
         "summary": {
-          "en": "Treat the collection as an editorial filter when you need DevOps-adjacent tools that improve operational confidence without overcomplicating the stack.",
-          "zh": "当你想为 DevOps 邻接工作流补上运维信心与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+          "en": "Use this collection when you need DevOps-adjacent tools that improve operational confidence without overcomplicating the stack.",
+          "zh": "当你想为 DevOps 邻接工作流补上运维信心与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the tool has stable ownership and visible install guidance.",
-            "Review CLI behavior so operators know what will be written and synced.",
+            "Review CLI behavior so teams know what will be written and synced.",
             "Use one validated path before scaling it to more environments, services, or teammates.",
             "Document the chosen DevOps workflow baseline after the first clean rollout."
           ],
           "zh": [
             "先确认工具是否有稳定维护主体和清晰的安装指引。",
             "通过 CLI 总览确认会写入什么、同步如何发生。",
-            "先用一条已验证路径，再决定是否扩展到更多环境、服务或团队成员。",
+            "先用一条已确认可用的路径，再决定是否扩展到更多环境、服务或团队成员。",
             "在首次稳定落地后，把选定的 DevOps 基线路径沉淀成团队默认做法。"
           ]
         }
@@ -271,7 +271,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -279,11 +279,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the trusted starter collection to sanity-check workflow choices before you standardize a team stack.",
-          "zh": "在团队标准化之前，回到可信起步合集，对工作流工具的选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check workflow choices before you standardize a team stack.",
+          "zh": "在团队推广给团队之前，回到官方可信合集，对工作流工具的选择做一次再确认。"
         }
       }
     ]

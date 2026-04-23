@@ -140,11 +140,11 @@ const solutionReviewMeta = {
     ? '由 Killer-Skills 团队持续维护，并定期检查内容准确性、安装路径与可用性'
     : 'Maintained by the Killer-Skills team with recurring checks for accuracy, install flow, and usability',
   verification: isZhCopy
-    ? '场景意图、代表技能、安装桥梁、CLI 验证与后续决策路径'
-    : 'Scenario intent, representative skills, install bridges, CLI validation, and next decision paths',
+    ? '场景说明、代表技能、安装入口、CLI 验证与推荐下一步'
+    : 'Scenario overview, representative skills, install bridges, CLI validation, and recommended next steps',
   audience: isZhCopy
-    ? '这页优先服务于“已经知道自己要解决什么工作流问题”的高意图用户。'
-    : 'This page serves high-intent users who already know the workflow problem they need to solve.',
+    ? '这页优先服务于已经知道自己要解决什么工作流问题的用户。'
+    : 'This page serves people who already know the workflow problem they need to solve.',
 };
 const solutionReviewSignals = [
   isZhCopy
@@ -206,13 +206,13 @@ const solutionDecisionTracks =
         },
         {
           badge: isZhCopy ? 'OPS' : 'OPS',
-          title: isZhCopy ? '补齐操作者护栏与执行纪律' : 'Add Operator Guardrails and Execution Discipline',
+          title: isZhCopy ? '补齐评审护栏与执行纪律' : 'Add Review Guardrails and Execution Discipline',
           description: isZhCopy
             ? '如果技术上已经能装起来，但团队执行仍然容易漂移，就先锁定评审、上下文预算和规范化执行路径。'
             : 'If the tools can already be installed technically but team execution still drifts, lock review, context budget, and spec discipline before you expand the stack.',
           whenToUse: isZhCopy
-            ? '适合安装本身不是瓶颈，真正瓶颈是评审、交接和失败边界的时候。'
-            : 'Use it when installation is not the bottleneck, but review, handoff, and failure boundaries still are.',
+            ? '适合安装本身不是瓶颈，真正瓶颈是评审、协作衔接和失败边界的时候。'
+            : 'Use it when installation is not the bottleneck, but review, team coordination, and failure boundaries still are.',
           checkpoints: isZhCopy
             ? [
                 '先明确谁负责安全评审、谁负责规范执行、谁负责上下文边界。',
@@ -222,7 +222,7 @@ const solutionDecisionTracks =
             : [
                 'Define who owns security review, spec discipline, and context boundaries first.',
                 'Do not confuse “it installed” with “the team now has control”.',
-                'Turn CLI behavior and validation into a reusable operator flow.',
+                'Turn CLI behavior and validation into a reusable team workflow.',
               ],
           skillRefs: [
             'getsentry/skills/security-review',
@@ -236,20 +236,20 @@ const solutionDecisionTracks =
           badge: isZhCopy ? 'BUILD' : 'BUILD',
           title: isZhCopy ? '把可信路径扩成可复用工作流栈' : 'Expand the Trusted Path Into a Reusable Workflow Stack',
           description: isZhCopy
-            ? '当第一条可信安装路径和操作者护栏都清楚之后，再决定哪些 workflow builder、集成能力和 IDE 技能应进入下一条执行链路。'
-            : 'After the trusted install path and operator guardrails are clear, decide which workflow builders, integration layers, and IDE-native skills belong in the next execution lane.',
+            ? '当第一条可信安装路径和评审护栏都清楚之后，再决定哪些 workflow builder、集成能力和 IDE 技能应进入下一条执行链路。'
+            : 'After the trusted install path and review guardrails are clear, decide which workflow builders, integration layers, and IDE-native skills belong in the next execution lane.',
           whenToUse: isZhCopy
             ? '适合你已经不再选“第一条路径”，而是在决定“下一条可复用工作流栈”时。'
             : 'Use it when you are no longer choosing the first path, but the next reusable workflow stack.',
           checkpoints: isZhCopy
             ? [
                 '下一项工具是在扩展现有可信栈，而不是重新推倒重选。',
-                '要让每个新增能力都能映射回具体场景和 operator checkpoint。',
+                '要让每个新增能力都能映射回具体场景和关键验证步骤。',
                 '安装之后，继续回到 collections 或 solution，而不是重新刷全量目录。',
               ]
             : [
                 'Each added tool should expand the trusted stack instead of resetting the choice from scratch.',
-                'Map every new capability back to a concrete scenario and operator checkpoint.',
+                'Map every new capability back to a concrete scenario and a key validation step.',
                 'After installation, continue through collections or solutions instead of the full directory.',
               ],
           skillRefs: [
@@ -487,8 +487,8 @@ const solutionSignificantLinks = solutionAuthorityBridges
               </h2>
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {isZhCopy
-                  ? '真正高意图的 solution 页，不该把所有技能一次性丢给你。先确认你当前卡在可信首装、操作者护栏，还是工作流扩张，再进入对应轨道。'
-                  : 'A high-intent solution page should not dump every compatible skill at once. Decide whether you are blocked on the first trusted install, operator guardrails, or workflow expansion, then move into the matching lane.'}
+                  ? 'solution 页不该把所有技能一次性丢给你。先确认你当前卡在可信首装、评审护栏，还是工作流扩张，再进入对应轨道。'
+                  : 'A solution page should not dump every compatible skill at once. Decide whether you are blocked on the first trusted install, review guardrails, or workflow expansion, then move into the matching lane.'}
               </p>
             </div>
 
@@ -612,7 +612,7 @@ const solutionSignificantLinks = solutionAuthorityBridges
               </h2>
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {isZhCopy
-                  ? '这组卡片是当前场景的补充候选，而不是第一跳入口。先用上方代表技能和下一步路径收口，再决定是否需要继续扩展。'
+                  ? '这组卡片是当前场景的补充候选，而不是第一跳入口。先用上方代表技能和下一步路径缩小范围，再决定是否需要继续扩展。'
                   : 'These cards are supporting candidates for the scenario, not the first click. Use the representative skills and next-step bridges above to narrow the choice before you expand further.'}
               </p>
             </div>

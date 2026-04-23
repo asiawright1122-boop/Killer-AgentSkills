@@ -12,8 +12,8 @@
     "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI | AI Agent Skills"
   },
   "description": {
-    "en": "A curated OpenAI shortlist for prompt design, evaluations, runtime debugging, and operator handoff.",
-    "zh": "围绕提示词设计、评估、运行调试与操作交接整理的一份 OpenAI 候选清单。",
+    "en": "A curated OpenAI shortlist for prompt design, evaluations, runtime debugging, and team adoption.",
+    "zh": "围绕提示词设计、评估、运行调试与团队协作适配整理的一份 OpenAI 候选清单。",
     "ja": "Claude Code・Cursor・Windsurf 向けの openai powered AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 openai powered AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de openai powered en Claude Code, Cursor y Windsurf.",
@@ -163,7 +163,7 @@
     },
     "selectionReason": {
       "en": "OpenAI visitors usually arrive with a concrete job: improve prompts, add evals, debug runtime behavior, or make agent operations easier to hand off. This page narrows the shortlist around those jobs.",
-      "zh": "搜索 OpenAI 工具的用户通常带着很具体的任务而来：改进提示词、补评估、排查运行问题，或让 Agent 运维更易交接。这页就是围绕这些任务缩小候选范围。"
+      "zh": "搜索 OpenAI 工具的用户通常带着很具体的任务而来：改进提示词、补评估、排查运行问题，或让 Agent 运维更易协作衔接。这页就是围绕这些任务缩小候选范围。"
     },
     "trustSignals": {
       "en": [
@@ -179,12 +179,12 @@
     },
     "groupingLogic": {
       "en": [
-        "Start with the workflow gap that hurts first: prompt quality, eval coverage, runtime visibility, or team handoff.",
+        "Start with the workflow gap that hurts first: prompt quality, eval coverage, runtime visibility, or team coordination.",
         "Keep the list compact while covering the parts of an OpenAI stack that most teams actually need to operationalize.",
         "Move the next click into install docs, CLI behavior, and the closest follow-up collection or guide."
       ],
       "zh": [
-        "先从最痛的工作流缺口开始：提示词质量、评估覆盖、运行可观测，还是团队交接。",
+        "先从最痛的工作流缺口开始：提示词质量、评估覆盖、运行可观测，还是团队协作衔接。",
         "列表保持紧凑，但覆盖大多数 OpenAI 团队真正需要落地的关键环节。",
         "下一次点击直接导向安装文档、CLI 行为说明，以及最相关的后续合集或指南。"
       ]
@@ -196,12 +196,12 @@
         "zh": "当安装流程、维护者状态或工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills editorial review with monthly collection checks.",
+        "en": "Killer-Skills curation review with monthly collection checks.",
         "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
       },
       "verification": {
-        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+        "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -216,13 +216,13 @@
         },
         "steps": {
           "en": [
-            "Decide whether the first gap is prompting, evaluation, runtime debugging, or handoff.",
+            "Decide whether the first gap is prompting, evaluation, runtime debugging, or coordination.",
             "Open the install docs for the tool that best fits that gap.",
-            "Verify what the CLI writes, what operators need to review, and how the tool fits the current stack.",
+            "Verify what the CLI writes, what teams need to review, and how the tool fits the current stack.",
             "Expand only after one active workflow proves the setup is useful."
           ],
           "zh": [
-            "先判断当前最先要补的是提示词、评估、运行调试还是交接。",
+            "先判断当前最先要补的是提示词、评估、运行调试还是协作衔接。",
             "打开最匹配这个缺口的工具安装文档。",
             "确认 CLI 会写入什么、操作员要审查什么，以及这款工具如何嵌入现有栈。",
             "等一条活跃工作流验证有效后，再决定是否扩大使用范围。"
@@ -242,13 +242,13 @@
           "en": [
             "Prefer tools with visible maintainers, public setup guidance, and clear evaluation primitives.",
             "Pick the smallest tool that closes the current blind spot instead of rebuilding the stack all at once.",
-            "Pilot in one active project, then document the operator handoff before wider rollout.",
+            "Pilot in one active project, then document the team adoption before wider rollout.",
             "Return for a second tool only after the first addition proves its value."
           ],
           "zh": [
             "优先选择维护者可见、安装指引公开、评估能力边界清楚的工具。",
             "先用最小工具补当前盲点，而不是一次性重建整条栈。",
-            "先在一个活跃项目里试跑，再把操作交接写清楚后再推广。",
+            "先在一个活跃项目里试跑，再把团队协作适配写清楚后再推广。",
             "只有第一个工具确实产生价值后，再回来考虑第二个工具。"
           ]
         }
@@ -263,7 +263,7 @@
         },
         "description": {
           "en": "Start with the install guide so the first OpenAI tool trial has a concrete setup path.",
-          "zh": "先看安装指南，让第一次 OpenAI 工具试跑有一条明确的落地路径。"
+          "zh": "先看安装指南，让第一次 OpenAI 工具试跑有一条明确的后续使用步骤。"
         }
       },
       {
@@ -273,7 +273,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and which operator checks matter after setup.",
+          "en": "Confirm what the CLI writes, how sync behaves, and which setup review matters after setup.",
           "zh": "确认 CLI 会写入什么、同步如何发生，以及安装后操作员最该核对哪些点。"
         }
       },
@@ -281,11 +281,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "After the first workflow trial succeeds, compare it with the trusted starter collection before standardizing.",
-          "zh": "等第一条工作流试跑成功后，再用可信起步合集做一次交叉核对，再决定是否标准化。"
+          "en": "After the first workflow trial succeeds, compare it with the official trusted collection before standardizing.",
+          "zh": "等第一条工作流试跑成功后，再用官方可信合集做一次再确认，再决定是否标准化。"
         }
       }
     ]

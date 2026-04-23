@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare AI assistant workflow tools for developers, then move straight into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "先比较适合开发者的 AI 助手工作流工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "先比较适合开发者的 AI 助手工作流工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare AI assistant workflow tools for developers, then move into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较适合开发者的 AI 助手工作流工具，然后进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "比较适合开发者的 AI 助手工作流工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf 向けの assistant developers AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 assistant developers AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de assistant developers en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -165,17 +165,17 @@
   },
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against developer workflow fit, install clarity, operational usefulness, and day-to-day assistant value. This page is now positioned as an install-first comparison surface instead of a vague tooling list.",
+      "en": "Reviewed on 2026-04-17 against developer workflow fit, install clarity, operational usefulness, and day-to-day assistant value. This page is now positioned as an installation-focused comparison surface instead of a vague tooling list.",
       "zh": "已于 2026-04-17 按开发工作流适配度、安装清晰度、落地可用性和日常助手价值完成复核。现在这页被重新定位为“先安装、再比较”的入口，而不是泛化工具清单。"
     },
     "selectionReason": {
       "en": "We prioritize this page for users who already know they need an AI assistant layer in daily development. The right move is to shortlist a tool, install it, validate the path, and only then expand into broader workflow decisions.",
-      "zh": "对于已经明确需要开发助手层的用户，这页应该先帮助他们收口候选工具，再进入安装与验证，而不是继续发散到更宽泛的生态比较。"
+      "zh": "对于已经明确需要开发助手层的用户，这页应该先帮助他们筛选候选工具，再进入安装与验证，而不是继续发散到更宽泛的生态比较。"
     },
     "trustSignals": {
       "en": [
         "Entries focus on tools that can support real coding, review, documentation, or coordination work.",
-        "Selection favors installable tools with enough public documentation and operator clarity to validate quickly.",
+        "Selection favors installable tools with enough public documentation and setup clarity to validate quickly.",
         "The collection is curated for repeatable developer workflows, not novelty demos or generic prompt packs."
       ],
       "zh": [
@@ -203,29 +203,29 @@
         "zh": "当维护主体、安装流程或工作流适配性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with install, documentation, and assistant-workflow checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与 AI 助手工作流可用性。"
+        "en": "Maintained through Killer-Skills curation review with install, documentation, and assistant-workflow checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验安装、文档与 AI 助手工作流可用性。"
       },
       "verification": {
-        "en": "Validate installability, maintainer trust, workflow relevance, and operator clarity before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、维护者可信度、工作流相关性和操作清晰度。"
+        "en": "Validate installability, maintainer trust, workflow relevance, and setup clarity before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、维护者可信度、工作流相关性和配置清晰度。"
       }
     },
     "executionExamples": [
       {
         "title": {
           "en": "Shortlist a daily coding assistant",
-          "zh": "先收口一个日常编码助手"
+          "zh": "先筛选一个日常编码助手"
         },
         "summary": {
           "en": "Use this page when you want one assistant layer that can help in real development, not just another tool to compare endlessly.",
-          "zh": "如果你要找的是能进入真实开发流程的助手层，而不是继续无休止比较的新工具，就先用这页收口。"
+          "zh": "如果你要找的是能进入真实开发流程的助手层，而不是继续无休止比较的新工具，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before opening more assistant repositories.",
             "Choose one tool that best matches coding, review, or documentation support needs.",
-            "Install it and verify the IDE-native path before team rollout.",
+            "Install it and verify the IDE-native path before team adoption.",
             "Only after the install path works, expand into broader workflow planning."
           ],
           "zh": [
@@ -242,13 +242,13 @@
           "zh": "降低评审与文档拖累"
         },
         "summary": {
-          "en": "Use the collection as an editorial filter when you need assistants that improve output quality without overcomplicating the stack.",
-          "zh": "当你想提升产出质量、又不想把技术栈复杂度抬得太高时，可以把这个合集当作编辑过滤层。"
+          "en": "Use the collection as a curated shortlist when you need assistants that improve output quality without overcomplicating the stack.",
+          "zh": "当你想提升产出质量、又不想把技术栈复杂度抬得太高时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the assistant tool has a stable maintainer and visible install docs.",
-            "Review the CLI overview so operators know what will be written and synced.",
+            "Review the CLI overview so teams know what will be written and synced.",
             "Add the tool into one concrete developer workflow before expanding scope.",
             "Document the validated assistant path as the default team entry point."
           ],

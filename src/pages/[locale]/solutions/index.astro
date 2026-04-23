@@ -40,7 +40,7 @@ const pageKeywords = buildKeywordString(
   'workflowAutomation',
   'processAutomation',
   'ideCompat',
-  tr('Solutions.keyword1', 'high-intent skill use cases'),
+  tr('Solutions.keyword1', 'skill use cases with clear next steps'),
   'Killer-Skills',
 );
 const solutionsAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
@@ -68,7 +68,7 @@ const faqItems = [
     question: tr('Solutions.faq1Q', 'Why use solution pages instead of ad-hoc keyword searches?'),
     answer: tr(
       'Solutions.faq1A',
-      'Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing.',
+      'Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less.',
     ),
   },
   {
@@ -203,12 +203,12 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
       >
         <div class="max-w-3xl mb-8">
           <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-            {isZhCopy ? '高意图承接面' : 'High-Intent Continuation'}
+            {isZhCopy ? '按场景进入下一步' : 'Use Cases and Next Steps'}
           </div>
           <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
             {
               isZhCopy
-                ? '先用场景页收口问题，再继续进入可信安装和工作流路径'
+                ? '先用场景页明确问题，再继续进入可信安装和工作流路径'
                 : 'Use Solutions to Narrow the Problem, Then Continue Into Trusted Install and Workflow Paths'
             }
           </h2>
@@ -216,7 +216,7 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
             {
               isZhCopy
                 ? '如果用户已经知道自己要解决哪类工作流问题，solutions 的任务就是先帮他缩小下一步，再把动作交给官方可信合集、安装文档、CLI 总览或更具体的场景页。'
-                : 'When users already know the kind of workflow problem they need to solve, solutions should narrow the next move first, then hand the action into trusted collections, installation docs, CLI guidance, or a more specific scenario page.'
+                : 'When users already know the kind of workflow problem they need to solve, solutions should narrow the next move first, then send them into trusted collections, installation docs, CLI guidance, or a more specific scenario page.'
             }
           </p>
         </div>
@@ -260,7 +260,7 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
           <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
             {
               isZhCopy
-                ? '别回到全量目录，直接进入更强的承接面'
+                ? '别回到全量目录，直接进入更相关的下一步'
                 : 'Skip the Full Directory and Move Into Stronger Next-Step Surfaces'
             }
           </h2>

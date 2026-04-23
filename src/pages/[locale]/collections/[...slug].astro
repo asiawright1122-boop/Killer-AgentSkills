@@ -462,8 +462,8 @@ const itemListSchema = {
                 </h2>
                 <p class="text-base md:text-lg leading-8 font-medium text-[var(--muted-foreground)]">
                   {isZhCopy
-                    ? '合集页的职责不是继续把更多技能卡片丢给你，而是先解释为什么这组技能值得一起看、下一步该怎么进入安装与验证、以及之后该往哪条承接路径继续走。'
-                    : 'A collection page should not just add more cards to the screen. It should explain why these skills belong together, how the next step moves into installation and validation, and which path should continue the decision afterwards.'}
+                    ? '合集页的职责不是继续把更多技能卡片丢给你，而是先解释为什么这组技能值得一起看、下一步该怎么进入安装与验证，以及之后该看哪个相关页面。'
+                    : 'A collection page should not just add more cards to the screen. It should explain why these skills belong together, how the next step moves into installation and validation, and which related page to open afterwards.'}
                 </p>
               </div>
 
@@ -490,8 +490,8 @@ const itemListSchema = {
                   <div class="text-sm font-black leading-6">
                     {editorialMaintenance?.verification ||
                       (isZhCopy
-                        ? '筛选逻辑、安装路径与下一步承接'
-                        : 'Selection logic, install path, and next-step continuation')}
+                        ? '筛选逻辑、安装路径与下一步建议'
+                        : 'Selection logic, install path, and recommended next steps')}
                   </div>
                 </div>
                 <div class="border-[3px] border-[var(--border)] bg-[var(--card)] p-4">
@@ -500,8 +500,8 @@ const itemListSchema = {
                   </div>
                   <div class="text-sm font-black leading-6">
                     {isZhCopy
-                      ? '已经知道大致方向、需要更快收口到可安装选择的高意图用户。'
-                      : 'High-intent users who roughly know the direction and need a faster path to an installable shortlist.'}
+                      ? '已经知道大致方向、需要更快找到可安装选择的用户。'
+                      : 'People who roughly know the direction and need a faster path to an installable shortlist.'}
                   </div>
                 </div>
               </div>
@@ -526,15 +526,15 @@ const itemListSchema = {
               <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 items-start">
                 <div class="max-w-3xl">
                   <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                    {isZhCopy ? '主安装承接路径' : 'Primary Install Bridge'}
+                    {isZhCopy ? '推荐安装路径' : 'Recommended Install Path'}
                   </div>
                   <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
-                    {isZhCopy ? '先收口到一个技能，再进入安装路径' : 'Pick One Skill, Then Take the Install Path'}
+                    {isZhCopy ? '先选一个技能，再进入安装路径' : 'Pick One Skill, Then Take the Install Path'}
                   </h2>
                   <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                     {isZhCopy
-                      ? '这个合集的任务不是把你留在比较阶段，也不是直接整合集安装，而是先帮你收口到一个技能，再把下一次点击明确送进安装、验证与落地路径。真正安装发生在技能路径上。'
-                      : 'This collection should not trap users in comparison mode or pretend to install the whole collection. Its job is to narrow the shortlist to one skill, then send the next click into installation, validation, and rollout. Installation happens on the skill path.'}
+                      ? '这个合集的任务不是把你留在比较阶段，也不是直接整合集安装，而是先帮你选定一个技能，再把下一次点击明确送进安装、验证与后续步骤。真正安装发生在技能路径上。'
+                      : 'This collection should not trap users in comparison mode or pretend to install the whole collection. Its job is to narrow the shortlist to one skill, then send the next click into installation, validation, and the next practical step. Installation happens on the skill path.'}
                   </p>
                 </div>
 
@@ -563,17 +563,15 @@ const itemListSchema = {
             <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
               <div class="max-w-4xl mb-8">
                 <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                  {isZhCopy ? '决策轨道' : 'Decision Tracks'}
+                  {isZhCopy ? '使用方式' : 'Ways To Use This Collection'}
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
-                  {isZhCopy
-                    ? '先判断你要解决的是哪一类工作流瓶颈'
-                    : 'Start With The Workflow Bottleneck You Actually Need To Solve'}
+                  {isZhCopy ? '先判断你最想解决的是哪一类问题' : 'Start With The Problem You Actually Need To Solve'}
                 </h2>
                 <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                   {isZhCopy
-                    ? '真正高意图的合集页，不应该把所有工具一起丢给你。先确认你当前卡在执行骨架、交接治理，还是复用落地，再进入对应轨道，决策会比继续横向刷卡片更快。'
-                    : 'A high-intent collection should not dump every tool into one flat wall. Decide whether your bottleneck is execution scaffolding, handoff governance, or repeatable rollout first, then enter the track that matches the job you need to solve.'}
+                    ? '合集页不应该把所有工具一起丢给你。先确认你当前更需要执行骨架、团队协作规范，还是可复用的工作流扩展，再进入对应方式会更快。'
+                    : 'A collection page should not dump every tool into one flat wall. Decide whether your bottleneck is execution scaffolding, team coordination, or reusable workflow expansion first, then enter the path that matches the job you need to solve.'}
                 </p>
               </div>
 
@@ -595,7 +593,7 @@ const itemListSchema = {
                     {track.checkpoints.length > 0 && (
                       <div class="mb-4">
                         <h4 class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
-                          {isZhCopy ? '进入这条轨道前先确认' : 'Confirm Before You Commit'}
+                          {isZhCopy ? '适合在这些情况下使用' : 'Good Fit If'}
                         </h4>
                         <ul class="space-y-2">
                           {track.checkpoints.map((checkpoint) => (
@@ -644,16 +642,16 @@ const itemListSchema = {
             <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
               <div class="max-w-3xl mb-6">
                 <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                  {isZhCopy ? '最该继续的两条路径' : 'Best-Fit Next Paths'}
+                  {isZhCopy ? '推荐下一步' : 'Recommended Next Steps'}
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
                   {isZhCopy
-                    ? '这页的下一跳，不该回到泛目录，而该继续进入更贴合的承接面'
+                    ? '这页的下一跳，不该回到泛目录，而该继续进入更贴合的页面'
                     : 'The Next Click Should Keep Narrowing, Not Reset Back To A Generic Directory'}
                 </h2>
                 <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                   {isZhCopy
-                    ? '安装路径已经明确后，优先继续进入最贴合这页主题的 solution、CLI 或判断页。这样更容易把平台型、框架型和运维型需求继续收口成可验证的高意图链路。'
+                    ? '安装路径已经明确后，优先继续进入最贴合这页主题的 solution、CLI 或相关合集。这样更容易继续比较和验证平台型、框架型和运维型需求。'
                     : 'Once the install path is clear, move into the solution page, CLI docs, or the next collection that best matches this theme. That keeps platform, framework, and operations needs easier to compare and verify.'}
                 </p>
               </div>
@@ -859,13 +857,13 @@ const itemListSchema = {
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
                   {isZhCopy
-                    ? '如果这一页已经接近你的目标，再沿着相关精选合集继续收口'
+                    ? '如果这一页已经接近你的目标，再沿着相关精选合集继续比较'
                     : 'If This Page Is Close, Keep Narrowing With Related Collections'}
                 </h2>
                 <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                   {isZhCopy
-                    ? '不要回到泛化目录重新开始浏览。沿着这些相邻的高意图合集继续前进，能更快把比较范围收口到真正适合你团队的安装路径。'
-                    : 'Do not reset back to the generic directory. Move sideways through these adjacent high-intent collections to narrow the shortlist toward the install path that best matches your team.'}
+                    ? '不要回到泛化目录重新开始浏览。沿着这些相邻的精选合集继续前进，能更快把比较范围缩小到真正适合你团队的安装路径。'
+                    : 'Do not reset back to the generic directory. Move sideways through these adjacent collections to narrow the shortlist toward the install path that best matches your team.'}
                 </p>
               </div>
 
@@ -897,7 +895,7 @@ const itemListSchema = {
             <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
               {
                 isZhCopy
-                  ? '合集页的目标不是继续分流，而是帮助你先收口选择，再进入安装与验证。下面这 3 个问题就是整个承接链路的最小解释。'
+                  ? '合集页的目标不是继续分流，而是帮助你先选定方向，再进入安装与验证。下面这 3 个问题就是最简明的说明。'
                   : 'This collection should not keep users browsing forever. These three questions explain how to shortlist, install, and validate the next step.'
               }
             </p>
@@ -919,16 +917,16 @@ const itemListSchema = {
             <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
               <div class="mb-6 max-w-3xl">
                 <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                  {isZhCopy ? '补充承接路径' : 'Additional Next Paths'}
+                  {isZhCopy ? '补充下一步' : 'Additional Next Paths'}
                 </div>
                 <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
                   {isZhCopy
-                    ? '如果前两条还不够，再沿着这些补充路径继续收口'
+                    ? '如果前两条还不够，再沿着这些补充路径继续比较'
                     : 'Use These Additional Paths If You Need One More Step To Narrow The Decision'}
                 </h2>
                 <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                   {isZhCopy
-                    ? '这些是当前合集的补充语义承接面，适合在你已经确认安装方向之后，再继续进入更细的比较、判断和场景执行。'
+                    ? '这些是当前合集的补充页面，适合在你已经确认安装方向之后，再继续进入更细的比较、判断和场景执行。'
                     : 'These are the supporting surfaces for this collection after the install direction is clear and the primary next paths have already narrowed the decision.'}
                 </p>
               </div>

@@ -353,7 +353,7 @@
       },
       "communication": {
         "titleLabel": "Communication Skill",
-        "useCaseLabel": "messaging, handoffs, and team collaboration"
+        "useCaseLabel": "messaging, coordination, and team collaboration"
       },
       "default": {
         "titleLabel": "AI Agent Skill",
@@ -831,7 +831,7 @@
       },
       "process-automation": {
         "label": "Process Automation Skills",
-        "description": "Discover process automation skills for SOPs, handoffs, repetitive operations, and AI-assisted business workflows."
+        "description": "Discover process automation skills for SOPs, coordination, repetitive operations, and AI-assisted business workflows."
       },
       "document-automation": {
         "label": "Document Automation Skills",
@@ -954,8 +954,8 @@
     "faq3Q": "結果がまだ広すぎる場合はどうすれば？",
     "faq3A": "スキル詳細ページでキーワードやユースケースを確認し、プラットフォーム名、ファイルタイプ、ビジネスアクションなどの具体的な用語で絞り込んでください。",
     "pageTitle": "インストール可能な自動化ソリューション：AIエージェントスキル",
-    "pageDescription": "高意図ユースケース別にインストール可能なAIエージェントスキルを検索：ワークフロー、プロセス、ドキュメント、ブラウザ、データ自動化。",
-    "keyword1": "high-intent skill use cases",
+    "pageDescription": "ユースケース別にインストール可能なAIエージェントスキルを検索：ワークフロー、プロセス、ドキュメント、ブラウザ、データ自動化。",
+    "keyword1": "skill use cases with clear next steps",
     "badge": "Solutions",
     "openSolution": "Open Solution",
     "browseSkills": "Browse Full Skills Directory",
@@ -963,7 +963,7 @@
     "installCli": "Install via CLI",
     "tryDemo": "Try Skill Online Demo",
     "faq1Q": "Why use solution pages instead of ad-hoc keyword searches?",
-    "faq1A": "Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing."
+    "faq1A": "Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less."
   },
   "Stats": {
     "totalSkills": "総スキル数",

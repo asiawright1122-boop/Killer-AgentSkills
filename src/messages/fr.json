@@ -353,7 +353,7 @@
       },
       "communication": {
         "titleLabel": "Communication Skill",
-        "useCaseLabel": "messaging, handoffs, and team collaboration"
+        "useCaseLabel": "messaging, coordination, and team collaboration"
       },
       "default": {
         "titleLabel": "AI Agent Skill",
@@ -831,7 +831,7 @@
       },
       "process-automation": {
         "label": "Process Automation Skills",
-        "description": "Discover process automation skills for SOPs, handoffs, repetitive operations, and AI-assisted business workflows."
+        "description": "Discover process automation skills for SOPs, coordination, repetitive operations, and AI-assisted business workflows."
       },
       "document-automation": {
         "label": "Document Automation Skills",
@@ -955,7 +955,7 @@
     "faq3A": "Ouvrez les pages de détail des compétences pour examiner les mots-clés et cas d'usage, puis affinez avec des termes spécifiques comme les noms de plateforme, types de fichiers ou actions métier.",
     "pageTitle": "Solutions d'automatisation installables : AI Agent Skills",
     "pageDescription": "Parcourez les AI agent skills installables par cas d'usage : automatisation de workflows, processus, documents, navigation et données.",
-    "keyword1": "high-intent skill use cases",
+    "keyword1": "skill use cases with clear next steps",
     "badge": "Solutions",
     "openSolution": "Open Solution",
     "browseSkills": "Browse Full Skills Directory",
@@ -963,7 +963,7 @@
     "installCli": "Install via CLI",
     "tryDemo": "Try Skill Online Demo",
     "faq1Q": "Why use solution pages instead of ad-hoc keyword searches?",
-    "faq1A": "Solution pages bundle high-intent terms, installable skills, and next-step paths to improve click quality and reduce noisy browsing."
+    "faq1A": "Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less."
   },
   "Stats": {
     "totalSkills": "Total des compétences",

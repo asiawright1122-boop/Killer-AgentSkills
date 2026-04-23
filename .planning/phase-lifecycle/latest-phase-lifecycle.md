@@ -1,6 +1,6 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-04-16T06:20:54.711Z
+- Generated: 2026-04-23T02:40:46.462Z
 - Active milestone: n/a
 - Status: clean
 - Pending actions: 0
@@ -59,6 +59,11 @@
 - Archive root: .planning/milestones/v1.6-phases
 - Archived dirs: .planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window, .planning/milestones/v1.6-phases/55-recovery-delta-attribution-and-cohort-board, .planning/milestones/v1.6-phases/56-authority-surface-uplift-program-and-promotion-gates, .planning/milestones/v1.6-phases/57-recovery-experiment-ladder-and-automation-readiness
 - Expected dirs: .planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window, .planning/milestones/v1.6-phases/55-recovery-delta-attribution-and-cohort-board, .planning/milestones/v1.6-phases/56-authority-surface-uplift-program-and-promotion-gates, .planning/milestones/v1.6-phases/57-recovery-experiment-ladder-and-automation-readiness
+
+### v1.7
+- Archive root: .planning/milestones/v1.7-phases
+- Archived dirs: .planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory, .planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization, .planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails
+- Expected dirs: .planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory, .planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization, .planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails
 
 ## Conflicts
 

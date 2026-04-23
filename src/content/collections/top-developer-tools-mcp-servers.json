@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare developer workflow tools, then move straight into installation docs, CLI validation, and rollout paths for coding, testing, review, and release loops.",
-    "zh": "先比较开发工作流工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于编码、测试、评审与发布闭环。",
+    "zh": "先比较开发工作流工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于编码、测试、评审与发布闭环。",
     "ja": "Claude Code・Cursor・Windsurf 向けの tooling work AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 tooling work AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de tooling work en Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare developer workflow tools, then move into installation docs, CLI validation, and rollout paths for coding, testing, review, and release loops.",
-    "zh": "比较开发工作流工具，然后进入安装文档、CLI 验证与团队落地路径，适用于编码、测试、评审与发布闭环。",
+    "zh": "比较开发工作流工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于编码、测试、评审与发布闭环。",
     "ja": "Claude Code・Cursor・Windsurf 向けの tooling work AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 tooling work AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de tooling work en Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -158,7 +158,7 @@
   ],
   "longDescription": {
     "en": "This page curates tools for teams that build, test, debug, review, and ship AI-assisted software. Instead of acting like another vague tooling directory, it narrows the shortlist quickly and sends the next click into installation docs, CLI verification, and a repeatable rollout path.",
-    "zh": "这页服务的是在 AI 辅助下完成构建、测试、调试、评审与发布的软件团队。它不应该只是又一个泛化工具目录，而是要帮用户尽快收口候选，然后把下一次点击送进安装文档、CLI 验证与可重复的落地路径。",
+    "zh": "这页服务的是在 AI 辅助下完成构建、测试、调试、评审与发布的软件团队。它不应该只是又一个泛化工具目录，而是要帮用户尽快筛选候选，然后把下一次点击送进安装文档、CLI 验证与可重复的后续使用步骤。",
     "ja": "このページは、実際のプロダクトでAI Agent Skillsを開発するチーム向けに、実用的な開発ツールを厳選しています。重視しているのは、素早い実装、テストによる検証、連携不具合のデバッグ、IDE中心での安定リリースといった現場の流れです。MCP対応を持つツールもありますが、中心はあくまで開発生産性と品質向上です。",
     "ko": "이 페이지는 실제 제품에서 AI Agent Skills를 개발하는 팀을 위해 실용적인 개발 도구를 선별했습니다. 핵심은 빠른 구현, 테스트 기반 검증, 통합 이슈 디버깅, IDE 중심의 안정적 릴리스 같은 실무 워크플로입니다. MCP 지원은 통합 기능 중 하나일 뿐, 주된 관점은 개발 생산성과 품질입니다.",
     "es": "Esta página reúne tooling para equipos que construyen skills de agentes de IA en productos reales. El enfoque es práctico: escribir código más rápido, validar comportamiento con pruebas, depurar integraciones y publicar versiones estables con procesos centrados en IDE. MCP puede aparecer como capacidad de integración, pero la prioridad es productividad y calidad de software.",
@@ -170,7 +170,7 @@
   },
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against coding workflow fit, installation clarity, review and testing value, and release guardrails. This page is now positioned as an install-first developer workflow entry point instead of a vague tooling roundup.",
+      "en": "Reviewed on 2026-04-17 against coding workflow fit, installation clarity, review and testing value, and release guardrails. This page is now positioned as an installation-focused developer workflow entry point instead of a vague tooling roundup.",
       "zh": "已于 2026-04-17 按编码工作流适配度、安装清晰度、评审与测试价值以及发布护栏完成复核。现在这页被重新定位为“安装优先”的开发工作流入口，而不是模糊的工具盘点。"
     },
     "selectionReason": {
@@ -208,12 +208,12 @@
         "zh": "当安装流程、维护者状态或开发工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with install, documentation, and developer-workflow checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与开发工作流可用性。"
+        "en": "Maintained through Killer-Skills curation review with install, documentation, and developer-workflow checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验安装、文档与开发工作流可用性。"
       },
       "verification": {
-        "en": "Validate installability, workflow fit, operator clarity, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、工作流适配度、操作清晰度和维护者可信度。"
+        "en": "Validate installability, workflow fit, setup clarity, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、工作流适配度、配置清晰度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -224,19 +224,19 @@
         },
         "summary": {
           "en": "Use this page when you need one developer workflow tool that can improve build, test, review, or release quality without expanding evaluation into another endless tool search.",
-          "zh": "如果你需要的是一个能改善构建、测试、评审或发布质量的开发工作流工具，而不是继续陷入无休止的找工具过程，就先用这页收口。"
+          "zh": "如果你需要的是一个能改善构建、测试、评审或发布质量的开发工作流工具，而不是继续陷入无休止的找工具过程，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before opening more developer-tool repositories.",
             "Choose one tool that best supports coding, testing, debugging, review, or release guardrails.",
-            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Install it and verify the CLI write path, sync behavior, and first key validation step.",
             "Only after the base path works, expand the setup across the wider team workflow."
           ],
           "zh": [
             "先打开安装文档，而不是继续点开更多开发工具仓库。",
             "选择一个最适合编码、测试、调试、评审或发布护栏的工具。",
-            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道关键验证步骤。",
             "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
           ]
         }
@@ -247,13 +247,13 @@
           "zh": "稳定测试到发布的关键路径"
         },
         "summary": {
-          "en": "Treat the collection as an editorial filter when you need tools that improve developer output quality without piling another vague platform layer onto the stack.",
-          "zh": "当你想补上能提升开发输出质量的工具、又不想再往栈里叠一层模糊平台时，可以把这个合集当作编辑过滤层。"
+          "en": "Use this collection when you need tools that improve developer output quality without piling another vague platform layer onto the stack.",
+          "zh": "当你想补上能提升开发输出质量的工具、又不想再往栈里叠一层模糊平台时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the tool has stable ownership and visible install guidance.",
-            "Review CLI behavior so operators know what will be written, synced, and verified.",
+            "Review CLI behavior so teams know what will be written, synced, and verified.",
             "Use one validated coding path before scaling it to more repos or teammates.",
             "Document the chosen developer workflow baseline after the first clean rollout."
           ],
@@ -285,7 +285,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -293,11 +293,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the official trusted collection to sanity-check developer workflow choices before you standardize a team toolchain.",
-          "zh": "在团队标准化之前，回到官方可信合集，对开发工作流工具选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check developer workflow choices before you standardize a team toolchain.",
+          "zh": "在团队推广给团队之前，回到官方可信合集，对开发工作流工具选择做一次再确认。"
         }
       }
     ]

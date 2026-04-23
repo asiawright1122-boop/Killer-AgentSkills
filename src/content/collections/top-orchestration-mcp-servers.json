@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare agent orchestration tools, then move into installation docs, CLI validation, and rollout paths for multi-step execution.",
-    "zh": "先比较 Agent 编排工具，再进入安装文档、CLI 验证与团队落地路径，适用于多步骤执行。",
+    "zh": "先比较 Agent 编排工具，再进入安装文档、CLI 验证与团队后续使用步骤，适用于多步骤执行。",
     "ja": "Claude Code・Cursor・Windsurf 向けの orchestration platforms execution AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
     "ko": "Claude Code, Cursor, Windsurf용 orchestration platforms execution AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de orchestration platforms execution en Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare agent orchestration tools, then move into installation docs, CLI validation, and rollout paths for multi-step execution.",
-    "zh": "比较 Agent 编排工具，然后进入安装文档、CLI 验证与团队落地路径，适用于多步骤执行。",
+    "zh": "比较 Agent 编排工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于多步骤执行。",
     "ja": "Claude Code・Cursor・Windsurf 向けの orchestration platforms execution AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 orchestration platforms execution AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
     "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de orchestration platforms execution en Claude Code, Cursor y Windsurf. Killer-Ski",
@@ -53,7 +53,7 @@
       "multi-step automation",
       "approval workflow automation",
       "agent execution platforms",
-      "workflow retries and handoff",
+      "workflow retries and coordination",
       "install AI agent skills"
     ],
     "zh": [
@@ -61,7 +61,7 @@
       "多步骤自动化",
       "审批工作流自动化",
       "Agent 执行平台",
-      "工作流重试与交接",
+      "工作流重试与协作衔接",
       "安装 AI Agent Skills"
     ],
     "ja": [
@@ -150,8 +150,8 @@
     "frankxai/agentic-creator-os"
   ],
   "longDescription": {
-    "en": "This collection is for teams that need more than one-off prompts. It helps you compare orchestration layers for routing, approvals, retries, handoff, and long-running execution, then pushes the next click into installation docs and operator validation.",
-    "zh": "这个合集服务的是不满足于一次性 prompt 的团队。它帮助你比较路由、审批、重试、交接与长任务执行所需的编排层，然后把下一次点击明确送进安装文档与操作者验证。",
+    "en": "This collection is for teams that need more than one-off prompts. It helps you compare orchestration layers for routing, approvals, retries, coordination, and long-running execution, then pushes the next click into installation docs and setup validation.",
+    "zh": "这个合集服务的是不满足于一次性 prompt 的团队。它帮助你比较路由、审批、重试、协作衔接与长任务执行所需的编排层，然后把下一次点击明确送进安装文档与团队成员验证。",
     "ja": "このページでは、実運用のデリバリーパイプラインで複雑なエージェント実行を調整するオーケストレーション基盤を扱います。依存関係の順序制御、並列処理、リトライ、承認、長時間ジョブの可視化を備え、マルチステップ自動化を安全に運用できます。MCP連携が可能な構成もありますが、最重要はオーケストレーションの信頼性です。",
     "ko": "이 페이지는 실제 배포 파이프라인에서 복잡한 에이전트 실행을 조율하는 오케스트레이션 플랫폼을 다룹니다. 도구들은 의존성 순서, 병렬 작업, 재시도, 승인, 장기 실행 작업 가시성을 지원하여 프로덕션에서 다단계 자동화를 안전하게 운영할 수 있게 합니다. MCP 통합이 일부 가능할 수 있지만, 핵심 우선순위는 오케스트레이션 신뢰성입니다.",
     "es": "Esta página cubre plataformas de orquestación que coordinan ejecuciones complejas de agentes en pipelines reales. Las herramientas soportan orden de dependencias, tareas concurrentes, reintentos, aprobaciones y visibilidad para trabajos largos, permitiendo operar automatizaciones de varios pasos con seguridad en producción. MCP puede estar disponible como integración, pero la prioridad principal es la fiabilidad de la orquestación.",
@@ -163,8 +163,8 @@
   },
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against orchestration fit, installation clarity, approval-aware execution, and production handoff value. This page is now positioned as an install-first orchestration entry point instead of a generic platform roundup.",
-      "zh": "已于 2026-04-17 按编排适配度、安装清晰度、审批感知执行与生产交接价值完成复核。现在这页被重新定位为“安装优先”的编排入口，而不是泛化平台盘点。"
+      "en": "Reviewed on 2026-04-17 against orchestration fit, installation clarity, approval-aware execution, and production coordination value. This page is now positioned as an installation-focused orchestration entry point instead of a generic platform roundup.",
+      "zh": "已于 2026-04-17 按编排适配度、安装清晰度、审批感知执行与生产协作衔接价值完成复核。现在这页被重新定位为“安装优先”的编排入口，而不是泛化平台盘点。"
     },
     "selectionReason": {
       "en": "We prioritize this page because orchestration-intent users usually need one platform they can install, validate, and prove inside a real multi-step workflow before standardizing anything broader.",
@@ -174,23 +174,23 @@
       "en": [
         "Entries are chosen for practical orchestration value such as routing, approvals, retries, visibility, and long-running execution support.",
         "Selection favors tools with public docs and setup paths that teams can validate before pushing them into production workflows.",
-        "The page is curated for operator-facing execution reliability, not for abstract platform adjacency or vague agent branding."
+        "The page is curated for team-facing execution reliability, not for abstract platform adjacency or vague agent branding."
       ],
       "zh": [
         "入选工具优先服务于真实编排价值，例如路由、审批、重试、可观测性与长任务执行支持。",
         "筛选优先考虑文档公开、接入路径清晰、团队可在进入生产前完成验证的工具。",
-        "这个页面服务的是面向操作者的执行可靠性，而不是抽象平台挂靠或模糊的 Agent 品牌词。"
+        "这个页面服务的是面向团队成员的执行可靠性，而不是抽象平台挂靠或模糊的 Agent 品牌词。"
       ]
     },
     "groupingLogic": {
       "en": [
         "Lead with tools that can own multi-step execution without hiding approval boundaries or retry behavior.",
-        "Keep the shortlist compact enough for fast comparison while still covering orchestration, handoff, and production visibility.",
+        "Keep the shortlist compact enough for fast comparison while still covering orchestration, coordination, and production visibility.",
         "Use installation as the bridge from orchestration comparison into validated workflow execution."
       ],
       "zh": [
         "优先展示能承担多步骤执行、且不会把审批边界和重试行为藏起来的工具。",
-        "列表保持足够紧凑，方便快速比较，同时覆盖编排、交接与生产可观测性。",
+        "列表保持足够紧凑，方便快速比较，同时覆盖编排、协作衔接与生产可观测性。",
         "把安装作为从 orchestration 比较页进入已验证工作流执行的桥梁。"
       ]
     },
@@ -201,8 +201,8 @@
         "zh": "当安装流程、维护者状态或编排相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with install, documentation, and orchestration checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验安装、文档与编排能力可用性。"
+        "en": "Maintained through Killer-Skills curation review with install, documentation, and orchestration checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验安装、文档与编排能力可用性。"
       },
       "verification": {
         "en": "Validate installability, approval clarity, execution fit, and maintainer trust before retaining or adding an entry.",
@@ -216,37 +216,37 @@
           "zh": "先验证一条带审批门槛的工作流链路"
         },
         "summary": {
-          "en": "Use this page when you need one orchestration layer that can move a real workflow through routing, approvals, retries, and handoff without turning selection into another architecture debate.",
-          "zh": "如果你需要的是一层能把真实工作流带过路由、审批、重试与交接的编排能力，而不是继续陷入架构争论，就先用这页收口。"
+          "en": "Use this page when you need one orchestration layer that can move a real workflow through routing, approvals, retries, and coordination without turning selection into another architecture debate.",
+          "zh": "如果你需要的是一层能把真实工作流带过路由、审批、重试与协作衔接的编排能力，而不是继续陷入架构争论，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before comparing more orchestration platforms.",
             "Choose one platform that best matches your approval boundaries and execution model.",
-            "Install it and verify the CLI write path, retry behavior, and first operator checkpoint.",
+            "Install it and verify the CLI write path, retry behavior, and first key validation step.",
             "Only after the base lane works, expand it to broader workflow automation."
           ],
           "zh": [
             "先打开安装文档，而不是继续比较更多编排平台。",
             "选择一个最适合当前审批边界和执行模型的平台。",
-            "先安装并验证 CLI 写入路径、重试行为和第一道操作检查点。",
+            "先安装并验证 CLI 写入路径、重试行为和第一道关键验证步骤。",
             "只有基础链路跑通后，再把它扩展到更广的工作流自动化。"
           ]
         }
       },
       {
         "title": {
-          "en": "Prove retry and handoff behavior before scaling",
-          "zh": "在扩张之前先证明重试与交接行为是可靠的"
+          "en": "Prove retry and coordination behavior before scaling",
+          "zh": "在扩张之前先证明重试与协作衔接情况是可靠的"
         },
         "summary": {
-          "en": "Treat the collection as an editorial filter when you need orchestration tools that can survive long-running jobs and operator checkpoints without hiding failure modes.",
-          "zh": "当你需要能扛住长任务与操作检查点、又不会掩盖失败模式的编排工具时，可以把这个合集当作编辑过滤层。"
+          "en": "Use this collection when you need orchestration tools that can survive long-running jobs and key validation steps without hiding failure modes.",
+          "zh": "当你需要能扛住长任务与关键验证步骤、又不会掩盖失败模式的编排工具时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the platform has stable ownership and visible install guidance.",
-            "Review operator behavior so the team knows where retries, approvals, and logs actually live.",
+            "Review setup behavior so the team knows where retries, approvals, and logs actually live.",
             "Use one validated workflow lane before standardizing orchestration across more systems.",
             "Document the chosen orchestration baseline after the first clean production-style test."
           ],
@@ -278,7 +278,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -286,11 +286,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the official trusted collection to sanity-check orchestration choices before you standardize a multi-step automation stack.",
-          "zh": "在团队标准化之前，回到官方可信合集，对编排工具选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check orchestration choices before you standardize a multi-step automation stack.",
+          "zh": "在团队推广给团队之前，回到官方可信合集，对编排工具选择做一次再确认。"
         }
       }
     ]

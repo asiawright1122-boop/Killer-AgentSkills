@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-04-23T02:33:28Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
+  "milestone": "v1.7",
+  "milestoneName": "Public Trust Surface and Copy Boundary Hardening",
+  "activePhases": [
+    {
+      "phaseNumber": "58",
+      "slug": "public-copy-boundary-audit-and-inventory",
+      "requirements": ["GOV-13"],
+      "phaseDirs": [
+        ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory/58-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory/58-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": ["GOV-13"],
+      "verificationRequirementsCompleted": ["GOV-13"],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "59",
+      "slug": "user-facing-entry-surface-normalization",
+      "requirements": ["UX-EXP-02"],
+      "phaseDirs": [
+        ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization/59-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization/59-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": ["UX-EXP-02"],
+      "verificationRequirementsCompleted": ["UX-EXP-02"],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "60",
+      "slug": "public-copy-leakage-guardrails",
+      "requirements": ["GOV-14"],
+      "phaseDirs": [
+        ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails"
+      ],
+      "summaryFiles": [
+        ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails/60-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails/60-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": ["GOV-14"],
+      "verificationRequirementsCompleted": ["GOV-14"],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    }
+  ],
+  "requirements": [
+    {
+      "id": "GOV-13",
+      "expectedPhase": "58",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "UX-EXP-02",
+      "expectedPhase": "59",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GOV-14",
+      "expectedPhase": "60",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    }
+  ],
+  "hygiene": {
+    "status": "archived-clean",
+    "legacyPhaseDirs": [],
+    "orphanPhaseDirs": [],
+    "duplicateActivePhaseDirs": [],
+    "missingActivePhaseDirs": []
+  }
+}

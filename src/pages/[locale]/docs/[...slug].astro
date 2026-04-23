@@ -321,7 +321,7 @@ const installBridgeCards = isInstallDoc
         title: tr('Docs.installBridge.cli.title', 'Open CLI Control Center'),
         description: tr(
           'Docs.installBridge.cli.desc',
-          'Move straight from install docs into the CLI page for commands, sync behavior, and operator-safe setup paths.',
+          'Move straight from install docs into the CLI page for commands, sync behavior, and reliable setup paths.',
         ),
         badge: 'CLI',
       },
@@ -363,11 +363,11 @@ const installReviewMeta = isInstallDoc
       reviewedAt: '2026-04-19',
       maintainedBy: isZhCopy ? 'Killer-Skills 团队' : 'Killer-Skills Team',
       verification: isZhCopy
-        ? '命令路径、IDE 原生文件写入、CLI 承接路径与可信下一步入口'
-        : 'Command path, IDE-native file writes, CLI handoff, and trusted next-step routes',
+        ? '命令路径、IDE 原生文件写入、CLI 说明与可信下一步入口'
+        : 'Command path, IDE-native file writes, CLI guidance, and trusted next-step routes',
       scope: isZhCopy
-        ? '这页优先服务于“先安装、再验证、再决定下一步”的高意图用户。'
-        : 'This page serves high-intent users who need to install, validate, and then choose the next trusted step.',
+        ? '这页优先服务于希望先安装、再验证、再决定下一步的用户。'
+        : 'This page serves people who need to install, validate, and then choose the next trusted step.',
     }
   : null;
 const installReviewSignals = isInstallDoc
@@ -410,10 +410,10 @@ const installDecisionTracks = isInstallDoc
       },
       {
         badge: isZhCopy ? 'CLI' : 'CLI',
-        title: isZhCopy ? '把安装变成可验证的操作链路' : 'Turn Installation Into a Verifiable Operator Path',
+        title: isZhCopy ? '把安装变成可验证的使用链路' : 'Turn Installation Into a Verifiable Setup Path',
         description: isZhCopy
-          ? '如果命令已经准备好，下一步就不该再靠感觉判断。继续进入 CLI 总览，确认会写入什么、如何同步、以及操作者应该验证哪些检查点。'
-          : 'Once the command is ready, the next step should not rely on intuition. Continue into the CLI overview to confirm what gets written, how sync behaves, and which checkpoints operators should verify.',
+          ? '如果命令已经准备好，下一步就不该再靠感觉判断。继续进入 CLI 总览，确认会写入什么、如何同步，以及团队应该验证哪些关键步骤。'
+          : 'Once the command is ready, the next step should not rely on intuition. Continue into the CLI overview to confirm what gets written, how sync behaves, and which validation steps the team should verify.',
         whenToUse: isZhCopy
           ? '适合已经接近执行阶段，或已经完成首装但需要确认写入、同步和验证行为的时候。'
           : 'Use it when execution is imminent, or after the first install succeeds but write, sync, and validation behavior still need to be checked.',
@@ -435,20 +435,20 @@ const installDecisionTracks = isInstallDoc
         badge: isZhCopy ? 'WORKFLOW' : 'WORKFLOW',
         title: isZhCopy ? '把一次安装推进成团队工作流' : 'Move a One-Off Install Into a Team Workflow',
         description: isZhCopy
-          ? '安装成功后，下一步不该回到随机浏览。继续进入工作流合集或方案页，把这次安装映射到路由、审批、交接和可复用落地链路。'
-          : 'After installation succeeds, the next move should not be random browsing again. Continue into workflow collections or solution pages to map the install into routing, approvals, handoff, and repeatable rollout.',
+          ? '安装成功后，下一步不该回到随机浏览。继续进入工作流合集或方案页，把这次安装映射到路由、审批、协作流程和可复用执行链路。'
+          : 'After installation succeeds, the next move should not be random browsing again. Continue into workflow collections or solution pages to map the install into routing, approvals, team workflows, and repeatable execution.',
         whenToUse: isZhCopy
           ? '适合安装已经验证完成，但你还需要决定它在团队执行链路里应该扮演什么角色的时候。'
           : 'Use it when installation is already validated, but you still need to decide what role the tool should play in the team workflow lane.',
         checkpoints: isZhCopy
           ? [
-              '先决定它服务的是工作流骨架、操作者护栏，还是场景型方案。',
-              '避免再次回到全量目录，把下一次点击限制在高意图承接面内。',
+              '先决定它服务的是工作流骨架、评审护栏，还是场景型方案。',
+              '避免再次回到全量目录，把下一次点击放在更相关的页面里。',
               '把这次安装沉淀成团队可复用的默认动作。',
             ]
           : [
-              'Decide whether the tool serves workflow scaffolding, operator guardrails, or a scenario-specific solution.',
-              'Do not reset back to the full directory; keep the next click inside high-intent surfaces.',
+              'Decide whether the tool serves workflow scaffolding, review guardrails, or a scenario-specific solution.',
+              'Do not reset back to the full directory; keep the next click inside the most relevant surfaces.',
               'Turn the install into a repeatable default for the team instead of a one-off action.',
             ],
         primaryHref: `/${locale}/collections/top-agent-workflow-building-tools`,
@@ -485,8 +485,8 @@ const installNextStepCards = isInstallationPage
           ? '想搭团队工作流栈？回到 Agent Workflow Building Tools'
           : 'Building a Team Workflow Stack? Return to Agent Workflow Tools',
         description: isZhCopy
-          ? '从工作流角度继续挑选路由、审批、交接和执行骨架。'
-          : 'Continue from a workflow perspective to choose routing, approvals, handoff, and execution scaffolds.',
+          ? '从工作流角度继续挑选路由、审批、协作流程和执行骨架。'
+          : 'Continue from a workflow perspective to choose routing, approvals, team workflows, and execution scaffolds.',
       },
       {
         href: `/${locale}/solutions/agent-workflows`,

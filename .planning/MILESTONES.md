@@ -1,5 +1,26 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Shipped Milestones
+### v1.7 Public Trust Surface and Copy Boundary Hardening (Shipped: 2026-04-23)
+
+**Delivered:** This milestone treated internal strategy/process leakage on public pages as a product-trust problem rather than a one-off copy bug. The shipped result audited the main public entry surfaces, normalized the highest-impact templates and shared content sources, and added reusable guardrails so known internal/operator wording families are blocked before release.
+
+**Phases completed:** 58-60 (3 plans total)
+
+**Key accomplishments:**
+- Confirmed the leak family across public page shells, shared collection JSON, locale catalogs, and authority-surface helper data instead of treating the homepage symptom as isolated.
+- Normalized the main public entry surfaces so they now read like product guidance rather than operator process notes.
+- Removed repeated internal-language families from shared public sources at the source instead of only patching rendered templates.
+- Upgraded `tests/pages/public-links.test.ts` into a directory-level trust-surface guardrail that scans pages, shared data, locale catalogs, and collection JSON together.
+- Closed the milestone with `3/3` requirements satisfied, `3/3` phases complete, and a passed milestone audit.
+
+**Stats:**
+- 58-60 phases, 3 plans, 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v1.7-ROADMAP.md, .planning/milestones/v1.7-REQUIREMENTS.md, .planning/milestones/v1.7-MILESTONE-AUDIT.md
+- Carry-forward signal: **REC-24**: Refresh Coverage Drilldown raw inputs so cluster-level recovery proof is no longer blocked by stale exports.
+
+**What's next:** **REC-24**: Refresh Coverage Drilldown raw inputs so cluster-level recovery proof is no longer blocked by stale exports.
+
+---
 ### v1.6 Post-Governance Recovery Proof and Authority Lift (Shipped: 2026-04-16)
 
 **Delivered:** This milestone turned the post-governance recovery effort into an explicit proof-and-gating system. The shipped result preserved dated recovery windows, compared the `v1.5` baseline against fresh cohorts, turned authority-surface expansion into a measurable scorecard, and formalized an experiment ladder that keeps automation locked until manual wins are actually repeatable.

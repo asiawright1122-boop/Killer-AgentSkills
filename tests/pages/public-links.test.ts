@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
@@ -72,6 +72,78 @@ const collectRepoFiles = (relativeDir: string): string[] => {
 
   walk(absoluteDir);
   return results.sort();
+};
+
+const collectRepoFilesByExtensions = (relativeDir: string, extensions: Set<string>): string[] => {
+  const absoluteDir = resolve(REPO_ROOT, relativeDir);
+  const results: string[] = [];
+
+  const walk = (currentDir: string) => {
+    for (const entry of readdirSync(currentDir, { withFileTypes: true })) {
+      const absolutePath = resolve(currentDir, entry.name);
+      if (entry.isDirectory()) {
+        walk(absolutePath);
+        continue;
+      }
+
+      if (!extensions.has(extname(entry.name))) continue;
+      results.push(absolutePath.slice(REPO_ROOT.length + 1));
+    }
+  };
+
+  walk(absoluteDir);
+  return results.sort();
+};
+
+const PUBLIC_COPY_BOUNDARY_EXTENSIONS = new Set(['.astro', '.json', '.ts']);
+const PUBLIC_COPY_BOUNDARY_RULES = [
+  { label: 'operator handoff', pattern: /\boperator handoff\b/i },
+  { label: 'operator checkpoint', pattern: /\boperator checkpoint\b/i },
+  { label: 'operator clarity', pattern: /\boperator clarity\b/i },
+  { label: 'operator guardrails', pattern: /\boperator guardrails?\b/i },
+  { label: 'trusted starter collection', pattern: /\btrusted starter collection\b/i },
+  { label: 'editorial filter', pattern: /\beditorial filter\b/i },
+  { label: 'sanity-check', pattern: /\bsanity-check\b/i },
+  { label: 'workflow intent', pattern: /\bworkflow intent\b/i },
+  { label: 'handoff', pattern: /\bhandoffs?\b/i },
+  { label: 'high-intent', pattern: /\bhigh-intent\b/i },
+  { label: '收口', pattern: /收口/ },
+  { label: '交叉核对', pattern: /交叉核对/ },
+  { label: '已验证路径', pattern: /已验证路径/ },
+  { label: '标准化之前', pattern: /标准化之前/ },
+  { label: '落地路径', pattern: /落地路径/ },
+  { label: '承接', pattern: /承接/ },
+  { label: '高意图', pattern: /高意图/ },
+  { label: '高意図', pattern: /高意図/ },
+  { label: '고의도', pattern: /고의도/ },
+  { label: '决策入口', pattern: /决策入口/ },
+];
+const PUBLIC_COPY_BOUNDARY_TARGETS = [
+  'src/pages/[locale]/index.astro',
+  'src/pages/[locale]/collections',
+  'src/pages/[locale]/solutions',
+  'src/pages/[locale]/docs',
+  'src/pages/[locale]/skills',
+  'src/content/collections',
+  'src/messages',
+  'src/lib/authority-surface-public-data.ts',
+];
+
+const collectPublicCopyBoundaryFiles = (): string[] => {
+  const files = new Set<string>();
+
+  for (const target of PUBLIC_COPY_BOUNDARY_TARGETS) {
+    const absoluteTarget = resolve(REPO_ROOT, target);
+    if (statSync(absoluteTarget).isDirectory()) {
+      for (const relativePath of collectRepoFilesByExtensions(target, PUBLIC_COPY_BOUNDARY_EXTENSIONS)) {
+        files.add(relativePath);
+      }
+    } else {
+      files.add(target);
+    }
+  }
+
+  return [...files].sort();
 };
 
 const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
@@ -248,7 +320,7 @@ describe('public links and navigation copy', () => {
     expect(collectionsDetailSource).toContain('getCollectionRecoveryPathEntries(');
     expect(collectionsDetailSource).toContain('getRelatedAuthorityCollectionEntries(');
     expect(collectionsDetailSource).toContain('featuredCollectionRecoveryPaths');
-    expect(collectionsDetailSource).toContain('Best-Fit Next Paths');
+    expect(collectionsDetailSource).toContain('Recommended Next Steps');
 
     expect(solutionsSource).toContain('getAuthoritySurfaceEntries(');
     expect(solutionsSource).toContain("'collections-hub'");
@@ -312,6 +384,44 @@ describe('public links and navigation copy', () => {
 
     for (const phrase of blockedPhrases) {
       expect(auditedSources).not.toContain(phrase);
+    }
+  });
+
+  it('keeps reusable public copy-boundary guardrails active across public trust surfaces', () => {
+    const matches: string[] = [];
+
+    for (const relativePath of collectPublicCopyBoundaryFiles()) {
+      const source = readRepoSource(relativePath);
+
+      for (const rule of PUBLIC_COPY_BOUNDARY_RULES) {
+        if (rule.pattern.test(source)) {
+          matches.push(`${relativePath}: ${rule.label}`);
+        }
+      }
+    }
+
+    expect(matches).toEqual([]);
+  });
+
+  it('keeps homepage quick-start copy free of internal strategy phrasing', () => {
+    const homeSource = readPageSource('../pages/[locale]/index.astro');
+    const blockedPhrases = [
+      'Trusted Entry Paths',
+      '可信入口路径',
+      'Start From Curated Paths, Not Raw Directory Browsing',
+      '先从精选入口开始，而不是直接跳进原始目录',
+      'Start With a Trusted Anchor',
+      '先选可信起点',
+      'Use the Scenario to Narrow the Choice',
+      '按场景收口决策',
+      'Turn Discovery Into Installation',
+      '把发现推进成可执行安装',
+      'repo comparison loop',
+      'trusted starter collection',
+    ];
+
+    for (const phrase of blockedPhrases) {
+      expect(homeSource).not.toContain(phrase);
     }
   });
 

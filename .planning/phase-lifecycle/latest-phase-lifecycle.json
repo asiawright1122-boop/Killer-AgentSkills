@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-04-16T06:20:54.711Z",
-  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "generatedAt": "2026-04-23T02:40:46.462Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
   "activeMilestone": null,
   "activeMilestoneName": null,
   "status": "clean",
@@ -133,6 +133,20 @@
         ".planning/milestones/v1.6-phases/55-recovery-delta-attribution-and-cohort-board",
         ".planning/milestones/v1.6-phases/56-authority-surface-uplift-program-and-promotion-gates",
         ".planning/milestones/v1.6-phases/57-recovery-experiment-ladder-and-automation-readiness"
+      ]
+    },
+    {
+      "milestone": "v1.7",
+      "phaseArchivePath": ".planning/milestones/v1.7-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory",
+        ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization",
+        ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory",
+        ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization",
+        ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails"
       ]
     }
   ],

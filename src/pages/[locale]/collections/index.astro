@@ -118,20 +118,20 @@ const collectionsInstallBridgeCards = [
   },
   {
     badge: isZhCopy ? '第 3 步 / 可信复核' : 'Step 3 / Trusted Recheck',
-    title: isZhCopy ? '第 3 步：安装后再用可信合集复核' : 'Step 3: Cross-check with trusted picks',
+    title: isZhCopy ? '第 3 步：安装后再看可信合集' : 'Step 3: Revisit trusted picks',
     description: isZhCopy
-      ? '当安装路径和 CLI 验证已经明确，再用可信起步合集复核是否值得推广到团队。'
-      : 'Once installation and CLI validation are clear, use the trusted starter collection to sanity-check whether a tool belongs in the team stack.',
+      ? '当安装路径和 CLI 验证已经明确，再用官方可信合集确认它是否值得推广到团队。'
+      : 'Once installation and CLI validation are clear, use the official trusted collection to double-check whether a tool belongs in the team stack.',
     href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
   },
 ];
 const collectionStartTracks = [
   {
     badge: isZhCopy ? '低风险起步' : 'Lower-Risk Start',
-    title: isZhCopy ? '先从可信起步合集开始' : 'Start With the Trusted Starter Collection',
+    title: isZhCopy ? '先从官方可信合集开始' : 'Start With the Official Trusted Collection',
     description: isZhCopy
-      ? '如果你当前最重要的是先选一条更稳的路径，而不是一次性看很多工具，就先从可信起步合集开始。'
-      : 'If the immediate goal is to choose a safer first path instead of comparing too many tools at once, begin with the trusted starter collection.',
+      ? '如果你当前最重要的是先选一条更稳的路径，而不是一次性看很多工具，就先从官方可信合集开始。'
+      : 'If the immediate goal is to choose a safer first path instead of comparing too many tools at once, begin with the official trusted collection.',
     href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
   },
   {
@@ -168,8 +168,8 @@ const collectionReviewCriteria = [
   {
     title: isZhCopy ? '工作流而不是热榜' : 'Workflow Over Leaderboard',
     description: isZhCopy
-      ? '我们优先按任务、工作流和可信交接来组织合集，而不是只按 stars 或 owner 做聚合。'
-      : 'We organize collections around jobs, workflows, and trusted handoffs instead of just stars or owner aggregation.',
+      ? '我们优先按任务、工作流和清晰下一步来组织合集，而不是只按 stars 或 owner 做聚合。'
+      : 'We organize collections around jobs, workflows, and clear next steps instead of just stars or owner aggregation.',
   },
   {
     title: isZhCopy ? '目录只是参考层' : 'Directory Is Supporting Only',
@@ -316,7 +316,7 @@ const breadcrumb = buildBreadcrumbTrail(
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {
                   isZhCopy
-                    ? 'Collections hub 不该只是把全部合集排给你。它应该先帮你判断：你现在该从更稳的可信集合起步，还是直接进入工作流构建集合，或先用场景页收口问题。'
+                    ? 'Collections hub 不该只是把全部合集排给你。它应该先帮你判断：你现在该从更稳的可信集合起步，还是直接进入工作流构建合集，或先用场景页明确问题。'
                     : 'The collections hub should not just flatten every collection onto one page. It should help users decide whether the next click belongs to a safer trusted collection, a workflow-building bundle, or a scenario page that narrows the problem first.'
                 }
               </p>
@@ -347,7 +347,7 @@ const breadcrumb = buildBreadcrumbTrail(
           <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-8">
             <div class="max-w-3xl">
               <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                {isZhCopy ? '主安装承接路径' : 'Primary Install Bridge'}
+                {isZhCopy ? '推荐安装路径' : 'Recommended Install Path'}
               </div>
               <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
                 {
@@ -359,8 +359,8 @@ const breadcrumb = buildBreadcrumbTrail(
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {
                   isZhCopy
-                    ? '合集总页的任务，不只是帮助用户比较主题，还要把他们送进统一的安装、验证和高信任收口路径。'
-                    : 'The collections hub should not only help users compare themes. It should move them into a unified install, validation, and trusted decision path.'
+                    ? '合集总页的任务，不只是帮助用户比较主题，还要把他们送进统一的安装、验证和可信下一步。'
+                    : 'The collections hub should not only help users compare themes. It should move them into a unified install, validation, and trusted next step.'
                 }
               </p>
             </div>
@@ -402,7 +402,7 @@ const breadcrumb = buildBreadcrumbTrail(
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {
                   isZhCopy
-                    ? '合集页真正的价值，不是再多包一层仓库链接，而是通过精选路径、安装桥梁和下一步承接，把比较变成更容易执行的决策。'
+                    ? '合集页真正的价值，不是再多包一层仓库链接，而是通过精选路径、安装入口和下一步建议，把比较变成更容易执行的选择。'
                     : 'The real value of collection pages is not wrapping more repository links. It is turning comparison into a more executable decision through curated paths, install bridges, and better next-step guidance.'
                 }
               </p>

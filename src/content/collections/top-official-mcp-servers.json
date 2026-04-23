@@ -13,7 +13,7 @@
   },
   "description": {
     "en": "Compare official AI agent skills and trusted tools, then move straight into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "先比较官方 AI Skills 与可信工具，再直接进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "先比较官方 AI Skills 与可信工具，再直接进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurfで使う公式AIスキルと信頼できるツールを比較し、そのままインストール手順、CLI検証、展開フローへ進めます。",
     "ko": "Claude Code, Cursor, Windsurf에서 사용할 공식 AI 스킬과 신뢰할 수 있는 도구를 비교한 뒤 바로 설치 문서, CLI 검증, 배포 경로로 이어집니다.",
     "es": "Compara skills oficiales de IA y herramientas confiables, y pasa directamente a la documentación de instalación, la validación por CLI y las rutas de despliegue para Claude Code, Cursor y Windsurf.",
@@ -37,7 +37,7 @@
   },
   "seoDescription": {
     "en": "Compare 12 official AI agent skills and trusted tools, then move into installation docs, CLI validation, and rollout paths for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较 12 个官方 AI Skills 与可信工具，然后进入安装文档、CLI 验证与团队落地路径，适用于 Claude Code、Cursor 和 Windsurf。",
+    "zh": "比较 12 个官方 AI Skills 与可信工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于 Claude Code、Cursor 和 Windsurf。",
     "ja": "Claude Code・Cursor・Windsurf向けに、公式AIスキルと信頼できるツールを比較し、インストール手順・CLI検証・展開フローまでつなげます。Killer-Skills.",
     "ko": "Claude Code, Cursor, Windsurf용 공식 AI 스킬과 신뢰할 수 있는 도구를 비교하고 설치 문서, CLI 검증, 배포 경로까지 이어집니다. Killer-Skills.",
     "es": "Compara 12 skills oficiales de IA y herramientas confiables, y continúa hacia la documentación de instalación, la validación por CLI y las rutas de despliegue para Claude Code, Cursor y Windsurf. Killer-Skills.",
@@ -189,7 +189,7 @@
       ],
       "zh": [
         "入选项目由官方产品团队或高可信生态团队维护。",
-        "文档与安装路径公开、活跃，足以支撑真实的运维交接。",
+        "文档与安装路径公开、活跃，足以支撑真实的团队使用。",
         "筛选优先考虑实际部署价值，而不是泛化的 GitHub 热度。"
       ]
     },
@@ -200,8 +200,8 @@
         "zh": "当上游安装流程、维护主体或发布节奏发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills editorial review with trust, install-path, and operator checks.",
-        "zh": "由 Killer-Skills 编辑审查流程维护，重点核验信任信号、安装路径与运维可用性。"
+        "en": "Maintained through Killer-Skills curation review with trust, install-path, and setup checks.",
+        "zh": "由 Killer-Skills 内容审核流程维护，重点核验信任信号、安装路径与运维可用性。"
       },
       "verification": {
         "en": "Validate ownership, doc freshness, install instructions, and workflow relevance before keeping or adding an entry.",
@@ -227,8 +227,8 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should verify after the install path is clear.",
-          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何工作，以及操作人员应核验哪些内容。"
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should verify after the install path is clear.",
+          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何工作，以及团队应核验哪些内容。"
         }
       },
       {
@@ -258,7 +258,7 @@
     "executionExamples": [
       {
         "title": {
-          "en": "Build a trusted starter stack",
+          "en": "Build a official trusted stack",
           "zh": "搭建一套可信的起步技能栈"
         },
         "summary": {
@@ -283,10 +283,10 @@
       {
         "title": {
           "en": "Standardize the team shortlist",
-          "zh": "把团队候选栈先收口"
+          "zh": "把团队候选栈先筛选"
         },
         "summary": {
-          "en": "Use the collection as an editorial filter when deciding which tools are safe enough for a shared developer workflow.",
+          "en": "Use the collection as a curated shortlist when deciding which tools are safe enough for a shared developer workflow.",
           "zh": "当你要为团队共用工作流筛选足够稳妥的工具时，可以把这个合集当成编辑部过滤层。"
         },
         "steps": {
@@ -345,26 +345,26 @@
       },
       {
         "title": {
-          "en": "Add trusted operator guardrails",
-          "zh": "补齐可信的操作者护栏"
+          "en": "Add trusted team guardrails",
+          "zh": "补齐可信的团队成员护栏"
         },
         "summary": {
           "en": "Choose this lane when the tool itself matters less than the operational guardrails around it. The goal is to lock review, context, and execution discipline before you standardize across a team.",
-          "zh": "如果现在更重要的不是单个工具本身，而是围绕它的操作护栏，就先走这条轨道。目标是在团队标准化之前，先把评审、上下文和执行纪律稳住。"
+          "zh": "如果现在更重要的不是单个工具本身，而是围绕它的操作护栏，就先走这条轨道。目标是在团队推广给团队之前，先把评审、上下文和执行纪律稳住。"
         },
         "whenToUse": {
-          "en": "Use it when installs keep working technically, but quality, ownership, or operator confidence still drift between projects.",
-          "zh": "当安装从技术上已经能跑通，但质量、责任归属或操作者信心仍会在不同项目之间飘移时，就先走这条轨道。"
+          "en": "Use it when installs keep working technically, but quality, ownership, or team confidence can still drift between projects.",
+          "zh": "当安装从技术上已经能跑通，但质量、责任归属或团队成员信心仍会在不同项目之间飘移时，就先走这条轨道。"
         },
         "checkpoints": {
           "en": [
             "The team can audit what context, review rules, and security checks surround the install.",
-            "Operators know which tool governs review, orchestration, and failure boundaries.",
+            "Teams know which tool governs review, orchestration, and failure boundaries.",
             "The stack is clear enough to survive more than one contributor or repo."
           ],
           "zh": [
             "团队可以审查安装路径外层的上下文、评审规则与安全检查。",
-            "操作者知道哪个工具负责评审、编排和失败边界。",
+            "团队知道哪个工具负责评审、编排和失败边界。",
             "这套栈足够清晰，能穿过不止一个贡献者或仓库。"
           ]
         },
@@ -376,8 +376,8 @@
         ],
         "nextStepHref": "/{locale}/docs/cli/overview",
         "nextStepLabel": {
-          "en": "Review CLI and operator behavior",
-          "zh": "确认 CLI 与操作者行为"
+          "en": "Review CLI and setup behavior",
+          "zh": "确认 CLI 与团队成员行为"
         }
       },
       {
@@ -421,7 +421,7 @@
   },
   "longDescription": {
     "en": "If you only need one safe place to start, begin with this collection and then open the installation docs. It focuses on official AI agent skills and trusted tools maintained by official teams or established ecosystem builders, so users can verify ownership, documentation, and rollout paths before they install anything. That makes it a better first decision page than a flat GitHub list and a stronger bridge into real deployment.",
-    "zh": "如果你现在只需要一个更稳的起点，就先看这个合集，再进入安装文档。它聚焦由官方团队和成熟生态项目维护的官方 AI Skills 与可信工具，用户可以在安装前先验证归属、文档和落地路径，因此它比扁平的 GitHub 仓库清单更适合作为第一条决策入口，也更容易衔接到真实部署。",
+    "zh": "如果你现在只需要一个更稳的起点，就先看这个合集，再进入安装文档。它聚焦由官方团队和成熟生态项目维护的官方 AI Skills 与可信工具，用户可以在安装前先验证归属、文档和后续使用步骤，因此它比扁平的 GitHub 仓库清单更适合作为第一条推荐入口，也更容易衔接到真实部署。",
     "ja": "このコレクションは、ファーストパーティーチームと信頼できるエコシステムが継続的に保守する公式AIスキルとツールに焦点を当てています。安定した品質、明確なドキュメント、本番導入しやすい連携経路を必要とするチーム向けです。MCPは互換基盤として活用できますが、優先すべきは、実際の開発と提供を加速する実用的なスキルとツールです。",
     "ko": "이 컬렉션은 퍼스트파티 팀과 신뢰할 수 있는 생태계 빌더가 지속적으로 유지보수하는 공식 AI 스킬과 도구에 초점을 맞춥니다. 예측 가능한 품질, 명확한 문서, 프로덕션 적용 가능한 통합 경로가 필요한 팀을 위해 구성되었습니다. MCP는 호환성 인프라로 활용될 수 있지만, 우선순위는 실제 전달 속도와 안정성을 높여 주는 실용적인 스킬과 도구입니다.",
     "es": "Esta colección destaca skills oficiales de IA y herramientas confiables mantenidas por equipos oficiales y actores sólidos del ecosistema. Está pensada para equipos que necesitan calidad predecible, documentación clara e integraciones listas para producción. MCP puede aportar como capa de compatibilidad, pero la prioridad son skills y herramientas prácticas para entregar productos de IA con mayor velocidad y confianza.",

@@ -2,25 +2,20 @@
 
 ## Overview
 
-`v1.6 Post-Governance Recovery Proof and Authority Lift` shipped on 2026-04-16 and is now archived.
+`v1.7 Public Trust Surface and Copy Boundary Hardening` shipped on `2026-04-23` and is now archived.
 
-No active milestone is currently defined. Planning is now between milestones, and the next scope should be derived from archived `v1.6` evidence instead of carrying the old active checklist forward unchanged.
-
-## Next Milestone Setup
-
-- Freshest local Coverage Drilldown raw export is now dated `2026-04-16`, so raw-input freshness is back inside SLA and no longer the primary blocker.
-- The latest comparable proof window on `2026-04-21` still reports `trust=warning`, so another trustworthy window is needed before promotion claims become credible.
-- Authority uplift remains `0 promote / 31 hold / 1 stop`, which means discovery expansion should stay closed until at least two primary surfaces earn promotion on evidence.
-- Recovery automation remains locked, and future milestones must preserve Workers AI `free-only` guardrails.
+There is currently no active milestone. The next milestone should return to the broader recovery-proof lane with fresher evidence inputs while preserving the new public copy-boundary contract.
 
 ## Immediate Next Actions
 
-- Capture the next comparable proof window before approving any authority-surface expansion.
-- Execute the missing-cluster split and source-file cleanup batches from the latest recovery reports instead of reopening broad discovery growth.
-- Keep trailing-slash, query-parameter, repeated-segment, and locale-suppression cleanup on the manual lane until the next proof window validates the changes.
+- Start the next milestone from the broader recovery-proof gaps rather than reopening the now-closed public copy-boundary lane.
+- Refresh Coverage Drilldown raw inputs and collect another trustworthy post-governance proof window.
+- Re-evaluate authority-surface promotion and recovery automation only after the fresh proof inputs land.
+- Open the next milestone with `$gsd-new-milestone` when ready.
 
 ## Milestones
 
+- ✅ **v1.7 Public Trust Surface and Copy Boundary Hardening** — shipped 2026-04-23 ([archive](./milestones/v1.7-ROADMAP.md), [requirements](./milestones/v1.7-REQUIREMENTS.md), [audit](./milestones/v1.7-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.7-BOOTSTRAP.md), [closeout](./milestones/v1.7-CLOSEOUT.md), [traceability](./milestones/v1.7-TRACEABILITY.md))
 - ✅ **v1.6 Post-Governance Recovery Proof and Authority Lift** — shipped 2026-04-16 ([archive](./milestones/v1.6-ROADMAP.md), [requirements](./milestones/v1.6-REQUIREMENTS.md), [audit](./milestones/v1.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.6-BOOTSTRAP.md), [closeout](./milestones/v1.6-CLOSEOUT.md), [traceability](./milestones/v1.6-TRACEABILITY.md))
 - ✅ **v1.5 Traffic Recovery Proof and Demand Restart** — shipped 2026-04-16 ([archive](./milestones/v1.5-ROADMAP.md), [requirements](./milestones/v1.5-REQUIREMENTS.md), [audit](./milestones/v1.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.5-BOOTSTRAP.md), [closeout](./milestones/v1.5-CLOSEOUT.md), [traceability](./milestones/v1.5-TRACEABILITY.md))
 - ✅ **v1.4 Traffic Recovery Closure** — shipped and archived ([archive](./milestones/v1.4-ROADMAP.md), [requirements](./milestones/v1.4-REQUIREMENTS.md), [audit](./milestones/v1.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.4-BOOTSTRAP.md), [closeout](./milestones/v1.4-CLOSEOUT.md))
@@ -31,6 +26,7 @@ No active milestone is currently defined. Planning is now between milestones, an
 
 ## Carry-Forward Themes
 
-- **Proof before expansion:** validate whether `v1.5` changed demand before promoting more surfaces.
+- **Proof inputs before expansion:** refresh stale recovery inputs and gather another trustworthy comparable window before reopening growth work.
 - **Authority depth before breadth:** deepen only the surfaces that show measurable movement.
 - **Automation after repeatability:** formalize experimentation only after the manual loops prove trustworthy.
+- **Public trust guardrails stay in force:** public entry surfaces should continue to read like product guidance, not internal planning notes.

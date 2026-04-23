@@ -1,0 +1,43 @@
+{
+  "milestone": "v1.7",
+  "milestoneName": "Public Trust Surface and Copy Boundary Hardening",
+  "goal": "Remove internal strategy/process language from public trust surfaces, normalize high-traffic public entry pages into user-facing guidance, and add guardrails so this class of leak is caught before release.",
+  "sourceMilestone": "v1.6",
+  "sourceMilestoneName": "Post-Governance Recovery Proof and Authority Lift",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.6-ROADMAP.md",
+    ".planning/milestones/v1.6-REQUIREMENTS.md",
+    ".planning/milestones/v1.6-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [
+    "**UX-EXP-02**: Reframe high-traffic discovery and installation entry pages so they read like product guidance instead of internal decision notes.",
+    "**REC-24**: Refresh Coverage Drilldown raw inputs so cluster-level recovery proof is no longer blocked by stale exports.",
+    "**REC-25**: Collect a second trustworthy post-governance proof window so the seeded baseline can turn into comparable evidence.",
+    "**GEO-03**: Promote only the recovery interventions that prove repeatable manually without weakening Workers AI `free-only` guardrails."
+  ],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md"
+  ],
+  "phases": [
+    {
+      "number": "58",
+      "slug": "public-copy-boundary-audit-and-inventory",
+      "requirements": ["GOV-13"]
+    },
+    {
+      "number": "59",
+      "slug": "user-facing-entry-surface-normalization",
+      "requirements": ["UX-EXP-02"]
+    },
+    {
+      "number": "60",
+      "slug": "public-copy-leakage-guardrails",
+      "requirements": ["GOV-14"]
+    }
+  ],
+  "requirements": ["GOV-13", "UX-EXP-02", "GOV-14"]
+}

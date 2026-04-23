@@ -12,8 +12,8 @@
     "ar": "أفضل مهارات Windsurf وسير عمل الوكلاء | AI Agent Skills"
   },
   "description": {
-    "en": "A curated Windsurf shortlist for coding acceleration, review support, rules sync, and cleaner handoffs.",
-    "zh": "围绕编码提速、评审支持、规则同步与更顺畅交接整理的一份 Windsurf 候选清单。",
+    "en": "A curated Windsurf shortlist for coding acceleration, review support, rules sync, and cleaner coordination.",
+    "zh": "围绕编码提速、评审支持、规则同步与更顺畅协作衔接整理的一份 Windsurf 候选清单。",
     "ja": "Windsurf 向けのインストール可能な AI Agent Skills とワークフロー拡張集。",
     "ko": "Windsurf용 설치 가능한 AI Agent Skills 및 워크플로우 확장 모음.",
     "es": "Skills de AI agent instalables y extensiones de flujo de trabajo para Windsurf.",
@@ -36,8 +36,8 @@
     "ar": "مهارات Windsurf — أفضل AI Agent Skills"
   },
   "seoDescription": {
-    "en": "Compare Windsurf tools for coding acceleration, review support, rules sync, and handoff. Start with the shortlist teams can actually trial and adopt.",
-    "zh": "比较适合 Windsurf 团队的编码提速、评审支持、规则同步与交接工具，先从能真正试跑和采用的清单开始。",
+    "en": "Compare Windsurf tools for coding acceleration, review support, rules sync, and coordination. Start with the shortlist teams can actually trial and adopt.",
+    "zh": "比较适合 Windsurf 团队的编码提速、评审支持、规则同步与协作衔接工具，先从能真正试跑和采用的清单开始。",
     "ja": "Windsurf IDE 向けの最高のインストール可能スキルを見つけましょう。厳選された agent skills とワークフロー自動化。",
     "ko": "Windsurf IDE를 위한 최고의 설치 가능 스킬을 찾아보세요. 엄선된 agent skills 및 워크플로우 자동화.",
     "es": "Encuentra los mejores skills instalables para Windsurf IDE. Skills de agente y automatizaciones de workflow.",
@@ -52,7 +52,7 @@
       "Windsurf workflow tools",
       "Windsurf review support",
       "Windsurf rules sync",
-      "Windsurf handoff workflow",
+      "Windsurf shared workflow",
       "Windsurf coding acceleration",
       "Windsurf team setup"
     ],
@@ -60,7 +60,7 @@
       "Windsurf 工作流工具",
       "Windsurf 评审支持",
       "Windsurf 规则同步",
-      "Windsurf 交接流程",
+      "Windsurf 协作衔接流程",
       "Windsurf 编码提速",
       "Windsurf 团队配置"
     ]
@@ -78,8 +78,8 @@
     "expo/skills"
   ],
   "longDescription": {
-    "en": "Windsurf teams usually need a shorter path from trying tools to settling on a working baseline. This collection focuses on tools that help with coding speed, review support, rules sync, and handoff without turning every choice into another compatibility search.",
-    "zh": "Windsurf 团队通常需要的是一条从试工具到确定可用基线更短的路径。这个合集聚焦那些能帮助编码提速、评审支持、规则同步与交接的工具，而不是把每个选择都重新变成兼容性搜索。",
+    "en": "Windsurf teams usually need a shorter path from trying tools to settling on a working baseline. This collection focuses on tools that help with coding speed, review support, rules sync, and coordination without turning every choice into another compatibility search.",
+    "zh": "Windsurf 团队通常需要的是一条从试工具到确定可用基线更短的路径。这个合集聚焦那些能帮助编码提速、评审支持、规则同步与协作衔接的工具，而不是把每个选择都重新变成兼容性搜索。",
     "ja": "Windsurf の agentic コーディング環境は、適切なスキル層があれば最高のパフォーマンスを発揮します。このコレクションは、Windsurf と互換性のある最高のインストール可能 Agent Skills を紹介します。",
     "ko": "Windsurf의 agentic 코딩 환경은 올바른 스킬 레이어와 함께할 때 가장 빛납니다. 이 컬렉션은 Windsurf와 호환되는 최고의 설치 가능한 Agent Skills를 소개합니다.",
     "es": "El entorno de codificación agéntico de Windsurf brilla más con la capa de skills correcta. Esta colección presenta las mejores skills de agente instalables compatibles con Windsurf.",
@@ -91,21 +91,21 @@
   },
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 for setup clarity, maintainer reliability, review support, and handoff readiness. We kept the tools that make Windsurf easier to trial, explain, and standardize.",
-      "zh": "已于 2026-04-17 按安装清晰度、维护者可靠性、评审支持与交接就绪度完成复核。我们保留的是那些能让 Windsurf 更易试跑、更易解释、也更易标准化的工具。"
+      "en": "Reviewed on 2026-04-17 for setup clarity, maintainer reliability, review support, and team adoption readiness. We kept the tools that make Windsurf easier to trial, explain, and standardize.",
+      "zh": "已于 2026-04-17 按安装清晰度、维护者可靠性、评审支持与协作衔接就绪度完成复核。我们保留的是那些能让 Windsurf 更易试跑、更易解释、也更易标准化的工具。"
     },
     "selectionReason": {
-      "en": "People landing here usually already know they want Windsurf. What they need next is a smaller list tied to coding speed, review support, rules sync, and handoff instead of another broad skills roundup.",
-      "zh": "来到这页的人通常已经知道自己要用 Windsurf。接下来他们需要的，不是另一张大而全技能榜，而是一份围绕编码提速、评审支持、规则同步与交接缩小过的候选清单。"
+      "en": "People landing here usually already know they want Windsurf. What they need next is a smaller list tied to coding speed, review support, rules sync, and coordination instead of another broad skills roundup.",
+      "zh": "来到这页的人通常已经知道自己要用 Windsurf。接下来他们需要的，不是另一张大而全技能榜，而是一份围绕编码提速、评审支持、规则同步与协作衔接缩小过的候选清单。"
     },
     "trustSignals": {
       "en": [
-        "Each entry strengthens a concrete Windsurf workflow such as coding acceleration, review support, handoff, or repeatable execution.",
+        "Each entry strengthens a concrete Windsurf workflow such as coding acceleration, review support, coordination, or repeatable execution.",
         "We keep tools with public setup docs, visible maintenance, and a clear first-use path.",
         "Preference goes to tools a team can trial in one repository before wider rollout."
       ],
       "zh": [
-        "每个条目都对应一个明确的 Windsurf 工作流环节，例如编码提速、评审支持、交接或可重复执行。",
+        "每个条目都对应一个明确的 Windsurf 工作流环节，例如编码提速、评审支持、协作衔接或可重复执行。",
         "我们优先保留安装文档公开、维护状态可见、首次使用路径清楚的工具。",
         "筛选更偏向那些能先在单个仓库试跑，再逐步推广到团队的工具。"
       ]
@@ -113,12 +113,12 @@
     "groupingLogic": {
       "en": [
         "Start with the tool that removes the first bottleneck in a Windsurf loop instead of the broadest feature set.",
-        "Keep the list compact while still covering coding, review, handoff, and lightweight automation.",
+        "Keep the list compact while still covering coding, review, coordination, and lightweight automation.",
         "Move the next click into install docs, CLI behavior, and a concrete rollout checklist."
       ],
       "zh": [
         "先从能解决 Windsurf 闭环里第一个瓶颈的工具开始，而不是从功能最多的工具开始。",
-        "列表保持紧凑，同时仍覆盖编码、评审、交接与轻量自动化。",
+        "列表保持紧凑，同时仍覆盖编码、评审、协作衔接与轻量自动化。",
         "下一次点击直接导向安装文档、CLI 行为说明与具体落地检查清单。"
       ]
     },
@@ -129,12 +129,12 @@
         "zh": "当安装流程、维护者状态或 Windsurf 工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills editorial review with monthly collection checks.",
+        "en": "Killer-Skills curation review with monthly collection checks.",
         "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
       },
       "verification": {
-        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+        "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -145,19 +145,19 @@
         },
         "summary": {
           "en": "Use this page when you want one Windsurf companion that can enter real coding work without turning evaluation into another endless tooling loop.",
-          "zh": "如果你要找的是一个能进入真实编码流程的 Windsurf 伴侣工具，而不是继续掉进无休止的工具比较，就先用这页收口。"
+          "zh": "如果你要找的是一个能进入真实编码流程的 Windsurf 伴侣工具，而不是继续掉进无休止的工具比较，就先从这页开始。"
         },
         "steps": {
           "en": [
             "Open the installation docs before opening more Windsurf-related repositories.",
-            "Choose one tool that best supports coding, review, handoff, or automation.",
-            "Install it and verify the CLI write path, sync behavior, and first operator checkpoint.",
+            "Choose one tool that best supports coding, review, coordination, or automation.",
+            "Install it and verify the CLI write path, sync behavior, and first key validation step.",
             "Only after the base path works, expand the setup across the wider team workflow."
           ],
           "zh": [
             "先打开安装文档，而不是继续点开更多与 Windsurf 相关的仓库。",
-            "选择一个最适合编码、评审、交接或自动化的工具。",
-            "先安装并验证 CLI 写入路径、同步行为和第一道操作检查点。",
+            "选择一个最适合编码、评审、协作衔接或自动化的工具。",
+            "先安装并验证 CLI 写入路径、同步行为和第一道关键验证步骤。",
             "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
           ]
         }
@@ -168,20 +168,20 @@
           "zh": "降低 Windsurf 周边的评审拖累"
         },
         "summary": {
-          "en": "Treat the collection as an editorial filter when you need Windsurf-adjacent tools that improve output quality without overcomplicating the stack.",
-          "zh": "当你想为 Windsurf 邻接工作流补上质量与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作编辑过滤层。"
+          "en": "Use this collection when you need Windsurf-adjacent tools that improve output quality without overcomplicating the stack.",
+          "zh": "当你想为 Windsurf 邻接工作流补上质量与操作护栏、又不想把栈变得过于复杂时，可以把这个合集当作精选参考。"
         },
         "steps": {
           "en": [
             "Check whether the tool has stable ownership and visible install guidance.",
-            "Review CLI behavior so operators know what will be written and synced.",
+            "Review CLI behavior so teams know what will be written and synced.",
             "Use one validated path before scaling it to more projects or more teammates.",
             "Document the chosen Windsurf workflow baseline after the first clean rollout."
           ],
           "zh": [
             "先确认工具是否有稳定维护主体和清晰的安装指引。",
             "通过 CLI 总览确认会写入什么、同步如何发生。",
-            "先用一条已验证路径，再决定是否扩展到更多项目或团队成员。",
+            "先用一条已确认可用的路径，再决定是否扩展到更多项目或团队成员。",
             "在首次稳定落地后，把选定的 Windsurf 基线路径沉淀成团队默认做法。"
           ]
         }
@@ -206,7 +206,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what operators should validate after the install path is clear.",
+          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
           "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
         }
       },
@@ -214,11 +214,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "Use the official trusted collection to sanity-check Windsurf workflow choices before you standardize a team stack.",
-          "zh": "在团队标准化之前，回到官方可信合集，对 Windsurf 工作流工具的选择做一次交叉核对。"
+          "en": "Use the official trusted collection to double-check Windsurf workflow choices before you standardize a team stack.",
+          "zh": "在团队推广给团队之前，回到官方可信合集，对 Windsurf 工作流工具的选择做一次再确认。"
         }
       }
     ]

@@ -202,12 +202,12 @@
         "zh": "当安装流程、维护者状态或 Gemini 工作流相关性发生变化时立即复查；否则按月复审。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills editorial review with monthly collection checks.",
+        "en": "Killer-Skills curation review with monthly collection checks.",
         "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
       },
       "verification": {
-        "en": "Validate installability, operator clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、操作清晰度、工作流适配度和维护者可信度。"
+        "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
+        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
       }
     },
     "executionExamples": [
@@ -217,14 +217,14 @@
           "zh": "先选一个解决编码或评审的 Gemini 工具"
         },
         "summary": {
-          "en": "Start here when the team already works with Gemini and needs one extra layer for coding support, review loops, or safer operator handoff.",
-          "zh": "如果团队已经在用 Gemini，现在只想补上一层编码支持、评审闭环或更稳的操作交接，就从这里开始。"
+          "en": "Start here when the team already works with Gemini and needs one extra layer for coding support, review loops, or safer team adoption.",
+          "zh": "如果团队已经在用 Gemini，现在只想补上一层编码支持、评审闭环或更稳的团队协作适配，就从这里开始。"
         },
         "steps": {
           "en": [
             "Decide whether the first need is coding support, review, rules sync, or rollout control.",
             "Open the install docs for the tool that best matches that need.",
-            "Verify what the CLI writes, how it fits the current workflow, and what the operator must review after setup.",
+            "Verify what the CLI writes, how it fits the current workflow, and what the the team should review after setup.",
             "Expand only after one active project proves the setup is worth keeping."
           ],
           "zh": [
@@ -247,7 +247,7 @@
         "steps": {
           "en": [
             "Check maintainer activity and public setup guidance before adding any new tool.",
-            "Prefer the tool that reduces ambiguity for operators instead of the tool with the largest feature set.",
+            "Prefer the tool that reduces ambiguity for teams instead of the tool with the largest feature set.",
             "Pilot in one active workflow, then document the rules for the rest of the team.",
             "Revisit the shortlist only after the first baseline is stable."
           ],
@@ -269,7 +269,7 @@
         },
         "description": {
           "en": "Start with the install guide so the first Gemini tool trial has a concrete setup path.",
-          "zh": "先看安装指南，让第一次 Gemini 工具试跑有一条明确的落地路径。"
+          "zh": "先看安装指南，让第一次 Gemini 工具试跑有一条明确的后续使用步骤。"
         }
       },
       {
@@ -279,7 +279,7 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and which operator checks matter after setup.",
+          "en": "Confirm what the CLI writes, how sync behaves, and which setup review matters after setup.",
           "zh": "确认 CLI 会写入什么、同步如何发生，以及安装后操作员最该核对哪些点。"
         }
       },
@@ -287,11 +287,11 @@
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
           "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再交叉核对"
+          "zh": "第 3 步：用可信工具再再确认"
         },
         "description": {
-          "en": "After the first workflow trial succeeds, compare it with the trusted starter collection before standardizing.",
-          "zh": "等第一条工作流试跑成功后，再用可信起步合集做一次交叉核对，再决定是否标准化。"
+          "en": "After the first workflow trial succeeds, compare it with the official trusted collection before standardizing.",
+          "zh": "等第一条工作流试跑成功后，再用官方可信合集做一次再确认，再决定是否标准化。"
         }
       }
     ]

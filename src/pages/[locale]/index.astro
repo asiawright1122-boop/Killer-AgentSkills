@@ -109,36 +109,74 @@ const seoIntro = tr(
 const homeAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
   ids: homeAuthoritySurfaceIds,
 });
+const homeSurfaceCopyOverrides = isZhCopy
+  ? {
+      'collections-hub': {
+        title: '浏览精选合集',
+        description: '按主题查看值得先试的技能、工具和工作流。',
+      },
+      'docs-installation': {
+        title: '查看安装文档',
+        description: '快速找到 CLI、配置步骤和常见安装说明。',
+      },
+      'collection-official-trusted-tools': {
+        title: '官方与高质量工具',
+        description: '优先查看官方项目和社区里验证度更高的工具。',
+      },
+      'solution-agent-workflows': {
+        title: 'Agent 工作流方案',
+        description: '按任务场景查看适合搭建 Agent workflow 的工具与路线。',
+      },
+    }
+  : {
+      'collections-hub': {
+        title: 'Browse Curated Collections',
+        description: 'Explore skills, tools, and workflows grouped by real use cases.',
+      },
+      'docs-installation': {
+        title: 'Open Installation Docs',
+        description: 'Find CLI commands, setup steps, and practical install guidance fast.',
+      },
+      'collection-official-trusted-tools': {
+        title: 'Official & Trusted Tools',
+        description: 'Start with official projects and higher-confidence tools from the ecosystem.',
+      },
+      'solution-agent-workflows': {
+        title: 'Agent Workflow Guides',
+        description: 'Browse task-focused routes for building agent workflows with the right tools.',
+      },
+    };
+const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
+  ...surface,
+  ...(homeSurfaceCopyOverrides[surface.id as keyof typeof homeSurfaceCopyOverrides] ?? {}),
+}));
 const homeSelectionGuidance = isZhCopy
   ? [
       {
-        title: '先选可信起点',
-        description: '如果你现在最关心的是先装对第一条路径，就先看可信起步合集，而不是直接刷完整目录。',
+        title: '浏览官方与精选',
+        description: '如果你想先看更稳妥的选择，就从官方和高质量精选开始。',
       },
       {
-        title: '按场景收口决策',
-        description: '如果你已经知道自己要解决的是 agent workflow、浏览器自动化或数据提取，就先走 solution 页面。',
+        title: '按任务找方案',
+        description: '如果你已经知道要做自动化、工作流或数据处理，可以直接进入对应场景页。',
       },
       {
-        title: '把发现推进成可执行安装',
-        description: '当方向确定后，下一步就进入安装文档和 CLI 验证，而不是继续做无边界的仓库比较。',
+        title: '需要时再去安装',
+        description: '找到合适方向后，再打开安装文档和 CLI 指南开始配置。',
       },
     ]
   : [
       {
-        title: 'Start With a Trusted Anchor',
-        description:
-          'If the immediate goal is to get the first path installed correctly, begin with the trusted starter collection instead of the full directory.',
+        title: 'Start With Trusted Picks',
+        description: 'If you want the safest place to begin, start with official and curated picks first.',
       },
       {
-        title: 'Use the Scenario to Narrow the Choice',
-        description:
-          'If you already know you need agent workflows, browser automation, or data extraction, move through the solution page before browsing individual skills.',
+        title: 'Browse by Task',
+        description: 'If you already know the job to be done, jump into the matching solution page right away.',
       },
       {
-        title: 'Turn Discovery Into Installation',
-        description:
-          'Once the direction is clear, continue into installation docs and CLI validation instead of reopening a broad repo comparison loop.',
+        title: 'Install When You Are Ready',
+        description: 'Once you find the right direction, move into the docs and CLI guide to start setup.',
       },
     ];
 const homeAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
@@ -353,20 +391,20 @@ const features = [
             <span
               class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-4"
             >
-              {isZhCopy ? '可信入口路径' : 'Trusted Entry Paths'}
+              {isZhCopy ? '快速开始' : 'Quick Start'}
             </span>
             <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
               {
                 isZhCopy
-                  ? '先从精选入口开始，而不是直接跳进原始目录'
-                  : 'Start From Curated Paths, Not Raw Directory Browsing'
+                  ? '从精选内容开始，更快找到合适的技能'
+                  : 'Start With Curated Content to Find the Right Skills Faster'
               }
             </h2>
             <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
               {
                 isZhCopy
-                  ? 'Killer-Skills 最有价值的地方，不是把更多仓库堆给你，而是先帮你判断应该从官方可信工具、场景方案页，还是安装验证路径开始。'
-                  : 'The value of Killer-Skills is not showing more repositories. It is helping users decide whether to begin with trusted tools, scenario pages, or installation guidance first.'
+                  ? '先看官方精选、安装文档和场景页面，快速判断哪些工具值得试、从哪里开始安装。'
+                  : 'Begin with official picks, installation docs, and scenario pages so it is easier to see what is worth trying and where to start.'
               }
             </p>
           </div>
@@ -386,7 +424,7 @@ const features = [
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {
-            homeAuthoritySurfaces.map((surface) => (
+            homeDisplaySurfaces.map((surface) => (
               <a
                 href={surface.href}
                 class="brut-card group bg-[var(--background)] p-6 border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] hover:-translate-x-[4px] hover:-translate-y-[4px] hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all"

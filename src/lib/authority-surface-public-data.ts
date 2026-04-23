@@ -91,8 +91,8 @@ export const authoritySurfacePublicData = {
         zh: 'Cursor 兼容 Skills',
       },
       description: {
-        en: 'A clean surface for editor-specific demand with explicit workflow intent.',
-        zh: '这是编辑器型需求的干净入口，能够明确承接 workflow intent。',
+        en: 'A curated Cursor collection for editor-specific workflows with clear next steps.',
+        zh: '这是面向 Cursor 工作流的精选合集，适合按具体需求找工具并进入下一步。',
       },
       placements: ['skills', 'solutions'],
     },
@@ -140,7 +140,7 @@ export const authoritySurfacePublicData = {
       },
       description: {
         en: 'A focused OpenCode collection that shortens companion-tool selection before installation and rollout.',
-        zh: '这是聚焦 OpenCode 的精选合集，帮助团队在安装和落地前更快收口 companion tool 选择。',
+        zh: '这是聚焦 OpenCode 的精选合集，帮助团队在安装前更快筛选配套工具。',
       },
       placements: ['home', 'skills', 'collections', 'solutions'],
     },
@@ -300,7 +300,7 @@ export const authoritySurfacePublicData = {
       },
       description: {
         en: 'Solutions pages bundle use-case demand into clearer action paths than open-ended directory browsing.',
-        zh: 'Solutions 页面能把 use-case 需求整理成更清晰的行动路径，比开放式目录浏览更适合承接高意图流量。',
+        zh: 'Solutions 页面能把 use-case 需求整理成更清晰的行动路径，比开放式目录浏览更适合帮助用户进入下一步。',
       },
       placements: ['home', 'skills', 'collections', 'solutions'],
     },
@@ -347,8 +347,8 @@ export const authoritySurfacePublicData = {
         zh: '流程自动化方案页',
       },
       description: {
-        en: 'A solution page for teams turning SOPs, handoffs, and operations into repeatable AI-assisted execution paths.',
-        zh: '这是为 SOP、交接和运营流程寻找可复用 AI 执行路径的团队准备的方案页。',
+        en: 'A solution page for teams turning SOPs, shared workflows, and operations into repeatable AI-assisted execution paths.',
+        zh: '这是为 SOP、协作流程和运营流程寻找可复用 AI 执行路径的团队准备的方案页。',
       },
       placements: ['collections', 'solutions'],
     },
@@ -427,7 +427,7 @@ export const authoritySurfacePublicData = {
         zh: 'CLI 总览文档',
       },
       description: {
-        en: 'A practical bridge into command behavior, sync rules, and what operators should validate after installation.',
+        en: 'A practical bridge into command behavior, sync rules, and what teams should verify after installation.',
         zh: '这是进入命令行为、同步规则和安装后验证动作的实操桥梁。',
       },
       placements: ['collections', 'solutions'],
@@ -459,8 +459,8 @@ export const authoritySurfacePublicData = {
         zh: '如何安装 AI Agent Skills',
       },
       description: {
-        en: 'A practical onboarding guide that bridges high-intent discovery into CLI and docs without forcing repository-level browsing first.',
-        zh: '这是一篇实操型入门指南，可以把高意图流量直接交给 CLI 和文档，而不是先逼用户浏览 repo 级目录。',
+        en: 'A practical onboarding guide that leads users into CLI and docs without forcing repository-level browsing first.',
+        zh: '这是一篇实操型入门指南，可以把用户直接带到 CLI 和文档，而不是先逼他们浏览 repo 级目录。',
       },
       placements: ['home', 'solutions'],
     },
@@ -491,8 +491,8 @@ export const authoritySurfacePublicData = {
         zh: 'MCP vs REST API 对比',
       },
       description: {
-        en: 'A comparison guide that turns protocol intent into a strong editorial surface with practical evaluation context.',
-        zh: '这是把协议型需求转成强编辑页的对比指南，适合承接更偏评估和选型的流量。',
+        en: 'A comparison guide that helps teams evaluate protocol choices with practical implementation context.',
+        zh: '这是一份帮助团队评估协议选择的对比指南，适合处理更偏评估和选型的问题。',
       },
       placements: ['collections', 'solutions'],
     },
