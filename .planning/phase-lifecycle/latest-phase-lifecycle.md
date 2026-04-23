@@ -1,15 +1,18 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-04-23T02:40:46.462Z
-- Active milestone: n/a
+- Generated: 2026-04-23T02:51:27.692Z
+- Active milestone: v1.8 (Fresh Recovery Inputs and Comparable Proof Refresh)
 - Status: clean
 - Pending actions: 0
-- Active archive path: n/a
+- Active archive path: .planning/milestones/v1.8-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
+| 61 | 61-coverage-drilldown-input-refresh-and-freshness-contract | present | .planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract | missing |
+| 62 | 62-comparable-proof-window-refresh-and-delta-revalidation | present | .planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation | missing |
+| 63 | 63-authority-and-intervention-readiness-reassessment | present | .planning/phases/63-authority-and-intervention-readiness-reassessment | missing |
 
 ## Archive Actions
 

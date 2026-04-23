@@ -1,10 +1,89 @@
 {
-  "generatedAt": "2026-04-23T02:40:46.450Z",
+  "generatedAt": "2026-04-23T02:51:27.065Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
-  "milestone": null,
-  "milestoneName": null,
-  "activePhases": [],
-  "requirements": [],
+  "milestone": "v1.8",
+  "milestoneName": "Fresh Recovery Inputs and Comparable Proof Refresh",
+  "activePhases": [
+    {
+      "phaseNumber": "61",
+      "slug": "coverage-drilldown-input-refresh-and-freshness-contract",
+      "requirements": [
+        "REC-24"
+      ],
+      "phaseDirs": [
+        "61-coverage-drilldown-input-refresh-and-freshness-contract"
+      ],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "62",
+      "slug": "comparable-proof-window-refresh-and-delta-revalidation",
+      "requirements": [
+        "REC-25"
+      ],
+      "phaseDirs": [
+        "62-comparable-proof-window-refresh-and-delta-revalidation"
+      ],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "63",
+      "slug": "authority-and-intervention-readiness-reassessment",
+      "requirements": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "phaseDirs": [
+        "63-authority-and-intervention-readiness-reassessment"
+      ],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REC-24",
+      "expectedPhase": "61",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "REC-25",
+      "expectedPhase": "62",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "UX-EXP-03",
+      "expectedPhase": "63",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "GEO-03",
+      "expectedPhase": "63",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    }
+  ],
   "hygiene": {
     "status": "clean",
     "legacyPhaseDirs": [],

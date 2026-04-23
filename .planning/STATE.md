@@ -1,6 +1,8 @@
 ---
 gsd_state_version: '1.0'
 status: milestone_v1.8_initialized
+milestone: v1.8
+milestone_name: Fresh Recovery Inputs and Comparable Proof Refresh
 last_updated: '2026-04-23T02:48:42Z'
 last_activity: '2026-04-23'
 progress:
