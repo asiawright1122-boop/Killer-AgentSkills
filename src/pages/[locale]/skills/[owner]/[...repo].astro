@@ -1754,7 +1754,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                               keywords: topics,
                               author: owner,
                               license: 'MIT',
-                              homepage: `https://killer-skills.com/${locale}/skills/${owner}/${repo}`,
+                              homepage: canonicalSkillUrl,
                               repository: {
                                 type: 'git',
                                 url: `https://github.com/${owner}/${repo}`,

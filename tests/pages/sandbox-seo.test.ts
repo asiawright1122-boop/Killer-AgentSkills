@@ -15,9 +15,13 @@ describe('sandbox SEO guardrails', () => {
   it('keeps sandbox pages noindex and canonicalized back to the skill page', () => {
     const source = readPageSource('./[locale]/sandbox/[owner]/[repo].astro');
 
+    expect(source).toContain("import { resolveSkillDetailLink } from '../../../../lib/skill-detail-link';");
     expect(source).toContain("Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')");
     expect(source).toContain('<meta name="robots" content="noindex, nofollow" />');
+    expect(source).toContain('const skillDetailLink = resolveSkillDetailLink({ owner, repo }, typedLocale);');
+    expect(source).toContain('const canonicalSkillPath = skillDetailLink?.href ||');
     expect(source).toContain('<link rel="canonical" href={canonicalSkillUrl} />');
+    expect(source).toContain('<a href={canonicalSkillPath} class="return-link"> ← Exit Sandbox </a>');
   });
 
   it('keeps robots.txt allowing sandbox crawl so page-level noindex can be seen', async () => {

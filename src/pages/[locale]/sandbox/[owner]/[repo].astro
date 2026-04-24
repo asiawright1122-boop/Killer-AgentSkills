@@ -1,5 +1,6 @@
 ---
 import { SUPPORTED_LOCALES, type Locale } from '../../../../i18n';
+import { resolveSkillDetailLink } from '../../../../lib/skill-detail-link';
 import WebTerminal from '../../../../islands/WebTerminal';
 
 export const prerender = false;
@@ -23,7 +24,10 @@ if (!owner || !repo) {
 }
 
 const typedLocale = locale as Locale;
-const canonicalSkillUrl = `https://killer-skills.com/${typedLocale}/skills/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+const skillDetailLink = resolveSkillDetailLink({ owner, repo }, typedLocale);
+const canonicalSkillPath =
+  skillDetailLink?.href || `/${typedLocale}/skills/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`;
+const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
 const pageTitle = `Sandbox: ${owner}/${repo} | Killer-Skills`;
 const pageDescription = `Interactive sandbox for ${owner}/${repo}. Use the reviewed skill page as the primary landing page.`;
 ---
@@ -102,7 +106,7 @@ const pageDescription = `Interactive sandbox for ${owner}/${repo}. Use the revie
         <span class="badge">LIVE ENV</span>
         {owner} / {repo}
       </div>
-      <a href={`/${locale}/skills/${owner}/${repo}`} class="return-link"> ← Exit Sandbox </a>
+      <a href={canonicalSkillPath} class="return-link"> ← Exit Sandbox </a>
     </header>
 
     <main class="terminal-container">

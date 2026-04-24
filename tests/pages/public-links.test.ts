@@ -250,6 +250,7 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain('xDefaultLocale={skillXDefaultLocale}');
     expect(skillDetailSource).toContain('sourceEvidenceTitle');
     expect(skillDetailSource).toContain('customCanonical={canonicalSkillUrl}');
+    expect(skillDetailSource).toContain('homepage: canonicalSkillUrl,');
     expect(skillDetailSource).not.toContain('const breadcrumbSchema = {');
     expect(skillDetailSource).not.toContain("metaDescription || t('Metadata.description')");
     expect(skillDetailSource).not.toContain("description || t('Skills.noResults')");
