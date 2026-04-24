@@ -3,7 +3,9 @@ import { SITE_URL } from '../lib/site-config';
 import type { SitemapSkillEntry } from '../lib/skill-route-paths';
 import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
 
-export const prerender = false;
+// The sitemap index is derived from build-time content snapshots, so shipping a
+// static asset gives crawlers the most stable entrypoint.
+export const prerender = true;
 
 const SITE = SITE_URL;
 

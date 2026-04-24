@@ -6,7 +6,9 @@ import { SITE_URL } from '../lib/site-config';
 import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from '../lib/skill-route-paths';
 import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../lib/sitemap-blocklist';
 
-export const prerender = false;
+// Keep the canonical skills sitemap as a static asset so crawlers always hit a
+// direct 200 file instead of depending on runtime route resolution.
+export const prerender = true;
 
 const SITE = SITE_URL;
 

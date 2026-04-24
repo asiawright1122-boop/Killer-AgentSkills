@@ -64,4 +64,9 @@ describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积�
     const indexPath = path.join(WORKER_DIR, 'index.js');
     expect(fs.existsSync(indexPath)).toBe(true);
   });
+
+  it('dist should contain prerendered sitemap entrypoints for crawlers', () => {
+    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap.xml'))).toBe(true);
+    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap-skills.xml'))).toBe(true);
+  });
 });
