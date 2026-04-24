@@ -607,6 +607,7 @@ const buildSkillItemUrl = (skill: UnifiedSkill) => {
                 ).map((tag: string) => (
                   <a
                     href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}
+                    rel="nofollow"
                     class="px-2 border-b-2 border-transparent hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors whitespace-nowrap"
                   >
                     [{tag}]

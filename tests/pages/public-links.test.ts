@@ -255,6 +255,19 @@ describe('public links and navigation copy', () => {
     expect(blogSeoIntentSource).not.toContain("/skills?q=workflow automation");
   });
 
+  it('keeps public links to internal skill search-result pages marked nofollow', () => {
+    const homeSource = readPageSource('./[locale]/index.astro');
+    const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
+    const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
+
+    expect(homeSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}');
+    expect(homeSource).toContain('rel="nofollow"');
+    expect(skillsIndexSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(tag)}`}');
+    expect(skillsIndexSource).toContain('rel="nofollow"');
+    expect(skillDetailSource).toContain('href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}');
+    expect(skillDetailSource).toContain('rel="nofollow"');
+  });
+
   it('keeps the representative skill detail page on shared breadcrumb and metadata contracts', () => {
     const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 

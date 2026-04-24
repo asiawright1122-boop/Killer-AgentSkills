@@ -1273,6 +1273,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                           {renderedTopics.slice(0, 6).map((keyword: string) => (
                             <a
                               href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}
+                              rel="nofollow"
                               class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                             >
                               {keyword}
