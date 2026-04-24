@@ -19,7 +19,8 @@ describe('sandbox SEO guardrails', () => {
     expect(source).toContain("Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow')");
     expect(source).toContain('<meta name="robots" content="noindex, nofollow" />');
     expect(source).toContain('const skillDetailLink = resolveSkillDetailLink({ owner, repo }, typedLocale);');
-    expect(source).toContain('const canonicalSkillPath = skillDetailLink?.href ||');
+    expect(source).toContain('const canonicalSkillPath =');
+    expect(source).toContain('skillDetailLink?.href ||');
     expect(source).toContain('<link rel="canonical" href={canonicalSkillUrl} />');
     expect(source).toContain('<a href={canonicalSkillPath} class="return-link"> ← Exit Sandbox </a>');
   });
