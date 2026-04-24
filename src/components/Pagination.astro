@@ -49,8 +49,15 @@ const getPageNumbers = () => {
 };
 
 const getUrlForPage = (p: number) => {
-  const params = new URLSearchParams({ ...searchParams, page: String(p) });
-  return `${baseUrl}?${params.toString()}`;
+  const params = new URLSearchParams(searchParams);
+  if (p > 1) {
+    params.set('page', String(p));
+  } else {
+    params.delete('page');
+  }
+
+  const serialized = params.toString();
+  return serialized ? `${baseUrl}?${serialized}` : baseUrl;
 };
 
 const pages = getPageNumbers();
@@ -221,10 +228,14 @@ const pages = getPageNumbers();
           for (const [key, value] of Object.entries(parsedParams)) {
             if (value) params.set(key, String(value));
           }
-          params.set('page', page.toString());
+          if (page > 1) {
+            params.set('page', page.toString());
+          } else {
+            params.delete('page');
+          }
 
-          const joinChar = baseUrl?.includes('?') ? '&' : '?';
-          window.location.href = `${baseUrl}${joinChar}${params.toString()}`;
+          const serialized = params.toString();
+          window.location.href = serialized ? `${baseUrl}?${serialized}` : String(baseUrl || '');
         } else {
           const msg = (errorMsg || 'Please enter a page between 1 and {max}').replace('{max}', String(maxPages));
           alert(msg);

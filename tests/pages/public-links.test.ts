@@ -225,6 +225,20 @@ describe('public links and navigation copy', () => {
     expect(collectionDetailSource).not.toContain("'@type': 'BreadcrumbList'");
   });
 
+  it('keeps skills listing pagination and ItemList URLs on canonical governed routes', () => {
+    const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
+    const paginationSource = readPageSource('../components/Pagination.astro');
+
+    expect(skillsIndexSource).toContain("...(topicParam && { topic: topicParam })");
+    expect(skillsIndexSource).toContain('const buildSkillItemUrl = (skill: UnifiedSkill) => {');
+    expect(skillsIndexSource).toContain('const routePath = getSkillRoutePath(skill) || skill.repo;');
+    expect(skillsIndexSource).toContain('const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);');
+    expect(skillsIndexSource).toContain('return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;');
+    expect(skillsIndexSource).toContain('url: buildSkillItemUrl(s),');
+    expect(paginationSource).toContain("if (p > 1) {");
+    expect(paginationSource).toContain("params.delete('page');");
+  });
+
   it('keeps the representative skill detail page on shared breadcrumb and metadata contracts', () => {
     const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
 

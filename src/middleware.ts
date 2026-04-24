@@ -667,6 +667,20 @@ export const onRequest = defineMiddleware(async (context, next) => {
       normalizedUrl.searchParams.delete('query');
       changed = true;
     }
+    const rawPage = normalizedUrl.searchParams.get('page');
+    if (rawPage !== null) {
+      const parsedPage = Number.parseInt(rawPage, 10);
+      if (!Number.isFinite(parsedPage) || parsedPage <= 1) {
+        normalizedUrl.searchParams.delete('page');
+        changed = true;
+      } else {
+        const normalizedPage = String(parsedPage);
+        if (rawPage !== normalizedPage) {
+          normalizedUrl.searchParams.set('page', normalizedPage);
+          changed = true;
+        }
+      }
+    }
     if (changed) {
       return new Response(null, {
         status: 301,

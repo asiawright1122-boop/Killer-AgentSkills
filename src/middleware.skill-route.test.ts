@@ -133,6 +133,24 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('Location')).toBe('/sitemap-skills.xml');
   });
 
+  it('strips first-page skills listing params back to the canonical listing URL', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills?topic=workflow&page=1'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(301);
+    expect(response.headers.get('Location')).toBe('/en/skills?topic=workflow');
+  });
+
   it('keeps public skill detail routes reachable when the repo segment contains a file-like suffix', async () => {
     let nextCalled = false;
     const response = (await onRequest(

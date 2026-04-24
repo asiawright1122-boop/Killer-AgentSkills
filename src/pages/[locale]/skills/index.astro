@@ -14,6 +14,8 @@ import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { resolveQueryIntent } from '../../../lib/query-intent';
 import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';
 import { getSolutionIntents } from '../../../lib/solution-intents';
+import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
+import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
 import type { Env } from '../../../lib/kv';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -362,6 +364,11 @@ const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
 const hasListingParams = Boolean(cleanQuery || category || view || owner || topicParam || currentPage > 1);
 const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
+const buildSkillItemUrl = (skill: UnifiedSkill) => {
+  const routePath = getSkillRoutePath(skill) || skill.repo;
+  const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);
+  return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;
+};
 
 // Category list for sidebar
 ---
@@ -430,7 +437,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
           '@type': 'ListItem',
           position: (currentPage - 1) * ITEMS_PER_PAGE + i + 1,
           name: s.name || s.repo,
-          url: `https://killer-skills.com/${locale}/skills/${s.owner}/${s.repo}`,
+          url: buildSkillItemUrl(s),
         })),
       },
     })}
@@ -669,6 +676,7 @@ const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
                   ...(category && { category }),
                   ...(view && { view }),
                   ...(owner && { owner }),
+                  ...(topicParam && { topic: topicParam }),
                 }}
                 t={t}
                 tr={tr}
