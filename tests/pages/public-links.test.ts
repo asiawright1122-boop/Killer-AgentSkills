@@ -228,6 +228,7 @@ describe('public links and navigation copy', () => {
   it('keeps skills listing pagination and ItemList URLs on canonical governed routes', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
     const paginationSource = readPageSource('../components/Pagination.astro');
+    const skillsSidebarSource = readPageSource('../components/SkillsSidebar.astro');
 
     expect(skillsIndexSource).toContain("...(topicParam && { topic: topicParam })");
     expect(skillsIndexSource).toContain('const buildSkillItemUrl = (skill: UnifiedSkill) => {');
@@ -237,6 +238,21 @@ describe('public links and navigation copy', () => {
     expect(skillsIndexSource).toContain('url: buildSkillItemUrl(s),');
     expect(paginationSource).toContain("if (p > 1) {");
     expect(paginationSource).toContain("params.delete('page');");
+    expect(skillsSidebarSource).toContain('href={`/${locale}/skills?topic=${fw.id}`}');
+    expect(skillsSidebarSource).not.toContain('href={`/${locale}/skills?tag=${fw.id}`}');
+  });
+
+  it('keeps blog intent links on indexable solution and docs paths instead of fixed search-result URLs', () => {
+    const blogSeoIntentSource = readPageSource('../lib/blog-seo-intent.ts');
+
+    expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'document-automation'),");
+    expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'agent-workflows'),");
+    expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'process-automation'),");
+    expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'workflow-automation'),");
+    expect(blogSeoIntentSource).not.toContain("/skills?q=document automation");
+    expect(blogSeoIntentSource).not.toContain("/skills?q=skills for developer workflows");
+    expect(blogSeoIntentSource).not.toContain("/skills?q=process automation");
+    expect(blogSeoIntentSource).not.toContain("/skills?q=workflow automation");
   });
 
   it('keeps the representative skill detail page on shared breadcrumb and metadata contracts', () => {

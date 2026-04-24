@@ -47,13 +47,13 @@ describe('blog-seo-intent', () => {
       'professional-internal-communications-with-ai-skills',
       tEn,
     );
-    expect(links[0]?.href).toContain('/skills?q=process automation');
+    expect(links[0]?.href).toContain('/solutions/process-automation');
   });
 
   it('keeps mcp blog links developer-workflow-first instead of mcp-tool-first', () => {
     const links = getBlogIntentLinks('en', 'developer-experience', 'how-to-build-mcp-servers-with-agent-skills', tEn);
     expect(links[0]?.title).toContain('Skills for Developer Workflows');
-    expect(links[0]?.href).toContain('/skills?q=skills for developer workflows');
+    expect(links[0]?.href).toContain('/solutions/agent-workflows');
     expect(links[0]?.title.toLowerCase()).not.toContain('mcp');
     expect(links[0]?.href.toLowerCase()).not.toContain('q=mcp');
   });

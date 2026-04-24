@@ -1,4 +1,5 @@
 import type { KeywordClusterId } from './seo-keywords';
+import { buildSolutionPath } from './solution-intents';
 
 export type BlogIntentLink = {
   title: string;
@@ -102,7 +103,7 @@ export function getBlogIntentLinks(
       {
         title: t('Seo.Blog.Misc.browseDocumentAutomations', ''),
         description: t('Seo.Blog.Misc.keepExploringPdf', ''),
-        href: `/${locale}/skills?q=document automation`,
+        href: buildSolutionPath(locale, 'document-automation'),
       },
       {
         title: t('Seo.Blog.Misc.workflowTemplateEntry', ''),
@@ -122,7 +123,7 @@ export function getBlogIntentLinks(
       {
         title: t('Seo.Blog.Misc.skillsForDeveloperWorkflows', ''),
         description: t('Seo.Blog.Misc.keepBrowsingSkills', ''),
-        href: `/${locale}/skills?q=skills for developer workflows`,
+        href: buildSolutionPath(locale, 'agent-workflows'),
       },
       {
         title: t('Seo.Blog.Misc.ideCompatibility', ''),
@@ -142,12 +143,12 @@ export function getBlogIntentLinks(
       {
         title: t('Seo.Blog.Misc.browseProcessAutomation', ''),
         description: t('Seo.Blog.Misc.exploreTeamProcess', ''),
-        href: `/${locale}/skills?q=process automation`,
+        href: buildSolutionPath(locale, 'process-automation'),
       },
       {
         title: t('Seo.Blog.Misc.browseWorkflowTemplates', ''),
         description: t('Seo.Blog.Misc.reviewSOPs', ''),
-        href: `/${locale}/skills?q=workflow templates`,
+        href: buildSolutionPath(locale, 'workflow-automation'),
       },
       {
         title: t('Seo.Blog.Misc.docsSetupEntry', ''),
@@ -161,7 +162,7 @@ export function getBlogIntentLinks(
     {
       title: t('Seo.Blog.Misc.browseWorkflowAutomation', ''),
       description: t('Seo.Blog.Misc.continueIntoPrecise', ''),
-      href: `/${locale}/skills?q=workflow automation`,
+      href: buildSolutionPath(locale, 'workflow-automation'),
     },
     {
       title: t('Seo.Blog.Misc.installSetupDocs', ''),
