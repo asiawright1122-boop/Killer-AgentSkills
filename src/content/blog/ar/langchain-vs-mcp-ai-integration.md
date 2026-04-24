@@ -1,6 +1,6 @@
 ---
 title: "LangChain مقابل MCP: مقارنة بين إطارات التكامل الاصطناعي"
-description: "مقارنة بين LangChain وبروتوكول سياق النموذج لمطوري الوكلاء الذكيين"
+description: "مقارنة بين LangChain وبروتوكول سياق النموذج لمطوري الوكلاء الذكيين: اكتشف الفروق بين هذين الإطارين في التكامل الاصطناعي."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/langchain-vs-mcp-ai-integration.webp
