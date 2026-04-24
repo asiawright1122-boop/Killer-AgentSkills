@@ -1,6 +1,6 @@
 #!/usr/bin/env npx tsx
 
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { splitAIProviderKeys } from '../src/lib/ai-online-provider-pool';
 import { AIService, parseWorkersAiMode } from './lib/ai';
@@ -83,8 +83,22 @@ async function main(): Promise<void> {
   }
 
   const cachePath = resolve(process.cwd(), 'data/skills-cache.json');
+  if (!existsSync(cachePath)) {
+    console.log('Skipping AI runtime probe: data/skills-cache.json is unavailable in this environment.');
+    return;
+  }
+
   const cache = JSON.parse(readFileSync(cachePath, 'utf-8')) as CacheData;
-  const skill = resolveSkill(cache, skillId);
+  let skill: SkillCache;
+  try {
+    skill = resolveSkill(cache, skillId);
+  } catch (error) {
+    console.log(
+      `Skipping AI runtime probe: ${error instanceof Error ? error.message : 'probe skill is unavailable in this environment.'}`,
+    );
+    return;
+  }
+
   const aiService = new AIService();
 
   let status: TelemetryCheckpoint['status'] = 'completed';
