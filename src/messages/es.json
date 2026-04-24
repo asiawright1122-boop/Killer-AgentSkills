@@ -731,7 +731,8 @@
     "faq4Q": "¿En qué formato se empaquetan estas habilidades?",
     "faq4A": "Normalmente se empaquetan como archivos de habilidades nativos del IDE para instalarlos y reutilizarlos directamente en Claude Code, Cursor, Windsurf y otros entornos compatibles.",
     "faq5Q": "¿Por qué empezar desde el directorio de habilidades?",
-    "faq5A": "La página de detalle reúne el comando de instalación, los IDE compatibles, el repositorio fuente y las habilidades relacionadas para que puedas decidir rápidamente si es adecuada para tu tarea."
+    "faq5A": "La página de detalle reúne el comando de instalación, los IDE compatibles, el repositorio fuente y las habilidades relacionadas para que puedas decidir rápidamente si es adecuada para tu tarea.",
+    "seoIntro": "Killer-Skills es un directorio de código abierto y centro de instalación para más de 3,400 skills de agentes de IA. Ayuda a descubrir herramientas confiables más rápido que navegando repositorios crudos de GitHub y a pasar desde un mismo flujo a colecciones, soluciones y documentación de instalación."
   },
   "Integrations": {
     "worksWhereYouWork": "Funciona donde tú trabajas",
@@ -798,7 +799,8 @@
     "github": "GitHub",
     "getStarted": "Comenzar",
     "history": "Historial",
-    "favorites": "Favoritos"
+    "favorites": "Favoritos",
+    "submitSkill": "Enviar skill"
   },
   "OfficialSkills": {
     "title": "Habilidades Oficiales",

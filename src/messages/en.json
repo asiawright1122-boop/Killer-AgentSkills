@@ -724,7 +724,8 @@
     "faq4Q": "How are these skills packaged?",
     "faq4A": "They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.",
     "faq5Q": "Why start from the skill directory?",
-    "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task."
+    "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.",
+    "seoIntro": "Killer-Skills is an open-source directory and installation hub for 3,400+ AI agent skills. Developers use it to discover trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow."
   },
   "Integrations": {
     "worksWhereYouWork": "Works Where You Work",
@@ -791,7 +792,8 @@
     "github": "GitHub",
     "getStarted": "Get Started",
     "history": "History",
-    "favorites": "Favorites"
+    "favorites": "Favorites",
+    "submitSkill": "Submit Skill"
   },
   "OfficialSkills": {
     "title": "Official Skills",

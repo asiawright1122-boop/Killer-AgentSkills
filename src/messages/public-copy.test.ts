@@ -73,6 +73,7 @@ describe('public messages copy', () => {
     expect(en.Home.heroDesc2).toBe(
       'Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.',
     );
+    expect(en.Home.seoIntro).toContain('open-source directory');
     expect(en.Home.searchPlaceholder).toBe("Search for skills (e.g., 'Web Scraping', 'Data Viz')...");
     expect(en.Home.features['1'].title).toBe('IDE-Native Formats');
     expect(en.Home.features['1'].desc).toBe(
@@ -89,6 +90,7 @@ describe('public messages copy', () => {
     );
 
     expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
+    expect(zh.Home.seoIntro).toContain('开源目录');
     expect(zh.Home.searchPlaceholder).toBe('搜索技能，例如：网页爬取、数据可视化');
     expect(zh.Home.features['1'].title).toBe('IDE 原生格式');
     expect(zh.Home.features['1'].desc).toBe('同一个技能可安装到主流 IDE 与 Agent 环境，并自动写入正确的原生格式。');
@@ -99,6 +101,15 @@ describe('public messages copy', () => {
     );
     expect(zh.CLI.features.syncAll.title).toBe('多 IDE 同步');
     expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 3,400+ AI Agent 技能。');
+  });
+
+  it('keeps homepage seo intro and submit action localized across shipped locales', () => {
+    for (const messages of localizedMessages) {
+      expect(typeof messages.Home.seoIntro).toBe('string');
+      expect(messages.Home.seoIntro.length).toBeGreaterThan(40);
+      expect(typeof messages.Navigation.submitSkill).toBe('string');
+      expect(messages.Navigation.submitSkill.length).toBeGreaterThan(1);
+    }
   });
 
   it('keeps remaining localized home copy aligned with skills-first messaging', () => {

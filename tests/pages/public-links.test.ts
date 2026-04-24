@@ -190,7 +190,14 @@ describe('public links and navigation copy', () => {
     expect(zh.Footer.community).toBe('社区');
   });
 
-  it('keeps homepage seo intro and footer subscribe labels localized in shipped message catalogs', () => {});
+  it('keeps homepage seo intro and header action labels localized in shipped message catalogs', () => {
+    const headerSource = readPageSource('../components/Header.astro');
+
+    expect(headerSource).toContain("submitSkill: tr('Navigation.submitSkill', 'Submit Skill')");
+    expect(headerSource).toContain("search: tr('Common.search', 'Search')");
+    expect(en.Home.seoIntro).toContain('open-source directory');
+    expect(zh.Home.seoIntro).toContain('开源目录');
+  });
 
   it('keeps touched public shell and collections pages on explicit i18n and shared builders', () => {
     const headerSource = readPageSource('../components/Header.astro');

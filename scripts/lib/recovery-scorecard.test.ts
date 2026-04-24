@@ -182,6 +182,74 @@ describe('buildRecoveryScorecardReport', () => {
     expect(renderRecoveryScorecardReport(report)).toContain('Traffic Visibility');
   });
 
+  it('treats sitemap fetch failures as a technical recovery blocker even when sampled URLs are otherwise healthy', () => {
+    const report = buildRecoveryScorecardReport({
+      now: '2026-04-23T12:00:00.000Z',
+      crawlHealthReport: {
+        generatedAt: '2026-04-23T03:21:18.396Z',
+        totals: { sitemapFilesDiscovered: 8, pageUrlsDiscovered: 744, pageUrlsChecked: 744 },
+        statusSummary: { status2xx: 744, status3xx: 0, status4xx: 0, status5xx: 0, statusOther: 0 },
+        cloudflare1102: [],
+        sitemapErrors: [
+          { sitemapUrl: 'https://killer-skills.com/sitemap-skills-1.xml', error: 'expected 200, got 404' },
+          { sitemapUrl: 'https://killer-skills.com/sitemap-skills-2.xml', error: 'expected 200, got 404' },
+        ],
+      },
+      coverageDrilldownReport: {
+        generatedAt: '2026-04-23T02:56:44.993Z',
+        directories: ['/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-04-16'],
+        issueCount: 1,
+        totalAffectedPages: 100,
+        sourceFreshnessStatus: 'fresh',
+        sourceFreshnessDate: '2026-04-22',
+        sourceFreshnessDays: 1,
+        clusterPriorities: [{ cluster: 'other', estimatedAffected: 80 }],
+        issueSummaries: [{ issueName: '未找到 (404)', affectedPages: 100 }],
+      },
+      indexDriftReport: {
+        generatedAt: '2026-04-23T07:06:36.848Z',
+        counts: { onlyInSitemap: 0, onlyInIndexableCache: 0 },
+      },
+      trafficReport: {
+        generatedAt: '2026-04-23T06:00:00.000Z',
+        status: 'clear',
+        sourceMode: 'live-api',
+        site: 'sc-domain:killer-skills.com',
+        currentPeriod: { start: '2026-04-16', end: '2026-04-22' },
+        previousPeriod: { start: '2026-04-09', end: '2026-04-15' },
+        queryRows: 10,
+        pageRows: 10,
+        priorityQueryOpportunities: 1,
+        priorityPageOpportunities: 1,
+        queryPrecisionRisks: 0,
+        failureReason: null,
+        nextStep: null,
+      },
+      aiProviderHealthReport: {
+        generatedAt: '2026-04-23T04:13:12.663Z',
+        alertSummary: { total: 0, highestSeverity: 'none', status: 'clear' },
+        alerts: [],
+        telemetry: { mode: { workersAi: 'free-only', fallbackPolicy: 'cold' } },
+        latestSnapshot: {
+          workersAi: {
+            maxCallsPerRun: 60,
+            maxCallsPerDay: 60,
+            dailyCalls: 1,
+            dailyRemaining: 59,
+            runRemaining: 60,
+          },
+        },
+      },
+    });
+
+    expect(report.crawl.status).toBe('blocking');
+    expect(report.crawl.metrics.sitemapErrors).toBe(2);
+    expect(report.crawl.observed).toContain('sitemapErrors=2');
+    expect(report.crawl.notes.join(' ')).toContain('sitemap fetch failures');
+    expect(report.technicalRecoveryStatus).toBe('blocking');
+    expect(report.overallStatus).toBe('blocking');
+  });
+
   it('keeps traffic visibility blocking when the report is a standardized missing-config artifact', () => {
     const report = buildRecoveryScorecardReport({
       now: '2026-04-09T12:00:00.000Z',

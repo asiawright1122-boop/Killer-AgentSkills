@@ -7,6 +7,10 @@ type SitemapsCollected = {
   sitemapUrls: string[];
   urlsBySitemap: Map<string, string[]>;
   allDiscoveredUrls: string[];
+  sitemapErrors: Array<{
+    sitemapUrl: string;
+    error: string;
+  }>;
 };
 
 type UrlCheckResult = {
@@ -46,11 +50,18 @@ type CrawlHealthJsonReport = {
   cloudflare1102: UrlCheckResult[];
   errors: UrlCheckResult[];
   duplicates: string[];
+  sitemapErrors: Array<{
+    sitemapUrl: string;
+    error: string;
+  }>;
   results: UrlCheckResult[];
 };
 
 const SITE_ORIGIN = 'https://killer-skills.com';
-const baseUrl = (process.argv[2] || SITE_ORIGIN).replace(/\/+$/, '');
+const cliArgs = process.argv.slice(2);
+const allowBlockingExit = cliArgs.includes('--allow-blocking-exit');
+const positionalBaseUrl = cliArgs.find((arg) => !arg.startsWith('--')) || SITE_ORIGIN;
+const baseUrl = positionalBaseUrl.replace(/\/+$/, '');
 const baseOrigin = new URL(baseUrl).origin;
 const rootSitemapUrl = `${baseUrl}/sitemap.xml`;
 const crawlDate = new Date().toISOString();
@@ -167,6 +178,7 @@ async function collectSitemaps(startSitemapUrl: string): Promise<SitemapsCollect
   const visited = new Set<string>();
   const sitemapUrls: string[] = [];
   const urlsBySitemap = new Map<string, string[]>();
+  const sitemapErrors: Array<{ sitemapUrl: string; error: string }> = [];
 
   while (queue.length > 0) {
     const sitemapUrl = queue.shift()!;
@@ -174,7 +186,17 @@ async function collectSitemaps(startSitemapUrl: string): Promise<SitemapsCollect
     visited.add(sitemapUrl);
     sitemapUrls.push(sitemapUrl);
 
-    const xml = await fetchText(sitemapUrl);
+    let xml: string;
+    try {
+      xml = await fetchText(sitemapUrl);
+    } catch (error) {
+      sitemapErrors.push({
+        sitemapUrl,
+        error: error instanceof Error ? error.message : String(error),
+      });
+      continue;
+    }
+
     const locs = parseLocs(xml);
     urlsBySitemap.set(sitemapUrl, locs);
 
@@ -189,7 +211,7 @@ async function collectSitemaps(startSitemapUrl: string): Promise<SitemapsCollect
     Array.from(urlsBySitemap.entries()).flatMap(([, locs]) => locs.filter((loc) => !isSitemapUrl(loc))),
   );
 
-  return { sitemapUrls, urlsBySitemap, allDiscoveredUrls };
+  return { sitemapUrls, urlsBySitemap, allDiscoveredUrls, sitemapErrors };
 }
 
 function buildSample(crawl: SitemapsCollected): { sampledUrls: string[]; bySitemap: Map<string, number> } {
@@ -201,7 +223,7 @@ function buildSample(crawl: SitemapsCollected): { sampledUrls: string[]; bySitem
     if (pageLocs.length === 0) continue;
 
     const parsed = new URL(sitemapUrl);
-    const isSkillsSitemap = /\/sitemap-skills-\d+\.xml$/i.test(parsed.pathname);
+    const isSkillsSitemap = /\/sitemap-skills(?:-\d+)?\.xml$/i.test(parsed.pathname);
     const limit = isSkillsSitemap ? SKILLS_SITEMAP_SAMPLE_LIMIT : NON_SKILLS_SITEMAP_SAMPLE_LIMIT;
     const selected = sampleEvenly(pageLocs, limit);
     sampled.push(...selected);
@@ -340,6 +362,7 @@ function buildReport(
   lines.push(`- URLs with any 5xx attempt: ${urlsWith5xxAttempts.length}`);
   lines.push(`- Recovered flaky 5xx URLs: ${flakyRecovered.length}`);
   lines.push(`- Cloudflare 1102 signals: ${cloudflare1102Hits.length}`);
+  lines.push(`- Sitemap fetch errors: ${crawl.sitemapErrors.length}`);
 
   if (flakyByRouteBucket.length > 0) {
     lines.push('- Recovered flaky 5xx by route bucket:');
@@ -371,6 +394,18 @@ function buildReport(
     }
     if (duplicates.length > 30) {
       lines.push(`- ... and ${duplicates.length - 30} more`);
+    }
+  }
+
+  if (crawl.sitemapErrors.length > 0) {
+    lines.push('');
+    lines.push('## Sitemap Fetch Errors');
+    lines.push('');
+    for (const row of crawl.sitemapErrors.slice(0, 30)) {
+      lines.push(`- ${row.sitemapUrl} -> ${row.error}`);
+    }
+    if (crawl.sitemapErrors.length > 30) {
+      lines.push(`- ... and ${crawl.sitemapErrors.length - 30} more`);
     }
   }
 
@@ -474,6 +509,7 @@ function buildJsonReport(
     cloudflare1102,
     errors,
     duplicates,
+    sitemapErrors: crawl.sitemapErrors,
     results,
   };
 }
@@ -524,8 +560,15 @@ async function main() {
   const networkErrorRate = results.length > 0 ? networkErrors / results.length : 0;
   const hasNetworkInstability = networkErrors >= 5 && networkErrorRate > 0.05;
   const hasDuplicates = findDuplicates(crawl.allDiscoveredUrls).length > 0;
+  const hasSitemapErrors = crawl.sitemapErrors.length > 0;
   const hasSevereSignal =
-    hasHard4xx || hasHard5xx || hasHardFlaky5xx || hasCloudflare1102 || hasDuplicates || hasNetworkInstability;
+    hasHard4xx ||
+    hasHard5xx ||
+    hasHardFlaky5xx ||
+    hasCloudflare1102 ||
+    hasDuplicates ||
+    hasNetworkInstability ||
+    hasSitemapErrors;
 
   console.log(report);
   if (!hasHard4xx && status4xxCount > 0) {
@@ -557,9 +600,16 @@ async function main() {
       console.warn(cloudflare1102Message);
     }
   }
+  if (hasSitemapErrors) {
+    console.error(`[crawl-health] sitemap fetch failures detected: ${crawl.sitemapErrors.length}`);
+  }
   if (hasSevereSignal) {
     console.error('[crawl-health] failed: hard crawl/indexing errors detected');
-    process.exit(1);
+    if (!allowBlockingExit) {
+      process.exit(1);
+    }
+    console.warn('[crawl-health] continuing with exit code 0 because --allow-blocking-exit was set');
+    return;
   }
 
   console.log('[crawl-health] passed');

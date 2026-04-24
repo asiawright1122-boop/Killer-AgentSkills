@@ -66,6 +66,7 @@ type CrawlHealthJsonReport = {
     statusOther?: number;
   };
   cloudflare1102?: unknown[];
+  sitemapErrors?: unknown[];
 };
 
 type CoverageCluster = {
@@ -190,6 +191,7 @@ export type RecoveryScorecardReport = {
     checkedUrls: number;
     discoveredUrls: number;
     sitemapFiles: number;
+    sitemapErrors: number;
     status2xx: number;
     status3xx: number;
     status4xx: number;
@@ -562,6 +564,7 @@ function buildCrawlSignal(
   const status5xx = report?.statusSummary?.status5xx || 0;
   const statusOther = report?.statusSummary?.statusOther || 0;
   const cloudflare1102 = Array.isArray(report?.cloudflare1102) ? report!.cloudflare1102!.length : 0;
+  const sitemapErrors = Array.isArray(report?.sitemapErrors) ? report!.sitemapErrors!.length : 0;
   const fourXxRate = checkedUrls > 0 ? status4xx / checkedUrls : 0;
 
   const notes: string[] = [];
@@ -579,7 +582,7 @@ function buildCrawlSignal(
       status = 'warning';
       notes.push(`Crawl-health evidence is ${source.ageDays} day(s) old.`);
     }
-    if (status5xx > 0 || cloudflare1102 > 0 || fourXxRate > 0.002) {
+    if (status5xx > 0 || cloudflare1102 > 0 || fourXxRate > 0.002 || sitemapErrors > 0) {
       status = 'blocking';
     }
   }
@@ -592,6 +595,11 @@ function buildCrawlSignal(
   }
   if (cloudflare1102 > 0) {
     notes.push(`Observed ${formatInteger(cloudflare1102)} Cloudflare 1102 responses.`);
+  }
+  if (sitemapErrors > 0) {
+    notes.push(
+      `Observed ${formatInteger(sitemapErrors)} sitemap fetch failures; crawl entrypoints are not fully healthy.`,
+    );
   }
 
   let summary = 'Crawl health is unavailable.';
@@ -607,14 +615,15 @@ function buildCrawlSignal(
     label: 'Crawl Health',
     status,
     summary,
-    target: 'Fresh crawl-health report with 4xx <= 0.2%, 5xx = 0, and Cloudflare 1102 = 0.',
-    observed: `${formatInteger(checkedUrls)} checked; 2xx ${formatInteger(status2xx)}; 4xx ${formatInteger(status4xx)} (${formatPercent(fourXxRate)}); 5xx ${formatInteger(status5xx)}; 1102 ${formatInteger(cloudflare1102)}.`,
+    target: 'Fresh crawl-health report with 4xx <= 0.2%, 5xx = 0, Cloudflare 1102 = 0, and sitemap fetch errors = 0.',
+    observed: `${formatInteger(checkedUrls)} checked; 2xx ${formatInteger(status2xx)}; 4xx ${formatInteger(status4xx)} (${formatPercent(fourXxRate)}); 5xx ${formatInteger(status5xx)}; 1102 ${formatInteger(cloudflare1102)}; sitemapErrors=${formatInteger(sitemapErrors)}.`,
     notes,
     source,
     metrics: {
       checkedUrls,
       discoveredUrls,
       sitemapFiles,
+      sitemapErrors,
       status2xx,
       status3xx,
       status4xx,
@@ -993,14 +1002,20 @@ function buildHeadline(
   }
 
   if (
-    ['blocking', 'warning', 'missing'].includes(String(coverage.metrics.sourceFreshnessStatus || '').trim().toLowerCase()) &&
+    ['blocking', 'warning', 'missing'].includes(
+      String(coverage.metrics.sourceFreshnessStatus || '')
+        .trim()
+        .toLowerCase(),
+    ) &&
     coverage.metrics.latestSourceDate
   ) {
     parts.push(
       `Coverage attribution is limited because the newest local raw export is ${coverage.metrics.latestSourceDate}.`,
     );
   } else if (coverage.status !== 'clear' && coverage.metrics.dominantCluster) {
-    parts.push(`Coverage attribution now has fresh inputs, but the dominant cluster is still ${coverage.metrics.dominantCluster}.`);
+    parts.push(
+      `Coverage attribution now has fresh inputs, but the dominant cluster is still ${coverage.metrics.dominantCluster}.`,
+    );
   }
 
   if (aiPosture.status === 'warning') {
@@ -1021,7 +1036,13 @@ function dedupeStrings(values: string[]): string[] {
 function buildNextActions(report: RecoveryScorecardReport): string[] {
   const actions: string[] = [];
 
-  if (['blocking', 'warning', 'missing'].includes(String(report.coverage.metrics.sourceFreshnessStatus || '').trim().toLowerCase())) {
+  if (
+    ['blocking', 'warning', 'missing'].includes(
+      String(report.coverage.metrics.sourceFreshnessStatus || '')
+        .trim()
+        .toLowerCase(),
+    )
+  ) {
     actions.push(
       `Ingest the newest Coverage Drilldown export(s) and rerun \`npx tsx scripts/seo-coverage-drilldown.ts\`; freshest local raw source is ${report.coverage.metrics.latestSourceDate || 'missing'}.`,
     );

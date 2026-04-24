@@ -378,6 +378,16 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
+  if (/^\/sitemap-skills-\d+\.xml$/i.test(pathname)) {
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: `/sitemap-skills.xml${context.url.search}`,
+        'Cache-Control': 'public, max-age=3600',
+      },
+    });
+  }
+
   // 0.5. Enforce trailingSlash: 'never'
   // If the pathname ends with a slash (and isn't the root URL), 301 redirect to the path without the slash
   if (pathname !== '/' && pathname.endsWith('/')) {

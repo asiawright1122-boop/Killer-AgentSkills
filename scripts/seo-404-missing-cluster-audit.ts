@@ -178,6 +178,7 @@ const REPORT_DIR = resolve(process.cwd(), 'reports/seo');
 const REMEDIATION_PLAN_PATH = resolve(REPORT_DIR, 'latest-404-remediation-plan.json');
 const INDEXABILITY_PATH = resolve(REPORT_DIR, 'latest-skill-indexability.json');
 const LOCALE_GOVERNANCE_PATH = resolve(REPORT_DIR, 'latest-skill-locale-governance.json');
+const DATA_LOCALE_GOVERNANCE_PATH = resolve(process.cwd(), 'data/seo-skill-locale-governance.json');
 const CORPUS_GOVERNANCE_PATH = resolve(REPORT_DIR, 'latest-corpus-governance.json');
 const EXPANDED_SKILLS_PATH = resolve(process.cwd(), 'data/expanded-github-skills.json');
 const JSON_OUTPUT = resolve(REPORT_DIR, 'latest-404-missing-cluster-audit.json');
@@ -185,6 +186,66 @@ const MD_OUTPUT = resolve(REPORT_DIR, 'latest-404-missing-cluster-audit.md');
 
 function readJsonFile<T>(path: string): T {
   return JSON.parse(readFileSync(path, 'utf8')) as T;
+}
+
+export function normalizeLocaleGovernanceReport(
+  input: LocaleGovernanceReport | LocaleGovernanceSkill[] | null | undefined,
+): LocaleGovernanceReport {
+  if (Array.isArray(input)) {
+    return { skills: input };
+  }
+
+  if (!input || typeof input !== 'object') {
+    return { skills: [] };
+  }
+
+  return {
+    generatedAt: typeof input.generatedAt === 'string' ? input.generatedAt : undefined,
+    skills: Array.isArray(input.skills) ? input.skills : [],
+  };
+}
+
+function readLocaleGovernanceReport(): LocaleGovernanceReport {
+  if (existsSync(LOCALE_GOVERNANCE_PATH)) {
+    return normalizeLocaleGovernanceReport(readJsonFile<LocaleGovernanceReport | LocaleGovernanceSkill[]>(LOCALE_GOVERNANCE_PATH));
+  }
+
+  if (existsSync(DATA_LOCALE_GOVERNANCE_PATH)) {
+    return normalizeLocaleGovernanceReport(
+      readJsonFile<LocaleGovernanceReport | LocaleGovernanceSkill[]>(DATA_LOCALE_GOVERNANCE_PATH),
+    );
+  }
+
+  throw new Error(
+    `Missing locale governance input: ${LOCALE_GOVERNANCE_PATH} or ${DATA_LOCALE_GOVERNANCE_PATH}`,
+  );
+}
+
+export function buildGovernedRouteMapFromSignals(input: {
+  indexabilityMap: Map<string, IndexabilitySkill>;
+  localeGovernanceMap: Map<string, LocaleGovernanceSkill>;
+}): Map<string, GovernedRouteBucket> {
+  const map = new Map<string, GovernedRouteBucket>();
+  const keys = new Set<string>([
+    ...input.indexabilityMap.keys(),
+    ...input.localeGovernanceMap.keys(),
+  ]);
+
+  for (const key of keys) {
+    const indexability = input.indexabilityMap.get(key) || null;
+    const governance = input.localeGovernanceMap.get(key) || null;
+
+    if (indexability?.isIndexable === true) {
+      map.set(key, 'keep');
+      continue;
+    }
+
+    if (indexability || governance) {
+      map.set(key, 'noindex');
+    }
+  }
+
+  return map;
 }
 
 function parseSkillUrl(rawUrl: string): ParsedSkillUrl | null {
@@ -964,25 +1025,22 @@ export function main() {
   if (!existsSync(INDEXABILITY_PATH)) {
     throw new Error(`Missing indexability report: ${INDEXABILITY_PATH}`);
   }
-  if (!existsSync(LOCALE_GOVERNANCE_PATH)) {
-    throw new Error(`Missing locale governance report: ${LOCALE_GOVERNANCE_PATH}`);
-  }
   if (!existsSync(EXPANDED_SKILLS_PATH)) {
     throw new Error(`Missing expanded skills data: ${EXPANDED_SKILLS_PATH}`);
   }
-  if (!existsSync(CORPUS_GOVERNANCE_PATH)) {
-    throw new Error(`Missing corpus governance report: ${CORPUS_GOVERNANCE_PATH}`);
-  }
-
   const plan = readJsonFile<RemediationPlan>(REMEDIATION_PLAN_PATH);
   const indexability = readJsonFile<IndexabilityReport>(INDEXABILITY_PATH);
-  const localeGovernance = readJsonFile<LocaleGovernanceReport>(LOCALE_GOVERNANCE_PATH);
-  const corpusGovernance = readJsonFile<CorpusGovernanceReport>(CORPUS_GOVERNANCE_PATH);
+  const localeGovernance = readLocaleGovernanceReport();
   const expandedSkills = readJsonFile<ExpandedGithubSkill[]>(EXPANDED_SKILLS_PATH);
 
   const indexabilityMap = buildIndexabilityMap(indexability.skills || []);
   const localeGovernanceMap = buildLocaleGovernanceMap(localeGovernance.skills || []);
-  const governedRouteMap = buildGovernedRouteMap(corpusGovernance.routes || []);
+  const governedRouteMap = existsSync(CORPUS_GOVERNANCE_PATH)
+    ? buildGovernedRouteMap(readJsonFile<CorpusGovernanceReport>(CORPUS_GOVERNANCE_PATH).routes || [])
+    : buildGovernedRouteMapFromSignals({
+        indexabilityMap,
+        localeGovernanceMap,
+      });
   const rawRepoSignals = buildExpandedRepoSignals(expandedSkills);
 
   const rows: MissingAuditRow[] = [];

@@ -31,6 +31,12 @@ export type IndexDriftSnapshot = {
   onlyInIndexableCache: string[];
 };
 
+type IndexabilityReportEntry = {
+  owner?: string;
+  routePath?: string;
+  isIndexable?: boolean;
+};
+
 function normalizeRouteKey(owner: unknown, routePath: unknown): string {
   const ownerPart = typeof owner === 'string' ? owner.trim().toLowerCase() : '';
   const routePart = typeof routePath === 'string' ? routePath.trim().toLowerCase() : '';
@@ -126,6 +132,39 @@ export function buildIndexDriftSnapshot(params: {
 
   const onlyInSitemap = sitemapRouteKeys.filter((key) => !governedSet.has(key));
   const onlyInIndexableCache = governedIndexableRouteKeys.filter((key) => !sitemapSet.has(key));
+
+  return {
+    counts: {
+      onlyInSitemap: onlyInSitemap.length,
+      onlyInIndexableCache: onlyInIndexableCache.length,
+    },
+    onlyInSitemap,
+    onlyInIndexableCache,
+  };
+}
+
+export function buildIndexDriftSnapshotFromIndexability(params: {
+  sitemapSkills: SitemapSkill[];
+  indexabilityReport: { skills?: IndexabilityReportEntry[] };
+  blocklistData?: SitemapBlocklistData | null;
+}): IndexDriftSnapshot {
+  const sitemapRouteKeys = buildSitemapRouteKeys({
+    sitemapSkills: params.sitemapSkills,
+    blocklistData: params.blocklistData,
+  });
+
+  const indexableRouteKeys = sortKeys(
+    (params.indexabilityReport.skills || [])
+      .filter((item) => item.isIndexable === true)
+      .map((item) => normalizeRouteKey(item.owner, item.routePath))
+      .filter(Boolean),
+  );
+
+  const sitemapSet = new Set(sitemapRouteKeys);
+  const indexableSet = new Set(indexableRouteKeys);
+
+  const onlyInSitemap = sitemapRouteKeys.filter((key) => !indexableSet.has(key));
+  const onlyInIndexableCache = indexableRouteKeys.filter((key) => !sitemapSet.has(key));
 
   return {
     counts: {

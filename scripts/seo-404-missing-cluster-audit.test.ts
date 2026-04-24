@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import {
+  buildGovernedRouteMapFromSignals,
   buildManualReviewDetails,
   describeManualReviewWorkstream,
+  normalizeLocaleGovernanceReport,
   summarizeManualReviewWorkstreams,
 } from './seo-404-missing-cluster-audit';
 
@@ -90,5 +92,67 @@ describe('manual review breakdown', () => {
         summary: describeManualReviewWorkstream('resolve_route_mismatch'),
       },
     ]);
+  });
+});
+
+describe('normalizeLocaleGovernanceReport', () => {
+  it('accepts the data-file array shape as a valid locale governance input', () => {
+    const report = normalizeLocaleGovernanceReport([
+      {
+        owner: 'openakita',
+        repo: 'openakita',
+        routePath: 'openakita/file-manager',
+        canonicalLocale: 'en',
+        eligibleLocales: ['en'],
+        publishedLocales: ['en'],
+      },
+    ] as any);
+
+    expect(report.skills).toHaveLength(1);
+    expect(report.skills?.[0]?.routePath).toBe('openakita/file-manager');
+  });
+});
+
+describe('buildGovernedRouteMapFromSignals', () => {
+  it('synthesizes keep and noindex buckets when the corpus governance report is unavailable', () => {
+    const governed = buildGovernedRouteMapFromSignals({
+      indexabilityMap: new Map([
+        [
+          'openakita/openakita/file-manager',
+          {
+            owner: 'openakita',
+            routePath: 'openakita/file-manager',
+            isIndexable: true,
+          } as any,
+        ],
+        [
+          'opentabs-dev/opentabs/build-plugin',
+          {
+            owner: 'opentabs-dev',
+            routePath: 'opentabs/build-plugin',
+            isIndexable: false,
+          } as any,
+        ],
+      ]),
+      localeGovernanceMap: new Map([
+        [
+          'openakita/openakita/file-manager',
+          {
+            owner: 'openakita',
+            routePath: 'openakita/file-manager',
+          } as any,
+        ],
+        [
+          'opentabs-dev/opentabs/build-plugin',
+          {
+            owner: 'opentabs-dev',
+            routePath: 'opentabs/build-plugin',
+          } as any,
+        ],
+      ]),
+    });
+
+    expect(governed.get('openakita/openakita/file-manager')).toBe('keep');
+    expect(governed.get('opentabs-dev/opentabs/build-plugin')).toBe('noindex');
   });
 });

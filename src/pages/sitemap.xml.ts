@@ -49,7 +49,7 @@ function dedupeSitemapSkills(skills: SitemapSkillEntry[]): SitemapSkillEntry[] {
  *   /sitemap-docs.xml     → Documentation pages
  *   /sitemap-blog.xml     → Blog pages
  *   /sitemap-collections.xml → Collection pages
- *   /sitemap-skills-N.xml → Skill detail pages (paginated)
+ *   /sitemap-skills.xml   → Skill detail pages
  */
 export const GET: APIRoute = async () => {
   // Use pre-built static data instead of D1 query to avoid CPU timeout (1102)
@@ -69,39 +69,6 @@ export const GET: APIRoute = async () => {
   }
 
   const today = new Date().toISOString().split('T')[0];
-
-  // Calculate number of sitemap chunks (limit 200 skills per file)
-  const LIMIT = 200;
-  const totalSkills = skills && skills.length > 0 ? skills.length : 0;
-  const totalPages = Math.ceil(totalSkills / LIMIT) || 1;
-
-  const skillSitemaps = [];
-  for (let i = 1; i <= totalPages; i++) {
-    // Calculate accurate lastmod for THIS specific chunk
-    const start = (i - 1) * LIMIT;
-    const end = start + LIMIT;
-    const chunkSkills = skills.slice(start, end);
-    let chunkLastMod = today;
-
-    if (chunkSkills.length > 0) {
-      const latestInChunk = chunkSkills
-        .filter((s) => s.updatedAt)
-        .sort((a, b) => new Date(b.updatedAt!).getTime() - new Date(a.updatedAt!).getTime())[0];
-
-      if (latestInChunk?.updatedAt) {
-        chunkLastMod = new Date(latestInChunk.updatedAt).toISOString().split('T')[0];
-      } else {
-        // Fallback to global max if chunk has no valid dates (unlikely)
-        chunkLastMod = skillsLastMod;
-      }
-    }
-
-    skillSitemaps.push(`<sitemap>
-  <loc>${SITE}/sitemap-skills-${i}.xml</loc>
-  <lastmod>${chunkLastMod}</lastmod>
-</sitemap>`);
-  }
-
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <sitemap>
@@ -120,7 +87,10 @@ export const GET: APIRoute = async () => {
   <loc>${SITE}/sitemap-docs.xml</loc>
   <lastmod>${today}</lastmod>
 </sitemap>
-${skillSitemaps.join('\n')}
+<sitemap>
+  <loc>${SITE}/sitemap-skills.xml</loc>
+  <lastmod>${skillsLastMod}</lastmod>
+</sitemap>
 </sitemapindex>`;
 
   return new Response(xml, {

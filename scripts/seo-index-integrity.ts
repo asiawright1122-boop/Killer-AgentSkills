@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 
 import { join, resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../src/i18n';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../src/lib/seo-locales';
-import { buildIndexDriftSnapshot } from './lib/index-drift';
+import { buildIndexDriftSnapshot, buildIndexDriftSnapshotFromIndexability } from './lib/index-drift';
 import type { SkillLocaleGovernanceRecord } from './lib/skill-locale-governance';
 
 type SkillCacheEntry = {
@@ -34,6 +34,14 @@ type SitemapSkill = {
 type CollectionEntry = {
   title?: Record<string, string>;
   description?: Record<string, string>;
+};
+
+type SkillIndexabilityReport = {
+  skills?: Array<{
+    owner?: string;
+    routePath?: string;
+    isIndexable?: boolean;
+  }>;
 };
 
 const args = new Set(process.argv.slice(2));
@@ -171,8 +179,14 @@ function main() {
   const skillsCachePath = join(dataDir, 'skills-cache.json');
   const localeGovernancePath = join(dataDir, 'seo-skill-locale-governance.json');
   const sitemapBlocklistPath = join(dataDir, 'seo-sitemap-blocklist.json');
+  const indexabilityReportPath = join(workspaceRoot, 'reports', 'seo', 'latest-skill-indexability.json');
 
-  if (existsSync(sitemapSkillsPath) && existsSync(skillsCachePath) && existsSync(localeGovernancePath) && existsSync(sitemapBlocklistPath)) {
+  if (
+    existsSync(sitemapSkillsPath) &&
+    existsSync(skillsCachePath) &&
+    existsSync(localeGovernancePath) &&
+    existsSync(sitemapBlocklistPath)
+  ) {
     const sitemapSkillsRaw = readJson<SitemapSkill[] | { skills?: SitemapSkill[] }>(sitemapSkillsPath);
     const skillsCacheRaw = readJson<SkillCacheEntry[] | { skills?: SkillCacheEntry[] }>(skillsCachePath);
     const localeGovernanceRaw = readJson<SkillLocaleGovernanceRecord[] | { skills?: SkillLocaleGovernanceRecord[] }>(
@@ -182,7 +196,9 @@ function main() {
 
     const sitemapSkills = Array.isArray(sitemapSkillsRaw) ? sitemapSkillsRaw : sitemapSkillsRaw.skills || [];
     const skillsCache = Array.isArray(skillsCacheRaw) ? skillsCacheRaw : skillsCacheRaw.skills || [];
-    const localeGovernance = Array.isArray(localeGovernanceRaw) ? localeGovernanceRaw : localeGovernanceRaw.skills || [];
+    const localeGovernance = Array.isArray(localeGovernanceRaw)
+      ? localeGovernanceRaw
+      : localeGovernanceRaw.skills || [];
 
     const driftSnapshot = buildIndexDriftSnapshot({
       skills: skillsCache as any,
@@ -244,6 +260,33 @@ function main() {
         thinSkills.length
       } | unique ids: ${new Set(thinSkillKeys).size} | sample: ${summarizeList(thinSkillKeys)}`;
       if (failOnThin) errors.push(message);
+      else warnings.push(message);
+    }
+  } else if (existsSync(sitemapSkillsPath) && existsSync(indexabilityReportPath) && existsSync(sitemapBlocklistPath)) {
+    const sitemapSkillsRaw = readJson<SitemapSkill[] | { skills?: SitemapSkill[] }>(sitemapSkillsPath);
+    const indexabilityReport = readJson<SkillIndexabilityReport>(indexabilityReportPath);
+    const sitemapBlocklistRaw = readJson<unknown>(sitemapBlocklistPath);
+
+    const sitemapSkills = Array.isArray(sitemapSkillsRaw) ? sitemapSkillsRaw : sitemapSkillsRaw.skills || [];
+    const driftSnapshot = buildIndexDriftSnapshotFromIndexability({
+      sitemapSkills,
+      indexabilityReport,
+      blocklistData: sitemapBlocklistRaw as any,
+    });
+
+    writeDriftArtifacts(driftSnapshot.onlyInSitemap, driftSnapshot.onlyInIndexableCache);
+    warnings.push('drift artifacts written from latest-skill-indexability fallback: reports/seo/index-drift.json');
+
+    if (driftSnapshot.onlyInSitemap.length > 0 || driftSnapshot.onlyInIndexableCache.length > 0) {
+      const message = [
+        `governed route drift detected`,
+        `only in sitemap: ${driftSnapshot.onlyInSitemap.length}`,
+        `only in governed indexability report: ${driftSnapshot.onlyInIndexableCache.length}`,
+        `sample sitemap-only: ${summarizeList(driftSnapshot.onlyInSitemap)}`,
+        `sample governed-indexability-only: ${summarizeList(driftSnapshot.onlyInIndexableCache)}`,
+      ].join(' | ');
+
+      if (strict) errors.push(message);
       else warnings.push(message);
     }
   } else {

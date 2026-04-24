@@ -724,7 +724,8 @@
     "faq4Q": "Sous quel format sont livrées ces compétences ?",
     "faq4A": "Elles sont généralement livrées sous forme de fichiers de compétences natifs IDE pour une installation directe dans Claude Code, Cursor, Windsurf et d'autres environnements compatibles.",
     "faq5Q": "Pourquoi commencer par le répertoire de compétences ?",
-    "faq5A": "La page de détail rassemble la commande d'installation, les IDE supportés, le dépôt source et les compétences associées pour décider rapidement si elle convient à votre tâche."
+    "faq5A": "La page de détail rassemble la commande d'installation, les IDE supportés, le dépôt source et les compétences associées pour décider rapidement si elle convient à votre tâche.",
+    "seoIntro": "Killer-Skills est un répertoire open source et un hub d’installation pour plus de 3 400 skills d’agents IA. Les développeurs y trouvent des outils fiables plus vite qu’en parcourant des dépôts GitHub bruts, puis passent dans le même flux aux collections, aux pages de solutions et à la documentation d’installation."
   },
   "Integrations": {
     "worksWhereYouWork": "Fonctionne dans votre environnement",
@@ -791,7 +792,8 @@
     "getStarted": "Commencer",
     "history": "Historique",
     "favorites": "Favoris",
-    "blog": "Blogue"
+    "blog": "Blogue",
+    "submitSkill": "Soumettre un skill"
   },
   "OfficialSkills": {
     "title": "Compétences Officielles",

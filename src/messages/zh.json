@@ -555,7 +555,6 @@
     "howToText3": "{{name}} 已启用，可立即在当前项目中调用。",
     "howToDescription": "使用 Killer-Skills CLI 在几秒内为 AI 编码助手安装 {{name}}。"
   },
-
   "DocsSidebar": {
     "gettingStarted": "开始使用",
     "platformOverview": "技能概览",
@@ -673,7 +672,8 @@
     "faq4Q": "这些技能以什么形式提供？",
     "faq4A": "它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。",
     "faq5Q": "为什么要从目录页进入技能详情？",
-    "faq5A": "因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。"
+    "faq5A": "因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。",
+    "seoIntro": "Killer-Skills 是一个面向 3,400+ AI Agent 技能的开源目录与安装入口。开发者无需直接翻找原始 GitHub 仓库，就能更快发现可信工具，并顺着同一条路径进入精选合集、解决方案页和安装文档。"
   },
   "Integrations": {
     "worksWhereYouWork": "无缝集成开发环境",
@@ -740,7 +740,8 @@
     "github": "GitHub",
     "getStarted": "开始使用",
     "history": "浏览历史",
-    "favorites": "我的收藏"
+    "favorites": "我的收藏",
+    "submitSkill": "提交技能"
   },
   "OfficialSkills": {
     "title": "官方技能",
@@ -893,7 +894,6 @@
     "description": "一键解锁更多工作流。发现并安装 3,400+ AI Agent 技能。",
     "cta": "进入管理器"
   },
-
   "Stats": {
     "totalSkills": "技能总数",
     "activeUsers": "活跃用户",

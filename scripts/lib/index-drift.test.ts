@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildIndexDriftSnapshot } from './index-drift';
+import { buildIndexDriftSnapshot, buildIndexDriftSnapshotFromIndexability } from './index-drift';
 import type { SkillCache } from './types';
 
 function buildIndexableSkill(overrides: Partial<SkillCache> = {}): SkillCache {
@@ -128,6 +128,28 @@ describe('index drift', () => {
 
     expect(snapshot.counts.onlyInIndexableCache).toBe(1);
     expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-a']);
+  });
+
+  it('falls back to indexability-report route keys when skills-cache is unavailable', () => {
+    const snapshot = buildIndexDriftSnapshotFromIndexability({
+      sitemapSkills: [
+        { owner: 'demo', repo: 'repo', routePath: 'repo/skill-a' },
+        { owner: 'demo', repo: 'repo', routePath: 'repo/skill-b' },
+      ],
+      indexabilityReport: {
+        skills: [
+          { owner: 'demo', routePath: 'repo/skill-a', isIndexable: true },
+          { owner: 'demo', routePath: 'repo/skill-c', isIndexable: true },
+          { owner: 'demo', routePath: 'repo/skill-b', isIndexable: false },
+        ],
+      },
+      blocklistData: {},
+    });
+
+    expect(snapshot.counts.onlyInSitemap).toBe(1);
+    expect(snapshot.counts.onlyInIndexableCache).toBe(1);
+    expect(snapshot.onlyInSitemap).toEqual(['demo/repo/skill-b']);
+    expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-c']);
   });
 
   it('excludes non-target sitemap themes from governed drift candidates', () => {

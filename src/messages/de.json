@@ -724,7 +724,8 @@
     "faq4Q": "In welchem Format werden die Skills bereitgestellt?",
     "faq4A": "Sie werden als IDE-native Skill-Dateien bereitgestellt, sodass sie direkt in Claude Code, Cursor, Windsurf und anderen kompatiblen Umgebungen installiert und wiederverwendet werden können.",
     "faq5Q": "Warum vom Skill-Verzeichnis aus starten?",
-    "faq5A": "Die Detailseite fasst Installationsbefehl, unterstützte IDEs, Quell-Repository und verwandte Skills zusammen, sodass Sie schnell entscheiden können, ob ein Skill zu Ihrer Aufgabe passt."
+    "faq5A": "Die Detailseite fasst Installationsbefehl, unterstützte IDEs, Quell-Repository und verwandte Skills zusammen, sodass Sie schnell entscheiden können, ob ein Skill zu Ihrer Aufgabe passt.",
+    "seoIntro": "Killer-Skills ist ein Open-Source-Verzeichnis und Installationshub für über 3.400 KI-Agenten-Skills. Entwickler finden dort vertrauenswürdige Tools schneller als beim Durchsuchen roher GitHub-Repositories und gelangen im selben Ablauf zu Collections, Lösungsseiten und Installationsdokumenten."
   },
   "Integrations": {
     "worksWhereYouWork": "Funktioniert in Ihrer Umgebung",
@@ -791,7 +792,8 @@
     "github": "GitHub",
     "getStarted": "Loslegen",
     "history": "Verlauf",
-    "favorites": "Favoriten"
+    "favorites": "Favoriten",
+    "submitSkill": "Skill einreichen"
   },
   "OfficialSkills": {
     "title": "Offizielle Skills",

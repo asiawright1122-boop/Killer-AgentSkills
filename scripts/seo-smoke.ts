@@ -83,6 +83,12 @@ const checks: PageCheck[] = [
     canonical: `${SITE_ORIGIN}/zh`,
     locale: 'zh',
     expectJsonLd: true,
+    mustNotContain: [
+      'Home.seoIntro',
+      'Submit Skill',
+      'Search...',
+      'Killer-Skills is an open-source directory and installation hub for 3,400+ AI agent skills.',
+    ],
   },
   {
     path: '/en/skills',
@@ -90,6 +96,14 @@ const checks: PageCheck[] = [
     canonical: `${SITE_ORIGIN}/en/skills`,
     locale: 'en',
     expectJsonLd: true,
+  },
+  {
+    path: '/zh/skills',
+    titleIncludes: 'AI Agent',
+    canonical: `${SITE_ORIGIN}/zh/skills`,
+    locale: 'zh',
+    expectJsonLd: true,
+    mustNotContain: ['Submit Skill', 'Search...'],
   },
   {
     path: '/en/collections',
@@ -539,8 +553,8 @@ async function runMissingDocs404Check() {
 async function runSkillsSitemapChecks(): Promise<string[]> {
   const sitemapIndexXml = await fetchText(withCacheBust('/sitemap.xml'));
   const sitemapLocs = parseXmlLocs(sitemapIndexXml);
-  const skillSitemapLocs = sitemapLocs.filter((loc) => /\/sitemap-skills-\d+\.xml$/.test(new URL(loc).pathname));
-  ensure(skillSitemapLocs.length > 0, 'sitemap index must include at least one /sitemap-skills-{n}.xml');
+  const skillSitemapLocs = sitemapLocs.filter((loc) => /\/sitemap-skills(?:-\d+)?\.xml$/.test(new URL(loc).pathname));
+  ensure(skillSitemapLocs.length > 0, 'sitemap index must include at least one skills sitemap XML');
 
   const allSkillLocs: string[] = [];
   const allSkillPaths: string[] = [];
