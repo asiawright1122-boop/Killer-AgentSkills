@@ -6124,6 +6124,16 @@
     "filePath": ".agents/skills/meditate/SKILL.md"
   },
   {
+    "owner": "YougLin-dev",
+    "repo": "Aha-Loop",
+    "description": "[MVP] Aha Loop is a fully autonomous AI development system, extended from the core ideas of Ralph. It's not just an execution engine, but a complete AI development framework with planning capabilities, research abilities, and oversight mechanisms.",
+    "stars": 184,
+    "forks": 37,
+    "topics": [],
+    "updatedAt": "2026-04-25T16:58:59Z",
+    "filePath": ".agents/skills/roadmap/SKILL.md"
+  },
+  {
     "owner": "Thank-you-Linus",
     "repo": "Linus-Dashboard",
     "description": "Elevate your smart home experience with a modern, responsive dashboard built on Home Assistant. Effortlessly manage your devices, areas and floors with an intuitive interface integrated with hass-magic_areas. 🚀",
@@ -12956,6 +12966,16 @@
     "filePath": ".claude/skills/knots-e2e/SKILL.md"
   },
   {
+    "owner": "gtapps",
+    "repo": "claude-code-hermit",
+    "description": "A personal assistant that lives in your project and that actually learns — pure Claude Code",
+    "stars": 33,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-26T23:51:29Z",
+    "filePath": ".claude/skills/release/SKILL.md"
+  },
+  {
     "owner": "richardgill",
     "repo": "nix",
     "description": null,
@@ -13073,6 +13093,28 @@
     "topics": [],
     "updatedAt": "2026-04-15T13:21:25Z",
     "filePath": ".claude/skills/migrate-to-shared/SKILL.md"
+  },
+  {
+    "owner": "dorlugasigal",
+    "repo": "TermBeam",
+    "description": "Beam your terminal to any device — mobile-optimized web terminal with multi-session support",
+    "stars": 32,
+    "forks": 3,
+    "topics": [
+      "cli",
+      "developer-tools",
+      "devtools",
+      "mobile",
+      "nodejs",
+      "pty",
+      "remote-access",
+      "terminal",
+      "web-terminal",
+      "websocket",
+      "xterm"
+    ],
+    "updatedAt": "2026-04-26T21:39:11Z",
+    "filePath": ".agents/skills/huashu-design/SKILL.md"
   },
   {
     "owner": "SpillwaveSolutions",
@@ -15812,6 +15854,25 @@
     "filePath": ".agents/skills/code_review/SKILL.md"
   },
   {
+    "owner": "sliamh11",
+    "repo": "Deus",
+    "description": "A token-efficient open-source AI assistant that remembers, adapts, and improves — secured, self-hosted, and entirely yours.",
+    "stars": 21,
+    "forks": 1,
+    "topics": [
+      "ai-assistant",
+      "ai-memory",
+      "claude-code",
+      "container-isolation",
+      "persistent-memory",
+      "self-improving-ai",
+      "semantic-memory",
+      "semantic-search"
+    ],
+    "updatedAt": "2026-04-26T20:09:21Z",
+    "filePath": ".claude/skills/add-listen-hotkey/SKILL.md"
+  },
+  {
     "owner": "samarv",
     "repo": "Shanon",
     "description": "A modular PM system for AI-assisted product management.",
@@ -18496,6 +18557,23 @@
     "filePath": ".agents/skills/debug/SKILL.md"
   },
   {
+    "owner": "Roberdan",
+    "repo": "convergio-community",
+    "description": "A trust layer between AI agents and your codebase. 🚀 Enterprise AI Agent Ecosystem - 40 Claude Code subagents for strategic leadership, tech  architecture & organizational  transformation. Built with ❤️ in Milano 🇮🇹",
+    "stars": 14,
+    "forks": 1,
+    "topics": [
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "claude-code-plugin",
+      "enterprise",
+      "subagents"
+    ],
+    "updatedAt": "2026-03-25T09:39:38Z",
+    "filePath": ".claude/skills/debugging/SKILL.md"
+  },
+  {
     "owner": "tae0y",
     "repo": "python-project-template",
     "description": "Project template for Claude Python Vibecoding workflow",
@@ -20350,6 +20428,25 @@
     "topics": [],
     "updatedAt": "2026-04-10T19:42:35Z",
     "filePath": ".claude/skills/csp-lua/SKILL.md"
+  },
+  {
+    "owner": "ThaddeusJiang",
+    "repo": "save_it",
+    "description": "Save images and videos ",
+    "stars": 11,
+    "forks": 1,
+    "topics": [
+      "bot",
+      "downloader",
+      "image-downloader",
+      "image-search-engine",
+      "instagram",
+      "pinterest",
+      "telegram",
+      "x-old-twitter"
+    ],
+    "updatedAt": "2026-04-27T01:06:14Z",
+    "filePath": ".agents/skills/changelog/SKILL.md"
   },
   {
     "owner": "ruska-ai",
@@ -28040,6 +28137,29 @@
     "filePath": ".agents/skills/vue/SKILL.md"
   },
   {
+    "owner": "nikolaj-lat",
+    "repo": "World-Puppeteer",
+    "description": "The World Puppeteer, a customized Claude Code setup designed for building Voyage worlds.",
+    "stars": 4,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:16:38Z",
+    "filePath": ".claude/skills/traits/SKILL.md"
+  },
+  {
+    "owner": "SHUAXINDIARY",
+    "repo": "ArknightsLive2d-Web",
+    "description": null,
+    "stars": 4,
+    "forks": 1,
+    "topics": [
+      "arknights",
+      "live2d"
+    ],
+    "updatedAt": "2026-04-22T02:05:40Z",
+    "filePath": ".claude/skills/delight/SKILL.md"
+  },
+  {
     "owner": "turbot",
     "repo": "guardrails-docs",
     "description": "Turbot Guardrails documentation content in markdown format.",
@@ -30203,6 +30323,26 @@
     "topics": [],
     "updatedAt": "2026-04-26T08:59:16Z",
     "filePath": ".claude/skills/gwt-plan-spec/SKILL.md"
+  },
+  {
+    "owner": "matochu",
+    "repo": "pythia",
+    "description": null,
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T22:17:15Z",
+    "filePath": ".claude/skills/review/SKILL.md"
+  },
+  {
+    "owner": "north-brook",
+    "repo": "remote-control",
+    "description": "Quickly access remote machines",
+    "stars": 3,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-06T14:00:49Z",
+    "filePath": ".agents/skills/react-best-practices/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -33549,6 +33689,39 @@
     "topics": [],
     "updatedAt": "2026-04-25T10:51:26Z",
     "filePath": ".agents/skills/hybrid-cloud-architect/SKILL.md"
+  },
+  {
+    "owner": "Citadel-Cloud-Management",
+    "repo": "citadel-saas-factory",
+    "description": "Universal Full-Stack SaaS Production Framework — 500+ Autonomous AI Agents | 12 Model Providers | 30 Domains | Cross-IDE (Claude Code, Cursor, Copilot, Codex, Jules) | FastAPI + Next.js + K3s + ArgoCD | $0 Software Cost",
+    "stars": 2,
+    "forks": 1,
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "devops",
+      "fullstack",
+      "github-actions",
+      "graphify",
+      "infrastructure-agnostic",
+      "open-source",
+      "production-ready",
+      "ruflo",
+      "saas",
+      "secops"
+    ],
+    "updatedAt": "2026-04-27T01:08:12Z",
+    "filePath": ".claude/skills/business-investment-advisor/SKILL.md"
+  },
+  {
+    "owner": "adryanev",
+    "repo": ".dotfiles",
+    "description": "My Dotfile Setup",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-24T09:43:15Z",
+    "filePath": ".agents/skills/react-best-practices/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -42651,6 +42824,147 @@
     "filePath": ".agents/skills/skills copy/prompt-engineering-patterns/SKILL.md"
   },
   {
+    "owner": "amodelandme",
+    "repo": "skill-tree-dotnet",
+    "description": "Personal AI skill library for .NET developers — model-agnostic, codebase-aware, and built one painful workflow at a time.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "ai-assisted-development",
+      "claude",
+      "claude-code",
+      "clean-architecture",
+      "clean-code",
+      "csharp",
+      "developer-tools",
+      "dotnet",
+      "dx",
+      "skills"
+    ],
+    "updatedAt": "2026-04-26T23:40:45Z",
+    "filePath": ".claude/skills/project-context-bootstrap/SKILL.md"
+  },
+  {
+    "owner": "natanayalo",
+    "repo": "code-agent",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T15:21:44Z",
+    "filePath": ".agents/skills/dashboard/SKILL.md"
+  },
+  {
+    "owner": "xGameBuilder",
+    "repo": "City-of-Voltures-AAA-Game-Title-",
+    "description": "High fidelity 3D Game built during development of xGameBuilder to test agent workflows and prompt engineering tactics ",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-23T06:02:49Z",
+    "filePath": ".agents/skills/pet-portrait-generation/SKILL.md"
+  },
+  {
+    "owner": "tnaftali",
+    "repo": "dotfiles",
+    "description": null,
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-19T09:26:43Z",
+    "filePath": ".agents/skills/thoughts-analyzer/SKILL.md"
+  },
+  {
+    "owner": "pratyushdeosingh",
+    "repo": "mdp",
+    "description": null,
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-05T08:41:40Z",
+    "filePath": ".agents/skills/x-twitter-scraper/SKILL.md"
+  },
+  {
+    "owner": "mateusoliveiradev1",
+    "repo": "frescari",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T21:26:40Z",
+    "filePath": ".agents/skills/x-twitter-scraper/SKILL.md"
+  },
+  {
+    "owner": "pratyushdeosingh",
+    "repo": "mdp",
+    "description": null,
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-05T08:41:40Z",
+    "filePath": ".agents/skills/uv-package-manager/SKILL.md"
+  },
+  {
+    "owner": "mateusoliveiradev1",
+    "repo": "frescari",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T21:26:40Z",
+    "filePath": ".agents/skills/uv-package-manager/SKILL.md"
+  },
+  {
+    "owner": "zaid-gd",
+    "repo": "Roadmap-maker",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-02T20:10:35Z",
+    "filePath": ".agents/skills/Codex-Skills/uv-package-manager/SKILL.md"
+  },
+  {
+    "owner": "north-brook",
+    "repo": "broker-cli",
+    "description": "Broker CLI for AI Agents",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T14:00:23Z",
+    "filePath": ".agents/skills/react-best-practices/SKILL.md"
+  },
+  {
+    "owner": "north-brook",
+    "repo": "git-jazz",
+    "description": "Stop repeating git commands and writing useless commit messages",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T14:00:24Z",
+    "filePath": ".agents/skills/react-best-practices/SKILL.md"
+  },
+  {
+    "owner": "north-brook",
+    "repo": "ves-ai",
+    "description": "Product analytics for AI agents",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T14:00:27Z",
+    "filePath": ".agents/skills/react-best-practices/SKILL.md"
+  },
+  {
+    "owner": "pratyushdeosingh",
+    "repo": "mdp",
+    "description": null,
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-04-05T08:41:40Z",
+    "filePath": ".agents/skills/web-design-guidelines/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -44464,7 +44778,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T01:21:15Z",
+    "updatedAt": "2026-04-27T00:12:02Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -44568,7 +44882,7 @@
       "react",
       "tailwindcss"
     ],
-    "updatedAt": "2026-04-22T08:23:17Z",
+    "updatedAt": "2026-04-27T00:45:44Z",
     "filePath": ".claude/skills/convex-component-authoring/SKILL.md"
   },
   {
@@ -44624,7 +44938,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-23T17:42:08Z",
+    "updatedAt": "2026-04-27T00:41:03Z",
     "filePath": ".claude/skills/compliance-manager/SKILL.md"
   },
   {
@@ -45659,7 +45973,7 @@
       "typescript",
       "windows"
     ],
-    "updatedAt": "2026-04-05T15:44:22Z",
+    "updatedAt": "2026-04-26T18:20:31Z",
     "filePath": ".claude/skills/security/SKILL.md"
   },
   {
@@ -46216,7 +46530,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-04-26T12:18:33Z",
+    "updatedAt": "2026-04-27T03:06:05Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -46620,7 +46934,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T13:30:25Z",
+    "updatedAt": "2026-04-26T18:27:59Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -46917,7 +47231,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-25T21:09:25Z",
+    "updatedAt": "2026-04-26T22:43:18Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -46947,7 +47261,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-24T21:40:38Z",
+    "updatedAt": "2026-04-27T00:42:55Z",
     "filePath": ".claude/skills/justicehub-context/SKILL.md"
   },
   {
@@ -47017,7 +47331,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T10:31:44Z",
+    "updatedAt": "2026-04-27T00:29:06Z",
     "filePath": ".claude/skills/flow-maintenance/SKILL.md"
   },
   {
@@ -47925,7 +48239,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-25T15:01:39Z",
+    "updatedAt": "2026-04-26T18:51:25Z",
     "filePath": ".claude/skills/bmad-pm/SKILL.md"
   },
   {
@@ -48077,7 +48391,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-25T11:49:38Z",
+    "updatedAt": "2026-04-26T18:54:08Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -48140,7 +48454,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T03:10:09Z",
+    "updatedAt": "2026-04-27T03:10:39Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -48611,7 +48925,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-24T11:42:20Z",
+    "updatedAt": "2026-04-26T16:56:42Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -48741,7 +49055,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-25T15:01:39Z",
+    "updatedAt": "2026-04-26T18:51:25Z",
     "filePath": ".claude/skills/bmad-correct-course/SKILL.md"
   },
   {
@@ -48811,7 +49125,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T10:35:06Z",
+    "updatedAt": "2026-04-26T20:12:58Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -48851,7 +49165,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-26T13:45:54Z",
+    "updatedAt": "2026-04-27T03:47:16Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -73443,5 +73757,416 @@
     "topics": [],
     "updatedAt": "2026-03-01T10:31:48Z",
     "filePath": ".agents/skills/x-twitter-scraper/SKILL.md"
+  },
+  {
+    "owner": "lucasmiachon-blip",
+    "repo": "OLMO",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T02:56:39Z",
+    "filePath": ".claude/skills/insights/SKILL.md"
+  },
+  {
+    "owner": "lukenas2",
+    "repo": "agent-routines",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T00:55:32Z",
+    "filePath": ".claude/skills/quote-plan/SKILL.md"
+  },
+  {
+    "owner": "matthewharwood",
+    "repo": "dean-stack",
+    "description": "a starter kit for my son dean and hit games development and educational learning",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:12:30Z",
+    "filePath": ".claude/skills/pixijs-assets/SKILL.md"
+  },
+  {
+    "owner": "tblakex01",
+    "repo": "conductor-playground",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T22:13:18Z",
+    "filePath": ".claude/skills/open-gstack-browser/SKILL.md"
+  },
+  {
+    "owner": "gagle",
+    "repo": "ncbijs",
+    "description": "TypeScript clients for NCBI APIs — PubMed, PMC, BLAST, SNP, ClinVar, PubChem, Datasets, and more. Zero-dependency. MCP server included.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T19:44:13Z",
+    "filePath": ".claude/skills/package-architecture/SKILL.md"
+  },
+  {
+    "owner": "ellison-projects",
+    "repo": "nexo-agent",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T01:29:26Z",
+    "filePath": ".claude/skills/look-ahead/SKILL.md"
+  },
+  {
+    "owner": "carter2099",
+    "repo": ".dotfiles-homelab",
+    "description": "Agentic Homelab",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T14:42:56Z",
+    "filePath": ".claude/skills/hyperliquid-run/SKILL.md"
+  },
+  {
+    "owner": "aladicf",
+    "repo": "better-react-web-ui",
+    "description": "Best practices and design patterns for AI agents crafting production-ready React UIs.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T19:16:13Z",
+    "filePath": ".claude/skills/localize/SKILL.md"
+  },
+  {
+    "owner": "Nathandela",
+    "repo": "cahier",
+    "description": "A calm-tech health app — one concept a day, every claim cited. Built with Claude Opus 4.7.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "calm-technology",
+      "claude",
+      "claude-code",
+      "claude-opus-4-7",
+      "expo",
+      "hackathon",
+      "health",
+      "rag",
+      "react-native",
+      "typescript"
+    ],
+    "updatedAt": "2026-04-26T20:55:28Z",
+    "filePath": ".claude/skills/compound/agents/security-reviewer/SKILL.md"
+  },
+  {
+    "owner": "rhicnl",
+    "repo": "tetris-nextjs",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T12:02:52Z",
+    "filePath": ".claude/skills/weather/SKILL.md"
+  },
+  {
+    "owner": "luoluomashang",
+    "repo": "novel-engine",
+    "description": "novel-engine",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T02:35:36Z",
+    "filePath": ".claude/skills/booming/SKILL.md"
+  },
+  {
+    "owner": "XinheLIU",
+    "repo": "human-leverage",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T15:57:19Z",
+    "filePath": ".claude/skills/qa-only/SKILL.md"
+  },
+  {
+    "owner": "zixian-cai",
+    "repo": "hwgc-soft",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-05T03:54:16Z",
+    "filePath": ".agents/skills/rust/SKILL.md"
+  },
+  {
+    "owner": "Zeuyel",
+    "repo": "Aha-loop",
+    "description": "Build from https://github.com/YougLin-dev/Aha-Loop",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-04T10:55:54Z",
+    "filePath": ".agents/skills/roadmap/SKILL.md"
+  },
+  {
+    "owner": "Vaibhav-Reddy560",
+    "repo": "Easy-Club",
+    "description": "Easy Club",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:52:10Z",
+    "filePath": ".agents/skills/makepad-basics/SKILL.md"
+  },
+  {
+    "owner": "Vaibhav-Reddy560",
+    "repo": "Easy-Club",
+    "description": "Easy Club",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:52:10Z",
+    "filePath": ".agents/skills/memory-forensics/SKILL.md"
+  },
+  {
+    "owner": "iTzFaisal",
+    "repo": "agency-agents",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T13:20:14Z",
+    "filePath": ".agents/skills/project-management-project-shepherd/SKILL.md"
+  },
+  {
+    "owner": "CT-Zodiako",
+    "repo": "finanzas",
+    "description": "App de finanzas personales - Angular + FastAPI + SQLite",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T03:28:55Z",
+    "filePath": ".agents/skills/server/SKILL.md"
+  },
+  {
+    "owner": "username7-maker",
+    "repo": "saas-sistema-retencao",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T01:16:17Z",
+    "filePath": ".agents/skills/speckit-implement/SKILL.md"
+  },
+  {
+    "owner": "alexxsssun-byte",
+    "repo": "AI-Swarm-Hivemind",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T04:29:57Z",
+    "filePath": ".agents/skills/claimable-postgres/SKILL.md"
+  },
+  {
+    "owner": "horrorbringer",
+    "repo": "kimmex",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-22T07:23:47Z",
+    "filePath": ".agents/skills/avalonia-zafiro-development/SKILL.md"
+  },
+  {
+    "owner": "Looping-AI",
+    "repo": "looping-control-plane",
+    "description": "Looping AI Control Plane — an ICP canister that acts as the agentic control layer for the Looping AI platform.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-25T19:12:16Z",
+    "filePath": ".agents/skills/cycles-management/SKILL.md"
+  },
+  {
+    "owner": "mazerunner70",
+    "repo": "housef4",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T21:34:06Z",
+    "filePath": ".agents/skills/db_admin/SKILL.md"
+  },
+  {
+    "owner": "jkjamies",
+    "repo": "MockDonalds",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T22:23:58Z",
+    "filePath": ".agents/skills/ac-to-spec/SKILL.md"
+  },
+  {
+    "owner": "nocnocgroup",
+    "repo": "gstack",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-21T15:23:56Z",
+    "filePath": ".agents/skills/gstack-plan-eng-review/SKILL.md"
+  },
+  {
+    "owner": "pradeepmouli",
+    "repo": "swift-template",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T02:21:58Z",
+    "filePath": ".agents/skills/axiom-hig-ref/SKILL.md"
+  },
+  {
+    "owner": "Vaibhav-Reddy560",
+    "repo": "Easy-Club",
+    "description": "Easy Club",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:52:10Z",
+    "filePath": ".agents/skills/skill-optimizer/SKILL.md"
+  },
+  {
+    "owner": "davidrrowley",
+    "repo": "CortexYouV3",
+    "description": "My cortexyou project",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T08:49:57Z",
+    "filePath": ".agents/skills/azure-monitor-ingestion-py/SKILL.md"
+  },
+  {
+    "owner": "udbfd68-cell",
+    "repo": "AURION-APP",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T22:50:41Z",
+    "filePath": ".agents/skills/huggingface-paper-publisher/SKILL.md"
+  },
+  {
+    "owner": "Pontusg45",
+    "repo": "fubbik",
+    "description": "AI and human friendly documentation tool",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T01:57:22Z",
+    "filePath": ".agents/skills/vercel-composition-patterns/SKILL.md"
+  },
+  {
+    "owner": "agusruiz11",
+    "repo": "posicionarte-2026",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-22T19:23:33Z",
+    "filePath": ".agents/skills/cqrs-implementation/SKILL.md"
+  },
+  {
+    "owner": "h-4vok",
+    "repo": "diagram-tours",
+    "description": "Diagram Tour is an open-source framework for explainable diagrams. Create guided, step-by-step explanations for Mermaid diagrams using a simple YAML tour. Highlight components, show contextual text, and turn static architecture diagrams into interactive walkthroughs.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T10:04:42Z",
+    "filePath": ".agents/skills/smoke-investigation/SKILL.md"
+  },
+  {
+    "owner": "Vaibhav-Reddy560",
+    "repo": "Easy-Club",
+    "description": "Easy Club",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T03:52:10Z",
+    "filePath": ".agents/skills/seo-content-auditor/SKILL.md"
+  },
+  {
+    "owner": "jankneumann",
+    "repo": "agentic-content-analyzer",
+    "description": "Use an agentic AI solution to summarize AI newsletters into daily and weekly digests ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-25T18:11:50Z",
+    "filePath": ".agents/skills/refresh-architecture/SKILL.md"
+  },
+  {
+    "owner": "jankneumann",
+    "repo": "agentic-assistant",
+    "description": "Framework agnostic agent harness that supports multiple personas, agent harnesses and sub-agents to build long-running agents.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-24T11:22:27Z",
+    "filePath": ".agents/skills/refresh-architecture/SKILL.md"
+  },
+  {
+    "owner": "Hung-3008",
+    "repo": "agusta",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T12:11:23Z",
+    "filePath": ".agents/skills/zinc-database/SKILL.md"
+  },
+  {
+    "owner": "kutluG",
+    "repo": "mvp-repo",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T12:33:13Z",
+    "filePath": ".agents/skills/prompt-engineering-patterns/SKILL.md"
+  },
+  {
+    "owner": "jacksonemmerich",
+    "repo": "farmapub",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-04T19:31:21Z",
+    "filePath": ".agents/skills/uv-package-manager/SKILL.md"
+  },
+  {
+    "owner": "c4kar",
+    "repo": "Kukufi",
+    "description": "arabic to kufi ascii art generator ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-02T14:58:45Z",
+    "filePath": ".agents/skills/m365-agents-dotnet/SKILL.md"
+  },
+  {
+    "owner": "jacksonemmerich",
+    "repo": "farmapub",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-04T19:31:21Z",
+    "filePath": ".agents/skills/web-design-guidelines/SKILL.md"
   }
 ]
