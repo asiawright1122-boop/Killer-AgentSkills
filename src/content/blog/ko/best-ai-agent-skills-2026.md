@@ -1,6 +1,6 @@
 ---
 title: "2026 Claude, Cursor, Windsurf 에서의 최고의 AI 에이전트 기술"
-description: "현재 설치할 수 있는 가장 유용한 AI 에이전트 기술의 커레이션된 목록으로, 실제로 잘하는 것을 기준으로 정렬했습니다. Claude Code, Cursor, Windsurf 에서 테스트했습니다."
+description: "2026 Claude, Cursor, Windsurf 에서의 최고의 AI 에이전트 기술 - 실제로 잘하는 것을 기준으로 정렬된 커레이션된 목록으로, Claude Code, Cursor, Windsurf 에서 테스트했습니다."
 pubDate: 2026-02-23
 author: "Killer-Skills Team"
 tags: ["AI Agent Skills", "Claude Code", "Cursor", "Windsurf", "Best Tools", "Developer Productivity"]
