@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-04T06:19:13.461Z",
-  "sourceReport": "production live sitemap-skills indexability audit (2026-05-04)",
+  "generatedAt": "2026-05-04T06:28:33.748Z",
+  "sourceReport": "production full sitemap hard-failure audit (2026-05-04)",
   "mode": "merge",
   "stats": {
-    "excludeExact": 1880,
+    "excludeExact": 1886,
     "excludeRepo": 344,
     "ignored": 0,
     "d1Checked": 3273,
@@ -12,7 +12,9 @@
     "liveAuditHardFailures": 307,
     "liveAuditAddedExact": 307,
     "liveAuditVerifiedIndexable": 871,
-    "liveAuditConservativeAddedExact": 1207
+    "liveAuditConservativeAddedExact": 1207,
+    "productionFullAuditAddedExact": 6,
+    "productionFullAuditResidualHardFailures": 6
   },
   "rules": {
     "excludeExact": [
@@ -780,6 +782,7 @@
       "iqeda/myrust-neetcode/lc-show",
       "iron-ham/xcodepreviews/preview-build",
       "irvinesunday/hali/triage",
+      "isdaniel/myblog/content-creator",
       "iseepatterns-jz/planning-with-files/planning-with-files",
       "islamu-ngo/event/prd",
       "issacnav/flashcardapp/caliper",
@@ -886,6 +889,7 @@
       "juaniitos/anyoneaiinterviewerbackend/gsd-debug",
       "juanjaragavi/social-media-genius/authentication",
       "juanlamadrid20/dbrx-multi-agent-retail-intelligence/asset-bundles",
+      "juanre/llmemory/rag",
       "jubakitiashvili/everything-react-native-expo/erne-navigate",
       "juliancissen/whos-next/chrome-mcp-testing",
       "julianromli/ai-skills/clone-website",
@@ -976,6 +980,7 @@
       "lapinchiro/ts_to_rs/quality-check",
       "lassestilvang/todo-gemini-3-pro-preview/gh-cli",
       "latitude-dev/latitude-llm/review-pr-comments",
+      "lawless-m/claude-skills/nawin",
       "lawless-m/claude-skills/reverse proxy deployment",
       "lawless-m/earwig/reverse proxy deployment",
       "lawless-m/gwen/reverse proxy deployment",
@@ -1043,6 +1048,7 @@
       "mabumusa1/facilities-management/pestel-analysis",
       "madarasz/always-be-running/e2e",
       "mafvietnam/mafapp/ck:team",
+      "mag123c/toktrack/next",
       "magarcia/pylon-sync/cli-design",
       "mahmudulhaquequdrati/ai_research/market-research",
       "majiayu000/claude-skill-registry-data/fetch-github-trending",
@@ -1789,6 +1795,7 @@
       "vitae/cash/agentic-engineering",
       "vitalyiegorov/suuudokuuu/native-data-fetching",
       "vitorsilva/saberloop/landing-page-marketing",
+      "vjr2005/challenge/project-structure",
       "vkinnnnn/hr-analytics/gh-issues",
       "vlad-ryzhkov/ai-qa-workshop-feb19/sdet",
       "vladm3105/aidoc-flow-framework/doc-review",
@@ -1875,6 +1882,7 @@
       "z1rl1/agentsteam/system-review",
       "zaeem-rafiq/tatheer-swift-sdk/review",
       "zaineldeen-ashraf-ibrahim-ibrahim-samak/scct/delight",
+      "zainfathoni/kelas.rumahberbagi.com/ui-preview",
       "zanel1u/cloud-cli-proxy/gsd-debug",
       "zaxbysauce/ragappv3/gh-issues",
       "zenobi-us/dotfiles/skill-hunter",
