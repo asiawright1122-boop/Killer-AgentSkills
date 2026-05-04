@@ -1,6 +1,6 @@
 ---
 title: "مشكلة في تشغيل خادم MCP؟ دليل إصلاح شامل"
-description: "تعرف على حلول مشاكل خادم MCP الشائعة وأخطاء الاتصال والخطوات المحددة لإصلاح الخادم"
+description: "مشكلة في تشغيل خادم MCP؟ تعرف على حلول المشاكل الشائعة والأخطاء التي تؤثر على الاتصال والخطوات التدريجية لإصلاح الخادم بسهولة."
 pubDate: 2026-01-15
 author: Killer-Skills Team
 heroImage: /images/blog/mcp-server-not-working-troubleshooting-guide.webp
