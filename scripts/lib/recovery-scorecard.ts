@@ -18,6 +18,8 @@ const COVERAGE_SOURCE_MAX_AFTER_DAYS = 7;
 const INDEX_STALE_AFTER_DAYS = 7;
 const TRAFFIC_STALE_AFTER_DAYS = 7;
 const AI_STALE_AFTER_DAYS = 7;
+const CRAWL_HARD_FAIL_FLAKY_5XX_MIN = 5;
+const CRAWL_HARD_FAIL_FLAKY_5XX_RATE = 0.02;
 const numberFormatter = new Intl.NumberFormat('en-US');
 
 export type RecoverySignalStatus = 'clear' | 'warning' | 'blocking' | 'unknown';
@@ -66,6 +68,7 @@ type CrawlHealthJsonReport = {
     statusOther?: number;
   };
   cloudflare1102?: unknown[];
+  flakyRecovered?: unknown[];
   sitemapErrors?: unknown[];
 };
 
@@ -198,6 +201,8 @@ export type RecoveryScorecardReport = {
     status5xx: number;
     statusOther: number;
     cloudflare1102: number;
+    flakyRecovered: number;
+    flakyRecoveredRate: number;
     fourXxRate: number;
   }>;
   coverage: RecoverySignal<{
@@ -564,8 +569,10 @@ function buildCrawlSignal(
   const status5xx = report?.statusSummary?.status5xx || 0;
   const statusOther = report?.statusSummary?.statusOther || 0;
   const cloudflare1102 = Array.isArray(report?.cloudflare1102) ? report!.cloudflare1102!.length : 0;
+  const flakyRecovered = Array.isArray(report?.flakyRecovered) ? report!.flakyRecovered!.length : 0;
   const sitemapErrors = Array.isArray(report?.sitemapErrors) ? report!.sitemapErrors!.length : 0;
   const fourXxRate = checkedUrls > 0 ? status4xx / checkedUrls : 0;
+  const flakyRecoveredRate = checkedUrls > 0 ? flakyRecovered / checkedUrls : 0;
 
   const notes: string[] = [];
   let status: RecoverySignalStatus = 'unknown';
@@ -582,7 +589,14 @@ function buildCrawlSignal(
       status = 'warning';
       notes.push(`Crawl-health evidence is ${source.ageDays} day(s) old.`);
     }
-    if (status5xx > 0 || cloudflare1102 > 0 || fourXxRate > 0.002 || sitemapErrors > 0) {
+    if (
+      status5xx > 0 ||
+      cloudflare1102 > 0 ||
+      fourXxRate > 0.002 ||
+      flakyRecovered >= CRAWL_HARD_FAIL_FLAKY_5XX_MIN ||
+      flakyRecoveredRate > CRAWL_HARD_FAIL_FLAKY_5XX_RATE ||
+      sitemapErrors > 0
+    ) {
       status = 'blocking';
     }
   }
@@ -595,6 +609,13 @@ function buildCrawlSignal(
   }
   if (cloudflare1102 > 0) {
     notes.push(`Observed ${formatInteger(cloudflare1102)} Cloudflare 1102 responses.`);
+  }
+  if (flakyRecovered > 0) {
+    notes.push(
+      `Observed ${formatInteger(flakyRecovered)} URL(s) that returned 5xx before recovering on retry (${formatPercent(
+        flakyRecoveredRate,
+      )}).`,
+    );
   }
   if (sitemapErrors > 0) {
     notes.push(
@@ -615,8 +636,9 @@ function buildCrawlSignal(
     label: 'Crawl Health',
     status,
     summary,
-    target: 'Fresh crawl-health report with 4xx <= 0.2%, 5xx = 0, Cloudflare 1102 = 0, and sitemap fetch errors = 0.',
-    observed: `${formatInteger(checkedUrls)} checked; 2xx ${formatInteger(status2xx)}; 4xx ${formatInteger(status4xx)} (${formatPercent(fourXxRate)}); 5xx ${formatInteger(status5xx)}; 1102 ${formatInteger(cloudflare1102)}; sitemapErrors=${formatInteger(sitemapErrors)}.`,
+    target:
+      'Fresh crawl-health report with 4xx <= 0.2%, final 5xx = 0, recovered flaky 5xx below the hard-fail threshold, Cloudflare 1102 = 0, and sitemap fetch errors = 0.',
+    observed: `${formatInteger(checkedUrls)} checked; 2xx ${formatInteger(status2xx)}; 4xx ${formatInteger(status4xx)} (${formatPercent(fourXxRate)}); final5xx ${formatInteger(status5xx)}; flaky5xx ${formatInteger(flakyRecovered)} (${formatPercent(flakyRecoveredRate)}); 1102 ${formatInteger(cloudflare1102)}; sitemapErrors=${formatInteger(sitemapErrors)}.`,
     notes,
     source,
     metrics: {
@@ -630,6 +652,8 @@ function buildCrawlSignal(
       status5xx,
       statusOther,
       cloudflare1102,
+      flakyRecovered,
+      flakyRecoveredRate,
       fourXxRate,
     },
   };
@@ -1068,9 +1092,15 @@ function buildNextActions(report: RecoveryScorecardReport): string[] {
     }
   }
 
-  if (report.crawl.status === 'clear') {
+  if (report.crawl.status === 'blocking' && report.crawl.metrics.flakyRecovered > 0) {
     actions.push(
-      'Keep the main-domain crawl loop running daily until a full 7-day streak holds at `4xx <= 0.2%`, `5xx = 0`, and `Cloudflare 1102 = 0`.',
+      `Investigate recovered flaky 5xx from \`reports/seo/latest-crawl-health.md\`; current sample has ${formatInteger(
+        report.crawl.metrics.flakyRecovered,
+      )} recovered URL(s), concentrated by route bucket in the crawl report.`,
+    );
+  } else if (report.crawl.status === 'clear') {
+    actions.push(
+      'Keep the main-domain crawl loop running daily until a full 7-day streak holds at `4xx <= 0.2%`, `final 5xx = 0`, `flaky 5xx below threshold`, and `Cloudflare 1102 = 0`.',
     );
   }
 

@@ -1281,6 +1281,34 @@ describe('public links and navigation copy', () => {
     expect(skillRelatedSource).not.toContain("col.id.replace(/\\.json$/, '')");
   });
 
+  it('keeps noindex solution locale variants out of the static sitemap', () => {
+    const staticSitemapSource = readPageSource('./sitemap-static.xml.ts');
+
+    expect(staticSitemapSource).toContain('getSolutionSeoEligibleLocales');
+    expect(staticSitemapSource).toContain('getPreferredCanonicalLocale(page.locales)');
+    expect(staticSitemapSource).toContain('buildHreflangLinks(page.path, [canonicalLocale])');
+    expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
+  });
+
+  it('renders only canonical solution URLs in the static sitemap XML', async () => {
+    const { GET } = await import('../../src/pages/sitemap-static.xml');
+    const response = await GET({} as Parameters<typeof GET>[0]);
+    const xml = await response.text();
+    const locs = Array.from(xml.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
+    const solutionLocs = locs.filter((loc) => /\/solutions(?:\/|$)/.test(new URL(loc).pathname));
+
+    expect(solutionLocs).toEqual([
+      'https://killer-skills.com/en/solutions',
+      'https://killer-skills.com/en/solutions/workflow-automation',
+      'https://killer-skills.com/en/solutions/process-automation',
+      'https://killer-skills.com/en/solutions/document-automation',
+      'https://killer-skills.com/en/solutions/browser-automation',
+      'https://killer-skills.com/en/solutions/data-extraction',
+      'https://killer-skills.com/en/solutions/agent-workflows',
+    ]);
+    expect(new Set(solutionLocs).size).toBe(solutionLocs.length);
+  });
+
   it('keeps search-driven skill navigation wired to canonical skill href builders', () => {
     const commandBarSource = readPageSource('../components/CommandBar.tsx');
     const commandPaletteSource = readPageSource('../islands/CommandPalette.tsx');
