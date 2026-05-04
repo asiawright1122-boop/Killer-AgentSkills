@@ -65,6 +65,10 @@ const FETCH_RETRY_ATTEMPTS = readPositiveInt(
   activeBaseUrl.startsWith('https://') ? 6 : 3,
 );
 const FETCH_RETRY_DELAY_MS = readPositiveInt(process.env.SEO_SMOKE_FETCH_RETRY_DELAY_MS, 2000);
+const SKILLS_SITEMAP_INDEXABILITY_SAMPLE_LIMIT = readPositiveInt(
+  process.env.SEO_SMOKE_SKILLS_SITEMAP_INDEXABILITY_SAMPLE_LIMIT,
+  30,
+);
 const SEO_SMOKE_CACHE_BUST = process.env.SEO_SMOKE_CACHE_BUST === '1';
 const SEO_SMOKE_SITEMAP_ONLY = process.env.SEO_SMOKE_SITEMAP_ONLY === '1';
 const CACHE_BUST_VALUE = Date.now();
@@ -252,6 +256,59 @@ async function fetchRedirectWithRetry(path: string, expectedStatus = 301): Promi
   throw lastError || new Error(`${path}: request failed after ${FETCH_RETRY_ATTEMPTS} attempts`);
 }
 
+async function fetchManualWithRetry(path: string, expectedStatus?: number): Promise<Response> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 1; attempt <= FETCH_RETRY_ATTEMPTS; attempt += 1) {
+    const requestUrl = `${activeBaseUrl}${path}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+    try {
+      const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'manual' });
+      const passed = expectedStatus != null ? response.status === expectedStatus : response.ok;
+
+      if (passed) {
+        return response;
+      }
+
+      const expectedLabel = expectedStatus != null ? expectedStatus : 200;
+      lastError = new Error(`${path}: expected ${expectedLabel}, got ${response.status}`);
+
+      if (TRANSIENT_STATUS_CODES.has(response.status) && attempt < FETCH_RETRY_ATTEMPTS) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: status ${response.status}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      throw lastError;
+    } catch (error) {
+      if (attempt < FETCH_RETRY_ATTEMPTS && isTransientFetchError(error)) {
+        const waitMs = FETCH_RETRY_DELAY_MS * attempt;
+        const message = error instanceof Error ? error.message : String(error);
+        console.warn(
+          `SEO smoke retry ${attempt}/${FETCH_RETRY_ATTEMPTS - 1} for ${path}: ${message}, waiting ${waitMs}ms`,
+        );
+        await sleep(waitMs);
+        continue;
+      }
+
+      if (error instanceof Error) {
+        throw error;
+      }
+
+      throw new Error(`${path}: request failed (${String(error)})`, { cause: error });
+    } finally {
+      clearTimeout(timeout);
+    }
+  }
+
+  throw lastError || new Error(`${path}: request failed after ${FETCH_RETRY_ATTEMPTS} attempts`);
+}
+
 async function fetchText(path: string): Promise<string> {
   const response = await fetchWithRetry(path);
   return response.text();
@@ -272,6 +329,19 @@ function findDuplicates(items: string[]): string[] {
   return Array.from(counts.entries())
     .filter(([, count]) => count > 1)
     .map(([item]) => item);
+}
+
+function sampleEvenly<T>(items: T[], limit: number): T[] {
+  if (limit <= 0) return [];
+  if (items.length <= limit) return items;
+  if (limit === 1) return [items[0]];
+
+  const sampled: T[] = [];
+  const step = (items.length - 1) / (limit - 1);
+  for (let i = 0; i < limit; i += 1) {
+    sampled.push(items[Math.round(i * step)]);
+  }
+  return Array.from(new Set(sampled));
 }
 
 function toLocalPath(url: string): string {
@@ -662,6 +732,36 @@ async function runBlogSitemapIndexabilityCheck() {
   console.log(`SEO smoke passed: blog sitemap canonical pages are indexable (${blogLocs.length} URLs)`);
 }
 
+async function runSkillsSitemapIndexabilityCheck(skillPaths: string[]) {
+  if (isLocalBaseUrl) {
+    console.warn(
+      'SEO smoke skipped skills sitemap indexability sample: local preview may not have production D1 data.',
+    );
+    return;
+  }
+
+  const samplePaths = sampleEvenly(skillPaths, SKILLS_SITEMAP_INDEXABILITY_SAMPLE_LIMIT);
+  ensure(samplePaths.length > 0, 'skills sitemap indexability sample must contain at least one URL');
+
+  for (const skillPath of samplePaths) {
+    const response = await fetchManualWithRetry(withCacheBust(skillPath), 200);
+    const html = await response.text();
+    const canonical = readTagContent(html, /<link\s+rel="canonical"\s+href="(.*?)"/i);
+    const robots = readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i) || '';
+    const title = readTagContent(html, /<title>(.*?)<\/title>/i) || '';
+    const expectedCanonical = `${SITE_ORIGIN}${skillPath}`;
+
+    ensure(!/^Redirecting to:/i.test(title), `${skillPath}: sitemap URL served a redirect shell`);
+    ensure(!robots.toLowerCase().includes('noindex'), `${skillPath}: sitemap URL must not be noindex`);
+    ensure(canonical === expectedCanonical, `${skillPath}: canonical mismatch (${canonical || 'missing'})`);
+    ensure(html.includes('application/ld+json'), `${skillPath}: expected skill structured data script`);
+  }
+
+  console.log(
+    `SEO smoke passed: skills sitemap canonical pages are indexable (${samplePaths.length}/${skillPaths.length} sampled)`,
+  );
+}
+
 async function resolveRepresentativeSkillPath(skillPaths: string[]): Promise<string | null> {
   ensure(skillPaths.length > 0, 'skills sitemap must contain at least one skill URL');
 
@@ -872,6 +972,7 @@ async function main() {
     await runMissingDocs404Check();
     const skillPaths = await runSkillsSitemapChecks();
     await runBlogSitemapIndexabilityCheck();
+    await runSkillsSitemapIndexabilityCheck(skillPaths);
     if (!SEO_SMOKE_SITEMAP_ONLY) {
       await runSingleRouteRepoRedirectCheck();
       await runSuppressedLocaleRedirectCheck();
