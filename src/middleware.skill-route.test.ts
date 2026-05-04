@@ -170,6 +170,24 @@ describe('middleware skill route handling', () => {
     expect(response.status).toBe(200);
   });
 
+  it('keeps skill detail HTML cached longer at the edge to reduce crawler SSR pressure', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/en/skills/jaraim/opencode-chinese/github-workflow', {
+        headers: { 'user-agent': 'Googlebot/2.1' },
+      }),
+      async () =>
+        new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('Cache-Control')).toBe(
+      'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400',
+    );
+  });
+
   it('still blocks file-like trap paths under skills routes', async () => {
     let nextCalled = false;
     const response = (await onRequest(
