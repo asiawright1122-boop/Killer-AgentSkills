@@ -2,7 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../../layouts/Layout.astro';
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
-import { type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
+import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import Info from '../../../components/Info.astro';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import {
@@ -13,31 +13,29 @@ import {
 } from '../../../lib/blog-seo-intent';
 import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
 
-export const prerender = true;
+export const prerender = false;
 
-export async function getStaticPaths() {
-  const posts = await getCollection('blog');
-  return posts.map((post) => {
-    const [lang, ...slugParts] = post.id.split('/');
-    const slug = slugParts.join('/').replace(/\.md$/, '');
+const { locale, slug } = Astro.params;
 
-    return {
-      params: { locale: lang, slug },
-      props: { post },
-    };
-  });
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const { post } = Astro.props;
-const { locale } = Astro.params;
-const typedLocale = (locale || 'en') as Locale;
+const typedLocale = locale as Locale;
+const post = (await getCollection('blog', ({ id, data }) => id === `${locale}/${slug}` && !data.draft))[0];
+
+if (!post) {
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
 const { Content, headings } = await render(post);
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 const tb = messages.Blog;
 const category = post.data.category;
-const slug = Astro.params.slug || '';
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/${slug}`;
 const metaOverride = getBlogMetaOverride(slug, t);
 const seoTitle = normalizePublicTitle(metaOverride?.title || post.data.title, 72) || post.data.title;

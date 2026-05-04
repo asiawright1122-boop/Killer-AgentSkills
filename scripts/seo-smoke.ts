@@ -625,6 +625,43 @@ async function runSkillsSitemapChecks(): Promise<string[]> {
   return allSkillPaths;
 }
 
+async function runBlogSitemapIndexabilityCheck() {
+  const xml = await fetchText(withCacheBust('/sitemap-blog.xml'));
+  const blogLocs = parseXmlLocs(xml);
+  ensure(blogLocs.length > 0, 'blog sitemap must contain at least one URL');
+
+  const duplicateLocs = findDuplicates(blogLocs);
+  ensure(
+    duplicateLocs.length === 0,
+    `blog sitemap duplicate URLs detected:\n${duplicateLocs
+      .slice(0, 10)
+      .map((item) => `- ${item}`)
+      .join('\n')}`,
+  );
+
+  for (const loc of blogLocs) {
+    const parsed = new URL(loc);
+    ensure(parsed.origin === SITE_ORIGIN, `blog sitemap loc must use canonical origin: ${loc}`);
+    ensure(parsed.search === '', `blog sitemap loc must not contain query params: ${loc}`);
+    ensure(!parsed.pathname.endsWith('.html'), `blog sitemap loc must use extensionless canonical URL: ${loc}`);
+  }
+
+  for (const loc of blogLocs.slice(0, 6)) {
+    const path = toLocalPath(loc);
+    const html = await fetchText(withCacheBust(path));
+    const title = readTagContent(html, /<title>(.*?)<\/title>/i) || '';
+    const canonical = readTagContent(html, /<link\s+rel="canonical"\s+href="(.*?)"/i);
+    const robots = readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i) || '';
+
+    ensure(!/^Redirecting to:/i.test(title), `${path}: sitemap URL served a redirect shell instead of the blog page`);
+    ensure(!robots.toLowerCase().includes('noindex'), `${path}: sitemap URL must not be noindex`);
+    ensure(canonical === loc, `${path}: canonical mismatch (${canonical || 'missing'})`);
+    ensure(html.includes('application/ld+json'), `${path}: expected blog structured data script`);
+  }
+
+  console.log(`SEO smoke passed: blog sitemap canonical pages are indexable (${blogLocs.length} URLs)`);
+}
+
 async function resolveRepresentativeSkillPath(skillPaths: string[]): Promise<string | null> {
   ensure(skillPaths.length > 0, 'skills sitemap must contain at least one skill URL');
 
@@ -834,6 +871,7 @@ async function main() {
 
     await runMissingDocs404Check();
     const skillPaths = await runSkillsSitemapChecks();
+    await runBlogSitemapIndexabilityCheck();
     if (!SEO_SMOKE_SITEMAP_ONLY) {
       await runSingleRouteRepoRedirectCheck();
       await runSuppressedLocaleRedirectCheck();
