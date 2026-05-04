@@ -7,7 +7,7 @@ import { buildKeywordString, type KeywordClusterId } from '../../../../lib/seo-k
 import { getBlogIntentLinks } from '../../../../lib/blog-seo-intent';
 import { ArrowLeft, Tags, Palette, FileText, Building2, Terminal } from 'lucide-react';
 
-export const prerender = true;
+export const prerender = false;
 
 const categoryIcons = {
   'creative-tools': Palette,
@@ -16,22 +16,11 @@ const categoryIcons = {
   'developer-experience': Terminal,
 };
 
-export async function getStaticPaths() {
-  const allPosts = await getCollection('blog');
-  const categories = [...new Set(allPosts.map((post) => post.data.category).filter(Boolean))];
-
-  const paths = [];
-  for (const locale of SUPPORTED_LOCALES) {
-    for (const category of categories) {
-      paths.push({
-        params: { locale, category },
-      });
-    }
-  }
-  return paths;
-}
-
 const { locale, category } = Astro.params;
+
+if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !category) {
+  return new Response(null, { status: 404, statusText: 'Not Found' });
+}
 
 // Get posts for current locale and category
 let posts = await getCollection('blog', ({ data }) => {
@@ -43,6 +32,12 @@ if (posts.length === 0 && locale !== 'en') {
   posts = await getCollection('blog', ({ data }) => {
     return data.lang === 'en' && data.category === category && !data.draft;
   });
+}
+
+if (posts.length === 0) {
+  Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+  Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+  return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
 // Sort by date desc

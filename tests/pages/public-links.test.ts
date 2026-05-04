@@ -340,6 +340,20 @@ describe('public links and navigation copy', () => {
     expect(blogSeoIntentSource).not.toContain('/skills?q=workflow automation');
   });
 
+  it('keeps sitemap-listed blog routes as SSR canonical pages instead of static noindex redirect shells', () => {
+    const blogDetailSource = readPageSource('../pages/[locale]/blog/[...slug].astro');
+    const blogCategorySource = readPageSource('../pages/[locale]/blog/category/[category].astro');
+    const blogSitemapSource = readPageSource('./sitemap-blog.xml.ts');
+
+    expect(blogDetailSource).toContain('export const prerender = false;');
+    expect(blogDetailSource).not.toContain('getStaticPaths');
+    expect(blogDetailSource).toContain('id === `${locale}/${slug}` && !data.draft');
+    expect(blogCategorySource).toContain('export const prerender = false;');
+    expect(blogCategorySource).not.toContain('getStaticPaths');
+    expect(blogSitemapSource).toContain('`${SITE}/${locale}/blog/${slug}`');
+    expect(blogSitemapSource).not.toContain('`${SITE}/${locale}/blog/${slug}.html`');
+  });
+
   it('keeps public links to internal skill search-result pages marked nofollow', () => {
     const homeSource = readPageSource('./[locale]/index.astro');
     const skillsIndexSource = readPageSource('./[locale]/skills/index.astro');
