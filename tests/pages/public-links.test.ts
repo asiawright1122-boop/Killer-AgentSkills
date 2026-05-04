@@ -295,6 +295,16 @@ describe('public links and navigation copy', () => {
     expect(skillsSidebarSource).not.toContain('href={`/${locale}/skills?tag=${fw.id}`}');
   });
 
+  it('keeps parameterized skills listing pages on bounded queries for crawl stability', () => {
+    const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
+
+    expect(skillsIndexSource).toContain('FILTERED_SKILL_SAMPLE_LIMIT');
+    expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, FILTERED_SKILL_SAMPLE_LIMIT)');
+    expect(skillsIndexSource).toContain('shouldLoadFilteredListingData');
+    expect(skillsIndexSource).not.toContain('getLightweightSkills(env)');
+    expect(skillsIndexSource).not.toContain('shouldLoadFullListingData');
+  });
+
   it('keeps blog intent links on indexable solution and docs paths instead of fixed search-result URLs', () => {
     const blogSeoIntentSource = readPageSource('../lib/blog-seo-intent.ts');
 
