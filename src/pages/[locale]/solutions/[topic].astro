@@ -4,12 +4,7 @@ import SkillCard from '../../../components/SkillCard.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
 import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import {
-  getLightweightSkills,
-  getLightweightSkillsByRefs,
-  getLightweightSkillsTop,
-  type UnifiedSkill,
-} from '../../../lib/skills';
+import { getLightweightSkillsByRefs, getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/skills';
 import { getPreferredCanonicalLocale, isDirectlyLocalizedVariant } from '../../../lib/seo-locales';
 import {
   getSolutionIntentBySlug,
@@ -38,17 +33,7 @@ if (!intent) {
 }
 
 const env = Astro.locals.runtime?.env as Env;
-const normalizeFlag = (value: string | null) => (value || '').toLowerCase();
-const userAgent = normalizeFlag(Astro.request.headers.get('user-agent'));
-const isCrawlerRequest =
-  /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
-const CRAWLER_SKILL_SAMPLE_LIMIT = 160;
-
-if (isCrawlerRequest) {
-  console.info(
-    `[SSR] solutions crawler lightweight mode enabled (topic=${intent.slug}, limit=${CRAWLER_SKILL_SAMPLE_LIMIT})`,
-  );
-}
+const SOLUTION_SKILL_SAMPLE_LIMIT = 240;
 
 const solutionFeaturedSkillRefsBySlug: Partial<Record<SolutionSlug, string[]>> = {
   'agent-workflows': [
@@ -81,9 +66,7 @@ const solutionExactSkillRefs = Array.from(
 );
 
 const [baseSkillsFetched, exactSkillsFetched, messages] = await Promise.all([
-  isCrawlerRequest
-    ? getLightweightSkillsTop(env, CRAWLER_SKILL_SAMPLE_LIMIT).catch(() => [] as UnifiedSkill[])
-    : getLightweightSkills(env).catch(() => [] as UnifiedSkill[]),
+  getLightweightSkillsTop(env, SOLUTION_SKILL_SAMPLE_LIMIT).catch(() => [] as UnifiedSkill[]),
   solutionExactSkillRefs.length > 0
     ? getLightweightSkillsByRefs(env, solutionExactSkillRefs).catch(() => [] as UnifiedSkill[])
     : Promise.resolve([] as UnifiedSkill[]),

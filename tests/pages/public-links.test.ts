@@ -1290,6 +1290,25 @@ describe('public links and navigation copy', () => {
     expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
   });
 
+  it('keeps solution detail pages on bounded skill queries for crawl stability', () => {
+    const solutionDetailSource = readPageSource('../pages/[locale]/solutions/[topic].astro');
+
+    expect(solutionDetailSource).toContain('SOLUTION_SKILL_SAMPLE_LIMIT');
+    expect(solutionDetailSource).toContain('getLightweightSkillsTop(env, SOLUTION_SKILL_SAMPLE_LIMIT)');
+    expect(solutionDetailSource).toContain('getLightweightSkillsByRefs(env, solutionExactSkillRefs)');
+    expect(solutionDetailSource).not.toContain('getLightweightSkills(env)');
+    expect(solutionDetailSource).not.toContain('isCrawlerRequest');
+  });
+
+  it('keeps collection pages on long-lived edge cache headers for crawl stability', () => {
+    const collectionsIndexSource = readPageSource('../pages/[locale]/collections/index.astro');
+    const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
+    const stableCacheHeader = "'Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400'";
+
+    expect(collectionsIndexSource).toContain(stableCacheHeader);
+    expect(collectionsDetailSource).toContain(stableCacheHeader);
+  });
+
   it('renders only canonical solution URLs in the static sitemap XML', async () => {
     const { GET } = await import('../../src/pages/sitemap-static.xml');
     const response = await GET({} as Parameters<typeof GET>[0]);
