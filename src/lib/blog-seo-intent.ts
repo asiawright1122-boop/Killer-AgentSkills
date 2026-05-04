@@ -12,6 +12,17 @@ export type BlogMetaOverride = {
   description: string;
 };
 
+const isMissingTranslation = (value: string, keyPrefix: string) => !value || value.includes(keyPrefix);
+
+const readBlogMessage = (t: (k: string, fb?: string) => string, seoKey: string) => {
+  const seoValue = t(seoKey, '');
+  if (!isMissingTranslation(seoValue, 'Seo.Blog.')) return seoValue;
+
+  const blogKey = seoKey.replace(/^Seo\.Blog\./, 'Blog.');
+  const blogValue = t(blogKey, '');
+  return isMissingTranslation(blogValue, 'Blog.') ? '' : blogValue;
+};
+
 const CATEGORY_CLUSTERS: Record<string, KeywordClusterId[]> = {
   'document-automation': ['documentAutomation', 'workflowAutomation', 'templates'],
   'developer-experience': ['developerExperience', 'workflowAutomation'],
@@ -46,14 +57,15 @@ export function getBlogKeywordClusters(category: string | undefined, slug: strin
 }
 
 export function getBlogLongTailKeywords(slug: string, t: (k: string, fb?: string) => string): string[] {
-  if (/pdf/i.test(slug)) return t('Seo.Blog.LongTail.pdf', '').split(', ');
-  if (/xlsx|excel/i.test(slug)) return t('Seo.Blog.LongTail.xlsx', '').split(', ');
-  if (/docx|word/i.test(slug)) return t('Seo.Blog.LongTail.docx', '').split(', ');
-  if (/mcp/i.test(slug)) return t('Seo.Blog.LongTail.mcp', '').split(', ');
-  if (/internal-comms|communications/i.test(slug)) return t('Seo.Blog.LongTail.internalComms', '').split(', ');
-  if (/install|setup/i.test(slug)) return t('Seo.Blog.LongTail.installSetup', '').split(', ');
+  if (/pdf/i.test(slug)) return readBlogMessage(t, 'Seo.Blog.LongTail.pdf').split(', ');
+  if (/xlsx|excel/i.test(slug)) return readBlogMessage(t, 'Seo.Blog.LongTail.xlsx').split(', ');
+  if (/docx|word/i.test(slug)) return readBlogMessage(t, 'Seo.Blog.LongTail.docx').split(', ');
+  if (/mcp/i.test(slug)) return readBlogMessage(t, 'Seo.Blog.LongTail.mcp').split(', ');
+  if (/internal-comms|communications/i.test(slug))
+    return readBlogMessage(t, 'Seo.Blog.LongTail.internalComms').split(', ');
+  if (/install|setup/i.test(slug)) return readBlogMessage(t, 'Seo.Blog.LongTail.installSetup').split(', ');
 
-  return t('Seo.Blog.LongTail.default', '').split(', ');
+  return readBlogMessage(t, 'Seo.Blog.LongTail.default').split(', ');
 }
 
 const SKILL_HREFS: Record<string, string> = {
@@ -81,18 +93,18 @@ export function getBlogIntentLinks(
   if (slugEntryHref) {
     return [
       {
-        title: t(`Seo.Blog.IntentLinks.${slug}.title`, ''),
-        description: t(`Seo.Blog.IntentLinks.${slug}.description`, ''),
+        title: readBlogMessage(t, `Seo.Blog.IntentLinks.${slug}.title`),
+        description: readBlogMessage(t, `Seo.Blog.IntentLinks.${slug}.description`),
         href: `/${locale}/${slugEntryHref}`,
       },
       {
-        title: t('Seo.Blog.Misc.browseAllSkills', ''),
-        description: t('Seo.Blog.Misc.exploreMoreSkills', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.browseAllSkills'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.exploreMoreSkills'),
         href: `/${locale}/skills`,
       },
       {
-        title: t('Seo.Blog.Misc.installGuide', ''),
-        description: t('Seo.Blog.Misc.seeInstallSteps', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.installGuide'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.seeInstallSteps'),
         href: `/${locale}/docs/installation`,
       },
     ];
@@ -101,18 +113,18 @@ export function getBlogIntentLinks(
   if (category === 'document-automation' || /pdf|docx|xlsx|document/i.test(slug)) {
     return [
       {
-        title: t('Seo.Blog.Misc.browseDocumentAutomations', ''),
-        description: t('Seo.Blog.Misc.keepExploringPdf', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.browseDocumentAutomations'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.keepExploringPdf'),
         href: buildSolutionPath(locale, 'document-automation'),
       },
       {
-        title: t('Seo.Blog.Misc.workflowTemplateEntry', ''),
-        description: t('Seo.Blog.Misc.moveIntoReusable', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.workflowTemplateEntry'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.moveIntoReusable'),
         href: `/${locale}/collections`,
       },
       {
-        title: t('Seo.Blog.Misc.installGuide', ''),
-        description: t('Seo.Blog.Misc.seeInstallSteps', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.installGuide'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.seeInstallSteps'),
         href: `/${locale}/docs/installation`,
       },
     ];
@@ -121,18 +133,18 @@ export function getBlogIntentLinks(
   if (category === 'developer-experience' || /mcp|cursor|claude|windsurf|custom-ai-agent-skills/i.test(slug)) {
     return [
       {
-        title: t('Seo.Blog.Misc.skillsForDeveloperWorkflows', ''),
-        description: t('Seo.Blog.Misc.keepBrowsingSkills', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.skillsForDeveloperWorkflows'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.keepBrowsingSkills'),
         href: buildSolutionPath(locale, 'agent-workflows'),
       },
       {
-        title: t('Seo.Blog.Misc.ideCompatibility', ''),
-        description: t('Seo.Blog.Misc.reviewCursorClaude', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.ideCompatibility'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.reviewCursorClaude'),
         href: `/${locale}/integrations`,
       },
       {
-        title: t('Seo.Blog.Misc.installSkillsCLI', ''),
-        description: t('Seo.Blog.Misc.headToCLI', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.installSkillsCLI'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.headToCLI'),
         href: `/${locale}/cli`,
       },
     ];
@@ -141,18 +153,18 @@ export function getBlogIntentLinks(
   if (category === 'enterprise-solutions' || /internal-comms|communications|leadership|newsletter/i.test(slug)) {
     return [
       {
-        title: t('Seo.Blog.Misc.browseProcessAutomation', ''),
-        description: t('Seo.Blog.Misc.exploreTeamProcess', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.browseProcessAutomation'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.exploreTeamProcess'),
         href: buildSolutionPath(locale, 'process-automation'),
       },
       {
-        title: t('Seo.Blog.Misc.browseWorkflowTemplates', ''),
-        description: t('Seo.Blog.Misc.reviewSOPs', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.browseWorkflowTemplates'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.reviewSOPs'),
         href: buildSolutionPath(locale, 'workflow-automation'),
       },
       {
-        title: t('Seo.Blog.Misc.docsSetupEntry', ''),
-        description: t('Seo.Blog.Misc.moveIntoDocs', ''),
+        title: readBlogMessage(t, 'Seo.Blog.Misc.docsSetupEntry'),
+        description: readBlogMessage(t, 'Seo.Blog.Misc.moveIntoDocs'),
         href: `/${locale}/docs`,
       },
     ];
@@ -160,26 +172,26 @@ export function getBlogIntentLinks(
 
   return [
     {
-      title: t('Seo.Blog.Misc.browseWorkflowAutomation', ''),
-      description: t('Seo.Blog.Misc.continueIntoPrecise', ''),
+      title: readBlogMessage(t, 'Seo.Blog.Misc.browseWorkflowAutomation'),
+      description: readBlogMessage(t, 'Seo.Blog.Misc.continueIntoPrecise'),
       href: buildSolutionPath(locale, 'workflow-automation'),
     },
     {
-      title: t('Seo.Blog.Misc.installSetupDocs', ''),
-      description: t('Seo.Blog.Misc.seeInstallSetup', ''),
+      title: readBlogMessage(t, 'Seo.Blog.Misc.installSetupDocs'),
+      description: readBlogMessage(t, 'Seo.Blog.Misc.seeInstallSetup'),
       href: `/${locale}/docs`,
     },
     {
-      title: t('Seo.Blog.Misc.browseWorkflowCollections', ''),
-      description: t('Seo.Blog.Misc.exploreFullerTemplate', ''),
+      title: readBlogMessage(t, 'Seo.Blog.Misc.browseWorkflowCollections'),
+      description: readBlogMessage(t, 'Seo.Blog.Misc.exploreFullerTemplate'),
       href: `/${locale}/collections`,
     },
   ];
 }
 
 export function getBlogMetaOverride(slug: string, t: (k: string, fb?: string) => string): BlogMetaOverride | null {
-  const title = t(`Seo.Blog.MetaOverride.${slug}.title`, '');
-  const description = t(`Seo.Blog.MetaOverride.${slug}.description`, '');
-  if (!title || title.includes('Seo.Blog.')) return null;
+  const title = readBlogMessage(t, `Seo.Blog.MetaOverride.${slug}.title`);
+  const description = readBlogMessage(t, `Seo.Blog.MetaOverride.${slug}.description`);
+  if (!title) return null;
   return { title, description };
 }

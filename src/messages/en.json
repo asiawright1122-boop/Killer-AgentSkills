@@ -132,16 +132,16 @@
         "description": "Build MCP integrations for Claude Code or Cursor with reusable AI agent skill workflows, step-by-step setup, tool design, testing, and deployment patterns."
       },
       "how-to-install-ai-agent-skills": {
-        "title": "How to Install AI Agent Skills in Cursor, Claude Code, or Windsurf",
-        "description": "Install AI agent skills in Cursor, Claude Code, or Windsurf with npx killer-skills add. Follow the fastest setup for one IDE or all of them."
+        "title": "Install AI Agent Skills in Claude Code, Cursor & Windsurf",
+        "description": "Install AI agent skills with npx killer-skills add in Cursor, Claude Code, or Windsurf. Follow the fastest setup for one IDE or all of them."
       },
       "top-10-mcp-servers-2026": {
         "title": "10 MCP Tools & Integrations for Claude Code, Cursor, and Windsurf",
         "description": "Explore practical MCP tools, integrations, and workflow patterns for Claude Code, Cursor, and Windsurf across GitHub, SQLite, browser automation, and docs."
       },
       "official-ai-agent-skills-guide": {
-        "title": "Official AI Agent Skills to Install Right Now",
-        "description": "Find official AI agent skills for PDFs, frontend UI, SEO, MCP, and automation, plus which ones to install first for real work."
+        "title": "Official AI Agent Skills to Install First for Real Workflows",
+        "description": "See which official AI agent skills are worth installing first for PDFs, UI, SEO, MCP, and automation workflows in Claude Code, Cursor, and Windsurf."
       },
       "what-are-ai-agent-skills": {
         "title": "What Are AI Agent Skills? How They Work in Claude Code, Cursor & Windsurf",
@@ -153,7 +153,7 @@
       },
       "claude-code-vs-cursor-vs-windsurf": {
         "title": "Claude Code vs Cursor vs Windsurf for AI Agent Skills",
-        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills, including file formats, loading behavior, context limits, and setup tradeoffs."
+        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills, including setup differences, skill loading, context limits, and IDE-native formats."
       }
     }
   },
@@ -203,24 +203,24 @@
       "row3": "Runtime Skill Discovery & Sync",
       "row4": "Verified Secure Skills Registry"
     },
-    "pageTitle": "AI Agent Skills CLI: Install, Sync & Configure in One Command",
-    "pageDescription": "Use the Killer-Skills CLI to install, sync, and manage AI agent skills across Cursor, Claude Code, Windsurf, and 19+ IDEs. One command, zero config.",
+    "pageTitle": "AI Agent Skills CLI for Claude Code, Cursor & Windsurf",
+    "pageDescription": "Install, sync, and manage AI agent skills across Claude Code, Cursor, Windsurf, and 19+ IDEs with one command and zero global setup.",
     "quickLinks": {
       "install": {
         "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "desc": "See the install command, first setup steps, and what changes in your IDE."
       },
       "ide": {
         "title": "Set Up Cursor / Claude Code",
-        "desc": "See how each IDE gets its native skill format automatically."
+        "desc": "See which native skill file each IDE gets automatically."
       },
       "commands": {
         "title": "CLI Commands & Sync",
-        "desc": "Review commands, sync behavior, and configuration options."
+        "desc": "Review install, sync, and configuration commands."
       },
       "templates": {
-        "title": "Workflow Template Entry Points",
-        "desc": "Move from docs into automation and template workflows."
+        "title": "Workflow Templates",
+        "desc": "Move from installation into reusable automations and templates."
       }
     },
     "faq1Q": "How do I install AI agent skills with the CLI?",
@@ -379,17 +379,17 @@
     "collectionsSubtitle": "Discover install-ready collections for trusted tools, workflows, and IDE setups",
     "viewAllCollections": "View All Collections",
     "relatedCollections": "Related Collections",
-    "seoTitle": "Install-Ready AI Skill Collections for Claude Code, Cursor & Windsurf",
-    "seoDescription": "Browse install-ready AI skill collections, start with trusted picks, then move into installation docs, CLI validation, and rollout paths.",
+    "seoTitle": "AI Skill Collections for Claude Code, Cursor & Windsurf",
+    "seoDescription": "Browse trusted AI skill collections and compare the best options for Claude Code, Cursor, Windsurf, and related workflows.",
     "seoKeyword1": "AI agent skill collections",
     "seoKeyword2": "developer workflow skill collections",
-    "heroTitle": "Install-Ready Collections",
+    "heroTitle": "Curated Collections",
     "faq1Q": "What should I do after I open a collection?",
-    "faq1A": "Use the collection to shortlist tools, then open the installation docs before browsing more repositories. That is the fastest path to install and validate a real setup.",
+    "faq1A": "Collections group related skills and tools in one place so you can compare options faster and pick the best fit for your work.",
     "faq2Q": "Which collection should I open first if I want lower-risk tools?",
     "faq2A": "Start with the official and trusted tools collection. It concentrates official and well-established ecosystem tools before you branch into broader workflow bundles.",
     "faq3Q": "Can I install skills from a collection in Claude Code or Cursor?",
-    "faq3A": "Yes. Choose a skill from the collection, open the install guide, and run `npx killer-skills add owner/repo`. The CLI handles the native file format for supported IDEs."
+    "faq3A": "Yes. Open any skill in a collection and use its install command in Claude Code, Cursor, Windsurf, and other supported environments."
   },
   "Common": {
     "home": "Home",
@@ -565,14 +565,14 @@
     "closeSidebar": "Close sidebar",
     "guide": "Guide",
     "returnToIntro": "Return to Introduction",
-    "indexTitle": "AI Agent Skills Docs for Install, Setup & Workflow Templates",
+    "indexTitle": "AI Agent Skills Docs for Install, CLI & Workflow Setup",
     "titleSuffix": "AI Agent Skills Docs",
-    "indexDescription": "Read Killer-Skills docs for installation, setup, CLI commands, IDE compatibility, and workflow templates to get started with AI agent skills.",
-    "cliDesc": "learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.",
-    "installDesc": "follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.",
-    "workflowDesc": "learn reusable AI agent skill patterns for workflow automation, process automation, and templates.",
-    "apiDesc": "understand MCP, API integration, and scalable AI agent workflow implementation.",
-    "securityDesc": "cover skill security, risk controls, and production-ready deployment practices.",
+    "indexDescription": "Read install, CLI, IDE compatibility, and workflow docs for AI agent skills, then move from setup into trusted collections and real workflows.",
+    "cliDesc": "See AI agent skill CLI commands, sync behavior, and setup options for automation workflows.",
+    "installDesc": "Follow the installation flow for AI agent skills in Cursor, Claude Code, VS Code, and more.",
+    "workflowDesc": "Explore reusable AI agent skill patterns for automation, repeatable tasks, and templates.",
+    "apiDesc": "Understand MCP, API integrations, and scalable ways to build agent workflows.",
+    "securityDesc": "Review skill security, risk controls, and production-ready practices.",
     "defaultDesc": "Killer-Skills documentation for setup, configuration, and practical automation usage.",
     "welcomeText": "Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.",
     "startFirstSkill": "Start with Your First Skill",
@@ -585,7 +585,7 @@
     "entry": {
       "install": {
         "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "desc": "See the install command, first setup steps, and what to expect in your IDE."
       },
       "ide": {
         "title": "Set Up Cursor / Claude Code",
@@ -593,7 +593,7 @@
       },
       "cli": {
         "title": "CLI Commands & Sync",
-        "desc": "Review commands, sync behavior, and configuration options."
+        "desc": "Review install commands, sync behavior, and zero-global-setup options."
       },
       "templates": {
         "title": "Workflow Template Entry Points",
@@ -601,11 +601,11 @@
       }
     },
     "faq1Q": "How do I install AI agent skills?",
-    "faq1A": "Start with the installation docs and run npx killer-skills add owner/repo to add a skill. The CLI auto-detects your IDE and writes the correct format.",
+    "faq1A": "Run `npx killer-skills add owner/repo`. The CLI detects your IDE and writes the correct native format automatically.",
     "faq2Q": "What setup information is covered in the docs?",
     "faq2A": "The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.",
     "faq3Q": "Where can I find workflow templates and automation ideas?",
-    "faq3A": "Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios."
+    "faq3A": "Explore collections and skill pages to find reusable automations, templates, and practical installation paths."
   },
   "DocsSidebar": {
     "gettingStarted": "Getting Started",
@@ -666,8 +666,8 @@
     "suggestions": ["PDF", "Image Gen", "Data Analysis", "Browser", "Code Review", "Documents"]
   },
   "Home": {
-    "heroTitle": "The Open Directory for",
-    "heroTitleHighlight": "AI Agent Skills",
+    "heroTitle": "AI Agent Skills",
+    "heroTitleHighlight": "Open Directory",
     "heroBadge": "The open directory and install entry for AI Agent Skills",
     "heroDesc1": "Discover, install, and manage 3,400+ open-source AI agent skills.",
     "heroDesc2": "Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.",
@@ -711,8 +711,8 @@
         "desc": "Transparent, secure, and community-driven."
       }
     },
-    "seoTitle": "Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills",
-    "seoDescription": "Discover 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.",
+    "seoTitle": "AI Agent Skills Directory for Claude Code, Cursor & Windsurf",
+    "seoDescription": "Browse 3,400+ AI agent skills and MCP servers, compare trusted tools, and install them in Claude Code, Cursor, Windsurf, and 19+ IDEs.",
     "faqTitle": "Homepage FAQ",
     "faqSubtitle": "Keeping the homepage snippet, visible content, and structured data aligned.",
     "faq1Q": "What is Killer-Skills?",
@@ -725,7 +725,7 @@
     "faq4A": "They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.",
     "faq5Q": "Why start from the skill directory?",
     "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.",
-    "seoIntro": "Killer-Skills is an open-source directory and installation hub for 3,400+ AI agent skills. Developers use it to discover trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow."
+    "seoIntro": "Killer-Skills is an open-source directory for 3,400+ AI agent skills. Browse curated collections, open install docs, and find reusable skills for Claude Code, Cursor, and Windsurf."
   },
   "Integrations": {
     "worksWhereYouWork": "Works Where You Work",
@@ -849,7 +849,7 @@
       },
       "skill-installation": {
         "label": "Skill Installation Guides",
-        "description": "Find installation guides, setup docs, and CLI steps for adding AI agent skills to Cursor, Claude Code, VS Code, and more."
+        "description": "Find installation help, compatibility details, and CLI guidance for adding AI agent skills to Cursor, Claude Code, VS Code, and more."
       },
       "workflow-templates": {
         "label": "Workflow Templates",
@@ -954,10 +954,10 @@
     "faq2Q": "Can these skills be installed directly in Cursor or Claude Code?",
     "faq2A": "Yes. Skills listed here support the Killer-Skills unified install flow for Cursor, Claude Code, Windsurf, and other IDEs.",
     "faq3Q": "What if the results are still too broad?",
-    "faq3A": "Open skill detail pages to review keywords and use cases, then refine with specific terms such as platform names, file types, or business actions.",
+    "faq3A": "Explore related skills, collections, docs, or the CLI page for deeper detail and installation help.",
     "pageTitle": "Installable Automation Solutions: AI Agent Skills",
     "pageDescription": "Browse installable AI agent skills by use case: workflow, process, document, browser, and data automation.",
-    "keyword1": "skill use cases with clear next steps",
+    "keyword1": "skill use cases with clear setup paths",
     "badge": "Solutions",
     "openSolution": "Open Solution",
     "browseSkills": "Browse Full Skills Directory",
@@ -965,7 +965,7 @@
     "installCli": "Install via CLI",
     "tryDemo": "Try Skill Online Demo",
     "faq1Q": "Why use solution pages instead of ad-hoc keyword searches?",
-    "faq1A": "Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less."
+    "faq1A": "Solution pages group related use cases and skills so you can compare the most relevant options faster."
   },
   "Stats": {
     "totalSkills": "Total Skills",
@@ -981,11 +981,11 @@
     "pageTitle": "AI Agent Skills IDE Integrations: Cursor, Claude Code, VS Code & More",
     "pageDescription": "See how Killer-Skills integrates with 19+ IDEs and AI coding assistants. One install command, native format for each environment.",
     "heroTitle": "IDE Integrations",
-    "heroIntro": "Killer-Skills works with every major AI coding assistant. Install once, use everywhere.",
+    "heroIntro": "Killer-Skills works across major AI coding assistants so you can install once and use the right native format in each environment.",
     "intentLinks": {
       "install": {
         "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "desc": "See the install command, first setup steps, and what to expect in your IDE."
       },
       "ide": {
         "title": "Set Up Your IDE",
@@ -1050,6 +1050,6 @@
     "faq2Q": "Are these guides practical to implement?",
     "faq2A": "Yes. These guides prioritize installation, setup, templates, workflows, and concrete skill usage instead of abstract overviews.",
     "faq3Q": "Where should I go after reading these guides?",
-    "faq3A": "You can continue into skills search results, installation docs, the CLI page, or workflow collections based on your next-step intent."
+    "faq3A": "Continue with related guides, skill pages, collections, or docs for the workflow you are exploring."
   }
 }

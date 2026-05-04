@@ -32,7 +32,7 @@ const pageTitle = tr(
 );
 const pageDescription = tr(
   'Solutions.pageDescription',
-  'Browse installable AI agent workflow solutions for document, browser, data, and process automation, with clear next steps into collections, skills, and installation docs.',
+  'Browse installable AI agent workflow solutions for document, browser, data, and process automation, with clear paths into collections, skills, and installation docs.',
 );
 const pageKeywords = buildKeywordString(
   (k: string) => tr(k, k),
@@ -40,7 +40,7 @@ const pageKeywords = buildKeywordString(
   'workflowAutomation',
   'processAutomation',
   'ideCompat',
-  tr('Solutions.keyword1', 'skill use cases with clear next steps'),
+  tr('Solutions.keyword1', 'skill use cases with clear setup paths'),
   'Killer-Skills',
 );
 const solutionsAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
@@ -68,7 +68,7 @@ const faqItems = [
     question: tr('Solutions.faq1Q', 'Why use solution pages instead of ad-hoc keyword searches?'),
     answer: tr(
       'Solutions.faq1A',
-      'Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less.',
+      'Solution pages group related problems and installable skills so people can compare options faster and browse less.',
     ),
   },
   {
@@ -82,7 +82,7 @@ const faqItems = [
     question: tr('Solutions.faq3Q', 'What should I do next after picking a solution?'),
     answer: tr(
       'Solutions.faq3A',
-      'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and validation.',
+      'After selecting a solution, pick a skill, then use the CLI or installation docs for one-command setup and a first real task.',
     ),
   },
 ];
@@ -203,7 +203,7 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
       >
         <div class="max-w-3xl mb-8">
           <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-            {isZhCopy ? '按场景进入下一步' : 'Use Cases and Next Steps'}
+            {isZhCopy ? '按场景选择安装路径' : 'Use Cases and Setup Paths'}
           </div>
           <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
             {
@@ -215,8 +215,8 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
           <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
             {
               isZhCopy
-                ? '如果用户已经知道自己要解决哪类工作流问题，solutions 的任务就是先帮他缩小下一步，再把动作交给官方可信合集、安装文档、CLI 总览或更具体的场景页。'
-                : 'When users already know the kind of workflow problem they need to solve, solutions should narrow the next move first, then send them into trusted collections, installation docs, CLI guidance, or a more specific scenario page.'
+                ? '先选最接近当前问题的场景，再进入官方合集、安装文档、CLI 总览或更具体的方案页。'
+                : 'Choose the use case closest to your current problem, then continue into official collections, installation docs, CLI guidance, or a more specific scenario page.'
             }
           </p>
         </div>
@@ -255,20 +255,20 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
       >
         <div class="max-w-3xl mb-6">
           <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-            {isZhCopy ? '优先下一步' : 'Priority Next Steps'}
+            {isZhCopy ? '优先安装路径' : 'Priority Setup Paths'}
           </div>
           <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
             {
               isZhCopy
-                ? '别回到全量目录，直接进入更相关的下一步'
-                : 'Skip the Full Directory and Move Into Stronger Next-Step Surfaces'
+                ? '别回到全量目录，直接进入更相关的路径'
+                : 'Skip the Full Directory and Move Into More Useful Paths'
             }
           </h2>
           <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
             {
               isZhCopy
-                ? '当你已经从 solutions 里确定了问题类型，下一步更适合进入可信合集、安装文档、CLI 总览或 agent workflow 场景页，而不是重新浏览全量 skills。'
-                : 'Once the problem type is clear, the next click should usually go into trusted collections, installation docs, CLI guidance, or the agent workflow scenario page instead of the full skills directory.'
+                ? '确定问题类型后，继续进入官方合集、安装文档、CLI 总览或 agent workflow 场景页，而不是重新浏览全量 skills。'
+                : 'Once the problem type is clear, continue into trusted collections, installation docs, CLI guidance, or the agent workflow scenario page instead of the full skills directory.'
             }
           </p>
         </div>

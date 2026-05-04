@@ -132,16 +132,16 @@
         "description": "借助可重复使用的 AI agent 技能工作流、逐步设置、工具设计、测试和部署模式，为 Claude Code 或 Cursor 构建 MCP 集成。"
       },
       "how-to-install-ai-agent-skills": {
-        "title": "如何在 Cursor、Claude Code 或 Windsurf 中安装 AI Agent Skills",
-        "description": "使用 npx killer-skills add 在 Cursor、Claude Code 或 Windsurf 中安装 AI Agent Skills。为单个 IDE 或所有 IDE 提供最快的设置。"
+        "title": "在 Claude Code、Cursor 与 Windsurf 中安装 AI Agent Skills",
+        "description": "使用 npx killer-skills add 在 Claude Code、Cursor 或 Windsurf 中安装 AI Agent Skills，按单个 IDE 或全部 IDE 的最快路径完成设置。"
       },
       "top-10-mcp-servers-2026": {
         "title": "适用于 Claude Code、Cursor 和 Windsurf 的 10 个 MCP 工具与集成",
         "description": "探索适用于 Claude Code、Cursor 和 Windsurf 的实用 MCP 工具、集成和工作流模式，涉及 GitHub、SQLite、浏览器自动化和文档。"
       },
       "official-ai-agent-skills-guide": {
-        "title": "立即安装官方 AI Agent Skills",
-        "description": "查找适用于 PDF、前端 UI、SEO、MCP 和自动化的官方 AI Agent Skills，以及首先要安装哪些技能来进行实际工作。"
+        "title": "优先安装哪些官方 AI Agent Skills，才能真正投入工作流",
+        "description": "查看哪些官方 AI Agent Skills 值得优先安装，覆盖 PDF、前端 UI、SEO、MCP 与自动化工作流，适用于 Claude Code、Cursor 与 Windsurf。"
       },
       "what-are-ai-agent-skills": {
         "title": "什么是 AI Agent Skills？它们在 Claude Code、Cursor 和 Windsurf 中如何工作",
@@ -152,8 +152,8 @@
         "description": "比较 2026 年面向 Claude Code、Cursor 和 Windsurf 的 AI Agent Skills，涵盖文档自动化、UI、MCP 和工作流。"
       },
       "claude-code-vs-cursor-vs-windsurf": {
-        "title": "对于 AI Agent Skills：Claude Code 与 Cursor 和 Windsurf 比较",
-        "description": "比较 Claude Code、Cursor 和 Windsurf 下的 AI Agent Skills，包括文件格式、加载行为、上下文限制和设置权衡。"
+        "title": "Claude Code vs Cursor vs Windsurf：AI Agent Skills 该怎么选",
+        "description": "比较 Claude Code、Cursor 与 Windsurf 对 AI Agent Skills 的支持，包括设置权衡、技能加载、上下文限制与 IDE 原生格式。"
       }
     }
   },
@@ -203,8 +203,8 @@
       "row3": "运行时技能发现与同步",
       "row4": "经过验证的安全技能库"
     },
-    "pageTitle": "AI Agent Skills CLI：安装、同步与自动化工作流指南",
-    "pageDescription": "使用 Killer-Skills CLI 在 Cursor、Claude Code、VS Code 与 Windsurf 中安装、管理和同步 AI Agent Skills，支持流程自动化与模板化执行，无需全局安装。",
+    "pageTitle": "面向 Claude Code、Cursor 与 Windsurf 的 AI Agent Skills CLI",
+    "pageDescription": "用一条命令在 Claude Code、Cursor、Windsurf 与 19+ IDE 中安装、同步和管理 AI Agent Skills，无需全局安装。",
     "quickLinks": {
       "install": {
         "title": "安装一个技能",
@@ -379,17 +379,17 @@
     "collectionsSubtitle": "发现面向可信工具、工作流和 IDE 使用的安装优先合集",
     "viewAllCollections": "查看所有合集",
     "relatedCollections": "相关合集",
-    "seoTitle": "面向 Claude Code、Cursor 与 Windsurf 的安装优先 AI Skills 合集",
-    "seoDescription": "浏览安装优先的 AI Agent Skills 合集，先从高信任选择开始，再进入安装文档、CLI 验证与下一步。",
+    "seoTitle": "面向 Claude Code、Cursor 与 Windsurf 的 AI Skills 合集",
+    "seoDescription": "浏览高信任 AI Agent Skills 合集，在 Claude Code、Cursor、Windsurf 等环境中更快比较适合的工具与工作流能力。",
     "seoKeyword1": "AI Agent Skills 合集",
     "seoKeyword2": "开发者工作流技能合集",
-    "heroTitle": "安装优先的精选合集",
-    "faq1Q": "打开一个合集后，下一步应该做什么？",
-    "faq1A": "先用合集筛选候选工具，再进入安装文档，不要继续无序打开更多仓库。这是最快进入真实安装与验证的方式。",
+    "heroTitle": "精选合集",
+    "faq1Q": "打开一个合集后应该怎么用？",
+    "faq1A": "合集会把同类技能和工具放在一起，方便你更快比较并选出更适合当前工作的方案。",
     "faq2Q": "如果我想先用低风险工具，应该从哪个合集开始？",
     "faq2A": "优先从官方与可信工具合集开始。那里会先集中官方和成熟生态工具，再让你扩展到更广的工作流组合。",
     "faq3Q": "合集里的技能能直接装到 Claude Code 或 Cursor 里吗？",
-    "faq3A": "可以。先从合集里选一个技能，再打开安装指南，执行 `npx killer-skills add owner/repo`。CLI 会为支持的 IDE 写入正确的原生格式。"
+    "faq3A": "可以。打开合集里的任一技能页，就能在 Claude Code、Cursor、Windsurf 等支持环境中使用对应安装命令。"
   },
   "Common": {
     "home": "首页",
@@ -614,8 +614,8 @@
     "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"]
   },
   "Home": {
-    "heroTitle": "开放的 AI 智能体",
-    "heroTitleHighlight": "技能中心",
+    "heroTitle": "AI Agent Skills",
+    "heroTitleHighlight": "开放目录",
     "heroBadge": "AI Agent Skills 的开放目录与安装入口",
     "heroDesc1": "发现、安装并管理 3,400+ 开源 AI Agent 技能。",
     "heroDesc2": "在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。",
@@ -659,8 +659,8 @@
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
     },
-    "seoTitle": "Killer-Skills - AI Agent Skills 开放目录 | Claude Code & Cursor 技能",
-    "seoDescription": "发现 3,400+ 个 Claude Code、Cursor 技能与 MCP 服务器。Killer-Skills 是面向 Model Context Protocol 的开放 AI Agent Skills 目录，支持 19+ IDE，一键安装。",
+    "seoTitle": "AI Agent Skills 开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
+    "seoDescription": "浏览 3,400+ 个 AI Agent Skills 与 MCP 服务器。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放 AI Agent Skills 目录，支持可信工具发现与一键安装。",
     "faqTitle": "首页常见问题",
     "faqSubtitle": "让首页摘要、落地内容和结构化数据保持一致。",
     "faq1Q": "Killer-Skills 是什么？",
@@ -673,7 +673,7 @@
     "faq4A": "它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。",
     "faq5Q": "为什么要从目录页进入技能详情？",
     "faq5A": "因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。",
-    "seoIntro": "Killer-Skills 是一个面向 3,400+ AI Agent 技能的开源目录与安装入口。开发者无需直接翻找原始 GitHub 仓库，就能更快发现可信工具，并顺着同一条路径进入精选合集、解决方案页和安装文档。"
+    "seoIntro": "Killer-Skills 是一个收录 3,400+ AI Agent Skills 的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。"
   },
   "Integrations": {
     "worksWhereYouWork": "无缝集成开发环境",
@@ -961,9 +961,9 @@
     "guide": "指南",
     "returnToIntro": "返回介绍页",
     "gettingStarted": "开始使用",
-    "indexTitle": "AI Agent Skills 安装、配置与工作流模板文档",
+    "indexTitle": "AI Agent Skills 安装、CLI 与工作流配置文档",
     "titleSuffix": "AI Agent Skills 文档",
-    "indexDescription": "查看 Killer-Skills 的安装、配置、CLI 命令、IDE 兼容性与工作流模板文档，快速开始使用 AI Agent Skills。",
+    "indexDescription": "查看 AI Agent Skills 的安装、CLI、IDE 兼容与工作流文档，从设置直接进入可信合集与实际落地。",
     "cliDesc": "查看 AI Agent Skills CLI 命令、同步与配置细节，快速完成自动化工作流落地。",
     "installDesc": "获取在 Cursor、Claude Code、VS Code 等环境安装 AI Agent Skills 的完整步骤。",
     "workflowDesc": "围绕工作流自动化、流程自动化与模板化执行，学习可复用的 AI Agent Skills 实践。",
@@ -981,27 +981,27 @@
     "entry": {
       "install": {
         "title": "安装 AI Agent Skills",
-        "desc": "从零开始完成安装、初始化与首次运行。"
+        "desc": "从零开始完成安装、初始化与首次验证，适用于 Claude Code、Cursor 与 Windsurf。"
       },
       "ide": {
         "title": "配置 Cursor / Claude Code",
-        "desc": "了解各 IDE 如何自动写入原生技能格式。"
+        "desc": "查看不同 IDE 会得到哪种原生技能文件，以及 CLI 会自动写入什么。"
       },
       "cli": {
         "title": "CLI 命令与同步",
-        "desc": "查看命令、同步逻辑与配置选项。"
+        "desc": "查看安装命令、同步逻辑与零全局安装的配置选项。"
       },
       "templates": {
         "title": "工作流模板入口",
-        "desc": "从文档继续进入自动化与模板场景。"
+        "desc": "从设置继续进入可信合集、自动化指南与工作流模板。"
       }
     },
     "faq1Q": "如何安装 AI Agent Skills？",
-    "faq1A": "从安装文档开始，使用 `npx killer-skills add owner/repo` 添加技能。CLI 会自动识别 IDE 并写入对应格式。",
+    "faq1A": "在终端运行 `npx killer-skills add owner/repo`。CLI 会自动识别 IDE，并写入正确的原生格式。",
     "faq2Q": "文档里包含哪些配置内容？",
     "faq2A": "文档覆盖安装、CLI 命令、配置、工作流概念，以及 Cursor、Claude Code、VS Code 等环境的兼容性入口。",
     "faq3Q": "哪里可以看工作流模板和自动化场景？",
-    "faq3A": "先看文档中的 workflows 概念页，再进入 collections 和 skills 页面浏览可复用的自动化与模板场景。"
+    "faq3A": "继续查看合集页和技能页，就能找到可复用自动化、模板和适合你的安装路径。"
   },
   "Solutions": {
     "solutions": "解决方案",
@@ -1018,11 +1018,11 @@
     "installCli": "使用 CLI 一键安装",
     "tryDemo": "在线试用 Skill Demo",
     "faq1Q": "为什么要用场景页而不是直接搜关键词？",
-    "faq1A": "场景页会把相关问题、可安装技能和下一步整理在一起，减少无效浏览并提高点击质量。",
+    "faq1A": "场景页会把相关问题和最值得看的技能整理在一起，方便你更快比较并选出合适方案。",
     "faq2Q": "这些场景页支持哪些 IDE？",
     "faq2A": "这些技能覆盖 Claude Code、Cursor、Windsurf、VS Code 等主流 IDE，并支持统一安装流程。",
-    "faq3Q": "下一步应该如何执行？",
-    "faq3A": "进入具体场景页后先选择技能，再到 CLI 或安装文档执行一条命令安装并验证。"
+    "faq3Q": "接下来应该如何执行？",
+    "faq3A": "继续查看相关技能、合集、文档或 CLI 页面，了解更具体的安装与使用方式。"
   },
   "BlogIndex": {
     "seoTitle": "AI Agent Skills 指南、自动化工作流与实战博客",
@@ -1049,7 +1049,7 @@
     "faq1Q": "{categoryName} 里有哪些内容？",
     "faq2Q": "这些文章适合直接拿来落地吗？",
     "faq2A": "是的，这些文章优先覆盖安装、配置、模板、工作流与具体技能用法，而不是只讲概念。",
-    "faq3Q": "看完后下一步去哪？",
-    "faq3A": "你可以继续进入 skills 搜索结果、文档安装页、CLI 页面或工作流合集，按更精准的意图继续深入。"
+    "faq3Q": "看完后去哪里？",
+    "faq3A": "继续阅读相关指南、技能页、合集或文档，按你关心的主题深入查看。"
   }
 }

@@ -96,6 +96,8 @@ const collectRepoFilesByExtensions = (relativeDir: string, extensions: Set<strin
 };
 
 const PUBLIC_COPY_BOUNDARY_EXTENSIONS = new Set(['.astro', '.json', '.ts']);
+const blockedPhrase = (...parts: string[]) => parts.join('');
+const blockedRegex = (parts: string[], flags = 'i') => new RegExp(parts.join(''), flags);
 const PUBLIC_COPY_BOUNDARY_RULES = [
   { label: 'operator handoff', pattern: /\boperator handoff\b/i },
   { label: 'operator checkpoint', pattern: /\boperator checkpoint\b/i },
@@ -105,6 +107,32 @@ const PUBLIC_COPY_BOUNDARY_RULES = [
   { label: 'editorial filter', pattern: /\beditorial filter\b/i },
   { label: 'sanity-check', pattern: /\bsanity-check\b/i },
   { label: 'workflow intent', pattern: /\bworkflow intent\b/i },
+  { label: 'step-connector phrasing', pattern: blockedRegex(['\\bnext', '-step\\b']) },
+  { label: 'cli proof phrasing', pattern: blockedRegex(['\\bCLI ', 'validation\\b']) },
+  { label: 'workflow launch phrasing', pattern: blockedRegex(['\\bworkflow ', 'rollout\\b']) },
+  { label: 'reference limitation phrasing', pattern: blockedRegex(['\\breference', '-only\\b']) },
+  { label: 'review policy phrasing', pattern: blockedRegex(['\\breview ', 'guardrails\\b']) },
+  { label: 'proof phrasing', pattern: blockedRegex(['\\bvalidated\\b']) },
+  { label: 'choice-page phrasing', pattern: blockedRegex(['\\bbetter decision ', 'page\\b']) },
+  { label: 'source-evidence phrasing', pattern: blockedRegex(['\\bsupporting ', 'evidence\\b']) },
+  { label: 'install-bridge phrasing', pattern: blockedRegex(['\\bUse installation as the ', 'bridge\\b']) },
+  { label: 'routing-table phrasing', pattern: blockedRegex(['\\bmust route ', 'discovery\\b']) },
+  { label: 'root-hub phrasing', pattern: blockedRegex(['\\bRoot ', 'Hub\\b']) },
+  { label: 'trust-score phrasing', pattern: blockedRegex(['\\bhigh', '-trust\\b']) },
+  { label: 'long-tail phrasing', pattern: blockedRegex(['\\brandom ', 'long-tail\\b']) },
+  { label: 'evaluation-to-adoption phrasing', pattern: blockedRegex(['\\bevaluation into ', 'setup\\b']) },
+  { label: 'step-label phrasing', pattern: blockedRegex(['\\bNext ', 'Steps\\b']) },
+  { label: 'installation-hub phrasing', pattern: blockedRegex(['\\binstallation ', 'hub\\b']) },
+  { label: 'random-repo phrasing', pattern: blockedRegex(['\\brandom .*', 'repos\\b']) },
+  { label: 'homepage-instruction phrasing', pattern: blockedRegex(['\\bhomepage should move ', 'users\\b']) },
+  { label: 'user-routing phrasing', pattern: blockedRegex(['\\bWhen users already ', 'know\\b']) },
+  { label: 'curated-for phrasing', pattern: /\bcurated for\b/i },
+  { label: 'send-users phrasing', pattern: blockedRegex(['\\bSend ', 'users\\b']) },
+  { label: 'route-users phrasing', pattern: blockedRegex(['\\bRoute ', 'users\\b']) },
+  { label: 'entry-should phrasing', pattern: blockedRegex(['\\bEach entry ', 'should\\b']) },
+  { label: 'keyword-traffic phrasing', pattern: blockedRegex(['\\btraffic ', 'capture\\b']) },
+  { label: 'public-surface phrasing', pattern: blockedRegex(['\\bMore Useful ', 'Surfaces\\b']) },
+  { label: 'authority-collection phrasing', pattern: blockedRegex(['\\bRelated Authority ', 'Collections\\b']) },
   { label: 'handoff', pattern: /\bhandoffs?\b/i },
   { label: 'high-intent', pattern: /\bhigh-intent\b/i },
   { label: '收口', pattern: /收口/ },
@@ -117,6 +145,17 @@ const PUBLIC_COPY_BOUNDARY_RULES = [
   { label: '高意図', pattern: /高意図/ },
   { label: '고의도', pattern: /고의도/ },
   { label: '决策入口', pattern: /决策入口/ },
+  { label: '发现流量', pattern: /发现流量/ },
+  { label: '精选参考', pattern: /精选参考/ },
+  { label: '验证清单', pattern: /验证清单/ },
+  { label: '关键验证步骤', pattern: /关键验证步骤/ },
+  { label: '把用户送进', pattern: /把用户送进/ },
+  { label: 'collection step label', pattern: /\bStep\s+(?:\d+\s*:|\$\{)/ },
+  { label: 'collection path label', pattern: /\b(?:Primary\s+)?Path\s+\d+\b/ },
+  { label: 'install checklist', pattern: /\binstall\s+checklist\b/i },
+  { label: '团队适配', pattern: /团队适配/ },
+  { label: '安装清单', pattern: /安装清单/ },
+  { label: '检查点', pattern: /检查点/ },
 ];
 const PUBLIC_COPY_BOUNDARY_TARGETS = [
   'src/pages/[locale]/index.astro',
@@ -144,6 +183,16 @@ const collectPublicCopyBoundaryFiles = (): string[] => {
   }
 
   return [...files].sort();
+};
+
+const collectStringLeafValues = (value: unknown): string[] => {
+  if (typeof value === 'string') return [value];
+  if (Array.isArray(value)) return value.flatMap((item) => collectStringLeafValues(item));
+  if (value && typeof value === 'object') {
+    return Object.values(value).flatMap((item) => collectStringLeafValues(item));
+  }
+
+  return [];
 };
 
 const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
@@ -230,13 +279,17 @@ describe('public links and navigation copy', () => {
     const paginationSource = readPageSource('../components/Pagination.astro');
     const skillsSidebarSource = readPageSource('../components/SkillsSidebar.astro');
 
-    expect(skillsIndexSource).toContain("...(topicParam && { topic: topicParam })");
+    expect(skillsIndexSource).toContain('...(topicParam && { topic: topicParam })');
     expect(skillsIndexSource).toContain('const buildSkillItemUrl = (skill: UnifiedSkill) => {');
     expect(skillsIndexSource).toContain('const routePath = getSkillRoutePath(skill) || skill.repo;');
-    expect(skillsIndexSource).toContain('const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);');
-    expect(skillsIndexSource).toContain('return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;');
+    expect(skillsIndexSource).toContain(
+      'const detailLocale = resolveSkillDetailLocale(skill.owner, routePath, locale);',
+    );
+    expect(skillsIndexSource).toContain(
+      'return `https://killer-skills.com${buildLocalizedSkillPath(detailLocale, skill.owner, routePath)}`;',
+    );
     expect(skillsIndexSource).toContain('url: buildSkillItemUrl(s),');
-    expect(paginationSource).toContain("if (p > 1) {");
+    expect(paginationSource).toContain('if (p > 1) {');
     expect(paginationSource).toContain("params.delete('page');");
     expect(skillsSidebarSource).toContain('href={`/${locale}/skills?topic=${fw.id}`}');
     expect(skillsSidebarSource).not.toContain('href={`/${locale}/skills?tag=${fw.id}`}');
@@ -249,10 +302,10 @@ describe('public links and navigation copy', () => {
     expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'agent-workflows'),");
     expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'process-automation'),");
     expect(blogSeoIntentSource).toContain("href: buildSolutionPath(locale, 'workflow-automation'),");
-    expect(blogSeoIntentSource).not.toContain("/skills?q=document automation");
-    expect(blogSeoIntentSource).not.toContain("/skills?q=skills for developer workflows");
-    expect(blogSeoIntentSource).not.toContain("/skills?q=process automation");
-    expect(blogSeoIntentSource).not.toContain("/skills?q=workflow automation");
+    expect(blogSeoIntentSource).not.toContain('/skills?q=document automation');
+    expect(blogSeoIntentSource).not.toContain('/skills?q=skills for developer workflows');
+    expect(blogSeoIntentSource).not.toContain('/skills?q=process automation');
+    expect(blogSeoIntentSource).not.toContain('/skills?q=workflow automation');
   });
 
   it('keeps public links to internal skill search-result pages marked nofollow', () => {
@@ -371,7 +424,7 @@ describe('public links and navigation copy', () => {
     expect(collectionsDetailSource).toContain('getCollectionRecoveryPathEntries(');
     expect(collectionsDetailSource).toContain('getRelatedAuthorityCollectionEntries(');
     expect(collectionsDetailSource).toContain('featuredCollectionRecoveryPaths');
-    expect(collectionsDetailSource).toContain('Recommended Next Steps');
+    expect(collectionsDetailSource).toContain('Recommended Pages');
 
     expect(solutionsSource).toContain('getAuthoritySurfaceEntries(');
     expect(solutionsSource).toContain("'collections-hub'");
@@ -395,7 +448,7 @@ describe('public links and navigation copy', () => {
   it('does not ship internal authority strategy copy into public authority-surface data', () => {
     const authoritySurfaceSource = readPageSource('../lib/authority-surface-public-data.ts');
     const leakedPhrases = [
-      '自然流量恢复必须依赖更少、更强、带有一手判断的入口页',
+      ['自然流量恢复', '必', '须依赖更少、更强、带有一手判断的入口页'].join(''),
       '精选 collections 比全量 skill 列表拥有更清晰的主题边界',
       '更稳定的 canonical 信号',
       '这是工作流优先的合集，能解释相关 skills 为什么要放在一起',
@@ -454,6 +507,164 @@ describe('public links and navigation copy', () => {
     expect(matches).toEqual([]);
   });
 
+  it('keeps collection source copy free of internal editorial and chain-of-thought style phrasing', () => {
+    const collectionFiles = collectRepoFilesByExtensions('src/content/collections', new Set(['.json']));
+    const blockedPatterns = [
+      /\bthis page should narrow the shortlist\b/i,
+      /\bnext click\b/i,
+      blockedRegex(['\\binstallation docs, CLI ', 'validation\\b']),
+      /\binstallation-focused\b/i,
+      /\binstallation-first\b/i,
+      /\bvalidation checklist\b/i,
+      /\brepeatable rollout\b/i,
+      /\bcuration review\b/i,
+      /\bcurated for\b/i,
+      /\btraffic capture\b/i,
+      /\bRoute users\b/i,
+      /\bSend users\b/i,
+      /\bEach entry should\b/i,
+      /\bofficial trusted collection\b/i,
+      /\bfor developers for\b/i,
+      /\.\. Compare setup quality\b/i,
+      /Killer-Skills\.\./,
+      /documentação de instalação/,
+      /документации по установке/,
+      /CLI-проверке/,
+      /caminhos de rollout/,
+      /不应该/,
+      /复核/,
+      /重新定位/,
+      /安装文档、CLI 验证/,
+      /下一次点击/,
+      /再确认/,
+      /标准化/,
+      /团队后续使用步骤/,
+      /团队评估路径/,
+      /回到官方可信合集/,
+      /编辑审查/,
+      /编辑部/,
+      /团队推广给团队/,
+      /发现流量/,
+      /精选参考/,
+      /把用户送进/,
+      /保留或新增条目前，会验证/,
+      /推广前快速验证/,
+      /推广前完成验证/,
+      /验证清单/,
+      /关键验证步骤/,
+      /\bStep\s+\d+\s*:/,
+      /\b(?:Primary\s+)?Path\s+\d+\b/,
+      /\binstall\s+checklist\b/i,
+      /团队适配/,
+      /比较\s+/,
+      /安装清单/,
+      /检查点/,
+    ];
+    const matches: string[] = [];
+
+    for (const relativePath of collectionFiles) {
+      const content = JSON.parse(readRepoSource(relativePath)) as unknown;
+      const stringValues = collectStringLeafValues(content);
+
+      for (const value of stringValues) {
+        for (const pattern of blockedPatterns) {
+          if (pattern.test(value)) {
+            matches.push(`${relativePath}: ${pattern}`);
+          }
+        }
+      }
+    }
+
+    expect(matches).toEqual([]);
+  });
+
+  it('keeps blog source copy free of internal reasoning and chain-of-thought phrasing', () => {
+    const blogFiles = collectRepoFilesByExtensions('src/content/blog', new Set(['.md']));
+    const blockedPatterns = [
+      /\bchain[- ]?of[- ]?thought\b/i,
+      /\bthinking process\b/i,
+      /\binternal strategy\b/i,
+      /\binternal rationale\b/i,
+      /\brecovery surface\b/i,
+      /\btraffic capture\b/i,
+      /\bcapture demand\b/i,
+    ];
+    const matches: string[] = [];
+
+    for (const relativePath of blogFiles) {
+      const source = readRepoSource(relativePath);
+      for (const pattern of blockedPatterns) {
+        if (pattern.test(source)) {
+          matches.push(`${relativePath}: ${pattern}`);
+        }
+      }
+    }
+
+    expect(matches).toEqual([]);
+  });
+
+  it('keeps collection SEO titles readable and free of hard-truncated endings', () => {
+    const collectionFiles = collectRepoFilesByExtensions('src/content/collections', new Set(['.json']));
+    const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+    const badTitleEndingPattern = /(?:\s\||-\s*$|\bfor|\bpara|\bpour|\bfür|\bde|\bof|\bwith|\band|\bor)$/i;
+    const matches: string[] = [];
+
+    for (const relativePath of collectionFiles) {
+      const content = JSON.parse(readRepoSource(relativePath)) as { seoTitle?: Record<string, string> };
+
+      for (const locale of locales) {
+        const title = content.seoTitle?.[locale];
+        if (!title) continue;
+        const titleLength = [...title].length;
+
+        if (titleLength < 20 || titleLength > 72 || badTitleEndingPattern.test(title)) {
+          matches.push(`${relativePath} ${locale}: ${title}`);
+        }
+      }
+    }
+
+    expect(matches).toEqual([]);
+  });
+
+  it('keeps collection titles and descriptions written for people, not metadata templates', () => {
+    const collectionFiles = collectRepoFilesByExtensions('src/content/collections', new Set(['.json']));
+    const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
+    const matches: string[] = [];
+
+    for (const relativePath of collectionFiles) {
+      const content = JSON.parse(readRepoSource(relativePath)) as {
+        title?: Record<string, string>;
+        description?: Record<string, string>;
+        seoDescription?: Record<string, string>;
+      };
+
+      for (const locale of locales) {
+        const title = content.title?.[locale] || '';
+        const description = content.description?.[locale] || '';
+        const seoDescription = content.seoDescription?.[locale] || '';
+
+        if (/\|\s*(AI Agent Skills|Killer-Skills)\b/i.test(title)) {
+          matches.push(`${relativePath} ${locale} visible title has SEO suffix`);
+        }
+
+        if (/Installable AI agent skills for/i.test(description) || /聚焦\s+开发者工作流自动化/.test(description)) {
+          matches.push(`${relativePath} ${locale} description uses generated template copy`);
+        }
+
+        if (
+          /\.?\s*Killer-Skills\.?$/i.test(seoDescription) ||
+          /Installable AI agent skills for/i.test(seoDescription) ||
+          /聚焦\s+开发者工作流自动化/.test(seoDescription) ||
+          !/[.!?。]$/.test(seoDescription)
+        ) {
+          matches.push(`${relativePath} ${locale} seoDescription is low-quality`);
+        }
+      }
+    }
+
+    expect(matches).toEqual([]);
+  });
+
   it('keeps homepage quick-start copy free of internal strategy phrasing', () => {
     const homeSource = readPageSource('../pages/[locale]/index.astro');
     const blockedPhrases = [
@@ -494,7 +705,7 @@ describe('public links and navigation copy', () => {
     expect(collectionDetailSource).toContain('editorialTrustSignals');
     expect(collectionDetailSource).toContain('editorialExecutionExamples');
     expect(collectionDetailSource).toContain('editorialNextSteps');
-    expect(collectionDetailSource).toContain('Related Authority Collections');
+    expect(collectionDetailSource).toContain('Related Collections');
 
     expect(docsSource).toContain('installBridgeCards');
     expect(docsSource).toContain('installValidationSteps');
@@ -996,6 +1207,24 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).not.toContain('MCP Server by');
   });
 
+  it('keeps skill detail source free of internal review-flow and rollout phrasing', () => {
+    const skillDetailSource = readPageSource('./[locale]/skills/[owner]/[...repo].astro');
+
+    expect(skillDetailSource).not.toContain(blockedPhrase('Review', ' & Install'));
+    expect(skillDetailSource).not.toContain(blockedPhrase('before ', 'rollout'));
+    expect(skillDetailSource).not.toContain('tradeoffs');
+    expect(skillDetailSource).not.toContain(blockedPhrase('Reviewed ', 'Landing Page'));
+    expect(skillDetailSource).not.toContain(blockedPhrase('Reference', '-Only Page'));
+    expect(skillDetailSource).not.toContain(blockedPhrase('Trusted ', 'Recheck'));
+    expect(skillDetailSource).not.toContain('Cross-Check Against Trusted Picks');
+    expect(skillDetailSource).not.toContain('Move To Workflow Collections For Team Rollout');
+    expect(skillDetailSource).not.toContain('After The Review');
+    expect(skillDetailSource).not.toContain(
+      blockedPhrase('Decision ', 'support comes first. Repository text comes second.'),
+    );
+    expect(skillDetailSource).not.toContain('SEO_TITLE_VARIANT');
+  });
+
   it('keeps high-priority collections free of mcp-first canonical slugs and titles', () => {
     const mcpUtilitiesSource = readPageSource('../content/collections/top-mcp-mcp-servers.json');
     const mcpFrameworksSource = readPageSource('../content/collections/top-mcp-server-mcp-servers.json');
@@ -1468,7 +1697,9 @@ describe('public links and navigation copy', () => {
         const expectedLocale = resolveSkillDetailLocale(owner, routePath, actualLocale);
 
         if (actualLocale !== expectedLocale) {
-          mismatches.push(`${relativePath}: /${actualLocale}/skills/${owner}/${routePath} -> expected /${expectedLocale}/`);
+          mismatches.push(
+            `${relativePath}: /${actualLocale}/skills/${owner}/${routePath} -> expected /${expectedLocale}/`,
+          );
         }
       }
     }

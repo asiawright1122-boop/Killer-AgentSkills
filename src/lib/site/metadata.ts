@@ -1,4 +1,5 @@
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from '../../i18n';
+import { normalizePublicSummary } from '../public-text';
 
 const DEFAULT_SITE_URL = 'https://killer-skills.com';
 
@@ -67,7 +68,11 @@ function buildDocumentTitle(title: string, appendBrand: boolean): string {
     return title;
   }
 
-  const isSubpage = title !== 'Killer-Skills' && !title.includes('Killer-Skills');
+  if (title.includes('Killer-Skills')) {
+    return title;
+  }
+
+  const isSubpage = title !== 'Killer-Skills';
   const fullBrand = ' | Killer-Skills - AI Agent Directory';
   const shortBrand = ' | Killer-Skills';
 
@@ -84,7 +89,7 @@ function buildDocumentTitle(title: string, appendBrand: boolean): string {
 
 function normalizeDescription(description?: string): string {
   const cleanDescription = description || 'The ultimate directory of AI Development Skills for Agents.';
-  return cleanDescription.length > 155 ? `${cleanDescription.slice(0, 152).trim()}...` : cleanDescription;
+  return normalizePublicSummary(cleanDescription, 155);
 }
 
 export function buildPageMetadata({

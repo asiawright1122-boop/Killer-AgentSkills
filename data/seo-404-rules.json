@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-04-23T08:25:15.965Z",
+  "generatedAt": "2026-04-24T05:46:30.229Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-04-23T08:25:14.580Z",
+  "sourceGeneratedAt": "2026-04-24T05:46:29.097Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 496,
-    "ignored": 17,
-    "redirect301CandidateTotal": 155,
-    "redirect301CoveredByMiddleware": 154,
+    "gone410": 491,
+    "ignored": 18,
+    "redirect301CandidateTotal": 282,
+    "redirect301CoveredByMiddleware": 281,
     "redirect301Materialized": 1,
-    "gone410CandidateTotal": 828,
-    "gone410CoveredByMiddleware": 332,
-    "gone410Materialized": 496,
+    "gone410CandidateTotal": 700,
+    "gone410CoveredByMiddleware": 209,
+    "gone410Materialized": 491,
     "manualReviewCandidateTotal": 12,
-    "observeCandidateTotal": 5,
+    "observeCandidateTotal": 6,
     "skippedInvalidOrProtected": 0
   },
   "rules": {
@@ -231,10 +231,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/ar/skills/optave/codegraph",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/ar/skills/peparhugo/github-copilot-command-demo",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -435,10 +431,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/de/skills/iOfficeAI/AionUi",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/de/skills/ionfury/homelab/sre",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -576,6 +568,10 @@
       },
       {
         "path": "/en/skills/cannuri/lobsidian",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/en/skills/CongDon1207/AGENTS.md",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -807,6 +803,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/es/skills/CongDon1207/AGENTS.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/es/skills/davila7/deploy",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -840,10 +840,6 @@
       },
       {
         "path": "/es/skills/interactive-inc/open-stack-app",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/es/skills/iOfficeAI/AionUi",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -1079,10 +1075,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/fr/skills/nevir/agentfill",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/fr/skills/Paramchoudhary/ResumeSkills",
         "reason": "blocked_by_sitemap"
       },
@@ -1149,10 +1141,6 @@
       {
         "path": "/ja/skills/asheshgoplani/agent-deck",
         "reason": "blocked_by_sitemap"
-      },
-      {
-        "path": "/ja/skills/Asmayaseen/hackathon-2",
-        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ja/skills/AWS-Educate/template-nextjs-sanity-tailwind-amplify",
@@ -1247,6 +1235,10 @@
         "reason": "crawl_trap_or_invalid_public_route"
       },
       {
+        "path": "/ja/skills/opentabs-dev/opentabs",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/ja/skills/Paramchoudhary/ResumeSkills",
         "reason": "blocked_by_sitemap"
       },
@@ -1301,10 +1293,6 @@
       {
         "path": "/ja/skills/tygwan/ultra-codex-init",
         "reason": "blocked_by_sitemap"
-      },
-      {
-        "path": "/ja/skills/ubnt-intrepid/openspec-example-moneylog",
-        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ja/skills/untitled-data-company/data-skills",
@@ -1443,10 +1431,6 @@
         "reason": "blocked_by_sitemap"
       },
       {
-        "path": "/ko/skills/kdeldycke/meta-package-manager/repomatic-audit",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/ko/skills/kis9a/claude-skills-demo",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1461,10 +1445,6 @@
       {
         "path": "/ko/skills/larrykoo711/new-macos-starter",
         "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/ko/skills/lemline/lemline",
-        "reason": "crawl_trap_or_invalid_public_route"
       },
       {
         "path": "/ko/skills/Liinkiing/larastack",
@@ -1483,15 +1463,15 @@
         "reason": "blocked_by_sitemap"
       },
       {
-        "path": "/ko/skills/nevir/agentfill",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/ko/skills/onejs/one",
         "reason": "blocked_by_sitemap"
       },
       {
         "path": "/ko/skills/OpenGradient/OpenGradient-SDK",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ko/skills/opentabs-dev/opentabs",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -1771,10 +1751,6 @@
         "reason": "crawl_trap_or_invalid_public_route"
       },
       {
-        "path": "/ru/skills/lemline/lemline",
-        "reason": "crawl_trap_or_invalid_public_route"
-      },
-      {
         "path": "/ru/skills/loonghao/vx/vx-usage",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1896,6 +1872,10 @@
       },
       {
         "path": "/zh/skills/dyoshikawa/mcp-server.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/zh/skills/emirrtopaloglu/claude-code-virtuoso",
         "reason": "missing_from_sitemap_and_cache"
       },
       {

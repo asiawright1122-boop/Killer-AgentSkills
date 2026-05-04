@@ -2,56 +2,56 @@
   "title": {
     "en": "Cursor Workflow Tools for Refactoring and Review",
     "zh": "面向重构与评审场景的 Cursor 工具",
-    "ja": "Cursor対応スキル＆ワークフロー連携ツール | AI Agent Skills",
-    "ko": "Cursor 호환 스킬 & 워크플로우 연동 | AI Agent Skills",
-    "es": "Skills e integraciones compatibles con Cursor | AI Agent Skills",
-    "fr": "Skills et intégrations compatibles Cursor | AI Agent Skills",
-    "de": "Cursor-kompatible Skills und Workflow-Integrationen | AI Agent Skills",
-    "pt": "Skills e integrações compatíveis com Cursor | AI Agent Skills",
-    "ru": "Cursor-совместимые skills и workflow-интеграции | AI Agent Skills",
-    "ar": "مهارات وتكاملات متوافقة مع Cursor | AI Agent Skills"
+    "ja": "Cursor対応スキル＆ワークフロー連携ツール",
+    "ko": "Cursor 호환 스킬 & 워크플로우 연동",
+    "es": "Skills e integraciones compatibles con Cursor",
+    "fr": "Skills et intégrations compatibles Cursor",
+    "de": "Cursor-kompatible Skills und Workflow-Integrationen",
+    "pt": "Skills e integrações compatíveis com Cursor",
+    "ru": "Cursor-совместимые skills и workflow-интеграции",
+    "ar": "مهارات وتكاملات متوافقة مع Cursor"
   },
   "description": {
-    "en": "A curated Cursor shortlist for refactoring support, test scaffolding, review guardrails, and team coordination.",
-    "zh": "围绕重构支持、测试脚手架、评审护栏与团队协作衔接整理的一份 Cursor 候选清单。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの cursor compatible integrations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
-    "ko": "Claude Code, Cursor, Windsurf용 cursor compatible integrations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de cursor compatible integrations en Claude Code, Cursor y Windsurf.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur cursor compatible integrations dans Claude Code, Cursor et Windsurf.",
-    "de": "Installierbare AI Agent Skills für cursor compatible integrations Developer Workflows in Claude Code, Cursor und Windsurf.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em cursor compatible integrations no Claude Code, Cursor e Windsurf.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в cursor compatible integrations для Claude Code, Cursor и Windsurf.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات cursor compatible integrations داخل Claude Code وCursor وWindsurf."
+    "en": "Cursor Workflow Tools for Refactoring and Review. Compare setup quality, use cases, and IDE fit.",
+    "zh": "面向重构与评审场景的 Cursor 工具，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "Cursor対応スキル＆ワークフロー連携ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ko": "Cursor 호환 스킬 & 워크플로우 연동: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+    "es": "Skills e integraciones compatibles con Cursor. Compara instalación, casos de uso y encaje con tu IDE.",
+    "fr": "Skills et intégrations compatibles Cursor. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+    "de": "Cursor-kompatible Skills und Workflow-Integrationen. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+    "pt": "Skills e integrações compatíveis com Cursor. Compare instalação, casos de uso e encaixe no IDE.",
+    "ru": "Cursor-совместимые skills и workflow-интеграции. Сравните установку, сценарии и совместимость с IDE.",
+    "ar": "مهارات وتكاملات متوافقة مع Cursor. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
   },
   "seoTitle": {
-    "en": "Cursor Workflow Tools for Refactoring and Review",
-    "zh": "面向重构与评审场景的 Cursor 工具",
-    "ja": "AI Agent Skills - Cursor対応スキル＆ワークフロー連携ツール | Killer-Skills",
-    "ko": "AI Agent Skills - Cursor 호환 스킬 & 워크플로우 연동 | Killer-Skills",
-    "es": "AI Agent Skills - Skills e integraciones compatibles con ",
-    "fr": "AI Agent Skills - Skills et intégrations compatibles Curs",
-    "de": "AI Agent Skills - Cursor-kompatible Skills und Workflow-I",
-    "pt": "AI Agent Skills - Skills e integrações compatíveis com Cu",
-    "ru": "AI Agent Skills - Cursor-совместимые skills и workflow-ин",
-    "ar": "AI Agent Skills - مهارات وتكاملات متوافقة مع Cursor | Kil"
+    "en": "Cursor Workflow Tools for Refactoring and Review | Killer-Skills",
+    "zh": "面向重构与评审场景的 Cursor 工具 | Killer-Skills",
+    "ja": "Cursor対応スキル＆ワークフロー連携ツール | Killer-Skills",
+    "ko": "Cursor 호환 스킬 & 워크플로우 연동 | Killer-Skills",
+    "es": "Skills e integraciones compatibles con Cursor | Killer-Skills",
+    "fr": "Skills et intégrations compatibles Cursor | Killer-Skills",
+    "de": "Cursor-kompatible Skills und Workflow-Integrationen | Killer-Skills",
+    "pt": "Skills e integrações compatíveis com Cursor | Killer-Skills",
+    "ru": "Cursor-совместимые skills и workflow-интеграции | Killer-Skills",
+    "ar": "مهارات وتكاملات متوافقة مع Cursor | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Compare Cursor tools for refactoring support, test scaffolding, review guardrails, and team coordination. Start with the shortlist teams can validate quickly.",
-    "zh": "比较适合 Cursor 团队的重构支持、测试脚手架、评审护栏与团队协作衔接工具，先从能快速验证的清单开始。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの cursor compatible integrations AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
-    "ko": "Claude Code, Cursor, Windsurf용 cursor compatible integrations AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de cursor compatible integrations en Claude Code, Cursor y Windsurf. Killer-Skills.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur cursor compatible integrations dans Claude Code, Cursor et Windsurf. Killer-Sk",
-    "de": "Installierbare AI Agent Skills für cursor compatible integrations Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em cursor compatible integrations no Claude Code, Cursor e Windsurf. Killer-Ski",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в cursor compatible integrations для Claude Code, Cursor и Windsurf. Killer-Skills.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات cursor compatible integrations داخل Claude Code وCursor وWindsurf. Killer-Skills."
+    "en": "Compare Cursor Workflow Tools for Refactoring and Review. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
+    "zh": "比较面向重构与评审场景的 Cursor 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Cursor対応スキル＆ワークフロー連携ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "ko": "Cursor 호환 스킬 & 워크플로우 연동: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
+    "es": "Compara Skills e integraciones compatibles con Cursor. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
+    "fr": "Comparez Skills et intégrations compatibles Cursor. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
+    "de": "Vergleichen Sie Cursor-kompatible Skills und Workflow-Integrationen. Prüfen Sie Setup, Use Cases und Tools für Claude Code, Cursor und Windsurf.",
+    "pt": "Compare Skills e integrações compatíveis com Cursor. Veja instalação, casos de uso e ferramentas para Claude Code, Cursor e Windsurf.",
+    "ru": "Сравните Cursor-совместимые skills и workflow-интеграции. Откройте установку, сценарии и инструменты для Claude Code, Cursor и Windsurf.",
+    "ar": "قارن مهارات وتكاملات متوافقة مع Cursor. راجع التثبيت وحالات الاستخدام والأدوات لـ Claude Code وCursor وWindsurf."
   },
   "keywords": {
     "en": [
       "Cursor workflow tools",
       "Cursor refactoring tools",
-      "Cursor review guardrails",
+      "Cursor code review workflows",
       "Cursor test scaffolding",
       "Cursor rules sync",
       "Cursor team coordination"
@@ -155,50 +155,50 @@
   ],
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 for setup clarity, maintainer reliability, refactor support, and team adoption readiness. We kept the tools that help Cursor teams move from fast local wins to repeatable team habits.",
-      "zh": "已于 2026-04-17 按安装清晰度、维护者可靠性、重构支持与协作衔接就绪度完成复核。我们保留的是那些能帮助 Cursor 团队从本地提效走向可重复团队习惯的工具。"
+      "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
+      "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。"
     },
     "selectionReason": {
-      "en": "People landing here usually already code in Cursor. What they need next is a smaller list tied to refactors, review, tests, rules sync, and coordination instead of another generic integrations page.",
-      "zh": "来到这页的人通常已经在 Cursor 中写代码了。接下来他们需要的，不是另一张泛化集成页，而是一份围绕重构、评审、测试、规则同步与协作衔接缩小过的清单。"
+      "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
+      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。"
     },
     "trustSignals": {
       "en": [
         "Each entry strengthens a concrete Cursor workflow such as refactoring, testing, review, or team coordination.",
         "We keep tools with public setup docs, visible maintenance, and a clear first-use path.",
-        "Preference goes to tools teams can test in one active repository before wider rollout."
+        "Preference goes to tools teams can test in one active repository before broader team adoption."
       ],
       "zh": [
         "每个条目都对应一个明确的 Cursor 工作流环节，例如重构、测试、评审或团队协作衔接。",
         "我们优先保留安装文档公开、维护状态可见、首次使用路径清楚的工具。",
-        "筛选更偏向那些能先在一个活跃仓库里验证，再逐步扩大使用范围的工具。"
+        "筛选更偏向那些能先在一个活跃仓库里检查，再逐步扩大使用范围的工具。"
       ]
     },
     "groupingLogic": {
       "en": [
         "Start with the tool that removes the first source of review drag or workflow drift in Cursor.",
         "Keep the list compact while still covering refactors, tests, review, coordination, and lightweight automation.",
-        "Move the next click into install docs, CLI behavior, and a concrete rollout checklist."
+        "Keep setup simple: open the setup docs, check CLI behavior, and try one realistic task."
       ],
       "zh": [
         "先从能解决 Cursor 周边第一处评审拖累或工作流漂移的工具开始。",
         "列表保持紧凑，但仍覆盖重构、测试、评审、协作衔接与轻量自动化。",
-        "下一次点击直接导向安装文档、CLI 行为说明与具体落地检查清单。"
+        "继续进入安装文档、CLI 行为说明与具体落地检查清单。"
       ]
     },
     "maintenance": {
       "reviewedAt": "2026-04-17",
       "cadence": {
-        "en": "Re-check when install flow, maintainer posture, or Cursor workflow relevance changes upstream; otherwise review monthly.",
-        "zh": "当安装流程、维护者状态或工作流相关性发生变化时立即复查；否则按月复审。"
+        "en": "Update this collection when setup steps, ownership, or product fit changes upstream; otherwise revisit it monthly.",
+        "zh": "当上游的安装步骤、维护主体或适用场景发生变化时更新；否则按月检查一次。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills curation review with monthly collection checks.",
-        "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
+        "en": "Updated by Killer-Skills through recurring checks on setup docs, maintenance activity, and practical usefulness.",
+        "zh": "由 Killer-Skills 定期更新，持续检查安装文档、维护活跃度与实际可用性。"
       },
       "verification": {
         "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
+        "zh": "覆盖可安装性、配置清晰度、工作流适配度和维护者信息。"
       }
     },
     "executionExamples": [
@@ -215,7 +215,7 @@
           "en": [
             "Decide whether the first need is refactoring, test scaffolding, review, rules sync, or coordination.",
             "Open the install docs for the tool that best matches that need.",
-            "Verify what the CLI writes, how it fits the current workflow, and what the the team should review after setup.",
+            "Check what the CLI writes, how it fits the current workflow, and what to inspect after setup.",
             "Expand only after one active repo proves the setup is worth keeping."
           ],
           "zh": [
@@ -255,34 +255,34 @@
       {
         "href": "/{locale}/docs/installation",
         "label": {
-          "en": "Step 1: Open the installation docs",
+          "en": "Open the installation docs",
           "zh": "第 1 步：打开安装文档"
         },
         "description": {
-          "en": "Start with the install guide so the first Cursor tool trial has a concrete setup path.",
-          "zh": "先看安装指南，让第一次 Cursor 工具试跑有一条明确的后续使用步骤。"
+          "en": "Start with the setup guide and try the first install path before opening more options.",
+          "zh": "先看安装说明并跑通第一条安装路径，再决定是否继续比较更多选项。"
         }
       },
       {
         "href": "/{locale}/docs/cli/overview",
         "label": {
-          "en": "Step 2: Check CLI write and sync behavior",
+          "en": "Check CLI write and sync behavior",
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and which setup review matters after setup.",
-          "zh": "确认 CLI 会写入什么、同步如何发生，以及安装后操作员最该核对哪些点。"
+          "en": "Check what the CLI writes, how sync works, and what to confirm after setup.",
+          "zh": "确认 CLI 会写入哪些内容、如何同步，以及安装后需要检查什么。"
         }
       },
       {
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
-          "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再再确认"
+          "en": "Compare nearby options",
+          "zh": "第 3 步：比较相近选项"
         },
         "description": {
-          "en": "After the first workflow trial succeeds, compare it with the official trusted collection before standardizing.",
-          "zh": "等第一条工作流试跑成功后，再用官方可信合集做一次再确认，再决定是否标准化。"
+          "en": "If you are still deciding, compare official or related collections to see which option fits your workflow best.",
+          "zh": "如果还在犹豫，可以再看看官方或相关合集，确认哪种选择更适合当前工作流。"
         }
       }
     ]

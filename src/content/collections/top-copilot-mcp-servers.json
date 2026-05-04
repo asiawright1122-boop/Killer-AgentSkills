@@ -2,57 +2,57 @@
   "title": {
     "en": "Copilot Workflow Tools to Install First",
     "zh": "优先安装的 Copilot 工作流工具",
-    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツール | AI Agent Skills",
-    "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구 | AI Agent Skills",
-    "es": "Skills y herramientas companion para GitHub Copilot | AI Agent Skills",
-    "fr": "Skills et outils companion pour GitHub Copilot | AI Agent Skills",
-    "de": "Companion-Skills und Dev-Tools für GitHub Copilot | AI Agent Skills",
-    "pt": "Skills e ferramentas companion para GitHub Copilot | AI Agent Skills",
-    "ru": "Companion skills и dev-инструменты для GitHub Copilot | AI Agent Skills",
-    "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot | AI Agent Skills"
+    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツール",
+    "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구",
+    "es": "Skills y herramientas companion para GitHub Copilot",
+    "fr": "Skills et outils companion pour GitHub Copilot",
+    "de": "Companion-Skills und Dev-Tools für GitHub Copilot",
+    "pt": "Skills e ferramentas companion para GitHub Copilot",
+    "ru": "Companion skills и dev-инструменты для GitHub Copilot",
+    "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot"
   },
   "description": {
-    "en": "Compare Copilot workflow tools, then move into installation docs, CLI validation, and rollout paths for developer teams using Copilot.",
-    "zh": "先比较 Copilot 工作流工具，再进入安装文档、CLI 验证与团队后续使用步骤，适用于使用 Copilot 的开发团队。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの github copilot companion dev AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
-    "ko": "Claude Code, Cursor, Windsurf용 github copilot companion dev AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de github copilot companion dev en Claude Code, Cursor y Windsurf.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur github copilot companion dev dans Claude Code, Cursor et Windsurf.",
-    "de": "Installierbare AI Agent Skills für github copilot companion dev Developer Workflows in Claude Code, Cursor und Windsurf.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em github copilot companion dev no Claude Code, Cursor e Windsurf.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в github copilot companion dev для Claude Code, Cursor и Windsurf.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات github copilot companion dev داخل Claude Code وCursor وWindsurf."
+    "en": "Copilot Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
+    "zh": "优先安装的 Copilot 工作流工具，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+    "es": "Skills y herramientas companion para GitHub Copilot. Compara instalación, casos de uso y encaje con tu IDE.",
+    "fr": "Skills et outils companion pour GitHub Copilot. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+    "de": "Companion-Skills und Dev-Tools für GitHub Copilot. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+    "pt": "Skills e ferramentas companion para GitHub Copilot. Compare instalação, casos de uso e encaixe no IDE.",
+    "ru": "Companion skills и dev-инструменты для GitHub Copilot. Сравните установку, сценарии и совместимость с IDE.",
+    "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
   },
   "seoTitle": {
-    "en": "Copilot Workflow Tools to Install First",
-    "zh": "优先安装的 Copilot 工作流工具",
-    "ja": "AI Agent Skills - GitHub Copilot向けコンパニオンスキル＆開発ツール | Kille",
-    "ko": "AI Agent Skills - GitHub Copilot 컴패니언 스킬 & 개발 도구 | Killer",
-    "es": "AI Agent Skills - Skills y herramientas companion para Gi",
-    "fr": "AI Agent Skills - Skills et outils companion pour GitHub ",
-    "de": "AI Agent Skills - Companion-Skills und Dev-Tools für GitH",
-    "pt": "AI Agent Skills - Skills e ferramentas companion para Git",
-    "ru": "AI Agent Skills - Companion skills и dev-инструменты для ",
-    "ar": "AI Agent Skills - مهارات وأدوات مرافقة لـ GitHub Copilot "
+    "en": "Copilot Workflow Tools to Install First | Killer-Skills",
+    "zh": "优先安装的 Copilot 工作流工具 | Killer-Skills",
+    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツール | Killer-Skills",
+    "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구 | Killer-Skills",
+    "es": "Skills y herramientas companion para GitHub Copilot | Killer-Skills",
+    "fr": "Skills et outils companion pour GitHub Copilot | Killer-Skills",
+    "de": "Companion-Skills und Dev-Tools für GitHub Copilot | Killer-Skills",
+    "pt": "Skills e ferramentas companion para GitHub Copilot | Killer-Skills",
+    "ru": "Companion skills и dev-инструменты для GitHub Copilot | Killer-Skills",
+    "ar": "مهارات وأدوات مرافقة لـ GitHub Copilot | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Compare Copilot workflow tools, then move into installation docs, CLI validation, and rollout paths for developer teams using Copilot.",
-    "zh": "比较 Copilot 工作流工具，然后进入安装文档、CLI 验证与团队后续使用步骤，适用于使用 Copilot 的开发团队。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの github copilot companion dev AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
-    "ko": "Claude Code, Cursor, Windsurf용 github copilot companion dev AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de github copilot companion dev en Claude Code, Cursor y Windsurf. Killer-Skills.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur github copilot companion dev dans Claude Code, Cursor et Windsurf. Killer-Skills.",
-    "de": "Installierbare AI Agent Skills für github copilot companion dev Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em github copilot companion dev no Claude Code, Cursor e Windsurf. Killer-Skills.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в github copilot companion dev для Claude Code, Cursor и Windsurf. Killer-Skills.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات github copilot companion dev داخل Claude Code وCursor وWindsurf. Killer-Skills."
+    "en": "Compare Copilot Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
+    "zh": "比较优先安装的 Copilot 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
+    "es": "Compara Skills y herramientas companion para GitHub Copilot. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
+    "fr": "Comparez Skills et outils companion pour GitHub Copilot. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
+    "de": "Vergleichen Sie Companion-Skills und Dev-Tools für GitHub Copilot. Prüfen Sie Setup, Use Cases und Tools für Claude Code, Cursor und Windsurf.",
+    "pt": "Compare Skills e ferramentas companion para GitHub Copilot. Veja instalação, casos de uso e ferramentas para Claude Code, Cursor e Windsurf.",
+    "ru": "Сравните Companion skills и dev-инструменты для GitHub Copilot. Откройте установку, сценарии и инструменты для Claude Code, Cursor и Windsurf.",
+    "ar": "قارن مهارات وأدوات مرافقة لـ GitHub Copilot. راجع التثبيت وحالات الاستخدام والأدوات لـ Claude Code وCursor وWindsurf."
   },
   "keywords": {
     "en": [
       "GitHub Copilot workflow tools",
       "Copilot companion tools",
       "review and documentation tools",
-      "developer workflow guardrails",
+      "developer workflow checks",
       "team coding workflows",
       "install AI agent skills"
     ],
@@ -151,22 +151,22 @@
   ],
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 against Copilot workflow fit, installation clarity, team adoption, and day-to-day delivery usefulness. This page is now positioned as an installation-focused Copilot companion hub instead of a vague companion-tools list.",
-      "zh": "已于 2026-04-17 按 Copilot 工作流适配度、安装清晰度、团队协作适配和日常交付价值完成复核。现在这页被重新定位为“安装优先”的 Copilot 伴侣入口，而不是模糊的配套工具列表。"
+      "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
+      "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。"
     },
     "selectionReason": {
-      "en": "We prioritize this page because Copilot users often need review, documentation, testing, and workflow guardrails around the assistant before broader rollout.",
-      "zh": "之所以优先强化这页，是因为 Copilot 用户通常需要先补上评审、文档、测试与工作流护栏，再决定如何更大范围推广。"
+      "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
+      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。"
     },
     "trustSignals": {
       "en": [
-        "Entries are chosen for practical Copilot workflow value such as review gates, documentation support, testing, and delivery guardrails.",
-        "Selection favors tools with public docs and clear setup paths that teams can validate before wider rollout.",
-        "The page is curated for repeatable engineering quality, not vague companion-brand adjacency."
+        "Entries are chosen for practical Copilot workflow value such as review gates, documentation support, testing, and delivery checks.",
+        "Selection favors tools with public docs and clear setup paths that teams can test before broader team adoption.",
+        "Built for repeatable engineering quality with clear setup paths and practical Copilot-adjacent tools."
       ],
       "zh": [
         "入选工具优先服务于真实 Copilot 工作流，例如评审门禁、文档支持、测试与交付护栏。",
-        "筛选优先考虑文档公开、安装路径清晰、团队可在推广前快速验证的工具。",
+        "优先展示文档公开、安装路径清晰、适合先小范围试用的工具。",
         "这个页面服务的是可复用工程质量，而不是模糊的伴侣品牌挂靠。"
       ]
     },
@@ -174,27 +174,27 @@
       "en": [
         "Lead with tools that can enter a Copilot-centered workflow without adding heavy setup ambiguity.",
         "Keep the shortlist compact enough for quick comparison while still covering review, docs, testing, and automation support.",
-        "Use installation as the bridge from Copilot discovery into validated daily execution."
+        "Use installation to move from Copilot discovery into daily execution."
       ],
       "zh": [
         "优先展示能较快进入 Copilot 主导工作流、且不会带来高配置歧义的工具。",
         "列表保持足够紧凑，方便快速比较，同时覆盖评审、文档、测试与自动化支持。",
-        "把安装作为从 Copilot 发现页进入已验证日常执行的桥梁。"
+        "从 Copilot 工具比较继续进入安装路径和日常使用。"
       ]
     },
     "maintenance": {
       "reviewedAt": "2026-04-17",
       "cadence": {
-        "en": "Re-check when install flow, maintainer posture, or Copilot workflow relevance changes upstream; otherwise review monthly.",
-        "zh": "当安装流程、维护者状态或工作流相关性发生变化时立即复查；否则按月复审。"
+        "en": "Update this collection when setup steps, ownership, or product fit changes upstream; otherwise revisit it monthly.",
+        "zh": "当上游的安装步骤、维护主体或适用场景发生变化时更新；否则按月检查一次。"
       },
       "maintainedBy": {
-        "en": "Maintained through Killer-Skills curation review with install, documentation, and workflow-quality checks.",
-        "zh": "由 Killer-Skills 内容审核流程维护，重点核验安装、文档与工作流质量。"
+        "en": "Updated by Killer-Skills through recurring checks on setup docs, maintenance activity, and practical usefulness.",
+        "zh": "由 Killer-Skills 定期更新，持续检查安装文档、维护活跃度与实际可用性。"
       },
       "verification": {
         "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
+        "zh": "覆盖可安装性、配置清晰度、工作流适配度和维护者信息。"
       }
     },
     "executionExamples": [
@@ -211,32 +211,32 @@
           "en": [
             "Open the installation docs before opening more Copilot-related repositories.",
             "Choose one tool that best supports review, docs, testing, or automation.",
-            "Install it and verify the CLI write path, sync behavior, and first key validation step.",
-            "Only after the base path works, expand the setup across the wider team workflow."
+            "Install it, note what it adds to your CLI, and run one real task.",
+            "Once it works for one task, decide whether to expand it to the wider team workflow."
           ],
           "zh": [
             "先打开安装文档，而不是继续点开更多与 Copilot 相关的仓库。",
             "选择一个最适合评审、文档、测试或自动化的工具。",
-            "先安装并验证 CLI 写入路径、同步行为和第一道关键验证步骤。",
-            "只有基础路径跑通后，再把它扩展到更广的团队工作流。"
+            "先安装，看看它会如何影响 CLI，然后跑一遍真实任务。",
+            "等单个任务跑通后，再决定是否扩展到更广的团队工作流。"
           ]
         }
       },
       {
         "title": {
           "en": "Standardize support around Copilot",
-          "zh": "把 Copilot 周边支持先标准化"
+          "zh": "把 Copilot 周边支持先扩大使用"
         },
         "summary": {
           "en": "Use this collection when you need Copilot-adjacent tools that improve team quality without overcomplicating the stack.",
-          "zh": "当你想为 Copilot 邻接工作流补上团队质量护栏、又不想把栈变得过于复杂时，可以把这个合集当作精选参考。"
+          "zh": "当你想为 Copilot 邻接工作流补上团队质量护栏、又不想把栈变得过于复杂时，这组候选更容易直接比较。"
         },
         "steps": {
           "en": [
             "Check whether the tool has stable ownership and visible install guidance.",
             "Review CLI behavior so teams know what will be written and synced.",
-            "Use one validated path before scaling it to more projects or more teammates.",
-            "Document the chosen Copilot workflow baseline after the first clean rollout."
+            "Use one working path before scaling it to more projects or more teammates.",
+            "Document the chosen Copilot workflow baseline after the first successful setup."
           ],
           "zh": [
             "先确认工具是否有稳定维护主体和清晰的安装指引。",
@@ -251,41 +251,41 @@
       {
         "href": "/{locale}/docs/installation",
         "label": {
-          "en": "Step 1: Open the installation docs",
+          "en": "Open the installation docs",
           "zh": "第 1 步：打开安装文档"
         },
         "description": {
-          "en": "Move from GitHub Copilot workflow discovery into the install flow, validation checklist, and first command path before comparing anything else.",
-          "zh": "先进入安装流程、验证清单与第一条命令路径，再决定是否继续比较。"
+          "en": "Start with the setup guide and try the first install path before opening more options.",
+          "zh": "先看安装说明并跑通第一条安装路径，再决定是否继续比较更多选项。"
         }
       },
       {
         "href": "/{locale}/docs/cli/overview",
         "label": {
-          "en": "Step 2: Check CLI write and sync behavior",
+          "en": "Check CLI write and sync behavior",
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and what teams should validate after the install path is clear.",
-          "zh": "在安装路径明确后，再确认 CLI 会写入什么、同步如何发生，以及操作人员该验证哪些内容。"
+          "en": "Check what the CLI writes, how sync works, and what to confirm after setup.",
+          "zh": "确认 CLI 会写入哪些内容、如何同步，以及安装后需要检查什么。"
         }
       },
       {
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
-          "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再再确认"
+          "en": "Compare nearby options",
+          "zh": "第 3 步：比较相近选项"
         },
         "description": {
-          "en": "Use the official trusted collection to double-check tool choices before you standardize a team stack.",
-          "zh": "在团队推广给团队之前，回到官方可信合集，对工具选择做一次再确认。"
+          "en": "If you are still deciding, compare official or related collections to see which option fits your workflow best.",
+          "zh": "如果还在犹豫，可以再看看官方或相关合集，确认哪种选择更适合当前工作流。"
         }
       }
     ]
   },
   "longDescription": {
-    "en": "If your team is already using GitHub Copilot, this collection is a better starting point than opening random companion repos. It helps you compare review helpers, documentation support, testing guardrails, and delivery tooling, then pushes the next click into installation docs, CLI validation, and a repeatable rollout path.",
-    "zh": "如果你的团队已经在使用 GitHub Copilot，这个合集比随机打开配套仓库更适合作为起点。它会先帮助你比较评审辅助、文档支持、测试护栏与交付工具，再把下一次点击送进安装文档、CLI 验证与可重复后续使用步骤，因此比扁平的配套工具页更适合作为推荐入口。",
+    "en": "If your team is already using GitHub Copilot, this collection is a better starting point than opening unrelated companion repos. It helps you compare review helpers, documentation support, testing tools, and delivery tooling, to help you find the best fit for real work faster.",
+    "zh": "如果你的团队已经在使用 GitHub Copilot，这个合集比随机打开配套仓库更适合作为起点。它聚焦评审辅助、文档支持、测试护栏与交付工具，帮助你更快找到适合当前协作方式的配套能力，因此比扁平的工具清单更适合作为选型起点。",
     "ja": "このコレクションは、Copilotを単体機能ではなく開発ワークフロー全体の一部として捉えます。レビューゲート、ドキュメント更新、テスト支援、運用自動化に効く補助スキルとツールを収録。MCP接続を備えるものもありますが、主な価値は実務での品質向上と反復作業の削減にあります。",
     "ko": "이 컬렉션은 Copilot을 단일 AI 기능이 아닌 개발 워크플로우 시스템의 일부로 다룹니다. 리뷰 게이트, 문서 업데이트, 테스트 지원, 운영 자동화를 위한 컴패니언 스킬과 툴링을 제공합니다. 일부 도구는 MCP 연결을 지원하지만, 핵심 가치는 실무 품질 향상과 반복 작업 감소입니다.",
     "es": "Esta colección presenta Copilot como parte de un sistema completo de workflow para developers. En lugar de usarlo como función aislada, incorpora skills y tooling companion para puertas de review, actualización de documentación, soporte de testing y automatización operativa. Algunos recursos incluyen MCP, pero el beneficio principal es práctico: mejor calidad de entrega y menos trabajo repetitivo.",

@@ -2,50 +2,50 @@
   "title": {
     "en": "OpenAI Workflow Tools for Prompt, Eval, and Agent Teams",
     "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具",
-    "ja": "OpenAI 活用 AI エージェントツール 12選 | AI Agent Skills",
-    "ko": "OpenAI 기반 AI 에이전트 도구 12선 | AI Agent Skills",
-    "es": "12 herramientas de agentes de IA con tecnología OpenAI | AI Agent Skills",
-    "fr": "12 outils d’agents IA propulsés par OpenAI | AI Agent Skills",
-    "de": "12 OpenAI-gestützte KI-Agent-Tools | AI Agent Skills",
-    "pt": "12 ferramentas de agentes de IA com OpenAI | AI Agent Skills",
-    "ru": "12 инструментов AI-агентов на базе OpenAI | AI Agent Skills",
-    "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI | AI Agent Skills"
+    "ja": "OpenAI 活用 AI エージェントツール 12選",
+    "ko": "OpenAI 기반 AI 에이전트 도구 12선",
+    "es": "12 herramientas de agentes de IA con tecnología OpenAI",
+    "fr": "12 outils d’agents IA propulsés par OpenAI",
+    "de": "12 OpenAI-gestützte KI-Agent-Tools",
+    "pt": "12 ferramentas de agentes de IA com OpenAI",
+    "ru": "12 инструментов AI-агентов на базе OpenAI",
+    "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI"
   },
   "description": {
-    "en": "A curated OpenAI shortlist for prompt design, evaluations, runtime debugging, and team adoption.",
-    "zh": "围绕提示词设计、评估、运行调试与团队协作适配整理的一份 OpenAI 候选清单。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの openai powered AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。",
-    "ko": "Claude Code, Cursor, Windsurf용 openai powered AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de openai powered en Claude Code, Cursor y Windsurf.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur openai powered dans Claude Code, Cursor et Windsurf.",
-    "de": "Installierbare AI Agent Skills für openai powered Developer Workflows in Claude Code, Cursor und Windsurf.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em openai powered no Claude Code, Cursor e Windsurf.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в openai powered для Claude Code, Cursor и Windsurf.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات openai powered داخل Claude Code وCursor وWindsurf."
+    "en": "OpenAI Workflow Tools for Prompt, Eval, and Agent Teams. Compare setup quality, use cases, and IDE fit.",
+    "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "OpenAI 活用 AI エージェントツール 12選を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ko": "OpenAI 기반 AI 에이전트 도구 12선: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
+    "es": "12 herramientas de agentes de IA con tecnología OpenAI. Compara instalación, casos de uso y encaje con tu IDE.",
+    "fr": "12 outils d’agents IA propulsés par OpenAI. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
+    "de": "12 OpenAI-gestützte KI-Agent-Tools. Vergleichen Sie Setup, Use Cases und IDE-Passung.",
+    "pt": "12 ferramentas de agentes de IA com OpenAI. Compare instalação, casos de uso e encaixe no IDE.",
+    "ru": "12 инструментов AI-агентов на базе OpenAI. Сравните установку, сценарии и совместимость с IDE.",
+    "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI. قارن التثبيت وحالات الاستخدام وملاءمة IDE."
   },
   "seoTitle": {
     "en": "OpenAI Workflow Tools for Prompt, Eval, and Agent Teams",
-    "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具",
-    "ja": "AI Agent Skills - OpenAI 活用 AI エージェントツール 12選 | Killer-Skills",
-    "ko": "AI Agent Skills - OpenAI 기반 AI 에이전트 도구 12선 | Killer-Skills",
-    "es": "AI Agent Skills - 12 herramientas de agentes de IA con te",
-    "fr": "AI Agent Skills - 12 outils d’agents IA propulsés par Ope",
-    "de": "AI Agent Skills - 12 OpenAI-gestützte KI-Agent-Tools | Ki",
-    "pt": "AI Agent Skills - 12 ferramentas de agentes de IA com Ope",
-    "ru": "AI Agent Skills - 12 инструментов AI-агентов на базе Open",
-    "ar": "AI Agent Skills - 12 أداة وكلاء ذكاء اصطناعي مدعومة بـ Op"
+    "zh": "面向 Prompt、评估与 Agent 团队的 OpenAI 工具 | Killer-Skills",
+    "ja": "OpenAI 活用 AI エージェントツール 12選 | Killer-Skills",
+    "ko": "OpenAI 기반 AI 에이전트 도구 12선 | Killer-Skills",
+    "es": "12 herramientas de agentes de IA con tecnología OpenAI | Killer-Skills",
+    "fr": "12 outils d’agents IA propulsés par OpenAI | Killer-Skills",
+    "de": "12 OpenAI-gestützte KI-Agent-Tools | Killer-Skills",
+    "pt": "12 ferramentas de agentes de IA com OpenAI | Killer-Skills",
+    "ru": "12 инструментов AI-агентов на базе OpenAI | Killer-Skills",
+    "ar": "12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI | Killer-Skills"
   },
   "seoDescription": {
-    "en": "Compare OpenAI tools for prompt design, evaluations, runtime visibility, and agent operations. Start with the shortlist teams can validate quickly.",
-    "zh": "比较适合 OpenAI 团队的提示词、评估、运行可观测与 Agent 运维工具，先从能快速验证的清单开始。",
-    "ja": "Claude Code・Cursor・Windsurf 向けの openai powered AI Agent Skills 集合。開発者ワークフロー自動化 を重視します。 Killer-Skills.",
-    "ko": "Claude Code, Cursor, Windsurf용 openai powered AI Agent Skills 모음입니다. 개발자 워크플로 자동화에 초점을 둡니다. Killer-Skills.",
-    "es": "Colección de AI Agent Skills instalables para workflows de desarrollo de openai powered en Claude Code, Cursor y Windsurf. Killer-Skills.",
-    "fr": "Collection de AI Agent Skills installables pour les workflows développeur openai powered dans Claude Code, Cursor et Windsurf. Killer-Skills.",
-    "de": "Installierbare AI Agent Skills für openai powered Developer Workflows in Claude Code, Cursor und Windsurf. Killer-Skills.",
-    "pt": "Coleção de AI Agent Skills instaláveis para workflows de desenvolvimento em openai powered no Claude Code, Cursor e Windsurf. Killer-Skills.",
-    "ru": "Подборка installable AI Agent Skills для developer workflow в openai powered для Claude Code, Cursor и Windsurf. Killer-Skills.",
-    "ar": "مجموعة من AI Agent Skills القابلة للتثبيت لسيناريوهات openai powered داخل Claude Code وCursor وWindsurf. Killer-Skills."
+    "en": "Compare OpenAI Workflow Tools for Prompt, Eval, and Agent Teams. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
+    "zh": "比较面向 Prompt、评估与 Agent 团队的 OpenAI 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "OpenAI 活用 AI エージェントツール 12選を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "ko": "OpenAI 기반 AI 에이전트 도구 12선: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
+    "es": "Compara 12 herramientas de agentes de IA con tecnología OpenAI. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
+    "fr": "Comparez 12 outils d’agents IA propulsés par OpenAI. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
+    "de": "Vergleichen Sie 12 OpenAI-gestützte KI-Agent-Tools. Prüfen Sie Setup, Use Cases und Tools für Claude Code, Cursor und Windsurf.",
+    "pt": "Compare 12 ferramentas de agentes de IA com OpenAI. Veja instalação, casos de uso e ferramentas para Claude Code, Cursor e Windsurf.",
+    "ru": "Сравните 12 инструментов AI-агентов на базе OpenAI. Откройте установку, сценарии и инструменты для Claude Code, Cursor и Windsurf.",
+    "ar": "قارن 12 أداة وكلاء ذكاء اصطناعي مدعومة بـ OpenAI. راجع التثبيت وحالات الاستخدام والأدوات لـ Claude Code وCursor وWindsurf."
   },
   "keywords": {
     "en": [
@@ -158,12 +158,12 @@
   ],
   "editorial": {
     "reviewSummary": {
-      "en": "Reviewed on 2026-04-17 for setup clarity, eval usefulness, runtime visibility, and maintainer reliability. We kept the tools that help OpenAI teams move from experiments to repeatable production routines.",
-      "zh": "已于 2026-04-17 按安装清晰度、评估价值、运行可观测性与维护者可靠性完成复核。我们保留的是那些能帮助 OpenAI 团队从实验走向可重复生产流程的工具。"
+      "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
+      "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。"
     },
     "selectionReason": {
-      "en": "OpenAI visitors usually arrive with a concrete job: improve prompts, add evals, debug runtime behavior, or make agent operations easier to hand off. This page narrows the shortlist around those jobs.",
-      "zh": "搜索 OpenAI 工具的用户通常带着很具体的任务而来：改进提示词、补评估、排查运行问题，或让 Agent 运维更易协作衔接。这页就是围绕这些任务缩小候选范围。"
+      "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
+      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。"
     },
     "trustSignals": {
       "en": [
@@ -181,34 +181,34 @@
       "en": [
         "Start with the workflow gap that hurts first: prompt quality, eval coverage, runtime visibility, or team coordination.",
         "Keep the list compact while covering the parts of an OpenAI stack that most teams actually need to operationalize.",
-        "Move the next click into install docs, CLI behavior, and the closest follow-up collection or guide."
+        "Keep setup simple: open the setup docs, check CLI behavior, and compare one nearby guide or collection."
       ],
       "zh": [
         "先从最痛的工作流缺口开始：提示词质量、评估覆盖、运行可观测，还是团队协作衔接。",
         "列表保持紧凑，但覆盖大多数 OpenAI 团队真正需要落地的关键环节。",
-        "下一次点击直接导向安装文档、CLI 行为说明，以及最相关的后续合集或指南。"
+        "继续进入安装文档、CLI 行为说明，以及最相关的后续合集或指南。"
       ]
     },
     "maintenance": {
       "reviewedAt": "2026-04-17",
       "cadence": {
-        "en": "Re-check when install flow, maintainer posture, or OpenAI workflow relevance changes upstream; otherwise review monthly.",
-        "zh": "当安装流程、维护者状态或工作流相关性发生变化时立即复查；否则按月复审。"
+        "en": "Update this collection when setup steps, ownership, or product fit changes upstream; otherwise revisit it monthly.",
+        "zh": "当上游的安装步骤、维护主体或适用场景发生变化时更新；否则按月检查一次。"
       },
       "maintainedBy": {
-        "en": "Killer-Skills curation review with monthly collection checks.",
-        "zh": "由 Killer-Skills 编辑审查与每月合集复查共同维护。"
+        "en": "Updated by Killer-Skills through recurring checks on setup docs, maintenance activity, and practical usefulness.",
+        "zh": "由 Killer-Skills 定期更新，持续检查安装文档、维护活跃度与实际可用性。"
       },
       "verification": {
         "en": "Validate installability, setup clarity, workflow fit, and maintainer trust before retaining or adding an entry.",
-        "zh": "保留或新增条目前，会验证可安装性、配置清晰度、工作流适配度和维护者可信度。"
+        "zh": "覆盖可安装性、配置清晰度、工作流适配度和维护者信息。"
       }
     },
     "executionExamples": [
       {
         "title": {
           "en": "Validate one OpenAI workflow stack first",
-          "zh": "先验证一条 OpenAI 工作流栈"
+          "zh": "先试跑一条 OpenAI 工作流栈"
         },
         "summary": {
           "en": "Use this page when you need one OpenAI stack that connects prompt work, evals, and runtime checks without creating a messy tool chain.",
@@ -224,8 +224,8 @@
           "zh": [
             "先判断当前最先要补的是提示词、评估、运行调试还是协作衔接。",
             "打开最匹配这个缺口的工具安装文档。",
-            "确认 CLI 会写入什么、操作员要审查什么，以及这款工具如何嵌入现有栈。",
-            "等一条活跃工作流验证有效后，再决定是否扩大使用范围。"
+            "确认 CLI 会写入什么、安装后需要检查什么，以及这款工具如何接入现有流程。",
+            "等一条活跃工作流跑顺后，再决定是否扩大使用范围。"
           ]
         }
       },
@@ -242,13 +242,13 @@
           "en": [
             "Prefer tools with visible maintainers, public setup guidance, and clear evaluation primitives.",
             "Pick the smallest tool that closes the current blind spot instead of rebuilding the stack all at once.",
-            "Pilot in one active project, then document the team adoption before wider rollout.",
+            "Pilot in one active project, then document the team adoption before broader use.",
             "Return for a second tool only after the first addition proves its value."
           ],
           "zh": [
             "优先选择维护者可见、安装指引公开、评估能力边界清楚的工具。",
             "先用最小工具补当前盲点，而不是一次性重建整条栈。",
-            "先在一个活跃项目里试跑，再把团队协作适配写清楚后再推广。",
+            "先在一个活跃项目里试跑，再把团队协作适配写清楚后再扩大使用。",
             "只有第一个工具确实产生价值后，再回来考虑第二个工具。"
           ]
         }
@@ -258,34 +258,34 @@
       {
         "href": "/{locale}/docs/installation",
         "label": {
-          "en": "Step 1: Open the installation docs",
+          "en": "Open the installation docs",
           "zh": "第 1 步：打开安装文档"
         },
         "description": {
-          "en": "Start with the install guide so the first OpenAI tool trial has a concrete setup path.",
-          "zh": "先看安装指南，让第一次 OpenAI 工具试跑有一条明确的后续使用步骤。"
+          "en": "Start with the setup guide and try the first install path before opening more options.",
+          "zh": "先看安装说明并跑通第一条安装路径，再决定是否继续比较更多选项。"
         }
       },
       {
         "href": "/{locale}/docs/cli/overview",
         "label": {
-          "en": "Step 2: Check CLI write and sync behavior",
+          "en": "Check CLI write and sync behavior",
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Confirm what the CLI writes, how sync behaves, and which setup review matters after setup.",
-          "zh": "确认 CLI 会写入什么、同步如何发生，以及安装后操作员最该核对哪些点。"
+          "en": "Check what the CLI writes, how sync works, and what to confirm after setup.",
+          "zh": "确认 CLI 会写入哪些内容、如何同步，以及安装后需要检查什么。"
         }
       },
       {
         "href": "/{locale}/collections/top-official-ai-skills-trusted-tools",
         "label": {
-          "en": "Step 3: Cross-check with trusted tools",
-          "zh": "第 3 步：用可信工具再再确认"
+          "en": "Compare nearby options",
+          "zh": "第 3 步：比较相近选项"
         },
         "description": {
-          "en": "After the first workflow trial succeeds, compare it with the official trusted collection before standardizing.",
-          "zh": "等第一条工作流试跑成功后，再用官方可信合集做一次再确认，再决定是否标准化。"
+          "en": "If you are still deciding, compare official or related collections to see which option fits your workflow best.",
+          "zh": "如果还在犹豫，可以再看看官方或相关合集，确认哪种选择更适合当前工作流。"
         }
       }
     ]

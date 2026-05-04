@@ -2,6 +2,8 @@
 import { loadMessages, type Locale } from '../../i18n';
 import type { CollectionEntry } from 'astro:content';
 import { Calendar } from 'lucide-react';
+import { getBlogMetaOverride } from '../../lib/blog-seo-intent';
+import { normalizePublicSummary } from '../../lib/public-text';
 
 interface Props {
   post: CollectionEntry<'blog'>;
@@ -12,6 +14,17 @@ const { post, locale } = Astro.props;
 const messages = await loadMessages(locale as Locale);
 
 const tb = messages.Blog;
+const slug = post.id.split('/').pop()?.replace(/\.md$/, '') || '';
+const t = (key: string) => {
+  const parts = key.replace(/^Seo\./, '').split('.');
+  let current: unknown = messages;
+  for (const part of parts) {
+    current = current && typeof current === 'object' ? (current as Record<string, unknown>)[part] : undefined;
+  }
+  return typeof current === 'string' ? current : key;
+};
+const metaOverride = getBlogMetaOverride(slug, t);
+const displayDescription = normalizePublicSummary(metaOverride?.description || post.data.description, 150);
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   year: 'numeric',
@@ -83,7 +96,7 @@ const displayCategory = post.data.category
 
       {/* Description */}
       <p class="text-sm font-bold text-[var(--muted-foreground)] line-clamp-2 mb-6 leading-relaxed">
-        {post.data.description}
+        {displayDescription}
       </p>
     </div>
 
