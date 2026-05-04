@@ -1,87 +1,117 @@
 [
   {
+    "owner": "jaraim",
+    "repo": "opencode-chinese",
+    "routePath": "opencode-chinese/github-workflow",
+    "updatedAt": "2026-05-04T04:14:00.835Z"
+  },
+  {
+    "owner": "lekman",
+    "repo": "cdn",
+    "routePath": "cdn/github-mcp",
+    "updatedAt": "2026-05-04T04:14:00.834Z"
+  },
+  {
+    "owner": "majiayu000",
+    "repo": "claude-skill-registry-data",
+    "routePath": "claude-skill-registry-data/fetch-github-trending",
+    "updatedAt": "2026-05-04T04:14:00.834Z"
+  },
+  {
+    "owner": "hoyvoh",
+    "repo": "claude-workspace-prototype",
+    "routePath": "claude-workspace-prototype/git-operations",
+    "updatedAt": "2026-05-04T04:14:00.833Z"
+  },
+  {
+    "owner": "bug-ops",
+    "repo": "zeph",
+    "routePath": "zeph/github",
+    "updatedAt": "2026-05-04T04:14:00.832Z"
+  },
+  {
+    "owner": "jarosser06",
+    "repo": "drift",
+    "routePath": "drift/github-operations",
+    "updatedAt": "2026-05-04T04:14:00.832Z"
+  },
+  {
+    "owner": "github",
+    "repo": "awesome-copilot",
+    "routePath": "awesome-copilot/gh-cli",
+    "updatedAt": "2026-05-04T04:14:00.831Z"
+  },
+  {
+    "owner": "rishavmukherji",
+    "repo": "farcaster-agent",
+    "routePath": "farcaster-agent/farcaster-agent",
+    "updatedAt": "2026-05-04T04:14:00.829Z"
+  },
+  {
+    "owner": "cablate",
+    "repo": "Agentic-MCP-Skill",
+    "routePath": "Agentic-MCP-Skill/agentic-mcp",
+    "updatedAt": "2026-05-04T04:14:00.828Z"
+  },
+  {
+    "owner": "openwork-hackathon",
+    "repo": "team-sentinel",
+    "routePath": "team-sentinel/clawathon",
+    "updatedAt": "2026-05-04T04:14:00.821Z"
+  },
+  {
+    "owner": "manavkushwaha10",
+    "repo": "apple-health",
+    "routePath": "apple-health/expo-modules",
+    "updatedAt": "2026-05-04T03:54:36Z"
+  },
+  {
+    "owner": "alexmond",
+    "repo": "jhelm",
+    "routePath": "jhelm/learn",
+    "updatedAt": "2026-05-04T01:05:09Z"
+  },
+  {
+    "owner": "wrm3",
+    "repo": "gald3r",
+    "routePath": "gald3r/review-and-ship",
+    "updatedAt": "2026-05-03T22:39:31Z"
+  },
+  {
+    "owner": "lionheartapp",
+    "repo": "lionheart-ops",
+    "routePath": "lionheart-ops/popup-cro",
+    "updatedAt": "2026-05-03T21:04:59Z"
+  },
+  {
+    "owner": "Jamie-BitFlight",
+    "repo": "claude_skills",
+    "routePath": "claude_skills/gh",
+    "updatedAt": "2026-05-03T18:11:49Z"
+  },
+  {
+    "owner": "liu-ran-1",
+    "repo": "pregnancy-nutrition-platform",
+    "routePath": "pregnancy-nutrition-platform/secure-code-guardian",
+    "updatedAt": "2026-05-03T17:52:10Z"
+  },
+  {
+    "owner": "feordin",
+    "repo": "llm-fhir-query-eval",
+    "routePath": "llm-fhir-query-eval/synthea",
+    "updatedAt": "2026-05-03T15:45:45Z"
+  },
+  {
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
     "updatedAt": "2026-05-03T13:58:33.025Z"
   },
   {
-    "owner": "jaraim",
-    "repo": "opencode-chinese",
-    "routePath": "opencode-chinese/github-workflow",
-    "updatedAt": "2026-05-03T13:58:33.023Z"
-  },
-  {
-    "owner": "majiayu000",
-    "repo": "claude-skill-registry-data",
-    "routePath": "claude-skill-registry-data/fetch-github-trending",
-    "updatedAt": "2026-05-03T13:58:33.022Z"
-  },
-  {
-    "owner": "lekman",
-    "repo": "cdn",
-    "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-05-03T13:58:33.021Z"
-  },
-  {
-    "owner": "bug-ops",
-    "repo": "zeph",
-    "routePath": "zeph/github",
-    "updatedAt": "2026-05-03T13:58:33.020Z"
-  },
-  {
-    "owner": "hoyvoh",
-    "repo": "claude-workspace-prototype",
-    "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-05-03T13:58:33.020Z"
-  },
-  {
-    "owner": "github",
-    "repo": "awesome-copilot",
-    "routePath": "awesome-copilot/gh-cli",
-    "updatedAt": "2026-05-03T13:58:33.019Z"
-  },
-  {
-    "owner": "jarosser06",
-    "repo": "drift",
-    "routePath": "drift/github-operations",
-    "updatedAt": "2026-05-03T13:58:33.019Z"
-  },
-  {
-    "owner": "cablate",
-    "repo": "Agentic-MCP-Skill",
-    "routePath": "Agentic-MCP-Skill/agentic-mcp",
-    "updatedAt": "2026-05-03T13:58:33.016Z"
-  },
-  {
-    "owner": "rishavmukherji",
-    "repo": "farcaster-agent",
-    "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-05-03T13:58:33.016Z"
-  },
-  {
-    "owner": "openwork-hackathon",
-    "repo": "team-sentinel",
-    "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-05-03T13:58:33.009Z"
-  },
-  {
-    "owner": "lionheartapp",
-    "repo": "lionheart-ops",
-    "routePath": "lionheart-ops/popup-cro",
-    "updatedAt": "2026-05-03T13:55:07Z"
-  },
-  {
     "owner": "jokim1",
     "repo": "clawrocket",
     "routePath": "clawrocket/setup",
     "updatedAt": "2026-05-03T10:15:55Z"
-  },
-  {
-    "owner": "manavkushwaha10",
-    "repo": "apple-health",
-    "routePath": "apple-health/expo-modules",
-    "updatedAt": "2026-05-03T09:28:28Z"
   },
   {
     "owner": "mrgeoffrich",
@@ -102,16 +132,34 @@
     "updatedAt": "2026-05-03T05:36:43Z"
   },
   {
+    "owner": "first-fluke",
+    "repo": "mapple",
+    "routePath": "mapple/oma-recap",
+    "updatedAt": "2026-05-03T05:08:41Z"
+  },
+  {
     "owner": "BlocUnited-LLC",
     "repo": "mozaiks",
     "routePath": "mozaiks/init-project",
     "updatedAt": "2026-05-03T05:04:40Z"
   },
   {
+    "owner": "NomaDamas",
+    "repo": "AutoRAG-Research",
+    "routePath": "AutoRAG-Research/autorag-query",
+    "updatedAt": "2026-05-03T04:13:16Z"
+  },
+  {
     "owner": "webdevcody",
     "repo": "go-mailing-list",
     "routePath": "go-mailing-list/quick-push",
     "updatedAt": "2026-05-03T02:53:55Z"
+  },
+  {
+    "owner": "fivedollarfridays",
+    "repo": "gowork",
+    "routePath": "gowork/prepare-to-engage",
+    "updatedAt": "2026-05-03T00:43:47Z"
   },
   {
     "owner": "him55710-sudo",
@@ -124,12 +172,6 @@
     "repo": "cloud-sim",
     "routePath": "cloud-sim/outlook-calendar-automation",
     "updatedAt": "2026-05-02T18:25:58Z"
-  },
-  {
-    "owner": "feordin",
-    "repo": "llm-fhir-query-eval",
-    "routePath": "llm-fhir-query-eval/synthea",
-    "updatedAt": "2026-05-02T16:16:09Z"
   },
   {
     "owner": "EtroxTaran",
@@ -160,6 +202,12 @@
     "repo": "artagon-site",
     "routePath": "artagon-site/openspec-verify-change",
     "updatedAt": "2026-05-02T04:06:45Z"
+  },
+  {
+    "owner": "pradeepmouli",
+    "repo": "objectenvy",
+    "routePath": "objectenvy/speckit-doctor",
+    "updatedAt": "2026-05-02T03:36:02Z"
   },
   {
     "owner": "guidodinello",
@@ -748,6 +796,12 @@
     "repo": "invowk",
     "routePath": "invowk/native-mirror",
     "updatedAt": "2026-05-01T00:24:08Z"
+  },
+  {
+    "owner": "asgarovf",
+    "repo": "locusai",
+    "routePath": "locusai/code-review",
+    "updatedAt": "2026-04-30T23:24:16Z"
   },
   {
     "owner": "Fortemi",
@@ -2274,6 +2328,12 @@
     "updatedAt": "2026-04-20T16:57:37Z"
   },
   {
+    "owner": "JoaquinCampo",
+    "repo": "agent-debugger",
+    "routePath": "agent-debugger/agent-debugger",
+    "updatedAt": "2026-04-20T15:20:18Z"
+  },
+  {
     "owner": "assafelovic",
     "repo": "skyll",
     "routePath": "skyll/skyll",
@@ -2416,12 +2476,6 @@
     "repo": "ExperimentPipeline",
     "routePath": "ExperimentPipeline/skill-system-memory",
     "updatedAt": "2026-04-20T00:57:51Z"
-  },
-  {
-    "owner": "alexmond",
-    "repo": "jhelm",
-    "routePath": "jhelm/learn",
-    "updatedAt": "2026-04-19T22:22:56Z"
   },
   {
     "owner": "managedcode",
@@ -4992,6 +5046,12 @@
     "updatedAt": "2026-03-28T23:15:53Z"
   },
   {
+    "owner": "wangjianjq",
+    "repo": "Skill",
+    "routePath": "Skill/lint-js",
+    "updatedAt": "2026-03-28T18:39:21Z"
+  },
+  {
     "owner": "dataraum",
     "repo": "dataraum",
     "routePath": "dataraum/smoke",
@@ -6726,6 +6786,12 @@
     "updatedAt": "2026-03-18T22:37:02Z"
   },
   {
+    "owner": "runwhen-contrib",
+    "repo": "codecollection-registry",
+    "routePath": "codecollection-registry/runwhen-ui",
+    "updatedAt": "2026-03-18T22:33:42Z"
+  },
+  {
     "owner": "madarasz",
     "repo": "always-be-running",
     "routePath": "always-be-running/e2e",
@@ -7072,6 +7138,12 @@
     "repo": "CRMDev",
     "routePath": "CRMDev/ck:skill-creator",
     "updatedAt": "2026-03-16T19:41:22Z"
+  },
+  {
+    "owner": "bis-code",
+    "repo": "claude-toolkit",
+    "routePath": "claude-toolkit/qa",
+    "updatedAt": "2026-03-16T18:26:47Z"
   },
   {
     "owner": "corbat-tech",
