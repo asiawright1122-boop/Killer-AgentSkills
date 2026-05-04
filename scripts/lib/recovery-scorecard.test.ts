@@ -250,6 +250,77 @@ describe('buildRecoveryScorecardReport', () => {
     expect(report.overallStatus).toBe('blocking');
   });
 
+  it('treats recovered flaky 5xx responses as a technical recovery blocker', () => {
+    const report = buildRecoveryScorecardReport({
+      now: '2026-05-04T12:00:00.000Z',
+      crawlHealthReport: {
+        generatedAt: '2026-05-04T03:00:00.000Z',
+        totals: { sitemapFilesDiscovered: 6, pageUrlsDiscovered: 1922, pageUrlsChecked: 784 },
+        statusSummary: { status2xx: 784, status3xx: 0, status4xx: 0, status5xx: 0, statusOther: 0 },
+        cloudflare1102: [],
+        flakyRecovered: Array.from({ length: 11 }, (_, index) => ({
+          url: `https://killer-skills.com/en/solutions/example-${index}`,
+          status: 200,
+          fiveXxAttempts: 1,
+          recoveredFrom5xx: true,
+        })),
+        sitemapErrors: [],
+      },
+      coverageDrilldownReport: {
+        generatedAt: '2026-05-04T04:10:28.523Z',
+        directories: ['/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-05-03'],
+        issueCount: 0,
+        totalAffectedPages: 0,
+        sourceFreshnessStatus: 'fresh',
+        sourceFreshnessDate: '2026-05-03',
+        sourceFreshnessDays: 1,
+        clusterPriorities: [],
+        issueSummaries: [],
+      },
+      indexDriftReport: {
+        generatedAt: '2026-05-04T06:49:41.377Z',
+        counts: { onlyInSitemap: 0, onlyInIndexableCache: 0 },
+      },
+      trafficReport: {
+        generatedAt: '2026-05-04T06:00:00.000Z',
+        status: 'clear',
+        sourceMode: 'live-api',
+        site: 'sc-domain:killer-skills.com',
+        currentPeriod: { start: '2026-04-27', end: '2026-05-03' },
+        previousPeriod: { start: '2026-04-20', end: '2026-04-26' },
+        queryRows: 10,
+        pageRows: 10,
+        priorityQueryOpportunities: 1,
+        priorityPageOpportunities: 1,
+        queryPrecisionRisks: 0,
+        failureReason: null,
+        nextStep: null,
+      },
+      aiProviderHealthReport: {
+        generatedAt: '2026-05-04T04:13:12.663Z',
+        alertSummary: { total: 0, highestSeverity: 'none', status: 'clear' },
+        alerts: [],
+        telemetry: { mode: { workersAi: 'free-only', fallbackPolicy: 'cold' } },
+        latestSnapshot: {
+          workersAi: {
+            maxCallsPerRun: 60,
+            maxCallsPerDay: 60,
+            dailyCalls: 1,
+            dailyRemaining: 59,
+            runRemaining: 60,
+          },
+        },
+      },
+    });
+
+    expect(report.crawl.status).toBe('blocking');
+    expect(report.crawl.metrics.flakyRecovered).toBe(11);
+    expect(report.crawl.observed).toContain('flaky5xx 11');
+    expect(report.crawl.notes.join(' ')).toContain('returned 5xx before recovering');
+    expect(report.technicalRecoveryStatus).toBe('blocking');
+    expect(report.nextActions.join(' ')).toContain('recovered flaky 5xx');
+  });
+
   it('keeps traffic visibility blocking when the report is a standardized missing-config artifact', () => {
     const report = buildRecoveryScorecardReport({
       now: '2026-04-09T12:00:00.000Z',
