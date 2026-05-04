@@ -842,7 +842,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     if (context.request.method === 'GET') {
       const contentType = response.headers.get('content-type') || '';
       if (contentType.includes('text/html')) {
-        response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400');
+        const htmlCacheControl =
+          routeBucket === 'skills_detail'
+            ? 'public, max-age=60, s-maxage=86400, stale-while-revalidate=86400'
+            : 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400';
+        response.headers.set('Cache-Control', htmlCacheControl);
       }
     }
 
