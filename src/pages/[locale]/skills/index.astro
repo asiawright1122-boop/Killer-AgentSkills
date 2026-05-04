@@ -366,6 +366,10 @@ const baseSkillsUrl = `https://killer-skills.com/${locale}/skills`;
 const prevPageUrl = currentPage > 1 ? buildPaginationUrl(currentPage - 1) : null;
 const nextPageUrl = currentPage < totalPages ? buildPaginationUrl(currentPage + 1) : null;
 const hasListingParams = Boolean(cleanQuery || category || view || owner || topicParam || currentPage > 1);
+const robotsContent = hasListingParams ? 'noindex, follow' : undefined;
+if (robotsContent) {
+  Astro.response.headers.set('X-Robots-Tag', robotsContent);
+}
 const currentCanonicalUrl = hasListingParams ? baseSkillsUrl : undefined;
 const buildSkillItemUrl = (skill: UnifiedSkill) => {
   const routePath = getSkillRoutePath(skill) || skill.repo;
@@ -383,6 +387,7 @@ const buildSkillItemUrl = (skill: UnifiedSkill) => {
   keywords={pageKeywords}
   customCanonical={currentCanonicalUrl}
   noindex={hasListingParams}
+  robots={robotsContent}
 >
   {/* Pagination SEO: rel prev/next */}
   <Fragment slot="head">
