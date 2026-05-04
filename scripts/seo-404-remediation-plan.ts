@@ -13,6 +13,7 @@ import {
 import { countExtraSkillSegments, hasRepeatedSegment, isSourceFilePathname } from './lib/coverage-url-classification';
 
 export type RemediationActionType = 'redirect_301' | 'gone_410' | 'manual_review' | 'observe';
+export type RuntimeCoverageSource = 'middleware' | 'materialized_rule' | 'none';
 
 export type ClusterId =
   | 'query_parameter'
@@ -31,6 +32,8 @@ export type RemediationAction = {
   reason: string;
   targetUrl?: string;
   coveredByMiddleware: boolean;
+  coveredByRuntime: boolean;
+  runtimeCoverageSource: RuntimeCoverageSource;
 };
 
 export type RemediationPlan = {
@@ -50,6 +53,8 @@ type OtherAuditRow = {
   action: RemediationActionType;
   reason: string;
   coveredByMiddleware: boolean;
+  coveredByRuntime: boolean;
+  runtimeCoverageSource: RuntimeCoverageSource;
   targetUrl?: string;
 };
 
@@ -65,8 +70,13 @@ type OtherAuditReport = {
   }>;
   executionSummary: {
     exactRemoval410Count: number;
+    exactRemovalCoveredByRuntimeCount: number;
+    exactRemovalCoveredByRulesCount: number;
+    exactRemovalNeedsMaterializationCount: number;
     redirectValidationCount: number;
+    redirectCoveredByRuntimeCount: number;
     redirectCoveredByMiddlewareCount: number;
+    redirectCoveredByRulesCount: number;
     redirectNeedsValidationCount: number;
     observeCount: number;
     manualReviewCount: number;
@@ -85,6 +95,8 @@ type SourceFileAuditRow = {
   action: RemediationActionType;
   reason: string;
   coveredByMiddleware: boolean;
+  coveredByRuntime: boolean;
+  runtimeCoverageSource: RuntimeCoverageSource;
   targetUrl?: string;
 };
 
@@ -100,8 +112,13 @@ type SourceFileAuditReport = {
   }>;
   executionSummary: {
     exactRemoval410Count: number;
+    exactRemovalCoveredByRuntimeCount: number;
+    exactRemovalCoveredByRulesCount: number;
+    exactRemovalNeedsMaterializationCount: number;
     redirectValidationCount: number;
+    redirectCoveredByRuntimeCount: number;
     redirectCoveredByMiddlewareCount: number;
+    redirectCoveredByRulesCount: number;
     redirectNeedsValidationCount: number;
     observeCount: number;
     manualReviewCount: number;
@@ -180,6 +197,18 @@ type LegacyNonSkillRedirect = {
   coveredByMiddleware: boolean;
 };
 
+type ExistingSeo404Rules = {
+  rules?: {
+    redirect301?: Array<{ fromPath?: string }>;
+    gone410?: Array<{ path?: string }>;
+  };
+};
+
+type RuntimeRuleIndex = {
+  redirectPaths: Set<string>;
+  gonePaths: Set<string>;
+};
+
 function parseArgs(argv: string[]): { inputDir?: string } {
   let inputDir: string | undefined;
   for (let i = 0; i < argv.length; i++) {
@@ -215,6 +244,17 @@ function safeDecode(value: string): string {
     return decodeURIComponent(value);
   } catch {
     return value;
+  }
+}
+
+function toCanonicalPath(rawUrl: string): string | null {
+  try {
+    const parsed = new URL(rawUrl);
+    if (!['killer-skills.com', 'www.killer-skills.com'].includes(parsed.hostname)) return null;
+    if (parsed.search || parsed.hash) return null;
+    return parsed.pathname || null;
+  } catch {
+    return null;
   }
 }
 
@@ -329,7 +369,9 @@ export function buildSitemapIndex(): SitemapIndex {
 
   const sitemapPath = resolve(process.cwd(), 'data/sitemap-skills.json');
   if (existsSync(sitemapPath)) {
-    const raw = JSON.parse(readFileSync(sitemapPath, 'utf8')) as SitemapSkillRecord[] | { skills?: SitemapSkillRecord[] };
+    const raw = JSON.parse(readFileSync(sitemapPath, 'utf8')) as
+      | SitemapSkillRecord[]
+      | { skills?: SitemapSkillRecord[] };
     const records = Array.isArray(raw) ? raw : raw.skills || [];
 
     for (const record of records) {
@@ -373,6 +415,57 @@ export function buildSitemapIndex(): SitemapIndex {
   }
 
   return { map, repoCounts, repoSingleRoute, blockedExact, blockedRepo };
+}
+
+function buildRuntimeRuleIndex(): RuntimeRuleIndex {
+  const path = resolve(process.cwd(), 'data/seo-404-rules.json');
+  if (!existsSync(path)) {
+    return {
+      redirectPaths: new Set<string>(),
+      gonePaths: new Set<string>(),
+    };
+  }
+
+  const raw = JSON.parse(readFileSync(path, 'utf8')) as ExistingSeo404Rules;
+  const redirectPaths = new Set(
+    (raw.rules?.redirect301 || [])
+      .map((row) => (typeof row?.fromPath === 'string' ? row.fromPath.trim() : ''))
+      .filter(Boolean),
+  );
+  const gonePaths = new Set(
+    (raw.rules?.gone410 || []).map((row) => (typeof row?.path === 'string' ? row.path.trim() : '')).filter(Boolean),
+  );
+
+  return { redirectPaths, gonePaths };
+}
+
+function applyRuntimeCoverage(action: RemediationAction, runtimeRuleIndex: RuntimeRuleIndex): RemediationAction {
+  if (action.coveredByMiddleware) {
+    return {
+      ...action,
+      coveredByRuntime: true,
+      runtimeCoverageSource: 'middleware',
+    };
+  }
+
+  const canonicalPath = toCanonicalPath(action.url);
+  if (!canonicalPath) {
+    return {
+      ...action,
+      coveredByRuntime: false,
+      runtimeCoverageSource: 'none',
+    };
+  }
+
+  const coveredByRule =
+    (action.action === 'redirect_301' && runtimeRuleIndex.redirectPaths.has(canonicalPath)) ||
+    (action.action === 'gone_410' && runtimeRuleIndex.gonePaths.has(canonicalPath));
+
+  return {
+    ...action,
+    coveredByRuntime: coveredByRule,
+    runtimeCoverageSource: coveredByRule ? 'materialized_rule' : 'none',
+  };
 }
 
 function classifyUrl(url: string): ClusterId {
@@ -427,7 +520,10 @@ function tryResolveCanonicalSkillUrl(
 
   const locale = parts[0];
   const owner = safeDecode(parts[2]).trim();
-  const routeSegments = parts.slice(3).map((segment) => safeDecode(segment).trim()).filter(Boolean);
+  const routeSegments = parts
+    .slice(3)
+    .map((segment) => safeDecode(segment).trim())
+    .filter(Boolean);
   if (!locale || !owner || routeSegments.length === 0) return null;
 
   const buildTargetUrl = (targetOwner: string, routePath: string) =>
@@ -500,7 +596,10 @@ function parseSkillUrl(url: string): ParsedSkillUrl | null {
 
   const locale = parts[0];
   const owner = safeDecode(parts[2]).trim();
-  const routeSegments = parts.slice(3).map((segment) => safeDecode(segment).trim()).filter(Boolean);
+  const routeSegments = parts
+    .slice(3)
+    .map((segment) => safeDecode(segment).trim())
+    .filter(Boolean);
   if (!locale || !owner || routeSegments.length === 0) return null;
 
   const routePath = routeSegments.join('/');
@@ -567,130 +666,194 @@ export function suggestAction(
   url: string,
   cluster: ClusterId,
   sitemapIndex: SitemapIndex,
+  runtimeRuleIndex: RuntimeRuleIndex = {
+    redirectPaths: new Set<string>(),
+    gonePaths: new Set<string>(),
+  },
 ): RemediationAction {
   if (cluster === 'other') {
     const legacyNonSkillRedirect = resolveLegacyNonSkillRedirect(url);
     if (legacyNonSkillRedirect) {
-      return {
-        url,
-        cluster,
-        action: 'redirect_301',
-        reason: legacyNonSkillRedirect.reason,
-        targetUrl: legacyNonSkillRedirect.targetUrl,
-        coveredByMiddleware: legacyNonSkillRedirect.coveredByMiddleware,
-      };
+      return applyRuntimeCoverage(
+        {
+          url,
+          cluster,
+          action: 'redirect_301',
+          reason: legacyNonSkillRedirect.reason,
+          targetUrl: legacyNonSkillRedirect.targetUrl,
+          coveredByMiddleware: legacyNonSkillRedirect.coveredByMiddleware,
+          coveredByRuntime: legacyNonSkillRedirect.coveredByMiddleware,
+          runtimeCoverageSource: legacyNonSkillRedirect.coveredByMiddleware ? 'middleware' : 'none',
+        },
+        runtimeRuleIndex,
+      );
     }
   }
 
   const canonicalSkill = tryResolveCanonicalSkillUrl(url, sitemapIndex);
   if (canonicalSkill) {
-    return {
-      url,
-      cluster,
-      action: 'redirect_301',
-      reason: canonicalSkill.reason,
-      targetUrl: canonicalSkill.targetUrl,
-      coveredByMiddleware: true,
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'redirect_301',
+        reason: canonicalSkill.reason,
+        targetUrl: canonicalSkill.targetUrl,
+        coveredByMiddleware: true,
+        coveredByRuntime: true,
+        runtimeCoverageSource: 'middleware',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'trailing_slash') {
     if (isOwnerOnlySkillPath(url)) {
-      return {
-        url,
-        cluster,
-        action: 'gone_410',
-        reason: 'owner_root_skill_trap',
-        coveredByMiddleware: true,
-      };
+      return applyRuntimeCoverage(
+        {
+          url,
+          cluster,
+          action: 'gone_410',
+          reason: 'owner_root_skill_trap',
+          coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
+        },
+        runtimeRuleIndex,
+      );
     }
     const targetUrl = url.replace(/\/+(\?|#|$)/, '$1');
-    return {
-      url,
-      cluster,
-      action: 'redirect_301',
-      reason: 'trailing_slash_canonicalization',
-      targetUrl,
-      coveredByMiddleware: true,
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'redirect_301',
+        reason: 'trailing_slash_canonicalization',
+        targetUrl,
+        coveredByMiddleware: true,
+        coveredByRuntime: true,
+        runtimeCoverageSource: 'middleware',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'legacy_html') {
-    return {
-      url,
-      cluster,
-      action: 'redirect_301',
-      reason: 'legacy_html_blog_path',
-      targetUrl: url.replace(/\.html(?=([?#]|$))/i, ''),
-      coveredByMiddleware: true,
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'redirect_301',
+        reason: 'legacy_html_blog_path',
+        targetUrl: url.replace(/\.html(?=([?#]|$))/i, ''),
+        coveredByMiddleware: true,
+        coveredByRuntime: true,
+        runtimeCoverageSource: 'middleware',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'source_file_path' || cluster === 'deep_skill_path' || cluster === 'repeated_segment') {
-    return {
-      url,
-      cluster,
-      action: 'gone_410',
-      reason: 'crawl_trap_or_invalid_public_route',
-      coveredByMiddleware: cluster !== 'repeated_segment',
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'gone_410',
+        reason: 'crawl_trap_or_invalid_public_route',
+        coveredByMiddleware: cluster !== 'repeated_segment',
+        coveredByRuntime: cluster !== 'repeated_segment',
+        runtimeCoverageSource: cluster !== 'repeated_segment' ? 'middleware' : 'none',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'sandbox_path') {
-    return {
-      url,
-      cluster,
-      action: 'gone_410',
-      reason: 'sandbox_should_not_be_indexed',
-      coveredByMiddleware: false,
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'gone_410',
+        reason: 'sandbox_should_not_be_indexed',
+        coveredByMiddleware: false,
+        coveredByRuntime: false,
+        runtimeCoverageSource: 'none',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'query_parameter') {
-    return {
-      url,
-      cluster,
-      action: 'manual_review',
-      reason: 'parameterized_url_requires_policy_review',
-      coveredByMiddleware: false,
-    };
+    return applyRuntimeCoverage(
+      {
+        url,
+        cluster,
+        action: 'manual_review',
+        reason: 'parameterized_url_requires_policy_review',
+        coveredByMiddleware: false,
+        coveredByRuntime: false,
+        runtimeCoverageSource: 'none',
+      },
+      runtimeRuleIndex,
+    );
   }
 
   if (cluster === 'other') {
     const other = classifyOtherUrl(url, sitemapIndex);
     switch (other.classification) {
       case 'blocked_by_sitemap':
-        return {
-          url,
-          cluster,
-          action: 'gone_410',
-          reason: 'blocked_by_sitemap',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'gone_410',
+            reason: 'blocked_by_sitemap',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       case 'missing_in_data':
-        return {
-          url,
-          cluster,
-          action: 'gone_410',
-          reason: 'missing_from_sitemap_and_cache',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'gone_410',
+            reason: 'missing_from_sitemap_and_cache',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       case 'non_skill_site_path':
-        return {
-          url,
-          cluster,
-          action: 'manual_review',
-          reason: 'non_skill_route_requires_policy_review',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'manual_review',
+            reason: 'non_skill_route_requires_policy_review',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       case 'malformed_coverage_row':
-        return {
-          url,
-          cluster,
-          action: 'manual_review',
-          reason: 'malformed_coverage_export_row',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'manual_review',
+            reason: 'malformed_coverage_export_row',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       case 'repo_single_skill_redirect': {
         const parsed = other.parsed;
         if (parsed) {
@@ -708,53 +871,80 @@ export function suggestAction(
               reason: 'repo_single_skill_redirect',
               targetUrl: `${parsed.origin}${canonicalPath}`,
               coveredByMiddleware: true,
+              coveredByRuntime: true,
+              runtimeCoverageSource: 'middleware',
             };
           }
         }
-        return {
-          url,
-          cluster,
-          action: 'manual_review',
-          reason: 'repo_single_skill_redirect_missing_route',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'manual_review',
+            reason: 'repo_single_skill_redirect_missing_route',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       }
       case 'repo_directory_candidate':
-        return {
-          url,
-          cluster,
-          action: 'gone_410',
-          reason: 'repo_directory_skill_trap',
-          coveredByMiddleware: true,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'gone_410',
+            reason: 'repo_directory_skill_trap',
+            coveredByMiddleware: true,
+            coveredByRuntime: true,
+            runtimeCoverageSource: 'middleware',
+          },
+          runtimeRuleIndex,
+        );
       case 'unknown_subskill':
-        return {
-          url,
-          cluster,
-          action: 'manual_review',
-          reason: 'unknown_subskill_for_known_repo',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'manual_review',
+            reason: 'unknown_subskill_for_known_repo',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       case 'in_sitemap':
-        return {
-          url,
-          cluster,
-          action: 'observe',
-          reason: 'in_sitemap_recrawl_watch',
-          coveredByMiddleware: false,
-        };
+        return applyRuntimeCoverage(
+          {
+            url,
+            cluster,
+            action: 'observe',
+            reason: 'in_sitemap_recrawl_watch',
+            coveredByMiddleware: false,
+            coveredByRuntime: false,
+            runtimeCoverageSource: 'none',
+          },
+          runtimeRuleIndex,
+        );
       default:
         break;
     }
   }
 
-  return {
-    url,
-    cluster,
-    action: 'manual_review',
-    reason: 'missing_skill_or_unknown_pattern',
-    coveredByMiddleware: false,
-  };
+  return applyRuntimeCoverage(
+    {
+      url,
+      cluster,
+      action: 'manual_review',
+      reason: 'missing_skill_or_unknown_pattern',
+      coveredByMiddleware: false,
+      coveredByRuntime: false,
+      runtimeCoverageSource: 'none',
+    },
+    runtimeRuleIndex,
+  );
 }
 
 function discover404InputDir(): string | null {
@@ -785,13 +975,14 @@ export function buildPlan(inputDir: string): RemediationPlan {
   const issueName = parseIssueName(csvPaths);
   const rows = parseCoverageDrilldownCsv(readFileSync(csvPaths.table, 'utf8')).slice(1);
   const sitemapIndex = buildSitemapIndex();
+  const runtimeRuleIndex = buildRuntimeRuleIndex();
 
   const actions: RemediationAction[] = [];
   for (const row of rows) {
     const url = row[0] || '';
     if (!url) continue;
     const cluster = classifyUrl(url);
-    actions.push(suggestAction(url, cluster, sitemapIndex));
+    actions.push(suggestAction(url, cluster, sitemapIndex, runtimeRuleIndex));
   }
 
   const redirectCount = actions.filter((action) => action.action === 'redirect_301').length;
@@ -820,6 +1011,8 @@ export function buildOtherAuditReport(plan: RemediationPlan): OtherAuditReport {
       action: action.action,
       reason: action.reason,
       coveredByMiddleware: action.coveredByMiddleware,
+      coveredByRuntime: action.coveredByRuntime,
+      runtimeCoverageSource: action.runtimeCoverageSource,
       ...(action.targetUrl ? { targetUrl: action.targetUrl } : {}),
     }));
 
@@ -855,25 +1048,42 @@ export function buildOtherAuditReport(plan: RemediationPlan): OtherAuditReport {
     .sort((a, b) => b.count - a.count || a.action.localeCompare(b.action));
 
   const exactRemoval410Count = actionSummary.find((item) => item.action === 'gone_410')?.count || 0;
+  const exactRemovalCoveredByRuntimeCount = rows.filter(
+    (row) => row.action === 'gone_410' && row.coveredByRuntime,
+  ).length;
+  const exactRemovalCoveredByRulesCount = rows.filter(
+    (row) => row.action === 'gone_410' && row.runtimeCoverageSource === 'materialized_rule',
+  ).length;
+  const exactRemovalNeedsMaterializationCount = Math.max(0, exactRemoval410Count - exactRemovalCoveredByRuntimeCount);
   const redirectValidationCount = actionSummary.find((item) => item.action === 'redirect_301')?.count || 0;
+  const redirectCoveredByRuntimeCount = rows.filter(
+    (row) => row.action === 'redirect_301' && row.coveredByRuntime,
+  ).length;
   const observeCount = actionSummary.find((item) => item.action === 'observe')?.count || 0;
   const manualReviewCount = actionSummary.find((item) => item.action === 'manual_review')?.count || 0;
   const redirectCoveredByMiddlewareCount = rows.filter(
     (row) => row.action === 'redirect_301' && row.coveredByMiddleware,
   ).length;
-  const redirectNeedsValidationCount = Math.max(0, redirectValidationCount - redirectCoveredByMiddlewareCount);
+  const redirectCoveredByRulesCount = rows.filter(
+    (row) => row.action === 'redirect_301' && row.runtimeCoverageSource === 'materialized_rule',
+  ).length;
+  const redirectNeedsValidationCount = Math.max(0, redirectValidationCount - redirectCoveredByRuntimeCount);
   const topReasons = reasonBreakdown.slice(0, 3).map((item) => `${item.reason}=${item.count}`);
   const nextActions: string[] = [];
 
   if (exactRemoval410Count > 0) {
     nextActions.push(
-      `Keep ${exactRemoval410Count} other-cluster URLs on the exact-removal / 410 track first; dominant buckets are ${topReasons.join(', ')}.`,
+      exactRemovalNeedsMaterializationCount > 0
+        ? `Keep ${exactRemoval410Count} other-cluster URLs on the exact-removal / 410 track first; ${exactRemovalCoveredByRuntimeCount} are already runtime-covered and ${exactRemovalNeedsMaterializationCount} still need rule materialization or deploy verification. Dominant buckets are ${topReasons.join(', ')}.`
+        : `Keep ${exactRemoval410Count} other-cluster URLs on the exact-removal / 410 track first; the full batch is already runtime-covered. Dominant buckets are ${topReasons.join(', ')}.`,
     );
   }
 
   if (redirectValidationCount > 0) {
     nextActions.push(
-      `Validate ${redirectValidationCount} redirect candidates before relying on recrawl alone (${redirectCoveredByMiddlewareCount} already middleware-covered, ${redirectNeedsValidationCount} still need direct redirect verification).`,
+      redirectNeedsValidationCount > 0
+        ? `Validate ${redirectNeedsValidationCount} redirect candidates before relying on recrawl alone (${redirectCoveredByRuntimeCount} already runtime-covered: middleware=${redirectCoveredByMiddlewareCount}, materialized_rule=${redirectCoveredByRulesCount}).`
+        : `Keep ${redirectValidationCount} redirect candidates on the live runtime track (${redirectCoveredByRuntimeCount} already runtime-covered: middleware=${redirectCoveredByMiddlewareCount}, materialized_rule=${redirectCoveredByRulesCount}).`,
     );
   }
 
@@ -884,7 +1094,9 @@ export function buildOtherAuditReport(plan: RemediationPlan): OtherAuditReport {
   }
 
   if (manualReviewCount > 0) {
-    nextActions.push(`Work the remaining ${manualReviewCount} manual-review rows before creating any new automated rule.`);
+    nextActions.push(
+      `Work the remaining ${manualReviewCount} manual-review rows before creating any new automated rule.`,
+    );
   }
 
   return {
@@ -896,8 +1108,13 @@ export function buildOtherAuditReport(plan: RemediationPlan): OtherAuditReport {
     actionSummary,
     executionSummary: {
       exactRemoval410Count,
+      exactRemovalCoveredByRuntimeCount,
+      exactRemovalCoveredByRulesCount,
+      exactRemovalNeedsMaterializationCount,
       redirectValidationCount,
+      redirectCoveredByRuntimeCount,
       redirectCoveredByMiddlewareCount,
+      redirectCoveredByRulesCount,
       redirectNeedsValidationCount,
       observeCount,
       manualReviewCount,
@@ -916,6 +1133,8 @@ export function buildSourceFileAuditReport(plan: RemediationPlan): SourceFileAud
       action: action.action,
       reason: action.reason,
       coveredByMiddleware: action.coveredByMiddleware,
+      coveredByRuntime: action.coveredByRuntime,
+      runtimeCoverageSource: action.runtimeCoverageSource,
       ...(action.targetUrl ? { targetUrl: action.targetUrl } : {}),
     }));
 
@@ -951,40 +1170,64 @@ export function buildSourceFileAuditReport(plan: RemediationPlan): SourceFileAud
     .sort((a, b) => b.count - a.count || a.action.localeCompare(b.action));
 
   const exactRemoval410Count = actionSummary.find((item) => item.action === 'gone_410')?.count || 0;
+  const exactRemovalCoveredByRuntimeCount = rows.filter(
+    (row) => row.action === 'gone_410' && row.coveredByRuntime,
+  ).length;
+  const exactRemovalCoveredByRulesCount = rows.filter(
+    (row) => row.action === 'gone_410' && row.runtimeCoverageSource === 'materialized_rule',
+  ).length;
+  const exactRemovalNeedsMaterializationCount = Math.max(0, exactRemoval410Count - exactRemovalCoveredByRuntimeCount);
   const redirectValidationCount = actionSummary.find((item) => item.action === 'redirect_301')?.count || 0;
+  const redirectCoveredByRuntimeCount = rows.filter(
+    (row) => row.action === 'redirect_301' && row.coveredByRuntime,
+  ).length;
   const observeCount = actionSummary.find((item) => item.action === 'observe')?.count || 0;
   const manualReviewCount = actionSummary.find((item) => item.action === 'manual_review')?.count || 0;
   const redirectCoveredByMiddlewareCount = rows.filter(
     (row) => row.action === 'redirect_301' && row.coveredByMiddleware,
   ).length;
-  const redirectNeedsValidationCount = Math.max(0, redirectValidationCount - redirectCoveredByMiddlewareCount);
-  const repoSingleSkillRedirectCount = reasonBreakdown.find((item) => item.reason === 'repo_single_skill_redirect')?.count || 0;
+  const redirectCoveredByRulesCount = rows.filter(
+    (row) => row.action === 'redirect_301' && row.runtimeCoverageSource === 'materialized_rule',
+  ).length;
+  const redirectNeedsValidationCount = Math.max(0, redirectValidationCount - redirectCoveredByRuntimeCount);
+  const repoSingleSkillRedirectCount =
+    reasonBreakdown.find((item) => item.reason === 'repo_single_skill_redirect')?.count || 0;
   const nestedSkillParentRedirectCount =
     reasonBreakdown.find((item) => item.reason === 'nested_skill_parent_redirect')?.count || 0;
   const nextActions: string[] = [];
 
   if (exactRemoval410Count > 0) {
-    nextActions.push(`Keep ${exactRemoval410Count} source-file URLs on the exact-removal / 410 track first.`);
+    nextActions.push(
+      exactRemovalNeedsMaterializationCount > 0
+        ? `Keep ${exactRemoval410Count} source-file URLs on the exact-removal / 410 track first; ${exactRemovalCoveredByRuntimeCount} are already runtime-covered and ${exactRemovalNeedsMaterializationCount} still need rule materialization or deploy verification.`
+        : `Keep ${exactRemoval410Count} source-file URLs on the exact-removal / 410 track first; the full batch is already runtime-covered.`,
+    );
   }
 
-  if (redirectNeedsValidationCount > 0 && redirectCoveredByMiddlewareCount > 0) {
+  if (redirectNeedsValidationCount > 0 && redirectCoveredByRuntimeCount > 0) {
     nextActions.push(
-      `Validate ${redirectNeedsValidationCount} explicit 301 candidates and verify ${redirectCoveredByMiddlewareCount} middleware-covered source-file redirects after deploy.`,
+      `Validate ${redirectNeedsValidationCount} explicit 301 candidates and verify ${redirectCoveredByRuntimeCount} runtime-covered source-file redirects after deploy (middleware=${redirectCoveredByMiddlewareCount}, materialized_rule=${redirectCoveredByRulesCount}).`,
     );
   } else if (redirectNeedsValidationCount > 0) {
-    nextActions.push(`Validate ${redirectNeedsValidationCount} explicit source-file redirect candidates before relying on recrawl alone.`);
-  } else if (redirectCoveredByMiddlewareCount > 0) {
     nextActions.push(
-      `Verify ${redirectCoveredByMiddlewareCount} middleware-covered source-file redirects after deploy; this batch currently includes ${repoSingleSkillRedirectCount} repo-single-skill redirects and ${nestedSkillParentRedirectCount} nested-parent redirects.`,
+      `Validate ${redirectNeedsValidationCount} explicit source-file redirect candidates before relying on recrawl alone.`,
+    );
+  } else if (redirectCoveredByRuntimeCount > 0) {
+    nextActions.push(
+      `Keep ${redirectCoveredByRuntimeCount} source-file redirects on the live runtime track (middleware=${redirectCoveredByMiddlewareCount}, materialized_rule=${redirectCoveredByRulesCount}); this batch currently includes ${repoSingleSkillRedirectCount} repo-single-skill redirects and ${nestedSkillParentRedirectCount} nested-parent redirects.`,
     );
   }
 
   if (observeCount > 0) {
-    nextActions.push(`Leave ${observeCount} source-file URLs in recrawl watch until they stop resurfacing in Coverage exports.`);
+    nextActions.push(
+      `Leave ${observeCount} source-file URLs in recrawl watch until they stop resurfacing in Coverage exports.`,
+    );
   }
 
   if (manualReviewCount > 0) {
-    nextActions.push(`Work the remaining ${manualReviewCount} manual-review source-file rows before adding any new automated redirect rule.`);
+    nextActions.push(
+      `Work the remaining ${manualReviewCount} manual-review source-file rows before adding any new automated redirect rule.`,
+    );
   }
 
   return {
@@ -996,8 +1239,13 @@ export function buildSourceFileAuditReport(plan: RemediationPlan): SourceFileAud
     actionSummary,
     executionSummary: {
       exactRemoval410Count,
+      exactRemovalCoveredByRuntimeCount,
+      exactRemovalCoveredByRulesCount,
+      exactRemovalNeedsMaterializationCount,
       redirectValidationCount,
+      redirectCoveredByRuntimeCount,
       redirectCoveredByMiddlewareCount,
+      redirectCoveredByRulesCount,
       redirectNeedsValidationCount,
       observeCount,
       manualReviewCount,
@@ -1106,7 +1354,10 @@ function renderOtherAuditMarkdown(report: OtherAuditReport): string {
   lines.push('');
   lines.push(`- Exact-removal / 410 batch: ${report.executionSummary.exactRemoval410Count}`);
   lines.push(
-    `- Redirect validation batch: ${report.executionSummary.redirectValidationCount} (middleware-covered=${report.executionSummary.redirectCoveredByMiddlewareCount}, verify-directly=${report.executionSummary.redirectNeedsValidationCount})`,
+    `- Exact-removal runtime coverage: ${report.executionSummary.exactRemovalCoveredByRuntimeCount} (materialized-rule=${report.executionSummary.exactRemovalCoveredByRulesCount}, needs-materialization=${report.executionSummary.exactRemovalNeedsMaterializationCount})`,
+  );
+  lines.push(
+    `- Redirect validation batch: ${report.executionSummary.redirectValidationCount} (runtime-covered=${report.executionSummary.redirectCoveredByRuntimeCount}, middleware-covered=${report.executionSummary.redirectCoveredByMiddlewareCount}, materialized-rule=${report.executionSummary.redirectCoveredByRulesCount}, verify-directly=${report.executionSummary.redirectNeedsValidationCount})`,
   );
   lines.push(`- Recrawl watch batch: ${report.executionSummary.observeCount}`);
   lines.push(`- Manual review remainder: ${report.executionSummary.manualReviewCount}`);
@@ -1132,7 +1383,7 @@ function renderOtherAuditMarkdown(report: OtherAuditReport): string {
   lines.push('');
   for (const row of report.rows.slice(0, 160)) {
     lines.push(
-      `- ${row.url} | action=${row.action} | reason=${row.reason} | middleware=${row.coveredByMiddleware ? 'yes' : 'no'}${row.targetUrl ? ` | target=${row.targetUrl}` : ''}`,
+      `- ${row.url} | action=${row.action} | reason=${row.reason} | runtime=${row.runtimeCoverageSource}${row.coveredByMiddleware ? ' | middleware=yes' : ''}${row.targetUrl ? ` | target=${row.targetUrl}` : ''}`,
     );
   }
 
@@ -1159,7 +1410,10 @@ function renderSourceFileAuditMarkdown(report: SourceFileAuditReport): string {
   lines.push('');
   lines.push(`- Exact-removal / 410 batch: ${report.executionSummary.exactRemoval410Count}`);
   lines.push(
-    `- Redirect validation batch: ${report.executionSummary.redirectValidationCount} (middleware-covered=${report.executionSummary.redirectCoveredByMiddlewareCount}, verify-directly=${report.executionSummary.redirectNeedsValidationCount})`,
+    `- Exact-removal runtime coverage: ${report.executionSummary.exactRemovalCoveredByRuntimeCount} (materialized-rule=${report.executionSummary.exactRemovalCoveredByRulesCount}, needs-materialization=${report.executionSummary.exactRemovalNeedsMaterializationCount})`,
+  );
+  lines.push(
+    `- Redirect validation batch: ${report.executionSummary.redirectValidationCount} (runtime-covered=${report.executionSummary.redirectCoveredByRuntimeCount}, middleware-covered=${report.executionSummary.redirectCoveredByMiddlewareCount}, materialized-rule=${report.executionSummary.redirectCoveredByRulesCount}, verify-directly=${report.executionSummary.redirectNeedsValidationCount})`,
   );
   lines.push(`- Recrawl watch batch: ${report.executionSummary.observeCount}`);
   lines.push(`- Manual review remainder: ${report.executionSummary.manualReviewCount}`);
@@ -1185,7 +1439,7 @@ function renderSourceFileAuditMarkdown(report: SourceFileAuditReport): string {
   lines.push('');
   for (const row of report.rows.slice(0, 160)) {
     lines.push(
-      `- ${row.url} | action=${row.action} | reason=${row.reason} | middleware=${row.coveredByMiddleware ? 'yes' : 'no'}${row.targetUrl ? ` | target=${row.targetUrl}` : ''}`,
+      `- ${row.url} | action=${row.action} | reason=${row.reason} | runtime=${row.runtimeCoverageSource}${row.coveredByMiddleware ? ' | middleware=yes' : ''}${row.targetUrl ? ` | target=${row.targetUrl}` : ''}`,
     );
   }
 
@@ -1200,7 +1454,7 @@ function escapeCsvCell(value: string): string {
 }
 
 function renderOtherAuditCsv(report: OtherAuditReport): string {
-  const lines = ['url,action,reason,coveredByMiddleware,targetUrl'];
+  const lines = ['url,action,reason,coveredByMiddleware,coveredByRuntime,runtimeCoverageSource,targetUrl'];
   for (const row of report.rows) {
     lines.push(
       [
@@ -1208,6 +1462,8 @@ function renderOtherAuditCsv(report: OtherAuditReport): string {
         escapeCsvCell(row.action),
         escapeCsvCell(row.reason),
         row.coveredByMiddleware ? 'true' : 'false',
+        row.coveredByRuntime ? 'true' : 'false',
+        escapeCsvCell(row.runtimeCoverageSource),
         escapeCsvCell(row.targetUrl || ''),
       ].join(','),
     );
@@ -1216,7 +1472,7 @@ function renderOtherAuditCsv(report: OtherAuditReport): string {
 }
 
 function renderSourceFileAuditCsv(report: SourceFileAuditReport): string {
-  const lines = ['url,action,reason,coveredByMiddleware,targetUrl'];
+  const lines = ['url,action,reason,coveredByMiddleware,coveredByRuntime,runtimeCoverageSource,targetUrl'];
   for (const row of report.rows) {
     lines.push(
       [
@@ -1224,6 +1480,8 @@ function renderSourceFileAuditCsv(report: SourceFileAuditReport): string {
         escapeCsvCell(row.action),
         escapeCsvCell(row.reason),
         row.coveredByMiddleware ? 'true' : 'false',
+        row.coveredByRuntime ? 'true' : 'false',
+        escapeCsvCell(row.runtimeCoverageSource),
         escapeCsvCell(row.targetUrl || ''),
       ].join(','),
     );

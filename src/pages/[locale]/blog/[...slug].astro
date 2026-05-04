@@ -11,6 +11,7 @@ import {
   getBlogLongTailKeywords,
   getBlogMetaOverride,
 } from '../../../lib/blog-seo-intent';
+import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
 
 export const prerender = true;
 
@@ -39,8 +40,9 @@ const category = post.data.category;
 const slug = Astro.params.slug || '';
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/${slug}`;
 const metaOverride = getBlogMetaOverride(slug, t);
-const seoTitle = metaOverride?.title || post.data.title;
-const seoDescription = metaOverride?.description || post.data.description;
+const seoTitle = normalizePublicTitle(metaOverride?.title || post.data.title, 72) || post.data.title;
+const seoDescription =
+  normalizePublicSummary(metaOverride?.description || post.data.description, 158) || post.data.description;
 const pageKeywords = buildKeywordString(
   t,
   'core',

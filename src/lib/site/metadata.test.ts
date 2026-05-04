@@ -42,8 +42,19 @@ describe('buildPageMetadata', () => {
 
     expect(metadata.documentTitle).toContain('Killer-Skills');
     expect(metadata.description.length).toBeLessThanOrEqual(155);
-    expect(metadata.description.endsWith('...')).toBe(true);
+    expect(metadata.description.endsWith('...')).toBe(false);
     expect(metadata.socialTitle).toBe('Workflow Skill Bundles');
+  });
+
+  it('does not append the brand twice when a supplied title already contains it', () => {
+    const metadata = buildPageMetadata({
+      pathname: '/zh/collections/top-agent-workflow-building-tools',
+      locale: 'zh',
+      title: '优先安装的 Agent 工作流构建工具 | Killer-Skills',
+      description: '比较优先安装的 Agent 工作流构建工具，查看安装路径、适用场景与工具。',
+    });
+
+    expect(metadata.documentTitle).toBe('优先安装的 Agent 工作流构建工具 | Killer-Skills');
   });
 
   it('aligns locale metadata with the served locale and available alternates', () => {

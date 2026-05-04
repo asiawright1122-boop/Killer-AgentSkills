@@ -34,126 +34,126 @@
     "log": "ログ",
     "IntentLinks": {
       "automate-word-documents-with-docx-skills": {
-        "title": "docx Skill — Word Document Automation",
-        "description": "Install the docx skill to create, edit, and format .docx files with your AI agent."
+        "title": "docxスキル — Word文書の自動化",
+        "description": "docxスキルをインストールすると、AIエージェントで .docx ファイルの作成、編集、書式設定ができます。"
       },
       "mastering-excel-automation-with-xlsx-skills": {
-        "title": "xlsx Skill — Excel Automation",
-        "description": "Install the xlsx skill to read, write, and manipulate Excel files with your AI agent."
+        "title": "xlsxスキル — Excel自動化",
+        "description": "xlsxスキルをインストールすると、AIエージェントで Excel ファイルの読み書きや加工ができます。"
       },
       "mastering-pdf-automation-with-ai-skills": {
-        "title": "pdf Skill — PDF Automation",
-        "description": "Install the pdf skill for OCR, extraction, merging, and PDF generation with AI."
+        "title": "pdfスキル — PDF自動化",
+        "description": "pdfスキルをインストールすると、OCR、抽出、結合、PDF生成をAIで行えます。"
       },
       "killer-ui-design-with-frontend-design-skills": {
-        "title": "frontend-design Skill",
-        "description": "Install the frontend-design skill for AI-powered UI component generation."
+        "title": "frontend-designスキル",
+        "description": "frontend-designスキルをインストールすると、AIでUIコンポーネントを生成できます。"
       },
       "master-visual-identity-with-brand-guidelines-skills": {
-        "title": "brand-guidelines Skill",
-        "description": "Install the brand-guidelines skill for consistent visual identity generation with AI."
+        "title": "brand-guidelinesスキル",
+        "description": "brand-guidelinesスキルをインストールすると、AIで一貫したビジュアルアイデンティティを作れます。"
       },
       "mastering-generative-art-with-claudecode-skills": {
-        "title": "algorithmic-art Skill",
-        "description": "Install the algorithmic-art skill to generate creative visual outputs with Claude Code."
+        "title": "algorithmic-artスキル",
+        "description": "algorithmic-artスキルをインストールすると、Claude Codeで創造的なビジュアル出力を生成できます。"
       },
       "professional-presentations-with-pptx-ai-skills": {
-        "title": "pptx Skill — Presentation Automation",
-        "description": "Install the pptx skill to create and edit PowerPoint files with your AI agent."
+        "title": "pptxスキル — プレゼン自動化",
+        "description": "pptxスキルをインストールすると、AIエージェントで PowerPoint ファイルを作成・編集できます。"
       },
       "professional-poster-design-with-canvas-skills": {
-        "title": "canvas Skill — Poster & Image Design",
-        "description": "Install the canvas skill for AI-generated posters, banners, and graphics."
+        "title": "canvasスキル — ポスターと画像デザイン",
+        "description": "canvasスキルをインストールすると、AIでポスター、バナー、グラフィックを作成できます。"
       },
       "collaborative-writing-with-doc-coauthoring-skills": {
-        "title": "doc-coauthoring Skill",
-        "description": "Install the doc-coauthoring skill for AI-assisted collaborative document writing."
+        "title": "doc-coauthoringスキル",
+        "description": "doc-coauthoringスキルをインストールすると、AI支援による共同ドキュメント作成ができます。"
       },
       "automated-ui-testing-with-webapp-testing-skills": {
-        "title": "webapp-testing Skill",
-        "description": "Install the webapp-testing skill for AI-driven UI and end-to-end test automation."
+        "title": "webapp-testingスキル",
+        "description": "webapp-testingスキルをインストールすると、AIでUIテストとE2Eテストを自動化できます。"
       },
       "instant-branding-with-theme-factory-skills": {
-        "title": "theme-factory Skill",
-        "description": "Install the theme-factory skill for instant AI-generated brand themes and color systems."
+        "title": "theme-factoryスキル",
+        "description": "theme-factoryスキルをインストールすると、AIでブランドテーマや配色システムをすぐ作れます。"
       },
       "create-custom-slack-emojis-with-ai-skills": {
-        "title": "slack-emoji Skill",
-        "description": "Install the slack-emoji skill to generate custom Slack emojis with your AI agent."
+        "title": "slack-emojiスキル",
+        "description": "slack-emojiスキルをインストールすると、AIエージェントでカスタムSlack絵文字を作成できます。"
       }
     },
     "LongTail": {
       "pdf": "pdf automation, ocr automation, document extraction workflow",
       "xlsx": "excel automation, report automation, spreadsheet workflow",
       "docx": "word automation, document templates, report templates",
-      "mcp": "ai agent skills for developer workflows, developer workflow skills, claude code integrations with mcp",
+      "mcp": "開発ワークフロー向け AI Agent Skills, 開発ワークフロースキル, Claude Code と MCP の連携",
       "internalComms": "process automation, internal communication templates, team update workflows",
       "installSetup": "install ai agent skills, skill setup, ide compatibility",
-      "default": "developer workflow skills, ai agent skills, skill templates"
+      "default": "開発ワークフロースキル, AI Agent Skills, スキルテンプレート"
     },
     "Misc": {
-      "browseAllSkills": "Browse All Skills",
-      "exploreMoreSkills": "Explore more skills for your AI agent workflow.",
-      "installGuide": "Install & CLI Guide",
-      "seeInstallSteps": "See installation, CLI commands, and setup steps.",
-      "browseDocumentAutomations": "Browse Document Automation Skills",
-      "keepExploringPdf": "Keep exploring PDF, DOCX, Excel, and report automation skills.",
-      "workflowTemplateEntry": "Workflow Template Entry",
-      "moveIntoReusable": "Move into reusable templates and document workflow collections.",
-      "skillsForDeveloperWorkflows": "Skills for Developer Workflows",
-      "keepBrowsingSkills": "Keep browsing skills-first developer workflow setups and integration-ready capabilities.",
-      "ideCompatibility": "IDE Compatibility & Setup",
-      "reviewCursorClaude": "Review Cursor, Claude Code, and VS Code compatibility entry points.",
-      "installSkillsCLI": "Install Skills with the CLI",
-      "headToCLI": "Head to the CLI page for installation and sync commands.",
-      "browseProcessAutomation": "Browse Process Automation Skills",
-      "exploreTeamProcess": "Explore team, process, and business automation skills next.",
-      "browseWorkflowTemplates": "Browse Workflow Templates",
-      "reviewSOPs": "Review SOPs, templates, and reusable automation scenarios.",
-      "docsSetupEntry": "Docs & Setup Entry",
-      "moveIntoDocs": "Move into documentation, installation, and setup pages.",
-      "browseWorkflowAutomation": "Browse Workflow Automation Skills",
-      "continueIntoPrecise": "Continue into more precise workflow automation search results.",
-      "installSetupDocs": "Install & Setup Docs",
-      "seeInstallSetup": "See install, setup, and compatibility entry points.",
-      "browseWorkflowCollections": "Browse Workflow Collections",
-      "exploreFullerTemplate": "Explore fuller template and workflow collections.",
-      "blogSeoTitle": "AI Agent Skills Guides, Workflow Tutorials, and Automation Blog",
-      "blogSeoDescription": "Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.",
-      "blogSeoKeywords": "AI agent skills blog, developer workflow skills, IDE skill articles"
+      "browseAllSkills": "すべてのスキルを見る",
+      "exploreMoreSkills": "AIエージェントのワークフロー向けに、さらに多くのスキルを探しましょう。",
+      "installGuide": "インストールとCLIガイド",
+      "seeInstallSteps": "インストール手順、CLIコマンド、初期設定を確認できます。",
+      "browseDocumentAutomations": "ドキュメント自動化スキルを見る",
+      "keepExploringPdf": "PDF、DOCX、Excel、レポート自動化向けスキルをさらに探しましょう。",
+      "workflowTemplateEntry": "ワークフローテンプレート入口",
+      "moveIntoReusable": "再利用可能なテンプレートやドキュメントワークフロー集へ進みましょう。",
+      "skillsForDeveloperWorkflows": "開発者ワークフロー向けスキル",
+      "keepBrowsingSkills": "スキル中心の開発者ワークフロー設定や、すぐ統合できる構成をさらに探しましょう。",
+      "ideCompatibility": "IDE互換性と設定",
+      "reviewCursorClaude": "Cursor、Claude Code、VS Code の互換性ポイントを確認しましょう。",
+      "installSkillsCLI": "CLIでスキルをインストール",
+      "headToCLI": "インストールと同期コマンドはCLIページで確認できます。",
+      "browseProcessAutomation": "業務自動化スキルを見る",
+      "exploreTeamProcess": "次はチーム、業務、ビジネス自動化向けスキルを見てみましょう。",
+      "browseWorkflowTemplates": "ワークフローテンプレートを見る",
+      "reviewSOPs": "SOP、テンプレート、再利用可能な自動化シナリオを確認しましょう。",
+      "docsSetupEntry": "ドキュメントと設定入口",
+      "moveIntoDocs": "ドキュメント、インストール、設定ページへ進みましょう。",
+      "browseWorkflowAutomation": "ワークフロー自動化スキルを見る",
+      "continueIntoPrecise": "より絞り込まれたワークフロー自動化の検索結果へ進みます。",
+      "installSetupDocs": "インストールと設定ドキュメント",
+      "seeInstallSetup": "インストール、設定、互換性の案内を確認できます。",
+      "browseWorkflowCollections": "ワークフロー集を見る",
+      "exploreFullerTemplate": "より充実したテンプレートとワークフロー集を探しましょう。",
+      "blogSeoTitle": "AIエージェントスキルのガイド、ワークフローチュートリアル、オートメーションブログ",
+      "blogSeoDescription": "AIエージェントスキル、IDEワークフロー、自動化の実践、開発者生産性に関する実用的な記事を読めます。",
+      "blogSeoKeywords": "AIエージェントスキルのブログ、開発者ワークフロー向けスキル、IDEスキル記事"
     },
     "MetaOverride": {
       "mastering-pdf-automation-with-ai-skills": {
-        "title": "PDF Automation with AI: OCR, Extraction & Report Workflows",
-        "description": "Automate PDFs with AI for OCR, table extraction, and report generation. See install steps, real workflows, and the best skill for document automation."
+        "title": "AIによるPDF自動化: OCR・抽出・レポートワークフロー",
+        "description": "OCR、表抽出、レポート生成のためにPDFをAIで自動化しましょう。導入手順、実際のワークフロー、ドキュメント自動化に最適なスキルを紹介します。"
       },
       "how-to-build-mcp-servers-with-agent-skills": {
-        "title": "Skills for Developer Workflows: Build MCP Integrations in Claude Code or Cursor",
-        "description": "Build MCP integrations for Claude Code or Cursor with reusable AI agent skill workflows, step-by-step setup, tool design, testing, and deployment patterns."
+        "title": "開発者ワークフロー向けスキル: Claude CodeやCursorでMCP連携を構築",
+        "description": "Claude Code や Cursor 向けに、再利用可能なAIエージェントスキルのワークフローでMCP連携を構築します。手順、ツール設計、テスト、デプロイまで確認できます。"
       },
       "how-to-install-ai-agent-skills": {
-        "title": "How to Install AI Agent Skills in Cursor, Claude Code, or Windsurf",
-        "description": "Install AI agent skills in Cursor, Claude Code, or Windsurf with npx killer-skills add. Follow the fastest setup for one IDE or all of them."
+        "title": "Claude Code、Cursor、WindsurfでAIエージェントスキルを導入する方法",
+        "description": "Cursor、Claude Code、Windsurf で npx killer-skills add を使ってAIエージェントスキルを導入できます。1つのIDEだけでも、まとめてでも素早く設定できます。"
       },
       "top-10-mcp-servers-2026": {
-        "title": "10 MCP Tools & Integrations for Claude Code, Cursor, and Windsurf",
-        "description": "Explore practical MCP tools, integrations, and workflow patterns for Claude Code, Cursor, and Windsurf across GitHub, SQLite, browser automation, and docs."
+        "title": "Claude Code、Cursor、Windsurf向けMCPツール＆連携10選",
+        "description": "GitHub、SQLite、ブラウザ自動化、ドキュメント活用まで、Claude Code、Cursor、Windsurf向けの実践的なMCPツール、連携、ワークフローパターンを紹介します。"
       },
       "official-ai-agent-skills-guide": {
-        "title": "Official AI Agent Skills to Install Right Now",
-        "description": "Find official AI agent skills for PDFs, frontend UI, SEO, MCP, and automation, plus which ones to install first for real work."
+        "title": "最初に導入したい公式AIエージェントスキル",
+        "description": "Claude Code、Cursor、Windsurf での PDF、UI、SEO、MCP、自動化ワークフロー向けに、最初に入れるべき公式AIエージェントスキルを確認できます。"
       },
       "what-are-ai-agent-skills": {
-        "title": "What Are AI Agent Skills? How They Work in Claude Code, Cursor & Windsurf",
-        "description": "Understand what AI agent skills are, how SKILL.md files work, where to place them, and why they help Claude Code, Cursor, and Windsurf."
+        "title": "AIエージェントスキルとは？ Claude Code、Cursor、Windsurfでの仕組み",
+        "description": "AIエージェントスキルとは何か、SKILL.md の仕組み、配置場所、そして Claude Code、Cursor、Windsurf で役立つ理由を理解できます。"
       },
       "best-ai-agent-skills-2026": {
-        "title": "AI Agent Skills for Claude Code, Cursor & Windsurf (2026)",
-        "description": "Compare AI agent skills for Claude Code, Cursor, and Windsurf in 2026, from document automation and UI to MCP and workflows."
+        "title": "Claude Code、Cursor、Windsurf向けAIエージェントスキル (2026)",
+        "description": "2026年の Claude Code、Cursor、Windsurf 向けAIエージェントスキルを、ドキュメント自動化、UI、MCP、ワークフローの観点から比較します。"
       },
       "claude-code-vs-cursor-vs-windsurf": {
-        "title": "Claude Code vs Cursor vs Windsurf for AI Agent Skills",
-        "description": "Compare Claude Code, Cursor, and Windsurf for AI agent skills, including file formats, loading behavior, context limits, and setup tradeoffs."
+        "title": "AIエージェントスキル向け Claude Code vs Cursor vs Windsurf",
+        "description": "Claude Code、Cursor、Windsurf を、設定の違い、スキル読み込み、コンテキスト制限、IDEネイティブ形式の観点から比較します。"
       }
     }
   },
@@ -207,30 +207,30 @@
     "pageDescription": "Killer-Skills CLIでAIエージェントスキルをインストール・同期・管理。Cursor、Claude Code、Windsurf、19以上のIDEに対応。ワンコマンド、設定不要。",
     "quickLinks": {
       "install": {
-        "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "title": "AI Agent Skills を導入する",
+        "desc": "インストール用コマンド、最初の手順、IDE に反映される内容を確認できます。"
       },
       "ide": {
-        "title": "Set Up Cursor / Claude Code",
-        "desc": "See how each IDE gets its native skill format automatically."
+        "title": "Cursor / Claude Code を設定する",
+        "desc": "各 IDE にどのネイティブファイルが自動で作られるか確認できます。"
       },
       "commands": {
-        "title": "CLI Commands & Sync",
-        "desc": "Review commands, sync behavior, and configuration options."
+        "title": "CLI コマンドと同期",
+        "desc": "インストール、同期、設定に使うコマンドを確認できます。"
       },
       "templates": {
-        "title": "Workflow Template Entry Points",
-        "desc": "Move from docs into automation and template workflows."
+        "title": "ワークフローテンプレート",
+        "desc": "導入後に使える再利用可能な自動化やテンプレートを探せます。"
       }
     },
-    "faq1Q": "How do I install AI agent skills with the CLI?",
-    "faq1A": "Run npx killer-skills add owner/repo in your project directory. The CLI auto-detects your IDE and writes the correct skill format.",
-    "faq2Q": "Which IDEs does the CLI support?",
-    "faq2A": "The CLI supports 19+ environments including Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae, and more.",
-    "faq3Q": "Can I sync skills across multiple projects?",
-    "faq3A": "Yes. Use killer-skills sync to keep skills updated across repos. The CLI handles format conversion automatically.",
-    "faq4Q": "How do I update installed skills?",
-    "faq4A": "Run killer-skills update to pull the latest versions. The CLI preserves your local customizations.",
+    "faq1Q": "CLIでAIエージェントスキルをインストールするには？",
+    "faq1A": "プロジェクトのディレクトリで npx killer-skills add owner/repo を実行してください。CLI がIDEを自動判定し、正しいスキル形式を書き込みます。",
+    "faq2Q": "CLIはどのIDEに対応していますか？",
+    "faq2A": "CLI は Cursor、Claude Code、Windsurf、VS Code、JetBrains、Trae など、19以上の環境に対応しています。",
+    "faq3Q": "複数のプロジェクト間でスキルを同期できますか？",
+    "faq3A": "はい。killer-skills sync を使うと、複数のリポジトリ間でスキルを最新に保てます。形式変換は CLI が自動で処理します。",
+    "faq4Q": "インストール済みのスキルを更新するには？",
+    "faq4A": "killer-skills update を実行すると最新バージョンを取得できます。CLI はローカルのカスタマイズを保持します。",
     "faqTitle": "Frequently Asked Questions"
   },
   "CLIInstall": {
@@ -298,10 +298,10 @@
     },
     "pageTitle": "AIエージェントスキル カテゴリ一覧",
     "pageDescription": "カテゴリ別にAIエージェントスキルを検索 — ドキュメント自動化、開発ワークフロー、クリエイティブツール、エンタープライズソリューション。",
-    "keyword1": "AI agent skill categories",
-    "keyword2": "skill type browser",
+    "keyword1": "AI Agent Skills のカテゴリ",
+    "keyword2": "スキルタイプ別ブラウズ",
     "heroTitle": "Skill Categories",
-    "heroIntro": "Browse AI agent skills by category to find the right tool for your workflow.",
+    "heroIntro": "カテゴリ別に AI Agent Skills を探して、ワークフローに合うツールをより早く見つけましょう。",
     "faq1Q": "How are skills categorized?",
     "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
     "faq2Q": "Can I browse skills from multiple categories?",
@@ -312,52 +312,52 @@
   "Category": {
     "Intents": {
       "browser": {
-        "titleLabel": "Browser Automation Skill",
-        "useCaseLabel": "web browsing, scraping, and browser automation"
+        "titleLabel": "ブラウザ自動化スキル",
+        "useCaseLabel": "Web 操作、スクレイピング、ブラウザ自動化"
       },
       "finance": {
-        "titleLabel": "Finance Automation Skill",
-        "useCaseLabel": "payments, billing, and finance automation"
+        "titleLabel": "財務自動化スキル",
+        "useCaseLabel": "支払い、請求、財務オペレーションの自動化"
       },
       "productivity": {
-        "titleLabel": "Productivity Workflow Skill",
-        "useCaseLabel": "productivity workflows, task execution, and automation"
+        "titleLabel": "生産性ワークフロースキル",
+        "useCaseLabel": "生産性向上ワークフロー、タスク実行、自動化"
       },
       "developer": {
-        "titleLabel": "Developer Tool Skill",
-        "useCaseLabel": "coding, debugging, and developer automation"
+        "titleLabel": "開発者向けスキル",
+        "useCaseLabel": "コーディング、デバッグ、開発自動化"
       },
       "data": {
-        "titleLabel": "Data Workflow Skill",
-        "useCaseLabel": "data access, analysis, and ETL workflows"
+        "titleLabel": "データワークフロースキル",
+        "useCaseLabel": "データアクセス、分析、ETL ワークフロー"
       },
       "ai": {
-        "titleLabel": "AI Workflow Skill",
-        "useCaseLabel": "LLM workflows, evaluation, and AI automation"
+        "titleLabel": "AI ワークフロースキル",
+        "useCaseLabel": "LLM ワークフロー、評価、AI 自動化"
       },
       "design": {
-        "titleLabel": "Design Automation Skill",
-        "useCaseLabel": "UI generation, design systems, and visual workflows"
+        "titleLabel": "デザイン自動化スキル",
+        "useCaseLabel": "UI 生成、デザインシステム、ビジュアルワークフロー"
       },
       "documentation": {
-        "titleLabel": "Documentation Skill",
-        "useCaseLabel": "documentation, knowledge base, and content workflows"
+        "titleLabel": "ドキュメントスキル",
+        "useCaseLabel": "ドキュメント、ナレッジベース、コンテンツワークフロー"
       },
       "devops": {
-        "titleLabel": "DevOps Automation Skill",
-        "useCaseLabel": "deployment, infrastructure, and ops automation"
+        "titleLabel": "DevOps 自動化スキル",
+        "useCaseLabel": "デプロイ、インフラ、運用自動化"
       },
       "security": {
-        "titleLabel": "Security Audit Skill",
-        "useCaseLabel": "security reviews, vulnerability checks, and compliance"
+        "titleLabel": "セキュリティ監査スキル",
+        "useCaseLabel": "セキュリティレビュー、脆弱性チェック、コンプライアンス"
       },
       "communication": {
-        "titleLabel": "Communication Skill",
-        "useCaseLabel": "messaging, coordination, and team collaboration"
+        "titleLabel": "コミュニケーションスキル",
+        "useCaseLabel": "メッセージ、連携、チームコラボレーション"
       },
       "default": {
         "titleLabel": "AI Agent Skill",
-        "useCaseLabel": "AI agent workflows and automation"
+        "useCaseLabel": "AI エージェントのワークフローと自動化"
       }
     }
   },
@@ -408,7 +408,7 @@
     "pageInfo": "{total} ページ中 {current} ページ ({count} スキル)",
     "official": "公式",
     "verified": "認証済み",
-    "explore": "Explore",
+    "explore": "見る",
     "viewAll": "すべて表示",
     "collections": "コレクション",
     "go": "移動",
@@ -463,15 +463,15 @@
     "downloads": "ダウンロード",
     "info": "情報",
     "author": "作者",
-    "updated": "Updated",
+    "updated": "更新日",
     "viewOnGithub": "GitHubで見る",
     "features": "機能",
     "qualityScore": "品質スコア",
     "installCommand": "インストールコマンド",
-    "installPath": "インストールパス",
+    "installPath": "インストール先",
     "projectLevel": "プロジェクト:",
     "globalLevel": "グローバル:",
-    "unlockTitle": "AIスキルのロック解除と管理",
+    "unlockTitle": "さらに多くのスキルを見つけて管理",
     "getManager": "マネージャーを入手",
     "ideDescriptions": {
       "cursor": "Cursor Composerで使用",
@@ -479,18 +479,18 @@
       "claude": "Claude Codeにインストール",
       "amp": "Amp Agentにインストール",
       "antigravity": "Antigravityにインストール",
-      "codex": "Install to Codex",
-      "codebuddy": "Install to CodeBuddy",
-      "factory": "Install to Factory Droid",
-      "gemini": "Install to Gemini CLI",
-      "copilot": "Install to GitHub Copilot",
-      "goose": "Install to Goose Agent",
-      "kilocode": "Install to Kilo Code",
-      "kimi": "Install to Kimi CLI",
-      "opencode": "Install to OpenCode",
-      "qwen": "Install to Qwen Code",
-      "roo": "Install to Roo Code",
-      "trae": "Install to Trae IDE"
+      "codex": "Codexにインストール",
+      "codebuddy": "CodeBuddyにインストール",
+      "factory": "Factory Droidにインストール",
+      "gemini": "Gemini CLIにインストール",
+      "copilot": "GitHub Copilotにインストール",
+      "goose": "Goose Agentにインストール",
+      "kilocode": "Kilo Codeにインストール",
+      "kimi": "Kimi CLIにインストール",
+      "opencode": "OpenCodeにインストール",
+      "qwen": "Qwen Codeにインストール",
+      "roo": "Roo Codeにインストール",
+      "trae": "Trae IDEにインストール"
     },
     "documentation": "ドキュメント",
     "community": "コミュニティ",
@@ -514,98 +514,98 @@
     "limitations": "セキュリティと制限",
     "precautions": "注意事項",
     "relatedSkills": "関連スキル",
-    "coreTopics": "Core Topics",
-    "verified": "Verified",
-    "top5Percent": "Top 5%",
-    "installNow": "Install Now",
-    "platformSupport": "Supports 19+ Platforms",
+    "coreTopics": "主なトピック",
+    "verified": "検証済み",
+    "top5Percent": "上位5%",
+    "installNow": "今すぐインストール",
+    "platformSupport": "19 以上の環境に対応",
     "plusMore": "+12 more",
-    "faqInstallTitle": "FAQ & Installation Steps",
-    "faqTitle": "Frequently Asked Questions",
-    "howToInstallTitle": "How To Install",
-    "relatedPaths": "Related Paths",
-    "openMainN8n": "Open the main n8n skill page",
-    "seeMainN8n": "See the main n8n skill page, install command, and broader workflow automation context.",
-    "browseWorkflowSolutions": "Browse workflow automation solutions",
-    "exploreWorkflowUseCases": "Explore workflow automation use cases, related skills, and install-ready solution paths.",
-    "seeCliInstall": "See CLI install and management",
-    "learnHowToInstall": "Learn how to install, sync, and manage this skill through the Killer-Skills CLI.",
-    "checkIdeSupport": "Check IDE integration support",
-    "confirmHowThisSkill": "Confirm how this skill fits Claude Code, Cursor, Windsurf, and other supported IDEs.",
-    "tryOutputLangEN": "English",
-    "tryOutputLangZH": "Simplified Chinese",
-    "installTemplateA": "Install {{name}}, an AI agent skill for {{useCase}}. Works with Claude Code, Cursor, and Windsurf with one-command setup.",
-    "installTemplateB": "{{name}} helps with {{intentUseCase}}. Explore features, use cases, and one-command setup for Claude Code, Cursor, and Windsurf.",
+    "faqInstallTitle": "FAQ とインストール手順",
+    "faqTitle": "よくある質問",
+    "howToInstallTitle": "このスキルの導入方法",
+    "relatedPaths": "関連リンク",
+    "openMainN8n": "n8n のメインページを開く",
+    "seeMainN8n": "n8n のメインページでインストールコマンドや関連ワークフローを確認できます。",
+    "browseWorkflowSolutions": "ワークフロー自動化を見る",
+    "exploreWorkflowUseCases": "ユースケース、関連スキル、導入しやすいソリューションを確認できます。",
+    "seeCliInstall": "CLIでのインストールと管理を見る",
+    "learnHowToInstall": "Killer-Skills CLI でこのスキルをインストール、同期、管理する方法を確認できます。",
+    "checkIdeSupport": "IDE対応を確認",
+    "confirmHowThisSkill": "このスキルが Claude Code、Cursor、Windsurf などの対応IDEでどう使えるか確認しましょう。",
+    "tryOutputLangEN": "英語",
+    "tryOutputLangZH": "簡体字中国語",
+    "installTemplateA": "{{name}} をインストールしましょう。{{useCase}} 向けのAIエージェントスキルで、Claude Code、Cursor、Windsurf にすばやく設定できます。",
+    "installTemplateB": "{{name}} は {{intentUseCase}} に役立ちます。機能、用途、導入方法を確認できます。",
     "seoTitleA": "{{name}} {{titleLabel}}",
-    "seoTitleB": "{{name}}: {{titleLabel}} for Claude Code",
-    "faqWhatIs": "What is {{name}}?",
-    "faqWhatIsAnswer": "{{name}} is an AI agent skill available on Killer-Skills.",
-    "faqHowInstall": "How do I install {{name}}?",
-    "faqHowInstallAnswer": "Run the command: {{installCommand}}. It works with Cursor, Windsurf, VS Code, Claude Code, and 19+ other IDEs.",
-    "faqUseCases": "What are the use cases for {{name}}?",
-    "faqUseCasesAnswer": "Key use cases include: {{useCases}}.",
-    "faqIDEs": "Which IDEs are compatible with {{name}}?",
-    "faqIDEsAnswer": "This skill is compatible with {{supportedPlatforms}}. Use the Killer-Skills CLI for universal one-command installation.",
-    "faqLimitations": "Are there any limitations for {{name}}?",
-    "howToName1": "Open your terminal",
-    "howToText1": "Open the terminal or command line in your project directory.",
-    "howToName2": "Run the install command",
-    "howToText2": "Run: {{installCommand}}. The CLI will automatically detect your IDE or AI agent and configure the skill.",
-    "howToName3": "Start using the skill",
-    "howToText3": "The skill is now active. Your AI agent can use {{name}} immediately in the current project.",
-    "howToDescription": "Install the {{name}} skill for your AI coding agent in seconds using the Killer-Skills CLI."
+    "seoTitleB": "{{name}}: Claude Code向け {{titleLabel}}",
+    "faqWhatIs": "{{name}} とは何ですか？",
+    "faqWhatIsAnswer": "{{name}} は Killer-Skills で公開されているAIエージェントスキルです。",
+    "faqHowInstall": "{{name}} はどうやって導入しますか？",
+    "faqHowInstallAnswer": "次のコマンドを実行してください: {{installCommand}}。Cursor、Windsurf、VS Code、Claude Code など19以上のIDEで使えます。",
+    "faqUseCases": "{{name}} の主な用途は？",
+    "faqUseCasesAnswer": "主な用途は次のとおりです: {{useCases}}。",
+    "faqIDEs": "{{name}} に対応するIDEは？",
+    "faqIDEsAnswer": "このスキルは {{supportedPlatforms}} に対応しています。統一された導入には Killer-Skills CLI を使えます。",
+    "faqLimitations": "{{name}} に制限はありますか？",
+    "howToName1": "ターミナルを開く",
+    "howToText1": "プロジェクトディレクトリでターミナルまたはコマンドラインを開きます。",
+    "howToName2": "インストールコマンドを実行",
+    "howToText2": "{{installCommand}} を実行してください。CLI がIDEまたはエージェントを自動検出し、スキルを設定します。",
+    "howToName3": "スキルを使い始める",
+    "howToText3": "このスキルはすぐに有効になります。現在のプロジェクトで {{name}} をすぐ使えます。",
+    "howToDescription": "Killer-Skills CLI を使えば、{{name}} スキルを数秒で導入できます。"
   },
   "Docs": {
     "gettingStarted": "はじめに",
     "tableOfContents": "このページの内容",
     "editPage": "このページを編集",
     "lastUpdated": "最終更新",
-    "navLabel": "Documentation navigation",
-    "toggleSidebar": "Toggle documentation sidebar",
-    "closeSidebar": "Close sidebar",
-    "guide": "Guide",
-    "returnToIntro": "Return to Introduction",
+    "navLabel": "ドキュメントナビゲーション",
+    "toggleSidebar": "ドキュメントのサイドバーを切り替える",
+    "closeSidebar": "サイドバーを閉じる",
+    "guide": "ガイド",
+    "returnToIntro": "イントロダクションに戻る",
     "indexTitle": "AIエージェントスキル ドキュメント：インストール・セットアップ・テンプレート",
     "titleSuffix": "AI Agent Skills Docs",
     "indexDescription": "Killer-Skillsのインストール、セットアップ、CLIコマンド、IDE互換性、ワークフローテンプレートのドキュメントを読む。",
-    "cliDesc": "learn AI agent skills CLI commands, sync behavior, and setup details for automation workflows.",
-    "installDesc": "follow step-by-step installation for AI agent skills in Cursor, Claude Code, VS Code, and more.",
-    "workflowDesc": "learn reusable AI agent skill patterns for workflow automation, process automation, and templates.",
-    "apiDesc": "understand MCP, API integration, and scalable AI agent workflow implementation.",
-    "securityDesc": "cover skill security, risk controls, and production-ready deployment practices.",
-    "defaultDesc": "Killer-Skills documentation for setup, configuration, and practical automation usage.",
-    "welcomeText": "Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.",
-    "startFirstSkill": "Start with Your First Skill",
-    "addFirstSkill": "Add your first AI agent skill to your development environment with one command.",
-    "keyConcepts": "Key Concepts",
-    "skills": "Skills",
-    "skillsDesc": "Reusable instruction units for AI agents",
-    "workflows": "Workflows",
-    "workflowsDesc": "Repeatable multi-step automation patterns",
+    "cliDesc": "AIエージェントスキル向けCLIコマンド、同期、設定オプションを確認できます。",
+    "installDesc": "Cursor、Claude Code、VS Code などで AI Agent Skills を導入する手順を順番に確認できます。",
+    "workflowDesc": "ワークフロー自動化、プロセス自動化、テンプレート活用に使える再利用可能なパターンを学べます。",
+    "apiDesc": "MCP、API 連携、そしてスケールするエージェントワークフローの実装方法を理解できます。",
+    "securityDesc": "スキルの安全性、リスク対策、本番運用向けの考え方を確認できます。",
+    "defaultDesc": "Killer-Skills の導入、設定、実践的な活用方法をまとめたドキュメントです。",
+    "welcomeText": "Killer-Skills ドキュメントへようこそ。AI Agent Skills の導入方法、IDE の設定方法、再利用可能なワークフローの使い方を学べます。",
+    "startFirstSkill": "最初のスキルから始める",
+    "addFirstSkill": "1つのコマンドで最初の AI Agent Skill を環境に追加できます。",
+    "keyConcepts": "基本コンセプト",
+    "skills": "スキル",
+    "skillsDesc": "AIエージェント向けの再利用可能な指示セット",
+    "workflows": "ワークフロー",
+    "workflowsDesc": "再利用できる複数ステップの自動化",
     "entry": {
       "install": {
-        "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "title": "AI Agent Skills を導入する",
+        "desc": "インストール、初期化、最初の手順までをゼロから確認できます。"
       },
       "ide": {
-        "title": "Set Up Cursor / Claude Code",
-        "desc": "See how each IDE gets its native skill format automatically."
+        "title": "Cursor / Claude Code を設定する",
+        "desc": "各 IDE にネイティブ形式が自動で反映される仕組みを確認できます。"
       },
       "cli": {
-        "title": "CLI Commands & Sync",
-        "desc": "Review commands, sync behavior, and configuration options."
+        "title": "CLI コマンドと同期",
+        "desc": "コマンド、同期、設定オプションをまとめて確認できます。"
       },
       "templates": {
-        "title": "Workflow Template Entry Points",
-        "desc": "Move from docs into automation and template workflows."
+        "title": "ワークフローテンプレート",
+        "desc": "ドキュメントから、すぐ使えるテンプレートや自動化パターンへ進めます。"
       }
     },
-    "faq1Q": "How do I install AI agent skills?",
-    "faq1A": "Start with the installation docs and run npx killer-skills add owner/repo to add a skill. The CLI auto-detects your IDE and writes the correct format.",
-    "faq2Q": "What setup information is covered in the docs?",
-    "faq2A": "The docs cover installation, CLI commands, configuration, workflow concepts, and compatibility entry points for Cursor, Claude Code, VS Code, and more.",
-    "faq3Q": "Where can I find workflow templates and automation ideas?",
-    "faq3A": "Start with the workflows concept docs, then move into collections and skills pages for reusable automation and template scenarios."
+    "faq1Q": "AI Agent Skills はどうやって導入しますか？",
+    "faq1A": "`npx killer-skills add owner/repo` を実行してください。CLI が IDE を自動判別し、正しいネイティブ形式を書き込みます。",
+    "faq2Q": "ドキュメントでは何を確認できますか？",
+    "faq2A": "インストール、CLI コマンド、設定、ワークフローの考え方、Cursor・Claude Code・VS Code などとの互換性を確認できます。",
+    "faq3Q": "テンプレートや自動化の例はどこで見られますか？",
+    "faq3A": "コレクションページやスキルページを見れば、再利用可能な自動化、テンプレート、具体的な活用例を探せます。"
   },
   "DocsSidebar": {
     "platformOverview": "スキル概要",
@@ -711,8 +711,8 @@
         "desc": "透明、安全、コミュニティ主導。"
       }
     },
-    "seoTitle": "Killer-Skills - AIエージェントスキル＆MCPサーバーディレクトリ | Claude Code＆Cursorスキル",
-    "seoDescription": "Claude Code、Cursor、19以上のIDE向け3,400以上のAIエージェントスキルとMCPサーバーを発見。Killer-SkillsはModel Context Protocolのオープンディレクトリです。",
+    "seoTitle": "AIエージェントスキルとMCPサーバーのディレクトリ",
+    "seoDescription": "Claude Code、Cursor、Windsurf向けの3,400以上のAIエージェントスキルとMCPサーバーを探し、比較してインストールできます。",
     "faqTitle": "ホームページ FAQ",
     "faqSubtitle": "ホームページのスニペット、表示コンテンツ、構造化データの整合性を維持。",
     "faq1Q": "Killer-Skillsとは？",
@@ -771,16 +771,16 @@
     "viewAll": "すべてのスキルを見る",
     "availableSkills": "利用可能なスキル",
     "viewSkills": "スキルを見る",
-    "popular": "Popular"
+    "popular": "人気"
   },
   "Metadata": {
     "title": "Killer-Skills - AIエージェントスキルディレクトリ",
     "template": "%s | Killer-Skills",
-    "description": "AIエージェントスキルを発見、インストール、管理。Claude Code、Cursor、Windsurf、Antigravityなどをサポート。",
+    "description": "AIエージェントスキルを見つけて、インストールし、管理できます。Claude Code、Cursor、Windsurf、Antigravity などに対応し、開発ワークフローをすばやく強化できます。",
     "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
     "Skills": {
       "title": "スキルディレクトリ - AI Agentスキルを発見",
-      "description": "Killer-Skillsディレクトリで数千のAI Agentスキルを探索・インストール。Claude Code、Windsurf、Cursorなどに対応。"
+      "description": "Killer-Skills ディレクトリで数千のAIエージェントスキルを探して導入できます。Claude Code、Windsurf、Cursor などに対応しています。"
     }
   },
   "Navigation": {
@@ -824,52 +824,52 @@
   "Query": {
     "Intents": {
       "mcp-servers": {
-        "label": "AI Agent Skills for Integrations",
-        "description": "Discover AI agent skills for integrations, developer workflows, and MCP-compatible setup paths across Claude Code, Cursor, and other IDEs."
+        "label": "MCP 連携とツール",
+        "description": "Claude Code、Cursor などで使える、連携向け・開発ワークフロー向け・MCP 対応の AI Agent Skills を探せます。"
       },
       "workflow-automation": {
-        "label": "Workflow Automation Skills",
-        "description": "Find workflow automation skills for repeatable agent tasks, multi-step execution, and practical AI operations."
+        "label": "ワークフロー自動化スキル",
+        "description": "繰り返し作業、複数ステップの実行、実務向けエージェント運用に使えるスキルを見つけられます。"
       },
       "process-automation": {
-        "label": "Process Automation Skills",
-        "description": "Discover process automation skills for SOPs, coordination, repetitive operations, and AI-assisted business workflows."
+        "label": "プロセス自動化スキル",
+        "description": "SOP、調整業務、繰り返し運用、AI を使った業務フロー向けのスキルを探せます。"
       },
       "document-automation": {
-        "label": "Document Automation Skills",
-        "description": "Explore document automation skills for reports, PDFs, spreadsheets, templates, and repeatable content workflows."
+        "label": "ドキュメント自動化スキル",
+        "description": "レポート、PDF、スプレッドシート、テンプレート、繰り返し使う文書フロー向けのスキルを探せます。"
       },
       "browser-automation": {
-        "label": "Browser Automation Skills",
-        "description": "Browse browser automation skills for web actions, scraping, research, and repeatable site workflows."
+        "label": "ブラウザ自動化スキル",
+        "description": "Web操作、スクレイピング、調査、反復的なサイト作業に使えるスキルを探せます。"
       },
       "data-extraction": {
-        "label": "Data Workflow Skills",
-        "description": "Find data workflow skills for extraction, ETL, reporting, and structured AI-assisted data operations."
+        "label": "データワークフロースキル",
+        "description": "抽出、ETL、レポート作成、構造化データ処理に役立つ AI Agent Skills を見つけられます。"
       },
       "skill-installation": {
-        "label": "Skill Installation Guides",
-        "description": "Find installation guides, setup docs, and CLI steps for adding AI agent skills to Cursor, Claude Code, VS Code, and more."
+        "label": "スキル導入ガイド",
+        "description": "Cursor、Claude Code、VS Code などで AI Agent Skills を追加するための導入方法、互換性、CLI ガイドを確認できます。"
       },
       "workflow-templates": {
-        "label": "Workflow Templates",
-        "description": "Browse workflow templates, automation starters, and reusable skill playbooks for repeatable AI tasks."
+        "label": "ワークフローテンプレート",
+        "description": "繰り返し使う AI タスク向けのテンプレート、スターター、自動化プレイブックを探せます。"
       },
       "ai-agent-skills": {
         "label": "AI Agent Skills",
-        "description": "Browse high-quality AI agent skills for coding, automation, data, and productivity across major IDEs."
+        "description": "主要 IDE で使える、高品質なコーディング・自動化・データ・生産性向けスキルを探せます。"
       },
       "claude-code-skills": {
-        "label": "Claude Code Skills",
-        "description": "Find Claude Code compatible skills to expand coding, debugging, and automation capabilities."
+        "label": "Claude Code スキル",
+        "description": "Claude Code でコーディング、デバッグ、自動化を広げるための互換スキルを探せます。"
       },
       "cursor-skills": {
-        "label": "Cursor Skills",
-        "description": "Explore Cursor-ready skills for rapid coding workflows and AI-assisted development."
+        "label": "Cursor スキル",
+        "description": "Cursor ですぐ使える、開発スピードを高める AI Agent Skills を探せます。"
       },
       "windsurf-skills": {
-        "label": "Windsurf Skills",
-        "description": "Discover Windsurf-compatible AI agent skills for coding, docs, and workflow automation."
+        "label": "Windsurf スキル",
+        "description": "Windsurf でコード、ドキュメント、自動化に役立つ互換スキルを見つけられます。"
       }
     }
   },
@@ -954,18 +954,18 @@
     "faq2Q": "これらのスキルはCursorやClaude Codeに直接インストールできますか？",
     "faq2A": "はい。ここに掲載されているスキルはKiller-Skillsの統一インストールフローでCursor、Claude Code、Windsurf等に対応しています。",
     "faq3Q": "結果がまだ広すぎる場合はどうすれば？",
-    "faq3A": "スキル詳細ページでキーワードやユースケースを確認し、プラットフォーム名、ファイルタイプ、ビジネスアクションなどの具体的な用語で絞り込んでください。",
+    "faq3A": "関連スキル、コレクション、ドキュメント、CLI ページから必要な情報をさらに確認できます。",
     "pageTitle": "インストール可能な自動化ソリューション：AIエージェントスキル",
     "pageDescription": "ユースケース別にインストール可能なAIエージェントスキルを検索：ワークフロー、プロセス、ドキュメント、ブラウザ、データ自動化。",
-    "keyword1": "skill use cases with clear next steps",
-    "badge": "Solutions",
-    "openSolution": "Open Solution",
-    "browseSkills": "Browse Full Skills Directory",
-    "readDocs": "Read Installation Docs",
-    "installCli": "Install via CLI",
-    "tryDemo": "Try Skill Online Demo",
-    "faq1Q": "Why use solution pages instead of ad-hoc keyword searches?",
-    "faq1A": "Solution pages bundle related problems, installable skills, and next-step paths so people can choose faster and browse less."
+    "keyword1": "スキルの活用シナリオ",
+    "badge": "ソリューション",
+    "openSolution": "ソリューションを見る",
+    "browseSkills": "すべてのスキルを探す",
+    "readDocs": "導入ドキュメントを見る",
+    "installCli": "CLI で導入する",
+    "tryDemo": "オンラインデモを試す",
+    "faq1Q": "キーワード検索だけでなくソリューションページを使う理由は？",
+    "faq1A": "ソリューションページでは関連する課題とスキルがまとまっているため、候補をすばやく比べやすくなります。"
   },
   "Stats": {
     "totalSkills": "総スキル数",
@@ -980,76 +980,76 @@
   "IntegrationsPage": {
     "pageTitle": "AIエージェントスキル IDE連携：Cursor、Claude Code、VS Code対応",
     "pageDescription": "Killer-Skillsは19以上のIDEとAIコーディングアシスタントに対応。ワンコマンドでインストール、各環境のネイティブ形式に自動変換。",
-    "heroTitle": "IDE Integrations",
-    "heroIntro": "Killer-Skills works with every major AI coding assistant. Install once, use everywhere.",
+    "heroTitle": "IDE 連携",
+    "heroIntro": "Killer-Skills は主要な AI コーディングアシスタントで使えます。1回導入すれば、対応環境でそのまま活用できます。",
     "intentLinks": {
       "install": {
-        "title": "Install AI Agent Skills",
-        "desc": "Start from zero with install, initialization, and first-run steps."
+        "title": "AI Agent Skills を導入する",
+        "desc": "インストール、初期化、最初の手順までをゼロから確認できます。"
       },
       "ide": {
-        "title": "Set Up Your IDE",
-        "desc": "See how each IDE gets its native skill format automatically."
+        "title": "IDE を設定する",
+        "desc": "各 IDE にネイティブ形式が自動で反映される仕組みを確認できます。"
       },
       "supported": {
-        "title": "Supported Environments",
-        "desc": "Full list of 19+ supported IDEs and AI assistants."
+        "title": "対応環境",
+        "desc": "19 以上の対応 IDE と AI アシスタントを一覧で確認できます。"
       },
       "templates": {
-        "title": "Workflow Templates",
-        "desc": "Pre-built automation patterns for common development tasks."
+        "title": "ワークフローテンプレート",
+        "desc": "よくある開発タスク向けの自動化パターンを利用できます。"
       }
     },
-    "faq1Q": "Which IDEs does Killer-Skills support?",
-    "faq1A": "Killer-Skills supports 19+ environments including Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, Goose, and more.",
-    "faq2Q": "Do I need to configure each IDE separately?",
-    "faq2A": "No. The CLI auto-detects your IDE and writes the correct native skill format. Zero manual configuration needed.",
-    "faq3Q": "Can the same skill work across different IDEs?",
-    "faq3A": "Yes. Killer-Skills uses a unified skill format that automatically converts to each IDE native configuration."
+    "faq1Q": "Killer-Skills はどの IDE に対応していますか？",
+    "faq1A": "Killer-Skills は Cursor、Claude Code、Windsurf、VS Code、JetBrains、Trae、OpenClaw、Kiro、Augment Code、Continue、Codex、OpenCode、Goose など 19 以上の環境に対応しています。",
+    "faq2Q": "IDE ごとに個別設定は必要ですか？",
+    "faq2A": "不要です。CLI が IDE を自動判別し、正しいネイティブ形式を書き込みます。",
+    "faq3Q": "同じスキルを複数の IDE で使えますか？",
+    "faq3A": "はい。Killer-Skills は統一形式を使い、各 IDE のネイティブ形式に自動で合わせます。"
   },
   "Labs": {
     "pageTitle": "スキルオンライン体験デモ",
     "pageDescription": "ブラウザで直接スキル出力をプレビュー：スキルを選択、リクエストを入力、オンラインで実行、CLIでインストールするか判断。",
-    "emptyInput": "Please enter your request first.",
-    "running": "Running...",
-    "runLabel": "Run Online Preview",
-    "modeAi": "Live Model Mode",
-    "modeTemplate": "Template Fallback Mode",
-    "errorPrefix": "Request failed: ",
-    "demoBadge": "Labs Demo",
-    "chooseSkill": "Choose Skill",
-    "waiting": "Waiting",
-    "runStatusHint": "Results will appear after you run the preview.",
-    "installCommandLabel": "Related Install Command",
-    "outputLabel": "Online Trial Output",
-    "outputHint": "Your preview output will appear here. This demo prefers NVIDIA, falls back to SiliconFlow and OpenRouter, then uses a template if all AI providers are unavailable."
+    "emptyInput": "先にリクエストを入力してください。",
+    "running": "実行中...",
+    "runLabel": "オンラインプレビューを実行",
+    "modeAi": "ライブモデルモード",
+    "modeTemplate": "テンプレートフォールバックモード",
+    "errorPrefix": "リクエストに失敗しました: ",
+    "demoBadge": "Labs デモ",
+    "chooseSkill": "スキルを選ぶ",
+    "waiting": "待機中",
+    "runStatusHint": "プレビューを実行すると結果が表示されます。",
+    "installCommandLabel": "関連するインストールコマンド",
+    "outputLabel": "オンライン試用の出力",
+    "outputHint": "ここに試用結果が表示されます。このデモは NVIDIA を優先し、利用できない場合は SiliconFlow、OpenRouter の順に切り替え、すべて不可ならテンプレート結果を使います。"
   },
   "BlogIndex": {
     "seoTitle": "AIエージェントスキル ガイド・ワークフローチュートリアル・自動化ブログ",
     "seoDescription": "AIエージェントスキル、IDEワークフロー、自動化プラクティス、開発者生産性に関する実践的な記事を読む。",
-    "keyword1": "AI agent skills blog",
-    "keyword2": "developer workflow skills",
-    "keyword3": "IDE skill articles"
+    "keyword1": "AI Agent Skills ブログ",
+    "keyword2": "開発ワークフロースキル",
+    "keyword3": "IDE スキル記事"
   },
   "BlogCategory": {
-    "guideSuffix": "AI Agent Skill Guides",
-    "implementGuide": "implementation guide",
+    "guideSuffix": "AI Agent Skills ガイド",
+    "implementGuide": "実装ガイド",
     "seoTitle": {
-      "document-automation": "Document Automation Guides for PDF, Excel & Templates",
-      "developer-experience": "Developer Workflow Guides for Cursor & Claude Code",
-      "enterprise-solutions": "Process Automation & Team Workflow Guides",
-      "creative-tools": "Creative Workflow & Design Automation Guides"
+      "document-automation": "PDF・Excel・テンプレート向けドキュメント自動化ガイド",
+      "developer-experience": "Cursor と Claude Code の開発ワークフローガイド",
+      "enterprise-solutions": "プロセス自動化とチーム運用ガイド",
+      "creative-tools": "クリエイティブワークフローとデザイン自動化ガイド"
     },
     "seoDesc": {
-      "document-automation": "Explore document automation guides for PDF, Excel, DOCX, and reusable templates with practical AI agent skills and workflow patterns.",
-      "developer-experience": "Explore developer workflow guides for Cursor, Claude Code, and installable AI agent skills with practical setup steps.",
-      "enterprise-solutions": "Explore process automation and team workflow guides for enterprise use cases, repeatable operations, and deployable AI agent skills.",
-      "creative-tools": "Explore creative workflow and design automation guides with practical AI agent skills for content, assets, and visual production."
+      "document-automation": "PDF、Excel、DOCX、再利用可能テンプレート向けの実践的なドキュメント自動化ガイドを読めます。",
+      "developer-experience": "Cursor、Claude Code、導入しやすい AI Agent Skills を使った開発ワークフローガイドを読めます。",
+      "enterprise-solutions": "業務ユースケース、反復作業、チーム運用向けのプロセス自動化ガイドを確認できます。",
+      "creative-tools": "コンテンツ制作、アセット管理、ビジュアル制作向けのクリエイティブガイドを読めます。"
     },
-    "faq1Q": "What does the {categoryName} category cover?",
-    "faq2Q": "Are these guides practical to implement?",
-    "faq2A": "Yes. These guides prioritize installation, setup, templates, workflows, and concrete skill usage instead of abstract overviews.",
-    "faq3Q": "Where should I go after reading these guides?",
-    "faq3A": "You can continue into skills search results, installation docs, the CLI page, or workflow collections based on your next-step intent."
+    "faq1Q": "{categoryName} カテゴリでは何を扱っていますか？",
+    "faq2Q": "これらのガイドは実務向けですか？",
+    "faq2A": "はい。実際のユースケース、役立つ設定、スキルの具体的な使い方に絞って紹介しています。",
+    "faq3Q": "次に何を読むとよいですか？",
+    "faq3A": "関連するガイド、スキルページ、コレクション、ドキュメントから関心のあるテーマを深掘りできます。"
   }
 }

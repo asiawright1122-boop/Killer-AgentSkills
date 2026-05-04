@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { buildOtherAuditReport, buildSourceFileAuditReport, suggestAction, type SitemapIndex } from './seo-404-remediation-plan';
+import {
+  buildOtherAuditReport,
+  buildSourceFileAuditReport,
+  suggestAction,
+  type SitemapIndex,
+} from './seo-404-remediation-plan';
 
 function createSitemapIndex(input?: {
   exactRoutes?: Array<{ owner: string; routePath: string }>;
@@ -84,12 +89,32 @@ describe('suggestAction', () => {
   });
 
   it('redirects legacy collection slugs to their canonical collection pages', () => {
-    const action = suggestAction('https://killer-skills.com/ar/collections/top-community-skills', 'other', createSitemapIndex());
+    const action = suggestAction(
+      'https://killer-skills.com/ar/collections/top-community-skills',
+      'other',
+      createSitemapIndex(),
+    );
 
     expect(action.action).toBe('redirect_301');
     expect(action.reason).toBe('legacy_collection_slug_redirect');
     expect(action.targetUrl).toBe('https://killer-skills.com/ar/collections/top-community-contributed-ai-agent-skills');
     expect(action.coveredByMiddleware).toBe(false);
+  });
+
+  it('marks materialized legacy collection redirects as runtime-covered when a rule already exists', () => {
+    const action = suggestAction(
+      'https://killer-skills.com/ar/collections/top-community-skills',
+      'other',
+      createSitemapIndex(),
+      {
+        redirectPaths: new Set(['/ar/collections/top-community-skills']),
+        gonePaths: new Set(),
+      },
+    );
+
+    expect(action.coveredByMiddleware).toBe(false);
+    expect(action.coveredByRuntime).toBe(true);
+    expect(action.runtimeCoverageSource).toBe('materialized_rule');
   });
 
   it('redirects legacy docs slugs to the canonical docs page', () => {
@@ -153,6 +178,8 @@ describe('buildOtherAuditReport', () => {
           action: 'gone_410',
           reason: 'blocked_by_sitemap',
           coveredByMiddleware: false,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'materialized_rule',
         },
         {
           url: 'https://killer-skills.com/en/skills/acme/missing',
@@ -160,6 +187,8 @@ describe('buildOtherAuditReport', () => {
           action: 'gone_410',
           reason: 'missing_from_sitemap_and_cache',
           coveredByMiddleware: false,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'materialized_rule',
         },
         {
           url: 'https://killer-skills.com/en/docs/development/create-skill',
@@ -167,6 +196,8 @@ describe('buildOtherAuditReport', () => {
           action: 'redirect_301',
           reason: 'legacy_docs_slug_redirect',
           coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
           targetUrl: 'https://killer-skills.com/en/docs/creating-skills',
         },
         {
@@ -175,17 +206,23 @@ describe('buildOtherAuditReport', () => {
           action: 'redirect_301',
           reason: 'legacy_collection_slug_redirect',
           coveredByMiddleware: false,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'materialized_rule',
           targetUrl: 'https://killer-skills.com/ar/collections/top-community-contributed-ai-agent-skills',
         },
       ],
     });
 
     expect(report.executionSummary.exactRemoval410Count).toBe(2);
+    expect(report.executionSummary.exactRemovalCoveredByRuntimeCount).toBe(2);
+    expect(report.executionSummary.exactRemovalNeedsMaterializationCount).toBe(0);
     expect(report.executionSummary.redirectValidationCount).toBe(2);
+    expect(report.executionSummary.redirectCoveredByRuntimeCount).toBe(2);
     expect(report.executionSummary.redirectCoveredByMiddlewareCount).toBe(1);
-    expect(report.executionSummary.redirectNeedsValidationCount).toBe(1);
-    expect(report.nextActions[0]).toContain('exact-removal / 410 track');
-    expect(report.nextActions[1]).toContain('Validate 2 redirect candidates');
+    expect(report.executionSummary.redirectCoveredByRulesCount).toBe(1);
+    expect(report.executionSummary.redirectNeedsValidationCount).toBe(0);
+    expect(report.nextActions[0]).toContain('already runtime-covered');
+    expect(report.nextActions[1]).toContain('live runtime track');
   });
 });
 
@@ -207,6 +244,8 @@ describe('buildSourceFileAuditReport', () => {
           action: 'gone_410',
           reason: 'crawl_trap_or_invalid_public_route',
           coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
         },
         {
           url: 'https://killer-skills.com/en/skills/acme/repo/references/config.json',
@@ -214,6 +253,8 @@ describe('buildSourceFileAuditReport', () => {
           action: 'gone_410',
           reason: 'crawl_trap_or_invalid_public_route',
           coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
         },
         {
           url: 'https://killer-skills.com/en/skills/acme/repo/README.md',
@@ -221,6 +262,8 @@ describe('buildSourceFileAuditReport', () => {
           action: 'redirect_301',
           reason: 'repo_single_skill_redirect',
           coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
           targetUrl: 'https://killer-skills.com/en/skills/acme/repo/main-skill',
         },
         {
@@ -229,16 +272,21 @@ describe('buildSourceFileAuditReport', () => {
           action: 'redirect_301',
           reason: 'nested_skill_parent_redirect',
           coveredByMiddleware: true,
+          coveredByRuntime: true,
+          runtimeCoverageSource: 'middleware',
           targetUrl: 'https://killer-skills.com/en/skills/acme/repo/main-skill',
         },
       ],
     });
 
     expect(report.executionSummary.exactRemoval410Count).toBe(2);
+    expect(report.executionSummary.exactRemovalCoveredByRuntimeCount).toBe(2);
+    expect(report.executionSummary.exactRemovalNeedsMaterializationCount).toBe(0);
     expect(report.executionSummary.redirectValidationCount).toBe(2);
+    expect(report.executionSummary.redirectCoveredByRuntimeCount).toBe(2);
     expect(report.executionSummary.redirectCoveredByMiddlewareCount).toBe(2);
     expect(report.executionSummary.redirectNeedsValidationCount).toBe(0);
-    expect(report.nextActions[0]).toContain('exact-removal / 410 track');
-    expect(report.nextActions[1]).toContain('middleware-covered source-file redirects');
+    expect(report.nextActions[0]).toContain('already runtime-covered');
+    expect(report.nextActions[1]).toContain('live runtime track');
   });
 });

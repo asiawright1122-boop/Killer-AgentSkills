@@ -12,8 +12,10 @@ import ru from './ru.json';
 import zh from './zh.json';
 
 const readPageSource = (relativePath: string) => readFileSync(new URL(relativePath, import.meta.url), 'utf8');
+const blockedPhrase = (...parts: string[]) => parts.join('');
 const localizedMessages = [en, zh, ar, de, es, fr, ja, ko, pt, ru];
 const cliMessages = [en, zh, ar, de, es, fr, ja, ko, pt, ru];
+const shippedNonEnglishMessages = [ar, de, es, fr, ja, ko, pt, ru];
 
 describe('public messages copy', () => {
   it('keeps public skill counts aligned on localized home, marketplace, and CLI pages', () => {
@@ -109,6 +111,32 @@ describe('public messages copy', () => {
       expect(messages.Home.seoIntro.length).toBeGreaterThan(40);
       expect(typeof messages.Navigation.submitSkill).toBe('string');
       expect(messages.Navigation.submitSkill.length).toBeGreaterThan(1);
+    }
+  });
+
+  it('keeps shipped locale messages free of install-flow boilerplate and english fallback prompts', () => {
+    const blockedEnglishPhrases = [
+      'Start with the installation docs and run npx killer-skills add owner/repo to add a skill.',
+      'Find installation guides, setup docs, and CLI steps',
+      'You can continue into skills search results',
+      'Start with the workflows concept docs',
+      'Which IDEs does Killer-Skills support?',
+      'What does the {categoryName} category cover?',
+      'Solution pages bundle related problems',
+      'Start from zero with install, initialization, and first-run steps.',
+      'What is {{name}}?',
+      'How do I install {{name}}?',
+      'Open your terminal',
+      'Run Online Preview',
+      'Browse AI agent skills by category to find the right tool for your workflow.',
+      'AI agent skills blog',
+    ];
+
+    for (const messages of shippedNonEnglishMessages) {
+      const serialized = JSON.stringify(messages);
+      for (const phrase of blockedEnglishPhrases) {
+        expect(serialized).not.toContain(phrase);
+      }
     }
   });
 
@@ -408,6 +436,105 @@ describe('public messages copy', () => {
     expect(zh.Community.contributeDesc).toBe(
       'Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。',
     );
+  });
+
+  it('keeps english and chinese public guidance out of internal step and rollout wording', () => {
+    expect(en.Collections.faq1A).not.toContain('open the installation docs before browsing more repositories');
+    expect(en.Collections.seoDescription).not.toContain(blockedPhrase('CLI ', 'validation'));
+    expect(en.Collections.seoDescription).not.toContain('rollout paths');
+    expect(en.Docs.faq3A).not.toContain('workflow concept docs');
+    expect(en.Solutions.faq1A).not.toContain(blockedPhrase('next', '-step paths'));
+    expect(en.BlogCategory.faq3A).not.toContain(blockedPhrase('next', '-step intent'));
+
+    expect(zh.Collections.faq1A).not.toContain('先用合集筛选候选工具');
+    expect(zh.Docs.faq3A).not.toContain('workflows 概念页');
+    expect(zh.Solutions.faq3A).not.toContain('执行一条命令安装并验证');
+    expect(zh.BlogCategory.faq3A).not.toContain('按更精准的意图继续深入');
+  });
+
+  it('keeps shipped locale detail templates and labs UI localized', () => {
+    for (const messages of shippedNonEnglishMessages) {
+      expect(messages.Detail.faqWhatIs).not.toBe('What is {{name}}?');
+      expect(messages.Detail.faqHowInstall).not.toBe('How do I install {{name}}?');
+      expect(messages.Detail.howToName1).not.toBe('Open your terminal');
+      expect(messages.Labs.emptyInput).not.toBe('Please enter your request first.');
+      expect(messages.Labs.runLabel).not.toBe('Run Online Preview');
+      expect(messages.Labs.chooseSkill).not.toBe('Choose Skill');
+    }
+  });
+
+  it('keeps shipped locale blog links, cli faq, and install labels out of english fallback copy', () => {
+    const blockedEnglishPhrases = [
+      'Install the docx skill to create, edit, and format .docx files with your AI agent.',
+      'Install the xlsx skill to read, write, and manipulate Excel files with your AI agent.',
+      'Install the pdf skill for OCR, extraction, merging, and PDF generation with AI.',
+      'Install the frontend-design skill for AI-powered UI component generation.',
+      'Install the brand-guidelines skill for consistent visual identity generation with AI.',
+      'Install the algorithmic-art skill to generate creative visual outputs with Claude Code.',
+      'Install the pptx skill to create and edit PowerPoint files with your AI agent.',
+      'Install the canvas skill for AI-generated posters, banners, and graphics.',
+      'Install the doc-coauthoring skill for AI-assisted collaborative document writing.',
+      'Install the webapp-testing skill for AI-driven UI and end-to-end test automation.',
+      'Install the theme-factory skill for instant AI-generated brand themes and color systems.',
+      'Install the slack-emoji skill to generate custom Slack emojis with your AI agent.',
+      'Browse All Skills',
+      'Install & CLI Guide',
+      'PDF Automation with AI: OCR, Extraction & Report Workflows',
+      'Skills for Developer Workflows: Build MCP Integrations in Claude Code or Cursor',
+      'How do I install AI agent skills with the CLI?',
+      'Which IDEs does the CLI support?',
+      'Can I sync skills across multiple projects?',
+      'How do I update installed skills?',
+      'Install Command',
+      'Install Path',
+      'Get Manager',
+    ];
+
+    for (const messages of shippedNonEnglishMessages) {
+      const serialized = JSON.stringify({
+        blogIntentLinks: messages.Blog.IntentLinks,
+        blogMisc: messages.Blog.Misc,
+        blogMetaOverride: messages.Blog.MetaOverride,
+        cliFaq: {
+          faq1Q: messages.CLI.faq1Q,
+          faq1A: messages.CLI.faq1A,
+          faq2Q: messages.CLI.faq2Q,
+          faq2A: messages.CLI.faq2A,
+          faq3Q: messages.CLI.faq3Q,
+          faq3A: messages.CLI.faq3A,
+          faq4Q: messages.CLI.faq4Q,
+          faq4A: messages.CLI.faq4A,
+        },
+        detailLabels: {
+          installCommand: messages.Detail.installCommand,
+          installPath: messages.Detail.installPath,
+          getManager: messages.Detail.getManager,
+          top5Percent: messages.Detail.top5Percent,
+          ideDescriptions: messages.Detail.ideDescriptions,
+        },
+      });
+
+      for (const phrase of blockedEnglishPhrases) {
+        expect(serialized).not.toContain(phrase);
+      }
+
+      for (const description of Object.values(messages.Detail.ideDescriptions)) {
+        expect(description).not.toMatch(/^Install to /);
+      }
+
+      expect(messages.Detail.top5Percent).not.toBe('Top 5%');
+    }
+  });
+
+  it('keeps shipped locale category and blog metadata localized', () => {
+    for (const messages of shippedNonEnglishMessages) {
+      expect(messages.Categories.heroIntro).not.toBe(
+        'Browse AI agent skills by category to find the right tool for your workflow.',
+      );
+      expect(messages.BlogIndex.keyword1.toLowerCase()).not.toBe('ai agent skills blog');
+      expect(messages.BlogIndex.keyword2.toLowerCase()).not.toBe('developer workflow skills');
+      expect(messages.BlogIndex.keyword3.toLowerCase()).not.toBe('ide skill articles');
+    }
   });
 
   it('keeps localized docs sidebar labels focused on skills and CLI usage instead of platform/tooling wording', () => {

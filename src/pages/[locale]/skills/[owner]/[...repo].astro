@@ -6,7 +6,7 @@ import { getSkillsListingByRefs } from '../../../../lib/kv';
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
-import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../../../lib/collection-slugs';
+import { getCanonicalCollections } from '../../../../lib/collection-slugs';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
@@ -91,13 +91,6 @@ const parsePositiveInt = (value: unknown, fallback: number) => {
   const parsed = Number.parseInt(String(value ?? ''), 10);
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 };
-const stableHash = (input: string) => {
-  let hash = 0;
-  for (let i = 0; i < input.length; i++) {
-    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
-  }
-  return hash;
-};
 const userAgent = normalizeFlag(Astro.request.headers.get('user-agent'));
 const isCrawlerRequest =
   /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
@@ -133,9 +126,6 @@ const truncateMarkdownForSsr = (markdown: string, maxBytes: number) => {
 
 // Load skill data - use full ID for sub-skills
 const fullId = requestedSkillId;
-const seoVariantMode = normalizeFlag(runtimeEnv.SEO_TITLE_VARIANT).toUpperCase();
-const seoVariant =
-  seoVariantMode === 'B' ? 'B' : seoVariantMode === 'AUTO' ? (stableHash(fullId) % 2 === 0 ? 'A' : 'B') : 'A';
 const seoForceTemplate = ['1', 'true', 'yes', 'on'].includes(normalizeFlag(runtimeEnv.SEO_FORCE_TEMPLATE));
 
 // ⚡ PARALLEL: fetch skill data + translations + related skills concurrently
@@ -286,7 +276,7 @@ if (!hasSkill && !renderRepoDirectory) {
 }
 
 // Load collections only after skill is resolved.
-// This keeps invalid bot-hit URLs cheap while still exposing curated review signals on valid pages.
+// This keeps invalid bot-hit URLs cheap while valid pages still expose useful skill details.
 const relatedCollections = await (async () => {
   if (renderRepoDirectory) {
     return [];
@@ -319,22 +309,17 @@ const faqTitle = tr('Detail.faqTitle', 'Frequently Asked Questions');
 const howToInstallTitle = tr('Detail.howToInstallTitle', 'How To Install');
 const defaultMetaDescription = tr(
   'Metadata.description',
-  'Discover installable AI agent skills with review notes, use cases, limitations, and setup guidance for real developer workflows.',
+  'Discover installable AI agent skills with use cases, limitations, and setup guidance for real developer workflows.',
 );
 const defaultNoResultsLabel = tr('Skills.noResults', 'No skills found');
 const firstNonEmpty = (...values: Array<string | undefined>) =>
   values.find((value) => typeof value === 'string' && value.trim().length > 0) || '';
-const getLocalizedCollectionValue = (value: string | Record<string, string> | undefined, fallback = '') => {
-  if (!value) return fallback;
-  if (typeof value === 'string') return value;
-  return value[typedLocale] || value.en || Object.values(value)[0] || fallback;
-};
 const repoDisplayName = `${owner}/${repo}`;
 const repoDirectorySkillCount = repoDirectorySkills.length;
 const repoDirectoryTitle = isZhLocale ? `${repoDisplayName} 技能目录` : `${repoDisplayName} Skills Directory`;
 const repoDirectoryDescription = isZhLocale
-  ? `该仓库包含多个子技能。先选择与你当前工作流匹配的技能，再查看评审结论与安装路径。`
-  : `This repository contains multiple skills. Choose the one that matches your workflow before reviewing the installation path.`;
+  ? `该仓库包含多个子技能。先选择与你当前工作流匹配的技能，再查看适用场景与安装路径。`
+  : `This repository contains multiple skills. Choose the one that matches your workflow before opening the installation path.`;
 const repoDirectoryIntro = isZhLocale
   ? `该仓库共有 ${repoDirectorySkillCount} 个技能。`
   : `This repository contains ${repoDirectorySkillCount} skills.`;
@@ -424,12 +409,7 @@ const isN8nRootPage = isN8nRepoPage && !subSkillName;
 const isN8nLoomTranscriptPage = isN8nRepoPage && subSkillName === 'loom-transcript';
 const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI Skill';
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
-const templateTitleA = `${skillName} ${skillSeoIntent.titleLabel}`;
-const templateTitleB =
-  typedLocale === 'zh'
-    ? `${skillName}：${skillSeoIntent.titleLabel}安装与评审`
-    : `${skillName}: ${skillSeoIntent.titleLabel} Review & Install`;
-const selectedTemplateTitle = seoVariant === 'B' ? templateTitleB : templateTitleA;
+const templateTitle = `${skillName} ${skillSeoIntent.titleLabel}`;
 const titleIntentSignals = [
   skillSeoIntent.titleLabel,
   category,
@@ -446,20 +426,14 @@ const n8nTitleOverride =
         ? 'n8n Loom Transcript Workflow Skill for Claude Code'
         : ''
     : '';
-const pageTitle = truncateText(n8nTitleOverride || (shouldUseTitleTemplate ? selectedTemplateTitle : seoTitleRaw), 60);
+const pageTitle = truncateText(n8nTitleOverride || (shouldUseTitleTemplate ? templateTitle : seoTitleRaw), 60);
 
 // SEO Description: prioritize explicit SEO description, otherwise use an install-focused snippet
 const seoDescriptionRaw = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
-const intentUseCase = skillSeoIntent.supportTerm || skillSeoIntent.useCaseLabel;
-const templateDescriptionA =
+const templateDescription =
   typedLocale === 'zh'
-    ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看评审结论、使用场景与安装路径。`
-    : `Install ${skillName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Review the use cases, limitations, and setup path before rollout.`;
-const templateDescriptionB =
-  typedLocale === 'zh'
-    ? `${skillName} 适合${intentUseCase}场景，查看功能、使用场景、限制条件与安装命令。`
-    : `${skillName} helps with ${intentUseCase}. Explore features, use cases, tradeoffs, and installation guidance.`;
-const selectedTemplateDescription = seoVariant === 'B' ? templateDescriptionB : templateDescriptionA;
+    ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。`
+    : `Install ${skillName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and setup guidance.`;
 const descriptionIntentSignals = [
   skillSeoIntent.useCaseLabel,
   skillSeoIntent.supportTerm,
@@ -494,19 +468,37 @@ const n8nHeroIntroOverride =
     : '';
 const heroTagline = n8nHeroTaglineOverride || tagline;
 const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, description, defaultNoResultsLabel);
+const recommendationRaw = localizedRecommendation || '';
+const suitabilityRaw = localizedSuitability || '';
+const suitabilityFallback = tr(
+  'Detail.suitabilityFallback',
+  'A strong fit when you want clearer setup steps, practical limits, and faster installation decisions.',
+);
 
 // --- SSR Dynamic Translation Interception ---
 const shouldRunLightLocalization = typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory;
-const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations] = shouldRunLightLocalization
-  ? await Promise.all([
-      translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
-      translateString(env, heroIntroRaw, typedLocale, 'text'),
-      translateArray(env, features, typedLocale),
-      translateArray(env, keywordsList, typedLocale),
-      translateArray(env, localizedUseCases, typedLocale),
-      translateArray(env, localizedLimitations, typedLocale),
-    ])
-  : [description, heroIntroRaw, features, keywordsList, localizedUseCases, localizedLimitations];
+const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations, t_recommendation, t_suitability] =
+  shouldRunLightLocalization
+    ? await Promise.all([
+        translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
+        translateString(env, heroIntroRaw, typedLocale, 'text'),
+        translateArray(env, features, typedLocale),
+        translateArray(env, keywordsList, typedLocale),
+        translateArray(env, localizedUseCases, typedLocale),
+        translateArray(env, localizedLimitations, typedLocale),
+        translateString(env, recommendationRaw, typedLocale, 'text'),
+        translateString(env, suitabilityRaw, typedLocale, 'text'),
+      ])
+    : [
+        description,
+        heroIntroRaw,
+        features,
+        keywordsList,
+        localizedUseCases,
+        localizedLimitations,
+        recommendationRaw,
+        suitabilityRaw,
+      ];
 
 const heroIntro = t_heroIntro;
 description = t_description;
@@ -514,6 +506,8 @@ const renderedFeatures = t_features;
 const renderedTopics = t_topics;
 const renderedUseCases = t_useCases;
 const renderedLimitations = t_limitations;
+const renderedRecommendation = t_recommendation || localizedRecommendation || heroIntro;
+const renderedSuitability = t_suitability || localizedSuitability || suitabilityFallback;
 // --------------------------------------------
 const n8nInternalLinks = isN8nRepoPage
   ? [
@@ -559,8 +553,8 @@ const metaDescription = truncateText(
   n8nDescriptionOverride
     ? n8nDescriptionOverride
     : shouldUseDescriptionTemplate
-      ? selectedTemplateDescription
-      : seoDescriptionRaw || description || selectedTemplateDescription,
+      ? templateDescription
+      : seoDescriptionRaw || description || templateDescription,
   158,
 );
 const resolvedMetaDescription = firstNonEmpty(metaDescription, defaultMetaDescription);
@@ -624,147 +618,11 @@ const canonicalSkillPath =
     ? requestedSkillPath
     : buildLocalizedSkillPath(skillXDefaultLocale, owner, canonicalRoutePath);
 const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
-const reviewPostureLabel = renderRepoDirectory
-  ? ''
-  : skillIndexability?.isIndexable
-    ? tr('Detail.reviewedLandingPage', 'Reviewed Landing Page')
-    : tr('Detail.referenceOnlyPage', 'Reference-Only Page');
-const reviewPostureDescription = renderRepoDirectory
-  ? ''
-  : skillIndexability?.isIndexable
-    ? tr(
-        'Detail.reviewedLandingPageDesc',
-        'Killer-Skills keeps this page indexable because it adds recommendation, limitations, and review signals beyond the upstream repository text.',
-      )
-    : tr(
-        'Detail.referenceOnlyPageDesc',
-        'This page remains useful for teams, but Killer-Skills treats it as reference material instead of a primary organic landing page.',
-      );
-const reviewReasons =
-  renderRepoDirectory || !skillIndexability
-    ? []
-    : [
-        skillIndexability.signals.hasRecommendation
-          ? tr('Detail.reasonRecommendation', 'Original recommendation layer')
-          : null,
-        skillIndexability.signals.hasUseCases ? tr('Detail.reasonUseCases', 'Concrete use-case guidance') : null,
-        skillIndexability.signals.hasLimitations
-          ? tr('Detail.reasonLimitations', 'Explicit limitations and caution')
-          : null,
-        skillIndexability.signals.hasStrongQualitySignal
-          ? tr('Detail.reasonQuality', 'Quality floor passed for review')
-          : null,
-        skillIndexability.signals.localeEligible ? tr('Detail.reasonLocale', 'Locale and body language aligned') : null,
-      ].filter((value): value is string => Boolean(value));
-const reviewBlockers =
-  renderRepoDirectory || !skillIndexability
-    ? []
-    : skillIndexability.blockers.map((blocker) => {
-        switch (blocker) {
-          case 'locale_contract_failed':
-            return tr('Detail.blockerLocale', 'Current locale does not satisfy the locale-governance contract.');
-          case 'missing_recommendation_layer':
-            return tr('Detail.blockerRecommendation', 'The page lacks a strong recommendation layer.');
-          case 'missing_use_case_layer':
-            return tr('Detail.blockerUseCases', 'The page lacks concrete use-case guidance.');
-          case 'missing_limitations_layer':
-            return tr('Detail.blockerLimitations', 'The page lacks explicit limitations or caution signals.');
-          case 'quality_below_review_floor':
-            return tr('Detail.blockerQuality', 'The underlying skill quality score is below the review floor.');
-          case 'source_material_too_thin':
-            return tr(
-              'Detail.blockerSource',
-              'The supporting repository material is too thin to back a reviewed page.',
-            );
-          default:
-            return blocker;
-        }
-      });
-const evidencePanelItems =
-  renderRepoDirectory || !skillIndexability
-    ? []
-    : [
-        {
-          label: tr('Detail.reviewScore', 'Review Score'),
-          value: `${skillIndexability.score}/11`,
-        },
-        {
-          label: tr('Detail.qualityFloor', 'Quality Score'),
-          value: String(skill.qualityScore || 0),
-        },
-        {
-          label: tr('Detail.canonicalLocale', 'Canonical Locale'),
-          value: skillLocaleGovernance?.canonicalLocale || typedLocale,
-        },
-        {
-          label: tr('Detail.detectedBodyLocale', 'Detected Body Locale'),
-          value: skillLocaleGovernance?.detectedBodyLocale || 'unknown',
-        },
-      ];
 const sourceEvidenceTitle = tr('Detail.sourceEvidenceTitle', 'Upstream Repository Material');
 const sourceEvidenceDescription = tr(
   'Detail.sourceEvidenceDescription',
-  'The section below is imported from the upstream repository and should be treated as secondary evidence. Use the Killer-Skills review above as the primary layer for fit, risk, and installation decisions.',
+  'The section below comes from the upstream repository. Use it as supporting material alongside the fit, use-case, and installation summary on this page.',
 );
-const reviewNextSteps = renderRepoDirectory
-  ? []
-  : [
-      {
-        badge: isZhLocale ? '安装路径' : 'Install Path',
-        title: isZhLocale ? '先进入安装与验证' : 'Start With Installation And Validation',
-        description: isZhLocale
-          ? '如果这项技能值得继续，下一步应该先确认安装命令、CLI 写入路径与环境验证。'
-          : 'If this skill is worth continuing with, the next step is to confirm the install command, CLI write path, and environment validation.',
-        href: `/${locale}/docs/installation`,
-      },
-      {
-        badge: isZhLocale ? '可信复核' : 'Trusted Recheck',
-        title: isZhLocale ? '回到可信合集再做一次复核' : 'Cross-Check Against Trusted Picks',
-        description: isZhLocale
-          ? '如果你还在比较不同技能或供应方，先回到可信合集做二次判断，而不是继续放大仓库噪音。'
-          : 'If you are still comparing multiple skills or vendors, go back to the trusted collection before amplifying repository noise.',
-        href: `/${locale}/collections/top-official-ai-skills-trusted-tools`,
-      },
-      {
-        badge: isZhLocale ? '工作流' : 'Workflow',
-        title: isZhLocale ? '如果要进团队流转，转到工作流集合' : 'Move To Workflow Collections For Team Rollout',
-        description: isZhLocale
-          ? '当你的目标已经不是单个技能，而是团队协作、审批和可重复执行，就应该转到工作流合集继续比较。'
-          : 'When the goal shifts from a single skill to team workflows, approvals, and repeatable execution, move into workflow collections.',
-        href: `/${locale}/collections/top-agent-workflow-building-tools`,
-      },
-    ];
-const reviewedCollectionSignals = renderRepoDirectory
-  ? []
-  : relatedCollections
-      .map((collection) => {
-        const canonicalSlug = getCollectionCanonicalSlug(collection);
-        return {
-          href: `/${locale}/collections/${canonicalSlug}`,
-          title: getLocalizedCollectionValue(collection.data?.title, 'Collection'),
-          reviewSummary: getLocalizedCollectionValue(
-            collection.data?.editorial?.reviewSummary,
-            getLocalizedCollectionValue(collection.data?.description, ''),
-          ),
-          selectionReason: getLocalizedCollectionValue(collection.data?.editorial?.selectionReason, ''),
-          reviewedAt: collection.data?.editorial?.maintenance?.reviewedAt || '',
-          maintainedBy: getLocalizedCollectionValue(collection.data?.editorial?.maintenance?.maintainedBy, ''),
-          skillCount: Array.isArray(collection.data?.skills) ? collection.data.skills.length : 0,
-          featured: Boolean(collection.data?.featured),
-        };
-      })
-      .filter((collection) => collection.reviewSummary || collection.selectionReason || collection.reviewedAt)
-      .sort((a, b) => {
-        if (a.featured !== b.featured) {
-          return Number(b.featured) - Number(a.featured);
-        }
-        const reviewDateCompare = (b.reviewedAt || '').localeCompare(a.reviewedAt || '');
-        if (reviewDateCompare !== 0) {
-          return reviewDateCompare;
-        }
-        return b.skillCount - a.skillCount;
-      })
-      .slice(0, 3);
 
 // Structured Data (JSON-LD) — SoftwareApplication
 const schema = buildSkillSoftwareApplicationSchema({
@@ -1436,7 +1294,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
 
               {/* Right Main Content Stream */}
               <article class="flex-1 min-w-0 w-full max-w-4xl space-y-6">
-                {/* Killer-Skills curated review */}
+                {/* Public skill overview */}
                 {!renderRepoDirectory && skillIndexability && (
                   <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5 relative overflow-hidden">
                     <div
@@ -1451,52 +1309,16 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                         </div>
                         <div>
                           <h2 class="text-2xl font-black text-[var(--foreground)] uppercase tracking-tight">
-                            {tr('Detail.killerSkillsReview', 'Killer-Skills Review')}
+                            {tr('Detail.skillOverview', typedLocale === 'zh' ? '技能概览' : 'Skill Overview')}
                           </h2>
                           <p class="text-xs font-mono font-bold uppercase tracking-widest text-[var(--muted-foreground)] mt-1">
                             {tr(
-                              'Detail.killerSkillsReviewSub',
-                              'Decision support comes first. Repository text comes second.',
+                              'Detail.skillOverviewSub',
+                              typedLocale === 'zh'
+                                ? '先看适用场景、限制条件和安装路径，再决定是否继续深入。'
+                                : 'Start with fit, limitations, and setup before diving into the repository.',
                             )}
                           </p>
-                        </div>
-                      </div>
-
-                      <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.8fr)] gap-5 items-start">
-                        <div class="border-[3px] border-[var(--border)] bg-[var(--background)] shadow-[4px_4px_0px_0px_var(--border)] p-4">
-                          <div class="flex items-center justify-between gap-3 flex-wrap mb-4">
-                            <span class="px-3 py-1 border-2 border-[var(--border)] bg-[var(--foreground)] text-[var(--background)] text-xs font-black uppercase tracking-widest">
-                              {reviewPostureLabel}
-                            </span>
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-[var(--muted-foreground)]">
-                              {tr('Detail.reviewScore', 'Review Score')}: {skillIndexability.score}/11
-                            </span>
-                          </div>
-                          <p class="text-sm md:text-base font-mono font-bold text-[var(--foreground)] leading-relaxed mb-4">
-                            {reviewPostureDescription}
-                          </p>
-                          {reviewReasons.length > 0 && (
-                            <div class="flex flex-wrap gap-2">
-                              {reviewReasons.map((reason) => (
-                                <span class="px-2.5 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
-                                  {reason}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-3">
-                          {evidencePanelItems.map((item) => (
-                            <div class="border-2 border-[var(--border)] bg-[var(--background)] px-3 py-3 shadow-[3px_3px_0px_0px_var(--border)]">
-                              <div class="text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] font-mono mb-1">
-                                {item.label}
-                              </div>
-                              <div class="text-sm font-black text-[var(--foreground)] break-words uppercase">
-                                {item.value}
-                              </div>
-                            </div>
-                          ))}
                         </div>
                       </div>
 
@@ -1509,22 +1331,14 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                           <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
                             {tr('Detail.recommendation', typedLocale === 'zh' ? '核心价值' : 'Recommendation')}
                           </h3>
-                          <p class="text-[var(--foreground)] leading-relaxed font-bold">
-                            {localizedRecommendation || heroIntro}
-                          </p>
+                          <p class="text-[var(--foreground)] leading-relaxed font-bold">{renderedRecommendation}</p>
                         </div>
 
                         <div class="border-l-4 border-purple-500 pl-4 py-1">
                           <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest mb-2 font-mono">
                             {tr('Detail.suitability', 'Ideal Agent Persona')}
                           </h3>
-                          <p class="text-[var(--foreground)] font-bold leading-relaxed">
-                            {localizedSuitability ||
-                              tr(
-                                'Detail.suitabilityFallback',
-                                'Suitable for team workflows that need explicit guardrails before installation and execution.',
-                              )}
-                          </p>
+                          <p class="text-[var(--foreground)] font-bold leading-relaxed">{renderedSuitability}</p>
                         </div>
                       </div>
 
@@ -1560,124 +1374,14 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                         </div>
                       </div>
 
-                      {reviewBlockers.length > 0 && (
-                        <div class="border-[3px] border-amber-500 bg-amber-50 dark:bg-amber-950/30 shadow-[4px_4px_0px_0px_var(--border)] p-4">
-                          <h3 class="text-xs font-black uppercase tracking-widest text-amber-800 dark:text-amber-400 font-mono mb-3">
-                            {tr('Detail.referenceWhy', 'Why this page is reference-only')}
-                          </h3>
-                          <ul class="space-y-2">
-                            {reviewBlockers.map((item) => (
-                              <li class="text-sm font-bold text-amber-900 dark:text-amber-300 leading-relaxed">
-                                - {item}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
-
                       <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
                         <h3 class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] font-mono mb-2">
-                          {tr('Detail.sourceBoundaryTitle', 'Source Boundary')}
+                          {tr('Detail.sourceBoundaryTitle', typedLocale === 'zh' ? '关于来源内容' : 'About The Source')}
                         </h3>
                         <p class="text-sm font-mono font-bold text-[var(--foreground)] leading-relaxed">
                           {sourceEvidenceDescription}
                         </p>
                       </div>
-                    </div>
-                  </section>
-                )}
-
-                {!renderRepoDirectory && reviewedCollectionSignals.length > 0 && (
-                  <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5">
-                    <div class="max-w-3xl mb-5">
-                      <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                        {isZhLocale ? '精选合集复核' : 'Curated Collection Review'}
-                      </div>
-                      <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
-                        {isZhLocale ? '这个技能已进入哪些精选合集的复核范围' : 'Reviewed In Curated Collections'}
-                      </h2>
-                      <p class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
-                        {isZhLocale
-                          ? '这部分展示的是 Killer-Skills 如何在精选合集里收录、复核和维护这个技能，帮助你看到它在真实选择路径中的位置，而不只是继续放大上游 README。'
-                          : 'This section shows how Killer-Skills includes, reviews, and maintains this skill inside curated collections, so you can see where it fits in practical selection paths instead of relying only on the upstream README.'}
-                      </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {reviewedCollectionSignals.map((collection) => (
-                        <a
-                          href={collection.href}
-                          class="border-[3px] border-[var(--border)] bg-[var(--card)] p-5 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                        >
-                          <div class="flex items-start justify-between gap-3 mb-3">
-                            <div>
-                              <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
-                                {isZhLocale ? '已复核合集' : 'Reviewed Collection'}
-                              </div>
-                              <h3 class="text-lg font-black uppercase tracking-tight text-[var(--foreground)]">
-                                {collection.title}
-                              </h3>
-                            </div>
-                            {collection.reviewedAt && (
-                              <span class="px-2 py-1 border-2 border-[var(--border)] bg-[var(--background)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)] whitespace-nowrap">
-                                {isZhLocale ? `复核于 ${collection.reviewedAt}` : `Reviewed ${collection.reviewedAt}`}
-                              </span>
-                            )}
-                          </div>
-
-                          <p class="text-sm leading-6 font-medium text-[var(--foreground)] mb-3">
-                            {collection.reviewSummary}
-                          </p>
-
-                          {collection.selectionReason && (
-                            <p class="text-xs leading-6 font-bold text-[var(--muted-foreground)] border-l-2 border-[var(--primary)] pl-3 mb-4">
-                              {collection.selectionReason}
-                            </p>
-                          )}
-
-                          <div class="flex items-center justify-between gap-3 pt-3 border-t-2 border-dashed border-[var(--border)] text-[10px] font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                            <span>
-                              {isZhLocale ? `收录 ${collection.skillCount} 项` : `${collection.skillCount} entries`}
-                            </span>
-                            <span>{collection.maintainedBy || (isZhLocale ? '查看合集' : 'Open Collection')}</span>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </section>
-                )}
-
-                {!renderRepoDirectory && reviewNextSteps.length > 0 && (
-                  <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5">
-                    <div class="max-w-3xl mb-5">
-                      <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
-                        {isZhLocale ? '评审后的下一步' : 'After The Review'}
-                      </div>
-                      <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight text-[var(--foreground)] mb-3">
-                        {isZhLocale
-                          ? '先决定动作，再继续看上游仓库材料'
-                          : 'Decide The Next Action Before You Keep Reading Repository Material'}
-                      </h2>
-                      <p class="text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
-                        {isZhLocale
-                          ? 'Killer-Skills 的主价值不应该停在“帮你打开仓库说明”，而是先帮你判断这项技能是否值得安装、是否应该回到可信集合复核，以及是否已经进入工作流落地阶段。'
-                          : 'Killer-Skills should not stop at opening repository instructions. It should help you decide whether to install this skill, when to cross-check against trusted collections, and when to move into workflow rollout.'}
-                      </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {reviewNextSteps.map((item) => (
-                        <a
-                          href={item.href}
-                          class="border-[3px] border-[var(--border)] bg-[var(--card)] p-5 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
-                        >
-                          <div class="mb-2 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
-                            {item.badge}
-                          </div>
-                          <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
-                          <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
-                        </a>
-                      ))}
                     </div>
                   </section>
                 )}
@@ -1704,18 +1408,18 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       <span class="bg-amber-700 dark:bg-amber-500 text-white dark:text-black px-1 mr-2 tracking-tighter">
                         !
                       </span>
-                      {tr('Detail.referenceOnlyWarning', typedLocale === 'zh' ? '参考页模式' : 'Reference-Only Mode')}
+                      {tr('Detail.sourceNotesWarning', typedLocale === 'zh' ? '来源说明' : 'Source Notes')}
                     </h3>
                     <p class="text-sm text-amber-900 dark:text-amber-400/90 font-medium font-mono leading-relaxed mt-2">
                       {typedLocale === 'zh'
-                        ? '此页面仍可作为安装与查阅参考，但 Killer-Skills 不再把它视为主要可索引落地页。请优先阅读上方评审结论，再决定是否继续查看上游仓库说明。'
-                        : 'This page remains useful for installation and reference, but Killer-Skills no longer treats it as a primary indexable landing page. Read the review above before relying on the upstream repository instructions.'}
+                        ? '此页面仍可作为安装与查阅参考。继续使用前，请结合上方适用场景、限制条件和上游仓库说明一起判断。'
+                        : 'This page is still useful for installation and source reference. Before using it, compare the fit, limitations, and upstream repository notes above.'}
                     </p>
                     {isThinContent && (
                       <p class="text-xs text-amber-900 dark:text-amber-300 font-mono font-bold leading-relaxed mt-3">
                         {typedLocale === 'zh'
-                          ? '补充提示：该仓库提供的源材料本身也偏薄，作为支持证据的可信度有限。'
-                          : 'Additional note: the upstream repository material is also relatively thin, so its value as supporting evidence is limited.'}
+                          ? '补充提示：该仓库提供的源材料本身也偏薄，继续使用前建议仔细查看上游说明。'
+                          : 'Additional note: the upstream repository material is also relatively thin, so check the upstream notes carefully before using it.'}
                       </p>
                     )}
                   </div>
@@ -1768,7 +1472,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                         name="SKILL.md"
                         headerTitle={sourceEvidenceTitle}
                         headerDescription={sourceEvidenceDescription}
-                        headerBadge={tr('Detail.supportingEvidenceBadge', 'Supporting Evidence')}
+                        headerBadge={tr('Detail.upstreamSourceBadge', 'Upstream Source')}
                         sourceRepositoryOwner={owner}
                         sourceRepositoryRepo={repo}
                         sourceFilePath={skill.filePath || 'SKILL.md'}

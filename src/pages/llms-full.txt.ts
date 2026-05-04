@@ -120,7 +120,7 @@ Returns paginated skill results with name, description, quality score, stars, an
 \`\`\`
 GET \${SITE_URL}/api/skills/{owner}/{repo}
 \`\`\`
-Returns machine-readable skill metadata and a short summary. Use the public skill page for canonical instructions and full reviewed content.
+Returns machine-readable skill metadata and a short summary. Use the public skill page for canonical instructions and full skill content.
 
 ## Site Map
 

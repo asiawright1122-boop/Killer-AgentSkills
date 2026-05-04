@@ -76,8 +76,13 @@ type CoverageOtherAuditReport = {
   actionSummary?: Array<{ action?: string; count?: number }>;
   executionSummary?: {
     exactRemoval410Count?: number;
+    exactRemovalCoveredByRuntimeCount?: number;
+    exactRemovalCoveredByRulesCount?: number;
+    exactRemovalNeedsMaterializationCount?: number;
     redirectValidationCount?: number;
+    redirectCoveredByRuntimeCount?: number;
     redirectCoveredByMiddlewareCount?: number;
+    redirectCoveredByRulesCount?: number;
     redirectNeedsValidationCount?: number;
     observeCount?: number;
     manualReviewCount?: number;
@@ -109,8 +114,13 @@ type SourceFileAuditReport = {
   actionSummary?: Array<{ action?: string; count?: number }>;
   executionSummary?: {
     exactRemoval410Count?: number;
+    exactRemovalCoveredByRuntimeCount?: number;
+    exactRemovalCoveredByRulesCount?: number;
+    exactRemovalNeedsMaterializationCount?: number;
     redirectValidationCount?: number;
+    redirectCoveredByRuntimeCount?: number;
     redirectCoveredByMiddlewareCount?: number;
+    redirectCoveredByRulesCount?: number;
     redirectNeedsValidationCount?: number;
     observeCount?: number;
     manualReviewCount?: number;
@@ -296,7 +306,8 @@ function classifyExecution(
       queueStatus: item.status === 'blocked' ? 'blocked' : 'ready',
       lane: 'metadata',
       intervention: 'metadata-tightening',
-      blockedBy: item.status === 'blocked' ? ['Traffic evidence is not strong enough to rank this surface confidently.'] : [],
+      blockedBy:
+        item.status === 'blocked' ? ['Traffic evidence is not strong enough to rank this surface confidently.'] : [],
     };
   }
 
@@ -350,13 +361,9 @@ function successSignalForItem(
 }
 
 function outcomeTemplateForItem(item: RecoveryControlItem, lane: RecoveryExecutionLane): string {
-  return [
-    `Surface: ${item.title}`,
-    `Lane: ${lane}`,
-    'Change shipped:',
-    'Observed result:',
-    'Follow-up decision:',
-  ].join('\n');
+  return [`Surface: ${item.title}`, `Lane: ${lane}`, 'Change shipped:', 'Observed result:', 'Follow-up decision:'].join(
+    '\n',
+  );
 }
 
 function itemRationale(item: RecoveryControlItem, queueStatus: RecoveryExecutionQueueStatus): string {
@@ -371,19 +378,18 @@ function itemRationale(item: RecoveryControlItem, queueStatus: RecoveryExecution
   return 'This surface is not the current execution bottleneck and should stay under observation rather than enter the active queue.';
 }
 
-function countCoverageOtherReason(coverageOtherAudit: CoverageOtherAuditReport | null | undefined, reason: string): number {
-  return (
-    coverageOtherAudit?.reasonBreakdown?.find((item) => String(item?.reason || '').trim() === reason)?.count || 0
-  );
+function countCoverageOtherReason(
+  coverageOtherAudit: CoverageOtherAuditReport | null | undefined,
+  reason: string,
+): number {
+  return coverageOtherAudit?.reasonBreakdown?.find((item) => String(item?.reason || '').trim() === reason)?.count || 0;
 }
 
 function countCoverageOtherAction(
   coverageOtherAudit: CoverageOtherAuditReport | null | undefined,
   action: 'gone_410' | 'redirect_301' | 'observe' | 'manual_review',
 ): number {
-  return (
-    coverageOtherAudit?.actionSummary?.find((item) => String(item?.action || '').trim() === action)?.count || 0
-  );
+  return coverageOtherAudit?.actionSummary?.find((item) => String(item?.action || '').trim() === action)?.count || 0;
 }
 
 function countSourceFileReason(sourceFileAudit: SourceFileAuditReport | null | undefined, reason: string): number {
@@ -421,14 +427,27 @@ function controlItemToQueueItem(
   const otherExactRemovalCount =
     Number(coverageOtherAudit?.executionSummary?.exactRemoval410Count || 0) ||
     countCoverageOtherAction(coverageOtherAudit, 'gone_410');
+  const otherExactRemovalCoveredByRuntimeCount = Number(
+    coverageOtherAudit?.executionSummary?.exactRemovalCoveredByRuntimeCount || 0,
+  );
+  const otherExactRemovalNeedsMaterializationCount =
+    Number(coverageOtherAudit?.executionSummary?.exactRemovalNeedsMaterializationCount || 0) ||
+    Math.max(0, otherExactRemovalCount - otherExactRemovalCoveredByRuntimeCount);
   const otherRedirectCount =
     Number(coverageOtherAudit?.executionSummary?.redirectValidationCount || 0) ||
     countCoverageOtherAction(coverageOtherAudit, 'redirect_301');
-  const otherRedirectCoveredByMiddlewareCount =
+  const otherRedirectCoveredByRuntimeCount =
+    Number(coverageOtherAudit?.executionSummary?.redirectCoveredByRuntimeCount || 0) ||
     Number(coverageOtherAudit?.executionSummary?.redirectCoveredByMiddlewareCount || 0);
+  const otherRedirectCoveredByMiddlewareCount = Number(
+    coverageOtherAudit?.executionSummary?.redirectCoveredByMiddlewareCount || 0,
+  );
+  const otherRedirectCoveredByRulesCount = Number(
+    coverageOtherAudit?.executionSummary?.redirectCoveredByRulesCount || 0,
+  );
   const otherRedirectNeedsValidationCount =
     Number(coverageOtherAudit?.executionSummary?.redirectNeedsValidationCount || 0) ||
-    Math.max(0, otherRedirectCount - otherRedirectCoveredByMiddlewareCount);
+    Math.max(0, otherRedirectCount - otherRedirectCoveredByRuntimeCount);
   const otherObserveCount =
     Number(coverageOtherAudit?.executionSummary?.observeCount || 0) ||
     countCoverageOtherAction(coverageOtherAudit, 'observe');
@@ -436,7 +455,10 @@ function controlItemToQueueItem(
     Number(coverageOtherAudit?.executionSummary?.manualReviewCount || 0) ||
     countCoverageOtherAction(coverageOtherAudit, 'manual_review');
   const blockedBySitemapCount = countCoverageOtherReason(coverageOtherAudit, 'blocked_by_sitemap');
-  const missingFromSitemapAndCacheCount = countCoverageOtherReason(coverageOtherAudit, 'missing_from_sitemap_and_cache');
+  const missingFromSitemapAndCacheCount = countCoverageOtherReason(
+    coverageOtherAudit,
+    'missing_from_sitemap_and_cache',
+  );
   const hasStructuredOtherClusterPlan =
     otherExactRemovalCount > 0 || otherRedirectCount > 0 || otherObserveCount > 0 || otherManualReviewCount > 0;
   const hasOtherClusterPlan = isOtherCluster && otherRows > 0 && hasStructuredOtherClusterPlan;
@@ -444,17 +466,29 @@ function controlItemToQueueItem(
   const sourceFileExactRemovalCount =
     Number(sourceFileAudit?.executionSummary?.exactRemoval410Count || 0) ||
     countSourceFileAction(sourceFileAudit, 'gone_410');
+  const sourceFileExactRemovalCoveredByRuntimeCount = Number(
+    sourceFileAudit?.executionSummary?.exactRemovalCoveredByRuntimeCount || 0,
+  );
+  const sourceFileExactRemovalNeedsMaterializationCount =
+    Number(sourceFileAudit?.executionSummary?.exactRemovalNeedsMaterializationCount || 0) ||
+    Math.max(0, sourceFileExactRemovalCount - sourceFileExactRemovalCoveredByRuntimeCount);
   const sourceFileRedirectCount =
     Number(sourceFileAudit?.executionSummary?.redirectValidationCount || 0) ||
     countSourceFileAction(sourceFileAudit, 'redirect_301');
-  const sourceFileRedirectCoveredByMiddlewareCount =
+  const sourceFileRedirectCoveredByRuntimeCount =
+    Number(sourceFileAudit?.executionSummary?.redirectCoveredByRuntimeCount || 0) ||
     Number(sourceFileAudit?.executionSummary?.redirectCoveredByMiddlewareCount || 0);
+  const sourceFileRedirectCoveredByMiddlewareCount = Number(
+    sourceFileAudit?.executionSummary?.redirectCoveredByMiddlewareCount || 0,
+  );
+  const sourceFileRedirectCoveredByRulesCount = Number(
+    sourceFileAudit?.executionSummary?.redirectCoveredByRulesCount || 0,
+  );
   const sourceFileRedirectNeedsValidationCount =
     Number(sourceFileAudit?.executionSummary?.redirectNeedsValidationCount || 0) ||
-    Math.max(0, sourceFileRedirectCount - sourceFileRedirectCoveredByMiddlewareCount);
+    Math.max(0, sourceFileRedirectCount - sourceFileRedirectCoveredByRuntimeCount);
   const sourceFileObserveCount =
-    Number(sourceFileAudit?.executionSummary?.observeCount || 0) ||
-    countSourceFileAction(sourceFileAudit, 'observe');
+    Number(sourceFileAudit?.executionSummary?.observeCount || 0) || countSourceFileAction(sourceFileAudit, 'observe');
   const sourceFileManualReviewCount =
     Number(sourceFileAudit?.executionSummary?.manualReviewCount || 0) ||
     countSourceFileAction(sourceFileAudit, 'manual_review');
@@ -469,9 +503,13 @@ function controlItemToQueueItem(
   const hasSourceFileClusterPlan = isSourceFileCluster && sourceFileRows > 0 && hasStructuredSourceFilePlan;
   const splitActionParts = [
     `keep ${formatInteger(keep410Count)} missing samples at 410`,
-    ...(redirectNeedsValidationCount > 0 ? [`validate ${formatInteger(redirectNeedsValidationCount)} explicit 301 candidates`] : []),
+    ...(redirectNeedsValidationCount > 0
+      ? [`validate ${formatInteger(redirectNeedsValidationCount)} explicit 301 candidates`]
+      : []),
     ...(redirectCoveredByMiddlewareCount > 0
-      ? [`verify ${formatInteger(redirectCoveredByMiddlewareCount)} middleware-covered repo-root redirects after deploy`]
+      ? [
+          `verify ${formatInteger(redirectCoveredByMiddlewareCount)} middleware-covered repo-root redirects after deploy`,
+        ]
       : []),
     ...(restoreCount > 0 ? [`restore ${formatInteger(restoreCount)} publishable URLs`] : []),
     ...(manualReviewCount > 0 ? [`manually review ${formatInteger(manualReviewCount)} remaining samples`] : []),
@@ -493,16 +531,16 @@ function controlItemToQueueItem(
     ? `${formatInteger(otherRows)} sampled other-cluster URLs are now classified: ${formatInteger(otherExactRemovalCount)} exact-removal / 410, ${formatInteger(otherRedirectCount)} redirect validations, ${formatInteger(otherObserveCount)} recrawl-watch${otherManualReviewCount > 0 ? `, ${formatInteger(otherManualReviewCount)} manual-review` : ''}. Dominant reasons are blocked_by_sitemap (${formatInteger(blockedBySitemapCount)}) and missing_from_sitemap_and_cache (${formatInteger(missingFromSitemapAndCacheCount)}).`
     : hasSourceFileClusterPlan
       ? `${formatInteger(sourceFileRows)} sampled source_file_path URLs are now classified: ${formatInteger(sourceFileExactRemovalCount)} exact-removal / 410, ${formatInteger(sourceFileRedirectCount)} redirect validations${sourceFileObserveCount > 0 ? `, ${formatInteger(sourceFileObserveCount)} recrawl-watch` : ''}${sourceFileManualReviewCount > 0 ? `, ${formatInteger(sourceFileManualReviewCount)} manual-review` : ''}. Dominant reasons are crawl_trap_or_invalid_public_route (${formatInteger(sourceFileCrawlTrapCount)}), repo_single_skill_redirect (${formatInteger(sourceFileRepoSingleRedirectCount)}), and nested_skill_parent_redirect (${formatInteger(sourceFileNestedParentRedirectCount)}).`
-    : hasMissingClusterSplit
-      ? `Missing-from-sitemap-and-cache is now split: among ${formatInteger(missingRows)} sampled URLs, ${joinSentenceParts(splitSummaryParts)}.`
-      : item.summary;
+      : hasMissingClusterSplit
+        ? `Missing-from-sitemap-and-cache is now split: among ${formatInteger(missingRows)} sampled URLs, ${joinSentenceParts(splitSummaryParts)}.`
+        : item.summary;
   const successSignal = hasOtherClusterPlan
     ? 'The next Coverage Drilldown export shows blocked_by_sitemap and missing_from_sitemap_and_cache shrinking materially, while validated redirect buckets stay live and recrawl-watch URLs stop resurfacing as 404 noise.'
     : hasSourceFileClusterPlan
       ? 'The next Coverage Drilldown export shows source_file_path shrinking materially, while parent-skill redirects keep resolving to canonical skill URLs and no new source-file traps are emitted into the public graph.'
-    : hasMissingClusterSplit
-      ? 'The next Coverage Drilldown export shows missing_from_sitemap_and_cache shrinking materially without new business routes being pushed into 410.'
-      : successSignalForItem(classification.queueStatus, classification.lane, item);
+      : hasMissingClusterSplit
+        ? 'The next Coverage Drilldown export shows missing_from_sitemap_and_cache shrinking materially without new business routes being pushed into 410.'
+        : successSignalForItem(classification.queueStatus, classification.lane, item);
   const outcomeNoteTemplate = hasOtherClusterPlan
     ? [
         'Other-cluster rows reviewed:',
@@ -519,18 +557,21 @@ function controlItemToQueueItem(
           'Recrawl-watch rows left untouched:',
           'Manual review remainder:',
         ].join('\n')
-    : hasMissingClusterSplit
-      ? [
-          'Missing-cluster rows reviewed:',
-          '410 kept:',
-          '301 candidates validated:',
-          'Restore candidates shipped:',
-          'Manual review remainder:',
-        ].join('\n')
-      : outcomeTemplateForItem(item, classification.lane);
+      : hasMissingClusterSplit
+        ? [
+            'Missing-cluster rows reviewed:',
+            '410 kept:',
+            '301 candidates validated:',
+            'Restore candidates shipped:',
+            'Manual review remainder:',
+          ].join('\n')
+        : outcomeTemplateForItem(item, classification.lane);
   const action = hasOtherClusterPlan
     ? [
-        `Execute the other-cluster batch: keep ${formatInteger(otherExactRemovalCount)} URLs on the exact-removal / 410 track, validate ${formatInteger(otherRedirectCount)} redirect candidates, and leave ${formatInteger(otherObserveCount)} sitemap-backed URLs in recrawl watch.`,
+        `Execute the other-cluster batch: keep ${formatInteger(otherExactRemovalCount)} URLs on the exact-removal / 410 track${otherExactRemovalNeedsMaterializationCount > 0 ? ` and materialize or verify ${formatInteger(otherExactRemovalNeedsMaterializationCount)} uncovered removals` : ''}, ${otherRedirectNeedsValidationCount > 0 ? `validate ${formatInteger(otherRedirectNeedsValidationCount)} uncovered redirect candidates` : `keep ${formatInteger(otherRedirectCount)} runtime-covered redirects live`}, and leave ${formatInteger(otherObserveCount)} sitemap-backed URLs in recrawl watch.`,
+        otherRedirectCoveredByRuntimeCount > 0
+          ? `Current redirect runtime coverage: ${formatInteger(otherRedirectCoveredByRuntimeCount)} (middleware=${formatInteger(otherRedirectCoveredByMiddlewareCount)}, materialized_rule=${formatInteger(otherRedirectCoveredByRulesCount)}).`
+          : '',
         `Use ${DEFAULT_COVERAGE_OTHER_AUDIT_JSON_PATH.replace('.json', '.csv')} as the operator list.`,
         hasMissingClusterSplit
           ? `Use ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to confirm the ${formatInteger(missingRows)} missing_from_sitemap_and_cache rows stay on the keep-410 path${manualWorkstreamBreakdown.length > 0 ? ` and to work ${joinSentenceParts(manualWorkstreamBreakdown)}` : ''}.`
@@ -540,15 +581,17 @@ function controlItemToQueueItem(
         .join(' ')
     : hasSourceFileClusterPlan
       ? [
-          `Execute the source-file batch: keep ${formatInteger(sourceFileExactRemovalCount)} URLs on the exact-removal / 410 track.`,
-          sourceFileRedirectNeedsValidationCount > 0 && sourceFileRedirectCoveredByMiddlewareCount > 0
-            ? `Validate ${formatInteger(sourceFileRedirectNeedsValidationCount)} explicit 301 candidates and verify ${formatInteger(sourceFileRedirectCoveredByMiddlewareCount)} middleware-covered redirects after deploy.`
+          `Execute the source-file batch: keep ${formatInteger(sourceFileExactRemovalCount)} URLs on the exact-removal / 410 track${sourceFileExactRemovalNeedsMaterializationCount > 0 ? ` and materialize or verify ${formatInteger(sourceFileExactRemovalNeedsMaterializationCount)} uncovered removals` : ''}.`,
+          sourceFileRedirectNeedsValidationCount > 0 && sourceFileRedirectCoveredByRuntimeCount > 0
+            ? `Validate ${formatInteger(sourceFileRedirectNeedsValidationCount)} explicit 301 candidates and verify ${formatInteger(sourceFileRedirectCoveredByRuntimeCount)} runtime-covered redirects after deploy (middleware=${formatInteger(sourceFileRedirectCoveredByMiddlewareCount)}, materialized_rule=${formatInteger(sourceFileRedirectCoveredByRulesCount)}).`
             : sourceFileRedirectNeedsValidationCount > 0
               ? `Validate ${formatInteger(sourceFileRedirectNeedsValidationCount)} redirect candidates before relying on recrawl alone.`
-              : sourceFileRedirectCoveredByMiddlewareCount > 0
-                ? `Verify ${formatInteger(sourceFileRedirectCoveredByMiddlewareCount)} middleware-covered redirects after deploy.`
+              : sourceFileRedirectCoveredByRuntimeCount > 0
+                ? `Keep ${formatInteger(sourceFileRedirectCoveredByRuntimeCount)} runtime-covered redirects live (middleware=${formatInteger(sourceFileRedirectCoveredByMiddlewareCount)}, materialized_rule=${formatInteger(sourceFileRedirectCoveredByRulesCount)}).`
                 : '',
-          sourceFileObserveCount > 0 ? `Leave ${formatInteger(sourceFileObserveCount)} source-file URLs in recrawl watch.` : '',
+          sourceFileObserveCount > 0
+            ? `Leave ${formatInteger(sourceFileObserveCount)} source-file URLs in recrawl watch.`
+            : '',
           sourceFileManualReviewCount > 0
             ? `Work ${formatInteger(sourceFileManualReviewCount)} manual-review source-file rows before expanding the redirect ruleset.`
             : '',
@@ -556,24 +599,36 @@ function controlItemToQueueItem(
         ]
           .filter(Boolean)
           .join(' ')
-    : hasMissingClusterSplit
-      ? [
-          `Execute the missing-cluster split: ${joinSentenceParts(splitActionParts)}.`,
-          manualWorkstreamBreakdown.length > 0
-            ? `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to work ${joinSentenceParts(manualWorkstreamBreakdown)}.`
-            : manualReviewCount > 0
-              ? `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to resolve the remaining manual-review cases.`
-              : `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to confirm the keep-410 rationale and any deferred promotion candidates.`,
-        ].join(' ')
-      : item.actions[0] || 'Review this surface and define the next intervention.';
+      : hasMissingClusterSplit
+        ? [
+            `Execute the missing-cluster split: ${joinSentenceParts(splitActionParts)}.`,
+            manualWorkstreamBreakdown.length > 0
+              ? `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to work ${joinSentenceParts(manualWorkstreamBreakdown)}.`
+              : manualReviewCount > 0
+                ? `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to resolve the remaining manual-review cases.`
+                : `Review ${DEFAULT_MISSING_CLUSTER_AUDIT_JSON_PATH} to confirm the keep-410 rationale and any deferred promotion candidates.`,
+          ].join(' ')
+        : item.actions[0] || 'Review this surface and define the next intervention.';
   const evidence = hasOtherClusterPlan
     ? dedupeStrings([
         ...item.evidence,
         `otherRows=${formatInteger(otherRows)}`,
         `exactRemoval410=${formatInteger(otherExactRemovalCount)}`,
+        ...(otherExactRemovalCoveredByRuntimeCount > 0
+          ? [`exactRemovalRuntimeCovered=${formatInteger(otherExactRemovalCoveredByRuntimeCount)}`]
+          : []),
+        ...(otherExactRemovalNeedsMaterializationCount > 0
+          ? [`exactRemovalNeedsMaterialization=${formatInteger(otherExactRemovalNeedsMaterializationCount)}`]
+          : []),
         `redirect=${formatInteger(otherRedirectCount)}`,
+        ...(otherRedirectCoveredByRuntimeCount > 0
+          ? [`redirectRuntimeCovered=${formatInteger(otherRedirectCoveredByRuntimeCount)}`]
+          : []),
         ...(otherRedirectCoveredByMiddlewareCount > 0
           ? [`redirectCoveredByMiddleware=${formatInteger(otherRedirectCoveredByMiddlewareCount)}`]
+          : []),
+        ...(otherRedirectCoveredByRulesCount > 0
+          ? [`redirectCoveredByRules=${formatInteger(otherRedirectCoveredByRulesCount)}`]
           : []),
         ...(otherRedirectNeedsValidationCount > 0
           ? [`redirectNeedsValidation=${formatInteger(otherRedirectNeedsValidationCount)}`]
@@ -589,9 +644,21 @@ function controlItemToQueueItem(
           ...item.evidence,
           `sourceFileRows=${formatInteger(sourceFileRows)}`,
           `exactRemoval410=${formatInteger(sourceFileExactRemovalCount)}`,
+          ...(sourceFileExactRemovalCoveredByRuntimeCount > 0
+            ? [`exactRemovalRuntimeCovered=${formatInteger(sourceFileExactRemovalCoveredByRuntimeCount)}`]
+            : []),
+          ...(sourceFileExactRemovalNeedsMaterializationCount > 0
+            ? [`exactRemovalNeedsMaterialization=${formatInteger(sourceFileExactRemovalNeedsMaterializationCount)}`]
+            : []),
           `redirect=${formatInteger(sourceFileRedirectCount)}`,
+          ...(sourceFileRedirectCoveredByRuntimeCount > 0
+            ? [`redirectRuntimeCovered=${formatInteger(sourceFileRedirectCoveredByRuntimeCount)}`]
+            : []),
           ...(sourceFileRedirectCoveredByMiddlewareCount > 0
             ? [`redirectCoveredByMiddleware=${formatInteger(sourceFileRedirectCoveredByMiddlewareCount)}`]
+            : []),
+          ...(sourceFileRedirectCoveredByRulesCount > 0
+            ? [`redirectCoveredByRules=${formatInteger(sourceFileRedirectCoveredByRulesCount)}`]
             : []),
           ...(sourceFileRedirectNeedsValidationCount > 0
             ? [`redirectNeedsValidation=${formatInteger(sourceFileRedirectNeedsValidationCount)}`]
@@ -602,20 +669,22 @@ function controlItemToQueueItem(
           `repoSingleSkillRedirect=${formatInteger(sourceFileRepoSingleRedirectCount)}`,
           `nestedSkillParentRedirect=${formatInteger(sourceFileNestedParentRedirectCount)}`,
         ])
-    : hasMissingClusterSplit
-      ? dedupeStrings([
-          ...item.evidence,
-          `missingClusterSplit=${formatInteger(missingRows)}`,
-          `keep410=${formatInteger(keep410Count)}`,
-          `redirect=${formatInteger(redirectCount)}`,
-          ...(redirectCoveredByMiddlewareCount > 0
-            ? [`redirectCoveredByMiddleware=${formatInteger(redirectCoveredByMiddlewareCount)}`]
-            : []),
-          `restore=${formatInteger(restoreCount)}`,
-          `manualReview=${formatInteger(manualReviewCount)}`,
-          ...(manualWorkstreamBreakdown.length > 0 ? [`manualReviewWorkstreams=${manualWorkstreamBreakdown.join('; ')}`] : []),
-        ])
-      : item.evidence;
+      : hasMissingClusterSplit
+        ? dedupeStrings([
+            ...item.evidence,
+            `missingClusterSplit=${formatInteger(missingRows)}`,
+            `keep410=${formatInteger(keep410Count)}`,
+            `redirect=${formatInteger(redirectCount)}`,
+            ...(redirectCoveredByMiddlewareCount > 0
+              ? [`redirectCoveredByMiddleware=${formatInteger(redirectCoveredByMiddlewareCount)}`]
+              : []),
+            `restore=${formatInteger(restoreCount)}`,
+            `manualReview=${formatInteger(manualReviewCount)}`,
+            ...(manualWorkstreamBreakdown.length > 0
+              ? [`manualReviewWorkstreams=${manualWorkstreamBreakdown.join('; ')}`]
+              : []),
+          ])
+        : item.evidence;
 
   return {
     id: item.id,
@@ -639,7 +708,9 @@ function controlItemToQueueItem(
 }
 
 function buildMeasurementCoverageItem(scorecard: RecoveryScorecardReport): RecoveryExecutionQueueItem | null {
-  const freshnessStatus = String(scorecard.coverage.metrics.sourceFreshnessStatus || '').trim().toLowerCase();
+  const freshnessStatus = String(scorecard.coverage.metrics.sourceFreshnessStatus || '')
+    .trim()
+    .toLowerCase();
   if (!['blocking', 'warning', 'missing'].includes(freshnessStatus)) return null;
 
   const action =
@@ -658,16 +729,20 @@ function buildMeasurementCoverageItem(scorecard: RecoveryScorecardReport): Recov
     sourceTitle: scorecard.coverage.label,
     score: 9999,
     summary: scorecard.coverage.observed,
-    rationale: 'The queue cannot fully trust cluster prioritization until fresh raw Coverage Drilldown exports are present locally.',
+    rationale:
+      'The queue cannot fully trust cluster prioritization until fresh raw Coverage Drilldown exports are present locally.',
     action,
-    successSignal: 'latest-coverage-drilldown.json reports a freshest raw export inside the 7-day SLA and the control board can re-rank cluster items against fresh evidence.',
+    successSignal:
+      'latest-coverage-drilldown.json reports a freshest raw export inside the 7-day SLA and the control board can re-rank cluster items against fresh evidence.',
     outcomeNoteTemplate: [
       'Raw export date:',
       'Issue buckets:',
       'Dominant cluster:',
       'Queue impact after refresh:',
     ].join('\n'),
-    blockedBy: ['Fresh local Coverage Drilldown exports are not available in the repo-local archive or the Downloads ingest lane.'],
+    blockedBy: [
+      'Fresh local Coverage Drilldown exports are not available in the repo-local archive or the Downloads ingest lane.',
+    ],
     evidence: dedupeStrings([scorecard.coverage.summary, ...scorecard.coverage.notes]).slice(0, 4),
   };
 }
@@ -691,10 +766,13 @@ function buildCrawlWatchItem(scorecard: RecoveryScorecardReport): RecoveryExecut
     sourceTitle: scorecard.crawl.label,
     score: 0,
     summary: scorecard.crawl.observed,
-    rationale: 'Crawl health is currently stable, so the correct move is disciplined monitoring rather than a new intervention.',
+    rationale:
+      'Crawl health is currently stable, so the correct move is disciplined monitoring rather than a new intervention.',
     action,
     successSignal: 'The next scheduled crawl-health report keeps 4xx <= 0.2%, 5xx = 0, and Cloudflare 1102 = 0.',
-    outcomeNoteTemplate: ['Report date:', 'Observed 4xx/5xx/1102:', 'Regression detected:', 'Follow-up decision:'].join('\n'),
+    outcomeNoteTemplate: ['Report date:', 'Observed 4xx/5xx/1102:', 'Regression detected:', 'Follow-up decision:'].join(
+      '\n',
+    ),
     blockedBy: [],
     evidence: dedupeStrings([scorecard.crawl.summary, ...scorecard.crawl.notes]).slice(0, 4),
   };

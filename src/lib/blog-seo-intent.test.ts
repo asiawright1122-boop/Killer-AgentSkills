@@ -5,6 +5,8 @@ import {
   getBlogLongTailKeywords,
   getBlogMetaOverride,
 } from './blog-seo-intent';
+import { normalizePublicSummary, normalizePublicTitle } from './public-text';
+import en from '../messages/en.json';
 
 describe('blog-seo-intent', () => {
   const dummyEn = {
@@ -103,5 +105,45 @@ describe('blog-seo-intent', () => {
       const meta = getBlogMetaOverride(slug, tMock);
       expect(meta?.description.length).toBeLessThanOrEqual(160);
     }
+  });
+
+  it('resolves production blog message keys instead of falling back to raw frontmatter', () => {
+    const t = (key: string) =>
+      key.split('.').reduce<unknown>((value, segment) => {
+        if (value && typeof value === 'object' && segment in (value as Record<string, unknown>)) {
+          return (value as Record<string, unknown>)[segment];
+        }
+        return undefined;
+      }, en) as string | undefined;
+    const translate = (key: string) => t(key) || key;
+
+    const meta = getBlogMetaOverride('how-to-install-ai-agent-skills', translate);
+    const links = getBlogIntentLinks(
+      'en',
+      'developer-experience',
+      'how-to-build-mcp-servers-with-agent-skills',
+      translate,
+    );
+
+    expect(meta?.title).toContain('Install AI Agent Skills');
+    expect(meta?.description).toContain('npx killer-skills add');
+    expect(links[0]?.title).toBe(en.Blog.Misc.skillsForDeveloperWorkflows);
+    expect(links[0]?.description).toBe(en.Blog.Misc.keepBrowsingSkills);
+  });
+
+  it('normalizes public blog snippets so search cards do not expose truncated tails', () => {
+    expect(
+      normalizePublicSummary(
+        'Discover the best AI agent skills for Claude, Cursor, and Windsurf in 2026. Master essential tasks with proven skills, tested across platforms. Get started',
+      ),
+    ).toBe(
+      'Discover the best AI agent skills for Claude, Cursor, and Windsurf in 2026. Master essential tasks with proven skills, tested across platforms.',
+    );
+    expect(normalizePublicSummary('Erfahren Sie, wie Sie professionelle Berichte erstellen und komp')).toBe(
+      'Erfahren Sie, wie Sie professionelle Berichte erstellen.',
+    );
+    expect(
+      normalizePublicTitle('Skills for Developer Workflows: Build MCP Integrations in Claude Code or Cursor', 72),
+    ).toBe('Skills for Developer Workflows: Build MCP Integrations in Claude Code');
   });
 });

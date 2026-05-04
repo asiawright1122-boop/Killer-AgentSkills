@@ -92,7 +92,7 @@ const homeSeoTitle = tr(
 );
 const homeSeoDescription = tr(
   'Home.seoDescription',
-  'Discover 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation hub for AI coding assistants.',
+  'Discover 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation entry point for AI coding assistants.',
 );
 const homeSeoKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
@@ -104,7 +104,7 @@ const faqItems = [
 ];
 const seoIntro = tr(
   'Home.seoIntro',
-  'Killer-Skills is an open directory and installation hub for 3,400+ AI agent skills. Developers use it to find trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow.',
+  'Killer-Skills is an open directory and installation entry point for 3,400+ AI agent skills. Developers use it to find trusted tools faster than browsing raw GitHub repositories, then move into collections, solutions, and installation docs from one workflow.',
 );
 const homeAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
   ids: homeAuthoritySurfaceIds,
@@ -121,7 +121,7 @@ const homeSurfaceCopyOverrides = isZhCopy
       },
       'collection-official-trusted-tools': {
         title: '官方与高质量工具',
-        description: '优先查看官方项目和社区里验证度更高的工具。',
+        description: '优先查看官方项目和维护信息更清楚的工具。',
       },
       'solution-agent-workflows': {
         title: 'Agent 工作流方案',
@@ -153,30 +153,30 @@ const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
 const homeSelectionGuidance = isZhCopy
   ? [
       {
-        title: '浏览官方与精选',
-        description: '如果你想先看更稳妥的选择，就从官方和高质量精选开始。',
+        title: '浏览精选合集',
+        description: '按主题查看官方工具、工作流和热门方向。',
       },
       {
-        title: '按任务找方案',
-        description: '如果你已经知道要做自动化、工作流或数据处理，可以直接进入对应场景页。',
+        title: '查看安装文档',
+        description: '快速找到安装命令、CLI 用法和常见配置步骤。',
       },
       {
-        title: '需要时再去安装',
-        description: '找到合适方向后，再打开安装文档和 CLI 指南开始配置。',
+        title: '按场景找技能',
+        description: '从自动化、文档、浏览器或数据处理等场景直接进入。',
       },
     ]
   : [
       {
-        title: 'Start With Trusted Picks',
-        description: 'If you want the safest place to begin, start with official and curated picks first.',
+        title: 'Browse Curated Collections',
+        description: 'Explore official tools, workflow bundles, and popular starting points.',
       },
       {
-        title: 'Browse by Task',
-        description: 'If you already know the job to be done, jump into the matching solution page right away.',
+        title: 'Open Installation Docs',
+        description: 'Find install commands, CLI usage, and common setup steps fast.',
       },
       {
-        title: 'Install When You Are Ready',
-        description: 'Once you find the right direction, move into the docs and CLI guide to start setup.',
+        title: 'Browse by Use Case',
+        description: 'Jump straight into automation, docs, browser, or data-focused skills.',
       },
     ];
 const homeAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
@@ -395,17 +395,13 @@ const features = [
               {isZhCopy ? '快速开始' : 'Quick Start'}
             </span>
             <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
-              {
-                isZhCopy
-                  ? '从精选内容开始，更快找到合适的技能'
-                  : 'Start With Curated Content to Find the Right Skills Faster'
-              }
+              {isZhCopy ? '从这三个入口开始，更快找到合适的技能' : 'Start With These Three Paths'}
             </h2>
             <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
               {
                 isZhCopy
-                  ? '先看官方精选、安装文档和场景页面，快速判断哪些工具值得试、从哪里开始安装。'
-                  : 'Begin with official picks, installation docs, and scenario pages so it is easier to see what is worth trying and where to start.'
+                  ? '无论你是先挑合集、先看安装步骤，还是按场景筛选，都可以从这里直接进入。'
+                  : 'Whether you want to browse collections, check setup steps, or explore by use case, you can start here.'
               }
             </p>
           </div>
@@ -458,7 +454,7 @@ const features = [
           homeSupportingSurface && (
             <div class="mt-8 flex flex-wrap items-center gap-3 border-t-[3px] border-[var(--border)] pt-6">
               <span class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                {isZhCopy ? '参考目录入口' : 'Reference Directory'}
+                {isZhCopy ? '全部技能目录' : 'All Skills Directory'}
               </span>
               <a
                 href={homeSupportingSurface.href}
@@ -667,13 +663,13 @@ const features = [
       <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-3xl mx-auto text-center mb-10">
           <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4">
-            {isZhCopy ? '先把下一步路径选对，再继续安装' : 'Choose the Right Next Step Before You Install'}
+            {isZhCopy ? '先选对安装路径，再继续安装' : 'Choose the Right Setup Path Before You Install'}
           </h2>
           <p class="text-lg md:text-2xl font-mono font-bold opacity-80">
             {
               isZhCopy
-                ? '首页的主任务不是把你重新送回目录，而是把你送进更可信、更容易落地的入口。'
-                : 'The homepage should move users into trusted collections, scenario pages, and install guidance instead of sending them back into raw directory browsing.'
+                ? '先从官方合集、场景方案和安装文档开始，比直接翻完整目录更快找到可用技能。'
+                : 'Start with official collections, scenario pages, and install guidance to find usable skills faster than browsing the full directory.'
             }
           </p>
         </div>

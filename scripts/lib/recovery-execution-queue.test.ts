@@ -49,7 +49,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 'Stay clear.',
           observed: '1,650 checked.',
           notes: ['No regression.'],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 1650,
             discoveredUrls: 29280,
@@ -70,7 +76,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 'Stay fresh.',
           observed: 'Freshest raw export 2026-04-03.',
           notes: ['Outside SLA.', 'Dominant cluster: trailing_slash'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 1,
             totalAffectedPages: 5449,
@@ -91,7 +103,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 'Stay aligned.',
           observed: 'onlyInSitemap=0',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -101,7 +119,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 'Stay visible.',
           observed: 'live-api',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -125,7 +149,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 'Stay free-only.',
           observed: 'workersAi=free-only',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -155,9 +185,9 @@ describe('buildRecoveryExecutionQueueReport', () => {
     expect(report.items.some((item) => item.id === 'cluster-trailing_slash' && item.queueStatus === 'ready')).toBe(
       true,
     );
-    expect(report.items.some((item) => item.id === 'watch-main-domain-crawl-health' && item.queueStatus === 'watch')).toBe(
-      true,
-    );
+    expect(
+      report.items.some((item) => item.id === 'watch-main-domain-crawl-health' && item.queueStatus === 'watch'),
+    ).toBe(true);
   });
 
   it('maps page and query surfaces into metadata interventions', () => {
@@ -207,7 +237,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -228,7 +264,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 0,
             totalAffectedPages: 0,
@@ -249,7 +291,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -259,7 +307,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -283,7 +337,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -349,7 +409,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -370,7 +436,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 0,
             totalAffectedPages: 0,
@@ -391,7 +463,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -401,7 +479,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -425,7 +509,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -452,9 +542,14 @@ describe('buildRecoveryExecutionQueueReport', () => {
         ],
         executionSummary: {
           exactRemoval410Count: 489,
+          exactRemovalCoveredByRuntimeCount: 489,
+          exactRemovalCoveredByRulesCount: 489,
+          exactRemovalNeedsMaterializationCount: 0,
           redirectValidationCount: 20,
+          redirectCoveredByRuntimeCount: 20,
           redirectCoveredByMiddlewareCount: 19,
-          redirectNeedsValidationCount: 1,
+          redirectCoveredByRulesCount: 1,
+          redirectNeedsValidationCount: 0,
           observeCount: 5,
           manualReviewCount: 0,
         },
@@ -484,6 +579,8 @@ describe('buildRecoveryExecutionQueueReport', () => {
     expect(item?.summary).toContain('489 exact-removal / 410');
     expect(item?.summary).toContain('blocked_by_sitemap (274)');
     expect(item?.action).toContain('Use reports/seo/latest-coverage-other-audit.csv as the operator list.');
+    expect(item?.action).toContain('keep 20 runtime-covered redirects live');
+    expect(item?.action).toContain('materialized_rule=1');
     expect(item?.action).toContain('214 missing_from_sitemap_and_cache rows stay on the keep-410 path');
   });
 
@@ -506,7 +603,9 @@ describe('buildRecoveryExecutionQueueReport', () => {
             title: 'Issue cluster: source_file_path',
             summary: 'Source-file crawl trap cluster.',
             evidence: ['source-file cluster sample'],
-            actions: ['Review the source_file_path cluster against the freshest available raw Coverage Drilldown export.'],
+            actions: [
+              'Review the source_file_path cluster against the freshest available raw Coverage Drilldown export.',
+            ],
           },
         ],
         nextActions: [],
@@ -524,7 +623,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -545,7 +650,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 0,
             totalAffectedPages: 0,
@@ -566,7 +677,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -576,7 +693,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -600,7 +723,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -626,8 +755,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
         ],
         executionSummary: {
           exactRemoval410Count: 322,
+          exactRemovalCoveredByRuntimeCount: 322,
+          exactRemovalCoveredByRulesCount: 0,
+          exactRemovalNeedsMaterializationCount: 0,
           redirectValidationCount: 50,
+          redirectCoveredByRuntimeCount: 50,
           redirectCoveredByMiddlewareCount: 50,
+          redirectCoveredByRulesCount: 0,
           redirectNeedsValidationCount: 0,
           observeCount: 0,
           manualReviewCount: 0,
@@ -646,9 +780,10 @@ describe('buildRecoveryExecutionQueueReport', () => {
     expect(item?.intervention).toBe('removal-execution');
     expect(item?.summary).toContain('322 exact-removal / 410');
     expect(item?.summary).toContain('repo_single_skill_redirect (47)');
-    expect(item?.action).toContain('Verify 50 middleware-covered redirects after deploy.');
+    expect(item?.action).toContain('Keep 50 runtime-covered redirects live');
     expect(item?.action).toContain('Use reports/seo/latest-coverage-source-file-audit.csv as the operator list.');
     expect(item?.evidence).toContain('sourceFileRows=372');
+    expect(item?.evidence).toContain('redirectRuntimeCovered=50');
   });
 
   it('does not create a freshness blocker when coverage exports are already fresh', () => {
@@ -677,7 +812,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -698,7 +839,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'fresh export with issue buckets',
           notes: ['Dominant cluster: other'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 2,
             totalAffectedPages: 16232,
@@ -719,7 +866,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -729,7 +882,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -753,7 +912,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -768,7 +933,9 @@ describe('buildRecoveryExecutionQueueReport', () => {
           },
         },
         weeklyGates: [],
-        nextActions: ['Work the dominant Coverage Drilldown clusters from `reports/seo/latest-coverage-drilldown.md`; current leader is other.'],
+        nextActions: [
+          'Work the dominant Coverage Drilldown clusters from `reports/seo/latest-coverage-drilldown.md`; current leader is other.',
+        ],
       },
     });
 
@@ -812,7 +979,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -833,7 +1006,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'fresh raw export available',
           notes: ['Newest raw Coverage Drilldown export is 2026-04-16'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 1,
             totalAffectedPages: 10783,
@@ -854,7 +1033,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -864,7 +1049,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -888,7 +1079,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -969,7 +1166,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -990,7 +1193,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'fresh raw export available',
           notes: ['Newest raw Coverage Drilldown export is 2026-04-16'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 1,
             totalAffectedPages: 10783,
@@ -1011,7 +1220,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -1021,7 +1236,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -1045,7 +1266,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -1137,7 +1364,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -1158,7 +1391,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'fresh raw export available',
           notes: ['Newest raw Coverage Drilldown export is 2026-04-16'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 1,
             totalAffectedPages: 10783,
@@ -1179,7 +1418,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -1189,7 +1434,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -1213,7 +1464,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'indexability.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'indexability.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { keepCount: 0, noindexCount: 0, removeCount: 0 },
         },
         localeGovernance: {
@@ -1223,7 +1480,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'locale.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'locale.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { governedRoutes: 0, indexableLocales: 0, suppressedLocales: 0 },
         },
         aiPosture: {
@@ -1233,7 +1496,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
@@ -1311,7 +1580,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'crawl.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'crawl.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             checkedUrls: 0,
             discoveredUrls: 0,
@@ -1332,7 +1607,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'fresh raw export available',
           notes: ['Newest raw Coverage Drilldown export is 2026-04-16'],
-          source: { path: 'coverage.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'coverage.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             issueCount: 1,
             totalAffectedPages: 10783,
@@ -1353,7 +1634,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'index.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'index.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: { onlyInSitemap: 0, onlyInIndexableCache: 0, totalDrift: 0 },
         },
         traffic: {
@@ -1363,7 +1650,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'traffic.md', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'traffic.md',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             status: 'clear',
             sourceMode: 'live-api',
@@ -1387,7 +1680,13 @@ describe('buildRecoveryExecutionQueueReport', () => {
           target: 't',
           observed: 'o',
           notes: [],
-          source: { path: 'ai.json', exists: true, generatedAt: '2026-04-16T00:00:00.000Z', ageDays: 0, freshness: 'fresh' },
+          source: {
+            path: 'ai.json',
+            exists: true,
+            generatedAt: '2026-04-16T00:00:00.000Z',
+            ageDays: 0,
+            freshness: 'fresh',
+          },
           metrics: {
             workersAiMode: 'free-only',
             fallbackPolicy: 'cold',
