@@ -43,7 +43,7 @@ const topicParam = (url.searchParams.get('topic') || '').trim();
 const normalizeFacet = (value: string) => value.toLowerCase().replace(/\s+/g, ' ').trim();
 const topic = normalizeFacet(topicParam);
 const ITEMS_PER_PAGE = 12;
-const FILTERED_SKILL_SAMPLE_LIMIT = 500;
+const FILTERED_SKILL_SAMPLE_LIMIT = 240;
 const requestedPageRaw = Number.parseInt(url.searchParams.get('page') || '1', 10);
 const requestedPage = Number.isFinite(requestedPageRaw) && requestedPageRaw > 0 ? requestedPageRaw : 1;
 const usePagedListing = !query && !category && !view && !owner && !topic;
