@@ -20,6 +20,7 @@ interface Props {
   customCanonical?: string;
   availableLocales?: string[];
   xDefaultLocale?: string;
+  robots?: string;
 }
 
 const SITE_URL = import.meta.env.SITE ?? 'https://killer-skills.com';
@@ -37,6 +38,7 @@ const {
   customCanonical,
   availableLocales,
   xDefaultLocale: customXDefaultLocale,
+  robots,
 } = Astro.props;
 
 // RTL support for Arabic
@@ -64,6 +66,9 @@ const metadata = buildPageMetadata({
   appendBrand,
   siteUrl: SITE_URL,
 });
+const robotsContent =
+  robots ||
+  (noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
 ---
 
 <!doctype html>
@@ -93,13 +98,7 @@ const metadata = buildPageMetadata({
     >
 
     <meta name="description" content={metadata.description} />
-    {
-      noindex ? (
-        <meta name="robots" content="noindex, nofollow" />
-      ) : (
-        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-      )
-    }
+    <meta name="robots" content={robotsContent} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 

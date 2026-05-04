@@ -891,6 +891,10 @@ const layoutDescription = renderRepoDirectory ? repoDirectoryMetaDescription : r
 const layoutKeywords = renderRepoDirectory ? repoDirectoryKeywords : seoKeywords;
 const layoutOgType = renderRepoDirectory ? 'website' : 'product';
 const layoutNoindex = renderRepoDirectory ? true : !skillIndexability?.isIndexable;
+const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
+if (robotsContent) {
+  Astro.response.headers.set('X-Robots-Tag', robotsContent);
+}
 const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
 ---
 
@@ -902,6 +906,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
   image={ogImageUrl}
   ogType={layoutOgType}
   noindex={layoutNoindex}
+  robots={robotsContent}
   customCanonical={canonicalSkillUrl}
   availableLocales={skillAvailableLocales}
   xDefaultLocale={skillXDefaultLocale}

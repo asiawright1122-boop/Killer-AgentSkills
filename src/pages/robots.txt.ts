@@ -11,28 +11,12 @@ Disallow: /favorites
 Disallow: /history
 Disallow: /*/favorites
 Disallow: /*/history
-# Block crawling of source-code file paths (not real pages)
-# Note: Standard robots.txt does not support regex. Use path patterns instead.
-# These patterns are handled by middleware returning 410 Gone for better control.
-Disallow: *.md
-Disallow: *.ts
-Disallow: *.js
-Disallow: *.py
-Disallow: *.json
-Disallow: *.go
-Disallow: *.yaml
-Disallow: /.cursor/
-Disallow: /04-Initiatives/
-Disallow: /ORCHESTRATION.md
 
 # Search result/listing parameter pages are controlled by noindex headers/meta.
 # Keep crawl allowed so bots can receive canonical + noindex signals.
 # API endpoints are controlled by X-Robots-Tag: noindex, nofollow.
 # Keep crawl allowed so engines can observe the directive and drop historical API URLs.
-# Block legacy tag parameter (use ?topic= instead)
-Disallow: /*?tag=
-# Block deep nested skill sub-paths (crawl traps)
-Disallow: /*/skills/*/*/*/*/
+# Invalid source-file and deep skill paths are allowed to crawl so bots can see cached 301/404/410 responses.
 # Sandbox execution pages are controlled with page-level noindex headers/meta.
 # Keep crawl allowed so Google can observe the noindex signal.
 
@@ -72,13 +56,7 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-Sitemap: ${SITE_URL}/sitemap.xml
-Host: ${SITE_URL}
-
-# AI/LLM Crawler Information
-# See https://llmstxt.org/
-LLMs-Txt: ${SITE_URL}/llms.txt
-LLMs-Full-Txt: ${SITE_URL}/llms-full.txt`;
+Sitemap: ${SITE_URL}/sitemap.xml`;
 
   return new Response(body, {
     status: 200,

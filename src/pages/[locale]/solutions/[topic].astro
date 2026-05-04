@@ -84,6 +84,10 @@ const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
 const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/solutions/${intent.slug}`;
+const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';
+if (robotsContent) {
+  Astro.response.headers.set('X-Robots-Tag', robotsContent);
+}
 const pageTitle = intent.pageTitle;
 const pageDescription = intent.pageDescription;
 const buildSkillDetailHref = (skill: UnifiedSkill) => {
@@ -274,6 +278,7 @@ const solutionSignificantLinks = solutionAuthorityBridges
   keywords={pageKeywords}
   customCanonical={canonicalUrl}
   noindex={!isIndexableLocale}
+  robots={robotsContent}
   availableLocales={availableLocales}
   xDefaultLocale={canonicalLocale}
 >

@@ -257,6 +257,10 @@ const isDirectlyLocalized = isDirectlyLocalizedVariant(localizedSeoLocales, type
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
 const indexableLocales = canonicalLocale ? [canonicalLocale] : [];
 const canonicalUrl = `https://killer-skills.com/${canonicalLocale}/collections/${canonicalSlug}`;
+const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';
+if (robotsContent) {
+  Astro.response.headers.set('X-Robots-Tag', robotsContent);
+}
 const collectionSeoKeywords = buildKeywordString(
   t,
   keywords,
@@ -386,6 +390,7 @@ const itemListSchema = {
   ogType="article"
   customCanonical={canonicalUrl}
   noindex={!isIndexableLocale}
+  robots={robotsContent}
   availableLocales={indexableLocales}
   xDefaultLocale={canonicalLocale}
 >

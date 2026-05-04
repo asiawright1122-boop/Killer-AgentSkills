@@ -21,6 +21,10 @@ const availableLocales = getSolutionSeoEligibleLocales();
 const canonicalLocale = getPreferredCanonicalLocale(availableLocales);
 const isDirectlyLocalized = isDirectlyLocalizedVariant(availableLocales, typedLocale);
 const isIndexableLocale = isDirectlyLocalized && typedLocale === canonicalLocale;
+const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';
+if (robotsContent) {
+  Astro.response.headers.set('X-Robots-Tag', robotsContent);
+}
 
 const messages = await loadMessages(typedLocale);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
@@ -99,6 +103,7 @@ const solutionsHubSignificantLinks = solutionsPriorityNextSteps
   keywords={pageKeywords}
   customCanonical={canonicalUrl}
   noindex={!isIndexableLocale}
+  robots={robotsContent}
   availableLocales={availableLocales}
   xDefaultLocale={canonicalLocale}
 >

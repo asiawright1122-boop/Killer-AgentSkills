@@ -297,12 +297,34 @@ describe('public links and navigation copy', () => {
 
   it('keeps parameterized skills listing pages on bounded queries for crawl stability', () => {
     const skillsIndexSource = readPageSource('../pages/[locale]/skills/index.astro');
+    const layoutSource = readPageSource('../layouts/Layout.astro');
 
     expect(skillsIndexSource).toContain('FILTERED_SKILL_SAMPLE_LIMIT');
     expect(skillsIndexSource).toContain('getLightweightSkillsTop(env, FILTERED_SKILL_SAMPLE_LIMIT)');
     expect(skillsIndexSource).toContain('shouldLoadFilteredListingData');
+    expect(skillsIndexSource).toContain("const robotsContent = hasListingParams ? 'noindex, follow' : undefined;");
+    expect(skillsIndexSource).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
+    expect(skillsIndexSource).toContain('robots={robotsContent}');
+    expect(layoutSource).toContain('<meta name="robots" content={robotsContent} />');
     expect(skillsIndexSource).not.toContain('getLightweightSkills(env)');
     expect(skillsIndexSource).not.toContain('shouldLoadFullListingData');
+  });
+
+  it('keeps canonicalized noindex pages followable across robots headers and meta tags', () => {
+    const collectionDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
+    const solutionIndexSource = readPageSource('../pages/[locale]/solutions/index.astro');
+    const solutionDetailSource = readPageSource('../pages/[locale]/solutions/[topic].astro');
+    const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+
+    for (const source of [collectionDetailSource, solutionIndexSource, solutionDetailSource]) {
+      expect(source).toContain("const robotsContent = isIndexableLocale ? undefined : 'noindex, follow';");
+      expect(source).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
+      expect(source).toContain('robots={robotsContent}');
+    }
+
+    expect(skillDetailSource).toContain("const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;");
+    expect(skillDetailSource).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
+    expect(skillDetailSource).toContain('robots={robotsContent}');
   });
 
   it('keeps blog intent links on indexable solution and docs paths instead of fixed search-result URLs', () => {
@@ -1298,6 +1320,21 @@ describe('public links and navigation copy', () => {
     expect(staticSitemapSource).toContain('getPreferredCanonicalLocale(page.locales)');
     expect(staticSitemapSource).toContain('buildHreflangLinks(page.path, [canonicalLocale])');
     expect(staticSitemapSource).not.toContain('...SOLUTION_INTENT_SLUGS.map((slug) => `/solutions/${slug}`)');
+  });
+
+  it('keeps robots.txt aligned with crawlable noindex and 410 cleanup signals', async () => {
+    const mod = await import('../../src/pages/robots.txt');
+    const response = await mod.GET({} as any);
+    const body = await response.text();
+
+    expect(body).toContain('Sitemap: https://killer-skills.com/sitemap.xml');
+    expect(body).toContain('Search result/listing parameter pages are controlled by noindex headers/meta.');
+    expect(body).toContain('Invalid source-file and deep skill paths are allowed to crawl');
+    expect(body).not.toContain('Disallow: *.md');
+    expect(body).not.toContain('Disallow: /*?tag=');
+    expect(body).not.toContain('Disallow: /*/skills/*/*/*/*/');
+    expect(body).not.toContain('Host:');
+    expect(body).not.toContain('LLMs-Txt:');
   });
 
   it('keeps solution detail pages on bounded skill queries for crawl stability', () => {
