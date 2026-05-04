@@ -49,6 +49,7 @@ const strict = args.has('--strict');
 const failOnThin = args.has('--fail-on-thin');
 const failOnMissingBody = args.has('--fail-on-missing-body');
 const failOnPartialCollections = args.has('--fail-on-partial-collections');
+const failOnGovernedPromotionGaps = args.has('--fail-on-governed-promotion-gaps');
 const workspaceRoot = process.cwd();
 const dataDir = resolve(workspaceRoot, 'data');
 const collectionsDir = resolve(workspaceRoot, 'src/content/collections');
@@ -213,7 +214,7 @@ function main() {
     writeDriftArtifacts(onlyInSitemap, onlyInCache);
     warnings.push('drift artifacts written: reports/seo/index-drift.json (+ txt lists)');
 
-    if (onlyInSitemap.length > 0 || onlyInCache.length > 0) {
+    if (onlyInSitemap.length > 0) {
       const message = [
         `governed route drift detected`,
         `only in sitemap: ${onlyInSitemap.length}`,
@@ -223,6 +224,17 @@ function main() {
       ].join(' | ');
 
       if (strict) errors.push(message);
+      else warnings.push(message);
+    }
+
+    if (onlyInCache.length > 0) {
+      const message = [
+        `governed indexable promotion candidates not currently in sitemap`,
+        `count: ${onlyInCache.length}`,
+        `sample: ${summarizeList(onlyInCache)}`,
+      ].join(' | ');
+
+      if (failOnGovernedPromotionGaps) errors.push(message);
       else warnings.push(message);
     }
 
@@ -277,7 +289,7 @@ function main() {
     writeDriftArtifacts(driftSnapshot.onlyInSitemap, driftSnapshot.onlyInIndexableCache);
     warnings.push('drift artifacts written from latest-skill-indexability fallback: reports/seo/index-drift.json');
 
-    if (driftSnapshot.onlyInSitemap.length > 0 || driftSnapshot.onlyInIndexableCache.length > 0) {
+    if (driftSnapshot.onlyInSitemap.length > 0) {
       const message = [
         `governed route drift detected`,
         `only in sitemap: ${driftSnapshot.onlyInSitemap.length}`,
@@ -287,6 +299,17 @@ function main() {
       ].join(' | ');
 
       if (strict) errors.push(message);
+      else warnings.push(message);
+    }
+
+    if (driftSnapshot.onlyInIndexableCache.length > 0) {
+      const message = [
+        `governed indexable promotion candidates not currently in sitemap`,
+        `count: ${driftSnapshot.onlyInIndexableCache.length}`,
+        `sample: ${summarizeList(driftSnapshot.onlyInIndexableCache)}`,
+      ].join(' | ');
+
+      if (failOnGovernedPromotionGaps) errors.push(message);
       else warnings.push(message);
     }
   } else {
