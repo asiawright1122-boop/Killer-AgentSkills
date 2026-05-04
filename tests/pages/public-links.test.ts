@@ -702,9 +702,11 @@ describe('public links and navigation copy', () => {
     expect(workflowCollectionSource).toContain('"executionExamples"');
     expect(workflowCollectionSource).toContain('"nextSteps"');
 
-    expect(collectionDetailSource).toContain('editorialTrustSignals');
+    expect(collectionDetailSource).toContain('editorialDecisionTracks');
     expect(collectionDetailSource).toContain('editorialExecutionExamples');
     expect(collectionDetailSource).toContain('editorialNextSteps');
+    expect(collectionDetailSource).toContain('primaryEditorialNextStep');
+    expect(collectionDetailSource).toContain('supportingEditorialNextSteps');
     expect(collectionDetailSource).toContain('Related Collections');
 
     expect(docsSource).toContain('installBridgeCards');

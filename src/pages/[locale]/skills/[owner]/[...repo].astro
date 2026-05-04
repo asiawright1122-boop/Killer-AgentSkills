@@ -430,7 +430,6 @@ const pageTitle = truncateText(n8nTitleOverride || (shouldUseTitleTemplate ? tem
 
 // SEO Description: prioritize explicit SEO description, otherwise use an install-focused snippet
 const seoDescriptionRaw = skill.seo?.description?.[typedLocale] || skill.seo?.description?.['en'];
-const intentUseCase = skillSeoIntent.supportTerm || skillSeoIntent.useCaseLabel;
 const templateDescription =
   typedLocale === 'zh'
     ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。`

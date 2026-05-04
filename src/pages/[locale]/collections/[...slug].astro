@@ -268,18 +268,6 @@ const longDescription = polishCollectionPublicText(
   typedLocale,
 );
 const editorial = cData.editorial;
-const editorialReviewSummary = sanitizePublicText(resolveLocalized(editorial?.reviewSummary, ''), '');
-const editorialSelectionReason = sanitizePublicText(resolveLocalized(editorial?.selectionReason, ''), '');
-const editorialTrustSignals = sanitizePublicArray(resolveLocalizedArray(editorial?.trustSignals, []));
-const editorialGroupingLogic = sanitizePublicArray(resolveLocalizedArray(editorial?.groupingLogic, []));
-const editorialMaintenance = editorial?.maintenance
-  ? {
-      reviewedAt: editorial.maintenance.reviewedAt,
-      cadence: sanitizePublicText(resolveLocalized(editorial.maintenance.cadence, ''), ''),
-      maintainedBy: sanitizePublicText(resolveLocalized(editorial.maintenance.maintainedBy, ''), ''),
-      verification: sanitizePublicText(resolveLocalized(editorial.maintenance.verification, ''), ''),
-    }
-  : null;
 const editorialExecutionExamples = (editorial?.executionExamples || [])
   .map((item) => ({
     title: sanitizePublicText(resolveLocalized(item.title, ''), ''),
