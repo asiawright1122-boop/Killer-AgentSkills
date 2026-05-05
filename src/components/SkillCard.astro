@@ -6,6 +6,7 @@ import { CATEGORY_GROUPS } from '../lib/search';
 import { getCategoryDef, normalizeCategoryId } from '../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../lib/skill-locale-link';
+import { sanitizePublicSkillCopy } from '../lib/public-skill-copy';
 import CardOverlayLink from './CardOverlayLink.astro';
 
 // Install command prefix
@@ -94,7 +95,7 @@ const featuredLabel = resolveCopy('Common.featured', 'FEATURED');
 const noDescriptionLabel = resolveCopy('Common.noDescription', 'No description available');
 const copyLabel = resolveCopy('Common.copy', 'COPY');
 const copiedLabel = resolveCopy('Common.copied', 'OK');
-const descriptionText = descText && descText.trim().length > 0 ? descText : noDescriptionLabel;
+const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
 ---
 
 <article

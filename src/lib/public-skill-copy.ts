@@ -7,6 +7,8 @@ const INSTRUCTION_LINE_PATTERNS = [
   /\bavoid\s+copying\b/i,
   /\bdo\s+not\s+copy\b/i,
   /\bmust\s+emphasize\b/i,
+  /\buse\s+when\b/i,
+  /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
 ];
 
 const SOURCE_INSTRUCTION_SECTION_PATTERNS = [
@@ -22,6 +24,7 @@ const SOURCE_INSTRUCTION_LINE_PATTERNS = [
   /\bthe\s+template\s+is\s+the\s+starting\s+point\b/i,
   /\boutput\s+\.(?:md|html|js)\s+files?\b/i,
   /\beach\s+\w+[^.。!?]*\bshould\s+be\s+mentioned\b/i,
+  /\byou\s+orchestrate\s+a\s+pr\s+code\s+review\s+debate\b/i,
 ];
 
 const LOW_VALUE_FRAGMENT_PATTERNS = [

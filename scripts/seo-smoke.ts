@@ -41,6 +41,18 @@ const TRANSIENT_STATUS_CODES = new Set([429, 500, 502, 503, 504, 522, 524]);
 const SKILL_FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
 const I18N_KEY_REGEX =
   /\b(?:Aria|Blog|Common|Detail|Docs|Footer|Home|Marketplace|Navigation|Solutions)\.(?!astro\b|tsx\b|ts\b|jsx\b|js\b|json\b)[A-Za-z0-9_-]+\b/g;
+const PUBLIC_COPY_LEAK_PATTERNS = [
+  /\buse\s+when\s+(?:creating|using|the\s+user|you|asked|working|submitting)\b/i,
+  /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
+  /\bcritical\s+guidelines?\b/i,
+  /\bavoid\s+redundancy\b/i,
+  /\bdo\s+not\s+copy\b/i,
+  /\byou\s+orchestrate\s+a\s+pr\s+code\s+review\s+debate\b/i,
+  /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
+  /\breference-only\b/i,
+  /\btrusted\s+next\s+steps?\b/i,
+  /思考链|恢复期话术|控制台|复核清单|编辑部审查/i,
+];
 const OG_LOCALE_BY_LOCALE: Record<string, string> = {
   ar: 'ar_AR',
   de: 'de_DE',
@@ -417,6 +429,8 @@ function loadSkillLocaleGovernance(): SkillLocaleGovernanceRecord[] {
 
 function stripTags(value: string): string {
   return value
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
     .replace(/<svg[\s\S]*?<\/svg>/gi, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/&nbsp;/g, ' ')
@@ -524,6 +538,17 @@ function assertNoRawI18nKeys(path: string, html: string) {
   ensure(matches.length === 0, `${path}: leaked raw translation keys (${matches.slice(0, 5).join(', ')})`);
 }
 
+function assertNoPublicCopyLeaks(path: string, html: string) {
+  const visibleText = stripTags(html);
+  const matches = PUBLIC_COPY_LEAK_PATTERNS.map((pattern) => visibleText.match(pattern)?.[0])
+    .filter((value): value is string => Boolean(value))
+    .filter(
+      (value, index, all) => all.findIndex((candidate) => candidate.toLowerCase() === value.toLowerCase()) === index,
+    );
+
+  ensure(matches.length === 0, `${path}: leaked instruction/internal public copy (${matches.slice(0, 5).join(', ')})`);
+}
+
 function assertLocaleMetadata(check: PageCheck, html: string) {
   const htmlLang = readTagContent(html, /<html[^>]*\slang="([^"]+)"/i);
   const ogLocale = readTagContent(html, /<meta\s+property="og:locale"\s+content="(.*?)"/i);
@@ -612,6 +637,7 @@ function validateCheck(check: PageCheck, html: string) {
 
   assertLocaleMetadata(check, html);
   assertNoRawI18nKeys(check.path, html);
+  assertNoPublicCopyLeaks(check.path, html);
   assertBreadcrumbParity(check, html);
 
   if (check.mustNotContain) {

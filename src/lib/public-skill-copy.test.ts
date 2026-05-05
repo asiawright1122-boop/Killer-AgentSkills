@@ -23,6 +23,14 @@ describe('public skill copy sanitizer', () => {
     ).toEqual(['Requires p5.js and browser rendering support.']);
   });
 
+  it('removes trigger instructions from public card descriptions', () => {
+    expect(
+      sanitizePublicSkillCopy(
+        'Creates GitHub pull requests with properly formatted titles. Use when creating PRs, submitting changes for review, or when the user says /pr.',
+      ),
+    ).toBe('Creates GitHub pull requests with properly formatted titles.');
+  });
+
   it('normalizes feature labels generated from upstream instructions', () => {
     expect(
       sanitizePublicSkillCopyList([
