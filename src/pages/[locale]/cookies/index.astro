@@ -17,8 +17,21 @@ const typedLocale = locale as Locale;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
+const cookieDescriptions = {
+  en: 'Learn which cookies and local storage Killer-Skills uses for language, theme, favorites, history, and privacy-friendly browsing.',
+  zh: '了解 Killer-Skills 为语言、主题、收藏、浏览历史和隐私友好体验使用哪些 Cookie 与本地存储。',
+  ja: 'Killer-Skills が言語、テーマ、お気に入り、履歴、プライバシーに配慮した閲覧のために使う Cookie とローカルストレージを確認できます。',
+  ko: 'Killer-Skills가 언어, 테마, 즐겨찾기, 기록, 개인정보 친화적 탐색에 사용하는 쿠키와 로컬 저장소를 알아보세요.',
+  es: 'Conoce las cookies y el almacenamiento local que Killer-Skills usa para idioma, tema, favoritos, historial y navegación privada.',
+  fr: 'Découvrez les cookies et le stockage local utilisés par Killer-Skills pour la langue, le thème, les favoris et l’historique.',
+  de: 'Erfahre, welche Cookies und lokalen Speicher Killer-Skills für Sprache, Theme, Favoriten, Verlauf und Datenschutz nutzt.',
+  pt: 'Saiba quais cookies e armazenamento local o Killer-Skills usa para idioma, tema, favoritos, histórico e navegação privada.',
+  ru: 'Узнайте, какие cookies и локальное хранилище Killer-Skills использует для языка, темы, избранного, истории и приватности.',
+  ar: 'تعرّف على ملفات تعريف الارتباط والتخزين المحلي التي يستخدمها Killer-Skills للغة والسمة والمفضلة والسجل والتصفح الخاص.',
+} satisfies Record<Locale, string>;
+
 const pageTitle = t('Footer.cookie');
-const pageDescription = `${t('Footer.cookie')} — Killer-Skills`;
+const pageDescription = cookieDescriptions[typedLocale];
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>

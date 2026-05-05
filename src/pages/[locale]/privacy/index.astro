@@ -17,8 +17,21 @@ const typedLocale = locale as Locale;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
+const privacyDescriptions = {
+  en: 'Review how Killer-Skills handles privacy, local preferences, analytics, third-party links, and user-controlled browser data.',
+  zh: '了解 Killer-Skills 如何处理隐私、本地偏好、匿名分析、第三方链接以及由用户掌控的浏览器数据。',
+  ja: 'Killer-Skills のプライバシー、ローカル設定、匿名分析、外部リンク、ユーザー管理のブラウザデータの扱いを確認できます。',
+  ko: 'Killer-Skills의 개인정보 처리, 로컬 설정, 익명 분석, 외부 링크, 사용자가 관리하는 브라우저 데이터를 확인하세요.',
+  es: 'Consulta cómo Killer-Skills gestiona privacidad, preferencias locales, analítica anónima, enlaces externos y datos del navegador.',
+  fr: 'Découvrez comment Killer-Skills gère la confidentialité, les préférences locales, les mesures anonymes et les données du navigateur.',
+  de: 'Erfahre, wie Killer-Skills Datenschutz, lokale Einstellungen, anonyme Analysen, externe Links und Browserdaten behandelt.',
+  pt: 'Veja como o Killer-Skills trata privacidade, preferências locais, métricas anônimas, links externos e dados do navegador.',
+  ru: 'Узнайте, как Killer-Skills обрабатывает конфиденциальность, локальные настройки, анонимную аналитику, внешние ссылки и данные браузера.',
+  ar: 'راجع كيف يتعامل Killer-Skills مع الخصوصية والتفضيلات المحلية والتحليلات المجهولة والروابط الخارجية وبيانات المتصفح.',
+} satisfies Record<Locale, string>;
+
 const pageTitle = t('Footer.privacy');
-const pageDescription = `${t('Footer.privacy')} — Killer-Skills`;
+const pageDescription = privacyDescriptions[typedLocale];
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>

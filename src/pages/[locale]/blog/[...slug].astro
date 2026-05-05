@@ -63,6 +63,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 // Estimate read time (rough)
 const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
+const hasMarkdownH1 = /^#\s+/m.test((post.body || '').replace(/```[\s\S]*?```/g, ''));
 // OG Image Generation (Dynamic V2)
 
 const ogImage = new URL(`/og-image.webp`, Astro.url).toString();
@@ -179,11 +180,17 @@ const blogBreadcrumbSchema = {
 
           {/* Header */}
           <header class="mb-12 border-b-4 border-[var(--foreground)] pb-12">
-            <h1
-              class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance"
-            >
-              {post.data.title}
-            </h1>
+            {
+              hasMarkdownH1 ? (
+                <p class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance">
+                  {post.data.title}
+                </p>
+              ) : (
+                <h1 class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance">
+                  {post.data.title}
+                </h1>
+              )
+            }
             <div class="flex items-center gap-3 mb-8">
               {
                 post.data.tags &&

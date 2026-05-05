@@ -41,13 +41,25 @@ const remainingPosts = sortedPosts.filter((p) => p.id !== featuredPost?.id);
 const messages = await loadMessages(locale as Locale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
+const typedLocale = locale as Locale;
 
 const canonicalUrl = `https://killer-skills.com/${locale}/blog`;
 const blogSeoTitle = tr('BlogIndex.seoTitle', 'AI Agent Skills Guides, Workflow Tutorials, and Automation Blog');
-const blogSeoDescription = tr(
-  'BlogIndex.seoDescription',
-  'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.',
-);
+const blogSeoDescriptions = {
+  en: 'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.',
+  zh: '阅读关于 AI 代理技能、IDE 工作流、自动化实践和开发者生产力的实用文章、指南与案例。',
+  ja: 'AI エージェントスキル、IDE ワークフロー、自動化プラクティス、開発者生産性に関する実践的な記事を読めます。',
+  ko: 'AI 에이전트 스킬, IDE 워크플로, 자동화 실무, 개발자 생산성을 다루는 실용적인 글과 가이드를 읽어보세요.',
+  es: 'Lee artículos prácticos sobre habilidades de agentes de IA, flujos de IDE, automatización y productividad para desarrolladores.',
+  fr: 'Lisez des articles pratiques sur les compétences d’agents IA, les workflows IDE, l’automatisation et la productivité développeur.',
+  de: 'Lies praxisnahe Artikel über KI-Agenten-Skills, IDE-Workflows, Automatisierung und Produktivität für Entwickler.',
+  pt: 'Leia artigos práticos sobre skills de agentes de IA, fluxos de IDE, automação e produtividade para desenvolvedores.',
+  ru: 'Читайте практические статьи о навыках AI-агентов, IDE-процессах, автоматизации и продуктивности разработчиков.',
+  ar: 'اقرأ مقالات عملية عن مهارات وكلاء الذكاء الاصطناعي وتدفقات IDE والأتمتة وإنتاجية المطورين.',
+} satisfies Record<Locale, string>;
+const translatedBlogSeoDescription = tr('BlogIndex.seoDescription', blogSeoDescriptions[typedLocale]);
+const blogSeoDescription =
+  translatedBlogSeoDescription.length >= 50 ? translatedBlogSeoDescription : blogSeoDescriptions[typedLocale];
 const blogSeoKeywords = buildKeywordString(
   t,
   'core',

@@ -17,8 +17,21 @@ const typedLocale = locale as Locale;
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 
+const termsDescriptions = {
+  en: 'Read the Killer-Skills terms covering service use, third-party skill listings, user responsibilities, warranties, and contact options.',
+  zh: '阅读 Killer-Skills 服务条款，了解服务使用、第三方技能列表、用户责任、免责声明和联系渠道。',
+  ja: 'Killer-Skills の利用規約、サービス利用、第三者スキル掲載、ユーザー責任、免責事項、連絡方法を確認できます。',
+  ko: 'Killer-Skills 서비스 이용, 타사 스킬 목록, 사용자 책임, 보증 고지, 문의 방법을 다루는 약관을 확인하세요.',
+  es: 'Lee los términos de Killer-Skills sobre uso del servicio, habilidades de terceros, responsabilidades, garantías y contacto.',
+  fr: 'Consultez les conditions de Killer-Skills sur l’usage du service, les compétences tierces, les responsabilités et les garanties.',
+  de: 'Lies die Killer-Skills-Bedingungen zu Servicenutzung, Skill-Listings Dritter, Nutzerpflichten, Gewährleistung und Kontakt.',
+  pt: 'Leia os termos do Killer-Skills sobre uso do serviço, skills de terceiros, responsabilidades, garantias e contato.',
+  ru: 'Прочитайте условия Killer-Skills об использовании сервиса, сторонних навыках, обязанностях пользователей, гарантиях и связи.',
+  ar: 'اقرأ شروط Killer-Skills حول استخدام الخدمة وقوائم المهارات الخارجية ومسؤوليات المستخدم والضمانات وطرق التواصل.',
+} satisfies Record<Locale, string>;
+
 const pageTitle = t('Footer.terms');
-const pageDescription = `${t('Footer.terms')} — Killer-Skills`;
+const pageDescription = termsDescriptions[typedLocale];
 ---
 
 <Layout locale={locale} title={pageTitle} description={pageDescription}>

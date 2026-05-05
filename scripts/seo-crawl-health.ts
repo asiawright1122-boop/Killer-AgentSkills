@@ -23,6 +23,20 @@ type UrlCheckResult = {
   fiveXxAttempts: number;
   recoveredFrom5xx: boolean;
   sawCloudflare1102: boolean;
+  contentType?: string;
+  seoSignals?: PageSeoSignals;
+  onPageErrors: string[];
+};
+
+type PageSeoSignals = {
+  title: string | null;
+  description: string | null;
+  canonical: string | null;
+  robots: string | null;
+  htmlLang: string | null;
+  h1Count: number;
+  jsonLdCount: number;
+  internalCopyLeaks: string[];
 };
 
 type CrawlHealthJsonReport = {
@@ -48,6 +62,7 @@ type CrawlHealthJsonReport = {
   redirects: UrlCheckResult[];
   flakyRecovered: UrlCheckResult[];
   cloudflare1102: UrlCheckResult[];
+  onPageSeoErrors: UrlCheckResult[];
   errors: UrlCheckResult[];
   duplicates: string[];
   sitemapErrors: Array<{
@@ -57,12 +72,26 @@ type CrawlHealthJsonReport = {
   results: UrlCheckResult[];
 };
 
+const PUBLIC_COPY_LEAK_PATTERNS = [
+  /\buse\s+when\s+(?:creating|using|the\s+user|you|asked|working|submitting)\b/i,
+  /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
+  /\bcritical\s+guidelines?\b/i,
+  /\bavoid\s+redundancy\b/i,
+  /\bdo\s+not\s+copy\b/i,
+  /\byou\s+orchestrate\s+a\s+pr\s+code\s+review\s+debate\b/i,
+  /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
+  /\breference-only\b/i,
+  /\btrusted\s+next\s+steps?\b/i,
+  /思考链|恢复期话术|控制台|复核清单|编辑部审查/i,
+];
+
 const SITE_ORIGIN = 'https://killer-skills.com';
 const cliArgs = process.argv.slice(2);
 const allowBlockingExit = cliArgs.includes('--allow-blocking-exit');
 const positionalBaseUrl = cliArgs.find((arg) => !arg.startsWith('--')) || SITE_ORIGIN;
 const baseUrl = positionalBaseUrl.replace(/\/+$/, '');
 const baseOrigin = new URL(baseUrl).origin;
+const isLocalBaseUrl = /^https?:\/\/(?:127\.0\.0\.1|localhost)(?::\d+)?$/i.test(baseOrigin);
 const rootSitemapUrl = `${baseUrl}/sitemap.xml`;
 const crawlDate = new Date().toISOString();
 const crawlDateKey = crawlDate.slice(0, 10);
@@ -79,6 +108,8 @@ const HARD_FAIL_4XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_4XX_RATE || '0
 const HARD_FAIL_FLAKY_5XX_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_FLAKY_5XX_MIN || '5');
 const HARD_FAIL_FLAKY_5XX_RATE = Number(process.env.SEO_CRAWL_HARD_FAIL_FLAKY_5XX_RATE || '0.02');
 const HARD_FAIL_CF1102_MIN = Number(process.env.SEO_CRAWL_HARD_FAIL_CF1102_MIN || '1');
+const HARD_FAIL_ONPAGE_SEO = process.env.SEO_CRAWL_HARD_FAIL_ONPAGE_SEO !== '0';
+const HARD_FAIL_REDIRECTS = process.env.SEO_CRAWL_HARD_FAIL_REDIRECTS !== '0';
 
 function ensure(condition: boolean, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -120,6 +151,123 @@ function sampleEvenly<T>(items: T[], limit: number): T[] {
 
 function unique<T>(items: T[]): T[] {
   return Array.from(new Set(items));
+}
+
+function decodeHtmlEntities(value: string): string {
+  return value
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&#x2F;/g, '/');
+}
+
+function stripTags(html: string): string {
+  return decodeHtmlEntities(
+    html
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  );
+}
+
+function readTagContent(html: string, pattern: RegExp): string | null {
+  const match = html.match(pattern);
+  return match?.[1] ? decodeHtmlEntities(match[1].trim()) : null;
+}
+
+function countMatches(html: string, pattern: RegExp): number {
+  return Array.from(html.matchAll(pattern)).length;
+}
+
+function extractJsonLdPayloadPreviews(html: string): string[] {
+  return Array.from(html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi))
+    .map((match) =>
+      decodeHtmlEntities(match[1] || '')
+        .replace(/\s+/g, ' ')
+        .trim(),
+    )
+    .filter(Boolean)
+    .slice(0, 4);
+}
+
+function extractSeoMetadataText(html: string): string {
+  return [
+    readTagContent(html, /<title>([\s\S]*?)<\/title>/i),
+    readTagContent(html, /<meta\s+name="description"\s+content="(.*?)"/i),
+    readTagContent(html, /<meta\s+property="og:description"\s+content="(.*?)"/i),
+    readTagContent(html, /<meta\s+name="twitter:description"\s+content="(.*?)"/i),
+    ...extractJsonLdPayloadPreviews(html),
+  ]
+    .filter((value): value is string => Boolean(value))
+    .join(' ');
+}
+
+function findInternalCopyLeaks(html: string): string[] {
+  const publicText = `${stripTags(html)} ${extractSeoMetadataText(html)}`;
+  return PUBLIC_COPY_LEAK_PATTERNS.map((pattern) => publicText.match(pattern)?.[0])
+    .filter((value): value is string => Boolean(value))
+    .filter(
+      (value, index, all) => all.findIndex((candidate) => candidate.toLowerCase() === value.toLowerCase()) === index,
+    );
+}
+
+function normalizeComparableUrl(url: string): string {
+  return url.replace(/\/+$/, '');
+}
+
+function extractPageSeoSignals(html: string): PageSeoSignals {
+  return {
+    title: readTagContent(html, /<title>([\s\S]*?)<\/title>/i),
+    description: readTagContent(html, /<meta\s+name="description"\s+content="(.*?)"/i),
+    canonical: readTagContent(html, /<link\s+rel="canonical"\s+href="(.*?)"/i),
+    robots: readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i),
+    htmlLang: readTagContent(html, /<html[^>]*\slang="([^"]+)"/i),
+    h1Count: countMatches(html, /<h1(?:\s|>)/gi),
+    jsonLdCount: countMatches(html, /<script[^>]*type="application\/ld\+json"[^>]*>/gi),
+    internalCopyLeaks: findInternalCopyLeaks(html),
+  };
+}
+
+function validateSitemapPageSeo(url: string, signals: PageSeoSignals): string[] {
+  const errors: string[] = [];
+  const expectedCanonical = normalizeComparableUrl(url);
+  const canonical = signals.canonical ? normalizeComparableUrl(signals.canonical) : null;
+  const robots = signals.robots?.toLowerCase() || '';
+  const titleLength = signals.title?.length || 0;
+  const descriptionLength = signals.description?.length || 0;
+  const descriptionMinLength = getDescriptionMinLength(signals.htmlLang);
+
+  if (!signals.title) errors.push('missing title');
+  if (signals.title && (titleLength < 10 || titleLength > 85)) errors.push(`title length ${titleLength}`);
+  if (!signals.description) errors.push('missing meta description');
+  if (signals.description && (descriptionLength < descriptionMinLength || descriptionLength > 180)) {
+    errors.push(`meta description length ${descriptionLength}`);
+  }
+  if (!signals.canonical) errors.push('missing canonical');
+  if (canonical && canonical !== expectedCanonical) {
+    errors.push(`canonical mismatch: ${signals.canonical}`);
+  }
+  if (robots.includes('noindex') || /\bnone\b/.test(robots)) {
+    errors.push(`robots blocks indexing: ${signals.robots}`);
+  }
+  if (!signals.htmlLang) errors.push('missing html lang');
+  if (signals.h1Count < 1) errors.push('missing h1');
+  if (signals.internalCopyLeaks.length > 0) {
+    errors.push(`internal copy leak: ${signals.internalCopyLeaks.slice(0, 5).join(', ')}`);
+  }
+
+  return errors;
+}
+
+function getDescriptionMinLength(htmlLang: string | null): number {
+  const locale = htmlLang?.split('-')[0]?.toLowerCase();
+  if (locale === 'zh' || locale === 'ja' || locale === 'ko') return 24;
+  if (locale === 'ar') return 35;
+  return 50;
 }
 
 function classifyStatus(status: number): '2xx' | '3xx' | '4xx' | '5xx' | 'other' {
@@ -249,9 +397,12 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
     try {
       const requestUrl = toRequestUrl(url);
       const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'follow' });
+      const contentType = response.headers.get('content-type') || undefined;
       lastStatus = response.status;
       lastFinalUrl = response.url;
       lastRedirected = response.redirected;
+      let seoSignals: PageSeoSignals | undefined;
+      let onPageErrors: string[] = [];
 
       if (response.status >= 500) {
         fiveXxAttempts++;
@@ -268,6 +419,15 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
           await new Promise((resolve) => setTimeout(resolve, attempt * CHECK_RETRY_DELAY_MS));
           continue;
         }
+      } else if (
+        response.status >= 200 &&
+        response.status < 300 &&
+        contentType?.includes('text/html') &&
+        !(isLocalBaseUrl && routeBucketFromUrl(url) === 'skills_detail')
+      ) {
+        const body = await response.text();
+        seoSignals = extractPageSeoSignals(body);
+        onPageErrors = validateSitemapPageSeo(url, seoSignals);
       }
 
       return {
@@ -279,6 +439,9 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
         fiveXxAttempts,
         recoveredFrom5xx: response.status < 500 && fiveXxAttempts > 0,
         sawCloudflare1102,
+        contentType,
+        seoSignals,
+        onPageErrors,
       };
     } catch (error) {
       lastError = error instanceof Error ? error.message : String(error);
@@ -301,6 +464,7 @@ async function checkUrl(url: string): Promise<UrlCheckResult> {
     fiveXxAttempts,
     recoveredFrom5xx: lastStatus > 0 && lastStatus < 500 && fiveXxAttempts > 0,
     sawCloudflare1102,
+    onPageErrors: [],
   };
 }
 
@@ -338,9 +502,11 @@ function buildReport(
   const flakyRecovered = results.filter((r) => r.recoveredFrom5xx);
   const urlsWith5xxAttempts = results.filter((r) => r.fiveXxAttempts > 0);
   const cloudflare1102Hits = results.filter((r) => r.sawCloudflare1102);
+  const onPageSeoErrors = results.filter((r) => r.onPageErrors.length > 0);
   const duplicates = findDuplicates(crawl.allDiscoveredUrls);
   const flakyByRouteBucket = countByRouteBucket(flakyRecovered);
   const errorByRouteBucket = countByRouteBucket(errors);
+  const onPageSeoErrorsByRouteBucket = countByRouteBucket(onPageSeoErrors);
 
   const lines: string[] = [];
   lines.push('# SEO Crawl Health Report');
@@ -362,6 +528,7 @@ function buildReport(
   lines.push(`- URLs with any 5xx attempt: ${urlsWith5xxAttempts.length}`);
   lines.push(`- Recovered flaky 5xx URLs: ${flakyRecovered.length}`);
   lines.push(`- Cloudflare 1102 signals: ${cloudflare1102Hits.length}`);
+  lines.push(`- On-page SEO errors in sampled sitemap URLs: ${onPageSeoErrors.length}`);
   lines.push(`- Sitemap fetch errors: ${crawl.sitemapErrors.length}`);
 
   if (flakyByRouteBucket.length > 0) {
@@ -374,6 +541,12 @@ function buildReport(
   if (errorByRouteBucket.length > 0) {
     lines.push('- Error URLs by route bucket:');
     for (const item of errorByRouteBucket.slice(0, 8)) {
+      lines.push(`  - ${item.bucket}: ${item.count}`);
+    }
+  }
+  if (onPageSeoErrorsByRouteBucket.length > 0) {
+    lines.push('- On-page SEO errors by route bucket:');
+    for (const item of onPageSeoErrorsByRouteBucket.slice(0, 8)) {
       lines.push(`  - ${item.bucket}: ${item.count}`);
     }
   }
@@ -445,6 +618,18 @@ function buildReport(
     }
   }
 
+  if (onPageSeoErrors.length > 0) {
+    lines.push('');
+    lines.push('## On-Page SEO Errors In Sampled Sitemap URLs');
+    lines.push('');
+    for (const row of onPageSeoErrors.slice(0, 50)) {
+      lines.push(`- ${row.url} -> ${row.onPageErrors.join('; ')}`);
+    }
+    if (onPageSeoErrors.length > 50) {
+      lines.push(`- ... and ${onPageSeoErrors.length - 50} more`);
+    }
+  }
+
   if (errors.length > 0) {
     lines.push('');
     lines.push('## Errors (4xx/5xx/Network)');
@@ -482,6 +667,7 @@ function buildJsonReport(
   const errors = results.filter((r) => r.status === 0 || r.status >= 400);
   const flakyRecovered = results.filter((r) => r.recoveredFrom5xx);
   const cloudflare1102 = results.filter((r) => r.sawCloudflare1102);
+  const onPageSeoErrors = results.filter((r) => r.onPageErrors.length > 0);
   const duplicates = findDuplicates(crawl.allDiscoveredUrls);
 
   return {
@@ -507,6 +693,7 @@ function buildJsonReport(
     redirects,
     flakyRecovered,
     cloudflare1102,
+    onPageSeoErrors,
     errors,
     duplicates,
     sitemapErrors: crawl.sitemapErrors,
@@ -551,11 +738,15 @@ async function main() {
   const flakyRecoveredCount = results.filter((r) => r.recoveredFrom5xx).length;
   const flakyRecoveredRate = results.length > 0 ? flakyRecoveredCount / results.length : 0;
   const cloudflare1102Count = results.filter((r) => r.sawCloudflare1102).length;
+  const redirectCount = results.filter((r) => r.redirected).length;
+  const onPageSeoErrorCount = results.filter((r) => r.onPageErrors.length > 0).length;
   const hasHard4xx = status4xxRate > HARD_FAIL_4XX_RATE;
   const hasHard5xx = status5xxCount >= HARD_FAIL_5XX_MIN || status5xxRate > HARD_FAIL_5XX_RATE;
   const hasHardFlaky5xx =
     flakyRecoveredCount >= HARD_FAIL_FLAKY_5XX_MIN || flakyRecoveredRate > HARD_FAIL_FLAKY_5XX_RATE;
   const hasCloudflare1102 = cloudflare1102Count >= HARD_FAIL_CF1102_MIN;
+  const hasRedirects = HARD_FAIL_REDIRECTS && redirectCount > 0;
+  const hasOnPageSeoErrors = HARD_FAIL_ONPAGE_SEO && onPageSeoErrorCount > 0;
   const networkErrors = results.filter((r) => r.status === 0).length;
   const networkErrorRate = results.length > 0 ? networkErrors / results.length : 0;
   const hasNetworkInstability = networkErrors >= 5 && networkErrorRate > 0.05;
@@ -566,6 +757,8 @@ async function main() {
     hasHard5xx ||
     hasHardFlaky5xx ||
     hasCloudflare1102 ||
+    hasRedirects ||
+    hasOnPageSeoErrors ||
     hasDuplicates ||
     hasNetworkInstability ||
     hasSitemapErrors;
@@ -598,6 +791,22 @@ async function main() {
       console.error(cloudflare1102Message);
     } else {
       console.warn(cloudflare1102Message);
+    }
+  }
+  if (redirectCount > 0) {
+    const redirectMessage = `[crawl-health] sitemap URLs redirected: ${redirectCount}/${results.length}`;
+    if (hasRedirects) {
+      console.error(redirectMessage);
+    } else {
+      console.warn(redirectMessage);
+    }
+  }
+  if (onPageSeoErrorCount > 0) {
+    const onPageMessage = `[crawl-health] sampled sitemap pages with on-page SEO errors: ${onPageSeoErrorCount}/${results.length}`;
+    if (hasOnPageSeoErrors) {
+      console.error(onPageMessage);
+    } else {
+      console.warn(onPageMessage);
     }
   }
   if (hasSitemapErrors) {
