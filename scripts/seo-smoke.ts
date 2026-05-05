@@ -793,6 +793,7 @@ async function runSkillsSitemapIndexabilityCheck(skillPaths: string[]) {
     ensure(!robots.toLowerCase().includes('noindex'), `${skillPath}: sitemap URL must not be noindex`);
     ensure(canonical === expectedCanonical, `${skillPath}: canonical mismatch (${canonical || 'missing'})`);
     ensure(html.includes('application/ld+json'), `${skillPath}: expected skill structured data script`);
+    assertNoPublicCopyLeaks(skillPath, html);
   }
 
   console.log(
