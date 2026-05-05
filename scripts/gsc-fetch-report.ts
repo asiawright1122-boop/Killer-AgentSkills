@@ -2,7 +2,7 @@
 
 import * as dotenv from 'dotenv';
 import { createSign } from 'node:crypto';
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import {
   compareGscSnapshots,
@@ -21,6 +21,10 @@ const localEnv = resolve(process.cwd(), '.env.local');
 if (existsSync(localEnv)) {
   dotenv.config({ path: localEnv, override: true });
 }
+
+const args = new Set(process.argv.slice(2));
+const overwriteLatestOnBlocking =
+  args.has('--overwrite-latest-on-blocking') || process.env.GSC_OVERWRITE_LATEST_ON_BLOCKING === '1';
 
 type Dimension = 'query' | 'page';
 type ReportStatus = 'clear' | 'warning' | 'blocking';
@@ -446,29 +450,62 @@ function writeFile(path: string, content: string) {
   writeFileSync(path, content, 'utf8');
 }
 
+function hasUsableLatestTrafficArtifact(latestJsonPath: string): boolean {
+  if (!existsSync(latestJsonPath)) return false;
+
+  try {
+    const artifact = JSON.parse(readFileSync(latestJsonPath, 'utf8')) as Partial<GscReportArtifact>;
+    return artifact.sourceMode === 'live-api' && artifact.status !== 'blocking';
+  } catch {
+    return false;
+  }
+}
+
 function writeArtifacts(
   outputDir: string,
   artifact: GscReportArtifact,
   options: {
     datedReportName?: string;
     sections?: string;
+    preserveLatestOnBlocking?: boolean;
   } = {},
-): { latestReportPath: string; latestJsonPath: string; datedReportPath: string | null } {
+): {
+  latestReportPath: string;
+  latestJsonPath: string;
+  datedReportPath: string | null;
+  monitoringSkippedPath: string | null;
+  preservedLatest: boolean;
+} {
   const latestReportPath = resolve(outputDir, 'latest-ctr-report.md');
   const latestJsonPath = resolve(outputDir, 'latest-ctr-report.json');
   const datedReportPath = options.datedReportName ? resolve(outputDir, options.datedReportName) : null;
+  const monitoringSkippedPath = artifact.status === 'blocking' ? resolve(outputDir, 'monitoring-skipped.md') : null;
   const markdown = renderReportMarkdown(artifact, options.sections);
+  const shouldPreserveLatest =
+    artifact.status === 'blocking' &&
+    options.preserveLatestOnBlocking === true &&
+    existsSync(latestReportPath) &&
+    hasUsableLatestTrafficArtifact(latestJsonPath);
 
-  writeFile(latestReportPath, markdown);
-  writeFile(latestJsonPath, JSON.stringify(artifact, null, 2));
+  if (!shouldPreserveLatest) {
+    writeFile(latestReportPath, markdown);
+    writeFile(latestJsonPath, JSON.stringify(artifact, null, 2));
+  }
   if (datedReportPath) {
     writeFile(datedReportPath, markdown);
   }
-  if (artifact.status === 'blocking') {
-    writeFile(resolve(outputDir, 'monitoring-skipped.md'), renderMonitoringSkippedMarkdown(artifact));
+  if (monitoringSkippedPath) {
+    writeFile(monitoringSkippedPath, renderMonitoringSkippedMarkdown(artifact));
+    writeFile(resolve(outputDir, 'monitoring-skipped.json'), JSON.stringify(artifact, null, 2));
   }
 
-  return { latestReportPath, latestJsonPath, datedReportPath };
+  return {
+    latestReportPath,
+    latestJsonPath,
+    datedReportPath,
+    monitoringSkippedPath,
+    preservedLatest: shouldPreserveLatest,
+  };
 }
 
 async function main() {
@@ -483,9 +520,17 @@ async function main() {
       nextStep:
         'Set GSC_CLIENT_EMAIL, GSC_PRIVATE_KEY, and GSC_SITE_URL, then rerun `npx tsx scripts/gsc-fetch-report.ts`.',
     });
-    const paths = writeArtifacts(resolved.outputDir, artifact);
-    console.log(`Wrote blocking report: ${paths.latestReportPath}`);
-    console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+    const paths = writeArtifacts(resolved.outputDir, artifact, {
+      preserveLatestOnBlocking: !overwriteLatestOnBlocking,
+    });
+    if (paths.preservedLatest) {
+      console.log(`Preserved latest live report: ${paths.latestReportPath}`);
+      console.log(`Preserved latest live JSON: ${paths.latestJsonPath}`);
+      console.log(`Wrote monitoring skip report: ${paths.monitoringSkippedPath}`);
+    } else {
+      console.log(`Wrote blocking report: ${paths.latestReportPath}`);
+      console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+    }
     console.log(artifact.failureReason);
     return;
   }
@@ -543,10 +588,18 @@ async function main() {
       nextStep:
         'Check Search Console service-account access, property permissions, and API quota, then rerun `npx tsx scripts/gsc-fetch-report.ts`.',
     });
-    const paths = writeArtifacts(config.outputDir, artifact);
+    const paths = writeArtifacts(config.outputDir, artifact, {
+      preserveLatestOnBlocking: !overwriteLatestOnBlocking,
+    });
     console.error(reason);
-    console.log(`Wrote blocking report: ${paths.latestReportPath}`);
-    console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+    if (paths.preservedLatest) {
+      console.log(`Preserved latest live report: ${paths.latestReportPath}`);
+      console.log(`Preserved latest live JSON: ${paths.latestJsonPath}`);
+      console.log(`Wrote monitoring skip report: ${paths.monitoringSkippedPath}`);
+    } else {
+      console.log(`Wrote blocking report: ${paths.latestReportPath}`);
+      console.log(`Wrote blocking JSON: ${paths.latestJsonPath}`);
+    }
   }
 }
 
