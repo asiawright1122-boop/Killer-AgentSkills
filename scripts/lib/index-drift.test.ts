@@ -152,6 +152,28 @@ describe('index drift', () => {
     expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-c']);
   });
 
+  it('applies blocklist rules to indexability-report fallback candidates', () => {
+    const snapshot = buildIndexDriftSnapshotFromIndexability({
+      sitemapSkills: [],
+      indexabilityReport: {
+        skills: [
+          { owner: 'demo', routePath: 'blocked-repo/skill-a', isIndexable: true },
+          { owner: 'demo', routePath: 'repo/blocked-skill', isIndexable: true },
+          { owner: 'demo', routePath: 'repo/skill-c', isIndexable: true },
+        ],
+      },
+      blocklistData: {
+        rules: {
+          excludeRepo: ['demo/blocked-repo'],
+          excludeExact: ['demo/repo/blocked-skill'],
+        },
+      },
+    });
+
+    expect(snapshot.counts.onlyInIndexableCache).toBe(1);
+    expect(snapshot.onlyInIndexableCache).toEqual(['demo/repo/skill-c']);
+  });
+
   it('excludes non-target sitemap themes from governed drift candidates', () => {
     const skills = [
       buildIndexableSkill({

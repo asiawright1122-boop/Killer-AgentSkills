@@ -1,5 +1,9 @@
 import { buildSkillIndexabilityAssessment } from '../../src/lib/skill-indexability';
-import { compileSitemapBlocklist, isSitemapSkillBlocked, type SitemapBlocklistData } from '../../src/lib/sitemap-blocklist';
+import {
+  compileSitemapBlocklist,
+  isSitemapSkillBlocked,
+  type SitemapBlocklistData,
+} from '../../src/lib/sitemap-blocklist';
 import { normalizeSitemapSkillEntry } from '../../src/lib/skill-route-paths';
 import { buildCrawlerVisibleSkillBody } from './skill-locale-governance';
 import { isPublicSkillForSitemap } from './sitemap-skill-filter.js';
@@ -148,6 +152,7 @@ export function buildIndexDriftSnapshotFromIndexability(params: {
   indexabilityReport: { skills?: IndexabilityReportEntry[] };
   blocklistData?: SitemapBlocklistData | null;
 }): IndexDriftSnapshot {
+  const blocklist = compileSitemapBlocklist(params.blocklistData || {});
   const sitemapRouteKeys = buildSitemapRouteKeys({
     sitemapSkills: params.sitemapSkills,
     blocklistData: params.blocklistData,
@@ -155,7 +160,13 @@ export function buildIndexDriftSnapshotFromIndexability(params: {
 
   const indexableRouteKeys = sortKeys(
     (params.indexabilityReport.skills || [])
-      .filter((item) => item.isIndexable === true)
+      .filter((item) => {
+        if (item.isIndexable !== true) return false;
+        const owner = typeof item.owner === 'string' ? item.owner.trim() : '';
+        const routePath = typeof item.routePath === 'string' ? item.routePath.trim() : '';
+        if (!owner || !routePath) return false;
+        return !isSitemapSkillBlocked(owner, routePath, blocklist);
+      })
       .map((item) => normalizeRouteKey(item.owner, item.routePath))
       .filter(Boolean),
   );
