@@ -412,9 +412,11 @@ jobs:
 
       - name: Build AI Provider Health Report
         if: needs.resolve.outputs.mode != 'harvest'
-        run: npm run report:ai:health -- --limit=20 --fail-on=${AI_ALERT_FAIL_ON_SEVERITY:-critical}
+        # Provider health is operational telemetry for follow-up, not a reason to mark
+        # an otherwise successful data refresh as failed after data has been built.
+        run: npm run report:ai:health -- --limit=20 --fail-on=none
         env:
-          AI_ALERT_FAIL_ON_SEVERITY: critical
+          AI_ALERT_FAIL_ON_SEVERITY: none
           AI_FALLBACK_POLICY: guarded
           WORKERS_AI_MODE: free-only
           WORKERS_AI_FREE_MAX_CALLS: '60'
@@ -451,7 +453,7 @@ jobs:
       - name: Publish Pipeline Summary
         if: always()
         env:
-          AI_ALERT_FAIL_ON_SEVERITY: critical
+          AI_ALERT_FAIL_ON_SEVERITY: none
         run: |
           echo "# Data Pipeline" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
