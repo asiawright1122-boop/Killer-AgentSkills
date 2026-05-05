@@ -1,5 +1,8 @@
 name: Cache Warmup Pipeline
 
+permissions:
+  contents: read
+
 on:
   workflow_dispatch:
     inputs:
@@ -11,10 +14,10 @@ on:
       concurrency:
         description: 'Concurrency level (1-10)'
         required: false
-        default: '5'
+        default: '2'
         type: string
   workflow_run:
-    workflows: ["Data Pipeline"] # Implicitly link to data pipeline updates
+    workflows: ['Data Pipeline'] # Implicitly link to data pipeline updates
     types:
       - completed
   schedule:
@@ -24,10 +27,16 @@ jobs:
   warmup:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name != 'workflow_run' }}
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Restore Skills Cache Artifact
+        continue-on-error: true
+        run: bash scripts/cache-artifact.sh download
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -42,5 +51,5 @@ jobs:
         run: npm run cache:warmup
         env:
           WARMUP_LIMIT: ${{ github.event.inputs.limit || '100' }}
-          WARMUP_CONCURRENCY: ${{ github.event.inputs.concurrency || '5' }}
-          PUBLIC_SITE_URL: "https://killer-skills.com"
+          WARMUP_CONCURRENCY: ${{ github.event.inputs.concurrency || '2' }}
+          PUBLIC_SITE_URL: 'https://killer-skills.com'
