@@ -518,6 +518,19 @@ function extractJsonLdPayloadPreviews(html: string): string[] {
     .slice(0, 4);
 }
 
+function extractSeoMetadataText(html: string): string {
+  return [
+    readTagContent(html, /<title>(.*?)<\/title>/i),
+    readTagContent(html, /<meta\s+name="description"\s+content="(.*?)"/i),
+    readTagContent(html, /<meta\s+property="og:description"\s+content="(.*?)"/i),
+    readTagContent(html, /<meta\s+name="twitter:description"\s+content="(.*?)"/i),
+    ...extractJsonLdPayloadPreviews(html),
+  ]
+    .filter((value): value is string => Boolean(value))
+    .map(decodeHtmlEntities)
+    .join(' ');
+}
+
 function extractVisibleBreadcrumbLabels(html: string): string[] {
   const navMatch = html.match(/<nav[^>]*aria-label="Breadcrumb"[^>]*>([\s\S]*?)<\/nav>/i);
   if (!navMatch) return [];
@@ -547,6 +560,20 @@ function assertNoPublicCopyLeaks(path: string, html: string) {
     );
 
   ensure(matches.length === 0, `${path}: leaked instruction/internal public copy (${matches.slice(0, 5).join(', ')})`);
+}
+
+function assertNoSeoMetadataCopyLeaks(path: string, html: string) {
+  const metadataText = extractSeoMetadataText(html);
+  const matches = PUBLIC_COPY_LEAK_PATTERNS.map((pattern) => metadataText.match(pattern)?.[0])
+    .filter((value): value is string => Boolean(value))
+    .filter(
+      (value, index, all) => all.findIndex((candidate) => candidate.toLowerCase() === value.toLowerCase()) === index,
+    );
+
+  ensure(
+    matches.length === 0,
+    `${path}: leaked instruction/internal SEO metadata copy (${matches.slice(0, 5).join(', ')})`,
+  );
 }
 
 function assertLocaleMetadata(check: PageCheck, html: string) {
@@ -638,6 +665,7 @@ function validateCheck(check: PageCheck, html: string) {
   assertLocaleMetadata(check, html);
   assertNoRawI18nKeys(check.path, html);
   assertNoPublicCopyLeaks(check.path, html);
+  assertNoSeoMetadataCopyLeaks(check.path, html);
   assertBreadcrumbParity(check, html);
 
   if (check.mustNotContain) {
@@ -794,6 +822,7 @@ async function runSkillsSitemapIndexabilityCheck(skillPaths: string[]) {
     ensure(canonical === expectedCanonical, `${skillPath}: canonical mismatch (${canonical || 'missing'})`);
     ensure(html.includes('application/ld+json'), `${skillPath}: expected skill structured data script`);
     assertNoPublicCopyLeaks(skillPath, html);
+    assertNoSeoMetadataCopyLeaks(skillPath, html);
   }
 
   console.log(
