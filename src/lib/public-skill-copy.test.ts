@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { sanitizePublicSkillCopy, sanitizePublicSkillCopyList } from './public-skill-copy';
+import {
+  sanitizePublicSkillCopy,
+  sanitizePublicSkillCopyList,
+  sanitizePublicSkillSourceExcerpt,
+} from './public-skill-copy';
 
 describe('public skill copy sanitizer', () => {
   it('removes leaked process fragments from descriptions', () => {
@@ -27,5 +31,43 @@ describe('public skill copy sanitizer', () => {
         'Interactive Visualization',
       ]),
     ).toEqual(['Algorithmic Philosophy Creation', 'Interactive Visualization']);
+  });
+
+  it('removes instruction blocks from public source excerpts', () => {
+    expect(
+      sanitizePublicSkillSourceExcerpt(`# Algorithmic Art
+
+Create original generative artwork with p5.js.
+
+CRITICAL GUIDELINES:
+- Avoid redundancy: each algorithmic aspect should be mentioned once.
+- Do not copy reference artwork.
+
+## Usage
+
+Describe the visual system and export the sketch.`),
+    ).toBe(`# Algorithmic Art
+
+Create original generative artwork with p5.js.
+
+## Usage
+
+Describe the visual system and export the sketch.`);
+  });
+
+  it('strips leaked process fragments while preserving useful source material', () => {
+    expect(
+      sanitizePublicSkillSourceExcerpt(`This happens in two steps:
+
+## Capabilities
+
+- Creates interactive browser-based sketches.
+- Requires p5.js and browser rendering support.
+
+VARIABLE (must be filled in by the model): Color palette`),
+    ).toBe(`## Capabilities
+
+- Creates interactive browser-based sketches.
+- Requires p5.js and browser rendering support.`);
   });
 });

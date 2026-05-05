@@ -3,8 +3,25 @@ const INSTRUCTION_LINE_PATTERNS = [
   /\brequired\s+features?\b/i,
   /\bvariable\s*\(/i,
   /\bavoid\s+redundancy\b/i,
+  /\bavoid\s+repeating\b/i,
+  /\bavoid\s+copying\b/i,
   /\bdo\s+not\s+copy\b/i,
   /\bmust\s+emphasize\b/i,
+];
+
+const SOURCE_INSTRUCTION_SECTION_PATTERNS = [
+  /^(?:#{1,6}\s*)?critical\s+guidelines?\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?required\s+features?\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?variables?\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?fixed\s*:?\s*$/i,
+];
+
+const SOURCE_INSTRUCTION_LINE_PATTERNS = [
+  ...INSTRUCTION_LINE_PATTERNS,
+  /^\s*(?:[-*]\s*)?(?:variable|fixed)\s*(?:\(|:)/i,
+  /\bthe\s+template\s+is\s+the\s+starting\s+point\b/i,
+  /\boutput\s+\.(?:md|html|js)\s+files?\b/i,
+  /\beach\s+\w+[^.。!?]*\bshould\s+be\s+mentioned\b/i,
 ];
 
 const LOW_VALUE_FRAGMENT_PATTERNS = [
@@ -65,4 +82,54 @@ export function sanitizePublicSkillCopyList(values: unknown, fallback: string[] 
     );
 
   return sanitized.length > 0 ? sanitized : fallback;
+}
+
+export function sanitizePublicSkillSourceExcerpt(value: unknown, fallback = ''): string {
+  if (typeof value !== 'string') return fallback;
+
+  const sanitizedLines: string[] = [];
+  let skippingInstructionBlock = false;
+
+  for (const line of value.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    const isMarkdownHeading = /^#{1,6}\s+\S/.test(trimmed);
+
+    if (skippingInstructionBlock) {
+      if (!trimmed) {
+        skippingInstructionBlock = false;
+      } else if (!isMarkdownHeading) {
+        continue;
+      } else {
+        skippingInstructionBlock = false;
+      }
+    }
+
+    if (SOURCE_INSTRUCTION_SECTION_PATTERNS.some((pattern) => pattern.test(trimmed))) {
+      skippingInstructionBlock = true;
+      continue;
+    }
+
+    const withoutFragments = stripInstructionFragments(line).replace(/[ \t]+$/g, '');
+    const cleanedLine = withoutFragments.trim();
+
+    if (!cleanedLine) {
+      sanitizedLines.push('');
+      continue;
+    }
+
+    if (SOURCE_INSTRUCTION_LINE_PATTERNS.some((pattern) => pattern.test(cleanedLine))) {
+      continue;
+    }
+
+    sanitizedLines.push(withoutFragments);
+  }
+
+  const cleaned = sanitizedLines
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  if (!cleaned || cleaned.length < 3) return fallback;
+
+  return cleaned;
 }
