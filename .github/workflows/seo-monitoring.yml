@@ -130,9 +130,9 @@ jobs:
 
       - name: Run Sitemap Crawl Health Audit
         env:
-          SEO_CRAWL_SAMPLE_SKILLS_PER_SITEMAP: '20'
-          SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP: '300'
-          SEO_CRAWL_CONCURRENCY: '8'
+          SEO_CRAWL_SAMPLE_SKILLS_PER_SITEMAP: '40'
+          SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP: '600'
+          SEO_CRAWL_CONCURRENCY: '20'
           SEO_CRAWL_TIMEOUT_MS: '15000'
           SEO_CRAWL_RETRIES: '4'
           SEO_CRAWL_RETRY_DELAY_MS: '1000'
@@ -200,6 +200,8 @@ jobs:
           echo "- Crawl flaky 5xx min/rate: 3 / 0.002" >> "$GITHUB_STEP_SUMMARY"
           echo "- Crawl Cloudflare 1102 min: 1" >> "$GITHUB_STEP_SUMMARY"
           echo "- Crawl 4xx rate: 0.05" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl on-page SEO errors: 0 tolerated" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Crawl sitemap redirects: 0 tolerated" >> "$GITHUB_STEP_SUMMARY"
 
           if [ -f reports/seo/latest-ops-summary.md ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
@@ -234,11 +236,15 @@ jobs:
             const crawl = JSON.parse(fs.readFileSync('reports/seo/latest-crawl-health.json', 'utf8'));
             const totals = crawl?.totals || {};
             const status = crawl?.statusSummary || {};
+            const redirects = Array.isArray(crawl?.redirects) ? crawl.redirects.length : 0;
+            const onPageSeoErrors = Array.isArray(crawl?.onPageSeoErrors) ? crawl.onPageSeoErrors.length : 0;
             console.log('');
             console.log('### Crawl Health JSON Snapshot');
             console.log(`- Discovered URLs: ${totals.pageUrlsDiscovered ?? 'n/a'}`);
             console.log(`- Checked URLs: ${totals.pageUrlsChecked ?? 'n/a'}`);
             console.log(`- 2xx/3xx/4xx/5xx: ${status.status2xx ?? 0}/${status.status3xx ?? 0}/${status.status4xx ?? 0}/${status.status5xx ?? 0}`);
+            console.log(`- Redirects: ${redirects}`);
+            console.log(`- On-page SEO errors: ${onPageSeoErrors}`);
           } catch (error) {
             console.log('');
             console.log(`Crawl JSON parse failed: ${error instanceof Error ? error.message : String(error)}`);

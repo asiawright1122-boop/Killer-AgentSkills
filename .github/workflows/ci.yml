@@ -225,6 +225,22 @@ jobs:
       - name: Run SEO Smoke Check
         run: npm run seo:smoke -- http://127.0.0.1:4321
 
+      - name: Run Local SEO Crawl Health Check
+        env:
+          SEO_CRAWL_SAMPLE_SKILLS_PER_SITEMAP: '0'
+          SEO_CRAWL_SAMPLE_NON_SKILLS_PER_SITEMAP: '600'
+          SEO_CRAWL_CONCURRENCY: '20'
+          SEO_CRAWL_TIMEOUT_MS: '15000'
+          SEO_CRAWL_RETRIES: '3'
+          SEO_CRAWL_RETRY_DELAY_MS: '1000'
+          SEO_CRAWL_HARD_FAIL_5XX_MIN: '1'
+          SEO_CRAWL_HARD_FAIL_5XX_RATE: '0.001'
+          SEO_CRAWL_HARD_FAIL_FLAKY_5XX_MIN: '1'
+          SEO_CRAWL_HARD_FAIL_FLAKY_5XX_RATE: '0.001'
+          SEO_CRAWL_HARD_FAIL_CF1102_MIN: '1'
+          SEO_CRAWL_HARD_FAIL_4XX_RATE: '0'
+        run: npm run report:seo:crawl-health -- http://127.0.0.1:4321
+
       - name: Stop Local SEO Smoke Server
         if: always()
         run: |
