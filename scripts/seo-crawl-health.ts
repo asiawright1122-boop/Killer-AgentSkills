@@ -82,7 +82,7 @@ const PUBLIC_COPY_LEAK_PATTERNS = [
   /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
   /\breference-only\b/i,
   /\btrusted\s+next\s+steps?\b/i,
-  /思考链|恢复期话术|控制台|复核清单|编辑部审查/i,
+  /思考链|恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
 ];
 
 const SITE_ORIGIN = 'https://killer-skills.com';
@@ -267,6 +267,7 @@ function getDescriptionMinLength(htmlLang: string | null): number {
   const locale = htmlLang?.split('-')[0]?.toLowerCase();
   if (locale === 'zh' || locale === 'ja' || locale === 'ko') return 24;
   if (locale === 'ar') return 35;
+  if (locale === 'ru') return 40;
   return 50;
 }
 
