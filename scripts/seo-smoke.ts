@@ -71,6 +71,7 @@ const SKILLS_SITEMAP_INDEXABILITY_SAMPLE_LIMIT = readPositiveInt(
 );
 const SEO_SMOKE_CACHE_BUST = process.env.SEO_SMOKE_CACHE_BUST === '1';
 const SEO_SMOKE_SITEMAP_ONLY = process.env.SEO_SMOKE_SITEMAP_ONLY === '1';
+const SEO_SMOKE_USER_AGENT = process.env.SEO_SMOKE_USER_AGENT || 'Killer-Skills-Warmup-Bot/1.0';
 const CACHE_BUST_VALUE = Date.now();
 
 const checks: PageCheck[] = [
@@ -162,7 +163,10 @@ async function fetchWithRetry(path: string, expectedStatus?: number): Promise<Re
     const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const response = await fetch(requestUrl, { signal: controller.signal });
+      const response = await fetch(requestUrl, {
+        headers: { 'User-Agent': SEO_SMOKE_USER_AGENT },
+        signal: controller.signal,
+      });
       const passed = expectedStatus != null ? response.status === expectedStatus : response.ok;
 
       if (passed) {
@@ -215,7 +219,11 @@ async function fetchRedirectWithRetry(path: string, expectedStatus = 301): Promi
     const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'manual' });
+      const response = await fetch(requestUrl, {
+        headers: { 'User-Agent': SEO_SMOKE_USER_AGENT },
+        signal: controller.signal,
+        redirect: 'manual',
+      });
       if (response.status === expectedStatus) {
         return response;
       }
@@ -265,7 +273,11 @@ async function fetchManualWithRetry(path: string, expectedStatus?: number): Prom
     const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
 
     try {
-      const response = await fetch(requestUrl, { signal: controller.signal, redirect: 'manual' });
+      const response = await fetch(requestUrl, {
+        headers: { 'User-Agent': SEO_SMOKE_USER_AGENT },
+        signal: controller.signal,
+        redirect: 'manual',
+      });
       const passed = expectedStatus != null ? response.status === expectedStatus : response.ok;
 
       if (passed) {
@@ -805,21 +817,20 @@ async function runRepresentativeSkillCheck(skillPath: string | null) {
   console.log(`SEO smoke passed: representative skill detail page (${skillPath})`);
 }
 
-async function runInvalidSubSkillRedirectCheck(parentPath: string | null) {
+async function runInvalidSubSkillGuardCheck(parentPath: string | null) {
   if (!parentPath) return;
 
   const pathSegments = parentPath.split('/').filter(Boolean);
   const repoLevelPath = pathSegments.length >= 5 ? `/${pathSegments.slice(0, 4).join('/')}` : parentPath;
   const fakeSubSkillPath = `${repoLevelPath}/__seo_smoke_invalid_sub_skill_guard__`;
-  const redirectResponse = await fetchRedirectWithRetry(withCacheBust(fakeSubSkillPath), 301);
-  const location = redirectResponse.headers.get('location') || '';
-  const redirectedPathname = readRedirectPathname(location);
+  const response = await fetchWithRetry(withCacheBust(fakeSubSkillPath), 404);
+  const robots = response.headers.get('x-robots-tag') || response.headers.get('X-Robots-Tag') || '';
 
   ensure(
-    redirectedPathname === repoLevelPath,
-    `${fakeSubSkillPath}: expected redirect location "${repoLevelPath}", got "${location || 'missing'}"`,
+    robots.toLowerCase() === 'noindex, nofollow',
+    `${fakeSubSkillPath}: expected X-Robots-Tag noindex, nofollow, got "${robots || 'missing'}"`,
   );
-  console.log(`SEO smoke passed: invalid sub-skill redirects to parent (${fakeSubSkillPath} -> ${repoLevelPath})`);
+  console.log(`SEO smoke passed: invalid sub-skill returns 404 noindex (${fakeSubSkillPath})`);
 }
 
 async function runSingleRouteRepoRedirectCheck() {
@@ -979,7 +990,7 @@ async function main() {
       await runBlocklistedSkill410Check();
       const representativeSkillPath = await resolveRepresentativeSkillPath(skillPaths);
       await runRepresentativeSkillCheck(representativeSkillPath);
-      await runInvalidSubSkillRedirectCheck(representativeSkillPath);
+      await runInvalidSubSkillGuardCheck(representativeSkillPath);
     } else {
       console.log('SEO smoke skipped representative skill checks (SEO_SMOKE_SITEMAP_ONLY=1)');
     }

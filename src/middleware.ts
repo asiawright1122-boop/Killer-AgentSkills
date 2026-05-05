@@ -331,7 +331,9 @@ function resolveGovernedSkillDetailPath(localeSegment: string, owner: string, ro
 }
 
 function isCrawlerUserAgent(userAgent: string): boolean {
-  return /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
+  return /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider|killer-skills-warmup-bot)/.test(
+    userAgent,
+  );
 }
 
 function resolvePageRouteBucket(pathname: string): string {

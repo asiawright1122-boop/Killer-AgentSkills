@@ -93,7 +93,9 @@ const parsePositiveInt = (value: unknown, fallback: number) => {
 };
 const userAgent = normalizeFlag(Astro.request.headers.get('user-agent'));
 const isCrawlerRequest =
-  /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider)/.test(userAgent);
+  /(googlebot|bingbot|slurp|duckduckbot|yandexbot|baiduspider|petalbot|applebot|bytespider|killer-skills-warmup-bot)/.test(
+    userAgent,
+  );
 const maxHeavyLocalizationReadmeBytes = parsePositiveInt(runtimeEnv.SSR_HEAVY_LOCALIZATION_MAX_README_BYTES, 12000);
 const maxReadmeRenderBytes = parsePositiveInt(runtimeEnv.SSR_MAX_README_RENDER_BYTES, 90000);
 const maxReadmeRenderBytesCrawler = parsePositiveInt(runtimeEnv.SSR_MAX_README_RENDER_BYTES_CRAWLER, 24000);
