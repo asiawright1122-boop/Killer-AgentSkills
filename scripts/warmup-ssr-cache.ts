@@ -32,6 +32,27 @@ type LocaleGovernanceRecord = {
   canonicalLocale?: string;
 };
 
+function getRouteKey(owner: string, routePath: string): string {
+  return `${owner.toLowerCase()}/${routePath.toLowerCase()}`;
+}
+
+function readPublicSitemapRouteSet(): Set<string> {
+  const routeSet = new Set<string>();
+  if (!fs.existsSync(SITEMAP_SKILLS_FILE)) return routeSet;
+
+  const data = JSON.parse(fs.readFileSync(SITEMAP_SKILLS_FILE, 'utf8'));
+  const skills: SkillCacheEntry[] = Array.isArray(data) ? data : data.skills || [];
+
+  for (const skill of skills) {
+    const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
+    const routePath = getSkillRoutePath(skill);
+    if (!owner || !routePath) continue;
+    routeSet.add(getRouteKey(owner, routePath));
+  }
+
+  return routeSet;
+}
+
 function readTopSkills(): SkillCacheEntry[] {
   const sourceFile = fs.existsSync(CACHE_FILE) ? CACHE_FILE : SITEMAP_SKILLS_FILE;
   if (!fs.existsSync(sourceFile)) {
@@ -39,13 +60,21 @@ function readTopSkills(): SkillCacheEntry[] {
   }
 
   console.log(`Warmup source: ${path.relative(process.cwd(), sourceFile)}`);
+  const publicSitemapRoutes = readPublicSitemapRouteSet();
   const data = JSON.parse(fs.readFileSync(sourceFile, 'utf8'));
   const skills: SkillCacheEntry[] = Array.isArray(data) ? data : data.skills || [];
+  const publicSkills = skills.filter((skill) => {
+    const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
+    const routePath = getSkillRoutePath(skill);
+    if (!owner || !skill.repo || !routePath) return false;
+    return publicSitemapRoutes.size === 0 || publicSitemapRoutes.has(getRouteKey(owner, routePath));
+  });
 
-  return skills
-    .filter((skill) => skill.owner && skill.repo && getSkillRoutePath(skill))
-    .sort(sortWarmupCandidates)
-    .slice(0, LIMIT);
+  if (publicSkills.length !== skills.length) {
+    console.log(`Filtered warmup candidates to ${publicSkills.length}/${skills.length} public sitemap routes.`);
+  }
+
+  return publicSkills.sort(sortWarmupCandidates).slice(0, LIMIT);
 }
 
 function readCanonicalLocaleMap(): Map<string, Locale> {
@@ -61,7 +90,7 @@ function readCanonicalLocaleMap(): Map<string, Locale> {
     const canonicalLocale = typeof record.canonicalLocale === 'string' ? record.canonicalLocale.trim() : '';
     if (!owner || !routePath || !supportedLocaleSet.has(canonicalLocale)) continue;
 
-    map.set(`${owner.toLowerCase()}/${routePath.toLowerCase()}`, canonicalLocale as Locale);
+    map.set(getRouteKey(owner, routePath), canonicalLocale as Locale);
   }
 
   return map;
@@ -144,8 +173,7 @@ async function runWarmup() {
     const routePath = getSkillRoutePath(skill);
     if (!routePath || !skill.owner) continue;
 
-    const canonicalLocale =
-      canonicalLocaleMap.get(`${skill.owner.toLowerCase()}/${routePath.toLowerCase()}`) || DEFAULT_LOCALE;
+    const canonicalLocale = canonicalLocaleMap.get(getRouteKey(skill.owner, routePath)) || DEFAULT_LOCALE;
     urls.push(new URL(buildLocalizedSkillPath(canonicalLocale, skill.owner, routePath), DOMAIN).toString());
   }
 
