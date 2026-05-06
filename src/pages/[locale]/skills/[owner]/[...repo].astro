@@ -20,7 +20,12 @@ import SkillTryBox from '../../../../components/SkillTryBox.astro';
 import TutorialShell from '../../../../components/TutorialShell.astro';
 import { buildBreadcrumbTrail } from '../../../../lib/site/breadcrumbs';
 import { extractMarkdownHeadings } from '../../../../lib/markdown-headings';
-import { resolveSkillSeoIntent, sanitizeSkillKeywords } from '../../../../lib/skill-seo-intent';
+import {
+  formatSkillNameForSeo,
+  isLowValueSkillSeoTitle,
+  resolveSkillSeoIntent,
+  sanitizeSkillKeywords,
+} from '../../../../lib/skill-seo-intent';
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexability';
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
@@ -423,7 +428,8 @@ const isN8nRootPage = isN8nRepoPage && !subSkillName;
 const isN8nLoomTranscriptPage = isN8nRepoPage && subSkillName === 'loom-transcript';
 const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI Skill';
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
-const templateTitle = `${skillName} ${skillSeoIntent.titleLabel}`;
+const skillDisplayName = formatSkillNameForSeo(skillName) || skillName;
+const templateTitle = `${skillDisplayName} ${skillSeoIntent.titleLabel}`;
 const titleIntentSignals = [
   skillSeoIntent.titleLabel,
   category,
@@ -431,7 +437,10 @@ const titleIntentSignals = [
   ...skillSeoIntent.keywords,
 ];
 const shouldUseTitleTemplate =
-  seoForceTemplate || !seoTitleRaw || !matchesIntentSignals(seoTitleRaw, titleIntentSignals);
+  seoForceTemplate ||
+  !seoTitleRaw ||
+  isLowValueSkillSeoTitle(seoTitleRaw, skillName) ||
+  !matchesIntentSignals(seoTitleRaw, titleIntentSignals);
 const n8nTitleOverride =
   typedLocale === 'en'
     ? isN8nRootPage
@@ -448,8 +457,8 @@ const seoDescriptionRaw = sanitizePublicSkillCopy(
 );
 const templateDescription =
   typedLocale === 'zh'
-    ? `安装 ${skillName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。`
-    : `Install ${skillName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and setup guidance.`;
+    ? `安装 ${skillDisplayName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。`
+    : `Install ${skillDisplayName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and setup guidance.`;
 const descriptionIntentSignals = [
   skillSeoIntent.useCaseLabel,
   skillSeoIntent.supportTerm,
@@ -587,6 +596,7 @@ const resolvedMetaDescription = sanitizePublicSkillCopy(
 // Limit keyword set to avoid stuffing while keeping entity + intent terms
 const seoKeywordSeed = [
   skillName,
+  skillDisplayName,
   repo,
   category,
   ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
@@ -604,7 +614,7 @@ const seoKeywords = sanitizedKeywordSeed.join(', ');
 const textEncoder = new TextEncoder();
 const rawReadmeContent = skill.skillMd?.body || skill.skillMd?.bodyPreview || '';
 const rawReadmeSize = textEncoder.encode(rawReadmeContent).length;
-const fallbackReadmeContent = `# ${skill.name || repo}\n\n${description}`;
+const fallbackReadmeContent = `# ${skillDisplayName}\n\n${description}`;
 const readmeContentSource =
   rawReadmeContent && rawReadmeSize >= 250
     ? rawReadmeContent
@@ -651,7 +661,7 @@ const sourceEvidenceDescription = tr(
 
 // Structured Data (JSON-LD) — SoftwareApplication
 const schema = buildSkillSoftwareApplicationSchema({
-  name: skill.name || repo,
+  name: skillDisplayName,
   category,
   description: description && typeof description === 'string' ? description : '',
   canonicalUrl: canonicalSkillUrl,
@@ -686,7 +696,7 @@ const breadcrumb = buildBreadcrumbTrail(
     { label: tr('Common.home', 'Home'), href: `/${locale}` },
     { label: tr('Common.skillsMarket', 'Skills'), href: `/${locale}/skills` },
     ...(skill.category && category ? [{ label: category, href: `/${locale}/skills?category=${skill.category}` }] : []),
-    { label: skill.name || repo },
+    { label: skillDisplayName },
   ],
   { currentUrl: canonicalSkillUrl },
 );
@@ -707,7 +717,6 @@ const installCommand = `npx killer-skills add ${installPath}`;
 // FAQ JSON-LD — dynamically generated from skill data
 const faqItems: { question: string; answer: string }[] = [];
 
-const skillDisplayName = skill.name || repo;
 const tpl = (key: string, vars: Record<string, string>, fallback: string) =>
   tr(key, fallback).replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? '');
 
@@ -1055,7 +1064,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                 <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
                   <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
                     <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-1 leading-none">
-                      <span>{skill.name || repo}</span>
+                      <span>{skillDisplayName}</span>
                       {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
                       {heroTagline && (
                         <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
@@ -1085,7 +1094,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                     <SkillActions
                       client:visible
                       skillId={fullId}
-                      skillName={skill.name || repo}
+                      skillName={skillDisplayName}
                       owner={owner}
                       repo={repo}
                       description={description && typeof description === 'string' ? description : ''}
@@ -1223,7 +1232,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       <SkillActions
                         client:visible
                         skillId={fullId}
-                        skillName={skill.name || repo}
+                        skillName={skillDisplayName}
                         owner={owner}
                         repo={repo}
                         description={description && typeof description === 'string' ? description : ''}
@@ -1386,8 +1395,8 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                           <h3 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
                             <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">↓</span>
                             {typedLocale === 'zh'
-                              ? `${tr('Detail.useCases', '赋予的主要能力')} · ${skill.name || repo}`
-                              : `${tr('Detail.useCases', 'Use Cases')} for ${skill.name || repo}`}
+                              ? `${tr('Detail.useCases', '赋予的主要能力')} · ${skillDisplayName}`
+                              : `${tr('Detail.useCases', 'Use Cases')} for ${skillDisplayName}`}
                           </h3>
                           <div class="flex flex-wrap gap-2">
                             {renderedUseCases.map((useCase) => (
@@ -1553,7 +1562,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
           typedLocale={typedLocale}
           relatedSkills={relatedSkills}
           relatedCollections={relatedCollections}
-          skillName={skill.name || repo}
+          skillName={skillDisplayName}
           repo={repo}
           category={category}
           messages={messages}

@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { resolveSkillSeoIntent, sanitizeSkillKeywords } from './skill-seo-intent';
+import {
+  formatSkillNameForSeo,
+  isLowValueSkillSeoTitle,
+  resolveSkillSeoIntent,
+  sanitizeSkillKeywords,
+} from './skill-seo-intent';
 
 describe('resolveSkillSeoIntent', () => {
   const mockTranslations: Record<string, string> = {
@@ -109,5 +114,31 @@ describe('sanitizeSkillKeywords', () => {
     expect(result).not.toContain('MCP tools');
     expect(result).not.toContain('model context protocol server');
     expect(result).not.toContain('model context protocol tools');
+  });
+
+  it('filters wildcard and source-outline tokens from generated metadata keywords', () => {
+    const result = sanitizeSkillKeywords([
+      'bundle-*',
+      'native-*',
+      'Overview',
+      'Quick Pattern',
+      'react native performance',
+    ]);
+
+    expect(result).toEqual(['react native performance']);
+  });
+});
+
+describe('formatSkillNameForSeo', () => {
+  it('turns slug-style skill names into human-readable SERP titles', () => {
+    expect(formatSkillNameForSeo('react-native-best-practices')).toBe('React Native Best Practices');
+    expect(formatSkillNameForSeo('gh-cli')).toBe('GH CLI');
+  });
+
+  it('detects generic pipe titles that should fall back to a stronger template', () => {
+    expect(
+      isLowValueSkillSeoTitle('react-native-best-practices | AI Agent Skills', 'react-native-best-practices'),
+    ).toBe(true);
+    expect(isLowValueSkillSeoTitle('React Native Performance Review Skill', 'react-native-best-practices')).toBe(false);
   });
 });

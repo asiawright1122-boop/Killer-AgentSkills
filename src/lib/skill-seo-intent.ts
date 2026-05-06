@@ -14,6 +14,33 @@ export type SkillSeoIntent = {
   supportTerm: string;
 };
 
+const TITLE_CASE_TERMS: Record<string, string> = {
+  ai: 'AI',
+  api: 'API',
+  aws: 'AWS',
+  cli: 'CLI',
+  css: 'CSS',
+  gcp: 'GCP',
+  gh: 'GH',
+  github: 'GitHub',
+  html: 'HTML',
+  http: 'HTTP',
+  ide: 'IDE',
+  ios: 'iOS',
+  js: 'JS',
+  json: 'JSON',
+  llm: 'LLM',
+  mcp: 'MCP',
+  pdf: 'PDF',
+  react: 'React',
+  sdk: 'SDK',
+  sql: 'SQL',
+  tti: 'TTI',
+  ui: 'UI',
+  ux: 'UX',
+  xml: 'XML',
+};
+
 const CATEGORY_INTENTS: Record<string, IntentConfig> = {
   browser: {
     titleLabel: 'Browser Automation Skill',
@@ -127,6 +154,13 @@ const LOW_INTENT_PATTERNS = [
 
 const INVALID_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 
+const LOW_VALUE_KEYWORD_PATTERNS = [
+  /[*{}]/,
+  /^(?:overview|practices?|native|references?|readme|docs?|documentation|guide|guidelines?)$/i,
+  /^(?:quick|deep|dive|pattern|command|config|reference)$/i,
+  /^quick\s+(?:pattern|command|config|reference)$/i,
+];
+
 const MCP_FIRST_COMBINED_PATTERNS = [
   /\bmodel context protocol\b/i,
   /\bmcp\b[\s-]*\b(servers?|tools?)\b/i,
@@ -158,6 +192,7 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
     if (normalized.length < 3 || normalized.length > 48) continue;
     if (keyword.includes('/')) continue;
     if (INVALID_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
+    if (LOW_VALUE_KEYWORD_PATTERNS.some((pattern) => pattern.test(keyword))) continue;
     if (LOW_INTENT_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
     if (MCP_FIRST_COMBINED_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
     if (normalizedGenericTerms.has(normalized)) continue;
@@ -179,6 +214,42 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
   }
 
   return cleaned;
+}
+
+export function formatSkillNameForSeo(value: string | undefined): string {
+  const raw = String(value || '').trim();
+  if (!raw) return '';
+  if ([...raw].some((char) => char.charCodeAt(0) > 0x7f)) return raw;
+
+  const words = raw
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[-_./]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .filter(Boolean);
+
+  if (words.length === 0) return raw;
+
+  return words
+    .map((word) => {
+      const normalized = word.toLowerCase();
+      if (TITLE_CASE_TERMS[normalized]) return TITLE_CASE_TERMS[normalized];
+      if (/[A-Z]/.test(word.slice(1))) return word;
+      return `${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
+    })
+    .join(' ');
+}
+
+export function isLowValueSkillSeoTitle(title: string | undefined, skillName: string): boolean {
+  const normalizedTitle = normalizeText(String(title || '').replace(/[|:]\s*killer-skills.*$/i, ''));
+  if (!normalizedTitle) return false;
+
+  const normalizedSkillName = normalizeText(formatSkillNameForSeo(skillName));
+  const genericSuffixPattern = /\s*(?:\||-)\s*(?:ai\s+agent\s+skills?|ide\s+skills?|developer\s+tools?)$/i;
+  const withoutGenericSuffix = normalizeText(formatSkillNameForSeo(normalizedTitle.replace(genericSuffixPattern, '')));
+
+  return Boolean(withoutGenericSuffix && normalizedSkillName && withoutGenericSuffix === normalizedSkillName);
 }
 
 function pickSupportTerm(rawKeywords: string[], intentKeywords: string[]): string {
