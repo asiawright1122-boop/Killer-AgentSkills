@@ -8,6 +8,12 @@ const INSTRUCTION_LINE_PATTERNS = [
   /\bdo\s+not\s+copy\b/i,
   /\bmust\s+emphasize\b/i,
   /\buse\s+when\b/i,
+  /\beach\s+reference\s+file\s+follows\b/i,
+  /\bquick\s+(?:pattern|command|config|reference)\b/i,
+  /\bdeep\s+dive\b/i,
+  /\bimpact\s+ratings?\b/i,
+  /\breview\s+guardrails?\b/i,
+  /\bpriority-ordered\s+guidelines?\b/i,
   /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
 ];
 
@@ -16,6 +22,9 @@ const SOURCE_INSTRUCTION_SECTION_PATTERNS = [
   /^(?:#{1,6}\s*)?required\s+features?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?variables?\s*:?\s*$/i,
   /^(?:#{1,6}\s*)?fixed\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?skill\s+format\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?review\s+guardrails?\s*:?\s*$/i,
+  /^(?:#{1,6}\s*)?priority-ordered\s+guidelines?\s*:?\s*$/i,
 ];
 
 const SOURCE_INSTRUCTION_LINE_PATTERNS = [
@@ -31,6 +40,7 @@ const LOW_VALUE_FRAGMENT_PATTERNS = [
   /\bthis\s+happens\s+in\s+two\s+steps\s*:?\s*\.?/gi,
   /\bthat\s+need\s+this\s+happens\s+in\s+two\s+steps\s*:?\s*\.?/gi,
   /\bapplying\s+this\s+happens\s+in\s+two\s+steps\s*:?\s*\.?/gi,
+  /\bthis\s+ai\s+agent\s+skill\s+supports\s*[.。!?]?/gi,
   /\boutput\s+\.(?:md|html|js)\s+files?\b[^.。!?]*[.。!?]?/gi,
   /\bthe\s+template\s+is\s+the\s+starting\s+point\b[^.。!?]*[.。!?]?/gi,
 ];
@@ -56,9 +66,10 @@ function stripInstructionSentences(value: string): string {
 
 function polishCopy(value: string): string {
   return value
-    .replace(/\bIdeal for AI agents that need\s+(?=[A-Z])/g, '')
+    .replace(/\bIdeal for AI agents that need\s+[^.。!?]*[.。!?]\s+(?=[\w-]+\s+is\s+an\s+AI\s+agent\s+skill\b)/gi, '')
     .replace(/\bIdeal for AI agents\s*[.:;]\s*/i, '')
     .replace(/\bIdeal for AI agents that need\s*[.:;]\s*/i, '')
+    .replace(/\bIdeal for AI agents that need\s+/gi, '')
     .replace(/\bKey use cases include:\s*[.:;]\s*/i, '')
     .replace(/\bApplying\s+/gi, '')
     .replace(/\s*\((?:\.md|\.html|\.js|markdown|html|javascript)\s+files?\)\s*/gi, ' ')

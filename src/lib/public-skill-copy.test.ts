@@ -37,8 +37,28 @@ describe('public skill copy sanitizer', () => {
         'Applying This happens in two steps:',
         'Applying Algorithmic Philosophy Creation (.md file)',
         'Interactive Visualization',
+        'Each reference file follows a hybrid format for fast lookup and deep understanding:',
+        'Quick Pattern: Incorrect/Correct code snippets for immediate pattern matching',
       ]),
     ).toEqual(['Algorithmic Philosophy Creation', 'Interactive Visualization']);
+  });
+
+  it('removes generic AI-agent fit boilerplate before metadata and schema rendering', () => {
+    expect(
+      sanitizePublicSkillCopy(
+        'Ideal for AI agents that need react native best practices. react-native-best-practices is an AI agent skill for React Native performance reviews.',
+      ),
+    ).toBe('react-native-best-practices is an AI agent skill for React Native performance reviews.');
+  });
+
+  it('removes incomplete metadata tails left by upstream truncation', () => {
+    expect(
+      sanitizePublicSkillCopy(
+        'Provides React Native performance optimization guidelines for FPS, TTI, bundle size, memory leaks, re-renders, and animations. This AI agent skill supports.',
+      ),
+    ).toBe(
+      'Provides React Native performance optimization guidelines for FPS, TTI, bundle size, memory leaks, re-renders, and animations.',
+    );
   });
 
   it('removes instruction blocks from public source excerpts', () => {

@@ -106,8 +106,8 @@ jobs:
           GSC_CLIENT_EMAIL: ${{ secrets.GSC_CLIENT_EMAIL }}
           GSC_PRIVATE_KEY: ${{ secrets.GSC_PRIVATE_KEY }}
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
-          GSC_REPORT_DAYS: '7'
-          GSC_ROW_LIMIT: '250'
+          GSC_REPORT_DAYS: '28'
+          GSC_ROW_LIMIT: '1000'
           GSC_OVERWRITE_LATEST_ON_BLOCKING: '1'
         run: |
           mkdir -p reports/gsc
@@ -119,6 +119,12 @@ jobs:
 
           echo "configured=true" >> "$GITHUB_OUTPUT"
           npm run report:gsc:fetch
+
+      - name: Build GSC Opportunity Board
+        if: always()
+        run: |
+          mkdir -p reports/seo
+          npm run report:gsc:opportunities
 
       - name: Run Sitemap Crawl Health Audit
         env:
@@ -211,6 +217,11 @@ jobs:
           elif [ -f reports/gsc/monitoring-skipped.md ]; then
             echo "" >> "$GITHUB_STEP_SUMMARY"
             cat reports/gsc/monitoring-skipped.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          if [ -f reports/seo/latest-gsc-opportunity-board.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            sed -n '1,220p' reports/seo/latest-gsc-opportunity-board.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
           if [ -f reports/seo/latest-crawl-health.md ]; then
