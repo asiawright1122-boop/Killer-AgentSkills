@@ -339,9 +339,17 @@ describe('public links and navigation copy', () => {
     }
 
     expect(middlewareSource).toContain(
-      "const isPersonalStatePath = /^\\/[a-z]{2}\\/(?:favorites|history)\\/?$/.test(pathname);",
+      'const isPersonalStatePath = /^\\/[a-z]{2}\\/(?:favorites|history)\\/?$/.test(pathname);',
     );
     expect(middlewareSource).toContain('else if (isPersonalStatePath)');
+  });
+
+  it('keeps the static 404 shell noindex in HTML metadata', () => {
+    const notFoundSource = readPageSource('../pages/404.astro');
+
+    expect(notFoundSource).toContain("const robotsContent = 'noindex, nofollow';");
+    expect(notFoundSource).toContain('noindex={true}');
+    expect(notFoundSource).toContain('robots={robotsContent}');
   });
 
   it('keeps blog intent links on indexable solution and docs paths instead of fixed search-result URLs', () => {

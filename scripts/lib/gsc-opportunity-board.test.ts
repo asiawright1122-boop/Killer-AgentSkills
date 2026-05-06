@@ -170,4 +170,28 @@ describe('buildGscOpportunityBoardReport', () => {
     expect(report.items[0]?.lane).toBe('canonicalization');
     expect(report.items[0]?.actions.join(' ')).toContain('Suppressed locale variant');
   });
+
+  it('classifies sitemap-blocklisted skill URLs as canonicalization cleanup instead of snippet work', () => {
+    const report = buildGscOpportunityBoardReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-04-08', end: '2026-05-05' },
+        previousPeriod: { start: '2026-03-11', end: '2026-04-07' },
+      },
+      currentPages: [
+        {
+          entity: 'https://killer-skills.com/de/skills/RosyGameStudio/forge-gpu/dev-review-pr',
+          clicks: 0,
+          impressions: 6,
+          ctr: 0,
+          position: 2.7,
+        },
+      ],
+      currentQueries: [],
+    });
+
+    expect(report.items[0]?.lane).toBe('canonicalization');
+    expect(report.items[0]?.actions.join(' ')).toContain('Sitemap-blocklisted skill URL');
+  });
 });

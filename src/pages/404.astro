@@ -2,9 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 
 const locale = 'en';
+const robotsContent = 'noindex, nofollow';
 ---
 
-<Layout locale={locale} title="404 - Page Not Found" description="The page you are looking for does not exist.">
+<Layout
+  locale={locale}
+  title="404 - Page Not Found"
+  description="The page you are looking for does not exist."
+  noindex={true}
+  robots={robotsContent}
+>
   <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-6 relative py-20">
     <div
       class="brut-card border-4 border-[var(--border)] bg-[var(--background)] shadow-[12px_12px_0px_0px_var(--border)] p-12 md:p-16 max-w-2xl w-full relative"

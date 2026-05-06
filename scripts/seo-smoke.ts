@@ -697,7 +697,13 @@ async function runCheck(check: PageCheck) {
 }
 
 async function runMissingDocs404Check() {
-  await fetchWithRetry(withCacheBust(MISSING_DOCS_SLUG), 404);
+  const response = await fetchWithRetry(withCacheBust(MISSING_DOCS_SLUG), 404);
+  const html = await response.text();
+  const metaRobots = readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i) || '';
+  const headerRobots = response.headers.get('x-robots-tag') || response.headers.get('X-Robots-Tag') || '';
+
+  ensure(headerRobots.toLowerCase().includes('noindex'), `${MISSING_DOCS_SLUG}: expected noindex robots header`);
+  ensure(metaRobots.toLowerCase().includes('noindex'), `${MISSING_DOCS_SLUG}: expected noindex meta robots tag`);
   console.log('SEO smoke passed: docs missing slug returns 404');
 }
 

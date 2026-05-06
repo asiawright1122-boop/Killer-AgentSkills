@@ -1,6 +1,8 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { parseGscCsv, type GscRow } from '../../src/lib/gsc-report';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../src/lib/sitemap-blocklist';
+import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 
 export const DEFAULT_GSC_OPPORTUNITY_BOARD_MD_PATH = 'reports/seo/latest-gsc-opportunity-board.md';
 export const DEFAULT_GSC_OPPORTUNITY_BOARD_JSON_PATH = 'reports/seo/latest-gsc-opportunity-board.json';
@@ -82,6 +84,7 @@ const SEO_COMPLIANCE_CHECKS = [
   'Structured data should describe the actual page content and avoid hidden/internal-only claims.',
   'Internal links should point crawlers toward canonical pages that answer the same query intent.',
 ];
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 function toAbsolutePath(path: string): string {
   return resolve(process.cwd(), path);
@@ -237,6 +240,9 @@ function classifyPageIndexingIssue(entity: string): string | null {
         .filter(Boolean)
         .join('/')
         .toLowerCase();
+      if (isSitemapSkillBlocked(owner, routePath, sitemapBlocklist)) {
+        return 'Sitemap-blocklisted skill URL appears in GSC and should be left in recrawl/deindex cleanup.';
+      }
       const governance = skillLocaleGovernanceMap.get(`${owner}/${routePath}`);
       if (
         governance?.canonicalLocale &&
