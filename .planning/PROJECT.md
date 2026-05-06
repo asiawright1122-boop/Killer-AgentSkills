@@ -11,7 +11,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ## Current State
 
 - `v1.0` through `v1.8` are shipped.
-- The project is between milestones; the next cycle should be defined around fresh Coverage evidence, P0 manual recovery execution, and the next trustworthy proof window.
+- `v1.9 Search Compliance Recovery Execution and Proof` is now active.
+- The current cycle turns the v1.8 carry-forward blockers into search-engine-compliant execution: fresh Coverage evidence, P0 manual recovery batches, priority-surface CTR/GEO review, and the next trustworthy proof window.
 - The main domain remains technically stable: the latest production crawl-health run found `6` sitemap files, `1546` discovered page URLs, `721` sampled checks, `721` `2xx`, `0` `4xx`, `0` `5xx`, and `0` sitemap fetch errors.
 - The skills corpus is now structurally governed: locale eligibility, originality, canonicalization, and governed publish-surface rules are all explicit and auditable.
 - The public discovery model now prioritizes `17` authority surfaces instead of a bulk multilingual skill corpus.
@@ -42,15 +43,17 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Removed the strongest internal-language families from the shared public sources that were re-seeding the problem across rendered pages.
 - Upgraded `tests/pages/public-links.test.ts` into a reusable directory-level guardrail that scans public pages, shared data, locale catalogs, and collection JSON before release.
 
-## Next Milestone Direction
+## Current Milestone: v1.9 Search Compliance Recovery Execution and Proof
 
-**Goal:** Convert the v1.8 carry-forward blockers into manual recovery execution and a new trustworthy proof window.
+**Goal:** Execute the known recovery blockers against official search-engine guidance, improve priority click surfaces only where evidence supports it, and produce a post-intervention proof window without overstating recovery.
 
-**Candidate target features:**
+**Target features:**
 
+- Map Google, Bing, IndexNow, and Yandex guidance into a project-specific SEO/GEO compliance checklist.
 - Import a fresh Coverage Drilldown raw export and regenerate recovery reports from it.
 - Execute the P0 other-cluster and source-file recovery batches with keep-410 / redirect / recrawl-watch outcomes.
 - Verify trailing-slash, query-parameter, repeated-segment, and deep-skill-path canonicalization against fresh Coverage evidence.
+- Review and improve priority authority-surface titles, snippets, structured-data eligibility, and AI-search citation evidence without adding search-engine-first copy.
 - Capture a post-intervention proof window that can honestly judge crawl, Coverage, GSC demand, authority promotion, and automation readiness.
 
 ## Deferred Beyond v1.8
@@ -107,9 +110,11 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
+- [ ] [Search Guidelines Compliance Baseline] - Map official Google, Bing, IndexNow, and Yandex guidance to this project's crawl, index, content, CTR, and AI-search evidence lanes.
 - [ ] [Fresh Coverage Export Ingestion] - Import a Coverage Drilldown export inside the hard freshness SLA and regenerate the recovery reports.
 - [ ] [P0 Manual Recovery Batches] - Execute the other-cluster and source-file recovery batches with explicit keep-410, redirect-validation, and recrawl-watch outcomes.
 - [ ] [Post-Intervention Proof Window] - Capture another proof window after manual recovery work has time to appear in search evidence.
+- [ ] [Priority Surface CTR and GEO Review] - Improve click-facing authority surfaces and AI-search evidence only where query, page, and guideline evidence support changes.
 
 ### Out of Scope
 
@@ -165,6 +170,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 | Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Validated |
 | Current-but-blocking proof is a valid outcome | v1.8 showed that honest proof can complete a milestone while still blocking expansion | Validated |
 | Manual recovery before automation | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists | Active |
+| Official search guidance before SEO changes | v1.9 recovery work should map to official Google, Bing, IndexNow, and Yandex guidance before changing public surfaces | Active |
 
 ## Evolution
 
@@ -172,4 +178,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-05-06 after v1.8 milestone archive._
+_Last updated: 2026-05-06 after starting v1.9 Search Compliance Recovery Execution and Proof._

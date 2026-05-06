@@ -1,19 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: none
-milestone_name: Between milestones
-current_phase: none - v1.8 phases complete
+milestone: v1.9
+milestone_name: Search Compliance Recovery Execution and Proof
+current_phase: 64 - search-guidelines-compliance-baseline-and-fresh-coverage
 current_plan: none
-status: completed
-stopped_at: v1.8 is archived. The next GSD action is `$gsd-new-milestone`.
-last_updated: "2026-05-06T08:19:51.867Z"
+status: active
+stopped_at: v1.9 is initialized. The next GSD action is `$gsd-discuss-phase 64` or `$gsd-plan-phase 64`.
+last_updated: "2026-05-06T08:42:00.000Z"
 last_activity: 2026-05-06
 progress:
-  total_phases: 3
-  completed_phases: 3
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -23,17 +23,17 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** The project is between milestones after shipping `v1.8`; the next cycle should execute fresh Coverage ingestion, P0 manual recovery batches, and a post-intervention proof window.
+**Current focus:** `v1.9` should execute search-guideline-compliant recovery: fresh Coverage ingestion, P0 manual recovery batches, priority-surface CTR/GEO evidence, and a post-intervention proof window.
 
 ## Current Position
 
-**Current Milestone:** none - v1.8 archived
-**Current Phase:** none - v1.8 phases complete
+**Current Milestone:** `v1.9` Search Compliance Recovery Execution and Proof
+**Current Phase:** `64` search-guidelines-compliance-baseline-and-fresh-coverage
 **Current Plan:** none
-**Status:** v1.8 milestone complete and archived
+**Status:** v1.9 milestone initialized; phase planning not started
 **Last Activity:** 2026-05-06
-**Last Activity Description:** v1.8 milestone completed and archived
-**Progress:** 100%
+**Last Activity Description:** Started v1.9 from official search guidance, fresh Coverage, P0 recovery, CTR/GEO, and proof-window requirements
+**Progress:** 0%
 
 ## Performance Metrics
 
@@ -57,7 +57,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 - Discovery expansion remains closed at `0 promote / 31 hold / 1 stop`, and automation remains locked.
 - Recovery experiments are classified as `4` queued, `11` manual-active, `3` review, `0` limited-rollout, `0` automation-candidate, and `1` retired.
 - The public trust issue that triggered `v1.7` is now remediated on the audited surfaces, and reusable public copy-boundary guardrails now protect the main public trust surfaces and their shared sources.
-- `v1.8` is archived; the next blocking lane is fresh Coverage evidence plus manual execution of the recovery queue before another proof window.
+- `v1.9` is active; the blocking lane is fresh Coverage evidence plus manual execution of the recovery queue before another proof window.
 
 ## Decisions Made
 
@@ -74,13 +74,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 | v1.8 phase 61 verdict | Treat `2026-04-16` Coverage Drilldown evidence as good enough to unblock proof refresh, but not fresh enough to claim ideal operating cadence | The hard SLA is restored while the preferred freshness watchlist remains active |
 | v1.8 phase 62 verdict | Treat the `2026-05-06` proof window as current but still blocking | Production crawl and GSC availability are clear, but Coverage freshness and authority-surface demand do not support expansion |
 | v1.8 phase 63 verdict | Keep discovery expansion closed and automation locked | No authority surface qualifies for promotion and no manual intervention has repeatable proof for automation |
+| v1.9 posture | Map recovery work to official search-engine guidance before changing more public surfaces | The next recovery push must improve crawl/index/CTR/GEO compliance without adding search-engine-first copy |
 
 ## Blockers
 
 - A fresh Coverage Drilldown export is required before cluster-level recovery attribution can be trusted.
 - No authority surface currently qualifies for promotion; discovery expansion remains explicitly closed until at least two primary surfaces clear the uplift gates.
 - High-impact issue clusters still need manual execution follow-through, especially the missing-cluster split, source-file cleanup, and trailing-slash / query-parameter / locale follow-ups.
-- No active blocker remains inside the `v1.7` public trust-surface scope; the active blocker is now the missing comparable proof window and downstream readiness reassessment, not stale Coverage input freshness as the primary lane.
+- No active blocker remains inside the `v1.7` public trust-surface scope; the active blocker is now fresh Coverage evidence, P0 manual URL recovery execution, CTR/GEO surface proof, and a post-intervention proof window.
 
 ## Accumulated Context
 
@@ -114,9 +115,14 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 - Phase 62 completed: comparable proof window regenerated on `2026-05-06`; crawl and GSC inputs are available, but recovery remains blocked by stale Coverage evidence and no promotion-ready authority surfaces
 - Phase 63 completed: authority reassessment and experiment ladder keep discovery expansion closed and automation locked; manual recovery queue remains active
 - Milestone `v1.8` audited, completed, and archived on `2026-05-06`
+- Milestone `v1.9` started: Search Compliance Recovery Execution and Proof
+- Phase 64 added: search-guidelines-compliance-baseline-and-fresh-coverage
+- Phase 65 added: p0-url-recovery-batches-and-canonical-proof
+- Phase 66 added: priority-surface-ctr-and-ai-search-visibility
+- Phase 67 added: post-intervention-proof-window-and-promotion-gate
 
 ## Session
 
 **Last Date:** 2026-05-06
-**Stopped At:** v1.8 is archived. The next GSD action is `$gsd-new-milestone`.
+**Stopped At:** v1.9 is initialized. The next GSD action is `$gsd-discuss-phase 64` or `$gsd-plan-phase 64`.
 **Resume File:** `.planning/ROADMAP.md`

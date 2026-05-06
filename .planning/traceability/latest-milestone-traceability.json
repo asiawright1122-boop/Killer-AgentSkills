@@ -1,10 +1,120 @@
 {
-  "generatedAt": "2026-05-06T08:27:39.269Z",
+  "generatedAt": "2026-05-06T08:38:17.379Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills-seo-click-recovery",
-  "milestone": "none",
-  "milestoneName": "Between milestones",
-  "activePhases": [],
-  "requirements": [],
+  "milestone": "v1.9",
+  "milestoneName": "Search Compliance Recovery Execution and Proof",
+  "activePhases": [
+    {
+      "phaseNumber": "64",
+      "slug": "search-guidelines-compliance-baseline-and-fresh-coverage",
+      "requirements": [
+        "SEO-15",
+        "REC-26"
+      ],
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "65",
+      "slug": "p0-url-recovery-batches-and-canonical-proof",
+      "requirements": [
+        "REC-27",
+        "REC-28"
+      ],
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "66",
+      "slug": "priority-surface-ctr-and-ai-search-visibility",
+      "requirements": [
+        "CTR-02",
+        "GEO-04"
+      ],
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "67",
+      "slug": "post-intervention-proof-window-and-promotion-gate",
+      "requirements": [
+        "REC-29"
+      ],
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    }
+  ],
+  "requirements": [
+    {
+      "id": "SEO-15",
+      "expectedPhase": "64",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "REC-26",
+      "expectedPhase": "64",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "REC-27",
+      "expectedPhase": "65",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "REC-28",
+      "expectedPhase": "65",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "REC-29",
+      "expectedPhase": "67",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "CTR-02",
+      "expectedPhase": "66",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "GEO-04",
+      "expectedPhase": "66",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    }
+  ],
   "hygiene": {
     "status": "clean",
     "legacyPhaseDirs": [
@@ -14,6 +124,11 @@
     ],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
-    "missingActivePhaseDirs": []
+    "missingActivePhaseDirs": [
+      "64",
+      "65",
+      "66",
+      "67"
+    ]
   }
 }
