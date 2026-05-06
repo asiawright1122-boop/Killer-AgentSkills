@@ -96,6 +96,7 @@ function main() {
   const downloadsDir = detectDownloadsDirectory();
 
   const archiveSourcesBefore = findCoverageDrilldownArchiveDirectories(archiveDir);
+  const archivedFolderNames = new Set(archiveSourcesBefore.map((source) => source.folderName));
   const imported: IngestReportItem[] = [];
   const skipped: IngestReportItem[] = [];
 
@@ -118,6 +119,18 @@ function main() {
     }
 
     preferredDirectoryByFolder.set(inspection.folderName, dirPath);
+    if (archivedFolderNames.has(inspection.folderName)) {
+      skipped.push({
+        status: 'skipped',
+        sourceKind: 'directory',
+        sourcePath: dirPath,
+        folderName: inspection.folderName,
+        detectedDate: inspection.detectedDate,
+        reason: 'already_archived',
+      });
+      continue;
+    }
+
     const result = ingestCoverageDrilldownDirectory({
       sourcePath: dirPath,
       archiveDir,
@@ -136,6 +149,18 @@ function main() {
 
   for (const zipPath of zipCandidates) {
     const folderName = basename(zipPath, extname(zipPath));
+    if (archivedFolderNames.has(folderName)) {
+      skipped.push({
+        status: 'skipped',
+        sourceKind: 'zip',
+        sourcePath: zipPath,
+        folderName,
+        detectedDate: parseCoverageDrilldownDirectoryDate(folderName),
+        reason: 'already_archived',
+      });
+      continue;
+    }
+
     if (preferredDirectoryByFolder.has(folderName)) {
       skipped.push({
         status: 'skipped',
