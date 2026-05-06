@@ -20,11 +20,13 @@ type PageCheck = {
   locale: string;
   titleIncludes?: string;
   descriptionIncludes?: string;
+  h1Equals?: string;
   expectNoindex?: boolean;
   expectJsonLd?: boolean;
   expectBreadcrumbParity?: boolean;
   expectedBreadcrumbLabels?: string[];
   mustNotContain?: string[];
+  keywordsMustNotContain?: string[];
 };
 
 type RunningDevServer = {
@@ -85,6 +87,7 @@ const SEO_SMOKE_CACHE_BUST = process.env.SEO_SMOKE_CACHE_BUST === '1';
 const SEO_SMOKE_SITEMAP_ONLY = process.env.SEO_SMOKE_SITEMAP_ONLY === '1';
 const SEO_SMOKE_USER_AGENT = process.env.SEO_SMOKE_USER_AGENT || 'Killer-Skills-Warmup-Bot/1.0';
 const CACHE_BUST_VALUE = Date.now();
+const PERSONAL_STATE_NOINDEX_PATHS = ['/fr/favorites', '/fr/history'];
 
 const checks: PageCheck[] = [
   {
@@ -129,6 +132,17 @@ const checks: PageCheck[] = [
     expectJsonLd: true,
     expectBreadcrumbParity: true,
     expectedBreadcrumbLabels: ['Home', 'Collections'],
+  },
+  {
+    path: '/en/skills/callstackincubator/agent-skills/react-native-best-practices',
+    titleIncludes: 'React Native Best Practices',
+    descriptionIncludes: 'React Native performance optimization',
+    canonical: `${SITE_ORIGIN}/en/skills/callstackincubator/agent-skills/react-native-best-practices`,
+    locale: 'en',
+    h1Equals: 'React Native Best Practices',
+    expectJsonLd: true,
+    expectBreadcrumbParity: true,
+    keywordsMustNotContain: ['agent-skills', 'ide skills', 'official', 'for Claude Code', 'estimatedItemSize'],
   },
 ];
 
@@ -630,6 +644,8 @@ function validateCheck(check: PageCheck, html: string) {
   const description = readTagContent(html, /<meta\s+name="description"\s+content="(.*?)"/i);
   const canonical = readTagContent(html, /<link\s+rel="canonical"\s+href="(.*?)"/i);
   const robots = readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i);
+  const h1 = stripTags(readTagContent(html, /<h1[^>]*>(.*?)<\/h1>/i) || '');
+  const keywords = readTagContent(html, /<meta\s+name="keywords"\s+content="(.*?)"/i) || '';
 
   ensure(Boolean(title), `${check.path}: missing <title>`);
   ensure(Boolean(description), `${check.path}: missing meta description`);
@@ -650,6 +666,10 @@ function validateCheck(check: PageCheck, html: string) {
       description!.includes(check.descriptionIncludes),
       `${check.path}: description missing "${check.descriptionIncludes}"`,
     );
+  }
+
+  if (check.h1Equals) {
+    ensure(h1 === check.h1Equals, `${check.path}: expected H1 "${check.h1Equals}", got "${h1 || 'missing'}"`);
   }
 
   if (check.expectNoindex) {
@@ -673,6 +693,12 @@ function validateCheck(check: PageCheck, html: string) {
       ensure(!html.includes(needle), `${check.path}: unexpected HTML content "${needle}"`);
     }
   }
+
+  if (check.keywordsMustNotContain) {
+    for (const needle of check.keywordsMustNotContain) {
+      ensure(!keywords.includes(needle), `${check.path}: unexpected keyword "${needle}"`);
+    }
+  }
 }
 
 async function runCheck(check: PageCheck) {
@@ -684,6 +710,37 @@ async function runCheck(check: PageCheck) {
 async function runMissingDocs404Check() {
   await fetchWithRetry(withCacheBust(MISSING_DOCS_SLUG), 404);
   console.log('SEO smoke passed: docs missing slug returns 404');
+}
+
+async function runPersonalStateNoindexChecks() {
+  for (const path of PERSONAL_STATE_NOINDEX_PATHS) {
+    const response = await fetchWithRetry(withCacheBust(path), 200);
+    const headerRobots = response.headers.get('x-robots-tag') || response.headers.get('X-Robots-Tag') || '';
+    const html = await response.text();
+    const metaRobots = readTagContent(html, /<meta\s+name="robots"\s+content="(.*?)"/i) || '';
+
+    ensure(
+      headerRobots.toLowerCase() === 'noindex, nofollow',
+      `${path}: expected X-Robots-Tag noindex, nofollow, got "${headerRobots || 'missing'}"`,
+    );
+    ensure(metaRobots.toLowerCase().includes('noindex'), `${path}: expected meta robots noindex`);
+  }
+
+  console.log(`SEO smoke passed: personal state pages stay noindex (${PERSONAL_STATE_NOINDEX_PATHS.join(', ')})`);
+}
+
+async function runGscCtrConsolidationRedirectCheck() {
+  const sourcePath = '/en/skills/callstackincubator/agent-skills';
+  const expectedPath = '/en/skills/callstackincubator/agent-skills/react-native-best-practices';
+  const response = await fetchRedirectWithRetry(withCacheBust(sourcePath), 301);
+  const location = response.headers.get('location') || '';
+  const redirectedPathname = readRedirectPathname(location);
+
+  ensure(
+    redirectedPathname === expectedPath,
+    `${sourcePath}: expected GSC CTR consolidation redirect to "${expectedPath}", got "${location || 'missing'}"`,
+  );
+  console.log(`SEO smoke passed: GSC CTR page consolidates to canonical skill (${sourcePath} -> ${expectedPath})`);
 }
 
 async function runSkillsSitemapChecks(): Promise<string[]> {
@@ -1037,6 +1094,8 @@ async function main() {
     }
 
     await runMissingDocs404Check();
+    await runPersonalStateNoindexChecks();
+    await runGscCtrConsolidationRedirectCheck();
     const skillPaths = await runSkillsSitemapChecks();
     await runBlogSitemapIndexabilityCheck();
     await runSkillsSitemapIndexabilityCheck(skillPaths);

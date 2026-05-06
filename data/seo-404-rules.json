@@ -4,12 +4,12 @@
   "sourceGeneratedAt": "2026-04-24T05:46:29.097Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
-    "redirect301": 1,
+    "redirect301": 2,
     "gone410": 491,
     "ignored": 18,
     "redirect301CandidateTotal": 282,
     "redirect301CoveredByMiddleware": 281,
-    "redirect301Materialized": 1,
+    "redirect301Materialized": 2,
     "gone410CandidateTotal": 700,
     "gone410CoveredByMiddleware": 209,
     "gone410Materialized": 491,
@@ -23,6 +23,11 @@
         "fromPath": "/ar/collections/top-community-skills",
         "toPath": "/ar/collections/top-community-contributed-ai-agent-skills",
         "reason": "legacy_collection_slug_redirect"
+      },
+      {
+        "fromPath": "/en/skills/callstackincubator/agent-skills",
+        "toPath": "/en/skills/callstackincubator/agent-skills/react-native-best-practices",
+        "reason": "gsc_ctr_consolidation_to_canonical_skill"
       }
     ],
     "gone410": [
