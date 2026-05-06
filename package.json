@@ -13,9 +13,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "postbuild": "node scripts/normalize-wrangler-config.mjs",
     "validate:public-surface": "node scripts/dev-server-smoke.mjs && npm run build && npx vitest run src/messages/public-copy.test.ts src/i18n.test.ts src/i18n.property.test.ts src/middleware.property.test.ts tests/pages/public-links.test.ts",
-    "preview": "wrangler pages dev dist",
-    "deploy": "npm run guard:cloudflare:bindings && wrangler pages deploy dist --project-name killer-skills",
+    "preview": "npm run build && wrangler dev --config dist/server/wrangler.json",
+    "deploy": "npm run build && npm run guard:cloudflare:bindings && wrangler deploy --config dist/server/wrangler.json",
     "astro": "astro",
     "check:astro": "rm -rf node_modules/.astro && astro check --root .",
     "test": "vitest --run",

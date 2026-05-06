@@ -257,7 +257,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=killer-skills --branch=main
+          command: deploy --config dist/server/wrangler.json
 
       - name: Notify IndexNow
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

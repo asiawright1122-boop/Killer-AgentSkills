@@ -70,4 +70,13 @@ describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积�
     expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap.xml'))).toBe(true);
     expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap-skills.xml'))).toBe(true);
   });
+
+  it('generated Wrangler config should not contain duplicate binding names', () => {
+    const configPath = path.join(WORKER_DIR, 'wrangler.json');
+    const rawConfig = JSON.parse(fs.readFileSync(configPath, 'utf8')) as {
+      kv_namespaces?: Array<{ binding?: string }>;
+    };
+    const bindingNames = (rawConfig.kv_namespaces || []).map((binding) => binding.binding).filter(Boolean);
+    expect(new Set(bindingNames).size).toBe(bindingNames.length);
+  });
 });
