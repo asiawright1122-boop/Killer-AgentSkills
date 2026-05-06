@@ -8,16 +8,16 @@
 
 ### Proof Inputs
 
-- [ ] **REC-24**: Operator can ingest and verify fresh Coverage Drilldown raw inputs with dated freshness evidence before recovery decisions are made.
-- [ ] **REC-25**: Operator can generate a second trustworthy post-governance proof window and compare it against the seeded baseline without relying on stale local inputs.
+- [x] **REC-24**: Operator can ingest and verify fresh Coverage Drilldown raw inputs with dated freshness evidence before recovery decisions are made.
+- [x] **REC-25**: Operator can generate a second trustworthy post-governance proof window and compare it against the seeded baseline without relying on stale local inputs.
 
 ### Promotion Readiness
 
-- [ ] **UX-EXP-03**: Operator can reassess primary authority surfaces against refreshed proof inputs before any discovery expansion is reconsidered.
+- [x] **UX-EXP-03**: Operator can reassess primary authority surfaces against refreshed proof inputs before any discovery expansion is reconsidered.
 
 ### Experiment Governance
 
-- [ ] **GEO-03**: Operator can re-score manual recovery interventions for repeatability from the refreshed proof set before limited rollout or automation is considered.
+- [x] **GEO-03**: Operator can re-score manual recovery interventions for repeatability from the refreshed proof set before limited rollout or automation is considered.
 
 ## Future Requirements
 
@@ -43,9 +43,9 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | REC-24 | Phase 61 | Complete |
-| REC-25 | Phase 62 | Pending |
-| UX-EXP-03 | Phase 63 | Pending |
-| GEO-03 | Phase 63 | Pending |
+| REC-25 | Phase 62 | Complete |
+| UX-EXP-03 | Phase 63 | Complete |
+| GEO-03 | Phase 63 | Complete |
 
 **Coverage:**
 - v1.8 requirements: 4 total
@@ -55,4 +55,4 @@
 ---
 
 *Requirements defined: 2026-04-23*
-*Last updated: 2026-04-23 after starting v1.8 Fresh Recovery Inputs and Comparable Proof Refresh*
+*Last updated: 2026-05-06 after completing v1.8 Fresh Recovery Inputs and Comparable Proof Refresh reassessment*

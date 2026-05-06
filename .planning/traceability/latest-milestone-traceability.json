@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-04-23T03:00:18.855Z",
-  "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
+  "generatedAt": "2026-05-06T08:05:48.816Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills-seo-click-recovery",
   "milestone": "v1.8",
   "milestoneName": "Fresh Recovery Inputs and Comparable Proof Refresh",
   "activePhases": [
@@ -37,12 +37,20 @@
       "phaseDirs": [
         "62-comparable-proof-window-refresh-and-delta-revalidation"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-25"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-25"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     },
     {
       "phaseNumber": "63",
@@ -54,12 +62,22 @@
       "phaseDirs": [
         "63-authority-and-intervention-readiness-reassessment"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/63-authority-and-intervention-readiness-reassessment/63-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/63-authority-and-intervention-readiness-reassessment/63-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "verificationRequirementsCompleted": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     }
   ],
   "requirements": [
@@ -73,23 +91,23 @@
     {
       "id": "REC-25",
       "expectedPhase": "62",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "UX-EXP-03",
       "expectedPhase": "63",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "GEO-03",
       "expectedPhase": "63",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     }
   ],
   "hygiene": {

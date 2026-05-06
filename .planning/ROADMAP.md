@@ -10,9 +10,9 @@ This milestone returns the project to the recovery-proof lane. The goal is to re
 
 ## Immediate Next Actions
 
-- Plan Phase `62` so the refreshed Coverage Drilldown evidence can feed another trustworthy comparable proof window.
-- Keep discovery expansion closed until Phase `63` re-evaluates authority readiness from refreshed proof.
-- Keep automation locked until the refreshed proof set says at least one manual intervention is repeatable.
+- Phase `63` is complete; prepare the v1.8 closeout/audit from the refreshed proof, authority, and experiment evidence.
+- Keep discovery expansion closed because Phase `62` found `0 promote / 31 hold / 1 stop`.
+- Keep automation locked until a fresh Coverage Drilldown export and a trustworthy proof window make at least one manual intervention repeatable.
 
 ## Current Milestone: v1.8 Fresh Recovery Inputs and Comparable Proof Refresh
 
@@ -61,10 +61,18 @@ Plans:
 1. Operators can produce a second comparable proof window from refreshed inputs without relying on stale local evidence.
 2. The refreshed proof window makes trust status, blockers, and comparability against the seeded baseline explicit.
 3. Recovery delta outputs are revalidated against the refreshed proof substrate instead of older baseline-only assumptions.
-**Plans:** 0 plans
+**Plans:** 1/1 complete
 
 Plans:
-- [ ] TBD (run `$gsd-plan-phase 62` to break down)
+- [x] `62-01`: Refresh the comparable proof window and delta board from current demand, crawl, coverage, and authority evidence.
+
+**Delivered details:**
+
+- Regenerated the `2026-05-06` recovery proof window against the `2026-05-04` baseline without reseeding the baseline.
+- Confirmed the production sitemap crawl lane is clear: `6` sitemap files, `1546` discovered page URLs, `721` sampled URLs checked, and `0` sitemap fetch errors.
+- Confirmed GSC demand evidence is available from `live-api` for `2026-04-08` to `2026-05-05`, but demand remains too thin for expansion: `26` query rows, `507` page rows, and `0` priority opportunities.
+- Revalidated the delta board and authority scorecard with a conservative verdict: proof trust `blocking`, `0` deepen, `8` hold, `9` avoid, and authority expansion closed at `0 promote / 31 hold / 1 stop`.
+- Identified the next hard blocker as stale Coverage Drilldown evidence (`2026-04-16`, age `18` day(s) in the refreshed proof window), not live sitemap availability.
 
 ### Phase 63: authority-and-intervention-readiness-reassessment
 
@@ -75,10 +83,18 @@ Plans:
 1. The authority uplift posture is re-evaluated from refreshed proof inputs before any discovery expansion is reconsidered.
 2. Manual recovery interventions are re-scored for repeatability from the refreshed evidence before limited rollout or automation is reconsidered.
 3. The repo makes it explicit whether promotion and automation remain closed or whether any narrow candidate has genuinely earned review.
-**Plans:** 0 plans
+**Plans:** 1/1 complete
 
 Plans:
-- [ ] TBD (run `$gsd-plan-phase 63` to break down)
+- [x] `63-01`: Reassess authority-surface promotion and intervention repeatability from the refreshed Phase `62` proof set.
+
+**Delivered details:**
+
+- Reconfirmed authority promotion remains closed: `0 promote / 31 hold / 1 stop`.
+- Reconfirmed discovery expansion remains `closed` because proof trust is `blocking`, Coverage freshness is outside SLA, and no primary surface qualifies for promotion.
+- Reconfirmed recovery execution remains manual: `6` ready interventions, `4` blocked prerequisites, and `1` watch item.
+- Reconfirmed automation remains locked: `19` experiments, `11` manual-active, `3` review, `0` limited-rollout, `0` automation-candidate, `1` retired.
+- Identified the next operating posture: refresh Coverage Drilldown raw exports, execute P0 manual recovery batches, then collect another trustworthy proof window before any expansion or automation decision.
 
 ## Milestones
 
@@ -104,5 +120,5 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 61. coverage-drilldown-input-refresh-and-freshness-contract | v1.8 | 1/1 | Complete | 2026-04-23 |
-| 62. comparable-proof-window-refresh-and-delta-revalidation | v1.8 | 0/0 | Not started | - |
-| 63. authority-and-intervention-readiness-reassessment | v1.8 | 0/0 | Not started | - |
+| 62. comparable-proof-window-refresh-and-delta-revalidation | v1.8 | 1/1 | Complete | 2026-05-06 |
+| 63. authority-and-intervention-readiness-reassessment | v1.8 | 1/1 | Complete | 2026-05-06 |
