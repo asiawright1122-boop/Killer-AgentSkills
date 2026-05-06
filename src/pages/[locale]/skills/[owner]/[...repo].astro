@@ -1073,17 +1073,16 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
               <div class="w-full relative z-10">
                 <div class="flex items-start justify-between gap-3 md:gap-4 mb-3 flex-wrap relative">
                   <div class="flex items-center gap-2 md:gap-3 flex-wrap w-full md:w-auto">
-                    <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase w-full md:w-auto flex flex-col gap-1 leading-none">
-                      <span>{skillDisplayName}</span>
-                      {/* SEO: Dynamic H1 Sub-heading for Topical Authority */}
+                    <div class="w-full md:w-auto">
+                      <h1 class="text-3xl md:text-5xl font-black text-[var(--foreground)] tracking-tight break-words uppercase leading-none">
+                        {skillDisplayName}
+                      </h1>
                       {heroTagline && (
-                        <span class="text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
-                          — {heroTagline}
-                        </span>
+                        <p class="mt-2 text-base md:text-xl font-mono text-[var(--muted-foreground)] tracking-widest normal-case opacity-80">
+                          {heroTagline}
+                        </p>
                       )}
-                      {/* Hidden actual keywords for deeper matching if not inside tagline */}
-                      <span class="sr-only">{seoKeywords}</span>
-                    </h1>
+                    </div>
                     <div class="flex items-center gap-2 mt-1 md:mt-0 font-mono">
                       {isVerified && (
                         <div class="px-2 py-1 bg-[var(--primary)] text-[var(--primary-foreground)] border-2 border-[var(--border)] text-xs font-bold uppercase tracking-widest flex items-center gap-1 shadow-[2px_2px_0px_0px_var(--border)]">
