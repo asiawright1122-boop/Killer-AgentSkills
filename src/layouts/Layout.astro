@@ -20,6 +20,7 @@ interface Props {
   customCanonical?: string;
   availableLocales?: string[];
   xDefaultLocale?: string;
+  brandSuffix?: 'full' | 'short';
   robots?: string;
 }
 
@@ -38,6 +39,7 @@ const {
   customCanonical,
   availableLocales,
   xDefaultLocale: customXDefaultLocale,
+  brandSuffix,
   robots,
 } = Astro.props;
 
@@ -64,6 +66,7 @@ const metadata = buildPageMetadata({
   availableLocales,
   xDefaultLocale: customXDefaultLocale,
   appendBrand,
+  brandSuffix,
   siteUrl: SITE_URL,
 });
 const robotsContent =

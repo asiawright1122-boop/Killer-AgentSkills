@@ -57,6 +57,18 @@ describe('buildPageMetadata', () => {
     expect(metadata.documentTitle).toBe('优先安装的 Agent 工作流构建工具 | Killer-Skills');
   });
 
+  it('supports short brand suffixes for skill SERP titles', () => {
+    const metadata = buildPageMetadata({
+      pathname: '/en/skills/example/rest-api',
+      locale: 'en',
+      title: 'Rest API AI Agent Skill',
+      description: 'Install Rest API for AI agent workflows.',
+      brandSuffix: 'short',
+    });
+
+    expect(metadata.documentTitle).toBe('Rest API AI Agent Skill | Killer-Skills');
+  });
+
   it('aligns locale metadata with the served locale and available alternates', () => {
     const metadata = buildPageMetadata({
       pathname: '/zh/collections',

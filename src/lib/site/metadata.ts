@@ -25,6 +25,7 @@ export interface PageMetadataInput {
   availableLocales?: readonly string[];
   xDefaultLocale?: string;
   appendBrand?: boolean;
+  brandSuffix?: 'full' | 'short';
   siteUrl?: string;
 }
 
@@ -63,7 +64,7 @@ function replaceLocaleSegment(pathname: string, currentLocale: string, nextLocal
   return normalizedPathname.replace(localePattern, `/${nextLocale}$1`);
 }
 
-function buildDocumentTitle(title: string, appendBrand: boolean): string {
+function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'full' | 'short'): string {
   if (!appendBrand) {
     return title;
   }
@@ -75,6 +76,10 @@ function buildDocumentTitle(title: string, appendBrand: boolean): string {
   const isSubpage = title !== 'Killer-Skills';
   const fullBrand = ' | Killer-Skills - AI Agent Directory';
   const shortBrand = ' | Killer-Skills';
+
+  if (brandSuffix === 'short') {
+    return (title + shortBrand).length <= 60 ? title + shortBrand : title;
+  }
 
   if ((title + fullBrand).length <= 60) {
     return isSubpage ? title + fullBrand : title + shortBrand;
@@ -101,6 +106,7 @@ export function buildPageMetadata({
   availableLocales,
   xDefaultLocale,
   appendBrand = true,
+  brandSuffix = 'full',
   siteUrl = DEFAULT_SITE_URL,
 }: PageMetadataInput) {
   const normalizedSiteUrl = stripTrailingSlash(siteUrl);
@@ -133,7 +139,7 @@ export function buildPageMetadata({
     ),
     resolvedXDefaultLocale,
     effectiveLocales,
-    documentTitle: buildDocumentTitle(title, appendBrand),
+    documentTitle: buildDocumentTitle(title, appendBrand, brandSuffix),
     socialTitle: title,
     description: normalizeDescription(description),
     ogLocale: OG_LOCALE_MAP[locale] || locale,

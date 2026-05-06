@@ -605,8 +605,8 @@ const resolvedMetaDescription = sanitizePublicSkillCopy(
 
 // Limit keyword set to avoid stuffing while keeping entity + intent terms
 const seoKeywordSeed = [
-  skillName,
   skillDisplayName,
+  skillName,
   repo,
   category,
   ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
@@ -963,6 +963,7 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
   customCanonical={canonicalSkillUrl}
   availableLocales={skillAvailableLocales}
   xDefaultLocale={skillXDefaultLocale}
+  brandSuffix="short"
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(layoutSchema)} />

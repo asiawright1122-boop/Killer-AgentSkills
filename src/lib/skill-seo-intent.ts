@@ -116,12 +116,24 @@ const GENERIC_TERMS = [
   'tool',
   'tools',
   'automation',
+  'available',
+  'commands',
+  'community',
+  'convention',
+  'conventions',
+  'execute',
+  'existing',
   'workflow',
   'workflows',
   'claude',
   'cursor',
   'windsurf',
   'developer',
+  'library',
+  'management',
+  'mental',
+  'project',
+  'standard',
   'data',
   'design',
   'finance',
@@ -157,7 +169,11 @@ const INVALID_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 
 const LOW_VALUE_KEYWORD_PATTERNS = [
   /[*{}]/,
+  /[:=]/,
   /^[a-z]+(?:[A-Z][a-z0-9]+)+$/,
+  /^[A-Z][A-Za-z0-9]+(?:-[A-Z][A-Za-z0-9]+)+$/,
+  /^for\s+/i,
+  /^clawdbot$/i,
   /^(?:official|for\s+claude\s+code)$/i,
   /^(?:agent[-\s]+skills?|ide\s+skills?)$/i,
   /^(?:overview|practices?|native|references?|readme|docs?|documentation|guide|guidelines?)$/i,
@@ -202,6 +218,7 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
     if (normalizedGenericTerms.has(normalized)) continue;
 
     const words = normalized.split(/[\s-]+/).filter(Boolean);
+    const dedupeKey = normalizeText(keyword.replace(/[-_.]+/g, ' '));
     const tokenCount = words.length;
     const isPureGeneric = words.every((t) => normalizedGenericTerms.has(t));
     if (isPureGeneric) continue;
@@ -210,9 +227,9 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
       if (tokenCount === 1 && normalized.length < 6) continue;
       if (tokenCount > 6) continue;
     }
-    if (seen.has(normalized)) continue;
+    if (seen.has(dedupeKey)) continue;
 
-    seen.add(normalized);
+    seen.add(dedupeKey);
     cleaned.push(keyword);
     if (cleaned.length >= max) break;
   }

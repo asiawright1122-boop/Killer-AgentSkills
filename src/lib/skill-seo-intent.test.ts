@@ -133,6 +133,30 @@ describe('sanitizeSkillKeywords', () => {
 
     expect(result).toEqual(['react native performance']);
   });
+
+  it('filters code, status, and operator terms from generated metadata keywords', () => {
+    const result = sanitizeSkillKeywords([
+      'rest-api',
+      'Retry-After',
+      'is_admin: true',
+      'for CORS',
+      'Available',
+      'ClawdBot',
+      'Execute',
+      'commands',
+      'Mental',
+      'High-Level',
+      'gog library automation',
+    ]);
+
+    expect(result).toEqual(['rest-api', 'gog library automation']);
+  });
+
+  it('deduplicates slug and display-name keyword variants', () => {
+    const result = sanitizeSkillKeywords(['Rest API', 'rest-api', 'just-works', 'Just Works']);
+
+    expect(result).toEqual(['Rest API', 'just-works']);
+  });
 });
 
 describe('formatSkillNameForSeo', () => {
