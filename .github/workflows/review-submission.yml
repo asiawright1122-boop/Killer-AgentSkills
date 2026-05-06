@@ -26,12 +26,15 @@ jobs:
 
       - name: Create Review Branch
         id: branch
+        env:
+          AUTHOR: ${{ github.event.client_payload.owner }}
+          REPO: ${{ github.event.client_payload.repo }}
         run: |
-          AUTHOR="${{ github.event.client_payload.owner }}"
-          REPO="${{ github.event.client_payload.repo }}"
-          BRANCH_NAME="add-skill-${AUTHOR}-${REPO}-$(date +%s)"
-          git checkout -b $BRANCH_NAME
-          echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          SAFE_AUTHOR="$(printf '%s' "$AUTHOR" | tr -cs 'A-Za-z0-9._-' '-')"
+          SAFE_REPO="$(printf '%s' "$REPO" | tr -cs 'A-Za-z0-9._-' '-')"
+          BRANCH_NAME="review-skill-${SAFE_AUTHOR}-${SAFE_REPO}-$(date +%s)"
+          git checkout -b "$BRANCH_NAME"
+          echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Execute LLM Review and Integration
         env:
@@ -44,25 +47,24 @@ jobs:
       - name: Commit and Create PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          AUTHOR: ${{ github.event.client_payload.owner }}
+          REPO: ${{ github.event.client_payload.repo }}
+          BRANCH_NAME: ${{ steps.branch.outputs.branch_name }}
         run: |
-          AUTHOR="${{ github.event.client_payload.owner }}"
-          REPO="${{ github.event.client_payload.repo }}"
-          BRANCH_NAME="${{ steps.branch.outputs.branch_name }}"
-          
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
+
           git add .
-          
+
           if ! git diff --cached --quiet; then
-            git commit -m "feat(skill): Add new submitted skill $AUTHOR/$REPO"
-            git push origin $BRANCH_NAME
+            git commit -m "chore(skill): queue community submission review $AUTHOR/$REPO"
+            git push origin "$BRANCH_NAME"
             
             gh pr create \
-              --title "feat(skill): Accept Community Submission - ${AUTHOR}/${REPO}" \
-              --body "This PR was generated automatically by the \`skill-submission\` edge hook. It contains an AI-reviewed evaluation, meta enrichment, and localization of the submitted skill. Please review the resulting files before merging." \
+              --title "Review community skill submission - ${AUTHOR}/${REPO}" \
+              --body "This PR was generated automatically by the \`skill-submission\` edge hook. It is an intake record only: no AI approval, security score, metadata enrichment, or localization should be treated as complete until a maintainer reviews the submitted repository." \
               --base main \
-              --head $BRANCH_NAME
+              --head "$BRANCH_NAME"
           else
             echo "No changes detected. The review script might have failed or the skill already exists."
           fi

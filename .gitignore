@@ -53,6 +53,8 @@ data/bot-chrome-profile/
 data/chrome-profile/
 
 # Test artifacts
+playwright-report/
+test-results/
 lighthouse-report.json
 test-lh*.json
 psi_*.json
