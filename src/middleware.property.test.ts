@@ -386,6 +386,20 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, follow');
   });
 
+  it('applies noindex, nofollow to personal state pages even when downstream omits robots headers', async () => {
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/fr/favorites'),
+      async () =>
+        new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        }),
+    )) as Response;
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
   it('applies noindex, nofollow to API responses by default', async () => {
     const response = (await onRequest(
       createContext('https://killer-skills.com/api/categories'),

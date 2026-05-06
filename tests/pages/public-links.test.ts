@@ -327,6 +327,23 @@ describe('public links and navigation copy', () => {
     expect(skillDetailSource).toContain('robots={robotsContent}');
   });
 
+  it('keeps personal state pages explicitly noindex across robots headers and meta tags', () => {
+    const favoritesSource = readPageSource('../pages/[locale]/favorites/index.astro');
+    const historySource = readPageSource('../pages/[locale]/history/index.astro');
+    const middlewareSource = readPageSource('../middleware.ts');
+
+    for (const source of [favoritesSource, historySource]) {
+      expect(source).toContain("const robotsContent = 'noindex, nofollow';");
+      expect(source).toContain("Astro.response.headers.set('X-Robots-Tag', robotsContent);");
+      expect(source).toContain('robots={robotsContent}');
+    }
+
+    expect(middlewareSource).toContain(
+      "const isPersonalStatePath = /^\\/[a-z]{2}\\/(?:favorites|history)\\/?$/.test(pathname);",
+    );
+    expect(middlewareSource).toContain('else if (isPersonalStatePath)');
+  });
+
   it('keeps blog intent links on indexable solution and docs paths instead of fixed search-result URLs', () => {
     const blogSeoIntentSource = readPageSource('../lib/blog-seo-intent.ts');
 
@@ -1343,7 +1360,12 @@ describe('public links and navigation copy', () => {
 
     expect(body).toContain('Sitemap: https://killer-skills.com/sitemap.xml');
     expect(body).toContain('Search result/listing parameter pages are controlled by noindex headers/meta.');
+    expect(body).toContain('Favorites and history pages are also crawlable so engines can observe page-level noindex.');
     expect(body).toContain('Invalid source-file and deep skill paths are allowed to crawl');
+    expect(body).not.toContain('Disallow: /favorites');
+    expect(body).not.toContain('Disallow: /history');
+    expect(body).not.toContain('Disallow: /*/favorites');
+    expect(body).not.toContain('Disallow: /*/history');
     expect(body).not.toContain('Disallow: *.md');
     expect(body).not.toContain('Disallow: /*?tag=');
     expect(body).not.toContain('Disallow: /*/skills/*/*/*/*/');

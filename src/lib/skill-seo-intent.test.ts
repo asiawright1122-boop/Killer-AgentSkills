@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   formatSkillNameForSeo,
+  isLowValueSkillSeoDescription,
   isLowValueSkillSeoTitle,
   resolveSkillSeoIntent,
   sanitizeSkillKeywords,
@@ -122,6 +123,9 @@ describe('sanitizeSkillKeywords', () => {
       'native-*',
       'Overview',
       'Quick Pattern',
+      'official',
+      'for Claude Code',
+      'estimatedItemSize',
       'react native performance',
     ]);
 
@@ -140,5 +144,20 @@ describe('formatSkillNameForSeo', () => {
       isLowValueSkillSeoTitle('react-native-best-practices | AI Agent Skills', 'react-native-best-practices'),
     ).toBe(true);
     expect(isLowValueSkillSeoTitle('React Native Performance Review Skill', 'react-native-best-practices')).toBe(false);
+  });
+
+  it('detects slug-repeated descriptions that should not reach visible copy or schema', () => {
+    expect(
+      isLowValueSkillSeoDescription(
+        'react native best practices. react-native-best-practices is an AI agent skill for react native best practices.',
+        'react-native-best-practices',
+      ),
+    ).toBe(true);
+    expect(
+      isLowValueSkillSeoDescription(
+        'Review React Native performance, bundle size, startup time, memory leaks, and native integration tradeoffs.',
+        'react-native-best-practices',
+      ),
+    ).toBe(false);
   });
 });

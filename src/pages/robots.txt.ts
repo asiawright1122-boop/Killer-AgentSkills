@@ -7,13 +7,10 @@ export const GET: APIRoute = async () => {
   const body = `User-agent: *
 Allow: /
 Disallow: /admin/
-Disallow: /favorites
-Disallow: /history
-Disallow: /*/favorites
-Disallow: /*/history
 
 # Search result/listing parameter pages are controlled by noindex headers/meta.
 # Keep crawl allowed so bots can receive canonical + noindex signals.
+# Favorites and history pages are also crawlable so engines can observe page-level noindex.
 # API endpoints are controlled by X-Robots-Tag: noindex, nofollow.
 # Keep crawl allowed so engines can observe the directive and drop historical API URLs.
 # Invalid source-file and deep skill paths are allowed to crawl so bots can see cached 301/404/410 responses.

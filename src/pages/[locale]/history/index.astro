@@ -19,6 +19,8 @@ const t = useTranslations(messages);
 
 const pageTitle = t('Personal.browsingHistory');
 const pageDescription = `${t('Personal.browsingHistory')} — Killer-Skills`;
+const robotsContent = 'noindex, nofollow';
+Astro.response.headers.set('X-Robots-Tag', robotsContent);
 
 // Build translations object expected by HistoryManager island
 const historyTranslations = {
@@ -38,6 +40,6 @@ const historyTranslations = {
 };
 ---
 
-<Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true}>
+<Layout locale={locale} title={pageTitle} description={pageDescription} noindex={true} robots={robotsContent}>
   <HistoryManager client:load locale={locale} translations={historyTranslations} />
 </Layout>

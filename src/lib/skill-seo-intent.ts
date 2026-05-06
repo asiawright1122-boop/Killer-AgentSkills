@@ -156,6 +156,8 @@ const INVALID_KEYWORD_PATTERNS = [/\.\.\./, /\[[^\]]+\]/, /[?？]/];
 
 const LOW_VALUE_KEYWORD_PATTERNS = [
   /[*{}]/,
+  /^[a-z]+(?:[A-Z][a-z0-9]+)+$/,
+  /^(?:official|for\s+claude\s+code)$/i,
   /^(?:overview|practices?|native|references?|readme|docs?|documentation|guide|guidelines?)$/i,
   /^(?:quick|deep|dive|pattern|command|config|reference)$/i,
   /^quick\s+(?:pattern|command|config|reference)$/i,
@@ -250,6 +252,29 @@ export function isLowValueSkillSeoTitle(title: string | undefined, skillName: st
   const withoutGenericSuffix = normalizeText(formatSkillNameForSeo(normalizedTitle.replace(genericSuffixPattern, '')));
 
   return Boolean(withoutGenericSuffix && normalizedSkillName && withoutGenericSuffix === normalizedSkillName);
+}
+
+export function isLowValueSkillSeoDescription(description: string | undefined, skillName: string): boolean {
+  const rawDescription = String(description || '').trim();
+  if (!rawDescription) return false;
+
+  const normalizedDescription = normalizeText(rawDescription);
+  const normalizedWords = normalizeText(rawDescription.replace(/[-_./]+/g, ' '));
+  const normalizedSkillName = normalizeText(formatSkillNameForSeo(skillName));
+  const normalizedSkillSlug = normalizeText(String(skillName || '').replace(/[-_./]+/g, ' '));
+  const expectedName = normalizedSkillName || normalizedSkillSlug;
+  if (!expectedName) return false;
+
+  const firstSentence = normalizeText((rawDescription.split(/[.!?。！？]/u)[0] || '').replace(/[-_./]+/g, ' '));
+  if (firstSentence === expectedName || firstSentence === normalizedSkillSlug) return true;
+
+  const repeatedNameBoilerplate = `${expectedName} is an ai agent skill for ${expectedName}`;
+  if (normalizedWords.includes(repeatedNameBoilerplate)) return true;
+
+  const slugBoilerplate = `${normalizeText(String(skillName || ''))} is an ai agent skill for`;
+  if (normalizedDescription.includes(slugBoilerplate)) return true;
+
+  return false;
 }
 
 function pickSupportTerm(rawKeywords: string[], intentKeywords: string[]): string {

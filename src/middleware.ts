@@ -820,9 +820,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
     response.headers.set('Content-Language', localeSegment);
     const isSkillsListingWithParams = /^\/[a-z]{2}\/skills$/.test(pathname) && searchParams.size > 0;
     const isSandboxPath = /^\/[a-z]{2}\/sandbox\//.test(pathname);
+    const isPersonalStatePath = /^\/[a-z]{2}\/(?:favorites|history)\/?$/.test(pathname);
     // X-Robots-Tag as HTTP header reinforcement for Googlebot
     if (!response.headers.has('X-Robots-Tag')) {
       if (response.status >= 400) {
+        response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      }
+      // client-local personal state pages are useful in-product but should never compete in SERP
+      else if (isPersonalStatePath) {
         response.headers.set('X-Robots-Tag', 'noindex, nofollow');
       }
       // sandbox pages are utility/test pages and should not compete for index budget

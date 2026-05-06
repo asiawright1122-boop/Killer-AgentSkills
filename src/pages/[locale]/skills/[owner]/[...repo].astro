@@ -22,6 +22,7 @@ import { buildBreadcrumbTrail } from '../../../../lib/site/breadcrumbs';
 import { extractMarkdownHeadings } from '../../../../lib/markdown-headings';
 import {
   formatSkillNameForSeo,
+  isLowValueSkillSeoDescription,
   isLowValueSkillSeoTitle,
   resolveSkillSeoIntent,
   sanitizeSkillKeywords,
@@ -466,7 +467,10 @@ const descriptionIntentSignals = [
   ...skillSeoIntent.keywords,
 ];
 const shouldUseDescriptionTemplate =
-  seoForceTemplate || !seoDescriptionRaw || !matchesIntentSignals(seoDescriptionRaw, descriptionIntentSignals);
+  seoForceTemplate ||
+  !seoDescriptionRaw ||
+  isLowValueSkillSeoDescription(seoDescriptionRaw, skillName) ||
+  !matchesIntentSignals(seoDescriptionRaw, descriptionIntentSignals);
 const n8nDescriptionOverride =
   typedLocale === 'en'
     ? isN8nRootPage
@@ -491,8 +495,14 @@ const n8nHeroIntroOverride =
         ? 'Use this n8n Loom transcript skill in Claude Code to turn Loom videos into transcripts, structured notes, and downstream workflow actions with a faster install path.'
         : ''
     : '';
+const hasLowValuePublicDescription = isLowValueSkillSeoDescription(description, skillName);
+const publicDescription = shouldUseDescriptionTemplate
+  ? templateDescription
+  : hasLowValuePublicDescription
+    ? firstNonEmpty(seoDescriptionRaw, templateDescription)
+    : description;
 const heroTagline = n8nHeroTaglineOverride || tagline;
-const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, description, defaultNoResultsLabel);
+const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, publicDescription, defaultNoResultsLabel);
 const recommendationRaw = localizedRecommendation || '';
 const suitabilityRaw = localizedSuitability || '';
 const suitabilityFallback = tr(
@@ -505,7 +515,7 @@ const shouldRunLightLocalization = typedLocale !== 'en' && !isCrawlerRequest && 
 const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations, t_recommendation, t_suitability] =
   shouldRunLightLocalization
     ? await Promise.all([
-        translateString(env, typeof description === 'string' ? description : '', typedLocale, 'text'),
+        translateString(env, typeof publicDescription === 'string' ? publicDescription : '', typedLocale, 'text'),
         translateString(env, heroIntroRaw, typedLocale, 'text'),
         translateArray(env, features, typedLocale),
         translateArray(env, keywordsList, typedLocale),
@@ -515,7 +525,7 @@ const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitatio
         translateString(env, suitabilityRaw, typedLocale, 'text'),
       ])
     : [
-        description,
+        publicDescription,
         heroIntroRaw,
         features,
         keywordsList,
@@ -585,7 +595,7 @@ const metaDescription = truncateText(
     ? n8nDescriptionOverride
     : shouldUseDescriptionTemplate
       ? templateDescription
-      : seoDescriptionRaw || description || templateDescription,
+      : seoDescriptionRaw || publicDescription || templateDescription,
   158,
 );
 const resolvedMetaDescription = sanitizePublicSkillCopy(
