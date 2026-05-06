@@ -108,20 +108,12 @@ jobs:
           GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
           GSC_REPORT_DAYS: '7'
           GSC_ROW_LIMIT: '250'
+          GSC_OVERWRITE_LATEST_ON_BLOCKING: '1'
         run: |
           mkdir -p reports/gsc
           if [ -z "$GSC_CLIENT_EMAIL" ] || [ -z "$GSC_PRIVATE_KEY" ] || [ -z "$GSC_SITE_URL" ]; then
             echo "configured=false" >> "$GITHUB_OUTPUT"
-            {
-              echo "# SEO Monitoring Skipped"
-              echo ""
-              echo "Missing one or more required secrets:"
-              echo "- \`GSC_CLIENT_EMAIL\`"
-              echo "- \`GSC_PRIVATE_KEY\`"
-              echo "- \`GSC_SITE_URL\`"
-              echo ""
-              echo "Add the Search Console service account to the property, then rerun this workflow."
-            } > reports/gsc/monitoring-skipped.md
+            npm run report:gsc:fetch
             exit 0
           fi
 
