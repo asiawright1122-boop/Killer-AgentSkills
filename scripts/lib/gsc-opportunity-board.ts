@@ -60,6 +60,21 @@ type GscOpportunityBoardFileOptions = {
   trafficJsonPath?: string;
 };
 
+type Seo404RulesJson = {
+  rules?: {
+    redirect301?: Array<{ fromPath?: string; toPath?: string; reason?: string }>;
+  };
+};
+
+type SkillLocaleGovernanceJson = {
+  skills?: Array<{
+    owner?: string;
+    routePath?: string;
+    canonicalLocale?: string | null;
+    publishedLocales?: string[];
+  }>;
+};
+
 const SEO_COMPLIANCE_CHECKS = [
   'Every candidate page should have one accurate, unique title that matches the visible H1 and page intent.',
   'Meta descriptions should be unique, human-readable, and supported by visible body copy instead of keyword stuffing.',
@@ -89,6 +104,44 @@ function writeTextFile(path: string, content: string): void {
   mkdirSync(dirname(absolutePath), { recursive: true });
   writeFileSync(absolutePath, content);
 }
+
+const explicitRedirectPathMap = (() => {
+  const rules = readJsonFile<Seo404RulesJson>('data/seo-404-rules.json');
+  const map = new Map<string, string>();
+
+  for (const rule of rules?.rules?.redirect301 ?? []) {
+    const fromPath = typeof rule.fromPath === 'string' ? rule.fromPath.trim() : '';
+    const toPath = typeof rule.toPath === 'string' ? rule.toPath.trim() : '';
+    if (fromPath && toPath) map.set(fromPath, toPath);
+  }
+
+  return map;
+})();
+
+const skillLocaleGovernanceMap = (() => {
+  const governance = readJsonFile<SkillLocaleGovernanceJson>('data/seo-skill-locale-governance.json');
+  const map = new Map<string, { canonicalLocale: string | null; publishedLocales: string[] }>();
+
+  for (const record of governance?.skills ?? []) {
+    const owner = typeof record.owner === 'string' ? record.owner.trim().toLowerCase() : '';
+    const routePath = typeof record.routePath === 'string' ? record.routePath.trim().toLowerCase() : '';
+    if (!owner || !routePath) continue;
+
+    map.set(`${owner}/${routePath}`, {
+      canonicalLocale:
+        typeof record.canonicalLocale === 'string' && record.canonicalLocale.trim()
+          ? record.canonicalLocale.trim().toLowerCase()
+          : null,
+      publishedLocales: Array.isArray(record.publishedLocales)
+        ? record.publishedLocales
+            .filter((locale): locale is string => typeof locale === 'string' && locale.trim().length > 0)
+            .map((locale) => locale.trim().toLowerCase())
+        : [],
+    });
+  }
+
+  return map;
+})();
 
 function formatInteger(value: number): string {
   return new Intl.NumberFormat('en-US').format(value);
@@ -158,9 +211,40 @@ function classifyPageIndexingIssue(entity: string): string | null {
       return `Non-canonical host ${url.hostname} appears in GSC.`;
     }
 
+    const explicitRedirectTarget = explicitRedirectPathMap.get(url.pathname);
+    if (explicitRedirectTarget) {
+      return `Explicit 301 consolidation rule exists for this GSC URL (${url.pathname} -> ${explicitRedirectTarget}).`;
+    }
+
+    if (url.pathname !== '/' && url.pathname.endsWith('/')) {
+      return 'Trailing-slash URL variant appears in GSC; canonical runtime should consolidate it to the extensionless path.';
+    }
+
     const utilityPathPattern = /^\/[a-z]{2}\/(?:favorites|history|cookies|privacy|terms)(?:\/|$)/i;
     if (utilityPathPattern.test(url.pathname)) {
       return 'Utility/legal/account-style page appears in GSC and should be checked for intended indexability.';
+    }
+
+    const skillPathMatch = url.pathname.match(/^\/([a-z]{2})\/skills\/([^/]+)\/(.+)$/);
+    if (skillPathMatch) {
+      const requestedLocale = skillPathMatch[1].toLowerCase();
+      const owner = decodeURIComponent(skillPathMatch[2] || '')
+        .trim()
+        .toLowerCase();
+      const routePath = (skillPathMatch[3] || '')
+        .split('/')
+        .map((segment) => decodeURIComponent(segment).trim())
+        .filter(Boolean)
+        .join('/')
+        .toLowerCase();
+      const governance = skillLocaleGovernanceMap.get(`${owner}/${routePath}`);
+      if (
+        governance?.canonicalLocale &&
+        governance.canonicalLocale !== requestedLocale &&
+        !governance.publishedLocales.includes(requestedLocale)
+      ) {
+        return `Suppressed locale variant appears in GSC; canonical locale is ${governance.canonicalLocale}.`;
+      }
     }
   } catch {
     return null;

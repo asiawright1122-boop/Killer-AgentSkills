@@ -17,7 +17,7 @@ describe('buildGscOpportunityBoardReport', () => {
     expect(report.nextActions).toContain('Configure GSC secrets.');
   });
 
-  it('prioritizes sparse page-one zero-click pages for metadata review', () => {
+  it('keeps explicit 301 consolidation URLs out of metadata rewrite work', () => {
     const report = buildGscOpportunityBoardReport({
       traffic: {
         status: 'clear',
@@ -47,6 +47,30 @@ describe('buildGscOpportunityBoardReport', () => {
     expect(report.status).toBe('active');
     expect(report.items[0]?.entity).toContain('/skills/callstackincubator/agent-skills');
     expect(report.items[0]?.priority).toBe('P0');
+    expect(report.items[0]?.lane).toBe('canonicalization');
+    expect(report.items[0]?.actions.join(' ')).toContain('Explicit 301 consolidation rule');
+  });
+
+  it('prioritizes canonical page-one zero-click pages for metadata review', () => {
+    const report = buildGscOpportunityBoardReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-04-08', end: '2026-05-05' },
+        previousPeriod: { start: '2026-03-11', end: '2026-04-07' },
+      },
+      currentPages: [
+        {
+          entity: 'https://killer-skills.com/en/skills/Dynokostya/just-works',
+          clicks: 0,
+          impressions: 5,
+          ctr: 0,
+          position: 1.4,
+        },
+      ],
+      currentQueries: [],
+    });
+
     expect(report.items[0]?.lane).toBe('metadata');
   });
 
@@ -97,5 +121,53 @@ describe('buildGscOpportunityBoardReport', () => {
 
     expect(report.items[0]?.lane).toBe('canonicalization');
     expect(report.items[0]?.actions.join(' ')).toContain('Non-canonical host');
+  });
+
+  it('classifies trailing-slash variants as canonicalization work instead of snippet work', () => {
+    const report = buildGscOpportunityBoardReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-04-08', end: '2026-05-05' },
+        previousPeriod: { start: '2026-03-11', end: '2026-04-07' },
+      },
+      currentPages: [
+        {
+          entity: 'https://killer-skills.com/en/skills/github/awesome-copilot/gh-cli/',
+          clicks: 0,
+          impressions: 5,
+          ctr: 0,
+          position: 1.2,
+        },
+      ],
+      currentQueries: [],
+    });
+
+    expect(report.items[0]?.lane).toBe('canonicalization');
+    expect(report.items[0]?.actions.join(' ')).toContain('Trailing-slash URL variant');
+  });
+
+  it('classifies suppressed locale variants as canonicalization work instead of snippet work', () => {
+    const report = buildGscOpportunityBoardReport({
+      traffic: {
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-04-08', end: '2026-05-05' },
+        previousPeriod: { start: '2026-03-11', end: '2026-04-07' },
+      },
+      currentPages: [
+        {
+          entity: 'https://killer-skills.com/ja/skills/0boluan0/Notes_on_Economic_Statistics/today',
+          clicks: 0,
+          impressions: 5,
+          ctr: 0,
+          position: 4,
+        },
+      ],
+      currentQueries: [],
+    });
+
+    expect(report.items[0]?.lane).toBe('canonicalization');
+    expect(report.items[0]?.actions.join(' ')).toContain('Suppressed locale variant');
   });
 });
