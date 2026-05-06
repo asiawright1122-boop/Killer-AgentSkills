@@ -3,6 +3,7 @@ import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES } from '../../../../../lib/github';
 import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -86,8 +87,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   }
 
   try {
-    // Access env via context.locals.runtime.env (Cloudflare Workers runtime)
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     // Try to detect the preferred branch from D1 skill data if available
     let preferredBranch: string | undefined;

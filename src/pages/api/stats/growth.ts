@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
 import { getAllSkills, type UnifiedSkill } from '../../../lib/skills';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -12,7 +13,7 @@ export const prerender = false;
  */
 export const GET: APIRoute = async ({ locals }) => {
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     const skills: UnifiedSkill[] = env ? await getAllSkills(env) : [];
 

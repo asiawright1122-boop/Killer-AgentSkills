@@ -5,6 +5,7 @@ import { COMMON_BRANCHES, getSkillMdPaths, getRepository } from '../../../lib/gi
 import { fetchWithTimeout } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 import { parseSkillMd } from '../../../lib/skill-md-parser';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -64,7 +65,21 @@ async function getSkillMd(owner: string, repo: string): Promise<string | null> {
  * Parse SKILL.md frontmatter.
  */
 const SubmitBodySchema = z.object({
-  repoUrl: z.string().min(1).url().max(500),
+  repoUrl: z
+    .string()
+    .min(1)
+    .max(500)
+    .refine(
+      (value) => {
+        try {
+          new URL(value);
+          return true;
+        } catch {
+          return false;
+        }
+      },
+      { message: 'Invalid URL' },
+    ),
 });
 
 /**
@@ -149,7 +164,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const parsedSkill = parseSkillMd(skillMdContent);
 
     // Check for duplicates via targeted D1 query (O(1) instead of loading entire table)
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
     if (env) {
       const { getSkillsKV } = await import('../../../lib/kv');
       const repoPath = `${owner}/${repo}`;

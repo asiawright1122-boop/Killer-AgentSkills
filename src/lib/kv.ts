@@ -420,7 +420,7 @@ export async function getSkillsFromKV(env: Env): Promise<any[]> {
       const results = listResult?.keys || [];
       if (results && results.length > 0) {
         const skills = await Promise.all(
-          results.map(async (kv) => {
+          results.map(async (kv: { name: string }) => {
             const value = await env.SKILLS_CACHE.get(kv.name);
             return value ? JSON.parse(value as string) : null;
           }),
@@ -689,8 +689,8 @@ export async function getSkillsCategorySummary(env: Env): Promise<SkillsCategory
                 .toLowerCase(),
               count: Number(row.count || 0),
             }))
-            .filter((item) => item.count > 0)
-            .sort((a, b) => b.count - a.count)
+            .filter((item: SkillsCategoryCountItem) => item.count > 0)
+            .sort((a: SkillsCategoryCountItem, b: SkillsCategoryCountItem) => b.count - a.count)
         : [];
 
     const summary: SkillsCategorySummary = { total, categories };

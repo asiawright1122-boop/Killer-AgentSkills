@@ -37,6 +37,7 @@ import {
   sanitizePublicSkillSourceExcerpt,
 } from '../../../../lib/public-skill-copy';
 import type { Env, SkillListingItem } from '../../../../lib/kv';
+import { getRuntimeEnv } from '../../../../lib/runtime-env';
 import { getCollection } from 'astro:content';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActions from '../../../../islands/SkillActions';
@@ -92,8 +93,8 @@ const typedLocale = locale as Locale;
 const isZhLocale = typedLocale.startsWith('zh');
 
 // Get env from Cloudflare runtime
-const env = Astro.locals.runtime?.env as Env;
-const runtimeEnv = (Astro.locals.runtime?.env || {}) as Record<string, unknown>;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
+const runtimeEnv = (await getRuntimeEnv<Record<string, unknown>>(Astro.locals)) || {};
 
 const normalizeFlag = (value: unknown) =>
   String(value ?? '')

@@ -9,6 +9,7 @@ import {
   sanitizePublicSkillMd,
   withPublicApiHeaders,
 } from '../../../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -96,7 +97,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   }
 
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     // 1. Try to get skill from KV cache first
     let kvSkill = null;

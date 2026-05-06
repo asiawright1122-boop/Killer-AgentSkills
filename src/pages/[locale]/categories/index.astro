@@ -5,6 +5,7 @@ import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Loc
 import { getLightweightSkillsCategorySummary } from '../../../lib/skills';
 import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
@@ -19,7 +20,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const canonicalUrl = `https://killer-skills.com/${locale}/categories`;
 
 // Get env from Cloudflare runtime
-const env = Astro.locals.runtime?.env as Env;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Use lightweight aggregate query to avoid full-table scans on category landing pages.
 const categorySummary = await getLightweightSkillsCategorySummary(env).catch(() => ({ total: 0, categories: [] }));

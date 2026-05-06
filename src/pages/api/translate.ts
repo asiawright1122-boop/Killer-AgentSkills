@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro';
 import { translateTextStream } from '../../lib/nvidia';
-import { getKV, setKV } from '../../lib/kv';
+import { getKV, setKV, type Env } from '../../lib/kv';
 import crypto from 'node:crypto';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
+import { getRuntimeEnv } from '../../lib/runtime-env';
 
 // Use strict dynamic since it relies on POST body and streams
 export const prerender = false;
@@ -51,7 +52,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     const lang = targetLang || 'zh';
     const cacheKey = generateKey(text, lang, type);
-    const env = locals.runtime.env; // Astro Cloudflare adapter exposes bindings here
+    const env = (await getRuntimeEnv<Env>(locals)) as Env;
 
     // 1. Check KV
     const cached = await getKV(env, cacheKey);

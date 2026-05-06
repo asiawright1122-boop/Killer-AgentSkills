@@ -4,6 +4,7 @@ import type { Env } from '../../lib/kv';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/skills';
+import { getRuntimeEnv } from '../../lib/runtime-env';
 
 // Protects search endpoint from abuse.
 const searchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
@@ -67,7 +68,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   }
 
   try {
-    const env = (locals.runtime?.env || {}) as Env;
+    const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
     const ftsQuery = buildFtsQuery(sanitizedQuery);
 
     let semanticMatches: any[] = [];

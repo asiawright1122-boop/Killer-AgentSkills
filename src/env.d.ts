@@ -3,6 +3,8 @@
 /// <reference types="@cloudflare/workers-types" />
 
 type KVNamespace = import('@cloudflare/workers-types').KVNamespace;
+type D1Database = import('@cloudflare/workers-types').D1Database;
+type Fetcher = import('@cloudflare/workers-types').Fetcher;
 type VectorizeIndex = import('@cloudflare/workers-types').VectorizeIndex;
 
 type ENV = {
@@ -57,4 +59,8 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+declare module 'cloudflare:workers' {
+  export const env: ENV;
 }

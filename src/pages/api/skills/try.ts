@@ -12,6 +12,7 @@ import {
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 import { getSkillTryProfile, type SkillTryProfile, type SkillTryProfileId } from '../../../lib/skill-try-profiles';
 import { getSkillById } from '../../../lib/skills';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -382,7 +383,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     let profile = getSkillTryProfile(skillId);
     let dynamicRules = '';
 
-    const env = (locals.runtime?.env || {}) as TrialEnv;
+    const env = ((await getRuntimeEnv<TrialEnv>(locals)) || {}) as TrialEnv;
 
     if (!profile) {
       // dynamic generation fallback

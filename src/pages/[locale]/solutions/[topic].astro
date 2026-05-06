@@ -16,6 +16,7 @@ import {
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -32,7 +33,7 @@ if (!intent) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-const env = Astro.locals.runtime?.env as Env;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const SOLUTION_SKILL_SAMPLE_LIMIT = 240;
 
 const solutionFeaturedSkillRefsBySlug: Partial<Record<SolutionSlug, string[]>> = {

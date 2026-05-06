@@ -5,6 +5,7 @@ import { getAllSkills, getLocalizedDescription, isPublicSkill, type UnifiedSkill
 import { errorResponse } from '../../../lib/api-utils';
 import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
 import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -37,7 +38,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const locale = url.searchParams.get('locale') || 'en';
 
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
     let _skills: UnifiedSkill[] = [];
     let _total = 0;
 
@@ -88,8 +89,8 @@ export const GET: APIRoute = async ({ request, locals }) => {
         if (countResult && dataResult.success) {
           _skills = dataResult.results
             .map((row: Record<string, unknown>) => JSON.parse(row.data_json as string) as UnifiedSkill)
-            .filter((skill) => isPublicSkill(skill))
-            .map((skill) => ({
+            .filter((skill: UnifiedSkill) => isPublicSkill(skill))
+            .map((skill: UnifiedSkill) => ({
               ...skill,
               description: getLocalizedDescription(skill.description, locale),
             }));

@@ -1,13 +1,14 @@
 import type { APIRoute } from 'astro';
 import { jsonResponse } from '../../lib/api-utils';
 import type { Env } from '../../lib/kv';
+import { getRuntimeEnv } from '../../lib/runtime-env';
 
 export const prerender = false;
 
 export const GET: APIRoute = async ({ locals }) => {
   const startTime = Date.now();
   const checks: Record<string, { status: string; latencyMs?: number }> = {};
-  const env = (locals as Record<string, any>).runtime?.env as Env | undefined;
+  const env = await getRuntimeEnv<Env>(locals);
 
   // Check KV availability
   try {

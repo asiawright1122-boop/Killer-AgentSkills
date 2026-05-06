@@ -1,8 +1,9 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const POST: APIRoute = async ({ request, locals }) => {
-  const env = (locals.runtime?.env || {}) as Env;
+  const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
 
   // Basic Auth Check
   const authHeader = request.headers.get('Authorization');

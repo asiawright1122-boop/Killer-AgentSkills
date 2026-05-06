@@ -21,6 +21,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '/src',
+      'cloudflare:workers': new URL('./src/lib/cloudflare-workers.mock.ts', import.meta.url).pathname,
     },
   },
 });

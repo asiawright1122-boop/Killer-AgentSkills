@@ -23,6 +23,7 @@ import { buildBreadcrumbTrail } from '../../../lib/site/breadcrumbs';
 import { normalizePublicSummary, normalizePublicTitle } from '../../../lib/public-text';
 import { polishCollectionPublicText } from '../../../lib/collection-public-text';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
@@ -37,7 +38,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
 
 const typedLocale = locale as Locale;
 const isZhCopy = typedLocale.startsWith('zh');
-const env = Astro.locals.runtime?.env as Env;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Load collections from content layer
 const collectionsCol = await getCollection('collections');

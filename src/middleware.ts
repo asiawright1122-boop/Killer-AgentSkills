@@ -8,6 +8,7 @@ import sitemapSkillsData from '../data/sitemap-skills.json';
 import seo404RulesData from '../data/seo-404-rules.json';
 import sitemapBlocklistData from '../data/seo-sitemap-blocklist.json';
 import skillLocaleGovernanceData from '../data/seo-skill-locale-governance.json';
+import { getRuntimeEnv } from './lib/runtime-env';
 
 // Re-export for backward compatibility
 export {
@@ -477,7 +478,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isAdminPage = !isAdminApi && pathname.startsWith('/admin');
   if (isAdminApi || isAdminPage) {
     const authHeader = context.request.headers.get('authorization');
-    const env = context.locals.runtime?.env;
+    const env = await getRuntimeEnv<{ ADMIN_USER?: string; ADMIN_PASSWORD?: string }>(context.locals);
     const validUser = env?.ADMIN_USER;
     const validPass = env?.ADMIN_PASSWORD;
 
@@ -811,7 +812,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const response = await next();
     const durationMs = Date.now() - start;
     const routeBucket = resolvePageRouteBucket(pathname);
-    const runtimeEnv = context.locals.runtime?.env as Record<string, unknown> | undefined;
+    const runtimeEnv = await getRuntimeEnv<Record<string, unknown>>(context.locals);
     const slowLogThresholdMs = resolvePositiveNumber(runtimeEnv?.SSR_PAGE_SLOW_LOG_MS, 1200);
 
     response.headers.set('X-Request-Id', requestId);

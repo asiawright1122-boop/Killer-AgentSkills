@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
 import { sanitizePublicSkillLikeRecord, withPublicApiHeaders } from '../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -12,7 +13,7 @@ export const prerender = false;
  */
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
     const url = new URL(request.url);
     const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
     const limit = Math.max(1, Math.min(100, parseInt(url.searchParams.get('limit') || '50', 10)));

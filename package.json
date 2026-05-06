@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/asiawright1122-boop/Killer-AgentSkills.git"
   },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -105,18 +108,17 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/cloudflare": "12.6.12",
-    "@astrojs/react": "^4.4.2",
+    "@astrojs/cloudflare": "^13.3.1",
+    "@astrojs/react": "^5.0.4",
     "@nanostores/react": "^1.0.0",
-    "@tailwindcss/vite": "^4.1.18",
+    "@tailwindcss/vite": "^4.2.4",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@webcontainer/api": "^1.6.1",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "^6.0.0",
-    "astro": "^5.17.1",
+    "astro": "^6.2.2",
     "better-sqlite3": "^12.6.2",
     "dotenv": "^17.2.4",
     "fuse.js": "^7.1.0",
@@ -129,10 +131,11 @@
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.1",
-    "tailwindcss": "^4.1.18",
+    "tailwindcss": "^4.2.4",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
@@ -151,6 +154,18 @@
     "tsx": "^4.21.0",
     "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
+  },
+  "overrides": {
+    "anymatch": {
+      "picomatch": "^2.3.2"
+    },
+    "micromatch": {
+      "picomatch": "^2.3.2"
+    },
+    "readdirp": {
+      "picomatch": "^2.3.2"
+    },
+    "postcss": "^8.5.14"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

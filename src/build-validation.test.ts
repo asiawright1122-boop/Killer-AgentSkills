@@ -13,7 +13,8 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const DIST_DIR = path.resolve(import.meta.dirname, '..', 'dist');
-const WORKER_DIR = path.join(DIST_DIR, '_worker.js');
+const CLIENT_DIR = path.join(DIST_DIR, 'client');
+const WORKER_DIR = path.join(DIST_DIR, 'server');
 const MAX_BUNDLE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB (CF Workers limit is higher or compressed)
 
 /**
@@ -33,17 +34,17 @@ function getDirSize(dirPath: string): number {
 }
 
 describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积约束', () => {
-  it('dist/_worker.js directory should exist after build', () => {
+  it('dist/server directory should exist after build', () => {
     /**
      * **Validates: Requirements 1.4**
      *
      * After running `npm run build`, the Cloudflare Workers output
-     * directory `dist/_worker.js` should exist.
+     * directory `dist/server` should exist.
      */
     expect(fs.existsSync(WORKER_DIR)).toBe(true);
   });
 
-  it('Worker bundle total size should be under 3MB', () => {
+  it('Worker bundle total size should stay under the deployment limit', () => {
     /**
      * **Validates: Requirements 1.5**
      *
@@ -55,18 +56,18 @@ describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积�
     expect(totalSize).toBeLessThan(MAX_BUNDLE_SIZE_BYTES);
   });
 
-  it('dist/_worker.js should contain an index.js entry point', () => {
+  it('dist/server should contain an entry.mjs entry point', () => {
     /**
      * **Validates: Requirements 1.4**
      *
-     * The worker output should contain an index.js entry point file.
+     * The worker output should contain an entry.mjs entry point file.
      */
-    const indexPath = path.join(WORKER_DIR, 'index.js');
+    const indexPath = path.join(WORKER_DIR, 'entry.mjs');
     expect(fs.existsSync(indexPath)).toBe(true);
   });
 
   it('dist should contain prerendered sitemap entrypoints for crawlers', () => {
-    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap.xml'))).toBe(true);
-    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap-skills.xml'))).toBe(true);
+    expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap.xml'))).toBe(true);
+    expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap-skills.xml'))).toBe(true);
   });
 });

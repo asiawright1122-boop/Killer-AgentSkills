@@ -1,10 +1,14 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 // NOTE: The 'skills' content collection has been REMOVED.
 // Loading 84MB of skills-cache.json via Astro Content Layer caused the
 // Cloudflare Worker bundle to exceed the 3MiB free-tier size limit.
 // All skill data is now loaded at runtime from D1/KV via src/lib/skills.ts.
+
+const localizedText = z.record(z.string(), z.string());
+const localizedTextArray = z.record(z.string(), z.array(z.string()));
 
 const blog = defineCollection({
   // Standard content collection (files in src/content/blog)
@@ -39,12 +43,12 @@ const blog = defineCollection({
 const collectionsCol = defineCollection({
   loader: glob({ pattern: '**/[^_]*.json', base: './src/content/collections' }),
   schema: z.object({
-    title: z.record(z.string()),
-    description: z.record(z.string()),
-    seoTitle: z.record(z.string()).optional(),
-    seoDescription: z.record(z.string()).optional(),
-    keywords: z.record(z.array(z.string())).optional(),
-    longDescription: z.record(z.string()).optional(),
+    title: localizedText,
+    description: localizedText,
+    seoTitle: localizedText.optional(),
+    seoDescription: localizedText.optional(),
+    keywords: localizedTextArray.optional(),
+    longDescription: localizedText.optional(),
     skills: z.array(z.string()),
     featuredSkillRefs: z.array(z.string()).optional(),
     canonicalSlug: z.string().optional(),
@@ -54,37 +58,37 @@ const collectionsCol = defineCollection({
     category: z.string().optional(),
     editorial: z
       .object({
-        reviewSummary: z.record(z.string()).optional(),
-        selectionReason: z.record(z.string()).optional(),
-        trustSignals: z.record(z.array(z.string())).optional(),
-        groupingLogic: z.record(z.array(z.string())).optional(),
+        reviewSummary: localizedText.optional(),
+        selectionReason: localizedText.optional(),
+        trustSignals: localizedTextArray.optional(),
+        groupingLogic: localizedTextArray.optional(),
         maintenance: z
           .object({
             reviewedAt: z.string(),
-            cadence: z.record(z.string()).optional(),
-            maintainedBy: z.record(z.string()).optional(),
-            verification: z.record(z.string()).optional(),
+            cadence: localizedText.optional(),
+            maintainedBy: localizedText.optional(),
+            verification: localizedText.optional(),
           })
           .optional(),
         executionExamples: z
           .array(
             z.object({
-              title: z.record(z.string()),
-              summary: z.record(z.string()),
-              steps: z.record(z.array(z.string())),
+              title: localizedText,
+              summary: localizedText,
+              steps: localizedTextArray,
             }),
           )
           .optional(),
         decisionTracks: z
           .array(
             z.object({
-              title: z.record(z.string()),
-              summary: z.record(z.string()),
-              whenToUse: z.record(z.string()).optional(),
-              checkpoints: z.record(z.array(z.string())).optional(),
+              title: localizedText,
+              summary: localizedText,
+              whenToUse: localizedText.optional(),
+              checkpoints: localizedTextArray.optional(),
               skillRefs: z.array(z.string()).optional(),
               nextStepHref: z.string().optional(),
-              nextStepLabel: z.record(z.string()).optional(),
+              nextStepLabel: localizedText.optional(),
             }),
           )
           .optional(),
@@ -92,8 +96,8 @@ const collectionsCol = defineCollection({
           .array(
             z.object({
               href: z.string(),
-              label: z.record(z.string()),
-              description: z.record(z.string()),
+              label: localizedText,
+              description: localizedText,
             }),
           )
           .optional(),

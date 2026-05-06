@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
 import { normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { CATEGORY_GROUPS } from '../../../lib/search';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -45,7 +46,7 @@ function inferCategoryFromText(skill: any): string {
  */
 export const POST: APIRoute = async ({ locals }) => {
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     if (!env?.DB) {
       return new Response(JSON.stringify({ error: 'D1 database not available' }), {

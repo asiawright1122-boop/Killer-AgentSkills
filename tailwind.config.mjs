@@ -4,6 +4,5 @@ export default {
     theme: {
         extend: {},
     },
-    blocklist: ['[file:line]', '[file:lines]'],
     plugins: [],
 };

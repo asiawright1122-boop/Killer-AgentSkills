@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { type Env } from '../../lib/kv';
 import { getLightweightSkillsCategorySummary } from '../../lib/skills';
 import { errorResponse } from '../../lib/api-utils';
+import { getRuntimeEnv } from '../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -12,7 +13,7 @@ export const prerender = false;
  */
 export const GET: APIRoute = async ({ locals }) => {
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
     const summary = env ? await getLightweightSkillsCategorySummary(env) : { total: 0, categories: [] };
     const categories = summary.categories.map((item) => ({
       name: item.category || 'other',

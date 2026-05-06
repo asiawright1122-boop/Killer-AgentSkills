@@ -17,6 +17,7 @@ import { getSolutionIntents } from '../../../lib/solution-intents';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../lib/skill-locale-link';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=3600');
 // Validate locale
@@ -27,7 +28,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 
 const typedLocale = locale as Locale;
 // Get env from Cloudflare runtime
-const env = Astro.locals.runtime?.env as Env;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Get URL search params for filtering
 const url = Astro.url;

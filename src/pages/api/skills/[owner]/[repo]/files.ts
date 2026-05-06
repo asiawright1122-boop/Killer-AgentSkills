@@ -3,6 +3,7 @@ import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../../../lib/github';
 import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -191,7 +192,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
   }
 
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     let skillDir: string | null;
 

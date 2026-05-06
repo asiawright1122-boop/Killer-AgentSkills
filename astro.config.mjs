@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './config/locales.mjs';
 
-const isCi = process.env.CI === 'true' || process.env.GITHUB_ACTIONS === 'true';
-const enablePlatformProxy = !isCi && process.env.CF_PLATFORM_PROXY !== 'false';
+const enableRemoteBindings = process.env.CF_REMOTE_BINDINGS === 'true';
+const isAstroCheck = process.env.npm_lifecycle_event === 'check:astro';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,11 +18,18 @@ export default defineConfig({
     format: 'file',
   },
 
-  adapter: cloudflare({
-    // Wrangler platform proxy can fail in non-interactive CI runners.
-    // Keep it enabled for local dev, disable it in CI by default.
-    platformProxy: { enabled: enablePlatformProxy },
-  }),
+  ...(isAstroCheck
+    ? {}
+    : {
+        adapter: cloudflare({
+          // Avoid duplicating Pages bindings into the adapter's auxiliary prerender worker.
+          prerenderEnvironment: 'node',
+          // Remote bindings can fail in non-interactive CI runners and offline local checks.
+          // Opt in with CF_REMOTE_BINDINGS=true when live Cloudflare resources are needed.
+          remoteBindings: enableRemoteBindings,
+          inspectorPort: false,
+        }),
+      }),
 
   integrations: [react()],
 

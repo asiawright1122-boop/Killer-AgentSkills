@@ -6,6 +6,7 @@ import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Loc
 import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 import docsCache from '../../../../data/docs-cache.json';
 
 type DocPage = {
@@ -37,7 +38,7 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale)) {
 const typedLocale = locale as Locale;
 const isZhCopy = typedLocale.startsWith('zh');
 
-const env = Astro.locals.runtime?.env as Env;
+const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Load translations
 let messages: any;
@@ -73,6 +74,7 @@ interface DocData {
 
 let docContent: string | null = null;
 let docTitle = '';
+let isMissingDoc = false;
 
 if (env?.SKILLS_CACHE) {
   try {
@@ -131,9 +133,13 @@ if (docContent) {
 
 // Unknown docs slugs should return a real 404 instead of a placeholder page.
 if (!isIndex && !docContent) {
+  isMissingDoc = true;
   Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
   Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
-  return new Response(null, { status: 404, statusText: 'Not Found' });
+  Astro.response.status = 404;
+  Astro.response.statusText = 'Not Found';
+  docTitle = tr('Common.notFound', 'Not Found');
+  docContent = '<p>The requested documentation page could not be found.</p>';
 }
 
 // Fallback title if not loaded from KV
@@ -530,6 +536,7 @@ const isActive = (href: string) => {
   description={pageDescription}
   keywords={pageKeywords}
   customCanonical={canonicalUrl}
+  noindex={isMissingDoc}
   showFooter={false}
 >
   <script

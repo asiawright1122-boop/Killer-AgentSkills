@@ -179,7 +179,7 @@
   - `npm run seo:smoke -- http://127.0.0.1:4321`
 - Existing hotfix PR: #1 `seo/canonical-collections-robots`
 - Vitest 定向运行已不再扫入 `.claude/worktrees/...` 的重复 suite
-- `npm run build` 通过，但仍输出非阻塞的 esbuild CSS minify warnings（`[file:line]` 相关）
+- `npm run build` 通过，但仍输出非阻塞的 esbuild CSS minify warnings（file/line marker 相关）
 
 ## 2026-03-21
 

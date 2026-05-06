@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
 import { sanitizePublicSkillLikeRecord, withPublicApiHeaders } from '../../../lib/public-skill-api';
+import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
@@ -20,7 +21,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
   }
 
   try {
-    const env = locals.runtime?.env as Env | undefined;
+    const env = await getRuntimeEnv<Env>(locals);
 
     // Try direct key lookup first
     if (env?.SKILLS_CACHE) {

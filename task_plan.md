@@ -143,7 +143,7 @@
 | 生产仍可能运行旧版 collection / crawl 逻辑 | 本地修复尚未完全对外可见 | 作为 rollout 阶段单独验证 |
 | 仓库中存在大量无关改动 | 容易扩大修复范围 | 采用 test-first + incremental slices |
 | Vitest 曾扫描 `.claude/worktrees` 下的副本测试 | 定向测试输出重复 suite，噪音较大 | 已在 `vitest.config.ts` 增加 `**/.claude/**` exclude |
-| build 存在非阻塞 esbuild CSS minify warnings（`[file:line]` 相关） | 不影响构建通过，但输出有噪音 | 本轮不处理，后续单独清理 |
+| build 存在非阻塞 esbuild CSS minify warnings（file/line marker 相关） | 不影响构建通过，但输出有噪音 | 本轮不处理，后续单独清理 |
 
 ## Next action
 
@@ -171,4 +171,3 @@
 - [ ] Continue scanning remaining blog corpus for unlocalized examples, bad slugs
 - [ ] P2 architecture: hardcoded domain, CATEGORY_GROUPS extraction, fallbackPreview refactor
 - [ ] P2 testing: API route tests for /submit, /search, /translate
-

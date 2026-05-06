@@ -168,7 +168,7 @@ Task tool (general-purpose agent):
 
     ## Report Format
     ✅ Spec compliant - if everything matches after inspection
-    ❌ Issues found - list specifically what's missing or extra, with file:line references
+    ❌ Issues found - list specifically what's missing or extra, with file and line references
 
     Work from: /Users/kaka/Dev/Killer-Skills
 ```
