@@ -126,6 +126,8 @@ describe('sanitizeSkillKeywords', () => {
       'official',
       'for Claude Code',
       'estimatedItemSize',
+      'agent-skills',
+      'ide skills',
       'react native performance',
     ]);
 

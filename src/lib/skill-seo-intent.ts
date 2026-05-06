@@ -131,6 +131,7 @@ const GENERIC_TERMS = [
   'communication',
   'devops',
   'productivity',
+  'ide',
   '开发',
   '数据',
   '设计',
@@ -158,6 +159,7 @@ const LOW_VALUE_KEYWORD_PATTERNS = [
   /[*{}]/,
   /^[a-z]+(?:[A-Z][a-z0-9]+)+$/,
   /^(?:official|for\s+claude\s+code)$/i,
+  /^(?:agent[-\s]+skills?|ide\s+skills?)$/i,
   /^(?:overview|practices?|native|references?|readme|docs?|documentation|guide|guidelines?)$/i,
   /^(?:quick|deep|dive|pattern|command|config|reference)$/i,
   /^quick\s+(?:pattern|command|config|reference)$/i,
@@ -199,7 +201,7 @@ export function sanitizeSkillKeywords(rawKeywords: string[], options?: { max?: n
     if (MCP_FIRST_COMBINED_PATTERNS.some((pattern) => pattern.test(normalized))) continue;
     if (normalizedGenericTerms.has(normalized)) continue;
 
-    const words = normalized.split(' ').filter(Boolean);
+    const words = normalized.split(/[\s-]+/).filter(Boolean);
     const tokenCount = words.length;
     const isPureGeneric = words.every((t) => normalizedGenericTerms.has(t));
     if (isPureGeneric) continue;
