@@ -16,6 +16,11 @@ files:
   - 'scripts/seo-search-compliance-matrix.ts'
   - 'reports/seo/latest-search-compliance-matrix.md'
   - 'reports/seo/latest-search-compliance-matrix.json'
+  - 'scripts/lib/p0-url-recovery-preflight.ts'
+  - 'scripts/lib/p0-url-recovery-preflight.test.ts'
+  - 'scripts/seo-p0-url-recovery-preflight.ts'
+  - 'reports/seo/latest-p0-url-recovery-preflight.md'
+  - 'reports/seo/latest-p0-url-recovery-preflight.json'
   - 'reports/seo/latest-coverage-drilldown.md'
   - 'reports/seo/latest-coverage-drilldown.json'
 ---
@@ -49,6 +54,12 @@ Create a durable search compliance matrix from official guidance and current pro
    - Expected current result: `block`, because the latest local export is still `2026-04-16`.
    - Phase 65 remains blocked until Coverage freshness is inside the hard SLA.
 
+5. Prepare the Phase 65 P0 URL recovery preflight gate.
+   - Add a report that reads the recovery execution queue plus other/source-file/missing-cluster audit artifacts.
+   - Identify ready P0 batches without executing them.
+   - Keep the report `blocked` while Coverage freshness is outside the executable gate.
+   - Expected current result: `3` ready P0 batches identified, but `status=blocked`.
+
 ## Acceptance Criteria
 
 - `SEO-15` has a repo-local, machine-readable compliance matrix with official source links and project-specific evidence.
@@ -62,6 +73,7 @@ Create a durable search compliance matrix from official guidance and current pro
 npx vitest run scripts/lib/search-compliance-matrix.test.ts
 npm run report:seo:coverage-drilldown
 npm run report:seo:search-compliance-matrix
+npm run report:seo:p0-url-recovery-preflight
 npm run report:planning:traceability
 npm run format:check
 ```
@@ -72,5 +84,6 @@ Partial implementation exists:
 
 - `SEO-15`: implemented.
 - `REC-26`: blocked because no fresh Coverage Drilldown export exists in Downloads or the repository archive.
+- Phase 65 preflight: prepared but blocked by the same Coverage freshness gate.
 
 Do not create `64-01-SUMMARY.md` or `64-VERIFICATION.md` until the fresh Coverage export gate is satisfied or the milestone explicitly accepts the blocked state as the phase outcome.

@@ -46,6 +46,11 @@ The Phase 64 implementation should keep using these source categories:
 - `scripts/seo-search-compliance-matrix.ts`
 - `reports/seo/latest-search-compliance-matrix.md`
 - `reports/seo/latest-search-compliance-matrix.json`
+- `scripts/lib/p0-url-recovery-preflight.ts`
+- `scripts/lib/p0-url-recovery-preflight.test.ts`
+- `scripts/seo-p0-url-recovery-preflight.ts`
+- `reports/seo/latest-p0-url-recovery-preflight.md`
+- `reports/seo/latest-p0-url-recovery-preflight.json`
 
 Current matrix verdict:
 
@@ -61,6 +66,13 @@ Blocking lanes:
 - `canonical-redirect-signal-consistency`
 - `proof-before-expansion`
 
+Current P0 URL recovery preflight verdict:
+
+- Overall: `blocked`
+- Ready P0 batches identified: `3`
+- Batches: `cluster-other`, `cluster-trailing_slash`, `cluster-source_file_path`
+- Coverage gate: `blocking`, latest source `2026-04-16`, age `20` day(s), hard SLA `7` day(s)
+
 ## Decision Boundary
 
 Phase 64 must not be closed until `REC-26` is honestly satisfied or explicitly re-scoped by milestone decision.
@@ -74,6 +86,7 @@ Export a fresh Coverage Drilldown package from Google Search Console for `killer
 ```bash
 npm run report:seo:coverage-drilldown
 npm run report:seo:search-compliance-matrix
+npm run report:seo:p0-url-recovery-preflight
 ```
 
 Only after the Coverage report is inside the hard freshness SLA should Phase 65 execute P0 URL recovery batches against fresh cluster evidence.

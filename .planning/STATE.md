@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Search Compliance Recovery Execution and Proof
 current_phase: 64 - search-guidelines-compliance-baseline-and-fresh-coverage
-current_plan: none
+current_plan: 64-01
 status: active
-stopped_at: v1.9 is initialized. The next GSD action is `$gsd-discuss-phase 64` or `$gsd-plan-phase 64`.
-last_updated: "2026-05-06T08:42:00.000Z"
+stopped_at: Phase 64 has search compliance and P0 URL recovery preflight gates in place, but remains blocked on a fresh Coverage Drilldown export.
+last_updated: '2026-05-06T11:23:32.618Z'
 last_activity: 2026-05-06
 progress:
   total_phases: 4
@@ -29,10 +29,10 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 **Current Milestone:** `v1.9` Search Compliance Recovery Execution and Proof
 **Current Phase:** `64` search-guidelines-compliance-baseline-and-fresh-coverage
-**Current Plan:** none
-**Status:** v1.9 milestone initialized; phase planning not started
+**Current Plan:** `64-01` Search Compliance Matrix and Fresh Coverage Gate
+**Status:** Phase 64 is planned and partially implemented; `REC-26` remains blocked on a fresh Coverage Drilldown export.
 **Last Activity:** 2026-05-06
-**Last Activity Description:** Started v1.9 from official search guidance, fresh Coverage, P0 recovery, CTR/GEO, and proof-window requirements
+**Last Activity Description:** Added the P0 URL recovery preflight gate. It identifies three ready P0 batches but blocks execution until Coverage freshness clears.
 **Progress:** 0%
 
 ## Performance Metrics
@@ -54,6 +54,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 - Structural search governance is live across locale eligibility, originality, governed corpus publication, and authority-surface prioritization.
 - The latest comparable proof window on `2026-05-06` is no longer baseline-seeding, but trust remains `blocking`, not promotion-ready proof.
 - The local 404 remediation rules are materialized from the latest audit inputs, so missing-cluster and source-file trap handling is wired into middleware for the current workspace.
+- The P0 URL recovery preflight identifies `3` ready P0 batches: `cluster-other`, `cluster-trailing_slash`, and `cluster-source_file_path`; it remains blocked because Coverage freshness is outside the hard SLA.
 - Discovery expansion remains closed at `0 promote / 31 hold / 1 stop`, and automation remains locked.
 - Recovery experiments are classified as `4` queued, `11` manual-active, `3` review, `0` limited-rollout, `0` automation-candidate, and `1` retired.
 - The public trust issue that triggered `v1.7` is now remediated on the audited surfaces, and reusable public copy-boundary guardrails now protect the main public trust surfaces and their shared sources.
@@ -61,20 +62,20 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 ## Decisions Made
 
-| Scope | Decision | Rationale |
-| --- | --- | --- |
-| v1.6 scope | Prove post-governance movement before expanding surfaces or automating experiments | Structural repair without outcome proof is not enough |
-| Authority expansion | Keep gated behind evidence thresholds | Avoid reopening low-value growth patterns too early |
-| Experiment posture | Manual proof first, automation second | Automation should reinforce winning loops, not compensate for uncertainty |
-| AI posture | Keep NVIDIA primary and Workers AI `free-only` | Recovery planning should not weaken runtime guardrails |
-| Next milestone posture | Scope from fresh proof gaps, not from generic growth pressure | The current truth still shows blocking proof, closed expansion, and locked automation |
-| v1.7 posture | Treat public copy boundary leaks as a standalone trust-surface hardening milestone | Homepage evidence showed the issue was real and cross-surface rather than isolated |
-| v1.7 closeout | Archive the trust-surface work completely and return next-milestone planning to the broader recovery-proof blockers | The leak class is now guarded; the bigger unresolved risks sit elsewhere |
-| v1.8 posture | Refresh proof inputs before revisiting promotion or rollout posture | Recovery claims depended on stale inputs and one seeded comparable window |
-| v1.8 phase 61 verdict | Treat `2026-04-16` Coverage Drilldown evidence as good enough to unblock proof refresh, but not fresh enough to claim ideal operating cadence | The hard SLA is restored while the preferred freshness watchlist remains active |
-| v1.8 phase 62 verdict | Treat the `2026-05-06` proof window as current but still blocking | Production crawl and GSC availability are clear, but Coverage freshness and authority-surface demand do not support expansion |
-| v1.8 phase 63 verdict | Keep discovery expansion closed and automation locked | No authority surface qualifies for promotion and no manual intervention has repeatable proof for automation |
-| v1.9 posture | Map recovery work to official search-engine guidance before changing more public surfaces | The next recovery push must improve crawl/index/CTR/GEO compliance without adding search-engine-first copy |
+| Scope                  | Decision                                                                                                                                      | Rationale                                                                                                                     |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| v1.6 scope             | Prove post-governance movement before expanding surfaces or automating experiments                                                            | Structural repair without outcome proof is not enough                                                                         |
+| Authority expansion    | Keep gated behind evidence thresholds                                                                                                         | Avoid reopening low-value growth patterns too early                                                                           |
+| Experiment posture     | Manual proof first, automation second                                                                                                         | Automation should reinforce winning loops, not compensate for uncertainty                                                     |
+| AI posture             | Keep NVIDIA primary and Workers AI `free-only`                                                                                                | Recovery planning should not weaken runtime guardrails                                                                        |
+| Next milestone posture | Scope from fresh proof gaps, not from generic growth pressure                                                                                 | The current truth still shows blocking proof, closed expansion, and locked automation                                         |
+| v1.7 posture           | Treat public copy boundary leaks as a standalone trust-surface hardening milestone                                                            | Homepage evidence showed the issue was real and cross-surface rather than isolated                                            |
+| v1.7 closeout          | Archive the trust-surface work completely and return next-milestone planning to the broader recovery-proof blockers                           | The leak class is now guarded; the bigger unresolved risks sit elsewhere                                                      |
+| v1.8 posture           | Refresh proof inputs before revisiting promotion or rollout posture                                                                           | Recovery claims depended on stale inputs and one seeded comparable window                                                     |
+| v1.8 phase 61 verdict  | Treat `2026-04-16` Coverage Drilldown evidence as good enough to unblock proof refresh, but not fresh enough to claim ideal operating cadence | The hard SLA is restored while the preferred freshness watchlist remains active                                               |
+| v1.8 phase 62 verdict  | Treat the `2026-05-06` proof window as current but still blocking                                                                             | Production crawl and GSC availability are clear, but Coverage freshness and authority-surface demand do not support expansion |
+| v1.8 phase 63 verdict  | Keep discovery expansion closed and automation locked                                                                                         | No authority surface qualifies for promotion and no manual intervention has repeatable proof for automation                   |
+| v1.9 posture           | Map recovery work to official search-engine guidance before changing more public surfaces                                                     | The next recovery push must improve crawl/index/CTR/GEO compliance without adding search-engine-first copy                    |
 
 ## Blockers
 
@@ -95,6 +96,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 - The comparable proof window has been regenerated, but its trust verdict is still `blocking`, so the next milestone must stay execution-and-evidence focused.
 - A fresh Coverage Drilldown export and another trustworthy proof window are required before expansion claims become durable.
+- P0 URL recovery execution has a preflight gate now, so fresh Coverage can flow directly into a controlled Phase 65 start instead of another manual report hunt.
 - `deep_skill_path` risk has improved materially, but broader missing-cluster and source-file cohorts still dominate the blocked lane.
 - Authority uplift should remain gated until at least one primary surface earns promotion on evidence.
 - Recovery experiment automation should remain deferred until manual patterns prove repeatable.
@@ -117,6 +119,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 - Milestone `v1.8` audited, completed, and archived on `2026-05-06`
 - Milestone `v1.9` started: Search Compliance Recovery Execution and Proof
 - Phase 64 added: search-guidelines-compliance-baseline-and-fresh-coverage
+- Phase 64 planned: search compliance matrix and P0 URL recovery preflight gates are in place; fresh Coverage Drilldown export remains the blocker
 - Phase 65 added: p0-url-recovery-batches-and-canonical-proof
 - Phase 66 added: priority-surface-ctr-and-ai-search-visibility
 - Phase 67 added: post-intervention-proof-window-and-promotion-gate
@@ -124,5 +127,5 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 ## Session
 
 **Last Date:** 2026-05-06
-**Stopped At:** v1.9 is initialized. The next GSD action is `$gsd-discuss-phase 64` or `$gsd-plan-phase 64`.
+**Stopped At:** Phase 64 is blocked on fresh Coverage Drilldown export. After importing it, rerun `npm run report:seo:coverage-drilldown`, `npm run report:seo:search-compliance-matrix`, and `npm run report:seo:p0-url-recovery-preflight`.
 **Resume File:** `.planning/ROADMAP.md`
