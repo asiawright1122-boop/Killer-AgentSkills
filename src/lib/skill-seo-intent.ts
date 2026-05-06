@@ -23,6 +23,7 @@ const TITLE_CASE_TERMS: Record<string, string> = {
   gcp: 'GCP',
   gh: 'GH',
   github: 'GitHub',
+  gog: 'GOG',
   html: 'HTML',
   http: 'HTTP',
   ide: 'IDE',
@@ -260,6 +261,10 @@ export function formatSkillNameForSeo(value: string | undefined): string {
       return `${normalized.charAt(0).toUpperCase()}${normalized.slice(1)}`;
     })
     .join(' ');
+}
+
+export function normalizeSkillSeoTitleCasing(title: string): string {
+  return title.replace(/\b[a-z][a-z0-9]*\b/gi, (word) => TITLE_CASE_TERMS[word.toLowerCase()] || word);
 }
 
 export function isLowValueSkillSeoTitle(title: string | undefined, skillName: string): boolean {

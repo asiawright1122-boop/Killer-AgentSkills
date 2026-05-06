@@ -24,6 +24,7 @@ import {
   formatSkillNameForSeo,
   isLowValueSkillSeoDescription,
   isLowValueSkillSeoTitle,
+  normalizeSkillSeoTitleCasing,
   resolveSkillSeoIntent,
   sanitizeSkillKeywords,
 } from '../../../../lib/skill-seo-intent';
@@ -450,7 +451,10 @@ const n8nTitleOverride =
         ? 'n8n Loom Transcript Workflow Skill for Claude Code'
         : ''
     : '';
-const pageTitle = truncateText(n8nTitleOverride || (shouldUseTitleTemplate ? templateTitle : seoTitleRaw), 60);
+const pageTitle = truncateText(
+  normalizeSkillSeoTitleCasing(n8nTitleOverride || (shouldUseTitleTemplate ? templateTitle : seoTitleRaw)),
+  60,
+);
 
 // SEO Description: prioritize explicit SEO description, otherwise use an install-focused snippet
 const seoDescriptionRaw = sanitizePublicSkillCopy(

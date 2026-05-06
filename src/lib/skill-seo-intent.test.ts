@@ -3,6 +3,7 @@ import {
   formatSkillNameForSeo,
   isLowValueSkillSeoDescription,
   isLowValueSkillSeoTitle,
+  normalizeSkillSeoTitleCasing,
   resolveSkillSeoIntent,
   sanitizeSkillKeywords,
 } from './skill-seo-intent';
@@ -163,6 +164,11 @@ describe('formatSkillNameForSeo', () => {
   it('turns slug-style skill names into human-readable SERP titles', () => {
     expect(formatSkillNameForSeo('react-native-best-practices')).toBe('React Native Best Practices');
     expect(formatSkillNameForSeo('gh-cli')).toBe('GH CLI');
+    expect(formatSkillNameForSeo('gog')).toBe('GOG');
+  });
+
+  it('normalizes product acronyms in existing SEO titles', () => {
+    expect(normalizeSkillSeoTitleCasing('Gog AI Agent Skill')).toBe('GOG AI Agent Skill');
   });
 
   it('detects generic pipe titles that should fall back to a stronger template', () => {
