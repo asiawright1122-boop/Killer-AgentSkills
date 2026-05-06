@@ -1,0 +1,28 @@
+{
+  "version": "v1.8",
+  "name": "Fresh Recovery Inputs and Comparable Proof Refresh",
+  "closedAt": "2026-05-06",
+  "status": "shipped",
+  "auditStatus": "passed",
+  "phases": ["61", "62", "63"],
+  "requirements": {
+    "REC-24": "satisfied",
+    "REC-25": "satisfied",
+    "UX-EXP-03": "satisfied",
+    "GEO-03": "satisfied"
+  },
+  "finalVerdict": {
+    "productionCrawlExposure": "clear",
+    "gscDemandEvidence": "available",
+    "recoveryProof": "blocking",
+    "coverageFreshness": "blocking",
+    "authorityExpansion": "closed",
+    "automation": "locked"
+  },
+  "carryForward": [
+    "Import a fresher Coverage Drilldown raw export.",
+    "Execute the P0 other-cluster and source-file recovery batches.",
+    "Verify canonicalization clusters against fresh Coverage evidence.",
+    "Capture another proof window after manual recovery work has time to surface."
+  ]
+}

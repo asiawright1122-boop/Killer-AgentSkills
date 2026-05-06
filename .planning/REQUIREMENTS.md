@@ -1,58 +1,48 @@
 # Requirements: Killer-Skills Agent Directory
 
-**Defined:** 2026-04-23
-**Status:** Active milestone: `v1.8 Fresh Recovery Inputs and Comparable Proof Refresh`
+**Defined:** 2026-05-06
+**Status:** Between milestones - next requirements should be defined with `$gsd-new-milestone`
 **Core Value:** Maximize discoverability and operational reliability of AI developer tooling through unattended, auditable content enrichment, publish, and verification loops.
 
-## v1.8 Requirements
+## Current Requirement State
 
-### Proof Inputs
+There is no active milestone requirement set after shipping `v1.8 Fresh Recovery Inputs and Comparable Proof Refresh`.
 
-- [x] **REC-24**: Operator can ingest and verify fresh Coverage Drilldown raw inputs with dated freshness evidence before recovery decisions are made.
-- [x] **REC-25**: Operator can generate a second trustworthy post-governance proof window and compare it against the seeded baseline without relying on stale local inputs.
+The previous milestone requirements are archived at:
 
-### Promotion Readiness
+- `.planning/milestones/v1.8-REQUIREMENTS.md`
+- `.planning/milestones/v1.8-MILESTONE-AUDIT.md`
 
-- [x] **UX-EXP-03**: Operator can reassess primary authority surfaces against refreshed proof inputs before any discovery expansion is reconsidered.
+## Candidate Requirements For Next Milestone
 
-### Experiment Governance
+These are carry-forward candidates, not yet an approved milestone contract.
 
-- [x] **GEO-03**: Operator can re-score manual recovery interventions for repeatability from the refreshed proof set before limited rollout or automation is considered.
+### Measurement Freshness
 
-## Future Requirements
+- [ ] **REC-26**: Operator can ingest a fresh Coverage Drilldown export inside the hard freshness SLA and regenerate recovery reports from it.
 
-### Operator Control
+### Manual Recovery Execution
 
-- **AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
+- [ ] **REC-27**: Operator can execute the P0 other-cluster and source-file recovery batches with explicit keep-410, redirect-validation, and recrawl-watch outcomes.
+- [ ] **REC-28**: Operator can verify trailing-slash, query-parameter, repeated-segment, and deep-skill-path canonicalization against fresh Coverage evidence.
 
-### Growth Expansion
+### Proof Window
 
-- **GROW-01**: Reopen broader discovery expansion only after at least one primary authority surface earns promote-ready status from trustworthy proof.
+- [ ] **REC-29**: Operator can collect a post-intervention proof window that distinguishes crawl health, Coverage cluster movement, GSC demand movement, authority promotion readiness, and automation readiness.
 
-## Out of Scope
+## Still Out Of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Paid Workers AI expansion | Budget and policy remain unchanged; this milestone is evidence-first, not provider-expansion work |
+| Paid Workers AI expansion | Budget and policy remain unchanged; recovery remains evidence-first, not provider-expansion work |
 | Bulk skill-detail re-expansion | Index volume is still subordinate to evidence-backed authority recovery |
 | Net-new authority surfaces | Existing surfaces must earn promotion before adding breadth |
-| Another public copy cleanup milestone | `v1.7` already closed the current trust-surface leak class and guardrails now cover it |
+| Automation rollout | No experiment has repeatable proof or automation-candidate status yet |
 
 ## Traceability
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| REC-24 | Phase 61 | Complete |
-| REC-25 | Phase 62 | Complete |
-| UX-EXP-03 | Phase 63 | Complete |
-| GEO-03 | Phase 63 | Complete |
-
-**Coverage:**
-- v1.8 requirements: 4 total
-- Mapped to phases: 4
-- Unmapped: 0
+No active milestone traceability exists yet. Run `$gsd-new-milestone` to formalize the next requirement set and phase map.
 
 ---
 
-*Requirements defined: 2026-04-23*
-*Last updated: 2026-05-06 after completing v1.8 Fresh Recovery Inputs and Comparable Proof Refresh reassessment*
+*Last updated: 2026-05-06 after archiving v1.8 Fresh Recovery Inputs and Comparable Proof Refresh*

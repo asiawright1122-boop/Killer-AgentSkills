@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-05-06T08:05:48.816Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills-seo-click-recovery",
+  "milestone": "v1.8",
+  "milestoneName": "Fresh Recovery Inputs and Comparable Proof Refresh",
+  "activePhases": [
+    {
+      "phaseNumber": "61",
+      "slug": "coverage-drilldown-input-refresh-and-freshness-contract",
+      "requirements": [
+        "REC-24"
+      ],
+      "phaseDirs": [
+        "61-coverage-drilldown-input-refresh-and-freshness-contract"
+      ],
+      "summaryFiles": [
+        ".planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-24"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-24"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "62",
+      "slug": "comparable-proof-window-refresh-and-delta-revalidation",
+      "requirements": [
+        "REC-25"
+      ],
+      "phaseDirs": [
+        "62-comparable-proof-window-refresh-and-delta-revalidation"
+      ],
+      "summaryFiles": [
+        ".planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-25"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-25"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "63",
+      "slug": "authority-and-intervention-readiness-reassessment",
+      "requirements": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "phaseDirs": [
+        "63-authority-and-intervention-readiness-reassessment"
+      ],
+      "summaryFiles": [
+        ".planning/phases/63-authority-and-intervention-readiness-reassessment/63-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/63-authority-and-intervention-readiness-reassessment/63-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "verificationRequirementsCompleted": [
+        "UX-EXP-03",
+        "GEO-03"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    }
+  ],
+  "requirements": [
+    {
+      "id": "REC-24",
+      "expectedPhase": "61",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "REC-25",
+      "expectedPhase": "62",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "UX-EXP-03",
+      "expectedPhase": "63",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "GEO-03",
+      "expectedPhase": "63",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    }
+  ],
+  "hygiene": {
+    "status": "clean",
+    "legacyPhaseDirs": [],
+    "orphanPhaseDirs": [],
+    "duplicateActivePhaseDirs": [],
+    "missingActivePhaseDirs": []
+  }
+}

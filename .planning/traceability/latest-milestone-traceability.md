@@ -1,30 +1,21 @@
 # Planning Traceability Report
 
-- Milestone: v1.8 (Fresh Recovery Inputs and Comparable Proof Refresh)
-- Generated: 2026-05-06T08:05:48.816Z
-- Requirement coverage: satisfied=4, partial=0, pending=0
+- Milestone: none (Between milestones)
+- Generated: 2026-05-06T08:27:39.269Z
+- Requirement coverage: satisfied=0, partial=0, pending=0
 
 ## Requirement Coverage
 
-| Requirement | Expected Phase | Status | Summary Evidence | Verification Evidence |
-|---|---|---|---|---|
-| REC-24 | 61 | satisfied | yes | yes |
-| REC-25 | 62 | satisfied | yes | yes |
-| UX-EXP-03 | 63 | satisfied | yes | yes |
-| GEO-03 | 63 | satisfied | yes | yes |
+No active milestone requirements are currently defined.
 
 ## Active Phase Contract
 
-| Phase | Directory | Summary Metadata | Verification Metadata | Summary Requirements | Verification Requirements |
-|---|---|---|---|---|---|
-| 61 | 61-coverage-drilldown-input-refresh-and-freshness-contract | ready | ready | REC-24 | REC-24 |
-| 62 | 62-comparable-proof-window-refresh-and-delta-revalidation | ready | ready | REC-25 | REC-25 |
-| 63 | 63-authority-and-intervention-readiness-reassessment | ready | ready | UX-EXP-03, GEO-03 | UX-EXP-03, GEO-03 |
+No active phases are currently mapped in `.planning/ROADMAP.md`.
 
 ## Planning Hygiene
 
 - Status: clean
-- Legacy phase dirs ignored for active discovery: none
+- Legacy phase dirs ignored for active discovery: 61-coverage-drilldown-input-refresh-and-freshness-contract, 62-comparable-proof-window-refresh-and-delta-revalidation, 63-authority-and-intervention-readiness-reassessment
 - Orphan phase dirs: none
 - Duplicate active phase dirs: none
 - Missing active phase dirs: none

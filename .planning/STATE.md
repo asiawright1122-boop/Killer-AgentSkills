@@ -1,10 +1,13 @@
 ---
-gsd_state_version: '1.0'
-status: milestone_v1.8_ready_for_closeout
-milestone: v1.8
-milestone_name: Fresh Recovery Inputs and Comparable Proof Refresh
-last_updated: '2026-05-06T07:57:58Z'
-last_activity: '2026-05-06'
+gsd_state_version: 1.0
+milestone: none
+milestone_name: Between milestones
+current_phase: none - v1.8 phases complete
+current_plan: none
+status: completed
+stopped_at: v1.8 is archived. The next GSD action is `$gsd-new-milestone`.
+last_updated: "2026-05-06T08:19:51.867Z"
+last_activity: 2026-05-06
 progress:
   total_phases: 3
   completed_phases: 3
@@ -17,29 +20,29 @@ progress:
 
 ## Project Reference
 
-See: `.planning/PROJECT.md` (updated 2026-04-23)
+See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** The project is in `v1.8` and should turn the refreshed Coverage evidence into another trustworthy comparable proof window before any authority expansion or automation decision changes.
+**Current focus:** The project is between milestones after shipping `v1.8`; the next cycle should execute fresh Coverage ingestion, P0 manual recovery batches, and a post-intervention proof window.
 
 ## Current Position
 
-**Current Milestone:** `v1.8` Fresh Recovery Inputs and Comparable Proof Refresh
+**Current Milestone:** none - v1.8 archived
 **Current Phase:** none - v1.8 phases complete
 **Current Plan:** none
-**Status:** Phase `63` is complete. Milestone `v1.8` is ready for closeout/audit.
+**Status:** v1.8 milestone complete and archived
 **Last Activity:** 2026-05-06
-**Last Activity Description:** Completed authority and intervention readiness reassessment; discovery expansion remains closed, automation remains locked, and manual recovery continues until fresh Coverage evidence and a trustworthy proof window support promotion.
+**Last Activity Description:** v1.8 milestone completed and archived
 **Progress:** 100%
 
 ## Performance Metrics
 
 **Most recent shipped milestone:**
 
-- **Milestone:** `v1.7` Public Trust Surface and Copy Boundary Hardening
+- **Milestone:** `v1.8` Fresh Recovery Inputs and Comparable Proof Refresh
 - **Completed Phases:** 3
 - **Completed Plans:** 3
-- **Requirement Coverage:** 3/3 satisfied
+- **Requirement Coverage:** 4/4 satisfied
 - **Audit Status:** Passed
 
 **Current operational truth:**
@@ -54,7 +57,7 @@ See: `.planning/PROJECT.md` (updated 2026-04-23)
 - Discovery expansion remains closed at `0 promote / 31 hold / 1 stop`, and automation remains locked.
 - Recovery experiments are classified as `4` queued, `11` manual-active, `3` review, `0` limited-rollout, `0` automation-candidate, and `1` retired.
 - The public trust issue that triggered `v1.7` is now remediated on the audited surfaces, and reusable public copy-boundary guardrails now protect the main public trust surfaces and their shared sources.
-- `v1.8` is the active path to resolve the next blocking lane: readiness reassessment on top of a current but still-blocking comparable proof window.
+- `v1.8` is archived; the next blocking lane is fresh Coverage evidence plus manual execution of the recovery queue before another proof window.
 
 ## Decisions Made
 
@@ -89,7 +92,7 @@ See: `.planning/PROJECT.md` (updated 2026-04-23)
 
 ### Carry-Forward Context
 
-- The comparable proof window has been regenerated, but its trust verdict is still `blocking`, so Phase `63` must reassess readiness conservatively.
+- The comparable proof window has been regenerated, but its trust verdict is still `blocking`, so the next milestone must stay execution-and-evidence focused.
 - A fresh Coverage Drilldown export and another trustworthy proof window are required before expansion claims become durable.
 - `deep_skill_path` risk has improved materially, but broader missing-cluster and source-file cohorts still dominate the blocked lane.
 - Authority uplift should remain gated until at least one primary surface earns promotion on evidence.
@@ -110,9 +113,10 @@ See: `.planning/PROJECT.md` (updated 2026-04-23)
 - Phase 61 completed: coverage source freshness reset to `2026-04-16` with explicit ingest and freshness evidence
 - Phase 62 completed: comparable proof window regenerated on `2026-05-06`; crawl and GSC inputs are available, but recovery remains blocked by stale Coverage evidence and no promotion-ready authority surfaces
 - Phase 63 completed: authority reassessment and experiment ladder keep discovery expansion closed and automation locked; manual recovery queue remains active
+- Milestone `v1.8` audited, completed, and archived on `2026-05-06`
 
 ## Session
 
 **Last Date:** 2026-05-06
-**Stopped At:** All v1.8 phases are complete. The next GSD action is `$gsd-audit-milestone` or `$gsd-complete-milestone`.
+**Stopped At:** v1.8 is archived. The next GSD action is `$gsd-new-milestone`.
 **Resume File:** `.planning/ROADMAP.md`

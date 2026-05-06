@@ -10,16 +10,28 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v1.7` are shipped.
-- `v1.8 Fresh Recovery Inputs and Comparable Proof Refresh` is now active.
-- The main domain remains technically stable: the latest sampled crawl baseline is still `1650/1650` `2xx`, `4xx=0`, `5xx=0`, and `Cloudflare 1102=0`.
+- `v1.0` through `v1.8` are shipped.
+- The project is between milestones; the next cycle should be defined around fresh Coverage evidence, P0 manual recovery execution, and the next trustworthy proof window.
+- The main domain remains technically stable: the latest production crawl-health run found `6` sitemap files, `1546` discovered page URLs, `721` sampled checks, `721` `2xx`, `0` `4xx`, `0` `5xx`, and `0` sitemap fetch errors.
 - The skills corpus is now structurally governed: locale eligibility, originality, canonicalization, and governed publish-surface rules are all explicit and auditable.
 - The public discovery model now prioritizes `17` authority surfaces instead of a bulk multilingual skill corpus.
 - `v1.7` closed the public trust issue on the audited public entry surfaces, and reusable copy-boundary guardrails now protect public pages, locale messages, shared authority-surface data, and collection JSON sources.
-- Business recovery is still not proven. The newest trustworthy truth still shows a seeded proof baseline, a freshest local Coverage Drilldown raw export dated `2026-04-16` that is inside the hard SLA but still outside the preferred freshness window, and no promote-ready authority surface.
-- `v1.8` now focuses on refreshing the proof inputs, producing another trustworthy comparable window, and reassessing promotion and intervention readiness from current evidence.
+- Business recovery is still not proven. The newest proof window is current and no longer baseline-seeded, but it remains `blocking` because the freshest local Coverage Drilldown raw export is dated `2026-04-16` and is outside the hard freshness SLA.
+- `v1.8` closed with discovery expansion still closed at `0 promote / 31 hold / 1 stop` and automation still locked with `0` limited-rollout experiments and `0` automation candidates.
 
-## Most Recent Shipment: v1.7 Public Trust Surface and Copy Boundary Hardening
+## Most Recent Shipment: v1.8 Fresh Recovery Inputs and Comparable Proof Refresh
+
+**Outcome:** Refreshed the recovery proof lane, verified the production crawl surface after the deployment fix, and reassessed authority expansion plus automation without manufacturing a recovery claim.
+
+**Shipped capabilities:**
+
+- Restored dated Coverage Drilldown input selection and made freshness explicit before downstream recovery claims.
+- Regenerated the `2026-05-06` proof window against the `2026-05-04` baseline without reseeding that baseline.
+- Verified production sitemap/crawl exposure is clean after the deployment repair.
+- Revalidated the recovery delta board and authority scorecard with a conservative `blocking` verdict.
+- Reconfirmed discovery expansion remains closed and automation remains locked.
+
+## Previous Shipment: v1.7 Public Trust Surface and Copy Boundary Hardening
 
 **Outcome:** Removed the newly confirmed public trust-surface language leaks from the main public entry surfaces and turned the fix into a reusable guardrail.
 
@@ -30,29 +42,18 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Removed the strongest internal-language families from the shared public sources that were re-seeding the problem across rendered pages.
 - Upgraded `tests/pages/public-links.test.ts` into a reusable directory-level guardrail that scans public pages, shared data, locale catalogs, and collection JSON before release.
 
-## Previous Shipment: v1.6 Post-Governance Recovery Proof and Authority Lift
+## Next Milestone Direction
 
-**Outcome:** Turned post-governance recovery from a directional theory into an explicit proof, gating, and automation-governance system.
+**Goal:** Convert the v1.8 carry-forward blockers into manual recovery execution and a new trustworthy proof window.
 
-**Shipped capabilities:**
+**Candidate target features:**
 
-- Added dated proof windows and a baseline manifest so post-governance recovery can be compared over time instead of inferred from `latest-*` artifacts.
-- Added cohort-level delta attribution across authority groups, governed corpus cohorts, locales, and issue clusters.
-- Added an authority uplift scorecard with explicit `promote / hold / stop` gates and a closed discovery-expansion boundary.
-- Added a guarded recovery experiment ladder that keeps automation locked until manual interventions prove repeatable.
+- Import a fresh Coverage Drilldown raw export and regenerate recovery reports from it.
+- Execute the P0 other-cluster and source-file recovery batches with keep-410 / redirect / recrawl-watch outcomes.
+- Verify trailing-slash, query-parameter, repeated-segment, and deep-skill-path canonicalization against fresh Coverage evidence.
+- Capture a post-intervention proof window that can honestly judge crawl, Coverage, GSC demand, authority promotion, and automation readiness.
 
-## Current Milestone: v1.8 Fresh Recovery Inputs and Comparable Proof Refresh
-
-**Goal:** Refresh the stale recovery inputs, generate another trustworthy comparable proof window, and reassess promotion and intervention readiness without reopening expansion prematurely.
-
-**Target features:**
-
-- Refresh Coverage Drilldown raw inputs so cluster truth is no longer blocked by stale local exports.
-- Capture another trustworthy post-governance proof window and compare it against the seeded baseline.
-- Re-evaluate whether any primary authority surface is approaching promote-ready status once the fresh proof inputs land.
-- Re-score manual recovery interventions for repeatability before any limited rollout or automation posture changes.
-
-## Deferred Beyond v1.7
+## Deferred Beyond v1.8
 
 - **AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
 - **Paid Workers AI expansion**: Remains out of scope until explicitly budgeted and audited.
@@ -99,13 +100,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Public Copy Boundary Audit] - `v1.7`
 - ✓ [User-Facing Entry Surface Normalization] - `v1.7`
 - ✓ [Copy Leakage Guardrails] - `v1.7`
+- ✓ [Fresh Coverage Input Contract] - `v1.8`
+- ✓ [Comparable Recovery Proof Window] - `v1.8`
+- ✓ [Authority Promotion Reassessment] - `v1.8`
+- ✓ [Manual Intervention Repeatability Review] - `v1.8`
 
 ### Active
 
-- [ ] [Fresh Coverage Inputs] - Refresh Coverage Drilldown raw inputs so cluster truth is no longer blocked by stale local exports.
-- [ ] [Second Trustworthy Proof Window] - Capture another comparable post-governance proof window after the seeded baseline.
-- [ ] [Authority Promotion Reassessment] - Re-evaluate whether any primary authority surface is approaching promote-ready status once fresh proof inputs land.
-- [ ] [Manual Intervention Repeatability Review] - Re-score manual recovery interventions for repeatability before limited rollout or automation is reconsidered.
+- [ ] [Fresh Coverage Export Ingestion] - Import a Coverage Drilldown export inside the hard freshness SLA and regenerate the recovery reports.
+- [ ] [P0 Manual Recovery Batches] - Execute the other-cluster and source-file recovery batches with explicit keep-410, redirect-validation, and recrawl-watch outcomes.
+- [ ] [Post-Intervention Proof Window] - Capture another proof window after manual recovery work has time to appear in search evidence.
 
 ### Out of Scope
 
@@ -118,19 +122,19 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Context
 
-- The latest production crawl-health sample still reports `1650` `2xx`, `0` `4xx`, `0` `5xx`, and `0` `Cloudflare 1102` across `1650` sampled URLs.
-- The latest recovery scorecard remains `blocking` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=warning`.
-- The freshest local Coverage Drilldown raw export is now dated `2026-04-16`, which restores the hard freshness SLA but still leaves Coverage evidence in `warning` because it sits outside the preferred 3-day window.
+- The latest production crawl-health sample reports `721` sampled URLs, all `2xx`, with `0` sitemap fetch errors.
+- The latest recovery proof window remains `blocking` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=blocking`.
+- The freshest local Coverage Drilldown raw export is dated `2026-04-16`; as of the `2026-05-06` proof window it is outside the hard 7-day freshness SLA.
 - The latest skill locale governance report shows `3445` skills analyzed, `3315` eligible indexable variants, and `12228` suppressed metadata variants.
 - The latest skill indexability report shows `1422` indexable canonical pages and `2034` reference-only canonical pages.
 - The latest corpus governance report reduced the governed publish set from `2950` routes to `1099` kept routes.
-- The authority-surface program currently tracks `17` surfaces, with `16` primary surfaces and `5` editorial queue items.
-- The latest authority uplift scorecard reports `0 promote / 16 hold / 1 stop`, so discovery expansion remains closed.
-- The latest recovery experiment ladder reports `0` automation candidates and automation policy `locked`.
+- The authority-surface program currently scores `32` surfaces.
+- The latest authority uplift scorecard reports `0 promote / 31 hold / 1 stop`, so discovery expansion remains closed.
+- The latest recovery experiment ladder reports `0` limited-rollout experiments, `0` automation candidates, and automation policy `locked`.
 - AI posture remains policy-compliant and explicit: NVIDIA primary, Workers AI `free-only`, backups guarded and auditable.
 - The newly confirmed public trust issue that triggered `v1.7` is now remediated on the audited surfaces: the main public entry pages and shared public sources no longer emit the strongest internal-language families that read like operator notes.
 - The reusable public copy-boundary guardrail now protects public templates, locale catalogs, shared authority-surface data, and collection JSON sources against the known leak families.
-- The next active gap is evidence freshness and comparability: promotion and automation decisions are still blocked by stale inputs and the lack of a second trustworthy comparable proof window.
+- The next active gap is manual recovery execution on top of fresh measurement: promotion and automation decisions are still blocked by stale Coverage input and lack of post-intervention proof.
 
 ## Constraints
 
@@ -158,7 +162,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 | Automation after repeatability | Recovery automation must remain behind manual proof and rollback discipline | Active |
 | Public pages must sound user-facing, not operator-facing | Trust surfaces should guide visitors, not expose internal strategy or process reasoning | Validated |
 | Shared public sources should be fixed at the source, not only in rendered shells | Repeated leak families were seeded through collection JSON, locale catalogs, and helper data, not just page templates | Validated |
-| Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Active |
+| Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Validated |
+| Current-but-blocking proof is a valid outcome | v1.8 showed that honest proof can complete a milestone while still blocking expansion | Validated |
+| Manual recovery before automation | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists | Active |
 
 ## Evolution
 
@@ -166,4 +172,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-04-23 after Phase 61 freshness-contract verification._
+_Last updated: 2026-05-06 after v1.8 milestone archive._
