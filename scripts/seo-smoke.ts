@@ -133,17 +133,6 @@ const checks: PageCheck[] = [
     expectBreadcrumbParity: true,
     expectedBreadcrumbLabels: ['Home', 'Collections'],
   },
-  {
-    path: '/en/skills/callstackincubator/agent-skills/react-native-best-practices',
-    titleIncludes: 'React Native Best Practices',
-    descriptionIncludes: 'React Native performance optimization',
-    canonical: `${SITE_ORIGIN}/en/skills/callstackincubator/agent-skills/react-native-best-practices`,
-    locale: 'en',
-    h1Equals: 'React Native Best Practices',
-    expectJsonLd: true,
-    expectBreadcrumbParity: true,
-    keywordsMustNotContain: ['agent-skills', 'ide skills', 'official', 'for Claude Code', 'estimatedItemSize'],
-  },
 ];
 
 function ensure(condition: boolean, message: string) {
@@ -743,6 +732,33 @@ async function runGscCtrConsolidationRedirectCheck() {
   console.log(`SEO smoke passed: GSC CTR page consolidates to canonical skill (${sourcePath} -> ${expectedPath})`);
 }
 
+async function runGscCtrCanonicalSkillMetadataCheck() {
+  if (isLocalBaseUrl) {
+    console.warn(
+      'SEO smoke skipped GSC CTR canonical skill metadata check: local preview may not have production D1 data.',
+    );
+    return;
+  }
+
+  const path = '/en/skills/callstackincubator/agent-skills/react-native-best-practices';
+  const html = await fetchText(withCacheBust(path));
+  validateCheck(
+    {
+      path,
+      titleIncludes: 'React Native Best Practices',
+      descriptionIncludes: 'React Native performance optimization',
+      canonical: `${SITE_ORIGIN}${path}`,
+      locale: 'en',
+      h1Equals: 'React Native Best Practices',
+      expectJsonLd: true,
+      expectBreadcrumbParity: true,
+      keywordsMustNotContain: ['agent-skills', 'ide skills', 'official', 'for Claude Code', 'estimatedItemSize'],
+    },
+    html,
+  );
+  console.log(`SEO smoke passed: GSC CTR canonical skill metadata (${path})`);
+}
+
 async function runSkillsSitemapChecks(): Promise<string[]> {
   const sitemapIndexXml = await fetchText(withCacheBust('/sitemap.xml'));
   const sitemapLocs = parseXmlLocs(sitemapIndexXml);
@@ -1096,6 +1112,7 @@ async function main() {
     await runMissingDocs404Check();
     await runPersonalStateNoindexChecks();
     await runGscCtrConsolidationRedirectCheck();
+    await runGscCtrCanonicalSkillMetadataCheck();
     const skillPaths = await runSkillsSitemapChecks();
     await runBlogSitemapIndexabilityCheck();
     await runSkillsSitemapIndexabilityCheck(skillPaths);
