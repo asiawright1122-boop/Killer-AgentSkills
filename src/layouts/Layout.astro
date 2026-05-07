@@ -26,6 +26,7 @@ interface Props {
 }
 
 const SITE_URL = import.meta.env.SITE ?? 'https://killer-skills.com';
+const buildSha = import.meta.env.PUBLIC_GITHUB_SHA;
 
 const {
   locale,
@@ -79,6 +80,7 @@ const robotsContent =
 <html lang={locale} dir={isRtl ? 'rtl' : 'ltr'}>
   <head>
     <meta charset="UTF-8" />
+    {buildSha && <meta name="x-build-sha" content={buildSha} />}
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- Preconnect to critical third-party origins (improves LCP/FCP) -->
