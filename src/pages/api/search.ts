@@ -1,13 +1,21 @@
 import type { APIRoute } from 'astro';
-import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
+import {
+  checkRateLimit,
+  createRateLimiter,
+  getClientIP,
+  rateLimitResponse,
+  type KVNamespaceLike,
+} from '../../lib/rate-limit';
 import type { Env } from '../../lib/kv';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
 import { getLightweightSkills, type UnifiedSkill } from '../../lib/skills';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
-// Protects search endpoint from abuse.
-const searchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
+// Protects search endpoint from abuse. In-memory fallback for local dev /
+// tests; prod uses the cross-isolate RATE_LIMIT_SEARCH binding (see
+// wrangler.toml).
+const searchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 const RESULT_LIMIT = 10;
 
 function buildFtsQuery(input: string): string {
@@ -63,7 +71,9 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   // ── Rate Limit Check ──
   const clientIP = getClientIP(request);
-  if (searchLimiter.isLimited(clientIP)) {
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
+  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  if (!(await checkRateLimit(kv, { bucket: 'search', key: clientIP, max: 30, periodSec: 60 }, searchLimiterFallback))) {
     return rateLimitResponse();
   }
 

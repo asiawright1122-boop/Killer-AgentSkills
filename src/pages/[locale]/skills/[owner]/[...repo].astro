@@ -16,8 +16,6 @@ import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
 import SkillRelated from '../../../../components/SkillRelated.astro';
-import SkillTryBox from '../../../../components/SkillTryBox.astro';
-import TutorialShell from '../../../../components/TutorialShell.astro';
 import { buildBreadcrumbTrail } from '../../../../lib/site/breadcrumbs';
 import { extractMarkdownHeadings } from '../../../../lib/markdown-headings';
 import {
@@ -315,7 +313,6 @@ const t = useTranslations(messages);
 const tr = (key: string, fallback?: string) => translateOr(messages, key, fallback || '');
 const verifiedLabel = tr('Detail.verified', 'Verified');
 const updatedLabel = tr('Detail.updated', 'Updated');
-const scoreBadgeLabel = tr('Detail.top5Percent', 'Top 5%');
 const installNowLabel = tr('Detail.installNow', 'Install Now');
 const platformSupportLabel = tr('Detail.platformSupport', 'Supports 19+ Platforms');
 const plusMoreLabel = tr('Detail.plusMore', '+12 more');
@@ -1183,27 +1180,6 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       </section>
                     )}
 
-                    {/* SEO: On-Page Keyword Tag Cloud (Dominant Topic Signals) */}
-                    {keywordsList.length > 0 && (
-                      <section class="mb-10">
-                        <h2 class="text-xs font-black text-[var(--muted-foreground)] uppercase tracking-widest mb-3 font-mono">
-                          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-1">#</span>
-                          {tr('Detail.coreTopics', 'Core Topics')}
-                        </h2>
-                        <div class="flex flex-wrap gap-2">
-                          {renderedTopics.slice(0, 6).map((keyword: string) => (
-                            <a
-                              href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}
-                              rel="nofollow"
-                              class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
-                            >
-                              {keyword}
-                            </a>
-                          ))}
-                        </div>
-                      </section>
-                    )}
-
                     <div class="flex items-center flex-wrap gap-y-4 gap-x-6 text-sm font-black uppercase tracking-wider font-mono text-[var(--foreground)] pt-6 w-full max-w-4xl border-t-4 border-[var(--border)]">
                       <div class="flex items-center gap-3 group cursor-pointer">
                         <img
@@ -1269,53 +1245,24 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
               </div>
             </div>
 
-            {/* Main Layout: Sticky Sidebar + Flow Content */}
-            <div class="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start mt-4 pb-16">
-              {/* Left: Sticky Sidebar (Tools & Metadata) */}
-              <aside class="w-full lg:w-[320px] shrink-0 space-y-5 lg:sticky lg:top-8 z-10 cv-auto">
-                {/* Quality Score */}
-                <div class="brut-card p-4 md:p-6 relative overflow-hidden group border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] hover:-translate-y-1 hover:shadow-[10px_10px_0px_0px_var(--border)] transition-all">
-                  <div class="flex items-center justify-between mb-6 relative z-10">
-                    <h3 class="text-sm font-black text-[var(--foreground)] uppercase tracking-widest font-mono">
-                      <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">↓</span>
-                      {t('Detail.qualityScore')}
-                    </h3>
-                    <div class="px-2 py-1 bg-[var(--primary)] border-2 border-[var(--border)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--border)]">
-                      {scoreBadgeLabel}
-                    </div>
-                  </div>
-
-                  <div class="flex items-center gap-6 border-t-4 border-[var(--border)] pt-6">
-                    <div class="relative w-20 h-20 shrink-0">
-                      <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--foreground)] rotate-3" />
-                      <div class="absolute inset-0 border-4 border-[var(--border)] bg-[var(--primary)] -rotate-3 transition-transform group-hover:rotate-0" />
-                      <div class="absolute inset-0 flex items-center justify-center bg-[var(--background)] border-4 border-[var(--border)]">
-                        <span class="text-3xl font-black text-[var(--foreground)]">{skill.qualityScore || 85}</span>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="text-3xl font-black text-[var(--foreground)] uppercase tracking-tight mb-1">
-                        {t('Detail.excellent')}
-                      </div>
-                      <div class="text-sm font-bold font-mono text-[var(--muted-foreground)] uppercase">
-                        {t('Detail.qualityDesc')}
-                      </div>
-                    </div>
-                  </div>
+            {/* Main Layout: Two Column - Install + Explorer | Overview + Readme */}
+            <div class="flex flex-col lg:flex-row gap-6 lg:gap-8 mt-4 pb-16">
+              {/* Left: Install + Explorer Column */}
+              <aside class="w-full lg:w-[320px] shrink-0 space-y-6">
+                {/* Install Card */}
+                <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] hover:shadow-[8px_8px_0px_0px_var(--border)] hover:-translate-y-0.5 transition-all duration-200 lg:sticky lg:top-8 p-6 min-h-[500px] flex flex-col justify-center">
+                  <SkillInstall
+                    installCommand={installCommand}
+                    installationLabel={t('Detail.installation')}
+                    installNowLabel={installNowLabel}
+                    universalInstallLabel={tr('Detail.universalInstall', 'Universal Install (Auto-Detect)')}
+                    platformSupportLabel={platformSupportLabel}
+                    plusMoreLabel={plusMoreLabel}
+                  />
                 </div>
 
-                {/* Install Card */}
-                <SkillInstall
-                  installCommand={installCommand}
-                  installationLabel={t('Detail.installation')}
-                  installNowLabel={installNowLabel}
-                  universalInstallLabel={tr('Detail.universalInstall', 'Universal Install (Auto-Detect)')}
-                  platformSupportLabel={platformSupportLabel}
-                  plusMoreLabel={plusMoreLabel}
-                />
-
-                {/* File Manager */}
-                <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)]">
+                {/* Explorer Card */}
+                <div class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-4">
                   <SkillFileManager
                     client:idle
                     files={files}
@@ -1326,37 +1273,10 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                     }}
                   />
                 </div>
-
-                {/* Tags */}
-                <div>
-                  <h3 class="text-xs font-black text-[var(--foreground)] uppercase tracking-widest mb-4 font-mono">
-                    <span class="text-[var(--primary)] bg-[var(--foreground)] px-1 mr-2">#</span>
-                    {t('Detail.tags')}
-                  </h3>
-                  <div class="flex flex-wrap gap-2">
-                    {rawTopics.length > 0 ? (
-                      rawTopics.map((rawTopic, index) => {
-                        const translatedTopic = topics[index] || rawTopic;
-                        return (
-                          <a
-                            href={`/${locale}/skills?topic=${encodeURIComponent(rawTopic)}`}
-                            class="px-2.5 py-1 bg-[var(--background)] border-2 border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[2px_2px_0px_0px_var(--border)] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
-                          >
-                            [{translatedTopic}]
-                          </a>
-                        );
-                      })
-                    ) : (
-                      <span class="text-xs text-[var(--muted-foreground)] font-mono font-bold">
-                        [{t('Detail.noTags')}]
-                      </span>
-                    )}
-                  </div>
-                </div>
               </aside>
 
-              {/* Right Main Content Stream */}
-              <article class="flex-1 min-w-0 w-full max-w-4xl space-y-6">
+              {/* Right: Overview + Readme */}
+              <article class="flex-1 min-w-0 space-y-6">
                 {/* Public skill overview */}
                 {!renderRepoDirectory && skillIndexability && (
                   <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-5 relative overflow-hidden">
@@ -1437,32 +1357,27 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                         </div>
                       </div>
 
-                      <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
-                        <h3 class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)] font-mono mb-2">
-                          {tr('Detail.sourceBoundaryTitle', typedLocale === 'zh' ? '关于来源内容' : 'About The Source')}
-                        </h3>
-                        <p class="text-sm font-mono font-bold text-[var(--foreground)] leading-relaxed">
-                          {sourceEvidenceDescription}
-                        </p>
-                      </div>
+                      {/* Tags as simple inline list */}
+                      {rawTopics.length > 0 && (
+                        <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
+                          <div class="flex flex-wrap gap-2">
+                            {rawTopics.map((rawTopic, index) => {
+                              const translatedTopic = topics[index] || rawTopic;
+                              return (
+                                <a
+                                  href={`/${locale}/skills?topic=${encodeURIComponent(rawTopic)}`}
+                                  class="px-2 py-1 bg-[var(--foreground)]/5 border border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] transition-colors"
+                                >
+                                  {translatedTopic}
+                                </a>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </section>
                 )}
-
-                {/* Interactive Hub: Dynamic Try Sandbox */}
-                <div class="w-full">
-                  <SkillTryBox skillId={fullId} skillRef={`${owner}/${repo}`} locale={typedLocale} />
-                </div>
-
-                {/* FAQ & Installation Steps */}
-                <SkillFaq
-                  locale={locale}
-                  faqInstallTitle={faqInstallTitle}
-                  faqTitle={faqTitle}
-                  howToInstallTitle={howToInstallTitle}
-                  faqItems={faqItems}
-                  howToSteps={howToSteps}
-                />
 
                 {/* Supporting repository material */}
                 {!skillIndexability?.isIndexable && (
@@ -1488,82 +1403,58 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                   </div>
                 )}
 
-                <section class="space-y-3">
-                  <div class="flex items-center justify-between gap-3 flex-wrap">
-                    <div>
-                      <h2 class="text-xl md:text-2xl font-black uppercase tracking-tight text-[var(--foreground)]">
-                        {sourceEvidenceTitle}
-                      </h2>
-                      <p class="text-sm font-mono font-bold text-[var(--muted-foreground)] mt-2 max-w-3xl">
-                        {sourceEvidenceDescription}
-                      </p>
+                {/* Source Material: Readme Only */}
+                <section class="brut-card border-[3px] border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden">
+                  {isCrawlerRequest ? (
+                    <div class="bg-[var(--background)]">
+                      <pre class="m-0 max-h-none whitespace-pre-wrap break-words border-0 bg-[var(--background)] p-5 md:p-8 text-sm md:text-base leading-7 text-[var(--foreground)] shadow-none">
+                        {crawlerSourceEvidenceContent}
+                      </pre>
                     </div>
-                    <span class="px-3 py-1 border-2 border-[var(--border)] bg-[var(--background)] text-xs font-black uppercase tracking-widest shadow-[3px_3px_0px_0px_var(--border)]">
-                      {tr('Detail.supportingEvidenceBadge', 'Upstream Source')}
-                    </span>
-                  </div>
-                  <TutorialShell
-                    title={skillDisplayName}
-                    description={resolvedMetaDescription}
-                    tocItems={tutorialTocItems}
-                  >
-                    <div class="min-w-0 brut-card border-[3px] border-[var(--border)] shadow-[8px_8px_0px_0px_var(--border)] bg-[var(--background)] p-1 overflow-hidden">
-                      {isCrawlerRequest ? (
-                        <div class="bg-[var(--background)]">
-                          <div class="border-b-[3px] border-[var(--border)] p-4 md:p-5 bg-[var(--card)]">
-                            <p class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                              {tr('Detail.upstreamSourceBadge', 'Upstream Source')}
-                            </p>
-                            <h3 class="mt-2 text-lg md:text-xl font-black uppercase tracking-tight text-[var(--foreground)]">
-                              {sourceEvidenceTitle}
-                            </h3>
-                            <p class="mt-2 text-sm font-mono font-bold text-[var(--muted-foreground)]">
-                              {sourceEvidenceDescription}
-                            </p>
-                          </div>
-                          <pre class="m-0 max-h-none whitespace-pre-wrap break-words border-0 bg-[var(--background)] p-5 md:p-8 text-sm md:text-base leading-7 text-[var(--foreground)] shadow-none">
-                            {crawlerSourceEvidenceContent}
-                          </pre>
-                        </div>
-                      ) : (
-                        <SkillReadme
-                          client:idle
-                          initialContent={publicReadmeContent}
-                          initialFiles={{
-                            'SKILL.md': publicReadmeContent,
-                            '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
-                            'package.json': JSON.stringify(
-                              {
-                                name: `${owner}-${repo}-skill`,
-                                version: version,
-                                description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
-                                keywords: topics,
-                                author: owner,
-                                license: 'MIT',
-                                homepage: canonicalSkillUrl,
-                                repository: {
-                                  type: 'git',
-                                  url: `https://github.com/${owner}/${repo}`,
-                                },
-                              },
-                              null,
-                              2,
-                            ),
-                          }}
-                          name="SKILL.md"
-                          headerTitle={sourceEvidenceTitle}
-                          headerDescription={sourceEvidenceDescription}
-                          headerBadge={tr('Detail.upstreamSourceBadge', 'Upstream Source')}
-                          sourceRepositoryOwner={owner}
-                          sourceRepositoryRepo={repo}
-                          sourceFilePath={skill.filePath || 'SKILL.md'}
-                        />
-                      )}
-                    </div>
-                  </TutorialShell>
+                  ) : (
+                    <SkillReadme
+                      client:idle
+                      initialContent={publicReadmeContent}
+                      initialFiles={{
+                        'SKILL.md': publicReadmeContent,
+                        '.cursorrules': `# Skill: ${skill.name}\n\n// Auto-generated by Killer-Skills Universal CLI\n// Import this skill into your Cursor AI context\n\n@import "skills/${owner}/${repo}/SKILL.md";\n\n// Usage:\n// Run 'npx killer-skills add ${owner}/${repo}' to install automatically.`,
+                        'package.json': JSON.stringify(
+                          {
+                            name: `${owner}-${repo}-skill`,
+                            version: version,
+                            description: `Killer Skill: ${description && typeof description === 'string' ? description : ''}`,
+                            keywords: topics,
+                            author: owner,
+                            license: 'MIT',
+                            homepage: canonicalSkillUrl,
+                            repository: {
+                              type: 'git',
+                              url: `https://github.com/${owner}/${repo}`,
+                            },
+                          },
+                          null,
+                          2,
+                        ),
+                      }}
+                      name="SKILL.md"
+                      sourceRepositoryOwner={owner}
+                      sourceRepositoryRepo={repo}
+                      sourceFilePath={skill.filePath || 'SKILL.md'}
+                    />
+                  )}
                 </section>
               </article>
             </div>
+
+            {/* FAQ Section */}
+            <SkillFaq
+              locale={locale}
+              faqInstallTitle={faqInstallTitle}
+              faqTitle={faqTitle}
+              howToInstallTitle={howToInstallTitle}
+              faqItems={faqItems}
+              howToSteps={howToSteps}
+            />
           </Fragment>
         )
       }

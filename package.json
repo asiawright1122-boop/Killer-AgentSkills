@@ -7,16 +7,12 @@
     "type": "git",
     "url": "https://github.com/asiawright1122-boop/Killer-AgentSkills.git"
   },
-  "engines": {
-    "node": ">=22.12.0"
-  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/normalize-wrangler-config.mjs",
     "validate:public-surface": "node scripts/dev-server-smoke.mjs && npm run build && npx vitest run src/messages/public-copy.test.ts src/i18n.test.ts src/i18n.property.test.ts src/middleware.property.test.ts tests/pages/public-links.test.ts",
-    "preview": "npm run build && wrangler dev --config dist/server/wrangler.json",
-    "deploy": "npm run build && npm run guard:cloudflare:bindings && wrangler deploy --config dist/server/wrangler.json",
+    "preview": "wrangler pages dev dist",
+    "deploy": "npm run guard:cloudflare:bindings && wrangler pages deploy dist --project-name killer-skills",
     "astro": "astro",
     "check:astro": "rm -rf node_modules/.astro && astro check --root .",
     "test": "vitest --run",
@@ -69,8 +65,6 @@
     "report:seo:authority-uplift-scorecard": "npx tsx scripts/seo-authority-uplift-scorecard.ts",
     "report:seo:authority-operator-queue": "npx tsx scripts/seo-authority-operator-queue.ts",
     "report:seo:recovery-experiment-ladder": "npx tsx scripts/seo-recovery-experiment-ladder.ts",
-    "report:seo:search-compliance-matrix": "npx tsx scripts/seo-search-compliance-matrix.ts",
-    "report:seo:p0-url-recovery-preflight": "npx tsx scripts/seo-p0-url-recovery-preflight.ts",
     "report:seo:recovery-stack": "npm run report:seo:recovery-scorecard && npm run report:seo:recovery-control-board && npm run report:seo:recovery-execution-queue && npm run report:seo:recovery-experiment-ladder",
     "report:seo:404-refresh": "npm run report:seo:404-plan && npm run report:seo:404-missing-cluster && npm run report:seo:404-rules",
     "report:seo:recovery-refresh": "npm run report:seo:crawl-health:artifact && npm run report:gsc:fetch && npm run report:seo:skill-indexability && npm run report:seo:index-drift && npm run report:seo:404-refresh && npm run report:seo:recovery-stack",
@@ -111,21 +105,20 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^13.3.1",
-    "@astrojs/react": "^5.0.4",
+    "@astrojs/check": "^0.9.6",
+    "@astrojs/cloudflare": "12.6.12",
+    "@astrojs/react": "^4.4.2",
     "@nanostores/react": "^1.0.0",
-    "@tailwindcss/vite": "^4.2.4",
+    "@tailwindcss/vite": "^4.1.18",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "@types/react-syntax-highlighter": "^15.5.13",
     "@webcontainer/api": "^1.6.1",
     "@xterm/addon-fit": "^0.11.0",
     "@xterm/xterm": "^6.0.0",
-    "astro": "^6.2.2",
-    "better-sqlite3": "^12.6.2",
+    "astro": "^5.17.1",
     "dotenv": "^17.2.4",
     "fuse.js": "^7.1.0",
-    "google-auth-library": "^10.6.2",
     "https-proxy-agent": "^7.0.6",
     "lucide-react": "^0.563.0",
     "nanostores": "^1.1.0",
@@ -134,20 +127,19 @@
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^16.1.0",
     "remark-gfm": "^4.0.1",
-    "tailwindcss": "^4.2.4",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.58.2",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/better-sqlite3": "^7.6.13",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.6.0",
     "fast-check": "^4.5.3",
+    "google-auth-library": "^10.6.2",
     "husky": "^9.1.7",
     "lint-staged": "^16.3.2",
     "playwright": "^1.58.2",
@@ -157,18 +149,6 @@
     "tsx": "^4.21.0",
     "typescript-eslint": "^8.56.1",
     "vitest": "^4.0.18"
-  },
-  "overrides": {
-    "anymatch": {
-      "picomatch": "^2.3.2"
-    },
-    "micromatch": {
-      "picomatch": "^2.3.2"
-    },
-    "readdirp": {
-      "picomatch": "^2.3.2"
-    },
-    "postcss": "^8.5.14"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

@@ -204,7 +204,10 @@ const faqItems = [
         <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">
           <div
             class="relative group cursor-pointer"
-            onclick={`navigator.clipboard.writeText('${primaryCommand}'); alert('Copied!')`}
+            data-copy-command={primaryCommand}
+            data-copy-success={t('CLI.copied') || 'Copied!'}
+            role="button"
+            tabindex="0"
           >
             <div
               class="relative px-8 py-5 bg-[var(--background)] border-4 border-[var(--border)] shadow-[6px_6px_0px_0px_var(--border)] group-hover:translate-x-[-2px] group-hover:translate-y-[-2px] group-hover:shadow-[10px_10px_0px_0px_var(--primary)] transition-all flex items-center gap-6"
@@ -590,6 +593,41 @@ const faqItems = [
     </div>
   </div>
 </Layout>
+
+<script>
+  // CSP-compatible click handler for the hero copy box. Replaces the previous
+  // inline `onclick=` attribute (which would require `'unsafe-inline'` in
+  // script-src) so a strict CSP works without escape hatches.
+  document.querySelectorAll<HTMLElement>('[data-copy-command]').forEach((node) => {
+    const command = node.dataset.copyCommand;
+    const successLabel = node.dataset.copySuccess || 'Copied!';
+    if (!command) return;
+    const trigger = async () => {
+      try {
+        await navigator.clipboard.writeText(command);
+      } catch {
+        // Silently ignore — clipboard write is best-effort and modern browsers
+        // already block writeText() in non-user-gesture contexts.
+        return;
+      }
+      // Avoid `alert()` (CSP-allowed but UX-hostile). Show an inline toast.
+      const toast = document.createElement('div');
+      toast.textContent = successLabel;
+      toast.setAttribute('role', 'status');
+      toast.style.cssText =
+        'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);background:var(--foreground);color:var(--background);padding:12px 20px;border:3px solid var(--border);box-shadow:4px 4px 0 var(--border);font-weight:900;font-family:monospace;letter-spacing:.05em;z-index:9999;';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 1500);
+    };
+    node.addEventListener('click', trigger);
+    node.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        trigger();
+      }
+    });
+  });
+</script>
 
 <script>
   function addCopyButtons() {

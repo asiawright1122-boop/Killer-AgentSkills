@@ -9,8 +9,16 @@ export function createMockKV(store: Map<string, unknown> = new Map()): KVNamespa
       if (value === undefined) return null;
       return typeof value === 'string' ? value : JSON.stringify(value);
     }),
-    put: vi.fn(async () => {}),
-    delete: vi.fn(async () => {}),
+    // Persist writes back into the store so callers that read-modify-write
+    // (e.g. the KV-backed rate limiter in `src/lib/rate-limit.ts`) behave
+    // realistically in tests. Pre-existing tests that pre-populate `store`
+    // and only assert on reads keep working.
+    put: vi.fn(async (key: string, value: string) => {
+      store.set(key, value);
+    }),
+    delete: vi.fn(async (key: string) => {
+      store.delete(key);
+    }),
     list: vi.fn(async ({ prefix }: { prefix?: string } = {}) => {
       const keys: Array<{ name: string }> = [];
       for (const key of store.keys()) {

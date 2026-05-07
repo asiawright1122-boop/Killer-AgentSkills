@@ -38,6 +38,7 @@ _backup_nextjs_v1/
 
 # Local Env
 .env.local
+.env.local.bak.*
 .DS_Store
 
 # Auto-Submitter
@@ -92,6 +93,21 @@ reports/
 
 # Runtime AI usage counters
 .tmp/workers-ai-usage.json
+
+# Root-level scratch / one-off artifacts (do not commit)
+/build_output.txt
+/check.log
+/deploy.log
+/findings.md
+/progress.md
+/task_plan.md
+/skills_analysis.json
+/test-*.ts
+/test-*.mjs
+/test-*.js
+!/tests/**
+# Empty placeholder files accidentally created in repo root
+/30
 
 # Large data files (git history cleanup)
 db/seeds/

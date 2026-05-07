@@ -317,6 +317,29 @@ const features = [
       ],
     })}
   />
+  {/* WebSite JSON-LD with SearchAction — enables Google sitelinks search box */}
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      '@id': 'https://killer-skills.com/#website',
+      url: 'https://killer-skills.com',
+      name: 'Killer-Skills',
+      alternateName: 'Killer Skills — AI Agent Skill Directory',
+      inLanguage: locale,
+      publisher: { '@id': 'https://killer-skills.com/#organization' },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `https://killer-skills.com/${locale}/skills?q={search_term_string}`,
+        },
+        'query-input': 'required name=search_term_string',
+      },
+    })}
+  />
   <main class="flex-1 w-full" itemscope itemtype="https://schema.org/WebPage">
     <!-- Hero Section -->
     <section

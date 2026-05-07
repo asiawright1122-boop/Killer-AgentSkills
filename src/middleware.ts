@@ -354,13 +354,30 @@ function resolvePositiveNumber(value: unknown, fallback: number): number {
 }
 
 /**
- * Add security and performance headers to page responses.
+ * Add security and performance headers to page/API responses.
+ *
+ * Notes on the chosen baseline:
+ *  - HSTS with `preload` is safe because killer-skills.com is HTTPS-only and
+ *    served via Cloudflare (which terminates TLS for both apex and www).
+ *  - Cross-Origin-Opener-Policy `same-origin` mitigates Spectre-class
+ *    side-channel leaks across windows; harmless for a content site.
+ *  - We deliberately do *not* emit a strict CSP here yet: Astro's inline
+ *    theme/router scripts and many islands rely on inline `set:html`
+ *    handlers, which would require nonces or hashes to keep working.
+ *    Adding CSP is tracked as a follow-up; emitting a partial/broken CSP
+ *    would be worse than none.
  */
 function setSecurityHeaders(response: Response): void {
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'SAMEORIGIN');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()');
+  if (!response.headers.has('Strict-Transport-Security')) {
+    response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+  if (!response.headers.has('Cross-Origin-Opener-Policy')) {
+    response.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
+  }
 }
 
 export const onRequest = defineMiddleware(async (context, next) => {

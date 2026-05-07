@@ -314,7 +314,7 @@ function SkillReadme({
       )}
 
       {/* Content with Background Grid */}
-      <div className="relative h-[800px] group/scroll">
+      <div className="relative h-[400px] group/scroll">
         {/* Tech Grid Background - Dark Mode Only or Subtle in Light */}
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
 

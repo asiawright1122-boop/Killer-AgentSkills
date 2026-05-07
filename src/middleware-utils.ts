@@ -146,6 +146,21 @@ export type AdminAuthResult = 'pass' | 'unauthorized';
  * @param validUser - The expected username (defaults to 'admin')
  * @param validPass - The expected password (defaults to 'admin')
  */
+/**
+ * Constant-time string comparison. Length-dependent (returns false fast on
+ * length mismatch so attackers can still distinguish length, but cannot
+ * distinguish content via timing). Sufficient for short admin credentials
+ * where length is not itself a meaningful secret.
+ */
+function timingSafeStringEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < a.length; i++) {
+    mismatch |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return mismatch === 0;
+}
+
 export function checkAdminAuth(authHeader: string | null, validUser: string, validPass: string): AdminAuthResult {
   if (!authHeader) {
     return 'unauthorized';
@@ -153,6 +168,7 @@ export function checkAdminAuth(authHeader: string | null, validUser: string, val
 
   try {
     const authValue = authHeader.split(' ')[1];
+    if (!authValue) return 'unauthorized';
     const decoded = Buffer.from(authValue, 'base64').toString('utf-8');
     // RFC 7617: split only on the first colon — password may contain ':'
     const colonIndex = decoded.indexOf(':');
@@ -160,7 +176,11 @@ export function checkAdminAuth(authHeader: string | null, validUser: string, val
     const user = decoded.substring(0, colonIndex);
     const pwd = decoded.substring(colonIndex + 1);
 
-    if (user === validUser && pwd === validPass) {
+    // Always evaluate both comparisons to avoid leaking via short-circuit
+    // timing which side (user vs password) failed.
+    const userOk = timingSafeStringEqual(user, validUser);
+    const passOk = timingSafeStringEqual(pwd, validPass);
+    if (userOk && passOk) {
       return 'pass';
     }
   } catch {

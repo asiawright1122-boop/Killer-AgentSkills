@@ -1805,8 +1805,23 @@ describe('public links and navigation copy', () => {
         url: 'https://killer-skills.com/${locale}/skills?category=${cat.id}',
       },
       {
+        // Existing authored homepage URL (kept for backwards compatibility
+        // with prior structured-data shape).
         file: 'src/pages/[locale]/index.astro',
         url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
+      },
+      {
+        // WebSite JSON-LD SearchAction urlTemplate (sitelinks search box).
+        // Google requires an absolute URL here, so we cannot collapse it to a
+        // relative path. Tracked separately to make accidental changes loud.
+        file: 'src/pages/[locale]/index.astro',
+        url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
+      },
+      {
+        // SoftwareApplication.installUrl emitted from skill detail JSON-LD.
+        // Points users at the CLI install entry; canonical and intentional.
+        file: 'src/pages/[locale]/skills/[owner]/[...repo].astro',
+        url: 'https://killer-skills.com/en/cli?install=${encodeURIComponent(schemaInstallPath',
       },
       {
         file: 'src/pages/[locale]/skills/index.astro',

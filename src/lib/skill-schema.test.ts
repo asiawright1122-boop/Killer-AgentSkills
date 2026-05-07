@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildSkillSoftwareApplicationSchema } from './skill-schema';
+import { buildSkillSoftwareApplicationSchema, deriveRatingFromStars } from './skill-schema';
 
 describe('skill-schema', () => {
   it('builds software application schema without synthetic aggregate ratings', () => {
@@ -15,7 +15,55 @@ describe('skill-schema', () => {
     expect(schema['@type']).toBe('SoftwareApplication');
     expect(schema.description).toContain('AI Agent Skill');
     expect(schema).not.toHaveProperty('aggregateRating');
-    expect(schema.offers.price).toBe(0);
+    expect((schema.offers as { price: number }).price).toBe(0);
+  });
+
+  it('emits aggregateRating when stars cross the threshold', () => {
+    const schema = buildSkillSoftwareApplicationSchema({
+      name: 'Popular Skill',
+      category: 'developer',
+      description: 'A widely-starred skill.',
+      canonicalUrl: 'https://killer-skills.com/en/skills/acme/popular',
+      owner: 'acme',
+      stars: 1500,
+      version: '1.2.3',
+      installUrl: 'https://killer-skills.com/en/skills/acme/popular#install',
+    });
+
+    const rating = schema.aggregateRating as {
+      ratingValue: number;
+      ratingCount: number;
+      bestRating: number;
+    };
+    expect(rating.ratingCount).toBe(1500);
+    expect(rating.ratingValue).toBeGreaterThan(4);
+    expect(rating.bestRating).toBe(5);
+    expect(schema.softwareVersion).toBe('1.2.3');
+    expect(schema.installUrl).toMatch(/^https:\/\//);
+    expect(schema.downloadUrl).toMatch(/^https:\/\//);
+  });
+
+  it('skips aggregateRating below threshold', () => {
+    const schema = buildSkillSoftwareApplicationSchema({
+      name: 'Fresh',
+      category: 'developer',
+      description: 'Just published.',
+      canonicalUrl: 'https://killer-skills.com/en/skills/acme/fresh',
+      owner: 'acme',
+      stars: 4,
+    });
+    expect(schema).not.toHaveProperty('aggregateRating');
+  });
+
+  it('deriveRatingFromStars monotonic sanity', () => {
+    expect(deriveRatingFromStars(0)).toBeNull();
+    expect(deriveRatingFromStars(9)).toBeNull();
+    const r10 = deriveRatingFromStars(10)!;
+    const r100 = deriveRatingFromStars(100)!;
+    const r1000 = deriveRatingFromStars(1000)!;
+    expect(r10.ratingValue).toBeLessThan(r100.ratingValue);
+    expect(r100.ratingValue).toBeLessThan(r1000.ratingValue);
+    expect(deriveRatingFromStars(1e9)!.ratingValue).toBeLessThanOrEqual(5);
   });
 
   it('keeps skills-first public keywords and avoids MCP-first keyword defaults', () => {

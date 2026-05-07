@@ -30,6 +30,16 @@ const canonicalSkillPath =
 const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
 const pageTitle = `Sandbox: ${owner}/${repo} | Killer-Skills`;
 const pageDescription = `Interactive sandbox for ${owner}/${repo}. Use the reviewed skill page as the primary landing page.`;
+
+// Sandbox-only CSP relaxations: WebContainer (Stackblitz's in-browser Node)
+// boots a service worker and runs user code from `blob:` URLs. Both are
+// required for the sandbox to function and are scoped to this single route.
+// Sandbox pages are X-Robots-Tag: noindex,nofollow so the wider attack
+// surface is not advertised to crawlers, and the page is opt-in via a
+// "Try in browser" button on detail pages — never auto-loaded.
+Astro.csp?.insertScriptResource('blob:');
+Astro.csp?.insertDirective("worker-src 'self' blob:");
+Astro.csp?.insertDirective("frame-src 'self' https://*.webcontainer.io https://*.stackblitz.io");
 ---
 
 <!doctype html>

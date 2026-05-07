@@ -17,30 +17,30 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
 ---
 
 <div
-  class="my-12 border-[4px] border-[var(--foreground)] bg-white dark:bg-[#0a0a0a] shadow-[8px_8px_0px_0px_var(--foreground)] relative"
+  class="border-[3px] border-[var(--foreground)] bg-white dark:bg-[#0a0a0a] shadow-[6px_6px_0px_0px_var(--foreground)] relative"
 >
-  <div class="px-5 py-3 border-b-4 border-[var(--foreground)] bg-[var(--background)] flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <span
-        class="inline-flex px-2 py-0.5 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)] text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--foreground)]"
-      >
-        {tr('Labs.demoBadge', 'Interactive Try')}
-      </span>
-      <h3 class="font-black text-sm tracking-tight uppercase">
-        {tr('Labs.sandboxTitle', 'Browser Sandbox Environment')}
-      </h3>
-    </div>
+  <div
+    class="px-4 py-2.5 border-b-[3px] border-[var(--foreground)] bg-[var(--background)] flex items-center gap-3 flex-wrap"
+  >
+    <span
+      class="inline-flex px-2 py-0.5 border-2 border-[var(--foreground)] bg-[var(--primary)] text-[var(--primary-foreground)] text-[10px] font-black uppercase tracking-widest shadow-[2px_2px_0px_0px_var(--foreground)]"
+    >
+      {tr('Labs.demoBadge', 'Interactive Try')}
+    </span>
+    <h3 class="font-black text-sm tracking-tight uppercase">
+      {tr('Labs.sandboxTitle', 'Browser Sandbox Environment')}
+    </h3>
   </div>
 
-  <div class="p-8 lg:p-14 text-center bg-[var(--card)] flex flex-col items-center justify-center space-y-6">
-    <div class="max-w-xl mx-auto space-y-4">
+  <div class="p-5 md:p-6 bg-[var(--card)] flex flex-col md:flex-row md:items-center gap-5">
+    <div class="flex-1 min-w-0 space-y-2">
       <h4
-        class="text-3xl font-black uppercase tracking-tight text-[var(--foreground)] flex items-center justify-center gap-2"
+        class="text-xl md:text-2xl font-black uppercase tracking-tight text-[var(--foreground)] flex items-center gap-2 leading-tight"
       >
         <span class="text-[var(--primary)]">⚡️</span>
         {tr('Labs.readyToUnleash', 'Ready to unleash?')}
       </h4>
-      <p class="text-[var(--muted-foreground)] font-bold text-base leading-relaxed px-4">
+      <p class="text-[var(--muted-foreground)] font-bold text-sm leading-snug">
         {tr('Labs.sandboxDescPre', 'Experience this Agent in a zero-setup browser environment powered by')}
         <span class="text-[var(--foreground)] underline decoration-2 decoration-[var(--primary)]">WebContainers</span>. {
           tr('Labs.sandboxDescPost', 'No installation required.')
@@ -51,7 +51,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
       href={`/${locale}/sandbox/${skillRef}`}
       target="_blank"
       rel="nofollow noopener noreferrer"
-      class="mt-6 inline-flex items-center justify-center px-8 py-4 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all border-4 border-[var(--foreground)] shadow-[6px_6px_0px_0px_var(--foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[4px_4px_0px_0px_var(--foreground)]"
+      class="shrink-0 inline-flex items-center justify-center px-6 py-3 bg-[var(--primary)] text-[var(--primary-foreground)] font-black uppercase tracking-widest text-sm hover:bg-[var(--foreground)] hover:text-[var(--background)] transition-all border-[3px] border-[var(--foreground)] shadow-[4px_4px_0px_0px_var(--foreground)] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_0px_var(--foreground)] whitespace-nowrap"
     >
       {tr('Labs.bootSandbox', 'Boot Container Sandbox')}
     </a>

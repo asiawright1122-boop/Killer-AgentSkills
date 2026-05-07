@@ -89,13 +89,32 @@ const robotsContent =
     <link rel="dns-prefetch" href="https://github.com" />
     <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
-    <!-- Async font loading: print→all swap avoids render-blocking while ensuring fonts load -->
+    <!--
+      Font loading: `rel="preload" as="style"` starts the stylesheet download
+      immediately without blocking the parser. A separate <script> below
+      promotes it to a real stylesheet on load. We avoid inline `onload=`
+      attributes so a strict CSP (no `'unsafe-inline'` for script-src) keeps
+      working — the script tag itself is auto-hashed by Astro experimental
+      CSP. The <noscript> fallback covers crawlers / no-JS.
+    -->
     <link
-      rel="stylesheet"
+      id="ks-fonts-preload"
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
-      media="print"
-      onload="this.setAttribute('media','all')"
     />
+    <script>
+      (function () {
+        var l = document.getElementById('ks-fonts-preload');
+        if (!l) return;
+        function swap() {
+          l.rel = 'stylesheet';
+        }
+        // If already cached, fire immediately; otherwise wait for load.
+        if (l.sheet) swap();
+        else l.addEventListener('load', swap, { once: true });
+      })();
+    </script>
     <noscript
       ><link
         href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700;800&display=swap"
@@ -115,11 +134,23 @@ const robotsContent =
     {metadata.alternates.map(({ locale: loc, href }) => <link rel="alternate" hreflang={loc} href={href} />)}
     <link rel="alternate" hreflang="x-default" href={metadata.xDefaultUrl} />
 
-    <!-- SEO Keywords -->
-    <meta
-      name="keywords"
-      content={keywords || translateOr(messages || {}, 'Metadata.keywords', 'Killer-Skills, AI agent skills')}
-    />
+    {
+      /*
+        SEO keywords: Google and Bing have publicly ignored <meta name="keywords">
+        for over a decade. Baidu and Yandex still read it. To avoid wasted bytes
+        on every page (×10 locales) we only emit the tag for locales whose
+        primary search engine still consumes it. Callers can still pass an
+        explicit `keywords` prop to force-emit.
+      */
+    }
+    {
+      (keywords || locale === 'zh' || locale === 'ru') && (
+        <meta
+          name="keywords"
+          content={keywords || translateOr(messages || {}, 'Metadata.keywords', 'Killer-Skills, AI agent skills')}
+        />
+      )
+    }
 
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />

@@ -24,6 +24,24 @@ if (!locale || !SUPPORTED_LOCALES.includes(locale as Locale) || !slug) {
 const typedLocale = locale as Locale;
 const post = (await getCollection('blog', ({ id, data }) => id === `${locale}/${slug}` && !data.draft))[0];
 
+// Detect which locales actually have a translation of this slug so we can
+// emit hreflang alternates only for those — preventing GSC "alternate
+// without return tag" warnings on partially-translated posts.
+const siblingPosts = post
+  ? await getCollection('blog', ({ id, data }) => {
+      const firstSlash = id.indexOf('/');
+      if (firstSlash < 0) return false;
+      return id.slice(firstSlash + 1) === slug && !data.draft;
+    })
+  : [];
+const availableBlogLocales = Array.from(
+  new Set(
+    siblingPosts
+      .map((entry) => entry.id.slice(0, entry.id.indexOf('/')))
+      .filter((candidate): candidate is Locale => SUPPORTED_LOCALES.includes(candidate as Locale)),
+  ),
+);
+
 if (!post) {
   Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
   Astro.response.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -64,8 +82,8 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
 const hasMarkdownH1 = /^#\s+/m.test((post.body || '').replace(/```[\s\S]*?```/g, ''));
-// OG Image Generation (Dynamic V2)
-
+// OG image: site-wide static asset. Per-post dynamic OG generation was
+// retired — see skill detail page for rationale.
 const ogImage = new URL(`/og-image.webp`, Astro.url).toString();
 
 // BlogPosting Structured Data (JSON-LD) for rich snippets
@@ -129,6 +147,7 @@ const blogBreadcrumbSchema = {
   image={ogImage}
   ogType="article"
   customCanonical={canonicalUrl}
+  availableLocales={availableBlogLocales.length > 0 ? availableBlogLocales : [typedLocale]}
 >
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(blogSchema)} />

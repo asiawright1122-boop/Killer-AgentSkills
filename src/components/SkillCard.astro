@@ -131,6 +131,7 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
   <div class="relative z-0 mb-4 flex items-center gap-3">
     <div class="w-6 h-6 border-2 border-[var(--foreground)] overflow-hidden bg-white relative">
       <img
+        data-skill-avatar
         src={avatarUrl}
         alt={`Logo of ${owner}`}
         width="24"
@@ -138,8 +139,6 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
         class="w-full h-full object-cover grayscale contrast-125 transition-all duration-300"
         loading="lazy"
         decoding="async"
-        onerror="this.style.display='none'"
-        onload="this.classList.remove('opacity-0')"
       />
       <!-- Loading skeleton -->
       <div class="absolute inset-0 bg-[var(--muted)] animate-pulse opacity-100" id={`skeleton-${owner}-${repo}`}></div>
@@ -147,13 +146,32 @@ const descriptionText = sanitizePublicSkillCopy(descText, noDescriptionLabel);
     <span class="text-xs font-bold text-[var(--foreground)]">{owner}</span>
   </div>
 
-  <script is:inline>
-    // Hide skeleton when image loads
-    document.querySelectorAll('article img').forEach((img) => {
-      img.addEventListener('load', function () {
-        const skeleton = this.closest('.relative').querySelector('.animate-pulse');
+  <script>
+    // CSP-compatible avatar image lifecycle: replaces the previous
+    // `onload=` / `onerror=` inline handlers (which require unsafe-inline) so
+    // the page can ship a strict Content-Security-Policy with no hash escape
+    // hatches. Astro's experimental CSP auto-hashes this script tag.
+    document.querySelectorAll('img[data-skill-avatar]').forEach((node) => {
+      const img = node as HTMLImageElement;
+      const hideSkeleton = () => {
+        const skeleton = img.closest('.relative')?.querySelector('.animate-pulse') as HTMLElement | null;
         if (skeleton) skeleton.style.display = 'none';
-      });
+      };
+      const onLoad = () => {
+        img.classList.remove('opacity-0');
+        hideSkeleton();
+      };
+      const onError = () => {
+        img.style.display = 'none';
+        hideSkeleton();
+      };
+      // Image may have decoded before the script runs; check `complete`.
+      if (img.complete && img.naturalWidth > 0) onLoad();
+      else if (img.complete) onError();
+      else {
+        img.addEventListener('load', onLoad, { once: true });
+        img.addEventListener('error', onError, { once: true });
+      }
     });
   </script>
 

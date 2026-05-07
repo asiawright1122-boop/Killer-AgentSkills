@@ -9,14 +9,21 @@ import {
   type LiveAIProviderName as LiveProvider,
   type LiveAIRoutingSnapshot as LiveRoutingSnapshot,
 } from '../../../lib/live-ai-runtime';
-import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
+import {
+  checkRateLimit,
+  createRateLimiter,
+  getClientIP,
+  rateLimitResponse,
+  type KVNamespaceLike,
+} from '../../../lib/rate-limit';
 import { getSkillTryProfile, type SkillTryProfile, type SkillTryProfileId } from '../../../lib/skill-try-profiles';
 import { getSkillById } from '../../../lib/skills';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
-const trialLimiter = createRateLimiter({ windowMs: 60_000, max: 12 });
+// In-memory fallback; prod uses RATE_LIMIT_TRY (wrangler.toml).
+const trialLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 12 });
 
 interface TrySkillRequestBody {
   skillId?: string;
@@ -373,7 +380,9 @@ function json(body: unknown, status = 200): Response {
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const clientIP = getClientIP(request);
-  if (trialLimiter.isLimited(clientIP)) {
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
+  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  if (!(await checkRateLimit(kv, { bucket: 'try', key: clientIP, max: 12, periodSec: 60 }, trialLimiterFallback))) {
     return rateLimitResponse();
   }
 

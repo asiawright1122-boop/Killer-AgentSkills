@@ -34,7 +34,7 @@ function SkillFileManager({
   // useEffect(() => { if (initialFile) selectFile(initialFile); }, []);
 
   return (
-    <div className="bg-white dark:bg-[#1e1e1e] rounded-xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-lg dark:shadow-none flex flex-col min-h-[200px] h-auto transition-colors duration-300">
+    <div className="bg-white dark:bg-[#1e1e1e] rounded-xl overflow-hidden border border-gray-200 dark:border-white/5 shadow-lg dark:shadow-none flex flex-col h-[400px] transition-colors duration-300">
       {/* Window Header */}
       <div className="h-10 bg-gray-100 dark:bg-[#252526] flex items-center justify-between px-4 border-b border-gray-200 dark:border-black/20 shrink-0 transition-colors duration-300">
         <div className="flex items-center gap-4">

@@ -3,13 +3,20 @@ import { type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getAllSkills, getLocalizedDescription, isPublicSkill, type UnifiedSkill } from '../../../lib/skills';
 import { errorResponse } from '../../../lib/api-utils';
-import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
+import {
+  checkRateLimitDetailed,
+  createRateLimiter,
+  getClientIP,
+  rateLimitResponse,
+  type KVNamespaceLike,
+} from '../../../lib/rate-limit';
 import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
-const skillsSearchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
+// Local-isolate fallback; prod uses RATE_LIMIT_SKILLS_SEARCH (wrangler.toml).
+const skillsSearchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 30 });
 
 /**
  * GET /api/skills/search
@@ -24,10 +31,19 @@ const skillsSearchLimiter = createRateLimiter({ windowMs: 60_000, max: 30 });
  *   locale   - Locale for description localization (default: "en")
  */
 export const GET: APIRoute = async ({ request, locals }) => {
-  // Rate limit check
+  // Rate limit check (KV-backed with in-memory fallback)
   const clientIP = getClientIP(request);
-  if (skillsSearchLimiter.isLimited(clientIP)) {
-    return rateLimitResponse();
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
+  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  const rl = await checkRateLimitDetailed(
+    kv,
+    { bucket: 'skills-search', key: clientIP, max: 30, periodSec: 60 },
+    skillsSearchLimiterFallback,
+  );
+  if (!rl.allowed) {
+    const r = rateLimitResponse();
+    r.headers.set('X-RL-Source', rl.source);
+    return r;
   }
 
   const url = new URL(request.url);

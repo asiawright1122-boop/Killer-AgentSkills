@@ -1,21 +1,24 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
+import { checkAdminAuth } from '../../../middleware-utils';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
 
-  // Basic Auth Check
+  // Defense-in-depth: middleware already enforces Basic Auth for /api/admin/*,
+  // but this inline check guards against accidental route exposure if the
+  // middleware is ever bypassed. Uses the shared timing-safe comparator and
+  // RFC 7617 colon handling so passwords containing ':' work correctly.
   const authHeader = request.headers.get('Authorization');
-  if (!authHeader) {
-    return new Response('Unauthorized', { status: 401 });
+  if (!env.ADMIN_USER || !env.ADMIN_PASSWORD) {
+    return new Response('Admin credentials not configured', { status: 503 });
   }
-  const [, credentials] = authHeader.split(' ');
-  const decoded = atob(credentials);
-  const [username, password] = decoded.split(':');
-
-  if (username !== env.ADMIN_USER || password !== env.ADMIN_PASSWORD) {
-    return new Response('Forbidden', { status: 403 });
+  if (checkAdminAuth(authHeader, env.ADMIN_USER, env.ADMIN_PASSWORD) !== 'pass') {
+    return new Response('Unauthorized', {
+      status: 401,
+      headers: { 'WWW-Authenticate': 'Basic realm="Admin API"' },
+    });
   }
 
   if (!env.DB || !env.VECTORIZE || !env.AI) {

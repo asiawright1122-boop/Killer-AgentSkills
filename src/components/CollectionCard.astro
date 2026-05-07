@@ -38,6 +38,7 @@ const t = useTranslations(messages);
   <div class="relative z-0 mb-6 flex items-center gap-5 pointer-events-none">
     <div class="w-16 h-16 flex-shrink-0 overflow-hidden border-2 border-[var(--foreground)] bg-white">
       <img
+        data-collection-avatar
         src={avatarUrl}
         alt={`Logo of ${displayName}`}
         width="64"
@@ -46,7 +47,6 @@ const t = useTranslations(messages);
         loading={priority ? 'eager' : 'lazy'}
         decoding={priority ? 'sync' : 'async'}
         fetchpriority={priority ? 'high' : 'auto'}
-        onerror="this.style.display='none'"
       />
     </div>
     <div>
@@ -81,3 +81,22 @@ const t = useTranslations(messages);
     </div>
   </div>
 </article>
+
+<script>
+  // CSP-compatible image error handling: replaces inline `onerror=` so a
+  // strict Content-Security-Policy works without `unsafe-inline`. Astro auto-
+  // hashes this script tag under experimental CSP.
+  document.querySelectorAll<HTMLImageElement>('img[data-collection-avatar]').forEach((img) => {
+    if (img.complete && img.naturalWidth === 0) {
+      img.style.display = 'none';
+      return;
+    }
+    img.addEventListener(
+      'error',
+      () => {
+        img.style.display = 'none';
+      },
+      { once: true },
+    );
+  });
+</script>

@@ -3,14 +3,21 @@ import { z } from 'zod';
 import type { Env } from '../../../lib/kv';
 import { COMMON_BRANCHES, getSkillMdPaths, getRepository } from '../../../lib/github';
 import { fetchWithTimeout } from '../../../lib/api-utils';
-import { createRateLimiter, getClientIP, rateLimitResponse } from '../../../lib/rate-limit';
+import {
+  checkRateLimit,
+  createRateLimiter,
+  getClientIP,
+  rateLimitResponse,
+  type KVNamespaceLike,
+} from '../../../lib/rate-limit';
 import { parseSkillMd } from '../../../lib/skill-md-parser';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
 
-// Stricter limit for submissions (write operation)
-const submitLimiter = createRateLimiter({ windowMs: 60_000, max: 5 });
+// Stricter limit for submissions (write operation). In-memory fallback;
+// prod uses RATE_LIMIT_SUBMIT (wrangler.toml).
+const submitLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 5 });
 
 /**
  * Parse a repository URL into owner and repo.
@@ -93,7 +100,9 @@ const SubmitBodySchema = z.object({
  */
 export const POST: APIRoute = async ({ request, locals }) => {
   const clientIP = getClientIP(request);
-  if (submitLimiter.isLimited(clientIP)) {
+  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
+  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  if (!(await checkRateLimit(kv, { bucket: 'submit', key: clientIP, max: 5, periodSec: 60 }, submitLimiterFallback))) {
     return rateLimitResponse();
   }
 

@@ -16,6 +16,15 @@ Disallow: /admin/
 # Invalid source-file and deep skill paths are allowed to crawl so bots can see cached 301/404/410 responses.
 # Sandbox execution pages are controlled with page-level noindex headers/meta.
 # Keep crawl allowed so Google can observe the noindex signal.
+#
+# Parameterised filter/tracking variants below are explicit crawl-budget guards.
+# We block only narrow permutations (sort/order/utm tracking) that have no
+# unique indexable content; canonical listing pages and ?q= search queries
+# remain crawlable so the noindex/canonical directives above still apply.
+Disallow: /*?*sort=
+Disallow: /*?*order=
+Disallow: /*?*ref=
+Disallow: /*?*utm_
 
 # Googlebot specific — no crawl-delay for maximum indexing speed
 User-agent: Googlebot

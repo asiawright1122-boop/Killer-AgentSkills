@@ -2,14 +2,22 @@ import type { APIRoute } from 'astro';
 import { translateTextStream } from '../../lib/nvidia';
 import { getKV, setKV, type Env } from '../../lib/kv';
 import crypto from 'node:crypto';
-import { createRateLimiter, getClientIP, rateLimitResponse } from '../../lib/rate-limit';
+import {
+  checkRateLimit,
+  createRateLimiter,
+  getClientIP,
+  rateLimitResponse,
+  type KVNamespaceLike,
+} from '../../lib/rate-limit';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
 // Use strict dynamic since it relies on POST body and streams
 export const prerender = false;
 
-// Stricter limit for translation (uses expensive AI API)
-const translateLimiter = createRateLimiter({ windowMs: 60_000, max: 10 });
+// In-memory fallback used when the Cloudflare native binding is missing
+// (local dev, tests). Production uses RATE_LIMIT_TRANSLATE for real cross-
+// isolate consistency.
+const translateLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 10 });
 
 const STREAM_HEADERS = {
   'Content-Type': 'text/plain; charset=utf-8',
@@ -25,7 +33,15 @@ function generateKey(text: string, lang: string, type: string): string {
 export const POST: APIRoute = async ({ request, locals }) => {
   // Rate limit check
   const clientIP = getClientIP(request);
-  if (translateLimiter.isLimited(clientIP)) {
+  const env = (await getRuntimeEnv<Env>(locals)) as Env;
+  const kv = env?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  if (
+    !(await checkRateLimit(
+      kv,
+      { bucket: 'translate', key: clientIP, max: 10, periodSec: 60 },
+      translateLimiterFallback,
+    ))
+  ) {
     return rateLimitResponse();
   }
 
