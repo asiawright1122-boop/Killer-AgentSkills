@@ -4,6 +4,7 @@
   "exclude": ["dist", "coverage", "_backup_nextjs_v1", ".wrangler", "workers", "packages", "scripts", ".claude"],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "jsxImportSource": "react",
+    "types": ["node"]
   }
 }

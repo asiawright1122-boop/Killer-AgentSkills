@@ -105,14 +105,15 @@ const robotsContent =
     />
     <script>
       (function () {
-        var l = document.getElementById('ks-fonts-preload');
+        const l = document.getElementById('ks-fonts-preload') as HTMLLinkElement | null;
         if (!l) return;
+        const fontLink = l;
         function swap() {
-          l.rel = 'stylesheet';
+          fontLink.rel = 'stylesheet';
         }
         // If already cached, fire immediately; otherwise wait for load.
-        if (l.sheet) swap();
-        else l.addEventListener('load', swap, { once: true });
+        if (fontLink.sheet) swap();
+        else fontLink.addEventListener('load', swap, { once: true });
       })();
     </script>
     <noscript
