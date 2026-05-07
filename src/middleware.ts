@@ -570,22 +570,6 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
-  // 2.75. Block sitemap-blocklisted skill routes for all requests so suppressed repos never render as 200 pages.
-  const blocklistedSkillMatch = pathname.match(/^\/[a-z]{2}\/skills\/([^/]+)\/(.+)$/);
-  if (blocklistedSkillMatch) {
-    const ownerSegment = safeDecodePathSegment(blocklistedSkillMatch[1]).trim();
-    const routeSegment = safeDecodePathSegment(blocklistedSkillMatch[2]).trim();
-    if (ownerSegment && routeSegment && isSitemapSkillBlocked(ownerSegment, routeSegment, sitemapBlocklist)) {
-      return new Response(null, {
-        status: 410,
-        headers: {
-          'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
-          'X-Robots-Tag': 'noindex, nofollow',
-        },
-      });
-    }
-  }
-
   // 3. Intercept skill paths ending with source-code file extensions (.md, .ts, .py, etc.)
   //    These are GitHub repo file paths that get matched by the catch-all [...]repo route
   //    but never correspond to actual pages — return cached 410 to save crawl budget.

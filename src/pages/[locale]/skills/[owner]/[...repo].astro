@@ -10,8 +10,6 @@ import { getCanonicalCollections } from '../../../../lib/collection-slugs';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
-import sitemapBlocklistData from '../../../../../data/seo-sitemap-blocklist.json';
-import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -148,7 +146,6 @@ const [skillResult, messages] = await Promise.all([
   loadMessages(typedLocale),
 ]);
 
-const blocklist = compileSitemapBlocklist(sitemapBlocklistData);
 const rawSitemapSkills = Array.isArray(sitemapSkillsData)
   ? (sitemapSkillsData as Array<{ owner?: string; routePath?: string; updatedAt?: string }>)
   : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
@@ -160,7 +157,6 @@ const exactSitemapSkill =
         const routePath = String(entry.routePath || '').trim();
         if (!entryOwner || !routePath) return false;
         if (entryOwner.toLowerCase() !== owner.toLowerCase()) return false;
-        if (isSitemapSkillBlocked(entryOwner, routePath, blocklist)) return false;
         return routePath.toLowerCase() === canonicalRoutePath.toLowerCase();
       })
     : null;
@@ -214,7 +210,6 @@ if (!repoDirectorySkills.length && !hasSkill && !subSkillName) {
       const routePath = String(entry.routePath || '').trim();
       if (!entryOwner || !routePath) return false;
       if (entryOwner.toLowerCase() !== ownerLower) return false;
-      if (isSitemapSkillBlocked(entryOwner, routePath, blocklist)) return false;
       const segments = routePath.split('/').filter(Boolean);
       if (segments.length < 2) return false;
       const routeRepo = segments[0];

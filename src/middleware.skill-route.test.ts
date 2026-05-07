@@ -366,7 +366,7 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 
-  it('returns 410 for blocklisted skill routes even without crawler-specific user agents', async () => {
+  it('allows sitemap-blocklisted skill routes to render outside sitemap generation', async () => {
     let nextCalled = false;
     const response = (await onRequest(
       createContext('https://killer-skills.com/en/skills/karyna1661/Audioform-'),
@@ -379,10 +379,8 @@ describe('middleware skill route handling', () => {
       },
     )) as Response;
 
-    expect(nextCalled).toBe(false);
-    expect(response.status).toBe(410);
-    expect(response.headers.get('Location')).toBeNull();
-    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
   });
 
   it('does not canonicalize source-file repo names like AGENTS.md into fake sub-skill paths', async () => {
