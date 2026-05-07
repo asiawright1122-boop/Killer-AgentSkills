@@ -1011,7 +1011,7 @@ async function runSuppressedLocaleRedirectCheck() {
 }
 
 async function runBlocklistedSkillRenderableCheck() {
-  const sample = pickBlocklistedSkillSample(loadSitemapBlocklist());
+  const sample = pickBlocklistedSkillSample(loadSitemapBlocklist(), loadSitemapSkills());
   if (!sample) {
     console.warn('SEO smoke skipped blocklisted skill render check: no eligible blocklist sample found');
     return;

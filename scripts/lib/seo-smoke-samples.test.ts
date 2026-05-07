@@ -102,18 +102,31 @@ describe('seo smoke sample helpers', () => {
     expect(sample).toBeNull();
   });
 
-  it('picks a blocklisted exact skill sample for 410 verification', () => {
+  it('picks a blocklisted exact skill sample that still has sitemap data for render verification', () => {
+    const sitemapSkills: SitemapSkillEntry[] = [
+      { owner: '0xti4n', repo: 'codex-cli', routePath: 'codex-cli/babysit-pr' },
+    ];
+    const blocklist = compileSitemapBlocklist({
+      rules: {
+        excludeExact: ['ghost/missing-route/missing-skill', '0xti4n/codex-cli/babysit-pr'],
+      },
+    });
+
+    const sample = pickBlocklistedSkillSample(blocklist, sitemapSkills);
+    expect(sample).toEqual({
+      sourcePath: '/en/skills/0xti4n/codex-cli/babysit-pr',
+      owner: '0xti4n',
+      routePath: 'codex-cli/babysit-pr',
+    });
+  });
+
+  it('returns null when blocklisted exact skill samples have no sitemap data', () => {
     const blocklist = compileSitemapBlocklist({
       rules: {
         excludeExact: ['0xti4n/codex-cli/babysit-pr'],
       },
     });
 
-    const sample = pickBlocklistedSkillSample(blocklist);
-    expect(sample).toEqual({
-      sourcePath: '/en/skills/0xti4n/codex-cli/babysit-pr',
-      owner: '0xti4n',
-      routePath: 'codex-cli/babysit-pr',
-    });
+    expect(pickBlocklistedSkillSample(blocklist, [])).toBeNull();
   });
 });

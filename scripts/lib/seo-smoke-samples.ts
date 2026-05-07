@@ -126,10 +126,16 @@ export function pickSuppressedLocaleRedirectSample(
   return null;
 }
 
-export function pickBlocklistedSkillSample(blocklist: CompiledSitemapBlocklist | null): BlocklistedSkillSample | null {
+export function pickBlocklistedSkillSample(
+  blocklist: CompiledSitemapBlocklist | null,
+  sitemapSkills: SitemapSkillEntry[] = [],
+): BlocklistedSkillSample | null {
   if (!blocklist || blocklist.exactKeys.size === 0) return null;
 
-  const exactKey = Array.from(blocklist.exactKeys.values()).find((key) => key.split('/').length >= 3);
+  const sitemapRouteKeys = new Set(sitemapSkills.map((skill) => normalizeSkillKey(skill.owner, skill.routePath)));
+  const exactKey = Array.from(blocklist.exactKeys.values()).find(
+    (key) => key.split('/').length >= 3 && sitemapRouteKeys.has(key),
+  );
   if (!exactKey) return null;
 
   const [owner, ...routeParts] = exactKey.split('/');
