@@ -7,6 +7,7 @@ import cloudflare from '@astrojs/cloudflare';
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from './config/locales.mjs';
 
 const isAstroCheck = process.env.npm_lifecycle_event === 'check:astro';
+const isCiAstroDev = process.env.CI === 'true' && process.env.npm_lifecycle_event === 'dev';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,7 +18,7 @@ export default defineConfig({
     format: 'file',
   },
 
-  ...(isAstroCheck
+  ...(isAstroCheck || isCiAstroDev
     ? {}
     : {
         adapter: cloudflare(),
