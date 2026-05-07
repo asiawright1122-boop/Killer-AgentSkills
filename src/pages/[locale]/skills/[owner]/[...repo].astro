@@ -665,6 +665,7 @@ const canonicalSkillPath =
     ? requestedSkillPath
     : buildLocalizedSkillPath(skillXDefaultLocale, owner, canonicalRoutePath);
 const canonicalSkillUrl = `https://killer-skills.com${canonicalSkillPath}`;
+const schemaInstallPath = subSkillName ? `${owner}/${repo}/${subSkillName}` : `${owner}/${repo}`;
 const sourceEvidenceTitle = tr('Detail.sourceEvidenceTitle', 'Upstream Repository Material');
 const sourceEvidenceDescription = tr(
   'Detail.sourceEvidenceDescription',
@@ -680,6 +681,7 @@ const schema = buildSkillSoftwareApplicationSchema({
   owner,
   updatedAt: skill.updatedAt,
   lastSynced: skill.lastSynced,
+  installUrl: `https://killer-skills.com/en/cli?install=${encodeURIComponent(schemaInstallPath)}`,
 });
 const buildRepoSkillUrl = (item: { id?: string; owner?: string; repo?: string }) => {
   const itemOwner = item.owner || owner;
@@ -1361,11 +1363,12 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                       {rawTopics.length > 0 && (
                         <div class="border-t-2 border-dashed border-[var(--border)] pt-4">
                           <div class="flex flex-wrap gap-2">
-                            {rawTopics.map((rawTopic, index) => {
-                              const translatedTopic = topics[index] || rawTopic;
+                            {rawTopics.map((keyword, index) => {
+                              const translatedTopic = topics[index] || keyword;
                               return (
                                 <a
-                                  href={`/${locale}/skills?topic=${encodeURIComponent(rawTopic)}`}
+                                  href={`/${locale}/skills?q=${encodeURIComponent(keyword)}`}
+                                  rel="nofollow"
                                   class="px-2 py-1 bg-[var(--foreground)]/5 border border-[var(--border)] text-xs font-bold text-[var(--foreground)] font-mono hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] hover:border-[var(--primary)] transition-colors"
                                 >
                                   {translatedTopic}
