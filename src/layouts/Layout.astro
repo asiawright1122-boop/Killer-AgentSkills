@@ -6,6 +6,7 @@ import CommandBar from '../components/CommandBar';
 import { ClientRouter } from 'astro:transitions';
 import { loadMessages, translateOr, useTranslations, type Locale } from '../i18n';
 import { buildPageMetadata } from '../lib/site/metadata';
+import { ADSENSE_SCRIPT_SRC } from '../lib/site-config';
 
 interface Props {
   locale: string;
@@ -84,7 +85,9 @@ const robotsContent =
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://avatars.githubusercontent.com" crossorigin />
+    <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
     <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://googleads.g.doubleclick.net" />
 
     <!-- Async font loading: print→all swap avoids render-blocking while ensuring fonts load -->
     <link
@@ -147,6 +150,9 @@ const robotsContent =
     <meta name="twitter:image:alt" content={metadata.socialTitle} />
 
     <title>{metadata.documentTitle}</title>
+
+    <!-- Google AdSense site verification / Auto ads bootstrap -->
+    <script async src={ADSENSE_SCRIPT_SRC} crossorigin="anonymous"></script>
 
     <!-- Theme Toggle Script (No FOUC) -->
     <script>
