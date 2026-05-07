@@ -1010,20 +1010,15 @@ async function runSuppressedLocaleRedirectCheck() {
   );
 }
 
-async function runBlocklistedSkill410Check() {
+async function runBlocklistedSkillRenderableCheck() {
   const sample = pickBlocklistedSkillSample(loadSitemapBlocklist());
   if (!sample) {
-    console.warn('SEO smoke skipped blocklisted skill 410 check: no eligible blocklist sample found');
+    console.warn('SEO smoke skipped blocklisted skill render check: no eligible blocklist sample found');
     return;
   }
 
-  const response = await fetchWithRetry(withCacheBust(sample.sourcePath), 410);
-  const robots = response.headers.get('x-robots-tag') || response.headers.get('X-Robots-Tag') || '';
-  ensure(
-    robots.toLowerCase() === 'noindex, nofollow',
-    `${sample.sourcePath}: expected X-Robots-Tag noindex, nofollow, got "${robots || 'missing'}"`,
-  );
-  console.log(`SEO smoke passed: blocklisted skill returns 410 (${sample.sourcePath})`);
+  await fetchWithRetry(withCacheBust(sample.sourcePath), 200);
+  console.log(`SEO smoke passed: blocklisted skill renders outside sitemap (${sample.sourcePath})`);
 }
 
 function captureLog(logs: string[], chunk: Buffer | string) {
@@ -1125,7 +1120,7 @@ async function main() {
     if (!SEO_SMOKE_SITEMAP_ONLY) {
       await runSingleRouteRepoRedirectCheck();
       await runSuppressedLocaleRedirectCheck();
-      await runBlocklistedSkill410Check();
+      await runBlocklistedSkillRenderableCheck();
       const representativeSkillPath = await resolveRepresentativeSkillPath(skillPaths);
       await runRepresentativeSkillCheck(representativeSkillPath);
       await runInvalidSubSkillGuardCheck(representativeSkillPath);
