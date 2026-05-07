@@ -503,10 +503,10 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 
-  it('crawler requests short-circuit blocklisted sitemap skill routes before downstream SSR', async () => {
+  it('crawler requests allow sitemap-blocklisted skill routes to render outside sitemap generation', async () => {
     let nextCalled = false;
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/karyna1661/Audioform-', {
+      createContext('https://killer-skills.com/en/skills/openclaw/openclaw/openclaw-release-maintainer', {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () => {
@@ -518,9 +518,8 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
       },
     )) as Response;
 
-    expect(nextCalled).toBe(false);
-    expect(response.status).toBe(410);
-    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
   });
 
   it('crawler requests keep valid canonical skill detail URLs reachable', async () => {

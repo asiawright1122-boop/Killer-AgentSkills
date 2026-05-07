@@ -743,9 +743,11 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const routeSegment = safeDecodePathSegment(skillPathMatch[3]).trim();
     const directCanonical =
       ownerSegment && routeSegment ? resolveCanonicalSkillRoute(ownerSegment, routeSegment) : null;
+    const isSitemapSuppressedSkill =
+      ownerSegment && routeSegment ? isSitemapSkillBlocked(ownerSegment, routeSegment, sitemapBlocklist) : false;
 
     if (routeSegment.includes('/')) {
-      if (!directCanonical) {
+      if (!directCanonical && !isSitemapSuppressedSkill) {
         return new Response(null, {
           status: 404,
           statusText: 'Not Found',
