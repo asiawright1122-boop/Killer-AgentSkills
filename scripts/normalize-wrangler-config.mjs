@@ -3,7 +3,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-const configPath = resolve(process.cwd(), process.argv[2] || 'dist/server/wrangler.json');
+const configPath = resolve(process.cwd(), process.argv[2] || 'dist/_worker.js/wrangler.json');
 const config = JSON.parse(readFileSync(configPath, 'utf8'));
 
 function dedupeBindings(bindings) {
