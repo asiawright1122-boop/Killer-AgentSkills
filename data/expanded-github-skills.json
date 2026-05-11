@@ -5705,6 +5705,16 @@
     "filePath": ".claude/skills/capacitance-calculation/SKILL.md"
   },
   {
+    "owner": "scverse",
+    "repo": "spatialdata",
+    "description": "An open and interoperable data framework for spatial omics data",
+    "stars": 367,
+    "forks": 87,
+    "topics": [],
+    "updatedAt": "2026-05-11T10:55:38Z",
+    "filePath": ".claude/skills/pyspy/SKILL.md"
+  },
+  {
     "owner": "decocms",
     "repo": "studio",
     "description": "Open-source control plane for your AI agents. Connect tools, hire agents, track every token and dollar",
@@ -9749,6 +9759,23 @@
     "filePath": ".agents/skills/deep-dive/SKILL.md"
   },
   {
+    "owner": "viclafouch",
+    "repo": "meme-studio",
+    "description": "📌 A complete and fast website building in Next.js for creating and sharing \"internet memes\"",
+    "stars": 107,
+    "forks": 24,
+    "topics": [
+      "meme-generation",
+      "nextjs",
+      "pandacss",
+      "reactjs",
+      "tanstack-query",
+      "typescript-library"
+    ],
+    "updatedAt": "2026-03-31T09:44:50Z",
+    "filePath": ".agents/skills/update-deps/SKILL.md"
+  },
+  {
     "owner": "andrew-yangy",
     "repo": "gru-ai",
     "description": "Autonomous AI agent team for one-man companies. Context engineering + harness engineering drive a pipeline that brainstorms, builds, reviews, and ships.",
@@ -10500,6 +10527,22 @@
     ],
     "updatedAt": "2026-04-23T18:48:05Z",
     "filePath": ".agents/skills/deep-dive/SKILL.md"
+  },
+  {
+    "owner": "viclafouch",
+    "repo": "mui-file-input",
+    "description": "A file input designed for the React library MUI (Material UI) V6",
+    "stars": 95,
+    "forks": 25,
+    "topics": [
+      "file",
+      "material",
+      "mui",
+      "react",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-01T17:37:42Z",
+    "filePath": ".agents/skills/update-deps/SKILL.md"
   },
   {
     "owner": "TheBeardedBearSAS",
@@ -11540,6 +11583,24 @@
     "filePath": ".claude/skills/knowledge-manager/skill.md"
   },
   {
+    "owner": "viclafouch",
+    "repo": "mui-color-input",
+    "description": "📌 A color input designed for MUI (Material ui) built with TinyColor",
+    "stars": 74,
+    "forks": 27,
+    "topics": [
+      "color-picker",
+      "javascript",
+      "material-ui",
+      "mui",
+      "mui6",
+      "reactjs",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-04T10:23:12Z",
+    "filePath": ".agents/skills/update-deps/SKILL.md"
+  },
+  {
     "owner": "termide",
     "repo": "termide",
     "description": "A cross-platform terminal-based IDE, file manager, and virtual terminal written in Rust.",
@@ -11618,6 +11679,16 @@
     "topics": [],
     "updatedAt": "2026-05-11T00:33:28Z",
     "filePath": ".agents/skills/helios-skills/skills/core/SKILL.md"
+  },
+  {
+    "owner": "BintzGavin",
+    "repo": "helios",
+    "description": "Programmatic video creation with web technologies you already know. CSS animations just work.",
+    "stars": 73,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-05-11T14:09:13Z",
+    "filePath": ".agents/skills/helios-skills/skills/studio/SKILL.md"
   },
   {
     "owner": "kv0906",
@@ -11728,6 +11799,16 @@
     ],
     "updatedAt": "2026-04-16T05:33:12Z",
     "filePath": ".codex/skills/creating-server-protocol/SKILL.md"
+  },
+  {
+    "owner": "ampcode",
+    "repo": "amp-contrib",
+    "description": "Curated skills, tools, MCPs and commands for Amp",
+    "stars": 70,
+    "forks": 11,
+    "topics": [],
+    "updatedAt": "2026-05-04T10:42:01Z",
+    "filePath": ".agents/skills/ui-preview/SKILL.md"
   },
   {
     "owner": "addfox",
@@ -12456,6 +12537,16 @@
     ],
     "updatedAt": "2026-05-06T06:19:52Z",
     "filePath": ".claude/skills/compose-audit/SKILL.md"
+  },
+  {
+    "owner": "rysweet",
+    "repo": "amplihack",
+    "description": "Framework for agentic coding supporting many popular agent coding tools. ",
+    "stars": 60,
+    "forks": 39,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:46:06Z",
+    "filePath": ".claude/skills/fleet/SKILL.md"
   },
   {
     "owner": "carere",
@@ -15297,6 +15388,16 @@
     "topics": [],
     "updatedAt": "2026-05-08T18:39:43Z",
     "filePath": ".agents/skills/resonance-core/SKILL.md"
+  },
+  {
+    "owner": "nicolaygerold",
+    "repo": "howtobuildwithai",
+    "description": null,
+    "stars": 35,
+    "forks": 9,
+    "topics": [],
+    "updatedAt": "2026-03-05T00:56:43Z",
+    "filePath": ".agents/skills/ampdo/SKILL.md"
   },
   {
     "owner": "SpillwaveSolutions",
@@ -20235,6 +20336,66 @@
     "filePath": ".agents/skills/goplaces/SKILL.md"
   },
   {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/sag/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/gog/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/xurl/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/notion/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/oracle/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd",
+    "description": "Open-source Solana AI agent framework — Claude Code architecture × Solana. MCP-native, no private key required.",
+    "stars": 19,
+    "forks": 16,
+    "topics": [],
+    "updatedAt": "2026-05-10T02:37:04Z",
+    "filePath": ".agents/skills/metaplex/SKILL.md"
+  },
+  {
     "owner": "limehawk",
     "repo": "rmm-scripts",
     "description": "Production-ready PowerShell and Bash scripts for RMM platforms (SuperOps, Datto, NinjaRMM)",
@@ -23687,6 +23848,32 @@
     "filePath": ".claude/skills/ralph-archive/SKILL.md"
   },
   {
+    "owner": "rkmahale17",
+    "repo": "rulcode.com",
+    "description": "RULCODE is a modern coding practice platform focused on algorithms, data structures, and interview preparation — built to help you practice smarter and code better.",
+    "stars": 13,
+    "forks": 3,
+    "topics": [
+      "algorithms",
+      "code",
+      "coderunner",
+      "competative-programming",
+      "visualization"
+    ],
+    "updatedAt": "2026-05-11T09:57:02Z",
+    "filePath": ".agents/skills/SKILL.md"
+  },
+  {
+    "owner": "equinor",
+    "repo": "fusion-web-components",
+    "description": "repository for Fusion web components",
+    "stars": 13,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-05-11T08:18:34Z",
+    "filePath": ".agents/skills/fusion/SKILL.md"
+  },
+  {
     "owner": "sorryhyun",
     "repo": "DiPeO",
     "description": "Agent building tools via block diagram UI",
@@ -24496,6 +24683,23 @@
     "filePath": ".claude/skills-global/do-design-audit/SKILL.md"
   },
   {
+    "owner": "fellipeutaka",
+    "repo": "website",
+    "description": "🌐 My personal website",
+    "stars": 12,
+    "forks": 0,
+    "topics": [
+      "blog",
+      "monorepo",
+      "nextjs",
+      "portfolio",
+      "react",
+      "tailwindcss"
+    ],
+    "updatedAt": "2026-03-10T16:07:14Z",
+    "filePath": ".agents/skills/nuqs/SKILL.md"
+  },
+  {
     "owner": "gmh5225",
     "repo": "awesome-web3-security",
     "description": "A curated list of Web3 Security materials and resources for Pentesters and Bug Hunters.",
@@ -25121,6 +25325,16 @@
     "topics": [],
     "updatedAt": "2026-05-11T01:27:29Z",
     "filePath": ".agents/skills/gh-stack/SKILL.md"
+  },
+  {
+    "owner": "ulpi-io",
+    "repo": "browse",
+    "description": null,
+    "stars": 11,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-20T15:27:54Z",
+    "filePath": ".agents/skills/browse-qa/SKILL.md"
   },
   {
     "owner": "ruska-ai",
@@ -26542,6 +26756,16 @@
     "topics": [],
     "updatedAt": "2026-05-11T03:58:52Z",
     "filePath": ".claude/skills/update-rollcall/SKILL.md"
+  },
+  {
+    "owner": "equinor",
+    "repo": "fusion-react-components",
+    "description": "mono repo for collection of react components used for Fusion apps",
+    "stars": 9,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-05-11T08:44:02Z",
+    "filePath": ".agents/skills/fusion/SKILL.md"
   },
   {
     "owner": "openharmony",
@@ -28650,6 +28874,38 @@
     "filePath": ".claude/skills/help/SKILL.md"
   },
   {
+    "owner": "vieval-dev",
+    "repo": "vieval",
+    "description": "🧪💥 Evaluation framework based on Vitest, the testing framework you familiar with, for agents, models, and more.",
+    "stars": 7,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-08T11:40:00Z",
+    "filePath": ".agents/skills/eventa/SKILL.md"
+  },
+  {
+    "owner": "fellipeutaka",
+    "repo": "denji",
+    "description": "🖥️ A CLI for managing SVG icons in frontend projects",
+    "stars": 7,
+    "forks": 0,
+    "topics": [
+      "cli",
+      "icons",
+      "preact",
+      "react",
+      "reactjs",
+      "solid",
+      "svg",
+      "svg-icons",
+      "svgo",
+      "svgr",
+      "typescript"
+    ],
+    "updatedAt": "2026-03-29T00:03:14Z",
+    "filePath": ".agents/skills/nuqs/SKILL.md"
+  },
+  {
     "owner": "ocn",
     "repo": "zk-activity",
     "description": "zk-activity is a bot that integrates EVE Online's Zkillboard with Discord, providing real-time killmail updates with customizable filters. Track specific regions, ship categories, and player activities according to your preferences.",
@@ -30572,6 +30828,24 @@
     "filePath": ".agents/skills/adr/SKILL.md"
   },
   {
+    "owner": "quietform",
+    "repo": "Luego",
+    "description": "Discover indie web",
+    "stars": 6,
+    "forks": 1,
+    "topics": [
+      "ios",
+      "ipad",
+      "macos",
+      "readitlater",
+      "swift",
+      "swiftdata",
+      "swiftui"
+    ],
+    "updatedAt": "2026-04-17T08:01:13Z",
+    "filePath": ".agents/skills/swiftui-expert-skill/SKILL.md"
+  },
+  {
     "owner": "troydai",
     "repo": "gwt",
     "description": "A git worktree management CLI",
@@ -32358,6 +32632,26 @@
     ],
     "updatedAt": "2026-05-09T07:48:34Z",
     "filePath": ".agents/skills/cat-kit/SKILL.md"
+  },
+  {
+    "owner": "dam-agents",
+    "repo": "dam",
+    "description": "Run your own background coding agents on Kubernetes - isolated pods, injected credentials, scheduled triggers, Slack-native.",
+    "stars": 5,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-11T13:26:00Z",
+    "filePath": ".agents/skills/adr/SKILL.md"
+  },
+  {
+    "owner": "RealBigFun",
+    "repo": "another-one",
+    "description": "ADE written in rust",
+    "stars": 5,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T04:14:28Z",
+    "filePath": ".agents/skills/gpui/SKILL.md"
   },
   {
     "owner": "zatsit-oss",
@@ -35233,6 +35527,16 @@
     "filePath": ".agents/skills/powerpoint/SKILL.md"
   },
   {
+    "owner": "nosleepcassette",
+    "repo": "skinwalker",
+    "description": "Robust TUI-based Hermes Agent skin creator.",
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-30T23:59:49Z",
+    "filePath": ".agents/skills/smux/SKILL.md"
+  },
+  {
     "owner": "turbot",
     "repo": "guardrails-docs",
     "description": "Turbot Guardrails documentation content in markdown format.",
@@ -38041,6 +38345,25 @@
     "topics": [],
     "updatedAt": "2026-05-10T13:47:05Z",
     "filePath": ".claude/skills/monitor-tick/SKILL.md"
+  },
+  {
+    "owner": "ColdBox",
+    "repo": "coldbox-cli",
+    "description": "💻 The official ColdBox CLI",
+    "stars": 3,
+    "forks": 9,
+    "topics": [
+      "boxlang",
+      "cfml",
+      "cli",
+      "coldfusion",
+      "commandbox",
+      "hmvc",
+      "jvm",
+      "mvc"
+    ],
+    "updatedAt": "2026-05-08T12:57:05Z",
+    "filePath": ".agents/skills/testbox-bdd/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -42835,6 +43158,26 @@
     ],
     "updatedAt": "2026-04-08T10:13:53Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
+  },
+  {
+    "owner": "roderik",
+    "repo": "mpe",
+    "description": "An experiment to manage claude and codex configs for a team, locally and on the web",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-14T11:40:18Z",
+    "filePath": ".agents/skills/knip/SKILL.md"
+  },
+  {
+    "owner": "gaebalai",
+    "repo": "king-skills",
+    "description": "Unified workflow-first skill framework for AI coding environments (Codex + Claude Code)",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-20T15:10:31Z",
+    "filePath": ".agents/skills/guard/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -54030,6 +54373,53 @@
     "filePath": ".agents/skills/ftrl/SKILL.md"
   },
   {
+    "owner": "emaginebr",
+    "repo": "fortuno-app",
+    "description": "Online lottery platform in React",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T12:07:56Z",
+    "filePath": ".claude/skills/nnews-guide/SKILL.md"
+  },
+  {
+    "owner": "Rizkymema",
+    "repo": "Portofolio-Rizky-Mema",
+    "description": "Website portofolio pribadi yang modern, responsif, dan menarik secara visual, dibangun untuk menampilkan berbagai proyek, keahlian, dan pengalaman profesional saya",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-06T08:52:09Z",
+    "filePath": ".agents/skills/agent-framework-demo/skill.md"
+  },
+  {
+    "owner": "souljorje",
+    "repo": "d3-maps",
+    "description": "SVG maps with D3 made simple. Reactive and responsive out of the box.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "d3",
+      "d3-geo",
+      "geojson",
+      "maps",
+      "svg",
+      "topojson"
+    ],
+    "updatedAt": "2026-05-02T18:04:43Z",
+    "filePath": ".agents/skills/tsdown/SKILL.md"
+  },
+  {
+    "owner": "pierreliefauche",
+    "repo": "repliql",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-06T03:36:51Z",
+    "filePath": ".agents/skills/tsdown/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -56203,7 +56593,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-08T09:25:47Z",
+    "updatedAt": "2026-05-11T10:36:38Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -56380,7 +56770,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T21:50:28Z",
+    "updatedAt": "2026-05-11T12:14:02Z",
     "filePath": ".claude/skills/fastapi-templates/SKILL.md"
   },
   {
@@ -56590,7 +56980,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-07T13:17:47Z",
+    "updatedAt": "2026-05-11T13:32:51Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -56610,7 +57000,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-07T13:17:47Z",
+    "updatedAt": "2026-05-11T13:32:51Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -56811,7 +57201,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-21T13:37:52Z",
+    "updatedAt": "2026-05-11T13:29:01Z",
     "filePath": ".claude/skills/run/SKILL.md"
   },
   {
@@ -56928,7 +57318,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T21:52:08Z",
+    "updatedAt": "2026-05-11T13:26:51Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -57028,7 +57418,7 @@
       "typescript",
       "windows"
     ],
-    "updatedAt": "2026-05-10T18:00:03Z",
+    "updatedAt": "2026-05-11T15:28:51Z",
     "filePath": ".claude/skills/security/SKILL.md"
   },
   {
@@ -57233,7 +57623,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T17:55:54Z",
+    "updatedAt": "2026-05-11T04:52:44Z",
     "filePath": ".claude/skills/plan-feature/SKILL.md"
   },
   {
@@ -57555,7 +57945,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-11T03:43:31Z",
+    "updatedAt": "2026-05-11T15:29:52Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -57921,7 +58311,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T23:49:31Z",
+    "updatedAt": "2026-05-11T13:21:17Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -58098,7 +58488,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-09T05:10:00Z",
+    "updatedAt": "2026-05-11T15:28:28Z",
     "filePath": ".claude/skills/writing-react-effects/SKILL.md"
   },
   {
@@ -58158,7 +58548,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-11T02:02:46Z",
+    "updatedAt": "2026-05-11T06:44:42Z",
     "filePath": ".claude/skills/merge/SKILL.md"
   },
   {
@@ -58178,7 +58568,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T22:15:41Z",
+    "updatedAt": "2026-05-11T13:58:28Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -58370,16 +58760,6 @@
     "topics": [],
     "updatedAt": "2026-03-12T23:28:57Z",
     "filePath": ".claude/skills/review-code/SKILL.md"
-  },
-  {
-    "owner": "gitdevaldo",
-    "repo": "tanyahukum",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-03-16T04:38:26Z",
-    "filePath": ".claude/skills/webapp-testing/SKILL.md"
   },
   {
     "owner": "sentientsprite",
@@ -58616,7 +58996,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-08T09:25:47Z",
+    "updatedAt": "2026-05-11T10:36:38Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -58976,7 +59356,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-09T14:38:43Z",
+    "updatedAt": "2026-05-11T15:29:15Z",
     "filePath": ".claude/skills/stripe-supabase-webhooks/SKILL.md"
   },
   {
@@ -59036,7 +59416,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-11T02:02:46Z",
+    "updatedAt": "2026-05-11T06:44:42Z",
     "filePath": ".claude/skills/generation-plan/SKILL.md"
   },
   {
@@ -59196,7 +59576,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-06T11:51:41Z",
+    "updatedAt": "2026-05-11T14:11:21Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -59817,7 +60197,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T13:34:13Z",
+    "updatedAt": "2026-05-11T12:32:42Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -60017,7 +60397,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T13:09:28Z",
+    "updatedAt": "2026-05-11T13:48:39Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -60057,7 +60437,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-11T04:12:33Z",
+    "updatedAt": "2026-05-11T14:00:11Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -60137,7 +60517,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-10T21:50:28Z",
+    "updatedAt": "2026-05-11T12:14:02Z",
     "filePath": ".claude/skills/nanobanana-ppt-skills/SKILL.md"
   },
   {
@@ -60308,16 +60688,6 @@
     "forks": 0,
     "topics": [],
     "updatedAt": "2026-03-12T22:31:07Z",
-    "filePath": ".claude/skills/mentoring-juniors/SKILL.md"
-  },
-  {
-    "owner": "gitdevaldo",
-    "repo": "tanyahukum",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-03-16T04:38:26Z",
     "filePath": ".claude/skills/mentoring-juniors/SKILL.md"
   },
   {
@@ -94091,5 +94461,416 @@
     "topics": [],
     "updatedAt": "2026-04-19T14:50:58Z",
     "filePath": ".agents/skills/domain-model/SKIll.md"
+  },
+  {
+    "owner": "trydydd",
+    "repo": "open-circuits-android",
+    "description": "Android port of the Open Circuits project ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T05:20:23Z",
+    "filePath": ".claude/skills/i-clarify/SKILL.md"
+  },
+  {
+    "owner": "vohongtho",
+    "repo": "code-intel-platform",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T07:01:07Z",
+    "filePath": ".claude/skills/code-intel/api/SKILL.md"
+  },
+  {
+    "owner": "the-sid-dani",
+    "repo": "second-brain-harness",
+    "description": "PARA second-brain harness for Claude Code — fork, /bootstrap, done.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "agent-harness",
+      "chief-of-staff",
+      "claude-code",
+      "para",
+      "personal-knowledge-management",
+      "second-brain"
+    ],
+    "updatedAt": "2026-05-11T07:40:12Z",
+    "filePath": ".claude/skills/design-saas-landing/SKILL.md"
+  },
+  {
+    "owner": "johnnyjclin",
+    "repo": "video-producer",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T14:32:08Z",
+    "filePath": ".claude/skills/hyperframes-registry/SKILL.md"
+  },
+  {
+    "owner": "Shamiri-Institute",
+    "repo": "digitalhub",
+    "description": "The software platform powering the Shamiri Intervention",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T11:10:25Z",
+    "filePath": ".agents/skills/linear-release-setup/SKILL.md"
+  },
+  {
+    "owner": "trojblue",
+    "repo": "lenslet",
+    "description": "A lightweight CLI / Notebook image gallery server that runs entirely in-memory. Point it at a directory of images and browse them in your browser.",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-09T18:42:54Z",
+    "filePath": ".agents/skills/desloppify/SKILL.md"
+  },
+  {
+    "owner": "jeninh",
+    "repo": "ampskills-dotfile",
+    "description": "credit to Amolith - https://git.secluded.site/agent-skills/blob/main/skills/formatting-commits/SKILL.md",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-01-16T18:57:10Z",
+    "filePath": ".agents/skills/ampdo/SKILL.md"
+  },
+  {
+    "owner": "aakarim",
+    "repo": "config",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-10T11:22:10Z",
+    "filePath": ".agents/skills/ampdo/SKILL.md"
+  },
+  {
+    "owner": "equinor",
+    "repo": "fusion-action-app-publish",
+    "description": "Github Action for publishing Fusion applications",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T00:05:07Z",
+    "filePath": ".agents/skills/fusion/SKILL.md"
+  },
+  {
+    "owner": "jeninh",
+    "repo": "ampskills-dotfile",
+    "description": "credit to Amolith - https://git.secluded.site/agent-skills/blob/main/skills/formatting-commits/SKILL.md",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-01-16T18:57:10Z",
+    "filePath": ".agents/skills/ui-preview/SKILL.md"
+  },
+  {
+    "owner": "aakarim",
+    "repo": "config",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-10T11:22:10Z",
+    "filePath": ".agents/skills/ui-preview/SKILL.md"
+  },
+  {
+    "owner": "fellipeutaka",
+    "repo": "ada",
+    "description": "💅 A feature-rich, composable data table built on top of TanStack Table with complex filter capabilities inspired by Linear's UI.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-09T23:14:36Z",
+    "filePath": ".agents/skills/nuqs/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/sag/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/gog/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/xurl/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/tmux/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/imsg/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/wacli/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/slack/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/github/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/trello/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/browse/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/notion/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/gemini/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/oracle/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/weather/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/discord/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/nano-pdf/SKILL.md"
+  },
+  {
+    "owner": "x402agent",
+    "repo": "solana-clawd-os",
+    "description": "Solana $CLAWD Trading Computer — Agentic trading dashboard with AI inference, NFT minting, real-time market data, voice companion, and OODA loop trading",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T00:45:44Z",
+    "filePath": ".agents/skills/goplaces/SKILL.md"
+  },
+  {
+    "owner": "Zyaxxy",
+    "repo": "SolTix",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-10T13:49:26Z",
+    "filePath": ".agents/skills/metaplex/SKILL.md"
+  },
+  {
+    "owner": "imMamdouhaboammar",
+    "repo": "Lite-Pik-AI",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-06T14:00:02Z",
+    "filePath": ".agents/skills/remotion-resemble-ai/SKILL.md"
+  },
+  {
+    "owner": "ostsam",
+    "repo": "vapight-kampff",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-24T23:22:22Z",
+    "filePath": ".agents/skills/line-voice-agent/SKILL.md"
+  },
+  {
+    "owner": "luhmann",
+    "repo": "dotfiles_yadm",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-10T09:09:45Z",
+    "filePath": ".agents/skills/gh-stack/SKILL.md"
+  },
+  {
+    "owner": "KOU050223",
+    "repo": "animeishi",
+    "description": "アニ名刺",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T14:51:18Z",
+    "filePath": ".agents/skills/gh-stack/SKILL.md"
+  },
+  {
+    "owner": "dorage",
+    "repo": "hello-stacked-pr",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-15T01:24:53Z",
+    "filePath": ".agents/skills/gh-stack/SKILL.md"
+  },
+  {
+    "owner": "clivetong",
+    "repo": "stack-play",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T12:29:51Z",
+    "filePath": ".agents/skills/gh-stack/SKILL.md"
+  },
+  {
+    "owner": "yujindong",
+    "repo": "laziest",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T09:34:12Z",
+    "filePath": ".agents/skills/tsdown/SKILL.md"
+  },
+  {
+    "owner": "Odonno",
+    "repo": "vitest-snap",
+    "description": "The perfect matchers for Vitest snaphost testing.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "snapshot-testing",
+      "test",
+      "vitest"
+    ],
+    "updatedAt": "2026-04-22T12:35:10Z",
+    "filePath": ".agents/skills/tsdown/SKILL.md"
+  },
+  {
+    "owner": "debuglebowski",
+    "repo": "slayzone-chromium",
+    "description": "SlayZone Chromium fork: native C++ views layout, inline browser tabs w/ full extension support, Bun sidecar",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-17T07:34:42Z",
+    "filePath": ".agents/skills/caveman-review/SKILL.md"
+  },
+  {
+    "owner": "cill-i-am",
+    "repo": "ceird",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-10T20:50:03Z",
+    "filePath": ".agents/skills/h3/SKILL.md"
   }
 ]
