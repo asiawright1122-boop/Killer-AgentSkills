@@ -1,6 +1,6 @@
 ---
 title: "단계별 가이드: 최고의 자율형 AI 에이전트를 위한 Killer-Skills로 OpenClaw 향상하기"
-description: "Killer-Skills의 방대한 전문 기술 라이브러리를 OpenClaw와 동기화하여 AI 어시스턴트가 복잡한 작업을 처리할 수 있도록 하는 방법에 대한 상세 튜토리얼입니다."
+description: "OpenClaw와 동기화하여 AI 어시스턴트가 복잡한 작업을 처리할 수 있도록 하는 방법에 대한 상세 튜토리얼입니다. 자율형 AI 에이전트를 위한 Killer-Skills 전문 기술 라이브러리 활용 방법을 소개합니다."
 pubDate: 2026-03-02
 author: "Killer-Skills Team"
 tags: ["OpenClaw", "Tutorial", "AI Configuration"]
