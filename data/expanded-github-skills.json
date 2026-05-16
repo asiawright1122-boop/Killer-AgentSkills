@@ -6589,6 +6589,19 @@
     "filePath": ".cursor/skills/benchmark/SKILL.md"
   },
   {
+    "owner": "prisma",
+    "repo": "prisma-next",
+    "description": null,
+    "stars": 310,
+    "forks": 6,
+    "topics": [
+      "loggy-core",
+      "loggy-terminal"
+    ],
+    "updatedAt": "2026-05-15T20:37:22Z",
+    "filePath": ".agents/skills/record-upgrade-instructions/SKILL.md"
+  },
+  {
     "owner": "SharezoneApp",
     "repo": "sharezone-app",
     "description": "Sharezone is a collaborative school organization app for iOS, Android, macOS and web with +500,000 downloads. Built with Flutter & Firebase.",
@@ -8053,6 +8066,23 @@
     "topics": [],
     "updatedAt": "2026-05-09T18:33:57Z",
     "filePath": ".codex/skills/deploy/SKILL.md"
+  },
+  {
+    "owner": "esphome",
+    "repo": "aioesphomeapi",
+    "description": "Python Client for ESPHome native API. Used by Home Assistant.",
+    "stars": 188,
+    "forks": 95,
+    "topics": [
+      "asyncio",
+      "home-assistant",
+      "home-automation",
+      "internet-of-things",
+      "iot",
+      "python"
+    ],
+    "updatedAt": "2026-05-15T23:43:03Z",
+    "filePath": ".claude/skills/pr-workflow/SKILL.md"
   },
   {
     "owner": "theexperiencecompany",
@@ -14288,6 +14318,22 @@
     "topics": [],
     "updatedAt": "2026-04-29T01:19:59Z",
     "filePath": ".agents/skills/execplan-improve-subagents/SKILL.md"
+  },
+  {
+    "owner": "davidnussio",
+    "repo": "vscode-jq-playground",
+    "description": "jq playground for vscode",
+    "stars": 53,
+    "forks": 9,
+    "topics": [
+      "developer-tools",
+      "jq",
+      "vscode",
+      "vscode-extension",
+      "vscode-extensions"
+    ],
+    "updatedAt": "2026-04-04T06:25:01Z",
+    "filePath": ".agents/skills/effect-ts/SKILL.md"
   },
   {
     "owner": "macro-inc",
@@ -23616,6 +23662,16 @@
     "topics": [],
     "updatedAt": "2026-05-11T21:48:17Z",
     "filePath": ".agents/skills/petrvs-angular-ui/SKILL.md"
+  },
+  {
+    "owner": "encounterplus",
+    "repo": "web-client",
+    "description": null,
+    "stars": 16,
+    "forks": 8,
+    "topics": [],
+    "updatedAt": "2026-05-15T07:15:34Z",
+    "filePath": ".agents/skills/pixijs-assets/SKILL.md"
   },
   {
     "owner": "tobi",
@@ -35124,6 +35180,18 @@
     "filePath": ".codex/skill-library/stack/languages/typescript-advanced-patterns/SKILL.md"
   },
   {
+    "owner": "katylava",
+    "repo": "dotkyl",
+    "description": "dotfiles and scripts and notes and such",
+    "stars": 5,
+    "forks": 1,
+    "topics": [
+      "dotfiles"
+    ],
+    "updatedAt": "2026-05-16T04:05:05Z",
+    "filePath": ".claude/skills/add-install-task/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -46105,6 +46173,34 @@
     "topics": [],
     "updatedAt": "2026-05-15T05:56:52Z",
     "filePath": ".codex/skills/gsd-code-review/SKILL.md"
+  },
+  {
+    "owner": "way-platform",
+    "repo": "mbz-go",
+    "description": "Go SDK for the Mercedes-Benz Fleet API",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "fleet-management",
+      "go",
+      "mercedes-benz"
+    ],
+    "updatedAt": "2026-04-23T05:31:52Z",
+    "filePath": ".agents/skills/way-magefile/SKILL.md"
+  },
+  {
+    "owner": "ThaddeusJiang",
+    "repo": "Vmemo",
+    "description": "Visual memo app for every “wow” moment, no need to rack your brain for words.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "anki",
+      "retrospection-app",
+      "visual-memory"
+    ],
+    "updatedAt": "2026-05-16T02:45:36Z",
+    "filePath": ".agents/skills/vmemo/github-pr/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -57795,6 +57891,56 @@
     "filePath": ".codex/skills/ff_create_plan/SKILL.md"
   },
   {
+    "owner": "treesus6",
+    "repo": "SkateQuest-Mobile",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-13T12:51:01Z",
+    "filePath": ".claude/skills/erne-code/SKILL.md"
+  },
+  {
+    "owner": "jrmarcello",
+    "repo": "gopherplate",
+    "description": "Go boilerplate for microservices with Clean Architecture",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T19:14:46Z",
+    "filePath": ".claude/skills/learn-recall/SKILL.md"
+  },
+  {
+    "owner": "Heerozh",
+    "repo": "PromptUGUI",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T19:00:24Z",
+    "filePath": ".claude/skills/scripting-promptugui-csharp/SKILL.md"
+  },
+  {
+    "owner": "ignacyzybort",
+    "repo": "POznaj",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T22:43:37Z",
+    "filePath": ".agents/skills/homelab-pihole-dns/SKILL.md"
+  },
+  {
+    "owner": "zaid-gd",
+    "repo": "LMS-Nexus",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T13:09:06Z",
+    "filePath": ".agents/skills/Codex-Skills/monday-automation/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -59712,7 +59858,7 @@
       "react",
       "tailwindcss"
     ],
-    "updatedAt": "2026-05-15T11:40:15Z",
+    "updatedAt": "2026-05-15T15:58:26Z",
     "filePath": ".claude/skills/convex-component-authoring/SKILL.md"
   },
   {
@@ -59968,7 +60114,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T13:17:40Z",
+    "updatedAt": "2026-05-15T17:04:54Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -60145,7 +60291,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T03:05:57Z",
+    "updatedAt": "2026-05-15T23:35:01Z",
     "filePath": ".claude/skills/fastapi-templates/SKILL.md"
   },
   {
@@ -60476,7 +60622,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T05:13:14Z",
+    "updatedAt": "2026-05-15T20:49:01Z",
     "filePath": ".claude/skills/vercel/SKILL.md"
   },
   {
@@ -60693,7 +60839,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T11:23:04Z",
+    "updatedAt": "2026-05-15T21:05:17Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -60893,7 +61039,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-13T22:00:43Z",
+    "updatedAt": "2026-05-16T03:39:51Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -61118,7 +61264,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-13T22:00:43Z",
+    "updatedAt": "2026-05-16T03:39:51Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -61320,7 +61466,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-15T13:21:33Z",
+    "updatedAt": "2026-05-16T02:55:31Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -61686,7 +61832,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T13:40:11Z",
+    "updatedAt": "2026-05-15T20:24:57Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -62361,7 +62507,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T13:17:40Z",
+    "updatedAt": "2026-05-15T17:04:54Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -62643,16 +62789,6 @@
     "topics": [],
     "updatedAt": "2026-03-05T10:34:32Z",
     "filePath": ".claude/skills/prompt-optimizer/SKILL.md"
-  },
-  {
-    "owner": "phpmac",
-    "repo": "trader",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-01-18T04:11:48Z",
-    "filePath": ".claude/skills/币安合约交易/SKILL.md"
   },
   {
     "owner": "kavith-k",
@@ -63552,7 +63688,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-14T18:24:36Z",
+    "updatedAt": "2026-05-15T23:59:54Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -63872,7 +64008,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T03:05:57Z",
+    "updatedAt": "2026-05-15T23:35:01Z",
     "filePath": ".claude/skills/nanobanana-ppt-skills/SKILL.md"
   },
   {
@@ -100492,5 +100628,213 @@
     "topics": [],
     "updatedAt": "2026-05-15T03:56:39Z",
     "filePath": ".codex/skills/confluence-expert/SKILL.md"
+  },
+  {
+    "owner": "nkittur",
+    "repo": "traveloptimizer",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T15:30:54Z",
+    "filePath": ".claude/skills/discover-restaurants/SKILL.md"
+  },
+  {
+    "owner": "rumdice",
+    "repo": "platformA",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T00:03:25Z",
+    "filePath": ".claude/skills/doc-writer/SKILL.md"
+  },
+  {
+    "owner": "CharlesChang012",
+    "repo": "FIRE",
+    "description": "Offline iOS app for personal finance tracking and FIRE retirement planning (SwiftUI + SwiftData)",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T01:26:52Z",
+    "filePath": ".claude/skills/monetization/SKILL.md"
+  },
+  {
+    "owner": "Slimzeo",
+    "repo": "jchatmind-knowflow",
+    "description": "个人基于spring ai搭建的agent项目, 尚未迁移为langchain4j, 且项目名字还尚未重构为knowflow",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-11T07:01:30Z",
+    "filePath": ".claude/skills/writing-hookify-rules/SKILL.md"
+  },
+  {
+    "owner": "iamtrep",
+    "repo": "hubitat",
+    "description": "Drivers, apps, tweaks & scripts for Hubitat Elevation platform",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T03:33:33Z",
+    "filePath": ".claude/skills/hubitat-app-device/SKILL.md"
+  },
+  {
+    "owner": "arthurhuang09",
+    "repo": "yet-another-boss-request",
+    "description": "把老闆一句『做個酷酷的東西』變成需求、研究、PRD、POC 與交付物的厭世工作台。",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T16:36:12Z",
+    "filePath": ".agents/skills/yet-another-boss-request/SKILL.md"
+  },
+  {
+    "owner": "ingoatl",
+    "repo": "propertycentral",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T21:19:50Z",
+    "filePath": ".agents/skills/homelab-pihole-dns/SKILL.md"
+  },
+  {
+    "owner": "vodarerp",
+    "repo": "Paws",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T13:27:22Z",
+    "filePath": ".agents/skills/ljubimci-platforma/SKILL.md"
+  },
+  {
+    "owner": "IsKenKenYa",
+    "repo": "Commory",
+    "description": "🧠 通信记忆系统（Commory）｜短信·通话·联系人 → 结构化数据 + AI分析｜自托管·隐私优先·MsgLayer驱动",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T10:44:43Z",
+    "filePath": ".agents/skills/mobile-offline-support/SKILL.md"
+  },
+  {
+    "owner": "Roll249",
+    "repo": "dao_hieu",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T07:47:22Z",
+    "filePath": ".agents/skills/scikit-learn/SKILL.md"
+  },
+  {
+    "owner": "digitalpostwu-Thanaphipat",
+    "repo": "dcg-smart-epostal-2026",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T09:08:06Z",
+    "filePath": ".agents/library/azure-monitor-opentelemetry-exporter-py/SKILL.md"
+  },
+  {
+    "owner": "fozagtx",
+    "repo": "Revagent",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T01:38:53Z",
+    "filePath": ".agents/skills/deck-guizang-editorial/SKILL.md"
+  },
+  {
+    "owner": "MMEHDI0606",
+    "repo": "protom",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-10T21:14:46Z",
+    "filePath": ".agents/skills/docx-official/SKILL.md"
+  },
+  {
+    "owner": "Eckii24",
+    "repo": "dotfiles",
+    "description": "All my configuration files",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T08:04:19Z",
+    "filePath": ".agents/skills/project-memory/SKILL.md"
+  },
+  {
+    "owner": "chuanyue98",
+    "repo": "prompt-gallery",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-01T04:41:23Z",
+    "filePath": ".agents/skills/speckit-implement/SKILL.md"
+  },
+  {
+    "owner": "manuelbrandner85",
+    "repo": "Mensaena",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T02:07:14Z",
+    "filePath": ".agents/skills/gstack/design-consultation/SKILL.md"
+  },
+  {
+    "owner": "machenjie",
+    "repo": "mintmoney-next",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T03:29:35Z",
+    "filePath": ".agents/skills/governance/handoff/SKILL.md"
+  },
+  {
+    "owner": "quazfenton",
+    "repo": "binG",
+    "description": "agent web, cli, & desktop workspace with coding/IDE functionality & live preview system, cloud workers & task automation, sandboxed execution, 3rd party platform integration & MCP tools, free LLM chat/voice with wide selection providers/models or customizable orchestration, frontend for Codex/Claude, virtual filesystem & cloud storage",
+    "stars": 0,
+    "forks": 1,
+    "topics": [
+      "agents",
+      "cli",
+      "code-generation",
+      "coding",
+      "ide",
+      "sandbox",
+      "storage"
+    ],
+    "updatedAt": "2026-05-13T22:22:28Z",
+    "filePath": ".agents/skills/CLI-Anything-main/CLI-Anything-main/skills/cli-anything-musescore/SKILL.md"
+  },
+  {
+    "owner": "scchin",
+    "repo": "openclaw-workspace",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-01T07:46:46Z",
+    "filePath": ".agents/skills/huashu-nuwa/examples/zhangxuefeng-perspective/SKILL.md"
+  },
+  {
+    "owner": "IsKenKenYa",
+    "repo": "Commory",
+    "description": "🧠 通信记忆系统（Commory）｜短信·通话·联系人 → 结构化数据 + AI分析｜自托管·隐私优先·MsgLayer驱动",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T10:44:43Z",
+    "filePath": ".agents/skills/mobile-app-testing/SKILL.md"
   }
 ]
