@@ -7596,6 +7596,37 @@
     "filePath": ".claude/skills/pr/SKILL.md"
   },
   {
+    "owner": "kdlbs",
+    "repo": "kandev",
+    "description": "AI Kanban & Development Environment. Orchestrate multiple agents, review changes, open PRs. Multi-provider, self-hostable, no telemetry.",
+    "stars": 221,
+    "forks": 17,
+    "topics": [
+      "acp",
+      "agent-orchestration",
+      "agentic-ai",
+      "agentic-development-environment",
+      "ai-agents",
+      "claude-code",
+      "code-review",
+      "coding-agents",
+      "developer-tools",
+      "github-copilot",
+      "golang",
+      "kanban",
+      "nextjs",
+      "open-source",
+      "self-hosted",
+      "task-manager",
+      "tui",
+      "vibe-coding",
+      "workflow-automation",
+      "worktrees"
+    ],
+    "updatedAt": "2026-05-17T11:29:49Z",
+    "filePath": ".agents/skills/qa/SKILL.md"
+  },
+  {
     "owner": "systeminit",
     "repo": "swamp",
     "description": "Stinemates, Watson, Adam, Mahir, Paul ",
@@ -9067,6 +9098,33 @@
     ],
     "updatedAt": "2026-04-19T01:35:32Z",
     "filePath": ".agents/skills/copilot-sdk/SKILL.md"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "youtrackdb",
+    "description": "YouTrackDB is a general-use object-oriented graph database with storage format native to handle graph relations. YouTrackDB supports Gremlin queries and ACID transactions.",
+    "stars": 141,
+    "forks": 9,
+    "topics": [
+      "acid",
+      "dbms",
+      "dbms-project",
+      "graph-database",
+      "graph-databases",
+      "graphdatabase",
+      "gremlin",
+      "gremlin-api",
+      "gremlin-server",
+      "nosql",
+      "nosql-data-storage",
+      "nosql-database",
+      "nosql-databases",
+      "object-database",
+      "object-oriented-database",
+      "youtrackdb"
+    ],
+    "updatedAt": "2026-05-17T13:14:10Z",
+    "filePath": ".claude/skills/review-plan/SKILL.md"
   },
   {
     "owner": "tractorjuice",
@@ -12792,6 +12850,16 @@
     ],
     "updatedAt": "2026-05-04T10:23:12Z",
     "filePath": ".agents/skills/react-useeffect/SKILL.md"
+  },
+  {
+    "owner": "iancanderson",
+    "repo": "openscad-agent",
+    "description": "A Claude Code-powered 3D modeling agent environment for creating 3D printable designs using OpenSCAD.",
+    "stars": 74,
+    "forks": 12,
+    "topics": [],
+    "updatedAt": "2026-05-17T13:44:12Z",
+    "filePath": ".claude/skills/preview-scad/SKILL.md"
   },
   {
     "owner": "termide",
@@ -38349,6 +38417,16 @@
     "filePath": ".claude/skills/parallel-review-implementation/SKILL.md"
   },
   {
+    "owner": "jankneumann",
+    "repo": "agentic-coding-tools",
+    "description": "Collection of tools to simplify agentic coding",
+    "stars": 4,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-17T13:37:36Z",
+    "filePath": ".agents/skills/parallel-review-implementation/SKILL.md"
+  },
+  {
     "owner": "turbot",
     "repo": "guardrails-docs",
     "description": "Turbot Guardrails documentation content in markdown format.",
@@ -41308,6 +41386,28 @@
     "topics": [],
     "updatedAt": "2026-05-11T09:04:37Z",
     "filePath": ".agents/skills/chat-sdk/SKILL.md"
+  },
+  {
+    "owner": "merlinhu1",
+    "repo": "truthmark",
+    "description": "Makes AI agent behavior visible and reviewable, tracking decisions at the branch level so teams can audit what changed, why, and whether repo truth still matches the code.",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "agentic-coding",
+      "ai-agents",
+      "ai-coding",
+      "ai-tools",
+      "ai-workflow",
+      "code-review",
+      "developer-tools",
+      "devtools",
+      "documentation",
+      "opencode",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-16T15:06:51Z",
+    "filePath": ".claude/skills/truthmark-document/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -58254,6 +58354,62 @@
     "filePath": ".agents/skills/tsdown/SKILL.md"
   },
   {
+    "owner": "peterdemartini",
+    "repo": "3d-model-projects",
+    "description": "A project for generating 3d models using AI",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-19T02:42:25Z",
+    "filePath": ".claude/skills/preview-scad/SKILL.md"
+  },
+  {
+    "owner": "spaarke-dev",
+    "repo": "spaarke",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:40:53Z",
+    "filePath": ".claude/skills/dataverse-deploy/SKILL.md"
+  },
+  {
+    "owner": "jim60105",
+    "repo": "HeartReverie",
+    "description": "面向開發者的 AI 互動小說引擎，以 Markdown 檔案與外掛系統為核心。(Deno + Vue.js)",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "creative-writing-ai",
+      "novel",
+      "sillytavern-alternative",
+      "writing-assistant"
+    ],
+    "updatedAt": "2026-05-17T12:50:39Z",
+    "filePath": ".agents/skills/heartreverie-create-plugin/SKILL.md"
+  },
+  {
+    "owner": "NaKMiers",
+    "repo": "Port4lio",
+    "description": "New super impressive portfolio with NextJS",
+    "stars": 1,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:25:10Z",
+    "filePath": ".agents/skills/review/SKILL.md"
+  },
+  {
+    "owner": "endavis",
+    "repo": "pyproject-template",
+    "description": "a repository to use as a template for pyprojects",
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-15T18:54:31Z",
+    "filePath": ".agents/skills/multi-plan/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -60067,7 +60223,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T17:19:20Z",
+    "updatedAt": "2026-05-17T11:30:53Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -60524,7 +60680,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-05-10T03:43:08Z",
+    "updatedAt": "2026-05-17T07:28:23Z",
     "filePath": ".claude/skills/aget-review-budget/SKILL.md"
   },
   {
@@ -60604,7 +60760,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T23:58:06Z",
+    "updatedAt": "2026-05-17T11:47:26Z",
     "filePath": ".claude/skills/fastapi-templates/SKILL.md"
   },
   {
@@ -61132,7 +61288,7 @@
       "python",
       "template"
     ],
-    "updatedAt": "2026-05-10T03:43:18Z",
+    "updatedAt": "2026-05-17T07:28:42Z",
     "filePath": ".claude/skills/aget-enhance-spec/SKILL.md"
   },
   {
@@ -61152,7 +61308,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T21:05:17Z",
+    "updatedAt": "2026-05-17T05:07:21Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -61252,7 +61408,7 @@
       "typescript",
       "windows"
     ],
-    "updatedAt": "2026-05-13T16:02:35Z",
+    "updatedAt": "2026-05-17T10:24:12Z",
     "filePath": ".claude/skills/security/SKILL.md"
   },
   {
@@ -61352,7 +61508,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-17T04:25:13Z",
+    "updatedAt": "2026-05-17T05:53:56Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -61457,7 +61613,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T10:48:58Z",
+    "updatedAt": "2026-05-17T11:35:59Z",
     "filePath": ".claude/skills/plan-feature/SKILL.md"
   },
   {
@@ -61577,7 +61733,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-17T04:25:13Z",
+    "updatedAt": "2026-05-17T05:53:56Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -61779,7 +61935,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-17T02:14:45Z",
+    "updatedAt": "2026-05-17T13:00:43Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -62145,7 +62301,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T20:57:49Z",
+    "updatedAt": "2026-05-17T08:50:56Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -62502,7 +62658,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T18:12:06Z",
+    "updatedAt": "2026-05-17T13:06:18Z",
     "filePath": ".claude/skills/flow-maintenance/SKILL.md"
   },
   {
@@ -62790,7 +62946,7 @@
     "topics": [
       "blog"
     ],
-    "updatedAt": "2026-05-17T04:12:16Z",
+    "updatedAt": "2026-05-17T04:30:50Z",
     "filePath": ".claude/skills/editing-post-frontmatter/SKILL.md"
   },
   {
@@ -63467,7 +63623,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T22:14:36Z",
+    "updatedAt": "2026-05-17T13:58:36Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -64001,7 +64157,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T22:48:02Z",
+    "updatedAt": "2026-05-17T08:46:39Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -64191,7 +64347,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T12:51:41Z",
+    "updatedAt": "2026-05-17T12:51:40Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -64231,7 +64387,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-17T03:43:58Z",
+    "updatedAt": "2026-05-17T13:41:44Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -64311,7 +64467,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T23:58:06Z",
+    "updatedAt": "2026-05-17T11:47:26Z",
     "filePath": ".claude/skills/nanobanana-ppt-skills/SKILL.md"
   },
   {
@@ -64411,7 +64567,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-09T10:01:31Z",
+    "updatedAt": "2026-05-17T10:54:57Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -64491,7 +64647,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-04T11:11:43Z",
+    "updatedAt": "2026-05-17T05:51:43Z",
     "filePath": ".claude/skills/agentic-engineering/SKILL.md"
   },
   {
@@ -64671,7 +64827,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-19T11:01:55Z",
+    "updatedAt": "2026-03-23T03:40:58Z",
     "filePath": ".claude/skills/version-increment/SKILL.md"
   },
   {
@@ -101498,5 +101654,165 @@
     "topics": [],
     "updatedAt": "2026-05-16T22:31:35Z",
     "filePath": ".agents/skills/claude-code-skills/fal-image-edit/SKILL.md"
+  },
+  {
+    "owner": "cplanow",
+    "repo": "Canterbury-Press",
+    "description": "Project to use LLM/AI models to help build and design models for 3D printing",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-04T20:54:25Z",
+    "filePath": ".claude/skills/preview-scad/SKILL.md"
+  },
+  {
+    "owner": "lohjo",
+    "repo": "hardware_projects",
+    "description": "repo of all my hardware proejcts",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T14:52:17Z",
+    "filePath": ".claude/skills/preview-scad/SKILL.md"
+  },
+  {
+    "owner": "ryanpastorizadev-bit",
+    "repo": "woosoo-platform",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T09:09:02Z",
+    "filePath": ".claude/skills/sanctum-auth-debug/SKILL.md"
+  },
+  {
+    "owner": "huyonghui666",
+    "repo": "QuickArt",
+    "description": "仿照QuickArt进行开发的软件，采用flutter技术",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T07:51:57Z",
+    "filePath": ".claude/skills/design-consultation/SKILL.md"
+  },
+  {
+    "owner": "udieeFr",
+    "repo": "zarlyHq-ordering-system",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:56:38Z",
+    "filePath": ".claude/.cursor/skills/secure-code-guardian/SKILL.md"
+  },
+  {
+    "owner": "udieeFr",
+    "repo": "zarlyHq-ordering-system",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:56:38Z",
+    "filePath": ".claude/.claude/skills/secure-code-guardian/SKILL.md"
+  },
+  {
+    "owner": "huyonghui666",
+    "repo": "QuickArt",
+    "description": "仿照QuickArt进行开发的软件，采用flutter技术",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T07:51:57Z",
+    "filePath": ".claude/skills/gstack/design-consultation/SKILL.md"
+  },
+  {
+    "owner": "punkharb",
+    "repo": "autoport",
+    "description": "AI-summarized personal portfolio for Punnatorn Boonkrajang - Next.js + Tailwind + live GitHub data",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:02:00Z",
+    "filePath": ".claude/skills/verification-loop/SKILL.md"
+  },
+  {
+    "owner": "benm-dev",
+    "repo": "b",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-12T18:16:15Z",
+    "filePath": ".claude/skills/engineering/marine-offshore/orcaflex/extreme-analysis/SKILL.md"
+  },
+  {
+    "owner": "thuantan2060",
+    "repo": "facebook-sale-tracking",
+    "description": "Facebook sale tracking system with price estimation and alert engine",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T06:50:57Z",
+    "filePath": ".claude/skills/github-sync/SKILL.md"
+  },
+  {
+    "owner": "crizzy9",
+    "repo": "naavik",
+    "description": "An open-source, self-hosted career automation platform that navigates the job market for you.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T08:40:51Z",
+    "filePath": ".claude/skills/naavik-cold-start/SKILL.md"
+  },
+  {
+    "owner": "sammy9322",
+    "repo": "ventura-dental-facturacion",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T22:31:35Z",
+    "filePath": ".agents/skills/claude-code-skills/api-security-testing/SKILL.md"
+  },
+  {
+    "owner": "sammy9322",
+    "repo": "ventura-dental-facturacion",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T22:31:35Z",
+    "filePath": ".agents/skills/claude-code-skills/python-performance-optimization/SKILL.md"
+  },
+  {
+    "owner": "cursosdevfull",
+    "repo": "Angular_Group25",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T18:45:20Z",
+    "filePath": ".agents/skills/angular-developer/SKILL.md"
+  },
+  {
+    "owner": "huyonghui666",
+    "repo": "QuickArt",
+    "description": "仿照QuickArt进行开发的软件，采用flutter技术",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T07:51:57Z",
+    "filePath": ".agents/skills/gstack/design-consultation/SKILL.md"
+  },
+  {
+    "owner": "Arbazxkr",
+    "repo": "BookLine",
+    "description": "WhatsApp-Based Prepaid Daily Booking System for Clinics",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T10:30:14Z",
+    "filePath": ".agents/skills/popup-cro/SKILL.md"
   }
 ]
