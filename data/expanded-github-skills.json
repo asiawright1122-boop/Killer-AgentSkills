@@ -12863,6 +12863,20 @@
     "filePath": ".agents/skills/prisma/SKILL.md"
   },
   {
+    "owner": "snyk",
+    "repo": "snyk-ls",
+    "description": "Language Server used by IDEs as Snyk Backend for Frontends",
+    "stars": 80,
+    "forks": 17,
+    "topics": [
+      "ide",
+      "language-server",
+      "sast"
+    ],
+    "updatedAt": "2026-05-19T09:37:11Z",
+    "filePath": ".windsurf/skills/implementation/SKILL.md"
+  },
+  {
     "owner": "seedprod",
     "repo": "openclaw-prompts-and-skills",
     "description": "Telegram bot that talks to headless Claude Code - proof of concept",
@@ -13505,6 +13519,21 @@
     "topics": [],
     "updatedAt": "2026-04-18T04:28:17Z",
     "filePath": ".cursor/skills/raise-pr/SKILL.md"
+  },
+  {
+    "owner": "snyk",
+    "repo": "snyk-intellij-plugin",
+    "description": "Snyk Vulnerability Scanner for IDEs based on the IntelliJ platform",
+    "stars": 67,
+    "forks": 35,
+    "topics": [
+      "ide-plugin",
+      "intellij",
+      "intellij-plugin",
+      "snyk"
+    ],
+    "updatedAt": "2026-05-14T15:36:11Z",
+    "filePath": ".windsurf/skills/commit/SKILL.md"
   },
   {
     "owner": "muxinc",
@@ -14237,6 +14266,29 @@
     "topics": [],
     "updatedAt": "2026-04-30T09:29:40Z",
     "filePath": ".claude/skills/fix/SKILL.md"
+  },
+  {
+    "owner": "Strategy11",
+    "repo": "formidable-forms",
+    "description": "Formidable Forms LITE Plugin",
+    "stars": 59,
+    "forks": 41,
+    "topics": [],
+    "updatedAt": "2026-05-07T12:55:20Z",
+    "filePath": ".windsurf/skills/eslint-rules/SKILL.md"
+  },
+  {
+    "owner": "f",
+    "repo": "check-ai",
+    "description": "Audit any repository for AI-readiness.",
+    "stars": 59,
+    "forks": 5,
+    "topics": [
+      "agents",
+      "ai-readiness"
+    ],
+    "updatedAt": "2026-05-02T22:20:30Z",
+    "filePath": ".windsurf/skills/create-audit/SKILL.md"
   },
   {
     "owner": "carere",
@@ -15161,6 +15213,24 @@
     "filePath": ".codex/skills/gpui-component/SKILL.md"
   },
   {
+    "owner": "digital-science",
+    "repo": "dimcli",
+    "description": "Python client and CLI for scientometrics and research analytics using the Dimensions API.",
+    "stars": 49,
+    "forks": 6,
+    "topics": [
+      "api",
+      "cli",
+      "dimensions",
+      "jupyter-notebook",
+      "python",
+      "research-analytics",
+      "scientometrics"
+    ],
+    "updatedAt": "2026-03-27T16:45:00Z",
+    "filePath": ".claude/skills/dimcli/SKILL.md"
+  },
+  {
     "owner": "nich2533",
     "repo": "just_say_no",
     "description": "Altered state slash commands for Claude Code. 12 substance-themed personality modes that change how Claude approaches your tasks.",
@@ -15993,6 +16063,24 @@
     ],
     "updatedAt": "2026-05-13T09:53:44Z",
     "filePath": ".codex/skills/cm-post-deploy-canary/SKILL.md"
+  },
+  {
+    "owner": "acartine",
+    "repo": "foolery",
+    "description": "Agent orchestration Web-UI",
+    "stars": 43,
+    "forks": 3,
+    "topics": [
+      "ai",
+      "ai-agents",
+      "beads",
+      "claude",
+      "codex",
+      "gastown",
+      "knots"
+    ],
+    "updatedAt": "2026-05-18T19:39:04Z",
+    "filePath": ".claude/skills/knots-create/SKILL.md"
   },
   {
     "owner": "skilluse",
@@ -18815,6 +18903,16 @@
     "filePath": ".codex/skills/orleans/SKILL.md"
   },
   {
+    "owner": "loonghao",
+    "repo": "vx",
+    "description": "Universal Development Tool Manager",
+    "stars": 28,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-05-19T02:52:04Z",
+    "filePath": ".windsurf/skills/vx-usage/SKILL.md"
+  },
+  {
     "owner": "wildcard",
     "repo": "caro",
     "description": "caro: fast Rust CLI that turns natural‑language tasks into a safe POSIX command. Built for macOS (MLX/Metal) with a built‑in model; supports vLLM/Ollama/LM Studio. JSON‑only output, safety checks, confirmation, multi‑step goals, devcontainer included.",
@@ -21344,6 +21442,30 @@
     "filePath": ".agents/skills/zod/SKILL.md"
   },
   {
+    "owner": "hexxla",
+    "repo": "hexxladb",
+    "description": "A hex-native embedded database for Go. Morton keys, native ring scans, seams (contradictions), MVCC, provenance, and optional HNSW embeddings. Built from scratch for lattice-addressed memory.",
+    "stars": 22,
+    "forks": 1,
+    "topics": [
+      "agents",
+      "ai",
+      "database",
+      "embedded-database",
+      "embeddings",
+      "go",
+      "golang",
+      "graph-database",
+      "hnsw",
+      "llm",
+      "spatial-database",
+      "vector-database",
+      "vector-search"
+    ],
+    "updatedAt": "2026-05-18T14:44:46Z",
+    "filePath": ".windsurf/skills/struct-tag/SKILL.md"
+  },
+  {
     "owner": "intent-integrity-chain",
     "repo": "kit",
     "description": "Intent Integrity Kit - Closing the intent-to-code chasm",
@@ -22264,6 +22386,35 @@
     ],
     "updatedAt": "2026-05-11T17:44:19Z",
     "filePath": ".agents/skills/Humanizer-zh/SKILL.md"
+  },
+  {
+    "owner": "paperfoot",
+    "repo": "autoresearch-cli",
+    "description": "Autonomous AI experiment loop CLI -- run research overnight with any coding agent",
+    "stars": 20,
+    "forks": 3,
+    "topics": [
+      "ai-coding-agent",
+      "ai-experiments",
+      "ai-tools",
+      "automation",
+      "autonomous-research",
+      "autoresearch",
+      "claude-code",
+      "cli",
+      "codex",
+      "cursor",
+      "developer-tools",
+      "experiment-loop",
+      "experiment-tracking",
+      "karpathy",
+      "machine-learning",
+      "research-automation",
+      "rust-cli",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:34:37Z",
+    "filePath": ".windsurf/skills/autoresearch/SKILL.md"
   },
   {
     "owner": "Prorise-cool",
@@ -24463,6 +24614,36 @@
     "filePath": ".codex/skills/uat-scoped-deploy/SKILL.md"
   },
   {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": null,
+    "stars": 16,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T20:02:27Z",
+    "filePath": ".windsurf/skills/adr-authoring/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": null,
+    "stars": 16,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T20:02:27Z",
+    "filePath": ".windsurf/skills/angular-new-app/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": null,
+    "stars": 16,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-14T20:02:27Z",
+    "filePath": ".windsurf/skills/spring-security-baseline/SKILL.md"
+  },
+  {
     "owner": "tobi",
     "repo": "liquid-il",
     "description": "A Liquid template engine, 100% vibe coded by Claude Code against liquid-spec",
@@ -25031,6 +25212,46 @@
     "topics": [],
     "updatedAt": "2026-05-12T05:25:35Z",
     "filePath": ".agents/skills/chat-list/SKILL.md"
+  },
+  {
+    "owner": "zhuanggenhua",
+    "repo": "BoardGame",
+    "description": null,
+    "stars": 15,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-05-19T00:50:58Z",
+    "filePath": ".windsurf/skills/atlas-crop/SKILL.md"
+  },
+  {
+    "owner": "zhuanggenhua",
+    "repo": "BoardGame",
+    "description": null,
+    "stars": 15,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-05-19T00:50:58Z",
+    "filePath": ".windsurf/skills/adapt-game-mobile/SKILL.md"
+  },
+  {
+    "owner": "zhuanggenhua",
+    "repo": "BoardGame",
+    "description": null,
+    "stars": 15,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-05-19T00:50:58Z",
+    "filePath": ".windsurf/skills/merge-pr-workflow/SKILL.md"
+  },
+  {
+    "owner": "zhuanggenhua",
+    "repo": "BoardGame",
+    "description": null,
+    "stars": 15,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-05-19T00:50:58Z",
+    "filePath": ".windsurf/skills/game-ai-adaptation/SKILL.md"
   },
   {
     "owner": "WayfinderFoundation",
@@ -26658,6 +26879,40 @@
     ],
     "updatedAt": "2026-05-10T02:52:12Z",
     "filePath": ".codex/skills/flywheel/SKILL.md"
+  },
+  {
+    "owner": "SeloraHomes",
+    "repo": "ha-selora-ai",
+    "description": "Your smart assistant to manage and maintain your home.",
+    "stars": 13,
+    "forks": 1,
+    "topics": [
+      "hacs",
+      "home-assistant",
+      "home-assistant-custom-component"
+    ],
+    "updatedAt": "2026-05-19T03:40:48Z",
+    "filePath": ".windsurf/skills/selora-mcp/SKILL.md"
+  },
+  {
+    "owner": "ERufian",
+    "repo": "ksharp",
+    "description": "k version 3 Language Interpreter in C#",
+    "stars": 13,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-19T04:35:35Z",
+    "filePath": ".windsurf/skills/reference-result/SKILL.md"
+  },
+  {
+    "owner": "ERufian",
+    "repo": "ksharp",
+    "description": "k version 3 Language Interpreter in C#",
+    "stars": 13,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-19T04:35:35Z",
+    "filePath": ".windsurf/skills/remove-dead-code/SKILL.md"
   },
   {
     "owner": "sorryhyun",
@@ -29737,6 +29992,51 @@
     "filePath": ".claude/skills/release-checklist/SKILL.md"
   },
   {
+    "owner": "FindMalek",
+    "repo": "dukkani",
+    "description": "Create your online shop in minutes — no code, no stress.",
+    "stars": 9,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-28T08:12:08Z",
+    "filePath": ".windsurf/skills/dukkani-dashboard/SKILL.md"
+  },
+  {
+    "owner": "FindMalek",
+    "repo": "dukkani",
+    "description": "Create your online shop in minutes — no code, no stress.",
+    "stars": 9,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-28T08:12:08Z",
+    "filePath": ".windsurf/skills/dukkani-storefront/SKILL.md"
+  },
+  {
+    "owner": "SiluPanda",
+    "repo": "academic-researcher",
+    "description": "Skill to write academic research papers",
+    "stars": 9,
+    "forks": 0,
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "llm",
+      "skills"
+    ],
+    "updatedAt": "2026-05-07T07:14:03Z",
+    "filePath": ".windsurf/skills/academic-researcher/SKILL.md"
+  },
+  {
+    "owner": "FindMalek",
+    "repo": "dukkani",
+    "description": "Create your online shop in minutes — no code, no stress.",
+    "stars": 9,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-28T08:12:08Z",
+    "filePath": ".windsurf/skills/dukkani-architecture/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -30756,6 +31056,210 @@
     "topics": [],
     "updatedAt": "2026-05-06T15:32:46Z",
     "filePath": ".agents/skills/sim/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mma/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mmc/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mmq/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mms/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mml/SKILL.md"
+  },
+  {
+    "owner": "s-gryt",
+    "repo": "memory-mason",
+    "description": "Memory Mason automatically captures AI conversations and turns them into structured notes inside your Obsidian vault, inspired by Karpathy’s LLM Wiki approach.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "knowledge-management",
+      "knowlege-base",
+      "llm",
+      "memory",
+      "notes",
+      "obsidian",
+      "vault",
+      "wiki"
+    ],
+    "updatedAt": "2026-05-09T00:42:38Z",
+    "filePath": ".windsurf/skills/mmsetup/SKILL.md"
+  },
+  {
+    "owner": "OthmanAdi",
+    "repo": "MDDesign",
+    "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cline",
+      "codex-cli",
+      "cursor",
+      "design-system",
+      "plugin",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-07T19:58:35Z",
+    "filePath": ".windsurf/skills/memory-layer/SKILL.md"
+  },
+  {
+    "owner": "OthmanAdi",
+    "repo": "MDDesign",
+    "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cline",
+      "codex-cli",
+      "cursor",
+      "design-system",
+      "plugin",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-07T19:58:35Z",
+    "filePath": ".windsurf/skills/design-bridge/SKILL.md"
+  },
+  {
+    "owner": "OthmanAdi",
+    "repo": "MDDesign",
+    "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cline",
+      "codex-cli",
+      "cursor",
+      "design-system",
+      "plugin",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-07T19:58:35Z",
+    "filePath": ".windsurf/skills/team-dispatch/SKILL.md"
+  },
+  {
+    "owner": "OthmanAdi",
+    "repo": "MDDesign",
+    "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+    "stars": 8,
+    "forks": 2,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cline",
+      "codex-cli",
+      "cursor",
+      "design-system",
+      "plugin",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-07T19:58:35Z",
+    "filePath": ".windsurf/skills/design-harvest/SKILL.md"
   },
   {
     "owner": "kaihendry",
@@ -32044,6 +32548,36 @@
     "topics": [],
     "updatedAt": "2026-05-18T20:19:23Z",
     "filePath": ".claude/skills/resume-tailor/SKILL.md"
+  },
+  {
+    "owner": "Chief-Strategist-J",
+    "repo": "llm-observability-platform",
+    "description": "Independent LLM Chatbot Python project with production-grade features",
+    "stars": 7,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-19T11:11:37Z",
+    "filePath": ".windsurf/skills/ui-ux-skill/SKILL.md"
+  },
+  {
+    "owner": "enioxt",
+    "repo": "egos-lab",
+    "description": null,
+    "stars": 7,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-05-18T00:35:48Z",
+    "filePath": ".windsurf/skills/egos-agent/SKILL.md"
+  },
+  {
+    "owner": "enioxt",
+    "repo": "egos-lab",
+    "description": null,
+    "stars": 7,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-05-18T00:35:48Z",
+    "filePath": ".windsurf/skills/alibaba-video/SKILL.md"
   },
   {
     "owner": "ocn",
@@ -34172,6 +34706,378 @@
     "filePath": ".agents/skills/review/SKILL.md"
   },
   {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/logo/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/og-image/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/app-icon/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/vectorize/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/illustration/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/svg-authoring/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/transparent-bg/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/asset-enhancer/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/ui-mockup-prompt/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/brand-consistency/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/t2i-prompt-dialect/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-19T10:08:35Z",
+    "filePath": ".windsurf/skills/asset-validation-debug/SKILL.md"
+  },
+  {
     "owner": "troydai",
     "repo": "gwt",
     "description": "A git worktree management CLI",
@@ -36176,6 +37082,37 @@
     ],
     "updatedAt": "2026-05-18T07:24:17Z",
     "filePath": ".codex/skills/truthmark-document/SKILL.md"
+  },
+  {
+    "owner": "IvanTsxx",
+    "repo": "better-auth-mp",
+    "description": "Mercado Pago plugin for Better Auth. Handle payments, subscriptions, and webhooks easily.",
+    "stars": 5,
+    "forks": 0,
+    "topics": [
+      "bette-auth-mercadopago",
+      "better-auth",
+      "better-auth-nextjs",
+      "better-auth-plugin",
+      "mercadopago",
+      "nextjs",
+      "payments",
+      "plugin"
+    ],
+    "updatedAt": "2026-05-01T11:54:17Z",
+    "filePath": ".windsurf/skills/skills-cli/SKILL.md"
+  },
+  {
+    "owner": "aleemshahad",
+    "repo": "NEXT-LEVEL-TRADING-SYSTEM",
+    "description": "NEXT LEVEL TRADING SYSTEM is a professional automated trading bot that connects to MetaTrader 5 and executes a dynamic grid strategy on real market data. It does not use any mocked, simulated, or fake data — all prices, fills, and account information come directly from your live MT5 terminal.",
+    "stars": 5,
+    "forks": 2,
+    "topics": [
+      "trading-algorithms"
+    ],
+    "updatedAt": "2026-04-22T05:00:09Z",
+    "filePath": ".windsurf/skills/live-trading/SKILL.md"
   },
   {
     "owner": "zatsit-oss",
@@ -42240,6 +43177,145 @@
     "filePath": ".codex/skills/openspec-onboard/SKILL.md"
   },
   {
+    "owner": "d4551",
+    "repo": "piratebao",
+    "description": "PirateBao is a TypeScript/Bun agent-skill package for terse pirate-speak AI coding replies that preserve technical detail while cutting filler, with hooks, compressor CLI, OpenCode/Codex/Claude/Gemini cargo, .bao validation, npmjs gates, and token eval checks.",
+    "stars": 3,
+    "forks": 1,
+    "topics": [
+      "agentic-ai",
+      "ai",
+      "ai-agents",
+      "ai-skills",
+      "bao",
+      "bun",
+      "claude-code",
+      "cli",
+      "codex",
+      "coding-agent",
+      "gemini-cli",
+      "npm-package",
+      "opencode",
+      "prompt-compression",
+      "token-efficiency",
+      "typescript"
+    ],
+    "updatedAt": "2026-04-13T04:10:41Z",
+    "filePath": ".windsurf/skills/piratebao/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Portfolio",
+    "description": "Production-grade MLOps platform: 3 end-to-end ML projects with CI/CD, Terraform (GCP GKE) (AWS EKS), Kubernetes, MLflow, Docker, and 90-96% test coverage",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "aws",
+      "docker",
+      "eks",
+      "gcp",
+      "gke",
+      "grafana",
+      "kubernetes",
+      "machine-learning",
+      "mlflow",
+      "mlops",
+      "python",
+      "terraform"
+    ],
+    "updatedAt": "2026-05-15T21:41:59Z",
+    "filePath": ".windsurf/skills/deploy-gke/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Portfolio",
+    "description": "Production-grade MLOps platform: 3 end-to-end ML projects with CI/CD, Terraform (GCP GKE) (AWS EKS), Kubernetes, MLflow, Docker, and 90-96% test coverage",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "aws",
+      "docker",
+      "eks",
+      "gcp",
+      "gke",
+      "grafana",
+      "kubernetes",
+      "machine-learning",
+      "mlflow",
+      "mlops",
+      "python",
+      "terraform"
+    ],
+    "updatedAt": "2026-05-15T21:41:59Z",
+    "filePath": ".windsurf/skills/deploy-aws/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Portfolio",
+    "description": "Production-grade MLOps platform: 3 end-to-end ML projects with CI/CD, Terraform (GCP GKE) (AWS EKS), Kubernetes, MLflow, Docker, and 90-96% test coverage",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "aws",
+      "docker",
+      "eks",
+      "gcp",
+      "gke",
+      "grafana",
+      "kubernetes",
+      "machine-learning",
+      "mlflow",
+      "mlops",
+      "python",
+      "terraform"
+    ],
+    "updatedAt": "2026-05-15T21:41:59Z",
+    "filePath": ".windsurf/skills/model-retrain/SKILL.md"
+  },
+  {
+    "owner": "RajanChavada",
+    "repo": "Rosetta",
+    "description": "CLI tool that scaffolds and syncs agentic AI rules/skills across distinct and fragmented IDE's (Claude Code, VSCode, Cursor, Windsurf, Antigravity, etc.)",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-19T15:02:47Z",
+    "filePath": ".windsurf/skills/agentic-memory/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Portfolio",
+    "description": "Production-grade MLOps platform: 3 end-to-end ML projects with CI/CD, Terraform (GCP GKE) (AWS EKS), Kubernetes, MLflow, Docker, and 90-96% test coverage",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "aws",
+      "docker",
+      "eks",
+      "gcp",
+      "gke",
+      "grafana",
+      "kubernetes",
+      "machine-learning",
+      "mlflow",
+      "mlops",
+      "python",
+      "terraform"
+    ],
+    "updatedAt": "2026-05-15T21:41:59Z",
+    "filePath": ".windsurf/skills/drift-detection/SKILL.md"
+  },
+  {
+    "owner": "RajanChavada",
+    "repo": "Rosetta",
+    "description": "CLI tool that scaffolds and syncs agentic AI rules/skills across distinct and fragmented IDE's (Claude Code, VSCode, Cursor, Windsurf, Antigravity, etc.)",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-19T15:02:47Z",
+    "filePath": ".windsurf/skills/data-ml-project/SKILL.md"
+  },
+  {
     "owner": "zenchantlive",
     "repo": "Asset-Hatch",
     "description": "AI-powered asset + game creation platform — Plan and generate 2D/3D assets, then build a playable Babylon.js game in Hatch Studios.",
@@ -47412,6 +48488,296 @@
     "topics": [],
     "updatedAt": "2026-04-20T15:10:31Z",
     "filePath": ".agents/skills/review/SKILL.md"
+  },
+  {
+    "owner": "jayli",
+    "repo": "block-proxy",
+    "description": "基于 MITM 的 socks5 over TLS 代理",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T06:38:41Z",
+    "filePath": ".claude/skills/commit/skill.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/plan/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/clean/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/debug/SKILL.md"
+  },
+  {
+    "owner": "karstenheld3",
+    "repo": "OpenAI-BackendTools",
+    "description": "A collection of tools to test, operate and maintain OpenAI backends (OpenAI and AzureOpenAI)",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-02T11:12:10Z",
+    "filePath": ".windsurf/skills/github/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/deploy/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/agents/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/create/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/status/SKILL.md"
+  },
+  {
+    "owner": "pomagrenate",
+    "repo": "ice_age",
+    "description": "Reduce your token consumption but in Go",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T07:42:27Z",
+    "filePath": ".windsurf/skills/iceage/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/enhance/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/explain/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/preview/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Production-Template",
+    "description": "Production ML template with 32 encoded anti-patterns, multi-cloud K8s, agent rules (AUTO/CONSULT/STOP), and supply-chain security for Windsurf, Claude Code, and Cursor.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "agentic-ai",
+      "agentic-ai-assist",
+      "ai-coding-assistant",
+      "devops",
+      "eks",
+      "fastapi",
+      "github-actions",
+      "gke",
+      "kubernetes",
+      "machine-learning",
+      "machine-learning-engineering",
+      "mlflow",
+      "mlops",
+      "multi-cloud",
+      "production-ml",
+      "production-mlops",
+      "template",
+      "terraform",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-15T23:54:31Z",
+    "filePath": ".windsurf/skills/rollback/SKILL.md"
+  },
+  {
+    "owner": "karstenheld3",
+    "repo": "OpenAI-BackendTools",
+    "description": "A collection of tools to test, operate and maintain OpenAI backends (OpenAI and AzureOpenAI)",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-02T11:12:10Z",
+    "filePath": ".windsurf/skills/pdf-tools/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/integrate/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/motion-ui/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Production-Template",
+    "description": "Production ML template with 32 encoded anti-patterns, multi-cloud K8s, agent rules (AUTO/CONSULT/STOP), and supply-chain security for Windsurf, Claude Code, and Cursor.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "agentic-ai",
+      "agentic-ai-assist",
+      "ai-coding-assistant",
+      "devops",
+      "eks",
+      "fastapi",
+      "github-actions",
+      "gke",
+      "kubernetes",
+      "machine-learning",
+      "machine-learning-engineering",
+      "mlflow",
+      "mlops",
+      "multi-cloud",
+      "production-ml",
+      "production-mlops",
+      "template",
+      "terraform",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-15T23:54:31Z",
+    "filePath": ".windsurf/skills/deploy-gke/SKILL.md"
+  },
+  {
+    "owner": "VoTruongDanh",
+    "repo": "Skills-Agent",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T04:46:05Z",
+    "filePath": ".windsurf/skills/brainstorm/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Production-Template",
+    "description": "Production ML template with 32 encoded anti-patterns, multi-cloud K8s, agent rules (AUTO/CONSULT/STOP), and supply-chain security for Windsurf, Claude Code, and Cursor.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "agentic-ai",
+      "agentic-ai-assist",
+      "ai-coding-assistant",
+      "devops",
+      "eks",
+      "fastapi",
+      "github-actions",
+      "gke",
+      "kubernetes",
+      "machine-learning",
+      "machine-learning-engineering",
+      "mlflow",
+      "mlops",
+      "multi-cloud",
+      "production-ml",
+      "production-mlops",
+      "template",
+      "terraform",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-15T23:54:31Z",
+    "filePath": ".windsurf/skills/deploy-aws/SKILL.md"
+  },
+  {
+    "owner": "DuqueOM",
+    "repo": "ML-MLOps-Production-Template",
+    "description": "Production ML template with 32 encoded anti-patterns, multi-cloud K8s, agent rules (AUTO/CONSULT/STOP), and supply-chain security for Windsurf, Claude Code, and Cursor.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "agentic-ai",
+      "agentic-ai-assist",
+      "ai-coding-assistant",
+      "devops",
+      "eks",
+      "fastapi",
+      "github-actions",
+      "gke",
+      "kubernetes",
+      "machine-learning",
+      "machine-learning-engineering",
+      "mlflow",
+      "mlops",
+      "multi-cloud",
+      "production-ml",
+      "production-mlops",
+      "template",
+      "terraform",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-15T23:54:31Z",
+    "filePath": ".windsurf/skills/cost-audit/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -60775,7 +62141,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T13:54:25Z",
+    "updatedAt": "2026-05-19T13:30:26Z",
     "filePath": ".claude/skills/tdd/SKILL.md"
   },
   {
@@ -61622,7 +62988,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T04:25:00Z",
+    "updatedAt": "2026-05-19T12:05:48Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -62547,7 +63913,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T00:33:35Z",
+    "updatedAt": "2026-05-19T14:58:57Z",
     "filePath": ".claude/skills/popup-cro/SKILL.md"
   },
   {
@@ -62772,7 +64138,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T00:33:35Z",
+    "updatedAt": "2026-05-19T14:58:57Z",
     "filePath": ".claude/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -62878,7 +64244,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-16T14:50:55Z",
+    "updatedAt": "2026-05-19T05:12:52Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -62974,7 +64340,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-19T04:22:53Z",
+    "updatedAt": "2026-05-19T15:38:41Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -63340,7 +64706,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T23:58:42Z",
+    "updatedAt": "2026-05-19T11:03:35Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -63497,7 +64863,7 @@
       "productivity",
       "social-network"
     ],
-    "updatedAt": "2026-05-18T18:51:44Z",
+    "updatedAt": "2026-05-19T13:16:50Z",
     "filePath": ".claude/skills/the-linter/SKILL.md"
   },
   {
@@ -63577,7 +64943,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-13T17:33:21Z",
+    "updatedAt": "2026-05-19T16:04:14Z",
     "filePath": ".claude/skills/merge/SKILL.md"
   },
   {
@@ -63597,7 +64963,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T19:30:33Z",
+    "updatedAt": "2026-05-19T11:34:25Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -64015,7 +65381,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T04:25:00Z",
+    "updatedAt": "2026-05-19T12:05:48Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -64185,7 +65551,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T01:10:27Z",
+    "updatedAt": "2026-05-19T15:48:37Z",
     "filePath": ".claude/skills/synthea/SKILL.md"
   },
   {
@@ -64425,7 +65791,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-13T17:33:21Z",
+    "updatedAt": "2026-05-19T16:04:14Z",
     "filePath": ".claude/skills/generation-plan/SKILL.md"
   },
   {
@@ -64652,7 +66018,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T20:30:34Z",
+    "updatedAt": "2026-05-19T16:02:46Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -65117,7 +66483,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-01T07:46:38Z",
+    "updatedAt": "2026-05-19T07:42:44Z",
     "filePath": ".claude/skills/audit-web/SKILL.md"
   },
   {
@@ -65186,7 +66552,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T19:30:10Z",
+    "updatedAt": "2026-05-19T12:29:58Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -65246,7 +66612,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T22:26:03Z",
+    "updatedAt": "2026-05-19T11:06:24Z",
     "filePath": ".claude/skills/brainstorming/SKILL.md"
   },
   {
@@ -65376,7 +66742,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-18T22:40:31Z",
+    "updatedAt": "2026-05-19T15:34:18Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -65416,7 +66782,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T04:36:15Z",
+    "updatedAt": "2026-05-19T15:24:21Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
