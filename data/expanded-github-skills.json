@@ -619,6 +619,36 @@
     "filePath": ".agents/skills/create-pr/SKILL.md"
   },
   {
+    "owner": "remix-run",
+    "repo": "remix",
+    "description": "Build Better Websites. Create modern, resilient user experiences with web fundamentals.",
+    "stars": 32988,
+    "forks": 2772,
+    "topics": [],
+    "updatedAt": "2026-05-21T04:44:20Z",
+    "filePath": ".agents/skills/review-pr/SKILL.md"
+  },
+  {
+    "owner": "remix-run",
+    "repo": "remix",
+    "description": "Build Better Websites. Create modern, resilient user experiences with web fundamentals.",
+    "stars": 32988,
+    "forks": 2772,
+    "topics": [],
+    "updatedAt": "2026-05-21T04:44:20Z",
+    "filePath": ".agents/skills/make-decision-doc/SKILL.md"
+  },
+  {
+    "owner": "remix-run",
+    "repo": "remix",
+    "description": "Build Better Websites. Create modern, resilient user experiences with web fundamentals.",
+    "stars": 32988,
+    "forks": 2772,
+    "topics": [],
+    "updatedAt": "2026-05-21T04:44:20Z",
+    "filePath": ".agents/skills/author-ui-modules/SKILL.md"
+  },
+  {
     "owner": "medusajs",
     "repo": "medusa",
     "description": "The world's most flexible commerce platform.",
@@ -862,6 +892,78 @@
     "filePath": ".claude/skills/pr-automation/SKILL.md"
   },
   {
+    "owner": "elastic",
+    "repo": "kibana",
+    "description": "Your window into all of your data",
+    "stars": 21091,
+    "forks": 8582,
+    "topics": [
+      "dashboards",
+      "elasticsearch",
+      "hacktoberfest",
+      "kibana",
+      "metrics",
+      "observability",
+      "visualizations"
+    ],
+    "updatedAt": "2026-05-21T04:02:48Z",
+    "filePath": ".agents/skills/api-authz/SKILL.md"
+  },
+  {
+    "owner": "elastic",
+    "repo": "kibana",
+    "description": "Your window into all of your data",
+    "stars": 21091,
+    "forks": 8582,
+    "topics": [
+      "dashboards",
+      "elasticsearch",
+      "hacktoberfest",
+      "kibana",
+      "metrics",
+      "observability",
+      "visualizations"
+    ],
+    "updatedAt": "2026-05-21T04:02:48Z",
+    "filePath": ".agents/skills/enzyme-to-rtl/SKILL.md"
+  },
+  {
+    "owner": "elastic",
+    "repo": "kibana",
+    "description": "Your window into all of your data",
+    "stars": 21091,
+    "forks": 8582,
+    "topics": [
+      "dashboards",
+      "elasticsearch",
+      "hacktoberfest",
+      "kibana",
+      "metrics",
+      "observability",
+      "visualizations"
+    ],
+    "updatedAt": "2026-05-21T04:02:48Z",
+    "filePath": ".agents/skills/gh-enhance-issue/SKILL.md"
+  },
+  {
+    "owner": "elastic",
+    "repo": "kibana",
+    "description": "Your window into all of your data",
+    "stars": 21091,
+    "forks": 8582,
+    "topics": [
+      "dashboards",
+      "elasticsearch",
+      "hacktoberfest",
+      "kibana",
+      "metrics",
+      "observability",
+      "visualizations"
+    ],
+    "updatedAt": "2026-05-21T04:02:48Z",
+    "filePath": ".agents/skills/evals-write-spec/SKILL.md"
+  },
+  {
     "owner": "iOfficeAI",
     "repo": "AionUi",
     "description": "Free, local, open-source 24/7 Cowork app and OpenClaw for Gemini CLI, Claude Code, Codex, OpenCode, Qwen Code, Goose CLI, Auggie, and more | 🌟 Star if you like it!",
@@ -957,6 +1059,87 @@
     ],
     "updatedAt": "2026-03-26T05:34:51Z",
     "filePath": ".claude/SKILL.md"
+  },
+  {
+    "owner": "nukeop",
+    "repo": "nuclear",
+    "description": "Streaming music player that finds free music for you",
+    "stars": 17659,
+    "forks": 1285,
+    "topics": [
+      "agent",
+      "ai",
+      "desktop-app",
+      "linux",
+      "mac",
+      "mcp",
+      "mcp-server",
+      "music",
+      "music-player",
+      "react",
+      "rust",
+      "spotify",
+      "streaming",
+      "tauri",
+      "typescript",
+      "windows"
+    ],
+    "updatedAt": "2026-05-21T03:51:57Z",
+    "filePath": ".agents/skills/writing-docs/SKILL.md"
+  },
+  {
+    "owner": "nukeop",
+    "repo": "nuclear",
+    "description": "Streaming music player that finds free music for you",
+    "stars": 17659,
+    "forks": 1285,
+    "topics": [
+      "agent",
+      "ai",
+      "desktop-app",
+      "linux",
+      "mac",
+      "mcp",
+      "mcp-server",
+      "music",
+      "music-player",
+      "react",
+      "rust",
+      "spotify",
+      "streaming",
+      "tauri",
+      "typescript",
+      "windows"
+    ],
+    "updatedAt": "2026-05-21T03:51:57Z",
+    "filePath": ".agents/skills/host-pattern/SKILL.md"
+  },
+  {
+    "owner": "nukeop",
+    "repo": "nuclear",
+    "description": "Streaming music player that finds free music for you",
+    "stars": 17659,
+    "forks": 1285,
+    "topics": [
+      "agent",
+      "ai",
+      "desktop-app",
+      "linux",
+      "mac",
+      "mcp",
+      "mcp-server",
+      "music",
+      "music-player",
+      "react",
+      "rust",
+      "spotify",
+      "streaming",
+      "tauri",
+      "typescript",
+      "windows"
+    ],
+    "updatedAt": "2026-05-21T03:51:57Z",
+    "filePath": ".agents/skills/writing-plugins/SKILL.md"
   },
   {
     "owner": "pbakaus",
@@ -1291,6 +1474,25 @@
     "filePath": ".claude/skills/simple-pr/SKILL.md"
   },
   {
+    "owner": "kedro-org",
+    "repo": "kedro",
+    "description": "Kedro is a toolbox for production-ready data science. It uses software engineering best practices to help you create data engineering and data science pipelines that are reproducible, maintainable, and modular.",
+    "stars": 10866,
+    "forks": 1036,
+    "topics": [
+      "experiment-tracking",
+      "hacktoberfest",
+      "kedro",
+      "machine-learning",
+      "machine-learning-engineering",
+      "mlops",
+      "pipeline",
+      "python"
+    ],
+    "updatedAt": "2026-05-20T18:16:08Z",
+    "filePath": ".agents/skills/review-kedro-pr/SKILL.md"
+  },
+  {
     "owner": "pipecat-ai",
     "repo": "pipecat",
     "description": "Open Source framework for voice and multimodal conversational AI",
@@ -1374,6 +1576,30 @@
     "filePath": ".claude/skills/openspec-continue-change/SKILL.md"
   },
   {
+    "owner": "kubernetes-sigs",
+    "repo": "kubebuilder",
+    "description": "Kubebuilder - SDK for building Kubernetes APIs using CRDs",
+    "stars": 9153,
+    "forks": 1653,
+    "topics": [
+      "k8s-sig-api-machinery"
+    ],
+    "updatedAt": "2026-05-21T03:40:47Z",
+    "filePath": ".agents/skills/plugin-helm/SKILL.md"
+  },
+  {
+    "owner": "kubernetes-sigs",
+    "repo": "kubebuilder",
+    "description": "Kubebuilder - SDK for building Kubernetes APIs using CRDs",
+    "stars": 9153,
+    "forks": 1653,
+    "topics": [
+      "k8s-sig-api-machinery"
+    ],
+    "updatedAt": "2026-05-21T03:40:47Z",
+    "filePath": ".agents/skills/cli-descriptions/SKILL.md"
+  },
+  {
     "owner": "antiwork",
     "repo": "gumroad",
     "description": "Sell stuff and see what sticks",
@@ -1419,6 +1645,23 @@
     "filePath": ".claude/skills/commit/SKILL.md"
   },
   {
+    "owner": "react-cosmos",
+    "repo": "react-cosmos",
+    "description": "Sandbox for developing and testing UI components in isolation",
+    "stars": 8671,
+    "forks": 389,
+    "topics": [
+      "components",
+      "devtools",
+      "react",
+      "sandbox",
+      "testing",
+      "ui"
+    ],
+    "updatedAt": "2026-05-20T22:52:56Z",
+    "filePath": ".agents/skills/gh-release-notes/SKILL.md"
+  },
+  {
     "owner": "getsentry",
     "repo": "sentry-javascript",
     "description": "Official Sentry SDKs for JavaScript",
@@ -1447,6 +1690,25 @@
     ],
     "updatedAt": "2026-04-11T21:46:08Z",
     "filePath": ".agents/skills/upgrade-otel/SKILL.md"
+  },
+  {
+    "owner": "ngrx",
+    "repo": "platform",
+    "description": "Reactive State for Angular",
+    "stars": 8317,
+    "forks": 2050,
+    "topics": [
+      "angular",
+      "ngrx",
+      "observables",
+      "reactive",
+      "redux",
+      "rxjs",
+      "signals",
+      "state-management"
+    ],
+    "updatedAt": "2026-05-21T04:18:58Z",
+    "filePath": ".agents/skills/writing-docs/SKILL.md"
   },
   {
     "owner": "OrchardCMS",
@@ -1623,6 +1885,24 @@
     "filePath": ".claude/skills/code-review-asm-xtensa/SKILL.md"
   },
   {
+    "owner": "sammchardy",
+    "repo": "python-binance",
+    "description": "Binance Exchange API python implementation for automated trading",
+    "stars": 7158,
+    "forks": 2279,
+    "topics": [
+      "api",
+      "binance",
+      "cryptocurrency",
+      "python",
+      "python2",
+      "python3",
+      "websockets"
+    ],
+    "updatedAt": "2026-05-20T23:33:31Z",
+    "filePath": ".agents/skills/python-binance/SKILL.md"
+  },
+  {
     "owner": "civitai",
     "repo": "civitai",
     "description": "A repository of models, textual inversions, and more",
@@ -1676,6 +1956,23 @@
     "filePath": ".claude/skills/triage/SKILL.md"
   },
   {
+    "owner": "express-validator",
+    "repo": "express-validator",
+    "description": "An express.js middleware for validator.js.",
+    "stars": 6240,
+    "forks": 626,
+    "topics": [
+      "express",
+      "expressjs",
+      "javascript",
+      "nodejs",
+      "validation",
+      "validator"
+    ],
+    "updatedAt": "2026-05-17T23:11:14Z",
+    "filePath": ".agents/skills/upgrade-validator/SKILL.md"
+  },
+  {
     "owner": "pydantic",
     "repo": "monty",
     "description": "A minimal, secure Python interpreter written in Rust for use by AI",
@@ -1706,6 +2003,23 @@
     "owner": "JimmyLv",
     "repo": "BibiGPT-v1",
     "description": "BibiGPT v1 · one-Click AI Summary for Audio/Video & Chat with Learning Content: Bilibili | YouTube | Tweet丨TikTok丨Dropbox丨Google Drive丨Local files | Websites丨Podcasts | Meetings | Lectures, etc. 音视频内容 AI 一键总结 & 对话：哔哩哔哩丨YouTube丨推特丨小红书丨抖音丨快手丨百度网盘丨阿里云盘丨网页丨播客丨会议丨本地文件等 (原 BiliGPT 省流神器 & AI课代表)",
+    "stars": 6065,
+    "forks": 807,
+    "topics": [
+      "bilibili",
+      "chatgpt",
+      "gpt",
+      "gpt-3",
+      "openai",
+      "youtube"
+    ],
+    "updatedAt": "2026-05-21T01:05:11Z",
+    "filePath": ".agents/skills/bibi/SKILL.md"
+  },
+  {
+    "owner": "JimmyLv",
+    "repo": "BibiGPT-v1",
+    "description": "BibiGPT v1 · one-Click AI Summary for Audio/Video & Chat with Learning Content: Bilibili | YouTube | Tweet丨TikTok丨Dropbox丨Google Drive丨Local files | Websites丨Podcasts | Meetings | Lectures, etc. 音视频内容 AI 一键总结 & 对话：哔哩哔哩丨YouTube丨推特丨小红书丨抖音丨快手丨百度网盘丨阿里云盘丨网页丨播客丨会议丨本地文件等 (原 BiliGPT 省流神器 & AI课代表)",
     "stars": 6032,
     "forks": 804,
     "topics": [
@@ -1718,6 +2032,338 @@
     ],
     "updatedAt": "2026-04-30T03:44:58Z",
     "filePath": ".agents/skills/agent-browser/SKILL.md"
+  },
+  {
+    "owner": "androidx",
+    "repo": "androidx",
+    "description": "Development environment for Android Jetpack extension libraries under the androidx namespace. Synchronized with Android Jetpack's primary development branch on AOSP.",
+    "stars": 5995,
+    "forks": 1320,
+    "topics": [
+      "android",
+      "jetpack",
+      "library"
+    ],
+    "updatedAt": "2026-05-21T03:04:45Z",
+    "filePath": ".agents/skills/benchmark/SKILL.md"
+  },
+  {
+    "owner": "androidx",
+    "repo": "androidx",
+    "description": "Development environment for Android Jetpack extension libraries under the androidx namespace. Synchronized with Android Jetpack's primary development branch on AOSP.",
+    "stars": 5995,
+    "forks": 1320,
+    "topics": [
+      "android",
+      "jetpack",
+      "library"
+    ],
+    "updatedAt": "2026-05-21T03:04:45Z",
+    "filePath": ".agents/skills/api_review/SKILL.md"
+  },
+  {
+    "owner": "androidx",
+    "repo": "androidx",
+    "description": "Development environment for Android Jetpack extension libraries under the androidx namespace. Synchronized with Android Jetpack's primary development branch on AOSP.",
+    "stars": 5995,
+    "forks": 1320,
+    "topics": [
+      "android",
+      "jetpack",
+      "library"
+    ],
+    "updatedAt": "2026-05-21T03:04:45Z",
+    "filePath": ".agents/skills/health-connect/SKILL.md"
+  },
+  {
+    "owner": "androidx",
+    "repo": "androidx",
+    "description": "Development environment for Android Jetpack extension libraries under the androidx namespace. Synchronized with Android Jetpack's primary development branch on AOSP.",
+    "stars": 5995,
+    "forks": 1320,
+    "topics": [
+      "android",
+      "jetpack",
+      "library"
+    ],
+    "updatedAt": "2026-05-21T03:04:45Z",
+    "filePath": ".agents/skills/remove-feature-flag/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/issue-repro/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/sample-scout/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/skia-analyst/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/release-notes/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/api-add-review/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/security-audit/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/release-branch/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/release-testing/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/release-publish/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/validate-samples/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/pr-commit-message/SKILL.md"
+  },
+  {
+    "owner": "mono",
+    "repo": "SkiaSharp",
+    "description": "SkiaSharp is a cross-platform 2D graphics API for .NET platforms based on Google's Skia Graphics Library. It provides a comprehensive 2D API that can be used across mobile, server and desktop models to render images.",
+    "stars": 5406,
+    "forks": 630,
+    "topics": [
+      "android",
+      "cross-platform",
+      "dot-net",
+      "dotnet",
+      "graphics",
+      "hacktoberfest",
+      "ios",
+      "macos",
+      "skia",
+      "skiasharp",
+      "windows",
+      "xamarin"
+    ],
+    "updatedAt": "2026-05-21T04:03:51Z",
+    "filePath": ".agents/skills/issue-bulk-process/SKILL.md"
   },
   {
     "owner": "mengxi-ream",
@@ -1746,6 +2392,21 @@
     "filePath": ".agents/skills/wxt/SKILL.md"
   },
   {
+    "owner": "remeda",
+    "repo": "remeda",
+    "description": "A utility library for JavaScript and TypeScript.",
+    "stars": 5368,
+    "forks": 166,
+    "topics": [
+      "functional",
+      "programming",
+      "typescript",
+      "utility"
+    ],
+    "updatedAt": "2026-05-16T14:58:35Z",
+    "filePath": ".agents/skills/shadcn/SKILL.md"
+  },
+  {
     "owner": "getsentry",
     "repo": "XcodeBuildMCP",
     "description": "A Model Context Protocol (MCP) server and CLI that provides tools for agent use when working on iOS and macOS projects.",
@@ -1762,6 +2423,69 @@
     ],
     "updatedAt": "2026-04-29T03:00:51Z",
     "filePath": ".agents/skills/xcodebuildmcp-structured-output-review/SKILL.md"
+  },
+  {
+    "owner": "yansongda",
+    "repo": "pay",
+    "description": "可能是我用过的最优雅的 Alipay/WeChat/Douyin/Unipay/江苏银行 的支付 SDK 扩展包了",
+    "stars": 5340,
+    "forks": 1051,
+    "topics": [
+      "alipay",
+      "douyin",
+      "laravel-pay",
+      "pay",
+      "payment",
+      "php",
+      "unipay",
+      "wechat",
+      "weixin",
+      "yansongda"
+    ],
+    "updatedAt": "2026-05-21T02:40:43Z",
+    "filePath": ".agents/skills/dev-guide/SKILL.md"
+  },
+  {
+    "owner": "yansongda",
+    "repo": "pay",
+    "description": "可能是我用过的最优雅的 Alipay/WeChat/Douyin/Unipay/江苏银行 的支付 SDK 扩展包了",
+    "stars": 5340,
+    "forks": 1051,
+    "topics": [
+      "alipay",
+      "douyin",
+      "laravel-pay",
+      "pay",
+      "payment",
+      "php",
+      "unipay",
+      "wechat",
+      "weixin",
+      "yansongda"
+    ],
+    "updatedAt": "2026-05-21T02:40:43Z",
+    "filePath": ".agents/skills/container-dev/SKILL.md"
+  },
+  {
+    "owner": "yansongda",
+    "repo": "pay",
+    "description": "可能是我用过的最优雅的 Alipay/WeChat/Douyin/Unipay/江苏银行 的支付 SDK 扩展包了",
+    "stars": 5340,
+    "forks": 1051,
+    "topics": [
+      "alipay",
+      "douyin",
+      "laravel-pay",
+      "pay",
+      "payment",
+      "php",
+      "unipay",
+      "wechat",
+      "weixin",
+      "yansongda"
+    ],
+    "updatedAt": "2026-05-21T02:40:43Z",
+    "filePath": ".agents/skills/pr-review-provider/SKILL.md"
   },
   {
     "owner": "dlt-hub",
@@ -1906,6 +2630,36 @@
     "filePath": ".agents/skills/ui/SKILL.md"
   },
   {
+    "owner": "jmacdonald",
+    "repo": "amp",
+    "description": "A complete text editor for your terminal.",
+    "stars": 4072,
+    "forks": 107,
+    "topics": [
+      "rust",
+      "terminal",
+      "text-editor",
+      "vim"
+    ],
+    "updatedAt": "2026-05-19T21:01:22Z",
+    "filePath": ".agents/skills/theme-definition/SKILL.md"
+  },
+  {
+    "owner": "jmacdonald",
+    "repo": "amp",
+    "description": "A complete text editor for your terminal.",
+    "stars": 4072,
+    "forks": 107,
+    "topics": [
+      "rust",
+      "terminal",
+      "text-editor",
+      "vim"
+    ],
+    "updatedAt": "2026-05-19T21:01:22Z",
+    "filePath": ".agents/skills/syntax-definition/SKILL.md"
+  },
+  {
     "owner": "patriksimek",
     "repo": "vm2",
     "description": "Advanced vm/sandbox for Node.js",
@@ -1930,6 +2684,46 @@
     "topics": [],
     "updatedAt": "2026-04-25T13:57:28Z",
     "filePath": ".agents/skills/review-pr-comments/SKILL.md"
+  },
+  {
+    "owner": "didi",
+    "repo": "mpx",
+    "description": "Mpx，一款具有优秀开发体验和深度性能优化的增强型跨端小程序框架",
+    "stars": 3891,
+    "forks": 389,
+    "topics": [
+      "alipay-mini-program",
+      "development-framework",
+      "miniprogram",
+      "mpx",
+      "reactive-programming",
+      "vue",
+      "webapp",
+      "webpack",
+      "wechat-mini-program"
+    ],
+    "updatedAt": "2026-05-19T09:31:52Z",
+    "filePath": ".agents/skills/mpx2rn/SKILL.md"
+  },
+  {
+    "owner": "didi",
+    "repo": "mpx",
+    "description": "Mpx，一款具有优秀开发体验和深度性能优化的增强型跨端小程序框架",
+    "stars": 3891,
+    "forks": 389,
+    "topics": [
+      "alipay-mini-program",
+      "development-framework",
+      "miniprogram",
+      "mpx",
+      "reactive-programming",
+      "vue",
+      "webapp",
+      "webpack",
+      "wechat-mini-program"
+    ],
+    "updatedAt": "2026-05-19T09:31:52Z",
+    "filePath": ".agents/skills/network-proxy/SKILL.md"
   },
   {
     "owner": "artsy",
@@ -1969,6 +2763,46 @@
     ],
     "updatedAt": "2026-03-21T17:53:26Z",
     "filePath": ".claude/skills/slash-commands/SKILL.md"
+  },
+  {
+    "owner": "TinyAGI",
+    "repo": "tinyagi",
+    "description": "TinyAGI is the agent teams orchestrator for One Person Company. (fka TinyClaw)",
+    "stars": 3564,
+    "forks": 506,
+    "topics": [],
+    "updatedAt": "2026-05-20T23:19:18Z",
+    "filePath": ".agents/skills/tasks/SKILL.md"
+  },
+  {
+    "owner": "TinyAGI",
+    "repo": "tinyagi",
+    "description": "TinyAGI is the agent teams orchestrator for One Person Company. (fka TinyClaw)",
+    "stars": 3564,
+    "forks": 506,
+    "topics": [],
+    "updatedAt": "2026-05-20T23:19:18Z",
+    "filePath": ".agents/skills/memory/SKILL.md"
+  },
+  {
+    "owner": "TinyAGI",
+    "repo": "tinyagi",
+    "description": "TinyAGI is the agent teams orchestrator for One Person Company. (fka TinyClaw)",
+    "stars": 3564,
+    "forks": 506,
+    "topics": [],
+    "updatedAt": "2026-05-20T23:19:18Z",
+    "filePath": ".agents/skills/schedule/SKILL.md"
+  },
+  {
+    "owner": "TinyAGI",
+    "repo": "tinyagi",
+    "description": "TinyAGI is the agent teams orchestrator for One Person Company. (fka TinyClaw)",
+    "stars": 3564,
+    "forks": 506,
+    "topics": [],
+    "updatedAt": "2026-05-20T23:19:18Z",
+    "filePath": ".agents/skills/tinyagi-admin/SKILL.md"
   },
   {
     "owner": "atopile",
@@ -2071,6 +2905,48 @@
     "filePath": ".codex/skills/openspec-verify-change/SKILL.md"
   },
   {
+    "owner": "blokadaorg",
+    "repo": "blokada",
+    "description": "The official repo for Blokada apps.",
+    "stars": 3226,
+    "forks": 231,
+    "topics": [
+      "adblocker",
+      "adblocking",
+      "android",
+      "blocker",
+      "blokada",
+      "dns",
+      "ios",
+      "privacy",
+      "security",
+      "vpn"
+    ],
+    "updatedAt": "2026-05-20T23:37:27Z",
+    "filePath": ".agents/skills/appium/SKILL.md"
+  },
+  {
+    "owner": "blokadaorg",
+    "repo": "blokada",
+    "description": "The official repo for Blokada apps.",
+    "stars": 3226,
+    "forks": 231,
+    "topics": [
+      "adblocker",
+      "adblocking",
+      "android",
+      "blocker",
+      "blokada",
+      "dns",
+      "ios",
+      "privacy",
+      "security",
+      "vpn"
+    ],
+    "updatedAt": "2026-05-20T23:37:27Z",
+    "filePath": ".agents/skills/device-log/SKILL.md"
+  },
+  {
     "owner": "Myriad-Dreamin",
     "repo": "tinymist",
     "description": "Tinymist [ˈtaɪni mɪst] is an integrated language service for Typst [taɪpst].",
@@ -2088,6 +2964,25 @@
     ],
     "updatedAt": "2026-05-13T12:42:00Z",
     "filePath": ".codex/skills/gh-cli/SKILL.md"
+  },
+  {
+    "owner": "pmndrs",
+    "repo": "uikit",
+    "description": "🎨 user interfaces for react-three-fiber",
+    "stars": 3153,
+    "forks": 173,
+    "topics": [
+      "flexbox",
+      "r3f",
+      "react",
+      "threejs",
+      "typescript",
+      "uikit",
+      "userinterface",
+      "yoga"
+    ],
+    "updatedAt": "2026-05-20T10:05:02Z",
+    "filePath": ".agents/skills/vitexec/SKILL.md"
   },
   {
     "owner": "atopile",
@@ -2289,6 +3184,22 @@
     "filePath": ".agents/skills/hyperframes-registry/SKILL.md"
   },
   {
+    "owner": "refraction-ray",
+    "repo": "xalpha",
+    "description": "基金投资管理回测引擎",
+    "stars": 2510,
+    "forks": 471,
+    "topics": [
+      "ai-agents",
+      "backtest",
+      "finance",
+      "investment",
+      "quantitative-trading"
+    ],
+    "updatedAt": "2026-05-20T10:21:30Z",
+    "filePath": ".agents/skills/question2report/SKILL.md"
+  },
+  {
     "owner": "gridaco",
     "repo": "grida",
     "description": "Grida — Open Design",
@@ -2312,6 +3223,554 @@
     ],
     "updatedAt": "2026-05-20T04:21:13Z",
     "filePath": ".agents/skills/seo/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/tweet/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/vision/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/io-svg/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/naming/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/fixtures/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/research/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/io-figma/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/io-grida/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/ai-models/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/render-perf/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/editor-perf/SKILL.md"
+  },
+  {
+    "owner": "gridaco",
+    "repo": "grida",
+    "description": "Grida — Open Design",
+    "stars": 2489,
+    "forks": 135,
+    "topics": [
+      "2d",
+      "artboard",
+      "canvas",
+      "database",
+      "figma-alternative",
+      "grida",
+      "no-code",
+      "postgresql",
+      "rust",
+      "skia",
+      "supabase",
+      "svg",
+      "tailwindcss",
+      "webgpu"
+    ],
+    "updatedAt": "2026-05-20T23:39:31Z",
+    "filePath": ".agents/skills/canvas-user-docs/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/foundatio/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/e2e-testing/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/accessibility/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/tanstack-query/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/backend-testing/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/frontend-testing/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/svelte-components/SKILL.md"
+  },
+  {
+    "owner": "exceptionless",
+    "repo": "Exceptionless",
+    "description": "Exceptionless application",
+    "stars": 2458,
+    "forks": 507,
+    "topics": [
+      "asp-net",
+      "bug-tracking-tool",
+      "c-sharp",
+      "crash-reporting",
+      "crash-reporting-tool",
+      "crash-reports",
+      "elasticsearch",
+      "error-handling",
+      "error-monitoring",
+      "error-reporting",
+      "error-stack-trace",
+      "exception",
+      "exceptionless",
+      "foundatio",
+      "javascript",
+      "log",
+      "logging",
+      "monitoring",
+      "redis",
+      "unhandled-exceptions"
+    ],
+    "updatedAt": "2026-05-20T20:45:01Z",
+    "filePath": ".agents/skills/dotnet-conventions/SKILL.md"
   },
   {
     "owner": "kagent-dev",
@@ -2469,6 +3928,19 @@
     "filePath": ".claude/skills/test-workflow/SKILL.md"
   },
   {
+    "owner": "jtblin",
+    "repo": "kube2iam",
+    "description": "kube2iam  provides different AWS IAM roles for pods running on Kubernetes",
+    "stars": 2038,
+    "forks": 332,
+    "topics": [
+      "aws",
+      "kubernetes"
+    ],
+    "updatedAt": "2026-05-20T14:07:09Z",
+    "filePath": ".agents/skills/kube2iam_triage/SKILL.md"
+  },
+  {
     "owner": "opensearch-project",
     "repo": "OpenSearch-Dashboards",
     "description": "📊 Open source visualization dashboards for OpenSearch.",
@@ -2619,6 +4091,16 @@
     "filePath": ".claude/skills/maaend-issue-log-analysis/SKILL.md"
   },
   {
+    "owner": "Automattic",
+    "repo": "simplenote-android",
+    "description": "Simplenote for Android",
+    "stars": 1890,
+    "forks": 315,
+    "topics": [],
+    "updatedAt": "2026-05-21T01:28:12Z",
+    "filePath": ".agents/skills/implement/SKILL.md"
+  },
+  {
     "owner": "quran",
     "repo": "quran.com-frontend-next",
     "description": "Frontend build on next.js",
@@ -2729,6 +4211,44 @@
     "filePath": ".codex/skills/team-planex/SKILL.md"
   },
   {
+    "owner": "npgsql",
+    "repo": "efcore.pg",
+    "description": "Entity Framework Core provider for PostgreSQL",
+    "stars": 1817,
+    "forks": 258,
+    "topics": [
+      "database",
+      "dotnet",
+      "entity-framework",
+      "entity-framework-core",
+      "npgsql",
+      "postgres",
+      "postgresql",
+      "sql"
+    ],
+    "updatedAt": "2026-05-18T07:54:51Z",
+    "filePath": ".agents/skills/triage/SKILL.md"
+  },
+  {
+    "owner": "npgsql",
+    "repo": "efcore.pg",
+    "description": "Entity Framework Core provider for PostgreSQL",
+    "stars": 1817,
+    "forks": 258,
+    "topics": [
+      "database",
+      "dotnet",
+      "entity-framework",
+      "entity-framework-core",
+      "npgsql",
+      "postgres",
+      "postgresql",
+      "sql"
+    ],
+    "updatedAt": "2026-05-18T07:54:51Z",
+    "filePath": ".agents/skills/sync-to-latest-ef/SKILL.md"
+  },
+  {
     "owner": "ByteDance-Seed",
     "repo": "VeOmni",
     "description": "VeOmni: Scaling Any Modality Model Training with Model-Centric Distributed Recipe Zoo",
@@ -2737,6 +4257,50 @@
     "topics": [],
     "updatedAt": "2026-04-08T06:53:50Z",
     "filePath": ".agents/skills/veomni-develop/SKILL.md"
+  },
+  {
+    "owner": "towardsthecloud",
+    "repo": "cloudburn",
+    "description": "Open-source policy engine that blocks bad AWS spending patterns before they ship and remediates what's already burning.",
+    "stars": 1757,
+    "forks": 370,
+    "topics": [
+      "amazon-web-services",
+      "aws",
+      "cloud",
+      "command-line-tool",
+      "cost-management",
+      "cost-optimization",
+      "devops",
+      "devops-tools",
+      "finops",
+      "homebrew",
+      "npm-package"
+    ],
+    "updatedAt": "2026-05-15T13:58:50Z",
+    "filePath": ".agents/skills/roadmap/SKILL.md"
+  },
+  {
+    "owner": "towardsthecloud",
+    "repo": "cloudburn",
+    "description": "Open-source policy engine that blocks bad AWS spending patterns before they ship and remediates what's already burning.",
+    "stars": 1757,
+    "forks": 370,
+    "topics": [
+      "amazon-web-services",
+      "aws",
+      "cloud",
+      "command-line-tool",
+      "cost-management",
+      "cost-optimization",
+      "devops",
+      "devops-tools",
+      "finops",
+      "homebrew",
+      "npm-package"
+    ],
+    "updatedAt": "2026-05-15T13:58:50Z",
+    "filePath": ".agents/skills/turborepo/SKILL.md"
   },
   {
     "owner": "dahlia",
@@ -2780,6 +4344,22 @@
     ],
     "updatedAt": "2026-04-21T07:13:13Z",
     "filePath": ".agents/skills/fengge-perspective/SKILL.md"
+  },
+  {
+    "owner": "dotnet",
+    "repo": "EntityFramework.Docs",
+    "description": "Documentation for Entity Framework Core and Entity Framework 6",
+    "stars": 1731,
+    "forks": 1968,
+    "topics": [
+      "documentation",
+      "entity-framework",
+      "entity-framework-6",
+      "entity-framework-core",
+      "orm"
+    ],
+    "updatedAt": "2026-05-20T18:39:53Z",
+    "filePath": ".agents/skills/generate-docs/SKILL.md"
   },
   {
     "owner": "TheOrcDev",
@@ -2879,6 +4459,19 @@
     "filePath": ".claude/skills/split-pr/SKILL.md"
   },
   {
+    "owner": "JetBrains",
+    "repo": "MPS",
+    "description": "JetBrains Meta programming System",
+    "stars": 1647,
+    "forks": 309,
+    "topics": [
+      "domain-specific-language",
+      "dsl"
+    ],
+    "updatedAt": "2026-05-20T13:04:55Z",
+    "filePath": ".agents/skills/mps-bugfix/SKILL.md"
+  },
+  {
     "owner": "yoanbernabeu",
     "repo": "grepai",
     "description": "Semantic Search & Call Graphs for AI Agents (100% Local)",
@@ -2900,6 +4493,74 @@
     ],
     "updatedAt": "2026-04-20T12:21:34Z",
     "filePath": ".claude/skills/release/SKILL.md"
+  },
+  {
+    "owner": "NEventStore",
+    "repo": "NEventStore",
+    "description": "A persistence agnostic Event Store for .NET",
+    "stars": 1610,
+    "forks": 321,
+    "topics": [],
+    "updatedAt": "2026-05-15T22:57:02Z",
+    "filePath": ".agents/skills/git-gh-pat-auth/SKILL.md"
+  },
+  {
+    "owner": "oracle",
+    "repo": "graalpython",
+    "description": "GraalPy – A high-performance embeddable Python 3 runtime for Java",
+    "stars": 1597,
+    "forks": 151,
+    "topics": [
+      "embeddable",
+      "graalvm",
+      "java",
+      "python",
+      "python3"
+    ],
+    "updatedAt": "2026-05-20T13:32:51Z",
+    "filePath": ".agents/skills/jira/SKILL.md"
+  },
+  {
+    "owner": "oracle",
+    "repo": "graalpython",
+    "description": "GraalPy – A high-performance embeddable Python 3 runtime for Java",
+    "stars": 1597,
+    "forks": 151,
+    "topics": [
+      "embeddable",
+      "graalvm",
+      "java",
+      "python",
+      "python3"
+    ],
+    "updatedAt": "2026-05-20T13:32:51Z",
+    "filePath": ".agents/skills/pr-gate-check/SKILL.md"
+  },
+  {
+    "owner": "oracle",
+    "repo": "graalpython",
+    "description": "GraalPy – A high-performance embeddable Python 3 runtime for Java",
+    "stars": 1597,
+    "forks": 151,
+    "topics": [
+      "embeddable",
+      "graalvm",
+      "java",
+      "python",
+      "python3"
+    ],
+    "updatedAt": "2026-05-20T13:32:51Z",
+    "filePath": ".agents/skills/github-pr-mirror/SKILL.md"
+  },
+  {
+    "owner": "Khan",
+    "repo": "perseus",
+    "description": "Perseus is Khan Academy's exercise question editor and renderer.",
+    "stars": 1567,
+    "forks": 365,
+    "topics": [],
+    "updatedAt": "2026-05-20T21:06:12Z",
+    "filePath": ".agents/skills/wonder-blocks/SKILL.md"
   },
   {
     "owner": "hashintel",
@@ -3199,6 +4860,42 @@
     "filePath": ".claude/skills/generate-diagram/SKILL.md"
   },
   {
+    "owner": "tikv",
+    "repo": "pd",
+    "description": "Placement driver for TiKV",
+    "stars": 1151,
+    "forks": 764,
+    "topics": [
+      "hacktoberfest"
+    ],
+    "updatedAt": "2026-05-20T09:06:38Z",
+    "filePath": ".agents/skills/create-pr/SKILL.md"
+  },
+  {
+    "owner": "tikv",
+    "repo": "pd",
+    "description": "Placement driver for TiKV",
+    "stars": 1151,
+    "forks": 764,
+    "topics": [
+      "hacktoberfest"
+    ],
+    "updatedAt": "2026-05-20T09:06:38Z",
+    "filePath": ".agents/skills/add-metrics/SKILL.md"
+  },
+  {
+    "owner": "tikv",
+    "repo": "pd",
+    "description": "Placement driver for TiKV",
+    "stars": 1151,
+    "forks": 764,
+    "topics": [
+      "hacktoberfest"
+    ],
+    "updatedAt": "2026-05-20T09:06:38Z",
+    "filePath": ".agents/skills/create-issue/SKILL.md"
+  },
+  {
     "owner": "pymc-labs",
     "repo": "pymc-marketing",
     "description": "Bayesian marketing toolbox in PyMC. Media Mix (MMM), customer lifetime value (CLV), buy-till-you-die (BTYD) models and more.",
@@ -3343,6 +5040,23 @@
     ],
     "updatedAt": "2026-04-13T07:22:40Z",
     "filePath": ".claude/skills/vanity/SKILL.md"
+  },
+  {
+    "owner": "akash-network",
+    "repo": "node",
+    "description": "Source code for Akash node, a secure, transparent, and peer-to-peer cloud computing network",
+    "stars": 1096,
+    "forks": 265,
+    "topics": [
+      "akash",
+      "blockchain",
+      "containers",
+      "exchange",
+      "golang",
+      "tendermint"
+    ],
+    "updatedAt": "2026-05-19T23:30:13Z",
+    "filePath": ".agents/skills/vanity/SKILL.md"
   },
   {
     "owner": "qdhenry",
@@ -3695,6 +5409,26 @@
     "filePath": ".claude/skills/03-model/SKILL.md"
   },
   {
+    "owner": "code-dot-org",
+    "repo": "code-dot-org",
+    "description": "The code powering code.org and studio.code.org",
+    "stars": 891,
+    "forks": 526,
+    "topics": [
+      "blockly",
+      "code",
+      "coding",
+      "computer",
+      "educational",
+      "learning",
+      "online",
+      "science",
+      "studio"
+    ],
+    "updatedAt": "2026-05-21T02:05:37Z",
+    "filePath": ".agents/skills/design-system/SKILL.md"
+  },
+  {
     "owner": "first-fluke",
     "repo": "oh-my-agent",
     "description": "Portable multi-agent harness for .agents-based skills, workflows, and standards-aware agent teams across Antigravity, Claude Code, Codex, Cursor, OpenCode, and more.",
@@ -3894,6 +5628,57 @@
     ],
     "updatedAt": "2026-04-07T09:25:25Z",
     "filePath": ".codex/skills/add/SKILL.md"
+  },
+  {
+    "owner": "DataDog",
+    "repo": "dd-trace-js",
+    "description": "Datadog APM client for Node.js",
+    "stars": 806,
+    "forks": 390,
+    "topics": [
+      "apm",
+      "datadog",
+      "javascript",
+      "nodejs",
+      "opentracing",
+      "tracing"
+    ],
+    "updatedAt": "2026-05-21T04:43:42Z",
+    "filePath": ".agents/skills/llmobs-testing/SKILL.md"
+  },
+  {
+    "owner": "DataDog",
+    "repo": "dd-trace-js",
+    "description": "Datadog APM client for Node.js",
+    "stars": 806,
+    "forks": 390,
+    "topics": [
+      "apm",
+      "datadog",
+      "javascript",
+      "nodejs",
+      "opentracing",
+      "tracing"
+    ],
+    "updatedAt": "2026-05-21T04:43:42Z",
+    "filePath": ".agents/skills/apm-integrations/SKILL.md"
+  },
+  {
+    "owner": "DataDog",
+    "repo": "dd-trace-js",
+    "description": "Datadog APM client for Node.js",
+    "stars": 806,
+    "forks": 390,
+    "topics": [
+      "apm",
+      "datadog",
+      "javascript",
+      "nodejs",
+      "opentracing",
+      "tracing"
+    ],
+    "updatedAt": "2026-05-21T04:43:42Z",
+    "filePath": ".agents/skills/llmobs-integration/SKILL.md"
   },
   {
     "owner": "bear2u",
@@ -4277,6 +6062,16 @@
     ],
     "updatedAt": "2026-03-26T20:53:24Z",
     "filePath": ".claude/skills/beep/SKILL.md"
+  },
+  {
+    "owner": "razorpay",
+    "repo": "blade",
+    "description": "Design System that powers Razorpay",
+    "stars": 621,
+    "forks": 184,
+    "topics": [],
+    "updatedAt": "2026-05-20T19:15:45Z",
+    "filePath": ".agents/skills/review-changes/SKILL.md"
   },
   {
     "owner": "stacksjs",
@@ -14183,6 +15978,27 @@
     "filePath": ".claude/skills/svg-animations/SKILL.md"
   },
   {
+    "owner": "solanabr",
+    "repo": "solana-claude",
+    "description": "Claude Code configs for the expert Solana builder. CLAUDE.md, agents, commands, hooks, rules, skills and settings across Web, Anchor, Pinnochio, Unity, Mobile, security and more.",
+    "stars": 62,
+    "forks": 17,
+    "topics": [
+      "claude-agent",
+      "claude-code",
+      "claude-commands",
+      "claude-md",
+      "claude-skills",
+      "claude-subagents",
+      "solana-agents",
+      "solana-claude",
+      "solana-engineer",
+      "solana-program"
+    ],
+    "updatedAt": "2026-05-20T15:53:25Z",
+    "filePath": ".claude/skills/SKILL.md"
+  },
+  {
     "owner": "curiositech",
     "repo": "some_claude_skills",
     "description": "Claude skills that make my life easier.",
@@ -21474,6 +23290,16 @@
     ],
     "updatedAt": "2026-05-18T17:15:51Z",
     "filePath": ".claude/skills/create_plan/SKILL.md"
+  },
+  {
+    "owner": "shawnpetros",
+    "repo": "salazar",
+    "description": "Autonomous coding harness. Claude Agent SDK, planner + generator + evaluator loop, hard validator gates (tsc / eslint / build / test).",
+    "stars": 23,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-13T17:14:51Z",
+    "filePath": ".claude/skills/salazar/skill.md"
   },
   {
     "owner": "vechain",
@@ -63430,7 +65256,7 @@
       "mqtt",
       "serverless"
     ],
-    "updatedAt": "2026-05-13T13:50:50Z",
+    "updatedAt": "2026-05-21T04:30:17Z",
     "filePath": ".claude/skills/deployment-aws-canary-setup/SKILL.md"
   },
   {
@@ -64047,7 +65873,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T15:53:23Z",
+    "updatedAt": "2026-05-21T01:41:33Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -64067,7 +65893,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T15:53:23Z",
+    "updatedAt": "2026-05-21T01:41:33Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -65012,7 +66838,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-20T14:27:23Z",
+    "updatedAt": "2026-05-21T01:24:38Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -65378,7 +67204,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T12:13:21Z",
+    "updatedAt": "2026-05-21T00:29:04Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -65615,7 +67441,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T14:18:04Z",
+    "updatedAt": "2026-05-20T21:27:51Z",
     "filePath": ".claude/skills/merge/SKILL.md"
   },
   {
@@ -65765,7 +67591,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-08T07:12:56Z",
+    "updatedAt": "2026-05-21T00:28:50Z",
     "filePath": ".claude/skills/new-item/SKILL.md"
   },
   {
@@ -66183,7 +68009,7 @@
       "universe",
       "worldbuilding"
     ],
-    "updatedAt": "2026-05-20T11:10:44Z",
+    "updatedAt": "2026-05-20T16:02:39Z",
     "filePath": ".claude/skills/lore-extraction/SKILL.md"
   },
   {
@@ -66463,7 +68289,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T14:18:04Z",
+    "updatedAt": "2026-05-20T21:27:51Z",
     "filePath": ".claude/skills/generation-plan/SKILL.md"
   },
   {
@@ -66690,7 +68516,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T14:27:33Z",
+    "updatedAt": "2026-05-20T20:08:58Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -66700,7 +68526,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-23T15:14:31Z",
+    "updatedAt": "2026-05-20T21:31:45Z",
     "filePath": ".claude/skills/ship/SKILL.md"
   },
   {
@@ -66753,7 +68579,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T14:58:34Z",
+    "updatedAt": "2026-05-20T21:22:24Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -67155,7 +68981,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-19T07:42:44Z",
+    "updatedAt": "2026-05-20T20:05:32Z",
     "filePath": ".claude/skills/audit-web/SKILL.md"
   },
   {
@@ -67414,7 +69240,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T15:05:39Z",
+    "updatedAt": "2026-05-21T00:28:22Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -67634,7 +69460,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T09:35:40Z",
+    "updatedAt": "2026-05-20T22:59:51Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -105960,5 +107786,53 @@
     "topics": [],
     "updatedAt": "2026-05-19T20:25:32Z",
     "filePath": ".agents/skills/clerk-vue-patterns/SKILL.md"
+  },
+  {
+    "owner": "anajuliarrod",
+    "repo": "open-sidekick",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-26T22:51:26Z",
+    "filePath": ".claude/skills/SKILL.md"
+  },
+  {
+    "owner": "yslee5005",
+    "repo": "app-library",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-20T05:12:01Z",
+    "filePath": ".claude/skills/moai-tool-ast-grep/SKILL.md"
+  },
+  {
+    "owner": "itseffi",
+    "repo": "productize",
+    "description": "Runtime for AI coding agents: 3 playbooks, 9 gates, and 238 routed skills to build, ship, operate, and grow products.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "ai-agents",
+      "ai-agents-framework",
+      "ai-coding-agents",
+      "claude-code",
+      "codex",
+      "runtime",
+      "skills"
+    ],
+    "updatedAt": "2026-05-18T22:12:49Z",
+    "filePath": ".claude/skills/startup-canvas/SKILL.md"
+  },
+  {
+    "owner": "FlourishHealth",
+    "repo": "terreno",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-20T23:55:42Z",
+    "filePath": ".claude/skills/commit/SKILL.md"
   }
 ]
