@@ -11665,6 +11665,23 @@
     "filePath": ".claude/skills/jsf-ajax/SKILL.md"
   },
   {
+    "owner": "lifinance",
+    "repo": "contracts",
+    "description": "LI.FI Smart Contracts",
+    "stars": 205,
+    "forks": 105,
+    "topics": [
+      "blockchain",
+      "defi",
+      "ethereum",
+      "ethereum-contract",
+      "smart-contracts",
+      "solidity"
+    ],
+    "updatedAt": "2026-05-23T02:06:39Z",
+    "filePath": ".claude/skills/post-pr-for-review/SKILL.md"
+  },
+  {
     "owner": "hmislk",
     "repo": "hmis",
     "description": "This is an Open Source Java EE based Hospital Information Management System",
@@ -15550,6 +15567,16 @@
     "filePath": ".claude/skills/typescript-guidelines/SKILL.md"
   },
   {
+    "owner": "bpowers",
+    "repo": "simlin",
+    "description": "system dynamics modeling",
+    "stars": 94,
+    "forks": 19,
+    "topics": [],
+    "updatedAt": "2026-05-23T04:01:31Z",
+    "filePath": ".claude/skills/i-bolder/SKILL.md"
+  },
+  {
     "owner": "marketcalls",
     "repo": "vectorbt-backtesting-skills",
     "description": "Agentic coding skills for backtesting trading strategies using VectorBT. Supports Indian, US, and Crypto markets    with realistic transaction cost modeling, TA-Lib indicators, QuantStats tearsheets, and 12 ready-made strategy      templates.",
@@ -18776,6 +18803,33 @@
     "filePath": ".claude/skills/qa/SKILL.md"
   },
   {
+    "owner": "NarratorAI-Studio",
+    "repo": "narrator-ai-cli",
+    "description": "AI 解说大师 — CLI 客户端；用于终端调用视频解说生成 API",
+    "stars": 50,
+    "forks": 9,
+    "topics": [
+      "agent-skills",
+      "ai-agent",
+      "ai-video",
+      "claude-code",
+      "cli",
+      "content-creation",
+      "coze-plugin",
+      "dubbing",
+      "film-commentary",
+      "narrator-ai",
+      "openclaw",
+      "openclaw-skill",
+      "python",
+      "short-drama",
+      "tts",
+      "video-narration"
+    ],
+    "updatedAt": "2026-05-19T01:45:55Z",
+    "filePath": ".claude/skills/SKILL.md"
+  },
+  {
     "owner": "seed-hypermedia",
     "repo": "seed",
     "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol",
@@ -19605,6 +19659,19 @@
     "filePath": ".agents/skills/privy/SKILL.md"
   },
   {
+    "owner": "whatwedo",
+    "repo": "dde",
+    "description": "Local development environment toolset based on Docker",
+    "stars": 45,
+    "forks": 9,
+    "topics": [
+      "docker",
+      "hacktoberfest"
+    ],
+    "updatedAt": "2026-05-22T11:38:06Z",
+    "filePath": ".claude/skills/releasing/SKILL.md"
+  },
+  {
     "owner": "Miragon",
     "repo": "camunda-modeler-i18n-plugin",
     "description": "This plugin allows you to translate the UI of the Camunda Modeler. It contains ready-to-use translations for German, English, and Portuguese and can be easily extended or customized.",
@@ -19996,6 +20063,16 @@
     ],
     "updatedAt": "2026-05-11T21:37:11Z",
     "filePath": ".codex/skills/agent-qa/SKILL.md"
+  },
+  {
+    "owner": "DargonLee",
+    "repo": "skill-switch",
+    "description": "SkillSwitch 是一款跨平台桌面应用，专为 AI 编程助手的用户打造。它让你能够在一个统一的界面中管理多个 AI   工具（Claude Code、Codex CLI、Gemini CLI、Cursor、Windsurf）的 Skill 文件——包括已安装管理、发现新   Skill、创建自定义 Skill、以及备份与恢复。",
+    "stars": 42,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-23T02:30:14Z",
+    "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
     "owner": "AuroraWebSoftware",
@@ -20630,6 +20707,206 @@
     ],
     "updatedAt": "2026-05-13T21:44:16Z",
     "filePath": ".claude/skills/dev/deploy/monitor/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/design/adjust/animate/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/product/define/stories/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/product/launch/metrics/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/design/review/critique/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/dev/setup/vercel-deploy/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/product/frameworks/jtbd/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/design/hardening/harden/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/design/refine/normalize/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/design/hardening/onboard/SKILL.md"
+  },
+  {
+    "owner": "kazdenc",
+    "repo": "builder-skills",
+    "description": "47 Claude Code skills for product management, frontend design, full-stack development, and browser automation",
+    "stars": 38,
+    "forks": 5,
+    "topics": [
+      "ai",
+      "claude",
+      "claude-code",
+      "frontend",
+      "nextjs",
+      "product-management",
+      "skills",
+      "supabase",
+      "vercel"
+    ],
+    "updatedAt": "2026-05-13T21:44:16Z",
+    "filePath": ".claude/skills/dev/setup/supabase-setup/SKILL.md"
   },
   {
     "owner": "yoloshii",
@@ -22531,6 +22808,38 @@
     "filePath": ".claude/skills/deck-guizang-editorial/SKILL.md"
   },
   {
+    "owner": "arcasilesgroup",
+    "repo": "ai-engineering",
+    "description": "Turn any repo into a governed AI workspace. Quality gates, security scanning, and risk management — enforced locally via git hooks. Works with Claude Code, GitHub Copilot, Cursor, Gemini & Codex.",
+    "stars": 29,
+    "forks": 0,
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "developer-tools",
+      "devsecops",
+      "github-copilot"
+    ],
+    "updatedAt": "2026-05-22T16:40:39Z",
+    "filePath": ".claude/skills/ai-skill-improve/SKILL.md"
+  },
+  {
+    "owner": "arcasilesgroup",
+    "repo": "ai-engineering",
+    "description": "Turn any repo into a governed AI workspace. Quality gates, security scanning, and risk management — enforced locally via git hooks. Works with Claude Code, GitHub Copilot, Cursor, Gemini & Codex.",
+    "stars": 29,
+    "forks": 0,
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "developer-tools",
+      "devsecops",
+      "github-copilot"
+    ],
+    "updatedAt": "2026-05-22T16:40:39Z",
+    "filePath": ".claude/skills/ai-governance/SKILL.md"
+  },
+  {
     "owner": "allierays",
     "repo": "agentic-loop",
     "description": "(Mostly) autonomous AI coding toolkit for Claude Code  based on RALPH and PRD-driven development.",
@@ -23699,6 +24008,16 @@
     "filePath": ".claude/skills/acp-context-composer/SKILL.md"
   },
   {
+    "owner": "Dach-Coin",
+    "repo": "claude_rules_1c",
+    "description": null,
+    "stars": 26,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-05-20T18:24:57Z",
+    "filePath": ".claude/skills/form-patterns/SKILL.md"
+  },
+  {
     "owner": "promptadvisers",
     "repo": "n8n-powerhouse",
     "description": "Claude Code skills framework for n8n automation - Turn Claude into an n8n expert",
@@ -24622,6 +24941,26 @@
     "topics": [],
     "updatedAt": "2026-05-22T11:48:22Z",
     "filePath": ".codex/skills/docs/SKILL.md"
+  },
+  {
+    "owner": "juspay",
+    "repo": "kolu",
+    "description": "A terminal-native cockpit for coding agents. Bring your own CLI, run them anywhere.",
+    "stars": 24,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-05-23T01:41:08Z",
+    "filePath": ".claude/skills/hk/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".claude/skills/docs/SKILL.md"
   },
   {
     "owner": "zerx-lab",
@@ -32187,6 +32526,16 @@
     "filePath": ".agents/skills/sirno-bootstrap/SKILL.md"
   },
   {
+    "owner": "meyerdan",
+    "repo": "camunda-ai-dev-kit",
+    "description": null,
+    "stars": 12,
+    "forks": 4,
+    "topics": [],
+    "updatedAt": "2026-05-11T07:08:55Z",
+    "filePath": ".claude/skills/new-form/SKILL.md"
+  },
+  {
     "owner": "gmh5225",
     "repo": "awesome-web3-security",
     "description": "A curated list of Web3 Security materials and resources for Pentesters and Bug Hunters.",
@@ -33628,6 +33977,16 @@
     "topics": [],
     "updatedAt": "2026-05-18T04:49:32Z",
     "filePath": ".agents/skills/log/SKILL.md"
+  },
+  {
+    "owner": "shannonshell",
+    "repo": "shannon",
+    "description": "Nushell + Bash",
+    "stars": 10,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T22:26:48Z",
+    "filePath": ".claude/skills/commit/SKILL.md"
   },
   {
     "owner": "whilp",
@@ -37057,6 +37416,20 @@
     "filePath": ".agents/skills/seo/skill.md"
   },
   {
+    "owner": "DarkSorrow",
+    "repo": "llamarn",
+    "description": "   React Native library for on-device LLM inference using llama.cpp. Part of Novastera CRM/ERP platform ecosystem.",
+    "stars": 7,
+    "forks": 2,
+    "topics": [
+      "ai",
+      "llamacpp",
+      "react-native"
+    ],
+    "updatedAt": "2026-05-09T21:11:23Z",
+    "filePath": ".claude/skills/SKILL.md"
+  },
+  {
     "owner": "ocn",
     "repo": "zk-activity",
     "description": "zk-activity is a bot that integrates EVE Online's Zkillboard with Discord, providing real-time killmail updates with customizable filters. Track specific regions, ship categories, and player activities according to your preferences.",
@@ -39578,6 +39951,16 @@
     "filePath": ".claude/skills/testing-flows-with-turbine/SKILL.md"
   },
   {
+    "owner": "robin-li",
+    "repo": "vibe-money-book",
+    "description": "語音記帳應用 — 透過自然語言實現一句話記帳，具備個性化 AI 人設",
+    "stars": 6,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-04-10T17:17:09Z",
+    "filePath": ".claude/skills/vibe-sdlc/skill.md"
+  },
+  {
     "owner": "troydai",
     "repo": "gwt",
     "description": "A git worktree management CLI",
@@ -41642,6 +42025,55 @@
     ],
     "updatedAt": "2026-04-21T06:41:32Z",
     "filePath": ".agents/skills/aid/SKILL.md"
+  },
+  {
+    "owner": "Chemaclass",
+    "repo": "phel-doom",
+    "description": "Terminal DOOM-lite raycaster built in Phel (Lisp on PHP). 256-color ANSI, 5 procedural levels — a real-world Phel showcase app.",
+    "stars": 5,
+    "forks": 1,
+    "topics": [
+      "ansi",
+      "ascii-art",
+      "cli",
+      "doom",
+      "fps",
+      "fps-game",
+      "game",
+      "lisp",
+      "lisp-game",
+      "phel",
+      "phel-app",
+      "phel-lang",
+      "php",
+      "procedural-generation",
+      "raycaster",
+      "retro",
+      "terminal-game",
+      "terminal-rendering"
+    ],
+    "updatedAt": "2026-05-22T21:14:51Z",
+    "filePath": ".claude/skills/gh-issues/SKILL.md"
+  },
+  {
+    "owner": "rhowardstone",
+    "repo": "AI-Job-Coach",
+    "description": "Democratized access to elite \"career coach\" methodology via Claude Code, for relationship-focused job searching. Implements networking methodology grounded in career development research (Granovetter 1973, Spence 1973, Wanberg et al. 2020).",
+    "stars": 5,
+    "forks": 0,
+    "topics": [
+      "ai-assistant",
+      "automation",
+      "career-coach",
+      "career-coaching",
+      "career-development",
+      "claude-code",
+      "job-applications",
+      "job-search",
+      "networking"
+    ],
+    "updatedAt": "2026-05-22T03:54:44Z",
+    "filePath": ".claude/skills/interview-prep/SKILL.md"
   },
   {
     "owner": "zatsit-oss",
@@ -44705,6 +45137,16 @@
     "topics": [],
     "updatedAt": "2026-05-11T17:22:25Z",
     "filePath": ".claude/skills/knots-create/SKILL.md"
+  },
+  {
+    "owner": "jaksa76",
+    "repo": "agentize",
+    "description": null,
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T15:12:57Z",
+    "filePath": ".claude/skills/verify-a4/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -53432,6 +53874,26 @@
     "topics": [],
     "updatedAt": "2026-05-20T02:59:24Z",
     "filePath": ".codex/skills/sysdesign-question-bank/SKILL.md"
+  },
+  {
+    "owner": "koco-co",
+    "repo": "kata",
+    "description": "🚀 An AI-driven QA workflow toolkit built on Claude Code Skills. Codifies testing disciplines—PRD-to-case generation, Playwright UI automation, XMind mindmap editing, hotfix verification, bug triage, and conflict analysis—as reusable kata. Features multi-project workspaces, layered rule inheritance, a knowledge base, and a unified kata CLI.",
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-22T12:13:34Z",
+    "filePath": ".claude/skills/knowledge-curate/SKILL.md"
+  },
+  {
+    "owner": "schutera",
+    "repo": "highfive",
+    "description": "High five or [hive hive] is a project that aims to gain insights into wild bees. ",
+    "stars": 2,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-22T21:04:49Z",
+    "filePath": ".claude/skills/analyze-pr/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -65684,6 +66146,56 @@
     "filePath": ".codex/skills/pwf-attest/SKILL.md"
   },
   {
+    "owner": "marpme",
+    "repo": "stimmlage",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-13T05:53:50Z",
+    "filePath": ".claude/skills/i-bolder/SKILL.md"
+  },
+  {
+    "owner": "hi-yuki-922",
+    "repo": "accounting-assistant",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-02T16:33:22Z",
+    "filePath": ".claude/skills/i-bolder/SKILL.md"
+  },
+  {
+    "owner": "00susu00",
+    "repo": "wiki-idea-llm-harness",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T08:40:52Z",
+    "filePath": ".claude/skills/wikillm/skill.md"
+  },
+  {
+    "owner": "colinmollenhour",
+    "repo": "dotfiles",
+    "description": "\"You can tell a lot about a man by his dotfiles\" - Me just now",
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-22T20:26:29Z",
+    "filePath": ".claude/skills/drizzle-orm/SKILL.md"
+  },
+  {
+    "owner": "alexandremendoncaalvaro",
+    "repo": "agentic-development",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T22:53:20Z",
+    "filePath": ".claude/skills/ad-handoff/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -68355,7 +68867,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-05-22T01:45:13Z",
+    "updatedAt": "2026-05-23T00:53:07Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -69209,7 +69721,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-22T13:31:37Z",
+    "updatedAt": "2026-05-23T00:55:39Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -69862,7 +70374,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T00:29:47Z",
+    "updatedAt": "2026-05-23T04:10:12Z",
     "filePath": ".claude/skills/justicehub-context/SKILL.md"
   },
   {
@@ -69962,7 +70474,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-22T04:41:09Z",
+    "updatedAt": "2026-05-22T19:21:15Z",
     "filePath": ".claude/skills/new-item/SKILL.md"
   },
   {
@@ -70600,7 +71112,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-12T18:48:02Z",
+    "updatedAt": "2026-05-22T19:24:23Z",
     "filePath": ".claude/skills/stripe-supabase-webhooks/SKILL.md"
   },
   {
@@ -70887,7 +71399,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-22T15:19:10Z",
+    "updatedAt": "2026-05-22T20:58:30Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -70950,7 +71462,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-22T03:13:43Z",
+    "updatedAt": "2026-05-23T03:11:12Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -71292,7 +71804,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-04-30T04:38:50Z",
+    "updatedAt": "2026-05-22T20:42:24Z",
     "filePath": ".claude/skills/rspress-frontmatter/SKILL.md"
   },
   {
@@ -71611,7 +72123,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-22T14:34:49Z",
+    "updatedAt": "2026-05-23T01:49:00Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -71651,7 +72163,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-20T04:27:16Z",
+    "updatedAt": "2026-05-23T02:59:31Z",
     "filePath": ".claude/skills/ticket-add/SKILL.md"
   },
   {
@@ -71851,7 +72363,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-20T05:19:47Z",
+    "updatedAt": "2026-05-22T22:19:47Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -110555,5 +111067,185 @@
     "topics": [],
     "updatedAt": "2026-05-20T11:39:52Z",
     "filePath": ".codex/skills/normalize/SKILL.md"
+  },
+  {
+    "owner": "Edchy",
+    "repo": "whohere",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-27T11:39:04Z",
+    "filePath": ".claude/skills/i-bolder/SKILL.md"
+  },
+  {
+    "owner": "punkharb",
+    "repo": "autoport",
+    "description": "AI-summarized personal portfolio for Punnatorn Boonkrajang - Next.js + Tailwind + live GitHub data",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T12:02:00Z",
+    "filePath": ".claude/skills/frontend-slides/SKILL.md"
+  },
+  {
+    "owner": "Flexksx",
+    "repo": "alemar-capoeira-chisinau",
+    "description": "Website with songs and different other resources for Alemar capoeira Chisinau",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-21T06:33:41Z",
+    "filePath": ".claude/skills/seo-maps/SKILL.md"
+  },
+  {
+    "owner": "codewizard-dt",
+    "repo": "bootstrap-claude",
+    "description": "a basic setup/tool for claude skills",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T16:33:11Z",
+    "filePath": ".claude/skills/uat-walk/SKILL.md"
+  },
+  {
+    "owner": "ohdaveed",
+    "repo": "director-hearing-manager",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T23:50:46Z",
+    "filePath": ".claude/skills/find-docs/SKILL.md"
+  },
+  {
+    "owner": "ThalesAndrades",
+    "repo": "scmaisteste",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T03:20:55Z",
+    "filePath": ".claude/skills/novo-dominio/SKILL.md"
+  },
+  {
+    "owner": "bcoe",
+    "repo": "allaboard.dev",
+    "description": "allaboard board climbing app.",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-22T17:40:50Z",
+    "filePath": ".claude/skills/add-sentry-logging/SKILL.md"
+  },
+  {
+    "owner": "gaborbencsik",
+    "repo": "tipp-game",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T15:57:47Z",
+    "filePath": ".claude/skills/secure-code-guardian/SKILL.md"
+  },
+  {
+    "owner": "moquette",
+    "repo": "react",
+    "description": "Vite · React · TypeScript · Cloudflare Pages starter template with node-modules and Yarn PnP variants.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-21T11:50:23Z",
+    "filePath": ".claude/skills/add-binding/SKILL.md"
+  },
+  {
+    "owner": "sidthesloth92",
+    "repo": "db-astro-suite",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T02:48:02Z",
+    "filePath": ".claude/skills/playwright-e2e/SKILL.md"
+  },
+  {
+    "owner": "joeloverbeck",
+    "repo": "ludoforge-llm",
+    "description": "Evolving board games relying on LLMs for design/judgement, and executable prototypes",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T01:16:10Z",
+    "filePath": ".claude/skills/brainstorm/SKILL.md"
+  },
+  {
+    "owner": "harrisonengel",
+    "repo": "birch-sky",
+    "description": "Top secret project",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T03:58:05Z",
+    "filePath": ".claude/skills/pr-shepherd/SKILL.md"
+  },
+  {
+    "owner": "nodefony",
+    "repo": "nodefony-core",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T17:02:01Z",
+    "filePath": ".claude/skills/nodefony-framework-dev/SKILL.md"
+  },
+  {
+    "owner": "dackclup",
+    "repo": "quantrank",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-23T03:38:29Z",
+    "filePath": ".claude/skills/mattpocock-setup-harness/SKILL.md"
+  },
+  {
+    "owner": "zooper-lib",
+    "repo": "Gorilla",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T06:41:50Z",
+    "filePath": ".claude/skills/openspec-verify-change/SKILL.md"
+  },
+  {
+    "owner": "gleisonkz",
+    "repo": "musix-studio",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:09:34Z",
+    "filePath": ".claude/skills/caveman-compress/SKILL.md"
+  },
+  {
+    "owner": "artemislab",
+    "repo": "kerios",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T02:25:46Z",
+    "filePath": ".claude/skills/security/auth-review/SKILL.md"
+  },
+  {
+    "owner": "pgm1980",
+    "repo": "mutmut-win",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T00:14:50Z",
+    "filePath": ".claude/skills/multi-agent-patterns/SKILL.md"
   }
 ]
