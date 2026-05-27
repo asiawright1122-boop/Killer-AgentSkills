@@ -16683,6 +16683,16 @@
     "filePath": ".codex/skills/buddy-graph/SKILL.md"
   },
   {
+    "owner": "linzhe001",
+    "repo": "Harness-Research",
+    "description": null,
+    "stars": 85,
+    "forks": 9,
+    "topics": [],
+    "updatedAt": "2026-05-27T13:09:14Z",
+    "filePath": ".claude/skills/auto-paper-data/SKILL.md"
+  },
+  {
     "owner": "komunite",
     "repo": "kalfa",
     "description": "Claude Code için Türkçe profesyonel işletim sistemi — 10 uzman agent, 22 komut, 993 skill, 6 katmanlı hafıza",
@@ -22948,6 +22958,16 @@
     "filePath": ".agents/skills/kit-sdk/SKILL.md"
   },
   {
+    "owner": "coilysiren",
+    "repo": "galaxy-gen",
+    "description": "Procedural galaxy simulation - Rust compiled to WASM, rendered in the browser. Live at https://galaxy-gen.coilysiren.me",
+    "stars": 33,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-27T09:21:52Z",
+    "filePath": ".agents/skills/galaxy-gen/SKILL.md"
+  },
+  {
     "owner": "richardgill",
     "repo": "nix",
     "description": null,
@@ -28038,6 +28058,30 @@
     "topics": [],
     "updatedAt": "2026-05-26T01:15:19Z",
     "filePath": ".agents/skills/riot-contributor/SKILL.md"
+  },
+  {
+    "owner": "jianxcao",
+    "repo": "qbittorrent-web",
+    "description": "A modern, feature-rich web interface for qBittorrent client management",
+    "stars": 20,
+    "forks": 0,
+    "topics": [
+      "qb",
+      "qbittorent",
+      "webui"
+    ],
+    "updatedAt": "2026-05-24T04:54:24Z",
+    "filePath": ".agents/skills/vue-best-practices/SKILL.md"
+  },
+  {
+    "owner": "soygabimoreno",
+    "repo": "Los-ANDROIDES",
+    "description": "App for listening Android Development audios.",
+    "stars": 20,
+    "forks": 10,
+    "topics": [],
+    "updatedAt": "2026-05-27T09:31:40Z",
+    "filePath": ".agents/skills/github-issue-context/SKILL.md"
   },
   {
     "owner": "Prorise-cool",
@@ -44091,6 +44135,52 @@
     "filePath": ".agents/skills/hunting-for-registry-persistence-mechanisms/SKILL.md"
   },
   {
+    "owner": "pedropombeiro",
+    "repo": "dotfiles",
+    "description": "My personal dotfiles",
+    "stars": 5,
+    "forks": 1,
+    "topics": [
+      "atuin",
+      "cli",
+      "dotfiles",
+      "git",
+      "homebrew",
+      "lazygit",
+      "linux",
+      "macos",
+      "mise",
+      "neovim",
+      "opencode",
+      "sesh",
+      "tmux",
+      "yadm",
+      "yazi",
+      "zinit",
+      "zsh"
+    ],
+    "updatedAt": "2026-05-27T13:04:48Z",
+    "filePath": ".agents/skills/gh/SKILL.md"
+  },
+  {
+    "owner": "goondocks-co",
+    "repo": "myco",
+    "description": "Myco is intelligence layer for your projects. Enables multi-project and collective intelligence, creating living org-wide knowledge for your agents.",
+    "stars": 5,
+    "forks": 1,
+    "topics": [
+      "agentic-ai",
+      "ai-agents",
+      "claude-code",
+      "codex",
+      "cursor",
+      "gemini-cli",
+      "windsurf"
+    ],
+    "updatedAt": "2026-05-27T15:13:55Z",
+    "filePath": ".agents/skills/debug-daemon-errors/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -47300,6 +47390,16 @@
     "topics": [],
     "updatedAt": "2026-05-26T22:08:42Z",
     "filePath": ".agents/skills/pr-shepherd/SKILL.md"
+  },
+  {
+    "owner": "kriollo",
+    "repo": "versaCompiler",
+    "description": "compila y minifica archivos vue, js y ts para proyectos de Vue 3 con soporte para TypeScript.",
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-01T19:36:54Z",
+    "filePath": ".agents/skills/seo/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -56547,6 +56647,26 @@
     ],
     "updatedAt": "2026-05-27T01:27:09Z",
     "filePath": ".agents/skills/hyperframes/hyperframes-registry/SKILL.md"
+  },
+  {
+    "owner": "miptah21",
+    "repo": "skills",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T15:07:43Z",
+    "filePath": ".agents/skills/testing-dags/SKILL.md"
+  },
+  {
+    "owner": "JeromyJSmith",
+    "repo": "lattice-platform",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-24T03:25:38Z",
+    "filePath": ".agents/skills/skills/tanstack-devtools/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -69331,6 +69451,56 @@
     "filePath": ".agents/skills/ionic-app-creation/SKILL.md"
   },
   {
+    "owner": "JoeySmith-SOC",
+    "repo": "sentinelopusconsulting",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-18T19:04:24Z",
+    "filePath": ".claude/skills/animation-system/SKILL.md"
+  },
+  {
+    "owner": "bpluo",
+    "repo": "image2",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T11:04:58Z",
+    "filePath": ".claude/skills/caveman-compress/SKILL.md"
+  },
+  {
+    "owner": "yashas-30",
+    "repo": "NYX",
+    "description": "NYX - A premium developer-focused interface and runner for AI agents, featuring model management and interactive coding capabilities.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T10:31:25Z",
+    "filePath": ".agents/skills/homelab-pihole-dns/SKILL.md"
+  },
+  {
+    "owner": "AgoraIO",
+    "repo": "agentic-evals",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T00:10:08Z",
+    "filePath": ".agents/skills/agent-browser/SKILL.md"
+  },
+  {
+    "owner": "reneruano95",
+    "repo": "concurrent-llm-agent",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T01:55:47Z",
+    "filePath": ".agents/skills/websocket-engineer/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -70657,7 +70827,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T14:50:19Z",
+    "updatedAt": "2026-05-27T13:35:45Z",
     "filePath": ".claude/skills/tdd/SKILL.md"
   },
   {
@@ -71504,7 +71674,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T09:25:14Z",
+    "updatedAt": "2026-05-27T11:30:20Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -72012,7 +72182,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-27T03:19:33Z",
+    "updatedAt": "2026-05-27T14:01:44Z",
     "filePath": ".claude/skills/vercel/SKILL.md"
   },
   {
@@ -72229,7 +72399,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T23:25:05Z",
+    "updatedAt": "2026-05-27T11:45:17Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -72856,7 +73026,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-27T02:50:26Z",
+    "updatedAt": "2026-05-27T09:37:28Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -73106,7 +73276,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-25T16:45:01Z",
+    "updatedAt": "2026-05-27T06:33:41Z",
     "filePath": ".claude/skills/bmad-pm/SKILL.md"
   },
   {
@@ -73379,7 +73549,7 @@
       "productivity",
       "social-network"
     ],
-    "updatedAt": "2026-05-26T18:00:42Z",
+    "updatedAt": "2026-05-27T11:16:41Z",
     "filePath": ".claude/skills/the-linter/SKILL.md"
   },
   {
@@ -73479,7 +73649,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-25T13:49:30Z",
+    "updatedAt": "2026-05-27T11:36:21Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -73887,7 +74057,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T09:25:14Z",
+    "updatedAt": "2026-05-27T11:30:20Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -74514,7 +74684,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T22:29:40Z",
+    "updatedAt": "2026-05-27T11:22:23Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -75148,7 +75318,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-16T16:28:45Z",
+    "updatedAt": "2026-05-27T16:13:26Z",
     "filePath": ".claude/skills/systray-patterns/SKILL.md"
   },
   {
@@ -75528,7 +75698,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T11:42:41Z",
+    "updatedAt": "2026-05-27T15:26:58Z",
     "filePath": ".claude/skills/agentic-engineering/SKILL.md"
   },
   {
@@ -75738,7 +75908,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-19T03:10:57Z",
+    "updatedAt": "2026-05-27T02:36:23Z",
     "filePath": ".claude/skills/slack-message/SKILL.md"
   },
   {
@@ -75748,7 +75918,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-12T01:50:24Z",
+    "updatedAt": "2026-05-01T18:57:32Z",
     "filePath": ".claude/skills/hookify/skills/writing-rules/SKILL.md"
   },
   {
@@ -116351,5 +116521,268 @@
     "topics": [],
     "updatedAt": "2026-03-23T06:03:25Z",
     "filePath": ".agents/skills/code-quality-expert/SKILL.md"
+  },
+  {
+    "owner": "UnivmemorN",
+    "repo": "NovaPhyFLIP",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T12:08:16Z",
+    "filePath": ".claude/skills/run-linter/SKILL.md"
+  },
+  {
+    "owner": "danielkhigay",
+    "repo": "gaz",
+    "description": "fun and easy way to decide when you want to game with your bois",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T15:17:49Z",
+    "filePath": ".claude/ARCHIVED stuff/archived skills/obsidian-cli/SKILL.md"
+  },
+  {
+    "owner": "ThaiHaiDev",
+    "repo": "AI-Build",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T03:11:24Z",
+    "filePath": ".claude/skills/log-history/SKILL.md"
+  },
+  {
+    "owner": "tobias363",
+    "repo": "Spillorama-system",
+    "description": "Live bingo platform for the Norwegian market — Spill 1-3 hovedspill + SpinnGo databingo + Candy iframe-integration. Regulated under pengespillforskriften.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "bingo",
+      "evolution-gaming-grade",
+      "nodejs",
+      "norwegian",
+      "pengespill",
+      "postgresql",
+      "redis",
+      "socketio",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-27T15:58:17Z",
+    "filePath": ".claude/skills/pengespillforskriften-compliance/SKILL.md"
+  },
+  {
+    "owner": "zucatti",
+    "repo": "studio-ai",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:52:50Z",
+    "filePath": ".claude/skills/email/email-segmentation-strategy/SKILL.md"
+  },
+  {
+    "owner": "bonassifabio",
+    "repo": "claude-titanic",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-20T09:15:23Z",
+    "filePath": ".claude/skills/scikit-learn/SKILL.md"
+  },
+  {
+    "owner": "Jeffreyp1",
+    "repo": "JobHelp",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T02:41:45Z",
+    "filePath": ".claude/skills/tailoring-resumes/SKILL.md"
+  },
+  {
+    "owner": "papuzinH",
+    "repo": "Nat",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T20:33:02Z",
+    "filePath": ".claude/skills/ux-ui-audit/SKILL.md"
+  },
+  {
+    "owner": "Jeeva0104",
+    "repo": "connector-service-mini",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-04T06:49:01Z",
+    "filePath": ".claude/skills/fp-taskeither-ref/SKILL.md"
+  },
+  {
+    "owner": "LuizEscobarC",
+    "repo": "face-before-after",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-25T07:54:00Z",
+    "filePath": ".claude/local/skills/execute-prompt/SKILL.md"
+  },
+  {
+    "owner": "emrekonakli",
+    "repo": "argosdemo",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-19T14:42:28Z",
+    "filePath": ".claude/skills/gameobject-set-parent/SKILL.md"
+  },
+  {
+    "owner": "Sonnetly",
+    "repo": "academic_research",
+    "description": "Claude Code skills collection for academic research",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T02:28:44Z",
+    "filePath": ".claude/skills/composio-skills/abuselpdb-automation/SKILL.md"
+  },
+  {
+    "owner": "lycHub",
+    "repo": "cool-person",
+    "description": "个人网站模板，动效流",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "animation",
+      "resume-website"
+    ],
+    "updatedAt": "2026-03-18T08:40:11Z",
+    "filePath": ".agents/skills/vue-best-practices/SKILL.md"
+  },
+  {
+    "owner": "UnivmemorN",
+    "repo": "NovaPhyFLIP",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T12:08:16Z",
+    "filePath": ".agents/skills/run-linter/SKILL.md"
+  },
+  {
+    "owner": "aaron031291",
+    "repo": "grace-3.1-",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T12:29:20Z",
+    "filePath": ".agents/skills/obsidian-skills/skills/obsidian-cli/SKILL.md"
+  },
+  {
+    "owner": "LysimachosChertouras",
+    "repo": "SetupWizard",
+    "description": "Gamified learning for C game using godot",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T13:49:30Z",
+    "filePath": ".agents/rules/ECC/skills/homelab-pihole-dns/SKILL.md"
+  },
+  {
+    "owner": "nikidav9",
+    "repo": "JobMatch",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T15:12:25Z",
+    "filePath": ".agents/skills/caveman-compress/SKILL.md"
+  },
+  {
+    "owner": "ingoatl",
+    "repo": "propertycentral",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T14:07:42Z",
+    "filePath": ".agents/skills/energy-procurement/SKILL.md"
+  },
+  {
+    "owner": "LysimachosChertouras",
+    "repo": "SetupWizard",
+    "description": "Gamified learning for C game using godot",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T13:49:30Z",
+    "filePath": ".agents/rules/ECC/skills/energy-procurement/SKILL.md"
+  },
+  {
+    "owner": "eduin1178",
+    "repo": "mahalo-website",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T20:35:45Z",
+    "filePath": ".agents/skills/openspec-verify-change/SKILL.md"
+  },
+  {
+    "owner": "Mredul20",
+    "repo": "NIhongood",
+    "description": "Japanese Language Learning app for JLPT N5/N4 with SRS flashcards",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T06:17:19Z",
+    "filePath": ".agents/skills/stride-analysis-patterns/SKILL.md"
+  },
+  {
+    "owner": "horrorbringer",
+    "repo": "kimmex",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-08T03:00:21Z",
+    "filePath": ".agents/skills/stride-analysis-patterns/SKILL.md"
+  },
+  {
+    "owner": "alexxsssun-byte",
+    "repo": "AI-Swarm-Hivemind",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-08T04:29:57Z",
+    "filePath": ".agents/skills/stride-analysis-patterns/SKILL.md"
+  },
+  {
+    "owner": "malkKhalid",
+    "repo": "cloud-restaurants-3d",
+    "description": "\"A high-end, 3D immersive landing page for Cloud Restaurants Management (Dubai). Built with Next.js, Framer Motion, and Three.js to showcase a futuristic cloud kitchen experience with seamless Arabic/English RTL support.\"",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T07:23:00Z",
+    "filePath": ".agents/skills/stride-analysis-patterns/SKILL.md"
+  },
+  {
+    "owner": "Abdullahmohammadaref",
+    "repo": "acar",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-27T14:19:16Z",
+    "filePath": ".agents/skills/crm-management/SKILL.md"
   }
 ]
