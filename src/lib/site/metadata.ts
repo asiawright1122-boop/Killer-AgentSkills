@@ -92,9 +92,16 @@ function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'f
   return title;
 }
 
+const DEFAULT_DESCRIPTION = 'The ultimate directory of AI Development Skills for Agents.';
+
 function normalizeDescription(description?: string): string {
-  const cleanDescription = description || 'The ultimate directory of AI Development Skills for Agents.';
-  return normalizePublicSummary(cleanDescription, 155);
+  const cleanDescription = description || DEFAULT_DESCRIPTION;
+  const normalized = normalizePublicSummary(cleanDescription, 155);
+  // Guard against normalization stripping the input to empty (e.g. inputs that
+  // contain only punctuation or non-printable characters). SEO audits flag
+  // pages with empty <meta name="description">, so always emit a non-empty
+  // fallback here.
+  return normalized || normalizePublicSummary(DEFAULT_DESCRIPTION, 155) || DEFAULT_DESCRIPTION;
 }
 
 export function buildPageMetadata({

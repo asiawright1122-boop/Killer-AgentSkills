@@ -1,20 +1,11 @@
 {
-  "generatedAt": "2026-05-05T06:59:38.279Z",
-  "sourceReport": "production sitemap/indexability drift audit (2026-05-05)",
+  "generatedAt": "2026-05-20T01:52:20.197Z",
+  "sourceReport": "reports/seo/latest-crawl-health.md",
   "mode": "merge",
   "stats": {
     "excludeExact": 1908,
     "excludeRepo": 344,
-    "ignored": 0,
-    "d1Checked": 3273,
-    "d1Missing": 228,
-    "liveAuditChecked": 1178,
-    "liveAuditHardFailures": 307,
-    "liveAuditAddedExact": 307,
-    "liveAuditVerifiedIndexable": 871,
-    "liveAuditConservativeAddedExact": 1207,
-    "productionFullAuditAddedExact": 6,
-    "productionFullAuditResidualHardFailures": 6
+    "ignored": 0
   },
   "rules": {
     "excludeExact": [
@@ -2080,8 +2071,8 @@
       "karstenheld3/sharepoint-gpt-middleware",
       "karyna1661/audioform-",
       "kattate/bmad-for-replit",
-      "kattate/katalyst-lexicon",
       "kattate/katalyst_franchise_planner",
+      "kattate/katalyst-lexicon",
       "kbediako/codex-termux-pocket",
       "kim-yeo-appweb-lab/trend-korea-app",
       "kizzz/eleon-client",

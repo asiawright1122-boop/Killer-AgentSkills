@@ -455,8 +455,8 @@ const seoDescriptionRaw = sanitizePublicSkillCopy(
 );
 const templateDescription =
   typedLocale === 'zh'
-    ? `安装 ${skillDisplayName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。`
-    : `Install ${skillDisplayName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and setup guidance.`;
+    ? `安装 ${skillDisplayName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。支持 Claude Code、Cursor 和 Windsurf。`
+    : `Install ${skillDisplayName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and one-command setup for Claude Code, Cursor, and Windsurf.`;
 const descriptionIntentSignals = [
   skillSeoIntent.useCaseLabel,
   skillSeoIntent.supportTerm,

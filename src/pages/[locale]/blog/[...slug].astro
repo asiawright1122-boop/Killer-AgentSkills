@@ -4,6 +4,7 @@ import Layout from '../../../layouts/Layout.astro';
 import { ArrowLeft, Calendar, Clock, Share2 } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import Info from '../../../components/Info.astro';
+import MarkdownH1AsH2 from '../../../components/blog/MarkdownH1AsH2.astro';
 import { buildKeywordString } from '../../../lib/seo-keywords';
 import {
   getBlogIntentLinks,
@@ -81,7 +82,6 @@ const formattedDate = post.data.pubDate.toLocaleDateString(locale, dateOptions);
 // Estimate read time (rough)
 const wordCount = (post.body || '').split(/\s+/g).length;
 const readTime = Math.ceil(wordCount / 200);
-const hasMarkdownH1 = /^#\s+/m.test((post.body || '').replace(/```[\s\S]*?```/g, ''));
 // OG image: site-wide static asset. Per-post dynamic OG generation was
 // retired — see skill detail page for rationale.
 const ogImage = new URL(`/og-image.webp`, Astro.url).toString();
@@ -199,17 +199,11 @@ const blogBreadcrumbSchema = {
 
           {/* Header */}
           <header class="mb-12 border-b-4 border-[var(--foreground)] pb-12">
-            {
-              hasMarkdownH1 ? (
-                <p class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance">
-                  {post.data.title}
-                </p>
-              ) : (
-                <h1 class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance">
-                  {post.data.title}
-                </h1>
-              )
-            }
+            <h1
+              class="text-4xl md:text-5xl font-black tracking-tighter text-[var(--foreground)] uppercase mb-8 text-balance"
+            >
+              {post.data.title}
+            </h1>
             <div class="flex items-center gap-3 mb-8">
               {
                 post.data.tags &&
@@ -282,7 +276,7 @@ const blogBreadcrumbSchema = {
                         [&_p>code]:text-[var(--foreground)] [&_p>code]:bg-[var(--muted)] [&_p>code]:px-1.5 [&_p>code]:py-0.5 [&_p>code]:font-bold [&_p>code]:border-2 [&_p>code]:border-[var(--border)]
                         [&_li>code]:text-[var(--foreground)] [&_li>code]:bg-[var(--muted)] [&_li>code]:px-1.5 [&_li>code]:py-0.5 [&_li>code]:font-bold [&_li>code]:border-2 [&_li>code]:border-[var(--border)]"
           >
-            <Content components={{ Info }} />
+            <Content components={{ Info, h1: MarkdownH1AsH2 }} />
           </div>
 
           <section class="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
