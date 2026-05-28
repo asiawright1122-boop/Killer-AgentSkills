@@ -21,7 +21,7 @@ Killer-Skills/
 ├── tests/e2e/              # Playwright browser tests
 ├── workers/                # Cloudflare workers and workflows
 ├── astro.config.mjs        # Astro runtime/build config
-├── wrangler.toml           # Cloudflare Pages bindings
+├── wrangler.toml           # Cloudflare Workers bindings
 └── package.json            # Root scripts and dependencies
 ```
 

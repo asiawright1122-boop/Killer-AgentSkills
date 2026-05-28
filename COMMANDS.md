@@ -7,9 +7,9 @@ Killer-Skills 项目的所有可用脚本和命令的综合指南。
 | 命令 | 说明 |
 |------|------|
 | `npm run dev` | 启动本地 Astro 开发服务器 |
-| `npm run build` | 构建生产环境代码 (Cloudflare Pages) |
+| `npm run build` | 构建生产环境代码 (Cloudflare Workers) |
 | `npm run preview` | 本地预览生产构建结果 |
-| `npm run deploy` | 部署到 Cloudflare Pages |
+| `npm run deploy` | 部署到 Cloudflare Workers |
 
 ## 🧬 数据管道 (Data Pipeline)
 

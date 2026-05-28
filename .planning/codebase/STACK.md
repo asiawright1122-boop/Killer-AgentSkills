@@ -5,7 +5,7 @@
 ## Languages
 
 **Primary:**
-- TypeScript 5.9.x - Main application, API routes, libraries, and tooling (`src/`, `scripts/`, `workers/`, `packages/cli/src/`).
+- TypeScript 6.x - Main application, API routes, libraries, and tooling (`src/`, `scripts/`, `workers/`, `packages/cli/src/`).
 
 **Secondary:**
 - JavaScript (ESM/CJS) - Build/config and automation glue (`astro.config.mjs`, `eslint.config.js`, `scripts/*.mjs`, `scripts/*.cjs`).
@@ -15,7 +15,7 @@
 ## Runtime
 
 **Environment:**
-- Node.js 20.x in root development/CI workflows (`.github/workflows/ci.yml`, `package.json`).
+- Node.js 22.12.0+ in root development/CI workflows (`.github/workflows/ci.yml`, `.nvmrc`).
 - Node.js >=18 for the published CLI package (`packages/cli/package.json`).
 - Cloudflare Workers runtime in production for Astro server output and workflows (`wrangler.toml`, `workers/wrangler.toml`).
 
@@ -25,12 +25,12 @@
 ## Frameworks
 
 **Core Web:**
-- Astro 5 (`astro`) with server output and Cloudflare adapter (`@astrojs/cloudflare`).
+- Astro 6 (`astro`) with server output and Cloudflare adapter (`@astrojs/cloudflare` v13+).
 - React (`react`, `react-dom`) for hydrated islands (`src/islands/`).
 - Tailwind CSS 4 via Vite plugin (`@tailwindcss/vite`, `tailwindcss`).
 
 **Cloud Platform:**
-- Cloudflare Pages/Workers via Wrangler (`wrangler.toml`).
+- Cloudflare Workers via Wrangler (`wrangler.toml`).
 - Cloudflare D1 + KV + Vectorize + Workers AI bindings (`wrangler.toml`, `src/env.d.ts`).
 
 **Testing:**
@@ -79,7 +79,7 @@
 - Optional: GitHub CLI and provider credentials for scripts in `scripts/`.
 
 **Production:**
-- Cloudflare Pages deployment target for Astro `dist/`.
+- Cloudflare Workers deployment target (`wrangler deploy --config dist/server/wrangler.json`).
 - Cloudflare managed services: D1, KV, Vectorize, Workers AI, Workflows.
 - GitHub Actions CI/CD orchestration (`.github/workflows/*.yml`).
 

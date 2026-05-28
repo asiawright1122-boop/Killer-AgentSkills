@@ -68,7 +68,7 @@
 ## CI/CD and Deployment
 
 **Hosting:**
-- Cloudflare Pages deployment from `dist/` via `wrangler-action` in `.github/workflows/ci.yml`.
+- Cloudflare Workers deployment via `wrangler deploy --config dist/server/wrangler.json` in `.github/workflows/ci.yml`.
 
 **CI Pipeline:**
 - GitHub Actions for lint/test/build/deploy and data/SEO automation.
