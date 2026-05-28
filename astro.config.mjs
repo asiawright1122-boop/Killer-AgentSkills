@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, passthroughImageService } from 'astro/config';
+import process from 'node:process';
 
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
@@ -91,7 +92,7 @@ export default defineConfig({
     defaultStrategy: 'hover',
   },
 
-  // Content Security Policy (Astro 5 experimental).
+  // Content Security Policy (Astro 6 — promoted from experimental to security.csp).
   //
   // This emits a per-page <meta http-equiv="content-security-policy"> with
   // SHA-256 hashes of every Astro-generated inline script, including hydration
@@ -111,12 +112,9 @@ export default defineConfig({
   // Tailwind 4 + many third-party React islands inject inline <style> tags
   // that have no stable hash, and the XSS risk via CSS is bounded. Script
   // execution is hash-only.
-  experimental: {
+  security: {
     csp: {
       algorithm: 'SHA-256',
-      // `directives` accepts every CSP keyword EXCEPT script-src / style-src,
-      // which are configured via the dedicated objects below so Astro can
-      // merge in the auto-generated hashes for hydration and inline scripts.
       directives: [
         "default-src 'self'",
         "base-uri 'self'",
@@ -129,17 +127,9 @@ export default defineConfig({
         "manifest-src 'self'",
       ],
       styleDirective: {
-        // Allow Tailwind 4 / island-injected inline styles by including
-        // 'unsafe-inline'. Per the W3C CSP3 spec, when 'unsafe-inline' and
-        // hashes coexist, browsers ignore 'unsafe-inline' — but older browsers
-        // fall back to it, so we keep both for graceful degradation.
         resources: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
       },
       scriptDirective: {
-        // Hash-only mode: Astro injects sha256 hashes for every inline script
-        // it generates (hydration helpers, view transitions, etc.). External
-        // scripts must be loaded from 'self'. Add more origins here only if
-        // you intentionally bring in a third-party SDK.
         resources: ["'self'"],
       },
     },
