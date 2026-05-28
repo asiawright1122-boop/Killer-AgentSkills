@@ -2,10 +2,7 @@ import { useState } from 'react';
 import withErrorBoundary from './withErrorBoundary';
 import { useStore } from '@nanostores/react';
 import { currentFile, selectFile } from '../stores/skill-files';
-import FileText from 'lucide-react/dist/esm/icons/file-text';
-import Folder from 'lucide-react/dist/esm/icons/folder';
-import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
-import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
+import { FileText, Folder, ChevronRight, ChevronDown } from 'lucide-react';
 
 interface File {
   name: string;

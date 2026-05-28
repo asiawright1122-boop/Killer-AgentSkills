@@ -1,19 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import Moon from 'lucide-react/dist/esm/icons/moon';
-import Sun from 'lucide-react/dist/esm/icons/sun';
-import Menu from 'lucide-react/dist/esm/icons/menu';
-import X from 'lucide-react/dist/esm/icons/x';
-import Heart from 'lucide-react/dist/esm/icons/heart';
-import Globe from 'lucide-react/dist/esm/icons/globe';
-import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down';
-import Home from 'lucide-react/dist/esm/icons/home';
-import Compass from 'lucide-react/dist/esm/icons/compass';
-import Grid3X3 from 'lucide-react/dist/esm/icons/grid-3x3';
-import BookOpen from 'lucide-react/dist/esm/icons/book-open';
-import Users from 'lucide-react/dist/esm/icons/users';
-import Layers from 'lucide-react/dist/esm/icons/layers';
-import Rocket from 'lucide-react/dist/esm/icons/rocket';
+import {
+  Moon,
+  Sun,
+  Menu,
+  X,
+  Heart,
+  Globe,
+  ChevronDown,
+  Home,
+  Compass,
+  Grid3X3,
+  BookOpen,
+  Users,
+  Layers,
+  Rocket,
+} from 'lucide-react';
 import SubmitSkillModal from './SubmitSkillModal';
 
 interface HeaderActionsProps {

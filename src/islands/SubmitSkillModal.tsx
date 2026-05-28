@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import X from 'lucide-react/dist/esm/icons/x';
-import Github from 'lucide-react/dist/esm/icons/github';
-import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right';
-import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
-import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
+import { X, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
+import Github from '../icons/GithubIcon';
 
 interface SubmitSkillModalProps {
   isOpen: boolean;

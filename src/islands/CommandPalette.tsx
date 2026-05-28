@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import Search from 'lucide-react/dist/esm/icons/search';
-import X from 'lucide-react/dist/esm/icons/x';
-import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
+import { Search, X, Loader2 } from 'lucide-react';
 
 interface SearchApiResult {
   id: string;

@@ -40,14 +40,8 @@ import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
 import SkillFileManager from '../../../../islands/SkillFileManager';
 import SkillCard from '../../../../components/SkillCard.astro';
-import Github from 'lucide-react/dist/esm/icons/github';
-import Star from 'lucide-react/dist/esm/icons/star';
-import GitFork from 'lucide-react/dist/esm/icons/git-fork';
-import Calendar from 'lucide-react/dist/esm/icons/calendar';
-import CheckCircle2 from 'lucide-react/dist/esm/icons/check-circle-2';
-import Zap from 'lucide-react/dist/esm/icons/zap';
-import Bot from 'lucide-react/dist/esm/icons/bot';
-import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right';
+import { Star, GitFork, Calendar, CheckCircle2, Zap, Bot, ChevronRight } from 'lucide-react';
+import Github from '../../../../icons/GithubIcon';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 

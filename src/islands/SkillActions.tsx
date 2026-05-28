@@ -13,9 +13,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import withErrorBoundary from './withErrorBoundary';
-import Heart from 'lucide-react/dist/esm/icons/heart';
-import Share2 from 'lucide-react/dist/esm/icons/share-2';
-import Check from 'lucide-react/dist/esm/icons/check';
+import { Heart, Share2, Check } from 'lucide-react';
 import { loadFavorites, toggleFavorite, isFavorite as checkIsFavorite, type FavoriteSkill } from '../lib/favorites';
 import { loadHistory, addToHistory } from '../lib/history';
 import { getSkillRoutePath } from '../lib/skill-route-paths';
