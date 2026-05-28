@@ -12,8 +12,8 @@ The open directory for AI Agent Skills, IDE-native skill installation, and reusa
 
 | Layer          | Technology                                                     |
 | -------------- | -------------------------------------------------------------- |
-| **Framework**  | [Astro 5.0](https://astro.build) — SSR with React Islands      |
-| **Deployment** | [Cloudflare Pages](https://pages.cloudflare.com) Advanced Mode |
+| **Framework**  | [Astro 6](https://astro.build) — SSR with React Islands           |
+| **Deployment** | [Cloudflare Workers](https://developers.cloudflare.com/workers/) |
 | **Styling**    | TailwindCSS 4.0                                                |
 | **Database**   | Cloudflare D1 (SQLite) + KV (`SKILLS_CACHE`, `TRANSLATIONS`)   |
 | **Search**     | Cloudflare Vectorize + Workers AI (semantic search)            |
@@ -69,7 +69,7 @@ killer-skills/
 
 ### Prerequisites
 
-- **Node.js** 20+
+- **Node.js** 22.12.0+
 - **npm** (or pnpm)
 - **Cloudflare Wrangler CLI** (for local KV/D1 bindings)
 
@@ -96,7 +96,7 @@ npm run format:check
 | ------------------------------------------- | ---------------------------------------------------------------------------- |
 | `npm run dev`                               | Start Astro dev server with Wrangler proxy                                   |
 | `npm run build`                             | Production build                                                             |
-| `npm run deploy`                            | Deploy to Cloudflare Pages                                                   |
+| `npm run deploy`                            | Deploy to Cloudflare Workers                                                 |
 | `npm test`                                  | Run Vitest unit & integration tests                                          |
 | `npm run test:e2e`                          | Run Playwright E2E tests                                                     |
 | `npm run lint`                              | ESLint check (zero warnings enforced)                                        |
@@ -113,7 +113,7 @@ npm run format:check
 ## 🧪 Testing
 
 - **Framework**: [Vitest](https://vitest.dev/) with coverage via `@vitest/coverage-v8`
-- **Tests**: 292 tests across 24 files
+- **Tests**: 840+ tests across 97 files
 - **Coverage**: ~50% global, 74% for `src/lib/`
 
 ```bash
