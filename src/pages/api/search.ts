@@ -70,15 +70,14 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const sanitizedQuery = query.trim().slice(0, 200);
 
   // ── Rate Limit Check ──
+  const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
   const clientIP = getClientIP(request);
-  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
-  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  const kv = env.SKILLS_CACHE as KVNamespaceLike | undefined;
   if (!(await checkRateLimit(kv, { bucket: 'search', key: clientIP, max: 30, periodSec: 60 }, searchLimiterFallback))) {
     return rateLimitResponse();
   }
 
   try {
-    const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
     const ftsQuery = buildFtsQuery(sanitizedQuery);
 
     let semanticMatches: any[] = [];

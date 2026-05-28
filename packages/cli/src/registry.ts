@@ -16,7 +16,7 @@ export async function fetchSkillMeta(skillName: string): Promise<SkillMeta | nul
         }
         const registry = await res.json() as SkillMeta[];
         return registry.find((s) => s.name === skillName) || null;
-    } catch (error) {
+    } catch {
         // Registry might not exist or network issue
         return null;
     }

@@ -31,10 +31,11 @@ const skillsSearchLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 3
  *   locale   - Locale for description localization (default: "en")
  */
 export const GET: APIRoute = async ({ request, locals }) => {
+  const env = await getRuntimeEnv<Env>(locals);
+
   // Rate limit check (KV-backed with in-memory fallback)
   const clientIP = getClientIP(request);
-  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
-  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  const kv = env?.SKILLS_CACHE as KVNamespaceLike | undefined;
   const rl = await checkRateLimitDetailed(
     kv,
     { bucket: 'skills-search', key: clientIP, max: 30, periodSec: 60 },
@@ -54,7 +55,6 @@ export const GET: APIRoute = async ({ request, locals }) => {
   const locale = url.searchParams.get('locale') || 'en';
 
   try {
-    const env = await getRuntimeEnv<Env>(locals);
     let _skills: UnifiedSkill[] = [];
     let _total = 0;
 

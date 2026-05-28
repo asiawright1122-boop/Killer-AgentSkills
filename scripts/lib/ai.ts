@@ -18,7 +18,6 @@ import {
 } from '../../src/lib/ai-backup-posture';
 import {
   parseAIFallbackPolicy as parseFallbackPolicy,
-  resolveAIFallbackActivation,
   type AIFallbackRoutingPolicy,
 } from '../../src/lib/ai-fallback-policy';
 import { buildAIOnlineProviderPool, splitAIProviderKeys } from '../../src/lib/ai-online-provider-pool';
@@ -2436,7 +2435,11 @@ export class AIService {
         posture: AIBackupProviderPostureConfig['posture'];
         postureReason: string | null;
       }
-    > = onlinePool.backupCandidates.map((candidate) => ({ ...candidate }));
+    > = onlinePool.backupCandidates.map((candidate) => ({
+      ...candidate,
+      posture: 'disabled',
+      postureReason: null,
+    }));
 
     for (const candidate of backupCandidates) {
       const posture = backupProviderPostures[candidate.provider];
@@ -3219,8 +3222,6 @@ Your Response (for "${skillName}"):
       localeBatches.push(SUPPORTED_LOCALES.slice(i, i + BATCH_SIZE));
     }
 
-    let successCount = 0;
-
     // Run ALL batches in PARALLEL — each batch races all providers
     const batchResults = await Promise.allSettled(
       localeBatches.map(async (batch) => {
@@ -3280,7 +3281,6 @@ Output STRICT JSON only, no markdown:
             limitationsMap[lang] = parsed.limitations[lang];
           }
         }
-        successCount++;
       }
     }
     process.stdout.write('.');

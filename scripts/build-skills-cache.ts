@@ -27,10 +27,9 @@ import {
   SKILL_HEADERS,
   FUNCTIONAL_KEYWORDS,
   GITHUB_API,
-  SUPPORTED_LOCALES,
   KV_NAMESPACE_ID,
 } from './lib/constants';
-import { pLimit, fetchWithTimeout } from './lib/utils'; // Removed 'sleep' as it's unused
+import { pLimit } from './lib/utils'; // Removed 'sleep' as it's unused
 import {
   fetchWithRetry,
   fetchRepoInfo,
@@ -41,7 +40,7 @@ import {
 } from './lib/github';
 import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
 import { getNonTargetSkillReason, POSITIVE_THEME_KEYWORDS, isOfficialRepo } from '../src/lib/shared/validation';
-import { isSkillFullyOptimized, collectOptimizationIssues, DEFAULT_REGEN_BATCH_SIZE, TITLE_THEME_TERMS, SEO_THEME_TERMS } from './lib/skill-quality';
+import { isSkillFullyOptimized, collectOptimizationIssues, DEFAULT_REGEN_BATCH_SIZE } from './lib/skill-quality';
 import { writeRegenerationBaselineReport } from './lib/regeneration-report';
 import { getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
 import { buildSkillLocaleGovernanceIndex } from './lib/skill-locale-governance';
@@ -66,6 +65,22 @@ type AiRuntimeSummaryContext = {
   completedBatchIds: Set<string>;
   skippedBatchIds: Set<string>;
   failedBatchEntries: Array<{ id: string; error: string }>;
+};
+
+type BatchCheckpoint = {
+  batch?: number;
+  batchPlanPath?: string;
+  selectedIds?: string[];
+  completedIds?: string[];
+  skippedIds?: string[];
+  failedIds?: Array<{ id: string; error: string }>;
+  pendingIds?: string[];
+  firstId?: string;
+  lastId?: string;
+  topReasons?: Array<[string, number]>;
+  startedAt?: string;
+  status?: string;
+  aiTelemetry?: AIProviderTelemetrySnapshot;
 };
 
 let globalAiRuntimeSummaryContext: AiRuntimeSummaryContext | null = null;
@@ -466,7 +481,7 @@ function isSkillIndexableForSitemap(skill: SkillCache): boolean {
 
 function isPublicSkillForSitemap(skill: SkillCache): boolean {
   return !getNonTargetSkillReason({
-    name: skill.name || skill.skillName || skill.repo || '',
+    name: skill.name || skill.repo || '',
     owner: skill.owner || '',
     repo: skill.repo || '',
     body: skill.skillMd?.body || skill.skillMd?.bodyPreview || '',
@@ -575,7 +590,7 @@ async function buildCache(): Promise<void> {
   }
 
   // Load existing cache
-  let existingMap = new Map<string, SkillCache>();
+  const existingMap = new Map<string, SkillCache>();
   let lastCacheUpdate: string | undefined;
   const cachePath = path.join(process.cwd(), 'data/skills-cache.json');
   if (fs.existsSync(cachePath)) {
@@ -709,21 +724,6 @@ async function buildCache(): Promise<void> {
       lastId?: string;
       topReasons?: Array<[string, number]>;
     };
-    type BatchCheckpoint = {
-      batch?: number;
-      batchPlanPath?: string;
-      selectedIds?: string[];
-      completedIds?: string[];
-      skippedIds?: string[];
-      failedIds?: Array<{ id: string; error: string }>;
-      pendingIds?: string[];
-      firstId?: string;
-      lastId?: string;
-      topReasons?: Array<[string, number]>;
-      startedAt?: string;
-      aiTelemetry?: AIProviderTelemetrySnapshot;
-    };
-
     let batchEntry: BatchPlanEntry | undefined;
     let checkpointSnapshotIds: string[] = [];
     let checkpointStartedAt: string | undefined;
@@ -1184,8 +1184,8 @@ async function buildCache(): Promise<void> {
 
           const currentContentHash = computeHash(skillMdContent || rawDesc || '');
 
-          let metadataDescription = existing?.description || '';
-          let metadataSeo = existing?.seo;
+          let metadataDescription: SkillCache['description'];
+          let metadataSeo: SkillCache['seo'];
           let agentAnalysis = existing?.agentAnalysis;
           let existingHash =
             existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
@@ -1271,13 +1271,13 @@ async function buildCache(): Promise<void> {
     // Handle both GitHub API format and local backup format
     let repoName = '';
     let ownerLogin = '';
-    let stars = 0;
-    let forks = 0;
-    let updatedAt = new Date().toISOString();
-    let topics: string[] = [];
-    let rawDesc = '';
+    let stars: number;
+    let forks: number;
+    let updatedAt: string;
+    let topics: string[];
+    let rawDesc: string;
     let content = '';
-    let filePath = '';
+    let filePath: string;
 
     if (item.repository) {
       // GitHub API format
@@ -1375,7 +1375,6 @@ async function buildCache(): Promise<void> {
           // 0. Fetch content if missing (Parallelized)
           if (!item.content && item.filePath) {
             try {
-              const repoPath = `${item.owner}/${item.repo}`;
               const filePath = item.filePath;
 
               // Bug Fix: 严格验证文件名
@@ -1468,7 +1467,7 @@ async function buildCache(): Promise<void> {
 
           const currentContentHash = computeHash(item.content || item.description || '');
 
-          let itemContent = item.content || '';
+          const itemContent = item.content || '';
           const parsedSkillMd = itemContent ? parseSkillMd(itemContent) : undefined;
 
           let existingHash =
@@ -2081,7 +2080,7 @@ async function saveStateOnly(skills: SkillCache[], runtimeStatus: 'running' | 'p
     try {
       const data = JSON.parse(fs.readFileSync(outputFile, 'utf-8')) as CacheData;
       if (data.skills) data.skills.forEach((s) => allSkillsMap.set(s.id, s));
-    } catch (e) {
+    } catch {
       /* ignore */
     }
   }

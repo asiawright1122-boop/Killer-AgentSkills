@@ -10,7 +10,7 @@ import path from 'path';
 import fs from 'fs-extra';
 import { IDE_CONFIG, SUPPORTED_IDES, getInstallPath } from '../config/ides.js';
 import { fetchSkillMeta } from '../registry.js';
-import { writeSkillMetadata, buildRegistryMetadata, buildGitMetadata } from '../utils/skill-metadata.js';
+import { writeSkillMetadata, buildGitMetadata } from '../utils/skill-metadata.js';
 import { isGitHubRepo, parseRepoString, normalizeGitHubUrl, findSkillFile, downloadSkillFiles } from '../utils/github.js';
 import { detectGlobalIDEs } from '../utils/platform.js';
 import { injectSkill } from '../utils/adapters.js';
@@ -84,6 +84,7 @@ async function installFromGitHubHeadless(
     // Download files
     const files = await downloadSkillFiles(owner, repo, basePath);
     const installed: string[] = [];
+    const installErrors: string[] = [];
 
     for (const ide of targetIDEs) {
         const config = IDE_CONFIG[ide];
@@ -103,9 +104,21 @@ async function installFromGitHubHeadless(
 
             await injectSkill(ide, skillName, installPath, installPath);
             installed.push(config.name);
-        } catch {
-            // ignore
+        } catch (error) {
+            installErrors.push(`${config.name}: ${(error as Error).message}`);
         }
+    }
+
+    if (installed.length === 0) {
+        return {
+            success: false,
+            skillName,
+            sourceType: 'github',
+            installed,
+            error: installErrors.length > 0
+                ? `Failed to install to any target IDE. ${installErrors.join('; ')}`
+                : 'Failed to install to any target IDE.',
+        };
     }
 
     return { success: true, skillName, sourceType: 'github', installed };
@@ -122,35 +135,13 @@ async function installFromRegistryHeadless(
         const result = await installFromGitHubHeadless(meta.repo, targetIDEs, scope);
         // Patch metadata source
         return { ...result, sourceType: 'registry' };
-    } else {
-        // Placeholder creation
-        const installed: string[] = [];
-        const skillContent = `---
-name: ${skillName}
-description: Installed via Killer-Skills MCP
----
-
-# ${skillName}
-
-This skill was installed via MCP.
-`;
-
-        for (const ide of targetIDEs) {
-            const config = IDE_CONFIG[ide];
-            try {
-                const installPath = getInstallPath(ide, scope, skillName);
-                await fs.ensureDir(installPath);
-                await fs.writeFile(path.join(installPath, 'SKILL.md'), skillContent);
-
-                const metadata = buildRegistryMetadata(skillName, '');
-                writeSkillMetadata(installPath, metadata);
-
-                await injectSkill(ide, skillName, installPath, installPath);
-                installed.push(config.name);
-            } catch {
-                // ignore
-            }
-        }
-        return { success: true, skillName, sourceType: 'registry', installed };
     }
+
+    return {
+        success: false,
+        skillName,
+        sourceType: 'registry',
+        installed: [],
+        error: `Skill "${skillName}" was not found in the registry. Use a GitHub owner/repo source instead.`,
+    };
 }

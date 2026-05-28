@@ -379,9 +379,9 @@ function json(body: unknown, status = 200): Response {
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  const env = ((await getRuntimeEnv<TrialEnv>(locals)) || {}) as TrialEnv;
   const clientIP = getClientIP(request);
-  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
-  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  const kv = env.SKILLS_CACHE as KVNamespaceLike | undefined;
   if (!(await checkRateLimit(kv, { bucket: 'try', key: clientIP, max: 12, periodSec: 60 }, trialLimiterFallback))) {
     return rateLimitResponse();
   }
@@ -391,8 +391,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const skillId = body.skillId?.trim() || '';
     let profile = getSkillTryProfile(skillId);
     let dynamicRules = '';
-
-    const env = ((await getRuntimeEnv<TrialEnv>(locals)) || {}) as TrialEnv;
 
     if (!profile) {
       // dynamic generation fallback

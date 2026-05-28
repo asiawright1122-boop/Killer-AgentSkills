@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
-import { getAllSkills, getLocalizedDescription, type UnifiedSkill } from '../../../lib/skills';
+import { getLightweightSkillsPage, getLocalizedDescription } from '../../../lib/skills';
 import { jsonResponse, errorResponse } from '../../../lib/api-utils';
 import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
@@ -26,31 +26,22 @@ export const GET: APIRoute = async ({ request, locals }) => {
   try {
     const env = await getRuntimeEnv<Env>(locals);
 
-    // 1. Load all skills from KV
-    const skillsBase = env ? await getAllSkills(env) : [];
-    let skills: UnifiedSkill[] = skillsBase;
-
-    // 2. Localize descriptions
-    skills = skills.map((skill) => ({
+    // Load only the requested page. Avoid full-table data_json reads on the public listing API.
+    const paged = env
+      ? await getLightweightSkillsPage(env, page, limit)
+      : { skills: [], total: 0, page, pageSize: limit };
+    const localizedSkills = paged.skills.map((skill) => ({
       ...skill,
       description: getLocalizedDescription(skill.description, locale),
     }));
 
-    // 3. Sort by stars (default)
-    skills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
-
-    // 4. Paginate
-    const start = (page - 1) * limit;
-    const end = start + limit;
-    const paginatedSkills = skills.slice(start, end);
-
     return jsonResponse(
       {
-        skills: paginatedSkills.map((skill) => sanitizePublicSkill(skill)),
-        total: skills.length,
-        page,
-        limit,
-        hasMore: end < skills.length,
+        skills: localizedSkills.map((skill) => sanitizePublicSkill(skill)),
+        total: paged.total,
+        page: paged.page,
+        limit: paged.pageSize,
+        hasMore: paged.page * paged.pageSize < paged.total,
       },
       200,
       withPublicApiHeaders({ 'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=120' }),
