@@ -13,8 +13,9 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const DIST_DIR = path.resolve(import.meta.dirname, '..', 'dist');
-const WORKER_DIR = path.join(DIST_DIR, '_worker.js');
-const GENERATED_WRANGLER_CONFIG = path.join(WORKER_DIR, 'wrangler.json');
+const SERVER_DIR = path.join(DIST_DIR, 'server');
+const CLIENT_DIR = path.join(DIST_DIR, 'client');
+const GENERATED_WRANGLER_CONFIG = path.join(SERVER_DIR, 'wrangler.json');
 const PROJECT_WRANGLER_CONFIG = path.resolve(import.meta.dirname, '..', 'wrangler.toml');
 const MAX_BUNDLE_SIZE_BYTES = 15 * 1024 * 1024; // 15MB (CF Workers limit is higher or compressed)
 
@@ -35,14 +36,14 @@ function getDirSize(dirPath: string): number {
 }
 
 describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积约束', () => {
-  it('Cloudflare Pages worker directory should exist after build', () => {
+  it('Cloudflare Workers server directory should exist after build', () => {
     /**
      * **Validates: Requirements 1.4**
      *
      * After running `npm run build`, the Cloudflare Workers output
-     * directory `dist/_worker.js` should exist.
+     * directory `dist/server` should exist (@astrojs/cloudflare v13+).
      */
-    expect(fs.existsSync(WORKER_DIR)).toBe(true);
+    expect(fs.existsSync(SERVER_DIR)).toBe(true);
   });
 
   it('Worker bundle total size should stay under the deployment limit', () => {
@@ -51,25 +52,26 @@ describe('Feature: nextjs-to-astro-migration, Property 8: Worker Bundle 体积�
      *
      * The Worker bundle total size must stay under 15MB.
      */
-    const totalSize = getDirSize(WORKER_DIR);
+    const totalSize = getDirSize(SERVER_DIR);
     const sizeMB = (totalSize / (1024 * 1024)).toFixed(2);
     console.log(`Worker bundle size: ${sizeMB} MB (${totalSize} bytes)`);
     expect(totalSize).toBeLessThan(MAX_BUNDLE_SIZE_BYTES);
   });
 
-  it('Cloudflare Pages worker should contain an index.js entry point', () => {
+  it('Cloudflare Workers server should contain an entry.mjs entry point', () => {
     /**
      * **Validates: Requirements 1.4**
      *
-     * The worker output should contain an index.js entry point file.
+     * The server output should contain an entry.mjs entry point file
+     * (@astrojs/cloudflare v13+ uses ESM entry).
      */
-    const indexPath = path.join(WORKER_DIR, 'index.js');
-    expect(fs.existsSync(indexPath)).toBe(true);
+    const entryPath = path.join(SERVER_DIR, 'entry.mjs');
+    expect(fs.existsSync(entryPath)).toBe(true);
   });
 
   it('dist should contain prerendered sitemap entrypoints for crawlers', () => {
-    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap.xml'))).toBe(true);
-    expect(fs.existsSync(path.join(DIST_DIR, 'sitemap-skills.xml'))).toBe(true);
+    expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap.xml'))).toBe(true);
+    expect(fs.existsSync(path.join(CLIENT_DIR, 'sitemap-skills.xml'))).toBe(true);
   });
 
   it('generated Wrangler config should not contain duplicate binding names', () => {
