@@ -62,6 +62,9 @@ wrangler deploy workers/skill-validation-workflow.ts --name skill-validation-wor
 
 需要在 Cloudflare Dashboard 或通过 `wrangler secret put` 配置：
 
+- `WORKFLOW_TRIGGER_SECRET`: 触发 `/workflows/*` 的 Bearer Token，未配置时接口会 fail closed
+- `WEBHOOK_SECRET`: GitHub webhook 的 HMAC secret，未配置时 webhook 会 fail closed
+- `GITHUB_TOKEN`: webhook 转发 repository_dispatch 时使用
 - `NVIDIA_API_KEY` / `NVIDIA_API_KEYS`: NVIDIA NIM API 密钥
 - `SILICONFLOW_API_KEY`: SiliconFlow 备用密钥
 - `OPENROUTER_API_KEY` / `OPENROUTER_API_KEYS`: OpenRouter 备用密钥

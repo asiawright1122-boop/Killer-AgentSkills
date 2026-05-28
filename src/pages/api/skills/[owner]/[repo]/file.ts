@@ -1,11 +1,28 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../../../lib/kv';
-import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
+import { validationError, notFoundError, errorResponse, jsonResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES } from '../../../../../lib/github';
 import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
+
+const MAX_FILE_BYTES = 512 * 1024;
+const ALLOWED_FILE_EXTENSIONS = new Set(['md', 'txt', 'json', 'yaml', 'yml', 'js', 'ts', 'py', 'sh']);
+
+type FetchFileContentResult =
+  | { status: 'found'; content: string }
+  | { status: 'too_large'; maxBytes: number }
+  | { status: 'not_found' };
+
+function getFileExtension(filename: string): string {
+  return filename.toLowerCase().split('.').pop() || '';
+}
+
+function isAllowedFilePath(path: string): boolean {
+  const filename = path.split('/').pop() || path;
+  return ALLOWED_FILE_EXTENSIONS.has(getFileExtension(filename));
+}
 
 /**
  * Fetch file raw content from GitHub.
@@ -16,7 +33,7 @@ async function fetchFileContent(
   repo: string,
   path: string,
   preferredBranch?: string,
-): Promise<string | null> {
+): Promise<FetchFileContentResult> {
   const branchesToTry = preferredBranch
     ? [preferredBranch, ...COMMON_BRANCHES.filter((b) => b !== preferredBranch)]
     : COMMON_BRANCHES;
@@ -26,21 +43,31 @@ async function fetchFileContent(
     try {
       const response = await fetch(url);
       if (response.ok) {
-        return await response.text();
+        const contentLength = Number(response.headers.get('content-length') || '0');
+        if (Number.isFinite(contentLength) && contentLength > MAX_FILE_BYTES) {
+          return { status: 'too_large', maxBytes: MAX_FILE_BYTES };
+        }
+
+        const content = await response.text();
+        if (new TextEncoder().encode(content).length > MAX_FILE_BYTES) {
+          return { status: 'too_large', maxBytes: MAX_FILE_BYTES };
+        }
+
+        return { status: 'found', content };
       }
     } catch {
       continue;
     }
   }
 
-  return null;
+  return { status: 'not_found' };
 }
 
 /**
  * Determine file type from filename extension.
  */
 function getFileType(filename: string): string {
-  const ext = filename.toLowerCase().split('.').pop() || '';
+  const ext = getFileExtension(filename);
 
   const typeMap: Record<string, string> = {
     md: 'markdown',
@@ -86,6 +113,10 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
     return validationError('Invalid file path');
   }
 
+  if (!isAllowedFilePath(filePath)) {
+    return validationError('Unsupported file type');
+  }
+
   try {
     const env = await getRuntimeEnv<Env>(locals);
 
@@ -103,10 +134,14 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
       }
     }
 
-    const content = await fetchFileContent(owner, repo, filePath, preferredBranch);
+    const result = await fetchFileContent(owner, repo, filePath, preferredBranch);
 
-    if (content === null) {
+    if (result.status === 'not_found') {
       return notFoundError(`File not found: ${filePath}`);
+    }
+
+    if (result.status === 'too_large') {
+      return jsonResponse({ success: false, error: `File exceeds ${result.maxBytes} byte limit` }, 413);
     }
 
     const filename = filePath.split('/').pop() || filePath;
@@ -117,8 +152,8 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
         path: filePath,
         name: filename,
         type: fileType,
-        content,
-        size: content.length,
+        content: result.content,
+        size: result.content.length,
       }),
       {
         status: 200,

@@ -30,9 +30,9 @@ export function parseRepoUrl(url: string): { owner: string; repo: string } | nul
   const trimmed = url.trim().replace(/\/$/, '');
 
   const patterns = [
-    /^https?:\/\/github\.com\/([^/]+)\/([^/]+)/,
-    /^github\.com\/([^/]+)\/([^/]+)/,
-    /^([^/]+)\/([^/]+)$/,
+    /^https?:\/\/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/,
+    /^github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/,
+    /^([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)$/,
   ];
 
   for (const pattern of patterns) {
@@ -76,17 +76,9 @@ const SubmitBodySchema = z.object({
     .string()
     .min(1)
     .max(500)
-    .refine(
-      (value) => {
-        try {
-          new URL(value);
-          return true;
-        } catch {
-          return false;
-        }
-      },
-      { message: 'Invalid URL' },
-    ),
+    .refine((value) => parseRepoUrl(value) !== null, {
+      message: 'Invalid repository URL format',
+    }),
 });
 
 /**
@@ -99,9 +91,9 @@ const SubmitBodySchema = z.object({
  * checks for duplicates in KV, and stores the submission in KV.
  */
 export const POST: APIRoute = async ({ request, locals }) => {
+  const env = await getRuntimeEnv<Env>(locals);
   const clientIP = getClientIP(request);
-  const runtimeEnv = (locals as { runtime?: { env?: Record<string, unknown> } }).runtime?.env;
-  const kv = runtimeEnv?.SKILLS_CACHE as KVNamespaceLike | undefined;
+  const kv = env?.SKILLS_CACHE as KVNamespaceLike | undefined;
   if (!(await checkRateLimit(kv, { bucket: 'submit', key: clientIP, max: 5, periodSec: 60 }, submitLimiterFallback))) {
     return rateLimitResponse();
   }
@@ -173,7 +165,6 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const parsedSkill = parseSkillMd(skillMdContent);
 
     // Check for duplicates via targeted D1 query (O(1) instead of loading entire table)
-    const env = await getRuntimeEnv<Env>(locals);
     if (env) {
       const { getSkillsKV } = await import('../../../lib/kv');
       const repoPath = `${owner}/${repo}`;

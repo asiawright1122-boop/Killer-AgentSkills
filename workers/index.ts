@@ -19,6 +19,24 @@ interface Env {
     CONTENT_WORKFLOW: Workflow;
     GITHUB_TOKEN?: string;
     WEBHOOK_SECRET?: string;
+    WORKFLOW_TRIGGER_SECRET?: string;
+}
+
+function timingSafeStringEqual(a: string, b: string): boolean {
+    if (a.length !== b.length) return false;
+
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) {
+        diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    }
+    return diff === 0;
+}
+
+function verifyBearerSecret(secret: string, authHeader: string | null): 'missing' | 'invalid' | 'valid' {
+    const prefix = 'Bearer ';
+    if (!authHeader || !authHeader.startsWith(prefix)) return 'missing';
+    const token = authHeader.slice(prefix.length).trim();
+    return timingSafeStringEqual(token, secret) ? 'valid' : 'invalid';
 }
 
 async function verifyGitHubSignature(secret: string, body: string, signatureHeader: string | null): Promise<boolean> {
@@ -28,8 +46,7 @@ async function verifyGitHubSignature(secret: string, body: string, signatureHead
     const key = await crypto.subtle.importKey('raw', encoder.encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
     const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(body));
     const actual = Array.from(new Uint8Array(signature)).map(b => b.toString(16).padStart(2, '0')).join('');
-    // Constant-time comparison via subtle.timingSafeEqual if available, else string compare
-    return actual === expected;
+    return timingSafeStringEqual(actual, expected);
 }
 
 // Worker fetch handler
@@ -55,6 +72,21 @@ export default {
 
         // Trigger Workflows
         if (request.method === "POST" && url.pathname.startsWith("/workflows/")) {
+            if (!env.WORKFLOW_TRIGGER_SECRET) {
+                return new Response("Workflow trigger secret not configured", { status: 503 });
+            }
+
+            const workflowAuth = verifyBearerSecret(env.WORKFLOW_TRIGGER_SECRET, request.headers.get("authorization"));
+            if (workflowAuth === 'missing') {
+                return new Response("Unauthorized", {
+                    status: 401,
+                    headers: { "WWW-Authenticate": "Bearer" },
+                });
+            }
+            if (workflowAuth === 'invalid') {
+                return new Response("Forbidden", { status: 403 });
+            }
+
             const workflowName = url.pathname.split("/")[2];
             let workflow: Workflow | undefined;
 
@@ -94,13 +126,15 @@ export default {
             try {
                 // HMAC-SHA256 signature verification (prevents forged webhook calls)
                 const rawBody = await request.text();
-                if (env.WEBHOOK_SECRET) {
-                    const signature = request.headers.get("x-hub-signature-256");
-                    const valid = await verifyGitHubSignature(env.WEBHOOK_SECRET, rawBody, signature);
-                    if (!valid) {
-                        console.error("[Webhook] Invalid signature — rejecting request");
-                        return new Response("Invalid signature", { status: 401 });
-                    }
+                if (!env.WEBHOOK_SECRET) {
+                    return new Response("Webhook secret not configured", { status: 503 });
+                }
+
+                const signature = request.headers.get("x-hub-signature-256");
+                const valid = await verifyGitHubSignature(env.WEBHOOK_SECRET, rawBody, signature);
+                if (!valid) {
+                    console.error("[Webhook] Invalid signature — rejecting request");
+                    return new Response("Invalid signature", { status: 401 });
                 }
 
                 // Verify GitHub event explicitly
