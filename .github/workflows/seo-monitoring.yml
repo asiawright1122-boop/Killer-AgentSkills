@@ -162,9 +162,9 @@ jobs:
         run: |
           if [ -f reports/seo/latest-crawl-health.json ] || [ -f reports/seo/latest-crawl-health.md ]; then
             if [ -n "$CLOUDFLARE_ACCOUNT_ID" ] && [ -n "$CLOUDFLARE_API_TOKEN" ]; then
-              npm run report:seo:sitemap-blocklist:d1
+              npm run report:seo:sitemap-blocklist:d1 -- --prune-stale
             else
-              npm run report:seo:sitemap-blocklist
+              npm run report:seo:sitemap-blocklist -- --prune-stale
             fi
           else
             echo "Skip sitemap blocklist generation: crawl health reports not found"

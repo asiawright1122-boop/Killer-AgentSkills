@@ -60,6 +60,7 @@ function parseArgs(argv: string[]): {
   outputPath: string;
   sitemapPath: string;
   includeD1Gaps: boolean;
+  pruneStale: boolean;
   mode: 'merge' | 'replace';
 } {
   let reportPath = DEFAULT_REPORT_PATH;
@@ -67,6 +68,7 @@ function parseArgs(argv: string[]): {
   let outputPath = DEFAULT_OUTPUT_PATH;
   let sitemapPath = DEFAULT_SITEMAP_PATH;
   let includeD1Gaps = false;
+  let pruneStale = false;
   let mode: 'merge' | 'replace' = 'merge';
 
   for (let i = 0; i < argv.length; i++) {
@@ -98,9 +100,12 @@ function parseArgs(argv: string[]): {
     if (arg === '--replace') {
       mode = 'replace';
     }
+    if (arg === '--prune-stale') {
+      pruneStale = true;
+    }
   }
 
-  return { reportPath, jsonReportPath, outputPath, sitemapPath, includeD1Gaps, mode };
+  return { reportPath, jsonReportPath, outputPath, sitemapPath, includeD1Gaps, pruneStale, mode };
 }
 
 function decodePathPart(value: string): string {
@@ -145,6 +150,35 @@ function extract404UrlsFromJson(rawJson: string): string[] {
   }
 
   return urls;
+}
+
+function extractVerifiedNon404SkillKeys(rawJson: string): Set<string> {
+  const keys = new Set<string>();
+  let parsed: { results?: Array<{ url?: string; status?: number }> };
+  try {
+    parsed = JSON.parse(rawJson) as typeof parsed;
+  } catch {
+    return keys;
+  }
+  const rows = Array.isArray(parsed.results) ? parsed.results : [];
+  for (const row of rows) {
+    if (typeof row.url !== 'string' || !row.url) continue;
+    if (row.status === 404) continue;
+    if (typeof row.status !== 'number' || row.status < 200 || row.status >= 400) continue;
+    let urlObj: URL;
+    try {
+      urlObj = new URL(row.url);
+    } catch {
+      continue;
+    }
+    const skillMatch = urlObj.pathname.match(SKILL_PATH_REGEX);
+    if (!skillMatch) continue;
+    const owner = decodePathPart(skillMatch[1]).trim();
+    const routePath = decodePathPart(skillMatch[2]).trim();
+    if (!owner || !routePath) continue;
+    keys.add(`${normalize(owner)}/${normalize(routePath)}`);
+  }
+  return keys;
 }
 
 function parseArrayOfNormalizedStrings(raw: unknown): string[] {
@@ -281,7 +315,7 @@ function loadExistingRules(outputPath: string): { exactKeys: Set<string>; repoKe
 }
 
 async function main() {
-  const { reportPath, jsonReportPath, outputPath, sitemapPath, includeD1Gaps, mode } = parseArgs(process.argv.slice(2));
+  const { reportPath, jsonReportPath, outputPath, sitemapPath, includeD1Gaps, pruneStale, mode } = parseArgs(process.argv.slice(2));
   const hasJsonReport = existsSync(jsonReportPath);
   const hasMarkdownReport = existsSync(reportPath);
   if (!hasJsonReport && !hasMarkdownReport) {
@@ -381,6 +415,26 @@ async function main() {
     const existing = loadExistingRules(outputPath);
     for (const key of existing.exactKeys) exactKeys.add(key);
     for (const key of existing.repoKeys) repoKeys.add(key);
+  }
+
+  // --prune-stale: remove entries that the latest crawl verified as non-404.
+  // Only prunes entries with positive evidence (2xx/3xx in crawl results).
+  // Entries not checked in this crawl are conservatively kept.
+  let pruned = 0;
+  if (pruneStale && hasJsonReport) {
+    const verifiedOk = extractVerifiedNon404SkillKeys(readFileSync(jsonReportPath, 'utf8'));
+    for (const key of verifiedOk) {
+      if (exactKeys.delete(key)) pruned++;
+    }
+    // Prune repo-level keys only if ALL exact entries under that repo are gone
+    for (const repoKey of Array.from(repoKeys)) {
+      const hasRemainingExact = Array.from(exactKeys).some((k) => k.startsWith(`${repoKey}/`) || k === repoKey);
+      if (!hasRemainingExact) {
+        repoKeys.delete(repoKey);
+        pruned++;
+      }
+    }
+    if (pruned > 0) console.log(`[prune-stale] removed ${pruned} entries verified as non-404`);
   }
 
   const sourceReport = sourceReportPath

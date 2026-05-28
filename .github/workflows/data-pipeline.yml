@@ -103,6 +103,8 @@ jobs:
       - name: Resolve Pipeline Mode
         id: resolve
         shell: bash
+        env:
+          DISPATCH_TARGET_REPO: ${{ github.event.client_payload.target_repo }}
         run: |
           MODE=""
           RUN_HARVEST="false"
@@ -139,7 +141,7 @@ jobs:
           elif [ "${{ github.event_name }}" = "repository_dispatch" ]; then
             MODE="crawler"
             BUILD_MODE="update"
-            BUILD_FILTER="${{ github.event.client_payload.target_repo }}"
+            BUILD_FILTER="$DISPATCH_TARGET_REPO"
             BUILD_FORCE="false"
             BUILD_DURATION="330"
           else
@@ -310,7 +312,7 @@ jobs:
           else
             CHANGED="$(git status --porcelain data/)"
             if [ -n "$CHANGED" ]; then
-              git add data/sitemap-skills.json data/expanded-github-skills.json
+              git add data/sitemap-skills.json data/expanded-github-skills.json data/seo-skill-locale-governance.json
               if [ "$MODE" = "full" ]; then
                 MSG="chore(data): full refresh [skip ci]"
               elif [ "$MODE" = "crawler" ]; then
@@ -372,7 +374,7 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_D1_DATABASE_ID: '4b51522f-2413-4df2-b7d3-ac1cb1f3ef32'
+          CLOUDFLARE_D1_DATABASE_ID: ${{ vars.CLOUDFLARE_D1_DATABASE_ID }}
 
       - name: Sync to Cloudflare D1 (Full Reseed)
         if: needs.resolve.outputs.mode == 'full' || needs.resolve.outputs.mode == 'crawler'

@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Restore Skills Cache Artifact
         continue-on-error: true
@@ -39,13 +39,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22.12.0'
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: HUSKY=0 npm ci
 
       - name: Execute SSR Cache Warmup Probe
         run: npm run cache:warmup

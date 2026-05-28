@@ -283,7 +283,7 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         continue-on-error: true
         env:
-          BAIDU_TOKEN: ${{ secrets['BAIDU_TOKEN'] || '' }}
+          BAIDU_TOKEN: ${{ secrets.BAIDU_TOKEN }}
         run: |
           if [ -n "$BAIDU_TOKEN" ]; then
             npm run submit:baidu

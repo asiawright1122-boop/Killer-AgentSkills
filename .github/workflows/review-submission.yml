@@ -12,17 +12,18 @@ jobs:
       pull-requests: write
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '22.12.0'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: HUSKY=0 npm ci
 
       - name: Create Review Branch
         id: branch
