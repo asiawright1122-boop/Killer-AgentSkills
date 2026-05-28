@@ -6,10 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 [observability]
 enabled = true
 
-# Production secrets are managed via `wrangler pages secret put`:
-#   wrangler pages secret put ADMIN_USER     --project-name killer-skills
-#   wrangler pages secret put ADMIN_PASSWORD --project-name killer-skills
-#   wrangler pages secret put GITHUB_TOKEN   --project-name killer-skills
+# Production secrets are managed via `wrangler secret put`:
+#   wrangler secret put ADMIN_USER
+#   wrangler secret put ADMIN_PASSWORD
+#   wrangler secret put GITHUB_TOKEN
 # We deliberately do NOT define ADMIN_USER here as a public `[vars]` entry —
 # `[vars]` values get baked into the build artifact, so a placeholder here
 # would either become the real username (insecure) or shadow the secret
@@ -17,15 +17,13 @@ enabled = true
 # missing, so leaving this section empty is the correct posture.
 [vars]
 
-# Note: Cloudflare Pages does NOT support `[[ratelimits]]` bindings
-# (Workers-only). The cross-isolate rate limiter in src/lib/rate-limit.ts
-# uses the existing SKILLS_CACHE KV namespace as a counter store. KV's
-# ~30s eventual-consistency propagation means an attacker hitting many PoPs
-# could see slightly elevated allowance during the window, but this is
-# strictly better than the previous per-isolate Map-based limiter (where
-# bypass was unbounded). Migrate to a Workers project + ratelimits binding
-# (or Durable Objects) when sub-ms strict consistency becomes worth the
-# rewrite cost.
+# The cross-isolate rate limiter in src/lib/rate-limit.ts uses the existing
+# SKILLS_CACHE KV namespace as a counter store. KV's ~30s eventual-consistency
+# propagation means an attacker hitting many PoPs could see slightly elevated
+# allowance during the window, but this is strictly better than the previous
+# per-isolate Map-based limiter (where bypass was unbounded). Consider
+# [[ratelimits]] bindings or Durable Objects when sub-ms strict consistency
+# becomes worth the rewrite cost.
 
 [[kv_namespaces]]
 binding = "TRANSLATIONS"
