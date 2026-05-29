@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Search Compliance Recovery Execution and Proof
-current_phase: 66 - priority-surface-ctr-and-ai-search-visibility
-current_plan: 66-01
+current_phase: 67 - post-intervention-proof-window-and-promotion-gate
+current_plan: 67-01
 status: active
 stopped_at: ''
-last_updated: '2026-05-29T14:20:00.000Z'
+last_updated: '2026-05-29T14:23:00.000Z'
 last_activity: 2026-05-29
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 4
-  completed_plans: 2
-  percent: 50
+  completed_plans: 3
+  percent: 75
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 ## Current Position
 
 **Current Milestone:** `v1.9` Search Compliance Recovery Execution and Proof
-**Current Phase:** `66` priority-surface-ctr-and-ai-search-visibility
-**Current Plan:** `66-01` Review priority authority surfaces for CTR/GEO improvement and capture measurable search/AI visibility evidence
-**Status:** Phase 65 completed: P0 URL recovery rules compiled, tested, and deployed to production Cloudflare Workers. Phase 66 is active.
+**Current Phase:** `67` post-intervention-proof-window-and-promotion-gate
+**Current Plan:** `67-01` Generate the post-intervention proof window and update promotion, expansion, and automation gates from evidence
+**Status:** Phase 66 completed: Priority authority surfaces verified, IndexNow recursive sitemap submission executed successfully, AI search state recorded. Phase 67 is active.
 **Last Activity:** 2026-05-29
-**Last Activity Description:** Materialized edge 404/301 rules, passed technical SEO middleware property tests, built and deployed server.
-**Progress:** 50%
+**Last Activity Description:** Checked homepage/docs/collection copy against helpful-content guidelines, ran submit:indexnow for 2107 unique URLs (8428 total submissions).
+**Progress:** 75%
 
 ## Performance Metrics
 
