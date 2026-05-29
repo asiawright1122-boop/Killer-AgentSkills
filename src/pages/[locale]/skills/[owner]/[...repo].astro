@@ -6,7 +6,6 @@ import { getSkillsListingByRefs } from '../../../../lib/kv';
 import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
-import { getCanonicalCollections } from '../../../../lib/collection-slugs';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
@@ -34,7 +33,6 @@ import {
 } from '../../../../lib/public-skill-copy';
 import type { Env, SkillListingItem } from '../../../../lib/kv';
 import { getRuntimeEnv } from '../../../../lib/runtime-env';
-import { getCollection } from 'astro:content';
 import { translateString, translateArray } from '../../../../lib/i18n-dynamic';
 import SkillActions from '../../../../islands/SkillActions';
 import SkillReadme from '../../../../islands/SkillReadme';
@@ -277,22 +275,7 @@ if (!hasSkill && !renderRepoDirectory) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
 
-// Load collections only after skill is resolved.
-// This keeps invalid bot-hit URLs cheap while valid pages still expose useful skill details.
-const relatedCollections = await (async () => {
-  if (renderRepoDirectory) {
-    return [];
-  }
-
-  try {
-    const allCollections = getCanonicalCollections(await getCollection('collections'));
-    const collectionSkillKeys = new Set([`${owner}/${repo}`, fullId]);
-    return allCollections.filter((col) => col.data.skills.some((skillRef) => collectionSkillKeys.has(skillRef)));
-  } catch (error) {
-    console.warn('[SSR] Failed to load related collections for skill detail page:', error);
-    return [];
-  }
-})();
+const relatedCollections: any[] = [];
 
 // Determine verified status (mirrors SkillCard.astro logic)
 const officialConfig = Object.values(OFFICIAL_REPOS).find((v) => v.owner === owner);

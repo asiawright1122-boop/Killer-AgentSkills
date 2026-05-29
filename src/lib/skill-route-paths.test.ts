@@ -32,6 +32,27 @@ describe('skill-route-paths', () => {
     expect(isValidPublicSkillRouteSegment('file.ts')).toBe(false);
   });
 
+  it('rejects colon subskill segments that would redirect to parent pages', () => {
+    expect(
+      getSkillRoutePath({
+        id: 'goondocks-co/myco/myco:debug-daemon-errors',
+        owner: 'goondocks-co',
+        repo: 'myco',
+      }),
+    ).toBeNull();
+
+    expect(
+      normalizeSitemapSkillEntry({
+        owner: 'goondocks-co',
+        repo: 'myco',
+        routePath: 'myco/myco:debug-daemon-errors',
+        updatedAt: '2026-05-27T15:13:55Z',
+      }),
+    ).toBeNull();
+
+    expect(isValidPublicSkillRouteSegment('myco:debug-daemon-errors')).toBe(false);
+  });
+
   it('rejects source-file repo names while keeping legitimate dotted repos', () => {
     expect(
       getSkillRoutePath({

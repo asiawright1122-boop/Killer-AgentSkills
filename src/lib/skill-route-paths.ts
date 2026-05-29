@@ -6,7 +6,7 @@ export type SitemapSkillEntry = {
 };
 
 const FILE_LIKE_SEGMENT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
-const INVALID_ROUTE_SEGMENT_REGEX = /[?#]/;
+const INVALID_ROUTE_SEGMENT_REGEX = /[?:#]/;
 const ROOT_SOURCE_FILE_SEGMENTS = new Set(['readme.md', 'agents.md', 'skill.md']);
 
 type SkillRouteInput = {

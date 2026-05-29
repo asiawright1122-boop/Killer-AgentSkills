@@ -4,7 +4,7 @@ import { getReadmeContent, isPublicSkillForSitemap, pickPreferredText } from './
 
 const MIN_INDEXABLE_SKILL_README_BYTES = 200;
 const FILE_LIKE_SEGMENT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|html|xml|txt)$/i;
-const INVALID_ROUTE_SEGMENT_REGEX = /[?#]/;
+const INVALID_ROUTE_SEGMENT_REGEX = /[?:#]/;
 
 const cache = JSON.parse(fs.readFileSync('data/skills-cache.json', 'utf8'));
 const skills = cache.skills;
