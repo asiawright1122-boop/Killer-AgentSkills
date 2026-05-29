@@ -59,8 +59,8 @@ This phase does not cover:
 - `.planning/REQUIREMENTS.md`
 - `.planning/ROADMAP.md`
 - `.planning/STATE.md`
-- `.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md`
-- `.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md`
+- `.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md`
+- `.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md`
 
 ### Current recovery evidence
 - `reports/seo/latest-recovery-proof-window.json`

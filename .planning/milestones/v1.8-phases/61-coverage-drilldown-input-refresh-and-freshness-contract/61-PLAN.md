@@ -5,8 +5,8 @@ type: plan
 wave: 1
 depends_on: []
 files_modified:
-  - '.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-CONTEXT.md'
-  - '.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-PLAN.md'
+  - '.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-CONTEXT.md'
+  - '.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-PLAN.md'
   - 'scripts/lib/coverage-drilldown-source.ts'
   - 'scripts/lib/coverage-drilldown-source.test.ts'
   - 'scripts/seo-coverage-drilldown-ingest.ts'
@@ -44,7 +44,7 @@ Output: hardened source-selection and ingest behavior, explicit freshness report
 @.planning/REQUIREMENTS.md
 @.planning/ROADMAP.md
 @.planning/STATE.md
-@.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-CONTEXT.md
+@.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-CONTEXT.md
 @.planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window/54-CONTEXT.md
 @scripts/lib/coverage-drilldown-source.ts
 @scripts/lib/coverage-drilldown-source.test.ts
@@ -88,5 +88,5 @@ The repo has a trustworthy Coverage Drilldown freshness contract: fresh raw inpu
 </success_criteria>
 
 <output>
-After completion, create `.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-01-SUMMARY.md` and `.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md` only if the freshness contract and verification evidence are actually in place.
+After completion, create `.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-01-SUMMARY.md` and `.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md` only if the freshness contract and verification evidence are actually in place.
 </output>

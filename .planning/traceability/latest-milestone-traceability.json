@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T06:11:54.213Z",
+  "generatedAt": "2026-05-29T06:17:02.406Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "milestone": "v1.9",
   "milestoneName": "Search Compliance Recovery Execution and Proof",
@@ -38,13 +38,25 @@
         "REC-27",
         "REC-28"
       ],
-      "phaseDirs": [],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "phaseDirs": [
+        "65-p0-url-recovery-batches-and-canonical-proof"
+      ],
+      "summaryFiles": [
+        ".planning/phases/65-p0-url-recovery-batches-and-canonical-proof/65-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/65-p0-url-recovery-batches-and-canonical-proof/65-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-27",
+        "REC-28"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-27",
+        "REC-28"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     },
     {
       "phaseNumber": "66",
@@ -53,7 +65,9 @@
         "CTR-02",
         "GEO-04"
       ],
-      "phaseDirs": [],
+      "phaseDirs": [
+        "66-priority-surface-ctr-and-ai-search-visibility"
+      ],
       "summaryFiles": [],
       "verificationFiles": [],
       "summaryRequirementsCompleted": [],
@@ -67,7 +81,9 @@
       "requirements": [
         "REC-29"
       ],
-      "phaseDirs": [],
+      "phaseDirs": [
+        "67-post-intervention-proof-window-and-promotion-gate"
+      ],
       "summaryFiles": [],
       "verificationFiles": [],
       "summaryRequirementsCompleted": [],
@@ -94,16 +110,16 @@
     {
       "id": "REC-27",
       "expectedPhase": "65",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "REC-28",
       "expectedPhase": "65",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "REC-29",
@@ -129,17 +145,9 @@
   ],
   "hygiene": {
     "status": "clean",
-    "legacyPhaseDirs": [
-      "61-coverage-drilldown-input-refresh-and-freshness-contract",
-      "62-comparable-proof-window-refresh-and-delta-revalidation",
-      "63-authority-and-intervention-readiness-reassessment"
-    ],
+    "legacyPhaseDirs": [],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
-    "missingActivePhaseDirs": [
-      "65",
-      "66",
-      "67"
-    ]
+    "missingActivePhaseDirs": []
   }
 }

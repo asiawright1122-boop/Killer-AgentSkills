@@ -55,7 +55,7 @@ This phase does not cover:
 - `.planning/REQUIREMENTS.md`
 - `.planning/ROADMAP.md`
 - `.planning/STATE.md`
-- `.planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md`
+- `.planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-VERIFICATION.md`
 - `.planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window/54-CONTEXT.md`
 - `.planning/milestones/v1.6-phases/54-post-governance-recovery-proof-window/54-PLAN.md`
 

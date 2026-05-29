@@ -6,8 +6,8 @@ wave: 1
 depends_on:
   - '61-coverage-drilldown-input-refresh-and-freshness-contract'
 files_modified:
-  - '.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md'
-  - '.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-PLAN.md'
+  - '.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md'
+  - '.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-PLAN.md'
   - 'scripts/gsc-fetch-report.ts'
   - 'scripts/seo-crawl-health.ts'
   - 'scripts/lib/recovery-proof-window.ts'
@@ -54,7 +54,7 @@ Output: stable proof-input contracts, a refreshed proof window, a revalidated de
 @.planning/REQUIREMENTS.md
 @.planning/ROADMAP.md
 @.planning/STATE.md
-@.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md
+@.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md
 @reports/gsc/latest-ctr-report.json
 @reports/seo/latest-crawl-health.json
 @reports/seo/latest-coverage-drilldown.json
@@ -101,5 +101,5 @@ The repo can generate a refreshed proof window and delta board from honest curre
 </success_criteria>
 
 <output>
-After completion, create `.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md` and `.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md` only if the refreshed proof and delta-validation evidence are actually in place.
+After completion, create `.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md` and `.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-VERIFICATION.md` only if the refreshed proof and delta-validation evidence are actually in place.
 </output>

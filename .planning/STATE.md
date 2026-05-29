@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v1.9
 milestone_name: Search Compliance Recovery Execution and Proof
-current_phase: 65 - p0-url-recovery-batches-and-canonical-proof
-current_plan: 65-01
+current_phase: 66 - priority-surface-ctr-and-ai-search-visibility
+current_plan: 66-01
 status: active
 stopped_at: ''
-last_updated: '2026-05-29T06:16:00.000Z'
+last_updated: '2026-05-29T14:20:00.000Z'
 last_activity: 2026-05-29
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
-  completed_plans: 1
-  percent: 25
+  completed_plans: 2
+  percent: 50
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 ## Current Position
 
 **Current Milestone:** `v1.9` Search Compliance Recovery Execution and Proof
-**Current Phase:** `65` p0-url-recovery-batches-and-canonical-proof
-**Current Plan:** `65-01` Execute P0 URL recovery batches and verify canonical/redirect proof across reports and live samples
-**Status:** Phase 64 completed per operator instructions to bypass the 7-day GSC Coverage SLA. Phase 65 is now active.
+**Current Phase:** `66` priority-surface-ctr-and-ai-search-visibility
+**Current Plan:** `66-01` Review priority authority surfaces for CTR/GEO improvement and capture measurable search/AI visibility evidence
+**Status:** Phase 65 completed: P0 URL recovery rules compiled, tested, and deployed to production Cloudflare Workers. Phase 66 is active.
 **Last Activity:** 2026-05-29
-**Last Activity Description:** Bypassed GSC Coverage SLA check to 100 days, satisfying Phase 64 and unblocking Phase 65 preflight.
-**Progress:** 25%
+**Last Activity Description:** Materialized edge 404/301 rules, passed technical SEO middleware property tests, built and deployed server.
+**Progress:** 50%
 
 ## Performance Metrics
 

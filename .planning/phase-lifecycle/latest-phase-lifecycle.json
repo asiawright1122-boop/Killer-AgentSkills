@@ -1,38 +1,48 @@
 {
-  "generatedAt": "2026-04-23T02:59:33.987Z",
-  "projectRoot": "/Users/kaka/Dev/Killer-Skills-clean-main",
-  "activeMilestone": "v1.8",
-  "activeMilestoneName": "Fresh Recovery Inputs and Comparable Proof Refresh",
+  "generatedAt": "2026-05-29T06:14:07.353Z",
+  "projectRoot": "/Users/kaka/Dev/Killer-Skills",
+  "activeMilestone": "v1.9",
+  "activeMilestoneName": "Search Compliance Recovery Execution and Proof",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v1.8-phases",
+  "activePhaseArchivePath": ".planning/milestones/v1.9-phases",
   "activePhases": [
     {
-      "phaseNumber": "61",
-      "slug": "coverage-drilldown-input-refresh-and-freshness-contract",
-      "dirName": "61-coverage-drilldown-input-refresh-and-freshness-contract",
+      "phaseNumber": "64",
+      "slug": "search-guidelines-compliance-baseline-and-fresh-coverage",
+      "dirName": "64-search-guidelines-compliance-baseline-and-fresh-coverage",
       "status": "present",
       "activePaths": [
-        ".planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract"
+        ".planning/phases/64-search-guidelines-compliance-baseline-and-fresh-coverage"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "62",
-      "slug": "comparable-proof-window-refresh-and-delta-revalidation",
-      "dirName": "62-comparable-proof-window-refresh-and-delta-revalidation",
+      "phaseNumber": "65",
+      "slug": "p0-url-recovery-batches-and-canonical-proof",
+      "dirName": "65-p0-url-recovery-batches-and-canonical-proof",
       "status": "present",
       "activePaths": [
-        ".planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation"
+        ".planning/phases/65-p0-url-recovery-batches-and-canonical-proof"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "63",
-      "slug": "authority-and-intervention-readiness-reassessment",
-      "dirName": "63-authority-and-intervention-readiness-reassessment",
+      "phaseNumber": "66",
+      "slug": "priority-surface-ctr-and-ai-search-visibility",
+      "dirName": "66-priority-surface-ctr-and-ai-search-visibility",
       "status": "present",
       "activePaths": [
-        ".planning/phases/63-authority-and-intervention-readiness-reassessment"
+        ".planning/phases/66-priority-surface-ctr-and-ai-search-visibility"
+      ],
+      "archivePaths": []
+    },
+    {
+      "phaseNumber": "67",
+      "slug": "post-intervention-proof-window-and-promotion-gate",
+      "dirName": "67-post-intervention-proof-window-and-promotion-gate",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/67-post-intervention-proof-window-and-promotion-gate"
       ],
       "archivePaths": []
     }
@@ -179,6 +189,20 @@
         ".planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization",
         ".planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails"
       ]
+    },
+    {
+      "milestone": "v1.8",
+      "phaseArchivePath": ".planning/milestones/v1.8-phases",
+      "archivedDirs": [
+        ".planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract",
+        ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation",
+        ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract",
+        ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation",
+        ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment"
+      ]
     }
   ],
   "archiveActions": [],
@@ -186,5 +210,14 @@
   "createActions": [],
   "unmanagedPhaseDirs": [],
   "conflicts": [],
-  "rewrittenFiles": []
+  "rewrittenFiles": [
+    ".planning/milestones/v1.8-TRACEABILITY.json",
+    ".planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-PLAN.md",
+    ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md",
+    ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-PLAN.md",
+    ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md",
+    ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-PLAN.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md"
+  ]
 }

@@ -6,8 +6,8 @@ wave: 1
 depends_on:
   - '62-comparable-proof-window-refresh-and-delta-revalidation'
 files_modified:
-  - '.planning/phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md'
-  - '.planning/phases/63-authority-and-intervention-readiness-reassessment/63-PLAN.md'
+  - '.planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md'
+  - '.planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-PLAN.md'
   - 'reports/seo/latest-authority-uplift-scorecard.json'
   - 'reports/seo/latest-authority-uplift-scorecard.md'
   - 'reports/seo/latest-recovery-experiment-ladder.json'
@@ -46,8 +46,8 @@ Output: refreshed authority scorecard, refreshed experiment ladder, refreshed ex
 @.planning/REQUIREMENTS.md
 @.planning/ROADMAP.md
 @.planning/STATE.md
-@.planning/phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md
-@.planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md
+@.planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md
+@.planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-01-SUMMARY.md
 @reports/seo/latest-recovery-proof-window.json
 @reports/seo/latest-recovery-delta-board.json
 @reports/seo/latest-authority-uplift-scorecard.json
@@ -90,5 +90,5 @@ The repo clearly states whether authority promotion, discovery expansion, limite
 </success_criteria>
 
 <output>
-After completion, create `.planning/phases/63-authority-and-intervention-readiness-reassessment/63-01-SUMMARY.md` and `.planning/phases/63-authority-and-intervention-readiness-reassessment/63-VERIFICATION.md` if the reassessment artifacts are in place.
+After completion, create `.planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-01-SUMMARY.md` and `.planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-VERIFICATION.md` if the reassessment artifacts are in place.
 </output>

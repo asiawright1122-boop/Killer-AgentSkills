@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-04-24T05:46:30.229Z",
+  "generatedAt": "2026-05-29T06:14:44.067Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-04-24T05:46:29.097Z",
+  "sourceGeneratedAt": "2026-05-29T06:14:42.588Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
-    "redirect301": 2,
-    "gone410": 491,
-    "ignored": 18,
-    "redirect301CandidateTotal": 282,
-    "redirect301CoveredByMiddleware": 281,
-    "redirect301Materialized": 2,
-    "gone410CandidateTotal": 700,
-    "gone410CoveredByMiddleware": 209,
-    "gone410Materialized": 491,
+    "redirect301": 1,
+    "gone410": 501,
+    "ignored": 19,
+    "redirect301CandidateTotal": 142,
+    "redirect301CoveredByMiddleware": 141,
+    "redirect301Materialized": 1,
+    "gone410CandidateTotal": 839,
+    "gone410CoveredByMiddleware": 338,
+    "gone410Materialized": 501,
     "manualReviewCandidateTotal": 12,
-    "observeCandidateTotal": 6,
+    "observeCandidateTotal": 7,
     "skippedInvalidOrProtected": 0
   },
   "rules": {
@@ -23,11 +23,6 @@
         "fromPath": "/ar/collections/top-community-skills",
         "toPath": "/ar/collections/top-community-contributed-ai-agent-skills",
         "reason": "legacy_collection_slug_redirect"
-      },
-      {
-        "fromPath": "/en/skills/callstackincubator/agent-skills",
-        "toPath": "/en/skills/callstackincubator/agent-skills/react-native-best-practices",
-        "reason": "gsc_ctr_consolidation_to_canonical_skill"
       }
     ],
     "gone410": [
@@ -93,10 +88,6 @@
       },
       {
         "path": "/ar/skills/commands/c-research.md",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/ar/skills/dallay/agentsync",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -233,6 +224,10 @@
       },
       {
         "path": "/ar/skills/oaustegard/claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/optave/codegraph",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -433,6 +428,10 @@
       },
       {
         "path": "/de/skills/intent-integrity-chain/kit",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/de/skills/iOfficeAI/AionUi",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -700,10 +699,6 @@
         "reason": "blocked_by_sitemap"
       },
       {
-        "path": "/en/skills/loonghao/vx/vx-usage",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/en/skills/majiayu000/claude-skill-registry/effect-testing-mocking",
         "reason": "blocked_by_sitemap"
       },
@@ -848,6 +843,10 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
+        "path": "/es/skills/iOfficeAI/AionUi",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/es/skills/jamie8johnson/cqs/release",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -881,10 +880,6 @@
       },
       {
         "path": "/es/skills/proficientlyjobs/proficiently-claude-skills",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/es/skills/proyecto26/projectx",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -992,6 +987,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/fr/skills/eighteyes/tx",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/fr/skills/ElliotJLT/Claude-Skill-Potions",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1080,6 +1079,10 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
+        "path": "/fr/skills/nevir/agentfill",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/fr/skills/Paramchoudhary/ResumeSkills",
         "reason": "blocked_by_sitemap"
       },
@@ -1146,6 +1149,10 @@
       {
         "path": "/ja/skills/asheshgoplani/agent-deck",
         "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ja/skills/Asmayaseen/hackathon-2",
+        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ja/skills/AWS-Educate/template-nextjs-sanity-tailwind-amplify",
@@ -1300,6 +1307,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/ja/skills/ubnt-intrepid/openspec-example-moneylog",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/ja/skills/untitled-data-company/data-skills",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1388,6 +1399,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/ko/skills/dpaola2/pipeline-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/ko/skills/Fancu1/dotfile",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1436,6 +1451,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/ko/skills/kdeldycke/meta-package-manager/repomatic-audit",
+        "reason": "blocked_by_sitemap"
+      },
+      {
         "path": "/ko/skills/kis9a/claude-skills-demo",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -1452,6 +1471,10 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
+        "path": "/ko/skills/lemline/lemline",
+        "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
         "path": "/ko/skills/Liinkiing/larastack",
         "reason": "blocked_by_sitemap"
       },
@@ -1466,6 +1489,10 @@
       {
         "path": "/ko/skills/mindfold-ai/Trellis",
         "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/ko/skills/nevir/agentfill",
+        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ko/skills/onejs/one",
@@ -1554,6 +1581,14 @@
       {
         "path": "/pt/skills/diana-uk/senior-interview-mentor",
         "reason": "blocked_by_sitemap"
+      },
+      {
+        "path": "/pt/skills/dpaola2/pipeline-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/pt/skills/eighteyes/tx",
+        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/pt/skills/Fancu1/dotfile/deep-research",
@@ -1756,8 +1791,8 @@
         "reason": "crawl_trap_or_invalid_public_route"
       },
       {
-        "path": "/ru/skills/loonghao/vx/vx-usage",
-        "reason": "missing_from_sitemap_and_cache"
+        "path": "/ru/skills/lemline/lemline",
+        "reason": "crawl_trap_or_invalid_public_route"
       },
       {
         "path": "/ru/skills/MarioPasc/MenGrowth",

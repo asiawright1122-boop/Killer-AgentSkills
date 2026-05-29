@@ -1,18 +1,19 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-04-23T02:59:33.987Z
-- Active milestone: v1.8 (Fresh Recovery Inputs and Comparable Proof Refresh)
+- Generated: 2026-05-29T06:14:07.353Z
+- Active milestone: v1.9 (Search Compliance Recovery Execution and Proof)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v1.8-phases
+- Active archive path: .planning/milestones/v1.9-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 61 | 61-coverage-drilldown-input-refresh-and-freshness-contract | present | .planning/phases/61-coverage-drilldown-input-refresh-and-freshness-contract | missing |
-| 62 | 62-comparable-proof-window-refresh-and-delta-revalidation | present | .planning/phases/62-comparable-proof-window-refresh-and-delta-revalidation | missing |
-| 63 | 63-authority-and-intervention-readiness-reassessment | present | .planning/phases/63-authority-and-intervention-readiness-reassessment | missing |
+| 64 | 64-search-guidelines-compliance-baseline-and-fresh-coverage | present | .planning/phases/64-search-guidelines-compliance-baseline-and-fresh-coverage | missing |
+| 65 | 65-p0-url-recovery-batches-and-canonical-proof | present | .planning/phases/65-p0-url-recovery-batches-and-canonical-proof | missing |
+| 66 | 66-priority-surface-ctr-and-ai-search-visibility | present | .planning/phases/66-priority-surface-ctr-and-ai-search-visibility | missing |
+| 67 | 67-post-intervention-proof-window-and-promotion-gate | present | .planning/phases/67-post-intervention-proof-window-and-promotion-gate | missing |
 
 ## Archive Actions
 
@@ -68,6 +69,11 @@
 - Archived dirs: .planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory, .planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization, .planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails
 - Expected dirs: .planning/milestones/v1.7-phases/58-public-copy-boundary-audit-and-inventory, .planning/milestones/v1.7-phases/59-user-facing-entry-surface-normalization, .planning/milestones/v1.7-phases/60-public-copy-leakage-guardrails
 
+### v1.8
+- Archive root: .planning/milestones/v1.8-phases
+- Archived dirs: .planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract, .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation, .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment
+- Expected dirs: .planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract, .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation, .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment
+
 ## Conflicts
 
 - none
@@ -78,4 +84,11 @@
 
 ## Rewritten Planning Files
 
-- none
+- .planning/milestones/v1.8-TRACEABILITY.json
+- .planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-PLAN.md
+- .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md
+- .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-PLAN.md
+- .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md
+- .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-PLAN.md
+- .planning/phase-lifecycle/latest-phase-lifecycle.json
+- .planning/phase-lifecycle/latest-phase-lifecycle.md
