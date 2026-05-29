@@ -1,7 +1,14 @@
 #!/usr/bin/env npx tsx
 
+import * as dotenv from 'dotenv';
 import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { basename, resolve } from 'node:path';
+
+dotenv.config();
+if (existsSync('.env.local')) {
+  dotenv.config({ path: '.env.local', override: true });
+}
+
 import {
   discoverCoverageDrilldownSourceDirectories,
   parseCoverageDrilldownCsv,
