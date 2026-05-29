@@ -1,171 +1,133 @@
 {
-  "generatedAt": "2026-05-29T07:03:24.652Z",
+  "generatedAt": "2026-05-29T07:35:20.682Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v1.9",
-  "milestoneName": "Search Compliance Recovery Execution and Proof",
+  "milestone": "v2.0",
+  "milestoneName": "Helpful Content Injection and Authority Unlock",
   "activePhases": [
     {
-      "phaseNumber": "64",
-      "slug": "search-guidelines-compliance-baseline-and-fresh-coverage",
+      "phaseNumber": "68",
+      "slug": "helpful-content-expert-copy-injection",
       "requirements": [
-        "SEO-15",
-        "REC-26"
+        "SEO-16",
+        "CTR-03"
       ],
       "phaseDirs": [
-        "64-search-guidelines-compliance-baseline-and-fresh-coverage"
+        "68-helpful-content-expert-copy-injection"
       ],
       "summaryFiles": [
-        ".planning/phases/64-search-guidelines-compliance-baseline-and-fresh-coverage/64-01-SUMMARY.md"
+        ".planning/phases/68-helpful-content-expert-copy-injection/68-01-SUMMARY.md"
       ],
       "verificationFiles": [
-        ".planning/phases/64-search-guidelines-compliance-baseline-and-fresh-coverage/64-VERIFICATION.md"
+        ".planning/phases/68-helpful-content-expert-copy-injection/68-VERIFICATION.md"
       ],
-      "summaryRequirementsCompleted": [
-        "SEO-15",
-        "REC-26"
-      ],
-      "verificationRequirementsCompleted": [
-        "SEO-15",
-        "REC-26"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "65",
-      "slug": "p0-url-recovery-batches-and-canonical-proof",
+      "phaseNumber": "69",
+      "slug": "physical-gsc-coverage-refresh-and-trust-unlock",
       "requirements": [
-        "REC-27",
-        "REC-28"
+        "REC-30",
+        "REC-31"
       ],
-      "phaseDirs": [
-        "65-p0-url-recovery-batches-and-canonical-proof"
-      ],
-      "summaryFiles": [
-        ".planning/phases/65-p0-url-recovery-batches-and-canonical-proof/65-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/65-p0-url-recovery-batches-and-canonical-proof/65-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "REC-27",
-        "REC-28"
-      ],
-      "verificationRequirementsCompleted": [
-        "REC-27",
-        "REC-28"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "66",
-      "slug": "priority-surface-ctr-and-ai-search-visibility",
+      "phaseNumber": "70",
+      "slug": "selective-authority-expansion-and-backlinks",
       "requirements": [
-        "CTR-02",
-        "GEO-04"
+        "GEO-05",
+        "REC-32"
       ],
-      "phaseDirs": [
-        "66-priority-surface-ctr-and-ai-search-visibility"
-      ],
-      "summaryFiles": [
-        ".planning/phases/66-priority-surface-ctr-and-ai-search-visibility/66-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/66-priority-surface-ctr-and-ai-search-visibility/66-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "CTR-02",
-        "GEO-04"
-      ],
-      "verificationRequirementsCompleted": [
-        "CTR-02",
-        "GEO-04"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "67",
-      "slug": "post-intervention-proof-window-and-promotion-gate",
+      "phaseNumber": "71",
+      "slug": "live-traffic-outcome-and-automation-gate",
       "requirements": [
-        "REC-29"
+        "REC-32"
       ],
-      "phaseDirs": [
-        "67-post-intervention-proof-window-and-promotion-gate"
-      ],
-      "summaryFiles": [
-        ".planning/phases/67-post-intervention-proof-window-and-promotion-gate/67-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/67-post-intervention-proof-window-and-promotion-gate/67-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "REC-29"
-      ],
-      "verificationRequirementsCompleted": [
-        "REC-29"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "phaseDirs": [],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     }
   ],
   "requirements": [
     {
-      "id": "SEO-15",
-      "expectedPhase": "64",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "SEO-16",
+      "expectedPhase": "68",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "REC-26",
-      "expectedPhase": "64",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "CTR-03",
+      "expectedPhase": "68",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "REC-27",
-      "expectedPhase": "65",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "REC-30",
+      "expectedPhase": "69",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "REC-28",
-      "expectedPhase": "65",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "REC-31",
+      "expectedPhase": "69",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "REC-29",
-      "expectedPhase": "67",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "GEO-05",
+      "expectedPhase": "70",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "CTR-02",
-      "expectedPhase": "66",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
-    },
-    {
-      "id": "GEO-04",
-      "expectedPhase": "66",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "REC-32",
+      "expectedPhase": "71",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     }
   ],
   "hygiene": {
     "status": "clean",
-    "legacyPhaseDirs": [],
+    "legacyPhaseDirs": [
+      "64-search-guidelines-compliance-baseline-and-fresh-coverage",
+      "65-p0-url-recovery-batches-and-canonical-proof",
+      "66-priority-surface-ctr-and-ai-search-visibility",
+      "67-post-intervention-proof-window-and-promotion-gate"
+    ],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
-    "missingActivePhaseDirs": []
+    "missingActivePhaseDirs": [
+      "69",
+      "70",
+      "71"
+    ]
   }
 }

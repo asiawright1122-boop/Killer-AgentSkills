@@ -1,34 +1,33 @@
 # Planning Traceability Report
 
-- Milestone: v1.9 (Search Compliance Recovery Execution and Proof)
-- Generated: 2026-05-29T07:03:24.652Z
-- Requirement coverage: satisfied=7, partial=0, pending=0
+- Milestone: v2.0 (Helpful Content Injection and Authority Unlock)
+- Generated: 2026-05-29T07:35:20.682Z
+- Requirement coverage: satisfied=0, partial=0, pending=6
 
 ## Requirement Coverage
 
 | Requirement | Expected Phase | Status | Summary Evidence | Verification Evidence |
 |---|---|---|---|---|
-| SEO-15 | 64 | satisfied | yes | yes |
-| REC-26 | 64 | satisfied | yes | yes |
-| REC-27 | 65 | satisfied | yes | yes |
-| REC-28 | 65 | satisfied | yes | yes |
-| REC-29 | 67 | satisfied | yes | yes |
-| CTR-02 | 66 | satisfied | yes | yes |
-| GEO-04 | 66 | satisfied | yes | yes |
+| SEO-16 | 68 | pending | no | no |
+| CTR-03 | 68 | pending | no | no |
+| REC-30 | 69 | pending | no | no |
+| REC-31 | 69 | pending | no | no |
+| GEO-05 | 70 | pending | no | no |
+| REC-32 | 71 | pending | no | no |
 
 ## Active Phase Contract
 
 | Phase | Directory | Summary Metadata | Verification Metadata | Summary Requirements | Verification Requirements |
 |---|---|---|---|---|---|
-| 64 | 64-search-guidelines-compliance-baseline-and-fresh-coverage | ready | ready | SEO-15, REC-26 | SEO-15, REC-26 |
-| 65 | 65-p0-url-recovery-batches-and-canonical-proof | ready | ready | REC-27, REC-28 | REC-27, REC-28 |
-| 66 | 66-priority-surface-ctr-and-ai-search-visibility | ready | ready | CTR-02, GEO-04 | CTR-02, GEO-04 |
-| 67 | 67-post-intervention-proof-window-and-promotion-gate | ready | ready | REC-29 | REC-29 |
+| 68 | 68-helpful-content-expert-copy-injection | incomplete | incomplete | n/a | n/a |
+| 69 | missing | pending | pending | n/a | n/a |
+| 70 | missing | pending | pending | n/a | n/a |
+| 71 | missing | pending | pending | n/a | n/a |
 
 ## Planning Hygiene
 
 - Status: clean
-- Legacy phase dirs ignored for active discovery: none
+- Legacy phase dirs ignored for active discovery: 64-search-guidelines-compliance-baseline-and-fresh-coverage, 65-p0-url-recovery-batches-and-canonical-proof, 66-priority-surface-ctr-and-ai-search-visibility, 67-post-intervention-proof-window-and-promotion-gate
 - Orphan phase dirs: none
 - Duplicate active phase dirs: none
-- Missing active phase dirs: none
+- Missing active phase dirs: 69, 70, 71

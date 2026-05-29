@@ -2,84 +2,82 @@
 
 ## Overview
 
-`v1.8 Fresh Recovery Inputs and Comparable Proof Refresh` shipped on `2026-05-06` and is now archived.
+`v1.9 Search Compliance Recovery Execution and Proof` shipped on `2026-05-29` and is now archived.
 
-`v1.9 Search Compliance Recovery Execution and Proof` is now active.
+`v2.0 Helpful Content Injection and Authority Unlock` is now active.
 
-This milestone turns the concrete blocker stack surfaced by `v1.8` into search-engine-compliant recovery execution: fresh Coverage Drilldown export ingestion, P0 manual recovery batch execution, priority authority-surface CTR/GEO review, and a new trustworthy proof window after interventions have enough time to appear in search evidence.
+This milestone turns our strategic findings from `v1.9`'s proof window into a concrete recovery breakout campaign: injecting original, high-quality, human-curated expert copy to key entry surfaces, physically ingesting a fresh GSC Coverage report to confirm dead-end URL indexing deletion, selectively expanding high-intent holding surfaces, and unlocking automation and broad directory growth based on recovered search visibility.
 
 ## Immediate Next Actions
 
-- Phase `64` should start by turning official Google, Bing, IndexNow, and Yandex guidance into a project-specific compliance checklist and importing a fresh Coverage Drilldown export.
-- Phase `65` should execute the P0 URL recovery queue and verify canonical/redirect behavior against fresh evidence.
-- Keep discovery expansion closed and automation locked until Phase `67` produces a trustworthy proof window.
+- Phase `68` should inject high-value editorial, review, and usage copy into the homepage and core featured collections to break the "thin programmatic catalog" classification.
+- Phase `69` should physically ingest a fresh Coverage Drilldown zip report from GSC to verify dead-end URL indexing deletion and promote the proof window's trust status.
+- Phase `70` should selectively expand holding authority surfaces and onboard high-value GitHub README and social backlinks.
+- Phase `71` should evaluate returning organic clicks to unlock automated experiment and broad expansion gates.
 
-## Current Milestone: v1.9 Search Compliance Recovery Execution and Proof
+## Current Milestone: v2.0 Helpful Content Injection and Authority Unlock
 
-**Goal:** Execute the known recovery blockers against official search-engine guidance, improve priority click surfaces only where evidence supports it, and produce a post-intervention proof window without overstating recovery.
+**Goal:** Break through the technical reputation penalty by injecting helpful, expert-curated content onto priority authority surfaces, verifying indexing errors are cleared via fresh GSC physical inputs, and selectively unlocking expansion and automation using live organic traffic recovery.
 
-**Requirements:** `SEO-15`, `REC-26`, `REC-27`, `REC-28`, `CTR-02`, `GEO-04`, `REC-29`
-**Phase range:** 64-67
+**Requirements:** `SEO-16`, `REC-30`, `REC-31`, `CTR-03`, `GEO-05`, `REC-32`
+**Phase range:** 68-71
 
-### Phase 64: search-guidelines-compliance-baseline-and-fresh-coverage
+### Phase 68: helpful-content-expert-copy-injection
 
-**Goal:** Establish the official search-guideline compliance baseline and refresh Coverage Drilldown evidence before executing recovery claims.
-**Depends on:** Archived `v1.8`, current recovery reports, and official search-engine guidance research.
-**Requirements:** `SEO-15`, `REC-26`
+**Goal:** Inject high-value editorial, review, and usage copy into key entry surfaces to break "thin programmatic catalog" flags.
+**Depends on:** Shipped `v1.9`, official Helpful Content guidelines.
+**Requirements:** `SEO-16`, `CTR-03`
 **Success Criteria** (what must be TRUE):
-1. Operators can inspect a repo-local compliance matrix that maps Google, Bing, IndexNow, and Yandex guidance to the project's crawl, index, canonical, content, CTR, and AI-search lanes.
-2. A fresh Coverage Drilldown raw export inside the hard SLA is imported or the absence of such an export is explicitly recorded as a blocker.
-3. Recovery reports are regenerated from the selected Coverage source and expose freshness status before any intervention claim is made.
+1. Homepage has at least 250 words of original, expert introduction copy defining MCP safety, compliance, and testing standards.
+2. At least 3 featured collection detail hubs (Claude Code, Cursor, Windsurf) have custom-crafted editor's recommendations and setup examples.
 **Plans:** 0/1 complete
 
 Plans:
-- [ ] `64-01`: Build the search compliance matrix, import fresh Coverage evidence, and regenerate freshness-aware recovery reports.
+- [ ] `68-01`: Draft and inject original helpful-content editorial copy to the homepage and core featured collections.
 
-### Phase 65: p0-url-recovery-batches-and-canonical-proof
+### Phase 69: physical-gsc-coverage-refresh-and-trust-unlock
 
-**Goal:** Execute the highest-priority URL recovery batches and prove canonical, redirect, and sitemap signals agree.
-**Depends on:** Phase 64
-**Requirements:** `REC-27`, `REC-28`
+**Goal:** Ingest a fresh GSC Coverage Drilldown report to physically confirm the eradication of 16k+ historic errors and promote proof status.
+**Depends on:** Phase 68
+**Requirements:** `REC-30`, `REC-31`
 **Success Criteria** (what must be TRUE):
-1. P0 other-cluster and source-file recovery items have explicit keep-410, redirect-validation, recrawl-watch, or defer outcomes.
-2. Trailing-slash, query-parameter, repeated-segment, and deep-skill-path canonicalization are verified against fresh Coverage evidence.
-3. Sitemap, canonical, redirect, middleware, and sampled live-response evidence do not conflict for the remediated URL classes.
+1. Fresh Coverage report dated post-May 2026 is successfully downloaded and ingested.
+2. Sub-3-day freshness SLA is restored (removing local Max Days override) and error counts drop below 10%.
 **Plans:** 0/1 complete
 
 Plans:
-- [ ] `65-01`: Execute P0 URL recovery batches and verify canonical/redirect proof across reports and live samples.
+- [ ] `69-01`: Ingest physical GSC Coverage refresh, clear freshness override, and confirm de-indexing of 404 traps.
 
-### Phase 66: priority-surface-ctr-and-ai-search-visibility
+### Phase 70: selective-authority-expansion-and-backlinks
 
-**Goal:** Improve click-facing priority authority surfaces and capture AI-search visibility evidence without adding manipulative or internal-facing copy.
-**Depends on:** Phase 65
-**Requirements:** `CTR-02`, `GEO-04`
+**Goal:** Selectively expand high-intent holding authority surfaces and acquire quality organic backlinks.
+**Depends on:** Phase 69
+**Requirements:** `GEO-05`, `REC-32`
 **Success Criteria** (what must be TRUE):
-1. Priority authority surfaces are selected from GSC, authority scorecard, and recovery evidence rather than intuition.
-2. Title, description, heading, internal-link, and structured-data changes are limited to accurate user-facing improvements that comply with helpful-content and snippet guidance.
-3. Bing AI Performance, IndexNow, or AI-search evidence is captured when available; unavailable access is recorded honestly without synthetic citation claims.
+1. Up to 5 top-performing holding authority surfaces are promoted to active status.
+2. At least 3 organic, non-paid external backlinks (e.g. GitHub README, dev.to, social mentions) point to active canonical pages.
 **Plans:** 0/1 complete
 
 Plans:
-- [ ] `66-01`: Review priority authority surfaces for CTR/GEO improvement and capture measurable search/AI visibility evidence.
+- [ ] `70-01`: Execute selective authority expansion and onboard organic backlinks.
 
-### Phase 67: post-intervention-proof-window-and-promotion-gate
+### Phase 71: live-traffic-outcome-and-automation-gate
 
-**Goal:** Produce the post-intervention proof window and decide whether recovery, promotion, or automation gates can change.
-**Depends on:** Phase 66
-**Requirements:** `REC-29`
+**Goal:** Verify returning organic clicks to unlock automated experiment and broad directory expansion gates.
+**Depends on:** Phase 70
+**Requirements:** `REC-32`
 **Success Criteria** (what must be TRUE):
-1. The proof window separates technical crawl health, Coverage movement, GSC demand, CTR movement, authority promotion readiness, and automation readiness.
-2. Recovery remains `blocking` unless fresh evidence shows trustworthy movement across the required lanes.
-3. Discovery expansion and automation remain closed unless the scorecard and experiment ladder satisfy their existing gates.
+1. The 2026-06 proof window reports >0 daily organic clicks and rising impressions in GSC.
+2. The automation gate and experiment ladder are unlocked from outcome proof.
 **Plans:** 0/1 complete
 
 Plans:
-- [ ] `67-01`: Generate the post-intervention proof window and update promotion, expansion, and automation gates from evidence.
+- [ ] `71-01`: Evaluate live traffic outcome and unlock automation and broad directory expansion gates.
 
 ## Milestones
 
-- 🚧 **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (active)
+- 🚧 **v2.0 Helpful Content Injection and Authority Unlock** — phases 68-71 (active)
+- ✅ **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (shipped 2026-05-29; [archive](./milestones/v1.9-ROADMAP.md), [requirements](./milestones/v1.9-REQUIREMENTS.md), [audit](./milestones/v1.9-MILESTONE-AUDIT.md), [closeout](./milestones/v1.9-CLOSEOUT.md), [traceability](./milestones/v1.9-TRACEABILITY.md))
 - ✅ **v1.8 Fresh Recovery Inputs and Comparable Proof Refresh** — phases 61-63 (shipped 2026-05-06; [archive](./milestones/v1.8-ROADMAP.md), [requirements](./milestones/v1.8-REQUIREMENTS.md), [audit](./milestones/v1.8-MILESTONE-AUDIT.md), [closeout](./milestones/v1.8-CLOSEOUT.md), [traceability](./milestones/v1.8-TRACEABILITY.md))
 - ✅ **v1.7 Public Trust Surface and Copy Boundary Hardening** — phases 58-60 (shipped 2026-04-23; [archive](./milestones/v1.7-ROADMAP.md), [requirements](./milestones/v1.7-REQUIREMENTS.md), [audit](./milestones/v1.7-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.7-BOOTSTRAP.md), [closeout](./milestones/v1.7-CLOSEOUT.md), [traceability](./milestones/v1.7-TRACEABILITY.md))
 - ✅ **v1.6 Post-Governance Recovery Proof and Authority Lift** — phases 54-57 (shipped 2026-04-16; [archive](./milestones/v1.6-ROADMAP.md), [requirements](./milestones/v1.6-REQUIREMENTS.md), [audit](./milestones/v1.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.6-BOOTSTRAP.md), [closeout](./milestones/v1.6-CLOSEOUT.md), [traceability](./milestones/v1.6-TRACEABILITY.md))
@@ -102,7 +100,8 @@ Plans:
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v1.9 Search Compliance Recovery Execution and Proof | 64-67 | 0/4 | Active | — |
+| v2.0 Helpful Content Injection and Authority Unlock | 68-71 | 0/4 | Active | — |
+| v1.9 Search Compliance Recovery Execution and Proof | 64-67 | 4/4 | Complete | 2026-05-29 |
 | v1.8 Fresh Recovery Inputs and Comparable Proof Refresh | 61-63 | 3/3 | Complete | 2026-05-06 |
 | v1.7 Public Trust Surface and Copy Boundary Hardening | 58-60 | 3/3 | Complete | 2026-04-23 |
 | v1.6 Post-Governance Recovery Proof and Authority Lift | 54-57 | 4/4 | Complete | 2026-04-16 |

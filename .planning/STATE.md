@@ -1,19 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.9
-milestone_name: Search Compliance Recovery Execution and Proof
-current_phase: none
-current_plan: none
-status: complete
+milestone: v2.0
+milestone_name: Helpful Content Injection and Authority Unlock
+current_phase: 68 - helpful-content-expert-copy-injection
+current_plan: 68-01
+status: active
 stopped_at: ''
-last_updated: '2026-05-29T14:31:00.000Z'
+last_updated: '2026-05-29T15:35:00.000Z'
 last_activity: 2026-05-29
 progress:
   total_phases: 4
-  completed_phases: 4
+  completed_phases: 0
   total_plans: 4
-  completed_plans: 4
-  percent: 100
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -23,17 +23,17 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** `v1.9` should execute search-guideline-compliant recovery: fresh Coverage ingestion, P0 manual recovery batches, priority-surface CTR/GEO evidence, and a post-intervention proof window.
+**Current focus:** `v2.0` should execute helpful-content expert copy injection on key entry surfaces, ingest a fresh physical GSC Coverage report post-May 2026, selectively expand high-intent authority surfaces, and evaluate live traffic recovery outcomes to unlock automation gates.
 
 ## Current Position
 
-**Current Milestone:** `none`
-**Current Phase:** `none`
-**Current Plan:** `none`
-**Status:** Milestone v1.9 shipped successfully. All 7 requirements are satisfied, phase audits passed, and closeout is complete.
+**Current Milestone:** `v2.0` Helpful Content Injection and Authority Unlock
+**Current Phase:** `68` helpful-content-expert-copy-injection
+**Current Plan:** `68-01` Draft and inject original helpful-content editorial copy to the homepage and core featured collections
+**Status:** Milestone v1.9 completed and shipped. Milestone v2.0 is officially active. Phase 68-01 is initiated.
 **Last Activity:** 2026-05-29
-**Last Activity Description:** Milestone v1.9 closed out and audited with 100% requirement satisfaction.
-**Progress:** 100%
+**Last Activity Description:** Milestone v2.0 bootstrapped, Phase 68 folder and plan-01 initial documents created.
+**Progress:** 0%
 
 ## Performance Metrics
 
