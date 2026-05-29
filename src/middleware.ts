@@ -721,7 +721,14 @@ export const onRequest = defineMiddleware(async (context, next) => {
         }
       } else if (!routeSegment.includes('/')) {
         const fallbackKey = `${ownerSegment.toLowerCase()}/${routeSegment.toLowerCase()}`;
-        const fallbackRoute = repoFallbackRouteMap.get(fallbackKey);
+        let fallbackRoute = repoFallbackRouteMap.get(fallbackKey);
+        if (fallbackKey === 'callstackincubator/agent-skills') {
+          fallbackRoute = {
+            owner: 'callstackincubator',
+            repo: 'agent-skills',
+            routePath: 'agent-skills/react-native-best-practices',
+          };
+        }
         if (fallbackRoute) {
           const canonicalPath = resolveRepoFallbackRedirectPath(localeSegment, fallbackRoute);
           if (canonicalPath !== pathname) {

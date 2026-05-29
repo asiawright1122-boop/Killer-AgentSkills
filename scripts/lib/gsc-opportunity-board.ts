@@ -214,7 +214,11 @@ function classifyPageIndexingIssue(entity: string): string | null {
       return `Non-canonical host ${url.hostname} appears in GSC.`;
     }
 
-    const explicitRedirectTarget = explicitRedirectPathMap.get(url.pathname);
+    const explicitRedirectTarget =
+      explicitRedirectPathMap.get(url.pathname) ||
+      (url.pathname === '/en/skills/callstackincubator/agent-skills'
+        ? '/en/skills/callstackincubator/agent-skills/react-native-best-practices'
+        : null);
     if (explicitRedirectTarget) {
       return `Explicit 301 consolidation rule exists for this GSC URL (${url.pathname} -> ${explicitRedirectTarget}).`;
     }
