@@ -1,0 +1,66 @@
+{
+  "milestone": "v1.9",
+  "milestoneName": "Search Compliance Recovery Execution and Proof",
+  "goal": "Execute the known recovery blockers against official search-engine guidance, improve priority click surfaces only where evidence supports it, and produce a post-intervention proof window without overstating recovery.",
+  "sourceMilestone": "v1.8",
+  "sourceMilestoneName": "v1.8",
+  "sourceArtifacts": [
+    ".planning/milestones/v1.8-ROADMAP.md",
+    ".planning/milestones/v1.8-REQUIREMENTS.md",
+    ".planning/milestones/v1.8-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "64",
+      "slug": "search-guidelines-compliance-baseline-and-fresh-coverage",
+      "requirements": [
+        "SEO-15",
+        "REC-26"
+      ]
+    },
+    {
+      "number": "65",
+      "slug": "p0-url-recovery-batches-and-canonical-proof",
+      "requirements": [
+        "REC-27",
+        "REC-28"
+      ]
+    },
+    {
+      "number": "66",
+      "slug": "priority-surface-ctr-and-ai-search-visibility",
+      "requirements": [
+        "CTR-02",
+        "GEO-04"
+      ]
+    },
+    {
+      "number": "67",
+      "slug": "post-intervention-proof-window-and-promotion-gate",
+      "requirements": [
+        "REC-29"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-15",
+    "REC-26",
+    "REC-27",
+    "REC-28",
+    "REC-29",
+    "CTR-02",
+    "GEO-04"
+  ]
+}

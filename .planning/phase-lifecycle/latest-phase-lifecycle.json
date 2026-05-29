@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T06:14:07.353Z",
+  "generatedAt": "2026-05-29T07:03:24.068Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "activeMilestone": "v1.9",
   "activeMilestoneName": "Search Compliance Recovery Execution and Proof",
@@ -210,14 +210,5 @@
   "createActions": [],
   "unmanagedPhaseDirs": [],
   "conflicts": [],
-  "rewrittenFiles": [
-    ".planning/milestones/v1.8-TRACEABILITY.json",
-    ".planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract/61-PLAN.md",
-    ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-CONTEXT.md",
-    ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation/62-PLAN.md",
-    ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-CONTEXT.md",
-    ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment/63-PLAN.md",
-    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
-    ".planning/phase-lifecycle/latest-phase-lifecycle.md"
-  ]
+  "rewrittenFiles": []
 }

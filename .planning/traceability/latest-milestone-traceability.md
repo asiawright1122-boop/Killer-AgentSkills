@@ -1,8 +1,8 @@
 # Planning Traceability Report
 
 - Milestone: v1.9 (Search Compliance Recovery Execution and Proof)
-- Generated: 2026-05-29T06:22:25.232Z
-- Requirement coverage: satisfied=6, partial=0, pending=1
+- Generated: 2026-05-29T07:03:24.652Z
+- Requirement coverage: satisfied=7, partial=0, pending=0
 
 ## Requirement Coverage
 
@@ -12,7 +12,7 @@
 | REC-26 | 64 | satisfied | yes | yes |
 | REC-27 | 65 | satisfied | yes | yes |
 | REC-28 | 65 | satisfied | yes | yes |
-| REC-29 | 67 | pending | no | no |
+| REC-29 | 67 | satisfied | yes | yes |
 | CTR-02 | 66 | satisfied | yes | yes |
 | GEO-04 | 66 | satisfied | yes | yes |
 
@@ -23,7 +23,7 @@
 | 64 | 64-search-guidelines-compliance-baseline-and-fresh-coverage | ready | ready | SEO-15, REC-26 | SEO-15, REC-26 |
 | 65 | 65-p0-url-recovery-batches-and-canonical-proof | ready | ready | REC-27, REC-28 | REC-27, REC-28 |
 | 66 | 66-priority-surface-ctr-and-ai-search-visibility | ready | ready | CTR-02, GEO-04 | CTR-02, GEO-04 |
-| 67 | 67-post-intervention-proof-window-and-promotion-gate | pending | pending | n/a | n/a |
+| 67 | 67-post-intervention-proof-window-and-promotion-gate | ready | ready | REC-29 | REC-29 |
 
 ## Planning Hygiene
 

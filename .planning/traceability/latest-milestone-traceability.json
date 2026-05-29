@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-29T06:22:25.232Z",
+  "generatedAt": "2026-05-29T07:03:24.652Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "milestone": "v1.9",
   "milestoneName": "Search Compliance Recovery Execution and Proof",
@@ -94,12 +94,20 @@
       "phaseDirs": [
         "67-post-intervention-proof-window-and-promotion-gate"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/67-post-intervention-proof-window-and-promotion-gate/67-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/67-post-intervention-proof-window-and-promotion-gate/67-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-29"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-29"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     }
   ],
   "requirements": [
@@ -134,9 +142,9 @@
     {
       "id": "REC-29",
       "expectedPhase": "67",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "CTR-02",
