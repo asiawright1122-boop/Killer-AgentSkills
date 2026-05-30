@@ -4222,6 +4222,37 @@
     "filePath": ".claude/skills/testing/SKILL.md"
   },
   {
+    "owner": "TanStack",
+    "repo": "ai",
+    "description": "🤖 Type-safe, provider-agnostic TypeScript AI SDK for streaming chat, tool calling, agents, and multimodal apps across OpenAI, Anthropic, Gemini, React, Vue, Svelte, and Solid.",
+    "stars": 2703,
+    "forks": 219,
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-sdk",
+      "anthropic",
+      "chatbot",
+      "function-calling",
+      "gemini",
+      "gneerative-ai",
+      "llm",
+      "multimodal",
+      "openai",
+      "react",
+      "solidjs",
+      "streaming",
+      "svelte",
+      "tanstack",
+      "tool-calling",
+      "typescript",
+      "typescript-sdk",
+      "vue"
+    ],
+    "updatedAt": "2026-05-29T21:54:42Z",
+    "filePath": ".claude/skills/gap-analysis/SKILL.md"
+  },
+  {
     "owner": "calesthio",
     "repo": "OpenMontage",
     "description": "World's first open-source, agentic video production system. 12 pipelines, 52 tools, 500+ agent skills. Turn your AI coding assistant into a full video production studio.",
@@ -7400,6 +7431,24 @@
     "filePath": ".claude/skills/review-paper/SKILL.md"
   },
   {
+    "owner": "mihai-dinculescu",
+    "repo": "tapo",
+    "description": "🦀 Rust API, 🐍 Python API, and 🤖 MCP Server for TP-Link Tapo smart devices",
+    "stars": 760,
+    "forks": 79,
+    "topics": [
+      "iot",
+      "l510",
+      "l530",
+      "p100",
+      "p110",
+      "smart-home",
+      "tapo"
+    ],
+    "updatedAt": "2026-05-29T02:27:16Z",
+    "filePath": ".claude/skills/update-maturin/SKILL.md"
+  },
+  {
     "owner": "Soju06",
     "repo": "codex-lb",
     "description": "Codex/ChatGPT multiple account load balancer & proxy with usage tracking, dashboard, and OpenCode-compatible endpoints",
@@ -10127,6 +10176,23 @@
     "filePath": ".claude/skills/plotly/SKILL.md"
   },
   {
+    "owner": "minicoohei",
+    "repo": "ai-agent-camp",
+    "description": "AI Agent Camp — non-engineer-friendly AI agent training curriculum. Lessons, skills, commands, and hooks for Claude Code, Cursor, and Codex.",
+    "stars": 358,
+    "forks": 12,
+    "topics": [
+      "ai-agent",
+      "claude-code",
+      "codex",
+      "curriculum",
+      "cursor",
+      "education"
+    ],
+    "updatedAt": "2026-05-28T13:05:12Z",
+    "filePath": ".claude/skills/tdd-guide/SKILL.md"
+  },
+  {
     "owner": "woocommerce",
     "repo": "woocommerce-ios",
     "description": "WooCommerce iOS app",
@@ -12367,6 +12433,26 @@
     ],
     "updatedAt": "2026-05-15T23:43:03Z",
     "filePath": ".claude/skills/pr-workflow/SKILL.md"
+  },
+  {
+    "owner": "rvdbreemen",
+    "repo": "OTGW-firmware",
+    "description": "A ESP8266 devkit firmware for the Nodoshop version of the Opentherm Gateway (OTGW) ",
+    "stars": 187,
+    "forks": 39,
+    "topics": [
+      "esp8266",
+      "home-assistant",
+      "home-automation",
+      "homeassistant",
+      "mqtt",
+      "opentherm-firmware",
+      "opentherm-gateway",
+      "otgw",
+      "otgw-firmware"
+    ],
+    "updatedAt": "2026-05-29T16:17:17Z",
+    "filePath": ".claude/skills/caveman-compress/SKILL.md"
   },
   {
     "owner": "theexperiencecompany",
@@ -16619,6 +16705,24 @@
     "filePath": ".claude/skills/10up-scaffold/SKILL.md"
   },
   {
+    "owner": "petenelson",
+    "repo": "wp-rest-api-log",
+    "description": "WordPress plugin for logging REST API requests and responses",
+    "stars": 87,
+    "forks": 31,
+    "topics": [
+      "elasticpress",
+      "elasticsearch",
+      "logging",
+      "rest-api",
+      "wordpress",
+      "wordpress-plugin",
+      "wp-api"
+    ],
+    "updatedAt": "2026-03-25T18:56:38Z",
+    "filePath": ".claude/skills/10up-performance/SKILL.md"
+  },
+  {
     "owner": "AmaniDawn",
     "repo": "DGame",
     "description": "根据TEngine框架，结合工作经验，修改和增加一些实用性拓展修改的框架（包括但不限于工具方法，工具编辑器，部分底层逻辑调整）。不合入TEngine，主要是不想让TEngine太冗杂。",
@@ -19093,6 +19197,16 @@
     "filePath": ".agents/skills/add-hook/SKILL.md"
   },
   {
+    "owner": "vinzenz",
+    "repo": "prd-breakdown-execute",
+    "description": null,
+    "stars": 56,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T04:39:01Z",
+    "filePath": ".claude/skills/breakdown/SKILL.md"
+  },
+  {
     "owner": "mag123c",
     "repo": "toktrack",
     "description": "Ultra-fast token & cost tracker for LLM Token Usage (e.g. Claude Code)",
@@ -19924,6 +20038,22 @@
     "topics": [],
     "updatedAt": "2026-05-18T17:11:09Z",
     "filePath": ".claude/skills/improve/SKILL.md"
+  },
+  {
+    "owner": "arcasilesgroup",
+    "repo": "ai-engineering",
+    "description": "Turn any repo into a governed AI workspace. Quality gates, security scanning, and risk management — enforced locally via git hooks. Works with Claude Code, GitHub Copilot, Cursor, Gemini & Codex.",
+    "stars": 48,
+    "forks": 2,
+    "topics": [
+      "ai-agents",
+      "claude-code",
+      "developer-tools",
+      "devsecops",
+      "github-copilot"
+    ],
+    "updatedAt": "2026-05-29T20:09:36Z",
+    "filePath": ".claude/skills/ai-constitution/SKILL.md"
   },
   {
     "owner": "nabondance",
@@ -23771,6 +23901,31 @@
     "topics": [],
     "updatedAt": "2026-05-28T15:01:46Z",
     "filePath": ".agents/skills/add-icon/SKILL.md"
+  },
+  {
+    "owner": "JeffGreen311",
+    "repo": "eve-agent-v2-unleashed",
+    "description": "Eve Agent V2 Unleashed — local-first autonomous AI coding agent powered by Ollama",
+    "stars": 30,
+    "forks": 6,
+    "topics": [
+      "agentic-ai",
+      "ai-agent",
+      "autonomous-agent",
+      "chatbot",
+      "coding-assistant",
+      "fastapi",
+      "gpu",
+      "llm",
+      "local-ai",
+      "ollama",
+      "open-source",
+      "python",
+      "streaming",
+      "windows"
+    ],
+    "updatedAt": "2026-05-30T00:32:01Z",
+    "filePath": ".claude/skills/prompt-engineering-patterns/SKILL.md"
   },
   {
     "owner": "carrotwaxr",
@@ -28998,6 +29153,16 @@
     "filePath": ".claude/skills/summary-writer/SKILL.md"
   },
   {
+    "owner": "whchoi98",
+    "repo": "aws-skills-for-claude-code",
+    "description": "aws-skills-for-aws",
+    "stars": 19,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-04-29T15:42:43Z",
+    "filePath": ".claude/skills/refactor/SKILL.md"
+  },
+  {
     "owner": "limehawk",
     "repo": "rmm-scripts",
     "description": "Production-ready PowerShell and Bash scripts for RMM platforms (SuperOps, Datto, NinjaRMM)",
@@ -29313,6 +29478,21 @@
     ],
     "updatedAt": "2026-05-29T04:33:44Z",
     "filePath": ".claude/skills/summary-writer/SKILL.md"
+  },
+  {
+    "owner": "Chemaclass",
+    "repo": "bashdep",
+    "description": "A simple dependency manager for bash",
+    "stars": 18,
+    "forks": 0,
+    "topics": [
+      "bash",
+      "bash-script",
+      "bashunit",
+      "dependency-manager"
+    ],
+    "updatedAt": "2026-05-03T18:56:29Z",
+    "filePath": ".claude/skills/pr/SKILL.md"
   },
   {
     "owner": "lbb00",
@@ -30851,6 +31031,20 @@
     ],
     "updatedAt": "2026-04-10T18:08:46Z",
     "filePath": ".kiro/skills/aws-messaging/SKILL.md"
+  },
+  {
+    "owner": "thejefflarson",
+    "repo": "soundcheck",
+    "description": "Simple security reviews",
+    "stars": 16,
+    "forks": 0,
+    "topics": [
+      "llms",
+      "security",
+      "skills"
+    ],
+    "updatedAt": "2026-05-27T06:05:42Z",
+    "filePath": ".claude/skills/excessive-agency/SKILL.md"
   },
   {
     "owner": "tobi",
@@ -36838,6 +37032,16 @@
     "filePath": ".agents/skills/codex-start/SKILL.md"
   },
   {
+    "owner": "GetKlai",
+    "repo": "klai",
+    "description": "Klai open-source AI platform",
+    "stars": 9,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-29T17:32:35Z",
+    "filePath": ".claude/skills/klai/tenant-isolation-checks/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -39668,6 +39872,36 @@
     ],
     "updatedAt": "2026-05-14T16:05:56Z",
     "filePath": ".claude/skills/gh/SKILL.md"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "MCS-Agent-Builder",
+    "description": "End to End Automate MCS Agent building tool",
+    "stars": 7,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-05-21T06:03:19Z",
+    "filePath": ".claude/skills/mcs-init/SKILL.md"
+  },
+  {
+    "owner": "dark-vex",
+    "repo": "infra-cd",
+    "description": "Homelab Infrastructure as Code (IaC) and GitOps practices",
+    "stars": 7,
+    "forks": 0,
+    "topics": [
+      "ansible",
+      "flux2",
+      "flux2-gitops-toolkit",
+      "fluxcd",
+      "gitops",
+      "infrastructure-as-a-code",
+      "infrastructure-as-code",
+      "packer",
+      "terraform"
+    ],
+    "updatedAt": "2026-05-29T16:57:40Z",
+    "filePath": ".claude/skills/hybrid-cloud-architect/SKILL.md"
   },
   {
     "owner": "ocn",
@@ -44698,6 +44932,21 @@
     "filePath": ".agents/skills/tdd/SKILL.md"
   },
   {
+    "owner": "jtmenchaca",
+    "repo": "tidy-ts",
+    "description": "Type-safe data analytics and statistics framework for Typescript.  Built for modern data science workflows with compile-time safety. ",
+    "stars": 5,
+    "forks": 0,
+    "topics": [
+      "data-science",
+      "dataframe",
+      "jsr",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-29T15:39:55Z",
+    "filePath": ".claude/skills/whats-next-pocock/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -47978,6 +48227,46 @@
     "topics": [],
     "updatedAt": "2026-05-28T17:27:01Z",
     "filePath": ".agents/skills/deslop/SKILL.md"
+  },
+  {
+    "owner": "AndreVianna",
+    "repo": "aid-methodology",
+    "description": "AID — AI-Integrated Development: A complete methodology for human-AI collaborative software development. 12 phases, 5 stages, 11 feedback loops.",
+    "stars": 4,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-30T02:04:27Z",
+    "filePath": ".claude/skills/aid-plan/SKILL.md"
+  },
+  {
+    "owner": "OpenSourcePharmaFoundation",
+    "repo": "ospf-ayurveda-kg",
+    "description": "Building a knowledge graph to understand the connection of a specific ayurvedic formulation to oral cancers. ",
+    "stars": 4,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-12T00:23:11Z",
+    "filePath": ".claude/skills/target-profiler/SKILL.md"
+  },
+  {
+    "owner": "bottle-note",
+    "repo": "bottle-note-api-server",
+    "description": "bottle note api server ",
+    "stars": 4,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-23T10:10:50Z",
+    "filePath": ".claude/skills/debug/SKILL.md"
+  },
+  {
+    "owner": "JanuaryLabs",
+    "repo": "deepagents",
+    "description": null,
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-24T09:58:01Z",
+    "filePath": ".claude/skills/agent-testing/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -51414,6 +51703,36 @@
     "topics": [],
     "updatedAt": "2026-05-29T07:14:00Z",
     "filePath": ".claude/skills/nuxt-seo/SKILL.md"
+  },
+  {
+    "owner": "pradeepmouli",
+    "repo": "to-skills",
+    "description": "Generate AI agent skills (SKILL.md) from TypeScript API docs — TypeDoc plugin + CLI + Docusaurus/VitePress",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "agent-skills",
+      "ai",
+      "api-documentation",
+      "claude-code",
+      "cli",
+      "code-generation",
+      "copilot",
+      "cursor",
+      "developer-tools",
+      "documentation",
+      "docusaurus",
+      "jsdoc",
+      "llm",
+      "llms-txt",
+      "skill-md",
+      "typedoc",
+      "typedoc-plugin",
+      "typescript",
+      "vitepress"
+    ],
+    "updatedAt": "2026-05-28T23:25:20Z",
+    "filePath": ".claude/skills/speckit-enhance/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -57375,6 +57694,42 @@
     ],
     "updatedAt": "2026-05-29T16:11:12Z",
     "filePath": ".claude/skills/next-card/SKILL.md"
+  },
+  {
+    "owner": "lipingtababa",
+    "repo": "agentszone-ai",
+    "description": null,
+    "stars": 2,
+    "forks": 9,
+    "topics": [],
+    "updatedAt": "2026-05-24T18:47:59Z",
+    "filePath": ".claude/skills/poster/skill.md"
+  },
+  {
+    "owner": "FuncSmile",
+    "repo": "fadli.portofolio.dev",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-10T12:50:47Z",
+    "filePath": ".claude/skills/reasoningbank-agentdb/SKILL.md"
+  },
+  {
+    "owner": "nxhung2304",
+    "repo": "dotfiles",
+    "description": "My personal dotfiles on macos",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "dotfiles",
+      "macos",
+      "nvim",
+      "tmux",
+      "wezterm"
+    ],
+    "updatedAt": "2026-05-29T11:23:16Z",
+    "filePath": ".claude/skills/drill-issue/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -70294,6 +70649,476 @@
     "filePath": ".agents/skills/referral-program/SKILL.md"
   },
   {
+    "owner": "guidodinello",
+    "repo": "claude-dotfiles",
+    "description": "Personal Claude Code config — agents, hooks & skills synced across machines.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-30T03:55:25Z",
+    "filePath": ".claude/skills/writing-react-effects/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/iot/mbed-setup/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/design/framer-export/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/database/druid-setup/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/product/scrum-basics/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/iot/micropython-setup/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/backend/rust-cli-tool/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/devops/jaeger-storage/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/ar-vr/arcore-rendering/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/devops/openshift-service/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/devops/concourse-caching/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/hr/codility-offers/SKILL.md"
+  },
+  {
+    "owner": "focalstudio",
+    "repo": "focal-studio-app-template",
+    "description": "Capacitor + React + TypeScript app scaffold for Focal Studio apps",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-29T16:47:28Z",
+    "filePath": ".claude/skills/aso-rules/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/frontend/water-forms/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/ar-vr/webxr-tracking/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/frontend/vitepress-ssg/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/ai/pillow-optical-flow/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/iot/esphome-dashboards/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/healthcare/dicom-basics/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/frontend/tsc-source-maps/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/backend/sanic-templating/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/database/firestore-security/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/frontend/oxlint-optimization/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/devops/lxc-setup/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/devops/logging-elk/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/security/soc2-basics/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/qa/testcafe-selectors/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/ar-vr/oculus-tracking/SKILL.md"
+  },
+  {
+    "owner": "lopadova",
+    "repo": "AskMyDocs",
+    "description": "AI Hub & Intelligent Agentic Platform for the Enterprise - self-hostable AI hub for enterprise knowledge.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "ai-act",
+      "ai-agent",
+      "ai-assistant",
+      "aihub",
+      "chatbot",
+      "embeddings",
+      "intelligent-agent",
+      "kb",
+      "laravel",
+      "postgresql",
+      "rag",
+      "rag-chatbot",
+      "vector-database"
+    ],
+    "updatedAt": "2026-05-27T21:00:03Z",
+    "filePath": ".claude/skills/cross-tenant-isolation/SKILL.md"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "description": "Claude Skills Library is an open collection of specialized instructions (skills) for improving work with Claude.ai. Each skill contains an optimized context and step-by-step instructions for solving specific tasks in development, testing, deployment, and related areas.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "claude",
+      "claude-code",
+      "library",
+      "skills"
+    ],
+    "updatedAt": "2026-05-30T03:28:04Z",
+    "filePath": ".claude/skills/data/apache-spark-batch/SKILL.md"
+  },
+  {
+    "owner": "Valjoha",
+    "repo": "dmrzl-framework",
+    "description": "DMRZL Framework — Claude Code agent OS architecture demo (MIT). Skills, agents, protocols, safety hooks. Test on your own project to evaluate the pattern.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-15T11:58:09Z",
+    "filePath": ".claude/skills/dmrzl-review/SKILL.md"
+  },
+  {
+    "owner": "spilchen",
+    "repo": "sql-ai-tools",
+    "description": "High-fidelity SQL validation, formatting, and schema analysis for  CockroachDB — delivered as an MCP server and CLI for AI agents.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-27T15:11:02Z",
+    "filePath": ".claude/skills/commit-helper/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -72097,7 +72922,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T03:28:55Z",
+    "updatedAt": "2026-05-30T00:45:57Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -72955,7 +73780,7 @@
       "tools",
       "windows"
     ],
-    "updatedAt": "2026-05-23T00:53:07Z",
+    "updatedAt": "2026-05-30T03:09:27Z",
     "filePath": ".claude/skills/rust/SKILL.md"
   },
   {
@@ -72965,7 +73790,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-27T16:25:25Z",
+    "updatedAt": "2026-05-30T01:07:57Z",
     "filePath": ".claude/skills/vercel/SKILL.md"
   },
   {
@@ -73713,7 +74538,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T15:57:58Z",
+    "updatedAt": "2026-05-29T16:31:49Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -73809,7 +74634,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-05-29T16:05:59Z",
+    "updatedAt": "2026-05-30T01:50:40Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -74175,7 +75000,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-28T13:56:44Z",
+    "updatedAt": "2026-05-29T18:27:42Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -74332,7 +75157,7 @@
       "productivity",
       "social-network"
     ],
-    "updatedAt": "2026-05-27T11:16:41Z",
+    "updatedAt": "2026-05-29T18:36:01Z",
     "filePath": ".claude/skills/the-linter/SKILL.md"
   },
   {
@@ -74344,16 +75169,6 @@
     "topics": [],
     "updatedAt": "2026-03-16T03:16:22Z",
     "filePath": ".claude/skills/d-plan-fix/SKILL.md"
-  },
-  {
-    "owner": "guidodinello",
-    "repo": "claude-dotfiles",
-    "description": "Personal Claude Code config — agents, hooks & skills synced across machines.",
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-05-16T05:49:38Z",
-    "filePath": ".claude/skills/writing-react-effects/SKILL.md"
   },
   {
     "owner": "jchaselubitz",
@@ -74412,7 +75227,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-27T01:35:35Z",
+    "updatedAt": "2026-05-29T17:53:36Z",
     "filePath": ".claude/skills/merge/SKILL.md"
   },
   {
@@ -74462,7 +75277,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T14:17:25Z",
+    "updatedAt": "2026-05-30T03:57:16Z",
     "filePath": ".claude/skills/justicehub-context/SKILL.md"
   },
   {
@@ -74810,7 +75625,7 @@
     "topics": [
       "blog"
     ],
-    "updatedAt": "2026-05-29T03:57:41Z",
+    "updatedAt": "2026-05-30T02:04:39Z",
     "filePath": ".claude/skills/editing-post-frontmatter/SKILL.md"
   },
   {
@@ -74990,7 +75805,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-15T13:37:44Z",
+    "updatedAt": "2026-05-30T03:22:54Z",
     "filePath": ".claude/skills/mockup/SKILL.md"
   },
   {
@@ -75040,7 +75855,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T00:01:06Z",
+    "updatedAt": "2026-05-30T01:53:18Z",
     "filePath": ".claude/skills/new-release/SKILL.md"
   },
   {
@@ -75240,7 +76055,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-27T01:35:35Z",
+    "updatedAt": "2026-05-29T17:53:36Z",
     "filePath": ".claude/skills/generation-plan/SKILL.md"
   },
   {
@@ -75467,7 +76282,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T15:55:06Z",
+    "updatedAt": "2026-05-29T20:28:42Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -75530,7 +76345,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T03:13:10Z",
+    "updatedAt": "2026-05-30T03:10:48Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -75560,7 +76375,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T13:57:00Z",
+    "updatedAt": "2026-05-29T19:02:08Z",
     "filePath": ".claude/skills/swayimg/SKILL.md"
   },
   {
@@ -75640,7 +76455,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T13:57:00Z",
+    "updatedAt": "2026-05-29T19:02:08Z",
     "filePath": ".claude/skills/eww-widgets/SKILL.md"
   },
   {
@@ -75862,7 +76677,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-26T18:35:29Z",
+    "updatedAt": "2026-05-29T17:38:40Z",
     "filePath": ".claude/skills/rspress-frontmatter/SKILL.md"
   },
   {
@@ -76401,7 +77216,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T15:24:29Z",
+    "updatedAt": "2026-05-29T22:43:25Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -76421,7 +77236,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-22T22:19:47Z",
+    "updatedAt": "2026-05-29T21:28:22Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -76481,7 +77296,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-29T13:10:24Z",
+    "updatedAt": "2026-05-29T16:24:12Z",
     "filePath": ".claude/skills/agentic-engineering/SKILL.md"
   },
   {
@@ -118325,5 +119140,130 @@
     "topics": [],
     "updatedAt": "2026-05-28T21:17:59Z",
     "filePath": ".agents/skills/bmad-agent-cis-storyteller/SKILL.md"
+  },
+  {
+    "owner": "aryateja2106",
+    "repo": "Lecoder-PAI",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2025-12-28T04:10:49Z",
+    "filePath": ".claude/Skills/CORE/SKILL.md"
+  },
+  {
+    "owner": "THISBROJJ",
+    "repo": "EFF-IT",
+    "description": "A Claude Code harness that wraps any software project with a full AI-assisted development workflow.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-28T18:47:34Z",
+    "filePath": ".claude/skills/git-pr/SKILL.md"
+  },
+  {
+    "owner": "amoutiers",
+    "repo": "maxi-superpowers",
+    "description": "Claude Code plugin: structured AI-assisted feature pipeline (specify → clarify → plan → tasks → analyze → implement)",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-29T21:05:18Z",
+    "filePath": ".claude/skills/release/SKILL.md"
+  },
+  {
+    "owner": "alexmendes92",
+    "repo": "figurinhaspro",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T23:09:37Z",
+    "filePath": ".claude/skills/implementa/SKILL.md"
+  },
+  {
+    "owner": "Kalashya",
+    "repo": "SoloDevAgents",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-24T06:32:55Z",
+    "filePath": ".claude/skills/tdd-workflow/SKILL.md"
+  },
+  {
+    "owner": "FrekiManagarm",
+    "repo": "d-chambaud",
+    "description": "david chambaud restauration website",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-20T21:35:46Z",
+    "filePath": ".claude/skills/reasoningbank-agentdb/SKILL.md"
+  },
+  {
+    "owner": "FuncSmile",
+    "repo": "Saji_apps",
+    "description": "Sistem ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T06:10:54Z",
+    "filePath": ".claude/skills/reasoningbank-agentdb/SKILL.md"
+  },
+  {
+    "owner": "phoenix51ac",
+    "repo": "la-dimora-del-cavaliere",
+    "description": "La Dimora Del Cavaliere - Luxury countryside property website near Lake Martignano, Rome. Built with Next.js 15, React 18, Tailwind CSS 4.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-07T16:19:56Z",
+    "filePath": ".claude/skills/colorize/SKILL.md"
+  },
+  {
+    "owner": "LeiZhang-Hunter",
+    "repo": "nova-factory-server",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-29T13:43:57Z",
+    "filePath": ".claude/skills/go-service-gen/skill.md"
+  },
+  {
+    "owner": "johanolofsson72",
+    "repo": "juradrop",
+    "description": "Lokal, privat AI för juridiska dokument — sammanfatta, översätt, anonymisera och förenkla känsligt material direkt på din Mac. Inget lämnar datorn. (macOS · Ollama)",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "desktop-app",
+      "document-processing",
+      "gdpr",
+      "legal-tech",
+      "local-llm",
+      "macos",
+      "offline-first",
+      "ollama",
+      "privacy-by-design",
+      "react",
+      "rust",
+      "swedish",
+      "tauri",
+      "typescript"
+    ],
+    "updatedAt": "2026-05-29T17:56:19Z",
+    "filePath": ".claude/skills/code-review/SKILL.md"
+  },
+  {
+    "owner": "aicreator350",
+    "repo": "aurionOFFICIELLE",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-17T19:40:59Z",
+    "filePath": ".claude/skills/tdd-workflow/SKILL.md"
   }
 ]

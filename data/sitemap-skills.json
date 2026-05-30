@@ -3,43 +3,79 @@
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-05-29T16:14:35.465Z"
+    "updatedAt": "2026-05-30T04:21:15.148Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-05-29T16:14:35.464Z"
+    "updatedAt": "2026-05-30T04:21:15.147Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-05-29T16:14:35.463Z"
+    "updatedAt": "2026-05-30T04:21:15.146Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-05-29T16:14:35.462Z"
+    "updatedAt": "2026-05-30T04:21:15.145Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-05-29T16:14:35.461Z"
+    "updatedAt": "2026-05-30T04:21:15.144Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-05-29T16:14:35.456Z"
+    "updatedAt": "2026-05-30T04:21:15.140Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-05-29T16:14:35.445Z"
+    "updatedAt": "2026-05-30T04:21:15.131Z"
+  },
+  {
+    "owner": "guidodinello",
+    "repo": "claude-dotfiles",
+    "routePath": "claude-dotfiles/writing-react-effects",
+    "updatedAt": "2026-05-30T03:55:25Z"
+  },
+  {
+    "owner": "ssrjkk",
+    "repo": "claude-skills",
+    "routePath": "claude-skills/mbed-setup",
+    "updatedAt": "2026-05-30T03:28:04Z"
+  },
+  {
+    "owner": "JeffGreen311",
+    "repo": "eve-agent-v2-unleashed",
+    "routePath": "eve-agent-v2-unleashed/prompt-engineering-patterns",
+    "updatedAt": "2026-05-30T00:32:01Z"
+  },
+  {
+    "owner": "TanStack",
+    "repo": "ai",
+    "routePath": "ai/gap-analysis",
+    "updatedAt": "2026-05-29T21:54:42Z"
+  },
+  {
+    "owner": "GetKlai",
+    "repo": "klai",
+    "routePath": "klai/klai-tenant-isolation-checks",
+    "updatedAt": "2026-05-29T17:32:35Z"
+  },
+  {
+    "owner": "rvdbreemen",
+    "repo": "OTGW-firmware",
+    "routePath": "OTGW-firmware/caveman-compress",
+    "updatedAt": "2026-05-29T16:17:17Z"
   },
   {
     "owner": "zauberzeug",
@@ -103,6 +139,12 @@
   },
   {
     "owner": "OutSystems",
+    "repo": "docs-howtos",
+    "routePath": "docs-howtos/summary-writer",
+    "updatedAt": "2026-05-29T04:33:44Z"
+  },
+  {
+    "owner": "OutSystems",
     "repo": "docs-support",
     "routePath": "docs-support/summary-writer",
     "updatedAt": "2026-05-29T04:33:06Z"
@@ -124,6 +166,12 @@
     "repo": "minecraft-agent-skills",
     "routePath": "minecraft-agent-skills/minecraft-worldedit-ops",
     "updatedAt": "2026-05-29T02:43:40Z"
+  },
+  {
+    "owner": "pradeepmouli",
+    "repo": "to-skills",
+    "routePath": "to-skills/speckit-enhance",
+    "updatedAt": "2026-05-28T23:25:20Z"
   },
   {
     "owner": "defessler",
@@ -256,6 +304,12 @@
     "repo": "chatbot_rag_app",
     "routePath": "chatbot_rag_app/setup-deploy",
     "updatedAt": "2026-05-27T10:27:33Z"
+  },
+  {
+    "owner": "thejefflarson",
+    "repo": "soundcheck",
+    "routePath": "soundcheck/excessive-agency",
+    "updatedAt": "2026-05-27T06:05:42Z"
   },
   {
     "owner": "Dlya-Colledga",
@@ -750,6 +804,12 @@
     "updatedAt": "2026-05-26T04:39:07Z"
   },
   {
+    "owner": "vinzenz",
+    "repo": "prd-breakdown-execute",
+    "routePath": "prd-breakdown-execute/breakdown",
+    "updatedAt": "2026-05-26T04:39:01Z"
+  },
+  {
     "owner": "Sonnetly",
     "repo": "academic_research",
     "routePath": "academic_research/abuselpdb-automation",
@@ -910,6 +970,12 @@
     "repo": "novel-ai",
     "routePath": "novel-ai/playwright-e2e-verification",
     "updatedAt": "2026-05-24T13:15:23Z"
+  },
+  {
+    "owner": "JanuaryLabs",
+    "repo": "deepagents",
+    "routePath": "deepagents/agent-testing",
+    "updatedAt": "2026-05-24T09:58:01Z"
   },
   {
     "owner": "agent-sh",
@@ -1956,12 +2022,6 @@
     "updatedAt": "2026-05-16T06:08:41Z"
   },
   {
-    "owner": "guidodinello",
-    "repo": "claude-dotfiles",
-    "routePath": "claude-dotfiles/writing-react-effects",
-    "updatedAt": "2026-05-16T05:49:38Z"
-  },
-  {
     "owner": "dividez",
     "repo": "agent_platform",
     "routePath": "agent_platform/ask",
@@ -2128,6 +2188,12 @@
     "repo": "ultrathink",
     "routePath": "ultrathink/handoff",
     "updatedAt": "2026-05-14T20:23:37Z"
+  },
+  {
+    "owner": "bitflight-devops",
+    "repo": "hallucination-detector",
+    "routePath": "hallucination-detector/gh",
+    "updatedAt": "2026-05-14T16:05:56Z"
   },
   {
     "owner": "snyk",
@@ -2464,6 +2530,12 @@
     "repo": "claude-code-kit",
     "routePath": "claude-code-kit/ship",
     "updatedAt": "2026-05-12T00:54:28Z"
+  },
+  {
+    "owner": "OpenSourcePharmaFoundation",
+    "repo": "ospf-ayurveda-kg",
+    "routePath": "ospf-ayurveda-kg/target-profiler",
+    "updatedAt": "2026-05-12T00:23:11Z"
   },
   {
     "owner": "TecVooDoo",
@@ -8614,6 +8686,12 @@
     "repo": "innozverse",
     "routePath": "innozverse/innozverse-repo-structure",
     "updatedAt": "2026-01-05T16:21:26Z"
+  },
+  {
+    "owner": "aryateja2106",
+    "repo": "Lecoder-PAI",
+    "routePath": "Lecoder-PAI/CORE",
+    "updatedAt": "2025-12-28T04:10:49Z"
   },
   {
     "owner": "Reading-Advantage-Thailand",
