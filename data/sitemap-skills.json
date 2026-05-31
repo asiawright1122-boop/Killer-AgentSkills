@@ -3,49 +3,85 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-05-30T14:14:17.358Z"
+    "updatedAt": "2026-05-31T04:54:58.665Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-05-30T14:14:17.354Z"
+    "updatedAt": "2026-05-31T04:54:58.661Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-05-30T14:14:17.354Z"
+    "updatedAt": "2026-05-31T04:54:58.661Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-05-30T14:14:17.352Z"
+    "updatedAt": "2026-05-31T04:54:58.659Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-05-30T14:14:17.351Z"
+    "updatedAt": "2026-05-31T04:54:58.658Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-05-30T14:14:17.351Z"
+    "updatedAt": "2026-05-31T04:54:58.658Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-05-30T14:14:17.346Z"
+    "updatedAt": "2026-05-31T04:54:58.654Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-05-30T14:14:17.336Z"
+    "updatedAt": "2026-05-31T04:54:58.644Z"
+  },
+  {
+    "owner": "max-sixty",
+    "repo": "worktrunk",
+    "routePath": "worktrunk/release",
+    "updatedAt": "2026-05-31T04:44:25Z"
+  },
+  {
+    "owner": "lllyys",
+    "repo": "vreader",
+    "routePath": "vreader/verify",
+    "updatedAt": "2026-05-31T04:35:18Z"
+  },
+  {
+    "owner": "rjmurillo",
+    "repo": "ai-agents",
+    "routePath": "ai-agents/taste-lints",
+    "updatedAt": "2026-05-30T23:49:21Z"
+  },
+  {
+    "owner": "edobry",
+    "repo": "minsky",
+    "routePath": "minsky/code-organization",
+    "updatedAt": "2026-05-30T20:29:26Z"
+  },
+  {
+    "owner": "markkr125",
+    "repo": "postmark",
+    "routePath": "postmark/signal-flow",
+    "updatedAt": "2026-05-30T19:39:22Z"
+  },
+  {
+    "owner": "feordin",
+    "repo": "llm-fhir-query-eval",
+    "routePath": "llm-fhir-query-eval/synthea",
+    "updatedAt": "2026-05-30T17:40:37Z"
   },
   {
     "owner": "mturac",
@@ -54,10 +90,22 @@
     "updatedAt": "2026-05-30T11:07:01Z"
   },
   {
+    "owner": "shinpr",
+    "repo": "ai-coding-project-boilerplate",
+    "routePath": "ai-coding-project-boilerplate/typescript-testing",
+    "updatedAt": "2026-05-30T09:28:20Z"
+  },
+  {
     "owner": "guidodinello",
     "repo": "claude-dotfiles",
     "routePath": "claude-dotfiles/writing-react-effects",
     "updatedAt": "2026-05-30T03:55:25Z"
+  },
+  {
+    "owner": "ecomhub200",
+    "repo": "Federal",
+    "routePath": "Federal/state-data-onboarding",
+    "updatedAt": "2026-05-30T03:35:18Z"
   },
   {
     "owner": "ssrjkk",
@@ -82,6 +130,12 @@
     "repo": "eve-agent-v2-unleashed",
     "routePath": "eve-agent-v2-unleashed/prompt-engineering-patterns",
     "updatedAt": "2026-05-30T00:32:01Z"
+  },
+  {
+    "owner": "aakash1999",
+    "repo": "claude-certified-architect",
+    "routePath": "claude-certified-architect/create-agent",
+    "updatedAt": "2026-05-29T22:55:02Z"
   },
   {
     "owner": "TanStack",
@@ -120,12 +174,6 @@
     "updatedAt": "2026-05-29T16:11:08Z"
   },
   {
-    "owner": "feordin",
-    "repo": "llm-fhir-query-eval",
-    "routePath": "llm-fhir-query-eval/synthea",
-    "updatedAt": "2026-05-29T16:10:25Z"
-  },
-  {
     "owner": "Vinix24",
     "repo": "vnx-orchestration",
     "routePath": "vnx-orchestration/data-analyst",
@@ -136,6 +184,12 @@
     "repo": "whatsapp_saas",
     "routePath": "whatsapp_saas/referral-program",
     "updatedAt": "2026-05-29T15:54:22Z"
+  },
+  {
+    "owner": "pfangueiro",
+    "repo": "claude-code-agents",
+    "routePath": "claude-code-agents/deep-read",
+    "updatedAt": "2026-05-29T14:50:08Z"
   },
   {
     "owner": "BoardPandas",
@@ -286,6 +340,12 @@
     "repo": "claude-java-skills",
     "routePath": "claude-java-skills/spring-openapi",
     "updatedAt": "2026-05-28T04:32:51Z"
+  },
+  {
+    "owner": "wolverin0",
+    "repo": "clawtrol",
+    "routePath": "clawtrol/audit-domain-03-database",
+    "updatedAt": "2026-05-28T02:33:34Z"
   },
   {
     "owner": "NVIDIA-Omniverse",
@@ -1038,6 +1098,12 @@
     "updatedAt": "2026-05-24T07:12:15Z"
   },
   {
+    "owner": "one-ie",
+    "repo": "one",
+    "routePath": "one/ai-elements",
+    "updatedAt": "2026-05-24T06:50:27Z"
+  },
+  {
     "owner": "mdresch",
     "repo": "adpa",
     "routePath": "adpa/writing-skills",
@@ -1084,6 +1150,12 @@
     "repo": "arc",
     "routePath": "arc/agent-skills-review",
     "updatedAt": "2026-05-23T16:40:46Z"
+  },
+  {
+    "owner": "dburkart",
+    "repo": "auto-engineer",
+    "routePath": "auto-engineer/usage",
+    "updatedAt": "2026-05-23T16:36:36Z"
   },
   {
     "owner": "loonghao",
@@ -1168,6 +1240,12 @@
     "repo": "minecraft-mega-knights",
     "routePath": "minecraft-mega-knights/new-item",
     "updatedAt": "2026-05-22T19:21:15Z"
+  },
+  {
+    "owner": "oimiragieo",
+    "repo": "agent-studio",
+    "routePath": "agent-studio/plan-quality-verifier",
+    "updatedAt": "2026-05-22T17:32:51Z"
   },
   {
     "owner": "arcasilesgroup",
@@ -3036,6 +3114,12 @@
     "updatedAt": "2026-05-08T20:58:48Z"
   },
   {
+    "owner": "jeffrymahbuubi",
+    "repo": "fNIRS-Project-Grid-Base-Method",
+    "routePath": "fNIRS-Project-Grid-Base-Method/research-lookup",
+    "updatedAt": "2026-05-08T18:58:13Z"
+  },
+  {
     "owner": "arkan",
     "repo": "obsidian-vault-template",
     "routePath": "obsidian-vault-template/import",
@@ -3424,6 +3508,12 @@
     "repo": "msea-compose",
     "routePath": "msea-compose/jetpack-compose-audit",
     "updatedAt": "2026-05-06T06:19:52Z"
+  },
+  {
+    "owner": "alexandrbasis",
+    "repo": "claudops",
+    "routePath": "claudops/ct",
+    "updatedAt": "2026-05-06T03:50:46Z"
   },
   {
     "owner": "pierreliefauche",
