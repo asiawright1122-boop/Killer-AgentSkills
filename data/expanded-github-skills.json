@@ -10531,6 +10531,23 @@
     "filePath": ".claude/skills/video-editor/SKILL.md"
   },
   {
+    "owner": "minicoohei",
+    "repo": "ai-agent-camp",
+    "description": "AI Agent Camp — non-engineer-friendly AI agent training curriculum. Lessons, skills, commands, and hooks for Claude Code, Cursor, and Codex.",
+    "stars": 358,
+    "forks": 12,
+    "topics": [
+      "ai-agent",
+      "claude-code",
+      "codex",
+      "curriculum",
+      "cursor",
+      "education"
+    ],
+    "updatedAt": "2026-05-28T13:05:12Z",
+    "filePath": ".claude/skills/paid-ads/SKILL.md"
+  },
+  {
     "owner": "woocommerce",
     "repo": "woocommerce-ios",
     "description": "WooCommerce iOS app",
@@ -10877,6 +10894,16 @@
     ],
     "updatedAt": "2026-04-17T06:11:22Z",
     "filePath": ".codex/skills/crud/transport-grpc/SKILL.md"
+  },
+  {
+    "owner": "kasonye",
+    "repo": "ui-aesthetics-skill",
+    "description": "A skill that improves AI aesthetic judgment for web UI generation, review, and refinement.",
+    "stars": 328,
+    "forks": 14,
+    "topics": [],
+    "updatedAt": "2026-06-01T01:30:34Z",
+    "filePath": ".windsurf/skills/ui-aesthetics/SKILL.md"
   },
   {
     "owner": "kstonekuan",
@@ -14839,6 +14866,37 @@
     "topics": [],
     "updatedAt": "2026-04-19T00:10:52Z",
     "filePath": ".claude/skills/xrk-config/SKILL.md"
+  },
+  {
+    "owner": "dcouple",
+    "repo": "Pane",
+    "description": "Pane is a Terminal-first AI agent manager. The same way Superhuman is an email client (not an email provider), Pane is an agent client (not an agent provider). You bring the agents. We make them fly.",
+    "stars": 125,
+    "forks": 82,
+    "topics": [
+      "agent-manager",
+      "agentic-ai",
+      "agents",
+      "ai",
+      "aider",
+      "claude-code",
+      "cli",
+      "codex",
+      "coding-agents",
+      "cursor-ai",
+      "desktop",
+      "developer",
+      "electron",
+      "git",
+      "opencode",
+      "orchestration",
+      "parallel-agents",
+      "terminal",
+      "windows",
+      "worktree-manager"
+    ],
+    "updatedAt": "2026-06-02T15:16:35Z",
+    "filePath": ".codex/skills/implement/SKILL.md"
   },
   {
     "owner": "nwiizo",
@@ -25371,6 +25429,142 @@
     "filePath": ".claude/skills/plan-quality-verifier/SKILL.md"
   },
   {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/maven-harness-pom/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/angular-developer/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/shipping-and-launch/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/ears-spec-authoring/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/epic-slicing-planning/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/jacoco-coverage-policy/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/requirements-traceability/SKILL.md"
+  },
+  {
+    "owner": "loiane",
+    "repo": "specs-driven-development-spring-angular",
+    "description": "Spec-Driven Development toolkit for Spring Boot 4 — tri-platform workflow (Claude Code · GitHub Copilot · Windsurf) for specifying, implementing, and validating Spring + Angular projects",
+    "stars": 29,
+    "forks": 3,
+    "topics": [
+      "angular",
+      "github-copilot",
+      "java",
+      "spec-driven-development",
+      "spring-boot",
+      "tdd"
+    ],
+    "updatedAt": "2026-05-31T18:26:36Z",
+    "filePath": ".windsurf/skills/flyway-or-liquibase-detection/SKILL.md"
+  },
+  {
     "owner": "allierays",
     "repo": "agentic-loop",
     "description": "(Mostly) autonomous AI coding toolkit for Claude Code  based on RALPH and PRD-driven development.",
@@ -27457,6 +27651,16 @@
     ],
     "updatedAt": "2026-05-07T07:08:20Z",
     "filePath": ".agents/skills/pr/SKILL.md"
+  },
+  {
+    "owner": "loonghao",
+    "repo": "rez-next",
+    "description": "Experimental Rust rewrite of Rez package manager core components. Not for production use.",
+    "stars": 25,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-30T15:13:59Z",
+    "filePath": ".windsurf/skills/vx-usage/SKILL.md"
   },
   {
     "owner": "washanhanzi",
@@ -32735,6 +32939,44 @@
     "filePath": ".cursor/skills/release/SKILL.md"
   },
   {
+    "owner": "ThalesGroup",
+    "repo": "agilab",
+    "description": "Open-source platform for reproducible AI/ML workflows, from local experimentation to distributed workers and long-lived services.",
+    "stars": 16,
+    "forks": 1,
+    "topics": [
+      "ai",
+      "ai-agents",
+      "ai-engineering",
+      "cython",
+      "dask",
+      "data-science",
+      "distributed-computing",
+      "experiment-tracking",
+      "machine-learning",
+      "mlflow",
+      "mlops",
+      "react",
+      "reproducibility",
+      "reproducible-research",
+      "streamlit",
+      "streamlit-webapp",
+      "workflow-orchestration"
+    ],
+    "updatedAt": "2026-06-02T16:59:09Z",
+    "filePath": ".codex/skills/agilab-evidence-contracts/SKILL.md"
+  },
+  {
+    "owner": "ERufian",
+    "repo": "ksharp",
+    "description": "k version 3 Language Interpreter in C#",
+    "stars": 16,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-23T17:45:33Z",
+    "filePath": ".windsurf/skills/implementation-result/SKILL.md"
+  },
+  {
     "owner": "tobi",
     "repo": "liquid-il",
     "description": "A Liquid template engine, 100% vibe coded by Claude Code against liquid-spec",
@@ -33994,6 +34236,106 @@
     ],
     "updatedAt": "2026-06-01T09:51:39Z",
     "filePath": ".cursor/skills/testing/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/docker/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/database/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/security/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/ux-design/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/go-backend/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/typescript/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/performance/SKILL.md"
+  },
+  {
+    "owner": "MikaAK",
+    "repo": "elixir_cache",
+    "description": "Caching in elixir with testing as a first priority, don't let caching bog down your tests!",
+    "stars": 14,
+    "forks": 9,
+    "topics": [],
+    "updatedAt": "2026-05-04T03:10:22Z",
+    "filePath": ".windsurf/skills/modify-caching/SKILL.md"
+  },
+  {
+    "owner": "aiyuekuang",
+    "repo": "LLMProxy",
+    "description": "Seamlessly route requests to your LLM backends—whether you're using stream=false for standard JSON responses or stream=true for real-time token streaming via Server-Sent Events (SSE). LLMProxy handles both modes out of the box, with zero buffering on streams, intelligent load balancing, and OpenAI-compatible API routing.",
+    "stars": 14,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-26T07:44:18Z",
+    "filePath": ".windsurf/skills/product-design/SKILL.md"
+  },
+  {
+    "owner": "MikaAK",
+    "repo": "elixir_cache",
+    "description": "Caching in elixir with testing as a first priority, don't let caching bog down your tests!",
+    "stars": 14,
+    "forks": 9,
+    "topics": [],
+    "updatedAt": "2026-05-04T03:10:22Z",
+    "filePath": ".windsurf/skills/modify-elixir-code/SKILL.md"
   },
   {
     "owner": "tae0y",
@@ -38993,6 +39335,27 @@
     "filePath": ".agents/skills/vhs/SKILL.md"
   },
   {
+    "owner": "OthmanAdi",
+    "repo": "MDDesign",
+    "description": "Orchestrator plugin: composes planning-with-files, DESIGN.md, memory routing, agent teams, and session handoff into one contract for any modern coding agent. Cross-IDE.",
+    "stars": 9,
+    "forks": 2,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "anthropic",
+      "claude-code",
+      "cline",
+      "codex-cli",
+      "cursor",
+      "design-system",
+      "plugin",
+      "windsurf"
+    ],
+    "updatedAt": "2026-06-01T20:18:24Z",
+    "filePath": ".windsurf/skills/session-handoff/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -41883,6 +42246,47 @@
     "topics": [],
     "updatedAt": "2026-05-31T05:18:08Z",
     "filePath": ".agents/skills/create-pr/SKILL.md"
+  },
+  {
+    "owner": "Pollux12",
+    "repo": "gmod-glua-ls",
+    "description": "Garry's Mod (GLua) Language Server ",
+    "stars": 7,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-01T22:52:05Z",
+    "filePath": ".agents/skills/rust-best-practices/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 7,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-06-01T14:29:19Z",
+    "filePath": ".windsurf/skills/favicon/SKILL.md"
   },
   {
     "owner": "ocn",
@@ -47122,6 +47526,25 @@
     "filePath": ".agents/skills/pipeline-diagnose/SKILL.md"
   },
   {
+    "owner": "IvanTsxx",
+    "repo": "better-auth-mp",
+    "description": "Mercado Pago plugin for Better Auth. Handle payments, subscriptions, and webhooks easily.",
+    "stars": 5,
+    "forks": 0,
+    "topics": [
+      "bette-auth-mercadopago",
+      "better-auth",
+      "better-auth-nextjs",
+      "better-auth-plugin",
+      "mercadopago",
+      "nextjs",
+      "payments",
+      "plugin"
+    ],
+    "updatedAt": "2026-05-01T11:54:17Z",
+    "filePath": ".windsurf/skills/ultracite/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -50607,6 +51030,16 @@
     "topics": [],
     "updatedAt": "2026-05-28T01:39:06Z",
     "filePath": ".cursor/skills/gcam/SKILL.md"
+  },
+  {
+    "owner": "cianfhoghlaim",
+    "repo": "kings_college_galway",
+    "description": "Leaving Cert + NUIG Agentic AI",
+    "stars": 4,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-02T09:15:44Z",
+    "filePath": ".agents/skills/motherduck-pricing-roi/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -54195,6 +54628,26 @@
     "topics": [],
     "updatedAt": "2026-06-01T00:18:07Z",
     "filePath": ".agents/skills/security-review/SKILL.md"
+  },
+  {
+    "owner": "channingwalton",
+    "repo": "dotfiles",
+    "description": null,
+    "stars": 3,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-02T11:10:17Z",
+    "filePath": ".codex/skills/glossary/SKILL.md"
+  },
+  {
+    "owner": "MikaAK",
+    "repo": "elixir_rpc_load_balancer",
+    "description": "Elixir RPC Load balancer ",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-25T19:38:08Z",
+    "filePath": ".windsurf/skills/modify-auth/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -60430,6 +60883,16 @@
     ],
     "updatedAt": "2026-05-31T10:36:07Z",
     "filePath": ".claude/skills/mcp-builder/SKILL.md"
+  },
+  {
+    "owner": "mostafasudo",
+    "repo": "warpy",
+    "description": "AI assistant that lets users control your app through chat and dynamic UI.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-31T08:38:32Z",
+    "filePath": ".codex/skills/gstack/plan-eng-review/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -74102,6 +74565,16 @@
     "filePath": ".claude/skills/triaging-findings/SKILL.md"
   },
   {
+    "owner": "EuanScott",
+    "repo": "project-tweety",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-01T07:31:39Z",
+    "filePath": ".codex/skills/update-widget/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -75418,7 +75891,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T14:52:57Z",
+    "updatedAt": "2026-06-02T13:45:30Z",
     "filePath": ".claude/skills/tdd/SKILL.md"
   },
   {
@@ -75491,7 +75964,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T21:59:44Z",
+    "updatedAt": "2026-06-02T16:56:27Z",
     "filePath": ".claude/skills/commit/SKILL.md"
   },
   {
@@ -75925,7 +76398,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-22T15:25:34Z",
+    "updatedAt": "2026-06-02T06:18:37Z",
     "filePath": ".claude/skills/research-topic/SKILL.md"
   },
   {
@@ -76265,7 +76738,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T04:39:00Z",
+    "updatedAt": "2026-06-02T11:59:03Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -76652,7 +77125,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T15:55:48Z",
+    "updatedAt": "2026-06-02T16:11:47Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -76672,7 +77145,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T15:55:48Z",
+    "updatedAt": "2026-06-02T16:11:47Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -76973,7 +77446,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T21:33:38Z",
+    "updatedAt": "2026-06-02T15:39:52Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -77600,7 +78073,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-06-02T01:37:08Z",
+    "updatedAt": "2026-06-02T15:37:14Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -77966,7 +78439,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T19:06:55Z",
+    "updatedAt": "2026-06-02T12:55:15Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -78123,7 +78596,7 @@
       "productivity",
       "social-network"
     ],
-    "updatedAt": "2026-05-30T23:32:11Z",
+    "updatedAt": "2026-06-02T16:39:27Z",
     "filePath": ".claude/skills/the-linter/SKILL.md"
   },
   {
@@ -78213,7 +78686,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T11:29:50Z",
+    "updatedAt": "2026-06-02T11:02:06Z",
     "filePath": ".claude/skills/galaxy-watch-dock/SKILL.md"
   },
   {
@@ -78243,7 +78716,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T02:30:24Z",
+    "updatedAt": "2026-06-02T07:29:19Z",
     "filePath": ".claude/skills/justicehub-context/SKILL.md"
   },
   {
@@ -78621,7 +79094,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T04:39:00Z",
+    "updatedAt": "2026-06-02T11:59:03Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -78641,7 +79114,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T22:06:42Z",
+    "updatedAt": "2026-06-02T06:41:08Z",
     "filePath": ".claude/skills/nextjs-performance/SKILL.md"
   },
   {
@@ -79238,7 +79711,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-30T18:24:38Z",
+    "updatedAt": "2026-06-02T17:06:02Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -79331,7 +79804,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T18:58:14Z",
+    "updatedAt": "2026-06-02T05:33:14Z",
     "filePath": ".claude/skills/swayimg/SKILL.md"
   },
   {
@@ -79411,7 +79884,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T18:58:14Z",
+    "updatedAt": "2026-06-02T05:33:14Z",
     "filePath": ".claude/skills/eww-widgets/SKILL.md"
   },
   {
@@ -79762,7 +80235,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T17:08:06Z",
+    "updatedAt": "2026-06-02T13:27:02Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -79952,7 +80425,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T19:44:38Z",
+    "updatedAt": "2026-06-02T12:19:20Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -80172,7 +80645,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T17:12:55Z",
+    "updatedAt": "2026-06-02T17:10:50Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -123234,5 +123707,105 @@
     "topics": [],
     "updatedAt": "2026-05-25T01:53:59Z",
     "filePath": ".cursor/skills/udoc/skill.md"
+  },
+  {
+    "owner": "yashas-30",
+    "repo": "NYX",
+    "description": "NYX - A premium developer-focused interface and runner for AI agents, featuring model management and interactive coding capabilities.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T16:25:57Z",
+    "filePath": ".agents/skills/seo/SKILL.md"
+  },
+  {
+    "owner": "sakthai-workflow",
+    "repo": "ai-control-hub",
+    "description": "A code repository designed to show the best GitHub has to offer.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-23T03:14:11Z",
+    "filePath": ".agents/skills/m365-agents-ts/SKILL.md"
+  },
+  {
+    "owner": "theteepeenetwork",
+    "repo": "partyplanner",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T15:10:26Z",
+    "filePath": ".agents/skills/secure-code-guardian/SKILL.md"
+  },
+  {
+    "owner": "AlexanderPineda25",
+    "repo": "BiblioTech",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-01T10:55:01Z",
+    "filePath": ".agents/skills/vue-expert/SKILL.md"
+  },
+  {
+    "owner": "yashas-30",
+    "repo": "NYX",
+    "description": "NYX - A premium developer-focused interface and runner for AI agents, featuring model management and interactive coding capabilities.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T16:25:57Z",
+    "filePath": ".agents/skills/rust-testing/SKILL.md"
+  },
+  {
+    "owner": "halukerenozlu",
+    "repo": "bolt-cowork",
+    "description": "Terminal-native File Agent Platform",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "agent-skills",
+      "agentic-ai",
+      "agentic-workflow",
+      "bubbletea",
+      "claude-cowork-alternative",
+      "desktop-agent",
+      "mcp",
+      "multi-agent-systems",
+      "tui"
+    ],
+    "updatedAt": "2026-06-01T21:19:54Z",
+    "filePath": ".agents/skills/github-actions-docs/SKILL.md"
+  },
+  {
+    "owner": "Marciopachecolab",
+    "repo": "IntegragalFuncional",
+    "description": "integragal funcional versão instalada BIMOL",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-28T05:54:40Z",
+    "filePath": ".agents/skills/fal-image-edit/SKILL.md"
+  },
+  {
+    "owner": "joe-salamy",
+    "repo": "harness-loadouts",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T02:19:25Z",
+    "filePath": ".codex/skills/save-plan/SKILL.md"
+  },
+  {
+    "owner": "tdmtrader",
+    "repo": "jetbridge",
+    "description": "Concourse fork re-imagined as k8s native ",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-02T02:21:37Z",
+    "filePath": ".codex/skills/google-sheets/SKILL.md"
   }
 ]
