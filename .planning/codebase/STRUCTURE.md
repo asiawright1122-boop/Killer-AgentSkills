@@ -30,7 +30,7 @@ Killer-Skills/
 **`src/`:**
 - Purpose: Main web application code.
 - Contains: Astro routes (`src/pages/`), UI components (`src/components/`), React islands (`src/islands/`), and business/data libs (`src/lib/`).
-- Key files: `src/middleware.ts`, `src/lib/kv.ts`, `src/pages/api/search.ts`, `src/pages/[locale]/skills/index.astro`.
+- Key files: `src/middleware.ts`, `src/lib/kv.ts`, `src/pages/api/search.ts`, `src/pages/api/badge.ts`, `src/pages/[locale]/skills/index.astro`, `src/lib/authority-surface-public-data.ts`.
 
 **`scripts/`:**
 - Purpose: Data ingestion, enrichment, SEO checks, and operational tooling.
@@ -49,7 +49,7 @@ Killer-Skills/
 
 **`data/`:**
 - Purpose: Persistent generated artifacts used by site/runtime fallbacks.
-- Key files: `data/skills-cache.json`, `data/docs-cache.json`, `data/sitemap-skills.json`.
+- Key files: `data/skills-cache.json`, `data/docs-cache.json`, `data/sitemap-skills.json`, `data/authority-surfaces.json`, `data/ide-comparison-matrix.json`.
 
 **`.planning/`:**
 - Purpose: GSD roadmap, phase artifacts, and context memory.
@@ -131,5 +131,5 @@ Killer-Skills/
 
 ---
 
-*Structure analysis: 2026-04-02*
+*Structure analysis: 2026-06-01*
 *Update when top-level or route/package layout changes*

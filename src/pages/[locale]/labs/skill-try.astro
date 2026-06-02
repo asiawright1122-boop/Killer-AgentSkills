@@ -16,7 +16,7 @@ const typedLocale = locale as Locale;
 const messages = await loadMessages(typedLocale);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = tr('Labs.pageTitle', 'Skill Online Trial Demo');
+const pageTitle = tr('Labs.pageTitle', 'Try AI Agent Skills Online — Live Preview & Demo');
 const pageDescription = tr(
   'Labs.pageDescription',
   'Preview skill outputs directly in the browser: choose a skill, enter your request, run online, then decide whether to install via CLI.',

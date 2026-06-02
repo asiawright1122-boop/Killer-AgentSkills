@@ -133,6 +133,48 @@ const checks: PageCheck[] = [
     expectBreadcrumbParity: true,
     expectedBreadcrumbLabels: ['Home', 'Collections'],
   },
+  {
+    path: '/en/solutions',
+    titleIncludes: 'AI Workflow Solutions',
+    canonical: `${SITE_ORIGIN}/en/solutions`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/cli',
+    titleIncludes: 'Killer-Skills CLI',
+    canonical: `${SITE_ORIGIN}/en/cli`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/categories',
+    titleIncludes: 'Claude Code, Cursor & Windsurf',
+    canonical: `${SITE_ORIGIN}/en/categories`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/community',
+    titleIncludes: 'Community',
+    canonical: `${SITE_ORIGIN}/en/community`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/blog',
+    titleIncludes: 'Guides, Tutorials',
+    canonical: `${SITE_ORIGIN}/en/blog`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
+  {
+    path: '/en/integrations',
+    titleIncludes: 'IDE Integrations',
+    canonical: `${SITE_ORIGIN}/en/integrations`,
+    locale: 'en',
+    expectJsonLd: true,
+  },
 ];
 
 function ensure(condition: boolean, message: string) {

@@ -661,6 +661,11 @@
     },
     "seoTitle": "AI Agent Skills 开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
     "seoDescription": "浏览 3,400+ 个 AI Agent Skills 与 MCP 服务器。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放 AI Agent Skills 目录，支持可信工具发现与一键安装。",
+    "editorialTitle": "为什么可复用的 MCP 技能如此重要及我们的测试标准",
+    "editorialSubtitle": "专为开发者打造的技能目录，确保安全、环境兼容与极致的执行精度。",
+    "editorialParagraph1": "随着 Claude Code、Cursor 和 Windsurf 等 AI 编码助手的兴起，Model Context Protocol (MCP) 已成为连接大语言模型（LLM）与本地/远程开发环境的标准桥梁。然而，在 GitHub 上直接搜寻未经整理的原始仓库，往往面临配置碎片化、静默执行失败以及本地系统越权访问等重大安全隐患。Killer-Skills 目录正是为了解决这一核心痛点而生。",
+    "editorialParagraph2": "收录在 Killer-Skills 开放目录中的每一个 AI 技能和 MCP 服务器都必须通过我们严苛的多阶段自动测试与人工筛选管道。我们基于三大工程支柱评估每个工具：安全性（Safety）、IDE 原生兼容性（Native IDE Compatibility）以及依赖极简化（Dependency Leanness）。我们的系统会持续监控技能是否声明了正确的参数 Schema 规范，防止越权的本地数据静默流出，并确保其可以通过单条标准化命令完成无缝安装。同时，我们定期运行爬行健康（Crawl-health）验证，确保索引中没有任何失效死链，保障您的本地开发环境绝对安全。",
+    "editorialParagraph3": "通过将 3,400+ 个开源技能归纳、洗净并沉淀为场景化的精选合集，我们帮助工程师安全地增强 AI 开发助手的开发极限，而无需在原始仓库的调试上浪费宝贵时间。我们把技能划分为针对实际开发任务的专业版块，如文档自动化处理（xlsx、docx 和 pdf 深度操作）、创意生成艺术以及 DevOps。无论您是需要利用 OCR 自动生成 PDF 复杂账单、编写自动化单元测试，还是在 IDE 终端内安全管理云端容器部署，Killer-Skills 都为您提供干净、合规且高权威的安装入口。每一条发布路径都受到我们边缘重定向中间件（Edge Middleware）的严密保护，确保您下载并安装的皆是活跃、合规的最新优质代码。",
     "faqTitle": "首页常见问题",
     "faqSubtitle": "让首页摘要、落地内容和结构化数据保持一致。",
     "faq1Q": "Killer-Skills 是什么？",
@@ -673,6 +678,8 @@
     "faq4A": "它们通常以 IDE 原生技能文件形式提供，方便你在 Claude Code、Cursor、Windsurf 和其他兼容环境中直接安装与复用。",
     "faq5Q": "为什么要从目录页进入技能详情？",
     "faq5A": "因为详情页会集中展示安装命令、兼容 IDE、来源仓库和相关技能，方便你快速判断是否适合当前任务。",
+    "faq6Q": "MCP（Model Context Protocol）是什么？",
+    "faq6A": "MCP（Model Context Protocol）是一种开放标准，让 Claude Code、Cursor、Windsurf 等 AI 编程助手通过统一接口连接外部工具、数据源和服务。Killer-Skills 收录了使用该协议的 MCP 服务器和技能，帮助你的 AI 助手做更多事。",
     "seoIntro": "Killer-Skills 是一个收录 3,400+ AI Agent Skills 的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。"
   },
   "Integrations": {

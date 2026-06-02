@@ -94,7 +94,7 @@ export const authoritySurfacePublicData = {
         en: 'A curated Cursor collection for editor-specific workflows with clear setup paths.',
         zh: '这是面向 Cursor 工作流的精选合集，适合按具体需求查找工具和安装路径。',
       },
-      placements: ['skills', 'solutions'],
+      placements: ['home', 'skills', 'collections', 'solutions'],
     },
     {
       id: 'collection-windsurf',
@@ -286,7 +286,7 @@ export const authoritySurfacePublicData = {
         en: 'A practical collection around everyday execution gains instead of generic repository breadth.',
         zh: '这是围绕日常执行效率的实用合集，而不是泛泛的仓库覆盖。',
       },
-      placements: ['home', 'collections'],
+      placements: ['home', 'skills', 'collections', 'solutions'],
     },
     {
       id: 'solutions-hub',
@@ -334,7 +334,7 @@ export const authoritySurfacePublicData = {
         en: 'A use-case page for repeatable automation patterns instead of one-off tools.',
         zh: '这是面向“可复用自动化模式”而不是一次性工具的场景页。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'solution-process-automation',
@@ -350,7 +350,7 @@ export const authoritySurfacePublicData = {
         en: 'A solution page for teams turning SOPs, shared workflows, and operations into repeatable AI-assisted execution paths.',
         zh: '这是为 SOP、协作流程和运营流程寻找可复用 AI 执行路径的团队准备的方案页。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'solution-document-automation',
@@ -366,7 +366,7 @@ export const authoritySurfacePublicData = {
         en: 'A solution page for reports, PDFs, templates, and repeatable content delivery workflows.',
         zh: '这是面向报告、PDF、模板与可复用内容交付流程的方案页。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'solution-browser-automation',
@@ -382,7 +382,7 @@ export const authoritySurfacePublicData = {
         en: 'A solution page for web actions, browser agents, and repeatable site operations.',
         zh: '这是面向网页操作、浏览器 Agent 与可复用站点任务的方案页。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'solution-data-extraction',
@@ -398,7 +398,7 @@ export const authoritySurfacePublicData = {
         en: 'A solution page for ETL, structured output, reporting pipelines, and data-heavy automation work.',
         zh: '这是为 ETL、结构化输出、报表管线和重数据自动化场景准备的方案页。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'docs-installation',
@@ -430,7 +430,7 @@ export const authoritySurfacePublicData = {
         en: 'Learn command behavior, sync rules, and what to check after installation.',
         zh: '了解命令行为、同步规则，以及安装后需要检查的内容。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'collections', 'solutions'],
     },
     {
       id: 'blog-official-ai-agent-skills-guide',
@@ -462,7 +462,7 @@ export const authoritySurfacePublicData = {
         en: 'A practical onboarding guide for moving from install commands into CLI and docs.',
         zh: '这是一篇实操型入门指南，适合从安装命令继续进入 CLI 和文档。',
       },
-      placements: ['home', 'solutions'],
+      placements: ['home', 'skills', 'solutions'],
     },
     {
       id: 'blog-ide-comparison',
@@ -494,7 +494,7 @@ export const authoritySurfacePublicData = {
         en: 'A comparison guide for choosing between MCP and REST API implementation paths.',
         zh: '这是一份对比指南，帮助团队在 MCP 与 REST API 实现路径之间做选择。',
       },
-      placements: ['collections', 'solutions'],
+      placements: ['home', 'skills', 'collections'],
     },
     {
       id: 'skills-directory',

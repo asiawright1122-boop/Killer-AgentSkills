@@ -44,7 +44,7 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
 const typedLocale = locale as Locale;
 
 const canonicalUrl = `https://killer-skills.com/${locale}/blog`;
-const blogSeoTitle = tr('BlogIndex.seoTitle', 'AI Agent Skills Guides, Workflow Tutorials, and Automation Blog');
+const blogSeoTitle = tr('BlogIndex.seoTitle', 'AI Agent Skills Guides, Tutorials & Automation Blog');
 const blogSeoDescriptions = {
   en: 'Read practical articles about AI agent skills, IDE workflows, automation practices, and developer productivity.',
   zh: '阅读关于 AI 代理技能、IDE 工作流、自动化实践和开发者生产力的实用文章、指南与案例。',
@@ -143,6 +143,21 @@ const categories = [
               url: `https://killer-skills.com/${locale}/blog/${slug}`,
             };
           }),
+        },
+      })}
+    />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: blogSeoTitle,
+        description: blogSeoDescription,
+        url: canonicalUrl,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
         },
       })}
     />

@@ -22,10 +22,10 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = tr('CLI.pageTitle', 'AI Agent Skills CLI for Install, Sync & Automation Workflows');
+const pageTitle = tr('CLI.pageTitle', 'AI Skills CLI: Install & Sync for Claude Code, Cursor');
 const pageDescription = tr(
   'CLI.pageDescription',
-  'Use the Killer-Skills CLI to install, manage, and sync AI agent skills in Cursor, Claude Code, VS Code, and Windsurf for process automation and template-based workflows, with no global install.',
+  'Install, manage, and sync AI agent skills in Claude Code, Cursor, Windsurf, and VS Code. One-command setup with no global install required.',
 );
 const pageKeywords = buildKeywordString(
   t,
@@ -164,6 +164,22 @@ const faqItems = [
         priceCurrency: 'USD',
       },
       softwareVersion: '1.7.0',
+    })}
+  />
+  {/* Speakable Schema for AI citation */}
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: canonicalUrl,
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+      },
     })}
   />
 

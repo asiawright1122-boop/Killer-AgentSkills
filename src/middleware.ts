@@ -570,6 +570,29 @@ export const onRequest = defineMiddleware(async (context, next) => {
     });
   }
 
+  // 2.6. Detect repeated path segments (e.g. /references/references, /rules/rules, /roles/roles).
+  //      These are crawl-trap artifacts that never correspond to real pages — return 410 Gone
+  //      so Google drops them from the index faster than a generic 404.
+  //      Only check beyond the owner/repo/sub-skill boundary (4+ skill segments) to avoid
+  //      false positives on valid routes like /IstiN/dmtools/dmtools where repo == sub-skill.
+  if (/^\/[a-z]{2}\/skills\//.test(pathname)) {
+    const segments = pathname.split('/').filter(Boolean);
+    // segments: [locale, 'skills', owner, repo, ...rest]
+    // Start checking from index 5 (first segment after owner/repo/sub-skill)
+    for (let i = 5; i < segments.length; i++) {
+      if (segments[i].toLowerCase() === segments[i - 1].toLowerCase()) {
+        return new Response(null, {
+          status: 410,
+          statusText: 'Gone',
+          headers: {
+            'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=86400',
+            'X-Robots-Tag': 'noindex, nofollow',
+          },
+        });
+      }
+    }
+  }
+
   // 3. Intercept skill paths ending with source-code file extensions (.md, .ts, .py, etc.)
   //    These are GitHub repo file paths that get matched by the catch-all [...]repo route
   //    but never correspond to actual pages — return cached 410 to save crawl budget.

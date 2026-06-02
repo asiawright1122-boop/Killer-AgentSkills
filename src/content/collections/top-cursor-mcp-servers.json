@@ -249,6 +249,32 @@
             "等第一条基线路径稳定后，再决定是否回来看更多候选。"
           ]
         }
+      },
+      {
+        "title": {
+          "en": "Cursor-Native MCP Setup & Verification (Expert Guide)",
+          "zh": "Cursor 原生 MCP 配置与验证（专家级指南）"
+        },
+        "summary": {
+          "en": "Follow this advanced setup pattern to configure and secure Model Context Protocol (MCP) servers directly within your Cursor IDE. Learn how to verify schema contracts, manage environment variables safely, and prevent CPU choke points.",
+          "zh": "参考此进阶配置方案，在 Cursor IDE 中直接安装并加密管理 Model Context Protocol (MCP) 服务。学习如何验证架构协议、安全管理环境变量、并防止 CPU 过载瓶颈。"
+        },
+        "steps": {
+          "en": [
+            "1. Open Cursor Settings by navigating to Settings > Features > MCP.",
+            "2. Add a new MCP server. Choose the type ('command' or 'sse'). For local command-based servers, enter the absolute path or execution command (e.g., 'npx -y @modelcontextprotocol/server-postgres').",
+            "3. Define environment variables inline inside Cursor settings. Never hardcode API keys or DB credentials in global configuration files; always pass them via Cursor's native env input fields.",
+            "4. Verify connection status. Ensure the green 'Connected' indicator is active next to your newly registered server. If it fails, check the logs in Cursor's developer console (Help > Toggle Developer Tools).",
+            "5. Test tool-calling execution. Open Cursor Chat (Cmd+K or Cmd+L) and explicitly prompt the assistant to list or run one of the registered tools to ensure schema integration is 100% complete and operational."
+          ],
+          "zh": [
+            "1. 打开 Cursor 设置，点击 Settings > Features > MCP 进入配置中心。",
+            "2. 添加新的 MCP 服务。选择连接类型（'command' 命令行或 'sse' 服务器模式）。针对本地命令行服务，输入绝对路径或执行命令（例如：'npx -y @modelcontextprotocol/server-postgres'）。",
+            "3. 在 Cursor 设置界面内联声明环境变量。绝对不要将 API 密钥或数据库凭据硬编码在全局配置文件中，始终通过 Cursor 原生的 env 输入框安全传入。",
+            "4. 验证连接状态。确保新注册的服务右侧显示绿色的 'Connected' 已连接指示灯。如果连接失败，请在 Cursor 开发者控制台（Help > Toggle Developer Tools）中查看具体错误日志。",
+            "5. 测试工具调用执行。打开 Cursor Chat 聊天框（Cmd+K 或 Cmd+L），显式要求 AI 助手列出或运行其中一个已注册工具，以确认 Schema 参数规范 100% 同步且可用。"
+          ]
+        }
       }
     ],
     "nextSteps": [

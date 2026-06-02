@@ -159,7 +159,7 @@
         "en": "Editor-specific demand should land on curated surfaces, not random repo coverage.",
         "zh": "编辑器型需求应该落到精选页，而不是随机 repo 覆盖页。"
       },
-      "placements": ["skills", "solutions"]
+      "placements": ["home", "skills", "collections", "solutions"]
     },
     {
       "id": "collection-windsurf",
@@ -399,7 +399,7 @@
         "en": "Productivity framing helps the site compete on utility instead of volume.",
         "zh": "生产力 framing 能让站点靠实用性竞争，而不是靠语料体量竞争。"
       },
-      "placements": ["home", "collections"]
+      "placements": ["home", "skills", "collections", "solutions"]
     },
     {
       "id": "solutions-hub",
@@ -459,7 +459,7 @@
         "en": "Workflow automation demand is easier to satisfy with curated intent clusters than with flat directory coverage.",
         "zh": "工作流自动化需求更适合用精选意图簇来满足，而不是靠扁平目录覆盖。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "solution-process-automation",
@@ -479,7 +479,7 @@
         "en": "Operational intent deserves a stronger bridge than generic tooling lists can provide.",
         "zh": "运营型意图需要比通用工具列表更强的承接桥梁。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "solution-document-automation",
@@ -499,7 +499,7 @@
         "en": "Document-intent users respond better to workflow framing than to flat inventories.",
         "zh": "文档型意图更适合承接到 workflow framing，而不是扁平库存页。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "solution-browser-automation",
@@ -519,7 +519,7 @@
         "en": "Browser workflows need intent-rich context, not just broad skill coverage.",
         "zh": "浏览器工作流需要高意图上下文，而不只是宽泛 skill 覆盖。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "solution-data-extraction",
@@ -539,7 +539,7 @@
         "en": "Data-heavy search demand is easier to recover through focused solution pages than through generic directories.",
         "zh": "重数据搜索需求更适合由聚焦的 solution 页面承接，而不是继续落到通用目录。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "docs-installation",
@@ -579,7 +579,7 @@
         "en": "CLI documentation proves the site has operational depth beyond discovery wrappers.",
         "zh": "CLI 文档能证明站点除了发现层之外，还有明确的操作深度。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "collections", "solutions"]
     },
     {
       "id": "blog-official-ai-agent-skills-guide",
@@ -619,7 +619,7 @@
         "en": "Installation intent is one of the site's clearest forms of first-party utility.",
         "zh": "安装意图本身，就是这个站最清晰的一手价值之一。"
       },
-      "placements": ["home", "solutions"]
+      "placements": ["home", "skills", "solutions"]
     },
     {
       "id": "blog-ide-comparison",
@@ -659,7 +659,7 @@
         "en": "Protocol comparisons build authority with original reasoning, not just inventory coverage.",
         "zh": "协议对比依赖原创判断，而不是单纯的库存覆盖，因此更能建立权威。"
       },
-      "placements": ["collections", "solutions"]
+      "placements": ["home", "skills", "collections"]
     },
     {
       "id": "skills-directory",

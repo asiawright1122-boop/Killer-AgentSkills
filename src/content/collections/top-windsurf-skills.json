@@ -185,6 +185,32 @@
             "在首次稳定落地后，把选定的 Windsurf 基线路径沉淀成团队默认做法。"
           ]
         }
+      },
+      {
+        "title": {
+          "en": "Windsurf Cascade MCP Configuration & Execution (Expert Guide)",
+          "zh": "Windsurf Cascade MCP 配置与运行（专家级指南）"
+        },
+        "summary": {
+          "en": "Maximize the capability of Windsurf's Cascade agent by connecting custom MCP servers. Learn how to configure the Codeium/Windsurf global MCP configuration file, pass secure parameters, and monitor tool logs.",
+          "zh": "通过连接自定义 MCP 服务，最大化释放 Windsurf Cascade 智能代理的超级能力。学习如何配置 Codeium/Windsurf 全局 MCP 配置文件、传递安全参数、并监听运行工具日志。"
+        },
+        "steps": {
+          "en": [
+            "1. Locate your Windsurf global MCP configuration file. Under macOS, it is typically situated at '~/.codeium/windsurf/mcp_config.json'. Create this file if it does not exist.",
+            "2. Add your custom MCP server to the JSON configuration under the 'mcpServers' root key. Ensure valid JSON syntax for the 'command', 'args', and optional 'env' blocks.",
+            "3. For security-sensitive integrations, pass API tokens or databases URI strictly via the 'env' object within the server definition, which isolates process environment variables.",
+            "4. Launch Windsurf. Cascade will automatically read the 'mcp_config.json' file on startup. Open the Windsurf logs panel (View > Output > Codeium/Windsurf Log) to confirm all servers initialized without errors.",
+            "5. Ask Cascade in the chat panel to execute a task using your new MCP tools (e.g., 'Use my Postgres MCP tool to retrieve schema details'). Monitor execution steps and outputs directly in Cascade's trace bubble."
+          ],
+          "zh": [
+            "1. 定位 Windsurf 的全局 MCP 配置文件。在 macOS 系统中，该文件通常位于 '~/.codeium/windsurf/mcp_config.json'。如果不存在，请创建它。",
+            "2. 在 JSON 配置文件的 'mcpServers' 根节点下添加自定义的 MCP 服务。确保 'command'、'args' 以及可选的 'env' 段落语法完全符合规范的 JSON 格式。",
+            "3. 针对涉及敏感安全的集成，务必通过服务定义内部的 'env' 对象传入 API Token 或数据库连接 URI，实现各运行进程的环境变量隔离。",
+            "4. 启动 Windsurf，Cascade 将在启动时自动读取 'mcp_config.json'。打开 Windsurf 输出面板（View > Output > 选择 Codeium/Windsurf Log）确认所有服务均已成功初始化且无报错。",
+            "5. 在聊天面板中向 Cascade 下达任务（如“使用我的 Postgres MCP 工具检索数据库结构”）。直接在 Cascade 交互气泡里实时监控工具的执行步骤与返回结果。"
+          ]
+        }
       }
     ],
     "nextSteps": [

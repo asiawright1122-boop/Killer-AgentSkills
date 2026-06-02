@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-06-01",
+  "title": "Claude Code vs Cursor vs Windsurf — AI Coding IDE Comparison",
+  "description": "A structured comparison of the three leading AI coding IDEs with their native skill/MCP ecosystems, curated by Killer-Skills.",
+  "canonicalUrl": "https://killer-skills.com/en/blog/ide-comparison",
+  "ides": [
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "vendor": "Anthropic",
+      "type": "terminal-native",
+      "pricing": "API-key based (pay-per-use)",
+      "skillFormat": "Claude Code Skills (.md files in .claude/)",
+      "mcpSupport": "native",
+      "curatedSkills": 6,
+      "skillCollectionUrl": "https://killer-skills.com/en/collections/claude-code",
+      "strengths": [
+        "Deep reasoning and multi-step planning",
+        "Native MCP server integration",
+        "Terminal-first workflow for power users",
+        "Strong codebase understanding"
+      ],
+      "bestFor": "Complex refactoring, architecture work, multi-file changes",
+      "limitations": [
+        "No built-in GUI",
+        "Requires API key management",
+        "Less visual diff review"
+      ]
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "vendor": "Cursor Inc.",
+      "type": "IDE (VS Code fork)",
+      "pricing": "Freemium (Pro $20/mo)",
+      "skillFormat": "MCP Servers + .cursor/rules",
+      "mcpSupport": "native",
+      "curatedSkills": 9,
+      "skillCollectionUrl": "https://killer-skills.com/en/collections/cursor",
+      "strengths": [
+        "Familiar VS Code experience",
+        "Excellent inline editing and tab completion",
+        "Visual diff and review tools",
+        "Rich extension ecosystem"
+      ],
+      "bestFor": "Daily development, code review, refactoring with visual feedback",
+      "limitations": [
+        "Pro subscription required for heavy use",
+        "Less suited for pure terminal workflows",
+        "MCP setup requires JSON config"
+      ]
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf",
+      "vendor": "Codeium",
+      "type": "IDE (VS Code fork)",
+      "pricing": "Freemium (Pro $15/mo)",
+      "skillFormat": "Windsurf Skills + MCP Servers",
+      "mcpSupport": "native (Cascade)",
+      "curatedSkills": 5,
+      "skillCollectionUrl": "https://killer-skills.com/en/collections/windsurf",
+      "strengths": [
+        "Cascade agentic workflow engine",
+        "Good multi-file awareness",
+        "Competitive pricing",
+        "Growing skill ecosystem"
+      ],
+      "bestFor": "Agentic workflows, multi-step automation, cost-conscious teams",
+      "limitations": [
+        "Newer ecosystem than Cursor",
+        "Fewer third-party integrations",
+        "Skill format still evolving"
+      ]
+    }
+  ],
+  "comparisonDimensions": [
+    {
+      "dimension": "Skill/MCP Ecosystem",
+      "claude-code": "Native MCP + Claude Code Skills",
+      "cursor": "MCP Servers + .cursor/rules",
+      "windsurf": "Windsurf Skills + MCP via Cascade"
+    },
+    {
+      "dimension": "Pricing Model",
+      "claude-code": "API usage-based",
+      "cursor": "$20/mo Pro",
+      "windsurf": "$15/mo Pro"
+    },
+    {
+      "dimension": "Interface",
+      "claude-code": "Terminal",
+      "cursor": "GUI (VS Code)",
+      "windsurf": "GUI (VS Code)"
+    },
+    {
+      "dimension": "Best For",
+      "claude-code": "Complex reasoning, architecture",
+      "cursor": "Daily dev, visual review",
+      "windsurf": "Agentic automation, workflows"
+    }
+  ],
+  "selectionGuide": {
+    "chooseClaudeCodeIf": "You work primarily in terminal, need deep multi-step reasoning, and are comfortable with API keys.",
+    "chooseCursorIf": "You want the best visual editing experience, inline completions, and a mature ecosystem.",
+    "chooseWindsurfIf": "You want agentic workflow automation at a competitive price with Cascade's orchestration."
+  },
+  "lastMaintained": "2026-06-01",
+  "maintainedBy": "Killer-Skills editorial team"
+}

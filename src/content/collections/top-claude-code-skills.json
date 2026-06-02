@@ -146,7 +146,7 @@
         },
         "summary": {
           "en": "Use this page when you want one Claude Code companion that can enter real coding work without turning evaluation into another endless tooling loop.",
-          "zh": "如果你要找的是一个能进入真实编码流程的 Claude Code 伴侣工具，而不是继续掉进无休止的工具比较，就先从这页开始。"
+          "zh": "如果你要找的是一个能进入真实编码流程的 Claude Code 伴侣工具，而不是继续掉进无休止 of 工具比较，就先从这页开始。"
         },
         "steps": {
           "en": [
@@ -184,6 +184,32 @@
             "通过 CLI 总览确认会写入什么、同步如何发生。",
             "先用一条已确认可用的路径，再决定是否扩展到更多项目或团队成员。",
             "在首次稳定落地后，把选定的 Claude Code 基线路径沉淀成团队默认做法。"
+          ]
+        }
+      },
+      {
+        "title": {
+          "en": "Claude Code MCP Installation & Security Guardrails (Expert Guide)",
+          "zh": "Claude Code MCP 配置与安全防护栏（专家级指南）"
+        },
+        "summary": {
+          "en": "Extend the shell-native capabilities of Anthropic's Claude Code by securely configuring custom MCP servers. Learn how to run 'claude mcp add', manage prompt context budgets, and inspect terminal session permissions.",
+          "zh": "通过安全配置自定义 MCP 服务，扩展 Anthropic Claude Code 的终端原生能力。学习如何运行 'claude mcp add'、管理 Prompt 上下文预算并检查终端会话权限。"
+        },
+        "steps": {
+          "en": [
+            "1. Run 'claude mcp add <server-name> -- <command> [args]' directly in your shell, or manually edit the global configuration at '~/.config/claude/mcp.json'.",
+            "2. Ensure the added command points to a secure executable or package (e.g. 'npx -y @modelcontextprotocol/server-github').",
+            "3. Add explicit arguments to restrict the server to specific safe working directories (e.g., passing '--allowed-paths' parameters) to protect non-project system files.",
+            "4. Use 'claude mcp list' to confirm the status of all registered servers. All successfully connected servers will display their capabilities (resources, prompts, tools).",
+            "5. Run a test prompt in Claude Code (e.g., 'Using Github MCP, get the last 3 issues from the current repo'). Monitor tool execution logs and check for payload sizes to prevent rapid token budget exhaustion."
+          ],
+          "zh": [
+            "1. 直接在终端运行 'claude mcp add <服务名称> -- <命令> [参数]'，或者手动编辑全局配置文件 '~/.config/claude/mcp.json'。",
+            "2. 确保添加的命令指向安全合规的可执行程序或包（例如：'npx -y @modelcontextprotocol/server-github'）。",
+            "3. 声明显式参数以限制服务仅对特定安全工作目录进行访问（例如传递 '--allowed-paths' 参数），以此保障非项目系统文件的安全。",
+            "4. 运行 'claude mcp list' 命令行工具以检查和核对所有注册服务的当前状态。成功连通的服务将详细列出其具备的功能（资源、Prompt、工具）。",
+            "5. 在 Claude Code 终端会话中运行测试 Prompt（如“通过 Github MCP 获取当前仓库的前 3 个 Issue”）。监控工具执行日志并留意数据负载大小，以防止 Token 额度过快超支。"
           ]
         }
       }

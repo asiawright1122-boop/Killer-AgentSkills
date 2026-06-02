@@ -9,6 +9,8 @@ const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 const SUPPORTED_LOCALE_SET = new Set<string>(SUPPORTED_LOCALES as readonly string[]);
 
+const BLOG_CATEGORIES = ['document-automation', 'developer-experience', 'enterprise-solutions', 'creative-tools'];
+
 function buildHreflangLinks(slug: string, availableLocales: string[]): string {
   const uniqueLocales = availableLocales.filter((loc) => SUPPORTED_LOCALE_SET.has(loc));
   if (uniqueLocales.length === 0) return '';
@@ -63,6 +65,19 @@ export const GET: APIRoute = async () => {
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 ${buildHreflangLinks(slug, availableLocales)}
+</url>`);
+    }
+  }
+
+  // Blog category pages
+  const today = new Date().toISOString().split('T')[0];
+  for (const cat of BLOG_CATEGORIES) {
+    for (const locale of SUPPORTED_LOCALES) {
+      urls.push(`<url>
+<loc>${normalizeUrl(`${SITE}/${locale}/blog/category/${cat}`)}</loc>
+<lastmod>${today}</lastmod>
+<changefreq>weekly</changefreq>
+<priority>0.6</priority>
 </url>`);
     }
   }

@@ -50,10 +50,15 @@ if (!post) {
 }
 
 const { Content, headings } = await render(post);
-const messages = await loadMessages(typedLocale);
+let messages: Record<string, any> = {};
+try {
+  messages = await loadMessages(typedLocale);
+} catch (e) {
+  console.error(`[Blog] Error loading translations for ${typedLocale}:`, e);
+}
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
-const tb = messages.Blog;
+const tb = messages?.Blog || {};
 const category = post.data.category;
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/${slug}`;
 const metaOverride = getBlogMetaOverride(slug, t);

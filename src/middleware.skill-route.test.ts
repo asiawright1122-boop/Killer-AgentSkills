@@ -403,4 +403,72 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('Location')).toBeNull();
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
+
+  it('returns 410 Gone for doubled path segments like /references/references', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ar/skills/antvis/GPT-Vis/references/references/waterfall.md'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('returns 410 Gone for doubled path segments like /rules/rules', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/pt/skills/remotion-dev/skills/rules/rules/get-video-dimensions.md'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('returns 410 Gone for doubled path segments like /roles/roles', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ja/skills/catlog22/Claude-Code-Workflow/roles/roles/executor.md'),
+      async () => {
+        nextCalled = true;
+        return new Response('<html></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' },
+        });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('does not flag non-repeated skill paths as gone', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(createContext('https://killer-skills.com/en/skills/vercel/nextjs'), async () => {
+      nextCalled = true;
+      return new Response('<html></html>', {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8' },
+      });
+    })) as Response;
+
+    expect(nextCalled).toBe(true);
+    expect(response.status).toBe(200);
+  });
 });

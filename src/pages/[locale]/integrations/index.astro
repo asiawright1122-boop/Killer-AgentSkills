@@ -20,13 +20,10 @@ const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = tr(
-  'IntegrationsPage.pageTitle',
-  'Cursor, Claude Code & VS Code AI Skill Setup for Automation Workflows',
-);
+const pageTitle = tr('IntegrationsPage.pageTitle', 'Claude Code, Cursor & Windsurf AI Skill Integration Setup');
 const pageDescription = tr(
   'IntegrationsPage.pageDescription',
-  'See how Killer-Skills works with Cursor, Claude Code, VS Code, Windsurf, and 19+ IDEs to install, configure, and sync AI agent skills for workflow automation and process automation.',
+  'Install, configure, and sync AI agent skills in Claude Code, Cursor, Windsurf, and 19+ IDEs for workflow and process automation.',
 );
 const pageKeywords = buildKeywordString(
   t,

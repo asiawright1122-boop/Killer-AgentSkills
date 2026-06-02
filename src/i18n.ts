@@ -3,9 +3,34 @@ import { DEFAULT_LOCALE, LOCALE_NAMES, SUPPORTED_LOCALES, isSupportedLocale } fr
 export { DEFAULT_LOCALE, LOCALE_NAMES, SUPPORTED_LOCALES };
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
+import ar from './messages/ar.json';
+import de from './messages/de.json';
+import en from './messages/en.json';
+import es from './messages/es.json';
+import fr from './messages/fr.json';
+import hi from './messages/hi.json';
+import ja from './messages/ja.json';
+import ko from './messages/ko.json';
+import pt from './messages/pt.json';
+import ru from './messages/ru.json';
+import zh from './messages/zh.json';
+
+const MESSAGES_MAP: Record<string, any> = {
+  ar,
+  de,
+  en,
+  es,
+  fr,
+  hi,
+  ja,
+  ko,
+  pt,
+  ru,
+  zh,
+};
+
 export async function loadMessages(locale: Locale): Promise<Record<string, any>> {
-  const messages = await import(`./messages/${locale}.json`);
-  return messages.default;
+  return MESSAGES_MAP[locale] || en;
 }
 
 export function getLangFromUrl(url: URL): Locale {

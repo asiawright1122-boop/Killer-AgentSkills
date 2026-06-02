@@ -92,7 +92,8 @@ function buildDocumentTitle(title: string, appendBrand: boolean, brandSuffix: 'f
   return title;
 }
 
-const DEFAULT_DESCRIPTION = 'The ultimate directory of AI Development Skills for Agents.';
+const DEFAULT_DESCRIPTION =
+  'Explore and install 3,400+ verified AI agent skills and MCP servers. Connect Cursor, Claude Code, and Windsurf to tools for browser, PDF, and database automation.';
 
 function normalizeDescription(description?: string): string {
   const cleanDescription = description || DEFAULT_DESCRIPTION;

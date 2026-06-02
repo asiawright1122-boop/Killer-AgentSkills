@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Helpful Content Injection and Authority Unlock
-current_phase: 68 - helpful-content-expert-copy-injection
-current_plan: 68-01
+current_phase: 70 - selective-authority-expansion-and-backlinks
+current_plan: 70-01
 status: active
 stopped_at: ''
-last_updated: '2026-05-29T15:35:00.000Z'
-last_activity: 2026-05-29
+last_updated: '2026-06-01T15:05:00.000Z'
+last_activity: 2026-06-01
 progress:
   total_phases: 4
-  completed_phases: 0
-  total_plans: 4
-  completed_plans: 0
-  percent: 0
+  completed_phases: 2
+  total_plans: 5
+  completed_plans: 3
+  percent: 75
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 ## Current Position
 
 **Current Milestone:** `v2.0` Helpful Content Injection and Authority Unlock
-**Current Phase:** `68` helpful-content-expert-copy-injection
-**Current Plan:** `68-01` Draft and inject original helpful-content editorial copy to the homepage and core featured collections
-**Status:** Milestone v1.9 completed and shipped. Milestone v2.0 is officially active. Phase 68-01 is initiated.
-**Last Activity:** 2026-05-29
-**Last Activity Description:** Milestone v2.0 bootstrapped, Phase 68 folder and plan-01 initial documents created.
-**Progress:** 0%
+**Current Phase:** `70` selective-authority-expansion-and-backlinks
+**Current Plan:** `70-01` Promote up to 5 authority surfaces and acquire 3+ external backlinks
+**Status:** Phase 70 code-side work complete. Deep SEO audit executed: 9 on-page title/description fixes, 8 under-linked surfaces upgraded to 3+ placements, FAQ6 "What is MCP" added across 10 locales for featured snippet opportunity. All surfaces now have >=3 internal placements. Manual backlink outreach and GSC refresh remain.
+**Last Activity:** 2026-06-01
+**Last Activity Description:** Completed deep SEO audit (70-SEO-AUDIT.md): fixed Skills/Solutions/CLI/Integrations/Community/Labs/Home titles and descriptions, upgraded collection-cursor and 7 other surfaces from 2→3+ placements, added MCP FAQ6 to all 10 locale files. All 845 tests pass.
+**Progress:** 75%
 
 ## Performance Metrics
 
@@ -126,6 +126,6 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 ## Session
 
-**Last Date:** 2026-05-06
-**Stopped At:** Phase 64 is blocked on fresh Coverage Drilldown export. After importing it, rerun `npm run report:seo:coverage-drilldown`, `npm run report:seo:search-compliance-matrix`, and `npm run report:seo:p0-url-recovery-preflight`.
+**Last Date:** 2026-06-01
+**Stopped At:** Phase 70 all code-side work complete. Deep SEO audit: 15 on-page fixes, 8 placement upgrades, FAQ6 MCP, BreadcrumbList + Speakable schema on all public pages, blog category cross-linking + sitemap, i18n SEO keys for all 9 pages, regression tests (892 pass). Remaining manual actions: (1) embed badge in GitHub README, (2) publish dev.to article, (3) social share for OG card, (4) download fresh GSC Coverage Drilldown, (5) re-run scorecard after organic clicks appear. Phase 71 ready once manual actions yield traffic data.
 **Resume File:** `.planning/ROADMAP.md`

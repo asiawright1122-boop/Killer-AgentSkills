@@ -919,7 +919,16 @@ const layoutTitle = renderRepoDirectory ? repoDirectoryTitle : pageTitle;
 const layoutDescription = renderRepoDirectory ? repoDirectoryMetaDescription : resolvedMetaDescription;
 const layoutKeywords = renderRepoDirectory ? repoDirectoryKeywords : seoKeywords;
 const layoutOgType = renderRepoDirectory ? 'website' : 'product';
-const layoutNoindex = renderRepoDirectory ? true : !skillIndexability?.isIndexable;
+const isPageInSitemap = rawSitemapSkills.some((entry) => {
+  const entryOwner = String(entry.owner || '').trim();
+  const entryRoutePath = String(entry.routePath || '').trim();
+  return (
+    entryOwner.toLowerCase() === owner.toLowerCase() &&
+    entryRoutePath.toLowerCase() === canonicalRoutePath.toLowerCase()
+  );
+});
+
+const layoutNoindex = renderRepoDirectory ? true : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap);
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);

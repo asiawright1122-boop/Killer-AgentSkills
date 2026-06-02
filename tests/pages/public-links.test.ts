@@ -1827,6 +1827,12 @@ describe('public links and navigation copy', () => {
         file: 'src/pages/[locale]/skills/index.astro',
         url: 'https://killer-skills.com/${locale}/skills?${serialized}',
       },
+      {
+        // Badge API query parameter for GitHub README embedding.
+        // Intentional: shields.io-style badge endpoint uses ?type= to select badge variant.
+        file: 'src/pages/api/badge.ts',
+        url: 'https://killer-skills.com/api/badge?type=skills',
+      },
     ]);
   });
 

@@ -29,10 +29,20 @@ const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Load featured skills directly from D1 with LIMIT (optimized — no full table scan)
-const featuredSkills = await getFeaturedSkillsDirect(env, 6);
+let featuredSkills = [];
+try {
+  featuredSkills = await getFeaturedSkillsDirect(env, 6);
+} catch (e) {
+  console.error('[Index] Error fetching featured skills:', e);
+}
 
 // Load translations
-const messages = await loadMessages(typedLocale);
+let messages: Record<string, any> = {};
+try {
+  messages = await loadMessages(typedLocale);
+} catch (e) {
+  console.error(`[Index] Error loading translations for ${typedLocale}:`, e);
+}
 const t = useTranslations(messages);
 const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
@@ -89,11 +99,11 @@ const homeCollections = [...allCollections]
 // SEO: homepage metadata from i18n messages
 const homeSeoTitle = tr(
   'Home.seoTitle',
-  'Killer-Skills - AI Agent Skills Open Directory | Claude Code & Cursor Skills',
+  'Killer-Skills - AI Agent Skills Directory for Claude Code, Cursor & Windsurf',
 );
 const homeSeoDescription = tr(
   'Home.seoDescription',
-  'Discover 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and 19+ IDEs. Killer-Skills is the open Model Context Protocol directory and installation entry point for AI coding assistants.',
+  'Browse 3,400+ AI agent skills and MCP servers, compare trusted tools for Claude Code, Cursor, and Windsurf, and install them in 19+ IDEs.',
 );
 const homeSeoKeywords = buildKeywordString(t, 'core', 'installSetup', 'ideCompat', 'cli', 'Killer-Skills');
 const faqItems = [
@@ -102,6 +112,7 @@ const faqItems = [
   { question: t('Home.faq3Q'), answer: t('Home.faq3A') },
   { question: t('Home.faq4Q'), answer: t('Home.faq4A') },
   { question: t('Home.faq5Q'), answer: t('Home.faq5A') },
+  { question: t('Home.faq6Q'), answer: t('Home.faq6A') },
 ];
 const seoIntro = tr(
   'Home.seoIntro',
@@ -296,7 +307,7 @@ const features = [
       },
       description: tr(
         'Metadata.description',
-        'Discover 3,400+ AI agent skills for Claude Code, Cursor, and Windsurf. Open-source skill marketplace with one-command installation.',
+        'Browse 3,400+ AI agent skills and MCP servers for Claude Code, Cursor, and Windsurf. Open directory with one-command installation.',
       ),
       foundingDate: '2025',
       knowsAbout: [
@@ -614,6 +625,37 @@ const features = [
               </div>
             ))
           }
+        </div>
+      </div>
+    </section>
+
+    <!-- Editorial Guidelines & Standards Section -->
+    <section class="py-16 md:py-20 border-t-[3px] border-[var(--border)] bg-[var(--background)] cv-auto">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="border-[3px] border-[var(--border)] bg-[var(--card)] p-8 md:p-12 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <span
+            class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-6"
+          >
+            {isZhCopy ? '编辑部专栏与测试标准' : 'Editorial Column'}
+          </span>
+          <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
+            {tr('Home.editorialTitle', 'Why Reusable MCP Skills Matter & Our Testing Standards')}
+          </h2>
+          <p class="text-base md:text-lg font-mono font-bold text-[var(--primary)] mb-8">
+            {
+              tr(
+                'Home.editorialSubtitle',
+                'A developer-first directory ensuring safety, compatibility, and execution precision.',
+              )
+            }
+          </p>
+          <div class="space-y-6 text-sm md:text-base leading-relaxed text-[var(--muted-foreground)] font-medium">
+            <p>{tr('Home.editorialParagraph1', '')}</p>
+            <p>{tr('Home.editorialParagraph2', '')}</p>
+            <p>{tr('Home.editorialParagraph3', '')}</p>
+          </div>
         </div>
       </div>
     </section>

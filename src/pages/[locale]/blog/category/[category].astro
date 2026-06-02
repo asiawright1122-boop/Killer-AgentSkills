@@ -110,6 +110,7 @@ const pageKeywords = buildKeywordString(
 );
 const canonicalUrl = `https://killer-skills.com/${locale}/blog/category/${category}`;
 const CategoryIcon = categoryIcons[category as keyof typeof categoryIcons] || Tags;
+const otherCategories = Object.keys(categoryIcons).filter((k) => k !== category);
 const intentLinks = getBlogIntentLinks(locale || 'en', category, category || '', t);
 const faqItems = [
   {
@@ -209,6 +210,21 @@ const faqItems = [
         })),
       })}
     />
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: pageTitle,
+        description: pageDescription,
+        url: canonicalUrl,
+        speakable: {
+          '@type': 'SpeakableSpecification',
+          cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+        },
+      })}
+    />
   </Fragment>
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">
     <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24">
@@ -281,6 +297,34 @@ const faqItems = [
           ))
         }
       </section>
+
+      {/* Other Categories Cross-Linking */}
+      {
+        otherCategories.length > 0 && (
+          <section class="mt-16">
+            <h2 class="text-2xl font-black uppercase tracking-tight mb-6">
+              {tr('BlogCategory.otherCategories', 'Explore Other Categories')}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {otherCategories.map((cat) => {
+                const OtherIcon = categoryIcons[cat as keyof typeof categoryIcons] || Tags;
+                const catName = tr(`Blog.categories.${cat}`, cat);
+                return (
+                  <a
+                    href={`/${locale}/blog/category/${cat}`}
+                    class="block border-2 border-[var(--border)] bg-[var(--card)] p-4 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+                  >
+                    <div class="flex items-center gap-2 mb-2">
+                      <OtherIcon size={18} strokeWidth={2.5} />
+                      <span class="font-black uppercase tracking-tight text-sm">{catName}</span>
+                    </div>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )
+      }
     </main>
   </div>
 </Layout>

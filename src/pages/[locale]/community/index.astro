@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import { SUPPORTED_LOCALES, loadMessages, useTranslations, type Locale } from '../../../i18n';
+import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
 
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
@@ -16,9 +16,13 @@ const typedLocale = locale as Locale;
 // Load translations
 const messages = await loadMessages(typedLocale);
 const t = useTranslations(messages);
+const tr = (key: string, fallback: string) => translateOr(messages, key, fallback);
 
-const pageTitle = t('Community.title');
-const pageDescription = t('Community.heroDesc');
+const pageTitle = tr('Community.seoTitle', 'AI Agent Skills Community — Contribute & Share Feedback');
+const pageDescription = tr(
+  'Community.seoDescription',
+  'Join the Killer-Skills community: contribute code, share feedback, and help improve reusable AI agent skills for Claude Code, Cursor, and Windsurf.',
+);
 
 const communityCards = [
   {

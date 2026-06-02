@@ -716,6 +716,8 @@
     "faq4A": "They are typically packaged as IDE-native skill files so you can install and reuse them directly in Claude Code, Cursor, Windsurf, and other compatible environments.",
     "faq4Q": "How are these skills packaged?",
     "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.",
+    "faq6Q": "MCP (Model Context Protocol) क्या है?",
+    "faq6A": "MCP (Model Context Protocol) एक खुला मानक है जो Claude Code, Cursor और Windsurf जैसे AI कोडिंग सहायकों को एक एकीकृत इंटरफ़ेस के माध्यम से बाहरी टूल, डेटा स्रोतों और सेवाओं से जोड़ता है। Killer-Skills इस प्रोटोकॉल का उपयोग करने वाले MCP सर्वर और स्किल्स को सूचीबद्ध करता है।",
     "faq5Q": "Why start from the skill directory?",
     "faqSubtitle": "Keeping the homepage snippet, visible content, and structured data aligned.",
     "faqTitle": "Homepage FAQ",

@@ -45,10 +45,10 @@ const categories = CATEGORY_DEFS.map((def) => ({
   count: categoryCounts[def.id] || 0,
 })).filter((category) => category.count > 0);
 
-const pageTitle = tr('Categories.pageTitle', 'AI Agent Skill Categories by Use Case');
+const pageTitle = tr('Categories.pageTitle', 'AI Skill Categories for Claude Code, Cursor & Windsurf');
 const pageDescription = tr(
   'Categories.pageDescription',
-  `Browse ${totalSkillCount}+ AI agent skills by category, from developer tools to data, AI, and design workflows for Claude Code, Cursor, and Windsurf.`,
+  `Browse ${totalSkillCount}+ AI agent skills by category, from developer tools to data, AI, and design workflows. Find skills for Claude Code, Cursor, and Windsurf.`,
 );
 
 const topCategoryIds = [...categories]
@@ -155,6 +155,22 @@ const faqItems = [
           text: item.answer,
         },
       })),
+    })}
+  />
+  {/* Speakable Schema for AI citation */}
+  <script
+    is:inline
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: pageTitle,
+      description: pageDescription,
+      url: canonicalUrl,
+      speakable: {
+        '@type': 'SpeakableSpecification',
+        cssSelector: ['h1', '.seo-intro-paragraph', 'h2'],
+      },
     })}
   />
   <div class="min-h-screen bg-[var(--background)] text-[var(--foreground)] font-sans">

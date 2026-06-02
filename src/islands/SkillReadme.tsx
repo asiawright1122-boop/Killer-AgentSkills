@@ -125,9 +125,9 @@ function SkillReadme({
               h1(props) {
                 const { children, node: _node, ...rest } = props;
                 return (
-                  <h1 id={getHeadingId(children)} {...rest}>
+                  <h2 id={getHeadingId(children)} {...rest}>
                     {children}
-                  </h1>
+                  </h2>
                 );
               },
               h2(props) {

@@ -693,24 +693,24 @@
       "browse": "Skills durchsuchen",
       "docs": "Dokumentation anzeigen"
     },
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "Multi-IDE-Unterstützung",
         "desc": "Nahtlose Integration mit Cursor, Windsurf und Claude Code."
       },
-      "1": {
+      {
         "title": "IDE-native Formate",
         "desc": "Installieren Sie einen Skill mit dem passenden nativen Format in wichtige IDEs und Agent-Umgebungen."
       },
-      "2": {
+      {
         "title": "Kuratierte Qualität",
         "desc": "Handverlesene, hoch bewertete und verifizierte Skills."
       },
-      "3": {
+      {
         "title": "Open Source",
         "desc": "Transparent, sicher und von der Community getragen."
       }
-    },
+    ],
     "seoTitle": "KI-Agent-Skills und MCP-Server-Verzeichnis",
     "seoDescription": "Entdecken Sie über 3.400 KI-Agent-Skills und MCP-Server für Claude Code, Cursor, Windsurf und weitere IDEs. Vergleichen und installieren.",
     "faqTitle": "Startseite FAQ",
@@ -725,7 +725,14 @@
     "faq4A": "Sie werden als IDE-native Skill-Dateien bereitgestellt, sodass sie direkt in Claude Code, Cursor, Windsurf und anderen kompatiblen Umgebungen installiert und wiederverwendet werden können.",
     "faq5Q": "Warum vom Skill-Verzeichnis aus starten?",
     "faq5A": "Die Detailseite fasst Installationsbefehl, unterstützte IDEs, Quell-Repository und verwandte Skills zusammen, sodass Sie schnell entscheiden können, ob ein Skill zu Ihrer Aufgabe passt.",
-    "seoIntro": "Killer-Skills ist ein Open-Source-Verzeichnis und Installationshub für über 3.400 KI-Agenten-Skills. Entwickler finden dort vertrauenswürdige Tools schneller als beim Durchsuchen roher GitHub-Repositories und gelangen im selben Ablauf zu Collections, Lösungsseiten und Installationsdokumenten."
+    "faq6Q": "Was ist MCP (Model Context Protocol)?",
+    "faq6A": "MCP (Model Context Protocol) ist ein offener Standard, der KI-Coding-Assistenten wie Claude Code, Cursor und Windsurf über eine einheitliche Schnittstelle mit externen Tools, Datenquellen und Diensten verbindet. Killer-Skills listet MCP-Server und Skills, die dieses Protokoll nutzen.",
+    "seoIntro": "Killer-Skills ist ein Open-Source-Verzeichnis und Installationshub für über 3.400 KI-Agenten-Skills. Entwickler finden dort vertrauenswürdige Tools schneller als beim Durchsuchen roher GitHub-Repositories und gelangen im selben Ablauf zu Collections, Lösungsseiten und Installationsdokumenten.",
+    "editorialTitle": "Warum wiederverwendbare MCP-Fähigkeiten wichtig sind & unsere Teststandards",
+    "editorialSubtitle": "Ein entwicklerorientiertes Verzeichnis, das Sicherheit, Kompatibilität und Ausführungsgenauigkeit für KI-Agenten-Fähigkeiten in IDEs wie Cursor, Claude Code, Windsurf und VS Code gewährleistet.",
+    "editorialParagraph1": "\"Während KI-Coding-Assistenten wie Claude Code, Cursor und Windsurf die Ingenieurlandschaft verändern, ist das Model Context Protocol (MCP) als Standardbrücke zwischen LLMs und externen Systemen entstanden. Die Durchsicht von rohen, unüberprüften Repositories auf GitHub stellt jedoch erhebliche Herausforderungen dar: fragmentierte Konfigurationsanweisungen, stille Ausführungsfehler und erhebliche Sicherheitsrisiken durch willkürlichen lokalen Systemzugriff. Killer-Skills wurde entwickelt, um diese Lücke zu schließen.\"",
+    "editorialParagraph2": "Jeder in unserem offenen Verzeichnis aufgeführte Skill durchläuft eine strengen, mehrstufigen automatisierten Test- und manuellen Kurationspipeline. Wir bewerten Open-Source-Model-Context-Protocol-(MCP)-Server und -Tools anhand von drei Kernsäulen der Technik: Sicherheit, Native-IDE-Kompatibilität und Abhängigkeitsarmut. Unsere Pipeline überprüft kontinuierlich, dass Skills ihre Schemata korrekt definieren, explizite Parameterspezifikationen deklarieren, unbefugten Remote-Datenabfluss vermeiden und über einen einzigen, standardisierten Befehl reibungslos installiert werden. Wir führen auch regelmäßige Crawling-Integritätsprüfungen durch, um sicherzustellen, dass unser Index keine toten Links oder stummen Serverfehler enthält, und halten Ihre lokale Konfiguration damit vollständig sicher.",
+    "editorialParagraph3": "\"Indem wir über 3.400 Open-Source-Skills in verifizierte, anwendungsfallspezifische Sammlungen konsolidieren, helfen wir Ingenieuren, ihre AI-Coding-Assistenten sicher zu beschleunigen, ohne Zeit mit der Fehlersuche in rohen Repositorys zu verschwenden. Unser Verzeichnis kategorisiert Tools in aktionsorientierte Pakete wie Dokumentenautomatisierung (z. B. xlsx-, docx- und pdf-Manipulation), Kreativ-Generative Kunst und DevOps. Ob Sie komplexe PDF-Generierung über OCR automatisieren, automatisierte Unit-Tests schreiben oder sichere Cloud-Bereitstellungen über das Terminal Ihrer IDE verwalten, Killer-Skills bietet saubere, getestete Installations-Eintragspunkte. Jeder Eintragspunkt wird durch unsere robuste Edge-Routing-Middleware geschützt, die veraltete Crawling-Pfade unterbricht und sicherstellt, dass Sie nur aktiven, konformen Code herunterladen.\""
   },
   "Integrations": {
     "worksWhereYouWork": "Funktioniert in Ihrer Umgebung",
