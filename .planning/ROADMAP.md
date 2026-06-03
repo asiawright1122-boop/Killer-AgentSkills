@@ -20,7 +20,7 @@ This milestone focused on schema structured data, automated search indexing trig
 - **Degradation Tests:** Simulate provider fallback and 429 recovery scenarios in unit tests.
 **Phase range:** 91-93
 
-### Phase 91: Environment-Specific Profiles Integration
+### Phase 91: Environment-Specific Profiles Integration (Complete: [summary](./phases/91-environment-specific-profiles-integration/91-01-SUMMARY.md), [verification](./phases/91-environment-specific-profiles-integration/91-VERIFICATION.md))
 
 **Goal:** Establish profile schemas resolving provider overrides by workload class and current environment.
 **Depends on:** Shipped v3.0.
@@ -28,7 +28,7 @@ This milestone focused on schema structured data, automated search indexing trig
 **Success Criteria:** Runtime router correctly selects profile provider across dev, test, and prod.
 
 Plans:
-- [ ] `91-01`: Integrate environment-specific profile loading into routing pipeline.
+- [x] `91-01`: Integrate environment-specific profile loading into routing pipeline.
 
 ### Phase 92: Config Guard Hardening
 
@@ -86,7 +86,7 @@ Plans:
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 0/3 | Planning | - |
+| v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 1/3 | Active | - |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
 | v2.9 Coverage Data Ingestion & Post-Intervention Automation | 85-87 | 3/3 | Complete | 2026-06-03 |
 | v2.8 Growth, Telemetry & UX Expansion | 81-84 | 4/4 | Complete | 2026-06-03 |

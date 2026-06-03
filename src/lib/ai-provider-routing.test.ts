@@ -243,5 +243,82 @@ describe('ai provider routing', () => {
       expect(plan.fallbackRouting.backupPriorityOrder).toEqual(['openrouter', 'siliconflow', 'cloudflare']);
       expect(plan.backupOrder.map((entry) => entry.provider)).toEqual(['openrouter', 'siliconflow', 'cloudflare']);
     });
+
+    it('resolves composite profiles dynamically based on environment and workload', () => {
+      const originalJson = process.env.AI_OPERATOR_PROFILES_JSON;
+      const originalNodeEnv = process.env.NODE_ENV;
+
+      const compositeJson = JSON.stringify({
+        development: {
+          default: 'workers-ai-fallback',
+          free_only_preview: 'workers-ai-fallback',
+        },
+        production: {
+          default: 'nvidia-first',
+          interactive_demo: 'openrouter-preferred',
+        },
+      });
+
+      process.env.AI_OPERATOR_PROFILES_JSON = compositeJson;
+
+      try {
+        process.env.NODE_ENV = 'production';
+        const prodInteractivePlan = buildProviderRoutingPlan({
+          primaryCandidates: [],
+          backupCandidates: [
+            { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+            { provider: 'openrouter' as const, label: 'O0', groupPriority: 1, rotationOrder: 0, available: true },
+            { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+          ],
+          stateByLabel: new Map(),
+          policy: 'always',
+          workloadProfile: 'interactive_demo',
+          nvidiaConfigured: false,
+        });
+        expect(prodInteractivePlan.fallbackRouting.operatorProfile).toBe('openrouter-preferred');
+        expect(prodInteractivePlan.backupOrder.map((entry) => entry.provider)).toEqual([
+          'openrouter',
+          'siliconflow',
+          'cloudflare',
+        ]);
+
+        const prodBalancedPlan = buildProviderRoutingPlan({
+          primaryCandidates: [],
+          backupCandidates: [
+            { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+            { provider: 'openrouter' as const, label: 'O0', groupPriority: 1, rotationOrder: 0, available: true },
+            { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+          ],
+          stateByLabel: new Map(),
+          policy: 'always',
+          workloadProfile: 'balanced',
+          nvidiaConfigured: false,
+        });
+        expect(prodBalancedPlan.fallbackRouting.operatorProfile).toBe('nvidia-first');
+
+        process.env.NODE_ENV = 'development';
+        const devPreviewPlan = buildProviderRoutingPlan({
+          primaryCandidates: [],
+          backupCandidates: [
+            { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+            { provider: 'openrouter' as const, label: 'O0', groupPriority: 1, rotationOrder: 0, available: true },
+            { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+          ],
+          stateByLabel: new Map(),
+          policy: 'always',
+          workloadProfile: 'free_only_preview',
+          nvidiaConfigured: false,
+        });
+        expect(devPreviewPlan.fallbackRouting.operatorProfile).toBe('workers-ai-fallback');
+        expect(devPreviewPlan.backupOrder.map((entry) => entry.provider)).toEqual([
+          'cloudflare',
+          'openrouter',
+          'siliconflow',
+        ]);
+      } finally {
+        process.env.AI_OPERATOR_PROFILES_JSON = originalJson;
+        process.env.NODE_ENV = originalNodeEnv;
+      }
+    });
   });
 });

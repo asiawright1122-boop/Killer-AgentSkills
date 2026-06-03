@@ -145,3 +145,88 @@ export function renderAIBackupProviderPosture(
   if (includeEnvKey) bits.push(`${config.envKey}:${config.source}`);
   return bits.join(' | ');
 }
+
+export interface AICompositeOperatorProfile {
+  [envName: string]: {
+    [workloadProfile: string]: AIOperatorProfileName;
+  } & { default?: AIOperatorProfileName };
+}
+
+export function parseCompositeOperatorProfile(rawJson: string | undefined | null): AICompositeOperatorProfile | null {
+  if (!rawJson) return null;
+  try {
+    const parsed = JSON.parse(rawJson);
+    if (parsed && typeof parsed === 'object') {
+      for (const envKey of Object.keys(parsed)) {
+        const envVal = parsed[envKey];
+        if (typeof envVal !== 'object' || envVal === null) return null;
+        for (const workloadKey of Object.keys(envVal)) {
+          const profileVal = envVal[workloadKey];
+          const normalized = String(profileVal || '')
+            .trim()
+            .toLowerCase()
+            .replace(/_/g, '-');
+          if (!VALID_OPERATOR_PROFILES.has(normalized as AIOperatorProfileName)) {
+            return null;
+          }
+        }
+      }
+      return parsed as AICompositeOperatorProfile;
+    }
+  } catch (_e) {
+    // Return null on parsing errors to ensure fallback path takes place
+  }
+  return null;
+}
+
+export function resolveAIOperatorProfile(options: {
+  workloadProfile: string;
+  envName?: string;
+  rawJson?: string;
+  globalFallbackProfile?: string;
+}): AIOperatorProfileName {
+  const composite = parseCompositeOperatorProfile(
+    options.rawJson ?? (typeof process !== 'undefined' ? process.env.AI_OPERATOR_PROFILES_JSON : undefined),
+  );
+  const globalFallback = parseAIOperatorProfile(
+    options.globalFallbackProfile ?? (typeof process !== 'undefined' ? process.env.AI_OPERATOR_PROFILE : undefined),
+  );
+
+  if (!composite) {
+    return globalFallback;
+  }
+
+  const rawEnv = (
+    options.envName ??
+    (typeof process !== 'undefined' ? process.env.NODE_ENV : undefined) ??
+    'development'
+  )
+    .trim()
+    .toLowerCase();
+
+  let envKey = rawEnv;
+  if (rawEnv === 'test') {
+    envKey = 'testing';
+  } else if (rawEnv === 'dev') {
+    envKey = 'development';
+  } else if (rawEnv === 'prod') {
+    envKey = 'production';
+  }
+
+  const envConfig = composite[envKey] || composite['default'];
+  if (!envConfig) {
+    return globalFallback;
+  }
+
+  const workloadKey = String(options.workloadProfile)
+    .trim()
+    .toLowerCase()
+    .replace(/[\s-]+/g, '_');
+
+  const profileName = envConfig[workloadKey] || envConfig['default'];
+  if (profileName) {
+    return parseAIOperatorProfile(profileName);
+  }
+
+  return globalFallback;
+}

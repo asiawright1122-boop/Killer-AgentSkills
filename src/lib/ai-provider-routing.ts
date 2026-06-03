@@ -1,5 +1,5 @@
 import { resolveAIFallbackActivation, type AIFallbackRoutingPolicy } from './ai-fallback-policy';
-import { parseAIOperatorProfile, type AIOperatorProfileName } from './ai-backup-posture';
+import { type AIOperatorProfileName, resolveAIOperatorProfile } from './ai-backup-posture';
 
 export type AIPrimaryProviderName = 'nvidia';
 export type AIBackupProviderName = 'siliconflow' | 'openrouter' | 'cloudflare';
@@ -167,17 +167,30 @@ export function parseAIProviderWorkloadProfile(
 
 export function getBackupPriorityOrderForWorkload(
   workloadProfile: AIProviderWorkloadProfileName = DEFAULT_WORKLOAD_PROFILE,
-  operatorProfile?: AIOperatorProfileName,
+  optionsOrProfile?: AIOperatorProfileName | { envName?: string; customOperatorProfile?: AIOperatorProfileName },
 ): AIBackupProviderName[] {
   const baseOrder = [...WORKLOAD_BACKUP_PRIORITY_ORDER[workloadProfile]];
-  const profile = operatorProfile || parseAIOperatorProfile(process.env.AI_OPERATOR_PROFILE);
 
-  if (profile === 'workers-ai-fallback') {
+  let resolvedProfile: AIOperatorProfileName;
+  if (typeof optionsOrProfile === 'string') {
+    resolvedProfile = optionsOrProfile;
+  } else if (optionsOrProfile && typeof optionsOrProfile === 'object') {
+    resolvedProfile =
+      optionsOrProfile.customOperatorProfile ||
+      resolveAIOperatorProfile({
+        workloadProfile,
+        envName: optionsOrProfile.envName,
+      });
+  } else {
+    resolvedProfile = resolveAIOperatorProfile({ workloadProfile });
+  }
+
+  if (resolvedProfile === 'workers-ai-fallback') {
     const filtered = baseOrder.filter((p) => p !== 'cloudflare');
     return ['cloudflare', ...filtered];
   }
 
-  if (profile === 'openrouter-preferred') {
+  if (resolvedProfile === 'openrouter-preferred') {
     const filtered = baseOrder.filter((p) => p !== 'openrouter');
     return ['openrouter', ...filtered];
   }
@@ -495,7 +508,7 @@ export function buildProviderRoutingPlan<
   alwaysReason?: string | null;
 }): AIProviderRoutingPlan<TPrimary, TBackup> {
   const workloadProfile = options.workloadProfile || DEFAULT_WORKLOAD_PROFILE;
-  const operatorProfile = options.operatorProfile || parseAIOperatorProfile(process.env.AI_OPERATOR_PROFILE);
+  const operatorProfile = options.operatorProfile || resolveAIOperatorProfile({ workloadProfile });
   const primaryOrder = orderProviderCandidatesByHealth(
     options.primaryCandidates,
     options.stateByLabel,
