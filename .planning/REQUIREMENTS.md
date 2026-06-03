@@ -8,13 +8,13 @@
 
 ### Frontend & UX Revamp
 
-- [ ] **UX-10**: Implement a fast on-site search functionality for the skill directory.
-- [ ] **UX-11**: Enrich Skill Detail pages with better typography, markdown rendering, and code examples.
+- [x] **UX-10**: Implement a fast on-site search functionality for the skill directory.
+- [x] **UX-11**: Enrich Skill Detail pages with better typography, markdown rendering, and code examples.
 
 ### SEO & Content Expansion
 
-- [ ] **SEO-30**: Introduce i18n (internationalization) support for top-tier languages.
-- [ ] **SEO-31**: Automate 404/redirect generation and handling based on GSC inputs.
+- [x] **SEO-30**: Introduce i18n (internationalization) support for top-tier languages.
+- [x] **SEO-31**: Automate 404/redirect generation and handling based on GSC inputs.
 
 ### AI Telemetry & Smart Routing
 
@@ -38,10 +38,10 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| UX-10 | Phase 81 | Pending |
-| UX-11 | Phase 81 | Pending |
-| SEO-30 | Phase 82 | Pending |
-| SEO-31 | Phase 82 | Pending |
+| UX-10 | Phase 81 | Executed |
+| UX-11 | Phase 81 | Executed |
+| SEO-30 | Phase 82 | Executed |
+| SEO-31 | Phase 82 | Executed |
 | AIOPS-20 | Phase 83 | Pending |
 | AIOPS-21 | Phase 83 | Pending |
 | DATA-10 | Phase 84 | Pending |
