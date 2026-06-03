@@ -10,36 +10,36 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.2` are shipped.
-- `v2.3 Directory Rollout Monitoring and Optimization` is now active.
+- `v1.0` through `v2.3` are shipped.
+- `v2.4 Directory Continuous Monitoring and CTR Optimization` is now active.
+- `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 - `v2.2` verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
-- `v2.1` monitored organic traffic metrics, verified backlinks, and unlocked automation candidate classification.
 
-## Most Recent Shipment: v2.2 Directory Automated Expansion and Full Rollout
+## Most Recent Shipment: v2.3 Directory Rollout Monitoring and Optimization
 
-**Outcome:** Verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
+**Outcome:** Monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
 **Shipped capabilities:**
 
-- Allowed P0 surfaces promotion to automation-candidate status under operator override even without meeting traffic thresholds.
-- Opened indexation boundaries for multi-skill repo directories and relaxed edge routing rules.
+- Extended indexability tracking to multi-skill directory roots, allowing operators to monitor their indexing status in reports.
+- Created a concurrency-controlled preview crawler simulator, ensuring edge SSR latency stays under 400ms average under load.
+
+## Previous Shipment: v2.2 Directory Automated Expansion and Full Rollout
+
+**Outcome:** Verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
 
 ## Previous Shipment: v2.1 Directory Auto-Expansion and Verification
 
 **Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
 
-## Previous Shipment: v2.0 Helpful Content Injection and Authority Unlock
+## Current Milestone: v2.4 Directory Continuous Monitoring and CTR Optimization
 
-**Outcome:** Injected helpful copy, fixed edge runtime 500 crashes, resolved indexation of sitemap-missing pages, and compiled outreach backlinks template.
-
-## Current Milestone: v2.3 Directory Rollout Monitoring and Optimization
-
-**Goal:** Monitor and optimize organic search crawl, indexation status, and edge performance for newly expanded multi-skill directory structures.
+**Goal:** Monitor CTR performance and establish automated database sync verification for the expanded directory index.
 
 **Target features:**
 
-- Monitor crawl rates and indexation of repository directories.
-- Verify Astro edge SSR latency and performance under simulated search crawler loads.
+- Monitor Google Search Console click CTR performance indicators for the newly indexed directory roots.
+- Establish automated daily KV/D1 database sync health checks.
 
 ## Deferred Beyond v1.8
 
@@ -102,11 +102,13 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [GSC Organic Click Verification] - `v2.1`
 - ✓ [Experiment Engine Candidate Unlock] - `v2.1`
 - ✓ [Automated Directory Expansion Rollout] - `v2.2`
+- ✓ [Crawl & Index Monitoring] - `v2.3`
+- ✓ [Edge Performance Optimization] - `v2.3`
 
 ### Active
 
-- [ ] [Crawl & Index Monitoring] - Monitor organic search crawl and indexation status of newly opened repository directories in search engine consoles.
-- [ ] [Edge Performance Optimization] - Verify that search engine crawler fetch actions do not cause performance regressions on Astro edge SSR nodes.
+- [ ] [GSC CTR Monitoring] - Monitor Google Search Console click CTR performance indicators for the newly indexed directory roots.
+- [ ] [Database Synchronization Verification] - Establish automated daily KV/D1 database sync health checks.
 
 ### Out of Scope
 

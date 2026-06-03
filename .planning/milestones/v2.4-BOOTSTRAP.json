@@ -1,0 +1,38 @@
+{
+  "milestone": "v2.4",
+  "milestoneName": "Directory Continuous Monitoring and CTR Optimization",
+  "goal": "Monitor CTR performance and establish automated database sync verification for the expanded directory index.",
+  "sourceMilestone": "v2.3",
+  "sourceMilestoneName": "v2.3",
+  "sourceArtifacts": [
+    ".planning/milestones/v2.3-ROADMAP.md",
+    ".planning/milestones/v2.3-REQUIREMENTS.md",
+    ".planning/milestones/v2.3-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "77",
+      "slug": "continuous-monitoring-and-ctr-optimization",
+      "requirements": [
+        "SEO-20",
+        "REC-38"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-20",
+    "REC-38"
+  ]
+}

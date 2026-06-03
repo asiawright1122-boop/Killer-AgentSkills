@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-03T02:42:14.809Z",
+  "generatedAt": "2026-06-03T03:15:25.882Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.3",
-  "activeMilestoneName": "Directory Rollout Monitoring and Optimization",
+  "activeMilestone": "v2.4",
+  "activeMilestoneName": "Directory Continuous Monitoring and CTR Optimization",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.3-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.4-phases",
   "activePhases": [
     {
-      "phaseNumber": "76",
-      "slug": "directory-rollout-monitoring-and-optimization",
-      "dirName": "76-directory-rollout-monitoring-and-optimization",
+      "phaseNumber": "77",
+      "slug": "continuous-monitoring-and-ctr-optimization",
+      "dirName": "77-continuous-monitoring-and-ctr-optimization",
       "status": "present",
       "activePaths": [
-        ".planning/phases/76-directory-rollout-monitoring-and-optimization"
+        ".planning/phases/77-continuous-monitoring-and-ctr-optimization"
       ],
       "archivePaths": []
     }
@@ -212,6 +212,16 @@
       "expectedPhaseDirs": [
         ".planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion",
         ".planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout"
+      ]
+    },
+    {
+      "milestone": "v2.3",
+      "phaseArchivePath": ".planning/milestones/v2.3-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.3-phases/76-directory-rollout-monitoring-and-optimization"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.3-phases/76-directory-rollout-monitoring-and-optimization"
       ]
     }
   ],

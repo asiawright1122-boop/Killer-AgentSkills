@@ -36,6 +36,15 @@ type IndexabilityRecord = {
   blockers: string[];
 };
 
+type RepoDirectoryIndexabilityRecord = {
+  id: string;
+  owner: string;
+  repo: string;
+  canonicalUrl: string;
+  isIndexable: boolean;
+  blockers: string[];
+};
+
 type IndexabilityReport = {
   generatedAt: string;
   summary: {
@@ -46,14 +55,12 @@ type IndexabilityReport = {
     canonicalLocaleCounts: Record<string, number>;
     indexableCanonicalLocaleCounts: Record<string, number>;
     blockerCounts: Record<string, number>;
+    totalRepoDirectories: number;
+    indexableRepoDirectories: number;
+    referenceOnlyRepoDirectories: number;
   };
   skills: IndexabilityRecord[];
-};
-
-type SitemapSkillRecord = {
-  owner?: string;
-  repo?: string;
-  routePath?: string;
+  repoDirectories: RepoDirectoryIndexabilityRecord[];
 };
 
 function readJson<T>(path: string): T {
@@ -78,6 +85,7 @@ function renderMarkdown(report: IndexabilityReport): string {
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([locale, count]) => `- ${locale}: ${count}`);
   const samples = report.skills.filter((item) => !item.isIndexable).slice(0, 20);
+  const repoSample = report.repoDirectories.slice(0, 20);
 
   return [
     '# Skill Indexability Report',
@@ -89,6 +97,9 @@ function renderMarkdown(report: IndexabilityReport): string {
     `- Skills analyzed: ${report.summary.totalSkills}`,
     `- Indexable canonical pages: ${report.summary.indexableSkills}`,
     `- Reference-only canonical pages: ${report.summary.referenceOnlySkills}`,
+    `- Total repo directories: ${report.summary.totalRepoDirectories}`,
+    `- Indexable repo directories: ${report.summary.indexableRepoDirectories}`,
+    `- Reference-only repo directories: ${report.summary.referenceOnlyRepoDirectories}`,
     '',
     '## Indexable Canonical Locale Counts',
     ...localeLines,
@@ -103,6 +114,14 @@ function renderMarkdown(report: IndexabilityReport): string {
             `- ${item.id} -> ${item.canonicalUrl} | quality=${item.qualityScore} | blockers=${item.blockers.join(', ') || 'none'}`,
         )
       : ['- none']),
+    '',
+    '## Repository Directories Indexability (Crawl Expansion Boundary)',
+    '| Repo Key | Canonical URL | Indexable | Blockers |',
+    '|---|---|---|---|',
+    ...repoSample.map(
+      (item) =>
+        `| ${item.id} | ${item.canonicalUrl} | ${item.isIndexable ? '✓' : '✗'} | ${item.blockers.join(', ') || 'none'} |`,
+    ),
     '',
   ].join('\n');
 }
@@ -213,6 +232,52 @@ const records: IndexabilityRecord[] = (
     Number(a.isIndexable) - Number(b.isIndexable) || a.qualityScore - b.qualityScore || a.id.localeCompare(b.id),
 );
 
+const sitemapBlocklistPath = resolve(dataDir, 'seo-sitemap-blocklist.json');
+const sitemapBlocklistData = existsSync(sitemapBlocklistPath)
+  ? readJson<{ blocked_owners?: string[]; blocked_repos?: string[] } | string[]>(sitemapBlocklistPath)
+  : { blocked_owners: [], blocked_repos: [] };
+const blockedOwners = new Set(
+  (Array.isArray(sitemapBlocklistData) ? [] : sitemapBlocklistData.blocked_owners || []).map((o) => o.toLowerCase()),
+);
+const blockedRepos = new Set(
+  (Array.isArray(sitemapBlocklistData) ? [] : sitemapBlocklistData.blocked_repos || []).map((r) => r.toLowerCase()),
+);
+
+const isForcedOpen =
+  process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
+
+const knownRepoKeySet = new Set<string>();
+const repoDirs: RepoDirectoryIndexabilityRecord[] = [];
+
+for (const skill of sitemapSkills) {
+  const owner = typeof skill.owner === 'string' ? skill.owner.trim() : '';
+  const rawRoutePath = typeof skill.routePath === 'string' ? skill.routePath.trim() : '';
+  if (!owner || !rawRoutePath) continue;
+
+  if (blockedOwners.has(owner.toLowerCase())) continue;
+  if (blockedRepos.has(`${owner.toLowerCase()}/${rawRoutePath.toLowerCase()}`)) continue;
+
+  const repo = rawRoutePath.split('/').filter(Boolean)[0];
+  if (!repo) continue;
+
+  const repoKey = `${owner.toLowerCase()}/${repo.toLowerCase()}`;
+  if (knownRepoKeySet.has(repoKey)) continue;
+  knownRepoKeySet.add(repoKey);
+
+  const canonicalUrl = `https://killer-skills.com/${DEFAULT_LOCALE}/skills/${owner}/${repo}`;
+  const isIndexable = isForcedOpen;
+  const blockers = isIndexable ? [] : ['crawler_boundary_locked_noindex'];
+
+  repoDirs.push({
+    id: repoKey,
+    owner,
+    repo,
+    canonicalUrl,
+    isIndexable,
+    blockers,
+  });
+}
+
 const report: IndexabilityReport = {
   generatedAt,
   summary: {
@@ -223,8 +288,12 @@ const report: IndexabilityReport = {
     canonicalLocaleCounts: {},
     indexableCanonicalLocaleCounts: {},
     blockerCounts: {},
+    totalRepoDirectories: repoDirs.length,
+    indexableRepoDirectories: repoDirs.filter((r) => r.isIndexable).length,
+    referenceOnlyRepoDirectories: repoDirs.filter((r) => !r.isIndexable).length,
   },
   skills: records,
+  repoDirectories: repoDirs,
 };
 
 for (const record of records) {
@@ -252,6 +321,8 @@ console.log(
     `skills=${report.summary.totalSkills}`,
     `indexable=${report.summary.indexableSkills}`,
     `referenceOnly=${report.summary.referenceOnlySkills}`,
+    `totalRepos=${report.summary.totalRepoDirectories}`,
+    `indexableRepos=${report.summary.indexableRepoDirectories}`,
     `json=${reportJsonPath}`,
     `md=${reportMarkdownPath}`,
   ].join(' | '),
