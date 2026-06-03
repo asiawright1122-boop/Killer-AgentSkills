@@ -1,4 +1,5 @@
 import { resolveAIFallbackActivation, type AIFallbackRoutingPolicy } from './ai-fallback-policy';
+import { parseAIOperatorProfile, type AIOperatorProfileName } from './ai-backup-posture';
 
 export type AIPrimaryProviderName = 'nvidia';
 export type AIBackupProviderName = 'siliconflow' | 'openrouter' | 'cloudflare';
@@ -61,6 +62,7 @@ export type AIProviderRoutingPlan<
     configuredBackupProviders: AIBackupProviderName[];
     eligibleBackupProviders: Array<{ label: string; provider: TBackup['provider'] }>;
     pressureLabels: AIProviderRoutingPressureEntry[];
+    operatorProfile?: AIOperatorProfileName;
   };
 };
 
@@ -159,16 +161,31 @@ export function parseAIProviderWorkloadProfile(
 
 export function getBackupPriorityOrderForWorkload(
   workloadProfile: AIProviderWorkloadProfileName = DEFAULT_WORKLOAD_PROFILE,
+  operatorProfile?: AIOperatorProfileName,
 ): AIBackupProviderName[] {
-  return [...WORKLOAD_BACKUP_PRIORITY_ORDER[workloadProfile]];
+  const baseOrder = [...WORKLOAD_BACKUP_PRIORITY_ORDER[workloadProfile]];
+  const profile = operatorProfile || parseAIOperatorProfile(process.env.AI_OPERATOR_PROFILE);
+
+  if (profile === 'workers-ai-fallback') {
+    const filtered = baseOrder.filter((p) => p !== 'cloudflare');
+    return ['cloudflare', ...filtered];
+  }
+
+  if (profile === 'openrouter-preferred') {
+    const filtered = baseOrder.filter((p) => p !== 'openrouter');
+    return ['openrouter', ...filtered];
+  }
+
+  return baseOrder;
 }
 
 function resolveBackupGroupPriority(
   provider: AIBackupProviderName,
   workloadProfile: AIProviderWorkloadProfileName,
   fallbackPriority?: number | null,
+  operatorProfile?: AIOperatorProfileName,
 ): number {
-  const orderedProviders = getBackupPriorityOrderForWorkload(workloadProfile);
+  const orderedProviders = getBackupPriorityOrderForWorkload(workloadProfile, operatorProfile);
   const workloadPriority = orderedProviders.indexOf(provider);
   if (workloadPriority >= 0) return workloadPriority;
   return normalizeMetric(fallbackPriority);
@@ -450,14 +467,21 @@ export function buildProviderRoutingPlan<
   stateByLabel?: ReadonlyMap<string, AIProviderRoutingState | null | undefined>;
   policy: AIFallbackRoutingPolicy;
   workloadProfile?: AIProviderWorkloadProfileName;
+  operatorProfile?: AIOperatorProfileName;
   nvidiaConfigured: boolean;
   alwaysReason?: string | null;
 }): AIProviderRoutingPlan<TPrimary, TBackup> {
   const workloadProfile = options.workloadProfile || DEFAULT_WORKLOAD_PROFILE;
+  const operatorProfile = options.operatorProfile || parseAIOperatorProfile(process.env.AI_OPERATOR_PROFILE);
   const primaryOrder = orderProviderCandidatesByHealth(options.primaryCandidates, options.stateByLabel);
   const workloadAwareBackupCandidates = options.backupCandidates.map((candidate) => ({
     ...candidate,
-    groupPriority: resolveBackupGroupPriority(candidate.provider, workloadProfile, candidate.groupPriority),
+    groupPriority: resolveBackupGroupPriority(
+      candidate.provider,
+      workloadProfile,
+      candidate.groupPriority,
+      operatorProfile,
+    ),
   }));
   const configuredBackupProviders = Array.from(
     new Set(options.backupCandidates.map((candidate) => candidate.provider as AIBackupProviderName)),
@@ -498,7 +522,7 @@ export function buildProviderRoutingPlan<
     fallbackRouting: {
       policy: options.policy,
       workloadProfile,
-      backupPriorityOrder: getBackupPriorityOrderForWorkload(workloadProfile),
+      backupPriorityOrder: getBackupPriorityOrderForWorkload(workloadProfile, operatorProfile),
       backupsAllowed: activation.backupsAllowed,
       activationReason: activation.activationReason,
       decision: decision.decision,
@@ -511,6 +535,7 @@ export function buildProviderRoutingPlan<
         provider: candidate.provider,
       })),
       pressureLabels,
+      operatorProfile,
     },
   };
 }

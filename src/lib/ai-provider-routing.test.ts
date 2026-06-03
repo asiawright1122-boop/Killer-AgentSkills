@@ -202,4 +202,46 @@ describe('ai provider routing', () => {
       }),
     ]);
   });
+
+  describe('operator profiles override', () => {
+    it('supports workers-ai-fallback profile and shifts cloudflare to the front', () => {
+      const plan = buildProviderRoutingPlan({
+        primaryCandidates: [],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+          { provider: 'openrouter' as const, label: 'O0', groupPriority: 1, rotationOrder: 0, available: true },
+          { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map(),
+        policy: 'always',
+        workloadProfile: 'balanced',
+        operatorProfile: 'workers-ai-fallback',
+        nvidiaConfigured: false,
+      });
+
+      expect(plan.fallbackRouting.operatorProfile).toBe('workers-ai-fallback');
+      expect(plan.fallbackRouting.backupPriorityOrder).toEqual(['cloudflare', 'siliconflow', 'openrouter']);
+      expect(plan.backupOrder.map((entry) => entry.provider)).toEqual(['cloudflare', 'siliconflow', 'openrouter']);
+    });
+
+    it('supports openrouter-preferred profile and shifts openrouter to the front', () => {
+      const plan = buildProviderRoutingPlan({
+        primaryCandidates: [],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+          { provider: 'openrouter' as const, label: 'O0', groupPriority: 1, rotationOrder: 0, available: true },
+          { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map(),
+        policy: 'always',
+        workloadProfile: 'balanced',
+        operatorProfile: 'openrouter-preferred',
+        nvidiaConfigured: false,
+      });
+
+      expect(plan.fallbackRouting.operatorProfile).toBe('openrouter-preferred');
+      expect(plan.fallbackRouting.backupPriorityOrder).toEqual(['openrouter', 'siliconflow', 'cloudflare']);
+      expect(plan.backupOrder.map((entry) => entry.provider)).toEqual(['openrouter', 'siliconflow', 'cloudflare']);
+    });
+  });
 });

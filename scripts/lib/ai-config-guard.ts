@@ -7,8 +7,10 @@ import {
   inspectAIBackupProviderPostures,
   isCloudflareBackupPostureAllowed,
   isValidAIBackupProviderPosture,
+  parseAIOperatorProfile,
   type AIBackupPostureProviderName,
   type AIBackupProviderPostureConfig,
+  type AIOperatorProfileName,
 } from '../../src/lib/ai-backup-posture';
 import { resolveAIProviderModel, SKILL_TRY_PROVIDER_MODEL_ALLOWLIST } from '../../src/lib/ai-provider-models';
 
@@ -35,7 +37,8 @@ export type AiConfigGuardIssueCode =
   | 'workers_ai_free_daily_cap_too_high'
   | 'invalid_backup_provider_posture'
   | 'invalid_cloudflare_backup_posture'
-  | 'workers_ai_disabled_but_cloudflare_backup_enabled';
+  | 'workers_ai_disabled_but_cloudflare_backup_enabled'
+  | 'invalid_operator_profile';
 
 export type AiConfigGuardIssue = {
   code: AiConfigGuardIssueCode;
@@ -51,6 +54,7 @@ export type AiConfigGuardReport = {
   workersAiMaxCallsPerRun: number;
   workersAiMaxCallsPerDay: number;
   workersAiMaxTokens: number;
+  operatorProfile: AIOperatorProfileName;
   issues: AiConfigGuardIssue[];
 };
 
@@ -109,6 +113,19 @@ export function inspectAiConfigGuard(
       code: 'invalid_workers_ai_mode',
       message: `WORKERS_AI_MODE=${rawWorkersAiMode} is invalid. Only free-only or disabled are allowed.`,
     });
+  }
+
+  const rawOperatorProfile = env.AI_OPERATOR_PROFILE;
+  const operatorProfile = parseAIOperatorProfile(rawOperatorProfile);
+
+  if (rawOperatorProfile) {
+    const normalized = String(rawOperatorProfile).trim().toLowerCase().replace(/_/g, '-');
+    if (normalized !== 'nvidia-first' && normalized !== 'workers-ai-fallback' && normalized !== 'openrouter-preferred') {
+      issues.push({
+        code: 'invalid_operator_profile',
+        message: `AI_OPERATOR_PROFILE=${rawOperatorProfile} is invalid. Use nvidia-first, workers-ai-fallback, or openrouter-preferred.`,
+      });
+    }
   }
 
   const rawFallbackPolicy = normalizeEnvValue(env.AI_FALLBACK_POLICY);
@@ -201,6 +218,7 @@ export function inspectAiConfigGuard(
     workersAiMaxCallsPerRun,
     workersAiMaxCallsPerDay,
     workersAiMaxTokens,
+    operatorProfile,
     issues,
   };
 }
@@ -223,6 +241,7 @@ export function renderAiConfigGuardReport(report: AiConfigGuardReport): string {
     '',
     `- Workers AI mode: ${report.workersAiMode}`,
     `- Fallback policy: ${report.fallbackPolicy}`,
+    `- Operator profile: ${report.operatorProfile}`,
     `- Workers AI model: ${report.workersAiModel}`,
     `- Workers AI max calls per run: ${report.workersAiMaxCallsPerRun}`,
     `- Workers AI max calls per day: ${report.workersAiMaxCallsPerDay}`,

@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-06-03T02:27:21.482Z",
+  "generatedAt": "2026-06-03T07:19:23.172Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-06-03T02:27:20.186Z",
+  "sourceGeneratedAt": "2026-06-03T07:19:21.990Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 501,
-    "ignored": 19,
-    "redirect301CandidateTotal": 142,
-    "redirect301CoveredByMiddleware": 141,
+    "gone410": 505,
+    "ignored": 17,
+    "redirect301CandidateTotal": 140,
+    "redirect301CoveredByMiddleware": 139,
     "redirect301Materialized": 1,
-    "gone410CandidateTotal": 839,
+    "gone410CandidateTotal": 843,
     "gone410CoveredByMiddleware": 338,
-    "gone410Materialized": 501,
+    "gone410Materialized": 505,
     "manualReviewCandidateTotal": 12,
-    "observeCandidateTotal": 7,
+    "observeCandidateTotal": 5,
     "skippedInvalidOrProtected": 0
   },
   "rules": {
@@ -88,6 +88,10 @@
       },
       {
         "path": "/ar/skills/commands/c-research.md",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/ar/skills/dallay/agentsync",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -699,6 +703,10 @@
         "reason": "blocked_by_sitemap"
       },
       {
+        "path": "/en/skills/loonghao/vx/vx-usage",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
         "path": "/en/skills/majiayu000/claude-skill-registry/effect-testing-mocking",
         "reason": "blocked_by_sitemap"
       },
@@ -880,6 +888,10 @@
       },
       {
         "path": "/es/skills/proficientlyjobs/proficiently-claude-skills",
+        "reason": "missing_from_sitemap_and_cache"
+      },
+      {
+        "path": "/es/skills/proyecto26/projectx",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -1793,6 +1805,10 @@
       {
         "path": "/ru/skills/lemline/lemline",
         "reason": "crawl_trap_or_invalid_public_route"
+      },
+      {
+        "path": "/ru/skills/loonghao/vx/vx-usage",
+        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ru/skills/MarioPasc/MenGrowth",

@@ -172,7 +172,7 @@ describe('middleware skill route handling', () => {
 
   it('keeps skill detail HTML cached longer at the edge to reduce crawler SSR pressure', async () => {
     const response = (await onRequest(
-      createContext('https://killer-skills.com/en/skills/jaraim/opencode-chinese/github-workflow', {
+      createContext('https://killer-skills.com/en/skills/eannnnnn/taptik-labs/gh', {
         headers: { 'user-agent': 'Googlebot/2.1' },
       }),
       async () =>

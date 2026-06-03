@@ -1,19 +1,16 @@
 {
   "milestone": "v2.7",
   "milestoneName": "Operator Profiles and Fresh Ingestion",
-  "status": "in_progress",
-  "blockers": [
-    "Only 0/1 active phases have both summary and verification evidence.",
-    "Requirement coverage is not fully satisfied yet (satisfied=0, partial=0, pending=2)."
-  ],
+  "status": "ready",
+  "blockers": [],
   "phaseCounts": {
     "total": 1,
-    "completed": 0
+    "completed": 1
   },
   "requirementCounts": {
-    "satisfied": 0,
+    "satisfied": 2,
     "partial": 0,
-    "pending": 2,
+    "pending": 0,
     "total": 2
   },
   "hygieneStatus": "clean",
@@ -24,7 +21,9 @@
     ".planning/phase-lifecycle/latest-phase-lifecycle.md",
     ".planning/phase-lifecycle/latest-phase-lifecycle.json",
     ".planning/traceability/latest-milestone-traceability.md",
-    ".planning/traceability/latest-milestone-traceability.json"
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/phases/80-operator-profiles-and-fresh-ingestion/80-01-SUMMARY.md",
+    ".planning/phases/80-operator-profiles-and-fresh-ingestion/80-VERIFICATION.md"
   ],
   "archiveTargets": [
     ".planning/milestones/v2.7-phases",

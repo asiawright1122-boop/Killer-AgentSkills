@@ -2,6 +2,26 @@ export type AIBackupPostureProviderName = 'siliconflow' | 'openrouter' | 'cloudf
 export type AIBackupProviderPosture = 'standby' | 'burst-only' | 'disabled';
 export type AIWorkersPolicyMode = 'free-only' | 'disabled';
 
+export type AIOperatorProfileName = 'nvidia-first' | 'workers-ai-fallback' | 'openrouter-preferred';
+
+export const DEFAULT_OPERATOR_PROFILE: AIOperatorProfileName = 'nvidia-first';
+export const VALID_OPERATOR_PROFILES = new Set<AIOperatorProfileName>([
+  'nvidia-first',
+  'workers-ai-fallback',
+  'openrouter-preferred',
+]);
+
+export function parseAIOperatorProfile(raw: string | undefined | null): AIOperatorProfileName {
+  const normalized = String(raw || '')
+    .trim()
+    .toLowerCase()
+    .replace(/_/g, '-');
+  if (VALID_OPERATOR_PROFILES.has(normalized as AIOperatorProfileName)) {
+    return normalized as AIOperatorProfileName;
+  }
+  return DEFAULT_OPERATOR_PROFILE;
+}
+
 export type AIBackupProviderPostureConfig = {
   provider: AIBackupPostureProviderName;
   posture: AIBackupProviderPosture;

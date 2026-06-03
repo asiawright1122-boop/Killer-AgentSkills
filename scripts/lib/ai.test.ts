@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import {
   AIService,
   parseWorkersAiFreeCap,
@@ -93,6 +93,31 @@ const createWorkersAiTelemetry = (
 });
 
 describe('AIService provider orchestration', () => {
+  const envKeys = [
+    'AI_BACKUP_SILICONFLOW_POSTURE',
+    'AI_BACKUP_OPENROUTER_POSTURE',
+    'AI_BACKUP_CLOUDFLARE_POSTURE',
+    'AI_OPERATOR_PROFILE',
+  ];
+  const savedEnv: Record<string, string | undefined> = {};
+
+  beforeEach(() => {
+    for (const key of envKeys) {
+      savedEnv[key] = process.env[key];
+      delete process.env[key];
+    }
+  });
+
+  afterEach(() => {
+    for (const key of envKeys) {
+      if (savedEnv[key] === undefined) {
+        delete process.env[key];
+      } else {
+        process.env[key] = savedEnv[key];
+      }
+    }
+  });
+
   it('forces Workers AI into free-only unless it is explicitly disabled', () => {
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
     expect(parseWorkersAiMode(undefined)).toBe('free-only');

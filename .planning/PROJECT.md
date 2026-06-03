@@ -10,13 +10,24 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.6` are shipped.
+- `v1.0` through `v2.7` are shipped.
+- `v2.7` established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
 - `v2.6` resolved index divergence between sitemap and indexable cache, and isolated SiliconFlow provider fallback configurations.
 - `v2.5` implemented server-side event tracking for directory views and edge middleware concurrency density scaling fallback.
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v2.6 Index Alignment and AI Posture Hardening
+## Most Recent Shipment: v2.7 Operator Profiles and Fresh Ingestion
+
+**Outcome:** Established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
+
+**Shipped capabilities:**
+
+- Established operator profiles (`nvidia-first`, `workers-ai-fallback`, `openrouter-preferred`) to dynamically routing provider backups.
+- Added validation guard in `ai-config-guard.ts` asserting profile compliance.
+- Ingested fresh GSC Coverage Drilldown metadata to resolve GSC SLA freshness warnings.
+
+## Previous Shipment: v2.6 Index Alignment and AI Posture Hardening
 
 **Outcome:** Resolved index divergence between sitemap and indexable cache, and refreshed AI telemetry/SiliconFlow provider posture.
 
@@ -34,26 +45,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
 - Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
 
-## Previous Shipment: v2.3 Directory Rollout Monitoring and Optimization
+## Current Milestone: v2.8 Planning
 
-**Outcome:** Monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
-
-**Shipped capabilities:**
-
-- Extended indexability tracking to multi-skill directory roots, allowing operators to monitor their indexing status in reports.
-- Created a concurrency-controlled preview crawler simulator, ensuring edge SSR latency stays under 400ms average under load.
-
-## Previous Shipment: v2.2 Directory Automated Expansion and Full Rollout
-
-**Outcome:** Verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
-
-## Previous Shipment: v2.1 Directory Auto-Expansion and Verification
-
-**Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
-
-## Current Milestone: v2.7 Planning
-
-**Goal:** Define goals and requirements for v2.7.
+**Goal:** Define goals and requirements for v2.8.
 
 ## Deferred Beyond v1.8
 
