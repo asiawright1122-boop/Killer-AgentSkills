@@ -1,18 +1,18 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v2.2 Directory Automated Expansion and Full Rollout (Active)
+### v2.2 Directory Automated Expansion and Full Rollout (Closeout Ready)
 
 **Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 1/2 complete (0 plans total)
+**Phases completed:** 2/2 complete (0 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 2
-- Requirement coverage: 2/3 satisfied
+- Requirement coverage: 3/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 1/2 complete phases, 0 plans, 2/3 requirements satisfied
+- 2/2 complete phases, 0 plans, 3/3 requirements satisfied
 - Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.2-BOOTSTRAP.md, .planning/milestones/v2.2-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 

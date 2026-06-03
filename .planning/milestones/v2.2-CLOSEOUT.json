@@ -1,19 +1,16 @@
 {
   "milestone": "v2.2",
   "milestoneName": "Directory Automated Expansion and Full Rollout",
-  "status": "in_progress",
-  "blockers": [
-    "Only 1/2 active phases have both summary and verification evidence.",
-    "Requirement coverage is not fully satisfied yet (satisfied=2, partial=0, pending=1)."
-  ],
+  "status": "ready",
+  "blockers": [],
   "phaseCounts": {
     "total": 2,
-    "completed": 1
+    "completed": 2
   },
   "requirementCounts": {
-    "satisfied": 2,
+    "satisfied": 3,
     "partial": 0,
-    "pending": 1,
+    "pending": 0,
     "total": 3
   },
   "hygieneStatus": "clean",
@@ -26,7 +23,9 @@
     ".planning/traceability/latest-milestone-traceability.md",
     ".planning/traceability/latest-milestone-traceability.json",
     ".planning/phases/74-limited-rollout-evidence-and-promotion/74-01-SUMMARY.md",
-    ".planning/phases/74-limited-rollout-evidence-and-promotion/74-VERIFICATION.md"
+    ".planning/phases/74-limited-rollout-evidence-and-promotion/74-VERIFICATION.md",
+    ".planning/phases/75-automated-directory-expansion-and-index-rollout/75-01-SUMMARY.md",
+    ".planning/phases/75-automated-directory-expansion-and-index-rollout/75-VERIFICATION.md"
   ],
   "archiveTargets": [
     ".planning/milestones/v2.2-phases",

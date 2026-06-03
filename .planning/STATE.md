@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v2.2
 milestone_name: Directory Automated Expansion and Full Rollout
-current_phase: 75 - automated-directory-expansion-and-index-rollout
-current_plan: 75-01
-status: pending
+current_phase: ''
+current_plan: ''
+status: closeout_ready
 stopped_at: ''
-last_updated: '2026-06-03T10:27:00.000Z'
+last_updated: '2026-06-03T10:35:00.000Z'
 last_activity: 2026-06-03
 progress:
   total_phases: 2
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 2
-  completed_plans: 1
-  percent: 50
+  completed_plans: 2
+  percent: 100
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 ## Current Position
 
 **Current Milestone:** `v2.2` Directory Automated Expansion and Full Rollout
-**Current Phase:** `75` automated-directory-expansion-and-index-rollout
-**Current Plan:** `75-01` Scale up directory rollout and deploy updated edge rules
-**Status:** Phase 74 successfully completed. P0 surfaces have been promoted to automation-candidate. Now in Phase 75 to scale directory indexation boundaries and deploy Edge routing rules.
+**Current Phase:** ''
+**Current Plan:** ''
+**Status:** Milestone v2.2 successfully executed. Automated directory expansion and Edge routing updates are complete and verified. Ready for closeout audit.
 **Last Activity:** 2026-06-03
-**Last Activity Description:** Updated experiment ladder to support P0 override and verified candidates promotion, closing Phase 74.
-**Progress:** 50%
+**Last Activity Description:** Enabled multi-skill repo directory indexation and deployed Edge middleware bypass rules under override, closing Phase 75.
+**Progress:** 100%
 
 ## Performance Metrics
 

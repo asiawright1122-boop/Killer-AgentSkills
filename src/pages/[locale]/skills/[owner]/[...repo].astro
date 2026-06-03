@@ -928,7 +928,11 @@ const isPageInSitemap = rawSitemapSkills.some((entry) => {
   );
 });
 
-const layoutNoindex = renderRepoDirectory ? true : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap);
+const isForcedOpen =
+  process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
+const layoutNoindex = renderRepoDirectory
+  ? !isForcedOpen
+  : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap);
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);

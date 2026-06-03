@@ -42,7 +42,7 @@ Plans:
 2. Edge routing rules successfully support new indexation structures.
 
 Plans:
-- [ ] `75-01`: Scale up directory rollout and deploy updated edge rules.
+- [x] `75-01`: Scale up directory rollout and deploy updated edge rules.
 
 ## Milestones
 
@@ -72,7 +72,7 @@ Plans:
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v2.2 Directory Automated Expansion and Full Rollout | 74-75 | 1/2 | Active | — |
+| v2.2 Directory Automated Expansion and Full Rollout | 74-75 | 2/2 | Active | — |
 | v2.1 Directory Auto-Expansion and Verification | 72-73 | 2/2 | Complete | 2026-06-03 |
 | v2.0 Helpful Content Injection and Authority Unlock | 68-71 | 2/4 | Complete | 2026-06-03 |
 | v1.9 Search Compliance Recovery Execution and Proof | 64-67 | 4/4 | Complete | 2026-05-29 |

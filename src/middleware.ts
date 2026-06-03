@@ -788,8 +788,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
         });
       }
     } else {
+      const isForcedOpen =
+        process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
       const repoKey = `${ownerSegment.toLowerCase()}/${routeSegment.toLowerCase()}`;
-      if (!directCanonical && !repoFallbackRouteMap.has(repoKey)) {
+      if (!directCanonical && !repoFallbackRouteMap.has(repoKey) && !(isForcedOpen && knownRepoKeySet.has(repoKey))) {
         return new Response(null, {
           status: knownRepoKeySet.has(repoKey) ? 410 : 404,
           statusText: knownRepoKeySet.has(repoKey) ? 'Gone' : 'Not Found',

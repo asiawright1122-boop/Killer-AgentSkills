@@ -366,6 +366,30 @@ describe('middleware skill route handling', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 
+  it('allows crawler access to known repo roots that act as multi-skill directories when OVERRIDE_EXPANSION_BOUNDARY=open is set', async () => {
+    process.env.OVERRIDE_EXPANSION_BOUNDARY = 'open';
+    try {
+      let nextCalled = false;
+      const response = (await onRequest(
+        createContext('https://killer-skills.com/de/skills/Galaxy-Dawn/claude-scholar', {
+          headers: { 'user-agent': 'Googlebot/2.1' },
+        }),
+        async () => {
+          nextCalled = true;
+          return new Response('<html></html>', {
+            status: 200,
+            headers: { 'Content-Type': 'text/html; charset=utf-8' },
+          });
+        },
+      )) as Response;
+
+      expect(nextCalled).toBe(true);
+      expect(response.status).toBe(200);
+    } finally {
+      delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
+    }
+  });
+
   it('allows sitemap-blocklisted skill routes to render outside sitemap generation', async () => {
     let nextCalled = false;
     const response = (await onRequest(
