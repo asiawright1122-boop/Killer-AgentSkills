@@ -16,8 +16,8 @@ version: 1.0
 
 ## Deliverables
 
-- `.planning/phases/75-automated-directory-expansion-and-index-rollout/75-01-SUMMARY.md`
-- `.planning/phases/75-automated-directory-expansion-and-index-rollout/75-VERIFICATION.md`
+- `.planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout/75-01-SUMMARY.md`
+- `.planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout/75-VERIFICATION.md`
 
 ## Verification Steps
 

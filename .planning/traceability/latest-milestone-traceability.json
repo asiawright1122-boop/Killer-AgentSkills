@@ -1,67 +1,19 @@
 {
-  "generatedAt": "2026-05-29T07:35:20.682Z",
+  "generatedAt": "2026-06-03T02:42:12.126Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v2.0",
-  "milestoneName": "Helpful Content Injection and Authority Unlock",
+  "milestone": "v2.3",
+  "milestoneName": "Directory Rollout Monitoring and Optimization",
   "activePhases": [
     {
-      "phaseNumber": "68",
-      "slug": "helpful-content-expert-copy-injection",
+      "phaseNumber": "76",
+      "slug": "directory-rollout-monitoring-and-optimization",
       "requirements": [
-        "SEO-16",
-        "CTR-03"
+        "SEO-19",
+        "REC-37"
       ],
       "phaseDirs": [
-        "68-helpful-content-expert-copy-injection"
+        "76-directory-rollout-monitoring-and-optimization"
       ],
-      "summaryFiles": [
-        ".planning/phases/68-helpful-content-expert-copy-injection/68-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/68-helpful-content-expert-copy-injection/68-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
-    },
-    {
-      "phaseNumber": "69",
-      "slug": "physical-gsc-coverage-refresh-and-trust-unlock",
-      "requirements": [
-        "REC-30",
-        "REC-31"
-      ],
-      "phaseDirs": [],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
-    },
-    {
-      "phaseNumber": "70",
-      "slug": "selective-authority-expansion-and-backlinks",
-      "requirements": [
-        "GEO-05",
-        "REC-32"
-      ],
-      "phaseDirs": [],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
-    },
-    {
-      "phaseNumber": "71",
-      "slug": "live-traffic-outcome-and-automation-gate",
-      "requirements": [
-        "REC-32"
-      ],
-      "phaseDirs": [],
       "summaryFiles": [],
       "verificationFiles": [],
       "summaryRequirementsCompleted": [],
@@ -72,43 +24,15 @@
   ],
   "requirements": [
     {
-      "id": "SEO-16",
-      "expectedPhase": "68",
+      "id": "SEO-19",
+      "expectedPhase": "76",
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
     },
     {
-      "id": "CTR-03",
-      "expectedPhase": "68",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
-    },
-    {
-      "id": "REC-30",
-      "expectedPhase": "69",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
-    },
-    {
-      "id": "REC-31",
-      "expectedPhase": "69",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
-    },
-    {
-      "id": "GEO-05",
-      "expectedPhase": "70",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
-    },
-    {
-      "id": "REC-32",
-      "expectedPhase": "71",
+      "id": "REC-37",
+      "expectedPhase": "76",
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
@@ -116,18 +40,9 @@
   ],
   "hygiene": {
     "status": "clean",
-    "legacyPhaseDirs": [
-      "64-search-guidelines-compliance-baseline-and-fresh-coverage",
-      "65-p0-url-recovery-batches-and-canonical-proof",
-      "66-priority-surface-ctr-and-ai-search-visibility",
-      "67-post-intervention-proof-window-and-promotion-gate"
-    ],
+    "legacyPhaseDirs": [],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
-    "missingActivePhaseDirs": [
-      "69",
-      "70",
-      "71"
-    ]
+    "missingActivePhaseDirs": []
   }
 }

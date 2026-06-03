@@ -1,28 +1,18 @@
 {
-  "generatedAt": "2026-06-03T02:35:19.843Z",
+  "generatedAt": "2026-06-03T02:42:14.809Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.2",
-  "activeMilestoneName": "Directory Automated Expansion and Full Rollout",
+  "activeMilestone": "v2.3",
+  "activeMilestoneName": "Directory Rollout Monitoring and Optimization",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.2-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.3-phases",
   "activePhases": [
     {
-      "phaseNumber": "74",
-      "slug": "limited-rollout-evidence-and-promotion",
-      "dirName": "74-limited-rollout-evidence-and-promotion",
+      "phaseNumber": "76",
+      "slug": "directory-rollout-monitoring-and-optimization",
+      "dirName": "76-directory-rollout-monitoring-and-optimization",
       "status": "present",
       "activePaths": [
-        ".planning/phases/74-limited-rollout-evidence-and-promotion"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "75",
-      "slug": "automated-directory-expansion-and-index-rollout",
-      "dirName": "75-automated-directory-expansion-and-index-rollout",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/75-automated-directory-expansion-and-index-rollout"
+        ".planning/phases/76-directory-rollout-monitoring-and-optimization"
       ],
       "archivePaths": []
     }
@@ -210,6 +200,18 @@
       "expectedPhaseDirs": [
         ".planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification",
         ".planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout"
+      ]
+    },
+    {
+      "milestone": "v2.2",
+      "phaseArchivePath": ".planning/milestones/v2.2-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion",
+        ".planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion",
+        ".planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout"
       ]
     }
   ],

@@ -1,0 +1,38 @@
+{
+  "milestone": "v2.3",
+  "milestoneName": "Directory Rollout Monitoring and Optimization",
+  "goal": "Monitor and optimize organic search crawl, indexation status, and edge performance for newly expanded multi-skill directory structures.",
+  "sourceMilestone": "v2.2",
+  "sourceMilestoneName": "v2.2",
+  "sourceArtifacts": [
+    ".planning/milestones/v2.2-ROADMAP.md",
+    ".planning/milestones/v2.2-REQUIREMENTS.md",
+    ".planning/milestones/v2.2-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "76",
+      "slug": "directory-rollout-monitoring-and-optimization",
+      "requirements": [
+        "SEO-19",
+        "REC-37"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-19",
+    "REC-37"
+  ]
+}

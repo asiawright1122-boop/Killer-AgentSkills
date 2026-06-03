@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v2.2 Directory Automated Expansion and Full Rollout (Closeout Ready)
+### v2.3 Directory Rollout Monitoring and Optimization (Active)
 
-**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
+**Delivered:** Monitor and optimize organic search crawl, indexation status, and edge performance for newly expanded multi-skill directory structures.
 
-**Phases completed:** 2/2 complete (0 plans total)
+**Phases completed:** 0/1 complete (0 plans total)
 
 **Key accomplishments:**
-- Roadmap phases tracked: 2
-- Requirement coverage: 3/3 satisfied
+- Roadmap phases tracked: 1
+- Requirement coverage: 0/2 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 2/2 complete phases, 0 plans, 3/3 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.2-BOOTSTRAP.md, .planning/milestones/v2.2-CLOSEOUT.md
+- 0/1 complete phases, 0 plans, 0/2 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.3-BOOTSTRAP.md, .planning/milestones/v2.3-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v2.2-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v2.3-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v2.2 v2.2 (Shipped: SHIPPED)
+
+**Delivered:** `v2.1 Directory Auto-Expansion and Verification` shipped on `2026-06-03` and is now archived.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v2.2-ROADMAP.md, .planning/milestones/v2.2-REQUIREMENTS.md, .planning/milestones/v2.2-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v2.1 v2.1 (Shipped: SHIPPED)
 
 **Delivered:** `v2.0 Helpful Content Injection and Authority Unlock` shipped on `2026-06-03` and is now archived.

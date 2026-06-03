@@ -1,19 +1,18 @@
 # Requirements: Killer-Skills Agent Directory
 
 **Defined:** 2026-06-03
-**Status:** Active milestone: `v2.2 Directory Automated Expansion and Full Rollout`
+**Status:** Active milestone: `v2.3 Directory Rollout Monitoring and Optimization`
 **Core Value:** Maximize discoverability and operational reliability of AI developer tooling through unattended, auditable content enrichment, publish, and verification loops.
 
-## v2.2 Requirements
+## v2.3 Requirements
 
-### Limited Rollout Monitoring & Escalation
+### Crawl & Index Monitoring
 
-- [ ] **SEO-18**: Operator can monitor organic search visibility deltas (impressions, rankings) specifically for the P0 limited-rollout surfaces.
-- [ ] **REC-35**: Operator can escalate qualified limited-rollout experiments into automation-candidate status once initial verification checkpoints are satisfied.
+- [ ] **SEO-19**: Operator can monitor organic search crawl and indexation status of newly opened repository directories in search engine consoles.
 
-### Scaled-up Directory Rollout
+### Edge Performance Optimization
 
-- [ ] **REC-36**: Operator can scale up directory auto-expansion by opening indexation boundaries and deploying updated Edge routing rules.
+- [ ] **REC-37**: Verify that search engine crawler fetch actions do not cause performance regressions on Astro edge SSR nodes.
 
 ## Still Out Of Scope
 
@@ -27,15 +26,14 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SEO-18 | Phase 74 | Planned |
-| REC-35 | Phase 74 | Planned |
-| REC-36 | Phase 75 | Planned |
+| SEO-19 | Phase 76 | Planned |
+| REC-37 | Phase 76 | Planned |
 
 **Coverage:**
-- v2.2 requirements: 3 total
-- Mapped to phases: 3
+- v2.3 requirements: 2 total
+- Mapped to phases: 2
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-03 after starting v2.2 Directory Automated Expansion and Full Rollout*
+*Last updated: 2026-06-03 after starting v2.3 Directory Rollout Monitoring and Optimization*

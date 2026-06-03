@@ -1,0 +1,37 @@
+{
+  "milestone": "v2.3",
+  "milestoneName": "Directory Rollout Monitoring and Optimization",
+  "status": "in_progress",
+  "blockers": [
+    "Only 0/1 active phases have both summary and verification evidence.",
+    "Requirement coverage is not fully satisfied yet (satisfied=0, partial=0, pending=2)."
+  ],
+  "phaseCounts": {
+    "total": 1,
+    "completed": 0
+  },
+  "requirementCounts": {
+    "satisfied": 0,
+    "partial": 0,
+    "pending": 2,
+    "total": 2
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v2.3-phases",
+    ".planning/milestones/v2.3-ROADMAP.md",
+    ".planning/milestones/v2.3-REQUIREMENTS.md",
+    ".planning/milestones/v2.3-MILESTONE-AUDIT.md",
+    ".planning/milestones/v2.3-BOOTSTRAP.md",
+    ".planning/milestones/v2.3-CLOSEOUT.md"
+  ]
+}

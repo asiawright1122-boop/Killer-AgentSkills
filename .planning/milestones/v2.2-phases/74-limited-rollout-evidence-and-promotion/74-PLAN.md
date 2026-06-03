@@ -14,8 +14,8 @@ version: 1.0
 
 ## Deliverables
 
-- `.planning/phases/74-limited-rollout-evidence-and-promotion/74-01-SUMMARY.md`
-- `.planning/phases/74-limited-rollout-evidence-and-promotion/74-VERIFICATION.md`
+- `.planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion/74-01-SUMMARY.md`
+- `.planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion/74-VERIFICATION.md`
 - `reports/seo/latest-recovery-experiment-ladder.md`
 
 ## Verification Steps

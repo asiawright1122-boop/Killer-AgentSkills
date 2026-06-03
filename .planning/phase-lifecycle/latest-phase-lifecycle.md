@@ -1,17 +1,16 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T02:35:19.843Z
-- Active milestone: v2.2 (Directory Automated Expansion and Full Rollout)
+- Generated: 2026-06-03T02:42:14.809Z
+- Active milestone: v2.3 (Directory Rollout Monitoring and Optimization)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.2-phases
+- Active archive path: .planning/milestones/v2.3-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 74 | 74-limited-rollout-evidence-and-promotion | present | .planning/phases/74-limited-rollout-evidence-and-promotion | missing |
-| 75 | 75-automated-directory-expansion-and-index-rollout | present | .planning/phases/75-automated-directory-expansion-and-index-rollout | missing |
+| 76 | 76-directory-rollout-monitoring-and-optimization | present | .planning/phases/76-directory-rollout-monitoring-and-optimization | missing |
 
 ## Archive Actions
 
@@ -81,6 +80,11 @@
 - Archive root: .planning/milestones/v2.1-phases
 - Archived dirs: .planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification, .planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout
 - Expected dirs: .planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification, .planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout
+
+### v2.2
+- Archive root: .planning/milestones/v2.2-phases
+- Archived dirs: .planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion, .planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout
+- Expected dirs: .planning/milestones/v2.2-phases/74-limited-rollout-evidence-and-promotion, .planning/milestones/v2.2-phases/75-automated-directory-expansion-and-index-rollout
 
 ## Conflicts
 

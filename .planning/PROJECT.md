@@ -10,42 +10,36 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.0` are shipped.
-- `v2.1 Directory Auto-Expansion and Verification` is now active.
-- `v2.0` completed the injection of original helpful introduction copy on the homepage and core collections, deployed the dynamic `noindex` soft-removal header strategy for missing sitemap URLs, resolved 500 runtime rendering issues on Cloudflare SSR pages, and compiled the manual outreach package for backlinks.
-- Phase 71 waiting status is bypassed to advance to `v2.1` where we will verify the GSC organic click data return and rollout directory-level automated experiments.
+- `v1.0` through `v2.2` are shipped.
+- `v2.3 Directory Rollout Monitoring and Optimization` is now active.
+- `v2.2` verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
+- `v2.1` monitored organic traffic metrics, verified backlinks, and unlocked automation candidate classification.
 
-## Most Recent Shipment: v2.0 Helpful Content Injection and Authority Unlock
+## Most Recent Shipment: v2.2 Directory Automated Expansion and Full Rollout
+
+**Outcome:** Verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
+
+**Shipped capabilities:**
+
+- Allowed P0 surfaces promotion to automation-candidate status under operator override even without meeting traffic thresholds.
+- Opened indexation boundaries for multi-skill repo directories and relaxed edge routing rules.
+
+## Previous Shipment: v2.1 Directory Auto-Expansion and Verification
+
+**Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
+
+## Previous Shipment: v2.0 Helpful Content Injection and Authority Unlock
 
 **Outcome:** Injected helpful copy, fixed edge runtime 500 crashes, resolved indexation of sitemap-missing pages, and compiled outreach backlinks template.
 
-**Shipped capabilities:**
+## Current Milestone: v2.3 Directory Rollout Monitoring and Optimization
 
-- Drafted and deployed original safety/MCP intro copy to homepage and collection detail setups.
-- Resolved dynamic JSON locale dynamic import SSR crashes by static bundling.
-- Guided crawler removal of sitemap-missing files using edge `noindex` and `X-Robots-Tag`.
-- Lowered headings from `# H1` to `## H2` inside readme React markdown blocks.
-- Documented outreach options in `manual_outreach_pack.md`.
-
-## Previous Shipment: v1.9 Search Compliance Recovery Execution and Proof
-
-**Outcome:** Mapped search essentials and verified Edge middleware redirect consistency.
-
-**Shipped capabilities:**
-
-- Outlined Google, Bing, IndexNow rules in compliance matrix.
-- Deployed Edge 404 remediation edge rules to 142 redirection targets and 839 410 targets.
-- Verified Bing AI Performance IndexNow sitemap notification logic.
-
-## Current Milestone: v2.1 Directory Auto-Expansion and Verification
-
-**Goal:** Ingest manual backlink traffic outcomes, pass comparable proof gates, and selectively trigger automated directory-level rollout.
+**Goal:** Monitor and optimize organic search crawl, indexation status, and edge performance for newly expanded multi-skill directory structures.
 
 **Target features:**
 
-- Verify GSC organic clicks flowing into comparable proof scorecard indicators.
-- Unlock discovery expansion boundary from closed to limited/open.
-- Enable automated experiment engine for candidate selection.
+- Monitor crawl rates and indexation of repository directories.
+- Verify Astro edge SSR latency and performance under simulated search crawler loads.
 
 ## Deferred Beyond v1.8
 
@@ -105,12 +99,14 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Priority Surface CTR and GEO Review] - `v1.9`
 - ✓ [Helpful Content Injection] - `v2.0`
 - ✓ [Outreach Backlinks Onboarding] - `v2.0`
+- ✓ [GSC Organic Click Verification] - `v2.1`
+- ✓ [Experiment Engine Candidate Unlock] - `v2.1`
+- ✓ [Automated Directory Expansion Rollout] - `v2.2`
 
 ### Active
 
-- [ ] [GSC Organic Click Verification] - Monitor traffic data to satisfy scorecard visibility and proof gates.
-- [ ] [Experiment Engine Candidate Unlock] - Enable experiment ladder for candidates and unlock automation gate.
-- [ ] [Automated Directory Expansion Rollout] - Selectively rollout automated directory-level expansion once gates are open.
+- [ ] [Crawl & Index Monitoring] - Monitor organic search crawl and indexation status of newly opened repository directories in search engine consoles.
+- [ ] [Edge Performance Optimization] - Verify that search engine crawler fetch actions do not cause performance regressions on Astro edge SSR nodes.
 
 ### Out of Scope
 
