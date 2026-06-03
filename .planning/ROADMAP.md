@@ -8,14 +8,18 @@ This milestone focuses on establishing Operator-Managed Profiles for flexible pr
 
 ## Immediate Next Actions
 
-- Define the next milestone scope from archived findings (Run `/gsd-new-milestone`).
+- Plan and execute Phase 81 (Run `/gsd-plan-phase 81`).
 
-## Current Milestone: None
+## Current Milestone: v2.8 Growth, Telemetry & UX Expansion
 
-**Goal:** Run `/gsd-new-milestone` to define the next milestone goals.
+**Goal:** Expand the SEO baseline via i18n, rebuild UX for search/discovery, establish latency/cost-based telemetry routing, and harden edge data synchronization.
 
-**Requirements:** None
-**Phase range:** None
+**Requirements:** 
+- **UX Refactor:** Search and enriched skill details
+- **SEO Expansion:** i18n and 404 automation
+- **AI Telemetry:** Cost/latency dynamic routing
+- **Data Hardening:** KV/D1 sync retries and dashboards
+**Phase range:** 81-84
 
 ## Milestones
 

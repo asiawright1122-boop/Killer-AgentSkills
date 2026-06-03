@@ -45,9 +45,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
 - Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
 
-## Current Milestone: v2.8 Planning
+## Current Milestone: v2.8 Growth, Telemetry & UX Expansion
 
-**Goal:** Define goals and requirements for v2.8.
+**Goal:** Expand the SEO baseline via i18n, rebuild UX for search/discovery, establish latency/cost-based telemetry routing, and harden edge data synchronization.
 
 ## Deferred Beyond v1.8
 

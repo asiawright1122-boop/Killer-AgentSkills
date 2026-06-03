@@ -1,18 +1,30 @@
 # Requirements: Killer-Skills Agent Directory
 
 **Defined:** 2026-06-03
-**Status:** Active milestone: `v2.7 Operator Profiles and Fresh Ingestion`
+**Status:** Active milestone: `v2.8 Growth, Telemetry & UX Expansion`
 **Core Value:** Maximize discoverability and operational reliability of AI developer tooling through unattended, auditable content enrichment, publish, and verification loops.
 
-## v2.7 Requirements
+## v2.8 Requirements
 
-### AI Posture and Profiles
+### Frontend & UX Revamp
 
-- [x] **AIOPS-11**: Establish dynamic Operator-Managed Profiles (e.g. NVIDIA-first, Workers-AI fallback, full-local override) to control runtime/translation task provider selections flexibly depending on environment profiles.
+- [ ] **UX-10**: Implement a fast on-site search functionality for the skill directory.
+- [ ] **UX-11**: Enrich Skill Detail pages with better typography, markdown rendering, and code examples.
 
-### Fresh Ingestion and Attribution
+### SEO & Content Expansion
 
-- [x] **SEO-22**: Update and ingest the latest Coverage Drilldown raw export to resolve the stale Coverage input SLA warning, refreshing down-stream attribution/recovery reports.
+- [ ] **SEO-30**: Introduce i18n (internationalization) support for top-tier languages.
+- [ ] **SEO-31**: Automate 404/redirect generation and handling based on GSC inputs.
+
+### AI Telemetry & Smart Routing
+
+- [ ] **AIOPS-20**: Enhance Operator Profiles with dynamic routing based on Token Cost and Response Latency telemetry.
+- [ ] **AIOPS-21**: Implement fallback circuit breakers if a provider exhibits high latency or degradation.
+
+### Data Automation & Hardening
+
+- [ ] **DATA-10**: Harden D1 to KV synchronization (e.g., implement automated retry queues).
+- [ ] **DATA-11**: Add automated telemetry dashboards for KV hit rates and directory sync status.
 
 ## Still Out Of Scope
 
@@ -26,14 +38,20 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-11 | Phase 80 | Satisfied |
-| SEO-22 | Phase 80 | Satisfied |
+| UX-10 | Phase 81 | Pending |
+| UX-11 | Phase 81 | Pending |
+| SEO-30 | Phase 82 | Pending |
+| SEO-31 | Phase 82 | Pending |
+| AIOPS-20 | Phase 83 | Pending |
+| AIOPS-21 | Phase 83 | Pending |
+| DATA-10 | Phase 84 | Pending |
+| DATA-11 | Phase 84 | Pending |
 
 **Coverage:**
-- v2.7 requirements: 2 total
-- Mapped to phases: 2
+- v2.8 requirements: 8 total
+- Mapped to phases: 8
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-03 after completing v2.7 Operator Profiles and Fresh Ingestion*
+*Last updated: 2026-06-03 for v2.8 Growth, Telemetry & UX Expansion*
