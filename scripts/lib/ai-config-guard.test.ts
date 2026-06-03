@@ -107,4 +107,45 @@ describe('ai config guard', () => {
 
     expect(report.issues.map((issue) => issue.code)).toContain('workers_ai_disabled_but_cloudflare_backup_enabled');
   });
+
+  it('validates operator profiles including budget and speed', () => {
+    const validBudget = inspectAiConfigGuard({ AI_OPERATOR_PROFILE: 'budget' });
+    expect(validBudget.issues).toEqual([]);
+
+    const validSpeed = inspectAiConfigGuard({ AI_OPERATOR_PROFILE: 'speed' });
+    expect(validSpeed.issues).toEqual([]);
+
+    const invalidProfile = inspectAiConfigGuard({ AI_OPERATOR_PROFILE: 'invalid-profile' });
+    expect(invalidProfile.issues.map((issue) => issue.code)).toContain('invalid_operator_profile');
+  });
+
+  it('validates composite operator profiles JSON configuration', () => {
+    const validComposite = inspectAiConfigGuard({
+      AI_OPERATOR_PROFILES_JSON: JSON.stringify({
+        development: {
+          default: 'workers-ai-fallback',
+          harvest: 'workers-ai-fallback'
+        },
+        production: {
+          default: 'nvidia-first',
+          translate: 'speed'
+        }
+      })
+    });
+    expect(validComposite.issues).toEqual([]);
+
+    const invalidJson = inspectAiConfigGuard({
+      AI_OPERATOR_PROFILES_JSON: '{invalid-json}'
+    });
+    expect(invalidJson.issues.map((issue) => issue.code)).toContain('invalid_operator_profile');
+
+    const invalidProfileInJson = inspectAiConfigGuard({
+      AI_OPERATOR_PROFILES_JSON: JSON.stringify({
+        production: {
+          default: 'ultra-premium-unlimited-cost'
+        }
+      })
+    });
+    expect(invalidProfileInJson.issues.map((issue) => issue.code)).toContain('invalid_operator_profile');
+  });
 });

@@ -1,19 +1,19 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.1 AIOps Smart Gateway & Profile Hardening (Active)
+### v3.1 AIOps Smart Gateway & Profile Hardening (Closeout Ready)
 
 **Delivered:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
 
-**Phases completed:** 0/3 complete (0 plans total)
+**Phases completed:** 3/3 complete (0 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 3
-- Requirement coverage: 0/0 satisfied
+- Requirement coverage: 3/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 0/3 complete phases, 0 plans
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.1-BOOTSTRAP.md, .planning/milestones/v3.1-CLOSEOUT.md
+- 3/3 complete phases, 0 plans, 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/v3.1-MILESTONE-AUDIT.md, .planning/milestones/v3.1-BOOTSTRAP.md, .planning/milestones/v3.1-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
 **What's next:** Use .planning/milestones/v3.1-CLOSEOUT.md to finish audit and archive preparation.

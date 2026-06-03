@@ -26,23 +26,27 @@
       "number": "91",
       "slug": "Environment-Specific Profiles Integration",
       "requirements": [
-        "Environment-Specific Profiles Integration"
+        "AIOPS-12"
       ]
     },
     {
       "number": "92",
       "slug": "Config Guard Hardening",
       "requirements": [
-        "Config Guard Hardening"
+        "AIOPS-13"
       ]
     },
     {
       "number": "93",
       "slug": "Smart Fallback & Degradation Verification",
       "requirements": [
-        "Smart Fallback & Degradation Verification"
+        "AIOPS-14"
       ]
     }
   ],
-  "requirements": []
+  "requirements": [
+    "AIOPS-12",
+    "AIOPS-13",
+    "AIOPS-14"
+  ]
 }

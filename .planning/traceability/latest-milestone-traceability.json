@@ -1,41 +1,103 @@
 {
-  "generatedAt": "2026-06-03T07:13:51.419Z",
+  "generatedAt": "2026-06-03T12:52:18.247Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v2.7",
-  "milestoneName": "Operator Profiles and Fresh Ingestion",
+  "milestone": "v3.1",
+  "milestoneName": "AIOps Smart Gateway & Profile Hardening",
   "activePhases": [
     {
-      "phaseNumber": "80",
-      "slug": "operator-profiles-and-fresh-ingestion",
+      "phaseNumber": "91",
+      "slug": "Environment-Specific Profiles Integration",
       "requirements": [
-        "AIOPS-11",
-        "SEO-22"
+        "AIOPS-12"
       ],
       "phaseDirs": [
-        "80-operator-profiles-and-fresh-ingestion"
+        "91-Environment-Specific Profiles Integration"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/91-Environment-Specific Profiles Integration/91-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/91-Environment-Specific Profiles Integration/91-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-12"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-12"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "92",
+      "slug": "Config Guard Hardening",
+      "requirements": [
+        "AIOPS-13"
+      ],
+      "phaseDirs": [
+        "92-Config Guard Hardening"
+      ],
+      "summaryFiles": [
+        ".planning/phases/92-Config Guard Hardening/92-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/92-Config Guard Hardening/92-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-13"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-13"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "93",
+      "slug": "Smart Fallback & Degradation Verification",
+      "requirements": [
+        "AIOPS-14"
+      ],
+      "phaseDirs": [
+        "93-Smart Fallback & Degradation Verification"
+      ],
+      "summaryFiles": [
+        ".planning/phases/93-Smart Fallback & Degradation Verification/93-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/93-Smart Fallback & Degradation Verification/93-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-14"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-14"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     }
   ],
   "requirements": [
     {
-      "id": "AIOPS-11",
-      "expectedPhase": "80",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "id": "AIOPS-12",
+      "expectedPhase": "91",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
-      "id": "SEO-22",
-      "expectedPhase": "80",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "id": "AIOPS-13",
+      "expectedPhase": "92",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "AIOPS-14",
+      "expectedPhase": "93",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     }
   ],
   "hygiene": {

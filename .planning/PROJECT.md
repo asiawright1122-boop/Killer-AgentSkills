@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.0` are shipped.
+- `v1.0` through `v3.1` are shipped.
+- `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
 - `v3.0` implemented structured JSON-LD schemas, automated IndexNow search indexing submissions, and pre-rendered semantic recommendation links.
 - `v2.9` automated GSC Coverage ingestion, implemented technical recovery scorecard tracking, and added lock gates to the automation policy.
 - `v2.8` expanded the SEO baseline via i18n, rebuilt UX for search/discovery, established latency/cost-based telemetry routing, and hardened edge data synchronization.
@@ -19,7 +20,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.0 Advanced Search Engine Optimization
+## Most Recent Shipment: v3.1 AIOps Smart Gateway & Profile Hardening
+
+**Outcome:** Promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
+
+**Shipped capabilities:**
+- Environment-specific operator profiles parsing dynamically based on runtime environment and workload class.
+- Configuration compliance guard with composite JSON Schema checks and billing lockout restrictions for free-only runners.
+- Vitest testing suite covering routing fallback degradation (429, key loss, backup pruning) and latency/cost-based sorting.
+
+## Previous Shipment: v3.0 Advanced Search Engine Optimization
 
 **Outcome:** Implemented schema structured data, automated search indexing triggers, and semantic internal linking to build a premium, highly rankable directory surface.
 
@@ -73,9 +83,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
 - Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
 
-## Current Milestone: v3.1 AIOps Smart Gateway & Profile Hardening
+## Current Milestone: None
 
-**Goal:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+**Goal:** Pending definition of the next milestone.
 
 ## Deferred Beyond v1.8
 
@@ -86,6 +96,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [Environment-Specific Profiles Integration] - `v3.1`
+- ✓ [Config Guard Hardening] - `v3.1`
+- ✓ [Smart Fallback & Degradation Verification] - `v3.1`
 - ✓ [Dynamic JSON-LD Schema] - `v3.0`
 - ✓ [IndexNow Automated Ingest] - `v3.0`
 - ✓ [Crawler Semantic Navigation] - `v3.0`
@@ -151,9 +164,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-- [ ] [Environment-Specific Profiles Integration] - `v3.1`
-- [ ] [Config Guard Hardening] - `v3.1`
-- [ ] [Smart Fallback & Degradation Verification] - `v3.1`
+- None active.
 
 ### Out of Scope
 
@@ -219,4 +230,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-03 after shipping v3.0 Advanced Search Engine Optimization._
+_Last updated: 2026-06-03 after shipping v3.1 AIOps Smart Gateway & Profile Hardening._

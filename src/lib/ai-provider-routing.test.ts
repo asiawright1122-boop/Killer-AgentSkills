@@ -321,4 +321,152 @@ describe('ai provider routing', () => {
       }
     });
   });
+
+  describe('smart fallback and degradation', () => {
+    it('demotes or filters primary provider when 429 coolingDown or circuitBreakerOpen is active', () => {
+      const plan = buildProviderRoutingPlan({
+        primaryCandidates: [
+          { provider: 'nvidia' as const, label: 'N0', rotationOrder: 0, available: true },
+          { provider: 'nvidia' as const, label: 'N1', rotationOrder: 1, available: true },
+        ],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map([
+          [
+            'N0',
+            {
+              provider: 'nvidia' as const,
+              consecutive429s: 3,
+              coolingDown: true,
+              cooldownReason: 'rate_limit',
+            },
+          ],
+          [
+            'N1',
+            {
+              provider: 'nvidia' as const,
+              circuitBreakerOpen: true,
+            },
+          ],
+        ]),
+        policy: 'guarded',
+        nvidiaConfigured: true,
+      });
+
+      // Both N0 and N1 should be filtered out by health check (coolingDown and circuitBreakerOpen)
+      expect(plan.primaryOrder).toEqual([]);
+      expect(plan.backupOrder.map((e) => e.label)).toEqual(['S']);
+      expect(plan.fallbackRouting.decision).toBe('backup_recovery');
+      expect(plan.fallbackRouting.nvidiaAvailable).toBe(false);
+    });
+
+    it('falls back to backup when nvidia is not configured or unavailable', () => {
+      // NVIDIA not configured
+      const planNotConfigured = buildProviderRoutingPlan({
+        primaryCandidates: [],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map(),
+        policy: 'guarded',
+        nvidiaConfigured: false,
+      });
+
+      expect(planNotConfigured.primaryOrder).toEqual([]);
+      expect(planNotConfigured.backupOrder.map((e) => e.label)).toEqual(['S']);
+      expect(planNotConfigured.fallbackRouting.decision).toBe('backup_recovery');
+
+      // Policy 'cold' and NVIDIA unavailable
+      const planColdUnavailable = buildProviderRoutingPlan({
+        primaryCandidates: [{ provider: 'nvidia' as const, label: 'N0', rotationOrder: 0, available: false }],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map(),
+        policy: 'cold',
+        nvidiaConfigured: true,
+      });
+
+      expect(planColdUnavailable.primaryOrder).toEqual([]);
+      expect(planColdUnavailable.backupOrder).toEqual([]);
+      expect(planColdUnavailable.fallbackRouting.decision).toBe('providers_exhausted');
+    });
+
+    it('filters out disabled/melted backup providers and reports providers_exhausted when all are gone', () => {
+      const plan = buildProviderRoutingPlan({
+        primaryCandidates: [{ provider: 'nvidia' as const, label: 'N0', rotationOrder: 0, available: false }],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+          { provider: 'openrouter' as const, label: 'O', groupPriority: 1, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map([
+          [
+            'S',
+            {
+              provider: 'siliconflow' as const,
+              hardDisabled: true,
+              hardDisableReason: 'out_of_funds',
+            },
+          ],
+          [
+            'O',
+            {
+              provider: 'openrouter' as const,
+              quarantined: true,
+              quarantineReason: 'api_keys_missing',
+            },
+          ],
+        ]),
+        policy: 'guarded',
+        nvidiaConfigured: true,
+      });
+
+      expect(plan.primaryOrder).toEqual([]);
+      expect(plan.backupOrder).toEqual([]);
+      expect(plan.fallbackRouting.decision).toBe('providers_exhausted');
+    });
+
+    it('sorts backup candidates by estimated cost or latency under budget/speed operator profiles', () => {
+      // budget: lowest cost first
+      const budgetPlan = buildProviderRoutingPlan({
+        primaryCandidates: [],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+          { provider: 'openrouter' as const, label: 'O', groupPriority: 1, rotationOrder: 0, available: true },
+          { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map([
+          ['S', { provider: 'siliconflow' as const, estimatedCostPer1k: 0.05 }],
+          ['O', { provider: 'openrouter' as const, estimatedCostPer1k: 0.001 }],
+          ['CF', { provider: 'cloudflare' as const, estimatedCostPer1k: 0.01 }],
+        ]),
+        policy: 'always',
+        operatorProfile: 'budget',
+        nvidiaConfigured: false,
+      });
+
+      expect(budgetPlan.backupOrder.map((e) => e.label)).toEqual(['O', 'CF', 'S']);
+
+      // speed: lowest latency first
+      const speedPlan = buildProviderRoutingPlan({
+        primaryCandidates: [],
+        backupCandidates: [
+          { provider: 'siliconflow' as const, label: 'S', groupPriority: 0, rotationOrder: 0, available: true },
+          { provider: 'openrouter' as const, label: 'O', groupPriority: 1, rotationOrder: 0, available: true },
+          { provider: 'cloudflare' as const, label: 'CF', groupPriority: 2, rotationOrder: 0, available: true },
+        ],
+        stateByLabel: new Map([
+          ['S', { provider: 'siliconflow' as const, averageLatencyMs: 150 }],
+          ['O', { provider: 'openrouter' as const, averageLatencyMs: 900 }],
+          ['CF', { provider: 'cloudflare' as const, averageLatencyMs: 300 }],
+        ]),
+        policy: 'always',
+        operatorProfile: 'speed',
+        nvidiaConfigured: false,
+      });
+
+      expect(speedPlan.backupOrder.map((e) => e.label)).toEqual(['S', 'CF', 'O']);
+    });
+  });
 });

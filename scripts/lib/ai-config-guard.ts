@@ -8,6 +8,8 @@ import {
   isCloudflareBackupPostureAllowed,
   isValidAIBackupProviderPosture,
   parseAIOperatorProfile,
+  parseCompositeOperatorProfile,
+  VALID_OPERATOR_PROFILES,
   type AIBackupPostureProviderName,
   type AIBackupProviderPostureConfig,
   type AIOperatorProfileName,
@@ -120,10 +122,21 @@ export function inspectAiConfigGuard(
 
   if (rawOperatorProfile) {
     const normalized = String(rawOperatorProfile).trim().toLowerCase().replace(/_/g, '-');
-    if (normalized !== 'nvidia-first' && normalized !== 'workers-ai-fallback' && normalized !== 'openrouter-preferred') {
+    if (!VALID_OPERATOR_PROFILES.has(normalized as AIOperatorProfileName)) {
       issues.push({
         code: 'invalid_operator_profile',
-        message: `AI_OPERATOR_PROFILE=${rawOperatorProfile} is invalid. Use nvidia-first, workers-ai-fallback, or openrouter-preferred.`,
+        message: `AI_OPERATOR_PROFILE=${rawOperatorProfile} is invalid. Use nvidia-first, workers-ai-fallback, openrouter-preferred, budget, or speed.`,
+      });
+    }
+  }
+
+  const rawProfilesJson = env.AI_OPERATOR_PROFILES_JSON;
+  if (rawProfilesJson) {
+    const compositeProfile = parseCompositeOperatorProfile(rawProfilesJson);
+    if (!compositeProfile) {
+      issues.push({
+        code: 'invalid_operator_profile',
+        message: `AI_OPERATOR_PROFILES_JSON is invalid. It must be a valid JSON matching AICompositeOperatorProfile schema with supported profile names.`,
       });
     }
   }
