@@ -8,29 +8,30 @@ This milestone focuses on resolving index divergence between the sitemap and ind
 
 ## Immediate Next Actions
 
-- None. Milestone v2.6 complete.
+- Phase `80` should implement operator-managed profiles and ingest fresh Coverage Drilldown files.
 
-## Current Milestone: v2.6 Index Alignment and AI Posture Hardening
+## Current Milestone: v2.7 Operator Profiles and Fresh Ingestion
 
-**Goal:** Resolve index divergence between sitemap and indexable cache, and refresh AI telemetry/SiliconFlow provider posture.
+**Goal:** Establish Operator-Managed Profiles for flexible provider settings and update GSC Coverage input freshness.
 
-**Requirements:** `REC-40`, `AIOPS-12`
-**Phase range:** 79
+**Requirements:** `AIOPS-11`, `SEO-22`
+**Phase range:** 80
 
-### Phase 79: index-integrity-and-ai-posture-hardening
+### Phase 80: operator-profiles-and-fresh-ingestion
 
-**Goal:** Align sitemap skills with indexable cache and refresh AI provider status.
-**Depends on:** Shipped v2.5.
-**Requirements:** `REC-40`, `AIOPS-12`
+**Goal:** Add environment provider profiles and run new Coverage ingestion.
+**Depends on:** Shipped v2.6.
+**Requirements:** `AIOPS-11`, `SEO-22`
 **Success Criteria** (what must be TRUE):
-1. Index integrity check passes with zero divergence between sitemap and indexable cache.
-2. AI provider health validation is successfully executed, SiliconFlow alert is resolved or handled, and AI telemetry reports are updated to current status.
+1. Config-guard and AI health telemetry verify environment-specific profile loading.
+2. Ingest script successfully processes the fresh Coverage export, resolving the SLA warnings in reports.
 
 Plans:
-- [x] `79-01`: Align sitemap with indexable cache and refresh AI provider telemetry.
+- [ ] `80-01`: Setup provider profiles and execute Coverage ingestion.
 
 ## Milestones
 
+- 🚧 **v2.7 Operator Profiles and Fresh Ingestion** — phase 80 (active)
 - ✅ **v2.6 Index Alignment and AI Posture Hardening** — phase 79 (shipped 2026-06-03; [archive](./milestones/v2.6-ROADMAP.md), [requirements](./milestones/v2.6-REQUIREMENTS.md), [audit](./milestones/v2.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.6-BOOTSTRAP.md), [closeout](./milestones/v2.6-CLOSEOUT.md))
 - ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [archive](./milestones/v2.5-ROADMAP.md), [requirements](./milestones/v2.5-REQUIREMENTS.md), [audit](./milestones/v2.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.5-BOOTSTRAP.md), [closeout](./milestones/v2.5-CLOSEOUT.md))
 - ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [archive](./milestones/v2.4-ROADMAP.md), [requirements](./milestones/v2.4-REQUIREMENTS.md), [audit](./milestones/v2.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.4-BOOTSTRAP.md), [closeout](./milestones/v2.4-CLOSEOUT.md))
@@ -61,6 +62,7 @@ Plans:
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v2.7 Operator Profiles and Fresh Ingestion | 80 | 0/1 | Active | — |
 | v2.6 Index Alignment and AI Posture Hardening | 79 | 1/1 | Complete | 2026-06-03 |
 | v2.5 Directory Automation Escalation and Post-Rollout Analytics | 78 | 1/1 | Complete | 2026-06-03 |
 | v2.4 Directory Continuous Monitoring and CTR Optimization | 77 | 1/1 | Complete | 2026-06-03 |

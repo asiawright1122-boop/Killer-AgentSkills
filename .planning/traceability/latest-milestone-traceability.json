@@ -1,51 +1,41 @@
 {
-  "generatedAt": "2026-06-03T06:46:58.479Z",
+  "generatedAt": "2026-06-03T07:13:51.419Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v2.6",
-  "milestoneName": "Index Alignment and AI Posture Hardening",
+  "milestone": "v2.7",
+  "milestoneName": "Operator Profiles and Fresh Ingestion",
   "activePhases": [
     {
-      "phaseNumber": "79",
-      "slug": "index-integrity-and-ai-posture-hardening",
+      "phaseNumber": "80",
+      "slug": "operator-profiles-and-fresh-ingestion",
       "requirements": [
-        "REC-40",
-        "AIOPS-12"
+        "AIOPS-11",
+        "SEO-22"
       ],
       "phaseDirs": [
-        "79-index-integrity-and-ai-posture-hardening"
+        "80-operator-profiles-and-fresh-ingestion"
       ],
-      "summaryFiles": [
-        ".planning/phases/79-index-integrity-and-ai-posture-hardening/79-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/79-index-integrity-and-ai-posture-hardening/79-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "REC-40",
-        "AIOPS-12"
-      ],
-      "verificationRequirementsCompleted": [
-        "REC-40",
-        "AIOPS-12"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     }
   ],
   "requirements": [
     {
-      "id": "REC-40",
-      "expectedPhase": "79",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "AIOPS-11",
+      "expectedPhase": "80",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "AIOPS-12",
-      "expectedPhase": "79",
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "id": "SEO-22",
+      "expectedPhase": "80",
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     }
   ],
   "hygiene": {

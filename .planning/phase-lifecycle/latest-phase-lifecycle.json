@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-03T07:04:45.289Z",
+  "generatedAt": "2026-06-03T07:13:51.921Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.6",
-  "activeMilestoneName": "Index Alignment and AI Posture Hardening",
+  "activeMilestone": "v2.7",
+  "activeMilestoneName": "Operator Profiles and Fresh Ingestion",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.6-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.7-phases",
   "activePhases": [
     {
-      "phaseNumber": "79",
-      "slug": "index-integrity-and-ai-posture-hardening",
-      "dirName": "79-index-integrity-and-ai-posture-hardening",
+      "phaseNumber": "80",
+      "slug": "operator-profiles-and-fresh-ingestion",
+      "dirName": "80-operator-profiles-and-fresh-ingestion",
       "status": "present",
       "activePaths": [
-        ".planning/phases/79-index-integrity-and-ai-posture-hardening"
+        ".planning/phases/80-operator-profiles-and-fresh-ingestion"
       ],
       "archivePaths": []
     }
@@ -242,6 +242,16 @@
       ],
       "expectedPhaseDirs": [
         ".planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation"
+      ]
+    },
+    {
+      "milestone": "v2.6",
+      "phaseArchivePath": ".planning/milestones/v2.6-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening"
       ]
     }
   ],

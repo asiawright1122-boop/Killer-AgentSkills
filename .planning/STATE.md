@@ -1,19 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.6
-milestone_name: Index Alignment and AI Posture Hardening
-current_phase: ''
-current_plan: ''
-status: completed
+milestone: v2.7
+milestone_name: Operator Profiles and Fresh Ingestion
+current_phase: '80'
+current_plan: '80-01'
+status: active
 stopped_at: ''
-last_updated: '2026-06-03T14:45:00.000Z'
+last_updated: '2026-06-03T15:15:00.000Z'
 last_activity: 2026-06-03
 progress:
   total_phases: 1
-  completed_phases: 1
+  completed_phases: 0
   total_plans: 1
-  completed_plans: 1
-  percent: 100
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -23,17 +23,17 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-06-03)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** `v2.6` focuses on resolving index divergence between sitemap and indexable cache, and refreshing AI provider telemetry/SiliconFlow posture config.
+**Current focus:** `v2.7` focuses on implementing operator-managed profiles with environment-specific defaults and resolving the Coverage Drilldown input freshness SLA.
 
 ## Current Position
 
-**Current Milestone:** `v2.6` Index Alignment and AI Posture Hardening (Complete)
-**Current Phase:** ''
-**Current Plan:** ''
-**Status:** Milestone v2.6 completed.
+**Current Milestone:** `v2.7` Operator Profiles and Fresh Ingestion (Active)
+**Current Phase:** '80'
+**Current Plan:** '80-01'
+**Status:** Milestone v2.7 active.
 **Last Activity:** 2026-06-03
-**Last Activity Description:** Completed Milestone v2.6 Phase 79 index alignment and SiliconFlow posture config isolation.
-**Progress:** 100%
+**Last Activity Description:** Completed Milestone v2.6 Phase 79 sitemap index alignment and SiliconFlow isolation closeout.
+**Progress:** 0%
 
 ## Performance Metrics
 
@@ -129,9 +129,11 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 - Phase 79 added: index-integrity-and-ai-posture-hardening
 - Phase 79 completed: resolved index divergence and SiliconFlow configuration isolation.
 - Milestone `v2.6` audited, completed, and archived on `2026-06-03`
+- Milestone `v2.7` started: Operator Profiles and Fresh Ingestion
+- Phase 80 added: operator-profiles-and-fresh-ingestion
 
 ## Session
 
 **Last Date:** 2026-06-03
-**Stopped At:** Milestone v2.6 completed (Closeout audit passed).
+**Stopped At:** Milestone v2.7 Phase 80 start.
 **Resume File:** `.planning/ROADMAP.md`

@@ -1,21 +1,21 @@
 # Planning Traceability Report
 
-- Milestone: v2.6 (Index Alignment and AI Posture Hardening)
-- Generated: 2026-06-03T06:46:58.479Z
-- Requirement coverage: satisfied=2, partial=0, pending=0
+- Milestone: v2.7 (Operator Profiles and Fresh Ingestion)
+- Generated: 2026-06-03T07:13:51.419Z
+- Requirement coverage: satisfied=0, partial=0, pending=2
 
 ## Requirement Coverage
 
 | Requirement | Expected Phase | Status | Summary Evidence | Verification Evidence |
 |---|---|---|---|---|
-| REC-40 | 79 | satisfied | yes | yes |
-| AIOPS-12 | 79 | satisfied | yes | yes |
+| AIOPS-11 | 80 | pending | no | no |
+| SEO-22 | 80 | pending | no | no |
 
 ## Active Phase Contract
 
 | Phase | Directory | Summary Metadata | Verification Metadata | Summary Requirements | Verification Requirements |
 |---|---|---|---|---|---|
-| 79 | 79-index-integrity-and-ai-posture-hardening | ready | ready | REC-40, AIOPS-12 | REC-40, AIOPS-12 |
+| 80 | 80-operator-profiles-and-fresh-ingestion | pending | pending | n/a | n/a |
 
 ## Planning Hygiene
 

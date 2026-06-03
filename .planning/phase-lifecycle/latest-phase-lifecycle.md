@@ -1,16 +1,16 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T07:04:45.289Z
-- Active milestone: v2.6 (Index Alignment and AI Posture Hardening)
+- Generated: 2026-06-03T07:13:51.921Z
+- Active milestone: v2.7 (Operator Profiles and Fresh Ingestion)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.6-phases
+- Active archive path: .planning/milestones/v2.7-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 79 | 79-index-integrity-and-ai-posture-hardening | present | .planning/phases/79-index-integrity-and-ai-posture-hardening | missing |
+| 80 | 80-operator-profiles-and-fresh-ingestion | present | .planning/phases/80-operator-profiles-and-fresh-ingestion | missing |
 
 ## Archive Actions
 
@@ -100,6 +100,11 @@
 - Archive root: .planning/milestones/v2.5-phases
 - Archived dirs: .planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation
 - Expected dirs: .planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation
+
+### v2.6
+- Archive root: .planning/milestones/v2.6-phases
+- Archived dirs: .planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening
+- Expected dirs: .planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening
 
 ## Conflicts
 
