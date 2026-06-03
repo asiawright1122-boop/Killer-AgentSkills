@@ -118,7 +118,7 @@ function SkillReadme({
 
     return isMarkdown ? (
       <div className="p-8">
-        <article className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-gray-100 dark:prose-pre:bg-[#0e0e0e] prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-white/10 prose-pre:text-gray-900 dark:prose-pre:text-gray-50">
+        <article className="prose prose-zinc dark:prose-invert max-w-3xl mx-auto prose-headings:font-bold prose-h1:text-4xl prose-h1:tracking-tight prose-a:text-cyan-600 dark:prose-a:text-cyan-400 prose-img:rounded-xl prose-pre:bg-gray-100 dark:prose-pre:bg-[#0e0e0e] prose-pre:border prose-pre:border-gray-200 dark:prose-pre:border-white/10 prose-pre:text-gray-900 dark:prose-pre:text-gray-50">
           <ReactMarkdown
             remarkPlugins={gfmPlugin}
             components={{

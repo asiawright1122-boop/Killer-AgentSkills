@@ -15,6 +15,7 @@ import {
   Users,
   Layers,
   Rocket,
+  Search,
 } from 'lucide-react';
 import SubmitSkillModal from './SubmitSkillModal';
 
@@ -132,6 +133,11 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
 
   const closeMenu = () => setIsMenuOpen(false);
 
+  const openSearch = () => {
+    window.dispatchEvent(new CustomEvent('ks:open-search'));
+    if (isMenuOpen) closeMenu();
+  };
+
   const navItems = [
     { href: `/${locale}`, label: labels.home, icon: Home },
     { href: `/${locale}/skills`, label: labels.skills, icon: Compass },
@@ -209,6 +215,14 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
                   <Rocket className="w-5 h-5 flex-shrink-0" />
                   {labels.submitSkill}
                 </button>
+                <button
+                  type="button"
+                  onClick={openSearch}
+                  className="flex items-center gap-4 px-6 py-4 text-[16px] font-bold uppercase text-[var(--foreground)] border-b border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-colors w-full text-left"
+                >
+                  <Search className="w-5 h-5 flex-shrink-0" />
+                  {labels.search}
+                </button>
                 <a
                   href={`/${locale}/favorites`}
                   onClick={closeMenu}
@@ -265,6 +279,19 @@ export default function HeaderActions({ locale, localeNames, labels }: HeaderAct
         data-testid="header-actions"
         data-mounted={mounted ? 'true' : 'false'}
       >
+        {/* Search - Desktop */}
+        <button
+          onClick={openSearch}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] text-[var(--foreground)] transition-colors font-black uppercase text-sm tracking-wide shrink-0 whitespace-nowrap"
+          aria-label={labels.search}
+        >
+          <Search className="w-4 h-4" />
+          <span className="hidden xl:inline">{labels.search}</span>
+          <kbd className="hidden xl:inline px-1.5 ml-1 py-0.5 text-[10px] bg-[var(--foreground)] text-[var(--background)] rounded-sm">
+            ⌘K
+          </kbd>
+        </button>
+
         {/* Language Selector Dropdown - Desktop */}
         <div className="relative hidden md:block" ref={langDropdownRef}>
           <button

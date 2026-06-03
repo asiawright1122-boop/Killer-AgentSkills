@@ -506,8 +506,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
         const env = await getRuntimeEnv(context.locals);
         if (env?.DB) {
           const writePromise = logSystemAlert(env.DB, alertType, message, details);
-          if (context.locals.runtime?.ctx?.waitUntil) {
-            context.locals.runtime.ctx.waitUntil(writePromise);
+          if ((context.locals.runtime as any)?.ctx?.waitUntil) {
+            (context.locals.runtime as any).ctx.waitUntil(writePromise);
           } else {
             writePromise.catch((e) => logger.error('Alert background write failed', { error: e.message || String(e) }));
           }

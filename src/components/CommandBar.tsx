@@ -50,8 +50,15 @@ export default function CommandBar({ locale }: CommandBarProps) {
       }
     };
 
+    const handleCustomOpen = () => setIsOpen(true);
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('ks:open-search', handleCustomOpen);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('ks:open-search', handleCustomOpen);
+    };
   }, [isOpen]);
 
   // Lock body scroll
