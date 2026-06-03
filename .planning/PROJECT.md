@@ -10,12 +10,22 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.5` are shipped.
+- `v1.0` through `v2.6` are shipped.
+- `v2.6` resolved index divergence between sitemap and indexable cache, and isolated SiliconFlow provider fallback configurations.
 - `v2.5` implemented server-side event tracking for directory views and edge middleware concurrency density scaling fallback.
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v2.4 Directory Continuous Monitoring and CTR Optimization
+## Most Recent Shipment: v2.6 Index Alignment and AI Posture Hardening
+
+**Outcome:** Resolved index divergence between sitemap and indexable cache, and refreshed AI telemetry/SiliconFlow provider posture.
+
+**Shipped capabilities:**
+
+- Enforced strict canonical locale evaluations and public checks in `seo-corpus-governance.ts`, reducing index-drift to zero.
+- Isolated SiliconFlow provider backup routes via `.env.local` override check in config-guard, removing auth/billing exceptions.
+
+## Previous Shipment: v2.4 Directory Continuous Monitoring and CTR Optimization
 
 **Outcome:** Monitored CTR performance and established automated database sync verification for the expanded directory index.
 
@@ -41,9 +51,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 **Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
 
-## Current Milestone: v2.6 Planning
+## Current Milestone: v2.7 Planning
 
-**Goal:** Define goals and requirements for v2.6.
+**Goal:** Define goals and requirements for v2.7.
 
 ## Deferred Beyond v1.8
 
@@ -55,6 +65,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [Index Integrity Alignment] - `v2.6`
+- ✓ [AI Telemetry and Fallback Hardening] - `v2.6`
 - ✓ [Directory Analytics Tracking] - `v2.5`
 - ✓ [Edge Rendering Auto-Scaling] - `v2.5`
 - ✓ [CI and UI Stability] - `v1.0`
@@ -179,4 +191,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-03 after starting v2.1 Directory Auto-Expansion and Verification._
+_Last updated: 2026-06-03 after shipping v2.6 Index Alignment and AI Posture Hardening._

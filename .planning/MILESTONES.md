@@ -12,8 +12,8 @@
 - Planning hygiene: clean
 
 **Stats:**
-- 1/1 complete phases, 0 plans, 2/2 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.6-BOOTSTRAP.md, .planning/milestones/v2.6-CLOSEOUT.md
+- 1/1 complete phases, 0 plans, 2/2 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.6-MILESTONE-AUDIT.md, .planning/milestones/v2.6-BOOTSTRAP.md, .planning/milestones/v2.6-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
 **What's next:** Use .planning/milestones/v2.6-CLOSEOUT.md to finish audit and archive preparation.
