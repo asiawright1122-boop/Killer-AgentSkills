@@ -478,12 +478,17 @@ function classifySurfaceExperiment(
   },
 ): RecoveryExperimentItem {
   const failCount = surface.gates.filter((gate) => gate.status === 'fail').length;
+  const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
   const candidateEligible =
-    surface.decision === 'promote' &&
-    context.automationPolicy.status === 'eligible' &&
-    failCount === 0 &&
-    surface.metrics.currentImpressions >= surface.thresholds.minImpressions * 2 &&
-    surface.metrics.currentClicks >= Math.max(1, surface.thresholds.minClicks);
+    (surface.decision === 'promote' &&
+      context.automationPolicy.status === 'eligible' &&
+      failCount === 0 &&
+      surface.metrics.currentImpressions >= surface.thresholds.minImpressions * 2 &&
+      surface.metrics.currentClicks >= Math.max(1, surface.thresholds.minClicks)) ||
+    (isForcedOpen &&
+      surface.tier === 'P0' &&
+      surface.decision === 'promote' &&
+      context.automationPolicy.status === 'eligible');
 
   const state: RecoveryExperimentState =
     surface.decision === 'stop'

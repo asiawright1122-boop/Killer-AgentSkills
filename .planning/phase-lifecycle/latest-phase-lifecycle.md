@@ -1,17 +1,17 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T02:18:07.737Z
-- Active milestone: v2.1 (Directory Auto-Expansion and Verification)
+- Generated: 2026-06-03T02:28:04.138Z
+- Active milestone: v2.2 (Directory Automated Expansion and Full Rollout)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.1-phases
+- Active archive path: .planning/milestones/v2.2-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 72 | 72-gsc-organic-clicks-and-scorecard-verification | present | .planning/phases/72-gsc-organic-clicks-and-scorecard-verification | missing |
-| 73 | 73-selective-directory-expansion-rollout | present | .planning/phases/73-selective-directory-expansion-rollout | missing |
+| 74 | 74-limited-rollout-evidence-and-promotion | present | .planning/phases/74-limited-rollout-evidence-and-promotion | missing |
+| 75 | 75-automated-directory-expansion-and-index-rollout | present | .planning/phases/75-automated-directory-expansion-and-index-rollout | missing |
 
 ## Archive Actions
 
@@ -76,6 +76,11 @@
 - Archive root: .planning/milestones/v2.0-phases
 - Archived dirs: .planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection, .planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock, .planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks, .planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate
 - Expected dirs: .planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection, .planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock, .planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks, .planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate
+
+### v2.1
+- Archive root: .planning/milestones/v2.1-phases
+- Archived dirs: .planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification, .planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout
+- Expected dirs: .planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification, .planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout
 
 ## Conflicts
 

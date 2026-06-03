@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v2.1 Directory Auto-Expansion and Verification (Closeout Ready)
+### v2.2 Directory Automated Expansion and Full Rollout (Active)
 
-**Delivered:** Ingest manual backlink traffic outcomes, pass comparable proof gates, and selectively trigger automated directory-level rollout.
+**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 2/2 complete (0 plans total)
+**Phases completed:** 1/2 complete (0 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 2
-- Requirement coverage: 3/3 satisfied
+- Requirement coverage: 2/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 2/2 complete phases, 0 plans, 3/3 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.1-BOOTSTRAP.md, .planning/milestones/v2.1-CLOSEOUT.md
+- 1/2 complete phases, 0 plans, 2/3 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.2-BOOTSTRAP.md, .planning/milestones/v2.2-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v2.1-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v2.2-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v2.1 v2.1 (Shipped: SHIPPED)
+
+**Delivered:** `v2.0 Helpful Content Injection and Authority Unlock` shipped on `2026-06-03` and is now archived.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 0/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v2.1-ROADMAP.md, .planning/milestones/v2.1-REQUIREMENTS.md, .planning/milestones/v2.1-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v2.0 v2.0 (Shipped: SHIPPED)
 
 **Delivered:** 

@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-03T02:18:07.737Z",
+  "generatedAt": "2026-06-03T02:28:04.138Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.1",
-  "activeMilestoneName": "Directory Auto-Expansion and Verification",
+  "activeMilestone": "v2.2",
+  "activeMilestoneName": "Directory Automated Expansion and Full Rollout",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.1-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.2-phases",
   "activePhases": [
     {
-      "phaseNumber": "72",
-      "slug": "gsc-organic-clicks-and-scorecard-verification",
-      "dirName": "72-gsc-organic-clicks-and-scorecard-verification",
+      "phaseNumber": "74",
+      "slug": "limited-rollout-evidence-and-promotion",
+      "dirName": "74-limited-rollout-evidence-and-promotion",
       "status": "present",
       "activePaths": [
-        ".planning/phases/72-gsc-organic-clicks-and-scorecard-verification"
+        ".planning/phases/74-limited-rollout-evidence-and-promotion"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "73",
-      "slug": "selective-directory-expansion-rollout",
-      "dirName": "73-selective-directory-expansion-rollout",
+      "phaseNumber": "75",
+      "slug": "automated-directory-expansion-and-index-rollout",
+      "dirName": "75-automated-directory-expansion-and-index-rollout",
       "status": "present",
       "activePaths": [
-        ".planning/phases/73-selective-directory-expansion-rollout"
+        ".planning/phases/75-automated-directory-expansion-and-index-rollout"
       ],
       "archivePaths": []
     }
@@ -198,6 +198,18 @@
         ".planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock",
         ".planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks",
         ".planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate"
+      ]
+    },
+    {
+      "milestone": "v2.1",
+      "phaseArchivePath": ".planning/milestones/v2.1-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification",
+        ".planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.1-phases/72-gsc-organic-clicks-and-scorecard-verification",
+        ".planning/milestones/v2.1-phases/73-selective-directory-expansion-rollout"
       ]
     }
   ],

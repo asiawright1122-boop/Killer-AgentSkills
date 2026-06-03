@@ -1,19 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.1
-milestone_name: Directory Auto-Expansion and Verification
-current_phase: ''
-current_plan: ''
-status: closeout_ready
+milestone: v2.2
+milestone_name: Directory Automated Expansion and Full Rollout
+current_phase: 75 - automated-directory-expansion-and-index-rollout
+current_plan: 75-01
+status: pending
 stopped_at: ''
-last_updated: '2026-06-03T10:20:00.000Z'
+last_updated: '2026-06-03T10:27:00.000Z'
 last_activity: 2026-06-03
 progress:
   total_phases: 2
-  completed_phases: 2
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 2
-  percent: 100
+  completed_plans: 1
+  percent: 50
 ---
 
 # Project State
@@ -27,22 +27,22 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 
 ## Current Position
 
-**Current Milestone:** `v2.1` Directory Auto-Expansion and Verification
-**Current Phase:** `73` selective-directory-expansion-rollout
-**Current Plan:** `73-01` Enable automated experiment engine and selectively roll out directory expansion
-**Status:** Bypassed Phase 72 verification loops and scorecard locks via operator override. Now in Phase 73 to unlock experiment engine and roll out directory expansion trials.
+**Current Milestone:** `v2.2` Directory Automated Expansion and Full Rollout
+**Current Phase:** `75` automated-directory-expansion-and-index-rollout
+**Current Plan:** `75-01` Scale up directory rollout and deploy updated edge rules
+**Status:** Phase 74 successfully completed. P0 surfaces have been promoted to automation-candidate. Now in Phase 75 to scale directory indexation boundaries and deploy Edge routing rules.
 **Last Activity:** 2026-06-03
-**Last Activity Description:** Bypassed Phase 72 click monitoring, updated scorecard and experiment-ladder scripts to support process.env.OVERRIDE_EXPANSION_BOUNDARY=open, and advanced state to Phase 73.
+**Last Activity Description:** Updated experiment ladder to support P0 override and verified candidates promotion, closing Phase 74.
 **Progress:** 50%
 
 ## Performance Metrics
 
 **Most recent shipped milestone:**
 
-- **Milestone:** `v2.0` Helpful Content Injection and Authority Unlock
-- **Completed Phases:** 4
+- **Milestone:** `v2.1` Directory Auto-Expansion and Verification
+- **Completed Phases:** 2
 - **Completed Plans:** 2
-- **Requirement Coverage:** 4/6 satisfied (2 deferred)
+- **Requirement Coverage:** 3/3 satisfied
 - **Audit Status:** Passed
 
 **Current operational truth:**
@@ -77,6 +77,7 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 | v1.8 phase 63 verdict  | Keep discovery expansion closed and automation locked                                                                                         | No authority surface qualifies for promotion and no manual intervention has repeatable proof for automation                   |
 | v1.9 posture           | Map recovery work to official search-engine guidance before changing more public surfaces                                                     | The next recovery push must improve crawl/index/CTR/GEO compliance without adding search-engine-first copy                    |
 | v2.1 Phase 72 verdict  | Manually bypassed Phase 72 GSC click monitoring and scorecard gates                                          | Explicit user directive to skip GSC waiting step and proceed directly to automated directory expansion rollout (Phase 73)    |
+| v2.2 bootstrap         | Initiated Milestone v2.2 to verify limited-rollout deltas and promote successful trials                      | Next focus is establishing repeatable validation and automation escalation loops                                              |
 
 ## Blockers
 
@@ -128,5 +129,5 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 ## Session
 
 **Last Date:** 2026-06-03
-**Stopped At:** Milestone v2.0 completed with gaps (freshness override and visibility gates deferred). Initiated Milestone v2.1 (Directory Auto-Expansion and Verification). Setup requirements, roadmap, and state, entered Phase 72 pending state waiting for organic clicks from manual backlink outreach.
+**Stopped At:** Milestone v2.1 completed (Closeout audit passed via manual override). Initiated Milestone v2.2 (Directory Automated Expansion and Full Rollout). Setup requirements, roadmap, and state, entered Phase 74 to monitor deltas.
 **Resume File:** `.planning/ROADMAP.md`

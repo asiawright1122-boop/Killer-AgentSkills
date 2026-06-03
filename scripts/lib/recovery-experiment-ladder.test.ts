@@ -433,4 +433,36 @@ describe('buildRecoveryExperimentLadderReport', () => {
       delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
     }
   });
+
+  it('promotes P0 surfaces to automation-candidate under operator override even without meeting traffic thresholds', () => {
+    process.env.OVERRIDE_EXPANSION_BOUNDARY = 'open';
+    try {
+      const report = buildRecoveryExperimentLadderReport({
+        authorityUpliftScorecardReport: createScorecard({
+          surfaces: [
+            {
+              ...createScorecard().surfaces[0],
+              tier: 'P0',
+              decision: 'promote',
+              gates: [],
+              metrics: {
+                ...createScorecard().surfaces[0].metrics,
+                currentClicks: 0,
+                currentImpressions: 0,
+              },
+            },
+          ],
+        }),
+        recoveryExecutionQueueReport: createExecutionQueue(),
+        recoveryDeltaBoardReport: createDeltaBoard(),
+      });
+
+      const p0SurfaceItem = report.experiments.find((item) => item.sourceId === 'collection-official-trusted-tools');
+      expect(p0SurfaceItem).toBeDefined();
+      expect(p0SurfaceItem?.state).toBe('automation-candidate');
+      expect(p0SurfaceItem?.automationReadiness).toBe('candidate');
+    } finally {
+      delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
+    }
+  });
 });

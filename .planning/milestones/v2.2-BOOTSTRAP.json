@@ -1,0 +1,46 @@
+{
+  "milestone": "v2.2",
+  "milestoneName": "Directory Automated Expansion and Full Rollout",
+  "goal": null,
+  "sourceMilestone": "v2.1",
+  "sourceMilestoneName": "v2.1",
+  "sourceArtifacts": [
+    ".planning/milestones/v2.1-ROADMAP.md",
+    ".planning/milestones/v2.1-REQUIREMENTS.md",
+    ".planning/milestones/v2.1-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "74",
+      "slug": "limited-rollout-evidence-and-promotion",
+      "requirements": [
+        "SEO-18",
+        "REC-35"
+      ]
+    },
+    {
+      "number": "75",
+      "slug": "automated-directory-expansion-and-index-rollout",
+      "requirements": [
+        "REC-36"
+      ]
+    }
+  ],
+  "requirements": [
+    "SEO-18",
+    "REC-35",
+    "REC-36"
+  ]
+}
