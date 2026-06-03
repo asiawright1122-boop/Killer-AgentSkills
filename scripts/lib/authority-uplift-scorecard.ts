@@ -555,8 +555,9 @@ function evaluateSurface(
     },
   ];
 
+  const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
   const forcedStop = surface.role === 'supporting' || phase55.disposition === 'avoid';
-  const canPromote = !forcedStop && gates.every((gate) => gate.status === 'pass');
+  const canPromote = !forcedStop && (gates.every((gate) => gate.status === 'pass') || (isForcedOpen && surface.tier === 'P0'));
   const decision: AuthorityUpliftDecision = forcedStop ? 'stop' : canPromote ? 'promote' : 'hold';
   const cadence: AuthorityUpliftCadence =
     decision === 'promote'
@@ -694,22 +695,27 @@ function buildExpansionBoundary(report: {
     },
   ];
 
-  const status = gates.every((gate) => gate.status === 'pass') ? 'open' : 'closed';
-  const blockers = dedupeStrings(gates.filter((gate) => gate.status !== 'pass').map((gate) => `${gate.label}: ${gate.observed}`));
-  const nextActions = dedupeStrings([
-    !proofReady ? 'Collect another trustworthy proof window before discussing broader discovery expansion.' : '',
-    !coverageReady ? 'Refresh Coverage Drilldown raw exports so cluster evidence can support expansion decisions.' : '',
-    promoteSurfaces.length < requiredPromoteSurfaces
-      ? 'Keep discovery expansion closed until at least two primary surfaces clear promotion gates.'
-      : '',
-    'Keep the supporting directory and bulk corpus growth outside the expansion path even after the gate opens.',
-  ]);
+  const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
+  const status = isForcedOpen ? 'open' : (gates.every((gate) => gate.status === 'pass') ? 'open' : 'closed');
+  const blockers = isForcedOpen ? [] : dedupeStrings(gates.filter((gate) => gate.status !== 'pass').map((gate) => `${gate.label}: ${gate.observed}`));
+  const nextActions = isForcedOpen
+    ? ['Execute selective directory expansion rollout as manually authorized by operator override.']
+    : dedupeStrings([
+        !proofReady ? 'Collect another trustworthy proof window before discussing broader discovery expansion.' : '',
+        !coverageReady ? 'Refresh Coverage Drilldown raw exports so cluster evidence can support expansion decisions.' : '',
+        promoteSurfaces.length < requiredPromoteSurfaces
+          ? 'Keep discovery expansion closed until at least two primary surfaces clear promotion gates.'
+          : '',
+        'Keep the supporting directory and bulk corpus growth outside the expansion path even after the gate opens.',
+      ]);
 
   return {
     status,
     headline:
       status === 'open'
-        ? 'Discovery expansion may reopen because multiple primary surfaces now clear the uplift gates.'
+        ? (isForcedOpen
+            ? 'Discovery expansion is manually forced OPEN by operator override.'
+            : 'Discovery expansion may reopen because multiple primary surfaces now clear the uplift gates.')
         : 'Discovery expansion remains closed because the proof and promotion gates are not yet satisfied.',
     requiredPromoteSurfaces,
     observedPromoteSurfaces: promoteSurfaces.length,

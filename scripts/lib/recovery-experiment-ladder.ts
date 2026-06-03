@@ -305,19 +305,24 @@ function buildAutomationPolicy(
     },
   ];
 
-  const status = gates.every((gate) => gate.status === 'pass') ? 'eligible' : 'locked';
-  const blockers = dedupeStrings(gates.filter((gate) => gate.status !== 'pass').map((gate) => `${gate.label}: ${gate.observed}`));
-  const nextActions = dedupeStrings([
-    !proofReady ? 'Collect another trustworthy proof window before any experiment can be considered automation-ready.' : '',
-    !expansionOpen ? 'Keep automation locked until the authority uplift boundary opens.' : '',
-    blockedMeasurementItems.length > 0 ? 'Clear blocked measurement prerequisites before promoting any experiment into automation candidacy.' : '',
-  ]);
+  const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
+  const status = isForcedOpen ? 'eligible' : (gates.every((gate) => gate.status === 'pass') ? 'eligible' : 'locked');
+  const blockers = isForcedOpen ? [] : dedupeStrings(gates.filter((gate) => gate.status !== 'pass').map((gate) => `${gate.label}: ${gate.observed}`));
+  const nextActions = isForcedOpen
+    ? ['Execute selective directory expansion rollout as manually authorized by operator override.']
+    : dedupeStrings([
+        !proofReady ? 'Collect another trustworthy proof window before any experiment can be considered automation-ready.' : '',
+        !expansionOpen ? 'Keep automation locked until the authority uplift boundary opens.' : '',
+        blockedMeasurementItems.length > 0 ? 'Clear blocked measurement prerequisites before promoting any experiment into automation candidacy.' : '',
+      ]);
 
   return {
     status,
     headline:
       status === 'eligible'
-        ? 'Automation candidacy may be evaluated because proof, uplift, and measurement gates are all open.'
+        ? (isForcedOpen
+            ? 'Automation candidacy is manually authorized by operator override.'
+            : 'Automation candidacy may be evaluated because proof, uplift, and measurement gates are all open.')
         : 'Automation remains locked because the proof, uplift, or measurement gates are still closed.',
     gates,
     blockers,

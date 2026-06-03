@@ -1,48 +1,28 @@
 {
-  "generatedAt": "2026-06-03T01:27:34.473Z",
+  "generatedAt": "2026-06-03T02:18:07.737Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.0",
-  "activeMilestoneName": "Helpful Content Injection and Authority Unlock",
+  "activeMilestone": "v2.1",
+  "activeMilestoneName": "Directory Auto-Expansion and Verification",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.0-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.1-phases",
   "activePhases": [
     {
-      "phaseNumber": "68",
-      "slug": "helpful-content-expert-copy-injection",
-      "dirName": "68-helpful-content-expert-copy-injection",
+      "phaseNumber": "72",
+      "slug": "gsc-organic-clicks-and-scorecard-verification",
+      "dirName": "72-gsc-organic-clicks-and-scorecard-verification",
       "status": "present",
       "activePaths": [
-        ".planning/phases/68-helpful-content-expert-copy-injection"
+        ".planning/phases/72-gsc-organic-clicks-and-scorecard-verification"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "69",
-      "slug": "physical-gsc-coverage-refresh-and-trust-unlock",
-      "dirName": "69-physical-gsc-coverage-refresh-and-trust-unlock",
+      "phaseNumber": "73",
+      "slug": "selective-directory-expansion-rollout",
+      "dirName": "73-selective-directory-expansion-rollout",
       "status": "present",
       "activePaths": [
-        ".planning/phases/69-physical-gsc-coverage-refresh-and-trust-unlock"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "70",
-      "slug": "selective-authority-expansion-and-backlinks",
-      "dirName": "70-selective-authority-expansion-and-backlinks",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/70-selective-authority-expansion-and-backlinks"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "71",
-      "slug": "live-traffic-outcome-and-automation-gate",
-      "dirName": "71-live-traffic-outcome-and-automation-gate",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/71-live-traffic-outcome-and-automation-gate"
+        ".planning/phases/73-selective-directory-expansion-rollout"
       ],
       "archivePaths": []
     }
@@ -202,6 +182,22 @@
         ".planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract",
         ".planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation",
         ".planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment"
+      ]
+    },
+    {
+      "milestone": "v2.0",
+      "phaseArchivePath": ".planning/milestones/v2.0-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection",
+        ".planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock",
+        ".planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks",
+        ".planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection",
+        ".planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock",
+        ".planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks",
+        ".planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate"
       ]
     }
   ],

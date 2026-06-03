@@ -1,0 +1,46 @@
+{
+  "milestone": "v2.1",
+  "milestoneName": "Directory Auto-Expansion and Verification",
+  "goal": "Ingest manual backlink traffic outcomes, pass comparable proof gates, and selectively trigger automated directory-level rollout.",
+  "sourceMilestone": "v2.0",
+  "sourceMilestoneName": "v2.0",
+  "sourceArtifacts": [
+    ".planning/milestones/v2.0-ROADMAP.md",
+    ".planning/milestones/v2.0-REQUIREMENTS.md",
+    ".planning/milestones/v2.0-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "72",
+      "slug": "gsc-organic-clicks-and-scorecard-verification",
+      "requirements": [
+        "REC-33"
+      ]
+    },
+    {
+      "number": "73",
+      "slug": "selective-directory-expansion-rollout",
+      "requirements": [
+        "SEO-17",
+        "REC-34"
+      ]
+    }
+  ],
+  "requirements": [
+    "REC-33",
+    "REC-34",
+    "SEO-17"
+  ]
+}

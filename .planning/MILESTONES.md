@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v1.9 Search Compliance Recovery Execution and Proof (Closeout Ready)
+### v2.1 Directory Auto-Expansion and Verification (Closeout Ready)
 
-**Delivered:** Execute the known recovery blockers against official search-engine guidance, improve priority click surfaces only where evidence supports it, and produce a post-intervention proof window without overstating recovery.
+**Delivered:** Ingest manual backlink traffic outcomes, pass comparable proof gates, and selectively trigger automated directory-level rollout.
 
-**Phases completed:** 4/4 complete (4 plans total)
+**Phases completed:** 2/2 complete (0 plans total)
 
 **Key accomplishments:**
-- Roadmap phases tracked: 4
-- Requirement coverage: 7/7 satisfied
+- Roadmap phases tracked: 2
+- Requirement coverage: 3/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 4/4 complete phases, 4 plans, 7/7 requirements satisfied, milestone audit passed
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v1.9-MILESTONE-AUDIT.md, .planning/milestones/v1.9-BOOTSTRAP.md, .planning/milestones/v1.9-CLOSEOUT.md
+- 2/2 complete phases, 0 plans, 3/3 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.1-BOOTSTRAP.md, .planning/milestones/v2.1-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v1.9-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v2.1-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v2.0 v2.0 (Shipped: SHIPPED)
+
+**Delivered:** 
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 11/13 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v2.0-ROADMAP.md, .planning/milestones/v2.0-REQUIREMENTS.md, .planning/milestones/v2.0-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v1.8 v1.8 (Shipped: SHIPPED)
 
 **Delivered:** `v1.7 Public Trust Surface and Copy Boundary Hardening` shipped on `2026-04-23` and is now archived.

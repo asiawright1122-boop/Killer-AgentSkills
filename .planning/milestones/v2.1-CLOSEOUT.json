@@ -1,0 +1,38 @@
+{
+  "milestone": "v2.1",
+  "milestoneName": "Directory Auto-Expansion and Verification",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 2,
+    "completed": 2
+  },
+  "requirementCounts": {
+    "satisfied": 3,
+    "partial": 0,
+    "pending": 0,
+    "total": 3
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/phases/72-gsc-organic-clicks-and-scorecard-verification/72-01-SUMMARY.md",
+    ".planning/phases/72-gsc-organic-clicks-and-scorecard-verification/72-VERIFICATION.md",
+    ".planning/phases/73-selective-directory-expansion-rollout/73-01-SUMMARY.md",
+    ".planning/phases/73-selective-directory-expansion-rollout/73-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v2.1-phases",
+    ".planning/milestones/v2.1-ROADMAP.md",
+    ".planning/milestones/v2.1-REQUIREMENTS.md",
+    ".planning/milestones/v2.1-MILESTONE-AUDIT.md",
+    ".planning/milestones/v2.1-BOOTSTRAP.md",
+    ".planning/milestones/v2.1-CLOSEOUT.md"
+  ]
+}

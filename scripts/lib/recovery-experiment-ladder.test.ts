@@ -418,4 +418,19 @@ describe('buildRecoveryExperimentLadderReport', () => {
     expect(report.automationPolicy.status).toBe('eligible');
     expect(report.buckets.automationCandidate.some((item) => item.sourceId === 'watch-main-domain-crawl-health')).toBe(true);
   });
+
+  it('forces automation policy status to eligible when OVERRIDE_EXPANSION_BOUNDARY=open is set', () => {
+    process.env.OVERRIDE_EXPANSION_BOUNDARY = 'open';
+    try {
+      const report = buildRecoveryExperimentLadderReport({
+        authorityUpliftScorecardReport: createScorecard(),
+        recoveryExecutionQueueReport: createExecutionQueue(),
+        recoveryDeltaBoardReport: createDeltaBoard(),
+      });
+
+      expect(report.automationPolicy.status).toBe('eligible');
+    } finally {
+      delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
+    }
+  });
 });

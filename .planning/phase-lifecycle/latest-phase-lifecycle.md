@@ -1,19 +1,17 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T01:27:34.473Z
-- Active milestone: v2.0 (Helpful Content Injection and Authority Unlock)
+- Generated: 2026-06-03T02:18:07.737Z
+- Active milestone: v2.1 (Directory Auto-Expansion and Verification)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.0-phases
+- Active archive path: .planning/milestones/v2.1-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 68 | 68-helpful-content-expert-copy-injection | present | .planning/phases/68-helpful-content-expert-copy-injection | missing |
-| 69 | 69-physical-gsc-coverage-refresh-and-trust-unlock | present | .planning/phases/69-physical-gsc-coverage-refresh-and-trust-unlock | missing |
-| 70 | 70-selective-authority-expansion-and-backlinks | present | .planning/phases/70-selective-authority-expansion-and-backlinks | missing |
-| 71 | 71-live-traffic-outcome-and-automation-gate | present | .planning/phases/71-live-traffic-outcome-and-automation-gate | missing |
+| 72 | 72-gsc-organic-clicks-and-scorecard-verification | present | .planning/phases/72-gsc-organic-clicks-and-scorecard-verification | missing |
+| 73 | 73-selective-directory-expansion-rollout | present | .planning/phases/73-selective-directory-expansion-rollout | missing |
 
 ## Archive Actions
 
@@ -73,6 +71,11 @@
 - Archive root: .planning/milestones/v1.8-phases
 - Archived dirs: .planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract, .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation, .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment
 - Expected dirs: .planning/milestones/v1.8-phases/61-coverage-drilldown-input-refresh-and-freshness-contract, .planning/milestones/v1.8-phases/62-comparable-proof-window-refresh-and-delta-revalidation, .planning/milestones/v1.8-phases/63-authority-and-intervention-readiness-reassessment
+
+### v2.0
+- Archive root: .planning/milestones/v2.0-phases
+- Archived dirs: .planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection, .planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock, .planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks, .planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate
+- Expected dirs: .planning/milestones/v2.0-phases/68-helpful-content-expert-copy-injection, .planning/milestones/v2.0-phases/69-physical-gsc-coverage-refresh-and-trust-unlock, .planning/milestones/v2.0-phases/70-selective-authority-expansion-and-backlinks, .planning/milestones/v2.0-phases/71-live-traffic-outcome-and-automation-gate
 
 ## Conflicts
 

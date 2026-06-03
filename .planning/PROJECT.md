@@ -10,51 +10,42 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v1.8` are shipped.
-- `v1.9 Search Compliance Recovery Execution and Proof` is now active.
-- The current cycle turns the v1.8 carry-forward blockers into search-engine-compliant execution: fresh Coverage evidence, P0 manual recovery batches, priority-surface CTR/GEO review, and the next trustworthy proof window.
-- The main domain remains technically stable: the latest production crawl-health run found `6` sitemap files, `1546` discovered page URLs, `721` sampled checks, `721` `2xx`, `0` `4xx`, `0` `5xx`, and `0` sitemap fetch errors.
-- The skills corpus is now structurally governed: locale eligibility, originality, canonicalization, and governed publish-surface rules are all explicit and auditable.
-- The public discovery model now prioritizes `17` authority surfaces instead of a bulk multilingual skill corpus.
-- `v1.7` closed the public trust issue on the audited public entry surfaces, and reusable copy-boundary guardrails now protect public pages, locale messages, shared authority-surface data, and collection JSON sources.
-- Business recovery is still not proven. The newest proof window is current and no longer baseline-seeded, but it remains `blocking` because the freshest local Coverage Drilldown raw export is dated `2026-04-16` and is outside the hard freshness SLA.
-- `v1.8` closed with discovery expansion still closed at `0 promote / 31 hold / 1 stop` and automation still locked with `0` limited-rollout experiments and `0` automation candidates.
+- `v1.0` through `v2.0` are shipped.
+- `v2.1 Directory Auto-Expansion and Verification` is now active.
+- `v2.0` completed the injection of original helpful introduction copy on the homepage and core collections, deployed the dynamic `noindex` soft-removal header strategy for missing sitemap URLs, resolved 500 runtime rendering issues on Cloudflare SSR pages, and compiled the manual outreach package for backlinks.
+- Phase 71 waiting status is bypassed to advance to `v2.1` where we will verify the GSC organic click data return and rollout directory-level automated experiments.
 
-## Most Recent Shipment: v1.8 Fresh Recovery Inputs and Comparable Proof Refresh
+## Most Recent Shipment: v2.0 Helpful Content Injection and Authority Unlock
 
-**Outcome:** Refreshed the recovery proof lane, verified the production crawl surface after the deployment fix, and reassessed authority expansion plus automation without manufacturing a recovery claim.
+**Outcome:** Injected helpful copy, fixed edge runtime 500 crashes, resolved indexation of sitemap-missing pages, and compiled outreach backlinks template.
 
 **Shipped capabilities:**
 
-- Restored dated Coverage Drilldown input selection and made freshness explicit before downstream recovery claims.
-- Regenerated the `2026-05-06` proof window against the `2026-05-04` baseline without reseeding that baseline.
-- Verified production sitemap/crawl exposure is clean after the deployment repair.
-- Revalidated the recovery delta board and authority scorecard with a conservative `blocking` verdict.
-- Reconfirmed discovery expansion remains closed and automation remains locked.
+- Drafted and deployed original safety/MCP intro copy to homepage and collection detail setups.
+- Resolved dynamic JSON locale dynamic import SSR crashes by static bundling.
+- Guided crawler removal of sitemap-missing files using edge `noindex` and `X-Robots-Tag`.
+- Lowered headings from `# H1` to `## H2` inside readme React markdown blocks.
+- Documented outreach options in `manual_outreach_pack.md`.
 
-## Previous Shipment: v1.7 Public Trust Surface and Copy Boundary Hardening
+## Previous Shipment: v1.9 Search Compliance Recovery Execution and Proof
 
-**Outcome:** Removed the newly confirmed public trust-surface language leaks from the main public entry surfaces and turned the fix into a reusable guardrail.
+**Outcome:** Mapped search essentials and verified Edge middleware redirect consistency.
 
 **Shipped capabilities:**
 
-- Audited the main public route templates and shared public sources to inventory where internal strategy/process framing leaked into user-facing copy.
-- Normalized collections, solutions, docs, skill detail, locale messages, authority-surface helper data, and high-traffic collection JSON sources so they read like product guidance.
-- Removed the strongest internal-language families from the shared public sources that were re-seeding the problem across rendered pages.
-- Upgraded `tests/pages/public-links.test.ts` into a reusable directory-level guardrail that scans public pages, shared data, locale catalogs, and collection JSON before release.
+- Outlined Google, Bing, IndexNow rules in compliance matrix.
+- Deployed Edge 404 remediation edge rules to 142 redirection targets and 839 410 targets.
+- Verified Bing AI Performance IndexNow sitemap notification logic.
 
-## Current Milestone: v1.9 Search Compliance Recovery Execution and Proof
+## Current Milestone: v2.1 Directory Auto-Expansion and Verification
 
-**Goal:** Execute the known recovery blockers against official search-engine guidance, improve priority click surfaces only where evidence supports it, and produce a post-intervention proof window without overstating recovery.
+**Goal:** Ingest manual backlink traffic outcomes, pass comparable proof gates, and selectively trigger automated directory-level rollout.
 
 **Target features:**
 
-- Map Google, Bing, IndexNow, and Yandex guidance into a project-specific SEO/GEO compliance checklist.
-- Import a fresh Coverage Drilldown raw export and regenerate recovery reports from it.
-- Execute the P0 other-cluster and source-file recovery batches with keep-410 / redirect / recrawl-watch outcomes.
-- Verify trailing-slash, query-parameter, repeated-segment, and deep-skill-path canonicalization against fresh Coverage evidence.
-- Review and improve priority authority-surface titles, snippets, structured-data eligibility, and AI-search citation evidence without adding search-engine-first copy.
-- Capture a post-intervention proof window that can honestly judge crawl, Coverage, GSC demand, authority promotion, and automation readiness.
+- Verify GSC organic clicks flowing into comparable proof scorecard indicators.
+- Unlock discovery expansion boundary from closed to limited/open.
+- Enable automated experiment engine for candidate selection.
 
 ## Deferred Beyond v1.8
 
@@ -107,14 +98,19 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Comparable Recovery Proof Window] - `v1.8`
 - ✓ [Authority Promotion Reassessment] - `v1.8`
 - ✓ [Manual Intervention Repeatability Review] - `v1.8`
+- ✓ [Search Guidelines Compliance Baseline] - `v1.9`
+- ✓ [Fresh Coverage Export Ingestion] - `v1.9`
+- ✓ [P0 Manual Recovery Batches] - `v1.9`
+- ✓ [Post-Intervention Proof Window] - `v1.9`
+- ✓ [Priority Surface CTR and GEO Review] - `v1.9`
+- ✓ [Helpful Content Injection] - `v2.0`
+- ✓ [Outreach Backlinks Onboarding] - `v2.0`
 
 ### Active
 
-- [ ] [Search Guidelines Compliance Baseline] - Map official Google, Bing, IndexNow, and Yandex guidance to this project's crawl, index, content, CTR, and AI-search evidence lanes.
-- [ ] [Fresh Coverage Export Ingestion] - Import a Coverage Drilldown export inside the hard freshness SLA and regenerate the recovery reports.
-- [ ] [P0 Manual Recovery Batches] - Execute the other-cluster and source-file recovery batches with explicit keep-410, redirect-validation, and recrawl-watch outcomes.
-- [ ] [Post-Intervention Proof Window] - Capture another proof window after manual recovery work has time to appear in search evidence.
-- [ ] [Priority Surface CTR and GEO Review] - Improve click-facing authority surfaces and AI-search evidence only where query, page, and guideline evidence support changes.
+- [ ] [GSC Organic Click Verification] - Monitor traffic data to satisfy scorecard visibility and proof gates.
+- [ ] [Experiment Engine Candidate Unlock] - Enable experiment ladder for candidates and unlock automation gate.
+- [ ] [Automated Directory Expansion Rollout] - Selectively rollout automated directory-level expansion once gates are open.
 
 ### Out of Scope
 
@@ -169,8 +165,10 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 | Shared public sources should be fixed at the source, not only in rendered shells | Repeated leak families were seeded through collection JSON, locale catalogs, and helper data, not just page templates | Validated |
 | Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Validated |
 | Current-but-blocking proof is a valid outcome | v1.8 showed that honest proof can complete a milestone while still blocking expansion | Validated |
-| Manual recovery before automation | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists | Active |
-| Official search guidance before SEO changes | v1.9 recovery work should map to official Google, Bing, IndexNow, and Yandex guidance before changing public surfaces | Active |
+| Manual recovery before automation | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists | Validated |
+| Official search guidance before SEO changes | v1.9 recovery work should map to official Google, Bing, IndexNow, and Yandex guidance before changing public surfaces | Validated |
+| Helpful content copy injection over programmatic catalogs | v2.0 injected helpful copy to Home and collections detail setup docs to resolve thin catalog warnings | Validated |
+| Soft-removal for missing sitemap pages | v2.0 resolved crawler warnings via dynamic edge noindex headers for sitemap-excluded pages | Validated |
 
 ## Evolution
 
@@ -178,4 +176,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-05-06 after starting v1.9 Search Compliance Recovery Execution and Proof._
+_Last updated: 2026-06-03 after starting v2.1 Directory Auto-Expansion and Verification._

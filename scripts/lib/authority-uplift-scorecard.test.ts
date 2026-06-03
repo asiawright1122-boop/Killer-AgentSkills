@@ -317,4 +317,26 @@ describe('buildAuthorityUpliftScorecardReport', () => {
     expect(report.expansionBoundary.status).toBe('open');
     expect(report.decisions.stop.some((item) => item.surfaceId === 'skills-directory')).toBe(true);
   });
+
+  it('forces P0 surfaces to promote and opens discovery gate when OVERRIDE_EXPANSION_BOUNDARY=open is set', () => {
+    process.env.OVERRIDE_EXPANSION_BOUNDARY = 'open';
+    try {
+      const traffic = createTrafficRows(0, 0);
+      const report = buildAuthorityUpliftScorecardReport({
+        recoveryDeltaBoardReport: createDeltaBoard({
+          trustVerdict: 'blocking',
+          baselineSeeded: true,
+        }),
+        authorityProgramReport: createAuthorityProgram(),
+        authoritySurfacesData: createAuthorityProgram(),
+        currentPageRows: traffic.current,
+        previousPageRows: traffic.previous,
+      });
+
+      expect(report.decisions.promote.some((item) => item.surfaceId === 'home-root')).toBe(true);
+      expect(report.expansionBoundary.status).toBe('open');
+    } finally {
+      delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
+    }
+  });
 });
