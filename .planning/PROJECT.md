@@ -73,9 +73,12 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
 - Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
 
+## Current Milestone: v3.1 AIOps Smart Gateway & Profile Hardening
+
+**Goal:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+
 ## Deferred Beyond v1.8
 
-- **AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
 - **Paid Workers AI expansion**: Remains out of scope until explicitly budgeted and audited.
 - **Large net-new discovery surfaces**: Wait until post-governance recovery proof is durable and the authority program shows repeatable wins.
 
@@ -147,6 +150,10 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Database Synchronization Verification] - `v2.4`
 
 ### Active
+
+- [ ] [Environment-Specific Profiles Integration] - `v3.1`
+- [ ] [Config Guard Hardening] - `v3.1`
+- [ ] [Smart Fallback & Degradation Verification] - `v3.1`
 
 ### Out of Scope
 

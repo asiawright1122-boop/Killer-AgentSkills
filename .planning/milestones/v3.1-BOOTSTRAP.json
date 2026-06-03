@@ -1,0 +1,48 @@
+{
+  "milestone": "v3.1",
+  "milestoneName": "AIOps Smart Gateway & Profile Hardening",
+  "goal": "Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.",
+  "sourceMilestone": "v3.0",
+  "sourceMilestoneName": "v3.0",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.0-ROADMAP.md",
+    ".planning/milestones/v3.0-REQUIREMENTS.md",
+    ".planning/milestones/v3.0-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "91",
+      "slug": "Environment-Specific Profiles Integration",
+      "requirements": [
+        "Environment-Specific Profiles Integration"
+      ]
+    },
+    {
+      "number": "92",
+      "slug": "Config Guard Hardening",
+      "requirements": [
+        "Config Guard Hardening"
+      ]
+    },
+    {
+      "number": "93",
+      "slug": "Smart Fallback & Degradation Verification",
+      "requirements": [
+        "Smart Fallback & Degradation Verification"
+      ]
+    }
+  ],
+  "requirements": []
+}

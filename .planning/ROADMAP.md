@@ -8,7 +8,47 @@ This milestone focused on schema structured data, automated search indexing trig
 
 ## Immediate Next Actions
 
-- Define the next milestone scope from archived findings (Run `/gsd-new-milestone`).
+- Plan and execute Phase 91 (Run `/gsd-plan-phase 91`).
+
+## Current Milestone: v3.1 AIOps Smart Gateway & Profile Hardening
+
+**Goal:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+
+**Requirements:**
+- **Environment Profiles:** Parse dynamically based on Node/Cloudflare environment and workload class.
+- **Config Guard:** Strict schema and billing compliance validation in pre-build scripts.
+- **Degradation Tests:** Simulate provider fallback and 429 recovery scenarios in unit tests.
+**Phase range:** 91-93
+
+### Phase 91: Environment-Specific Profiles Integration
+
+**Goal:** Establish profile schemas resolving provider overrides by workload class and current environment.
+**Depends on:** Shipped v3.0.
+**Requirements:** Environment-Specific Profiles Integration
+**Success Criteria:** Runtime router correctly selects profile provider across dev, test, and prod.
+
+Plans:
+- [ ] `91-01`: Integrate environment-specific profile loading into routing pipeline.
+
+### Phase 92: Config Guard Hardening
+
+**Goal:** Assert schema compliance and free-only budget lockouts in build-time configuration guards.
+**Depends on:** Phase 91.
+**Requirements:** Config Guard Hardening
+**Success Criteria:** Build-time script fails with explicit diagnostics on invalid profile configs.
+
+Plans:
+- [ ] `92-01`: Harden ai-config-guard validation rules.
+
+### Phase 93: Smart Fallback & Degradation Verification
+
+**Goal:** Verify fallback routing logic under simulated provider key loss or 429 timeouts.
+**Depends on:** Phase 92.
+**Requirements:** Smart Fallback & Degradation Verification
+**Success Criteria:** Vitest test suite covers routing fallback paths with mock degradation cases.
+
+Plans:
+- [ ] `93-01`: Write degradation routing test cases.
 
 ## Milestones
 
@@ -46,6 +86,7 @@ This milestone focused on schema structured data, automated search indexing trig
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 0/3 | Planning | - |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
 | v2.9 Coverage Data Ingestion & Post-Intervention Automation | 85-87 | 3/3 | Complete | 2026-06-03 |
 | v2.8 Growth, Telemetry & UX Expansion | 81-84 | 4/4 | Complete | 2026-06-03 |

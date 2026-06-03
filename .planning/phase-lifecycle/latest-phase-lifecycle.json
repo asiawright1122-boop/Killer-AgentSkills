@@ -1,11 +1,42 @@
 {
-  "generatedAt": "2026-06-03T11:22:25.692Z",
+  "generatedAt": "2026-06-03T12:05:51.032Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v3.0",
-  "activeMilestoneName": "Advanced Search Engine Optimization",
+  "activeMilestone": "v3.1",
+  "activeMilestoneName": "AIOps Smart Gateway & Profile Hardening",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v3.0-phases",
-  "activePhases": [],
+  "activePhaseArchivePath": ".planning/milestones/v3.1-phases",
+  "activePhases": [
+    {
+      "phaseNumber": "91",
+      "slug": "Environment-Specific Profiles Integration",
+      "dirName": "91-Environment-Specific Profiles Integration",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/91-Environment-Specific Profiles Integration"
+      ],
+      "archivePaths": []
+    },
+    {
+      "phaseNumber": "92",
+      "slug": "Config Guard Hardening",
+      "dirName": "92-Config Guard Hardening",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/92-Config Guard Hardening"
+      ],
+      "archivePaths": []
+    },
+    {
+      "phaseNumber": "93",
+      "slug": "Smart Fallback & Degradation Verification",
+      "dirName": "93-Smart Fallback & Degradation Verification",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/93-Smart Fallback & Degradation Verification"
+      ],
+      "archivePaths": []
+    }
+  ],
   "archivedMilestones": [
     {
       "milestone": "v1.0",
@@ -252,6 +283,12 @@
       "expectedPhaseDirs": [
         ".planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion"
       ]
+    },
+    {
+      "milestone": "v3.0",
+      "phaseArchivePath": ".planning/milestones/v3.0-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": []
     }
   ],
   "archiveActions": [],

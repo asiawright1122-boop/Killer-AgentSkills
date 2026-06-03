@@ -1,0 +1,36 @@
+{
+  "milestone": "v3.1",
+  "milestoneName": "AIOps Smart Gateway & Profile Hardening",
+  "status": "in_progress",
+  "blockers": [
+    "Only 0/3 active phases have both summary and verification evidence."
+  ],
+  "phaseCounts": {
+    "total": 3,
+    "completed": 0
+  },
+  "requirementCounts": {
+    "satisfied": 0,
+    "partial": 0,
+    "pending": 0,
+    "total": 0
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v3.1-phases",
+    ".planning/milestones/v3.1-ROADMAP.md",
+    ".planning/milestones/v3.1-REQUIREMENTS.md",
+    ".planning/milestones/v3.1-MILESTONE-AUDIT.md",
+    ".planning/milestones/v3.1-BOOTSTRAP.md",
+    ".planning/milestones/v3.1-CLOSEOUT.md"
+  ]
+}

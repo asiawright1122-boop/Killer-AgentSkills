@@ -1,15 +1,18 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T11:22:25.692Z
-- Active milestone: v3.0 (Advanced Search Engine Optimization)
+- Generated: 2026-06-03T12:05:51.032Z
+- Active milestone: v3.1 (AIOps Smart Gateway & Profile Hardening)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v3.0-phases
+- Active archive path: .planning/milestones/v3.1-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
+| 91 | 91-Environment-Specific Profiles Integration | present | .planning/phases/91-Environment-Specific Profiles Integration | missing |
+| 92 | 92-Config Guard Hardening | present | .planning/phases/92-Config Guard Hardening | missing |
+| 93 | 93-Smart Fallback & Degradation Verification | present | .planning/phases/93-Smart Fallback & Degradation Verification | missing |
 
 ## Archive Actions
 
@@ -109,6 +112,11 @@
 - Archive root: .planning/milestones/v2.7-phases
 - Archived dirs: .planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion
 - Expected dirs: .planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion
+
+### v3.0
+- Archive root: .planning/milestones/v3.0-phases
+- Archived dirs: none
+- Expected dirs: none
 
 ## Conflicts
 
