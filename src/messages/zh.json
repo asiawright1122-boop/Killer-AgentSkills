@@ -691,14 +691,7 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
     "subtitle": "探索无限可能，赋能你的AI助手",
-    "suggestions": [
-      "PDF处理",
-      "图像生成",
-      "数据分析",
-      "浏览器自动化",
-      "代码审查",
-      "文档处理"
-    ],
+    "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
     "title": "发现 AI Agent 技能",
     "titleHighlight": "AI智能体"
   },
@@ -766,12 +759,7 @@
     "seoIntro": "Killer-Skills 是一个收录 3,400+ AI Agent Skills 的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。",
     "seoTitle": "AI Agent Skills 开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
     "stable": "稳定",
-    "tags": [
-      "研究",
-      "编程",
-      "营销",
-      "分析"
-    ],
+    "tags": ["研究", "编程", "营销", "分析"],
     "trendingSubtitle": "由社区评选的顶级技能。",
     "trendingTitle": "精选技能",
     "viewAll": "查看全部"

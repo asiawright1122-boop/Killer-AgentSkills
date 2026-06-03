@@ -691,14 +691,7 @@
     "searchButton": "Rechercher",
     "searchPlaceholder": "Rechercher... ex: PDF, Analyse de données",
     "subtitle": "Explorez des possibilités infinies, donnez du pouvoir à votre assistant AI",
-    "suggestions": [
-      "PDF",
-      "Génération d'images",
-      "Analyse de données",
-      "Navigateur",
-      "Revue de code",
-      "Documents"
-    ],
+    "suggestions": ["PDF", "Génération d'images", "Analyse de données", "Navigateur", "Revue de code", "Documents"],
     "title": "Découvrez les Compétences d'Agent AI",
     "titleHighlight": "Agent AI"
   },
@@ -766,12 +759,7 @@
     "seoIntro": "Killer-Skills est un répertoire open source et un point d’entrée d’installation pour plus de 3 400 skills d’agents IA. Les développeurs y trouvent des outils fiables plus vite qu’en parcourant des dépôts GitHub bruts, puis passent dans le même flux aux collections, aux pages de solutions et à la documentation d’installation.",
     "seoTitle": "Répertoire AI Agent Skills et serveurs MCP",
     "stable": "Stable",
-    "tags": [
-      "Recherche",
-      "Codage",
-      "Marketing",
-      "Analyse"
-    ],
+    "tags": ["Recherche", "Codage", "Marketing", "Analyse"],
     "trendingSubtitle": "Les skills les mieux notés et les plus populaires de la communauté.",
     "trendingTitle": "Compétences Tendance",
     "viewAll": "Tout voir"
