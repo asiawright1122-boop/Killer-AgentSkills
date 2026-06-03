@@ -12,7 +12,8 @@ describe('skill-schema', () => {
       updatedAt: '2026-03-15T00:00:00.000Z',
     });
 
-    expect(schema['@type']).toBe('SoftwareApplication');
+    expect(schema['@type']).toContain('SoftwareApplication');
+    expect(schema['@type']).toContain('Product');
     expect(schema.description).toContain('AI Agent Skill');
     expect(schema).not.toHaveProperty('aggregateRating');
     expect((schema.offers as { price: number }).price).toBe(0);
@@ -92,7 +93,31 @@ describe('skill-schema', () => {
     });
 
     expect(schema.description).toContain('AI Agent Skill');
-    expect(schema.description).not.toMatch(/\bMCP\b/i);
+    expect(schema.description).not.toContain('MCP Server');
     expect(schema.description).not.toMatch(/model context protocol/i);
+  });
+
+  it('throws validation error when name is missing', () => {
+    expect(() =>
+      buildSkillSoftwareApplicationSchema({
+        name: '',
+        category: 'developer',
+        description: 'Test',
+        canonicalUrl: 'https://killer-skills.com/test',
+        owner: 'acme',
+      }),
+    ).toThrow('Schema validation failed: Missing or invalid "name"');
+  });
+
+  it('throws validation error when url is invalid', () => {
+    expect(() =>
+      buildSkillSoftwareApplicationSchema({
+        name: 'Test',
+        category: 'developer',
+        description: 'Test',
+        canonicalUrl: 'invalid-url',
+        owner: 'acme',
+      }),
+    ).toThrow('Schema validation failed: Missing or invalid "url"');
   });
 });

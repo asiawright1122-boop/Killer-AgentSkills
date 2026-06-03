@@ -1,8 +1,27 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { buildRecoveryExperimentLadderReport } from './recovery-experiment-ladder';
 import type { AuthorityUpliftScorecardReport } from './authority-uplift-scorecard';
 import type { RecoveryExecutionQueueReport } from './recovery-execution-queue';
 import type { RecoveryDeltaBoardReport } from './recovery-delta-board';
+
+vi.mock('node:fs', async (importOriginal) => {
+  const original = await importOriginal<typeof import('node:fs')>();
+  return {
+    ...original,
+    readFileSync: (path: any, options: any) => {
+      if (typeof path === 'string' && path.endsWith('recovery-scorecard.md')) {
+        return '# Post-Intervention Recovery Scorecard\n\n| Metric | Value |\n|---|---|\n| **Technical Recovery Rate** | **96.00%** |';
+      }
+      return original.readFileSync(path, options);
+    },
+    existsSync: (path: any) => {
+      if (typeof path === 'string' && path.endsWith('recovery-scorecard.md')) {
+        return true;
+      }
+      return original.existsSync(path);
+    }
+  };
+});
 
 function createScorecard(overrides: Partial<AuthorityUpliftScorecardReport> = {}): AuthorityUpliftScorecardReport {
   return {

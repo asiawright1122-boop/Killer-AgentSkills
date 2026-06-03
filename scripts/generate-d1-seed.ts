@@ -216,14 +216,19 @@ set -u
 
 retryable_error() {
   local output="$1"
-  [[ "$output" == *"D1_RESET_DO"* ]] || [[ "$output" == *"Not currently importing anything."* ]]
+  [[ "$output" == *"D1_RESET_DO"* ]] || \
+  [[ "$output" == *"Not currently importing anything."* ]] || \
+  [[ "$output" == *"502 Bad Gateway"* ]] || \
+  [[ "$output" == *"504 Gateway Time-out"* ]] || \
+  [[ "$output" == *"Network error"* ]] || \
+  [[ "$output" == *"fetch failed"* ]]
 }
 
 run_seed() {
   local index="$1"
   local cmd="$2"
   local attempt=1
-  local max_attempts=3
+  local max_attempts=5
 
   echo "🌀 Executing seed \${index}/\${TOTAL_SEEDS}..."
 

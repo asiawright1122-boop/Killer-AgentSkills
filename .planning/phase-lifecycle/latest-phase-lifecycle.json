@@ -1,22 +1,11 @@
 {
-  "generatedAt": "2026-06-03T07:25:23.391Z",
+  "generatedAt": "2026-06-03T11:22:25.692Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.7",
-  "activeMilestoneName": "Operator Profiles and Fresh Ingestion",
+  "activeMilestone": "v3.0",
+  "activeMilestoneName": "Advanced Search Engine Optimization",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.7-phases",
-  "activePhases": [
-    {
-      "phaseNumber": "80",
-      "slug": "operator-profiles-and-fresh-ingestion",
-      "dirName": "80-operator-profiles-and-fresh-ingestion",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/80-operator-profiles-and-fresh-ingestion"
-      ],
-      "archivePaths": []
-    }
-  ],
+  "activePhaseArchivePath": ".planning/milestones/v3.0-phases",
+  "activePhases": [],
   "archivedMilestones": [
     {
       "milestone": "v1.0",
@@ -252,6 +241,16 @@
       ],
       "expectedPhaseDirs": [
         ".planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening"
+      ]
+    },
+    {
+      "milestone": "v2.7",
+      "phaseArchivePath": ".planning/milestones/v2.7-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion"
       ]
     }
   ],

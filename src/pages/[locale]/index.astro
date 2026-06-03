@@ -29,7 +29,7 @@ const isZhCopy = typedLocale.startsWith('zh');
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 
 // Load featured skills directly from D1 with LIMIT (optimized — no full table scan)
-let featuredSkills = [];
+let featuredSkills: any[] = [];
 try {
   featuredSkills = await getFeaturedSkillsDirect(env, 6);
 } catch (e) {

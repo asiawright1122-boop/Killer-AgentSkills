@@ -229,6 +229,7 @@ export interface AIProviderEvent {
   status?: number;
   attempt?: number;
   delayMs?: number;
+  latencyMs?: number;
   detail: string;
 }
 
@@ -258,6 +259,8 @@ export interface AIProviderLabelTelemetry {
   quarantineReason: string | null;
   hardDisabled: boolean;
   hardDisableReason: string | null;
+  circuitBreakerOpen: boolean;
+  averageLatencyMs: number;
 }
 
 export interface AIFallbackActivation {
@@ -439,6 +442,8 @@ type ProviderLabelState = {
   lastFailureAt: string | null;
   quarantinedAt: string | null;
   quarantineReason: string | null;
+  latencySum: number;
+  latencyCount: number;
 };
 
 const sanitizeKeywordToken = (raw: string): string =>
@@ -1155,6 +1160,8 @@ export class AIService {
       lastFailureAt: null,
       quarantinedAt: null,
       quarantineReason: null,
+      latencySum: 0,
+      latencyCount: 0,
     };
     this.providerLabelStats.set(label, created);
     return created;
@@ -1198,6 +1205,10 @@ export class AIService {
         labelState.lastSuccessAt = next.timestamp;
         labelState.lastError = null;
         labelState.lastStatus = next.status ?? null;
+        if (next.latencyMs) {
+          labelState.latencySum += next.latencyMs;
+          labelState.latencyCount += 1;
+        }
       } else if (next.type === 'provider_failure') {
         labelState.failureCount += 1;
         const retryable = this.isRetryableFailure(next.provider || labelState.provider, next.status, next.detail);
@@ -1215,6 +1226,12 @@ export class AIService {
         } else if (next.status != null) {
           labelState.consecutive429s = 0;
         }
+        
+        // Circuit Breaker logic
+        if (labelState.consecutiveRetryableFailures >= 3 || labelState.consecutive429s >= 3) {
+           labelState.circuitBreakerOpen = true;
+        }
+
         labelState.lastFailureAt = next.timestamp;
         labelState.lastError = next.detail;
         labelState.lastStatus = next.status ?? null;
@@ -2559,7 +2576,9 @@ export class AIService {
               attempt + 1,
             );
           }
+          const callStart = performance.now();
           const result = await this.callAISingle(prompt, p.provider, p.key, jsonMode, controller.signal);
+          const latencyMs = Math.round(performance.now() - callStart);
 
           if (p.provider === 'nvidia') this.stats.nvidia++;
           else if (p.provider === 'siliconflow') this.stats.siliconflow++;
@@ -2570,6 +2589,7 @@ export class AIService {
             provider: p.provider,
             label: p.label,
             attempt: attempt + 1,
+            latencyMs,
             detail: jsonMode ? 'json response received' : 'response received',
           });
 

@@ -266,6 +266,18 @@ function categorizeExecutionItem(item: RecoveryExecutionQueueItem): RecoveryExpe
   return 'triage';
 }
 
+function getTechnicalRecoveryRate(): number | null {
+  const scorecardPath = resolve(process.cwd(), '.planning', 'dashboards', 'recovery-scorecard.md');
+  if (!existsSync(scorecardPath)) return null;
+  try {
+    const content = readFileSync(scorecardPath, 'utf8');
+    const match = content.match(/Technical Recovery Rate\*\* \| \*\*([\d.]+)%/i);
+    return match ? parseFloat(match[1]) : null;
+  } catch {
+    return null;
+  }
+}
+
 function buildAutomationPolicy(
   scorecard: AuthorityUpliftScorecardReport,
   executionQueue: RecoveryExecutionQueueReport,
@@ -277,6 +289,9 @@ function buildAutomationPolicy(
   const proofReady = deltaBoard.trustVerdict === 'ready' && deltaBoard.baselineSeeded === false;
   const expansionOpen = scorecard.expansionBoundary.status === 'open';
   const promoteReadySurfaces = scorecard.summary.promote;
+
+  const rate = getTechnicalRecoveryRate();
+  const ratePassed = rate !== null && rate >= 95.0;
 
   const gates: RecoveryExperimentGate[] = [
     {
@@ -303,6 +318,14 @@ function buildAutomationPolicy(
       observed: `${blockedMeasurementItems.length} blocked measurement item(s).`,
       notes: blockedMeasurementItems.length === 0 ? [] : ['Blocked measurement work means automation would amplify uncertainty.'],
     },
+    {
+      id: 'technical-recovery-95',
+      label: 'Technical recovery rate is sufficient',
+      status: ratePassed ? 'pass' : 'fail',
+      target: 'Technical recovery rate >= 95.0% inside recovery-scorecard.md.',
+      observed: rate !== null ? `${rate.toFixed(2)}%` : 'n/a (scorecard missing)',
+      notes: ratePassed ? [] : ['Technical recovery indexation threshold not cleared (needs >= 95%).'],
+    },
   ];
 
   const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
@@ -314,6 +337,7 @@ function buildAutomationPolicy(
         !proofReady ? 'Collect another trustworthy proof window before any experiment can be considered automation-ready.' : '',
         !expansionOpen ? 'Keep automation locked until the authority uplift boundary opens.' : '',
         blockedMeasurementItems.length > 0 ? 'Clear blocked measurement prerequisites before promoting any experiment into automation candidacy.' : '',
+        (rate === null || !ratePassed) ? 'Ensure technical recovery rate is >= 95% by importing fresh indexes and resolving canonicals/404s.' : '',
       ]);
 
   return {

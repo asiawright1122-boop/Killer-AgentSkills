@@ -10,19 +10,47 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.7` are shipped.
+- `v1.0` through `v3.0` are shipped.
+- `v3.0` implemented structured JSON-LD schemas, automated IndexNow search indexing submissions, and pre-rendered semantic recommendation links.
+- `v2.9` automated GSC Coverage ingestion, implemented technical recovery scorecard tracking, and added lock gates to the automation policy.
+- `v2.8` expanded the SEO baseline via i18n, rebuilt UX for search/discovery, established latency/cost-based telemetry routing, and hardened edge data synchronization.
 - `v2.7` established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
-- `v2.6` resolved index divergence between sitemap and indexable cache, and isolated SiliconFlow provider fallback configurations.
 - `v2.5` implemented server-side event tracking for directory views and edge middleware concurrency density scaling fallback.
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v2.7 Operator Profiles and Fresh Ingestion
+## Most Recent Shipment: v3.0 Advanced Search Engine Optimization
+
+**Outcome:** Implemented schema structured data, automated search indexing triggers, and semantic internal linking to build a premium, highly rankable directory surface.
+
+**Shipped capabilities:**
+- Structured JSON-LD schemas (`SoftwareApplication`, `Product`, `BreadcrumbList`) with Astro build validation guards.
+- IndexNow automated URL pushing (`scripts/submit-indexnow.ts`) dynamically parsing site modifications and using verification keys.
+- Crawler semantic recommendation link navigation, pre-rendered during build to bypass runtime queries.
+
+## Previous Shipment: v2.9 Coverage Data Ingestion & Post-Intervention Automation
+
+**Outcome:** Automated the ingestion of fresh GSC Coverage Drilldown data and established the promotion engine for post-intervention recovery automation.
+
+**Shipped capabilities:**
+- Ingestion pipeline for GSC Coverage exports with 7-day SLA freshness validation.
+- Technical recovery scorecard calculation.
+- Automated lock gate (`technical-recovery-95`) in recovery experiment ladder to prevent unverified directory expansions.
+
+## Previous Shipment: v2.8 Growth, Telemetry & UX Expansion
+
+**Outcome:** Expanded the SEO baseline via i18n, rebuilt UX for search/discovery, established latency/cost-based telemetry routing, and hardened edge data synchronization.
+
+**Shipped capabilities:**
+- Search UI, typography, i18n automation, and 404 remediation pipeline.
+- Circuit breaker state-based tracking and provider smart routing.
+- D1/KV sync hardening and observability dashboards.
+
+## Previous Shipment: v2.7 Operator Profiles and Fresh Ingestion
 
 **Outcome:** Established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
 
 **Shipped capabilities:**
-
 - Established operator profiles (`nvidia-first`, `workers-ai-fallback`, `openrouter-preferred`) to dynamically routing provider backups.
 - Added validation guard in `ai-config-guard.ts` asserting profile compliance.
 - Ingested fresh GSC Coverage Drilldown metadata to resolve GSC SLA freshness warnings.
@@ -45,10 +73,6 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
 - Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
 
-## Current Milestone: v2.8 Growth, Telemetry & UX Expansion
-
-**Goal:** Expand the SEO baseline via i18n, rebuild UX for search/discovery, establish latency/cost-based telemetry routing, and harden edge data synchronization.
-
 ## Deferred Beyond v1.8
 
 - **AIOPS-12**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
@@ -59,6 +83,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [Dynamic JSON-LD Schema] - `v3.0`
+- ✓ [IndexNow Automated Ingest] - `v3.0`
+- ✓ [Crawler Semantic Navigation] - `v3.0`
 - ✓ [Index Integrity Alignment] - `v2.6`
 - ✓ [AI Telemetry and Fallback Hardening] - `v2.6`
 - ✓ [Directory Analytics Tracking] - `v2.5`
@@ -185,4 +212,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-03 after shipping v2.6 Index Alignment and AI Posture Hardening._
+_Last updated: 2026-06-03 after shipping v3.0 Advanced Search Engine Optimization._

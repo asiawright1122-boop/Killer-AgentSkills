@@ -3,12 +3,12 @@ import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
 import { getSkillById, getLocalizedDescription } from '../../../../lib/skills';
 import { getSkillsListingByRefs } from '../../../../lib/kv';
-import { getRelatedSkillsFast } from '../../../../lib/kv';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
 import { resolveSkillDetailLocale } from '../../../../lib/skill-locale-link';
 import sitemapSkillsData from '../../../../../data/sitemap-skills.json';
+import relatedSkillsLookup from '../../../../../data/related-skills-lookup.json';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import SkillInstall from '../../../../components/SkillInstall.astro';
 import SkillFaq from '../../../../components/SkillFaq.astro';
@@ -855,11 +855,13 @@ if (readmeRenderBudget.truncated) {
   );
 }
 
-// ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
-const relatedSkillsSource =
-  isCrawlerRequest || renderRepoDirectory || useStaticFallback
-    ? []
-    : await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
+// ⚡ Related skills resolved statically from pre-rendered lookup to prevent runtime DB queries
+let relatedSkillsSource: any[] = [];
+if (!renderRepoDirectory) {
+  const skillId = skill.id || fullId;
+  const indices = (relatedSkillsLookup as any).lookup[skillId] || [];
+  relatedSkillsSource = indices.map((idx: number) => (relatedSkillsLookup as any).skills[idx]).filter(Boolean);
+}
 
 // --- Phase 11: Deep SSR Localization (Markdown Content & Related Skills) ---
 let readmeContent = readmeRenderBudget.content;

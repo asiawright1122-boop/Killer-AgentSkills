@@ -52,7 +52,7 @@ export function buildSkillSoftwareApplicationSchema({
   const rating = deriveRatingFromStars(stars);
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
+    '@type': ['SoftwareApplication', 'Product'],
     name,
     operatingSystem: 'Any',
     applicationCategory: 'DeveloperApplication',
@@ -92,5 +92,30 @@ export function buildSkillSoftwareApplicationSchema({
     };
   }
 
+  validateSchema(schema);
   return schema;
+}
+
+function validateSchema(schema: Record<string, any>) {
+  if (!schema.name || typeof schema.name !== 'string' || !schema.name.trim()) {
+    throw new Error('Schema validation failed: Missing or invalid "name"');
+  }
+  if (!schema.url || typeof schema.url !== 'string' || !schema.url.startsWith('http')) {
+    throw new Error('Schema validation failed: Missing or invalid "url"');
+  }
+  if (!schema.operatingSystem) {
+    throw new Error('Schema validation failed: Missing "operatingSystem" for SoftwareApplication');
+  }
+  if (!schema.author || !schema.author.name) {
+    throw new Error('Schema validation failed: Missing "author.name"');
+  }
+  if (schema.aggregateRating) {
+    const r = schema.aggregateRating;
+    if (typeof r.ratingValue !== 'number' || typeof r.ratingCount !== 'number') {
+      throw new Error('Schema validation failed: Invalid "aggregateRating" metrics');
+    }
+  }
+  if (!schema.offers || schema.offers['@type'] !== 'Offer') {
+    throw new Error('Schema validation failed: Missing or invalid "offers"');
+  }
 }

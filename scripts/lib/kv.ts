@@ -9,7 +9,7 @@
 
 import 'dotenv/config';
 import { KV_NAMESPACE_ID } from './constants';
-import { fetchWithTimeout } from './utils';
+import { fetchWithTimeout, pLimit } from './utils';
 
 export interface KVConfig {
     apiToken: string;
@@ -76,44 +76,52 @@ export class KVService {
      */
     async writeBulk(
         items: Array<{ key: string; value: string }>,
-        options: { batchSize?: number; delayMs?: number; expiration_ttl?: number } = {}
+        options: { batchSize?: number; delayMs?: number; expiration_ttl?: number; concurrency?: number } = {}
     ): Promise<boolean> {
-        const { batchSize = 100, delayMs = 500, expiration_ttl } = options;
+        const { batchSize = 100, delayMs = 500, expiration_ttl, concurrency = 3 } = options;
         const url = `${this.baseUrl}/bulk`;
         let allSuccess = true;
 
-        for (let i = 0; i < items.length; i += batchSize) {
-            const batch = items.slice(i, i + batchSize).map(e => {
-                const entry: any = { key: e.key, value: e.value };
-                if (expiration_ttl) entry.expiration_ttl = expiration_ttl;
-                return entry;
-            });
+        const limit = pLimit(concurrency);
+        const batches = [];
 
+        for (let i = 0; i < items.length; i += batchSize) {
+            batches.push({
+                startIndex: i,
+                data: items.slice(i, i + batchSize).map(e => {
+                    const entry: any = { key: e.key, value: e.value };
+                    if (expiration_ttl) entry.expiration_ttl = expiration_ttl;
+                    return entry;
+                })
+            });
+        }
+
+        const tasks = batches.map((batch, index) => limit(async () => {
             try {
                 const response = await fetchWithTimeout(url, {
                     method: 'PUT',
                     headers: this.headers,
-                    body: JSON.stringify(batch),
+                    body: JSON.stringify(batch.data),
                 }, 60000);
 
                 if (!response.ok) {
                     const error = await response.text();
-                    console.error(`❌ KV bulk write failed (${i}-${i + batch.length}): ${error}`);
+                    console.error(`❌ KV bulk write failed (${batch.startIndex}-${batch.startIndex + batch.data.length}): ${error}`);
                     allSuccess = false;
                 } else {
-                    console.log(`✅ KV bulk wrote ${i + 1} - ${i + batch.length} / ${items.length}`);
+                    console.log(`✅ KV bulk wrote ${batch.startIndex + 1} - ${batch.startIndex + batch.data.length} / ${items.length}`);
                 }
             } catch (error) {
-                console.error(`❌ KV bulk write network error:`, error);
+                console.error(`❌ KV bulk write network error for batch ${index}:`, error);
                 allSuccess = false;
             }
 
-            // Rate limit delay between batches
-            if (i + batchSize < items.length) {
+            if (delayMs > 0) {
                 await new Promise(resolve => setTimeout(resolve, delayMs));
             }
-        }
+        }));
 
+        await Promise.all(tasks);
         return allSuccess;
     }
 

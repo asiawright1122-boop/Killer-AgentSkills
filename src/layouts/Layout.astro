@@ -23,6 +23,7 @@ interface Props {
   xDefaultLocale?: string;
   brandSuffix?: 'full' | 'short';
   robots?: string;
+  jsonLd?: string | Record<string, any>;
 }
 
 const SITE_URL = import.meta.env.SITE ?? 'https://killer-skills.com';
@@ -43,6 +44,7 @@ const {
   xDefaultLocale: customXDefaultLocale,
   brandSuffix,
   robots,
+  jsonLd,
 } = Astro.props;
 
 // RTL support for Arabic
@@ -184,6 +186,12 @@ const robotsContent =
     <meta name="twitter:image:alt" content={metadata.socialTitle} />
 
     <title>{metadata.documentTitle}</title>
+
+    {
+      jsonLd && (
+        <script type="application/ld+json" set:html={typeof jsonLd === 'string' ? jsonLd : JSON.stringify(jsonLd)} />
+      )
+    }
 
     <!-- Google AdSense site verification / Auto ads bootstrap -->
     <script async src={ADSENSE_SCRIPT_SRC} crossorigin="anonymous"></script>

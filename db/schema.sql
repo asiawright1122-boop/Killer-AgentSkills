@@ -71,3 +71,13 @@ CREATE TRIGGER skills_au AFTER UPDATE ON skills BEGIN
         COALESCE(new.name, '') || ' ' || COALESCE(new.owner, '') || ' ' || COALESCE(new.repo, '') || ' ' || COALESCE(new.category, '')
     );
 END;
+
+-- GSC Coverage Drilldown table for Q2 strategic automation
+CREATE TABLE IF NOT EXISTS gsc_coverage_drilldown (
+    url TEXT PRIMARY KEY,
+    status TEXT,
+    reason TEXT,
+    last_crawled TEXT,
+    ingested_at TEXT
+);
+

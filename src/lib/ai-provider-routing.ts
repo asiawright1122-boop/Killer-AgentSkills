@@ -33,6 +33,9 @@ export type AIProviderRoutingState = {
   quarantineReason?: string | null;
   hardDisabled?: boolean | null;
   hardDisableReason?: string | null;
+  circuitBreakerOpen?: boolean | null;
+  averageLatencyMs?: number | null;
+  estimatedCostPer1k?: number | null;
 };
 
 export type AIProviderRoutingCandidate<TProvider extends AIProviderName = AIProviderName> = {
@@ -97,6 +100,9 @@ type NormalizedRoutingState = {
   quarantineReason: string | null;
   hardDisabled: boolean;
   hardDisableReason: string | null;
+  circuitBreakerOpen: boolean;
+  averageLatencyMs: number;
+  estimatedCostPer1k: number;
 };
 
 export type AIProviderRoutingDecision =
@@ -230,6 +236,9 @@ function resolveCandidateState(
     quarantineReason: normalizeText(state?.quarantineReason),
     hardDisabled: normalizeBoolean(state?.hardDisabled),
     hardDisableReason: normalizeText(state?.hardDisableReason),
+    circuitBreakerOpen: normalizeBoolean(state?.circuitBreakerOpen),
+    averageLatencyMs: normalizeMetric(state?.averageLatencyMs),
+    estimatedCostPer1k: normalizeMetric(state?.estimatedCostPer1k),
   };
 }
 
@@ -237,6 +246,7 @@ function buildPressureReasons(state: NormalizedRoutingState): string[] {
   const reasons: string[] = [];
 
   if (state.coolingDown) reasons.push(`cooldown=${state.cooldownReason || 'active'}`);
+  if (state.circuitBreakerOpen) reasons.push(`circuit_breaker=open`);
   if (state.quarantined) reasons.push(`quarantined=${state.quarantineReason || 'yes'}`);
   if (state.hardDisabled) reasons.push(`hard_disabled=${state.hardDisableReason || 'yes'}`);
   if (state.consecutive429s > 0) reasons.push(`consecutive_429s=${state.consecutive429s}`);
@@ -264,6 +274,7 @@ function buildPressureReasons(state: NormalizedRoutingState): string[] {
 function calculatePressureScore(state: NormalizedRoutingState): number {
   return (
     (state.coolingDown ? 10 : 0) +
+    (state.circuitBreakerOpen ? 15 : 0) +
     (state.quarantined ? 12 : 0) +
     (state.hardDisabled ? 12 : 0) +
     state.consecutive429s * 6 +
@@ -277,6 +288,7 @@ function calculatePressureScore(state: NormalizedRoutingState): number {
 function resolvePressureSeverity(state: NormalizedRoutingState): AIProviderRoutingPressureEntry['severity'] {
   if (
     state.coolingDown ||
+    state.circuitBreakerOpen ||
     state.quarantined ||
     state.hardDisabled ||
     state.consecutive429s > 0 ||
@@ -446,6 +458,7 @@ export function getProviderRotationOrder(index: number, rotationStart: number, p
 export function orderProviderCandidatesByHealth<T extends AIProviderRoutingCandidate>(
   candidates: T[],
   stateByLabel?: ReadonlyMap<string, AIProviderRoutingState | null | undefined>,
+  operatorProfile?: AIOperatorProfileName,
 ): T[] {
   return candidates
     .filter((candidate) => candidate.available !== false)
@@ -454,7 +467,17 @@ export function orderProviderCandidatesByHealth<T extends AIProviderRoutingCandi
       state: resolveCandidateState(candidate, stateByLabel),
       health: resolveCandidateHealth(candidate, stateByLabel),
     }))
-    .sort(compareCandidates)
+    .filter((c) => !c.state.circuitBreakerOpen && !c.state.hardDisabled && !c.state.quarantined && !c.state.coolingDown)
+    .sort((a, b) => {
+      if (operatorProfile === 'budget') {
+        const costDiff = (a.state.estimatedCostPer1k || 0) - (b.state.estimatedCostPer1k || 0);
+        if (costDiff !== 0) return costDiff;
+      } else if (operatorProfile === 'speed') {
+        const latDiff = (a.state.averageLatencyMs || 0) - (b.state.averageLatencyMs || 0);
+        if (latDiff !== 0) return latDiff;
+      }
+      return compareCandidates(a, b);
+    })
     .map(({ state: _state, health: _health, ...candidate }) => candidate as unknown as T);
 }
 
@@ -473,7 +496,11 @@ export function buildProviderRoutingPlan<
 }): AIProviderRoutingPlan<TPrimary, TBackup> {
   const workloadProfile = options.workloadProfile || DEFAULT_WORKLOAD_PROFILE;
   const operatorProfile = options.operatorProfile || parseAIOperatorProfile(process.env.AI_OPERATOR_PROFILE);
-  const primaryOrder = orderProviderCandidatesByHealth(options.primaryCandidates, options.stateByLabel);
+  const primaryOrder = orderProviderCandidatesByHealth(
+    options.primaryCandidates,
+    options.stateByLabel,
+    operatorProfile,
+  );
   const workloadAwareBackupCandidates = options.backupCandidates.map((candidate) => ({
     ...candidate,
     groupPriority: resolveBackupGroupPriority(
@@ -496,7 +523,7 @@ export function buildProviderRoutingPlan<
         })
       : { backupsAllowed: false, activationReason: null };
   const backupOrder = activation.backupsAllowed
-    ? orderProviderCandidatesByHealth(workloadAwareBackupCandidates, options.stateByLabel)
+    ? orderProviderCandidatesByHealth(workloadAwareBackupCandidates, options.stateByLabel, operatorProfile)
     : [];
   const pressureLabels = [
     ...options.primaryCandidates

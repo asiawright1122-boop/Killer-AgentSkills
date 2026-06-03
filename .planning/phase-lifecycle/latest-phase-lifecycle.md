@@ -1,16 +1,15 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T07:25:23.391Z
-- Active milestone: v2.7 (Operator Profiles and Fresh Ingestion)
+- Generated: 2026-06-03T11:22:25.692Z
+- Active milestone: v3.0 (Advanced Search Engine Optimization)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.7-phases
+- Active archive path: .planning/milestones/v3.0-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 80 | 80-operator-profiles-and-fresh-ingestion | present | .planning/phases/80-operator-profiles-and-fresh-ingestion | missing |
 
 ## Archive Actions
 
@@ -105,6 +104,11 @@
 - Archive root: .planning/milestones/v2.6-phases
 - Archived dirs: .planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening
 - Expected dirs: .planning/milestones/v2.6-phases/79-index-integrity-and-ai-posture-hardening
+
+### v2.7
+- Archive root: .planning/milestones/v2.7-phases
+- Archived dirs: .planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion
+- Expected dirs: .planning/milestones/v2.7-phases/80-operator-profiles-and-fresh-ingestion
 
 ## Conflicts
 

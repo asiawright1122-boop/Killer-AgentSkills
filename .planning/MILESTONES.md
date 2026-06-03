@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v2.7 Operator Profiles and Fresh Ingestion (Closeout Ready)
+### v3.0 Advanced Search Engine Optimization (Closeout Ready)
 
-**Delivered:** Define goals and requirements for v2.7.
+**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 1/1 complete (0 plans total)
+**Phases completed:** 0/0 complete (0 plans total)
 
 **Key accomplishments:**
-- Roadmap phases tracked: 1
-- Requirement coverage: 2/2 satisfied
+- Roadmap phases tracked: 0
+- Requirement coverage: 0/0 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 1/1 complete phases, 0 plans, 2/2 requirements satisfied, milestone audit passed
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.7-MILESTONE-AUDIT.md, .planning/milestones/v2.7-BOOTSTRAP.md, .planning/milestones/v2.7-CLOSEOUT.md
+- 0/0 complete phases, 0 plans, milestone audit pending
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.0-MILESTONE-AUDIT.md, .planning/milestones/v3.0-BOOTSTRAP.md, .planning/milestones/v3.0-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v2.7-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v3.0-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v2.7 v2.7 (Shipped: SHIPPED)
+
+**Delivered:** `v2.7 Operator Profiles and Fresh Ingestion` shipped on `2026-06-03` and is now archived.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 2/2 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v2.7-ROADMAP.md, .planning/milestones/v2.7-REQUIREMENTS.md, .planning/milestones/v2.7-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v2.6 v2.6 (Shipped: SHIPPED)
 
 **Delivered:** `v2.6 Index Alignment and AI Posture Hardening` shipped on `2026-06-03` and is now archived.
