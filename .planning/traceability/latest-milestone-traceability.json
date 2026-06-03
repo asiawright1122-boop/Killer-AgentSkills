@@ -1,41 +1,51 @@
 {
-  "generatedAt": "2026-06-03T02:42:12.126Z",
+  "generatedAt": "2026-06-03T06:46:58.479Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v2.3",
-  "milestoneName": "Directory Rollout Monitoring and Optimization",
+  "milestone": "v2.6",
+  "milestoneName": "Index Alignment and AI Posture Hardening",
   "activePhases": [
     {
-      "phaseNumber": "76",
-      "slug": "directory-rollout-monitoring-and-optimization",
+      "phaseNumber": "79",
+      "slug": "index-integrity-and-ai-posture-hardening",
       "requirements": [
-        "SEO-19",
-        "REC-37"
+        "REC-40",
+        "AIOPS-12"
       ],
       "phaseDirs": [
-        "76-directory-rollout-monitoring-and-optimization"
+        "79-index-integrity-and-ai-posture-hardening"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/79-index-integrity-and-ai-posture-hardening/79-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/79-index-integrity-and-ai-posture-hardening/79-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "REC-40",
+        "AIOPS-12"
+      ],
+      "verificationRequirementsCompleted": [
+        "REC-40",
+        "AIOPS-12"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     }
   ],
   "requirements": [
     {
-      "id": "SEO-19",
-      "expectedPhase": "76",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "id": "REC-40",
+      "expectedPhase": "79",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
-      "id": "REC-37",
-      "expectedPhase": "76",
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "id": "AIOPS-12",
+      "expectedPhase": "79",
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     }
   ],
   "hygiene": {

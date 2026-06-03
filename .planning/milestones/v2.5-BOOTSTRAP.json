@@ -1,7 +1,7 @@
 {
   "milestone": "v2.5",
   "milestoneName": "Directory Automation Escalation and Post-Rollout Analytics",
-  "goal": "Implement post-rollout analytics tracking and establish automated scaling policies for edge rendering routes.",
+  "goal": null,
   "sourceMilestone": "v2.4",
   "sourceMilestoneName": "v2.4",
   "sourceArtifacts": [
@@ -21,18 +21,6 @@
     ".planning/traceability/latest-milestone-traceability.md",
     ".planning/traceability/latest-milestone-traceability.json"
   ],
-  "phases": [
-    {
-      "number": "78",
-      "slug": "directory-analytics-and-scaling-escalation",
-      "requirements": [
-        "SEO-21",
-        "REC-39"
-      ]
-    }
-  ],
-  "requirements": [
-    "SEO-21",
-    "REC-39"
-  ]
+  "phases": [],
+  "requirements": []
 }

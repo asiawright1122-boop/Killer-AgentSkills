@@ -1,0 +1,38 @@
+{
+  "milestone": "v2.6",
+  "milestoneName": "Index Alignment and AI Posture Hardening",
+  "goal": "Define goals and requirements for v2.6.",
+  "sourceMilestone": "v2.5",
+  "sourceMilestoneName": "v2.5",
+  "sourceArtifacts": [
+    ".planning/milestones/v2.5-ROADMAP.md",
+    ".planning/milestones/v2.5-REQUIREMENTS.md",
+    ".planning/milestones/v2.5-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "79",
+      "slug": "index-integrity-and-ai-posture-hardening",
+      "requirements": [
+        "REC-40",
+        "AIOPS-12"
+      ]
+    }
+  ],
+  "requirements": [
+    "REC-40",
+    "AIOPS-12"
+  ]
+}

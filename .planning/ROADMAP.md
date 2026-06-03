@@ -2,23 +2,36 @@
 
 ## Overview
 
-`v2.5 Directory Automation Escalation and Post-Rollout Analytics` shipped on `2026-06-03` and is now archived.
+`v2.6 Index Alignment and AI Posture Hardening` shipped on `2026-06-03` and is now archived.
 
-This milestone focuses on establishing server-side analytics for repository directory views and implementing auto-scaling policies for edge routes.
+This milestone focuses on resolving index divergence between the sitemap and indexable cache, and refreshing AI telemetry/SiliconFlow provider posture.
 
 ## Immediate Next Actions
 
-- Define goals and requirements for v2.6.
+- None. Milestone v2.6 complete.
 
-## Current Milestone: v2.6 Planning
+## Current Milestone: v2.6 Index Alignment and AI Posture Hardening
 
-**Goal:** Define next milestone scope.
+**Goal:** Resolve index divergence between sitemap and indexable cache, and refresh AI telemetry/SiliconFlow provider posture.
 
-**Requirements:** None active
-**Phase range:** None
+**Requirements:** `REC-40`, `AIOPS-12`
+**Phase range:** 79
+
+### Phase 79: index-integrity-and-ai-posture-hardening
+
+**Goal:** Align sitemap skills with indexable cache and refresh AI provider status.
+**Depends on:** Shipped v2.5.
+**Requirements:** `REC-40`, `AIOPS-12`
+**Success Criteria** (what must be TRUE):
+1. Index integrity check passes with zero divergence between sitemap and indexable cache.
+2. AI provider health validation is successfully executed, SiliconFlow alert is resolved or handled, and AI telemetry reports are updated to current status.
+
+Plans:
+- [x] `79-01`: Align sitemap with indexable cache and refresh AI provider telemetry.
 
 ## Milestones
 
+- ✅ **v2.6 Index Alignment and AI Posture Hardening** — phase 79 (shipped 2026-06-03; [archive](./milestones/v2.6-ROADMAP.md), [requirements](./milestones/v2.6-REQUIREMENTS.md), [audit](./milestones/v2.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.6-BOOTSTRAP.md), [closeout](./milestones/v2.6-CLOSEOUT.md))
 - ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [archive](./milestones/v2.5-ROADMAP.md), [requirements](./milestones/v2.5-REQUIREMENTS.md), [audit](./milestones/v2.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.5-BOOTSTRAP.md), [closeout](./milestones/v2.5-CLOSEOUT.md))
 - ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [archive](./milestones/v2.4-ROADMAP.md), [requirements](./milestones/v2.4-REQUIREMENTS.md), [audit](./milestones/v2.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.4-BOOTSTRAP.md), [closeout](./milestones/v2.4-CLOSEOUT.md))
 - ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [archive](./milestones/v2.3-ROADMAP.md), [requirements](./milestones/v2.3-REQUIREMENTS.md), [audit](./milestones/v2.3-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.3-BOOTSTRAP.md), [closeout](./milestones/v2.3-CLOSEOUT.md))
@@ -48,6 +61,7 @@ This milestone focuses on establishing server-side analytics for repository dire
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v2.6 Index Alignment and AI Posture Hardening | 79 | 1/1 | Complete | 2026-06-03 |
 | v2.5 Directory Automation Escalation and Post-Rollout Analytics | 78 | 1/1 | Complete | 2026-06-03 |
 | v2.4 Directory Continuous Monitoring and CTR Optimization | 77 | 1/1 | Complete | 2026-06-03 |
 | v2.3 Directory Rollout Monitoring and Optimization | 76 | 1/1 | Complete | 2026-06-03 |

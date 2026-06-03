@@ -1,12 +1,12 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.5
-milestone_name: Directory Automation Escalation and Post-Rollout Analytics
-current_phase: '78'
+milestone: v2.6
+milestone_name: Index Alignment and AI Posture Hardening
+current_phase: ''
 current_plan: ''
-status: complete
-stopped_at: '2026-06-03T11:51:00.000Z'
-last_updated: '2026-06-03T11:51:00.000Z'
+status: completed
+stopped_at: ''
+last_updated: '2026-06-03T14:45:00.000Z'
 last_activity: 2026-06-03
 progress:
   total_phases: 1
@@ -23,23 +23,23 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-06-03)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** `v2.5` focuses on establishing server-side analytics for repository directory views and implementing auto-scaling policies for edge routes.
+**Current focus:** `v2.6` focuses on resolving index divergence between sitemap and indexable cache, and refreshing AI provider telemetry/SiliconFlow posture config.
 
 ## Current Position
 
-**Current Milestone:** `v2.5` Directory Automation Escalation and Post-Rollout Analytics (Complete)
+**Current Milestone:** `v2.6` Index Alignment and AI Posture Hardening (Complete)
 **Current Phase:** ''
 **Current Plan:** ''
-**Status:** Milestone v2.5 complete.
+**Status:** Milestone v2.6 completed.
 **Last Activity:** 2026-06-03
-**Last Activity Description:** Completed Milestone v2.5 Phase 78 analytics implementation and edge throttling fallback guards.
+**Last Activity Description:** Completed Milestone v2.6 Phase 79 index alignment and SiliconFlow posture config isolation.
 **Progress:** 100%
 
 ## Performance Metrics
 
 **Most recent shipped milestone:**
 
-- **Milestone:** `v2.5` Directory Automation Escalation and Post-Rollout Analytics
+- **Milestone:** `v2.6` Index Alignment and AI Posture Hardening
 - **Completed Phases:** 1
 - **Completed Plans:** 1
 - **Requirement Coverage:** 2/2 satisfied
@@ -125,9 +125,13 @@ See: `.planning/PROJECT.md` (updated 2026-06-03)
 - Phase 65 added: p0-url-recovery-batches-and-canonical-proof
 - Phase 66 added: priority-surface-ctr-and-ai-search-visibility
 - Phase 67 added: post-intervention-proof-window-and-promotion-gate
+- Milestone `v2.6` started: Index Alignment and AI Posture Hardening
+- Phase 79 added: index-integrity-and-ai-posture-hardening
+- Phase 79 completed: resolved index divergence and SiliconFlow configuration isolation.
+- Milestone `v2.6` audited, completed, and archived on `2026-06-03`
 
 ## Session
 
 **Last Date:** 2026-06-03
-**Stopped At:** Milestone v2.5 completed (Closeout audit passed).
+**Stopped At:** Milestone v2.6 completed (Closeout audit passed).
 **Resume File:** `.planning/ROADMAP.md`

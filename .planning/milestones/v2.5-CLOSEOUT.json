@@ -4,14 +4,14 @@
   "status": "ready",
   "blockers": [],
   "phaseCounts": {
-    "total": 1,
-    "completed": 1
+    "total": 0,
+    "completed": 0
   },
   "requirementCounts": {
-    "satisfied": 2,
+    "satisfied": 0,
     "partial": 0,
     "pending": 0,
-    "total": 2
+    "total": 0
   },
   "hygieneStatus": "clean",
   "evidenceFiles": [
@@ -21,9 +21,7 @@
     ".planning/phase-lifecycle/latest-phase-lifecycle.md",
     ".planning/phase-lifecycle/latest-phase-lifecycle.json",
     ".planning/traceability/latest-milestone-traceability.md",
-    ".planning/traceability/latest-milestone-traceability.json",
-    ".planning/phases/78-directory-analytics-and-scaling-escalation/78-01-SUMMARY.md",
-    ".planning/phases/78-directory-analytics-and-scaling-escalation/78-VERIFICATION.md"
+    ".planning/traceability/latest-milestone-traceability.json"
   ],
   "archiveTargets": [
     ".planning/milestones/v2.5-phases",

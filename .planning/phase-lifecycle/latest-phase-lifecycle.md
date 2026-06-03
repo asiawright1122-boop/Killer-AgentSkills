@@ -1,16 +1,16 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T05:34:07.330Z
-- Active milestone: v2.5 (Directory Automation Escalation and Post-Rollout Analytics)
+- Generated: 2026-06-03T07:02:23.247Z
+- Active milestone: v2.6 (Index Alignment and AI Posture Hardening)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.5-phases
+- Active archive path: .planning/milestones/v2.6-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 78 | 78-directory-analytics-and-scaling-escalation | present | .planning/phases/78-directory-analytics-and-scaling-escalation | missing |
+| 79 | 79-index-integrity-and-ai-posture-hardening | present | .planning/phases/79-index-integrity-and-ai-posture-hardening | missing |
 
 ## Archive Actions
 
@@ -95,6 +95,11 @@
 - Archive root: .planning/milestones/v2.4-phases
 - Archived dirs: .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization
 - Expected dirs: .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization
+
+### v2.5
+- Archive root: .planning/milestones/v2.5-phases
+- Archived dirs: .planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation
+- Expected dirs: .planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation
 
 ## Conflicts
 

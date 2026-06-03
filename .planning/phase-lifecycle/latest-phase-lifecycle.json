@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-03T05:34:07.330Z",
+  "generatedAt": "2026-06-03T07:02:23.247Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.5",
-  "activeMilestoneName": "Directory Automation Escalation and Post-Rollout Analytics",
+  "activeMilestone": "v2.6",
+  "activeMilestoneName": "Index Alignment and AI Posture Hardening",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.5-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.6-phases",
   "activePhases": [
     {
-      "phaseNumber": "78",
-      "slug": "directory-analytics-and-scaling-escalation",
-      "dirName": "78-directory-analytics-and-scaling-escalation",
+      "phaseNumber": "79",
+      "slug": "index-integrity-and-ai-posture-hardening",
+      "dirName": "79-index-integrity-and-ai-posture-hardening",
       "status": "present",
       "activePaths": [
-        ".planning/phases/78-directory-analytics-and-scaling-escalation"
+        ".planning/phases/79-index-integrity-and-ai-posture-hardening"
       ],
       "archivePaths": []
     }
@@ -232,6 +232,16 @@
       ],
       "expectedPhaseDirs": [
         ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization"
+      ]
+    },
+    {
+      "milestone": "v2.5",
+      "phaseArchivePath": ".planning/milestones/v2.5-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.5-phases/78-directory-analytics-and-scaling-escalation"
       ]
     }
   ],

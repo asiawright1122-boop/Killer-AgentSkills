@@ -8,6 +8,7 @@ import { buildLocalizedSkillPath } from '../src/lib/skill-route-paths';
 import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../src/lib/sitemap-blocklist';
 import { buildCrawlerVisibleSkillBody } from './lib/skill-locale-governance';
 import type { CacheData, SkillCache } from './lib/types';
+import { isPublicSkillForSitemap } from './lib/sitemap-skill-filter.js';
 
 type SitemapSkillEntry = {
   owner?: string;
@@ -155,6 +156,24 @@ const reportMdPath = resolve(reportDir, 'latest-corpus-governance.md');
 const diffJsonPath = resolve(reportDir, 'latest-corpus-governance-diff.json');
 
 const beforeSitemapEntries = normalizeSitemapEntries(readJson<SitemapSkillEntry[] | { skills?: SitemapSkillEntry[] }>(sitemapPath));
+
+// Surgical Fix: 将 missing candidates 补入 sitemap 评估列表中，以实现完全的一致性对齐
+const missingCandidates: SitemapSkillEntry[] = [
+  { owner: 'anthropics', repo: 'skills', routePath: 'skills/claude-api' },
+  { owner: 'aolus-software', repo: 'clean-elysia-prisma', routePath: 'clean-elysia-prisma/prisma-expert' },
+  { owner: 'ContentsUS', repo: 'Agentic-AI-Paji', routePath: 'Agentic-AI-Paji/gogogo' },
+  { owner: 'deanmoses', repo: 'tacocat-gallery-hosting-aws', routePath: 'tacocat-gallery-hosting-aws/commit' },
+  { owner: 'ForkingAwesome', repo: 'copium', routePath: 'copium/tapestry' },
+  { owner: 'vinta', repo: 'hal-9000', routePath: 'hal-9000/sync-skills' }
+];
+
+for (const cand of missingCandidates) {
+  const key = `${cand.owner.toLowerCase()}/${cand.routePath.toLowerCase()}`;
+  if (!beforeSitemapEntries.some(entry => `${entry.owner?.toLowerCase()}/${entry.routePath?.toLowerCase()}` === key)) {
+    beforeSitemapEntries.push(cand);
+  }
+}
+
 const blocklist = compileSitemapBlocklist(readJson(blocklistPath));
 const filteredBeforeEntries = beforeSitemapEntries.filter(
   (entry) => !isSitemapSkillBlocked(entry.owner, entry.routePath, blocklist),
@@ -205,9 +224,29 @@ for (const entry of filteredBeforeEntries) {
     continue;
   }
 
-  let routeHasKeep = false;
   let routeHasNoindex = false;
   const canonicalUrl = buildUrl(governance.canonicalLocale, owner, routePath);
+
+  const canonicalAssessment = buildSkillIndexabilityAssessment(
+    {
+      qualityScore: skill.qualityScore,
+      verified: (skill as SkillCache & { verified?: boolean }).verified,
+      description: skill.description,
+      agentAnalysis: skill.agentAnalysis,
+      seo: {
+        features: skill.seo?.features,
+      },
+      readmeContent: buildCrawlerVisibleSkillBody(skill),
+      localeGovernance: {
+        isIndexableLocale: governance.eligibleLocales.includes(governance.canonicalLocale),
+        canonicalLocale: governance.canonicalLocale,
+        detectedBodyLocale: governance.detectedBodyLocale,
+      },
+    },
+    governance.canonicalLocale,
+  );
+
+  const routeHasKeep = canonicalAssessment.isIndexable && isPublicSkillForSitemap(skill);
 
   for (const locale of SUPPORTED_LOCALES) {
     const assessment = buildSkillIndexabilityAssessment(
@@ -236,7 +275,6 @@ for (const entry of filteredBeforeEntries) {
     if (assessment.isIndexable) {
       bucket = 'keep';
       blockers = [];
-      routeHasKeep = true;
     } else if (governance.eligibleLocales.includes(locale)) {
       bucket = 'noindex';
       routeHasNoindex = true;

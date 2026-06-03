@@ -1,13 +1,19 @@
 #!/usr/bin/env npx tsx
 
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import * as dotenv from 'dotenv';
 import {
   DEFAULT_AI_CONFIG_GUARD_JSON_PATH,
   DEFAULT_AI_CONFIG_GUARD_MD_PATH,
   inspectAiConfigGuard,
   renderAiConfigGuardReport,
 } from './lib/ai-config-guard';
+
+dotenv.config();
+if (existsSync('.env.local')) {
+  dotenv.config({ path: '.env.local', override: true });
+}
 
 function readArg(flag: string): string | undefined {
   const value = process.argv.find((arg) => arg.startsWith(`${flag}=`));
