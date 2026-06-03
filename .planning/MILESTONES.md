@@ -1,8 +1,8 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v2.4 Directory Continuous Monitoring and CTR Optimization (Active)
+### v2.5 Directory Automation Escalation and Post-Rollout Analytics (Active)
 
-**Delivered:** Monitor CTR performance and establish automated database sync verification for the expanded directory index.
+**Delivered:** Implement post-rollout analytics tracking and establish automated scaling policies for edge rendering routes.
 
 **Phases completed:** 0/1 complete (0 plans total)
 
@@ -13,13 +13,30 @@
 
 **Stats:**
 - 0/1 complete phases, 0 plans, 0/2 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.4-BOOTSTRAP.md, .planning/milestones/v2.4-CLOSEOUT.md
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v2.5-BOOTSTRAP.md, .planning/milestones/v2.5-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v2.4-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v2.5-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v2.4 v2.4 (Shipped: SHIPPED)
+
+**Delivered:** `v2.3 Directory Rollout Monitoring and Optimization` shipped on `2026-06-03` and is now archived.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 2/2 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v2.4-ROADMAP.md, .planning/milestones/v2.4-REQUIREMENTS.md, .planning/milestones/v2.4-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v2.3 v2.3 (Shipped: SHIPPED)
 
 **Delivered:** `v2.2 Directory Automated Expansion and Full Rollout` shipped on `2026-06-03` and is now archived.

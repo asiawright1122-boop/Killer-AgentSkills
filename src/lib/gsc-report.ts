@@ -417,3 +417,44 @@ export function compareGscSnapshots(currentRows: GscRow[], previousRows: GscRow[
 
   return comparisons.slice(0, limit);
 }
+
+export type DirectoryAggregatedMetrics = {
+  totalClicks: number;
+  totalImpressions: number;
+  averageCtr: number;
+  averagePosition: number;
+  count: number;
+  rows: GscRow[];
+};
+
+export function isRepositoryDirectoryPath(url: string): boolean {
+  const path = url.replace(/^https?:\/\/[^/]+/, '');
+  // 匹配如 /skills/owner/repo 或 /zh-cn/skills/owner/repo，但不包含更深路径（例如 /skills/owner/repo/skill）
+  return /^\/(?:[a-z]{2}(?:-[a-z]{2})?\/)?skills\/([^/]+)\/([^/]+)\/?$/i.test(path);
+}
+
+export function aggregateRepositoryDirectoryMetrics(rows: GscRow[]): DirectoryAggregatedMetrics {
+  const directoryRows = rows.filter((row) => isRepositoryDirectoryPath(row.entity));
+
+  let totalClicks = 0;
+  let totalImpressions = 0;
+  let weightedPositionSum = 0;
+
+  for (const row of directoryRows) {
+    totalClicks += row.clicks;
+    totalImpressions += row.impressions;
+    weightedPositionSum += row.position * row.impressions;
+  }
+
+  const averageCtr = totalImpressions > 0 ? totalClicks / totalImpressions : 0;
+  const averagePosition = totalImpressions > 0 ? weightedPositionSum / totalImpressions : 0;
+
+  return {
+    totalClicks,
+    totalImpressions,
+    averageCtr,
+    averagePosition,
+    count: directoryRows.length,
+    rows: directoryRows,
+  };
+}

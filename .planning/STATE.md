@@ -1,12 +1,12 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.4
-milestone_name: Directory Continuous Monitoring and CTR Optimization
-current_phase: '77'
+milestone: v2.5
+milestone_name: Directory Automation Escalation and Post-Rollout Analytics
+current_phase: '78'
 current_plan: ''
 status: active
 stopped_at: ''
-last_updated: '2026-06-03T11:15:00.000Z'
+last_updated: '2026-06-03T11:26:00.000Z'
 last_activity: 2026-06-03
 progress:
   total_phases: 1
@@ -23,23 +23,23 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-06-03)
 
 **Core value:** Maximize discoverability and operational reliability of the AI skills directory through unattended, auditable pipelines.
-**Current focus:** `v2.1` should monitor organic traffic metrics flowing from manual backlink actions, satisfy scorecard visibility gates, and selectively trigger automated directory-level rollout.
+**Current focus:** `v2.5` focuses on establishing server-side analytics for repository directory views and implementing auto-scaling policies for edge routes.
 
 ## Current Position
 
-**Current Milestone:** `v2.4` Directory Continuous Monitoring and CTR Optimization
-**Current Phase:** `77`
+**Current Milestone:** `v2.5` Directory Automation Escalation and Post-Rollout Analytics
+**Current Phase:** `78`
 **Current Plan:** ''
-**Status:** Milestone v2.4 active. Initializing Phase 77 for continuous monitoring and CTR optimization.
+**Status:** Milestone v2.5 active. Initializing Phase 78 for analytics and scaling escalation.
 **Last Activity:** 2026-06-03
-**Last Activity Description:** Completed Milestone v2.3 closeout audit, archived phase folders, and initialized Milestone v2.4.
+**Last Activity Description:** Completed Milestone v2.4 closeout audit, archived phase folders, and initialized Milestone v2.5.
 **Progress:** 0%
 
 ## Performance Metrics
 
 **Most recent shipped milestone:**
 
-- **Milestone:** `v2.3` Directory Rollout Monitoring and Optimization
+- **Milestone:** `v2.4` Directory Continuous Monitoring and CTR Optimization
 - **Completed Phases:** 1
 - **Completed Plans:** 1
 - **Requirement Coverage:** 2/2 satisfied

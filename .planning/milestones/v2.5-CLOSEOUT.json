@@ -1,6 +1,6 @@
 {
-  "milestone": "v2.4",
-  "milestoneName": "Directory Continuous Monitoring and CTR Optimization",
+  "milestone": "v2.5",
+  "milestoneName": "Directory Automation Escalation and Post-Rollout Analytics",
   "status": "in_progress",
   "blockers": [
     "Only 0/1 active phases have both summary and verification evidence.",
@@ -24,16 +24,14 @@
     ".planning/phase-lifecycle/latest-phase-lifecycle.md",
     ".planning/phase-lifecycle/latest-phase-lifecycle.json",
     ".planning/traceability/latest-milestone-traceability.md",
-    ".planning/traceability/latest-milestone-traceability.json",
-    ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization/77-01-SUMMARY.md",
-    ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization/77-VERIFICATION.md"
+    ".planning/traceability/latest-milestone-traceability.json"
   ],
   "archiveTargets": [
-    ".planning/milestones/v2.4-phases",
-    ".planning/milestones/v2.4-ROADMAP.md",
-    ".planning/milestones/v2.4-REQUIREMENTS.md",
-    ".planning/milestones/v2.4-MILESTONE-AUDIT.md",
-    ".planning/milestones/v2.4-BOOTSTRAP.md",
-    ".planning/milestones/v2.4-CLOSEOUT.md"
+    ".planning/milestones/v2.5-phases",
+    ".planning/milestones/v2.5-ROADMAP.md",
+    ".planning/milestones/v2.5-REQUIREMENTS.md",
+    ".planning/milestones/v2.5-MILESTONE-AUDIT.md",
+    ".planning/milestones/v2.5-BOOTSTRAP.md",
+    ".planning/milestones/v2.5-CLOSEOUT.md"
   ]
 }

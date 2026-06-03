@@ -5,6 +5,8 @@ import {
   findQueryPrecisionRisks,
   formatPercent,
   parseGscCsv,
+  isRepositoryDirectoryPath,
+  aggregateRepositoryDirectoryMetrics,
 } from './gsc-report';
 
 describe('parseGscCsv', () => {
@@ -98,5 +100,49 @@ describe('compareGscSnapshots', () => {
 
     expect(comparisons[0].status).toBe('new');
     expect(comparisons[0].previous).toBeNull();
+  });
+});
+
+describe('isRepositoryDirectoryPath', () => {
+  it('correctly matches repository directory URLs', () => {
+    expect(isRepositoryDirectoryPath('https://killer-skills.com/skills/owner/repo')).toBe(true);
+    expect(isRepositoryDirectoryPath('http://localhost:4321/skills/owner/repo/')).toBe(true);
+    expect(isRepositoryDirectoryPath('/skills/owner/repo')).toBe(true);
+    expect(isRepositoryDirectoryPath('/en/skills/owner/repo')).toBe(true);
+    expect(isRepositoryDirectoryPath('/zh-cn/skills/owner/repo')).toBe(true);
+  });
+
+  it('ignores non-repository directory URLs', () => {
+    expect(isRepositoryDirectoryPath('https://killer-skills.com/skills/owner')).toBe(false);
+    expect(isRepositoryDirectoryPath('https://killer-skills.com/skills/owner/repo/skill-name')).toBe(false);
+    expect(isRepositoryDirectoryPath('/en/skills/owner/repo/skill-name')).toBe(false);
+    expect(isRepositoryDirectoryPath('/en/blog/post-1')).toBe(false);
+  });
+});
+
+describe('aggregateRepositoryDirectoryMetrics', () => {
+  it('aggregates clicks and impressions and calculates weighted position', () => {
+    const rows = [
+      {
+        entity: 'https://killer-skills.com/skills/owner1/repo1',
+        clicks: 10,
+        impressions: 100,
+        ctr: 0.1,
+        position: 2.0,
+      },
+      { entity: '/skills/owner2/repo2', clicks: 5, impressions: 50, ctr: 0.1, position: 5.0 },
+      { entity: '/skills/owner2/repo2/skill-a', clicks: 20, impressions: 200, ctr: 0.1, position: 1.0 },
+      { entity: '/en/blog/other-page', clicks: 50, impressions: 500, ctr: 0.1, position: 1.0 },
+    ];
+
+    const result = aggregateRepositoryDirectoryMetrics(rows);
+    expect(result.count).toBe(2);
+    expect(result.totalClicks).toBe(15);
+    expect(result.totalImpressions).toBe(150);
+    expect(result.averageCtr).toBe(0.1);
+    expect(result.averagePosition).toBe(3.0);
+    expect(result.rows).toHaveLength(2);
+    expect(result.rows[0].entity).toBe('https://killer-skills.com/skills/owner1/repo1');
+    expect(result.rows[1].entity).toBe('/skills/owner2/repo2');
   });
 });

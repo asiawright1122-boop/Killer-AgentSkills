@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-03T03:15:25.882Z",
+  "generatedAt": "2026-06-03T03:27:00.365Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v2.4",
-  "activeMilestoneName": "Directory Continuous Monitoring and CTR Optimization",
+  "activeMilestone": "v2.5",
+  "activeMilestoneName": "Directory Automation Escalation and Post-Rollout Analytics",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v2.4-phases",
+  "activePhaseArchivePath": ".planning/milestones/v2.5-phases",
   "activePhases": [
     {
-      "phaseNumber": "77",
-      "slug": "continuous-monitoring-and-ctr-optimization",
-      "dirName": "77-continuous-monitoring-and-ctr-optimization",
+      "phaseNumber": "78",
+      "slug": "directory-analytics-and-scaling-escalation",
+      "dirName": "78-directory-analytics-and-scaling-escalation",
       "status": "present",
       "activePaths": [
-        ".planning/phases/77-continuous-monitoring-and-ctr-optimization"
+        ".planning/phases/78-directory-analytics-and-scaling-escalation"
       ],
       "archivePaths": []
     }
@@ -223,6 +223,16 @@
       "expectedPhaseDirs": [
         ".planning/milestones/v2.3-phases/76-directory-rollout-monitoring-and-optimization"
       ]
+    },
+    {
+      "milestone": "v2.4",
+      "phaseArchivePath": ".planning/milestones/v2.4-phases",
+      "archivedDirs": [
+        ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization"
+      ]
     }
   ],
   "archiveActions": [],
@@ -230,5 +240,11 @@
   "createActions": [],
   "unmanagedPhaseDirs": [],
   "conflicts": [],
-  "rewrittenFiles": []
+  "rewrittenFiles": [
+    ".planning/milestones/v2.4-CLOSEOUT.json",
+    ".planning/milestones/v2.4-CLOSEOUT.md",
+    ".planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization/77-PLAN.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md"
+  ]
 }

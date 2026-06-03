@@ -8,10 +8,12 @@ import {
   findQueryPrecisionRisks,
   formatPercent,
   parseGscCsv,
+  aggregateRepositoryDirectoryMetrics,
   type GscComparison,
   type GscOpportunity,
   type QueryPrecisionRisk,
   type GscReportType,
+  type GscRow,
 } from '../src/lib/gsc-report';
 
 type CliOptions = {
@@ -119,6 +121,59 @@ function renderPrecisionSection(title: string, risks: QueryPrecisionRisk[]): str
   return `## ${title}\n\n${lines.join('\n\n')}\n`;
 }
 
+function renderDirectoryPerformanceSection(rows: GscRow[], limit: number): string {
+  const metrics = aggregateRepositoryDirectoryMetrics(rows);
+  if (metrics.count === 0) {
+    return '## Repository Directory CTR Performance\n\nNo repository directory page data found in this export.\n';
+  }
+
+  // Calculate CTR opportunities (scoped to directories)
+  const directoryOpportunities = findCtrOpportunities(metrics.rows, 'page', limit);
+
+  // Sort top directory pages by clicks and impressions
+  const topDirectories = [...metrics.rows]
+    .sort((a, b) => b.clicks - a.clicks || b.impressions - a.impressions)
+    .slice(0, limit);
+
+  const summary = [
+    `- Total directories found: ${metrics.count}`,
+    `- Total clicks: ${metrics.totalClicks}`,
+    `- Total impressions: ${metrics.totalImpressions}`,
+    `- Aggregate CTR: ${formatPercent(metrics.averageCtr)}`,
+    `- Weighted average position: ${metrics.averagePosition.toFixed(2)}`,
+  ].join('\n');
+
+  const topLines = topDirectories.map((dir, index) => {
+    return `| ${index + 1} | \`${dir.entity}\` | ${dir.clicks} | ${dir.impressions} | ${formatPercent(dir.ctr)} | ${dir.position.toFixed(1)} |`;
+  });
+
+  const opportunityLines = directoryOpportunities.map((opp, index) => {
+    return [
+      `${index + 1}. \`${opp.entity}\``,
+      `   - Metrics: ${opp.clicks} clicks, ${opp.impressions} impressions, ${formatPercent(opp.ctr)} CTR, position ${opp.position.toFixed(1)}`,
+      `   - Gap: expected about ${formatPercent(opp.expectedCtr)}, short by ${formatPercent(opp.gap)}`,
+      ...opp.actions.map((action) => `   - Action: ${action}`),
+    ].join('\n');
+  });
+
+  return [
+    '## Repository Directory CTR Performance',
+    '',
+    '### Directory Performance Summary',
+    summary,
+    '',
+    '### Top Directory Pages',
+    '| Rank | Directory Page | Clicks | Impressions | CTR | Position |',
+    '|---|---|---|---|---|---|',
+    ...topLines,
+    '',
+    '### Top Directory CTR Opportunities',
+    opportunityLines.length > 0 ? opportunityLines.join('\n\n') : 'No directory CTR opportunities found.',
+    '',
+  ].join('\n');
+}
+
+
 function loadReport(
   filePath: string,
   type: GscReportType,
@@ -187,6 +242,7 @@ function buildReport(
     queryReport ? renderPrecisionSection('Query Precision Risks', queryPrecisionRisks) : '',
     queryReport ? renderSection('Query Opportunities', queryReport.opportunities) : '',
     pageReport ? renderSection('Page Opportunities', pageReport.opportunities) : '',
+    pageReport ? renderDirectoryPerformanceSection(pageReport.rows, limit) : '',
     queryComparisons.length > 0 ? renderComparisonSection('Query Period Comparison', queryComparisons) : '',
     pageComparisons.length > 0 ? renderComparisonSection('Page Period Comparison', pageComparisons) : '',
   ]

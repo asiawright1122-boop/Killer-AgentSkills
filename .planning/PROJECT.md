@@ -10,12 +10,21 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.3` are shipped.
-- `v2.4 Directory Continuous Monitoring and CTR Optimization` is now active.
+- `v1.0` through `v2.4` are shipped.
+- `v2.5 Directory Automation Escalation and Post-Rollout Analytics` is now active.
+- `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
-- `v2.2` verified limited-rollout experiments, promoted successful trials into automation-candidate status, and expanded directory indexation boundaries.
 
-## Most Recent Shipment: v2.3 Directory Rollout Monitoring and Optimization
+## Most Recent Shipment: v2.4 Directory Continuous Monitoring and CTR Optimization
+
+**Outcome:** Monitored CTR performance and established automated database sync verification for the expanded directory index.
+
+**Shipped capabilities:**
+
+- Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
+- Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
+
+## Previous Shipment: v2.3 Directory Rollout Monitoring and Optimization
 
 **Outcome:** Monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
@@ -32,14 +41,14 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 **Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
 
-## Current Milestone: v2.4 Directory Continuous Monitoring and CTR Optimization
+## Current Milestone: v2.5 Directory Automation Escalation and Post-Rollout Analytics
 
-**Goal:** Monitor CTR performance and establish automated database sync verification for the expanded directory index.
+**Goal:** Implement post-rollout analytics tracking and establish automated scaling policies for edge rendering routes.
 
 **Target features:**
 
-- Monitor Google Search Console click CTR performance indicators for the newly indexed directory roots.
-- Establish automated daily KV/D1 database sync health checks.
+- Implement server-side event tracking for repository directory views.
+- Establish auto-scaling alert policies based on request density spikes.
 
 ## Deferred Beyond v1.8
 
@@ -104,11 +113,13 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Automated Directory Expansion Rollout] - `v2.2`
 - ✓ [Crawl & Index Monitoring] - `v2.3`
 - ✓ [Edge Performance Optimization] - `v2.3`
+- ✓ [GSC CTR Monitoring] - `v2.4`
+- ✓ [Database Synchronization Verification] - `v2.4`
 
 ### Active
 
-- [ ] [GSC CTR Monitoring] - Monitor Google Search Console click CTR performance indicators for the newly indexed directory roots.
-- [ ] [Database Synchronization Verification] - Establish automated daily KV/D1 database sync health checks.
+- [ ] [Directory Analytics Tracking] - Implement server-side event tracking for repository directory views.
+- [ ] [Edge Rendering Auto-Scaling] - Establish auto-scaling alert policies based on request density spikes.
 
 ### Out of Scope
 

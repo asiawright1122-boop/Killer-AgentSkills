@@ -1,16 +1,16 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T03:15:25.882Z
-- Active milestone: v2.4 (Directory Continuous Monitoring and CTR Optimization)
+- Generated: 2026-06-03T03:27:00.365Z
+- Active milestone: v2.5 (Directory Automation Escalation and Post-Rollout Analytics)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v2.4-phases
+- Active archive path: .planning/milestones/v2.5-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 77 | 77-continuous-monitoring-and-ctr-optimization | present | .planning/phases/77-continuous-monitoring-and-ctr-optimization | missing |
+| 78 | 78-directory-analytics-and-scaling-escalation | present | .planning/phases/78-directory-analytics-and-scaling-escalation | missing |
 
 ## Archive Actions
 
@@ -91,6 +91,11 @@
 - Archived dirs: .planning/milestones/v2.3-phases/76-directory-rollout-monitoring-and-optimization
 - Expected dirs: .planning/milestones/v2.3-phases/76-directory-rollout-monitoring-and-optimization
 
+### v2.4
+- Archive root: .planning/milestones/v2.4-phases
+- Archived dirs: .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization
+- Expected dirs: .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization
+
 ## Conflicts
 
 - none
@@ -101,4 +106,8 @@
 
 ## Rewritten Planning Files
 
-- none
+- .planning/milestones/v2.4-CLOSEOUT.json
+- .planning/milestones/v2.4-CLOSEOUT.md
+- .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization/77-PLAN.md
+- .planning/phase-lifecycle/latest-phase-lifecycle.json
+- .planning/phase-lifecycle/latest-phase-lifecycle.md
