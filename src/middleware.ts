@@ -380,10 +380,141 @@ function setSecurityHeaders(response: Response): void {
   }
 }
 
+// --- Sliding window request-density monitor (REC-39) ---
+interface RequestCounter {
+  count: number;
+  resetTime: number;
+}
+
+const ipCounters = new Map<string, RequestCounter>();
+const globalCounter: RequestCounter = { count: 0, resetTime: 0 };
+const WINDOW_MS = 60 * 1000;
+let lastAlertLoggedTime = 0;
+const ALERT_LOG_DEBOUNCE_MS = 5 * 60 * 1000;
+
+function incrementAndCheckRate(ip: string): {
+  ipLimit: boolean;
+  globalLimit: boolean;
+  ipCount: number;
+  globalCount: number;
+} {
+  const now = Date.now();
+
+  if (now > globalCounter.resetTime) {
+    globalCounter.count = 1;
+    globalCounter.resetTime = now + WINDOW_MS;
+  } else {
+    globalCounter.count++;
+  }
+
+  let ipCounter = ipCounters.get(ip);
+  if (!ipCounter || now > ipCounter.resetTime) {
+    ipCounter = { count: 1, resetTime: now + WINDOW_MS };
+    ipCounters.set(ip, ipCounter);
+  } else {
+    ipCounter.count++;
+  }
+
+  if (ipCounters.size > 2000) {
+    for (const [key, value] of ipCounters.entries()) {
+      if (now > value.resetTime) {
+        ipCounters.delete(key);
+      }
+    }
+  }
+
+  const IP_THRESHOLD = 500;
+  const GLOBAL_THRESHOLD = 5000;
+
+  return {
+    ipLimit: ipCounter.count > IP_THRESHOLD,
+    globalLimit: globalCounter.count > GLOBAL_THRESHOLD,
+    ipCount: ipCounter.count,
+    globalCount: globalCounter.count,
+  };
+}
+
+async function logSystemAlert(db: any, alertType: string, message: string, details: string): Promise<void> {
+  try {
+    const id =
+      typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID()
+        : Math.random().toString(36).substring(2, 15);
+    const timestamp = new Date().toISOString();
+    await db
+      .prepare(`INSERT INTO system_alerts (id, timestamp, alert_type, message, details) VALUES (?, ?, ?, ?, ?)`)
+      .bind(id, timestamp, alertType, message, details)
+      .run();
+  } catch (e: any) {
+    if (e.message && (e.message.includes('no such table') || e.message.includes('system_alerts'))) {
+      try {
+        await db
+          .prepare(
+            `
+          CREATE TABLE IF NOT EXISTS system_alerts (
+            id TEXT PRIMARY KEY,
+            timestamp TEXT,
+            alert_type TEXT,
+            message TEXT,
+            details TEXT
+          )
+        `,
+          )
+          .run();
+        const id =
+          typeof crypto !== 'undefined' && crypto.randomUUID
+            ? crypto.randomUUID()
+            : Math.random().toString(36).substring(2, 15);
+        const timestamp = new Date().toISOString();
+        await db
+          .prepare(`INSERT INTO system_alerts (id, timestamp, alert_type, message, details) VALUES (?, ?, ?, ?, ?)`)
+          .bind(id, timestamp, alertType, message, details)
+          .run();
+      } catch (retryErr: any) {
+        logger.error('Failed to create system_alerts table or retry insert', {
+          error: retryErr.message || String(retryErr),
+        });
+      }
+    } else {
+      logger.error('Failed to log system alert to D1', { error: e.message || String(e) });
+    }
+  }
+}
+// --------------------------------------------------------
+
 export const onRequest = defineMiddleware(async (context, next) => {
   const { pathname } = context.url;
   const userAgent = context.isPrerendered ? '' : (context.request.headers.get('user-agent') || '').toLowerCase();
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
+
+  // Apply request density throttling (REC-39)
+  if (!isStaticOrApiPath(pathname)) {
+    const clientIp = context.clientAddress || context.request.headers.get('cf-connecting-ip') || '127.0.0.1';
+    const { ipLimit, globalLimit, ipCount, globalCount } = incrementAndCheckRate(clientIp);
+
+    if (ipLimit || globalLimit) {
+      context.locals.useStaticFallback = true;
+      const now = Date.now();
+      if (now - lastAlertLoggedTime > ALERT_LOG_DEBOUNCE_MS) {
+        lastAlertLoggedTime = now;
+        const alertType = ipLimit ? 'IP_RATE_LIMIT' : 'GLOBAL_RATE_LIMIT';
+        const message = ipLimit
+          ? `IP ${clientIp} rate limit exceeded: ${ipCount} req/min`
+          : `Global rate limit exceeded: ${globalCount} req/min`;
+        const details = JSON.stringify({ ip: clientIp, ipCount, globalCount, path: pathname, ua: userAgent });
+
+        const env = await getRuntimeEnv(context.locals);
+        if (env?.DB) {
+          const writePromise = logSystemAlert(env.DB, alertType, message, details);
+          if (context.locals.runtime?.ctx?.waitUntil) {
+            context.locals.runtime.ctx.waitUntil(writePromise);
+          } else {
+            writePromise.catch((e) => logger.error('Alert background write failed', { error: e.message || String(e) }));
+          }
+        }
+      }
+    }
+  }
 
   // 0. Enforce canonical domain: redirect www to non-www
   if (context.url.hostname === `www.${SITE_DOMAIN}`) {

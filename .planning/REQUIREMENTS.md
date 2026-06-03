@@ -8,11 +8,11 @@
 
 ### Directory Analytics Tracking
 
-- [ ] **SEO-21**: Implement server-side event tracking for repository directory views to analyze post-rollout engagement.
+- [x] **SEO-21**: Implement server-side event tracking for repository directory views to analyze post-rollout engagement.
 
 ### Edge Rendering Auto-Scaling
 
-- [ ] **REC-39**: Establish auto-scaling alert policies based on request density spikes.
+- [x] **REC-39**: Establish auto-scaling alert policies based on request density spikes.
 
 ## Still Out Of Scope
 
@@ -26,8 +26,8 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SEO-21 | Phase 78 | Planned |
-| REC-39 | Phase 78 | Planned |
+| SEO-21 | Phase 78 | Satisfied |
+| REC-39 | Phase 78 | Satisfied |
 
 **Coverage:**
 - v2.5 requirements: 2 total

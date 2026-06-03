@@ -40,6 +40,7 @@ import SkillFileManager from '../../../../islands/SkillFileManager';
 import SkillCard from '../../../../components/SkillCard.astro';
 import { Star, GitFork, Calendar, CheckCircle2, Zap, Bot, ChevronRight } from 'lucide-react';
 import Github from '../../../../icons/GithubIcon';
+import { trackDirectoryView } from '../../../../lib/analytics';
 export const prerender = false;
 Astro.response.headers.set('Cache-Control', 'public, s-maxage=86400, stale-while-revalidate=86400');
 
@@ -130,11 +131,12 @@ const truncateMarkdownForSsr = (markdown: string, maxBytes: number) => {
 // Load skill data - use full ID for sub-skills
 const fullId = requestedSkillId;
 const seoForceTemplate = ['1', 'true', 'yes', 'on'].includes(normalizeFlag(runtimeEnv.SEO_FORCE_TEMPLATE));
+const useStaticFallback = Astro.locals.useStaticFallback === true;
 
 // ⚡ PARALLEL: fetch skill data + translations + related skills concurrently
 // Wrap D1 calls in try-catch to prevent 5xx when database is unavailable
 const [skillResult, messages] = await Promise.all([
-  getSkillById(env, fullId).catch(() => null),
+  useStaticFallback ? Promise.resolve(null) : getSkillById(env, fullId).catch(() => null),
   loadMessages(typedLocale),
 ]);
 
@@ -143,7 +145,7 @@ const rawSitemapSkills = Array.isArray(sitemapSkillsData)
   : ((sitemapSkillsData as { skills?: Array<{ owner?: string; routePath?: string; updatedAt?: string }> }).skills ??
     []);
 const exactSitemapSkill =
-  !skillResult && subSkillName
+  !skillResult && (subSkillName || useStaticFallback)
     ? rawSitemapSkills.find((entry) => {
         const entryOwner = String(entry.owner || '').trim();
         const routePath = String(entry.routePath || '').trim();
@@ -153,11 +155,11 @@ const exactSitemapSkill =
       })
     : null;
 const sitemapSkillFallback =
-  exactSitemapSkill && subSkillName
+  exactSitemapSkill && (subSkillName || useStaticFallback)
     ? {
         id: `${owner}/${canonicalRoutePath}`,
-        name: subSkillName,
-        skillName: subSkillName,
+        name: subSkillName || repo,
+        skillName: subSkillName || repo,
         owner,
         repo,
         description: '',
@@ -169,12 +171,12 @@ const sitemapSkillFallback =
         qualityScore: 0,
         forks: 0,
         skillMd: {
-          name: subSkillName,
+          name: subSkillName || repo,
           description: '',
           version: '1.0.0',
           tags: [],
-          body: `# ${subSkillName}\n\nSource repository listing available. Detailed cache payload is unavailable in this environment.`,
-          bodyPreview: `# ${subSkillName}\n\nSource repository listing available.`,
+          body: `# ${subSkillName || repo}\n\nSource repository listing available. Detailed cache payload is unavailable in this environment.`,
+          bodyPreview: `# ${subSkillName || repo}\n\nSource repository listing available.`,
         },
       }
     : null;
@@ -273,6 +275,10 @@ if (!hasSkill && !renderRepoDirectory) {
   // Cache 404 responses to prevent Googlebot from re-crawling
   Astro.response.headers.set('Cache-Control', 'public, s-maxage=3600');
   return new Response(null, { status: 404, statusText: 'Not Found' });
+}
+
+if (renderRepoDirectory) {
+  trackDirectoryView(Astro.locals, Astro.request, locale, owner, repo);
 }
 
 const relatedCollections: any[] = [];
@@ -485,7 +491,8 @@ const suitabilityFallback = tr(
 );
 
 // --- SSR Dynamic Translation Interception ---
-const shouldRunLightLocalization = typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory;
+const shouldRunLightLocalization =
+  typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory && !useStaticFallback;
 const [t_description, t_heroIntro, t_features, t_topics, t_useCases, t_limitations, t_recommendation, t_suitability] =
   shouldRunLightLocalization
     ? await Promise.all([
@@ -850,7 +857,7 @@ if (readmeRenderBudget.truncated) {
 
 // ⚡ Related skills runs AFTER we have skill.category (can't be fully parallelized)
 const relatedSkillsSource =
-  isCrawlerRequest || renderRepoDirectory
+  isCrawlerRequest || renderRepoDirectory || useStaticFallback
     ? []
     : await getRelatedSkillsFast(env, `${owner}/${repo}`, skill.category || '', 4);
 
@@ -860,7 +867,11 @@ let relatedSkills = relatedSkillsSource;
 let topics = rawTopics;
 
 const shouldRunHeavyLocalization =
-  typedLocale !== 'en' && !isCrawlerRequest && !renderRepoDirectory && rawReadmeSize <= maxHeavyLocalizationReadmeBytes;
+  typedLocale !== 'en' &&
+  !isCrawlerRequest &&
+  !renderRepoDirectory &&
+  rawReadmeSize <= maxHeavyLocalizationReadmeBytes &&
+  !useStaticFallback;
 
 if (typedLocale !== 'en' && shouldRunHeavyLocalization) {
   const relatedNames = relatedSkillsSource.map((s) => s.skillName || s.name);
@@ -930,9 +941,9 @@ const isPageInSitemap = rawSitemapSkills.some((entry) => {
 
 const isForcedOpen =
   process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
-const layoutNoindex = renderRepoDirectory
-  ? !isForcedOpen
-  : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap);
+const layoutNoindex =
+  useStaticFallback ||
+  (renderRepoDirectory ? !isForcedOpen : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap));
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);

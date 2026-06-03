@@ -2,9 +2,7 @@
 
 ## Overview
 
-`v2.4 Directory Continuous Monitoring and CTR Optimization` shipped on `2026-06-03` and is now archived.
-
-`v2.5 Directory Automation Escalation and Post-Rollout Analytics` is now active.
+`v2.5 Directory Automation Escalation and Post-Rollout Analytics` shipped on `2026-06-03` and is now archived.
 
 This milestone focuses on establishing server-side analytics for repository directory views and implementing auto-scaling policies for edge routes.
 
@@ -29,11 +27,11 @@ This milestone focuses on establishing server-side analytics for repository dire
 2. CPU/Memory alerts and scaling rules for Astro edge routes are operational.
 
 Plans:
-- [ ] `78-01`: Setup directory analytics and implement rendering scaling policies.
+- [x] `78-01`: Setup directory analytics and implement rendering scaling policies.
 
 ## Milestones
 
-- 🚧 **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (active)
+- ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [archive](./milestones/v2.5-ROADMAP.md), [requirements](./milestones/v2.5-REQUIREMENTS.md), [audit](./milestones/v2.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.5-BOOTSTRAP.md), [closeout](./milestones/v2.5-CLOSEOUT.md))
 - ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [archive](./milestones/v2.4-ROADMAP.md), [requirements](./milestones/v2.4-REQUIREMENTS.md), [audit](./milestones/v2.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.4-BOOTSTRAP.md), [closeout](./milestones/v2.4-CLOSEOUT.md))
 - ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [archive](./milestones/v2.3-ROADMAP.md), [requirements](./milestones/v2.3-REQUIREMENTS.md), [audit](./milestones/v2.3-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.3-BOOTSTRAP.md), [closeout](./milestones/v2.3-CLOSEOUT.md))
 - ✅ **v2.2 Directory Automated Expansion and Full Rollout** — phases 74-75 (shipped 2026-06-03; [archive](./milestones/v2.2-ROADMAP.md), [requirements](./milestones/v2.2-REQUIREMENTS.md), [audit](./milestones/v2.2-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.2-BOOTSTRAP.md), [closeout](./milestones/v2.2-CLOSEOUT.md))
@@ -62,7 +60,7 @@ Plans:
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v2.5 Directory Automation Escalation and Post-Rollout Analytics | 78 | 0/1 | Active | — |
+| v2.5 Directory Automation Escalation and Post-Rollout Analytics | 78 | 1/1 | Complete | 2026-06-03 |
 | v2.4 Directory Continuous Monitoring and CTR Optimization | 77 | 1/1 | Complete | 2026-06-03 |
 | v2.3 Directory Rollout Monitoring and Optimization | 76 | 1/1 | Complete | 2026-06-03 |
 | v2.2 Directory Automated Expansion and Full Rollout | 74-75 | 2/2 | Complete | 2026-06-03 |

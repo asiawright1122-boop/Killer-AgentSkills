@@ -1,6 +1,6 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T03:27:00.365Z
+- Generated: 2026-06-03T05:34:07.330Z
 - Active milestone: v2.5 (Directory Automation Escalation and Post-Rollout Analytics)
 - Status: clean
 - Pending actions: 0
@@ -106,8 +106,4 @@
 
 ## Rewritten Planning Files
 
-- .planning/milestones/v2.4-CLOSEOUT.json
-- .planning/milestones/v2.4-CLOSEOUT.md
-- .planning/milestones/v2.4-phases/77-continuous-monitoring-and-ctr-optimization/77-PLAN.md
-- .planning/phase-lifecycle/latest-phase-lifecycle.json
-- .planning/phase-lifecycle/latest-phase-lifecycle.md
+- none
