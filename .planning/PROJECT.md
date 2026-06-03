@@ -10,8 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v2.4` are shipped.
-- `v2.5 Directory Automation Escalation and Post-Rollout Analytics` is now active.
+- `v1.0` through `v2.5` are shipped.
+- `v2.5` implemented server-side event tracking for directory views and edge middleware concurrency density scaling fallback.
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
@@ -41,14 +41,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 **Outcome:** Monitored organic traffic metrics flowing from manual backlink actions, satisfied scorecard visibility gates, and selectively triggered automated directory-level rollout.
 
-## Current Milestone: v2.5 Directory Automation Escalation and Post-Rollout Analytics
+## Current Milestone: v2.6 Planning
 
-**Goal:** Implement post-rollout analytics tracking and establish automated scaling policies for edge rendering routes.
-
-**Target features:**
-
-- Implement server-side event tracking for repository directory views.
-- Establish auto-scaling alert policies based on request density spikes.
+**Goal:** Define goals and requirements for v2.6.
 
 ## Deferred Beyond v1.8
 
@@ -60,6 +55,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [Directory Analytics Tracking] - `v2.5`
+- ✓ [Edge Rendering Auto-Scaling] - `v2.5`
 - ✓ [CI and UI Stability] - `v1.0`
 - ✓ [Shared Locale / SEO Contracts] - `v1.0`
 - ✓ [AI Enrichment and Regeneration Pipeline] - `v1.0`
@@ -117,9 +114,6 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Database Synchronization Verification] - `v2.4`
 
 ### Active
-
-- [ ] [Directory Analytics Tracking] - Implement server-side event tracking for repository directory views.
-- [ ] [Edge Rendering Auto-Scaling] - Establish auto-scaling alert policies based on request density spikes.
 
 ### Out of Scope
 
