@@ -2,7 +2,7 @@
 phase: 70-selective-authority-expansion-and-backlinks
 milestone: v2.0
 plan_id: 70-01
-status: active
+status: complete
 created: 2026-06-01
 ---
 

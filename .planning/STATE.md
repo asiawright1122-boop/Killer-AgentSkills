@@ -2,18 +2,18 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Helpful Content Injection and Authority Unlock
-current_phase: 70 - selective-authority-expansion-and-backlinks
-current_plan: 70-01
-status: active
+current_phase: 71 - live-traffic-outcome-and-automation-gate
+current_plan: 71-01
+status: pending
 stopped_at: ''
-last_updated: '2026-06-01T15:05:00.000Z'
-last_activity: 2026-06-01
+last_updated: '2026-06-03T09:27:00.000Z'
+last_activity: 2026-06-03
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 3
-  percent: 75
+  total_plans: 4
+  completed_plans: 2
+  percent: 50
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 ## Current Position
 
 **Current Milestone:** `v2.0` Helpful Content Injection and Authority Unlock
-**Current Phase:** `70` selective-authority-expansion-and-backlinks
-**Current Plan:** `70-01` Promote up to 5 authority surfaces and acquire 3+ external backlinks
-**Status:** Phase 70 code-side work complete. Deep SEO audit executed: 9 on-page title/description fixes, 8 under-linked surfaces upgraded to 3+ placements, FAQ6 "What is MCP" added across 10 locales for featured snippet opportunity. All surfaces now have >=3 internal placements. Manual backlink outreach and GSC refresh remain.
-**Last Activity:** 2026-06-01
-**Last Activity Description:** Completed deep SEO audit (70-SEO-AUDIT.md): fixed Skills/Solutions/CLI/Integrations/Community/Labs/Home titles and descriptions, upgraded collection-cursor and 7 other surfaces from 2→3+ placements, added MCP FAQ6 to all 10 locale files. All 845 tests pass.
-**Progress:** 75%
+**Current Phase:** `71` live-traffic-outcome-and-automation-gate
+**Current Plan:** `71-01` Evaluate live traffic outcome and unlock automation and broad directory expansion gates
+**Status:** Phase 70 code-side work and outreach assets finalized. manual_outreach_pack.md compiled (containing README badges, dev.to blog draft, social templates). Life-cycle directory conflicts clean. Now in Phase 71 waiting status, pending manual backlink deployment and organic click data flowing into Google Search Console.
+**Last Activity:** 2026-06-03
+**Last Activity Description:** Prepared manual backlink outreach package, cleaned up all 5 historical unmanaged phase directories, renamed Phase 69 directory to align, and verified scorecard execution.
+**Progress:** 50%
 
 ## Performance Metrics
 
@@ -126,6 +126,6 @@ See: `.planning/PROJECT.md` (updated 2026-05-06)
 
 ## Session
 
-**Last Date:** 2026-06-01
-**Stopped At:** Phase 70 all code-side work complete. Deep SEO audit: 15 on-page fixes, 8 placement upgrades, FAQ6 MCP, BreadcrumbList + Speakable schema on all public pages, blog category cross-linking + sitemap, i18n SEO keys for all 9 pages, regression tests (892 pass). Remaining manual actions: (1) embed badge in GitHub README, (2) publish dev.to article, (3) social share for OG card, (4) download fresh GSC Coverage Drilldown, (5) re-run scorecard after organic clicks appear. Phase 71 ready once manual actions yield traffic data.
+**Last Date:** 2026-06-03
+**Stopped At:** Phase 70 fully complete (both code fixes and manual backlink outreach assets compiled). Cleaned up 5 historic unmanaged phase directories. Renamed Phase 69 directory. Verified scorecard and sync scripts. Entered Phase 71 waiting state pending external backlink clicks and Google Search Console data updates.
 **Resume File:** `.planning/ROADMAP.md`

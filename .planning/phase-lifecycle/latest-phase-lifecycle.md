@@ -1,19 +1,19 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-05-29T07:03:24.068Z
-- Active milestone: v1.9 (Search Compliance Recovery Execution and Proof)
+- Generated: 2026-06-03T01:27:34.473Z
+- Active milestone: v2.0 (Helpful Content Injection and Authority Unlock)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v1.9-phases
+- Active archive path: .planning/milestones/v2.0-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 64 | 64-search-guidelines-compliance-baseline-and-fresh-coverage | present | .planning/phases/64-search-guidelines-compliance-baseline-and-fresh-coverage | missing |
-| 65 | 65-p0-url-recovery-batches-and-canonical-proof | present | .planning/phases/65-p0-url-recovery-batches-and-canonical-proof | missing |
-| 66 | 66-priority-surface-ctr-and-ai-search-visibility | present | .planning/phases/66-priority-surface-ctr-and-ai-search-visibility | missing |
-| 67 | 67-post-intervention-proof-window-and-promotion-gate | present | .planning/phases/67-post-intervention-proof-window-and-promotion-gate | missing |
+| 68 | 68-helpful-content-expert-copy-injection | present | .planning/phases/68-helpful-content-expert-copy-injection | missing |
+| 69 | 69-physical-gsc-coverage-refresh-and-trust-unlock | present | .planning/phases/69-physical-gsc-coverage-refresh-and-trust-unlock | missing |
+| 70 | 70-selective-authority-expansion-and-backlinks | present | .planning/phases/70-selective-authority-expansion-and-backlinks | missing |
+| 71 | 71-live-traffic-outcome-and-automation-gate | present | .planning/phases/71-live-traffic-outcome-and-automation-gate | missing |
 
 ## Archive Actions
 

@@ -56,10 +56,10 @@ Plans:
 **Success Criteria** (what must be TRUE):
 1. Up to 5 top-performing holding authority surfaces are promoted to active status.
 2. At least 3 organic, non-paid external backlinks (e.g. GitHub README, dev.to, social mentions) point to active canonical pages.
-**Plans:** 0/1 complete
+**Plans:** 1/1 complete
 
 Plans:
-- [ ] `70-01`: Execute selective authority expansion and onboard organic backlinks.
+- [x] `70-01`: Execute selective authority expansion and onboard organic backlinks.
 
 ### Phase 71: live-traffic-outcome-and-automation-gate
 
