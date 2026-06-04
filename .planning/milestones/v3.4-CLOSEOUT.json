@@ -1,10 +1,8 @@
 {
   "milestone": "v3.4",
   "milestoneName": "Coverage Cluster Remediation & AI Telemetry Refresh",
-  "status": "in_progress",
-  "blockers": [
-    "Phase lifecycle sync is warning (archive=8, restore=0, create=0)."
-  ],
+  "status": "ready",
+  "blockers": [],
   "phaseCounts": {
     "total": 3,
     "completed": 3

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-04T05:02:29.906Z",
+  "generatedAt": "2026-06-04T05:03:53.563Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "activeMilestone": "v3.4",
   "activeMilestoneName": "Coverage Cluster Remediation & AI Telemetry Refresh",
-  "status": "warning",
+  "status": "clean",
   "activePhaseArchivePath": ".planning/milestones/v3.4-phases",
   "activePhases": [
     {
@@ -293,7 +293,11 @@
     {
       "milestone": "v3.1",
       "phaseArchivePath": ".planning/milestones/v3.1-phases",
-      "archivedDirs": [],
+      "archivedDirs": [
+        ".planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration",
+        ".planning/milestones/v3.1-phases/92-Config Guard Hardening",
+        ".planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification"
+      ],
       "expectedPhaseDirs": [
         ".planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration",
         ".planning/milestones/v3.1-phases/92-Config Guard Hardening",
@@ -303,7 +307,11 @@
     {
       "milestone": "v3.2",
       "phaseArchivePath": ".planning/milestones/v3.2-phases",
-      "archivedDirs": [],
+      "archivedDirs": [
+        ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
+        ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
+        ".planning/milestones/v3.2-phases/96-Unified CI"
+      ],
       "expectedPhaseDirs": [
         ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
         ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
@@ -313,7 +321,11 @@
     {
       "milestone": "v3.3",
       "phaseArchivePath": ".planning/milestones/v3.3-phases",
-      "archivedDirs": [],
+      "archivedDirs": [
+        ".planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion",
+        ".planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution",
+        ".planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation"
+      ],
       "expectedPhaseDirs": [
         ".planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion",
         ".planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution",
@@ -321,93 +333,10 @@
       ]
     }
   ],
-  "archiveActions": [
-    {
-      "type": "archive",
-      "milestone": "v3.1",
-      "phaseNumber": "91",
-      "slug": "Environment-Specific Profiles Integration",
-      "dirName": "91-Environment-Specific Profiles Integration",
-      "fromPath": ".planning/phases/91-Environment-Specific Profiles Integration",
-      "toPath": ".planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.1",
-      "phaseNumber": "92",
-      "slug": "Config Guard Hardening",
-      "dirName": "92-Config Guard Hardening",
-      "fromPath": ".planning/phases/92-Config Guard Hardening",
-      "toPath": ".planning/milestones/v3.1-phases/92-Config Guard Hardening",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.1",
-      "phaseNumber": "93",
-      "slug": "Smart Fallback & Degradation Verification",
-      "dirName": "93-Smart Fallback & Degradation Verification",
-      "fromPath": ".planning/phases/93-Smart Fallback & Degradation Verification",
-      "toPath": ".planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.2",
-      "phaseNumber": "94",
-      "slug": "TS Compiler Modernization",
-      "dirName": "94-TS Compiler Modernization",
-      "fromPath": ".planning/phases/94-TS Compiler Modernization",
-      "toPath": ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.2",
-      "phaseNumber": "95",
-      "slug": "Operational Scripts Type Safety",
-      "dirName": "95-Operational Scripts Type Safety",
-      "fromPath": ".planning/phases/95-Operational Scripts Type Safety",
-      "toPath": ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.3",
-      "phaseNumber": "97",
-      "slug": "GSC Coverage Fresh Ingestion",
-      "dirName": "97-GSC Coverage Fresh Ingestion",
-      "fromPath": ".planning/phases/97-GSC Coverage Fresh Ingestion",
-      "toPath": ".planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.3",
-      "phaseNumber": "98",
-      "slug": "P0 Manual Recovery Execution",
-      "dirName": "98-P0 Manual Recovery Execution",
-      "fromPath": ".planning/phases/98-P0 Manual Recovery Execution",
-      "toPath": ".planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    },
-    {
-      "type": "archive",
-      "milestone": "v3.3",
-      "phaseNumber": "99",
-      "slug": "Technical Scorecard Recalculation",
-      "dirName": "99-Technical Scorecard Recalculation",
-      "fromPath": ".planning/phases/99-Technical Scorecard Recalculation",
-      "toPath": ".planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation",
-      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
-    }
-  ],
+  "archiveActions": [],
   "restoreActions": [],
   "createActions": [],
-  "unmanagedPhaseDirs": [
-    "96-Unified CI"
-  ],
+  "unmanagedPhaseDirs": [],
   "conflicts": [],
   "rewrittenFiles": []
 }

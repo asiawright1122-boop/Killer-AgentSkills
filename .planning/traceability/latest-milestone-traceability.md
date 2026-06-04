@@ -1,7 +1,7 @@
 # Planning Traceability Report
 
 - Milestone: v3.4 (Coverage Cluster Remediation & AI Telemetry Refresh)
-- Generated: 2026-06-04T05:02:30.484Z
+- Generated: 2026-06-04T05:03:12.931Z
 - Requirement coverage: satisfied=3, partial=0, pending=0
 
 ## Requirement Coverage

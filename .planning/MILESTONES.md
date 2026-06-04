@@ -1,6 +1,6 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.4 Coverage Cluster Remediation & AI Telemetry Refresh (Active)
+### v3.4 Coverage Cluster Remediation & AI Telemetry Refresh (Closeout Ready)
 
 **Delivered:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
 
@@ -12,8 +12,8 @@
 - Planning hygiene: clean
 
 **Stats:**
-- 3/3 complete phases, 0 plans, 3/3 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.4-BOOTSTRAP.md, .planning/milestones/v3.4-CLOSEOUT.md
+- 3/3 complete phases, 0 plans, 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/v3.4-MILESTONE-AUDIT.md, .planning/milestones/v3.4-BOOTSTRAP.md, .planning/milestones/v3.4-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
 **What's next:** Use .planning/milestones/v3.4-CLOSEOUT.md to finish audit and archive preparation.
