@@ -1,97 +1,73 @@
 {
-  "generatedAt": "2026-06-04T07:06:08.733Z",
+  "generatedAt": "2026-06-04T07:14:58.102Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v3.5",
-  "milestoneName": "Post-Intervention Recovery Verification & GEO/CTR Promotion",
+  "milestone": "v3.6",
+  "milestoneName": "Authority Surfaces Promotion",
   "activePhases": [
     {
-      "phaseNumber": "103",
-      "slug": "Remote Database Recovery Proof Verification",
+      "phaseNumber": "106",
+      "slug": "Authority Surface Quality Audit",
       "requirements": [],
       "phaseDirs": [
-        "103-Remote Database Recovery Proof Verification"
+        "106-Authority Surface Quality Audit"
       ],
-      "summaryFiles": [
-        ".planning/phases/103-Remote Database Recovery Proof Verification/103-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/103-Remote Database Recovery Proof Verification/103-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "AIOPS-24"
-      ],
-      "verificationRequirementsCompleted": [
-        "AIOPS-24"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "104",
-      "slug": "Residual Exclusion Reasons Remediation",
+      "phaseNumber": "107",
+      "slug": "Authority Content Upgrade",
       "requirements": [],
       "phaseDirs": [
-        "104-Residual Exclusion Reasons Remediation"
+        "107-Authority Content Upgrade"
       ],
-      "summaryFiles": [
-        ".planning/phases/104-Residual Exclusion Reasons Remediation/104-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/104-Residual Exclusion Reasons Remediation/104-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "AIOPS-25"
-      ],
-      "verificationRequirementsCompleted": [
-        "AIOPS-25"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "105",
-      "slug": "Traffic and CTR Visibility Refresh",
+      "phaseNumber": "108",
+      "slug": "Scorecard Evaluation and Promotion Validation",
       "requirements": [],
       "phaseDirs": [
-        "105-Traffic and CTR Visibility Refresh"
+        "108-Scorecard Evaluation and Promotion Validation"
       ],
-      "summaryFiles": [
-        ".planning/phases/105-Traffic and CTR Visibility Refresh/105-01-SUMMARY.md"
-      ],
-      "verificationFiles": [
-        ".planning/phases/105-Traffic and CTR Visibility Refresh/105-VERIFICATION.md"
-      ],
-      "summaryRequirementsCompleted": [
-        "AIOPS-26"
-      ],
-      "verificationRequirementsCompleted": [
-        "AIOPS-26"
-      ],
-      "summaryMetadataReady": true,
-      "verificationMetadataReady": true
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
     }
   ],
   "requirements": [
     {
-      "id": "AIOPS-24",
+      "id": "AIOPS-27",
       "expectedPhase": null,
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "AIOPS-25",
+      "id": "AIOPS-28",
       "expectedPhase": null,
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     },
     {
-      "id": "AIOPS-26",
+      "id": "AIOPS-29",
       "expectedPhase": null,
-      "summaryEvidence": true,
-      "verificationEvidence": true,
-      "status": "satisfied"
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
     }
   ],
   "hygiene": {

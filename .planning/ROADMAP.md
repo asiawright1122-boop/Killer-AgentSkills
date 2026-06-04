@@ -2,41 +2,42 @@
 
 ## Overview
 
-`v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion` is now the active milestone.
+`v3.6 Authority Surfaces Promotion` is now the active milestone.
 
-This milestone focuses on assessing post-intervention recovery metrics using real-world data from D1 and GSC, resolving residual exclusion roadblocks to aim for a 95%+ recovery rate, and refreshing organic CTR performance data to transition business recovery out of its blocking state.
+This milestone focuses on upgrading the content depth and internal linkage quality of existing authority surface pages. The goal is to address hold reasons, meet the promotion criteria in the authority scorecard, and transition selected pages from hold/stop status to promote status.
 
 ## Immediate Next Actions
 
-- Plan Phase 103: Remote Database Recovery Proof Verification (`/gsd-plan-phase 103`).
+- Plan Phase 106: Authority Surface Quality Audit (`/gsd-plan-phase 106`).
 
-## Current Milestone: v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion
+## Current Milestone: v3.6 Authority Surfaces Promotion
 
-**Goal:** Assess post-intervention recovery metrics using real-world data from D1 and GSC, resolve residual exclusion roadblocks to aim for a 95%+ recovery rate, and refresh organic CTR performance data to transition business recovery out of its blocking state.
+**Goal:** Focus on upgrading the content depth and internal linkage quality of existing authority surface pages to meet scorecard promotion criteria and transition target pages to promote status.
 
 **Requirements:**
-- [x] AIOPS-24: Verify remote database GSC coverage records and generate the post-intervention recovery scorecard.
-- [x] AIOPS-25: Remediate residual search exclusion patterns to drive the technical recovery rate towards 95%.
-- [x] AIOPS-26: Refresh live GSC stats and verify if business recovery can transition out of blocking.
+- [ ] AIOPS-27: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
+- [ ] AIOPS-28: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
+- [ ] AIOPS-29: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
 
-### Phase 103: Remote Database Recovery Proof Verification
-- **Requirements:** AIOPS-24
-- **Scope:** Run wrangler D1 commands to fetch remote coverage data, generate recovery scorecard, and isolate residual exclusions.
-- **Status:** Complete
+### Phase 106: Authority Surface Quality Audit
+- **Requirements:** AIOPS-27
+- **Scope:** Analyze existing authority configurations, generate an audit report detailing content gaps and hold reasons.
+- **Status:** Pending
 
-### Phase 104: Residual Exclusion Reasons Remediation
-- **Requirements:** AIOPS-25
-- **Scope:** Remediate residual search exclusion patterns to push indexation recovery rate towards 95%.
-- **Status:** Complete
+### Phase 107: Authority Content Upgrade
+- **Requirements:** AIOPS-28
+- **Scope:** Add skill lists and content descriptions to authority pages, ensuring usefulness and search compliance.
+- **Status:** Pending
 
-### Phase 105: Traffic and CTR Visibility Refresh
-- **Requirements:** AIOPS-26
-- **Scope:** Refresh live GSC organic click and CTR data, verifying if the business recovery gate can clear.
-- **Status:** Complete
+### Phase 108: Scorecard Evaluation and Promotion Validation
+- **Requirements:** AIOPS-29
+- **Scope:** Run authority operator queue, generate scorecards, and verify that target pages transition to promote status.
+- **Status:** Pending
 
 ## Milestones
 
-- 🔄 **v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion** — phases 103-105 (active)
+- 🔄 **v3.6 Authority Surfaces Promotion** — phases 106-108 (active)
+- ✅ **v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion** — phases 103-105 (shipped 2026-06-04; [archive](./milestones/v3.5-ROADMAP.md), [requirements](./milestones/v3.5-REQUIREMENTS.md), [audit](./v3.5-MILESTONE-AUDIT.md))
 - ✅ **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (shipped 2026-06-04; [archive](./milestones/v3.4-ROADMAP.md), [requirements](./milestones/v3.4-REQUIREMENTS.md), [audit](./v3.4-MILESTONE-AUDIT.md))
 - ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./milestones/v3.2-MILESTONE-AUDIT.md))
@@ -75,6 +76,7 @@ This milestone focuses on assessing post-intervention recovery metrics using rea
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.6 Authority Surfaces Promotion | 106-108 | 0/3 | Active | - |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
 | v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
@@ -104,4 +106,4 @@ This milestone focuses on assessing post-intervention recovery metrics using rea
 
 ---
 
-_Last updated: 2026-06-04 after completing v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion._
+_Last updated: 2026-06-04 after initializing v3.6 Authority Surfaces Promotion._

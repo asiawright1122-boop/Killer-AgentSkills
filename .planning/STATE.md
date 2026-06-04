@@ -1,19 +1,19 @@
 ---
 gsd_state_version: '1.0'
-status: completed
-milestone: v3.5
-milestone_name: Post-Intervention Recovery Verification & GEO/CTR Promotion
-last_updated: '2026-06-04T14:31:26Z'
+status: active
+milestone: v3.6
+milestone_name: Authority Surfaces Promotion
+last_updated: '2026-06-04T15:15:00Z'
 last_activity: '2026-06-04'
 progress:
   total_phases: 3
-  completed_phases: 3
+  completed_phases: 0
   total_plans: 3
-  completed_plans: 3
-  percent: 100
+  completed_plans: 0
+  percent: 0
 ---
 # Current State
 
-**Milestone:** v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion (Completed)
-**Phase:** 105 — Traffic and CTR Visibility Refresh (Completed)
-**Status:** Phase 105 successfully completed. All recovery gates are CLEAR. Ready for milestone closeout.
+**Milestone:** v3.6 Authority Surfaces Promotion (Active)
+**Phase:** 106 — Authority Surface Quality Audit (Planning)
+**Status:** Milestone v3.5 completed successfully. Milestone v3.6 initialized. Ready to plan Phase 106.

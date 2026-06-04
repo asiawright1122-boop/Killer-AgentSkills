@@ -1,24 +1,24 @@
 # Planning Traceability Report
 
-- Milestone: v3.5 (Post-Intervention Recovery Verification & GEO/CTR Promotion)
-- Generated: 2026-06-04T07:06:08.733Z
-- Requirement coverage: satisfied=3, partial=0, pending=0
+- Milestone: v3.6 (Authority Surfaces Promotion)
+- Generated: 2026-06-04T07:14:58.102Z
+- Requirement coverage: satisfied=0, partial=0, pending=3
 
 ## Requirement Coverage
 
 | Requirement | Expected Phase | Status | Summary Evidence | Verification Evidence |
 |---|---|---|---|---|
-| AIOPS-24 | n/a | satisfied | yes | yes |
-| AIOPS-25 | n/a | satisfied | yes | yes |
-| AIOPS-26 | n/a | satisfied | yes | yes |
+| AIOPS-27 | n/a | pending | no | no |
+| AIOPS-28 | n/a | pending | no | no |
+| AIOPS-29 | n/a | pending | no | no |
 
 ## Active Phase Contract
 
 | Phase | Directory | Summary Metadata | Verification Metadata | Summary Requirements | Verification Requirements |
 |---|---|---|---|---|---|
-| 103 | 103-Remote Database Recovery Proof Verification | ready | ready | AIOPS-24 | AIOPS-24 |
-| 104 | 104-Residual Exclusion Reasons Remediation | ready | ready | AIOPS-25 | AIOPS-25 |
-| 105 | 105-Traffic and CTR Visibility Refresh | ready | ready | AIOPS-26 | AIOPS-26 |
+| 106 | 106-Authority Surface Quality Audit | pending | pending | n/a | n/a |
+| 107 | 107-Authority Content Upgrade | pending | pending | n/a | n/a |
+| 108 | 108-Scorecard Evaluation and Promotion Validation | pending | pending | n/a | n/a |
 
 ## Planning Hygiene
 

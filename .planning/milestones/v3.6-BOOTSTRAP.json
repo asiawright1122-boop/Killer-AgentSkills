@@ -1,0 +1,46 @@
+{
+  "milestone": "v3.6",
+  "milestoneName": "Authority Surfaces Promotion",
+  "goal": null,
+  "sourceMilestone": "v3.5",
+  "sourceMilestoneName": "v3.5",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.5-ROADMAP.md",
+    ".planning/milestones/v3.5-REQUIREMENTS.md",
+    ".planning/v3.5-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "106",
+      "slug": "Authority Surface Quality Audit",
+      "requirements": []
+    },
+    {
+      "number": "107",
+      "slug": "Authority Content Upgrade",
+      "requirements": []
+    },
+    {
+      "number": "108",
+      "slug": "Scorecard Evaluation and Promotion Validation",
+      "requirements": []
+    }
+  ],
+  "requirements": [
+    "AIOPS-27",
+    "AIOPS-28",
+    "AIOPS-29"
+  ]
+}

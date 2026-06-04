@@ -1,38 +1,38 @@
 {
-  "generatedAt": "2026-06-04T07:06:11.236Z",
+  "generatedAt": "2026-06-04T07:14:57.564Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v3.5",
-  "activeMilestoneName": "Post-Intervention Recovery Verification & GEO/CTR Promotion",
+  "activeMilestone": "v3.6",
+  "activeMilestoneName": "Authority Surfaces Promotion",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v3.5-phases",
+  "activePhaseArchivePath": ".planning/milestones/v3.6-phases",
   "activePhases": [
     {
-      "phaseNumber": "103",
-      "slug": "Remote Database Recovery Proof Verification",
-      "dirName": "103-Remote Database Recovery Proof Verification",
+      "phaseNumber": "106",
+      "slug": "Authority Surface Quality Audit",
+      "dirName": "106-Authority Surface Quality Audit",
       "status": "present",
       "activePaths": [
-        ".planning/phases/103-Remote Database Recovery Proof Verification"
+        ".planning/phases/106-Authority Surface Quality Audit"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "104",
-      "slug": "Residual Exclusion Reasons Remediation",
-      "dirName": "104-Residual Exclusion Reasons Remediation",
+      "phaseNumber": "107",
+      "slug": "Authority Content Upgrade",
+      "dirName": "107-Authority Content Upgrade",
       "status": "present",
       "activePaths": [
-        ".planning/phases/104-Residual Exclusion Reasons Remediation"
+        ".planning/phases/107-Authority Content Upgrade"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "105",
-      "slug": "Traffic and CTR Visibility Refresh",
-      "dirName": "105-Traffic and CTR Visibility Refresh",
+      "phaseNumber": "108",
+      "slug": "Scorecard Evaluation and Promotion Validation",
+      "dirName": "108-Scorecard Evaluation and Promotion Validation",
       "status": "present",
       "activePaths": [
-        ".planning/phases/105-Traffic and CTR Visibility Refresh"
+        ".planning/phases/108-Scorecard Evaluation and Promotion Validation"
       ],
       "archivePaths": []
     }
@@ -344,6 +344,20 @@
         ".planning/milestones/v3.4-phases/100-GSC Coverage Cluster Resolution",
         ".planning/milestones/v3.4-phases/101-AI Telemetry Checkpoint Refresh",
         ".planning/milestones/v3.4-phases/102-Backup Provider Configuration Adjustment"
+      ]
+    },
+    {
+      "milestone": "v3.5",
+      "phaseArchivePath": ".planning/milestones/v3.5-phases",
+      "archivedDirs": [
+        ".planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification",
+        ".planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation",
+        ".planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification",
+        ".planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation",
+        ".planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh"
       ]
     }
   ],

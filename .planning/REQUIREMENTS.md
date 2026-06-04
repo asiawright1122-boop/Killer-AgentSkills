@@ -1,51 +1,51 @@
-# Requirements: v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion
+# Requirements: v3.6 Authority Surfaces Promotion
 
 ## Overview
 
-Assess post-intervention recovery metrics using real-world data from D1 and GSC, resolve residual exclusion roadblocks to aim for a 95%+ recovery rate, and refresh organic CTR performance data to transition business recovery out of its blocking state.
+Focus on upgrading the content depth and internal linkage quality of existing authority surface pages. The goal is to address hold reasons, meet the promotion criteria in the authority scorecard, and transition selected pages from hold/stop status to promote status.
 
-## v3.5 Requirements
+## v3.6 Requirements
 
-- [ ] **AIOPS-24**: Verify remote database GSC coverage records via automated tooling and generate the post-intervention recovery scorecard.
-- [ ] **AIOPS-25**: Remediate residual search exclusion patterns (e.g. invalid 404 skill pages, noindex parameters) to drive the technical recovery rate towards the 95% threshold.
-- [ ] **AIOPS-26**: Refresh live GSC search console stats, track organic click trends, and verify if the business recovery status can transition out of `blocking`.
+- [ ] **AIOPS-27**: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
+- [ ] **AIOPS-28**: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
+- [ ] **AIOPS-29**: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
 
 ## Scope
 
-### 1. Remote Database Recovery Proof Verification (Phase 103)
-- **Problem**: The recovery rate has only been validated locally/mocked. Real production recovery evidence depends on D1 records.
+### 1. Authority Surface Quality Audit (Phase 106)
+- **Problem**: The majority of authority pages (31/32) remain in a `hold` status due to content debt or missing links.
 - **Requirement**:
-  - Run wrangler D1 execution via `verify-recovery-proof.ts`.
-  - Output `.planning/dashboards/recovery-scorecard.md` to display live recovery percentage.
-- **Verification**: `recovery-scorecard.md` is populated with remote database statistics.
+  - Analyze the existing authority configurations.
+  - Generate an audit report detailing the deficiencies and hold reasons.
+- **Verification**: An audit report is compiled and configuration gaps are documented.
 
-### 2. Residual Exclusion Reasons Remediation (Phase 104)
-- **Problem**: GSC excluded pages or residual redirect issues keep the recovery rate below the 95% threshold required to unlock automation.
+### 2. Authority Content Upgrade (Phase 107)
+- **Problem**: Authority pages lack deep, high-value skill references and descriptive metadata to pass quality checks.
 - **Requirement**:
-  - Analyze the reasons listed in D1 for excluded pages.
-  - Implement remediations (e.g., correct redirect mappings, adjust page headers, clean up stale sitemap links).
-- **Verification**: Re-running the recovery verification shows an indexation rate improvement towards 95%+.
+  - Add relevant, highly original skill lists to target authority pages.
+  - Refine content descriptions to ensure usefulness and search compliance.
+- **Verification**: The configurations are updated and successfully build locally.
 
-### 3. Traffic and CTR Visibility Refresh (Phase 105)
-- **Problem**: Business recovery status is marked as `blocking` because live organic search performance metrics haven't been fetched/analyzed.
+### 3. Scorecard Evaluation and Promotion Validation (Phase 108)
+- **Problem**: We need to prove that the content updates successfully transition the status of at least one page to `promote`.
 - **Requirement**:
-  - Execute live GSC search performance fetches using the API tools.
-  - Analyze organic CTR data and evaluate if the business recovery gate can be cleared.
-- **Verification**: GSC live reports are generated and scorecard business recovery status is evaluated based on live clicks.
+  - Run the authority operator queue and scorecard generator.
+  - Verify that the target authority pages transition to `promote` status on the scorecard.
+- **Verification**: Scorecard reports a successful state transition and all automated gates pass.
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-24 | Phase 103 | Pending |
-| AIOPS-25 | Phase 104 | Pending |
-| AIOPS-26 | Phase 105 | Pending |
+| AIOPS-27 | Phase 106 | Pending |
+| AIOPS-28 | Phase 107 | Pending |
+| AIOPS-29 | Phase 108 | Pending |
 
 **Coverage:**
-- v3.5 requirements: 3 total
+- v3.6 requirements: 3 total
 - Mapped to phases: 3
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-04 during initialization of v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion*
+*Last updated: 2026-06-04 during initialization of v3.6 Authority Surfaces Promotion*

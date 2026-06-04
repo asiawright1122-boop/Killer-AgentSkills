@@ -1,18 +1,18 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-04T07:06:11.236Z
-- Active milestone: v3.5 (Post-Intervention Recovery Verification & GEO/CTR Promotion)
+- Generated: 2026-06-04T07:14:57.564Z
+- Active milestone: v3.6 (Authority Surfaces Promotion)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v3.5-phases
+- Active archive path: .planning/milestones/v3.6-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 103 | 103-Remote Database Recovery Proof Verification | present | .planning/phases/103-Remote Database Recovery Proof Verification | missing |
-| 104 | 104-Residual Exclusion Reasons Remediation | present | .planning/phases/104-Residual Exclusion Reasons Remediation | missing |
-| 105 | 105-Traffic and CTR Visibility Refresh | present | .planning/phases/105-Traffic and CTR Visibility Refresh | missing |
+| 106 | 106-Authority Surface Quality Audit | present | .planning/phases/106-Authority Surface Quality Audit | missing |
+| 107 | 107-Authority Content Upgrade | present | .planning/phases/107-Authority Content Upgrade | missing |
+| 108 | 108-Scorecard Evaluation and Promotion Validation | present | .planning/phases/108-Scorecard Evaluation and Promotion Validation | missing |
 
 ## Archive Actions
 
@@ -137,6 +137,11 @@
 - Archive root: .planning/milestones/v3.4-phases
 - Archived dirs: .planning/milestones/v3.4-phases/100-GSC Coverage Cluster Resolution, .planning/milestones/v3.4-phases/101-AI Telemetry Checkpoint Refresh, .planning/milestones/v3.4-phases/102-Backup Provider Configuration Adjustment
 - Expected dirs: .planning/milestones/v3.4-phases/100-GSC Coverage Cluster Resolution, .planning/milestones/v3.4-phases/101-AI Telemetry Checkpoint Refresh, .planning/milestones/v3.4-phases/102-Backup Provider Configuration Adjustment
+
+### v3.5
+- Archive root: .planning/milestones/v3.5-phases
+- Archived dirs: .planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification, .planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation, .planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh
+- Expected dirs: .planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification, .planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation, .planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh
 
 ## Conflicts
 
