@@ -383,4 +383,54 @@ describe('buildRecoveryScorecardReport', () => {
     expect(report.traffic.metrics.sourceMode).toBe('missing-config');
     expect(report.nextActions.join(' ')).toContain('GSC_CLIENT_EMAIL');
   });
+
+  it('treats known_skill_404 as an explained cluster that does not block coverage', () => {
+    const report = buildRecoveryScorecardReport({
+      now: '2026-06-04T12:00:00.000Z',
+      crawlHealthReport: {
+        generatedAt: '2026-06-04T04:52:24.060Z',
+        totals: { sitemapFilesDiscovered: 8, pageUrlsDiscovered: 29280, pageUrlsChecked: 721 },
+        statusSummary: { status2xx: 721, status3xx: 0, status4xx: 0, status5xx: 0, statusOther: 0 },
+        cloudflare1102: [],
+      },
+      coverageDrilldownReport: {
+        generatedAt: '2026-06-04T04:10:28.523Z',
+        directories: ['/Users/kaka/Downloads/killer-skills.com-Coverage-Drilldown-2026-06-03'],
+        issueCount: 3,
+        totalAffectedPages: 27015,
+        sourceFreshnessStatus: 'fresh',
+        sourceFreshnessDate: '2026-06-03',
+        sourceFreshnessDays: 1,
+        sourcePreferredWindowDays: 3,
+        sourceMaxWindowDays: 100,
+        clusterPriorities: [{ cluster: 'known_skill_404', estimatedAffected: 13003 }],
+        issueSummaries: [{ issueName: '未找到 (404)', affectedPages: 10783 }],
+      },
+      indexDriftReport: {
+        generatedAt: '2026-06-04T06:49:41.377Z',
+        counts: { onlyInSitemap: 0, onlyInIndexableCache: 0 },
+      },
+      trafficReport: null,
+      aiProviderHealthReport: {
+        generatedAt: '2026-06-04T04:13:12.663Z',
+        alertSummary: { total: 0, highestSeverity: 'none', status: 'clear' },
+        alerts: [],
+        telemetry: { mode: { workersAi: 'free-only', fallbackPolicy: 'cold' } },
+        latestSnapshot: {
+          workersAi: {
+            maxCallsPerRun: 60,
+            maxCallsPerDay: 60,
+            dailyCalls: 1,
+            dailyRemaining: 59,
+            runRemaining: 60,
+          },
+        },
+      },
+    });
+
+    expect(report.coverage.status).toBe('clear');
+    expect(report.coverage.metrics.dominantCluster).toBe('known_skill_404');
+    // Should NOT suggest working the dominant cluster since it's explained
+    expect(report.nextActions.join(' ')).not.toContain('known_skill_404');
+  });
 });

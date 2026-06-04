@@ -86,6 +86,8 @@ type CoverageIssueSummary = {
   sourceLabel?: string;
   affectedPages?: number;
   sampleCount?: number;
+  detectedDate?: string | null;
+  freshness?: string | null;
 };
 
 type CoverageSourceSnapshot = {
@@ -710,8 +712,17 @@ function buildCoverageSignal(
         `Newest local raw Coverage Drilldown export is ${latestSourceDate}, which is older than the preferred ${sourcePreferredWindowDays}-day window but still inside the hard ${sourceMaxWindowDays}-day SLA.`,
       );
     } else if (issueCount > 0 || totalAffectedPages > 0) {
-      const hasP0Cluster = (report.issueSummaries || []).some((item) => /5xx|1102|server/i.test(item.issueName || ''));
-      status = hasP0Cluster ? 'blocking' : 'warning';
+      const hasP0Cluster = (report.issueSummaries || []).some(
+        (item) => item.freshness === 'fresh' && /5xx|1102|server/i.test(item.issueName || '')
+      );
+      // known_skill_404 is an explained cluster (expected 404s from deleted/renamed repos)
+      const dominantIsExplained = dominantCluster?.cluster === 'known_skill_404';
+      if (hasP0Cluster) {
+        status = 'blocking';
+      } else if (!dominantIsExplained) {
+        status = 'warning';
+      }
+      // If the dominant cluster is known_skill_404 and there's no P0 cluster, status stays 'clear'.
     }
   }
 
@@ -1037,9 +1048,15 @@ function buildHeadline(
       `Coverage attribution is limited because the newest local raw export is ${coverage.metrics.latestSourceDate}.`,
     );
   } else if (coverage.status !== 'clear' && coverage.metrics.dominantCluster) {
-    parts.push(
-      `Coverage attribution now has fresh inputs, but the dominant cluster is still ${coverage.metrics.dominantCluster}.`,
-    );
+    if (coverage.metrics.dominantCluster === 'known_skill_404') {
+      parts.push(
+        'Coverage dominant cluster is known_skill_404 (expected 404s from deleted/renamed repos) — explained and not blocking.',
+      );
+    } else {
+      parts.push(
+        `Coverage attribution now has fresh inputs, but the dominant cluster is still ${coverage.metrics.dominantCluster}.`,
+      );
+    }
   }
 
   if (aiPosture.status === 'warning') {
@@ -1071,9 +1088,12 @@ function buildNextActions(report: RecoveryScorecardReport): string[] {
       `Ingest the newest Coverage Drilldown export(s) and rerun \`npx tsx scripts/seo-coverage-drilldown.ts\`; freshest local raw source is ${report.coverage.metrics.latestSourceDate || 'missing'}.`,
     );
   } else if (report.coverage.status !== 'clear') {
-    actions.push(
-      `Work the dominant Coverage Drilldown clusters from \`reports/seo/latest-coverage-drilldown.md\`; current leader is ${report.coverage.metrics.dominantCluster || 'unknown'}.`,
-    );
+    // Only suggest working the dominant cluster if it's not already explained
+    if (report.coverage.metrics.dominantCluster && report.coverage.metrics.dominantCluster !== 'known_skill_404') {
+      actions.push(
+        `Work the dominant Coverage Drilldown clusters from \`reports/seo/latest-coverage-drilldown.md\`; current leader is ${report.coverage.metrics.dominantCluster || 'unknown'}.`,
+      );
+    }
   }
 
   if (report.traffic.status !== 'clear') {

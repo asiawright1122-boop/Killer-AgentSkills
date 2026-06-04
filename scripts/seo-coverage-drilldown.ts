@@ -16,7 +16,7 @@ import {
   resolveCoverageDrilldownCsvPaths,
   type CoverageDrilldownCsvPaths,
 } from './lib/coverage-drilldown-source';
-import { countExtraSkillSegments, hasRepeatedSegment, isSourceFilePathname } from './lib/coverage-url-classification';
+import { countExtraSkillSegments, hasRepeatedSegment, isSkillRoutePathname, isSourceFilePathname } from './lib/coverage-url-classification';
 
 type CsvRow = string[];
 
@@ -49,6 +49,7 @@ type ClusterId =
   | 'trailing_slash'
   | 'repeated_segment'
   | 'sandbox_path'
+  | 'known_skill_404'
   | 'other';
 
 type ClusterStats = {
@@ -118,6 +119,7 @@ const CLUSTER_LABELS: Record<ClusterId, string> = {
   trailing_slash: '尾斜杠重复 URL',
   repeated_segment: '重复片段路径',
   sandbox_path: 'Sandbox 测试页',
+  known_skill_404: '已知技能路由 404',
   other: '其他模式',
 };
 
@@ -150,6 +152,11 @@ const CLUSTER_RECOMMENDATIONS: Record<ClusterId, { title: string; action: string
   sandbox_path: {
     title: '隔离 sandbox 抓取',
     action: '为 sandbox 路径统一 noindex，并从对外入口和 sitemap 中移除该路径。',
+  },
+  known_skill_404: {
+    title: '已知技能路由预期 404（已解释）',
+    action:
+      '这些 URL 是标准技能路由（/:locale/skills/:owner/:repo），因底层仓库已删除或重命名而返回 404/5xx。属于预期行为，无需额外处理。',
   },
   other: {
     title: '补充人工归因',
@@ -232,6 +239,7 @@ function classifyUrl(url: string): ClusterId {
   if (pathname.length > 1 && pathname.endsWith('/')) return 'trailing_slash';
   if (hasRepeatedSegment(pathname)) return 'repeated_segment';
   if (/\/sandbox\//i.test(pathname)) return 'sandbox_path';
+  if (isSkillRoutePathname(pathname)) return 'known_skill_404';
   return 'other';
 }
 

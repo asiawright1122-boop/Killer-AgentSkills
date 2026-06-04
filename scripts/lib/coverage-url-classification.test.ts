@@ -4,6 +4,7 @@ import {
   hasFileLikeLastSegment,
   hasRepeatedSegment,
   isFileLikeSkillRouteTail,
+  isSkillRoutePathname,
   isSourceFilePathname,
 } from './coverage-url-classification';
 
@@ -39,5 +40,19 @@ describe('coverage url classification helpers', () => {
   it('detects repeated path segments independently from dotted repo names', () => {
     expect(hasRepeatedSegment('/en/skills/foo/bar/references/references/file.md')).toBe(true);
     expect(hasRepeatedSegment('/en/skills/vercel/next.js/flags')).toBe(false);
+  });
+
+  it('recognizes standard skill route pathnames', () => {
+    expect(isSkillRoutePathname('/en/skills/vercel/next.js')).toBe(true);
+    expect(isSkillRoutePathname('/ja/skills/sabaronnie/AI-Driven-Cronut-CEO-Agent')).toBe(true);
+    expect(isSkillRoutePathname('/ko/skills/OpenGradient/OpenGradient-SDK')).toBe(true);
+    expect(isSkillRoutePathname('/en/skills/vercel/next.js/flags')).toBe(true);
+  });
+
+  it('rejects non-skill paths for isSkillRoutePathname', () => {
+    expect(isSkillRoutePathname('/en/skills')).toBe(false);
+    expect(isSkillRoutePathname('/en/skills/vercel')).toBe(false);
+    expect(isSkillRoutePathname('/blog/hello')).toBe(false);
+    expect(isSkillRoutePathname('/docs/manifest.json')).toBe(false);
   });
 });

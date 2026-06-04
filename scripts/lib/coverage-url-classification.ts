@@ -49,3 +49,15 @@ export function hasRepeatedSegment(pathname: string): boolean {
   }
   return false;
 }
+
+const SKILL_ROUTE_REGEX = /^\/[a-z]{2}\/skills\/[^/]+\/[^/]+/i;
+
+/**
+ * Returns true when the pathname matches a skill route pattern:
+ * `/:locale/skills/:owner/:repo` (with optional sub-paths).
+ * Used to distinguish expected 404s for deleted/renamed repos from
+ * genuinely unrecognized URL patterns.
+ */
+export function isSkillRoutePathname(pathname: string): boolean {
+  return SKILL_ROUTE_REGEX.test(pathname);
+}
