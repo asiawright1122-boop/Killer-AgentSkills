@@ -2,23 +2,38 @@
 
 ## Overview
 
-`v3.3 Manual Recovery Execution & Fresh Ingestion` shipped on `2026-06-04` and is now archived.
+`v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` is now the active milestone.
 
-This milestone focused on GSC Coverage fresh data ingestion to resolve SLA warnings, P0 manual recovery batches execution, and technical scorecard recalculation.
+This milestone addresses the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshes stale AI telemetry data, and normalizes backup provider configuration.
 
 ## Immediate Next Actions
 
-- Define the next milestone scope from archived findings (Run `/gsd-new-milestone`).
+- Plan Phase 100: GSC Coverage Cluster Resolution (`/gsd-plan-phase 100`).
 
-## Current Milestone: None
+## Current Milestone: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
 
-**Goal:** Run `/gsd-new-milestone` to start the next milestone.
+**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize the backup provider configuration.
 
 **Requirements:**
-- None.
+- [ ] AIOPS-21: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs.
+- [ ] AIOPS-22: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
+- [ ] AIOPS-23: Adjust backup provider settings and verify fallback router logic.
+
+### Phase 100 — GSC Coverage Cluster Resolution
+- **Scope:** Diagnose the `other` category cluster (~13,003 URLs), implement edge `noindex` or sitemap filter rules, recalculate scorecard.
+- **Status:** Not started
+
+### Phase 101 — AI Telemetry Checkpoint Refresh
+- **Scope:** Trigger a new telemetry checkpoint run, verify sample timestamp age within 24 hours.
+- **Status:** Not started
+
+### Phase 102 — Backup Provider Configuration Adjustment
+- **Scope:** Disable inactive providers (SiliconFlow), verify config compliance guard and active backup probes.
+- **Status:** Not started
 
 ## Milestones
 
+- 🔄 **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (active)
 - ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
@@ -56,6 +71,7 @@ This milestone focused on GSC Coverage fresh data ingestion to resolve SLA warni
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 0/3 | Active | — |
 | v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
@@ -83,4 +99,4 @@ This milestone focused on GSC Coverage fresh data ingestion to resolve SLA warni
 
 ---
 
-_Last updated: 2026-06-04 after shipping v3.3 Manual Recovery Execution & Fresh Ingestion._
+_Last updated: 2026-06-04 after activating v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._

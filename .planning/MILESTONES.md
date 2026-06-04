@@ -1,15 +1,17 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### None (Active)
+### v3.4 Coverage Cluster Remediation & AI Telemetry Refresh (Active)
 
-**Goal:** Define next milestone using `/gsd-new-milestone`.
+**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
 
-**Phases completed:** 0/0 complete
+**Phases completed:** 0/3 complete
 
 **Stats:**
-- No active milestone.
+- Phase 100: GSC Coverage Cluster Resolution — Not started
+- Phase 101: AI Telemetry Checkpoint Refresh — Not started
+- Phase 102: Backup Provider Configuration Adjustment — Not started
 
-**What's next:** Run `/gsd-new-milestone` to define new requirements.
+**What's next:** Run `/gsd-plan-phase 100` to plan GSC Coverage Cluster Resolution.
 
 ---
 ## Shipped Milestones

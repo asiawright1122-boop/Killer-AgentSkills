@@ -1,30 +1,51 @@
-# Requirements: [Next Milestone]
+# Requirements: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
 
 ## Overview
 
-[Overview of next milestone]
+Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize the backup provider configuration.
 
-## Requirements
+## v3.4 Requirements
 
-- [ ] **AIOPS-XX**: [Requirement description]
+- [ ] **AIOPS-21**: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs, isolating invalid URLs and explaining or pruning the cluster.
+- [ ] **AIOPS-22**: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
+- [ ] **AIOPS-23**: Adjust backup provider settings (resolving direct probe failures on inactive providers like SiliconFlow) and verify fallback router logic.
 
 ## Scope
 
-### 1. [Scope Area]
-- **Problem**: 
+### 1. GSC Coverage Cluster Resolution (Phase 100)
+- **Problem**: The scorecard blocks indexation because the dominant GSC Coverage cluster is `other` (~13,003 affected URLs).
 - **Requirement**:
-- **Verification**:
+  - Implement or run diagnostics scripts to parse URL reasons inside the `other` cluster.
+  - Implement edge `noindex` headers or filter rules in `sitemap-skills.json` to prune invalid pages.
+- **Verification**: Recalculated scorecard reports the cluster as resolved or explained.
+
+### 2. AI Telemetry Checkpoint Refresh (Phase 101)
+- **Problem**: The latest AI telemetry checkpoint timestamp is over 1000 hours behind report generation time, triggering a health gate warning.
+- **Requirement**:
+  - Trigger a new telemetry checkpoint run to generate fresh records.
+  - Verify that the latest sample timestamp age is within 24 hours.
+- **Verification**: `npm run report:ai:telemetry` runs successfully and reports the status as cleared/fresh.
+
+### 3. Backup Provider Configuration Adjustment (Phase 102)
+- **Problem**: Inactive backup providers (e.g. SiliconFlow) report auth/billing errors, polluting direct probe metrics.
+- **Requirement**:
+  - Update operator configuration to disable SiliconFlow explicitly.
+  - Ensure the config compliance guard passes and active backups (e.g., cloudflare, openrouter) function cleanly.
+- **Verification**: `npm run probe:ai:providers` completes with 0 errors on active paths.
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| AIOPS-21 | Phase 100 | Untracked |
+| AIOPS-22 | Phase 101 | Untracked |
+| AIOPS-23 | Phase 102 | Untracked |
 
 **Coverage:**
-- 0 total
-- Mapped: 0
+- v3.4 requirements: 3 total
+- Mapped to phases: 3
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-04*
+*Last updated: 2026-06-04 during initialization of v3.4 Coverage Cluster Remediation & AI Telemetry Refresh*

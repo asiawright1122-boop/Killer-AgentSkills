@@ -11,6 +11,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ## Current State
 
 - `v1.0` through `v3.3` are shipped.
+- `v3.4` is the active milestone: Coverage Cluster Remediation & AI Telemetry Refresh.
 - `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
 - `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 - `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
@@ -76,9 +77,11 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Circuit breaker state-based tracking and provider smart routing.
 - D1/KV sync hardening and observability dashboards.
 
-## Current Milestone: None
+## Current Milestone: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
 
-**Goal:** Run `/gsd-new-milestone` to start the next milestone.
+**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
+
+**Phases:** 100 (GSC Coverage Cluster Resolution) → 101 (AI Telemetry Checkpoint Refresh) → 102 (Backup Provider Configuration Adjustment)
 
 ## Deferred Beyond v1.8
 
@@ -163,7 +166,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-- None (Run `/gsd-new-milestone` to define new requirements).
+- [ ] [AIOPS-21: GSC Coverage Cluster Resolution] - `v3.4`
+- [ ] [AIOPS-22: AI Telemetry Checkpoint Refresh] - `v3.4`
+- [ ] [AIOPS-23: Backup Provider Configuration Adjustment] - `v3.4`
 
 ### Out of Scope
 
@@ -229,4 +234,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-04 after shipping v3.3 Manual Recovery Execution & Fresh Ingestion._
+_Last updated: 2026-06-04 after activating v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._
