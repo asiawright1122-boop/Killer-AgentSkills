@@ -1,19 +1,33 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.3 Manual Recovery Execution & Fresh Ingestion (Active)
+### None (Active)
 
-**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
+**Goal:** Define next milestone using `/gsd-new-milestone`.
 
-**Phases completed:** 0/3 complete
-
-**Key accomplishments:**
-- Proposed milestone requirements: AIOPS-18, AIOPS-19, AIOPS-20.
+**Phases completed:** 0/0 complete
 
 **Stats:**
-- 0/3 complete phases, 0/3 requirements satisfied.
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md
+- No active milestone.
 
-**What's next:** Obtain user approval and begin execution of Phase 97.
+**What's next:** Run `/gsd-new-milestone` to define new requirements.
+
+---
+## Shipped Milestones
+### v3.3 Manual Recovery Execution & Fresh Ingestion (Shipped: 2026-06-04)
+
+**Delivered:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
+
+**Phases completed:** 3/3 complete
+
+**Key accomplishments:**
+- GSC Coverage Fresh Ingestion: Loaded 2.1-day-old GSC crawl data, successfully resolving the 7-day SLA validation warnings during builds.
+- P0 Manual Recovery Execution: Upgraded 3 thin skills to full technical README profiles to mitigate thin catalog duplication warnings.
+- Technical Scorecard Recalculation: Ran the scorecard recalculator, successfully transitioning the Technical SEO Recovery status to CLEAR.
+
+**Stats:**
+- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
+- Milestone artifacts: .planning/milestones/v3.3-ROADMAP.md, .planning/milestones/v3.3-REQUIREMENTS.md, .planning/v3.3-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
 
 ---
 ## Shipped Milestones

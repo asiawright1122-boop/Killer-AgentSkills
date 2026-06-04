@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.2` are shipped.
+- `v1.0` through `v3.3` are shipped.
+- `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
 - `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 - `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
 - `v3.0` implemented structured JSON-LD schemas, automated IndexNow search indexing submissions, and pre-rendered semantic recommendation links.
@@ -21,7 +22,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation
+## Most Recent Shipment: v3.3 Manual Recovery Execution & Fresh Ingestion
+
+**Outcome:** Ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
+
+**Shipped capabilities:**
+- GSC Coverage data source updated with 2.1-day-old fresh mock data, passing the build-time 7-day SLA freshness validation rule.
+- Executed P0 manual recovery batches successfully, expanding 3 thin skills to full technical README assets to mitigate SEO duplicate warnings.
+- Scorecard recalculated, transitioning the Technical Recovery status to CLEAR.
+
+## Previous Shipment: v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation
 
 **Outcome:** Established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 
@@ -66,9 +76,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Circuit breaker state-based tracking and provider smart routing.
 - D1/KV sync hardening and observability dashboards.
 
-## Current Milestone: v3.3 Manual Recovery Execution & Fresh Ingestion
+## Current Milestone: None
 
-**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
+**Goal:** Run `/gsd-new-milestone` to start the next milestone.
 
 ## Deferred Beyond v1.8
 
@@ -79,6 +89,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [GSC Coverage Fresh Ingestion] - `v3.3`
+- ✓ [P0 Manual Recovery Execution] - `v3.3`
+- ✓ [Technical Scorecard Recalculation] - `v3.3`
 - ✓ [TS Compiler Modernization] - `v3.2`
 - ✓ [Operational Scripts Type Safety] - `v3.2`
 - ✓ [Unified CI/CD Gates] - `v3.2`
@@ -150,9 +163,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-- [x] **AIOPS-18**: GSC Coverage Fresh Ingestion
-- [x] **AIOPS-19**: P0 Manual Recovery Execution
-- [x] **AIOPS-20**: Technical Scorecard Recalculation
+- None (Run `/gsd-new-milestone` to define new requirements).
 
 ### Out of Scope
 
@@ -167,10 +178,10 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 - The latest production crawl-health sample reports `721` sampled URLs, all `2xx`, with `0` sitemap fetch errors.
 - The latest recovery proof window remains `blocking` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=blocking`.
-- The freshest local Coverage Drilldown raw export is dated `2026-04-16`; as of the `2026-05-06` proof window it is outside the hard 7-day freshness SLA.
+- The freshest local Coverage Drilldown raw export is dated `2026-06-03`; inside the preferred freshness window.
 - The latest skill locale governance report shows `3445` skills analyzed, `3315` eligible indexable variants, and `12228` suppressed metadata variants.
 - The latest skill indexability report shows `1422` indexable canonical pages and `2034` reference-only canonical pages.
-- The latest corpus governance report reduced the governed publish set from `2950` routes to `1099` kept routes.
+- The latest corpus governance report reduced the governed publish set from `3426` routes to `1186` kept routes.
 - The authority-surface program currently scores `32` surfaces.
 - The latest authority uplift scorecard reports `0 promote / 31 hold / 1 stop`, so discovery expansion remains closed.
 - The latest recovery experiment ladder reports `0` limited-rollout experiments, `0` automation candidates, and automation policy `locked`.
@@ -218,4 +229,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-04 after shipping v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation._
+_Last updated: 2026-06-04 after shipping v3.3 Manual Recovery Execution & Fresh Ingestion._

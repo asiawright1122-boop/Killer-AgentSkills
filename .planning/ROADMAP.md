@@ -2,45 +2,24 @@
 
 ## Overview
 
-`v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation` shipped on `2026-06-04` and is now archived.
+`v3.3 Manual Recovery Execution & Fresh Ingestion` shipped on `2026-06-04` and is now archived.
 
-This milestone focused on establishing project-wide type safety, aligning compiler configurations, and introducing scripts typecheck CI gates.
+This milestone focused on GSC Coverage fresh data ingestion to resolve SLA warnings, P0 manual recovery batches execution, and technical scorecard recalculation.
 
 ## Immediate Next Actions
 
-- Run `/gsd-plan-phase 97` to start planning for the first phase of the milestone.
+- Define the next milestone scope from archived findings (Run `/gsd-new-milestone`).
 
-## Current Milestone: v3.3 Manual Recovery Execution & Fresh Ingestion
+## Current Milestone: None
 
-**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
+**Goal:** Run `/gsd-new-milestone` to start the next milestone.
 
 **Requirements:**
-- **AIOPS-18**: GSC Coverage Fresh Ingestion
-- **AIOPS-19**: P0 Manual Recovery Execution
-- **AIOPS-20**: Technical Scorecard Recalculation
-**Phase range:** Phase 97 - Phase 99
-
-### Phase 97: GSC Coverage Fresh Ingestion
-
-(Complete: [summary](./phases/97-GSC%20Coverage%20Fresh%20Ingestion/97-01-SUMMARY.md), [verification](./phases/97-GSC%20Coverage%20Fresh%20Ingestion/97-VERIFICATION.md))
-
-- Ingest fresh GSC export data and resolve the freshness SLA warning gate.
-
-### Phase 98: P0 Manual Recovery Execution
-
-(Complete: [summary](./phases/98-P0%20Manual%20Recovery%20Execution/98-01-SUMMARY.md), [verification](./phases/98-P0%20Manual%20Recovery%20Execution/98-VERIFICATION.md))
-
-- Execute manual enrichment and validation loops on target priority surfaces.
-
-### Phase 99: Technical Scorecard Recalculation
-
-(Complete: [summary](./phases/99-Technical%20Scorecard%20Recalculation/99-01-SUMMARY.md), [verification](./phases/99-Technical%20Scorecard%20Recalculation/99-VERIFICATION.md))
-
-- Recalculate the recovery metrics and update the scorecard report.
+- None.
 
 ## Milestones
 
-- ⏳ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (active; [requirements](./REQUIREMENTS.md))
+- ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
@@ -77,7 +56,7 @@ This milestone focused on establishing project-wide type safety, aligning compil
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Active | - |
+| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
@@ -104,4 +83,4 @@ This milestone focused on establishing project-wide type safety, aligning compil
 
 ---
 
-_Last updated: 2026-06-04 after shipping v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation._
+_Last updated: 2026-06-04 after shipping v3.3 Manual Recovery Execution & Fresh Ingestion._
