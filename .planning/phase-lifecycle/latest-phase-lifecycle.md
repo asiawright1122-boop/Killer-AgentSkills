@@ -1,18 +1,18 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-04T05:03:53.563Z
-- Active milestone: v3.4 (Coverage Cluster Remediation & AI Telemetry Refresh)
+- Generated: 2026-06-04T05:07:31.629Z
+- Active milestone: v3.5 (Post-Intervention Recovery Verification & GEO/CTR Promotion)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v3.4-phases
+- Active archive path: .planning/milestones/v3.5-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 100 | 100-GSC Coverage Cluster Resolution | present | .planning/phases/100-GSC Coverage Cluster Resolution | missing |
-| 101 | 101-AI Telemetry Checkpoint Refresh | present | .planning/phases/101-AI Telemetry Checkpoint Refresh | missing |
-| 102 | 102-Backup Provider Configuration Adjustment | present | .planning/phases/102-Backup Provider Configuration Adjustment | missing |
+| 103 | 103-Remote Database Recovery Proof Verification | present | .planning/phases/103-Remote Database Recovery Proof Verification | missing |
+| 104 | 104-Residual Exclusion Reasons Remediation | present | .planning/phases/104-Residual Exclusion Reasons Remediation | missing |
+| 105 | 105-Traffic and CTR Visibility Refresh | present | .planning/phases/105-Traffic and CTR Visibility Refresh | missing |
 
 ## Archive Actions
 
@@ -133,6 +133,11 @@
 - Archived dirs: .planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion, .planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution, .planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation
 - Expected dirs: .planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion, .planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution, .planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation
 
+### v3.4
+- Archive root: .planning/milestones/v3.4-phases
+- Archived dirs: .planning/milestones/v3.4-phases/100-GSC Coverage Cluster Resolution, .planning/milestones/v3.4-phases/101-AI Telemetry Checkpoint Refresh, .planning/milestones/v3.4-phases/102-Backup Provider Configuration Adjustment
+- Expected dirs: .planning/milestones/v3.4-phases/100-GSC Coverage Cluster Resolution, .planning/milestones/v3.4-phases/101-AI Telemetry Checkpoint Refresh, .planning/milestones/v3.4-phases/102-Backup Provider Configuration Adjustment
+
 ## Conflicts
 
 - none
@@ -143,4 +148,8 @@
 
 ## Rewritten Planning Files
 
-- none
+- .planning/milestones/v3.4-CLOSEOUT.json
+- .planning/milestones/v3.4-CLOSEOUT.md
+- .planning/phase-lifecycle/latest-phase-lifecycle.json
+- .planning/phase-lifecycle/latest-phase-lifecycle.md
+- .planning/traceability/latest-milestone-traceability.json

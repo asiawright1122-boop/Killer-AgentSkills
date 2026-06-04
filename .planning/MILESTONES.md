@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.4 Coverage Cluster Remediation & AI Telemetry Refresh (Closeout Ready)
+### v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion (Active)
 
-**Delivered:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
+**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 3/3 complete (0 plans total)
+**Phases completed:** 0/3 complete (0 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 3
-- Requirement coverage: 3/3 satisfied
+- Requirement coverage: 0/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 3/3 complete phases, 0 plans, 3/3 requirements satisfied, milestone audit passed
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/v3.4-MILESTONE-AUDIT.md, .planning/milestones/v3.4-BOOTSTRAP.md, .planning/milestones/v3.4-CLOSEOUT.md
+- 0/3 complete phases, 0 plans, 0/3 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.5-BOOTSTRAP.md, .planning/milestones/v3.5-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v3.4-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v3.5-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v3.4 v3.4 (Shipped: SHIPPED)
+
+**Delivered:** `v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` shipped on `2026-06-04` and is now archived.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v3.4-ROADMAP.md, .planning/milestones/v3.4-REQUIREMENTS.md, .planning/v3.4-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v3.3 v3.3 (Shipped: SHIPPED)
 
 **Delivered:** `v3.3 Manual Recovery Execution & Fresh Ingestion` shipped on `2026-06-04` and is now archived.

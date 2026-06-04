@@ -1,0 +1,46 @@
+{
+  "milestone": "v3.5",
+  "milestoneName": "Post-Intervention Recovery Verification & GEO/CTR Promotion",
+  "goal": null,
+  "sourceMilestone": "v3.4",
+  "sourceMilestoneName": "v3.4",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.4-ROADMAP.md",
+    ".planning/milestones/v3.4-REQUIREMENTS.md",
+    ".planning/v3.4-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "103",
+      "slug": "Remote Database Recovery Proof Verification",
+      "requirements": []
+    },
+    {
+      "number": "104",
+      "slug": "Residual Exclusion Reasons Remediation",
+      "requirements": []
+    },
+    {
+      "number": "105",
+      "slug": "Traffic and CTR Visibility Refresh",
+      "requirements": []
+    }
+  ],
+  "requirements": [
+    "AIOPS-24",
+    "AIOPS-25",
+    "AIOPS-26"
+  ]
+}

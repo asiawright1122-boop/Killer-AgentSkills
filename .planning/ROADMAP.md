@@ -2,17 +2,44 @@
 
 ## Overview
 
-Milestone `v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` has shipped. Use `/gsd-new-milestone` to initialize the next milestone.
+`v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion` is now the active milestone.
+
+This milestone focuses on assessing post-intervention recovery metrics using real-world data from D1 and GSC, resolving residual exclusion roadblocks to aim for a 95%+ recovery rate, and refreshing organic CTR performance data to transition business recovery out of its blocking state.
 
 ## Immediate Next Actions
 
-- Run `/gsd-new-milestone` to start the next milestone.
+- Plan Phase 103: Remote Database Recovery Proof Verification (`/gsd-plan-phase 103`).
+
+## Current Milestone: v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion
+
+**Goal:** Assess post-intervention recovery metrics using real-world data from D1 and GSC, resolve residual exclusion roadblocks to aim for a 95%+ recovery rate, and refresh organic CTR performance data to transition business recovery out of its blocking state.
+
+**Requirements:**
+- [ ] AIOPS-24: Verify remote database GSC coverage records and generate the post-intervention recovery scorecard.
+- [ ] AIOPS-25: Remediate residual search exclusion patterns to drive the technical recovery rate towards 95%.
+- [ ] AIOPS-26: Refresh live GSC stats and verify if business recovery can transition out of blocking.
+
+### Phase 103: Remote Database Recovery Proof Verification
+- **Requirements:** AIOPS-24
+- **Scope:** Run wrangler D1 commands to fetch remote coverage data, generate recovery scorecard, and isolate residual exclusions.
+- **Status:** Pending
+
+### Phase 104: Residual Exclusion Reasons Remediation
+- **Requirements:** AIOPS-25
+- **Scope:** Remediate residual search exclusion patterns to push indexation recovery rate towards 95%.
+- **Status:** Pending
+
+### Phase 105: Traffic and CTR Visibility Refresh
+- **Requirements:** AIOPS-26
+- **Scope:** Refresh live GSC organic click and CTR data, verifying if the business recovery gate can clear.
+- **Status:** Pending
 
 ## Milestones
 
+- 🔄 **v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion** — phases 103-105 (active)
 - ✅ **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (shipped 2026-06-04; [archive](./milestones/v3.4-ROADMAP.md), [requirements](./milestones/v3.4-REQUIREMENTS.md), [audit](./v3.4-MILESTONE-AUDIT.md))
 - ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
-- ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
+- ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./milestones/v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
 - ✅ **v2.9 Coverage Data Ingestion & Post-Intervention Automation** — phases 85-87 (shipped 2026-06-03; [audit](./milestones/v2.9-MILESTONE-AUDIT.md))
@@ -48,6 +75,7 @@ Milestone `v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` has shipped
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 0/3 | Active | - |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
 | v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
@@ -76,4 +104,4 @@ Milestone `v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` has shipped
 
 ---
 
-_Last updated: 2026-06-04 after closeout of v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._
+_Last updated: 2026-06-04 after initializing v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion._
