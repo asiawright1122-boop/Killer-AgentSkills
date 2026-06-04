@@ -151,7 +151,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ### Active
 
 - [x] **AIOPS-18**: GSC Coverage Fresh Ingestion
-- [ ] **AIOPS-19**: P0 Manual Recovery Execution
+- [x] **AIOPS-19**: P0 Manual Recovery Execution
 - [ ] **AIOPS-20**: Technical Scorecard Recalculation
 
 ### Out of Scope

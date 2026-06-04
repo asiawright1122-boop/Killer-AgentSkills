@@ -27,6 +27,9 @@ This milestone focused on establishing project-wide type safety, aligning compil
 - Ingest fresh GSC export data and resolve the freshness SLA warning gate.
 
 ### Phase 98: P0 Manual Recovery Execution
+
+(Complete: [summary](./phases/98-P0%20Manual%20Recovery%20Execution/98-01-SUMMARY.md), [verification](./phases/98-P0%20Manual%20Recovery%20Execution/98-VERIFICATION.md))
+
 - Execute manual enrichment and validation loops on target priority surfaces.
 
 ### Phase 99: Technical Scorecard Recalculation
@@ -71,7 +74,7 @@ This milestone focused on establishing project-wide type safety, aligning compil
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 1/3 | Active | - |
+| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 2/3 | Active | - |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
