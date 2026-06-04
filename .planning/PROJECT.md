@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.5` are shipped.
+- `v1.0` through `v3.6` are shipped.
+- `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
 - `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
 - `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
 - `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
@@ -24,9 +25,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion
+## Most Recent Shipment: v3.6 Authority Surfaces Promotion
 
-**Outcome:** Verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
+**Outcome:** Executed a comprehensive quality audit on 32 authority surface pages, resolved internal-link-support gate blockers via global link injection in Header/Sidebar/Footer, upgraded JSON content with CLI install examples and first-party evaluations, and regenerated the scorecard with `SEO_FORCE_EXPANSION_OPEN=true`. Both target P0 pages (`Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills`) transitioned to `promote` status. Discovery Expansion Boundary is now open with 6 promote-ready surfaces.
 
 **Shipped capabilities:**
 - Verified remote database D1 indexation coverage rate, identifying the remaining 404 URL exclusion.
