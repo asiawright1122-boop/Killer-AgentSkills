@@ -78,6 +78,47 @@ Windsurf 除了阅读文件本身以外，没有其他发现机制。
 反之亦然。核心说明只是 markdown。不同的是元数据和文件路径。
 
 我们在 [Killer-Skills](https://killer-skills.com/zh/skills) 上以 Claude Code 格式发布所有技能，CLI 可以通过调整标志安装它们以用于其他代理。
+## 配置与语法示例
+
+为了帮助您在各个 IDE 中配置这些规则，以下是您需要的具体语法和文件结构：
+
+### 1. Claude Code 技能文件 (`.claude/skills/my-skill/SKILL.md`)
+Claude Code 会读取 YAML 前置内容（Frontmatter）中的描述，以便在上下文中按需加载技能。
+
+```yaml
+---
+name: my-skill
+description: "在修改、测试或构建 React 组件时使用此技能"
+---
+
+# 我的技能规则
+- 优先使用 React 函数式组件。
+- 使用 Tailwind CSS 工具类进行样式设计。
+```
+
+### 2. Cursor MDC 文件 (`.cursor/rules/my-rule.mdc`)
+Cursor 使用 Frontmatter 中的 `globs` 属性有条件地触发规则。
+
+```markdown
+---
+description: "为前端组件应用 React 和 Tailwind 规则"
+globs: ["src/components/**/*.tsx", "src/pages/**/*.tsx"]
+alwaysApply: false
+---
+
+# Cursor React 规则
+- 确保交互式元素上存在可访问性（Accessibility）标签。
+```
+
+### 3. Windsurf 规则文件 (`.windsurfrules`)
+Windsurf 加载位于项目根目录的单个 Markdown 规则文件。在此文件中放置所有全局指令：
+
+```markdown
+# Windsurf 全局项目规则
+- 避免在生产环境文件中使用任何模拟变量。
+- 所有测试中优先使用 Vitest 而不是 Jest。
+```
+
 ## 实用建议
 
 **如果您使用 Claude Code**: 利用选择性加载。编写清晰的描述，以便技能在正确的时间加载。按照主题（测试、部署、代码审查）组织，而不是按照语言组织。

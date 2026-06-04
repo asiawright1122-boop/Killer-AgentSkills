@@ -2,41 +2,54 @@
 
 ## Overview
 
-`v3.6 Authority Surfaces Promotion` is now the active milestone.
+`v3.7 Authority Expansion & Content Depth Acceleration` is now the active milestone.
 
-This milestone focuses on upgrading the content depth and internal linkage quality of existing authority surface pages. The goal is to address hold reasons, meet the promotion criteria in the authority scorecard, and transition selected pages from hold/stop status to promote status.
+This milestone focuses on systematically exploiting the opened Discovery Expansion Boundary (6 promote-ready surfaces). We will upgrade the highest-priority biweekly hold surfaces, harden editorial content in the Homepage Root Hub and Collections Hub to seed the trust baseline, audit/deduplicate collections, and design an automated content enrichment workflow.
 
 ## Immediate Next Actions
 
-- Plan Phase 106: Authority Surface Quality Audit (`/gsd-plan-phase 106`).
+- Plan Phase 111: Collections Audit & Deduplication (`/gsd-plan-phase 111`).
 
-## Current Milestone: v3.6 Authority Surfaces Promotion
+## Current Milestone: v3.7 Authority Expansion & Content Depth Acceleration
 
-**Goal:** Focus on upgrading the content depth and internal linkage quality of existing authority surface pages to meet scorecard promotion criteria and transition target pages to promote status.
+**Goal:** Systematically exploit the Discovery Expansion Boundary by promoting queue-priority hold surfaces, hardening editorial hub content, auditing collections, and scripting automated content quality upgrades.
 
 **Requirements:**
-- [x] AIOPS-27: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
-- [x] AIOPS-28: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
-- [x] AIOPS-29: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
+- [x] AIOPS-30: Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote.
+- [x] AIOPS-31: Harden Homepage Root Hub and Collections Hub editorial content to seed proof baseline.
+- [ ] AIOPS-32: Audit and deduplicate existing collections content; remediate low-quality entries.
+- [ ] AIOPS-33: Define and implement automated content enrichment workflow for hold backlog.
+- [ ] AIOPS-34: Open 2–4 new authority surface candidates from underrepresented classes.
 
-### Phase 106: Authority Surface Quality Audit
-- **Requirements:** AIOPS-27
-- **Scope:** Analyze existing authority configurations, generate an audit report detailing content gaps and hold reasons.
+### Phase 109: Biweekly Hold Surface Promotion
+- **Requirements:** AIOPS-30
+- **Scope:** Audit next-queue hold surfaces, apply content upgrades, and regenerate scorecard to verify promote decision.
 - **Status:** Complete
 
-### Phase 107: Authority Content Upgrade
-- **Requirements:** AIOPS-28
-- **Scope:** Add skill lists and content descriptions to authority pages, ensuring usefulness and search compliance.
+### Phase 110: Homepage & Collections Hub Editorial Hardening
+- **Requirements:** AIOPS-31
+- **Scope:** Hardening copy and structural curation sections for Homepage Root Hub and Collections Hub.
 - **Status:** Complete
 
-### Phase 108: Scorecard Evaluation and Promotion Validation
-- **Requirements:** AIOPS-29
-- **Scope:** Run authority operator queue, generate scorecards, and verify that target pages transition to promote status.
-- **Status:** Complete
+### Phase 111: Collections Audit & Deduplication
+- **Requirements:** AIOPS-32
+- **Scope:** Audit top collections for duplicates or thin entries and establish quality checklist.
+- **Status:** Pending
+
+### Phase 112: Automated Content Enrichment Workflow Design
+- **Requirements:** AIOPS-33
+- **Scope:** Build a workflow/script to batch-upgrade hold backlog content quality.
+- **Status:** Pending
+
+### Phase 113: New Authority Surface Candidates
+- **Requirements:** AIOPS-34
+- **Scope:** Define, configure, and seed initial content for 2–4 new authority surface candidates.
+- **Status:** Pending
 
 ## Milestones
 
-- 🔄 **v3.6 Authority Surfaces Promotion** — phases 106-108 (active)
+- 🔄 **v3.7 Authority Expansion & Content Depth Acceleration** — phases 109-113 (active)
+- ✅ **v3.6 Authority Surfaces Promotion** — phases 106-108 (shipped 2026-06-04; [archive](./milestones/v3.6-ROADMAP.md), [requirements](./milestones/v3.6-REQUIREMENTS.md), [audit](./v3.6-MILESTONE-AUDIT.md))
 - ✅ **v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion** — phases 103-105 (shipped 2026-06-04; [archive](./milestones/v3.5-ROADMAP.md), [requirements](./milestones/v3.5-REQUIREMENTS.md), [audit](./v3.5-MILESTONE-AUDIT.md))
 - ✅ **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (shipped 2026-06-04; [archive](./milestones/v3.4-ROADMAP.md), [requirements](./milestones/v3.4-REQUIREMENTS.md), [audit](./v3.4-MILESTONE-AUDIT.md))
 - ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
@@ -76,6 +89,7 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 0/5 | Active | - |
 | v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
@@ -106,4 +120,4 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 
 ---
 
-_Last updated: 2026-06-04 after completing Phase 108 of v3.6 Authority Surfaces Promotion._
+_Last updated: 2026-06-04 after initializing Phase 109 of v3.7 Authority Expansion & Content Depth Acceleration._

@@ -402,6 +402,84 @@ const breadcrumb = buildBreadcrumbTrail(
           }
         </section>
 
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--card)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
+        >
+          <div class="mb-6">
+            <span
+              class="inline-block px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--background)] text-xs font-black uppercase tracking-widest mb-4"
+            >
+              {isZhCopy ? '编辑精选标准' : 'Editorial Standards'}
+            </span>
+            <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3">
+              {isZhCopy ? '我们的技能严选与验证标准' : 'Our Quality & Safety Verification Pillars'}
+            </h2>
+            <p class="text-sm md:text-base text-[var(--muted-foreground)] leading-relaxed font-medium max-w-4xl">
+              {
+                isZhCopy
+                  ? '与大批量自动抓取的未验证数据库不同，Killer-Skills 合集中的每一个 AI Agent 技能和 MCP 工具都必须通过严格的安全性、兼容性与稳定性测试，为您的本地开发提供坚实的信任基准。'
+                  : 'Unlike raw bulk database queries, every AI Agent skill and MCP tool listed in our curated collections undergoes rigorous validation against three key engineering pillars before being verified.'
+              }
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8 pt-6 border-t-2 border-[var(--border)]">
+            <div
+              class="p-5 border-2 border-[var(--border)] bg-[var(--background)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">🛡️</span>
+                <h3 class="text-lg font-black uppercase tracking-tight">
+                  {isZhCopy ? '1. 安全性与权限隔离' : '1. Security & Isolation'}
+                </h3>
+              </div>
+              <p class="text-xs md:text-sm leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '审计所有执行命令，确保其在用户明确授权的边界内运行，杜绝后台静默执行和越权文件存取。'
+                    : 'We audit scripts and parameters to ensure tools execute within strict permissions boundaries, preventing unauthorized telemetry or local file access.'
+                }
+              </p>
+            </div>
+
+            <div
+              class="p-5 border-2 border-[var(--border)] bg-[var(--background)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">⚙️</span>
+                <h3 class="text-lg font-black uppercase tracking-tight">
+                  {isZhCopy ? '2. IDE 原生配置适配' : '2. Native IDE Adaptability'}
+                </h3>
+              </div>
+              <p class="text-xs md:text-sm leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '完美适配 Claude Code、Cursor 和 Windsurf 的运行规范，支持单条标准化命令或 JSON 一键配置。'
+                    : 'Fully optimized for Claude Code, Cursor, and Windsurf runtime specs. Ready to install without environment friction.'
+                }
+              </p>
+            </div>
+
+            <div
+              class="p-5 border-2 border-[var(--border)] bg-[var(--background)] hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_var(--border)] transition-all"
+            >
+              <div class="flex items-center gap-2 mb-3">
+                <span class="text-xl">⚡</span>
+                <h3 class="text-lg font-black uppercase tracking-tight">
+                  {isZhCopy ? '3. 零无用依赖与低维护' : '3. Lean Execution'}
+                </h3>
+              </div>
+              <p class="text-xs md:text-sm leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '优先使用极简或零依赖的实现，杜绝本地复杂的依赖包冲突，保证 IDE 快速响应与稳定性。'
+                    : 'Favor lightweight, minimal or zero-dependency configurations to keep local execution fast and version conflicts nonexistent.'
+                }
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Collections Grid */}
         <div id="collections-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {

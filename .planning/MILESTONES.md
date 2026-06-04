@@ -1,25 +1,42 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.6 Authority Surfaces Promotion (Active)
+### v3.7 Authority Expansion & Content Depth Acceleration (Active)
 
 **Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 0/3 complete (0 plans total)
+**Phases completed:** 1/5 complete (0 plans total)
 
 **Key accomplishments:**
-- Roadmap phases tracked: 3
-- Requirement coverage: 0/3 satisfied
+- Roadmap phases tracked: 5
+- Requirement coverage: 1/5 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 0/3 complete phases, 0 plans, 0/3 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.6-BOOTSTRAP.md, .planning/milestones/v3.6-CLOSEOUT.md
+- 1/5 complete phases, 0 plans, 1/5 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.7-BOOTSTRAP.md, .planning/milestones/v3.7-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v3.6-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v3.7-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v3.6 v3.6 (Shipped: SHIPPED)
+
+**Delivered:** `v3.6 Authority Surfaces Promotion` is now the active milestone.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 0/3 requirements satisfied, milestone audit pending
+- Milestone artifacts: .planning/milestones/v3.6-ROADMAP.md, .planning/milestones/v3.6-REQUIREMENTS.md, .planning/milestones/v3.6-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v3.5 v3.5 (Shipped: SHIPPED)
 
 **Delivered:** `v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion` shipped on `2026-06-04` and is now archived.

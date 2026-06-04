@@ -1,15 +1,37 @@
 {
-  "generatedAt": "2026-06-04T07:14:58.102Z",
+  "generatedAt": "2026-06-04T08:26:24.894Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v3.6",
-  "milestoneName": "Authority Surfaces Promotion",
+  "milestone": "v3.7",
+  "milestoneName": "Authority Expansion & Content Depth Acceleration",
   "activePhases": [
     {
-      "phaseNumber": "106",
-      "slug": "Authority Surface Quality Audit",
+      "phaseNumber": "109",
+      "slug": "Biweekly Hold Surface Promotion",
       "requirements": [],
       "phaseDirs": [
-        "106-Authority Surface Quality Audit"
+        "109-Biweekly Hold Surface Promotion"
+      ],
+      "summaryFiles": [
+        ".planning/phases/109-Biweekly Hold Surface Promotion/109-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/109-Biweekly Hold Surface Promotion/109-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-30"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-30"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
+    },
+    {
+      "phaseNumber": "110",
+      "slug": "Homepage & Collections Hub Editorial Hardening",
+      "requirements": [],
+      "phaseDirs": [
+        "110-Homepage & Collections Hub Editorial Hardening"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -19,11 +41,11 @@
       "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "107",
-      "slug": "Authority Content Upgrade",
+      "phaseNumber": "111",
+      "slug": "Collections Audit & Deduplication",
       "requirements": [],
       "phaseDirs": [
-        "107-Authority Content Upgrade"
+        "111-Collections Audit & Deduplication"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -33,11 +55,25 @@
       "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "108",
-      "slug": "Scorecard Evaluation and Promotion Validation",
+      "phaseNumber": "112",
+      "slug": "Automated Content Enrichment Workflow Design",
       "requirements": [],
       "phaseDirs": [
-        "108-Scorecard Evaluation and Promotion Validation"
+        "112-Automated Content Enrichment Workflow Design"
+      ],
+      "summaryFiles": [],
+      "verificationFiles": [],
+      "summaryRequirementsCompleted": [],
+      "verificationRequirementsCompleted": [],
+      "summaryMetadataReady": false,
+      "verificationMetadataReady": false
+    },
+    {
+      "phaseNumber": "113",
+      "slug": "New Authority Surface Candidates",
+      "requirements": [],
+      "phaseDirs": [
+        "113-New Authority Surface Candidates"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -49,21 +85,35 @@
   ],
   "requirements": [
     {
-      "id": "AIOPS-27",
+      "id": "AIOPS-30",
+      "expectedPhase": null,
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
+    },
+    {
+      "id": "AIOPS-31",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
     },
     {
-      "id": "AIOPS-28",
+      "id": "AIOPS-32",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
     },
     {
-      "id": "AIOPS-29",
+      "id": "AIOPS-33",
+      "expectedPhase": null,
+      "summaryEvidence": false,
+      "verificationEvidence": false,
+      "status": "pending"
+    },
+    {
+      "id": "AIOPS-34",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,

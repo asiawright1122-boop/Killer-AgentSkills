@@ -11,6 +11,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ## Current State
 
 - `v1.0` through `v3.6` are shipped.
+- `v3.7` is currently active.
 - `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
 - `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
 - `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
@@ -139,9 +140,17 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AI Telemetry Checkpoint Refresh] - `v3.4`
 - ✓ [Backup Provider Configuration Adjustment] - `v3.4`
 
+- ✓ [AIOPS-27: Authority Surface Quality Audit] - `v3.6`
+- ✓ [AIOPS-28: Authority Content Upgrade] - `v3.6`
+- ✓ [AIOPS-29: Scorecard Evaluation and Promotion Validation] - `v3.6`
+
 ### Active
 
-- None.
+- [ ] [AIOPS-30] Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote — `v3.7`
+- [ ] [AIOPS-31] Harden Homepage Root Hub and Collections Hub editorial content to seed proof baseline — `v3.7`
+- [ ] [AIOPS-32] Audit and deduplicate existing collections content; remediate low-quality entries — `v3.7`
+- [ ] [AIOPS-33] Define and implement automated content enrichment workflow for hold backlog — `v3.7`
+- [ ] [AIOPS-34] Open 2–4 new authority surface candidates from underrepresented classes — `v3.7`
 
 ### Out of Scope
 
@@ -207,4 +216,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-04 after shipping v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion._
+_Last updated: 2026-06-04 after initializing v3.7 Authority Expansion & Content Depth Acceleration._

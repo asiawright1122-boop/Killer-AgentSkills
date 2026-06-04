@@ -83,6 +83,47 @@ Going the other way also works. The core instructions are just markdown. It's th
 
 We publish all skills on [Killer-Skills](https://killer-skills.com/en/skills) in Claude Code format, and the CLI can install them for other agents with flag adjustments.
 
+## Configurations and Syntax Examples
+
+To help you configure these rules in each IDE, here are the concrete syntax and file structures you need:
+
+### 1. Claude Code Skill File (`.claude/skills/my-skill/SKILL.md`)
+Claude Code reads the YAML frontmatter description to contextually load the skill.
+
+```yaml
+---
+name: my-skill
+description: "Use this skill when modifying, testing, or building React components"
+---
+
+# My Skill Rules
+- Prefer React functional components.
+- Use Tailwind CSS utility classes.
+```
+
+### 2. Cursor MDC File (`.cursor/rules/my-rule.mdc`)
+Cursor uses frontmatter `globs` to trigger rules conditionally.
+
+```markdown
+---
+description: "Applies React and Tailwind rules for frontend components"
+globs: ["src/components/**/*.tsx", "src/pages/**/*.tsx"]
+alwaysApply: false
+---
+
+# Cursor React Rules
+- Ensure accessibility tags are present on interactive elements.
+```
+
+### 3. Windsurf Rules File (`.windsurfrules`)
+Windsurf loads a single root markdown rules file. Place all global directives inside it:
+
+```markdown
+# Windsurf Global Project Rules
+- Avoid any mock variables in production files.
+- Prefer Vitest over Jest for all tests.
+```
+
 ## Practical recommendations
 
 **If you use Claude Code**: Take advantage of selective loading. Write clear descriptions so skills get loaded at the right time. Organize by topic (testing, deployment, code-review) rather than by language.

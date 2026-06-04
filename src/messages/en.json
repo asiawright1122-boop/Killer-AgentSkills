@@ -668,11 +668,11 @@
     "suggestions": ["PDF", "Image Gen", "Data Analysis", "Browser", "Code Review", "Documents"]
   },
   "Home": {
-    "heroTitle": "AI Agent Skills",
-    "heroTitleHighlight": "Open Directory",
-    "heroBadge": "The open directory and install entry for AI Agent Skills",
-    "heroDesc1": "Discover, install, and manage 3,400+ open-source AI agent skills.",
-    "heroDesc2": "Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.",
+    "heroTitle": "Verified AI Agent Skills",
+    "heroTitleHighlight": "Secure Directory",
+    "heroBadge": "Vetted for safety, native IDE compatibility, and lean execution",
+    "heroDesc1": "Every tool is audited for security parameters and compatibility among our 3,400+ skills.",
+    "heroDesc2": "Safely extend Claude Code, Cursor, and Windsurf without configuration overhead or local runtime risk.",
     "searchPlaceholder": "Search for skills (e.g., 'Web Scraping', 'Data Viz')...",
     "searchButton": "Search",
     "tags": ["Research", "Coding", "Marketing", "Analysis"],

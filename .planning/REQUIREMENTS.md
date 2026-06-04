@@ -1,54 +1,78 @@
-# Requirements: v3.6 Authority Surfaces Promotion
+# Requirements: v3.7 Authority Expansion & Content Depth Acceleration
 
 ## Overview
 
-Focus on upgrading the content depth and internal linkage quality of existing authority surface pages. The goal is to address hold reasons, meet the promotion criteria in the authority scorecard, and transition selected pages from hold/stop status to promote status.
+With the Discovery Expansion Boundary now open (6 promote-ready surfaces, gate: open), v3.7 shifts from unlocking the boundary to systematically exploiting it. The milestone pursues three parallel tracks:
 
-## v3.6 Requirements
+1. **Depth Track** — Upgrade the highest-priority `biweekly` hold surfaces to tip them into `promote`.
+2. **Hub Track** — Harden the Homepage Root Hub and Collections Hub (already promote-ready) with richer curated editorial content to seed the trust baseline.
+3. **Expansion Track** — Audit existing collections for quality/dedup, open new authority surface candidates, and design an automated content enrichment workflow for the hold backlog.
 
-- [x] **AIOPS-27**: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
-- [x] **AIOPS-28**: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
-- [x] **AIOPS-29**: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
+## v3.7 Requirements
+
+- [ ] **AIOPS-30**: Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote by addressing their biweekly gate blockers.
+- [ ] **AIOPS-31**: Harden Homepage Root Hub and Collections Hub editorial content to seed the proof baseline and raise trust verdict from `warning` to `ready`.
+- [ ] **AIOPS-32**: Audit and deduplicate existing collections content; identify and remediate low-quality or duplicate entries across top-N collections.
+- [ ] **AIOPS-33**: Define and implement an automated content enrichment workflow for biweekly-cadence hold surfaces (bulk-lift mechanism).
+- [ ] **AIOPS-34**: Open 2–4 new authority surface candidates from underrepresented surface classes (e.g., comparison pages, solution hubs, or tool-category landings).
 
 ## Scope
 
-### 1. Authority Surface Quality Audit (Phase 106)
-- **Problem**: The majority of authority pages (31/32) remain in a `hold` status due to content debt or missing links.
+### 1. Biweekly Hold Surface Promotion — Queue Priority (Phase 109)
+- **Problem**: 20 hold surfaces are in biweekly cadence; 2 are already queued `next` (`Official AI Agent Skills Guide`, `Claude Code vs Cursor vs Windsurf`) and are the immediate promotion targets.
 - **Requirement**:
-  - Analyze the existing authority configurations.
-  - Generate an audit report detailing the deficiencies and hold reasons.
-- **Verification**: An audit report is compiled and configuration gaps are documented.
-- **Outcome**: ✅ Validated — `106-AUDIT-REPORT.md` produced, both P0 target pages fully documented.
+  - Audit the two `next`-queue surfaces for specific content blockers.
+  - Apply targeted content upgrades (skill linkages, comparison data, installation guidance).
+  - Regenerate scorecard to confirm `promote` decision.
+- **Verification**: Scorecard shows both surfaces at `promote`.
 
-### 2. Authority Content Upgrade (Phase 107)
-- **Problem**: Authority pages lack deep, high-value skill references and descriptive metadata to pass quality checks.
+### 2. Homepage & Collections Hub Editorial Hardening (Phase 110)
+- **Problem**: Homepage Root Hub is already `promote` in the scorecard, but `trust verdict = warning` and `baselineSeeded = no` means the overall proof window is not yet trustworthy. Seeding the baseline requires high-quality editorial content on the homepage and collections hub.
 - **Requirement**:
-  - Add relevant, highly original skill lists to target authority pages.
-  - Refine content descriptions to ensure usefulness and search compliance.
-- **Verification**: The configurations are updated and successfully build locally.
-- **Outcome**: ✅ Validated — Global link injection and content enrichment shipped; all tests passing.
+  - Upgrade homepage hero copy to be clearly user-facing and discovery-oriented.
+  - Add curated editorial sections (e.g., "Editor's Picks", "Getting Started Path", "Trending Skills").
+  - Harden Collections Hub with intro copy, category descriptions, and hub-level navigation.
+- **Verification**: Scorecard trust verdict transitions from `warning` to `ready`; baseline seeded flag changes to `yes` in the next reporting window.
 
-### 3. Scorecard Evaluation and Promotion Validation (Phase 108)
-- **Problem**: We need to prove that the content updates successfully transition the status of at least one page to `promote`.
+### 3. Collections Audit & Deduplication (Phase 111)
+- **Problem**: As collections grow, duplicate or low-value entries reduce the editorial signal and dilute authority quality scores.
 - **Requirement**:
-  - Run the authority operator queue and scorecard generator.
-  - Verify that the target authority pages transition to `promote` status on the scorecard.
-- **Verification**: Scorecard reports a successful state transition and all automated gates pass.
-- **Outcome**: ✅ Validated — Both `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` confirmed at `promote` status.
+  - Run a systematic quality audit on the top 10–15 collections by traffic potential.
+  - Identify and remove duplicate entries, thin descriptions, or entries without install guidance.
+  - Establish a content quality checklist for future collection entries.
+- **Verification**: Quality audit report generated; collections updated; no duplicate entries in audited set.
+
+### 4. Automated Content Enrichment Workflow Design (Phase 112)
+- **Problem**: Manually upgrading 20+ biweekly hold surfaces is not scalable. An automated enrichment workflow would allow bulk-lifting content quality across the hold backlog.
+- **Requirement**:
+  - Design a repeatable enrichment pipeline: ingest authority surface config → analyze content gaps → generate enrichment suggestions → apply and validate.
+  - Implement a script or workflow that runs enrichment on a batch of hold surfaces.
+  - Validate the workflow against 3–5 target surfaces before full rollout.
+- **Verification**: Enrichment workflow script exists and runs without errors; 3–5 test surfaces show improved content scores.
+
+### 5. New Authority Surface Candidates (Phase 113)
+- **Problem**: The current 32-surface program covers collections, solutions, and tool-type hubs but is missing some high-value surface classes (e.g., head-to-head comparison pages, framework-specific landings, use-case solution guides).
+- **Requirement**:
+  - Identify 2–4 new surface candidates from unrepresented surface classes.
+  - Create surface configurations in `data/authority-surfaces.json` and `src/lib/authority-surface-public-data.ts`.
+  - Seed initial content for each new surface.
+- **Verification**: New surfaces appear in the authority operator queue; scorecard generates decisions for them.
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-27 | Phase 106 | ✅ Complete |
-| AIOPS-28 | Phase 107 | ✅ Complete |
-| AIOPS-29 | Phase 108 | ✅ Complete |
+| AIOPS-30 | Phase 109 | Pending |
+| AIOPS-31 | Phase 110 | Pending |
+| AIOPS-32 | Phase 111 | Pending |
+| AIOPS-33 | Phase 112 | Pending |
+| AIOPS-34 | Phase 113 | Pending |
 
 **Coverage:**
-- v3.6 requirements: 3 total
-- Mapped to phases: 3
+- v3.7 requirements: 5 total
+- Mapped to phases: 5
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-04 — v3.6 milestone archived.*
+*Last updated: 2026-06-04 during initialization of v3.7 Authority Expansion & Content Depth Acceleration*

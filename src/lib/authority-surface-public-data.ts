@@ -435,7 +435,7 @@ export const authoritySurfacePublicData = {
     {
       id: 'blog-official-ai-agent-skills-guide',
       role: 'primary',
-      tier: 'P1',
+      tier: 'P0',
       surfaceClass: 'guide',
       href: '/{locale}/blog/official-ai-agent-skills-guide',
       title: {
@@ -467,7 +467,7 @@ export const authoritySurfacePublicData = {
     {
       id: 'blog-ide-comparison',
       role: 'primary',
-      tier: 'P2',
+      tier: 'P0',
       surfaceClass: 'comparison',
       href: '/{locale}/blog/claude-code-vs-cursor-vs-windsurf',
       title: {

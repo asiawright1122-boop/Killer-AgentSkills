@@ -444,9 +444,9 @@ describe('public links and navigation copy', () => {
   });
 
   it('keeps homepage locale copy focused on directory and installation entry', () => {
-    expect(en.Home.heroBadge).toBe('The open directory and install entry for AI Agent Skills');
+    expect(en.Home.heroBadge).toBe('Vetted for safety, native IDE compatibility, and lean execution');
     expect(en.Home.heroDesc2).toBe(
-      'Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.',
+      'Safely extend Claude Code, Cursor, and Windsurf without configuration overhead or local runtime risk.',
     );
     expect(en.Home.featuresSubtitle).toBe(
       'Browse reusable AI agent skills and install them in the right native format for your IDE.',
@@ -455,8 +455,8 @@ describe('public links and navigation copy', () => {
       'Open-source directory and installation entry point for AI agent skills. Built for real developer work.',
     );
 
-    expect(zh.Home.heroBadge).toBe('AI Agent Skills 的开放目录与安装入口');
-    expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
+    expect(zh.Home.heroBadge).toBe('严格审查安全性、IDE 原生兼容性与极简依赖');
+    expect(zh.Home.heroDesc2).toBe('安全扩展 Claude Code、Cursor 和 Windsurf，免去环境配置困扰与本地运行风险。');
     expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
     expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
   });

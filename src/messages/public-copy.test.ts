@@ -73,7 +73,7 @@ describe('public messages copy', () => {
 
   it('keeps home and CLI marketing copy tied to skills instead of generic capabilities', () => {
     expect(en.Home.heroDesc2).toBe(
-      'Install reusable skills in Claude Code, Cursor, and Windsurf for coding, research, and creation.',
+      'Safely extend Claude Code, Cursor, and Windsurf without configuration overhead or local runtime risk.',
     );
     expect(en.Home.seoIntro).toContain('open-source directory');
     expect(en.Home.searchPlaceholder).toBe("Search for skills (e.g., 'Web Scraping', 'Data Viz')...");
@@ -91,7 +91,7 @@ describe('public messages copy', () => {
       'Unlock more workflows instantly. Discover and install 3,400+ AI agent skills.',
     );
 
-    expect(zh.Home.heroDesc2).toBe('在 Claude Code、Cursor 和 Windsurf 中安装可复用技能，用于编程、研究与创作。');
+    expect(zh.Home.heroDesc2).toBe('安全扩展 Claude Code、Cursor 和 Windsurf，免去环境配置困扰与本地运行风险。');
     expect(zh.Home.seoIntro).toContain('开源目录');
     expect(zh.Home.searchPlaceholder).toBe('搜索技能，例如：网页爬取、数据可视化');
     expect(zh.Home.features['1'].title).toBe('IDE 原生格式');

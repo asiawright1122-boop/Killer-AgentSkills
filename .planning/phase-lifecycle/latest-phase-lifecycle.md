@@ -1,18 +1,20 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-04T07:14:57.564Z
-- Active milestone: v3.6 (Authority Surfaces Promotion)
+- Generated: 2026-06-04T08:26:27.240Z
+- Active milestone: v3.7 (Authority Expansion & Content Depth Acceleration)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v3.6-phases
+- Active archive path: .planning/milestones/v3.7-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 106 | 106-Authority Surface Quality Audit | present | .planning/phases/106-Authority Surface Quality Audit | missing |
-| 107 | 107-Authority Content Upgrade | present | .planning/phases/107-Authority Content Upgrade | missing |
-| 108 | 108-Scorecard Evaluation and Promotion Validation | present | .planning/phases/108-Scorecard Evaluation and Promotion Validation | missing |
+| 109 | 109-Biweekly Hold Surface Promotion | present | .planning/phases/109-Biweekly Hold Surface Promotion | missing |
+| 110 | 110-Homepage & Collections Hub Editorial Hardening | present | .planning/phases/110-Homepage & Collections Hub Editorial Hardening | missing |
+| 111 | 111-Collections Audit & Deduplication | present | .planning/phases/111-Collections Audit & Deduplication | missing |
+| 112 | 112-Automated Content Enrichment Workflow Design | present | .planning/phases/112-Automated Content Enrichment Workflow Design | missing |
+| 113 | 113-New Authority Surface Candidates | present | .planning/phases/113-New Authority Surface Candidates | missing |
 
 ## Archive Actions
 
@@ -142,6 +144,11 @@
 - Archive root: .planning/milestones/v3.5-phases
 - Archived dirs: .planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification, .planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation, .planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh
 - Expected dirs: .planning/milestones/v3.5-phases/103-Remote Database Recovery Proof Verification, .planning/milestones/v3.5-phases/104-Residual Exclusion Reasons Remediation, .planning/milestones/v3.5-phases/105-Traffic and CTR Visibility Refresh
+
+### v3.6
+- Archive root: .planning/milestones/v3.6-phases
+- Archived dirs: .planning/milestones/v3.6-phases/106-Authority Surface Quality Audit, .planning/milestones/v3.6-phases/107-Authority Content Upgrade, .planning/milestones/v3.6-phases/108-Scorecard Evaluation and Promotion Validation
+- Expected dirs: .planning/milestones/v3.6-phases/106-Authority Surface Quality Audit, .planning/milestones/v3.6-phases/107-Authority Content Upgrade, .planning/milestones/v3.6-phases/108-Scorecard Evaluation and Promotion Validation
 
 ## Conflicts
 

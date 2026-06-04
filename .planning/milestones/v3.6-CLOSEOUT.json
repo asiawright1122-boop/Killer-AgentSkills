@@ -3,18 +3,17 @@
   "milestoneName": "Authority Surfaces Promotion",
   "status": "in_progress",
   "blockers": [
-    "Only 0/3 active phases have both summary and verification evidence.",
-    "Requirement coverage is not fully satisfied yet (satisfied=0, partial=0, pending=3)."
+    "Phase lifecycle sync is warning (archive=0, restore=0, create=0)."
   ],
   "phaseCounts": {
     "total": 3,
-    "completed": 0
+    "completed": 3
   },
   "requirementCounts": {
     "satisfied": 0,
     "partial": 0,
-    "pending": 3,
-    "total": 3
+    "pending": 0,
+    "total": 0
   },
   "hygieneStatus": "clean",
   "evidenceFiles": [
@@ -24,7 +23,13 @@
     ".planning/phase-lifecycle/latest-phase-lifecycle.md",
     ".planning/phase-lifecycle/latest-phase-lifecycle.json",
     ".planning/traceability/latest-milestone-traceability.md",
-    ".planning/traceability/latest-milestone-traceability.json"
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/phases/106-Authority Surface Quality Audit/106-01-SUMMARY.md",
+    ".planning/phases/106-Authority Surface Quality Audit/106-VERIFICATION.md",
+    ".planning/phases/107-Authority Content Upgrade/107-01-SUMMARY.md",
+    ".planning/phases/107-Authority Content Upgrade/107-VERIFICATION.md",
+    ".planning/phases/108-Scorecard Evaluation and Promotion Validation/108-01-SUMMARY.md",
+    ".planning/phases/108-Scorecard Evaluation and Promotion Validation/108-VERIFICATION.md"
   ],
   "archiveTargets": [
     ".planning/milestones/v3.6-phases",
