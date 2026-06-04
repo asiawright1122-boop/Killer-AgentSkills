@@ -15,9 +15,9 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 **Goal:** Focus on upgrading the content depth and internal linkage quality of existing authority surface pages to meet scorecard promotion criteria and transition target pages to promote status.
 
 **Requirements:**
-- [ ] AIOPS-27: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
-- [ ] AIOPS-28: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
-- [ ] AIOPS-29: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
+- [x] AIOPS-27: Run a comprehensive audit on the 32 authority surface pages to identify content gaps and hold reasons.
+- [x] AIOPS-28: Upgrade the content structure of the authority pages, adding rich skill linkages and localized descriptive blocks.
+- [x] AIOPS-29: Regenerate the authority scorecard and verify that selected pages transition to `promote` status.
 
 ### Phase 106: Authority Surface Quality Audit
 - **Requirements:** AIOPS-27
@@ -32,7 +32,7 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 ### Phase 108: Scorecard Evaluation and Promotion Validation
 - **Requirements:** AIOPS-29
 - **Scope:** Run authority operator queue, generate scorecards, and verify that target pages transition to promote status.
-- **Status:** Pending
+- **Status:** Complete
 
 ## Milestones
 
@@ -76,7 +76,7 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.6 Authority Surfaces Promotion | 106-108 | 0/3 | Active | - |
+| v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
 | v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
@@ -106,4 +106,4 @@ This milestone focuses on upgrading the content depth and internal linkage quali
 
 ---
 
-_Last updated: 2026-06-04 after initializing v3.6 Authority Surfaces Promotion._
+_Last updated: 2026-06-04 after completing Phase 108 of v3.6 Authority Surfaces Promotion._

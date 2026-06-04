@@ -83,7 +83,7 @@ export const authoritySurfacePublicData = {
     {
       id: 'collection-cursor',
       role: 'primary',
-      tier: 'P1',
+      tier: 'P0',
       surfaceClass: 'collection',
       href: '/{locale}/collections/top-cursor-compatible-skills-workflow-integrations',
       title: {
