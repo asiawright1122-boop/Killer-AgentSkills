@@ -10,8 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.3` are shipped.
-- `v3.4` is the active milestone: Coverage Cluster Remediation & AI Telemetry Refresh.
+- `v1.0` through `v3.4` are shipped.
+- `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
 - `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
 - `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 - `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
@@ -23,7 +23,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.3 Manual Recovery Execution & Fresh Ingestion
+## Most Recent Shipment: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
+
+**Outcome:** Addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized the backup provider configuration.
+
+**Shipped capabilities:**
+- Sub-classified expected skill route 404s as `known_skill_404` inside GSC Coverage URL classification to explain the dominant `other` cluster, updating scorecard.
+- Refreshed stale AI telemetry checkpoint timestamp via a runtime probe execution to clear health gate age warnings.
+- Commented out SiliconFlow API key in `.env.local` to explicitly disable it from active provider lists, transitioning the scorecard AI Posture gate to CLEAR.
+
+## Previous Shipment: v3.3 Manual Recovery Execution & Fresh Ingestion
 
 **Outcome:** Ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
 
@@ -40,48 +49,6 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - TypeScript compiler modernized for workers and packages/cli workspaces to resolve compiler errors (TS5101/TS5107).
 - Operational scripts type safety introduced with a dedicated tsconfig under `scripts/tsconfig.json` and resolved all type issues across scripts and test files.
 - Unified CI/CD gate added in `package.json` for a single typechecking verification check across all workspaces.
-
-## Previous Shipment: v3.1 AIOps Smart Gateway & Profile Hardening
-
-**Outcome:** Promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
-
-**Shipped capabilities:**
-- Environment-specific operator profiles parsing dynamically based on runtime environment and workload class.
-- Configuration compliance guard with composite JSON Schema checks and billing lockout restrictions for free-only runners.
-- Vitest testing suite covering routing fallback degradation (429, key loss, backup pruning) and latency/cost-based sorting.
-
-## Previous Shipment: v3.0 Advanced Search Engine Optimization
-
-**Outcome:** Implemented schema structured data, automated search indexing triggers, and semantic internal linking to build a premium, highly rankable directory surface.
-
-**Shipped capabilities:**
-- Structured JSON-LD schemas (`SoftwareApplication`, `Product`, `BreadcrumbList`) with Astro build validation guards.
-- IndexNow automated URL pushing (`scripts/submit-indexnow.ts`) dynamically parsing site modifications and using verification keys.
-- Crawler semantic recommendation link navigation, pre-rendered during build to bypass runtime queries.
-
-## Previous Shipment: v2.9 Coverage Data Ingestion & Post-Intervention Automation
-
-**Outcome:** Automated the ingestion of fresh GSC Coverage Drilldown data and established the promotion engine for post-intervention recovery automation.
-
-**Shipped capabilities:**
-- Ingestion pipeline for GSC Coverage exports with 7-day SLA freshness validation.
-- Technical recovery scorecard calculation.
-- Automated lock gate (`technical-recovery-95`) in recovery experiment ladder to prevent unverified directory expansions.
-
-## Previous Shipment: v2.8 Growth, Telemetry & UX Expansion
-
-**Outcome:** Expanded the SEO baseline via i18n, rebuilt UX for search/discovery, established latency/cost-based telemetry routing, and hardened edge data synchronization.
-
-**Shipped capabilities:**
-- Search UI, typography, i18n automation, and 404 remediation pipeline.
-- Circuit breaker state-based tracking and provider smart routing.
-- D1/KV sync hardening and observability dashboards.
-
-## Current Milestone: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
-
-**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
-
-**Phases:** 100 (GSC Coverage Cluster Resolution) → 101 (AI Telemetry Checkpoint Refresh) → 102 (Backup Provider Configuration Adjustment)
 
 ## Deferred Beyond v1.8
 
@@ -163,12 +130,13 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Edge Performance Optimization] - `v2.3`
 - ✓ [GSC CTR Monitoring] - `v2.4`
 - ✓ [Database Synchronization Verification] - `v2.4`
+- ✓ [GSC Coverage Cluster Resolution] - `v3.4`
+- ✓ [AI Telemetry Checkpoint Refresh] - `v3.4`
+- ✓ [Backup Provider Configuration Adjustment] - `v3.4`
 
 ### Active
 
-- [x] [AIOPS-21: GSC Coverage Cluster Resolution] - `v3.4`
-- [x] [AIOPS-22: AI Telemetry Checkpoint Refresh] - `v3.4`
-- [x] [AIOPS-23: Backup Provider Configuration Adjustment] - `v3.4`
+- None.
 
 ### Out of Scope
 

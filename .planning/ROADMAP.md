@@ -2,41 +2,15 @@
 
 ## Overview
 
-`v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` is now the active milestone.
-
-This milestone addresses the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshes stale AI telemetry data, and normalizes backup provider configuration.
+Milestone `v3.4 Coverage Cluster Remediation & AI Telemetry Refresh` has shipped. Use `/gsd-new-milestone` to initialize the next milestone.
 
 ## Immediate Next Actions
 
-- Plan Phase 100: GSC Coverage Cluster Resolution (`/gsd-plan-phase 100`).
-
-## Current Milestone: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
-
-**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize the backup provider configuration.
-
-**Requirements:**
-- [x] AIOPS-21: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs.
-- [x] AIOPS-22: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
-- [x] AIOPS-23: Adjust backup provider settings and verify fallback router logic.
-
-### Phase 100: GSC Coverage Cluster Resolution
-- **Requirements:** AIOPS-21
-- **Scope:** Diagnose the `other` category cluster (~13,003 URLs), implement edge `noindex` or sitemap filter rules, recalculate scorecard.
-- **Status:** Complete
-
-### Phase 101: AI Telemetry Checkpoint Refresh
-- **Requirements:** AIOPS-22
-- **Scope:** Trigger a new telemetry checkpoint run, verify sample timestamp age within 24 hours.
-- **Status:** Complete
-
-### Phase 102: Backup Provider Configuration Adjustment
-- **Requirements:** AIOPS-23
-- **Scope:** Disable inactive providers (SiliconFlow), verify config compliance guard and active backup probes.
-- **Status:** Complete
+- Run `/gsd-new-milestone` to start the next milestone.
 
 ## Milestones
 
-- 🔄 **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (active)
+- ✅ **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (shipped 2026-06-04; [archive](./milestones/v3.4-ROADMAP.md), [requirements](./milestones/v3.4-REQUIREMENTS.md), [audit](./v3.4-MILESTONE-AUDIT.md))
 - ✅ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (shipped 2026-06-04; [archive](./milestones/v3.3-ROADMAP.md), [requirements](./milestones/v3.3-REQUIREMENTS.md), [audit](./v3.3-MILESTONE-AUDIT.md))
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
@@ -49,7 +23,7 @@ This milestone addresses the dominant `other` category in GSC Coverage drilldown
 - ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [archive](./milestones/v2.4-ROADMAP.md), [requirements](./milestones/v2.4-REQUIREMENTS.md), [audit](./milestones/v2.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.4-BOOTSTRAP.md), [closeout](./milestones/v2.4-CLOSEOUT.md))
 - ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [archive](./milestones/v2.3-ROADMAP.md), [requirements](./milestones/v2.3-REQUIREMENTS.md), [audit](./milestones/v2.3-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.3-BOOTSTRAP.md), [closeout](./milestones/v2.3-CLOSEOUT.md))
 - ✅ **v2.2 Directory Automated Expansion and Full Rollout** — phases 74-75 (shipped 2026-06-03; [archive](./milestones/v2.2-ROADMAP.md), [requirements](./milestones/v2.2-REQUIREMENTS.md), [audit](./milestones/v2.2-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.2-BOOTSTRAP.md), [closeout](./milestones/v2.2-CLOSEOUT.md))
-- ✅ **v2.1 Directory Auto-Expansion and Verification** — phases 72-73 (shipped 2026-06-03; [archive](./milestones/v2.1-ROADMAP.md), [requirements](./milestones/v2.1-REQUIREMENTS.md), [audit](./milestones/v2.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.1-BOOTSTRAP.md), [closeout](./milestones/v2.1-CLOSEOUT.md))
+- ✅ **v2.1 Directory Auto-Expansion and Verification** — phases 72-73 (shipped 2026-06-03; [archive](./milestones/v2.1-ROADMAP.md), [requirements](./milestones/v2.1-REQUIREMENTS.md), [audit](./milestones/v2.1-MILESTONE-AUDIT.md), [bootstrap](./v2.1-BOOTSTRAP.md), [closeout](./v2.1-CLOSEOUT.md))
 - ✅ **v2.0 Helpful Content Injection and Authority Unlock** — phases 68-71 (shipped 2026-06-03; [archive](./milestones/v2.0-ROADMAP.md), [requirements](./milestones/v2.0-REQUIREMENTS.md), [audit](./milestones/v2.0-MILESTONE-AUDIT.md))
 - ✅ **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (shipped 2026-05-29; [archive](./milestones/v1.9-ROADMAP.md), [requirements](./milestones/v1.9-REQUIREMENTS.md), [audit](./milestones/v1.9-MILESTONE-AUDIT.md), [closeout](./milestones/v1.9-CLOSEOUT.md), [traceability](./milestones/v1.9-TRACEABILITY.md))
 - ✅ **v1.8 Fresh Recovery Inputs and Comparable Proof Refresh** — phases 61-63 (shipped 2026-05-06; [archive](./milestones/v1.8-ROADMAP.md), [requirements](./milestones/v1.8-REQUIREMENTS.md), [audit](./milestones/v1.8-MILESTONE-AUDIT.md), [closeout](./milestones/v1.8-CLOSEOUT.md), [traceability](./milestones/v1.8-TRACEABILITY.md))
@@ -102,4 +76,4 @@ This milestone addresses the dominant `other` category in GSC Coverage drilldown
 
 ---
 
-_Last updated: 2026-06-04 after activating v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._
+_Last updated: 2026-06-04 after closeout of v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._
