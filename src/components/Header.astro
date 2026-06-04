@@ -43,6 +43,16 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
         >{tr('Common.skillsMarket', 'Skills')}</a
       >
       <a
+        href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0 text-[var(--primary)] font-black"
+        >{locale === 'zh' ? '官方工具' : 'Official Tools'}</a
+      >
+      <a
+        href={`/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`}
+        class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0 text-[var(--primary)] font-black"
+        >{locale === 'zh' ? 'Cursor 兼容' : 'Cursor Compatible'}</a
+      >
+      <a
         href={`/${locale}/collections`}
         class="px-2 py-1 border-2 border-transparent hover:border-[var(--border)] hover:bg-[var(--primary)] hover:text-[var(--primary-foreground)] transition-all shrink-0"
         >{tr('Common.collections', 'Collections')}</a

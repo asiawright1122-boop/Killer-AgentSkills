@@ -314,8 +314,8 @@
     ]
   },
   "longDescription": {
-    "en": "Cursor teams usually do not need another compatibility page. They need tools that help with refactors, rules sync, test setup, review, and cleaner coordination. This collection stays close to those daily jobs so a team can test one tool quickly, keep the workflow understandable, and avoid adding unnecessary process.",
-    "zh": "Cursor 团队通常并不需要另一张兼容性页面，而是需要能服务于重构、规则同步、测试准备、评审与更顺畅协作衔接的工具。这个合集尽量贴近日常任务，让团队能快速试跑一个工具、保持流程可理解，同时避免引入多余流程。",
+    "en": "Cursor teams usually do not need another generic compatibility page. They need tools that help with refactors, rules sync, test setup, review, and cleaner coordination. This collection details key integrations (such as using shinpr/agentic-code or tadata-org/fastapi_mcp) with direct CLI commands (e.g. 'npx killer-skills add shinpr/agentic-code'). It explains how Cursor-native features (like Cmd+K or Cmd+L) can utilize these tools through .cursorrules schema syncing, preventing context bloat and stabilizing the editor-level reasoning loop.",
+    "zh": "Cursor 团队在实际工程中通常并不需要另一张泛泛的兼容性网页，而是需要能够完美配合 IDE 内 Cmd+K、Cmd+L 重构和审查的辅助工具。本合集收录了包括 fastapi_mcp、agentic-code 等专为编辑器优化设计的可信技能，并提供直接的安装命令（如 'npx killer-skills add shinpr/agentic-code'）。这能帮助团队将特定的工具 Schema 与本地 of .cursorrules 机制深入结合，防止上下文内存溢出，同时最大化提升编辑器底层的推理与代码生成效率。",
     "ja": "Cursorは、適切なワークフローレイヤーと組み合わせることで真価を発揮します。本コレクションでは、リファクタリング、テスト雛形、レビュー自動化、規約順守までを支える互換スキルと連携ツールを紹介。MCP機能を含むものもありますが、主目的はCursor中心の実務開発を効率化することです。",
     "ko": "Cursor는 적절한 워크플로우 레이어와 결합될 때 효과가 커집니다. 이 컬렉션은 리팩터링, 테스트 스캐폴딩, 리뷰 자동화, 규칙 준수까지 지원하는 호환 스킬·연동·컴패니언 툴링을 다룹니다. 일부 도구에 MCP 기능이 포함될 수 있지만, 핵심 목표는 Cursor 기반 실무 생산성 향상입니다.",
     "es": "Cursor rinde mejor con una capa de workflow bien diseñada. Esta colección reúne skills, integraciones y tooling companion que aceleran y estabilizan ciclos de desarrollo: refactorización, scaffolding de tests, revisión automática y cumplimiento de estándares. Algunas herramientas incluyen MCP, pero el objetivo principal es productividad real en equipos que trabajan con Cursor.",

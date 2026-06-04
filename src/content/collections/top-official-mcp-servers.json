@@ -303,6 +303,30 @@
             "把最终选定的栈沉淀为团队默认起步方案。"
           ]
         }
+      },
+      {
+        "title": {
+          "en": "Official CLI Install & Setup Guide",
+          "zh": "官方 CLI 安装与配置指南"
+        },
+        "summary": {
+          "en": "Use our zero-dependency CLI to deploy official skills. This configures schema mappings and sets up correct file permissions.",
+          "zh": "通过我们的零依赖 CLI 来部署官方技能。这能自动设置配置 mapping 关系并写入正确的文件权限。"
+        },
+        "steps": {
+          "en": [
+            "Check the official repository name (for example, 'cloudflare/skills').",
+            "Run the add command: 'npx killer-skills add cloudflare/skills'.",
+            "Ensure the CLI identifies your current editor and generates the configuration files.",
+            "Check the active skills list using the CLI command: 'npx killer-skills list'."
+          ],
+          "zh": [
+            "确认官方仓库的名称（例如 'cloudflare/skills'）。",
+            "执行安装指令：'npx killer-skills add cloudflare/skills'。",
+            "CLI 会自动判定你的开发环境并写入规则文件。",
+            "通过 'npx killer-skills list' 确认当前生效 of 技能列表。"
+          ]
+        }
       }
     ],
     "decisionTracks": [
@@ -420,8 +444,8 @@
     ]
   },
   "longDescription": {
-    "en": "If you only need one reliable place to start, begin with this collection. It focuses on official AI agent skills and trusted tools maintained by official teams or established ecosystem builders, making it easier to compare ownership, documentation quality, and real-world readiness before you choose a tool.",
-    "zh": "如果你现在只需要一个更稳的起点，就先看这个合集。它聚焦由官方团队和成熟生态项目维护的官方 AI Skills 与可信工具，能帮助你更快比较归属、文档质量与实际可用性，因此比扁平的 GitHub 仓库清单更适合作为第一条选型入口。",
+    "en": "If you only need one reliable place to start, begin with this collection. It focuses on official AI agent skills and trusted tools maintained by official teams or established ecosystem builders (such as Sentry, Cloudflare, Vercel, and Anthropics). This collection provides clear setup guidance, detailed permission checks, and practical use cases (e.g. running 'npx killer-skills add cloudflare/skills' or 'npx killer-skills add getsentry/skills'). It is designed to help developer teams build a safe baseline stack without falling into the trap of low-quality aggregate list lookup.",
+    "zh": "如果你现在只需要一个最稳妥的起步方案，建议优先参考本合集。本合集专为希望使用官方与高信任度生态的开发团队打造，重点收录了由 Anthropic、Sentry、Cloudflare、Vercel 等官方团队直接维护的可信工具。合集内为每一项工具提供了明确的一手点评与极简安装指南（例如通过执行 'npx killer-skills add cloudflare/skills' 或 'npx killer-skills add getsentry/skills' 来快速注册）。这能帮助团队在导入大体量社区代码前，先建立可信的安全基线，规避低质聚合和冗余比较。",
     "ja": "このコレクションは、ファーストパーティーチームと信頼できるエコシステムが継続的に保守する公式AIスキルとツールに焦点を当てています。安定した品質、明確なドキュメント、本番導入しやすい連携経路を必要とするチーム向けです。MCPは互換基盤として活用できますが、優先すべきは、実際の開発と提供を加速する実用的なスキルとツールです。",
     "ko": "이 컬렉션은 퍼스트파티 팀과 신뢰할 수 있는 생태계 빌더가 지속적으로 유지보수하는 공식 AI 스킬과 도구에 초점을 맞춥니다. 예측 가능한 품질, 명확한 문서, 프로덕션 적용 가능한 통합 경로가 필요한 팀을 위해 구성되었습니다. MCP는 호환성 인프라로 활용될 수 있지만, 우선순위는 실제 전달 속도와 안정성을 높여 주는 실용적인 스킬과 도구입니다.",
     "es": "Esta colección destaca skills oficiales de IA y herramientas confiables mantenidas por equipos oficiales y actores sólidos del ecosistema. Está pensada para equipos que necesitan calidad predecible, documentación clara e integraciones listas para producción. MCP puede aportar como capa de compatibilidad, pero la prioridad son skills y herramientas prácticas para entregar productos de IA con mayor velocidad y confianza.",

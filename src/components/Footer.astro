@@ -70,6 +70,22 @@ const tr = (key: string, fallback: string) => translateOr(messages, key, fallbac
                   {tr('Footer.cli', 'CLI')}
                 </a>
               </li>
+              <li>
+                <a
+                  href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
+                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                >
+                  {locale === 'zh' ? '官方可信工具' : 'Official AI Skills'}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`}
+                  class="hover:text-[var(--primary)] hover:underline decoration-2 underline-offset-4 transition-all"
+                >
+                  {locale === 'zh' ? 'Cursor 兼容工具' : 'Cursor Compatible'}
+                </a>
+              </li>
             </ul>
           </nav>
 

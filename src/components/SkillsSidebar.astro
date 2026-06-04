@@ -122,6 +122,36 @@ if (activeView) {
         </div>
       </div>
 
+      <!-- Collections Section -->
+      <div>
+        <h3
+          class="px-2 text-sm font-black uppercase tracking-widest mb-4 font-mono text-[var(--foreground)] flex items-center gap-2"
+        >
+          <span class="text-[var(--primary)] bg-[var(--foreground)] px-1">↓</span>
+          {locale === 'zh' ? '精选权威合集' : 'Featured Collections'}
+        </h3>
+        <div class="space-y-2">
+          <a
+            href={`/${locale}/collections/top-official-ai-skills-trusted-tools`}
+            class="flex items-center justify-between px-4 py-3 border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all font-bold uppercase text-[14px]"
+          >
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-lg">⚙</span>
+              <span>{locale === 'zh' ? '官方可信工具' : 'Official AI Skills'}</span>
+            </div>
+          </a>
+          <a
+            href={`/${locale}/collections/top-cursor-compatible-skills-workflow-integrations`}
+            class="flex items-center justify-between px-4 py-3 border-[3px] border-transparent hover:border-[var(--border)] hover:bg-[var(--foreground)] hover:text-[var(--background)] hover:shadow-[6px_6px_0px_0px_var(--border)] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all font-bold uppercase text-[14px]"
+          >
+            <div class="flex items-center gap-3">
+              <span class="font-mono text-lg">⚡</span>
+              <span>{locale === 'zh' ? 'Cursor 兼容工具' : 'Cursor Compatible'}</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
       <!-- Separator -->
       <div class="h-1 mx-2 bg-[var(--border)]"></div>
 
