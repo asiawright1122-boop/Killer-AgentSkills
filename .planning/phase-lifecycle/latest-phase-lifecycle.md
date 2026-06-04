@@ -1,6 +1,6 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-04T05:07:31.629Z
+- Generated: 2026-06-04T05:09:47.800Z
 - Active milestone: v3.5 (Post-Intervention Recovery Verification & GEO/CTR Promotion)
 - Status: clean
 - Pending actions: 0
@@ -148,8 +148,4 @@
 
 ## Rewritten Planning Files
 
-- .planning/milestones/v3.4-CLOSEOUT.json
-- .planning/milestones/v3.4-CLOSEOUT.md
-- .planning/phase-lifecycle/latest-phase-lifecycle.json
-- .planning/phase-lifecycle/latest-phase-lifecycle.md
-- .planning/traceability/latest-milestone-traceability.json
+- none
