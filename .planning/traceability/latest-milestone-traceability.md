@@ -1,7 +1,7 @@
 # Planning Traceability Report
 
 - Milestone: v3.5 (Post-Intervention Recovery Verification & GEO/CTR Promotion)
-- Generated: 2026-06-04T06:20:50.040Z
+- Generated: 2026-06-04T06:21:19.729Z
 - Requirement coverage: satisfied=1, partial=0, pending=2
 
 ## Requirement Coverage
