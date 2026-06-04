@@ -342,7 +342,7 @@ function tierPriority(tier: string | null | undefined): number {
 function highestTierFor(surfaceIds: string[], surfaceMap: Map<string, AuthoritySurfaceRecord>): string | null {
   const tiers = surfaceIds
     .map((surfaceId) => surfaceMap.get(surfaceId)?.tier || null)
-    .filter((tier): tier is string => Boolean(tier))
+    .filter((tier): tier is Exclude<typeof tier, null | undefined> => Boolean(tier))
     .sort((a, b) => tierPriority(b) - tierPriority(a));
   return tiers[0] || null;
 }
@@ -518,7 +518,17 @@ function buildGovernedCorpusCohorts(
     .filter(([, items]) => items.some((item) => String(item.priority || '').toLowerCase() === 'next'))
     .map(([surfaceId]) => surfaceId);
 
-  const definitions = [
+  const definitions: Array<{
+    id: string;
+    label: string;
+    currentIds: string[];
+    baselineIds: string[];
+    disposition: RecoveryDeltaBoardDisposition;
+    state: RecoveryDeltaBoardState;
+    confidence: RecoveryDeltaBoardConfidence;
+    extraBlocker: string;
+    nextAction: string;
+  }> = [
     {
       id: 'governed-primary-authority-surfaces',
       label: 'Primary authority corpus',

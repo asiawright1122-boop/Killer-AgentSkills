@@ -101,6 +101,7 @@
     "submit:auth": "npx tsx scripts/auto-submitter/src/auth-setup.ts",
     "submit:discover": "npx tsx scripts/auto-submitter/src/discover.ts",
     "submit:manual": "npx tsx scripts/auto-submitter/src/semi-auto.ts",
+    "typecheck": "tsc --noEmit && tsc -p scripts/tsconfig.json --noEmit && tsc -p workers/tsconfig.json --noEmit && tsc -p packages/cli/tsconfig.json --noEmit",
     "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings 0",
     "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix",
     "lint:seo-automation": "eslint \"scripts/seo-smoke.ts\" \"scripts/seo-crawl-health.ts\" \"scripts/gsc-fetch-report.ts\" \"scripts/gsc-opportunity-board.ts\" \"scripts/lib/gsc-opportunity-board.ts\" \"scripts/seo-frontmatter-guard.ts\" --max-warnings 0",

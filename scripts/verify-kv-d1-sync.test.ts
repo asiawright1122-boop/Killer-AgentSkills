@@ -49,7 +49,7 @@ describe('compareDatabaseState', () => {
 
   it('detects missing items in D1 and KV', () => {
     const remoteD1 = [{ id: 'owner/repo/skill-1', content_hash: expectedHash1 }];
-    const remoteKv = [];
+    const remoteKv: string[] = [];
 
     const result = compareDatabaseState(localSkills, remoteD1, remoteKv);
     expect(result.isHealthy).toBe(false);

@@ -438,7 +438,7 @@ describe('AIService provider orchestration', () => {
       openRouterKeys: ['o0', 'o1'],
     });
     const runtime = service as any;
-    const snapshot: AIProviderTelemetrySnapshot = {
+    const snapshot: any = {
       timestamp: '2026-04-04T06:00:00.000Z',
       mode: { workersAi: 'free-only', fallbackPolicy: 'cold', concurrencyLimit: 3, localeBatchSize: 3 },
       stats: { nvidia: 4, siliconflow: 0, openrouter: 2, cloudflare: 0, nvidiaFail: 1 },
@@ -652,7 +652,7 @@ describe('AIService provider orchestration', () => {
       cfApiToken: 'cf-token',
     });
     const runtime = service as any;
-    const snapshot: AIProviderTelemetrySnapshot = {
+    const snapshot: any = {
       timestamp: '2026-04-04T06:10:00.000Z',
       mode: { workersAi: 'free-only', fallbackPolicy: 'cold', concurrencyLimit: 3, localeBatchSize: 3 },
       stats: { nvidia: 1, siliconflow: 0, openrouter: 1, cloudflare: 0, nvidiaFail: 0 },
@@ -928,6 +928,8 @@ describe('AIService provider orchestration', () => {
           quarantineReason: null,
           hardDisabled: true,
           hardDisableReason: 'C:retryable-failures:3',
+          circuitBreakerOpen: false,
+          averageLatencyMs: 0,
         },
       ],
     });

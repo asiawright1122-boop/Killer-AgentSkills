@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import type { AIBackupPostureProviderName, AIBackupProviderPosture } from '../../src/lib/ai-backup-posture';
-import type { AIProviderEvent, AIProviderLabelTelemetry, AIProviderTelemetrySnapshot } from './ai';
+import type { AIProviderEvent, AIProviderLabelTelemetry, AIProviderTelemetrySnapshot, BackupProviderName } from './ai';
 import { DEFAULT_AI_CONFIG_GUARD_JSON_PATH, type AiConfigGuardReport } from './ai-config-guard';
 import type { AIProviderProbeReport, AIProviderProbeResult, AIProviderProbeTrend } from './ai-provider-probe';
 import {
@@ -198,7 +198,7 @@ function normalizeFallbackRouting(
     nvidiaAvailable: availableProviders.some((entry) => entry.provider === 'nvidia'),
     configuredBackupProviders,
     eligibleBackupProviders: availableProviders
-      .filter((entry) => entry.provider !== 'nvidia')
+      .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
       .map((entry) => ({ label: entry.label, provider: entry.provider })),
     pressureLabels: [],
     recentActivations: (snapshot.recentEvents || [])
@@ -207,7 +207,7 @@ function normalizeFallbackRouting(
       )
       .map((event) => ({
         timestamp: event.timestamp,
-        provider: event.provider as Exclude<typeof event.provider, 'nvidia'>,
+        provider: event.provider as BackupProviderName,
         label: event.label!,
         reason: event.detail,
         policy: snapshot.mode?.fallbackPolicy || 'cold',
@@ -788,7 +788,7 @@ function renderHealthLabelLine(entry: AiProviderHealthLabel): string {
   return `- ${providerLabel} ${entry.successCount} ok, ${entry.failureCount} fail${tail ? ` | ${tail}` : ''}`;
 }
 
-function renderAlertLine(alert: AiTelemetryAlert): string {
+function renderAlertLine(alert: AiProviderHealthAlert | AiTelemetryAlert): string {
   return `- [${alert.severity.toUpperCase()}] ${alert.title} | ${alert.detail}`;
 }
 

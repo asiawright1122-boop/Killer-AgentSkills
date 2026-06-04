@@ -245,5 +245,5 @@ export const CATEGORY_RULES: Record<string, string[]> = {
 
 // ===== Language Names (for translation UIs) =====
 export const LANG_NAMES: Record<string, string> = Object.fromEntries(
-  SUPPORTED_LOCALES.map((locale) => [locale, LOCALE_NAMES[locale]]),
+  SUPPORTED_LOCALES.map((locale) => [locale, LOCALE_NAMES[locale as keyof typeof LOCALE_NAMES]]),
 );

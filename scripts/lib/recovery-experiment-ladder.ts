@@ -417,7 +417,7 @@ function classifyExecutionExperiment(
     candidateEligible ? 'candidate' : item.queueStatus === 'blocked' ? 'not-ready' : 'manual-only';
 
   const observed = `${item.queueStatus} / ${item.lane} / ${item.priority}`;
-  const gates = [
+  const gates: RecoveryExperimentGate[] = [
     ...experimentGateSummary(context.proofReady, context.expansionOpen, context.measurementBlockedCount, observed),
     {
       id: 'queue-status',
@@ -530,7 +530,7 @@ function classifySurfaceExperiment(
   const automationReadiness: RecoveryAutomationReadiness =
     candidateEligible ? 'candidate' : state === 'limited-rollout' ? 'not-ready' : 'manual-only';
 
-  const gates = [
+  const gates: RecoveryExperimentGate[] = [
     ...experimentGateSummary(
       context.proofReady,
       context.expansionOpen,

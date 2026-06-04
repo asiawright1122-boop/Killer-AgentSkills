@@ -183,7 +183,7 @@ export function buildSkillLocaleGovernanceIndex(
 
 function renderLocaleCountLines(counts: Partial<Record<Locale, number>> | Record<string, number>): string[] {
   return Object.entries(counts)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .sort((a, b) => (b[1] ?? 0) - (a[1] ?? 0) || a[0].localeCompare(b[0]))
     .map(([locale, count]) => `- ${locale}: ${count}`);
 }
 

@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { DEFAULT_LOCALE, type Locale } from '../src/i18n';
 import { buildSkillIndexabilityAssessment } from '../src/lib/skill-indexability';
-import { buildLocalizedSkillPath, getSkillRoutePath } from '../src/lib/skill-route-paths';
+import { buildLocalizedSkillPath, getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
 import { buildCrawlerVisibleSkillBody } from './lib/skill-locale-governance';
 import type { CacheData, SkillCache } from './lib/types';
 
@@ -136,7 +136,7 @@ const reportJsonPath = resolve(reportDir, 'latest-skill-indexability.json');
 const reportMarkdownPath = resolve(reportDir, 'latest-skill-indexability.md');
 
 const skills = readSkillsCache(skillsCachePath);
-const sitemapSkillsRaw = readJson<SitemapSkillRecord[] | { skills?: SitemapSkillRecord[] }>(sitemapSkillsPath);
+const sitemapSkillsRaw = readJson<SitemapSkillEntry[] | { skills?: SitemapSkillEntry[] }>(sitemapSkillsPath);
 const sitemapSkills = Array.isArray(sitemapSkillsRaw) ? sitemapSkillsRaw : sitemapSkillsRaw.skills || [];
 const localeGovernanceRaw = readJson<{ skills?: LocaleGovernanceRecord[] } | LocaleGovernanceRecord[]>(
   localeGovernancePath,

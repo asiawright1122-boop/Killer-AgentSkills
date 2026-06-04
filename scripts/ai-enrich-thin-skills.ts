@@ -24,7 +24,7 @@ async function enrichThinSkills() {
   const cacheContent = fs.readFileSync(CACHE_FILE, 'utf-8');
   const cacheData = JSON.parse(cacheContent) as CacheData;
 
-  const thinSkills = cacheData.skills.filter(s => (s.body?.length || 0) < 500);
+  const thinSkills = cacheData.skills.filter(s => (s.skillMd?.body?.length || 0) < 500);
   console.log(`[Inspector] Found ${thinSkills.length} Thin Content skills out of ${cacheData.skills.length}.`);
 
   if (thinSkills.length === 0) {
@@ -79,8 +79,18 @@ It must be designed for professional developers and include:
           cleanMd = cleanMd.replace(/^\`\`\`\n/i, '').replace(/\n\`\`\`$/i, '');
         }
 
-        skill.body = cleanMd;
-        skill.tags = [...new Set([...(skill.tags || []), 'ai-enriched'])];
+        if (!skill.skillMd) {
+          skill.skillMd = {
+            name: skill.name,
+            description: rawDesc,
+            bodyPreview: cleanMd.substring(0, 200),
+            body: cleanMd,
+            tags: ['ai-enriched']
+          };
+        } else {
+          skill.skillMd.body = cleanMd;
+          skill.skillMd.tags = [...new Set([...(skill.skillMd.tags || []), 'ai-enriched'])];
+        }
         console.log(`✅ Successfully enriched ${skill.repo} (Output: ${cleanMd.length} bytes)`);
         modifiedCount++;
       } else {

@@ -93,7 +93,7 @@ export type AiTelemetryTrend = {
   };
   latestStatus: string | null;
   latestAvailableOrder: string[];
-  latestWorkersAi: TelemetryCheckpoint['aiTelemetry']['workersAi'] | null;
+  latestWorkersAi: NonNullable<TelemetryCheckpoint['aiTelemetry']>['workersAi'] | null;
   latestIssues: {
     quarantinedLabels: LatestLabelIssue[];
     hardDisabledProviders: LatestProviderIssue[];

@@ -1,26 +1,51 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.1 AIOps Smart Gateway & Profile Hardening (Closeout Ready)
+### None (Active)
 
-**Delivered:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+**Goal:** Define next milestone using `/gsd-new-milestone`.
 
-**Phases completed:** 3/3 complete (0 plans total)
-
-**Key accomplishments:**
-- Roadmap phases tracked: 3
-- Requirement coverage: 3/3 satisfied
-- Planning hygiene: clean
+**Phases completed:** 0/0 complete
 
 **Stats:**
-- 3/3 complete phases, 0 plans, 3/3 requirements satisfied, milestone audit passed
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/v3.1-MILESTONE-AUDIT.md, .planning/milestones/v3.1-BOOTSTRAP.md, .planning/milestones/v3.1-CLOSEOUT.md
-- Carry-forward signal: None recorded.
+- No active milestone.
 
-**What's next:** Use .planning/milestones/v3.1-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Run `/gsd-new-milestone` to define new requirements.
 
 ---
 ## Shipped Milestones
-### v3.0 v3.0 (Shipped: SHIPPED)
+### v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation (Shipped: 2026-06-04)
+
+**Delivered:** Establish project-wide type safety, align compiler configurations, and introduce scripts typecheck CI gates.
+
+**Phases completed:** 3/3 complete
+
+**Key accomplishments:**
+- TS Compiler Modernization: Updated worker & packages/cli configurations to resolve TS5101/TS5107 compiler deprecation warnings.
+- Operational Scripts Type Safety: Set up a dedicated tsconfig for the scripts directory and remediated all strict typecheck errors in scripts and test suites.
+- Unified CI/CD Gates: Implemented a single project-wide typecheck validation gate to verify type safety across all subpackages.
+
+**Stats:**
+- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
+- Milestone artifacts: .planning/milestones/v3.2-ROADMAP.md, .planning/milestones/v3.2-REQUIREMENTS.md, .planning/v3.2-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+---
+## Shipped Milestones
+### v3.1 AIOps Smart Gateway & Profile Hardening (Shipped: 2026-06-03)
+
+**Delivered:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+
+**Phases completed:** 3/3 complete
+
+**Key accomplishments:**
+- Environment-specific operator profiles parsing dynamically based on runtime environment and workload class.
+- Configuration compliance guard with composite JSON Schema checks and billing lockout restrictions for free-only runners.
+- Vitest testing suite covering routing fallback degradation.
+
+**Stats:**
+- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
+- Milestone artifacts: .planning/milestones/v3.1-ROADMAP.md, .planning/milestones/v3.1-REQUIREMENTS.md, .planning/milestones/v3.1-MILESTONE-AUDIT.md, .planning/milestones/v3.1-BOOTSTRAP.md, .planning/milestones/v3.1-CLOSEOUT.md
+- Carry-forward signal: None recorded.
 
 **Delivered:** `v3.0 Advanced Search Engine Optimization` shipped on `2026-06-03` and is now archived.
 

@@ -5,11 +5,11 @@ const NON_TARGET_THEME_PATTERNS = [
   /\b(mvp\s*builder|mvp-builder|mvp\s*generator|minimum\s*viable\s+product|startup\s*pitch)\b/i,
 ];
 
-export function getReadmeContent(skill) {
+export function getReadmeContent(skill: any): string {
   return skill?.skillMd?.body || skill?.skillMd?.bodyPreview || '';
 }
 
-export function pickPreferredText(value) {
+export function pickPreferredText(value: any): string {
   if (!value) return '';
   if (typeof value === 'string') return value.trim();
   if (typeof value !== 'object') return '';
@@ -24,7 +24,7 @@ export function pickPreferredText(value) {
   return '';
 }
 
-export function isPublicSkillForSitemap(skill) {
+export function isPublicSkillForSitemap(skill: any): boolean {
   const combinedText = [
     skill?.name || '',
     skill?.owner || '',

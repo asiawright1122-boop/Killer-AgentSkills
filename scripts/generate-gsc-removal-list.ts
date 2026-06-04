@@ -50,6 +50,8 @@ import {
   type RemovalSemanticSignal,
   type RemovalReadinessReport,
   type RemovalSummaryCategoryEntry,
+  type RemovalUrlCategory,
+  type CanonicalizeFollowupEntry,
   PRIORITY_REMOVAL_CATEGORIES,
   renderRemovalReadinessMarkdown,
 } from './lib/gsc-removal-list';
@@ -169,7 +171,7 @@ function main() {
   const categories = new Map<string, Set<string>>();
   const canonicalizeFollowups = new Map<
     string,
-    { sourceUrl: string; targetUrl: string; category: string; reason: string }
+    CanonicalizeFollowupEntry
   >();
   const investigationEntries = new Map<string, RemovalInvestigationEntry>();
 
@@ -268,7 +270,7 @@ function main() {
 
   // Generate category-specific lists
   for (const [category, urls] of sortedCategories) {
-    if (!isRemovalSubmissionCategory(category)) continue;
+    if (!isRemovalSubmissionCategory(category as RemovalUrlCategory)) continue;
     const categoryPath = path.join(OUTPUT_DIR, `gsc-removal-${category}-${timestamp}.txt`);
     fs.writeFileSync(categoryPath, Array.from(urls).sort().join('\n'));
     console.log(`✅ ${category}: ${categoryPath} (${urls.size} URLs)`);
@@ -280,7 +282,7 @@ function main() {
       count: urls.size,
     }),
   );
-  const removalCategoryCounts = categoryCounts.filter((entry) => isRemovalSubmissionCategory(entry.category as never));
+  const removalCategoryCounts = categoryCounts.filter((entry) => isRemovalSubmissionCategory(entry.category as RemovalUrlCategory));
 
   const prefixRows: RemovalPrefixRow[] = [];
   for (const category of PREFIX_ELIGIBLE_CATEGORIES) {

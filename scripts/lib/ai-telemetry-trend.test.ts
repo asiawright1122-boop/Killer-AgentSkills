@@ -10,10 +10,12 @@ import {
   summarizeAiTelemetryAlerts,
 } from './ai-telemetry-trend';
 import type { TelemetryCheckpoint } from './ai-telemetry-report';
+import type { AIProviderTelemetrySnapshot } from './ai';
 
 type ProviderName = NonNullable<
   NonNullable<TelemetryCheckpoint['aiTelemetry']>['availableProviders']
 >[number]['provider'];
+type BackupProviderName = Exclude<ProviderName, 'nvidia'>;
 type LabelTelemetry = NonNullable<NonNullable<TelemetryCheckpoint['aiTelemetry']>['labelStats']>[number];
 
 function label(
@@ -30,6 +32,10 @@ function label(
     failureCount: 0,
     consecutiveRetryableFailures: 0,
     consecutive429s: 0,
+    recentRetryableFailureCount: 0,
+    recent429Count: 0,
+    recentCooldownCount: 0,
+    lastPressureAt: null,
     lastStatus: null,
     lastError: null,
     lastEventAt: null,
@@ -44,14 +50,17 @@ function label(
     quarantineReason: null,
     hardDisabled: false,
     hardDisableReason: null,
+    circuitBreakerOpen: false,
+    averageLatencyMs: 0,
     ...overrides,
   };
 }
 
 function checkpoint(
-  overrides: Partial<TelemetryCheckpoint> & {
+  overrides: Omit<Partial<TelemetryCheckpoint>, 'aiTelemetry'> & {
     timestamp: string;
     availableOrder: Array<{ label: string; provider: ProviderName }>;
+    aiTelemetry?: Partial<AIProviderTelemetrySnapshot>;
   },
 ): TelemetryCheckpoint {
   const { aiTelemetry: aiTelemetryOverrides, timestamp, availableOrder, ...checkpointOverrides } = overrides;
@@ -83,14 +92,21 @@ function checkpoint(
         policy: 'cold',
         backupsAllowed: false,
         activationReason: null,
+        decision: 'primary_preferred',
+        decisionReason: 'No provider pressure is active.',
         nvidiaConfigured: availableOrder.some((entry) => entry.provider === 'nvidia'),
         nvidiaAvailable: availableOrder.some((entry) => entry.provider === 'nvidia'),
         configuredBackupProviders: Array.from(
-          new Set(availableOrder.filter((entry) => entry.provider !== 'nvidia').map((entry) => entry.provider)),
+          new Set(
+            availableOrder
+              .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
+              .map((entry) => entry.provider),
+          ),
         ),
         eligibleBackupProviders: availableOrder
-          .filter((entry) => entry.provider !== 'nvidia')
+          .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
           .map((entry) => ({ label: entry.label, provider: entry.provider })),
+        pressureLabels: [],
         recentActivations: [],
       },
       workersAi: {
@@ -109,7 +125,7 @@ function checkpoint(
         blockedReason: null,
       },
       ...aiTelemetryOverrides,
-    },
+    } as AIProviderTelemetrySnapshot,
     ...checkpointOverrides,
   };
 }
@@ -214,6 +230,8 @@ describe('ai telemetry trend', () => {
           maxCallsPerDay: 300,
           maxTokens: 800,
           canUse: true,
+          status: 'available',
+          blockedReason: null,
         },
         recentEvents: [
           {
@@ -486,6 +504,8 @@ describe('ai telemetry trend', () => {
               maxCallsPerDay: 300,
               maxTokens: 800,
               canUse: !isLatest,
+              status: isLatest ? 'run_cap_reached' : 'available',
+              blockedReason: null,
             },
           },
         }),
@@ -597,6 +617,8 @@ describe('ai telemetry trend', () => {
             maxCallsPerDay: 300,
             maxTokens: 800,
             canUse: true,
+            status: 'available',
+            blockedReason: null,
           },
         },
       }),

@@ -246,7 +246,7 @@ function main() {
     );
     if (routelessIndexableRepoIds.size > 0) {
       warnings.push(
-        `legacy repo-level indexable candidates observed: ${routelessIndexableRepoIds.size} | sample: ${summarizeList(routelessIndexableRepoIds)}`,
+        `legacy repo-level indexable candidates observed: ${routelessIndexableRepoIds.size} | sample: ${summarizeList(Array.from(routelessIndexableRepoIds))}`,
       );
     }
 

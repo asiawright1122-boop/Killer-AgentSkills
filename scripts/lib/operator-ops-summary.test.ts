@@ -69,6 +69,7 @@ function clearAiConfig(): AiConfigGuardReport {
     workersAiMaxCallsPerRun: 60,
     workersAiMaxCallsPerDay: 60,
     workersAiMaxTokens: 1024,
+    operatorProfile: 'nvidia-first',
     issues: [],
   };
 }

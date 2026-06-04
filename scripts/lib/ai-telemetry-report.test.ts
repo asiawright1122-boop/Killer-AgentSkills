@@ -9,6 +9,7 @@ import {
   resolveAiTelemetryCheckpoint,
   type TelemetryCheckpoint,
 } from './ai-telemetry-report';
+import type { AIProviderLabelTelemetry } from './ai';
 
 const sampleCheckpoint = (): TelemetryCheckpoint => ({
   status: 'completed',
@@ -167,7 +168,7 @@ const sampleCheckpoint = (): TelemetryCheckpoint => ({
         hardDisabled: true,
         hardDisableReason: 'C:429',
       },
-    ],
+    ] as unknown as AIProviderLabelTelemetry[],
     availableProviders: [
       { label: 'N1', provider: 'nvidia' },
       { label: 'N2', provider: 'nvidia' },
@@ -186,6 +187,9 @@ const sampleCheckpoint = (): TelemetryCheckpoint => ({
       configuredBackupProviders: ['siliconflow', 'cloudflare'],
       eligibleBackupProviders: [{ label: 'S', provider: 'siliconflow' }],
       recentActivations: [],
+      decision: 'primary_preferred',
+      decisionReason: 'No provider pressure is active.',
+      pressureLabels: [],
     },
     workersAi: {
       usageFile: '.tmp/workers-ai-usage.json',

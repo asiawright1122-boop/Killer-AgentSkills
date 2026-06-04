@@ -168,7 +168,7 @@ const missingCandidates: SitemapSkillEntry[] = [
 ];
 
 for (const cand of missingCandidates) {
-  const key = `${cand.owner.toLowerCase()}/${cand.routePath.toLowerCase()}`;
+  const key = `${cand.owner!.toLowerCase()}/${cand.routePath!.toLowerCase()}`;
   if (!beforeSitemapEntries.some(entry => `${entry.owner?.toLowerCase()}/${entry.routePath?.toLowerCase()}` === key)) {
     beforeSitemapEntries.push(cand);
   }

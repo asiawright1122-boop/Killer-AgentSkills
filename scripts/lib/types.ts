@@ -53,6 +53,7 @@ export interface SkillCache {
     lastSynced: string;
     seo?: SeoData;
     agentAnalysis?: AgentAnalysis;
+    verified?: boolean;
 }
 
 export interface CacheData {

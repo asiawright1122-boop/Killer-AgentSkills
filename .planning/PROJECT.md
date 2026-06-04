@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.1` are shipped.
+- `v1.0` through `v3.2` are shipped.
+- `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 - `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
 - `v3.0` implemented structured JSON-LD schemas, automated IndexNow search indexing submissions, and pre-rendered semantic recommendation links.
 - `v2.9` automated GSC Coverage ingestion, implemented technical recovery scorecard tracking, and added lock gates to the automation policy.
@@ -20,7 +21,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.1 AIOps Smart Gateway & Profile Hardening
+## Most Recent Shipment: v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation
+
+**Outcome:** Established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
+
+**Shipped capabilities:**
+- TypeScript compiler modernized for workers and packages/cli workspaces to resolve compiler errors (TS5101/TS5107).
+- Operational scripts type safety introduced with a dedicated tsconfig under `scripts/tsconfig.json` and resolved all type issues across scripts and test files.
+- Unified CI/CD gate added in `package.json` for a single typechecking verification check across all workspaces.
+
+## Previous Shipment: v3.1 AIOps Smart Gateway & Profile Hardening
 
 **Outcome:** Promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
 
@@ -56,36 +66,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Circuit breaker state-based tracking and provider smart routing.
 - D1/KV sync hardening and observability dashboards.
 
-## Previous Shipment: v2.7 Operator Profiles and Fresh Ingestion
-
-**Outcome:** Established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
-
-**Shipped capabilities:**
-- Established operator profiles (`nvidia-first`, `workers-ai-fallback`, `openrouter-preferred`) to dynamically routing provider backups.
-- Added validation guard in `ai-config-guard.ts` asserting profile compliance.
-- Ingested fresh GSC Coverage Drilldown metadata to resolve GSC SLA freshness warnings.
-
-## Previous Shipment: v2.6 Index Alignment and AI Posture Hardening
-
-**Outcome:** Resolved index divergence between sitemap and indexable cache, and refreshed AI telemetry/SiliconFlow provider posture.
-
-**Shipped capabilities:**
-
-- Enforced strict canonical locale evaluations and public checks in `seo-corpus-governance.ts`, reducing index-drift to zero.
-- Isolated SiliconFlow provider backup routes via `.env.local` override check in config-guard, removing auth/billing exceptions.
-
-## Previous Shipment: v2.4 Directory Continuous Monitoring and CTR Optimization
-
-**Outcome:** Monitored CTR performance and established automated database sync verification for the expanded directory index.
-
-**Shipped capabilities:**
-
-- Enabled GSC CTR extraction, aggregation, and opportunities targeting directory roots specifically.
-- Created `verify-kv-d1-sync.ts` health checking logic with flexible execution environments (warning vs strict error modes).
-
 ## Current Milestone: None
 
-**Goal:** Pending definition of the next milestone.
+**Goal:** Run `/gsd-new-milestone` to start the next milestone.
 
 ## Deferred Beyond v1.8
 
@@ -96,6 +79,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Validated
 
+- ✓ [TS Compiler Modernization] - `v3.2`
+- ✓ [Operational Scripts Type Safety] - `v3.2`
+- ✓ [Unified CI/CD Gates] - `v3.2`
 - ✓ [Environment-Specific Profiles Integration] - `v3.1`
 - ✓ [Config Guard Hardening] - `v3.1`
 - ✓ [Smart Fallback & Degradation Verification] - `v3.1`
@@ -164,7 +150,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-- None active.
+- None (Run `/gsd-new-milestone` to define new requirements).
 
 ### Out of Scope
 
@@ -230,4 +216,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-03 after shipping v3.1 AIOps Smart Gateway & Profile Hardening._
+_Last updated: 2026-06-04 after shipping v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation._

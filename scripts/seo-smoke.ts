@@ -30,7 +30,7 @@ type PageCheck = {
 };
 
 type RunningDevServer = {
-  child: ChildProcessWithoutNullStreams;
+  child: import('node:child_process').ChildProcess;
   logs: string[];
 };
 

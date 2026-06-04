@@ -2,9 +2,9 @@
 
 ## Overview
 
-`v3.1 AIOps Smart Gateway & Profile Hardening` shipped on `2026-06-03` and is now archived.
+`v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation` shipped on `2026-06-04` and is now archived.
 
-This milestone focused on promoting workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardening config compliance guards.
+This milestone focused on establishing project-wide type safety, aligning compiler configurations, and introducing scripts typecheck CI gates.
 
 ## Immediate Next Actions
 
@@ -12,14 +12,14 @@ This milestone focused on promoting workload-aware provider policy into operator
 
 ## Current Milestone: None
 
-**Goal:** Pending definition of the next milestone.
+**Goal:** Run `/gsd-new-milestone` to start the next milestone.
 
 **Requirements:**
-- None active.
-**Phase range:** n/a
+- None.
 
 ## Milestones
 
+- ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
 - ✅ **v2.9 Coverage Data Ingestion & Post-Intervention Automation** — phases 85-87 (shipped 2026-06-03; [audit](./milestones/v2.9-MILESTONE-AUDIT.md))
@@ -55,6 +55,7 @@ This milestone focused on promoting workload-aware provider policy into operator
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
 | v2.9 Coverage Data Ingestion & Post-Intervention Automation | 85-87 | 3/3 | Complete | 2026-06-03 |
@@ -77,3 +78,7 @@ This milestone focused on promoting workload-aware provider policy into operator
 | v1.2 Operator Automation and Runtime Convergence | 35-38 | 4/4 | Complete | 2026-04-07 |
 | v1.1 Observability and Governance Hardening | 31-34 | 4/4 | Complete | 2026-04-06 |
 | v1.0 Reliability and Growth Operations | 1-30 | 18/18 | Complete | 2026-04-06 |
+
+---
+
+_Last updated: 2026-06-04 after shipping v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation._

@@ -809,13 +809,13 @@ export function buildOperatorRemediationHandoffReport(options?: {
     ]);
     const branchName = mode === 'pull_request' ? buildHandoffBranchName(item) : null;
     const repository = {
-      owner,
-      repo,
+      owner: owner!,
+      repo: repo!,
       baseBranch,
     };
-    const title = buildHandoffTitle(item, mode);
+    const title = buildHandoffTitle(item, mode as Exclude<OperatorRemediationHandoffMode, 'none'>);
     const body = buildHandoffBody(item, {
-      mode,
+      mode: mode as Exclude<OperatorRemediationHandoffMode, 'none'>,
       dedupeKey,
       fingerprint,
       state,
@@ -829,7 +829,7 @@ export function buildOperatorRemediationHandoffReport(options?: {
 
     return {
       id: `ops-handoff:${mode}:${item.id}`,
-      mode,
+      mode: mode as Exclude<OperatorRemediationHandoffMode, 'none'>,
       state,
       dedupeKey,
       fingerprint,

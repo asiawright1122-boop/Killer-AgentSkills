@@ -128,8 +128,8 @@ function createAuthorityProgram() {
     surfaces: [
       {
         id: 'home-root',
-        role: 'primary',
-        tier: 'P0',
+        role: 'primary' as const,
+        tier: 'P0' as const,
         surfaceClass: 'hub',
         href: '/{locale}',
         title: { en: 'Homepage Root Hub' },
@@ -137,8 +137,8 @@ function createAuthorityProgram() {
       },
       {
         id: 'collection-official-trusted-tools',
-        role: 'primary',
-        tier: 'P0',
+        role: 'primary' as const,
+        tier: 'P0' as const,
         surfaceClass: 'collection',
         href: '/{locale}/collections/top-official-ai-skills-trusted-tools',
         title: { en: 'Official AI Skills & Trusted Tools' },
@@ -146,8 +146,8 @@ function createAuthorityProgram() {
       },
       {
         id: 'skills-directory',
-        role: 'supporting',
-        tier: 'P3',
+        role: 'supporting' as const,
+        tier: 'P3' as const,
         surfaceClass: 'directory',
         href: '/{locale}/skills',
         title: { en: 'Full Skills Directory' },
@@ -158,12 +158,12 @@ function createAuthorityProgram() {
       {
         id: 'home-proof',
         surfaceId: 'home-root',
-        priority: 'now',
+        priority: 'now' as const,
       },
       {
         id: 'collection-proof',
         surfaceId: 'collection-official-trusted-tools',
-        priority: 'now',
+        priority: 'now' as const,
       },
     ],
   };

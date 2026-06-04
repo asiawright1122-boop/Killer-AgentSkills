@@ -79,29 +79,29 @@ function createAuthorityProgram() {
     surfaces: [
       {
         id: 'home-root',
-        role: 'primary',
-        tier: 'P0',
+        role: 'primary' as const,
+        tier: 'P0' as const,
         surfaceClass: 'hub',
         title: { en: 'Homepage Root Hub' },
       },
       {
         id: 'collection-official-trusted-tools',
-        role: 'primary',
-        tier: 'P0',
+        role: 'primary' as const,
+        tier: 'P0' as const,
         surfaceClass: 'collection',
         title: { en: 'Official AI Skills & Trusted Tools' },
       },
       {
         id: 'docs-installation',
-        role: 'primary',
-        tier: 'P0',
+        role: 'primary' as const,
+        tier: 'P0' as const,
         surfaceClass: 'guide',
         title: { en: 'Installation Docs' },
       },
       {
         id: 'skills-directory',
-        role: 'supporting',
-        tier: 'P3',
+        role: 'supporting' as const,
+        tier: 'P3' as const,
         surfaceClass: 'directory',
         title: { en: 'Full Skills Directory' },
       },
@@ -110,12 +110,12 @@ function createAuthorityProgram() {
       {
         id: 'official-collection-proof',
         surfaceId: 'collection-official-trusted-tools',
-        priority: 'now',
+        priority: 'now' as const,
       },
       {
         id: 'install-guide-bridge',
         surfaceId: 'docs-installation',
-        priority: 'now',
+        priority: 'now' as const,
       },
     ],
   };
@@ -125,24 +125,24 @@ describe('buildRecoveryDeltaBoardReport', () => {
   it('keeps authority cohorts on hold when only the seeded blocking proof window exists', () => {
     const localeDeclineJa = {
       id: 'locale-decline-ja',
-      lens: 'locale',
-      status: 'recoverable',
+      lens: 'locale' as const,
+      status: 'recoverable' as const,
       score: 32.56,
       title: 'Locale suppression: ja',
       summary: 'Locale ja shows clicks -1 and CTR -100.00% versus the previous period.',
       evidence: ['Current clicks 0', 'Current impressions 29'],
       actions: ['Inspect whether the locale still has enough eligible pages and clean internal links.'],
-    } as const;
+    };
     const trailingSlash = {
       id: 'cluster-trailing_slash',
-      lens: 'cluster',
-      status: 'blocked',
+      lens: 'cluster' as const,
+      status: 'blocked' as const,
       score: 6557.3,
       title: 'Issue cluster: trailing_slash',
       summary: 'Estimated affected pages 3,451 with weighted impact 6,557.',
       evidence: ['服务器错误 (5xx)（P0 可用性）'],
       actions: ['Keep trailing-slash canonicalization at the edge and clean any internal links still ending with `/`.'],
-    } as const;
+    };
 
     const report = buildRecoveryDeltaBoardReport({
       proofWindowReport: createProofWindow(),
@@ -164,24 +164,24 @@ describe('buildRecoveryDeltaBoardReport', () => {
   it('promotes resolved control cohorts and P0 authority surfaces once trustworthy proof exists', () => {
     const baselineLocale = {
       id: 'locale-decline-ja',
-      lens: 'locale',
-      status: 'recoverable',
+      lens: 'locale' as const,
+      status: 'recoverable' as const,
       score: 32.56,
       title: 'Locale suppression: ja',
       summary: 'Locale ja shows clicks -1 and CTR -100.00% versus the previous period.',
       evidence: ['Current clicks 0', 'Current impressions 29'],
       actions: ['Inspect whether the locale still has enough eligible pages and clean internal links.'],
-    } as const;
+    };
     const baselineCluster = {
       id: 'cluster-trailing_slash',
-      lens: 'cluster',
-      status: 'blocked',
+      lens: 'cluster' as const,
+      status: 'blocked' as const,
       score: 6557.3,
       title: 'Issue cluster: trailing_slash',
       summary: 'Estimated affected pages 3,451 with weighted impact 6,557.',
       evidence: ['服务器错误 (5xx)（P0 可用性）'],
       actions: ['Keep trailing-slash canonicalization at the edge and clean any internal links still ending with `/`.'],
-    } as const;
+    };
 
     const report = buildRecoveryDeltaBoardReport({
       proofWindowReport: createProofWindow({

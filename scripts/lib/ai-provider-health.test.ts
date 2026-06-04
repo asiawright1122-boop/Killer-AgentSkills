@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { describe, expect, it } from 'vitest';
 import type { AiConfigGuardReport } from './ai-config-guard';
+import type { AIProviderTelemetrySnapshot } from './ai';
 import { buildAiProviderHealthReport, renderAiProviderHealthReport } from './ai-provider-health';
 import type { AIProviderProbeReport } from './ai-provider-probe';
 import type { TelemetryCheckpoint } from './ai-telemetry-report';
@@ -11,6 +12,8 @@ type ProviderName = NonNullable<
   NonNullable<TelemetryCheckpoint['aiTelemetry']>['availableProviders']
 >[number]['provider'];
 type LabelTelemetry = NonNullable<NonNullable<TelemetryCheckpoint['aiTelemetry']>['labelStats']>[number];
+
+type BackupProviderName = Exclude<ProviderName, 'nvidia'>;
 
 function label(
   entryLabel: string,
@@ -44,14 +47,17 @@ function label(
     quarantineReason: null,
     hardDisabled: false,
     hardDisableReason: null,
+    circuitBreakerOpen: false,
+    averageLatencyMs: 0,
     ...overrides,
   };
 }
 
 function checkpoint(
-  overrides: Partial<TelemetryCheckpoint> & {
+  overrides: Omit<Partial<TelemetryCheckpoint>, 'aiTelemetry'> & {
     timestamp: string;
     availableOrder: Array<{ label: string; provider: ProviderName }>;
+    aiTelemetry?: Partial<AIProviderTelemetrySnapshot>;
   },
 ): TelemetryCheckpoint {
   const { aiTelemetry: aiTelemetryOverrides, timestamp, availableOrder, ...checkpointOverrides } = overrides;
@@ -90,10 +96,14 @@ function checkpoint(
         nvidiaConfigured: availableOrder.some((entry) => entry.provider === 'nvidia'),
         nvidiaAvailable: availableOrder.some((entry) => entry.provider === 'nvidia'),
         configuredBackupProviders: Array.from(
-          new Set(availableOrder.filter((entry) => entry.provider !== 'nvidia').map((entry) => entry.provider)),
+          new Set(
+            availableOrder
+              .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
+              .map((entry) => entry.provider),
+          ),
         ),
         eligibleBackupProviders: availableOrder
-          .filter((entry) => entry.provider !== 'nvidia')
+          .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
           .map((entry) => ({ label: entry.label, provider: entry.provider })),
         pressureLabels: [],
         recentActivations: [],
@@ -114,7 +124,7 @@ function checkpoint(
         blockedReason: null,
       },
       ...aiTelemetryOverrides,
-    },
+    } as AIProviderTelemetrySnapshot,
     ...checkpointOverrides,
   };
 }
@@ -199,6 +209,7 @@ function writeAiConfigGuard(reportsDir: string, overrides: Partial<AiConfigGuard
     workersAiMaxCallsPerRun: 60,
     workersAiMaxCallsPerDay: 60,
     workersAiMaxTokens: 1024,
+    operatorProfile: 'nvidia-first',
     issues: [],
     ...overrides,
   };

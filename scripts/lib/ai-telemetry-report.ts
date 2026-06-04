@@ -1,6 +1,6 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { basename, extname, join, resolve } from 'node:path';
-import type { AIProviderLabelTelemetry, AIProviderTelemetrySnapshot } from './ai';
+import type { AIProviderLabelTelemetry, AIProviderTelemetrySnapshot, BackupProviderName } from './ai';
 
 export type TelemetryCheckpoint = {
   status?: string;
@@ -130,12 +130,15 @@ function normalizeFallbackRouting(
     policy: snapshot.mode?.fallbackPolicy || 'cold',
     backupsAllowed: false,
     activationReason: null,
+    decision: 'providers_exhausted',
+    decisionReason: 'Legacy snapshot is missing routing decision metadata.',
     nvidiaConfigured: snapshot.availableProviders.some((entry) => entry.provider === 'nvidia'),
     nvidiaAvailable: snapshot.availableProviders.some((entry) => entry.provider === 'nvidia'),
     configuredBackupProviders: [],
     eligibleBackupProviders: snapshot.availableProviders
-      .filter((entry) => entry.provider !== 'nvidia')
+      .filter((entry): entry is typeof entry & { provider: BackupProviderName } => entry.provider !== 'nvidia')
       .map((entry) => ({ label: entry.label, provider: entry.provider })),
+    pressureLabels: [],
     recentActivations: [],
   };
 }

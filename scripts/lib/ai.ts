@@ -75,7 +75,7 @@ const readPositiveInt = (raw: string | undefined, fallback: number): number => {
   return Number.isFinite(parsed) && parsed > 0 ? parsed : fallback;
 };
 type ProviderName = 'nvidia' | 'siliconflow' | 'openrouter' | 'cloudflare';
-type BackupProviderName = Exclude<ProviderName, 'nvidia'>;
+export type BackupProviderName = Exclude<ProviderName, 'nvidia'>;
 type AIWorkersMode = 'free-only' | 'disabled';
 export type AIWorkersBudgetStatus = 'available' | 'disabled' | 'run_cap_reached' | 'daily_cap_reached';
 export function parseWorkersAiMode(raw: string | undefined | null): AIWorkersMode {
@@ -444,6 +444,7 @@ type ProviderLabelState = {
   quarantineReason: string | null;
   latencySum: number;
   latencyCount: number;
+  circuitBreakerOpen: boolean;
 };
 
 const sanitizeKeywordToken = (raw: string): string =>
@@ -1162,6 +1163,7 @@ export class AIService {
       quarantineReason: null,
       latencySum: 0,
       latencyCount: 0,
+      circuitBreakerOpen: false,
     };
     this.providerLabelStats.set(label, created);
     return created;
@@ -1738,6 +1740,8 @@ export class AIService {
             quarantineReason: state.quarantineReason,
             hardDisabled: this.providerHardDisabled.has(state.provider),
             hardDisableReason: hardDisabledReason,
+            circuitBreakerOpen: state.circuitBreakerOpen || false,
+            averageLatencyMs: state.latencyCount > 0 ? Math.round(state.latencySum / state.latencyCount) : 0,
           } satisfies AIProviderLabelTelemetry;
         }),
       availableProviders,
@@ -1837,6 +1841,9 @@ export class AIService {
         lastFailureAt: normalizeText(labelState.lastFailureAt),
         quarantinedAt: shouldRestoreQuarantine ? normalizeText(labelState.quarantinedAt) : null,
         quarantineReason: shouldRestoreQuarantine ? quarantineReason : null,
+        latencySum: 0,
+        latencyCount: 0,
+        circuitBreakerOpen: labelState.circuitBreakerOpen || false,
       });
 
       const hardDisableReason =

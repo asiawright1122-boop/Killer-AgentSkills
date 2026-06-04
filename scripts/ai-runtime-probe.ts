@@ -29,7 +29,7 @@ function getSkillDescription(skill: SkillCache): string {
   if (typeof skill.description === 'string' && skill.description.trim().length > 0) {
     return skill.description;
   }
-  const localizedDescription = skill.description?.en;
+  const localizedDescription = typeof skill.description === 'object' && skill.description ? skill.description.en : undefined;
   if (typeof localizedDescription === 'string' && localizedDescription.trim().length > 0) {
     return localizedDescription;
   }
