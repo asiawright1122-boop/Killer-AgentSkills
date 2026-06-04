@@ -6434,6 +6434,26 @@
     "filePath": ".claude/skills/benchmark/SKILL.md"
   },
   {
+    "owner": "mehdibha",
+    "repo": "dotUI",
+    "description": "Build your design system within seconds.",
+    "stars": 1337,
+    "forks": 33,
+    "topics": [
+      "accessibility",
+      "components",
+      "nextjs",
+      "react",
+      "react-aria-components",
+      "shadcn",
+      "shadcn-ui",
+      "tailwindcss",
+      "ui"
+    ],
+    "updatedAt": "2026-06-04T01:10:53Z",
+    "filePath": ".agents/skills/tanstack-devtools-app-setup/SKILL.md"
+  },
+  {
     "owner": "SonarSource",
     "repo": "SonarJS",
     "description": "SonarSource Static Analyzer for JavaScript and TypeScript",
@@ -8906,6 +8926,23 @@
     ],
     "updatedAt": "2026-05-13T13:31:40Z",
     "filePath": ".codex/skills/release/SKILL.md"
+  },
+  {
+    "owner": "reduxkotlin",
+    "repo": "redux-kotlin",
+    "description": "Redux implementation for Kotlin (supports multiplatform JVM, native, JS, WASM)",
+    "stars": 500,
+    "forks": 36,
+    "topics": [
+      "android",
+      "ios",
+      "kotlin",
+      "kotlin-multiplatform",
+      "kotlin-native",
+      "redux"
+    ],
+    "updatedAt": "2026-06-04T00:59:05Z",
+    "filePath": ".claude/skills/redux-kotlin/SKILL.md"
   },
   {
     "owner": "Opentrons",
@@ -21929,6 +21966,31 @@
     "filePath": ".codex/skills/qsdsan-exposan-architecture/SKILL.md"
   },
   {
+    "owner": "radekamirko",
+    "repo": "C.R.I.S.P",
+    "description": " CRISP — The missing layer between vibe coding and building something people actually want. ",
+    "stars": 43,
+    "forks": 6,
+    "topics": [
+      "ai-agents",
+      "ai-agents-framework",
+      "claude-code",
+      "claude-code-skill",
+      "claude-code-skills",
+      "discovery",
+      "framework",
+      "ideation",
+      "open-source",
+      "product-management",
+      "product-management-system",
+      "prompt-engineering",
+      "specification",
+      "vibe-coding"
+    ],
+    "updatedAt": "2026-06-03T19:27:30Z",
+    "filePath": ".claude/skills/crisp-report/SKILL.md"
+  },
+  {
     "owner": "skilluse",
     "repo": "skilluse",
     "description": "Agent Skills Registry & CLI",
@@ -23238,6 +23300,16 @@
     ],
     "updatedAt": "2026-05-13T21:44:16Z",
     "filePath": ".claude/skills/design/adjust/delight/SKILL.md"
+  },
+  {
+    "owner": "sisense",
+    "repo": "compose-sdk-monorepo",
+    "description": "Software development kit for developers to build analytical applications using Sisense platform capabilities.",
+    "stars": 38,
+    "forks": 14,
+    "topics": [],
+    "updatedAt": "2026-05-26T16:05:15Z",
+    "filePath": ".claude/skills/safe-refactor/SKILL.md"
   },
   {
     "owner": "yoloshii",
@@ -26172,6 +26244,27 @@
     ],
     "updatedAt": "2026-05-13T20:14:46Z",
     "filePath": ".cursor/skills/hack3270/SKILL.md"
+  },
+  {
+    "owner": "userFRM",
+    "repo": "rpg-encoder",
+    "description": "MCP server that gives AI coding agents semantic understanding of any codebase. Search by intent, auto-sync on edits, whole-repo context in one call. Rust + tree-sitter, 15 languages, 28 tools.",
+    "stars": 28,
+    "forks": 6,
+    "topics": [
+      "agentic-tools",
+      "code-analysis",
+      "code-understanding",
+      "embeddings",
+      "llm",
+      "mcp",
+      "program-graph",
+      "rust",
+      "semantic-search",
+      "tree-sitter"
+    ],
+    "updatedAt": "2026-05-29T18:20:44Z",
+    "filePath": ".claude/skills/rpg/SKILL.md"
   },
   {
     "owner": "wildcard",
@@ -35848,6 +35941,16 @@
     "filePath": ".kiro/skills/cluster-addons/SKILL.md"
   },
   {
+    "owner": "ReadyToGo-Education",
+    "repo": "fluxo_criativo",
+    "description": null,
+    "stars": 13,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-05-29T22:16:07Z",
+    "filePath": ".claude/skills/biblioteca-anuncios/SKILL.md"
+  },
+  {
     "owner": "sorryhyun",
     "repo": "DiPeO",
     "description": "Agent building tools via block diagram UI",
@@ -39662,6 +39765,23 @@
     "filePath": ".windsurf/skills/session-handoff/SKILL.md"
   },
   {
+    "owner": "top-logic",
+    "repo": "tl-engine",
+    "description": "TopLogic - the automated application engine",
+    "stars": 9,
+    "forks": 5,
+    "topics": [
+      "engine",
+      "framework",
+      "java",
+      "lowcode",
+      "nocode",
+      "webapplications"
+    ],
+    "updatedAt": "2026-06-03T14:12:42Z",
+    "filePath": ".claude/skills/setup-worktree/SKILL.md"
+  },
+  {
     "owner": "openharmony",
     "repo": "arkui_ace_engine",
     "description": "The OpenHarmony JS UI framework provides basic| container| and canvas UI components and standard CSS animation capabilities. It supports the web-development-like programming paradigm.",
@@ -42623,6 +42743,99 @@
     "topics": [],
     "updatedAt": "2026-06-03T15:54:15Z",
     "filePath": ".kiro/skills/flutter-build-verify/SKILL.md"
+  },
+  {
+    "owner": "26zl",
+    "repo": "cybersec-toolkit",
+    "description": "580+ cybersecurity tools, one command. Modular bash installer for Linux & Termux with 14 profiles, 18 modules, and an MCP server for AI-assisted ethical hacking. ",
+    "stars": 7,
+    "forks": 2,
+    "topics": [
+      "ai-assistant",
+      "ai-hacking",
+      "blue-team",
+      "bug-bounty",
+      "claude-code",
+      "ctf-tools",
+      "cybersecurity",
+      "ethical-hacking",
+      "hacking-tools",
+      "installer",
+      "kali-linux",
+      "mcp-server",
+      "model-context-protocol",
+      "modular",
+      "offensive-security",
+      "penetration-testing",
+      "pentesting",
+      "red-team",
+      "security-tools",
+      "termux"
+    ],
+    "updatedAt": "2026-06-02T14:24:39Z",
+    "filePath": ".claude/skills/testing-api-for-mass-assignment-vulnerability/SKILL.md"
+  },
+  {
+    "owner": "26zl",
+    "repo": "cybersec-toolkit",
+    "description": "580+ cybersecurity tools, one command. Modular bash installer for Linux & Termux with 14 profiles, 18 modules, and an MCP server for AI-assisted ethical hacking. ",
+    "stars": 7,
+    "forks": 2,
+    "topics": [
+      "ai-assistant",
+      "ai-hacking",
+      "blue-team",
+      "bug-bounty",
+      "claude-code",
+      "ctf-tools",
+      "cybersecurity",
+      "ethical-hacking",
+      "hacking-tools",
+      "installer",
+      "kali-linux",
+      "mcp-server",
+      "model-context-protocol",
+      "modular",
+      "offensive-security",
+      "penetration-testing",
+      "pentesting",
+      "red-team",
+      "security-tools",
+      "termux"
+    ],
+    "updatedAt": "2026-06-02T14:24:39Z",
+    "filePath": ".claude/skills/testing-for-xss-vulnerabilities-with-burpsuite/SKILL.md"
+  },
+  {
+    "owner": "26zl",
+    "repo": "cybersec-toolkit",
+    "description": "580+ cybersecurity tools, one command. Modular bash installer for Linux & Termux with 14 profiles, 18 modules, and an MCP server for AI-assisted ethical hacking. ",
+    "stars": 7,
+    "forks": 2,
+    "topics": [
+      "ai-assistant",
+      "ai-hacking",
+      "blue-team",
+      "bug-bounty",
+      "claude-code",
+      "ctf-tools",
+      "cybersecurity",
+      "ethical-hacking",
+      "hacking-tools",
+      "installer",
+      "kali-linux",
+      "mcp-server",
+      "model-context-protocol",
+      "modular",
+      "offensive-security",
+      "penetration-testing",
+      "pentesting",
+      "red-team",
+      "security-tools",
+      "termux"
+    ],
+    "updatedAt": "2026-06-02T14:24:39Z",
+    "filePath": ".claude/skills/configuring-suricata-for-network-monitoring/SKILL.md"
   },
   {
     "owner": "ocn",
@@ -47921,6 +48134,19 @@
     "filePath": ".agents/skills/rewrite-imports/SKILL.md"
   },
   {
+    "owner": "phel-lang",
+    "repo": "phel-pdo",
+    "description": "phel-lang pdo wrapper library",
+    "stars": 5,
+    "forks": 0,
+    "topics": [
+      "phel-lang",
+      "phel-pdo"
+    ],
+    "updatedAt": "2026-06-03T09:31:37Z",
+    "filePath": ".claude/skills/gh-issues/SKILL.md"
+  },
+  {
     "owner": "zatsit-oss",
     "repo": "zats-greenscore",
     "description": "UI project based on Eroom and API Green Score initiative",
@@ -51436,6 +51662,16 @@
     "topics": [],
     "updatedAt": "2026-04-20T16:02:17Z",
     "filePath": ".kiro/skills/secondme-init/SKILL.md"
+  },
+  {
+    "owner": "Rixmerz",
+    "repo": "flowtrace-debugger",
+    "description": "Hola!, Hallo!, Hello!, Priviet!",
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-08T00:57:55Z",
+    "filePath": ".claude/skills/go-patterns/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -55252,6 +55488,16 @@
     "topics": [],
     "updatedAt": "2026-05-29T05:26:55Z",
     "filePath": ".kiro/skills/deployment-patterns/SKILL.md"
+  },
+  {
+    "owner": "outfitter-dev",
+    "repo": "trails",
+    "description": "Agent-native, contract-first TypeScript framework. Define once. Surface everywhere.",
+    "stars": 3,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-04T04:11:22Z",
+    "filePath": ".claude/skills/clark-survey/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -61567,6 +61813,36 @@
     "topics": [],
     "updatedAt": "2026-03-17T14:40:38Z",
     "filePath": ".kiro/skills/dotnet-nuget-authoring/SKILL.md"
+  },
+  {
+    "owner": "edgarjaymez",
+    "repo": "grove",
+    "description": "Grove Design System",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T07:24:16Z",
+    "filePath": ".claude/skills/tend-a-tree/SKILL.md"
+  },
+  {
+    "owner": "akollegger",
+    "repo": "aie-matrix",
+    "description": "The matrix arrives at AIEWF 2026",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T15:27:52Z",
+    "filePath": ".claude/skills/gram-lint/SKILL.md"
+  },
+  {
+    "owner": "pjcau",
+    "repo": "esp32-emu-turbo",
+    "description": "Handheld retro gaming console based on ESP32-S3 for NES and SNES emulation",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-24T00:47:35Z",
+    "filePath": ".claude/skills/create-skill/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -75529,6 +75805,326 @@
     "filePath": ".kiro/skills/mentoring-juniors/SKILL.md"
   },
   {
+    "owner": "DragonLord-64",
+    "repo": "dotworld-dev",
+    "description": null,
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T06:15:28Z",
+    "filePath": ".claude/skills/verify-task/SKILL.md"
+  },
+  {
+    "owner": "dcc-mcp",
+    "repo": "dcc-mcp-3dsmax",
+    "description": "3ds Max adapter for the DCC Model Context Protocol ecosystem",
+    "stars": 1,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-03T09:41:36Z",
+    "filePath": ".claude/skills/vx-commands/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/veo/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/cli/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/vcf/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/rfi/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/glm5/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/vloj/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/takt/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/init/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/sync/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/quick/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/gh-pr/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/nixos/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/mobai/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/latex/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/roast/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/debug/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/beads/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/trace/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/gates/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/deslop/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/memory/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/avatar/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/ledger/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/ffmpeg/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/nereid/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/mk.ops/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/ohspec/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/answer/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/tinman/SKILL.md"
+  },
+  {
+    "owner": "MikeCheng1208",
+    "repo": "BattleTree",
+    "description": "Client 端的對戰系統，同時支援抽籤抽獎功能",
+    "stars": 1,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T02:58:17Z",
+    "filePath": ".agents/skills/recall/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -76918,7 +77514,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T17:36:54Z",
+    "updatedAt": "2026-06-04T04:37:10Z",
     "filePath": ".claude/skills/commit/SKILL.md"
   },
   {
@@ -77030,7 +77626,7 @@
       "github-settings",
       "governance"
     ],
-    "updatedAt": "2026-05-12T23:41:51Z",
+    "updatedAt": "2026-06-04T00:50:08Z",
     "filePath": ".claude/skills/exclude-repo/SKILL.md"
   },
   {
@@ -77322,7 +77918,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T17:19:08Z",
+    "updatedAt": "2026-06-03T20:01:30Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -77682,7 +78278,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T11:59:03Z",
+    "updatedAt": "2026-06-04T04:33:48Z",
     "filePath": ".claude/skills/generate-import-modal/SKILL.md"
   },
   {
@@ -78390,7 +78986,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T11:50:26Z",
+    "updatedAt": "2026-06-03T20:24:52Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -78815,7 +79411,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T18:47:15Z",
+    "updatedAt": "2026-06-03T19:11:51Z",
     "filePath": ".claude/skills/podcast-blog-seo/SKILL.md"
   },
   {
@@ -79007,7 +79603,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-06-03T15:41:00Z",
+    "updatedAt": "2026-06-04T04:52:12Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -79373,7 +79969,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T19:17:02Z",
+    "updatedAt": "2026-06-03T20:11:14Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -79720,7 +80316,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-30T20:39:42Z",
+    "updatedAt": "2026-06-03T23:13:26Z",
     "filePath": ".claude/skills/flow-maintenance/SKILL.md"
   },
   {
@@ -80028,7 +80624,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-02T11:59:03Z",
+    "updatedAt": "2026-06-04T04:33:48Z",
     "filePath": ".claude/skills/verify-firebase-mutations/SKILL.md"
   },
   {
@@ -80178,7 +80774,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-05-30T03:22:54Z",
+    "updatedAt": "2026-06-03T18:19:04Z",
     "filePath": ".claude/skills/mockup/SKILL.md"
   },
   {
@@ -80368,7 +80964,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-01T23:54:27Z",
+    "updatedAt": "2026-06-03T23:21:14Z",
     "filePath": ".claude/skills/stripe-supabase-webhooks/SKILL.md"
   },
   {
@@ -80645,7 +81241,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T15:49:05Z",
+    "updatedAt": "2026-06-03T18:44:24Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -80708,7 +81304,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T03:28:30Z",
+    "updatedAt": "2026-06-04T03:15:10Z",
     "filePath": ".claude/skills/verify/SKILL.md"
   },
   {
@@ -81359,7 +81955,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T14:53:12Z",
+    "updatedAt": "2026-06-04T04:45:52Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -81579,7 +82175,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T13:46:56Z",
+    "updatedAt": "2026-06-03T22:24:59Z",
     "filePath": ".claude/skills/shadcn/SKILL.md"
   },
   {
@@ -125760,5 +126356,261 @@
     "topics": [],
     "updatedAt": "2026-05-27T12:42:00Z",
     "filePath": ".kiro/skills/bmad-document-project/SKILL.md"
+  },
+  {
+    "owner": "pau-vega",
+    "repo": "resumatch",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T08:07:33Z",
+    "filePath": ".claude/skills/speckit-agent-context-update/SKILL.md"
+  },
+  {
+    "owner": "Blankenship-Daniel",
+    "repo": "ship-studios",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T04:54:35Z",
+    "filePath": ".claude/skills/vst/SKILL.md"
+  },
+  {
+    "owner": "HyunsooZo",
+    "repo": "ninja-harness",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T08:08:54Z",
+    "filePath": ".claude/skills/backend-domain/SKILL.md"
+  },
+  {
+    "owner": "pirate-608",
+    "repo": "blackpearl",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T15:38:05Z",
+    "filePath": ".claude/skills/git-commit/SKILL.md"
+  },
+  {
+    "owner": "nogasante",
+    "repo": "stageapp_v2",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-01T12:35:49Z",
+    "filePath": ".claude/skills/homelab-pihole-dns/SKILL.md"
+  },
+  {
+    "owner": "angelestrada14019",
+    "repo": "segurodata",
+    "description": "Pipeline de datos abiertos + modelo XGBoost + capa prescriptiva con IA generativa para predecir riesgo de crimen por UPZ en Bogotá. Datos al Ecosistema 2026 — MinTIC.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T05:18:03Z",
+    "filePath": ".claude/skills/github-actions-docs/SKILL.md"
+  },
+  {
+    "owner": "codeisme621",
+    "repo": "learnermax-course-app",
+    "description": "A fully open source Course application that is modern and hackable",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T03:40:44Z",
+    "filePath": ".claude/skills/wiki-init/SKILL.md"
+  },
+  {
+    "owner": "steve-magne",
+    "repo": "hookstack",
+    "description": "The community catalogue for Claude Code hooks. Browse → select → npx install in 60s.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "ai",
+      "ai-agents",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "cli",
+      "developer-tools",
+      "devtools",
+      "hooks",
+      "productivity"
+    ],
+    "updatedAt": "2026-06-04T02:09:24Z",
+    "filePath": ".claude/skills/growth-post/SKILL.md"
+  },
+  {
+    "owner": "tiennm99",
+    "repo": "miti99",
+    "description": "Source of miti99.com — personal blog (VN/EN) built with Hugo + Stack theme.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "blog",
+      "hugo",
+      "hugo-theme-stack",
+      "personal-blog",
+      "vietnamese"
+    ],
+    "updatedAt": "2026-06-04T02:43:37Z",
+    "filePath": ".claude/skills/mt-add-image/SKILL.md"
+  },
+  {
+    "owner": "enuquak",
+    "repo": "farm_demo",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-02T17:17:36Z",
+    "filePath": ".claude/skills/quest-system/SKILL.md"
+  },
+  {
+    "owner": "halojerry",
+    "repo": "pouding",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T20:17:26Z",
+    "filePath": ".claude/skills/pr-automation/SKILL.md"
+  },
+  {
+    "owner": "williamvpaiva",
+    "repo": "PrismaIA",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-04T01:24:04Z",
+    "filePath": ".claude/skills/pr-automation/SKILL.md"
+  },
+  {
+    "owner": "marshadgani",
+    "repo": "Arshad.AI",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-30T20:17:10Z",
+    "filePath": ".claude/skills/caveman/caveman-compress/SKILL.md"
+  },
+  {
+    "owner": "wiktorskrabel89-byte",
+    "repo": "Assistantx",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T21:03:12Z",
+    "filePath": ".claude/skills/secure-code-guardian/SKILL.md"
+  },
+  {
+    "owner": "cattboy",
+    "repo": "lil_bro",
+    "description": null,
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-03T09:43:53Z",
+    "filePath": ".claude/skills/context-save/SKILL.md"
+  },
+  {
+    "owner": "rblake2320",
+    "repo": "vigil",
+    "description": "Vigil — Vision-to-Action platform: camera detects any event, AI confirms, real-world action fires. Fire detection PROVEN.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T06:38:25Z",
+    "filePath": ".claude/skills/rag-eval/SKILL.md"
+  },
+  {
+    "owner": "GreenTech-Solutions",
+    "repo": "nestro",
+    "description": "Manage npm/pnpm/yarn packages from the VS Code sidebar with update status and version switching",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-29T06:02:44Z",
+    "filePath": ".claude/skills/vscode-tree-provider/SKILL.md"
+  },
+  {
+    "owner": "worldbank",
+    "repo": "devPTIpack",
+    "description": "R package for developing Project Targeting Index  R Shiny applications for the corporate portfolio monitoring. ",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "project-targeting-index",
+      "pti"
+    ],
+    "updatedAt": "2026-05-22T19:36:22Z",
+    "filePath": ".claude/skills/roxygen-document/SKILL.md"
+  },
+  {
+    "owner": "BaGyun0107",
+    "repo": "harness-starterkit",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-07T04:22:05Z",
+    "filePath": ".claude/skills/gstack/plan-design-review/SKILL.md"
+  },
+  {
+    "owner": "aamrdit",
+    "repo": "liftingdiary",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T11:17:45Z",
+    "filePath": ".claude/skills/clerk-swift/SKILL.md"
+  },
+  {
+    "owner": "masinov",
+    "repo": "agts",
+    "description": "Agentic Tree Search",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-21T10:45:03Z",
+    "filePath": ".claude/skills/run-tot/SKILL.md"
+  },
+  {
+    "owner": "tomgrv",
+    "repo": "devcontainer-features",
+    "description": "Provides devcontainer features: GitTools/GitVersion , nektos/act, gitutils (opiniated semver git/gitflow aliases), githooks (opinated semver git hooks), pecl support (pecl.php.net)",
+    "stars": 0,
+    "forks": 1,
+    "topics": [
+      "actions",
+      "devcontainer",
+      "devcontainer-feature",
+      "development",
+      "gitversion"
+    ],
+    "updatedAt": "2026-06-03T21:35:39Z",
+    "filePath": ".agents/skills/cavecrew/SKILL.md"
+  },
+  {
+    "owner": "HyunsooZo",
+    "repo": "ninja-harness",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-03T08:08:54Z",
+    "filePath": ".agents/skills/backend-domain/SKILL.md"
   }
 ]
