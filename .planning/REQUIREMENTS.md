@@ -6,9 +6,9 @@ Address the dominant `other` category in GSC Coverage drilldown to remove indexa
 
 ## v3.4 Requirements
 
-- [ ] **AIOPS-21**: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs, isolating invalid URLs and explaining or pruning the cluster.
-- [ ] **AIOPS-22**: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
-- [ ] **AIOPS-23**: Adjust backup provider settings (resolving direct probe failures on inactive providers like SiliconFlow) and verify fallback router logic.
+- [x] **AIOPS-21**: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs, isolating invalid URLs and explaining or pruning the cluster.
+- [x] **AIOPS-22**: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
+- [x] **AIOPS-23**: Adjust backup provider settings (resolving direct probe failures on inactive providers like SiliconFlow) and verify fallback router logic.
 
 ## Scope
 
@@ -37,9 +37,9 @@ Address the dominant `other` category in GSC Coverage drilldown to remove indexa
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-21 | Phase 100 | Untracked |
-| AIOPS-22 | Phase 101 | Untracked |
-| AIOPS-23 | Phase 102 | Untracked |
+| AIOPS-21 | Phase 100 | Completed |
+| AIOPS-22 | Phase 101 | Completed |
+| AIOPS-23 | Phase 102 | Completed |
 
 **Coverage:**
 - v3.4 requirements: 3 total

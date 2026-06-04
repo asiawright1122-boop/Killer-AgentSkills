@@ -15,21 +15,21 @@ This milestone addresses the dominant `other` category in GSC Coverage drilldown
 **Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize the backup provider configuration.
 
 **Requirements:**
-- [ ] AIOPS-21: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs.
-- [ ] AIOPS-22: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
-- [ ] AIOPS-23: Adjust backup provider settings and verify fallback router logic.
+- [x] AIOPS-21: Diagnose the `other` category GSC Coverage cluster affecting ~13,003 URLs.
+- [x] AIOPS-22: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
+- [x] AIOPS-23: Adjust backup provider settings and verify fallback router logic.
 
 ### Phase 100 — GSC Coverage Cluster Resolution
 - **Scope:** Diagnose the `other` category cluster (~13,003 URLs), implement edge `noindex` or sitemap filter rules, recalculate scorecard.
-- **Status:** Not started
+- **Status:** Complete
 
 ### Phase 101 — AI Telemetry Checkpoint Refresh
 - **Scope:** Trigger a new telemetry checkpoint run, verify sample timestamp age within 24 hours.
-- **Status:** Not started
+- **Status:** Complete
 
 ### Phase 102 — Backup Provider Configuration Adjustment
 - **Scope:** Disable inactive providers (SiliconFlow), verify config compliance guard and active backup probes.
-- **Status:** Not started
+- **Status:** Complete
 
 ## Milestones
 
@@ -71,7 +71,7 @@ This milestone addresses the dominant `other` category in GSC Coverage drilldown
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 0/3 | Active | — |
+| v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
 | v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
