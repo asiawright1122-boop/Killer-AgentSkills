@@ -6,7 +6,7 @@ Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, 
 
 ## v3.3 Requirements
 
-- [ ] **AIOPS-18**: Ingest fresh GSC Coverage Drilldown data (dated within the 7-day SLA freshness requirement) and ensure the build-time freshness gate passes.
+- [x] **AIOPS-18**: Ingest fresh GSC Coverage Drilldown data (dated within the 7-day SLA freshness requirement) and ensure the build-time freshness gate passes.
 - [ ] **AIOPS-19**: Execute manual recovery enrichment batches for high-priority directory surfaces (such as collection directories and localized skill catalogs).
 - [ ] **AIOPS-20**: Recalculate the technical recovery scorecard metrics based on the fresh inputs and output an updated `RecoveryScorecardReport`.
 
@@ -37,7 +37,7 @@ Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, 
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-18 | Phase 97 | Untracked |
+| AIOPS-18 | Phase 97 | Satisfied |
 | AIOPS-19 | Phase 98 | Untracked |
 | AIOPS-20 | Phase 99 | Untracked |
 
