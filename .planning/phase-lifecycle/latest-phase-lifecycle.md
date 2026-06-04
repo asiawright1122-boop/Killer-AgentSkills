@@ -1,22 +1,29 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-03T12:52:49.829Z
-- Active milestone: v3.1 (AIOps Smart Gateway & Profile Hardening)
-- Status: clean
-- Pending actions: 0
-- Active archive path: .planning/milestones/v3.1-phases
+- Generated: 2026-06-04T05:02:29.906Z
+- Active milestone: v3.4 (Coverage Cluster Remediation & AI Telemetry Refresh)
+- Status: warning
+- Pending actions: 8
+- Active archive path: .planning/milestones/v3.4-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 91 | 91-Environment-Specific Profiles Integration | present | .planning/phases/91-Environment-Specific Profiles Integration | missing |
-| 92 | 92-Config Guard Hardening | present | .planning/phases/92-Config Guard Hardening | missing |
-| 93 | 93-Smart Fallback & Degradation Verification | present | .planning/phases/93-Smart Fallback & Degradation Verification | missing |
+| 100 | 100-GSC Coverage Cluster Resolution | present | .planning/phases/100-GSC Coverage Cluster Resolution | missing |
+| 101 | 101-AI Telemetry Checkpoint Refresh | present | .planning/phases/101-AI Telemetry Checkpoint Refresh | missing |
+| 102 | 102-Backup Provider Configuration Adjustment | present | .planning/phases/102-Backup Provider Configuration Adjustment | missing |
 
 ## Archive Actions
 
-- none
+- 91 -> archive .planning/phases/91-Environment-Specific Profiles Integration => .planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration (Shipped milestone phase directory is still in the active path and should be archived.)
+- 92 -> archive .planning/phases/92-Config Guard Hardening => .planning/milestones/v3.1-phases/92-Config Guard Hardening (Shipped milestone phase directory is still in the active path and should be archived.)
+- 93 -> archive .planning/phases/93-Smart Fallback & Degradation Verification => .planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification (Shipped milestone phase directory is still in the active path and should be archived.)
+- 94 -> archive .planning/phases/94-TS Compiler Modernization => .planning/milestones/v3.2-phases/94-TS Compiler Modernization (Shipped milestone phase directory is still in the active path and should be archived.)
+- 95 -> archive .planning/phases/95-Operational Scripts Type Safety => .planning/milestones/v3.2-phases/95-Operational Scripts Type Safety (Shipped milestone phase directory is still in the active path and should be archived.)
+- 97 -> archive .planning/phases/97-GSC Coverage Fresh Ingestion => .planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion (Shipped milestone phase directory is still in the active path and should be archived.)
+- 98 -> archive .planning/phases/98-P0 Manual Recovery Execution => .planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution (Shipped milestone phase directory is still in the active path and should be archived.)
+- 99 -> archive .planning/phases/99-Technical Scorecard Recalculation => .planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation (Shipped milestone phase directory is still in the active path and should be archived.)
 
 ## Restore Actions
 
@@ -118,13 +125,28 @@
 - Archived dirs: none
 - Expected dirs: none
 
+### v3.1
+- Archive root: .planning/milestones/v3.1-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration, .planning/milestones/v3.1-phases/92-Config Guard Hardening, .planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification
+
+### v3.2
+- Archive root: .planning/milestones/v3.2-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v3.2-phases/94-TS Compiler Modernization, .planning/milestones/v3.2-phases/95-Operational Scripts Type Safety, .planning/milestones/v3.2-phases/96-Unified CI/CD Gates
+
+### v3.3
+- Archive root: .planning/milestones/v3.3-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion, .planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution, .planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation
+
 ## Conflicts
 
 - none
 
 ## Unmanaged Active Phase Directories
 
-- none
+- 96-Unified CI
 
 ## Rewritten Planning Files
 

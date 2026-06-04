@@ -2,70 +2,76 @@
 ## Active Milestone
 ### v3.4 Coverage Cluster Remediation & AI Telemetry Refresh (Active)
 
-**Goal:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
+**Delivered:** Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.
 
-**Phases completed:** 0/3 complete
+**Phases completed:** 3/3 complete (0 plans total)
+
+**Key accomplishments:**
+- Roadmap phases tracked: 3
+- Requirement coverage: 3/3 satisfied
+- Planning hygiene: clean
 
 **Stats:**
-- Phase 100: GSC Coverage Cluster Resolution — Not started
-- Phase 101: AI Telemetry Checkpoint Refresh — Not started
-- Phase 102: Backup Provider Configuration Adjustment — Not started
+- 3/3 complete phases, 0 plans, 3/3 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.4-BOOTSTRAP.md, .planning/milestones/v3.4-CLOSEOUT.md
+- Carry-forward signal: None recorded.
 
-**What's next:** Run `/gsd-plan-phase 100` to plan GSC Coverage Cluster Resolution.
+**What's next:** Use .planning/milestones/v3.4-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
-### v3.3 Manual Recovery Execution & Fresh Ingestion (Shipped: 2026-06-04)
+### v3.3 v3.3 (Shipped: SHIPPED)
 
-**Delivered:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
+**Delivered:** `v3.3 Manual Recovery Execution & Fresh Ingestion` shipped on `2026-06-04` and is now archived.
 
-**Phases completed:** 3/3 complete
+**Phases completed:** n/a
 
 **Key accomplishments:**
-- GSC Coverage Fresh Ingestion: Loaded 2.1-day-old GSC crawl data, successfully resolving the 7-day SLA validation warnings during builds.
-- P0 Manual Recovery Execution: Upgraded 3 thin skills to full technical README profiles to mitigate thin catalog duplication warnings.
-- Technical Scorecard Recalculation: Ran the scorecard recalculator, successfully transitioning the Technical SEO Recovery status to CLEAR.
+- No generated accomplishments recorded.
 
 **Stats:**
-- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
+- 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.3-ROADMAP.md, .planning/milestones/v3.3-REQUIREMENTS.md, .planning/v3.3-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
 
+**What's next:** Define the next milestone scope from archived findings.
+
 ---
-## Shipped Milestones
-### v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation (Shipped: 2026-06-04)
+### v3.2 v3.2 (Shipped: SHIPPED)
 
-**Delivered:** Establish project-wide type safety, align compiler configurations, and introduce scripts typecheck CI gates.
+**Delivered:** `v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation` shipped on `2026-06-04` and is now archived.
 
-**Phases completed:** 3/3 complete
+**Phases completed:** n/a
 
 **Key accomplishments:**
-- TS Compiler Modernization: Updated worker & packages/cli configurations to resolve TS5101/TS5107 compiler deprecation warnings.
-- Operational Scripts Type Safety: Set up a dedicated tsconfig for the scripts directory and remediated all strict typecheck errors in scripts and test suites.
-- Unified CI/CD Gates: Implemented a single project-wide typecheck validation gate to verify type safety across all subpackages.
+- No generated accomplishments recorded.
 
 **Stats:**
-- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
+- 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.2-ROADMAP.md, .planning/milestones/v3.2-REQUIREMENTS.md, .planning/v3.2-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
 
+**What's next:** Define the next milestone scope from archived findings.
+
 ---
-## Shipped Milestones
-### v3.1 AIOps Smart Gateway & Profile Hardening (Shipped: 2026-06-03)
+### v3.1 v3.1 (Shipped: SHIPPED)
 
-**Delivered:** Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults, and harden config compliance guards.
+**Delivered:** `v3.1 AIOps Smart Gateway & Profile Hardening` shipped on `2026-06-03` and is now archived.
 
-**Phases completed:** 3/3 complete
+**Phases completed:** n/a
 
 **Key accomplishments:**
-- Environment-specific operator profiles parsing dynamically based on runtime environment and workload class.
-- Configuration compliance guard with composite JSON Schema checks and billing lockout restrictions for free-only runners.
-- Vitest testing suite covering routing fallback degradation.
+- No generated accomplishments recorded.
 
 **Stats:**
-- 3/3 complete phases, 3/3 requirements satisfied, milestone audit passed.
-- Milestone artifacts: .planning/milestones/v3.1-ROADMAP.md, .planning/milestones/v3.1-REQUIREMENTS.md, .planning/milestones/v3.1-MILESTONE-AUDIT.md, .planning/milestones/v3.1-BOOTSTRAP.md, .planning/milestones/v3.1-CLOSEOUT.md
+- 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v3.1-ROADMAP.md, .planning/milestones/v3.1-REQUIREMENTS.md, .planning/milestones/v3.1-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
+### v3.0 v3.0 (Shipped: SHIPPED)
 
 **Delivered:** `v3.0 Advanced Search Engine Optimization` shipped on `2026-06-03` and is now archived.
 

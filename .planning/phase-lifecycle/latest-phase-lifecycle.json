@@ -1,38 +1,38 @@
 {
-  "generatedAt": "2026-06-03T12:52:49.829Z",
+  "generatedAt": "2026-06-04T05:02:29.906Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v3.1",
-  "activeMilestoneName": "AIOps Smart Gateway & Profile Hardening",
-  "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v3.1-phases",
+  "activeMilestone": "v3.4",
+  "activeMilestoneName": "Coverage Cluster Remediation & AI Telemetry Refresh",
+  "status": "warning",
+  "activePhaseArchivePath": ".planning/milestones/v3.4-phases",
   "activePhases": [
     {
-      "phaseNumber": "91",
-      "slug": "Environment-Specific Profiles Integration",
-      "dirName": "91-Environment-Specific Profiles Integration",
+      "phaseNumber": "100",
+      "slug": "GSC Coverage Cluster Resolution",
+      "dirName": "100-GSC Coverage Cluster Resolution",
       "status": "present",
       "activePaths": [
-        ".planning/phases/91-Environment-Specific Profiles Integration"
+        ".planning/phases/100-GSC Coverage Cluster Resolution"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "92",
-      "slug": "Config Guard Hardening",
-      "dirName": "92-Config Guard Hardening",
+      "phaseNumber": "101",
+      "slug": "AI Telemetry Checkpoint Refresh",
+      "dirName": "101-AI Telemetry Checkpoint Refresh",
       "status": "present",
       "activePaths": [
-        ".planning/phases/92-Config Guard Hardening"
+        ".planning/phases/101-AI Telemetry Checkpoint Refresh"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "93",
-      "slug": "Smart Fallback & Degradation Verification",
-      "dirName": "93-Smart Fallback & Degradation Verification",
+      "phaseNumber": "102",
+      "slug": "Backup Provider Configuration Adjustment",
+      "dirName": "102-Backup Provider Configuration Adjustment",
       "status": "present",
       "activePaths": [
-        ".planning/phases/93-Smart Fallback & Degradation Verification"
+        ".planning/phases/102-Backup Provider Configuration Adjustment"
       ],
       "archivePaths": []
     }
@@ -289,12 +289,125 @@
       "phaseArchivePath": ".planning/milestones/v3.0-phases",
       "archivedDirs": [],
       "expectedPhaseDirs": []
+    },
+    {
+      "milestone": "v3.1",
+      "phaseArchivePath": ".planning/milestones/v3.1-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration",
+        ".planning/milestones/v3.1-phases/92-Config Guard Hardening",
+        ".planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification"
+      ]
+    },
+    {
+      "milestone": "v3.2",
+      "phaseArchivePath": ".planning/milestones/v3.2-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
+        ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
+        ".planning/milestones/v3.2-phases/96-Unified CI/CD Gates"
+      ]
+    },
+    {
+      "milestone": "v3.3",
+      "phaseArchivePath": ".planning/milestones/v3.3-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion",
+        ".planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution",
+        ".planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation"
+      ]
     }
   ],
-  "archiveActions": [],
+  "archiveActions": [
+    {
+      "type": "archive",
+      "milestone": "v3.1",
+      "phaseNumber": "91",
+      "slug": "Environment-Specific Profiles Integration",
+      "dirName": "91-Environment-Specific Profiles Integration",
+      "fromPath": ".planning/phases/91-Environment-Specific Profiles Integration",
+      "toPath": ".planning/milestones/v3.1-phases/91-Environment-Specific Profiles Integration",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.1",
+      "phaseNumber": "92",
+      "slug": "Config Guard Hardening",
+      "dirName": "92-Config Guard Hardening",
+      "fromPath": ".planning/phases/92-Config Guard Hardening",
+      "toPath": ".planning/milestones/v3.1-phases/92-Config Guard Hardening",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.1",
+      "phaseNumber": "93",
+      "slug": "Smart Fallback & Degradation Verification",
+      "dirName": "93-Smart Fallback & Degradation Verification",
+      "fromPath": ".planning/phases/93-Smart Fallback & Degradation Verification",
+      "toPath": ".planning/milestones/v3.1-phases/93-Smart Fallback & Degradation Verification",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.2",
+      "phaseNumber": "94",
+      "slug": "TS Compiler Modernization",
+      "dirName": "94-TS Compiler Modernization",
+      "fromPath": ".planning/phases/94-TS Compiler Modernization",
+      "toPath": ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.2",
+      "phaseNumber": "95",
+      "slug": "Operational Scripts Type Safety",
+      "dirName": "95-Operational Scripts Type Safety",
+      "fromPath": ".planning/phases/95-Operational Scripts Type Safety",
+      "toPath": ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.3",
+      "phaseNumber": "97",
+      "slug": "GSC Coverage Fresh Ingestion",
+      "dirName": "97-GSC Coverage Fresh Ingestion",
+      "fromPath": ".planning/phases/97-GSC Coverage Fresh Ingestion",
+      "toPath": ".planning/milestones/v3.3-phases/97-GSC Coverage Fresh Ingestion",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.3",
+      "phaseNumber": "98",
+      "slug": "P0 Manual Recovery Execution",
+      "dirName": "98-P0 Manual Recovery Execution",
+      "fromPath": ".planning/phases/98-P0 Manual Recovery Execution",
+      "toPath": ".planning/milestones/v3.3-phases/98-P0 Manual Recovery Execution",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v3.3",
+      "phaseNumber": "99",
+      "slug": "Technical Scorecard Recalculation",
+      "dirName": "99-Technical Scorecard Recalculation",
+      "fromPath": ".planning/phases/99-Technical Scorecard Recalculation",
+      "toPath": ".planning/milestones/v3.3-phases/99-Technical Scorecard Recalculation",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    }
+  ],
   "restoreActions": [],
   "createActions": [],
-  "unmanagedPhaseDirs": [],
+  "unmanagedPhaseDirs": [
+    "96-Unified CI"
+  ],
   "conflicts": [],
   "rewrittenFiles": []
 }

@@ -1,77 +1,71 @@
 {
-  "generatedAt": "2026-06-03T12:52:18.247Z",
+  "generatedAt": "2026-06-04T05:02:30.484Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v3.1",
-  "milestoneName": "AIOps Smart Gateway & Profile Hardening",
+  "milestone": "v3.4",
+  "milestoneName": "Coverage Cluster Remediation & AI Telemetry Refresh",
   "activePhases": [
     {
-      "phaseNumber": "91",
-      "slug": "Environment-Specific Profiles Integration",
-      "requirements": [
-        "AIOPS-12"
-      ],
+      "phaseNumber": "100",
+      "slug": "GSC Coverage Cluster Resolution",
+      "requirements": [],
       "phaseDirs": [
-        "91-Environment-Specific Profiles Integration"
+        "100-GSC Coverage Cluster Resolution"
       ],
       "summaryFiles": [
-        ".planning/phases/91-Environment-Specific Profiles Integration/91-01-SUMMARY.md"
+        ".planning/phases/100-GSC Coverage Cluster Resolution/100-01-SUMMARY.md"
       ],
       "verificationFiles": [
-        ".planning/phases/91-Environment-Specific Profiles Integration/91-VERIFICATION.md"
+        ".planning/phases/100-GSC Coverage Cluster Resolution/100-VERIFICATION.md"
       ],
       "summaryRequirementsCompleted": [
-        "AIOPS-12"
+        "AIOPS-21"
       ],
       "verificationRequirementsCompleted": [
-        "AIOPS-12"
+        "AIOPS-21"
       ],
       "summaryMetadataReady": true,
       "verificationMetadataReady": true
     },
     {
-      "phaseNumber": "92",
-      "slug": "Config Guard Hardening",
-      "requirements": [
-        "AIOPS-13"
-      ],
+      "phaseNumber": "101",
+      "slug": "AI Telemetry Checkpoint Refresh",
+      "requirements": [],
       "phaseDirs": [
-        "92-Config Guard Hardening"
+        "101-AI Telemetry Checkpoint Refresh"
       ],
       "summaryFiles": [
-        ".planning/phases/92-Config Guard Hardening/92-01-SUMMARY.md"
+        ".planning/phases/101-AI Telemetry Checkpoint Refresh/101-01-SUMMARY.md"
       ],
       "verificationFiles": [
-        ".planning/phases/92-Config Guard Hardening/92-VERIFICATION.md"
+        ".planning/phases/101-AI Telemetry Checkpoint Refresh/101-VERIFICATION.md"
       ],
       "summaryRequirementsCompleted": [
-        "AIOPS-13"
+        "AIOPS-22"
       ],
       "verificationRequirementsCompleted": [
-        "AIOPS-13"
+        "AIOPS-22"
       ],
       "summaryMetadataReady": true,
       "verificationMetadataReady": true
     },
     {
-      "phaseNumber": "93",
-      "slug": "Smart Fallback & Degradation Verification",
-      "requirements": [
-        "AIOPS-14"
-      ],
+      "phaseNumber": "102",
+      "slug": "Backup Provider Configuration Adjustment",
+      "requirements": [],
       "phaseDirs": [
-        "93-Smart Fallback & Degradation Verification"
+        "102-Backup Provider Configuration Adjustment"
       ],
       "summaryFiles": [
-        ".planning/phases/93-Smart Fallback & Degradation Verification/93-01-SUMMARY.md"
+        ".planning/phases/102-Backup Provider Configuration Adjustment/102-01-SUMMARY.md"
       ],
       "verificationFiles": [
-        ".planning/phases/93-Smart Fallback & Degradation Verification/93-VERIFICATION.md"
+        ".planning/phases/102-Backup Provider Configuration Adjustment/102-VERIFICATION.md"
       ],
       "summaryRequirementsCompleted": [
-        "AIOPS-14"
+        "AIOPS-23"
       ],
       "verificationRequirementsCompleted": [
-        "AIOPS-14"
+        "AIOPS-23"
       ],
       "summaryMetadataReady": true,
       "verificationMetadataReady": true
@@ -79,22 +73,22 @@
   ],
   "requirements": [
     {
-      "id": "AIOPS-12",
-      "expectedPhase": "91",
+      "id": "AIOPS-21",
+      "expectedPhase": null,
       "summaryEvidence": true,
       "verificationEvidence": true,
       "status": "satisfied"
     },
     {
-      "id": "AIOPS-13",
-      "expectedPhase": "92",
+      "id": "AIOPS-22",
+      "expectedPhase": null,
       "summaryEvidence": true,
       "verificationEvidence": true,
       "status": "satisfied"
     },
     {
-      "id": "AIOPS-14",
-      "expectedPhase": "93",
+      "id": "AIOPS-23",
+      "expectedPhase": null,
       "summaryEvidence": true,
       "verificationEvidence": true,
       "status": "satisfied"
@@ -102,7 +96,17 @@
   ],
   "hygiene": {
     "status": "clean",
-    "legacyPhaseDirs": [],
+    "legacyPhaseDirs": [
+      "91-Environment-Specific Profiles Integration",
+      "92-Config Guard Hardening",
+      "93-Smart Fallback & Degradation Verification",
+      "94-TS Compiler Modernization",
+      "95-Operational Scripts Type Safety",
+      "96-Unified CI",
+      "97-GSC Coverage Fresh Ingestion",
+      "98-P0 Manual Recovery Execution",
+      "99-Technical Scorecard Recalculation"
+    ],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
     "missingActivePhaseDirs": []

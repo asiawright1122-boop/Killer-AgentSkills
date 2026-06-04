@@ -1,0 +1,46 @@
+{
+  "milestone": "v3.4",
+  "milestoneName": "Coverage Cluster Remediation & AI Telemetry Refresh",
+  "goal": "Address the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refresh stale AI telemetry data, and normalize backup provider configuration.",
+  "sourceMilestone": "v3.3",
+  "sourceMilestoneName": "v3.3",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.3-ROADMAP.md",
+    ".planning/milestones/v3.3-REQUIREMENTS.md",
+    ".planning/v3.3-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "100",
+      "slug": "GSC Coverage Cluster Resolution",
+      "requirements": []
+    },
+    {
+      "number": "101",
+      "slug": "AI Telemetry Checkpoint Refresh",
+      "requirements": []
+    },
+    {
+      "number": "102",
+      "slug": "Backup Provider Configuration Adjustment",
+      "requirements": []
+    }
+  ],
+  "requirements": [
+    "AIOPS-21",
+    "AIOPS-22",
+    "AIOPS-23"
+  ]
+}

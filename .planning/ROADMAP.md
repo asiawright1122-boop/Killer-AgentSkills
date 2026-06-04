@@ -19,15 +19,18 @@ This milestone addresses the dominant `other` category in GSC Coverage drilldown
 - [x] AIOPS-22: Refresh stale AI telemetry checkpoint timestamp to resolve health report warnings.
 - [x] AIOPS-23: Adjust backup provider settings and verify fallback router logic.
 
-### Phase 100 — GSC Coverage Cluster Resolution
+### Phase 100: GSC Coverage Cluster Resolution
+- **Requirements:** AIOPS-21
 - **Scope:** Diagnose the `other` category cluster (~13,003 URLs), implement edge `noindex` or sitemap filter rules, recalculate scorecard.
 - **Status:** Complete
 
-### Phase 101 — AI Telemetry Checkpoint Refresh
+### Phase 101: AI Telemetry Checkpoint Refresh
+- **Requirements:** AIOPS-22
 - **Scope:** Trigger a new telemetry checkpoint run, verify sample timestamp age within 24 hours.
 - **Status:** Complete
 
-### Phase 102 — Backup Provider Configuration Adjustment
+### Phase 102: Backup Provider Configuration Adjustment
+- **Requirements:** AIOPS-23
 - **Scope:** Disable inactive providers (SiliconFlow), verify config compliance guard and active backup probes.
 - **Status:** Complete
 
