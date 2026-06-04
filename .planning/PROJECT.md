@@ -66,9 +66,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Circuit breaker state-based tracking and provider smart routing.
 - D1/KV sync hardening and observability dashboards.
 
-## Current Milestone: None
+## Current Milestone: v3.3 Manual Recovery Execution & Fresh Ingestion
 
-**Goal:** Run `/gsd-new-milestone` to start the next milestone.
+**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
 
 ## Deferred Beyond v1.8
 
@@ -150,7 +150,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-- None (Run `/gsd-new-milestone` to define new requirements).
+- [ ] **AIOPS-18**: GSC Coverage Fresh Ingestion
+- [ ] **AIOPS-19**: P0 Manual Recovery Execution
+- [ ] **AIOPS-20**: Technical Scorecard Recalculation
 
 ### Out of Scope
 

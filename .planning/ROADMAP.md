@@ -8,17 +8,30 @@ This milestone focused on establishing project-wide type safety, aligning compil
 
 ## Immediate Next Actions
 
-- Define the next milestone scope from archived findings (Run `/gsd-new-milestone`).
+- Run `/gsd-plan-phase 97` to start planning for the first phase of the milestone.
 
-## Current Milestone: None
+## Current Milestone: v3.3 Manual Recovery Execution & Fresh Ingestion
 
-**Goal:** Run `/gsd-new-milestone` to start the next milestone.
+**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
 
 **Requirements:**
-- None.
+- **AIOPS-18**: GSC Coverage Fresh Ingestion
+- **AIOPS-19**: P0 Manual Recovery Execution
+- **AIOPS-20**: Technical Scorecard Recalculation
+**Phase range:** Phase 97 - Phase 99
+
+### Phase 97: GSC Coverage Fresh Ingestion
+- Ingest fresh GSC export data and resolve the freshness SLA warning gate.
+
+### Phase 98: P0 Manual Recovery Execution
+- Execute manual enrichment and validation loops on target priority surfaces.
+
+### Phase 99: Technical Scorecard Recalculation
+- Recalculate the recovery metrics and update the scorecard report.
 
 ## Milestones
 
+- ⏳ **v3.3 Manual Recovery Execution & Fresh Ingestion** — phases 97-99 (active; [requirements](./REQUIREMENTS.md))
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
@@ -55,6 +68,7 @@ This milestone focused on establishing project-wide type safety, aligning compil
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 0/3 | Active | - |
 | v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
 | v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |

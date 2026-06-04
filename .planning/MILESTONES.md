@@ -1,15 +1,19 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### None (Active)
+### v3.3 Manual Recovery Execution & Fresh Ingestion (Active)
 
-**Goal:** Define next milestone using `/gsd-new-milestone`.
+**Goal:** Ingest fresh Google Search Console (GSC) Coverage data to resolve SLA warnings, execute P0 manual recovery batches, and assess post-intervention recovery signals using the technical scorecard.
 
-**Phases completed:** 0/0 complete
+**Phases completed:** 0/3 complete
+
+**Key accomplishments:**
+- Proposed milestone requirements: AIOPS-18, AIOPS-19, AIOPS-20.
 
 **Stats:**
-- No active milestone.
+- 0/3 complete phases, 0/3 requirements satisfied.
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md
 
-**What's next:** Run `/gsd-new-milestone` to define new requirements.
+**What's next:** Obtain user approval and begin execution of Phase 97.
 
 ---
 ## Shipped Milestones
