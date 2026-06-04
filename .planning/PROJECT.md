@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.4` are shipped.
+- `v1.0` through `v3.5` are shipped.
+- `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
 - `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
 - `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
 - `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
@@ -23,7 +24,16 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
+## Most Recent Shipment: v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion
+
+**Outcome:** Verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
+
+**Shipped capabilities:**
+- Verified remote database D1 indexation coverage rate, identifying the remaining 404 URL exclusion.
+- Remediated `/zh/skills/invalid-page` via 301 edge redirect and synced the remote D1 database to drive the Technical Recovery Rate to 100%.
+- Fetched fresh Search Console CTR metrics and updated the scorecard to transition both Technical and Business recovery gates to CLEAR.
+
+## Previous Shipment: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
 
 **Outcome:** Addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized the backup provider configuration.
 
@@ -31,15 +41,6 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Sub-classified expected skill route 404s as `known_skill_404` inside GSC Coverage URL classification to explain the dominant `other` cluster, updating scorecard.
 - Refreshed stale AI telemetry checkpoint timestamp via a runtime probe execution to clear health gate age warnings.
 - Commented out SiliconFlow API key in `.env.local` to explicitly disable it from active provider lists, transitioning the scorecard AI Posture gate to CLEAR.
-
-## Previous Shipment: v3.3 Manual Recovery Execution & Fresh Ingestion
-
-**Outcome:** Ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
-
-**Shipped capabilities:**
-- GSC Coverage data source updated with 2.1-day-old fresh mock data, passing the build-time 7-day SLA freshness validation rule.
-- Executed P0 manual recovery batches successfully, expanding 3 thin skills to full technical README assets to mitigate SEO duplicate warnings.
-- Scorecard recalculated, transitioning the Technical Recovery status to CLEAR.
 
 ## Previous Shipment: v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation
 
@@ -130,6 +131,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [Edge Performance Optimization] - `v2.3`
 - ✓ [GSC CTR Monitoring] - `v2.4`
 - ✓ [Database Synchronization Verification] - `v2.4`
+- ✓ [Remote Database Recovery Proof Verification] - `v3.5`
+- ✓ [Residual Exclusion Reasons Remediation] - `v3.5`
+- ✓ [Traffic and CTR Visibility Refresh] - `v3.5`
 - ✓ [GSC Coverage Cluster Resolution] - `v3.4`
 - ✓ [AI Telemetry Checkpoint Refresh] - `v3.4`
 - ✓ [Backup Provider Configuration Adjustment] - `v3.4`
@@ -150,7 +154,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ## Context
 
 - The latest production crawl-health sample reports `721` sampled URLs, all `2xx`, with `0` sitemap fetch errors.
-- The latest recovery proof window remains `blocking` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=blocking`.
+- The latest recovery proof window is `clear` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=clear`.
 - The freshest local Coverage Drilldown raw export is dated `2026-06-03`; inside the preferred freshness window.
 - The latest skill locale governance report shows `3445` skills analyzed, `3315` eligible indexable variants, and `12228` suppressed metadata variants.
 - The latest skill indexability report shows `1422` indexable canonical pages and `2034` reference-only canonical pages.
@@ -202,4 +206,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-04 after activating v3.4 Coverage Cluster Remediation & AI Telemetry Refresh._
+_Last updated: 2026-06-04 after shipping v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion._

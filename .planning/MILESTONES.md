@@ -1,19 +1,19 @@
 # Project Milestones: Killer-Skills Agent Directory
 ## Active Milestone
-### v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion (Active)
+### v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion (Closeout Ready)
 
 **Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
 
-**Phases completed:** 2/3 complete (0 plans total)
+**Phases completed:** 3/3 complete (0 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 3
-- Requirement coverage: 2/3 satisfied
+- Requirement coverage: 3/3 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 2/3 complete phases, 0 plans, 2/3 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.5-BOOTSTRAP.md, .planning/milestones/v3.5-CLOSEOUT.md
+- 3/3 complete phases, 0 plans, 3/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/v3.5-MILESTONE-AUDIT.md, .planning/milestones/v3.5-BOOTSTRAP.md, .planning/milestones/v3.5-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
 **What's next:** Use .planning/milestones/v3.5-CLOSEOUT.md to finish audit and archive preparation.
