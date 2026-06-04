@@ -23,6 +23,11 @@
         "fromPath": "/ar/collections/top-community-skills",
         "toPath": "/ar/collections/top-community-contributed-ai-agent-skills",
         "reason": "legacy_collection_slug_redirect"
+      },
+      {
+        "fromPath": "/zh/skills/invalid-page",
+        "toPath": "/zh/skills",
+        "reason": "invalid_page_remediation"
       }
     ],
     "gone410": [

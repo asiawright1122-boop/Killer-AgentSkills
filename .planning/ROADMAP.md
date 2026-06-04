@@ -16,7 +16,7 @@ This milestone focuses on assessing post-intervention recovery metrics using rea
 
 **Requirements:**
 - [x] AIOPS-24: Verify remote database GSC coverage records and generate the post-intervention recovery scorecard.
-- [ ] AIOPS-25: Remediate residual search exclusion patterns to drive the technical recovery rate towards 95%.
+- [x] AIOPS-25: Remediate residual search exclusion patterns to drive the technical recovery rate towards 95%.
 - [ ] AIOPS-26: Refresh live GSC stats and verify if business recovery can transition out of blocking.
 
 ### Phase 103: Remote Database Recovery Proof Verification
@@ -27,7 +27,7 @@ This milestone focuses on assessing post-intervention recovery metrics using rea
 ### Phase 104: Residual Exclusion Reasons Remediation
 - **Requirements:** AIOPS-25
 - **Scope:** Remediate residual search exclusion patterns to push indexation recovery rate towards 95%.
-- **Status:** Pending
+- **Status:** Complete
 
 ### Phase 105: Traffic and CTR Visibility Refresh
 - **Requirements:** AIOPS-26
