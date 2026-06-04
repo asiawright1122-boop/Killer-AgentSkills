@@ -167,7 +167,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 ### Active
 
 - [x] [AIOPS-21: GSC Coverage Cluster Resolution] - `v3.4`
-- [ ] [AIOPS-22: AI Telemetry Checkpoint Refresh] - `v3.4`
+- [x] [AIOPS-22: AI Telemetry Checkpoint Refresh] - `v3.4`
 - [ ] [AIOPS-23: Backup Provider Configuration Adjustment] - `v3.4`
 
 ### Out of Scope
