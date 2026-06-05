@@ -680,6 +680,66 @@
         "zh": "目录有用，但它不该继续独自承担整个恢复策略。"
       },
       "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-go",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-go-ai-tools-developer-workflows",
+      "title": {
+        "en": "Go Workflow Tools to Install First",
+        "zh": "优先安装的 Go 工作流工具"
+      },
+      "description": {
+        "en": "A systems-focused Go collection helping engineers configure robust and concurrent backend utility modules.",
+        "zh": "面向系统级 Go 语言工程师的精选合集，帮助团队配置高效、高并发的后端实用程序模块。"
+      },
+      "rationale": {
+        "en": "Go command-line utility tools represent a high-growth developer cluster requiring dedicated curation.",
+        "zh": "Go 语言编写的命令行实用工具在开发者中增长迅速，需要专用的精选合集进行梳理。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-java",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-java-ai-tools-developer-workflows",
+      "title": {
+        "en": "Java Workflow Tools to Install First",
+        "zh": "优先安装的 Java 工作流工具"
+      },
+      "description": {
+        "en": "A enterprise-focused Java collection guiding development teams through stable backend component configuration.",
+        "zh": "面向企业级 Java 开发团队的精选合集，指导工程师配置稳定且高性能的后端组件。"
+      },
+      "rationale": {
+        "en": "Enterprise Java backend requirements demand dedicated curation for enterprise-grade execution stability.",
+        "zh": "企业级 Java 后端开发需求对执行稳定性要求极高，需要独立的高质量精选进行承接。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
+    },
+    {
+      "id": "collection-mobile",
+      "role": "primary",
+      "tier": "P1",
+      "surfaceClass": "collection",
+      "href": "/{locale}/collections/top-mobile-ai-tools-developer-workflows",
+      "title": {
+        "en": "Mobile Workflow Tools to Install First",
+        "zh": "优先安装的移动端工作流工具"
+      },
+      "description": {
+        "en": "A mobile engineering collection helping iOS and Android teams construct optimized native developer pipelines.",
+        "zh": "面向移动端工程的精选合集，帮助 iOS 与 Android 团队构建更优化的原生开发流水线。"
+      },
+      "rationale": {
+        "en": "Mobile developer ecosystems require targeted curation to address Swift and Kotlin integration patterns.",
+        "zh": "移动端开发生态需要针对性的精选合集，以解决 Swift 与 Kotlin 相关的集成模式。"
+      },
+      "placements": ["home", "skills", "collections", "solutions"]
     }
   ],
   "editorialQueue": [

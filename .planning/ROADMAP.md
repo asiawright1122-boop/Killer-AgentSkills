@@ -44,7 +44,7 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 ### Phase 113: New Authority Surface Candidates
 - **Requirements:** AIOPS-34
 - **Scope:** Define, configure, and seed initial content for 2–4 new authority surface candidates.
-- **Status:** Pending
+- **Status:** Complete
 
 ## Milestones
 
@@ -89,7 +89,7 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 4/5 | Active | - |
+| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 5/5 | Complete | 2026-06-05 |
 | v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
@@ -120,4 +120,4 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 ---
 
-_Last updated: 2026-06-05 after completing Phase 112 of v3.7 Authority Expansion & Content Depth Acceleration._
+_Last updated: 2026-06-05 after completing Phase 113 of v3.7 Authority Expansion & Content Depth Acceleration._
