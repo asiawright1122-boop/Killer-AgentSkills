@@ -144,11 +144,11 @@
   "legacySlugs": ["top-mcp-servers-2026"],
   "category": "workflow",
   "skills": [
-    "anthropics/skills/brave-search",
-    "mcp/sqlite",
-    "modelcontextprotocol/github",
-    "mendableai/firecrawl",
-    "puppeteer/mcp"
+    "affaan-m/everything-claude-code",
+    "getsentry/skills",
+    "anthropics/skills",
+    "cloudflare/skills",
+    "google-labs-code/stitch-skills"
   ],
   "longDescription": {
     "en": "This collection focuses on workflow skills, integrations, and companion tools used in day-to-day AI agent work in 2026. It helps teams connect agents to repositories, files, databases, browsers, and external APIs. Use it to choose stable building blocks for coding assistants, research agents, and automation pipelines.",

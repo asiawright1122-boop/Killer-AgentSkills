@@ -142,7 +142,7 @@
   "legacySlugs": ["top-opencode-mcp-servers"],
   "category": "opencode",
   "author": "Killer-Skills AI",
-  "skills": ["Soju06/codex-lb", "dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
+  "skills": ["dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
   "longDescription": {
     "en": "If your team already works around OpenCode, this page helps you narrow the shortlist quickly without sending you back into another companion-tools crawl. It compares workflow helpers, review tools, and developer integrations that fit OpenCode-centered execution, to help you find the best fit for real work faster.",
     "zh": "如果你的团队已经围绕 OpenCode 工作，这页会帮助你更快缩小范围，不必再回到冗长的配套工具比较。它聚焦适合 OpenCode 执行路径的工作流助手、评审工具与开发集成，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
