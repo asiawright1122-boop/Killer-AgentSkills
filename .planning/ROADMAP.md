@@ -8,7 +8,7 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 ## Immediate Next Actions
 
-- Plan Phase 111: Collections Audit & Deduplication (`/gsd-plan-phase 111`).
+- Plan Phase 113: New Authority Surface Candidates (`/gsd-plan-phase 113`).
 
 ## Current Milestone: v3.7 Authority Expansion & Content Depth Acceleration
 
@@ -34,12 +34,12 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 ### Phase 111: Collections Audit & Deduplication
 - **Requirements:** AIOPS-32
 - **Scope:** Audit top collections for duplicates or thin entries and establish quality checklist.
-- **Status:** Pending
+- **Status:** Complete
 
 ### Phase 112: Automated Content Enrichment Workflow Design
 - **Requirements:** AIOPS-33
 - **Scope:** Build a workflow/script to batch-upgrade hold backlog content quality.
-- **Status:** Pending
+- **Status:** Complete
 
 ### Phase 113: New Authority Surface Candidates
 - **Requirements:** AIOPS-34
@@ -89,7 +89,7 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
-| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 0/5 | Active | - |
+| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 4/5 | Active | - |
 | v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
 | v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
@@ -120,4 +120,4 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 ---
 
-_Last updated: 2026-06-04 after initializing Phase 109 of v3.7 Authority Expansion & Content Depth Acceleration._
+_Last updated: 2026-06-05 after completing Phase 112 of v3.7 Authority Expansion & Content Depth Acceleration._

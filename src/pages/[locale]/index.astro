@@ -162,35 +162,41 @@ const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
   ...surface,
   ...(homeSurfaceCopyOverrides[surface.id as keyof typeof homeSurfaceCopyOverrides] ?? {}),
 }));
+
 const homeSelectionGuidance = isZhCopy
   ? [
       {
         title: '浏览精选合集',
-        description: '按主题查看官方工具、工作流和热门方向。',
+        description:
+          '每一个合集都按主题精选，由官方工具、低风险工作流和社区高星组件构成。在安装前提供明确的用例和对比。',
       },
       {
         title: '查看安装文档',
-        description: '快速找到安装命令、CLI 用法和常见配置步骤。',
+        description: '提供我们零依赖 CLI 的单命令安装指引，自动检测您的 IDE 容器并配置权限，确保安全且无冲突运行。',
       },
       {
-        title: '按场景找技能',
-        description: '从自动化、文档、浏览器或数据处理等场景直接进入。',
+        title: '按场景与方案找技能',
+        description: '从文档自动化、浏览器操控到数据处理等明确场景进入，直接展示多步骤工作流如何将多个技能串联。',
       },
     ]
   : [
       {
         title: 'Browse Curated Collections',
-        description: 'Explore official tools, workflow bundles, and popular starting points.',
+        description:
+          'Every collection is hand-picked by theme, highlighting official tools, low-risk workflow bundles, and vetted community skills.',
       },
       {
         title: 'Open Installation Docs',
-        description: 'Find install commands, CLI usage, and common setup steps fast.',
+        description:
+          'Get one-command install paths utilizing our zero-dependency CLI. Automatically detects your editor to set up safe sandboxed configurations.',
       },
       {
-        title: 'Browse by Use Case',
-        description: 'Jump straight into automation, docs, browser, or data-focused skills.',
+        title: 'Browse Use-Case Solutions',
+        description:
+          'Jump directly into task-focused solution paths like Document Automation, Browser Control, and DevOps to see how skills chain together.',
       },
     ];
+
 const homeAuthorityGuides = getAuthoritySurfaceEntries(typedLocale, {
   ids: ['blog-official-ai-agent-skills-guide', 'blog-how-to-install-ai-agent-skills', 'blog-ide-comparison'],
 });
