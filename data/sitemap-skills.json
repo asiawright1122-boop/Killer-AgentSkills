@@ -3,49 +3,97 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-04T16:01:46.924Z"
+    "updatedAt": "2026-06-05T04:49:12.693Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-04T16:01:46.919Z"
+    "updatedAt": "2026-06-05T04:49:12.689Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-04T16:01:46.918Z"
+    "updatedAt": "2026-06-05T04:49:12.688Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-04T16:01:46.916Z"
+    "updatedAt": "2026-06-05T04:49:12.687Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-06-04T16:01:46.915Z"
+    "updatedAt": "2026-06-05T04:49:12.686Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-04T16:01:46.914Z"
+    "updatedAt": "2026-06-05T04:49:12.686Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-04T16:01:46.909Z"
+    "updatedAt": "2026-06-05T04:49:12.682Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-04T16:01:46.898Z"
+    "updatedAt": "2026-06-05T04:49:12.672Z"
+  },
+  {
+    "owner": "Jamie-BitFlight",
+    "repo": "claude_skills",
+    "routePath": "claude_skills/linear-walkthrough",
+    "updatedAt": "2026-06-05T03:46:52Z"
+  },
+  {
+    "owner": "benchflow-ai",
+    "repo": "benchflow",
+    "routePath": "benchflow/branch-review",
+    "updatedAt": "2026-06-05T01:36:22Z"
+  },
+  {
+    "owner": "civitai",
+    "repo": "civitai",
+    "routePath": "civitai/add-prompt-enhancement-guide",
+    "updatedAt": "2026-06-05T00:49:15Z"
+  },
+  {
+    "owner": "microsoft",
+    "repo": "FluidFramework",
+    "routePath": "FluidFramework/trigger-pipelines-for-copilot-pr",
+    "updatedAt": "2026-06-05T00:39:04Z"
+  },
+  {
+    "owner": "kagenti",
+    "repo": "kagenti",
+    "routePath": "kagenti/ci",
+    "updatedAt": "2026-06-04T18:29:02Z"
+  },
+  {
+    "owner": "tddworks",
+    "repo": "ClaudeBar",
+    "routePath": "ClaudeBar/add-report",
+    "updatedAt": "2026-06-04T18:18:54Z"
+  },
+  {
+    "owner": "Piebald-AI",
+    "repo": "splitrail",
+    "routePath": "splitrail/mcp",
+    "updatedAt": "2026-06-04T14:04:43Z"
+  },
+  {
+    "owner": "ZQadus",
+    "repo": "Xantham-system-blueprint",
+    "routePath": "Xantham-system-blueprint/xantham-ai-seo",
+    "updatedAt": "2026-06-04T13:43:37Z"
   },
   {
     "owner": "wordbricks",
@@ -54,10 +102,34 @@
     "updatedAt": "2026-06-04T12:33:58Z"
   },
   {
+    "owner": "linuxfoundation",
+    "repo": "crowd.dev",
+    "routePath": "crowd.dev/dco",
+    "updatedAt": "2026-06-04T11:54:56Z"
+  },
+  {
+    "owner": "SprocketLab",
+    "repo": "slop-code-bench",
+    "routePath": "slop-code-bench/validate-run",
+    "updatedAt": "2026-06-04T08:42:23Z"
+  },
+  {
     "owner": "outfitter-dev",
     "repo": "trails",
     "routePath": "trails/clark-survey",
     "updatedAt": "2026-06-04T04:11:22Z"
+  },
+  {
+    "owner": "evolution-foundation",
+    "repo": "evo-nexus",
+    "routePath": "evo-nexus/dev-release",
+    "updatedAt": "2026-06-03T22:48:47Z"
+  },
+  {
+    "owner": "benbrastmckie",
+    "repo": "nvim",
+    "routePath": "nvim/skill-slide-planning",
+    "updatedAt": "2026-06-03T21:58:51Z"
   },
   {
     "owner": "wiktorskrabel89-byte",
@@ -78,6 +150,12 @@
     "updatedAt": "2026-06-03T17:27:47Z"
   },
   {
+    "owner": "Jahrome907",
+    "repo": "minecraft-agent-skills",
+    "routePath": "minecraft-agent-skills/minecraft-imagegen",
+    "updatedAt": "2026-06-03T16:26:48Z"
+  },
+  {
     "owner": "top-logic",
     "repo": "tl-engine",
     "routePath": "tl-engine/setup-worktree",
@@ -88,6 +166,12 @@
     "repo": "agentic-qe",
     "routePath": "agentic-qe/qe-coverage-analysis",
     "updatedAt": "2026-06-03T14:04:40Z"
+  },
+  {
+    "owner": "BrainBlend-AI",
+    "repo": "tesseron",
+    "routePath": "tesseron/update-docs",
+    "updatedAt": "2026-06-03T12:38:37Z"
   },
   {
     "owner": "cattboy",
@@ -124,6 +208,18 @@
     "repo": "kings_college_galway",
     "routePath": "kings_college_galway/motherduck-build-dashboard",
     "updatedAt": "2026-06-03T03:31:47Z"
+  },
+  {
+    "owner": "Santiagoisper",
+    "repo": "BOPE_VERSION_DEFINITIVA",
+    "routePath": "BOPE_VERSION_DEFINITIVA/impeccable",
+    "updatedAt": "2026-06-03T02:39:33Z"
+  },
+  {
+    "owner": "vincentchan",
+    "repo": "AI-Content-Engine",
+    "routePath": "AI-Content-Engine/content-ideas-generator",
+    "updatedAt": "2026-06-03T02:39:29Z"
   },
   {
     "owner": "HexSleeves",
@@ -198,10 +294,22 @@
     "updatedAt": "2026-06-02T14:10:43Z"
   },
   {
+    "owner": "SpectrAI-Initiative",
+    "repo": "InnoClaw",
+    "routePath": "InnoClaw/structural_pharmacogenomics",
+    "updatedAt": "2026-06-02T13:26:57Z"
+  },
+  {
     "owner": "mutezebra",
     "repo": "dotfile",
     "routePath": "dotfile/caveman-compress",
     "updatedAt": "2026-06-02T02:32:12Z"
+  },
+  {
+    "owner": "browseros-ai",
+    "repo": "BrowserOS-agent",
+    "routePath": "BrowserOS-agent/dev7-pr",
+    "updatedAt": "2026-06-01T22:31:35Z"
   },
   {
     "owner": "halukerenozlu",
@@ -226,6 +334,12 @@
     "repo": "aitasks",
     "routePath": "aitasks/task-workflow",
     "updatedAt": "2026-06-01T15:53:06Z"
+  },
+  {
+    "owner": "brainqub3",
+    "repo": "claude_code_RLM",
+    "routePath": "claude_code_RLM/rlm",
+    "updatedAt": "2026-06-01T15:42:44Z"
   },
   {
     "owner": "sifter-ai",
@@ -558,6 +672,18 @@
     "updatedAt": "2026-06-01T07:37:04Z"
   },
   {
+    "owner": "NikiforovAll",
+    "repo": "claude-code-rules",
+    "routePath": "claude-code-rules/version-bump",
+    "updatedAt": "2026-06-01T06:31:58Z"
+  },
+  {
+    "owner": "jlevy",
+    "repo": "simple-modern-uv",
+    "routePath": "simple-modern-uv/tbd",
+    "updatedAt": "2026-06-01T04:59:23Z"
+  },
+  {
     "owner": "HexSleeves",
     "repo": "family-events",
     "routePath": "family-events/app-creator",
@@ -622,6 +748,12 @@
     "repo": "specs-driven-development-spring-angular",
     "routePath": "specs-driven-development-spring-angular/maven-harness-pom",
     "updatedAt": "2026-05-31T18:26:36Z"
+  },
+  {
+    "owner": "devtodollars",
+    "repo": "mvp-boilerplate",
+    "routePath": "mvp-boilerplate/browser",
+    "updatedAt": "2026-05-31T18:13:54Z"
   },
   {
     "owner": "huggingface",
@@ -856,6 +988,12 @@
     "repo": "everything-openai-codex",
     "routePath": "everything-openai-codex/mcp-server-patterns",
     "updatedAt": "2026-05-30T11:07:01Z"
+  },
+  {
+    "owner": "damionrashford",
+    "repo": "media-os",
+    "routePath": "media-os/gstreamer-docs",
+    "updatedAt": "2026-05-30T09:52:52Z"
   },
   {
     "owner": "shinpr",
@@ -1236,6 +1374,12 @@
     "updatedAt": "2026-05-27T11:04:58Z"
   },
   {
+    "owner": "srid",
+    "repo": "haskell-flake",
+    "routePath": "haskell-flake/do",
+    "updatedAt": "2026-05-27T10:41:50Z"
+  },
+  {
     "owner": "cheng80",
     "repo": "chatbot_rag_app",
     "routePath": "chatbot_rag_app/setup-deploy",
@@ -1252,6 +1396,12 @@
     "repo": "soundcheck",
     "routePath": "soundcheck/excessive-agency",
     "updatedAt": "2026-05-27T06:05:42Z"
+  },
+  {
+    "owner": "albinotonnina",
+    "repo": "echos",
+    "routePath": "echos/review-pr-comments",
+    "updatedAt": "2026-05-27T05:25:01Z"
   },
   {
     "owner": "Dlya-Colledga",
@@ -1942,6 +2092,12 @@
     "repo": "growi",
     "routePath": "growi/investigate-issue",
     "updatedAt": "2026-05-21T14:40:53Z"
+  },
+  {
+    "owner": "ar4mirez",
+    "repo": "samuel",
+    "routePath": "samuel/flask",
+    "updatedAt": "2026-05-21T14:04:42Z"
   },
   {
     "owner": "webiny",
@@ -3426,6 +3582,12 @@
     "updatedAt": "2026-05-10T07:26:36Z"
   },
   {
+    "owner": "weicongpeng",
+    "repo": "NetworkPlanningTooV3",
+    "routePath": "NetworkPlanningTooV3/tavily-search",
+    "updatedAt": "2026-05-10T04:53:56Z"
+  },
+  {
     "owner": "Zalamancer",
     "repo": "Problocks",
     "routePath": "Problocks/tile",
@@ -4498,6 +4660,12 @@
     "repo": "odoo",
     "routePath": "odoo/ipai-platform",
     "updatedAt": "2026-04-26T11:40:03Z"
+  },
+  {
+    "owner": "mits-pl",
+    "repo": "wove",
+    "routePath": "wove/seo-images",
+    "updatedAt": "2026-04-25T23:28:30Z"
   },
   {
     "owner": "realYushi",
