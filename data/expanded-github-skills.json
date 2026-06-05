@@ -1120,6 +1120,33 @@
     "filePath": ".cursor/skills/animate/SKILL.md"
   },
   {
+    "owner": "apache",
+    "repo": "shardingsphere",
+    "description": "Empowering Data Intelligence with Distributed SQL for Sharding, Scalability, and Security Across All Databases.",
+    "stars": 20731,
+    "forks": 6894,
+    "topics": [
+      "bigdata",
+      "data-encryption",
+      "data-pipeline",
+      "database",
+      "database-cluster",
+      "database-gateway",
+      "database-middleware",
+      "distributed-database",
+      "distributed-sql-database",
+      "distributed-transaction",
+      "encrypt",
+      "mysql",
+      "postgresql",
+      "read-write-splitting",
+      "shard",
+      "sql"
+    ],
+    "updatedAt": "2026-06-05T15:29:28Z",
+    "filePath": ".codex/skills/gen-ut/SKILL.md"
+  },
+  {
     "owner": "NVIDIA",
     "repo": "NemoClaw",
     "description": "Run agents like Hermes and OpenClaw more securely inside NVIDIA OpenShell with managed inference",
@@ -1181,6 +1208,37 @@
     "topics": [],
     "updatedAt": "2026-04-16T14:22:44Z",
     "filePath": ".codex/skills/delight/SKILL.md"
+  },
+  {
+    "owner": "williamfiset",
+    "repo": "algorithms",
+    "description": "A collection of algorithms and data structures",
+    "stars": 18626,
+    "forks": 4514,
+    "topics": [
+      "adjacency",
+      "adjacency-matrix",
+      "algorithm",
+      "algorithms",
+      "dijkstra",
+      "dynamic-programming",
+      "edmonds-karp-algorithm",
+      "geometry",
+      "graph-theory",
+      "linear-algebra",
+      "mathematics",
+      "matrix-multiplication",
+      "maxflow",
+      "nlog",
+      "search-algorithm",
+      "search-algorithms",
+      "sorting-algorithms",
+      "strings",
+      "traveling-salesman",
+      "tree-algorithms"
+    ],
+    "updatedAt": "2026-06-05T14:54:46Z",
+    "filePath": ".claude/SKILL.md"
   },
   {
     "owner": "williamfiset",
@@ -6278,6 +6336,77 @@
     "filePath": ".codex/skills/openspec-bulk-archive-change/SKILL.md"
   },
   {
+    "owner": "OpenCoworkAI",
+    "repo": "open-cowork",
+    "description": "Open-source AI agent desktop app for Windows & macOS. One-click install Claude Code, MCP tools, and Skills — with sandbox isolation, multi-model support, and Feishu/Slack integration.",
+    "stars": 1508,
+    "forks": 191,
+    "topics": [
+      "ai-agent",
+      "ai-coding",
+      "ai-tools",
+      "anthropic",
+      "claude-code",
+      "coding-agent",
+      "computer-use",
+      "desktop-app",
+      "electron",
+      "mcp",
+      "multi-model",
+      "open-cowork",
+      "sandbox",
+      "skills"
+    ],
+    "updatedAt": "2026-06-05T13:56:30Z",
+    "filePath": ".claude/skills/pdf/SKILL.md"
+  },
+  {
+    "owner": "karanhudia",
+    "repo": "borg-ui",
+    "description": "Replace complex Borg Backup terminal commands with a beautiful web UI. Create, schedule, and   restore backups with just a few clicks.",
+    "stars": 1493,
+    "forks": 49,
+    "topics": [
+      "automation",
+      "back",
+      "borg",
+      "borg-backup",
+      "borgbackup",
+      "borgbase",
+      "deduplication",
+      "docker",
+      "raspber",
+      "sbc",
+      "self-hosted",
+      "webapp"
+    ],
+    "updatedAt": "2026-06-05T14:36:43Z",
+    "filePath": ".codex/skills/land/SKILL.md"
+  },
+  {
+    "owner": "karanhudia",
+    "repo": "borg-ui",
+    "description": "Replace complex Borg Backup terminal commands with a beautiful web UI. Create, schedule, and   restore backups with just a few clicks.",
+    "stars": 1493,
+    "forks": 49,
+    "topics": [
+      "automation",
+      "back",
+      "borg",
+      "borg-backup",
+      "borgbackup",
+      "borgbase",
+      "deduplication",
+      "docker",
+      "raspber",
+      "sbc",
+      "self-hosted",
+      "webapp"
+    ],
+    "updatedAt": "2026-06-05T14:36:43Z",
+    "filePath": ".codex/skills/pull/SKILL.md"
+  },
+  {
     "owner": "catlog22",
     "repo": "Claude-Code-Workflow",
     "description": " JSON-driven multi-agent  cadence-team development framework with   intelligent CLI orchestration (Gemini/Qwen/Codex),   context-first architecture, and automated workflow   execution",
@@ -8397,6 +8526,22 @@
     "filePath": ".claude/workflow/SKILL.md"
   },
   {
+    "owner": "waynesutton",
+    "repo": "markdown-site",
+    "description": "An open-source publishing framework built for AI agents and developers to ship websites, docs, or blogs. Write markdown, sync from the terminal. Your content is instantly available to browsers, LLMs, and AI agents. Built on Convex and Netlify.",
+    "stars": 616,
+    "forks": 90,
+    "topics": [
+      "cms",
+      "convex",
+      "markdown",
+      "open-source",
+      "sync"
+    ],
+    "updatedAt": "2026-06-01T18:32:33Z",
+    "filePath": ".claude/sec-check/SKILL.md"
+  },
+  {
     "owner": "compozy",
     "repo": "compozy",
     "description": "Drive the full lifecycle of AI-assisted development — from idea to shipped code.",
@@ -9034,6 +9179,36 @@
     ],
     "updatedAt": "2026-04-20T02:24:48Z",
     "filePath": ".cursor/skills/echo/SKILL.md"
+  },
+  {
+    "owner": "HoangNguyen0403",
+    "repo": "agent-skills-standard",
+    "description": "A collection of Agent Skills Standard and Best Practice for Programming Languages, Frameworks that help our AI Agent follow best practies on frameworks and programming laguages",
+    "stars": 502,
+    "forks": 148,
+    "topics": [
+      "agent-",
+      "agentic-ai",
+      "android",
+      "angular",
+      "best-practices",
+      "coding-standards",
+      "cursor-rules",
+      "flutter",
+      "golang",
+      "ios",
+      "kotlin",
+      "laravel",
+      "nestjs",
+      "nextjs",
+      "react",
+      "react-native",
+      "reactjs",
+      "spring-boot",
+      "typescript"
+    ],
+    "updatedAt": "2026-06-04T11:37:43Z",
+    "filePath": ".codex/skills/sdlc/SKILL.md"
   },
   {
     "owner": "phel-lang",
@@ -10112,6 +10287,31 @@
     "filePath": ".claude/skills/tearsheet/SKILL.md"
   },
   {
+    "owner": "bitsocialnet",
+    "repo": "seedit",
+    "description": "A Bitsocial app with an old.reddit UI",
+    "stars": 418,
+    "forks": 25,
+    "topics": [
+      "bitsocial",
+      "censorship-resistance",
+      "decentralized",
+      "decentralized-social",
+      "ipfs",
+      "libp2p",
+      "message-board",
+      "p2p",
+      "p2p-social",
+      "pkc",
+      "reddit",
+      "reddit-alternative",
+      "seedit",
+      "social-media"
+    ],
+    "updatedAt": "2026-06-05T12:06:04Z",
+    "filePath": ".codex/skills/commit/SKILL.md"
+  },
+  {
     "owner": "ziggy42",
     "repo": "epsilon",
     "description": "A WASM virtual machine written in Go with 0 dependencies",
@@ -10357,6 +10557,24 @@
     "topics": [],
     "updatedAt": "2026-03-26T11:23:04Z",
     "filePath": ".claude/skills/dcf/SKILL.md"
+  },
+  {
+    "owner": "eclipse-rdf4j",
+    "repo": "rdf4j",
+    "description": "Eclipse RDF4J: scalable RDF for Java",
+    "stars": 401,
+    "forks": 183,
+    "topics": [
+      "hacktoberfest",
+      "java",
+      "linked-data",
+      "rdf",
+      "semantic-web",
+      "shacl",
+      "sparql"
+    ],
+    "updatedAt": "2026-06-04T05:24:27Z",
+    "filePath": ".codex/skills/mvnf/SKILL.md"
   },
   {
     "owner": "eclipse-rdf4j",
@@ -11588,6 +11806,22 @@
     "filePath": ".agents/skills/flutter-dart-dependency-upgrade/SKILL.md"
   },
   {
+    "owner": "m-xlsea",
+    "repo": "ruoyi-plus-soybean",
+    "description": "RuoYi-Plus-Soybean 是一个现代化的企业级多租户管理系统，它结合了 RuoYi-Vue-Plus 的强大后端功能和 Soybean Admin 的现代化前端特性，为开发者提供了完整的企业管理解决方案。",
+    "stars": 306,
+    "forks": 71,
+    "topics": [
+      "naive-ui",
+      "ruoyi-vue-plus",
+      "soybean",
+      "vite7",
+      "vue3"
+    ],
+    "updatedAt": "2026-06-05T03:05:36Z",
+    "filePath": ".codex/skills/pace/SKILL.md"
+  },
+  {
     "owner": "deadlock-mod-manager",
     "repo": "deadlock-mod-manager",
     "description": "A mod manager for the Valve game Deadlock.",
@@ -11701,6 +11935,174 @@
     ],
     "updatedAt": "2026-04-30T17:19:52Z",
     "filePath": ".agents/skills/drive-pr-description/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/css/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/mobx/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/i18n/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/erpc/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/react/SKILL.md"
+  },
+  {
+    "owner": "MatrixAges",
+    "repo": "polywise",
+    "description": "The open source agentic content system to make your contents alive. Self-hosted on any platform. ◑",
+    "stars": 289,
+    "forks": 20,
+    "topics": [
+      "agent",
+      "agentic-ai",
+      "agentic-content-system",
+      "ai",
+      "assistant",
+      "content-system",
+      "database",
+      "decision",
+      "decision-system",
+      "graph-rag",
+      "llm-wiki",
+      "memory",
+      "polywise",
+      "rag",
+      "self-hosted",
+      "twin",
+      "workflow"
+    ],
+    "updatedAt": "2026-06-05T15:25:02Z",
+    "filePath": ".codex/skills/review/SKILL.md"
   },
   {
     "owner": "involvex",
@@ -13163,6 +13565,20 @@
     "filePath": ".cursor/skills/tdd-master/SKILL.md"
   },
   {
+    "owner": "homebridge-plugins",
+    "repo": "homebridge-eufy-security",
+    "description": "Homebridge plugin to control certain Eufy Security devices",
+    "stars": 209,
+    "forks": 35,
+    "topics": [
+      "cameras",
+      "eufy-security",
+      "homebridge"
+    ],
+    "updatedAt": "2026-06-03T02:51:41Z",
+    "filePath": ".claude/skills/qa/SKILL.md"
+  },
+  {
     "owner": "systeminit",
     "repo": "swamp",
     "description": "Stinemates, Watson, Adam, Mahir, Paul ",
@@ -13592,6 +14008,20 @@
     "filePath": ".codex/skills/deploy/SKILL.md"
   },
   {
+    "owner": "shift-editor",
+    "repo": "shift",
+    "description": "A cross-platform font editor built in Rust and TypeScript",
+    "stars": 191,
+    "forks": 6,
+    "topics": [
+      "fonts",
+      "rust",
+      "typescript"
+    ],
+    "updatedAt": "2026-06-04T06:33:56Z",
+    "filePath": ".codex/skills/jsdoc/SKILL.md"
+  },
+  {
     "owner": "serithemage",
     "repo": "serverless-openclaw",
     "description": "Run OpenClaw AI agent on-demand on AWS serverless infrastructure with Web UI and Telegram interfaces. Cost target ~$1/month.",
@@ -13746,6 +14176,26 @@
     ],
     "updatedAt": "2026-05-18T15:36:16Z",
     "filePath": ".claude/skills/lemlist/linkedin-outbound-angle/SKILL.md"
+  },
+  {
+    "owner": "AIOSAI",
+    "repo": "AIPass",
+    "description": "Persistent Agent Workspace — AI agents that remember, collaborate, and never start from zero.",
+    "stars": 185,
+    "forks": 30,
+    "topics": [],
+    "updatedAt": "2026-06-05T01:02:03Z",
+    "filePath": ".codex/skills/memo/SKILL.md"
+  },
+  {
+    "owner": "AIOSAI",
+    "repo": "AIPass",
+    "description": "Persistent Agent Workspace — AI agents that remember, collaborate, and never start from zero.",
+    "stars": 185,
+    "forks": 30,
+    "topics": [],
+    "updatedAt": "2026-06-05T01:02:03Z",
+    "filePath": ".codex/skills/prep/SKILL.md"
   },
   {
     "owner": "finos",
@@ -14128,6 +14578,23 @@
     "filePath": ".claude/skills/r2/SKILL.md"
   },
   {
+    "owner": "lean-ja",
+    "repo": "lean-by-example",
+    "description": "コード例で学ぶ Lean 言語",
+    "stars": 168,
+    "forks": 14,
+    "topics": [
+      "functional-programming",
+      "lean",
+      "lean4",
+      "mdbook",
+      "reference",
+      "theorem-proving"
+    ],
+    "updatedAt": "2026-06-05T11:48:05Z",
+    "filePath": ".codex/skills/setup/SKILL.md"
+  },
+  {
     "owner": "xiaolai",
     "repo": "vmark",
     "description": "An AI friendly markdown editor.",
@@ -14500,6 +14967,62 @@
     "filePath": ".claude/skills/debug-that/SKILL.md"
   },
   {
+    "owner": "sushaantu",
+    "repo": "boxento",
+    "description": "Open-source customizable start page ",
+    "stars": 154,
+    "forks": 11,
+    "topics": [
+      "productivity",
+      "startpage",
+      "widgets"
+    ],
+    "updatedAt": "2026-06-05T00:23:44Z",
+    "filePath": ".codex/skills/pull/SKILL.md"
+  },
+  {
+    "owner": "sushaantu",
+    "repo": "boxento",
+    "description": "Open-source customizable start page ",
+    "stars": 154,
+    "forks": 11,
+    "topics": [
+      "productivity",
+      "startpage",
+      "widgets"
+    ],
+    "updatedAt": "2026-06-05T00:23:44Z",
+    "filePath": ".codex/skills/land/SKILL.md"
+  },
+  {
+    "owner": "sushaantu",
+    "repo": "boxento",
+    "description": "Open-source customizable start page ",
+    "stars": 154,
+    "forks": 11,
+    "topics": [
+      "productivity",
+      "startpage",
+      "widgets"
+    ],
+    "updatedAt": "2026-06-05T00:23:44Z",
+    "filePath": ".codex/skills/commit/SKILL.md"
+  },
+  {
+    "owner": "sushaantu",
+    "repo": "boxento",
+    "description": "Open-source customizable start page ",
+    "stars": 154,
+    "forks": 11,
+    "topics": [
+      "productivity",
+      "startpage",
+      "widgets"
+    ],
+    "updatedAt": "2026-06-05T00:23:44Z",
+    "filePath": ".codex/skills/linear/SKILL.md"
+  },
+  {
     "owner": "knowns-dev",
     "repo": "knowns",
     "description": "The memory layer for AI-native development — giving AI persistent understanding of your software projects.",
@@ -14765,6 +15288,21 @@
     "topics": [],
     "updatedAt": "2026-05-19T01:40:56Z",
     "filePath": ".claude/skills/lint.check/SKILL.md"
+  },
+  {
+    "owner": "eric-tramel",
+    "repo": "slop-guard",
+    "description": "Slop Scoring to Stop Slop",
+    "stars": 144,
+    "forks": 11,
+    "topics": [
+      "llm",
+      "mcp",
+      "writing",
+      "writing-tool"
+    ],
+    "updatedAt": "2026-06-04T14:34:38Z",
+    "filePath": ".claude/skills/qa/SKILL.md"
   },
   {
     "owner": "regenrek",
@@ -15095,6 +15633,22 @@
     "topics": [],
     "updatedAt": "2026-05-05T01:26:16Z",
     "filePath": ".claude/skills/refactor/SKILL.md"
+  },
+  {
+    "owner": "gacela-project",
+    "repo": "gacela",
+    "description": "Build modular PHP applications.",
+    "stars": 134,
+    "forks": 8,
+    "topics": [
+      "framework",
+      "gacela",
+      "library",
+      "modular",
+      "php"
+    ],
+    "updatedAt": "2026-06-05T12:07:57Z",
+    "filePath": ".claude/skills/pr/SKILL.md"
   },
   {
     "owner": "NomaDamas",
@@ -16841,6 +17395,16 @@
     "filePath": ".agents/skills/default/SKILL.md"
   },
   {
+    "owner": "poemswe",
+    "repo": "co-researcher",
+    "description": "A professional research suite for conducting rigorous academic research using specialized agents and multi-platform CLI commands. Compatible with Claude Code, Gemini CLI, OpenAI Codex, and OpenCode.",
+    "stars": 105,
+    "forks": 12,
+    "topics": [],
+    "updatedAt": "2026-06-03T15:32:12Z",
+    "filePath": ".codex/skills/review/SKILL.md"
+  },
+  {
     "owner": "navi-language",
     "repo": "navi",
     "description": "Navi is a high-performance programming language.",
@@ -18164,6 +18728,34 @@
     "topics": [],
     "updatedAt": "2026-05-13T12:03:45Z",
     "filePath": ".codex/skills/rebase/SKILL.md"
+  },
+  {
+    "owner": "gmickel",
+    "repo": "gno",
+    "description": "Local AI-powered document search and editing with first-in-class hybrid retrieval, LLM answers, WebUI, REST API and MCP support for AI clients.",
+    "stars": 88,
+    "forks": 7,
+    "topics": [
+      "ai-assistant",
+      "bun",
+      "cli",
+      "code-search",
+      "document-search",
+      "embeddings",
+      "knowledge-base",
+      "llm",
+      "local-first",
+      "mcp",
+      "offline",
+      "pkm",
+      "rag",
+      "second-brain",
+      "semantic-search",
+      "typescript",
+      "vector-search"
+    ],
+    "updatedAt": "2026-06-05T15:04:51Z",
+    "filePath": ".codex/skills/gno/SKILL.md"
   },
   {
     "owner": "petenelson",
@@ -24406,6 +24998,16 @@
     "filePath": ".claude/skills/minecraft-imagegen/SKILL.md"
   },
   {
+    "owner": "ryoha000",
+    "repo": "launcherg",
+    "description": "ADVゲームのランチャーアプリケーション",
+    "stars": 38,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-05-27T10:29:24Z",
+    "filePath": ".codex/skills/shadcn/SKILL.md"
+  },
+  {
     "owner": "yoloshii",
     "repo": "mcp-code-execution-enhanced",
     "description": "Enhanced MCP code execution. Agent framework-agnostic (optimized for Claude Code). Skills framework (99.6% token reduction), multi-transport, sandboxing",
@@ -24824,6 +25426,118 @@
     "topics": [],
     "updatedAt": "2026-05-12T20:33:58Z",
     "filePath": ".codex/kget-quality/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/shape/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/adapt/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/brief/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/audit/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/harden/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/tokens/SKILL.md"
+  },
+  {
+    "owner": "educlopez",
+    "repo": "ui-craft",
+    "description": "Design engineering skill for AI Agents — build interfaces with craft-level quality",
+    "stars": 36,
+    "forks": 2,
+    "topics": [
+      "claude-code",
+      "codex",
+      "design",
+      "skills",
+      "ui"
+    ],
+    "updatedAt": "2026-06-03T08:40:43Z",
+    "filePath": ".codex/skills/extract/SKILL.md"
   },
   {
     "owner": "yi-john-huang",
@@ -25258,6 +25972,37 @@
     ],
     "updatedAt": "2026-05-29T16:43:21Z",
     "filePath": ".codex/skills/ui-craft-minimal/SKILL.md"
+  },
+  {
+    "owner": "joosure",
+    "repo": "Maestro",
+    "description": "Maestro turns your issue tracker into an execution layer for AI agents — dispatching work, managing runtimes, coordinating providers, tracking evidence, and making agentic engineering operable at team scale.",
+    "stars": 35,
+    "forks": 4,
+    "topics": [
+      "agent-orchestration",
+      "ai-agents",
+      "ai-coding",
+      "audit-trail",
+      "autonomous-agents",
+      "claude-code",
+      "codex",
+      "coding-agents",
+      "developer-tools",
+      "devops",
+      "elixir",
+      "github",
+      "issue-tracker",
+      "linear",
+      "observability",
+      "opencode",
+      "project-management",
+      "software-engineering",
+      "tapd",
+      "workflow-automation"
+    ],
+    "updatedAt": "2026-06-03T06:54:55Z",
+    "filePath": ".codex/skills/land/SKILL.md"
   },
   {
     "owner": "SpillwaveSolutions",
@@ -28304,6 +29049,23 @@
     "filePath": ".agents/skills/kg-registry-curation/SKILL.md"
   },
   {
+    "owner": "forever-healthy",
+    "repo": "AI4L",
+    "description": "AI for Practical Longevity (AI4L) - Enabling anyone to use AI to generate high-quality, evidence-based reviews of health & longevity interventions",
+    "stars": 26,
+    "forks": 0,
+    "topics": [
+      "evidence",
+      "health",
+      "longevity",
+      "peptides",
+      "rejuvenation",
+      "therapeutics"
+    ],
+    "updatedAt": "2026-05-30T16:01:31Z",
+    "filePath": ".codex/skills/check/SKILL.md"
+  },
+  {
     "owner": "promptadvisers",
     "repo": "n8n-powerhouse",
     "description": "Claude Code skills framework for n8n automation - Turn Claude into an n8n expert",
@@ -29355,6 +30117,116 @@
     "topics": [],
     "updatedAt": "2026-05-26T18:02:45Z",
     "filePath": ".claude/skills/debug-api/skill.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/fix/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/ops/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/ship/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/spec/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/deps/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/story/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/quick/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/pr-fix/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/design/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/review/SKILL.md"
+  },
+  {
+    "owner": "matteocervelli",
+    "repo": "llms",
+    "description": "Centralized LLM configuration and documentation management system. Tools for building skills, commands, agents, prompts, and managing MCP servers. Multi-LLM support (Claude Code, Codex, OpenCode).",
+    "stars": 24,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-22T11:48:22Z",
+    "filePath": ".codex/skills/deploy/SKILL.md"
   },
   {
     "owner": "zerx-lab",
@@ -63488,6 +64360,16 @@
     "filePath": ".windsurf/skills/chinese-commit-conventions/SKILL.md"
   },
   {
+    "owner": "9keyyyy",
+    "repo": "extreme-challenge-with-claude",
+    "description": null,
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-26T14:01:11Z",
+    "filePath": ".claude/skills/pr/skill.md"
+  },
+  {
     "owner": "aviz85",
     "repo": "claude-tasks",
     "description": "GTD-based task management powered by Claude Code",
@@ -79296,7 +80178,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T13:25:17Z",
+    "updatedAt": "2026-06-05T15:03:30Z",
     "filePath": ".claude/skills/tdd/SKILL.md"
   },
   {
@@ -79503,16 +80385,6 @@
     "topics": [],
     "updatedAt": "2026-05-18T03:14:45Z",
     "filePath": ".claude/skills/push/SKILL.md"
-  },
-  {
-    "owner": "lilliangreenberg",
-    "repo": "valuations-autonomous_coding",
-    "description": null,
-    "stars": 0,
-    "forks": 0,
-    "topics": [],
-    "updatedAt": "2026-02-05T16:34:11Z",
-    "filePath": ".claude/skills/feature-status/SKILL.md"
   },
   {
     "owner": "JoseCortezz25",
@@ -79773,7 +80645,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-05T02:33:00Z",
+    "updatedAt": "2026-06-05T10:07:06Z",
     "filePath": ".claude/skills/skill-polisher/SKILL.md"
   },
   {
@@ -80520,7 +81392,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T16:48:01Z",
+    "updatedAt": "2026-06-05T08:32:26Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -80540,7 +81412,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T16:48:01Z",
+    "updatedAt": "2026-06-05T08:32:26Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -80841,7 +81713,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-03T20:24:52Z",
+    "updatedAt": "2026-06-05T05:03:44Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -81448,7 +82320,7 @@
       "react",
       "wearable"
     ],
-    "updatedAt": "2026-06-05T02:11:12Z",
+    "updatedAt": "2026-06-05T12:14:11Z",
     "filePath": ".claude/skills/expo-modules/SKILL.md"
   },
   {
@@ -81698,7 +82570,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T17:04:57Z",
+    "updatedAt": "2026-06-05T11:55:15Z",
     "filePath": ".claude/skills/bmad-pm/SKILL.md"
   },
   {
@@ -81814,7 +82686,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T23:12:47Z",
+    "updatedAt": "2026-06-05T15:18:48Z",
     "filePath": ".claude/skills/blueprints-gui/SKILL.md"
   },
   {
@@ -82999,7 +83871,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T20:16:58Z",
+    "updatedAt": "2026-06-05T12:31:22Z",
     "filePath": ".claude/skills/rust-skills/m04-zero-cost/SKILL.md"
   },
   {
@@ -83076,7 +83948,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T18:25:09Z",
+    "updatedAt": "2026-06-05T15:02:49Z",
     "filePath": ".claude/skills/improve-module/SKILL.md"
   },
   {
@@ -83600,7 +84472,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-04T19:23:03Z",
+    "updatedAt": "2026-06-05T15:04:39Z",
     "filePath": ".claude/skills/ux/SKILL.md"
   },
   {
@@ -83790,7 +84662,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-05T04:46:38Z",
+    "updatedAt": "2026-06-05T15:27:18Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -129334,5 +130206,15 @@
     "topics": [],
     "updatedAt": "2026-04-22T11:33:32Z",
     "filePath": ".claude/skills/palette-stylist/skill.md"
+  },
+  {
+    "owner": "LEstebanR",
+    "repo": "dream_Interpreter",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-30T21:50:31Z",
+    "filePath": ".claude/skills/pr/skill.md"
   }
 ]
