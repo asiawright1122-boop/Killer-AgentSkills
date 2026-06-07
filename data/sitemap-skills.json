@@ -3,49 +3,61 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-07T04:59:24.258Z"
+    "updatedAt": "2026-06-07T14:32:57.556Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-07T04:59:24.253Z"
+    "updatedAt": "2026-06-07T14:32:57.552Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-07T04:59:24.252Z"
+    "updatedAt": "2026-06-07T14:32:57.551Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-07T04:59:24.250Z"
+    "updatedAt": "2026-06-07T14:32:57.550Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-06-07T04:59:24.249Z"
+    "updatedAt": "2026-06-07T14:32:57.549Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-07T04:59:24.248Z"
+    "updatedAt": "2026-06-07T14:32:57.548Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-07T04:59:24.243Z"
+    "updatedAt": "2026-06-07T14:32:57.544Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-07T04:59:24.231Z"
+    "updatedAt": "2026-06-07T14:32:57.534Z"
+  },
+  {
+    "owner": "ZanebonoAlter",
+    "repo": "Syntopica",
+    "routePath": "Syntopica/openspec-archive-change",
+    "updatedAt": "2026-06-07T13:37:23Z"
+  },
+  {
+    "owner": "susomejias",
+    "repo": "rembric",
+    "routePath": "rembric/openspec-explore",
+    "updatedAt": "2026-06-07T12:55:02Z"
   },
   {
     "owner": "PrefectHQ",
@@ -78,10 +90,22 @@
     "updatedAt": "2026-06-07T00:28:27Z"
   },
   {
+    "owner": "randexlabs",
+    "repo": "roblox-boilerplate",
+    "routePath": "roblox-boilerplate/mise",
+    "updatedAt": "2026-06-06T23:28:31Z"
+  },
+  {
     "owner": "kube-dojo",
     "repo": "kube-dojo.github.io",
     "routePath": "kube-dojo.github.io/curriculum-orchestrator",
     "updatedAt": "2026-06-06T23:21:39Z"
+  },
+  {
+    "owner": "compartmentdev",
+    "repo": "compartment",
+    "routePath": "compartment/audit-type-ownership",
+    "updatedAt": "2026-06-06T23:00:29Z"
   },
   {
     "owner": "semantica-agi",
@@ -102,10 +126,22 @@
     "updatedAt": "2026-06-06T17:52:39Z"
   },
   {
+    "owner": "jiangzhe",
+    "repo": "doradb",
+    "routePath": "doradb/task",
+    "updatedAt": "2026-06-06T16:36:50Z"
+  },
+  {
     "owner": "rvdbreemen",
     "repo": "OTGW-firmware",
     "routePath": "OTGW-firmware/flash",
     "updatedAt": "2026-06-06T16:12:55Z"
+  },
+  {
+    "owner": "IvanLi-CN",
+    "repo": "tavily-hikari",
+    "routePath": "tavily-hikari/ui-ux-pro-max",
+    "updatedAt": "2026-06-06T13:27:43Z"
   },
   {
     "owner": "nguyenhuuca",
@@ -366,6 +402,18 @@
     "updatedAt": "2026-06-06T06:41:36Z"
   },
   {
+    "owner": "mikeleppane",
+    "repo": "tursotui",
+    "routePath": "tursotui/git-conventions",
+    "updatedAt": "2026-06-06T06:31:11Z"
+  },
+  {
+    "owner": "baekenough",
+    "repo": "oh-my-customcodex",
+    "routePath": "oh-my-customcodex/dev-refactor",
+    "updatedAt": "2026-06-06T06:01:31Z"
+  },
+  {
     "owner": "facebook",
     "repo": "react",
     "routePath": "react/flags",
@@ -606,6 +654,12 @@
     "updatedAt": "2026-06-05T22:25:36Z"
   },
   {
+    "owner": "arcasilesgroup",
+    "repo": "ai-engineering",
+    "routePath": "ai-engineering/ai-security",
+    "updatedAt": "2026-06-05T21:53:05Z"
+  },
+  {
     "owner": "VixenLights",
     "repo": "Vixen",
     "routePath": "Vixen/jira",
@@ -622,6 +676,12 @@
     "repo": "plate",
     "routePath": "plate/tdd",
     "updatedAt": "2026-06-05T19:29:08Z"
+  },
+  {
+    "owner": "losdwind",
+    "repo": "dexposure-claw",
+    "routePath": "dexposure-claw/ray-data",
+    "updatedAt": "2026-06-05T18:35:42Z"
   },
   {
     "owner": "Automattic",
@@ -874,6 +934,12 @@
     "repo": "minecraft-agent-skills",
     "routePath": "minecraft-agent-skills/minecraft-imagegen",
     "updatedAt": "2026-06-03T16:26:48Z"
+  },
+  {
+    "owner": "akiojin",
+    "repo": "gwt",
+    "routePath": "gwt/gwt-manage-pr",
+    "updatedAt": "2026-06-03T15:34:08Z"
   },
   {
     "owner": "top-logic",
@@ -1626,6 +1692,12 @@
     "updatedAt": "2026-05-28T20:39:37Z"
   },
   {
+    "owner": "dazzaji",
+    "repo": "interlateral_agents",
+    "routePath": "interlateral_agents/add-comments",
+    "updatedAt": "2026-05-28T18:26:37Z"
+  },
+  {
     "owner": "ai-dynamo",
     "repo": "dynamo",
     "routePath": "dynamo/pr-monitor",
@@ -1762,6 +1834,12 @@
     "repo": "fawredd-home-expenses",
     "routePath": "fawredd-home-expenses/qa-engineer",
     "updatedAt": "2026-05-27T14:40:45Z"
+  },
+  {
+    "owner": "stacksjs",
+    "repo": "pet-store",
+    "routePath": "pet-store/stacks-buddy",
+    "updatedAt": "2026-05-27T14:35:15Z"
   },
   {
     "owner": "Abdullahmohammadaref",
@@ -1930,6 +2008,12 @@
     "repo": "ReelMind",
     "routePath": "ReelMind/caveman-compress",
     "updatedAt": "2026-05-26T13:10:43Z"
+  },
+  {
+    "owner": "xashgg",
+    "repo": "claude-code-my-workflow-codex",
+    "routePath": "claude-code-my-workflow-codex/data-analysis",
+    "updatedAt": "2026-05-26T12:54:33Z"
   },
   {
     "owner": "tomas-chudjak",
@@ -3034,6 +3118,12 @@
     "repo": "knots",
     "routePath": "knots/knots-create",
     "updatedAt": "2026-05-18T12:57:30Z"
+  },
+  {
+    "owner": "ivfarias",
+    "repo": "ceo",
+    "routePath": "ceo/using-git-worktrees",
+    "updatedAt": "2026-05-18T12:51:02Z"
   },
   {
     "owner": "Christos-Hadjinikolis",
@@ -4980,6 +5070,12 @@
     "updatedAt": "2026-05-03T06:28:00Z"
   },
   {
+    "owner": "zhizdev",
+    "repo": "overgrow",
+    "routePath": "overgrow/grow",
+    "updatedAt": "2026-05-03T05:36:54Z"
+  },
+  {
     "owner": "RealFascinated",
     "repo": "scoresaber-reloaded",
     "routePath": "scoresaber-reloaded/elysiajs",
@@ -5380,6 +5476,12 @@
     "repo": "serenity-pocket-app-final",
     "routePath": "serenity-pocket-app-final/freeze",
     "updatedAt": "2026-04-12T05:05:38Z"
+  },
+  {
+    "owner": "gth-ai",
+    "repo": "hadriengayap.github.io",
+    "routePath": "hadriengayap.github.io/ship",
+    "updatedAt": "2026-04-12T02:23:01Z"
   },
   {
     "owner": "aamdmn",
@@ -9174,6 +9276,12 @@
     "updatedAt": "2026-03-06T02:38:17Z"
   },
   {
+    "owner": "Mohamed-Elkahef",
+    "repo": "test-project",
+    "routePath": "test-project/nutritional-specialist",
+    "updatedAt": "2026-03-05T22:58:23Z"
+  },
+  {
     "owner": "naj2r",
     "repo": "claude-econ-paper-template",
     "routePath": "claude-econ-paper-template/review-r",
@@ -9934,6 +10042,12 @@
     "repo": "world",
     "routePath": "world/dev",
     "updatedAt": "2026-02-20T03:54:02Z"
+  },
+  {
+    "owner": "ivalmart",
+    "repo": "Skilled-LLMs-CMPM280G",
+    "routePath": "Skilled-LLMs-CMPM280G/rlm",
+    "updatedAt": "2026-02-20T01:16:23Z"
   },
   {
     "owner": "tanepiper",
