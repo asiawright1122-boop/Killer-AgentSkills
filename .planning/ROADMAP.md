@@ -2,53 +2,48 @@
 
 ## Overview
 
-`v3.7 Authority Expansion & Content Depth Acceleration` is now the active milestone.
+`v3.8 Backlog Content Enrichment Automation` is now the active milestone.
 
-This milestone focuses on systematically exploiting the opened Discovery Expansion Boundary (6 promote-ready surfaces). We will upgrade the highest-priority biweekly hold surfaces, harden editorial content in the Homepage Root Hub and Collections Hub to seed the trust baseline, audit/deduplicate collections, and design an automated content enrichment workflow.
+This milestone focuses on scale content enrichment. We will build and run an automated pipeline that can batch-upgrade thin/low-quality descriptions on backlog authority surfaces (which are currently stuck at `hold` status due to thin content warnings), enforce strict CJK translation parity, and verify their readiness to transition to `promote` status on the scorecard.
 
 ## Immediate Next Actions
 
-- Plan Phase 113: New Authority Surface Candidates (`/gsd-plan-phase 113`).
+- Plan Phase 114: Content Enrichment Pipeline Integration (`/gsd-plan-phase 114`).
 
-## Current Milestone: v3.7 Authority Expansion & Content Depth Acceleration
+## Current Milestone: v3.8 Backlog Content Enrichment Automation
 
-**Goal:** Systematically exploit the Discovery Expansion Boundary by promoting queue-priority hold surfaces, hardening editorial hub content, auditing collections, and scripting automated content quality upgrades.
+**Goal:** Build and run an automated pipeline to batch-upgrade thin/low-quality content on hold backlog authority surfaces to satisfy SEO quality gates.
 
 **Requirements:**
-- [x] AIOPS-30: Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote.
-- [x] AIOPS-31: Harden Homepage Root Hub and Collections Hub editorial content to seed proof baseline.
-- [ ] AIOPS-32: Audit and deduplicate existing collections content; remediate low-quality entries.
-- [ ] AIOPS-33: Define and implement automated content enrichment workflow for hold backlog.
-- [ ] AIOPS-34: Open 2–4 new authority surface candidates from underrepresented classes.
+- [ ] AIOPS-35: Integrate the content enrichment validation report with an automated LLM rewrite pipeline.
+- [ ] AIOPS-36: Execute batch enrichment on all currently thin or hold collections.
+- [ ] AIOPS-37: Enforce strict CJK translation parity and trailing punctuation validation checks.
+- [ ] AIOPS-38: Validate promoted surfaces using scorecard reports.
 
-### Phase 109: Biweekly Hold Surface Promotion
-- **Requirements:** AIOPS-30
-- **Scope:** Audit next-queue hold surfaces, apply content upgrades, and regenerate scorecard to verify promote decision.
-- **Status:** Complete
+### Phase 114: Content Enrichment Pipeline Integration
+- **Requirements:** AIOPS-35
+- **Scope:** Build/extend scripts to consume diagnostics and integrate with LLM pipeline for localized generation.
+- **Status:** Pending
 
-### Phase 110: Homepage & Collections Hub Editorial Hardening
-- **Requirements:** AIOPS-31
-- **Scope:** Hardening copy and structural curation sections for Homepage Root Hub and Collections Hub.
-- **Status:** Complete
+### Phase 115: Batch Backlog Content Enrichment
+- **Requirements:** AIOPS-36
+- **Scope:** Execute the batch pipeline across all thin/hold collections and update JSON metadata.
+- **Status:** Pending
 
-### Phase 111: Collections Audit & Deduplication
-- **Requirements:** AIOPS-32
-- **Scope:** Audit top collections for duplicates or thin entries and establish quality checklist.
-- **Status:** Complete
+### Phase 116: Translation Parity & Punctuation Guardrails
+- **Requirements:** AIOPS-37
+- **Scope:** Implement validation checks for CJK translation parity and trailing punctuation check.
+- **Status:** Pending
 
-### Phase 112: Automated Content Enrichment Workflow Design
-- **Requirements:** AIOPS-33
-- **Scope:** Build a workflow/script to batch-upgrade hold backlog content quality.
-- **Status:** Complete
-
-### Phase 113: New Authority Surface Candidates
-- **Requirements:** AIOPS-34
-- **Scope:** Define, configure, and seed initial content for 2–4 new authority surface candidates.
-- **Status:** Complete
+### Phase 117: Scorecard Promotion Verification
+- **Requirements:** AIOPS-38
+- **Scope:** Run scorecard reports and verify that the enriched pages transition to `promote`.
+- **Status:** Pending
 
 ## Milestones
 
-- 🔄 **v3.7 Authority Expansion & Content Depth Acceleration** — phases 109-113 (active)
+- 🔄 **v3.8 Backlog Content Enrichment Automation** — phases 114-117 (active)
+- ✅ **v3.7 Authority Expansion & Content Depth Acceleration** — phases 109-113 (shipped 2026-06-05; [archive](./milestones/v3.7-ROADMAP.md), [requirements](./milestones/v3.7-REQUIREMENTS.md), [audit](./milestones/v3.7-MILESTONE-AUDIT.md))
 - ✅ **v3.6 Authority Surfaces Promotion** — phases 106-108 (shipped 2026-06-04; [archive](./milestones/v3.6-ROADMAP.md), [requirements](./milestones/v3.6-REQUIREMENTS.md), [audit](./v3.6-MILESTONE-AUDIT.md))
 - ✅ **v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion** — phases 103-105 (shipped 2026-06-04; [archive](./milestones/v3.5-ROADMAP.md), [requirements](./milestones/v3.5-REQUIREMENTS.md), [audit](./v3.5-MILESTONE-AUDIT.md))
 - ✅ **v3.4 Coverage Cluster Remediation & AI Telemetry Refresh** — phases 100-102 (shipped 2026-06-04; [archive](./milestones/v3.4-ROADMAP.md), [requirements](./milestones/v3.4-REQUIREMENTS.md), [audit](./v3.4-MILESTONE-AUDIT.md))
@@ -58,24 +53,24 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
 - ✅ **v2.9 Coverage Data Ingestion & Post-Intervention Automation** — phases 85-87 (shipped 2026-06-03; [audit](./milestones/v2.9-MILESTONE-AUDIT.md))
 - ✅ **v2.8 Growth, Telemetry & UX Expansion** — phases 81-84 (shipped 2026-06-03; [audit](./milestones/v2.8-MILESTONE-AUDIT.md))
-- ✅ **v2.7 Operator Profiles and Fresh Ingestion** — phase 80 (shipped 2026-06-03; [archive](./milestones/v2.7-ROADMAP.md), [requirements](./milestones/v2.7-REQUIREMENTS.md), [audit](./milestones/v2.7-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.7-BOOTSTRAP.md), [closeout](./milestones/v2.7-CLOSEOUT.md))
-- ✅ **v2.6 Index Alignment and AI Posture Hardening** — phase 79 (shipped 2026-06-03; [archive](./milestones/v2.6-ROADMAP.md), [requirements](./milestones/v2.6-REQUIREMENTS.md), [audit](./milestones/v2.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.6-BOOTSTRAP.md), [closeout](./milestones/v2.6-CLOSEOUT.md))
-- ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [archive](./milestones/v2.5-ROADMAP.md), [requirements](./milestones/v2.5-REQUIREMENTS.md), [audit](./milestones/v2.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.5-BOOTSTRAP.md), [closeout](./milestones/v2.5-CLOSEOUT.md))
-- ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [archive](./milestones/v2.4-ROADMAP.md), [requirements](./milestones/v2.4-REQUIREMENTS.md), [audit](./milestones/v2.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.4-BOOTSTRAP.md), [closeout](./milestones/v2.4-CLOSEOUT.md))
-- ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [archive](./milestones/v2.3-ROADMAP.md), [requirements](./milestones/v2.3-REQUIREMENTS.md), [audit](./milestones/v2.3-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.3-BOOTSTRAP.md), [closeout](./milestones/v2.3-CLOSEOUT.md))
-- ✅ **v2.2 Directory Automated Expansion and Full Rollout** — phases 74-75 (shipped 2026-06-03; [archive](./milestones/v2.2-ROADMAP.md), [requirements](./milestones/v2.2-REQUIREMENTS.md), [audit](./milestones/v2.2-MILESTONE-AUDIT.md), [bootstrap](./milestones/v2.2-BOOTSTRAP.md), [closeout](./milestones/v2.2-CLOSEOUT.md))
-- ✅ **v2.1 Directory Auto-Expansion and Verification** — phases 72-73 (shipped 2026-06-03; [archive](./milestones/v2.1-ROADMAP.md), [requirements](./milestones/v2.1-REQUIREMENTS.md), [audit](./milestones/v2.1-MILESTONE-AUDIT.md), [bootstrap](./v2.1-BOOTSTRAP.md), [closeout](./v2.1-CLOSEOUT.md))
-- ✅ **v2.0 Helpful Content Injection and Authority Unlock** — phases 68-71 (shipped 2026-06-03; [archive](./milestones/v2.0-ROADMAP.md), [requirements](./milestones/v2.0-REQUIREMENTS.md), [audit](./milestones/v2.0-MILESTONE-AUDIT.md))
-- ✅ **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (shipped 2026-05-29; [archive](./milestones/v1.9-ROADMAP.md), [requirements](./milestones/v1.9-REQUIREMENTS.md), [audit](./milestones/v1.9-MILESTONE-AUDIT.md), [closeout](./milestones/v1.9-CLOSEOUT.md), [traceability](./milestones/v1.9-TRACEABILITY.md))
-- ✅ **v1.8 Fresh Recovery Inputs and Comparable Proof Refresh** — phases 61-63 (shipped 2026-05-06; [archive](./milestones/v1.8-ROADMAP.md), [requirements](./milestones/v1.8-REQUIREMENTS.md), [audit](./milestones/v1.8-MILESTONE-AUDIT.md), [closeout](./milestones/v1.8-CLOSEOUT.md), [traceability](./milestones/v1.8-TRACEABILITY.md))
-- ✅ **v1.7 Public Trust Surface and Copy Boundary Hardening** — phases 58-60 (shipped 2026-04-23; [archive](./milestones/v1.7-ROADMAP.md), [requirements](./milestones/v1.7-REQUIREMENTS.md), [audit](./milestones/v1.7-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.7-BOOTSTRAP.md), [closeout](./milestones/v1.7-CLOSEOUT.md), [traceability](./milestones/v1.7-TRACEABILITY.md))
-- ✅ **v1.6 Post-Governance Recovery Proof and Authority Lift** — phases 54-57 (shipped 2026-04-16; [archive](./milestones/v1.6-ROADMAP.md), [requirements](./milestones/v1.6-REQUIREMENTS.md), [audit](./milestones/v1.6-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.6-BOOTSTRAP.md), [closeout](./milestones/v1.6-CLOSEOUT.md), [traceability](./milestones/v1.6-TRACEABILITY.md))
-- ✅ **v1.5 Traffic Recovery Proof and Demand Restart** — phases 46-53 (shipped 2026-04-16; [archive](./milestones/v1.5-ROADMAP.md), [requirements](./milestones/v1.5-REQUIREMENTS.md), [audit](./milestones/v1.5-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.5-BOOTSTRAP.md), [closeout](./milestones/v1.5-CLOSEOUT.md), [traceability](./milestones/v1.5-TRACEABILITY.md))
-- ✅ **v1.4 Traffic Recovery Closure** — phases 43-45 (shipped 2026-04-09; [archive](./milestones/v1.4-ROADMAP.md), [requirements](./milestones/v1.4-REQUIREMENTS.md), [audit](./milestones/v1.4-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.4-BOOTSTRAP.md), [closeout](./milestones/v1.4-CLOSEOUT.md))
-- ✅ **v1.3 Adaptive Provider Control and Escalation Automation** — phases 39-42 (shipped 2026-04-07; [archive](./milestones/v1.3-ROADMAP.md), [requirements](./milestones/v1.3-REQUIREMENTS.md), [audit](./milestones/v1.3-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.3-BOOTSTRAP.md), [closeout](./milestones/v1.3-CLOSEOUT.md))
-- ✅ **v1.2 Operator Automation and Runtime Convergence** — phases 35-38 (shipped 2026-04-07; [archive](./milestones/v1.2-ROADMAP.md), [requirements](./milestones/v1.2-REQUIREMENTS.md), [audit](./milestones/v1.2-MILESTONE-AUDIT.md), [bootstrap](./milestones/v1.2-BOOTSTRAP.md), [closeout](./milestones/v1.2-CLOSEOUT.md))
-- ✅ **v1.1 Observability and Governance Hardening** — phases 31-34 (shipped 2026-04-06; [archive](./milestones/v1.1-ROADMAP.md), [requirements](./milestones/v1.1-REQUIREMENTS.md), [audit](./milestones/v1.1-MILESTONE-AUDIT.md))
-- ✅ **v1.0 Reliability and Growth Operations** — phases 1-30 (shipped 2026-04-06; [archive](./milestones/v1.0-ROADMAP.md), [requirements](./milestones/v1.0-REQUIREMENTS.md), [audit](./milestones/v1.0-MILESTONE-AUDIT.md))
+- ✅ **v2.7 Operator Profiles and Fresh Ingestion** — phase 80 (shipped 2026-06-03; [audit](./milestones/v2.7-MILESTONE-AUDIT.md))
+- ✅ **v2.6 Index Alignment and AI Posture Hardening** — phase 79 (shipped 2026-06-03; [audit](./milestones/v2.6-MILESTONE-AUDIT.md))
+- ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [audit](./milestones/v2.5-MILESTONE-AUDIT.md))
+- ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [audit](./milestones/v2.4-MILESTONE-AUDIT.md))
+- ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [audit](./milestones/v2.3-MILESTONE-AUDIT.md))
+- ✅ **v2.2 Directory Automated Expansion and Full Rollout** — phases 74-75 (shipped 2026-06-03; [audit](./milestones/v2.2-MILESTONE-AUDIT.md))
+- ✅ **v2.1 Directory Auto-Expansion and Verification** — phases 72-73 (shipped 2026-06-03; [audit](./milestones/v2.1-MILESTONE-AUDIT.md))
+- ✅ **v2.0 Helpful Content Injection and Authority Unlock** — phases 68-71 (shipped 2026-06-03; [audit](./milestones/v2.0-MILESTONE-AUDIT.md))
+- ✅ **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (shipped 2026-05-29; [audit](./milestones/v1.9-MILESTONE-AUDIT.md))
+- ✅ **v1.8 Fresh Recovery Inputs and Comparable Proof Refresh** — phases 61-63 (shipped 2026-05-06; [audit](./milestones/v1.8-MILESTONE-AUDIT.md))
+- ✅ **v1.7 Public Trust Surface and Copy Boundary Hardening** — phases 58-60 (shipped 2026-04-23; [audit](./milestones/v1.7-MILESTONE-AUDIT.md))
+- ✅ **v1.6 Post-Governance Recovery Proof and Authority Lift** — phases 54-57 (shipped 2026-04-16; [audit](./milestones/v1.6-MILESTONE-AUDIT.md))
+- ✅ **v1.5 Traffic Recovery Proof and Demand Restart** — phases 46-53 (shipped 2026-04-16; [audit](./milestones/v1.5-MILESTONE-AUDIT.md))
+- ✅ **v1.4 Traffic Recovery Closure** — phases 43-45 (shipped 2026-04-09; [audit](./milestones/v1.4-MILESTONE-AUDIT.md))
+- ✅ **v1.3 Adaptive Provider Control and Escalation Automation** — phases 39-42 (shipped 2026-04-07; [audit](./milestones/v1.3-MILESTONE-AUDIT.md))
+- ✅ **v1.2 Operator Automation and Runtime Convergence** — phases 35-38 (shipped 2026-04-07; [audit](./milestones/v1.2-MILESTONE-AUDIT.md))
+- ✅ **v1.1 Observability and Governance Hardening** — phases 31-34 (shipped 2026-04-06; [audit](./milestones/v1.1-MILESTONE-AUDIT.md))
+- ✅ **v1.0 Reliability and Growth Operations** — phases 1-30 (shipped 2026-04-06; [audit](./milestones/v1.0-MILESTONE-AUDIT.md))
 
 ## Carry-Forward Themes
 
@@ -89,6 +84,7 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 | Milestone | Phases | Plans | Status | Shipped |
 |-----------|--------|-------|--------|---------|
+| v3.8 Backlog Content Enrichment Automation | 114-117 | 0/4 | Active | — |
 | v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 5/5 | Complete | 2026-06-05 |
 | v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
 | v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
@@ -120,4 +116,4 @@ This milestone focuses on systematically exploiting the opened Discovery Expansi
 
 ---
 
-_Last updated: 2026-06-05 after completing Phase 113 of v3.7 Authority Expansion & Content Depth Acceleration._
+_Last updated: 2026-06-09 after completing Phase 113 of v3.7 Authority Expansion & Content Depth Acceleration._
