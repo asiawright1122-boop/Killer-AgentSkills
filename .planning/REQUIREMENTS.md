@@ -1,78 +1,61 @@
-# Requirements: v3.7 Authority Expansion & Content Depth Acceleration
+# Requirements: v3.8 Backlog Content Enrichment Automation
 
 ## Overview
 
-With the Discovery Expansion Boundary now open (6 promote-ready surfaces, gate: open), v3.7 shifts from unlocking the boundary to systematically exploiting it. The milestone pursues three parallel tracks:
+With the groundwork for automated content enrichment laid in v3.7 (specifically the creation of the validation report script `seo-content-enrichment-report.ts`), Milestone v3.8 focuses on scaling content enrichment. The goal is to build an automated pipeline that can batch-upgrade thin or low-quality descriptions on backlog authority surfaces (which are currently stuck at `hold` status due to thin content warnings), enforce strict punctuation and CJK locale rules, and verify their readiness to transition to `promote` status on the scorecard.
 
-1. **Depth Track** — Upgrade the highest-priority `biweekly` hold surfaces to tip them into `promote`.
-2. **Hub Track** — Harden the Homepage Root Hub and Collections Hub (already promote-ready) with richer curated editorial content to seed the trust baseline.
-3. **Expansion Track** — Audit existing collections for quality/dedup, open new authority surface candidates, and design an automated content enrichment workflow for the hold backlog.
+## v3.8 Requirements
 
-## v3.7 Requirements
-
-- [ ] **AIOPS-30**: Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote by addressing their biweekly gate blockers.
-- [ ] **AIOPS-31**: Harden Homepage Root Hub and Collections Hub editorial content to seed the proof baseline and raise trust verdict from `warning` to `ready`.
-- [ ] **AIOPS-32**: Audit and deduplicate existing collections content; identify and remediate low-quality or duplicate entries across top-N collections.
-- [ ] **AIOPS-33**: Define and implement an automated content enrichment workflow for biweekly-cadence hold surfaces (bulk-lift mechanism).
-- [ ] **AIOPS-34**: Open 2–4 new authority surface candidates from underrepresented surface classes (e.g., comparison pages, solution hubs, or tool-category landings).
+- [ ] **AIOPS-35**: Integrate the content enrichment validation report with an automated LLM rewrite pipeline (content-generator script).
+- [ ] **AIOPS-36**: Execute batch enrichment on all currently thin or hold collections under `src/content/collections/`.
+- [ ] **AIOPS-37**: Enforce strict CJK translation parity and trailing punctuation validation checks on all upgraded pages.
+- [ ] **AIOPS-38**: Validate promoted surfaces using scorecard reports under production-like configs.
 
 ## Scope
 
-### 1. Biweekly Hold Surface Promotion — Queue Priority (Phase 109)
-- **Problem**: 20 hold surfaces are in biweekly cadence; 2 are already queued `next` (`Official AI Agent Skills Guide`, `Claude Code vs Cursor vs Windsurf`) and are the immediate promotion targets.
+### 1. Integrate content enrichment validation with LLM rewrite pipeline (Phase 114)
+- **Problem**: We need a script that consumes the diagnostics from `seo-content-enrichment-report.ts` and uses LLM routing to automatically generate enriched Descriptions for any thin surfaces.
 - **Requirement**:
-  - Audit the two `next`-queue surfaces for specific content blockers.
-  - Apply targeted content upgrades (skill linkages, comparison data, installation guidance).
-  - Regenerate scorecard to confirm `promote` decision.
-- **Verification**: Scorecard shows both surfaces at `promote`.
+  - Build/extend a script (e.g. `scripts/enrich-collections-batch.ts`) to read report output.
+  - Integrate with the internal AI provider to generate enriched descriptions in all 10 locales.
+  - Handle rate limits and implement dry-run modes.
+- **Verification**: Script is functional and successfully processes a single test case.
 
-### 2. Homepage & Collections Hub Editorial Hardening (Phase 110)
-- **Problem**: Homepage Root Hub is already `promote` in the scorecard, but `trust verdict = warning` and `baselineSeeded = no` means the overall proof window is not yet trustworthy. Seeding the baseline requires high-quality editorial content on the homepage and collections hub.
+### 2. Execute batch enrichment on backlog collections (Phase 115)
+- **Problem**: 20+ authority pages and collections are marked as `hold` because their description length is too thin or they have formatting drift.
 - **Requirement**:
-  - Upgrade homepage hero copy to be clearly user-facing and discovery-oriented.
-  - Add curated editorial sections (e.g., "Editor's Picks", "Getting Started Path", "Trending Skills").
-  - Harden Collections Hub with intro copy, category descriptions, and hub-level navigation.
-- **Verification**: Scorecard trust verdict transitions from `warning` to `ready`; baseline seeded flag changes to `yes` in the next reporting window.
+  - Run the batch pipeline across all flagged collections.
+  - Inject the generated metadata back into the source JSON files.
+- **Verification**: Zero thin surfaces remaining according to the content enrichment report.
 
-### 3. Collections Audit & Deduplication (Phase 111)
-- **Problem**: As collections grow, duplicate or low-value entries reduce the editorial signal and dilute authority quality scores.
+### 3. Enforce strict CJK parity and punctuation checks (Phase 116)
+- **Problem**: Machine-generated translations often drop final punctuation (e.g. `.` or `。`) or exhibit language drift, failing the unit tests.
 - **Requirement**:
-  - Run a systematic quality audit on the top 10–15 collections by traffic potential.
-  - Identify and remove duplicate entries, thin descriptions, or entries without install guidance.
-  - Establish a content quality checklist for future collection entries.
-- **Verification**: Quality audit report generated; collections updated; no duplicate entries in audited set.
+  - Implement strict linting/validation gates to check that all translation keys have parity.
+  - Guarantee that every `seoDescription` ends with valid punctuation.
+- **Verification**: `npm run typecheck` and `vitest` tests pass cleanly.
 
-### 4. Automated Content Enrichment Workflow Design (Phase 112)
-- **Problem**: Manually upgrading 20+ biweekly hold surfaces is not scalable. An automated enrichment workflow would allow bulk-lifting content quality across the hold backlog.
+### 4. Scorecard verification and promotion (Phase 117)
+- **Problem**: Enriched surfaces need to be verified against the scorecard using production configurations.
 - **Requirement**:
-  - Design a repeatable enrichment pipeline: ingest authority surface config → analyze content gaps → generate enrichment suggestions → apply and validate.
-  - Implement a script or workflow that runs enrichment on a batch of hold surfaces.
-  - Validate the workflow against 3–5 target surfaces before full rollout.
-- **Verification**: Enrichment workflow script exists and runs without errors; 3–5 test surfaces show improved content scores.
-
-### 5. New Authority Surface Candidates (Phase 113)
-- **Problem**: The current 32-surface program covers collections, solutions, and tool-type hubs but is missing some high-value surface classes (e.g., head-to-head comparison pages, framework-specific landings, use-case solution guides).
-- **Requirement**:
-  - Identify 2–4 new surface candidates from unrepresented surface classes.
-  - Create surface configurations in `data/authority-surfaces.json` and `src/lib/authority-surface-public-data.ts`.
-  - Seed initial content for each new surface.
-- **Verification**: New surfaces appear in the authority operator queue; scorecard generates decisions for them.
+  - Run the authority scorecard and operator queue reports.
+  - Verify that the enriched pages transition to `promote`.
+- **Verification**: Updated scorecards generated in `reports/seo/`.
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-30 | Phase 109 | Pending |
-| AIOPS-31 | Phase 110 | Pending |
-| AIOPS-32 | Phase 111 | Pending |
-| AIOPS-33 | Phase 112 | Pending |
-| AIOPS-34 | Phase 113 | Pending |
+| AIOPS-35 | Phase 114 | Pending |
+| AIOPS-36 | Phase 115 | Pending |
+| AIOPS-37 | Phase 116 | Pending |
+| AIOPS-38 | Phase 117 | Pending |
 
 **Coverage:**
-- v3.7 requirements: 5 total
-- Mapped to phases: 5
+- v3.8 requirements: 4 total
+- Mapped to phases: 4
 - Unmapped: 0
 
 ---
 
-*Last updated: 2026-06-04 during initialization of v3.7 Authority Expansion & Content Depth Acceleration*
+*Last updated: 2026-06-09 during initialization of v3.8 Backlog Content Enrichment Automation*
