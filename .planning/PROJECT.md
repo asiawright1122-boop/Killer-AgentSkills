@@ -10,8 +10,9 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.6` are shipped.
-- `v3.7` is currently active.
+- `v1.0` through `v3.7` are shipped.
+- `v3.8` is currently active.
+- `v3.7` (shipped 2026-06-05) executed Milestone v3.7 to systematically exploit the Discovery Expansion Boundary: promoted two biweekly priority hold surfaces to `promote` status, audited and deduplicated existing collections content (remediating all low-quality entries), established an automated content enrichment check, and configured/seeded 3 new authority surfaces (Go, Java, Mobile AI Tools) with 10-language parity.
 - `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
 - `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
 - `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
@@ -26,16 +27,30 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Most Recent Shipment: v3.6 Authority Surfaces Promotion
+## Current Milestone: v3.8 Backlog Content Enrichment Automation
 
-**Outcome:** Executed a comprehensive quality audit on 32 authority surface pages, resolved internal-link-support gate blockers via global link injection in Header/Sidebar/Footer, upgraded JSON content with CLI install examples and first-party evaluations, and regenerated the scorecard with `SEO_FORCE_EXPANSION_OPEN=true`. Both target P0 pages (`Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills`) transitioned to `promote` status. Discovery Expansion Boundary is now open with 6 promote-ready surfaces.
+**Goal:** Build and run an automated pipeline to batch-upgrade thin/low-quality content on hold backlog authority surfaces to satisfy SEO quality gates.
+
+**Target features:**
+- Integrate content enrichment validation with automated LLM rewrite pipeline.
+- Execute batch enrichment on all currently thin/hold collections.
+- Enforce strict CJK parity and ending punctuation validation checks.
+- Validate promoted surfaces using scorecard reports under production-like configs.
+
+## Most Recent Shipment: v3.7 Authority Expansion & Content Depth Acceleration
+
+**Outcome:** Systematically exploited the Discovery Expansion Boundary by promoting biweekly priority hold surfaces, hardening editorial hub content, auditing collections, and scripting automated content quality upgrades.
 
 **Shipped capabilities:**
-- Verified remote database D1 indexation coverage rate, identifying the remaining 404 URL exclusion.
-- Remediated `/zh/skills/invalid-page` via 301 edge redirect and synced the remote D1 database to drive the Technical Recovery Rate to 100%.
-- Fetched fresh Search Console CTR metrics and updated the scorecard to transition both Technical and Business recovery gates to CLEAR.
+- Promoted `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote.
+- Hardened Homepage Root Hub and Collections Hub editorial content to seed proof baseline.
+- Audited and deduplicated existing collections content, resolving drift and duplicate entries.
+- Designed and built the automated content enrichment report workflow (`seo-content-enrichment-report.ts`).
+- Defined, configured, and seeded 3 new authority surface candidates (Go, Java, Mobile AI Tools) with complete 10-language parity.
 
-## Previous Shipment: v3.4 Coverage Cluster Remediation & AI Telemetry Refresh
+## Previous Shipment: v3.6 Authority Surfaces Promotion
+
+**Outcome:** Executed a comprehensive quality audit on 32 authority surface pages, resolved internal-link-support gate blockers via global link injection in Header/Sidebar/Footer, upgraded JSON content with CLI install examples and first-party evaluations, and regenerated the scorecard with `SEO_FORCE_EXPANSION_OPEN=true`. Both target P0 pages (`Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills`) transitioned to `promote` status. Discovery Expansion Boundary is now open with 6 promote-ready surfaces.
 
 **Outcome:** Addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized the backup provider configuration.
 
@@ -143,14 +158,18 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AIOPS-27: Authority Surface Quality Audit] - `v3.6`
 - ✓ [AIOPS-28: Authority Content Upgrade] - `v3.6`
 - ✓ [AIOPS-29: Scorecard Evaluation and Promotion Validation] - `v3.6`
+- ✓ [AIOPS-30: Promote Official AI Agent Skills Guide and IDE Comparison] - `v3.7`
+- ✓ [AIOPS-31: Harden Homepage Root Hub and Collections Hub Editorial] - `v3.7`
+- ✓ [AIOPS-32: Audit and Deduplicate Existing Collections] - `v3.7`
+- ✓ [AIOPS-33: Define Automated Content Enrichment Workflow] - `v3.7`
+- ✓ [AIOPS-34: Open 3 New Authority Surfaces Candidates] - `v3.7`
 
 ### Active
 
-- [ ] [AIOPS-30] Promote `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote — `v3.7`
-- [ ] [AIOPS-31] Harden Homepage Root Hub and Collections Hub editorial content to seed proof baseline — `v3.7`
-- [ ] [AIOPS-32] Audit and deduplicate existing collections content; remediate low-quality entries — `v3.7`
-- [ ] [AIOPS-33] Define and implement automated content enrichment workflow for hold backlog — `v3.7`
-- [ ] [AIOPS-34] Open 2–4 new authority surface candidates from underrepresented classes — `v3.7`
+- [ ] [AIOPS-35] Integrate content enrichment validation with automated LLM rewrite pipeline — `v3.8`
+- [ ] [AIOPS-36] Execute batch enrichment on all currently thin/hold collections — `v3.8`
+- [ ] [AIOPS-37] Enforce strict CJK parity and ending punctuation validation checks — `v3.8`
+- [ ] [AIOPS-38] Validate promoted surfaces using scorecard reports under production-like configs — `v3.8`
 
 ### Out of Scope
 
@@ -216,4 +235,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-04 after initializing v3.7 Authority Expansion & Content Depth Acceleration._
+_Last updated: 2026-06-09 after initializing v3.8 Backlog Content Enrichment Automation._
