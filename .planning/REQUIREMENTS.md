@@ -6,7 +6,7 @@ With the groundwork for automated content enrichment laid in v3.7 (specifically 
 
 ## v3.8 Requirements
 
-- [ ] **AIOPS-35**: Integrate the content enrichment validation report with an automated LLM rewrite pipeline (content-generator script).
+- [x] **AIOPS-35**: Integrate the content enrichment validation report with an automated LLM rewrite pipeline (content-generator script).
 - [ ] **AIOPS-36**: Execute batch enrichment on all currently thin or hold collections under `src/content/collections/`.
 - [ ] **AIOPS-37**: Enforce strict CJK translation parity and trailing punctuation validation checks on all upgraded pages.
 - [ ] **AIOPS-38**: Validate promoted surfaces using scorecard reports under production-like configs.
@@ -46,7 +46,7 @@ With the groundwork for automated content enrichment laid in v3.7 (specifically 
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AIOPS-35 | Phase 114 | Pending |
+| AIOPS-35 | Phase 114 | Complete |
 | AIOPS-36 | Phase 115 | Pending |
 | AIOPS-37 | Phase 116 | Pending |
 | AIOPS-38 | Phase 117 | Pending |

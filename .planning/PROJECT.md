@@ -12,6 +12,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 - `v1.0` through `v3.7` are shipped.
 - `v3.8` is currently active.
+- `Phase 114` (shipped 2026-06-09) integrated the automated content enrichment pipeline by creating and verifying batch and apply scripts with CJK/forbidden-word rules.
 - `v3.7` (shipped 2026-06-05) executed Milestone v3.7 to systematically exploit the Discovery Expansion Boundary: promoted two biweekly priority hold surfaces to `promote` status, audited and deduplicated existing collections content (remediating all low-quality entries), established an automated content enrichment check, and configured/seeded 3 new authority surfaces (Go, Java, Mobile AI Tools) with 10-language parity.
 - `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
 - `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
@@ -163,10 +164,10 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AIOPS-32: Audit and Deduplicate Existing Collections] - `v3.7`
 - ✓ [AIOPS-33: Define Automated Content Enrichment Workflow] - `v3.7`
 - ✓ [AIOPS-34: Open 3 New Authority Surfaces Candidates] - `v3.7`
+- ✓ [AIOPS-35: Integrate content enrichment validation with automated LLM rewrite pipeline] - `v3.8` (Phase 114)
 
 ### Active
 
-- [ ] [AIOPS-35] Integrate content enrichment validation with automated LLM rewrite pipeline — `v3.8`
 - [ ] [AIOPS-36] Execute batch enrichment on all currently thin/hold collections — `v3.8`
 - [ ] [AIOPS-37] Enforce strict CJK parity and ending punctuation validation checks — `v3.8`
 - [ ] [AIOPS-38] Validate promoted surfaces using scorecard reports under production-like configs — `v3.8`
@@ -235,4 +236,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-09 after initializing v3.8 Backlog Content Enrichment Automation._
+_Last updated: 2026-06-09 after completing Phase 114 Content Enrichment Pipeline Integration._
