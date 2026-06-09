@@ -175,11 +175,27 @@
   "editorial": {
     "reviewSummary": {
       "en": "Updated on 2026-04-16 to keep setup information, practical use cases, and maintenance status accurate.",
-      "zh": "已于 2026-04-16 更新，重点核对安装信息、实际用途与维护状态。"
+      "zh": "已于 2026-04-16 更新，重点核对安装信息、实际用途与维护状态。",
+      "ja": "2026-04-16 に更新して、設定情報、実践的な使用例、メンテナンスの状態を正確に保ちました。",
+      "ko": "2026-04-16에 설정 정보, 실제 사용 사례, 및 유지 보수 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
+      "es": "Actualizado el 2026-04-16 para mantener la precisión de la información de configuración, los casos de uso prácticos y el estado de mantenimiento.",
+      "fr": "Mise à jour le 2026-04-16 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et du statut de maintenance.",
+      "de": "Aktualisiert am 16.04.2026, um die Einrichtungsinformationen, praktische Anwendungsfälle und den Wartungsstatus genau zu halten.",
+      "pt": "Atualizado em 2026-04-16 para manter as informações de configuração, casos de uso práticos e status de manutenção precisos.",
+      "ru": "Обновлено 2026-04-16, чтобы поддерживать точность информации о настройке, практических случаях использования и статусе обслуживания.",
+      "ar": "تم التحديث في 2026-04-16 للحفاظ على دقة معلومات الإعداد والحالات العملية وحالة الصيانة."
     },
     "selectionReason": {
       "en": "Every tool listed in this collection has been verified against our standard quality checklist. We prioritize official support, setup ease, and active developer maintenance to ensure these skills work reliably for your AI agent teams.",
-      "zh": "本合集收录的每款工具均通过了我们的标准质量清单验证。我们优先考量官方支持度、安装配置的便捷性以及活跃的开发者维护状态，以确保这些技能能够在您的 AI Agent 团队中稳定可靠地运行。"
+      "zh": "本合集收录的每款工具均通过了我们的标准质量清单验证。我们优先考量官方支持度、安装配置的便捷性以及活跃的开发者维护状态，以确保这些技能能够在您的 AI Agent 团队中稳定可靠地运行。",
+      "ja": "このコレクションに記載されているすべてのツールは、当社の標準品質基準に対して検証されています。公式サポート、設定の容易さ、そしてアクティブな開発者によるメンテナンスを優先して、AI エージェント チームでの信頼性の高い動作を保証します。",
+      "ko": "이 컬렉션에 나열된 모든 도구는 우리의 표준 품질 기준에 따라 검증되었습니다. 공식 지원, 설정의 용이성, 및 활발한 개발자 유지 보수를 우선하여 이러한 기술이 귀하의 AI 에이전트 팀에서 안정적으로 작동하도록 합니다.",
+      "es": "Cada herramienta incluida en esta colección ha sido verificada según nuestra lista de comprobación de calidad estándar. Priorizamos el soporte oficial, la facilidad de configuración y el mantenimiento activo de los desarrolladores para garantizar que estas habilidades funcionen de manera fiable para tus equipos de agentes de inteligencia artificial.",
+      "fr": "Chaque outil répertorié dans cette collection a été vérifié contre nos normes de qualité standard. Nous donnons la priorité au support officiel, à la facilité de configuration et à la maintenance active des développeurs pour garantir que ces compétences fonctionnent de manière fiable pour vos équipes d'agents AI.",
+      "de": "Jedes in dieser Sammlung aufgeführte Tool wurde anhand unserer Standard-Qualitätskriterien überprüft. Wir priorisieren offizielle Unterstützung, einfache Einrichtung und aktive Wartung durch die Entwickler, um sicherzustellen, dass diese Fähigkeiten für Ihre KI-Agenten-Teams zuverlässig funktionieren.",
+      "pt": "Todas as ferramentas listadas nesta coleção foram verificadas contra nossa lista de padrões de qualidade. Priorizamos suporte oficial, facilidade de configuração e manutenção ativa dos desenvolvedores para garantir que essas habilidades funcionem de forma confiável para as equipes de agentes de IA.",
+      "ru": "Каждый инструмент, перечисленный в этой коллекции, был проверен на соответствие нашим стандартным критериям качества. Мы отдаем приоритет официальной поддержке, легкости настройки и активному обслуживанию разработчиков, чтобы обеспечить надежную работу этих инструментов для ваших команд агентов ИИ.",
+      "ar": "تم التحقق من كل أداة مدرجة في هذه المجموعة مقابل قائمة جودة معيارية. نحن نؤثر دعمًا رسميًا وسهولة الإعداد وصيانة المطور النشطة لضمان عمل هذه المهارات بشكل موثوق لأفراد فريق وكيلك الإصطناعي."
     },
     "trustSignals": {
       "en": [
