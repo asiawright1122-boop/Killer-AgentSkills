@@ -3,55 +3,97 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-11T16:34:44.286Z"
-  },
-  {
-    "owner": "lekman",
-    "repo": "cdn",
-    "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-11T16:34:44.281Z"
+    "updatedAt": "2026-06-12T05:06:03.807Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-11T16:34:44.281Z"
+    "updatedAt": "2026-06-12T05:06:03.801Z"
+  },
+  {
+    "owner": "lekman",
+    "repo": "cdn",
+    "routePath": "cdn/github-mcp",
+    "updatedAt": "2026-06-12T05:06:03.800Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-11T16:34:44.279Z"
+    "updatedAt": "2026-06-12T05:06:03.799Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-06-11T16:34:44.278Z"
+    "updatedAt": "2026-06-12T05:06:03.798Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-11T16:34:44.277Z"
+    "updatedAt": "2026-06-12T05:06:03.796Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-11T16:34:44.272Z"
+    "updatedAt": "2026-06-12T05:06:03.791Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-11T16:34:44.259Z"
+    "updatedAt": "2026-06-12T05:06:03.778Z"
+  },
+  {
+    "owner": "coleam00",
+    "repo": "Archon",
+    "routePath": "Archon/archon",
+    "updatedAt": "2026-06-12T04:46:41Z"
+  },
+  {
+    "owner": "feordin",
+    "repo": "llm-fhir-query-eval",
+    "routePath": "llm-fhir-query-eval/synthea",
+    "updatedAt": "2026-06-12T04:33:37Z"
+  },
+  {
+    "owner": "phamlongh230-lgtm",
+    "repo": "yamtam-engine",
+    "routePath": "yamtam-engine/typescript-patterns",
+    "updatedAt": "2026-06-12T00:43:44Z"
+  },
+  {
+    "owner": "coinbase",
+    "repo": "cds",
+    "routePath": "cds/git.backport",
+    "updatedAt": "2026-06-11T21:43:35Z"
+  },
+  {
+    "owner": "Pantani",
+    "repo": "tdmcp",
+    "routePath": "tdmcp/mixer-scene-contract",
+    "updatedAt": "2026-06-11T19:17:56Z"
+  },
+  {
+    "owner": "sillsdev",
+    "repo": "FieldWorks",
+    "routePath": "FieldWorks/openspec-ff-change",
+    "updatedAt": "2026-06-11T18:58:32Z"
   },
   {
     "owner": "snyk",
     "repo": "snyk-ls",
     "routePath": "snyk-ls/verification",
     "updatedAt": "2026-06-11T15:38:35Z"
+  },
+  {
+    "owner": "lowtidebuild",
+    "repo": "general-legal-research",
+    "routePath": "general-legal-research/query-interpreter",
+    "updatedAt": "2026-06-11T14:33:32Z"
   },
   {
     "owner": "LeighAtkins",
@@ -492,6 +534,18 @@
     "updatedAt": "2026-06-11T00:22:54Z"
   },
   {
+    "owner": "lejito",
+    "repo": "lejito-web",
+    "routePath": "lejito-web/astro",
+    "updatedAt": "2026-06-10T22:08:33Z"
+  },
+  {
+    "owner": "26zl",
+    "repo": "cybersec-toolkit",
+    "routePath": "cybersec-toolkit/implementing-siem-correlation-rules-for-apt",
+    "updatedAt": "2026-06-10T21:16:03Z"
+  },
+  {
     "owner": "srid",
     "repo": "drishti",
     "routePath": "drishti/ci",
@@ -522,10 +576,10 @@
     "updatedAt": "2026-06-10T16:05:36Z"
   },
   {
-    "owner": "feordin",
-    "repo": "llm-fhir-query-eval",
-    "routePath": "llm-fhir-query-eval/synthea",
-    "updatedAt": "2026-06-10T15:42:21Z"
+    "owner": "pglejzer",
+    "repo": "timepicker-ui",
+    "routePath": "timepicker-ui/docs-a11y",
+    "updatedAt": "2026-06-10T15:35:33Z"
   },
   {
     "owner": "callstackincubator",
@@ -562,6 +616,12 @@
     "repo": "supi",
     "routePath": "supi/bx",
     "updatedAt": "2026-06-10T08:42:23Z"
+  },
+  {
+    "owner": "Eigenwise",
+    "repo": "tesseron",
+    "routePath": "tesseron/update-docs",
+    "updatedAt": "2026-06-10T08:07:54Z"
   },
   {
     "owner": "namGyunKim",
@@ -646,6 +706,12 @@
     "repo": "ai",
     "routePath": "ai/do-presentation",
     "updatedAt": "2026-06-09T03:39:05Z"
+  },
+  {
+    "owner": "padak",
+    "repo": "claude-code-kit",
+    "routePath": "claude-code-kit/e2b",
+    "updatedAt": "2026-06-09T02:46:27Z"
   },
   {
     "owner": "octopollux",
@@ -850,6 +916,12 @@
     "repo": "starwars-data",
     "routePath": "starwars-data/caveman-review",
     "updatedAt": "2026-06-07T12:09:12Z"
+  },
+  {
+    "owner": "Aysnc-Labs",
+    "repo": "angora",
+    "routePath": "angora/angora-data",
+    "updatedAt": "2026-06-07T09:52:56Z"
   },
   {
     "owner": "BlackBox-Studio-Athens",
@@ -3774,6 +3846,12 @@
     "updatedAt": "2026-05-18T15:46:45Z"
   },
   {
+    "owner": "mklab-se",
+    "repo": "mdeck",
+    "routePath": "mdeck/release",
+    "updatedAt": "2026-05-18T14:58:35Z"
+  },
+  {
     "owner": "scarpeace",
     "repo": "aprimorar",
     "routePath": "aprimorar/openspec-verify-change",
@@ -5932,6 +6010,12 @@
     "repo": "ai-engineering",
     "routePath": "ai-engineering/ai-pr",
     "updatedAt": "2026-04-29T16:56:37Z"
+  },
+  {
+    "owner": "andrem-sec",
+    "repo": "psc-comet",
+    "routePath": "psc-comet/checkpoint",
+    "updatedAt": "2026-04-29T15:17:05Z"
   },
   {
     "owner": "tonyoconnell",
@@ -9882,6 +9966,18 @@
     "updatedAt": "2026-03-09T01:58:00.734Z"
   },
   {
+    "owner": "brave-experiments",
+    "repo": "brave-core-tools",
+    "routePath": "brave-core-tools/review",
+    "updatedAt": "2026-03-09T00:23:07Z"
+  },
+  {
+    "owner": "dot-do",
+    "repo": "dotdo",
+    "routePath": "dotdo/run-tasks",
+    "updatedAt": "2026-03-08T16:25:28Z"
+  },
+  {
     "owner": "UnaMentis",
     "repo": "unamentis",
     "routePath": "unamentis/mcp-setup",
@@ -9961,14 +10057,14 @@
   },
   {
     "owner": "aget-framework",
-    "repo": "template-operator-aget",
-    "routePath": "template-operator-aget/aget-check-evolution",
+    "repo": "template-analyst-aget",
+    "routePath": "template-analyst-aget/aget-check-evolution",
     "updatedAt": "2026-03-07T01:49:01.776Z"
   },
   {
     "owner": "aget-framework",
-    "repo": "template-analyst-aget",
-    "routePath": "template-analyst-aget/aget-check-evolution",
+    "repo": "template-operator-aget",
+    "routePath": "template-operator-aget/aget-check-evolution",
     "updatedAt": "2026-03-07T01:49:01.776Z"
   },
   {
@@ -11128,6 +11224,12 @@
     "repo": "codecamp-advantage",
     "routePath": "codecamp-advantage/sprint-planner",
     "updatedAt": "2025-12-13T11:52:38Z"
+  },
+  {
+    "owner": "matthew-bram",
+    "repo": "enterprise-confluent-test-probe",
+    "routePath": "enterprise-confluent-test-probe/vibe-mode",
+    "updatedAt": "2025-12-08T22:04:50Z"
   },
   {
     "owner": "gounthar",
