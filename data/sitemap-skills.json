@@ -3,49 +3,85 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-12T15:41:15.858Z"
+    "updatedAt": "2026-06-13T04:54:19.889Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-12T15:41:15.853Z"
+    "updatedAt": "2026-06-13T04:54:19.884Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-12T15:41:15.852Z"
-  },
-  {
-    "owner": "bug-ops",
-    "repo": "zeph",
-    "routePath": "zeph/github",
-    "updatedAt": "2026-06-12T15:41:15.850Z"
+    "updatedAt": "2026-06-13T04:54:19.883Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-12T15:41:15.850Z"
+    "updatedAt": "2026-06-13T04:54:19.881Z"
+  },
+  {
+    "owner": "bug-ops",
+    "repo": "zeph",
+    "routePath": "zeph/github",
+    "updatedAt": "2026-06-13T04:54:19.880Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-12T15:41:15.848Z"
+    "updatedAt": "2026-06-13T04:54:19.878Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-12T15:41:15.843Z"
+    "updatedAt": "2026-06-13T04:54:19.872Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-12T15:41:15.831Z"
+    "updatedAt": "2026-06-13T04:54:19.859Z"
+  },
+  {
+    "owner": "jordanburke",
+    "repo": "functype",
+    "routePath": "functype/functype",
+    "updatedAt": "2026-06-13T03:12:51Z"
+  },
+  {
+    "owner": "mikeyobrien",
+    "repo": "ralph-orchestrator",
+    "routePath": "ralph-orchestrator/code-assist",
+    "updatedAt": "2026-06-13T01:29:16Z"
+  },
+  {
+    "owner": "azalio",
+    "repo": "map-framework",
+    "routePath": "map-framework/map-review",
+    "updatedAt": "2026-06-12T20:21:26Z"
+  },
+  {
+    "owner": "agatx",
+    "repo": "serenada",
+    "routePath": "serenada/investigate",
+    "updatedAt": "2026-06-12T18:16:14Z"
+  },
+  {
+    "owner": "mariadb-corporation",
+    "repo": "mariadb-docs",
+    "routePath": "mariadb-docs/docs-check",
+    "updatedAt": "2026-06-12T18:02:13Z"
+  },
+  {
+    "owner": "qdhenry",
+    "repo": "Claude-Command-Suite",
+    "routePath": "Claude-Command-Suite/audit-env-variables",
+    "updatedAt": "2026-06-12T14:55:53Z"
   },
   {
     "owner": "pollinations",
@@ -54,10 +90,28 @@
     "updatedAt": "2026-06-12T13:36:46Z"
   },
   {
+    "owner": "Infrasity-Labs",
+    "repo": "dev-gtm-claude-skills",
+    "routePath": "dev-gtm-claude-skills/blog-seo-check",
+    "updatedAt": "2026-06-12T12:25:55Z"
+  },
+  {
+    "owner": "Luligu",
+    "repo": "matterbridge",
+    "routePath": "matterbridge/jest-to-vitest",
+    "updatedAt": "2026-06-12T10:53:56Z"
+  },
+  {
     "owner": "commercetools",
     "repo": "nimbus",
     "routePath": "nimbus/agent-restore-context",
     "updatedAt": "2026-06-12T09:27:35Z"
+  },
+  {
+    "owner": "JetBrains",
+    "repo": "youtrackdb",
+    "routePath": "youtrackdb/migrate-workflow",
+    "updatedAt": "2026-06-12T08:28:31Z"
   },
   {
     "owner": "coleam00",
@@ -66,10 +120,22 @@
     "updatedAt": "2026-06-12T04:46:41Z"
   },
   {
+    "owner": "Kastalien-Research",
+    "repo": "thoughtbox",
+    "routePath": "thoughtbox/theseus-protocol",
+    "updatedAt": "2026-06-12T04:37:05Z"
+  },
+  {
     "owner": "feordin",
     "repo": "llm-fhir-query-eval",
     "routePath": "llm-fhir-query-eval/synthea",
     "updatedAt": "2026-06-12T04:33:37Z"
+  },
+  {
+    "owner": "avabbbb",
+    "repo": "Flovart",
+    "routePath": "Flovart/flovart",
+    "updatedAt": "2026-06-12T03:18:39Z"
   },
   {
     "owner": "phamlongh230-lgtm",
@@ -100,6 +166,18 @@
     "repo": "FieldWorks",
     "routePath": "FieldWorks/openspec-ff-change",
     "updatedAt": "2026-06-11T18:58:32Z"
+  },
+  {
+    "owner": "MHaggis",
+    "repo": "Security-Detections-MCP",
+    "routePath": "Security-Detections-MCP/detection-coverage-analysis",
+    "updatedAt": "2026-06-11T18:30:46Z"
+  },
+  {
+    "owner": "tuanle96",
+    "repo": "zca-rust",
+    "routePath": "zca-rust/map-domain",
+    "updatedAt": "2026-06-11T15:58:11Z"
   },
   {
     "owner": "snyk",
@@ -420,6 +498,12 @@
     "updatedAt": "2026-06-11T08:22:35Z"
   },
   {
+    "owner": "TheQmaks",
+    "repo": "areclaw",
+    "routePath": "areclaw/register",
+    "updatedAt": "2026-06-11T08:07:05Z"
+  },
+  {
     "owner": "remotion-dev",
     "repo": "skills",
     "routePath": "skills/remotion",
@@ -648,6 +732,12 @@
     "updatedAt": "2026-06-10T11:16:59Z"
   },
   {
+    "owner": "not-elm",
+    "repo": "desktop-homunculus",
+    "routePath": "desktop-homunculus/create-issue",
+    "updatedAt": "2026-06-10T09:59:40Z"
+  },
+  {
     "owner": "mrclrchtr",
     "repo": "supi",
     "routePath": "supi/bx",
@@ -796,6 +886,12 @@
     "repo": "PrompterOne",
     "routePath": "PrompterOne/dotnet-blazor",
     "updatedAt": "2026-06-08T20:55:58Z"
+  },
+  {
+    "owner": "justrach",
+    "repo": "kuri",
+    "routePath": "kuri/kuri-mobile",
+    "updatedAt": "2026-06-08T19:48:18Z"
   },
   {
     "owner": "loomantix",
@@ -1126,6 +1222,12 @@
     "repo": "construct-mibera-codex",
     "routePath": "construct-mibera-codex/bridgebuilder-review",
     "updatedAt": "2026-06-06T04:47:45Z"
+  },
+  {
+    "owner": "kumaran-is",
+    "repo": "claude-code-onboarding",
+    "routePath": "claude-code-onboarding/adk-deploy-guide",
+    "updatedAt": "2026-06-06T04:19:59Z"
   },
   {
     "owner": "Roberdan",
@@ -3376,6 +3478,12 @@
     "repo": "WheelSense_Project",
     "routePath": "WheelSense_Project/documentation-and-adrs",
     "updatedAt": "2026-05-21T18:18:26Z"
+  },
+  {
+    "owner": "skill-mill",
+    "repo": "agent-skill-harbor",
+    "routePath": "agent-skill-harbor/manage-governance",
+    "updatedAt": "2026-05-21T17:58:00Z"
   },
   {
     "owner": "pradeepmouli",
