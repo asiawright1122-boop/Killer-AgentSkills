@@ -3,49 +3,85 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-17T16:16:51.185Z"
-  },
-  {
-    "owner": "lekman",
-    "repo": "cdn",
-    "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-17T16:16:51.180Z"
+    "updatedAt": "2026-06-18T05:12:18.827Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-17T16:16:51.180Z"
+    "updatedAt": "2026-06-18T05:12:18.821Z"
+  },
+  {
+    "owner": "lekman",
+    "repo": "cdn",
+    "routePath": "cdn/github-mcp",
+    "updatedAt": "2026-06-18T05:12:18.820Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-17T16:16:51.177Z"
+    "updatedAt": "2026-06-18T05:12:18.819Z"
   },
   {
     "owner": "bug-ops",
     "repo": "zeph",
     "routePath": "zeph/github",
-    "updatedAt": "2026-06-17T16:16:51.176Z"
+    "updatedAt": "2026-06-18T05:12:18.818Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-17T16:16:51.175Z"
+    "updatedAt": "2026-06-18T05:12:18.817Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-17T16:16:51.171Z"
+    "updatedAt": "2026-06-18T05:12:18.811Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-17T16:16:51.160Z"
+    "updatedAt": "2026-06-18T05:12:18.799Z"
+  },
+  {
+    "owner": "lightfastai",
+    "repo": "lightfast",
+    "routePath": "lightfast/inngest-steps",
+    "updatedAt": "2026-06-18T05:01:43Z"
+  },
+  {
+    "owner": "feordin",
+    "repo": "llm-fhir-query-eval",
+    "routePath": "llm-fhir-query-eval/synthea",
+    "updatedAt": "2026-06-18T04:21:12Z"
+  },
+  {
+    "owner": "cliftonc",
+    "repo": "drizzle-cube",
+    "routePath": "drizzle-cube/quality-gate",
+    "updatedAt": "2026-06-18T03:09:26Z"
+  },
+  {
+    "owner": "cvsz",
+    "repo": "zeaz-platform",
+    "routePath": "zeaz-platform/zai-verify",
+    "updatedAt": "2026-06-18T00:22:39Z"
+  },
+  {
+    "owner": "adamayoung",
+    "repo": "TMDb",
+    "routePath": "TMDb/deliver",
+    "updatedAt": "2026-06-17T23:50:55Z"
+  },
+  {
+    "owner": "ai-analyst-lab",
+    "repo": "ai-analyst-plus",
+    "routePath": "ai-analyst-plus/connect-data",
+    "updatedAt": "2026-06-17T15:32:00Z"
   },
   {
     "owner": "pavel-molyanov",
@@ -58,6 +94,12 @@
     "repo": "InsForge",
     "routePath": "InsForge/shared-schemas",
     "updatedAt": "2026-06-17T13:29:25Z"
+  },
+  {
+    "owner": "goondocks-co",
+    "repo": "myco",
+    "routePath": "myco/building-myco-discipline",
+    "updatedAt": "2026-06-17T05:41:34Z"
   },
   {
     "owner": "withkynam",
@@ -684,6 +726,18 @@
     "updatedAt": "2026-06-15T21:45:22Z"
   },
   {
+    "owner": "carlosmu",
+    "repo": "goal-legends-arena",
+    "routePath": "goal-legends-arena/scene-runtime",
+    "updatedAt": "2026-06-15T20:42:51Z"
+  },
+  {
+    "owner": "d-o-hub",
+    "repo": "rust-self-learning-memory",
+    "routePath": "rust-self-learning-memory/goap-agent",
+    "updatedAt": "2026-06-15T17:19:34Z"
+  },
+  {
     "owner": "DGouron",
     "repo": "review-flow",
     "routePath": "review-flow/ddd",
@@ -1242,12 +1296,6 @@
     "updatedAt": "2026-06-12T04:37:05Z"
   },
   {
-    "owner": "feordin",
-    "repo": "llm-fhir-query-eval",
-    "routePath": "llm-fhir-query-eval/synthea",
-    "updatedAt": "2026-06-12T04:33:37Z"
-  },
-  {
     "owner": "avabbbb",
     "repo": "Flovart",
     "routePath": "Flovart/flovart",
@@ -1372,6 +1420,12 @@
     "repo": "areclaw",
     "routePath": "areclaw/register",
     "updatedAt": "2026-06-11T08:07:05Z"
+  },
+  {
+    "owner": "marjan-ahmed",
+    "repo": "ustaz",
+    "routePath": "ustaz/claude-md-improver",
+    "updatedAt": "2026-06-11T07:30:23Z"
   },
   {
     "owner": "jaksa76",
@@ -2172,6 +2226,12 @@
     "updatedAt": "2026-06-05T21:53:05Z"
   },
   {
+    "owner": "jordan-umpierre",
+    "repo": "Freightline-App",
+    "routePath": "Freightline-App/fallow",
+    "updatedAt": "2026-06-05T21:42:36Z"
+  },
+  {
     "owner": "VixenLights",
     "repo": "Vixen",
     "routePath": "Vixen/jira",
@@ -2412,6 +2472,12 @@
     "updatedAt": "2026-06-04T14:34:38Z"
   },
   {
+    "owner": "0xjgv",
+    "repo": "interlocks",
+    "routePath": "interlocks/spok-validate-implementation",
+    "updatedAt": "2026-06-04T14:21:29Z"
+  },
+  {
     "owner": "Piebald-AI",
     "repo": "splitrail",
     "routePath": "splitrail/mcp",
@@ -2566,6 +2632,12 @@
     "repo": "minecraft-agent-skills",
     "routePath": "minecraft-agent-skills/minecraft-imagegen",
     "updatedAt": "2026-06-03T16:26:48Z"
+  },
+  {
+    "owner": "CuriosLabs",
+    "repo": "curios-dotfiles",
+    "routePath": "curios-dotfiles/basecamp",
+    "updatedAt": "2026-06-03T15:47:43Z"
   },
   {
     "owner": "akiojin",
@@ -2886,6 +2958,12 @@
     "updatedAt": "2026-06-01T21:19:54Z"
   },
   {
+    "owner": "bryancostanich",
+    "repo": "Cercano",
+    "routePath": "Cercano/cercano-research",
+    "updatedAt": "2026-06-01T21:04:36Z"
+  },
+  {
     "owner": "Rythamo8055",
     "repo": "rythamo.qzz.io",
     "routePath": "rythamo.qzz.io/impeccable",
@@ -2968,6 +3046,12 @@
     "repo": "claude-code-rules",
     "routePath": "claude-code-rules/version-bump",
     "updatedAt": "2026-06-01T06:31:58Z"
+  },
+  {
+    "owner": "b-open-io",
+    "repo": "prompts",
+    "routePath": "prompts/json-render-shadcn",
+    "updatedAt": "2026-06-01T06:07:37Z"
   },
   {
     "owner": "jlevy",
@@ -3592,6 +3676,12 @@
     "repo": "claude-java-skills",
     "routePath": "claude-java-skills/spring-openapi",
     "updatedAt": "2026-05-28T04:32:51Z"
+  },
+  {
+    "owner": "gstdcoin",
+    "repo": "A2A",
+    "routePath": "A2A/gstd-network",
+    "updatedAt": "2026-05-28T03:58:55Z"
   },
   {
     "owner": "wolverin0",
@@ -5208,6 +5298,12 @@
     "updatedAt": "2026-05-17T19:46:29Z"
   },
   {
+    "owner": "IchenDEV",
+    "repo": "f5",
+    "routePath": "f5/openspec-explore",
+    "updatedAt": "2026-05-17T17:04:56Z"
+  },
+  {
     "owner": "f4ah6o",
     "repo": "moonrepo",
     "routePath": "moonrepo/issues-migrate",
@@ -5928,6 +6024,12 @@
     "updatedAt": "2026-05-12T16:35:41Z"
   },
   {
+    "owner": "dantech0xff",
+    "repo": "dreams",
+    "routePath": "dreams/kta-prd-pipeline",
+    "updatedAt": "2026-05-12T13:19:28Z"
+  },
+  {
     "owner": "The-Supremacy",
     "repo": "CommandDeck",
     "routePath": "CommandDeck/openspec-verify-change",
@@ -6052,6 +6154,12 @@
     "repo": "ruflow",
     "routePath": "ruflow/website-builder-setup",
     "updatedAt": "2026-05-11T12:16:18Z"
+  },
+  {
+    "owner": "dburriss",
+    "repo": "fsagent",
+    "routePath": "fsagent/openspec-sync-specs",
+    "updatedAt": "2026-05-11T11:53:14Z"
   },
   {
     "owner": "Taek-D",
@@ -7530,6 +7638,12 @@
     "updatedAt": "2026-04-24T08:20:10Z"
   },
   {
+    "owner": "ambush0421",
+    "repo": "imomguide",
+    "routePath": "imomguide/ui-ux-pro-max",
+    "updatedAt": "2026-04-24T06:37:18Z"
+  },
+  {
     "owner": "willem4130",
     "repo": "sageo-cli",
     "routePath": "sageo-cli/create-skill",
@@ -8002,6 +8116,12 @@
     "repo": "gzkit",
     "routePath": "gzkit/gz-adr-eval",
     "updatedAt": "2026-03-27T13:26:57Z"
+  },
+  {
+    "owner": "emiled16",
+    "repo": "close-to-me",
+    "routePath": "close-to-me/api-design",
+    "updatedAt": "2026-03-27T02:03:56Z"
   },
   {
     "owner": "CuriouslyCory",
@@ -12256,6 +12376,12 @@
     "repo": "synaptic-canvas",
     "routePath": "synaptic-canvas/sc-managing-worktrees",
     "updatedAt": "2026-02-22T02:03:10Z"
+  },
+  {
+    "owner": "mashharuki",
+    "repo": "Re-Autonomus-World-Game",
+    "routePath": "Re-Autonomus-World-Game/skill-creator",
+    "updatedAt": "2026-02-22T01:25:31Z"
   },
   {
     "owner": "B4san",
