@@ -10053,6 +10053,22 @@
     "filePath": ".claude/skills/search-docs/SKILL.md"
   },
   {
+    "owner": "doccker",
+    "repo": "cc-use-exp",
+    "description": "让 Claude Code、Gemini CLI、Codex、Cursor 开箱即用的分层配置模板，总结十多年的日常开发经验，持续完善中……",
+    "stars": 852,
+    "forks": 83,
+    "topics": [
+      "claude-code",
+      "codex",
+      "cursor",
+      "gemini-cli",
+      "github-copilot"
+    ],
+    "updatedAt": "2026-06-19T11:08:11Z",
+    "filePath": ".cursor/skills/go-dev/SKILL.md"
+  },
+  {
     "owner": "rochacbruno",
     "repo": "marmite",
     "description": "Markdown makes sites - A Static Site Generator for Blogs",
@@ -14446,6 +14462,26 @@
     "topics": [],
     "updatedAt": "2026-06-16T06:30:29Z",
     "filePath": ".cursor/skills/nextjs/SKILL.md"
+  },
+  {
+    "owner": "Asymmetric-al",
+    "repo": "core",
+    "description": "A high-performance, enterprise-grade Next.js 16 application for mission-focused non-profit organizations. Built for high impact teams. ",
+    "stars": 377,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-06-16T06:30:29Z",
+    "filePath": ".cursor/skills/resend/SKILL.md"
+  },
+  {
+    "owner": "Asymmetric-al",
+    "repo": "core",
+    "description": "A high-performance, enterprise-grade Next.js 16 application for mission-focused non-profit organizations. Built for high impact teams. ",
+    "stars": 377,
+    "forks": 5,
+    "topics": [],
+    "updatedAt": "2026-06-16T06:30:29Z",
+    "filePath": ".cursor/skills/pdf/SKILL.md"
   },
   {
     "owner": "imbue-ai",
@@ -22086,6 +22122,16 @@
     "filePath": ".cursor/skills/add-eval/SKILL.md"
   },
   {
+    "owner": "deusXmachina-dev",
+    "repo": "memorylane",
+    "description": null,
+    "stars": 122,
+    "forks": 14,
+    "topics": [],
+    "updatedAt": "2026-06-19T12:30:13Z",
+    "filePath": ".cursor/skills/release/SKILL.md"
+  },
+  {
     "owner": "Yorick-Ryu",
     "repo": "deep-share",
     "description": "A lightweight browser extension designed for AI users to easily copy formulas from ChatGPT, DeepSeek, Grok and 10+ other AI conversations, export beautifully formatted Word documents, and support long conversation screenshot sharing for DeepSeek.",
@@ -24773,6 +24819,16 @@
     ],
     "updatedAt": "2026-06-05T15:04:51Z",
     "filePath": ".codex/skills/gno/SKILL.md"
+  },
+  {
+    "owner": "blockmatic",
+    "repo": "basilic",
+    "description": "API-First TypeScript FullStack Starter",
+    "stars": 88,
+    "forks": 11,
+    "topics": [],
+    "updatedAt": "2026-03-23T23:19:55Z",
+    "filePath": ".cursor/skills/motion/SKILL.md"
   },
   {
     "owner": "petenelson",
@@ -29725,6 +29781,29 @@
     "filePath": ".claude/skills/flutter-patterns/SKILL.md"
   },
   {
+    "owner": "BanyanOutcomes",
+    "repo": "just_say_no",
+    "description": "Altered state slash commands for Claude Code. 12 substance-themed personality modes that change how Claude approaches your tasks.",
+    "stars": 50,
+    "forks": 1,
+    "topics": [
+      "ai",
+      "ai-tools",
+      "anthropic",
+      "claude",
+      "claude-code",
+      "cli",
+      "creative-coding",
+      "custom-commands",
+      "personality",
+      "prompt-engineering",
+      "satire",
+      "slash-commands"
+    ],
+    "updatedAt": "2026-06-14T03:59:55Z",
+    "filePath": ".claude/skills/pcp/SKILL.md"
+  },
+  {
     "owner": "seed-hypermedia",
     "repo": "seed",
     "description": "Desktop+Web app for self-publishing, powered by the open Hypermedia protocol",
@@ -31983,6 +32062,20 @@
     "topics": [],
     "updatedAt": "2026-06-18T06:33:25Z",
     "filePath": ".claude/skills/rust-best-practices/SKILL.md"
+  },
+  {
+    "owner": "ZaneL1u",
+    "repo": "cloud-cli-proxy",
+    "description": "更强大的 Claude Code Wrapper，通过容器化将你包装成一个地地道道的美国人，从根源上规避 Claude Code 风控。",
+    "stars": 42,
+    "forks": 9,
+    "topics": [
+      "claude-code",
+      "cloud-cli-proxy",
+      "ssh"
+    ],
+    "updatedAt": "2026-06-18T09:21:44Z",
+    "filePath": ".cursor/skills/gsd-ship/SKILL.md"
   },
   {
     "owner": "AuroraWebSoftware",
@@ -42533,6 +42626,16 @@
     "filePath": ".cursor/skills/locus-ui-style/SKILL.md"
   },
   {
+    "owner": "vallafederico",
+    "repo": "webflow-dev-setup",
+    "description": null,
+    "stars": 22,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-04-14T09:05:47Z",
+    "filePath": ".cursor/skills/webflow-page-transitions/SKILL.md"
+  },
+  {
     "owner": "intent-integrity-chain",
     "repo": "kit",
     "description": "Intent Integrity Kit - Closing the intent-to-code chasm",
@@ -46588,6 +46691,37 @@
     ],
     "updatedAt": "2026-06-18T14:56:44Z",
     "filePath": ".claude/skills/review-changelog/SKILL.md"
+  },
+  {
+    "owner": "charlieviettq",
+    "repo": "awesome-agent-skill",
+    "description": "Curated skill pack for LLM agents in engineer and science workflow (Cursor & Claude ready).",
+    "stars": 17,
+    "forks": 5,
+    "topics": [
+      "agent-skills",
+      "ai-agents",
+      "automation",
+      "awesome-list",
+      "claude-code",
+      "claude-skills",
+      "codex",
+      "codex-skills",
+      "copilot",
+      "cursor",
+      "cursor-ai",
+      "developer-tools",
+      "gemini-cli",
+      "gemini-cli-skills",
+      "llm",
+      "mcp",
+      "opencode",
+      "opencode-skills",
+      "prompt-engineering",
+      "rag"
+    ],
+    "updatedAt": "2026-06-18T11:16:24Z",
+    "filePath": ".cursor/skills/knowledge-work/bio-research/nextflow-development/SKILL.md"
   },
   {
     "owner": "edwnh",
@@ -56045,6 +56179,26 @@
     "filePath": ".claude/skills/sync-docs/SKILL.md"
   },
   {
+    "owner": "Tyler-R-Kendrick",
+    "repo": "agent-skills",
+    "description": "My personal agent-skills.",
+    "stars": 10,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-06-09T11:52:05Z",
+    "filePath": ".cursor/skills/sensei/SKILL.md"
+  },
+  {
+    "owner": "breatheco-de",
+    "repo": "apiv2",
+    "description": null,
+    "stars": 10,
+    "forks": 46,
+    "topics": [],
+    "updatedAt": "2026-06-19T15:06:05Z",
+    "filePath": ".cursor/skills/bc-monitoring-create-new-report/SKILL.md"
+  },
+  {
     "owner": "whilp",
     "repo": "world",
     "description": null,
@@ -57565,6 +57719,26 @@
     "topics": [],
     "updatedAt": "2026-04-19T13:34:01Z",
     "filePath": ".claude/skills/plan/SKILL.md"
+  },
+  {
+    "owner": "AGIBuild",
+    "repo": "Fulora",
+    "description": "Agibuild.Fulora is a cross-platform .NET framework that blends Avalonia desktop power with React/Vue frontends through a strongly typed bridge. It lets TypeScript call native C# capabilities safely, and helps teams ship faster with templates, samples, and built-in engineering governance.",
+    "stars": 9,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-11T10:07:39Z",
+    "filePath": ".cursor/skills/bootstrap5-ui/SKILL.md"
+  },
+  {
+    "owner": "mako-ai",
+    "repo": "mako",
+    "description": "Free and open-source SQL client built for AI and the web. The new way to query your data.",
+    "stars": 9,
+    "forks": 3,
+    "topics": [],
+    "updatedAt": "2026-06-19T14:52:21Z",
+    "filePath": ".cursor/skills/langfuse/SKILL.md"
   },
   {
     "owner": "openharmony",
@@ -59702,6 +59876,37 @@
     ],
     "updatedAt": "2026-06-18T23:40:36Z",
     "filePath": ".claude/skills/docker/SKILL.md"
+  },
+  {
+    "owner": "MohamedAbdallah-14",
+    "repo": "prompt-to-asset",
+    "description": "MCP server + CLI for production-grade software assets (logos, app icons, favicons, OG, illustrations) — routes across 30+ image models, zero-key first, validates before shipping.",
+    "stars": 8,
+    "forks": 0,
+    "topics": [
+      "app-icon",
+      "asset-generation",
+      "claude-code",
+      "cli",
+      "cursor",
+      "favicon",
+      "flux",
+      "gpt-image-1",
+      "ideogram",
+      "image-generation",
+      "logo-generator",
+      "mcp",
+      "mcp-server",
+      "model-context-protocol",
+      "og-image",
+      "pollinations",
+      "recraft",
+      "stable-diffusion",
+      "typescript",
+      "windsurf"
+    ],
+    "updatedAt": "2026-06-16T05:09:39Z",
+    "filePath": ".cursor/skills/logo/SKILL.md"
   },
   {
     "owner": "kaihendry",
@@ -65855,6 +66060,30 @@
     "filePath": ".claude/skills/ios-memgraph-leaks/SKILL.md"
   },
   {
+    "owner": "relocate-with-us",
+    "repo": "relocate-with-us.github.io",
+    "description": null,
+    "stars": 6,
+    "forks": 6,
+    "topics": [],
+    "updatedAt": "2026-06-19T12:25:14Z",
+    "filePath": ".cursor/skills/site-deploy/SKILL.md"
+  },
+  {
+    "owner": "4NaNBo1",
+    "repo": "psd-to-figma",
+    "description": "欢迎 Star！一个高质量的用于快速在 Figma / MasterGo 和 PSD 之间互转的本地插件。",
+    "stars": 6,
+    "forks": 0,
+    "topics": [
+      "figma",
+      "mastergo",
+      "psd"
+    ],
+    "updatedAt": "2026-06-17T02:19:43Z",
+    "filePath": ".cursor/skills/sync-rules/SKILL.md"
+  },
+  {
     "owner": "troydai",
     "repo": "gwt",
     "description": "A git worktree management CLI",
@@ -69355,6 +69584,30 @@
     "topics": [],
     "updatedAt": "2026-05-31T18:57:12Z",
     "filePath": ".claude/skills/new-adr/SKILL.md"
+  },
+  {
+    "owner": "karuhun-developer",
+    "repo": "template-laravel-livewire",
+    "description": "My Starter Kit",
+    "stars": 5,
+    "forks": 1,
+    "topics": [
+      "alphinejs",
+      "bootstrap",
+      "crud",
+      "laravel",
+      "laravel-package",
+      "livewire",
+      "livewire-components",
+      "livewire-crud",
+      "livewire-laravel",
+      "livewire4",
+      "tailwindcss",
+      "template",
+      "template-project"
+    ],
+    "updatedAt": "2026-06-19T09:58:22Z",
+    "filePath": ".cursor/skills/tweakflux-theme-generator/SKILL.md"
   },
   {
     "owner": "zatsit-oss",
@@ -73792,6 +74045,16 @@
     ],
     "updatedAt": "2022-01-08T18:10:59Z",
     "filePath": ".claude/skills/jira-add-worklog/SKILL.md"
+  },
+  {
+    "owner": "wtthornton",
+    "repo": "HomeIQ",
+    "description": "Production-grade Python service for ingesting Home Assistant activity to InfluxDB with advanced filtering, transformation, and monitoring capabilities.",
+    "stars": 4,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-31T21:47:00Z",
+    "filePath": ".cursor/skills/tapps-score/SKILL.md"
   },
   {
     "owner": "turbot",
@@ -79042,6 +79305,66 @@
     "topics": [],
     "updatedAt": "2026-06-18T10:10:09Z",
     "filePath": ".claude/skills/pr-split/SKILL.md"
+  },
+  {
+    "owner": "keystone-ui",
+    "repo": "react",
+    "description": "A modern React component library built with Base UI, Tailwind CSS v4, and CVA",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-11T15:58:24Z",
+    "filePath": ".cursor/skills/codebase-auditor/SKILL.md"
+  },
+  {
+    "owner": "powerbackus",
+    "repo": "powerback",
+    "description": "POWERBACK.us is an experimental civic tech platform exploring conditional political donations as a tool for accountability. Users commit funds tied to a clear, publicly verifiable legislative condition. Only if the condition is met are the funds are released to the campaign. Built with a MERN stack and deployed to production.",
+    "stars": 3,
+    "forks": 0,
+    "topics": [
+      "activism",
+      "candidates",
+      "civic-empowerment",
+      "civic-tech",
+      "congress",
+      "congress-legislators",
+      "corruption",
+      "democracy",
+      "donations",
+      "elections",
+      "government",
+      "government-as-a-platform",
+      "government-data",
+      "hacktivism",
+      "independent",
+      "lobbying-reform",
+      "protest",
+      "representatives",
+      "united-states"
+    ],
+    "updatedAt": "2026-05-22T01:37:17Z",
+    "filePath": ".cursor/skills/powerback-ga-instrumentation/SKILL.md"
+  },
+  {
+    "owner": "HaoNgo232",
+    "repo": "agent-bridge-kit",
+    "description": "Tool for converting Agent, Skill and Workfows configurations from Antigravity IDE to a format compatible with IDEs (GitHub Copilot, Cursor,..) and CLIs (Kiro, OpenCode,..).",
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-21T01:50:58Z",
+    "filePath": ".cursor/skills/deployment-procedures/SKILL.md"
+  },
+  {
+    "owner": "TylorS",
+    "repo": "typed-smol",
+    "description": null,
+    "stars": 3,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T13:55:04Z",
+    "filePath": ".cursor/skills/effect-module-scopedcache/SKILL.md"
   },
   {
     "owner": "zenchantlive",
@@ -87117,6 +87440,44 @@
     ],
     "updatedAt": "2026-05-29T05:54:24Z",
     "filePath": ".claude/skills/stacks-browser/SKILL.md"
+  },
+  {
+    "owner": "wikiepeidia",
+    "repo": "ANSER",
+    "description": "ANSER",
+    "stars": 2,
+    "forks": 2,
+    "topics": [],
+    "updatedAt": "2026-05-24T09:48:36Z",
+    "filePath": ".cursor/skills/gsd-thread/SKILL.md"
+  },
+  {
+    "owner": "CraigHutchinson",
+    "repo": "Prism",
+    "description": "Static analysis for AI prompts. A cross-platform agent skill (Cursor, Claude Code, Copilot) that refines, sanitizes, and scores prompts using a three-pillar methodology — with auto-analysis hooks, personal pattern learning, and platform-native lightweight model routing.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-09T20:24:14Z",
+    "filePath": ".cursor/skills/prism/SKILL.md"
+  },
+  {
+    "owner": "jrmoynihan",
+    "repo": "flow",
+    "description": "Modern, high-performance flow cytometry tooling for the Rust ecosystem.",
+    "stars": 2,
+    "forks": 0,
+    "topics": [
+      "cytometry",
+      "data",
+      "data-analysis",
+      "data-visualization",
+      "flow-cytometry",
+      "science",
+      "science-research"
+    ],
+    "updatedAt": "2026-05-27T18:23:22Z",
+    "filePath": ".cursor/skills/rust-black-box/SKILL.md"
   },
   {
     "owner": "aviz85",
@@ -103858,6 +104219,21 @@
     "filePath": ".claude/skills/docker/SKILL.md"
   },
   {
+    "owner": "leonvanbokhorst",
+    "repo": "iracing-adaptive-coach",
+    "description": "An adaptive tool agnostic data driven coach for iRacing.",
+    "stars": 1,
+    "forks": 0,
+    "topics": [
+      "iracing",
+      "race-coaching",
+      "sim",
+      "sim-racing"
+    ],
+    "updatedAt": "2026-05-30T19:19:17Z",
+    "filePath": ".cursor/skills/update-summaries/SKILL.md"
+  },
+  {
     "owner": "jkitchin",
     "repo": "litdb",
     "topics": [],
@@ -105915,7 +106291,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-19T05:07:35Z",
+    "updatedAt": "2026-06-19T06:19:35Z",
     "filePath": ".claude/plugins/hookify/skills/writing-rules/SKILL.md"
   },
   {
@@ -105925,7 +106301,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-02-22T21:30:31Z",
+    "updatedAt": "2026-06-19T15:03:24Z",
     "filePath": ".claude/skills/committing-staged-with-message/SKILL.md"
   },
   {
@@ -106342,7 +106718,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-17T02:44:55Z",
+    "updatedAt": "2026-06-19T07:30:27Z",
     "filePath": ".claude/skills/skill-creator/SKILL.md"
   },
   {
@@ -106362,7 +106738,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-17T02:44:55Z",
+    "updatedAt": "2026-06-19T07:30:27Z",
     "filePath": ".claude/skills/project-management/SKILL.md"
   },
   {
@@ -106663,7 +107039,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-18T05:42:35Z",
+    "updatedAt": "2026-06-19T12:20:45Z",
     "filePath": ".claude/skills/backend/SKILL.md"
   },
   {
@@ -107164,7 +107540,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-18T15:25:32Z",
+    "updatedAt": "2026-06-19T14:36:39Z",
     "filePath": ".claude/commands/nova-mobile-app/SKILL.md"
   },
   {
@@ -107510,7 +107886,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-17T12:02:33Z",
+    "updatedAt": "2026-06-19T14:12:32Z",
     "filePath": ".claude/skills/bmad-pm/SKILL.md"
   },
   {
@@ -107853,7 +108229,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-19T01:09:48Z",
+    "updatedAt": "2026-06-19T13:49:08Z",
     "filePath": ".claude/skills/merge/SKILL.md"
   },
   {
@@ -108083,7 +108459,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-19T05:09:13Z",
+    "updatedAt": "2026-06-19T14:36:38Z",
     "filePath": ".claude/skills/learn/SKILL.md"
   },
   {
@@ -108633,7 +109009,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-19T01:09:48Z",
+    "updatedAt": "2026-06-19T13:49:08Z",
     "filePath": ".claude/skills/generation-plan/SKILL.md"
   },
   {
@@ -109464,7 +109840,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-14T10:29:45Z",
+    "updatedAt": "2026-06-19T11:27:19Z",
     "filePath": ".claude/skills/systray-patterns/SKILL.md"
   },
   {
@@ -109544,7 +109920,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-18T12:20:47Z",
+    "updatedAt": "2026-06-19T14:03:55Z",
     "filePath": ".claude/skills/legacy-reference/SKILL.md"
   },
   {
@@ -110154,7 +110530,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-18T15:25:32Z",
+    "updatedAt": "2026-06-19T14:36:39Z",
     "filePath": ".claude/skills/skills/mobile-design/SKILL.md"
   },
   {
@@ -110228,7 +110604,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-06-19T04:51:46Z",
+    "updatedAt": "2026-06-19T13:35:16Z",
     "filePath": ".claude/skills/pm-marketing-growth/skills/marketing-ideas/SKILL.md"
   },
   {
@@ -110293,7 +110669,7 @@
     "stars": 0,
     "forks": 0,
     "topics": [],
-    "updatedAt": "2026-03-17T07:44:58Z",
+    "updatedAt": "2026-04-17T22:10:01Z",
     "filePath": ".claude/skills/reflect/SKILL.md"
   },
   {
@@ -161690,5 +162066,158 @@
     "topics": [],
     "updatedAt": "2026-05-28T19:58:02Z",
     "filePath": ".claude/skills/integration-patterns-skill/SKILL.md"
+  },
+  {
+    "owner": "aladicf",
+    "repo": "better-react-web-ui",
+    "description": "Best practices and design patterns for AI agents crafting production-ready React UIs.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-12T20:35:47Z",
+    "filePath": ".cursor/skills/audit/SKILL.md"
+  },
+  {
+    "owner": "jt-09",
+    "repo": "uci-adult-data-ml",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-08T14:17:54Z",
+    "filePath": ".cursor/skills/mlp/SKILL.md"
+  },
+  {
+    "owner": "rbtkhn",
+    "repo": "grace-mar",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-15T15:16:56Z",
+    "filePath": ".cursor/skills/coffee/SKILL.md"
+  },
+  {
+    "owner": "Dragoon0x",
+    "repo": "meridian",
+    "description": "Map your project's design DNA. 62 commands, 8-axis genome, 5 tiers. Project-aware design intelligence.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-20T16:52:30Z",
+    "filePath": ".cursor/skills/m-harden/SKILL.md"
+  },
+  {
+    "owner": "rbtkhn",
+    "repo": "grace-mar",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-15T15:16:56Z",
+    "filePath": ".cursor/skills/lane-survey/SKILL.md"
+  },
+  {
+    "owner": "CTNOriginals",
+    "repo": "GuildMessageProxy",
+    "description": "A Discord bot that can post staff messages and allows staff to manage those messages.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-18T16:11:48Z",
+    "filePath": ".cursor/skills/explore-docs/SKILL.md"
+  },
+  {
+    "owner": "range-et",
+    "repo": "slate",
+    "description": "A new kinda notebook thingy with an LLM interface - my own harness for local LLMs",
+    "stars": 0,
+    "forks": 0,
+    "topics": [
+      "chat-application",
+      "notebook"
+    ],
+    "updatedAt": "2026-05-10T22:47:05Z",
+    "filePath": ".cursor/skills/audit/SKILL.md"
+  },
+  {
+    "owner": "a35506322",
+    "repo": "Lab.Todo",
+    "description": "示範搭配 Cursor 開發 .Net 10 垂直切割 API  + Vite & Vue SPA",
+    "stars": 0,
+    "forks": 1,
+    "topics": [],
+    "updatedAt": "2026-06-18T07:04:25Z",
+    "filePath": ".cursor/skills/regle/SKILL.md"
+  },
+  {
+    "owner": "tomgun",
+    "repo": "agentic-framework",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-16T16:44:21Z",
+    "filePath": ".cursor/skills/planning-features/SKILL.md"
+  },
+  {
+    "owner": "dsuth10",
+    "repo": "Legends-of-Learning-4",
+    "description": "Gamification of the Classroom",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-22T13:38:22Z",
+    "filePath": ".cursor/skills/speckit-checklist/SKILL.md"
+  },
+  {
+    "owner": "straylight-archive",
+    "repo": "PURESCRIPT_FORGE",
+    "description": "A fork of opencode written in PureScript and Haskell with lean4 theorems",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-03-07T18:55:23Z",
+    "filePath": ".cursor/skills/expert-researcher/SKILL.md"
+  },
+  {
+    "owner": "fabianferno",
+    "repo": "caas-1213",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-04-05T07:45:27Z",
+    "filePath": ".cursor/skills/0g-inft/SKILL.md"
+  },
+  {
+    "owner": "javakishore-veleti",
+    "repo": "FOREX-Position-Risk-Manager-Workflows",
+    "description": "Highlights the \"position sizing\" strategy used in forex to determine capital allocation based on risk tolerance using Temporal workflow and GO language",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-02-16T14:02:19Z",
+    "filePath": ".cursor/skills/forex-dev-workflow/SKILL.md"
+  },
+  {
+    "owner": "Djoe-Denne",
+    "repo": "IAMRusty",
+    "description": null,
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-05-30T15:11:24Z",
+    "filePath": ".cursor/skills/rustycog/SKILL.md"
+  },
+  {
+    "owner": "jlima004",
+    "repo": "TaxonomySystem",
+    "description": "Sistema semântico olfativo para uma plataforma de inteligência de fragrâncias baseada em IA.",
+    "stars": 0,
+    "forks": 0,
+    "topics": [],
+    "updatedAt": "2026-06-18T22:27:49Z",
+    "filePath": ".cursor/skills/gsd-phase/SKILL.md"
   }
 ]
