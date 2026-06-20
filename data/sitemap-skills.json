@@ -3,49 +3,127 @@
     "owner": "eannnnnn",
     "repo": "taptik-labs",
     "routePath": "taptik-labs/gh",
-    "updatedAt": "2026-06-19T15:58:57.941Z"
+    "updatedAt": "2026-06-20T04:46:29.610Z"
   },
   {
     "owner": "Ven0m0",
     "repo": ".github",
     "routePath": ".github/gh-cli",
-    "updatedAt": "2026-06-19T15:58:57.936Z"
+    "updatedAt": "2026-06-20T04:46:29.605Z"
   },
   {
     "owner": "lekman",
     "repo": "cdn",
     "routePath": "cdn/github-mcp",
-    "updatedAt": "2026-06-19T15:58:57.935Z"
+    "updatedAt": "2026-06-20T04:46:29.604Z"
   },
   {
     "owner": "hoyvoh",
     "repo": "claude-workspace-prototype",
     "routePath": "claude-workspace-prototype/git-operations",
-    "updatedAt": "2026-06-19T15:58:57.933Z"
+    "updatedAt": "2026-06-20T04:46:29.602Z"
   },
   {
     "owner": "rysweet",
     "repo": "amplihack",
     "routePath": "amplihack/github",
-    "updatedAt": "2026-06-19T15:58:57.932Z"
+    "updatedAt": "2026-06-20T04:46:29.601Z"
   },
   {
     "owner": "jarosser06",
     "repo": "drift",
     "routePath": "drift/github-operations",
-    "updatedAt": "2026-06-19T15:58:57.931Z"
+    "updatedAt": "2026-06-20T04:46:29.600Z"
   },
   {
     "owner": "rishavmukherji",
     "repo": "farcaster-agent",
     "routePath": "farcaster-agent/farcaster-agent",
-    "updatedAt": "2026-06-19T15:58:57.925Z"
+    "updatedAt": "2026-06-20T04:46:29.594Z"
   },
   {
     "owner": "openwork-hackathon",
     "repo": "team-sentinel",
     "routePath": "team-sentinel/clawathon",
-    "updatedAt": "2026-06-19T15:58:57.911Z"
+    "updatedAt": "2026-06-20T04:46:29.581Z"
+  },
+  {
+    "owner": "dathere",
+    "repo": "qsv",
+    "routePath": "qsv/data-validate",
+    "updatedAt": "2026-06-20T03:44:29Z"
+  },
+  {
+    "owner": "NVIDIA",
+    "repo": "TensorRT-LLM",
+    "routePath": "TensorRT-LLM/perf-workload-profiling",
+    "updatedAt": "2026-06-20T03:07:54Z"
+  },
+  {
+    "owner": "bitwarden",
+    "repo": "server",
+    "routePath": "server/writing-server-code",
+    "updatedAt": "2026-06-20T02:07:39Z"
+  },
+  {
+    "owner": "d-kuro",
+    "repo": "kirocc",
+    "routePath": "kirocc/release-kirocc",
+    "updatedAt": "2026-06-20T01:53:36Z"
+  },
+  {
+    "owner": "tale-project",
+    "repo": "tale",
+    "routePath": "tale/security",
+    "updatedAt": "2026-06-20T00:00:51Z"
+  },
+  {
+    "owner": "me2resh",
+    "repo": "apexyard",
+    "routePath": "apexyard/release-sync",
+    "updatedAt": "2026-06-19T23:10:53Z"
+  },
+  {
+    "owner": "erickalfaro",
+    "repo": "multitable",
+    "routePath": "multitable/prior-art-reference",
+    "updatedAt": "2026-06-19T22:49:52Z"
+  },
+  {
+    "owner": "idank",
+    "repo": "explainshell",
+    "routePath": "explainshell/mandoc-fix",
+    "updatedAt": "2026-06-19T21:05:42Z"
+  },
+  {
+    "owner": "noir-lang",
+    "repo": "noir",
+    "routePath": "noir/reduce-ssa-repro",
+    "updatedAt": "2026-06-19T19:22:00Z"
+  },
+  {
+    "owner": "epam",
+    "repo": "ai-dial-chat",
+    "routePath": "ai-dial-chat/chat-release-notes",
+    "updatedAt": "2026-06-19T18:45:30Z"
+  },
+  {
+    "owner": "galaxyproject",
+    "repo": "galaxy-mcp",
+    "routePath": "galaxy-mcp/release",
+    "updatedAt": "2026-06-19T18:13:12Z"
+  },
+  {
+    "owner": "remiverdiesen",
+    "repo": "ark-fork",
+    "routePath": "ark-fork/slack-announcement",
+    "updatedAt": "2026-06-19T16:51:10Z"
+  },
+  {
+    "owner": "estuary",
+    "repo": "connectors",
+    "routePath": "connectors/regenerate-flow-discovery",
+    "updatedAt": "2026-06-19T15:39:56Z"
   },
   {
     "owner": "mako-ai",
@@ -54,16 +132,34 @@
     "updatedAt": "2026-06-19T14:52:21Z"
   },
   {
+    "owner": "centminmod",
+    "repo": "my-claude-code-setup",
+    "routePath": "my-claude-code-setup/task-breakdown",
+    "updatedAt": "2026-06-19T14:19:25Z"
+  },
+  {
     "owner": "relocate-with-us",
     "repo": "relocate-with-us.github.io",
     "routePath": "relocate-with-us.github.io/site-deploy",
     "updatedAt": "2026-06-19T12:25:14Z"
   },
   {
+    "owner": "DataDog",
+    "repo": "dd-trace-dotnet",
+    "routePath": "dd-trace-dotnet/analyze-azdo-build",
+    "updatedAt": "2026-06-19T11:31:30Z"
+  },
+  {
     "owner": "LeighAtkins",
     "repo": "OpenPaint",
     "routePath": "OpenPaint/Writing Hookify Rules",
     "updatedAt": "2026-06-19T06:19:35Z"
+  },
+  {
+    "owner": "Prorise-cool",
+    "repo": "Claude-Code-Multi-Agent",
+    "routePath": "Claude-Code-Multi-Agent/pdf",
+    "updatedAt": "2026-06-19T06:01:09Z"
   },
   {
     "owner": "me2resh",
@@ -120,6 +216,18 @@
     "updatedAt": "2026-06-18T21:48:36Z"
   },
   {
+    "owner": "lbds137",
+    "repo": "tzurot",
+    "routePath": "tzurot/tzurot-doc-audit",
+    "updatedAt": "2026-06-18T18:34:23Z"
+  },
+  {
+    "owner": "ericosiu",
+    "repo": "marketing-os-starter",
+    "routePath": "marketing-os-starter/campaign-brief",
+    "updatedAt": "2026-06-18T16:43:47Z"
+  },
+  {
     "owner": "simstudioai",
     "repo": "sim",
     "routePath": "sim/add-hosted-key",
@@ -130,6 +238,12 @@
     "repo": "cutia",
     "routePath": "cutia/ai-seo",
     "updatedAt": "2026-06-18T15:46:53Z"
+  },
+  {
+    "owner": "annealing-inversion",
+    "repo": "sglang-kimi-deferral",
+    "routePath": "sglang-kimi-deferral/sglang-sota-performance",
+    "updatedAt": "2026-06-18T15:25:43Z"
   },
   {
     "owner": "armanisadeghi",
@@ -198,6 +312,12 @@
     "updatedAt": "2026-06-18T11:16:24Z"
   },
   {
+    "owner": "justrach",
+    "repo": "kuri",
+    "routePath": "kuri/kuri-ios",
+    "updatedAt": "2026-06-18T10:51:51Z"
+  },
+  {
     "owner": "filipstrand",
     "repo": "mflux",
     "routePath": "mflux/mflux-model-porting",
@@ -258,6 +378,12 @@
     "updatedAt": "2026-06-17T23:29:59Z"
   },
   {
+    "owner": "boundless-xyz",
+    "repo": "boundless",
+    "routePath": "boundless/ops-infra-deploy",
+    "updatedAt": "2026-06-17T21:35:56Z"
+  },
+  {
     "owner": "lidofinance",
     "repo": "diffyscan",
     "routePath": "diffyscan/debug-diff",
@@ -276,10 +402,22 @@
     "updatedAt": "2026-06-17T20:40:59Z"
   },
   {
+    "owner": "mycelium-io",
+    "repo": "mycelium",
+    "routePath": "mycelium/troubleshooting",
+    "updatedAt": "2026-06-17T19:00:48Z"
+  },
+  {
     "owner": "AdobeDocs",
     "repo": "ff-services-docs",
     "routePath": "ff-services-docs/gc",
     "updatedAt": "2026-06-17T18:36:17Z"
+  },
+  {
+    "owner": "searlsco",
+    "repo": "prove_it",
+    "routePath": "prove_it/prove-feature",
+    "updatedAt": "2026-06-17T17:30:19Z"
   },
   {
     "owner": "ai-analyst-lab",
@@ -312,6 +450,12 @@
     "updatedAt": "2026-06-17T13:29:25Z"
   },
   {
+    "owner": "ItamarZand88",
+    "repo": "CLI-Anything-WEB",
+    "routePath": "CLI-Anything-WEB/unsplash-cli",
+    "updatedAt": "2026-06-17T13:13:26Z"
+  },
+  {
     "owner": "byulmaru",
     "repo": "kosmo",
     "routePath": "kosmo/openspec-explore",
@@ -322,6 +466,18 @@
     "repo": "marketing-simplified",
     "routePath": "marketing-simplified/add-frontend-page",
     "updatedAt": "2026-06-17T11:14:15Z"
+  },
+  {
+    "owner": "alexanderop",
+    "repo": "walkthrough",
+    "routePath": "walkthrough/publish-skill",
+    "updatedAt": "2026-06-17T10:22:41Z"
+  },
+  {
+    "owner": "zhuxining",
+    "repo": "MindClaw",
+    "routePath": "MindClaw/openspec-archive-change",
+    "updatedAt": "2026-06-17T07:46:17Z"
   },
   {
     "owner": "goondocks-co",
@@ -370,6 +526,12 @@
     "repo": "minutes",
     "routePath": "minutes/minutes-video-review",
     "updatedAt": "2026-06-17T03:37:26Z"
+  },
+  {
+    "owner": "bradtraversy",
+    "repo": "devstash",
+    "routePath": "devstash/research",
+    "updatedAt": "2026-06-17T03:36:00Z"
   },
   {
     "owner": "shader-slang",
@@ -448,6 +610,12 @@
     "repo": "ideavim",
     "routePath": "ideavim/changelog",
     "updatedAt": "2026-06-16T17:35:45Z"
+  },
+  {
+    "owner": "openshift-online",
+    "repo": "maestro",
+    "routePath": "maestro/trace-resource-request",
+    "updatedAt": "2026-06-16T17:28:39Z"
   },
   {
     "owner": "steveroseik",
@@ -1056,6 +1224,12 @@
     "updatedAt": "2026-06-15T12:55:33Z"
   },
   {
+    "owner": "tranhieutt",
+    "repo": "software_development_department",
+    "routePath": "software_development_department/team-release",
+    "updatedAt": "2026-06-15T05:45:16Z"
+  },
+  {
     "owner": "KlebersonCollab",
     "repo": "k-claw",
     "routePath": "k-claw/python-uv",
@@ -1408,6 +1582,12 @@
     "repo": "moon-web",
     "routePath": "moon-web/antd",
     "updatedAt": "2026-06-13T13:25:41Z"
+  },
+  {
+    "owner": "DavidROliverBA",
+    "repo": "ArchitectKB",
+    "routePath": "ArchitectKB/auto-tag",
+    "updatedAt": "2026-06-13T10:51:38Z"
   },
   {
     "owner": "boxlite-ai",
@@ -1816,6 +1996,12 @@
     "repo": "drishti",
     "routePath": "drishti/ci",
     "updatedAt": "2026-06-10T21:12:02Z"
+  },
+  {
+    "owner": "tmobile",
+    "repo": "magentaA11y",
+    "routePath": "magentaA11y/webm-reencode-for-chrome-seek",
+    "updatedAt": "2026-06-10T20:31:26Z"
   },
   {
     "owner": "erode-app",
@@ -2410,6 +2596,12 @@
     "repo": "evo-nexus",
     "routePath": "evo-nexus/discord-create-channel",
     "updatedAt": "2026-06-06T21:22:09Z"
+  },
+  {
+    "owner": "cortex-tms",
+    "repo": "cortex-tms",
+    "routePath": "cortex-tms/validate",
+    "updatedAt": "2026-06-06T20:40:42Z"
   },
   {
     "owner": "fabro-sh",
@@ -12022,6 +12214,12 @@
     "repo": "kownledgeBase",
     "routePath": "kownledgeBase/NoteOrganizer",
     "updatedAt": "2026-03-08T01:57:15.498Z"
+  },
+  {
+    "owner": "AskMP",
+    "repo": "St-ged",
+    "routePath": "St-ged/project-scaffold",
+    "updatedAt": "2026-03-07T23:32:45Z"
   },
   {
     "owner": "sdebaun",
