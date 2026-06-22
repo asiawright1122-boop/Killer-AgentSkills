@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-09T12:35:17.535Z",
+  "generatedAt": "2026-06-22T14:56:48.118Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-06-09T12:35:16.077Z",
+  "sourceGeneratedAt": "2026-06-22T14:56:46.571Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 503,
+    "gone410": 500,
     "ignored": 17,
-    "redirect301CandidateTotal": 142,
-    "redirect301CoveredByMiddleware": 141,
+    "redirect301CandidateTotal": 150,
+    "redirect301CoveredByMiddleware": 149,
     "redirect301Materialized": 1,
-    "gone410CandidateTotal": 841,
-    "gone410CoveredByMiddleware": 338,
-    "gone410Materialized": 503,
+    "gone410CandidateTotal": 833,
+    "gone410CoveredByMiddleware": 333,
+    "gone410Materialized": 500,
     "manualReviewCandidateTotal": 12,
     "observeCandidateTotal": 5,
     "skippedInvalidOrProtected": 0
@@ -723,10 +723,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/en/skills/Pama-Lee/Ordo",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/en/skills/payloadcms/payload",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -959,10 +955,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/fr/skills/blockmatic/basilic",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/fr/skills/briansunter/kungfu",
         "reason": "blocked_by_sitemap"
       },
@@ -1164,10 +1156,6 @@
       },
       {
         "path": "/ja/skills/billlzzz18/skills-cli",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/ja/skills/blockmatic/basilic",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
