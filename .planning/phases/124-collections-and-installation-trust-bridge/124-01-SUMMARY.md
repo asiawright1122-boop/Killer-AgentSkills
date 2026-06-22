@@ -1,3 +1,9 @@
+---
+phase: 124-collections-and-installation-trust-bridge
+requirements_completed:
+  - AIOPS-45
+---
+
 # Phase 124 — Collections and Installation Trust Bridge — Summary
 
 ## 任务目标

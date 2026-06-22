@@ -1,8 +1,8 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-09T12:56:39.401Z
+- Generated: 2026-06-22T14:59:48.444Z
 - Active milestone: v4.0 (Authority Proof Remediation & Public Trust Hardening)
-- Status: clean
+- Status: warning
 - Pending actions: 0
 - Active archive path: .planning/milestones/v4.0-phases
 
@@ -166,7 +166,9 @@
 
 ## Conflicts
 
-- none
+- v3.8 phase 115: Both active and archived copies exist for the same shipped milestone phase. (active=.planning/phases/115-batch-backlog-content-enrichment; archive=.planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment)
+- v3.8 phase 116: Both active and archived copies exist for the same shipped milestone phase. (active=.planning/phases/116-translation-parity-punctuation-guardrails; archive=.planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails)
+- v3.8 phase 117: Both active and archived copies exist for the same shipped milestone phase. (active=.planning/phases/117-scorecard-promotion-verification; archive=.planning/milestones/v3.8-phases/117-scorecard-promotion-verification)
 
 ## Unmanaged Active Phase Directories
 

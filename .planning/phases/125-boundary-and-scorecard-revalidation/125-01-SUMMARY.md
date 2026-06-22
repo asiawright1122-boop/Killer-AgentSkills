@@ -1,3 +1,9 @@
+---
+phase: 125-boundary-and-scorecard-revalidation
+requirements_completed:
+  - AIOPS-46
+---
+
 # Phase 125 — Boundary and Scorecard Revalidation — Summary
 
 ## 阶段目标

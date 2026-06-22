@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-09T12:56:39.401Z",
+  "generatedAt": "2026-06-22T14:59:48.444Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "activeMilestone": "v4.0",
   "activeMilestoneName": "Authority Proof Remediation & Public Trust Hardening",
-  "status": "clean",
+  "status": "warning",
   "activePhaseArchivePath": ".planning/milestones/v4.0-phases",
   "activePhases": [
     {
@@ -439,6 +439,43 @@
   "restoreActions": [],
   "createActions": [],
   "unmanagedPhaseDirs": [],
-  "conflicts": [],
+  "conflicts": [
+    {
+      "milestone": "v3.8",
+      "phaseNumber": "115",
+      "slug": "Batch Backlog Content Enrichment",
+      "activePaths": [
+        ".planning/phases/115-batch-backlog-content-enrichment"
+      ],
+      "archivePaths": [
+        ".planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment"
+      ],
+      "reason": "Both active and archived copies exist for the same shipped milestone phase."
+    },
+    {
+      "milestone": "v3.8",
+      "phaseNumber": "116",
+      "slug": "Translation Parity & Punctuation Guardrails",
+      "activePaths": [
+        ".planning/phases/116-translation-parity-punctuation-guardrails"
+      ],
+      "archivePaths": [
+        ".planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails"
+      ],
+      "reason": "Both active and archived copies exist for the same shipped milestone phase."
+    },
+    {
+      "milestone": "v3.8",
+      "phaseNumber": "117",
+      "slug": "Scorecard Promotion Verification",
+      "activePaths": [
+        ".planning/phases/117-scorecard-promotion-verification"
+      ],
+      "archivePaths": [
+        ".planning/milestones/v3.8-phases/117-scorecard-promotion-verification"
+      ],
+      "reason": "Both active and archived copies exist for the same shipped milestone phase."
+    }
+  ],
   "rewrittenFiles": []
 }

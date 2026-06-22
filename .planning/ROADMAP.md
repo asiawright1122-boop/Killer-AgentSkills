@@ -19,9 +19,9 @@ This milestone turns the v3.9 proof-refresh findings into a user-facing remediat
 **Requirements:**
 
 - [x] AIOPS-43: Reframe the homepage authority block around user-facing selection criteria, curated entry paths, and trusted next steps.
-- [ ] AIOPS-44: Strengthen `Official AI Skills & Trusted Tools` and `Agent Workflow Building Tools` with visible first-party proof, specific selection notes, and install handoffs.
-- [ ] AIOPS-45: Improve the Collections Hub and Installation Docs trust bridge so curated paths and setup validation read as maintained product guidance.
-- [ ] AIOPS-46: Re-run public boundary, content, and scorecard validation after remediation, then record whether promotion gates changed honestly.
+- [x] AIOPS-44: Strengthen `Official AI Skills & Trusted Tools` and `Agent Workflow Building Tools` with visible first-party proof, specific selection notes, and install handoffs.
+- [x] AIOPS-45: Improve the Collections Hub and Installation Docs trust bridge so curated paths and setup validation read as maintained product guidance.
+- [x] AIOPS-46: Re-run public boundary, content, and scorecard validation after remediation, then record whether promotion gates changed honestly.
 
 ### Phase 122: Homepage Authority Reframe
 
@@ -34,22 +34,22 @@ This milestone turns the v3.9 proof-refresh findings into a user-facing remediat
 
 - **Requirements:** AIOPS-44
 - **Scope:** Add stronger first-party proof, visible trust reasons, maintenance cues, and install/decision handoffs to the two highest-priority collection surfaces.
-- **Status:** Planned
-- **Plans:** 0/1 complete
+- **Status:** Complete
+- **Plans:** 1/1 complete
 
 ### Phase 124: Collections and Installation Trust Bridge
 
 - **Requirements:** AIOPS-45
 - **Scope:** Make the collections hub and installation docs behave like a maintained decision-to-setup bridge rather than generic browsing or docs shells.
-- **Status:** Planned
-- **Plans:** 0/1 complete
+- **Status:** Complete
+- **Plans:** 1/1 complete
 
 ### Phase 125: Boundary and Scorecard Revalidation
 
 - **Requirements:** AIOPS-46
 - **Scope:** Re-run public boundary guards, content validation, build/tests, and the scorecard proof chain after public copy remediation.
-- **Status:** Planned
-- **Plans:** 0/1 complete
+- **Status:** Complete
+- **Plans:** 1/1 complete
 
 ## Milestones
 

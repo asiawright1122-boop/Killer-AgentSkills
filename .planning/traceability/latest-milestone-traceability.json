@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T12:56:39.145Z",
+  "generatedAt": "2026-06-22T14:59:47.818Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "milestone": "v4.0",
   "milestoneName": "Authority Proof Remediation & Public Trust Hardening",
@@ -33,12 +33,20 @@
       "phaseDirs": [
         "123-trusted-and-workflow-collection-proof-upgrade"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-44"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-44"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     },
     {
       "phaseNumber": "124",
@@ -47,12 +55,20 @@
       "phaseDirs": [
         "124-collections-and-installation-trust-bridge"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/124-collections-and-installation-trust-bridge/124-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/124-collections-and-installation-trust-bridge/124-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-45"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-45"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     },
     {
       "phaseNumber": "125",
@@ -61,12 +77,20 @@
       "phaseDirs": [
         "125-boundary-and-scorecard-revalidation"
       ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
+      "summaryFiles": [
+        ".planning/phases/125-boundary-and-scorecard-revalidation/125-01-SUMMARY.md"
+      ],
+      "verificationFiles": [
+        ".planning/phases/125-boundary-and-scorecard-revalidation/125-VERIFICATION.md"
+      ],
+      "summaryRequirementsCompleted": [
+        "AIOPS-46"
+      ],
+      "verificationRequirementsCompleted": [
+        "AIOPS-46"
+      ],
+      "summaryMetadataReady": true,
+      "verificationMetadataReady": true
     }
   ],
   "requirements": [
@@ -80,28 +104,32 @@
     {
       "id": "AIOPS-44",
       "expectedPhase": null,
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "AIOPS-45",
       "expectedPhase": null,
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     },
     {
       "id": "AIOPS-46",
       "expectedPhase": null,
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
+      "summaryEvidence": true,
+      "verificationEvidence": true,
+      "status": "satisfied"
     }
   ],
   "hygiene": {
     "status": "clean",
-    "legacyPhaseDirs": [],
+    "legacyPhaseDirs": [
+      "115-batch-backlog-content-enrichment",
+      "116-translation-parity-punctuation-guardrails",
+      "117-scorecard-promotion-verification"
+    ],
     "orphanPhaseDirs": [],
     "duplicateActivePhaseDirs": [],
     "missingActivePhaseDirs": []

@@ -3,17 +3,16 @@
   "milestoneName": "Authority Proof Remediation & Public Trust Hardening",
   "status": "in_progress",
   "blockers": [
-    "Only 1/4 active phases have both summary and verification evidence.",
-    "Requirement coverage is not fully satisfied yet (satisfied=1, partial=0, pending=3)."
+    "Phase lifecycle sync is warning (archive=0, restore=0, create=0)."
   ],
   "phaseCounts": {
     "total": 4,
-    "completed": 1
+    "completed": 4
   },
   "requirementCounts": {
-    "satisfied": 1,
+    "satisfied": 4,
     "partial": 0,
-    "pending": 3,
+    "pending": 0,
     "total": 4
   },
   "hygieneStatus": "clean",
@@ -26,7 +25,13 @@
     ".planning/traceability/latest-milestone-traceability.md",
     ".planning/traceability/latest-milestone-traceability.json",
     ".planning/phases/122-homepage-authority-reframe/122-01-SUMMARY.md",
-    ".planning/phases/122-homepage-authority-reframe/122-VERIFICATION.md"
+    ".planning/phases/122-homepage-authority-reframe/122-VERIFICATION.md",
+    ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-01-SUMMARY.md",
+    ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-VERIFICATION.md",
+    ".planning/phases/124-collections-and-installation-trust-bridge/124-01-SUMMARY.md",
+    ".planning/phases/124-collections-and-installation-trust-bridge/124-VERIFICATION.md",
+    ".planning/phases/125-boundary-and-scorecard-revalidation/125-01-SUMMARY.md",
+    ".planning/phases/125-boundary-and-scorecard-revalidation/125-VERIFICATION.md"
   ],
   "archiveTargets": [
     ".planning/milestones/v4.0-phases",

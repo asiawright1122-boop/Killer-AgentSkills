@@ -4,15 +4,15 @@
 
 **Delivered:** Convert the v3.9 blocked proof findings into user-facing authority improvements across the highest-priority surfaces, without exposing internal reasoning, operator process, or recovery-control language to frontend users.
 
-**Phases completed:** 1/4 complete (4 plans total)
+**Phases completed:** 4/4 complete (4 plans total)
 
 **Key accomplishments:**
 - Roadmap phases tracked: 4
-- Requirement coverage: 1/4 satisfied
+- Requirement coverage: 4/4 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-- 1/4 complete phases, 4 plans, 1/4 requirements satisfied
+- 4/4 complete phases, 4 plans, 4/4 requirements satisfied
 - Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v4.0-BOOTSTRAP.md, .planning/milestones/v4.0-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
