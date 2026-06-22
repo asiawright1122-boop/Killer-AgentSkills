@@ -1,10 +1,11 @@
 #!/usr/bin/env npx tsx
 
-import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../src/lib/sitemap-blocklist';
 import { type SitemapSkillEntry } from '../src/lib/skill-route-paths';
+import { HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS } from '../src/lib/public-ai-output';
 import { isFileLikeSkillRouteTail } from './lib/coverage-url-classification';
 import {
   pickBlocklistedSkillSample,
@@ -44,6 +45,7 @@ const SKILL_FILE_EXT_REGEX = /\.(md|ts|js|py|json|go|yaml|yml|toml|rs|rb|css|htm
 const I18N_KEY_REGEX =
   /\b(?:Aria|Blog|Common|Detail|Docs|Footer|Home|Marketplace|Navigation|Solutions)\.(?!astro\b|tsx\b|ts\b|jsx\b|js\b|json\b)[A-Za-z0-9_-]+\b/g;
 const PUBLIC_COPY_LEAK_PATTERNS = [
+  ...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS.map((entry) => entry.pattern),
   /\buse\s+when\s+(?:creating|using|the\s+user|you|asked|working|submitting)\b/i,
   /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
   /\bcritical\s+guidelines?\b/i,
@@ -53,7 +55,7 @@ const PUBLIC_COPY_LEAK_PATTERNS = [
   /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
   /\breference-only\b/i,
   /\btrusted\s+next\s+steps?\b/i,
-  /思考链|恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
+  /恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
 ];
 const OG_LOCALE_BY_LOCALE: Record<string, string> = {
   ar: 'ar_AR',

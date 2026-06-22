@@ -134,6 +134,7 @@ describe('checkRateLimit (KV-backed)', () => {
   });
 
   it('falls back to the in-memory limiter when KV throws', async () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const kv: KVNamespaceLike = {
       get: vi.fn().mockRejectedValue(new Error('kv-down')),
       put: vi.fn(),
@@ -141,6 +142,8 @@ describe('checkRateLimit (KV-backed)', () => {
     const fallback = createRateLimiter({ windowMs: 60_000, max: 1 });
     expect(await checkRateLimit(kv, baseOpts('k'), fallback)).toBe(true);
     expect(await checkRateLimit(kv, baseOpts('k'), fallback)).toBe(false);
+    expect(consoleWarn).toHaveBeenCalledWith('[rate-limit] KV failed, falling back', expect.any(Error));
+    consoleWarn.mockRestore();
   });
 
   it('fails open when neither KV nor fallback are configured', async () => {
@@ -173,6 +176,7 @@ describe('rateLimitResponse', () => {
     expect(resp.status).toBe(429);
     expect(resp.headers.get('Retry-After')).toBe('30');
     expect(resp.headers.get('Content-Type')).toBe('application/json');
+    expect(resp.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
 
     const body = (await resp.json()) as { success: boolean; error: string };
     expect(body.success).toBe(false);

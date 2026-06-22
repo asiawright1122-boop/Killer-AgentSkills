@@ -8,7 +8,9 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { createHash } from 'node:crypto';
 import type { SkillCache } from './lib/types';
+import { sanitizePublicAIOutputValue } from '../src/lib/public-ai-output';
 
 const MAX_STATEMENT_BYTES = 180_000;
 const MAX_FILE_BYTES = 900_000;
@@ -33,6 +35,14 @@ function byteLength(value: string): number {
 
 function cloneSkill<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
+}
+
+function toPublicSkill(skill: SkillCache): SkillCache {
+  return sanitizePublicAIOutputValue(skill) as SkillCache;
+}
+
+function computePayloadHash(json: string): string {
+  return createHash('sha256').update(json).digest('hex').slice(0, 32);
 }
 
 function buildSearchText(
@@ -147,7 +157,7 @@ async function run() {
   const commands: string[] = [];
 
   for (let i = 0; i < skills.length; i++) {
-    const skill = skills[i];
+    const skill = toPublicSkill(skills[i]);
     const id = escapeSql(skill.id);
     const category = escapeSql(skill.category || 'developer');
     const owner = escapeSql(skill.owner);
@@ -159,8 +169,8 @@ async function run() {
     const quality_score = escapeNumber(skill.qualityScore);
     const updated_at = escapeSql(skill.updatedAt);
     const last_synced = escapeSql(skill.lastSynced);
-    const content_hash = escapeSql(skill.contentHash);
     const { json: rawJson, reduced } = shrinkSkillForSeed(skill);
+    const content_hash = escapeSql(computePayloadHash(rawJson));
     const data_json = escapeSql(rawJson);
     const statement = `INSERT OR REPLACE INTO skills (id, category, owner, repo, repo_path, name, stars, forks, quality_score, updated_at, last_synced, content_hash, data_json) VALUES (${id}, ${category}, ${owner}, ${repo}, ${repo_path}, ${name}, ${stars}, ${forks}, ${quality_score}, ${updated_at}, ${last_synced}, ${content_hash}, ${data_json});\n`;
     const ftsStatement = buildSearchText(skill, id, name, owner, repo, category);

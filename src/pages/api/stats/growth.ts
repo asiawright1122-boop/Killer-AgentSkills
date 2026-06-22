@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
+import { jsonResponse } from '../../../lib/api-utils';
 import { type Env } from '../../../lib/kv';
-import { getAllSkills, type UnifiedSkill } from '../../../lib/skills';
+import { withPublicApiHeaders } from '../../../lib/public-skill-api';
+import { getAllSkills, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
@@ -33,27 +35,19 @@ export const GET: APIRoute = async ({ locals }) => {
     const thirtyDaysAgo = Date.now() - 30 * 86400000;
     const recentSkills = skills.filter((s) => new Date(s.updatedAt).getTime() > thirtyDaysAgo).length;
 
-    return new Response(
-      JSON.stringify({
+    return jsonResponse(
+      {
         totalSkills,
         totalCategories: categories.size,
         totalStars,
         sources,
         recentSkills,
-      }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
-        },
       },
+      200,
+      withPublicApiHeaders({ 'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600' }),
     );
   } catch (error) {
     console.error('Growth stats API error:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch growth stats' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return jsonResponse({ error: 'Failed to fetch growth stats' }, 500, withPublicApiHeaders());
   }
 };

@@ -1,4 +1,5 @@
 import type { UnifiedSkill } from './skills';
+import { sanitizePublicAIOutput, sanitizePublicAIOutputValue } from './public-ai-output';
 
 type SkillMdLike =
   | {
@@ -16,7 +17,9 @@ type SkillMdLike =
 export const PUBLIC_API_ROBOTS_VALUE = 'noindex, nofollow';
 
 function toOptionalString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
+  if (typeof value !== 'string') return undefined;
+  const sanitized = sanitizePublicAIOutput(value).trim();
+  return sanitized.length > 0 ? sanitized : undefined;
 }
 
 function toOptionalStringArray(value: unknown): string[] | undefined {
@@ -28,7 +31,7 @@ function toOptionalStringArray(value: unknown): string[] | undefined {
 }
 
 function stripMarkdown(text: string): string {
-  return text
+  return sanitizePublicAIOutput(text)
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/`[^`]*`/g, ' ')
     .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
@@ -79,7 +82,8 @@ export function sanitizePublicSkillMd(
 export function sanitizePublicSkill(skill: UnifiedSkill): Record<string, unknown> {
   const { filePath: _filePath, skillMd, ...rest } = skill;
   const sanitizedSkillMd = sanitizePublicSkillMd(skillMd, { includeBodyPreview: false });
-  return sanitizedSkillMd ? { ...rest, skillMd: sanitizedSkillMd } : rest;
+  const sanitizedRest = sanitizePublicAIOutputValue(rest) as Record<string, unknown>;
+  return sanitizedSkillMd ? { ...sanitizedRest, skillMd: sanitizedSkillMd } : sanitizedRest;
 }
 
 export function sanitizePublicSkillLikeRecord(input: unknown): unknown {
@@ -107,7 +111,7 @@ export function sanitizePublicSkillLikeRecord(input: unknown): unknown {
       continue;
     }
 
-    sanitized[key] = value;
+    sanitized[key] = sanitizePublicAIOutputValue(value);
   }
 
   return sanitized;

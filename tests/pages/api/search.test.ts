@@ -1,12 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createAPIContext, createMockD1, createMockEnv } from '../../../src/lib/api-test-utils';
-import type { UnifiedSkill } from '../../../src/lib/skills';
+import { findHiddenReasoningPublicOutputMatches } from '../../../src/lib/public-ai-output';
+import type { UnifiedSkill } from '../../../src/lib/public-skill-catalog';
 
 const mockGetLightweightSkills = vi.fn<() => Promise<UnifiedSkill[]>>();
 const mockSearchSkills = vi.fn<(skills: UnifiedSkill[], query: string, locale?: string) => UnifiedSkill[]>();
 
-vi.mock('../../../src/lib/skills', async () => {
-  const actual = await vi.importActual<typeof import('../../../src/lib/skills')>('../../../src/lib/skills');
+vi.mock('../../../src/lib/public-skill-catalog', async () => {
+  const actual =
+    await vi.importActual<typeof import('../../../src/lib/public-skill-catalog')>(
+      '../../../src/lib/public-skill-catalog',
+    );
   return {
     ...actual,
     getLightweightSkills: mockGetLightweightSkills,
@@ -56,8 +60,11 @@ describe('GET /api/search', () => {
     mockGetLightweightSkills.mockResolvedValue(skills);
     mockSearchSkills.mockImplementation((items) => items);
 
-    const res = await GET(createAPIContext({ url: 'http://localhost/api/search?q=art&locale=en', env: createMockEnv() }));
+    const res = await GET(
+      createAPIContext({ url: 'http://localhost/api/search?q=art&locale=en', env: createMockEnv() }),
+    );
     expect(res.status).toBe(200);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
 
     const body = (await res.json()) as { results: unknown[] };
     expect(body.results).toEqual([
@@ -78,9 +85,9 @@ describe('GET /api/search', () => {
         id: '0boluan0/Notes_on_Economic_Statistics/today',
         owner: '0boluan0',
         repo: 'Notes_on_Economic_Statistics',
-        name: 'Today',
+        name: '<thinking>private match notes</thinking>Today',
         stars: 10,
-        category: 'documentation',
+        category: 'Private analysis:\ninternal category\n\ndocumentation',
         source: 'cache',
       },
     ]);
@@ -97,10 +104,35 @@ describe('GET /api/search', () => {
     expect(body.results).toEqual([
       expect.objectContaining({
         id: '0boluan0/Notes_on_Economic_Statistics/today',
+        name: 'Today',
+        category: 'documentation',
         routePath: 'Notes_on_Economic_Statistics/today',
         detailLocale: 'en',
         href: '/en/skills/0boluan0/Notes_on_Economic_Statistics/today',
       }),
     ]);
+  });
+
+  it('returns noindex headers for empty query errors', async () => {
+    const res = await GET(createAPIContext({ url: 'http://localhost/api/search', env: createMockEnv() }));
+
+    expect(res.status).toBe(400);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
+  it('sanitizes hidden reasoning from search error responses', async () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+    mockGetLightweightSkills.mockRejectedValueOnce(
+      new Error('<reasoning>private search notes</reasoning>Public failure'),
+    );
+
+    const res = await GET(createAPIContext({ url: 'http://localhost/api/search?q=art', env: createMockEnv() }));
+    const body = await res.json();
+
+    expect(res.status).toBe(500);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(consoleError).toHaveBeenCalledWith('Search API Error:', expect.any(Error));
+    expect(body.error).toBe('Internal server error');
+    expect(findHiddenReasoningPublicOutputMatches(JSON.stringify(body))).toEqual([]);
   });
 });

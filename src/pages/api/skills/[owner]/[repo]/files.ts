@@ -2,7 +2,9 @@ import type { APIRoute } from 'astro';
 import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { GITHUB_API_BASE, COMMON_BRANCHES, getGitHubHeaders, getSkillMdPaths } from '../../../../../lib/github';
+import { sanitizePublicAIOutput } from '../../../../../lib/public-ai-output';
 import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
+import { getPublicSkillRepoMetadata } from '../../../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
@@ -72,11 +74,9 @@ async function detectRepoMetadata(
  */
 async function findSkillDirectory(owner: string, repo: string, env?: Env): Promise<string | null> {
   // 1. Try to find from KV featured-skills data (Now routed to D1 Serverless)
-  if (env?.DB) {
+  if (env) {
     try {
-      const { getSkillsKV } = await import('../../../../../lib/kv');
-      const targetRepo = `${owner}/${repo}`;
-      const found = await getSkillsKV(env, targetRepo);
+      const found = await getPublicSkillRepoMetadata(env, owner, repo);
       if (found?.filePath) {
         // filePath might point to SKILL.md, extract directory
         if (found.filePath.endsWith('SKILL.md')) {
@@ -143,8 +143,8 @@ async function getDirectoryContents(owner: string, repo: string, path: string): 
       })
       .map(
         (item): FileInfo => ({
-          name: item.name,
-          path: item.path,
+          name: sanitizePublicAIOutput(item.name),
+          path: sanitizePublicAIOutput(item.path),
           size: item.size || 0,
           type: (item.type === 'dir' ? 'dir' : 'file') as 'file' | 'dir',
         }),
@@ -212,7 +212,7 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
     return new Response(
       JSON.stringify({
-        directory: skillDir || '/',
+        directory: sanitizePublicAIOutput(skillDir || '/') || '/',
         files,
         total: files.length,
       }),

@@ -3,6 +3,7 @@ import { resolveAIProviderModel } from './ai-provider-models';
 import { parseAIProviderWorkloadProfile, type AIProviderWorkloadProfileName } from './ai-provider-routing';
 import type { Env } from './kv';
 import { LiveAIRuntime, type LiveAIProviderName, type LiveAIProviderRequest } from './live-ai-runtime';
+import { appendNoHiddenReasoningInstruction, sanitizePublicAIOutput } from './public-ai-output';
 
 type TranslationEnv = Env & Record<string, unknown>;
 
@@ -66,7 +67,7 @@ function buildSystemPrompt(targetLang: string, type: 'text' | 'markdown'): strin
   const langName = getLangName(targetLang);
 
   if (type === 'markdown') {
-    return `You are a technical document translator.
+    return appendNoHiddenReasoningInstruction(`You are a technical document translator.
 Translate the input Markdown content into ${langName}.
 
 CRITICAL SEO RULE:
@@ -80,12 +81,12 @@ FORMATTING RULES (STRICT):
 5. Do NOT translate inside code blocks (\`\`\`) or inline code (\` \`).
 6. Maintain technical terms (e.g. "React", "Hook", "CI/CD") in English.
 
-Output ONLY the translated Markdown.`;
+Output ONLY the translated Markdown.`);
   }
 
-  return `You are a professional translator. Translate the following text into ${langName}.
+  return appendNoHiddenReasoningInstruction(`You are a professional translator. Translate the following text into ${langName}.
 Maintain technical terms in their original language if appropriate.
-Output ONLY the translated text.`;
+Output ONLY the translated text.`);
 }
 
 function extractAiText(payload: unknown): string | null {
@@ -269,14 +270,25 @@ export async function* translateTextStream(
   );
 
   if (executed.result.kind === 'stream') {
-    yield* streamNvidiaResponse(executed.result.response);
+    let streamedText = '';
+    for await (const chunk of streamNvidiaResponse(executed.result.response)) {
+      streamedText += chunk?.choices?.[0]?.delta?.content || '';
+    }
+
+    yield {
+      choices: [
+        {
+          delta: { content: sanitizePublicAIOutput(streamedText) },
+        },
+      ],
+    };
     return;
   }
 
   yield {
     choices: [
       {
-        delta: { content: executed.result.text },
+        delta: { content: sanitizePublicAIOutput(executed.result.text) },
       },
     ],
   };
@@ -303,5 +315,5 @@ export async function translateText(
     topP: 1,
   });
 
-  return result.text;
+  return sanitizePublicAIOutput(result.text);
 }

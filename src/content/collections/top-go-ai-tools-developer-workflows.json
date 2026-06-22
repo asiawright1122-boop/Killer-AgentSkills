@@ -80,11 +80,27 @@
   "editorial": {
     "reviewSummary": {
       "en": "Updated on 2026-06-05 to keep setup instructions, utility examples, and active status accurate.",
-      "zh": "已于 2026-06-05 更新，核对相关配置信息、实用示例与当前活跃状态。"
+      "zh": "已于 2026-06-05 更新，核对相关配置信息、实用示例与当前活跃状态。",
+      "ja": "2026-06-05に更新して、セットアップ手順、ユーティリティの例、およびアクティブな状態の正確さを維持しました。",
+      "ko": "2026-06-05에 설정 지침, 유틸리티 예제, 및 활성 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
+      "es": "Actualizado el 2026-06-05 para mantener las instrucciones de configuración, ejemplos de utilidades y estado activo precisos.",
+      "fr": "Mise à jour le 2026-06-05 pour maintenir l'exactitude des instructions de configuration, des exemples d'utilitaires et du statut actif.",
+      "de": "Am 05.06.2026 aktualisiert, um die Einrichtungsanleitungen, Beispielnutzungen und den aktuellen Status genau zu halten.",
+      "pt": "Atualizado em 2026-06-05 para manter as instruções de configuração, exemplos de utilitários e status ativo precisos.",
+      "ru": "Обновлено 2026-06-05, чтобы поддерживать актуальность инструкций по настройке, примеров утилит и текущего статуса.",
+      "ar": "تم التحديث في 2026-06-05 لتحديث تعليمات الإعداد وأمثلة الأدوات والحالة النشطة بشكل دقيق."
     },
     "selectionReason": {
       "en": "Go engineers need quick setup choices that support performance and concurrency without adding heavy dependencies.",
-      "zh": "Go 工程师需要能支持高性能与并发的快速配置选择，且不希望增加沉重的第三方依赖。"
+      "zh": "Go 工程师需要能支持高性能与并发的快速配置选择，且不希望增加沉重的第三方依赖。",
+      "ja": "Goエンジニアは、パフォーマンスと並行性をサポートしながら、重い依存関係を追加しない迅速なセットアップオプションが必要です。",
+      "ko": "고 성능과 동시성을 지원하면서 무거운 의존성을 추가하지 않는 빠른 설정 선택이 필요한 Go 엔지니어입니다.",
+      "es": "Los ingenieros de Go necesitan opciones de configuración rápida que soporten el rendimiento y la concurrencia sin agregar dependencias pesadas.",
+      "fr": "Les ingénieurs Go ont besoin de choix de configuration rapides qui supportent les performances et la concurrence sans ajouter de dépendances lourdes.",
+      "de": "Go-Entwickler benötigen schnelle Einrichtungsoptionen, die Leistung und Konkurrenz unterstützen, ohne schwere Abhängigkeiten hinzuzufügen.",
+      "pt": "Os engenheiros Go precisam de opções de configuração rápidas que suportem desempenho e concorrência sem adicionar dependências pesadas.",
+      "ru": "Инженеры Go требуют быстрого выбора настроек, которые поддерживают производительность и конкурентность без добавления тяжелых зависимостей.",
+      "ar": "يحتاج مهندسو جوجل إلى خيارات إعداد سريعة تدعم الأداء والتوازي دون إضافة зависимости ثقيلة."
     },
     "trustSignals": {
       "en": [

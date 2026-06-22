@@ -6,7 +6,7 @@ import Breadcrumb from '../../../components/Breadcrumb.astro';
 import { ArrowLeft, LayoutGrid } from 'lucide-react';
 import { SUPPORTED_LOCALES, type Locale, loadMessages, translateOr, useTranslations } from '../../../i18n';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import { getLightweightSkillsByRefs, type UnifiedSkill } from '../../../lib/skills';
+import { getLightweightSkillsByRefs, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import {
   getLocalizedSeoEligibleLocales,
   getPreferredCanonicalLocale,
@@ -273,6 +273,34 @@ const longDescription = polishCollectionPublicText(
   typedLocale,
 );
 const editorial = cData.editorial;
+const editorialSelectionReason = sanitizePublicText(resolveLocalized(editorial?.selectionReason, ''), '');
+const editorialTrustSignals = sanitizePublicArray(resolveLocalizedArray(editorial?.trustSignals, []));
+const editorialUpdateSummary = sanitizePublicText(resolveLocalized(editorial?.reviewSummary, ''), '');
+const editorialMaintenanceCadence = sanitizePublicText(resolveLocalized(editorial?.maintenance?.cadence, ''), '');
+const editorialMaintainedBy = sanitizePublicText(resolveLocalized(editorial?.maintenance?.maintainedBy, ''), '');
+const editorialMaintenanceVerification = sanitizePublicText(
+  resolveLocalized(editorial?.maintenance?.verification, ''),
+  '',
+);
+const editorialReviewedAt = sanitizePublicText(editorial?.maintenance?.reviewedAt, '');
+const editorialMaintenanceItems = [
+  {
+    label: isZhCopy ? '最近更新' : 'Updated',
+    value: editorialUpdateSummary || editorialReviewedAt,
+  },
+  {
+    label: isZhCopy ? '更新节奏' : 'Update Cadence',
+    value: editorialMaintenanceCadence,
+  },
+  {
+    label: isZhCopy ? '维护方式' : 'Maintained By',
+    value: editorialMaintainedBy,
+  },
+  {
+    label: isZhCopy ? '保留条件' : 'Kept When',
+    value: editorialMaintenanceVerification,
+  },
+].filter((item) => item.value);
 const editorialExecutionExamples = (editorial?.executionExamples || [])
   .map((item) => ({
     title: sanitizePublicText(resolveLocalized(item.title, ''), ''),
@@ -484,6 +512,58 @@ const itemListSchema = {
               <p class="seo-intro-paragraph text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {longDescription}
               </p>
+            </section>
+          )
+        }
+
+        {
+          (editorialSelectionReason || editorialTrustSignals.length > 0 || editorialMaintenanceItems.length > 0) && (
+            <section class="mb-16 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+              <div class="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-8">
+                <div>
+                  <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                    {isZhCopy ? '选择依据' : 'Selection Notes'}
+                  </div>
+                  <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4">
+                    {isZhCopy ? '为什么这些工具会列在这里' : 'Why These Tools Are Listed'}
+                  </h2>
+                  {editorialSelectionReason && (
+                    <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium mb-6">
+                      {editorialSelectionReason}
+                    </p>
+                  )}
+                  {editorialTrustSignals.length > 0 && (
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {editorialTrustSignals.map((signal) => (
+                        <div class="border-[2px] border-[var(--border)] bg-[var(--card)] p-4">
+                          <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-2">
+                            {isZhCopy ? '关注内容' : 'Signal'}
+                          </div>
+                          <p class="text-sm leading-6 font-bold text-[var(--foreground)]/85">{signal}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {editorialMaintenanceItems.length > 0 && (
+                  <aside class="border-[3px] border-[var(--foreground)] bg-[var(--foreground)] text-[var(--background)] p-5 md:p-6">
+                    <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                      {isZhCopy ? '维护说明' : 'Maintenance Notes'}
+                    </div>
+                    <dl class="space-y-4">
+                      {editorialMaintenanceItems.map((item) => (
+                        <div>
+                          <dt class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-1">
+                            {item.label}
+                          </dt>
+                          <dd class="text-sm leading-6 font-medium text-[var(--background)]/85">{item.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </aside>
+                )}
+              </div>
             </section>
           )
         }

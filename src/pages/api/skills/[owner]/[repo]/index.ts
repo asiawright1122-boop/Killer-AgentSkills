@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { getSkillByOwnerRepo } from '../../../../../lib/skills';
+import { getSkillByOwnerRepo } from '../../../../../lib/public-skill-catalog';
 import { type Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES, getRepository, type RepoInfo } from '../../../../../lib/github';

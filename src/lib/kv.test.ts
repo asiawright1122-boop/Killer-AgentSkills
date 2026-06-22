@@ -53,6 +53,19 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
   } as unknown as KVNamespace;
 }
 
+function silenceExpectedKVLogs() {
+  const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+  return {
+    warn,
+    error,
+    restore() {
+      warn.mockRestore();
+      error.mockRestore();
+    },
+  };
+}
+
 const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(400);
 const withIndexableBody = <T extends Record<string, any>>(entry: T): T => ({
   ...entry,
@@ -182,9 +195,16 @@ describe('getKV', () => {
   });
 
   it('should fallback to local mock when TRANSLATIONS binding is unavailable', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = { SKILLS_CACHE: createMockKV(), DB: {} as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
-    const result = await getKV(env, 'key');
-    expect(result).toBeNull();
+    try {
+      const result = await getKV(env, 'key');
+      expect(result).toBeNull();
+      expect(logs.warn).toHaveBeenCalledWith('[KV] No TRANSLATIONS binding found. Using local mock.');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 });
 
@@ -202,9 +222,16 @@ describe('setKV', () => {
   });
 
   it('should fallback to local mock when TRANSLATIONS binding is unavailable', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = { SKILLS_CACHE: createMockKV(), DB: {} as D1Database, ASSETS: {} as Fetcher } as unknown as Env;
-    // Should not throw
-    await setKV(env, 'key', 'value');
+    try {
+      // Should not throw
+      await setKV(env, 'key', 'value');
+      expect(logs.warn).toHaveBeenCalledWith('[KV] Mock Write: key');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 });
 
@@ -221,14 +248,28 @@ describe('getSkillsFromKV', () => {
   });
 
   it('should return empty array when DB binding is unavailable', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
-    const result = await getSkillsFromKV(env);
-    expect(result).toEqual([]);
+    try {
+      const result = await getSkillsFromKV(env);
+      expect(result).toEqual([]);
+      expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should return empty array when env is null/undefined', async () => {
-    const result = await getSkillsFromKV(null as unknown as Env);
-    expect(result).toEqual([]);
+    const logs = silenceExpectedKVLogs();
+    try {
+      const result = await getSkillsFromKV(null as unknown as Env);
+      expect(result).toEqual([]);
+      expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should return empty array when no skills exist in D1', async () => {
@@ -238,13 +279,21 @@ describe('getSkillsFromKV', () => {
   });
 
   it('should return empty array on D1 read error', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = createMockEnv({}, []);
     env.DB!.prepare = vi.fn().mockImplementation(() => {
       throw new Error('DB timeout');
     });
 
-    const result = await getSkillsFromKV(env);
-    expect(result).toEqual([]);
+    try {
+      const result = await getSkillsFromKV(env);
+      expect(result).toEqual([]);
+      expect(logs.warn).toHaveBeenCalledWith('[D1] Query failed, falling back to KV:', expect.any(Error));
+      expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding found, falling back to local file array');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 });
 
@@ -294,14 +343,28 @@ describe('getSkillsKV', () => {
   });
 
   it('should return null when DB binding is unavailable', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
-    const result = await getSkillsKV(env, 'some-key');
-    expect(result).toBeNull();
+    try {
+      const result = await getSkillsKV(env, 'some-key');
+      expect(result).toBeNull();
+      expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding for specific key lookup some-key, using local cache');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should return null when env is null/undefined', async () => {
-    const result = await getSkillsKV(null as unknown as Env, 'some-key');
-    expect(result).toBeNull();
+    const logs = silenceExpectedKVLogs();
+    try {
+      const result = await getSkillsKV(null as unknown as Env, 'some-key');
+      expect(result).toBeNull();
+      expect(logs.warn).toHaveBeenCalledWith('[D1] No DB binding for specific key lookup some-key, using local cache');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should return null when key does not exist', async () => {
@@ -311,13 +374,20 @@ describe('getSkillsKV', () => {
   });
 
   it('should return null on D1 read error', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = createMockEnv({}, []);
     env.DB!.prepare = vi.fn().mockImplementation(() => {
       throw new Error('DB timeout');
     });
 
-    const result = await getSkillsKV(env, 'some-key');
-    expect(result).toBeNull();
+    try {
+      const result = await getSkillsKV(env, 'some-key');
+      expect(result).toBeNull();
+      expect(logs.error).toHaveBeenCalledWith('[D1] Error querying skill key "some-key":', expect.any(Error));
+      expect(logs.warn).toHaveBeenCalledWith('[D1] Falling back to local skills cache for some-key');
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should handle array data (unsupported in D1 lookup, returns null)', async () => {
@@ -539,9 +609,16 @@ describe('getSitemapSkillsFromKV', () => {
   });
 
   it('should return empty array when DB binding is unavailable in production (no local fallback)', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = { TRANSLATIONS: createMockKV(), ASSETS: {} as Fetcher } as unknown as Env;
-    const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual([]);
+    try {
+      const result = await getSitemapSkillsFromKV(env);
+      expect(result).toEqual([]);
+      expect(logs.warn).toHaveBeenCalledWith('[Sitemap] No data source available for sitemap');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('should return empty array when no data exists in D1', async () => {
@@ -551,12 +628,19 @@ describe('getSitemapSkillsFromKV', () => {
   });
 
   it('should return empty array on D1 read error', async () => {
+    const logs = silenceExpectedKVLogs();
     const env = createMockEnv({}, []);
     env.DB!.prepare = vi.fn().mockImplementation(() => {
       throw new Error('DB timeout');
     });
 
-    const result = await getSitemapSkillsFromKV(env);
-    expect(result).toEqual([]);
+    try {
+      const result = await getSitemapSkillsFromKV(env);
+      expect(result).toEqual([]);
+      expect(logs.error).toHaveBeenCalledWith('[D1] Error reading sitemap skills from D1:', expect.any(Error));
+      expect(logs.warn).toHaveBeenCalledWith('[Sitemap] No data source available for sitemap');
+    } finally {
+      logs.restore();
+    }
   });
 });

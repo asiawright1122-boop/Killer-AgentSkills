@@ -10,6 +10,12 @@ import {
   type LiveAIRoutingSnapshot as LiveRoutingSnapshot,
 } from '../../../lib/live-ai-runtime';
 import {
+  appendNoHiddenReasoningInstruction,
+  sanitizePublicAIOutput,
+  sanitizePublicAIOutputValue,
+} from '../../../lib/public-ai-output';
+import { withPublicApiHeaders } from '../../../lib/public-skill-api';
+import {
   checkRateLimit,
   createRateLimiter,
   getClientIP,
@@ -17,7 +23,7 @@ import {
   type KVNamespaceLike,
 } from '../../../lib/rate-limit';
 import { getSkillTryProfile, type SkillTryProfile, type SkillTryProfileId } from '../../../lib/skill-try-profiles';
-import { getSkillById } from '../../../lib/skills';
+import { getSkillById } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
@@ -55,7 +61,7 @@ function isZhLocale(locale?: string): boolean {
 
 function buildSystemPrompt(locale?: string, customRules?: string): string {
   const outputLanguage = isZhLocale(locale) ? 'Simplified Chinese' : 'English';
-  return `You are an AI skill runtime preview engine.
+  return appendNoHiddenReasoningInstruction(`You are an AI skill runtime preview engine.
 You are simulating how an installed skill would respond.
 
 ${customRules ? `--- SKILL EXECUTION RULES ---\n${customRules}\n-----------------------------\n` : ''}
@@ -63,7 +69,7 @@ ${customRules ? `--- SKILL EXECUTION RULES ---\n${customRules}\n----------------
 Return practical, actionable output in ${outputLanguage}.
 Use Markdown headings and bullets.
 Do not add policy disclaimers unless safety is directly relevant.
-Do not mention that this is a simulation.`;
+Do not mention that this is a simulation.`);
 }
 
 function buildUserPrompt(profile: SkillTryProfile, input: string, locale?: string): string {
@@ -369,12 +375,12 @@ function fallbackPreview(profileId: SkillTryProfileId, input: string, locale?: s
 }
 
 function json(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
+  return new Response(JSON.stringify(sanitizePublicAIOutputValue(body)), {
     status,
-    headers: {
+    headers: withPublicApiHeaders({
       'Content-Type': 'application/json',
       'Cache-Control': 'no-store',
-    },
+    }),
   });
 }
 
@@ -452,13 +458,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       try {
         const cached = JSON.parse(cachedRaw) as CachedTrialOutput;
         if (cached?.provider && cached?.outputMarkdown) {
+          const outputMarkdown = sanitizePublicAIOutput(cached.outputMarkdown);
           return json({
             success: true,
             mode: 'ai',
             provider: cached.provider,
             skillId: profile.id,
             skillRef: profile.skillRef,
-            outputMarkdown: cached.outputMarkdown,
+            outputMarkdown,
             workloadProfile: cached.workloadProfile || workloadProfile,
             routing,
             cached: true,
@@ -489,7 +496,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     try {
       const liveResult = await runLiveProviders(env, systemPrompt, userPrompt, origin);
-      outputMarkdown = liveResult.output;
+      outputMarkdown = sanitizePublicAIOutput(liveResult.output);
       mode = 'ai';
       provider = liveResult.provider;
       workloadProfile = liveResult.workloadProfile;
@@ -500,7 +507,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         cacheKey,
         JSON.stringify({
           provider: liveResult.provider,
-          outputMarkdown: liveResult.output,
+          outputMarkdown,
           workloadProfile: liveResult.workloadProfile,
         } satisfies CachedTrialOutput),
         OUTPUT_CACHE_TTL_SECONDS,
@@ -527,7 +534,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return json(
       {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: 'Skill trial failed',
       },
       500,
     );

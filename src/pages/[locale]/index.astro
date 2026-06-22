@@ -4,7 +4,7 @@ import SkillCard from '../../components/SkillCard.astro';
 import OfficialSkills from '../../components/OfficialSkills.astro';
 import SearchBar from '../../islands/SearchBar';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../i18n';
-import { getFeaturedSkillsDirect } from '../../lib/skills';
+import { getFeaturedSkillsDirect } from '../../lib/public-skill-catalog';
 import { buildKeywordString } from '../../lib/seo-keywords';
 import { getAuthoritySurfaceEntries } from '../../lib/authority-surfaces';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../../lib/collection-slugs';
@@ -124,38 +124,38 @@ const homeAuthoritySurfaces = getAuthoritySurfaceEntries(typedLocale, {
 const homeSurfaceCopyOverrides = isZhCopy
   ? {
       'collections-hub': {
-        title: '浏览精选合集',
-        description: '按主题查看值得先试的技能、工具和工作流。',
+        title: '先看精选路径',
+        description: '按任务场景查看经过整理的技能组合，先缩小选择范围再安装。',
       },
       'docs-installation': {
-        title: '查看安装文档',
-        description: '快速找到 CLI、配置步骤和常见安装说明。',
+        title: '确认安装步骤',
+        description: '查看 CLI 命令、IDE 兼容性和安装前需要确认的设置。',
       },
       'collection-official-trusted-tools': {
-        title: '官方与高质量工具',
-        description: '优先查看官方项目和维护信息更清楚的工具。',
+        title: '优先查看官方工具',
+        description: '从官方项目和维护信息更清楚的工具开始，降低试错成本。',
       },
       'solution-agent-workflows': {
-        title: 'Agent 工作流方案',
-        description: '按任务场景查看适合搭建 Agent workflow 的工具与路线。',
+        title: '按工作流继续选择',
+        description: '围绕具体任务查看工具怎样组合，再决定下一步安装什么。',
       },
     }
   : {
       'collections-hub': {
-        title: 'Browse Curated Collections',
-        description: 'Explore skills, tools, and workflows grouped by real use cases.',
+        title: 'Start With Curated Paths',
+        description: 'Narrow the shortlist with task-based skill groups before you install.',
       },
       'docs-installation': {
-        title: 'Open Installation Docs',
-        description: 'Find CLI commands, setup steps, and practical install guidance fast.',
+        title: 'Check Setup Steps',
+        description: 'Review CLI commands, IDE compatibility, and setup notes before changing a project.',
       },
       'collection-official-trusted-tools': {
-        title: 'Official & Trusted Tools',
-        description: 'Start with official projects and higher-confidence tools from the ecosystem.',
+        title: 'Prioritize Official Tools',
+        description: 'Begin with official projects and clearer maintenance signals to reduce trial-and-error.',
       },
       'solution-agent-workflows': {
-        title: 'Agent Workflow Guides',
-        description: 'Browse task-focused routes for building agent workflows with the right tools.',
+        title: 'Choose by Workflow',
+        description: 'See how tools fit a concrete job before deciding what to install next.',
       },
     };
 const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
@@ -166,34 +166,33 @@ const homeDisplaySurfaces = homeAuthoritySurfaces.map((surface) => ({
 const homeSelectionGuidance = isZhCopy
   ? [
       {
-        title: '浏览精选合集',
-        description:
-          '每一个合集都按主题精选，由官方工具、低风险工作流和社区高星组件构成。在安装前提供明确的用例和对比。',
+        title: '先按选择标准缩小范围',
+        description: '首页优先引导你看官方来源、维护状态、IDE 兼容性和适用场景，而不是直接进入完整列表。',
       },
       {
-        title: '查看安装文档',
-        description: '提供我们零依赖 CLI 的单命令安装指引，自动检测您的 IDE 容器并配置权限，确保安全且无冲突运行。',
+        title: '再确认安装路径',
+        description: '安装文档会说明 CLI 命令、支持的 IDE 和配置方式，帮助你在改动项目之前确认步骤。',
       },
       {
-        title: '按场景与方案找技能',
-        description: '从文档自动化、浏览器操控到数据处理等明确场景进入，直接展示多步骤工作流如何将多个技能串联。',
+        title: '最后按任务继续深入',
+        description: '当你已经知道任务方向时，再进入合集、方案页或具体技能页，比较能直接落地的下一步。',
       },
     ]
   : [
       {
-        title: 'Browse Curated Collections',
+        title: 'Narrow by Selection Criteria',
         description:
-          'Every collection is hand-picked by theme, highlighting official tools, low-risk workflow bundles, and vetted community skills.',
+          'The homepage starts with official sources, maintenance signals, IDE fit, and use-case clarity before sending you into broad browsing.',
       },
       {
-        title: 'Open Installation Docs',
+        title: 'Confirm the Setup Path',
         description:
-          'Get one-command install paths utilizing our zero-dependency CLI. Automatically detects your editor to set up safe sandboxed configurations.',
+          'Installation docs show CLI commands, supported IDEs, and configuration notes so you can check the path before touching a project.',
       },
       {
-        title: 'Browse Use-Case Solutions',
+        title: 'Move Into the Right Task',
         description:
-          'Jump directly into task-focused solution paths like Document Automation, Browser Control, and DevOps to see how skills chain together.',
+          'Once the job is clear, continue into collections, solution pages, or skill details that match the work you are trying to finish.',
       },
     ];
 
@@ -239,30 +238,6 @@ const features = [
   appendBrand={false}
   customCanonical={canonicalUrl}
 >
-  {/* WebSite + Organization JSON-LD for sitelinks search box */}
-  <script
-    is:inline
-    type="application/ld+json"
-    set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'Killer-Skills',
-      url: 'https://killer-skills.com',
-      description: homeSeoDescription,
-      inLanguage: ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'],
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `https://killer-skills.com/${locale}/skills?q={search_term_string}`,
-        },
-        'query-input': 'required name=search_term_string',
-      },
-      publisher: {
-        '@id': 'https://killer-skills.com/#organization',
-      },
-    })}
-  />
   {/* GEO: Speakable Schema — tells AI engines which content to quote */}
   <script
     is:inline
@@ -432,16 +407,16 @@ const features = [
             <span
               class="inline-flex px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-4"
             >
-              {isZhCopy ? '快速开始' : 'Quick Start'}
+              {isZhCopy ? '推荐起点' : 'Recommended Start'}
             </span>
             <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-[var(--foreground)] mb-4">
-              {isZhCopy ? '从这三个入口开始，更快找到合适的技能' : 'Start With These Three Paths'}
+              {isZhCopy ? '先看选择标准，再决定安装什么' : 'Choose With Evidence Before You Install'}
             </h2>
             <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
               {
                 isZhCopy
-                  ? '无论你是先挑合集、先看安装步骤，还是按场景筛选，都可以从这里直接进入。'
-                  : 'Whether you want to browse collections, check setup steps, or explore by use case, you can start here.'
+                  ? '首页优先展示经过整理的入口：官方与高信任工具、安装说明、场景方案和精选合集。完整目录仍然可用，但更适合在你需要扩展搜索范围时再打开。'
+                  : 'The homepage leads with maintained starting points: official and higher-confidence tools, setup guidance, use-case pages, and curated collections. The full directory stays available when you need to widen the search.'
               }
             </p>
           </div>
@@ -469,7 +444,7 @@ const features = [
                 <h3 class="text-xl font-black uppercase tracking-tight mb-3">{surface.title}</h3>
                 <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)] mb-4">{surface.description}</p>
                 <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)]">
-                  {isZhCopy ? '查看详情' : 'Open'} →
+                  {isZhCopy ? '查看路径' : 'View path'} →
                 </div>
               </a>
             ))
@@ -494,7 +469,7 @@ const features = [
           homeSupportingSurface && (
             <div class="mt-8 flex flex-wrap items-center gap-3 border-t-[3px] border-[var(--border)] pt-6">
               <span class="text-xs font-black uppercase tracking-widest text-[var(--muted-foreground)]">
-                {isZhCopy ? '全部技能目录' : 'All Skills Directory'}
+                {isZhCopy ? '需要更广覆盖时' : 'When you need broader coverage'}
               </span>
               <a
                 href={homeSupportingSurface.href}

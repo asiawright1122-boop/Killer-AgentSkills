@@ -1,37 +1,37 @@
 {
-  "generatedAt": "2026-06-04T08:26:24.894Z",
+  "generatedAt": "2026-06-09T12:56:39.145Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "milestone": "v3.7",
-  "milestoneName": "Authority Expansion & Content Depth Acceleration",
+  "milestone": "v4.0",
+  "milestoneName": "Authority Proof Remediation & Public Trust Hardening",
   "activePhases": [
     {
-      "phaseNumber": "109",
-      "slug": "Biweekly Hold Surface Promotion",
+      "phaseNumber": "122",
+      "slug": "Homepage Authority Reframe",
       "requirements": [],
       "phaseDirs": [
-        "109-Biweekly Hold Surface Promotion"
+        "122-homepage-authority-reframe"
       ],
       "summaryFiles": [
-        ".planning/phases/109-Biweekly Hold Surface Promotion/109-01-SUMMARY.md"
+        ".planning/phases/122-homepage-authority-reframe/122-01-SUMMARY.md"
       ],
       "verificationFiles": [
-        ".planning/phases/109-Biweekly Hold Surface Promotion/109-VERIFICATION.md"
+        ".planning/phases/122-homepage-authority-reframe/122-VERIFICATION.md"
       ],
       "summaryRequirementsCompleted": [
-        "AIOPS-30"
+        "AIOPS-43"
       ],
       "verificationRequirementsCompleted": [
-        "AIOPS-30"
+        "AIOPS-43"
       ],
       "summaryMetadataReady": true,
       "verificationMetadataReady": true
     },
     {
-      "phaseNumber": "110",
-      "slug": "Homepage & Collections Hub Editorial Hardening",
+      "phaseNumber": "123",
+      "slug": "Trusted and Workflow Collection Proof Upgrade",
       "requirements": [],
       "phaseDirs": [
-        "110-Homepage & Collections Hub Editorial Hardening"
+        "123-trusted-and-workflow-collection-proof-upgrade"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -41,11 +41,11 @@
       "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "111",
-      "slug": "Collections Audit & Deduplication",
+      "phaseNumber": "124",
+      "slug": "Collections and Installation Trust Bridge",
       "requirements": [],
       "phaseDirs": [
-        "111-Collections Audit & Deduplication"
+        "124-collections-and-installation-trust-bridge"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -55,25 +55,11 @@
       "verificationMetadataReady": false
     },
     {
-      "phaseNumber": "112",
-      "slug": "Automated Content Enrichment Workflow Design",
+      "phaseNumber": "125",
+      "slug": "Boundary and Scorecard Revalidation",
       "requirements": [],
       "phaseDirs": [
-        "112-Automated Content Enrichment Workflow Design"
-      ],
-      "summaryFiles": [],
-      "verificationFiles": [],
-      "summaryRequirementsCompleted": [],
-      "verificationRequirementsCompleted": [],
-      "summaryMetadataReady": false,
-      "verificationMetadataReady": false
-    },
-    {
-      "phaseNumber": "113",
-      "slug": "New Authority Surface Candidates",
-      "requirements": [],
-      "phaseDirs": [
-        "113-New Authority Surface Candidates"
+        "125-boundary-and-scorecard-revalidation"
       ],
       "summaryFiles": [],
       "verificationFiles": [],
@@ -85,35 +71,28 @@
   ],
   "requirements": [
     {
-      "id": "AIOPS-30",
+      "id": "AIOPS-43",
       "expectedPhase": null,
       "summaryEvidence": true,
       "verificationEvidence": true,
       "status": "satisfied"
     },
     {
-      "id": "AIOPS-31",
+      "id": "AIOPS-44",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
     },
     {
-      "id": "AIOPS-32",
+      "id": "AIOPS-45",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,
       "status": "pending"
     },
     {
-      "id": "AIOPS-33",
-      "expectedPhase": null,
-      "summaryEvidence": false,
-      "verificationEvidence": false,
-      "status": "pending"
-    },
-    {
-      "id": "AIOPS-34",
+      "id": "AIOPS-46",
       "expectedPhase": null,
       "summaryEvidence": false,
       "verificationEvidence": false,

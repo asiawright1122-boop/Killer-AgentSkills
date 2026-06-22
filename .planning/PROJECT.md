@@ -10,8 +10,14 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.7` are shipped.
-- `v3.8` is currently active.
+- `v1.0` through `v3.9` are shipped.
+- `v4.0` is active and focuses on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
+- `Phase 122` (completed 2026-06-09) reframed the homepage authority block around evidence-first selection, setup confirmation, task fit, and supporting-directory coverage.
+- `v3.9` completed all 4 planned phases, passed milestone audit, and confirmed discovery expansion must stay closed at `0/2` required primary promote surfaces.
+- `Phase 121` (completed 2026-06-09) refreshed live GSC and recovery proof reports for `2026-06-02` to `2026-06-08`, confirmed the proof window is `warning`, and kept discovery expansion closed at `0/2` required primary promote surfaces.
+- `Phase 117` (shipped 2026-06-09) refreshed production-like scorecard inputs, promoted `Homepage Root Hub`, and kept discovery expansion closed at `1/2` required primary promote surfaces.
+- `Phase 116` (shipped 2026-06-09) added collection-level locale parity and punctuation guardrails, with `38` collections passing and `0` issues.
+- `Phase 115` (shipped 2026-06-09) completed backlog collection enrichment verification: 35 vetted authority surfaces, `0` thin content surfaces, and public-surface validation passing.
 - `Phase 114` (shipped 2026-06-09) integrated the automated content enrichment pipeline by creating and verifying batch and apply scripts with CJK/forbidden-word rules.
 - `v3.7` (shipped 2026-06-05) executed Milestone v3.7 to systematically exploit the Discovery Expansion Boundary: promoted two biweekly priority hold surfaces to `promote` status, audited and deduplicated existing collections content (remediating all low-quality entries), established an automated content enrichment check, and configured/seeded 3 new authority surfaces (Go, Java, Mobile AI Tools) with 10-language parity.
 - `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
@@ -28,21 +34,81 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Current Milestone: v3.8 Backlog Content Enrichment Automation
+## Current Milestone: v4.0 Authority Proof Remediation & Public Trust Hardening
 
-**Goal:** Build and run an automated pipeline to batch-upgrade thin/low-quality content on hold backlog authority surfaces to satisfy SEO quality gates.
+**Goal:** Convert the v3.9 blocked proof findings into user-facing authority improvements across the highest-priority surfaces, without exposing internal reasoning, operator process, or recovery-control language to frontend users.
 
 **Target features:**
-- Integrate content enrichment validation with automated LLM rewrite pipeline.
-- Execute batch enrichment on all currently thin/hold collections.
-- Enforce strict CJK parity and ending punctuation validation checks.
-- Validate promoted surfaces using scorecard reports under production-like configs.
 
-## Most Recent Shipment: v3.7 Authority Expansion & Content Depth Acceleration
+- Reframe the homepage authority block around user-facing selection criteria, curated entry paths, and trusted next steps.
+- Strengthen `Official AI Skills & Trusted Tools` and `Agent Workflow Building Tools` with visible first-party proof and install handoffs.
+- Improve the Collections Hub and Installation Docs trust bridge so curated discovery flows into setup validation.
+- Re-run public boundary, content, and scorecard validation after remediation.
+
+## Most Recent Shipment: Phase 122 Homepage Authority Reframe
+
+**Outcome:** Reframed the homepage authority section so visitors choose from visible selection evidence, setup-path confirmation, and task-fit guidance before widening into the full skills directory.
+
+**Shipped capabilities:**
+
+- Replaced the homepage quick-start block with evidence-first authority guidance.
+- Put curated paths, installation docs, official tools, and workflow choices ahead of broad browsing.
+- Repositioned the full skills directory as supporting coverage when users need a wider search.
+- Added regression test coverage in `tests/pages/public-links.test.ts`.
+- Re-ran public-surface validation, cache/seed guards, test network guard, and desktop/mobile Playwright rendering checks.
+
+## Previous Shipment: v3.8 Backlog Content Enrichment Automation
+
+**Outcome:** Built and verified the automated backlog content enrichment loop, closed thin-content findings across vetted authority surfaces, added collection locale parity/punctuation guardrails, and refreshed scorecards without forcing expansion open.
+
+**Shipped capabilities:**
+
+- Integrated and verified unattended collection enrichment tooling.
+- Confirmed `35` vetted authority surfaces and `0` thin content surfaces after enrichment.
+- Added collection-level locale parity and terminal punctuation guardrails to `validate:public-surface`.
+- Refreshed the production-like scorecard chain and promoted `Homepage Root Hub`.
+- Kept discovery expansion closed because the global gate still requires at least `2` primary promote surfaces and currently observes `1`.
+
+## Previous Shipment: Phase 117 Scorecard Promotion Verification
+
+**Outcome:** Refreshed live Search Console inputs and the full recovery proof chain, then regenerated authority scorecard and operator queue reports without forcing expansion open.
+
+**Shipped capabilities:**
+
+- Refreshed GSC CTR reporting for `2026-06-02` to `2026-06-08`, with `42` current page rows.
+- Regenerated recovery scorecard, control board, authority surface program, proof window, delta board, authority uplift scorecard, and operator queue.
+- Confirmed the proof window is `ready`, with overall recovery scorecard status `CLEAR`.
+- Confirmed `Homepage Root Hub` is `promote` with `5` impressions, `1` click, `20.00%` CTR, average position `4.60`, and `5` tracked placements.
+- Kept discovery expansion closed because the global gate requires at least `2` primary promote surfaces and currently observes `1`.
+
+## Previous Shipment: Phase 116 Translation Parity & Punctuation Guardrails
+
+**Outcome:** Added a collection-specific parity and punctuation guard, repaired existing collection locale gaps, and wired the guard into `validate:public-surface`.
+
+**Shipped capabilities:**
+
+- Added `guard:collection-cjk-punctuation` for full-locale collection metadata and terminal punctuation checks.
+- Backfilled missing `keywords`, `editorial.reviewSummary`, and `editorial.selectionReason` locales across the remaining collection gaps.
+- Confirmed `38` collection files pass with `0` parity or punctuation issues.
+- Re-ran typecheck, full Vitest, formatting, public-surface validation, public output guards, cache/seed guards, and network guards.
+
+## Previous Shipment: Phase 115 Batch Backlog Content Enrichment
+
+**Outcome:** Confirmed batch enrichment results are applied to collection source JSONs and verified that all vetted authority surfaces meet the content enrichment thresholds.
+
+**Shipped capabilities:**
+
+- Filled localized editorial metadata across backlog collection pages, including `reviewSummary` and `selectionReason` parity for the touched collection set.
+- Confirmed `data/enrichment-drafts.json` has no pending drafts after apply.
+- Ran enrichment diagnostics with `35` vetted surfaces and `0` thin content surfaces.
+- Re-ran typecheck, full Vitest, formatting, public output guards, cache/seed guards, and `validate:public-surface`.
+
+## Previous Shipment: v3.7 Authority Expansion & Content Depth Acceleration
 
 **Outcome:** Systematically exploited the Discovery Expansion Boundary by promoting biweekly priority hold surfaces, hardening editorial hub content, auditing collections, and scripting automated content quality upgrades.
 
 **Shipped capabilities:**
+
 - Promoted `Official AI Agent Skills Guide` and `Claude Code vs Cursor vs Windsurf` from hold to promote.
 - Hardened Homepage Root Hub and Collections Hub editorial content to seed proof baseline.
 - Audited and deduplicated existing collections content, resolving drift and duplicate entries.
@@ -56,6 +122,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 **Outcome:** Addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized the backup provider configuration.
 
 **Shipped capabilities:**
+
 - Sub-classified expected skill route 404s as `known_skill_404` inside GSC Coverage URL classification to explain the dominant `other` cluster, updating scorecard.
 - Refreshed stale AI telemetry checkpoint timestamp via a runtime probe execution to clear health gate age warnings.
 - Commented out SiliconFlow API key in `.env.local` to explicitly disable it from active provider lists, transitioning the scorecard AI Posture gate to CLEAR.
@@ -65,6 +132,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 **Outcome:** Established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
 
 **Shipped capabilities:**
+
 - TypeScript compiler modernized for workers and packages/cli workspaces to resolve compiler errors (TS5101/TS5107).
 - Operational scripts type safety introduced with a dedicated tsconfig under `scripts/tsconfig.json` and resolved all type issues across scripts and test files.
 - Unified CI/CD gate added in `package.json` for a single typechecking verification check across all workspaces.
@@ -165,12 +233,20 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AIOPS-33: Define Automated Content Enrichment Workflow] - `v3.7`
 - ✓ [AIOPS-34: Open 3 New Authority Surfaces Candidates] - `v3.7`
 - ✓ [AIOPS-35: Integrate content enrichment validation with automated LLM rewrite pipeline] - `v3.8` (Phase 114)
+- ✓ [AIOPS-36: Execute batch enrichment on all currently thin or hold collections] - `v3.8` (Phase 115)
+- ✓ [AIOPS-37: Enforce strict CJK parity and ending punctuation validation checks] - `v3.8` (Phase 116)
+- ✓ [AIOPS-38: Validate promoted surfaces using scorecard reports under production-like configs] - `v3.8` (Phase 117)
+- ✓ [AIOPS-39: Second Primary Promotion Diagnosis] - `v3.9` (Phase 118)
+- ✓ [AIOPS-40: Coverage Cleanup Pressure Points] - `v3.9` (Phase 119)
+- ✓ [AIOPS-41: Public Hidden-Reasoning Boundary Assurance] - `v3.9` (Phase 120)
+- ✓ [AIOPS-42: Promotion Gate Proof Refresh] - `v3.9` (Phase 121)
+- ✓ [AIOPS-43: Homepage Authority Reframe] - `v4.0` (Phase 122)
 
 ### Active
 
-- [ ] [AIOPS-36] Execute batch enrichment on all currently thin/hold collections — `v3.8`
-- [ ] [AIOPS-37] Enforce strict CJK parity and ending punctuation validation checks — `v3.8`
-- [ ] [AIOPS-38] Validate promoted surfaces using scorecard reports under production-like configs — `v3.8`
+- [AIOPS-44: Trusted and Workflow Collection Proof Upgrade] - `v4.0` (Phase 123)
+- [AIOPS-45: Collections and Installation Trust Bridge] - `v4.0` (Phase 124)
+- [AIOPS-46: Boundary and Scorecard Revalidation] - `v4.0` (Phase 125)
 
 ### Out of Scope
 
@@ -183,19 +259,19 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Context
 
-- The latest production crawl-health sample reports `721` sampled URLs, all `2xx`, with `0` sitemap fetch errors.
-- The latest recovery proof window is `clear` overall with `technicalRecoveryStatus=clear` and `businessRecoveryStatus=clear`.
-- The freshest local Coverage Drilldown raw export is dated `2026-06-03`; inside the preferred freshness window.
+- The latest production crawl-health sample reports `761` sampled URLs, all `2xx`, with `0` sitemap fetch errors.
+- The latest recovery proof window is `warning`, with `baselineSeeded=no`, `technicalRecoveryStatus=clear`, and `businessRecoveryStatus=warning`.
+- The freshest local Coverage Drilldown raw export is dated `2026-06-03`; it is outside the preferred 3-day window but inside the hard SLA used by the scorecard.
 - The latest skill locale governance report shows `3445` skills analyzed, `3315` eligible indexable variants, and `12228` suppressed metadata variants.
 - The latest skill indexability report shows `1422` indexable canonical pages and `2034` reference-only canonical pages.
 - The latest corpus governance report reduced the governed publish set from `3426` routes to `1186` kept routes.
-- The authority-surface program currently scores `32` surfaces.
-- The latest authority uplift scorecard reports `0 promote / 31 hold / 1 stop`, so discovery expansion remains closed.
+- The authority-surface program currently scores `35` surfaces.
+- The latest authority uplift scorecard reports `0 promote / 34 hold / 1 stop`, so discovery expansion remains closed until at least two primary surfaces clear promotion gates under a trustworthy proof window.
 - The latest recovery experiment ladder reports `0` limited-rollout experiments, `0` automation candidates, and automation policy `locked`.
 - AI posture remains policy-compliant and explicit: NVIDIA primary, Workers AI `free-only`, backups guarded and auditable.
 - The newly confirmed public trust issue that triggered `v1.7` is now remediated on the audited surfaces: the main public entry pages and shared public sources no longer emit the strongest internal-language families that read like operator notes.
 - The reusable public copy-boundary guardrail now protects public templates, locale catalogs, shared authority-surface data, and collection JSON sources against the known leak families.
-- The next active gap is manual recovery execution on top of fresh measurement: promotion and automation decisions are still blocked by stale Coverage input and lack of post-intervention proof.
+- The next active gap is improving the five focus authority surfaces with user-facing proof while waiting for a trustworthy proof window and at least two primary `promote` surfaces.
 
 ## Constraints
 
@@ -209,26 +285,26 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Key Decisions
 
-| Decision | Rationale | Outcome |
-| --- | --- | --- |
-| Astro + React Islands | Keep SEO-critical surfaces fast while preserving isolated interactive islands | Validated |
-| Repair-first checkpointed regeneration | Large-scale SEO repair must be resumable and audit-safe | Validated |
-| Canonical D1 + KV publish path | One publish contract reduces drift between local repair and production | Validated |
-| Workers AI `free-only`, NVIDIA primary | Control cost and rate-limit exposure while retaining explicit backup options | Validated |
-| GSD milestone workflow | Keep planning, verification, audit, and closeout artifacts durable across long runs | Validated |
-| Search trust over corpus size | Fewer stronger pages are preferable to a large low-confidence indexable set | Validated |
-| Skills should inherit explicit locale and originality governance | Search trust requires one truthful contract across runtime, sitemap, canonical, and page value | Validated |
-| Authority surfaces first, directory second | Recovery should depend on curated first-party pages after corpus pruning | Validated |
-| Proof before expansion | `v1.6` validated the governance needed to keep expansion evidence-backed instead of intuition-driven | Validated |
-| Automation after repeatability | Recovery automation must remain behind manual proof and rollback discipline | Active |
-| Public pages must sound user-facing, not operator-facing | Trust surfaces should guide visitors, not expose internal strategy or process reasoning | Validated |
+| Decision                                                                         | Rationale                                                                                                             | Outcome   |
+| -------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------- |
+| Astro + React Islands                                                            | Keep SEO-critical surfaces fast while preserving isolated interactive islands                                         | Validated |
+| Repair-first checkpointed regeneration                                           | Large-scale SEO repair must be resumable and audit-safe                                                               | Validated |
+| Canonical D1 + KV publish path                                                   | One publish contract reduces drift between local repair and production                                                | Validated |
+| Workers AI `free-only`, NVIDIA primary                                           | Control cost and rate-limit exposure while retaining explicit backup options                                          | Validated |
+| GSD milestone workflow                                                           | Keep planning, verification, audit, and closeout artifacts durable across long runs                                   | Validated |
+| Search trust over corpus size                                                    | Fewer stronger pages are preferable to a large low-confidence indexable set                                           | Validated |
+| Skills should inherit explicit locale and originality governance                 | Search trust requires one truthful contract across runtime, sitemap, canonical, and page value                        | Validated |
+| Authority surfaces first, directory second                                       | Recovery should depend on curated first-party pages after corpus pruning                                              | Validated |
+| Proof before expansion                                                           | `v1.6` validated the governance needed to keep expansion evidence-backed instead of intuition-driven                  | Validated |
+| Automation after repeatability                                                   | Recovery automation must remain behind manual proof and rollback discipline                                           | Active    |
+| Public pages must sound user-facing, not operator-facing                         | Trust surfaces should guide visitors, not expose internal strategy or process reasoning                               | Validated |
 | Shared public sources should be fixed at the source, not only in rendered shells | Repeated leak families were seeded through collection JSON, locale catalogs, and helper data, not just page templates | Validated |
-| Fresh inputs before recovery claims | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports | Validated |
-| Current-but-blocking proof is a valid outcome | v1.8 showed that honest proof can complete a milestone while still blocking expansion | Validated |
-| Manual recovery before automation | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists | Validated |
-| Official search guidance before SEO changes | v1.9 recovery work should map to official Google, Bing, IndexNow, and Yandex guidance before changing public surfaces | Validated |
-| Helpful content copy injection over programmatic catalogs | v2.0 injected helpful copy to Home and collections detail setup docs to resolve thin catalog warnings | Validated |
-| Soft-removal for missing sitemap pages | v2.0 resolved crawler warnings via dynamic edge noindex headers for sitemap-excluded pages | Validated |
+| Fresh inputs before recovery claims                                              | Promotion or rollout decisions should be based on current, comparable proof inputs rather than stale local exports    | Validated |
+| Current-but-blocking proof is a valid outcome                                    | v1.8 showed that honest proof can complete a milestone while still blocking expansion                                 | Validated |
+| Manual recovery before automation                                                | v1.8 confirmed recovery work must stay manual-only until repeatable proof exists                                      | Validated |
+| Official search guidance before SEO changes                                      | v1.9 recovery work should map to official Google, Bing, IndexNow, and Yandex guidance before changing public surfaces | Validated |
+| Helpful content copy injection over programmatic catalogs                        | v2.0 injected helpful copy to Home and collections detail setup docs to resolve thin catalog warnings                 | Validated |
+| Soft-removal for missing sitemap pages                                           | v2.0 resolved crawler warnings via dynamic edge noindex headers for sitemap-excluded pages                            | Validated |
 
 ## Evolution
 
@@ -236,4 +312,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-09 after completing Phase 114 Content Enrichment Pipeline Integration._
+_Last updated: 2026-06-09 after completing Phase 122 Homepage Authority Reframe._

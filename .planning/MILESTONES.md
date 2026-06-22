@@ -1,40 +1,86 @@
 # Project Milestones: Killer-Skills Agent Directory
-
-## v3.7 Authority Expansion & Content Depth Acceleration (Shipped: 2026-06-05)
-
-**Phases completed:** 5 phases, 5 plans, 0 tasks
-
-**Key accomplishments:**
-
-- (none recorded)
-
----
-
 ## Active Milestone
+### v4.0 Authority Proof Remediation & Public Trust Hardening (Active)
 
-### v3.7 Authority Expansion & Content Depth Acceleration (Active)
+**Delivered:** Convert the v3.9 blocked proof findings into user-facing authority improvements across the highest-priority surfaces, without exposing internal reasoning, operator process, or recovery-control language to frontend users.
 
-**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
-
-**Phases completed:** 1/5 complete (0 plans total)
+**Phases completed:** 1/4 complete (4 plans total)
 
 **Key accomplishments:**
-
-- Roadmap phases tracked: 5
-- Requirement coverage: 1/5 satisfied
+- Roadmap phases tracked: 4
+- Requirement coverage: 1/4 satisfied
 - Planning hygiene: clean
 
 **Stats:**
-
-- 1/5 complete phases, 0 plans, 1/5 requirements satisfied
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v3.7-BOOTSTRAP.md, .planning/milestones/v3.7-CLOSEOUT.md
+- 1/4 complete phases, 4 plans, 1/4 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v4.0-BOOTSTRAP.md, .planning/milestones/v4.0-CLOSEOUT.md
 - Carry-forward signal: None recorded.
 
-**What's next:** Use .planning/milestones/v3.7-CLOSEOUT.md to finish audit and archive preparation.
+**What's next:** Use .planning/milestones/v4.0-CLOSEOUT.md to finish audit and archive preparation.
 
 ---
 ## Shipped Milestones
+### v3.9 Promotion Gate Recovery & Public Boundary Assurance (Shipped: 2026-06-09)
 
+**Delivered:** `v3.9 Promotion Gate Recovery & Public Boundary Assurance` has completed its planned proof loop and is ready for closeout audit.
+
+**Phases completed:** 118-121 (4 plans total)
+
+**Key accomplishments:**
+- Diagnosed `Official AI Skills & Trusted Tools` as the cleanest second primary promotion candidate without forcing stale scorecard promotion.
+- Refreshed and contained the `known_skill_404`, `source_file_path`, and `trailing_slash` coverage pressure points.
+- Reverified the public hidden-reasoning boundary across runtime, cache, seed, docs, API/client errors, and built frontend output.
+- Refreshed live GSC and recovery proof reports for `2026-06-02` through `2026-06-08`.
+- Confirmed discovery expansion remains closed under the documented gate because the latest scorecard observes `0/2` required primary promote surfaces.
+
+**Stats:**
+- 118-121 phases, 4 plans, 4/4 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v3.9-ROADMAP.md, .planning/milestones/v3.9-REQUIREMENTS.md, .planning/milestones/v3.9-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
+### v3.8 Backlog Content Enrichment Automation (Shipped: 2026-06-09)
+
+**Delivered:** Milestone v3.8 scaled content enrichment from a diagnostic workflow into an unattended batch loop. It integrated enrichment generation/apply tooling, verified the backlog collection state, added collection-specific locale parity and punctuation guardrails, and refreshed scorecards under production-like settings without forcing discovery expansion open.
+
+**Phases completed:** 114-117 (4 plans total)
+
+**Key accomplishments:**
+- Built and verified the automated collection enrichment pipeline and apply flow.
+- Confirmed `35` vetted authority surfaces and `0` thin content surfaces after batch verification.
+- Added collection-level CJK parity and terminal punctuation guardrails with tests and public-surface validation wiring.
+- Backfilled remaining collection locale gaps for keywords and editorial metadata.
+- Refreshed GSC and recovery scorecard inputs for `2026-06-02` through `2026-06-08`.
+- Promoted `Homepage Root Hub` while keeping discovery expansion closed at `1/2` required primary promote surfaces.
+- Kept the public hidden-reasoning boundary explicit in the milestone audit and validation flow.
+
+**Stats:**
+- 114-117 phases, 4 plans, 4/4 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v3.8-ROADMAP.md, .planning/milestones/v3.8-REQUIREMENTS.md, .planning/milestones/v3.8-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
+### v3.7 v3.7 (Shipped: SHIPPED)
+
+**Delivered:** `v3.7 Authority Expansion & Content Depth Acceleration` is now the active milestone.
+
+**Phases completed:** n/a
+
+**Key accomplishments:**
+- No generated accomplishments recorded.
+
+**Stats:**
+- 0/5 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v3.7-ROADMAP.md, .planning/milestones/v3.7-REQUIREMENTS.md, .planning/milestones/v3.7-MILESTONE-AUDIT.md
+- Carry-forward signal: None recorded.
+
+**What's next:** Define the next milestone scope from archived findings.
+
+---
 ### v3.6 v3.6 (Shipped: SHIPPED)
 
 **Delivered:** `v3.6 Authority Surfaces Promotion` is now the active milestone.
@@ -42,11 +88,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 0/3 requirements satisfied, milestone audit pending
 - Milestone artifacts: .planning/milestones/v3.6-ROADMAP.md, .planning/milestones/v3.6-REQUIREMENTS.md, .planning/milestones/v3.6-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -61,11 +105,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.5-ROADMAP.md, .planning/milestones/v3.5-REQUIREMENTS.md, .planning/v3.5-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -80,11 +122,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.4-ROADMAP.md, .planning/milestones/v3.4-REQUIREMENTS.md, .planning/v3.4-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -99,11 +139,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.3-ROADMAP.md, .planning/milestones/v3.3-REQUIREMENTS.md, .planning/v3.3-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -118,11 +156,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.2-ROADMAP.md, .planning/milestones/v3.2-REQUIREMENTS.md, .planning/v3.2-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -137,11 +173,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v3.1-ROADMAP.md, .planning/milestones/v3.1-REQUIREMENTS.md, .planning/milestones/v3.1-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -156,11 +190,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - milestone audit pending
 - Milestone artifacts: .planning/milestones/v3.0-ROADMAP.md, .planning/milestones/v3.0-REQUIREMENTS.md, .planning/milestones/v3.0-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -175,11 +207,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 2/2 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.7-ROADMAP.md, .planning/milestones/v2.7-REQUIREMENTS.md, .planning/milestones/v2.7-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -194,11 +224,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 2/2 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.6-ROADMAP.md, .planning/milestones/v2.6-REQUIREMENTS.md, .planning/milestones/v2.6-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -213,11 +241,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 2/2 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.5-ROADMAP.md, .planning/milestones/v2.5-REQUIREMENTS.md, .planning/milestones/v2.5-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -232,11 +258,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 2/2 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.4-ROADMAP.md, .planning/milestones/v2.4-REQUIREMENTS.md, .planning/milestones/v2.4-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -251,11 +275,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 2/2 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.3-ROADMAP.md, .planning/milestones/v2.3-REQUIREMENTS.md, .planning/milestones/v2.3-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -270,11 +292,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.2-ROADMAP.md, .planning/milestones/v2.2-REQUIREMENTS.md, .planning/milestones/v2.2-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -289,11 +309,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 0/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.1-ROADMAP.md, .planning/milestones/v2.1-REQUIREMENTS.md, .planning/milestones/v2.1-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -308,11 +326,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 11/13 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v2.0-ROADMAP.md, .planning/milestones/v2.0-REQUIREMENTS.md, .planning/milestones/v2.0-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -327,11 +343,9 @@
 **Phases completed:** n/a
 
 **Key accomplishments:**
-
 - No generated accomplishments recorded.
 
 **Stats:**
-
 - 4/4 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.8-ROADMAP.md, .planning/milestones/v1.8-REQUIREMENTS.md, .planning/milestones/v1.8-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.
@@ -346,7 +360,6 @@
 **Phases completed:** 58-60 (3 plans total)
 
 **Key accomplishments:**
-
 - Confirmed the leak family across public page shells, shared collection JSON, locale catalogs, and authority-surface helper data instead of treating the homepage symptom as isolated.
 - Normalized the main public entry surfaces so they now read like product guidance rather than operator process notes.
 - Removed repeated internal-language families from shared public sources at the source instead of only patching rendered templates.
@@ -354,7 +367,6 @@
 - Closed the milestone with `3/3` requirements satisfied, `3/3` phases complete, and a passed milestone audit.
 
 **Stats:**
-
 - 58-60 phases, 3 plans, 3/3 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.7-ROADMAP.md, .planning/milestones/v1.7-REQUIREMENTS.md, .planning/milestones/v1.7-MILESTONE-AUDIT.md
 - Carry-forward signal: **REC-24**: Refresh Coverage Drilldown raw inputs so cluster-level recovery proof is no longer blocked by stale exports.
@@ -369,7 +381,6 @@
 **Phases completed:** 54-57 (4 plans total)
 
 **Key accomplishments:**
-
 - Turned post-governance recovery evidence into dated proof windows instead of latest-state-only artifacts.
 - Added truthful cohort attribution that shows which surfaces are blocked, noisy, flat, `hold`, or `avoid`.
 - Converted authority-surface expansion from intuition into a measurable gate system with explicit `promote / hold / stop` outcomes.
@@ -377,7 +388,6 @@
 - Closed the milestone with `6/6` requirements satisfied, `4/4` phases complete, clean lifecycle hygiene, and a passed milestone audit.
 
 **Stats:**
-
 - 54-57 phases, 4 plans, 6/6 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.6-ROADMAP.md, .planning/milestones/v1.6-REQUIREMENTS.md, .planning/milestones/v1.6-MILESTONE-AUDIT.md
 - Carry-forward signal: **REC-24**: Refresh Coverage Drilldown raw inputs so cluster-level recovery proof is no longer blocked by stale exports.
@@ -392,7 +402,6 @@
 **Phases completed:** 46-53 (8 plans total)
 
 **Key accomplishments:**
-
 - Rebuilt the recovery evidence lane so Search Console and Coverage Drilldown freshness are explicit and operator-safe.
 - Turned recovery diagnosis into a ranked control board and a concrete intervention queue.
 - Eliminated the strongest multilingual and README-first low-value signals from the skill corpus through locale governance and originality contracts.
@@ -400,7 +409,6 @@
 - Repositioned organic recovery around `17` authority surfaces and strengthened the highest-priority collections plus installation docs with first-party proof.
 
 **Stats:**
-
 - 46-53 phases, 8 plans, 10/10 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.5-ROADMAP.md, .planning/milestones/v1.5-REQUIREMENTS.md, .planning/milestones/v1.5-MILESTONE-AUDIT.md
 - Carry-forward signal: **UX-EXP-01**: Reopen public discovery expansion only after traffic proof, governance rollout, and authority-surface recovery stay inside guardrails.
@@ -415,7 +423,6 @@
 **Phases completed:** 43-45 (3 plans total)
 
 **Key accomplishments:**
-
 - Restored the production sitemap and live crawl sample to a clean technical recovery baseline.
 - Shipped a recovery scorecard that now makes missing business evidence explicit instead of hiding it behind technical stability.
 - Formalized provider backup posture across config, runtime, and operator reports while keeping Workers AI inside the free-only envelope.
@@ -423,7 +430,6 @@
 - Closed the milestone with `5/5` requirements satisfied and a passed milestone audit.
 
 **Stats:**
-
 - 43-45 phases, 3 plans, 5/5 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.4-ROADMAP.md, .planning/milestones/v1.4-REQUIREMENTS.md, .planning/milestones/v1.4-MILESTONE-AUDIT.md
 - Carry-forward signal: **SEO-14**: Fresh Search Console summary and page/query opportunity data should be available weekly without manual export hunting.
@@ -438,7 +444,6 @@
 **Phases completed:** 39-42 (4 plans total)
 
 **Key accomplishments:**
-
 - Added workload-aware provider routing across script runtime and `skills/try` without weakening explicit fallback or Workers AI free-only guardrails.
 - Turned recent provider pressure into shared routing evidence and operator-facing health context instead of passive warning prose.
 - Added deduped GitHub remediation handoff scaffolds with safe dry-run publication and conservative PR behavior.
@@ -446,7 +451,6 @@
 - Closed the milestone with `6/6` requirements satisfied and a passed milestone audit.
 
 **Stats:**
-
 - 39-42 phases, 4 plans, 6/6 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.3-ROADMAP.md, .planning/milestones/v1.3-REQUIREMENTS.md, .planning/milestones/v1.3-MILESTONE-AUDIT.md
 - Carry-forward signal: **AIOPS-11**: Promote workload-aware provider policy into operator-managed profiles with environment-specific defaults.
@@ -461,7 +465,6 @@
 **Phases completed:** 35-38 (4 plans total)
 
 **Key accomplishments:**
-
 - Unified AI routing semantics across script runtime and `skills/try` without relaxing NVIDIA-primary or Workers free-only constraints.
 - Turned AI health and content governance into automated CI / scheduled operator lanes with explicit thresholds and persisted artifacts.
 - Added durable remediation seeding plus one aggregated ops summary so warning contexts no longer need manual reconstruction.
@@ -469,7 +472,6 @@
 - Closed the milestone with `7/7` requirements satisfied and a passed milestone audit.
 
 **Stats:**
-
 - 35-38 phases, 4 plans, 7/7 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.2-ROADMAP.md, .planning/milestones/v1.2-REQUIREMENTS.md, .planning/milestones/v1.2-MILESTONE-AUDIT.md
 - Carry-forward signal: **AIOPS-08**: Introduce operator-approved adaptive provider weighting by workload class, not just global history.
@@ -484,7 +486,6 @@
 **Phases completed:** 31-34 (4 plans total)
 
 **Key accomplishments:**
-
 - Turned provider health into a canonical operator-visible report and gating contract across unattended flows.
 - Locked Workers AI to the free-only envelope while making non-NVIDIA fallback activation explicit and auditable.
 - Made requirement coverage machine-readable so milestone audits no longer depend on reconstructing completion from prose.
@@ -492,7 +493,6 @@
 - Closed the milestone with `10/10` requirements satisfied and a passed milestone audit.
 
 **Stats:**
-
 - 31-34 phases, 4 plans, 10/10 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.1-ROADMAP.md, .planning/milestones/v1.1-REQUIREMENTS.md, .planning/milestones/v1.1-MILESTONE-AUDIT.md
 - Carry-forward signal: **AIOPS-05**: Provider selection can self-tune based on longer-window success rates without hiding operator control.
@@ -507,7 +507,6 @@
 **Phases completed:** 9 (18 plans total)
 
 **Key accomplishments:**
-
 - Restored CI reliability and stabilized the highest-traffic locale, breadcrumb, and metadata contracts.
 - Completed the full repair-first SEO regeneration program and closed the queue to `0` with strict quality green.
 - Revalidated the canonical D1/KV publish path until local and remote datasets fully aligned.
@@ -515,7 +514,6 @@
 - Closed the milestone with a cross-phase audit that reduced remaining concerns to a non-blocking watchlist.
 
 **Stats:**
-
 - 9 phases, 18 plans, 16/16 requirements satisfied, milestone audit passed
 - Milestone artifacts: .planning/milestones/v1.0-ROADMAP.md, .planning/milestones/v1.0-REQUIREMENTS.md, .planning/v1.0-MILESTONE-AUDIT.md
 - Carry-forward signal: None recorded.

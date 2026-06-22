@@ -7,6 +7,6 @@ export const prerender = false;
 const apiBaseUrl = '/api/admin';
 ---
 
-<Layout locale="en" title="Admin Dashboard">
+<Layout locale="en" title="Admin Dashboard" noindex={true} robots="noindex, nofollow">
   <AdminApp client:only="react" apiBaseUrl={apiBaseUrl} />
 </Layout>

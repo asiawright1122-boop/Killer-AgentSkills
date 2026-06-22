@@ -196,4 +196,42 @@ milestone_name: Adaptive Provider Control and Escalation Automation
     ]);
     expect(existsSync(join(root, '.planning/phase-lifecycle/latest-phase-lifecycle.md'))).toBe(true);
   });
+
+  it('matches kebab-case active phase directories derived from human roadmap titles', () => {
+    const root = mkdtempSync(join(tmpdir(), 'planning-phase-lifecycle-kebab-'));
+
+    write(
+      root,
+      '.planning/STATE.md',
+      `---
+milestone: v3.8
+milestone_name: Backlog Content Enrichment Automation
+---
+`,
+    );
+    write(
+      root,
+      '.planning/ROADMAP.md',
+      `# Roadmap
+
+### Phase 116: Translation Parity & Punctuation Guardrails
+**Requirements**: AIOPS-37
+
+### Phase 117: Scorecard Promotion Verification
+**Requirements**: AIOPS-38
+`,
+    );
+    write(root, '.planning/phases/116-translation-parity-punctuation-guardrails/116-01-SUMMARY.md', 'summary');
+    write(root, '.planning/phases/117-scorecard-promotion-verification/117-01-SUMMARY.md', 'summary');
+
+    const report = buildPlanningPhaseLifecycleReport({
+      rootDir: root,
+      generatedAt: '2026-06-09T12:05:00.000Z',
+    });
+
+    expect(report.status).toBe('clean');
+    expect(report.activePhases.map((phase) => phase.status)).toEqual(['present', 'present']);
+    expect(report.createActions).toEqual([]);
+    expect(report.unmanagedPhaseDirs).toEqual([]);
+  });
 });

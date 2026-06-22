@@ -1,7 +1,12 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
-import { getAllSkills, getLocalizedDescription, isPublicSkill, type UnifiedSkill } from '../../../lib/skills';
+import {
+  getAllSkills,
+  getLocalizedDescription,
+  isPublicSkill,
+  type UnifiedSkill,
+} from '../../../lib/public-skill-catalog';
 import { errorResponse } from '../../../lib/api-utils';
 import {
   checkRateLimitDetailed,

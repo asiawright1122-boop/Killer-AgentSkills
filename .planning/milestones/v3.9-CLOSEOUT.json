@@ -1,0 +1,42 @@
+{
+  "milestone": "v3.9",
+  "milestoneName": "Promotion Gate Recovery & Public Boundary Assurance",
+  "status": "ready",
+  "blockers": [],
+  "phaseCounts": {
+    "total": 4,
+    "completed": 4
+  },
+  "requirementCounts": {
+    "satisfied": 4,
+    "partial": 0,
+    "pending": 0,
+    "total": 4
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis/118-01-SUMMARY.md",
+    ".planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis/118-VERIFICATION.md",
+    ".planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points/119-01-SUMMARY.md",
+    ".planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points/119-VERIFICATION.md",
+    ".planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance/120-01-SUMMARY.md",
+    ".planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance/120-VERIFICATION.md",
+    ".planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh/121-01-SUMMARY.md",
+    ".planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh/121-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v3.9-phases",
+    ".planning/milestones/v3.9-ROADMAP.md",
+    ".planning/milestones/v3.9-REQUIREMENTS.md",
+    ".planning/milestones/v3.9-MILESTONE-AUDIT.md",
+    ".planning/milestones/v3.9-BOOTSTRAP.md",
+    ".planning/milestones/v3.9-CLOSEOUT.md"
+  ]
+}

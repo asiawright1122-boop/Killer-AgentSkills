@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { createAPIContext, createMockEnv } from '../../../../src/lib/api-test-utils';
+import crypto from 'node:crypto';
+import { createAPIContext, createMockEnv, createMockKV } from '../../../../src/lib/api-test-utils';
 
 describe('POST /api/skills/try', () => {
   let POST: any;
@@ -60,6 +61,11 @@ describe('POST /api/skills/try', () => {
     );
   }
 
+  function outputCacheKey(profileId: string, input: string, locale: string) {
+    const fingerprint = crypto.createHash('sha256').update(`${profileId}|${locale}|${input}`).digest('hex');
+    return `skill-try:v1:out:${fingerprint}`;
+  }
+
   it('keeps template mode when fallback policy is cold and NVIDIA is unavailable', async () => {
     fetchMock.mockResolvedValueOnce(new Response('rate limited', { status: 429 }));
     fetchMock.mockResolvedValueOnce(providerReply('backup output should never be used'));
@@ -76,6 +82,7 @@ describe('POST /api/skills/try', () => {
     const body: any = await res.json();
 
     expect(res.status).toBe(200);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     expect(body.mode).toBe('template');
     expect(body.provider).toBe('template');
     expect(body.workloadProfile).toBe('interactive_demo');
@@ -113,6 +120,79 @@ describe('POST /api/skills/try', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[0]?.[0]).toBe('https://integrate.api.nvidia.com/v1/chat/completions');
     expect(fetchMock.mock.calls[1]?.[0]).toBe('https://openrouter.ai/api/v1/chat/completions');
+  });
+
+  it('strips hidden reasoning blocks from live provider output before returning or caching it', async () => {
+    const store = new Map<string, unknown>();
+    fetchMock.mockResolvedValueOnce(
+      providerReply(
+        '<thinking>private scratchpad</thinking>\n\n## Final\nShip the workflow.\n\n<reasoning>hidden chain</reasoning>',
+      ),
+    );
+
+    const input = 'AI workflow automation for ecommerce teams';
+    const ctx = buildContext(
+      buildEnv({
+        AI_FALLBACK_POLICY: 'guarded',
+        OPENROUTER_API_KEY: 'openrouter-key',
+        TRANSLATIONS: createMockKV(store),
+      }),
+      { input },
+    );
+
+    const res = await POST(ctx);
+    const body: any = await res.json();
+    const cachedRaw = store.get(outputCacheKey('copywriting', input, 'en'));
+
+    expect(res.status).toBe(200);
+    expect(body.outputMarkdown).toBe('## Final\nShip the workflow.');
+    expect(body.outputMarkdown).not.toMatch(/thinking|reasoning|scratchpad|chain/i);
+    expect(JSON.parse(String(cachedRaw)).outputMarkdown).toBe('## Final\nShip the workflow.');
+  });
+
+  it('strips hidden reasoning blocks from cached provider output before returning it', async () => {
+    const input = 'AI workflow automation for ecommerce teams';
+    const store = new Map<string, unknown>([
+      [
+        outputCacheKey('copywriting', input, 'en'),
+        JSON.stringify({
+          provider: 'openrouter',
+          outputMarkdown: 'Chain of thought:\nprivate analysis\n## Final\nUse this result.',
+          workloadProfile: 'interactive_demo',
+        }),
+      ],
+    ]);
+
+    const ctx = buildContext(
+      buildEnv({
+        TRANSLATIONS: createMockKV(store),
+      }),
+      { input },
+    );
+
+    const res = await POST(ctx);
+    const body: any = await res.json();
+
+    expect(res.status).toBe(200);
+    expect(body.cached).toBe(true);
+    expect(body.outputMarkdown).toBe('## Final\nUse this result.');
+    expect(body.outputMarkdown).not.toMatch(/chain of thought|private analysis/i);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('strips hidden reasoning from failed trial error responses', async () => {
+    const ctx = buildContext(buildEnv());
+    vi.spyOn(ctx.request, 'json').mockRejectedValueOnce(
+      new Error('<thinking>private parse notes</thinking>Public failure'),
+    );
+
+    const res = await POST(ctx);
+    const body: any = await res.json();
+
+    expect(res.status).toBe(500);
+    expect(body.success).toBe(false);
+    expect(body.error).toBe('Skill trial failed');
+    expect(JSON.stringify(body)).not.toMatch(/thinking|private parse notes/i);
   });
 
   it('allows guarded fallback immediately when no NVIDIA key is configured', async () => {

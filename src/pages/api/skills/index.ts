@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
-import { getLightweightSkillsPage, getLocalizedDescription } from '../../../lib/skills';
+import { getLightweightSkillsPage, getLocalizedDescription } from '../../../lib/public-skill-catalog';
 import { jsonResponse, errorResponse } from '../../../lib/api-utils';
 import { sanitizePublicSkill, withPublicApiHeaders } from '../../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../../lib/runtime-env';

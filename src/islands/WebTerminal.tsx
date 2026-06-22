@@ -3,11 +3,14 @@ import { WebContainer } from '@webcontainer/api';
 import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
 import '@xterm/xterm/css/xterm.css';
+import { getSafeSandboxSkillRef } from '../lib/sandbox-skill-ref';
 
 interface WebTerminalProps {
   owner: string;
   repo: string;
 }
+
+const PUBLIC_WEBCONTAINER_BOOT_ERROR = 'Failed to boot WebContainer. Please refresh and try again.';
 
 export default function WebTerminal({ owner, repo }: WebTerminalProps) {
   const terminalRef = useRef<HTMLDivElement>(null);
@@ -18,6 +21,7 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
 
   useEffect(() => {
     if (!terminalRef.current) return;
+    const skillRef = getSafeSandboxSkillRef(owner, repo);
 
     // 1. Initialize Xterm.js
     const term = new Terminal({
@@ -63,7 +67,7 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
         term.writeln('\x1b[1;32m[System] Node.js Environment Ready!\x1b[0m');
 
         // Setup JSH shell session
-        term.writeln(`\x1b[1;33m[System] Preparing sandbox for skill: ${owner}/${repo}\x1b[0m`);
+        term.writeln(`\x1b[1;33m[System] Preparing sandbox for skill: ${skillRef}\x1b[0m`);
 
         // Spawn the shell
         const shellProcess = await webcontainerInstance.spawn('jsh', {
@@ -90,7 +94,7 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
         term.writeln('\x1b[1;36m[System] Launching automated skill installation pipeline...\x1b[0m');
 
         // Simulate an interactive script setup by writing to the shell process
-        const initScript = `mkdir -p try-skill && cd try-skill && npm init -y > /dev/null && echo '\\x1b[1;32m[System] Initializing Agent Sandbox...\\x1b[0m' && npx killer-skills add ${owner}/${repo}\n`;
+        const initScript = `mkdir -p try-skill && cd try-skill && npm init -y > /dev/null && echo '\\x1b[1;32m[System] Initializing Agent Sandbox...\\x1b[0m' && npx killer-skills add ${skillRef}\n`;
         const writer = shellProcess.input.getWriter();
         await writer.write(initScript);
 
@@ -103,8 +107,9 @@ export default function WebTerminal({ owner, repo }: WebTerminalProps) {
           termInputHandler.dispose();
           shellProcess.kill();
         };
-      } catch (e: any) {
-        term.writeln(`\r\n\x1b[1;31m[Error] Failed to boot WebContainer: ${e.message}\x1b[0m`);
+      } catch (error) {
+        console.error('[WebTerminal] Failed to boot WebContainer:', error);
+        term.writeln(`\r\n\x1b[1;31m[Error] ${PUBLIC_WEBCONTAINER_BOOT_ERROR}\x1b[0m`);
         setStatus('error');
       }
     };

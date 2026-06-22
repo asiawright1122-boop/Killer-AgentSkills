@@ -1,3 +1,5 @@
+import { sanitizePublicAIOutput } from './public-ai-output';
+
 const INSTRUCTION_LINE_PATTERNS = [
   /\bcritical\s+guidelines?\b/i,
   /\brequired\s+features?\b/i,
@@ -79,7 +81,8 @@ function polishCopy(value: string): string {
 export function sanitizePublicSkillCopy(value: unknown, fallback = ''): string {
   if (typeof value !== 'string') return fallback;
 
-  const cleaned = normalizeCopyWhitespace(polishCopy(stripInstructionSentences(stripInstructionFragments(value))));
+  const safeValue = sanitizePublicAIOutput(value);
+  const cleaned = normalizeCopyWhitespace(polishCopy(stripInstructionSentences(stripInstructionFragments(safeValue))));
   if (!cleaned || cleaned.length < 3) return fallback;
 
   return cleaned;
@@ -104,7 +107,7 @@ export function sanitizePublicSkillSourceExcerpt(value: unknown, fallback = ''):
   const sanitizedLines: string[] = [];
   let skippingInstructionBlock = false;
 
-  for (const line of value.split(/\r?\n/)) {
+  for (const line of sanitizePublicAIOutput(value).split(/\r?\n/)) {
     const trimmed = line.trim();
     const isMarkdownHeading = /^#{1,6}\s+\S/.test(trimmed);
 

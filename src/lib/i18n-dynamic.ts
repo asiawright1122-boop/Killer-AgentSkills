@@ -1,6 +1,7 @@
 import type { Env } from './kv';
 import { getKV, setKV } from './kv';
 import { translateText } from './nvidia';
+import { sanitizePublicAIOutput } from './public-ai-output';
 
 // The delimiter used to safely join arrays of strings for bulk translation
 const ARRAY_DELIMITER = '\n|||\n';
@@ -42,7 +43,7 @@ export async function translateString(
   try {
     const cached = await getKV(env, cacheKey);
     if (cached && typeof cached === 'string') {
-      return cached;
+      return sanitizePublicAIOutput(cached);
     }
   } catch (e) {
     console.warn('[i18n-dynamic] KV read failed:', e);
@@ -53,9 +54,10 @@ export async function translateString(
       // We use standard translation without streaming because SSR needs the complete string
       const translated = await translateText(text, targetLang, type, env);
       if (translated && translated.trim().length > 0) {
+        const safeTranslated = sanitizePublicAIOutput(translated);
         // Cache indefinitely since source text is hashed
-        await setKV(env, cacheKey, translated).catch((e) => console.warn('[i18n-dynamic] KV set failed:', e));
-        return translated;
+        await setKV(env, cacheKey, safeTranslated).catch((e) => console.warn('[i18n-dynamic] KV set failed:', e));
+        return safeTranslated;
       }
     } catch (e) {
       console.error(`[i18n-dynamic] LLM translation failed for string of length ${text.length}:`, e);
@@ -90,7 +92,9 @@ export async function translateArray(
   try {
     const cached = await getKV(env, cacheKey);
     if (cached && typeof cached === 'string') {
-      return cached.split(ARRAY_DELIMITER.trim()).map((s) => s.trim());
+      return sanitizePublicAIOutput(cached)
+        .split(ARRAY_DELIMITER.trim())
+        .map((s) => s.trim());
     }
   } catch (e) {
     console.warn('[i18n-dynamic] KV read failed for array:', e);
@@ -106,9 +110,10 @@ export async function translateArray(
       );
 
       if (translated && translated.trim().length > 0) {
+        const safeTranslated = sanitizePublicAIOutput(translated);
         // Sometimes the LLM might strip the newlines around the delimiter or format differently
         // Let's attempt to dynamically split
-        let splitTranslated = translated.split(ARRAY_DELIMITER);
+        let splitTranslated = safeTranslated.split(ARRAY_DELIMITER);
         if (splitTranslated.length !== validItems.length) {
           // Fallback to simpler split mechanism if the LLM messed up the exact token
           splitTranslated = translated.split(/\|\|\|/g).map((s) => s.trim());

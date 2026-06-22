@@ -1,5 +1,14 @@
-import { describe, it, expect } from 'vitest';
+import { afterEach, describe, it, expect, vi } from 'vitest';
 import { ApiError, jsonResponse, errorResponse, withErrorHandling } from './api-utils';
+import { findHiddenReasoningPublicOutputMatches } from './public-ai-output';
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+function mockConsoleError() {
+  return vi.spyOn(console, 'error').mockImplementation(() => {});
+}
 
 describe('ApiError', () => {
   it('should create error with default status 500', () => {
@@ -22,14 +31,30 @@ describe('jsonResponse', () => {
     const res = jsonResponse({ ok: true });
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toBe('application/json');
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     const body = (await res.json()) as Record<string, unknown>;
     expect(body).toEqual({ ok: true });
   });
 
   it('should support custom status and headers', async () => {
-    const res = jsonResponse({ created: true }, 201, { 'X-Custom': 'yes' });
+    const res = jsonResponse({ created: true }, 201, { 'X-Custom': 'yes', 'X-Robots-Tag': 'noindex' });
     expect(res.status).toBe(201);
     expect(res.headers.get('X-Custom')).toBe('yes');
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex');
+  });
+
+  it('should sanitize hidden reasoning markers before serializing public JSON', async () => {
+    const res = jsonResponse({
+      '<thinking>private key</thinking>name': '<analysis>private notes</analysis>Public value',
+      nested: {
+        text: 'Scratchpad:\nprivate scratch\n\nPublic detail',
+      },
+    });
+
+    const body = (await res.json()) as Record<string, any>;
+    expect(body.name).toBe('Public value');
+    expect(body.nested.text).toBe('Public detail');
+    expect(findHiddenReasoningPublicOutputMatches(JSON.stringify(body))).toEqual([]);
   });
 });
 
@@ -52,22 +77,39 @@ describe('errorResponse', () => {
 
   it('should handle generic Error', async () => {
     const err = new Error('oops');
+    const consoleError = mockConsoleError();
     const res = errorResponse(err);
     expect(res.status).toBe(500);
     const body = (await res.json()) as Record<string, unknown>;
-    expect(body).toEqual({ success: false, error: 'oops' });
+    expect(body).toEqual({ success: false, error: 'Internal server error' });
+    expect(consoleError).toHaveBeenCalledWith('[API Error]', err);
   });
 
   it('should handle non-Error values', async () => {
+    const consoleError = mockConsoleError();
     const res = errorResponse('string error');
     expect(res.status).toBe(500);
     const body = (await res.json()) as Record<string, unknown>;
     expect(body.success).toBe(false);
+    expect(consoleError).toHaveBeenCalledWith('[API Error]', 'string error');
   });
 
   it('should use fallback status for non-ApiError', async () => {
-    const res = errorResponse(new Error('fail'), 503);
+    const err = new Error('fail');
+    const consoleError = mockConsoleError();
+    const res = errorResponse(err, 503);
     expect(res.status).toBe(503);
+    expect(consoleError).toHaveBeenCalledWith('[API Error]', err);
+  });
+
+  it('should sanitize hidden reasoning markers from error messages', async () => {
+    const err = new Error('Hidden reasoning:\nprivate notes\n\nPublic failure');
+    const consoleError = mockConsoleError();
+    const res = errorResponse(err);
+    const body = (await res.json()) as Record<string, unknown>;
+    expect(body.error).toBe('Internal server error');
+    expect(findHiddenReasoningPublicOutputMatches(JSON.stringify(body))).toEqual([]);
+    expect(consoleError).toHaveBeenCalledWith('[API Error]', err);
   });
 });
 
@@ -95,13 +137,16 @@ describe('withErrorHandling', () => {
   });
 
   it('should catch generic errors and return 500', async () => {
+    const consoleError = mockConsoleError();
+    const err = new Error('unexpected');
     const handler = withErrorHandling(async () => {
-      throw new Error('unexpected');
+      throw err;
     });
     const res = await handler(dummyRequest, {});
     expect(res.status).toBe(500);
     const body = (await res.json()) as Record<string, unknown>;
-    expect(body).toEqual({ success: false, error: 'unexpected' });
+    expect(body).toEqual({ success: false, error: 'Internal server error' });
+    expect(consoleError).toHaveBeenCalledWith('[API Error]', err);
   });
 
   it('should forward request and context to handler', async () => {

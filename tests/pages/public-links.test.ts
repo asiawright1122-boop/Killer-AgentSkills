@@ -2,6 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS } from '../../src/lib/public-ai-output';
 import { resolveSkillDetailLocale } from '../../src/lib/skill-locale-link';
 import en from '../../src/messages/en.json';
 import zh from '../../src/messages/zh.json';
@@ -99,6 +100,7 @@ const PUBLIC_COPY_BOUNDARY_EXTENSIONS = new Set(['.astro', '.json', '.ts']);
 const blockedPhrase = (...parts: string[]) => parts.join('');
 const blockedRegex = (parts: string[], flags = 'i') => new RegExp(parts.join(''), flags);
 const PUBLIC_COPY_BOUNDARY_RULES = [
+  ...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS,
   { label: 'operator handoff', pattern: /\boperator handoff\b/i },
   { label: 'operator checkpoint', pattern: /\boperator checkpoint\b/i },
   { label: 'operator clarity', pattern: /\boperator clarity\b/i },
@@ -193,6 +195,44 @@ const collectStringLeafValues = (value: unknown): string[] => {
   }
 
   return [];
+};
+
+const hasRuntimeKvImport = (source: string): boolean => {
+  const kvImportPattern = /import\s+([^;]+?)\s+from\s+['"][^'"]*lib\/kv['"];?/g;
+
+  for (const match of source.matchAll(kvImportPattern)) {
+    const clause = match[1].trim();
+    if (clause.startsWith('type ')) continue;
+
+    const namedSpecifiers = clause.match(/^\{\s*([\s\S]*?)\s*\}$/)?.[1];
+    if (namedSpecifiers) {
+      const hasValueSpecifier = namedSpecifiers
+        .split(',')
+        .map((specifier) => specifier.trim())
+        .filter(Boolean)
+        .some((specifier) => !specifier.startsWith('type '));
+      if (!hasValueSpecifier) continue;
+    }
+
+    return true;
+  }
+
+  return false;
+};
+
+const hasDynamicRuntimeKvImport = (source: string): boolean =>
+  /import\s*\(\s*['"][^'"]*lib\/kv['"]\s*\)/.test(source);
+
+const hasRuntimeSkillsImport = (source: string): boolean => {
+  const skillsImportPattern = /import\s+([^;]+?)\s+from\s+['"][^'"]*lib\/skills['"];?/g;
+
+  for (const match of source.matchAll(skillsImportPattern)) {
+    const clause = match[1].trim();
+    if (clause.startsWith('type ')) continue;
+    return true;
+  }
+
+  return false;
 };
 
 const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
@@ -438,6 +478,9 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).not.toContain('Killer-Skills 适合哪些自动化场景？');
     expect(zhHomeSource).toContain("'Home.seoTitle'");
     expect(zhHomeSource).toContain("'Home.seoDescription'");
+    expect(zhHomeSource).toContain('Choose With Evidence Before You Install');
+    expect(zhHomeSource).toContain('The full directory stays available when you need to widen the search.');
+    expect(zhHomeSource).toContain('When you need broader coverage');
     // Verify the i18n values themselves carry the correct positioning
     expect(zh.Home.seoTitle).toContain('AI Agent Skills 开放目录');
     expect(zh.Home.seoDescription).toContain('开放 AI Agent Skills 目录');
@@ -581,6 +624,7 @@ describe('public links and navigation copy', () => {
   it('keeps collection source copy free of internal editorial and chain-of-thought style phrasing', () => {
     const collectionFiles = collectRepoFilesByExtensions('src/content/collections', new Set(['.json']));
     const blockedPatterns = [
+      ...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS.map((rule) => rule.pattern),
       /\bthis page should narrow the shortlist\b/i,
       /\bnext click\b/i,
       blockedRegex(['\\binstallation docs, CLI ', 'validation\\b']),
@@ -652,6 +696,7 @@ describe('public links and navigation copy', () => {
   it('keeps blog source copy free of internal reasoning and chain-of-thought phrasing', () => {
     const blogFiles = collectRepoFilesByExtensions('src/content/blog', new Set(['.md']));
     const blockedPatterns = [
+      ...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS.map((rule) => rule.pattern),
       /\bchain[- ]?of[- ]?thought\b/i,
       /\bthinking process\b/i,
       /\binternal strategy\b/i,
@@ -767,12 +812,20 @@ describe('public links and navigation copy', () => {
     expect(officialCollectionSource).toContain('"editorial"');
     expect(officialCollectionSource).toContain('"trustSignals"');
     expect(officialCollectionSource).toContain('"reviewedAt"');
+    expect(officialCollectionSource).toContain('ownership is clear, setup docs are public');
+    expect(officialCollectionSource).toContain('low-risk first install');
     expect(officialCollectionSource).toContain('/{locale}/docs/installation');
 
     expect(workflowCollectionSource).toContain('"groupingLogic"');
     expect(workflowCollectionSource).toContain('"executionExamples"');
     expect(workflowCollectionSource).toContain('"nextSteps"');
+    expect(workflowCollectionSource).toContain('clear workflow roles');
+    expect(workflowCollectionSource).toContain('one workflow lane');
 
+    expect(collectionDetailSource).toContain('editorialTrustSignals');
+    expect(collectionDetailSource).toContain('editorialMaintenanceItems');
+    expect(collectionDetailSource).toContain('Why These Tools Are Listed');
+    expect(collectionDetailSource).toContain('Maintenance Notes');
     expect(collectionDetailSource).toContain('editorialDecisionTracks');
     expect(collectionDetailSource).toContain('editorialExecutionExamples');
     expect(collectionDetailSource).toContain('editorialNextSteps');
@@ -1391,6 +1444,54 @@ describe('public links and navigation copy', () => {
     expect(solutionDetailSource).not.toContain('isCrawlerRequest');
   });
 
+  it('keeps skill repo directory pages on the public listing projection', () => {
+    const skillDetailSource = readPageSource('../pages/[locale]/skills/[owner]/[...repo].astro');
+
+    expect(skillDetailSource).toContain('getLightweightSkillsByRefs(env, [`${owner}/${repo}`])');
+    expect(skillDetailSource).not.toContain('getSkillsListingByRefs(env');
+    expect(skillDetailSource).not.toContain("import { getSkillsListingByRefs } from '../../../../lib/kv'");
+  });
+
+  it('keeps public render surfaces off runtime kv helper imports', () => {
+    const publicRenderFiles = [
+      ...collectRepoFilesByExtensions('src/pages/[locale]', new Set(['.astro'])),
+      ...collectRepoFilesByExtensions('src/components', new Set(['.astro', '.tsx', '.ts'])),
+      ...collectRepoFilesByExtensions('src/islands', new Set(['.tsx', '.ts'])),
+    ];
+
+    const offenders = publicRenderFiles.filter((relativePath) => hasRuntimeKvImport(readRepoSource(relativePath)));
+
+    expect(offenders).toEqual([]);
+  });
+
+  it('keeps public skill API routes on the public skill catalog instead of raw storage helpers', () => {
+    const publicSkillApiFiles = collectRepoFilesByExtensions('src/pages/api/skills', new Set(['.ts']));
+
+    const offenders = publicSkillApiFiles.filter((relativePath) => {
+      const source = readRepoSource(relativePath);
+      return hasRuntimeKvImport(source) || hasDynamicRuntimeKvImport(source);
+    });
+
+    expect(offenders).toEqual([]);
+  });
+
+  it('keeps public skill consumers on the public skill catalog instead of the implementation module', () => {
+    const publicSkillConsumerFiles = [
+      ...collectRepoFilesByExtensions('src/pages/[locale]', new Set(['.astro'])),
+      ...collectRepoFilesByExtensions('src/pages/api', new Set(['.ts'])).filter(
+        (relativePath) => !relativePath.startsWith('src/pages/api/admin/'),
+      ),
+      ...collectRepoFilesByExtensions('src/components', new Set(['.astro', '.tsx', '.ts'])),
+      ...collectRepoFilesByExtensions('src/islands', new Set(['.tsx', '.ts'])),
+    ];
+
+    const offenders = publicSkillConsumerFiles.filter((relativePath) =>
+      hasRuntimeSkillsImport(readRepoSource(relativePath)),
+    );
+
+    expect(offenders).toEqual([]);
+  });
+
   it('keeps collection pages on long-lived edge cache headers for crawl stability', () => {
     const collectionsIndexSource = readPageSource('../pages/[locale]/collections/index.astro');
     const collectionsDetailSource = readPageSource('../pages/[locale]/collections/[...slug].astro');
@@ -1807,13 +1908,6 @@ describe('public links and navigation copy', () => {
       {
         // Existing authored homepage URL (kept for backwards compatibility
         // with prior structured-data shape).
-        file: 'src/pages/[locale]/index.astro',
-        url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
-      },
-      {
-        // WebSite JSON-LD SearchAction urlTemplate (sitelinks search box).
-        // Google requires an absolute URL here, so we cannot collapse it to a
-        // relative path. Tracked separately to make accidental changes loud.
         file: 'src/pages/[locale]/index.astro',
         url: 'https://killer-skills.com/${locale}/skills?q={search_term_string}',
       },

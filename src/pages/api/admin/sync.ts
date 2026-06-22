@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import type { Env } from '../../../lib/kv';
 import { normalizeCategoryId } from '../../../lib/category-taxonomy';
+import { sanitizePublicAIOutputValue } from '../../../lib/public-ai-output';
 import { CATEGORY_GROUPS } from '../../../lib/search';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
@@ -78,7 +79,8 @@ export const POST: APIRoute = async ({ locals }) => {
     `);
 
     const batches = [];
-    for (const skill of skills) {
+    for (const rawSkill of skills) {
+      const skill = sanitizePublicAIOutputValue(rawSkill) as any;
       const normalizedExplicitCategory = normalizeCategoryId(skill.category);
       const shouldInfer = !normalizedExplicitCategory || normalizedExplicitCategory === 'community';
       const inferredCategory = shouldInfer ? inferCategoryFromText(skill) : '';

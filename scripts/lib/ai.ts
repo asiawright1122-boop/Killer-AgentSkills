@@ -39,12 +39,12 @@ import {
 } from './ai-config-guard';
 
 // Load default .env first so runtime guards pick up repo-local policy.
-dotenv.config();
+dotenv.config({ quiet: true });
 
 // Then explicitly override with .env.local if present.
 const localEnv = path.join(process.cwd(), '.env.local');
 if (fs.existsSync(localEnv)) {
-  dotenv.config({ path: localEnv, override: true });
+  dotenv.config({ path: localEnv, override: true, quiet: true });
 }
 
 // Seed keywords — loaded once at startup from data/seed-keywords.json
@@ -194,6 +194,11 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 import { SUPPORTED_LOCALES } from './constants';
 import type { SeoData, AgentAnalysis, TranslateContext } from './types';
 import { robustParseJSON, extractJSONCandidates, cleanAndTruncate, cleanAndClamp } from './utils';
+import {
+  appendNoHiddenReasoningInstruction,
+  sanitizePublicAIOutput,
+  sanitizePublicAIOutputValue,
+} from '../../src/lib/public-ai-output';
 
 export interface AIConfig {
   nvidiaKeys: string[];
@@ -1228,10 +1233,10 @@ export class AIService {
         } else if (next.status != null) {
           labelState.consecutive429s = 0;
         }
-        
+
         // Circuit Breaker logic
         if (labelState.consecutiveRetryableFailures >= 3 || labelState.consecutive429s >= 3) {
-           labelState.circuitBreakerOpen = true;
+          labelState.circuitBreakerOpen = true;
         }
 
         labelState.lastFailureAt = next.timestamp;
@@ -2406,7 +2411,13 @@ export class AIService {
   ): Promise<string | null> {
     const releaseSlot = await acquireSlot();
     try {
-      return await this.executeCallWithRetry(prompt, jsonMode, 0, workloadProfile);
+      const result = await this.executeCallWithRetry(
+        appendNoHiddenReasoningInstruction(prompt),
+        jsonMode,
+        0,
+        workloadProfile,
+      );
+      return result ? sanitizePublicAIOutput(result) : result;
     } finally {
       releaseSlot();
     }
@@ -2704,10 +2715,10 @@ Output ONLY the summary, no intro/outro.`;
 
     try {
       const result = await this.callAI(prompt, false, 'batch_generation');
-      return result || rawText.slice(0, 3000);
+      return sanitizePublicAIOutput(result || rawText.slice(0, 3000));
     } catch (e) {
       console.warn(`[WARN] Long Context Summary failed for ${skillName}, falling back to slice:`, e);
-      return rawText.slice(0, 3000);
+      return sanitizePublicAIOutput(rawText.slice(0, 3000));
     }
   }
 
@@ -3055,7 +3066,10 @@ Output STRICT JSON only, no markdown wrapping:
     if (successCount === 0) {
       const detail = batchErrors.length > 0 ? ` Reasons: ${batchErrors.join('; ')}` : '';
       console.warn(`⚠️ All batches failed for ${skillName}, using default.${detail}`);
-      return defaultResult;
+      return sanitizePublicAIOutputValue(defaultResult) as {
+        description: Record<string, string>;
+        seo: SeoData;
+      };
     }
 
     // Ensure en fallback (only if English step also failed)
@@ -3078,7 +3092,7 @@ Output STRICT JSON only, no markdown wrapping:
       mergedKeywords.en = defaultResult.seo.keywords.en;
     }
 
-    return {
+    return sanitizePublicAIOutputValue({
       description: cleanAndTruncate(mergedDesc, 300),
       seo: {
         title: this.sanitizeSeoTitleMap(skillName || 'AI Skill', mergedSeoTitle),
@@ -3087,6 +3101,9 @@ Output STRICT JSON only, no markdown wrapping:
         features: mergedFeatures,
         keywords: this.sanitizeSeoKeywordsMap(skillName || 'AI Skill', mergedKeywords, context?.category),
       },
+    }) as {
+      description: Record<string, string>;
+      seo: SeoData;
     };
   }
 
@@ -3161,7 +3178,7 @@ Your Response (for "${skillName}"):
         for (const candidate of candidates) {
           const parsed = robustParseJSON(candidate);
           if (parsed && typeof parsed === 'object') {
-            return {
+            return sanitizePublicAIOutputValue({
               suitability: parsed.suitability || fallback.suitability,
               recommendation: parsed.recommendation || fallback.recommendation,
               useCases:
@@ -3171,6 +3188,12 @@ Your Response (for "${skillName}"):
                   ? parsed.limitations
                   : fallback.limitations,
               version: 4, // v4: dedicated English SEO generation + skill-specific prompts
+            }) as {
+              suitability: string;
+              recommendation: string;
+              useCases: string[];
+              limitations: string[];
+              version: number;
             };
           }
         }
@@ -3178,7 +3201,13 @@ Your Response (for "${skillName}"):
     } catch (e) {
       console.error(`Failed to generate agent analysis for ${skillName}`, e);
     }
-    return fallback;
+    return sanitizePublicAIOutputValue(fallback) as {
+      suitability: string;
+      recommendation: string;
+      useCases: string[];
+      limitations: string[];
+      version: number;
+    };
   }
 
   /**
@@ -3193,6 +3222,14 @@ Your Response (for "${skillName}"):
     limitations: string[];
     version?: number;
   }): Promise<AgentAnalysis> {
+    const safeRaw = sanitizePublicAIOutputValue(raw) as {
+      suitability: string;
+      recommendation: string;
+      useCases: string[];
+      limitations: string[];
+      version?: number;
+    };
+
     // Helper: validate string fields, reject suspiciously short translations
     const validateField = (
       source: string,
@@ -3237,10 +3274,10 @@ Your Response (for "${skillName}"):
     };
 
     // Accumulators for merged results
-    const suitabilityMap: Record<string, string> = { en: raw.suitability };
-    const recommendationMap: Record<string, string> = { en: raw.recommendation };
-    const useCasesMap: Record<string, string[]> = { en: raw.useCases };
-    const limitationsMap: Record<string, string[]> = { en: raw.limitations };
+    const suitabilityMap: Record<string, string> = { en: safeRaw.suitability };
+    const recommendationMap: Record<string, string> = { en: safeRaw.recommendation };
+    const useCasesMap: Record<string, string[]> = { en: safeRaw.useCases };
+    const limitationsMap: Record<string, string[]> = { en: safeRaw.limitations };
 
     // Split locales into batches
     const BATCH_SIZE = Math.max(1, Math.min(AI_LOCALE_BATCH_SIZE, SUPPORTED_LOCALES.length));
@@ -3266,10 +3303,10 @@ GUIDELINES:
 
 Input (English):
 {
-  "suitability": "${raw.suitability.replace(/"/g, '\\"')}",
-  "recommendation": "${raw.recommendation.replace(/"/g, '\\"')}",
-  "useCases": ${JSON.stringify(raw.useCases)},
-  "limitations": ${JSON.stringify(raw.limitations)}
+  "suitability": "${safeRaw.suitability.replace(/"/g, '\\"')}",
+  "recommendation": "${safeRaw.recommendation.replace(/"/g, '\\"')}",
+  "useCases": ${JSON.stringify(safeRaw.useCases)},
+  "limitations": ${JSON.stringify(safeRaw.limitations)}
 }
 
 Output STRICT JSON only, no markdown:
@@ -3313,12 +3350,12 @@ Output STRICT JSON only, no markdown:
     process.stdout.write('.');
 
     // Apply validation on merged results
-    return {
-      suitability: validateField(raw.suitability, suitabilityMap, 'suitability'),
-      recommendation: validateField(raw.recommendation, recommendationMap, 'recommendation'),
-      useCases: validateArrayField(raw.useCases, useCasesMap, 'useCase'),
-      limitations: validateArrayField(raw.limitations, limitationsMap, 'limitation'),
-      version: raw.version || 1,
-    };
+    return sanitizePublicAIOutputValue({
+      suitability: validateField(safeRaw.suitability, suitabilityMap, 'suitability'),
+      recommendation: validateField(safeRaw.recommendation, recommendationMap, 'recommendation'),
+      useCases: validateArrayField(safeRaw.useCases, useCasesMap, 'useCase'),
+      limitations: validateArrayField(safeRaw.limitations, limitationsMap, 'limitation'),
+      version: safeRaw.version || 1,
+    }) as AgentAnalysis;
   }
 }

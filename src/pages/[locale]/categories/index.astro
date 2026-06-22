@@ -2,7 +2,7 @@
 import Layout from '../../../layouts/Layout.astro';
 import { CATEGORY_DEFS, getCategoryLabel, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { SUPPORTED_LOCALES, loadMessages, useTranslations, translateOr, type Locale } from '../../../i18n';
-import { getLightweightSkillsCategorySummary } from '../../../lib/skills';
+import { getLightweightSkillsCategorySummary } from '../../../lib/public-skill-catalog';
 import { buildKeywordString, getCategoryKeywordClusters } from '../../../lib/seo-keywords';
 import type { Env } from '../../../lib/kv';
 import { getRuntimeEnv } from '../../../lib/runtime-env';

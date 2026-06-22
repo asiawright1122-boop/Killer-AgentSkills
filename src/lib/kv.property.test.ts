@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import * as fc from 'fast-check';
 import { getKV, setKV, type Env } from './kv';
 
@@ -61,6 +61,19 @@ function createEnvWithoutTranslations(): Env {
   };
 }
 
+function silenceExpectedKVFallbackLogs() {
+  const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  const error = vi.spyOn(console, 'error').mockImplementation(() => {});
+  return {
+    warn,
+    error,
+    restore() {
+      warn.mockRestore();
+      error.mockRestore();
+    },
+  };
+}
+
 // ============================================================================
 // Property 6: KV 读写一致性
 // Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性
@@ -97,16 +110,24 @@ describe('Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性', (
      * setKV and getKV should fall back to a local in-memory Map and
      * maintain the same read-write consistency.
      */
-    await fc.assert(
-      fc.asyncProperty(kvKeyArb, kvValueArb, async (key, value) => {
-        const env = createEnvWithoutTranslations();
+    const logs = silenceExpectedKVFallbackLogs();
+    try {
+      await fc.assert(
+        fc.asyncProperty(kvKeyArb, kvValueArb, async (key, value) => {
+          const env = createEnvWithoutTranslations();
 
-        await setKV(env, key, value);
-        const result = await getKV(env, key);
-        expect(result).toBe(value);
-      }),
-      { numRuns: 100 },
-    );
+          await setKV(env, key, value);
+          const result = await getKV(env, key);
+          expect(result).toBe(value);
+        }),
+        { numRuns: 100 },
+      );
+      expect(logs.warn).toHaveBeenCalledWith(expect.stringMatching(/^\[KV\] Mock Write:/));
+      expect(logs.warn).toHaveBeenCalledWith('[KV] No TRANSLATIONS binding found. Using local mock.');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 
   it('getKV returns null for keys that have not been written', async () => {
@@ -190,18 +211,26 @@ describe('Feature: nextjs-to-astro-migration, Property 6: KV 读写一致性', (
      * The fallback in-memory Map should also support last-write-wins
      * semantics, maintaining the same behavior as the KV binding.
      */
-    await fc.assert(
-      fc.asyncProperty(kvKeyArb, fc.array(kvValueArb, { minLength: 2, maxLength: 5 }), async (key, values) => {
-        const env = createEnvWithoutTranslations();
+    const logs = silenceExpectedKVFallbackLogs();
+    try {
+      await fc.assert(
+        fc.asyncProperty(kvKeyArb, fc.array(kvValueArb, { minLength: 2, maxLength: 5 }), async (key, values) => {
+          const env = createEnvWithoutTranslations();
 
-        for (const value of values) {
-          await setKV(env, key, value);
-        }
+          for (const value of values) {
+            await setKV(env, key, value);
+          }
 
-        const result = await getKV(env, key);
-        expect(result).toBe(values[values.length - 1]);
-      }),
-      { numRuns: 100 },
-    );
+          const result = await getKV(env, key);
+          expect(result).toBe(values[values.length - 1]);
+        }),
+        { numRuns: 100 },
+      );
+      expect(logs.warn).toHaveBeenCalledWith(expect.stringMatching(/^\[KV\] Mock Write:/));
+      expect(logs.warn).toHaveBeenCalledWith('[KV] No TRANSLATIONS binding found. Using local mock.');
+      expect(logs.error).not.toHaveBeenCalled();
+    } finally {
+      logs.restore();
+    }
   });
 });

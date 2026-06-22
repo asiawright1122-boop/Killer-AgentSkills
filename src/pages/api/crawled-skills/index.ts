@@ -50,7 +50,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
     console.error('Crawled skills API error:', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch crawled skills' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 };

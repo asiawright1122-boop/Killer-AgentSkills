@@ -9,7 +9,9 @@ import {
 import type { Env } from '../../lib/kv';
 import { searchSkills } from '../../lib/search';
 import { resolveSkillDetailLink } from '../../lib/skill-detail-link';
-import { getLightweightSkills, type UnifiedSkill } from '../../lib/skills';
+import { getLightweightSkills, type UnifiedSkill } from '../../lib/public-skill-catalog';
+import { sanitizePublicAIOutput } from '../../lib/public-ai-output';
+import { withPublicApiHeaders } from '../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
 // Protects search endpoint from abuse. In-memory fallback for local dev /
@@ -36,10 +38,19 @@ function normalizeSource(source: unknown): string {
   return source.replace(/^"(.*)"$/, '$1');
 }
 
+function sanitizeSearchResult<T extends Record<string, unknown>>(result: T): T {
+  return Object.fromEntries(
+    Object.entries(result).map(([key, value]) => [
+      key,
+      typeof value === 'string' ? sanitizePublicAIOutput(value) : value,
+    ]),
+  ) as T;
+}
+
 function mapSkillResult(skill: UnifiedSkill, index: number, total: number, locale: string) {
   const fallbackScore = total > 1 ? Math.max(0.2, 1 - index / total) : 1;
   const detail = resolveSkillDetailLink(skill, locale);
-  return {
+  return sanitizeSearchResult({
     id: skill.id,
     score: Number(fallbackScore.toFixed(4)),
     owner: skill.owner,
@@ -51,7 +62,7 @@ function mapSkillResult(skill: UnifiedSkill, index: number, total: number, local
     stars: skill.stars || 0,
     category: skill.category || '',
     source: skill.source || 'cache',
-  };
+  });
 }
 
 export const GET: APIRoute = async ({ request, locals }) => {
@@ -61,7 +72,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
   if (!query || query.trim().length === 0) {
     return new Response(JSON.stringify({ results: [] }), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
       status: 400,
     });
   }
@@ -194,10 +205,10 @@ export const GET: APIRoute = async ({ request, locals }) => {
       const results = ranked.map((skill, index) => mapSkillResult(skill, index, ranked.length, locale));
 
       return new Response(JSON.stringify({ results }), {
-        headers: {
+        headers: withPublicApiHeaders({
           'Content-Type': 'application/json',
           'Cache-Control': 'public, max-age=60',
-        },
+        }),
       });
     }
 
@@ -215,7 +226,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
           locale,
         );
 
-        return {
+        return sanitizeSearchResult({
           id,
           score: Number(data.score.toFixed(4)),
           owner: data.owner,
@@ -227,19 +238,19 @@ export const GET: APIRoute = async ({ request, locals }) => {
           stars: data.stars,
           category: data.category,
           source: data.source,
-        };
+        });
       });
 
     return new Response(JSON.stringify({ results }), {
-      headers: {
+      headers: withPublicApiHeaders({
         'Content-Type': 'application/json',
         'Cache-Control': 'public, max-age=60',
-      },
+      }),
     });
   } catch (e) {
     console.error('Search API Error:', e);
-    return new Response(JSON.stringify({ error: e instanceof Error ? e.message : 'Internal Server Error' }), {
-      headers: { 'Content-Type': 'application/json' },
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
       status: 500,
     });
   }

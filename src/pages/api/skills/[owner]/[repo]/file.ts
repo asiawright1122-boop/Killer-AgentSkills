@@ -3,6 +3,8 @@ import type { Env } from '../../../../../lib/kv';
 import { validationError, notFoundError, errorResponse, jsonResponse } from '../../../../../lib/api-utils';
 import { COMMON_BRANCHES } from '../../../../../lib/github';
 import { withPublicApiHeaders } from '../../../../../lib/public-skill-api';
+import { sanitizePublicAIOutput } from '../../../../../lib/public-ai-output';
+import { getPublicSkillRepoMetadata } from '../../../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../../../lib/runtime-env';
 
 export const prerender = false;
@@ -122,13 +124,9 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
     // Try to detect the preferred branch from D1 skill data if available
     let preferredBranch: string | undefined;
-    if (env?.DB) {
+    if (env) {
       try {
-        const { getSkillsKV } = await import('../../../../../lib/kv');
-        const skill = await getSkillsKV(env, `${owner}/${repo}`);
-        if (skill?.defaultBranch) {
-          preferredBranch = skill.defaultBranch;
-        }
+        preferredBranch = (await getPublicSkillRepoMetadata(env, owner, repo))?.defaultBranch;
       } catch {
         // ignore DB errors, will try all branches
       }
@@ -146,14 +144,15 @@ export const GET: APIRoute = async ({ params, request, locals }) => {
 
     const filename = filePath.split('/').pop() || filePath;
     const fileType = getFileType(filename);
+    const publicContent = sanitizePublicAIOutput(result.content);
 
     return new Response(
       JSON.stringify({
         path: filePath,
         name: filename,
         type: fileType,
-        content: result.content,
-        size: result.content.length,
+        content: publicContent,
+        size: publicContent.length,
       }),
       {
         status: 200,

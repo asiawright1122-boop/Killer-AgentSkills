@@ -3,6 +3,11 @@ import type { Env } from '../../../lib/kv';
 import { checkAdminAuth } from '../../../middleware-utils';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
+const ADMIN_JSON_HEADERS = {
+  'Content-Type': 'application/json',
+  'X-Robots-Tag': 'noindex, nofollow',
+} as const;
+
 export const POST: APIRoute = async ({ request, locals }) => {
   const env = ((await getRuntimeEnv<Env>(locals)) || {}) as Env;
 
@@ -22,9 +27,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
   }
 
   if (!env.DB || !env.VECTORIZE || !env.AI) {
-    return new Response(JSON.stringify({ error: 'Missing Cloudflare bindings (DB, VECTORIZE, AI)' }), {
+    return new Response(JSON.stringify({ error: 'Vector sync dependencies unavailable' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: ADMIN_JSON_HEADERS,
     });
   }
 
@@ -51,7 +56,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (skills.length === 0) {
       return new Response(JSON.stringify({ message: 'No more skills to sync', count: 0 }), {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: ADMIN_JSON_HEADERS,
       });
     }
 
@@ -111,14 +116,14 @@ Description: ${skill.description || 'A Claude Code skill plugin.'}
       }),
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
+        headers: ADMIN_JSON_HEADERS,
       },
     );
-  } catch (err: any) {
+  } catch (err) {
     console.error('Vectorize Sync Error:', err);
-    return new Response(JSON.stringify({ error: err.message || 'Internal Server Error' }), {
+    return new Response(JSON.stringify({ error: 'Vector sync failed' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: ADMIN_JSON_HEADERS,
     });
   }
 };

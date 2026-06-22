@@ -97,10 +97,13 @@ describe('saveFavorites', () => {
   });
 
   it('does not throw when localStorage.setItem fails', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     (localStorageMock.setItem as ReturnType<typeof vi.fn>).mockImplementationOnce(() => {
       throw new Error('quota exceeded');
     });
     expect(() => saveFavorites([makeFavorite()])).not.toThrow();
+    expect(consoleError).toHaveBeenCalledWith('[favorites] Failed to save:', expect.any(Error));
+    consoleError.mockRestore();
   });
 });
 

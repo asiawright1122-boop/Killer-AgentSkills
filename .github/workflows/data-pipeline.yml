@@ -17,7 +17,7 @@ run-name: >-
 
 on:
   schedule:
-    # Incremental lane: harvest + incremental build (08:17 / 20:17 Asia/Shanghai)
+    # Incremental lane: incremental build only (08:17 / 20:17 Asia/Shanghai)
     - cron: '17 0,12 * * *'
     # Auto submitter lane (10:37 Asia/Shanghai)
     - cron: '37 2 * * *'
@@ -119,7 +119,7 @@ jobs:
             case "${{ github.event.schedule }}" in
               "17 0,12 * * *")
                 MODE="incremental"
-                RUN_HARVEST="true"
+                RUN_HARVEST="false"
                 HARVEST_TARGET="50"
                 BUILD_MODE="discover"
                 BUILD_DURATION="150"
@@ -297,6 +297,10 @@ jobs:
           WORKERS_AI_FREE_MAX_CALLS: '60'
           WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
 
+      - name: Validate Public Skill Cache Projection
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: npm run guard:public-skill-cache
+
       - name: Commit and Push
         run: |
           MODE="${{ needs.resolve.outputs.mode }}"
@@ -381,6 +385,7 @@ jobs:
         continue-on-error: true
         run: |
           npx tsx scripts/generate-d1-seed.ts
+          npm run guard:public-d1-seeds
           ./scripts/run-d1-seeds.sh
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

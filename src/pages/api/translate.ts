@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { translateTextStream } from '../../lib/nvidia';
 import { getKV, setKV, type Env } from '../../lib/kv';
 import crypto from 'node:crypto';
+import { jsonResponse } from '../../lib/api-utils';
 import {
   checkRateLimit,
   createRateLimiter,
@@ -9,6 +10,8 @@ import {
   rateLimitResponse,
   type KVNamespaceLike,
 } from '../../lib/rate-limit';
+import { createPublicAIOutputStreamSanitizer, sanitizePublicAIOutput } from '../../lib/public-ai-output';
+import { withPublicApiHeaders } from '../../lib/public-skill-api';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
 // Use strict dynamic since it relies on POST body and streams
@@ -19,11 +22,11 @@ export const prerender = false;
 // isolate consistency.
 const translateLimiterFallback = createRateLimiter({ windowMs: 60_000, max: 10 });
 
-const STREAM_HEADERS = {
+const STREAM_HEADERS = withPublicApiHeaders({
   'Content-Type': 'text/plain; charset=utf-8',
   'Cache-Control': 'no-cache, no-transform',
   'X-Content-Type-Options': 'nosniff',
-};
+});
 
 function generateKey(text: string, lang: string, type: string): string {
   const hash = crypto.createHash('md5').update(text).digest('hex');
@@ -51,19 +54,17 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const { targetLang, type = 'text' } = body;
 
     if (!text) {
-      return new Response(JSON.stringify({ error: 'Text is required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return jsonResponse({ error: 'Text is required' }, 400, withPublicApiHeaders());
     }
 
     // Prevent abuse with excessively long input
     const MAX_TEXT_LENGTH = 10_000;
     if (text.length > MAX_TEXT_LENGTH) {
-      return new Response(JSON.stringify({ error: `Text too long. Maximum ${MAX_TEXT_LENGTH} characters allowed.` }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return jsonResponse(
+        { error: `Text too long. Maximum ${MAX_TEXT_LENGTH} characters allowed.` },
+        400,
+        withPublicApiHeaders(),
+      );
     }
 
     const lang = targetLang || 'zh';
@@ -73,9 +74,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // 1. Check KV
     const cached = await getKV(env, cacheKey);
     if (cached) {
+      const safeCached = sanitizePublicAIOutput(cached);
       const stream = new ReadableStream({
         start(controller) {
-          const chunk = `0:${JSON.stringify(cached)}\n`;
+          const chunk = `0:${JSON.stringify(safeCached)}\n`;
           controller.enqueue(new TextEncoder().encode(chunk));
           controller.close();
         },
@@ -94,12 +96,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
     }
 
     // 3. Transform Stream & Cache
-    let fullContent = '';
+    const streamSanitizer = createPublicAIOutputStreamSanitizer();
     const enqueueChunk = (controller: ReadableStreamDefaultController<Uint8Array>, chunk: any) => {
       const content = chunk?.choices?.[0]?.delta?.content || '';
       if (!content) return;
-      fullContent += content;
-      const streamChunk = `0:${JSON.stringify(content)}\n`;
+      const publicDelta = streamSanitizer.push(content);
+      if (!publicDelta) return;
+      const streamChunk = `0:${JSON.stringify(publicDelta)}\n`;
       controller.enqueue(new TextEncoder().encode(streamChunk));
     };
 
@@ -116,6 +119,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
           controller.close();
 
+          const fullContent = streamSanitizer.getPublicOutput();
           if (fullContent) {
             console.log(`[API] Stream completed, caching to KV: ${cacheKey}`);
             await setKV(env, cacheKey, fullContent);
@@ -130,15 +134,13 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return new Response(readableStream, { headers: STREAM_HEADERS });
   } catch (error) {
     console.error('Translation API error:', error);
-    return new Response(
-      JSON.stringify({
-        error: 'Translation failed',
-        details: error instanceof Error ? error.message : 'Unknown error',
-      }),
+    return jsonResponse(
       {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
+        error: 'Translation failed',
+        details: 'Internal server error',
       },
+      500,
+      withPublicApiHeaders(),
     );
   }
 };

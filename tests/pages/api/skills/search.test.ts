@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { createMockEnv, createMockD1, createMockKV, createAPIContext } from '../../../../src/lib/api-test-utils';
-import type { UnifiedSkill } from '../../../../src/lib/skills';
+import type { UnifiedSkill } from '../../../../src/lib/public-skill-catalog';
 
 const MOCK_SKILLS: UnifiedSkill[] = [
   {
@@ -77,7 +77,10 @@ describe('GET /api/skills/search', () => {
   });
 
   it('clamps page to minimum 1', async () => {
-    const ctx = buildContext('http://localhost/api/skills/search?q=test&page=0');
+    const ctx = buildContext(
+      'http://localhost/api/skills/search?q=test&page=0',
+      createMockEnv({ DB: createMockD1([], 0) as unknown as D1Database }),
+    );
     const res = await GET(ctx);
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -85,7 +88,10 @@ describe('GET /api/skills/search', () => {
   });
 
   it('clamps limit to maximum 100', async () => {
-    const ctx = buildContext('http://localhost/api/skills/search?q=test&limit=200');
+    const ctx = buildContext(
+      'http://localhost/api/skills/search?q=test&limit=200',
+      createMockEnv({ DB: createMockD1([], 0) as unknown as D1Database }),
+    );
     const res = await GET(ctx);
     expect(res.status).toBe(200);
     const body = await res.json();
@@ -93,7 +99,10 @@ describe('GET /api/skills/search', () => {
   });
 
   it('defaults page to 1 for non-numeric', async () => {
-    const ctx = buildContext('http://localhost/api/skills/search?q=test&page=abc');
+    const ctx = buildContext(
+      'http://localhost/api/skills/search?q=test&page=abc',
+      createMockEnv({ DB: createMockD1([], 0) as unknown as D1Database }),
+    );
     const res = await GET(ctx);
     expect(res.status).toBe(200);
   });
@@ -260,7 +269,10 @@ describe('GET /api/skills/search', () => {
   });
 
   it('uses correct Cache-Control headers', async () => {
-    const ctx = buildContext('http://localhost/api/skills/search?q=test');
+    const ctx = buildContext(
+      'http://localhost/api/skills/search?q=test',
+      createMockEnv({ DB: createMockD1([], 0) as unknown as D1Database }),
+    );
     const res = await GET(ctx);
     expect(res.headers.get('Cache-Control')).toMatch(/s-maxage/);
     expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');

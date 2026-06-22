@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createAPIContext, createMockEnv, createMockKV } from '../../../src/lib/api-test-utils';
+import { findHiddenReasoningPublicOutputMatches } from '../../../src/lib/public-ai-output';
 
 function buildContext(
   body: unknown,
@@ -106,6 +107,7 @@ describe('POST /api/translate', () => {
     const ctx = buildContext({});
     const res = await POST(ctx);
     expect(res.status).toBe(400);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     const body = await res.json();
     expect(body.error).toMatch(/text/i);
   });
@@ -121,6 +123,7 @@ describe('POST /api/translate', () => {
     const ctx = buildContext({ text: longText, targetLang: 'zh' });
     const res = await POST(ctx);
     expect(res.status).toBe(400);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     const body = await res.json();
     expect(body.error).toMatch(/too long/i);
   });
@@ -137,7 +140,26 @@ describe('POST /api/translate', () => {
     const res = await POST(ctx);
     expect(res.status).toBe(200);
     expect(res.headers.get('Content-Type')).toBe('text/plain; charset=utf-8');
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
     expect(await readResponseStream(res)).toContain(cachedContent);
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('strips hidden reasoning from cached translation output before streaming it', async () => {
+    const cachedContent = 'Chain of thought:\nprivate translation notes\n## Final\n你好世界';
+    const store = new Map<string, unknown>([['trans:v4:zh:text:098f6bcd4621d373cade4e832627b4f6', cachedContent]]);
+
+    const ctx = buildContext(
+      { text: 'test', targetLang: 'zh' },
+      createMockEnv({ TRANSLATIONS: createMockKV(store) }) as any,
+    );
+
+    const res = await POST(ctx);
+    const body = await readResponseStream(res);
+
+    expect(res.status).toBe(200);
+    expect(body).toContain('## Final\\n你好世界');
+    expect(body).not.toMatch(/chain of thought|private translation notes/i);
     expect(fetchMock).not.toHaveBeenCalled();
   });
 
@@ -157,9 +179,7 @@ describe('POST /api/translate', () => {
     expect(res.status).toBe(200);
 
     const body = await readResponseStream(res);
-    expect(body).toContain('"你"');
-    expect(body).toContain('"好"');
-    expect(body).toContain('"世界"');
+    expect(body).toContain('"你好世界"');
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock.mock.calls[0]?.[0]).toBe('https://integrate.api.nvidia.com/v1/chat/completions');
     expect(translations.put).toHaveBeenCalledWith(
@@ -167,6 +187,53 @@ describe('POST /api/translate', () => {
       '你好世界',
       expect.anything(),
     );
+  });
+
+  it('strips hidden reasoning from live translation output before streaming and caching it', async () => {
+    const translations = createMockKV();
+    fetchMock.mockResolvedValueOnce(
+      streamingProviderResponse([
+        '<thinking>private notes</thinking>\n\n',
+        '## Final\n',
+        '你好世界\n\n<reasoning>hidden chain</reasoning>',
+      ]),
+    );
+
+    const ctx = buildContext(
+      { text: 'hello world', targetLang: 'zh' },
+      createMockEnv({
+        TRANSLATIONS: translations,
+        NVIDIA_API_KEY: 'nvidia-key',
+      }) as any,
+    );
+
+    const res = await POST(ctx);
+    const body = await readResponseStream(res);
+
+    expect(res.status).toBe(200);
+    expect(body).toContain('## Final\\n你好世界');
+    expect(body).not.toMatch(/thinking|reasoning|private notes|hidden chain/i);
+    expect(translations.put).toHaveBeenCalledWith(
+      'trans:v4:zh:text:5eb63bbbe01eeed093cb22bb8f5acdc3',
+      '## Final\n你好世界',
+      expect.anything(),
+    );
+  });
+
+  it('strips hidden reasoning from failed translation details', async () => {
+    const ctx = buildContext({ text: 'hello world', targetLang: 'zh' }, createMockEnv() as any);
+    vi.spyOn(ctx.request, 'json').mockRejectedValueOnce(
+      new Error('<analysis>private parser notes</analysis>Public failure'),
+    );
+
+    const res = await POST(ctx);
+    const body = await res.json();
+
+    expect(res.status).toBe(500);
+    expect(res.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+    expect(body.error).toBe('Translation failed');
+    expect(body.details).toBe('Internal server error');
+    expect(findHiddenReasoningPublicOutputMatches(JSON.stringify(body))).toEqual([]);
   });
 
   it('keeps using the healthier NVIDIA key before opening fallback providers', async () => {
@@ -186,8 +253,7 @@ describe('POST /api/translate', () => {
     expect(res.status).toBe(200);
 
     const body = await readResponseStream(res);
-    expect(body).toContain('"二号"');
-    expect(body).toContain('"Key"');
+    expect(body).toContain('"二号Key"');
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock.mock.calls[0]?.[0]).toBe('https://integrate.api.nvidia.com/v1/chat/completions');
     expect(fetchMock.mock.calls[1]?.[0]).toBe('https://integrate.api.nvidia.com/v1/chat/completions');
@@ -239,7 +305,7 @@ describe('POST /api/translate', () => {
 
     expect(res.status).toBe(500);
     expect(body.error).toBe('Translation failed');
-    expect(String(body.details || '')).toMatch(/fallback policy|nvidia/i);
+    expect(body.details).toBe('Internal server error');
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(fetchMock.mock.calls[0]?.[0]).toBe('https://integrate.api.nvidia.com/v1/chat/completions');
   });

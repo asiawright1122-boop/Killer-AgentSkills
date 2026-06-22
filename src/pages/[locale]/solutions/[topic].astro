@@ -4,7 +4,11 @@ import SkillCard from '../../../components/SkillCard.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../i18n';
 import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { buildKeywordString } from '../../../lib/seo-keywords';
-import { getLightweightSkillsByRefs, getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/skills';
+import {
+  getLightweightSkillsByRefs,
+  getLightweightSkillsTop,
+  type UnifiedSkill,
+} from '../../../lib/public-skill-catalog';
 import { getPreferredCanonicalLocale, isDirectlyLocalizedVariant } from '../../../lib/seo-locales';
 import {
   getSolutionIntentBySlug,

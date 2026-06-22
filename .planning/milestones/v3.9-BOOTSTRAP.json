@@ -1,0 +1,60 @@
+{
+  "milestone": "v3.9",
+  "milestoneName": "Promotion Gate Recovery & Public Boundary Assurance",
+  "goal": "Reopen the Discovery Expansion Boundary only after a second primary authority surface earns promotion under fresh scorecards, while keeping internal reasoning and operator-only process details out of public frontend surfaces.",
+  "sourceMilestone": "v3.8",
+  "sourceMilestoneName": "Backlog Content Enrichment Automation",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.8-ROADMAP.md",
+    ".planning/milestones/v3.8-REQUIREMENTS.md",
+    ".planning/milestones/v3.8-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "118",
+      "slug": "Second Primary Promotion Diagnosis",
+      "requirements": [
+        "AIOPS-39"
+      ]
+    },
+    {
+      "number": "119",
+      "slug": "Coverage Cleanup Pressure Points",
+      "requirements": [
+        "AIOPS-40"
+      ]
+    },
+    {
+      "number": "120",
+      "slug": "Public Hidden-Reasoning Boundary Assurance",
+      "requirements": [
+        "AIOPS-41"
+      ]
+    },
+    {
+      "number": "121",
+      "slug": "Promotion Gate Proof Refresh",
+      "requirements": [
+        "AIOPS-42"
+      ]
+    }
+  ],
+  "requirements": [
+    "AIOPS-39",
+    "AIOPS-40",
+    "AIOPS-41",
+    "AIOPS-42"
+  ]
+}

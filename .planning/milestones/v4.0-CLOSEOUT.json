@@ -1,0 +1,39 @@
+{
+  "milestone": "v4.0",
+  "milestoneName": "Authority Proof Remediation & Public Trust Hardening",
+  "status": "in_progress",
+  "blockers": [
+    "Only 1/4 active phases have both summary and verification evidence.",
+    "Requirement coverage is not fully satisfied yet (satisfied=1, partial=0, pending=3)."
+  ],
+  "phaseCounts": {
+    "total": 4,
+    "completed": 1
+  },
+  "requirementCounts": {
+    "satisfied": 1,
+    "partial": 0,
+    "pending": 3,
+    "total": 4
+  },
+  "hygieneStatus": "clean",
+  "evidenceFiles": [
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json",
+    ".planning/phases/122-homepage-authority-reframe/122-01-SUMMARY.md",
+    ".planning/phases/122-homepage-authority-reframe/122-VERIFICATION.md"
+  ],
+  "archiveTargets": [
+    ".planning/milestones/v4.0-phases",
+    ".planning/milestones/v4.0-ROADMAP.md",
+    ".planning/milestones/v4.0-REQUIREMENTS.md",
+    ".planning/milestones/v4.0-MILESTONE-AUDIT.md",
+    ".planning/milestones/v4.0-BOOTSTRAP.md",
+    ".planning/milestones/v4.0-CLOSEOUT.md"
+  ]
+}

@@ -367,7 +367,6 @@ function renderDirectoryPerformanceSection(rows: GscRow[], limit: number): strin
   ].join('\n');
 }
 
-
 function buildSuccessArtifact(
   currentQueries: GscRow[],
   previousQueries: GscRow[],

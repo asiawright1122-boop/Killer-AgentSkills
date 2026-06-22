@@ -20,6 +20,28 @@ describe('computeExpectedHash', () => {
     const hash2 = computeExpectedHash({ ...skill });
     expect(hash1).toBe(hash2);
   });
+
+  it('computes expected hash from sanitized public payload', () => {
+    const cleanSkill = {
+      id: 'test-owner/test-repo/test-skill',
+      name: 'test-skill',
+      owner: 'test-owner',
+      repo: 'test-repo',
+      description: 'Public description',
+      skillMd: {
+        bodyPreview: 'Public instructions',
+      },
+    };
+    const leakingSkill = {
+      ...cleanSkill,
+      description: '<thinking>private notes</thinking>Public description',
+      skillMd: {
+        bodyPreview: 'Scratchpad:\nprivate notes\n\nPublic instructions',
+      },
+    };
+
+    expect(computeExpectedHash(leakingSkill)).toBe(computeExpectedHash(cleanSkill));
+  });
 });
 
 describe('compareDatabaseState', () => {

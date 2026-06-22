@@ -15,6 +15,7 @@ import {
   type AIProviderRoutingState,
   type AIProviderWorkloadProfileName,
 } from './ai-provider-routing';
+import { sanitizePublicAIOutput } from './public-ai-output';
 
 export type LiveAIProviderName = AIOnlineProviderName;
 type BackupLiveAIProviderName = AIOnlineBackupProviderName;
@@ -530,7 +531,7 @@ export class LiveAIRuntime<Env extends LiveAIRuntimeEnv> {
       if (!text) {
         throw new Error(`${request.provider} returned empty text output`);
       }
-      return text;
+      return sanitizePublicAIOutput(text);
     } finally {
       clearTimeout(timeout);
     }

@@ -1,58 +1,48 @@
 {
-  "generatedAt": "2026-06-04T08:26:27.240Z",
+  "generatedAt": "2026-06-09T12:56:39.401Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v3.7",
-  "activeMilestoneName": "Authority Expansion & Content Depth Acceleration",
+  "activeMilestone": "v4.0",
+  "activeMilestoneName": "Authority Proof Remediation & Public Trust Hardening",
   "status": "clean",
-  "activePhaseArchivePath": ".planning/milestones/v3.7-phases",
+  "activePhaseArchivePath": ".planning/milestones/v4.0-phases",
   "activePhases": [
     {
-      "phaseNumber": "109",
-      "slug": "Biweekly Hold Surface Promotion",
-      "dirName": "109-Biweekly Hold Surface Promotion",
+      "phaseNumber": "122",
+      "slug": "Homepage Authority Reframe",
+      "dirName": "122-homepage-authority-reframe",
       "status": "present",
       "activePaths": [
-        ".planning/phases/109-Biweekly Hold Surface Promotion"
+        ".planning/phases/122-homepage-authority-reframe"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "110",
-      "slug": "Homepage & Collections Hub Editorial Hardening",
-      "dirName": "110-Homepage & Collections Hub Editorial Hardening",
+      "phaseNumber": "123",
+      "slug": "Trusted and Workflow Collection Proof Upgrade",
+      "dirName": "123-trusted-and-workflow-collection-proof-upgrade",
       "status": "present",
       "activePaths": [
-        ".planning/phases/110-Homepage & Collections Hub Editorial Hardening"
+        ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "111",
-      "slug": "Collections Audit & Deduplication",
-      "dirName": "111-Collections Audit & Deduplication",
+      "phaseNumber": "124",
+      "slug": "Collections and Installation Trust Bridge",
+      "dirName": "124-collections-and-installation-trust-bridge",
       "status": "present",
       "activePaths": [
-        ".planning/phases/111-Collections Audit & Deduplication"
+        ".planning/phases/124-collections-and-installation-trust-bridge"
       ],
       "archivePaths": []
     },
     {
-      "phaseNumber": "112",
-      "slug": "Automated Content Enrichment Workflow Design",
-      "dirName": "112-Automated Content Enrichment Workflow Design",
+      "phaseNumber": "125",
+      "slug": "Boundary and Scorecard Revalidation",
+      "dirName": "125-boundary-and-scorecard-revalidation",
       "status": "present",
       "activePaths": [
-        ".planning/phases/112-Automated Content Enrichment Workflow Design"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "113",
-      "slug": "New Authority Surface Candidates",
-      "dirName": "113-New Authority Surface Candidates",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/113-New Authority Surface Candidates"
+        ".planning/phases/125-boundary-and-scorecard-revalidation"
       ],
       "archivePaths": []
     }
@@ -335,7 +325,7 @@
       "expectedPhaseDirs": [
         ".planning/milestones/v3.2-phases/94-TS Compiler Modernization",
         ".planning/milestones/v3.2-phases/95-Operational Scripts Type Safety",
-        ".planning/milestones/v3.2-phases/96-Unified CI/CD Gates"
+        ".planning/milestones/v3.2-phases/96-unified-ci-cd-gates"
       ]
     },
     {
@@ -392,6 +382,56 @@
         ".planning/milestones/v3.6-phases/106-Authority Surface Quality Audit",
         ".planning/milestones/v3.6-phases/107-Authority Content Upgrade",
         ".planning/milestones/v3.6-phases/108-Scorecard Evaluation and Promotion Validation"
+      ]
+    },
+    {
+      "milestone": "v3.7",
+      "phaseArchivePath": ".planning/milestones/v3.7-phases",
+      "archivedDirs": [
+        ".planning/milestones/v3.7-phases/109-Biweekly Hold Surface Promotion",
+        ".planning/milestones/v3.7-phases/110-Homepage & Collections Hub Editorial Hardening",
+        ".planning/milestones/v3.7-phases/111-Collections Audit & Deduplication",
+        ".planning/milestones/v3.7-phases/112-Automated Content Enrichment Workflow Design",
+        ".planning/milestones/v3.7-phases/113-New Authority Surface Candidates"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.7-phases/109-Biweekly Hold Surface Promotion",
+        ".planning/milestones/v3.7-phases/110-Homepage & Collections Hub Editorial Hardening",
+        ".planning/milestones/v3.7-phases/111-Collections Audit & Deduplication",
+        ".planning/milestones/v3.7-phases/112-Automated Content Enrichment Workflow Design",
+        ".planning/milestones/v3.7-phases/113-New Authority Surface Candidates"
+      ]
+    },
+    {
+      "milestone": "v3.8",
+      "phaseArchivePath": ".planning/milestones/v3.8-phases",
+      "archivedDirs": [
+        ".planning/milestones/v3.8-phases/114-content-enrichment-pipeline-integration",
+        ".planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment",
+        ".planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails",
+        ".planning/milestones/v3.8-phases/117-scorecard-promotion-verification"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.8-phases/114-content-enrichment-pipeline-integration",
+        ".planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment",
+        ".planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails",
+        ".planning/milestones/v3.8-phases/117-scorecard-promotion-verification"
+      ]
+    },
+    {
+      "milestone": "v3.9",
+      "phaseArchivePath": ".planning/milestones/v3.9-phases",
+      "archivedDirs": [
+        ".planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis",
+        ".planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points",
+        ".planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance",
+        ".planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis",
+        ".planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points",
+        ".planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance",
+        ".planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh"
       ]
     }
   ],

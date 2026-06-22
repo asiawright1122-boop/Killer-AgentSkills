@@ -1,8 +1,12 @@
 ---
 import Layout from '../../../../layouts/Layout.astro';
 import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Locale } from '../../../../i18n';
-import { getSkillById, getLocalizedDescription } from '../../../../lib/skills';
-import { getSkillsListingByRefs } from '../../../../lib/kv';
+import {
+  getSkillById,
+  getLocalizedDescription,
+  getLightweightSkillsByRefs,
+  type UnifiedSkill,
+} from '../../../../lib/public-skill-catalog';
 import { OFFICIAL_REPOS } from '../../../../lib/skills-config';
 import { getCategoryLabel } from '../../../../lib/category-taxonomy';
 import { buildLocalizedSkillPath, getSkillRoutePath } from '../../../../lib/skill-route-paths';
@@ -23,6 +27,11 @@ import {
   resolveSkillSeoIntent,
   sanitizeSkillKeywords,
 } from '../../../../lib/skill-seo-intent';
+import {
+  buildSkillKeywordSeed,
+  resolveSkillSeoDescription,
+  resolveSkillSeoTitle,
+} from '../../../../lib/skill-seo-meta';
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexability';
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
@@ -84,6 +93,7 @@ const isZhLocale = typedLocale.startsWith('zh');
 // Get env from Cloudflare runtime
 const env = (await getRuntimeEnv<Env>(Astro.locals)) as Env;
 const runtimeEnv = (await getRuntimeEnv<Record<string, unknown>>(Astro.locals)) || {};
+type RepoDirectorySkill = UnifiedSkill | SkillListingItem;
 
 const normalizeFlag = (value: unknown) =>
   String(value ?? '')
@@ -185,20 +195,20 @@ const hasSkill = Boolean(skillResult || sitemapSkillFallback);
 const skill = skillResult || sitemapSkillFallback || ({} as any);
 
 const repoListingCandidates =
-  !hasSkill && !subSkillName ? await getSkillsListingByRefs(env, [`${owner}/${repo}`]).catch(() => []) : [];
+  !hasSkill && !subSkillName ? await getLightweightSkillsByRefs(env, [`${owner}/${repo}`]).catch(() => []) : [];
 const repoSubskills = repoListingCandidates.filter((item) => {
   const id = String(item?.id || '').trim();
   const parts = id.split('/').filter(Boolean);
   return parts.length >= 3;
 });
-let repoDirectorySkills = repoSubskills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+let repoDirectorySkills: RepoDirectorySkill[] = repoSubskills.sort((a, b) => (b.stars || 0) - (a.stars || 0));
 let usedSitemapFallback = false;
 
 if (!repoDirectorySkills.length && !hasSkill && !subSkillName) {
   const ownerLower = owner.toLowerCase();
   const repoLower = repo.toLowerCase();
 
-  const fallback: SkillListingItem[] = rawSitemapSkills
+  const fallback: RepoDirectorySkill[] = rawSitemapSkills
     .filter((entry) => {
       const entryOwner = String(entry.owner || '').trim();
       const routePath = String(entry.routePath || '').trim();
@@ -375,10 +385,8 @@ if (localizedSuitability) {
 // Get key features
 const features = sanitizePublicSkillCopyList(skill.seo?.features?.[typedLocale] || skill.seo?.features?.['en'] || []);
 
-const normalizeSpace = (text: string) => text.replace(/\s+/g, ' ').trim();
-const normalizeForMatch = (text: string) => normalizeSpace(text).toLowerCase();
 const truncateText = (text: string, maxLen: number) => {
-  const normalized = normalizeSpace(text);
+  const normalized = text.replace(/\s+/g, ' ').trim();
   if (normalized.length <= maxLen) return normalized;
   const sliced = normalized.slice(0, maxLen + 1);
   const boundary = Math.max(sliced.lastIndexOf(' '), sliced.lastIndexOf(','), sliced.lastIndexOf('、'));
@@ -408,17 +416,6 @@ const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const skillDisplayName = formatSkillNameForSeo(skillName) || skillName;
 const templateTitle = `${skillDisplayName} ${skillSeoIntent.titleLabel}`;
-const titleIntentSignals = [
-  skillSeoIntent.titleLabel,
-  category,
-  skillSeoIntent.supportTerm,
-  ...skillSeoIntent.keywords,
-];
-const shouldUseTitleTemplate =
-  seoForceTemplate ||
-  !seoTitleRaw ||
-  isLowValueSkillSeoTitle(seoTitleRaw, skillName) ||
-  !matchesIntentSignals(seoTitleRaw, titleIntentSignals);
 const n8nTitleOverride =
   typedLocale === 'en'
     ? isN8nRootPage
@@ -427,10 +424,16 @@ const n8nTitleOverride =
         ? 'n8n Loom Transcript Workflow Skill for Claude Code'
         : ''
     : '';
-const pageTitle = truncateText(
-  normalizeSkillSeoTitleCasing(n8nTitleOverride || (shouldUseTitleTemplate ? templateTitle : seoTitleRaw)),
-  60,
-);
+const titleResolution = resolveSkillSeoTitle({
+  rawSeoTitle: seoTitleRaw,
+  skillDisplayName,
+  skillName,
+  intent: skillSeoIntent,
+  category,
+  override: n8nTitleOverride || undefined,
+  forceTemplate: seoForceTemplate,
+});
+const pageTitle = truncateText(normalizeSkillSeoTitleCasing(titleResolution.title || templateTitle), 60);
 
 // SEO Description: prioritize explicit SEO description, otherwise use an install-focused snippet
 const seoDescriptionRaw = sanitizePublicSkillCopy(
@@ -438,25 +441,14 @@ const seoDescriptionRaw = sanitizePublicSkillCopy(
 );
 const templateDescription =
   typedLocale === 'zh'
-    ? `安装 ${skillDisplayName}，这是一款面向${skillSeoIntent.useCaseLabel}的 AI Agent Skill。查看功能、使用场景、限制条件与安装命令。支持 Claude Code、Cursor 和 Windsurf。`
-    : `Install ${skillDisplayName}, an AI agent skill for ${skillSeoIntent.useCaseLabel}. Explore features, use cases, limitations, and one-command setup for Claude Code, Cursor, and Windsurf.`;
-const descriptionIntentSignals = [
-  skillSeoIntent.useCaseLabel,
-  skillSeoIntent.supportTerm,
-  tagline,
-  ...skillSeoIntent.keywords,
-];
-const shouldUseDescriptionTemplate =
-  seoForceTemplate ||
-  !seoDescriptionRaw ||
-  isLowValueSkillSeoDescription(seoDescriptionRaw, skillName) ||
-  !matchesIntentSignals(seoDescriptionRaw, descriptionIntentSignals);
+    ? `${skillDisplayName} 适用于${skillSeoIntent.useCaseLabel}。查看它能自动化什么、适合哪些任务，以及如何在 Claude Code、Cursor 和 Windsurf 中落地。`
+    : `${skillDisplayName} helps with ${skillSeoIntent.useCaseLabel}. See what it automates, which developer tasks it fits, and how to use it in Claude Code, Cursor, and Windsurf.`;
 const n8nDescriptionOverride =
   typedLocale === 'en'
     ? isN8nRootPage
-      ? 'Install this n8n workflow automation skill for Claude Code. Build faster automations with setup steps, key features, and one-command install.'
+      ? 'Use this n8n skill to automate workflows in Claude Code. Review key automations, setup steps, and the fastest path to shipping repeatable n8n jobs.'
       : isN8nLoomTranscriptPage
-        ? 'Install the n8n Loom transcript workflow skill for Claude Code. Turn Loom recordings into structured notes and automated actions in one setup.'
+        ? 'Use this n8n Loom transcript skill to turn Loom recordings into transcripts, structured notes, and follow-up workflow actions in Claude Code.'
         : ''
     : '';
 const n8nHeroTaglineOverride =
@@ -476,11 +468,18 @@ const n8nHeroIntroOverride =
         : ''
     : '';
 const hasLowValuePublicDescription = isLowValueSkillSeoDescription(description, skillName);
-const publicDescription = shouldUseDescriptionTemplate
-  ? templateDescription
-  : hasLowValuePublicDescription
-    ? firstNonEmpty(seoDescriptionRaw, templateDescription)
-    : description;
+const descriptionResolution = resolveSkillSeoDescription({
+  rawSeoDescription:
+    !seoDescriptionRaw || isLowValueSkillSeoDescription(seoDescriptionRaw, skillName) ? undefined : seoDescriptionRaw,
+  composedDescription: hasLowValuePublicDescription ? undefined : description,
+  templateDescription,
+  intent: skillSeoIntent,
+  tagline,
+  override: n8nDescriptionOverride || undefined,
+  defaultDescription: defaultMetaDescription,
+  forceTemplate: seoForceTemplate,
+});
+const publicDescription = descriptionResolution.description;
 const heroTagline = n8nHeroTaglineOverride || tagline;
 const heroIntroRaw = firstNonEmpty(n8nHeroIntroOverride, publicDescription, defaultNoResultsLabel);
 const recommendationRaw = localizedRecommendation || '';
@@ -585,18 +584,17 @@ const resolvedMetaDescription = sanitizePublicSkillCopy(
 );
 
 // Limit keyword set to avoid stuffing while keeping entity + intent terms
-const seoKeywordSeed = [
-  skillDisplayName,
+const sanitizedKeywordSeed = buildSkillKeywordSeed({
   skillName,
+  skillDisplayName,
   repo,
   category,
-  ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
-  ...(isN8nLoomTranscriptPage ? ['loom transcript automation'] : []),
-  skillSeoIntent.supportTerm,
-  ...skillSeoIntent.keywords,
-  ...keywordsList.slice(0, 8),
-];
-const sanitizedKeywordSeed = sanitizeSkillKeywords(seoKeywordSeed.map((k) => k?.toString().trim()).filter(Boolean), {
+  intent: skillSeoIntent,
+  extraKeywords: keywordsList.slice(0, 8),
+  brandKeywords: [
+    ...(isN8nRepoPage ? ['n8n', 'n8n workflow automation', 'n8n skill'] : []),
+    ...(isN8nLoomTranscriptPage ? ['loom transcript automation'] : []),
+  ],
   max: 10,
 });
 const seoKeywords = sanitizedKeywordSeed.join(', ');

@@ -130,6 +130,14 @@ function normalizePhaseNumber(value: string): string {
     .join('.');
 }
 
+function normalizePhaseSlug(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 function matchesPhaseDirectory(dirName: string, phase: ParsedRoadmapPhase): boolean {
   const prefix = getPhasePrefix(dirName);
   if (!prefix) return false;
@@ -139,7 +147,7 @@ function matchesPhaseDirectory(dirName: string, phase: ParsedRoadmapPhase): bool
   }
 
   const slug = dirName.slice(prefix.length + 1);
-  return slug === phase.slug;
+  return slug === phase.slug || normalizePhaseSlug(slug) === normalizePhaseSlug(phase.slug);
 }
 
 function findMatchingDirectories(dirNames: string[], phase: ParsedRoadmapPhase): string[] {
@@ -226,7 +234,8 @@ function dedupeActions(actions: PlanningPhaseLifecycleAction[]): PlanningPhaseLi
 }
 
 function deriveDirName(phase: ParsedRoadmapPhase): string {
-  return `${phase.phaseNumber}-${phase.slug}`;
+  const normalizedSlug = normalizePhaseSlug(phase.slug);
+  return `${phase.phaseNumber}-${normalizedSlug || phase.slug}`;
 }
 
 export function buildPlanningPhaseLifecycleReport(options?: {

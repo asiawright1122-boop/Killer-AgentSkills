@@ -388,4 +388,94 @@ requirements_completed:
       },
     ]);
   });
+
+  it('parses roadmap phase requirements and plan totals when phase fields are list items', () => {
+    const root = mkdtempSync(join(tmpdir(), 'planning-milestones-list-fields-'));
+
+    write(root, '.planning/PROJECT.md', '# Demo Project');
+    write(
+      root,
+      '.planning/STATE.md',
+      `---
+milestone: v3.8
+milestone_name: Backlog Content Enrichment Automation
+---
+`,
+    );
+    write(
+      root,
+      '.planning/REQUIREMENTS.md',
+      `# Requirements
+
+## v3.8 Requirements
+
+- [x] **AIOPS-37**: Enforce parity.
+- [x] **AIOPS-38**: Validate scorecards.
+`,
+    );
+    write(
+      root,
+      '.planning/ROADMAP.md',
+      `# Roadmap
+
+### Phase 116: Translation Parity & Punctuation Guardrails
+- **Requirements:** AIOPS-37
+- **Status:** Complete
+- **Plans:** 1/1 complete
+
+### Phase 117: Scorecard Promotion Verification
+- **Requirements:** AIOPS-38
+- **Status:** Complete
+- **Plans:** 1/1 complete
+`,
+    );
+    write(
+      root,
+      '.planning/phases/116-translation-parity-punctuation-guardrails/116-01-SUMMARY.md',
+      `---
+phase: 116-translation-parity-punctuation-guardrails
+requirements_completed:
+  - AIOPS-37
+---
+`,
+    );
+    write(
+      root,
+      '.planning/phases/116-translation-parity-punctuation-guardrails/116-VERIFICATION.md',
+      `---
+phase: 116-translation-parity-punctuation-guardrails
+requirements_completed:
+  - AIOPS-37
+---
+`,
+    );
+    write(
+      root,
+      '.planning/phases/117-scorecard-promotion-verification/117-01-SUMMARY.md',
+      `---
+phase: 117-scorecard-promotion-verification
+requirements_completed:
+  - AIOPS-38
+---
+`,
+    );
+    write(
+      root,
+      '.planning/phases/117-scorecard-promotion-verification/117-VERIFICATION.md',
+      `---
+phase: 117-scorecard-promotion-verification
+requirements_completed:
+  - AIOPS-38
+---
+`,
+    );
+
+    const report = buildPlanningMilestoneSupportReport({
+      rootDir: root,
+      generatedAt: '2026-06-09T12:05:00.000Z',
+    });
+
+    expect(report.activeMilestone?.totalPlans).toBe(2);
+    expect(report.bootstrap?.phases.map((phase) => phase.requirements)).toEqual([['AIOPS-37'], ['AIOPS-38']]);
+  });
 });

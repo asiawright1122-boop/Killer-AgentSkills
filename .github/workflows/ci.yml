@@ -81,6 +81,18 @@ jobs:
           WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
         run: npm run guard:ai-config
 
+      - name: Validate Public AI Output Sources
+        run: npm run guard:public-ai-output
+
+      - name: Validate Public Client Error Surfaces
+        run: npm run guard:public-client-errors
+
+      - name: Validate Public Skill Cache Projection
+        run: npm run guard:public-skill-cache
+
+      - name: Validate API Test Network Isolation
+        run: npm run guard:test-network
+
       - name: Run AI Fallback Regression Suite
         run: npm run test:ai
 
@@ -208,6 +220,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npm run build
+
+      - name: Validate Public AI Output Build Artifacts
+        run: npm run guard:public-ai-output:dist
 
       - name: Validate Build Output
         run: npx vitest run --config vitest.build-validation.config.ts --reporter=default --no-coverage

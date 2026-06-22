@@ -10,6 +10,7 @@
 
 import { WorkflowEntrypoint, type WorkflowEvent, type WorkflowStep } from 'cloudflare:workers';
 import { WorkerAiRuntime, type WorkerAiRuntimeEnv } from './lib/ai-runtime';
+import { appendNoHiddenReasoningInstruction, sanitizePublicAIOutput } from '../src/lib/public-ai-output';
 
 export interface TranslationParams {
   text: string;
@@ -52,7 +53,7 @@ export class TranslationWorkflow extends WorkflowEntrypoint<Env> {
           topP: 1,
         });
         provider = result.provider;
-        return result.text;
+        return sanitizePublicAIOutput(result.text);
       },
     );
 
@@ -84,7 +85,7 @@ export class TranslationWorkflow extends WorkflowEntrypoint<Env> {
     const langName = this.getLangName(lang);
 
     if (type === 'markdown') {
-      return `You are a technical document translator.
+      return appendNoHiddenReasoningInstruction(`You are a technical document translator.
 Translate the input Markdown content into ${langName}.
 
 FORMATTING RULES (STRICT):
@@ -95,12 +96,12 @@ FORMATTING RULES (STRICT):
 5. Do NOT translate inside code blocks (\`\`\`) or inline code (\`).
 6. Maintain technical terms (e.g. "React", "Hook", "CI/CD") in English.
 
-Output ONLY the translated Markdown.`;
+Output ONLY the translated Markdown.`);
     }
 
-    return `You are a professional translator. Translate the following text into ${langName}.
+    return appendNoHiddenReasoningInstruction(`You are a professional translator. Translate the following text into ${langName}.
 Maintain technical terms in their original language if appropriate.
-Output ONLY the translated text.`;
+Output ONLY the translated text.`);
   }
 
   private getLangName(code: string): string {

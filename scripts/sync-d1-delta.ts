@@ -6,6 +6,8 @@ import { createHash } from 'node:crypto';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
 import type { CacheData, SkillCache } from './lib/types';
+import { sanitizePublicAIOutputValue } from '../src/lib/public-ai-output';
+import { findPublicD1SqlGuardIssues } from './public-d1-seed-guard';
 
 if (fs.existsSync('.env.local')) {
   dotenv.config({ path: '.env.local' });
@@ -45,6 +47,10 @@ function byteLength(value: string): number {
 
 function cloneSkill<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
+}
+
+function toPublicSkill(skill: SkillCache): SkillCache {
+  return sanitizePublicAIOutputValue(skill) as SkillCache;
 }
 
 function buildSearchText(skill: SkillCache): string {
@@ -117,12 +123,12 @@ function shrinkSkillForSql(skill: SkillCache): { json: string; reduced: boolean 
   return { json: rawJson, reduced };
 }
 
-function normalizeContentHash(skill: SkillCache, json: string): string {
-  if (skill.contentHash && skill.contentHash.trim().length > 0) return skill.contentHash;
+function normalizeContentHash(_skill: SkillCache, json: string): string {
   return createHash('sha256').update(json).digest('hex').slice(0, 32);
 }
 
-function buildUpsertStatement(skill: SkillCache): { sql: string; skipped: boolean } {
+function buildUpsertStatement(rawSkill: SkillCache): { sql: string; skipped: boolean } {
+  const skill = toPublicSkill(rawSkill);
   const id = escapeSql(skill.id);
   const category = escapeSql(skill.category || 'developer');
   const owner = escapeSql(skill.owner);
@@ -160,6 +166,15 @@ function buildDeleteStatement(id: string): string {
 }
 
 async function queryD1(sql: string): Promise<any> {
+  const publicOutputIssues = findPublicD1SqlGuardIssues(sql, 'sync-d1-delta');
+  if (publicOutputIssues.length > 0) {
+    throw new Error(
+      `Refusing to send D1 SQL with hidden reasoning markers: ${publicOutputIssues
+        .map((issue) => `${issue.pattern}=${JSON.stringify(issue.match)}`)
+        .join(', ')}`,
+    );
+  }
+
   const endpoint = `https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/d1/database/${DATABASE_ID}/query`;
 
   let lastError = '';
@@ -264,7 +279,8 @@ async function main() {
 
   const localSkills = loadLocalSkills();
   const localMap = new Map<string, SkillCache>();
-  for (const skill of localSkills) {
+  for (const rawSkill of localSkills) {
+    const skill = toPublicSkill(rawSkill);
     if (skill?.id) localMap.set(skill.id, skill);
   }
 

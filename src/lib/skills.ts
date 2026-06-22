@@ -18,6 +18,7 @@ import {
 } from './kv';
 import { OFFICIAL_REPOS } from './skills-config';
 import { getNonTargetSkillReason } from './shared/validation';
+import { sanitizePublicAIOutput, sanitizePublicAIOutputValue } from './public-ai-output';
 
 export interface UnifiedSkill {
   id: string;
@@ -64,8 +65,10 @@ export interface UnifiedSkill {
  */
 export function getLocalizedDescription(description: UnifiedSkill['description'] | undefined, locale: string): string {
   if (!description) return '';
-  if (typeof description === 'string') return description;
-  return description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '';
+  if (typeof description === 'string') return sanitizePublicAIOutput(description);
+  return sanitizePublicAIOutput(
+    description[locale] || description['en'] || description['zh'] || Object.values(description)[0] || '',
+  );
 }
 
 export function isPublicSkill(skill: UnifiedSkill): boolean {
@@ -100,7 +103,10 @@ function augmentWithOfficialCategories(skills: UnifiedSkill[]): UnifiedSkill[] {
 }
 
 function normalizePublicSkills(skills: UnifiedSkill[]): UnifiedSkill[] {
-  return filterPublicSkills(augmentWithOfficialCategories(skills));
+  const sanitized = augmentWithOfficialCategories(skills).map(
+    (skill) => sanitizePublicAIOutputValue(skill) as UnifiedSkill,
+  );
+  return filterPublicSkills(sanitized);
 }
 
 // Module-level cache for getAllSkills within a single Worker request
@@ -249,7 +255,14 @@ export async function getLightweightSkillsTop(env: Env, limit: number): Promise<
 }
 
 export async function getLightweightSkillsCategorySummary(env: Env): Promise<SkillsCategorySummary> {
-  return getSkillsCategorySummary(env);
+  const summary = await getSkillsCategorySummary(env);
+  return {
+    total: summary.total,
+    categories: summary.categories.map((item) => ({
+      category: sanitizePublicAIOutput(item.category),
+      count: item.count,
+    })),
+  };
 }
 
 export async function getLightweightSkillsByRefs(env: Env, skillRefs: string[]): Promise<UnifiedSkill[]> {
@@ -265,7 +278,7 @@ export async function getLightweightSkillsByRefs(env: Env, skillRefs: string[]):
 export async function getSkillById(env: Env, id: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${id}`);
   if (!direct) return null;
-  const skill = direct as UnifiedSkill;
+  const skill = sanitizePublicAIOutputValue(direct) as UnifiedSkill;
   return isPublicSkill(skill) ? skill : null;
 }
 
@@ -278,7 +291,7 @@ export async function getSkillById(env: Env, id: string): Promise<UnifiedSkill |
 export async function getSkillByOwnerRepo(env: Env, owner: string, repo: string): Promise<UnifiedSkill | null> {
   const direct = await getSkillsKV(env, `skill:${owner}/${repo}`);
   if (!direct) return null;
-  const skill = direct as UnifiedSkill;
+  const skill = sanitizePublicAIOutputValue(direct) as UnifiedSkill;
   return isPublicSkill(skill) ? skill : null;
 }
 

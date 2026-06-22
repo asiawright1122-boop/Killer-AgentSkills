@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ params, locals }) => {
   if (!id) {
     return new Response(JSON.stringify({ error: 'Missing skill ID parameter' }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json' },
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 
@@ -56,13 +56,13 @@ export const GET: APIRoute = async ({ params, locals }) => {
 
     return new Response(JSON.stringify({ error: `Crawled skill not found: ${id}` }), {
       status: 404,
-      headers: { 'Content-Type': 'application/json' },
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
     });
   } catch (error) {
     console.error('Crawled skill detail API error:', error);
     return new Response(JSON.stringify({ error: 'Failed to fetch crawled skill' }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: withPublicApiHeaders({ 'Content-Type': 'application/json' }),
     });
   }
 };

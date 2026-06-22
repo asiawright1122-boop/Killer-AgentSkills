@@ -1,20 +1,19 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-04T08:26:27.240Z
-- Active milestone: v3.7 (Authority Expansion & Content Depth Acceleration)
+- Generated: 2026-06-09T12:56:39.401Z
+- Active milestone: v4.0 (Authority Proof Remediation & Public Trust Hardening)
 - Status: clean
 - Pending actions: 0
-- Active archive path: .planning/milestones/v3.7-phases
+- Active archive path: .planning/milestones/v4.0-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 109 | 109-Biweekly Hold Surface Promotion | present | .planning/phases/109-Biweekly Hold Surface Promotion | missing |
-| 110 | 110-Homepage & Collections Hub Editorial Hardening | present | .planning/phases/110-Homepage & Collections Hub Editorial Hardening | missing |
-| 111 | 111-Collections Audit & Deduplication | present | .planning/phases/111-Collections Audit & Deduplication | missing |
-| 112 | 112-Automated Content Enrichment Workflow Design | present | .planning/phases/112-Automated Content Enrichment Workflow Design | missing |
-| 113 | 113-New Authority Surface Candidates | present | .planning/phases/113-New Authority Surface Candidates | missing |
+| 122 | 122-homepage-authority-reframe | present | .planning/phases/122-homepage-authority-reframe | missing |
+| 123 | 123-trusted-and-workflow-collection-proof-upgrade | present | .planning/phases/123-trusted-and-workflow-collection-proof-upgrade | missing |
+| 124 | 124-collections-and-installation-trust-bridge | present | .planning/phases/124-collections-and-installation-trust-bridge | missing |
+| 125 | 125-boundary-and-scorecard-revalidation | present | .planning/phases/125-boundary-and-scorecard-revalidation | missing |
 
 ## Archive Actions
 
@@ -128,7 +127,7 @@
 ### v3.2
 - Archive root: .planning/milestones/v3.2-phases
 - Archived dirs: .planning/milestones/v3.2-phases/94-TS Compiler Modernization, .planning/milestones/v3.2-phases/95-Operational Scripts Type Safety, .planning/milestones/v3.2-phases/96-Unified CI
-- Expected dirs: .planning/milestones/v3.2-phases/94-TS Compiler Modernization, .planning/milestones/v3.2-phases/95-Operational Scripts Type Safety, .planning/milestones/v3.2-phases/96-Unified CI/CD Gates
+- Expected dirs: .planning/milestones/v3.2-phases/94-TS Compiler Modernization, .planning/milestones/v3.2-phases/95-Operational Scripts Type Safety, .planning/milestones/v3.2-phases/96-unified-ci-cd-gates
 
 ### v3.3
 - Archive root: .planning/milestones/v3.3-phases
@@ -149,6 +148,21 @@
 - Archive root: .planning/milestones/v3.6-phases
 - Archived dirs: .planning/milestones/v3.6-phases/106-Authority Surface Quality Audit, .planning/milestones/v3.6-phases/107-Authority Content Upgrade, .planning/milestones/v3.6-phases/108-Scorecard Evaluation and Promotion Validation
 - Expected dirs: .planning/milestones/v3.6-phases/106-Authority Surface Quality Audit, .planning/milestones/v3.6-phases/107-Authority Content Upgrade, .planning/milestones/v3.6-phases/108-Scorecard Evaluation and Promotion Validation
+
+### v3.7
+- Archive root: .planning/milestones/v3.7-phases
+- Archived dirs: .planning/milestones/v3.7-phases/109-Biweekly Hold Surface Promotion, .planning/milestones/v3.7-phases/110-Homepage & Collections Hub Editorial Hardening, .planning/milestones/v3.7-phases/111-Collections Audit & Deduplication, .planning/milestones/v3.7-phases/112-Automated Content Enrichment Workflow Design, .planning/milestones/v3.7-phases/113-New Authority Surface Candidates
+- Expected dirs: .planning/milestones/v3.7-phases/109-Biweekly Hold Surface Promotion, .planning/milestones/v3.7-phases/110-Homepage & Collections Hub Editorial Hardening, .planning/milestones/v3.7-phases/111-Collections Audit & Deduplication, .planning/milestones/v3.7-phases/112-Automated Content Enrichment Workflow Design, .planning/milestones/v3.7-phases/113-New Authority Surface Candidates
+
+### v3.8
+- Archive root: .planning/milestones/v3.8-phases
+- Archived dirs: .planning/milestones/v3.8-phases/114-content-enrichment-pipeline-integration, .planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment, .planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails, .planning/milestones/v3.8-phases/117-scorecard-promotion-verification
+- Expected dirs: .planning/milestones/v3.8-phases/114-content-enrichment-pipeline-integration, .planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment, .planning/milestones/v3.8-phases/116-translation-parity-punctuation-guardrails, .planning/milestones/v3.8-phases/117-scorecard-promotion-verification
+
+### v3.9
+- Archive root: .planning/milestones/v3.9-phases
+- Archived dirs: .planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis, .planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points, .planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance, .planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh
+- Expected dirs: .planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis, .planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points, .planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance, .planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh
 
 ## Conflicts
 

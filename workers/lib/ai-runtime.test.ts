@@ -133,6 +133,23 @@ describe('WorkerAiRuntime', () => {
     expect(JSON.parse(String((fetchMock.mock.calls[0]?.[1] as RequestInit)?.body)).model).toBe('openai/gpt-4.1-mini');
   });
 
+  it('sanitizes hidden reasoning from provider text output', async () => {
+    fetchMock.mockResolvedValueOnce(providerReply('<thinking>private notes</thinking>Public runtime output'));
+
+    const env = buildEnv({
+      AI_FALLBACK_POLICY: 'guarded',
+      OPENROUTER_API_KEY: 'openrouter-key',
+    });
+    const runtime = new WorkerAiRuntime({
+      workloadProfile: 'balanced',
+    });
+
+    const result = await runtime.callText(env, { userPrompt: 'hello world' });
+
+    expect(result.provider).toBe('openrouter');
+    expect(result.text).toBe('Public runtime output');
+  });
+
   it('prioritizes the healthier NVIDIA key after a label-level 429', async () => {
     fetchMock.mockResolvedValueOnce(new Response('rate limited', { status: 429 }));
     fetchMock.mockResolvedValueOnce(providerReply('fallback key output'));

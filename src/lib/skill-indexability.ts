@@ -48,7 +48,11 @@ export type SkillIndexabilityAssessment = {
 };
 
 const MIN_SUPPORTING_SOURCE_BYTES = 200;
-const DEFAULT_QUALITY_THRESHOLD = 50;
+// Keep a real quality floor, but don't require an editorial-grade score for
+// pages that already have recommendation, use cases, limitations, locale
+// governance, and supporting source evidence. A 35+ score materially expands
+// long-tail indexable supply without opening the door to thin placeholder pages.
+const DEFAULT_QUALITY_THRESHOLD = 35;
 const DEFAULT_SCORE_THRESHOLD = 7;
 
 const textEncoder = new TextEncoder();

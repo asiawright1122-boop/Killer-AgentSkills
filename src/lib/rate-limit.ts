@@ -185,6 +185,7 @@ export function rateLimitResponse(retryAfterSeconds = 60): Response {
       headers: {
         'Content-Type': 'application/json',
         'Retry-After': String(retryAfterSeconds),
+        'X-Robots-Tag': 'noindex, nofollow',
       },
     },
   );

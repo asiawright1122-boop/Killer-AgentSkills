@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-06-03T08:26:42.520Z",
+  "generatedAt": "2026-06-09T12:35:17.535Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-06-03T08:26:41.210Z",
+  "sourceGeneratedAt": "2026-06-09T12:35:16.077Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 505,
+    "gone410": 503,
     "ignored": 17,
-    "redirect301CandidateTotal": 140,
-    "redirect301CoveredByMiddleware": 139,
+    "redirect301CandidateTotal": 142,
+    "redirect301CoveredByMiddleware": 141,
     "redirect301Materialized": 1,
-    "gone410CandidateTotal": 843,
+    "gone410CandidateTotal": 841,
     "gone410CoveredByMiddleware": 338,
-    "gone410Materialized": 505,
+    "gone410Materialized": 503,
     "manualReviewCandidateTotal": 12,
     "observeCandidateTotal": 5,
     "skippedInvalidOrProtected": 0
@@ -23,11 +23,6 @@
         "fromPath": "/ar/collections/top-community-skills",
         "toPath": "/ar/collections/top-community-contributed-ai-agent-skills",
         "reason": "legacy_collection_slug_redirect"
-      },
-      {
-        "fromPath": "/zh/skills/invalid-page",
-        "toPath": "/zh/skills",
-        "reason": "invalid_page_remediation"
       }
     ],
     "gone410": [
@@ -93,10 +88,6 @@
       },
       {
         "path": "/ar/skills/commands/c-research.md",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/ar/skills/dallay/agentsync",
         "reason": "missing_from_sitemap_and_cache"
       },
       {
@@ -893,10 +884,6 @@
       },
       {
         "path": "/es/skills/proficientlyjobs/proficiently-claude-skills",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
-        "path": "/es/skills/proyecto26/projectx",
         "reason": "missing_from_sitemap_and_cache"
       },
       {

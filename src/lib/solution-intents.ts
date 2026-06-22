@@ -1,7 +1,7 @@
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from '../i18n';
 import type { KeywordClusterId } from './seo-keywords';
 import { filterByCategory } from './search';
-import { getLocalizedDescription, type UnifiedSkill } from './skills';
+import { getLocalizedDescription, type UnifiedSkill } from './public-skill-catalog';
 
 export type SolutionSlug =
   | 'workflow-automation'

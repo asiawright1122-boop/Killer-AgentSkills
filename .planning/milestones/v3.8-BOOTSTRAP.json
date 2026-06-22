@@ -1,0 +1,60 @@
+{
+  "milestone": "v3.8",
+  "milestoneName": "Backlog Content Enrichment Automation",
+  "goal": "Build and run an automated pipeline to batch-upgrade thin/low-quality content on hold backlog authority surfaces to satisfy SEO quality gates.",
+  "sourceMilestone": "v3.7",
+  "sourceMilestoneName": "v3.7",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.7-ROADMAP.md",
+    ".planning/milestones/v3.7-REQUIREMENTS.md",
+    ".planning/milestones/v3.7-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "114",
+      "slug": "Content Enrichment Pipeline Integration",
+      "requirements": [
+        "AIOPS-35"
+      ]
+    },
+    {
+      "number": "115",
+      "slug": "Batch Backlog Content Enrichment",
+      "requirements": [
+        "AIOPS-36"
+      ]
+    },
+    {
+      "number": "116",
+      "slug": "Translation Parity & Punctuation Guardrails",
+      "requirements": [
+        "AIOPS-37"
+      ]
+    },
+    {
+      "number": "117",
+      "slug": "Scorecard Promotion Verification",
+      "requirements": [
+        "AIOPS-38"
+      ]
+    }
+  ],
+  "requirements": [
+    "AIOPS-35",
+    "AIOPS-36",
+    "AIOPS-37",
+    "AIOPS-38"
+  ]
+}

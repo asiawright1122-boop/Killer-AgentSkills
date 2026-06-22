@@ -9,6 +9,13 @@ interface SubmitSkillModalProps {
   locale: string;
 }
 
+function getPublicApiError(data: unknown, fallback: string): string {
+  if (data && typeof data === 'object' && 'error' in data && typeof data.error === 'string') {
+    return data.error;
+  }
+  return fallback;
+}
+
 export default function SubmitSkillModal({ isOpen, onClose, locale }: SubmitSkillModalProps) {
   const [mounted, setMounted] = useState(false);
   const [url, setUrl] = useState('');
@@ -41,6 +48,8 @@ export default function SubmitSkillModal({ isOpen, onClose, locale }: SubmitSkil
 
   if (!mounted || !isOpen) return null;
 
+  const isZh = locale === 'zh';
+
   const handleValidate = async (e: any) => {
     e.preventDefault();
     if (!url.trim()) return;
@@ -53,13 +62,16 @@ export default function SubmitSkillModal({ isOpen, onClose, locale }: SubmitSkil
       const data = (await res.json()) as any;
 
       if (!res.ok) {
-        throw new Error(data.error || 'Validation failed');
+        setError(getPublicApiError(data, isZh ? '验证失败，请稍后重试' : 'Validation failed. Please try again.'));
+        setStep('input');
+        return;
       }
 
       setPreviewData(data.skill);
       setStep('preview');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      console.error('[SubmitSkillModal] Validation request failed:', err);
+      setError(isZh ? '验证失败，请稍后重试' : 'Validation failed. Please try again.');
       setStep('input');
     }
   };
@@ -79,17 +91,18 @@ export default function SubmitSkillModal({ isOpen, onClose, locale }: SubmitSkil
       const data = (await res.json()) as any;
 
       if (!res.ok) {
-        throw new Error(data.error || 'Submission failed');
+        setError(getPublicApiError(data, isZh ? '提交失败，请稍后重试' : 'Submission failed. Please try again.'));
+        setStep('preview');
+        return;
       }
 
       setStep('success');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      console.error('[SubmitSkillModal] Submission request failed:', err);
+      setError(isZh ? '提交失败，请稍后重试' : 'Submission failed. Please try again.');
       setStep('preview');
     }
   };
-
-  const isZh = locale === 'zh';
 
   return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">

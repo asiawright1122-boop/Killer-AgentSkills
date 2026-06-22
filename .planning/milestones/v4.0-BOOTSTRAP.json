@@ -1,0 +1,60 @@
+{
+  "milestone": "v4.0",
+  "milestoneName": "Authority Proof Remediation & Public Trust Hardening",
+  "goal": "Convert the v3.9 blocked proof findings into user-facing authority improvements across the highest-priority surfaces, without exposing internal reasoning, operator process, or recovery-control language to frontend users.",
+  "sourceMilestone": "v3.9",
+  "sourceMilestoneName": "Promotion Gate Recovery & Public Boundary Assurance",
+  "sourceArtifacts": [
+    ".planning/milestones/v3.9-ROADMAP.md",
+    ".planning/milestones/v3.9-REQUIREMENTS.md",
+    ".planning/milestones/v3.9-MILESTONE-AUDIT.md"
+  ],
+  "carriedForward": [],
+  "indexArtifacts": [
+    ".planning/PROJECT.md",
+    ".planning/ROADMAP.md",
+    ".planning/REQUIREMENTS.md",
+    ".planning/STATE.md",
+    ".planning/MILESTONES.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.md",
+    ".planning/phase-lifecycle/latest-phase-lifecycle.json",
+    ".planning/traceability/latest-milestone-traceability.md",
+    ".planning/traceability/latest-milestone-traceability.json"
+  ],
+  "phases": [
+    {
+      "number": "122",
+      "slug": "Homepage Authority Reframe",
+      "requirements": [
+        "AIOPS-43"
+      ]
+    },
+    {
+      "number": "123",
+      "slug": "Trusted and Workflow Collection Proof Upgrade",
+      "requirements": [
+        "AIOPS-44"
+      ]
+    },
+    {
+      "number": "124",
+      "slug": "Collections and Installation Trust Bridge",
+      "requirements": [
+        "AIOPS-45"
+      ]
+    },
+    {
+      "number": "125",
+      "slug": "Boundary and Scorecard Revalidation",
+      "requirements": [
+        "AIOPS-46"
+      ]
+    }
+  ],
+  "requirements": [
+    "AIOPS-43",
+    "AIOPS-44",
+    "AIOPS-45",
+    "AIOPS-46"
+  ]
+}

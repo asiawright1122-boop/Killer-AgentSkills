@@ -192,7 +192,7 @@ function parseCurrentMilestoneRequirements(rootDir: string, milestone: string | 
 
 function parseRoadmapPhases(rootDir: string): Array<{ phaseNumber: string; slug: string; requirements: string[] }> {
   const content = readFileIfExists(join(rootDir, '.planning', 'ROADMAP.md'));
-  const matches = content.matchAll(/^### Phase ([^:]+): ([^\n]+)\n([\s\S]*?)(?=^### Phase |\n## |\Z)/gm);
+  const matches = content.matchAll(/^### Phase ([^:]+): ([^\n]+)\n([\s\S]*?)(?=^### Phase |\n## |(?![\s\S]))/gm);
   const phases: Array<{ phaseNumber: string; slug: string; requirements: string[] }> = [];
 
   for (const match of matches) {

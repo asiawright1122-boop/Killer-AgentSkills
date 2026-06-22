@@ -23,6 +23,15 @@ describe('public skill copy sanitizer', () => {
     ).toEqual(['Requires p5.js and browser rendering support.']);
   });
 
+  it('removes hidden reasoning sections from public generated copy', () => {
+    expect(
+      sanitizePublicSkillCopy(`Chain of thought:
+private ranking notes
+
+API Skills helps teams design stable integration workflows.`),
+    ).toBe('API Skills helps teams design stable integration workflows.');
+  });
+
   it('removes trigger instructions from public card descriptions', () => {
     expect(
       sanitizePublicSkillCopy(
@@ -81,6 +90,26 @@ Create original generative artwork with p5.js.
 ## Usage
 
 Describe the visual system and export the sketch.`);
+  });
+
+  it('removes hidden reasoning blocks from public source excerpts', () => {
+    expect(
+      sanitizePublicSkillSourceExcerpt(`# API Skills
+
+<thinking>internal comparison notes</thinking>
+
+Helps agents produce stable API integration plans.
+
+## Usage
+
+Describe the API surface and target client.`),
+    ).toBe(`# API Skills
+
+Helps agents produce stable API integration plans.
+
+## Usage
+
+Describe the API surface and target client.`);
   });
 
   it('strips leaked process fragments while preserving useful source material', () => {

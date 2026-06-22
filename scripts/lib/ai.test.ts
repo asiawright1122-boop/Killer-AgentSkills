@@ -100,8 +100,12 @@ describe('AIService provider orchestration', () => {
     'AI_OPERATOR_PROFILE',
   ];
   const savedEnv: Record<string, string | undefined> = {};
+  let stdoutWrite: { mockRestore: () => void };
 
   beforeEach(() => {
+    stdoutWrite = vi.spyOn(process.stdout, 'write').mockImplementation(() => true) as unknown as {
+      mockRestore: () => void;
+    };
     for (const key of envKeys) {
       savedEnv[key] = process.env[key];
       delete process.env[key];
@@ -109,6 +113,7 @@ describe('AIService provider orchestration', () => {
   });
 
   afterEach(() => {
+    stdoutWrite.mockRestore();
     for (const key of envKeys) {
       if (savedEnv[key] === undefined) {
         delete process.env[key];
@@ -174,6 +179,7 @@ describe('AIService provider orchestration', () => {
   });
 
   it('uses unified provider routing for long-context summaries even without NVIDIA keys', async () => {
+    const consoleLog = vi.spyOn(console, 'log').mockImplementation(() => {});
     const service = createService({
       nvidiaKeys: [],
       siliconFlowKey: 'siliconflow-key',
@@ -183,14 +189,19 @@ describe('AIService provider orchestration', () => {
     });
     const callAISpy = vi.spyOn(service, 'callAI').mockResolvedValue('condensed summary');
 
-    const result = await service.generateLongContextSummary('Example Skill', 'a'.repeat(12_000));
+    try {
+      const result = await service.generateLongContextSummary('Example Skill', 'a'.repeat(12_000));
 
-    expect(result).toBe('condensed summary');
-    expect(callAISpy).toHaveBeenCalledWith(
-      expect.stringContaining('Please read this complete open-source project'),
-      false,
-      'batch_generation',
-    );
+      expect(result).toBe('condensed summary');
+      expect(callAISpy).toHaveBeenCalledWith(
+        expect.stringContaining('Please read this complete open-source project'),
+        false,
+        'batch_generation',
+      );
+      expect(consoleLog).toHaveBeenCalledWith(expect.stringContaining('Long Context Detected for Example Skill'));
+    } finally {
+      consoleLog.mockRestore();
+    }
   });
 
   it('falls back to a raw slice when no provider capacity exists for long-context summaries', async () => {
@@ -359,6 +370,7 @@ describe('AIService provider orchestration', () => {
   });
 
   it('walks SiliconFlow -> OpenRouter -> Workers AI in order and only spends Workers AI after backup failures', async () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const service = createService({
       nvidiaKeys: [],
       siliconFlowKey: 'siliconflow-key',
@@ -378,22 +390,29 @@ describe('AIService provider orchestration', () => {
       return 'workers-ai output';
     };
 
-    const result = await runtime.executeCallWithRetry('hello', false, 0);
+    try {
+      const result = await runtime.executeCallWithRetry('hello', false, 0);
 
-    expect(result).toBe('workers-ai output');
-    expect(attemptedProviders).toEqual(['siliconflow', 'openrouter', 'cloudflare']);
+      expect(result).toBe('workers-ai output');
+      expect(attemptedProviders).toEqual(['siliconflow', 'openrouter', 'cloudflare']);
 
-    const snapshot = service.getTelemetrySnapshot();
-    expect(snapshot.availableProviders.map((entry) => entry.label)).toEqual(['C']);
-    expect(snapshot.fallbackRouting.activationReason).toBe('no_nvidia_configured');
-    expect(snapshot.fallbackRouting.decision).toBe('backup_recovery');
-    expect(snapshot.fallbackRouting.eligibleBackupProviders).toEqual([{ label: 'C', provider: 'cloudflare' }]);
-    expect(snapshot.hardDisabledProviders).toEqual([{ provider: 'siliconflow', reason: 'S:403' }]);
-    expect(snapshot.coolingDownProviders[0]).toMatchObject({
-      label: 'O0',
-      reason: 'O0:429',
-    });
-    expect(snapshot.workersAi.callsThisRun).toBe(1);
+      const snapshot = service.getTelemetrySnapshot();
+      expect(snapshot.availableProviders.map((entry) => entry.label)).toEqual(['C']);
+      expect(snapshot.fallbackRouting.activationReason).toBe('no_nvidia_configured');
+      expect(snapshot.fallbackRouting.decision).toBe('backup_recovery');
+      expect(snapshot.fallbackRouting.eligibleBackupProviders).toEqual([{ label: 'C', provider: 'cloudflare' }]);
+      expect(snapshot.hardDisabledProviders).toEqual([{ provider: 'siliconflow', reason: 'S:403' }]);
+      expect(snapshot.coolingDownProviders[0]).toMatchObject({
+        label: 'O0',
+        reason: 'O0:429',
+      });
+      expect(snapshot.workersAi.callsThisRun).toBe(1);
+      expect(consoleWarn).toHaveBeenCalledWith(
+        '[AIService] Hard-disabling provider "siliconflow" for this run: S:403',
+      );
+    } finally {
+      consoleWarn.mockRestore();
+    }
   });
 
   it('respects backup posture env when selecting recovery-time backups', () => {
@@ -842,6 +861,7 @@ describe('AIService provider orchestration', () => {
   });
 
   it('hard-disables Cloudflare for the run after repeated retryable free-only failures', () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const service = createService({
       cfAccountId: 'cf-account',
       cfApiToken: 'cf-token',
@@ -858,15 +878,22 @@ describe('AIService provider orchestration', () => {
       lastFailureAt: '2026-04-04T00:00:00.000Z',
     });
 
-    runtime.applyFailurePolicy(
-      { provider: 'cloudflare', key: 'cf-token', label: 'C' },
-      undefined,
-      'This operation was aborted',
-    );
+    try {
+      runtime.applyFailurePolicy(
+        { provider: 'cloudflare', key: 'cf-token', label: 'C' },
+        undefined,
+        'This operation was aborted',
+      );
 
-    const snapshot = service.getTelemetrySnapshot();
-    expect(snapshot.hardDisabledProviders).toEqual([{ provider: 'cloudflare', reason: 'C:retryable-failures:3' }]);
-    expect(snapshot.availableProviders).toEqual([]);
+      const snapshot = service.getTelemetrySnapshot();
+      expect(snapshot.hardDisabledProviders).toEqual([{ provider: 'cloudflare', reason: 'C:retryable-failures:3' }]);
+      expect(snapshot.availableProviders).toEqual([]);
+      expect(consoleWarn).toHaveBeenCalledWith(
+        '[AIService] Hard-disabling provider "cloudflare" for this run: C:retryable-failures:3',
+      );
+    } finally {
+      consoleWarn.mockRestore();
+    }
   });
 
   it('does not carry Cloudflare retryable-failure hard-disable across checkpoint restore', () => {
@@ -1090,5 +1117,70 @@ describe('AIService provider orchestration', () => {
 
     expect(isSkillFullyOptimized(skill)).toBe(true);
     expect(collectOptimizationIssues(skill)).toEqual([]);
+  });
+
+  it('sanitizes hidden reasoning from generated agent analysis', async () => {
+    const service = createService();
+    const callSpy = vi.spyOn(service, 'callAI').mockResolvedValue(
+      JSON.stringify({
+        suitability: '<thinking>private notes</thinking>Great fit for design agents.',
+        recommendation: 'Scratchpad:\nprivate notes\n\nInstall it for public workflows.',
+        useCases: ['Chain-of-thought:\nprivate notes\n\nGenerating UI assets'],
+        limitations: ['Requires API access'],
+      }),
+    );
+
+    const analysis = await service.generateAgentAnalysis(
+      'design-skill',
+      'Creates design assets.',
+      'Uses reusable templates and export workflows.',
+    );
+
+    expect(JSON.stringify(analysis)).not.toMatch(/thinking|scratchpad|chain-of-thought|private notes/i);
+    expect(analysis?.suitability).toBe('Great fit for design agents.');
+    expect(analysis?.recommendation).toBe('Install it for public workflows.');
+    expect(analysis?.useCases).toEqual(['Generating UI assets']);
+
+    callSpy.mockRestore();
+  });
+
+  it('sanitizes hidden reasoning from translated agent analysis', async () => {
+    const service = createService();
+    const callSpy = vi.spyOn(service, 'callAI').mockImplementation(async (prompt: string) => {
+      const localeMatch = prompt.match(/from English to: ([^\n.]+)/);
+      const locales = (localeMatch?.[1] || '')
+        .split(', ')
+        .map((locale) => locale.trim())
+        .filter(Boolean);
+      const textMap = Object.fromEntries(
+        locales.map((locale) => [locale, `<reasoning>private notes</reasoning>${locale} public text`]),
+      );
+      const arrayMap = Object.fromEntries(
+        locales.map((locale) => [locale, [`Scratchpad:\nprivate notes\n\n${locale} public item`]]),
+      );
+
+      return JSON.stringify({
+        suitability: textMap,
+        recommendation: textMap,
+        useCases: arrayMap,
+        limitations: arrayMap,
+      });
+    });
+
+    const translated = await service.translateAgentAnalysis({
+      suitability: '<thinking>private notes</thinking>Useful for coding agents.',
+      recommendation: 'Private analysis:\nprivate notes\n\nUse it for public workflows.',
+      useCases: ['<analysis>private notes</analysis>Generating migrations'],
+      limitations: ['Scratchpad:\nprivate notes\n\nRequires API access'],
+      version: 4,
+    });
+
+    expect(JSON.stringify(translated)).not.toMatch(/thinking|reasoning|analysis|scratchpad|private notes/i);
+    expect((translated.suitability as Record<string, string>).en).toBe('Useful for coding agents.');
+    expect((translated.recommendation as Record<string, string>).en).toBe('Use it for public workflows.');
+    expect((translated.useCases as Record<string, string[]>).en).toEqual(['Generating migrations']);
+    expect((translated.limitations as Record<string, string[]>).en).toEqual(['Requires API access']);
+
+    callSpy.mockRestore();
   });
 });

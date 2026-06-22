@@ -10,6 +10,7 @@
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Env } from '../../../../../../src/lib/kv';
+import { findHiddenReasoningPublicOutputMatches } from '../../../../../../src/lib/public-ai-output';
 
 // ─── Mock helpers ───────────────────────────────────────────────────────────
 
@@ -317,6 +318,60 @@ Install this skill and run it in your workflow.
 
     globalThis.fetch = originalFetch;
   });
+
+  it('strips hidden reasoning from public skill markdown previews', async () => {
+    const originalFetch = globalThis.fetch;
+    const skillContent = `---
+name: Test Skill
+description: <thinking>private description notes</thinking> Public description
+---
+# Usage
+
+<thinking>private implementation notes</thinking>
+
+Use this skill to produce a stable public result.
+`;
+
+    globalThis.fetch = vi.fn(async (url: string | URL | Request) => {
+      const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : url.url;
+      if (urlStr.includes('raw.githubusercontent.com') && urlStr.includes('SKILL.md')) {
+        return new Response(skillContent, { status: 200 });
+      }
+      return new Response('Not Found', { status: 404 });
+    }) as any;
+
+    const env = createMockEnv({
+      SKILLS_CACHE: createMockKV(
+        new Map([
+          [
+            'skill:test-owner/test-repo',
+            JSON.stringify({
+              id: '1',
+              owner: 'test-owner',
+              repo: 'test-repo',
+              description: 'A test skill',
+            }),
+          ],
+        ]),
+      ),
+    });
+
+    const ctx = createAPIContext({
+      params: { owner: 'test-owner', repo: 'test-repo' },
+      url: 'http://localhost/api/skills/test-owner/test-repo',
+      env,
+    });
+
+    const response = await GET(ctx);
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(body.skillMd.description).toBe('Public description');
+    expect(body.skillMd.bodyPreview).toContain('Use this skill to produce a stable public result.');
+    expect(body.skillMd.bodyPreview).not.toMatch(/thinking|private implementation notes/i);
+
+    globalThis.fetch = originalFetch;
+  });
 });
 
 // ─── Tests for GET /api/skills/[owner]/[repo]/files (files.ts) ──────────────
@@ -391,6 +446,47 @@ describe('GET /api/skills/[owner]/[repo]/files (files.ts)', () => {
     expect(body.directory).toBe('skills');
     expect(body.files).toBeDefined();
     expect(Array.isArray(body.files)).toBe(true);
+
+    globalThis.fetch = originalFetch;
+  });
+
+  it('should sanitize hidden reasoning markers from directory file metadata', async () => {
+    const originalFetch = globalThis.fetch;
+    const mockFiles = [
+      {
+        name: '<thinking>private notes</thinking>README.md',
+        path: 'skills/<analysis>private route</analysis>README.md',
+        size: 512,
+        type: 'file',
+      },
+    ];
+
+    globalThis.fetch = vi.fn(async (url: string | URL | Request) => {
+      const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : url.url;
+      if (urlStr.includes('api.github.com/repos') && urlStr.includes('/contents/')) {
+        return new Response(JSON.stringify(mockFiles), {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+      return new Response('Not Found', { status: 404 });
+    }) as any;
+
+    const ctx = createAPIContext({
+      params: { owner: 'test-owner', repo: 'test-repo' },
+      url: 'http://localhost/api/skills/test-owner/test-repo/files?path=skills/%3Cthinking%3Eprivate%3C/thinking%3Epublic',
+    });
+
+    const response = await GET(ctx);
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(body.directory).toBe('skills/public');
+    expect(body.files[0]).toMatchObject({
+      name: 'README.md',
+      path: 'skills/README.md',
+    });
+    expect(findHiddenReasoningPublicOutputMatches(JSON.stringify(body))).toEqual([]);
 
     globalThis.fetch = originalFetch;
   });
@@ -553,6 +649,34 @@ describe('GET /api/skills/[owner]/[repo]/file (file.ts)', () => {
     expect(body.name).toBe('SKILL.md');
     expect(body.type).toBe('markdown');
     expect(body.size).toBe(fileContent.length);
+
+    globalThis.fetch = originalFetch;
+  });
+
+  it('strips hidden reasoning from returned file content', async () => {
+    const originalFetch = globalThis.fetch;
+    const fileContent = '# SKILL.md\n\n<thinking>private file notes</thinking>\n\nPublic usage content.';
+
+    globalThis.fetch = vi.fn(async (url: string | URL | Request) => {
+      const urlStr = typeof url === 'string' ? url : url instanceof URL ? url.toString() : url.url;
+      if (urlStr.includes('raw.githubusercontent.com') && urlStr.includes('SKILL.md')) {
+        return new Response(fileContent, { status: 200 });
+      }
+      return new Response('Not Found', { status: 404 });
+    }) as any;
+
+    const ctx = createAPIContext({
+      params: { owner: 'test-owner', repo: 'test-repo' },
+      url: 'http://localhost/api/skills/test-owner/test-repo/file?path=SKILL.md',
+    });
+
+    const response = await GET(ctx);
+    expect(response.status).toBe(200);
+
+    const body = await response.json();
+    expect(body.content).toBe('# SKILL.md\n\nPublic usage content.');
+    expect(body.content).not.toMatch(/thinking|private file notes/i);
+    expect(body.size).toBe(body.content.length);
 
     globalThis.fetch = originalFetch;
   });

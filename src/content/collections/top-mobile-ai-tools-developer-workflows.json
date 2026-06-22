@@ -80,11 +80,27 @@
   "editorial": {
     "reviewSummary": {
       "en": "Updated on 2026-06-05 to keep setup instructions, utility examples, and active status accurate.",
-      "zh": "已于 2026-06-05 更新，核对相关配置信息、实用示例与当前活跃状态。"
+      "zh": "已于 2026-06-05 更新，核对相关配置信息、实用示例与当前活跃状态。",
+      "ja": "2026-06-05にセットアップ手順、ユーティリティの例、およびアクティブなステータスの正確性を保つために更新された。",
+      "ko": "2026-06-05에 설정 지침, 유틸리티 예제, 및 활성 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
+      "es": "Actualizado el 2026-06-05 para mantener las instrucciones de configuración, ejemplos de utilidades y estado activo precisos.",
+      "fr": "Mise à jour le 2026-06-05 pour maintenir l'exactitude des instructions de configuration, des exemples d'utilité et du statut actif.",
+      "de": "Am 05.06.2026 aktualisiert, um die Einrichtungsanleitungen, Utility-Beispiele und den aktuellen Status genau zu halten.",
+      "pt": "Atualizado em 2026-06-05 para manter as instruções de configuração, exemplos de utilitários e status ativo precisos.",
+      "ru": "Обновлено 2026-06-05, чтобы поддерживать актуальность инструкций по настройке, примеров утилит и текущего статуса.",
+      "ar": "تم التحديث في 2026-06-05 لضمان دقة إرشادات الإعداد وأمثلة الأدوات والحالة النشطة."
     },
     "selectionReason": {
       "en": "Mobile engineers need quick setup choices that support native App development without adding heavy dependencies.",
-      "zh": "移动端工程师需要能支持原生 App 开发的快速配置选择，且不希望增加沉重的第三方依赖。"
+      "zh": "移动端工程师需要能支持原生 App 开发的快速配置选择，且不希望增加沉重的第三方依赖。",
+      "ja": "モバイルエンジニアは、ネイティブアプリ開発をサポートし、重い依存関係を追加しないセットアップオプションをすばやく選択する必要がある。",
+      "ko": "모바일 엔지니어는 네이티브 앱 개발을 지원하면서 무거운 의존성을 추가하지 않는 빠른 설정 선택이 필요합니다.",
+      "es": "Los ingenieros móviles necesitan opciones de configuración rápidas que soporten el desarrollo de aplicaciones nativas sin agregar dependencias pesadas.",
+      "fr": "Les ingénieurs mobiles ont besoin de choix de configuration rapides qui supportent le développement d'applications natives sans ajouter de dépendances lourdes.",
+      "de": "Mobile-Entwickler benötigen schnelle Einrichtungsoptionen, die die native App-Entwicklung unterstützen, ohne schwere Abhängigkeiten hinzuzufügen.",
+      "pt": "Os engenheiros móveis precisam de opções de configuração rápidas que suportem o desenvolvimento de aplicativos nativos sem adicionar dependências pesadas.",
+      "ru": "Мобильные инженеры нуждаются в быстрых вариантах настройки, которые поддерживают разработку родных приложений без добавления тяжелых зависимостей.",
+      "ar": "يحتاج مهندسو التطبيقات المحمولة إلى خيارات إعداد سريعة تدعم تطوير التطبيقات الأصلية دون إضافة зависимости ثقيلة."
     },
     "trustSignals": {
       "en": [

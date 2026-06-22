@@ -14,6 +14,15 @@ vi.mock('astro:middleware', () => ({
   defineMiddleware: <T>(fn: T) => fn,
 }));
 
+vi.mock('./lib/logger', () => ({
+  logger: {
+    info: vi.fn(),
+    warn: vi.fn(),
+    error: vi.fn(),
+  },
+  generateRequestId: () => 'test-req-id',
+}));
+
 import { onRequest } from './middleware';
 
 const explicitGone410SamplePath =

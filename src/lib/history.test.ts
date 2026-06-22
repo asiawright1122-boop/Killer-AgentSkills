@@ -111,10 +111,13 @@ describe('saveHistory', () => {
   });
 
   it('does not throw when localStorage.setItem fails', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     (localStorageMock.setItem as ReturnType<typeof vi.fn>).mockImplementationOnce(() => {
       throw new Error('quota exceeded');
     });
     expect(() => saveHistory([makeHistoryItem()])).not.toThrow();
+    expect(consoleError).toHaveBeenCalledWith('[history] Failed to save:', expect.any(Error));
+    consoleError.mockRestore();
   });
 });
 
@@ -223,10 +226,13 @@ describe('clearHistory', () => {
   });
 
   it('does not throw when localStorage.removeItem fails', () => {
+    const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
     (localStorageMock.removeItem as ReturnType<typeof vi.fn>).mockImplementationOnce(() => {
       throw new Error('quota exceeded');
     });
     expect(() => clearHistory()).not.toThrow();
+    expect(consoleError).toHaveBeenCalledWith('[history] Failed to clear:', expect.any(Error));
+    consoleError.mockRestore();
   });
 });
 

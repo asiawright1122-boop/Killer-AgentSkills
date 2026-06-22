@@ -35,13 +35,20 @@ function createMockKV(store: Map<string, any> = new Map()): KVNamespace {
     }),
     put: vi.fn(),
     delete: vi.fn(),
-    list: vi.fn(),
+    list: vi.fn(async (options?: { prefix?: string }) => ({
+      keys: Array.from(store.keys())
+        .filter((name) => !options?.prefix || name.startsWith(options.prefix))
+        .map((name) => ({ name })),
+      list_complete: true,
+      cursor: undefined,
+    })),
     getWithMetadata: vi.fn(),
   } as unknown as KVNamespace;
 }
 
 function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = new Map()): Env {
-  const store = new Map<string, any>([['all-skills', JSON.stringify(skills)], ...extraKV]);
+  const skillEntries = skills.map((skill) => [`skill:${skill.id}`, JSON.stringify(skill)] as const);
+  const store = new Map<string, any>([['all-skills', JSON.stringify(skills)], ...skillEntries, ...extraKV]);
 
   // Create D1 mock that supports the SQL queries used by getSkillsFromKV
   const mockDB = {
@@ -186,6 +193,21 @@ describe('getLocalizedDescription', () => {
     expect(getLocalizedDescription('Hello world', 'en')).toBe('Hello world');
   });
 
+  it('should strip hidden reasoning from localized descriptions', () => {
+    expect(getLocalizedDescription('Chain of thought:\nprivate notes\n\nPublic description', 'en')).toBe(
+      'Public description',
+    );
+    expect(
+      getLocalizedDescription(
+        {
+          en: '<thinking>private notes</thinking>English description',
+          zh: '内部思考：不要展示\n\n中文描述',
+        },
+        'zh',
+      ),
+    ).toBe('中文描述');
+  });
+
   it('should return the requested locale from a Record description', () => {
     const desc = { en: 'English', zh: '中文' };
     expect(getLocalizedDescription(desc, 'zh')).toBe('中文');
@@ -225,6 +247,50 @@ describe('getAllSkills', () => {
     expect(result.some((skill) => skill.id === pollutedSkill.id)).toBe(false);
   });
 
+  it('should sanitize hidden reasoning from public skill records', async () => {
+    const leakingSkill: UnifiedSkill = {
+      id: 'leaky/design-skill',
+      name: 'Design Skill',
+      skillName: 'design-skill',
+      owner: 'leaky',
+      repo: 'design-skill',
+      description: { en: '<thinking>private notes</thinking>Public description' },
+      category: 'design',
+      topics: ['design'],
+      stars: 1,
+      source: 'cache',
+      updatedAt: new Date().toISOString(),
+      seo: {
+        definition: { en: 'Scratchpad:\nprivate notes\n\nPublic definition' },
+        features: { en: ['<analysis>private notes</analysis>Public feature'] },
+        keywords: { en: ['AI agent skill'] },
+      },
+      agentAnalysis: {
+        suitability: { en: 'Private analysis:\nprivate notes\n\nPublic suitability' },
+        recommendation: { en: '<reasoning>private notes</reasoning>Public recommendation' },
+        useCases: { en: ['Chain-of-thought:\nprivate notes\n\nPublic use case'] },
+        limitations: { en: ['Public limitation'] },
+      },
+      skillMd: {
+        name: 'Design Skill',
+        description: '<thinking>private notes</thinking>Public markdown description',
+        bodyPreview: '思考链：不要展示\n\nPublic body preview',
+      },
+    };
+
+    const env = createMockEnv([leakingSkill]);
+    const [skill] = await getAllSkills(env);
+
+    expect(getLocalizedDescription(skill.description, 'en')).toBe('Public description');
+    expect(skill.seo?.definition.en).toBe('Public definition');
+    expect(skill.seo?.features.en).toEqual(['Public feature']);
+    expect((skill.agentAnalysis?.suitability as Record<string, string>).en).toBe('Public suitability');
+    expect((skill.agentAnalysis?.recommendation as Record<string, string>).en).toBe('Public recommendation');
+    expect((skill.agentAnalysis?.useCases as Record<string, string[]>).en).toEqual(['Public use case']);
+    expect(skill.skillMd?.description).toBe('Public markdown description');
+    expect(skill.skillMd?.bodyPreview).toBe('Public body preview');
+  });
+
   it('should return empty array when KV is empty', async () => {
     const env = createMockEnv([]);
     const result = await getAllSkills(env);
@@ -232,15 +298,17 @@ describe('getAllSkills', () => {
   });
 
   it('should return empty array when SKILLS_CACHE binding is unavailable', async () => {
-    // Note: When SKILLS_CACHE is unavailable but DB mock fails, code falls back to local files
-    // So we just verify it returns an array (could be empty or with local fallback data)
     const env = {
       TRANSLATIONS: createMockKV(),
-      DB: { prepare: vi.fn(() => ({ all: vi.fn() })), all: vi.fn() } as unknown as D1Database,
+      DB: {
+        prepare: vi.fn(() => ({
+          all: vi.fn(async () => ({ success: true, results: [] })),
+        })),
+      } as unknown as D1Database,
       ASSETS: {} as Fetcher,
     } as unknown as Env;
     const result = await getAllSkills(env);
-    expect(Array.isArray(result)).toBe(true);
+    expect(result).toEqual([]);
   });
 });
 
@@ -273,6 +341,34 @@ describe('getSkillByOwnerRepo', () => {
     const env = createMockEnv([...sampleSkills, pollutedSkill], extraKV);
     const result = await getSkillByOwnerRepo(env, pollutedSkill.owner, pollutedSkill.repo);
     expect(result).toBeNull();
+  });
+
+  it('should sanitize hidden reasoning from direct skill lookups', async () => {
+    const skill: UnifiedSkill = {
+      id: 'leaky/detail-skill',
+      name: 'Detail Skill',
+      skillName: 'detail-skill',
+      owner: 'leaky',
+      repo: 'detail-skill',
+      description: '<thinking>private notes</thinking>Public detail description',
+      category: 'development',
+      topics: ['development'],
+      stars: 1,
+      source: 'cache',
+      updatedAt: new Date().toISOString(),
+      skillMd: {
+        name: 'Detail Skill',
+        description: 'Scratchpad:\nprivate notes\n\nPublic detail markdown',
+        bodyPreview: 'Public detail body',
+      },
+    };
+    const env = createMockEnv([skill]);
+
+    const result = await getSkillByOwnerRepo(env, 'leaky', 'detail-skill');
+
+    expect(result).not.toBeNull();
+    expect(result?.description).toBe('Public detail description');
+    expect(result?.skillMd?.description).toBe('Public detail markdown');
   });
 });
 
@@ -374,11 +470,17 @@ describe('getFeaturedSkillsDirect', () => {
   });
 
   it('should fallback to getFeaturedSkills when DB is unavailable', async () => {
+    const consoleWarn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const env = createMockEnv(sampleSkills);
     (env as any).DB = undefined;
-    const result = await getFeaturedSkillsDirect(env, 2);
-    // Without DB, getAllSkills falls back to KV/local data which may be empty in test
-    expect(Array.isArray(result)).toBe(true);
+    try {
+      const result = await getFeaturedSkillsDirect(env, 2);
+      // Without DB, getAllSkills falls back to KV/local data which may be empty in test
+      expect(Array.isArray(result)).toBe(true);
+      expect(consoleWarn).toHaveBeenCalledWith('[D1] No DB binding, falling back to getAllSkills');
+    } finally {
+      consoleWarn.mockRestore();
+    }
   });
 });
 

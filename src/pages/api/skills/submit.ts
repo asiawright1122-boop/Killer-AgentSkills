@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { z } from 'zod';
 import type { Env } from '../../../lib/kv';
 import { COMMON_BRANCHES, getSkillMdPaths, getRepository } from '../../../lib/github';
-import { fetchWithTimeout } from '../../../lib/api-utils';
+import { fetchWithTimeout, jsonResponse } from '../../../lib/api-utils';
 import {
   checkRateLimit,
   createRateLimiter,
@@ -11,6 +11,8 @@ import {
   type KVNamespaceLike,
 } from '../../../lib/rate-limit';
 import { parseSkillMd } from '../../../lib/skill-md-parser';
+import { sanitizePublicSkillLikeRecord, withPublicApiHeaders } from '../../../lib/public-skill-api';
+import { hasCatalogedSkillRepo } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
@@ -81,6 +83,23 @@ const SubmitBodySchema = z.object({
     }),
 });
 
+function buildPublicSubmittedSkill(repoInfo: unknown, parsedSkill: ReturnType<typeof parseSkillMd>) {
+  return sanitizePublicSkillLikeRecord({
+    ...(repoInfo && typeof repoInfo === 'object' ? (repoInfo as Record<string, unknown>) : {}),
+    frontmatter: {
+      name: parsedSkill.name,
+      description: parsedSkill.description,
+      version: parsedSkill.version,
+      author: parsedSkill.author,
+      tags: parsedSkill.tags,
+    },
+  });
+}
+
+function publicJson(body: unknown, status = 200): Response {
+  return jsonResponse(body, status, withPublicApiHeaders());
+}
+
 /**
  * POST /api/skills/submit
  *
@@ -103,31 +122,25 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const raw = await request.json();
     const parsed = SubmitBodySchema.safeParse(raw);
     if (!parsed.success) {
-      return new Response(
-        JSON.stringify({
+      return publicJson(
+        {
           error: 'Invalid request body: ' + parsed.error.issues.map((i) => i.message).join(', '),
-        }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } },
+        },
+        400,
       );
     }
     repoUrl = parsed.data.repoUrl;
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON in request body' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return publicJson({ error: 'Invalid JSON in request body' }, 400);
   }
 
   const parsed = parseRepoUrl(repoUrl);
   if (!parsed) {
-    return new Response(
-      JSON.stringify({
-        error: 'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
-      }),
+    return publicJson(
       {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
+        error: 'Invalid repository URL format. Supported: owner/repo or https://github.com/owner/repo',
       },
+      400,
     );
   }
 
@@ -137,28 +150,22 @@ export const POST: APIRoute = async ({ request, locals }) => {
     // Validate repository exists
     const repoInfo = await getRepository(owner, repo);
     if (!repoInfo) {
-      return new Response(
-        JSON.stringify({
-          error: `Repository ${owner}/${repo} does not exist or is not accessible`,
-        }),
+      return publicJson(
         {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' },
+          error: `Repository ${owner}/${repo} does not exist or is not accessible`,
         },
+        404,
       );
     }
 
     // Fetch SKILL.md
     const skillMdContent = await getSkillMd(owner, repo);
     if (!skillMdContent) {
-      return new Response(
-        JSON.stringify({
-          error: `Repository ${owner}/${repo} does not have a SKILL.md file`,
-        }),
+      return publicJson(
         {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
+          error: `Repository ${owner}/${repo} does not have a SKILL.md file`,
         },
+        400,
       );
     }
 
@@ -166,15 +173,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
     // Check for duplicates via targeted D1 query (O(1) instead of loading entire table)
     if (env) {
-      const { getSkillsKV } = await import('../../../lib/kv');
-      const repoPath = `${owner}/${repo}`;
-      const existing = await getSkillsKV(env, repoPath);
+      const existing = await hasCatalogedSkillRepo(env, owner, repo);
 
       if (existing) {
-        return new Response(JSON.stringify({ error: 'This skill already exists', skill: repoInfo }), {
-          status: 409,
-          headers: { 'Content-Type': 'application/json' },
-        });
+        return publicJson({ error: 'This skill already exists', skill: sanitizePublicSkillLikeRecord(repoInfo) }, 409);
       }
 
       // Store submission in KV for later review
@@ -184,14 +186,8 @@ export const POST: APIRoute = async ({ request, locals }) => {
           repoPath: `${owner}/${repo}`,
           addedAt: new Date().toISOString(),
           featured: false,
-          repoInfo,
-          frontmatter: {
-            name: parsedSkill.name,
-            description: parsedSkill.description,
-            version: parsedSkill.version,
-            author: parsedSkill.author,
-            tags: parsedSkill.tags,
-          },
+          repoInfo: sanitizePublicSkillLikeRecord(repoInfo),
+          frontmatter: (buildPublicSubmittedSkill({}, parsedSkill) as { frontmatter: unknown }).frontmatter,
         };
         await env.SKILLS_CACHE.put(submissionKey, JSON.stringify(submission), {
           expirationTtl: 31536000, // 1 year
@@ -229,32 +225,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
       }
     }
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        message: 'Skill submitted successfully!',
-        skill: {
-          ...repoInfo,
-          frontmatter: {
-            name: parsedSkill.name,
-            description: parsedSkill.description,
-            version: parsedSkill.version,
-            author: parsedSkill.author,
-            tags: parsedSkill.tags,
-          },
-        },
-      }),
-      {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      },
-    );
+    return publicJson({
+      success: true,
+      message: 'Skill submitted successfully!',
+      skill: buildPublicSubmittedSkill(repoInfo, parsedSkill),
+    });
   } catch (error) {
     console.error('Error submitting skill:', error);
-    return new Response(JSON.stringify({ error: 'Submission failed, please try again later' }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return publicJson({ error: 'Submission failed, please try again later' }, 500);
   }
 };
 
@@ -270,18 +248,12 @@ export const GET: APIRoute = async ({ request }) => {
   const repoUrl = url.searchParams.get('url');
 
   if (!repoUrl) {
-    return new Response(JSON.stringify({ error: 'Please provide a repository URL' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return publicJson({ error: 'Please provide a repository URL' }, 400);
   }
 
   const parsed = parseRepoUrl(repoUrl);
   if (!parsed) {
-    return new Response(JSON.stringify({ error: 'Invalid repository URL format' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return publicJson({ error: 'Invalid repository URL format' }, 400);
   }
 
   const { owner, repo } = parsed;
@@ -289,47 +261,26 @@ export const GET: APIRoute = async ({ request }) => {
   // Validate repository exists
   const repoInfo = await getRepository(owner, repo);
   if (!repoInfo) {
-    return new Response(JSON.stringify({ error: `Repository ${owner}/${repo} does not exist` }), {
-      status: 404,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return publicJson({ error: `Repository ${owner}/${repo} does not exist` }, 404);
   }
 
   // Fetch SKILL.md
   const skillMdContent = await getSkillMd(owner, repo);
   if (!skillMdContent) {
-    return new Response(
-      JSON.stringify({
+    return publicJson(
+      {
         error: 'This repository does not have a SKILL.md file',
         hasSkillMd: false,
-      }),
-      {
-        status: 400,
-        headers: { 'Content-Type': 'application/json' },
       },
+      400,
     );
   }
 
   const parsedSkill = parseSkillMd(skillMdContent);
 
-  return new Response(
-    JSON.stringify({
-      valid: true,
-      hasSkillMd: true,
-      skill: {
-        ...repoInfo,
-        frontmatter: {
-          name: parsedSkill.name,
-          description: parsedSkill.description,
-          version: parsedSkill.version,
-          author: parsedSkill.author,
-          tags: parsedSkill.tags,
-        },
-      },
-    }),
-    {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    },
-  );
+  return publicJson({
+    valid: true,
+    hasSkillMd: true,
+    skill: buildPublicSubmittedSkill(repoInfo, parsedSkill),
+  });
 };

@@ -93,7 +93,7 @@ function readFileIfExists(path: string): string {
 }
 
 function parseRoadmapLineValue(block: string, label: string): string | null {
-  const pattern = new RegExp(`^\\*\\*${label}:?\\*\\*:?[ \\t]*(.+)$`, 'm');
+  const pattern = new RegExp(`^[ \\t]*(?:-[ \\t]+)?\\*\\*${label}:?\\*\\*:?[ \\t]*(.+)$`, 'm');
   return block.match(pattern)?.[1]?.trim() || null;
 }
 
@@ -155,7 +155,10 @@ function getCurrentMilestoneGoal(rootDir: string, milestone: string | null): str
 
   const projectContent = readFileIfExists(join(rootDir, '.planning', 'PROJECT.md'));
   const milestoneBlock = projectContent.match(
-    new RegExp(`^##\\s+Current Milestone:\\s+${escapeRegExp(milestone)}\\s+[^\n]+\\n([\\s\\S]*?)(?=^##\\s|\\Z)`, 'm'),
+    new RegExp(
+      `^##\\s+Current Milestone:\\s+${escapeRegExp(milestone)}\\s+[^\n]+\\n([\\s\\S]*?)(?=^##\\s|(?![\\s\\S]))`,
+      'm',
+    ),
   );
 
   if (!milestoneBlock) return null;
@@ -179,7 +182,7 @@ function parseCurrentMilestoneRequirements(rootDir: string, milestone: string | 
 
 function parseActiveRoadmapPhases(rootDir: string): ParsedRoadmapPhase[] {
   const content = readFileIfExists(join(rootDir, '.planning', 'ROADMAP.md'));
-  const matches = content.matchAll(/^### Phase ([^:]+): ([^\n]+)\n([\s\S]*?)(?=^### Phase |\n## |\Z)/gm);
+  const matches = content.matchAll(/^### Phase ([^:]+): ([^\n]+)\n([\s\S]*?)(?=^### Phase |\n## |(?![\s\S]))/gm);
   const phases: ParsedRoadmapPhase[] = [];
 
   for (const match of matches) {

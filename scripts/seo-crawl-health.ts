@@ -2,6 +2,7 @@
 
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS } from '../src/lib/public-ai-output';
 
 type SitemapsCollected = {
   sitemapUrls: string[];
@@ -73,6 +74,7 @@ type CrawlHealthJsonReport = {
 };
 
 const PUBLIC_COPY_LEAK_PATTERNS = [
+  ...HIDDEN_REASONING_PUBLIC_OUTPUT_PATTERNS.map((entry) => entry.pattern),
   /\buse\s+when\s+(?:creating|using|the\s+user|you|asked|working|submitting)\b/i,
   /\bfollow\s+these\s+\d+\s+steps?\s+exactly\b/i,
   /\bcritical\s+guidelines?\b/i,
@@ -82,7 +84,7 @@ const PUBLIC_COPY_LEAK_PATTERNS = [
   /\brecovery\s+(?:strategy|control\s+board|board|heavy)\b/i,
   /\breference-only\b/i,
   /\btrusted\s+next\s+steps?\b/i,
-  /思考链|恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
+  /恢复期话术|(?:恢复|SEO|运营|审查|编辑部|内部|站点)\s*控制台|控制台\s*(?:视图|看板|复核|审查)|复核清单|编辑部审查/i,
 ];
 
 const SITE_ORIGIN = 'https://killer-skills.com';

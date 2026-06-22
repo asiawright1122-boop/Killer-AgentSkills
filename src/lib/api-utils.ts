@@ -3,6 +3,8 @@
  * Provides consistent JSON error responses across all API routes.
  */
 
+import { sanitizePublicAIOutputValue } from './public-ai-output';
+
 export class ApiError extends Error {
   constructor(
     message: string,
@@ -15,10 +17,11 @@ export class ApiError extends Error {
 }
 
 export function jsonResponse(data: unknown, status = 200, headers?: Record<string, string>): Response {
-  return new Response(JSON.stringify(data), {
+  return new Response(JSON.stringify(sanitizePublicAIOutputValue(data)), {
     status,
     headers: {
       'Content-Type': 'application/json',
+      'X-Robots-Tag': 'noindex, nofollow',
       ...headers,
     },
   });
@@ -36,13 +39,12 @@ export function errorResponse(error: unknown, fallbackStatus = 500): Response {
     );
   }
 
-  const message = error instanceof Error ? error.message : 'Internal server error';
   console.error('[API Error]', error);
 
   return jsonResponse(
     {
       success: false,
-      error: message,
+      error: 'Internal server error',
     },
     fallbackStatus,
   );

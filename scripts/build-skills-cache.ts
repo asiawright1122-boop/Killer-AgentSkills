@@ -40,6 +40,7 @@ import {
 } from './lib/github';
 import type { SeoData, SkillCache, CacheData, TranslateContext } from './lib/types';
 import { getNonTargetSkillReason, POSITIVE_THEME_KEYWORDS, isOfficialRepo } from '../src/lib/shared/validation';
+import { sanitizePublicAIOutputValue } from '../src/lib/public-ai-output';
 import { isSkillFullyOptimized, collectOptimizationIssues, DEFAULT_REGEN_BATCH_SIZE } from './lib/skill-quality';
 import { writeRegenerationBaselineReport } from './lib/regeneration-report';
 import { getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
@@ -109,15 +110,14 @@ function persistAiRuntimeSummary(status: string): void {
     completedIds: selectedBatchIds ? Array.from(completedBatchIds).sort() : undefined,
     skippedIds: selectedBatchIds ? Array.from(skippedBatchIds).sort() : undefined,
     failedIds: selectedBatchIds ? failedBatchEntries.slice() : undefined,
-    pendingIds:
-      selectedBatchIds
-        ? Array.from(selectedBatchIds).filter(
-            (id) =>
-              !completedBatchIds.has(id) &&
-              !skippedBatchIds.has(id) &&
-              !failedBatchEntries.some((entry) => entry.id === id),
-          )
-        : undefined,
+    pendingIds: selectedBatchIds
+      ? Array.from(selectedBatchIds).filter(
+          (id) =>
+            !completedBatchIds.has(id) &&
+            !skippedBatchIds.has(id) &&
+            !failedBatchEntries.some((entry) => entry.id === id),
+        )
+      : undefined,
     aiTelemetry: aiService.getTelemetrySnapshot(),
   };
 
@@ -127,6 +127,10 @@ function persistAiRuntimeSummary(status: string): void {
     AI_RUNTIME_SUMMARY_PATH,
     renderAiTelemetryReport(runtimeCheckpoint, AI_RUNTIME_JSON_PATH, runtimeCheckpoint.lastUpdated),
   );
+}
+
+function toPublicSkillCache(skill: SkillCache): SkillCache {
+  return sanitizePublicAIOutputValue(skill) as SkillCache;
 }
 
 function getThemeExclusionReason(skill: {
@@ -203,16 +207,20 @@ function sharedCalculateQualityScore(skill: any): number {
   // 必须有 body 内容（Markdown 指令）
   const body = skill.body || '';
   if (!isOfficial && body.length < 100) return 0;
-  if (!isOfficial && getThemeExclusionReason({
-    name: skill.name,
-    owner: skill.owner,
-    repo: skill.repo,
-    body,
-    description: desc,
-    topics: skill.topics,
-    category: skill.category,
-    filePath: skill.filePath,
-  })) return 0;
+  if (
+    !isOfficial &&
+    getThemeExclusionReason({
+      name: skill.name,
+      owner: skill.owner,
+      repo: skill.repo,
+      body,
+      description: desc,
+      topics: skill.topics,
+      category: skill.category,
+      filePath: skill.filePath,
+    })
+  )
+    return 0;
 
   // ── 通过结构验证 → 计算精选排序分（越高越精选）──────────
   let score = 10; // 结构有效基础分
@@ -372,7 +380,10 @@ function buildSkillFallbackReadme(skill: SkillCache): string {
   const agentFallbackDescription = getSkillAgentFallbackDescription(skill);
   const useCases = pickPreferredLocalizedArray(skill.agentAnalysis?.useCases).slice(0, 4);
   const limitations = pickPreferredLocalizedArray(skill.agentAnalysis?.limitations).slice(0, 3);
-  const topics = (skill.topics || []).map((topic) => String(topic || '').trim()).filter(Boolean).slice(0, 6);
+  const topics = (skill.topics || [])
+    .map((topic) => String(topic || '').trim())
+    .filter(Boolean)
+    .slice(0, 6);
   const genericSummary =
     fallbackDescription ||
     agentFallbackDescription ||
@@ -422,7 +433,8 @@ function ensureSkillMdContent(skill: SkillCache): SkillCache {
       ...skill,
       skillMd: {
         name: skill.skillMd?.name || skill.name || skill.repo,
-        description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
+        description:
+          skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
         version: skill.skillMd?.version,
         tags: skill.skillMd?.tags,
         body: enrichedBody,
@@ -447,7 +459,8 @@ function ensureSkillMdContent(skill: SkillCache): SkillCache {
       ...skill,
       skillMd: {
         name: skill.skillMd?.name || skill.name || skill.repo,
-        description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
+        description:
+          skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
         version: skill.skillMd?.version,
         tags: skill.skillMd?.tags,
         bodyPreview: fallbackReadme.slice(0, 5000).trim(),
@@ -459,7 +472,8 @@ function ensureSkillMdContent(skill: SkillCache): SkillCache {
     ...skill,
     skillMd: {
       name: skill.skillMd?.name || skill.name || skill.repo,
-      description: skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
+      description:
+        skill.skillMd?.description || getSkillFallbackDescription(skill) || getSkillAgentFallbackDescription(skill),
       version: skill.skillMd?.version,
       tags: skill.skillMd?.tags,
       bodyPreview: fallbackReadme.slice(0, 5000).trim(),
@@ -552,8 +566,14 @@ async function buildCache(): Promise<void> {
   const dryRunBatch = args.includes('--dry-run-batch');
   const maxItemsArg = args.find((arg) => arg.startsWith('--max-items='));
   const maxItems = maxItemsArg ? parseInt(maxItemsArg.split('=')[1], 10) : 0;
-  const batchPlanPath = path.resolve(process.cwd(), batchPlanArg ? batchPlanArg.split('=')[1] : 'reports/seo/phase-02-regeneration-baseline.json');
-  const checkpointPath = path.resolve(process.cwd(), checkpointArg ? checkpointArg.split('=')[1] : 'reports/seo/phase-02-batch-progress.json');
+  const batchPlanPath = path.resolve(
+    process.cwd(),
+    batchPlanArg ? batchPlanArg.split('=')[1] : 'reports/seo/phase-02-regeneration-baseline.json',
+  );
+  const checkpointPath = path.resolve(
+    process.cwd(),
+    checkpointArg ? checkpointArg.split('=')[1] : 'reports/seo/phase-02-batch-progress.json',
+  );
   const modeArg = args.find((arg) => arg.startsWith('--mode='));
   const mode = modeArg ? modeArg.split('=')[1] : 'update'; // default to update (full)
   const force = args.includes('--force'); // Force re-generation of AI content
@@ -707,12 +727,12 @@ async function buildCache(): Promise<void> {
   const batchHasPendingSelectedIds = (): boolean =>
     Boolean(
       selectedBatchIds &&
-        Array.from(selectedBatchIds).some(
-          (id) =>
-            !completedBatchIds.has(id) &&
-            !skippedBatchIds.has(id) &&
-            !failedBatchEntries.some((entry) => entry.id === id),
-        ),
+      Array.from(selectedBatchIds).some(
+        (id) =>
+          !completedBatchIds.has(id) &&
+          !skippedBatchIds.has(id) &&
+          !failedBatchEntries.some((entry) => entry.id === id),
+      ),
     );
 
   if (selectedBatchNumber > 0) {
@@ -747,7 +767,7 @@ async function buildCache(): Promise<void> {
                   new Set([
                     ...(checkpoint.completedIds || []),
                     ...(checkpoint.skippedIds || []),
-                    ...((checkpoint.failedIds || []).map((entry) => entry.id)),
+                    ...(checkpoint.failedIds || []).map((entry) => entry.id),
                     ...(checkpoint.pendingIds || []),
                   ]),
                 );
@@ -1256,7 +1276,11 @@ async function buildCache(): Promise<void> {
       }
     }
   } else {
-    console.log(existingOnly ? '📦 Skipping official repos check (--existing-only)' : '📦 Skipping official repos check (Discover Mode)');
+    console.log(
+      existingOnly
+        ? '📦 Skipping official repos check (--existing-only)'
+        : '📦 Skipping official repos check (Discover Mode)',
+    );
     // In discover mode, we still need to keep existing official skills in the list
     // We'll load them from existingMap later in step 3
   }
@@ -1267,290 +1291,290 @@ async function buildCache(): Promise<void> {
     const searchResults = await searchGitHubSkills();
     const skillsToProcess: any[] = [];
 
-  for (const item of searchResults) {
-    // Handle both GitHub API format and local backup format
-    let repoName = '';
-    let ownerLogin = '';
-    let stars: number;
-    let forks: number;
-    let updatedAt: string;
-    let topics: string[];
-    let rawDesc: string;
-    let content = '';
-    let filePath: string;
+    for (const item of searchResults) {
+      // Handle both GitHub API format and local backup format
+      let repoName = '';
+      let ownerLogin = '';
+      let stars: number;
+      let forks: number;
+      let updatedAt: string;
+      let topics: string[];
+      let rawDesc: string;
+      let content = '';
+      let filePath: string;
 
-    if (item.repository) {
-      // GitHub API format
-      const repo = item.repository;
-      repoName = repo.name;
-      ownerLogin = typeof repo.owner === 'object' ? repo.owner.login : repo.owner;
-      stars = repo.stargazers_count;
-      forks = repo.forks_count;
-      updatedAt = repo.updated_at;
-      topics = repo.topics || [];
-      rawDesc = repo.description || '';
-      filePath = item.path || '';
-    } else {
-      // Local backup format (flat structure)
-      repoName = item.repo;
-      ownerLogin = item.owner;
-      stars = item.stars || 0;
-      forks = item.forks || 0;
-      updatedAt = item.fetchedAt || item.updatedAt || new Date().toISOString();
-      topics = item.topics || [];
-      rawDesc = item.description || '';
-      content = item.content || '';
-      filePath = item.filePath || '';
+      if (item.repository) {
+        // GitHub API format
+        const repo = item.repository;
+        repoName = repo.name;
+        ownerLogin = typeof repo.owner === 'object' ? repo.owner.login : repo.owner;
+        stars = repo.stargazers_count;
+        forks = repo.forks_count;
+        updatedAt = repo.updated_at;
+        topics = repo.topics || [];
+        rawDesc = repo.description || '';
+        filePath = item.path || '';
+      } else {
+        // Local backup format (flat structure)
+        repoName = item.repo;
+        ownerLogin = item.owner;
+        stars = item.stars || 0;
+        forks = item.forks || 0;
+        updatedAt = item.fetchedAt || item.updatedAt || new Date().toISOString();
+        topics = item.topics || [];
+        rawDesc = item.description || '';
+        content = item.content || '';
+        filePath = item.filePath || '';
+      }
+
+      // Bug Fix: 使用 repoPath + skillName 作为去重键
+      // Note: we can't be 100% sure of skillId until we parse skillMd
+      // But we can check if any skill from this repo/path is already in processed-repos
+      const repoPath = `${ownerLogin}/${repoName}`;
+      const dedupeKey = filePath ? `${repoPath}/${filePath}` : repoPath;
+      if (processedRepos.has(dedupeKey)) continue;
+
+      // NEW: Check if this repo/path is already in existingMap and complete
+      // We look for any skill that matches this owner/repo/path
+      const existingSkill = Array.from(existingMap.values()).find(
+        (s) => s.owner === ownerLogin && s.repo === repoName && (s.repoPath === repoPath || s.id.startsWith(repoPath)),
+      );
+
+      // Optimization: If existing skill is fully optimized and NOT updated, use it directly
+      // Note: we use item.updatedAt (from search result) to check for updates
+      if (existingSkill && isSkillFullyOptimized(existingSkill) && !hasSkillUpdated(existingSkill, updatedAt)) {
+        skills.push(existingSkill);
+        // We need a unique ID for processedRepos, use the one from cache
+        processedRepos.add(existingSkill.id);
+        process.stdout.write('s');
+        continue;
+      }
+
+      // Content fetching moved to parallel step
+      // if (!content) continue; // Allow empty content to proceed to parallel step
+
+      skillsToProcess.push({
+        owner: ownerLogin,
+        repo: repoName,
+        stars: stars,
+        forks: forks,
+        updatedAt: updatedAt,
+        topics: topics,
+        description: rawDesc,
+        content: content,
+        filePath: filePath,
+      });
     }
 
-    // Bug Fix: 使用 repoPath + skillName 作为去重键
-    // Note: we can't be 100% sure of skillId until we parse skillMd
-    // But we can check if any skill from this repo/path is already in processed-repos
-    const repoPath = `${ownerLogin}/${repoName}`;
-    const dedupeKey = filePath ? `${repoPath}/${filePath}` : repoPath;
-    if (processedRepos.has(dedupeKey)) continue;
-
-    // NEW: Check if this repo/path is already in existingMap and complete
-    // We look for any skill that matches this owner/repo/path
-    const existingSkill = Array.from(existingMap.values()).find(
-      (s) => s.owner === ownerLogin && s.repo === repoName && (s.repoPath === repoPath || s.id.startsWith(repoPath)),
-    );
-
-    // Optimization: If existing skill is fully optimized and NOT updated, use it directly
-    // Note: we use item.updatedAt (from search result) to check for updates
-    if (existingSkill && isSkillFullyOptimized(existingSkill) && !hasSkillUpdated(existingSkill, updatedAt)) {
-      skills.push(existingSkill);
-      // We need a unique ID for processedRepos, use the one from cache
-      processedRepos.add(existingSkill.id);
-      process.stdout.write('s');
-      continue;
+    // P0 FIX: Pre-filter dedup by repo name — keep only highest-stars entry per name
+    // This eliminates 90%+ of junk items BEFORE expensive fetch/translate
+    const nameStarsMap = new Map<string, { idx: number; stars: number }>();
+    for (let i = 0; i < skillsToProcess.length; i++) {
+      const item = skillsToProcess[i];
+      // Use repo name as rough skill name proxy (exact name requires parsing)
+      const nameKey = item.repo.toLowerCase();
+      const existing = nameStarsMap.get(nameKey);
+      if (!existing || item.stars > existing.stars) {
+        nameStarsMap.set(nameKey, { idx: i, stars: item.stars });
+      }
+    }
+    const dedupedIndices = new Set(Array.from(nameStarsMap.values()).map((v) => v.idx));
+    const beforeDedup = skillsToProcess.length;
+    const dedupedSkillsToProcess = skillsToProcess.filter((_: any, i: number) => dedupedIndices.has(i));
+    if (beforeDedup !== dedupedSkillsToProcess.length) {
+      console.log(
+        `\n🧹 Pre-filter: ${beforeDedup} → ${dedupedSkillsToProcess.length} items (removed ${beforeDedup - dedupedSkillsToProcess.length} repo-name duplicates)`,
+      );
     }
 
-    // Content fetching moved to parallel step
-    // if (!content) continue; // Allow empty content to proceed to parallel step
+    // Track processed skill names to avoid translating same-named skills from different repos
+    const processedNames = new Set<string>();
 
-    skillsToProcess.push({
-      owner: ownerLogin,
-      repo: repoName,
-      stars: stars,
-      forks: forks,
-      updatedAt: updatedAt,
-      topics: topics,
-      description: rawDesc,
-      content: content,
-      filePath: filePath,
-    });
-  }
+    const limit = pLimit(8); // Concurrency 8
+    await Promise.all(
+      dedupedSkillsToProcess.map((item: any) =>
+        limit(async () => {
+          if (isTimeUp()) return;
+          try {
+            // 0. Fetch content if missing (Parallelized)
+            if (!item.content && item.filePath) {
+              try {
+                const filePath = item.filePath;
 
-  // P0 FIX: Pre-filter dedup by repo name — keep only highest-stars entry per name
-  // This eliminates 90%+ of junk items BEFORE expensive fetch/translate
-  const nameStarsMap = new Map<string, { idx: number; stars: number }>();
-  for (let i = 0; i < skillsToProcess.length; i++) {
-    const item = skillsToProcess[i];
-    // Use repo name as rough skill name proxy (exact name requires parsing)
-    const nameKey = item.repo.toLowerCase();
-    const existing = nameStarsMap.get(nameKey);
-    if (!existing || item.stars > existing.stars) {
-      nameStarsMap.set(nameKey, { idx: i, stars: item.stars });
-    }
-  }
-  const dedupedIndices = new Set(Array.from(nameStarsMap.values()).map((v) => v.idx));
-  const beforeDedup = skillsToProcess.length;
-  const dedupedSkillsToProcess = skillsToProcess.filter((_: any, i: number) => dedupedIndices.has(i));
-  if (beforeDedup !== dedupedSkillsToProcess.length) {
-    console.log(
-      `\n🧹 Pre-filter: ${beforeDedup} → ${dedupedSkillsToProcess.length} items (removed ${beforeDedup - dedupedSkillsToProcess.length} repo-name duplicates)`,
-    );
-  }
+                // Bug Fix: 严格验证文件名
+                const fileName = filePath.split('/').pop() || '';
+                const isValidFile =
+                  fileName === 'SKILL.md' ||
+                  fileName === 'SKILL.MD' ||
+                  (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
 
-  // Track processed skill names to avoid translating same-named skills from different repos
-  const processedNames = new Set<string>();
-
-  const limit = pLimit(8); // Concurrency 8
-  await Promise.all(
-    dedupedSkillsToProcess.map((item: any) =>
-      limit(async () => {
-        if (isTimeUp()) return;
-        try {
-          // 0. Fetch content if missing (Parallelized)
-          if (!item.content && item.filePath) {
-            try {
-              const filePath = item.filePath;
-
-              // Bug Fix: 严格验证文件名
-              const fileName = filePath.split('/').pop() || '';
-              const isValidFile =
-                fileName === 'SKILL.md' ||
-                fileName === 'SKILL.MD' ||
-                (filePath.includes('/skills/') && fileName.toLowerCase() === 'skill.md');
-
-              if (isValidFile) {
-                item.content = (await fetchSkillMd(item.owner, item.repo, filePath)) || '';
+                if (isValidFile) {
+                  item.content = (await fetchSkillMd(item.owner, item.repo, filePath)) || '';
+                }
+                // Jitter delay (100-500ms)
+                await new Promise((r) => setTimeout(r, 100 + Math.random() * 400));
+              } catch (e) {
+                console.error(`Fetch failed for ${item.repo}:`, e);
               }
-              // Jitter delay (100-500ms)
-              await new Promise((r) => setTimeout(r, 100 + Math.random() * 400));
-            } catch (e) {
-              console.error(`Fetch failed for ${item.repo}:`, e);
             }
-          }
 
-          // Fallback fetch
-          if (!item.content) {
-            try {
-              const fetched = await fetchSkillMd(
-                item.owner,
-                item.repo,
-                item.filePath ? item.filePath.replace('/SKILL.md', '').replace('SKILL.md', '') : '',
+            // Fallback fetch
+            if (!item.content) {
+              try {
+                const fetched = await fetchSkillMd(
+                  item.owner,
+                  item.repo,
+                  item.filePath ? item.filePath.replace('/SKILL.md', '').replace('SKILL.md', '') : '',
+                );
+                if (fetched) item.content = fetched;
+              } catch {}
+            }
+
+            if (!item.content) return;
+
+            // 1. Validation & Parsing checks
+            const skillMd = parseSkillMd(item.content);
+            if (!skillMd || !skillMd.name) {
+              // Invalid structure - not a proper SKILL.md
+              return;
+            }
+            if (
+              getThemeExclusionReason({
+                name: skillMd.name,
+                owner: item.owner,
+                repo: item.repo,
+                body: skillMd.body || skillMd.bodyPreview || '',
+                description: skillMd.description || item.description || '',
+                topics: item.topics || [],
+                category: item.category,
+                filePath: item.filePath,
+              })
+            ) {
+              process.stdout.write('X');
+              return;
+            }
+
+            // 2. Generate Unique ID
+            // Use repoPath + skillName to allow multiple skills per repo
+            const repoPath = `${item.owner}/${item.repo}`;
+            const skillId = `${repoPath}/${skillMd.name}`;
+
+            if (processedRepos.has(skillId)) return;
+
+            // P0 FIX: Name-level dedup — if another repo already claimed this skill name, skip
+            const skillNameKey = skillMd.name.toLowerCase();
+            if (processedNames.has(skillNameKey)) {
+              process.stdout.write('D'); // D = Duplicate name skipped
+              return;
+            }
+
+            // Check if existing in cache
+            const existing = existingMap.get(skillId);
+            if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
+              skills.push(existing);
+              processedRepos.add(skillId);
+              globalSkillsRef = skills; // Keep reference updated
+
+              // NEW: Auto-save checkpoint for official skills
+              if (skills.length % 10 === 0) {
+                console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
+                await saveStateOnly(skills);
+              }
+              process.stdout.write('s');
+              return;
+            }
+
+            processedRepos.add(skillId);
+
+            // console.log(`   → ${skillId}`);
+            process.stdout.write('.');
+
+            const currentContentHash = computeHash(item.content || item.description || '');
+
+            const itemContent = item.content || '';
+            const parsedSkillMd = itemContent ? parseSkillMd(itemContent) : undefined;
+
+            let existingHash =
+              existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
+
+            // Assume same definition hash if the preview is identical
+            if (!existingHash && existing?.skillMd?.bodyPreview && parsedSkillMd?.bodyPreview) {
+              if (existing.skillMd.bodyPreview === parsedSkillMd.bodyPreview) {
+                existingHash = currentContentHash; // Force match!
+              }
+            }
+
+            let metadataDescription = existing?.description || '';
+            let metadataSeo = existing?.seo;
+            let agentAnalysis = existing?.agentAnalysis;
+
+            if (!force && existing && isSkillFullyOptimized(existing) && existingHash === currentContentHash) {
+              process.stdout.write('H'); // Hash Match Skip
+              metadataDescription = existing.description;
+              metadataSeo = existing.seo;
+              agentAnalysis = existing.agentAnalysis;
+            } else {
+              const metadata = await processMetadata(skillId, item.description || '', {
+                name: skillMd.name,
+                topics: item.topics || [],
+                bodyPreview: skillMd.bodyPreview,
+                category: item.category || 'community',
+              });
+              metadataDescription = metadata.description;
+              metadataSeo = metadata.seo;
+
+              const rawAgentAnalysis = await aiService.generateAgentAnalysis(
+                skillMd.name,
+                typeof metadataDescription === 'string' ? metadataDescription : metadataDescription.en,
+                skillMd.bodyPreview || '',
               );
-              if (fetched) item.content = fetched;
-            } catch {}
-          }
+              if (rawAgentAnalysis) {
+                agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
+              }
+            }
 
-          if (!item.content) return;
-
-          // 1. Validation & Parsing checks
-          const skillMd = parseSkillMd(item.content);
-          if (!skillMd || !skillMd.name) {
-            // Invalid structure - not a proper SKILL.md
-            return;
-          }
-          if (
-            getThemeExclusionReason({
+            const skill: SkillCache = {
+              id: skillId,
               name: skillMd.name,
+              description: metadataDescription,
+              seo: metadataSeo,
               owner: item.owner,
               repo: item.repo,
-              body: skillMd.body || skillMd.bodyPreview || '',
-              description: skillMd.description || item.description || '',
-              topics: item.topics || [],
-              category: item.category,
+              repoPath,
               filePath: item.filePath,
-            })
-          ) {
-            process.stdout.write('X');
-            return;
-          }
+              stars: item.stars || 0,
+              forks: item.forks || 0,
+              updatedAt: item.updatedAt || new Date().toISOString(),
+              topics: item.topics || [],
+              category: 'community',
+              skillMd: skillMd,
+              lastSynced: new Date().toISOString(),
+              agentAnalysis: agentAnalysis,
+              contentHash: currentContentHash,
+            };
 
-          // 2. Generate Unique ID
-          // Use repoPath + skillName to allow multiple skills per repo
-          const repoPath = `${item.owner}/${item.repo}`;
-          const skillId = `${repoPath}/${skillMd.name}`;
+            skill.qualityScore = calculateQualityScore(skill);
 
-          if (processedRepos.has(skillId)) return;
+            // 收录门槛：score > 0 即为结构有效的 SKILL.md（score=0 = 无名字/可疑/空内容）
+            if ((skill.qualityScore || 0) <= 0) {
+              process.stdout.write('Q'); // Q = 无效结构
+              return;
+            }
 
-          // P0 FIX: Name-level dedup — if another repo already claimed this skill name, skip
-          const skillNameKey = skillMd.name.toLowerCase();
-          if (processedNames.has(skillNameKey)) {
-            process.stdout.write('D'); // D = Duplicate name skipped
-            return;
-          }
+            processedNames.add(skillNameKey); // Claim this name after quality check passes
+            skills.push(skill);
 
-          // Check if existing in cache
-          const existing = existingMap.get(skillId);
-          if (!force && existing && isSkillFullyOptimized(existing) && !hasSkillUpdated(existing, item.updatedAt)) {
-            skills.push(existing);
-            processedRepos.add(skillId);
-            globalSkillsRef = skills; // Keep reference updated
-
-            // NEW: Auto-save checkpoint for official skills
+            // Auto-save every 10 newly processed skills
             if (skills.length % 10 === 0) {
               console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
               await saveStateOnly(skills);
             }
-            process.stdout.write('s');
-            return;
+          } catch (e) {
+            console.error(`\n❌ Error processing ${item.owner}/${item.repo}:`, e);
           }
-
-          processedRepos.add(skillId);
-
-          // console.log(`   → ${skillId}`);
-          process.stdout.write('.');
-
-          const currentContentHash = computeHash(item.content || item.description || '');
-
-          const itemContent = item.content || '';
-          const parsedSkillMd = itemContent ? parseSkillMd(itemContent) : undefined;
-
-          let existingHash =
-            existing?.contentHash || (existing?.skillMd?.body ? computeHash(existing.skillMd.body) : undefined);
-
-          // Assume same definition hash if the preview is identical
-          if (!existingHash && existing?.skillMd?.bodyPreview && parsedSkillMd?.bodyPreview) {
-            if (existing.skillMd.bodyPreview === parsedSkillMd.bodyPreview) {
-              existingHash = currentContentHash; // Force match!
-            }
-          }
-
-          let metadataDescription = existing?.description || '';
-          let metadataSeo = existing?.seo;
-          let agentAnalysis = existing?.agentAnalysis;
-
-          if (!force && existing && isSkillFullyOptimized(existing) && existingHash === currentContentHash) {
-            process.stdout.write('H'); // Hash Match Skip
-            metadataDescription = existing.description;
-            metadataSeo = existing.seo;
-            agentAnalysis = existing.agentAnalysis;
-          } else {
-            const metadata = await processMetadata(skillId, item.description || '', {
-              name: skillMd.name,
-              topics: item.topics || [],
-              bodyPreview: skillMd.bodyPreview,
-              category: item.category || 'community',
-            });
-            metadataDescription = metadata.description;
-            metadataSeo = metadata.seo;
-
-            const rawAgentAnalysis = await aiService.generateAgentAnalysis(
-              skillMd.name,
-              typeof metadataDescription === 'string' ? metadataDescription : metadataDescription.en,
-              skillMd.bodyPreview || '',
-            );
-            if (rawAgentAnalysis) {
-              agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
-            }
-          }
-
-          const skill: SkillCache = {
-            id: skillId,
-            name: skillMd.name,
-            description: metadataDescription,
-            seo: metadataSeo,
-            owner: item.owner,
-            repo: item.repo,
-            repoPath,
-            filePath: item.filePath,
-            stars: item.stars || 0,
-            forks: item.forks || 0,
-            updatedAt: item.updatedAt || new Date().toISOString(),
-            topics: item.topics || [],
-            category: 'community',
-            skillMd: skillMd,
-            lastSynced: new Date().toISOString(),
-            agentAnalysis: agentAnalysis,
-            contentHash: currentContentHash,
-          };
-
-          skill.qualityScore = calculateQualityScore(skill);
-
-          // 收录门槛：score > 0 即为结构有效的 SKILL.md（score=0 = 无名字/可疑/空内容）
-          if ((skill.qualityScore || 0) <= 0) {
-            process.stdout.write('Q'); // Q = 无效结构
-            return;
-          }
-
-          processedNames.add(skillNameKey); // Claim this name after quality check passes
-          skills.push(skill);
-
-          // Auto-save every 10 newly processed skills
-          if (skills.length % 10 === 0) {
-            console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
-            await saveStateOnly(skills);
-          }
-        } catch (e) {
-          console.error(`\n❌ Error processing ${item.owner}/${item.repo}:`, e);
-        }
-      }),
-    ),
-  );
+        }),
+      ),
+    );
 
     // 2.5 自动发现 GitHub 上新发布的 Skills
     console.log('\n🔎 Auto-discovering new Skills from GitHub...');
@@ -1564,108 +1588,108 @@ async function buildCache(): Promise<void> {
     await Promise.all(
       discoveredSkills.map((item) =>
         limit2(async () => {
-        if (isTimeUp()) return;
-        try {
-          const skillMd = parseSkillMd(item.content);
-          if (!skillMd || !skillMd.name) return;
-          if (
-            getThemeExclusionReason({
+          if (isTimeUp()) return;
+          try {
+            const skillMd = parseSkillMd(item.content);
+            if (!skillMd || !skillMd.name) return;
+            if (
+              getThemeExclusionReason({
+                name: skillMd.name,
+                owner: item.owner,
+                repo: item.repo,
+                body: skillMd.body || skillMd.bodyPreview || '',
+                description: skillMd.description || item.description || '',
+                topics: item.topics || [],
+                category: item.category,
+                filePath: item.filePath,
+              })
+            ) {
+              return;
+            }
+
+            const repoPath = `${item.owner}/${item.repo}`;
+            const skillId = `${repoPath}/${skillMd.name}`;
+
+            if (processedRepos.has(skillId)) return;
+
+            // Apply Filter for discovered skills
+            if (filters.length > 0) {
+              const match = filters.some(
+                (f) =>
+                  skillMd.name.toLowerCase().includes(f) ||
+                  item.repo.toLowerCase().includes(f) ||
+                  item.owner.toLowerCase().includes(f),
+              );
+              if (!match) return;
+            }
+
+            // 快速预验证：如果质量分太低，直接跳过不处理元数据
+            // 构造一个临时对象进行评分
+            const tempSkill: any = {
+              id: skillId,
               name: skillMd.name,
+              description: skillMd.description || item.description || '',
               owner: item.owner,
               repo: item.repo,
-              body: skillMd.body || skillMd.bodyPreview || '',
-              description: skillMd.description || item.description || '',
-              topics: item.topics || [],
-              category: item.category,
+              repoPath: `${item.owner}/${item.repo}`,
               filePath: item.filePath,
-            })
-          ) {
-            return;
+              stars: item.stars || 0,
+              updatedAt: item.updatedAt || new Date().toISOString(),
+              skillMd: skillMd,
+            };
+
+            const strictScore = calculateQualityScore(tempSkill);
+
+            // 严格模式：新发现的技能如果分数低于 20 (was 30)，直接丢弃
+            if (strictScore < 20) {
+              // console.log(`Skipping low quality skill: ${skillId} (Score: ${strictScore})`);
+              return;
+            }
+
+            processedRepos.add(skillId);
+
+            const rawDesc = skillMd.description || item.description || '';
+
+            const currentContentHash = computeHash(item.content || rawDesc || '');
+
+            const metadata = await processMetadata(skillId, rawDesc, {
+              name: skillMd.name,
+              topics: item.topics || [],
+              bodyPreview: skillMd.bodyPreview,
+              category: item.category || 'community',
+            });
+
+            const skill: SkillCache = {
+              id: skillId,
+              name: skillMd.name,
+              description: metadata.description,
+              seo: metadata.seo,
+              agentAnalysis: undefined, // Will be populated in update step
+              owner: item.owner,
+              repo: item.repo,
+              repoPath: `${item.owner}/${item.repo}`,
+              filePath: item.filePath,
+              stars: item.stars || 0,
+              forks: item.forks || 0,
+              updatedAt: item.fetchedAt || item.updatedAt || new Date().toISOString(),
+              topics: item.topics || [],
+              category: 'community',
+              skillMd: skillMd,
+              lastSynced: new Date().toISOString(),
+              contentHash: currentContentHash,
+            };
+
+            skill.category = determineCategory(skill);
+            globalSkillsRef = skills; // Keep reference updated
+
+            // Auto-save every 10 newly discovered skills
+            if (skills.length % 10 === 0) {
+              console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
+              await saveStateOnly(skills);
+            }
+          } catch (e) {
+            console.error(`\n❌ Error processing discovered skill:`, e);
           }
-
-          const repoPath = `${item.owner}/${item.repo}`;
-          const skillId = `${repoPath}/${skillMd.name}`;
-
-          if (processedRepos.has(skillId)) return;
-
-          // Apply Filter for discovered skills
-          if (filters.length > 0) {
-            const match = filters.some(
-              (f) =>
-                skillMd.name.toLowerCase().includes(f) ||
-                item.repo.toLowerCase().includes(f) ||
-                item.owner.toLowerCase().includes(f),
-            );
-            if (!match) return;
-          }
-
-          // 快速预验证：如果质量分太低，直接跳过不处理元数据
-          // 构造一个临时对象进行评分
-          const tempSkill: any = {
-            id: skillId,
-            name: skillMd.name,
-            description: skillMd.description || item.description || '',
-            owner: item.owner,
-            repo: item.repo,
-            repoPath: `${item.owner}/${item.repo}`,
-            filePath: item.filePath,
-            stars: item.stars || 0,
-            updatedAt: item.updatedAt || new Date().toISOString(),
-            skillMd: skillMd,
-          };
-
-          const strictScore = calculateQualityScore(tempSkill);
-
-          // 严格模式：新发现的技能如果分数低于 20 (was 30)，直接丢弃
-          if (strictScore < 20) {
-            // console.log(`Skipping low quality skill: ${skillId} (Score: ${strictScore})`);
-            return;
-          }
-
-          processedRepos.add(skillId);
-
-          const rawDesc = skillMd.description || item.description || '';
-
-          const currentContentHash = computeHash(item.content || rawDesc || '');
-
-          const metadata = await processMetadata(skillId, rawDesc, {
-            name: skillMd.name,
-            topics: item.topics || [],
-            bodyPreview: skillMd.bodyPreview,
-            category: item.category || 'community',
-          });
-
-          const skill: SkillCache = {
-            id: skillId,
-            name: skillMd.name,
-            description: metadata.description,
-            seo: metadata.seo,
-            agentAnalysis: undefined, // Will be populated in update step
-            owner: item.owner,
-            repo: item.repo,
-            repoPath: `${item.owner}/${item.repo}`,
-            filePath: item.filePath,
-            stars: item.stars || 0,
-            forks: item.forks || 0,
-            updatedAt: item.fetchedAt || item.updatedAt || new Date().toISOString(),
-            topics: item.topics || [],
-            category: 'community',
-            skillMd: skillMd,
-            lastSynced: new Date().toISOString(),
-            contentHash: currentContentHash,
-          };
-
-          skill.category = determineCategory(skill);
-          globalSkillsRef = skills; // Keep reference updated
-
-          // Auto-save every 10 newly discovered skills
-          if (skills.length % 10 === 0) {
-            console.log(`\n\n💾 Auto-saving progress (${skills.length} processed)...`);
-            await saveStateOnly(skills);
-          }
-        } catch (e) {
-          console.error(`\n❌ Error processing discovered skill:`, e);
-        }
         }),
       ),
     );
@@ -1774,7 +1798,9 @@ async function buildCache(): Promise<void> {
       return run;
     };
 
-    const configuredConcurrency = Number(process.env.BATCH_SKILL_CONCURRENCY || process.env.AI_CONCURRENCY_LIMIT || '4');
+    const configuredConcurrency = Number(
+      process.env.BATCH_SKILL_CONCURRENCY || process.env.AI_CONCURRENCY_LIMIT || '4',
+    );
     const CONCURRENCY = Number.isFinite(configuredConcurrency) ? Math.max(1, configuredConcurrency) : 4;
     const limit = pLimit(CONCURRENCY);
 
@@ -1890,9 +1916,7 @@ async function buildCache(): Promise<void> {
             if (!isSkillFullyOptimized(skill)) {
               const issueCodes = collectOptimizationIssues(skill).map((issue) => issue.code);
               if (process.env.AI_DEBUG_METADATA === '1') {
-                console.warn(
-                  `[SEO Gate] ${skill.id} failed with issues: ${issueCodes.join(', ') || 'unknown'}`,
-                );
+                console.warn(`[SEO Gate] ${skill.id} failed with issues: ${issueCodes.join(', ') || 'unknown'}`);
                 console.warn(
                   `[SEO Gate] title=${JSON.stringify(skill.seo?.title?.en || '')} keywords=${JSON.stringify(skill.seo?.keywords?.en || [])}`,
                 );
@@ -1991,7 +2015,7 @@ async function finalizeAndSave(skills: SkillCache[]): Promise<void> {
   }
 
   const cleanedSkills = Array.from(idMap.values()).sort((a, b) => (b.qualityScore || 0) - (a.qualityScore || 0));
-  const normalizedSkills = cleanedSkills.map(ensureSkillMdContent);
+  const normalizedSkills = cleanedSkills.map((skill) => toPublicSkillCache(ensureSkillMdContent(skill)));
   console.log(`   → Removed ${beforeCount - cleanedSkills.length} low-quality/duplicate skills`);
   console.log(`   → Final count: ${normalizedSkills.length}`);
 
@@ -2090,7 +2114,9 @@ async function saveStateOnly(skills: SkillCache[], runtimeStatus: 'running' | 'p
 
   // allSkillsMap is already deduped by ID — no secondary dedup needed.
   // Each skill has a unique ID; name collisions across repos are intentional (different pages).
-  const uniqueSkills = Array.from(allSkillsMap.values()).map(ensureSkillMdContent);
+  const uniqueSkills = Array.from(allSkillsMap.values()).map((skill) =>
+    toPublicSkillCache(ensureSkillMdContent(skill)),
+  );
 
   const cacheData: CacheData = {
     version: 1,
@@ -2113,7 +2139,6 @@ async function saveStateOnly(skills: SkillCache[], runtimeStatus: 'running' | 'p
 // Quality assessment and report generation extracted to:
 // - ./lib/skill-quality.ts    (isSkillFullyOptimized, collectOptimizationIssues, etc.)
 // - ./lib/regeneration-report.ts (writeRegenerationBaselineReport)
-
 
 // Global reference for SIGINT handler
 let globalSkillsRef: SkillCache[] = [];

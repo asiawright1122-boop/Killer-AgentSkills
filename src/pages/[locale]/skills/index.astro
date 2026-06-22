@@ -9,7 +9,11 @@ import { SUPPORTED_LOCALES, loadMessages, translateOr, useTranslations, type Loc
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import { getCategoryLabel, getCategorySeoDescription, normalizeCategoryId } from '../../../lib/category-taxonomy';
 import { OFFICIAL_REPOS, FEATURED_SCORE_THRESHOLD } from '../../../lib/skills-config';
-import { getLightweightSkillsPage, getLightweightSkillsTop, type UnifiedSkill } from '../../../lib/skills';
+import {
+  getLightweightSkillsPage,
+  getLightweightSkillsTop,
+  type UnifiedSkill,
+} from '../../../lib/public-skill-catalog';
 import { getAuthoritySurfaceEntries } from '../../../lib/authority-surfaces';
 import { resolveQueryIntent } from '../../../lib/query-intent';
 import { buildKeywordString, getCategoryKeywordClusters, getIntentKeywordClusters } from '../../../lib/seo-keywords';

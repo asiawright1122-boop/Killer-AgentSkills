@@ -186,8 +186,8 @@
       "ar": "تم التحديث في 2026-04-16 للحفاظ على دقة معلومات الإعداد والحالات العملية وحالة الصيانة."
     },
     "selectionReason": {
-      "en": "Every tool listed in this collection has been verified against our standard quality checklist. We prioritize official support, setup ease, and active developer maintenance to ensure these skills work reliably for your AI agent teams.",
-      "zh": "本合集收录的每款工具均通过了我们的标准质量清单验证。我们优先考量官方支持度、安装配置的便捷性以及活跃的开发者维护状态，以确保这些技能能够在您的 AI Agent 团队中稳定可靠地运行。",
+      "en": "We list tools when ownership is clear, setup docs are public, maintenance is visible, and the tool helps with a concrete first task. This keeps the collection focused on official sources and trusted ecosystem builders rather than broad popularity alone.",
+      "zh": "本合集优先收录归属清晰、安装文档公开、维护状态可见，并且能服务具体首个任务的工具。这样可以把注意力放在官方来源和可信生态构建者上，而不是只看宽泛热度。",
       "ja": "このコレクションに記載されているすべてのツールは、当社の標準品質基準に対して検証されています。公式サポート、設定の容易さ、そしてアクティブな開発者によるメンテナンスを優先して、AI エージェント チームでの信頼性の高い動作を保証します。",
       "ko": "이 컬렉션에 나열된 모든 도구는 우리의 표준 품질 기준에 따라 검증되었습니다. 공식 지원, 설정의 용이성, 및 활발한 개발자 유지 보수를 우선하여 이러한 기술이 귀하의 AI 에이전트 팀에서 안정적으로 작동하도록 합니다.",
       "es": "Cada herramienta incluida en esta colección ha sido verificada según nuestra lista de comprobación de calidad estándar. Priorizamos el soporte oficial, la facilidad de configuración y el mantenimiento activo de los desarrolladores para garantizar que estas habilidades funcionen de manera fiable para tus equipos de agentes de inteligencia artificial.",
@@ -199,14 +199,14 @@
     },
     "trustSignals": {
       "en": [
-        "Entries are maintained by official product teams or widely trusted ecosystem builders.",
-        "Documentation and install paths are public, active, and easy to evaluate before adoption.",
-        "Selection favors practical deployment value over generic GitHub popularity."
+        "Ownership is clear from the maintainer, product team, or ecosystem project behind the tool.",
+        "Setup docs, install commands, or IDE behavior can be inspected before a team adds the tool.",
+        "Entries stay here because they improve a real starting stack, not because they are simply popular."
       ],
       "zh": [
-        "入选项目由官方产品团队或高可信生态团队维护。",
-        "文档与安装路径公开、活跃，足以支撑真实的团队使用。",
-        "筛选优先考虑实际部署价值，而不是宽泛的 GitHub 热度。"
+        "维护主体、产品团队或生态项目归属清晰可见。",
+        "团队安装之前，可以先看到安装文档、安装命令或 IDE 行为说明。",
+        "条目留在这里，是因为它们能改善真实起步栈，而不是只因为热度高。"
       ]
     },
     "maintenance": {
@@ -220,8 +220,8 @@
         "zh": "由 Killer-Skills 定期更新，持续检查安装文档、维护活跃度与实际可用性。"
       },
       "verification": {
-        "en": "Validate ownership, doc freshness, install instructions, and workflow relevance before keeping or adding an entry.",
-        "zh": "覆盖归属信息、文档新鲜度、安装说明与实际工作流相关性。"
+        "en": "Check ownership, doc freshness, install instructions, and workflow relevance before keeping or adding an entry.",
+        "zh": "保留或新增条目前，检查归属信息、文档新鲜度、安装说明与实际工作流相关性。"
       }
     },
     "nextSteps": [
@@ -232,8 +232,8 @@
           "zh": "第 1 步：打开安装文档"
         },
         "description": {
-          "en": "Start with the setup guide and try the first install path before opening more options.",
-          "zh": "先看安装说明并跑通第一条安装路径，再决定是否继续比较更多选项。"
+          "en": "Use the guide to compare commands, target files, and setup expectations before picking the first tool.",
+          "zh": "先用指南比较命令、目标文件和配置预期，再选择第一个工具。"
         }
       },
       {
@@ -243,8 +243,8 @@
           "zh": "第 2 步：确认 CLI 写入与同步行为"
         },
         "description": {
-          "en": "Check what the CLI writes, how sync works, and what to confirm after setup.",
-          "zh": "确认 CLI 会写入哪些内容、如何同步，以及安装后需要检查什么。"
+          "en": "See how the CLI detects editors, writes config, syncs skills, and lists active skills after setup.",
+          "zh": "查看 CLI 如何识别编辑器、写入配置、同步技能，并在安装后列出当前技能。"
         }
       },
       {
@@ -254,45 +254,45 @@
           "zh": "第 3 步：比较相近选项"
         },
         "description": {
-          "en": "If you are still deciding, compare official or related collections to see which option fits your workflow best.",
-          "zh": "如果还在犹豫，可以再看看官方或相关合集，确认哪种选择更适合当前工作流。"
+          "en": "Use the workflow guide when the official starting stack needs a concrete task lane.",
+          "zh": "当官方起步栈需要进入具体任务链路时，可以继续查看工作流指南。"
         }
       }
     ],
     "groupingLogic": {
       "en": [
-        "Lead with official tools and ecosystem anchors that make ownership and documentation easy to confirm.",
-        "Keep the shortlist compact enough to compare quickly, but broad enough to cover install, orchestration, observability, and workflow automation.",
-        "Route discovery into one installation path before expanding into broader workflow collections."
+        "Lead with official tools and ecosystem anchors whose ownership, docs, and install path are easy to confirm.",
+        "Keep the shortlist compact enough to compare install fit, team use cases, observability, and automation in one pass.",
+        "Start from one setup path, then move into broader workflow collections after the first tool works."
       ],
       "zh": [
-        "优先收录归属与文档都清楚的官方工具和生态锚点。",
-        "列表保持足够精简，方便快速比较，同时覆盖安装、编排、可观测性与工作流自动化。",
-        "先从统一安装路径开始，再继续扩展到更广的工作流合集。"
+        "优先收录归属、文档和安装路径都容易确认的官方工具与生态锚点。",
+        "列表保持精简，便于一次比较安装适配、团队用途、可观测性和自动化能力。",
+        "先从一条配置路径开始，第一个工具跑通后再进入更广的工作流合集。"
       ]
     },
     "executionExamples": [
       {
         "title": {
-          "en": "Build a official trusted stack",
+          "en": "Build an official trusted stack",
           "zh": "搭建一套可信的起步技能栈"
         },
         "summary": {
-          "en": "Use this collection when you need the safest first install before expanding into community or niche tools.",
-          "zh": "如果你现在最需要的是一条低风险的首装路径，而不是继续在社区仓库里分散比较，就先用这个合集。"
+          "en": "Use this collection when the safest first install matters more than another open-ended repository comparison.",
+          "zh": "如果最重要的是先完成一次低风险安装，而不是继续分散比较更多仓库，就先用这个合集。"
         },
         "steps": {
           "en": [
-            "Open the installation docs from this page before opening more repositories.",
-            "Pick one official or trusted tool that matches the immediate job to be done.",
-            "Run the install command and verify the IDE-native file path.",
-            "Only after the install path works, expand into broader workflow collections."
+            "Open the installation docs from this page before comparing more repositories.",
+            "Pick one official or trusted tool that matches the first task.",
+            "Run the install command and confirm the IDE-native file path.",
+            "After the install path works, compare broader workflow collections."
           ],
           "zh": [
-            "先从这个页面进入安装文档，而不是继续打开更多仓库。",
-            "选择一个与你当前任务最匹配的官方或可信工具。",
-            "执行安装命令，并检查 IDE 原生文件是否写入正确路径。",
-            "只有在安装路径跑通后，再扩展到更广的工作流合集。"
+            "先从这个页面进入安装文档，再决定是否比较更多仓库。",
+            "选择一个与你第一个任务最匹配的官方或可信工具。",
+            "执行安装命令，并确认 IDE 原生文件是否写入正确路径。",
+            "等安装路径跑通后，再比较更广的工作流合集。"
           ]
         }
       },
@@ -302,15 +302,15 @@
           "zh": "把团队候选栈先筛选"
         },
         "summary": {
-          "en": "Use the collection as a curated shortlist when deciding which tools are safe enough for a shared developer workflow.",
-          "zh": "当你要为团队共用工作流筛选足够稳妥的工具时，可以把这个合集当成更省时间的参考起点。"
+          "en": "Use the collection as a short team list when tools need clear ownership, setup docs, and a real role in shared development.",
+          "zh": "当团队需要归属清晰、有安装文档，并且能进入真实协作任务的工具时，可以先用这个短名单。"
         },
         "steps": {
           "en": [
             "Check who maintains the tool and whether the install docs are still current.",
             "Use the CLI overview to confirm write behavior and sync expectations.",
             "Map the tool into an agent workflow only after installation works.",
-            "Document the chosen stack as the team's default starting point."
+            "Document the chosen tools as the team's default starting point."
           ],
           "zh": [
             "先确认工具由谁维护，以及安装文档是否仍然有效。",
@@ -326,8 +326,8 @@
           "zh": "官方 CLI 安装与配置指南"
         },
         "summary": {
-          "en": "Use our zero-dependency CLI to deploy official skills. This configures schema mappings and sets up correct file permissions.",
-          "zh": "通过我们的零依赖 CLI 来部署官方技能。这能自动设置配置 mapping 关系并写入正确的文件权限。"
+          "en": "Use the zero-dependency CLI path when the team wants a repeatable setup command for official or trusted skills.",
+          "zh": "当团队需要用一条可重复命令安装官方或可信技能时，可以使用零依赖 CLI 路径。"
         },
         "steps": {
           "en": [
@@ -340,7 +340,7 @@
             "确认官方仓库的名称（例如 'cloudflare/skills'）。",
             "执行安装指令：'npx killer-skills add cloudflare/skills'。",
             "CLI 会自动判定你的开发环境并写入规则文件。",
-            "通过 'npx killer-skills list' 确认当前生效 of 技能列表。"
+            "通过 'npx killer-skills list' 确认当前生效的技能列表。"
           ]
         }
       }
@@ -389,8 +389,8 @@
           "zh": "补齐可信的团队成员护栏"
         },
         "summary": {
-          "en": "Choose this lane when the tool itself matters less than the team practices around it. The goal is to clarify review, context, and execution habits before you use it more broadly across the team.",
-          "zh": "如果现在更重要的不是单个工具本身，而是围绕它的操作护栏，就先走这条轨道。目标是在更大范围使用之前，先把评审、上下文和执行纪律稳住。"
+          "en": "Choose this lane when the tool itself matters less than the team practices around it. The goal is to make quality, context, and security expectations visible before more people depend on it.",
+          "zh": "如果现在更重要的不是单个工具本身，而是围绕它的团队做法，就先走这条轨道。目标是在更多人依赖它之前，先把评审、上下文和安全预期讲清楚。"
         },
         "whenToUse": {
           "en": "Use it when installs keep working technically, but quality, ownership, or team confidence can still drift between projects.",
@@ -398,8 +398,8 @@
         },
         "checkpoints": {
           "en": [
-            "The team can see what context, review rules, and security checks surround the install.",
-            "Teams know which tool governs review, orchestration, and failure boundaries.",
+            "The team can see what context, quality rules, and security checks surround the install.",
+            "Teams know which tool governs quality work, orchestration, and failure boundaries.",
             "The stack is clear enough to survive more than one contributor or repo."
           ],
           "zh": [
@@ -416,8 +416,8 @@
         ],
         "nextStepHref": "/{locale}/docs/cli/overview",
         "nextStepLabel": {
-          "en": "Review CLI and setup behavior",
-          "zh": "确认 CLI 与团队成员行为"
+          "en": "Check CLI and setup behavior",
+          "zh": "确认 CLI 与配置行为"
         }
       },
       {
@@ -460,8 +460,8 @@
     ]
   },
   "longDescription": {
-    "en": "If you only need one reliable place to start, begin with this collection. It focuses on official AI agent skills and trusted tools maintained by official teams or established ecosystem builders (such as Sentry, Cloudflare, Vercel, and Anthropics). This collection provides clear setup guidance, detailed permission checks, and practical use cases (e.g. running 'npx killer-skills add cloudflare/skills' or 'npx killer-skills add getsentry/skills'). It is designed to help developer teams build a safe baseline stack without falling into the trap of low-quality aggregate list lookup.",
-    "zh": "如果你现在只需要一个最稳妥的起步方案，建议优先参考本合集。本合集专为希望使用官方与高信任度生态的开发团队打造，重点收录了由 Anthropic、Sentry、Cloudflare、Vercel 等官方团队直接维护的可信工具。合集内为每一项工具提供了明确的一手点评与极简安装指南（例如通过执行 'npx killer-skills add cloudflare/skills' 或 'npx killer-skills add getsentry/skills' 来快速注册）。这能帮助团队在导入大体量社区代码前，先建立可信的安全基线，规避低质聚合和冗余比较。",
+    "en": "If you only need one reliable place to start, begin with this collection. It focuses on official AI agent skills and trusted tools from first-party teams or established ecosystem builders such as Sentry, Cloudflare, Vercel, and Anthropic. The page surfaces ownership, setup docs, CLI examples, and practical use cases before the repository list, so teams can pick a low-risk first install and then move into workflow guidance.",
+    "zh": "如果你现在只需要一个稳妥起点，可以先看这个合集。它聚焦由官方团队或成熟生态构建者维护的 AI Agent Skills 与可信工具，例如 Sentry、Cloudflare、Vercel 和 Anthropic。页面会先展示归属、安装文档、CLI 示例和实际用途，再进入仓库列表，帮助团队先选出一条低风险安装路径，再继续查看工作流指引。",
     "ja": "このコレクションは、ファーストパーティーチームと信頼できるエコシステムが継続的に保守する公式AIスキルとツールに焦点を当てています。安定した品質、明確なドキュメント、本番導入しやすい連携経路を必要とするチーム向けです。MCPは互換基盤として活用できますが、優先すべきは、実際の開発と提供を加速する実用的なスキルとツールです。",
     "ko": "이 컬렉션은 퍼스트파티 팀과 신뢰할 수 있는 생태계 빌더가 지속적으로 유지보수하는 공식 AI 스킬과 도구에 초점을 맞춥니다. 예측 가능한 품질, 명확한 문서, 프로덕션 적용 가능한 통합 경로가 필요한 팀을 위해 구성되었습니다. MCP는 호환성 인프라로 활용될 수 있지만, 우선순위는 실제 전달 속도와 안정성을 높여 주는 실용적인 스킬과 도구입니다.",
     "es": "Esta colección destaca skills oficiales de IA y herramientas confiables mantenidas por equipos oficiales y actores sólidos del ecosistema. Está pensada para equipos que necesitan calidad predecible, documentación clara e integraciones listas para producción. MCP puede aportar como capa de compatibilidad, pero la prioridad son skills y herramientas prácticas para entregar productos de IA con mayor velocidad y confianza.",

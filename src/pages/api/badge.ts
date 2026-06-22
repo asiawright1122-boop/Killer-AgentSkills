@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../lib/kv';
-import { getAllSkills } from '../../lib/skills';
+import { withPublicApiHeaders } from '../../lib/public-skill-api';
+import { getAllSkills } from '../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
 export const prerender = false;
@@ -34,6 +35,11 @@ function simpleBadge(label: string, value: string, color: string): string {
  */
 export const GET: APIRoute = async ({ locals, url }) => {
   const type = url.searchParams.get('type') || 'skills';
+  const headers = withPublicApiHeaders({
+    'Content-Type': 'image/svg+xml',
+    'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
+    'Access-Control-Allow-Origin': '*',
+  });
 
   try {
     const env = await getRuntimeEnv<Env>(locals);
@@ -58,22 +64,14 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
     return new Response(svg, {
       status: 200,
-      headers: {
-        'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers,
     });
   } catch {
     // Fallback badge without dynamic count
     const svg = simpleBadge('skills on', '3,400+', '#06b6d4');
     return new Response(svg, {
       status: 200,
-      headers: {
-        'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200',
-        'Access-Control-Allow-Origin': '*',
-      },
+      headers,
     });
   }
 };

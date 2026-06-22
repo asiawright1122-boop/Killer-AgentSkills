@@ -3,12 +3,13 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { createHash } from 'node:crypto';
-import 'dotenv/config';
 import * as dotenv from 'dotenv';
 import { KV_NAMESPACE_ID } from './lib/constants';
+import { sanitizePublicAIOutputValue } from '../src/lib/public-ai-output';
 
+dotenv.config({ quiet: true });
 if (fs.existsSync('.env.local')) {
-  dotenv.config({ path: '.env.local' });
+  dotenv.config({ path: '.env.local', quiet: true });
 }
 
 // Environment Config
@@ -40,7 +41,7 @@ function byteLength(value: string): number {
 const MAX_STATEMENT_BYTES = 180_000;
 
 export function shrinkSkillForSql(skill: any): { json: string; reduced: boolean } {
-  const copy = cloneSkill(skill) as Record<string, any>;
+  const copy = cloneSkill(sanitizePublicAIOutputValue(skill)) as Record<string, any>;
   let reduced = false;
 
   const reducers: Array<() => void> = [
@@ -92,8 +93,7 @@ export function shrinkSkillForSql(skill: any): { json: string; reduced: boolean 
   return { json: rawJson, reduced };
 }
 
-export function normalizeContentHash(skill: any, json: string): string {
-  if (skill.contentHash && skill.contentHash.trim().length > 0) return skill.contentHash;
+export function normalizeContentHash(_skill: any, json: string): string {
   return createHash('sha256').update(json).digest('hex').slice(0, 32);
 }
 

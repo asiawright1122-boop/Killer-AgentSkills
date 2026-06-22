@@ -12,6 +12,11 @@ import { WorkflowEntrypoint, type WorkflowStep, type WorkflowEvent } from 'cloud
 import { WorkerAiRuntime, type WorkerAiRuntimeEnv } from './lib/ai-runtime';
 import { isValidAgentSkill } from './lib/validation';
 import { SUPPORTED_LOCALES } from '../config/locales.mjs';
+import {
+  appendNoHiddenReasoningInstruction,
+  sanitizePublicAIOutput,
+  sanitizePublicAIOutputValue,
+} from '../src/lib/public-ai-output';
 
 // ===== Types =====
 
@@ -89,7 +94,7 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
     }
 
     // Step 2: 获取 SKILL.md 内容
-    const skillMd = await step.do(
+    const rawSkillMd = await step.do(
       'fetch-skill-md',
       { retries: { limit: 2, delay: '3 second' }, timeout: '30 seconds' },
       async () => {
@@ -97,9 +102,11 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
       },
     );
 
-    if (!skillMd) {
+    if (!rawSkillMd) {
       throw new Error(`Failed to fetch SKILL.md for ${cacheKey}`);
     }
+
+    const skillMd = sanitizePublicAIOutputValue(rawSkillMd) as SkillMdContent;
 
     // Step 3: 验证内容质量 (防止垃圾 Skill 进入缓存)
     const validation = this.validateSkill(skillMd, owner, repo);
@@ -302,7 +309,19 @@ export class ContentProcessingWorkflow extends WorkflowEntrypoint<Env> {
     qualityReason?: string;
   }> {
     if (!description || description.length < 10) {
-      return { definition: description || '', features: [], keywords: [], title: name, description: description || '' };
+      return sanitizePublicAIOutputValue({
+        definition: description || '',
+        features: [],
+        keywords: [],
+        title: name,
+        description: description || '',
+      }) as {
+        definition: string;
+        features: string[];
+        keywords: string[];
+        title: string;
+        description: string;
+      };
     }
 
     const prompt = `You are a Senior Technical SEO Specialist & Developer Advocate specializing in AI developer tools.
@@ -346,7 +365,7 @@ Only output the JSON, nothing else.`;
       if (seoTitle.length > 60) seoTitle = seoTitle.slice(0, 57) + '...';
       let seoDescription = parsed.description || description;
       if (seoDescription.length > 160) seoDescription = seoDescription.slice(0, 157) + '...';
-      return {
+      return sanitizePublicAIOutputValue({
         definition: parsed.definition || description,
         features: parsed.features || [],
         keywords: parsed.keywords || [],
@@ -354,10 +373,30 @@ Only output the JSON, nothing else.`;
         description: seoDescription,
         qualityScore: typeof parsed.qualityScore === 'number' ? parsed.qualityScore : undefined,
         qualityReason: parsed.qualityReason || undefined,
+      }) as {
+        definition: string;
+        features: string[];
+        keywords: string[];
+        title: string;
+        description: string;
+        qualityScore?: number;
+        qualityReason?: string;
       };
     } catch {
       // 如果 AI 失败，使用原始描述
-      return { definition: description, features: [], keywords: [], title: name, description };
+      return sanitizePublicAIOutputValue({
+        definition: description,
+        features: [],
+        keywords: [],
+        title: name,
+        description,
+      }) as {
+        definition: string;
+        features: string[];
+        keywords: string[];
+        title: string;
+        description: string;
+      };
     }
   }
 
@@ -425,7 +464,7 @@ Make answers detailed but concise (2-3 sentences each). Do not include generic i
       // 提取 JSON 部分
       const jsonMatch = result.match(/\[[\s\S]*\]/);
       if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]);
+        return sanitizePublicAIOutputValue(JSON.parse(jsonMatch[0])) as Array<{ question: string; answer: string }>;
       }
       return [];
     } catch {
@@ -451,11 +490,11 @@ ${JSON.stringify(faq, null, 2)}`;
       const result = await this.callAI(prompt);
       const jsonMatch = result.match(/\[[\s\S]*\]/);
       if (jsonMatch) {
-        return JSON.parse(jsonMatch[0]);
+        return sanitizePublicAIOutputValue(JSON.parse(jsonMatch[0])) as Array<{ question: string; answer: string }>;
       }
-      return faq;
+      return sanitizePublicAIOutputValue(faq) as Array<{ question: string; answer: string }>;
     } catch {
-      return faq;
+      return sanitizePublicAIOutputValue(faq) as Array<{ question: string; answer: string }>;
     }
   }
 
@@ -493,12 +532,12 @@ Return JSON ONLY:
       const jsonMatch = result.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
         const parsed = JSON.parse(jsonMatch[0]);
-        return {
+        return sanitizePublicAIOutputValue({
           suitability: parsed.suitability || 'Suitable for general AI agents.',
           recommendation: parsed.recommendation || '',
           useCases: Array.isArray(parsed.useCases) ? parsed.useCases : [],
           limitations: Array.isArray(parsed.limitations) ? parsed.limitations : [],
-        };
+        }) as { suitability: string; recommendation: string; useCases: string[]; limitations: string[] };
       }
     } catch (e) {
       console.error('Failed to generate agent analysis', e);
@@ -516,10 +555,10 @@ Return JSON ONLY:
     if (!raw) return undefined;
 
     const result: ProcessedContent['agentAnalysis'] = {
-      suitability: { en: raw.suitability } as Record<string, string>,
-      recommendation: { en: raw.recommendation } as Record<string, string>,
-      useCases: { en: raw.useCases } as Record<string, string[]>,
-      limitations: { en: raw.limitations } as Record<string, string[]>,
+      suitability: { en: sanitizePublicAIOutput(raw.suitability) } as Record<string, string>,
+      recommendation: { en: sanitizePublicAIOutput(raw.recommendation) } as Record<string, string>,
+      useCases: { en: raw.useCases.map(sanitizePublicAIOutput) } as Record<string, string[]>,
+      limitations: { en: raw.limitations.map(sanitizePublicAIOutput) } as Record<string, string[]>,
     };
 
     for (const locale of SUPPORTED_LOCALES) {
@@ -529,7 +568,7 @@ Return JSON ONLY:
         // Translate suitability (short text)
         if (raw.suitability) {
           (result.suitability as Record<string, string>)[locale] = await this.translateText(
-            raw.suitability,
+            sanitizePublicAIOutput(raw.suitability),
             locale,
             'text',
           );
@@ -538,7 +577,7 @@ Return JSON ONLY:
         // Translate recommendation (paragraph)
         if (raw.recommendation) {
           (result.recommendation as Record<string, string>)[locale] = await this.translateText(
-            raw.recommendation,
+            sanitizePublicAIOutput(raw.recommendation),
             locale,
             'text',
           );
@@ -546,14 +585,14 @@ Return JSON ONLY:
 
         // Translate useCases (array of short phrases)
         if (raw.useCases.length > 0) {
-          const useCasesText = raw.useCases.join('\n');
+          const useCasesText = raw.useCases.map(sanitizePublicAIOutput).join('\n');
           const translated = await this.translateText(useCasesText, locale, 'text');
           (result.useCases as Record<string, string[]>)[locale] = translated.split('\n').filter(Boolean);
         }
 
         // Translate limitations (array of short phrases)
         if (raw.limitations.length > 0) {
-          const limitationsText = raw.limitations.join('\n');
+          const limitationsText = raw.limitations.map(sanitizePublicAIOutput).join('\n');
           const translated = await this.translateText(limitationsText, locale, 'text');
           (result.limitations as Record<string, string[]>)[locale] = translated.split('\n').filter(Boolean);
         }
@@ -563,7 +602,7 @@ Return JSON ONLY:
       }
     }
 
-    return result;
+    return sanitizePublicAIOutputValue(result) as ProcessedContent['agentAnalysis'];
   }
 
   /**
@@ -675,7 +714,17 @@ Return JSON ONLY:
       }
     }
 
-    return result;
+    return sanitizePublicAIOutputValue(result) as {
+      seo: {
+        definition: Record<string, string>;
+        features: Record<string, string[]>;
+        keywords: Record<string, string[]>;
+        title: Record<string, string>;
+        description: Record<string, string>;
+      };
+      description: Record<string, string>;
+      body: Record<string, string>;
+    };
   }
 
   /**
@@ -688,7 +737,7 @@ Return JSON ONLY:
         ? `Translate the following Markdown content into ${langName}. Keep ALL Markdown formatting intact. Do NOT translate code blocks. Output ONLY the translated Markdown.\n\n${text}`
         : `Translate the following text into ${langName}. Output ONLY the translated text.\n\n${text}`;
 
-    return await this.callAI(prompt);
+    return sanitizePublicAIOutput(await this.callAI(prompt));
   }
 
   /**
@@ -696,11 +745,11 @@ Return JSON ONLY:
    */
   private async callAI(prompt: string): Promise<string> {
     const result = await this.getAiRuntime().callText(this.env, {
-      userPrompt: prompt,
+      userPrompt: appendNoHiddenReasoningInstruction(prompt),
       maxTokens: 4096,
       temperature: 0.2,
     });
-    return result.text;
+    return sanitizePublicAIOutput(result.text);
   }
 
   private getAiRuntime(): WorkerAiRuntime<Env> {
