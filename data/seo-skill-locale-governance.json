@@ -1,36 +1,36 @@
 {
-  "generatedAt": "2026-06-21T14:51:43.927Z",
+  "generatedAt": "2026-06-22T05:57:03.480Z",
   "summary": {
-    "totalSkills": 7866,
-    "totalLocaleVariants": 78660,
-    "metadataEligibleVariants": 10947,
-    "eligibleVariants": 7179,
-    "suppressedMetadataVariants": 3768,
-    "skillsWithSuppressedMetadata": 1064,
+    "totalSkills": 7890,
+    "totalLocaleVariants": 78900,
+    "metadataEligibleVariants": 10972,
+    "eligibleVariants": 7201,
+    "suppressedMetadataVariants": 3771,
+    "skillsWithSuppressedMetadata": 1067,
     "canonicalLocaleCounts": {
-      "en": 7151,
+      "en": 7173,
       "zh": 303,
       "pt": 31,
       "de": 13,
       "ja": 161,
-      "ko": 110,
+      "ko": 112,
       "ru": 46,
       "fr": 18,
       "es": 33
     },
     "detectedBodyLocaleCounts": {
-      "en": 7151,
+      "en": 7173,
       "zh": 303,
       "pt": 31,
       "de": 13,
       "ja": 161,
-      "ko": 110,
+      "ko": 112,
       "ru": 46,
       "fr": 18,
       "es": 33
     },
     "eligibleLocaleCounts": {
-      "en": 7151,
+      "en": 7173,
       "zh": 12,
       "pt": 1,
       "de": 2,
@@ -48,8 +48,8 @@
       "de": 336,
       "pt": 334,
       "ru": 334,
-      "ar": 357,
-      "en": 715
+      "ar": 358,
+      "en": 717
     }
   },
   "skills": [
@@ -2108,7 +2108,7 @@
       "owner": "bug-ops",
       "repo": "zeph",
       "routePath": "zeph/github",
-      "updatedAt": "2026-06-21T14:46:19.941Z",
+      "updatedAt": "2026-06-22T05:49:47.693Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -3953,7 +3953,7 @@
       "owner": "eannnnnn",
       "repo": "taptik-labs",
       "routePath": "taptik-labs/gh",
-      "updatedAt": "2026-06-21T14:46:19.950Z",
+      "updatedAt": "2026-06-22T05:49:47.702Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -8791,7 +8791,7 @@
       "owner": "NextronSystems",
       "repo": "thor-skill",
       "routePath": "thor-skill/thor-skills",
-      "updatedAt": "2026-06-21T14:46:19.938Z",
+      "updatedAt": "2026-06-22T05:49:47.690Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -9283,7 +9283,7 @@
       "owner": "openwork-hackathon",
       "repo": "team-sentinel",
       "routePath": "team-sentinel/clawathon",
-      "updatedAt": "2026-06-21T14:46:19.921Z",
+      "updatedAt": "2026-06-22T05:49:47.673Z",
       "metadataEligibleLocales": [
         "en",
         "zh",
@@ -14724,7 +14724,7 @@
       "owner": "aAAaqwq",
       "repo": "AGI-Super-Team",
       "routePath": "AGI-Super-Team/github-automation",
-      "updatedAt": "2026-06-21T14:46:19.942Z",
+      "updatedAt": "2026-06-22T05:49:47.694Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -14878,7 +14878,7 @@
       "owner": "addozhang",
       "repo": "openclaw-forge",
       "routePath": "openclaw-forge/research-prep",
-      "updatedAt": "2026-06-21T14:46:19.943Z",
+      "updatedAt": "2026-06-22T05:49:47.695Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -15023,6 +15023,28 @@
       ],
       "canonicalLocale": "zh",
       "detectedBodyLocale": "zh",
+      "suppressedMetadataLocales": [
+        "en"
+      ]
+    },
+    {
+      "id": "ai-native-camp/camp-2/day1-onboarding",
+      "owner": "ai-native-camp",
+      "repo": "camp-2",
+      "routePath": "camp-2/day1-onboarding",
+      "updatedAt": "2026-05-31T21:37:14Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "ko"
+      ],
+      "eligibleLocales": [],
+      "publishedLocales": [
+        "ko"
+      ],
+      "canonicalLocale": "ko",
+      "detectedBodyLocale": "ko",
       "suppressedMetadataLocales": [
         "en"
       ]
@@ -20151,7 +20173,7 @@
       "owner": "hongyangAndroid",
       "repo": "blog_ai",
       "routePath": "blog_ai/github-repo-search",
-      "updatedAt": "2026-06-21T14:46:19.946Z",
+      "updatedAt": "2026-06-22T05:49:47.698Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -20372,6 +20394,28 @@
       "repo": "yeon",
       "routePath": "yeon/clarify",
       "updatedAt": "2026-04-13T19:08:12Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "ko"
+      ],
+      "eligibleLocales": [],
+      "publishedLocales": [
+        "ko"
+      ],
+      "canonicalLocale": "ko",
+      "detectedBodyLocale": "ko",
+      "suppressedMetadataLocales": [
+        "en"
+      ]
+    },
+    {
+      "id": "hyoguoo/payment-platform/workflow-discuss",
+      "owner": "hyoguoo",
+      "repo": "payment-platform",
+      "routePath": "payment-platform/workflow-discuss",
+      "updatedAt": "2026-06-21T20:19:14Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -21696,6 +21740,31 @@
       ]
     },
     {
+      "id": "kortix-ai/suna/testing",
+      "owner": "kortix-ai",
+      "repo": "suna",
+      "routePath": "suna/testing",
+      "updatedAt": "2026-06-22T05:41:26Z",
+      "metadataEligibleLocales": [
+        "en",
+        "ar"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": [
+        "ar"
+      ]
+    },
+    {
       "id": "Kotaro7750/epgstation-recommender/README update skill",
       "owner": "Kotaro7750",
       "repo": "epgstation-recommender",
@@ -22941,7 +23010,7 @@
       "owner": "majiayu000",
       "repo": "claude-arsenal",
       "routePath": "claude-arsenal/github-trending",
-      "updatedAt": "2026-06-21T14:46:19.943Z",
+      "updatedAt": "2026-06-22T05:49:47.695Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -29147,7 +29216,7 @@
       "owner": "yangliu2060",
       "repo": "clawdchat-analysis",
       "routePath": "clawdchat-analysis/clawdchat",
-      "updatedAt": "2026-06-21T14:46:19.932Z",
+      "updatedAt": "2026-06-22T05:49:47.684Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -31035,6 +31104,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "9thLevelSoftware/Daem0n-MCP/summon-daem0n",
+      "owner": "9thLevelSoftware",
+      "repo": "Daem0n-MCP",
+      "routePath": "Daem0n-MCP/summon-daem0n",
+      "updatedAt": "2026-06-08T14:22:59Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "9tykeshav/mern-ninja-cc/code-reviewer",
       "owner": "9tykeshav",
       "repo": "mern-ninja-cc",
@@ -32712,6 +32803,28 @@
       "repo": "act-global-infrastructure",
       "routePath": "act-global-infrastructure/dev",
       "updatedAt": "2026-03-12T01:55:36.094Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "adam-s/api-interceptor/instruction-dashboard-tuning",
+      "owner": "adam-s",
+      "repo": "api-interceptor",
+      "routePath": "api-interceptor/instruction-dashboard-tuning",
+      "updatedAt": "2026-06-21T15:17:51Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -43073,7 +43186,7 @@
       "owner": "alexmond",
       "repo": "jhelm",
       "routePath": "jhelm/learn",
-      "updatedAt": "2026-06-21T00:08:38Z",
+      "updatedAt": "2026-06-22T05:27:10Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -45252,6 +45365,28 @@
       "repo": "patient-care-api",
       "routePath": "patient-care-api/pickup-task",
       "updatedAt": "2026-06-06T22:57:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "aniftyco/kubit/kubit-eliciting-spec",
+      "owner": "aniftyco",
+      "repo": "kubit",
+      "routePath": "kubit/kubit-eliciting-spec",
+      "updatedAt": "2026-01-08T00:46:52Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -55987,7 +56122,7 @@
       "owner": "cablate",
       "repo": "Agentic-MCP-Skill",
       "routePath": "Agentic-MCP-Skill/agentic-mcp",
-      "updatedAt": "2026-06-21T14:46:19.934Z",
+      "updatedAt": "2026-06-22T05:49:47.686Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -58077,7 +58212,7 @@
       "owner": "chandima",
       "repo": "opencode-config",
       "routePath": "opencode-config/github-ops",
-      "updatedAt": "2026-06-21T14:46:19.944Z",
+      "updatedAt": "2026-06-22T05:49:47.696Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -61268,6 +61403,28 @@
       "repo": "Archon",
       "routePath": "Archon/archon",
       "updatedAt": "2026-06-12T04:46:41Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "coleam00/hyperframes-ai-video-generation/diy-yt-creator",
+      "owner": "coleam00",
+      "repo": "hyperframes-ai-video-generation",
+      "routePath": "hyperframes-ai-video-generation/diy-yt-creator",
+      "updatedAt": "2026-06-21T07:47:03Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -64893,6 +65050,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "danielmtt9/bloomcornerkiddies/bmad-testarch-ci",
+      "owner": "danielmtt9",
+      "repo": "bloomcornerkiddies",
+      "routePath": "bloomcornerkiddies/bmad-testarch-ci",
+      "updatedAt": "2026-05-01T20:42:41Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "danielnewman09/MSD-CPP/create-issue",
       "owner": "danielnewman09",
       "repo": "MSD-CPP",
@@ -64920,6 +65099,28 @@
       "repo": "pulp",
       "routePath": "pulp/ara",
       "updatedAt": "2026-05-26T04:32:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "danielraffel/pulp/ios",
+      "owner": "danielraffel",
+      "repo": "pulp",
+      "routePath": "pulp/ios",
+      "updatedAt": "2026-06-22T05:31:45Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -65448,6 +65649,28 @@
       "repo": "WitchCityRope",
       "routePath": "WitchCityRope/single-source-validator",
       "updatedAt": "2026-03-12T01:55:36.038Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "darkstar42/fluency-loop/teach",
+      "owner": "darkstar42",
+      "repo": "fluency-loop",
+      "routePath": "fluency-loop/teach",
+      "updatedAt": "2026-06-20T20:13:14Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -66130,6 +66353,28 @@
       "repo": "dms-workspace",
       "routePath": "dms-workspace/bmad-agent-analyst",
       "updatedAt": "2026-06-16T23:03:24Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "DaveSkender/Stock.Indicators/markdown",
+      "owner": "DaveSkender",
+      "repo": "Stock.Indicators",
+      "routePath": "Stock.Indicators/markdown",
+      "updatedAt": "2026-05-11T18:13:30Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -84187,6 +84432,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "go-to-k/cdkd/pick-integ",
+      "owner": "go-to-k",
+      "repo": "cdkd",
+      "routePath": "cdkd/pick-integ",
+      "updatedAt": "2026-06-22T05:42:42Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "gocobalt/mintlify-docs/mintlify",
       "owner": "gocobalt",
       "repo": "mintlify-docs",
@@ -89933,7 +90200,7 @@
       "owner": "hoyvoh",
       "repo": "claude-workspace-prototype",
       "routePath": "claude-workspace-prototype/git-operations",
-      "updatedAt": "2026-06-21T14:46:19.942Z",
+      "updatedAt": "2026-06-22T05:49:47.694Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -96115,7 +96382,7 @@
       "owner": "jarosser06",
       "repo": "drift",
       "routePath": "drift/github-operations",
-      "updatedAt": "2026-06-21T14:46:19.940Z",
+      "updatedAt": "2026-06-22T05:49:47.692Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -107925,6 +108192,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "launchapp-dev/animus-cli/data-visualization",
+      "owner": "launchapp-dev",
+      "repo": "animus-cli",
+      "routePath": "animus-cli/data-visualization",
+      "updatedAt": "2026-06-22T04:27:27Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "laurigates/mcu-tinkering-lab/project-readme",
       "owner": "laurigates",
       "repo": "mcu-tinkering-lab",
@@ -108853,7 +109142,7 @@
       "owner": "lekman",
       "repo": "cdn",
       "routePath": "cdn/github-mcp",
-      "updatedAt": "2026-06-21T14:46:19.944Z",
+      "updatedAt": "2026-06-22T05:49:47.696Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -108920,6 +109209,28 @@
       "repo": "leos_claude_starter",
       "routePath": "leos_claude_starter/audit-docs",
       "updatedAt": "2026-03-24T08:15:04Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "leohara/codex-development-template/using-git-worktrees",
+      "owner": "leohara",
+      "repo": "codex-development-template",
+      "routePath": "codex-development-template/using-git-worktrees",
+      "updatedAt": "2026-04-08T05:19:50Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -110174,6 +110485,28 @@
       "repo": "skk-migas-news-monitor",
       "routePath": "skk-migas-news-monitor/prompt-engineering-patterns",
       "updatedAt": "2026-02-25T23:50:02Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "littlebearapps/contextdocs/ai-context",
+      "owner": "littlebearapps",
+      "repo": "contextdocs",
+      "routePath": "contextdocs/ai-context",
+      "updatedAt": "2026-05-08T07:41:59Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -114727,7 +115060,7 @@
       "owner": "manavkushwaha10",
       "repo": "apple-health",
       "routePath": "apple-health/expo-modules",
-      "updatedAt": "2026-06-21T12:18:37Z",
+      "updatedAt": "2026-06-22T05:46:18Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -115497,7 +115830,7 @@
       "owner": "MarioWinter",
       "repo": "merch-miner",
       "routePath": "merch-miner/backend",
-      "updatedAt": "2026-06-19T12:20:45Z",
+      "updatedAt": "2026-06-22T05:40:48Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -115564,6 +115897,28 @@
       "repo": "brrr-generator",
       "routePath": "brrr-generator/slovenian-tax-edavki",
       "updatedAt": "2026-02-18T09:31:29Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "marjasback2bedge/chu_log/openspec-new-change",
+      "owner": "marjasback2bedge",
+      "repo": "chu_log",
+      "routePath": "chu_log/openspec-new-change",
+      "updatedAt": "2026-02-17T13:36:14Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -118028,6 +118383,28 @@
       "repo": "truthmark",
       "routePath": "truthmark/truthmark-document",
       "updatedAt": "2026-05-16T15:06:51Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "merlinhu1/truthmark/truthmark-realize",
+      "owner": "merlinhu1",
+      "repo": "truthmark",
+      "routePath": "truthmark/truthmark-realize",
+      "updatedAt": "2026-06-21T17:28:07Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -127245,7 +127622,7 @@
       "owner": "norsizu",
       "repo": "comfyui-zimage-skill",
       "routePath": "comfyui-zimage-skill/comfyui-zimage",
-      "updatedAt": "2026-06-21T14:46:19.934Z",
+      "updatedAt": "2026-06-22T05:49:47.686Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -134153,7 +134530,7 @@
       "owner": "pem725",
       "repo": "be-critical",
       "routePath": "be-critical/be-critical",
-      "updatedAt": "2026-06-21T14:46:19.929Z",
+      "updatedAt": "2026-06-22T05:49:47.680Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -136530,6 +136907,28 @@
       "repo": "podverse",
       "routePath": "podverse/podverse-api-patterns",
       "updatedAt": "2026-03-12T01:55:36.158Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "poisontr33s/chthonic-archive/scm-triage",
+      "owner": "poisontr33s",
+      "repo": "chthonic-archive",
+      "routePath": "chthonic-archive/scm-triage",
+      "updatedAt": "2026-05-15T12:49:11Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -143349,7 +143748,7 @@
       "owner": "rishavmukherji",
       "repo": "farcaster-agent",
       "routePath": "farcaster-agent/farcaster-agent",
-      "updatedAt": "2026-06-21T14:46:19.935Z",
+      "updatedAt": "2026-06-22T05:49:47.686Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -148563,7 +148962,7 @@
       "owner": "Screenly",
       "repo": "Playground",
       "routePath": "Playground/create-an-edge-app",
-      "updatedAt": "2026-03-12T01:55:35.965Z",
+      "updatedAt": "2026-06-21T20:02:29Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -152062,6 +152461,28 @@
       "repo": "scrimflow",
       "routePath": "scrimflow/shadcn",
       "updatedAt": "2026-03-07T17:38:26Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "simon-tanna/pip-maze-v-2/phaser-gamedev",
+      "owner": "simon-tanna",
+      "repo": "pip-maze-v-2",
+      "routePath": "pip-maze-v-2/phaser-gamedev",
+      "updatedAt": "2026-06-21T02:31:48Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -156726,6 +157147,28 @@
       "repo": "formidable-forms",
       "routePath": "formidable-forms/fix-bug",
       "updatedAt": "2026-05-04T16:34:06Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "striderZA/OpenCodeGameStudios/estimate",
+      "owner": "striderZA",
+      "repo": "OpenCodeGameStudios",
+      "routePath": "OpenCodeGameStudios/estimate",
+      "updatedAt": "2026-06-22T02:51:41Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -164795,6 +165238,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "TrayHard/casc-modern/m06-error-handling",
+      "owner": "TrayHard",
+      "repo": "casc-modern",
+      "routePath": "casc-modern/m06-error-handling",
+      "updatedAt": "2026-06-21T11:36:05Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "TrayHard/d2r-ultra-utility/m06-error-handling",
       "owner": "TrayHard",
       "repo": "d2r-ultra-utility",
@@ -164910,6 +165375,28 @@
       "repo": "opsinventor-eds",
       "routePath": "opsinventor-eds/ensure-agents-md",
       "updatedAt": "2026-05-09T13:35:48Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "TreeX-X/WorkFlowX/karpathy-guidelines",
+      "owner": "TreeX-X",
+      "repo": "WorkFlowX",
+      "routePath": "WorkFlowX/karpathy-guidelines",
+      "updatedAt": "2026-06-22T00:34:57Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -168803,7 +169290,7 @@
       "owner": "Ven0m0",
       "repo": ".github",
       "routePath": ".github/gh-cli",
-      "updatedAt": "2026-06-21T14:46:19.945Z",
+      "updatedAt": "2026-06-22T05:49:47.697Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -173067,6 +173554,28 @@
       "suppressedMetadataLocales": []
     },
     {
+      "id": "whyashthakker/agent-skills-marketing/review-generation-strategy",
+      "owner": "whyashthakker",
+      "repo": "agent-skills-marketing",
+      "routePath": "agent-skills-marketing/review-generation-strategy",
+      "updatedAt": "2026-06-21T03:52:57Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
       "id": "wibus-wee/mcpv/project-overview",
       "owner": "wibus-wee",
       "repo": "mcpv",
@@ -175139,7 +175648,7 @@
       "owner": "xarta",
       "repo": "xarta-node",
       "routePath": "xarta-node/blueprints-gui",
-      "updatedAt": "2026-06-21T01:26:04Z",
+      "updatedAt": "2026-06-21T15:51:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
@@ -176108,6 +176617,28 @@
       "repo": "harness_bro",
       "routePath": "harness_bro/investigate",
       "updatedAt": "2026-05-06T02:35:09Z",
+      "metadataEligibleLocales": [
+        "en"
+      ],
+      "bodyEligibleLocales": [
+        "en"
+      ],
+      "eligibleLocales": [
+        "en"
+      ],
+      "publishedLocales": [
+        "en"
+      ],
+      "canonicalLocale": "en",
+      "detectedBodyLocale": "en",
+      "suppressedMetadataLocales": []
+    },
+    {
+      "id": "yanzhangshuai/wen-yuan/brainstorm",
+      "owner": "yanzhangshuai",
+      "repo": "wen-yuan",
+      "routePath": "wen-yuan/brainstorm",
+      "updatedAt": "2026-04-09T09:52:38Z",
       "metadataEligibleLocales": [
         "en"
       ],
