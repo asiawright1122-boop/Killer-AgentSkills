@@ -838,6 +838,24 @@ describe('public links and navigation copy', () => {
     expect(docsSource).toContain('getAuthoritySurfaceEntries(');
   });
 
+  it('keeps Collections Hub three-step guide and Installation Docs reverse links active', () => {
+    const collectionsIndexSource = readPageSource('./[locale]/collections/index.astro');
+    const docsIndexJson = readRepoSource('docs/source/index.json');
+
+    // Collections Hub 3-step guide checks
+    expect(collectionsIndexSource).toContain('Three-Step Decision-to-Setup Path');
+    expect(collectionsIndexSource).toContain('isZhCopy ? \'快速入门决策路径\' : \'Decision-to-Setup Path\'');
+    expect(collectionsIndexSource).toContain('From Selection to Verification in 3 Steps');
+    expect(collectionsIndexSource).toContain('killer-skills list');
+    expect(collectionsIndexSource).toContain('isInstallDoc');
+
+    // Installation Docs reverse links checks in source JSON
+    expect(docsIndexJson).toContain('official trusted tools collection');
+    expect(docsIndexJson).toContain('agent workflow building tools collection');
+    expect(docsIndexJson).toContain('Curated Paths for Decision Making');
+  });
+
+
   it('keeps evergreen blog counts aligned with current public totals', () => {
     const locales = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
     const slugs = [

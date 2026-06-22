@@ -272,6 +272,88 @@ const breadcrumb = buildBreadcrumbTrail(
           </p>
         </div>
 
+        {/* Three-Step Decision-to-Setup Path */}
+        <section
+          class="mb-14 border-[3px] border-[var(--border)] bg-[var(--card)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] relative overflow-hidden"
+        >
+          <div class="mb-6">
+            <span
+              class="inline-block px-3 py-1 border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] text-xs font-black uppercase tracking-widest mb-4"
+            >
+              {isZhCopy ? '快速入门决策路径' : 'Decision-to-Setup Path'}
+            </span>
+            <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-2">
+              {isZhCopy ? '从合集挑选到本地验证仅需 3 步' : 'From Selection to Verification in 3 Steps'}
+            </h2>
+            <p class="text-sm md:text-base text-[var(--muted-foreground)] leading-relaxed font-medium max-w-3xl">
+              {
+                isZhCopy
+                  ? '不要盲目安装零散工具。通过以下三个步骤，快速筛选、查阅配置说明，并在本地控制台完成无感验证：'
+                  : 'Avoid installing unvetted packages. Use this curated path to filter collections, check setup parameters, and confirm locally:'
+              }
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-5 border-2 border-[var(--border)] bg-[var(--background)]">
+              <div class="flex items-center gap-3 mb-3">
+                <span
+                  class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-mono font-bold text-sm"
+                  >1</span
+                >
+                <h3 class="text-base font-black uppercase tracking-tight">
+                  {isZhCopy ? '挑选你的核心工具' : 'Pick Curated Tools'}
+                </h3>
+              </div>
+              <p class="text-xs leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '查阅下方官方精选或工作流合集，根据你的 IDE 环境挑选最匹配的技能。'
+                    : 'Browse our official collections below to pick ready-to-use skills tailored for your workspace.'
+                }
+              </p>
+            </div>
+
+            <div class="p-5 border-2 border-[var(--border)] bg-[var(--background)]">
+              <div class="flex items-center gap-3 mb-3">
+                <span
+                  class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-mono font-bold text-sm"
+                  >2</span
+                >
+                <h3 class="text-base font-black uppercase tracking-tight">
+                  {isZhCopy ? '阅读环境安装指南' : 'Read Setup Guides'}
+                </h3>
+              </div>
+              <p class="text-xs leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '访问下方安装卡片，阅读支持 Cursor、Claude Code 等不同 IDE 的原生配置文件说明。'
+                    : 'Jump to the install guides to review configurations for Cursor, Claude Code, or Windsurf.'
+                }
+              </p>
+            </div>
+
+            <div class="p-5 border-2 border-[var(--border)] bg-[var(--background)]">
+              <div class="flex items-center gap-3 mb-3">
+                <span
+                  class="flex items-center justify-center w-8 h-8 rounded-full border-2 border-[var(--border)] bg-[var(--primary)] text-[var(--primary-foreground)] font-mono font-bold text-sm"
+                  >3</span
+                >
+                <h3 class="text-base font-black uppercase tracking-tight">
+                  {isZhCopy ? '本地指令一键验证' : 'Confirm & Run Locally'}
+                </h3>
+              </div>
+              <p class="text-xs leading-relaxed text-[var(--muted-foreground)] font-medium">
+                {
+                  isZhCopy
+                    ? '在终端中使用 npx 注册并运行 killer-skills list，即可当场验证技能是否成功配置。'
+                    : 'Run killer-skills list in your terminal to instantly verify that the IDE configuration is correct.'
+                }
+              </p>
+            </div>
+          </div>
+        </section>
+
         <section
           class="mb-14 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]"
         >
@@ -325,7 +407,7 @@ const breadcrumb = buildBreadcrumbTrail(
               <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
                 {
                   isZhCopy
-                    ? '如果你已经找到感兴趣的合集，可以从这里继续安装或查看 CLI。'
+                    ? '如果你已经找到感兴趣电合集，可以从这里继续安装或查看 CLI。'
                     : 'Once you find a collection you like, continue here for installation or CLI details.'
                 }
               </p>
@@ -334,18 +416,35 @@ const breadcrumb = buildBreadcrumbTrail(
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
             {
-              collectionsInstallBridgeCards.map((item) => (
-                <a
-                  href={item.href}
-                  class="border-[3px] border-[var(--border)] bg-[var(--background)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all"
-                >
-                  <div class="mb-3 text-[10px] font-black uppercase tracking-widest text-[var(--primary)]">
-                    {item.badge}
-                  </div>
-                  <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
-                  <p class="text-sm leading-6 font-medium text-[var(--muted-foreground)]">{item.description}</p>
-                </a>
-              ))
+              collectionsInstallBridgeCards.map((item) => {
+                const isInstallDoc = item.badge === (isZhCopy ? '安装文档' : 'Install Docs');
+                return (
+                  <a
+                    href={item.href}
+                    class={`border-[3px] border-[var(--border)] p-5 hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[6px_6px_0px_0px_var(--border)] transition-all ${
+                      isInstallDoc
+                        ? 'bg-[var(--primary)] text-[var(--primary-foreground)] hover:bg-[var(--primary)]'
+                        : 'bg-[var(--background)] text-[var(--foreground)]'
+                    }`}
+                  >
+                    <div
+                      class={`mb-3 text-[10px] font-black uppercase tracking-widest ${
+                        isInstallDoc ? 'text-[var(--primary-foreground)]' : 'text-[var(--primary)]'
+                      }`}
+                    >
+                      {item.badge}
+                    </div>
+                    <h3 class="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h3>
+                    <p
+                      class={`text-sm leading-6 font-medium ${
+                        isInstallDoc ? 'text-[var(--primary-foreground)] opacity-90' : 'text-[var(--muted-foreground)]'
+                      }`}
+                    >
+                      {item.description}
+                    </p>
+                  </a>
+                );
+              })
             }
           </div>
         </section>
