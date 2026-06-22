@@ -10,15 +10,11 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v3.9` are shipped.
-- `v4.0` is active and focuses on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
+- `v1.0` through `v4.0` are shipped.
+- `v4.0` focused on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
+- `Phase 125` (completed 2026-06-22) revalidated public copy boundary guards, tests, and the scorecard proof chain.
+- `Phase 124` (completed 2026-06-22) implemented the Collections Hub and Installation Docs trust bridge with 3-step setup and reverse links.
 - `Phase 122` (completed 2026-06-09) reframed the homepage authority block around evidence-first selection, setup confirmation, task fit, and supporting-directory coverage.
-- `v3.9` completed all 4 planned phases, passed milestone audit, and confirmed discovery expansion must stay closed at `0/2` required primary promote surfaces.
-- `Phase 121` (completed 2026-06-09) refreshed live GSC and recovery proof reports for `2026-06-02` to `2026-06-08`, confirmed the proof window is `warning`, and kept discovery expansion closed at `0/2` required primary promote surfaces.
-- `Phase 117` (shipped 2026-06-09) refreshed production-like scorecard inputs, promoted `Homepage Root Hub`, and kept discovery expansion closed at `1/2` required primary promote surfaces.
-- `Phase 116` (shipped 2026-06-09) added collection-level locale parity and punctuation guardrails, with `38` collections passing and `0` issues.
-- `Phase 115` (shipped 2026-06-09) completed backlog collection enrichment verification: 35 vetted authority surfaces, `0` thin content surfaces, and public-surface validation passing.
-- `Phase 114` (shipped 2026-06-09) integrated the automated content enrichment pipeline by creating and verifying batch and apply scripts with CJK/forbidden-word rules.
 - `v3.7` (shipped 2026-06-05) executed Milestone v3.7 to systematically exploit the Discovery Expansion Boundary: promoted two biweekly priority hold surfaces to `promote` status, audited and deduplicated existing collections content (remediating all low-quality entries), established an automated content enrichment check, and configured/seeded 3 new authority surfaces (Go, Java, Mobile AI Tools) with 10-language parity.
 - `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
 - `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
@@ -34,28 +30,22 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Current Milestone: v4.0 Authority Proof Remediation & Public Trust Hardening
+## Current Milestone: None
 
-**Goal:** Convert the v3.9 blocked proof findings into user-facing authority improvements across the highest-priority surfaces, without exposing internal reasoning, operator process, or recovery-control language to frontend users.
+No active milestone. Run `/gsd-new-milestone` to start the next cycle.
 
-**Target features:**
+## Most Recent Shipment: Milestone v4.0 Authority Proof Remediation & Public Trust Hardening
 
-- Reframe the homepage authority block around user-facing selection criteria, curated entry paths, and trusted next steps.
-- Strengthen `Official AI Skills & Trusted Tools` and `Agent Workflow Building Tools` with visible first-party proof and install handoffs.
-- Improve the Collections Hub and Installation Docs trust bridge so curated discovery flows into setup validation.
-- Re-run public boundary, content, and scorecard validation after remediation.
-
-## Most Recent Shipment: Phase 122 Homepage Authority Reframe
-
-**Outcome:** Reframed the homepage authority section so visitors choose from visible selection evidence, setup-path confirmation, and task-fit guidance before widening into the full skills directory.
+**Outcome:** Remediated the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs, verified that the public copy boundary is free of internal strategy leaks, and confirmed that the scorecard decision gates operate honestly under production constraints.
 
 **Shipped capabilities:**
 
-- Replaced the homepage quick-start block with evidence-first authority guidance.
-- Put curated paths, installation docs, official tools, and workflow choices ahead of broad browsing.
-- Repositioned the full skills directory as supporting coverage when users need a wider search.
-- Added regression test coverage in `tests/pages/public-links.test.ts`.
-- Re-ran public-surface validation, cache/seed guards, test network guard, and desktop/mobile Playwright rendering checks.
+- Reframed the homepage authority block around evidence-first start and curated paths.
+- Added stronger first-party proof, selection reasons, and reviewedAt fields to the two highest-priority collections.
+- Embedded a 3-step decision-to-setup guide and high-contrast Install Docs card in Collections Hub, with reverse links in Installation Docs.
+- Added E2E regression tests in `tests/pages/public-links.test.ts` to assert collections and docs trust-surface wiring.
+- Verified 158 tests passed green without typescript errors, copy leaks, or punctuation issues.
+- Refreshed the GSC CTR reports and Uplift Scorecard, confirming Discovery Expansion remains closed honestly.
 
 ## Previous Shipment: v3.8 Backlog Content Enrichment Automation
 
@@ -241,12 +231,13 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AIOPS-41: Public Hidden-Reasoning Boundary Assurance] - `v3.9` (Phase 120)
 - ✓ [AIOPS-42: Promotion Gate Proof Refresh] - `v3.9` (Phase 121)
 - ✓ [AIOPS-43: Homepage Authority Reframe] - `v4.0` (Phase 122)
+- ✓ [AIOPS-44: Trusted and Workflow Collection Proof Upgrade] - `v4.0` (Phase 123)
+- ✓ [AIOPS-45: Collections and Installation Trust Bridge] - `v4.0` (Phase 124)
+- ✓ [AIOPS-46: Boundary and Scorecard Revalidation] - `v4.0` (Phase 125)
 
 ### Active
 
-- [AIOPS-44: Trusted and Workflow Collection Proof Upgrade] - `v4.0` (Phase 123)
-- [AIOPS-45: Collections and Installation Trust Bridge] - `v4.0` (Phase 124)
-- [AIOPS-46: Boundary and Scorecard Revalidation] - `v4.0` (Phase 125)
+(None - define next milestone)
 
 ### Out of Scope
 
@@ -312,4 +303,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-09 after completing Phase 122 Homepage Authority Reframe._
+_Last updated: 2026-06-22 after completing Milestone v4.0 Authority Proof Remediation & Public Trust Hardening._
