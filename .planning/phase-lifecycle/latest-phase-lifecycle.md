@@ -1,6 +1,6 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-22T14:59:48.444Z
+- Generated: 2026-06-22T15:08:16.270Z
 - Active milestone: v4.0 (Authority Proof Remediation & Public Trust Hardening)
 - Status: warning
 - Pending actions: 0
@@ -10,10 +10,6 @@
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
-| 122 | 122-homepage-authority-reframe | present | .planning/phases/122-homepage-authority-reframe | missing |
-| 123 | 123-trusted-and-workflow-collection-proof-upgrade | present | .planning/phases/123-trusted-and-workflow-collection-proof-upgrade | missing |
-| 124 | 124-collections-and-installation-trust-bridge | present | .planning/phases/124-collections-and-installation-trust-bridge | missing |
-| 125 | 125-boundary-and-scorecard-revalidation | present | .planning/phases/125-boundary-and-scorecard-revalidation | missing |
 
 ## Archive Actions
 

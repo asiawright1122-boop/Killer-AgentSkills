@@ -6,14 +6,14 @@
     "Phase lifecycle sync is warning (archive=0, restore=0, create=0)."
   ],
   "phaseCounts": {
-    "total": 4,
-    "completed": 4
+    "total": 0,
+    "completed": 0
   },
   "requirementCounts": {
-    "satisfied": 4,
+    "satisfied": 0,
     "partial": 0,
     "pending": 0,
-    "total": 4
+    "total": 0
   },
   "hygieneStatus": "clean",
   "evidenceFiles": [
@@ -23,15 +23,7 @@
     ".planning/phase-lifecycle/latest-phase-lifecycle.md",
     ".planning/phase-lifecycle/latest-phase-lifecycle.json",
     ".planning/traceability/latest-milestone-traceability.md",
-    ".planning/traceability/latest-milestone-traceability.json",
-    ".planning/phases/122-homepage-authority-reframe/122-01-SUMMARY.md",
-    ".planning/phases/122-homepage-authority-reframe/122-VERIFICATION.md",
-    ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-01-SUMMARY.md",
-    ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade/123-VERIFICATION.md",
-    ".planning/phases/124-collections-and-installation-trust-bridge/124-01-SUMMARY.md",
-    ".planning/phases/124-collections-and-installation-trust-bridge/124-VERIFICATION.md",
-    ".planning/phases/125-boundary-and-scorecard-revalidation/125-01-SUMMARY.md",
-    ".planning/phases/125-boundary-and-scorecard-revalidation/125-VERIFICATION.md"
+    ".planning/traceability/latest-milestone-traceability.json"
   ],
   "archiveTargets": [
     ".planning/milestones/v4.0-phases",

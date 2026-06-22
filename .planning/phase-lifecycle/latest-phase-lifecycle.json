@@ -1,52 +1,11 @@
 {
-  "generatedAt": "2026-06-22T14:59:48.444Z",
+  "generatedAt": "2026-06-22T15:08:16.270Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
   "activeMilestone": "v4.0",
   "activeMilestoneName": "Authority Proof Remediation & Public Trust Hardening",
   "status": "warning",
   "activePhaseArchivePath": ".planning/milestones/v4.0-phases",
-  "activePhases": [
-    {
-      "phaseNumber": "122",
-      "slug": "Homepage Authority Reframe",
-      "dirName": "122-homepage-authority-reframe",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/122-homepage-authority-reframe"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "123",
-      "slug": "Trusted and Workflow Collection Proof Upgrade",
-      "dirName": "123-trusted-and-workflow-collection-proof-upgrade",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/123-trusted-and-workflow-collection-proof-upgrade"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "124",
-      "slug": "Collections and Installation Trust Bridge",
-      "dirName": "124-collections-and-installation-trust-bridge",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/124-collections-and-installation-trust-bridge"
-      ],
-      "archivePaths": []
-    },
-    {
-      "phaseNumber": "125",
-      "slug": "Boundary and Scorecard Revalidation",
-      "dirName": "125-boundary-and-scorecard-revalidation",
-      "status": "present",
-      "activePaths": [
-        ".planning/phases/125-boundary-and-scorecard-revalidation"
-      ],
-      "archivePaths": []
-    }
-  ],
+  "activePhases": [],
   "archivedMilestones": [
     {
       "milestone": "v1.0",
