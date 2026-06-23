@@ -10,38 +10,24 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.1` are shipped.
+- `v1.0` through `v4.2` are shipped.
+- `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 - `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
 - `v4.0` focused on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
-- `Phase 125` (completed 2026-06-22) revalidated public copy boundary guards, tests, and the scorecard proof chain.
-- `Phase 124` (completed 2026-06-22) implemented the Collections Hub and Installation Docs trust bridge with 3-step setup and reverse links.
-- `Phase 122` (completed 2026-06-09) reframed the homepage authority block around evidence-first selection, setup confirmation, task fit, and supporting-directory coverage.
-- `v3.7` (shipped 2026-06-05) executed Milestone v3.7 to systematically exploit the Discovery Expansion Boundary: promoted two biweekly priority hold surfaces to `promote` status, audited and deduplicated existing collections content (remediating all low-quality entries), established an automated content enrichment check, and configured/seeded 3 new authority surfaces (Go, Java, Mobile AI Tools) with 10-language parity.
-- `v3.6` (shipped 2026-06-04) executed a full authority surfaces audit, resolved internal-link-support gate blockers via global link injection, and regenerated the authority scorecard — confirming `Official AI Skills & Trusted Tools` and `Cursor-Compatible Skills` transitioned to `promote` status, activating the Discovery Expansion Boundary with 6 promote-ready surfaces.
-- `v3.5` (shipped 2026-06-04) verified remote database GSC coverage records, resolved residual exclusion roadblocks to reach 100% technical recovery, and refreshed live GSC traffic reports to clear the blocking business recovery status.
-- `v3.4` (shipped 2026-06-04) addressed the dominant `other` category in GSC Coverage drilldown to remove indexation roadblocks, refreshed stale AI telemetry data, and normalized backup provider configuration.
-- `v3.3` ingested fresh GSC coverage data to resolve SLA warnings, executed P0 manual recovery batches, and assessed post-intervention recovery signals.
-- `v3.2` established project-wide type safety, aligned compiler configurations, and introduced scripts typecheck CI gates.
-- `v3.1` promoted workload-aware provider policy into operator-managed profiles with environment-specific defaults, and hardened config compliance guards.
-- `v3.0` implemented structured JSON-LD schemas, automated IndexNow search indexing submissions, and pre-rendered semantic recommendation links.
-- `v2.9` automated GSC Coverage ingestion, implemented technical recovery scorecard tracking, and added lock gates to the automation policy.
-- `v2.8` expanded the SEO baseline via i18n, rebuilt UX for search/discovery, established latency/cost-based telemetry routing, and hardened edge data synchronization.
-- `v2.7` established Operator-Managed Profiles for flexible provider settings and updated GSC Coverage input freshness.
-- `v2.5` implemented server-side event tracking for directory views and edge middleware concurrency density scaling fallback.
-- `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
-- `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Current Milestone: v4.2 Repository Size Reduction & Locale Configuration Normalization
+## Current Milestone: Awaiting Next Milestone Initialization
 
-**Goal:** Optimize Killer-Skills codebase size, directory structure, and clean up local cached states while formalizing and stabilizing unused or draft locale files.
+## Most Recent Shipment: Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization
 
-**Target features:**
-- Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
-- Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
-- Normalize and resolve status of `src/messages/hi.json` (either formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
-- Verify type stability, rerun Edge Astro build, and ensure zero regressions across all 158 integration tests.
+**Outcome:** Optimized workspace and repository footprint by purging redundant artifacts and temporary files (reclaiming ~1.8GB), and normalized locale setup by completely removing the unsupported Hindi locale configuration and all associated references, ensuring 100% build stability.
 
-## Most Recent Shipment: Milestone v4.1 Multi-language Indexability Restructuring & SEO Acceleration
+**Shipped capabilities:**
+- Purged 1.7GB of Puppeteer screenshots in `scripts/auto-submitter/logs/screenshots/`, pipeline logs, and legacy GSC coverage raw directories.
+- Refactored `gsc-url-inspection-verify.ts` to query coverage source directories dynamically rather than hardcoding archive paths.
+- Deleted `src/messages/hi.json` and refactored core i18n configurations (`i18n.ts`, `nvidia.ts`), test expectations (`seo-title-lengths.test.ts`), and sync/clean maintenance scripts (`sync-translations.ts`, `clean-broken-skills.js`).
+- Verified full system stability with 1027 passing Vitest tests, successful Astro production build, ESLint, Prettier, and public surface validation checks.
+
+## Previous Shipment: Milestone v4.1 Multi-language Indexability Restructuring & SEO Acceleration
 
 **Outcome:** Relaxed over-strict locale eligibility rules to allow high-quality mixed-language details pages to output `index, follow`, expanding the indexable CJK/multilingual surface area by 2.3x (from 5,482 to 18,284 pages), and established two-way alternate hreflang maps in dynamic sitemaps.
 
