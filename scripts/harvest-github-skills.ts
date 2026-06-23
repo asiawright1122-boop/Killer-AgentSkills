@@ -47,11 +47,11 @@ const DATA_FILE = path.join(process.cwd(), 'data/expanded-github-skills.json');
 
 // Code Search API: 10 requests/min for authenticated users
 // 7s delay = ~8.5 req/min — safe margin below 10
-const CODE_SEARCH_DELAY = 12000; // 12s between requests (GitHub limit: 10 req/min, but shared quota)
+const CODE_SEARCH_DELAY = process.env.NODE_ENV === 'test' ? 0 : 12000; // 12s between requests (GitHub limit: 10 req/min, but shared quota)
 
 // Repos API: 5000 req/hr for authenticated users
 // 200ms delay = safe for batch enrichment
-const REPOS_API_DELAY = 200;
+const REPOS_API_DELAY = process.env.NODE_ENV === 'test' ? 0 : 200;
 
 const PER_PAGE = 100;
 const MAX_PAGES = 10; // GitHub API limit: 1000 records (10 * 100)
@@ -434,7 +434,7 @@ async function pruneStaleEntries(items: HarvestedSkill[]): Promise<HarvestedSkil
 
 // ============ Main ============
 
-async function main() {
+export async function main() {
     console.log('🌾 SKILL HARVESTER v2 STARTED');
 
     // Parse args
@@ -680,4 +680,6 @@ async function main() {
     console.log(`📚 Total Database Size: ${allSkills.length}`);
 }
 
-main().catch(console.error);
+if (process.env.NODE_ENV !== 'test') {
+    main().catch(console.error);
+}

@@ -3,7 +3,7 @@
 ## 1. Active Requirements
 
 ### Crawler & Harvester compliance (HARV)
-- [ ] **HARV-01**: Refactor automated crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
+- [x] **HARV-01**: Refactor automated crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
 
 ### GEO-localized translation sync (GEO)
 - [ ] **GEO-01**: Enforce CJK terminal punctuation and formatting rules in dynamic translation workflows to ensure GEO-local typography compliance.

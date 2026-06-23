@@ -15,6 +15,7 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v4.4` (shipped 2026-06-23) optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
 - `v4.3` (shipped 2026-06-23) resolved sitemap purity by filtering empty categories, enforced trailing-slash consistency across edge router/blog content/test rules, and cleaned up GSC 404 crawl errors at the edge with 0 regressions.
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
+- Phase 144 (completed 2026-06-23) implemented cosine similarity (TF-IDF based) and metadata/thin content validation filters for the harvester and crawler tools, automatically injecting originality blocks containing canonical backlinks and original repository credits.
 
 ## Current Milestone: v4.6 GitHub Workflow SEO & Harvester Hardening
 
@@ -296,10 +297,10 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [REQ-02: Crawl Coverage Ingestion] - `v4.5` (Phase 141)
 - ✓ [REQ-03: Canonicalization & Blocklist Remediation] - `v4.5` (Phase 142)
 - ✓ [REQ-04: System Integrity] - `v4.5` (Phase 143)
+- ✓ [REQ-01: Harvester SEO Compliance] - `v4.6` (Phase 144)
 
 ### Active
 
-- [ ] [REQ-01: Harvester SEO Compliance] - Refactor the crawler/harvester logic to filter low-originality mirror pages at harvest time.
 - [ ] [REQ-02: GEO-localized translation sync] - Modernize translation workflows to handle GEO-specific rules (CJK punctuation, semantic phrasing).
 - [ ] [REQ-03: Automated Backlog Metadata Enrichment] - Integrate batch metadata enrichment and keyword optimization into Actions to fill metadata gaps.
 - [ ] [REQ-04: CI/CD Quality Gate] - Implement automated guardrails checking formatting, translation parity, CJK punctuation, and reasoning leakage in PRs/commits.
@@ -369,4 +370,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-23 after initializing Milestone v4.6 GitHub Workflow SEO & Harvester Hardening._
+_Last updated: 2026-06-23 after completing Phase 144 of Milestone v4.6._

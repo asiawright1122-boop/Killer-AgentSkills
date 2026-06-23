@@ -1089,8 +1089,9 @@ async function buildCache(): Promise<void> {
                 }
               }
 
-              if (skillMd && skillMd.body) {
-                skillMd.body = injectOriginalityBlock(skillMd.body, {
+              const skillMdAny = skillMd as any;
+              if (skillMdAny && skillMdAny.body) {
+                skillMdAny.body = injectOriginalityBlock(skillMdAny.body, {
                   owner: repo.owner,
                   repo: repo.repo,
                   filePath: isSingleFile ? repo.skillsPath : `${repo.skillsPath}/${skillDir.name}/SKILL.md`,
@@ -1250,8 +1251,9 @@ async function buildCache(): Promise<void> {
             }
           }
 
-          if (skillMd && skillMd.body) {
-            skillMd.body = injectOriginalityBlock(skillMd.body, {
+          const skillMdAny = skillMd as any;
+          if (skillMdAny && skillMdAny.body) {
+            skillMdAny.body = injectOriginalityBlock(skillMdAny.body, {
               owner: repo.owner,
               repo: repo.repo,
               filePath: repo.skillsPath || 'SKILL.md',
@@ -1550,8 +1552,9 @@ async function buildCache(): Promise<void> {
               }
             }
 
-            if (skillMd && skillMd.body) {
-              skillMd.body = injectOriginalityBlock(skillMd.body, {
+            const skillMdAny = skillMd as any;
+            if (skillMdAny && skillMdAny.body) {
+              skillMdAny.body = injectOriginalityBlock(skillMdAny.body, {
                 owner: item.owner,
                 repo: item.repo,
                 filePath: item.filePath,
