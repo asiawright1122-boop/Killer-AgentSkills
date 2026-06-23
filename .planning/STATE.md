@@ -1,18 +1,19 @@
 ---
 gsd_state_version: 1.0
-milestone: v4.0
-milestone_name: Authority Proof Remediation & Public Trust Hardening
-status: completed
-last_updated: "2026-06-22T15:07:31.879Z"
+milestone: v4.1
+milestone_name: Multi-language Indexability Restructuring & SEO Acceleration
+status: planning
+last_updated: "2026-06-23T02:18:00.000Z"
 progress:
-  total_phases: 4
+  total_phases: 0
   completed_phases: 0
   total_plans: 0
-  completed_plans: 4
+  completed_plans: 0
 ---
 
-# Current State
+# Current Position
 
-**Milestone:** v4.0 Authority Proof Remediation & Public Trust Hardening (Active)
-**Phase:** 123
-**Status:** v4.0 milestone complete
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-06-23 — Milestone v4.1 started

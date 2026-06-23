@@ -30,9 +30,15 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Current Milestone: None
+## Current Milestone: v4.1 Multi-language Indexability Restructuring & SEO Acceleration
 
-No active milestone. Run `/gsd-new-milestone` to start the next cycle.
+**Goal:** Restore non-English search discoverability by relaxing the over-strict locale eligibility rules, allowing fully translated bilingual pages to be indexed while maintaining public trust.
+
+**Target features:**
+- Restructure `seo-locales.ts` to allow high-quality mixed-language pages to bypass the strict body-locale check.
+- Align edge middleware and `[...repo].astro` rendering to output `index, follow` on approved non-English skill detail pages.
+- Integrate newly indexable non-English pages into sitemap-skills.xml with proper alternate hreflang link tags.
+- Re-run sitemap/SEO health loop, run validation checks, and sync updated cache datasets to production KV.
 
 ## Most Recent Shipment: Milestone v4.0 Authority Proof Remediation & Public Trust Hardening
 
