@@ -9,7 +9,7 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 - [x] Plan Phase 133: Sitemap Purity.
 - [x] Plan Phase 134: Trailing-Slash Consistency.
 - [x] Plan Phase 135: Unexpected 404 Cleanup.
-- [ ] Plan Phase 136: System Build & Regression Check.
+- [x] Plan Phase 136: System Build & Regression Check.
 
 ## Current Milestone: v4.3 Sitemap Purity & Search Coverage Consolidation
 
@@ -20,7 +20,7 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 - [x] SITEMAP-01: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
 - [x] SLASH-01: Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
 - [x] ERR404-01: Investigate and fix root causes of unexpected 404 crawl errors reported in GSC.
-- [ ] INTEGRATE-02: Verify global build, type safety, and all tests pass with zero regressions.
+- [x] INTEGRATE-02: Verify global build, type safety, and all tests pass with zero regressions.
 
 ### Phase 133: Sitemap Purity
 
@@ -56,8 +56,8 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 
 - **Requirements:** INTEGRATE-02
 - **Scope:** Run a comprehensive type check, Astro production build, static validation pipelines, and all tests to assert 0 regressions.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - TypeScript type compilation passes with zero errors.
   - Edge Astro production build runs successfully.
@@ -113,7 +113,7 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 3/4 | Active | - |
+| v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 4/4 | Complete | 2026-06-23 |
 | v4.2 Repository Size Reduction & Locale Configuration Normalization | 130-132 | 3/3 | Complete | 2026-06-23 |
 | v4.1 Multi-language Indexability Restructuring & SEO Acceleration | 126-129 | 4/4 | Complete | 2026-06-23 |
 | v4.0 Authority Proof Remediation & Public Trust Hardening | 122-125 | 4/4 | Complete | 2026-06-22 |
@@ -129,4 +129,4 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 | v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
 
 ---
-*Last updated: 2026-06-23 after Phase 135 completed*
+*Last updated: 2026-06-23 after Phase 136 completed*
