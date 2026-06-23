@@ -27,9 +27,9 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| HARV-01 | | | [ ] |
-| GEO-01 | | | [ ] |
-| GEO-02 | | | [ ] |
-| META-01 | | | [ ] |
-| CI-01 | | | [ ] |
-| INTEG-01 | | | [ ] |
+| HARV-01 | Phase 144 | | [ ] |
+| GEO-01 | Phase 145 | | [ ] |
+| GEO-02 | Phase 145 | | [ ] |
+| META-01 | Phase 146 | | [ ] |
+| CI-01 | Phase 147 | | [ ] |
+| INTEG-01 | Phase 147 | | [ ] |
