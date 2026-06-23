@@ -6,7 +6,7 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 133: Sitemap Purity.
+- [x] Plan Phase 133: Sitemap Purity.
 - [ ] Plan Phase 134: Trailing-Slash Consistency.
 - [ ] Plan Phase 135: Unexpected 404 Cleanup.
 - [ ] Plan Phase 136: System Build & Regression Check.
@@ -17,7 +17,7 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 
 **Requirements:**
 
-- [ ] SITEMAP-01: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
+- [x] SITEMAP-01: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
 - [ ] SLASH-01: Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
 - [ ] ERR404-01: Investigate and fix root causes of unexpected 404 crawl errors reported in GSC.
 - [ ] INTEGRATE-02: Verify global build, type safety, and all tests pass with zero regressions.
@@ -26,8 +26,8 @@ Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four ne
 
 - **Requirements:** SITEMAP-01
 - **Scope:** Audit and refine dynamic sitemap generators (`sitemap-skills.xml` and `sitemap.xml`) to eliminate redirections, inactive language pages, or legacy draft references.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - Sitemap generates correctly with only valid, 2xx HTTP response canonical pages.
   - No dynamic drafts or disabled language pages are included in sitemaps.

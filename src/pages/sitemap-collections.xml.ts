@@ -4,10 +4,13 @@ import { SUPPORTED_LOCALES } from '../i18n';
 import { getCanonicalCollections, getCollectionCanonicalSlug } from '../lib/collection-slugs';
 import { getLocalizedSeoEligibleLocales, getPreferredCanonicalLocale } from '../lib/seo-locales';
 import { SITE_URL } from '../lib/site-config';
+import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
+import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 
 export const prerender = false;
 
 const SITE = SITE_URL;
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
 
@@ -44,6 +47,12 @@ ${buildHreflangLinks('/collections', SUPPORTED_LOCALES)}
     const collectionsCol = getCanonicalCollections(await getCollection('collections'));
     for (const col of collectionsCol) {
       const canonicalSlug = getCollectionCanonicalSlug(col);
+      if (
+        sitemapBlocklist.exactKeys.has(canonicalSlug.toLowerCase()) ||
+        sitemapBlocklist.exactKeys.has(`collections/${canonicalSlug.toLowerCase()}`)
+      ) {
+        continue;
+      }
       const pagePath = `/collections/${canonicalSlug}`;
       const localizedSeoLocales = getLocalizedSeoEligibleLocales(col.data, SUPPORTED_LOCALES);
       if (localizedSeoLocales.length === 0) continue;

@@ -2,11 +2,14 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
+import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
+import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 
 export const prerender = false;
 
 const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 const SUPPORTED_LOCALE_SET = new Set<string>(SUPPORTED_LOCALES as readonly string[]);
 
 const BLOG_CATEGORIES = ['document-automation', 'developer-experience', 'enterprise-solutions', 'creative-tools'];
@@ -52,6 +55,13 @@ export const GET: APIRoute = async () => {
   }
 
   for (const [slug, localeMap] of postsBySlug.entries()) {
+    if (
+      sitemapBlocklist.exactKeys.has(slug.toLowerCase()) ||
+      sitemapBlocklist.exactKeys.has(`blog/${slug.toLowerCase()}`)
+    ) {
+      continue;
+    }
+
     const availableLocales = Array.from(localeMap.keys());
     if (availableLocales.length === 0) continue;
 
@@ -72,7 +82,23 @@ ${buildHreflangLinks(slug, availableLocales)}
   // Blog category pages
   const today = new Date().toISOString().split('T')[0];
   for (const cat of BLOG_CATEGORIES) {
+    if (
+      sitemapBlocklist.exactKeys.has(cat.toLowerCase()) ||
+      sitemapBlocklist.exactKeys.has(`blog/category/${cat.toLowerCase()}`)
+    ) {
+      continue;
+    }
+
     for (const locale of SUPPORTED_LOCALES) {
+      // Pre-validate: Category must have at least one post in this locale, or fall back to English if it has posts there
+      const hasLocalPost = allPosts.some((post) => post.data.category === cat && post.data.lang === locale);
+      const hasEnglishFallback =
+        locale !== 'en' && allPosts.some((post) => post.data.category === cat && post.data.lang === 'en');
+
+      if (!hasLocalPost && !hasEnglishFallback) {
+        continue;
+      }
+
       urls.push(`<url>
 <loc>${normalizeUrl(`${SITE}/${locale}/blog/category/${cat}`)}</loc>
 <lastmod>${today}</lastmod>

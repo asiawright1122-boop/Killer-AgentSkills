@@ -1,6 +1,8 @@
 import type { APIRoute } from 'astro';
 import { SUPPORTED_LOCALES } from '../i18n';
 import { SITE_URL } from '../lib/site-config';
+import { compileSitemapBlocklist } from '../lib/sitemap-blocklist';
+import sitemapBlocklistData from '../../data/seo-sitemap-blocklist.json';
 
 // @ts-ignore -- JSON import without type declaration
 import docsCache from '../../data/docs-cache.json';
@@ -9,6 +11,7 @@ export const prerender = false;
 
 const SITE = SITE_URL;
 const normalizeUrl = (url: string) => url.replace(/\/+$/, '');
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
 
 function buildHreflangLinks(pagePath: string): string {
   return (
@@ -30,6 +33,11 @@ export const GET: APIRoute = async () => {
 
   if (docsCache?.pages) {
     for (const page of (docsCache as any).pages) {
+      const slugKey = page.slug === 'index' ? 'docs' : `docs/${page.slug}`;
+      if (sitemapBlocklist.exactKeys.has(slugKey.toLowerCase())) {
+        continue;
+      }
+
       const path = page.slug === 'index' ? '/docs' : `/docs/${page.slug}`;
       // Use frontmatter date from cache, fallback to today.
       const lastmod = page.updatedAt ? formatDate(page.updatedAt) : page.pubDate ? formatDate(page.pubDate) : today;

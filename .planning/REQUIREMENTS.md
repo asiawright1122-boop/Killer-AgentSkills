@@ -3,7 +3,7 @@
 ## 1. Active Requirements
 
 ### Sitemap Purity (SITEMAP)
-- [ ] **SITEMAP-01**: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
+- [x] **SITEMAP-01**: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
 
 ### Trailing-Slash Consistency (SLASH)
 - [ ] **SLASH-01**: Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
@@ -22,7 +22,7 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| SITEMAP-01 | Phase 133 | `.planning/phases/133-sitemap-purity/133-VERIFICATION.md` | [ ] |
+| SITEMAP-01 | Phase 133 | `.planning/phases/133-sitemap-purity/133-VERIFICATION.md` | [x] |
 | SLASH-01 | Phase 134 | `.planning/phases/134-trailing-slash-consistency/134-VERIFICATION.md` | [ ] |
 | ERR404-01 | Phase 135 | `.planning/phases/135-unexpected-404-cleanup/135-VERIFICATION.md` | [ ] |
 | INTEGRATE-02 | Phase 136 | `.planning/phases/136-system-build-regression-check/136-VERIFICATION.md` | [ ] |
