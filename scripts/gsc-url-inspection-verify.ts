@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { createSign } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
+import { discoverCoverageDrilldownSourceDirectories } from './lib/coverage-drilldown-source';
 
 dotenv.config();
 const localEnv = resolve(process.cwd(), '.env.local');
@@ -235,7 +236,12 @@ function sleep(ms: number): Promise<void> {
 
 async function main() {
   const config = getConfig();
-  const archiveDir = resolve(process.cwd(), 'data/coverage-drilldown-raw/killer-skills.com-Coverage-Drilldown-2026-04-16');
+  const sources = discoverCoverageDrilldownSourceDirectories();
+  if (sources.length === 0) {
+    console.error('No coverage drilldown directories found');
+    process.exit(1);
+  }
+  const archiveDir = sources[0].directoryPath;
   const reportDir = resolve(process.cwd(), 'reports/seo');
 
   const allUrls = readArchivedUrls(archiveDir);

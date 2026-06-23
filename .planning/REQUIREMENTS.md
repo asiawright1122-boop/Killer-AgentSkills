@@ -3,8 +3,8 @@
 ## 1. Active Requirements
 
 ### Repository & Workspace Size Optimization (CLEAN)
-- [ ] **CLEAN-01**: Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
-- [ ] **CLEAN-02**: Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
+- [x] **CLEAN-01**: Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
+- [x] **CLEAN-02**: Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
 
 ### Locale Configuration Normalization (LOCALE)
 - [ ] **LOCALE-01**: Normalize and resolve status of `src/messages/hi.json` (either formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).

@@ -157,7 +157,7 @@ describe('buildGscOpportunityBoardReport', () => {
       },
       currentPages: [
         {
-          entity: 'https://killer-skills.com/ja/skills/0boluan0/Notes_on_Economic_Statistics/today',
+          entity: 'https://killer-skills.com/ja/skills/00susu00/wiki-idea-llm-harness/wikillm',
           clicks: 0,
           impressions: 5,
           ctr: 0,

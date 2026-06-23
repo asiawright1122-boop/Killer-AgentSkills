@@ -6,7 +6,7 @@ Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization is
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 130: Workspace & Auto-Submitter Size Optimization.
+- [x] Plan Phase 130: Workspace & Auto-Submitter Size Optimization. (completed 2026-06-23)
 - [ ] Plan Phase 131: Hindi Message Configuration Normalization.
 - [ ] Plan Phase 132: System Integrity Build & Regression Check.
 
@@ -26,7 +26,7 @@ Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization is
 - **Requirements:** CLEAN-01, CLEAN-02
 - **Scope:** Audit and clean up large logs, browser state directories, screenshots in `scripts/auto-submitter`, and temporary build artifacts/staging buffers/draft cached files in `data/` and root `.tmp`.
 - **Status:** Not started
-- **Plans:** 0/1 complete
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
   - Redundant logs and browser screenshots in `scripts/auto-submitter` are pruned, reducing workspace size.
   - Deprecated build files, draft caches, and temporary buffers in `data/` and `.tmp` are safely purged.

@@ -21,6 +21,6 @@ describe('skill locale link governance', () => {
   });
 
   it('uses live governance data for known suppressed locale variants', () => {
-    expect(resolveSkillDetailLocale('0boluan0', 'Notes_on_Economic_Statistics/today', 'ja')).toBe('en');
+    expect(resolveSkillDetailLocale('00susu00', 'wiki-idea-llm-harness/wikillm', 'ja')).toBe('en');
   });
 });

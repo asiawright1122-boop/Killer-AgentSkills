@@ -42,17 +42,18 @@ describe('skill detail link resolution', () => {
     expect(
       resolveSkillDetailLink(
         {
-          id: '0boluan0/Notes_on_Economic_Statistics/today',
-          owner: '0boluan0',
-          repo: 'Notes_on_Economic_Statistics',
+          id: '00susu00/wiki-idea-llm-harness/wikillm',
+          owner: '00susu00',
+          repo: 'wiki-idea-llm-harness',
+          routePath: 'wiki-idea-llm-harness/wikillm',
         },
         'ja',
       ),
     ).toEqual({
-      owner: '0boluan0',
-      routePath: 'Notes_on_Economic_Statistics/today',
+      owner: '00susu00',
+      routePath: 'wiki-idea-llm-harness/wikillm',
       detailLocale: 'en',
-      href: '/en/skills/0boluan0/Notes_on_Economic_Statistics/today',
+      href: '/en/skills/00susu00/wiki-idea-llm-harness/wikillm',
     });
   });
 });

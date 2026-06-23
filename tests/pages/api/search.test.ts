@@ -82,9 +82,9 @@ describe('GET /api/search', () => {
   it('uses locale governance when building hrefs from D1 keyword matches', async () => {
     const mockDB = createMockD1([
       {
-        id: '0boluan0/Notes_on_Economic_Statistics/today',
-        owner: '0boluan0',
-        repo: 'Notes_on_Economic_Statistics',
+        id: '00susu00/wiki-idea-llm-harness/wikillm',
+        owner: '00susu00',
+        repo: 'wiki-idea-llm-harness',
         name: '<thinking>private match notes</thinking>Today',
         stars: 10,
         category: 'Private analysis:\ninternal category\n\ndocumentation',
@@ -103,12 +103,12 @@ describe('GET /api/search', () => {
     const body = (await res.json()) as { results: unknown[] };
     expect(body.results).toEqual([
       expect.objectContaining({
-        id: '0boluan0/Notes_on_Economic_Statistics/today',
+        id: '00susu00/wiki-idea-llm-harness/wikillm',
         name: 'Today',
         category: 'documentation',
-        routePath: 'Notes_on_Economic_Statistics/today',
+        routePath: 'wiki-idea-llm-harness/wikillm',
         detailLocale: 'en',
-        href: '/en/skills/0boluan0/Notes_on_Economic_Statistics/today',
+        href: '/en/skills/00susu00/wiki-idea-llm-harness/wikillm',
       }),
     ]);
   });
