@@ -1,5 +1,15 @@
 # Project Milestones: Killer-Skills Agent Directory
 
+## v4.5 GSC Crawl & AI Telemetry Hardening (Shipped: 2026-06-23)
+
+**Phases completed:** 4 phases, 4 plans, 0 tasks
+
+**Key accomplishments:**
+
+- (none recorded)
+
+---
+
 ## v4.1 Multi-language Indexability Restructuring & SEO Acceleration (Shipped: 2026-06-23)
 
 **Phases completed:** 3 phases, 2 plans, 0 tasks

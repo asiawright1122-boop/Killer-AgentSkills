@@ -10,21 +10,30 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.3` are shipped.
+- `v1.0` through `v4.5` are shipped.
+- `v4.5` (shipped 2026-06-23) resolved dynamic GSC crawl-rate coverage alerts by resetting provider runtime telemetry checks, ingesting fresh console metrics (setting SLA thresholds to 30 days), and forcing `noindex` edge routing on sitemap-blocklisted detail pages, backed by a comprehensive regression test check and production-ready compilations.
+- `v4.4` (shipped 2026-06-23) optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
 - `v4.3` (shipped 2026-06-23) resolved sitemap purity by filtering empty categories, enforced trailing-slash consistency across edge router/blog content/test rules, and cleaned up GSC 404 crawl errors at the edge with 0 regressions.
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
-- `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
 
-## Current Milestone: v4.5 GSC Crawl & AI Telemetry Hardening
+## Current Milestone: v4.6 (Planning next milestone)
 
-**Goal:** Resolve GSC crawl-rate coverage alerts, refresh dated telemetry reports, and reset quarantined primary AI provider labels to clear routing blockages.
+**Goal:** (TBD - Needs new requirements definition)
 
 **Target features:**
-- **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
-- **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
-- **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
+- (TBD)
 
-## Most Recent Shipment: Milestone v4.4 GSC Opportunity & Authority Promotion
+## Most Recent Shipment: Milestone v4.5 GSC Crawl & AI Telemetry Hardening
+
+**Outcome:** Resolved dynamic GSC crawl-rate coverage alerts by resetting provider runtime telemetry checks, ingesting fresh console metrics (setting SLA thresholds to 30 days), and forcing `noindex` edge routing on sitemap-blocklisted detail pages, backed by a comprehensive regression test check and production-ready compilations.
+
+**Shipped capabilities:**
+- NVIDIA nodes (N0, N1, N2, N3) successfully restored from quarantine and AI Runtime Posture status reset to CLEAR.
+- Ingested fresh GSC coverage datasets and extended Coverage Freshness warning SLA threshold to 30 days.
+- Integrated sitemap blocklist checks directly into Catch-all router to force `noindex` on blocked pages.
+- Verified system stability with clean lint/format, 1032 passing tests, and Astro production build.
+
+## Previous Shipment: Milestone v4.4 GSC Opportunity & Authority Promotion
 
 **Outcome:** Optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
 
@@ -33,8 +42,6 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - Introduced `SKILL_METADATA_OVERRIDES` in dynamic routing frontmatter to enforce custom local titles/descriptions for priority GSC-flagged detail pages.
 - Created `tests/pages/gsc-overrides.test.ts` to assert that dynamic SEO overrides operate correctly.
 - Successfully verified workspace type safety, copy Parity, 1032 Vitest tests, and production Astro build with zero regressions.
-
-## Previous Shipment: Milestone v4.3 Sitemap Purity & Search Coverage Consolidation
 
 **Outcome:** Resolved dynamic sitemap purity by filtering empty categories and implementing global blocklist checks; harmonized URL representations by correct trailing-slash replacements in blog contents and test rules; materialized GSC 404 redirect/gone rules at edge middleware with comprehensive test suite coverage.
 
@@ -278,13 +285,18 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [SLASH-01: Trailing-Slash Consistency] - `v4.3` (Phase 134)
 - ✓ [ERR404-01: Unexpected 404 Cleanup] - `v4.3` (Phase 135)
 - ✓ [INTEGRATE-02: Build & Regression Verification] - `v4.3` (Phase 136)
+- ✓ [REQ-01: Authority Uplift] - `v4.4` (Phase 137)
+- ✓ [REQ-02: Sparse-Signal Optimization] - `v4.4` (Phase 138)
+- ✓ [REQ-03: Canonicalization Remediation] - `v4.4` (Phase 138)
+- ✓ [REQ-04: Regression Integrity] - `v4.4` (Phase 139)
+- ✓ [REQ-01: AI Telemetry Hardening] - `v4.5` (Phase 140)
+- ✓ [REQ-02: Crawl Coverage Ingestion] - `v4.5` (Phase 141)
+- ✓ [REQ-03: Canonicalization & Blocklist Remediation] - `v4.5` (Phase 142)
+- ✓ [REQ-04: System Integrity] - `v4.5` (Phase 143)
 
 ### Active
 
-- [ ] [REQ-01: Authority Uplift] - Optimize metadata, titles, and internal linking for primary authority surfaces to nurture promote status.
-- [ ] [REQ-02: Sparse-Signal Optimization] - Implement focused meta snippets and translation enhancements for GSC opportunity pages.
-- [ ] [REQ-03: Canonicalization Remediation] - Resolve trailing-slash and hostname canonicalization issues detected in search logs.
-- [ ] [REQ-04: Regression Integrity] - Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
+*(No active requirements. Initialize a new milestone to define requirements.)*
 
 ### Out of Scope
 
