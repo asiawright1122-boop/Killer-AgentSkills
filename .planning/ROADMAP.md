@@ -2,34 +2,72 @@
 
 ## Overview
 
-Milestone v4.4 [Title] is active. [Phases] are defined to [Goal].
+Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are defined to resolve indexation coverage alerts, reset telemetry indicators, and clean crawler URL routing drift.
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 137: [Phase Title].
+- [ ] Plan Phase 140: AI Telemetry Cleanup & Posture Hardening.
 
-## Current Milestone: v4.4 [Title]
+## Current Milestone: v4.5 GSC Crawl & AI Telemetry Hardening
 
-**Goal:** [Goal description]
+**Goal:** Resolve GSC crawl-rate coverage alerts, refresh dated telemetry reports, and reset quarantined primary AI provider labels to clear routing blockages.
 
 **Requirements:**
 
-- [ ] REQ-01: [Requirement description]
+- [ ] REQ-01: **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
+- [ ] REQ-02: **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
+- [ ] REQ-03: **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
+- [ ] REQ-04: **System Integrity**: Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
 
-### Phase 137: [Phase Title]
+### Phase 140: AI Telemetry Cleanup & Posture Hardening
 
 - **Requirements:** REQ-01
-- **Scope:** [Phase scope]
+- **Scope:** Reset quarantined NVIDIA provider labels in runtime telemetry logs, run active probes to verify 100% primary node health, and resolve the BLOCKING status on the AI Posture gate.
 - **Status:** Not started
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - [Success criteria 1]
-  - [Success criteria 2]
+  - NVIDIA nodes (N0, N1, N2, N3) successfully removed from quarantine.
+  - Telemetry health reports show `AI Runtime Posture` status as CLEAR.
+  - No active critical alerts triggered in AI provider monitoring logs.
+
+### Phase 141: GSC Crawl Coverage Ingest & Report Refresh
+
+- **Requirements:** REQ-02
+- **Scope:** Ingest raw coverage CSV datasets into local data store, run index-integrity and drift validations, and regenerate recovery scorecard inputs to clear age-warning indicators.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - Coverage drilldown metadata successfully generated with fresh timestamp.
+  - Dominant exclusion clusters sub-classified and explained.
+  - Recovery Scorecard `Coverage Freshness` gate transitions from WARNING to CLEAR.
+
+### Phase 142: URL Canonicalization & Blocklist Alignment
+
+- **Requirements:** REQ-03
+- **Scope:** Clean up trailing-slash URL discrepancies reported in search console and resolve sitemap-blocklist clashes on key detail pages to ensure edge-router compliance.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - Trailing-slash variants consolidated to extensionless paths in routing and sitemap.
+  - Sitemap blocklist verified against active routes with no static route conflicts.
+  - Integration tests added to prevent URL canonical drift.
+
+### Phase 143: System Integrity & Regression Guard
+
+- **Requirements:** REQ-04
+- **Scope:** Run full verification pipelines (lint, format, typecheck, public copy boundaries, and all 1030+ Vitest tests) to guarantee zero regressions for Milestone v4.5 release.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - TypeScript workspace typecheck passes cleanly with 0 errors.
+  - Vitest test suite runs and asserts 100% pass on all tests.
+  - Astro production bundle compiles successfully without runtime blockages.
 
 ## Milestones
 
-- ⏳ **v4.4 [Title]** — phases 137-... (active; [requirements](./REQUIREMENTS.md))
+- ⏳ **v4.5 GSC Crawl & AI Telemetry Hardening** — phases 140-143 (active; [requirements](./REQUIREMENTS.md))
 
+- ✅ **v4.4 GSC Opportunity & Authority Promotion** — phases 137-139 (shipped 2026-06-23; [archive](./milestones/v4.4-ROADMAP.md), [requirements](./milestones/v4.4-REQUIREMENTS.md))
 - ✅ **v4.3 Sitemap Purity & Search Coverage Consolidation** — phases 133-136 (shipped 2026-06-23; [archive](./milestones/v4.3-ROADMAP.md), [requirements](./milestones/v4.3-REQUIREMENTS.md), [audit](./milestones/v4.3-MILESTONE-AUDIT.md))
 - ✅ **v4.2 Repository Size Reduction & Locale Configuration Normalization** — phases 130-132 (shipped 2026-06-23; [archive](./milestones/v4.2-ROADMAP.md), [requirements](./milestones/v4.2-REQUIREMENTS.md), [audit](./milestones/v4.2-MILESTONE-AUDIT.md))
 - ✅ **v4.1 Multi-language Indexability Restructuring & SEO Acceleration** — phases 126-129 (shipped 2026-06-23; [archive](./milestones/v4.1-ROADMAP.md), [requirements](./milestones/v4.1-REQUIREMENTS.md), [audit](./milestones/v4.1-MILESTONE-AUDIT.md))
@@ -44,26 +82,6 @@ Milestone v4.4 [Title] is active. [Phases] are defined to [Goal].
 - ✅ **v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation** — phases 94-96 (shipped 2026-06-04; [archive](./milestones/v3.2-ROADMAP.md), [requirements](./milestones/v3.2-REQUIREMENTS.md), [audit](./milestones/v3.2-MILESTONE-AUDIT.md))
 - ✅ **v3.1 AIOps Smart Gateway & Profile Hardening** — phases 91-93 (shipped 2026-06-03; [archive](./milestones/v3.1-ROADMAP.md), [requirements](./milestones/v3.1-REQUIREMENTS.md), [audit](./milestones/v3.1-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.1-BOOTSTRAP.md), [closeout](./milestones/v3.1-CLOSEOUT.md))
 - ✅ **v3.0 Advanced Search Engine Optimization** — phases 88-90 (shipped 2026-06-03; [archive](./milestones/v3.0-ROADMAP.md), [requirements](./milestones/v3.0-REQUIREMENTS.md), [audit](./milestones/v3.0-MILESTONE-AUDIT.md), [bootstrap](./milestones/v3.0-BOOTSTRAP.md), [closeout](./milestones/v3.0-CLOSEOUT.md))
-- ✅ **v2.9 Coverage Data Ingestion & Post-Intervention Automation** — phases 85-87 (shipped 2026-06-03; [audit](./milestones/v2.9-MILESTONE-AUDIT.md))
-- ✅ **v2.8 Growth, Telemetry & UX Expansion** — phases 81-84 (shipped 2026-06-03; [audit](./milestones/v2.8-MILESTONE-AUDIT.md))
-- ✅ **v2.7 Operator Profiles and Fresh Ingestion** — phase 80 (shipped 2026-06-03; [audit](./milestones/v2.7-MILESTONE-AUDIT.md))
-- ✅ **v2.6 Index Alignment and AI Posture Hardening** — phase 79 (shipped 2026-06-03; [audit](./milestones/v2.6-MILESTONE-AUDIT.md))
-- ✅ **v2.5 Directory Automation Escalation and Post-Rollout Analytics** — phase 78 (shipped 2026-06-03; [audit](./milestones/v2.5-MILESTONE-AUDIT.md))
-- ✅ **v2.4 Directory Continuous Monitoring and CTR Optimization** — phase 77 (shipped 2026-06-03; [audit](./milestones/v2.4-MILESTONE-AUDIT.md))
-- ✅ **v2.3 Directory Rollout Monitoring and Optimization** — phase 76 (shipped 2026-06-03; [audit](./milestones/v2.3-MILESTONE-AUDIT.md))
-- ✅ **v2.2 Directory Automated Expansion and Full Rollout** — phases 74-75 (shipped 2026-06-03; [audit](./milestones/v2.2-MILESTONE-AUDIT.md))
-- ✅ **v2.1 Directory Auto-Expansion and Verification** — phases 72-73 (shipped 2026-06-03; [audit](./milestones/v2.1-MILESTONE-AUDIT.md))
-- ✅ **v2.0 Helpful Content Injection and Authority Unlock** — phases 68-71 (shipped 2026-06-03; [audit](./milestones/v2.0-MILESTONE-AUDIT.md))
-- ✅ **v1.9 Search Compliance Recovery Execution and Proof** — phases 64-67 (shipped 2026-05-29; [audit](./milestones/v1.9-MILESTONE-AUDIT.md))
-- ✅ **v1.8 Fresh Recovery Inputs and Comparable Proof Refresh** — phases 61-63 (shipped 2026-05-06; [audit](./milestones/v1.8-MILESTONE-AUDIT.md))
-- ✅ **v1.7 Public Trust Surface and Copy Boundary Hardening** — phases 58-60 (shipped 2026-04-23; [audit](./milestones/v1.7-MILESTONE-AUDIT.md))
-- ✅ **v1.6 Post-Governance Recovery Proof and Authority Lift** — phases 54-57 (shipped 2026-04-16; [audit](./milestones/v1.6-MILESTONE-AUDIT.md))
-- ✅ **v1.5 Traffic Recovery Proof and Demand Restart** — phases 46-53 (shipped 2026-04-16; [audit](./milestones/v1.5-MILESTONE-AUDIT.md))
-- ✅ **v1.4 Traffic Recovery Closure** — phases 43-45 (shipped 2026-04-09; [audit](./milestones/v1.4-MILESTONE-AUDIT.md))
-- ✅ **v1.3 Adaptive Provider Control and Escalation Automation** — phases 39-42 (shipped 2026-04-07; [audit](./milestones/v1.3-MILESTONE-AUDIT.md))
-- ✅ **v1.2 Operator Automation and Runtime Convergence** — phases 35-38 (shipped 2026-04-07; [audit](./milestones/v1.2-MILESTONE-AUDIT.md))
-- ✅ **v1.1 Observability and Governance Hardening** — phases 31-34 (shipped 2026-04-06; [audit](./milestones/v1.1-MILESTONE-AUDIT.md))
-- ✅ **v1.0 Reliability and Growth Operations** — phases 1-30 (shipped 2026-04-06; [audit](./milestones/v1.0-MILESTONE-AUDIT.md))
 
 ## Carry-Forward Themes
 
@@ -77,21 +95,12 @@ Milestone v4.4 [Title] is active. [Phases] are defined to [Goal].
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.4 [Title] | 137-... | 0/1 | Active | - |
+| v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 0/4 | Active | - |
+| v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |
 | v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 4/4 | Complete | 2026-06-23 |
 | v4.2 Repository Size Reduction & Locale Configuration Normalization | 130-132 | 3/3 | Complete | 2026-06-23 |
 | v4.1 Multi-language Indexability Restructuring & SEO Acceleration | 126-129 | 4/4 | Complete | 2026-06-23 |
 | v4.0 Authority Proof Remediation & Public Trust Hardening | 122-125 | 4/4 | Complete | 2026-06-22 |
-| v3.9 Promotion Gate Recovery & Public Boundary Assurance | 118-121 | 4/4 | Complete | 2026-06-09 |
-| v3.8 Backlog Content Enrichment Automation | 114-117 | 4/4 | Complete | 2026-06-09 |
-| v3.7 Authority Expansion & Content Depth Acceleration | 109-113 | 5/5 | Complete | 2026-06-05 |
-| v3.6 Authority Surfaces Promotion | 106-108 | 3/3 | Complete | 2026-06-04 |
-| v3.5 Post-Intervention Recovery Verification & GEO/CTR Promotion | 103-105 | 3/3 | Complete | 2026-06-04 |
-| v3.4 Coverage Cluster Remediation & AI Telemetry Refresh | 100-102 | 3/3 | Complete | 2026-06-04 |
-| v3.3 Manual Recovery Execution & Fresh Ingestion | 97-99 | 3/3 | Complete | 2026-06-04 |
-| v3.2 CI/CD Typecheck Alignment & Tech Debt Remediation | 94-96 | 3/3 | Complete | 2026-06-04 |
-| v3.1 AIOps Smart Gateway & Profile Hardening | 91-93 | 3/3 | Complete | 2026-06-03 |
-| v3.0 Advanced Search Engine Optimization | 88-90 | 3/3 | Complete | 2026-06-03 |
 
 ---
-*Last updated: 2026-06-23 after v4.4 milestone initialization*
+*Last updated: 2026-06-23 after initializing Milestone v4.5*

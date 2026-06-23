@@ -1,15 +1,23 @@
-# Milestone v4.4 Requirements — [Title]
+# Milestone v4.5 Requirements — GSC Crawl & AI Telemetry Hardening
 
 ## 1. Active Requirements
 
-- [ ] **REQ-01**: [Requirement description]
+- [ ] **REQ-01**: **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
+- [ ] **REQ-02**: **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
+- [ ] **REQ-03**: **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
+- [ ] **REQ-04**: **System Integrity**: Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
 
 ## 2. Out of Scope
 
-- [Out of scope items]
+- ** paid Workers AI expansion**: remains out of scope.
+- ** net-new discovery surfaces**: wait until authority program shows repeatable wins.
+- ** silent backup-provider widening**: provider backups must stay explicit.
 
 ## 3. Traceability Matrix
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| REQ-01 | Phase 137 | `.planning/phases/137-.../137-VERIFICATION.md` | [ ] |
+| REQ-01 | Phase 140 | `.planning/phases/140-ai-telemetry-cleanup-posture-hardening/140-VERIFICATION.md` | [ ] |
+| REQ-02 | Phase 141 | `.planning/phases/141-gsc-crawl-coverage-ingest-report-refresh/141-VERIFICATION.md` | [ ] |
+| REQ-03 | Phase 142 | `.planning/phases/142-url-canonicalization-blocklist-alignment/142-VERIFICATION.md` | [ ] |
+| REQ-04 | Phase 143 | `.planning/phases/143-system-integrity-regression-guard/143-VERIFICATION.md` | [ ] |

@@ -15,14 +15,26 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 - `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
 
-## Current Milestone: v4.4 [Title]
+## Current Milestone: v4.5 GSC Crawl & AI Telemetry Hardening
 
-**Goal:** [Goal description]
+**Goal:** Resolve GSC crawl-rate coverage alerts, refresh dated telemetry reports, and reset quarantined primary AI provider labels to clear routing blockages.
 
 **Target features:**
-- [Feature 1]: [Description]
+- **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
+- **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
+- **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
 
-## Most Recent Shipment: Milestone v4.3 Sitemap Purity & Search Coverage Consolidation
+## Most Recent Shipment: Milestone v4.4 GSC Opportunity & Authority Promotion
+
+**Outcome:** Optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
+
+**Shipped capabilities:**
+- Refined meta titles and H1 tags on English Homepage and Collections Hub to capture search impressions.
+- Introduced `SKILL_METADATA_OVERRIDES` in dynamic routing frontmatter to enforce custom local titles/descriptions for priority GSC-flagged detail pages.
+- Created `tests/pages/gsc-overrides.test.ts` to assert that dynamic SEO overrides operate correctly.
+- Successfully verified workspace type safety, copy Parity, 1032 Vitest tests, and production Astro build with zero regressions.
+
+## Previous Shipment: Milestone v4.3 Sitemap Purity & Search Coverage Consolidation
 
 **Outcome:** Resolved dynamic sitemap purity by filtering empty categories and implementing global blocklist checks; harmonized URL representations by correct trailing-slash replacements in blog contents and test rules; materialized GSC 404 redirect/gone rules at edge middleware with comprehensive test suite coverage.
 
@@ -262,13 +274,17 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [CLEAN-02: Temporary Files Purge] - `v4.2` (Phase 130)
 - ✓ [LOCALE-01: Hindi Locale Normalization] - `v4.2` (Phase 131)
 - ✓ [INTEGRATE-01: CI/CD Build & Test Verification] - `v4.2` (Phase 132)
+- ✓ [SITEMAP-01: Sitemap Purity] - `v4.3` (Phase 133)
+- ✓ [SLASH-01: Trailing-Slash Consistency] - `v4.3` (Phase 134)
+- ✓ [ERR404-01: Unexpected 404 Cleanup] - `v4.3` (Phase 135)
+- ✓ [INTEGRATE-02: Build & Regression Verification] - `v4.3` (Phase 136)
 
 ### Active
 
-- [ ] [SITEMAP-01: Sitemap Purity] - Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
-- [ ] [SLASH-01: Trailing-Slash Consistency] - Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
-- [ ] [ERR404-01: Unexpected 404 Cleanup] - Investigate and fix root causes of unexpected 404 crawl errors reported in GSC.
-- [ ] [INTEGRATE-02: Build & Regression Verification] - Verify global build, type safety, and all tests pass with zero regressions.
+- [ ] [REQ-01: Authority Uplift] - Optimize metadata, titles, and internal linking for primary authority surfaces to nurture promote status.
+- [ ] [REQ-02: Sparse-Signal Optimization] - Implement focused meta snippets and translation enhancements for GSC opportunity pages.
+- [ ] [REQ-03: Canonicalization Remediation] - Resolve trailing-slash and hostname canonicalization issues detected in search logs.
+- [ ] [REQ-04: Regression Integrity] - Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
 
 ### Out of Scope
 
@@ -334,4 +350,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-23 after initializing Milestone v4.3 Sitemap Purity & Search Coverage Consolidation._
+_Last updated: 2026-06-23 after initializing Milestone v4.5 GSC Crawl & AI Telemetry Hardening._
