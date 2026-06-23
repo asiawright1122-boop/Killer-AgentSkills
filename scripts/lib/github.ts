@@ -4,6 +4,13 @@ import { GITHUB_API } from './constants';
 import { fetchWithTimeout } from './utils';
 import type { SkillCache } from './types';
 import { deriveSkillStubTargetPath } from './skill-source';
+import {
+    tokenize,
+    calculateIdf,
+    getTfIdfVector,
+    calculateCosineSimilarity,
+    validateOriginalityAndMetadata
+} from './originality-filter';
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
@@ -234,6 +241,46 @@ export async function searchGitHubSkills(): Promise<any[]> {
     return items;
 }
 
+let discoveryIdfMap: Map<string, number> | null = null;
+const discoveryCorpusVectors: Array<{ key: string; vector: Map<string, number> }> = [];
+let discoveryCorpusLoaded = false;
+
+function loadDiscoveryCorpus() {
+    if (discoveryCorpusLoaded) return;
+    discoveryCorpusLoaded = true;
+    const cacheFile = path.join(process.cwd(), 'data/skills-cache.json');
+    if (fs.existsSync(cacheFile)) {
+        try {
+            const cacheContent = fs.readFileSync(cacheFile, 'utf-8');
+            const cacheData = JSON.parse(cacheContent);
+            const skills = cacheData.skills || [];
+            const corpusTokens: string[][] = [];
+            for (const s of skills) {
+                const body = s.skillMd?.body || '';
+                if (body) {
+                    const tokens = tokenize(body);
+                    if (tokens.length > 0) {
+                        corpusTokens.push(tokens);
+                        discoveryCorpusVectors.push({
+                            key: `${s.owner}/${s.repo}/${s.id}`,
+                            vector: new Map()
+                        });
+                    }
+                }
+            }
+            if (corpusTokens.length > 0) {
+                discoveryIdfMap = calculateIdf(corpusTokens);
+                for (let i = 0; i < corpusTokens.length; i++) {
+                    discoveryCorpusVectors[i].vector = getTfIdfVector(corpusTokens[i], discoveryIdfMap);
+                }
+                console.log(`   📚 Discovery similarity check corpus loaded with ${corpusTokens.length} skills.`);
+            }
+        } catch (e) {
+            console.warn('⚠️ Failed to load skills-cache.json for discovery similarity check:', e);
+        }
+    }
+}
+
 /**
  * 自动发现 GitHub 上新发布的 Skills
  * 使用 GitHub Code Search API 搜索包含 SKILL.md 的仓库
@@ -342,6 +389,53 @@ export async function discoverNewSkillsFromGitHub(existingIds: Set<string>, last
                         // 获取仓库信息
                         const repoInfo = await fetchRepoInfo(owner, repo);
                         if (!repoInfo) continue;
+
+                        // 提取 tags 并运行 validateOriginalityAndMetadata
+                        const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+                        let frontmatterTags: string[] = [];
+                        if (frontmatterMatch) {
+                            const yaml = frontmatterMatch[1];
+                            const tagsMatch = yaml.match(/^tags\s*:\s*\[(.*?)\]/m) || yaml.match(/^tags\s*:\s*\n((?:\s*-\s*\S+\n?)+)/m);
+                            if (tagsMatch) {
+                                if (tagsMatch[1].includes('-')) {
+                                    frontmatterTags = tagsMatch[1].split('\n').map(l => l.replace(/^\s*-\s*/, '').trim()).filter(Boolean);
+                                } else {
+                                    frontmatterTags = tagsMatch[1].split(',').map(t => t.trim().replace(/['"]/g, '')).filter(Boolean);
+                                }
+                            }
+                        }
+                        const mergedTags = Array.from(new Set([...(repoInfo.data?.topics || []), ...frontmatterTags]));
+
+                        const origValidation = validateOriginalityAndMetadata(
+                            { owner, repo, tags: mergedTags },
+                            content
+                        );
+                        if (!origValidation.valid) {
+                            console.log(`   ⏭️ Skipping discovered ${owner}/${repo} (${filePath}) - Reason: ${origValidation.reason}`);
+                            continue;
+                        }
+
+                        // 相似度检测
+                        loadDiscoveryCorpus();
+                        if (discoveryIdfMap && discoveryCorpusVectors.length > 0) {
+                            const newTokens = tokenize(content);
+                            const newVector = getTfIdfVector(newTokens, discoveryIdfMap);
+                            let maxSimilarity = 0;
+                            let mostSimilarSkill = '';
+
+                            for (const entry of discoveryCorpusVectors) {
+                                const sim = calculateCosineSimilarity(newVector, entry.vector);
+                                if (sim > maxSimilarity) {
+                                    maxSimilarity = sim;
+                                    mostSimilarSkill = entry.key;
+                                }
+                            }
+
+                            if (maxSimilarity > 0.85) {
+                                console.log(`   ⏭️ Skipping discovered duplicate ${owner}/${repo} (${filePath}) - Similarity: ${maxSimilarity.toFixed(4)} with ${mostSimilarSkill}`);
+                                continue;
+                            }
+                        }
 
                         newSkills.push({
                             owner,

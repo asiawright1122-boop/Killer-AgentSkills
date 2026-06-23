@@ -46,6 +46,7 @@ import { writeRegenerationBaselineReport } from './lib/regeneration-report';
 import { getSkillRoutePath, type SitemapSkillEntry } from '../src/lib/skill-route-paths';
 import { buildSkillLocaleGovernanceIndex } from './lib/skill-locale-governance';
 import { resolveSkillScoringPath } from './lib/skill-source';
+import { injectOriginalityBlock } from './lib/originality-filter';
 
 // Try loading .env.local if available
 if (fs.existsSync('.env.local')) {
@@ -1088,6 +1089,14 @@ async function buildCache(): Promise<void> {
                 }
               }
 
+              if (skillMd && skillMd.body) {
+                skillMd.body = injectOriginalityBlock(skillMd.body, {
+                  owner: repo.owner,
+                  repo: repo.repo,
+                  filePath: isSingleFile ? repo.skillsPath : `${repo.skillsPath}/${skillDir.name}/SKILL.md`,
+                });
+              }
+
               const skill: SkillCache = {
                 id: skillId,
                 name: skillMd?.name || skillDir.name,
@@ -1239,6 +1248,14 @@ async function buildCache(): Promise<void> {
             if (rawAgentAnalysis) {
               agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
             }
+          }
+
+          if (skillMd && skillMd.body) {
+            skillMd.body = injectOriginalityBlock(skillMd.body, {
+              owner: repo.owner,
+              repo: repo.repo,
+              filePath: repo.skillsPath || 'SKILL.md',
+            });
           }
 
           const skill: SkillCache = {
@@ -1531,6 +1548,14 @@ async function buildCache(): Promise<void> {
               if (rawAgentAnalysis) {
                 agentAnalysis = await aiService.translateAgentAnalysis(rawAgentAnalysis);
               }
+            }
+
+            if (skillMd && skillMd.body) {
+              skillMd.body = injectOriginalityBlock(skillMd.body, {
+                owner: item.owner,
+                repo: item.repo,
+                filePath: item.filePath,
+              });
             }
 
             const skill: SkillCache = {
