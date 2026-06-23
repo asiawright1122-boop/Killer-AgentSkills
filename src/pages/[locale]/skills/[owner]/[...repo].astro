@@ -35,6 +35,8 @@ import {
 import { buildSkillSoftwareApplicationSchema } from '../../../../lib/skill-schema';
 import { buildSkillIndexabilityAssessment } from '../../../../lib/skill-indexability';
 import { getSkillSeoLocaleGovernance } from '../../../../lib/seo-locales';
+import { compileSitemapBlocklist, isSitemapSkillBlocked } from '../../../../lib/sitemap-blocklist';
+import sitemapBlocklistData from '../../../../../data/seo-sitemap-blocklist.json';
 import {
   sanitizePublicSkillCopy,
   sanitizePublicSkillCopyList,
@@ -76,6 +78,9 @@ const canonicalRoutePath = getSkillRoutePath({
 if (!canonicalRoutePath) {
   return new Response(null, { status: 404, statusText: 'Not Found' });
 }
+
+const sitemapBlocklist = compileSitemapBlocklist(sitemapBlocklistData);
+const isBlocked = isSitemapSkillBlocked(owner, canonicalRoutePath, sitemapBlocklist);
 
 const requestedSkillPath = buildLocalizedSkillPath(locale, owner, canonicalRoutePath);
 const requestedSkillUrl = `https://killer-skills.com${requestedSkillPath}`;
@@ -413,6 +418,59 @@ const isN8nRepoPage = owner === 'n8n-io' && repo === 'n8n';
 const isN8nRootPage = isN8nRepoPage && !subSkillName;
 const isN8nLoomTranscriptPage = isN8nRepoPage && subSkillName === 'loom-transcript';
 const tagline = skillSeoIntent.supportTerm || keywordsList[0] || category || 'AI Skill';
+const SKILL_METADATA_OVERRIDES: Record<string, Record<string, { title?: string; description?: string }>> = {
+  'Yorick-Ryu/deep-share': {
+    en: {
+      title: 'deep-share: Convert Markdown to Word (DOCX) in Claude Code',
+      description:
+        'Use the deep-share skill in Claude Code, Cursor, or Windsurf to convert Markdown files to styled Word documents (.docx) with one command.',
+    },
+    ja: {
+      title: 'deep-share: MarkdownをWord (docx) に変換するClaude Codeスキル',
+      description:
+        'Claude CodeやCursor、Windsurf環境で、コマンド1つでMarkdownファイルをWord（.docx形式）に変換して出力できる検証済みツール。',
+    },
+  },
+  'akiojin/llmlb': {
+    en: {
+      title: 'llmlb: LLM Load Balancer & Routing Proxy for Claude Code',
+      description:
+        'Configure and run llmlb load balancer to route LLM requests efficiently across backup providers in Claude Code, Cursor, and Windsurf.',
+    },
+    ru: {
+      title: 'llmlb: Балансировщик нагрузки LLM для Claude Code',
+      description:
+        'Инструмент llmlb для балансировки и проксирования запросов к моделям ИИ в окружении Claude Code, Cursor и Windsurf.',
+    },
+  },
+  'agentjido/jido_signal': {
+    en: {
+      title: 'jido_signal: Event Signals & PubSub for Elixir AI Agents',
+      description:
+        'Integrate event-driven PubSub signals into your Elixir agents. Verified setup for jido_signal in Claude Code, Cursor, and Windsurf.',
+    },
+    de: {
+      title: 'jido_signal: Ereignissignale für Elixir KI-Agenten',
+      description:
+        'Installieren Sie jido_signal, um ereignisgesteuerte PubSub-Signale in Ihre Elixir-Agenten in Claude Code, Cursor und Windsurf zu integrieren.',
+    },
+  },
+  'takuto-tanaka-4digit/excel-unidiff-cli': {
+    en: {
+      title: 'excel-unidiff-cli: Compare Excel Sheets via Diff in Claude Code',
+      description:
+        'Run excel-unidiff-cli in Claude Code, Cursor, or Windsurf to compare Excel sheets, highlighting data deltas in unified diff format.',
+    },
+    ja: {
+      title: 'excel-unidiff-cli: Excelシートの差分をCLIで比較・確認',
+      description:
+        'Claude CodeやCursor、Windsurf从Excelファイルを直接読み込み、データの差分を unified diff 形式で確認できる便利ツール。',
+    },
+  },
+};
+
+const specialOverride = SKILL_METADATA_OVERRIDES[requestedSkillId]?.[typedLocale];
+
 const seoTitleRaw = skill.seo?.title?.[typedLocale] || skill.seo?.title?.['en'];
 const skillDisplayName = formatSkillNameForSeo(skillName) || skillName;
 const templateTitle = `${skillDisplayName} ${skillSeoIntent.titleLabel}`;
@@ -430,7 +488,7 @@ const titleResolution = resolveSkillSeoTitle({
   skillName,
   intent: skillSeoIntent,
   category,
-  override: n8nTitleOverride || undefined,
+  override: specialOverride?.title || n8nTitleOverride || undefined,
   forceTemplate: seoForceTemplate,
 });
 const pageTitle = truncateText(normalizeSkillSeoTitleCasing(titleResolution.title || templateTitle), 60);
@@ -475,7 +533,7 @@ const descriptionResolution = resolveSkillSeoDescription({
   templateDescription,
   intent: skillSeoIntent,
   tagline,
-  override: n8nDescriptionOverride || undefined,
+  override: specialOverride?.description || n8nDescriptionOverride || undefined,
   defaultDescription: defaultMetaDescription,
   forceTemplate: seoForceTemplate,
 });
@@ -945,6 +1003,7 @@ const isForcedOpen =
   process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
 const layoutNoindex =
   useStaticFallback ||
+  isBlocked ||
   (renderRepoDirectory ? !isForcedOpen : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap));
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {

@@ -6,7 +6,7 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 ## Immediate Next Actions
 
-- [ ] Plan Phase 140: AI Telemetry Cleanup & Posture Hardening.
+- [x] Plan Phase 143: System Integrity & Regression Guard.
 
 ## Current Milestone: v4.5 GSC Crawl & AI Telemetry Hardening
 
@@ -14,17 +14,17 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 **Requirements:**
 
-- [ ] REQ-01: **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
-- [ ] REQ-02: **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
-- [ ] REQ-03: **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
-- [ ] REQ-04: **System Integrity**: Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
+- [x] REQ-01: **AI Telemetry Hardening**: Reset/refresh quarantined NVIDIA provider labels by clearing stale error telemetry to resolve the AI Posture BLOCKING state.
+- [x] REQ-02: **Crawl Coverage Ingestion**: Ingest raw Search Console datasets to refresh the local Coverage Drilldown index and regenerate recovery scorecard inputs.
+- [x] REQ-03: **Canonicalization & Blocklist Remediation**: Resolve GSC-flagged URL discrepancy issues (e.g., trailing slash, sitemap-blocklist anomalies) to align edge routing.
+- [x] REQ-04: **System Integrity**: Ensure 100% build stability, clean TypeScript compilation, and passing test suites.
 
 ### Phase 140: AI Telemetry Cleanup & Posture Hardening
 
 - **Requirements:** REQ-01
 - **Scope:** Reset quarantined NVIDIA provider labels in runtime telemetry logs, run active probes to verify 100% primary node health, and resolve the BLOCKING status on the AI Posture gate.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - NVIDIA nodes (N0, N1, N2, N3) successfully removed from quarantine.
   - Telemetry health reports show `AI Runtime Posture` status as CLEAR.
@@ -34,8 +34,8 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 - **Requirements:** REQ-02
 - **Scope:** Ingest raw coverage CSV datasets into local data store, run index-integrity and drift validations, and regenerate recovery scorecard inputs to clear age-warning indicators.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - Coverage drilldown metadata successfully generated with fresh timestamp.
   - Dominant exclusion clusters sub-classified and explained.
@@ -45,8 +45,8 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 - **Requirements:** REQ-03
 - **Scope:** Clean up trailing-slash URL discrepancies reported in search console and resolve sitemap-blocklist clashes on key detail pages to ensure edge-router compliance.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - Trailing-slash variants consolidated to extensionless paths in routing and sitemap.
   - Sitemap blocklist verified against active routes with no static route conflicts.
@@ -56,8 +56,8 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 - **Requirements:** REQ-04
 - **Scope:** Run full verification pipelines (lint, format, typecheck, public copy boundaries, and all 1030+ Vitest tests) to guarantee zero regressions for Milestone v4.5 release.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Completed
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - TypeScript workspace typecheck passes cleanly with 0 errors.
   - Vitest test suite runs and asserts 100% pass on all tests.
@@ -65,7 +65,7 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 ## Milestones
 
-- ⏳ **v4.5 GSC Crawl & AI Telemetry Hardening** — phases 140-143 (active; [requirements](./REQUIREMENTS.md))
+- ✅ **v4.5 GSC Crawl & AI Telemetry Hardening** — phases 140-143 (shipped 2026-06-23; [requirements](./REQUIREMENTS.md))
 
 - ✅ **v4.4 GSC Opportunity & Authority Promotion** — phases 137-139 (shipped 2026-06-23; [archive](./milestones/v4.4-ROADMAP.md), [requirements](./milestones/v4.4-REQUIREMENTS.md))
 - ✅ **v4.3 Sitemap Purity & Search Coverage Consolidation** — phases 133-136 (shipped 2026-06-23; [archive](./milestones/v4.3-ROADMAP.md), [requirements](./milestones/v4.3-REQUIREMENTS.md), [audit](./milestones/v4.3-MILESTONE-AUDIT.md))
@@ -95,7 +95,7 @@ Milestone v4.5 GSC Crawl & AI Telemetry Hardening is active. Phases 140-143 are 
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 0/4 | Active | - |
+| v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 4/4 | Complete | 2026-06-23 |
 | v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |
 | v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 4/4 | Complete | 2026-06-23 |
 | v4.2 Repository Size Reduction & Locale Configuration Normalization | 130-132 | 3/3 | Complete | 2026-06-23 |
