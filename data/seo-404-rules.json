@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-06-22T14:56:48.118Z",
+  "generatedAt": "2026-06-23T13:33:27.827Z",
   "sourceReport": "reports/seo/latest-404-remediation-plan.json",
-  "sourceGeneratedAt": "2026-06-22T14:56:46.571Z",
+  "sourceGeneratedAt": "2026-06-23T13:33:26.502Z",
   "sourceIssueName": "未找到 (404)",
   "stats": {
     "redirect301": 1,
-    "gone410": 500,
-    "ignored": 17,
-    "redirect301CandidateTotal": 150,
-    "redirect301CoveredByMiddleware": 149,
+    "gone410": 495,
+    "ignored": 19,
+    "redirect301CandidateTotal": 157,
+    "redirect301CoveredByMiddleware": 156,
     "redirect301Materialized": 1,
-    "gone410CandidateTotal": 833,
-    "gone410CoveredByMiddleware": 333,
-    "gone410Materialized": 500,
+    "gone410CandidateTotal": 824,
+    "gone410CoveredByMiddleware": 329,
+    "gone410Materialized": 495,
     "manualReviewCandidateTotal": 12,
-    "observeCandidateTotal": 5,
+    "observeCandidateTotal": 7,
     "skippedInvalidOrProtected": 0
   },
   "rules": {
@@ -459,10 +459,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/de/skills/kubb-labs/kubb/documentation",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/de/skills/larrykoo711/new-macos-starter",
         "reason": "missing_from_sitemap_and_cache"
       },
@@ -619,10 +615,6 @@
         "reason": "blocked_by_sitemap"
       },
       {
-        "path": "/en/skills/Genuifx/claude-code-env-manager",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/en/skills/gscalzo/gscalzo.github.io",
         "reason": "blocked_by_sitemap"
       },
@@ -697,10 +689,6 @@
       {
         "path": "/en/skills/lilliangreenberg/valuations-autonomous_coding",
         "reason": "blocked_by_sitemap"
-      },
-      {
-        "path": "/en/skills/loonghao/vx/vx-usage",
-        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/en/skills/majiayu000/claude-skill-registry/effect-testing-mocking",
@@ -1323,10 +1311,6 @@
         "reason": "missing_from_sitemap_and_cache"
       },
       {
-        "path": "/ja/skills/yxhpy/qcc_plus/codex",
-        "reason": "missing_from_sitemap_and_cache"
-      },
-      {
         "path": "/ko/skills/a1flecke/games-for-my-kids",
         "reason": "blocked_by_sitemap"
       },
@@ -1785,10 +1769,6 @@
       {
         "path": "/ru/skills/lemline/lemline",
         "reason": "crawl_trap_or_invalid_public_route"
-      },
-      {
-        "path": "/ru/skills/loonghao/vx/vx-usage",
-        "reason": "missing_from_sitemap_and_cache"
       },
       {
         "path": "/ru/skills/MarioPasc/MenGrowth",

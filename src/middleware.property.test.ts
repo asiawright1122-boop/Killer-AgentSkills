@@ -438,6 +438,21 @@ describe('Feature: technical-seo, Property 5: 错误页 robots header', () => {
     expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
   });
 
+  it('returns 410 Gone for dead skill path /ja/skills/sabaronnie/AI-Driven-Cronut-CEO-Agent', async () => {
+    let nextCalled = false;
+    const response = (await onRequest(
+      createContext('https://killer-skills.com/ja/skills/sabaronnie/AI-Driven-Cronut-CEO-Agent'),
+      async () => {
+        nextCalled = true;
+        return new Response('ok', { status: 200 });
+      },
+    )) as Response;
+
+    expect(nextCalled).toBe(false);
+    expect(response.status).toBe(410);
+    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow');
+  });
+
   it('redirects legacy collection aliases once 404 remediation rules materialize them', async () => {
     let nextCalled = false;
     const response = (await onRequest(
