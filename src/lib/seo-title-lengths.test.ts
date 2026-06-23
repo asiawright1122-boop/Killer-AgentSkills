@@ -118,7 +118,7 @@ describe('SEO title and description lengths (en)', () => {
 });
 
 describe('FAQ6 MCP exists in all locales', () => {
-  const localeFiles = ['en', 'zh', 'ja', 'ko', 'ar', 'de', 'es', 'fr', 'hi', 'pt', 'ru'];
+  const localeFiles = ['en', 'zh', 'ja', 'ko', 'ar', 'de', 'es', 'fr', 'pt', 'ru'];
   for (const locale of localeFiles) {
     it(`${locale}.json has Home.faq6Q and Home.faq6A`, () => {
       const messages = JSON.parse(readFileSync(resolve(__dirname, `../messages/${locale}.json`), 'utf8'));

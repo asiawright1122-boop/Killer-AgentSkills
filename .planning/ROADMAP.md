@@ -7,7 +7,7 @@ Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization is
 ## Immediate Next Actions
 
 - [x] Plan Phase 130: Workspace & Auto-Submitter Size Optimization. (completed 2026-06-23)
-- [ ] Plan Phase 131: Hindi Message Configuration Normalization.
+- [x] Plan Phase 131: Hindi Message Configuration Normalization. (completed 2026-06-23)
 - [ ] Plan Phase 132: System Integrity Build & Regression Check.
 
 ## Current Milestone: v4.2 Repository Size Reduction & Locale Configuration Normalization
@@ -37,7 +37,7 @@ Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization is
 - **Requirements:** LOCALE-01
 - **Scope:** Formalize the status of `src/messages/hi.json` by either fully enabling it in supported locale configs (`SUPPORTED_LOCALES`) or pruning it from the codebase and CI configuration.
 - **Status:** Not started
-- **Plans:** 0/1 complete
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
   - The configuration status of `src/messages/hi.json` is resolved without leaving trailing dead code.
   - The application builds cleanly without translation loading or formatting errors.

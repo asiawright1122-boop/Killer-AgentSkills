@@ -30,7 +30,7 @@ let missingFeatures = 0;
 let missingKeywords = 0;
 let missingDefinition = 0;
 
-const locales = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'hi', 'ja', 'ko', 'pt', 'ru'];
+const locales = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'ja', 'ko', 'pt', 'ru'];
 
 skills.forEach(skill => {
     // Check description

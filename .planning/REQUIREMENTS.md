@@ -7,7 +7,7 @@
 - [x] **CLEAN-02**: Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
 
 ### Locale Configuration Normalization (LOCALE)
-- [ ] **LOCALE-01**: Normalize and resolve status of `src/messages/hi.json` (either formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
+- [x] **LOCALE-01**: Normalize and resolve status of `src/messages/hi.json` (either formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
 
 ### Build & Integration Verification (INTEGRATE)
 - [ ] **INTEGRATE-01**: Verify type stability, rerun Edge Astro build, and ensure zero regressions across all 158 integration tests.

@@ -8,7 +8,7 @@ import de from './messages/de.json';
 import en from './messages/en.json';
 import es from './messages/es.json';
 import fr from './messages/fr.json';
-import hi from './messages/hi.json';
+
 import ja from './messages/ja.json';
 import ko from './messages/ko.json';
 import pt from './messages/pt.json';
@@ -21,7 +21,6 @@ const MESSAGES_MAP: Record<string, any> = {
   en,
   es,
   fr,
-  hi,
   ja,
   ko,
   pt,

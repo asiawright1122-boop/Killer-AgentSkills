@@ -9,7 +9,7 @@
 import fs from 'fs/promises';
 import path from 'path';
 
-const LOCALES = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'hi', 'ja', 'ko', 'pt', 'ru'];
+const LOCALES = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'ja', 'ko', 'pt', 'ru'];
 const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
 
 async function main() {

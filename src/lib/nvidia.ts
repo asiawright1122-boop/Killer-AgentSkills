@@ -57,7 +57,6 @@ function getLangName(code: string): string {
     ru: 'Russian',
     pt: 'Portuguese',
     ar: 'Arabic',
-    hi: 'Hindi',
   };
 
   return langMap[code] || code;
