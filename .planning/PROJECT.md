@@ -16,12 +16,15 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v4.3` (shipped 2026-06-23) resolved sitemap purity by filtering empty categories, enforced trailing-slash consistency across edge router/blog content/test rules, and cleaned up GSC 404 crawl errors at the edge with 0 regressions.
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 
-## Current Milestone: v4.6 (Planning next milestone)
+## Current Milestone: v4.6 GitHub Workflow SEO & Harvester Hardening
 
-**Goal:** (TBD - Needs new requirements definition)
+**Goal:** Refactor and harden the GitHub Actions workflow and scripts responsible for skill harvesting and localization to ensure generated content complies with search guidelines from the source.
 
 **Target features:**
-- (TBD)
+- **Harvester SEO Compliance**: Refactor and enforce content originality filters during automated skill harvesting and submission (preventing low-quality mirror content).
+- **GEO-localized Translation sync**: Modernize translation sync workflow to conform with GEO-localized typographic rules (e.g. CJK terminal punctuation, spacing, and phrasing).
+- **Automated Backlog Metadata Enrichment**: Integrate batch LLM rewrite and keywords mining directly into workflows to patch missing collection/skill details.
+- **CI/CD Quality Gate**: Automate validation loops (copy leakages, formatting parity, missing translations, and punctuation rules) as a strict commit/PR check.
 
 ## Most Recent Shipment: Milestone v4.5 GSC Crawl & AI Telemetry Hardening
 
@@ -296,7 +299,11 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ### Active
 
-*(No active requirements. Initialize a new milestone to define requirements.)*
+- [ ] [REQ-01: Harvester SEO Compliance] - Refactor the crawler/harvester logic to filter low-originality mirror pages at harvest time.
+- [ ] [REQ-02: GEO-localized translation sync] - Modernize translation workflows to handle GEO-specific rules (CJK punctuation, semantic phrasing).
+- [ ] [REQ-03: Automated Backlog Metadata Enrichment] - Integrate batch metadata enrichment and keyword optimization into Actions to fill metadata gaps.
+- [ ] [REQ-04: CI/CD Quality Gate] - Implement automated guardrails checking formatting, translation parity, CJK punctuation, and reasoning leakage in PRs/commits.
+- [ ] [REQ-05: Build & Regression Integrity] - Ensure 100% build stability, clean compilation, and zero Vitest regression.
 
 ### Out of Scope
 
@@ -362,4 +369,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-23 after initializing Milestone v4.5 GSC Crawl & AI Telemetry Hardening._
+_Last updated: 2026-06-23 after initializing Milestone v4.6 GitHub Workflow SEO & Harvester Hardening._
