@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.0` are shipped.
+- `v1.0` through `v4.1` are shipped.
+- `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
 - `v4.0` focused on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
 - `Phase 125` (completed 2026-06-22) revalidated public copy boundary guards, tests, and the scorecard proof chain.
 - `Phase 124` (completed 2026-06-22) implemented the Collections Hub and Installation Docs trust bridge with 3-step setup and reverse links.
@@ -30,17 +31,28 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v2.4` monitored CTR performance and established automated database sync verification for the expanded directory index.
 - `v2.3` monitored organic search crawl and indexation status, and verified Edge SSR concurrency latency constraints.
 
-## Current Milestone: v4.1 Multi-language Indexability Restructuring & SEO Acceleration
+## Current Milestone: v4.2 Repository Size Reduction & Locale Configuration Normalization
 
-**Goal:** Restore non-English search discoverability by relaxing the over-strict locale eligibility rules, allowing fully translated bilingual pages to be indexed while maintaining public trust.
+**Goal:** Optimize Killer-Skills codebase size, directory structure, and clean up local cached states while formalizing and stabilizing unused or draft locale files.
 
 **Target features:**
-- Restructure `seo-locales.ts` to allow high-quality mixed-language pages to bypass the strict body-locale check.
-- Align edge middleware and `[...repo].astro` rendering to output `index, follow` on approved non-English skill detail pages.
-- Integrate newly indexable non-English pages into sitemap-skills.xml with proper alternate hreflang link tags.
-- Re-run sitemap/SEO health loop, run validation checks, and sync updated cache datasets to production KV.
+- Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
+- Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
+- Normalize and resolve status of `src/messages/hi.json` (either formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
+- Verify type stability, rerun Edge Astro build, and ensure zero regressions across all 158 integration tests.
 
-## Most Recent Shipment: Milestone v4.0 Authority Proof Remediation & Public Trust Hardening
+## Most Recent Shipment: Milestone v4.1 Multi-language Indexability Restructuring & SEO Acceleration
+
+**Outcome:** Relaxed over-strict locale eligibility rules to allow high-quality mixed-language details pages to output `index, follow`, expanding the indexable CJK/multilingual surface area by 2.3x (from 5,482 to 18,284 pages), and established two-way alternate hreflang maps in dynamic sitemaps.
+
+**Shipped capabilities:**
+- Relaxed the body locale check in `seo-locales.ts` to approve pages with valid translated recommendation/suitability metadata.
+- Integrated rendering and middleware pathways to serve `index, follow` robots headers on valid non-English skill detail pages.
+- Dynamically populated all eligible locales as hreflang alternates in `sitemap-skills.xml` to build double-pointed multilingual maps.
+- Synchronized cache to production KV and proactively submitted URLs via IndexNow.
+- Re-ran validation tests checking copy leaks and punctuation parity, passing 158 tests cleanly.
+
+## Previous Shipment: Milestone v4.0 Authority Proof Remediation & Public Trust Hardening
 
 **Outcome:** Remediated the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs, verified that the public copy boundary is free of internal strategy leaks, and confirmed that the scorecard decision gates operate honestly under production constraints.
 
@@ -240,10 +252,18 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [AIOPS-44: Trusted and Workflow Collection Proof Upgrade] - `v4.0` (Phase 123)
 - ✓ [AIOPS-45: Collections and Installation Trust Bridge] - `v4.0` (Phase 124)
 - ✓ [AIOPS-46: Boundary and Scorecard Revalidation] - `v4.0` (Phase 125)
+- ✓ [INDEX-01: Relax Indexability Rules] - `v4.1` (Phase 126)
+- ✓ [INDEX-02: Rendering & Middleware Release] - `v4.1` (Phase 127)
+- ✓ [INDEX-03: Sitemap & Hreflang Alignment] - `v4.1` (Phase 128)
+- ✓ [DEPLOY-01: Integration Verification] - `v4.1` (Phase 129)
+- ✓ [DEPLOY-02: KV Sync & IndexNow Submission] - `v4.1` (Phase 129)
 
 ### Active
 
-(None - define next milestone)
+- [ ] [CLEAN-01: Auto-submitter Cleanup] - Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
+- [ ] [CLEAN-02: Temporary Files Purge] - Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
+- [ ] [LOCALE-01: Hindi Locale Normalization] - Normalize and resolve status of `src/messages/hi.json` (formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
+- [ ] [INTEGRATE-01: CI/CD Build & Test Verification] - Verify type stability, rerun Edge Astro build, and ensure zero regressions across all 158 integration tests.
 
 ### Out of Scope
 
@@ -309,4 +329,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-22 after completing Milestone v4.0 Authority Proof Remediation & Public Trust Hardening._
+_Last updated: 2026-06-23 after initializing Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization._
