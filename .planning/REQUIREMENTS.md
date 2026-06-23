@@ -20,7 +20,7 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| CLEAN-01 | | | [ ] |
-| CLEAN-02 | | | [ ] |
-| LOCALE-01 | | | [ ] |
-| INTEGRATE-01 | | | [ ] |
+| CLEAN-01 | Phase 130 | `.planning/phases/130/VERIFICATION.md` | [ ] |
+| CLEAN-02 | Phase 130 | `.planning/phases/130/VERIFICATION.md` | [ ] |
+| LOCALE-01 | Phase 131 | `.planning/phases/131/VERIFICATION.md` | [ ] |
+| INTEGRATE-01 | Phase 132 | `.planning/phases/132/VERIFICATION.md` | [ ] |
