@@ -10,21 +10,29 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.2` are shipped.
+- `v1.0` through `v4.3` are shipped.
+- `v4.3` (shipped 2026-06-23) resolved sitemap purity by filtering empty categories, enforced trailing-slash consistency across edge router/blog content/test rules, and cleaned up GSC 404 crawl errors at the edge with 0 regressions.
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 - `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
-- `v4.0` focused on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
 
-## Current Milestone: v4.3 Sitemap Purity & Search Coverage Consolidation
+## Current Milestone: v4.4 [Title]
 
-**Goal:** Clean up sitemap link generation, resolve trailing-slash duplicates, and repair unexpected 404 crawl errors to maximize Search Console indexing efficiency and crawl budget.
+**Goal:** [Goal description]
 
 **Target features:**
-- Sitemap Purity: Ensure sitemap files (such as `sitemap-skills.xml` and `sitemap.xml`) exclude dead links, redirected URLs, or draft pages.
-- Trailing-Slash Consistency: Resolve duplicate page definitions caused by URL trailing slash discrepancies across edge router middleware and dynamic sitemap engines.
-- Unexpected 404 Cleanup: Track down and repair root sources of unexpected 404 crawl warnings reported in Search Console, correcting malformed URLs or missing dynamic paths.
+- [Feature 1]: [Description]
 
-## Most Recent Shipment: Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization
+## Most Recent Shipment: Milestone v4.3 Sitemap Purity & Search Coverage Consolidation
+
+**Outcome:** Resolved dynamic sitemap purity by filtering empty categories and implementing global blocklist checks; harmonized URL representations by correct trailing-slash replacements in blog contents and test rules; materialized GSC 404 redirect/gone rules at edge middleware with comprehensive test suite coverage.
+
+**Shipped capabilities:**
+- Added pre-validation check in `sitemap-blog.xml.ts` to skip category entries with 0 active blog posts, and standardized blocklist filtering across blog, collections, and docs sitemaps.
+- Normalized relative home links in 10 blog languages and upgraded `public-links.test.ts` to defensively check and block relative trailing-slash URLs.
+- Ingested 2026-06-03 GSC 404 data to populate `data/seo-404-rules.json` (such as 301 redirection for `/ar/collections/top-community-skills` and 410 Gone for dead skills), adding tests in `middleware.property.test.ts` to verify redirections and gone paths.
+- Passed 1031 unit and integration tests successfully, completing complete validation check pipeline and Astro production builds.
+
+## Previous Shipment: Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization
 
 **Outcome:** Optimized workspace and repository footprint by purging redundant artifacts and temporary files (reclaiming ~1.8GB), and normalized locale setup by completely removing the unsupported Hindi locale configuration and all associated references, ensuring 100% build stability.
 
