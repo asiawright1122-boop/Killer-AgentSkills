@@ -10,6 +10,8 @@ type CollectionLocaleSource = {
 export type SkillLocaleSource = CollectionLocaleSource & {
   body?: string | null;
   bodyLocale?: Locale | null;
+  reviewSummary?: LocalizedField;
+  selectionReason?: LocalizedField;
 };
 
 export type SkillSeoLocaleGovernance = {
@@ -152,7 +154,15 @@ export function getSkillSeoEligibleLocales(
   const bodyEligibleLocales =
     detectedBodyLocale && locales.includes(detectedBodyLocale) ? ([detectedBodyLocale] as Locale[]) : [];
 
-  return metadataEligibleLocales.filter((locale) => bodyEligibleLocales.includes(locale));
+  return metadataEligibleLocales.filter((candidate) => {
+    if (bodyEligibleLocales.includes(candidate)) {
+      return true;
+    }
+    const hasHighQualityTranslation =
+      hasDirectLocalizedValue(source.reviewSummary, candidate) &&
+      hasDirectLocalizedValue(source.selectionReason, candidate);
+    return hasHighQualityTranslation;
+  });
 }
 
 export function getSkillSeoLocaleGovernance(
@@ -164,7 +174,15 @@ export function getSkillSeoLocaleGovernance(
   const detectedBodyLocale = source.bodyLocale || detectPrimaryContentLocale(source.body, DEFAULT_LOCALE);
   const bodyEligibleLocales =
     detectedBodyLocale && locales.includes(detectedBodyLocale) ? ([detectedBodyLocale] as Locale[]) : [];
-  const eligibleLocales = metadataEligibleLocales.filter((candidate) => bodyEligibleLocales.includes(candidate));
+  const eligibleLocales = metadataEligibleLocales.filter((candidate) => {
+    if (bodyEligibleLocales.includes(candidate)) {
+      return true;
+    }
+    const hasHighQualityTranslation =
+      hasDirectLocalizedValue(source.reviewSummary, candidate) &&
+      hasDirectLocalizedValue(source.selectionReason, candidate);
+    return hasHighQualityTranslation;
+  });
 
   const publishedLocales: Locale[] =
     eligibleLocales.length > 0

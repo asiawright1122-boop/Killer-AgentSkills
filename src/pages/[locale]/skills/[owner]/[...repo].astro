@@ -615,6 +615,8 @@ const skillLocaleGovernance = renderRepoDirectory
         title: skill.seo?.title || skill.name || repo,
         description: skill.seo?.description || skill.description || skill.seo?.definition,
         body: readmeContentSource,
+        reviewSummary: skill.agentAnalysis?.recommendation,
+        selectionReason: skill.agentAnalysis?.suitability,
       },
       typedLocale,
       SUPPORTED_LOCALES,

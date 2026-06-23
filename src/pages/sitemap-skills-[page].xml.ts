@@ -194,7 +194,7 @@ export const GET: APIRoute = async ({ params }) => {
 <lastmod>${lastmod}</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.6</priority>
-${buildHreflangLinks(skill.owner, routePath, [canonicalLocale], canonicalLocale)}
+${buildHreflangLinks(skill.owner, routePath, eligibleLocales, canonicalLocale)}
 </url>`);
   }
 

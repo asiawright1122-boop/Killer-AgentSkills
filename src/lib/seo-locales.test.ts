@@ -129,4 +129,34 @@ describe('seo-locales', () => {
     expect(governance.canonicalLocale).toBe('en');
     expect(governance.isIndexableLocale).toBe(false);
   });
+
+  it('bypasses body-locale checks for non-matching locales when high-quality translation metadata is present', () => {
+    const governance = getSkillSeoLocaleGovernance(
+      {
+        title: {
+          en: 'Prompt Optimizer for Claude Code',
+          zh: 'Claude Code 提示词优化器',
+        },
+        description: {
+          en: 'Improve prompts for Claude Code workflows.',
+          zh: '优化 Claude Code 工作流中的提示词。',
+        },
+        body: 'Install this skill and use it with Claude Code to improve prompts for your workflow.',
+        reviewSummary: {
+          zh: '该技能能够优化 Claude Code 代理的提示词，提升任务执行效率。',
+        },
+        selectionReason: {
+          zh: '适合需要精细化控制代码编写提示词的开发者。',
+        },
+      },
+      'zh',
+    );
+
+    expect(governance.detectedBodyLocale).toBe('en');
+    expect(governance.metadataEligibleLocales).toEqual(['en', 'zh']);
+    expect(governance.eligibleLocales).toEqual(['en', 'zh']);
+    expect(governance.publishedLocales).toEqual(['en', 'zh']);
+    expect(governance.canonicalLocale).toBe('en');
+    expect(governance.isIndexableLocale).toBe(true);
+  });
 });

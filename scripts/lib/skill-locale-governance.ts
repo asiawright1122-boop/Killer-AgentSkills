@@ -101,6 +101,8 @@ export function buildSkillLocaleGovernanceRecord(skill: Partial<SkillCache>): Sk
       title: skill.seo?.title || skill.name || repo,
       description: skill.seo?.description || skill.description || skill.seo?.definition,
       body: buildCrawlerVisibleSkillBody(skill),
+      reviewSummary: skill.agentAnalysis?.recommendation,
+      selectionReason: skill.agentAnalysis?.suitability,
     },
     DEFAULT_LOCALE,
     SUPPORTED_LOCALES,
