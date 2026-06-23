@@ -2,13 +2,70 @@
 
 ## Overview
 
-Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization has shipped. Awaiting next milestone initialization.
+Milestone v4.3 Sitemap Purity & Search Coverage Consolidation is active. Four new phases (Phases 133-136) are defined to ensure sitemap purity, trailing-slash consistency, unexpected 404 cleanup, and verify build/regression integrity.
 
 ## Immediate Next Actions
 
-- [ ] Initialize next milestone (run `/gsd-new-milestone` or similar process)
+- [ ] Plan Phase 133: Sitemap Purity.
+- [ ] Plan Phase 134: Trailing-Slash Consistency.
+- [ ] Plan Phase 135: Unexpected 404 Cleanup.
+- [ ] Plan Phase 136: System Build & Regression Check.
+
+## Current Milestone: v4.3 Sitemap Purity & Search Coverage Consolidation
+
+**Goal:** Clean up sitemap link generation, resolve trailing-slash duplicates, and repair unexpected 404 crawl errors to maximize Search Console indexing efficiency and crawl budget.
+
+**Requirements:**
+
+- [ ] SITEMAP-01: Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
+- [ ] SLASH-01: Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
+- [ ] ERR404-01: Investigate and fix root causes of unexpected 404 crawl errors reported in GSC.
+- [ ] INTEGRATE-02: Verify global build, type safety, and all tests pass with zero regressions.
+
+### Phase 133: Sitemap Purity
+
+- **Requirements:** SITEMAP-01
+- **Scope:** Audit and refine dynamic sitemap generators (`sitemap-skills.xml` and `sitemap.xml`) to eliminate redirections, inactive language pages, or legacy draft references.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - Sitemap generates correctly with only valid, 2xx HTTP response canonical pages.
+  - No dynamic drafts or disabled language pages are included in sitemaps.
+
+### Phase 134: Trailing-Slash Consistency
+
+- **Requirements:** SLASH-01
+- **Scope:** Harmonize URL tail slash handling in Cloudflare KV edge router, Astro page routes, and sitemap URLs to avoid duplicate crawler indexing paths.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - Edge router and Astro pages resolve consistently with/without trailing slashes via unified redirects.
+  - All sitemap URLs strictly match canonical page link representations.
+
+### Phase 135: Unexpected 404 Cleanup
+
+- **Requirements:** ERR404-01
+- **Scope:** Trace Search Console crawl statistics, extract error URLs causing unexpected 404s, and fix malformed templates, links, or route patterns.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - No broken links in dynamic HTML layout files generate crawl exceptions.
+  - Verify unexpected 404 issues are successfully remediated or resolved in GSC.
+
+### Phase 136: System Build & Regression Check
+
+- **Requirements:** INTEGRATE-02
+- **Scope:** Run a comprehensive type check, Astro production build, static validation pipelines, and all tests to assert 0 regressions.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
+- **Success Criteria:**
+  - TypeScript type compilation passes with zero errors.
+  - Edge Astro production build runs successfully.
+  - All Vitest tests pass cleanly.
 
 ## Milestones
+
+- ⏳ **v4.3 Sitemap Purity & Search Coverage Consolidation** — phases 133-136 (active; [requirements](./REQUIREMENTS.md))
 
 - ✅ **v4.2 Repository Size Reduction & Locale Configuration Normalization** — phases 130-132 (shipped 2026-06-23; [archive](./milestones/v4.2-ROADMAP.md), [requirements](./milestones/v4.2-REQUIREMENTS.md), [audit](./milestones/v4.2-MILESTONE-AUDIT.md))
 - ✅ **v4.1 Multi-language Indexability Restructuring & SEO Acceleration** — phases 126-129 (shipped 2026-06-23; [archive](./milestones/v4.1-ROADMAP.md), [requirements](./milestones/v4.1-REQUIREMENTS.md), [audit](./milestones/v4.1-MILESTONE-AUDIT.md))

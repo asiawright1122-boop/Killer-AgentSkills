@@ -15,7 +15,14 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v4.1` (shipped 2026-06-23) relaxed over-strict locale eligibility rules, expanding indexable bilingual pages by 2.3x (from 5,482 to 18,284) and implementing proper sitemap hreflang alternates.
 - `v4.0` focused on remediating the five focus authority surfaces with user-facing proof, selection logic, and setup handoffs while keeping internal reasoning and operator-only process details out of public frontend surfaces.
 
-## Current Milestone: Awaiting Next Milestone Initialization
+## Current Milestone: v4.3 Sitemap Purity & Search Coverage Consolidation
+
+**Goal:** Clean up sitemap link generation, resolve trailing-slash duplicates, and repair unexpected 404 crawl errors to maximize Search Console indexing efficiency and crawl budget.
+
+**Target features:**
+- Sitemap Purity: Ensure sitemap files (such as `sitemap-skills.xml` and `sitemap.xml`) exclude dead links, redirected URLs, or draft pages.
+- Trailing-Slash Consistency: Resolve duplicate page definitions caused by URL trailing slash discrepancies across edge router middleware and dynamic sitemap engines.
+- Unexpected 404 Cleanup: Track down and repair root sources of unexpected 404 crawl warnings reported in Search Console, correcting malformed URLs or missing dynamic paths.
 
 ## Most Recent Shipment: Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization
 
@@ -243,13 +250,17 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - ✓ [INDEX-03: Sitemap & Hreflang Alignment] - `v4.1` (Phase 128)
 - ✓ [DEPLOY-01: Integration Verification] - `v4.1` (Phase 129)
 - ✓ [DEPLOY-02: KV Sync & IndexNow Submission] - `v4.1` (Phase 129)
+- ✓ [CLEAN-01: Auto-submitter Cleanup] - `v4.2` (Phase 130)
+- ✓ [CLEAN-02: Temporary Files Purge] - `v4.2` (Phase 130)
+- ✓ [LOCALE-01: Hindi Locale Normalization] - `v4.2` (Phase 131)
+- ✓ [INTEGRATE-01: CI/CD Build & Test Verification] - `v4.2` (Phase 132)
 
 ### Active
 
-- [ ] [CLEAN-01: Auto-submitter Cleanup] - Clean up redundant large logs, browser screenshot artifacts, and browser state directories from `scripts/auto-submitter`.
-- [ ] [CLEAN-02: Temporary Files Purge] - Audit and purge deprecated or temporary build artifacts, staging buffers, and draft cached files from `data/` and root `.tmp` directories.
-- [ ] [LOCALE-01: Hindi Locale Normalization] - Normalize and resolve status of `src/messages/hi.json` (formally activate Hindi in `SUPPORTED_LOCALES` or completely prune it from codebase/CI pathways).
-- [ ] [INTEGRATE-01: CI/CD Build & Test Verification] - Verify type stability, rerun Edge Astro build, and ensure zero regressions across all 158 integration tests.
+- [ ] [SITEMAP-01: Sitemap Purity] - Ensure sitemap generation excludes redirects, dead links, or dynamic drafts.
+- [ ] [SLASH-01: Trailing-Slash Consistency] - Resolve trailing-slash inconsistencies across the edge router, pages, and sitemaps.
+- [ ] [ERR404-01: Unexpected 404 Cleanup] - Investigate and fix root causes of unexpected 404 crawl errors reported in GSC.
+- [ ] [INTEGRATE-02: Build & Regression Verification] - Verify global build, type safety, and all tests pass with zero regressions.
 
 ### Out of Scope
 
@@ -315,4 +326,4 @@ This document advances at phase transitions and milestone boundaries. Use `.plan
 
 ---
 
-_Last updated: 2026-06-23 after initializing Milestone v4.2 Repository Size Reduction & Locale Configuration Normalization._
+_Last updated: 2026-06-23 after initializing Milestone v4.3 Sitemap Purity & Search Coverage Consolidation._
