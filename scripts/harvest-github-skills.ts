@@ -18,6 +18,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 import 'dotenv/config';
 import * as dotenv from 'dotenv';
+import {
+    tokenize,
+    calculateIdf,
+    getTfIdfVector,
+    calculateCosineSimilarity,
+    validateOriginalityAndMetadata
+} from './lib/originality-filter';
 
 // Load .env.local
 if (fs.existsSync('.env.local')) {
@@ -168,6 +175,20 @@ async function fetchSkillContent(owner: string, repo: string, filePath: string):
  */
 function isBlockedRepo(owner: string, repo: string): boolean {
     return BLOCKED_REPOS.has(`${owner}/${repo}`);
+}
+
+/**
+ * 记录被跳过的仓库审计日志
+ */
+function logSkipped(owner: string, repo: string, filePath: string, reason: string) {
+    const logDir = path.join(process.cwd(), 'logs');
+    if (!fs.existsSync(logDir)) {
+        fs.mkdirSync(logDir, { recursive: true });
+    }
+    const logPath = path.join(logDir, 'harvester-skipped.log');
+    const timestamp = new Date().toISOString();
+    const logEntry = `[${timestamp}] SKIPPED ${owner}/${repo} (${filePath}) - Reason: ${reason}\n`;
+    fs.appendFileSync(logPath, logEntry, 'utf-8');
 }
 
 // ============ Search Strategies ============
@@ -429,6 +450,42 @@ async function main() {
     const existingKeys = new Set(allSkills.map(s => `${s.owner}/${s.repo}/${s.filePath}`));
     console.log(`📚 Loaded ${allSkills.length} existing skills.`);
 
+    // 加载 skills-cache.json 以构建相似度对比语料库
+    const cacheFile = path.join(process.cwd(), 'data/skills-cache.json');
+    let idfMap = new Map<string, number>();
+    const corpusTokens: string[][] = [];
+    const corpusVectors: Array<{ key: string; vector: Map<string, number> }> = [];
+
+    if (fs.existsSync(cacheFile)) {
+        try {
+            const cacheContent = fs.readFileSync(cacheFile, 'utf-8');
+            const cacheData = JSON.parse(cacheContent);
+            const skills = cacheData.skills || [];
+            for (const s of skills) {
+                const body = s.skillMd?.body || '';
+                if (body) {
+                    const tokens = tokenize(body);
+                    if (tokens.length > 0) {
+                        corpusTokens.push(tokens);
+                        corpusVectors.push({
+                            key: `${s.owner}/${s.repo}/${s.id}`,
+                            vector: new Map()
+                        });
+                    }
+                }
+            }
+            console.log(`📚 Built comparison corpus from ${corpusTokens.length} existing skills in cache.`);
+            if (corpusTokens.length > 0) {
+                idfMap = calculateIdf(corpusTokens);
+                for (let i = 0; i < corpusTokens.length; i++) {
+                    corpusVectors[i].vector = getTfIdfVector(corpusTokens[i], idfMap);
+                }
+            }
+        } catch (e) {
+            console.warn('⚠️ Failed to load skills-cache.json for originality check:', e);
+        }
+    }
+
     // Special modes
     if (isPruneMode) {
         allSkills = await pruneStaleEntries(allSkills);
@@ -500,11 +557,75 @@ async function main() {
                 // 这会增加 API 调用，但可以过滤无效文件
                 const content = await fetchSkillContent(owner, repo, filePath);
                 if (content) {
-                    const validation = isValidSkillContent(content);
-                    if (!validation.valid) {
+                    // 1. 基础预检
+                    const basicValidation = isValidSkillContent(content);
+                    if (!basicValidation.valid) {
                         pageInvalidCount++;
                         skippedCount++;
+                        logSkipped(owner, repo, filePath, basicValidation.reason || 'Failed basic validation');
                         continue; // 跳过无效的 SKILL.md
+                    }
+
+                    // 2. 提取 tags 并进行 metadata 与 originality (字数) 校验
+                    const frontmatterMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+                    let frontmatterTags: string[] = [];
+                    if (frontmatterMatch) {
+                        const yaml = frontmatterMatch[1];
+                        const tagsMatch = yaml.match(/^tags\s*:\s*\[(.*?)\]/m) || yaml.match(/^tags\s*:\s*\n((?:\s*-\s*\S+\n?)+)/m);
+                        if (tagsMatch) {
+                            if (tagsMatch[1].includes('-')) {
+                                frontmatterTags = tagsMatch[1].split('\n').map(l => l.replace(/^\s*-\s*/, '').trim()).filter(Boolean);
+                            } else {
+                                frontmatterTags = tagsMatch[1].split(',').map(t => t.trim().replace(/['"]/g, '')).filter(Boolean);
+                            }
+                        }
+                    }
+                    const mergedTags = Array.from(new Set([...(item.repository.topics || []), ...frontmatterTags]));
+
+                    const origValidation = validateOriginalityAndMetadata(
+                        { owner, repo, tags: mergedTags },
+                        content
+                    );
+                    if (!origValidation.valid) {
+                        pageInvalidCount++;
+                        skippedCount++;
+                        logSkipped(owner, repo, filePath, origValidation.reason || 'Failed originality/metadata check');
+                        continue;
+                    }
+
+                    // 3. 相似度比对（TF-IDF + 余弦相似度）
+                    if (corpusTokens.length > 0) {
+                        const newTokens = tokenize(content);
+                        const newVector = getTfIdfVector(newTokens, idfMap);
+                        let maxSimilarity = 0;
+                        let mostSimilarSkill = '';
+
+                        for (const entry of corpusVectors) {
+                            const sim = calculateCosineSimilarity(newVector, entry.vector);
+                            if (sim > maxSimilarity) {
+                                maxSimilarity = sim;
+                                mostSimilarSkill = entry.key;
+                            }
+                        }
+
+                        if (maxSimilarity > 0.85) {
+                            pageInvalidCount++;
+                            skippedCount++;
+                            logSkipped(
+                                owner,
+                                repo,
+                                filePath,
+                                `Duplicate content: similarity score ${maxSimilarity.toFixed(4)} with existing skill (${mostSimilarSkill})`
+                            );
+                            continue;
+                        }
+
+                        // 通过后动态加入对比库，防止该批次内产生雷同内容
+                        corpusTokens.push(newTokens);
+                        corpusVectors.push({
+                            key: `${owner}/${repo}/${filePath}`,
+                            vector: newVector
+                        });
                     }
                 }
 
