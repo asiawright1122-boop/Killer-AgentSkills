@@ -236,6 +236,7 @@ const hasRuntimeSkillsImport = (source: string): boolean => {
 };
 
 const SITE_URL_TRAILING_SLASH_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`?#]+\/(?=[\s)"'`]|$)/g;
+const RELATIVE_TRAILING_SLASH_PATTERN = /(?:href=["']\/[a-zA-Z0-9_\-\/]+\/["'])|(?:\(\/[a-zA-Z0-9_\-\/]+\/\))/gi;
 const SITE_URL_QUERY_PATTERN = /https:\/\/killer-skills\.com\/[^\s)"'`]*\?[^\s)"'`]*/g;
 const HARDCODED_SKILL_LINK_PATTERN =
   /(?:https:\/\/killer-skills\.com)?\/(ar|de|en|es|fr|ja|ko|pt|ru|zh)\/skills\/([^/\s)"'`]+)\/([^\s)"'`]+)/g;
@@ -1716,11 +1717,11 @@ describe('public links and navigation copy', () => {
     expect(arBestSkillsSource).toContain('](/ar/skills)');
     expect(arBestSkillsSource).not.toContain('](/en/skills)');
 
-    expect(ruI18nWorkflowSource).toContain('](/ru/)');
-    expect(ruI18nWorkflowSource).not.toContain('](/en/)');
+    expect(ruI18nWorkflowSource).toContain('](/ru)');
+    expect(ruI18nWorkflowSource).not.toContain('](/en)');
 
-    expect(arI18nWorkflowSource).toContain('](/ar/)');
-    expect(arI18nWorkflowSource).not.toContain('](/en/)');
+    expect(arI18nWorkflowSource).toContain('](/ar)');
+    expect(arI18nWorkflowSource).not.toContain('](/en)');
 
     expect(arHowToInstallSource).toContain('](/ar/skills)');
     expect(arHowToInstallSource).not.toContain('](/en/skills)');
@@ -1910,6 +1911,10 @@ describe('public links and navigation copy', () => {
 
       for (const match of source.matchAll(SITE_URL_TRAILING_SLASH_PATTERN)) {
         trailingSlashMatches.push(`${relativePath}: ${match[0]}`);
+      }
+
+      for (const match of source.matchAll(RELATIVE_TRAILING_SLASH_PATTERN)) {
+        trailingSlashMatches.push(`${relativePath} (relative): ${match[0]}`);
       }
 
       for (const match of source.matchAll(SITE_URL_QUERY_PATTERN)) {

@@ -31,4 +31,4 @@ Instead of relying on rigid locale mappings, we engineered an auto-sync system.
 
 ## What's Next? 
 
-To experience a seamlessly localized and performant interface across 11 completely automated localizations, visit the main [Killer-Skills Portal](/en/). Embracing agent-led, continuous automated localization ensures our workflow and AI plugins are democratically accessible worldwide.
+To experience a seamlessly localized and performant interface across 11 completely automated localizations, visit the main [Killer-Skills Portal](/en). Embracing agent-led, continuous automated localization ensures our workflow and AI plugins are democratically accessible worldwide.
