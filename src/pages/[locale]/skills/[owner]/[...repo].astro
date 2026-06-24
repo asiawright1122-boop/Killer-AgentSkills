@@ -989,10 +989,11 @@ const isPageInSitemap = rawSitemapSkills.some((entry) => {
 
 const isForcedOpen =
   process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
+const skillTier = skillIndexability?.tier ?? 3;
 const layoutNoindex =
   useStaticFallback ||
   isBlocked ||
-  (renderRepoDirectory ? !isForcedOpen : !skillIndexability?.isIndexable || (hasSkill && !isPageInSitemap));
+  (renderRepoDirectory ? !isForcedOpen : skillTier !== 1 || (hasSkill && !isPageInSitemap));
 const robotsContent = layoutNoindex ? 'noindex, follow' : undefined;
 if (robotsContent) {
   Astro.response.headers.set('X-Robots-Tag', robotsContent);
@@ -1427,7 +1428,19 @@ const layoutSchema = renderRepoDirectory ? repoDirectorySchema : schema;
                   </section>
                 )}
 
-                {/* Supporting repository material */}
+                {/* Tier 2 — Support Reference notice */}
+                {skillTier === 2 && !renderRepoDirectory && (
+                  <div class="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 mb-4">
+                    <p class="text-sm text-amber-600 dark:text-amber-400 font-medium">
+                      <strong>Support Reference.</strong>{' '}
+                      {typedLocale === 'zh'
+                        ? '此页面提供安装与来源参考，但未在搜索结果中推广。继续使用前，请结合适用场景和限制条件一起判断。'
+                        : 'This page provides installation and source reference but is not promoted in search listings. Compare fit and limitations before relying on it for production workflows.'}
+                    </p>
+                  </div>
+                )}
+
+                {/* Supporting repository material (Tier 3) */}
                 {!skillIndexability?.isIndexable && (
                   <div class="brut-card border-2 border-amber-500 dark:border-amber-600 bg-amber-50 dark:bg-amber-950/30 p-4">
                     <h3 class="text-sm font-black text-amber-700 dark:text-amber-500 uppercase tracking-widest mb-1 font-mono">
