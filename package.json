@@ -27,6 +27,7 @@
     "guard:public-client-errors": "npx vitest run tests/pages/public-client-error-surfaces.test.ts src/islands/ErrorBoundary.test.ts src/lib/sandbox-skill-ref.test.ts",
     "guard:collection-cjk-punctuation": "npx tsx scripts/verify-collection-cjk-punctuation.ts",
     "guard:public-skill-cache": "npx tsx scripts/public-skill-cache-guard.ts",
+    "guard:enrichment-preflight": "npx tsx scripts/pre-flight-enrichment-check.ts",
     "guard:public-d1-seeds": "npx tsx scripts/public-d1-seed-guard.ts",
     "guard:test-network": "npx vitest run tests/pages/api/public-api-test-network-guards.test.ts",
     "guard:cloudflare:bindings": "npx tsx scripts/cloudflare-binding-guard.ts",

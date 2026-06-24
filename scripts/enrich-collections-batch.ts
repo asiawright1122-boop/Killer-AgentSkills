@@ -178,7 +178,7 @@ async function generateEnglishMetadata(
   title: string,
   skills: string[],
   currentData: any
-): Promise<{ description: string; longDescription: string; selectionReason: string; reviewSummary: string }> {
+): Promise<{ description: string; longDescription: string; selectionReason: string; reviewSummary: string; keywords: string[] }> {
   const prompt = `You are an expert technical content writer and SEO specialist. Your task is to generate rich, engaging, and highly accurate English metadata for a collection of AI Agent tools.
 
 Collection Title: "${title}"
@@ -208,13 +208,15 @@ Length Requirements (in characters):
 - "longDescription": 150 to 300 characters.
 - "selectionReason": 60 to 200 characters.
 - "reviewSummary": 60 to 200 characters.
+- "keywords": A JSON array containing 5 to 8 highly relevant developer keywords or search terms (e.g. ["mcp server", "cli tool"]).
 
 Output ONLY a valid JSON object in the following format (no markdown blocks, no prefix, no suffix, no explanation):
 {
   "description": "...",
   "longDescription": "...",
   "selectionReason": "...",
-  "reviewSummary": "..."
+  "reviewSummary": "...",
+  "keywords": ["...", "..."]
 }
 `;
 
@@ -235,6 +237,7 @@ Output ONLY a valid JSON object in the following format (no markdown blocks, no 
     longDescription: ensureTrailingPunctuation(parsed.longDescription || '', 'en'),
     selectionReason: ensureTrailingPunctuation(parsed.selectionReason || '', 'en'),
     reviewSummary: ensureTrailingPunctuation(parsed.reviewSummary || '', 'en'),
+    keywords: Array.isArray(parsed.keywords) ? parsed.keywords.map((k: any) => String(k).trim()).filter(Boolean) : [],
   };
 }
 
@@ -288,6 +291,10 @@ Output ONLY a valid JSON object matching the input keys, with the translated val
     }
   }
   return result;
+}
+
+function isKeywordsThin(keywords: string[] | undefined): boolean {
+  return !keywords || keywords.length < 3;
 }
 
 async function main() {
@@ -372,6 +379,7 @@ async function main() {
       longDescription: [],
       selectionReason: [],
       reviewSummary: [],
+      keywords: [],
     };
 
     let needsEnrichment = false;
@@ -404,6 +412,14 @@ async function main() {
       }
     }
 
+    // Check keywords
+    for (const loc of LOCALES) {
+      if (isKeywordsThin(colData.keywords?.[loc])) {
+        thinMap.keywords.push(loc);
+        needsEnrichment = true;
+      }
+    }
+
     if (!needsEnrichment) {
       console.log(`✓ Collection ${filename} is already rich in all locales.`);
       continue;
@@ -417,6 +433,7 @@ async function main() {
     if (thinMap.longDescription.length > 0) console.log(`     * longDescription: [${thinMap.longDescription.join(', ')}]`);
     if (thinMap.selectionReason.length > 0) console.log(`     * selectionReason: [${thinMap.selectionReason.join(', ')}]`);
     if (thinMap.reviewSummary.length > 0) console.log(`     * reviewSummary: [${thinMap.reviewSummary.join(', ')}]`);
+    if (thinMap.keywords.length > 0) console.log(`     * keywords: [${thinMap.keywords.join(', ')}]`);
 
     if (dryRun) {
       console.log(`   [DRY RUN] Would enrich ${filename}`);
@@ -431,16 +448,18 @@ async function main() {
       const enLongDescriptionThin = thinMap.longDescription.includes('en');
       const enSelectionReasonThin = thinMap.selectionReason.includes('en');
       const enReviewSummaryThin = thinMap.reviewSummary.includes('en');
+      const enKeywordsThin = thinMap.keywords.includes('en');
 
-      const englishSource: { description: string; longDescription: string; selectionReason: string; reviewSummary: string } = {
+      const englishSource: { description: string; longDescription: string; selectionReason: string; reviewSummary: string; keywords: string[] } = {
         description: colData.description?.en || '',
         longDescription: colData.longDescription?.en || '',
         selectionReason: colData.editorial?.selectionReason?.en || '',
         reviewSummary: colData.editorial?.reviewSummary?.en || '',
+        keywords: Array.isArray(colData.keywords?.en) ? colData.keywords.en : [],
       };
 
-      if (enDescriptionThin || enLongDescriptionThin || enSelectionReasonThin || enReviewSummaryThin) {
-        console.log(`   Generating new English source metadata...`);
+      if (enDescriptionThin || enLongDescriptionThin || enSelectionReasonThin || enReviewSummaryThin || enKeywordsThin) {
+        console.log(`   Generating new English source metadata & keywords...`);
         const newEn = await generateEnglishMetadata(aiService, colData.title?.en || slug, colData.skills || [], colData);
         
         if (enDescriptionThin && newEn.description) {
@@ -459,6 +478,10 @@ async function main() {
           englishSource.reviewSummary = newEn.reviewSummary;
           console.log(`     + New EN reviewSummary: "${newEn.reviewSummary}"`);
         }
+        if ((enKeywordsThin || newEn.keywords.length > 0) && newEn.keywords.length > 0) {
+          englishSource.keywords = newEn.keywords;
+          console.log(`     + New EN keywords: [${newEn.keywords.join(', ')}]`);
+        }
       }
 
       // Initialize the draft object for this collection file
@@ -469,6 +492,7 @@ async function main() {
           selectionReason: { ...colData.editorial?.selectionReason },
           reviewSummary: { ...colData.editorial?.reviewSummary },
         },
+        keywords: { ...colData.keywords },
       };
 
       // Always write the resolved English source back to the draft (if updated)
@@ -479,6 +503,8 @@ async function main() {
       if (!fileDraft.editorial.reviewSummary) fileDraft.editorial.reviewSummary = {};
       fileDraft.editorial.selectionReason.en = englishSource.selectionReason;
       fileDraft.editorial.reviewSummary.en = englishSource.reviewSummary;
+      if (!fileDraft.keywords) fileDraft.keywords = {};
+      fileDraft.keywords.en = englishSource.keywords;
 
       // 2. Perform translation for other locales
       // We group translation tasks by target locale.
@@ -489,6 +515,7 @@ async function main() {
         const needsLongDescriptionTrans = thinMap.longDescription.includes(loc) || enLongDescriptionThin;
         const needsSelectionReasonTrans = thinMap.selectionReason.includes(loc) || enSelectionReasonThin;
         const needsReviewSummaryTrans = thinMap.reviewSummary.includes(loc) || enReviewSummaryThin;
+        const needsKeywordsTrans = thinMap.keywords.includes(loc) || enKeywordsThin;
 
         // If the locale already has a rich description and we didn't regenerate English, we skip.
         // We only translate if the locale's field is thin, OR if we updated the English source.
@@ -497,6 +524,9 @@ async function main() {
         if (needsLongDescriptionTrans) translationPayload.longDescription = englishSource.longDescription;
         if (needsSelectionReasonTrans) translationPayload.selectionReason = englishSource.selectionReason;
         if (needsReviewSummaryTrans) translationPayload.reviewSummary = englishSource.reviewSummary;
+        if (needsKeywordsTrans && englishSource.keywords.length > 0) {
+          translationPayload.keywords = englishSource.keywords.join(', ');
+        }
 
         if (Object.keys(translationPayload).length > 0) {
           console.log(`   Translating to target locale: ${loc}...`);
@@ -513,6 +543,12 @@ async function main() {
           }
           if (translations.reviewSummary) {
             fileDraft.editorial.reviewSummary[loc] = translations.reviewSummary;
+          }
+          if (translations.keywords) {
+            fileDraft.keywords[loc] = translations.keywords
+              .split(/[,，、;；]/)
+              .map((k: string) => k.trim())
+              .filter(Boolean);
           }
         }
       }

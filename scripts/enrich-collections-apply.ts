@@ -62,6 +62,14 @@ function main() {
         };
       }
 
+      // Merge keywords
+      if (draft.keywords) {
+        colData.keywords = {
+          ...colData.keywords,
+          ...draft.keywords,
+        };
+      }
+
       // Merge editorial (selectionReason and reviewSummary)
       if (draft.editorial) {
         if (!colData.editorial) {

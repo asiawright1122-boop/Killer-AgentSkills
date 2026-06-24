@@ -297,6 +297,22 @@ jobs:
           WORKERS_AI_FREE_MAX_CALLS: '60'
           WORKERS_AI_FREE_DAILY_MAX_CALLS: '60'
 
+      - name: Enrich Collections Metadata
+        if: needs.resolve.outputs.mode == 'full' || (needs.resolve.outputs.mode == 'harvest' && needs.resolve.outputs.harvest_mode == 'enrich')
+        run: |
+          npm run enrichment:batch -- --limit=5
+          npm run enrichment:apply
+        env:
+          NVIDIA_API_KEYS: ${{ secrets['NVIDIA_API_KEY'] }}
+          SILICONFLOW_API_KEY: ${{ secrets.SILICONFLOW_API_KEY }}
+          OPENROUTER_API_KEYS: ${{ secrets.OPENROUTER_API_KEYS }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Validate Enrichment Pre-flight
+        if: needs.resolve.outputs.mode != 'harvest'
+        run: npm run guard:enrichment-preflight
+
       - name: Validate Public Skill Cache Projection
         if: needs.resolve.outputs.mode != 'harvest'
         run: npm run guard:public-skill-cache
@@ -314,9 +330,9 @@ jobs:
               MSG="chore(data): harvest update [skip ci]"
             fi
           else
-            CHANGED="$(git status --porcelain data/)"
+            CHANGED="$(git status --porcelain data/ src/content/collections/)"
             if [ -n "$CHANGED" ]; then
-              git add data/sitemap-skills.json data/expanded-github-skills.json data/seo-skill-locale-governance.json
+              git add data/sitemap-skills.json data/expanded-github-skills.json data/seo-skill-locale-governance.json src/content/collections/
               if [ "$MODE" = "full" ]; then
                 MSG="chore(data): full refresh [skip ci]"
               elif [ "$MODE" = "crawler" ]; then
