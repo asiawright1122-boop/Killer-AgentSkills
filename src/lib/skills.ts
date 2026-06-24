@@ -118,6 +118,8 @@ const CACHE_TTL = 5000; // 5s — covers a single SSR render cycle
 export function _resetSkillsCache() {
   _cachedSkills = null;
   _cacheTs = 0;
+  _cachedLightSkills = null;
+  _cacheLightTs = 0;
 }
 
 /**
@@ -300,7 +302,7 @@ export async function getSkillByOwnerRepo(env: Env, owner: string, repo: string)
  * @param limit - Maximum number of skills to return (default: 10)
  */
 export async function getFeaturedSkills(env: Env, limit: number = 10): Promise<UnifiedSkill[]> {
-  const skills = await getAllSkills(env);
+  const skills = await getLightweightSkills(env);
   return skills.sort((a, b) => (b.stars || 0) - (a.stars || 0)).slice(0, limit);
 }
 
@@ -382,7 +384,7 @@ export async function getRelatedSkills(
   currentSkill: UnifiedSkill,
   limit: number = 3,
 ): Promise<UnifiedSkill[]> {
-  const allSkills = await getAllSkills(env);
+  const allSkills = await getLightweightSkills(env);
 
   return allSkills
     .filter((skill) => {
@@ -420,4 +422,9 @@ export async function getRelatedSkills(
     })
     .map((item) => item.skill)
     .slice(0, limit);
+}
+
+export async function getTotalSkillsCount(env: Env): Promise<number> {
+  const summary = await getLightweightSkillsCategorySummary(env);
+  return summary.total;
 }

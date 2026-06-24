@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { type Env } from '../../lib/kv';
 import { withPublicApiHeaders } from '../../lib/public-skill-api';
-import { getAllSkills } from '../../lib/public-skill-catalog';
+import { getTotalSkillsCount } from '../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../lib/runtime-env';
 
 export const prerender = false;
@@ -43,8 +43,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
 
   try {
     const env = await getRuntimeEnv<Env>(locals);
-    const skills = env ? await getAllSkills(env) : [];
-    const totalSkills = skills.length;
+    const totalSkills = env ? await getTotalSkillsCount(env) : 0;
 
     let label: string;
     let value: string;

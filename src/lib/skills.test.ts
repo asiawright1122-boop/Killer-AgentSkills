@@ -50,20 +50,30 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
   const skillEntries = skills.map((skill) => [`skill:${skill.id}`, JSON.stringify(skill)] as const);
   const store = new Map<string, any>([['all-skills', JSON.stringify(skills)], ...skillEntries, ...extraKV]);
 
-  // Create D1 mock that supports the SQL queries used by getSkillsFromKV
+  const toD1Row = (s: UnifiedSkill) => ({
+    id: s.id,
+    owner: s.owner,
+    repo: s.repo,
+    name: s.name,
+    category: s.category,
+    stars: s.stars,
+    quality_score: s.qualityScore ?? 0,
+    updated_at: s.updatedAt,
+    skillName: s.skillName,
+    description: JSON.stringify(s.description),
+    topics: JSON.stringify(s.topics),
+    source: s.source,
+    qualityScore: s.qualityScore ?? 0,
+    filePath: s.filePath || '',
+    seoDefinition: s.seo ? JSON.stringify(s.seo.definition) : null,
+    data_json: JSON.stringify(s),
+  });
+
+  // Create D1 mock that supports the SQL queries used by getSkillsFromKV and getSkillsListing
   const mockDB = {
     prepare: vi.fn((sql: string) => ({
       bind: vi.fn((...args: any[]) => ({
         all: vi.fn(async () => {
-          // Handle "SELECT data_json FROM skills ORDER BY stars DESC"
-          if (sql.includes('ORDER BY stars DESC')) {
-            const limit = args[0] || skills.length;
-            const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
-            return {
-              success: true,
-              results: sorted.slice(0, limit).map((s) => ({ data_json: JSON.stringify(s) })),
-            };
-          }
           // Handle GROUP BY owner
           if (sql.includes('GROUP BY owner')) {
             const owners = args.slice(0, -1); // last arg is LIMIT
@@ -80,6 +90,15 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
                 .map(([owner, count]) => ({ owner, count })),
             };
           }
+          // Handle "SELECT data_json FROM skills ORDER BY stars DESC" and lightweight listing
+          if (sql.includes('ORDER BY stars DESC') || sql.includes('skills')) {
+            const limit = args[0] || skills.length;
+            const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
+            return {
+              success: true,
+              results: sorted.slice(0, limit).map(toD1Row),
+            };
+          }
           return { success: true, results: [] };
         }),
         first: vi.fn(async () => {
@@ -87,29 +106,28 @@ function createMockEnv(skills: UnifiedSkill[] = [], extraKV: Map<string, any> = 
           if (sql.includes('WHERE id = ?')) {
             const id = args[0];
             const match = skills.find((s) => s.id === id || `${s.owner}/${s.repo}` === id);
-            return match ? { data_json: JSON.stringify(match) } : null;
+            return match ? toD1Row(match) : null;
           }
           // Handle LIKE match
           if (sql.includes('LIKE ?')) {
             const pattern = args[0]?.replace(/%/g, '');
             const match = skills.find((s) => `${s.owner}/${s.repo}`.startsWith(pattern));
-            return match ? { data_json: JSON.stringify(match) } : null;
+            return match ? toD1Row(match) : null;
           }
           // Handle owner + repo match
           if (sql.includes('WHERE owner = ? AND repo = ?')) {
             const [owner, repo] = args;
             const match = skills.find((s) => s.owner === owner && s.repo === repo);
-            return match ? { data_json: JSON.stringify(match) } : null;
+            return match ? toD1Row(match) : null;
           }
           return null;
         }),
       })),
       all: vi.fn(async () => {
-        // Handle "SELECT data_json FROM skills ORDER BY stars DESC" (no bind)
         const sorted = [...skills].sort((a, b) => (b.stars || 0) - (a.stars || 0));
         return {
           success: true,
-          results: sorted.map((s) => ({ data_json: JSON.stringify(s) })),
+          results: sorted.map(toD1Row),
         };
       }),
     })),

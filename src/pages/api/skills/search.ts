@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { type Env } from '../../../lib/kv';
 import { searchSkills, filterByCategory } from '../../../lib/search';
 import {
-  getAllSkills,
+  getLightweightSkills,
   getLocalizedDescription,
   isPublicSkill,
   type UnifiedSkill,
@@ -141,7 +141,7 @@ export const GET: APIRoute = async ({ request, locals }) => {
 
     // 2. SLOW PATH: KV + JS Memory (Fallback)
     // ==========================================
-    _skills = env ? await getAllSkills(env) : [];
+    _skills = env ? await getLightweightSkills(env) : [];
 
     // Localize descriptions
     _skills = _skills.map((skill: UnifiedSkill) => ({

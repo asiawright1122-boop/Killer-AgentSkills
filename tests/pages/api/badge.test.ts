@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createAPIContext, createMockEnv } from '../../../src/lib/api-test-utils';
 import type { UnifiedSkill } from '../../../src/lib/public-skill-catalog';
 
-const mockGetAllSkills = vi.fn<() => Promise<UnifiedSkill[]>>();
+const mockGetTotalSkillsCount = vi.fn<() => Promise<number>>();
 
 vi.mock('../../../src/lib/public-skill-catalog', async () => {
   const actual =
@@ -11,7 +11,7 @@ vi.mock('../../../src/lib/public-skill-catalog', async () => {
     );
   return {
     ...actual,
-    getAllSkills: mockGetAllSkills,
+    getTotalSkillsCount: mockGetTotalSkillsCount,
   };
 });
 
@@ -21,12 +21,12 @@ describe('GET /api/badge', () => {
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.resetModules();
-    mockGetAllSkills.mockReset();
+    mockGetTotalSkillsCount.mockReset();
     ({ GET } = await import('../../../src/pages/api/badge'));
   });
 
   it('returns a skills badge with public API noindex headers', async () => {
-    mockGetAllSkills.mockResolvedValue([{} as UnifiedSkill, {} as UnifiedSkill]);
+    mockGetTotalSkillsCount.mockResolvedValue(2);
 
     const response = await GET(
       createAPIContext({
@@ -44,7 +44,7 @@ describe('GET /api/badge', () => {
   });
 
   it('returns an install badge variant', async () => {
-    mockGetAllSkills.mockResolvedValue([]);
+    mockGetTotalSkillsCount.mockResolvedValue(0);
 
     const response = await GET(
       createAPIContext({
@@ -61,7 +61,7 @@ describe('GET /api/badge', () => {
   });
 
   it('keeps fallback badge responses noindexed', async () => {
-    mockGetAllSkills.mockRejectedValueOnce(new Error('DB unavailable'));
+    mockGetTotalSkillsCount.mockRejectedValueOnce(new Error('DB unavailable'));
 
     const response = await GET(
       createAPIContext({

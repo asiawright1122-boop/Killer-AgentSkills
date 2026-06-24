@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { jsonResponse } from '../../../lib/api-utils';
 import { type Env } from '../../../lib/kv';
 import { withPublicApiHeaders } from '../../../lib/public-skill-api';
-import { getAllSkills, type UnifiedSkill } from '../../../lib/public-skill-catalog';
+import { getLightweightSkills, type UnifiedSkill } from '../../../lib/public-skill-catalog';
 import { getRuntimeEnv } from '../../../lib/runtime-env';
 
 export const prerender = false;
@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ locals }) => {
   try {
     const env = await getRuntimeEnv<Env>(locals);
 
-    const skills: UnifiedSkill[] = env ? await getAllSkills(env) : [];
+    const skills: UnifiedSkill[] = env ? await getLightweightSkills(env) : [];
 
     const totalSkills = skills.length;
     const categories = new Set(skills.map((s) => s.category).filter(Boolean));

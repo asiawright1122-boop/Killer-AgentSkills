@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { createAPIContext, createMockEnv } from '../../../../src/lib/api-test-utils';
 import type { UnifiedSkill } from '../../../../src/lib/public-skill-catalog';
 
-const mockGetAllSkills = vi.fn<() => Promise<UnifiedSkill[]>>();
+const mockGetLightweightSkills = vi.fn<() => Promise<UnifiedSkill[]>>();
 
 vi.mock('../../../../src/lib/public-skill-catalog', async () => {
   const actual =
@@ -11,7 +11,7 @@ vi.mock('../../../../src/lib/public-skill-catalog', async () => {
     );
   return {
     ...actual,
-    getAllSkills: mockGetAllSkills,
+    getLightweightSkills: mockGetLightweightSkills,
   };
 });
 
@@ -21,13 +21,13 @@ describe('GET /api/stats/growth', () => {
   beforeEach(async () => {
     vi.restoreAllMocks();
     vi.resetModules();
-    mockGetAllSkills.mockReset();
+    mockGetLightweightSkills.mockReset();
     vi.spyOn(console, 'error').mockImplementation(() => {});
     ({ GET } = await import('../../../../src/pages/api/stats/growth'));
   });
 
   it('returns growth totals with public API noindex headers', async () => {
-    mockGetAllSkills.mockResolvedValue([
+    mockGetLightweightSkills.mockResolvedValue([
       {
         id: '1',
         owner: 'test',
@@ -76,7 +76,7 @@ describe('GET /api/stats/growth', () => {
   });
 
   it('keeps growth errors noindexed', async () => {
-    mockGetAllSkills.mockRejectedValueOnce(new Error('DB unavailable'));
+    mockGetLightweightSkills.mockRejectedValueOnce(new Error('DB unavailable'));
 
     const response = await GET(
       createAPIContext({

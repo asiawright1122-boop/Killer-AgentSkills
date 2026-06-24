@@ -14,6 +14,7 @@ import {
   getRelatedSkills,
   getSkillById,
   getSkillByOwnerRepo,
+  getTotalSkillsCount,
   isPublicSkill,
   type UnifiedSkill,
 } from './skills';
@@ -35,6 +36,7 @@ export {
   getRelatedSkills,
   getSkillById,
   getSkillByOwnerRepo,
+  getTotalSkillsCount,
   isPublicSkill,
 };
 
