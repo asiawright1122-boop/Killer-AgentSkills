@@ -20,12 +20,15 @@ Milestone v4.8 Crawl Remediation & Discovery Expansion is active. Phases 151-152
 ### Phase 151: Crawl Coverage Remediation
 
 - **Requirements:** REMED-01
-- **Scope:** Clean up trailing slash anomalies, 404 clusters, and trace anomalous edge routing.
-- **Status:** Not started
+- **Scope:** 3-tier index slimdown (5,308 → 436 Tier 1 skills), body-locale alignment enforcement, GSC URL removal batches, coverage anomaly reduction.
+- **Status:** In Progress
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - Resolved major unclassified Coverage categories.
-  - Zero regression on existing E2E flows.
+  - Tier 1 skill count in 300-500 range. (Currently 436 ✓)
+  - Sitemap contains only Tier 1 URLs. (Verified ✓)
+  - Non-English non-body-matching pages are noindex.
+  - GSC removal batch generated for 10,783 anomalies. (521 URLs batched ✓)
+  - Zero regression on existing E2E flows. (1073 tests passing ✓)
 
 ### Phase 152: Discovery Expansion Preparation
 
