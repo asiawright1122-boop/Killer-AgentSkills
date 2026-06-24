@@ -29,7 +29,8 @@ type IndexabilityRecord = {
   canonicalUrl: string;
   qualityScore: number;
   isIndexable: boolean;
-  mode: 'indexable' | 'reference_only';
+  tier: 1 | 2 | 3;
+  mode: 'indexable' | 'support' | 'reference_only';
   score: number;
   threshold: number;
   reasons: string[];
@@ -52,6 +53,9 @@ type IndexabilityReport = {
     totalSkills: number;
     indexableSkills: number;
     referenceOnlySkills: number;
+    tier1Count: number;
+    tier2Count: number;
+    tier3Count: number;
     canonicalLocaleCounts: Record<string, number>;
     indexableCanonicalLocaleCounts: Record<string, number>;
     blockerCounts: Record<string, number>;
@@ -95,8 +99,11 @@ function renderMarkdown(report: IndexabilityReport): string {
     '## Summary',
     `- Source mode: ${report.summary.sourceMode}`,
     `- Skills analyzed: ${report.summary.totalSkills}`,
-    `- Indexable canonical pages: ${report.summary.indexableSkills}`,
+    `- Indexable canonical pages (Tier 1): ${report.summary.indexableSkills}`,
     `- Reference-only canonical pages: ${report.summary.referenceOnlySkills}`,
+    `- Tier 1 (indexable): ${report.summary.tier1Count}`,
+    `- Tier 2 (support, noindex): ${report.summary.tier2Count}`,
+    `- Tier 3 (reference only, noindex): ${report.summary.tier3Count}`,
     `- Total repo directories: ${report.summary.totalRepoDirectories}`,
     `- Indexable repo directories: ${report.summary.indexableRepoDirectories}`,
     `- Reference-only repo directories: ${report.summary.referenceOnlyRepoDirectories}`,
@@ -186,6 +193,7 @@ const records: IndexabilityRecord[] = (
             canonicalUrl: `https://killer-skills.com${buildLocalizedSkillPath(canonicalLocale, skill.owner, routePath)}`,
             qualityScore: Number(skill.qualityScore || 0),
             isIndexable: assessment.isIndexable,
+            tier: assessment.tier,
             mode: assessment.mode,
             score: assessment.score,
             threshold: assessment.threshold,
@@ -220,7 +228,8 @@ const records: IndexabilityRecord[] = (
             canonicalUrl: `https://killer-skills.com${buildLocalizedSkillPath(canonicalLocale, owner, routePath)}`,
             qualityScore: 0,
             isIndexable,
-            mode: isIndexable ? 'indexable' : 'reference_only',
+            tier: (isIndexable ? 2 : 3) as 1 | 2 | 3,
+            mode: isIndexable ? ('support' as const) : ('reference_only' as const),
             score: 0,
             threshold: 0,
             reasons: ['Derived from locale governance because data/skills-cache.json is unavailable.'],
@@ -286,6 +295,9 @@ const report: IndexabilityReport = {
     totalSkills: records.length,
     indexableSkills: 0,
     referenceOnlySkills: 0,
+    tier1Count: 0,
+    tier2Count: 0,
+    tier3Count: 0,
     canonicalLocaleCounts: {},
     indexableCanonicalLocaleCounts: {},
     blockerCounts: {},
@@ -299,6 +311,15 @@ const report: IndexabilityReport = {
 
 for (const record of records) {
   incrementCount(report.summary.canonicalLocaleCounts, record.canonicalLocale);
+
+  // Tier counting
+  if (record.tier === 1) {
+    report.summary.tier1Count += 1;
+  } else if (record.tier === 2) {
+    report.summary.tier2Count += 1;
+  } else {
+    report.summary.tier3Count += 1;
+  }
 
   if (record.isIndexable) {
     report.summary.indexableSkills += 1;
