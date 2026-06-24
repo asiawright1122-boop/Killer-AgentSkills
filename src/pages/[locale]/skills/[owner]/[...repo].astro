@@ -405,11 +405,6 @@ const sanitizedSeoKeywords = sanitizeSkillKeywords(rawKeywordsList, { max: 12 })
 const fallbackTopicKeywords = sanitizeSkillKeywords(skill.topics || [], { max: 12 });
 const keywordsList = sanitizedSeoKeywords.length > 0 ? sanitizedSeoKeywords : fallbackTopicKeywords;
 const skillSeoIntent = resolveSkillSeoIntent(skill.category, keywordsList, t);
-const matchesIntentSignals = (text: string | undefined, signals: string[]) => {
-  if (!text) return false;
-  const normalizedText = normalizeForMatch(text);
-  return signals.some((signal) => signal && normalizedText.includes(normalizeForMatch(signal)));
-};
 
 // Construct SEO Title
 const category = getCategoryLabel(skill.category, t);
@@ -628,14 +623,7 @@ const n8nInternalLinks = isN8nRepoPage
       },
     ]
   : [];
-const metaDescription = truncateText(
-  n8nDescriptionOverride
-    ? n8nDescriptionOverride
-    : shouldUseDescriptionTemplate
-      ? templateDescription
-      : seoDescriptionRaw || publicDescription || templateDescription,
-  158,
-);
+const metaDescription = publicDescription;
 const resolvedMetaDescription = sanitizePublicSkillCopy(
   firstNonEmpty(metaDescription, defaultMetaDescription),
   defaultMetaDescription,
