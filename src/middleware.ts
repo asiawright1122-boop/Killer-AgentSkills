@@ -488,7 +488,8 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const isCrawlerRequest = isCrawlerUserAgent(userAgent);
 
   // Apply request density throttling (REC-39)
-  if (!isStaticOrApiPath(pathname)) {
+  const isWarmupRequest = userAgent.includes('killer-skills-warmup-bot');
+  if (!isWarmupRequest && !isStaticOrApiPath(pathname)) {
     const clientIp = context.clientAddress || context.request.headers.get('cf-connecting-ip') || '127.0.0.1';
     const { ipLimit, globalLimit, ipCount, globalCount } = incrementAndCheckRate(clientIp);
 

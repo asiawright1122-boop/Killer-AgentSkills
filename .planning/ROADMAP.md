@@ -14,8 +14,8 @@ Milestone v4.7 Core Web Vitals & Edge Performance Optimization is active. Phases
 
 **Requirements:**
 
-- [ ] CPU-01: **Edge CPU Optimization**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
-- [ ] WARM-01: **Cache Warmup & Hydration**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
+- [x] CPU-01: **Edge CPU Optimization**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
+- [x] WARM-01: **Cache Warmup & Hydration**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
 - [ ] CWV-01: **Core Web Vitals Validation**: Leverage Chrome DevTools plugin to audit core rendering pathways and optimize INP and LCP parameters.
 - [ ] MON-01: **Search Health Monitoring & Alerts**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
 
@@ -23,8 +23,8 @@ Milestone v4.7 Core Web Vitals & Edge Performance Optimization is active. Phases
 
 - **Requirements:** CPU-01
 - **Scope:** Refactor global skill loading logic, reduce JSON parsing footprint, and optimize data serialization on edge Workers to prevent CPU limits and Error 1102.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Complete
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - Cloudflare Worker CPU execution times are optimized under load simulation.
   - JSON load size is reduced or lazy-parsed on details pages.
@@ -34,8 +34,8 @@ Milestone v4.7 Core Web Vitals & Edge Performance Optimization is active. Phases
 
 - **Requirements:** WARM-01
 - **Scope:** Build and deploy cron/event-driven edge SSR cache warmup automation targeting sitemaps and priority crawl routes, ensuring TTFB stays under 200ms.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Complete
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
   - Automated warmup script executes successfully and logs cache hit metrics.
   - Multilingual sitemaps yield 100% edge cache hits on repeated crawls.
@@ -75,7 +75,7 @@ Milestone v4.7 Core Web Vitals & Edge Performance Optimization is active. Phases
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 0/3 | In Progress | Active |
+| v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 2/3 | In Progress | Active |
 | v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
 | v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 4/4 | Complete | 2026-06-23 |
 | v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |
