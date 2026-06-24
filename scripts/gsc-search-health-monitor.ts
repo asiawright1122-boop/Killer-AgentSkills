@@ -11,7 +11,9 @@ export type SearchHealthAlertCode =
   | 'gsc_crawl_error_spike'
   | 'gsc_crawl_error_warning'
   | 'gsc_unexpected_cluster_spike'
-  | 'gsc_unexpected_cluster_warning';
+  | 'gsc_unexpected_cluster_warning'
+  | 'gsc_index_shrink_critical'
+  | 'gsc_index_shrink_warning';
 
 export type SearchHealthAlert = {
   code: SearchHealthAlertCode;
@@ -141,6 +143,25 @@ export function analyzeSearchHealth(ctrData: any, coverageData: any): SearchHeal
       severity: 'warning',
       title: 'Unexpected Crawl Cluster Warning',
       message: `Estimated affected pages in "other" cluster is ${unexpectedClusterCount.toFixed(1)}, exceeding the 50 limit.`,
+    });
+  }
+
+  // 5. Index shrink signal — flags if GSC indexed page count drops too low
+  // after intentional Tier 1 slimdown. Expected range is 300-500 Tier 1 pages.
+  const pageRows = typeof ctrData?.pageRows === 'number' ? ctrData.pageRows : 0;
+  if (pageRows > 0 && pageRows < 50) {
+    alerts.push({
+      code: 'gsc_index_shrink_critical',
+      severity: 'critical',
+      title: 'Index Shrink Signal — Critical',
+      message: `Only ${pageRows} pages in GSC index — possible over-shrinkage beyond Tier 1 intent. Verify tier boundaries and sitemap output.`,
+    });
+  } else if (pageRows > 0 && pageRows < 150) {
+    alerts.push({
+      code: 'gsc_index_shrink_warning',
+      severity: 'warning',
+      title: 'Index Shrink Signal — Warning',
+      message: `Low page count in GSC index: ${pageRows} pages. Monitor to ensure Tier 1 pages are being discovered.`,
     });
   }
 
