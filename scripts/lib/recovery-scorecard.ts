@@ -9,6 +9,8 @@ export const DEFAULT_INDEX_DRIFT_JSON_PATH = 'reports/seo/index-drift.json';
 export const DEFAULT_TRAFFIC_REPORT_MD_PATH = 'reports/gsc/latest-ctr-report.md';
 export const DEFAULT_TRAFFIC_MONITORING_SKIPPED_MD_PATH = 'reports/gsc/monitoring-skipped.md';
 export const DEFAULT_AI_PROVIDER_HEALTH_JSON_PATH = 'reports/seo/latest-ai-provider-health.json';
+export const DEFAULT_INDEXABILITY_JSON_PATH = 'reports/seo/latest-skill-indexability.json';
+export const DEFAULT_LOCALE_GOVERNANCE_JSON_PATH = 'reports/seo/latest-skill-locale-governance.json';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const CRAWL_STALE_AFTER_DAYS = 7;
@@ -186,6 +188,29 @@ export type GscTrafficReportSummary = {
   nextStep: string | null;
 };
 
+type SkillIndexabilityJsonReport = {
+  generatedAt?: string;
+  summary?: {
+    totalSkills?: number;
+    indexable?: number;
+    referenceOnly?: number;
+    tier1Count?: number;
+    tier2Count?: number;
+    tier3Count?: number;
+  };
+};
+
+type LocaleGovernanceJsonReport = {
+  generatedAt?: string;
+  summary?: {
+    totalSkills?: number;
+    totalVariants?: number;
+    metadataEligibleVariants?: number;
+    bodyEligibleVariants?: number;
+    eligibleVariants?: number;
+  };
+};
+
 export type RecoveryScorecardReport = {
   generatedAt: string;
   overallStatus: RecoverySignalStatus;
@@ -251,6 +276,16 @@ export type RecoveryScorecardReport = {
     alertCount: number;
     highestSeverity: string | null;
   }>;
+  indexQuality: RecoverySignal<{
+    tier1Count: number;
+    totalCanonicalSkills: number;
+    ratio: number;
+  }>;
+  languageAlignment: RecoverySignal<{
+    bodyEligibleNonEnVariants: number;
+    totalNonEnVariants: number;
+    ratio: number;
+  }>;
   weeklyGates: RecoveryGate[];
   nextActions: string[];
 };
@@ -262,12 +297,16 @@ export type RecoveryScorecardBuildInput = {
   indexDriftReport?: IndexDriftJsonReport | null;
   trafficReport?: GscTrafficReportSummary | null;
   aiProviderHealthReport?: AiProviderHealthJsonReport | null;
+  indexabilityReport?: SkillIndexabilityJsonReport | null;
+  localeGovernanceReport?: LocaleGovernanceJsonReport | null;
   sourcePaths?: {
     crawl?: string;
     coverage?: string;
     index?: string;
     traffic?: string;
     ai?: string;
+    indexability?: string;
+    localeGovernance?: string;
   };
 };
 
@@ -278,6 +317,8 @@ export type RecoveryScorecardFileOptions = {
   indexJsonPath?: string;
   trafficReportPath?: string;
   aiJsonPath?: string;
+  indexabilityJsonPath?: string;
+  localeGovernanceJsonPath?: string;
 };
 
 function toAbsolutePath(path: string): string {
@@ -1147,6 +1188,79 @@ function renderSignalSection(signal: RecoverySignal): string {
   ].join('\n');
 }
 
+function buildIndexQualitySignal(
+  report: SkillIndexabilityJsonReport | null | undefined,
+  sourcePath: string,
+  now: Date,
+): RecoverySignal<{ tier1Count: number; totalCanonicalSkills: number; ratio: number }> {
+  const source = buildSourceState(sourcePath, Boolean(report), report?.generatedAt || null, now, INDEX_STALE_AFTER_DAYS);
+  const tier1Count = report?.summary?.tier1Count ?? 0;
+  const totalCanonicalSkills = report?.summary?.totalSkills ?? 0;
+  const ratio = totalCanonicalSkills > 0 ? tier1Count / totalCanonicalSkills : 0;
+
+  let status: RecoverySignalStatus;
+  let target: string;
+  let observed: string;
+  const notes: string[] = [];
+
+  if (tier1Count === 0) {
+    status = 'blocking';
+    notes.push('Zero Tier 1 skills — no pages promoted in search listings');
+  } else if (ratio >= 0.05) {
+    status = 'clear';
+  } else if (ratio >= 0.03) {
+    status = 'warning';
+    notes.push('Tier 1 ratio below 5% target — consider promoting more skills');
+  } else {
+    status = 'blocking';
+    notes.push('Tier 1 ratio below 3% — index is too thin for Google trust signals');
+  }
+
+  target = '>= 5% Tier 1 ratio';
+  observed = `${tier1Count} Tier 1 / ${totalCanonicalSkills} total (${(ratio * 100).toFixed(1)}%)`;
+
+  return { label: 'Index Quality Ratio', status, summary: `Tier 1 ratio at ${(ratio * 100).toFixed(1)}%`, target, observed, notes, source, metrics: { tier1Count, totalCanonicalSkills, ratio: Number((ratio * 100).toFixed(1)) } };
+}
+
+function buildLanguageAlignmentSignal(
+  report: LocaleGovernanceJsonReport | null | undefined,
+  sourcePath: string,
+  now: Date,
+): RecoverySignal<{ bodyEligibleNonEnVariants: number; totalNonEnVariants: number; ratio: number }> {
+  const source = buildSourceState(sourcePath, Boolean(report), report?.generatedAt || null, now, INDEX_STALE_AFTER_DAYS);
+  // Non-EN variants = total variants - EN variants (1 per skill)
+  const totalVariants = report?.summary?.totalVariants ?? 0;
+  const totalSkills = report?.summary?.totalSkills ?? 0;
+  const bodyEligibleVariants = report?.summary?.bodyEligibleVariants ?? 0;
+  // EN contributes 1 body-eligible variant per skill; non-EN = total - EN
+  const enVariants = totalSkills; // Each skill has at least an EN variant
+  const totalNonEnVariants = Math.max(0, totalVariants - enVariants);
+  const bodyEligibleNonEn = Math.max(0, bodyEligibleVariants - enVariants);
+  const ratio = totalNonEnVariants > 0 ? bodyEligibleNonEn / totalNonEnVariants : 1;
+  // If no locale governance data, assume passthrough
+  const adjustedRatio = totalVariants === 0 ? 1 : ratio;
+
+  let status: RecoverySignalStatus;
+  let target: string;
+  let observed: string;
+  const notes: string[] = [];
+
+  if (adjustedRatio >= 0.8) {
+    status = 'clear';
+  } else if (adjustedRatio >= 0.5) {
+    status = 'warning';
+    notes.push('Many non-EN pages have mismatched body language — suppress with noindex');
+  } else {
+    status = 'blocking';
+    notes.push('Severe body-language mismatch — non-EN URLs showing EN content triggers Google quality penalty');
+  }
+
+  target = '>= 80% body-eligible non-EN variants';
+  observed = `${bodyEligibleNonEn} body-eligible / ${totalNonEnVariants} total non-EN (${(adjustedRatio * 100).toFixed(1)}%)`;
+
+  return { label: 'Language Alignment', status, summary: `Body-locale alignment at ${(adjustedRatio * 100).toFixed(1)}%`, target, observed, notes, source, metrics: { bodyEligibleNonEnVariants: bodyEligibleNonEn, totalNonEnVariants, ratio: Number((adjustedRatio * 100).toFixed(1)) } };
+}
+
 export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput = {}): RecoveryScorecardReport {
   const now = normalizeNow(input.now);
   const sourcePaths = {
@@ -1155,6 +1269,8 @@ export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput 
     index: input.sourcePaths?.index || DEFAULT_INDEX_DRIFT_JSON_PATH,
     traffic: input.sourcePaths?.traffic || DEFAULT_TRAFFIC_REPORT_MD_PATH,
     ai: input.sourcePaths?.ai || DEFAULT_AI_PROVIDER_HEALTH_JSON_PATH,
+    indexability: input.sourcePaths?.indexability || DEFAULT_INDEXABILITY_JSON_PATH,
+    localeGovernance: input.sourcePaths?.localeGovernance || DEFAULT_LOCALE_GOVERNANCE_JSON_PATH,
   };
 
   const crawl = buildCrawlSignal(input.crawlHealthReport, sourcePaths.crawl, now);
@@ -1162,6 +1278,12 @@ export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput 
   const index = buildIndexSignal(input.indexDriftReport, sourcePaths.index, now);
   const traffic = buildTrafficSignal(input.trafficReport, sourcePaths.traffic, now);
   const aiPosture = buildAiPostureSignal(input.aiProviderHealthReport, sourcePaths.ai, now);
+  const indexQuality = buildIndexQualitySignal(input.indexabilityReport, sourcePaths.indexability, now);
+  const languageAlignment = buildLanguageAlignmentSignal(
+    input.localeGovernanceReport,
+    sourcePaths.localeGovernance,
+    now,
+  );
 
   const technicalRecoveryStatus =
     crawl.status === 'blocking' || index.status === 'blocking'
@@ -1182,6 +1304,8 @@ export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput 
     businessRecoveryStatus,
     coverage.status,
     aiPosture.status,
+    indexQuality.status,
+    languageAlignment.status,
   ]);
 
   const weeklyGates: RecoveryGate[] = [
@@ -1225,6 +1349,22 @@ export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput 
       observed: aiPosture.observed,
       notes: aiPosture.notes,
     },
+    {
+      id: 'index-quality-ratio',
+      label: 'Index Quality Ratio',
+      status: indexQuality.status,
+      target: indexQuality.target,
+      observed: indexQuality.observed,
+      notes: indexQuality.notes,
+    },
+    {
+      id: 'language-alignment',
+      label: 'Language Alignment',
+      status: languageAlignment.status,
+      target: languageAlignment.target,
+      observed: languageAlignment.observed,
+      notes: languageAlignment.notes,
+    },
   ];
 
   const report: RecoveryScorecardReport = {
@@ -1238,6 +1378,8 @@ export function buildRecoveryScorecardReport(input: RecoveryScorecardBuildInput 
     index,
     traffic,
     aiPosture,
+    indexQuality,
+    languageAlignment,
     weeklyGates,
     nextActions: [],
   };
@@ -1286,6 +1428,10 @@ export function renderRecoveryScorecardReport(report: RecoveryScorecardReport): 
     '',
     renderSignalSection(report.aiPosture),
     '',
+    renderSignalSection(report.indexQuality),
+    '',
+    renderSignalSection(report.languageAlignment),
+    '',
     '## Next Actions',
     '',
     ...(report.nextActions.length > 0
@@ -1321,6 +1467,8 @@ export function buildRecoveryScorecardFromFiles(options: RecoveryScorecardFileOp
   const indexJsonPath = options.indexJsonPath || DEFAULT_INDEX_DRIFT_JSON_PATH;
   const trafficReportPath = options.trafficReportPath || DEFAULT_TRAFFIC_REPORT_MD_PATH;
   const aiJsonPath = options.aiJsonPath || DEFAULT_AI_PROVIDER_HEALTH_JSON_PATH;
+  const indexabilityJsonPath = options.indexabilityJsonPath || DEFAULT_INDEXABILITY_JSON_PATH;
+  const localeGovernanceJsonPath = options.localeGovernanceJsonPath || DEFAULT_LOCALE_GOVERNANCE_JSON_PATH;
 
   const trafficMarkdown = readTextFile(trafficReportPath);
   const trafficSkippedPath =
@@ -1345,12 +1493,16 @@ export function buildRecoveryScorecardFromFiles(options: RecoveryScorecardFileOp
         ? parseGscMonitoringSkippedMarkdown(trafficSkippedMarkdown)
         : null,
     aiProviderHealthReport: readJsonFile<AiProviderHealthJsonReport>(aiJsonPath),
+    indexabilityReport: readJsonFile<SkillIndexabilityJsonReport>(indexabilityJsonPath),
+    localeGovernanceReport: readJsonFile<LocaleGovernanceJsonReport>(localeGovernanceJsonPath),
     sourcePaths: {
       crawl: crawlJsonPath,
       coverage: coverageJsonPath,
       index: indexJsonPath,
       traffic: trafficSourcePath,
       ai: aiJsonPath,
+      indexability: indexabilityJsonPath,
+      localeGovernance: localeGovernanceJsonPath,
     },
   });
 }
