@@ -1,18 +1,12 @@
-# Milestone v4.7 Requirements — Core Web Vitals & Edge Performance Optimization
+# Milestone v4.8 Requirements — Crawl Remediation & Discovery Expansion
 
 ## 1. Active Requirements
 
-### Edge CPU Optimization (CPU)
-- [ ] **CPU-01**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
+### Crawl Coverage Remediation (REMED)
+- [ ] **REMED-01**: Resolve unclassified and pending GSC Coverage anomalies, trace anomalous edge routing, and clean up trailing slash or 404 clusters.
 
-### Cache Warmup & Hydration (WARM)
-- [ ] **WARM-01**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
-
-### Core Web Vitals Validation (CWV)
-- [ ] **CWV-01**: Leverage Chrome DevTools plugin (or lighthouse/a11y) to audit core rendering pathways and optimize INP (Interaction to Next Paint) and LCP (Largest Contentful Paint) parameters.
-
-### Search Health Monitoring & Alerts (MON)
-- [ ] **MON-01**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
+### Discovery Expansion Preparation (EXP)
+- [ ] **EXP-01**: Audit and prepare authority structures for next-stage search discovery expansion and complete directory indexing pre-flights.
 
 ## 2. Out of Scope
 
@@ -23,7 +17,5 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| CPU-01 | Phase 148 | | [ ] |
-| WARM-01 | Phase 149 | | [ ] |
-| CWV-01 | Phase 150 | | [ ] |
-| MON-01 | Phase 150 | | [ ] |
+| REMED-01 | Phase 151 | | [ ] |
+| EXP-01 | Phase 152 | | [ ] |

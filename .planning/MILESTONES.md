@@ -1,5 +1,15 @@
 # Project Milestones: Killer-Skills Agent Directory
 
+## v4.7 Core Web Vitals & Edge Performance Optimization (Shipped: 2026-06-24)
+
+**Phases completed:** 3 phases, 3 plans, 0 tasks
+
+**Key accomplishments:**
+
+- (none recorded)
+
+---
+
 ## v4.6 GitHub Workflow SEO & Harvester Hardening (Shipped: 2026-06-24)
 
 **Phases completed:** 144-147 (4 plans total)

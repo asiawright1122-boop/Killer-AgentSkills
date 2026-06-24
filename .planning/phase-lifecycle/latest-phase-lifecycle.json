@@ -1,11 +1,40 @@
 {
-  "generatedAt": "2026-06-22T15:08:16.270Z",
+  "generatedAt": "2026-06-24T03:12:23.407Z",
   "projectRoot": "/Users/kaka/Dev/Killer-Skills",
-  "activeMilestone": "v4.0",
-  "activeMilestoneName": "Authority Proof Remediation & Public Trust Hardening",
+  "activeMilestone": "v4.7",
+  "activeMilestoneName": "Core Web Vitals & Edge Performance Optimization",
   "status": "warning",
-  "activePhaseArchivePath": ".planning/milestones/v4.0-phases",
-  "activePhases": [],
+  "activePhaseArchivePath": ".planning/milestones/v4.7-phases",
+  "activePhases": [
+    {
+      "phaseNumber": "148",
+      "slug": "Cloudflare Worker CPU & Serialization Optimization",
+      "dirName": "148-cloudflare-worker-cpu-serialization-optimization",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/148-cloudflare-worker-cpu-serialization-optimization"
+      ],
+      "archivePaths": []
+    },
+    {
+      "phaseNumber": "149",
+      "slug": "Multilingual Sitemap & Route Cache Warmup Automation",
+      "dirName": "149-multilingual-sitemap-route-cache-warmup-automation",
+      "status": "present",
+      "activePaths": [
+        ".planning/phases/149-multilingual-sitemap-route-cache-warmup-automation"
+      ],
+      "archivePaths": []
+    },
+    {
+      "phaseNumber": "150",
+      "slug": "INP & LCP Core Web Vitals Auditing & Search Health Monitoring",
+      "dirName": "150-inp-lcp-core-web-vitals-auditing-search-health-monitoring",
+      "status": "missing",
+      "activePaths": [],
+      "archivePaths": []
+    }
+  ],
   "archivedMilestones": [
     {
       "milestone": "v1.0",
@@ -392,12 +421,281 @@
         ".planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance",
         ".planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh"
       ]
+    },
+    {
+      "milestone": "v4.0",
+      "phaseArchivePath": ".planning/milestones/v4.0-phases",
+      "archivedDirs": [
+        ".planning/milestones/v4.0-phases/122-homepage-authority-reframe",
+        ".planning/milestones/v4.0-phases/123-trusted-and-workflow-collection-proof-upgrade",
+        ".planning/milestones/v4.0-phases/124-collections-and-installation-trust-bridge",
+        ".planning/milestones/v4.0-phases/125-boundary-and-scorecard-revalidation"
+      ],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.0-phases/122-homepage-authority-reframe",
+        ".planning/milestones/v4.0-phases/123-trusted-and-workflow-collection-proof-upgrade",
+        ".planning/milestones/v4.0-phases/124-collections-and-installation-trust-bridge",
+        ".planning/milestones/v4.0-phases/125-boundary-and-scorecard-revalidation"
+      ]
+    },
+    {
+      "milestone": "v4.1",
+      "phaseArchivePath": ".planning/milestones/v4.1-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": []
+    },
+    {
+      "milestone": "v4.2",
+      "phaseArchivePath": ".planning/milestones/v4.2-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.2-phases/130-workspace-auto-submitter-size-optimization",
+        ".planning/milestones/v4.2-phases/131-hindi-message-configuration-normalization",
+        ".planning/milestones/v4.2-phases/132-system-integrity-build-regression-check"
+      ]
+    },
+    {
+      "milestone": "v4.3",
+      "phaseArchivePath": ".planning/milestones/v4.3-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.3-phases/133-sitemap-purity",
+        ".planning/milestones/v4.3-phases/134-trailing-slash-consistency",
+        ".planning/milestones/v4.3-phases/135-unexpected-404-cleanup",
+        ".planning/milestones/v4.3-phases/136-system-build-regression-check"
+      ]
+    },
+    {
+      "milestone": "v4.4",
+      "phaseArchivePath": ".planning/milestones/v4.4-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.4-phases/137-authority-uplift-metadata-optimization",
+        ".planning/milestones/v4.4-phases/138-gsc-sparse-signal-canonical-remediation",
+        ".planning/milestones/v4.4-phases/139-system-integrity-regression-check"
+      ]
+    },
+    {
+      "milestone": "v4.5",
+      "phaseArchivePath": ".planning/milestones/v4.5-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.5-phases/140-ai-telemetry-cleanup-posture-hardening",
+        ".planning/milestones/v4.5-phases/141-gsc-crawl-coverage-ingest-report-refresh",
+        ".planning/milestones/v4.5-phases/142-url-canonicalization-blocklist-alignment",
+        ".planning/milestones/v4.5-phases/143-system-integrity-regression-guard"
+      ]
+    },
+    {
+      "milestone": "v4.6",
+      "phaseArchivePath": ".planning/milestones/v4.6-phases",
+      "archivedDirs": [],
+      "expectedPhaseDirs": [
+        ".planning/milestones/v4.6-phases/144-harvester-seo-compliance-originality-filter",
+        ".planning/milestones/v4.6-phases/145-geo-localized-translation-sync-&-cjk-punctuation",
+        ".planning/milestones/v4.6-phases/146-automated-backlog-metadata-&-keyword-enrichment",
+        ".planning/milestones/v4.6-phases/147-ci-cd-quality-gate-&-regression-check"
+      ]
     }
   ],
-  "archiveActions": [],
+  "archiveActions": [
+    {
+      "type": "archive",
+      "milestone": "v4.2",
+      "phaseNumber": "130",
+      "slug": "Workspace & Auto-Submitter Size Optimization",
+      "dirName": "130-workspace-auto-submitter-size-optimization",
+      "fromPath": ".planning/phases/130-workspace-auto-submitter-size-optimization",
+      "toPath": ".planning/milestones/v4.2-phases/130-workspace-auto-submitter-size-optimization",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.2",
+      "phaseNumber": "131",
+      "slug": "Hindi Message Configuration Normalization",
+      "dirName": "131-hindi-message-configuration-normalization",
+      "fromPath": ".planning/phases/131-hindi-message-configuration-normalization",
+      "toPath": ".planning/milestones/v4.2-phases/131-hindi-message-configuration-normalization",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.2",
+      "phaseNumber": "132",
+      "slug": "System Integrity Build & Regression Check",
+      "dirName": "132-system-integrity-build-regression-check",
+      "fromPath": ".planning/phases/132-system-integrity-build-regression-check",
+      "toPath": ".planning/milestones/v4.2-phases/132-system-integrity-build-regression-check",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.3",
+      "phaseNumber": "133",
+      "slug": "Sitemap Purity",
+      "dirName": "133-sitemap-purity",
+      "fromPath": ".planning/phases/133-sitemap-purity",
+      "toPath": ".planning/milestones/v4.3-phases/133-sitemap-purity",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.3",
+      "phaseNumber": "134",
+      "slug": "Trailing-Slash Consistency",
+      "dirName": "134-trailing-slash-consistency",
+      "fromPath": ".planning/phases/134-trailing-slash-consistency",
+      "toPath": ".planning/milestones/v4.3-phases/134-trailing-slash-consistency",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.3",
+      "phaseNumber": "135",
+      "slug": "Unexpected 404 Cleanup",
+      "dirName": "135-unexpected-404-cleanup",
+      "fromPath": ".planning/phases/135-unexpected-404-cleanup",
+      "toPath": ".planning/milestones/v4.3-phases/135-unexpected-404-cleanup",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.3",
+      "phaseNumber": "136",
+      "slug": "System Build & Regression Check",
+      "dirName": "136-system-build-regression-check",
+      "fromPath": ".planning/phases/136-system-build-regression-check",
+      "toPath": ".planning/milestones/v4.3-phases/136-system-build-regression-check",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.4",
+      "phaseNumber": "137",
+      "slug": "Authority Uplift & Metadata Optimization",
+      "dirName": "137-authority-uplift-metadata-optimization",
+      "fromPath": ".planning/phases/137-authority-uplift-metadata-optimization",
+      "toPath": ".planning/milestones/v4.4-phases/137-authority-uplift-metadata-optimization",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.4",
+      "phaseNumber": "138",
+      "slug": "GSC Sparse-Signal & Canonical Remediation",
+      "dirName": "138-gsc-sparse-signal-canonical-remediation",
+      "fromPath": ".planning/phases/138-gsc-sparse-signal-canonical-remediation",
+      "toPath": ".planning/milestones/v4.4-phases/138-gsc-sparse-signal-canonical-remediation",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.4",
+      "phaseNumber": "139",
+      "slug": "System Integrity & Regression Check",
+      "dirName": "139-system-integrity-regression-check",
+      "fromPath": ".planning/phases/139-system-integrity-regression-check",
+      "toPath": ".planning/milestones/v4.4-phases/139-system-integrity-regression-check",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.5",
+      "phaseNumber": "140",
+      "slug": "AI Telemetry Cleanup & Posture Hardening",
+      "dirName": "140-ai-telemetry-cleanup-posture-hardening",
+      "fromPath": ".planning/phases/140-ai-telemetry-cleanup-posture-hardening",
+      "toPath": ".planning/milestones/v4.5-phases/140-ai-telemetry-cleanup-posture-hardening",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.5",
+      "phaseNumber": "141",
+      "slug": "GSC Crawl Coverage Ingest & Report Refresh",
+      "dirName": "141-gsc-crawl-coverage-ingest-report-refresh",
+      "fromPath": ".planning/phases/141-gsc-crawl-coverage-ingest-report-refresh",
+      "toPath": ".planning/milestones/v4.5-phases/141-gsc-crawl-coverage-ingest-report-refresh",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.5",
+      "phaseNumber": "142",
+      "slug": "URL Canonicalization & Blocklist Alignment",
+      "dirName": "142-url-canonicalization-blocklist-alignment",
+      "fromPath": ".planning/phases/142-url-canonicalization-blocklist-alignment",
+      "toPath": ".planning/milestones/v4.5-phases/142-url-canonicalization-blocklist-alignment",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.5",
+      "phaseNumber": "143",
+      "slug": "System Integrity & Regression Guard",
+      "dirName": "143-system-integrity-regression-guard",
+      "fromPath": ".planning/phases/143-system-integrity-regression-guard",
+      "toPath": ".planning/milestones/v4.5-phases/143-system-integrity-regression-guard",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.6",
+      "phaseNumber": "144",
+      "slug": "Harvester SEO Compliance & Originality Filter",
+      "dirName": "144-harvester-seo-compliance-originality-filter",
+      "fromPath": ".planning/phases/144-harvester-seo-compliance-originality-filter",
+      "toPath": ".planning/milestones/v4.6-phases/144-harvester-seo-compliance-originality-filter",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.6",
+      "phaseNumber": "145",
+      "slug": "GEO-localized translation sync & CJK Punctuation",
+      "dirName": "145-geo-localized-translation-sync-&-cjk-punctuation",
+      "fromPath": ".planning/phases/145-geo-localized-translation-sync-&-cjk-punctuation",
+      "toPath": ".planning/milestones/v4.6-phases/145-geo-localized-translation-sync-&-cjk-punctuation",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.6",
+      "phaseNumber": "146",
+      "slug": "Automated Backlog Metadata & Keyword Enrichment",
+      "dirName": "146-automated-backlog-metadata-&-keyword-enrichment",
+      "fromPath": ".planning/phases/146-automated-backlog-metadata-&-keyword-enrichment",
+      "toPath": ".planning/milestones/v4.6-phases/146-automated-backlog-metadata-&-keyword-enrichment",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    },
+    {
+      "type": "archive",
+      "milestone": "v4.6",
+      "phaseNumber": "147",
+      "slug": "CI/CD Quality Gate & Regression Check",
+      "dirName": "147-ci-cd-quality-gate-&-regression-check",
+      "fromPath": ".planning/phases/147-ci-cd-quality-gate-&-regression-check",
+      "toPath": ".planning/milestones/v4.6-phases/147-ci-cd-quality-gate-&-regression-check",
+      "reason": "Shipped milestone phase directory is still in the active path and should be archived."
+    }
+  ],
   "restoreActions": [],
-  "createActions": [],
-  "unmanagedPhaseDirs": [],
+  "createActions": [
+    {
+      "type": "create",
+      "milestone": "v4.7",
+      "phaseNumber": "150",
+      "slug": "INP & LCP Core Web Vitals Auditing & Search Health Monitoring",
+      "dirName": "150-inp-lcp-core-web-vitals-auditing-search-health-monitoring",
+      "fromPath": null,
+      "toPath": ".planning/phases/150-inp-lcp-core-web-vitals-auditing-search-health-monitoring",
+      "reason": "Active milestone phase directory is missing and should be created."
+    }
+  ],
+  "unmanagedPhaseDirs": [
+    "150-core-web-vitals-search-health-monitoring"
+  ],
   "conflicts": [
     {
       "milestone": "v3.8",

@@ -10,7 +10,8 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.6` are shipped.
+- `v1.0` through `v4.7` are shipped.
+- `v4.7` (shipped 2026-06-24) optimized Edge SSR rendering overhead by introducing lightweight-first queries and Badge payload reductions, automated CDN cache warmup routines for multilingual sitemaps and list templates with crawler rate-limit exemptions, established automated Playwright E2E audits for LCP/INP/CLS metrics, and introduced a GSC search health monitor script to warn on CTR drop, stale coverage SLA, or server error spikes.
 - `v4.6` (shipped 2026-06-24) hardened the automated skill harvester with cosine similarity checks, implemented CJK local typography and CJK punctuation auto-repair rules, automated metadata & keywords batch enrichment via workflows, and established strict CI/CD gatekeepers (typecheck, CJK punctuation, pre-flight metadata checks).
 - `v4.5` (shipped 2026-06-23) resolved dynamic GSC crawl-rate coverage alerts by resetting provider runtime telemetry checks, ingesting fresh console metrics (setting SLA thresholds to 30 days), and forcing `noindex` edge routing on sitemap-blocklisted detail pages, backed by a comprehensive regression test check and production-ready compilations.
 - `v4.4` (shipped 2026-06-23) optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
@@ -18,17 +19,24 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 - Phase 144 (completed 2026-06-23) implemented cosine similarity (TF-IDF based) and metadata/thin content validation filters for the harvester and crawler tools, automatically injecting originality blocks containing canonical backlinks and original repository credits.
 
-## Current Milestone: v4.7 Core Web Vitals & Edge Performance Optimization
+## Current Milestone: v4.8 Planning
 
-**Goal:** Optimize edge rendering performance, reduce Cloudflare Worker CPU execution times to mitigate Error 1102, and warm up edge SSR caching for critical crawl pathways to improve SEO ranking.
+**Goal:** Plan and scope the next cycle of search discovery expansion, crawl coverage remediation, and edge infrastructure robustness.
 
 **Target features:**
-- **Edge CPU Optimization**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
-- **Cache Warmup & Hydration**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
-- **INP & LCP Core Web Vitals Audit**: Leverage Chrome DevTools plugin to audit core rendering pathways and optimize INP and LCP parameters.
-- **Search Console Health Check**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
+- TBD during new milestone scoping.
 
-## Most Recent Shipment: Milestone v4.6 GitHub Workflow SEO & Harvester Hardening
+## Most Recent Shipment: Milestone v4.7 Core Web Vitals & Edge Performance Optimization
+
+**Outcome:** Optimized Edge SSR rendering overhead, established CDN cache warmup routines for multilingual sitemaps and list templates with rate-limit exemptions, implemented automated E2E audits for LCP/INP/CLS metrics, and introduced a GSC search health monitor script.
+
+**Shipped capabilities:**
+- Refactored badge endpoints and skill list functions to load lightweight data, avoiding costly JSON Markdown parses and lowering Edge CPU usage.
+- Created cache warmup bot user-agent exemptions to bypass IP rate limits during automated crawls.
+- Implemented Playwright E2E Core Web Vitals audits evaluating LCP, CLS, and INP metrics on target page templates.
+- Developed `gsc-search-health-monitor.ts` executing weekly click change analysis, freshness SLA validations, and server error alert thresholds.
+
+## Previous Shipment: Milestone v4.6 GitHub Workflow SEO & Harvester Hardening
 
 **Outcome:** Hardened automated skill harvesting with original-content checks, CJK Local Typography / Punctuation rules and auto-repair pipelines, batch metadata & keyword enrichment workflows, and strict CI/CD gatekeepers.
 

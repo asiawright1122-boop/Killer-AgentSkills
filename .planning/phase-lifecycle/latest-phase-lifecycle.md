@@ -1,19 +1,39 @@
 # Planning Phase Lifecycle Report
 
-- Generated: 2026-06-22T15:08:16.270Z
-- Active milestone: v4.0 (Authority Proof Remediation & Public Trust Hardening)
+- Generated: 2026-06-24T03:12:23.407Z
+- Active milestone: v4.7 (Core Web Vitals & Edge Performance Optimization)
 - Status: warning
-- Pending actions: 0
-- Active archive path: .planning/milestones/v4.0-phases
+- Pending actions: 19
+- Active archive path: .planning/milestones/v4.7-phases
 
 ## Active Phase Set
 
 | Phase | Directory | Status | Active Path | Archive Path |
 |---|---|---|---|---|
+| 148 | 148-cloudflare-worker-cpu-serialization-optimization | present | .planning/phases/148-cloudflare-worker-cpu-serialization-optimization | missing |
+| 149 | 149-multilingual-sitemap-route-cache-warmup-automation | present | .planning/phases/149-multilingual-sitemap-route-cache-warmup-automation | missing |
+| 150 | 150-inp-lcp-core-web-vitals-auditing-search-health-monitoring | missing | missing | missing |
 
 ## Archive Actions
 
-- none
+- 130 -> archive .planning/phases/130-workspace-auto-submitter-size-optimization => .planning/milestones/v4.2-phases/130-workspace-auto-submitter-size-optimization (Shipped milestone phase directory is still in the active path and should be archived.)
+- 131 -> archive .planning/phases/131-hindi-message-configuration-normalization => .planning/milestones/v4.2-phases/131-hindi-message-configuration-normalization (Shipped milestone phase directory is still in the active path and should be archived.)
+- 132 -> archive .planning/phases/132-system-integrity-build-regression-check => .planning/milestones/v4.2-phases/132-system-integrity-build-regression-check (Shipped milestone phase directory is still in the active path and should be archived.)
+- 133 -> archive .planning/phases/133-sitemap-purity => .planning/milestones/v4.3-phases/133-sitemap-purity (Shipped milestone phase directory is still in the active path and should be archived.)
+- 134 -> archive .planning/phases/134-trailing-slash-consistency => .planning/milestones/v4.3-phases/134-trailing-slash-consistency (Shipped milestone phase directory is still in the active path and should be archived.)
+- 135 -> archive .planning/phases/135-unexpected-404-cleanup => .planning/milestones/v4.3-phases/135-unexpected-404-cleanup (Shipped milestone phase directory is still in the active path and should be archived.)
+- 136 -> archive .planning/phases/136-system-build-regression-check => .planning/milestones/v4.3-phases/136-system-build-regression-check (Shipped milestone phase directory is still in the active path and should be archived.)
+- 137 -> archive .planning/phases/137-authority-uplift-metadata-optimization => .planning/milestones/v4.4-phases/137-authority-uplift-metadata-optimization (Shipped milestone phase directory is still in the active path and should be archived.)
+- 138 -> archive .planning/phases/138-gsc-sparse-signal-canonical-remediation => .planning/milestones/v4.4-phases/138-gsc-sparse-signal-canonical-remediation (Shipped milestone phase directory is still in the active path and should be archived.)
+- 139 -> archive .planning/phases/139-system-integrity-regression-check => .planning/milestones/v4.4-phases/139-system-integrity-regression-check (Shipped milestone phase directory is still in the active path and should be archived.)
+- 140 -> archive .planning/phases/140-ai-telemetry-cleanup-posture-hardening => .planning/milestones/v4.5-phases/140-ai-telemetry-cleanup-posture-hardening (Shipped milestone phase directory is still in the active path and should be archived.)
+- 141 -> archive .planning/phases/141-gsc-crawl-coverage-ingest-report-refresh => .planning/milestones/v4.5-phases/141-gsc-crawl-coverage-ingest-report-refresh (Shipped milestone phase directory is still in the active path and should be archived.)
+- 142 -> archive .planning/phases/142-url-canonicalization-blocklist-alignment => .planning/milestones/v4.5-phases/142-url-canonicalization-blocklist-alignment (Shipped milestone phase directory is still in the active path and should be archived.)
+- 143 -> archive .planning/phases/143-system-integrity-regression-guard => .planning/milestones/v4.5-phases/143-system-integrity-regression-guard (Shipped milestone phase directory is still in the active path and should be archived.)
+- 144 -> archive .planning/phases/144-harvester-seo-compliance-originality-filter => .planning/milestones/v4.6-phases/144-harvester-seo-compliance-originality-filter (Shipped milestone phase directory is still in the active path and should be archived.)
+- 145 -> archive .planning/phases/145-geo-localized-translation-sync-&-cjk-punctuation => .planning/milestones/v4.6-phases/145-geo-localized-translation-sync-&-cjk-punctuation (Shipped milestone phase directory is still in the active path and should be archived.)
+- 146 -> archive .planning/phases/146-automated-backlog-metadata-&-keyword-enrichment => .planning/milestones/v4.6-phases/146-automated-backlog-metadata-&-keyword-enrichment (Shipped milestone phase directory is still in the active path and should be archived.)
+- 147 -> archive .planning/phases/147-ci-cd-quality-gate-&-regression-check => .planning/milestones/v4.6-phases/147-ci-cd-quality-gate-&-regression-check (Shipped milestone phase directory is still in the active path and should be archived.)
 
 ## Restore Actions
 
@@ -21,7 +41,7 @@
 
 ## Create Actions
 
-- none
+- 150 -> create .planning/phases/150-inp-lcp-core-web-vitals-auditing-search-health-monitoring (Active milestone phase directory is missing and should be created.)
 
 ## Archived Milestone Paths
 
@@ -160,6 +180,41 @@
 - Archived dirs: .planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis, .planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points, .planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance, .planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh
 - Expected dirs: .planning/milestones/v3.9-phases/118-second-primary-promotion-diagnosis, .planning/milestones/v3.9-phases/119-coverage-cleanup-pressure-points, .planning/milestones/v3.9-phases/120-public-hidden-reasoning-boundary-assurance, .planning/milestones/v3.9-phases/121-promotion-gate-proof-refresh
 
+### v4.0
+- Archive root: .planning/milestones/v4.0-phases
+- Archived dirs: .planning/milestones/v4.0-phases/122-homepage-authority-reframe, .planning/milestones/v4.0-phases/123-trusted-and-workflow-collection-proof-upgrade, .planning/milestones/v4.0-phases/124-collections-and-installation-trust-bridge, .planning/milestones/v4.0-phases/125-boundary-and-scorecard-revalidation
+- Expected dirs: .planning/milestones/v4.0-phases/122-homepage-authority-reframe, .planning/milestones/v4.0-phases/123-trusted-and-workflow-collection-proof-upgrade, .planning/milestones/v4.0-phases/124-collections-and-installation-trust-bridge, .planning/milestones/v4.0-phases/125-boundary-and-scorecard-revalidation
+
+### v4.1
+- Archive root: .planning/milestones/v4.1-phases
+- Archived dirs: none
+- Expected dirs: none
+
+### v4.2
+- Archive root: .planning/milestones/v4.2-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v4.2-phases/130-workspace-auto-submitter-size-optimization, .planning/milestones/v4.2-phases/131-hindi-message-configuration-normalization, .planning/milestones/v4.2-phases/132-system-integrity-build-regression-check
+
+### v4.3
+- Archive root: .planning/milestones/v4.3-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v4.3-phases/133-sitemap-purity, .planning/milestones/v4.3-phases/134-trailing-slash-consistency, .planning/milestones/v4.3-phases/135-unexpected-404-cleanup, .planning/milestones/v4.3-phases/136-system-build-regression-check
+
+### v4.4
+- Archive root: .planning/milestones/v4.4-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v4.4-phases/137-authority-uplift-metadata-optimization, .planning/milestones/v4.4-phases/138-gsc-sparse-signal-canonical-remediation, .planning/milestones/v4.4-phases/139-system-integrity-regression-check
+
+### v4.5
+- Archive root: .planning/milestones/v4.5-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v4.5-phases/140-ai-telemetry-cleanup-posture-hardening, .planning/milestones/v4.5-phases/141-gsc-crawl-coverage-ingest-report-refresh, .planning/milestones/v4.5-phases/142-url-canonicalization-blocklist-alignment, .planning/milestones/v4.5-phases/143-system-integrity-regression-guard
+
+### v4.6
+- Archive root: .planning/milestones/v4.6-phases
+- Archived dirs: none
+- Expected dirs: .planning/milestones/v4.6-phases/144-harvester-seo-compliance-originality-filter, .planning/milestones/v4.6-phases/145-geo-localized-translation-sync-&-cjk-punctuation, .planning/milestones/v4.6-phases/146-automated-backlog-metadata-&-keyword-enrichment, .planning/milestones/v4.6-phases/147-ci-cd-quality-gate-&-regression-check
+
 ## Conflicts
 
 - v3.8 phase 115: Both active and archived copies exist for the same shipped milestone phase. (active=.planning/phases/115-batch-backlog-content-enrichment; archive=.planning/milestones/v3.8-phases/115-batch-backlog-content-enrichment)
@@ -168,7 +223,7 @@
 
 ## Unmanaged Active Phase Directories
 
-- none
+- 150-core-web-vitals-search-health-monitoring
 
 ## Rewritten Planning Files
 
