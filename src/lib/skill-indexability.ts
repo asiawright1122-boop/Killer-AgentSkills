@@ -1,4 +1,5 @@
 import type { Locale } from '../i18n';
+import { TIER1_MIN_STARS, TIER1_QUALITY_THRESHOLD } from './skills-config';
 
 type LocalizedString = string | Record<string, string> | undefined;
 type LocalizedStringArray = string[] | Record<string, string[]> | undefined;
@@ -12,6 +13,7 @@ type SkillIndexabilityLocaleGovernance = {
 export type SkillIndexabilitySource = {
   qualityScore?: number | null;
   verified?: boolean | null;
+  stars?: number | null;
   description?: LocalizedString;
   agentAnalysis?: {
     suitability?: LocalizedString;
@@ -28,7 +30,8 @@ export type SkillIndexabilitySource = {
 
 export type SkillIndexabilityAssessment = {
   isIndexable: boolean;
-  mode: 'indexable' | 'reference_only';
+  tier: 1 | 2 | 3;
+  mode: 'indexable' | 'support' | 'reference_only';
   score: number;
   threshold: number;
   qualityThreshold: number;
@@ -44,6 +47,8 @@ export type SkillIndexabilityAssessment = {
     hasStrongQualitySignal: boolean;
     hasVerifiedSignal: boolean;
     hasSupportingSourceEvidence: boolean;
+    hasTier1Stars: boolean;
+    hasTier1Quality: boolean;
   };
 };
 
@@ -90,6 +95,10 @@ export function buildSkillIndexabilityAssessment(
   const features = source.seo?.features?.[locale] || source.seo?.features?.en || [];
   const sourceBytes = textEncoder.encode(String(source.readmeContent || '')).length;
 
+  const stars = Number(source.stars || 0);
+  const hasTier1Stars = Boolean(source.verified) || stars >= TIER1_MIN_STARS;
+  const hasTier1Quality = qualityScore >= TIER1_QUALITY_THRESHOLD;
+
   const signals = {
     localeEligible: Boolean(source.localeGovernance?.isIndexableLocale),
     hasRecommendation: recommendation.length >= 80,
@@ -100,6 +109,8 @@ export function buildSkillIndexabilityAssessment(
     hasStrongQualitySignal: Boolean(source.verified) || qualityScore >= qualityThreshold,
     hasVerifiedSignal: Boolean(source.verified),
     hasSupportingSourceEvidence: sourceBytes >= minSupportingSourceBytes,
+    hasTier1Stars,
+    hasTier1Quality,
   };
 
   let score = 0;
@@ -131,7 +142,8 @@ export function buildSkillIndexabilityAssessment(
   if (!signals.hasStrongQualitySignal) blockers.push('quality_below_review_floor');
   if (!signals.hasSupportingSourceEvidence) blockers.push('source_material_too_thin');
 
-  const isIndexable =
+  // Existing logic (now called isOldGateIndexable):
+  const isOldGateIndexable =
     signals.localeEligible &&
     signals.hasRecommendation &&
     signals.hasUseCases &&
@@ -140,9 +152,37 @@ export function buildSkillIndexabilityAssessment(
     signals.hasSupportingSourceEvidence &&
     score >= scoreThreshold;
 
+  // Tier determination:
+  const isTier1Eligible = isOldGateIndexable && hasTier1Stars && hasTier1Quality;
+  let tier: 1 | 2 | 3;
+  let mode: 'indexable' | 'support' | 'reference_only';
+  let isIndexable: boolean;
+
+  if (isTier1Eligible) {
+    tier = 1;
+    mode = 'indexable';
+    isIndexable = true;
+  } else if (isOldGateIndexable) {
+    tier = 2;
+    mode = 'support';
+    isIndexable = false;
+  } else {
+    tier = 3;
+    mode = 'reference_only';
+    isIndexable = false;
+  }
+
+  if (isOldGateIndexable && !hasTier1Stars) {
+    reasons.push('tier2_stars_below_threshold');
+  }
+  if (isOldGateIndexable && !hasTier1Quality) {
+    reasons.push('tier2_quality_below_tier1_floor');
+  }
+
   return {
     isIndexable,
-    mode: isIndexable ? 'indexable' : 'reference_only',
+    tier,
+    mode,
     score,
     threshold: scoreThreshold,
     qualityThreshold,

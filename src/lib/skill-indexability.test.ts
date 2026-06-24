@@ -7,6 +7,7 @@ describe('skill-indexability', () => {
       {
         qualityScore: 72,
         verified: false,
+        stars: 85,
         agentAnalysis: {
           suitability:
             'Best for coding agents that need prompt refinement before running high-risk repository changes.',
@@ -31,6 +32,7 @@ describe('skill-indexability', () => {
       'en',
     );
 
+    expect(assessment.tier).toBe(1);
     expect(assessment.isIndexable).toBe(true);
     expect(assessment.mode).toBe('indexable');
     expect(assessment.blockers).toEqual([]);
@@ -65,6 +67,7 @@ describe('skill-indexability', () => {
 
     expect(assessment.isIndexable).toBe(false);
     expect(assessment.mode).toBe('reference_only');
+    expect(assessment.tier).toBe(3);
     expect(assessment.blockers).toContain('locale_contract_failed');
   });
 
@@ -72,6 +75,8 @@ describe('skill-indexability', () => {
     const assessment = buildSkillIndexabilityAssessment(
       {
         qualityScore: 35,
+        verified: false,
+        stars: 5,
         agentAnalysis: {
           suitability:
             'Best for coding agents that need prompt refinement before running high-risk repository changes.',
@@ -96,8 +101,9 @@ describe('skill-indexability', () => {
       'en',
     );
 
-    expect(assessment.isIndexable).toBe(true);
-    expect(assessment.mode).toBe('indexable');
+    expect(assessment.tier).toBe(2);
+    expect(assessment.mode).toBe('support');
+    expect(assessment.isIndexable).toBe(false);
     expect(assessment.blockers).toEqual([]);
     expect(assessment.reasons).toContain('quality_floor_met');
   });
@@ -131,6 +137,136 @@ describe('skill-indexability', () => {
     );
 
     expect(assessment.isIndexable).toBe(false);
+    expect(assessment.tier).toBe(3);
     expect(assessment.blockers).toContain('quality_below_review_floor');
+  });
+
+  it('assigns tier 1 when stars >= 50, qualityScore >= 55, and full agentAnalysis', () => {
+    const assessment = buildSkillIndexabilityAssessment(
+      {
+        qualityScore: 72,
+        verified: false,
+        stars: 85,
+        agentAnalysis: {
+          suitability:
+            'Best for coding agents that need prompt refinement before running high-risk repository changes.',
+          recommendation:
+            'Killer-Skills recommends this skill when you need a repeatable prompt-review step before execution, especially for repository-aware coding workflows.',
+          useCases: ['Prompt review before execution', 'Repository-aware drafting', 'Instruction cleanup'],
+          limitations: ['Does not execute work directly', 'Needs a draft prompt from the operator'],
+        },
+        seo: {
+          features: {
+            en: ['Prompt review workflow', 'Project detection', 'Execution-ready output'],
+          },
+        },
+        readmeContent:
+          '# Prompt Optimizer\n\nInstall this skill and use it to review prompts before execution in Claude Code workflows. It inspects draft instructions, surfaces risky assumptions, highlights missing repository context, and produces a cleaner operator-ready version before any code changes happen.',
+        localeGovernance: {
+          isIndexableLocale: true,
+          canonicalLocale: 'en',
+          detectedBodyLocale: 'en',
+        },
+      },
+      'en',
+    );
+
+    expect(assessment.tier).toBe(1);
+    expect(assessment.isIndexable).toBe(true);
+    expect(assessment.mode).toBe('indexable');
+  });
+
+  it('assigns tier 2 when stars < 50 but passes old indexability gate', () => {
+    const assessment = buildSkillIndexabilityAssessment(
+      {
+        qualityScore: 45,
+        verified: false,
+        stars: 5,
+        agentAnalysis: {
+          suitability:
+            'Best for coding agents that need prompt refinement before running high-risk repository changes.',
+          recommendation:
+            'Killer-Skills recommends this skill when you need a repeatable prompt-review step before execution, especially for repository-aware coding workflows.',
+          useCases: ['Prompt review before execution', 'Repository-aware drafting'],
+          limitations: ['Does not execute work directly'],
+        },
+        seo: {
+          features: {
+            en: ['Prompt review workflow', 'Project detection'],
+          },
+        },
+        readmeContent:
+          '# Prompt Optimizer\n\nInstall this skill and use it to review prompts before execution in Claude Code workflows. It inspects draft instructions, surfaces risky assumptions, highlights missing repository context, and produces a cleaner operator-ready version before any code changes happen.',
+        localeGovernance: {
+          isIndexableLocale: true,
+          canonicalLocale: 'en',
+          detectedBodyLocale: 'en',
+        },
+      },
+      'en',
+    );
+
+    expect(assessment.tier).toBe(2);
+    expect(assessment.isIndexable).toBe(false);
+    expect(assessment.mode).toBe('support');
+  });
+
+  it('assigns tier 3 when quality floor is not met', () => {
+    const assessment = buildSkillIndexabilityAssessment(
+      {
+        qualityScore: 20,
+        verified: false,
+        stars: 0,
+        agentAnalysis: {
+          recommendation: 'Short rec',
+          useCases: ['One case'],
+        },
+        readmeContent: 'Short readme',
+        localeGovernance: {
+          isIndexableLocale: true,
+          canonicalLocale: 'en',
+          detectedBodyLocale: 'en',
+        },
+      },
+      'en',
+    );
+
+    expect(assessment.tier).toBe(3);
+    expect(assessment.isIndexable).toBe(false);
+    expect(assessment.mode).toBe('reference_only');
+  });
+
+  it('assigns tier 1 for verified official repo even with 0 stars', () => {
+    const assessment = buildSkillIndexabilityAssessment(
+      {
+        qualityScore: 72,
+        verified: true,
+        stars: 0,
+        agentAnalysis: {
+          suitability:
+            'Best for coding agents that need prompt refinement before running high-risk repository changes.',
+          recommendation:
+            'Killer-Skills recommends this skill when you need a repeatable prompt-review step before execution, especially for repository-aware coding workflows.',
+          useCases: ['Prompt review before execution', 'Repository-aware drafting', 'Instruction cleanup'],
+          limitations: ['Does not execute work directly', 'Needs a draft prompt from the operator'],
+        },
+        seo: {
+          features: {
+            en: ['Prompt review workflow', 'Project detection', 'Execution-ready output'],
+          },
+        },
+        readmeContent:
+          '# Prompt Optimizer\n\nInstall this skill and use it to review prompts before execution in Claude Code workflows. It inspects draft instructions, surfaces risky assumptions, highlights missing repository context, and produces a cleaner operator-ready version before any code changes happen.',
+        localeGovernance: {
+          isIndexableLocale: true,
+          canonicalLocale: 'en',
+          detectedBodyLocale: 'en',
+        },
+      },
+      'en',
+    );
+
+    expect(assessment.tier).toBe(1);
+    expect(assessment.isIndexable).toBe(true);
   });
 });

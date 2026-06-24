@@ -361,3 +361,13 @@ export const OFFICIAL_REPOS: Record<
     ],
   },
 };
+
+/**
+ * Tier 1 indexability thresholds.
+ * Tier 1 skills are included in sitemaps and served with `index, follow`.
+ * Non-official skills must have stars >= TIER1_MIN_STARS and qualityScore
+ * >= TIER1_QUALITY_THRESHOLD to qualify for Tier 1. Official (verified) repos
+ * bypass the stars threshold entirely.
+ */
+export const TIER1_MIN_STARS = 50;
+export const TIER1_QUALITY_THRESHOLD = 55;

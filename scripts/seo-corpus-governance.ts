@@ -231,6 +231,7 @@ for (const entry of filteredBeforeEntries) {
     {
       qualityScore: skill.qualityScore,
       verified: (skill as SkillCache & { verified?: boolean }).verified,
+        stars: skill.stars,
       description: skill.description,
       agentAnalysis: skill.agentAnalysis,
       seo: {
@@ -246,13 +247,14 @@ for (const entry of filteredBeforeEntries) {
     governance.canonicalLocale,
   );
 
-  const routeHasKeep = canonicalAssessment.isIndexable && isPublicSkillForSitemap(skill);
+  const routeHasKeep = canonicalAssessment.tier === 1 && isPublicSkillForSitemap(skill);
 
   for (const locale of SUPPORTED_LOCALES) {
     const assessment = buildSkillIndexabilityAssessment(
       {
         qualityScore: skill.qualityScore,
         verified: (skill as SkillCache & { verified?: boolean }).verified,
+        stars: skill.stars,
         description: skill.description,
         agentAnalysis: skill.agentAnalysis,
         seo: {
@@ -272,9 +274,12 @@ for (const entry of filteredBeforeEntries) {
     let bucket: UrlBucket = 'consolidate';
     let blockers = assessment.blockers.slice();
 
-    if (assessment.isIndexable) {
+    if (assessment.tier === 1) {
       bucket = 'keep';
       blockers = [];
+    } else if (assessment.tier === 2) {
+      bucket = 'noindex';
+      routeHasNoindex = true;
     } else if (governance.eligibleLocales.includes(locale)) {
       bucket = 'noindex';
       routeHasNoindex = true;

@@ -74,6 +74,7 @@ export function buildGovernedIndexableRouteKeys(params: {
       {
         qualityScore: skill.qualityScore,
         verified: skill.verified,
+        stars: skill.stars,
         description: skill.description,
         agentAnalysis: skill.agentAnalysis,
         seo: {
@@ -89,7 +90,7 @@ export function buildGovernedIndexableRouteKeys(params: {
       canonicalLocale as any,
     );
 
-    if (assessment.isIndexable) {
+    if (assessment.tier === 1 || assessment.tier === 2) {
       routeKeys.add(routeKey);
     }
   }

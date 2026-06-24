@@ -158,6 +158,7 @@ const records: IndexabilityRecord[] = (
             {
               qualityScore: skill.qualityScore,
               verified: (skill as SkillCache & { verified?: boolean }).verified,
+              stars: skill.stars,
               description: skill.description,
               agentAnalysis: skill.agentAnalysis,
               seo: {
