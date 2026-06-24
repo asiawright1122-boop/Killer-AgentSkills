@@ -2,73 +2,60 @@
 
 ## Overview
 
-Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-147 are defined to refactor and harden the GitHub Actions workflow and scripts responsible for skill harvesting, localization, and automated enrichment.
+Milestone v4.7 Core Web Vitals & Edge Performance Optimization is active. Phases 148-150 are defined to optimize edge rendering performance, reduce Cloudflare Worker CPU execution times, mitigate Error 1102, and warm up edge SSR caching for critical crawl pathways.
 
 ## Immediate Next Actions
 
-- [x] Plan Phase 144: Harvester SEO Compliance & Originality Filter. (completed 2026-06-23)
+- [ ] Plan Phase 148: Cloudflare Worker CPU & Serialization Optimization.
 
-## Current Milestone: v4.6 GitHub Workflow SEO & Harvester Hardening
+## Current Milestone: v4.7 Core Web Vitals & Edge Performance Optimization
 
-**Goal:** Refactor and harden the GitHub Actions workflow and scripts responsible for skill harvesting and localization to ensure generated content complies with search guidelines from the source.
+**Goal:** Optimize edge rendering performance, reduce Cloudflare Worker CPU execution times to mitigate Error 1102, and warm up edge SSR caching for critical crawl pathways to improve SEO ranking.
 
 **Requirements:**
 
-- [ ] HARV-01: **Crawler & Harvester compliance**: Refactor automated crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
-- [ ] GEO-01: **GEO-localized translation sync**: Enforce CJK terminal punctuation and formatting rules in dynamic translation workflows to ensure GEO-local typography compliance.
-- [ ] GEO-02: **Semantic translation phrasing**: Modernize semantic phrasing translation policies to avoid simple machine translations and ensure SEO-appropriate descriptions.
-- [ ] META-01: **Automated Backlog Metadata Enrichment**: Integrate automated batch enrichment pipelines in workflows to automatically discover keywords and populate missing editorial details.
-- [ ] CI-01: **CI/CD validation loops**: Implement automated gate checking (copy leakages, Prettier formatting, translation parity, and CJK punctuation) in GitHub Actions on commit/PR.
-- [ ] INTEG-01: **Build & Regression Integrity**: Enforce 100% build stability, clean TypeScript compile checks, and Vitest test suite regression checks.
+- [ ] CPU-01: **Edge CPU Optimization**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
+- [ ] WARM-01: **Cache Warmup & Hydration**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
+- [ ] CWV-01: **Core Web Vitals Validation**: Leverage Chrome DevTools plugin to audit core rendering pathways and optimize INP and LCP parameters.
+- [ ] MON-01: **Search Health Monitoring & Alerts**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
 
-### Phase 144: Harvester SEO Compliance & Originality Filter
+### Phase 148: Cloudflare Worker CPU & Serialization Optimization
 
-- **Requirements:** HARV-01
-- **Scope:** Refactor the crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
-- **Status:** Complete (2026-06-23)
+- **Requirements:** CPU-01
+- **Scope:** Refactor global skill loading logic, reduce JSON parsing footprint, and optimize data serialization on edge Workers to prevent CPU limits and Error 1102.
+- **Status:** Not started
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - Harvester/crawler logic filters out source pages with a similarity score above 85% compared to existing skills.
-  - Automated submission pipeline rejects posts that do not meet minimum originality and word count checks.
-  - Integration tests added to assert that low-originality mirror pages are correctly identified and skipped during harvest.
+  - Cloudflare Worker CPU execution times are optimized under load simulation.
+  - JSON load size is reduced or lazy-parsed on details pages.
+  - Full vitest regression and production build checks pass cleanly.
 
-### Phase 145: GEO-localized translation sync & CJK Punctuation
+### Phase 149: Multilingual Sitemap & Route Cache Warmup Automation
 
-- **Requirements:** GEO-01, GEO-02
-- **Scope:** Modernize translation sync workflow to conform with GEO-localized typographic rules (e.g. CJK terminal punctuation, spacing, and phrasing) and SEO-appropriate descriptions.
-- **Status:** Complete (2026-06-24)
+- **Requirements:** WARM-01
+- **Scope:** Build and deploy cron/event-driven edge SSR cache warmup automation targeting sitemaps and priority crawl routes, ensuring TTFB stays under 200ms.
+- **Status:** Not started
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - Translation sync script validates CJK character regions and replaces western punctuation with CJK full-width punctuation (e.g. `，`, `。`, `？`, `！`) and proper spacing.
-  - Phrasing policy replaces literal machine translations with SEO-vetted localized terminologies.
-  - Typographic compliance validated by tests asserting correct CJK terminal punctuation and formatting.
+  - Automated warmup script executes successfully and logs cache hit metrics.
+  - Multilingual sitemaps yield 100% edge cache hits on repeated crawls.
+  - Average TTFB for details pages drops below the targets in local smoke tests.
 
-### Phase 146: Automated Backlog Metadata & Keyword Enrichment
+### Phase 150: INP & LCP Core Web Vitals Auditing & Search Health Monitoring
 
-- **Requirements:** META-01
-- **Scope:** Integrate automated batch enrichment pipelines in workflows to automatically discover keywords and populate missing collection/skill details.
-- **Status:** Complete (2026-06-24)
-- **Plans:** 1/1 plans complete
+- **Requirements:** CWV-01, MON-01
+- **Scope:** Execute CWV diagnostics on key page templates, resolve LCP/INP bottlenecks, and establish automated Search Console health monitor alerts.
+- **Status:** Not started
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - Batch metadata enrichment pipeline executes via GitHub Actions to discover relevant search keywords for untagged pages.
-  - Automated workflow generates metadata descriptions containing target keywords to fill missing editorial details.
-  - Pre-flight verification scripts assert no collection/skill is missing descriptions or keywords after pipeline execution.
-
-### Phase 147: CI/CD Quality Gate & Regression Check
-
-- **Requirements:** CI-01, INTEG-01
-- **Scope:** Implement automated gate checking (copy leakages, Prettier formatting, translation parity, and CJK punctuation) in GitHub Actions on commit/PR, ensuring 100% build stability and zero regressions.
-- **Status:** Complete (2026-06-24)
-- **Plans:** 1/1 plans complete
-- **Success Criteria:**
-  - CI workflow blocks commits/PRs with copy leaks, formatting issues, or CJK punctuation errors.
-  - Workspace typecheck and lint pipelines pass with zero errors.
-  - Entire Vitest test suite executes successfully with 100% pass rate.
-  - Astro production build compiles successfully.
+  - INP and LCP parameters on target detail templates meet "Good" Web Vitals classification.
+  - Search Health monitoring scripts trigger warning alerts on mocked GSC crawl error inputs.
+  - Astro production bundle built and E2E verified with zero regression.
 
 ## Milestones
 
-- 🟩 **v4.6 GitHub Workflow SEO & Harvester Hardening** — phases 144-147 (active; [requirements](./REQUIREMENTS.md))
+- 🟩 **v4.7 Core Web Vitals & Edge Performance Optimization** — phases 148-150 (active; [requirements](./REQUIREMENTS.md))
+- ✅ **v4.6 GitHub Workflow SEO & Harvester Hardening** — phases 144-147 (shipped 2026-06-24; [archive](./milestones/v4.6-ROADMAP.md), [requirements](./milestones/v4.6-REQUIREMENTS.md), [audit](./milestones/v4.6-MILESTONE-AUDIT.md))
 - ✅ **v4.5 GSC Crawl & AI Telemetry Hardening** — phases 140-143 (shipped 2026-06-23; [archive](./milestones/v4.5-ROADMAP.md), [requirements](./milestones/v4.5-REQUIREMENTS.md), [audit](./milestones/v4.5-MILESTONE-AUDIT.md))
 - ✅ **v4.4 GSC Opportunity & Authority Promotion** — phases 137-139 (shipped 2026-06-23; [archive](./milestones/v4.4-ROADMAP.md), [requirements](./milestones/v4.4-REQUIREMENTS.md))
 - ✅ **v4.3 Sitemap Purity & Search Coverage Consolidation** — phases 133-136 (shipped 2026-06-23; [archive](./milestones/v4.3-ROADMAP.md), [requirements](./milestones/v4.3-REQUIREMENTS.md), [audit](./milestones/v4.3-MILESTONE-AUDIT.md))
@@ -88,6 +75,7 @@ Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-1
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
+| v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 0/3 | In Progress | Active |
 | v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
 | v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 4/4 | Complete | 2026-06-23 |
 | v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |

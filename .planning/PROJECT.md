@@ -10,26 +10,36 @@ Maximize discoverability and operational reliability of AI developer tooling thr
 
 ## Current State
 
-- `v1.0` through `v4.5` are shipped.
+- `v1.0` through `v4.6` are shipped.
+- `v4.6` (shipped 2026-06-24) hardened the automated skill harvester with cosine similarity checks, implemented CJK local typography and CJK punctuation auto-repair rules, automated metadata & keywords batch enrichment via workflows, and established strict CI/CD gatekeepers (typecheck, CJK punctuation, pre-flight metadata checks).
 - `v4.5` (shipped 2026-06-23) resolved dynamic GSC crawl-rate coverage alerts by resetting provider runtime telemetry checks, ingesting fresh console metrics (setting SLA thresholds to 30 days), and forcing `noindex` edge routing on sitemap-blocklisted detail pages, backed by a comprehensive regression test check and production-ready compilations.
 - `v4.4` (shipped 2026-06-23) optimized P0 primary authority surfaces (English Home page and Collections Hub) and resolved GSC sparse-signal CTR opportunities via Astro dynamic routing SEO overrides, backed by full regression integrity testing.
 - `v4.3` (shipped 2026-06-23) resolved sitemap purity by filtering empty categories, enforced trailing-slash consistency across edge router/blog content/test rules, and cleaned up GSC 404 crawl errors at the edge with 0 regressions.
 - `v4.2` (shipped 2026-06-23) reduced local repository footprint by ~1.8GB (deleted Puppeteer screenshot folders and old logs) and completely pruned the unsupported Hindi locale from routing, configs, scripts, and tests with 0 regressions.
 - Phase 144 (completed 2026-06-23) implemented cosine similarity (TF-IDF based) and metadata/thin content validation filters for the harvester and crawler tools, automatically injecting originality blocks containing canonical backlinks and original repository credits.
 
-## Current Milestone: v4.6 GitHub Workflow SEO & Harvester Hardening
+## Current Milestone: v4.7 Core Web Vitals & Edge Performance Optimization
 
-**Goal:** Refactor and harden the GitHub Actions workflow and scripts responsible for skill harvesting and localization to ensure generated content complies with search guidelines from the source.
+**Goal:** Optimize edge rendering performance, reduce Cloudflare Worker CPU execution times to mitigate Error 1102, and warm up edge SSR caching for critical crawl pathways to improve SEO ranking.
 
 **Target features:**
-- **Harvester SEO Compliance**: Refactor and enforce content originality filters during automated skill harvesting and submission (preventing low-quality mirror content).
-- **GEO-localized Translation sync**: Modernize translation sync workflow to conform with GEO-localized typographic rules (e.g. CJK terminal punctuation, spacing, and phrasing).
-- **Automated Backlog Metadata Enrichment**: Integrate batch LLM rewrite and keywords mining directly into workflows to patch missing collection/skill details.
-- **CI/CD Quality Gate**: Automate validation loops (copy leakages, formatting parity, missing translations, and punctuation rules) as a strict commit/PR check.
+- **Edge CPU Optimization**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
+- **Cache Warmup & Hydration**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
+- **INP & LCP Core Web Vitals Audit**: Leverage Chrome DevTools plugin to audit core rendering pathways and optimize INP and LCP parameters.
+- **Search Console Health Check**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
 
-## Most Recent Shipment: Milestone v4.5 GSC Crawl & AI Telemetry Hardening
+## Most Recent Shipment: Milestone v4.6 GitHub Workflow SEO & Harvester Hardening
 
-**Outcome:** Resolved dynamic GSC crawl-rate coverage alerts by resetting provider runtime telemetry checks, ingesting fresh console metrics (setting SLA thresholds to 30 days), and forcing `noindex` edge routing on sitemap-blocklisted detail pages, backed by a comprehensive regression test check and production-ready compilations.
+**Outcome:** Hardened automated skill harvesting with original-content checks, CJK Local Typography / Punctuation rules and auto-repair pipelines, batch metadata & keyword enrichment workflows, and strict CI/CD gatekeepers.
+
+**Shipped capabilities:**
+- Implemented TF-IDF Cosine Similarity filter to skip duplicate or low-originality repositories during harvesting.
+- Upgraded CJK spacing and localized full-width punctuation conversions, supporting recursion on translation array nodes.
+- Integrated automated collections metadata & keywords mining batch enrichment in GHA, pushing changes back to repository.
+- Integrated `typecheck`, CJK punctuation checks, and pre-flight metadata checker as CI commit/PR blocking gates.
+- Resolved legacy type errors in `[...repo].astro` to ensure 100% build stability and pass all 1063 tests.
+
+## Previous Shipment: Milestone v4.5 GSC Crawl & AI Telemetry Hardening
 
 **Shipped capabilities:**
 - NVIDIA nodes (N0, N1, N2, N3) successfully restored from quarantine and AI Runtime Posture status reset to CLEAR.

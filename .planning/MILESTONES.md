@@ -1,5 +1,19 @@
 # Project Milestones: Killer-Skills Agent Directory
 
+## v4.6 GitHub Workflow SEO & Harvester Hardening (Shipped: 2026-06-24)
+
+**Phases completed:** 144-147 (4 plans total)
+
+**Key accomplishments:**
+
+- 实现了 TF-IDF Cosine Similarity 相似性原创性过滤与防镜像内容注入，保障了 Harvester 的合规。
+- 升级了排版同步引擎以实现中日韩（CJK）语言下的自动排版对齐和标点规范处理（盘古之白中英空格等）。
+- 扩展了 Collections 批量元数据与 keywords 智能富化生成与翻译管道。
+- 引入了 CI/CD 拦截卡口（校验 CJK 标点、元数据 Pre-flight 丰富度与全局类型安全）。
+- 修复了 `[...repo].astro` 的遗留类型编译错误，确保了 100% 打包稳定性与 1063 个测试完美跑通。
+
+---
+
 ## v4.5 GSC Crawl & AI Telemetry Hardening (Shipped: 2026-06-23)
 
 **Phases completed:** 4 phases, 4 plans, 0 tasks

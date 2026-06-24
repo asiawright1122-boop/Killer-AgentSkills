@@ -1,20 +1,20 @@
 ---
 gsd_state_version: 1.0
-milestone: v4.6
-milestone_name: GitHub Workflow SEO & Harvester Hardening
-status: planning
-last_updated: "2026-06-24T01:27:32.167Z"
+milestone: v4.7
+milestone_name: Core Web Vitals & Edge Performance Optimization
+status: requirements
+last_updated: "2026-06-24T10:45:00.000Z"
 last_activity: 2026-06-24
 progress:
-  total_phases: 4
+  total_phases: 3
   completed_phases: 0
-  total_plans: 2
+  total_plans: 0
   completed_plans: 0
 ---
 
 # Current Position
 
-Phase: 146
+Phase: 148
 Plan: Not started
-Status: Planning Phase 146
+Status: Defining requirements for v4.7
 Last activity: 2026-06-24

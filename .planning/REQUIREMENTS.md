@@ -1,35 +1,29 @@
-# Milestone v4.6 Requirements — GitHub Workflow SEO & Harvester Hardening
+# Milestone v4.7 Requirements — Core Web Vitals & Edge Performance Optimization
 
 ## 1. Active Requirements
 
-### Crawler & Harvester compliance (HARV)
-- [x] **HARV-01**: Refactor automated crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
+### Edge CPU Optimization (CPU)
+- [ ] **CPU-01**: Optimize global skill loading logic and JSON deserialization workflows to reduce Cloudflare Worker CPU execution times, mitigating Error 1102.
 
-### GEO-localized translation sync (GEO)
-- [x] **GEO-01**: Enforce CJK terminal punctuation and formatting rules in dynamic translation workflows to ensure GEO-local typography compliance.
-- [x] **GEO-02**: Modernize semantic phrasing translation policies to avoid simple machine translations and ensure SEO-appropriate descriptions.
+### Cache Warmup & Hydration (WARM)
+- [ ] **WARM-01**: Implement automated or cron warmup mechanisms to ensure primary GSC crawl pathways (like multilingual sitemaps) have a 100% edge cache hit rate, significantly lowering TTFB.
 
-### Metadata Enrichment & Keywords (META)
-- [ ] **META-01**: Integrate automated batch enrichment pipelines in workflows to automatically discover keywords and populate missing editorial details.
+### Core Web Vitals Validation (CWV)
+- [ ] **CWV-01**: Leverage Chrome DevTools plugin (or lighthouse/a11y) to audit core rendering pathways and optimize INP (Interaction to Next Paint) and LCP (Largest Contentful Paint) parameters.
 
-### CI/CD validation loops (CI)
-- [ ] **CI-01**: Implement automated gate checking (copy leakages, Prettier formatting, translation parity, and CJK punctuation) in GitHub Actions on commit/PR.
-
-### Build & Regression Integrity (INTEG)
-- [ ] **INTEG-01**: Enforce 100% build stability, clean TypeScript compile checks, and Vitest test suite regression checks.
+### Search Health Monitoring & Alerts (MON)
+- [ ] **MON-01**: Formulate automated diagnostics alerts to immediately warn operators of crawl errors or search-traffic anomalies.
 
 ## 2. Out of Scope
 
-- **Large net-new discovery surfaces**: wait until post-governance proof supports them.
+- **Net-new third-party API integrations**: out of scope unless explicitly budgeted.
 - **Paid Workers AI expansion**: remains out of scope unless explicitly budgeted.
 
 ## 3. Traceability Matrix
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| HARV-01 | Phase 144 | | [ ] |
-| GEO-01 | Phase 145 | | [ ] |
-| GEO-02 | Phase 145 | | [ ] |
-| META-01 | Phase 146 | | [ ] |
-| CI-01 | Phase 147 | | [ ] |
-| INTEG-01 | Phase 147 | | [ ] |
+| CPU-01 | Phase 148 | | [ ] |
+| WARM-01 | Phase 149 | | [ ] |
+| CWV-01 | Phase 150 | | [ ] |
+| MON-01 | Phase 150 | | [ ] |
