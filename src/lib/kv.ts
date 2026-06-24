@@ -1,4 +1,5 @@
 import { getNonTargetSkillReason } from './shared/validation';
+import { buildSkillIndexabilityAssessment } from './skill-indexability';
 import { normalizeSitemapSkillEntry, type SitemapSkillEntry } from './skill-route-paths';
 
 export interface Env {
@@ -1120,6 +1121,70 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<SitemapSkillEntr
     return textEncoder.encode(synthesizedContent).length >= MIN_INDEXABLE_SKILL_README_BYTES;
   };
 
+  // Tier 1 gate: only Tier 1 skills belong in the sitemap. Verified repos
+  // bypass the stars threshold; non-official skills need stars >= 50 and
+  // qualityScore >= 55 on top of the existing indexability gate.
+  const parseD1Value = (value: unknown): unknown => {
+    if (typeof value === 'string') {
+      const trimmed = value.trim();
+      if (
+        (trimmed.startsWith('{') && trimmed.endsWith('}')) ||
+        (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+        (trimmed.startsWith('"') && trimmed.endsWith('"'))
+      ) {
+        try {
+          return JSON.parse(trimmed);
+        } catch {
+          return trimmed;
+        }
+      }
+      // D1 json_extract returns numbers/booleans as strings
+      if (trimmed === 'true') return true;
+      if (trimmed === 'false') return false;
+      if (/^-?\d+\.?\d*$/.test(trimmed)) return Number(trimmed);
+    }
+    return value;
+  };
+
+  const isTier1SitemapCandidate = (raw: unknown): boolean => {
+    if (!raw || typeof raw !== 'object') return false;
+    const obj = raw as Record<string, unknown>;
+
+    const qualityScore =
+      typeof obj.qualityScore === 'number' ? obj.qualityScore : Number(parseD1Value(obj.qualityScore)) || 0;
+    const verified = Boolean(obj.verified ?? parseD1Value(obj.verified));
+    const stars = typeof obj.stars === 'number' ? obj.stars : Number(parseD1Value(obj.stars)) || 0;
+
+    // Use the same readme synthesis logic as isIndexableByReadme, which
+    // combines body + fallback description for the source evidence check.
+    let readmeContent = getReadmeContent(obj);
+    if (!readmeContent || textEncoder.encode(readmeContent).length < MIN_INDEXABLE_SKILL_README_BYTES) {
+      const fallbackDescription = getFallbackDescription(obj);
+      const skillName = pickText(obj.skillName) || String(obj.repo ?? 'Skill');
+      const synthesized = [readmeContent, `# ${skillName}\n\n${fallbackDescription}`]
+        .filter((part) => typeof part === 'string' && part.trim().length > 0)
+        .join('\n\n');
+      if (textEncoder.encode(synthesized).length >= MIN_INDEXABLE_SKILL_README_BYTES) {
+        readmeContent = synthesized;
+      }
+    }
+
+    const assessment = buildSkillIndexabilityAssessment(
+      {
+        qualityScore,
+        verified,
+        stars,
+        agentAnalysis: parseD1Value(obj.agentAnalysis) as any,
+        seo: parseD1Value(obj.seo) as any,
+        readmeContent,
+        localeGovernance: { isIndexableLocale: true, canonicalLocale: 'en', detectedBodyLocale: 'en' },
+      },
+      'en',
+    );
+
+    return assessment.tier === 1;
+  };
+
   // Normalize, validate, and dedupe by canonical skill route.
   // If duplicates exist, keep the newest updatedAt.
   const normalizeAndDedupe = (items: unknown[], options?: { skipReadmeFilter?: boolean }): SitemapSkillEntry[] => {
@@ -1135,6 +1200,10 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<SitemapSkillEntr
       if (!owner || !repo) continue;
       if (!GITHUB_OWNER_RE.test(owner) || !GITHUB_REPO_RE.test(repo)) continue;
       if (!isPublicSitemapSkillCandidate(obj)) continue;
+
+      // Tier 1 gate — only high-quality skills enter the sitemap
+      if (!options?.skipReadmeFilter && !isTier1SitemapCandidate(obj)) continue;
+
       const normalized = normalizeSitemapSkillEntry(obj);
       if (!normalized) continue;
 
@@ -1167,7 +1236,12 @@ export async function getSitemapSkillsFromKV(env: Env): Promise<SitemapSkillEntr
             json_extract(data_json, '$.seo.definition') as seoDefinitionRaw,
             json_extract(data_json, '$.topics') as topicsRaw,
             json_extract(data_json, '$.category') as category,
-            json_extract(data_json, '$.filePath') as filePath
+            json_extract(data_json, '$.filePath') as filePath,
+            json_extract(data_json, '$.stars') as stars,
+            json_extract(data_json, '$.qualityScore') as qualityScore,
+            json_extract(data_json, '$.verified') as verified,
+            json_extract(data_json, '$.agentAnalysis') as agentAnalysis,
+            json_extract(data_json, '$.seo') as seo
          FROM skills
          WHERE owner IS NOT NULL AND repo IS NOT NULL`,
       ).all();

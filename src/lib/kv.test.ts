@@ -67,8 +67,23 @@ function silenceExpectedKVLogs() {
 }
 
 const INDEXABLE_BODY_PREVIEW = '# Skill README\n\n' + 'x'.repeat(400);
+/**
+ * Test fixture helper: adds an indexable README body AND the fields required
+ * to pass the Tier 1 sitemap gate (stars >= 50, qualityScore >= 55, full
+ * agentAnalysis). Tests that exercise the Tier 1 boundary conditions should
+ * override these defaults explicitly.
+ */
 const withIndexableBody = <T extends Record<string, any>>(entry: T): T => ({
   ...entry,
+  stars: entry.stars ?? 60,
+  qualityScore: entry.qualityScore ?? 60,
+  verified: entry.verified ?? false,
+  agentAnalysis: entry.agentAnalysis ?? {
+    suitability: 'Best for coding agents that need prompt refinement before running high-risk repository changes.',
+    recommendation: 'Killer-Skills recommends this skill for workflow automation and code review cycles.',
+    useCases: ['Code review automation', 'Workflow integration'],
+    limitations: ['Requires Node.js 18+'],
+  },
   skillMd: {
     ...(entry.skillMd || {}),
     bodyPreview: entry.skillMd?.bodyPreview || INDEXABLE_BODY_PREVIEW,
@@ -105,6 +120,11 @@ function createMockEnv(overrides: Partial<Env> = {}, skills: any[] = []): Env {
                 topicsRaw: s.topicsRaw ?? s.topics,
                 category: s.category,
                 filePath: s.filePath,
+                stars: s.stars,
+                qualityScore: s.qualityScore,
+                verified: s.verified,
+                agentAnalysis: s.agentAnalysis,
+                seo: s.seo,
               })),
           };
         }
@@ -565,6 +585,15 @@ describe('getSitemapSkillsFromKV', () => {
         id: 'fallback-owner/fallback-repo/fallback-skill',
         owner: 'fallback-owner',
         repo: 'fallback-repo',
+        stars: 60,
+        qualityScore: 60,
+        agentAnalysis: {
+          suitability:
+            'Best for coding agents that need prompt refinement before running high-risk repository changes.',
+          recommendation: 'Killer-Skills recommends this skill for workflow automation and code review cycles.',
+          useCases: ['Code review automation', 'Workflow integration'],
+          limitations: ['Requires Node.js 18+'],
+        },
         skillMd: { bodyPreview: 'tiny' },
         description: { en: 'y'.repeat(240) },
       },
