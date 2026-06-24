@@ -25,7 +25,7 @@ Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-1
 
 - **Requirements:** HARV-01
 - **Scope:** Refactor the crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
-- **Status:** Not started
+- **Status:** Complete (2026-06-23)
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
   - Harvester/crawler logic filters out source pages with a similarity score above 85% compared to existing skills.
@@ -36,7 +36,7 @@ Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-1
 
 - **Requirements:** GEO-01, GEO-02
 - **Scope:** Modernize translation sync workflow to conform with GEO-localized typographic rules (e.g. CJK terminal punctuation, spacing, and phrasing) and SEO-appropriate descriptions.
-- **Status:** Not started
+- **Status:** Complete (2026-06-24)
 - **Plans:** 0/1 plans complete
 - **Success Criteria:**
   - Translation sync script validates CJK character regions and replaces western punctuation with CJK full-width punctuation (e.g. `，`, `。`, `？`, `！`) and proper spacing.
@@ -88,7 +88,7 @@ Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-1
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 0/4 | In Progress | Active |
+| v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 2/4 | In Progress | Active |
 | v4.5 GSC Crawl & AI Telemetry Hardening | 140-143 | 4/4 | Complete | 2026-06-23 |
 | v4.4 GSC Opportunity & Authority Promotion | 137-139 | 3/3 | Complete | 2026-06-23 |
 | v4.3 Sitemap Purity & Search Coverage Consolidation | 133-136 | 4/4 | Complete | 2026-06-23 |
@@ -97,4 +97,4 @@ Milestone v4.6 GitHub Workflow SEO & Harvester Hardening is active. Phases 144-1
 | v4.0 Authority Proof Remediation & Public Trust Hardening | 122-125 | 4/4 | Complete | 2026-06-22 |
 
 ---
-*Last updated: 2026-06-23 after initializing Milestone v4.6*
+*Last updated: 2026-06-24 after completing Phase 145*

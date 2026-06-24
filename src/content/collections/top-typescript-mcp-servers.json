@@ -14,7 +14,7 @@
   "description": {
     "en": "TypeScript Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 TypeScript 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "開発ワークフロー向け TypeScript AI ツール集を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "開発ワークフロー向け TypeScript AI ツール集を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "개발 워크플로우를 위한 TypeScript AI 도구 모음: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas de IA en TypeScript para workflows. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils IA TypeScript pour les workflows dev. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare TypeScript Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 TypeScript 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "開発ワークフロー向け TypeScript AI ツール集を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 TypeScript 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "開発ワークフロー向け TypeScript AI ツール集を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "개발 워크플로우를 위한 TypeScript AI 도구 모음: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas de IA en TypeScript para workflows. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils IA TypeScript pour les workflows dev. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,25 +62,25 @@
       "类型化 API 工作流工具",
       "发布与评审工具",
       "TypeScript 编码工作流",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "typescript AI agent skills",
+      "ワークフロー自動化",
+      "typescript AI エージェントスキル",
       "typescript developer workflow",
-      "typescript workflow automation"
+      "typescript ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "typescript AI agent skills",
+      "워크플로우 자동화",
+      "typescript AI 에이전트 스킬",
       "typescript developer workflow",
-      "typescript workflow automation"
+      "typescript 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -157,7 +157,7 @@
   ],
   "longDescription": {
     "en": "If your team ships with TypeScript, this page helps you narrow the shortlist quickly without sending you back into another typed-tooling crawl. It compares workflow helpers, release tools, and developer companions that fit TypeScript delivery, to help you find the best fit for real work faster.",
-    "zh": "如果你的团队正在用 TypeScript 交付产品，这页会帮助你更快缩小范围，不必再回到冗长的类型化工具比较。它聚焦适合 TypeScript 交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
+    "zh": "如果你的团队正在用 TypeScript 交付产品，这页会帮助你更快缩小范围，不必再回到冗长的类型化工具对比。它聚焦适合 TypeScript 交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
     "ja": "この TypeScript コレクションは、インフラ名ではなく開発ワークフローの成果を軸にしています。SDK 実装、型安全な API 連携、テスト自動化、リリース前チェック、ドキュメントパイプラインなど、実際のプロダクト開発で効くツールを重視しています。MCP 互換機能は必要に応じて活用できますが、主眼はスキルファーストな開発実践にあり、安全なリリースと統合コスト削減、フロントエンドとバックエンドの連携効率向上を支援します。",
     "ko": "이 TypeScript 컬렉션은 인프라 명칭보다 개발 워크플로우의 실제 성과에 초점을 둡니다. SDK 구현, 타입 안전 API 통합, 테스트 자동화, 릴리스 전 검증, 문서 파이프라인 등 제품 팀의 실전 업무에 맞는 도구를 다룹니다. 필요 시 MCP 호환 기능을 사용할 수 있지만 핵심 가치는 스킬 중심 엔지니어링에 있으며, 더 안전한 배포와 통합 비용 절감, 프런트엔드·백엔드 협업 효율 향상에 있습니다.",
     "es": "Esta colección de TypeScript está pensada para resultados de workflow de desarrollo, no para etiquetas de infraestructura. Destaca herramientas para implementación de SDK, integraciones API tipadas, automatización de pruebas, validaciones de release y pipelines de documentación en equipos de producto reales. Puedes aprovechar capacidades compatibles con MCP cuando aporten valor, pero el enfoque principal es ingeniería orientada a habilidades: entregar código más seguro, reducir fricción de integración y mantener eficiente la colaboración frontend-backend.",
@@ -171,7 +171,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
+      "ja": "2026-04-17 に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
       "ko": "2026-04-17에 설정 정보, 실제 사용 사례 및 유지 관리 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la información de configuración, los casos de uso prácticos y el estado de mantenimiento precisos.",
       "fr": "Mise à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et du statut de maintenance.",
@@ -182,7 +182,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較しやすく、簡単に設定でき、実際の仕事で試せる短いリストがほしいことが多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교할 수 있고 쉽게 설정할 수 있으며 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

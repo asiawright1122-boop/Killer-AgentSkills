@@ -2,7 +2,7 @@
   "title": {
     "en": "7 Agentic AI Platforms & Orchestration Tools",
     "zh": "7 个 Agentic AI 平台与编排工具",
-    "ja": "Agentic AIプラットフォーム＆オーケストレーションツール",
+    "ja": "Agentic AI プラットフォーム＆オーケストレーションツール",
     "ko": "Agentic AI 플랫폼 및 오케스트레이션 도구",
     "es": "7 plataformas Agentic AI y herramientas de orquestación",
     "fr": "7 des plateformes Agentic AI et outils d’orchestration",
@@ -14,7 +14,7 @@
   "description": {
     "en": "7 Agentic AI Platforms & Orchestration Tools. Compare setup quality, use cases, and IDE fit.",
     "zh": "7 个 Agentic AI 平台与编排工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Agentic AIプラットフォーム＆オーケストレーションツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Agentic AI プラットフォーム＆オーケストレーションツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Agentic AI 플랫폼 및 오케스트레이션 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "7 plataformas Agentic AI y herramientas de orquestación. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "7 des plateformes Agentic AI et outils d’orchestration. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "7 Agentic AI Platforms & Orchestration Tools | Killer-Skills",
     "zh": "7 个 Agentic AI 平台与编排工具 | Killer-Skills",
-    "ja": "Agentic AIプラットフォーム＆オーケストレーションツール | Killer-Skills",
+    "ja": "Agentic AI プラットフォーム＆オーケストレーションツール | Killer-Skills",
     "ko": "Agentic AI 플랫폼 및 오케스트레이션 도구 | Killer-Skills",
     "es": "7 plataformas Agentic AI y herramientas de orquestación",
     "fr": "7 des plateformes Agentic AI et outils d’orchestration | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare 7 Agentic AI Platforms & Orchestration Tools. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较7 个 Agentic AI 平台与编排工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Agentic AIプラットフォーム＆オーケストレーションツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比 7 个 Agentic AI 平台与编排工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Agentic AI プラットフォーム＆オーケストレーションツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Agentic AI 플랫폼 및 오케스트레이션 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara 7 plataformas Agentic AI y herramientas de orquestación. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez 7 des plateformes Agentic AI et outils d’orchestration. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "agentic platforms orchestration workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "agentic platforms orchestration AI agent skills",
+      "agentic platforms orchestration AI 智能体技能",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "agentic platforms orchestration AI agent skills",
+      "ワークフロー自動化",
+      "agentic platforms orchestration AI エージェントスキル",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "agentic platforms orchestration AI agent skills",
+      "워크플로우 자동화",
+      "agentic platforms orchestration AI 에이전트 스킬",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -156,7 +156,7 @@
   "longDescription": {
     "en": "Agentic AI systems require more than single-model prompts: they need planning, orchestration, memory, and reliable task execution across tools. This collection focuses on platforms and frameworks that help teams design autonomous workflows, coordinate multiple agents, and operationalize complex decision loops in production. MCP can be used as one integration layer, but the emphasis is on end-to-end agentic tooling that turns prototypes into durable automation.",
     "zh": "Agentic AI 系统不仅需要单模型提示，更需要规划、编排、记忆与跨工具的可靠执行能力。该合集聚焦可帮助团队设计自治工作流、协调多智能体并在生产环境落地复杂决策闭环的平台与框架。MCP 可作为其中一层集成能力，但重点是覆盖端到端的 agentic 工具链，把原型稳定转化为可持续自动化。",
-    "ja": "Agentic AIシステムには、単一モデルへのプロンプトだけでなく、計画、オーケストレーション、メモリ、そしてツール横断の確実な実行が必要です。このコレクションは、自律ワークフロー設計、複数エージェントの協調、複雑な意思決定ループの本番運用を支えるプラットフォームとフレームワークに焦点を当てています。MCPは統合レイヤーの一つとして利用できますが、重視するのは、プロトタイプを持続可能な自動化へと移行させるエンドツーエンドのAgenticツール群です。",
+    "ja": "Agentic AI システムには、単一モデルへのプロンプトだけでなく、計画、オーケストレーション、メモリ、そしてツール横断の確実な実行が必要です。このコレクションは、自律ワークフロー設計、複数エージェントの協調、複雑な意思決定ループの本番運用を支えるプラットフォームとフレームワークに焦点を当てています。MCP は統合レイヤーの一つとして利用できますが、重視するのは、プロトタイプを持続可能な自動化へと移行させるエンドツーエンドの Agentic ツール群です。",
     "ko": "Agentic AI 시스템은 단일 모델 프롬프트만으로는 충분하지 않으며, 계획, 오케스트레이션, 메모리, 그리고 도구 전반의 안정적인 작업 실행이 필요합니다. 이 컬렉션은 자율 워크플로 설계, 다중 에이전트 조정, 복잡한 의사결정 루프의 프로덕션 운영을 지원하는 플랫폼과 프레임워크에 집중합니다. MCP는 통합 레이어 중 하나로 활용될 수 있지만, 핵심은 프로토타입을 지속 가능한 자동화로 전환하는 엔드투엔드 agentic 툴링입니다.",
     "es": "Los sistemas Agentic AI requieren más que prompts sobre un solo modelo: necesitan planificación, orquestación, memoria y ejecución confiable de tareas entre herramientas. Esta colección se centra en plataformas y frameworks que ayudan a diseñar workflows autónomos, coordinar múltiples agentes y operar bucles de decisión complejos en producción. MCP puede funcionar como una capa de integración, pero el énfasis está en tooling agentic de extremo a extremo para convertir prototipos en automatización sostenible.",
     "fr": "Les systèmes Agentic AI demandent plus que des prompts sur un modèle unique : ils nécessitent planification, orchestration, mémoire et exécution fiable des tâches entre outils. Cette collection met l’accent sur des plateformes et frameworks qui aident les équipes à concevoir des workflows autonomes, coordonner plusieurs agents et opérer des boucles de décision complexes en production. MCP peut servir de couche d’intégration, mais l’essentiel reste un outillage agentique de bout en bout pour transformer des prototypes en automatisation durable.",

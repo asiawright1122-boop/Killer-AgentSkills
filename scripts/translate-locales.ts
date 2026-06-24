@@ -11,6 +11,7 @@ import * as path from 'path';
 // import { fileURLToPath } from 'url';
 import { AIService } from './lib/ai';
 import { SUPPORTED_LOCALES } from './lib/constants';
+import { cleanTypography, postProcessPhrasing } from './lib/typography';
 
 // 配置
 const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
@@ -79,7 +80,20 @@ Original: "${text}"
 3. **Length Constraint**: Keep the translation length close to the original to avoid UI breakage or SERP truncation.
 4. **Tone**: Professional, technical, yet accessible.
 5. **Brand Terms**: Keep "Killer-Skills", "Claude Code", "Cursor", "Windsurf", "MCP" untranslated.
-6. **No Fluff**: Do not explain. Return ONLY the translated text.
+6. **CJK Formatting Rules (Crucial)**:
+   - For CJK languages (zh, ja, ko): Leave a half-width space between CJK characters and English letters/numbers/backticks (e.g. "在 Cursor 中").
+   - Chinese (zh): Use full-width punctuation (， 。 ！ ？ ： ；).
+   - Japanese (ja): Use full-width punctuation with Japanese comma (、 。 ！ ？ ： ；).
+   - Korean (ko): Keep half-width periods and commas (.,) but use full-width exclamation/question marks (！ ？).
+7. **Glossary Alignment**:
+   - "AI Agent Skill" -> zh: "AI 智能体技能", ja: "AIエージェントスキル", ko: "AI 에이전트 스킬"
+   - "AI Agent" -> zh: "AI 智能体", ja: "AIエージェント", ko: "AI 에이전트"
+   - "IDE integration" -> zh: "IDE 集成", ja: "IDE統合", ko: "IDE 통합"
+   - "developer tools" -> zh: "开发者工具", ja: "開発者ツール", ko: "개발자 도구"
+   - "installation platform" -> zh: "安装平台", ja: "インストールプラットフォーム", ko: "설치 플랫폼"
+   - "workflow automation" -> zh: "工作流自动化", ja: "ワークフロー自動化", ko: "워크플로우 자동화"
+   - "marketplace" -> zh: "市场", ja: "マーケットプレイス", ko: "마켓플레이스"
+8. **No Fluff**: Do not explain. Return ONLY the translated text.
 
 Reply ONLY with the translated text.`;
 
@@ -113,9 +127,14 @@ async function main() {
         const flatExisting = flattenKeys(existingMessages);
         const missingKeys: string[] = [];
 
-        // 找出缺失的 Key
+        // 找出缺失的 Key：不存在，或者值等于英文且当前语言不是英文且该英文值不是纯品牌词
         for (const key in flatEn) {
-            if (!flatExisting[key]) {
+            const enVal = flatEn[key];
+            const curVal = flatExisting[key];
+            
+            const isBrandOnly = /^(Cursor|VS Code|Windsurf|Claude Code|Killer-Skills|AI|MCP|API|SDK|GitHub|Git|URL|D1|KV|CLI|E2E|CI\/CD|Baidu|Google|IndexNow|SSR|JSON)$/i.test(enVal.trim());
+            
+            if (!curVal || (curVal === enVal && locale !== 'en' && !isBrandOnly)) {
                 missingKeys.push(key);
             }
         }
@@ -133,14 +152,16 @@ async function main() {
             const originalText = flatEn[key];
             const translatedText = await translateText(originalText, locale, key);
 
-            flatExisting[key] = translatedText;
+            // 应用排版清洗和专业词表修正
+            const cleanedText = cleanTypography(postProcessPhrasing(translatedText, locale), locale);
+            flatExisting[key] = cleanedText;
             process.stdout.write('.');
             translatedCount++;
         }
 
         // 保存文件
         const newMessages = unflattenKeys(flatExisting);
-        fs.writeFileSync(localePath, JSON.stringify(newMessages, null, 2));
+        fs.writeFileSync(localePath, JSON.stringify(newMessages, null, 2) + '\n');
         console.log(`\n🎉 Updated ${locale}.json`);
     }
 

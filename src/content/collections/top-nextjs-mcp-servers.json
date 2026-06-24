@@ -14,7 +14,7 @@
   "description": {
     "en": "Next.js Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 Next.js 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Next.js 풀스택 개발 워크플로우 AI 도구 모음: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas de IA para workflows full-stack con Next.js. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils IA Next.js pour workflows full-stack. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Next.js Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 Next.js 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 Next.js 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Next.js フルスタック開発ワークフロー向け AI ツール集を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Next.js 풀스택 개발 워크플로우 AI 도구 모음: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas de IA para workflows full-stack con Next.js. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils IA Next.js pour workflows full-stack. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,7 +62,7 @@
       "全栈 AI 工作流工具",
       "部署与评审工具",
       "Next.js 编码工作流",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
       "Next.js workflow tools",
@@ -70,7 +70,7 @@
       "deployment tools",
       "review tools",
       "content operations",
-      "install AI agent skills"
+      "install AI エージェントスキル"
     ],
     "ko": [
       "Next.js workflow tools",
@@ -78,7 +78,7 @@
       "deployment tools",
       "review tools",
       "content operations",
-      "install AI agent skills"
+      "install AI 에이전트 스킬"
     ],
     "es": [
       "herramientas Next.js",
@@ -149,7 +149,7 @@
   ],
   "longDescription": {
     "en": "If your team ships with Next.js, this page helps you narrow the shortlist quickly without sending you back into another full-stack tooling crawl. It compares workflow helpers, release tools, and developer companions that fit Next.js delivery, to help you find the best fit for real work faster. That makes it a better starting point than a broad framework roundup.",
-    "zh": "如果你的团队正在用 Next.js 交付产品，这页会帮助你更快缩小范围，不必再回到冗长的全栈工具比较。它聚焦适合 Next.js 交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛框架榜单更适合作为真正的推荐入口。",
+    "zh": "如果你的团队正在用 Next.js 交付产品，这页会帮助你更快缩小范围，不必再回到冗长的全栈工具对比。它聚焦适合 Next.js 交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛框架榜单更适合作为真正的推荐入口。",
     "ja": "この Next.js ページは、フルスタックのワークフロー実行を中心に構成されています。ルーティングとレンダリング設計、コンテンツ公開パイプライン、API/サービス連携、品質チェック、デプロイ準備までを実務視点で扱います。フロントエンドとバックエンドの境界をまたいで、信頼性を維持しながら反復速度を上げたいチームに向けた内容です。MCP 互換の実行機能を持つツールが含まれる場合もありますが、主軸はあくまでスキルファーストな開発運用です。",
     "ko": "이 Next.js 페이지는 풀스택 워크플로우 실행을 중심으로 구성됩니다. 라우팅·렌더링 의사결정, 콘텐츠 퍼블리싱 파이프라인, API/서비스 통합, 품질 검증, 배포 준비까지 실무 기준으로 다룹니다. 프런트엔드와 백엔드 경계를 넘나들며 신뢰성을 유지한 채 반복 속도를 높여야 하는 팀에 적합합니다. 일부 도구가 MCP 호환 런타임 기능을 제공할 수 있지만, 핵심 서사는 여전히 스킬 중심 엔지니어링입니다.",
     "es": "Esta página de Next.js está organizada alrededor de la ejecución del workflow full-stack: decisiones de routing y render, pipelines de publicación de contenido, integraciones API/servicios, controles de calidad y preparación para despliegue. Está pensada para equipos que necesitan iterar más rápido sin perder fiabilidad entre frontend y backend. Algunas herramientas pueden ofrecer capacidades de runtime compatibles con MCP, pero la narrativa principal sigue siendo ingeniería skills-first: entregar funciones en producción con mejor automatización, disciplina de testing y claridad operativa.",
@@ -163,7 +163,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
+      "ja": "2026-04-17 に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
       "ko": "설치 정보, 실제 사용 사례, 유지 관리 상태를 정확하게 유지하기 위해 2026-04-17에 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la precisión de la información de configuración, los casos de uso prácticos y el estado de mantenimiento.",
       "fr": "Mise à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et du statut de maintenance.",
@@ -174,7 +174,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較しやすく、簡単に設定でき、実際の仕事で試せる短いリストがほしいことが多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교할 수 있고 쉽게 설정할 수 있으며 실제 작업에서 시도해 볼 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

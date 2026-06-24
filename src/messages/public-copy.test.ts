@@ -64,11 +64,11 @@ describe('public messages copy', () => {
     expect(en.CLI.heroTitle).toBe('Killer-Skills CLI');
     expect(en.CLI.heroSubtitle).toBe('Install and manage AI agent skills');
 
-    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
-    expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
-    expect(zh.Footer.desc).toBe('面向 AI Agent 技能与 IDE 工作流的开源目录。为真实开发工作而生。');
+    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI 智能体技能，并以 IDE 原生格式完成安装。');
+    expect(zh.Home.footerDesc).toBe('面向 AI 智能体技能的开源目录与安装入口。为真实开发工作而生。');
+    expect(zh.Footer.desc).toBe('面向 AI 智能体技能与 IDE 工作流的开源目录。为真实开发工作而生。');
     expect(zh.CLI.heroTitle).toBe('Killer-Skills CLI');
-    expect(zh.CLI.heroSubtitle).toBe('安装和管理 AI Agent 技能');
+    expect(zh.CLI.heroSubtitle).toBe('安装和管理 AI 智能体技能');
   });
 
   it('keeps home and CLI marketing copy tied to skills instead of generic capabilities', () => {
@@ -99,10 +99,10 @@ describe('public messages copy', () => {
     expect(zh.Common.searchPlaceholder).toBe("搜索技能 (例如 '网页抓取')");
     expect(zh.CLI.features.autoInvoke.title).toBe('开放技能目录');
     expect(zh.CLI.features.autoInvoke.desc).toBe(
-      '浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。',
+      '浏览社区与官方 AI 智能体技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。',
     );
     expect(zh.CLI.features.syncAll.title).toBe('多 IDE 同步');
-    expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 3,400+ AI Agent 技能。');
+    expect(zh.SkillsManagerWidget.description).toBe('一键解锁更多工作流。发现并安装 3,400+ AI 智能体技能。');
   });
 
   it('keeps homepage seo intro and submit action localized across shipped locales', () => {
@@ -190,12 +190,12 @@ describe('public messages copy', () => {
       {
         messages: ja,
         featuresSubtitle:
-          '再利用可能なAIエージェントスキルをインストールし、繰り返し使えるワークフローをIDEに持ち込みましょう。',
+          '再利用可能な AI エージェントスキルをインストールし、繰り返し使えるワークフローを IDE に持ち込みましょう。',
         trendingSubtitle: 'コミュニティで評価が高く人気のスキル。',
         footerDesc:
-          'AIエージェントスキルとIDEワークフローのためのオープンソースディレクトリ。実際の開発作業のために構築。',
-        formatTitle: 'IDEネイティブ形式',
-        formatDesc: '1つのスキルを主要IDEとエージェント環境に適切なネイティブ形式でインストールできます。',
+          'AI エージェントスキルと IDE ワークフローのためのオープンソースディレクトリ。実際の開発作業のために構築。',
+        formatTitle: 'IDE ネイティブ形式',
+        formatDesc: '1 つのスキルを主要 IDE とエージェント環境に適切なネイティブ形式でインストールできます。',
         announcementsDesc: '最新ニュースとスキル更新。',
       },
       {
@@ -266,7 +266,7 @@ describe('public messages copy', () => {
     expect(fr.CLI.features.syncAll.title).not.toBe('Synchronisation Universelle');
 
     expect(ja.CLI.heroTitle).not.toBe('Killer-Skills プラットフォーム');
-    expect(ja.CLI.heroSubtitle).not.toBe('AIエージェントスキルのためのオープンスタンダード');
+    expect(ja.CLI.heroSubtitle).not.toBe('AI エージェントスキルのためのオープンスタンダード');
     expect(ja.CLI.features.autoInvoke.title).not.toBe('ユニバーサルレジストリ');
     expect(ja.CLI.features.syncAll.title).not.toBe('ユニバーサル同期');
 
@@ -304,7 +304,7 @@ describe('public messages copy', () => {
     expect(fr.Integrations.missingToolDesc).not.toContain('fichiers de configuration compatibles');
 
     expect(ja.Integrations.learnProtocol).not.toBe('プロトコルについて学ぶ');
-    expect(ja.Integrations.heroDesc).not.toContain('IDEネイティブのスキル形式');
+    expect(ja.Integrations.heroDesc).not.toContain('IDE ネイティブのスキル形式');
     expect(ja.Integrations.missingToolDesc).not.toContain('互換性のある設定ファイル');
 
     expect(ko.Integrations.learnProtocol).not.toBe('프로토콜에 대해 알아보기');
@@ -378,12 +378,12 @@ describe('public messages copy', () => {
     );
 
     expect(ja.CLI.features.autoInvoke.desc).toBe(
-      'PDF処理、ブラウザ自動化、ドキュメント作業などに使える、コミュニティ製および公式のAIエージェントスキルを探せます。',
+      'PDF 処理、ブラウザ自動化、ドキュメント作業などに使える、コミュニティ製および公式の AI エージェントスキルを探せます。',
     );
-    expect(ja.Integrations.cards.cursor.desc).toBe('Cursor で再利用可能なAIエージェントスキルを使えます。');
-    expect(ja.Integrations.cards.windsurf.desc).toBe('Windsurf で再利用可能なAIエージェントスキルを使えます。');
-    expect(ja.Integrations.cards.claude.desc).toBe('Claude Code で再利用可能なAIエージェントスキルを使えます。');
-    expect(ja.Integrations.cards.goose.desc).toBe('Goose で再利用可能なAIエージェントスキルを使えます。');
+    expect(ja.Integrations.cards.cursor.desc).toBe('Cursor で再利用可能な AI エージェントスキルを使えます。');
+    expect(ja.Integrations.cards.windsurf.desc).toBe('Windsurf で再利用可能な AI エージェントスキルを使えます。');
+    expect(ja.Integrations.cards.claude.desc).toBe('Claude Code で再利用可能な AI エージェントスキルを使えます。');
+    expect(ja.Integrations.cards.goose.desc).toBe('Goose で再利用可能な AI エージェントスキルを使えます。');
 
     expect(ko.CLI.features.autoInvoke.desc).toBe(
       'PDF 처리, 브라우저 자동화, 문서 작업 등 다양한 용도의 커뮤니티 및 공식 AI 에이전트 스킬을 둘러보세요.',
@@ -431,10 +431,10 @@ describe('public messages copy', () => {
       'Killer-Skills is open source. Contribute fixes, improve workflows, or publish reusable AI agent skills.',
     );
 
-    expect(zh.Community.heroDesc).toBe('加入一起打磨可复用 AI Agent 技能与 IDE 工作流的开发者、贡献者与团队。');
+    expect(zh.Community.heroDesc).toBe('加入一起打磨可复用 AI 智能体技能与 IDE 工作流的开发者、贡献者与团队。');
     expect(zh.Community.heroDesc).not.toContain('开源生态');
     expect(zh.Community.contributeDesc).toBe(
-      'Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。',
+      'Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI 智能体技能。',
     );
   });
 

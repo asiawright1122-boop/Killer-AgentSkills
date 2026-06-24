@@ -14,7 +14,7 @@
   "description": {
     "en": "Rust Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 Rust 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Rust のシステム開発ワークフローと信頼性向上向け AI ツール集を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Rust のシステム開発ワークフローと信頼性向上向け AI ツール集を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Rust 시스템 워크플로우·엔지니어링 신뢰성 AI 도구 모음: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas de IA en Rust para workflows de sistemas y fiabilidad. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils IA Rust pour workflows systèmes et fiabilité. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Rust Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 Rust 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Rust のシステム開発ワークフローと信頼性向上向け AI ツール集を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 Rust 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Rust のシステム開発ワークフローと信頼性向上向け AI ツール集を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Rust 시스템 워크플로우·엔지니어링 신뢰성 AI 도구 모음: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas de IA en Rust para workflows de sistemas y fiabilidad. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils IA Rust pour workflows systèmes et fiabilité. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,25 +62,25 @@
       "系统工程工具",
       "可靠性与发布工具",
       "Rust 编码工作流",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "rust systems reliability AI agent skills",
+      "ワークフロー自動化",
+      "rust systems reliability AI エージェントスキル",
       "rust systems reliability developer workflow",
-      "rust systems reliability workflow automation"
+      "rust systems reliability ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "rust systems reliability AI agent skills",
+      "워크플로우 자동화",
+      "rust systems reliability AI 에이전트 스킬",
       "rust systems reliability developer workflow",
-      "rust systems reliability workflow automation"
+      "rust systems reliability 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -152,7 +152,7 @@
   ],
   "longDescription": {
     "en": "If your team ships with Rust, this page helps you narrow the shortlist quickly without sending you back into another systems-tool crawl. It compares workflow helpers, reliability tools, and developer companions that fit Rust execution, to help you find the best fit for real work faster.",
-    "zh": "如果你的团队正在用 Rust 交付系统工程项目，这页会帮助你更快缩小范围，不必再回到冗长的系统工具比较。它聚焦适合 Rust 执行路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
+    "zh": "如果你的团队正在用 Rust 交付系统工程项目，这页会帮助你更快缩小范围，不必再回到冗长的系统工具对比。它聚焦适合 Rust 执行路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
     "ja": "この Rust コレクションは、システムレベルの開発ワークフローを中心に構成されています。信頼できるツール群の整備、性能チューニング、信頼性チェックの徹底、そしてリリースパイプラインの自動化を実務的に支援します。サーバーのランキングではなく、正確性・可観測性・運用安定性を高めるエンジニアリングスキルを重視しています。MCP 互換連携は必要に応じて補助的に扱い、主目的はあくまで高信頼・高性能なソフトウェア提供です。",
     "ko": "이 Rust 컬렉션은 시스템 레벨 개발 워크플로우에 초점을 맞춥니다. 신뢰할 수 있는 도구 구성, 성능 튜닝, 신뢰성 검증, 릴리스 파이프라인 자동화를 실무적으로 지원합니다. 서버 순위가 아니라 정확성·관측 가능성·운영 안정성을 높이는 엔지니어링 역량을 강조하며, MCP 호환 통합은 필요 시 보조 기능으로만 다룹니다. 핵심 목표는 결국 신뢰성과 성능을 동시에 갖춘 소프트웨어 전달입니다.",
     "es": "Esta colección de Rust está centrada en workflows de desarrollo a nivel de sistemas: construir tooling confiable, ajustar rendimiento, aplicar checks de fiabilidad y automatizar pipelines de release con control. En lugar de un ranking de servidores, prioriza habilidades de ingeniería que mejoran corrección, observabilidad y estabilidad operativa en producción. Las integraciones compatibles con MCP pueden aparecer como apoyo, pero el objetivo principal es la entrega de software confiable y de alto rendimiento.",
@@ -166,7 +166,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17に更新して、設定情報、実用的なユースケース、メンテナンスの状態を正確に保つ。",
+      "ja": "2026-04-17 に更新して、設定情報、実用的なユースケース、メンテナンスの状態を正確に保つ。",
       "ko": "2026-04-17에 설정 정보, 실제 사용 사례, 유지 관리 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la precisión de la información de configuración, los casos de uso prácticos y el estado de mantenimiento.",
       "fr": "Mise à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et du statut de maintenance.",
@@ -177,7 +177,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較しやすく、簡単に設定でき、実際の仕事で試せる短いリストがほしい場合が多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교할 수 있고 쉽게 설정할 수 있으며 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

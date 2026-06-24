@@ -2,7 +2,7 @@
   "title": {
     "en": "Agent Framework Tools to Install First",
     "zh": "优先安装的 Agent Framework 工具",
-    "ja": "注目のエージェント向けフレームワークとSDK基盤",
+    "ja": "注目のエージェント向けフレームワークと SDK 基盤",
     "ko": "주목할 만한 에이전트 프레임워크 및 SDK 기반",
     "es": "frameworks y SDK base para agentes",
     "fr": "frameworks et SDK de base pour agents",
@@ -14,7 +14,7 @@
   "description": {
     "en": "Agent Framework Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 Agent Framework 工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "注目のエージェント向けフレームワークとSDK基盤を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "注目のエージェント向けフレームワークと SDK 基盤を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "주목할 만한 에이전트 프레임워크 및 SDK 기반: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "frameworks y SDK base para agentes. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "frameworks et SDK de base pour agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "Agent Framework Tools to Install First | Killer-Skills",
     "zh": "优先安装的 Agent Framework 工具 | Killer-Skills",
-    "ja": "注目のエージェント向けフレームワークとSDK基盤 | Killer-Skills",
+    "ja": "注目のエージェント向けフレームワークと SDK 基盤 | Killer-Skills",
     "ko": "주목할 만한 에이전트 프레임워크 및 SDK 기반 | Killer-Skills",
     "es": "frameworks y SDK base para agentes | Killer-Skills",
     "fr": "frameworks et SDK de base pour agents | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Agent Framework Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 Agent Framework 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "注目のエージェント向けフレームワークとSDK基盤を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 Agent Framework 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "注目のエージェント向けフレームワークと SDK 基盤を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "주목할 만한 에이전트 프레임워크 및 SDK 기반: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara frameworks y SDK base para agentes. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez frameworks et SDK de base pour agents. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,7 +62,7 @@
       "框架开发工具",
       "平台构建工作流",
       "agent 架构工具",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
       "agent framework tools",
@@ -70,7 +70,7 @@
       "platform builders",
       "architecture tools",
       "framework workflows",
-      "install AI agent skills"
+      "install AI エージェントスキル"
     ],
     "ko": [
       "agent framework tools",
@@ -78,7 +78,7 @@
       "platform builders",
       "architecture tools",
       "framework workflows",
-      "install AI agent skills"
+      "install AI 에이전트 스킬"
     ],
     "es": [
       "frameworks de agentes",
@@ -143,8 +143,8 @@
   ],
   "longDescription": {
     "en": "If your team is building on agent frameworks and SDK foundations, this page helps you narrow the shortlist quickly without sending you back into another architecture-tool crawl. It compares workflow helpers, platform tools, and developer companions that fit framework-led delivery, to help you find the best fit for real work faster. That makes it a better starting point than a broad framework roundup.",
-    "zh": "如果你的团队正在围绕 agent framework 与 SDK 基础层构建平台，这页会帮助你更快缩小范围，不必再回到冗长的架构工具比较。它聚焦适合 framework 驱动交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛框架榜单更适合作为真正的推荐入口。",
-    "ja": "このページは、エージェントシステムを支える再利用可能な基盤、つまりフレームワーク・SDK・コアライブラリに焦点を当てています。目的は、保守しやすく拡張しやすい実装を実現することです。明確な抽象化、統一インターフェース、本番対応パターンが必要なチームに向いています。MCPは連携経路の一つになり得ますが、主眼はAI Agent Skillsの基盤設計です。",
+    "zh": "如果你的团队正在围绕 agent framework 与 SDK 基础层构建平台，这页会帮助你更快缩小范围，不必再回到冗长的架构工具对比。它聚焦适合 framework 驱动交付路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛框架榜单更适合作为真正的推荐入口。",
+    "ja": "このページは、エージェントシステムを支える再利用可能な基盤、つまりフレームワーク・ SDK ・コアライブラリに焦点を当てています。目的は、保守しやすく拡張しやすい実装を実現することです。明確な抽象化、統一インターフェース、本番対応パターンが必要なチームに向いています。MCP は連携経路の一つになり得ますが、主眼は AI エージェントスキルの基盤設計です。",
     "ko": "이 페이지는 에이전트 시스템의 재사용 가능한 기반인 프레임워크, SDK, 핵심 라이브러리에 초점을 맞춥니다. 유지보수와 확장이 쉬운 구현을 원하는 팀을 위한 내용으로, 명확한 추상화와 일관된 인터페이스, 프로덕션급 아키텍처 패턴을 중시합니다. MCP는 통합 경로 중 하나일 수 있지만, 핵심 관점은 AI 에이전트 스킬을 위한 프레임워크 수준의 엔지니어링입니다.",
     "es": "Esta página se centra en las bases reutilizables de los sistemas de agentes: frameworks, SDK y librerías núcleo que facilitan mantenimiento y evolución. Está pensada para equipos que necesitan abstracciones limpias, interfaces consistentes y patrones de arquitectura listos para producción. MCP puede aparecer como una vía de integración, pero la perspectiva principal es ingeniería de frameworks para skills de agentes de IA.",
     "fr": "Cette page se concentre sur les fondations réutilisables des systèmes d’agents : frameworks, SDK et bibliothèques cœur qui facilitent la maintenance et l’évolution. Elle s’adresse aux équipes qui recherchent des abstractions propres, des interfaces cohérentes et des patterns d’architecture prêts pour la production. MCP peut être une voie d’intégration, mais la perspective principale reste l’ingénierie de framework pour les skills d’agents IA.",
@@ -168,7 +168,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪問する人は、比較して簡単にセットアップでき、実際の仕事で試せる短いリストがほしい場合が多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교하고 쉽게 설정하여 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

@@ -14,7 +14,7 @@
   "description": {
     "en": "Agent Workflow Skills & Companion Tools. Compare setup quality, use cases, and IDE fit.",
     "zh": "顶级智能体工作流技能与配套工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "エージェント開発向けワークフロースキル＆連携ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "エージェント開発向けワークフロースキル＆連携ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "에이전트 워크플로우 스킬 & 연동 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "Skills y herramientas clave para workflows de agentes. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "Skills et outils clés pour workflows d’agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Agent Workflow Skills & Companion Tools. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较顶级智能体工作流技能与配套工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "エージェント開発向けワークフロースキル＆連携ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比顶级智能体工作流技能与配套工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "エージェント開発向けワークフロースキル＆連携ツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "에이전트 워크플로우 스킬 & 연동 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara Skills y herramientas clave para workflows de agentes. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez Skills et outils clés pour workflows d’agents. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "companion workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "companion AI agent skills",
+      "companion AI 智能体技能",
       "companion developer workflow",
-      "companion workflow automation"
+      "companion 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "companion AI agent skills",
+      "ワークフロー自動化",
+      "companion AI エージェントスキル",
       "companion developer workflow",
-      "companion workflow automation"
+      "companion ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "companion AI agent skills",
+      "워크플로우 자동화",
+      "companion AI 에이전트 스킬",
       "companion developer workflow",
-      "companion workflow automation"
+      "companion 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -160,7 +160,7 @@
   "longDescription": {
     "en": "This collection focuses on practical agent development, not hype. You get reusable workflow skills, integration-ready tooling, and companion components that help AI agents plan, execute, and recover across real engineering tasks. MCP support can be part of the stack, but the core value is better developer workflows: faster iteration, safer automation, and clearer operational control.",
     "zh": "这个专题强调可落地的智能体开发，而不是概念炒作。你会看到可复用的工作流技能、可直接集成的工具链，以及帮助智能体在真实工程任务中进行规划、执行与修复的配套组件。MCP 可作为其中一层能力，但核心价值始终是更好的开发者工作流：更快迭代、更稳自动化、更清晰可控。",
-    "ja": "このコレクションは、話題性よりも実運用のエージェント開発を重視しています。再利用可能なワークフロースキル、統合しやすいツール、実際の開発タスクで計画・実行・リカバリを支える補助コンポーネントを収録。MCPは構成要素のひとつとして活用できますが、中心はあくまで開発ワークフローの改善です。",
+    "ja": "このコレクションは、話題性よりも実運用のエージェント開発を重視しています。再利用可能なワークフロースキル、統合しやすいツール、実際の開発タスクで計画・実行・リカバリを支える補助コンポーネントを収録。MCP は構成要素のひとつとして活用できますが、中心はあくまで開発ワークフローの改善です。",
     "ko": "이 컬렉션은 과장된 설명보다 실전 에이전트 개발에 초점을 둡니다. 재사용 가능한 워크플로우 스킬, 통합 가능한 툴링, 그리고 실제 엔지니어링 작업에서 계획·실행·복구를 돕는 컴패니언 구성요소를 제공합니다. MCP는 보조 계층으로 활용할 수 있지만 핵심 가치는 개발자 워크플로우 개선에 있습니다.",
     "es": "Esta colección prioriza workflows reales de ingeniería, no marketing vacío. Incluye skills reutilizables, tooling listo para integrar y componentes companion para que tus agentes planifiquen, ejecuten y se recuperen en tareas concretas. MCP puede formar parte del stack, pero el valor principal está en mejorar el trabajo diario de desarrollo.",
     "fr": "Cette collection met l’accent sur les workflows d’ingénierie réels, pas sur le bruit marketing. Vous y trouverez des skills réutilisables, du tooling prêt à intégrer et des composants companion pour planifier, exécuter et reprendre des tâches complexes. MCP peut compléter la stack, mais la valeur principale reste l’efficacité des workflows développeur.",

@@ -1,8 +1,8 @@
 {
   "title": {
     "en": "12 AI Agent Tools & Integrations for Developer Workflows",
-    "zh": "12 个面向开发者工作流的 AI Agent 工具与集成",
-    "ja": "開発ワークフロー向け AI Agent ツール＆連携",
+    "zh": "12 个面向开发者工作流的 AI 智能体工具与集成",
+    "ja": "開発ワークフロー向け AI エージェントツール＆連携",
     "ko": "개발 워크플로를 위한 AI 에이전트 도구 및 통합",
     "es": "12 herramientas e integraciones de agentes de IA para flujos de desarrollo",
     "fr": "12 des outils et intégrations d'agents IA pour les workflows dev",
@@ -13,8 +13,8 @@
   },
   "description": {
     "en": "12 AI Agent Tools & Integrations for Developer Workflows. Compare setup quality, use cases, and IDE fit.",
-    "zh": "12 个面向开发者工作流的 AI Agent 工具与集成，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "開発ワークフロー向け AI Agent ツール＆連携を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "zh": "12 个面向开发者工作流的 AI 智能体工具与集成，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "開発ワークフロー向け AI エージェントツール＆連携を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "개발 워크플로를 위한 AI 에이전트 도구 및 통합: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "12 herramientas e integraciones de agentes de IA para flujos. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "12 des outils et intégrations d'agents IA pour les workflows dev. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -25,8 +25,8 @@
   },
   "seoTitle": {
     "en": "12 AI Agent Tools & Integrations for Developer Workflows",
-    "zh": "12 个面向开发者工作流的 AI Agent 工具与集成 | Killer-Skills",
-    "ja": "開発ワークフロー向け AI Agent ツール＆連携 | Killer-Skills",
+    "zh": "12 个面向开发者工作流的 AI 智能体工具与集成 | Killer-Skills",
+    "ja": "開発ワークフロー向け AI エージェントツール＆連携 | Killer-Skills",
     "ko": "개발 워크플로를 위한 AI 에이전트 도구 및 통합 | Killer-Skills",
     "es": "12 herramientas e integraciones de agentes de IA para flujos",
     "fr": "12 des outils et intégrations d'agents IA pour les workflows dev",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare 12 AI Agent Tools & Integrations for Developer Workflows. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较12 个面向开发者工作流的 AI Agent 工具与集成，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "開発ワークフロー向け AI Agent ツール＆連携を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比 12 个面向开发者工作流的 AI 智能体工具与集成，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "開発ワークフロー向け AI エージェントツール＆連携を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "개발 워크플로를 위한 AI 에이전트 도구 및 통합: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara 12 herramientas e integraciones de agentes de IA para flujos. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez 12 des outils et intégrations d'agents IA pour les workflows dev. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "integrations workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "integrations AI agent skills",
+      "integrations AI 智能体技能",
       "integrations developer workflow",
-      "integrations workflow automation"
+      "integrations 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "integrations AI agent skills",
+      "ワークフロー自動化",
+      "integrations AI エージェントスキル",
       "integrations developer workflow",
-      "integrations workflow automation"
+      "integrations ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "integrations AI agent skills",
+      "워크플로우 자동화",
+      "integrations AI 에이전트 스킬",
       "integrations developer workflow",
-      "integrations workflow automation"
+      "integrations 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -160,8 +160,8 @@
   ],
   "longDescription": {
     "en": "This collection focuses on practical AI agent tooling for real software delivery. It brings together integrations, SDK-oriented projects, and reusable workflow building blocks that developers can plug into daily work. You can use these tools to orchestrate multi-step tasks, connect internal and external APIs, route data between services, and reduce manual operations across coding, QA, and release pipelines. Some projects also support MCP-compatible interfaces, but the core value here is workflow execution and integration quality. If you are building agent features for production systems, this list gives you a concise starting point with implementation-ready options.",
-    "zh": "本集合聚焦可落地的 AI agent 工具，服务真实的软件交付场景。内容涵盖集成能力、面向 SDK 的项目与可复用工作流组件，便于直接接入日常开发。你可以用它们编排多步骤任务、连接内外部 API、在服务间流转数据，并减少编码、测试、发布环节的手工操作。部分项目也支持 MCP 兼容接口，但本页核心价值是工作流执行能力与集成质量。若你正在为生产系统构建 agent 功能，这份列表可作为简洁且可实施的起点。",
-    "ja": "このコレクションは、実際のソフトウェア提供で使える実務的な AI Agent ツールに焦点を当てています。連携機能、SDK 指向のプロジェクト、再利用可能なワークフロービルディングブロックをまとめ、日々の開発に組み込みやすくしています。複数ステップのタスク実行、社内外 API 連携、サービス間データ連携、コーディング・QA・リリース工程の手作業削減に活用できます。MCP 互換インターフェースに対応するプロジェクトもありますが、主眼はワークフロー実行力と連携品質です。本番向けの Agent 機能を作る開発者にとって、実装に直結する出発点になります。",
+    "zh": "本集合聚焦可落地的 AI 智能体工具，服务真实的软件交付场景。内容涵盖集成能力、面向 SDK 的项目与可复用工作流组件，便于直接接入日常开发。你可以用它们编排多步骤任务、连接内外部 API、在服务间流转数据，并减少编码、测试、发布环节的手工操作。部分项目也支持 MCP 兼容接口，但本页核心价值是工作流执行能力与集成质量。若你正在为生产系统构建 agent 功能，这份列表可作为简洁且可实施的起点。",
+    "ja": "このコレクションは、実際のソフトウェア提供で使える実務的な AI エージェントツールに焦点を当てています。連携機能、SDK 指向のプロジェクト、再利用可能なワークフロービルディングブロックをまとめ、日々の開発に組み込みやすくしています。複数ステップのタスク実行、社内外 API 連携、サービス間データ連携、コーディング・ QA ・リリース工程の手作業削減に活用できます。MCP 互換インターフェースに対応するプロジェクトもありますが、主眼はワークフロー実行力と連携品質です。本番向けの Agent 機能を作る開発者にとって、実装に直結する出発点になります。",
     "ko": "이 컬렉션은 실제 소프트웨어 전달에 바로 적용할 수 있는 실용적인 AI 에이전트 도구에 초점을 맞춥니다. 통합 기능, SDK 중심 프로젝트, 재사용 가능한 워크플로 빌딩 블록을 함께 제공해 일상 개발에 쉽게 연결할 수 있습니다. 다단계 작업 오케스트레이션, 사내·외부 API 연결, 서비스 간 데이터 라우팅, 코딩·QA·릴리스 파이프라인의 수작업 축소에 활용할 수 있습니다. 일부 프로젝트는 MCP 호환 인터페이스도 지원하지만, 핵심 가치는 워크플로 실행력과 통합 품질입니다. 프로덕션 환경에서 에이전트 기능을 만들고 있다면, 이 목록은 구현 가능한 출발점을 제공합니다.",
     "es": "Esta colección se centra en tooling práctico de agentes de IA para entregar software real. Reúne integraciones, proyectos orientados a SDK y bloques reutilizables de workflow que los desarrolladores pueden incorporar al trabajo diario. Sirve para orquestar tareas de varios pasos, conectar APIs internas y externas, mover datos entre servicios y reducir operaciones manuales en pipelines de código, QA y release. Algunos proyectos también ofrecen compatibilidad con interfaces tipo MCP, pero el valor principal está en la ejecución del workflow y la calidad de integración. Si estás construyendo funciones de agentes para producción, esta lista es un punto de partida claro y aplicable.",
     "fr": "Cette collection met l'accent sur des outils d'agents IA réellement utiles en production logicielle. Elle rassemble des intégrations, des projets orientés SDK et des briques de workflow réutilisables, faciles à intégrer au quotidien des développeurs. Vous pouvez les utiliser pour orchestrer des tâches multi-étapes, connecter des API internes et externes, faire circuler des données entre services et réduire les opérations manuelles dans les pipelines de code, de QA et de livraison. Certains projets prennent aussi en charge des interfaces compatibles MCP, mais la valeur centrale reste l'exécution de workflow et la qualité d'intégration. Si vous développez des fonctionnalités agent en environnement réel, cette sélection constitue une base concise et exploitable.",

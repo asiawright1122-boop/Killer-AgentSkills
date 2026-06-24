@@ -14,7 +14,7 @@
   "description": {
     "en": "Prompt Engineering Tools for Agent Workflows. Compare setup quality, use cases, and IDE fit.",
     "zh": "顶级 Agent 工作流提示工程工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "エージェントワークフロー向けプロンプトエンジニアリングツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "エージェントワークフロー向けプロンプトエンジニアリングツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "에이전트 워크플로를 위한 프롬프트 엔지니어링 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas de prompt engineering para workflows de agentes. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils de prompt engineering pour workflows d’agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Prompt Engineering Tools for Agent Workflows. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较顶级 Agent 工作流提示工程工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "エージェントワークフロー向けプロンプトエンジニアリングツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比顶级 Agent 工作流提示工程工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "エージェントワークフロー向けプロンプトエンジニアリングツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "에이전트 워크플로를 위한 프롬프트 엔지니어링 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas de prompt engineering para workflows de agentes. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils de prompt engineering pour workflows d’agents. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "prompt engineering workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "prompt engineering AI agent skills",
+      "prompt engineering AI 智能体技能",
       "prompt engineering developer workflow",
-      "prompt engineering workflow automation"
+      "prompt engineering 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "prompt engineering AI agent skills",
+      "ワークフロー自動化",
+      "prompt engineering AI エージェントスキル",
       "prompt engineering developer workflow",
-      "prompt engineering workflow automation"
+      "prompt engineering ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "prompt engineering AI agent skills",
+      "워크플로우 자동화",
+      "prompt engineering AI 에이전트 스킬",
       "prompt engineering developer workflow",
-      "prompt engineering workflow automation"
+      "prompt engineering 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -148,7 +148,7 @@
   "longDescription": {
     "en": "This collection is built for teams that treat prompt engineering as an engineering discipline, not ad-hoc tweaking. It covers design patterns, evaluation loops, regression checks, and versioned workflows that keep agent behavior stable as products evolve. MCP may show up as a supporting integration in some setups, but the core is repeatable prompt quality and reliable execution in production.",
     "zh": "本集合面向把提示工程当作“工程实践”而非临时试错的团队，覆盖提示设计模式、评测闭环、回归检查与版本化流程，确保产品迭代中 Agent 行为持续稳定。部分方案可能以 MCP 作为配套集成能力，但核心是可复现的提示质量与生产级可靠执行。",
-    "ja": "このコレクションは、プロンプトエンジニアリングを場当たり的な調整ではなく、工学的プロセスとして扱うチーム向けです。設計パターン、評価ループ、回帰チェック、バージョン管理された運用を通して、プロダクト進化の中でもエージェント挙動を安定させます。構成によってMCP連携が補助的に使われることはありますが、中心は再現可能な品質と本番での信頼性です。",
+    "ja": "このコレクションは、プロンプトエンジニアリングを場当たり的な調整ではなく、工学的プロセスとして扱うチーム向けです。設計パターン、評価ループ、回帰チェック、バージョン管理された運用を通して、プロダクト進化の中でもエージェント挙動を安定させます。構成によって MCP 連携が補助的に使われることはありますが、中心は再現可能な品質と本番での信頼性です。",
     "ko": "이 컬렉션은 프롬프트 엔지니어링을 임시 조정보다 엔지니어링 규율로 다루는 팀을 위해 구성되었습니다. 설계 패턴, 평가 루프, 회귀 점검, 버전 관리 워크플로를 통해 제품이 진화해도 에이전트 동작을 안정적으로 유지할 수 있습니다. 일부 환경에서 MCP 통합이 보조적으로 사용될 수 있지만 핵심은 재현 가능한 프롬프트 품질과 프로덕션 신뢰성입니다.",
     "es": "Esta colección está pensada para equipos que tratan el prompt engineering como disciplina de ingeniería y no como ajustes improvisados. Incluye patrones de diseño, ciclos de evaluación, controles de regresión y workflows versionados para mantener estable el comportamiento del agente a medida que evoluciona el producto. MCP puede aparecer como integración de soporte, pero el núcleo es calidad de prompt repetible y ejecución fiable en producción.",
     "fr": "Cette collection s’adresse aux équipes qui considèrent le prompt engineering comme une discipline d’ingénierie, et non comme un simple ajustement ponctuel. Elle couvre des patterns de conception, des boucles d’évaluation, des contrôles de régression et des workflows versionnés pour garder un comportement d’agent stable au fil des évolutions produit. MCP peut exister comme intégration de support, mais le cœur reste la qualité de prompt reproductible et l’exécution fiable en production.",

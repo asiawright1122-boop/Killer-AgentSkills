@@ -1,6 +1,7 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { SUPPORTED_LOCALES } from '../../src/i18n';
+import { cleanTypography, ensureTerminalPunctuation, postProcessPhrasing } from './typography';
 
 type LocalizedValueKind = 'string' | 'string-array';
 
@@ -199,4 +200,125 @@ export function renderCollectionLocalePunctuationReport(report: CollectionLocale
 
   lines.push('', `- Status: ${report.issues.length === 0 ? 'pass' : 'fail'}`);
   return lines.join('\n');
+}
+
+function setPathValue(record: Record<string, any>, path: string, value: any): void {
+  const parts = path.split('.');
+  let current = record;
+  for (let i = 0; i < parts.length - 1; i++) {
+    const part = parts[i];
+    if (!current[part] || typeof current[part] !== 'object') {
+      current[part] = {};
+    }
+    current = current[part];
+  }
+  current[parts[parts.length - 1]] = value;
+}
+
+export function fixCollectionRecord(
+  record: any,
+  options: { locales?: string[]; fields?: RequiredLocalizedField[] } = {},
+): { record: any; changed: boolean } {
+  const locales = options.locales || SUPPORTED_LOCALES;
+  const fields = options.fields || COLLECTION_FULL_LOCALE_FIELDS;
+  let changed = false;
+
+  // Deep clone record to avoid mutations of shared refs
+  const clonedRecord = JSON.parse(JSON.stringify(record));
+
+  for (const field of fields) {
+    const value = getPathValue(clonedRecord, field.path);
+    if (value === undefined || value === null || typeof value !== 'object' || Array.isArray(value)) {
+      continue;
+    }
+
+    const localized = value as Record<string, any>;
+    const updatedLocalized = { ...localized };
+    let fieldChanged = false;
+
+    for (const locale of locales) {
+      if (!(locale in localized)) {
+        continue;
+      }
+
+      const localeValue = localized[locale];
+      if (field.kind === 'string-array') {
+        if (Array.isArray(localeValue)) {
+          const newArray = localeValue.map((val) => {
+            if (typeof val === 'string' && (locale === 'zh' || locale === 'ja' || locale === 'ko')) {
+              return cleanTypography(postProcessPhrasing(val, locale), locale);
+            }
+            return val;
+          });
+
+          if (JSON.stringify(newArray) !== JSON.stringify(localeValue)) {
+            updatedLocalized[locale] = newArray;
+            fieldChanged = true;
+          }
+        }
+        continue;
+      }
+
+      if (typeof localeValue === 'string') {
+        let cleaned = localeValue;
+        if (locale === 'zh' || locale === 'ja' || locale === 'ko') {
+          cleaned = cleanTypography(postProcessPhrasing(localeValue, locale), locale);
+        }
+
+        if (field.requireTerminalPunctuation) {
+          cleaned = ensureTerminalPunctuation(cleaned, locale);
+        }
+
+        if (cleaned !== localeValue) {
+          updatedLocalized[locale] = cleaned;
+          fieldChanged = true;
+        }
+      }
+    }
+
+    if (fieldChanged) {
+      setPathValue(clonedRecord, field.path, updatedLocalized);
+      changed = true;
+    }
+  }
+
+  return { record: clonedRecord, changed };
+}
+
+export function fixCollectionsDirectory(
+  options: {
+    workspaceRoot?: string;
+    locales?: string[];
+    fields?: RequiredLocalizedField[];
+  } = {},
+): number {
+  const workspaceRoot = resolve(options.workspaceRoot || process.cwd());
+  const collectionsDir = resolve(workspaceRoot, 'src/content/collections');
+
+  if (!existsSync(collectionsDir)) {
+    throw new Error(`collections directory not found: ${collectionsDir}`);
+  }
+
+  const files = readdirSync(collectionsDir)
+    .filter((file) => file.endsWith('.json'))
+    .sort();
+
+  let fixedCount = 0;
+
+  for (const file of files) {
+    const filePath = join(collectionsDir, file);
+    const record = readJson<any>(filePath);
+    const { record: fixedRecord, changed } = fixCollectionRecord(record, {
+      locales: options.locales,
+      fields: options.fields,
+    });
+
+    if (changed) {
+      writeFileSync(filePath, JSON.stringify(fixedRecord, null, 2) + '\n', 'utf8');
+      console.log(`🔧 Fixed CJK typography / punctuation in collection: ${file}`);
+      fixedCount++;
+    }
+  }
+
+  return fixedCount;
 }

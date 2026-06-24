@@ -2,7 +2,7 @@
   "title": {
     "en": "Gemini Workflow Tools for Coding and Review Teams",
     "zh": "面向编码与评审团队的 Gemini 工具",
-    "ja": "Gemini対応の開発ツール＆エージェントワークフロースキル",
+    "ja": "Gemini 対応の開発ツール＆エージェントワークフロースキル",
     "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬",
     "es": "Herramientas dev y skills de workflow compatibles con Gemini",
     "fr": "Outils dev et skills workflow compatibles Gemini",
@@ -14,7 +14,7 @@
   "description": {
     "en": "Gemini Workflow Tools for Coding and Review Teams. Compare setup quality, use cases, and IDE fit.",
     "zh": "面向编码与评审团队的 Gemini 工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Gemini対応の開発ツール＆エージェントワークフロースキルを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Gemini 対応の開発ツール＆エージェントワークフロースキルを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "Herramientas dev y skills de workflow compatibles con Gemini. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "Outils dev et skills workflow compatibles Gemini. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "Gemini Workflow Tools for Coding and Review Teams | Killer-Skills",
     "zh": "面向编码与评审团队的 Gemini 工具 | Killer-Skills",
-    "ja": "Gemini対応の開発ツール＆エージェントワークフロースキル | Killer-Skills",
+    "ja": "Gemini 対応の開発ツール＆エージェントワークフロースキル | Killer-Skills",
     "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬 | Killer-Skills",
     "es": "Herramientas dev y skills de workflow compatibles con Gemini",
     "fr": "Outils dev et skills workflow compatibles Gemini | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Gemini Workflow Tools for Coding and Review Teams. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较面向编码与评审团队的 Gemini 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Gemini対応の開発ツール＆エージェントワークフロースキルを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比面向编码与评审团队的 Gemini 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Gemini 対応の開発ツール＆エージェントワークフロースキルを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Gemini 호환 개발 도구 & 에이전트 워크플로우 스킬: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara Herramientas dev y skills de workflow compatibles con Gemini. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez Outils dev et skills workflow compatibles Gemini. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -65,22 +65,22 @@
       "Gemini 开发团队"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "gemini compatible dev AI agent skills",
+      "ワークフロー自動化",
+      "gemini compatible dev AI エージェントスキル",
       "gemini compatible dev developer workflow",
-      "gemini compatible dev workflow automation"
+      "gemini compatible dev ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "gemini compatible dev AI agent skills",
+      "워크플로우 자동화",
+      "gemini compatible dev AI 에이전트 스킬",
       "gemini compatible dev developer workflow",
-      "gemini compatible dev workflow automation"
+      "gemini compatible dev 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -153,7 +153,7 @@
   "longDescription": {
     "en": "Gemini teams usually want fewer tools, not more. They need something they can test around coding, review, policy sync, or release control without turning the stack into another compatibility project. This collection keeps the shortlist focused on tools a team can trial quickly and keep if they improve daily execution.",
     "zh": "Gemini 团队通常需要的不是更多工具，而是更少、更稳的选择。他们需要的是能围绕编码、评审、规则同步或发布控制先快速试跑的工具，而不是再做一轮兼容性工程。这个合集只保留那些能改善日常执行、并且能快速试用的候选。",
-    "ja": "このGemini特集は、開発実行力を高めることに主眼を置いています。再利用スキル、連携レイヤー、自動化コンポーネントを通じて、コーディング、レビュー、デリバリー制御を支援。単なるランキングではなく、実際にAIエージェントでソフトウェアを出荷するチーム向けです。MCP互換は一部で有効ですが、中心はGeminiスタック全体の運用信頼性です。",
+    "ja": "この Gemini 特集は、開発実行力を高めることに主眼を置いています。再利用スキル、連携レイヤー、自動化コンポーネントを通じて、コーディング、レビュー、デリバリー制御を支援。単なるランキングではなく、実際に AI エージェントでソフトウェアを出荷するチーム向けです。MCP 互換は一部で有効ですが、中心は Gemini スタック全体の運用信頼性です。",
     "ko": "이 Gemini 컬렉션은 개발 실행력에 초점을 맞춥니다. 재사용 가능한 스킬, 통합 레이어, 자동화 컴포넌트로 코딩·리뷰·전달 제어를 지원하며, 단순 순위형 페이지가 아니라 실제 소프트웨어를 배포하는 팀을 위한 구성입니다. 일부 사례에서 MCP 호환이 유용할 수 있지만 핵심은 Gemini 스택 전반의 워크플로우 신뢰성입니다.",
     "es": "Esta colección enfocada en Gemini está diseñada para ejecución real de desarrollo: skills reutilizables, capas de integración y componentes de automatización para código, review y control de entrega. No es un ranking genérico; está orientada a equipos que lanzan software con agentes de IA. MCP puede ser útil en casos puntuales, pero el foco principal es la confiabilidad del workflow.",
     "fr": "Cette collection orientée Gemini est pensée pour l’exécution développeur: skills réutilisables, couches d’intégration et composants d’automatisation pour le code, la review et le contrôle de delivery. Elle vise des équipes qui livrent réellement avec des agents IA, pas un simple classement. MCP peut aider selon les cas, mais l’essentiel reste la fiabilité du workflow.",
@@ -177,7 +177,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較して簡単に設定でき、実際の仕事で試せる短いリストがほしい場合が多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교하고 쉽게 설정하여 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

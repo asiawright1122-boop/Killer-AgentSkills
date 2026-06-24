@@ -2,7 +2,7 @@
   "title": {
     "en": "OpenCode Workflow Tools to Install First",
     "zh": "优先安装的 OpenCode 工作流工具",
-    "ja": "OpenCode向けワークフローツール＆連携コンポーネント",
+    "ja": "OpenCode 向けワークフローツール＆連携コンポーネント",
     "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동",
     "es": "Herramientas de workflow e integraciones companion para OpenCode",
     "fr": "Outils workflow et intégrations companion pour OpenCode",
@@ -14,7 +14,7 @@
   "description": {
     "en": "OpenCode Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 OpenCode 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "OpenCode向けワークフローツール＆連携コンポーネントを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "OpenCode 向けワークフローツール＆連携コンポーネントを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "Herramientas de workflow e integraciones companion para OpenCode. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "Outils workflow et intégrations companion pour OpenCode. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "OpenCode Workflow Tools to Install First | Killer-Skills",
     "zh": "优先安装的 OpenCode 工作流工具 | Killer-Skills",
-    "ja": "OpenCode向けワークフローツール＆連携コンポーネント | Killer-Skills",
+    "ja": "OpenCode 向けワークフローツール＆連携コンポーネント | Killer-Skills",
     "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동 | Killer-Skills",
     "es": "Herramientas de workflow e integraciones companion para OpenCode",
     "fr": "Outils workflow et intégrations companion pour OpenCode",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare OpenCode Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 OpenCode 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "OpenCode向けワークフローツール＆連携コンポーネントを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 OpenCode 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "OpenCode 向けワークフローツール＆連携コンポーネントを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "OpenCode 워크플로우 도구 & 컴패니언 연동: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara Herramientas de workflow e integraciones companion para OpenCode. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez Outils workflow et intégrations companion pour OpenCode. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,25 +62,25 @@
       "AI 编码工作流",
       "评审与协作衔接工具",
       "OpenCode 自动化工具",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "opencode companion integrations AI agent skills",
+      "ワークフロー自動化",
+      "opencode companion integrations AI エージェントスキル",
       "opencode companion integrations developer workflow",
-      "opencode companion integrations workflow automation"
+      "opencode companion integrations ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "opencode companion integrations AI agent skills",
+      "워크플로우 자동화",
+      "opencode companion integrations AI 에이전트 스킬",
       "opencode companion integrations developer workflow",
-      "opencode companion integrations workflow automation"
+      "opencode companion integrations 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -145,8 +145,8 @@
   "skills": ["dkapellusch/AO", "ssdeanx/AgentStack", "lbb00/ai-rules-sync", "lorehq/lore"],
   "longDescription": {
     "en": "If your team already works around OpenCode, this page helps you narrow the shortlist quickly without sending you back into another companion-tools crawl. It compares workflow helpers, review tools, and developer integrations that fit OpenCode-centered execution, to help you find the best fit for real work faster.",
-    "zh": "如果你的团队已经围绕 OpenCode 工作，这页会帮助你更快缩小范围，不必再回到冗长的配套工具比较。它聚焦适合 OpenCode 执行路径的工作流助手、评审工具与开发集成，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
-    "ja": "OpenCodeのワークフローには、単なるツール一覧以上の視点が必要です。本コレクションでは、コード品質管理、ドキュメント整合性、デリバリー運用を改善する実践的なスキル・連携・自動化部品を重視。MCP対応機能を含む項目もありますが、主軸は日常開発で役立つワークフロー設計です。",
+    "zh": "如果你的团队已经围绕 OpenCode 工作，这页会帮助你更快缩小范围，不必再回到冗长的配套工具对比。它聚焦适合 OpenCode 执行路径的工作流助手、评审工具与开发集成，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",
+    "ja": "OpenCode のワークフローには、単なるツール一覧以上の視点が必要です。本コレクションでは、コード品質管理、ドキュメント整合性、デリバリー運用を改善する実践的なスキル・連携・自動化部品を重視。MCP 対応機能を含む項目もありますが、主軸は日常開発で役立つワークフロー設計です。",
     "ko": "OpenCode 워크플로우에는 단순한 도구 목록 이상의 접근이 필요합니다. 이 컬렉션은 코드 품질 제어, 문서 일관성, 전달 운영 개선에 실제로 기여하는 스킬·연동·자동화 컴포넌트를 강조합니다. 일부 항목은 MCP 기능을 포함할 수 있지만, 페이지의 중심은 개발자 워크플로우 가이드와 실무 적용성입니다.",
     "es": "Los workflows con OpenCode requieren más que una lista simple de herramientas. Esta colección destaca skills, integraciones y componentes de automatización con impacto real: control de calidad de código, consistencia documental y operaciones de entrega más fluidas. Algunas opciones incluyen capacidades MCP, pero el enfoque principal es guiar workflows de developers con valor práctico diario.",
     "fr": "Les workflows OpenCode demandent plus qu’une simple liste d’outils. Cette collection met en avant des skills, intégrations et composants d’automatisation orientés résultats réels: qualité du code, cohérence documentaire et delivery plus fluide. Certaines options peuvent inclure MCP, mais la priorité reste le workflow développeur et la valeur opérationnelle quotidienne.",
@@ -159,7 +159,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17にセットアップ情報、実用的なユースケース、メンテナンスの状態を正確に保つために更新しました。",
+      "ja": "2026-04-17 にセットアップ情報、実用的なユースケース、メンテナンスの状態を正確に保つために更新しました。",
       "ko": "2026-04-17에 설정 정보, 실제 사용 사례 및 유지 관리 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la información de configuración, casos de uso prácticos y el estado de mantenimiento precisos.",
       "fr": "Mise à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et de l'état de maintenance.",
@@ -170,7 +170,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較して簡単にセットアップでき、実際の仕事で試せる短いリストがほしい場合が多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교하고 쉽게 설정하여 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

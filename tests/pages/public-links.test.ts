@@ -483,8 +483,8 @@ describe('public links and navigation copy', () => {
     expect(zhHomeSource).toContain('The full directory stays available when you need to widen the search.');
     expect(zhHomeSource).toContain('When you need broader coverage');
     // Verify the i18n values themselves carry the correct positioning
-    expect(zh.Home.seoTitle).toContain('AI Agent Skills 开放目录');
-    expect(zh.Home.seoDescription).toContain('开放 AI Agent Skills 目录');
+    expect(zh.Home.seoTitle).toContain('AI 智能体技能开放目录');
+    expect(zh.Home.seoDescription).toContain('开放 AI 智能体技能目录');
   });
 
   it('keeps homepage locale copy focused on directory and installation entry', () => {
@@ -501,8 +501,8 @@ describe('public links and navigation copy', () => {
 
     expect(zh.Home.heroBadge).toBe('严格审查安全性、IDE 原生兼容性与极简依赖');
     expect(zh.Home.heroDesc2).toBe('安全扩展 Claude Code、Cursor 和 Windsurf，免去环境配置困扰与本地运行风险。');
-    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。');
-    expect(zh.Home.footerDesc).toBe('面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。');
+    expect(zh.Home.featuresSubtitle).toBe('浏览可复用的 AI 智能体技能，并以 IDE 原生格式完成安装。');
+    expect(zh.Home.footerDesc).toBe('面向 AI 智能体技能的开源目录与安装入口。为真实开发工作而生。');
   });
 
   it('keeps homepage FAQ focused on skills, install flow, and supported IDEs', () => {
@@ -1597,7 +1597,7 @@ describe('public links and navigation copy', () => {
       'Welcome to the Killer-Skills docs. Learn how to install AI agent skills, configure your IDE, and bring reusable workflows into daily development.',
     );
     expect(zh.Docs.welcomeText).toContain(
-      '欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。',
+      '欢迎来到 Killer-Skills 文档。这里会带你安装 AI 智能体技能、配置 IDE，并把可复用工作流带进日常开发。',
     );
     expect(docsSource).toContain('Start with Your First Skill');
     expect(zh.Docs.startFirstSkill).toContain('从第一个技能开始');
@@ -1612,10 +1612,10 @@ describe('public links and navigation copy', () => {
     expect(en.Integrations.cards.claude.desc).toBe('Use reusable AI agent skills directly inside Claude Code.');
     expect(en.Integrations.cards.goose.desc).toBe('Use reusable AI agent skills directly inside Goose.');
 
-    expect(zh.Integrations.cards.cursor.desc).toBe('在 Cursor 里直接使用可复用 AI Agent 技能。');
-    expect(zh.Integrations.cards.windsurf.desc).toBe('在 Windsurf 里直接使用可复用 AI Agent 技能。');
-    expect(zh.Integrations.cards.claude.desc).toBe('在 Claude Code 里直接使用可复用 AI Agent 技能。');
-    expect(zh.Integrations.cards.goose.desc).toBe('在 Goose 里直接使用可复用 AI Agent 技能。');
+    expect(zh.Integrations.cards.cursor.desc).toBe('在 Cursor 里直接使用可复用 AI 智能体技能。');
+    expect(zh.Integrations.cards.windsurf.desc).toBe('在 Windsurf 里直接使用可复用 AI 智能体技能。');
+    expect(zh.Integrations.cards.claude.desc).toBe('在 Claude Code 里直接使用可复用 AI 智能体技能。');
+    expect(zh.Integrations.cards.goose.desc).toBe('在 Goose 里直接使用可复用 AI 智能体技能。');
   });
 
   it('keeps high-priority ai-agent blog posts free of placeholder install commands', () => {

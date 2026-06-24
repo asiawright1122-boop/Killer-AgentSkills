@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { renderCollectionLocalePunctuationReport, validateCollectionRecord } from './collection-locale-punctuation';
+import { renderCollectionLocalePunctuationReport, validateCollectionRecord, fixCollectionRecord } from './collection-locale-punctuation';
 
 const locales = ['en', 'zh', 'ja', 'ko', 'es', 'fr', 'de', 'pt', 'ru', 'ar'];
 
@@ -95,5 +95,22 @@ describe('collection locale punctuation guard', () => {
     expect(report).toContain('Issues found: 1');
     expect(report).toContain('punctuation.json seoDescription:en');
     expect(report).toContain('Status: fail');
+  });
+
+  describe('fixCollectionRecord', () => {
+    it('corrects CJK punctuation, spacing, and ensures terminal punctuation in collections', () => {
+      const record = validCollection();
+      
+      record.description.zh = '这是一个没有标点的中文描述';
+      record.seoDescription.zh = '测试AI Agent Skill性能，防误伤3.5版本.';
+      record.longDescription.ja = '日本語の記述,句読点がない';
+      
+      const { record: fixedRecord, changed } = fixCollectionRecord(record, { locales });
+      
+      expect(changed).toBe(true);
+      expect(fixedRecord.description.zh).toBe('这是一个没有标点的中文描述。');
+      expect(fixedRecord.seoDescription.zh).toBe('测试 AI 智能体技能性能，防误伤 3.5 版本。');
+      expect(fixedRecord.longDescription.ja).toBe('日本語の記述、句読点がない。');
+    });
   });
 });

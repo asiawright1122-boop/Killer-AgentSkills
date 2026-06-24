@@ -2,7 +2,7 @@
   "title": {
     "en": "10 Hacktoberfest AI Skills for Open Source Contributors",
     "zh": "10 个适合 Hacktoberfest 的开源贡献 AI Skills",
-    "ja": "Hacktoberfest向け オープンソース貢献AIスキル",
+    "ja": "Hacktoberfest 向けオープンソース貢献 AI スキル",
     "ko": "Hacktoberfest 오픈소스 기여자를 위한 AI 스킬",
     "es": "10 skills de IA para contribuir en Hacktoberfest",
     "fr": "10 des skills IA pour contribuer à Hacktoberfest",
@@ -14,7 +14,7 @@
   "description": {
     "en": "10 Hacktoberfest AI Skills for Open Source Contributors. Compare setup quality, use cases, and IDE fit.",
     "zh": "10 个适合 Hacktoberfest 的开源贡献 AI Skills，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Hacktoberfest向け オープンソース貢献AIスキルを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Hacktoberfest 向けオープンソース貢献 AI スキルを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Hacktoberfest 오픈소스 기여자를 위한 AI 스킬: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "10 skills de IA para contribuir en Hacktoberfest. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "10 des skills IA pour contribuer à Hacktoberfest. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "10 Hacktoberfest AI Skills for Open Source Contributors",
     "zh": "10 个适合 Hacktoberfest 的开源贡献 AI Skills | Killer-Skills",
-    "ja": "Hacktoberfest向け オープンソース貢献AIスキル | Killer-Skills",
+    "ja": "Hacktoberfest 向けオープンソース貢献 AI スキル | Killer-Skills",
     "ko": "Hacktoberfest 오픈소스 기여자를 위한 AI 스킬 | Killer-Skills",
     "es": "10 skills de IA para contribuir en Hacktoberfest | Killer-Skills",
     "fr": "10 des skills IA pour contribuer à Hacktoberfest | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare 10 Hacktoberfest AI Skills for Open Source Contributors. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较10 个适合 Hacktoberfest 的开源贡献 AI Skills，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Hacktoberfest向け オープンソース貢献AIスキルを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比 10 个适合 Hacktoberfest 的开源贡献 AI Skills，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Hacktoberfest 向けオープンソース貢献 AI スキルを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Hacktoberfest 오픈소스 기여자를 위한 AI 스킬: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara 10 skills de IA para contribuir en Hacktoberfest. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez 10 des skills IA pour contribuer à Hacktoberfest. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "hacktoberfest open source contributors workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "hacktoberfest open source contributors AI agent skills",
+      "hacktoberfest open source contributors AI 智能体技能",
       "hacktoberfest open source contributors developer workflow",
-      "hacktoberfest open source contributors workflow automation"
+      "hacktoberfest open source contributors 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "hacktoberfest open source contributors AI agent skills",
+      "ワークフロー自動化",
+      "hacktoberfest open source contributors AI エージェントスキル",
       "hacktoberfest open source contributors developer workflow",
-      "hacktoberfest open source contributors workflow automation"
+      "hacktoberfest open source contributors ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "hacktoberfest open source contributors AI agent skills",
+      "워크플로우 자동화",
+      "hacktoberfest open source contributors AI 에이전트 스킬",
       "hacktoberfest open source contributors developer workflow",
-      "hacktoberfest open source contributors workflow automation"
+      "hacktoberfest open source contributors 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -159,7 +159,7 @@
   "longDescription": {
     "en": "This collection is built for contributors who want to make meaningful open source impact during Hacktoberfest. It prioritizes AI tools that improve issue triage, code context understanding, pull request quality, and collaboration speed across distributed teams. Infrastructure like MCP can be useful behind the scenes, but the main value here is contributor productivity and maintainable contribution workflows.",
     "zh": "该合集面向希望在 Hacktoberfest 期间实现高质量贡献的开发者。重点推荐能够提升议题分拣、代码上下文理解、PR 质量与协作效率的 AI 工具，帮助分布式团队更顺畅地协同。MCP 可作为底层兼容能力存在，但核心价值在于贡献者生产力与可持续的开源贡献流程。",
-    "ja": "このコレクションは、Hacktoberfestで実質的なオープンソース貢献を目指すコントリビューター向けです。Issueの整理、コード文脈の理解、PR品質、分散チームでの協業速度を高めるAIツールを優先しています。MCPは裏側の基盤として有用ですが、主眼はコントリビューターの生産性と継続可能な貢献ワークフローです。",
+    "ja": "このコレクションは、Hacktoberfest で実質的なオープンソース貢献を目指すコントリビューター向けです。Issue の整理、コード文脈の理解、PR 品質、分散チームでの協業速度を高める AI ツールを優先しています。MCP は裏側の基盤として有用ですが、主眼はコントリビューターの生産性と継続可能な貢献ワークフローです。",
     "ko": "이 컬렉션은 Hacktoberfest에서 의미 있는 오픈소스 기여를 원하는 개발자를 위해 구성되었습니다. 이슈 트리아지, 코드 컨텍스트 이해, PR 품질, 분산 팀 협업 속도를 높여 주는 AI 도구를 우선적으로 담았습니다. MCP 같은 인프라는 백그라운드에서 도움이 될 수 있지만, 핵심 가치는 기여자 생산성과 지속 가능한 기여 워크플로에 있습니다.",
     "es": "Esta colección está diseñada para contribuidores que buscan un impacto real en open source durante Hacktoberfest. Prioriza herramientas de IA para mejorar el triage de issues, la comprensión del contexto de código, la calidad de los PR y la velocidad de colaboración en equipos distribuidos. MCP puede servir como infraestructura de compatibilidad, pero el valor central está en la productividad del contribuidor y en workflows sostenibles de contribución.",
     "fr": "Cette collection s’adresse aux contributeurs qui veulent avoir un impact réel dans l’open source pendant Hacktoberfest. Elle privilégie des outils IA qui améliorent le triage des issues, la compréhension du contexte code, la qualité des PR et la vitesse de collaboration des équipes distribuées. MCP peut être utile comme infrastructure de compatibilité, mais la valeur principale est la productivité des contributeurs et des workflows durables.",

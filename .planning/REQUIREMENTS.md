@@ -6,8 +6,8 @@
 - [x] **HARV-01**: Refactor automated crawler/harvester and submission workflows to enforce content originality filters, blocking low-value mirror content from source.
 
 ### GEO-localized translation sync (GEO)
-- [ ] **GEO-01**: Enforce CJK terminal punctuation and formatting rules in dynamic translation workflows to ensure GEO-local typography compliance.
-- [ ] **GEO-02**: Modernize semantic phrasing translation policies to avoid simple machine translations and ensure SEO-appropriate descriptions.
+- [x] **GEO-01**: Enforce CJK terminal punctuation and formatting rules in dynamic translation workflows to ensure GEO-local typography compliance.
+- [x] **GEO-02**: Modernize semantic phrasing translation policies to avoid simple machine translations and ensure SEO-appropriate descriptions.
 
 ### Metadata Enrichment & Keywords (META)
 - [ ] **META-01**: Integrate automated batch enrichment pipelines in workflows to automatically discover keywords and populate missing editorial details.

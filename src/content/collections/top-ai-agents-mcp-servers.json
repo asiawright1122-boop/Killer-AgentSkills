@@ -1,8 +1,8 @@
 {
   "title": {
     "en": "7 AI Agent Platforms & Orchestration Tools",
-    "zh": "7 个 AI Agent 平台与编排工具",
-    "ja": "AI Agent プラットフォーム＆オーケストレーションツール",
+    "zh": "7 个 AI 智能体平台与编排工具",
+    "ja": "AI エージェントプラットフォーム＆オーケストレーションツール",
     "ko": "AI 에이전트 플랫폼 및 오케스트레이션 도구",
     "es": "7 plataformas de agentes de IA y herramientas de orquestación",
     "fr": "7 des plateformes d'agents IA et outils d'orchestration",
@@ -13,8 +13,8 @@
   },
   "description": {
     "en": "7 AI Agent Platforms & Orchestration Tools. Compare setup quality, use cases, and IDE fit.",
-    "zh": "7 个 AI Agent 平台与编排工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "AI Agent プラットフォーム＆オーケストレーションツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "zh": "7 个 AI 智能体平台与编排工具，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "AI エージェントプラットフォーム＆オーケストレーションツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "AI 에이전트 플랫폼 및 오케스트레이션 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "7 plataformas de agentes de IA y herramientas de orquestación. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "7 des plateformes d'agents IA et outils d'orchestration. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -25,8 +25,8 @@
   },
   "seoTitle": {
     "en": "7 AI Agent Platforms & Orchestration Tools | Killer-Skills",
-    "zh": "7 个 AI Agent 平台与编排工具 | Killer-Skills",
-    "ja": "AI Agent プラットフォーム＆オーケストレーションツール | Killer-Skills",
+    "zh": "7 个 AI 智能体平台与编排工具 | Killer-Skills",
+    "ja": "AI エージェントプラットフォーム＆オーケストレーションツール | Killer-Skills",
     "ko": "AI 에이전트 플랫폼 및 오케스트레이션 도구 | Killer-Skills",
     "es": "7 plataformas de agentes de IA y herramientas de orquestación",
     "fr": "7 des plateformes d'agents IA et outils d'orchestration",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare 7 AI Agent Platforms & Orchestration Tools. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较7 个 AI Agent 平台与编排工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "AI Agent プラットフォーム＆オーケストレーションツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比 7 个 AI 智能体平台与编排工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "AI エージェントプラットフォーム＆オーケストレーションツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "AI 에이전트 플랫폼 및 오케스트레이션 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara 7 plataformas de agentes de IA y herramientas de orquestación. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez 7 des plateformes d'agents IA et outils d'orchestration. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "agentic platforms orchestration workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "agentic platforms orchestration AI agent skills",
+      "agentic platforms orchestration AI 智能体技能",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "agentic platforms orchestration AI agent skills",
+      "ワークフロー自動化",
+      "agentic platforms orchestration AI エージェントスキル",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "agentic platforms orchestration AI agent skills",
+      "워크플로우 자동화",
+      "agentic platforms orchestration AI 에이전트 스킬",
       "agentic platforms orchestration developer workflow",
-      "agentic platforms orchestration workflow automation"
+      "agentic platforms orchestration 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -155,8 +155,8 @@
   ],
   "longDescription": {
     "en": "This page is centered on AI agent platforms and orchestration tooling rather than a generic server list. The selected projects help teams design agent skills, coordinate multiple agents, and manage execution across real application environments. You can use them to define capability boundaries, schedule multi-step flows, monitor agent runs, and improve operational consistency as systems scale. Some tools include MCP-compatible adapters, but the main focus is platform-level agent development and orchestration. If your team is moving from prototype agents to production operations, this collection highlights practical options for structure, control, and reliability.",
-    "zh": "本页聚焦 AI agent 平台与编排工具，而不是宽泛的服务器清单。所选项目可帮助团队设计 agent 技能、协调多智能体协作，并在真实应用环境中管理执行过程。你可以用它们定义能力边界、调度多步骤流程、监控运行状态，并在系统扩展时保持运维一致性。部分工具提供 MCP 兼容适配，但核心仍是平台级 agent 开发与编排。如果你的团队正从原型走向生产，这个集合提供了在结构化、可控性与可靠性方面更实用的选择。",
-    "ja": "このページは一般的なサーバー一覧ではなく、AI Agent プラットフォームとオーケストレーションツールに主軸を置いています。掲載プロジェクトは、Agent スキル設計、複数 Agent の協調、実運用環境での実行管理を支援します。能力境界の定義、複数ステップフローのスケジューリング、実行監視、スケール時の運用一貫性向上に活用できます。MCP 互換アダプターを備えるツールもありますが、中心はプラットフォームレベルの Agent 開発とオーケストレーションです。プロトタイプから本番運用へ移行するチームに、構造化・制御性・信頼性の観点で実用的な選択肢を示します。",
+    "zh": "本页聚焦 AI 智能体平台与编排工具，而不是宽泛的服务器清单。所选项目可帮助团队设计 agent 技能、协调多智能体协作，并在真实应用环境中管理执行过程。你可以用它们定义能力边界、调度多步骤流程、监控运行状态，并在系统扩展时保持运维一致性。部分工具提供 MCP 兼容适配，但核心仍是平台级 agent 开发与编排。如果你的团队正从原型走向生产，这个集合提供了在结构化、可控性与可靠性方面更实用的选择。",
+    "ja": "このページは一般的なサーバー一覧ではなく、AI エージェントプラットフォームとオーケストレーションツールに主軸を置いています。掲載プロジェクトは、Agent スキル設計、複数 Agent の協調、実運用環境での実行管理を支援します。能力境界の定義、複数ステップフローのスケジューリング、実行監視、スケール時の運用一貫性向上に活用できます。MCP 互換アダプターを備えるツールもありますが、中心はプラットフォームレベルの Agent 開発とオーケストレーションです。プロトタイプから本番運用へ移行するチームに、構造化・制御性・信頼性の観点で実用的な選択肢を示します。",
     "ko": "이 페이지는 일반적인 서버 목록이 아니라 AI 에이전트 플랫폼과 오케스트레이션 도구에 초점을 맞춥니다. 선정된 프로젝트는 팀이 에이전트 스킬을 설계하고, 여러 에이전트를 조율하며, 실제 애플리케이션 환경에서 실행을 관리하도록 돕습니다. 기능 경계를 정의하고, 다단계 플로우를 스케줄링하며, 실행을 모니터링하고, 시스템 확장 시 운영 일관성을 높이는 데 사용할 수 있습니다. 일부 도구는 MCP 호환 어댑터를 제공하지만, 핵심은 플랫폼 수준의 에이전트 개발과 오케스트레이션입니다. 프로토타입 단계에서 프로덕션 운영으로 전환하는 팀에 구조, 제어, 신뢰성을 갖춘 실용적인 선택지를 제공합니다.",
     "es": "Esta página se centra en plataformas de agentes de IA y tooling de orquestación, no en una lista genérica de servidores. Los proyectos seleccionados ayudan a los equipos a diseñar skills de agentes, coordinar múltiples agentes y gestionar la ejecución en entornos reales de aplicación. Puedes usarlos para definir límites de capacidad, programar flujos de varios pasos, monitorear ejecuciones y mantener consistencia operativa a medida que escala el sistema. Algunas herramientas incluyen adaptadores compatibles con MCP, pero el foco principal es el desarrollo y la orquestación de agentes a nivel de plataforma. Si tu equipo está pasando de prototipos a operación en producción, esta colección ofrece opciones prácticas de estructura, control y fiabilidad.",
     "fr": "Cette page est centrée sur les plateformes d'agents IA et les outils d'orchestration, et non sur une simple liste de serveurs. Les projets sélectionnés aident les équipes à concevoir des skills d'agents, coordonner plusieurs agents et piloter l'exécution dans des environnements applicatifs réels. Ils permettent de définir les périmètres de capacités, planifier des flux multi-étapes, superviser les exécutions et maintenir une exploitation cohérente à mesure que le système grandit. Certains outils proposent des adaptateurs compatibles MCP, mais l'objectif principal reste le développement d'agents au niveau plateforme et leur orchestration. Pour les équipes qui passent du prototype à la production, cette sélection met en avant des options concrètes en matière de structure, de contrôle et de fiabilité.",

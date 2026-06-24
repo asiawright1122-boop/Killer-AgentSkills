@@ -2,7 +2,7 @@
   "title": {
     "en": "Cursor Workflow Tools for Refactoring and Review",
     "zh": "面向重构与评审场景的 Cursor 工具",
-    "ja": "Cursor対応スキル＆ワークフロー連携ツール",
+    "ja": "Cursor 対応スキル＆ワークフロー連携ツール",
     "ko": "Cursor 호환 스킬 & 워크플로우 연동",
     "es": "Skills e integraciones compatibles con Cursor",
     "fr": "Skills et intégrations compatibles Cursor",
@@ -14,7 +14,7 @@
   "description": {
     "en": "Cursor Workflow Tools for Refactoring and Review. Compare setup quality, use cases, and IDE fit.",
     "zh": "面向重构与评审场景的 Cursor 工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "Cursor対応スキル＆ワークフロー連携ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "Cursor 対応スキル＆ワークフロー連携ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "Cursor 호환 스킬 & 워크플로우 연동: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "Skills e integraciones compatibles con Cursor. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "Skills et intégrations compatibles Cursor. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "Cursor Workflow Tools for Refactoring and Review | Killer-Skills",
     "zh": "面向重构与评审场景的 Cursor 工具 | Killer-Skills",
-    "ja": "Cursor対応スキル＆ワークフロー連携ツール | Killer-Skills",
+    "ja": "Cursor 対応スキル＆ワークフロー連携ツール | Killer-Skills",
     "ko": "Cursor 호환 스킬 & 워크플로우 연동 | Killer-Skills",
     "es": "Skills e integraciones compatibles con Cursor | Killer-Skills",
     "fr": "Skills et intégrations compatibles Cursor | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Cursor Workflow Tools for Refactoring and Review. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较面向重构与评审场景的 Cursor 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "Cursor対応スキル＆ワークフロー連携ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比面向重构与评审场景的 Cursor 工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "Cursor 対応スキル＆ワークフロー連携ツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "Cursor 호환 스킬 & 워크플로우 연동: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara Skills e integraciones compatibles con Cursor. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez Skills et intégrations compatibles Cursor. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -65,22 +65,22 @@
       "Cursor 团队协作衔接"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "cursor compatible integrations AI agent skills",
+      "ワークフロー自動化",
+      "cursor compatible integrations AI エージェントスキル",
       "cursor compatible integrations developer workflow",
-      "cursor compatible integrations workflow automation"
+      "cursor compatible integrations ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "cursor compatible integrations AI agent skills",
+      "워크플로우 자동화",
+      "cursor compatible integrations AI 에이전트 스킬",
       "cursor compatible integrations developer workflow",
-      "cursor compatible integrations workflow automation"
+      "cursor compatible integrations 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -157,7 +157,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
+      "ja": "2026-04-17 に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
       "ko": "2026-04-17에 설정 정보, 실제 사용 사례 및 유지 관리 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la información de configuración, los casos de uso prácticos y el estado de mantenimiento precisos.",
       "fr": "Mise à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et de l'état de maintenance.",
@@ -168,7 +168,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較しやすく、簡単に設定でき、実際の仕事で試すことができる短いリストがほしいことが多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교할 수 있고 쉽게 설정할 수 있으며 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",
@@ -332,7 +332,7 @@
   "longDescription": {
     "en": "Cursor teams usually do not need another generic compatibility page. They need tools that help with refactors, rules sync, test setup, review, and cleaner coordination. This collection details key integrations (such as using shinpr/agentic-code or tadata-org/fastapi_mcp) with direct CLI commands (e.g. 'npx killer-skills add shinpr/agentic-code'). It explains how Cursor-native features (like Cmd+K or Cmd+L) can utilize these tools through .cursorrules schema syncing, preventing context bloat and stabilizing the editor-level reasoning loop.",
     "zh": "Cursor 团队在实际工程中通常并不需要另一张泛泛的兼容性网页，而是需要能够完美配合 IDE 内 Cmd+K、Cmd+L 重构和审查的辅助工具。本合集收录了包括 fastapi_mcp、agentic-code 等专为编辑器优化设计的可信技能，并提供直接的安装命令（如 'npx killer-skills add shinpr/agentic-code'）。这能帮助团队将特定的工具 Schema 与本地 of .cursorrules 机制深入结合，防止上下文内存溢出，同时最大化提升编辑器底层的推理与代码生成效率。",
-    "ja": "Cursorは、適切なワークフローレイヤーと組み合わせることで真価を発揮します。本コレクションでは、リファクタリング、テスト雛形、レビュー自動化、規約順守までを支える互換スキルと連携ツールを紹介。MCP機能を含むものもありますが、主目的はCursor中心の実務開発を効率化することです。",
+    "ja": "Cursor は、適切なワークフローレイヤーと組み合わせることで真価を発揮します。本コレクションでは、リファクタリング、テスト雛形、レビュー自動化、規約順守までを支える互換スキルと連携ツールを紹介。MCP 機能を含むものもありますが、主目的は Cursor 中心の実務開発を効率化することです。",
     "ko": "Cursor는 적절한 워크플로우 레이어와 결합될 때 효과가 커집니다. 이 컬렉션은 리팩터링, 테스트 스캐폴딩, 리뷰 자동화, 규칙 준수까지 지원하는 호환 스킬·연동·컴패니언 툴링을 다룹니다. 일부 도구에 MCP 기능이 포함될 수 있지만, 핵심 목표는 Cursor 기반 실무 생산성 향상입니다.",
     "es": "Cursor rinde mejor con una capa de workflow bien diseñada. Esta colección reúne skills, integraciones y tooling companion que aceleran y estabilizan ciclos de desarrollo: refactorización, scaffolding de tests, revisión automática y cumplimiento de estándares. Algunas herramientas incluyen MCP, pero el objetivo principal es productividad real en equipos que trabajan con Cursor.",
     "fr": "Cursor donne le meilleur de lui-même avec une couche workflow solide. Cette collection rassemble des skills, intégrations et outils companion pour accélérer et fiabiliser les boucles de développement: refactor, scaffolding de tests, review automatique et respect des standards. MCP peut être présent, mais l’objectif principal reste la productivité développeur avec Cursor.",

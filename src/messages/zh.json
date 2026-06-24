@@ -14,11 +14,11 @@
     "IntentLinks": {
       "automate-word-documents-with-docx-skills": {
         "title": "docx 技能 — Word 文档自动化",
-        "description": "安装 docx 技能，让 AI Agent 创建和编辑 Word 文档。"
+        "description": "安装 docx 技能，让 AI 智能体创建和编辑 Word 文档。"
       },
       "mastering-excel-automation-with-xlsx-skills": {
         "title": "xlsx 技能 — Excel 自动化",
-        "description": "安装 xlsx 技能，让 AI Agent 操作 Excel 文件。"
+        "description": "安装 xlsx 技能，让 AI 智能体操作 Excel 文件。"
       },
       "mastering-pdf-automation-with-ai-skills": {
         "title": "pdf 技能 — PDF 自动化",
@@ -38,7 +38,7 @@
       },
       "professional-presentations-with-pptx-ai-skills": {
         "title": "pptx 技能 — 演示文稿自动化",
-        "description": "安装 pptx 技能，让 AI Agent 创建 PowerPoint 文件。"
+        "description": "安装 pptx 技能，让 AI 智能体创建 PowerPoint 文件。"
       },
       "professional-poster-design-with-canvas-skills": {
         "title": "canvas 技能 — 海报与图像设计",
@@ -62,13 +62,13 @@
       }
     },
     "LongTail": {
-      "pdf": "PDF 自动化, OCR 自动化, 文档提取流程",
-      "xlsx": "Excel 自动化, 报表自动化, 表格工作流",
-      "docx": "Word 自动化, 文档模板, 报告模板",
-      "mcp": "面向开发工作流的 AI Agent Skills, 开发工作流技能, Claude Code 与 MCP 集成",
-      "internalComms": "流程自动化, 内部沟通模板, 团队更新流程",
-      "installSetup": "安装 AI Agent Skills, 技能配置, IDE 兼容",
-      "default": "开发者工作流技能, AI Agent Skills, 技能模板"
+      "pdf": "PDF 自动化， OCR 自动化， 文档提取流程",
+      "xlsx": "Excel 自动化， 报表自动化， 表格工作流",
+      "docx": "Word 自动化， 文档模板， 报告模板",
+      "mcp": "面向开发工作流的 AI 智能体技能， 开发工作流技能， Claude Code 与 MCP 集成",
+      "internalComms": "流程自动化， 内部沟通模板， 团队更新流程",
+      "installSetup": "安装 AI 智能体技能， 技能配置， IDE 兼容",
+      "default": "开发者工作流技能， AI 智能体技能， 技能模板"
     },
     "MetaOverride": {
       "mastering-pdf-automation-with-ai-skills": {
@@ -77,39 +77,39 @@
       },
       "how-to-build-mcp-servers-with-agent-skills": {
         "title": "开发人员工作流程技能：在 Claude Code 或 Cursor 中构建 MCP 集成",
-        "description": "借助可重复使用的 AI agent 技能工作流、逐步设置、工具设计、测试和部署模式，为 Claude Code 或 Cursor 构建 MCP 集成。"
+        "description": "借助可重复使用的 AI 智能体技能工作流、逐步设置、工具设计、测试和部署模式，为 Claude Code 或 Cursor 构建 MCP 集成。"
       },
       "how-to-install-ai-agent-skills": {
-        "title": "在 Claude Code、Cursor 与 Windsurf 中安装 AI Agent Skills",
-        "description": "使用 npx killer-skills add 在 Claude Code、Cursor 或 Windsurf 中安装 AI Agent Skills，按单个 IDE 或全部 IDE 的最快路径完成设置。"
+        "title": "在 Claude Code、Cursor 与 Windsurf 中安装 AI 智能体技能",
+        "description": "使用 npx killer-skills add 在 Claude Code、Cursor 或 Windsurf 中安装 AI 智能体技能，按单个 IDE 或全部 IDE 的最快路径完成设置。"
       },
       "top-10-mcp-servers-2026": {
         "title": "适用于 Claude Code、Cursor 和 Windsurf 的 10 个 MCP 工具与集成",
         "description": "探索适用于 Claude Code、Cursor 和 Windsurf 的实用 MCP 工具、集成和工作流模式，涉及 GitHub、SQLite、浏览器自动化和文档。"
       },
       "official-ai-agent-skills-guide": {
-        "title": "优先安装哪些官方 AI Agent Skills，才能真正投入工作流",
-        "description": "查看哪些官方 AI Agent Skills 值得优先安装，覆盖 PDF、前端 UI、SEO、MCP 与自动化工作流，适用于 Claude Code、Cursor 与 Windsurf。"
+        "title": "优先安装哪些官方 AI 智能体技能，才能真正投入工作流",
+        "description": "查看哪些官方 AI 智能体技能值得优先安装，覆盖 PDF、前端 UI、SEO、MCP 与自动化工作流，适用于 Claude Code、Cursor 与 Windsurf。"
       },
       "what-are-ai-agent-skills": {
-        "title": "什么是 AI Agent Skills？它们在 Claude Code、Cursor 和 Windsurf 中如何工作",
-        "description": "了解什么是 AI Agent Skills，SKILL.md 文件如何工作、放在哪里，以及它们为什么可以帮助 Claude Code、Cursor 和 Windsurf。"
+        "title": "什么是 AI 智能体技能？它们在 Claude Code、Cursor 和 Windsurf 中如何工作",
+        "description": "了解什么是 AI 智能体技能，SKILL.md 文件如何工作、放在哪里，以及它们为什么可以帮助 Claude Code、Cursor 和 Windsurf。"
       },
       "best-ai-agent-skills-2026": {
-        "title": "面向 Claude Code、Cursor 和 Windsurf 的 AI Agent Skills (2026)",
-        "description": "比较 2026 年面向 Claude Code、Cursor 和 Windsurf 的 AI Agent Skills，涵盖文档自动化、UI、MCP 和工作流。"
+        "title": "面向 Claude Code、Cursor 和 Windsurf 的 AI 智能体技能 (2026)",
+        "description": "对比 2026 年面向 Claude Code、Cursor 和 Windsurf 的 AI 智能体技能，涵盖文档自动化、UI、MCP 和工作流。"
       },
       "claude-code-vs-cursor-vs-windsurf": {
-        "title": "Claude Code vs Cursor vs Windsurf：AI Agent Skills 该怎么选",
-        "description": "比较 Claude Code、Cursor 与 Windsurf 对 AI Agent Skills 的支持，包括设置权衡、技能加载、上下文限制与 IDE 原生格式。"
+        "title": "Claude Code vs Cursor vs Windsurf：AI 智能体技能该怎么选",
+        "description": "对比 Claude Code、Cursor 与 Windsurf 对 AI 智能体技能的支持，包括设置权衡、技能加载、上下文限制与 IDE 原生格式。"
       }
     },
     "Misc": {
-      "blogSeoTitle": "AI Agent Skills 指南、自动化工作流与实战博客",
-      "blogSeoDescription": "阅读围绕 AI Agent Skills、IDE 工作流、自动化实践与开发者效率的实战文章。",
-      "blogSeoKeywords": "AI Agent Skills 博客, 开发者工作流技能, IDE 技能文章",
+      "blogSeoTitle": "AI 智能体技能指南、自动化工作流与实战博客",
+      "blogSeoDescription": "阅读围绕 AI 智能体技能、IDE 工作流、自动化实践与开发者效率的实战文章。",
+      "blogSeoKeywords": "AI 智能体技能博客， 开发者工作流技能， IDE 技能文章",
       "browseAllSkills": "浏览全部技能",
-      "exploreMoreSkills": "探索更多可用于 AI Agent 工作流的技能。",
+      "exploreMoreSkills": "探索更多可用于 AI 智能体工作流的技能。",
       "installGuide": "安装与 CLI 指南",
       "seeInstallSteps": "查看安装、CLI 命令与配置步骤。",
       "browseDocumentAutomations": "查看文档自动化技能",
@@ -117,7 +117,7 @@
       "workflowTemplateEntry": "工作流模板入口",
       "moveIntoReusable": "进入可复用的模板与文档流程合集。",
       "skillsForDeveloperWorkflows": "开发工作流所需技能",
-      "keepBrowsingSkills": "继续浏览开发工作流优先的 AI Agent Skills 与可集成能力。",
+      "keepBrowsingSkills": "继续浏览开发工作流优先的 AI 智能体技能与可集成能力。",
       "ideCompatibility": "IDE 兼容与配置",
       "reviewCursorClaude": "查看 Cursor、Claude Code、VS Code 的兼容入口。",
       "installSkillsCLI": "CLI 安装技能",
@@ -148,13 +148,13 @@
       "announcements": "公告",
       "announcements-desc": "最新新闻与技能更新。"
     },
-    "comingSoon": "敬请期待...",
+    "comingSoon": "敬请期待 ...",
     "featured": "精选",
     "latestPosts": "最新文章",
     "log": "日志",
     "readArticle": "查看文章",
     "readTime": "{n} 分钟阅读",
-    "subtitle": "深入探讨 AI Agent 技能、开发者工作流与编程的未来。",
+    "subtitle": "深入探讨 AI 智能体技能、开发者工具作流与编程的未来。",
     "title": "洞察与更新"
   },
   "BlogCategory": {
@@ -163,13 +163,13 @@
     "faq2Q": "这些文章适合直接拿来落地吗？",
     "faq3A": "继续阅读相关指南、技能页、合集或文档，按你关心的主题深入查看。",
     "faq3Q": "看完后去哪里？",
-    "guideSuffix": "AI Agent Skills 指南",
+    "guideSuffix": "AI 智能体技能指南",
     "implementGuide": "技能教程",
     "seoDesc": {
-      "document-automation": "浏览 PDF、Excel、DOCX 与模板自动化指南，获取可直接落地的 AI Agent Skills 与工作流实践。",
-      "developer-experience": "浏览面向 Cursor、Claude Code 的开发工作流指南，获取可安装 AI Agent Skills 的配置与实战步骤。",
-      "enterprise-solutions": "浏览流程自动化与团队协作工作流指南，获取适合企业场景的可复用 AI Agent Skills 与部署实践。",
-      "creative-tools": "浏览创意工作流与设计自动化指南，获取适合内容生产与视觉创作的 AI Agent Skills 实战用法。"
+      "document-automation": "浏览 PDF、Excel、DOCX 与模板自动化指南，获取可直接落地的 AI 智能体技能与工作流实践。",
+      "developer-experience": "浏览面向 Cursor、Claude Code 的开发工作流指南，获取可安装 AI 智能体技能的配置与实战步骤。",
+      "enterprise-solutions": "浏览流程自动化与团队协作工作流指南，获取适合企业场景的可复用 AI 智能体技能与部署实践。",
+      "creative-tools": "浏览创意工作流与设计自动化指南，获取适合内容生产与视觉创作的 AI 智能体技能实战用法。"
     },
     "seoTitle": {
       "document-automation": "PDF、Excel 与模板文档自动化指南",
@@ -179,11 +179,11 @@
     }
   },
   "BlogIndex": {
-    "keyword1": "AI Agent Skills 博客",
-    "keyword2": "开发者工作流技能",
+    "keyword1": "AI 智能体技能博客",
+    "keyword2": "开发者工具作流技能",
     "keyword3": "IDE 技能文章",
-    "seoDescription": "阅读围绕 AI Agent Skills、IDE 工作流、自动化实践与开发者效率的实战文章。",
-    "seoTitle": "AI Agent Skills 指南、自动化工作流与实战博客"
+    "seoDescription": "阅读围绕 AI 智能体技能、IDE 工作流、自动化实践与开发者效率的实战文章。",
+    "seoTitle": "AI 智能体技能指南、自动化工作流与实战博客"
   },
   "CLI": {
     "comparison": {
@@ -197,7 +197,7 @@
       "row4": "经过验证的安全技能库"
     },
     "copyInstall": "npx killer-skills add <owner/repo>",
-    "faq1A": "它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI Agent Skills。",
+    "faq1A": "它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI 智能体技能。",
     "faq1Q": "Killer-Skills CLI 是什么？",
     "faq2A": "在终端运行 `{installInstruction}`。CLI 会自动识别你的 IDE，并写入正确的 IDE 原生技能文件。",
     "faq2Q": "如何用 CLI 安装一个技能？",
@@ -209,7 +209,7 @@
     "features": {
       "autoInvoke": {
         "title": "开放技能目录",
-        "desc": "浏览社区与官方 AI Agent 技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。"
+        "desc": "浏览社区与官方 AI 智能体技能，覆盖 PDF 处理、浏览器自动化、文档工作流等场景。"
       },
       "syncAll": {
         "title": "多 IDE 同步",
@@ -224,14 +224,14 @@
         "desc": "通过 GitHub Device Flow 认证与透明的开源分发流程，让团队更安心地安装和管理技能。"
       }
     },
-    "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI Agent 技能。",
-    "heroSubtitle": "安装和管理 AI Agent 技能",
+    "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI 智能体技能。",
+    "heroSubtitle": "安装和管理 AI 智能体技能",
     "heroTitle": "Killer-Skills CLI",
     "install": "立即安装",
     "latestVersion": "最新版本：",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
-    "pageDescription": "用一条命令在 Claude Code、Cursor、Windsurf 与 19+ IDE 中安装、同步和管理 AI Agent Skills，无需全局安装。",
-    "pageTitle": "面向 Claude Code、Cursor 与 Windsurf 的 AI Agent Skills CLI",
+    "pageDescription": "用一条命令在 Claude Code、Cursor、Windsurf 与 19+ IDE 中安装、同步和管理 AI 智能体技能，无需全局安装。",
+    "pageTitle": "面向 Claude Code、Cursor 与 Windsurf 的 AI 智能体技能 CLI",
     "quickLinks": {
       "install": {
         "title": "安装一个技能",
@@ -292,43 +292,43 @@
     "devops": "运维",
     "documentation": "文档",
     "faq1A": "当前可以浏览 {length} 个分类，包括 {list}。每个分类都聚合了对应场景下的可安装技能。",
-    "faq1Q": "这里有哪些 AI Agent Skills 分类？",
-    "faq2A": "目前平台已收录 {length}+ 个 AI Agent Skills，热门分类集中在 {topNames}。",
+    "faq1Q": "这里有哪些 AI 智能体技能分类？",
+    "faq2A": "目前平台已收录 {length}+ 个 AI 智能体技能，热门分类集中在 {topNames}。",
     "faq2Q": "Killer-Skills 一共有多少技能？",
     "faq3A": "先进入与你当前任务最接近的分类，再在技能目录里继续按关键词、官方仓库或精选视图筛选。这样通常比直接搜索宽泛词更快找到结果。",
     "faq3Q": "如何按分类查找适合我的技能？",
     "git": "Git",
-    "heroDesc": "探索不同类型的AI技能，找到最适合你的工具",
+    "heroDesc": "探索不同类型的 AI 技能，找到最适合你的工具",
     "heroIntro": "最常被浏览的分类包括 {topNames}。从开发到数据，再到 AI 自动化，你可以直接进入分类页筛选可安装技能。",
-    "heroTitle": "按场景浏览 AI Agent Skills",
-    "keyword1": "AI Agent Skills 分类",
+    "heroTitle": "按场景浏览 AI 智能体技能",
+    "keyword1": "AI 智能体技能分类",
     "keyword2": "技能使用场景",
     "library": "库",
     "noSkills": "暂无技能",
-    "pageDescription": "按开发、数据、AI、设计等分类浏览 {length}+ 个 AI Agent Skills，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。",
-    "pageTitle": "AI Agent Skills 分类目录",
+    "pageDescription": "按开发、数据、AI、设计等分类浏览 {length}+ 个 AI 智能体技能，快速找到适合 Claude Code、Cursor、Windsurf 的可安装工具。",
+    "pageTitle": "AI 智能体技能分类目录",
     "productivity": "效率工具",
     "relatedSkills": "相关技能",
     "search": "搜索",
     "seoDescriptions": {
-      "development": "发现适合 Claude Code、Cursor 等 AI Agent 的开发者工具技能，用于编码、重构、调试与项目协作。",
+      "development": "发现适合 Claude Code、Cursor 等 AI 智能体的开发者工具技能，用于编码、重构、调试与项目协作。",
       "documentation": "探索强大的文档处理技能，让 Claude 无缝读取、写入并分析 PDF、Word 文档和 Markdown 文件。",
       "testing": "寻找测试自动化技能，赋予您的 AI 助手编写、运行和调试单元测试及 E2E 测试的能力。",
-      "data": "发现数据与分析技能，为您的 AI Agent 配备 SQL 查询、数据可视化和数据库管理能力。",
+      "data": "发现数据与分析技能，为您的 AI 智能体配备 SQL 查询、数据可视化和数据库管理能力。",
       "ai": "浏览 AI 与机器学习工作流技能，连接 Hugging Face、OpenAI 及专用 ML 管道。",
       "devops": "顶尖的 DevOps 与云服务技能，让 Claude 协助管理 AWS、Docker、Kubernetes 和 CI/CD 流水线。",
       "design": "适合 AI 助手的创意与设计技能，支持图像生成、UI/UX 分析和设计系统工作流。",
       "productivity": "最佳生产力工作流技能，将 Claude 连接到 Notion、Slack、Jira 和日历，自动处理日常任务。",
-      "code-review": "自动化代码审查技能，赋予您的 AI Agent 分析 PR、发现安全问题并执行代码检查规则的能力。",
+      "code-review": "自动化代码审查技能，赋予您的 AI 智能体分析 PR、发现安全问题并执行代码检查规则的能力。",
       "git": "Git 和 GitHub 工作流技能，帮助 Claude 处理仓库浏览、分支协作和拉取请求流程。",
-      "cli": "命令行工作流技能，赋予您的 AI Agent 更安全高效地执行终端任务的能力。",
-      "library": "适合 AI Agent 的库与包管理技能，自动搜索、安装和更新 npm、pip 和 cargo 包。",
+      "cli": "命令行工作流技能，赋予您的 AI 智能体更安全高效地执行终端任务的能力。",
+      "library": "适合 AI 智能体的库与包管理技能，自动搜索、安装和更新 npm、pip 和 cargo 包。",
       "api": "API 集成技能，让您的 AI 助手更快连接 REST 或 GraphQL API 并编排自动化流程。",
       "database": "数据库管理技能，帮助 Claude 更安全地查询和构建 PostgreSQL、MySQL、MongoDB 和 Redis 工作流。",
-      "browser": "浏览器自动化与网页抓取技能，使 AI Agent 能动态浏览网站、点击元素并提取数据。",
-      "search": "适合 AI Agent 的网络搜索技能，为 Claude 配备 Google、Bing 和 Tavily 等实时检索能力。",
+      "browser": "浏览器自动化与网页抓取技能，使 AI 智能体能动态浏览网站、点击元素并提取数据。",
+      "search": "适合 AI 智能体的网络搜索技能，为 Claude 配备 Google、Bing 和 Tavily 等实时检索能力。",
       "web-scraping": "高级网页抓取技能，允许您的 AI 助手自主地从网站提取结构化数据。",
-      "automation": "通用自动化与 RPA 技能，将您的 AI Agent 连接到 Zapier、Make 和本地系统自动化工具。",
+      "automation": "通用自动化与 RPA 技能，将您的 AI 智能体连接到 Zapier、Make 和本地系统自动化工具。",
       "social": "社交媒体管理技能，使 AI 助手能够发布内容、分析趋势并管理 X/Twitter、LinkedIn 等平台。"
     },
     "skillCategories": "技能分类",
@@ -384,8 +384,8 @@
         "useCaseLabel": "消息沟通、交接与团队协作"
       },
       "default": {
-        "titleLabel": "AI Agent Skill",
-        "useCaseLabel": "AI Agent 工作流与自动化"
+        "titleLabel": "AI 智能体技能",
+        "useCaseLabel": "AI 智能体工作流与自动化"
       }
     }
   },
@@ -397,7 +397,7 @@
     "copied": "已复制",
     "copy": "复制",
     "editorPicks": "编辑精选",
-    "faq1A": "合集会把同类技能和工具放在一起，方便你更快比较并选出更适合当前工作的方案。",
+    "faq1A": "合集会把同类技能和工具放在一起，方便你更快对比并选出更适合当前工作的方案。",
     "faq1Q": "打开一个合集后应该怎么用？",
     "faq2A": "优先从官方与可信工具合集开始。那里会先集中官方和成熟生态工具，再让你扩展到更广的工作流组合。",
     "faq2Q": "如果我想先用低风险工具，应该从哪个合集开始？",
@@ -411,9 +411,9 @@
     "noCollections": "暂无可用合集。",
     "noSkills": "当前该合集中没有找到可用的技能。",
     "relatedCollections": "相关合集",
-    "seoDescription": "浏览高信任 AI Agent Skills 合集，在 Claude Code、Cursor、Windsurf 等环境中更快比较适合的工具与工作流能力。",
-    "seoKeyword1": "AI Agent Skills 合集",
-    "seoKeyword2": "开发者工作流技能合集",
+    "seoDescription": "浏览高信任 AI 智能体技能合集，在 Claude Code、Cursor、Windsurf 等环境中更快对比适合的工具与工作流能力。",
+    "seoKeyword1": "AI 智能体技能合集",
+    "seoKeyword2": "开发者工具作流技能合集",
     "seoTitle": "面向 Claude Code、Cursor 与 Windsurf 的 AI Skills 合集",
     "subtitle": "围绕可信工具、工作流栈与平台使用场景整理的安装优先 AI Skills 合集。",
     "view": "查看",
@@ -437,7 +437,7 @@
     "home": "首页",
     "language": "语言",
     "lightMode": "浅色模式",
-    "loading": "加载中...",
+    "loading": "加载中 ...",
     "next": "下一页",
     "noDescription": "暂无描述",
     "official": "官方",
@@ -462,29 +462,29 @@
         "desc": "源码、Issue 和 PR。"
       },
       "chat": {
-        "title": "Discord社区",
+        "title": "Discord 社区",
         "desc": "实时聊天与支持"
       },
       "news": {
-        "title": "Twitter动态",
+        "title": "Twitter 动态",
         "desc": "最新消息与更新"
       }
     },
     "contribute": "贡献代码",
-    "contributeDesc": "Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI Agent 技能。",
+    "contributeDesc": "Killer-Skills 是开源项目。欢迎贡献修复、完善工作流，或发布可复用 AI 智能体技能。",
     "feedbackDesc": "有好的想法？发现了问题？欢迎在 Github Issues 或 Discord 中告诉我们。",
-    "heroDesc": "加入一起打磨可复用 AI Agent 技能与 IDE 工作流的开发者、贡献者与团队。",
+    "heroDesc": "加入一起打磨可复用 AI 智能体技能与 IDE 工作流的开发者、贡献者与团队。",
     "join": "加入社区",
     "readGuide": "查看贡献指南 ->",
-    "seoDescription": "Join the Killer-Skills community: contribute code, share feedback, and help improve reusable AI agent skills for Claude Code, Cursor, and Windsurf.",
-    "seoTitle": "AI Agent Skills Community — Contribute & Share Feedback",
+    "seoDescription": "Join the Killer-Skills community： contribute code， share feedback， and help improve reusable AI 智能体技能 for Claude Code， Cursor， and Windsurf。",
+    "seoTitle": "AI 智能体技能 Community — Contribute & Share Feedback",
     "shareFeedback": "分享反馈",
     "submitIssue": "提交 Issue ->",
     "title": "社区"
   },
   "Detail": {
     "about": "关于此技能",
-    "aboutTemplate": "此技能允许你的 AI Agent 与 {name} 交互。兼容 Cursor、Windsurf、Claude Code 等主流 AI IDE。",
+    "aboutTemplate": "此技能允许你的 AI 智能体与 {name} 交互。兼容 Cursor、Windsurf、Claude Code 等主流 AI IDE。",
     "agentAnalysis": "Agent 专属能力分析",
     "author": "作者",
     "back": "返回列表",
@@ -510,7 +510,7 @@
     "faqUseCases": "{{name}} 适用于哪些场景？",
     "faqUseCasesAnswer": "典型场景包括：{{useCases}}。",
     "faqWhatIs": "{{name}} 是什么？",
-    "faqWhatIsAnswer": "{{name}} 是一个可在 Killer-Skills 使用的 AI Agent Skill。",
+    "faqWhatIsAnswer": "{{name}} 是一个可在 Killer-Skills 使用的 AI 智能体技能。",
     "features": "功能特性",
     "getManager": "获取 Manager",
     "globalLevel": "全局：",
@@ -520,7 +520,7 @@
     "howToName2": "执行安装命令",
     "howToName3": "开始使用技能",
     "howToText1": "在你的项目目录中打开终端或命令行。",
-    "howToText2": "运行：{{installCommand}}。CLI 会自动识别 IDE 或 AI Agent 并完成配置。",
+    "howToText2": "运行：{{installCommand}}。CLI 会自动识别 IDE 或 AI 智能体并完成配置。",
     "howToText3": "{{name}} 已启用，可立即在当前项目中调用。",
     "ideDescriptions": {
       "amp": "安装到 Amp Agent",
@@ -545,8 +545,8 @@
     "installCommand": "安装命令",
     "installNow": "一键安装",
     "installPath": "安装路径",
-    "installTemplateA": "安装 {{name}}，这是一款面向{{useCase}}的 AI Agent Skill。支持 Claude Code、Cursor、Windsurf，一键安装。",
-    "installTemplateB": "{{name}} 适合{{intentUseCase}}场景，支持 Claude Code、Cursor、Windsurf，查看功能、使用场景与安装命令。",
+    "installTemplateA": "安装 {{name}}，这是一款面向 {{useCase}} 的 AI 智能体技能。支持 Claude Code、Cursor、Windsurf，一键安装。",
+    "installTemplateB": "{{name}} 适合 {{intentUseCase}} 场景，支持 Claude Code、Cursor、Windsurf，查看功能、使用场景与安装命令。",
     "installation": "安装指南",
     "learnHowToInstall": "了解如何通过 Killer-Skills CLI 安装、同步和管理技能。",
     "limitations": "使用限制与门槛",
@@ -575,7 +575,7 @@
     "targetIDE": "目标 IDE",
     "top5Percent": "前 5%",
     "translate": "翻译简介",
-    "translating": "正在翻译...",
+    "translating": "正在翻译 ...",
     "tryOutputLangEN": "English",
     "tryOutputLangZH": "Simplified Chinese",
     "unlockTitle": "一键解锁 & 管理海量 AI 技能",
@@ -586,15 +586,15 @@
     "viewOnGithub": "在 GitHub 查看"
   },
   "Docs": {
-    "addFirstSkill": "用一条命令把第一个 AI Agent 技能加入你的开发环境。",
-    "apiDesc": "了解 MCP、API 调用和集成方式，构建可扩展的 AI Agent 工作流。",
-    "cliDesc": "查看 AI Agent Skills CLI 命令、同步与配置细节，快速完成自动化工作流落地。",
+    "addFirstSkill": "用一条命令把第一个 AI 智能体技能加入你的开发环境。",
+    "apiDesc": "了解 MCP、API 调用和集成方式，构建可扩展的 AI 智能体工作流。",
+    "cliDesc": "查看 AI 智能体技能 CLI 命令、同步与配置细节，快速完成自动化工作流落地。",
     "closeSidebar": "关闭侧边栏",
     "defaultDesc": "Killer-Skills 文档，提供安装、配置与自动化实践说明。",
     "editPage": "编辑此页",
     "entry": {
       "install": {
-        "title": "安装 AI Agent Skills",
+        "title": "安装 AI 智能体技能",
         "desc": "从零开始完成安装、初始化与首次验证，适用于 Claude Code、Cursor 与 Windsurf。"
       },
       "ide": {
@@ -611,29 +611,29 @@
       }
     },
     "faq1A": "在终端运行 `npx killer-skills add owner/repo`。CLI 会自动识别 IDE，并写入正确的原生格式。",
-    "faq1Q": "如何安装 AI Agent Skills？",
+    "faq1Q": "如何安装 AI 智能体技能？",
     "faq2A": "文档覆盖安装、CLI 命令、配置、工作流概念，以及 Cursor、Claude Code、VS Code 等环境的兼容性入口。",
     "faq2Q": "文档里包含哪些配置内容？",
     "faq3A": "继续查看合集页和技能页，就能找到可复用自动化、模板和适合你的安装路径。",
     "faq3Q": "哪里可以看工作流模板和自动化场景？",
     "gettingStarted": "开始使用",
     "guide": "指南",
-    "indexDescription": "查看 AI Agent Skills 的安装、CLI、IDE 兼容与工作流文档，从设置直接进入可信合集与实际落地。",
-    "indexTitle": "AI Agent Skills 安装、CLI 与工作流配置文档",
-    "installDesc": "获取在 Cursor、Claude Code、VS Code 等环境安装 AI Agent Skills 的完整步骤。",
+    "indexDescription": "查看 AI 智能体技能的安装、CLI、IDE 兼容与工作流文档，从设置直接进入可信合集与实际落地。",
+    "indexTitle": "AI 智能体技能安装、CLI 与工作流配置文档",
+    "installDesc": "获取在 Cursor、Claude Code、VS Code 等环境安装 AI 智能体技能的完整步骤。",
     "keyConcepts": "核心概念",
     "lastUpdated": "最后更新",
     "navLabel": "文档导航",
     "returnToIntro": "返回介绍页",
     "securityDesc": "掌握技能安全、风险防护和生产环境部署的关键规范。",
     "skills": "技能",
-    "skillsDesc": "AI Agent 的可复用指令单元",
+    "skillsDesc": "AI 智能体的可复用指令单元",
     "startFirstSkill": "从第一个技能开始",
     "tableOfContents": "本页内容",
-    "titleSuffix": "AI Agent Skills 文档",
+    "titleSuffix": "AI 智能体技能文档",
     "toggleSidebar": "切换文档侧边栏",
-    "welcomeText": "欢迎来到 Killer-Skills 文档。这里会带你安装 AI Agent 技能、配置 IDE，并把可复用工作流带进日常开发。",
-    "workflowDesc": "围绕工作流自动化、流程自动化与模板化执行，学习可复用的 AI Agent Skills 实践。",
+    "welcomeText": "欢迎来到 Killer-Skills 文档。这里会带你安装 AI 智能体技能、配置 IDE，并把可复用工作流带进日常开发。",
+    "workflowDesc": "围绕工作流自动化、流程自动化与模板化执行，学习可复用的 AI 智能体技能实践。",
     "workflows": "工作流",
     "workflowsDesc": "可重复执行的多步骤自动化模式"
   },
@@ -671,7 +671,7 @@
     "cli": "CLI 工具",
     "community": "社区",
     "cookie": "Cookie 策略",
-    "desc": "面向 AI Agent 技能与 IDE 工作流的开源目录。为真实开发工作而生。",
+    "desc": "面向 AI 智能体技能与 IDE 工作流的开源目录。为真实开发工作而生。",
     "docs": "文档",
     "emailPlaceholder": "输入您的邮箱",
     "help": "帮助中心",
@@ -689,11 +689,11 @@
     "badge": "3,400+ 技能可用",
     "hotTags": "热门：",
     "searchButton": "搜索",
-    "searchPlaceholder": "搜索技能... 例如：PDF处理、数据分析",
-    "subtitle": "探索无限可能，赋能你的AI助手",
-    "suggestions": ["PDF处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
-    "title": "发现 AI Agent 技能",
-    "titleHighlight": "AI智能体"
+    "searchPlaceholder": "搜索技能 ... 例如：PDF 处理、数据分析",
+    "subtitle": "探索无限可能，赋能你的 AI 助手",
+    "suggestions": ["PDF 处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
+    "title": "发现 AI 智能体技能",
+    "titleHighlight": "AI 智能体"
   },
   "Home": {
     "cta": {
@@ -707,7 +707,7 @@
     "editorialParagraph3": "通过将 3,400+ 个开源技能归纳、洗净并沉淀为场景化的精选合集，我们帮助工程师安全地增强 AI 开发助手的开发极限，而无需在原始仓库的调试上浪费宝贵时间。我们把技能划分为针对实际开发任务的专业版块，如文档自动化处理（xlsx、docx 和 pdf 深度操作）、创意生成艺术以及 DevOps。无论您是需要利用 OCR 自动生成 PDF 复杂账单、编写自动化单元测试，还是在 IDE 终端内安全管理云端容器部署，Killer-Skills 都为您提供干净、合规且高权威的安装入口。每一条发布路径都受到我们边缘重定向中间件（Edge Middleware）的严密保护，确保您下载并安装的皆是活跃、合规的最新优质代码。",
     "editorialSubtitle": "专为开发者打造的技能目录，确保安全、环境兼容与极致的执行精度。",
     "editorialTitle": "为什么可复用的 MCP 技能如此重要及我们的测试标准",
-    "faq1A": "Killer-Skills 是一个开放的 AI Agent Skills 目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。",
+    "faq1A": "Killer-Skills 是一个开放的 AI 智能体技能目录与安装入口，帮助你在 Claude Code、Cursor、Windsurf 和其他兼容 IDE 中发现、安装并管理可复用技能。",
     "faq1Q": "Killer-Skills 是什么？",
     "faq2A": "大多数技能可直接用于 Claude Code、Cursor、Windsurf、VS Code 和其他 19+ IDE，并支持统一的安装流程。",
     "faq2Q": "这些技能支持哪些 IDE？",
@@ -739,13 +739,13 @@
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
     },
-    "featuresSubtitle": "浏览可复用的 AI Agent 技能，并以 IDE 原生格式完成安装。",
+    "featuresSubtitle": "浏览可复用的 AI 智能体技能，并以 IDE 原生格式完成安装。",
     "featuresTitle": "专为开发者打造",
-    "footerDesc": "面向 AI Agent 技能的开源目录与安装入口。为真实开发工作而生。",
+    "footerDesc": "面向 AI 智能体技能的开源目录与安装入口。为真实开发工作而生。",
     "heroBadge": "严格审查安全性、IDE 原生兼容性与极简依赖",
     "heroDesc1": "收录的 3,400+ 个 MCP 工具都经过安全参数限制与多平台兼容性审核。",
     "heroDesc2": "安全扩展 Claude Code、Cursor 和 Windsurf，免去环境配置困扰与本地运行风险。",
-    "heroTitle": "严选 AI Agent 技能",
+    "heroTitle": "严选 AI 智能体技能",
     "heroTitleHighlight": "安全安装目录",
     "installs": "安装",
     "official": {
@@ -755,9 +755,9 @@
     },
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能，例如：网页爬取、数据可视化",
-    "seoDescription": "浏览 3,400+ 个 AI Agent Skills 与 MCP 服务器。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放 AI Agent Skills 目录，支持可信工具发现与一键安装。",
-    "seoIntro": "Killer-Skills 是一个收录 3,400+ AI Agent Skills 的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。",
-    "seoTitle": "AI Agent Skills 开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
+    "seoDescription": "浏览 3,400+ 个 AI 智能体技能与 MCP 服务器。Killer-Skills 是面向 Claude Code、Cursor、Windsurf 与 19+ IDE 的开放 AI 智能体技能目录，支持可信工具发现与一键安装。",
+    "seoIntro": "Killer-Skills 是一个收录 3,400+ AI 智能体技能的开源目录。你可以浏览精选合集、查看安装文档，并为 Claude Code、Cursor 与 Windsurf 找到可复用技能。",
+    "seoTitle": "AI 智能体技能开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
     "stable": "稳定",
     "tags": ["研究", "编程", "营销", "分析"],
     "trendingSubtitle": "由社区评选的顶级技能。",
@@ -767,24 +767,24 @@
   "Integrations": {
     "cards": {
       "cursor": {
-        "desc": "在 Cursor 里直接使用可复用 AI Agent 技能。"
+        "desc": "在 Cursor 里直接使用可复用 AI 智能体技能。"
       },
       "windsurf": {
-        "desc": "在 Windsurf 里直接使用可复用 AI Agent 技能。"
+        "desc": "在 Windsurf 里直接使用可复用 AI 智能体技能。"
       },
       "claude": {
-        "desc": "在 Claude Code 里直接使用可复用 AI Agent 技能。"
+        "desc": "在 Claude Code 里直接使用可复用 AI 智能体技能。"
       },
       "goose": {
-        "desc": "在 Goose 里直接使用可复用 AI Agent 技能。"
+        "desc": "在 Goose 里直接使用可复用 AI 智能体技能。"
       }
     },
     "heroDesc": "在主流 AI 编码工具和 IDE 中复用同一套 Killer-Skills 技能。",
     "learnProtocol": "查看技能接入方式",
     "missingTool": "没看到你的 IDE？",
     "missingToolDesc": "只要 IDE 能运行技能说明，Killer-Skills 通常就能用。",
-    "seoDescription": "Set up AI agent skills in Claude Code, Cursor, Windsurf, VS Code, and 19+ IDEs. Browse compatibility guides and one-command install instructions.",
-    "seoTitle": "IDE Integrations for AI Agent Skills — Setup & Compatibility",
+    "seoDescription": "Set up AI 智能体技能 in Claude Code， Cursor， Windsurf， VS Code， and 19+ IDEs。 Browse compatibility guides and one-command install instructions。",
+    "seoTitle": "IDE 集成 for AI 智能体技能 — Setup & Compatibility",
     "viewGuide": "查看配置指南",
     "worksWhereYouWork": "无缝集成开发环境"
   },
@@ -792,14 +792,14 @@
     "faq1A": "Killer-Skills 支持 19+ AI 编程助手和 IDE，包括 Cursor、Windsurf、Claude Code、VS Code、JetBrains、Trae、OpenClaw、Kiro、Augment Code、Continue、Codex、OpenCode、Goose 等。",
     "faq1Q": "Killer-Skills 支持哪些 IDE？",
     "faq2A": "在终端运行 `npx killer-skills add owner/repo`。CLI 会自动识别当前 IDE，并写入对应的技能文件格式，无需手动配置。",
-    "faq2Q": "如何在 IDE 中安装 AI Agent Skill？",
+    "faq2Q": "如何在 IDE 中安装 AI 智能体技能？",
     "faq3A": "可以。Killer-Skills 使用统一技能格式，在不同 IDE 中会自动转换为各自需要的配置文件。",
     "faq3Q": "同一个技能能否跨多个 IDE 使用？",
     "heroIntro": "如果你在找“Cursor skills”“Claude Code skills”或“VS Code agent skills”，这里就是技能优先的兼容性总览页。Killer-Skills 会自动识别 IDE 并写入正确的 IDE 原生技能格式。",
-    "heroTitle": "你的 IDE 已经支持 AI Agent Skills",
+    "heroTitle": "你的 IDE 已经支持 AI 智能体技能",
     "intentLinks": {
       "install": {
-        "title": "安装 AI Agent Skills",
+        "title": "安装 AI 智能体技能",
         "desc": "查看一条命令安装与首次配置步骤。"
       },
       "ide": {
@@ -815,7 +815,7 @@
         "desc": "从安装转到可复用流程与模板入口。"
       }
     },
-    "pageDescription": "查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 19+ IDE 的兼容性，了解如何安装、配置并同步 AI Agent Skills，落地工作流自动化与流程自动化。",
+    "pageDescription": "查看 Killer-Skills 对 Cursor、Claude Code、VS Code、Windsurf 等 19+ IDE 的兼容性，了解如何安装、配置并同步 AI 智能体技能，落地工作流自动化与流程自动化。",
     "pageTitle": "Cursor、Claude Code、VS Code 自动化工作流技能兼容与安装指南"
   },
   "Labs": {
@@ -832,57 +832,57 @@
     "pageTitle": "Skill 在线试用 Demo",
     "runLabel": "在线试用",
     "runStatusHint": "点击在线试用后显示结果。",
-    "running": "运行中...",
+    "running": "运行中 ...",
     "waiting": "等待运行"
   },
   "Marketplace": {
     "allPurpose": "全部技能",
-    "allPurposeDesc": "发现、安装和管理超过 3,400 个 AI Agent 技能",
+    "allPurposeDesc": "发现、安装和管理超过 3,400 个 AI 智能体技能",
     "allSkills": "全部技能",
     "availableSkills": "可用技能",
     "browseOwner": "浏览来自 {owner} 的技能",
     "browseRelated": "浏览与 {title} 相关的技能",
-    "browsing": "正在浏览:",
-    "categorySeoTitle": "{category} AI Agent Skills",
+    "browsing": "正在浏览：",
+    "categorySeoTitle": "{category} AI 智能体技能",
     "discover": "发现",
     "featured": "精选技能",
     "featuredDesc": "由社区评选的顶级和最受欢迎的技能",
-    "featuredSeoDesc": "Browse featured AI Agent skills and discover highly rated capabilities that fit directly into real developer workflows.",
-    "featuredSeoTitle": "Featured AI Agent Skills",
+    "featuredSeoDesc": "Browse featured AI 智能体技能 and discover highly rated capabilities that fit directly into real developer workflows。",
+    "featuredSeoTitle": "Featured AI 智能体技能",
     "latest": "最新发现",
-    "latestDesc": "探索最新的 AI Agent 技能和创新",
-    "latestSeoDesc": "Review the latest AI Agent skills added to the directory and keep up with new workflow, automation, and developer-tool capabilities.",
-    "latestSeoTitle": "Latest AI Agent Skills",
+    "latestDesc": "探索最新的 AI 智能体技能和创新",
+    "latestSeoDesc": "Review the latest AI 智能体技能 added to the directory and keep up with new workflow， automation， and developer-tool capabilities。",
+    "latestSeoTitle": "Latest AI 智能体技能",
     "latestSkills": "最新技能",
     "noSkills": "未找到技能",
     "noSkillsHint": "尝试调整搜索词或按类别浏览",
     "official": "官方技能",
     "officialDesc": "由官方团队维护的高质量认证技能",
-    "officialSeoDesc": "Browse official AI Agent skills maintained by trusted teams and review high-confidence, install-ready workflow capabilities.",
-    "officialSeoTitle": "Official AI Agent Skills",
-    "ownerSeoDesc": "Browse AI agent skills published by {owner} for Claude Code, Cursor, and Windsurf.",
-    "ownerSeoTitle": "AI Agent Skills by {owner}",
+    "officialSeoDesc": "Browse official AI 智能体技能 maintained by trusted teams and review high-confidence， install-ready workflow capabilities。",
+    "officialSeoTitle": "Official AI 智能体技能",
+    "ownerSeoDesc": "Browse AI 智能体技能 published by {owner} for Claude Code， Cursor， and Windsurf。",
+    "ownerSeoTitle": "AI 智能体技能 by {owner}",
     "popular": "Popular",
-    "searchPrefix": "搜索: {query}",
-    "searchSeoDesc": "Search results for \"{query}\" across AI agent skills for Claude Code, Cursor, and Windsurf.",
-    "searchSeoTitle": "{query} AI Agent Skills Search Results",
-    "seoDescription": "Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.",
-    "seoTitle": "AI Agent Skills for Claude Code, Cursor & Windsurf",
+    "searchPrefix": "搜索： {query}",
+    "searchSeoDesc": "Search results for \"{query}\" across AI 智能体技能 for Claude Code， Cursor， and Windsurf。",
+    "searchSeoTitle": "{query} AI 智能体技能 Search Results",
+    "seoDescription": "Browse and install AI 智能体技能 for Claude Code， Cursor， Windsurf， and more with filtering by search， category， topic， and official sources。",
+    "seoTitle": "AI 智能体技能 for Claude Code， Cursor & Windsurf",
     "title": "全部技能",
-    "topicSeoDesc": "Browse AI agent skills related to {topic} for Claude Code, Cursor, and Windsurf workflows.",
-    "topicSeoTitle": "{topic} AI Agent Skills",
+    "topicSeoDesc": "Browse AI 智能体技能 related to {topic} for Claude Code， Cursor， and Windsurf workflows。",
+    "topicSeoTitle": "{topic} AI 智能体技能",
     "viewAll": "查看所有技能",
     "viewSkills": "查看技能"
   },
   "Metadata": {
     "Skills": {
-      "title": "技能目录 - 发现 AI Agent 技能",
-      "description": "浏览和安装 Killer-Skills 目录中的数千个 AI Agent 技能。支持 Claude Code、Windsurf、Cursor 等。"
+      "title": "技能目录 - 发现 AI 智能体技能",
+      "description": "浏览和安装 Killer-Skills 目录中的数千个 AI 智能体技能。支持 Claude Code、Windsurf、Cursor 等。"
     },
-    "description": "发现、安装和管理 AI Agent Skills，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
-    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, 编程技能, AI 助手, 代码生成",
+    "description": "发现、安装和管理 AI 智能体技能，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
+    "keywords": "agent skills， claude code， AI 智能体， cursor， windsurf， antigravity， ai skills， 编程技能， AI 助手， 代码生成",
     "template": "%s | Killer-Skills",
-    "title": "Killer-Skills - AI Agent Skills 目录"
+    "title": "Killer-Skills - AI 智能体技能目录"
   },
   "Navigation": {
     "blog": "博客",
@@ -917,16 +917,16 @@
     "savedAt": "收藏于 {date}",
     "time": {
       "justNow": "刚刚",
-      "agoM": "{count}分钟前",
-      "agoH": "{count}小时前",
-      "agoD": "{count}天前"
+      "agoM": "{count} 分钟前",
+      "agoH": "{count} 小时前",
+      "agoD": "{count} 天前"
     }
   },
   "Query": {
     "Intents": {
       "mcp-servers": {
-        "label": "面向集成的 AI Agent Skills",
-        "description": "发现适合集成场景、开发工作流与 MCP 兼容配置路径的 AI Agent Skills，覆盖 Claude Code、Cursor 等 IDE。"
+        "label": "面向集成的 AI 智能体技能",
+        "description": "发现适合集成场景、开发工作流与 MCP 兼容配置路径的 AI 智能体技能，覆盖 Claude Code、Cursor 等 IDE。"
       },
       "workflow-automation": {
         "label": "工作流自动化技能",
@@ -950,15 +950,15 @@
       },
       "skill-installation": {
         "label": "技能安装指南",
-        "description": "查找技能安装指南、配置文档与 CLI 步骤，把 AI Agent Skills 添加到 Cursor、Claude Code、VS Code 等环境中。"
+        "description": "查找技能安装指南、配置文档与 CLI 步骤，把 AI 智能体技能添加到 Cursor、Claude Code、VS Code 等环境中。"
       },
       "workflow-templates": {
         "label": "工作流模板",
         "description": "浏览工作流模板、自动化 starter 与可复用技能手册，用于可重复的 AI 任务。"
       },
       "ai-agent-skills": {
-        "label": "AI Agent Skills",
-        "description": "浏览高质量 AI Agent Skills，覆盖编码、自动化、数据与效率场景，支持主流 IDE。"
+        "label": "AI 智能体技能",
+        "description": "浏览高质量 AI 智能体技能，覆盖编码、自动化、数据与效率场景，支持主流 IDE。"
       },
       "claude-code-skills": {
         "label": "Claude Code Skills",
@@ -970,28 +970,28 @@
       },
       "windsurf-skills": {
         "label": "Windsurf Skills",
-        "description": "发现适配 Windsurf 的 AI Agent Skills，覆盖编码、文档与流程自动化。"
+        "description": "发现适配 Windsurf 的 AI 智能体技能，覆盖编码、文档与流程自动化。"
       }
     }
   },
   "Seo": {
     "Keywords": {
-      "core": "AI Agent Skills, 可安装 AI Agent Skills, Claude Code 技能, 面向 AI 编程助手的开发者技能",
-      "mcp": "带 MCP 集成的 AI Agent Skills, 面向开发工作流的 MCP 集成, Claude Code MCP 集成",
-      "workflowAutomation": "工作流自动化技能, 开发者工作流自动化, Agent 工作流技能, 多步骤执行技能",
-      "processAutomation": "流程自动化技能, 业务流程技能, SOP 自动化技能, 运营流程技能",
-      "documentAutomation": "文档自动化技能, 报告自动化技能, PDF 自动化技能, 文档流程技能",
-      "browserAutomation": "浏览器自动化技能, 网页自动化技能, 网页抓取技能, 站点工作流自动化",
-      "dataWorkflow": "数据流程技能, 数据提取技能, ETL 自动化技能, 分析工作流技能",
-      "installSetup": "安装 AI Agent Skills, Killer-Skills 安装流程, Claude Code 技能配置, killer-skills add",
-      "compatibility": "AI Agent Skills 的 IDE 兼容性, 支持 Skills 的 IDE, Claude Code Cursor Windsurf 兼容性, 技能运行环境支持",
-      "templates": "技能模板, 工作流技能模板, 自动化技能模板, 可复用 Agent 手册",
-      "ideCompat": "Claude Code 技能, Cursor 技能, Windsurf 技能, VS Code AI Agent 技能",
-      "cli": "AI Agent Skills CLI, killer-skills add, 技能安装 CLI, 面向可安装技能的命令行",
-      "docs": "AI Agent Skills 文档, 技能配置文档, Claude Code 安装文档, 开发者技能文档",
-      "developerExperience": "开发者工作流技能, 编码自动化技能, 开发效率技能, 面向编码的 AI 开发工具",
-      "enterpriseWorkflows": "团队工作流技能, 运营自动化技能, 业务流程技能, 面向 AI Agent 的运营手册",
-      "creativeWorkflows": "创意工作流技能, 设计自动化技能, 内容创作流程技能, 面向 AI Agent 的创意工具"
+      "core": "AI 智能体技能， 可安装 AI 智能体技能， Claude Code 技能， 面向 AI 编程助手的开发者技能",
+      "mcp": "带 MCP 集成的 AI 智能体技能， 面向开发工作流的 MCP 集成， Claude Code MCP 集成",
+      "workflowAutomation": "工作流自动化技能， 开发者工作流自动化， Agent 工作流技能， 多步骤执行技能",
+      "processAutomation": "流程自动化技能， 业务流程技能， SOP 自动化技能， 运营流程技能",
+      "documentAutomation": "文档自动化技能， 报告自动化技能， PDF 自动化技能， 文档流程技能",
+      "browserAutomation": "浏览器自动化技能， 网页自动化技能， 网页抓取技能， 站点工作流自动化",
+      "dataWorkflow": "数据流程技能， 数据提取技能， ETL 自动化技能， 分析工作流技能",
+      "installSetup": "安装 AI 智能体技能， Killer-Skills 安装流程， Claude Code 技能配置， killer-skills add",
+      "compatibility": "AI 智能体技能的 IDE 兼容性， 支持 Skills 的 IDE， Claude Code Cursor Windsurf 兼容性， 技能运行环境支持",
+      "templates": "技能模板， 工作流技能模板， 自动化技能模板， 可复用 Agent 手册",
+      "ideCompat": "Claude Code 技能， Cursor 技能， Windsurf 技能， VS Code AI 智能体技能",
+      "cli": "AI 智能体技能 CLI， killer-skills add， 技能安装 CLI， 面向可安装技能的命令行",
+      "docs": "AI 智能体技能文档， 技能配置文档， Claude Code 安装文档， 开发者技能文档",
+      "developerExperience": "开发者工作流技能， 编码自动化技能， 开发效率技能， 面向编码的 AI 开发工具",
+      "enterpriseWorkflows": "团队工作流技能， 运营自动化技能， 业务流程技能， 面向 AI 智能体的运营手册",
+      "creativeWorkflows": "创意工作流技能， 设计自动化技能， 内容创作流程技能， 面向 AI 智能体的创意工具"
     }
   },
   "Sidebar": {
@@ -1019,7 +1019,7 @@
     }
   },
   "Skills": {
-    "copied": "已复制!",
+    "copied": "已复制！",
     "copy": "复制",
     "creators": "活跃创作者",
     "downloads": "下载量",
@@ -1034,7 +1034,7 @@
     "showOriginal": "显示原文",
     "showTranslation": "显示译文",
     "stars": "星标",
-    "translating": "翻译中...",
+    "translating": "翻译中 ...",
     "translation": "译文",
     "trending": "趋势",
     "updated": "更新于",
@@ -1043,7 +1043,7 @@
   },
   "SkillsManagerWidget": {
     "cta": "进入管理器",
-    "description": "一键解锁更多工作流。发现并安装 3,400+ AI Agent 技能。",
+    "description": "一键解锁更多工作流。发现并安装 3,400+ AI 智能体技能。",
     "subtitle": "生态系统网关",
     "title": "技能管理器"
   },
@@ -1051,7 +1051,7 @@
     "backToSolutions": "返回解决方案",
     "badge": "解决方案",
     "browseSkills": "浏览全部技能目录",
-    "faq1A": "场景页会把相关问题和最值得看的技能整理在一起，方便你更快比较并选出合适方案。",
+    "faq1A": "场景页会把相关问题和最值得看的技能整理在一起，方便你更快对比并选出合适方案。",
     "faq1Q": "为什么要用场景页而不是直接搜关键词？",
     "faq1QTemplate": "{label} 场景通常解决什么问题？",
     "faq2A": "这些技能覆盖 Claude Code、Cursor、Windsurf、VS Code 等主流 IDE，并支持统一安装流程。",
@@ -1062,8 +1062,8 @@
     "keyword1": "技能使用场景",
     "noSkills": "当前场景暂无匹配技能，请尝试其他场景页。",
     "openSolution": "进入场景",
-    "pageDescription": "按具体场景浏览可安装 AI Agent Skills，覆盖工作流、流程、文档、浏览器自动化与数据提取。",
-    "pageTitle": "可安装自动化方案：AI Agent Skills",
+    "pageDescription": "按具体场景浏览可安装 AI 智能体技能，覆盖工作流、流程、文档、浏览器自动化与数据提取。",
+    "pageTitle": "可安装自动化方案：AI 智能体技能",
     "readDocs": "查看安装文档",
     "solutions": "解决方案",
     "tryDemo": "在线试用 Skill Demo"

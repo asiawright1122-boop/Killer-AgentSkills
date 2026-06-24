@@ -8,6 +8,7 @@
 
 import fs from 'fs/promises';
 import path from 'path';
+import { cleanTypography, postProcessPhrasing } from './lib/typography';
 
 const LOCALES = ['en', 'zh', 'ar', 'de', 'es', 'fr', 'ja', 'ko', 'pt', 'ru'];
 const MESSAGES_DIR = path.join(process.cwd(), 'src/messages');
@@ -74,18 +75,45 @@ async function main() {
       }
     }
 
+    function deepClean(val: any): any {
+      if (typeof val === 'string') {
+        return cleanTypography(postProcessPhrasing(val, code), code);
+      }
+      if (Array.isArray(val)) {
+        return val.map(deepClean);
+      }
+      if (val && typeof val === 'object') {
+        const res: Record<string, any> = {};
+        for (const k of Object.keys(val)) {
+          res[k] = deepClean(val[k]);
+        }
+        return res;
+      }
+      return val;
+    }
+
     // Advanced: sorting keys alphabetically to preserve Git cleanliness
     const orderedDict: typeof locDict = {};
     Object.keys(enDict).sort().forEach(ns => {
       orderedDict[ns] = {};
       Object.keys(enDict[ns]).sort().forEach(key => {
-        orderedDict[ns][key] = locDict[ns]?.[key] || enDict[ns][key];
+        const originalVal = locDict[ns]?.[key] || enDict[ns][key];
+        let val = originalVal;
+
+        if (code === 'zh' || code === 'ja' || code === 'ko') {
+          val = deepClean(originalVal);
+          if (JSON.stringify(val) !== JSON.stringify(originalVal)) {
+            modified = true;
+          }
+        }
+
+        orderedDict[ns][key] = val;
       });
     });
 
     if (modified || Object.keys(locDict).length !== Object.keys(orderedDict).length) {
       await fs.writeFile(locPath, JSON.stringify(orderedDict, null, 2) + '\n', 'utf-8');
-      console.log(`✅ Synchronized UI Dictionary for [ ${code.toUpperCase()} ] -- Missing keys injected!`);
+      console.log(`✅ Synchronized UI Dictionary for [ ${code.toUpperCase()} ] -- Missing keys injected/formatted!`);
     } else {
       console.log(`👍 [ ${code.toUpperCase()} ] is structurally sound.`);
     }

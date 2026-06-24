@@ -2,7 +2,7 @@
   "title": {
     "en": "Community Skills & AI Utilities",
     "zh": "优质社区 MCP 工具与 AI 实用组件",
-    "ja": "コミュニティ発のMCPツールとAIユーティリティ",
+    "ja": "コミュニティ発の MCP ツールと AI ユーティリティ",
     "ko": "커뮤니티 MCP 도구와 AI 유틸리티 모음",
     "es": "herramientas MCP comunitarias y utilidades de IA",
     "fr": "outils MCP communautaires et utilitaires IA",
@@ -14,7 +14,7 @@
   "description": {
     "en": "Community Skills & AI Utilities. Compare setup quality, use cases, and IDE fit.",
     "zh": "优质社区 MCP 工具与 AI 实用组件，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "コミュニティ発のMCPツールとAIユーティリティを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "コミュニティ発の MCP ツールと AI ユーティリティを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "커뮤니티 MCP 도구와 AI 유틸리티 모음: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas MCP comunitarias y utilidades de IA. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils MCP communautaires et utilitaires IA. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "Community Skills & AI Utilities | Killer-Skills",
     "zh": "优质社区 MCP 工具与 AI 实用组件 | Killer-Skills",
-    "ja": "コミュニティ発のMCPツールとAIユーティリティ | Killer-Skills",
+    "ja": "コミュニティ発の MCP ツールと AI ユーティリティ | Killer-Skills",
     "ko": "커뮤니티 MCP 도구와 AI 유틸리티 모음 | Killer-Skills",
     "es": "herramientas MCP comunitarias y utilidades de IA | Killer-Skills",
     "fr": "outils MCP communautaires et utilitaires IA | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Community Skills & AI Utilities. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优质社区 MCP 工具与 AI 实用组件，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "コミュニティ発のMCPツールとAIユーティリティを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优质社区 MCP 工具与 AI 实用组件，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "コミュニティ発の MCP ツールと AI ユーティリティを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "커뮤니티 MCP 도구와 AI 유틸리티 모음: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas MCP comunitarias y utilidades de IA. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils MCP communautaires et utilitaires IA. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -56,14 +56,14 @@
       "community-built tools",
       "install AI agent skills"
     ],
-    "zh": ["社区 AI 技能", "社区 AI 工具", "开发者工作流工具", "团队评估", "社区构建工具", "安装 AI Agent Skills"],
+    "zh": ["社区 AI 技能", "社区 AI 工具", "开发者工作流工具", "团队评估", "社区构建工具", "安装 AI 智能体技能"],
     "ja": [
       "community AI skills",
       "community AI utilities",
       "developer workflow tools",
       "team evaluation",
       "community-built tools",
-      "install AI agent skills"
+      "install AI エージェントスキル"
     ],
     "ko": [
       "community AI skills",
@@ -71,7 +71,7 @@
       "developer workflow tools",
       "team evaluation",
       "community-built tools",
-      "install AI agent skills"
+      "install AI 에이전트 스킬"
     ],
     "es": [
       "skills de IA comunitarios",
@@ -143,7 +143,7 @@
   "longDescription": {
     "en": "This page highlights community-built MCP tools and integrations with practical value for developers. The list emphasizes projects with active maintenance and clear workflow use cases, from coding helpers to automation utilities. Use it as a starting point when evaluating community options for your team setup.",
     "zh": "该页面聚焦社区构建的 MCP 工具与集成，强调对开发者有实际价值的项目。列表优先收录维护活跃、工作流场景清晰的工具，覆盖编码辅助与自动化组件。可作为团队评估社区方案时的起点。",
-    "ja": "このページでは、開発者に実用価値のあるコミュニティ製MCPツールと連携を紹介します。保守が継続され、利用シナリオが明確なプロジェクトを中心に、コーディング支援から自動化ユーティリティまでを収録しています。チーム導入を検討する際の出発点として活用できます。",
+    "ja": "このページでは、開発者に実用価値のあるコミュニティ製 MCP ツールと連携を紹介します。保守が継続され、利用シナリオが明確なプロジェクトを中心に、コーディング支援から自動化ユーティリティまでを収録しています。チーム導入を検討する際の出発点として活用できます。",
     "ko": "이 페이지는 개발자에게 실제 가치가 있는 커뮤니티 제작 MCP 도구와 통합을 소개합니다. 유지보수가 활발하고 활용 시나리오가 분명한 프로젝트를 중심으로, 코딩 보조부터 자동화 유틸리티까지 다룹니다. 팀 스택에서 커뮤니티 옵션을 검토할 때 출발점으로 사용할 수 있습니다.",
     "es": "Esta página reúne herramientas MCP e integraciones creadas por la comunidad con utilidad real para desarrolladores. La selección prioriza proyectos con mantenimiento activo y casos de uso claros, desde asistentes de código hasta utilidades de automatización. Úsala como punto de partida para evaluar opciones comunitarias en tu stack.",
     "fr": "Cette page présente des outils MCP et intégrations créés par la communauté avec une vraie utilité pour les développeurs. La sélection privilégie les projets activement maintenus et les cas d’usage concrets, des assistants de code aux utilitaires d’automatisation. Utilisez-la comme point de départ pour évaluer des options communautaires.",

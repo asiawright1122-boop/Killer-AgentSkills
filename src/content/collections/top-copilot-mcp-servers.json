@@ -2,7 +2,7 @@
   "title": {
     "en": "Copilot Workflow Tools to Install First",
     "zh": "优先安装的 Copilot 工作流工具",
-    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツール",
+    "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツール",
     "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구",
     "es": "Skills y herramientas companion para GitHub Copilot",
     "fr": "Skills et outils companion pour GitHub Copilot",
@@ -14,7 +14,7 @@
   "description": {
     "en": "Copilot Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 Copilot 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "Skills y herramientas companion para GitHub Copilot. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "Skills et outils companion pour GitHub Copilot. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "Copilot Workflow Tools to Install First | Killer-Skills",
     "zh": "优先安装的 Copilot 工作流工具 | Killer-Skills",
-    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツール | Killer-Skills",
+    "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツール | Killer-Skills",
     "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구 | Killer-Skills",
     "es": "Skills y herramientas companion para GitHub Copilot | Killer-Skills",
     "fr": "Skills et outils companion pour GitHub Copilot | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Copilot Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 Copilot 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "GitHub Copilot向けコンパニオンスキル＆開発ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 Copilot 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "GitHub Copilot 向けコンパニオンスキル＆開発ツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "GitHub Copilot 컴패니언 스킬 & 개발 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara Skills y herramientas companion para GitHub Copilot. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez Skills et outils companion pour GitHub Copilot. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,25 +62,25 @@
       "评审与文档工具",
       "开发工作流护栏",
       "团队编码工作流",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "github copilot companion dev AI agent skills",
+      "ワークフロー自動化",
+      "github copilot companion dev AI エージェントスキル",
       "github copilot companion dev developer workflow",
-      "github copilot companion dev workflow automation"
+      "github copilot companion dev ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "github copilot companion dev AI agent skills",
+      "워크플로우 자동화",
+      "github copilot companion dev AI 에이전트 스킬",
       "github copilot companion dev developer workflow",
-      "github copilot companion dev workflow automation"
+      "github copilot companion dev 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -153,7 +153,7 @@
     "reviewSummary": {
       "en": "Updated on 2026-04-17 to keep setup information, practical use cases, and maintenance status accurate.",
       "zh": "已于 2026-04-17 更新，重点核对安装信息、实际用途与维护状态。",
-      "ja": "2026-04-17に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
+      "ja": "2026-04-17 に更新して、設定情報、実際の使用例、メンテナンスの状態を正確に保つ。",
       "ko": "2026-04-17에 설정 정보, 실제 사용 사례 및 유지 관리 상태를 정확하게 유지하기 위해 업데이트되었습니다.",
       "es": "Actualizado el 2026-04-17 para mantener la precisión de la información de configuración, los casos de uso prácticos y el estado de mantenimiento.",
       "fr": "Mis à jour le 2026-04-17 pour maintenir l'exactitude des informations de configuration, des cas d'utilisation pratiques et du statut de maintenance.",
@@ -164,7 +164,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪れる人は、比較しやすく、簡単に設定でき、実際の仕事で試せる短いリストがほしい場合が多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교하고 쉽게 설정하여 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",
@@ -302,7 +302,7 @@
   "longDescription": {
     "en": "If your team is already using GitHub Copilot, this collection is a better starting point than opening unrelated companion repos. It helps you compare review helpers, documentation support, testing tools, and delivery tooling, to help you find the best fit for real work faster.",
     "zh": "如果你的团队已经在使用 GitHub Copilot，这个合集比随机打开配套仓库更适合作为起点。它聚焦评审辅助、文档支持、测试护栏与交付工具，帮助你更快找到适合当前协作方式的配套能力，因此比扁平的工具清单更适合作为选型起点。",
-    "ja": "このコレクションは、Copilotを単体機能ではなく開発ワークフロー全体の一部として捉えます。レビューゲート、ドキュメント更新、テスト支援、運用自動化に効く補助スキルとツールを収録。MCP接続を備えるものもありますが、主な価値は実務での品質向上と反復作業の削減にあります。",
+    "ja": "このコレクションは、Copilot を単体機能ではなく開発ワークフロー全体の一部として捉えます。レビューゲート、ドキュメント更新、テスト支援、運用自動化に効く補助スキルとツールを収録。MCP 接続を備えるものもありますが、主な価値は実務での品質向上と反復作業の削減にあります。",
     "ko": "이 컬렉션은 Copilot을 단일 AI 기능이 아닌 개발 워크플로우 시스템의 일부로 다룹니다. 리뷰 게이트, 문서 업데이트, 테스트 지원, 운영 자동화를 위한 컴패니언 스킬과 툴링을 제공합니다. 일부 도구는 MCP 연결을 지원하지만, 핵심 가치는 실무 품질 향상과 반복 작업 감소입니다.",
     "es": "Esta colección presenta Copilot como parte de un sistema completo de workflow para developers. En lugar de usarlo como función aislada, incorpora skills y tooling companion para puertas de review, actualización de documentación, soporte de testing y automatización operativa. Algunos recursos incluyen MCP, pero el beneficio principal es práctico: mejor calidad de entrega y menos trabajo repetitivo.",
     "fr": "Cette collection positionne Copilot dans un système complet de workflow développeur. Plutôt qu’une fonctionnalité IA isolée, elle propose des skills et outils companion pour les gates de review, la mise à jour de documentation, le support tests et l’automatisation opérationnelle. Certaines options intègrent MCP, mais la valeur principale est concrète: meilleure qualité et moins de tâches répétitives.",

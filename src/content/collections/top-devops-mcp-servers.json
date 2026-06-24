@@ -2,7 +2,7 @@
   "title": {
     "en": "DevOps Workflow Tools to Install First",
     "zh": "优先安装的 DevOps 工作流工具",
-    "ja": "注目のDevOps運用自動化ツール",
+    "ja": "注目の DevOps 運用自動化ツール",
     "ko": "주목할 만한 DevOps 운영 자동화 도구",
     "es": "herramientas de automatización para operaciones DevOps",
     "fr": "outils d’automatisation pour opérations DevOps",
@@ -14,7 +14,7 @@
   "description": {
     "en": "DevOps Workflow Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 DevOps 工作流工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "注目のDevOps運用自動化ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "注目の DevOps 運用自動化ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "주목할 만한 DevOps 운영 자동화 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas de automatización para operaciones DevOps. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils d’automatisation pour opérations DevOps. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -26,7 +26,7 @@
   "seoTitle": {
     "en": "DevOps Workflow Tools to Install First | Killer-Skills",
     "zh": "优先安装的 DevOps 工作流工具 | Killer-Skills",
-    "ja": "注目のDevOps運用自動化ツール | Killer-Skills",
+    "ja": "注目の DevOps 運用自動化ツール | Killer-Skills",
     "ko": "주목할 만한 DevOps 운영 자동화 도구 | Killer-Skills",
     "es": "herramientas de automatización para operaciones DevOps | Killer-Skills",
     "fr": "outils d’automatisation pour opérations DevOps | Killer-Skills",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare DevOps Workflow Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 DevOps 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "注目のDevOps運用自動化ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 DevOps 工作流工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "注目の DevOps 運用自動化ツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "주목할 만한 DevOps 운영 자동화 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas de automatización para operaciones DevOps. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils d’automatisation pour opérations DevOps. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -62,7 +62,7 @@
       "运维自动化工具",
       "发布与事故响应工具",
       "平台工程工作流",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
       "DevOps workflow tools",
@@ -70,7 +70,7 @@
       "release tools",
       "incident response",
       "platform engineering",
-      "install AI agent skills"
+      "install AI エージェントスキル"
     ],
     "ko": [
       "DevOps workflow tools",
@@ -78,7 +78,7 @@
       "release tools",
       "incident response",
       "platform engineering",
-      "install AI agent skills"
+      "install AI 에이전트 스킬"
     ],
     "es": [
       "herramientas DevOps",
@@ -143,8 +143,8 @@
   ],
   "longDescription": {
     "en": "If your team runs production systems, this page helps you narrow the shortlist quickly without sending you back into another operations-tool crawl. It compares workflow helpers, reliability tools, and developer companions that fit DevOps execution, to help you find the best fit for real work faster. That makes it a better starting point than a broad automation roundup.",
-    "zh": "如果你的团队正在运行生产系统，这页会帮助你更快缩小范围，不必再回到冗长的运维工具比较。它聚焦适合 DevOps 执行路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛自动化榜单更适合作为真正的推荐入口。",
-    "ja": "このコレクションは、本番運用を担うチーム向けです。リリース自動化、インフラ管理、アラート対応、信頼性運用を幅広く扱い、手作業を減らして変化への対応速度を高めます。MCPが連携手段として登場する場合はありますが、中心は現代的な開発体制における運用品質です。",
+    "zh": "如果你的团队正在运行生产系统，这页会帮助你更快缩小范围，不必再回到冗长的运维工具对比。它聚焦适合 DevOps 执行路径的工作流助手、护栏工具与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。这比宽泛自动化榜单更适合作为真正的推荐入口。",
+    "ja": "このコレクションは、本番運用を担うチーム向けです。リリース自動化、インフラ管理、アラート対応、信頼性運用を幅広く扱い、手作業を減らして変化への対応速度を高めます。MCP が連携手段として登場する場合はありますが、中心は現代的な開発体制における運用品質です。",
     "ko": "이 컬렉션은 프로덕션 운영 팀을 위한 구성입니다. 릴리스 자동화, 인프라 관리, 알림 대응, 신뢰성 운영 전반을 다루며 수작업 부담을 줄이고 변화 대응 속도를 높입니다. MCP는 통합 옵션으로 포함될 수 있지만, 핵심 서사는 현대 엔지니어링 워크플로의 운영 우수성입니다.",
     "es": "Esta colección está pensada para equipos que operan software en producción. Cubre automatización DevOps en releases, gestión de infraestructura, manejo de alertas y rutinas de confiabilidad para reducir trabajo manual y reaccionar más rápido. MCP puede aparecer como opción de integración, pero el enfoque central es la excelencia operativa.",
     "fr": "Cette collection vise les équipes qui exploitent des logiciels en production. Elle couvre l’automatisation DevOps sur les releases, la gestion d’infrastructure, le traitement des alertes et les routines de fiabilité afin de réduire le travail manuel et d’accélérer la réponse aux changements. MCP peut être utilisé comme option d’intégration, mais l’axe principal reste l’excellence opérationnelle.",
@@ -168,7 +168,7 @@
     },
     "selectionReason": {
       "en": "People visiting this page usually want a shorter list they can compare quickly, set up easily, and try in real work.",
-      "zh": "这里提供更短、更容易比较的候选清单，方便快速上手试用。",
+      "zh": "这里提供更短、更容易对比的候选清单，方便快速上手试用。",
       "ja": "このページを訪問する人は、比較しやすく、簡単に設定でき、実際の仕事で試せる短いリストがほしいことが多い。",
       "ko": "이 페이지를 방문하는 사람들은 일반적으로 빠르게 비교하고 쉽게 설정하여 실제 작업에서 시도할 수 있는 더 짧은 목록을 원합니다.",
       "es": "Las personas que visitan esta página suelen buscar una lista más corta que puedan comparar rápidamente, configurar con facilidad y probar en un entorno de trabajo real.",

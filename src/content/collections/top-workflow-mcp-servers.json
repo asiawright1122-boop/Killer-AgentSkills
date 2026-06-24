@@ -14,7 +14,7 @@
   "description": {
     "en": "Agent Workflow Building Tools to Install First. Compare setup quality, use cases, and IDE fit.",
     "zh": "优先安装的 Agent 工作流构建工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "注目のエージェント向けワークフロー構築ツールを比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "ja": "注目のエージェント向けワークフロー構築ツールを比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "주목할 만한 에이전트 워크플로 구축 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "herramientas para construir workflows de agentes. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "outils pour construire des workflows d’agents. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare Agent Workflow Building Tools to Install First. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较优先安装的 Agent 工作流构建工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "注目のエージェント向けワークフロー構築ツールを比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比优先安装的 Agent 工作流构建工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "注目のエージェント向けワークフロー構築ツールを比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "주목할 만한 에이전트 워크플로 구축 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara herramientas para construir workflows de agentes. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez outils pour construire des workflows d’agents. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -57,28 +57,28 @@
       "install AI agent skills"
     ],
     "zh": [
-      "AI Agent 工作流工具",
+      "AI 智能体工作流工具",
       "Agent 工作流构建工具",
       "工作流骨架工具",
       "上下文协作衔接工具",
       "审批工作流自动化",
-      "安装 AI Agent Skills"
+      "安装 AI 智能体技能"
     ],
     "ja": [
       "Agent workflow tools",
       "workflow building tools",
       "Claude Code skills",
-      "workflow automation",
+      "ワークフロー自動化",
       "context coordination tools",
-      "install AI agent skills"
+      "install AI エージェントスキル"
     ],
     "ko": [
       "Agent workflow tools",
       "workflow building tools",
       "Claude Code skills",
-      "workflow automation",
+      "워크플로우 자동화",
       "context coordination tools",
-      "install AI agent skills"
+      "install AI 에이전트 스킬"
     ],
     "es": [
       "herramientas de workflow para agentes",
@@ -434,9 +434,9 @@
   },
   "longDescription": {
     "en": "If your team is designing multi-step agent execution, start here before opening unrelated workflow repositories. The collection compares tools for routing, approvals, context coordination, reusable templates, and documentation, then points you toward installation and CLI guidance. It helps teams choose one workflow lane, run a real task, and decide whether the pattern deserves wider use.",
-    "zh": "如果你的团队正在设计多步 Agent 执行链路，可以先看这个合集，再去比较无关的 workflow 仓库。它会比较路由、审批、上下文协作、可复用模板和文档工具，并把你带到安装与 CLI 指引。团队可以先选择一条工作流链路、跑一遍真实任务，再判断是否扩大使用。",
-    "ja": "このコレクションは、現代的なエージェントアーキテクチャで使われるワークフロー構成要素に焦点を当てています。ルーティング、文脈を保った引き継ぎ、承認チェックポイント、再利用可能な多段パターンなどを整理でき、チーム横断で標準化しやすくなります。MCP接続に対応する選択肢もありますが、主眼はAI Agent SkillsとIDE開発向けの実践的な設計です。",
-    "ko": "이 컬렉션은 현대적인 에이전트 아키텍처에서 쓰이는 워크플로 빌딩 블록에 초점을 맞춥니다. 라우팅, 컨텍스트를 유지한 핸드오프, 승인 체크포인트, 재사용 가능한 다단계 패턴을 지원하는 도구를 통해 팀 간 표준화를 쉽게 만들 수 있습니다. 일부는 MCP 연결을 제공하지만, 핵심은 AI Agent Skills와 IDE 중심 개발을 위한 실용적 워크플로 설계입니다.",
+    "zh": "如果你的团队正在设计多步 Agent 执行链路，可以先看这个合集，再去对比无关的 workflow 仓库。它会对比路由、审批、上下文协作、可复用模板和文档工具，并把你带到安装与 CLI 指引。团队可以先选择一条工作流链路、跑一遍真实任务，再判断是否扩大使用。",
+    "ja": "このコレクションは、現代的なエージェントアーキテクチャで使われるワークフロー構成要素に焦点を当てています。ルーティング、文脈を保った引き継ぎ、承認チェックポイント、再利用可能な多段パターンなどを整理でき、チーム横断で標準化しやすくなります。MCP 接続に対応する選択肢もありますが、主眼は AI エージェントスキルと IDE 開発向けの実践的な設計です。",
+    "ko": "이 컬렉션은 현대적인 에이전트 아키텍처에서 쓰이는 워크플로 빌딩 블록에 초점을 맞춥니다. 라우팅, 컨텍스트를 유지한 핸드오프, 승인 체크포인트, 재사용 가능한 다단계 패턴을 지원하는 도구를 통해 팀 간 표준화를 쉽게 만들 수 있습니다. 일부는 MCP 연결을 제공하지만, 핵심은 AI 에이전트 스킬와 IDE 중심 개발을 위한 실용적 워크플로 설계입니다.",
     "es": "Esta colección destaca bloques de workflow usados en arquitecturas modernas de agentes. Incluye herramientas para enrutamiento, coordinación con contexto, pasos de aprobación y patrones reutilizables de varios pasos que los equipos pueden estandarizar. Algunas opciones integran MCP, pero el foco principal es el diseño práctico de workflows para skills de agentes e IDE.",
     "fr": "Cette collection met en avant les briques de workflow utilisées dans les architectures d’agents modernes. Vous y trouverez des outils pour le routage, la coordination avec contexte, des étapes de vérification et des patterns multi-étapes réutilisables. Certaines options proposent une connectivité MCP, mais l’objectif principal reste la conception pratique de workflows pour les skills d’agents IA et le développement orienté IDE.",
     "de": "Diese Sammlung zeigt Workflow-Bausteine für moderne Agentenarchitekturen. Enthalten sind Tools für Routing, kontextbewusste Zusammenarbeit, Freigabeschritte und wiederverwendbare Multi-Step-Muster, die Teams projektübergreifend standardisieren können. Teilweise ist MCP-Konnektivität vorhanden, im Fokus steht jedoch praxisnahes Workflow-Design für KI-Agenten-Skills und IDE-Workflows.",

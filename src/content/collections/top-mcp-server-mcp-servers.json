@@ -1,8 +1,8 @@
 {
   "title": {
     "en": "AI Agent Integration Frameworks, Bridges, and Infra Tooling",
-    "zh": "顶级 AI Agent 集成框架、桥接与基础设施工具",
-    "ja": "AIエージェント連携フレームワーク・ブリッジ・基盤ツール集",
+    "zh": "顶级 AI 智能体集成框架、桥接与基础设施工具",
+    "ja": "AI エージェント連携フレームワーク・ブリッジ・基盤ツール集",
     "ko": "주요 AI 에이전트 통합 프레임워크·브리지·인프라 도구",
     "es": "frameworks, bridges e infraestructura para integraciones de agentes de IA",
     "fr": "frameworks, bridges et outillage infra pour intégrations d’agents IA",
@@ -13,8 +13,8 @@
   },
   "description": {
     "en": "AI Agent Integration Frameworks, Bridges, and Infra Tooling. Compare setup quality, use cases, and IDE fit.",
-    "zh": "顶级 AI Agent 集成框架、桥接与基础设施工具，查看安装路径、实际用途和适合的开发环境。",
-    "ja": "AIエージェント連携フレームワーク・ブリッジ・基盤ツール集を比較。セットアップ手順、用途、IDE適合性を確認できます。",
+    "zh": "顶级 AI 智能体集成框架、桥接与基础设施工具，查看安装路径、实际用途和适合的开发环境。",
+    "ja": "AI エージェント連携フレームワーク・ブリッジ・基盤ツール集を比較。セットアップ手順、用途、IDE 適合性を確認できます。",
     "ko": "주요 AI 에이전트 통합 프레임워크·브리지·인프라 도구: 설정 경로, 사용 사례, IDE 적합성을 비교하세요.",
     "es": "frameworks, bridges e infraestructura para integraciones de agentes. Compara instalación, casos de uso y encaje con tu IDE.",
     "fr": "frameworks, bridges et outillage infra pour intégrations d’agents IA. Comparez l’installation, les cas d’usage et l’adaptation IDE.",
@@ -25,8 +25,8 @@
   },
   "seoTitle": {
     "en": "AI Agent Integration Frameworks, Bridges, and Infra Tooling",
-    "zh": "顶级 AI Agent 集成框架、桥接与基础设施工具 | Killer-Skills",
-    "ja": "AIエージェント連携フレームワーク・ブリッジ・基盤ツール集 | Killer-Skills",
+    "zh": "顶级 AI 智能体集成框架、桥接与基础设施工具 | Killer-Skills",
+    "ja": "AI エージェント連携フレームワーク・ブリッジ・基盤ツール集 | Killer-Skills",
     "ko": "주요 AI 에이전트 통합 프레임워크·브리지·인프라 도구 | Killer-Skills",
     "es": "frameworks, bridges e infraestructura para integraciones de agentes",
     "fr": "frameworks, bridges et outillage infra pour intégrations d’agents IA",
@@ -37,8 +37,8 @@
   },
   "seoDescription": {
     "en": "Compare AI Agent Integration Frameworks, Bridges, and Infra Tooling. Review install paths, use cases, and practical tools for Claude Code, Cursor, and Windsurf.",
-    "zh": "比较顶级 AI Agent 集成框架、桥接与基础设施工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
-    "ja": "AIエージェント連携フレームワーク・ブリッジ・基盤ツール集を比較。Claude Code、Cursor、Windsurf向けのセットアップ手順、用途、実用ツールを確認できます。",
+    "zh": "对比顶级 AI 智能体集成框架、桥接与基础设施工具，查看安装路径、适用场景，以及适合 Claude Code、Cursor 与 Windsurf 的实用工具。",
+    "ja": "AI エージェント連携フレームワーク・ブリッジ・基盤ツール集を比較。Claude Code、Cursor、Windsurf 向けのセットアップ手順、用途、実用ツールを確認できます。",
     "ko": "주요 AI 에이전트 통합 프레임워크·브리지·인프라 도구: Claude Code, Cursor, Windsurf용 설정 경로, 사용 사례, 실용 도구를 비교하세요.",
     "es": "Compara frameworks, bridges e infraestructura para integraciones de agentes. Revisa instalación, casos de uso y herramientas para Claude Code, Cursor y Windsurf.",
     "fr": "Comparez frameworks, bridges et outillage infra pour intégrations d’agents IA. Consultez installation, cas d’usage et outils pour Claude Code, Cursor et Windsurf.",
@@ -58,31 +58,31 @@
       "integration frameworks bridges infra workflow automation"
     ],
     "zh": [
-      "AI Agent Skills",
+      "AI 智能体技能",
       "开发者工作流",
       "Claude Code 技能",
       "工作流自动化",
-      "integration frameworks bridges infra AI agent skills",
+      "integration frameworks bridges infra AI 智能体技能",
       "integration frameworks bridges infra developer workflow",
-      "integration frameworks bridges infra workflow automation"
+      "integration frameworks bridges infra 工作流自动化"
     ],
     "ja": [
-      "AI Agent Skills",
+      "AI エージェントスキル",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "integration frameworks bridges infra AI agent skills",
+      "ワークフロー自動化",
+      "integration frameworks bridges infra AI エージェントスキル",
       "integration frameworks bridges infra developer workflow",
-      "integration frameworks bridges infra workflow automation"
+      "integration frameworks bridges infra ワークフロー自動化"
     ],
     "ko": [
-      "AI Agent Skills",
+      "AI 에이전트 스킬",
       "developer workflow",
       "Claude Code skills",
-      "workflow automation",
-      "integration frameworks bridges infra AI agent skills",
+      "워크플로우 자동화",
+      "integration frameworks bridges infra AI 에이전트 스킬",
       "integration frameworks bridges infra developer workflow",
-      "integration frameworks bridges infra workflow automation"
+      "integration frameworks bridges infra 워크플로우 자동화"
     ],
     "es": [
       "AI agent skills",
@@ -155,8 +155,8 @@
   ],
   "longDescription": {
     "en": "This collection is for teams building AI agent integration infrastructure, not just consuming tools. It includes frameworks, bridge layers, and operational tooling used to expose internal systems safely to agents. Use it to evaluate architecture choices for integration fit, deployment model, and observability in production.",
-    "zh": "本集合面向需要自建 AI Agent 集成基础设施的团队，而不仅是使用现成工具。内容覆盖服务框架、协议桥接层与运维工具，帮助你将内部系统安全暴露给智能体。可用于评估协议兼容性、部署方式与生产可观测性等关键架构决策。",
-    "ja": "このコレクションは、ツール利用者ではなくAIエージェント統合基盤を自ら構築するチーム向けです。フレームワーク、ブリッジ層、運用ツールをまとめ、内部システムを安全にエージェントへ公開する設計を支援します。プロトコル互換性、デプロイ方式、可観測性の観点で構成を比較できます。",
+    "zh": "本集合面向需要自建 AI 智能体集成基础设施的团队，而不仅是使用现成工具。内容覆盖服务框架、协议桥接层与运维工具，帮助你将内部系统安全暴露给智能体。可用于评估协议兼容性、部署方式与生产可观测性等关键架构决策。",
+    "ja": "このコレクションは、ツール利用者ではなく AI エージェント統合基盤を自ら構築するチーム向けです。フレームワーク、ブリッジ層、運用ツールをまとめ、内部システムを安全にエージェントへ公開する設計を支援します。プロトコル互換性、デプロイ方式、可観測性の観点で構成を比較できます。",
     "ko": "이 컬렉션은 단순 사용자가 아니라 AI 에이전트 통합 인프라를 직접 구축하는 팀을 위한 목록입니다. 프레임워크, 브리지 계층, 운영 도구를 포함해 내부 시스템을 에이전트에 안전하게 노출하는 데 초점을 맞춥니다. 프로토콜 호환성, 배포 모델, 관측성 관점에서 아키텍처를 비교할 수 있습니다.",
     "es": "Esta colección está pensada para equipos que construyen infraestructura de integración de agentes de IA, no solo para consumo de herramientas. Reúne frameworks, capas bridge y tooling operativo para exponer sistemas internos a agentes de forma segura. Sirve para evaluar compatibilidad de protocolo, modelo de despliegue y observabilidad en producción.",
     "fr": "Cette collection vise les équipes qui construisent une infrastructure d’intégration pour agents IA, pas seulement celles qui consomment des outils. Elle regroupe frameworks, couches bridge et outillage opérationnel pour exposer des systèmes internes aux agents de manière sûre. Elle aide à comparer compatibilité protocolaire, déploiement et observabilité.",
