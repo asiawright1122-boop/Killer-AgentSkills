@@ -734,7 +734,10 @@
     "faq5A": "The detail page brings together the install command, supported IDEs, source repository, and related skills so you can quickly decide whether a skill fits your task.",
     "faq6Q": "What is MCP (Model Context Protocol)?",
     "faq6A": "MCP (Model Context Protocol) is an open standard that lets AI coding assistants like Claude Code, Cursor, and Windsurf connect to external tools, data sources, and services through a unified interface. Killer-Skills lists MCP servers and skills that use this protocol to extend what your AI assistant can do.",
-    "seoIntro": "Killer-Skills is an open-source directory for 3,400+ AI agent skills. Browse curated collections, open install docs, and find reusable skills for Claude Code, Cursor, and Windsurf."
+    "seoIntro": "Killer-Skills is an open-source directory for 3,400+ AI agent skills. Browse curated collections, open install docs, and find reusable skills for Claude Code, Cursor, and Windsurf.",
+    "editorialCurationTitle": "Why These Tools First",
+    "editorialCurationBody": "We prioritize skills from official sources (Anthropic, Vercel, Cloudflare, Sentry) and high-star community repositories that have passed our quality review floor. Every indexed skill has a first-party recommendation layer explaining its fit, real use cases, and limitations. Skills that do not meet this bar remain accessible for installation reference but are excluded from search listings — so what Google indexes always carries editorial judgment, not raw GitHub imports.",
+    "editorialCurationLink": "Read our selection criteria"
   },
   "Integrations": {
     "worksWhereYouWork": "Works Where You Work",

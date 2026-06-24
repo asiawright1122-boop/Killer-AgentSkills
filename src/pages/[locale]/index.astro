@@ -434,6 +434,16 @@ const features = [
           </div>
         </div>
 
+        {/* Editorial curation rationale — first-party voice explaining selection criteria */}
+        <div class="mt-8 border-l-4 border-[var(--primary)] pl-6 py-2">
+          <h3 class="text-lg font-black uppercase tracking-tight mb-2">
+            {tr('Home.editorialCurationTitle', 'Why These Tools First')}
+          </h3>
+          <p class="text-sm leading-7 text-[var(--muted-foreground)] font-medium">
+            {tr('Home.editorialCurationBody', '')}
+          </p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {
             homeDisplaySurfaces.map((surface) => (
