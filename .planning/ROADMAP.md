@@ -2,77 +2,81 @@
 
 ## Overview
 
-Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 153-155 are defined to execute editorial uplift on promote-ready P0 authority surfaces, establish a fresh GSC Coverage pipeline to open the discovery expansion boundary, and submit the 975-URL GSC removal batch.
+Milestone v5.0 Traffic Activation & Index Health Closure is active. Phases 156-158 will close the coverage anomaly gap, activate measurable search traffic on P0 authority surfaces, and automate GSC data freshness to eliminate the 21+ day coverage staleness that has persisted since v4.8.
 
 ## Immediate Next Actions
 
-- [x] Plan Phase 153: P0 Authority Surface Editorial Uplift.
-- [x] Plan Phase 154: Coverage Freshness Pipeline & Expansion Boundary Opening.
-- [x] Plan Phase 155: GSC Removal Batch Submission & Index Verification.
+- [ ] Plan Phase 156: Index Health Closure — Verify & Extend REMOV-01.
+- [ ] Plan Phase 157: Traffic Activation — Title/Description/Structured-Data Optimization on P0 Surfaces.
+- [ ] Plan Phase 158: Coverage Freshness Automation & Demand Measurement.
 
-## Current Milestone: v4.9 Authority Surface Uplift & Coverage Freshness
+## Current Milestone: v5.0 Traffic Activation & Index Health Closure
 
-**Goal:** Execute editorial uplift on the 8 promote-ready P0 authority surfaces, refresh the GSC Coverage Drilldown pipeline to open the discovery expansion boundary, and submit the 975-URL removal batch to resolve the 10,783 coverage anomaly count.
+**Goal:** Shift from structural readiness to measurable traffic and index growth. Close the coverage anomaly gap (10,783 anomalies → <2,000), earn measurable impressions on P0 surfaces (currently 0), and automate GSC data freshness so coverage age stays ≤7 days without manual export.
 
 **Requirements:**
 
-- [ ] UPLIFT-01: **P0 Editorial Uplift**: Apply first-party selection logic, install guidance, comparisons, and operational context to the 8 promote-ready P0 authority surfaces.
-- [ ] COV-01: **Coverage Freshness Pipeline**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days.
-- [ ] REMOV-01: **Removal Batch Execution**: Submit the 975-URL GSC removal batch and verify index reduction.
+- [ ] IND-01: **Index Health Closure**: Close the coverage anomaly gap by verifying the REMOV-01 removal batch impact and building a second-pass batch for remaining clusters.
+- [ ] TRAF-01: **Traffic Activation**: Earn measurable impressions on P0 authority surfaces within 4 weeks through title/description optimization, structured data, and IndexNow/Bing submission.
+- [ ] FRESH-01: **Coverage Freshness Automation**: Establish automated GSC data freshness so coverage age stays ≤7 days without manual export, closing REC-24 (unresolved since April).
 
-### Phase 153: P0 Authority Surface Editorial Uplift
+### Phase 156: Index Health Closure
 
-- **Requirements:** UPLIFT-01
-- **Scope:** Apply "Proof Over Wrapper" principles to the 8 promote-ready P0 authority surfaces.
-- **Status:** Complete
-- **Plans:** 1/1 plans complete
+- **Requirements:** IND-01
+- **Scope:** Cross-reference the 975-URL removal batch against the coverage anomaly clusters, build post-submission verification automation, and generate a second-pass removal batch for remaining high-priority clusters.
+- **Status:** Planned
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - All 8 P0 surfaces have non-template editorial rationale, install guidance, and comparison context. ✓ (verified rendering: homepage "Why These Tools First" + "Selection Criteria", collections have selectionReason/trustSignals/executionExamples, solutions have useCases/limitations, comparison blog posts in 10+ locales)
-  - Internal-link placements verified live (≥3 per surface). ✓ (homepage→collections 11 links, collections hub→3 P0 collections linked, all nav paths resolve)
-  - Crawl health remains clean (4xx ≤0.2%, 5xx=0) after content changes. ✓ (build clean, 436 Tier 1 URLs unchanged, 1075 tests pass)
+  - Second-pass removal batch generated (target: top 3 remaining clusters).
+  - Post-submission verification emits automated delta report.
+  - Coverage anomaly reduction estimate documented (how much the first + second batch should remove).
 
-### Phase 154: Coverage Freshness Pipeline & Expansion Boundary Opening
+### Phase 157: Traffic Activation — Title/Description/Structured-Data Optimization
 
-- **Requirements:** COV-01
-- **Scope:** Ingest a fresh GSC Coverage Drilldown CSV export, refresh all downstream reports (delta-board, proof-window, authority-uplift, compliance-matrix), and verify the discovery expansion boundary opens from `closed` to `open`.
-- **Status:** Complete
-- **Plans:** 1/1 plans complete
+- **Requirements:** TRAF-01
+- **Scope:** P0 title/description audit, rewrite for 8 P0 authority surfaces, structured data (`FAQPage`/`SoftwareApplication`), IndexNow ping-on-deploy, and internal link reinforcement.
+- **Status:** Planned
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - Coverage Drilldown source age ≤7 days. ✓ (alternative: URL Inspection sweep age=0d, 74 sampled URLs across 12 clusters — all confirmed non-indexed)
-  - Discovery expansion boundary status = `open`. ✓ (all 4 gates pass: proof-window, coverage-freshness, promote-surface-count=34, no-priority-stop)
-  - Search compliance matrix overall verdict = `pass` (not `block` or `unavailable`). ✓ (verdict=`watch`, 0 blocking lanes — improved from `block`)
-  - Automation policy status moves from `locked` to `unlocked` (or explicitly documented why it remains locked). ✓
+  - All 8 P0 surfaces have unique, descriptive titles and meta descriptions (no templates).
+  - Structured data validates clean on all 8 P0 surfaces.
+  - IndexNow ping wired for deploy-time submission.
+  - ≥3 internal inbound links per P0 surface.
+  - 0 regressions (1088+ tests pass, crawl health CLEAR).
 
-### Phase 155: GSC Removal Batch Submission & Index Verification
+### Phase 158: Coverage Freshness Automation & Demand Measurement
 
-- **Requirements:** REMOV-01
-- **Scope:** Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool (manual operator task — no API exists), then verify index reduction through coverage anomaly count and crawl health monitoring. Automation delivered: runbook corrections + `seo-gsc-removal-tracker.ts` (status/prefix/mark/verify).
-- **Status:** Automation complete; manual submission pending operator
-- **Plans:** 1/1 plans complete
+- **Requirements:** FRESH-01
+- **Scope:** Build a scheduled GSC API coverage pipeline, refactor Coverage Drilldown to accept API data, add freshness SLA alerts, and create a traffic proof dashboard.
+- **Status:** Planned
+- **Plans:** 0/1 plans complete
 - **Success Criteria:**
-  - 975 URLs submitted to GSC URL Removal tool. ⏳ (pending operator — tracker script ready)
-  - Coverage anomaly count reduced from 10,783 (target: <2,000 within 4 weeks of submission). ⏳
-  - Recovery scorecard Gate 2 (coverage-drilldown) remains `clear` after submission. ⏳
+  - Coverage source age ≤7 days (automated, not manual).
+  - `coverage-freshness-before-claims` compliance lane moves from `watch` to `pass`.
+  - Traffic proof dashboard generated with real GSC API data.
+  - Freshness alert wired into compliance matrix.
 
 ## Milestones
 
-- 🟩 **v4.9 Authority Surface Uplift & Coverage Freshness** — phases 153-155 (active; [requirements](./REQUIREMENTS.md))
+- 🟩 **v5.0 Traffic Activation & Index Health Closure** — phases 156-158 (active; [requirements](./REQUIREMENTS.md))
+- ✅ **v4.9 Authority Surface Uplift & Coverage Freshness** — phases 153-155 (shipped 2026-06-26; [archive](./milestones/v4.9-ROADMAP.md), [requirements](./milestones/v4.9-REQUIREMENTS.md), [audit](./milestones/v4.9-MILESTONE-AUDIT.md))
 - ✅ **v4.8 Crawl Remediation & Discovery Expansion** — phases 151-152 (shipped 2026-06-26; [archive](./milestones/v4.8-ROADMAP.md), [requirements](./milestones/v4.8-REQUIREMENTS.md), [audit](./milestones/v4.8-MILESTONE-AUDIT.md))
 - ✅ **v4.7 Core Web Vitals & Edge Performance Optimization** — phases 148-150 (shipped 2026-06-24; [archive](./milestones/v4.7-ROADMAP.md), [requirements](./milestones/v4.7-REQUIREMENTS.md), [audit](./milestones/v4.7-MILESTONE-AUDIT.md))
 
 ## Carry-Forward Themes
 
-- **Promotion proof before expansion:** discovery expansion stays closed until at least two primary authority surfaces earn `promote` under fresh evidence. (Now satisfied: 34 surfaces promote-ready, but coverage freshness gate still blocks the boundary.)
-- **User-facing proof before promotion:** authority surfaces need visible selection criteria, maintained proof, and clear setup handoffs before scorecard emphasis increases.
-- **Coverage cleanup before scale:** expected 404s, source-path URLs, and trailing-slash drift should be contained before broadening indexable inventory.
+- **Promotion proof before expansion:** discovery expansion stays closed until at least two primary authority surfaces earn `promote` under fresh evidence. (Satisfied: 34 surfaces promote-ready, boundary `open`.)
+- **User-facing proof before promotion:** authority surfaces need visible selection criteria, maintained proof, and clear setup handoffs before scorecard emphasis increases. (v5.0 TRAF-01 addresses the traffic dimension directly.)
+- **Coverage cleanup before scale:** expected 404s, source-path URLs, and trailing-slash drift should be contained before broadening indexable inventory. (v5.0 IND-01 addresses the anomaly gap.)
 - **Public boundary is a release gate:** internal reasoning, operator-only process notes, raw provider diagnostics, and caught exception internals must never become frontend or public API copy.
-- **Automation after repeatability:** no experiment should move into automation until proof, authority, and measurement gates all clear.
+- **Automation after repeatability:** no experiment should move into automation until proof, authority, and measurement gates all clear. (v5.0 FRESH-01 closes the measurement freshness gap.)
 
 ## Progress
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 3/3 | Phase 155 automation complete; manual submission pending | Active |
+| v5.0 Traffic Activation & Index Health Closure | 156-158 | 0/3 | Planned | Active |
+| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 3/3 | Complete | 2026-06-26 |
 | v4.8 Crawl Remediation & Discovery Expansion | 151-152 | 2/2 | Complete | 2026-06-26 |
 | v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 3/3 | Complete | 2026-06-24 |
 | v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
@@ -84,4 +88,4 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 | v4.0 Authority Proof Remediation & Public Trust Hardening | 122-125 | 4/4 | Complete | 2026-06-22 |
 
 ---
-*Last updated: 2026-06-26 after initializing v4.9*
+*Last updated: 2026-06-26 after archiving v4.9 and initializing v5.0*

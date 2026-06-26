@@ -1,5 +1,46 @@
 # Project Milestones: Killer-Skills Agent Directory
 
+## v5.0 Traffic Activation & Index Health Closure (Active)
+
+**Delivered:** Milestone to shift from structural readiness to measurable traffic and index growth.
+
+**Phases planned:** 156-158 (3 phases, 0 plans yet)
+
+**Key accomplishments:**
+
+- Milestone initialized 2026-06-26. No phases executed yet.
+
+**Stats:**
+
+- 0/3 phases complete, 0/3 plans, 0/3 requirements satisfied
+- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md
+- Carry-forward signal: REMOV-01 (manual GSC removal), zero-traffic on promote surfaces, REC-24 coverage freshness
+
+**What's next:** Plan and execute Phase 156 (Index Health Closure), Phase 157 (Traffic Activation), Phase 158 (Coverage Freshness Automation).
+
+---
+
+## v4.9 Authority Surface Uplift & Coverage Freshness (Shipped: 2026-06-26)
+
+**Phases completed:** 153-155 (3 plans total)
+
+**Key accomplishments:**
+
+- Applied first-party editorial uplift to 8 P0 authority surfaces (non-template rationale, install guidance, comparison context).
+- Refreshed coverage pipeline via URL Inspection sweep (74 sampled URLs, age=0d) and opened discovery expansion boundary from `closed` to `open`.
+- Built GSC removal batch tracker automation (`status`/`prefix`/`mark`/`verify`) and corrected operator runbook.
+- All 1088 vitest tests passing, crawl health CLEAR, 0 blocking compliance lanes.
+
+**Stats:**
+
+- 153-155 phases, 3 plans, 2/3 requirements satisfied, milestone audit passed
+- Milestone artifacts: .planning/milestones/v4.9-ROADMAP.md, .planning/milestones/v4.9-REQUIREMENTS.md, .planning/milestones/v4.9-MILESTONE-AUDIT.md
+- Carry-forward signal: **REMOV-01**: Manual GSC removal batch submission (975 URLs) pending operator — tracked via GitHub issue #19.
+
+**What's next:** Execute v5.0 IND-01 to close the coverage anomaly gap and verify removal batch impact.
+
+---
+
 ## v4.7 Core Web Vitals & Edge Performance Optimization (Shipped: 2026-06-24)
 
 **Phases completed:** 3 phases, 3 plans, 0 tasks
@@ -44,30 +85,7 @@
 
 ---
 
-## Active Milestone
-
-### v4.0 Authority Proof Remediation & Public Trust Hardening (Active)
-
-**Delivered:** Active milestone scope is defined in the current planning files and should stay reproducible through generated support artifacts.
-
-**Phases completed:** 0/0 complete (0 plans total)
-
-**Key accomplishments:**
-
-- Roadmap phases tracked: 0
-- Requirement coverage: 0/0 satisfied
-- Planning hygiene: clean
-
-**Stats:**
-
-- 0/0 complete phases, 0 plans
-- Milestone artifacts: .planning/ROADMAP.md, .planning/REQUIREMENTS.md, .planning/milestones/v4.0-MILESTONE-AUDIT.md, .planning/milestones/v4.0-BOOTSTRAP.md, .planning/milestones/v4.0-CLOSEOUT.md
-- Carry-forward signal: None recorded.
-
-**What's next:** Use .planning/milestones/v4.0-CLOSEOUT.md to finish audit and archive preparation.
-
----
-## Shipped Milestones
+## Shipped Milestones (v4.x)
 
 ### v3.9 Promotion Gate Recovery & Public Boundary Assurance (Shipped: 2026-06-09)
 

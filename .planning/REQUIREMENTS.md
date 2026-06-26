@@ -1,26 +1,34 @@
-# Milestone v4.9 Requirements — Authority Surface Uplift & Coverage Freshness
+# Milestone v5.0 Requirements — Traffic Activation & Index Health Closure
 
 ## 1. Active Requirements
 
-### P0 Editorial Uplift (UPLIFT)
-- [x] **UPLIFT-01**: Apply first-party selection logic, install guidance, comparisons, and operational context to the 8 promote-ready P0 authority surfaces (Homepage Root Hub, Collections Hub, Official AI Skills & Trusted Tools, Agent Workflow Building Tools, Cursor-Compatible Skills, Installation Docs, Official AI Agent Skills Guide, Claude Code vs Cursor vs Windsurf comparison).
+### Index Health Closure (IND)
+- [ ] **IND-01**: Close the coverage anomaly gap by verifying the 975-URL REMOV-01 removal batch impact (operator submission tracked via GitHub issue #19), building post-submission verification automation with before/after delta reporting, and generating a second-pass removal batch for the top 3 remaining high-priority clusters not covered by the first batch. Target: reduce coverage anomalies from 10,783 to <2,000.
 
-### Coverage Freshness Pipeline (COV)
-- [x] **COV-01**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days, and verify the discovery expansion boundary opens from `closed` to `open`.
+### Traffic Activation (TRAF)
+- [ ] **TRAF-01**: Earn measurable impressions on P0 authority surfaces within 4 weeks by optimizing title tags, meta descriptions, and structured data (`FAQPage`/`SoftwareApplication`) on the 8 P0 authority surfaces; wiring IndexNow ping-on-deploy for the 436 Tier 1 URLs; and reinforcing internal cross-links to ensure ≥3 inbound links per P0 surface. Current baseline: 0 impressions, 0 clicks across all 34 promote surfaces.
 
-### Removal Batch Execution (REMOV)
-- [ ] **REMOV-01**: Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool and verify index reduction through coverage anomaly count monitoring. *(automation complete: tracker + runbook; manual submission pending operator)*
+### Coverage Freshness Automation (FRESH)
+- [ ] **FRESH-01**: Establish automated GSC data freshness so coverage source age stays ≤7 days without manual CSV export. Build a scheduled GSC API coverage pipeline for the 436 Tier 1 URLs, refactor the Coverage Drilldown report to accept API data as an input source, add a freshness SLA alert to the compliance matrix, and create a weekly traffic proof dashboard. This closes REC-24 (unresolved since April v1.7).
 
 ## 2. Out of Scope
 
-- **Net-new third-party API integrations**: out of scope unless explicitly budgeted.
-- **Paid Workers AI expansion**: remains out of scope unless explicitly budgeted.
-- **Bulk skill-detail re-expansion**: stays off unless the discovery expansion gate is explicitly open.
+- **Bulk skill-detail re-expansion**: stays off until TRAF-01 shows measurable impressions on P0 surfaces.
+- **Paid AI provider expansion**: SiliconFlow/OpenRouter re-enablement is a separate budget decision.
+- **Experiment ladder automation promotion**: 0 candidates; wait for TRAF-01 evidence before promoting automation candidates.
 
 ## 3. Traceability Matrix
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| UPLIFT-01 | Phase 153 | data/authority-surfaces.json, src/pages/[locale]/collections/[...slug].astro | [x] |
-| COV-01 | Phase 154 | reports/seo/latest-url-inspection-coverage-sweep.json | [x] |
-| REMOV-01 | Phase 155 | scripts/seo-gsc-removal-tracker.ts, docs/superpowers/runbooks/gsc-url-removal-runbook.md | [ ] (automation ✓; manual submission ⏳) |
+| IND-01 | Phase 156 | reports/seo/latest-gsc-removal-tracker.md, reports/seo/latest-url-inspection-coverage-sweep.json, reports/seo/latest-gsc-removal-batch-v2.md | [ ] |
+| TRAF-01 | Phase 157 | P0 surface titles/descriptions, structured data validation, reports/seo/latest-indexnow-ping-log.json | [ ] |
+| FRESH-01 | Phase 158 | reports/seo/latest-gsc-api-coverage.json, reports/seo/latest-traffic-proof.md, reports/seo/latest-search-compliance-matrix.json | [ ] |
+
+## 4. Carry-Forward from v4.9
+
+| Carry Item | v5.0 Mapping |
+|---|---|
+| REMOV-01 manual GSC removal submission (0/975 URLs) | IND-01 verification + second-pass batch |
+| Zero impressions on 34 promote surfaces | TRAF-01 traffic activation |
+| Coverage Drilldown freshness gap (21+ days, REC-24) | FRESH-01 automation pipeline |

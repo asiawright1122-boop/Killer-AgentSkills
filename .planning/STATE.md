@@ -1,35 +1,55 @@
 ---
 gsd_state_version: 1.0
-milestone: v4.9
-milestone_name: Authority Surface Uplift & Coverage Freshness
+milestone: v5.0
+milestone_name: Traffic Activation & Index Health Closure
 status: in_progress
-last_updated: "2026-06-26T10:30:00.000Z"
+last_updated: "2026-06-26T15:00:00.000Z"
 last_activity: 2026-06-26
 progress:
   total_phases: 3
-  completed_phases: 2
+  completed_phases: 0
   total_plans: 3
-  completed_plans: 3
+  completed_plans: 0
 ---
 
 # Current Position
 
-Phase: 155 (automation complete; manual submission pending operator)
-Plan: GSC Removal Batch Submission & Index Verification
-Status: Phase 155 automation delivered (runbook corrections + removal tracker script). The 975-URL GSC removal submission is a manual operator task — no API exists. Tracker script supports planning, progress recording, and verification.
+Phase: 156 (planned — Index Health Closure)
+Plan: Not yet created
+Status: v5.0 initialized. Phases 156-158 defined in ROADMAP.md. No plans written yet.
 Last activity: 2026-06-26
 
-## Phase 155 Automation Delivered
+## v5.0 Context: Traffic Activation & Index Health Closure
 
-The GSC URL Removal tool has no API, so submission is manual. This phase automated the surrounding workflow:
-- Corrected the operator runbook (`docs/superpowers/runbooks/gsc-url-removal-runbook.md`) — cluster counts now match `latest-gsc-removal-batch.md`, priority order corrected, baseline values updated to post-Phase-154 state (boundary=open, compliance=watch), target corrected to <2,000.
-- Created `scripts/seo-gsc-removal-tracker.ts` with four commands: `status` (submission dashboard), `prefix` (safe prefix-removal extraction — only 2 safe prefixes exist, most owner-level prefixes would collateral-remove live landing pages), `mark` (record submissions), `verify` (delegates to URL Inspection sweep).
-- Wired `npm run report:seo:gsc-removal-tracker`.
+v4.0–v4.9 built structural, editorial, crawl, and compliance foundations. The discovery expansion boundary is `open`, 34 surfaces are `promote`-ready, and the recovery scorecard is `CLEAR`. But traffic signals have *worsened* since baseline (query rows: 20→0, page rows: 179→21), coverage anomalies grew (5,449→10,783), and not a single promote surface has measurable impressions.
 
-## Remaining Operator Action
+v5.0 shifts from structural readiness to measurable traffic and index growth.
 
-Phase 155 submission is a manual operator task:
-- Runbook: `docs/superpowers/runbooks/gsc-url-removal-runbook.md`
-- 975 URLs to submit via GSC URL Removal tool (mostly individual; only 2 safe prefix removals)
-- Track progress: `npm run report:seo:gsc-removal-tracker -- mark --cluster <name> --count <N>`
-- Verify after 24–48h: `npm run report:seo:url-inspection-coverage-sweep`
+## Active Requirements
+
+- **IND-01**: Index Health Closure — close the coverage anomaly gap (10,783 → <2,000), verify REMOV-01 impact, build second-pass batch
+- **TRAF-01**: Traffic Activation — earn measurable impressions on P0 surfaces, optimize titles/descriptions/structured data, wire IndexNow
+- **FRESH-01**: Coverage Freshness Automation — automate GSC data freshness ≤7d, close REC-24 (unresolved since April)
+
+## Phase Plan
+
+### Phase 156: Index Health Closure
+- **Status:** Planned
+- **Scope:** Coverage anomaly re-analysis, post-submission verification automation, second-pass batch builder
+- **Depends on:** Phase 155 automation (complete)
+
+### Phase 157: Traffic Activation
+- **Status:** Planned
+- **Scope:** P0 title/description audit + rewrite, structured data, IndexNow, internal link reinforcement
+- **Depends on:** Phase 153 editorial uplift (complete)
+
+### Phase 158: Coverage Freshness Automation
+- **Status:** Planned
+- **Scope:** GSC API coverage pipeline, Coverage Drilldown auto-refresh, freshness SLA alert, traffic proof dashboard
+- **Depends on:** GSC API credentials availability (may require operator setup)
+
+## Carry-Forward from v4.9
+
+- REMOV-01: 975-URL GSC removal batch (0/975 submitted, tracked via GitHub issue #19) → IND-01
+- Zero impressions on 34 promote surfaces → TRAF-01
+- Coverage Drilldown freshness gap (21+ days, REC-24 unresolved since April) → FRESH-01
