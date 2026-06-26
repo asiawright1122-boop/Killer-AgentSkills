@@ -3,7 +3,7 @@
 ## 1. Active Requirements
 
 ### P0 Editorial Uplift (UPLIFT)
-- [ ] **UPLIFT-01**: Apply first-party selection logic, install guidance, comparisons, and operational context to the 8 promote-ready P0 authority surfaces (Homepage Root Hub, Collections Hub, Official AI Skills & Trusted Tools, Agent Workflow Building Tools, Cursor-Compatible Skills, Installation Docs, Official AI Agent Skills Guide, Claude Code vs Cursor vs Windsurf comparison).
+- [x] **UPLIFT-01**: Apply first-party selection logic, install guidance, comparisons, and operational context to the 8 promote-ready P0 authority surfaces (Homepage Root Hub, Collections Hub, Official AI Skills & Trusted Tools, Agent Workflow Building Tools, Cursor-Compatible Skills, Installation Docs, Official AI Agent Skills Guide, Claude Code vs Cursor vs Windsurf comparison).
 
 ### Coverage Freshness Pipeline (COV)
 - [ ] **COV-01**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days, and verify the discovery expansion boundary opens from `closed` to `open`.
@@ -21,6 +21,6 @@
 
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
-| UPLIFT-01 | Phase 153 | | [ ] |
+| UPLIFT-01 | Phase 153 | data/authority-surfaces.json, src/pages/[locale]/collections/[...slug].astro | [x] |
 | COV-01 | Phase 154 | | [ ] |
 | REMOV-01 | Phase 155 | | [ ] |
