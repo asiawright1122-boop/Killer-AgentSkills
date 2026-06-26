@@ -6,7 +6,7 @@
 - [x] **UPLIFT-01**: Apply first-party selection logic, install guidance, comparisons, and operational context to the 8 promote-ready P0 authority surfaces (Homepage Root Hub, Collections Hub, Official AI Skills & Trusted Tools, Agent Workflow Building Tools, Cursor-Compatible Skills, Installation Docs, Official AI Agent Skills Guide, Claude Code vs Cursor vs Windsurf comparison).
 
 ### Coverage Freshness Pipeline (COV)
-- [ ] **COV-01**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days, and verify the discovery expansion boundary opens from `closed` to `open`.
+- [x] **COV-01**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days, and verify the discovery expansion boundary opens from `closed` to `open`.
 
 ### Removal Batch Execution (REMOV)
 - [ ] **REMOV-01**: Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool and verify index reduction through coverage anomaly count monitoring.

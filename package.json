@@ -71,6 +71,7 @@
     "report:seo:crawl-health:artifact": "npx tsx scripts/seo-crawl-health.ts --allow-blocking-exit",
     "ingest:seo:coverage-drilldown": "npx tsx scripts/seo-coverage-drilldown-ingest.ts",
     "report:seo:coverage-drilldown": "npm run ingest:seo:coverage-drilldown && npx tsx scripts/seo-coverage-drilldown.ts",
+    "report:seo:url-inspection-coverage-sweep": "npx tsx scripts/seo-url-inspection-coverage-sweep.ts",
     "report:seo:recovery-scorecard": "npx tsx scripts/seo-recovery-scorecard.ts",
     "report:seo:recovery-control-board": "npx tsx scripts/seo-recovery-control-board.ts",
     "report:seo:recovery-execution-queue": "npx tsx scripts/seo-recovery-execution-queue.ts",

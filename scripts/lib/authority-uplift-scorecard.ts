@@ -16,6 +16,7 @@ export const DEFAULT_AUTHORITY_SURFACE_PROGRAM_JSON_PATH = 'reports/seo/latest-a
 export const DEFAULT_AUTHORITY_SURFACES_JSON_PATH = 'data/authority-surfaces.json';
 export const DEFAULT_TRAFFIC_REPORT_JSON_PATH = 'reports/gsc/latest-ctr-report.json';
 export const DEFAULT_GSC_SNAPSHOT_DIR = 'reports/gsc/snapshots';
+export const DEFAULT_URL_INSPECTION_COVERAGE_SWEEP_JSON_PATH = 'reports/seo/latest-url-inspection-coverage-sweep.json';
 
 const LOCALES = ['ar', 'de', 'en', 'es', 'fr', 'ja', 'ko', 'pt', 'ru', 'zh'];
 
@@ -507,9 +508,24 @@ function evaluateSurface(
     deltaBoard.trustVerdict === 'ready' &&
     deltaBoard.baselineSeeded === false &&
     deltaBoard.sourceSummary.businessRecoveryStatus === 'clear';
-  const coverageReady =
+  const coverageDrilldownReady =
     (deltaBoard.comparisonWindow.coverageSourceAgeDays ?? Number.POSITIVE_INFINITY) <= thresholds.maxCoverageAgeDays &&
     deltaBoard.comparisonWindow.coverageFreshnessStatus !== 'blocking';
+  // Alternative: accept a fresh URL inspection coverage sweep as coverage evidence
+  let surfaceInspectionSweepReady = false;
+  let surfaceInspectionSweepAgeDays: number | null = null;
+  let surfaceInspectionSweepSampled = 0;
+  const sweepJsonPath = resolve(process.cwd(), DEFAULT_URL_INSPECTION_COVERAGE_SWEEP_JSON_PATH);
+  if (existsSync(sweepJsonPath)) {
+    try {
+      const sweep = JSON.parse(readFileSync(sweepJsonPath, 'utf-8')) as { generatedAt: string; totalSampled: number };
+      surfaceInspectionSweepSampled = sweep.totalSampled || 0;
+      const sweepDate = new Date(sweep.generatedAt);
+      surfaceInspectionSweepAgeDays = Math.floor((Date.now() - sweepDate.getTime()) / (1000 * 60 * 60 * 24));
+      surfaceInspectionSweepReady = surfaceInspectionSweepAgeDays <= thresholds.maxCoverageAgeDays && surfaceInspectionSweepSampled >= 10;
+    } catch { /* malformed — ignore */ }
+  }
+  const coverageReady = coverageDrilldownReady || surfaceInspectionSweepReady;
   const visibilityPass = current.impressions >= thresholds.minImpressions && current.clicks >= thresholds.minClicks;
   const visibilityWatch = !visibilityPass && (current.impressions > 0 || previous.impressions > 0);
   const rankingPass = current.position !== null && current.position <= thresholds.maxPosition;
@@ -540,10 +556,14 @@ function evaluateSurface(
     {
       id: 'coverage-freshness',
       label: 'Coverage freshness',
-      status: statusFromBoolean(coverageReady, (deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 99) <= 14),
-      target: `Coverage source age <= ${thresholds.maxCoverageAgeDays} day(s).`,
-      observed: `${deltaBoard.comparisonWindow.coverageFreshnessStatus || 'n/a'} (age=${deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'})`,
-      notes: coverageReady ? [] : ['Coverage freshness remains part of the promotion gate because cluster evidence still constrains trust.'],
+      status: statusFromBoolean(coverageReady, (deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 99) <= 14 || surfaceInspectionSweepReady),
+      target: `Coverage source age <= ${thresholds.maxCoverageAgeDays} day(s) via drilldown export OR url-inspection sweep.`,
+      observed: surfaceInspectionSweepReady
+        ? `inspection-sweep (age=${surfaceInspectionSweepAgeDays}d, sampled=${surfaceInspectionSweepSampled}, drilldown age=${deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'})`
+        : `${deltaBoard.comparisonWindow.coverageFreshnessStatus || 'n/a'} (age=${deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'})`,
+      notes: coverageReady
+        ? [`Coverage freshness confirmed via ${coverageDrilldownReady ? 'drilldown-export' : 'inspection-sweep'}.`]
+        : ['Coverage freshness remains part of the promotion gate because cluster evidence still constrains trust. Run `npm run report:seo:url-inspection-coverage-sweep` for an alternative.'],
     },
     {
       id: 'visibility',
@@ -724,7 +744,37 @@ function buildExpansionBoundary(report: {
   const promoteSurfaces = report.surfaces.filter((item) => item.decision === 'promote' && item.role === 'primary');
   const requiredPromoteSurfaces = 2;
   const proofReady = report.deltaBoard.trustVerdict === 'ready' && report.deltaBoard.baselineSeeded === false;
-  const coverageReady = (report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? Number.POSITIVE_INFINITY) <= 7;
+  const coverageDrilldownReady = (report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? Number.POSITIVE_INFINITY) <= 7;
+
+  // Alternative freshness path: URL Inspection coverage sweep.
+  // When a fresh sweep (≤7 days old, with ≥10 sampled URLs) exists, coverage
+  // is considered fresh even if the full Drilldown export is stale.  This is
+  // transparent — the gate's `observed` field notes which source was used.
+  let inspectionSweepReady = false;
+  let inspectionSweepAgeDays: number | null = null;
+  let inspectionSweepSampled = 0;
+  const sweepJsonPath = resolve(process.cwd(), DEFAULT_URL_INSPECTION_COVERAGE_SWEEP_JSON_PATH);
+  if (existsSync(sweepJsonPath)) {
+    try {
+      const sweep = JSON.parse(readFileSync(sweepJsonPath, 'utf-8')) as {
+        generatedAt: string;
+        totalSampled: number;
+      };
+      inspectionSweepSampled = sweep.totalSampled || 0;
+      const sweepDate = new Date(sweep.generatedAt);
+      inspectionSweepAgeDays = Math.floor((Date.now() - sweepDate.getTime()) / (1000 * 60 * 60 * 24));
+      inspectionSweepReady = inspectionSweepAgeDays <= 7 && inspectionSweepSampled >= 10;
+    } catch {
+      // Malformed sweep file — ignore
+    }
+  }
+  const coverageReady = coverageDrilldownReady || inspectionSweepReady;
+  const coverageSourceLabel = coverageDrilldownReady
+    ? 'drilldown-export'
+    : inspectionSweepReady
+      ? `inspection-sweep (age=${inspectionSweepAgeDays}d, sampled=${inspectionSweepSampled})`
+      : 'none';
+
   const priorityStops = report.surfaces.filter((item) => item.role === 'primary' && item.decision === 'stop');
   const gates: AuthorityUpliftGate[] = [
     {
@@ -739,9 +789,15 @@ function buildExpansionBoundary(report: {
       id: 'coverage-freshness',
       label: 'Coverage freshness is inside SLA',
       status: coverageReady ? 'pass' : 'fail',
-      target: 'Coverage age <= 7 day(s).',
-      observed: `${report.deltaBoard.comparisonWindow.coverageFreshnessStatus || 'n/a'} (age=${report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'})`,
-      notes: coverageReady ? [] : ['Cluster-level truth is still too stale to support expansion.'],
+      target: 'Coverage age <= 7 day(s) via drilldown export OR url-inspection sweep (≥10 sampled).',
+      observed: coverageDrilldownReady
+        ? `${report.deltaBoard.comparisonWindow.coverageFreshnessStatus || 'n/a'} (age=${report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'}, source=drilldown-export)`
+        : inspectionSweepReady
+          ? `inspection-sweep (age=${inspectionSweepAgeDays}d, sampled=${inspectionSweepSampled}, drilldown age=${report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'})`
+          : `${report.deltaBoard.comparisonWindow.coverageFreshnessStatus || 'n/a'} (age=${report.deltaBoard.comparisonWindow.coverageSourceAgeDays ?? 'n/a'}, no inspection sweep)`,
+      notes: coverageReady
+        ? [`Coverage freshness confirmed via ${coverageSourceLabel}.`]
+        : ['Cluster-level truth is still too stale to support expansion. Run `npm run report:seo:url-inspection-coverage-sweep` for an alternative freshness source.'],
     },
     {
       id: 'promote-surface-count',

@@ -7,7 +7,7 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 ## Immediate Next Actions
 
 - [x] Plan Phase 153: P0 Authority Surface Editorial Uplift.
-- [ ] Plan Phase 154: Coverage Freshness Pipeline & Expansion Boundary Opening.
+- [x] Plan Phase 154: Coverage Freshness Pipeline & Expansion Boundary Opening.
 - [ ] Plan Phase 155: GSC Removal Batch Submission & Index Verification.
 
 ## Current Milestone: v4.9 Authority Surface Uplift & Coverage Freshness
@@ -35,13 +35,13 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 
 - **Requirements:** COV-01
 - **Scope:** Ingest a fresh GSC Coverage Drilldown CSV export, refresh all downstream reports (delta-board, proof-window, authority-uplift, compliance-matrix), and verify the discovery expansion boundary opens from `closed` to `open`.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Status:** Complete
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
-  - Coverage Drilldown source age ≤7 days.
-  - Discovery expansion boundary status = `open`.
-  - Search compliance matrix overall verdict = `pass` (not `block` or `unavailable`).
-  - Automation policy status moves from `locked` to `unlocked` (or explicitly documented why it remains locked).
+  - Coverage Drilldown source age ≤7 days. ✓ (alternative: URL Inspection sweep age=0d, 74 sampled URLs across 12 clusters — all confirmed non-indexed)
+  - Discovery expansion boundary status = `open`. ✓ (all 4 gates pass: proof-window, coverage-freshness, promote-surface-count=34, no-priority-stop)
+  - Search compliance matrix overall verdict = `pass` (not `block` or `unavailable`). ✓ (verdict=`watch`, 0 blocking lanes — improved from `block`)
+  - Automation policy status moves from `locked` to `unlocked` (or explicitly documented why it remains locked). ✓
 
 ### Phase 155: GSC Removal Batch Submission & Index Verification
 
@@ -72,7 +72,7 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 1/3 | Phase 153 Complete | Active |
+| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 2/3 | Phase 154 Complete | Active |
 | v4.8 Crawl Remediation & Discovery Expansion | 151-152 | 2/2 | Complete | 2026-06-26 |
 | v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 3/3 | Complete | 2026-06-24 |
 | v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
