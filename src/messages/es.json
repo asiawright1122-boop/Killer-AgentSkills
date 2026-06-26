@@ -5,10 +5,10 @@
     "copyCommand": "Copy command",
     "removeFromFavorites": "Remove from favorites",
     "shareSkill": "Share this skill",
-    "switchLanguage": "Switch Language",
+    "switchLanguage": "Cambiar idioma",
     "toggleMenu": "Toggle Menu",
     "toggleTheme": "Toggle Theme",
-    "viewSkill": "View {name}"
+    "viewSkill": "Ver {name}"
   },
   "Blog": {
     "IntentLinks": {
@@ -396,6 +396,7 @@
     "collectionsTitle": "Colecciones Destacadas",
     "copied": "Copiado",
     "copy": "Copiar",
+    "curationCriteriaTitle": "Why These Collections Exist",
     "editorPicks": "Selección del Editor",
     "faq1A": "Estas colecciones están diseñadas para automatización de flujos, procesos, documentos, datos y pilas de habilidades reutilizables.",
     "faq1Q": "¿Para qué flujos de trabajo están diseñadas estas colecciones?",
@@ -709,6 +710,9 @@
       "browse": "Explorar habilidades",
       "docs": "Ver documentación"
     },
+    "editorialCurationBody": "We prioritize skills from official sources (Anthropic, Vercel, Cloudflare, Sentry) and high-star community repositories that have passed our quality review floor. Every indexed skill has a first-party recommendation layer explaining its fit, real use cases, and limitations. Skills that do not meet this bar remain accessible for installation reference but are excluded from search listings — so what Google indexes always carries editorial judgment, not raw GitHub imports.",
+    "editorialCurationLink": "Read our selection criteria",
+    "editorialCurationTitle": "Why These Tools First",
     "editorialParagraph1": "\"A medida que los asistentes de codificación de IA como Claude Code, Cursor y Windsurf transforman el paisaje de la ingeniería, el Protocolo de Contexto de Modelo (MCP) ha surgido como el puente estándar entre los LLM y los sistemas externos. Sin embargo, navegar por repositorios raw y no verificados en GitHub presenta importantes desafíos: instrucciones de configuración fragmentadas, fallos de ejecución silenciosos y riesgos de seguridad graves por acceso local arbitrario al sistema. Killer-Skills fue creado para llenar esta brecha.\"",
     "editorialParagraph2": "\"Cada habilidad listada en nuestro directorio abierto pasa por una rigurosa prueba automatizada de múltiples etapas y un pipeline de curación manual. Evaluamos servidores y herramientas de protocolo de contexto de modelo (MCP) de código abierto contra tres pilares de ingeniería fundamentales: Seguridad, Compatibilidad nativa con IDE y Levedad de dependencias. Nuestro pipeline verifica continuamente que las habilidades definan correctamente sus esquemas, declaren especificaciones de parámetros explícitas, eviten la salida de datos remotos no autorizados y se instalen de forma fluida utilizando un solo comando estandarizado. También ejecutamos bucles de verificación de salud de crawling regulares para asegurarnos de que nuestro índice no tenga enlaces muertos ni fallos silenciosos del servidor, manteniendo tu configuración local completamente segura.\"",
     "editorialParagraph3": "Al consolidar más de 3,400 habilidades de código abierto en colecciones verificadas y centradas en casos de uso, ayudamos a los ingenieros a potenciar de forma segura sus asistentes de codificación de IA sin perder tiempo en depuración de repositorios sin procesar. Nuestro directorio categoriza las herramientas en paquetes orientados a la acción, como Automatización de Documentos (por ejemplo, manipulación de xlsx, docx y pdf), Arte Generativo Creativo y DevOps. Ya sea que esté automatizando la generación de PDF complejos a través de OCR, escribiendo pruebas unitarias automatizadas o administrando implementaciones de cloud seguras a través de la terminal de su IDE, Killer-Skills proporciona puntos de entrada de instalación limpios y probados. Cada punto de entrada está protegido por nuestra robusta middleware de enrutamiento de borde, que cortocircuita los caminos de crawling obsoletos y garantiza que solo descargue código activo y compatible.",
@@ -766,7 +770,12 @@
     "seoIntro": "Killer-Skills es un directorio de código abierto y centro de instalación para más de 3,400 skills de agentes de IA. Ayuda a descubrir herramientas confiables más rápido que navegando repositorios crudos de GitHub y a pasar desde un mismo flujo a colecciones, soluciones y documentación de instalación.",
     "seoTitle": "Directorio de AI Agent Skills y servidores MCP",
     "stable": "Estable",
-    "tags": ["Investigación", "Codificación", "Marketing", "Análisis"],
+    "tags": [
+      "Investigación",
+      "Codificación",
+      "Marketing",
+      "Análisis"
+    ],
     "trendingSubtitle": "Skills mejor valoradas y más populares de la comunidad.",
     "trendingTitle": "Habilidades en tendencia",
     "viewAll": "Ver todo"

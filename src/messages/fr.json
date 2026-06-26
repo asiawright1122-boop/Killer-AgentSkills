@@ -396,6 +396,7 @@
     "collectionsTitle": "Collections en Vedette",
     "copied": "Copié",
     "copy": "Copier",
+    "curationCriteriaTitle": "Why These Collections Exist",
     "editorPicks": "Sélection de la rédaction",
     "faq1A": "Ces collections sont conçues autour de l'automatisation de flux, processus, documents, données et piles de compétences réutilisables.",
     "faq1Q": "Pour quels flux de travail ces collections sont-elles conçues ?",
@@ -691,7 +692,14 @@
     "searchButton": "Rechercher",
     "searchPlaceholder": "Rechercher... ex: PDF, Analyse de données",
     "subtitle": "Explorez des possibilités infinies, donnez du pouvoir à votre assistant AI",
-    "suggestions": ["PDF", "Génération d'images", "Analyse de données", "Navigateur", "Revue de code", "Documents"],
+    "suggestions": [
+      "PDF",
+      "Génération d'images",
+      "Analyse de données",
+      "Navigateur",
+      "Revue de code",
+      "Documents"
+    ],
     "title": "Découvrez les Compétences d'Agent AI",
     "titleHighlight": "Agent AI"
   },
@@ -702,6 +710,9 @@
       "browse": "Parcourir les Skills",
       "docs": "Voir la Documentation"
     },
+    "editorialCurationBody": "We prioritize skills from official sources (Anthropic, Vercel, Cloudflare, Sentry) and high-star community repositories that have passed our quality review floor. Every indexed skill has a first-party recommendation layer explaining its fit, real use cases, and limitations. Skills that do not meet this bar remain accessible for installation reference but are excluded from search listings — so what Google indexes always carries editorial judgment, not raw GitHub imports.",
+    "editorialCurationLink": "Read our selection criteria",
+    "editorialCurationTitle": "Why These Tools First",
     "editorialParagraph1": "Alors que les assistants de codage IA comme Claude Code, Cursor et Windsurf transforment le paysage de l'ingénierie, le protocole de contexte de modèle (MCP) est devenu le pont standard entre les LLM et les systèmes externes. Cependant, la navigation dans des référentiels bruts et non vérifiés sur GitHub présente des défis importants : des instructions de configuration fragmentées, des échecs d'exécution silencieux et des risques de sécurité graves liés à l'accès arbitraire au système local. Killer-Skills a été créé pour combler cet écart.",
     "editorialParagraph2": "Chaque compétence répertoriée dans notre annuaire ouvert subit un test automatisé rigoureux et une curaturation manuelle à plusieurs étapes. Nous évaluons les serveurs et outils de protocole de contexte de modèle (MCP) open source par rapport à trois piliers d'ingénierie de base : Sécurité, Compatibilité native avec l'IDE et Maigreur des dépendances. Notre pipeline vérifie en continu que les compétences définissent correctement leurs schémas, déclarent des spécifications de paramètres explicites, évitent les sorties de données à distance non autorisées et s'installent sans problème à l'aide d'une seule commande standardisée. Nous exécutons également des boucles de vérification régulières de l'état de crawl pour nous assurer que notre index ne contient aucun lien mort ou défaillance silencieuse du serveur, ce qui maintient votre configuration locale entièrement sécurisée.",
     "editorialParagraph3": "En consolidant plus de 3 400 compétences open-source en collections vérifiées et axées sur des cas d'utilisation, nous aidons les ingénieurs à booster en toute sécurité leurs assistants de codage IA sans perdre de temps sur le débogage de référentiels bruts. Notre annuaire catégorise les outils en bundles axés sur l'action, tels que l'automatisation de documents (par exemple, manipulation de xlsx, docx et pdf), l'art génératif créatif et le DevOps. Que vous automatisiez la génération de PDF complexes via la reconnaissance optique de caractères, que vous écriviez des tests unitaires automatisés ou que vous gériez des déploiements cloud sécurisés via le terminal de votre IDE, Killer-Skills fournit des points d'entrée d'installation propres et testés. Chaque point d'entrée est protégé par notre middleware de routage de bord robuste, qui court-circuite les chemins de crawling obsolètes et garantit que vous ne téléchargez que du code actif et conforme.",
@@ -759,7 +770,12 @@
     "seoIntro": "Killer-Skills est un répertoire open source et un point d’entrée d’installation pour plus de 3 400 skills d’agents IA. Les développeurs y trouvent des outils fiables plus vite qu’en parcourant des dépôts GitHub bruts, puis passent dans le même flux aux collections, aux pages de solutions et à la documentation d’installation.",
     "seoTitle": "Répertoire AI Agent Skills et serveurs MCP",
     "stable": "Stable",
-    "tags": ["Recherche", "Codage", "Marketing", "Analyse"],
+    "tags": [
+      "Recherche",
+      "Codage",
+      "Marketing",
+      "Analyse"
+    ],
     "trendingSubtitle": "Les skills les mieux notés et les plus populaires de la communauté.",
     "trendingTitle": "Compétences Tendance",
     "viewAll": "Tout voir"

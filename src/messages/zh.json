@@ -196,7 +196,7 @@
       "row3": "运行时技能发现与同步",
       "row4": "经过验证的安全技能库"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "npm install killer-skills 在 CLI 中使用 add <owner/repo> 命令",
     "faq1A": "它是一个技能优先的 CLI，用来在 19+ IDE 和 AI 编程助手中安装、同步和管理 AI 智能体技能。",
     "faq1Q": "Killer-Skills CLI 是什么？",
     "faq2A": "在终端运行 `{installInstruction}`。CLI 会自动识别你的 IDE，并写入正确的 IDE 原生技能文件。",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "在 Cursor、Windsurf、Claude Code 等工具中发现、安装并同步 3,400+ AI 智能体技能。",
     "heroSubtitle": "安装和管理 AI 智能体技能",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "\"Killer-Skills CLI\" \n\n在此，我们称之为 \"Killer-Skills CLI\"。",
     "install": "立即安装",
     "latestVersion": "最新版本：",
     "optionalNote": "注：CLI 工具是可选的。您可以通过 npx 直接使用技能，无需安装任何内容。",
@@ -272,7 +272,7 @@
     },
     "headline": "构建你的 AI 技能库",
     "install": "安装",
-    "product": "Killer CLI",
+    "product": "杀手 CLI",
     "subheadline": "让你的 Agent 即刻写出专业级代码",
     "viewOnNpm": "在 NPM 上查看"
   },
@@ -566,7 +566,7 @@
     "relatedSkills": "相关技能",
     "seeCliInstall": "查看 CLI 安装与管理",
     "seeMainN8n": "查看 n8n 主技能页、安装命令与通用工作流上下文。",
-    "seoTitleA": "{{name}} {{titleLabel}}",
+    "seoTitleA": "{{name}} {{.titleLabel}} 在 {{titleLabel}}",
     "seoTitleB": "{{name}}：{{titleLabel}}，支持 Claude Code",
     "showOriginal": "显示原文",
     "stars": "星标",
@@ -577,8 +577,8 @@
     "top5Percent": "前 5%",
     "translate": "翻译简介",
     "translating": "正在翻译 ...",
-    "tryOutputLangEN": "English",
-    "tryOutputLangZH": "Simplified Chinese",
+    "tryOutputLangEN": "英語",
+    "tryOutputLangZH": "简体中文",
     "unlockTitle": "一键解锁 & 管理海量 AI 技能",
     "updated": "更新于",
     "updates": "更新频率",
@@ -692,7 +692,14 @@
     "searchButton": "搜索",
     "searchPlaceholder": "搜索技能 ... 例如：PDF 处理、数据分析",
     "subtitle": "探索无限可能，赋能你的 AI 助手",
-    "suggestions": ["PDF 处理", "图像生成", "数据分析", "浏览器自动化", "代码审查", "文档处理"],
+    "suggestions": [
+      "PDF 处理",
+      "图像生成",
+      "数据分析",
+      "浏览器自动化",
+      "代码审查",
+      "文档处理"
+    ],
     "title": "发现 AI 智能体技能",
     "titleHighlight": "AI 智能体"
   },
@@ -722,24 +729,24 @@
     "faq6Q": "MCP（Model Context Protocol）是什么？",
     "faqSubtitle": "让首页摘要、落地内容和结构化数据保持一致。",
     "faqTitle": "首页常见问题",
-    "features": {
-      "0": {
+    "features": [
+      {
         "title": "多 IDE 支持",
         "desc": "无缝集成 Cursor、Windsurf 和 Claude Code。"
       },
-      "1": {
+      {
         "title": "IDE 原生格式",
         "desc": "同一个技能可安装到主流 IDE 与 Agent 环境，并自动写入正确的原生格式。"
       },
-      "2": {
+      {
         "title": "严选质量",
         "desc": "精选 GitHub 高星项目，人工审核确保可用。"
       },
-      "3": {
+      {
         "title": "完全开源",
         "desc": "透明安全，拥抱社区，共同构建 AI 生态。"
       }
-    },
+    ],
     "featuresSubtitle": "浏览可复用的 AI 智能体技能，并以 IDE 原生格式完成安装。",
     "featuresTitle": "专为开发者打造",
     "footerDesc": "面向 AI 智能体技能的开源目录与安装入口。为真实开发工作而生。",
@@ -763,7 +770,12 @@
     "editorialCurationLink": "查看我们的选择标准",
     "seoTitle": "AI 智能体技能开放目录：Claude Code、Cursor 与 Windsurf 安装入口",
     "stable": "稳定",
-    "tags": ["研究", "编程", "营销", "分析"],
+    "tags": [
+      "研究",
+      "编程",
+      "营销",
+      "分析"
+    ],
     "trendingSubtitle": "由社区评选的顶级技能。",
     "trendingTitle": "精选技能",
     "viewAll": "查看全部"
@@ -866,7 +878,7 @@
     "officialSeoTitle": "Official AI 智能体技能",
     "ownerSeoDesc": "Browse AI 智能体技能 published by {owner} for Claude Code， Cursor， and Windsurf。",
     "ownerSeoTitle": "AI 智能体技能 by {owner}",
-    "popular": "Popular",
+    "popular": "流行技能",
     "searchPrefix": "搜索： {query}",
     "searchSeoDesc": "Search results for \"{query}\" across AI 智能体技能 for Claude Code， Cursor， and Windsurf。",
     "searchSeoTitle": "{query} AI 智能体技能 Search Results",
@@ -885,7 +897,7 @@
     },
     "description": "发现、安装和管理 AI 智能体技能，支持 Claude Code、Cursor、Windsurf、Antigravity 等主流 IDE。一键安装，快速提升 AI 编程能力。",
     "keywords": "agent skills， claude code， AI 智能体， cursor， windsurf， antigravity， ai skills， 编程技能， AI 助手， 代码生成",
-    "template": "%s | Killer-Skills",
+    "template": "\"%s | Killer-Skills\" \n\n翻译后： \"%s | Killer-Skills\"",
     "title": "Killer-Skills - AI 智能体技能目录"
   },
   "Navigation": {
@@ -965,15 +977,15 @@
         "description": "浏览高质量 AI 智能体技能，覆盖编码、自动化、数据与效率场景，支持主流 IDE。"
       },
       "claude-code-skills": {
-        "label": "Claude Code Skills",
+        "label": "在 Claude Code 中的技能",
         "description": "查找适配 Claude Code 的技能，扩展编码、调试与自动化能力。"
       },
       "cursor-skills": {
-        "label": "Cursor Skills",
+        "label": "在 Cursor 中的技能",
         "description": "探索适配 Cursor 的技能，提升 AI 辅助开发与快速编码效率。"
       },
       "windsurf-skills": {
-        "label": "Windsurf Skills",
+        "label": "在 Windsurf 中的技能",
         "description": "发现适配 Windsurf 的 AI 智能体技能，覆盖编码、文档与流程自动化。"
       }
     }

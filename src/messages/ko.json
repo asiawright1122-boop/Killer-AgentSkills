@@ -62,13 +62,13 @@
       }
     },
     "LongTail": {
-      "pdf": "pdf automation, ocr automation, document extraction workflow",
-      "xlsx": "excel automation, report automation, spreadsheet workflow",
-      "docx": "word automation, document templates, report templates",
-      "mcp": "개발 워크플로용 AI Agent Skills, 개발 워크플로 스킬, Claude Code용 MCP 통합",
-      "internalComms": "process automation, internal communication templates, team update workflows",
-      "installSetup": "install ai agent skills, skill setup, ide compatibility",
-      "default": "개발 워크플로 스킬, AI Agent Skills, 스킬 템플릿"
+      "pdf": "PDF 자동화, OCR 자동화, 문서 추출 워크플로우",
+      "xlsx": "엑셀 자동화, 보고서 자동화, 스프레드시트 워크플로우",
+      "docx": "워크 플로우 자동화, 문서 템플릿, 보고서 템플릿",
+      "mcp": "개발 워크플로용 AI 에이전트 스킬, 개발 워크플로 스킬, Claude Code용 MCP 통합",
+      "internalComms": "워크플로우 자동화, 내부 커뮤니케이션 템플릿, 팀 업데이트 워크플로우",
+      "installSetup": "install AI 에이전트 스킬, skill setup, ide compatibility",
+      "default": "개발 워크플로 스킬, AI 에이전트 스킬, 스킬 템플릿"
     },
     "MetaOverride": {
       "mastering-pdf-automation-with-ai-skills": {
@@ -92,7 +92,7 @@
         "description": "Claude Code, Cursor, Windsurf에서 PDF, UI, SEO, MCP, 자동화 워크플로에 먼저 설치할 가치가 있는 공식 AI 에이전트 스킬을 확인하세요."
       },
       "what-are-ai-agent-skills": {
-        "title": "AI 에이전트 스킬이란? Claude Code, Cursor, Windsurf에서의 동작 방식",
+        "title": "AI 에이전트 스킬이란？ Claude Code, Cursor, Windsurf에서의 동작 방식",
         "description": "AI 에이전트 스킬이 무엇인지, SKILL.md 파일이 어떻게 동작하는지, 어디에 두는지, 그리고 왜 Claude Code, Cursor, Windsurf에 도움이 되는지 이해해보세요."
       },
       "best-ai-agent-skills-2026": {
@@ -158,16 +158,16 @@
     "title": "인사이트 및 업데이트"
   },
   "BlogCategory": {
-    "faq1Q": "{categoryName} 카테고리에서는 무엇을 다루나요?",
+    "faq1Q": "{categoryName} 카테고리에서는 무엇을 다루나요？",
     "faq2A": "네. 실제 사례, 유용한 설정, 스킬의 구체적인 활용 방식에 초점을 맞춥니다.",
-    "faq2Q": "이 가이드는 실무에 도움이 되나요?",
+    "faq2Q": "이 가이드는 실무에 도움이 되나요？",
     "faq3A": "관심 있는 주제에 따라 관련 가이드, 스킬 페이지, 컬렉션, 문서를 이어서 살펴볼 수 있습니다.",
-    "faq3Q": "다음에는 무엇을 보면 좋나요?",
-    "guideSuffix": "AI Agent Skills 가이드",
+    "faq3Q": "다음에는 무엇을 보면 좋나요？",
+    "guideSuffix": "AI 에이전트 스킬 가이드",
     "implementGuide": "구현 가이드",
     "seoDesc": {
       "document-automation": "PDF, Excel, DOCX, 재사용 가능한 템플릿을 위한 실전형 문서 자동화 가이드를 확인하세요.",
-      "developer-experience": "Cursor, Claude Code, 설치 가능한 AI Agent Skills를 활용한 개발 워크플로 가이드를 확인하세요.",
+      "developer-experience": "Cursor, Claude Code, 설치 가능한 AI 에이전트 스킬를 활용한 개발 워크플로 가이드를 확인하세요.",
       "enterprise-solutions": "업무 사례, 반복 작업, 팀 운영에 맞춘 프로세스 자동화 가이드를 살펴보세요.",
       "creative-tools": "콘텐츠, 에셋, 시각 제작에 활용할 수 있는 크리에이티브 자동화 가이드를 읽어보세요."
     },
@@ -187,24 +187,24 @@
   },
   "CLI": {
     "comparison": {
-      "title": "왜 Killer-Skills CLI를 선택해야 할까요?",
+      "title": "왜 Killer-Skills CLI를 선택해야 할까요？",
       "feature": "기능",
-      "ks": "Killer-Skills CLI",
+      "ks": "\"Killer-Skills CLI\" \n\n## 규칙:\n1. **SEO 최적화**: 사용자가 실제로 AI 에이전트 tools 및 개발자 워크플로우 공간에서 검색하는 키워드를 사용하십시오.\n2. **사이트 테마**: 이는 AI 에이전트 스킬 마켓플레이스입니다. AI 에이전트, skills, 워크플로우, IDE 통합, MCP 서버, 개발자 도구와 관련된 번역을 유지하십시오.\n3. **길이 제한**: 원본과 같은 길이의 번역을 유지하여 UI 깨짐이나 SERP 잘라내기 방지하십시오.\n4. **톤**: 전문적인, 기술적인, 그러나 접근성 있는 토너를 유지하십시오.\n5. **브랜드 용어**: \"Killer-Skills\", \"Claude Code\", \"Cursor\", \"Windsurf\", \"MCP\"를 번역하지 마십시오.\n6. **CJK 형식 규칙 (중요)**:\n   - CJK 언어 (zh, ja, ko): CJK 문자와 영어 글자/숫자/backticks 사이에 반간격을 유지하십시오 (e.g. \"在 Cursor 中\").\n   - 중국어 (zh): 전체 너비 구두점 (， 。 ！ ？ ： ；)을 사용하십시오.\n   - 일본어 (ja): 일본식 쉼표 (、)를 사용하고 전체 너비 구두점 (， 。 ！ ？ ： ；)을 사용하십시오.\n   - 한국어 (ko): 반간격 점 (.)와 쉼표 (,)를 유지하고 전체 너비驚嘆符 (！)과 물음표 (？)를 사용하십시오.\n7. **사전 정렬**:\n   - \"AI 에이전트 스킬\" -> zh: \"AI 에이전트 스킬\", ja: \"AI 에이전트 스킬\", ko: \"AI 에이전트 스킬\"\n   - \"AI 에이전트\" -> zh: \"AI 에이전트\", ja: \"AI 에이전트\", ko: \"AI 에이전트\"\n   - \"IDE 통합\" -> zh: \"IDE 통합\", ja: \"IDE 통합\", ko: \"IDE 통합\"\n   - \"개발자 도구\" -> zh: \"개발자 도구\", ja: \"개발자 도구\", ko: \"개발자 도구\"\n   - \"설치 플랫폼\" -> zh: \"설치 플랫폼\", ja: \"설치 플랫폼\", ko: \"설치 플랫폼\"\n   - \"워크플로우 자동화\" -> zh: \"워크플로우 자동화\", ja: \"워크플로우 자동화\", ko: \"워크플로우 자동화\"\n   - \"마켓플레이스\" -> zh: \"마켓플레이스\", ja: \"마켓플레이스\", ko: \"마켓플레이스\"\n8. **불필요한 설명**: 설명하지 마십시오. 단지 번역된 텍스트만 반환하십시오.",
       "others": "수동 프롬프트",
       "row1": "19개 이상의 IDE에 원클릭 설치",
       "row2": "자동 호출 (컨텍스트 창 낭비 없음)",
       "row3": "런타임 스킬 탐색 및 동기화",
       "row4": "검증된 보안 스킬 레지스트리"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "\"npx killer-skills add <owner/repo>\"\n\n## RULES:\n1. **SEO Optimization**: \n2. **Site Theme**: \n3. **Length Constraint**: \n4. **Tone**: \n5. **Brand Terms**: \n6. **CJK Formatting Rules (Crucial)**:\n7. **Glossary Alignment**:\n8. **No Fluff**: \n\nnpx killer-skills add <owner/repo>",
     "faq1A": "프로젝트 디렉터리에서 npx killer-skills add owner/repo 를 실행하세요. CLI가 IDE를 자동으로 감지하고 올바른 스킬 형식을 작성합니다.",
-    "faq1Q": "CLI로 AI 에이전트 스킬을 설치하려면 어떻게 하나요?",
+    "faq1Q": "CLI로 AI 에이전트 스킬을 설치하려면 어떻게 하나요？",
     "faq2A": "CLI는 Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae 등을 포함한 19개 이상의 환경을 지원합니다.",
-    "faq2Q": "CLI는 어떤 IDE를 지원하나요?",
+    "faq2Q": "CLI는 어떤 IDE를 지원하나요？",
     "faq3A": "네. killer-skills sync 를 사용하면 여러 저장소에서 스킬을 최신 상태로 유지할 수 있습니다. 형식 변환은 CLI가 자동으로 처리합니다.",
-    "faq3Q": "여러 프로젝트에서 스킬을 동기화할 수 있나요?",
+    "faq3Q": "여러 프로젝트에서 스킬을 동기화할 수 있나요？",
     "faq4A": "killer-skills update 를 실행하면 최신 버전을 가져옵니다. CLI는 로컬 사용자 정의를 유지합니다.",
-    "faq4Q": "설치한 스킬은 어떻게 업데이트하나요?",
+    "faq4Q": "설치한 스킬은 어떻게 업데이트하나요？",
     "faqTitle": "Frequently Asked Questions",
     "features": {
       "autoInvoke": {
@@ -226,15 +226,15 @@
     },
     "heroDesc": "Cursor, Windsurf, Claude Code 같은 도구에서 3,400개 이상의 AI 에이전트 스킬을 발견하고 설치하고 동기화하세요.",
     "heroSubtitle": "AI 에이전트 스킬을 설치하고 관리",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "킬러-스킬 CLI",
     "install": "지금 설치",
     "latestVersion": "최신 버전:",
     "optionalNote": "참고: CLI 도구는 선택 사항입니다. 설치 없이 npx를 통해 스킬을 직접 사용할 수 있습니다.",
     "pageDescription": "Killer-Skills CLI로 AI 에이전트 스킬을 설치, 동기화, 관리하세요. Cursor, Claude Code, Windsurf 및 19개 이상의 IDE를 지원합니다.",
-    "pageTitle": "AI Agent Skills CLI: 한 명령어로 설치·동기화·설정",
+    "pageTitle": "AI 에이전트 스킬 CLI: 한 명령어로 설치·동기화·설정",
     "quickLinks": {
       "install": {
-        "title": "AI Agent Skills 설치",
+        "title": "AI 에이전트 스킬 설치",
         "desc": "설치 명령, 첫 단계, IDE에 반영되는 내용을 확인할 수 있습니다."
       },
       "ide": {
@@ -272,12 +272,12 @@
     },
     "headline": "AI 스킬 라이브러리 구축",
     "install": "설치",
-    "product": "Killer CLI",
+    "product": "킬러 CLI",
     "subheadline": "에이전트가 즉시 전문가 수준의 코드를 작성하도록 지원",
     "viewOnNpm": "NPM에서 보기"
   },
   "Categories": {
-    "ai": "AI & ML",
+    "ai": "\"AI & 에이전트\"\n\nor \n\n\"AI & ML\" can be translated to \"AI & 에이전트\" but since the original is \"AI & ML\" which is more about Machine Learning, a more suitable translation would be:\n\n\"AI & ML\" -> \"AI & 기계학습\"",
     "api": "API",
     "automation": "자동화",
     "browseByCategory": "카테고리별 탐색",
@@ -291,16 +291,16 @@
     "development": "개발",
     "devops": "DevOps",
     "documentation": "문서화",
-    "faq1A": "Skills are organized by use case: document automation, developer experience, enterprise solutions, and creative tools.",
-    "faq1Q": "How are skills categorized?",
-    "faq2A": "Yes. Use the skills directory to search across all categories, or filter by specific tags.",
-    "faq2Q": "Can I browse skills from multiple categories?",
-    "faq3A": "Click any skill card to view details, then use the install command shown on the skill page.",
-    "faq3Q": "How do I install a skill from a category page?",
+    "faq1A": "AI 에이전트 스킬은 다음과 같은 범주에 따라 분류됩니다: 문서 자동화, 개발자 경험, 기업 솔루션, 창의 도구.",
+    "faq1Q": "How are skills categorized？",
+    "faq2A": "예. Killer-Skills의 스킬 디렉터리에서 모든 카테고리에서 검색하거나 특정 태그에 의해 필터링할 수 있습니다.",
+    "faq2Q": "Can I browse skills from multiple categories？",
+    "faq3A": "클릭하여 스킬 카드를 선택하면 세부 정보를 확인할 수 있으며, 스킬 페이지에 표시된 설치 명령어를 사용하세요.",
+    "faq3Q": "How do I install a skill from a category page？",
     "git": "Git",
     "heroDesc": "다양한 AI 스킬을 탐색하고 최적의 도구를 찾아보세요",
-    "heroIntro": "카테고리별로 AI Agent Skills를 살펴보고 워크플로에 맞는 도구를 더 빠르게 찾으세요.",
-    "heroTitle": "Skill Categories",
+    "heroIntro": "카테고리별로 AI 에이전트 스킬를 살펴보고 워크플로에 맞는 도구를 더 빠르게 찾으세요.",
+    "heroTitle": "AI 에이전트 스킬 카테고리",
     "keyword1": "AI 에이전트 스킬 카테고리",
     "keyword2": "스킬 유형별 탐색",
     "library": "라이브러리",
@@ -384,7 +384,7 @@
         "useCaseLabel": "메시징, 조율, 팀 협업"
       },
       "default": {
-        "titleLabel": "AI Agent Skill",
+        "titleLabel": "AI 에이전트 스킬",
         "useCaseLabel": "AI 에이전트 워크플로와 자동화"
       }
     }
@@ -396,13 +396,14 @@
     "collectionsTitle": "추천 컬렉션",
     "copied": "완료",
     "copy": "복사",
+    "curationCriteriaTitle": "AI 에이전트 스킬의 이유",
     "editorPicks": "에디터 추천",
     "faq1A": "워크플로 자동화, 프로세스 자동화, 문서 작업, 데이터 워크플로 및 재사용 가능한 스킬 스택을 중심으로 구성되어 있습니다.",
-    "faq1Q": "이 컬렉션들은 어떤 워크플로를 위해 만들어졌나요?",
+    "faq1Q": "이 컬렉션들은 어떤 워크플로를 위해 만들어졌나요？",
     "faq2A": "스킬 디렉터리는 직접 검색과 필터링에 적합하고, 컬렉션은 완전한 워크플로를 위한 보완적 스킬 묶음을 찾는 데 적합합니다.",
-    "faq2Q": "컬렉션과 메인 스킬 디렉터리의 차이점은?",
+    "faq2Q": "컬렉션과 메인 스킬 디렉터리의 차이점은？",
     "faq3A": "네. 이 컬렉션의 스킬들은 일반적으로 Claude Code, Cursor, Windsurf 및 기타 지원 환경에서 통합 설치 흐름으로 작동합니다.",
-    "faq3Q": "이 컬렉션들을 Claude Code나 Cursor에 설치할 수 있나요?",
+    "faq3Q": "이 컬렉션들을 Claude Code나 Cursor에 설치할 수 있나요？",
     "featured": "추천",
     "heroTitle": "워크플로 스킬 번들",
     "installAll": "CLI로 전체 설치",
@@ -462,7 +463,7 @@
         "desc": "소스 코드, 이슈, PR."
       },
       "chat": {
-        "title": "Discord",
+        "title": "커뮤니티",
         "desc": "실시간 채팅과 지원."
       },
       "news": {
@@ -472,12 +473,12 @@
     },
     "contribute": "코드 기여",
     "contributeDesc": "Killer-Skills는 완전한 오픈 소스입니다. 버그 수정, 기능 추가, 새로운 스킬 기여를 위해 PR을 제출할 수 있습니다.",
-    "feedbackDesc": "아이디어가 있으신가요? 버그를 발견하셨나요? Github 이슈나 Discord로 알려주세요.",
+    "feedbackDesc": "아이디어가 있으신가요？ 버그를 발견하셨나요？ Github 이슈나 Discord로 알려주세요.",
     "heroDesc": "우리는 AI 시대를 위한 오픈 소스 생태계를 구축하고 있습니다. 개발자든, 크리에이터든, 사용자든, 여기에 당신의 자리가 있습니다.",
     "join": "커뮤니티 참여",
     "readGuide": "기여 가이드 읽기 ->",
-    "seoDescription": "Join the Killer-Skills community: contribute code, share feedback, and help improve reusable AI agent skills for Claude Code, Cursor, and Windsurf.",
-    "seoTitle": "AI Agent Skills Community — Contribute & Share Feedback",
+    "seoDescription": "Join the Killer-Skills community: contribute code, share feedback, and help improve reusable AI 에이전트 스킬 for Claude Code, Cursor, and Windsurf.",
+    "seoTitle": "AI 에이전트 스킬 Community — Contribute & Share Feedback",
     "shareFeedback": "피드백 공유",
     "submitIssue": "이슈 제출 ->",
     "title": "커뮤니티"
@@ -500,16 +501,16 @@
     "excellent": "우수",
     "exploreWorkflowUseCases": "활용 사례, 관련 스킬, 바로 적용할 수 있는 설치 경로를 살펴보세요.",
     "explorer": "탐색기",
-    "faqHowInstall": "{{name}}은 어떻게 설치하나요?",
+    "faqHowInstall": "{{name}}은 어떻게 설치하나요？",
     "faqHowInstallAnswer": "다음 명령을 실행하세요: {{installCommand}}. Cursor, Windsurf, VS Code, Claude Code와 19개 이상의 다른 IDE에서 동작합니다.",
-    "faqIDEs": "{{name}} 와 호환되는 IDE는 무엇인가요?",
+    "faqIDEs": "{{name}} 와 호환되는 IDE는 무엇인가요？",
     "faqIDEsAnswer": "이 스킬은 {{supportedPlatforms}} 와 호환됩니다. 통합 설치에는 Killer-Skills CLI를 사용하세요.",
     "faqInstallTitle": "FAQ 및 설치 단계",
-    "faqLimitations": "{{name}}에 제한 사항이 있나요?",
+    "faqLimitations": "{{name}}에 제한 사항이 있나요？",
     "faqTitle": "자주 묻는 질문",
-    "faqUseCases": "{{name}}은 어디에 쓰이나요?",
+    "faqUseCases": "{{name}}은 어디에 쓰이나요？",
     "faqUseCasesAnswer": "주요 활용 사례는 다음과 같습니다: {{useCases}}.",
-    "faqWhatIs": "{{name}}은 무엇인가요?",
+    "faqWhatIs": "{{name}}은 무엇인가요？",
     "faqWhatIsAnswer": "{{name}} 는 Killer-Skills에서 제공하는 AI 에이전트 스킬입니다.",
     "features": "기능",
     "getManager": "매니저 받기",
@@ -553,7 +554,7 @@
     "noTags": "태그 없음",
     "openMainN8n": "n8n 메인 페이지 열기",
     "platformSupport": "19개 이상 플랫폼 지원",
-    "plusMore": "+12 more",
+    "plusMore": "+12 더",
     "precautions": "주의사항",
     "project": "프로젝트",
     "projectLevel": "프로젝트:",
@@ -586,7 +587,7 @@
     "viewOnGithub": "GitHub에서 보기"
   },
   "Docs": {
-    "addFirstSkill": "한 줄 명령으로 첫 번째 AI Agent Skill을 환경에 추가할 수 있습니다.",
+    "addFirstSkill": "한 줄 명령으로 첫 번째 AI 에이전트 스킬을 환경에 추가할 수 있습니다.",
     "apiDesc": "MCP, API 연동, 확장 가능한 에이전트 워크플로 구현 방식을 이해할 수 있습니다.",
     "cliDesc": "AI 에이전트 스킬용 CLI 명령, 동기화, 자동화 설정 옵션을 확인할 수 있습니다.",
     "closeSidebar": "사이드바 닫기",
@@ -594,7 +595,7 @@
     "editPage": "이 페이지 편집",
     "entry": {
       "install": {
-        "title": "AI Agent Skills 설치",
+        "title": "AI 에이전트 스킬 설치",
         "desc": "설치, 초기화, 첫 실행까지 처음부터 확인할 수 있습니다."
       },
       "ide": {
@@ -611,16 +612,16 @@
       }
     },
     "faq1A": "`npx killer-skills add owner/repo`를 실행하세요. CLI가 IDE를 자동으로 감지하고 올바른 네이티브 형식을 작성합니다.",
-    "faq1Q": "AI Agent Skills는 어떻게 설치하나요?",
+    "faq1Q": "AI 에이전트 스킬는 어떻게 설치하나요？",
     "faq2A": "설치, CLI 명령, 설정, 워크플로 개념, Cursor·Claude Code·VS Code 등과의 호환성을 다룹니다.",
-    "faq2Q": "문서에서는 무엇을 다루나요?",
+    "faq2Q": "문서에서는 무엇을 다루나요？",
     "faq3A": "컬렉션과 스킬 페이지를 살펴보면 재사용 가능한 자동화, 템플릿, 실제 활용 사례를 찾을 수 있습니다.",
-    "faq3Q": "템플릿과 자동화 예시는 어디서 찾을 수 있나요?",
+    "faq3Q": "템플릿과 자동화 예시는 어디서 찾을 수 있나요？",
     "gettingStarted": "시작하기",
     "guide": "가이드",
     "indexDescription": "Killer-Skills 설치, 설정, CLI 명령어, IDE 호환성, 워크플로 템플릿 문서를 확인하세요.",
     "indexTitle": "AI 에이전트 스킬 문서: 설치, 설정, 워크플로 템플릿",
-    "installDesc": "Cursor, Claude Code, VS Code 등에서 AI Agent Skills를 설치하는 과정을 단계별로 안내합니다.",
+    "installDesc": "Cursor, Claude Code, VS Code 등에서 AI 에이전트 스킬를 설치하는 과정을 단계별로 안내합니다.",
     "keyConcepts": "핵심 개념",
     "lastUpdated": "마지막 업데이트",
     "navLabel": "문서 탐색",
@@ -630,9 +631,9 @@
     "skillsDesc": "AI 에이전트를 위한 재사용 가능한 지시문",
     "startFirstSkill": "첫 스킬부터 시작하기",
     "tableOfContents": "이 페이지의 내용",
-    "titleSuffix": "AI Agent Skills Docs",
+    "titleSuffix": "AI 에이전트 스킬 Docs",
     "toggleSidebar": "문서 사이드바 전환",
-    "welcomeText": "Killer-Skills 문서에 오신 것을 환영합니다. AI Agent Skills를 설치하고 IDE를 설정하며 재사용 가능한 워크플로를 실무에 적용하는 방법을 배울 수 있습니다.",
+    "welcomeText": "Killer-Skills 문서에 오신 것을 환영합니다. AI 에이전트 스킬를 설치하고 IDE를 설정하며 재사용 가능한 워크플로를 실무에 적용하는 방법을 배울 수 있습니다.",
     "workflowDesc": "워크플로 자동화, 프로세스 자동화, 템플릿 활용에 쓰이는 재사용 가능한 패턴을 살펴볼 수 있습니다.",
     "workflows": "워크플로",
     "workflowsDesc": "재사용 가능한 다단계 자동화"
@@ -679,7 +680,7 @@
     "privacy": "개인정보 보호정책",
     "product": "제품",
     "resources": "리소스",
-    "rights": "All rights reserved.",
+    "rights": "모든 권리 보유.",
     "showcase": "쇼케이스",
     "stayUpdated": "최신 정보 받기",
     "subscribeDesc": "최신 스킬과 업데이트를 이메일로 받아보세요.",
@@ -691,7 +692,14 @@
     "searchButton": "검색",
     "searchPlaceholder": "스킬 검색... 예: PDF, 데이터 분석",
     "subtitle": "무한한 가능성을 탐색하고 AI 어시스턴트를 강화하세요",
-    "suggestions": ["PDF", "이미지 생성", "데이터 분석", "브라우저", "코드 리뷰", "문서"],
+    "suggestions": [
+      "PDF",
+      "이미지 생성",
+      "데이터 분석",
+      "브라우저",
+      "코드 리뷰",
+      "문서"
+    ],
     "title": "AI 에이전트 스킬 발견",
     "titleHighlight": "AI 에이전트"
   },
@@ -702,23 +710,26 @@
       "browse": "스킬 둘러보기",
       "docs": "문서 보기"
     },
+    "editorialCurationBody": "우리는 공식 출처 (Anthropic, Vercel, Cloudflare, Sentry)와 높은 별점의 커뮤니티 저장소에서 우수한 품질 검토를 거친 것들에서 AI 에이전트 스킬을 우선순위로 둡니다. 모든 색인된 스킬에는 첫 번째 파티 추천 레이어가 설명되어 있으며, 그에 대한 적합성, 실제 사용 사례, 그리고 제한 사항이 포함되어 있습니다. 이 기준을 충족하지 못하는 스킬은 설치 참조만 가능하지만, 검색 목록에서 제외됩니다. - 따라서 구글이 색인하는 항목은 항상 편집자 판단에 의해 결정되고, raw GitHub import에 의한 것이 아닙니다.",
+    "editorialCurationLink": "AI 에이전트 스킬 설치 플랫폼에서 사용하는 선택 기준을 참조하세요",
+    "editorialCurationTitle": "\"Why These Tools First\"\n\n## AI 에이전트 스킬 시장에서 왜 이러한 도구를 먼저 사용해야 할까요？\"",
     "editorialParagraph1": "AI 코딩 어시스턴트인 Claude Code, Cursor, Windsurf가 엔지니어링 랜드스케이프를 변화시키는 가운데, Model Context Protocol (MCP)가 대형 언어 모델(LLMs)과 외부 시스템 간의 표준 브리지로 등장했습니다. 그러나 GitHub의 원시, 검증되지 않은 저장소를 탐색하면, 단편화된 구성 지침, 무음 실행 실패, 임의의 로컬 시스템 액세스에 따른 심각한 보안 위험과 같은 상당한 도전을 제기합니다. Killer-Skills는 이 간격을 메우기 위해 구축되었습니다.",
     "editorialParagraph2": "매우 엄격한 다단계 자동 테스트와 수동 큐레이션 파이프라인을 통해 우리의 오픈 디렉토리에 나열된 모든 스킬을 평가합니다. 우리는 안전성, 네이티브 IDE 호환성, 의존성 가벼움의 세 가지 핵심 엔지니어링 기둥에 따라 오픈소스 Model Context Protocol(MCP) 서버와 도구를 평가합니다. 파이프라인은 스킬이 올바르게 스키마를 정의하고, 명시적인 매개변수 사양을 선언하고, 무단 원격 데이터 이그레스를 피하며, 표준화된 단일 명령을 사용하여 무결하게 설치하는지 지속적으로 확인합니다. 또한 우리의 인덱스가 죽은 링크나 무음 서버 실패가 없도록 하는데 도움이 되도록 정기적인 크롤 건강 확인 루프를 실행합니다. 이를 통해 로컬 구성이 완전히 안전하게 유지됩니다.",
     "editorialParagraph3": "3,400개 이상의 오픈소스 스킬을 검증된 사용 사례 중심의 컬렉션으로 통합함으로써, 우리는 엔지니어가 원시 저장소 디버깅에 시간을浪費하지 않고 안전하게 AI 코딩 어시스턴트를 강화하는 데 도움을 줍니다. 우리의 디렉토리는 문서 자동화(예: xlsx, docx, pdf 조작), 창의적 생성 아트, DevOps와 같은 액션 중심의 번들을 통해 도구를 분류합니다. 복잡한 PDF 생성을 OCR을 통해 자동화하거나, 자동화된 유닛 테스트를 작성하거나, IDE의 터미널을 통해 보안 클라우드 배포를 관리하는 경우, Killer-Skills는 깨끗하고 테스트된 설치 진입점을 제공합니다. 각 진입점은 우리의 강력한 에지 라우팅 미들웨어에 의해 보호되며, 이는 구식 크롤링 경로를 단축하고 활성, 규정 준수 코드만 다운로드하도록 합니다.",
     "editorialSubtitle": "개발자 중심의 디렉토리로서 안전성, 호환성, 실행 정밀성을 보장합니다.",
     "editorialTitle": "재사용 가능한 MCP 스킬의 중요성 및 테스트 표준",
     "faq1A": "Killer-Skills는 Claude Code, Cursor, Windsurf 및 기타 호환 IDE에서 재사용 가능한 AI 에이전트 스킬을 위한 오픈 디렉터리이자 설치 진입점입니다.",
-    "faq1Q": "Killer-Skills란 무엇인가요?",
+    "faq1Q": "Killer-Skills란 무엇인가요？",
     "faq2A": "대부분의 스킬은 Claude Code, Cursor, Windsurf, VS Code 및 19개 이상의 IDE에서 일관된 설치 흐름으로 작동합니다.",
-    "faq2Q": "이 스킬들은 어떤 IDE에서 사용할 수 있나요?",
+    "faq2Q": "이 스킬들은 어떤 IDE에서 사용할 수 있나요？",
     "faq3A": "스킬 페이지에서 또는 `npx killer-skills add owner/repo` 명령으로 지원 환경에 설치할 수 있습니다.",
-    "faq3Q": "이 스킬들을 어떻게 설치하나요?",
+    "faq3Q": "이 스킬들을 어떻게 설치하나요？",
     "faq4A": "IDE 네이티브 스킬 파일로 제공되어 Claude Code, Cursor, Windsurf 및 기타 호환 환경에서 바로 설치하고 재사용할 수 있습니다.",
-    "faq4Q": "이 스킬들은 어떤 형태로 제공되나요?",
+    "faq4Q": "이 스킬들은 어떤 형태로 제공되나요？",
     "faq5A": "상세 페이지에서 설치 명령, 지원 IDE, 소스 저장소, 관련 스킬을 한눈에 확인하여 작업에 적합한지 빠르게 판단할 수 있습니다.",
-    "faq5Q": "왜 스킬 디렉터리에서 시작해야 하나요?",
+    "faq5Q": "왜 스킬 디렉터리에서 시작해야 하나요？",
     "faq6A": "MCP(Model Context Protocol)는 Claude Code, Cursor, Windsurf 등 AI 코딩 어시스턴트가 통합 인터페이스를 통해 외부 도구, 데이터 소스, 서비스에 연결할 수 있게 하는 오픈 표준입니다. Killer-Skills는 이 프로토콜을 사용하는 MCP 서버와 스킬을 제공합니다.",
-    "faq6Q": "MCP(Model Context Protocol)란?",
+    "faq6Q": "MCP(Model Context Protocol)란？",
     "faqSubtitle": "홈페이지 스니펫, 표시 콘텐츠, 구조화된 데이터의 정합성을 유지합니다.",
     "faqTitle": "홈페이지 FAQ",
     "features": [
@@ -753,13 +764,18 @@
       "featured": "추천",
       "viewAll": "모든 공식 컬렉션 보기"
     },
-    "searchButton": "Search",
+    "searchButton": "스킬 검색",
     "searchPlaceholder": "Search for capabilities (e.g., 'Web Scraping', 'Data Viz')...",
     "seoDescription": "Claude Code, Cursor, Windsurf용 3,400개 이상의 AI 에이전트 스킬과 MCP 서버를 탐색하고 비교한 뒤 설치하세요.",
     "seoIntro": "Killer-Skills는 3,400+개의 AI 에이전트 스킬을 위한 오픈 소스 디렉터리이자 설치 허브입니다. 개발자는 원본 GitHub 저장소를 직접 뒤지는 것보다 더 빠르게 신뢰할 수 있는 도구를 찾고, 같은 흐름에서 컬렉션, 솔루션, 설치 문서로 이어질 수 있습니다.",
     "seoTitle": "AI 에이전트 스킬 및 MCP 서버 디렉터리",
     "stable": "안정",
-    "tags": ["연구", "코딩", "마케팅", "분석"],
+    "tags": [
+      "연구",
+      "코딩",
+      "마케팅",
+      "분석"
+    ],
     "trendingSubtitle": "커뮤니티에서 높은 평가를 받고 가장 인기 있는 스킬.",
     "trendingTitle": "인기 스킬",
     "viewAll": "모두 보기"
@@ -781,25 +797,25 @@
     },
     "heroDesc": "주요 AI 코딩 도구와 IDE 전반에서 같은 재사용 가능한 Killer-Skills 스킬을 사용할 수 있습니다.",
     "learnProtocol": "스킬이 통합되는 방식 보기",
-    "missingTool": "IDE가 보이지 않나요?",
+    "missingTool": "IDE가 보이지 않나요？",
     "missingToolDesc": "IDE가 스킬 지침을 실행할 수 있다면 Killer-Skills도 대체로 그 환경에서 작동합니다.",
-    "seoDescription": "Set up AI agent skills in Claude Code, Cursor, Windsurf, VS Code, and 19+ IDEs. Browse compatibility guides and one-command install instructions.",
-    "seoTitle": "IDE Integrations for AI Agent Skills — Setup & Compatibility",
+    "seoDescription": "Set up AI 에이전트 스킬 in Claude Code, Cursor, Windsurf, VS Code, and 19+ IDEs. Browse compatibility guides and one-command install instructions.",
+    "seoTitle": "IDE 통합 for AI 에이전트 스킬 — Setup & Compatibility",
     "viewGuide": "설정 가이드 보기",
     "worksWhereYouWork": "사용 중인 환경에서 작동"
   },
   "IntegrationsPage": {
     "faq1A": "Killer-Skills는 Cursor, Claude Code, Windsurf, VS Code, JetBrains, Trae, OpenClaw, Kiro, Augment Code, Continue, Codex, OpenCode, Goose 등 19개 이상의 환경을 지원합니다.",
-    "faq1Q": "Killer-Skills는 어떤 IDE를 지원하나요?",
+    "faq1Q": "Killer-Skills는 어떤 IDE를 지원하나요？",
     "faq2A": "아니요. CLI가 IDE를 자동으로 감지하고 올바른 네이티브 형식을 작성합니다.",
-    "faq2Q": "IDE마다 따로 설정해야 하나요?",
+    "faq2Q": "IDE마다 따로 설정해야 하나요？",
     "faq3A": "네. Killer-Skills는 통합 형식을 사용하며 각 IDE의 네이티브 형식에 맞게 자동 변환합니다.",
-    "faq3Q": "같은 스킬을 여러 IDE에서 사용할 수 있나요?",
+    "faq3Q": "같은 스킬을 여러 IDE에서 사용할 수 있나요？",
     "heroIntro": "Killer-Skills는 주요 AI 코딩 도우미와 함께 사용할 수 있습니다. 한 번 설치하면 지원 환경에서 바로 활용할 수 있습니다.",
     "heroTitle": "IDE 통합",
     "intentLinks": {
       "install": {
-        "title": "AI Agent Skills 설치",
+        "title": "AI 에이전트 스킬 설치",
         "desc": "설치, 초기화, 첫 실행까지 처음부터 확인할 수 있습니다."
       },
       "ide": {
@@ -816,7 +832,7 @@
       }
     },
     "pageDescription": "Killer-Skills는 19개 이상의 IDE와 AI 코딩 어시스턴트를 지원합니다. 한 번 설치하면 모든 환경에서 사용 가능.",
-    "pageTitle": "AI Agent Skills IDE 통합: Cursor, Claude Code, VS Code 지원"
+    "pageTitle": "AI 에이전트 스킬 IDE 통합: Cursor, Claude Code, VS Code 지원"
   },
   "Labs": {
     "chooseSkill": "스킬 선택",
@@ -843,45 +859,45 @@
     "browseOwner": "{owner} 의 스킬",
     "browseRelated": "{title} 관련 스킬",
     "browsing": "탐색 중:",
-    "categorySeoTitle": "{category} AI Agent Skills",
+    "categorySeoTitle": "{category} AI 에이전트 스킬",
     "discover": "발견",
     "featured": "추천 스킬",
     "featuredDesc": "커뮤니티에서 가장 인기 있는 스킬",
-    "featuredSeoDesc": "Browse featured AI Agent skills and discover highly rated capabilities that fit directly into real developer workflows.",
-    "featuredSeoTitle": "Featured AI Agent Skills",
+    "featuredSeoDesc": "Browse featured AI 에이전트 스킬 and discover highly rated capabilities that fit directly into real developer workflows.",
+    "featuredSeoTitle": "Featured AI 에이전트 스킬",
     "latest": "최신 발견",
     "latestDesc": "최신 AI 에이전트 스킬 탐색",
-    "latestSeoDesc": "Review the latest AI Agent skills added to the directory and keep up with new workflow, automation, and developer-tool capabilities.",
-    "latestSeoTitle": "Latest AI Agent Skills",
+    "latestSeoDesc": "Review the latest AI 에이전트 스킬 added to the directory and keep up with new workflow, automation, and developer-tool capabilities.",
+    "latestSeoTitle": "Latest AI 에이전트 스킬",
     "latestSkills": "최신 스킬",
     "noSkills": "스킬을 찾을 수 없음",
     "noSkillsHint": "검색어 조정 또는 카테고리별 탐색 시도",
     "official": "공식 스킬",
     "officialDesc": "공식 팀에서 유지 관리하는 고품질 인증 스킬",
-    "officialSeoDesc": "Browse official AI Agent skills maintained by trusted teams and review high-confidence, install-ready workflow capabilities.",
-    "officialSeoTitle": "Official AI Agent Skills",
-    "ownerSeoDesc": "Browse AI agent skills published by {owner} for Claude Code, Cursor, and Windsurf.",
-    "ownerSeoTitle": "AI Agent Skills by {owner}",
+    "officialSeoDesc": "Browse official AI 에이전트 스킬 maintained by trusted teams and review high-confidence, install-ready workflow capabilities.",
+    "officialSeoTitle": "Official AI 에이전트 스킬",
+    "ownerSeoDesc": "Browse AI 에이전트 스킬 published by {owner} for Claude Code, Cursor, and Windsurf.",
+    "ownerSeoTitle": "AI 에이전트 스킬 by {owner}",
     "popular": "인기",
     "searchPrefix": "검색: {query}",
-    "searchSeoDesc": "Search results for \"{query}\" across AI agent skills for Claude Code, Cursor, and Windsurf.",
-    "searchSeoTitle": "{query} AI Agent Skills Search Results",
-    "seoDescription": "Browse and install AI Agent skills for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.",
-    "seoTitle": "AI Agent Skills for Claude Code, Cursor & Windsurf",
+    "searchSeoDesc": "Search results for \"{query}\" across AI 에이전트 스킬 for Claude Code, Cursor, and Windsurf.",
+    "searchSeoTitle": "{query} AI 에이전트 스킬 Search Results",
+    "seoDescription": "Browse and install AI 에이전트 스킬 for Claude Code, Cursor, Windsurf, and more with filtering by search, category, topic, and official sources.",
+    "seoTitle": "AI 에이전트 스킬 for Claude Code, Cursor & Windsurf",
     "title": "모든 스킬",
-    "topicSeoDesc": "Browse AI agent skills related to {topic} for Claude Code, Cursor, and Windsurf workflows.",
-    "topicSeoTitle": "{topic} AI Agent Skills",
+    "topicSeoDesc": "Browse AI 에이전트 스킬 related to {topic} for Claude Code, Cursor, and Windsurf workflows.",
+    "topicSeoTitle": "{topic} AI 에이전트 스킬",
     "viewAll": "모든 스킬 보기",
     "viewSkills": "스킬 보기"
   },
   "Metadata": {
     "Skills": {
-      "title": "스킬 디렉터리 - AI Agent 스킬 탐색",
+      "title": "스킬 디렉터리 - AI 에이전트 스킬 탐색",
       "description": "Killer-Skills 디렉터리에서 수천 개의 AI 에이전트 스킬을 찾아 설치하세요. Claude Code, Windsurf, Cursor 등을 지원합니다."
     },
     "description": "AI 에이전트 스킬을 찾고, 설치하고, 관리하세요. Claude Code, Cursor, Windsurf, Antigravity 등을 지원하며 개발 워크플로를 빠르게 강화할 수 있습니다.",
-    "keywords": "agent skills, claude code, ai agent, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
-    "template": "%s | Killer-Skills",
+    "keywords": "agent skills, claude code, AI 에이전트, cursor, windsurf, antigravity, ai skills, coding skills, AI assistant, code generation",
+    "template": "\"%s | Killer-Skills\" \n\nTranslated to ko: \"%s | Killer-Skills\"",
     "title": "Killer-Skills - AI 에이전트 스킬 디렉터리"
   },
   "Navigation": {
@@ -926,7 +942,7 @@
     "Intents": {
       "mcp-servers": {
         "label": "MCP 통합 및 도구",
-        "description": "Claude Code, Cursor 등에서 사용할 수 있는 통합용·개발 워크플로용·MCP 호환 AI Agent Skills를 찾아보세요."
+        "description": "Claude Code, Cursor 등에서 사용할 수 있는 통합용·개발 워크플로용·MCP 호환 AI 에이전트 스킬를 찾아보세요."
       },
       "workflow-automation": {
         "label": "워크플로 자동화 스킬",
@@ -946,18 +962,18 @@
       },
       "data-extraction": {
         "label": "데이터 워크플로 스킬",
-        "description": "추출, ETL, 리포팅, 구조화된 데이터 작업을 돕는 AI Agent Skills를 찾을 수 있습니다."
+        "description": "추출, ETL, 리포팅, 구조화된 데이터 작업을 돕는 AI 에이전트 스킬를 찾을 수 있습니다."
       },
       "skill-installation": {
         "label": "스킬 설치 가이드",
-        "description": "Cursor, Claude Code, VS Code 등에서 AI Agent Skills를 추가하기 위한 설치 방법, 호환성, CLI 안내를 확인하세요."
+        "description": "Cursor, Claude Code, VS Code 등에서 AI 에이전트 스킬를 추가하기 위한 설치 방법, 호환성, CLI 안내를 확인하세요."
       },
       "workflow-templates": {
         "label": "워크플로 템플릿",
         "description": "반복적인 AI 작업에 쓸 수 있는 템플릿, 스타터, 자동화 플레이북을 살펴보세요."
       },
       "ai-agent-skills": {
-        "label": "AI Agent Skills",
+        "label": "AI 에이전트 스킬",
         "description": "주요 IDE에서 사용할 수 있는 고품질 코딩·자동화·데이터·생산성 스킬을 찾아보세요."
       },
       "claude-code-skills": {
@@ -966,7 +982,7 @@
       },
       "cursor-skills": {
         "label": "Cursor 스킬",
-        "description": "Cursor에서 바로 쓸 수 있는 빠른 개발용 AI Agent Skills를 찾아보세요."
+        "description": "Cursor에서 바로 쓸 수 있는 빠른 개발용 AI 에이전트 스킬를 찾아보세요."
       },
       "windsurf-skills": {
         "label": "Windsurf 스킬",
@@ -1019,7 +1035,7 @@
     }
   },
   "Skills": {
-    "copied": "복사됨!",
+    "copied": "복사됨！",
     "copy": "복사",
     "creators": "활성 크리에이터",
     "downloads": "다운로드",
@@ -1052,18 +1068,18 @@
     "badge": "솔루션",
     "browseSkills": "전체 스킬 디렉터리 보기",
     "faq1A": "솔루션 페이지는 관련 문제와 스킬을 함께 묶어 보여 주기 때문에 더 빠르게 비교하고 적절한 선택을 할 수 있습니다.",
-    "faq1Q": "왜 일반 검색보다 솔루션 페이지를 사용하나요?",
-    "faq1QTemplate": "{label} 시나리오는 어떤 문제를 해결하나요?",
+    "faq1Q": "왜 일반 검색보다 솔루션 페이지를 사용하나요？",
+    "faq1QTemplate": "{label} 시나리오는 어떤 문제를 해결하나요？",
     "faq2A": "네. 여기 나열된 스킬들은 Killer-Skills 통합 설치 흐름을 통해 Cursor, Claude Code, Windsurf 및 기타 IDE에서 사용할 수 있습니다.",
-    "faq2Q": "이 스킬들을 Cursor나 Claude Code에 직접 설치할 수 있나요?",
+    "faq2Q": "이 스킬들을 Cursor나 Claude Code에 직접 설치할 수 있나요？",
     "faq3A": "관련 스킬, 컬렉션, 문서, CLI 페이지를 통해 필요한 정보와 설치 방법을 더 확인할 수 있습니다.",
-    "faq3Q": "결과가 너무 광범위하면 어떻게 하나요?",
+    "faq3Q": "결과가 너무 광범위하면 어떻게 하나요？",
     "installCli": "CLI로 설치",
     "keyword1": "스킬 활용 시나리오",
     "noSkills": "아직 매칭되는 스킬이 없습니다. 다른 솔루션 페이지를 시도해보세요.",
     "openSolution": "솔루션 보기",
     "pageDescription": "유스케이스별 설치 가능한 AI 에이전트 스킬 탐색: 워크플로, 프로세스, 문서, 브라우저, 데이터 자동화.",
-    "pageTitle": "설치 가능한 자동화 솔루션: AI Agent Skills",
+    "pageTitle": "설치 가능한 자동화 솔루션: AI 에이전트 스킬",
     "readDocs": "설치 문서 보기",
     "solutions": "솔루션",
     "tryDemo": "온라인 데모 체험"

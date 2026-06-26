@@ -396,6 +396,7 @@
     "collectionsTitle": "Beliebte Sammlungen",
     "copied": "Kopiert",
     "copy": "Kopieren",
+    "curationCriteriaTitle": "Why These Collections Exist",
     "editorPicks": "Empfehlungen der Redaktion",
     "faq1A": "Diese Sammlungen sind rund um Workflow-Automatisierung, Prozessautomatisierung, Dokumentenoperationen, Datenworkflows und wiederverwendbare Skill-Stacks aufgebaut.",
     "faq1Q": "Für welche Workflows sind diese Sammlungen gedacht?",
@@ -691,7 +692,14 @@
     "searchButton": "Suchen",
     "searchPlaceholder": "Fähigkeiten suchen... z.B. PDF, Datenanalyse",
     "subtitle": "Erkunden Sie endlose Möglichkeiten, stärken Sie Ihren AI-Assistenten",
-    "suggestions": ["PDF", "Bildgenerator", "Datenanalyse", "Browser", "Code-Review", "Dokumente"],
+    "suggestions": [
+      "PDF",
+      "Bildgenerator",
+      "Datenanalyse",
+      "Browser",
+      "Code-Review",
+      "Dokumente"
+    ],
     "title": "Entdecken Sie AI-Agenten-Fähigkeiten",
     "titleHighlight": "AI-Agent"
   },
@@ -702,6 +710,9 @@
       "browse": "Skills durchsuchen",
       "docs": "Dokumentation anzeigen"
     },
+    "editorialCurationBody": "We prioritize skills from official sources (Anthropic, Vercel, Cloudflare, Sentry) and high-star community repositories that have passed our quality review floor. Every indexed skill has a first-party recommendation layer explaining its fit, real use cases, and limitations. Skills that do not meet this bar remain accessible for installation reference but are excluded from search listings — so what Google indexes always carries editorial judgment, not raw GitHub imports.",
+    "editorialCurationLink": "Read our selection criteria",
+    "editorialCurationTitle": "Why These Tools First",
     "editorialParagraph1": "\"Während KI-Coding-Assistenten wie Claude Code, Cursor und Windsurf die Ingenieurlandschaft verändern, ist das Model Context Protocol (MCP) als Standardbrücke zwischen LLMs und externen Systemen entstanden. Die Durchsicht von rohen, unüberprüften Repositories auf GitHub stellt jedoch erhebliche Herausforderungen dar: fragmentierte Konfigurationsanweisungen, stille Ausführungsfehler und erhebliche Sicherheitsrisiken durch willkürlichen lokalen Systemzugriff. Killer-Skills wurde entwickelt, um diese Lücke zu schließen.\"",
     "editorialParagraph2": "Jeder in unserem offenen Verzeichnis aufgeführte Skill durchläuft eine strengen, mehrstufigen automatisierten Test- und manuellen Kurationspipeline. Wir bewerten Open-Source-Model-Context-Protocol-(MCP)-Server und -Tools anhand von drei Kernsäulen der Technik: Sicherheit, Native-IDE-Kompatibilität und Abhängigkeitsarmut. Unsere Pipeline überprüft kontinuierlich, dass Skills ihre Schemata korrekt definieren, explizite Parameterspezifikationen deklarieren, unbefugten Remote-Datenabfluss vermeiden und über einen einzigen, standardisierten Befehl reibungslos installiert werden. Wir führen auch regelmäßige Crawling-Integritätsprüfungen durch, um sicherzustellen, dass unser Index keine toten Links oder stummen Serverfehler enthält, und halten Ihre lokale Konfiguration damit vollständig sicher.",
     "editorialParagraph3": "\"Indem wir über 3.400 Open-Source-Skills in verifizierte, anwendungsfallspezifische Sammlungen konsolidieren, helfen wir Ingenieuren, ihre AI-Coding-Assistenten sicher zu beschleunigen, ohne Zeit mit der Fehlersuche in rohen Repositorys zu verschwenden. Unser Verzeichnis kategorisiert Tools in aktionsorientierte Pakete wie Dokumentenautomatisierung (z. B. xlsx-, docx- und pdf-Manipulation), Kreativ-Generative Kunst und DevOps. Ob Sie komplexe PDF-Generierung über OCR automatisieren, automatisierte Unit-Tests schreiben oder sichere Cloud-Bereitstellungen über das Terminal Ihrer IDE verwalten, Killer-Skills bietet saubere, getestete Installations-Eintragspunkte. Jeder Eintragspunkt wird durch unsere robuste Edge-Routing-Middleware geschützt, die veraltete Crawling-Pfade unterbricht und sicherstellt, dass Sie nur aktiven, konformen Code herunterladen.\"",
@@ -759,7 +770,12 @@
     "seoIntro": "Killer-Skills ist ein Open-Source-Verzeichnis und Installationshub für über 3.400 KI-Agenten-Skills. Entwickler finden dort vertrauenswürdige Tools schneller als beim Durchsuchen roher GitHub-Repositories und gelangen im selben Ablauf zu Collections, Lösungsseiten und Installationsdokumenten.",
     "seoTitle": "KI-Agent-Skills und MCP-Server-Verzeichnis",
     "stable": "Stabil",
-    "tags": ["Forschung", "Programmierung", "Marketing", "Analyse"],
+    "tags": [
+      "Forschung",
+      "Programmierung",
+      "Marketing",
+      "Analyse"
+    ],
     "trendingSubtitle": "Top-bewertete und beliebte Skills aus der Community.",
     "trendingTitle": "Trending Fähigkeiten",
     "viewAll": "Alle anzeigen"

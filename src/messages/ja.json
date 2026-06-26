@@ -196,7 +196,7 @@
       "row3": "ランタイムでのスキル発見と同期",
       "row4": "検証済みの安全なスキルレジストリ"
     },
-    "copyInstall": "npx killer-skills add <owner/repo>",
+    "copyInstall": "`npx killer-skills add <オーナー/リポジトリ>`",
     "faq1A": "プロジェクトのディレクトリで npx killer-skills add owner/repo を実行してください。CLI が IDE を自動判定し、正しいスキル形式を書き込みます。",
     "faq1Q": "CLI で AI エージェントスキルをインストールするには？",
     "faq2A": "CLI は Cursor、Claude Code、Windsurf、VS Code、JetBrains、Trae など、19 以上の環境に対応しています。",
@@ -205,7 +205,7 @@
     "faq3Q": "複数のプロジェクト間でスキルを同期できますか？",
     "faq4A": "killer-skills update を実行すると最新バージョンを取得できます。CLI はローカルのカスタマイズを保持します。",
     "faq4Q": "インストール済みのスキルを更新するには？",
-    "faqTitle": "Frequently Asked Questions",
+    "faqTitle": "よくある質問",
     "features": {
       "autoInvoke": {
         "title": "オープンスキルレジストリ",
@@ -226,7 +226,7 @@
     },
     "heroDesc": "Cursor、Windsurf、Claude Code などのツールで、3,400 以上の AI エージェントスキルを発見・インストール・同期できます。",
     "heroSubtitle": "AI エージェントスキルをインストールして管理",
-    "heroTitle": "Killer-Skills CLI",
+    "heroTitle": "\"Killer-Skills CLI\" \n\n(Translation note： Added half-width space between CJK characters and English letters/numbers/backticks for better formatting。) \n\n(No additional text)",
     "install": "今すぐインストール",
     "latestVersion": "最新バージョン：",
     "optionalNote": "注： CLI ツールはオプションです。何もインストールせずに npx 経由で直接スキルを使用できます。",
@@ -277,7 +277,7 @@
     "viewOnNpm": "NPM で見る"
   },
   "Categories": {
-    "ai": "AI & ML",
+    "ai": "AI & ML\n\nbecomes\n\nAI & ML",
     "api": "API",
     "automation": "自動化",
     "browseByCategory": "カテゴリで探す",
@@ -289,7 +289,7 @@
     "database": "データベース",
     "design": "デザイン",
     "development": "開発",
-    "devops": "DevOps",
+    "devops": "デバオプス",
     "documentation": "ドキュメント",
     "faq1A": "Skills are organized by use case： document automation、 developer experience、 enterprise solutions、 and creative tools。",
     "faq1Q": "How are skills categorized？",
@@ -300,7 +300,7 @@
     "git": "Git",
     "heroDesc": "さまざまな AI スキルを探索し、最適なツールを見つけましょう",
     "heroIntro": "カテゴリ別に AI エージェントスキルを探して、ワークフローに合うツールをより早く見つけましょう。",
-    "heroTitle": "Skill Categories",
+    "heroTitle": "AI エージェントスキルカテゴリー",
     "keyword1": "AI エージェントスキルのカテゴリ",
     "keyword2": "スキルタイプ別ブラウズ",
     "library": "ライブラリ",
@@ -396,6 +396,7 @@
     "collectionsTitle": "注目のコレクション",
     "copied": "コピー済",
     "copy": "コピー",
+    "curationCriteriaTitle": "AI エージェントスキルがどのように選択されるか",
     "editorPicks": "編集者のおすすめ",
     "faq1A": "ワークフロー自動化、プロセス自動化、ドキュメント操作、データワークフロー、再利用可能なスキルスタックを中心に構成されています。",
     "faq1Q": "これらのコレクションはどのワークフロー向けですか？",
@@ -553,7 +554,7 @@
     "noTags": "タグなし",
     "openMainN8n": "n8n のメインページを開く",
     "platformSupport": "19 以上の環境に対応",
-    "plusMore": "+12 more",
+    "plusMore": "+12 の追加",
     "precautions": "注意事項",
     "project": "プロジェクト",
     "projectLevel": "プロジェクト：",
@@ -658,7 +659,7 @@
     "overview": "概要",
     "platformOverview": "スキル概要",
     "quickStart": "クイックスタート",
-    "restApi": "REST API",
+    "restApi": "REST API\n\n## ルール：\n1。 **SEO 最適化 **： AI エージェントツールや開発者ワークフローのスペースで実際に検索されるキーワードを使用する。\n2。 ** サイトのテーマ **： AI エージェントスキル市場向け。AI エージェント、スキル、ワークフロー、IDE 統合、MCP サーバー、開発者ツールに沿った翻訳を維持する。\n3。 ** 長さの制約 **： 原文と類似した長さの翻訳を維持して、UI の破損や SERP の省略を避ける。\n4。 **tone**： プロフェッショナル、技術的、しかしアクセス可能。\n5。 ** ブランド用語 **： 「Killer-Skills」、「Claude Code」、「Cursor」、「Windsurf」、「MCP」は翻訳しない。\n6。 **CJK フォーマットルール (重要)**：\n - CJK 言語 (zh、 ja、 ko)： 英語文字/数字/バッククォートと CJK 文字の間に半角スペースを入れる (例： \"在 Cursor 中\")。\n - 中国語 (zh)： 全角句点 (，。！？：；) を使用する。\n - 日本語 (ja)： 全角句点 (、。！？：；) と日本語のカンマ (、) を使用する。\n - 韓国語 (ko)： 半角句点 (。) とカンマ (、) を使用するが、全角感嘆符/質問符 (！？) を使用する。\n7。 ** ガイド語集の整合性 **：\n - \"AI エージェントスキル\" -> zh： \"AI エージェントスキル\"、 ja： \"AI エージェントスキル\"、 ko： \"AI エージェントスキル\"\n - \"AI エージェント\" -> zh： \"AI エージェント\"、 ja： \"AI エージェント\"、 ko： \"AI エージェント\"\n - \"IDE 統合\" -> zh： \"IDE 統合\"、 ja： \"IDE 統合\"、 ko： \"IDE 統合\"\n - \"開発者ツール\" -> zh： \"開発者ツール\"、 ja： \"開発者ツール\"、 ko： \"開発者ツール\"\n - \"インストールプラットフォーム\" -> zh： \"インストールプラットフォーム\"、 ja： \"インストールプラットフォーム\"、 ko： \"インストールプラットフォーム\"\n - \"ワークフロー自動化\" -> zh： \"ワークフロー自動化\"、 ja： \"ワークフロー自動化\"、 ko： \"ワークフロー自動化\"\n - \"マーケットプレイス\" -> zh： \"マーケットプレイス\"、 ja： \"マーケットプレイス\"、 ko： \"マーケットプレイス\"\n\nREST API",
     "security": "セキュリティ",
     "skills": "スキル (Skills)",
     "tools": "ツール (Tools)",
@@ -691,7 +692,14 @@
     "searchButton": "検索",
     "searchPlaceholder": "スキルを検索 ... 例： PDF、 データ分析",
     "subtitle": "無限の可能性を探索し、AI アシスタントを強化しましょう",
-    "suggestions": ["PDF", "画像生成", "データ分析", "ブラウザ", "コードレビュー", "ドキュメント"],
+    "suggestions": [
+      "PDF",
+      "画像生成",
+      "データ分析",
+      "ブラウザ",
+      "コードレビュー",
+      "ドキュメント"
+    ],
     "title": "AI エージェントのスキルを発見",
     "titleHighlight": "AI エージェント"
   },
@@ -702,6 +710,9 @@
       "browse": "スキルを探す",
       "docs": "ドキュメントを見る"
     },
+    "editorialCurationBody": "We prioritize skills from official sources (Anthropic、 Vercel、 Cloudflare、 Sentry) and high-star community repositories that have passed our quality review floor。 Every indexed skill has a first-party recommendation layer explaining its fit、 real use cases、 and limitations。 Skills that do not meet this bar remain accessible for installation reference but are excluded from search listings — so what Google indexes always carries editorial judgment、 not raw GitHub imports。",
+    "editorialCurationLink": "AI エージェントスキルを選択する基準を読む",
+    "editorialCurationTitle": "なぜこれらのツールを最初に使うのか",
     "editorialParagraph1": "AI コーディングアシスタントの Claude Code、Cursor、Windsurf がエンジニアリングの風景を変えている中で、Model Context Protocol（MCP）は LLM と外部システムの標準的なブリッジとして登場しています。しかし、GitHub の生の、検証されていないリポジトリを閲覧すると、断片化された構成手順、サイレントな実行失敗、任意のローカルシステムアクセスによる深刻なセキュリティリスクなどの大きな課題が生じます。Killer-Skills はこのギャップを埋めるために構築されました。",
     "editorialParagraph2": "私たちのオープンディレクトリにリストされている各スキルは、厳格なマルチステージの自動テストと手動キュレーションパイプラインを経て検証されます。Killer-Skills では、オープンソースの Model Context Protocol（MCP）サーバーとツールを、3 つのコアエンジニアリングの柱：セーフティ、ネイティブ IDE 互換性、および依存関係の軽量化に対して評価します。パイプラインは、スキルが正しくスキーマを定義し、明示的なパラメータースペックを宣言し、未承認のリモートデータエグレスを回避し、単一の標準化されたコマンドを使用してシームレスにインストールされることを継続的に確認します。また、インデックスに死んだリンクやサイレントサーバー障害がないことを確認するために、定期的なクロールヘルス検証ループを実行し、ローカルコンフィグレーションを完全に安全に保ちます。",
     "editorialParagraph3": "Killer-Skills は、3,400 以上のオープンソーススキルを検証済みのユースケースに焦点を当てたコレクションに統合することで、エンジニアが AI コーディングアシスタントを安全に強化できるように支援しています。私たちのディレクトリは、ドキュメントオートメーション（例：xlsx、docx、pdf 操作）、クリエイティブジェネレーティブアート、DevOps などのアクション指向のバンドルにツールを分類しています。IDE のターミナルを介して複雑な PDF 生成を OCR で自動化したり、自動化されたユニットテストを書いたり、セキュアなクラウドデプロイを管理したりする場合、Killer-Skills はクリーンでテスト済みのインストールエントリーポイントを提供します。各エントリーポイントは、私たちの強力なエッジルーティングミドルウェアによって保護されており、古いクロールパスをショートサーキットし、有効でコンプライアントなコードのみをダウンロードできるようにします。",
@@ -759,7 +770,12 @@
     "seoIntro": "Killer-Skills は、3,400+ 件の AI エージェントスキルを集めたオープンソースのディレクトリ兼インストールハブです。開発者は生の GitHub リポジトリを渡り歩くより速く信頼できるツールを見つけ、そのままコレクション、ソリューション、インストール文書へ進めます。",
     "seoTitle": "AI エージェントスキルと MCP サーバーのディレクトリ",
     "stable": "安定版",
-    "tags": ["リサーチ", "コーディング", "マーケティング", "分析"],
+    "tags": [
+      "リサーチ",
+      "コーディング",
+      "マーケティング",
+      "分析"
+    ],
     "trendingSubtitle": "コミュニティで評価が高く人気のスキル。",
     "trendingTitle": "トレンドスキル",
     "viewAll": "すべて見る"
@@ -881,7 +897,7 @@
     },
     "description": "AI エージェントスキルを見つけて、インストールし、管理できます。Claude Code、Cursor、Windsurf、Antigravity などに対応し、開発ワークフローをすばやく強化できます。",
     "keywords": "agent skills、 claude code、 AI エージェント、 cursor、 windsurf、 antigravity、 ai skills、 coding skills、 AI assistant、 code generation",
-    "template": "%s | Killer-Skills",
+    "template": "\"%s | Killer-Skills\" -> \"%s | Killer-Skills\"",
     "title": "Killer-Skills - AI エージェントスキルディレクトリ"
   },
   "Navigation": {
