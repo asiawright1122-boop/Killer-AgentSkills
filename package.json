@@ -72,6 +72,7 @@
     "ingest:seo:coverage-drilldown": "npx tsx scripts/seo-coverage-drilldown-ingest.ts",
     "report:seo:coverage-drilldown": "npm run ingest:seo:coverage-drilldown && npx tsx scripts/seo-coverage-drilldown.ts",
     "report:seo:url-inspection-coverage-sweep": "npx tsx scripts/seo-url-inspection-coverage-sweep.ts",
+    "report:seo:gsc-removal-tracker": "npx tsx scripts/seo-gsc-removal-tracker.ts",
     "report:seo:recovery-scorecard": "npx tsx scripts/seo-recovery-scorecard.ts",
     "report:seo:recovery-control-board": "npx tsx scripts/seo-recovery-control-board.ts",
     "report:seo:recovery-execution-queue": "npx tsx scripts/seo-recovery-execution-queue.ts",

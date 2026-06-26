@@ -9,7 +9,7 @@
 - [x] **COV-01**: Establish a repeatable GSC Coverage Drilldown refresh workflow so coverage age stays ≤7 days, and verify the discovery expansion boundary opens from `closed` to `open`.
 
 ### Removal Batch Execution (REMOV)
-- [ ] **REMOV-01**: Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool and verify index reduction through coverage anomaly count monitoring.
+- [ ] **REMOV-01**: Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool and verify index reduction through coverage anomaly count monitoring. *(automation complete: tracker + runbook; manual submission pending operator)*
 
 ## 2. Out of Scope
 
@@ -22,5 +22,5 @@
 | Req ID | Mapped Phase | Verification File | Status |
 |---|---|---|---|
 | UPLIFT-01 | Phase 153 | data/authority-surfaces.json, src/pages/[locale]/collections/[...slug].astro | [x] |
-| COV-01 | Phase 154 | | [ ] |
-| REMOV-01 | Phase 155 | | [ ] |
+| COV-01 | Phase 154 | reports/seo/latest-url-inspection-coverage-sweep.json | [x] |
+| REMOV-01 | Phase 155 | scripts/seo-gsc-removal-tracker.ts, docs/superpowers/runbooks/gsc-url-removal-runbook.md | [ ] (automation ✓; manual submission ⏳) |

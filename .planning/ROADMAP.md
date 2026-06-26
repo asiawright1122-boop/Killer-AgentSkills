@@ -8,7 +8,7 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 
 - [x] Plan Phase 153: P0 Authority Surface Editorial Uplift.
 - [x] Plan Phase 154: Coverage Freshness Pipeline & Expansion Boundary Opening.
-- [ ] Plan Phase 155: GSC Removal Batch Submission & Index Verification.
+- [x] Plan Phase 155: GSC Removal Batch Submission & Index Verification.
 
 ## Current Milestone: v4.9 Authority Surface Uplift & Coverage Freshness
 
@@ -46,13 +46,13 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 ### Phase 155: GSC Removal Batch Submission & Index Verification
 
 - **Requirements:** REMOV-01
-- **Scope:** Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool, then verify index reduction through coverage anomaly count and crawl health monitoring.
-- **Status:** Not started
-- **Plans:** 0/1 plans complete
+- **Scope:** Submit the 975-URL GSC removal batch via the Google Search Console URL Removal tool (manual operator task — no API exists), then verify index reduction through coverage anomaly count and crawl health monitoring. Automation delivered: runbook corrections + `seo-gsc-removal-tracker.ts` (status/prefix/mark/verify).
+- **Status:** Automation complete; manual submission pending operator
+- **Plans:** 1/1 plans complete
 - **Success Criteria:**
-  - 975 URLs submitted to GSC URL Removal tool.
-  - Coverage anomaly count reduced from 10,783 (target: <5,000 within 4 weeks of submission).
-  - Recovery scorecard Gate 2 (coverage-drilldown) remains `clear` after submission.
+  - 975 URLs submitted to GSC URL Removal tool. ⏳ (pending operator — tracker script ready)
+  - Coverage anomaly count reduced from 10,783 (target: <2,000 within 4 weeks of submission). ⏳
+  - Recovery scorecard Gate 2 (coverage-drilldown) remains `clear` after submission. ⏳
 
 ## Milestones
 
@@ -72,7 +72,7 @@ Milestone v4.9 Authority Surface Uplift & Coverage Freshness is active. Phases 1
 
 | Milestone | Phases | Plans | Status | Shipped |
 |---|---|---|---|---|
-| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 2/3 | Phase 154 Complete | Active |
+| v4.9 Authority Surface Uplift & Coverage Freshness | 153-155 | 3/3 | Phase 155 automation complete; manual submission pending | Active |
 | v4.8 Crawl Remediation & Discovery Expansion | 151-152 | 2/2 | Complete | 2026-06-26 |
 | v4.7 Core Web Vitals & Edge Performance Optimization | 148-150 | 3/3 | Complete | 2026-06-24 |
 | v4.6 GitHub Workflow SEO & Harvester Hardening | 144-147 | 4/4 | Complete | 2026-06-24 |
