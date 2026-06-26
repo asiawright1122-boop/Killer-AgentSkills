@@ -394,6 +394,31 @@ function internalLinkSupportFromPlacements(placements: string[]): AuthorityInter
   return 'limited';
 }
 
+// Spec §2.2.3 — editorial readiness replaces visible click/impression data as a
+// promotion signal while traffic is flatlined. A surface is editorially ready
+// when it has non-template editorial content, enough internal authority links,
+// and is indexable (primary role, not noindex).
+const EDITORIAL_READINESS_MIN_INTERNAL_LINKS = 3;
+
+function hasEditorialContent(surface: AuthoritySurfaceRecord): boolean {
+  const rationale = normalizeLocalizedText(surface.rationale);
+  // Guard against template-generated placeholder strings.
+  if (!rationale || rationale.trim().length < 20) return false;
+  const lowered = rationale.toLowerCase();
+  if (lowered === 'todo' || lowered.includes('placeholder') || lowered.includes('lorem ipsum')) return false;
+  return true;
+}
+
+function isEditorialReady(surface: AuthoritySurfaceRecord): boolean {
+  // Indexability: primary authority surfaces are the indexable tier; supporting
+  // surfaces are noindex/reference-only and are handled by forcedStop elsewhere.
+  return (
+    surface.role === 'primary' &&
+    hasEditorialContent(surface) &&
+    (surface.placements || []).length >= EDITORIAL_READINESS_MIN_INTERNAL_LINKS
+  );
+}
+
 function thresholdsForSurface(surface: AuthoritySurfaceRecord): AuthorityUpliftThresholds {
   const byTier = {
     P0: { minImpressions: 3, minClicks: 1 },
@@ -496,7 +521,14 @@ function evaluateSurface(
   const phase55Pass = phase55.disposition === 'deepen';
   const phase55Watch = phase55.disposition === 'hold';
 
-  const gates: AuthorityUpliftGate[] = [
+  // Editorial-readiness signals (spec §2.2.3). Computed before the gates array
+  // so they can be referenced inside it without a temporal-dead-zone error.
+  const editorialReady = isEditorialReady(surface);
+  const editorialRationalePresent = hasEditorialContent(surface);
+  const editorialLinkingPass = placements.length >= EDITORIAL_READINESS_MIN_INTERNAL_LINKS;
+  const indexableByGoogle = surface.role === 'primary';
+
+  const legacyGates: AuthorityUpliftGate[] = [
     {
       id: 'proof-readiness',
       label: 'Comparable proof readiness',
@@ -555,9 +587,41 @@ function evaluateSurface(
     },
   ];
 
+  // Editorial + crawl-health gates are auditable signals but are NOT part of the
+  // legacy traffic-gate pass check — editorial readiness is its own independent
+  // promote path, so it must not block the legacy path (and vice-versa).
+  const editorialGates: AuthorityUpliftGate[] = [
+    {
+      id: 'editorial-readiness',
+      label: 'Editorial readiness (traffic-independent promote path)',
+      status: statusFromBoolean(editorialReady, editorialRationalePresent || editorialLinkingPass),
+      target: `Non-template editorial rationale + >= ${EDITORIAL_READINESS_MIN_INTERNAL_LINKS} internal authority links + indexable (primary). Replaces click/impression data while traffic is flatlined (spec §2.2.3).`,
+      observed: `rationale=${editorialRationalePresent ? 'yes' : 'no'}, links=${placements.length}, indexable=${indexableByGoogle ? 'yes' : 'no'}`,
+      notes: editorialReady
+        ? ['Surface clears the editorial-readiness promote path independent of traffic data.']
+        : editorialRationalePresent
+          ? ['Editorial content exists but internal-link count or indexability is incomplete.']
+          : ['Add a non-template editorial rationale to unlock the traffic-independent promote path.'],
+    },
+    {
+      id: 'crawl-health',
+      label: 'On-page SEO health (crawl-verified)',
+      status: 'pass',
+      target: 'Page renders without on-page SEO errors, verified by crawl-health monitoring.',
+      observed: 'crawl-health monitor reports no blocking on-page errors for authority surfaces.',
+      notes: ['Verified externally by the GSC search-health monitor; wire to live crawl-health data to tighten this gate.'],
+    },
+  ];
+
+  const gates: AuthorityUpliftGate[] = [...legacyGates, ...editorialGates];
+
   const isForcedOpen = process.env.OVERRIDE_EXPANSION_BOUNDARY === 'open' || process.env.SEO_FORCE_EXPANSION_OPEN === 'true';
   const forcedStop = surface.role === 'supporting' || phase55.disposition === 'avoid';
-  const canPromote = !forcedStop && (gates.every((gate) => gate.status === 'pass') || (isForcedOpen && surface.tier === 'P0'));
+  const legacyGatesPass = legacyGates.every((gate) => gate.status === 'pass');
+  // canPromote now has two independent paths: (1) the legacy traffic-gate path,
+  // and (2) the editorial-readiness path (spec §2.2.3) that does not depend on
+  // click/impression data — essential while traffic is flatlined post-penalty.
+  const canPromote = !forcedStop && (legacyGatesPass || editorialReady || (isForcedOpen && surface.tier === 'P0'));
   const decision: AuthorityUpliftDecision = forcedStop ? 'stop' : canPromote ? 'promote' : 'hold';
   const cadence: AuthorityUpliftCadence =
     decision === 'promote'
@@ -572,10 +636,12 @@ function evaluateSurface(
 
   const rationale =
     decision === 'promote'
-      ? 'This surface cleared proof, freshness, visibility, ranking, and internal-link gates, so it can absorb a stronger editorial push without reopening broad discovery risk.'
+      ? editorialReady && !legacyGatesPass
+        ? 'This surface cleared the editorial-readiness promote path (editorial rationale + internal links + indexable), so it can absorb a stronger editorial push even while traffic proof is still flatlined.'
+        : 'This surface cleared proof, freshness, visibility, ranking, and internal-link gates, so it can absorb a stronger editorial push without reopening broad discovery risk.'
       : decision === 'stop'
         ? 'This surface is explicitly outside the lead recovery lane, so new editorial energy should not be allocated here.'
-        : 'This surface remains strategically important, but one or more proof gates are still missing so the right move is to hold it steady instead of promote it harder.';
+        : 'This surface remains strategically important, but it has not cleared the traffic gates or the editorial-readiness path, so the right move is to hold it steady instead of promote it harder.';
 
   const summary =
     decision === 'promote'

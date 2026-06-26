@@ -144,6 +144,10 @@
   "legacySlugs": ["top-official-mcp-servers"],
   "category": "official",
   "author": "Killer-Skills AI",
+  "editorialRationale": {
+    "en": "These repos are first-party or maintained by established ecosystem teams (Anthropic, Cloudflare, Vercel, Sentry, Hugging Face) with public setup docs and visible release activity. We lead with them because ownership and install paths are easy to verify before a team commits to a default stack.",
+    "zh": "这些仓库由官方团队或成熟生态维护者（Anthropic、Cloudflare、Vercel、Sentry、Hugging Face）维护，安装文档公开、发布活动可见。我们将它们放在首位，是因为在团队确定默认技术栈之前，归属和安装路径都易于核实。"
+  },
   "skills": [
     "ComposioHQ/awesome-claude-skills",
     "expo/skills",

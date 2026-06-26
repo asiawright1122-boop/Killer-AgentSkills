@@ -142,6 +142,10 @@
   "legacySlugs": ["top-cursor-mcp-servers"],
   "category": "cursor",
   "author": "Killer-Skills AI",
+  "editorialRationale": {
+    "en": "Cursor teams mostly need refactoring, review, and rule-sync tooling that integrates with the editor's .cursor/rules surface. We chose repos that target these concrete Cursor workflows with maintained setup instructions, rather than broad MCP servers with no editor-specific fit.",
+    "zh": "Cursor 团队最需要的是能与编辑器 .cursor/rules 接口集成、用于重构、评审和规则同步的工具。我们选择的是针对这些具体 Cursor 工作流、并维护安装说明的仓库，而不是缺乏编辑器适配的宽泛 MCP 服务器。"
+  },
   "skills": [
     "ComposioHQ/awesome-claude-skills",
     "tadata-org/fastapi_mcp",

@@ -143,6 +143,10 @@
   "canonicalSlug": "top-ai-agent-workflow-skills-integrations-2026",
   "legacySlugs": ["top-mcp-servers-2026"],
   "category": "workflow",
+  "editorialRationale": {
+    "en": "This 2026 shortlist highlights skills that stayed actively maintained and relevant as agent workflows matured. We prioritized repos with recent commits, working install paths, and clear use cases over historical popularity, so the list reflects what works today rather than last year's stars.",
+    "zh": "这份 2026 短名单聚焦在 Agent 工作流成熟过程中仍被积极维护、保持相关性的技能。我们优先选择近期有提交、安装路径可用、用例清晰的仓库，而非仅凭历史热度，让名单反映当下可用的工具，而非去年的 star 数。"
+  },
   "skills": [
     "affaan-m/everything-claude-code",
     "getsentry/skills",

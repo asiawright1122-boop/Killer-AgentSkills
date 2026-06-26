@@ -155,6 +155,10 @@
   "author": "Killer-Skills AI",
   "featured": true,
   "category": "community",
+  "editorialRationale": {
+    "en": "Community skills earn a place here by solving a real recurring problem with active maintainers and working examples, not by star count alone. We verified each repo has a usable install path and recent activity before including it, so the list favors tools you can actually adopt rather than abandoned experiments.",
+    "zh": "社区技能能进入这份名单，是因为它们解决了真实且反复出现的问题、维护者活跃、示例可用，而非仅凭 star 数。我们在收录前核实了每个仓库的可用安装路径和近期活跃度，让名单偏向真正可采用的工具，而非被弃置的实验。"
+  },
   "longDescription": {
     "en": "If your team relies on community ecosystems, this page helps you narrow the shortlist quickly without sending you back into another open-source crawl. It compares workflow helpers, reusable skills, and developer companions that have practical community value, to help you find the best fit for real work faster.",
     "zh": "如果你的团队依赖社区生态，这页会帮助你更快缩小范围，不必再回到冗长的开源仓库浏览。它聚焦具有真实社区价值的工作流助手、可复用 skills 与开发伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",

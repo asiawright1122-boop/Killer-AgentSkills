@@ -134,6 +134,10 @@
   "legacySlugs": [],
   "category": "claude-code",
   "author": "killer-skills",
+  "editorialRationale": {
+    "en": "These skills were selected because they are maintained by the Anthropic team or have the highest community adoption for Claude Code workflows. Each has verified SKILL.md structure and passes our quality floor.",
+    "zh": "这些技能由 Anthropic 团队维护或在 Claude Code 工作流中拥有最高的社区采用率。每个技能都验证了 SKILL.md 结构并通过质量基线。"
+  },
   "skills": [
     "anthropics/skills",
     "affaan-m/everything-claude-code",

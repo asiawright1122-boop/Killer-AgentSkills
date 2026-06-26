@@ -17,6 +17,12 @@ type LocalizedText = {
   [locale: string]: string;
 };
 
+type LocalizedTextArray = {
+  en: string[];
+  zh: string[];
+  [locale: string]: string[];
+};
+
 type SolutionIntentConfig = {
   slug: SolutionSlug;
   query: string;
@@ -27,16 +33,24 @@ type SolutionIntentConfig = {
   pageDescription: LocalizedText;
   keywordClusters: KeywordClusterId[];
   fallbackCategories: string[];
+  // Concrete, scenario-specific use cases this solution page addresses.
+  // Adds editorial value beyond the skill-matching template.
+  useCases: LocalizedTextArray;
+  // Honest limitations of what skills in this scenario can and cannot do.
+  // Surfaces trust signals instead of over-promising automation coverage.
+  limitations: LocalizedTextArray;
 };
 
 type LocalizedSolutionIntent = Omit<
   SolutionIntentConfig,
-  'label' | 'cardDescription' | 'pageTitle' | 'pageDescription'
+  'label' | 'cardDescription' | 'pageTitle' | 'pageDescription' | 'useCases' | 'limitations'
 > & {
   label: string;
   cardDescription: string;
   pageTitle: string;
   pageDescription: string;
+  useCases: string[];
+  limitations: string[];
   href: string;
 };
 
@@ -89,6 +103,28 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['workflowAutomation', 'templates', 'core'],
     fallbackCategories: ['productivity', 'developer', 'ai'],
+    useCases: {
+      en: [
+        'Chaining multi-step coding tasks that a single prompt cannot complete in one pass.',
+        'Orchestrating review, test, and deploy steps so a team can repeat them without manual handoffs.',
+        'Running recurring batch jobs (lint, dependency audits, doc generation) on a schedule.',
+      ],
+      zh: [
+        '串联单次提示无法一次完成的多步骤编码任务。',
+        '编排评审、测试与部署步骤，让团队无需手动交接即可重复执行。',
+        '按计划运行周期性批处理任务（lint、依赖审计、文档生成）。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Most workflow skills assume a stable repo state; large in-flight branches can break chained steps.',
+        'Orchestration skills do not replace CI — they complement it and still need a real pipeline for production gates.',
+      ],
+      zh: [
+        '多数工作流技能假设仓库处于稳定状态；进行中的大分支可能打断链式步骤。',
+        '编排技能并不能取代 CI——它是补充，生产环境门禁仍需真正的流水线。',
+      ],
+    },
   },
   {
     slug: 'process-automation',
@@ -112,6 +148,28 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['processAutomation', 'enterpriseWorkflows', 'core', 'ideCompat'],
     fallbackCategories: ['productivity', 'communication', 'devops'],
+    useCases: {
+      en: [
+        'Turning a written SOP into a repeatable agent-driven checklist a new teammate can follow.',
+        'Automating handoffs between roles (e.g. dev → review → ops) with explicit approval points.',
+        'Standardizing onboarding or release processes so steps are not reinvented per project.',
+      ],
+      zh: [
+        '把书面 SOP 转化为新成员可跟随的、Agent 驱动的可复用检查清单。',
+        '在角色之间（如开发→评审→运维）自动化交接，并设置明确审批节点。',
+        '标准化入职或发布流程，避免每个项目重新发明步骤。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Process skills encode team conventions; they need editing to match your actual SOP, not just install-and-run.',
+        'They cannot enforce governance on their own — a human or CI gate must still approve sensitive steps.',
+      ],
+      zh: [
+        '流程技能承载的是团队约定；需要根据你的真实 SOP 调整，而非安装即用。',
+        '它们无法独自完成治理——敏感步骤仍需人工或 CI 门禁审批。',
+      ],
+    },
   },
   {
     slug: 'document-automation',
@@ -135,6 +193,28 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['documentAutomation', 'templates', 'workflowAutomation', 'core'],
     fallbackCategories: ['documentation', 'productivity'],
+    useCases: {
+      en: [
+        'Generating PDF or DOCX reports from structured data on a recurring schedule.',
+        'Filling template-driven documents (invoices, specs, release notes) from a single source of truth.',
+        'Producing localized content variants from one master template.',
+      ],
+      zh: [
+        '按计划从结构化数据生成 PDF 或 DOCX 报告。',
+        '基于单一数据源填充模板文档（发票、规格说明、发布说明）。',
+        '从一个主模板生成本地化内容变体。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Document skills depend on consistent input schemas; messy or ad-hoc data breaks template output.',
+        'Complex layouts (multi-column, embedded charts) often need post-processing the skill cannot do alone.',
+      ],
+      zh: [
+        '文档技能依赖一致的输入 schema；杂乱或临时数据会破坏模板输出。',
+        '复杂版式（多栏、嵌入图表）通常需要技能无法独立完成的后处理。',
+      ],
+    },
   },
   {
     slug: 'browser-automation',
@@ -158,6 +238,28 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['browserAutomation', 'workflowAutomation', 'core', 'ideCompat'],
     fallbackCategories: ['browser'],
+    useCases: {
+      en: [
+        'Scraping structured data from paginated listings into a clean JSON or CSV output.',
+        'Driving repeatable web actions (login flows, form submission, content checks) across environments.',
+        'Running smoke tests against a staging site before each release.',
+      ],
+      zh: [
+        '从分页列表抓取结构化数据，输出干净的 JSON 或 CSV。',
+        '跨环境驱动可复用的网页操作（登录流程、表单提交、内容检查）。',
+        '在每次发布前对预发布站点运行冒烟测试。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Browser skills break when target sites change their markup or add bot detection; expect maintenance overhead.',
+        'They run with real session credentials — access scope and rate limits must be governed explicitly.',
+      ],
+      zh: [
+        '当目标站点更改标记或加入反爬检测时，浏览器技能会失效；需预留维护成本。',
+        '它们以真实会话凭据运行——访问范围与频率限制必须显式管控。',
+      ],
+    },
   },
   {
     slug: 'data-extraction',
@@ -181,6 +283,28 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['dataWorkflow', 'workflowAutomation', 'core', 'ideCompat'],
     fallbackCategories: ['data', 'devops'],
+    useCases: {
+      en: [
+        'Extracting fields from heterogeneous sources (APIs, logs, PDFs) into one structured schema.',
+        'Building a reporting pipeline that refreshes dashboards on a schedule.',
+        'Transforming raw exports into validated, typed records before they enter a database.',
+      ],
+      zh: [
+        '从异构来源（API、日志、PDF）提取字段，汇入统一结构化 schema。',
+        '搭建按计划刷新仪表盘的报表管线。',
+        '在原始导出进入数据库前，转化为已校验的带类型记录。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Extraction quality depends on source consistency; schema drift silently produces missing or wrong fields.',
+        'Heavy ETL workloads belong in a real data pipeline, not an in-IDE agent skill.',
+      ],
+      zh: [
+        '提取质量依赖来源一致性；schema 漂移会悄无声息地产生缺失或错误字段。',
+        '重型 ETL 负载应放在真正的数据管线中，而非 IDE 内 Agent 技能。',
+      ],
+    },
   },
   {
     slug: 'agent-workflows',
@@ -204,11 +328,38 @@ const SOLUTION_INTENTS: SolutionIntentConfig[] = [
     },
     keywordClusters: ['workflowAutomation', 'ideCompat', 'developerExperience', 'core'],
     fallbackCategories: ['developer', 'ai', 'productivity'],
+    useCases: {
+      en: [
+        'Composing a Claude Code, Cursor, or Windsurf skill stack for a specific team workflow.',
+        'Adding spec-driven or review-gated execution so agents follow team standards before merging.',
+        'Sharing a reusable, installable agent configuration across a repo or org.',
+      ],
+      zh: [
+        '为特定团队工作流组合 Claude Code、Cursor 或 Windsurf 技能栈。',
+        '加入规格驱动或评审门控执行，让 Agent 在合并前遵循团队标准。',
+        '在仓库或组织内共享可复用、可安装的 Agent 配置。',
+      ],
+    },
+    limitations: {
+      en: [
+        'Agent workflow skills are IDE-bound; a stack tuned for Claude Code does not auto-port to Cursor.',
+        'They accelerate execution but do not decide architecture — poor specs still produce poor output.',
+      ],
+      zh: [
+        'Agent 工作流技能与 IDE 绑定；为 Claude Code 调校的栈不会自动迁移到 Cursor。',
+        '它们加速执行但不决定架构——糟糕的规格仍会产生糟糕的产出。',
+      ],
+    },
   },
 ];
 
 function resolveText(text: LocalizedText, locale: Locale): string {
   return text[locale] || text.en;
+}
+
+function resolveTextArray(text: LocalizedTextArray, locale: Locale): string[] {
+  const value = text[locale] || text.en;
+  return Array.isArray(value) ? value : [];
 }
 
 function hasDirectLocalizedText(text: LocalizedText, locale: Locale): boolean {
@@ -251,6 +402,8 @@ export function getSolutionIntents(locale: Locale): LocalizedSolutionIntent[] {
     cardDescription: resolveText(item.cardDescription, locale),
     pageTitle: resolveText(item.pageTitle, locale),
     pageDescription: resolveText(item.pageDescription, locale),
+    useCases: resolveTextArray(item.useCases, locale),
+    limitations: resolveTextArray(item.limitations, locale),
     href: buildSolutionPath(locale, item.slug),
   }));
 }
@@ -265,6 +418,8 @@ export function getSolutionIntentBySlug(locale: Locale, slug: string): Localized
     cardDescription: resolveText(found.cardDescription, locale),
     pageTitle: resolveText(found.pageTitle, locale),
     pageDescription: resolveText(found.pageDescription, locale),
+    useCases: resolveTextArray(found.useCases, locale),
+    limitations: resolveTextArray(found.limitations, locale),
     href: buildSolutionPath(locale, found.slug),
   };
 }

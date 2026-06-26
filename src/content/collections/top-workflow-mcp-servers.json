@@ -134,6 +134,10 @@
   "legacySlugs": ["top-workflow-mcp-servers"],
   "category": "workflow",
   "author": "Killer-Skills AI",
+  "editorialRationale": {
+    "en": "Each tool here fills a distinct workflow role — routing work, coordinating context, adding approval gates, or scaffolding repeatable execution. We picked them because they map to a concrete step in an agent pipeline rather than overlapping as generic automation wrappers.",
+    "zh": "这里的每个工具都承担清晰的工作流角色——路由任务、协调上下文、增加审批节点或搭建可重复执行流程。我们选择它们，是因为它们各自对应 Agent 流水线中的一个具体环节，而不是彼此重叠的通用自动化壳。"
+  },
   "skills": [
     "langgenius/dify",
     "n8n-io/n8n",

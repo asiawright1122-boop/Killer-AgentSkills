@@ -339,4 +339,106 @@ describe('buildAuthorityUpliftScorecardReport', () => {
       delete process.env.OVERRIDE_EXPANSION_BOUNDARY;
     }
   });
+
+  it('promotes a primary surface via the editorial-readiness path even while traffic is flatlined and proof is blocking', () => {
+    // Spec §2.2.3: editorial readiness (rationale + >=3 internal links + indexable)
+    // replaces click/impression data as a promote signal while traffic is flatlined.
+    const program = {
+      surfaces: [
+        {
+          id: 'home-root',
+          role: 'primary' as const,
+          tier: 'P0' as const,
+          surfaceClass: 'hub',
+          href: '/{locale}',
+          title: { en: 'Homepage Root Hub' },
+          rationale: {
+            en: 'Editorial rationale explaining why this hub is the primary entry point for trusted skill discovery.',
+          },
+          placements: ['report', 'home', 'skills', 'collections'],
+        },
+        {
+          id: 'collection-official-trusted-tools',
+          role: 'primary' as const,
+          tier: 'P0' as const,
+          surfaceClass: 'collection',
+          href: '/{locale}/collections/top-official-ai-skills-trusted-tools',
+          title: { en: 'Official AI Skills & Trusted Tools' },
+          rationale: {
+            en: 'Editorial rationale for why these official tools are the safest first install for a team.',
+          },
+          placements: ['home', 'skills', 'collections', 'solutions'],
+        },
+        {
+          id: 'skills-directory',
+          role: 'supporting' as const,
+          tier: 'P3' as const,
+          surfaceClass: 'directory',
+          href: '/{locale}/skills',
+          title: { en: 'Full Skills Directory' },
+          rationale: { en: 'Supporting directory, not a lead surface.' },
+          placements: ['home'],
+        },
+      ],
+      editorialQueue: [
+        { id: 'home-proof', surfaceId: 'home-root', priority: 'now' as const },
+        { id: 'collection-proof', surfaceId: 'collection-official-trusted-tools', priority: 'now' as const },
+      ],
+    };
+
+    const traffic = createTrafficRows(0, 0);
+    const report = buildAuthorityUpliftScorecardReport({
+      recoveryDeltaBoardReport: createDeltaBoard({ trustVerdict: 'blocking', baselineSeeded: true }),
+      authorityProgramReport: program,
+      authoritySurfacesData: program,
+      trafficReport: {
+        generatedAt: '2026-06-25T03:38:08.005Z',
+        status: 'clear',
+        sourceMode: 'live-api',
+        currentPeriod: { start: '2026-06-18', end: '2026-06-24' },
+        previousPeriod: { start: '2026-06-11', end: '2026-06-17' },
+      },
+      currentPageRows: traffic.current,
+      previousPageRows: traffic.previous,
+    });
+
+    // Both editorially-ready primary surfaces promote despite flatlined traffic.
+    expect(report.decisions.promote.some((item) => item.surfaceId === 'home-root')).toBe(true);
+    expect(report.decisions.promote.some((item) => item.surfaceId === 'collection-official-trusted-tools')).toBe(true);
+    // The supporting directory is still forced to stop regardless of rationale.
+    expect(report.decisions.stop.some((item) => item.surfaceId === 'skills-directory')).toBe(true);
+    // The editorial-readiness gate is reported on the promoted surface.
+    const homeRoot = report.surfaces.find((item) => item.surfaceId === 'home-root');
+    const editorialGate = homeRoot?.gates.find((gate) => gate.id === 'editorial-readiness');
+    expect(editorialGate?.status).toBe('pass');
+  });
+
+  it('does not promote via editorial readiness when the rationale is a template placeholder', () => {
+    const program = {
+      surfaces: [
+        {
+          id: 'home-root',
+          role: 'primary' as const,
+          tier: 'P0' as const,
+          surfaceClass: 'hub',
+          href: '/{locale}',
+          title: { en: 'Homepage Root Hub' },
+          rationale: { en: 'TODO' },
+          placements: ['report', 'home', 'skills', 'collections'],
+        },
+      ],
+      editorialQueue: [],
+    };
+
+    const traffic = createTrafficRows(0, 0);
+    const report = buildAuthorityUpliftScorecardReport({
+      recoveryDeltaBoardReport: createDeltaBoard({ trustVerdict: 'blocking', baselineSeeded: true }),
+      authorityProgramReport: program,
+      authoritySurfacesData: program,
+      currentPageRows: traffic.current,
+      previousPageRows: traffic.previous,
+    });
+
+    expect(report.decisions.promote.some((item) => item.surfaceId === 'home-root')).toBe(false);
+  });
 });

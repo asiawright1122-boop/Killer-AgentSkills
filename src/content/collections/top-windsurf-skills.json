@@ -134,6 +134,10 @@
   "legacySlugs": [],
   "category": "windsurf",
   "author": "killer-skills",
+  "editorialRationale": {
+    "en": "Windsurf users need a short, comparable list that installs cleanly into the editor's native rules path. We kept only skills with verified SKILL.md structure and a track record in real coding workflows, so the first install is low-risk instead of an open-ended repo crawl.",
+    "zh": "Windsurf 用户需要一份简短可比较、能干净写入编辑器原生 rules 路径的列表。我们只保留已验证 SKILL.md 结构、并在真实编码工作流中有使用记录的技能，让首次安装低风险，而不是一次开放式仓库爬梳。"
+  },
   "skills": [
     "anthropics/skills",
     "affaan-m/everything-claude-code",

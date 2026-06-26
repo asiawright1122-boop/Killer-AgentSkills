@@ -142,6 +142,10 @@
   "legacySlugs": ["top-openai-mcp-servers"],
   "category": "openai",
   "author": "Killer-Skills AI",
+  "editorialRationale": {
+    "en": "OpenAI-centric teams need tools that fit prompt iteration, evaluation, and agent observability rather than generic chat wrappers. We selected repos that address a concrete OpenAI workflow stage — evals, tracing, prompt management, or agent orchestration — with maintained examples.",
+    "zh": "围绕 OpenAI 的团队需要适配提示词迭代、评估与 Agent 可观测性的工具，而不是通用聊天壳。我们挑选的是覆盖具体 OpenAI 工作流阶段（评估、追踪、提示词管理或 Agent 编排）且示例维护良好的仓库。"
+  },
   "skills": [
     "langgenius/dify",
     "lobehub/lobehub",

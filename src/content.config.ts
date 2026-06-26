@@ -56,6 +56,10 @@ const collectionsCol = defineCollection({
     author: z.string().default('Killer-Skills Team'),
     featured: z.boolean().default(false),
     category: z.string().optional(),
+    // 1-2 sentence editorial justification for why these specific skills were
+    // selected. Surfaced on collection cards to add human editorial value beyond
+    // the template-rendered grid. See authority-focus design §2.2.1.
+    editorialRationale: localizedText.optional(),
     editorial: z
       .object({
         reviewSummary: localizedText.optional(),

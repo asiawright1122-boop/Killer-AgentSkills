@@ -272,6 +272,43 @@ const breadcrumb = buildBreadcrumbTrail(
           </p>
         </div>
 
+        {/* Curation Criteria — editorial value beyond the template grid */}
+        <section class="mb-14 border-l-4 border-[var(--primary)] pl-6 py-2">
+          <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3">
+            {tr('Collections.curationCriteriaTitle', 'Why These Collections Exist')}
+          </h2>
+          <p class="text-sm md:text-base text-[var(--muted-foreground)] leading-relaxed font-medium max-w-4xl">
+            {
+              isZhCopy
+                ? '我们不做全量抓取的技能仓库索引。每个合集都由编辑团队按归属清晰、安装可验证、维护可见、且能解决具体首个任务的标准筛选——目的是让团队在第一次安装时就建立在可信基础上，而不是在大量未验证的仓库里反复试错。'
+                : 'We do not run a bulk-scraped skill repository index. Every collection is filtered by editors for clear ownership, verifiable install paths, visible maintenance, and a concrete first task — so a team\u2019s first install rests on a trustworthy baseline instead of trial-and-error across unvetted repos.'
+            }
+          </p>
+          <ul class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2 max-w-4xl">
+            {
+              [
+                isZhCopy
+                  ? '归属明确：维护主体、产品团队或生态项目可查证。'
+                  : 'Clear ownership: maintainer, product team, or ecosystem project is verifiable.',
+                isZhCopy
+                  ? '安装可验证：安装命令、目标文件路径在采用前可见。'
+                  : 'Verifiable install: commands and target file paths are inspectable before adoption.',
+                isZhCopy
+                  ? '维护可见：近期提交与发布活动表明工具仍在使用。'
+                  : 'Visible maintenance: recent commits and releases show the tool is still in use.',
+                isZhCopy
+                  ? '解决具体任务：能映射到真实工作流的某一步，而非泛化工具。'
+                  : 'Concrete task fit: maps to a real workflow step, not a generic wrapper.',
+              ].map((item) => (
+                <li class="flex items-start gap-2 text-xs md:text-sm font-medium text-[var(--muted-foreground)]">
+                  <span class="text-[var(--primary)] font-black mt-0.5">▸</span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
+
         {/* Three-Step Decision-to-Setup Path */}
         <section
           class="mb-14 border-[3px] border-[var(--border)] bg-[var(--card)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)] relative overflow-hidden"
@@ -586,6 +623,9 @@ const breadcrumb = buildBreadcrumbTrail(
               const title = resolveLocalized(col.data.title, 'Untitled Collection');
               const description = polishCollectionPublicText(resolveLocalized(col.data.description, ''), typedLocale);
               const cleanSlug = getCollectionCanonicalSlug(col);
+              const rationale = col.data.editorialRationale
+                ? polishCollectionPublicText(resolveLocalized(col.data.editorialRationale, ''), typedLocale)
+                : '';
               const nextStepRaw = col.data.editorial?.nextSteps?.[0];
               const nextStep = nextStepRaw
                 ? {
@@ -622,9 +662,20 @@ const breadcrumb = buildBreadcrumbTrail(
                     {title}
                   </h3>
 
-                  <p class="relative z-0 mb-8 flex-grow line-clamp-3 text-sm font-bold leading-relaxed text-[var(--muted-foreground)] pointer-events-none">
+                  <p class="relative z-0 mb-4 flex-grow line-clamp-3 text-sm font-bold leading-relaxed text-[var(--muted-foreground)] pointer-events-none">
                     {description}
                   </p>
+
+                  {rationale && (
+                    <div class="relative z-0 mb-5 border-l-2 border-[var(--primary)] pl-3 pointer-events-none">
+                      <div class="text-[10px] font-black uppercase tracking-widest text-[var(--primary)] mb-1">
+                        {isZhCopy ? '编辑点评' : 'Editorial Note'}
+                      </div>
+                      <p class="text-xs leading-5 font-medium text-[var(--muted-foreground)] line-clamp-3">
+                        {rationale}
+                      </p>
+                    </div>
+                  )}
 
                   {nextStep && (
                     <a

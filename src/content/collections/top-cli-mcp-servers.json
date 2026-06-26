@@ -156,6 +156,10 @@
   "canonicalSlug": "top-cli-terminal-ai-agent-tools",
   "legacySlugs": ["top-cli-mcp-servers"],
   "category": "cli",
+  "editorialRationale": {
+    "en": "These tools live in the terminal and help with CLI-first agent work: running tasks, token tracking, schema inspection, and project scaffolding. We selected them because each maps to a concrete command-line workflow and ships install instructions that work without a GUI dependency.",
+    "zh": "这些工具运行在终端中，服务于 CLI 优先的 Agent 工作：执行任务、token 追踪、schema 检查和项目脚手架。我们选择它们，是因为每个都对应具体的命令行工作流，并且附带的安装说明无需 GUI 依赖即可运行。"
+  },
   "longDescription": {
     "en": "If your team lives in the terminal, this collection helps you shorten the shortlist quickly without sending you back into another repo crawl. It compares CLI-native helpers, command-line automation tools, and terminal-first workflow companions, to help you find the best fit for real work faster.",
     "zh": "如果你的团队主要在终端里工作，这个合集会帮助你更快缩小范围，不必再回到冗长的仓库浏览。它聚焦 CLI 原生助手、命令行自动化工具和终端优先的工作流伴侣，帮助你直接查看安装文档、了解 CLI 行为，并挑选更适合当前工作的选项。",

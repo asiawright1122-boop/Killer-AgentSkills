@@ -463,6 +463,61 @@ const solutionSignificantLinks = solutionAuthorityBridges
       </section>
 
       {
+        intent.useCases.length > 0 && (
+          <section class="mb-10 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
+            <div class="max-w-4xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '适用场景' : 'Use Cases'}
+              </div>
+              <h2 class="text-3xl md:text-4xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy ? '这些技能在什么情况下真正有用' : 'Where These Skills Genuinely Help'}
+              </h2>
+              <p class="text-base md:text-lg text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? '下面是当前场景下技能能解决的具体问题。先确认你的需求落在这里，再进入安装。'
+                  : 'These are the concrete problems skills in this scenario solve. Confirm your need fits before you install.'}
+              </p>
+            </div>
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {intent.useCases.map((item) => (
+                <li class="border-2 border-[var(--border)] bg-[var(--card)] p-4 text-sm leading-6 font-medium text-[var(--foreground)]/85">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
+        intent.limitations.length > 0 && (
+          <section class="mb-10 border-l-4 border-[var(--primary)] bg-[var(--card)] p-6 md:p-8">
+            <div class="max-w-4xl mb-6">
+              <div class="text-xs font-black uppercase tracking-widest text-[var(--primary)] mb-3">
+                {isZhCopy ? '局限与边界' : 'Limitations & Boundaries'}
+              </div>
+              <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3">
+                {isZhCopy ? '这些技能做不到什么' : 'What These Skills Cannot Do'}
+              </h2>
+              <p class="text-sm md:text-base text-[var(--muted-foreground)] leading-relaxed font-medium">
+                {isZhCopy
+                  ? '我们如实标注局限，避免把自动化能力过度承诺。安装前请确认你的场景不依赖以下能力。'
+                  : 'We state limitations honestly rather than over-promising automation. Confirm your scenario does not depend on the following before installing.'}
+              </p>
+            </div>
+            <ul class="space-y-3 max-w-4xl">
+              {intent.limitations.map((item) => (
+                <li class="flex items-start gap-2 text-sm md:text-base leading-7 font-medium text-[var(--muted-foreground)]">
+                  <span class="text-[var(--primary)] font-black mt-0.5">⚠</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      {
         resolvedSolutionDecisionTracks.length > 0 && (
           <section class="mb-10 border-[3px] border-[var(--border)] bg-[var(--background)] p-6 md:p-8 shadow-[8px_8px_0px_0px_var(--border)]">
             <div class="max-w-4xl mb-8">
