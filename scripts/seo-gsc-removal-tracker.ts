@@ -43,10 +43,10 @@ const TRACKER_MD_PATH = resolve(REPORT_DIR, 'latest-gsc-removal-tracker.md');
 const PREFIX_PLAN_MD_PATH = resolve(REPORT_DIR, 'latest-gsc-removal-prefix-plan.md');
 
 // ---------------------------------------------------------------------------
-// Types
+// Types (exported for testability)
 // ---------------------------------------------------------------------------
-type BatchUrl = { url: string; cluster: string; priority: number };
-type Batch = {
+export type BatchUrl = { url: string; cluster: string; priority: number };
+export type Batch = {
   generatedAt: string;
   totalUrls: number;
   byCluster: Record<string, { count: number; sample: string[] }>;
@@ -62,7 +62,7 @@ type SubmissionEntry = {
   note?: string;
 };
 
-type Tracker = {
+export type Tracker = {
   batchGeneratedAt: string;
   batchTotalUrls: number;
   submissions: SubmissionEntry[];
@@ -130,14 +130,14 @@ function saveTracker(tracker: Tracker): void {
 //   /{locale}/skills/{owner}/{repo}   (no trailing source-file path)
 // If that exact URL is NOT in the removal batch, the prefix is unsafe.
 // ---------------------------------------------------------------------------
-function extractRepoPrefix(url: string): string | null {
+export function extractRepoPrefix(url: string): string | null {
   const match = url.match(
     /^https:\/\/killer-skills\.com(\/[a-z]{2}|\/core)\/skills\/[^/]+\/[^/]+/,
   );
   return match ? match[0] : null;
 }
 
-function findSafePrefixes(batch: Batch, minCount: number): Array<{
+export function findSafePrefixes(batch: Batch, minCount: number): Array<{
   prefix: string;
   urlCount: number;
   cluster: string;
@@ -176,7 +176,7 @@ function findSafePrefixes(batch: Batch, minCount: number): Array<{
 // ---------------------------------------------------------------------------
 // Status dashboard
 // ---------------------------------------------------------------------------
-function clusterProgress(
+export function clusterProgress(
   batch: Batch,
   tracker: Tracker,
 ): Array<{
@@ -442,4 +442,7 @@ function main(): void {
   }
 }
 
-main();
+// Only run main when executed directly (not when imported by tests)
+if (process.argv[1] && resolve(process.argv[1]).includes('seo-gsc-removal-tracker.ts')) {
+  main();
+}
